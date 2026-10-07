@@ -1,0 +1,17 @@
+note_id = 1685905669809
+guid = "yS_1iid&,#"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = []
+
+[[cards]]
+id = 1685905669809
+ordinal = 0
+
+[[cards]]
+id = 1685905669810
+ordinal = 1
+
+[fields]
+Back = ':tabp[revious]'
+Front = 'Move to the previous tab, using a <b>command</b>&nbsp;(and not an operator)'

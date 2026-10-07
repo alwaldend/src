@@ -1,0 +1,20 @@
+note_id = 1520716970804
+guid = "lm>F#p9MI["
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Comparisons", "SeparateFunctions"]
+
+[[cards]]
+id = 1520716976668
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "kending" "queding" and "yiding"'
+english = "I'm not lying this time. Cross my heart."
+example-sentence = ''
+example-type = ''
+grammar-construct = '肯定 + Adj. / Verb'
+hanzi = '这次我肯定不骗你，骗你是小狗，好吧？'
+notes = "The idiom \"骗你是小狗\" literally means \"To deceive you is to be a small dog.\" It doesn't have a good English equivalent."
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDPS0J'

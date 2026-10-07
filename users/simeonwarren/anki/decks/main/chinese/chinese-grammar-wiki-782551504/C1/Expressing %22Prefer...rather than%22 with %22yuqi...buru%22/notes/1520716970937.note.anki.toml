@@ -1,0 +1,20 @@
+note_id = 1520716970937
+guid = "q~l%/MSn|Y"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["C1", "SentencePatterns"]
+
+[[cards]]
+id = 1520716976801
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "Prefer...rather than" with "yuqi...buru"'
+english = "I'd rather ask him face to face than think recklessly."
+example-sentence = ''
+example-type = ''
+grammar-construct = '与其 ⋯⋯ ，不如 ⋯⋯'
+hanzi = '与其自己乱想，不如当面问清楚。'
+notes = ''
+pinyin = '<div>Yǔqí zìjǐ luàn xiǎng, bùrú dāngmiàn wèn qīngchǔ.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWI5CV'

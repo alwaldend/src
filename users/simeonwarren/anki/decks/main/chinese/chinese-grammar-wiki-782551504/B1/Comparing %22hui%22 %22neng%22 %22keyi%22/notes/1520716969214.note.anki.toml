@@ -1,0 +1,20 @@
+note_id = 1520716969214
+guid = "y*4V&kDu##"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["AuxiliaryWords", "B1", "Comparisons"]
+
+[[cards]]
+id = 1520716975078
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "hui" "neng" "keyi"'
+english = 'Will you be mad at me?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '会 + Verb / Adj.'
+hanzi = '你会生我的气吗？'
+notes = ''
+pinyin = 'Nǐ huì shēng wǒ de qì ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGZL717'

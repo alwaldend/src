@@ -1,0 +1,20 @@
+note_id = 1520716969994
+guid = "s=GGX9m%+C"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975858
+ordinal = 0
+
+[fields]
+article-title = 'Taiwanese "you"'
+english = 'The way you speak is impolite.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 有 + Adj.'
+hanzi = '你说话有不礼貌。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGY2D79'

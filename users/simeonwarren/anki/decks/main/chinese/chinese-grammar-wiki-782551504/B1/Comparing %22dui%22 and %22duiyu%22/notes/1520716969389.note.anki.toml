@@ -1,0 +1,20 @@
+note_id = 1520716969389
+guid = "zZ$:M{TFpS"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Comparisons", "Prepositions"]
+
+[[cards]]
+id = 1520716975253
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "dui" and "duiyu"'
+english = 'He is serious about his work.'
+example-sentence = ''
+example-type = 'invalid'
+grammar-construct = 'A + 对 + B + Adj.'
+hanzi = '他对于工作很认真。'
+notes = ''
+pinyin = '<div>Tā duìyú gōngzuò hěn rènzhēn.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG3JELV'

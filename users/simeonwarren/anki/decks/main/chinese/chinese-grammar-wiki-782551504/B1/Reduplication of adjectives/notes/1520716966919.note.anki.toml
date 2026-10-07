@@ -1,0 +1,20 @@
+note_id = 1520716966919
+guid = "y-2FdW?;8o"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972783
+ordinal = 0
+
+[fields]
+article-title = 'Reduplication of adjectives'
+english = 'I labored over this meal for two hours, and none of you guys are going to eat it?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A A B B + 地 + Verb'
+hanzi = '我辛辛苦苦地做了两个小时的饭，你们都不吃？'
+notes = '辛辛苦苦 is difficult to translate into English directly!'
+pinyin = 'Wǒ xīn xīn kǔ kǔ de zuòle liǎng gè xiǎoshí de fàn, nǐmen dōu bù chī?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDHE8S'

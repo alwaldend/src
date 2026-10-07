@@ -1,0 +1,20 @@
+note_id = 1520716968194
+guid = "GJ~`3,@M~#"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716974058
+ordinal = 0
+
+[fields]
+article-title = 'Making judgments with "suan"'
+english = 'Shenzhen can be considered as one of the most important cities in China.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. (+ 不) + 算 + Noun'
+hanzi = '深圳算中国最重要的城市之一。'
+notes = ''
+pinyin = 'Shēnzhèn suàn Zhōngguó zuì zhòngyào de chéngshì zhīyī.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWDWFN'

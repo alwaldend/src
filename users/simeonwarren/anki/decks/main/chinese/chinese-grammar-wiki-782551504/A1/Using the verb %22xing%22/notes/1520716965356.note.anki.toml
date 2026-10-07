@@ -1,0 +1,20 @@
+note_id = 1520716965356
+guid = "mWb+@Q:Rw}"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716971220
+ordinal = 0
+
+[fields]
+article-title = 'Using the verb "xing"'
+english = "His girlfriend's last name is Qian."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 姓 + [Surname]'
+hanzi = '他女朋友姓钱。'
+notes = ''
+pinyin = 'Tā nǚpéngyou xìng Qián.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPS9NY'

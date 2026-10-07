@@ -1,0 +1,17 @@
+note_id = 1638130711451
+guid = "vy=b|kMyEP"
+note_type_id = 1630447360002
+note_type = "python-basic"
+tags = []
+
+[[cards]]
+id = 1638130711451
+ordinal = 0
+
+[fields]
+'Additional Info' = ''
+'Back - Basic' = ".index() throws an IndexError if the element doesn't exist in the string but .find() returns -1."
+'Back - Code' = ''
+Example = ''
+Front = 'What is the difference between the string methods .index() and .find()?'
+Version = ''

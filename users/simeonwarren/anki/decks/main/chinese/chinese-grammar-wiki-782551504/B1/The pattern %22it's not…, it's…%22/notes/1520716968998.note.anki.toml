@@ -1,0 +1,20 @@
+note_id = 1520716968998
+guid = "A/IQ*[#o%8"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974862
+ordinal = 0
+
+[fields]
+article-title = "The pattern \"it's not…, it's…\""
+english = "What's important is not how you look outside, it's your inside."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不是 + [Verb Phrase 1] ， (而)是 + [Verb Phrase 2]'
+hanzi = '重要的不是你的外表，而是你的内心。'
+notes = ''
+pinyin = 'Zhòngyào de bù shì nǐ de wàibiǎo, érshì nǐ de nèixīn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGT9WYR'

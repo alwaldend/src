@@ -1,0 +1,20 @@
+note_id = 1520716967739
+guid = "E>/m0?)s0)"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973603
+ordinal = 0
+
+[fields]
+article-title = 'Reviewing options with "ba"'
+english = 'Seeing each other, we fight a lot; Not seeing each other, I miss him anyway.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Option 1 + 吧 ，⋯⋯ ；Option 2 + 吧 ，⋯⋯'
+hanzi = '见面吧，常常吵架；不见面吧，还是会想他。'
+notes = ''
+pinyin = 'Jiànmiàn ba, chángcháng chǎojià; bù jiànmiàn ba, háishì huì xiǎng tā.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGELOTT'

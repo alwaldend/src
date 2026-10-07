@@ -1,0 +1,20 @@
+note_id = 1520716969547
+guid = "b!<jE_(6/l"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Comparisons", "TimeWords"]
+
+[[cards]]
+id = 1520716975411
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "yihou" "ranhou" "houlai"'
+english = 'Everyone disagreed in the beginning, but they all agreed later.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '[Past Event 1] ，后来 + [Past Event 2]'
+hanzi = '开始大家都不同意，后来大家都同意了。'
+notes = ''
+pinyin = 'Kāishǐ dàjiā dōu bù tóngyì, hòulái dàjiā dōu tóngyì le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNPJ7T'

@@ -1,0 +1,20 @@
+note_id = 1520716969669
+guid = "D3:OUCNn4R"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975533
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "anyway" as "fanzheng"'
+english = "No matter he's going or not,  I'm going anyway."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Disregarded Situation， 反正⋯⋯'
+hanzi = '不管他去不去，反正我要去。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGZVM27'

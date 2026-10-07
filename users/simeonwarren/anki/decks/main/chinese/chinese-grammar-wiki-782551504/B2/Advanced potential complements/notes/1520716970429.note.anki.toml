@@ -1,0 +1,20 @@
+note_id = 1520716970429
+guid = "H+B?T45DAt"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716976293
+ordinal = 0
+
+[fields]
+article-title = 'Advanced potential complements'
+english = 'Can you carry all these thing?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 得 / 不 + 下'
+hanzi = '你一个人拿得下这么多东西吗？'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG516F9'

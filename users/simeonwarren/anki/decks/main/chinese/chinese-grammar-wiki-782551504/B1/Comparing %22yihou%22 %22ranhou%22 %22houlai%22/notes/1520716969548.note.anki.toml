@@ -1,0 +1,20 @@
+note_id = 1520716969548
+guid = "d!UIvDG,4D"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Comparisons", "TimeWords"]
+
+[[cards]]
+id = 1520716975412
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "yihou" "ranhou" "houlai"'
+english = 'He worked for our company for two years. And then he jumped ship.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '[Past Event 1] ，后来 + [Past Event 2]'
+hanzi = '他在我们公司干过两年，后来跳槽了。'
+notes = ''
+pinyin = 'Tā zài wǒmen gōngsī gàn gàn guo liǎng nián, hòulái tiàocáo le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNPJ7T'

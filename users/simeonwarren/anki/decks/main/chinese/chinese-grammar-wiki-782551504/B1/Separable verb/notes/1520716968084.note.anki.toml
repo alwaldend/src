@@ -1,0 +1,20 @@
+note_id = 1520716968084
+guid = "sHxy!h;m,q"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+id = 1520716973948
+ordinal = 0
+
+[fields]
+article-title = 'Separable verb'
+english = 'We had dinner together several times.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '我们一起吃过几次饭。'
+notes = ''
+pinyin = '<div>Wǒmen yīqǐ chīguò jǐ cì fàn.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG4GVRX'

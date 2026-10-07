@@ -1,0 +1,17 @@
+note_id = 1670362537508
+guid = "DYo=ETSD@2"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = []
+
+[[cards]]
+id = 1670362537509
+ordinal = 0
+
+[[cards]]
+id = 1670362537510
+ordinal = 1
+
+[fields]
+Back = '"<b>A</b>{operator}{motion} " NB: using upper-case A instead of lower-case'
+Front = 'Append to a named register (instead of replacing its content)'

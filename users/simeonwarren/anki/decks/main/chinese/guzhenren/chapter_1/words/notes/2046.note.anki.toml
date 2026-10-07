@@ -1,0 +1,20 @@
+note_id = 2046
+guid = "dRv9MeS:e}"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 2093
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'because;	owing to;	on account of.'
+example-sentence = '因为失血过多而显得苍白的脸,被晚霞映照着,忽然增添了一份嫣然之光彩'
+example-type = ''
+grammar-construct = ''
+hanzi = '因为'
+notes = ''
+pinyin = '<span class="tone1">yīn</span><span class="tone4">wèi</span>	 <!-- yin wei -->'
+source = ''

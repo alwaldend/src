@@ -1,0 +1,20 @@
+note_id = 1520716970934
+guid = "ki&jJ%UoV<"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Comparisons", "TimeWords"]
+
+[[cards]]
+id = 1520716976798
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "yihou" and "zhihou"'
+english = "Last summer, he came to my house. After that, I haven't seen him."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Event 1 ，之后 + Event 2'
+hanzi = '去年夏天他来过我家，之后再也没见过他。'
+notes = ''
+pinyin = 'Qùnián xiàtiān tā lái guò wǒ jiā, zhīhòu zài yě méi jiàn guo tā.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGC3SCN'

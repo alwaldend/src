@@ -1,0 +1,17 @@
+note_id = 1634447161461
+guid = "L6K:j$X,PR"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634447161461
+ordinal = 0
+
+[fields]
+additional-info = '<strong>Note:</strong>&nbsp;All string methods returns new values. They do not change the original string.'
+answer = '<i>string</i>.rindex(<i>value</i>)'
+example = ''
+question = '<b>String method</b>&nbsp;that searches the string for a specified value and returns the <b>last position</b> of where it was found.&nbsp;Returns a ValueError if the value is not found.'
+version = ''
+with-options = ''

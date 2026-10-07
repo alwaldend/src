@@ -1,0 +1,20 @@
+note_id = 1520716968443
+guid = "H<ViXD^>dw"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716974307
+ordinal = 0
+
+[fields]
+article-title = 'Degree complement'
+english = 'Discovering that his son was fighting with his classmate again incensed father.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '发现儿子又跟同学打架，爸爸气坏了。'
+notes = ''
+pinyin = 'Fāxiàn érzi yòu gēn tóngxué dǎjià, bàba qì  huài le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG79STE'

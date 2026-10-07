@@ -1,0 +1,17 @@
+note_id = 1526925696924
+guid = "g.4OxLZGl>"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = ["Cursor", "Movement"]
+
+[[cards]]
+id = 1526925709999
+ordinal = 0
+
+[[cards]]
+id = 1668965796599
+ordinal = 1
+
+[fields]
+Back = 'gE'
+Front = 'Jump backwards to the end of a WORD'

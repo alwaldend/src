@@ -1,0 +1,20 @@
+note_id = 1520716970854
+guid = "oHZ07`[Z8>"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Comparisons", "TimeWords"]
+
+[[cards]]
+id = 1520716976718
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "pingshi" and "pingchang"'
+english = "This is just common glass. It's not a diamond."
+example-sentence = ''
+example-type = ''
+grammar-construct = '平常的 + Noun'
+hanzi = '这是一种很平常的玻璃，不是什么钻石。'
+notes = ''
+pinyin = '<div>Zhè shì yī zhǒng hěn píngcháng de bōlí, bùshì shénme zuànshí.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJOGGG'

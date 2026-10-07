@@ -1,0 +1,20 @@
+note_id = 1520716968266
+guid = "N$antHeiw3"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716974130
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "through" with "tongguo"'
+english = 'To get here from my house, you have to cross two bridges.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '从我家到那儿要通过两座桥。'
+notes = ''
+pinyin = 'Cóng wǒ jiā dào nàr yào tōngguò liǎng zuò qiáo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG9B1E3'

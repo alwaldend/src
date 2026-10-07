@@ -1,0 +1,20 @@
+note_id = 1520716970095
+guid = "I!-P!h`{P."
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716975959
+ordinal = 0
+
+[fields]
+article-title = 'Comparing specifically with "xiang"'
+english = 'The winter in Shanghai is not as dry as it is in Beijing.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun 1 + 不像 + Noun 2 + (⋯⋯ ) 这么 / 那么 + Adj. / Verb'
+hanzi = '上海的冬天不像北京那么干。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG1MD4N'

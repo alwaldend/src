@@ -1,0 +1,20 @@
+note_id = 1520716968071
+guid = "gm&FWATHz$"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+id = 1520716973935
+ordinal = 0
+
+[fields]
+article-title = 'Separable verb'
+english = ''
+example-sentence = ''
+example-type = 'invalid'
+grammar-construct = ''
+hanzi = '我想创业自己的公司。'
+notes = ''
+pinyin = 'Wǒ xiǎng  chàungyè zìjǐ de gōngsī.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG4GVRX'

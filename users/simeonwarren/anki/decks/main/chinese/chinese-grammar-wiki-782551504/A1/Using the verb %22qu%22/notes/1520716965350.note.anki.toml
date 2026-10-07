@@ -1,0 +1,20 @@
+note_id = 1520716965350
+guid = "f`iC}*YDsJ"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716971214
+ordinal = 0
+
+[fields]
+article-title = 'Using the verb "qu"'
+english = "Let's go eat."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 去 + Verb'
+hanzi = '我们去吃饭吧。'
+notes = ''
+pinyin = 'Wǒmen qù chīfàn ba.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGFYNCL'

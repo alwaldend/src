@@ -1,0 +1,20 @@
+note_id = 1520716965170
+guid = "KW1G~:^5aV"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971034
+ordinal = 0
+
+[fields]
+article-title = 'The "also" adverb "ye"'
+english = 'You are also tall.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 也 (+ Adv.) + Adj.'
+hanzi = '你也很高。'
+notes = ''
+pinyin = 'Nǐ yě hěn gāo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGG25MD'

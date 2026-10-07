@@ -1,0 +1,20 @@
+note_id = 1520716968360
+guid = "sm/3f))isb"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716974224
+ordinal = 0
+
+[fields]
+article-title = 'Direction complement'
+english = 'The boss is asking you to go over to his office right now.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '到 + Place + 来 / 去'
+hanzi = '老板让你马上到他办公室去。'
+notes = ''
+pinyin = 'Lǎobǎn ràng nǐ mǎshàng dào tā bàngōngshì qù.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8LWBJ'

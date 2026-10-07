@@ -1,0 +1,20 @@
+note_id = 1520716965552
+guid = "i>#pU<Ln{X"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+id = 1520716971416
+ordinal = 0
+
+[fields]
+article-title = 'Placement of question words'
+english = "Which room are you in?<br>I'm in your room."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 哪个 (+ Noun) ?'
+hanzi = 'A: 你在哪个房间？<br>B: 我在你的房间。'
+notes = ''
+pinyin = 'Nǐ zài nǎge fángjiān?<br>Wǒ zài  nǐ de fángjiān.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJQPSC'

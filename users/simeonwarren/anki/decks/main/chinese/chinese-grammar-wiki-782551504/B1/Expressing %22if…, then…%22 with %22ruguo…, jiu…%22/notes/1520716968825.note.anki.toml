@@ -1,0 +1,20 @@
+note_id = 1520716968825
+guid = "jcmp7W*H4l"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974689
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "if…, then…" with "ruguo…, jiu…"'
+english = 'If you want to apply, you need to start to prepare right away.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '如果 ⋯⋯ ，那么 / 那 ⋯⋯'
+hanzi = '如果你想申请，那么现在就要开始准备。'
+notes = ''
+pinyin = 'Rúguǒ nǐ xiǎng shēnqǐng, nàme xiànzài jiù yào kāishǐ zhǔnbèi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGGIVT0'

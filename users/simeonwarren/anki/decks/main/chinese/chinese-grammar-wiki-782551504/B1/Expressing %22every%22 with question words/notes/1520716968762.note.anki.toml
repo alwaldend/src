@@ -1,0 +1,20 @@
+note_id = 1520716968762
+guid = "OsGt5Cr%lh"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974626
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "every" with question words'
+english = "I'm too tired. I don't want to go anywhere."
+example-sentence = ''
+example-type = ''
+grammar-construct = '哪儿 / 哪里 (+ Verb) + 都 + Predicate'
+hanzi = '我太累了，哪儿都不想去。'
+notes = ''
+pinyin = 'Wǒ tài lèi le, nǎr dōu bù xiǎng qù.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG13ALM'

@@ -1,0 +1,20 @@
+note_id = 1520716967995
+guid = "b0&O*:-Jp2"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+id = 1520716973859
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "must" with "dei"'
+english = 'You have to listen to the teacher at school.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 得 + [Verb Phrase]'
+hanzi = '在学校就得听老师的话。'
+notes = ''
+pinyin = 'Zài xuéxiào jiù děi tīng lǎoshī de huà.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPXLP9'

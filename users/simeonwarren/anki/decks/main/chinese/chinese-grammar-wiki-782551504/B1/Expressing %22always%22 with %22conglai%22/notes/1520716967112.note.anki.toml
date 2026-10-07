@@ -1,0 +1,20 @@
+note_id = 1520716967112
+guid = "DSi(TX1iRU"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972976
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "always" with "conglai"'
+english = 'He always works very hard.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 从来 + 都 + Predicate'
+hanzi = '他工作从来都很努力。'
+notes = ''
+pinyin = 'Tā gōngzuò cónglái dōu hěn nǔlì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8KUHG'

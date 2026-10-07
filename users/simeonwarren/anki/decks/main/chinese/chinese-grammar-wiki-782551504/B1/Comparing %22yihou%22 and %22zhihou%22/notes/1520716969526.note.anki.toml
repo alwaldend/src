@@ -1,0 +1,20 @@
+note_id = 1520716969526
+guid = "O37QGHqgu#"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Comparisons", "TimeWords"]
+
+[[cards]]
+id = 1520716975390
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "yihou" and "zhihou"'
+english = "In the future I will never come to this place to eat again. It's expensive and the food is not good."
+example-sentence = ''
+example-type = ''
+grammar-construct = '以后，Comment'
+hanzi = '以后再也不来这里吃饭了，又贵又难吃。'
+notes = ''
+pinyin = 'Yǐhòu zài yě bù lái zhèlǐ chīfàn le, yòu guì yòu nánchī.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGC3SCN'

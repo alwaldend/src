@@ -1,0 +1,20 @@
+note_id = 1520716969735
+guid = "gWxU`<f.8U"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975599
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "nearly" with "jihu"'
+english = "Dad's hair is almost all white."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 几乎 + 不 / 没 + Predicate'
+hanzi = '爸爸的头发几乎白了。'
+notes = ''
+pinyin = 'Bàba de tóufa jīhū bái le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGVA70K'

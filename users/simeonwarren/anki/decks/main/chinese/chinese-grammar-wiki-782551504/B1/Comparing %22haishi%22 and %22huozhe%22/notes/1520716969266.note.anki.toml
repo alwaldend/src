@@ -1,0 +1,20 @@
+note_id = 1520716969266
+guid = "Lo3_z}hl&|"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Comparisons", "Conjunctions"]
+
+[[cards]]
+id = 1520716975130
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "haishi" and "huozhe"'
+english = ''
+example-sentence = ''
+example-type = 'invalid'
+grammar-construct = 'Option 1 + 或者 + Option 2'
+hanzi = '我非常无聊，我们或者出去玩吧。'
+notes = "或者 isn't used for suggestions."
+pinyin = '<div>Wǒ fēicháng wúliáo, wǒmen huòzhě chūqù wán ba.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQJ5IC'

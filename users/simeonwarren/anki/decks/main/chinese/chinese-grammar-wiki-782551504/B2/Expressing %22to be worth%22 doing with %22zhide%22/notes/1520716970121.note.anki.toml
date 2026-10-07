@@ -1,0 +1,20 @@
+note_id = 1520716970121
+guid = "JJTtIXlxg1"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+id = 1520716975985
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "to be worth" doing with "zhide"'
+english = 'Studying Chinese is really worth it.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '([Verb Phrase]) + 值得'
+hanzi = '学汉语是值得的。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGGJA6A'

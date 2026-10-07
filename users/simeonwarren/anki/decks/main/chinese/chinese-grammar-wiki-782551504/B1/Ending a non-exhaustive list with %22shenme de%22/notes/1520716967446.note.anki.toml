@@ -1,0 +1,20 @@
+note_id = 1520716967446
+guid = "p0[b`Dp?xa"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["AuxiliaryWords", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973310
+ordinal = 0
+
+[fields]
+article-title = 'Ending a non-exhaustive list with "shenme de"'
+english = 'Which countries are in Europe? France, England, Germany, etc. Anyway, they are all small countries!'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'List + 什么的'
+hanzi = '欧洲有哪些国家？法国，英国，德国什么的。反正都是些小国家！'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDIDAC'

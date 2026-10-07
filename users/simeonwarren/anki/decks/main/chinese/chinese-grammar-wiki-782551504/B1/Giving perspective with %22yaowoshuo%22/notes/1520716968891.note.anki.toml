@@ -1,0 +1,20 @@
+note_id = 1520716968891
+guid = "re}S]MGeuH"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974755
+ordinal = 0
+
+[fields]
+article-title = 'Giving perspective with "yaowoshuo"'
+english = 'I say we should just eat out instead of cooking at home.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '要我说， Opinion'
+hanzi = '要我说，就去外面吃吧，不要在家做饭了。'
+notes = ''
+pinyin = 'Yào wǒ shuō, jiù qù wàimiàn chī ba, bùyào zài jiā zuòfàn le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGITYYM'

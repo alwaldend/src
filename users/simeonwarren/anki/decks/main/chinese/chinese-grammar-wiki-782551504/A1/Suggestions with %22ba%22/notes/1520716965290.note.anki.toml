@@ -1,0 +1,20 @@
+note_id = 1520716965290
+guid = "F,x{Iko$({"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971154
+ordinal = 0
+
+[fields]
+article-title = 'Suggestions with "ba"'
+english = 'You say it.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Command + 吧'
+hanzi = '你说吧。'
+notes = 'This is a suggestion.'
+pinyin = 'Nǐ shuō ba.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMPZ6D'

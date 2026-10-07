@@ -1,0 +1,20 @@
+note_id = 1520716965586
+guid = "ryq;7Zz7D@"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+id = 1520716971450
+ordinal = 0
+
+[fields]
+article-title = 'Tag questions with "ma"'
+english = "They didn't go yesterday, right?"
+example-sentence = ''
+example-type = ''
+grammar-construct = '⋯⋯， 好 / 对 / 是 / 可以 +  吗？'
+hanzi = '他们昨天都没去，是吗？'
+notes = ''
+pinyin = 'Tāmen zuótiān dōu méi qù, shì ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGSJYZ2'

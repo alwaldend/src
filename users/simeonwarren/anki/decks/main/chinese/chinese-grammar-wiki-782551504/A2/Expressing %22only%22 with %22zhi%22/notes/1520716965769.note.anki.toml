@@ -1,0 +1,20 @@
+note_id = 1520716965769
+guid = "BXUJ%E/zno"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971633
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "only" with "zhi"'
+english = 'I only have one older brother.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '只 + 会 / 能 + Verb'
+hanzi = '我只有一个哥哥。'
+notes = ''
+pinyin = 'Wǒ zhǐ yǒu yī gè gēge.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGN8C8R'

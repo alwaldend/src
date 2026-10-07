@@ -1,0 +1,20 @@
+note_id = 1520716969309
+guid = "j$Aeg:~J,("
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Comparisons"]
+
+[[cards]]
+id = 1520716975173
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "changchang" and "jingchang"'
+english = 'They often fight.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '常常 / 经常 + Verb'
+hanzi = '他们常常吵架。'
+notes = ''
+pinyin = 'Tāmen chángcháng chǎojià.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGE8FLP'

@@ -1,0 +1,20 @@
+note_id = 1520716968146
+guid = "c=y9~?>(N-"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716974010
+ordinal = 0
+
+[fields]
+article-title = 'Causative verbs'
+english = 'The financial crisis caused lot of company out of business, and many people lost their job because of this.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + [Causative Verb] + Person + Predicate'
+hanzi = '经济危机使很多公司倒闭了，也使很多人失去了工作。'
+notes = ''
+pinyin = 'Jīngjì wēijī shǐ hěn duō gōngsī dǎobì le, yě shǐ hěn duō rén shīqù le gōngzuò.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5T7XC'

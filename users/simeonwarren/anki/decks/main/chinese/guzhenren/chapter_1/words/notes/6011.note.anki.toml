@@ -1,0 +1,20 @@
+note_id = 6011
+guid = "EaN*[M3~I1"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+id = 6027
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'to finish;	to end;	to complete.'
+example-sentence = ' 大典完毕,众人慢慢地从地板上站起身来,静静地走出庄严的祠堂'
+example-type = ''
+grammar-construct = ''
+hanzi = '完毕'
+notes = ''
+pinyin = '<span class="tone2">wán</span><span class="tone4">bì</span>	 <!-- wan bi -->'
+source = ''

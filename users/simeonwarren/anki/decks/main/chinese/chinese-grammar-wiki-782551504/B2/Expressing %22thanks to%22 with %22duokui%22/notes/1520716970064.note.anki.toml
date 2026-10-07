@@ -1,0 +1,20 @@
+note_id = 1520716970064
+guid = "D<Xm$IV8?X"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Parts_of_Speech", "SentencePatterns"]
+
+[[cards]]
+id = 1520716975928
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "thanks to" with "duokui"'
+english = "Thanks to your ride, I'm not late to get here."
+example-sentence = ''
+example-type = ''
+grammar-construct = '多亏 (了) + [Lucky Incident] ，Subj. 才 + [Good Outcome]'
+hanzi = '多亏了你开车送我，我才没迟到。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG44TBS'

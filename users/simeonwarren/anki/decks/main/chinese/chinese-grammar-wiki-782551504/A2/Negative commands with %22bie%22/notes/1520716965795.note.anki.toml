@@ -1,0 +1,20 @@
+note_id = 1520716965795
+guid = "FKc[Yn)[wt"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971659
+ordinal = 0
+
+[fields]
+article-title = 'Negative commands with "bie"'
+english = "Don't drink too much."
+example-sentence = ''
+example-type = ''
+grammar-construct = '别 + Verb (+ Obj.)'
+hanzi = '别喝太多。'
+notes = ''
+pinyin = 'Bié hē tài duō.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG9W0UX'

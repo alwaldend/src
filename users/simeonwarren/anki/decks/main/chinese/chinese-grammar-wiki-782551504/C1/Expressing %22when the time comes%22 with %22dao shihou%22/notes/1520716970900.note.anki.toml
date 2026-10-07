@@ -1,0 +1,20 @@
+note_id = 1520716970900
+guid = "Q1LM<YP/7"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "C1"]
+
+[[cards]]
+id = 1520716976764
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "when the time comes" with "dao shihou"'
+english = "If you don't prepare well, then you won't do it well in the exam."
+example-sentence = ''
+example-type = ''
+grammar-construct = '……，到时候 + ……'
+hanzi = '现在不好好准备考试，到时候肯定考不好。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMDJTD'

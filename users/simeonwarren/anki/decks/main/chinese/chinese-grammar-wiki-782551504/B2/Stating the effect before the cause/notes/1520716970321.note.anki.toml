@@ -1,0 +1,20 @@
+note_id = 1520716970321
+guid = "FX71v-M[N["
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Cause/EffectStatements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716976185
+ordinal = 0
+
+[fields]
+article-title = 'Stating the effect before the cause'
+english = 'The reason he went to Greece was because he wanted to further understand Western culture.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj.+ 之所以 + Effect + 是因为 + Cause'
+hanzi = '他之所以去希腊是因为想进一步了解西方文明。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTPGXK'

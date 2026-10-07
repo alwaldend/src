@@ -1,0 +1,20 @@
+note_id = 1520716968923
+guid = "Kc.j4Mp02r"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974787
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "not only... but also"'
+english = 'Not only are the employees under a lot of pressure, but the boss are under a lot of pressure.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '不但 + Subj. 1 ⋯⋯ ，而且 + Subj. 2 + 也 ⋯⋯'
+hanzi = '不但员工压力大，老板压力也很大。'
+notes = ''
+pinyin = 'Bùdàn yuángōng yālì dà, lǎobǎn yālì yě hěn dà.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTYJ3E'

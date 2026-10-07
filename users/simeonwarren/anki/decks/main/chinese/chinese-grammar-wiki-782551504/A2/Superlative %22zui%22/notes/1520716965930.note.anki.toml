@@ -1,0 +1,20 @@
+note_id = 1520716965930
+guid = "sFVm=QdDz="
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "AdverbswithAdjectives", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971794
+ordinal = 0
+
+[fields]
+article-title = 'Superlative "zui"'
+english = 'His student is the most serious.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '最 + Adj. (+ 了)'
+hanzi = '他的学生最认真了。'
+notes = 'This 了 is optional'
+pinyin = 'Tā de xuésheng zuì rènzhēn le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG3544U'

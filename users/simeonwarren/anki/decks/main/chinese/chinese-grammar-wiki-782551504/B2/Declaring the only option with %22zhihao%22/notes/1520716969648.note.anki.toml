@@ -1,0 +1,20 @@
+note_id = 1520716969648
+guid = "D*eei<CCOs"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975512
+ordinal = 0
+
+[fields]
+article-title = 'Declaring the only option with "zhihao"'
+english = "He doesn't have time to go. So I have to go."
+example-sentence = ''
+example-type = ''
+grammar-construct = '……，只好 + Subj.＋Verb Phrase'
+hanzi = '他没有时间去，只好我去了。'
+notes = ''
+pinyin = 'Tā méiyǒu shíjiān qù,  zhǐhǎo wǒ qù le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG767A2'

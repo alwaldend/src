@@ -1,0 +1,20 @@
+note_id = 1520716968115
+guid = "FsIAed<0EM"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716973979
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "not at all" with "yidianr ye bu"'
+english = "This dish isn't tasty at all."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 一点 + 也 / 都 + 不 + Adj.'
+hanzi = '这个菜一点都不好吃。'
+notes = ''
+pinyin = 'Zhège cài yīdiǎn dōu bù hǎochī.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGRURCZ'

@@ -1,0 +1,20 @@
+note_id = 1520716966982
+guid = "ov=^{<A>vB"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972846
+ordinal = 0
+
+[fields]
+article-title = 'Emphasis with "jiushi"'
+english = 'That conman is him!'
+example-sentence = ''
+example-type = ''
+grammar-construct = '就是 + Noun'
+hanzi = '他就是那个骗子！'
+notes = ''
+pinyin = 'Tā jiù shì nàge piànzi!'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGY21RK'

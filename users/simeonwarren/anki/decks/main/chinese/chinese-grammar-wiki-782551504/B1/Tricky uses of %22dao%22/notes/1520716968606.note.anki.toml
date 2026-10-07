@@ -1,0 +1,20 @@
+note_id = 1520716968606
+guid = "C(GG2s!@G/"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716974470
+ordinal = 0
+
+[fields]
+article-title = 'Tricky uses of "dao"'
+english = 'I see him, over there!'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '我看到他了，在那里！'
+notes = ''
+pinyin = 'Wǒ kàndào tā le, zài nàlǐ!'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCUSIV'

@@ -1,0 +1,20 @@
+note_id = 1520716965146
+guid = "kJ-5n*tM7D"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971010
+ordinal = 0
+
+[fields]
+article-title = 'The "all" adverb "dou"'
+english = 'They are all in Shanghai.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 都 + [Verb Phrase]'
+hanzi = '他们都在上海。'
+notes = ''
+pinyin = 'Tāmen dōu zài Shànghǎi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG9YK09'

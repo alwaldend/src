@@ -1,0 +1,17 @@
+note_id = 1634448432661
+guid = "eZR[<xT.?4"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634448432662
+ordinal = 0
+
+[fields]
+additional-info = '<strong>Note:</strong>&nbsp;All string methods returns new values. They do not change the original string.'
+answer = '<i>string</i>.strip()'
+example = ''
+question = '<b>String method</b> that returns a trimmed version of a string (excess whitespace removed).'
+version = ''
+with-options = ''

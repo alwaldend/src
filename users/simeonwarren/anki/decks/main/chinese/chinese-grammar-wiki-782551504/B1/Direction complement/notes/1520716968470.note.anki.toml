@@ -1,0 +1,20 @@
+note_id = 1520716968470
+guid = "cBC:V`X@}9"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716974334
+ordinal = 0
+
+[fields]
+article-title = 'Direction complement'
+english = "We'd like to walk down from here by ourselves."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + [Compound Direction Complement]'
+hanzi = '我们想自己走下去。'
+notes = ''
+pinyin = 'Wǒmen xiǎng zìjǐ zǒu xiàqù.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8LWBJ'

@@ -1,0 +1,20 @@
+note_id = 1520716969979
+guid = "fdLM?w>;FL"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+id = 1520716975843
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "on the basis of" with "ping"'
+english = "No wonder that kid's math is so bad. It's because he always uses a calculator."
+example-sentence = ''
+example-type = ''
+grammar-construct = '凭 + Verb Phrase / Subj.-Predicate'
+hanzi = '怪不得那个孩子的数学不好，他只凭计算器算。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGGB3IV'

@@ -1,0 +1,20 @@
+note_id = 1520716967572
+guid = "CH?L;g9lvT"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973436
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "in addition" with "zaishuo"'
+english = "Sorry, I don't have time for this. Besides, I'm not interested."
+example-sentence = ''
+example-type = ''
+grammar-construct = '⋯⋯ ，再说 ，⋯⋯'
+hanzi = '对不起，我没时间。再说，我也没兴趣。'
+notes = ''
+pinyin = 'Duìbuqǐ, wǒ méi shíjiān. Zàishuō, wǒ yě méi xìngqù.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGATDLX'

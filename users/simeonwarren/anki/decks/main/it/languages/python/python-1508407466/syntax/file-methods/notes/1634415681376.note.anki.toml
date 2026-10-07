@@ -1,0 +1,17 @@
+note_id = 1634415681376
+guid = "K4Vr5b%T.T"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634415681376
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<i>file</i>.write(<i>string</i>)'
+example = ''
+question = '<b>File method</b>&nbsp;that writes the specified string to a file.'
+version = ''
+with-options = ''

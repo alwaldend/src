@@ -1,0 +1,20 @@
+note_id = 1520716970946
+guid = "I(9-*HOIgd"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["C1", "SentencePatterns"]
+
+[[cards]]
+id = 1520716976810
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "Prefer...rather than" with "yuqi...buru"'
+english = "I'd rather say that she's helping you than she's helping herself."
+example-sentence = ''
+example-type = ''
+grammar-construct = '与其说 + A，不如说 + B'
+hanzi = '与其说她是在帮你，不如说她是在帮她自己。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWI5CV'

@@ -1,0 +1,20 @@
+note_id = 1520716969130
+guid = "CI3?Swwl?d"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Comparisons"]
+
+[[cards]]
+id = 1520716974994
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "youdian" and "yidian"'
+english = "There's a little dirt on your face."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '你脸上有一点灰。'
+notes = ''
+pinyin = 'Nǐ  yǒu yīdiǎn huī.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGV55Y4'

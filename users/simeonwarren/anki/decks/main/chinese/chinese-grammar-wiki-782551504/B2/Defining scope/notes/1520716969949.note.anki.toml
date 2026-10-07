@@ -1,0 +1,20 @@
+note_id = 1520716969949
+guid = "G47?D?):=p"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Parts_of_Speech", "PrepositionalPhrase"]
+
+[[cards]]
+id = 1520716975813
+ordinal = 0
+
+[fields]
+article-title = 'Defining scope'
+english = 'Must be completed in two days or less.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '时间 / 处所 / 数量 / 范围 + 以内 / 以外'
+hanzi = '两天以内必须完成。'
+notes = ''
+pinyin = 'Liǎng tiān yǐnèi bìxū wánchéng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG7AE5C'

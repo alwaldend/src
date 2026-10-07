@@ -1,0 +1,20 @@
+note_id = 1520716970012
+guid = "Bovj}Pv<FU"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+id = 1520716975876
+ordinal = 0
+
+[fields]
+article-title = 'Opportune timing with "chen"'
+english = "When the boss isn't here, we can smoke for a little while."
+example-sentence = ''
+example-type = ''
+grammar-construct = '趁 + [Situation / Opportunity]'
+hanzi = '趁老板不在，我们抽一会儿烟吧。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGI9PNV'

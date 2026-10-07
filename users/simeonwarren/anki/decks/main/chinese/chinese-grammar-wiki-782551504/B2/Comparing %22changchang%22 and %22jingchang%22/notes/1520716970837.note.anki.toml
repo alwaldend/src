@@ -1,0 +1,20 @@
+note_id = 1520716970837
+guid = "h+(u~2Y<=,"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Comparisons", "TimeWords"]
+
+[[cards]]
+id = 1520716976701
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "changchang" and "jingchang"'
+english = 'Once this project is done, then I can go with you more often.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '经常 + Verb'
+hanzi = '这个项目做完以后，我会经常陪你。'
+notes = ''
+pinyin = '<div>Zhège xiàngmù zuò wán yǐhòu, wǒ huì jīngcháng péi nǐ.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGE8FLP'

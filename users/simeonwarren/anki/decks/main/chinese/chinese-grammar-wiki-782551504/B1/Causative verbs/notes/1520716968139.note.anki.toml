@@ -1,0 +1,20 @@
+note_id = 1520716968139
+guid = "Md>OWq3z/H"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716974003
+ordinal = 0
+
+[fields]
+article-title = 'Causative verbs'
+english = 'That old man makes me think about my grandpa.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + [Causative Verb] + Person + Predicate'
+hanzi = '那个老人让我想到了我爷爷。'
+notes = ''
+pinyin = 'Nàge lǎorén ràng wǒ xiǎng dào le wǒ yéye.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5T7XC'

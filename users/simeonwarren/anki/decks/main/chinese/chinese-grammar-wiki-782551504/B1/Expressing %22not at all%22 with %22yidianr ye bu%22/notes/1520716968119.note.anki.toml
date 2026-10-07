@@ -1,0 +1,20 @@
+note_id = 1520716968119
+guid = "on6YIg|j9C"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716973983
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "not at all" with "yidianr ye bu"'
+english = "You can't even speak a little?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 一点 + 也 / 都 + 不 + Verb'
+hanzi = '你一点也不会说吗？'
+notes = ''
+pinyin = 'Nǐ yīdiǎn yě bù huì shuō ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGRURCZ'

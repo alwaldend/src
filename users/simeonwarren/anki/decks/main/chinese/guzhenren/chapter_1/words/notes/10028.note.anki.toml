@@ -1,0 +1,20 @@
+note_id = 10028
+guid = "CDJ1x7aMCs"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 10065
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'to cover all at one glance (idiom);	a panoramic view.'
+example-sentence = ' 这是阁楼第三层,族长放眼望去,大半个古月山寨都一览无余'
+example-type = ''
+grammar-construct = ''
+hanzi = '一览无余'
+notes = ''
+pinyin = '<span class="tone1">yī</span><span class="tone3">lǎn</span><span class="tone2">wú</span><span class="tone2">yú</span>	 <!-- yi lan wu yu -->'
+source = ''

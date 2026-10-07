@@ -1,0 +1,20 @@
+note_id = 1520716966401
+guid = "s#NBp:ay}#"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+id = 1520716972265
+ordinal = 0
+
+[fields]
+article-title = 'Inability with "mei banfa"'
+english = "You can't speak Chinese, so there is no way for you to work for our company."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 没办法 + Verb + Obj.'
+hanzi = '你不会说中文，没办法在我们公司工作。'
+notes = ''
+pinyin = 'Nǐ bù huì shuō Zhōngwén, méi bànfǎ zài wǒmen gōngsī gōngzuò.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGI2KHC'

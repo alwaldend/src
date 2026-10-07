@@ -1,0 +1,17 @@
+note_id = 1526926875857
+guid = "pXoty/z(Ls"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = ["Macros"]
+
+[[cards]]
+id = 1526926885000
+ordinal = 0
+
+[[cards]]
+id = 1668965796672
+ordinal = 1
+
+[fields]
+Back = 'q'
+Front = 'Stop recording macro'

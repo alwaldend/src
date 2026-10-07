@@ -190,7 +190,7 @@ func TestStatusSupportsLargeMigrationExactPathInventory(t *testing.T) {
 		t.Fatal(err)
 	}
 	want := map[string]bool{}
-	for index := 0; index < 256; index++ {
+	for index := 0; index < 3072; index++ {
 		name := fmt.Sprintf("%04d-%s.md", index, strings.Repeat("x", 64))
 		writeTestFile(t, filepath.Join(directory, "source", name), "history\n")
 		want["source/"+name] = true
@@ -206,9 +206,9 @@ func TestStatusSupportsLargeMigrationExactPathInventory(t *testing.T) {
 		"status", "--porcelain=v2", "-z", "--untracked-files=all",
 		"--ignore-submodules=none", "--no-renames",
 	)
-	if len(output) <= commandOutputLimit || len(output) >= gitStatusOutputLimit {
+	if len(output) <= 1024*1024 || len(output) >= gitStatusOutputLimit {
 		t.Fatalf("status fixture = %d bytes, want above %d and below %d",
-			len(output), commandOutputLimit, gitStatusOutputLimit)
+			len(output), 1024*1024, gitStatusOutputLimit)
 	}
 	repository := &gitRepository{
 		directory:  directory,
@@ -259,8 +259,8 @@ func TestChangedPathsSupportsLargeMigrationExactPathInventory(t *testing.T) {
 		t.Fatal(err)
 	}
 	want := map[string]bool{}
-	for index := 0; index < 512; index++ {
-		name := fmt.Sprintf("%04d-%s.md", index, strings.Repeat("x", 64))
+	for index := 0; index < 4096; index++ {
+		name := fmt.Sprintf("%04d-%s.md", index, strings.Repeat("x", 128))
 		writeTestFile(t, filepath.Join(directory, "source", name), "history\n")
 		want["source/"+name] = true
 		want["destination/"+name] = true
@@ -277,9 +277,9 @@ func TestChangedPathsSupportsLargeMigrationExactPathInventory(t *testing.T) {
 		"diff", "--no-ext-diff", "--no-textconv", "--ignore-submodules=none",
 		"--no-renames", "--name-only", "-z", baseOID, treeOID, "--",
 	)
-	if len(output) <= commandOutputLimit || len(output) >= gitChangedPathsOutputLimit {
+	if len(output) <= 1024*1024 || len(output) >= 4*1024*1024 {
 		t.Fatalf("aggregate path fixture = %d bytes, want above %d and below %d",
-			len(output), commandOutputLimit, gitChangedPathsOutputLimit)
+			len(output), 1024*1024, 4*1024*1024)
 	}
 	repository := &gitRepository{
 		directory:  directory,
@@ -304,6 +304,12 @@ func TestChangedPathsSupportsLargeMigrationExactPathInventory(t *testing.T) {
 	}
 	if len(want) != 0 {
 		t.Fatalf("aggregate diff omitted %d migration paths", len(want))
+	}
+	if artifacts := os.Getenv("TEST_UNDECLARED_OUTPUTS_DIR"); artifacts != "" {
+		report := fmt.Sprintf("paths=%d\ninventory_bytes=%d\n", len(paths), len(output))
+		if err := os.WriteFile(filepath.Join(artifacts, "immutable-path-inventory.txt"), []byte(report), 0o600); err != nil {
+			t.Fatal(err)
+		}
 	}
 }
 

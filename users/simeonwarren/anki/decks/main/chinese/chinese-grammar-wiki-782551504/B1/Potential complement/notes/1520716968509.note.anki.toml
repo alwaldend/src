@@ -1,0 +1,20 @@
+note_id = 1520716968509
+guid = "Z$r{@rp0T"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716974373
+ordinal = 0
+
+[fields]
+article-title = 'Potential complement'
+english = "The door is too small. My car can't go through it."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 不 + Complement'
+hanzi = '门太小了，我的车进不去。'
+notes = ''
+pinyin = 'Mén tài xiǎo le, wǒ de chē jìn bu qù.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCPJPQ'

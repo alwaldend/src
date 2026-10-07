@@ -1,0 +1,20 @@
+note_id = 1520716967150
+guid = "NH1Xk+C5Ga"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973014
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "enough" with "gou"'
+english = "You bag is too small. This stuff definitely can't fit in it."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不够 + Verb'
+hanzi = '你的包太小了，这些东西肯定不够放。'
+notes = ''
+pinyin = 'Nǐ de bāo tài xiǎo le, zhème duō dōngxi kěndìng bùgòu fàng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG49BE6'

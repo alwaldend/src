@@ -1,0 +1,20 @@
+note_id = 1520716967477
+guid = "j(Am&<Ai+O"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["AuxiliaryWords", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973341
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "stuff like that" with "zhileide"'
+english = 'In your company, who is in charge of management and stuff like that?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '⋯⋯ 之类的 + [Category]'
+hanzi = '你们公司谁负责管理之类的工作？'
+notes = ''
+pinyin = 'Nǐmen gōngsī shéi fùzé guǎnlǐ zhī lèi de gōngzuò?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPY23Z'

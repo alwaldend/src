@@ -1,0 +1,20 @@
+note_id = 1520716967531
+guid = "LqJZ4zgIWk"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973395
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "in addition" with "haiyou"'
+english = 'Come back soon after work. In addition, buy some fruits on your way back.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Clause 1 ，还有 ， Clause 2'
+hanzi = '下班以后早点回来。还有，回来的路上买点水果。'
+notes = ''
+pinyin = 'Xiàbān yǐhòu zǎodiǎn huílái. Háiyǒu, huílái de lùshang mǎi diǎn shuǐguǒ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGHQRI1'

@@ -1,0 +1,20 @@
+note_id = 1520716969902
+guid = "Aoq%L*78:X"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975766
+ordinal = 0
+
+[fields]
+article-title = 'Taiwanese "you"'
+english = 'We fought last night.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 有 + Verb + 了'
+hanzi = '我们昨晚有吵架了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGY2D79'

@@ -1,0 +1,20 @@
+note_id = 1520716967511
+guid = "v>3T|{!f)6"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973375
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "how about" with "yaobu"'
+english = "It's tasty. Would you like to taste it?"
+example-sentence = ''
+example-type = ''
+grammar-construct = '要不 + Option B + 吧 ，Reason / Situation'
+hanzi = '挺好吃的，要不你尝尝？'
+notes = ''
+pinyin = 'Tǐng hǎochī de, yàobù nǐ chángchang?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDFQP7'

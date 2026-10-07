@@ -1,0 +1,20 @@
+note_id = 1520716969570
+guid = "KVg(WF.8k="
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adjectives", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975434
+ordinal = 0
+
+[fields]
+article-title = 'Challenging an adjective with "shenme"'
+english = ''
+example-sentence = ''
+example-type = 'invalid'
+grammar-construct = 'Adj.／Verb + 什么 + (Adj.／Verb)？'
+hanzi = '你紧张什么紧张？'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNV2TZ'

@@ -1,0 +1,20 @@
+note_id = 1520716967327
+guid = "zc]dL{/RgP"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973191
+ordinal = 0
+
+[fields]
+article-title = 'The opposite of "cha hen duo" is "chabuduo"'
+english = 'Chinese culture and western culture are quite different.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A + 跟 / 和 + B + 差很多'
+hanzi = '中国文化和西方文化差很多。'
+notes = ''
+pinyin = 'Zhōngguó wénhuà hé xīfāngwénhuà chà hěn duō.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQAN74'

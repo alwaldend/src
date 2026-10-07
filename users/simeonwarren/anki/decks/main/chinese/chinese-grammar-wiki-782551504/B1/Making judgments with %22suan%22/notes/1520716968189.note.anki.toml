@@ -1,0 +1,20 @@
+note_id = 1520716968189
+guid = "yMyN>+ap@W"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716974053
+ordinal = 0
+
+[fields]
+article-title = 'Making judgments with "suan"'
+english = "This examination can't considered difficult."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不 + 算 (+ Adv.) + Adj.'
+hanzi = '这次考试不算难。'
+notes = ''
+pinyin = 'Zhè cì kǎoshì bù suàn nán.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWDWFN'

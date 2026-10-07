@@ -1,0 +1,20 @@
+note_id = 1520716965703
+guid = "x$7QMT#VR3"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971567
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "all along" with "yizhi"'
+english = 'The air in Beijing has been bad for a while.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 一直 + Predicate'
+hanzi = '北京的空气一直很不好。'
+notes = ''
+pinyin = 'Běijīng de kōngqì yīzhí hěn bù hǎo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGP000J'

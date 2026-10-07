@@ -1,0 +1,20 @@
+note_id = 1520716965848
+guid = "es=6y@b#X."
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "AdverbswithAdjectives", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971712
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "both A and B" with "you"'
+english = 'Winter here in Shanghai is both cold and humid.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 又 + Adj. 1 + 又 + Adj. 2'
+hanzi = '上海的冬天又冷又湿。'
+notes = ''
+pinyin = 'Shànghǎi de dōngtiān yòu lěng yòu shī.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPFUM2'

@@ -1,0 +1,20 @@
+note_id = 1520716969865
+guid = "LK1i6Cowmf"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975729
+ordinal = 0
+
+[fields]
+article-title = 'Name-calling with "zhege"'
+english = 'Shanghai, this city. Its summers are too hot, and its winters are too cold.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 这个 + [Category]'
+hanzi = '上海这个城市，夏天太热，冬天太冷。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNPO4V'

@@ -1,0 +1,20 @@
+note_id = 1520716967667
+guid = "r_-azV<Htm"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973531
+ordinal = 0
+
+[fields]
+article-title = 'Sequencing past events with "houlai"'
+english = 'Beijing used to be called Beiping and got changed into Beijing afterwards.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '[Past Event 1] ，后来 ，[Past Event 2]'
+hanzi = '北京以前叫北平，后来改成了北京。'
+notes = ''
+pinyin = 'Běijīng yǐqián jiào Běipíng, hòulái gǎi chéng le Běijīng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGY0UDC'

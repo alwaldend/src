@@ -1,0 +1,20 @@
+note_id = 1017
+guid = "En46|M3>w0"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 1034
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'out;	outward.'
+example-sentence = ' 鲜红的血液,从身上数百道伤口向外涌着'
+example-type = ''
+grammar-construct = ''
+hanzi = '向外'
+notes = ''
+pinyin = '<span class="tone4">xiàng</span><span class="tone4">wài</span>	 <!-- xiang wai -->'
+source = ''

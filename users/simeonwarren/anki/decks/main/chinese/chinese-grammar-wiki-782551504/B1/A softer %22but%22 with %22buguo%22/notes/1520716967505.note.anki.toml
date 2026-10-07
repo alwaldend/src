@@ -1,0 +1,20 @@
+note_id = 1520716967505
+guid = "h$!CP:8O;+"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973369
+ordinal = 0
+
+[fields]
+article-title = 'A softer "but" with "buguo"'
+english = "He can speak well, but he doesn't know any Chinese characters."
+example-sentence = ''
+example-type = ''
+grammar-construct = '⋯⋯ ，不过 ⋯⋯'
+hanzi = '他说得不错，不过不认识汉字。'
+notes = ''
+pinyin = 'Tā shuō de bùcuò, bùguò bù rènshi hànzì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGA0S4T'

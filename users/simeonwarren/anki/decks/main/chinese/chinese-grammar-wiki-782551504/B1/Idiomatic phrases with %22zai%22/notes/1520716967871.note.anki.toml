@@ -1,0 +1,20 @@
+note_id = 1520716967871
+guid = "MjCBG%p~tA"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+id = 1520716973735
+ordinal = 0
+
+[fields]
+article-title = 'Idiomatic phrases with "zai"'
+english = 'In this situation, what would you do?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '在 ⋯⋯ 下 ，⋯⋯'
+hanzi = '在这种情况下，你们会怎么做？'
+notes = ''
+pinyin = 'Zài zhè zhǒng qíngkuàng xià, nǐmen huì zěnme zuò?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGH13JY'

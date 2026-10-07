@@ -1,0 +1,20 @@
+note_id = 10012
+guid = "Ixj8UEBZY("
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 10033
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'not long (after);	before too long;	soon;	soon after.'
+example-sentence = ' 不久,长长的走廊上就冷清下来'
+example-type = ''
+grammar-construct = ''
+hanzi = '不久'
+notes = ''
+pinyin = '<span class="tone4">bù</span><span class="tone3">jiǔ</span>	 <!-- bu jiu -->'
+source = ''

@@ -1,0 +1,20 @@
+note_id = 1520716967293
+guid = "m#8l|}f@jH"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973157
+ordinal = 0
+
+[fields]
+article-title = 'Expressing good luck'
+english = "Fortunately you're here, otherwise I don't know what to do."
+example-sentence = ''
+example-type = ''
+grammar-construct = '幸亏 / 幸好 + [Lucky Incident]（，+ 不然 ⋯⋯)'
+hanzi = '幸亏有你在，不然我不知道怎么办。'
+notes = ''
+pinyin = 'Xìngkuī nǐ zài, bùrán wǒ bù zhīdào zěnme bàn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGOB1BF'

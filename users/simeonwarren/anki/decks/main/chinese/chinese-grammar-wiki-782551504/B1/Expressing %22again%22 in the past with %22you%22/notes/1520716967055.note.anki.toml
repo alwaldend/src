@@ -1,0 +1,20 @@
+note_id = 1520716967055
+guid = "vpdp(:Q~>n"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972919
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "again" in the past with "you"'
+english = "We're going to work late today. AGAIN!"
+example-sentence = ''
+example-type = ''
+grammar-construct = '(Subj. +) 又 + 不 / 没 + Verb'
+hanzi = '今天又要加班了！'
+notes = ''
+pinyin = 'Jīntiān yòu yào jiābān le!'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGN1JR5'

@@ -1,0 +1,20 @@
+note_id = 1520716966479
+guid = "sHPhQ}))CN"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+id = 1520716972343
+ordinal = 0
+
+[fields]
+article-title = 'Verbing briefly with "yixia"'
+english = 'Try it.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 一下 + Obj.'
+hanzi = '试一下吧。'
+notes = 'How long can trying it take?'
+pinyin = 'Shì yīxià ba.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWCESP'

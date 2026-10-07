@@ -1,0 +1,20 @@
+note_id = 1520716968066
+guid = "NJ+93zafv|"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+id = 1520716973930
+ordinal = 0
+
+[fields]
+article-title = 'Separable verb'
+english = "Don't chat during working hours."
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = ''
+hanzi = '上班时间不要聊天。'
+notes = ''
+pinyin = 'Shàngbān shíjiān bùyào liáotiān.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG4GVRX'

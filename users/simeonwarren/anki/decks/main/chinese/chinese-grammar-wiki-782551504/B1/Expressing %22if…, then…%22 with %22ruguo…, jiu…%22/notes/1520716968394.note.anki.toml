@@ -1,0 +1,20 @@
+note_id = 1520716968394
+guid = "opc>:8qRL$"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "IfStatements"]
+
+[[cards]]
+id = 1520716974258
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "if…, then…" with "ruguo…, jiu…"'
+english = 'When you have time, you need to find me so we can hang out.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '如果 + Statement + 的话，(就) Result'
+hanzi = '如果下次有时间的话，一定要找我玩儿。'
+notes = ''
+pinyin = 'Rúguǒ xià cì yǒu shíjiān de huà, yīdìng yào zhǎo wǒ wán er.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGGIVT0'

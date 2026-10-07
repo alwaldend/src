@@ -1,0 +1,20 @@
+note_id = 1520716969446
+guid = "dbihFTmr;4"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Comparisons", "TimeWords"]
+
+[[cards]]
+id = 1520716975310
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "gang" and "gangcai"'
+english = "He just didn't understand what I said."
+example-sentence = ''
+example-type = 'invalid'
+grammar-construct = '刚 + Adj.'
+hanzi = '他刚没听懂我的话。'
+notes = "刚 doesn't work with 没."
+pinyin = '<div>Tā gāng méi tīng dǒng wǒ dehuà.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJFFWG'

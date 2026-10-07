@@ -1,0 +1,20 @@
+note_id = 1520716970517
+guid = "rw+tWL~J3!"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716976381
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "both… and…" with "ji...you"'
+english = "This product's design is both stylish and humane."
+example-sentence = ''
+example-type = ''
+grammar-construct = '既 + A + 又 + B'
+hanzi = '这个产品的设计既时尚又人性化。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGZRPCK'

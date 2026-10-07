@@ -1,0 +1,17 @@
+note_id = 1526925841816
+guid = "GO~L4%s%%7"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = ["Cursor", "Movement"]
+
+[[cards]]
+id = 1526925860370
+ordinal = 0
+
+[[cards]]
+id = 1668965796606
+ordinal = 1
+
+[fields]
+Back = '$'
+Front = 'Jump to the end of the line'

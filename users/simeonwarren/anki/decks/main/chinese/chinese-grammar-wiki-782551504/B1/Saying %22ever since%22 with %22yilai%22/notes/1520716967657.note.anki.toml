@@ -1,0 +1,20 @@
+note_id = 1520716967657
+guid = "y+&{FUdaGC"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973521
+ordinal = 0
+
+[fields]
+article-title = 'Saying "ever since" with "yilai"'
+english = "My classmate hasn't come to class for a few days now."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Time Interval + 来'
+hanzi = '我的同学几天来一直没有上课。'
+notes = ''
+pinyin = 'Wǒ de tóngxué jǐ tiān lái yīzhí méiyǒu shàngkè.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNEMXP'

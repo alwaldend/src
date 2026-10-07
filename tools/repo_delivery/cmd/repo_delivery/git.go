@@ -80,11 +80,11 @@ const (
 	// Porcelain-v2 includes modes and object IDs for every changed path.
 	// Allow complete migration inventories beyond the generic diagnostic
 	// ceiling while retaining a strict operation-specific output bound.
-	gitStatusOutputLimit = 1024 * 1024
+	gitStatusOutputLimit = 4 * 1024 * 1024
 	// Aggregate diffs include both old and new paths for moved files. Keep
 	// complete immutable path inventories bounded independently of ordinary
 	// diagnostic output, including migrations with long archived paths.
-	gitChangedPathsOutputLimit = 1024 * 1024
+	gitChangedPathsOutputLimit = 4 * 1024 * 1024
 )
 
 var gitForcedEnvironment = []string{

@@ -1,0 +1,17 @@
+note_id = 1634361489865
+guid = "C*@eyTR,%("
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634370866270
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<i>set</i>.add(<i>item</i>)&nbsp;'
+example = ''
+question = '<b>Set method</b>&nbsp;to add a single item to a set.'
+version = ''
+with-options = ''

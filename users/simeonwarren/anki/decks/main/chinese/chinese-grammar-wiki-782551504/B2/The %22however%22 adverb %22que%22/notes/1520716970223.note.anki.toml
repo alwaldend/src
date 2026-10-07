@@ -1,0 +1,20 @@
+note_id = 1520716970223
+guid = "n=<dQ0~4-F"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "ButStatements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716976087
+ordinal = 0
+
+[fields]
+article-title = 'The "however" adverb "que"'
+english = 'This piece of clothing is brandname, but the quality is not so good.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Sentence ，(但是 +) Subj. + 却 ⋯⋯'
+hanzi = '这件衣服虽然是名牌，但是质量却不怎么样。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGEG2QB'

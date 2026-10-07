@@ -1,0 +1,20 @@
+note_id = 1520716970714
+guid = "LU|KqJ*SW3"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Comparisons", "Conjunctions"]
+
+[[cards]]
+id = 1520716976578
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "gen" and "dui"'
+english = "I told her, but she didn't believe me."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Person A + 跟 / 对 + Person B 说'
+hanzi = '我跟她说了，但是她不信。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGC5Y86'

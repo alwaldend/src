@@ -1,0 +1,20 @@
+note_id = 1520716968848
+guid = "cO.YD]*OVF"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974712
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "not only... but also"'
+english = 'She is not only smart, but also very hard-working.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不但 + Adj. / Verb， 而且 + Adj. / Verb'
+hanzi = '她不但聪明，而且很努力。'
+notes = ''
+pinyin = 'Tā bùdàn cōngming, érqiě hěn nǔlì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTYJ3E'

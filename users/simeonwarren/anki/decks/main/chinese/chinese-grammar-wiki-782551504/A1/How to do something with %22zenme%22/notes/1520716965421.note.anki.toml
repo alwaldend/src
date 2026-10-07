@@ -1,0 +1,20 @@
+note_id = 1520716965421
+guid = "Jh6u!KwGUo"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+id = 1520716971285
+ordinal = 0
+
+[fields]
+article-title = 'How to do something with "zenme"'
+english = 'How did you know I like to travel?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 怎么 + Verb + Obj.'
+hanzi = '你怎么知道我喜欢旅行？'
+notes = ''
+pinyin = 'Nǐ zěnme zhīdào wǒ xǐhuan lǚxíng?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGH2MNO'

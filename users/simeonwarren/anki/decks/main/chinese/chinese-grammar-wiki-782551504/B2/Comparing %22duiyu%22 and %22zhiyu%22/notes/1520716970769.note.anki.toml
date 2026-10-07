@@ -1,0 +1,25 @@
+note_id = 1520716970769
+guid = "bC.WDUCE-<"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Comparisons", "Prepositions"]
+
+[[cards]]
+id = 1520716976633
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "duiyu" and "zhiyu"'
+english = "The content of today's meeting is a discussion about the problems in developing China's markets.<br>My opinion towards the Chinese markets is that we still don't understand. The best thing is to wait some more."
+example-sentence = ''
+example-type = ''
+grammar-construct = '（不）至于 +  Degree'
+hanzi = 'A:我们今天的会议内容是讨论一下关于开发中国市场的问题。<br>B:我的意见是对于中国市场我们还不了解，最好是再等等。'
+notes = ''
+pinyin = """
+<div>A:\u0020
+Wǒmen jīntiān de huìyì nèiróng shì tǎolùn yīxià guānyú kāifā zhōngguó\u0020
+shìchǎng de wèntí.</div><div>B: Wǒ de yìjiàn shì duìyú zhōngguó shìchǎng\u0020
+wǒmen hái bù liǎojiě, zuì hǎo shì zài děng děng.</div>\
+"""
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGC01S0'

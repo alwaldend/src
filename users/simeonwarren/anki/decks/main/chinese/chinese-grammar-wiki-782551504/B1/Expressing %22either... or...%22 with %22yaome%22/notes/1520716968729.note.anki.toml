@@ -1,0 +1,20 @@
+note_id = 1520716968729
+guid = "fMi)M>(_~0"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974593
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "either... or..." with "yaome"'
+english = 'You either go back to hometown or stay in Shanghai.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '要么 + Option A ，要么 + Option B'
+hanzi = '你要么回老家，要么留在上海。'
+notes = ''
+pinyin = 'Nǐ yàome huí lǎojiā, yàome liúzài Shànghǎi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG30A60'

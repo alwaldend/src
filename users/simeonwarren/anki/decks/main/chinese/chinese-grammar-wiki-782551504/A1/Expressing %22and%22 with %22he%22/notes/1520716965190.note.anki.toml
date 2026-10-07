@@ -1,0 +1,20 @@
+note_id = 1520716965190
+guid = "O@Ysi>(3Wu"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971054
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "and" with "he"'
+english = 'Are today and tomorrow both OK?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun 1 + 和 + Noun 2'
+hanzi = '今天和明天都可以吗？'
+notes = ''
+pinyin = 'Jīntiān hé míngtiān dōu kěyǐ ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGP0KFF'

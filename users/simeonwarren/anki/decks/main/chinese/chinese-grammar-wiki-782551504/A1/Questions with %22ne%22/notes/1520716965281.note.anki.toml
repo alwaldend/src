@@ -1,0 +1,20 @@
+note_id = 1520716965281
+guid = "w9knXO/G<g"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971145
+ordinal = 0
+
+[fields]
+article-title = 'Questions with "ne"'
+english = "It's raining in Beijing. How about in Shanghai?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Topic + 呢 ？'
+hanzi = '北京下雨了。上海呢？'
+notes = ''
+pinyin = 'Běijīng xiàyǔ le. Shànghǎi ne?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMJHZO'

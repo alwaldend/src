@@ -1,0 +1,20 @@
+note_id = 1520716970010
+guid = "raF6vw]H)|"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+id = 1520716975874
+ordinal = 0
+
+[fields]
+article-title = 'Opportune timing with "chen"'
+english = "You guys should go have more fun while you're still young."
+example-sentence = ''
+example-type = ''
+grammar-construct = '趁 + [Situation / Opportunity]'
+hanzi = '趁年轻，多去玩玩吧。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGI9PNV'

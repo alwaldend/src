@@ -1,0 +1,20 @@
+note_id = 1520716970560
+guid = "q?PX6uViWP"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716976424
+ordinal = 0
+
+[fields]
+article-title = 'Occurring together with "shaobuliao"'
+english = 'There are always birthday cakes when we spend birthdays.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 少不了 + 要 + [Verb Phrase]'
+hanzi = '过生日少不了要吃生日蛋糕。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG3IR71'

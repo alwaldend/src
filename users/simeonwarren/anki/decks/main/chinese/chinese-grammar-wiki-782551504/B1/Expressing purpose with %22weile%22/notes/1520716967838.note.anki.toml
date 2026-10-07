@@ -1,0 +1,20 @@
+note_id = 1520716967838
+guid = "KR_7>~r`H-"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+id = 1520716973702
+ordinal = 0
+
+[fields]
+article-title = 'Expressing purpose with "weile"'
+english = "The reason they don't want to have kids is so they can spend more time with each other."
+example-sentence = ''
+example-type = ''
+grammar-construct = '⋯⋯是 + 为了 + Purpose / Reason'
+hanzi = '他俩一直不要孩子是为了多点时间享受二人世界。'
+notes = ''
+pinyin = 'Tā liǎ (zhīsuǒyǐ) yīzhí bùyào háizi shì wèile duō diǎn shíjiān xiǎngshòu èrrénshìjiè.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQGJXT'

@@ -1,0 +1,20 @@
+note_id = 1520716968546
+guid = "Hck8.k+rFu"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "NounPhrases"]
+
+[[cards]]
+id = 1520716974410
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "the other" with "lingwai"'
+english = 'I have two cell phones. One is Xiao Mi, and the other is iPhone.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '另外 + Number + [Measure Word] + Noun'
+hanzi = '我有两个手机，一个是小米，另一个是iPhone。'
+notes = ''
+pinyin = 'Wǒ yǒu liǎng gè shǒujī, yī gè shì Xiǎomǐ, lìng yī gè shì iPhone.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGD3FE5'

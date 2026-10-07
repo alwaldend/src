@@ -1,0 +1,20 @@
+note_id = 1520716965396
+guid = "c!ey#b`IZW"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Auxiliaryverbs", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971260
+ordinal = 0
+
+[fields]
+article-title = 'Expressing ability or possibility with "neng"'
+english = "You can't swim here."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 能 + Verb + Obj.'
+hanzi = '这里不能游泳。'
+notes = "It's not allowed, or not possible for other reasons."
+pinyin = 'Zhèlǐ bù néng yóuyǒng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG9PQ40'

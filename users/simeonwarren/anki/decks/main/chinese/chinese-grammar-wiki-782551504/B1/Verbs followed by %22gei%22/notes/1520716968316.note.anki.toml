@@ -1,0 +1,20 @@
+note_id = 1520716968316
+guid = "juV%u8dm^7"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716974180
+ordinal = 0
+
+[fields]
+article-title = 'Verbs followed by "gei"'
+english = 'Please pass me the salt. Thanks.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 把 + Obj. + Verb + 给 + Recipient'
+hanzi = '请把盐递给我，谢谢。'
+notes = ''
+pinyin = 'Qǐng bǎ yán dì gěi wǒ, xièxie.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMMHTQ'

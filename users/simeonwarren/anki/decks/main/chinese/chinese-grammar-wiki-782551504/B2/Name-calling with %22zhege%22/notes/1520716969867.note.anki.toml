@@ -1,0 +1,20 @@
+note_id = 1520716969867
+guid = "ESGR=_Z8SX"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975731
+ordinal = 0
+
+[fields]
+article-title = 'Name-calling with "zhege"'
+english = "Money and that kind of thing, you can have, but you don't need."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 这种 / 这类 + [Category]'
+hanzi = '钱这种东西，可以有可以没有。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNPO4V'

@@ -1,0 +1,20 @@
+note_id = 1520716967723
+guid = "BN-~E6<o;V"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973587
+ordinal = 0
+
+[fields]
+article-title = 'Expressing the self-evident with "ma"'
+english = 'His family is pretty rich.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Statement + 嘛'
+hanzi = '他家挺有钱的嘛。'
+notes = ''
+pinyin = 'Tā jiā tǐng yǒuqián de ma.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGVMC4B'

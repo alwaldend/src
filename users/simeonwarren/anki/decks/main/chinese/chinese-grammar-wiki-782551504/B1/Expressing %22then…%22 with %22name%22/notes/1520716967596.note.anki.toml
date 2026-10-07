@@ -1,0 +1,20 @@
+note_id = 1520716967596
+guid = "KsT>AN]U{/"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973460
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "then…" with "name"'
+english = "Everybody is here, so let's begin."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Situation ，那么 + Suggestion / Decision'
+hanzi = '大家都到了，那么我们开始吧。'
+notes = ''
+pinyin = 'Dàjiā dōu dào le, nàme wǒmen kāishǐ ba.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGX298Z'

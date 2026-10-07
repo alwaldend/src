@@ -1,0 +1,20 @@
+note_id = 1520716969934
+guid = "OaXWcWvM%%"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975798
+ordinal = 0
+
+[fields]
+article-title = 'le after an object'
+english = 'My older brother has had three girlfriends.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 了 + Number + Measure Word + Obj.'
+hanzi = '我哥哥换了三个女朋友了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG4K5WH'

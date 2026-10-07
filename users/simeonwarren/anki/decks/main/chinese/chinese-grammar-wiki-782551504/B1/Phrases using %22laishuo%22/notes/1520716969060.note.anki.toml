@@ -1,0 +1,20 @@
+note_id = 1520716969060
+guid = "Ee3|ZQ7Mys"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974924
+ordinal = 0
+
+[fields]
+article-title = 'Phrases using "laishuo"'
+english = 'Generally speaking, there are more job opportunities in big cities.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '一般来说，大城市有更多工作机会。'
+notes = ''
+pinyin = 'Yībān lái shuō, dà chéngshì yǒu gèng duō gōngzuò jīhuì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGD60A6'

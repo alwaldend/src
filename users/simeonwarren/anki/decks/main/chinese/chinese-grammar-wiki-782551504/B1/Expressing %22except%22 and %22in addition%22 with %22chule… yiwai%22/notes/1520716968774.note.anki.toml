@@ -1,0 +1,20 @@
+note_id = 1520716968774
+guid = "k?PDv<F+.E"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974638
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "except" and "in addition" with "chule… yiwai"'
+english = 'He can drink anything except white wine.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '除了 ⋯⋯ (+ 以外) ，Subj. + 都 ⋯⋯'
+hanzi = '除了白酒，别的酒他都喝。'
+notes = ''
+pinyin = 'Chúle báijiǔ, biéde jiǔ tā dōu hē.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGHFPGG'

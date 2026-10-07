@@ -1,0 +1,20 @@
+note_id = 1520716970561
+guid = "bLXGg4]:=m"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716976425
+ordinal = 0
+
+[fields]
+article-title = 'Occurring together with "shaobuliao"'
+english = "We're neighbors, so we'll definitely have to trouble you."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 少不了 + 要 + [Verb Phrase]'
+hanzi = '大家都是邻居，以后少不了要麻烦您。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG3IR71'

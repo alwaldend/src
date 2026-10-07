@@ -1,0 +1,20 @@
+note_id = 1520716969323
+guid = "P6S/s=db~="
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Comparisons", "Nouns"]
+
+[[cards]]
+id = 1520716975187
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "renjia" and "bieren"'
+english = 'You see him getting promoted quickly. What about you?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 人家'
+hanzi = '你看人家升职升得多快，你呢？'
+notes = ''
+pinyin = '<div>Nǐ kàn rénjiā shēng zhí shēng dé duō kuài, nǐ ne?</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPINA4'

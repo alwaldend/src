@@ -1,0 +1,20 @@
+note_id = 1520716968031
+guid = "olABrM1Eq}"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+id = 1520716973895
+ordinal = 0
+
+[fields]
+article-title = 'Expressing actions in progress (full form)'
+english = "I'm eating now."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + Obj. + 呢'
+hanzi = '我吃饭呢。'
+notes = ''
+pinyin = 'Wǒ chīfàn ne.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGEYQ9O'

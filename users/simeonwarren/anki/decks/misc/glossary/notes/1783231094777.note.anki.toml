@@ -1,0 +1,17 @@
+note_id = 1783231094777
+guid = "CBi%-wkD}f"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = []
+
+[[cards]]
+id = 1783231094778
+ordinal = 0
+
+[[cards]]
+id = 1783231094779
+ordinal = 1
+
+[fields]
+Back = "When a user queries a domain, a GeoDNS-enabled DNS server evaluates the requester's IP address to determine their approximate location and responds with an IP address for the server closest to them or best suited for that region. This approach improves latency, load distribution, and regional content delivery. GeoDNS is commonly used by global content delivery networks (CDNs), SaaS platforms, and enterprises with distributed infrastructure. Configuration may be handled through specialized DNS services that integrate geolocation logic into DNS resolution.<br><br>https://ipinfo.io/glossary/geodns"
+Front = 'Geodns'

@@ -1,0 +1,20 @@
+note_id = 1520716970145
+guid = "K9fr{KBOd3"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "ButStatements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716976009
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "although" with "jinguan"'
+english = "Even though the leaders aren't coming today, we still can't be lazy."
+example-sentence = ''
+example-type = ''
+grammar-construct = '尽管 A，还是 / 仍然 B'
+hanzi = '尽管领导今天不来，可我们还是不能偷懒。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGW863F'

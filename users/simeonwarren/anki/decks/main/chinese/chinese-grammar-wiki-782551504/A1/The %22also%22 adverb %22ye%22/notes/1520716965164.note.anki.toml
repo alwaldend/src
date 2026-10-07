@@ -1,0 +1,20 @@
+note_id = 1520716965164
+guid = "P):I+fcd*E"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971028
+ordinal = 0
+
+[fields]
+article-title = 'The "also" adverb "ye"'
+english = "She also thinks this teacher isn't good."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 也 + Verb / [Verb Phrase]'
+hanzi = '她也觉得这个老师不好。'
+notes = ''
+pinyin = 'Tā yě juéde zhège lǎoshī bù hǎo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGG25MD'

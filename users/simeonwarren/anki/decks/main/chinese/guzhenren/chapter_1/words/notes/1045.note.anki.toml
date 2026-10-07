@@ -1,0 +1,20 @@
+note_id = 1045
+guid = "l]RV/LwWc`"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+id = 1090
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'deep natural pond;	deep pit;	abyss.'
+example-sentence = ' 他目光幽幽,如古井深潭一般,一如既往的深不见底'
+example-type = ''
+grammar-construct = ''
+hanzi = '深潭'
+notes = ''
+pinyin = '<span class="tone1">shēn</span><span class="tone2">tán</span>	 <!-- shen tan -->'
+source = ''

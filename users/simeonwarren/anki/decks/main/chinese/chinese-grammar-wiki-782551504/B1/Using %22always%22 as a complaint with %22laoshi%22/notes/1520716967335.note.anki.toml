@@ -1,0 +1,20 @@
+note_id = 1520716967335
+guid = "L9LVXY$RH0"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973199
+ordinal = 0
+
+[fields]
+article-title = 'Using "always" as a complaint with "laoshi"'
+english = 'He complains about his life all the time.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '老是 + Verb'
+hanzi = '他老是抱怨自己的生活。'
+notes = ''
+pinyin = 'Tā lǎoshì bàoyuàn zǐjǐ de shēnghuó.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGII66E'

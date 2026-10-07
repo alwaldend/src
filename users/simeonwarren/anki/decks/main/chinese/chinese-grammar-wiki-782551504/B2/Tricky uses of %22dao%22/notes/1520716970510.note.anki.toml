@@ -1,0 +1,20 @@
+note_id = 1520716970510
+guid = "K]Rg>ycNrQ"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716976374
+ordinal = 0
+
+[fields]
+article-title = 'Tricky uses of "dao"'
+english = 'None of us thought that he would be so mad.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '我们都没想到他这么生气。'
+notes = ''
+pinyin = 'Wǒmen dōu méi xiǎngdào tā zhème shēngqì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCUSIV'

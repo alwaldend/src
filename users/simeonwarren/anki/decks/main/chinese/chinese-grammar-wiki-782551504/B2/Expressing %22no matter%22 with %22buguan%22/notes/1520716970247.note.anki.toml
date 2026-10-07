@@ -1,0 +1,20 @@
+note_id = 1520716970247
+guid = "HAy[D#$m2N"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Grammatical_Structures", "NoMatterStatements"]
+
+[[cards]]
+id = 1520716976111
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "no matter" with "buguan"'
+english = 'Wherever I go, I will always remember you.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '不管 + Question Word ，Subj. + 都 ⋯⋯'
+hanzi = '不管我去哪儿，我都会记得你。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG0NDS6'

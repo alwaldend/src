@@ -1,0 +1,17 @@
+note_id = 1668633797367
+guid = "M(0?N^:qnl"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = []
+
+[[cards]]
+id = 1668633797367
+ordinal = 0
+
+[[cards]]
+id = 1668965796723
+ordinal = 1
+
+[fields]
+Back = 'd`a'
+Front = 'Delete text from cursor position up to line and column of mark a&nbsp;'

@@ -1,0 +1,20 @@
+note_id = 1520716967906
+guid = "dkom4++#RC"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+id = 1520716973770
+ordinal = 0
+
+[fields]
+article-title = 'Verbs preceded by "gei"'
+english = 'Please return my email soon.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 给 + Target + [Verb Phrase]'
+hanzi = '请快点给我回邮件。'
+notes = ''
+pinyin = 'Qǐng kuàidiǎn gěi wǒ huí yóujiàn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG3ORNN'

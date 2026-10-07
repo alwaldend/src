@@ -1,0 +1,20 @@
+note_id = 1520716967820
+guid = "qR2p5s&u++"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+id = 1520716973684
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "toward" with "wang"'
+english = 'Turn left.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '往 + Direction / Place + Verb'
+hanzi = '往左拐。'
+notes = ''
+pinyin = 'Wǎng zuǒ guǎi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGAD070'

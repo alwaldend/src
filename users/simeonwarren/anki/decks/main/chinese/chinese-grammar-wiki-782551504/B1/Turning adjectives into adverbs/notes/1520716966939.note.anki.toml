@@ -1,0 +1,20 @@
+note_id = 1520716966939
+guid = "HHvtihK/C3"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972803
+ordinal = 0
+
+[fields]
+article-title = 'Turning adjectives into adverbs'
+english = 'The puppy barked loudly.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Adj. + 地 + Verb'
+hanzi = '小狗大声地叫。'
+notes = ''
+pinyin = 'Xiǎo gǒu dàshēng de jiào.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMAFSX'

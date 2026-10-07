@@ -1,0 +1,20 @@
+note_id = 1520716968631
+guid = "tu=5ps&=G^"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "NounPhrases"]
+
+[[cards]]
+id = 1520716974495
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "one of" with "…zhi yi"'
+english = 'The reason why I choose this company is that I like the working environment here.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '[Noun Phrase] + 之一'
+hanzi = '我选择这家公司的原因之一是我喜欢这里的工作环境。'
+notes = ''
+pinyin = 'Wǒ xuǎnzé zhè jiā gōngsī de yuányīn zhī yī shì wǒ xǐhuan zhèlǐ de gōngzuò huánjìng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMT1M1'

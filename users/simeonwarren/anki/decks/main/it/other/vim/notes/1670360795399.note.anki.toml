@@ -1,0 +1,17 @@
+note_id = 1670360795399
+guid = "Efy7P0`|ny"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = []
+
+[[cards]]
+id = 1670360795399
+ordinal = 0
+
+[[cards]]
+id = 1670360795400
+ordinal = 1
+
+[fields]
+Back = 'pattern<b>\</b>{-} " only one backslash'
+Front = 'Non-greedy pattern quantifier (vs. greedy Kleene-star)'

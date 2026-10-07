@@ -1,0 +1,20 @@
+note_id = 1520716968761
+guid = "LFJw%*|F_f"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974625
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "every" with question words'
+english = 'His dirty laundry is everywhere in his room.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '哪儿 / 哪里 (+ Verb) + 都 + Predicate'
+hanzi = '他的房间里哪儿都是脏衣服。'
+notes = ''
+pinyin = 'Tā de fángjiān lǐ nǎr dōu shì zāng yīfu.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG13ALM'

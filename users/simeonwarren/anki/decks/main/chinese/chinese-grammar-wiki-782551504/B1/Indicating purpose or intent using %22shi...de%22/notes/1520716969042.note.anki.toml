@@ -1,0 +1,20 @@
+note_id = 1520716969042
+guid = "cxw@B15L#q"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974906
+ordinal = 0
+
+[fields]
+article-title = 'Indicating purpose or intent using "shi...de"'
+english = "We're not going to hang out with people. Instead, we're there to do research."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Person + 是 + 来 / 去 + Verb+ 的'
+hanzi = '我们不是去玩的，是去做调查的。'
+notes = ''
+pinyin = 'Wǒmen bù shì qù wán de, shì qù zuò diàochá de.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG0UFR4'

@@ -1,0 +1,20 @@
+note_id = 1520716969568
+guid = "fDeouF}xq`"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adjectives", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975432
+ordinal = 0
+
+[fields]
+article-title = 'Challenging an adjective with "shenme"'
+english = "What are you looking at? Haven't you seen a pretty girl before?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Adj.／Verb + 什么 + (Adj.／Verb)？'
+hanzi = '你看什么看，没见过美女啊？'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNV2TZ'

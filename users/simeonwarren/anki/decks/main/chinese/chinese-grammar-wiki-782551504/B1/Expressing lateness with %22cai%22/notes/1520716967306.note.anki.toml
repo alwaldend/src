@@ -1,0 +1,20 @@
+note_id = 1520716967306
+guid = "Qz`0BzYU~?"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973170
+ordinal = 0
+
+[fields]
+article-title = 'Expressing lateness with "cai"'
+english = 'The flight just took off. It was late for two hours.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Time + 才 + Verb'
+hanzi = '飞机刚刚才起飞，晚点了两个小时。'
+notes = ''
+pinyin = 'Fēijī gānggāng cái qǐfēi, wǎndiǎn le liǎng gè xiǎoshí.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG3WTCJ'

@@ -1,0 +1,20 @@
+note_id = 3003
+guid = "Ki|MhfjPj#"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 3008
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'empty;	air;	sky;	in vain.<br>to empty;	vacant;	unoccupied;	space;	leisure;	free time.<br>'
+example-sentence = '当真是朝如青丝暮成雪,是非成败转头空'
+example-type = ''
+grammar-construct = ''
+hanzi = '空'
+notes = ''
+pinyin = '<span class="tone5">kōngkòng</span>	 <!-- kong kong -->'
+source = ''

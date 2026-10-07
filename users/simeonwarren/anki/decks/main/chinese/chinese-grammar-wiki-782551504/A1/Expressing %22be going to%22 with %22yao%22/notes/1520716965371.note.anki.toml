@@ -1,0 +1,20 @@
+note_id = 1520716965371
+guid = "nanV:T=guS"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Auxiliaryverbs", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971235
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "be going to" with "yao"'
+english = 'The teacher is coming to my place this afternoon.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Time + Subj. + 要 + Verb'
+hanzi = '下午老师要来我家。'
+notes = ''
+pinyin = 'Xiàwǔ lǎoshī yào  lái wǒ jiā.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGVT2KN'

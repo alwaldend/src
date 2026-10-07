@@ -1,0 +1,20 @@
+note_id = 1520716969687
+guid = "px*vg0kecJ"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975551
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "even" with "shenzhi"'
+english = "He's too busy. He doesn't even have time to eat lunch."
+example-sentence = ''
+example-type = ''
+grammar-construct = '⋯⋯，甚至 ⋯⋯'
+hanzi = '他太忙了，甚至连吃中饭的时间都没有。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGKWV6F'

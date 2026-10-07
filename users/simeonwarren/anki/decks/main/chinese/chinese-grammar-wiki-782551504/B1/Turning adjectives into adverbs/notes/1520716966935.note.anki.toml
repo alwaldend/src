@@ -1,0 +1,20 @@
+note_id = 1520716966935
+guid = "KK.i:N_uTx"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972799
+ordinal = 0
+
+[fields]
+article-title = 'Turning adjectives into adverbs'
+english = 'I hope that you grow up happily.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Adj. + 地 + Verb'
+hanzi = '我希望你快快乐乐地长大。'
+notes = ''
+pinyin = 'Wǒ xīwàng nǐ kuài kuài lè lè de zhǎngdà.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMAFSX'

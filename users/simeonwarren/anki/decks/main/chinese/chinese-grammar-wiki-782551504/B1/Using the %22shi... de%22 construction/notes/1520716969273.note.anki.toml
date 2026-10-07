@@ -1,0 +1,20 @@
+note_id = 1520716969273
+guid = "hr;2qw#p}&"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716975137
+ordinal = 0
+
+[fields]
+article-title = 'Using the "shi... de" construction'
+english = 'I went to Hangzhou yesterday.<br>How did you get there?<br>I went by train.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = 'A:昨天我去杭州了。<br>B:你是怎么去的？<br>A:我是坐火车去的。'
+notes = ''
+pinyin = 'Zuótiān wǒ qù Hángzhōu le.<br>Nǐ shì zěnme qù de?<br>Wǒ shì zuò huǒchē  qù de.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8YTSF'

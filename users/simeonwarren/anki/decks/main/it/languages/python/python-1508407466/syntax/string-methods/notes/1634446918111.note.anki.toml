@@ -1,0 +1,17 @@
+note_id = 1634446918111
+guid = "ck9K+4YP7S"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634446918112
+ordinal = 0
+
+[fields]
+additional-info = '<div>The method works off of the str class as a static method or some <i>string</i> as an instance method.&nbsp;</div><a href="https://www.programiz.com/python-programming/methods/string/maketrans">https://www.programiz.com/python-programming/methods/string/maketrans</a>'
+answer = 'str.maketrans()'
+example = ''
+question = '<b>String method</b> that returns a translation table to be used in translations.'
+version = ''
+with-options = ''

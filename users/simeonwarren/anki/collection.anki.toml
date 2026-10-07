@@ -1,0 +1,11 @@
+format_version = 2
+base_sha256 = "5bd80ae6f8d79d3fce518d13d3e008d100a343824fea412d43ef290949d012c7"
+
+[decks]
+path = "decks"
+
+[note_types]
+path = "note_types"
+
+[notes]
+path = "notes"

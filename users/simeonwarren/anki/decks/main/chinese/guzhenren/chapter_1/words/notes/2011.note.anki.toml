@@ -1,0 +1,20 @@
+note_id = 2011
+guid = "Dl~Q,w9yxB"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 2023
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'they.'
+example-sentence = ' 他们没有动手,都忌惮着方源的临死反扑'
+example-type = ''
+grammar-construct = ''
+hanzi = '他们'
+notes = ''
+pinyin = '<span class="tone1">tā</span><span class="tone5">men</span>	 <!-- ta men -->'
+source = ''

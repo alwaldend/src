@@ -1,0 +1,20 @@
+note_id = 1520716967132
+guid = "nx-Er<gY=N"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972996
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "each other" with "huxiang"'
+english = 'Help each other'
+example-sentence = ''
+example-type = ''
+grammar-construct = '互相 + Verb'
+hanzi = '互相帮助'
+notes = ''
+pinyin = 'hùxiāng bāngzhù'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGF00B7'

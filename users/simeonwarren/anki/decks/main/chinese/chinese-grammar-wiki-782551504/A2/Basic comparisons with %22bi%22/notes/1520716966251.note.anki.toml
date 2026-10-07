@@ -1,0 +1,20 @@
+note_id = 1520716966251
+guid = "NRyhF+[f^Y"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+id = 1520716972115
+ordinal = 0
+
+[fields]
+article-title = 'Basic comparisons with "bi"'
+english = 'Your boyfriend is even more handsome than mine.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun 1 + 比 + Noun 2 + 更 + Adj.'
+hanzi = '你男朋友比我男朋友更帅。'
+notes = ''
+pinyin = 'Nǐ nánpéngyou bǐ wǒ nánpéngyou gèng shuài.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8SI2K'

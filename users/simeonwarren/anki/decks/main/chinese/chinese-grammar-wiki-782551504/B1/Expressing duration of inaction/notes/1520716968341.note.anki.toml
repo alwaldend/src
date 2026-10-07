@@ -1,0 +1,20 @@
+note_id = 1520716968341
+guid = "OEvtgBr?[g"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+id = 1520716974205
+ordinal = 0
+
+[fields]
+article-title = 'Expressing duration of inaction'
+english = "She hasn't been out for more than two months since her mother passed away ."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Duration + 没 + Verb + Obj. + 了'
+hanzi = '她妈妈去世以后，她都两个多月没出门了。'
+notes = ''
+pinyin = 'Tā māma qùshì yǐhòu, tā dōu   liǎng gè duō yuè  méi chūmén le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGSVF28'

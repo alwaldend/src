@@ -1,0 +1,17 @@
+note_id = 1634370709758
+guid = "r(fTd{n%VM"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634370709760
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<i>dict</i>.values()'
+example = ''
+question = '<b>Dictionary method</b> that returns a list of all the values in the dictionary.'
+version = ''
+with-options = ''

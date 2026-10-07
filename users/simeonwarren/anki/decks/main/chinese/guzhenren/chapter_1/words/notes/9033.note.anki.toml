@@ -1,0 +1,20 @@
+note_id = 9033
+guid = "t3Ov|c@sS}"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 9074
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'but;	yet;	however;	only;	merely;	still.'
+example-sentence = ' 族长这话说的含蓄,但大家都深晓其意'
+example-type = ''
+grammar-construct = ''
+hanzi = '但'
+notes = ''
+pinyin = '<span class="tone4">dàn</span>	 <!-- dan -->'
+source = ''

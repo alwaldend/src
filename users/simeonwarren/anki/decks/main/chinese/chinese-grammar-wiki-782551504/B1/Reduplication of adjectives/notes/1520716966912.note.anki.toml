@@ -1,0 +1,20 @@
+note_id = 1520716966912
+guid = "F^x.A*:og`"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972776
+ordinal = 0
+
+[fields]
+article-title = 'Reduplication of adjectives'
+english = 'generous'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A  A  B  B  + 的 (+ Noun)'
+hanzi = '大方→大大方方'
+notes = ''
+pinyin = 'dàfāng ￫ dà da fāng fāng'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDHE8S'

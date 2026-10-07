@@ -1,0 +1,20 @@
+note_id = 1520716969159
+guid = "tC:Uz_eQ3`"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716975023
+ordinal = 0
+
+[fields]
+article-title = 'Uses of "shi" with "de"'
+english = "A: I teach Chinese. What kind of work do you do?<br>B: I'm a take-out delivery guy."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Thing + 是 + 用来 + Verb + 的'
+hanzi = 'A:我是教汉语的。你是做什么的？<br>B:我是送外卖的。'
+notes = ''
+pinyin = 'Wǒ shì jiāo Hànyǔ de. Nǐ shì zuò shénme de?<br>Wǒ shì sòng wàimài de.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGE662E'

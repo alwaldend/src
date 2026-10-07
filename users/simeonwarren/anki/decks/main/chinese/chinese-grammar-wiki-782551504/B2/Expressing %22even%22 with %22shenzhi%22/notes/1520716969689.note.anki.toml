@@ -1,0 +1,20 @@
+note_id = 1520716969689
+guid = "Cr,-axKp@x"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975553
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "even" with "shenzhi"'
+english = 'This question is simple, even kids know the answer.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '⋯⋯，甚至 ⋯⋯'
+hanzi = '这个问题很简单，甚至连孩子都知道。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGKWV6F'

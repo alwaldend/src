@@ -1,0 +1,20 @@
+note_id = 1520716970377
+guid = "OmZ;-qxQ4t"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716976241
+ordinal = 0
+
+[fields]
+article-title = 'Advanced result complements'
+english = "Stop guessing. There's no way for you to figure out who my new boy friend is."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '别猜了，你们肯定猜不出我的新男朋友是谁。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG4OM4T'

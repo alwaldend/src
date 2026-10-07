@@ -1,0 +1,17 @@
+note_id = 1638129270868
+guid = "J[scRdOUzl"
+note_type_id = 1630447360002
+note_type = "python-basic"
+tags = []
+
+[[cards]]
+id = 1638129270868
+ordinal = 0
+
+[fields]
+'Additional Info' = ''
+'Back - Basic' = '<ol><li>Union: |</li><li>Intersection: &amp;</li><li>Difference: -</li><li>Symmetric Difference: ^</li><li>Is Subset: &lt;=</li><li>Is Superset: &gt;=</li></ol><div><b>Note</b>: you can use - but <i>not</i>&nbsp;+ on sets.</div>'
+'Back - Code' = ''
+Example = ''
+Front = 'Which bitwise and mathematical operators can be used on a set?'
+Version = ''

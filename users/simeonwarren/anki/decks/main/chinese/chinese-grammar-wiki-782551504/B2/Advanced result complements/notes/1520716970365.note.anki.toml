@@ -1,0 +1,20 @@
+note_id = 1520716970365
+guid = "O>J$iQ9>(X"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716976229
+ordinal = 0
+
+[fields]
+article-title = 'Advanced result complements'
+english = 'You must seize the opportunity tightly.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '你必须抓住机会。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG4OM4T'

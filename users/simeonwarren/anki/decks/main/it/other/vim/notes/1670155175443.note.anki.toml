@@ -1,0 +1,17 @@
+note_id = 1670155175443
+guid = "AW4IgJ%_Gf"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = []
+
+[[cards]]
+id = 1670155175443
+ordinal = 0
+
+[[cards]]
+id = 1670155175444
+ordinal = 1
+
+[fields]
+Back = '^o / ^i'
+Front = 'Move the cursor to its last / next position (when “redoing” the moves) position'

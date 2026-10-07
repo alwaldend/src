@@ -1,0 +1,20 @@
+note_id = 1520716968091
+guid = "B.k6o.(N)2"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+id = 1520716973955
+ordinal = 0
+
+[fields]
+article-title = 'Separable verb'
+english = ''
+example-sentence = ''
+example-type = 'invalid'
+grammar-construct = ''
+hanzi = '吃饭吃饭'
+notes = '饭 is the object; it should not be repeated.)'
+pinyin = 'chī fàn chīfàn'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG4GVRX'

@@ -1,0 +1,20 @@
+note_id = 1520716970617
+guid = "Qy4Ql27?eF"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Comparisons"]
+
+[[cards]]
+id = 1520716976481
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "benlai" and "yuanlai"'
+english = 'He was never a good person. Why do you still want to help him?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 本来 + 就 ＋ ⋯⋯'
+hanzi = '他本来就不是个好人，你怎么还要帮他？'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG56QKW'

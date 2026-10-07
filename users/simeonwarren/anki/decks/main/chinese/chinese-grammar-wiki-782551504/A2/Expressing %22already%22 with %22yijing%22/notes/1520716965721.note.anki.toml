@@ -1,0 +1,20 @@
+note_id = 1520716965721
+guid = "C<b@D1RUb"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971585
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "already" with "yijing"'
+english = "They don't live in China anymore."
+example-sentence = ''
+example-type = ''
+grammar-construct = '已经 + 不 + Verb + 了'
+hanzi = '他们已经不住在中国了。'
+notes = ''
+pinyin = 'Tāmen yǐjīng bù zhù zài Zhōngguó le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNXI27'

@@ -1,0 +1,20 @@
+note_id = 1520716969675
+guid = "GVza~ZCpX]"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975539
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "anyway" as "fanzheng"'
+english = "I don't need it anyway. So I'll just give it to you."
+example-sentence = ''
+example-type = ''
+grammar-construct = '反正＋condition，decision or resolution'
+hanzi = '反正我也不需要，就送给你吧。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGZVM27'

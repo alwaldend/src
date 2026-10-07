@@ -1,0 +1,20 @@
+note_id = 1520716968183
+guid = "PUt#;rz~XX"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716974047
+ordinal = 0
+
+[fields]
+article-title = 'Making judgments with "suan"'
+english = 'The things in this shop are fairly cheap.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 算 + (是) + Adj. + 的'
+hanzi = '这家店的东西算便宜的。'
+notes = ''
+pinyin = 'Zhè jiā diàn de dōngxi suàn piányi de.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWDWFN'

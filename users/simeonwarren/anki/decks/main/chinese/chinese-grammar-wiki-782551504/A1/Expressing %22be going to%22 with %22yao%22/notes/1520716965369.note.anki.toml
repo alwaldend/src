@@ -1,0 +1,20 @@
+note_id = 1520716965369
+guid = "pBE8N8p>QL"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Auxiliaryverbs", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971233
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "be going to" with "yao"'
+english = 'What are you doing this Sunday?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Time + Subj. + 要 + Verb'
+hanzi = '这个星期天你要做什么？'
+notes = ''
+pinyin = 'Zhège Xīngqītiān nǐ yào zuò shénme?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGVT2KN'

@@ -1,0 +1,20 @@
+note_id = 1520716968030
+guid = "OW*Tw>p<,w"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716973894
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "including" with "baokuo"'
+english = "Including monthly property fees, our office's rent is $20,000."
+example-sentence = ''
+example-type = ''
+grammar-construct = '包括 + Obj. (+ 在内)，一共 ⋯⋯'
+hanzi = '包括每个月的物业费，我们办公室的租金是两万。'
+notes = ''
+pinyin = 'Bāokuò měi gè yuè de wùyè fèi, wǒmen bàngōngshì de zūjīn shì liǎng wàn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG50341'

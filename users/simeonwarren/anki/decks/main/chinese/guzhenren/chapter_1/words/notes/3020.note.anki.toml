@@ -1,0 +1,20 @@
+note_id = 3020
+guid = "og>R3KH;Oc"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+id = 3042
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'to shake;	to jolt;	to bump.'
+example-sentence = '辗转颠簸300年,纵横世间200余年,500多年光阴悠悠,却是晃眼即逝'
+example-type = ''
+grammar-construct = ''
+hanzi = '颠簸'
+notes = ''
+pinyin = '<span class="tone1">diān</span><span class="tone3">bǒ</span>	 <!-- dian bo -->'
+source = ''

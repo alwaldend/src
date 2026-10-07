@@ -1,0 +1,20 @@
+note_id = 1520716968919
+guid = "C5ba<lNUX@"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974783
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "not only... but also"'
+english = 'Not only did she leave me, but she also took all my money.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不但 ⋯⋯ ，而且 ⋯⋯'
+hanzi = '她不但离开了我，还拿走了我所有的钱。'
+notes = ''
+pinyin = 'Tā bùdàn líkāi le wǒ, hái názǒu le wǒ suǒyǒu de qián.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTYJ3E'

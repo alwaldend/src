@@ -1,0 +1,20 @@
+note_id = 1520716968180
+guid = "r}qxI^-iWk"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716974044
+ordinal = 0
+
+[fields]
+article-title = "Expressing \"don't need to\" with \"buyong\""
+english = "You don't need to go over there. She will come here."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不用 + [Verb Phrase]'
+hanzi = '你不用过去，她会过来的。'
+notes = ''
+pinyin = 'Nǐ bùyòng guòqù, tā huì guòlái de.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGECD0E'

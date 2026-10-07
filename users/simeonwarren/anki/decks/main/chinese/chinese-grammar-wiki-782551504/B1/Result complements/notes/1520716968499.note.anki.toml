@@ -1,0 +1,20 @@
+note_id = 1520716968499
+guid = "c+.]oKNfA&"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716974363
+ordinal = 0
+
+[fields]
+article-title = 'Result complements'
+english = 'He pushed over an old people by accident.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + [One-syllable Verb] +了 (+ Obj.)'
+hanzi = '他不小心推倒了一个老人。'
+notes = ''
+pinyin = 'Tā bù xiǎoxīn tuīdǎo le yī gè lǎorén.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNNMST'

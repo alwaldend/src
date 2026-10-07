@@ -1,0 +1,20 @@
+note_id = 1520716966944
+guid = "tN#q:Uu*6/"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972808
+ordinal = 0
+
+[fields]
+article-title = 'Coincidence with "zhenghao"'
+english = 'I happened to do my internship there.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 正好 + [Verb Phrase]'
+hanzi = '我正好也在这里实习。'
+notes = ''
+pinyin = 'Wǒ zhènghǎo yě zài zhèlǐ shíxí.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGUD25J'

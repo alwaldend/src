@@ -1,0 +1,20 @@
+note_id = 1520716967917
+guid = "m?b;c-,v0D"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "SentencePatterns"]
+
+[[cards]]
+id = 1520716973781
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "double negation"'
+english = "The boss can't disagree."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不 + 是 / 会 / 能 + 没 + [Verb Phrase]'
+hanzi = '老板不会不同意的。'
+notes = ''
+pinyin = 'Lǎobǎn bù huì bù tóngyì de.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGEEA2D'

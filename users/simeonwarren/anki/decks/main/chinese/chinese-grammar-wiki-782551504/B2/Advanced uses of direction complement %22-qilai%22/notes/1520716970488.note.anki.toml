@@ -1,0 +1,20 @@
+note_id = 1520716970488
+guid = "bunlgWkIVa"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716976352
+ordinal = 0
+
+[fields]
+article-title = 'Advanced uses of direction complement "-qilai"'
+english = 'We will absolutely win this if we unite.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 把 + Obj. + Verb + 起来'
+hanzi = '如果我们团结起来，一定能赢。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGSCN01'

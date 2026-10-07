@@ -1,0 +1,20 @@
+note_id = 1520716967030
+guid = "zaI(=(=/1g"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972894
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "again" in the future with "zai"'
+english = 'Would you like to try it again?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 再 + [Verb Phrase]'
+hanzi = '要不要再试一下？'
+notes = ''
+pinyin = 'Yào bù yàozài shì yīxià?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGIZQJ2'

@@ -1,0 +1,20 @@
+note_id = 1520716966285
+guid = "M/)[P.2Eei"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716972149
+ordinal = 0
+
+[fields]
+article-title = 'Directional verbs "lai" and "qu"'
+english = "I don't have to go to work today. You can come to my home to eat dinner."
+example-sentence = ''
+example-type = ''
+grammar-construct = '来 / 去 + Place'
+hanzi = '我今天不上班，你们可以来我家吃饭。'
+notes = ''
+pinyin = 'Wǒ jīntiān bù shàngbān, nǐmen kěyǐ lái wǒ jiā chīfàn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGRBKSL'

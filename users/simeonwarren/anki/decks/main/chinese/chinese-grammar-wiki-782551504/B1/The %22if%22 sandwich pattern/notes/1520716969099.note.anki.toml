@@ -1,0 +1,20 @@
+note_id = 1520716969099
+guid = "Md4&L^sql."
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974963
+ordinal = 0
+
+[fields]
+article-title = 'The "if" sandwich pattern'
+english = 'What will you do if he disapprove?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '如果 ⋯⋯ 的话 ，(就) ⋯⋯'
+hanzi = '如果他不同意的话，你怎么办？'
+notes = ''
+pinyin = 'Rúguǒ tā bù tóngyì dehuà, nǐ zěnmebàn?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGN4VUU'

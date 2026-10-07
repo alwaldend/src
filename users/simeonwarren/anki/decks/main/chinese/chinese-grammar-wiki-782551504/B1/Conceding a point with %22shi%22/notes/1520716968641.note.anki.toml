@@ -1,0 +1,20 @@
+note_id = 1520716968641
+guid = "f3PWEH8[bw"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974505
+ordinal = 0
+
+[fields]
+article-title = 'Conceding a point with "shi"'
+english = "This thing is good, but it's too expensive."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Adj. + 是 + Adj. ， 但是 / 就是 ⋯⋯'
+hanzi = '这个东西好是好，就是太贵了。'
+notes = ''
+pinyin = 'Zhège dōngxi hǎo shì hǎo, jiùshì tài guì le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGT9Y8P'

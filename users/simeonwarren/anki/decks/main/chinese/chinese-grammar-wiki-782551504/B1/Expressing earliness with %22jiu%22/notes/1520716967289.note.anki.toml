@@ -1,0 +1,20 @@
+note_id = 1520716967289
+guid = "tPY:F9V9(H"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973153
+ordinal = 0
+
+[fields]
+article-title = 'Expressing earliness with "jiu"'
+english = 'The rice will be ready in 20 minutes.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Time + 就 + Verb'
+hanzi = '米饭二十分钟就好。'
+notes = ''
+pinyin = 'Mǐfàn èrshí fēnzhōng jiù hǎo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGKITRZ'

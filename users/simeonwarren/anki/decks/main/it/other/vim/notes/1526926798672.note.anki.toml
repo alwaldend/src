@@ -1,0 +1,17 @@
+note_id = 1526926798672
+guid = "f)g>Vad|d~"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = ["Marks"]
+
+[[cards]]
+id = 1526926825157
+ordinal = 0
+
+[[cards]]
+id = 1668965796667
+ordinal = 1
+
+[fields]
+Back = ':marks'
+Front = 'Show a list of all bookmarks'

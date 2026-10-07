@@ -1,0 +1,17 @@
+note_id = 1634373176302
+guid = "CPgfm1W+?9"
+note_type_id = 1630447360002
+note_type = "python-basic"
+tags = []
+
+[[cards]]
+id = 1634373176303
+ordinal = 0
+
+[fields]
+'Additional Info' = ''
+'Back - Basic' = '*args is non key value pairs while **kwargs is key value pairs.'
+'Back - Code' = ''
+Example = ''
+Front = 'What is the difference between *args and **kwargs?'
+Version = ''

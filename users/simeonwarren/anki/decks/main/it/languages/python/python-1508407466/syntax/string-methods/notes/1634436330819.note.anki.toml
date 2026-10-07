@@ -1,0 +1,17 @@
+note_id = 1634436330819
+guid = "Q*i$-W&dt,"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634436330819
+ordinal = 0
+
+[fields]
+additional-info = '<strong>Note:</strong>&nbsp;All string methods returns new values. They do not change the original string.'
+answer = '<i>string</i>.expandtabs()'
+example = ''
+question = '<b>String method</b> that sets the tab size of a string.'
+version = ''
+with-options = '<i>string</i>.expandtabs(<i>tabsize=8</i>)'

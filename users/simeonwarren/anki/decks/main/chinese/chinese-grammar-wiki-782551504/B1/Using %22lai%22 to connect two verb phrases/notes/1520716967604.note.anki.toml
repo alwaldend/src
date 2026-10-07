@@ -1,0 +1,20 @@
+note_id = 1520716967604
+guid = "J6[5Y6LhEP"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973468
+ordinal = 0
+
+[fields]
+article-title = 'Using "lai" to connect two verb phrases'
+english = 'A lot of young people like to use APP on the cell phone to order food .'
+example-sentence = ''
+example-type = ''
+grammar-construct = '通过 / 用 + Agent + 来 + [Verb Phrase]'
+hanzi = '很多年轻人用手机APP来点外卖。'
+notes = ''
+pinyin = 'Hěn duō niánqīng rén yòng shǒujī APP lái diǎn wàimài.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGBZ578'

@@ -1,0 +1,20 @@
+note_id = 7032
+guid = "cP(.:L--[B"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+id = 7070
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'strong'
+example-sentence = '至少也是独当一面的强者'
+example-type = ''
+grammar-construct = ''
+hanzi = '强者'
+notes = ''
+pinyin = '<span class="tone2">qiáng</span><span class="tone3">zhě</span>	 <!-- qiang zhe -->'
+source = ''

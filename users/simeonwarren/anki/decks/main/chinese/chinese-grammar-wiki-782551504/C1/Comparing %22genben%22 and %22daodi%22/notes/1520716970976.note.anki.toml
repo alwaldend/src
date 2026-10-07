@@ -1,0 +1,20 @@
+note_id = 1520716970976
+guid = "D3.+[+k984"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["C1", "Comparisons"]
+
+[[cards]]
+id = 1520716976840
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "genben" and "daodi"'
+english = 'The meeting has already been going on for two hours. When on earth are we going to finish?'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '会议已经开了两个小时了，我们到底什么时候结束？'
+notes = ''
+pinyin = 'Huìyì yǐjīng kāile liǎng gè xiǎoshíliǎo, wǒmen dàodǐ shénme shíhòu jiéshù?<br>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG9JK0B'

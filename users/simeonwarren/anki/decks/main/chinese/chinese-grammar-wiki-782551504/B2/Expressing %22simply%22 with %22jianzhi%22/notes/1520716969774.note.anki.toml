@@ -1,0 +1,20 @@
+note_id = 1520716969774
+guid = "BmSk55E1C2"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975638
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "simply" with "jianzhi"'
+english = 'The Samsung smartphones are just a copy of the iPhone.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 简直 + Verb'
+hanzi = '三星的智能手机简直就是在模仿iPhone。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8OLAE'

@@ -1,0 +1,20 @@
+note_id = 1520716969810
+guid = "j(5g~*S`OY"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975674
+ordinal = 0
+
+[fields]
+article-title = 'Expressing concern with "kongpa"'
+english = "I'm afraid it doesn't work this way."
+example-sentence = ''
+example-type = ''
+grammar-construct = '(Reason / Situation, ) 恐怕 + Fact / Conclusion'
+hanzi = '这样做恐怕不行。'
+notes = ''
+pinyin = 'Zhèyàng zuò kǒngpà bù xíng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGD4BA3'

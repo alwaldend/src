@@ -1,0 +1,20 @@
+note_id = 1520716969117
+guid = "k#q?EWi%>a"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974981
+ordinal = 0
+
+[fields]
+article-title = "The pattern \"it's not…, it's…\""
+english = "We're here to do our job, not to have fun."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 是 ⋯⋯ ，不是 ⋯⋯'
+hanzi = '我们是来办事的，不是来玩的。'
+notes = ''
+pinyin = 'Wǒmen  shì lái bànshì de, bù shì lái wán de.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGT9WYR'

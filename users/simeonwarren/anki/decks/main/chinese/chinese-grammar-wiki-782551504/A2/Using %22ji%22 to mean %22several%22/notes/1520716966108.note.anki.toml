@@ -1,0 +1,20 @@
+note_id = 1520716966108
+guid = "LgY*!`edg7"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "NumbersandMeasureWords", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971972
+ordinal = 0
+
+[fields]
+article-title = 'Using "ji" to mean "several"'
+english = 'This young actor has acted in dozens of movies. I like them all.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '几 + 十 + Measure Word + Noun'
+hanzi = '这个年轻的演员演了几十部电影。我都喜欢。'
+notes = ''
+pinyin = 'Zhège niánqīng de yǎnyuán yǎn le jǐ shí bù diànyǐng. Wǒ dōu xǐhuan.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGHC9CA'

@@ -1,0 +1,20 @@
+note_id = 1520716970789
+guid = "PyvV:0R&rk"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Comparisons", "SeparateFunctions"]
+
+[[cards]]
+id = 1520716976653
+ordinal = 0
+
+[fields]
+article-title = "Comparing \"fan'er\" and \"xiangfan\""
+english = 'These two art pieces have completely different forms.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 相反<br>A 和 / 跟 B ＋ 是 ＋ 相反的'
+hanzi = '这两种艺术的表现形式相反。'
+notes = ''
+pinyin = '<div>Zhè liǎng zhǒng yìshù de biǎoxiàn xíngshì xiāngfǎn.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGFNS52'

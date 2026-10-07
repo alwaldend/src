@@ -1,0 +1,20 @@
+note_id = 1520716967692
+guid = "pnzx!o]=f1"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973556
+ordinal = 0
+
+[fields]
+article-title = 'Advanced yes-no questions with "ma"'
+english = 'Can you repeat what your question is?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '[Question Word] + 吗 ？'
+hanzi = '你能再说一遍你的问题是什么吗？'
+notes = ''
+pinyin = 'Nǐ néng zài shuō yī biàn nǐ de wèntí shì shénme ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGI9WXT'

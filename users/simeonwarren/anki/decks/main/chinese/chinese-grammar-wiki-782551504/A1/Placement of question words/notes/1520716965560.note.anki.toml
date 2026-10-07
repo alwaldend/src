@@ -1,0 +1,20 @@
+note_id = 1520716965560
+guid = "cl*WeEFBF1"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+id = 1520716971424
+ordinal = 0
+
+[fields]
+article-title = 'Placement of question words'
+english = "When are you guys leaving?<br>We're leaving next month."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 什么时候 + Predicate ?'
+hanzi = 'A: 你们什么时候走？<br>B: 我们下个月走。'
+notes = ''
+pinyin = 'Nǐmen shénme shíhou zǒu?<br>Wǒmen xià gè yuè  zǒu.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJQPSC'

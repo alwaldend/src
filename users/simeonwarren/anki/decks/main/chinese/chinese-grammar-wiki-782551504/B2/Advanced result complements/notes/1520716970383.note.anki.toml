@@ -1,0 +1,20 @@
+note_id = 1520716970383
+guid = "xjxE8)dhq8"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716976247
+ordinal = 0
+
+[fields]
+article-title = 'Advanced result complements'
+english = "What's this thing made of? Can you feel it?"
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '这个东西是用什么做的？你能摸出来吗？'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG4OM4T'

@@ -1,0 +1,20 @@
+note_id = 1520716965620
+guid = "HG%u<mgmF4"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Comparisons", "Numbers"]
+
+[[cards]]
+id = 1520716971484
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "er" and "liang"'
+english = 'the second time'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '第二次'
+notes = ''
+pinyin = 'dì-èr cì'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJ46H1'

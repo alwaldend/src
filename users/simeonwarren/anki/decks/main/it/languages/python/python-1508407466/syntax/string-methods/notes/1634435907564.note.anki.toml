@@ -1,0 +1,20 @@
+note_id = 1634435907564
+guid = "j^6lE>D/`j"
+note_type_id = 1630447360002
+note_type = "python-basic"
+tags = []
+
+[[cards]]
+id = 1634435907565
+ordinal = 0
+
+[fields]
+'Additional Info' = ''
+'Back - Basic' = """
+The casefold() method returns a string where all the characters are in lower case. It is similar to the lower() method, but the casefold() method converts more characters into lower case.
+<br>For example, the German lowercase letter 'ß' is equivalent to 'ss'. Since it is already lowercase, the lower() method would not convert it; whereas the casefold() converts it to 'ss'.\
+"""
+'Back - Code' = ''
+Example = ''
+Front = 'What is the difference between the string methods .lower() and .casefold()?'
+Version = ''

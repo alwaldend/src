@@ -1,0 +1,17 @@
+note_id = 1669494164035
+guid = "HM5Zw;n?k|"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = []
+
+[[cards]]
+id = 1669494164037
+ordinal = 0
+
+[[cards]]
+id = 1669494164038
+ordinal = 1
+
+[fields]
+Back = ':set number'
+Front = 'Show line numbers'

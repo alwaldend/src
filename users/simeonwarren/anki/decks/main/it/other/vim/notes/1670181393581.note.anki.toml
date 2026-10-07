@@ -1,0 +1,30 @@
+note_id = 1670181393581
+guid = "v`?fV3Ol0|"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = []
+
+[[cards]]
+id = 1670181393581
+ordinal = 0
+
+[[cards]]
+id = 1670181393582
+ordinal = 1
+
+[fields]
+Back = """
+:sort {FLAGS} [/{PATTERN}/]<div>:sort! &nbsp;“ sort reverse</div><div><br></div><div>Flags:</div><div><ul>
+<li>
+<code>i</code> - Ignore Case.</li>
+<li>
+<code>n</code> - Sort depending on the first decimal on the line.</li>
+<li>
+<code>f</code> - Sort depending on the first float on the line.</li>
+<li>
+<code>/pattern/</code> - Sort depending on what comes after the match.</li>
+<li>
+<code>r</code> - Combined with <code>/pattern/</code>, sort lines on the matching pattern, with lines not matching pattern been left where they are (rearrange)</li>
+</ul></div>\
+"""
+Front = 'How can you sort all lines, and with which flags?'

@@ -1,0 +1,17 @@
+note_id = 1668637062884
+guid = "fm@i>V6Ul?"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = []
+
+[[cards]]
+id = 1668637062884
+ordinal = 0
+
+[[cards]]
+id = 1668965796731
+ordinal = 1
+
+[fields]
+Back = ':tabm[ove] [#] &nbsp; “ <b>0-based</b>'
+Front = 'Move tab [to position #]'

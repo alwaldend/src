@@ -1,0 +1,20 @@
+note_id = 3051
+guid = "k|m%GyU]_X"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+id = 3104
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'to select;	to pick;	choice;	option;	alternative.'
+example-sentence = '当初选择时,就有了心理准备'
+example-type = ''
+grammar-construct = ''
+hanzi = '选择'
+notes = ''
+pinyin = '<span class="tone3">xuǎn</span><span class="tone2">zé</span>	 <!-- xuan ze -->'
+source = ''

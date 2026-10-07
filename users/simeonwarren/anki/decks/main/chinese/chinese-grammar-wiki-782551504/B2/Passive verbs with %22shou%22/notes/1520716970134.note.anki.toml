@@ -1,0 +1,20 @@
+note_id = 1520716970134
+guid = "L#qd~(<T{k"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+id = 1520716975998
+ordinal = 0
+
+[fields]
+article-title = 'Passive verbs with "shou"'
+english = 'People who traffick kids should receive severe punishment in law.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '受 + (到/过) + ([Something / Someone]) + Noun / Verb'
+hanzi = '拐卖孩子的人应该受到法律的严惩。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG1DXUD'

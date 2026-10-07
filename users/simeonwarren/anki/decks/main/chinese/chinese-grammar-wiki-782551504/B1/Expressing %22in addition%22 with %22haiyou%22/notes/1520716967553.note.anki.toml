@@ -1,0 +1,20 @@
+note_id = 1520716967553
+guid = "qzNw[j%]j$"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973417
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "in addition" with "haiyou"'
+english = "You need to pay the deposit when you check in. In addition, it's not allowed to have pets here."
+example-sentence = ''
+example-type = ''
+grammar-construct = '⋯⋯ ，还有 ，⋯⋯'
+hanzi = '入住前要付押金。还有，不能带宠物。'
+notes = ''
+pinyin = 'Rùzhù qián yào fù yājīn. Háiyǒu, bù néng dài chǒngwù.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGHQRI1'

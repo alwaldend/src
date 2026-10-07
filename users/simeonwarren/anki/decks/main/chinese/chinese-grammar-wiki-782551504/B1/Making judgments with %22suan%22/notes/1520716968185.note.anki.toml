@@ -1,0 +1,20 @@
+note_id = 1520716968185
+guid = "I!&7LWUSoe"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716974049
+ordinal = 0
+
+[fields]
+article-title = 'Making judgments with "suan"'
+english = "My daughter fairly does what it's told."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 算 + (是) + Adj. + 的'
+hanzi = '我女儿算听话的。'
+notes = ''
+pinyin = 'Wǒ nǚér suàn tīnghuà de.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWDWFN'

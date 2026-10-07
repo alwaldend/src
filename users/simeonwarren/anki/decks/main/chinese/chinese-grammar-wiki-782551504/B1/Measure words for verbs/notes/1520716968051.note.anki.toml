@@ -1,0 +1,20 @@
+note_id = 1520716968051
+guid = "d4NAK>IjUt"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+id = 1520716973915
+ordinal = 0
+
+[fields]
+article-title = 'Measure words for verbs'
+english = "I've asked him about it many times, but he wouldn't tell me."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + Number + Measure Word'
+hanzi = '我问了他很多次，可是他不告诉我。'
+notes = ''
+pinyin = 'Wǒ wèn le tā hěn duō cì, kěshì tā bù gàosu wǒ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5AODR'

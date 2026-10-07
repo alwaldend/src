@@ -1,0 +1,20 @@
+note_id = 1520716970959
+guid = "C[Ayfj9Y2!"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["C1", "SentencePatterns"]
+
+[[cards]]
+id = 1520716976823
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "nothing is more...than" with "moguoyu"'
+english = 'Nothing makes her sadder than you shouting at her.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Topics or questions + 莫过于 + answer'
+hanzi = '让她最难过的莫过于你对她大喊大叫。'
+notes = ''
+pinyin = '<div>Ràng tā zuì nánguò de mò guòyú nǐ duì tā dà hǎn dà jiào.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGGI66V'

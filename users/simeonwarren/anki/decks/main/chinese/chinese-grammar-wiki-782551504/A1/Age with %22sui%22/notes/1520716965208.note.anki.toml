@@ -1,0 +1,20 @@
+note_id = 1520716965208
+guid = "d@~QlnUeaL"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Numbers", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971072
+ordinal = 0
+
+[fields]
+article-title = 'Age with "sui"'
+english = ''
+example-sentence = ''
+example-type = 'invalid'
+grammar-construct = 'Subj. + Number + 岁'
+hanzi = '我的孩子是一岁。'
+notes = ''
+pinyin = 'Wǒ de háizi shì yī suì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQUKJF'

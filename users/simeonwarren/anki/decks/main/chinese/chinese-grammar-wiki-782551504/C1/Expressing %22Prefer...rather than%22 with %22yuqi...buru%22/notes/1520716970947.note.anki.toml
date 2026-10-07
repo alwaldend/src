@@ -1,0 +1,20 @@
+note_id = 1520716970947
+guid = "i<xn$5_R]I"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["C1", "SentencePatterns"]
+
+[[cards]]
+id = 1520716976811
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "Prefer...rather than" with "yuqi...buru"'
+english = "I'd rather say that he was playing than cook."
+example-sentence = ''
+example-type = ''
+grammar-construct = '与其说 + A，不如说 + B'
+hanzi = '与其说他是在做饭，还不如说他是在玩。'
+notes = ''
+pinyin = '<div>Yǔqí shuō tā shì zài zuò fàn, hái bùrú shuō tā shì zài wán.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWI5CV'

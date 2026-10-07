@@ -1,0 +1,17 @@
+note_id = 1671484511578
+guid = "naJLUMtZ/-"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = []
+
+[[cards]]
+id = 1671484511578
+ordinal = 0
+
+[[cards]]
+id = 1671484511579
+ordinal = 1
+
+[fields]
+Back = ':set list?'
+Front = 'How do you inspect how invisible characters like tabs, spaces, and newlines will be displayed?'

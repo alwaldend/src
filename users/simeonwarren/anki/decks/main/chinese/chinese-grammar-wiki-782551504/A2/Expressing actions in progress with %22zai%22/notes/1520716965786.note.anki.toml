@@ -1,0 +1,20 @@
+note_id = 1520716965786
+guid = "fI#*8398p@"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971650
+ordinal = 0
+
+[fields]
+article-title = 'Expressing actions in progress with "zai"'
+english = 'We are in class right now; please wait a moment.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 正在 + Verb + Obj.'
+hanzi = '我们正在上课，请你等一会儿。'
+notes = ''
+pinyin = 'Wǒmen zhèngzài shàngkè, qǐng nǐ děng yīhuìr.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG846EA'

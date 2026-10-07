@@ -1,0 +1,20 @@
+note_id = 1520716967921
+guid = "JO9&jjMEV!"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "SentencePatterns"]
+
+[[cards]]
+id = 1520716973785
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "double negation"'
+english = "This is a team activity. You can't not participate."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不 + 是 / 会 / 能 + 没 + [Verb Phrase]'
+hanzi = '这是团队活动，不能不参加。'
+notes = ''
+pinyin = 'Zhè shì tuánduì huódòng, bù néng bù cānjiā.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGEEA2D'

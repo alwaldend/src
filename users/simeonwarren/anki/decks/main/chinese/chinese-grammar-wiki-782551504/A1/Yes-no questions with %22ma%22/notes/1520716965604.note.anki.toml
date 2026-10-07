@@ -1,0 +1,20 @@
+note_id = 1520716965604
+guid = "m4[C@cg*@0"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+id = 1520716971468
+ordinal = 0
+
+[fields]
+article-title = 'Yes-no questions with "ma"'
+english = 'Dad likes drinking tea.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '[Statement] + 吗 ？'
+hanzi = '爸爸喜欢喝茶。'
+notes = 'statement'
+pinyin = 'Bàba xǐhuan hē chá.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQ2AZA'

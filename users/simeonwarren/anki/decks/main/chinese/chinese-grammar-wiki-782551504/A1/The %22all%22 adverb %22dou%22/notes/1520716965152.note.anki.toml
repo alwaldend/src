@@ -1,0 +1,20 @@
+note_id = 1520716965152
+guid = "F+U-=)Kokm"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971016
+ordinal = 0
+
+[fields]
+article-title = 'The "all" adverb "dou"'
+english = 'Neither my wife nor I eat meat.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 都 + [Verb Phrase]'
+hanzi = '我和我太太都不吃肉。'
+notes = ''
+pinyin = 'Wǒ hé wǒ tàitai dōu bù chī ròu.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG9YK09'

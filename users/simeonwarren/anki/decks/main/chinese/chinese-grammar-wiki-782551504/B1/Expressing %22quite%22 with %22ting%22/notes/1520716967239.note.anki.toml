@@ -1,0 +1,20 @@
+note_id = 1520716967239
+guid = "HI?#7*+kVt"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973103
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "quite" with "ting"'
+english = 'I think your mom is quite young.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '挺 + Adj. + 的'
+hanzi = '我觉得你妈妈挺年轻的。'
+notes = ''
+pinyin = 'Wǒ juéde nǐ māma  tǐng niánqīng  de.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDF1F7'

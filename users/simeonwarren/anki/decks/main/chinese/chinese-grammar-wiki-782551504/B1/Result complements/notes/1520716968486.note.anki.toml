@@ -1,0 +1,20 @@
+note_id = 1520716968486
+guid = "zx9[I+gG9="
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716974350
+ordinal = 0
+
+[fields]
+article-title = 'Result complements'
+english = "He hasn't thought it through yet."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 没 + Verb + Adj. (+ Obj.)'
+hanzi = '他还没想好。'
+notes = ''
+pinyin = 'Tā hái méi xiǎng hǎo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNNMST'

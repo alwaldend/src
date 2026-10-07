@@ -1,0 +1,20 @@
+note_id = 1520716967208
+guid = "uv7*oz2fo8"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973072
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "in this way" with "zheyang"'
+english = 'If this is not the case, do you have a better explanation?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '（如果是 + ）这样的话，……'
+hanzi = '如果不是这样的话，你还有什么更好的解释？'
+notes = ''
+pinyin = 'Rúguǒ bù shìzhèyàng de huà, nǐ hái yǒu shénme gèng hǎo de jiěshì?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG1F4D1'

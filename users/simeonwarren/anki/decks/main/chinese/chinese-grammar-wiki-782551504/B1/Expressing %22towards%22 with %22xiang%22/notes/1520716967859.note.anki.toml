@@ -1,0 +1,20 @@
+note_id = 1520716967859
+guid = "v5b]M-r*,?"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+id = 1520716973723
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "towards" with "xiang"'
+english = 'The train already took off. She kept waving towards me.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '向 + Direction / Person + Verb'
+hanzi = '火车已经开了，她还在向我招手。'
+notes = ''
+pinyin = 'Huǒchē yǐjīng kāi le, tā hái zài xiàng wǒ zhāoshǒu.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQXARS'

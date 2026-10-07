@@ -1,0 +1,20 @@
+note_id = 1520716968385
+guid = "wDERN4Cb{q"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716974249
+ordinal = 0
+
+[fields]
+article-title = 'Direction complement "-qilai"'
+english = "Let's sing and dance!"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb / Adj.+ 起来 +了'
+hanzi = '大家唱起来，跳起来!'
+notes = ''
+pinyin = 'Dàjiā chàng qǐlái, tiào qǐlái !'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGBPXOB'

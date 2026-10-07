@@ -1,0 +1,20 @@
+note_id = 1520716967968
+guid = "Nx9XI4T211"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "leech", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716973832
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "after" with "jingguo"'
+english = "After a month of training, he has become more familiar with the company's business"
+example-sentence = ''
+example-type = ''
+grammar-construct = '经过 + Event / Time，Subj. + Predicate'
+hanzi = '经过一个月的培训，他对公司的业务已经比较熟悉了。'
+notes = ''
+pinyin = 'Jīngguò yīgè yuè de péixùn, tā duì gōngsī de yèwù yǐjīng bǐjiào shúxīle'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG11DA8'

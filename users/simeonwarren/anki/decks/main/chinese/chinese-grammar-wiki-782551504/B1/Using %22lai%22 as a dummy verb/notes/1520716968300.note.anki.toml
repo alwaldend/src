@@ -1,0 +1,20 @@
+note_id = 1520716968300
+guid = "Jj&B1vW|+f"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716974164
+ordinal = 0
+
+[fields]
+article-title = 'Using "lai" as a dummy verb'
+english = 'Teacher, let me read it.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '(让 +) Subj. + 来'
+hanzi = 'B:老师，我来。'
+notes = ''
+pinyin = 'B: Lāoshī, wǒ lái.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG98FZK'

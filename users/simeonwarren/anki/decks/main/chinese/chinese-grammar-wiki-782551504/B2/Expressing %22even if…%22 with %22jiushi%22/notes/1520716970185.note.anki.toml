@@ -1,0 +1,20 @@
+note_id = 1520716970185
+guid = "H(v0%VS3T`"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "EvenIfStatements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716976049
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "even if…" with "jiushi"'
+english = ''
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = '就是 + Hypothetical Statement + 也 + Action'
+hanzi = '现在虽然是高峰期，但我也要出去。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGF1TQ2'

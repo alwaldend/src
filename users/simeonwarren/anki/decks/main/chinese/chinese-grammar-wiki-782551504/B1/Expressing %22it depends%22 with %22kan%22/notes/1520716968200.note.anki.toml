@@ -1,0 +1,20 @@
+note_id = 1520716968200
+guid = "y@TBVoy5&@"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716974064
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "it depends" with "kan"'
+english = 'This depends on when you are available.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '这 / 那 + 要看 / 得看 + [Unclear Situation]'
+hanzi = '这得看你的时间。'
+notes = ''
+pinyin = 'Zhè děi kàn nǐ de shíjiān.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG765HD'

@@ -1,0 +1,20 @@
+note_id = 1520716966900
+guid = "k>x#G{*ZBy"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972764
+ordinal = 0
+
+[fields]
+article-title = 'Reduplication of adjectives'
+english = 'Your mother labored over this meal for two hours, and you are going to eat it?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'AABB + 地 + Verb'
+hanzi = '你妈妈辛辛苦苦地做了两个小时的饭，你怎么不吃？'
+notes = '辛辛苦苦 is difficult to translate into English directly!'
+pinyin = 'Nǐ māma xīn xīn kǔ kǔ de zuò le liǎng gè xiǎoshí de fàn, nǐ zěnme bù chī?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDHE8S'

@@ -1,0 +1,20 @@
+note_id = 1520716970726
+guid = "hu*[wQ5mnm"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Comparisons", "Conjunctions"]
+
+[[cards]]
+id = 1520716976590
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "gen" and "dui"'
+english = 'You like to buy clothes just like your mother.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A + 跟 + B + （不）一样 + Adj.'
+hanzi = '你跟你妈一样喜欢买衣服。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGC5Y86'

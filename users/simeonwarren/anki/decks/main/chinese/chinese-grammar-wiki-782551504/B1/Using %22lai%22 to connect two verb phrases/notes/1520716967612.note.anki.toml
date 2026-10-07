@@ -1,0 +1,20 @@
+note_id = 1520716967612
+guid = "xUo7%9%)#("
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973476
+ordinal = 0
+
+[fields]
+article-title = 'Using "lai" to connect two verb phrases'
+english = 'Both sides hope to work out the issues through negotiation.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '通过 / 用 + Agent + 来 + [Verb Phrase]'
+hanzi = '双方都希望通过谈判来解决问题。'
+notes = ''
+pinyin = 'Shuāngfāng dōu xīwàng tōngguò tánpàn lái jiějué wèntí.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGBZ578'

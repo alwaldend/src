@@ -1,0 +1,20 @@
+note_id = 1520716970118
+guid = "HiYH3q/b!b"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+id = 1520716975982
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "to be worth" doing with "zhide"'
+english = "This little thing isn't worth your time."
+example-sentence = ''
+example-type = ''
+grammar-construct = '值得 + Verb / [Verb Phrase]'
+hanzi = '这件小事不值得你担心。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGGJA6A'

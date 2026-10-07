@@ -1,0 +1,20 @@
+note_id = 1520716967654
+guid = "J8!M|[Z>yH"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973518
+ordinal = 0
+
+[fields]
+article-title = 'Saying "ever since" with "yilai"'
+english = "Ever since the 1979 reform, the Chinese people's level of living has gone up."
+example-sentence = ''
+example-type = ''
+grammar-construct = '自 / 从 / 自从 + Time or Event + 以来'
+hanzi = '自从1979年改革开放以来，中国人的生活水平得到了提高。'
+notes = ''
+pinyin = 'Zìcóng yījiǔqījiǔ nián gǎigé kāifàng yǐlái, Zhōngguó rén de shēnghuó shuǐpíng dédào le tígāo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNEMXP'

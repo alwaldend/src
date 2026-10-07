@@ -1,0 +1,20 @@
+note_id = 1052
+guid = "C4yj>hnnD*"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+id = 1104
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'clique;	school;	group;	faction;	to dispatch;	to send;	to assign;	to appoint;	pi (Greek letter Ππ);	the circular ratio pi = 3.1415926;	(loanword) pie.'
+example-sentence = ' 围攻他的正道群雄,不是堂堂一派之长者尊贵,就是名动四方之少年英豪'
+example-type = ''
+grammar-construct = ''
+hanzi = '派'
+notes = ''
+pinyin = '<span class="tone4">pài</span>	 <!-- yi pai -->'
+source = ''

@@ -1,0 +1,20 @@
+note_id = 1520716970720
+guid = "rCFDz.d9Kz"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Comparisons", "Conjunctions"]
+
+[[cards]]
+id = 1520716976584
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "gen" and "dui"'
+english = 'This little cat always follows me.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 跟 / 对 + Obj.'
+hanzi = '这只小猫总是跟着我。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGC5Y86'

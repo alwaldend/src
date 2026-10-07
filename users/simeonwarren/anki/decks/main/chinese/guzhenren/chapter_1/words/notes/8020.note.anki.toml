@@ -1,0 +1,20 @@
+note_id = 8020
+guid = "xn/iB,o!b)"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 8047
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'social group;	subculture;	family;	clan;	see also 族.'
+example-sentence = ' 作为一族之长,对于那些优秀而突出的子弟自然会关注'
+example-type = ''
+grammar-construct = ''
+hanzi = '一族'
+notes = ''
+pinyin = '<span class="tone1">yī</span>	 <span class="tone2">zú</span>	 <!-- yi zu -->'
+source = ''

@@ -1,0 +1,20 @@
+note_id = 1520716969666
+guid = "M]^aK:7-I/"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975530
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "almost" using "chadian mei"'
+english = "I didn't miss the train."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 差点 + 没 + Verb Phrase'
+hanzi = '我差点没赶上火车。'
+notes = "I almost missed it, but I didn't."
+pinyin = 'Wǒ chàdiǎn méi gǎnshàng huǒchē.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGGOUJB'

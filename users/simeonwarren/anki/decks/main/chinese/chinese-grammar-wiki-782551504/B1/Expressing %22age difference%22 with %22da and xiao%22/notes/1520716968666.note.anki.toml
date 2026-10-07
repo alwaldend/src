@@ -1,0 +1,20 @@
+note_id = 1520716968666
+guid = "h$=Z5<`MAW"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974530
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "age difference" with "da and xiao"'
+english = 'Old man, how old are you?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A + 和 / 跟 + B + 一样 / 差不多 + 大'
+hanzi = '爷爷，您多大岁数了？'
+notes = ''
+pinyin = 'Yéye, nín duō dà suìshu le?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGE8810'

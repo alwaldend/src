@@ -1,0 +1,20 @@
+note_id = 1520716965747
+guid = "JwRt#?sW;="
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971611
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "and also" with "hai"'
+english = 'We went out for dinner tonight and also watched a movie.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + Obj. 1， 还 + Verb + Obj. 2'
+hanzi = '我们今天晚上出去吃饭了，还看了电影。'
+notes = ''
+pinyin = 'Wǒmen jīntiān wǎnshang chūqù chīfàn le, hái kàn le diànyǐng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJBZKC'

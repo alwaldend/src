@@ -1,0 +1,20 @@
+note_id = 1520716969551
+guid = "wJgWs4_ibB"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Comparisons", "TimeWords"]
+
+[[cards]]
+id = 1520716975415
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "yihou" "ranhou" "houlai"'
+english = 'I saw him once. I never saw him again.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '[Past Event 1] ，后来 + [Past Event 2]'
+hanzi = 'A:见过一次。后来再也没见过。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNPJ7T'

@@ -1,0 +1,20 @@
+note_id = 1520716968504
+guid = "iRa@*&.F&g"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716974368
+ordinal = 0
+
+[fields]
+article-title = 'Potential complement'
+english = "I can't find my cellphone."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 得 + Complement'
+hanzi = '我找不到我的手机了。'
+notes = ''
+pinyin = 'Wǒ zhǎo bu dào wǒ de shǒujī le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCPJPQ'

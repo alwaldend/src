@@ -1,0 +1,20 @@
+note_id = 1520716967022
+guid = "Ir]p.4.Z6$"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972886
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "again" in the future with "zai"'
+english = 'He asked if we can give him a few more days.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 再 + Verb-Obj.'
+hanzi = '他问我们能不能再给他几天时间。'
+notes = ''
+pinyin = 'Tā wèn wǒmen néng bu néng zài gěi tā jǐ tiān shíjiān.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGIZQJ2'

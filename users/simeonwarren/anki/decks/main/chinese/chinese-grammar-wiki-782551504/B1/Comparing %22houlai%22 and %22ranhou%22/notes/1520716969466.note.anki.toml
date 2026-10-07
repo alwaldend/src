@@ -1,0 +1,20 @@
+note_id = 1520716969466
+guid = "CPOIy~jREt"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Comparisons", "TimeWords"]
+
+[[cards]]
+id = 1520716975330
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "houlai" and "ranhou"'
+english = "She left the country two years ago. Since then, I haven't seen her."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Action 1，然后 + Action 2'
+hanzi = 'A:两年前她出国了，后来就一直没见过她。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGA3RJD'

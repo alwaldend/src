@@ -1,0 +1,20 @@
+note_id = 1520716969012
+guid = "EaHuwpFc`H"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974876
+ordinal = 0
+
+[fields]
+article-title = 'Expressing purpose with "weile"'
+english = 'He gave up a highly-paid job five years ago in order to start his own business.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '为了 ⋯⋯ ，Subj. ⋯⋯'
+hanzi = '五年前，为了创业，他放弃了高薪的工作。'
+notes = ''
+pinyin = '<div>Wǔ nián qián, wèile chuàngyè, tā fàngqìle gāoxīn de gōngzuò.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQGJXT'

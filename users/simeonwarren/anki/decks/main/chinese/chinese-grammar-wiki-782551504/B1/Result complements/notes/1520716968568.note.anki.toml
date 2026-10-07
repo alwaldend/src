@@ -1,0 +1,20 @@
+note_id = 1520716968568
+guid = "q&y.J$yh,?"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716974432
+ordinal = 0
+
+[fields]
+article-title = 'Result complements'
+english = 'How did the baby hit his head?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '没 + Verb + Adj.'
+hanzi = '宝宝的头是怎么撞破的？'
+notes = ''
+pinyin = 'Bǎobǎo de tóu shì zěnme zhuàng pò de?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNNMST'

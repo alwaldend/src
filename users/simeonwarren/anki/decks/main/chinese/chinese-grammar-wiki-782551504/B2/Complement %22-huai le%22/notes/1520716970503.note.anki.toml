@@ -1,0 +1,20 @@
+note_id = 1520716970503
+guid = "iRTdBbd(iz"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716976367
+ordinal = 0
+
+[fields]
+article-title = 'Complement "-huai le"'
+english = "I didn't eat anything for breakfast or lunch. I'm starved to death."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Adj. + 坏了'
+hanzi = '我早饭和中饭都没吃，饿坏了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGT0GYL'

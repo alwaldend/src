@@ -1,0 +1,20 @@
+note_id = 1520716965413
+guid = "cXaW2G.8k%"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Auxiliaryverbs", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971277
+ordinal = 0
+
+[fields]
+article-title = 'Wanting to do something with "yao"'
+english = 'This weekend what do you want to do?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 要 + Verb + Obj.'
+hanzi = '这个周末你们要做什么？'
+notes = ''
+pinyin = 'Zhège zhōumò nǐmen yào zuò shénme?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGXVEAR'

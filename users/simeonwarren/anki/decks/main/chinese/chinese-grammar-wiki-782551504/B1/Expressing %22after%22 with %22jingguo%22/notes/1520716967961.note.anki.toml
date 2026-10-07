@@ -1,0 +1,20 @@
+note_id = 1520716967961
+guid = "phcE:_sD]u"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716973825
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "after" with "jingguo"'
+english = "I pass the People's Square every day on my way to work."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '我每天上班都会经过人民广场。'
+notes = ''
+pinyin = 'Wǒ měi tiān shàngbān dōu huì jīngguò Rénmín Guǎngchǎng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG11DA8'

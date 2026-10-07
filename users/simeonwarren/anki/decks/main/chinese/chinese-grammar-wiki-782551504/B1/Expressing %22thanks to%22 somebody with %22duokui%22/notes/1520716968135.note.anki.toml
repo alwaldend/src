@@ -1,0 +1,20 @@
+note_id = 1520716968135
+guid = "uSI2X]/n3="
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716973999
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "thanks to" somebody with "duokui"'
+english = 'Thanks to your introduction, I get the chance to meet him.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '多亏（了）……，Subj. 才 ……'
+hanzi = '多亏了你的介绍，我才有机会认识他.'
+notes = ''
+pinyin = 'Duō kuī le nǐ de jièshào, wǒ cái yǒu jīhuì rènshi tā.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG44TBS'

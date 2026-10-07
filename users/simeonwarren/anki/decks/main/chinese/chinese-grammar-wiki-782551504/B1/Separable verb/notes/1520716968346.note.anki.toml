@@ -1,0 +1,20 @@
+note_id = 1520716968346
+guid = "G3HbO)/_@m"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+id = 1520716974210
+ordinal = 0
+
+[fields]
+article-title = 'Separable verb'
+english = "He doesn't like to talk about his work."
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = ''
+hanzi = '他不喜欢聊他的工作。'
+notes = ''
+pinyin = 'Tā bù xǐhuan liáo tā de gōngzuò.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG4GVRX'

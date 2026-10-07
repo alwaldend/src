@@ -1,0 +1,20 @@
+note_id = 1520716969535
+guid = "neU}UN+5KJ"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Comparisons", "TimeWords"]
+
+[[cards]]
+id = 1520716975399
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "yihou" and "zhihou"'
+english = ''
+example-sentence = ''
+example-type = 'invalid'
+grammar-construct = 'Subj. + Event， 之后 + Action'
+hanzi = '昨天我跟朋友去吃饭了，以后，我们去酒吧。'
+notes = "Again, since there is nothing for \"以后\" to modify, it's a bad sentence."
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGC3SCN'

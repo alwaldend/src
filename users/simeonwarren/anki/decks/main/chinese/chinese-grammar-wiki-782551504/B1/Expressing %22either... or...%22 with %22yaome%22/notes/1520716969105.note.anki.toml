@@ -1,0 +1,20 @@
+note_id = 1520716969105
+guid = "D/v6*A::-<"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Either…or", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716974969
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "either... or..." with "yaome"'
+english = "The boss isn't here today. How about if you all come back tomorrow?"
+example-sentence = ''
+example-type = ''
+grammar-construct = '要么 + Option ，Reason / Situation'
+hanzi = '老板今天不在，要么你们明天来吧。'
+notes = ''
+pinyin = 'Lǎobǎn jīntiān bù zài, yàome nǐmen míngtiān lái ba.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG30A60'

@@ -1,0 +1,20 @@
+note_id = 1520716969096
+guid = "nv<Muznh>j"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974960
+ordinal = 0
+
+[fields]
+article-title = 'The "if" sandwich pattern'
+english = "Don't order so much. It will be a big waste of food if we can't finish all."
+example-sentence = ''
+example-type = ''
+grammar-construct = '如果 ⋯⋯ 的话 ，(就) ⋯⋯'
+hanzi = '别点那么多菜。如果吃不完的话，就浪费了。'
+notes = ''
+pinyin = 'Bié diǎn nàme duō cài. Rúguǒ chī bù wán dehuà, jiù tài làngfèi le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGN4VUU'

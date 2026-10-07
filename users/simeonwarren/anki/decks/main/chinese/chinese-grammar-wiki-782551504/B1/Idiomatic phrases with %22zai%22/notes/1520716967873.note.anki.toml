@@ -1,0 +1,20 @@
+note_id = 1520716967873
+guid = "j4-=8:n=Rm"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+id = 1520716973737
+ordinal = 0
+
+[fields]
+article-title = 'Idiomatic phrases with "zai"'
+english = 'She still insisted that the children should all go to school under that difficult financial condition.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '在 ⋯⋯ 下 ，⋯⋯'
+hanzi = '在那么困难的条件下，她还是坚持让孩子们都上学。'
+notes = ''
+pinyin = 'Zài nàme kùnnan de tiáojiàn xià, tā háishì jiānchí ràng háizi men dōu shàngxué.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGH13JY'

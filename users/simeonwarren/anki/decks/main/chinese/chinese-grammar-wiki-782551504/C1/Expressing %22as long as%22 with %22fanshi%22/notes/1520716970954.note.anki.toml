@@ -1,0 +1,20 @@
+note_id = 1520716970954
+guid = "GR]umR.wpR"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "C1"]
+
+[[cards]]
+id = 1520716976818
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "as long as" with "fanshi"'
+english = "As long as you're an American citizen, you can vote. Is this true?"
+example-sentence = ''
+example-type = ''
+grammar-construct = '凡是 +  Noun / Noun Phrase＋都 / 就 / 一律 / 无不＋ Verb'
+hanzi = '凡是美国公民都可以投票，这是真的吗？'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG38F8A'

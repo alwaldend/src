@@ -1,0 +1,20 @@
+note_id = 1520716970106
+guid = "gy38]_w>g0"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+id = 1520716975970
+ordinal = 0
+
+[fields]
+article-title = 'Combining verbs with "bing"'
+english = "We're in charge of installing and also maintaining this system."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb / [Verb Phrase 1] + 并(且) + Verb / [Verb Phrase 2]'
+hanzi = '我们负责安装并且维护这个系统。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5C89R'

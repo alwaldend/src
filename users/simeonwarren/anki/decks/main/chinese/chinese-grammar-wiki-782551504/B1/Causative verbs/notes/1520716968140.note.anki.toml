@@ -1,0 +1,20 @@
+note_id = 1520716968140
+guid = "i#?P6,h`wS"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716974004
+ordinal = 0
+
+[fields]
+article-title = 'Causative verbs'
+english = "He wouldn't listen to me. What are you expecting me to do?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + [Causative Verb] + Person + Predicate'
+hanzi = '他不听话，你叫我怎么办？'
+notes = ''
+pinyin = 'Tā bù tīnghuà, nǐ jiào wǒ zěnmebàn?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5T7XC'

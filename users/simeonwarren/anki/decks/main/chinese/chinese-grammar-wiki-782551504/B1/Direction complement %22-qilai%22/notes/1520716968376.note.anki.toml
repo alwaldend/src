@@ -1,0 +1,20 @@
+note_id = 1520716968376
+guid = "gbSus<12r%"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716974240
+ordinal = 0
+
+[fields]
+article-title = 'Direction complement "-qilai"'
+english = "Don't move! Put your hands up."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 起来'
+hanzi = '别动！把手举起来。'
+notes = ''
+pinyin = 'Bié dòng! Bǎ shǒu jǔ qǐlái.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGBPXOB'

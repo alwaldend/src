@@ -1,0 +1,20 @@
+note_id = 1520716969314
+guid = "q:$FQNxMEe"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Comparisons"]
+
+[[cards]]
+id = 1520716975178
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "changchang" and "jingchang"'
+english = 'Her forgetting to bring a key is a frequent occurrence.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '常常 / 经常 + Verb'
+hanzi = '她忘带钥匙是经常的事情。'
+notes = ''
+pinyin = 'Tā wàng dài yàoshi shì jīngcháng de shìqing.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGE8FLP'

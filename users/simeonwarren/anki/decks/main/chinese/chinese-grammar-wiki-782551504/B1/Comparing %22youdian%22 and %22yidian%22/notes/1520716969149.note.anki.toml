@@ -1,0 +1,20 @@
+note_id = 1520716969149
+guid = "gAZ9Pc=/[B"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Comparisons"]
+
+[[cards]]
+id = 1520716975013
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "youdian" and "yidian"'
+english = "This piece of clothing is a bit expensive.<br>It's a bit expensive, but it looks really good, I like it."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = 'A:这件衣服有点儿贵啊。<br>B:是贵了一点儿，但是很好看，我很喜欢。'
+notes = ''
+pinyin = '<div>A: Zhè jiàn yīfú yǒudiǎn er guì a.</div><div>B: Shì guìle yīdiǎn er, dànshì hěn hǎokàn, wǒ hěn xǐhuān.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGV55Y4'

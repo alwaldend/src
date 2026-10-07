@@ -1,0 +1,20 @@
+note_id = 1520716967670
+guid = "ryg9n?lh{0"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Numbers", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973534
+ordinal = 0
+
+[fields]
+article-title = 'Expressing fractions with "fenzhi"'
+english = 'My phone battery still has 30% left.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Denominator + 分之 + Numerator'
+hanzi = '我的手机电量还有百分之三十。'
+notes = ''
+pinyin = 'Wǒ de shǒujī diànliàng háiyǒu bǎifēnzhī sānshí.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG84RE9'

@@ -1,0 +1,20 @@
+note_id = 1520716967499
+guid = "f=u:xa$7Ep"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["AuxiliaryWords", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973363
+ordinal = 0
+
+[fields]
+article-title = 'Non-exhaustive lists with "dengdeng"'
+english = 'Beijing, Shanghai, Guangzhou and so on are economically developed cities.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A1，A2 ⋯⋯ 等 + [Category] + Predicate'
+hanzi = '北京、上海、广州等城市的经济都很发达。'
+notes = ''
+pinyin = 'Běijīng, Shànghǎi, Guǎngzhōu děng chéngshì de jīngjì  dōu hěn fādá.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGF763H'

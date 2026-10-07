@@ -1,0 +1,17 @@
+note_id = 1634432454801
+guid = "lK!y9vW}S("
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634432454802
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<b>Keyword</b> used to create a loop that continues until False.'
+example = ''
+question = '<b>Keyword: </b>while'
+version = ''
+with-options = ''

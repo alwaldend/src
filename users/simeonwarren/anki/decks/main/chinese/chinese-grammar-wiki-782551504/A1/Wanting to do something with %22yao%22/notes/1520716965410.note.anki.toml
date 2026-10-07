@@ -1,0 +1,20 @@
+note_id = 1520716965410
+guid = "f7}M%i>:t{"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Auxiliaryverbs", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971274
+ordinal = 0
+
+[fields]
+article-title = 'Wanting to do something with "yao"'
+english = 'The baby wants to sleep.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 要 + Verb + Obj.'
+hanzi = '宝宝要睡觉。'
+notes = ''
+pinyin = 'Bǎobao yào shuìjiào.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGXVEAR'

@@ -1,0 +1,20 @@
+note_id = 1520716965581
+guid = "F_[|H|qNe6"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+id = 1520716971445
+ordinal = 0
+
+[fields]
+article-title = 'Tag questions with "bu"'
+english = "Let's go home, OK?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 不 + Verb'
+hanzi = '我们回家吧，好不好？'
+notes = ''
+pinyin = 'Wǒmen huíjiā ba, hǎo bu hǎo?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG4D8XB'

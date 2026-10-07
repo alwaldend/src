@@ -1,0 +1,17 @@
+note_id = 1634415186418
+guid = "uZiQ~]o[h7"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634415186419
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<i>file</i>.detach()'
+example = ''
+question = '<b>File method</b>&nbsp;that returns the separated raw stream from the buffer.'
+version = ''
+with-options = ''

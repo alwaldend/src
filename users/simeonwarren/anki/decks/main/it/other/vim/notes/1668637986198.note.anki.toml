@@ -1,0 +1,17 @@
+note_id = 1668637986198
+guid = "uSZC9ds=km"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = []
+
+[[cards]]
+id = 1668637986198
+ordinal = 0
+
+[[cards]]
+id = 1668965796738
+ordinal = 1
+
+[fields]
+Back = 'it'
+Front = 'Select inner content of a HTML element between &lt;tag&gt; and &lt;/tag&gt;&nbsp;(visual mode)'

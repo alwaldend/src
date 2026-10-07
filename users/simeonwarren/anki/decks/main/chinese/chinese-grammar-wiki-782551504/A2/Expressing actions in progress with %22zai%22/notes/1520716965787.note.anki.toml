@@ -1,0 +1,20 @@
+note_id = 1520716965787
+guid = "fn?He%zwC|"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971651
+ordinal = 0
+
+[fields]
+article-title = 'Expressing actions in progress with "zai"'
+english = "You're driving right now; you can't play with your cell phone."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 正在 + Verb + Obj.'
+hanzi = '你正在开车，不可以玩手机。'
+notes = ''
+pinyin = 'Nǐ zhèngzài kāichē, bù kěyǐ wán shǒujī.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG846EA'

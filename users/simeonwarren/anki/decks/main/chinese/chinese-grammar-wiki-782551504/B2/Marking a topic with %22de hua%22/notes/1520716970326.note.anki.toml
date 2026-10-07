@@ -1,0 +1,20 @@
+note_id = 1520716970326
+guid = "d>X4It86W("
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Grammatical_Structures", "IfStatements"]
+
+[[cards]]
+id = 1520716976190
+ordinal = 0
+
+[fields]
+article-title = 'Marking a topic with "de hua"'
+english = 'Our requirement is quite high. Specifically, there are three aspects.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Topic + 的话 ，Comment'
+hanzi = '我们的要求比较高。具体来说的话，有三个方面。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGB0MXK'

@@ -1,0 +1,20 @@
+note_id = 1520716966996
+guid = "Q:P4qrkB+>"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972860
+ordinal = 0
+
+[fields]
+article-title = 'Emphasizing negation with "you"'
+english = "It's not hot today. Why turn on the air conditioner?"
+example-sentence = ''
+example-type = ''
+grammar-construct = '又 + 不 / 没 + Predicate'
+hanzi = '今天又不热，开空调干吗？'
+notes = ''
+pinyin = 'Jīntiān yòu bù rè, kāi kōngtiáo gànmá?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGD3C4S'

@@ -1,0 +1,17 @@
+note_id = 1668638765972
+guid = "fkfFl~8QlX"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = []
+
+[[cards]]
+id = 1668638765972
+ordinal = 0
+
+[[cards]]
+id = 1668965796742
+ordinal = 1
+
+[fields]
+Back = 'U &nbsp;and &nbsp;u &nbsp;(visual mode)'
+Front = 'Convert to uppercase/lowercase (visual mode)'

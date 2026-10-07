@@ -1,0 +1,20 @@
+note_id = 1520716967922
+guid = "yPL!=~=.x6"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "SentencePatterns"]
+
+[[cards]]
+id = 1520716973786
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "double negation"'
+english = "There is not one person who doesn't dislike him."
+example-sentence = ''
+example-type = ''
+grammar-construct = '没有 +  Single Noun + 不 / 没 + Adj. / [Verb Phrase]'
+hanzi = '没有一个人不讨厌他。'
+notes = ''
+pinyin = 'Méiyǒu yī gè rén bù tǎoyàn tā.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGEEA2D'

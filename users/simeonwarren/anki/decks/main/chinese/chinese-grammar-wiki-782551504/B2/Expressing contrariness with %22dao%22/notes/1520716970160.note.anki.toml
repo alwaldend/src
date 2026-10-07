@@ -1,0 +1,20 @@
+note_id = 1520716970160
+guid = "u0=xo|F1At"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "ButStatements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716976024
+ordinal = 0
+
+[fields]
+article-title = 'Expressing contrariness with "dao"'
+english = "He's not a vey hard-working student, but his score isn't too bad."
+example-sentence = ''
+example-type = ''
+grammar-construct = '⋯⋯，Subj.＋倒 + （也 / 又）⋯⋯'
+hanzi = '他不是很努力的学生，但成绩倒也不错。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG1RE80'

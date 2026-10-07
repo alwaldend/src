@@ -1,0 +1,20 @@
+note_id = 1520716969050
+guid = "H2nRkO_t|n"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974914
+ordinal = 0
+
+[fields]
+article-title = 'Using "bei" sentences'
+english = 'The hot dog was eaten.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 被 + Doer + Verb Phrase'
+hanzi = '热狗被吃了。'
+notes = ''
+pinyin = '<div>Règǒu bèi chīle.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGHF9F1'

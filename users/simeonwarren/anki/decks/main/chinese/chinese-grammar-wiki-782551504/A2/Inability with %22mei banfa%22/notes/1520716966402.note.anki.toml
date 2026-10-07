@@ -1,0 +1,20 @@
+note_id = 1520716966402
+guid = "Is<^7w|vVw"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+id = 1520716972266
+ordinal = 0
+
+[fields]
+article-title = 'Inability with "mei banfa"'
+english = "There's too much to do. I have no way to finish today."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 没办法 + Verb + Obj.'
+hanzi = '事情太多了，我今天没办法做完。'
+notes = ''
+pinyin = 'Shìqing tài duō le, wǒ jīntiān  méi bànfǎ zuò wán.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGI2KHC'

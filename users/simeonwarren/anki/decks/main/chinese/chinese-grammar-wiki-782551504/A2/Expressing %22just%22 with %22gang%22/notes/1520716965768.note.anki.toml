@@ -1,0 +1,20 @@
+note_id = 1520716965768
+guid = "QM|m[~Xl&#"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971632
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "just" with "gang"'
+english = 'I just bought the car two days ago. Be careful when you drive.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 刚 + Verb (+ Obj.)  + Duration'
+hanzi = '我的车刚买两天，开的时候小心点。'
+notes = ''
+pinyin = 'Wǒ de chē gāng mǎi liǎng tiān, kāi de shíhou xiǎoxīn diǎn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQJJYO'

@@ -1,0 +1,20 @@
+note_id = 1520716968656
+guid = "w6$Mv.<Om4"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974520
+ordinal = 0
+
+[fields]
+article-title = 'Events in quick succession with "yi... jiu..."'
+english = 'Every time she gets angry, her face turns red.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '一 + Reason，就 + Result'
+hanzi = '她一生气就脸红。'
+notes = ''
+pinyin = 'Tā yī shēngqì jiù liǎn hóng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTFUD0'

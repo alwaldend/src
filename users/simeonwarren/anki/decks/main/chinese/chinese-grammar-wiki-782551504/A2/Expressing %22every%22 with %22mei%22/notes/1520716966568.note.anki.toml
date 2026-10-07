@@ -1,0 +1,20 @@
+note_id = 1520716966568
+guid = "DrrAQuE1C&"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Grammatical_Structures", "NumbersandMeasureWords"]
+
+[[cards]]
+id = 1520716972432
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "every" with "mei"'
+english = 'I give mom a phone call every week.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '每 + Measure Word + Noun + 都'
+hanzi = '我每个星期都给妈妈打电话。'
+notes = ''
+pinyin = 'Wǒ měi gè xīngqī dōu gěi māma dǎ diànhuà.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGB6L4M'

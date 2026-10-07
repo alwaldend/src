@@ -1,0 +1,20 @@
+note_id = 1520716969501
+guid = "C0k*Bvvq)e"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Comparisons", "Prepositions"]
+
+[[cards]]
+id = 1520716975365
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "li" and "cong"'
+english = 'World War I and World War II are about 20 years apart.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '离 + Event + 还有 + Duration'
+hanzi = '一战离二战只有二十年左右。'
+notes = ''
+pinyin = 'Yīzhàn lí Èrzhàn zhǐ yǒu  èrshí nián zuǒyòu.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG59C66'

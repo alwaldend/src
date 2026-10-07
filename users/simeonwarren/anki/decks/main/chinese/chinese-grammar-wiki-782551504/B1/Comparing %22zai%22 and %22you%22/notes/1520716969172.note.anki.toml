@@ -1,0 +1,20 @@
+note_id = 1520716969172
+guid = "p}|EdepH2F"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Comparisons"]
+
+[[cards]]
+id = 1520716975036
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "zai" and "you"'
+english = "First I'll buy a house, then I'll get married."
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = 'Subj. + (先) + Action 1 + 再 + Action 2'
+hanzi = '我先买房子再结婚。'
+notes = ''
+pinyin = '<div>Wǒ xiān mǎi fángzǐ zài jiéhūn.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTBHBG'

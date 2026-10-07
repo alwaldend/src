@@ -1,0 +1,20 @@
+note_id = 1520716968814
+guid = "mg!8-/mtH`"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974678
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "more and more" with "yuelaiyue"'
+english = 'I understand more and more what he meant by saying those words.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 越来越 + [Verb Phrase] + 了'
+hanzi = '我越来越明白他说的那些话的意思了。'
+notes = ''
+pinyin = 'Wǒ yuèláiyuè míngbai tā shuō de nàxiē huà de yìsi le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG7UE4H'

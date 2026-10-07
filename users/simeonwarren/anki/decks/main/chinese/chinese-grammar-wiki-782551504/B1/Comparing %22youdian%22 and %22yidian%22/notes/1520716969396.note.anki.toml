@@ -1,0 +1,20 @@
+note_id = 1520716969396
+guid = "jSl7/@,/=x"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Comparisons"]
+
+[[cards]]
+id = 1520716975260
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "youdian" and "yidian"'
+english = "We didn't understand much."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '我们有点没听懂。'
+notes = ''
+pinyin = 'Wǒmen yǒudiǎn méi tīngdǒng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGV55Y4'

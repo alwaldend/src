@@ -1,0 +1,20 @@
+note_id = 1520716970430
+guid = "mMH=L+wZf-"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716976294
+ordinal = 0
+
+[fields]
+article-title = 'Advanced potential complements'
+english = "It's too high. I can't reach it."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 得 / 不 + 着'
+hanzi = '太高了，我够不着。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG516F9'

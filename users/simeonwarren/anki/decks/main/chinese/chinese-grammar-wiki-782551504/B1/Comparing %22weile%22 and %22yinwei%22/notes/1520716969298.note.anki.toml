@@ -1,0 +1,20 @@
+note_id = 1520716969298
+guid = "t<H$SiGyN8"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Comparisons", "Conjunctions"]
+
+[[cards]]
+id = 1520716975162
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "weile" and "yinwei"'
+english = "Because I want to have a good future, I'm going to study well now."
+example-sentence = ''
+example-type = ''
+grammar-construct = '因为 + Reason，所以 + result'
+hanzi = '因为我想有一个好的将来，所以我现在好好学习。'
+notes = ''
+pinyin = '<div>Yīnwèi wǒ xiǎng yǒu yīgè hǎo de jiānglái, suǒyǐ wǒ xiànzài hǎo hào xuéxí.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMEC1P'

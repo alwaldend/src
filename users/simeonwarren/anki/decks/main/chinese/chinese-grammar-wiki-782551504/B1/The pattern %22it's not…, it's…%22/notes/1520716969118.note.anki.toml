@@ -1,0 +1,20 @@
+note_id = 1520716969118
+guid = "zO3uOs|1V?"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974982
+ordinal = 0
+
+[fields]
+article-title = "The pattern \"it's not…, it's…\""
+english = "It's not that she doesn't like you, it's just she's unacquainted with you."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 是 ⋯⋯ ，不是 ⋯⋯'
+hanzi = '她不是不喜欢你，而是跟你还不熟。'
+notes = ''
+pinyin = 'Tā bù shì bù xǐhuan nǐ, ér shì gēn nǐ hái bù shóu.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGT9WYR'

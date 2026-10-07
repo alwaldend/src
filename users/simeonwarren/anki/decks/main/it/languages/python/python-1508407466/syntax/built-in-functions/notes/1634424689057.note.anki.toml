@@ -1,0 +1,17 @@
+note_id = 1634424689057
+guid = "Fe$;G(x_>$"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634424689058
+ordinal = 0
+
+[fields]
+additional-info = 'A frozenset is a set that can’t be updated.'
+answer = '<b>Built in function: </b>frozenset(<i>iterable</i>)'
+example = ''
+question = '<b>Built in function</b> that returns a frozenset object from an iterable.'
+version = ''
+with-options = ''

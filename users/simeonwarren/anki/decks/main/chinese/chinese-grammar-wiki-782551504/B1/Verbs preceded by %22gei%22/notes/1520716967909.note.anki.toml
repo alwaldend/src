@@ -1,0 +1,20 @@
+note_id = 1520716967909
+guid = "g)%1ep?w;j"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+id = 1520716973773
+ordinal = 0
+
+[fields]
+article-title = 'Verbs preceded by "gei"'
+english = "I sent you short messages. Why didn't you return any?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 给 + Target + [Verb Phrase]'
+hanzi = '我给你发短信了，你怎么不回？'
+notes = ''
+pinyin = 'Wǒ gěi nǐ fā duǎnxìn le. Nǐ zěnme bù huí?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG3ORNN'

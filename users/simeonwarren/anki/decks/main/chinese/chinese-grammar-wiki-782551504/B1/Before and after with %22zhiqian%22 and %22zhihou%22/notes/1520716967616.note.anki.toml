@@ -1,0 +1,20 @@
+note_id = 1520716967616
+guid = "fX4Zn$6}6p"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973480
+ordinal = 0
+
+[fields]
+article-title = 'Before and after with "zhiqian" and "zhihou"'
+english = 'Before he went abroad, he broke up with his girlfriend.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Event + 之前 / 之后 ，⋯⋯'
+hanzi = '出国之前，他和女朋友分手了。'
+notes = ''
+pinyin = 'Chūguó zhīqián, tā hé nǚpéngyou fēnshǒu le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTD3L3'

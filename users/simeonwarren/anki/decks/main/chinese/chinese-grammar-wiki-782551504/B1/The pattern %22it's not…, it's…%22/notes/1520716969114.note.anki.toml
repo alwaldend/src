@@ -1,0 +1,20 @@
+note_id = 1520716969114
+guid = "DaMd$ppI0G"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974978
+ordinal = 0
+
+[fields]
+article-title = "The pattern \"it's not…, it's…\""
+english = "I'm sorry. My son didn't mean to do that. It was an innocent mistake."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 是 ⋯⋯ ，不是 ⋯⋯'
+hanzi = '不好意思，我儿子不是故意的，是不小心。'
+notes = ''
+pinyin = 'Bù hǎoyìsi, wǒ érzi bù shì gùyì de, shì bù xiǎoxīn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGT9WYR'

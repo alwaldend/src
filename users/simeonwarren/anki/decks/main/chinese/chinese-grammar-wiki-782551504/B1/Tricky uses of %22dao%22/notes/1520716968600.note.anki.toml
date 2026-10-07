@@ -1,0 +1,20 @@
+note_id = 1520716968600
+guid = "zSh_~]d?s3"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716974464
+ordinal = 0
+
+[fields]
+article-title = 'Tricky uses of "dao"'
+english = 'He secretly entered her room and got the thing he wanted to take.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '他偷偷进了她的房间，拿到了他想要的东西。'
+notes = ''
+pinyin = 'Tā tōutōu jìn le tā de fángjiān, nádào le tā xiǎngyào de dōngxi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCUSIV'

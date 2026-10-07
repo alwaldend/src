@@ -1,0 +1,20 @@
+note_id = 1520716968431
+guid = "s1jHpcc(^I"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716974295
+ordinal = 0
+
+[fields]
+article-title = 'Result complement "xiaqu"'
+english = "This story is too boring, I don't want to keep listening."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 不 + 下去 + 了'
+hanzi = '这个故事太无聊了，我听不下去了。'
+notes = ''
+pinyin = 'Zhège gùshi tài wúliáo le, wǒ tīng bu xiàqù le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG1PTJX'

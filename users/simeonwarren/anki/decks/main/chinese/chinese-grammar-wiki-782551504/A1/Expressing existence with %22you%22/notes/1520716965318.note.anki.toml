@@ -1,0 +1,20 @@
+note_id = 1520716965318
+guid = "lrXSAJo8gn"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716971182
+ordinal = 0
+
+[fields]
+article-title = 'Expressing existence with "you"'
+english = 'Is there anyone in the office now?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Place + 有 + Obj.'
+hanzi = '现在办公室里有人吗？'
+notes = ''
+pinyin = 'Xiànzài  bàngōngshì lǐ yǒu rén ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG04ZCI'

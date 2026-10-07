@@ -1,0 +1,20 @@
+note_id = 1520716968754
+guid = "f$jx(Cw%R_"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974618
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "every time" with "mei" and "dou"'
+english = 'My little sister cries every time she has an injection.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '每次 + Event 1 + 都 + Event 2'
+hanzi = '我妹妹每次打针都哭。'
+notes = ''
+pinyin = 'Wǒ mèimei měicì dǎzhēn dōu kū.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGXHQEF'

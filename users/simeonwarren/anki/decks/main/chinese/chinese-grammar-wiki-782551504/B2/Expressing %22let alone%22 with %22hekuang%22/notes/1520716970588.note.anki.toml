@@ -1,0 +1,20 @@
+note_id = 1520716970588
+guid = "LF!1B>NDvU"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Grammatical_Structures", "Letalone"]
+
+[[cards]]
+id = 1520716976452
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "let alone" with "hekuang"'
+english = 'You can answer questions that hard, something like this should be easy, right?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 连 + A + 都 + (不 / 没) + Verb， 何况 + B + 呢？'
+hanzi = '你连那么难的试题都会，何况这么容易的呢？'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG3ZS9G'

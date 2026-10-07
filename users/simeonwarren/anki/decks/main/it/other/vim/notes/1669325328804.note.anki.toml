@@ -1,0 +1,17 @@
+note_id = 1669325328804
+guid = "BM>OaF=nz<"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = []
+
+[[cards]]
+id = 1669325328804
+ordinal = 0
+
+[[cards]]
+id = 1669325328805
+ordinal = 1
+
+[fields]
+Back = 'zj'
+Front = 'Move down to next fold'

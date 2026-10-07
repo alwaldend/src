@@ -1,0 +1,20 @@
+note_id = 1520716968196
+guid = "M[]9>HUiNe"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716974060
+ordinal = 0
+
+[fields]
+article-title = 'Making judgments with "suan"'
+english = "It's no longer a secret."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. (+ 不) + 算 + Noun'
+hanzi = '这已经不算秘密了。'
+notes = ''
+pinyin = 'Zhè yǐjīng bù suàn mìmì le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWDWFN'

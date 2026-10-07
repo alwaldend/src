@@ -1,0 +1,20 @@
+note_id = 18
+guid = "b7@/)n=!7("
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+id = 35
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'to stand up;	to get up.<br>(after a verb) indicating the beginning and continuation of an action or a state;	indicating an upward movement (e.g. after 站);	indicating completion;	(after a perception verb, e.g. 看) expressing preliminary judgment;	.'
+example-sentence = '   方老魔,你不要妄图反抗了,今日我们正道各大派联合起来,就是要踏破你的魔窟'
+example-type = ''
+grammar-construct = ''
+hanzi = '起来'
+notes = ''
+pinyin = '<span class="tone3">qǐ</span><span class="tone5">laiqi</span><span class="tone5">lai</span>	 <!-- qi lai qi lai -->'
+source = ''

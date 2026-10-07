@@ -1,0 +1,20 @@
+note_id = 1520716967918
+guid = "w?8rXo}Z7N"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "SentencePatterns"]
+
+[[cards]]
+id = 1520716973782
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "double negation"'
+english = "Buying a ticket doesn't mean you don't have to wait in line."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不 + 是 / 会 / 能 + 没 + [Verb Phrase]'
+hanzi = '买票不能不排队。'
+notes = ''
+pinyin = 'Mǎi piào bù néng bù páiduì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGEEA2D'

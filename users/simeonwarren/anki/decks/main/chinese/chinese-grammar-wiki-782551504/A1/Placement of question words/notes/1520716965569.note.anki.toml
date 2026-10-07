@@ -1,0 +1,20 @@
+note_id = 1520716965569
+guid = "vPds/TF3T,"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+id = 1520716971433
+ordinal = 0
+
+[fields]
+article-title = 'Placement of question words'
+english = 'How do you study Chinese?<br>I use the Grammar Wiki to study Chinese.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 怎么 + Verb (+ Obj.) ?'
+hanzi = 'A: 你怎么学习中文？<br>B: 我用GrammarWiki学习中文。'
+notes = ''
+pinyin = 'Nǐ zěnme xuéxí Zhōngwén?<br>Wǒ yòng Grammar Wiki xuéxí Zhōngwén.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJQPSC'

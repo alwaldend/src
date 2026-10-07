@@ -1,0 +1,20 @@
+note_id = 1520716966942
+guid = "N3uZD@=e5."
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972806
+ordinal = 0
+
+[fields]
+article-title = 'Coincidence with "zhenghao"'
+english = 'You are here! I was just looking for you.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 正好 + [Verb Phrase]'
+hanzi = '你来了！我正好要找你。'
+notes = ''
+pinyin = 'Nǐ lái le! Wǒ zhènghǎo yào zhǎo nǐ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGUD25J'

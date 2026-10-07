@@ -1,0 +1,20 @@
+note_id = 1520716967960
+guid = "m+&*yU&N.R"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+id = 1520716973824
+ordinal = 0
+
+[fields]
+article-title = 'Doing something less with "shao"'
+english = "Stay out of other people's business."
+example-sentence = ''
+example-type = ''
+grammar-construct = '少 + Verb'
+hanzi = '少管闲事。'
+notes = ''
+pinyin = 'Shǎo guǎn xiánshì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG9B0M8'

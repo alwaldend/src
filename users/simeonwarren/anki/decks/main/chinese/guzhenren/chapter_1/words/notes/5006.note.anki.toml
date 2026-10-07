@@ -1,0 +1,20 @@
+note_id = 5006
+guid = "hcW(-<f[T@"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+id = 5016
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'this time.'
+example-sentence = '  列祖列宗保佑,希望此次开窍大典中能多多涌现出资质优秀的少年,为家族增添新血和希望'
+example-type = ''
+grammar-construct = ''
+hanzi = '此次'
+notes = ''
+pinyin = '<span class="tone3">cǐ</span><span class="tone4">cì</span>	 <!-- ci ci -->'
+source = ''

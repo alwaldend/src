@@ -1,0 +1,20 @@
+note_id = 1520716970151
+guid = "hT;,1N.U%d"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "ButStatements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716976015
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "not… but rather…" with "er shi"'
+english = 'I think that some people do charitable things, not only to help poor people, but also to improve their reputation.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '是 + B + 而不是 + A'
+hanzi = '我认为有的人做慈善活动的目的不是为了帮助穷人而是为了提高他们的名誉。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGAJGJD'

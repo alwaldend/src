@@ -1,0 +1,20 @@
+note_id = 1520716970852
+guid = "w_JrRHhK?L"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Comparisons", "TimeWords"]
+
+[[cards]]
+id = 1520716976716
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "pingshi" and "pingchang"'
+english = "I don't usually buy this kind of cheap, inferior stuff."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 平时 + Verb'
+hanzi = '我平时不买这种很便宜但是质量很差的东西'
+notes = ''
+pinyin = '<div class="kO6q6e" dir="ltr" jsname="jTaUub"><span jsname="toZopb">Wǒ píngshí bú mǎi zhè zhǒng hěn piányí dànshì zhìliàng hěn chà de dōngxī.</span></div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJOGGG'

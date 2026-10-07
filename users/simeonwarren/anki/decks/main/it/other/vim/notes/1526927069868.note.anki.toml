@@ -1,0 +1,17 @@
+note_id = 1526927069868
+guid = "tY80grIc>^"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = ["Exiting"]
+
+[[cards]]
+id = 1526927088604
+ordinal = 0
+
+[[cards]]
+id = 1668965796687
+ordinal = 1
+
+[fields]
+Back = ':w'
+Front = 'Write buffer to file'

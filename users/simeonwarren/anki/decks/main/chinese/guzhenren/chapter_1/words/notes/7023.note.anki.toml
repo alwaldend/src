@@ -1,0 +1,20 @@
+note_id = 7023
+guid = "rjKyOiJ,vP"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 7052
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'plural marker for pronouns, and nouns referring to individuals.'
+example-sentence = '甚至就连老一辈们都感觉到了这位后起之秀的压力'
+example-type = ''
+grammar-construct = ''
+hanzi = '们'
+notes = ''
+pinyin = '<span class="tone5">men</span>	 <!-- men -->'
+source = ''

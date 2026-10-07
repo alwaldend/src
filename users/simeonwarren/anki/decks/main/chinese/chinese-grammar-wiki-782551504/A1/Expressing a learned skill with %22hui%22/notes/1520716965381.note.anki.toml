@@ -1,0 +1,20 @@
+note_id = 1520716965381
+guid = "OM=cq%fDw="
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Auxiliaryverbs", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971245
+ordinal = 0
+
+[fields]
+article-title = 'Expressing a learned skill with "hui"'
+english = "You can't swim?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不 + 会 + Verb + Obj.'
+hanzi = '你不会游泳吗？'
+notes = ''
+pinyin = 'Nǐ bù huì yóuyǒng ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGRHM0E'

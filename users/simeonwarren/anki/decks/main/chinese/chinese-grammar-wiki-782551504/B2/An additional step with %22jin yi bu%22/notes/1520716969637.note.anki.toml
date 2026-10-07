@@ -1,0 +1,20 @@
+note_id = 1520716969637
+guid = "OgXp;i-u~`"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975501
+ordinal = 0
+
+[fields]
+article-title = 'An additional step with "jin yi bu"'
+english = "After you've figured out this problem, go a bit further and research the other problems as well."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 进一步 + Verb'
+hanzi = '弄懂这个问题之后，才能进一步研究其他问题。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGET76G'

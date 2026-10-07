@@ -1,0 +1,20 @@
+note_id = 1520716967817
+guid = "p6`>k9J@j`"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+id = 1520716973681
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "less than" with "budao"'
+english = 'My grandpa was less than 60 years old when he died.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不到 + Time + 就 + Predicate + 了'
+hanzi = '爷爷不到60岁就去世了。'
+notes = ''
+pinyin = 'Yéye bùdào liùshí suì jiù qùshì le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG10CAE'

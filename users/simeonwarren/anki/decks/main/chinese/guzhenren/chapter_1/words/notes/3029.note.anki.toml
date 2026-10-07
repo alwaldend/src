@@ -1,0 +1,20 @@
+note_id = 3029
+guid = "sP-C+`VV[e"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+id = 3060
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'Dazzling'
+example-sentence = '辗转颠簸300年,纵横世间200余年,500多年光阴悠悠,却是晃眼即逝'
+example-type = ''
+grammar-construct = ''
+hanzi = '晃眼'
+notes = ''
+pinyin = '<span class="tone3">huǎng</span><span class="tone3">yǎn</span>	 <!-- huang yan -->'
+source = ''

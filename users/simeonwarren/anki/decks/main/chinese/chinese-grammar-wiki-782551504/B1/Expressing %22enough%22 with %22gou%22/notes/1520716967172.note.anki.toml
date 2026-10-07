@@ -1,0 +1,20 @@
+note_id = 1520716967172
+guid = "d^9RLuL}iJ"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973036
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "enough" with "gou"'
+english = "I've been good enough to you."
+example-sentence = ''
+example-type = ''
+grammar-construct = '够 + Verb / Adj. + 了'
+hanzi = '我对你够好了。'
+notes = ''
+pinyin = 'Wǒ duì nǐ gòu hǎo le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG49BE6'

@@ -1,0 +1,20 @@
+note_id = 1520716967628
+guid = "mn3atEXX&K"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973492
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "when" with "shi"'
+english = 'When they graduated, they broke up.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '(Subj. +) Verb / Adj. + 时⋯⋯'
+hanzi = '大学毕业时，他们分手了。'
+notes = ''
+pinyin = 'Dàxué bìyè shí, tāmen fēnshǒu le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGGL59D'

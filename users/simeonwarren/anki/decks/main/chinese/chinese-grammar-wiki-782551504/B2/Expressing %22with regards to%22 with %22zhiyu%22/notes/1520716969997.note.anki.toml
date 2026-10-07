@@ -1,0 +1,20 @@
+note_id = 1520716969997
+guid = "BJ23E:[k=u"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+id = 1520716975861
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "with regards to" with "zhiyu"'
+english = "She told me she was coming back tomorrow. In regards to a specific time, I don't know."
+example-sentence = ''
+example-type = ''
+grammar-construct = '至于 + Topic， Comment'
+hanzi = '她跟我说明天回来，至于具体的时间，我就不知道了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGZRKTG'

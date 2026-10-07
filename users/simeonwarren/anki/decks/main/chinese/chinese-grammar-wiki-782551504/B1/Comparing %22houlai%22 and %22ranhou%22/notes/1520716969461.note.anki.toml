@@ -1,0 +1,20 @@
+note_id = 1520716969461
+guid = "r^/8)^6o=J"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Comparisons", "TimeWords"]
+
+[[cards]]
+id = 1520716975325
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "houlai" and "ranhou"'
+english = "I'm going to eat, then I'll go to the supermarket."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Action 1，然后 + Action 2'
+hanzi = '我们先去吃饭，然后去超市。'
+notes = ''
+pinyin = 'Wǒmen xiān qù chīfàn, ránhòu qù chāoshì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGA3RJD'

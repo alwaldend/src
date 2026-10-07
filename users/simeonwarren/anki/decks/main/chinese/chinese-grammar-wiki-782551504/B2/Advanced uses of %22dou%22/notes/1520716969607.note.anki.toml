@@ -1,0 +1,20 @@
+note_id = 1520716969607
+guid = "LF+Bs6:8<7"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975471
+ordinal = 0
+
+[fields]
+article-title = 'Advanced uses of "dou"'
+english = "It's all your fault, leaving without bringing an umbrella."
+example-sentence = ''
+example-type = ''
+grammar-construct = '都 + 怨 / 是 / 怪 + Somebody'
+hanzi = '都怪你，出门不带伞。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQFW44'

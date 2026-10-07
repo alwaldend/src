@@ -1,0 +1,20 @@
+note_id = 1520716970274
+guid = "Amm3HUB*5d"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "EvenIfStatements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716976138
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "even if…" with "napa"'
+english = 'Even if I‘m super busy, I will still find some time to work out.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '哪怕 + Subj. 1 + 再 ⋯⋯ ，Subj. 2 + 也 ⋯⋯'
+hanzi = '哪怕再忙，我也要健身。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGXX3NY'

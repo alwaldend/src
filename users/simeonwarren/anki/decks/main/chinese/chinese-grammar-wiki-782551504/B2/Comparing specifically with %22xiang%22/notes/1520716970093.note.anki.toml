@@ -1,0 +1,20 @@
+note_id = 1520716970093
+guid = "McZ}g=)u{t"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716975957
+ordinal = 0
+
+[fields]
+article-title = 'Comparing specifically with "xiang"'
+english = 'He was very angry and started to scream like a lunatic.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun 1 + 像 + Noun 2 + 一样 + Adj. / Verb'
+hanzi = '他很生气，像疯子一样大叫起来。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG1MD4N'

@@ -1,0 +1,20 @@
+note_id = 1520716967549
+guid = "KeHStZ|d4"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973413
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "in addition" with "haiyou"'
+english = "Don't talk when you take a test. Beside, don't use your cell phone."
+example-sentence = ''
+example-type = ''
+grammar-construct = '⋯⋯ ，还有 ，⋯⋯'
+hanzi = '考试的时候不要说话。还有，不要用手机。'
+notes = ''
+pinyin = 'Kǎoshì de shíhou bùyào shuōhuà. Háiyǒu, bùyào yòng shǒujī.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGHQRI1'

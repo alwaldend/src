@@ -1,0 +1,20 @@
+note_id = 1520716969540
+guid = "c,Oz8:8C,r"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Comparisons", "TimeWords"]
+
+[[cards]]
+id = 1520716975404
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "yihou" "ranhou" "houlai"'
+english = "China is the biggest developing country and then it's India."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '中国是人口最多的发展中国家，然后是印度。'
+notes = ''
+pinyin = 'Zhōngguó shì rénkǒu zuì duō de fāzhǎn zhōng guójiā, ránhòu shì Yìndù.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNPJ7T'

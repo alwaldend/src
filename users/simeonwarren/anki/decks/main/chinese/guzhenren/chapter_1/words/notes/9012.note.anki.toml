@@ -1,0 +1,20 @@
+note_id = 9012
+guid = "db=`bGobh."
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+id = 9032
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'to wipe.<br>to smear; to wipe; to erase; classifier for wisps of cloud, light-beams etc.<br>to plaster; to go around; to skirt.'
+example-sentence = ' 这一念生出,古月族长的嘴角不由地微微翘起,浮现出一抹微笑'
+example-type = ''
+grammar-construct = ''
+hanzi = '抹'
+notes = ''
+pinyin = '<span class="tone3">mǒ</span>	 <!-- mo -->'
+source = ''

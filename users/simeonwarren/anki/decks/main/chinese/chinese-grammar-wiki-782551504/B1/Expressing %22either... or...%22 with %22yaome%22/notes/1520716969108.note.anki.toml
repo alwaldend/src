@@ -1,0 +1,20 @@
+note_id = 1520716969108
+guid = "BhSX/*|!GS"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Either…or", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716974972
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "either... or..." with "yaome"'
+english = "I don't have plans for the weekend. How about you guys come to my place and hang out?"
+example-sentence = ''
+example-type = ''
+grammar-construct = '要么 + Option ，Reason / Situation'
+hanzi = '我周末还没安排，要么你们来我家玩？'
+notes = ''
+pinyin = 'Wǒ zhōumò hái méi ānpái, yàome lái wǒ jiā wán?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG30A60'

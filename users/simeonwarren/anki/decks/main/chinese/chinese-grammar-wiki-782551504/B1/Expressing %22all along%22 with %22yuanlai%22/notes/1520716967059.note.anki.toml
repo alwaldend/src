@@ -1,0 +1,20 @@
+note_id = 1520716967059
+guid = "n:{,Zs-STH"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972923
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "all along" with "yuanlai"'
+english = 'Originally we lived in Pudong. We moved here a few months ago.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '原来 + 的 + Noun&lt;br /&gt;Subj. + 原来 + [Verb Phrase]'
+hanzi = '我们原来住在浦东，几个月以前搬到了这边。'
+notes = ''
+pinyin = 'Wǒmen yuánlái zhù zài Pǔdōng, jǐ gè yuè yǐqián bān dào le zhèbiān.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTKXFR'

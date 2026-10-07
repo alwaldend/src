@@ -1,0 +1,20 @@
+note_id = 1520716965218
+guid = "Bf$#vnqg1u"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Numbers", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971082
+ordinal = 0
+
+[fields]
+article-title = 'Measure word "ge"'
+english = 'Ten men: seven are fools, and eight are bad.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Number + 个 + Noun'
+hanzi = '十个男人，七个傻，八个坏。'
+notes = 'A line from a song'
+pinyin = 'Shí gè nánrén, qī gè shǎ, bā gè huài.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGI0T9S'

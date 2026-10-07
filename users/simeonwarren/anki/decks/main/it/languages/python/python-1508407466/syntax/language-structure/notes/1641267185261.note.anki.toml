@@ -1,0 +1,17 @@
+note_id = 1641267185261
+guid = "uJ~Fadw7fl"
+note_type_id = 1630447360002
+note_type = "python-basic"
+tags = []
+
+[[cards]]
+id = 1641267185261
+ordinal = 0
+
+[fields]
+'Additional Info' = 'value types such as int, str, bool, ect.'
+'Back - Basic' = '-&gt;'
+'Back - Code' = ''
+Example = 'def example() -&gt; <i>type</i>:<br>&nbsp; &nbsp; &nbsp;<font color="#555753"># do some stuff here</font><br>&nbsp; &nbsp; &nbsp;return <i>type</i>'
+Front = "What is the syntax used to declare a return value type in a function's declaration?&nbsp;&nbsp;"
+Version = ''

@@ -1,0 +1,20 @@
+note_id = 1520716966656
+guid = "mdxgRz<$0_"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+id = 1520716972520
+ordinal = 0
+
+[fields]
+article-title = 'Asking why with "zenme"'
+english = 'How can these people so loud?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 怎么 + 这么 / 那么 + Adj.'
+hanzi = '这些人怎么这么吵？'
+notes = ''
+pinyin = 'Zhèxiē rén zěnme zhème chǎo?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGD7NS3'

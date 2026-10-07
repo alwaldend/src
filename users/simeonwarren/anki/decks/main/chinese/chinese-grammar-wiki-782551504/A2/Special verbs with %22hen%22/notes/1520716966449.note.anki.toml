@@ -1,0 +1,20 @@
+note_id = 1520716966449
+guid = "y9f$IJIF1`"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+id = 1520716972313
+ordinal = 0
+
+[fields]
+article-title = 'Special verbs with "hen"'
+english = "You haven't gone home in two days. Mom is really worried about you."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 很 + [Certain Verbs]'
+hanzi = '你两天没回家，妈妈很担心你。'
+notes = ''
+pinyin = 'Nǐ liǎng tiān méi huíjiā, māma hěn dānxīn nǐ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGID0E8'

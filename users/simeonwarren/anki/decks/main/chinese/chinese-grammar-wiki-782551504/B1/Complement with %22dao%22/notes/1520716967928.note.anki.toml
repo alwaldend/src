@@ -1,0 +1,20 @@
+note_id = 1520716967928
+guid = "Emw7z]JB_]"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+id = 1520716973792
+ordinal = 0
+
+[fields]
+article-title = 'Complement with "dao"'
+english = 'We were chatting in the bar until midnight.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb (+ 一直) + 到 + Time / Event'
+hanzi = '我们在酒吧一直聊到半夜。'
+notes = ''
+pinyin = 'Wǒmen zài jiǔbā yīzhí liáo dào bànyè.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG1CCAP'

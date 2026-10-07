@@ -1,0 +1,20 @@
+note_id = 1520716968024
+guid = "b^2hqn1={["
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716973888
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "including" with "baokuo"'
+english = 'He finds many topics of conversation interesting, including politics.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 包括 + Obj.1 ( , + Obj.2, Obj.3 ... )'
+hanzi = '他对很多话题都很感兴趣，包括政治。'
+notes = ''
+pinyin = 'Tā duì hěn duō huàtí dōu hěn gǎn xìngqù, bāokuò zhèngzhì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG50341'

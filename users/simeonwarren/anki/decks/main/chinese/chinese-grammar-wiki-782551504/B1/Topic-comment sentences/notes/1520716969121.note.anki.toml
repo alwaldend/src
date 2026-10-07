@@ -1,0 +1,20 @@
+note_id = 1520716969121
+guid = "pg`j&g{9EH"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974985
+ordinal = 0
+
+[fields]
+article-title = 'Topic-comment sentences'
+english = "I'm sorry. I finished all the coffee."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Topic ，Comment'
+hanzi = '不好意思，咖啡，我都喝完了。'
+notes = ''
+pinyin = 'Bù hǎoyìsi, kāfēi, wǒ dōu hē wán le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5KNWW'

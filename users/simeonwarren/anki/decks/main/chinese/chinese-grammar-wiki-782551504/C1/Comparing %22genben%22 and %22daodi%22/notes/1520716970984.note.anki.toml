@@ -1,0 +1,20 @@
+note_id = 1520716970984
+guid = "bN[?!qX?ov"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["C1", "Comparisons"]
+
+[[cards]]
+id = 1520716976848
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "genben" and "daodi"'
+english = "So why don't you drink?"
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = ''
+hanzi = '那么，你们到底为什么不喝酒呢？'
+notes = '到底 emphasizes the question.'
+pinyin = 'Nàme, nǐmen dàodǐ wèishéme bù hējiǔ ne?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG9JK0B'

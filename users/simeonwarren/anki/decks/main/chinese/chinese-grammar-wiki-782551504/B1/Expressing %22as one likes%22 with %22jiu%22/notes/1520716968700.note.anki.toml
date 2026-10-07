@@ -1,0 +1,20 @@
+note_id = 1520716968700
+guid = "fUw9i[/F~>"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974564
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "as one likes" with "jiu"'
+english = "I will spend the money however I like. It's none of your business."
+example-sentence = ''
+example-type = ''
+grammar-construct = '想 + [Question Word] + 就 + [Question Word]'
+hanzi = '这些钱我想怎么花就怎么花，不关你的事。'
+notes = ''
+pinyin = 'Zhèxiē qián wǒ xiǎng zěnme huā jiù zěnme huā, bù guān nǐ de shì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDUZ55'

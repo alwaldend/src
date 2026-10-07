@@ -1,0 +1,20 @@
+note_id = 1520716970509
+guid = "zTzH_z=W<L"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716976373
+ordinal = 0
+
+[fields]
+article-title = 'Tricky uses of "dao"'
+english = "If he can't get a green card, I will break up with him."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '如果他拿不到绿卡，我就跟他分手。'
+notes = ''
+pinyin = 'Rúguǒ tā ná bu dào lǜkǎ, wǒ jiù gēn tā fēnshǒu.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCUSIV'

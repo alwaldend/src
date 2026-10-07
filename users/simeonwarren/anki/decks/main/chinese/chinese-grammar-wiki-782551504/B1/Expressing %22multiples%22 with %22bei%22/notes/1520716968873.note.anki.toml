@@ -1,0 +1,20 @@
+note_id = 1520716968873
+guid = "p~AlhD%?RO"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974737
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "multiples" with "bei"'
+english = "China's population is four times bigger than America's."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A + 比 + B + Adj. + Number + 倍'
+hanzi = '中国人口比美国人口多四倍。'
+notes = ''
+pinyin = 'Zhōngguó rénkǒu bǐ Měiguó rénkǒu duō sì bèi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG7D4EC'

@@ -1,0 +1,20 @@
+note_id = 1520716968753
+guid = "zppID64DGl"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974617
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "every time" with "mei" and "dou"'
+english = 'Every time I pass this shop, I go inside and take a look.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '每次 + Event 1 + 都 + Event 2'
+hanzi = '我每次经过这家店都会进去看看。'
+notes = ''
+pinyin = 'Wǒ měi cì jīngguò zhè jiā diàn dōu huì jìnqù kànkan.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGXHQEF'

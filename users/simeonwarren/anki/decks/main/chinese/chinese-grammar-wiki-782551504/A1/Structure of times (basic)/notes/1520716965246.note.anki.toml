@@ -1,0 +1,20 @@
+note_id = 1520716965246
+guid = "C^1,s#[vgf"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Numbers", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971110
+ordinal = 0
+
+[fields]
+article-title = 'Structure of times (basic)'
+english = "4 o'clock p.m."
+example-sentence = ''
+example-type = ''
+grammar-construct = '(Date and/or time of day +) x 点'
+hanzi = '下午四点'
+notes = ''
+pinyin = 'xiàwǔ sì diǎn'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGN6BBU'

@@ -1,0 +1,17 @@
+note_id = 1634422832956
+guid = "qP_UeA7=iv"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634422832957
+ordinal = 0
+
+[fields]
+additional-info = 'Also takes a starting index value with a default value of 0.'
+answer = '<b>Built in function: </b>enumerate(<i>iterable</i>)'
+example = 'for key, value in enumerate(<i>iterable</i>):<div>&nbsp; &nbsp; print(key, value)</div>'
+question = '<b>Built in function</b>&nbsp;that takes an iterable and returns an enumerate object.'
+version = ''
+with-options = 'enumerate(<i>iterable</i>,<i> start=0</i>)'

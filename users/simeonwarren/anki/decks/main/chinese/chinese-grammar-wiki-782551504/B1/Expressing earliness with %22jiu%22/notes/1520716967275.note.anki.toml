@@ -1,0 +1,20 @@
+note_id = 1520716967275
+guid = "e<^HBY@=r@"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973139
+ordinal = 0
+
+[fields]
+article-title = 'Expressing earliness with "jiu"'
+english = 'We graduated a long time ago!'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Time  Word + 就 + Verb + Obj. + 了'
+hanzi = '我们早就毕业了。'
+notes = ''
+pinyin = 'Wǒmen zǎo jiù bìyè le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGKITRZ'

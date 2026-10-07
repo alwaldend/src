@@ -1,0 +1,20 @@
+note_id = 1520716967410
+guid = "m}$E^:KPco"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["AdverbswithAdjectives", "B1", "leech", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973274
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "much more" in comparisons'
+english = 'The cosmetic technology in Korea is more developed than our country.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun 1 + 比 + Noun 2 + Adj. + 得多 / 多了 / 很多'
+hanzi = '韩国的整容技术比我们国家发达得多。'
+notes = ''
+pinyin = 'Hánguó de zhěngróng jìshù bǐ wǒmen guójiā fādá de duō.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG6KUS5'

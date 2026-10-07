@@ -1,0 +1,20 @@
+note_id = 1520716970240
+guid = "lVgIyd0h:k"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Grammatical_Structures", "IfStatements"]
+
+[[cards]]
+id = 1520716976104
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "if… then…" with "yaoshi"'
+english = "If the boss doesn't agree,  we can't sign the contract with the client."
+example-sentence = ''
+example-type = ''
+grammar-construct = '要是 ……， 就 ……'
+hanzi = '要是老板不同意，我们就不能跟客户签合同。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGN4S8O'

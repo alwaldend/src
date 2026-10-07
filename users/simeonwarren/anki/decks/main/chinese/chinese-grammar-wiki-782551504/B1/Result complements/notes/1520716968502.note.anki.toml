@@ -1,0 +1,20 @@
+note_id = 1520716968502
+guid = "bNCBa.Ivb-"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716974366
+ordinal = 0
+
+[fields]
+article-title = 'Result complements'
+english = 'I sold my old cell phone.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + [One-syllable Verb] +了 (+ Obj.)'
+hanzi = '我卖掉了我的旧手机。'
+notes = ''
+pinyin = 'Wǒ màidiào le wǒ de jiù shǒujī.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNNMST'

@@ -1,0 +1,17 @@
+note_id = 1670356170278
+guid = "qrfy41^m$D"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = []
+
+[[cards]]
+id = 1670356170278
+ordinal = 0
+
+[[cards]]
+id = 1670356170279
+ordinal = 1
+
+[fields]
+Back = 'C'
+Front = 'Change to the end of the line (operator only)'

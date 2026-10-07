@@ -1,0 +1,20 @@
+note_id = 1520716968844
+guid = "P,qndt3.BU"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974708
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "much more" in comparisons'
+english = 'My younger brother is even more naughty than my elder brother.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun 1 + 比 + Noun 2 + 更 / 还 + Adj.'
+hanzi = '我弟弟比我哥哥更淘气。'
+notes = ''
+pinyin = 'Wǒ dìdi bǐ wǒ gēge gèng táoqì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG6KUS5'

@@ -1,0 +1,20 @@
+note_id = 1520716965143
+guid = "E;Ob6(cOk-"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971007
+ordinal = 0
+
+[fields]
+article-title = 'Negation of "you" with "mei"'
+english = "The boss doesn't have time right now."
+example-sentence = ''
+example-type = ''
+grammar-construct = '没 + 有 (+ Obj.)'
+hanzi = '老板现在没时间。'
+notes = ''
+pinyin = 'Lǎobǎn xiànzài méi shíjiān.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPNV3Q'

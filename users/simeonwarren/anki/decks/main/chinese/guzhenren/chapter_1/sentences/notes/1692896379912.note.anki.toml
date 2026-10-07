@@ -1,0 +1,20 @@
+note_id = 1692896379912
+guid = "PL`60C=8}t"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = []
+
+[[cards]]
+id = 1692896379912
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'The preface of this book, I hope readers and friends can read it and know what kind of book this is.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '本书的序,希望读者朋友们能够看看,知道这是一本什么样的书。'
+notes = ''
+pinyin = ''
+source = ''

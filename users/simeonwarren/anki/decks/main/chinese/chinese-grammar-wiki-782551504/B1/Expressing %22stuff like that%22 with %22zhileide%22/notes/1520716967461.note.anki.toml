@@ -1,0 +1,20 @@
+note_id = 1520716967461
+guid = "qI?WWcva35"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["AuxiliaryWords", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973325
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "stuff like that" with "zhileide"'
+english = 'He likes to talk about pretty actresses like Zhang Ziyi, Zhang Baizhi, and people like that.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '像 + [Items] + 之类的'
+hanzi = '他喜欢谈论漂亮的女明星，像章子怡、张柏芝之类的。'
+notes = ''
+pinyin = 'Tā xǐhuan tánlùn piàoliang de nǚ míngxīng, xiàng Zhāng Ziyí, Zhāng Bǎizhī zhī lèi de.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPY23Z'

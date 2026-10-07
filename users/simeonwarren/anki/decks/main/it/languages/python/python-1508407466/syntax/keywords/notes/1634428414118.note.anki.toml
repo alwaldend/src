@@ -1,0 +1,17 @@
+note_id = 1634428414118
+guid = "GkD6?oSJsp"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634428414120
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<b>Keyword</b> used to handle errors in a try block.'
+example = ''
+question = '<b>Keyword: </b>except'
+version = ''
+with-options = ''

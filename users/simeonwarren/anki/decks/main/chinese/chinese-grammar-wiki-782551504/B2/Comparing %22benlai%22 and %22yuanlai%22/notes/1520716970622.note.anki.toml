@@ -1,0 +1,20 @@
+note_id = 1520716970622
+guid = "mm=UmY_:VA"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Comparisons"]
+
+[[cards]]
+id = 1520716976486
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "benlai" and "yuanlai"'
+english = 'They are living with each other. No wonder they often come to work and leave work together.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '原来 + 是 + [Fact / Truth / Reason / Purpose]&lt;br /&gt;怪不得 + [Observation / Situation]，原来 + 原来 + 是（因为 / 为了 / 想⋯⋯）'
+hanzi = '原来他们住在一起，怪不得他们常常一起上下班。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG56QKW'

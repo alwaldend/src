@@ -1,0 +1,20 @@
+note_id = 1520716966746
+guid = "D^6bgbaD7W"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Adverbs", "Comparisons"]
+
+[[cards]]
+id = 1520716972610
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "bu" and "mei"'
+english = "He doesn't like to speak."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不 + Verb + Obj.'
+hanzi = '他不喜欢说话。'
+notes = ''
+pinyin = 'Tā bù xǐhuan shuōhuà.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGRJ1BI'

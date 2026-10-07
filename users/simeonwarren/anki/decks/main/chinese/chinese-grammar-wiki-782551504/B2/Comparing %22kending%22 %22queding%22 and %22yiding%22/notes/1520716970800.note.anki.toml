@@ -1,0 +1,20 @@
+note_id = 1520716970800
+guid = "O3-yR`qtC;"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Comparisons", "SeparateFunctions"]
+
+[[cards]]
+id = 1520716976664
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "kending" "queding" and "yiding"'
+english = "We'll have to decide on a design before we can start working."
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = '确定 +  Phrase / Sentence'
+hanzi = '我们要先确定一个形式才能开始做。'
+notes = ''
+pinyin = '<div>Wǒmen yào xiān quèdìng yīgè xíngshì cáinéng kāishǐ zuò.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDPS0J'

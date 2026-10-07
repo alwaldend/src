@@ -1,0 +1,20 @@
+note_id = 1520716968442
+guid = "p#QGBRO_SA"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716974306
+ordinal = 0
+
+[fields]
+article-title = 'Degree complement'
+english = "The teacher said there's no homework for today, which made the students extremely happy."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '老师说今天没有作业，学生们都高兴坏了。'
+notes = ''
+pinyin = 'Lǎoshī shuō jīntiān méiyǒu zuòyè, xuéshēng men dōu gāoxìng huài le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG79STE'

@@ -1,0 +1,20 @@
+note_id = 1520716967877
+guid = "574An6/t&"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+id = 1520716973741
+ordinal = 0
+
+[fields]
+article-title = 'Idiomatic phrases with "zai"'
+english = 'In certain aspects, Chinese and Western culture have a lot in common.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '在 + Topic + 方面 ，Subj. ⋯⋯'
+hanzi = '中西方文化在很多方面都有共同点。'
+notes = ''
+pinyin = 'Zhōng xīfāng wénhuà zài hěn duō fāngmiàn dōu yǒu gòngtóngdiǎn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGH13JY'

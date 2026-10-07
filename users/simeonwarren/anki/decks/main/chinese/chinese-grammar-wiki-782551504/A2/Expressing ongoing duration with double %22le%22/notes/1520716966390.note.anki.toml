@@ -1,0 +1,20 @@
+note_id = 1520716966390
+guid = "z)_0W-[=*T"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+id = 1520716972254
+ordinal = 0
+
+[fields]
+article-title = 'Expressing ongoing duration with double "le"'
+english = 'They have been staying at the bar for the whole evening.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 了 + Duration + 了'
+hanzi = '他们在酒吧待了一个晚上了。'
+notes = ''
+pinyin = 'Tāmen zài jiǔbā dāi le yī gè wǎnshang le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG69RR8'

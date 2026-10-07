@@ -1,0 +1,20 @@
+note_id = 1520716970276
+guid = "iG4yzqMVQG"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "EvenIfStatements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716976140
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "even if…" with "napa"'
+english = "No matter how disobedient the children are, their parents shouldn't hit them."
+example-sentence = ''
+example-type = ''
+grammar-construct = '哪怕 + Subj. 1 + 再 ⋯⋯ ，Subj. 2 + 也 ⋯⋯'
+hanzi = '哪怕孩子再淘气，父母也不应该打他们。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGXX3NY'

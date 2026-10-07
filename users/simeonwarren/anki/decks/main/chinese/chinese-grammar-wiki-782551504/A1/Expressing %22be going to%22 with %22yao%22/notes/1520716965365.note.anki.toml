@@ -1,0 +1,20 @@
+note_id = 1520716965365
+guid = "e{Za}=Ml#i"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Auxiliaryverbs", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971229
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "be going to" with "yao"'
+english = 'Are you all going out now?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Time + Subj. + 要 + Verb'
+hanzi = '你们现在要出去吗？'
+notes = ''
+pinyin = 'Nǐmen xiànzài yào chūqù ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGVT2KN'

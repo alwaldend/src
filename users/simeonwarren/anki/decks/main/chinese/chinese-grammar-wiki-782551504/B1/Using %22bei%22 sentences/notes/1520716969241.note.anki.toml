@@ -1,0 +1,20 @@
+note_id = 1520716969241
+guid = "ss^Sq(4TPN"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716975105
+ordinal = 0
+
+[fields]
+article-title = 'Using "bei" sentences'
+english = 'He got beaten up and he was wounded.'
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = 'Subj. + 被 (+ Doer) + Verb + 了'
+hanzi = '他被打伤了。'
+notes = ''
+pinyin = 'Tā bèi dǎ shāng le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGHF9F1'

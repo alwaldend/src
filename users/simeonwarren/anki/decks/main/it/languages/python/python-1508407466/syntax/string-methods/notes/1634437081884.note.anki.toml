@@ -1,0 +1,17 @@
+note_id = 1634437081884
+guid = "Lm*G8t*=7`"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634437081885
+ordinal = 0
+
+[fields]
+additional-info = '<strong>Note:</strong>&nbsp;All string methods returns new values. They do not change the original string.'
+answer = '<i>string</i>.istitle()'
+example = ''
+question = '<b>String method</b>&nbsp;that returns True if the string follows the rules of a title, else False.'
+version = ''
+with-options = ''

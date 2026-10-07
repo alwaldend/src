@@ -1,0 +1,20 @@
+note_id = 1520716970630
+guid = "q7~,!Bqh#C"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Comparisons"]
+
+[[cards]]
+id = 1520716976494
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "buduan" and "buting"'
+english = 'For two years, we continuously pushed ourselves and continuously improved.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不断 + 地 + Verb'
+hanzi = '过去的两年里，我们不断地在努力，也不断地在进步。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGIKHUH'

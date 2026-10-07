@@ -1,0 +1,20 @@
+note_id = 1520716970228
+guid = "p`Fv,;h=w&"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Grammatical_Structures", "IfStatements"]
+
+[[cards]]
+id = 1520716976092
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "if… then…" with "jiashi"'
+english = 'If you agree, then we should sign the contract riht away.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '假使 + Statement + 就 + Result'
+hanzi = '假使你同意，我们立马签合同。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGVRGW2'

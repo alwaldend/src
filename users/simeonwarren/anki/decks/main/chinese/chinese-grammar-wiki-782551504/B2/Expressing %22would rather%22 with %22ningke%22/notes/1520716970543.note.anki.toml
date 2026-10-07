@@ -1,0 +1,20 @@
+note_id = 1520716970543
+guid = "n6*C]G,#N0"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716976407
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "would rather" with "ningke"'
+english = "We'd rather spend some more money to solve this problem."
+example-sentence = ''
+example-type = ''
+grammar-construct = '宁可 ……，也要 ……'
+hanzi = '我们宁可多花点钱，也要解决这个问题。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGF3F2Y'

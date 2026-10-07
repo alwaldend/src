@@ -1,0 +1,20 @@
+note_id = 1520716965612
+guid = "I8Yw0+aYGy"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+id = 1520716971476
+ordinal = 0
+
+[fields]
+article-title = 'Yes-no questions with "ma"'
+english = 'Mom knows how to cook.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '[Statement] + 吗 ？'
+hanzi = '妈妈会做饭。'
+notes = 'statement'
+pinyin = 'Māma huì zuòfàn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQ2AZA'

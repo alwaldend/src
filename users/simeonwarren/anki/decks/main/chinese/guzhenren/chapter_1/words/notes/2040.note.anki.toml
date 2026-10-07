@@ -1,0 +1,20 @@
+note_id = 2040
+guid = "qjs_hoNkX"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 2081
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'this moment;	now;	at present.'
+example-sentence = ' 此刻,方源脚下的灰白山石,早已经被鲜血染成了暗红'
+example-type = ''
+grammar-construct = ''
+hanzi = '此刻'
+notes = ''
+pinyin = '<span class="tone3">cǐ</span><span class="tone4">kè</span>	 <!-- ci ke -->'
+source = ''

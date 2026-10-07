@@ -1,0 +1,17 @@
+note_id = 1670335111496
+guid = "DuQrpo?;.d"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = []
+
+[[cards]]
+id = 1670335111496
+ordinal = 0
+
+[[cards]]
+id = 1670335111497
+ordinal = 1
+
+[fields]
+Back = 'n or N'
+Front = 'Find the next or previous search match'

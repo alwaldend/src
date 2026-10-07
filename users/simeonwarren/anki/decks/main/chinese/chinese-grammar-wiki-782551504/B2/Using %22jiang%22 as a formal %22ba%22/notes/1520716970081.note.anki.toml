@@ -1,0 +1,20 @@
+note_id = 1520716970081
+guid = "J6_@80F(b*"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Parts_of_Speech", "SentencePatterns"]
+
+[[cards]]
+id = 1520716975945
+ordinal = 0
+
+[fields]
+article-title = 'Using "jiang" as a formal "ba"'
+english = 'The school expelled those students who skipped school very often.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 将 + Obj. + [Verb Phrase]'
+hanzi = '学校将那些经常逃学的学生都开除了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG68DA5'

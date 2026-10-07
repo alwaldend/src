@@ -1,0 +1,20 @@
+note_id = 1520716970872
+guid = "J~.6Kujm*p"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Comparisons", "Verbs"]
+
+[[cards]]
+id = 1520716976736
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "xiande" and "kanqilai"'
+english = 'Talking like that makes her look stupid.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A + 显得 + B + Predicate'
+hanzi = '那样说显得她很笨。'
+notes = ''
+pinyin = 'Nàyàng shuō xiǎnde tā hěn bèn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGKQEG9'

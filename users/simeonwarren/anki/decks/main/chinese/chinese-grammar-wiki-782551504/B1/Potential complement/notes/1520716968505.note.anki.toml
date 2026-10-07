@@ -1,0 +1,20 @@
+note_id = 1520716968505
+guid = "P5e4(o+5z*"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716974369
+ordinal = 0
+
+[fields]
+article-title = 'Potential complement'
+english = 'Can you buy this brand of watch in Shanghai?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 得 + Complement'
+hanzi = '在上海买得到这个牌子的手表吗？'
+notes = ''
+pinyin = 'Zài Shànghǎi mǎi de dào zhè gè páizi de shǒubiǎo ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCPJPQ'

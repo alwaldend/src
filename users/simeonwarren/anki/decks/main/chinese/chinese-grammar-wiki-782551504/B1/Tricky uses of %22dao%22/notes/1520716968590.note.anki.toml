@@ -1,0 +1,20 @@
+note_id = 1520716968590
+guid = "Mc`MQ9hvtM"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716974454
+ordinal = 0
+
+[fields]
+article-title = 'Tricky uses of "dao"'
+english = 'I can do it next week.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '我下个星期可以做。'
+notes = ''
+pinyin = 'Wǒ xià gè xīngqī kěyǐ zuò.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCUSIV'

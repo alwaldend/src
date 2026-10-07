@@ -1,0 +1,20 @@
+note_id = 1520716969305
+guid = "uG~:6JU5lK"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Comparisons", "Conjunctions"]
+
+[[cards]]
+id = 1520716975169
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "weile" and "yinwei"'
+english = 'Why did you come to Shanghai?<br>Because I work here.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '因为 + Reason，所以 + result'
+hanzi = 'A:你为什么来上海？<br>B:因为我在这里工作。'
+notes = ''
+pinyin = '<div>A: Nǐ wèishéme lái shànghǎi?</div><div>B: Yīnwèi wǒ zài zhèlǐ gōngzuò.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMEC1P'

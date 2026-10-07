@@ -1,0 +1,20 @@
+note_id = 1520716969434
+guid = "Dh:[*>,10x"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Comparisons", "TimeWords"]
+
+[[cards]]
+id = 1520716975298
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "gang" and "gangcai"'
+english = "I didn't go just now."
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = '刚 + Adj.'
+hanzi = '我刚才没去。'
+notes = "It's fine to use 刚才 with 没 in the past."
+pinyin = '<div>Wǒ gāngcái méi qù.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJFFWG'

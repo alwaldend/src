@@ -1,0 +1,20 @@
+note_id = 1520716966109
+guid = "Mr,,kuqa8I"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "leech", "NumbersandMeasureWords", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971973
+ordinal = 0
+
+[fields]
+article-title = 'Using "ji" to mean "several"'
+english = 'The boss has a few dozen houses abroad.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '几 + 十 + Measure Word + Noun'
+hanzi = '老板在国外有几十套房子。'
+notes = ''
+pinyin = 'Lǎobǎn zài guówài yǒu jǐ shí tào fángzi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGHC9CA'

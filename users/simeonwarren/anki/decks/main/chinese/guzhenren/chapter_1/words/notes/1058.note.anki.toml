@@ -1,0 +1,20 @@
+note_id = 1058
+guid = "w7qn;m0B!J"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 1116
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'to see<br>• to look at<br>• to read<br>• to watch<br>• to visit<br>• to call on<br>• to consider<br>• to regard as<br>• to look after<br>• to treat (an illness)<br>• to depend on<br>• to feel (that)<br>• (after verb) to give it a try<br>• Watch out! (for a danger)'
+example-sentence = ' 看着这青山落日,方源轻声一笑: 青山落日,秋月春风'
+example-type = ''
+grammar-construct = ''
+hanzi = '看'
+notes = ''
+pinyin = '<span class="tone4">kàn</span><span class="tone5">zhe</span>	 <!-- kan zhe -->'
+source = ''

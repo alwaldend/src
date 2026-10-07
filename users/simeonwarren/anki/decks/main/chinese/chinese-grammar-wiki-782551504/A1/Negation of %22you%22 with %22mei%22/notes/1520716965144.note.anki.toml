@@ -1,0 +1,20 @@
+note_id = 1520716965144
+guid = "H$5W=~32/S"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971008
+ordinal = 0
+
+[fields]
+article-title = 'Negation of "you" with "mei"'
+english = "I don't have a job. My husband doesn't have a job either."
+example-sentence = ''
+example-type = ''
+grammar-construct = '没 + 有 (+ Obj.)'
+hanzi = '我没工作，我老公也没工作。'
+notes = ''
+pinyin = 'Wǒ méi gōngzuò, wǒ lǎogōng yě méi gōngzuò.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPNV3Q'

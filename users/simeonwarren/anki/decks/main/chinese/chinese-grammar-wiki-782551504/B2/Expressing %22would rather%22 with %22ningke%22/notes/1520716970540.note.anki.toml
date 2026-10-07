@@ -1,0 +1,20 @@
+note_id = 1520716970540
+guid = "u<2;_a^<YJ"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716976404
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "would rather" with "ningke"'
+english = "I'd rather give these old things to strange people than throw it away."
+example-sentence = ''
+example-type = ''
+grammar-construct = '宁可……，也不……'
+hanzi = '我宁可把这些东西送给陌生人，也不会扔掉。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGF3F2Y'

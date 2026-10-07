@@ -1,0 +1,20 @@
+note_id = 1520716967345
+guid = "Aa/~kZ>^C0"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973209
+ordinal = 0
+
+[fields]
+article-title = 'The opposite of "cha hen duo" is "chabuduo"'
+english = 'There is a big difference in the attitude between this waiter and his manager.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A + 跟 / 和 + B + 差很多'
+hanzi = '这个服务员和经理的服务态度差很多。'
+notes = ''
+pinyin = 'Zhège fúwùyuán hé jīnglǐ de fúwù tàidu chà hěn duō.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQAN74'

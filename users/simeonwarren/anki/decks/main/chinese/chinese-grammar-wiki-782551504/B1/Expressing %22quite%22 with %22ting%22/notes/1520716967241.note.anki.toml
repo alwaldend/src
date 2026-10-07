@@ -1,0 +1,20 @@
+note_id = 1520716967241
+guid = "u;`l#QR_gH"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973105
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "quite" with "ting"'
+english = "Their family is quite rich, but he doesn't like like a rich person."
+example-sentence = ''
+example-type = ''
+grammar-construct = '挺 + Adj. + 的'
+hanzi = '他们家挺有钱的，但是他不像有钱人。'
+notes = ''
+pinyin = 'Tāmen jiā  tǐng yǒuqián  de, dànshì tā bù xiàng yǒuqiánrén.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDF1F7'

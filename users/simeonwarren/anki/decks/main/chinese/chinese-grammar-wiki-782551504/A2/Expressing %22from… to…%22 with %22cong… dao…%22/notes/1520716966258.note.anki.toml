@@ -1,0 +1,20 @@
+note_id = 1520716966258
+guid = "wI#edb=Q:U"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+id = 1520716972122
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "from… to…" with "cong… dao…"'
+english = "She's lived alone since she was 18 until now."
+example-sentence = ''
+example-type = ''
+grammar-construct = '从 + Time 1 + 到 + Time 2'
+hanzi = '她从18岁到现在都一个人住。'
+notes = ''
+pinyin = 'Tā cóng shíbā suì dào xiànzài dōu yīgèrén zhù.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGGGIW8'

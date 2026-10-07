@@ -1,0 +1,20 @@
+note_id = 1520716969402
+guid = "wc#!@$G>^H"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Comparisons"]
+
+[[cards]]
+id = 1520716975266
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "youdian" and "yidian"'
+english = "Miss, could we get this a little cheaper?<br>I'm sorry, no haggling. It can't be a little bit cheaper. Not even a bit."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = 'A:小姐，这件衣服能不能便宜一点？<br>&lt;br&gt;<br>C:不好意思，不能还价，一点也不能便宜。'
+notes = ''
+pinyin = 'Xǎojie, zhè jiàn yīfu néng bù néng piányi yīdiǎn?<br>Bù hǎoyìsi, bù néng huánjià, yīdiǎn yě bù néng piányi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGV55Y4'

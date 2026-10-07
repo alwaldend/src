@@ -1,0 +1,20 @@
+note_id = 1520716969731
+guid = "J?{~#]H,m&"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975595
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "nearly" with "jihu"'
+english = 'In our company, almost everyone can speak English.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '几乎 + Subj. + 都 + Verb / Adj.'
+hanzi = '在我们公司，几乎每个人都会说英文。'
+notes = ''
+pinyin = 'Zài wǒmen gōngsī, jīhū měi gè rén dōu huì shuō Yīngwén.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGVA70K'

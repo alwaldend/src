@@ -1,0 +1,20 @@
+note_id = 1520716968620
+guid = "v5=GEVCT^:"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974484
+ordinal = 0
+
+[fields]
+article-title = 'Alternative existential sentences'
+english = 'A few cars are parked downstairs.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Place + Verb + 着 + [Noun Phrase]'
+hanzi = '楼下停着几辆车。'
+notes = ''
+pinyin = 'Lóuxià tíng zhe jǐ liàng chē.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGAC619'

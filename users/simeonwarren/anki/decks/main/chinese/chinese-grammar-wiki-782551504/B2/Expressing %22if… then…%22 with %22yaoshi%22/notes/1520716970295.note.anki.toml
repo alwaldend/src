@@ -1,0 +1,20 @@
+note_id = 1520716970295
+guid = "n#~`3rAKgm"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Grammatical_Structures", "IfStatements"]
+
+[[cards]]
+id = 1520716976159
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "if… then…" with "yaoshi"'
+english = "If he doesn't listen, there's nothing I can do about it."
+example-sentence = ''
+example-type = ''
+grammar-construct = '要是 + Subj. ⋯⋯ ， 就 ⋯⋯'
+hanzi = '他要不听，我也没办法。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGN4S8O'

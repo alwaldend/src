@@ -1,0 +1,20 @@
+note_id = 1520716969708
+guid = "z9&kgf0l|b"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975572
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "in the end" with "daodi"'
+english = 'It‘s finally getting warm.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '到底＋Verb＋了'
+hanzi = '天气到底暖和起来了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTVEHJ'

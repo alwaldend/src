@@ -1,0 +1,20 @@
+note_id = 1520716967738
+guid = "CGd|YW+t#M"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973602
+ordinal = 0
+
+[fields]
+article-title = 'Reviewing options with "ba"'
+english = 'Taking you with me, you will be naughty like always; Not taking you with me, you will definitely be bored.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Option 1 + 吧 ，⋯⋯ ；Option 2 + 吧 ，⋯⋯'
+hanzi = '带你去吧，你总是不听话；不带你去吧，你一个人肯定无聊。'
+notes = ''
+pinyin = 'Dài nǐ qù ba, nǐ zǒngshì bù tīnghuà; bù dài nǐ qù ba, nǐ yīgèrén kěndìng wúliáo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGELOTT'

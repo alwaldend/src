@@ -1,0 +1,20 @@
+note_id = 1520716967255
+guid = "v]/^S+Y/RX"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973119
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "small quantity" with "jiu"'
+english = 'You ordered only two dishes?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 就 + [Verb Phrase]'
+hanzi = '你就点了两个菜？'
+notes = ''
+pinyin = 'Nǐ jiù diǎn le liǎng gè cài?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPW8PP'

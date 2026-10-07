@@ -1,0 +1,20 @@
+note_id = 1520716967750
+guid = "l8_E/R-dFq"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973614
+ordinal = 0
+
+[fields]
+article-title = 'Using "de" (modal particle)'
+english = 'We can fix this.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Statement + 的'
+hanzi = '我们能搞定的。'
+notes = ''
+pinyin = 'Wǒmen néng gǎodìng de.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG19S1M'

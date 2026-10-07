@@ -1,0 +1,20 @@
+note_id = 1520716965183
+guid = "vw_JKO.8[p"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971047
+ordinal = 0
+
+[fields]
+article-title = 'The "also" adverb "ye"'
+english = 'I like to read.<br>Me too. / So do I.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 也 (+ Adv.) + Adj.'
+hanzi = 'A: 我喜欢看书。<br>B: 我也喜欢。'
+notes = ''
+pinyin = 'Wǒ xǐhuan kàn shū.<br>Wǒ yě xǐhuan.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGG25MD'

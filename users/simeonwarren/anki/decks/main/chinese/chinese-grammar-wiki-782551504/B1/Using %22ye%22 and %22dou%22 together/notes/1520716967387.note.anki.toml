@@ -1,0 +1,20 @@
+note_id = 1520716967387
+guid = "Kw0O;,b]Q3"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973251
+ordinal = 0
+
+[fields]
+article-title = 'Using "ye" and "dou" together'
+english = "He's tall. So are his two younger brothers."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 也都 + Predicate'
+hanzi = '他很高，他的两个弟弟也都比较高。'
+notes = ''
+pinyin = 'Tā hěn gāo, tā de liǎng gè dìdi yě dōu bǐjiào gāo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8GSXY'

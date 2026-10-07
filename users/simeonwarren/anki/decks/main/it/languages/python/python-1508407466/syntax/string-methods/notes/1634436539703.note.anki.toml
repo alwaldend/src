@@ -1,0 +1,17 @@
+note_id = 1634436539703
+guid = "E)Cd|woCL3"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634436539704
+ordinal = 0
+
+[fields]
+additional-info = '<strong>Note:</strong>&nbsp;All string methods returns new values. They do not change the original string.'
+answer = '<i>string</i>.index(<i>value</i>)'
+example = ''
+question = '<b>String method</b> that searches the string for a specified value and returns the first position where the value was found. Returns a ValueError if the value is not found.'
+version = ''
+with-options = ''

@@ -1,0 +1,17 @@
+note_id = 1526926277802
+guid = "xVnv(GDAx0"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = ["Insert", "Mode"]
+
+[[cards]]
+id = 1526926285600
+ordinal = 0
+
+[[cards]]
+id = 1668965796633
+ordinal = 1
+
+[fields]
+Back = 'Esc'
+Front = 'Exit back to normal mode (from visual or insert mode)'

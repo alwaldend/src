@@ -1,0 +1,20 @@
+note_id = 1520716969863
+guid = "Chs0D64yRh"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975727
+ordinal = 0
+
+[fields]
+article-title = 'Name-calling with "zhege"'
+english = "You bad person, you. You haven't done a single good thing."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 这个 + [Category]'
+hanzi = '你这个坏蛋，就没做过一件好事。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNPO4V'

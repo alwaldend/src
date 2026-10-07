@@ -1,0 +1,20 @@
+note_id = 1520716965165
+guid = "dPXBHv6U7_"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971029
+ordinal = 0
+
+[fields]
+article-title = 'The "also" adverb "ye"'
+english = 'I like it too.'
+example-sentence = ''
+example-type = 'invalid'
+grammar-construct = 'Subj. + 也 + Verb / [Verb Phrase]'
+hanzi = '我喜欢也。'
+notes = ''
+pinyin = 'Wǒ xǐhuan yě.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGG25MD'

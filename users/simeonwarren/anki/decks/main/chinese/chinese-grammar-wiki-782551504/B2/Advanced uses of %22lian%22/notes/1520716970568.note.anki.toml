@@ -1,0 +1,20 @@
+note_id = 1520716970568
+guid = "J3v:`9w?dW"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716976432
+ordinal = 0
+
+[fields]
+article-title = 'Advanced uses of "lian"'
+english = "Why are you taking other people's stuff without even asking?"
+example-sentence = ''
+example-type = ''
+grammar-construct = '连 + Verb + 都 + 不 / 没 + Verb (，就 ⋯⋯)'
+hanzi = '你怎么连问都不问就拿别人的东西？'
+notes = ''
+pinyin = 'Nǐ zěnme lián wèn dōu bù wèn jiù ná biérén de dōngxi?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGF273F'

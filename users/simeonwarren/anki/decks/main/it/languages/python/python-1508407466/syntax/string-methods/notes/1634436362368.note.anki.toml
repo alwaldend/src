@@ -1,0 +1,17 @@
+note_id = 1634436362368
+guid = "vj)b8#]LDH"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634436362368
+ordinal = 0
+
+[fields]
+additional-info = '<strong>Note:</strong>&nbsp;All string methods returns new values. They do not change the original string.'
+answer = '<i>string</i>.find(<i>value</i>)'
+example = ''
+question = "<b>String method</b> that searches a string for a specified value and returns the first position of where it was found, or -1. Doesn't throw a ValueError if value is not found.&nbsp;"
+version = ''
+with-options = ''

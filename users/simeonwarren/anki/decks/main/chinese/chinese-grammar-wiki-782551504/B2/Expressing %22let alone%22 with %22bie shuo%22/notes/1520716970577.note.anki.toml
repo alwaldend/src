@@ -1,0 +1,20 @@
+note_id = 1520716970577
+guid = "h]enl%b!`l"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Grammatical_Structures", "Letalone"]
+
+[[cards]]
+id = 1520716976441
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "let alone" with "bie shuo"'
+english = "Don't even think about cooking. He doesn't even know how to boil instant noodles."
+example-sentence = ''
+example-type = ''
+grammar-construct = '别说 + A ， 连  / 就是+ B + 也 / 都 + Verb'
+hanzi = '别说做菜了，他连怎么煮方便面都不知道。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGR6Q2J'

@@ -1,0 +1,20 @@
+note_id = 1520716967658
+guid = "q;dqAIu,b5"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973522
+ordinal = 0
+
+[fields]
+article-title = 'Sequencing past events with "houlai"'
+english = "He said he would come, but later he said that he's not coming."
+example-sentence = ''
+example-type = ''
+grammar-construct = '[Past Event 1] ，后来 ，[Past Event 2]'
+hanzi = '他说他会来，后来又说不来了。'
+notes = ''
+pinyin = 'Tā shuō tā huì lái, hòulái yòu shuō bù lái le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGY0UDC'

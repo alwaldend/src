@@ -1,0 +1,20 @@
+note_id = 1520716968705
+guid = "IEG,AWQ5Y}"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974569
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "compared with" with "gen"'
+english = 'Compared to the old version, the new version has a few more features.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'B + 跟 + A + 比 (起来) ，⋯⋯'
+hanzi = '新版本跟旧版本比起来，多了一些功能。'
+notes = ''
+pinyin = 'Xīn bǎnběn gēn jiù bǎnběn bǐ qǐlái, duō le yīxiē gōngnéng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG920B7'

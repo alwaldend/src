@@ -1,0 +1,20 @@
+note_id = 1520716965478
+guid = "CjIGHX~fGR"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Basics", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716971342
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "excessively" with "tai"'
+english = "Now it's too late."
+example-sentence = ''
+example-type = ''
+grammar-construct = '太 + Adj. + 了'
+hanzi = '现在太晚了。'
+notes = ''
+pinyin = 'Xiànzài tài wǎn le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8HVFN'

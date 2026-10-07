@@ -1,0 +1,20 @@
+note_id = 1520716967938
+guid = "Hvv7>orXz]"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716973802
+ordinal = 0
+
+[fields]
+article-title = 'Appearance with "kanqilai"'
+english = 'He looks friendly.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 看起来 + Adj.'
+hanzi = '他看起来很友好。'
+notes = ''
+pinyin = 'Tā kàn qǐlái hěn yǒuhǎo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG9K0F8'

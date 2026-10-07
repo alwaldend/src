@@ -1,0 +1,17 @@
+note_id = 1670181084824
+guid = "u&:m]W+oDT"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = []
+
+[[cards]]
+id = 1670181084825
+ordinal = 0
+
+[[cards]]
+id = 1670181084826
+ordinal = 1
+
+[fields]
+Back = '^x'
+Front = 'Decrement number on current line'

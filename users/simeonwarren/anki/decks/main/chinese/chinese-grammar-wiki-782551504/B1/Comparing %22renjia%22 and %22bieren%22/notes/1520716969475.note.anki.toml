@@ -1,0 +1,20 @@
+note_id = 1520716969475
+guid = "yNyv]opPaG"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Comparisons", "Nouns"]
+
+[[cards]]
+id = 1520716975339
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "renjia" and "bieren"'
+english = 'There are only ten households left in this village.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '村子里现在只剩十户人家了。'
+notes = ''
+pinyin = 'Cūnzi lǐ xiànzài zhī shèng shí hù rénjiā le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPINA4'

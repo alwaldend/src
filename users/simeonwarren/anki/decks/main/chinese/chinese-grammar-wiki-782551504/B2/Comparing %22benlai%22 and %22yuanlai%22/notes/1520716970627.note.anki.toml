@@ -1,0 +1,20 @@
+note_id = 1520716970627
+guid = "bkcIU4=@T+"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Comparisons"]
+
+[[cards]]
+id = 1520716976491
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "benlai" and "yuanlai"'
+english = 'My current boyfriend is a lot cuter than my ex.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '原来的 + Noun'
+hanzi = '我现在的男朋友比原来的男朋友帅多了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG56QKW'

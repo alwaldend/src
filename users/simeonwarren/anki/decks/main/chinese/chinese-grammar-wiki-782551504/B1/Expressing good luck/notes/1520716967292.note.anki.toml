@@ -1,0 +1,20 @@
+note_id = 1520716967292
+guid = "MRIG_mjvg{"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973156
+ordinal = 0
+
+[fields]
+article-title = 'Expressing good luck'
+english = "It's a good thing that my mother didn't see it, otherwise she would definitely be mad."
+example-sentence = ''
+example-type = ''
+grammar-construct = '幸亏 / 幸好 + [Lucky Incident]（，+ 不然 ⋯⋯)'
+hanzi = '幸好我妈没看到，不然她肯定要生气。'
+notes = ''
+pinyin = 'Xìnghǎo wǒ mā méi kàndào, bùrán tā kěndìng yào shēngqì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGOB1BF'

@@ -1,0 +1,20 @@
+note_id = 1520716965657
+guid = "m/Iz/RRRD:"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971521
+ordinal = 0
+
+[fields]
+article-title = 'Approximations with "chabuduo"'
+english = "Those two restaurants' dishes are almost the same."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 差不多'
+hanzi = '那两家餐厅的菜差不多。'
+notes = ''
+pinyin = 'Nà liǎng jiā cāntīng de cài chàbuduō.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG1NAXO'

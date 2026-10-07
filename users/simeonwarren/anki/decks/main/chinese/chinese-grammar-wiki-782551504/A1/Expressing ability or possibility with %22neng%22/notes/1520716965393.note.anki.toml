@@ -1,0 +1,20 @@
+note_id = 1520716965393
+guid = "jaID:/^Uo8"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Auxiliaryverbs", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971257
+ordinal = 0
+
+[fields]
+article-title = 'Expressing ability or possibility with "neng"'
+english = 'Is it possible to buy a cell phone with one thousand RMB?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 能 + Verb + Obj.'
+hanzi = '一千块能买一个手机吗？'
+notes = ''
+pinyin = 'Yīqiān kuài néng mǎi yī gè shǒujī ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG9PQ40'

@@ -1,0 +1,20 @@
+note_id = 7022
+guid = "b6LW@S9WE%"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 7050
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'previous generation;	older generation.'
+example-sentence = '甚至就连老一辈们都感觉到了这位后起之秀的压力'
+example-type = ''
+grammar-construct = ''
+hanzi = '老一辈'
+notes = ''
+pinyin = '<span class="tone3">lǎo</span><span class="tone1">yī</span><span class="tone4">bèi</span>	 <!-- lao yi bei -->'
+source = ''

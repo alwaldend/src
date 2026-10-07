@@ -1,0 +1,20 @@
+note_id = 1692894462883
+guid = "BVMajAG1oG"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = []
+
+[[cards]]
+id = 1692894462883
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'When I first chose, I was mentally prepared.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '当初选择时,就有了心理准备。'
+notes = ''
+pinyin = ''
+source = ''

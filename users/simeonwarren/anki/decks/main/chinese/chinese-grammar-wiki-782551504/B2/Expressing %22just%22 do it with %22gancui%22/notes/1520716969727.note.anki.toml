@@ -1,0 +1,20 @@
+note_id = 1520716969727
+guid = "F*6n_D.@HT"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975591
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "just" do it with "gancui"'
+english = "Since you aren't going to study well, might as well not study at all."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 干脆 + Verb'
+hanzi = '既然学不好，干脆别学了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGZ8MJM'

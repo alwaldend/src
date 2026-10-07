@@ -1,0 +1,20 @@
+note_id = 1520716968246
+guid = "HZ,O7-RkKH"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716974110
+ordinal = 0
+
+[fields]
+article-title = 'Verbs followed by "gei"'
+english = 'We dedicated a song to the teacher.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 把 + Obj. + Verb + 给 + Somebody'
+hanzi = '我们把一首歌献给了老师。'
+notes = ''
+pinyin = 'Wǒmen bǎ yī shǒu gē xiàn gěi le lǎoshī.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMMHTQ'

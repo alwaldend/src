@@ -1,0 +1,20 @@
+note_id = 3046
+guid = "xD_Oo:`.hx"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 3094
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'this;	this kind of;	this sort of;	this type of.'
+example-sentence = ' 这种结果,他也早有预见'
+example-type = ''
+grammar-construct = ''
+hanzi = '这种'
+notes = ''
+pinyin = '<span class="tone4">zhè</span><span class="tone3">zhǒng</span>	 <!-- zhe zhong -->'
+source = ''

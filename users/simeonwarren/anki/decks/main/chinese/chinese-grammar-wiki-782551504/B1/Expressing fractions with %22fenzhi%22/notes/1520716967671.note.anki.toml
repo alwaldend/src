@@ -1,0 +1,20 @@
+note_id = 1520716967671
+guid = "g`B7Iigr+,"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Numbers", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973535
+ordinal = 0
+
+[fields]
+article-title = 'Expressing fractions with "fenzhi"'
+english = 'The deposit is 20%.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Denominator + 分之 + Numerator'
+hanzi = '押金要付百分之二十。'
+notes = ''
+pinyin = 'Yājīnyào fù bǎifēnzhī èrshí.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG84RE9'

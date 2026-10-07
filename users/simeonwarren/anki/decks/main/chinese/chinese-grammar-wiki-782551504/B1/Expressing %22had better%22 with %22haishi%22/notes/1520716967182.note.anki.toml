@@ -1,0 +1,20 @@
+note_id = 1520716967182
+guid = "HX.Is}o7dH"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973046
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "had better" with "haishi"'
+english = "We'd better let her come in."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 还是 + [Verb Phrase] + 吧'
+hanzi = '还是让她进来吧。'
+notes = ''
+pinyin = 'Háishì ràng tā jìnlái ba.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWAR65'

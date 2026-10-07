@@ -1,0 +1,20 @@
+note_id = 1520716966696
+guid = "bUR)4hmLkn"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716972560
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "about to happen" with "le"'
+english = "It's 9 o'clock. The supermarket is about to close."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 要 + Verb / Adj. + 了'
+hanzi = '9点了，超市要关门了。'
+notes = ''
+pinyin = 'Jiǔ diǎn le, chāoshì yào guānmén le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNGEU8'

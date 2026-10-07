@@ -1,0 +1,17 @@
+note_id = 1634427057624
+guid = "Oj@U#UL6E}"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634427057625
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<b>Keyword</b> used to create an alias.'
+example = ''
+question = '<b>Keyword: </b>as'
+version = ''
+with-options = ''

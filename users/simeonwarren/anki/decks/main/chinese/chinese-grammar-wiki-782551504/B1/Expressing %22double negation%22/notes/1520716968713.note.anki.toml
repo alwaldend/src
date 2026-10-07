@@ -1,0 +1,20 @@
+note_id = 1520716968713
+guid = "M:Z%R|;K}{"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974577
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "double negation"'
+english = "It's not that he doesn't have money; it's just he doesn't want to spend it recklessly."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不 + 会 / 能 / 可能 + 不 / 没 + Predicate'
+hanzi = '他不是没有钱，是不想乱花钱。'
+notes = ''
+pinyin = 'Tā bù shì méiyǒu qián, shì bù xiǎng luàn huā qián.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGEEA2D'

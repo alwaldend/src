@@ -1,0 +1,20 @@
+note_id = 1520716966941
+guid = "s4dr~eEwjN"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972805
+ordinal = 0
+
+[fields]
+article-title = 'Coincidence with "zhenghao"'
+english = "I'm just about to leave. I'll take out the trash."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 正好 + [Verb Phrase]'
+hanzi = '我正好要出去，垃圾我来扔吧。'
+notes = ''
+pinyin = 'Wǒ zhènghǎo yào chūqù, lājī wǒ lái rēng ba.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGUD25J'

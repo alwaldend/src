@@ -1,0 +1,20 @@
+note_id = 1520716969039
+guid = "GOXj(wy_C1"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974903
+ordinal = 0
+
+[fields]
+article-title = 'Expressing various aspects with "yi fangmian"'
+english = 'On one hand, the government need to develop these old towns; on the other hand, they need to protect them well.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '一 方面 ⋯⋯ ， (另) 一 方面 ⋯⋯'
+hanzi = '政府一方面要发展这些古城，一方面也要保护好这些古城。'
+notes = ''
+pinyin = 'Zhèngfǔ yī fāngmiàn yào fāzhǎn zhèxiē gǔchéng, yī fāngmiàn yě yào bǎohù hǎo zhèxiē gǔchéng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCWHNF'

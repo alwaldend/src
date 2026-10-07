@@ -1,0 +1,20 @@
+note_id = 1520716970438
+guid = "JE|0w]!zPB"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "ConditionalStatements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716976302
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "unless" with "chufei"'
+english = "Unless you have the membership, yo can't come in."
+example-sentence = ''
+example-type = ''
+grammar-construct = '除非 + Condition ，否则 / 不然 + Result / Fact'
+hanzi = '除非你是会员，否则不能进去。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMD0YY'

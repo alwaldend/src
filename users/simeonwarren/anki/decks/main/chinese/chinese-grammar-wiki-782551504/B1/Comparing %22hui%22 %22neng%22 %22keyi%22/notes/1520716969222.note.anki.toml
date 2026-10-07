@@ -1,0 +1,20 @@
+note_id = 1520716969222
+guid = "(lo%;<o])"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["AuxiliaryWords", "B1", "Comparisons"]
+
+[[cards]]
+id = 1520716975086
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "hui" "neng" "keyi"'
+english = "I didn't expect you to be a person who can handle so many burdens."
+example-sentence = ''
+example-type = ''
+grammar-construct = '很 + 会／能 + Verb'
+hanzi = '没想到你这么能吃苦。'
+notes = ''
+pinyin = 'Méixiǎngdào nǐ  zhème  néng chīkǔ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGZL717'

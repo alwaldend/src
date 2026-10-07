@@ -1,0 +1,20 @@
+note_id = 1520716967354
+guid = "beY.dUaEM8"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973218
+ordinal = 0
+
+[fields]
+article-title = 'Using "always" as a complaint with "laoshi"'
+english = 'My grandma forgets to take her keys all the time.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '老是 + Predicate'
+hanzi = '奶奶老是忘带钥匙。'
+notes = ''
+pinyin = 'Nǎinai lǎoshì wàng dài yàoshi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGII66E'

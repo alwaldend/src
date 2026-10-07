@@ -1,0 +1,20 @@
+note_id = 1520716966414
+guid = "PMBs.,*b.<"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+id = 1520716972278
+ordinal = 0
+
+[fields]
+article-title = 'Indicating location with "zai" before verbs'
+english = 'Did you eat dinner outside?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 在 + Place + Verb + Obj.'
+hanzi = '你在外面吃过晚饭了吗？'
+notes = ''
+pinyin = 'Nǐ zài wàimiàn chī guo wǎnfàn le ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGX0Z0N'

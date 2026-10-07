@@ -1,0 +1,20 @@
+note_id = 1520716970838
+guid = "su=FzzY`K6"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Comparisons", "TimeWords"]
+
+[[cards]]
+id = 1520716976702
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "changchang" and "jingchang"'
+english = 'Her forgetting to bring a key is a frequent occurrence.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '经常 + Noun'
+hanzi = '她忘记带钥匙是经常的事情。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGE8FLP'

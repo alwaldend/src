@@ -1,0 +1,20 @@
+note_id = 1520716970779
+guid = "Bb^=9!*#K~"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Comparisons", "Prepositions"]
+
+[[cards]]
+id = 1520716976643
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "guanyu" and "duiyu"'
+english = 'A Notification regarding New Year vacations.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '关于新年放假的通知'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG1HNBU'

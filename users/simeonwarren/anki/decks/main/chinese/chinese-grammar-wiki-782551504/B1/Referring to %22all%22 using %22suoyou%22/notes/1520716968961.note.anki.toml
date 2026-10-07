@@ -1,0 +1,20 @@
+note_id = 1520716968961
+guid = "GmnEWb7W}k"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974825
+ordinal = 0
+
+[fields]
+article-title = 'Referring to "all" using "suoyou"'
+english = 'All the managers in your company are male?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '所有的 + Noun + 都 + Verb / Adj.'
+hanzi = '你们公司所有的经理都是男的吗？'
+notes = ''
+pinyin = 'Nǐmen gōngsī suǒyǒude jīnglǐ dōu shì nán de ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGOWBSL'

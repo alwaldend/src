@@ -1,0 +1,20 @@
+note_id = 1520716968964
+guid = "P^YG1{l<8U"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974828
+ordinal = 0
+
+[fields]
+article-title = 'Referring to "all" using "suoyou"'
+english = "Money can't solve all the problems."
+example-sentence = ''
+example-type = ''
+grammar-construct = '所有的 + Noun + 都 + Verb / Adj.'
+hanzi = '钱不可能解决所有的问题。'
+notes = ''
+pinyin = 'Qián bù kěnéng jiějué suǒyǒude wèntí.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGOWBSL'

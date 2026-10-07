@@ -1,0 +1,20 @@
+note_id = 1520716970927
+guid = "Jv;HfO?AQd"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Comparisons", "TimeWords"]
+
+[[cards]]
+id = 1520716976791
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "pingshi" and "pingchang"'
+english = "She usually doesn't buy luxuries."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 平常 + Verb'
+hanzi = '她平时不买奢侈品。'
+notes = ''
+pinyin = '<div>Tā píngshí bú mǎi shēchǐ pǐn.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJOGGG'

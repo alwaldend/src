@@ -1,0 +1,20 @@
+note_id = 1520716965917
+guid = "hD3cB=PfAJ"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "AdverbswithAdjectives", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971781
+ordinal = 0
+
+[fields]
+article-title = 'Modifying nouns with phrase + "de"'
+english = 'the books that he wrote'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Phrase + 的 + Noun'
+hanzi = '他写的书'
+notes = ''
+pinyin = 'tā xiě  de shū'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGLQKD2'

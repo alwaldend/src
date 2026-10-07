@@ -1,0 +1,20 @@
+note_id = 1520716970396
+guid = "b;qy>Zl%ZN"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716976260
+ordinal = 0
+
+[fields]
+article-title = 'Using "lai" and "qu" when "verbing around"'
+english = 'He searched everywhere and finally found the pair of worn-out socks.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 来 + Verb + 去'
+hanzi = '他翻来翻去，终于找到了那双破袜子。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGYJQAG'

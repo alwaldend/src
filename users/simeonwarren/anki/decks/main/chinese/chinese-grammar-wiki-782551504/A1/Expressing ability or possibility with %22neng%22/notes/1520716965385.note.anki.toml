@@ -1,0 +1,20 @@
+note_id = 1520716965385
+guid = "smTsxV{s1["
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Auxiliaryverbs", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971249
+ordinal = 0
+
+[fields]
+article-title = 'Expressing ability or possibility with "neng"'
+english = 'He can work 24 hours.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 能 + Verb + Obj.'
+hanzi = '他能工作24个小时。'
+notes = ''
+pinyin = 'Tā néng gōngzuò èrshí-sì gè xiǎoshí.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG9PQ40'

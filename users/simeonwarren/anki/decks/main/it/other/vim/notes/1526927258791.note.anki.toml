@@ -1,0 +1,17 @@
+note_id = 1526927258791
+guid = "Ekrza!=|C-"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = ["SearchandReplace"]
+
+[[cards]]
+id = 1526927277165
+ordinal = 0
+
+[[cards]]
+id = 1668965796698
+ordinal = 1
+
+[fields]
+Back = ':%s/old/new/g'
+Front = 'Replace all old with new throughout file'

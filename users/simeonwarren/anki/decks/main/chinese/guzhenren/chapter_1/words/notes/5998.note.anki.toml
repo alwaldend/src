@@ -1,0 +1,20 @@
+note_id = 5998
+guid = "JKDg.UCEHC"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 6001
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'to issue (an order, decree etc);	to send out;	to dispatch;	to produce (a sound);	to let out (a laugh).'
+example-sentence = '额头碰在棕色的地板上,发出轻轻的砰砰声'
+example-type = ''
+grammar-construct = ''
+hanzi = '发出'
+notes = ''
+pinyin = '<span class="tone1">fā</span><span class="tone1">chū</span>	 <!-- fa chu -->'
+source = ''

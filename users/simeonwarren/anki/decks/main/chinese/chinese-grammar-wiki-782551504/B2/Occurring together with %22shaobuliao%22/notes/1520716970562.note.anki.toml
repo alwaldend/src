@@ -1,0 +1,20 @@
+note_id = 1520716970562
+guid = "z3}=JVMb>?"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716976426
+ordinal = 0
+
+[fields]
+article-title = 'Occurring together with "shaobuliao"'
+english = "It's past 8 o'clock he still hasn't come back. He must be working overtime."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Situation / Result ，少不了 + 是 + Reason'
+hanzi = '八点多了还没回来，少不了是在加班。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG3IR71'

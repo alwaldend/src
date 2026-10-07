@@ -1,0 +1,20 @@
+note_id = 5008
+guid = "w;9]?dz2X."
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 5020
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'China;	Chinese;	surname Zhong;	within;	among;	in;	middle;	center;	while (doing sth);	during;	(dialect) OK;	all right.<br>to hit (the mark);	to be hit by;	to suffer;	to win (a prize, a lottery).<br>'
+example-sentence = '  列祖列宗保佑,希望此次开窍大典中能多多涌现出资质优秀的少年,为家族增添新血和希望'
+example-type = ''
+grammar-construct = ''
+hanzi = '中'
+notes = ''
+pinyin = '<span class="tone5">zhōngzhòng</span>	 <!-- zhong zhong -->'
+source = ''

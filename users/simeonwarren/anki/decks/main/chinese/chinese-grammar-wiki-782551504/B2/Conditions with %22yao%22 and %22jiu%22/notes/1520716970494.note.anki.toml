@@ -1,0 +1,20 @@
+note_id = 1520716970494
+guid = "J;T{6&mPr8"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716976358
+ordinal = 0
+
+[fields]
+article-title = 'Conditions with "yao" and "jiu"'
+english = "If you want to go, go now. You don't need to wait for us."
+example-sentence = ''
+example-type = ''
+grammar-construct = '要 + Verb + 就 + Verb'
+hanzi = '要去就快去，不用等我们。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGXGADL'

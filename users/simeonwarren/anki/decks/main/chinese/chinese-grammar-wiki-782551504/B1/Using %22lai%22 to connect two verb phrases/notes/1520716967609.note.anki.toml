@@ -1,0 +1,20 @@
+note_id = 1520716967609
+guid = "hzJSfesvk%"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Conjunctions", "leech", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973473
+ordinal = 0
+
+[fields]
+article-title = 'Using "lai" to connect two verb phrases'
+english = 'The sellers often attract customers through sales promotion.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '通过 / 用 + Agent + 来 + [Verb Phrase]'
+hanzi = '商家经常通过打折来吸引顾客。'
+notes = ''
+pinyin = 'Shāngjiā jīngcháng tōngguò dǎzhé lái xīyǐn gùkè.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGBZ578'

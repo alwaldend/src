@@ -1,0 +1,20 @@
+note_id = 1520716965412
+guid = "x5.}H4T-my"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Auxiliaryverbs", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971276
+ordinal = 0
+
+[fields]
+article-title = 'Wanting to do something with "yao"'
+english = "Today I'm very tired. I want to rest."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 要 + Verb + Obj.'
+hanzi = '今天很累，我要休息。'
+notes = ''
+pinyin = 'Jīntiān hěn lèi, wǒ yào xiūxi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGXVEAR'

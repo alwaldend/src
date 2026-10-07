@@ -1,0 +1,20 @@
+note_id = 1520716969729
+guid = "O#GtKA~`C_"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975593
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "just" do it with "gancui"'
+english = "Apples are too expensive. I'd better not buy them, just some bananas."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 干脆 + Verb'
+hanzi = '苹果很贵，我干脆没买，只买了点香蕉。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGZ8MJM'

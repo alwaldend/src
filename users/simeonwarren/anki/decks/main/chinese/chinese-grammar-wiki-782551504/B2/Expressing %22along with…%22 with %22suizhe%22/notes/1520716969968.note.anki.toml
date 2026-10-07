@@ -1,0 +1,20 @@
+note_id = 1520716969968
+guid = "bk6E%?r[M0"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+id = 1520716975832
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "along with…" with "suizhe"'
+english = 'As the international status of China is rising,Chinese people are becoming more and more confident.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '随着 + Noun， Subj. + Predicate'
+hanzi = '随着中国国际地位的提高，中国人也变得越来越有自信了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGHVFRA'

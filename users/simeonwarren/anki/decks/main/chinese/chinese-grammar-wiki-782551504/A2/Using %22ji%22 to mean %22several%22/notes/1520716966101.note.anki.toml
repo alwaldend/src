@@ -1,0 +1,20 @@
+note_id = 1520716966101
+guid = "G~b*g_~n-m"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "NumbersandMeasureWords", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971965
+ordinal = 0
+
+[fields]
+article-title = 'Using "ji" to mean "several"'
+english = 'Only a few people have been to that place.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '几 + Measure Word + Noun'
+hanzi = '只有几个人去过那个地方。'
+notes = ''
+pinyin = 'Zhǐyǒu jǐ gè rén qù guo nàge dìfang.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGHC9CA'

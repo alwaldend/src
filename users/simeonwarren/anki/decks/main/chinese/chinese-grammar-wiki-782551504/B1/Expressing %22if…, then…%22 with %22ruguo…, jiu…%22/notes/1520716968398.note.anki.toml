@@ -1,0 +1,20 @@
+note_id = 1520716968398
+guid = "Ir3S.GUFo7"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "IfStatements"]
+
+[[cards]]
+id = 1520716974262
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "if…, then…" with "ruguo…, jiu…"'
+english = "If you're not busy, can you help me connect with customers?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Statement + 的话，(就) Result'
+hanzi = '你不忙的话，可以帮我联系客户吗？'
+notes = ''
+pinyin = 'Nǐ bù máng de huà, kěyǐ bāng wǒ liánxì kèhù ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGGIVT0'

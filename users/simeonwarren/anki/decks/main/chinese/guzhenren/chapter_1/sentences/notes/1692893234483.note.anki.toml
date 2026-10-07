@@ -1,0 +1,20 @@
+note_id = 1692893234483
+guid = "g;TgfVA:#T"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = []
+
+[[cards]]
+id = 1692893234483
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'Fang Yuan, you damn devil, you killed tens of thousands of people in order to refine Spring Autumn Cicada'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '方源你个该死的魔头,你为了练成春秋蝉,杀了千万人的性命'
+notes = ''
+pinyin = 'Fāng yuán nǐ gè gāisǐ de mó tóu, nǐ wèile liàn chéng chūnqiū chán, shāle qiān wàn rén dì xìngmìng'
+source = ''

@@ -1,0 +1,20 @@
+note_id = 1520716965406
+guid = "G<5|pv.!]u"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Auxiliaryverbs", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971270
+ordinal = 0
+
+[fields]
+article-title = 'Expressing permission with "keyi"'
+english = "You can't smoke here."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不 + 可以 + Verb + Obj.'
+hanzi = '这里不可以抽烟。'
+notes = ''
+pinyin = 'Zhèlǐ  bù kěyǐ chōuyān.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG6SPYK'

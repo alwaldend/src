@@ -1,0 +1,17 @@
+note_id = 1669324906912
+guid = "oO!aTq!$];"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = []
+
+[[cards]]
+id = 1669324906912
+ordinal = 0
+
+[[cards]]
+id = 1669324906913
+ordinal = 1
+
+[fields]
+Back = 'zR'
+Front = 'Open all code folds'

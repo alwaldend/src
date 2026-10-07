@@ -1,0 +1,20 @@
+note_id = 1520716965578
+guid = "lGp!,kUjK="
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+id = 1520716971442
+ordinal = 0
+
+[fields]
+article-title = 'Tag questions with "bu"'
+english = 'You have a new girlfriend, right?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 不 + Verb'
+hanzi = '你有新女朋友了，是不是？'
+notes = ''
+pinyin = 'Nǐ yǒu xīn nǚpéngyou le, shì bu shì?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG4D8XB'

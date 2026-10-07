@@ -1,0 +1,20 @@
+note_id = 1520716965818
+guid = "r)^By->4$|"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "AdverbswithAdjectives", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971682
+ordinal = 0
+
+[fields]
+article-title = 'Asking about degree with "duo"'
+english = 'Do you know how expensive housing is in Shanghai?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 多 + Adj. ?'
+hanzi = '你知道上海的房子多贵吗？'
+notes = ''
+pinyin = 'Nǐ zhīdào Shànghǎi de fángzi duō guì ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG9LLJU'

@@ -1,0 +1,20 @@
+note_id = 1520716969165
+guid = "vD!<Wt&Ai+"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Comparisons"]
+
+[[cards]]
+id = 1520716975029
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "zai" and "you"'
+english = 'Please say it one more time.'
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = 'Subj. + 再 + Verb + Obj.'
+hanzi = '请再说一次。'
+notes = ''
+pinyin = '<div>Qǐng zàishuō yīcì.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTBHBG'

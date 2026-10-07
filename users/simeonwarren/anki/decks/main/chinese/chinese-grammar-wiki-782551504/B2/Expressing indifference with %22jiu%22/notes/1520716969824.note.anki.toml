@@ -1,0 +1,20 @@
+note_id = 1520716969824
+guid = "sE-%1iG$gr"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975688
+ordinal = 0
+
+[fields]
+article-title = 'Expressing indifference with "jiu"'
+english = "If you want to go, just go. There's nothing happening at home anyway."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 就 + Verb'
+hanzi = '去就去，反正在家也没事。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGL4O5E'

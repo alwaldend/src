@@ -1,0 +1,20 @@
+note_id = 1520716965649
+guid = "km@)GD%eU:"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Adjectives", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971513
+ordinal = 0
+
+[fields]
+article-title = 'Negative adjectives with "-si le"'
+english = 'We are all so terribly anxious!'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Adj. + 死了'
+hanzi = '我们都急死了。'
+notes = 'Literally, "anxious to death"'
+pinyin = 'Wǒmen dōu jí sǐ le!'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGLEVUV'

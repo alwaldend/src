@@ -1,0 +1,20 @@
+note_id = 1520716970921
+guid = "sU8*]7@z1M"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["C1", "Conjunctions"]
+
+[[cards]]
+id = 1520716976785
+ordinal = 0
+
+[fields]
+article-title = 'In order to avoid with "yimian"'
+english = ''
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = '以免 + Verb Phrase'
+hanzi = '你赶紧走，以免晚了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG0A67E'

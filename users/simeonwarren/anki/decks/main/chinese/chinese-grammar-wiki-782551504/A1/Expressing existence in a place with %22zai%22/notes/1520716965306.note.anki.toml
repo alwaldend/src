@@ -1,0 +1,20 @@
+note_id = 1520716965306
+guid = "Apa}#{8MPG"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716971170
+ordinal = 0
+
+[fields]
+article-title = 'Expressing existence in a place with "zai"'
+english = 'Who is upstairs?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 在 + Place'
+hanzi = '谁在楼上？'
+notes = ''
+pinyin = 'Shéi zài lóushàng?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGLRWT8'

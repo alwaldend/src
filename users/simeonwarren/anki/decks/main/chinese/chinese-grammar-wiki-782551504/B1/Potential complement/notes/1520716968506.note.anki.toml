@@ -1,0 +1,20 @@
+note_id = 1520716968506
+guid = "J:ppWNHv:A"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716974370
+ordinal = 0
+
+[fields]
+article-title = 'Potential complement'
+english = 'Nobody can understand this sentence.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 不 + Complement'
+hanzi = '大家都看不懂这句话。'
+notes = ''
+pinyin = 'Dàjiā dōu kàn bu dǒng zhè jù huà.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCPJPQ'

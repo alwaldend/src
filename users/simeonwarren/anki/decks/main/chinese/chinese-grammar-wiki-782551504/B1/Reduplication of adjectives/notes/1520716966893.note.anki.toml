@@ -1,0 +1,20 @@
+note_id = 1520716966893
+guid = "wahlc(bS;V"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972757
+ordinal = 0
+
+[fields]
+article-title = 'Reduplication of adjectives'
+english = 'comfortable'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A  A  B  B  + 的 (+ Noun)'
+hanzi = '舒服→舒舒服服'
+notes = ''
+pinyin = 'shūfu ￫ shū shū fū fū'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDHE8S'

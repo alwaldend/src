@@ -1,0 +1,20 @@
+note_id = 1520716966898
+guid = "rxt0Q_epP|"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972762
+ordinal = 0
+
+[fields]
+article-title = 'Reduplication of adjectives'
+english = 'We clearly saw him get in the car with a fat man.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'AABB + 地 + Verb'
+hanzi = '我们清清楚楚地看到他跟一个胖胖的男人上车了。'
+notes = ''
+pinyin = 'Wǒmen qīng qīng chǔ chǔ de kàndào tā gēn yīgè pàng pàng de nánrén shàngchē le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDHE8S'

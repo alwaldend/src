@@ -1,0 +1,20 @@
+note_id = 6023
+guid = "OT,;_!`hv/"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 6051
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'time;	period.<br>Cl: 段'
+example-sentence = '  时间过的真是太快了,一眨眼,一年就都过去了'
+example-type = ''
+grammar-construct = ''
+hanzi = '时间'
+notes = ''
+pinyin = '<span class="tone2">shí</span><span class="tone1">jiān</span>	 <!-- shi jian -->'
+source = ''

@@ -1,0 +1,20 @@
+note_id = 1520716969950
+guid = "v=IV[Yz}-:"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Parts_of_Speech", "PrepositionalPhrase"]
+
+[[cards]]
+id = 1520716975814
+ordinal = 0
+
+[fields]
+article-title = 'Defining scope'
+english = 'Can you deliver in 30 minutes or less?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '时间 / 处所 / 数量 / 范围 + 以内 / 以外'
+hanzi = '半小时以内能送到吗？'
+notes = ''
+pinyin = 'Bàn xiǎoshí yǐnèi néng sòngdào ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG7AE5C'

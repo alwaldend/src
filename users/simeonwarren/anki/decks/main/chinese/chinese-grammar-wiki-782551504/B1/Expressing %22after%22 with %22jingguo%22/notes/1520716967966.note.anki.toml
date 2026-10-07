@@ -1,0 +1,20 @@
+note_id = 1520716967966
+guid = "Gh]}s_/zPh"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716973830
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "after" with "jingguo"'
+english = 'After investigating, we found out that he had nothing to do with this.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '经过 + Event / Time，Subj. + Predicate'
+hanzi = '经过调查，我们发现他跟这件事真的没有关系。'
+notes = ''
+pinyin = 'Jīngguò diàochá, wǒmen fāxiàn tā gēn zhè jiàn shì zhēnde méiyǒu guānxi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG11DA8'

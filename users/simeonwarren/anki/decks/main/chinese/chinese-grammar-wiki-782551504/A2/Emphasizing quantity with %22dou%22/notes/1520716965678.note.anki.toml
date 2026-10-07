@@ -1,0 +1,20 @@
+note_id = 1520716965678
+guid = "epz^:`eB/("
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971542
+ordinal = 0
+
+[fields]
+article-title = 'Emphasizing quantity with "dou"'
+english = 'A lot of young people want to go to work in big cities.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 都 + Verb + Obj.'
+hanzi = '很多年轻人都想在大城市工作。'
+notes = ''
+pinyin = 'Hěn duō niánqīng rén dōu xiǎng zài dà chéngshì gōngzuò.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWNEYM'

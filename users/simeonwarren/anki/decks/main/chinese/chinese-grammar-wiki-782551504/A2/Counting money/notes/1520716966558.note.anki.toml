@@ -1,0 +1,20 @@
+note_id = 1520716966558
+guid = "if2bI9grn7"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Grammatical_Structures", "NumbersandMeasureWords"]
+
+[[cards]]
+id = 1520716972422
+ordinal = 0
+
+[fields]
+article-title = 'Counting money'
+english = 'two kuai two mao (2.2)'
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = 'Number + 块 + Number + 毛'
+hanzi = '两块二'
+notes = ''
+pinyin = 'liǎng kuài èr'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGL6JOE'

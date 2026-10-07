@@ -1,0 +1,20 @@
+note_id = 1520716970546
+guid = "Pya{nPhGh-"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716976410
+ordinal = 0
+
+[fields]
+article-title = 'Expressing purpose with "haorang"'
+english = 'I already prepared the work so that you guys can start it as soon as possible.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. 1 + Action， 好让 + Purpose'
+hanzi = '我已经把准备工作做好了，好让你们尽快开始。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG18JOA'

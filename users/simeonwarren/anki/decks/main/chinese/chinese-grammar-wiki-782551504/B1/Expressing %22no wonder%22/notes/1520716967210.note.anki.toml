@@ -1,0 +1,20 @@
+note_id = 1520716967210
+guid = "brK>6kHTIZ"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973074
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "no wonder"'
+english = 'Boss is going to give out red envelopes. No wonder everyone looks so happy recently.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '难怪 / 怪不得 + [Observation] ，原来 + Reason'
+hanzi = '老板过年要发红包，难怪大家最近都这么开心。'
+notes = ''
+pinyin = 'Lǎobǎn guònián yào fā hóngbāo, nánguài dàjiā zuìjìn dōu zhème kāixīn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGFPV2C'

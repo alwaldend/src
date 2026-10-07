@@ -1,0 +1,20 @@
+note_id = 1520716969529
+guid = "Q_[.&hm4D9"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Comparisons", "TimeWords"]
+
+[[cards]]
+id = 1520716975393
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "yihou" and "zhihou"'
+english = "I'm going to go home and drop my stuff off first, then go to the cafe to look for you."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Event， 之后 + Action'
+hanzi = '我要先回家把东西放下，之后去咖啡店找你。'
+notes = ''
+pinyin = 'Wǒ yào xiān huí jiā bǎ dōngxi fàng xià, zhīhòu qù kāfēidiàn zhǎo nǐ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGC3SCN'

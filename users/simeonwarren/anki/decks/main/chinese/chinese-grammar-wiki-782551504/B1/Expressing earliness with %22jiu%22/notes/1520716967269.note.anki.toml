@@ -1,0 +1,20 @@
+note_id = 1520716967269
+guid = "CQ-6PN,z9B"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973133
+ordinal = 0
+
+[fields]
+article-title = 'Expressing earliness with "jiu"'
+english = 'It only took him ten minutes to solve this problem.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Time  Word + 就 + Verb + Obj. + 了'
+hanzi = '这个问题他十分钟就解决了。'
+notes = ''
+pinyin = 'Zhège wèntí tā shí fēnzhōng jiù jiějué le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGKITRZ'

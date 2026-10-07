@@ -1,0 +1,20 @@
+note_id = 1520716970200
+guid = "QmhCs;s{OY"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "ButStatements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716976064
+ordinal = 0
+
+[fields]
+article-title = "Expressing \"on the contrary\" with \"fan'er\""
+english = "I took the weight-loss pill. She didn't lose weight at all. On the contrary, I gained weight!"
+example-sentence = ''
+example-type = ''
+grammar-construct = '⋯⋯ ，Subj. 不但 + 不 / 没 ⋯⋯，反而 + [Unexpected Outcome]'
+hanzi = '我吃了减肥药，不但没瘦，反而长胖了！'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGX5QTV'

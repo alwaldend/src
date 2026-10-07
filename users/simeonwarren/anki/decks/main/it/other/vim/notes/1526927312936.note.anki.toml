@@ -1,0 +1,17 @@
+note_id = 1526927312936
+guid = "G}.(r=Ss%q"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = ["Files", "Multiple", "Search"]
+
+[[cards]]
+id = 1526927344985
+ordinal = 0
+
+[[cards]]
+id = 1668965796701
+ordinal = 1
+
+[fields]
+Back = ':vim[grep] <b>/</b>pattern<b>/</b> files... &nbsp;“ populates the quickfix list; **/* to search all files recursively'
+Front = 'Search for pattern in all files in CWD recursively'

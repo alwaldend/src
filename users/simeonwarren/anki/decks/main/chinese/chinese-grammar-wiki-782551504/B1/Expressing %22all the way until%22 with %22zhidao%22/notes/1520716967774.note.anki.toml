@@ -1,0 +1,20 @@
+note_id = 1520716967774
+guid = "Z4jtX2l/)"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+id = 1520716973638
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "all the way until" with "zhidao"'
+english = "It wasn't until she was eighteen that she met her biological parents."
+example-sentence = ''
+example-type = ''
+grammar-construct = '直到 + Time / Event ，Subj. + 才 ⋯⋯'
+hanzi = '她直到十八岁才见到亲生父母。'
+notes = ''
+pinyin = 'Tā zhídào shíbā suì cái jiàndào qīnshēng fùmǔ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGC6E1C'

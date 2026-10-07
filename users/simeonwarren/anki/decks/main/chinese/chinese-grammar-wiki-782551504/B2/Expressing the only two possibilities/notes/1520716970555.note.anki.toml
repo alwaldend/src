@@ -1,0 +1,20 @@
+note_id = 1520716970555
+guid = "QONO}/s&iC"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716976419
+ordinal = 0
+
+[fields]
+article-title = 'Expressing the only two possibilities'
+english = "When they go on dates, if it's not to a coffee shop, then it's to the movie theater."
+example-sentence = ''
+example-type = ''
+grammar-construct = '不是 + A，就是 + B'
+hanzi = '他们约会不是去咖啡馆就是去电影院。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGEXR6R'

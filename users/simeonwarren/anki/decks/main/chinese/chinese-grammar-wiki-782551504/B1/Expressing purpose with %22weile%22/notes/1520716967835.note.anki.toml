@@ -1,0 +1,20 @@
+note_id = 1520716967835
+guid = "jIWUVe;Ah7"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+id = 1520716973699
+ordinal = 0
+
+[fields]
+article-title = 'Expressing purpose with "weile"'
+english = 'In order to make their child an American citizen, a lot of  rich Chinese people stay in the United States during their pregnancy.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '为了+ [Purpose]，Subject + Predicate'
+hanzi = '为了让孩子一生下来就是美国人，中国很多有钱人都在美国生孩子。'
+notes = "for their kids to become an American citizen as soon as they're born is the purpose"
+pinyin = 'Wèile ràng háizi yīshēng xiàlái jiùshì Měiguó rén, Zhōngguó hěn duō yǒuqiánrén dōu zài Měiguó shēng háizi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQGJXT'

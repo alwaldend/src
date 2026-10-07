@@ -1,0 +1,20 @@
+note_id = 1520716970858
+guid = "u*,3k!xEZo"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["auxiliaryverb", "B2", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716976722
+ordinal = 0
+
+[fields]
+article-title = 'The use of Taiwanese Mandarin "hui"'
+english = 'Is this spicy?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 会 + Predicate + 吗 ？'
+hanzi = '这个会辣吗？'
+notes = 'means 这个 辣 不 辣 ？'
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG22117'

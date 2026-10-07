@@ -1,0 +1,20 @@
+note_id = 1520716970008
+guid = "Q<)XF1HYaT"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+id = 1520716975872
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "for…" with "eryan"'
+english = 'For consumers, the sales promotion is very appealing.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '对 + Party + 而言 ，⋯⋯'
+hanzi = '对消费者而言，促销活动很有吸引力。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGD2A08'

@@ -1,0 +1,20 @@
+note_id = 1520716969841
+guid = "sj(R_(pFYP"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975705
+ordinal = 0
+
+[fields]
+article-title = 'Rhetorical questions with "nandao"'
+english = 'How much money should I give you?'
+example-sentence = ''
+example-type = 'invalid'
+grammar-construct = '难道 + [Rhetorical Question]'
+hanzi = '难道我应该给你多少钱？'
+notes = 'Not a 吗 question'
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMCP9V'

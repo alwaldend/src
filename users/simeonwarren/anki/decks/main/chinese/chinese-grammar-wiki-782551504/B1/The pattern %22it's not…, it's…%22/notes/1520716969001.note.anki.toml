@@ -1,0 +1,20 @@
+note_id = 1520716969001
+guid = "h,Lpv8VsO,"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974865
+ordinal = 0
+
+[fields]
+article-title = "The pattern \"it's not…, it's…\""
+english = 'The reason why I helped you is not to make you grateful to me, but to be friends with you.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不是 + [Verb Phrase 1] ， (而)是 + [Verb Phrase 2]'
+hanzi = '我帮你不是想让你感谢我，而是想跟你做朋友。'
+notes = ''
+pinyin = 'Wǒ bāng nǐ bù shì xiǎng ràng nǐ gǎnxiè wǒ, érshì xiǎng gēn nǐ zuò péngyou.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGT9WYR'

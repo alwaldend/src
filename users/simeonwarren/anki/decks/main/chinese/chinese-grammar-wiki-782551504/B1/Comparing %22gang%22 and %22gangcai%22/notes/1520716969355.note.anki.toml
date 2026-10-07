@@ -1,0 +1,20 @@
+note_id = 1520716969355
+guid = "J,H&jP@nWj"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Comparisons"]
+
+[[cards]]
+id = 1520716975219
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "gang" and "gangcai"'
+english = 'Where did you go just now?<br>I went to the bathroom. I just got back.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = 'A:你刚才去哪儿了？<br>B:我去上厕所了。刚回来。'
+notes = ''
+pinyin = 'Nǐ gāngcái qù nǎr le?<br>Wǒ qù shàng cèsuǒ le. Gāng huílái.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJFFWG'

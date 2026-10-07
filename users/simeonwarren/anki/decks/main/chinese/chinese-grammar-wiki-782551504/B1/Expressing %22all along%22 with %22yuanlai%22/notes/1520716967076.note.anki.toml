@@ -1,0 +1,20 @@
+note_id = 1520716967076
+guid = "i}m1aNx@BL"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972940
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "all along" with "yuanlai"'
+english = 'Your original hairstyle was also very cute.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 原来 + Predicate'
+hanzi = '你原来的发型也很可爱。'
+notes = ''
+pinyin = "Nǐ yuánlái de fàxíng yě hěn kě'ài."
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTKXFR'

@@ -1,0 +1,20 @@
+note_id = 1520716966675
+guid = "x`-(AvEIZb"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716972539
+ordinal = 0
+
+[fields]
+article-title = 'Cause and effect with "yinwei" and "suoyi"'
+english = 'She is beautiful, so a lot of boys like her.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Reason, 所以 + Result'
+hanzi = '她很漂亮，所以很多男孩喜欢她。'
+notes = ''
+pinyin = 'Tā hěn piàoliang, suǒyǐ hěn duō nánhái xǐhuan tā.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTDUJO'

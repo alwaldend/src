@@ -1,0 +1,20 @@
+note_id = 1520716970373
+guid = "LyzUa>M?vH"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716976237
+ordinal = 0
+
+[fields]
+article-title = 'Advanced result complements'
+english = 'You should look on the bright side. Life still goes on.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '看开一点，生活还是要继续的。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG4OM4T'

@@ -1,0 +1,20 @@
+note_id = 70
+guid = "yOX^DfhqF]"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+id = 139
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'journey;	trip.'
+example-sentence = '如果朋友们喜欢,那就请我们一起携手共进这场奇妙的冒险旅程'
+example-type = ''
+grammar-construct = ''
+hanzi = '旅程'
+notes = ''
+pinyin = '<span class="tone3">lǚ</span><span class="tone2">chéng</span>	 <!-- lü cheng -->'
+source = ''

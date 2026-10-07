@@ -1,0 +1,20 @@
+note_id = 1520716969606
+guid = "yUG=m/J!I4"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975470
+ordinal = 0
+
+[fields]
+article-title = 'Advanced uses of "dou"'
+english = 'Since everyone got here, we need to go now.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '都 + 小句，主句'
+hanzi = '来都来了，就先别急着走了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQFW44'

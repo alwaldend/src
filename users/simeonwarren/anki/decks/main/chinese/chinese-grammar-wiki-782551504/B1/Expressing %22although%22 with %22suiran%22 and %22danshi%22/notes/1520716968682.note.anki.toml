@@ -1,0 +1,20 @@
+note_id = 1520716968682
+guid = "n0#`Exi=oK"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974546
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "although" with "suiran" and "danshi"'
+english = "Although you're well-educated, you don't have working experience."
+example-sentence = ''
+example-type = ''
+grammar-construct = '虽然 ⋯⋯ ，但是 / 可是 ⋯⋯'
+hanzi = '你虽然学历高，可是没有工作经验。'
+notes = ''
+pinyin = 'Nǐ suīrán xuélì gāo, kěshì méiyǒu gōngzuò jīngyàn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGXI560'

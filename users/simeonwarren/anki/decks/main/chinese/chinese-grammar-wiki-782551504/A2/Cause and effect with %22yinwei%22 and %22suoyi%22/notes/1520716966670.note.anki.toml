@@ -1,0 +1,20 @@
+note_id = 1520716966670
+guid = "hT6WC:yC;#"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716972534
+ordinal = 0
+
+[fields]
+article-title = 'Cause and effect with "yinwei" and "suoyi"'
+english = "I love eating Sichuan food because it's very spicy."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Result, 因为 + Reason'
+hanzi = '我爱吃四川菜，因为很辣。'
+notes = ''
+pinyin = 'Wǒ ài chī Sìchuān cài, yīnwèi hěn là.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTDUJO'

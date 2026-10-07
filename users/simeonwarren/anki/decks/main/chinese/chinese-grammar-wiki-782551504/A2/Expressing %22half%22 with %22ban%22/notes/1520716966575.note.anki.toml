@@ -1,0 +1,20 @@
+note_id = 1520716966575
+guid = "B]GKtdgwy]"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Grammatical_Structures", "NumbersandMeasureWords"]
+
+[[cards]]
+id = 1520716972439
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "half" with "ban"'
+english = 'half a bowl of rice'
+example-sentence = ''
+example-type = ''
+grammar-construct = '半 + Measure Word + Noun'
+hanzi = '半碗米饭'
+notes = ''
+pinyin = 'bàn wǎn mǐfàn'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGAC1P9'

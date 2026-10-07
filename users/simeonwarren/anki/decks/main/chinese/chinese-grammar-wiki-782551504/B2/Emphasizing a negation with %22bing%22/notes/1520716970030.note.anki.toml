@@ -1,0 +1,20 @@
+note_id = 1520716970030
+guid = "dt<|;:?XrN"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Parts_of_Speech", "SentencePatterns"]
+
+[[cards]]
+id = 1520716975894
+ordinal = 0
+
+[fields]
+article-title = 'Emphasizing a negation with "bing"'
+english = "In China, starting a business really isn't easy. There are a lot of challenges."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 并 + 不 + Verb / Adj.&lt;br /&gt;Subj. + 并 + 没（有) + Verb'
+hanzi = '在中国创业并不容易，有很多的挑战。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGUQUPG'

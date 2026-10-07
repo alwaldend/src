@@ -1,0 +1,20 @@
+note_id = 1520716968079
+guid = "pmT5|;=nhS"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+id = 1520716973943
+ordinal = 0
+
+[fields]
+article-title = 'Separable verb'
+english = 'He came to my house yesterday and he ate a meal with us.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '他昨天来我家了，还吃了饭。'
+notes = ''
+pinyin = 'Tā zuótiān lái wǒ jiā le, hái chī le fàn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG4GVRX'

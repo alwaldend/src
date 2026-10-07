@@ -1,0 +1,20 @@
+note_id = 1520716967905
+guid = "Pi_<Kif(8j"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+id = 1520716973769
+ordinal = 0
+
+[fields]
+article-title = 'Verbs preceded by "gei"'
+english = "Don't give him a phone call now."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 给 + Target + [Verb Phrase]'
+hanzi = '现在不要给他打电话。'
+notes = ''
+pinyin = 'Xiànzài bùyào gěi tā dǎ diànhuà.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG3ORNN'

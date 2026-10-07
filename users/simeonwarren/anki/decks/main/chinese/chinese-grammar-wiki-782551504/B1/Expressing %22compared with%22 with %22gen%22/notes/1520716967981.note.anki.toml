@@ -1,0 +1,20 @@
+note_id = 1520716967981
+guid = "C5>G1i+)J@"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716973845
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "compared with" with "gen"'
+english = 'Compared to the older sister, the younger sister is a bit shy.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'B + 跟 + A + 比 ，  ~'
+hanzi = '跟姐姐比，妹妹有点害羞。'
+notes = ''
+pinyin = 'Gēn jiějie  bǐ, mèimei yǒudiǎn hàixiū.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG920B7'

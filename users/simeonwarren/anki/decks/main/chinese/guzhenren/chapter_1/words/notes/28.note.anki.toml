@@ -1,0 +1,20 @@
+note_id = 28
+guid = "g_{I?8{*Ox"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 55
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'inescapable net (idiom);	trap;	dragnet.'
+example-sentence = '这里早已经布下天罗地网,这次你必定身首异处'
+example-type = ''
+grammar-construct = ''
+hanzi = '天罗地网'
+notes = ''
+pinyin = '<span class="tone1">tiān</span><span class="tone2">luó</span><span class="tone4">dì</span><span class="tone3">wǎng</span>	 <!-- tian luo di wang -->'
+source = ''

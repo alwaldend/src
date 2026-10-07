@@ -1,0 +1,20 @@
+note_id = 1520716969893
+guid = "L;$`V~S^g0"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975757
+ordinal = 0
+
+[fields]
+article-title = 'Taiwanese "you"'
+english = 'You and your mom look alike!'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 有 + Adj.'
+hanzi = '你跟你妈妈有像耶！'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGY2D79'

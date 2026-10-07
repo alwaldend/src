@@ -1,0 +1,20 @@
+note_id = 1520716968142
+guid = "l{hgLncVE%"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716974006
+ordinal = 0
+
+[fields]
+article-title = 'Causative verbs'
+english = "Your son's behaviors at school give the teacher a lot of headache."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + [Causative Verb] + Person + Predicate'
+hanzi = '你儿子在学校的表现叫老师很头疼。'
+notes = ''
+pinyin = 'Nǐ érzi zài xuéxiào de biǎoxiàn jiào lǎoshī hěn tóuténg.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5T7XC'

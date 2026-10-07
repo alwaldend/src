@@ -1,0 +1,20 @@
+note_id = 1520716968635
+guid = "kop(RU/vi&"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974499
+ordinal = 0
+
+[fields]
+article-title = 'Conceding a point with "shi"'
+english = "I am busy at work, but I'm very happy with my job."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Adj. + 是 + Adj. ， 但是 / 就是 ⋯⋯'
+hanzi = '工作忙是忙，但是我很开心。'
+notes = ''
+pinyin = 'Gōngzuò máng  shì máng, dànshì wǒ hěn kāixīn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGT9Y8P'

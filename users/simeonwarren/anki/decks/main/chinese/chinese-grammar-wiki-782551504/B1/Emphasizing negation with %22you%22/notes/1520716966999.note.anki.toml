@@ -1,0 +1,20 @@
+note_id = 1520716966999
+guid = "kYi/Yibf3)"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972863
+ordinal = 0
+
+[fields]
+article-title = 'Emphasizing negation with "you"'
+english = "I haven't eaten it. How would I know if it is tasty or not?"
+example-sentence = ''
+example-type = ''
+grammar-construct = '又 + 不 / 没 + Predicate'
+hanzi = '我又没吃过，我怎么知道好不好吃？'
+notes = ''
+pinyin = 'Wǒ yòu méi chī guo, zěnme zhīdào hǎo bu hǎochī?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGD3C4S'

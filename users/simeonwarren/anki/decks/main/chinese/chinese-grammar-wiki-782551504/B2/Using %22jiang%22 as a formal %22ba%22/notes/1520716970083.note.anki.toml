@@ -1,0 +1,20 @@
+note_id = 1520716970083
+guid = "II?DtvycJm"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Parts_of_Speech", "SentencePatterns"]
+
+[[cards]]
+id = 1520716975947
+ordinal = 0
+
+[fields]
+article-title = 'Using "jiang" as a formal "ba"'
+english = 'The government asked these officials to return those dirty money.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 将 + Obj. + [Verb Phrase]'
+hanzi = '政府要求这些官员将赃款归还给国家。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG68DA5'

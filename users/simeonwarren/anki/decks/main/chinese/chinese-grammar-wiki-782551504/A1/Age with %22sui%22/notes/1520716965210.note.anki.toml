@@ -1,0 +1,20 @@
+note_id = 1520716965210
+guid = "DB%Ah*P`ZW"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Numbers", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971074
+ordinal = 0
+
+[fields]
+article-title = 'Age with "sui"'
+english = 'She is two and a half years old.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Number + 岁 + 半'
+hanzi = '她两岁半。'
+notes = ''
+pinyin = 'Tā liǎng suì bàn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQUKJF'

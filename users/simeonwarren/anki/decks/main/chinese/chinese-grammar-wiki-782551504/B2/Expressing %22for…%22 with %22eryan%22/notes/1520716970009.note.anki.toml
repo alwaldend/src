@@ -1,0 +1,20 @@
+note_id = 1520716970009
+guid = "AkWiY>C4o+"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+id = 1520716975873
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "for…" with "eryan"'
+english = 'For people born in the eighties, Internet dating is totally normal.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '对 + Party + 而言 ，⋯⋯'
+hanzi = '对80后而言，网恋很正常。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGD2A08'

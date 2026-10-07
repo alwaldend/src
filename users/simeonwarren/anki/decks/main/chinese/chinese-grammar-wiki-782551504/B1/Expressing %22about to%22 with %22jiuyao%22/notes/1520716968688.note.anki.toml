@@ -1,0 +1,20 @@
+note_id = 1520716968688
+guid = "JK-(5Di)>W"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974552
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "about to" with "jiuyao"'
+english = "I'm about to starve to death."
+example-sentence = ''
+example-type = ''
+grammar-construct = '(Subj. +) 就要 + Verb Phrase + 了'
+hanzi = '我就要饿死了。'
+notes = ''
+pinyin = 'Wǒ jiù yào è sǐ le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG9B210'

@@ -1,0 +1,20 @@
+note_id = 1520716968123
+guid = "tlWH-:Q^Z!"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716973987
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "not at all" with "yidianr ye bu"'
+english = "I didn't get even a little bit angry."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 一点 + 也 / 都 + 不 + Verb'
+hanzi = '我一点也没生气。'
+notes = ''
+pinyin = 'Wǒ yīdiǎn yě méi shēngqì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGRURCZ'

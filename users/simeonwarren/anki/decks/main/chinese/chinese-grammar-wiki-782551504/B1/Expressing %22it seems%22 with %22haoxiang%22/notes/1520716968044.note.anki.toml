@@ -1,0 +1,20 @@
+note_id = 1520716968044
+guid = "Z![]1^ekV"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716973908
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "it seems" with "haoxiang"'
+english = 'The milk might have expired. Stop drinking it.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 好像 + [Observation]'
+hanzi = '牛奶好像过期了，别喝了。'
+notes = ''
+pinyin = 'Niúnǎi hǎoxiàng guòqī le, bié hē le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG3ROPY'

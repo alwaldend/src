@@ -1,0 +1,20 @@
+note_id = 1520716970987
+guid = "G;c9*4k#/#"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["C1", "Comparisons"]
+
+[[cards]]
+id = 1520716976851
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "genju" and "ju"'
+english = 'Based on factual reports'
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = ''
+hanzi = '根据事实报道'
+notes = ''
+pinyin = 'Gēnjù shìshí bàodào'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGXJYJD'

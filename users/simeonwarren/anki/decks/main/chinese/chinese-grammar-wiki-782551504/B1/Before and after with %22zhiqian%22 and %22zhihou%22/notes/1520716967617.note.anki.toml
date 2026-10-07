@@ -1,0 +1,20 @@
+note_id = 1520716967617
+guid = "jzby0wz7=)"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973481
+ordinal = 0
+
+[fields]
+article-title = 'Before and after with "zhiqian" and "zhihou"'
+english = 'She needs to go to piano class every day after school is over.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Event + 之前 / 之后 ，⋯⋯'
+hanzi = '她每天放学之后都要去上钢琴课。'
+notes = ''
+pinyin = 'Tā měi tiān fàngxué zhīhòu dōu yào qù shàng gāngqín kè.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTD3L3'

@@ -1,0 +1,20 @@
+note_id = 1520716970818
+guid = "tLbJwAw.f5"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Grammatical_Structures", "Letalone"]
+
+[[cards]]
+id = 1520716976682
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "let alone" with "hekuang"'
+english = "He don't talk much at home, let alone on public occasion."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. (+ 尚且) + 都 / 就 ⋯⋯ ，（更）何况 ⋯⋯'
+hanzi = '他在家就不爱说话，何况是在外面？'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG3ZS9G'

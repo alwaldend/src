@@ -1,0 +1,20 @@
+note_id = 1520716967944
+guid = "OH*MrohSCE"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716973808
+ordinal = 0
+
+[fields]
+article-title = 'Causative verbs'
+english = 'Dropping out of school really disappointed her parents.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Causative Verb + Noun / Pronoun + Verb-Obj.'
+hanzi = '她退学的事情使她父母非常失望。'
+notes = ''
+pinyin = 'Tā tuìxué de shìqing shǐ tā fùmǔ fēicháng shīwàng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5T7XC'

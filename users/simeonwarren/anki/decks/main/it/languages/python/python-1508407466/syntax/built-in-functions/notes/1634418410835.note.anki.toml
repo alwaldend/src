@@ -1,0 +1,17 @@
+note_id = 1634418410835
+guid = "G84j#5%hDV"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634418410837
+ordinal = 0
+
+[fields]
+additional-info = "Note: The range function's arguments change depending on how many are provided."
+answer = '<b>Built in function:&nbsp;</b>range(<em>stop</em>)'
+example = ''
+question = '<b>Built in function</b>&nbsp;that returns a sequence of numbers (list like object), starting (by default) from 0 and increments by 1 up to, but not including a given stop point.'
+version = ''
+with-options = 'range(<i>start=0</i>,&nbsp;<i>stop</i>,&nbsp;<i>step=1</i>)'

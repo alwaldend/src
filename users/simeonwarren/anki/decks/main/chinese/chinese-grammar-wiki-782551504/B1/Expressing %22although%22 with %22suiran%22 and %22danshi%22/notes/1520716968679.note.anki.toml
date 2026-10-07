@@ -1,0 +1,20 @@
+note_id = 1520716968679
+guid = "Crrx0Vr5o0"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974543
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "although" with "suiran" and "danshi"'
+english = 'Even though his family is rich, he never wastes money.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '虽然 ⋯⋯ ，但是 / 可是 ⋯⋯'
+hanzi = '虽然他家很有钱，可是他从来不浪费钱。'
+notes = ''
+pinyin = 'Suīrán tā jiā hěn yǒuqián, kěshì tā cónglái bù làngfèi qián.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGXI560'

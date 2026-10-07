@@ -1,0 +1,20 @@
+note_id = 1520716968827
+guid = "wD6mzx*0pW"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974691
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "more and more" with "yuelaiyue"'
+english = 'The air pollution is getting worse and worse.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 越来越 + Adj. + 了'
+hanzi = '空气污染越来越严重了。'
+notes = ''
+pinyin = 'Kōngqì wūrǎn yuèláiyuè yánzhòng le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG7UE4H'

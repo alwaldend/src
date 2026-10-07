@@ -1,0 +1,20 @@
+note_id = 1520716965619
+guid = "C1N5aPCJAd"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Comparisons", "Numbers"]
+
+[[cards]]
+id = 1520716971483
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "er" and "liang"'
+english = 'the second one'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '第二个'
+notes = ''
+pinyin = 'dì-èr gè'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJ46H1'

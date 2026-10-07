@@ -1,0 +1,20 @@
+note_id = 2054
+guid = "Kzl:,:Z?8u"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+id = 2109
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'classifier for gifts, newspaper, magazine, papers, reports, contracts etc;	variant of 分.'
+example-sentence = '因为失血过多而显得苍白的脸,被晚霞映照着,忽然增添了一份嫣然之光彩'
+example-type = ''
+grammar-construct = ''
+hanzi = '份'
+notes = ''
+pinyin = '<span class="tone4">fèn</span>	 <!-- yi fen -->'
+source = ''

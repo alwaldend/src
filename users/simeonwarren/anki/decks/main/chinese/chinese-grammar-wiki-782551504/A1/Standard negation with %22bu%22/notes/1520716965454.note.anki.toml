@@ -1,0 +1,20 @@
+note_id = 1520716965454
+guid = "g:Mi2(^?26"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+id = 1520716971318
+ordinal = 0
+
+[fields]
+article-title = 'Standard negation with "bu"'
+english = "Why don't you like to drink coffee?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不 + Verb + Obj.'
+hanzi = '为什么你不喜欢喝咖啡？'
+notes = ''
+pinyin = 'Wèishénme nǐ bù xǐhuan hē  kāfēi?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGIPYFV'

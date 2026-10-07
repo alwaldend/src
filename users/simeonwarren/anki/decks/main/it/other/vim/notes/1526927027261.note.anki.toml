@@ -1,0 +1,17 @@
+note_id = 1526927027261
+guid = "wXbmCJX-Me"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = ["CutandPaste"]
+
+[[cards]]
+id = 1526927035712
+ordinal = 0
+
+[[cards]]
+id = 1668965796684
+ordinal = 1
+
+[fields]
+Back = 'D'
+Front = 'Delete to the end of the line (operator only)'

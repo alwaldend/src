@@ -1,0 +1,20 @@
+note_id = 1520716966780
+guid = "h8`BSJ4`o["
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Adverbs", "Comparisons"]
+
+[[cards]]
+id = 1520716972644
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "bu" and "mei"'
+english = "My cell phone isn't as expensive as his."
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = 'Noun 1 + 没有 + Noun 2 + Adj.'
+hanzi = '我的手机没有他的手机贵。'
+notes = ''
+pinyin = 'Wǒ de shǒujī méiyǒu tā de shǒujī guì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGRJ1BI'

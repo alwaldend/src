@@ -1,0 +1,20 @@
+note_id = 1520716970314
+guid = "KQVs|,eL|i"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Grammatical_Structures", "IfStatements"]
+
+[[cards]]
+id = 1520716976178
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "what if" with "wanyi"'
+english = "If he doesn't like it, you can come to make an exchange."
+example-sentence = ''
+example-type = ''
+grammar-construct = '万一 ⋯⋯ ，⋯⋯'
+hanzi = '万一他不喜欢，你可以来换。'
+notes = ''
+pinyin = 'Wànyī tā bù xǐhuan, nǐ kěyǐ lái huàn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG25773'

@@ -1,0 +1,20 @@
+note_id = 1520716968338
+guid = "jLX_4=NPWA"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+id = 1520716974202
+ordinal = 0
+
+[fields]
+article-title = 'Expressing duration of inaction'
+english = "It's been two years since I smoked."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Duration + 没 + Verb + Obj. + 了'
+hanzi = '我两年没抽烟了。'
+notes = ''
+pinyin = 'Wǒ liǎng nián méi chōuyān le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGSVF28'

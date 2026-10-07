@@ -1,0 +1,20 @@
+note_id = 1520716968559
+guid = "AF@P:[!Pr3"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "NounPhrases"]
+
+[[cards]]
+id = 1520716974423
+ordinal = 0
+
+[fields]
+article-title = 'Expressing fractions with "fenzhi"'
+english = 'The deposit is 20% of the rent.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A + 是 / 占 + B + 的 + Denominator + 分之 + Numerator'
+hanzi = '押金是房租的百分之二十。'
+notes = ''
+pinyin = 'Yājīnyào shì fángzū de bǎifēn zhī èrshí.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG84RE9'

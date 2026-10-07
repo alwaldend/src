@@ -1,0 +1,20 @@
+note_id = 7009
+guid = "oFsX*9.SFp"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 7024
+ordinal = 0
+
+[fields]
+article-title = ''
+english = "can't help (doing sth)."
+example-sentence = '  不知是谁,提及到白凝冰这个名字,众家老的脸上不由地浮现出一层忧色'
+example-type = ''
+grammar-construct = ''
+hanzi = '不由'
+notes = ''
+pinyin = '<span class="tone4">bù</span><span class="tone2">yóu</span>	 <!-- bu you -->'
+source = ''

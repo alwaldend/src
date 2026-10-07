@@ -1,0 +1,20 @@
+note_id = 1520716967406
+guid = "olb0YyXlng"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["AdverbswithAdjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973270
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "much more" in comparisons'
+english = "It's much more expensive in Shanghai than in my hometown."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun 1 + 比 + Noun 2 + Adj. + 得多 / 多了 / 很多'
+hanzi = '上海比我老家贵多了。'
+notes = ''
+pinyin = 'Shànghǎi bǐ wǒ lǎojiā guì duō le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG6KUS5'

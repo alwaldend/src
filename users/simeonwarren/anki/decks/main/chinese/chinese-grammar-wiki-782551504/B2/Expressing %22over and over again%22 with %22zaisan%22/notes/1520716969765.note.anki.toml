@@ -1,0 +1,20 @@
+note_id = 1520716969765
+guid = "yOb]={4HsM"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975629
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "over and over again" with "zaisan"'
+english = 'The teacher has stressed over and over that this exam is really important for us.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '再三 + Verb'
+hanzi = '老师再三强调这次考试对我们很重要。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGP6LVA'

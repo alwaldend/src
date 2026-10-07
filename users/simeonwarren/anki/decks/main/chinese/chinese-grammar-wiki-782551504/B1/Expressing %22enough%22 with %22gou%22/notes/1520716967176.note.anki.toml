@@ -1,0 +1,20 @@
+note_id = 1520716967176
+guid = "IiH8sol/|C"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973040
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "enough" with "gou"'
+english = "These dishes are not enough to eat. Let's order some more."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不 + 够 + Adj. / Verb'
+hanzi = '这些菜不够吃，再点几个菜。'
+notes = ''
+pinyin = 'Zhèxiē cài bù gòu chī, zài diǎn jǐ gè cài.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG49BE6'

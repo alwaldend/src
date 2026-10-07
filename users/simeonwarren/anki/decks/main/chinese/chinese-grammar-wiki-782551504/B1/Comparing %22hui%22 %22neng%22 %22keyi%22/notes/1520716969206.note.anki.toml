@@ -1,0 +1,20 @@
+note_id = 1520716969206
+guid = "cv;Z<`Q+c^"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["AuxiliaryWords", "B1", "Comparisons"]
+
+[[cards]]
+id = 1520716975070
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "hui" "neng" "keyi"'
+english = 'Animals are not allowed to come in.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '可以 / 能 + Verb'
+hanzi = '动物不能进。'
+notes = ''
+pinyin = 'Dòngwù bù néng jìn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGZL717'

@@ -1,0 +1,20 @@
+note_id = 1520716970542
+guid = "qVF>R/?DHg"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716976406
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "would rather" with "ningke"'
+english = "They would spend all my money to cure their daughter's disease."
+example-sentence = ''
+example-type = ''
+grammar-construct = '宁可 ……，也要 ……'
+hanzi = '他们宁可花光所有钱，也要治好女儿的病。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGF3F2Y'

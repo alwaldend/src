@@ -1,0 +1,20 @@
+note_id = 1520716968312
+guid = "rR2^sAs;o2"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716974176
+ordinal = 0
+
+[fields]
+article-title = 'Verbs followed by "gei"'
+english = 'Why did you send me so many things?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 给 + Recipient + Obj.'
+hanzi = '你怎么寄给我这么多东西？'
+notes = ''
+pinyin = 'Nǐ zěnme jì gěi wǒ zhème duō dōngxi?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMMHTQ'

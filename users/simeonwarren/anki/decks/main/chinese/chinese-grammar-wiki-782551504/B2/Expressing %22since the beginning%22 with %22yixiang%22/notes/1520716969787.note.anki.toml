@@ -1,0 +1,20 @@
+note_id = 1520716969787
+guid = "l`_&Ri2%yG"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975651
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "since the beginning" with "yixiang"'
+english = 'His attitude has always been very serious.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 一向 + Habit / Attitude / etc.'
+hanzi = '他的态度一向很认真。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGACMNQ'

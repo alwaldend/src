@@ -1,0 +1,17 @@
+note_id = 1634365063705
+guid = "ki.aHR2?-U"
+note_type_id = 1630447360002
+note_type = "python-basic"
+tags = []
+
+[[cards]]
+id = 1634370830783
+ordinal = 0
+
+[fields]
+'Additional Info' = ''
+'Back - Basic' = '0, 1, 2, 3&nbsp;<font color="#666666">#4 does not get included</font>'
+'Back - Code' = ''
+Example = ''
+Front = 'For the code range(4) what numbers does this code iterate through?'
+Version = ''

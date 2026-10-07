@@ -1,0 +1,20 @@
+note_id = 1520716968027
+guid = "M{@>LzKfBs"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716973891
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "including" with "baokuo"'
+english = 'Including myself, 15 people total participated in this meeting.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '包括 + Obj. (+ 在内)，一共 ⋯⋯'
+hanzi = '包括我在内，一共有十五个人参加这个会议。'
+notes = ''
+pinyin = 'Bāokuò wǒ zàinèi, yīgòng yǒu shíwǔ gè rén cānjiā zhège huìyì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG50341'

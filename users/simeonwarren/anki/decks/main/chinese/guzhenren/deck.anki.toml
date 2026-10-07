@@ -1,0 +1,12 @@
+id = 1667751323565
+title = 'main::chinese::guzhenren'
+
+[notes]
+path = 'notes'
+
+[normal]
+config_id = 1
+extend_new = 20
+extend_review = 0
+description = ''
+markdown_description = false

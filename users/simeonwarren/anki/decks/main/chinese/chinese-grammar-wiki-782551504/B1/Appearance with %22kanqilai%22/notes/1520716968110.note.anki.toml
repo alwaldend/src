@@ -1,0 +1,20 @@
+note_id = 1520716968110
+guid = "QqroyjeM@W"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716973974
+ordinal = 0
+
+[fields]
+article-title = 'Appearance with "kanqilai"'
+english = 'You two look like a couple.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 看起来 + 像 ⋯⋯'
+hanzi = '你们俩看起来像情侣。'
+notes = ''
+pinyin = 'Nǐmen liǎ kànqǐlái xiàng qínglǚ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG9K0F8'

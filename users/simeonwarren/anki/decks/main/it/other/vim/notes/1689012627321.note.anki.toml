@@ -1,0 +1,17 @@
+note_id = 1689012627321
+guid = "cY{8x|Hiy#"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = []
+
+[[cards]]
+id = 1689012627323
+ordinal = 0
+
+[[cards]]
+id = 1689012627324
+ordinal = 1
+
+[fields]
+Back = '^p and then iterate with ^p'
+Front = 'Complete current word with existing keywords in buffer <b>after the cursor</b> that match the current prefix'

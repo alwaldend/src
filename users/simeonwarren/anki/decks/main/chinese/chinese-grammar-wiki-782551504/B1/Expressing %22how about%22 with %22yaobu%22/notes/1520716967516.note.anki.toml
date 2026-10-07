@@ -1,0 +1,20 @@
+note_id = 1520716967516
+guid = "rkWvl;O(-,"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973380
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "how about" with "yaobu"'
+english = 'You should eat, otherwise the food gets cold.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '要不 + Option B + 吧 ，Reason / Situation'
+hanzi = '你先吃吧，要不然饭就凉了。'
+notes = ''
+pinyin = 'Nǐ xiān chī ba, yào bùrán fàn jiù liáng le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDFQP7'

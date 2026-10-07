@@ -1,0 +1,20 @@
+note_id = 9006
+guid = "rGf];Ix$4&"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 9020
+ordinal = 0
+
+[fields]
+article-title = ''
+english = "big;\thuge;\tlarge;\tmajor;\tgreat;\twide;\tdeep;\tolder (than);\toldest;\teldest;\tgreatly;\tvery much;\t(dialect) father;\tfather's elder or younger brother.<br>see 大夫.<br>"
+example-sentence = '不过他这样的早慧,乙等资质的可能性不大,极有可能就是甲等'
+example-type = ''
+grammar-construct = ''
+hanzi = '大'
+notes = ''
+pinyin = '<span class="tone5">dàdài</span>	 <!-- da dai -->'
+source = ''

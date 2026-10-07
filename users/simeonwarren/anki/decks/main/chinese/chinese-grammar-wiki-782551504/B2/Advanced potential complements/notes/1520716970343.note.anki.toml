@@ -1,0 +1,20 @@
+note_id = 1520716970343
+guid = "n6Q|B4,%-f"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716976207
+ordinal = 0
+
+[fields]
+article-title = 'Advanced potential complements'
+english = "You're the only one who is able to help me with this."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 得 / 不 + 了'
+hanzi = '这件事情只有你帮得了我。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG516F9'

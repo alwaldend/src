@@ -1,0 +1,20 @@
+note_id = 1520716965671
+guid = "epytET<fGc"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971535
+ordinal = 0
+
+[fields]
+article-title = 'Approximations with "chabuduo"'
+english = "I've worked for this company for almost ten years."
+example-sentence = ''
+example-type = ''
+grammar-construct = '差不多 ＋ [Quantity Phrase] / [Time Phrase]'
+hanzi = '我在这家公司工作了差不多十年了。'
+notes = ''
+pinyin = 'Wǒ zài zhè jiā gōngsī gōngzuò le chàbuduō shí nián le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG1NAXO'

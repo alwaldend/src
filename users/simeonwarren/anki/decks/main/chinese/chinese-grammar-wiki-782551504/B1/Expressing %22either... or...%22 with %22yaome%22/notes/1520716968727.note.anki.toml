@@ -1,0 +1,20 @@
+note_id = 1520716968727
+guid = "HUx6v,kM!$"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974591
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "either... or..." with "yaome"'
+english = "You either do it well or don't do it."
+example-sentence = ''
+example-type = ''
+grammar-construct = '要么 + Option A ，要么 + Option B'
+hanzi = '要么好好做，要么就别做。'
+notes = ''
+pinyin = 'Yàome hǎohǎo zuò, yàome jiù bié zuò.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG30A60'

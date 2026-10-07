@@ -1,0 +1,20 @@
+note_id = 32
+guid = "L,~5!thoo*"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 63
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'Damn it!;	damned;	wretched.'
+example-sentence = '   方源你个该死的魔头,你为了练成春秋蝉,杀了千万人的性命'
+example-type = ''
+grammar-construct = ''
+hanzi = '该死'
+notes = ''
+pinyin = '<span class="tone1">gāi</span><span class="tone3">sǐ</span>	 <!-- gai si -->'
+source = ''

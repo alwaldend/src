@@ -1,0 +1,20 @@
+note_id = 1520716967470
+guid = "I~=&w_C2v&"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["AuxiliaryWords", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973334
+ordinal = 0
+
+[fields]
+article-title = 'Non-exhaustive lists with "dengdeng"'
+english = 'Beijing, Shanghai, Guangzhou and so on are the most developed cities in China.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A1，A2⋯⋯等 + [Category]'
+hanzi = '北京、上海、广州等城市是中国最发达的城市。'
+notes = ''
+pinyin = 'Běijīng, Shànghǎi, Guǎngzhōu děng chéngshì shì Zhōngguó zuì fādá de chéngshì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGF763H'

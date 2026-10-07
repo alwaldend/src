@@ -1,0 +1,17 @@
+note_id = 1668639792455
+guid = "KWP5IKdva3"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = []
+
+[[cards]]
+id = 1668639792458
+ordinal = 0
+
+[[cards]]
+id = 1668965796745
+ordinal = 1
+
+[fields]
+Back = ':r[ead] {file}&nbsp; &nbsp;" inserts the content of file at the cursor position<br>:r[ead] !{filter}&nbsp; &nbsp;" like :r !ls inserts the content of ls into the current buffer'
+Front = 'Read external content or program and insert it at the current cursor'

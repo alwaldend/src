@@ -1,0 +1,20 @@
+note_id = 1520716970393
+guid = "sf_#wyR5ey"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716976257
+ordinal = 0
+
+[fields]
+article-title = 'Using "lai" and "qu" when "verbing around"'
+english = 'The students are all nervous, they are all pacing back and forth outside of the exam room.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 来 + Verb + 去'
+hanzi = '学生们都很紧张，在考场外面走来走去。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGYJQAG'

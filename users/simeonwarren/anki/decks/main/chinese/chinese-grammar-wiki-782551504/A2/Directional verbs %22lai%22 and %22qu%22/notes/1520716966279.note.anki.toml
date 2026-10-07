@@ -1,0 +1,20 @@
+note_id = 1520716966279
+guid = "Q`=I.$_vqC"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716972143
+ordinal = 0
+
+[fields]
+article-title = 'Directional verbs "lai" and "qu"'
+english = 'Come to Nanjing Road now.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '来 / 去 + Place'
+hanzi = '你现在来南京路吧。'
+notes = ''
+pinyin = 'Nǐ xiànzài lái Nánjīng Lù ba.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGRBKSL'

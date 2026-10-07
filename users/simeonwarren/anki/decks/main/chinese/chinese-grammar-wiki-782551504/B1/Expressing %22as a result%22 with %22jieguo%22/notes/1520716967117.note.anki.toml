@@ -1,0 +1,20 @@
+note_id = 1520716967117
+guid = "n=!;.$+x9["
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972981
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "as a result" with "jieguo"'
+english = 'He drove too fast. As a result, he hit someone.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Situation ，结果 + Ending'
+hanzi = '他开得太快了，结果撞到了一个人。'
+notes = ''
+pinyin = 'Tā kāi de tài kuài le, jiéguǒ zhuàngdào le yī gè rén.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG6B21A'

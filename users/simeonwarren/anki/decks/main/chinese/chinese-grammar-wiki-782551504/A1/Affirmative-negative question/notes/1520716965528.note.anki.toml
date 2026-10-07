@@ -1,0 +1,20 @@
+note_id = 1520716965528
+guid = "L#+YB%s3OD"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+id = 1520716971392
+ordinal = 0
+
+[fields]
+article-title = 'Affirmative-negative question'
+english = 'Has he been to college?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 有 没有 + Obj.'
+hanzi = '他有没有上过大学？'
+notes = ''
+pinyin = 'Tā yǒu méiyǒu shàng guo dàxué?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGZH7K3'

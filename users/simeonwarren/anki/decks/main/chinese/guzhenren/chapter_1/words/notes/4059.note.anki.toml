@@ -1,0 +1,20 @@
+note_id = 4059
+guid = "pN+y:EDzV&"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+id = 4121
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'Clear'
+example-sentence = ' 而此时,同样有一对清亮的眸子,静静地看着这些深夜中闪闪的灯光,满怀复杂情怀'
+example-type = ''
+grammar-construct = ''
+hanzi = '清亮'
+notes = ''
+pinyin = '<span class="tone1">qīng</span><span class="tone4">liàng</span>	 <!-- qing liang -->'
+source = ''

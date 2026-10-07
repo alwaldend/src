@@ -1,0 +1,20 @@
+note_id = 1520716965521
+guid = "eLUR%YPY;e"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+id = 1520716971385
+ordinal = 0
+
+[fields]
+article-title = 'Affirmative-negative question'
+english = 'Is Chinese food good?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '[First Character of Adj.] + 不 + Adj.'
+hanzi = '中国菜好吃不好吃？'
+notes = 'whole word repeated'
+pinyin = 'Zhōngguó cài hǎochī bu hǎochī?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGZH7K3'

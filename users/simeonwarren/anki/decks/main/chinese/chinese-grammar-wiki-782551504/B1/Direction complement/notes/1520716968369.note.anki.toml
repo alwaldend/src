@@ -1,0 +1,20 @@
+note_id = 1520716968369
+guid = "eQ]c>#aD,W"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716974233
+ordinal = 0
+
+[fields]
+article-title = 'Direction complement'
+english = 'They took some presents there.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + [Compound Direction Complement]'
+hanzi = '他们带了一些礼物去。'
+notes = ''
+pinyin = 'Tāmen dài le yīxiē lǐwù qù.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8LWBJ'

@@ -1,0 +1,20 @@
+note_id = 1520716966943
+guid = "g@[JQW/1MT"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972807
+ordinal = 0
+
+[fields]
+article-title = 'Coincidence with "zhenghao"'
+english = 'He happened to ask the question that I wanted to ask.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 正好 + [Verb Phrase]'
+hanzi = '他正好问了我想问的问题。'
+notes = ''
+pinyin = 'Tā zhènghǎo wèn le wǒ xiǎng wèn de wèntí.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGUD25J'

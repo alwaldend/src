@@ -1,0 +1,20 @@
+note_id = 2057
+guid = "mSNw]!?BgD"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 2115
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'to kill and burn (idiom); murder and arson.'
+example-sentence = ' 所谓魔道,就是不修善果,杀人放火'
+example-type = ''
+grammar-construct = ''
+hanzi = '杀人放火'
+notes = ''
+pinyin = '<span class="tone1">shā</span><span class="tone2">rén</span><span class="tone4">fàng</span><span class="tone3">huǒ</span>	 <!-- sha ren fang huo -->'
+source = ''

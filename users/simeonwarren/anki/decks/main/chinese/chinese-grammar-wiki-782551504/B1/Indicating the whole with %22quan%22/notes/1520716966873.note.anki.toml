@@ -1,0 +1,20 @@
+note_id = 1520716966873
+guid = "A[P}JeCB`o"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972737
+ordinal = 0
+
+[fields]
+article-title = 'Indicating the whole with "quan"'
+english = 'Students in the whole school are on holiday.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '全 + Noun + 都  + Verb'
+hanzi = '全校的学生都放假了。'
+notes = ''
+pinyin = 'Quán xiào de xuéshēng dōu fàngjià le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCPDSR'

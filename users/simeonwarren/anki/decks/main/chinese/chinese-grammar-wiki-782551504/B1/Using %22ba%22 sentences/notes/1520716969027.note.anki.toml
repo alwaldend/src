@@ -1,0 +1,20 @@
+note_id = 1520716969027
+guid = "Oh6q$1Ln+c"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974891
+ordinal = 0
+
+[fields]
+article-title = 'Using "ba" sentences'
+english = 'Did you use up the paper or not?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 把 + Obj. 1 + Verb + Preposition + Obj. 2'
+hanzi = '你是不是把纸用完了？'
+notes = ''
+pinyin = 'Nǐ shì bù shì bǎ zhǐ yòng wán le?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG2UB2B'

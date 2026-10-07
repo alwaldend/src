@@ -1,0 +1,20 @@
+note_id = 1520716968888
+guid = "nMv59K[<SW"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974752
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "no wonder"'
+english = "Don't blame him. He's so young."
+example-sentence = ''
+example-type = ''
+grammar-construct = '怪不得 / 难怪 + [Observation] ，原来 (+ 是) + Reason'
+hanzi = '这也难怪他，他这么小。'
+notes = ''
+pinyin = 'Zhè yě nánguài tā, tā zhème xiǎo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGFPV2C'

@@ -1,0 +1,20 @@
+note_id = 1520716968111
+guid = "IXyyAt@=V:"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716973975
+ordinal = 0
+
+[fields]
+article-title = 'Appearance with "kanqilai"'
+english = "They don't seem like rich people."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 看起来 + 像 ⋯⋯'
+hanzi = '他们看起来不像有钱人。'
+notes = ''
+pinyin = 'Tāmen kànqǐlái bù xiàng yǒuqián rén.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG9K0F8'

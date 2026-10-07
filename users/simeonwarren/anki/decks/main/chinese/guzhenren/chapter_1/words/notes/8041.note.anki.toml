@@ -1,0 +1,20 @@
+note_id = 8041
+guid = "x)D9^dY7[q"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+id = 8089
+ordinal = 0
+
+[fields]
+article-title = ''
+english = "should;\tought to;\tprobably;\tmust be;\tto deserve;\tto owe;\tto be sb's turn to do sth;\tthat;\tthe above-mentioned."
+example-sentence = ' 是该好好的养精蓄锐,待到明天,争上那一番'
+example-type = ''
+grammar-construct = ''
+hanzi = '该'
+notes = ''
+pinyin = '<span class="tone1">gāi</span>	 <!-- gai -->'
+source = ''

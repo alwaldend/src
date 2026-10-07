@@ -1,0 +1,20 @@
+note_id = 1520716967885
+guid = "r0LA<ojy|m"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+id = 1520716973749
+ordinal = 0
+
+[fields]
+article-title = 'Using "xiang"'
+english = "I don't like to borrow money to my colleagues."
+example-sentence = ''
+example-type = ''
+grammar-construct = '向 + Person + Verb'
+hanzi = '我不喜欢向同事借钱!'
+notes = ''
+pinyin = 'Wǒ bù xǐhuan xiàng tóngshì jiè qián.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQXARS'

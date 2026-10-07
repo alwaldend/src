@@ -1,0 +1,20 @@
+note_id = 1520716969764
+guid = "r6S^%!r1/E"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975628
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "originally" with "benlai"'
+english = 'No one ever said life was easy.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 本来 + 就 + 会 / 要 / 得 / 应该 + Verb'
+hanzi = '生活本来就很不容易。'
+notes = 'Literally, "Life was never supposed to be easy."'
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG6F157'

@@ -1,0 +1,20 @@
+note_id = 1520716969538
+guid = "k7_Puj[G}w"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Comparisons", "TimeWords"]
+
+[[cards]]
+id = 1520716975402
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "yihou" "ranhou" "houlai"'
+english = "We'll meet downstairs and then we go together."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '我们一会儿在楼下见，然后一起走。'
+notes = ''
+pinyin = 'Wǒmen yīhuìr zài lóu xià jiàn, ránhòu yīqǐ zǒu.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNPJ7T'

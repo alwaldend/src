@@ -1,0 +1,20 @@
+note_id = 1025
+guid = "m]#CVD!ch+"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 1050
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'thin blood;	watery blood.'
+example-sentence = '只是站着一会儿,方源脚下已经积了一大滩的血水'
+example-type = ''
+grammar-construct = ''
+hanzi = '血水'
+notes = ''
+pinyin = '<span class="tone4">xuè</span><span class="tone3">shuǐ</span>	 <!-- xue shui -->'
+source = ''

@@ -1,0 +1,17 @@
+note_id = 1634432658827
+guid = "oYfkvu5lI+"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634432658827
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<b>Keyword</b> used to throw an exception (not part of try/except block).'
+example = 'x = -1<br><br>if x &lt; 0:<br>&nbsp; &nbsp; raise Exception("Sorry, no numbers below zero") &nbsp;'
+question = '<b>Keyword: </b>raise'
+version = ''
+with-options = 'raise Exception(<i>errorMessage</i>)'

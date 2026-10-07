@@ -1,0 +1,17 @@
+note_id = 1634418099836
+guid = "NZr|[EY0$:"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634418099837
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<b>Built in function:&nbsp;</b>round(<i>number</i>)'
+example = ''
+question = '<b>Built in function</b>&nbsp;that rounds a number.'
+version = ''
+with-options = 'round(<i>number</i>,&nbsp;<i>position=0</i>)'

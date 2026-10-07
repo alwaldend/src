@@ -1,0 +1,20 @@
+note_id = 1520716970353
+guid = "u{LOJt&VWg"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716976217
+ordinal = 0
+
+[fields]
+article-title = 'Advanced potential complements'
+english = "This apartment's rent is at least 10,000 RMB. Can you afford to rent it?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 得 / 不 + 起 + Obj.'
+hanzi = '这里房子的租金最少也要一万块，你租得起吗？'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG516F9'

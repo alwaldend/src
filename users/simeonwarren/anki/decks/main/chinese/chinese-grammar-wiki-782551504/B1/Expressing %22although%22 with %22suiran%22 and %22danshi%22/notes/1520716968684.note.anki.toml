@@ -1,0 +1,20 @@
+note_id = 1520716968684
+guid = "j6N*`ptvz*"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974548
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "although" with "suiran" and "danshi"'
+english = "You didn't win,  but I know all of you did your best."
+example-sentence = ''
+example-type = ''
+grammar-construct = '虽然 ⋯⋯ ，但是 / 可是 ⋯⋯'
+hanzi = '虽然你们没有赢，但是我知道大家尽力了。'
+notes = ''
+pinyin = 'Suīrán nǐmen méiyǒu yíng, dànshì wǒ zhīdao dàjiā jìnlì le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGXI560'

@@ -1,0 +1,17 @@
+note_id = 1526925614804
+guid = "f#s4sMU]XT"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = ["Cursor", "Movement"]
+
+[[cards]]
+id = 1526925622655
+ordinal = 0
+
+[[cards]]
+id = 1668965796592
+ordinal = 1
+
+[fields]
+Back = 'k'
+Front = 'Move Cursor Up'

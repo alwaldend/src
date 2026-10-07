@@ -1,0 +1,20 @@
+note_id = 1520716969293
+guid = "NoIBY:~_r["
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Comparisons", "Conjunctions"]
+
+[[cards]]
+id = 1520716975157
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "weile" and "yinwei"'
+english = 'In order to get a good job, he went to Shanghai.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 为了 + 目的 (+ 而) + Predicate'
+hanzi = '为了有一份好工作，他去了上海。'
+notes = ''
+pinyin = '<div>Wèile yǒuyī fèn hǎo gōngzuò, tā qùle shànghǎi.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMEC1P'

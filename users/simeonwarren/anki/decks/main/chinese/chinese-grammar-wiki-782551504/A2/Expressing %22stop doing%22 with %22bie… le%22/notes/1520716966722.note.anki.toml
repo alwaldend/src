@@ -1,0 +1,20 @@
+note_id = 1520716966722
+guid = "vnrrX`Ol|e"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716972586
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "stop doing" with "bie… le"'
+english = "Don't buy it. It's too expensive!"
+example-sentence = ''
+example-type = ''
+grammar-construct = '别 + Verb / [Verb Phrase] + 了'
+hanzi = '别买了，太贵了！'
+notes = "In this case, the person probably isn't actually paying, but they're about to."
+pinyin = 'Bié mǎi le, tài guì le!'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGZ8OIF'

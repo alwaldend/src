@@ -1,0 +1,20 @@
+note_id = 7001
+guid = "wT|6=h]O{R"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+id = 7008
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'indeed;	truly;	(coll.) (used to express disapproval, annoyance etc about sth).'
+example-sentence = '尤其是白家的白凝冰,天资真是恐怖'
+example-type = ''
+grammar-construct = ''
+hanzi = '真是'
+notes = ''
+pinyin = '<span class="tone1">zhēn</span><span class="tone5">shi</span>	 <!-- zhen shi -->'
+source = ''

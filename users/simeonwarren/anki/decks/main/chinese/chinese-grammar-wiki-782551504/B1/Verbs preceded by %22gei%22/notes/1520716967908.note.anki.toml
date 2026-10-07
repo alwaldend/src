@@ -1,0 +1,20 @@
+note_id = 1520716967908
+guid = "s}R/2DD?F."
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+id = 1520716973772
+ordinal = 0
+
+[fields]
+article-title = 'Verbs preceded by "gei"'
+english = 'Could you please read it for everybody?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 给 + Target + [Verb Phrase]'
+hanzi = '你可以给大家读一下吗？'
+notes = ''
+pinyin = 'Nǐ kěyǐ gěi dàjiā dú yīxià ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG3ORNN'

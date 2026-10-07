@@ -1,0 +1,20 @@
+note_id = 1520716967575
+guid = "Gf~3|DRM>2"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973439
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "in addition" with "zaishuo"'
+english = "I want to quit. I work late every day. Besides, I don't really have a future here."
+example-sentence = ''
+example-type = ''
+grammar-construct = '⋯⋯ ，再说 ，⋯⋯'
+hanzi = '我不想干了。天天加班，再说，我在这儿也没有未来。'
+notes = ''
+pinyin = 'Wǒ bù xiǎng gàn le. Tiāntiān jiābān, Zàishuō, wǒ zài zhèr yě méiyǒu wèilái.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGATDLX'

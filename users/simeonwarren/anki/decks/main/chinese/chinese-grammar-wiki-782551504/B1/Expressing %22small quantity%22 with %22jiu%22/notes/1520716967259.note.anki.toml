@@ -1,0 +1,20 @@
+note_id = 1520716967259
+guid = "g0A]m/7.9j"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973123
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "small quantity" with "jiu"'
+english = 'Does your family only have one child?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 就 + Number + [Measure Word] + Noun'
+hanzi = '你们家就一个孩子吗？'
+notes = ''
+pinyin = 'Nǐmen jiā jiù yī gè háizi ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPW8PP'

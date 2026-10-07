@@ -1,0 +1,20 @@
+note_id = 1520716965438
+guid = "bav7:zr;l{"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+id = 1520716971302
+ordinal = 0
+
+[fields]
+article-title = 'Negation of past actions with "meiyou"'
+english = ''
+example-sentence = ''
+example-type = 'invalid'
+grammar-construct = 'Subj. + 没有 / 没 + Verb'
+hanzi = '我没有做了。'
+notes = ''
+pinyin = 'Wǒ méiyǒu zuò le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGAUCXK'

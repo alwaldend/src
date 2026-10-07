@@ -1,0 +1,20 @@
+note_id = 1520716967964
+guid = "sZe7b8:?cj"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716973828
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "after" with "jingguo"'
+english = 'After all of her hard work, she was admitted into Peking University.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '经过 + Event / Time，Subj. + Predicate'
+hanzi = '经过自己的努力，她考上了北京大学。'
+notes = ''
+pinyin = 'Jīngguò zìjǐ de nǔlì, tā kǎoshàng le Běijīng dàxué.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG11DA8'

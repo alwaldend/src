@@ -1,0 +1,20 @@
+note_id = 1520716968563
+guid = "FZxRS>A>WX"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716974427
+ordinal = 0
+
+[fields]
+article-title = 'Result complements'
+english = 'Did you finish doing your homework?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '没 + Verb + Adj.'
+hanzi = '作业做好了吗？'
+notes = ''
+pinyin = 'Zuòyè zuò hǎo le ma ?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNNMST'

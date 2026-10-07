@@ -1,0 +1,20 @@
+note_id = 1520716965324
+guid = "LX5q}n)cXf"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716971188
+ordinal = 0
+
+[fields]
+article-title = 'Expressing possession with "you"'
+english = 'Our family has two companies.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 有 + Obj.'
+hanzi = '我们家有两个公司。'
+notes = ''
+pinyin = 'Wǒmen jiā yǒu liǎng  gè gōngsī.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGOOCVO'

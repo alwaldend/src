@@ -1,0 +1,20 @@
+note_id = 1520716967560
+guid = "DWxCf>Q4UY"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973424
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "in addition" with "lingwai"'
+english = "It's not very convenient to have this meeting at my place. Let's find some other place."
+example-sentence = ''
+example-type = ''
+grammar-construct = '另外 + [Verb Phrase]'
+hanzi = '在我家开会不方便，我们另外找地方吧。'
+notes = ''
+pinyin = 'Zài wǒ jiā kāi huì bù fāngbiàn, wǒmen lìngwài zhǎo dìfang ba.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG2KQZI'

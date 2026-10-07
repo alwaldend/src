@@ -1,0 +1,17 @@
+note_id = 1634364403062
+guid = "AhE}@}:(J2"
+note_type_id = 1630447360002
+note_type = "python-basic"
+tags = []
+
+[[cards]]
+id = 1634370830778
+ordinal = 0
+
+[fields]
+'Additional Info' = ''
+'Back - Basic' = ''
+'Back - Code' = 'class Animal:<br>&nbsp; &nbsp; def __init__(self):<br>&nbsp; &nbsp; &nbsp; &nbsp; pass'
+Example = ''
+Front = 'Create a new class Animal with constructor of pass.'
+Version = ''

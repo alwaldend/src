@@ -1,0 +1,20 @@
+note_id = 1520716970739
+guid = "zGdqL.ys-+"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Comparisons", "Prepositions"]
+
+[[cards]]
+id = 1520716976603
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "chao" "xiang" and "wang"'
+english = 'The little birds flew towards the sky.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 向 / 往 + 具体方向'
+hanzi = '像鸟儿一样飞向蓝天。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGIHS2L'

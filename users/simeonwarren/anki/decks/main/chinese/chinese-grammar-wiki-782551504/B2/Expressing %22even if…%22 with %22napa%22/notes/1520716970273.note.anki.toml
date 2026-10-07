@@ -1,0 +1,20 @@
+note_id = 1520716970273
+guid = "m*^8(r6AOU"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "EvenIfStatements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716976137
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "even if…" with "napa"'
+english = "It would make her really happy even if you didn't buy any present."
+example-sentence = ''
+example-type = ''
+grammar-construct = '哪怕 ⋯⋯ ，也 ⋯⋯'
+hanzi = '哪怕你什么礼物都没买，她也会很开心的。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGXX3NY'

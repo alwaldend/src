@@ -1,0 +1,20 @@
+note_id = 1520716969317
+guid = "wh?rUzO/_j"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Comparisons"]
+
+[[cards]]
+id = 1520716975181
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "changchang" and "jingchang"'
+english = "My mother doesn't do online shopping often."
+example-sentence = ''
+example-type = ''
+grammar-construct = '常常 / 经常 + Verb'
+hanzi = '我妈妈不常网购。'
+notes = ''
+pinyin = 'Wǒ māma bù cháng wǎng gòu.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGE8FLP'

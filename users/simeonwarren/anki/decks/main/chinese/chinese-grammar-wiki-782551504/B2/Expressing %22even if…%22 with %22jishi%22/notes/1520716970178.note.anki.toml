@@ -1,0 +1,20 @@
+note_id = 1520716970178
+guid = "pqm3HbB2(("
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "EvenIfStatements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716976042
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "even if…" with "jishi"'
+english = "Even if you don't want to listen, you still have to pretend to be interested."
+example-sentence = ''
+example-type = ''
+grammar-construct = '即使 + Hypothetical Statement + 也 + Action'
+hanzi = '你即使不想听，也应该假装感兴趣。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGBUXN7'

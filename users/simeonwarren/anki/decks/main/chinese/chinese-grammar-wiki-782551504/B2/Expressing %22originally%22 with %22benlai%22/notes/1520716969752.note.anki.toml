@@ -1,0 +1,20 @@
+note_id = 1520716969752
+guid = "IGN8ue{&84"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975616
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "originally" with "benlai"'
+english = "We were going to ask him for help, but we didn't because he was so busy."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 本来 + 是 +（不）要 / 会 / 应该 + Verb + 的，但是 / 可是 ...'
+hanzi = '我们本来想去找他帮忙的，可是他那么忙，就没去。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG6F157'

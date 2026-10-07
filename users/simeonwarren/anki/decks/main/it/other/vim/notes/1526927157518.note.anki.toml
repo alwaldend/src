@@ -1,0 +1,17 @@
+note_id = 1526927157518
+guid = "qna@SJ/Y|o"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = ["Exiting"]
+
+[[cards]]
+id = 1526927172057
+ordinal = 0
+
+[[cards]]
+id = 1668965796692
+ordinal = 1
+
+[fields]
+Back = ':wqa'
+Front = 'Write and quit on all tabs'

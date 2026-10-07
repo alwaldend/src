@@ -1,0 +1,20 @@
+note_id = 1520716969866
+guid = "GcN+Y_{;~A"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975730
+ordinal = 0
+
+[fields]
+article-title = 'Name-calling with "zhege"'
+english = 'Kiwis and that kind of fruit have a high nutritional value.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 这种 / 这类 + [Category]'
+hanzi = '猕猴桃这种水果，营养价值最高。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNPO4V'

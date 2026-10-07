@@ -1,0 +1,20 @@
+note_id = 1520716970737
+guid = "PRm|y[v,=|"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Comparisons", "Prepositions"]
+
+[[cards]]
+id = 1520716976601
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "chao" "xiang" and "wang"'
+english = 'This plane is flying to New York.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 向 / 往 + 具体方向'
+hanzi = '这趟航班飞往纽约。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGIHS2L'

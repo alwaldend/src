@@ -1,0 +1,17 @@
+note_id = 1669064506180
+guid = "qH,<m+TW!t"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = []
+
+[[cards]]
+id = 1669064506183
+ordinal = 0
+
+[[cards]]
+id = 1669064506184
+ordinal = 1
+
+[fields]
+Back = ':vim[grep] //g **/*<div><br></div><div>** tells vim to recurse directories</div><div>* selects any file in the directory&nbsp;</div>'
+Front = 'Perform <b>current</b> search again, against all files in directory'

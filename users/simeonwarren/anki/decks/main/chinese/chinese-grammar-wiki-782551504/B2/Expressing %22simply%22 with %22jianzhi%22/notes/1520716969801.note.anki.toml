@@ -1,0 +1,20 @@
+note_id = 1520716969801
+guid = "H(:SpJ+/rv"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975665
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "simply" with "jianzhi"'
+english = 'His singing is simply awful!'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 简直 + Predicate'
+hanzi = '他唱歌简直难听死了！'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8OLAE'

@@ -1,0 +1,20 @@
+note_id = 1520716970676
+guid = "Ly>.888{&6"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716976540
+ordinal = 0
+
+[fields]
+article-title = 'Expressing indifference with "jiu"'
+english = "If it's broken, leave it there. We can buy a new one."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 就 + Verb'
+hanzi = '坏了就坏了，再买新的。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGL4O5E'

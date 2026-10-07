@@ -1,0 +1,20 @@
+note_id = 1520716969467
+guid = "w3v&ZfTRr2"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Comparisons", "Nouns"]
+
+[[cards]]
+id = 1520716975331
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "renjia" and "bieren"'
+english = "I don't care about what other people say."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '我不在乎人家怎么说。'
+notes = ''
+pinyin = 'Wǒ bù zàihu rénjia zěnme shuō.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPINA4'

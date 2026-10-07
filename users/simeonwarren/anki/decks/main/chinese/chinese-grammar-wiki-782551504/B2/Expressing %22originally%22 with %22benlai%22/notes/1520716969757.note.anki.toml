@@ -1,0 +1,20 @@
+note_id = 1520716969757
+guid = "H0F2i8T[oz"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975621
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "originally" with "benlai"'
+english = 'She is rich. Of course she can afford it.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 本来 + 就...'
+hanzi = '她本来就很有钱，当然买得起了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG6F157'

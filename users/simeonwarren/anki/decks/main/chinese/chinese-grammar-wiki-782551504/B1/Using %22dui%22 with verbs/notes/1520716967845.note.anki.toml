@@ -1,0 +1,20 @@
+note_id = 1520716967845
+guid = "C((BuC,M;}"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+id = 1520716973709
+ordinal = 0
+
+[fields]
+article-title = 'Using "dui" with verbs'
+english = 'To him, family is more important than work.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '对 + Person + 来说'
+hanzi = '对他来说，家人比工作更重要。'
+notes = ''
+pinyin = 'Duì tā lái shuō, jiārén bǐ gōngzuò gèng zhòngyào.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8ICO9'

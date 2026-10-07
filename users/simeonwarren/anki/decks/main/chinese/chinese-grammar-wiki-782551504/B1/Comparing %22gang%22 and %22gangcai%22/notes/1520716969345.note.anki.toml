@@ -1,0 +1,20 @@
+note_id = 1520716969345
+guid = "lmRt#lA4Oj"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Comparisons"]
+
+[[cards]]
+id = 1520716975209
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "gang" and "gangcai"'
+english = 'I just saw it.'
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = ''
+hanzi = '我刚看到。'
+notes = 'Adding a 到 to 看 gives the verb a meaning of the result of "looking at."'
+pinyin = 'Wǒ gāng kàndào.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJFFWG'

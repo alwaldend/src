@@ -1,0 +1,20 @@
+note_id = 1520716967308
+guid = "A[Dfivsy8w"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973172
+ordinal = 0
+
+[fields]
+article-title = 'Expressing lateness with "cai"'
+english = "How come you are eating supper now? It's 10 pm."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Time + 才 + Verb'
+hanzi = '你怎么才吃晚饭？已经十点了。'
+notes = ''
+pinyin = 'Nǐ zěnme cái chī wǎnfàn? Yǐjīng shí diǎn le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG3WTCJ'

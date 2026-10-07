@@ -1,0 +1,20 @@
+note_id = 1520716970916
+guid = "dJ_=d!E*0:"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["AuxiliaryWords", "C1"]
+
+[[cards]]
+id = 1520716976780
+ordinal = 0
+
+[fields]
+article-title = 'Expressing that something has already happened with "laizhe"'
+english = 'I told you so! This thing must be fake!'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Sentence + 来着'
+hanzi = '我说什么来着！这个东西肯定是假的！'
+notes = ''
+pinyin = 'Wǒ shuō shénme láizhe! Zhège dōngxi kěndìng shì jiǎde!'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPV5Z2'

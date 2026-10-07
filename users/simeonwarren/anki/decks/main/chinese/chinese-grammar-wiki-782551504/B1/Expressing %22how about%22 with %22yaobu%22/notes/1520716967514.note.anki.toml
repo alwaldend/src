@@ -1,0 +1,20 @@
+note_id = 1520716967514
+guid = "o$~k(/z8Fb"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973378
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "how about" with "yaobu"'
+english = "It's raining. How about we go tomorrow?"
+example-sentence = ''
+example-type = ''
+grammar-construct = '要不 + Option B + 吧 ，Reason / Situation'
+hanzi = '下雨了，要不明天去吧。'
+notes = ''
+pinyin = 'Xiàyǔ le, yàobù míngtiān qù ba.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDFQP7'

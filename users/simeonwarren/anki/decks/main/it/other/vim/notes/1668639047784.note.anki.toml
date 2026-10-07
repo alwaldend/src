@@ -1,0 +1,17 @@
+note_id = 1668639047784
+guid = "KW7Cz&!V|n"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = []
+
+[[cards]]
+id = 1668639047784
+ordinal = 0
+
+[[cards]]
+id = 1668965796743
+ordinal = 1
+
+[fields]
+Back = ':%norm Astuff&nbsp; &nbsp;" %: for all lines, norm: apply the following normal mode command, A: append to end of line, stuff: the string to append<div><br></div><div>:%s/$/stuff</div>'
+Front = 'Append "stuff" on every line of buffer'

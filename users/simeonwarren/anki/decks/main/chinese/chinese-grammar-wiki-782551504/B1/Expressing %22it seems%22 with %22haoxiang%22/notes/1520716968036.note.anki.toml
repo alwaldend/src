@@ -1,0 +1,20 @@
+note_id = 1520716968036
+guid = "p=ul[?d0eB"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716973900
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "it seems" with "haoxiang"'
+english = 'He seems to be British.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 好像 + [Observation]'
+hanzi = '他好像是英国人。'
+notes = ''
+pinyin = 'Tā hǎoxiàng shì Yīngguó rén.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG3ROPY'

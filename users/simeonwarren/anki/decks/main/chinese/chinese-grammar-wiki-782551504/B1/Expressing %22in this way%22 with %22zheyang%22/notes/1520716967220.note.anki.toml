@@ -1,0 +1,20 @@
+note_id = 1520716967220
+guid = "c*pnmAu&B9"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973084
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "in this way" with "zheyang"'
+english = "It's not polite to say so."
+example-sentence = ''
+example-type = ''
+grammar-construct = '这样 + Verb'
+hanzi = '这样说不礼貌。'
+notes = ''
+pinyin = 'Zhèyàng shuō bù lǐmào.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG1F4D1'

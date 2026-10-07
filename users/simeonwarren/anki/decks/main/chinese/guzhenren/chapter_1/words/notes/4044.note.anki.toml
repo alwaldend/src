@@ -1,0 +1,20 @@
+note_id = 4044
+guid = "IWxn@``?et"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 4091
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'to be situated;	to be located (of a building).'
+example-sentence = ' 正是坐落在青茅山的古月山寨,给广袤幽静的山峦增添了一份浓郁的人烟气息'
+example-type = ''
+grammar-construct = ''
+hanzi = '坐落'
+notes = ''
+pinyin = '<span class="tone4">zuò</span><span class="tone4">luò</span>	 <!-- zuo luo -->'
+source = ''

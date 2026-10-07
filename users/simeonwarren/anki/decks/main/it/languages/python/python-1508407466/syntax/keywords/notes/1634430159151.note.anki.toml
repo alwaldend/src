@@ -1,0 +1,17 @@
+note_id = 1634430159151
+guid = "hQm.59b.W4"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634430159152
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<b>Keyword</b> used with exceptions, a block of code that will be executed no matter if there is an exception or not.'
+example = ''
+question = '<b>Keyword: </b>finally&nbsp;'
+version = ''
+with-options = ''

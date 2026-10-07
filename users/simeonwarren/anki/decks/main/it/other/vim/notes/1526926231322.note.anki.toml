@@ -1,0 +1,17 @@
+note_id = 1526926231322
+guid = "Heh+2k1L=F"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = ["Insert", "Mode"]
+
+[[cards]]
+id = 1526926242955
+ordinal = 0
+
+[[cards]]
+id = 1668965796629
+ordinal = 1
+
+[fields]
+Back = 'A'
+Front = 'Append at the end of the line'

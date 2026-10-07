@@ -1,0 +1,20 @@
+note_id = 1520716967740
+guid = "M*E6S[cWqz"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973604
+ordinal = 0
+
+[fields]
+article-title = 'Reviewing options with "ba"'
+english = 'Not speaking the truth, the wife will be upset; Telling the truth, the wife will also be upset.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Option 1 + 吧 ，⋯⋯ ；Option 2 + 吧 ，⋯⋯'
+hanzi = '不说真话吧，老婆不高兴；说真话吧，老婆也不高兴。'
+notes = ''
+pinyin = 'Bù shuō zhēn huà ba, lǎopo bù gāoxìng; shuō zhēn huà ba, lǎopo yě bù gāoxìng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGELOTT'

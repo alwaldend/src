@@ -1,0 +1,20 @@
+note_id = 1520716970122
+guid = "y?G;Tm9,hb"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+id = 1520716975986
+ordinal = 0
+
+[fields]
+article-title = 'Facilitating an outcome with "yibian"'
+english = 'My country advocates a garbage classification to help with reusing and recycling.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '[Action] +  以便 + [Outcome]'
+hanzi = '我国提倡垃圾分类，以便回收再利用。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGXU2H4'

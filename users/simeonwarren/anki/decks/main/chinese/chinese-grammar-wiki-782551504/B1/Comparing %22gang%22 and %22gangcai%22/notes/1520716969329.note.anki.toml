@@ -1,0 +1,20 @@
+note_id = 1520716969329
+guid = "t8Q_fi6i0m"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Comparisons"]
+
+[[cards]]
+id = 1520716975193
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "gang" and "gangcai"'
+english = 'He arrived just now.'
+example-sentence = ''
+example-type = 'invalid'
+grammar-construct = ''
+hanzi = '他刚才到。'
+notes = ''
+pinyin = '<div>Tā gāngcái dào.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJFFWG'

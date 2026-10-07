@@ -1,0 +1,20 @@
+note_id = 1520716970501
+guid = "BGv6rfJCDy"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716976365
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "any" with "renhe"'
+english = "I'm leaving now. Call me if you need anything."
+example-sentence = ''
+example-type = ''
+grammar-construct = '任何 + Noun'
+hanzi = '我先走了，有任何需要给我打电话吧。'
+notes = ''
+pinyin = 'Wǒ xiān zǒu le, yǒu rènhé xūyào gěi wǒ dǎ diànhuà bā.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGP8DXU'

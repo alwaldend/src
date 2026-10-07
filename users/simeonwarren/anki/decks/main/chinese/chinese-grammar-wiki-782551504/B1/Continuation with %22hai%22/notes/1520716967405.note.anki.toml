@@ -1,0 +1,20 @@
+note_id = 1520716967405
+guid = "c-iw%8<EZU"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["AdverbswithAdjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973269
+ordinal = 0
+
+[fields]
+article-title = 'Continuation with "hai"'
+english = "I treat you so well, but you're still not satisfied?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 还 + 不 / 没 + Verb + Obj.'
+hanzi = '我对你那么好，你还不满意？'
+notes = "implying the listener shouldn't be so glum"
+pinyin = 'Wǒ duì nǐ nàme hǎo, nǐ hái bù mǎnyì?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGIRILI'

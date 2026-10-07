@@ -1,0 +1,17 @@
+note_id = 1526925977052
+guid = "xPU*y+-[L@"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = ["Cursor", "Movement"]
+
+[[cards]]
+id = 1526926010407
+ordinal = 0
+
+[[cards]]
+id = 1668965796615
+ordinal = 1
+
+[fields]
+Back = ';'
+Front = 'Repeat previous f, t, F, or T movement'

@@ -1,0 +1,20 @@
+note_id = 1520716968948
+guid = "xKney`ifaT"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974812
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "when" with "dengdao"'
+english = 'It will be too late when you start feeling not well.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '等(到) + Time / Event ，Subj. + 再 / 就 + Predicate'
+hanzi = '等到你感觉不舒服就晚了。'
+notes = ''
+pinyin = 'Děngdào nǐ gǎnjué bù shūfu jiù wǎn le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG68F61'

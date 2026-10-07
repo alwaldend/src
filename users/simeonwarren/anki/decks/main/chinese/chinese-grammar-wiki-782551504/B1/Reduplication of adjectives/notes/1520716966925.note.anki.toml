@@ -1,0 +1,20 @@
+note_id = 1520716966925
+guid = "nP|#@.YOyN"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972789
+ordinal = 0
+
+[fields]
+article-title = 'Reduplication of adjectives'
+english = 'Take a shower and get comfortable.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + A B + 一下'
+hanzi = '洗个澡吧，舒服一下。'
+notes = ''
+pinyin = 'Xǐ gè zǎo ba, shūfu yīxià.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDHE8S'

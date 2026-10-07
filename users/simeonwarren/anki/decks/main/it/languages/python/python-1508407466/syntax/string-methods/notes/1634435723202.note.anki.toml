@@ -1,0 +1,17 @@
+note_id = 1634435723202
+guid = "tm#=^S[|,B"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634435723204
+ordinal = 0
+
+[fields]
+additional-info = '<span style="background-color: rgb(255, 255, 255);"><strong>Note:</strong>&nbsp;All string methods returns new values. They do not change the original string.</span>'
+answer = '<i>string</i>.capitalize()'
+example = ''
+question = '<b>String method</b> that converts the first character of a string to upper case.'
+version = ''
+with-options = ''

@@ -1,0 +1,20 @@
+note_id = 1520716968813
+guid = "Pk`![zA#ez"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974677
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "more and more" with "yuelaiyue"'
+english = "He's getting better and better at eating spicy food."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 越来越 + [Verb Phrase] + 了'
+hanzi = '他越来越能吃辣了。'
+notes = ''
+pinyin = 'Tā yuèláiyuè néng chī là le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG7UE4H'

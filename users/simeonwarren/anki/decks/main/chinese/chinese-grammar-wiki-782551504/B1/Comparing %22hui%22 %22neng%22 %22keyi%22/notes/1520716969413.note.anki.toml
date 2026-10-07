@@ -1,0 +1,20 @@
+note_id = 1520716969413
+guid = "C7ZCLb_vl."
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["AuxiliaryWords", "B1", "Comparisons"]
+
+[[cards]]
+id = 1520716975277
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "hui" "neng" "keyi"'
+english = 'Is it possible for foreigners to attend?<br>Impossible.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '可以 / 能 + Verb'
+hanzi = 'A:外国人能不能参加？<br>B:不能。'
+notes = ''
+pinyin = 'Wàiguó rén néng bu néng cānjiā?<br>Bù kěyǐ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGZL717'

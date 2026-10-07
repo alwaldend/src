@@ -1,0 +1,20 @@
+note_id = 1520716966966
+guid = "Ht$AkGx^|b"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972830
+ordinal = 0
+
+[fields]
+article-title = 'Coincidence with "zhenghao"'
+english = 'Two people is perfect. One to speak and one to act.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 正好'
+hanzi = '两个人正好，一个说，一个演。'
+notes = ''
+pinyin = 'Liǎng gè rén zhènghǎo, yīgè shuō , yīgè  yǎn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGUD25J'

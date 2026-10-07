@@ -1,0 +1,20 @@
+note_id = 1520716968349
+guid = "sq!Pk,7(5C"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+id = 1520716974213
+ordinal = 0
+
+[fields]
+article-title = 'Separable verb'
+english = ''
+example-sentence = ''
+example-type = 'invalid'
+grammar-construct = ''
+hanzi = '他下个月离职他的工作。'
+notes = '他的工作 is an extra object; 职, which means "job," is already the object'
+pinyin = 'Tā xià gè yuè lízhí tā de gōngzuò.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG4GVRX'

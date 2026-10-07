@@ -1,0 +1,20 @@
+note_id = 7033
+guid = "JoGb<p~*}3"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+id = 7072
+ordinal = 0
+
+[fields]
+article-title = ''
+english = "to doubt (sth);\tto be skeptical of;\tto have one's doubts;\tto harbor suspicions;\tto suspect that."
+example-sentence = '没有人怀疑过这一点'
+example-type = ''
+grammar-construct = ''
+hanzi = '怀疑'
+notes = ''
+pinyin = '<span class="tone2">huái</span><span class="tone2">yí</span>	 <!-- huai yi -->'
+source = ''

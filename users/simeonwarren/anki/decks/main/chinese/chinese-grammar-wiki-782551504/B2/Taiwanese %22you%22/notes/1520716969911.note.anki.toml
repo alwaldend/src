@@ -1,0 +1,20 @@
+note_id = 1520716969911
+guid = "x|,WF:t,Lw"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975775
+ordinal = 0
+
+[fields]
+article-title = 'Taiwanese "you"'
+english = 'I have used a computer before, I can use it.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 有 + Verb + 过 + Obj.'
+hanzi = '我有用过电脑，我会用。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGY2D79'

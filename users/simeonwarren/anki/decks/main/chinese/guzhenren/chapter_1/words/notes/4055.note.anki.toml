@@ -1,0 +1,20 @@
+note_id = 4055
+guid = "A{[7H_Ajy1"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 4113
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'surname Hou;	empress;	queen.back;	behind;	rear;	afterwards;	after;	later;	post-.'
+example-sentence = ' 祈祷了一番后,古月族长率先弯腰,双手平摊,掌心紧紧贴着地板,磕头'
+example-type = ''
+grammar-construct = ''
+hanzi = '后'
+notes = ''
+pinyin = '<span class="tone5">hòuhòu</span>	 <!-- hou hou -->'
+source = ''

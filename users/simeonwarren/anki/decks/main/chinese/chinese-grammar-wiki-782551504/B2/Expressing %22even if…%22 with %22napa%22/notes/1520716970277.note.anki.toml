@@ -1,0 +1,20 @@
+note_id = 1520716970277
+guid = "eqX.FC!RRW"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "EvenIfStatements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716976141
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "even if…" with "napa"'
+english = 'No matter how many times you ask her, she will not say a single word.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '哪怕 + Subj. 1 + 再 ⋯⋯ ，Subj. 2 + 也 ⋯⋯'
+hanzi = '哪怕你问再多遍，她也不会说一个字。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGXX3NY'

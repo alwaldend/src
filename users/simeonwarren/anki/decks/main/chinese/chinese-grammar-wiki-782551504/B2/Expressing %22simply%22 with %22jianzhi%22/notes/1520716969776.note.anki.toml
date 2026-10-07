@@ -1,0 +1,20 @@
+note_id = 1520716969776
+guid = "cX/o*p,pB"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975640
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "simply" with "jianzhi"'
+english = 'He simply speaks Mandarin more correctly than Chinese people!'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + (Obj.) + Verb + 得 + 简直 + Adj.'
+hanzi = '他普通话说得简直比中国人还标准！'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8OLAE'

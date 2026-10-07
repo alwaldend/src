@@ -1,0 +1,17 @@
+note_id = 1634447393211
+guid = "N9vs?rxvm+"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634447393211
+ordinal = 0
+
+[fields]
+additional-info = '<strong>Note:</strong>&nbsp;All string methods returns new values. They do not change the original string.'
+answer = '<i>string</i>.rsplit()'
+example = ''
+question = '<b>String method</b>&nbsp;that splits a string at the specified separator, and returns a list. It also takes in an additional maxsplit parameter. If no max split is provided it returns the same thing as the regular version of this method.'
+version = ''
+with-options = '<i>string</i>.rsplit(<i>seperator=" "</i>,&nbsp;<i>maxsplit=-1</i>)'

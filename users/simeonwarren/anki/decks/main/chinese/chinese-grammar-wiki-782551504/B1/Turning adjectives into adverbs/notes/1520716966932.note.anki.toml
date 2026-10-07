@@ -1,0 +1,20 @@
+note_id = 1520716966932
+guid = "Q!y610g_rO"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972796
+ordinal = 0
+
+[fields]
+article-title = 'Turning adjectives into adverbs'
+english = 'The teacher is looking at us angrily.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Adj. + 地 + Verb'
+hanzi = '老师生气地看着我们。'
+notes = ''
+pinyin = 'Lǎoshī shēngqì de kàn zhe wǒmen.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMAFSX'

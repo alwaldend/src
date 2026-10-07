@@ -1,0 +1,17 @@
+note_id = 1634448607229
+guid = "bn6}LZ}*7P"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634448607230
+ordinal = 0
+
+[fields]
+additional-info = '<strong>Note:</strong>&nbsp;All string methods returns new values. They do not change the original string.'
+answer = '<i>string</i>.translate(<i>table</i>)'
+example = ''
+question = '<b>String method</b> that returns a translated string based on the translation table provided.'
+version = ''
+with-options = ''

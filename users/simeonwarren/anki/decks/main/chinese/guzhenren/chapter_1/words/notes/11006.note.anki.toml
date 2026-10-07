@@ -1,0 +1,20 @@
+note_id = 11006
+guid = "Jo,fn9)rgK"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+id = 11022
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'in a nutshell;	to put it briefly.'
+example-sentence = ' 简而言之,就是重生'
+example-type = ''
+grammar-construct = ''
+hanzi = '简而言之'
+notes = ''
+pinyin = '<span class="tone3">jiǎn</span><span class="tone2">ér</span><span class="tone2">yán</span><span class="tone1">zhī</span>	 <!-- jian er yan zhi -->'
+source = ''

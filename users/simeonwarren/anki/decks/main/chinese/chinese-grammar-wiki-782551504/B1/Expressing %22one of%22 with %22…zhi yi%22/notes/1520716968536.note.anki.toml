@@ -1,0 +1,20 @@
+note_id = 1520716968536
+guid = "NQ}q@(bc>a"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "NounPhrases"]
+
+[[cards]]
+id = 1520716974400
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "one of" with "…zhi yi"'
+english = 'New York is the one of the most international cities in the world.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '[Noun Phrase] + 之一 + 是 ⋯⋯'
+hanzi = '纽约是世界上最国际化的城市之一。'
+notes = ''
+pinyin = 'Niǔyuē shì shìjiè shàng zuì guójìhuà de chéngshì zhī yī.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMT1M1'

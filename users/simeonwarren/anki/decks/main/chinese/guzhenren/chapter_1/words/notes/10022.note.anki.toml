@@ -1,0 +1,20 @@
+note_id = 10022
+guid = "pI6(pn>6A="
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+id = 10053
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'moist.'
+example-sentence = ' 顿时,满口都是清新湿润的山间空气,沁人心脾'
+example-type = ''
+grammar-construct = ''
+hanzi = '湿润'
+notes = ''
+pinyin = '<span class="tone1">shī</span><span class="tone4">rùn</span>	 <!-- shi run -->'
+source = ''

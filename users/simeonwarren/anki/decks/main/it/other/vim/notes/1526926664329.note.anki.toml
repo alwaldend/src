@@ -1,0 +1,17 @@
+note_id = 1526926664329
+guid = "l/UQly1(/r"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = ["(VisualMode)", "MarkingText"]
+
+[[cards]]
+id = 1526926673207
+ordinal = 0
+
+[[cards]]
+id = 1668965796655
+ordinal = 1
+
+[fields]
+Back = 'aB'
+Front = 'Motion “around {} block”'

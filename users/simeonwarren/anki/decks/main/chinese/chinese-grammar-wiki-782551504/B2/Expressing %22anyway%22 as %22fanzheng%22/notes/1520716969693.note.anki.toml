@@ -1,0 +1,20 @@
+note_id = 1520716969693
+guid = "PXBj$W:DeA"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975557
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "anyway" as "fanzheng"'
+english = 'Speaking or not is all the same. Nobody is going to listen to me anyway.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '[Disregarded Situation] ， 反正 ⋯⋯'
+hanzi = '说不说都一样，反正没有人会听我的。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGZVM27'

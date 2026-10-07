@@ -1,0 +1,20 @@
+note_id = 1520716970148
+guid = "e,JJ@)yFRU"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "ButStatements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716976012
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "although" with "jinguan"'
+english = "Even though it's not that easy to realize this goal, we can't just give up on it."
+example-sentence = ''
+example-type = ''
+grammar-construct = '尽管 A，还是 / 仍然 B'
+hanzi = '尽管实现这个目标不太容易，但是我们不能这么快就放弃。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGW863F'

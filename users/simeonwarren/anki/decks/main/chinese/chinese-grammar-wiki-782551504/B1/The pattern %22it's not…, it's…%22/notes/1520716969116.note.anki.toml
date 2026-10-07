@@ -1,0 +1,20 @@
+note_id = 1520716969116
+guid = "o81:-Psjh#"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974980
+ordinal = 0
+
+[fields]
+article-title = "The pattern \"it's not…, it's…\""
+english = 'He did this for the team, not for himself.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 是 ⋯⋯ ，不是 ⋯⋯'
+hanzi = '他这样做是为了团队，不是为了自己。'
+notes = ''
+pinyin = 'Tā zhèyàng zuò  shì wèile tuánduì, bù shì wèile zìjǐ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGT9WYR'

@@ -1,0 +1,20 @@
+note_id = 1520716970626
+guid = "iV*f*n6>?e"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Comparisons"]
+
+[[cards]]
+id = 1520716976490
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "benlai" and "yuanlai"'
+english = 'This is not how you previously thought about it.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '原来的 + Noun'
+hanzi = '你们原来的看法不是这样的。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG56QKW'

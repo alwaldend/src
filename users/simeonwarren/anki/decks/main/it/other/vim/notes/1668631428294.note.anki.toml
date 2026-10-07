@@ -1,0 +1,17 @@
+note_id = 1668631428294
+guid = "f6s@S/8~Az"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = []
+
+[[cards]]
+id = 1668631428294
+ordinal = 0
+
+[[cards]]
+id = 1668965796721
+ordinal = 1
+
+[fields]
+Back = ':help &lt;command&gt; “ with Ctrl as ^; eg. Ctrl-w is :help ^w'
+Front = 'Open the help window for a keyboard command'

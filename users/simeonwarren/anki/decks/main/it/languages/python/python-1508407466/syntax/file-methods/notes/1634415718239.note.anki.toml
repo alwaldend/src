@@ -1,0 +1,17 @@
+note_id = 1634415718239
+guid = "fWS>!kVCr~"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634415718240
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<i>file</i>.writelines(<i>list</i>)'
+example = ''
+question = '<b>File method</b>&nbsp;that writes a list of strings to the file, with each item in the list being separated by a newline.'
+version = ''
+with-options = ''

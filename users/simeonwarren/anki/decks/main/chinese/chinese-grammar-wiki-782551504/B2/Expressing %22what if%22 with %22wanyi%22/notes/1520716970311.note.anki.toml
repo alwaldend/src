@@ -1,0 +1,20 @@
+note_id = 1520716970311
+guid = "H*9cQ`|Y2D"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Grammatical_Structures", "IfStatements"]
+
+[[cards]]
+id = 1520716976175
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "what if" with "wanyi"'
+english = 'Take an umbrella. What if it rains?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '万一 ⋯⋯ 呢 ？'
+hanzi = '带着伞吧，万一下雨呢？'
+notes = ''
+pinyin = 'Dài zhe sǎn ba, wàn yī xiàyǔ ne?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG25773'

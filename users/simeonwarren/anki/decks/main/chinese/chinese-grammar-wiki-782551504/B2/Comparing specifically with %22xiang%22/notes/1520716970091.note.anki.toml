@@ -1,0 +1,20 @@
+note_id = 1520716970091
+guid = "x/r1F9E_rg"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716975955
+ordinal = 0
+
+[fields]
+article-title = 'Comparing specifically with "xiang"'
+english = "She's as naive as a young kid is sometimes."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun 1 + 像 + Noun 2 + 一样 + Adj. / Verb'
+hanzi = '她有时候像小孩一样天真。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG1MD4N'

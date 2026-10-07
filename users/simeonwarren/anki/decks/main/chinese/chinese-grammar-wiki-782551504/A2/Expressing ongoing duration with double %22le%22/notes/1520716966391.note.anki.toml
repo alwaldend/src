@@ -1,0 +1,20 @@
+note_id = 1520716966391
+guid = "k{72m}JfPK"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+id = 1520716972255
+ordinal = 0
+
+[fields]
+article-title = 'Expressing ongoing duration with double "le"'
+english = 'I have been learning Chinese for a year.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + Obj. + Verb + 了 + Duration + 了'
+hanzi = '我学中文学了一年了。'
+notes = ''
+pinyin = 'Wǒ xué Zhōngwén xué le yī nián le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG69RR8'

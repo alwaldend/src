@@ -1,0 +1,20 @@
+note_id = 1520716969403
+guid = "xhNyE^`>*z"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Comparisons", "Prepositions"]
+
+[[cards]]
+id = 1520716975267
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "li" and "cong"'
+english = 'Starting tomorrow, I will not smoke.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '从 + Time + 开始 / 起 / 以来 ⋯⋯'
+hanzi = '从明天开始，我不抽烟了。'
+notes = ''
+pinyin = 'Cóng míngtiān kāishǐ, wǒ bù chōuyān le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG59C66'

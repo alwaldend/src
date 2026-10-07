@@ -1,0 +1,17 @@
+note_id = 1670198553870
+guid = "pHAX~}B=Q4"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = []
+
+[[cards]]
+id = 1670198553871
+ordinal = 0
+
+[[cards]]
+id = 1670198553872
+ordinal = 1
+
+[fields]
+Back = 'gg=G'
+Front = 'Format the whole file using this filetype’s syntax'

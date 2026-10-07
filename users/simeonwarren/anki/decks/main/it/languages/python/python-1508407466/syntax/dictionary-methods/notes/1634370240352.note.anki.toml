@@ -1,0 +1,17 @@
+note_id = 1634370240352
+guid = "zh@3b_PYPr"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634370777450
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<i>dict</i>.update(<i>iterable</i>)'
+example = ''
+question = "<b>Dictionary method</b>&nbsp;that adds a dictionary, or an iterable of key value pairs (usually tuples) to another dictionary (Does't return a new dict)."
+version = ''
+with-options = '<i>dict</i>.update({<i>key1</i>:&nbsp;<i>value1</i>,<i>&nbsp;keyN</i>:<i>&nbsp;valueN</i>})&nbsp;&nbsp;'

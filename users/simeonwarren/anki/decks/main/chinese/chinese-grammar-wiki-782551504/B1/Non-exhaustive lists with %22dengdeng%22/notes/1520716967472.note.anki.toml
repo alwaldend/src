@@ -1,0 +1,20 @@
+note_id = 1520716967472
+guid = "F[Jt<Bb3&E"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["AuxiliaryWords", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973336
+ordinal = 0
+
+[fields]
+article-title = 'Non-exhaustive lists with "dengdeng"'
+english = 'China, India, Brazil and so on are not developed countries.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A1，A2⋯⋯等 + [Category]'
+hanzi = '中国、印度、巴西等国家都不是发达国家。'
+notes = ''
+pinyin = 'Zhōngguó, Yìndù, Bāxī děng guójiā dōu bù shì fādá guójiā.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGF763H'

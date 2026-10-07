@@ -1,0 +1,20 @@
+note_id = 1520716968174
+guid = "Oa{1#8n)R?"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716974038
+ordinal = 0
+
+[fields]
+article-title = 'Expressing comparable degree with "you"'
+english = 'How wide is the door?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A + 有 + B + 这么 / 那么 + 高 / 深 / 宽 / 长'
+hanzi = '这个门有多宽？'
+notes = ''
+pinyin = 'Zhège mén yǒu duō kuān?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5DG95'

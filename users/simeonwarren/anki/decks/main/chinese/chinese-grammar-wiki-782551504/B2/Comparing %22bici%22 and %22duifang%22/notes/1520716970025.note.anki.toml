@@ -1,0 +1,20 @@
+note_id = 1520716970025
+guid = "jSVdNRh}49"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Parts_of_Speech", "Pronouns"]
+
+[[cards]]
+id = 1520716975889
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "bici" and "duifang"'
+english = "It's been a long time since we met last time. We don't really know each other's life and we are very surprised about each other's change."
+example-sentence = ''
+example-type = ''
+grammar-construct = '彼此 + 的＋Noun'
+hanzi = '我们已经很多年没见面了，对彼此的生活都不了解，也很惊讶彼此的变化。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG84D65'

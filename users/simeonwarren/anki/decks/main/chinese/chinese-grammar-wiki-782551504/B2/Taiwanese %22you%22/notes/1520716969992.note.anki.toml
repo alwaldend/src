@@ -1,0 +1,20 @@
+note_id = 1520716969992
+guid = "FnXhe2k,0="
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975856
+ordinal = 0
+
+[fields]
+article-title = 'Taiwanese "you"'
+english = 'He asked to break up out of nowhere. I was so hurt.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 有 + Adj. + 到'
+hanzi = '他突然要分手，我真的有伤到。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGY2D79'

@@ -1,0 +1,20 @@
+note_id = 6013
+guid = "Jl=z5Xe*~2"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 6031
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'to get up;	to leave;	to set forth.'
+example-sentence = ' 大典完毕,众人慢慢地从地板上站起身来,静静地走出庄严的祠堂'
+example-type = ''
+grammar-construct = ''
+hanzi = '起身'
+notes = ''
+pinyin = '<span class="tone3">qǐ</span><span class="tone1">shēn</span>	 <!-- qi shen -->'
+source = ''

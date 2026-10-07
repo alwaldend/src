@@ -1,0 +1,20 @@
+note_id = 1520716966022
+guid = "ePjLD]o#@A"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971886
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "before" in general with "yiqian"'
+english = 'Before, my boyfriend worked in the USA. Now, he works in China.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 以前 + Verb + Obj.'
+hanzi = '我男朋友以前在美国工作，现在在中国工作。'
+notes = ''
+pinyin = 'Wǒ nánpéngyou yǐqián zài Měiguó gōngzuò, xiànzài zài Zhōngguó gōngzuò.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGVCWLU'

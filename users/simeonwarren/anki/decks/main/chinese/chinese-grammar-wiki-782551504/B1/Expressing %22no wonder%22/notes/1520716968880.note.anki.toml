@@ -1,0 +1,20 @@
+note_id = 1520716968880
+guid = "g2YE>3UT>{"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974744
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "no wonder"'
+english = "He's late for work everyday. No wonder he got fired."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Reason ，怪不得 / 难怪 + [Observation]'
+hanzi = '天天迟到，怪不得他被炒鱿鱼。'
+notes = ''
+pinyin = 'Tiāntiān chídào, guàibude tā bèi chǎoyóuyú.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGFPV2C'

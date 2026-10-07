@@ -1,0 +1,20 @@
+note_id = 1520716966970
+guid = "A7]JTB/mZ)"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "leech", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972834
+ordinal = 0
+
+[fields]
+article-title = 'Coincidence with "zhenghao"'
+english = 'I just happened to have nothing to do now so I can help you with the baby.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '正好 + Verb'
+hanzi = '我现在正好没事做，可以帮你照顾一下宝宝。'
+notes = ''
+pinyin = 'Wǒ xiànzài zhènghǎo méi shì zuò, kěyǐ bāng nǐ zhàogù yíxià bǎobao.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGUD25J'

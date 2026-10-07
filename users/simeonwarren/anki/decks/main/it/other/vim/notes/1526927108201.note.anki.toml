@@ -1,0 +1,17 @@
+note_id = 1526927108201
+guid = "MSS1p7(],7"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = ["Exiting"]
+
+[[cards]]
+id = 1526927126769
+ordinal = 0
+
+[[cards]]
+id = 1668965796689
+ordinal = 1
+
+[fields]
+Back = ':wq or :x or ZZ'
+Front = 'Write buffer to its file and close the window, exiting vim if the last window'

@@ -1,0 +1,20 @@
+note_id = 1520716969970
+guid = "w*rN|Nl:EZ"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+id = 1520716975834
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "ever since" with "zicong"'
+english = "Ever since arriving in Hunan, I've been more and more able to eat spicy food."
+example-sentence = ''
+example-type = ''
+grammar-construct = '自从 + [Starting Point]'
+hanzi = '自从来到湖南，我越来越能吃辣了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGLI7GW'

@@ -1,0 +1,20 @@
+note_id = 1520716968340
+guid = "pLjZ4W0;%e"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+id = 1520716974204
+ordinal = 0
+
+[fields]
+article-title = 'Expressing duration of inaction'
+english = "It's been 30 years since my grandpa left home for Taiwan."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Duration + 没 + Verb + Obj. + 了'
+hanzi = '我爷爷去了台湾以后已经三十年没回家了。'
+notes = ''
+pinyin = 'Wǒ yéye qù le Tàiwān yǐhòu, yǐjīng  sānshí nián méi huíjiā le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGSVF28'

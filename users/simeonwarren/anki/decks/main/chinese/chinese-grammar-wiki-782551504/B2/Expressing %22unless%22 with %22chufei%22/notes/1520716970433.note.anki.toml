@@ -1,0 +1,20 @@
+note_id = 1520716970433
+guid = "J@N0G!i.q4"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "ConditionalStatements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716976297
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "unless" with "chufei"'
+english = "I won't go unless you go."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Result / Fact ，除非 + Condition'
+hanzi = '我不去，除非你也去。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMD0YY'

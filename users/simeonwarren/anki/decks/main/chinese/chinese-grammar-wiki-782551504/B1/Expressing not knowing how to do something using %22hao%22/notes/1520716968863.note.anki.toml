@@ -1,0 +1,20 @@
+note_id = 1520716968863
+guid = "zvLo?f7%2k"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974727
+ordinal = 0
+
+[fields]
+article-title = 'Expressing not knowing how to do something using "hao"'
+english = "I want to confess to her, but I'm not sure when to say it."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不知道 + Verb Phrase + 好'
+hanzi = '我想跟她表白，但是我不知道什么时候说好。'
+notes = ''
+pinyin = 'Wǒ xiǎng gēn tā biǎobái, dànshì wǒ bù zhīdào shénme shíhou shuō hǎo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG0EQQJ'

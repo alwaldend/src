@@ -1,0 +1,17 @@
+note_id = 1670334105404
+guid = "w?SW{9iz(V"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = []
+
+[[cards]]
+id = 1670334105407
+ordinal = 0
+
+[[cards]]
+id = 1670334105408
+ordinal = 1
+
+[fields]
+Back = '<b>^n</b>&nbsp;then iterate with ^n'
+Front = 'Complete current word with existing keywords in buffer that match the current prefix, <i>starting from the beginning of buffer</i>'

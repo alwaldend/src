@@ -1,0 +1,20 @@
+note_id = 1520716969193
+guid = "L;5eP1lH4{"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716975057
+ordinal = 0
+
+[fields]
+article-title = 'Using "ba" sentences'
+english = 'Please take the guests inside.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 把 + Obj. 1 + Verb + 给 + Obj. 2'
+hanzi = '请把客人带进去。'
+notes = ''
+pinyin = 'Qǐng bǎ kèrén dài jìnqù.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG2UB2B'

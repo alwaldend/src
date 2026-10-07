@@ -1,0 +1,20 @@
+note_id = 1520716969728
+guid = "OWqm,+_Hi-"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975592
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "just" do it with "gancui"'
+english = 'This ratty computer broke again. Might as well not fix it and just buy a new one.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 干脆 + Verb'
+hanzi = '这台破电脑又坏了，干脆别修了，买台新的吧。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGZ8MJM'

@@ -1,0 +1,20 @@
+note_id = 1520716969859
+guid = "h4iy&3Qjv9"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975723
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "within (it/them)" with "qizhong"'
+english = "I have four cars. Of them, three are BMW's."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Category / Group / Context + 其中'
+hanzi = '我有四辆汽车，其中三辆都是宝马。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGD1LNT'

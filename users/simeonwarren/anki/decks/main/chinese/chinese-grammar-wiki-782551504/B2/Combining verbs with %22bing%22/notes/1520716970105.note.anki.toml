@@ -1,0 +1,20 @@
+note_id = 1520716970105
+guid = "r1>$*RHK@Y"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+id = 1520716975969
+ordinal = 0
+
+[fields]
+article-title = 'Combining verbs with "bing"'
+english = 'I agree with and support your decision.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb / [Verb Phrase 1] + 并(且) + Verb / [Verb Phrase 2]'
+hanzi = '我同意并且支持你的决定。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5C89R'

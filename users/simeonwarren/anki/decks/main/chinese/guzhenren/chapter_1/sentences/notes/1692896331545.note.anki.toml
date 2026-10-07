@@ -1,0 +1,25 @@
+note_id = 1692896331545
+guid = "F7a;u+SLU{"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = []
+
+[[cards]]
+id = 1692896331546
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'He heard the slight sound of drizzle hitting the casement, and he closed his eyes slowly, opened them after a long while, and sighed: "The experience of 500 years is really like a dream."'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '耳畔是细雨打在窗扉上发出的微微声响,他缓缓地闭上眼,半晌后才睁开,喟然一叹:“500年的经历,真像是个梦啊。'
+notes = ''
+pinyin = """
+<div>Ěr\u0020
+pàn shì xì yǔ dǎ zài chuāng fēi shàng fāchū de wéi wēi shēngxiǎng, tā\u0020
+huǎn huǎn de bì shàng yǎn, bànshǎng hòu cái zhēng kāi, kuìrán yī\u0020
+tàn:“500 Nián de jīnglì, zhēn xiàng shìgè mèng a.</div>\
+"""
+source = ''

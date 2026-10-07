@@ -1,0 +1,20 @@
+note_id = 1520716970316
+guid = "C})_0IO|SZ"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Grammatical_Structures", "IfStatements"]
+
+[[cards]]
+id = 1520716976180
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "what if" with "wanyi"'
+english = "In case you get lost, use the map's GPS navigation."
+example-sentence = ''
+example-type = ''
+grammar-construct = '万一 ⋯⋯ ，⋯⋯'
+hanzi = '万一迷路了，就用地图导航。'
+notes = ''
+pinyin = 'Wànyī mílù le, jiù yòng dìtú dǎoháng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG25773'

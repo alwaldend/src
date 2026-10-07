@@ -1,0 +1,17 @@
+note_id = 1692140114446
+guid = "GSR_%3j}^o"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = []
+
+[[cards]]
+id = 1692140114446
+ordinal = 0
+
+[[cards]]
+id = 1692140114447
+ordinal = 1
+
+[fields]
+Back = 'CTRL-w &lt;/&gt;'
+Front = 'Resize a vertical window split (add/remove columns)'

@@ -1,0 +1,20 @@
+note_id = 1026
+guid = "mesxg4(siQ"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 1052
+ordinal = 0
+
+[fields]
+article-title = ''
+english = "haven't;\thasn't;\tdoesn't exist;\tto not have;\tto not be."
+example-sentence = ' 群敌环伺,早已经没有了生路'
+example-type = ''
+grammar-construct = ''
+hanzi = '没有'
+notes = ''
+pinyin = '<span class="tone2">méi</span><span class="tone3">yǒu</span>	 <!-- mei you -->'
+source = ''

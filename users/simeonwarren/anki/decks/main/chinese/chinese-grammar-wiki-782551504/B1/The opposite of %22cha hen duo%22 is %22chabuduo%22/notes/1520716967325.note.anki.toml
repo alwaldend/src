@@ -1,0 +1,20 @@
+note_id = 1520716967325
+guid = "fyvMY@MW0S"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973189
+ordinal = 0
+
+[fields]
+article-title = 'The opposite of "cha hen duo" is "chabuduo"'
+english = "My life habits are very different from my parents'."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A + 跟 / 和 + B + 差很多'
+hanzi = '我的生活习惯跟我父母差很多。'
+notes = ''
+pinyin = 'Wǒ de shēnghuó xíguàn gēn wǒ fùmǔ chà hěn duō.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQAN74'

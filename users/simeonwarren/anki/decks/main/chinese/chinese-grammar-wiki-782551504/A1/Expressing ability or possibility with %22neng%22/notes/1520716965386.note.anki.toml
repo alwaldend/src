@@ -1,0 +1,20 @@
+note_id = 1520716965386
+guid = "oVm-2SuRql"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Auxiliaryverbs", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971250
+ordinal = 0
+
+[fields]
+article-title = 'Expressing ability or possibility with "neng"'
+english = 'Can you help me find him?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 能 + Verb + Obj.'
+hanzi = '你能帮我找到他吗？'
+notes = ''
+pinyin = 'Nǐ néng bāng wǒ zhǎodào tā ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG9PQ40'

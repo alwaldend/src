@@ -1,0 +1,20 @@
+note_id = 10011
+guid = "nr)xkqc4?{"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 10031
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'to go;	to go to (a place);	(of a time etc) last;	just passed;	to send;	to remove;	to get rid of;	to reduce;	to be apart from in space or time;	to die (euphemism);	to play (a part);	(when used either before or after a verb) to go in order to do sth;	(after a verb of motion indicates movement away from the speaker);	(used after certain verbs to indicate detachment or separation).'
+example-sentence = '  家老们满怀心思,一一散去'
+example-type = ''
+grammar-construct = ''
+hanzi = '去'
+notes = ''
+pinyin = '<span class="tone4">qù</span>	 <!-- qu -->'
+source = ''

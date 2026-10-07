@@ -1,0 +1,20 @@
+note_id = 1520716965550
+guid = "?HiW/OP2>"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+id = 1520716971414
+ordinal = 0
+
+[fields]
+article-title = 'Placement of question words'
+english = 'Which dish do you like?<br>I like this dish.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 哪个 (+ Noun) ?'
+hanzi = 'A: 你喜欢哪个菜？<br>B: 我喜欢这个菜。'
+notes = ''
+pinyin = 'Nǐ xǐhuan nǎge cài?<br>Wǒ xǐhuan zhège cài.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJQPSC'

@@ -1,0 +1,20 @@
+note_id = 1520716967663
+guid = "q|AA6?)y~<"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973527
+ordinal = 0
+
+[fields]
+article-title = 'Sequencing past events with "houlai"'
+english = 'I fixed the air conditioner last week, but it was broken again after that.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '[Past Event 1] ，后来 ，[Past Event 2]'
+hanzi = '空调我上个月修好了，后来又坏了。'
+notes = ''
+pinyin = 'Kōngtiáo wǒ shàng gè yuè xiū hǎo le, hòulái yòu huài le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGY0UDC'

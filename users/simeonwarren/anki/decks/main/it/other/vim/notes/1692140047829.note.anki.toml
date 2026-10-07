@@ -1,0 +1,17 @@
+note_id = 1692140047829
+guid = "e?rO0yo!PK"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = []
+
+[[cards]]
+id = 1692140047830
+ordinal = 0
+
+[[cards]]
+id = 1692140047831
+ordinal = 1
+
+[fields]
+Back = 'CTRL-w +/-'
+Front = 'How to resize a horizontal window split (add/remove lines)?'

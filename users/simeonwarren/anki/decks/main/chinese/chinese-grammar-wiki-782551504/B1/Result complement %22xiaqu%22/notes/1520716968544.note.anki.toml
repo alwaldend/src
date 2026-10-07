@@ -1,0 +1,20 @@
+note_id = 1520716968544
+guid = "n`D#1@SBB`"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716974408
+ordinal = 0
+
+[fields]
+article-title = 'Result complement "xiaqu"'
+english = "This food is disgusting, I can't keep eating it."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 不 + 下去'
+hanzi = '这个菜很难吃,我吃不下去。'
+notes = ''
+pinyin = 'Zhège cài hěn nán chī, wǒ chī bù xiàqù.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG1PTJX'

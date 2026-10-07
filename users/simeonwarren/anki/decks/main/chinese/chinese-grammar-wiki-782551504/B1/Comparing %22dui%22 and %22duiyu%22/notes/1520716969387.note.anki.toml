@@ -1,0 +1,20 @@
+note_id = 1520716969387
+guid = "bq7HTVl}):"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Comparisons", "Prepositions"]
+
+[[cards]]
+id = 1520716975251
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "dui" and "duiyu"'
+english = 'My boyfriend treats me very well.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A + 对 + B + Adj.'
+hanzi = '我的男朋友对我很好。'
+notes = ''
+pinyin = '<div>Wǒ de nán péngyǒu duì wǒ hěn hǎo.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG3JELV'

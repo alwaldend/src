@@ -1,0 +1,20 @@
+note_id = 1520716968147
+guid = "NE/*/BYa/L"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716974011
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "after" with "jingguo"'
+english = 'I pass by this place every day on the way to work.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '我每天上班都经过这里。'
+notes = ''
+pinyin = 'Wǒ měi tiān shàngbān dōu jīngguò zhèlǐ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG11DA8'

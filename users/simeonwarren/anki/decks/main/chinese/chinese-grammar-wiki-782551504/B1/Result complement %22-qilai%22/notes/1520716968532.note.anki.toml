@@ -1,0 +1,20 @@
+note_id = 1520716968532
+guid = "L4%{JU@~_&"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716974396
+ordinal = 0
+
+[fields]
+article-title = 'Result complement "-qilai"'
+english = 'The dishes that you ordered taste good .'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 起来 + Adj.'
+hanzi = '你点的菜尝起来不错。'
+notes = ''
+pinyin = 'Nǐ diǎn de cài cháng qǐlái bùcuò.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGBPXOB'

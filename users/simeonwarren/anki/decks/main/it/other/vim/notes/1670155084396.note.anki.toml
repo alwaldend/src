@@ -1,0 +1,17 @@
+note_id = 1670155084396
+guid = "RdUYE-fO2~"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = []
+
+[[cards]]
+id = 1670155084398
+ordinal = 0
+
+[[cards]]
+id = 1670155084399
+ordinal = 1
+
+[fields]
+Back = '+'
+Front = 'Move to the first non-space character on the next line'

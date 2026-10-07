@@ -1,0 +1,20 @@
+note_id = 21
+guid = "bVDMtJQ<pC"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+id = 41
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'break through.'
+example-sentence = '   方老魔,你不要妄图反抗了,今日我们正道各大派联合起来,就是要踏破你的魔窟'
+example-type = ''
+grammar-construct = ''
+hanzi = '踏破'
+notes = ''
+pinyin = '<span class="tone4">tà</span><span class="tone4">pò</span>	 <!-- ta po -->'
+source = ''

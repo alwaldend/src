@@ -1,0 +1,20 @@
+note_id = 1520716969300
+guid = "el+e5U6I(}"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Comparisons", "Conjunctions"]
+
+[[cards]]
+id = 1520716975164
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "weile" and "yinwei"'
+english = "Because he doesn't want people to laugh at him, this boy never goes outside."
+example-sentence = ''
+example-type = ''
+grammar-construct = '因为 + Reason，所以 + result'
+hanzi = '因为不想被别人笑话，这个孩子从来不出门。'
+notes = ''
+pinyin = '<div>Yīn wéi bùxiǎng bèi biérén xiàohuà, zhège háizǐ cónglái bu chūmén.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMEC1P'

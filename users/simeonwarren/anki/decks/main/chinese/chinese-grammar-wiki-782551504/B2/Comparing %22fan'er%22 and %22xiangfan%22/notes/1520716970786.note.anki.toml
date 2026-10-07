@@ -1,0 +1,20 @@
+note_id = 1520716970786
+guid = "P~yxEaD>bF"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Comparisons", "SeparateFunctions"]
+
+[[cards]]
+id = 1520716976650
+ordinal = 0
+
+[fields]
+article-title = "Comparing \"fan'er\" and \"xiangfan\""
+english = 'The boss was not angry, on the contrary, he praised me.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Expectation，反而 + The Opposite of Expectation'
+hanzi = '老板没有生气，相反，他还表扬了我。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGFNS52'

@@ -1,0 +1,20 @@
+note_id = 1520716968856
+guid = "JanS`lIGe_"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974720
+ordinal = 0
+
+[fields]
+article-title = 'Expressing not knowing how to do something using "hao"'
+english = "I don't know how to reply to his message."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不知道 + Verb Phrase + 好'
+hanzi = '他的短信我不知道怎么回复好。'
+notes = ''
+pinyin = 'Tā de duǎnxìn wǒ bù zhīdào zěnme huífù hǎo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG0EQQJ'

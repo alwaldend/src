@@ -1,0 +1,20 @@
+note_id = 1520716969989
+guid = "NFq6c1o~^@"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975853
+ordinal = 0
+
+[fields]
+article-title = 'Taiwanese "you"'
+english = "He's studying it and he likes it very mych."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 有 + [Verb Phrase]'
+hanzi = '他有学，而且很喜欢。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGY2D79'

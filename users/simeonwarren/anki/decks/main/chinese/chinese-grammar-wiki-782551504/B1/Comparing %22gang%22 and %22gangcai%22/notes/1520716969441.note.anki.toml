@@ -1,0 +1,20 @@
+note_id = 1520716969441
+guid = "bTC!PH+$M5"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Comparisons", "TimeWords"]
+
+[[cards]]
+id = 1520716975305
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "gang" and "gangcai"'
+english = 'I just now go home.'
+example-sentence = ''
+example-type = 'invalid'
+grammar-construct = '刚 + Adj.'
+hanzi = '我刚才回家。'
+notes = 'You should use 了 with 刚才 here.'
+pinyin = '<div>Wǒ gāngcái huí jiā.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJFFWG'

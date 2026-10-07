@@ -1,0 +1,20 @@
+note_id = 1520716969597
+guid = "ni%vJ(8tAw"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975461
+ordinal = 0
+
+[fields]
+article-title = 'Advanced use of "you"'
+english = "He tried again and again, but he still couldn't open the door."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. ＋Verb + 了 + 又 + Verb，还是 / 就是 ……'
+hanzi = '他试了又试，就是打不开门。'
+notes = ''
+pinyin = 'Tā shì le yòu shì, jiùshì dǎ bù kāi mén.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGF08B6'

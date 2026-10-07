@@ -1,0 +1,20 @@
+note_id = 8029
+guid = "l(8W{z_yo("
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 8065
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'the most.'
+example-sentence = '而古月方源就是小辈当中,最为出色耀眼的一位'
+example-type = ''
+grammar-construct = ''
+hanzi = '最为'
+notes = ''
+pinyin = '<span class="tone4">zuì</span><span class="tone2">wéi</span>	 <!-- zui wei -->'
+source = ''

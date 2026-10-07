@@ -1,0 +1,20 @@
+note_id = 1520716966594
+guid = "j<n!V1S5a="
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Grammatical_Structures", "NumbersandMeasureWords"]
+
+[[cards]]
+id = 1520716972458
+ordinal = 0
+
+[fields]
+article-title = 'Measure words for counting'
+english = 'four glasses of milk'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Number + Measure Word + Noun'
+hanzi = '四杯牛奶'
+notes = ''
+pinyin = 'sì bēi niúnǎi'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG64BTE'

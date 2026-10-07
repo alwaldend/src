@@ -1,0 +1,17 @@
+note_id = 1526927520180
+guid = "PBHzdQLn-."
+note_type_id = 1520550989354
+note_type = "basic"
+tags = ["WorkingWithMultipleFiles"]
+
+[[cards]]
+id = 1526927529257
+ordinal = 0
+
+[[cards]]
+id = 1668965796713
+ordinal = 1
+
+[fields]
+Back = '^w w'
+Front = 'Switch windows'

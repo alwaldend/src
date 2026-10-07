@@ -1,0 +1,20 @@
+note_id = 1520716968724
+guid = "O>bD%/Q~lA"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974588
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "although" with "suiran" and "danshi"'
+english = "Although I haven't known him for a long time, I've known him very deeply."
+example-sentence = ''
+example-type = ''
+grammar-construct = '虽然 ⋯⋯ ，但是 / 可是 ⋯⋯'
+hanzi = '我认识他的时间虽然不长，但是我已经很了解他了。'
+notes = ''
+pinyin = 'Wǒ rènshi tā de shíjiān suīrán bù cháng, dànshì wǒ yǐjīng hěn liǎojiě tā le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGXI560'

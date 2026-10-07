@@ -1,0 +1,20 @@
+note_id = 1520716967418
+guid = "wnS-bP~36U"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["AdverbswithAdjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973282
+ordinal = 0
+
+[fields]
+article-title = 'Adjectives with "name" and "zheme"'
+english = "The boss is so busy. He definitely won't have time for this."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 那么 / 这么 + Adj.'
+hanzi = '老板那么忙，肯定没时间。'
+notes = ''
+pinyin = 'Lǎobǎn nàme máng, kěndìng méi shíjiān.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNKKP6'

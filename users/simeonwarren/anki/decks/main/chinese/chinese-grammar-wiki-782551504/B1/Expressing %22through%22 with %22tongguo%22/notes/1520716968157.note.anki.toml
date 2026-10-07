@@ -1,0 +1,20 @@
+note_id = 1520716968157
+guid = "$W}H!}}[1"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716974021
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "through" with "tongguo"'
+english = 'New York University went through my application.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '纽约大学通过了我的申请。'
+notes = ''
+pinyin = 'Niǔyuē dàxué tōngguò le wǒ de shēnqǐng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG9B1E3'

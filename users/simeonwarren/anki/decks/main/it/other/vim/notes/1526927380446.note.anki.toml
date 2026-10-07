@@ -1,0 +1,17 @@
+note_id = 1526927380446
+guid = "jkl2jtR1e:"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = ["Files", "Multiple", "Search"]
+
+[[cards]]
+id = 1526927392100
+ordinal = 0
+
+[[cards]]
+id = 1668965796703
+ordinal = 1
+
+[fields]
+Back = ':cp[rev]'
+Front = 'Jump to the previous match&nbsp;in the quickfix list [after a vimgrep (across files)]'

@@ -1,0 +1,20 @@
+note_id = 1520716968087
+guid = "NqPh`W1c[4"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+id = 1520716973951
+ordinal = 0
+
+[fields]
+article-title = 'Separable verb'
+english = 'I only slept two hours last night.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '昨晚我只睡了两个小时觉。'
+notes = ''
+pinyin = 'Zuówǎn wǒ zhǐ shuì le liǎng gè xiǎoshí jiào.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG4GVRX'

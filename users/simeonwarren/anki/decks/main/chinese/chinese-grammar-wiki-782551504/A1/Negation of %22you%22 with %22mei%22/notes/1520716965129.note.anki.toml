@@ -1,0 +1,20 @@
+note_id = 1520716965129
+guid = "DMp_s{wr=d"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716970993
+ordinal = 0
+
+[fields]
+article-title = 'Negation of "you" with "mei"'
+english = "We don't have money now."
+example-sentence = ''
+example-type = ''
+grammar-construct = '没 + 有 (+ Obj.)'
+hanzi = '我们现在没有钱。'
+notes = ''
+pinyin = 'Wǒmen xiànzài méiyǒu qián.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPNV3Q'

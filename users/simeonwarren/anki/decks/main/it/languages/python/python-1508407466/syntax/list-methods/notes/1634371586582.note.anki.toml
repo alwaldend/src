@@ -1,0 +1,17 @@
+note_id = 1634371586582
+guid = "ev1<b(Tz$q"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634371586583
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<i>list</i>.clear()'
+example = ''
+question = '<b>List method</b>&nbsp;that removes all the elements from the list.'
+version = ''
+with-options = ''

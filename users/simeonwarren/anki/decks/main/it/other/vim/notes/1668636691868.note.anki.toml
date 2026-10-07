@@ -1,0 +1,17 @@
+note_id = 1668636691868
+guid = "c(.R89~Zt"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = []
+
+[[cards]]
+id = 1668636691868
+ordinal = 0
+
+[[cards]]
+id = 1668965796727
+ordinal = 1
+
+[fields]
+Back = 'gT'
+Front = 'Move to the previous tab, operator sequence&nbsp;'

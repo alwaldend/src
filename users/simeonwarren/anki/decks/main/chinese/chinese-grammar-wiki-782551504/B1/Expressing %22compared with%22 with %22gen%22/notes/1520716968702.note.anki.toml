@@ -1,0 +1,20 @@
+note_id = 1520716968702
+guid = "mkgIs8[NxM"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974566
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "compared with" with "gen"'
+english = 'Compared to the east, I like the west of America more.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'B + 跟 + A + 比 (起来) ，⋯⋯'
+hanzi = '跟东部比，我更喜欢美国西部。'
+notes = ''
+pinyin = 'Gēn dōngbù bǐ, wǒ gèng xǐhuan Měiguó xībù.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG920B7'

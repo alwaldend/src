@@ -1,0 +1,20 @@
+note_id = 1520716969018
+guid = "u3a8,6Dhp("
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974882
+ordinal = 0
+
+[fields]
+article-title = 'Using "ba" sentences'
+english = ''
+example-sentence = ''
+example-type = 'invalid'
+grammar-construct = 'Subj. + 把 + Obj. + Verb Phrase'
+hanzi = '你放书在桌子上。'
+notes = ''
+pinyin = 'Nǐ fàng shū zài zhuōzi shàng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG2UB2B'

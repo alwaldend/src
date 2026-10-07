@@ -1,0 +1,20 @@
+note_id = 1520716968032
+guid = "nVyWl6CBI{"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+id = 1520716973896
+ordinal = 0
+
+[fields]
+article-title = 'Expressing actions in progress (full form)'
+english = "Grandpa is reading newspapers now. Don't disturb him."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + Obj. + 呢'
+hanzi = '爷爷看报纸呢，别打扰他。'
+notes = ''
+pinyin = 'Yéye kàn bàozhǐ ne, bié dǎrǎo tā.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGEYQ9O'

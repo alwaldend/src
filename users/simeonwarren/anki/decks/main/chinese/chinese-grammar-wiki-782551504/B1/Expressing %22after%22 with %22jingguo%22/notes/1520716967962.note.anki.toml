@@ -1,0 +1,20 @@
+note_id = 1520716967962
+guid = "iap-2CgycK"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716973826
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "after" with "jingguo"'
+english = 'Call me when you pass by my door.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '你经过我家门口的时候叫我一下。'
+notes = ''
+pinyin = 'Nǐ jīngguò wǒ jiā ménkǒu de shíhou jiào wǒ yīxià.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG11DA8'

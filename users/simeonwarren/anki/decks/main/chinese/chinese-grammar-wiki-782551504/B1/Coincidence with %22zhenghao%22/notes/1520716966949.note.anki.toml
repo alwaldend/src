@@ -1,0 +1,20 @@
+note_id = 1520716966949
+guid = "s)|L6:8l+$"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972813
+ordinal = 0
+
+[fields]
+article-title = 'Coincidence with "zhenghao"'
+english = 'The size of these clothes is just right.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 正好 + [Verb Phrase]'
+hanzi = '这件衣服的大小正好。'
+notes = ''
+pinyin = 'Zhè jiàn yīfu de dàxiǎo zhènghǎo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGUD25J'

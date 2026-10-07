@@ -1,0 +1,20 @@
+note_id = 1520716967385
+guid = "iZ5ip+b>6c"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973249
+ordinal = 0
+
+[fields]
+article-title = 'Using "ye" and "dou" together'
+english = 'Both adults and children like this restaurant.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 也都 + Predicate'
+hanzi = '大人很喜欢这个餐厅，孩子们也都很喜欢。'
+notes = ''
+pinyin = 'Dàren hěn xǐhuan zhège cāntīng, háizi men yě dōu hěn xǐhuan.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8GSXY'

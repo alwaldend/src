@@ -1,0 +1,17 @@
+note_id = 1670670444946
+guid = "mQ3IChkJj."
+note_type_id = 1520550989354
+note_type = "basic"
+tags = []
+
+[[cards]]
+id = 1670670444948
+ordinal = 0
+
+[[cards]]
+id = 1670670444949
+ordinal = 1
+
+[fields]
+Back = "` `<div>Or:</div><div>' ' “ to that line only</div>"
+Front = 'Move to last location before jump (e.g., after gg)'

@@ -1,0 +1,20 @@
+note_id = 1520716967542
+guid = "g?<g_p&NL#"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973406
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "in addition" with "lingwai"'
+english = 'I have two cell phones. One is Xiao Mi, and the other is iPhone.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '另外 + Noun Phrase'
+hanzi = '我有两个手机，一个是小米，另外一个是iPhone。'
+notes = ''
+pinyin = 'Wǒ yǒu liǎng gè shǒujī, yī gè shì Xiǎomǐ, lìngwài yī gè shì iPhone.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG2KQZI'

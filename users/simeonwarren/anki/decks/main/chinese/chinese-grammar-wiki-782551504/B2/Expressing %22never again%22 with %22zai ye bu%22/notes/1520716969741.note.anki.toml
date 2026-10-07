@@ -1,0 +1,20 @@
+note_id = 1520716969741
+guid = "qQ*bap_za|"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975605
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "never again" with "zai ye bu"'
+english = "I don't want to talk with you ever again."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 再也 + 不 + Verb-Obj. + 了'
+hanzi = '我再也不想跟你说话了。'
+notes = ''
+pinyin = 'Wǒ zài yě bù xiǎng gēn nǐ shuōhuà le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG7R8US'

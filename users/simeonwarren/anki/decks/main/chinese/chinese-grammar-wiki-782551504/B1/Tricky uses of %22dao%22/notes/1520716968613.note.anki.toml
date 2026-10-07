@@ -1,0 +1,20 @@
+note_id = 1520716968613
+guid = "Bb`a_ox*/"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716974477
+ordinal = 0
+
+[fields]
+article-title = 'Tricky uses of "dao"'
+english = 'How do we get in contact?'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '我们怎么联系？'
+notes = ''
+pinyin = 'Wǒmen zěnme liánxì?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCUSIV'

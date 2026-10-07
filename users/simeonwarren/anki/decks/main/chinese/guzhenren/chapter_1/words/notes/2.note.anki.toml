@@ -1,0 +1,20 @@
+note_id = 2
+guid = "@]o#d[6o]"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 3
+ordinal = 0
+
+[fields]
+article-title = ''
+english = '-ly;	structural particle: used before a verb or adjective, linking it to preceding modifying adverbial adjunct.<br>earth;	ground;	field;	place;	land.'
+example-sentence = '方源,乖乖地交出春秋蝉,我给你个痛快'
+example-type = ''
+grammar-construct = ''
+hanzi = '地'
+notes = ''
+pinyin = '<span class="tone5">dedì</span>	 <!-- de di -->'
+source = ''

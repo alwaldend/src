@@ -1,0 +1,20 @@
+note_id = 1520716968772
+guid = "O*n>i1Z#)1"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974636
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "every" with question words'
+english = "It doesn't matter however other people think."
+example-sentence = ''
+example-type = ''
+grammar-construct = '怎么 + Verb + 都 + Predicate'
+hanzi = '别人怎么想都不重要。'
+notes = ''
+pinyin = 'Biérén zěnme xiǎng dōu bù zhòngyào.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG13ALM'

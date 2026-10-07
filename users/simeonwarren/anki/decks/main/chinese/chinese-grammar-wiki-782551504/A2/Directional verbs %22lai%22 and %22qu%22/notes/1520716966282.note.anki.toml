@@ -1,0 +1,20 @@
+note_id = 1520716966282
+guid = "O@WKh]X-z]"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716972146
+ordinal = 0
+
+[fields]
+article-title = 'Directional verbs "lai" and "qu"'
+english = 'Would you like to go to Starbucks or Costa?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '来 / 去 + Place'
+hanzi = '你们想去Starbucks还是Costa？'
+notes = ''
+pinyin = 'Nǐmen xiǎng qù Starbucks háishì Costa?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGRBKSL'

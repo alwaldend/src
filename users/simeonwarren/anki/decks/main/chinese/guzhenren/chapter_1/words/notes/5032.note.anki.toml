@@ -1,0 +1,20 @@
+note_id = 5032
+guid = "lp~bY9<Dxa"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 5068
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'to confront;	to face.'
+example-sentence = ' 他面对着高高的黑漆台案,在台案有三层,供奉着先祖的牌位'
+example-type = ''
+grammar-construct = ''
+hanzi = '面对'
+notes = ''
+pinyin = '<span class="tone4">miàn</span><span class="tone4">duì</span>	 <!-- mian dui -->'
+source = ''

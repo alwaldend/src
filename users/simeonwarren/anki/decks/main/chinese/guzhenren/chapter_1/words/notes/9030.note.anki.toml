@@ -1,0 +1,20 @@
+note_id = 9030
+guid = "A15gjz%Jq!"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+id = 9068
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'each other;	one another.'
+example-sentence = '看向彼此的目光中都隐藏了一丝警惕之色'
+example-type = ''
+grammar-construct = ''
+hanzi = '彼此'
+notes = ''
+pinyin = '<span class="tone3">bǐ</span><span class="tone3">cǐ</span>	 <!-- bi ci -->'
+source = ''

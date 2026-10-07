@@ -1,0 +1,20 @@
+note_id = 1520716967138
+guid = "tnd?st%.:!"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "leech", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973002
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "each other" with "huxiang"'
+english = 'Influence each other'
+example-sentence = ''
+example-type = ''
+grammar-construct = '互相 + Verb'
+hanzi = '互相影响'
+notes = ''
+pinyin = 'hùxiāng yǐngxiǎng'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGF00B7'

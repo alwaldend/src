@@ -1,0 +1,20 @@
+note_id = 1520716965300
+guid = "kX-<]Ws~9^"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716971164
+ordinal = 0
+
+[fields]
+article-title = 'Expressing existence in a place with "zai"'
+english = "They're in England."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 在 + Place'
+hanzi = '他们在英国。'
+notes = ''
+pinyin = 'Tāmen zài Yīngguó.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGLRWT8'

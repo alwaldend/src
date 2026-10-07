@@ -1,0 +1,20 @@
+note_id = 1520716967071
+guid = "lAMD$Gg1.D"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972935
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "all at once" with "yixiazi"'
+english = 'After hearing him out, I understood everything all at once.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 一下子 + 就 + Verb + 了'
+hanzi = '听他说完，我一下子就明白了。'
+notes = ''
+pinyin = 'Tīng tā shuō wán, wǒ yīxiàzi jiù míngbai le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG06EA8'

@@ -1,0 +1,20 @@
+note_id = 1520716969686
+guid = "biMx5B,WR{"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975550
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "even" with "shenzhi"'
+english = "He likes playing with his cell phone when he's eating, taking the metro, even when he goes to the bathroom."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A，B，甚至 C + 都 / 也 ⋯⋯'
+hanzi = '他很喜欢玩手机，吃饭的时候，坐地铁的时候，甚至上厕所的时候也在玩。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGKWV6F'

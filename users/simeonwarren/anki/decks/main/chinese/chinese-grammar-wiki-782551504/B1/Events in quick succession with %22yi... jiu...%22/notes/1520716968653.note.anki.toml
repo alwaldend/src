@@ -1,0 +1,20 @@
+note_id = 1520716968653
+guid = "id,}A#I)T/"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974517
+ordinal = 0
+
+[fields]
+article-title = 'Events in quick succession with "yi... jiu..."'
+english = 'As soon as the teacher came , everyone stopped talking.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '一 + Event 1，就 + Event 2'
+hanzi = '老师一来大家就不说话了。'
+notes = ''
+pinyin = 'Lǎoshī yī lái dàjiā jiù bù shuōhuà le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTFUD0'

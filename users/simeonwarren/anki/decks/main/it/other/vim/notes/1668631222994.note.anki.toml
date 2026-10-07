@@ -1,0 +1,17 @@
+note_id = 1668631222994
+guid = "N@3s10B^Jb"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = []
+
+[[cards]]
+id = 1668631222994
+ordinal = 0
+
+[[cards]]
+id = 1668965796720
+ordinal = 1
+
+[fields]
+Back = '^w :'
+Front = 'How to edit the command line if : does not work (in the current window)?'

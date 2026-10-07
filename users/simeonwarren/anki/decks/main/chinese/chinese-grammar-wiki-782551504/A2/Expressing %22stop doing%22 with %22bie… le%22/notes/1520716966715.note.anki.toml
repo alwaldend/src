@@ -1,0 +1,20 @@
+note_id = 1520716966715
+guid = "p2C>tj]do5"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716972579
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "stop doing" with "bie… le"'
+english = "Stop asking. I don't want to say."
+example-sentence = ''
+example-type = ''
+grammar-construct = '别 + Verb / [Verb Phrase] + 了'
+hanzi = '别问了，我不想说。'
+notes = ''
+pinyin = 'Bié wèn le, wǒ bù xiǎng shuō.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGZ8OIF'

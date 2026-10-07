@@ -1,0 +1,20 @@
+note_id = 1520716969330
+guid = "ps;JVpx[(r"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Comparisons"]
+
+[[cards]]
+id = 1520716975194
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "gang" and "gangcai"'
+english = 'We just arrived yesterday.'
+example-sentence = ''
+example-type = 'invalid'
+grammar-construct = ''
+hanzi = '我们昨天刚才到。'
+notes = '刚才 should be used for events a lot closer in time than 昨天.'
+pinyin = '<div>Wǒmen zuótiān gāngcái dào.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJFFWG'

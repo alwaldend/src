@@ -1,0 +1,20 @@
+note_id = 1520716966704
+guid = "ly?%j:$Cy>"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716972568
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "everything" with "shenme dou"'
+english = 'We drink any kind of fruit juice.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '什么 + Noun + 都 + Verb'
+hanzi = '我们什么果汁都喝。'
+notes = ''
+pinyin = 'Wǒmen shénme guǒzhī dōu hē.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGAQV6C'

@@ -1,0 +1,20 @@
+note_id = 1520716968746
+guid = "bzdo^i%7AC"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974610
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "even" with "lian" and "dou"'
+english = "You didn't even ask what her name is?"
+example-sentence = ''
+example-type = ''
+grammar-construct = '连 + Obj. + 都 (+ 不 / 没) + Verb'
+hanzi = '你连她叫什么都没问？'
+notes = ''
+pinyin = 'Nǐ lián tā jiào shénme dōu méi wèn?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNP0WV'

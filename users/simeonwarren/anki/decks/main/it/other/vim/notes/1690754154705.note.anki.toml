@@ -1,0 +1,17 @@
+note_id = 1690754154705
+guid = "sf<x>edIR4"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = []
+
+[[cards]]
+id = 1690754154709
+ordinal = 0
+
+[[cards]]
+id = 1690754154710
+ordinal = 1
+
+[fields]
+Back = 'Update only saves the file and updates its timestamp if the file has any changes. Write always touches the file and changes the timestamp.'
+Front = 'What is the difference between :write and :update?'

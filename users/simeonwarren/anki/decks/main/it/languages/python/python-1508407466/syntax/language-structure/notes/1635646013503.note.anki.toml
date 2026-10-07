@@ -1,0 +1,17 @@
+note_id = 1635646013503
+guid = "q||BXQ[%Vz"
+note_type_id = 1630447360002
+note_type = "python-basic"
+tags = []
+
+[[cards]]
+id = 1635646013503
+ordinal = 0
+
+[fields]
+'Additional Info' = ''
+'Back - Basic' = ''
+'Back - Code' = 'y = [i % 2&nbsp;<font color="#3465a4">for</font>&nbsp;i&nbsp;<font color="#3465a4">in</font>&nbsp;x]'
+Example = ''
+Front = "Use <b>list comprehension</b> to create a new list <i>y</i> of 1's for odd and 0's for even in a list <i>x</i> of numbers&nbsp;"
+Version = ''

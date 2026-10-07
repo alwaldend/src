@@ -1,0 +1,20 @@
+note_id = 1520716970728
+guid = "z%/C-KePTt"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Comparisons", "Conjunctions"]
+
+[[cards]]
+id = 1520716976592
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "gen" and "dui"'
+english = 'Flowers and chocolate are the best gifts.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. 1 跟 Subj. 2 + Verb-Obj.'
+hanzi = '鲜花跟巧克力是最好的礼物。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGC5Y86'

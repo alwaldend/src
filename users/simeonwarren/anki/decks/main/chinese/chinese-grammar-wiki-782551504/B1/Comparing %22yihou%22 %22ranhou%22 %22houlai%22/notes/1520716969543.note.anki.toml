@@ -1,0 +1,20 @@
+note_id = 1520716969543
+guid = "xyje;1|`Vh"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Comparisons", "TimeWords"]
+
+[[cards]]
+id = 1520716975407
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "yihou" "ranhou" "houlai"'
+english = 'I want to start up my own business in the future.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '我以后想开公司。'
+notes = ''
+pinyin = 'Wǒ yǐhòu xiǎng kāi gōngsī.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNPJ7T'

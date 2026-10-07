@@ -1,0 +1,20 @@
+note_id = 1520716970031
+guid = "fLRb8kJauQ"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Parts_of_Speech", "SentencePatterns"]
+
+[[cards]]
+id = 1520716975895
+ordinal = 0
+
+[fields]
+article-title = 'Emphasizing a negation with "bing"'
+english = "I'm majoring in finance at the university, but being a financial analyst really isn't my dream."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 并 + 不 + Verb / Adj.&lt;br /&gt;Subj. + 并 + 没（有) + Verb'
+hanzi = '我在大学读金融专业，但是当金融分析人员并不是我的梦想。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGUQUPG'

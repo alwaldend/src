@@ -1,0 +1,20 @@
+note_id = 1520716969993
+guid = "PVnP~mHQ^B"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975857
+ordinal = 0
+
+[fields]
+article-title = 'Taiwanese "you"'
+english = 'Everyone is excited.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 有 + Adj.'
+hanzi = '大家都有激动。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGY2D79'

@@ -1,0 +1,20 @@
+note_id = 1520716967443
+guid = "l+cbyU|)*M"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["AdverbswithAdjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973307
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "rather" with "bijiao"'
+english = "My parents quite object to the fact that I'm with a foreign boyfriend."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 比较 + [Verb Phrase]'
+hanzi = '我父母比较反对我找外国男朋友。'
+notes = ''
+pinyin = 'Wǒ fùmǔ bǐjiào fǎnduì wǒ zhǎo wàiguó nánpéngyou.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG72HKP'

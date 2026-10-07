@@ -1,0 +1,20 @@
+note_id = 1520716967417
+guid = "wU>u7yP0^I"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["AdverbswithAdjectives", "B1", "leech", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973281
+ordinal = 0
+
+[fields]
+article-title = 'Adjectives with "name" and "zheme"'
+english = "You're so smart. You can guess."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 那么 / 这么 + Adj.'
+hanzi = '你那么聪明，一定能猜到。'
+notes = ''
+pinyin = 'Nǐ nàme cōngming, yīdìng néng cāi dào.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNKKP6'

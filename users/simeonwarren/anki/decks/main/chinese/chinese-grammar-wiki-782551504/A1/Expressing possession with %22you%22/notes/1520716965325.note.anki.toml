@@ -1,0 +1,20 @@
+note_id = 1520716965325
+guid = "HTK8I2|+x2"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716971189
+ordinal = 0
+
+[fields]
+article-title = 'Expressing possession with "you"'
+english = 'Do you have 100 kuài RMB?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 有 + Obj.'
+hanzi = '你有一百块钱吗？'
+notes = ''
+pinyin = 'Nǐ yǒu yī bǎi kuài qián ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGOOCVO'

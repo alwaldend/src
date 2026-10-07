@@ -1,0 +1,20 @@
+note_id = 1520716969838
+guid = "CyfVRmy>0x"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975702
+ordinal = 0
+
+[fields]
+article-title = 'Rhetorical questions with "nandao"'
+english = "Today's my birthday; you're telling me you didn't know?"
+example-sentence = ''
+example-type = ''
+grammar-construct = '难道 + [Rhetorical Question]'
+hanzi = '今天是我的生日，难道你不知道吗？'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMCP9V'

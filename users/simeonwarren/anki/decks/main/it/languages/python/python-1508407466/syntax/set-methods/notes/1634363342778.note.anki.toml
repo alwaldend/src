@@ -1,0 +1,17 @@
+note_id = 1634363342778
+guid = "y=Qx&$<p+9"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634370830769
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<i>set</i>.intersection(<i>set</i>)'
+example = 'x = { 2, 3, 4}<br>y = { 1, 4, 5}<br>z = x.intersection(y)&nbsp;<span style="color: rgb(102, 102, 102);"># x and y are interchangable</span><br>print(z)&nbsp;<font color="#555753"># { 4 }</font>'
+question = '<b>Set method</b> to return a new set (example <i>z</i>) that contains only the elements that exist in both sets. (example <i>x</i> and <i>y</i>)'
+version = ''
+with-options = ''

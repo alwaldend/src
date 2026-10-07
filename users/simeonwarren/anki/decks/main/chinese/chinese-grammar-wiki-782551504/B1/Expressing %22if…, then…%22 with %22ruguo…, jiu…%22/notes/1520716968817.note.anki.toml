@@ -1,0 +1,20 @@
+note_id = 1520716968817
+guid = "AJ$K*__fn="
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974681
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "if…, then…" with "ruguo…, jiu…"'
+english = 'If you lose, you need to give me 100 kuai.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '如果 ⋯⋯ ，就 ⋯⋯'
+hanzi = '如果你输了，就给我一百块。'
+notes = ''
+pinyin = 'Rúguǒ nǐ shū le, jiù gěi wǒ yī bǎi kuài.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGGIVT0'

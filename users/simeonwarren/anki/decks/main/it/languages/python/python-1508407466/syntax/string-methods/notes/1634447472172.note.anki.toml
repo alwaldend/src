@@ -1,0 +1,17 @@
+note_id = 1634447472172
+guid = "hd]B7u#gi2"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634447472172
+ordinal = 0
+
+[fields]
+additional-info = '<strong>Note:</strong>&nbsp;All string methods returns new values. They do not change the original string.'
+answer = '<i>string</i>.rstrip()'
+example = ''
+question = '<b>String method</b>&nbsp;that returns a string with all the whitespace removed from the right side (right trimmed).'
+version = ''
+with-options = ''

@@ -1,0 +1,17 @@
+note_id = 1526927495150
+guid = "d3dbr/MH*{"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = ["WorkingWithMultipleFiles"]
+
+[[cards]]
+id = 1526927509135
+ordinal = 0
+
+[[cards]]
+id = 1668965796711
+ordinal = 1
+
+[fields]
+Back = ':vsp[lit] {file} &nbsp;or &nbsp;:vnew {file}'
+Front = 'Open a file in a new buffer and vertically split window'

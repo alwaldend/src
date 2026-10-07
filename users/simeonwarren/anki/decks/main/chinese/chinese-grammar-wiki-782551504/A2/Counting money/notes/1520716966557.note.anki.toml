@@ -1,0 +1,20 @@
+note_id = 1520716966557
+guid = "nZA661T<FY"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Grammatical_Structures", "NumbersandMeasureWords"]
+
+[[cards]]
+id = 1520716972421
+ordinal = 0
+
+[fields]
+article-title = 'Counting money'
+english = ''
+example-sentence = ''
+example-type = 'invalid'
+grammar-construct = 'Number + 块 + Number + 毛'
+hanzi = '两块两'
+notes = ''
+pinyin = 'liǎng kuài liǎng'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGL6JOE'

@@ -1,0 +1,20 @@
+note_id = 1520716966689
+guid = "kt7ClpPN^t"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716972553
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "about to happen" with "le"'
+english = 'It’s almost getting dark.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '快 + Adj. + 了'
+hanzi = '天快黑了。'
+notes = ''
+pinyin = 'Tiān kuài hēi le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNGEU8'

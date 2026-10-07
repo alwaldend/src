@@ -1,0 +1,20 @@
+note_id = 1520716970341
+guid = "bu|o!5Co^R"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716976205
+ordinal = 0
+
+[fields]
+article-title = 'Advanced potential complements'
+english = "I have things to do tonight. I won't be able to go."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 得 / 不 + 了'
+hanzi = '今晚我有事，去不了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG516F9'

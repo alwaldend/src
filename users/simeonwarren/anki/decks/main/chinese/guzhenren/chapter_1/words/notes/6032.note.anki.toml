@@ -1,0 +1,20 @@
+note_id = 6032
+guid = "n9u39|xZ`U"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 6069
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'same;	like;	equal to;	the same as;	just like.'
+example-sentence = '   上一届的开窍大典就像是昨天发生的一样,依旧历历在目呢'
+example-type = ''
+grammar-construct = ''
+hanzi = '一样'
+notes = ''
+pinyin = '<span class="tone1">yī</span><span class="tone4">yàng</span>	 <!-- yi yang -->'
+source = ''

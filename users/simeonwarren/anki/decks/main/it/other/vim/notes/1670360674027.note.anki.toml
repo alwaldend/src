@@ -1,0 +1,17 @@
+note_id = 1670360674027
+guid = "b#BB^Bk87?"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = []
+
+[[cards]]
+id = 1670360674027
+ordinal = 0
+
+[[cards]]
+id = 1670360674028
+ordinal = 1
+
+[fields]
+Back = '<b>\&lt;</b>pattern<b>\&gt;</b>'
+Front = 'Match pattern if at the beginning or end of word'

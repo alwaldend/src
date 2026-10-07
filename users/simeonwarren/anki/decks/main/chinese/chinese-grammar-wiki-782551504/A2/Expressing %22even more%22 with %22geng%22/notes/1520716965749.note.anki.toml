@@ -1,0 +1,20 @@
+note_id = 1520716965749
+guid = "sG~>T6`S=L"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Adverbs", "leech", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971613
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "even more" with "geng"'
+english = 'Between these two banks, which one is closer?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '更 + Adj.'
+hanzi = '这两个银行哪个更近？'
+notes = ''
+pinyin = 'Zhè liǎng gè yínháng nǎge gèng jìn?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG4NIPB'

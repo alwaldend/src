@@ -1,0 +1,20 @@
+note_id = 1520716967474
+guid = "y1182yI-pz"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["AuxiliaryWords", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973338
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "stuff like that" with "zhileide"'
+english = 'There are many fast-food restaurants in my neighborhood like KFC and stuff like that.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '⋯⋯ 之类的 + [Category]'
+hanzi = '我家附近有很多像KFC之类的快餐店。'
+notes = ''
+pinyin = 'Wǒ jiā fùjìn yǒu hěn duō xiàng KFC zhī lèi de kuàicān diàn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPY23Z'

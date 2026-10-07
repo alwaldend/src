@@ -1,0 +1,20 @@
+note_id = 1520716967301
+guid = "o@5X8A[5E?"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973165
+ordinal = 0
+
+[fields]
+article-title = 'Expressing lateness with "cai"'
+english = "I didn't arrived at home until eleven o'clock last night."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Time + 才 + Verb'
+hanzi = '我昨天晚上十一点才到家。'
+notes = ''
+pinyin = 'Wǒ zuótiān wǎnshang shíyī diǎn cái dào jiā.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG3WTCJ'

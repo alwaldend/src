@@ -1,0 +1,20 @@
+note_id = 1029
+guid = "Ok}:`vuuk<"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 1058
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'already;	to stop;	then;	afterwards.'
+example-sentence = ' 大局已定,今日必死无疑'
+example-type = ''
+grammar-construct = ''
+hanzi = '已'
+notes = ''
+pinyin = '<span class="tone3">yǐ</span>	 <!-- yi -->'
+source = ''

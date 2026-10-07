@@ -1,0 +1,20 @@
+note_id = 1520716967064
+guid = "x*e{Z{fli7"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972928
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "all along" with "yuanlai"'
+english = 'It turns out you are so rich!'
+example-sentence = ''
+example-type = ''
+grammar-construct = '原来 + [New Information]'
+hanzi = '原来你这么有钱！'
+notes = ''
+pinyin = 'Yuánlái nǐ zhème yǒuqián!'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTKXFR'

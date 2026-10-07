@@ -1,0 +1,17 @@
+note_id = 1634362052118
+guid = "o~|3sgE|4O"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634370830758
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<i>set</i>.discard(<i>value</i>)'
+example = ''
+question = "<b>Set method&nbsp;</b>to remove a value<i>&nbsp;</i>from set (returns None). Doesn't raise error if the value is not found.&nbsp;"
+version = ''
+with-options = ''

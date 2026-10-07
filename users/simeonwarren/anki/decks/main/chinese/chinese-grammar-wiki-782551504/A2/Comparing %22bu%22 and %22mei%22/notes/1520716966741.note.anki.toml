@@ -1,0 +1,20 @@
+note_id = 1520716966741
+guid = "xFl3L|:2!N"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Adverbs", "Comparisons"]
+
+[[cards]]
+id = 1520716972605
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "bu" and "mei"'
+english = "The boss won't come tomorrow."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不 + Verb'
+hanzi = '老板明天不来。'
+notes = ''
+pinyin = 'Lǎobǎn míngtiān bù lái.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGRJ1BI'

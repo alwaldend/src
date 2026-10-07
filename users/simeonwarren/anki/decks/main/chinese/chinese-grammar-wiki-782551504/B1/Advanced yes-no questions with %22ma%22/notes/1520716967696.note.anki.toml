@@ -1,0 +1,20 @@
+note_id = 1520716967696
+guid = "d0vP%~Wm|U"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973560
+ordinal = 0
+
+[fields]
+article-title = 'Advanced yes-no questions with "ma"'
+english = 'Can I tell me where you bought this?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '[Question Word] + 吗 ？'
+hanzi = '你能告诉我这是在哪儿买的吗？'
+notes = ''
+pinyin = 'Nǐ néng gàosu wǒ zhè shì zài nǎr mǎi de ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGI9WXT'

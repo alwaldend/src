@@ -1,0 +1,20 @@
+note_id = 1520716969272
+guid = "K&9l9&gkQF"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716975136
+ordinal = 0
+
+[fields]
+article-title = 'Using the "shi... de" construction'
+english = 'What did he use to hit you?'
+example-sentence = ''
+example-type = 'invalid'
+grammar-construct = ''
+hanzi = '他用什么打你了？'
+notes = ''
+pinyin = 'Tā yòng shénme dǎ nǐ le?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8YTSF'

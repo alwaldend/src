@@ -1,0 +1,20 @@
+note_id = 1520716970663
+guid = "s:T@X?~TYN"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Comparisons"]
+
+[[cards]]
+id = 1520716976527
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "turan" and "huran"'
+english = 'Do you know how to handle this kind of sudden situation?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '突然 + (的) + Noun'
+hanzi = '你知道怎么处理这种突然的情况吗？'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGHKZP4'

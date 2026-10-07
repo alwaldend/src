@@ -1,0 +1,20 @@
+note_id = 1520716969944
+guid = "ta>I<9OJ|-"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Parts_of_Speech", "PrepositionalPhrase"]
+
+[[cards]]
+id = 1520716975808
+ordinal = 0
+
+[fields]
+article-title = 'Defining scope'
+english = 'Children under the age of 10 do not need to buy tickets.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '级别 / 次序 / 数目 + 以上 / 以下'
+hanzi = '十岁以下的孩子不用买票。'
+notes = ''
+pinyin = 'Shí suì yǐxià de háizi bùyòng mǎi piào.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG7AE5C'

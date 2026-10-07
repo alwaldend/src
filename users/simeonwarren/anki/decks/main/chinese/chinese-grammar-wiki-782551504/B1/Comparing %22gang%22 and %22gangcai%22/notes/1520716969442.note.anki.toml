@@ -1,0 +1,20 @@
+note_id = 1520716969442
+guid = "B*c)WGBDbQ"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Comparisons", "TimeWords"]
+
+[[cards]]
+id = 1520716975306
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "gang" and "gangcai"'
+english = 'I just got home.'
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = '刚 + Adj.'
+hanzi = '我刚回家。'
+notes = 'The verb 回 includes a clear enough indication of result.'
+pinyin = '<div>Wǒ gāng huí jiā.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJFFWG'

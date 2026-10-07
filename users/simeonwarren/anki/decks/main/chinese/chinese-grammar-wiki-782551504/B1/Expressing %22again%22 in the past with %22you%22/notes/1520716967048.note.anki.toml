@@ -1,0 +1,20 @@
+note_id = 1520716967048
+guid = "nSzsg)!Gm="
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972912
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "again" in the past with "you"'
+english = 'The boss is going to treat us. We can have a big meal again!'
+example-sentence = ''
+example-type = ''
+grammar-construct = '又 + 要 / 想 / 可以 / 能 + Verb Phrase (+ 了)'
+hanzi = '老板请客，又可以吃大餐了！'
+notes = ''
+pinyin = 'Lǎobǎn qǐngkè, yòu kěyǐ chī dàcān le!'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGN1JR5'

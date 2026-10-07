@@ -1,0 +1,20 @@
+note_id = 1520716967624
+guid = "FF^Ah?&DqS"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973488
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "when" with "shi"'
+english = 'When you go to the interview, you have to dress a little more formally.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '(Subj. +) Verb / Adj. + 时⋯⋯'
+hanzi = '面试时，要穿得正式一点。'
+notes = ''
+pinyin = 'Miànshì shí, yào chuān de zhèngshì yīdiǎn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGGL59D'

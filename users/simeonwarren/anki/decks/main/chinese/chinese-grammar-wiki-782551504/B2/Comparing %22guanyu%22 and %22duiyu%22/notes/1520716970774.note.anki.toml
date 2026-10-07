@@ -1,0 +1,20 @@
+note_id = 1520716970774
+guid = "D=vUOwko#s"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Comparisons", "Prepositions"]
+
+[[cards]]
+id = 1520716976638
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "guanyu" and "duiyu"'
+english = 'He made a speech about Chinese economy yesterday.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '他昨天发表了一个关于中国经济的演讲。'
+notes = ''
+pinyin = '<div>Tā zuótiān fābiǎole yīgè guānyú zhōngguó jīngjì de yǎnjiǎng.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG1HNBU'

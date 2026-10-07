@@ -1,0 +1,20 @@
+note_id = 1520716967389
+guid = "fT^qe8IL$u"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973253
+ordinal = 0
+
+[fields]
+article-title = 'Using "ye" and "dou" together'
+english = "These are not expensive. Those aren't expensive, either."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 也都 + 不 / 没 + Predicate'
+hanzi = '这些不贵，那些也都不贵。'
+notes = ''
+pinyin = 'Zhèxiē bù guì, nàxiē yě dōu bù guì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8GSXY'

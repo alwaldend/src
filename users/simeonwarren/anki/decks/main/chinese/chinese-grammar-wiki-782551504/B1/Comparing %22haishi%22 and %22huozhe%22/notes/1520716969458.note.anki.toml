@@ -1,0 +1,20 @@
+note_id = 1520716969458
+guid = "C:%OV%<OL_"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Comparisons", "Conjunctions"]
+
+[[cards]]
+id = 1520716975322
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "haishi" and "huozhe"'
+english = 'Either tomorrow or the day after is fine.'
+example-sentence = ''
+example-type = 'invalid'
+grammar-construct = 'Possibility 1 + 或者 + Possibility 2'
+hanzi = '明天还是后天都行。'
+notes = 'Since it is a statement, it should use 或者'
+pinyin = 'Míngtiān huòzhě hòutiān dōu xíng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQJ5IC'

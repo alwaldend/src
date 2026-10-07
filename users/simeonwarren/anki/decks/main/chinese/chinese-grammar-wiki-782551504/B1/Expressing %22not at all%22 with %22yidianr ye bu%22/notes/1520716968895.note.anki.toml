@@ -1,0 +1,20 @@
+note_id = 1520716968895
+guid = "Oep:z&PHrq"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974759
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "not at all" with "yidianr ye bu"'
+english = "That question isn't difficult at all."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 一点(儿) + 也 / 都 + 不 + Adj.'
+hanzi = '那个问题一点儿也不难。'
+notes = ''
+pinyin = 'Nàge wèntí yīdiǎnr yě bù nán.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGRURCZ'

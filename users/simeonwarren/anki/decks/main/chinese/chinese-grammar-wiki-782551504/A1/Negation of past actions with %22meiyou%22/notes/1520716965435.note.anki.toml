@@ -1,0 +1,20 @@
+note_id = 1520716965435
+guid = "IzF$XlwAWq"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+id = 1520716971299
+ordinal = 0
+
+[fields]
+article-title = 'Negation of past actions with "meiyou"'
+english = "The boss didn't come today?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 没有 / 没 + Verb'
+hanzi = '老板今天没来吗？'
+notes = ''
+pinyin = 'Lǎobǎn jīntiān méi​ lái ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGAUCXK'

@@ -1,0 +1,20 @@
+note_id = 1520716967481
+guid = "C)x+:?SW.N"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["AuxiliaryWords", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973345
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "stuff like that" with "zhileide"'
+english = 'Many old Chinese people are fond of exercising like square dance, taiji.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '⋯⋯ 之类的 + [Category]'
+hanzi = '很多中国老人喜欢广场舞、太极之类的运动。'
+notes = ''
+pinyin = 'Hěn duō Zhōngguó lǎorén xǐhuan guǎngchǎng wǔ, Tàijí zhī lèi de yùndòng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPY23Z'

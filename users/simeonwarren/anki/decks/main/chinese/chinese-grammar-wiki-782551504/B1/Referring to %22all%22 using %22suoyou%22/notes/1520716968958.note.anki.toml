@@ -1,0 +1,20 @@
+note_id = 1520716968958
+guid = "m(|hDw2h>;"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974822
+ordinal = 0
+
+[fields]
+article-title = 'Referring to "all" using "suoyou"'
+english = "He remembers everyone's birthday."
+example-sentence = ''
+example-type = ''
+grammar-construct = '所有的 + Noun + 都 + Verb / Adj.'
+hanzi = '他记得所有人的生日。'
+notes = ''
+pinyin = 'Tā jìde suǒyǒu rén de shēngrì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGOWBSL'

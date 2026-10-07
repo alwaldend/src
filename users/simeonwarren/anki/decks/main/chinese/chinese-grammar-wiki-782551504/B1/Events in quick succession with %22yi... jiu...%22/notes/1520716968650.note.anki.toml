@@ -1,0 +1,20 @@
+note_id = 1520716968650
+guid = "duwlFsd&`N"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974514
+ordinal = 0
+
+[fields]
+article-title = 'Events in quick succession with "yi... jiu..."'
+english = "I'm starved. I will go to lunch as soon as the class is over."
+example-sentence = ''
+example-type = ''
+grammar-construct = '一 + Event 1，就 + Event 2'
+hanzi = '饿死了，我一下课就要去吃午饭。'
+notes = ''
+pinyin = 'È sǐ le, wǒ yī xiàkè jiù yào qù chī wǔfàn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTFUD0'

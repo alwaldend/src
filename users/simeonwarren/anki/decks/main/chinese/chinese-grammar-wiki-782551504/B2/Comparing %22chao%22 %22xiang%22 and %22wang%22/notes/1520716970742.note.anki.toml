@@ -1,0 +1,20 @@
+note_id = 1520716970742
+guid = "QG$3sh<|Al"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Comparisons", "Prepositions"]
+
+[[cards]]
+id = 1520716976606
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "chao" "xiang" and "wang"'
+english = 'He has already explained it to the employees.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '向 / 朝 + 动作的对象 + 具体意义的动词'
+hanzi = '他已经向全体员工解释过了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGIHS2L'

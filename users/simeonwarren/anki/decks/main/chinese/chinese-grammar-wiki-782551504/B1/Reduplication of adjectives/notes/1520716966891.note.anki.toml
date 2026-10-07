@@ -1,0 +1,20 @@
+note_id = 1520716966891
+guid = "zfV?Ri1/n$"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972755
+ordinal = 0
+
+[fields]
+article-title = 'Reduplication of adjectives'
+english = 'exciting'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A  A  B  B  + 的 (+ Noun)'
+hanzi = '热闹→热热闹闹'
+notes = ''
+pinyin = 'rènao ￫ rè rè nāo nāo'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDHE8S'

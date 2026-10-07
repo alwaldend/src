@@ -1,0 +1,20 @@
+note_id = 1520716970897
+guid = "y508tx.]rs"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "C1"]
+
+[[cards]]
+id = 1520716976761
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "always previously" with "xianglai"'
+english = 'That soccer player is known as "Goldfoot" because he plays soccer really well.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subject + 向来（都） + Verb/Verb Phrase'
+hanzi = '那个足球队员一向被称为"金脚"，因为他踢足球踢得非常好。'
+notes = ''
+pinyin = '<div>Nàgè zúqiú duìyuán yīxiàng bèi chēng wèi"jīn jiǎo", yīnwèi tā tī zúqiú tī dé fēicháng hǎo</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDU0XL'

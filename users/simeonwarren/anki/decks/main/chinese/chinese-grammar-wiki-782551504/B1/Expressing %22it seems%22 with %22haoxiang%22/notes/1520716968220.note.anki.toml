@@ -1,0 +1,20 @@
+note_id = 1520716968220
+guid = "O9V(AU@6?g"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716974084
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "it seems" with "haoxiang"'
+english = "It seems like she's sick."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 好像 ⋯⋯'
+hanzi = '她好像生病了。'
+notes = ''
+pinyin = 'Tā hǎoxiàng shēngbìng le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG3ROPY'

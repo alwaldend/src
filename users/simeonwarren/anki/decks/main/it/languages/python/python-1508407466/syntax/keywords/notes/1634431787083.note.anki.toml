@@ -1,0 +1,17 @@
+note_id = 1634431787083
+guid = "rHL`hiIt>T"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634431787084
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<b>Keyword</b> to end a function, returns a generator.'
+example = ''
+question = '<b>Keyword: </b>yield'
+version = ''
+with-options = ''

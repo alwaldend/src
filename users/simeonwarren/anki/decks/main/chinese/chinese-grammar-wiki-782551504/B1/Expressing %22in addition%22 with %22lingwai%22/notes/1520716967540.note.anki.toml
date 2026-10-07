@@ -1,0 +1,20 @@
+note_id = 1520716967540
+guid = "M)k`Lg[vXS"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973404
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "in addition" with "lingwai"'
+english = 'We play these games every time. I suggest you think of a few more games.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '另外 + [Verb Phrase]'
+hanzi = '这些游戏每次都玩，我建议你另外再想几个游戏。'
+notes = ''
+pinyin = 'Zhèxiē yóuxì měi cì dōu wán, wǒ jiànyì nǐ lìngwài zài xiǎng jǐ gè yóuxì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG2KQZI'

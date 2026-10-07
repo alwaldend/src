@@ -1,0 +1,20 @@
+note_id = 1520716970192
+guid = "I(Eg1iFMP]"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "ButStatements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716976056
+ordinal = 0
+
+[fields]
+article-title = "Expressing \"on the contrary\" with \"fan'er\""
+english = "He didn't give up; on the contrary, he worked even harder."
+example-sentence = ''
+example-type = ''
+grammar-construct = '⋯⋯ ，Subj. + 反而 + [Unexpected Outcome]'
+hanzi = '他没有放弃，反而更努力了！'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGX5QTV'

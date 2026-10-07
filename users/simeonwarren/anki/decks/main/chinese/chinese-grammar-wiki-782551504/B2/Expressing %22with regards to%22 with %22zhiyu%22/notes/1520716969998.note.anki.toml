@@ -1,0 +1,20 @@
+note_id = 1520716969998
+guid = "i2aog$Kr|f"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+id = 1520716975862
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "with regards to" with "zhiyu"'
+english = 'A lawyer only defends his client. As for the verdict, that depends on the judge.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '至于 + Topic， Comment'
+hanzi = '律师只能为他的客户辩护，至于最后的判决，那就取决于法官了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGZRKTG'

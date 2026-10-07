@@ -1,0 +1,20 @@
+note_id = 1520716968928
+guid = "D?iK?eK5q|"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974792
+ordinal = 0
+
+[fields]
+article-title = 'Indicating purpose or intent using "shi...de"'
+english = 'They all came here to do an internship.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Person + 是 + 来 / 去 + Verb Phrase + 的'
+hanzi = '他们都是来实习的。'
+notes = ''
+pinyin = 'Tāmen dōu shì lái shíxí de.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG0UFR4'

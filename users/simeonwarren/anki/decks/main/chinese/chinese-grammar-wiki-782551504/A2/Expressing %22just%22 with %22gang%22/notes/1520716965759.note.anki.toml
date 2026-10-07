@@ -1,0 +1,20 @@
+note_id = 1520716965759
+guid = "QUD3hSJuiQ"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971623
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "just" with "gang"'
+english = 'We just found out.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 刚刚 + Verb'
+hanzi = '我们刚知道。'
+notes = ''
+pinyin = 'Wǒmen gāng zhīdào.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQJJYO'

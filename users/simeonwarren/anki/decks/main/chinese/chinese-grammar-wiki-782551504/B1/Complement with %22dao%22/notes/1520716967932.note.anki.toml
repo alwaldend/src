@@ -1,0 +1,20 @@
+note_id = 1520716967932
+guid = "b63UxeEd|k"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+id = 1520716973796
+ordinal = 0
+
+[fields]
+article-title = 'Complement with "dao"'
+english = "We went to eat hotpot tonight and we didn't finish until the place was closed."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb (+ 一直) + 到 + Time / Event'
+hanzi = '我们晚上去吃火锅了，一直吃到火锅店关门。'
+notes = ''
+pinyin = 'Wǒmen wǎnshang qù chī huǒguō le, yīzhí chī dào huǒguō diàn guānmén.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG1CCAP'

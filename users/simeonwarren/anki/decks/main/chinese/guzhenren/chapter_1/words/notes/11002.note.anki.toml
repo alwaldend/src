@@ -1,0 +1,20 @@
+note_id = 11002
+guid = "2Is8]{aV}"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+id = 11014
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'to rank (1st, 2nd etc);	ranking.'
+example-sentence = '在十大奇蛊排名中,能名列第七,自然非同小可'
+example-type = ''
+grammar-construct = ''
+hanzi = '排名'
+notes = ''
+pinyin = '<span class="tone2">pái</span><span class="tone2">míng</span>	 <!-- pai ming -->'
+source = ''

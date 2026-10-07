@@ -1,0 +1,20 @@
+note_id = 1520716970040
+guid = "u#U,UF6n:&"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716975904
+ordinal = 0
+
+[fields]
+article-title = 'Basic comparisons with "bu bi"'
+english = "You're not any more stupid than other people."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A + 不比 + B + Verb + 得 + Adj.'
+hanzi = '你不比别人笨。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8DVSO'

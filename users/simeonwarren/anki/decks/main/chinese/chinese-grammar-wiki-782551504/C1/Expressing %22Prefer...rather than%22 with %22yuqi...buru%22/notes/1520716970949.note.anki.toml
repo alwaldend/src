@@ -1,0 +1,20 @@
+note_id = 1520716970949
+guid = "r9//..YO5e"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["C1", "SentencePatterns"]
+
+[[cards]]
+id = 1520716976813
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "Prefer...rather than" with "yuqi...buru"'
+english = "I'd rather say that he was criticizing me than encouraging me."
+example-sentence = ''
+example-type = ''
+grammar-construct = '与其说 + A，不如说 + B'
+hanzi = '与其说他是在鼓励我，不如说是在批评我。'
+notes = ''
+pinyin = '<div class="kO6q6e" dir="ltr" jsname="jTaUub"><span jsname="toZopb">Yǔqí shuō tā shì zài gǔlì wǒ, bùrú shuō shì zài pīpíng wǒ.</span></div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWI5CV'

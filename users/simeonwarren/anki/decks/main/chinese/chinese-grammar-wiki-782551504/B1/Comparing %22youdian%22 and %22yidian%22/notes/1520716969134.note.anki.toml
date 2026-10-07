@@ -1,0 +1,20 @@
+note_id = 1520716969134
+guid = "SjsW+I{{|"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Comparisons"]
+
+[[cards]]
+id = 1520716974998
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "youdian" and "yidian"'
+english = 'The dish is a little salty.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '这个菜有点咸。'
+notes = ''
+pinyin = 'Zhège cài yǒudiǎn xián.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGV55Y4'

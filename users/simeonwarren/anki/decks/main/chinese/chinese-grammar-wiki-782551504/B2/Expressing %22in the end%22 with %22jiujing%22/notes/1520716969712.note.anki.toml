@@ -1,0 +1,20 @@
+note_id = 1520716969712
+guid = "14$DA!*Jz"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975576
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "in the end" with "jiujing"'
+english = 'What exactly do you do?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '究竟 + Question Word'
+hanzi = '你究竟是做什么的？'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDK0BR'

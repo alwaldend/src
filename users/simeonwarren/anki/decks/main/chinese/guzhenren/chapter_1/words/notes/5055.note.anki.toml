@@ -1,0 +1,20 @@
+note_id = 5055
+guid = "H.wYEsAUY$"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+id = 5114
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'to take in;	income;	revenue.<br>Cl: 笔, 个'
+example-sentence = '若是能收入自己这一脉中,好好培养,可保自己这一支百年的昌盛不衰'
+example-type = ''
+grammar-construct = ''
+hanzi = '收入'
+notes = ''
+pinyin = '<span class="tone1">shōu</span><span class="tone4">rù</span>	 <!-- shou ru -->'
+source = ''

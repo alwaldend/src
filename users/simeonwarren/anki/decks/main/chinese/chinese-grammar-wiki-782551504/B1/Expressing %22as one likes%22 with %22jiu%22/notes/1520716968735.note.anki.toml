@@ -1,0 +1,20 @@
+note_id = 1520716968735
+guid = "dc9|jSGAh6"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974599
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "as one likes" with "jiu"'
+english = 'If you want to come, come.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '想 + Verb (+ Obj.) + 就 + Verb (+ Obj.)'
+hanzi = '你想来就来。'
+notes = ''
+pinyin = 'Nǐ xiǎng lái jiù lái.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDUZ55'

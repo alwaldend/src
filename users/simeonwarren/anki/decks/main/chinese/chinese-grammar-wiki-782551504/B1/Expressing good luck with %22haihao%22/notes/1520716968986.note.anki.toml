@@ -1,0 +1,20 @@
+note_id = 1520716968986
+guid = "A1[r<Jd/pZ"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974850
+ordinal = 0
+
+[fields]
+article-title = 'Expressing good luck with "haihao"'
+english = "Luckily I didn't order that much food, otherwise it would be all wasted."
+example-sentence = ''
+example-type = ''
+grammar-construct = '还好 + [Lucky Incident] ，不然 + [Bad Outcome]'
+hanzi = '还好我没点那么多菜，不然都浪费了。'
+notes = ''
+pinyin = 'Háihǎo wǒ méi diǎn nàme duō cài, bùrán dōu làngfèi le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGOB1BF'

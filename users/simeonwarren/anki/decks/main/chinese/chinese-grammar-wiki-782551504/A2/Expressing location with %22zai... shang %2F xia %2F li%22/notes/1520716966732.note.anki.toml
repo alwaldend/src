@@ -1,0 +1,20 @@
+note_id = 1520716966732
+guid = "cGW0F}j%9V"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716972596
+ordinal = 0
+
+[fields]
+article-title = 'Expressing location with "zai... shang / xia / li"'
+english = 'Walmart is next to my house.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '在 + Location+ 上 / 下 / 里 / 旁边'
+hanzi = 'Walmart在我家旁边。'
+notes = ''
+pinyin = 'Walmart zài wǒ jiā pángbiān.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGFBWZL'

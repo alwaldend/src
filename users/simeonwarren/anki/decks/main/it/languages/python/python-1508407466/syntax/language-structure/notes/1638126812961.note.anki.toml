@@ -1,0 +1,18 @@
+note_id = 1638126812961
+guid = "w/3m4n^n(!"
+note_type_id = 1630447360006
+note_type = "python-cloze"
+tags = []
+
+[[cards]]
+id = 1638126812962
+ordinal = 0
+
+[[cards]]
+id = 1638126812963
+ordinal = 1
+
+[fields]
+example = ''
+text = "Bitwise operators and their meanings:<br><ol><li>{{c1::shift left}}: {{c2::&lt;&lt;}}</li><li>{{c1::shift right}}: {{c2::&gt;&gt;}}</li><li>{{c1::and}}: {{c2::&amp;}}</li><li>{{c1::or}}: {{c2::|}}</li><li>{{c1::not (switch 1's and 0's)}}: {{c2::~}}</li><li>{{c1::exclusive or (xor)}}: {{c2::^}}</li></ol>"
+version = ''

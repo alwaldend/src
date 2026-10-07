@@ -1,0 +1,12 @@
+id = 1777300008858
+title = 'main::it::security'
+
+[notes]
+path = 'notes'
+
+[normal]
+config_id = 1
+extend_new = 0
+extend_review = 0
+description = ''
+markdown_description = false

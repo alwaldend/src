@@ -1,0 +1,20 @@
+note_id = 9991
+guid = "q1P%[wb=^|"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+id = 9991
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'ugly talk;	vulgarity;	obscenity.'
+example-sentence = '不过,丑话先说在前头'
+example-type = ''
+grammar-construct = ''
+hanzi = '丑话'
+notes = ''
+pinyin = '<span class="tone3">chǒu</span><span class="tone4">huà</span>	 <!-- chou hua -->'
+source = ''

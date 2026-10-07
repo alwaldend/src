@@ -1,0 +1,20 @@
+note_id = 1520716967766
+guid = "INHbZR:RFG"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+id = 1520716973630
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "about" with "guanyu"'
+english = 'There are lots of idioms about diet in Chinese.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '关于 ⋯⋯ 的 + Noun'
+hanzi = '汉语有很多关于饮食的成语。'
+notes = ''
+pinyin = 'Hànyǔ yǒu hěn duō guānyú yǐnshí de chéngyǔ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG49889'

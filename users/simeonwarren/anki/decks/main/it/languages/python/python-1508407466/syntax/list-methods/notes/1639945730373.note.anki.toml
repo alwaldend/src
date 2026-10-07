@@ -1,0 +1,17 @@
+note_id = 1639945730373
+guid = "ocg%?G-Q%D"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1639945730373
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<i>list</i>.copy()'
+example = ''
+question = '<b>List method</b>&nbsp;that&nbsp;returns a shallow copy of the list.'
+version = ''
+with-options = ''

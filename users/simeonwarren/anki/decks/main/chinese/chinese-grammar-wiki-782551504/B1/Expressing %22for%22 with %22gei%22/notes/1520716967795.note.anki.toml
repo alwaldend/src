@@ -1,0 +1,20 @@
+note_id = 1520716967795
+guid = "kB5C%~S{r{"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+id = 1520716973659
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "for" with "gei"'
+english = "We're going to hold a birthday party for our son this weekend."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 给 + Recipient + [Verb Phrase]'
+hanzi = '这个周末我们给儿子开生日派对。'
+notes = ''
+pinyin = 'Zhège zhōumò wǒmen gěi érzi kāi shēngrì pàiduì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGLHAV3'

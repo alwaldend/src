@@ -1,0 +1,20 @@
+note_id = 1520716968017
+guid = "G~ER_NDS/|"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716973881
+ordinal = 0
+
+[fields]
+article-title = "Expressing \"don't need to\" with \"buyong\""
+english = "There aren't many people today. We don't need to wait in line."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不用 + [Verb Phrase]'
+hanzi = '今天人少，不用排队。'
+notes = ''
+pinyin = 'Jīntiān rén shǎo, bùyòng páiduì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGECD0E'

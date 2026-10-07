@@ -1,0 +1,20 @@
+note_id = 1520716967098
+guid = "p}@vnC-L+J"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972962
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "almost" using "chadian"'
+english = 'I almost lost the thing.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 差点(儿) + (就) + [Verb Phrase] / Adj. + 了'
+hanzi = '这个东西差点就丢了。'
+notes = "I did't lost it."
+pinyin = 'Zhège dōngxi chàdiǎn jiù diū le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG6ESWW'

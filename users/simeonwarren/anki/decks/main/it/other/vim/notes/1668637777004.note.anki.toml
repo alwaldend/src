@@ -1,0 +1,17 @@
+note_id = 1668637777004
+guid = "I.@hj$PWvo"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = []
+
+[[cards]]
+id = 1668637777004
+ordinal = 0
+
+[[cards]]
+id = 1668965796736
+ordinal = 1
+
+[fields]
+Back = 'iw iW is ip&nbsp; &nbsp;" i for&nbsp;<b>inner</b> word, ...'
+Front = 'Select whole word, WORD, sentence, or paragraph <b>without</b> whitespace (visual mode)'

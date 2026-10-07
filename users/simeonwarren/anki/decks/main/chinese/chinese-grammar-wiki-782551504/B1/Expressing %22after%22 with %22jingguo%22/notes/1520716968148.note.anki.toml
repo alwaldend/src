@@ -1,0 +1,20 @@
+note_id = 1520716968148
+guid = "mn215vvXhR"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716974012
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "after" with "jingguo"'
+english = 'I usually pass by this city when I go back to hometown train.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '我坐火车回老家常常经过这个城市。'
+notes = ''
+pinyin = 'Wǒ zuò huǒchē huí lǎojiā chángcháng jīngguò zhège chéngshì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG11DA8'

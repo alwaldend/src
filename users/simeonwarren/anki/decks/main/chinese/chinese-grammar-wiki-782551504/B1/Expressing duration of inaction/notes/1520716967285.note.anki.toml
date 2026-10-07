@@ -1,0 +1,20 @@
+note_id = 1520716967285
+guid = "j$P7Kb&xTI"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973149
+ordinal = 0
+
+[fields]
+article-title = 'Expressing duration of inaction'
+english = "Let's buy it for you. It's been more than one year since you last bought new clothes."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 已经 + Duration + 没 + Verb + 了'
+hanzi = '买吧，你已经一年多没买新衣服了。'
+notes = ''
+pinyin = 'Mǎi ba, nǐ yǐjīng yī nián duō méi mǎi xīn yīfu le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGSVF28'

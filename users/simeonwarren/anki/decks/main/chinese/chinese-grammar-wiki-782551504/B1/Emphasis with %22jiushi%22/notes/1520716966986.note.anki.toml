@@ -1,0 +1,20 @@
+note_id = 1520716966986
+guid = "i7|Q0%5G2u"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972850
+ordinal = 0
+
+[fields]
+article-title = 'Emphasis with "jiushi"'
+english = "She asked so many questions only because she's worried about you."
+example-sentence = ''
+example-type = ''
+grammar-construct = '就是 + Noun'
+hanzi = '她问这么多，就是担心你。'
+notes = ''
+pinyin = 'Tā wèn zhème duō, jiùshì dānxīn nǐ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGY21RK'

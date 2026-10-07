@@ -1,0 +1,20 @@
+note_id = 1520716969428
+guid = "FX?Z!PF3!^"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Comparisons", "TimeWords"]
+
+[[cards]]
+id = 1520716975292
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "gang" and "gangcai"'
+english = 'I just bought it.'
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = '刚 + Adj.'
+hanzi = '我刚买了。'
+notes = 'Adding 了 after the verb also gives a clear indication of result.'
+pinyin = '<div>Wǒ gāng mǎile.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJFFWG'

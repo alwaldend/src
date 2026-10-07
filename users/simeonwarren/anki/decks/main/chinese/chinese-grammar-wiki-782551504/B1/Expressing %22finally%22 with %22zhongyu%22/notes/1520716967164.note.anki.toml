@@ -1,0 +1,20 @@
+note_id = 1520716967164
+guid = "AJXuwF+x&K"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "leech", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973028
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "finally" with "zhongyu"'
+english = 'You finally made your decision.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 终于 + Verb Phrase + 了'
+hanzi = '你们终于决定了。'
+notes = ''
+pinyin = 'Nǐmen zhōngyú juédìng le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG700A5'

@@ -1,0 +1,20 @@
+note_id = 1520716968403
+guid = "OY..k?U<E8"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716974267
+ordinal = 0
+
+[fields]
+article-title = 'Potential complement'
+english = 'The mountain is so high. Can you make it to the top?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 得 + Complement'
+hanzi = '这么高的山，你爬得上去吗？'
+notes = ''
+pinyin = 'Zhème gāo de shān, nǐ pá de shàngqù ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCPJPQ'

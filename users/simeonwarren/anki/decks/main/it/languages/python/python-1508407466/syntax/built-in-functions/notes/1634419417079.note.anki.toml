@@ -1,0 +1,17 @@
+note_id = 1634419417079
+guid = "t17sS;e#(W"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634419417080
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<b>Built in function:&nbsp;</b>int(<i>object</i>)'
+example = ''
+question = '<b>Built in function</b>&nbsp;that returns an integer number from a specified object (or raises a ValueError).'
+version = ''
+with-options = ''

@@ -1,0 +1,20 @@
+note_id = 1520716969062
+guid = "E?4;D&K;Zu"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974926
+ordinal = 0
+
+[fields]
+article-title = 'Phrases using "laishuo"'
+english = "Strictly speaking, he's my director, not my boss."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '严格来说，他是我主管，不是我老板。'
+notes = ''
+pinyin = 'Yángé lái shuō, tā shì wǒ zhǔguǎn, bù shì wǒ lǎobǎn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGD60A6'

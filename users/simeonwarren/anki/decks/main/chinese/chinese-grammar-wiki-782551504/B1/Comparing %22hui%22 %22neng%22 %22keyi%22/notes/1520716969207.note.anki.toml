@@ -1,0 +1,20 @@
+note_id = 1520716969207
+guid = "yZT-BNRW-J"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["AuxiliaryWords", "B1", "Comparisons"]
+
+[[cards]]
+id = 1520716975071
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "hui" "neng" "keyi"'
+english = 'Can I smoke here?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '可以 / 能 + Verb'
+hanzi = 'A:我能在这里抽烟吗？'
+notes = ''
+pinyin = 'A: Wǒ néng zài zhèlǐ chōuyān ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGZL717'

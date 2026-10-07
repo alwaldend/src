@@ -1,0 +1,20 @@
+note_id = 1520716967191
+guid = "lE)kBZOXY>"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973055
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "had better" with "zuihao"'
+english = "You'd better get some rest first."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 最好 + [Verb Phrase]'
+hanzi = '你最好先休息一下。'
+notes = ''
+pinyin = 'Nǐ zuìhǎo xiān xiūxi yīxià.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG35CD7'

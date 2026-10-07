@@ -1,0 +1,17 @@
+note_id = 1670069511948
+guid = "Cpr)GB#t;R"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = []
+
+[[cards]]
+id = 1670069511949
+ordinal = 0
+
+[[cards]]
+id = 1670069511950
+ordinal = 1
+
+[fields]
+Back = '<b>3</b>ciw &nbsp; “ NB: consecutive spaces and symbols are inner words, too'
+Front = 'Change the current and next word if inside the first word'

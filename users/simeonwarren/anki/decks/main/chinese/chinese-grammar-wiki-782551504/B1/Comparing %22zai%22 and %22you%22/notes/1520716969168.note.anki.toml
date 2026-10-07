@@ -1,0 +1,20 @@
+note_id = 1520716969168
+guid = "t^u?yZ,x7&"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Comparisons"]
+
+[[cards]]
+id = 1520716975032
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "zai" and "you"'
+english = ''
+example-sentence = ''
+example-type = 'invalid'
+grammar-construct = 'Subj. + 再 + Verb + Obj.'
+hanzi = '我得又写一篇作文。'
+notes = "Since it is about the future, you can't use \"又\""
+pinyin = '<div>Wǒ dé yòu xiě yī piān zuòwén.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTBHBG'

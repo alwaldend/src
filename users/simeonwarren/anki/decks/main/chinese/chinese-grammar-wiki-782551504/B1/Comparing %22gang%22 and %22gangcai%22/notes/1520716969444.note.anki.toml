@@ -1,0 +1,20 @@
+note_id = 1520716969444
+guid = "hodyOYavdM"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Comparisons", "TimeWords"]
+
+[[cards]]
+id = 1520716975308
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "gang" and "gangcai"'
+english = "Just now, I hadn't made up my mind what to eat, now I've made up my mind."
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = '刚 + Adj.'
+hanzi = '我刚才没想好吃什么，现在我想好了。'
+notes = 'No need to use 了 with 没.'
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJFFWG'

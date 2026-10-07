@@ -1,0 +1,20 @@
+note_id = 1520716967924
+guid = "gxO|15*TO~"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "SentencePatterns"]
+
+[[cards]]
+id = 1520716973788
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "double negation"'
+english = 'None of his girlfriends were not beautiful.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '没有 +  Single Noun + 不 / 没 + Adj. / [Verb Phrase]'
+hanzi = '他的女朋友没有一个不漂亮的。'
+notes = ''
+pinyin = 'Tā de nǚpéngyou méiyǒu yī gè bù piàoliang de.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGEEA2D'

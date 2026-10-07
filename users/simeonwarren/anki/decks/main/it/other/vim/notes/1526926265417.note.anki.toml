@@ -1,0 +1,17 @@
+note_id = 1526926265417
+guid = "cw2WMGSChH"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = ["Insert", "Mode"]
+
+[[cards]]
+id = 1526926277795
+ordinal = 0
+
+[[cards]]
+id = 1668965796632
+ordinal = 1
+
+[fields]
+Back = 'ea'
+Front = 'Append at the end of the word'

@@ -1,0 +1,20 @@
+note_id = 1520716968763
+guid = "dslL*SMv8["
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974627
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "every" with question words'
+english = "I'm fine with meeting at any place."
+example-sentence = ''
+example-type = ''
+grammar-construct = '哪儿 / 哪里 (+ Verb) + 都 + Predicate'
+hanzi = '在哪里见面都行。'
+notes = ''
+pinyin = 'Zài nǎlǐ jiànmiàn dōu xíng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG13ALM'

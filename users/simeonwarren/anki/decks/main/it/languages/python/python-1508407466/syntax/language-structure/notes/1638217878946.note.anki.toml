@@ -1,0 +1,14 @@
+note_id = 1638217878946
+guid = "Cj^:Ri%:>&"
+note_type_id = 1630447360006
+note_type = "python-cloze"
+tags = []
+
+[[cards]]
+id = 1638217878947
+ordinal = 0
+
+[fields]
+example = ''
+text = 'List unpacking: {{c1::<i>*list</i>}}<div>Dictionary unpacking: {{c1::<i>**dict</i>}}</div>'
+version = '&gt;= 3.7, 3.10'

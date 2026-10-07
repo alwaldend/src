@@ -1,0 +1,20 @@
+note_id = 1520716965243
+guid = "J:IE!hZ9?0"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Numbers", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971107
+ordinal = 0
+
+[fields]
+article-title = 'Structure of days of the week'
+english = "Saturday and Sunday we don't work."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '星期六和星期天我们不上班。'
+notes = ''
+pinyin = 'Xīngqīliù hé Xīngqītiān wǒmen bù shàngbān.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGVH4Q5'

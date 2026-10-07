@@ -1,0 +1,20 @@
+note_id = 1520716967836
+guid = "NQZzscJ$(C"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+id = 1520716973700
+ordinal = 0
+
+[fields]
+article-title = 'Expressing purpose with "weile"'
+english = 'The reason I did all this was to give you a better future.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '⋯⋯是 + 为了 + Purpose / Reason'
+hanzi = '我这么做是为了给你一个更好的未来。'
+notes = ''
+pinyin = 'Wǒ (zhīsuǒyǐ) zhème zuò shì wèile gěi nǐ yī gè gèng hǎo de weìlái.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQGJXT'

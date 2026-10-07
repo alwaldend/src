@@ -1,0 +1,20 @@
+note_id = 1520716968179
+guid = "Oem6)tq6x("
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716974043
+ordinal = 0
+
+[fields]
+article-title = "Expressing \"don't need to\" with \"buyong\""
+english = "Kids don't need to buy tickets."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不用 + [Verb Phrase]'
+hanzi = '孩子不用买票。'
+notes = ''
+pinyin = 'Háizi bùyòng mǎi piào.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGECD0E'

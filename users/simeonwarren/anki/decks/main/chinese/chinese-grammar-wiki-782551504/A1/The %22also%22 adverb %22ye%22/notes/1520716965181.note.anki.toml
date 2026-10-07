@@ -1,0 +1,20 @@
+note_id = 1520716965181
+guid = "I]f9T+j./*"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971045
+ordinal = 0
+
+[fields]
+article-title = 'The "also" adverb "ye"'
+english = ''
+example-sentence = ''
+example-type = 'invalid'
+grammar-construct = 'Subj. + 也 (+ Adv.) + Adj.'
+hanzi = '我也。'
+notes = 'Always put something after 也! It never ends a sentence.'
+pinyin = 'Wǒ yě.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGG25MD'

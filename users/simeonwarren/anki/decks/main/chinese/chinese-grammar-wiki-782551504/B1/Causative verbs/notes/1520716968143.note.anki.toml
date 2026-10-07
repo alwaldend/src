@@ -1,0 +1,20 @@
+note_id = 1520716968143
+guid = "D[6QQ4l5Ch"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716974007
+ordinal = 0
+
+[fields]
+article-title = 'Causative verbs'
+english = 'I want to ask you to do me a favor.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + [Causative Verb] + Person + Predicate'
+hanzi = '我想请你帮我一个忙。'
+notes = ''
+pinyin = 'Wǒ xiǎng qǐng nǐ bāng wǒ yī gè máng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5T7XC'

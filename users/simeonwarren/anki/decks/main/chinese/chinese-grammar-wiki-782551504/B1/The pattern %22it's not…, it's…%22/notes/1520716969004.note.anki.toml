@@ -1,0 +1,20 @@
+note_id = 1520716969004
+guid = "hLmZzP9W8C"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974868
+ordinal = 0
+
+[fields]
+article-title = "The pattern \"it's not…, it's…\""
+english = 'Beauty is found everywhere. To our eyes, it is not a lack of beauty but a lack of discovery.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不是 + [Verb Phrase 1] ， (而)是 + [Verb Phrase 2]'
+hanzi = '生活中不是缺少美，而是缺少发现美的眼睛。'
+notes = ''
+pinyin = 'Shēnghuó zhōng bù shì quēshǎo měi, érshì quēshǎo fāxiàn měi de yǎnjing.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGT9WYR'

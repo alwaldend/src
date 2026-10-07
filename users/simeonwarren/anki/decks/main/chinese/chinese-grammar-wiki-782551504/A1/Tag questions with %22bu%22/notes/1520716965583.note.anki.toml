@@ -1,0 +1,20 @@
+note_id = 1520716965583
+guid = "s;V&P8^X=w"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+id = 1520716971447
+ordinal = 0
+
+[fields]
+article-title = 'Tag questions with "bu"'
+english = 'You come here tomorrow, OK?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 不 + Verb'
+hanzi = '你们明天来，好不好？'
+notes = ''
+pinyin = 'Nǐmen míngtiān lái, hǎo bu hǎo?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG4D8XB'

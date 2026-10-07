@@ -1,0 +1,20 @@
+note_id = 1520716969009
+guid = "vz(d3i]h!7"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974873
+ordinal = 0
+
+[fields]
+article-title = 'Expressing purpose with "weile"'
+english = "He decided to move to Shanghai for his children's future."
+example-sentence = ''
+example-type = ''
+grammar-construct = '为了 ⋯⋯ ，Subj. ⋯⋯'
+hanzi = '为了孩子的未来，他决定搬到上海。'
+notes = ''
+pinyin = 'Wèile háizi de wèilái, tā juédìng bāndào Shanghai.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQGJXT'

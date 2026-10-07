@@ -1,0 +1,17 @@
+note_id = 1634431636556
+guid = "f)B.hz!^rf"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634431636558
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<b>Keyword</b> used to redeclare an already declared variables scope as non-local inside nested functions or other localized scope.'
+example = 'x = 0<br>def example_func():<br>&nbsp; &nbsp; nonlocal x = 1'
+question = '<b>Keyword:</b> nonlocal'
+version = ''
+with-options = ''

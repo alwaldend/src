@@ -1,0 +1,20 @@
+note_id = 1520716970539
+guid = "woANd1.!SX"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716976403
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "would rather" with "ningke"'
+english = "He'd rather eat instant noodles every day than ask his parents for money."
+example-sentence = ''
+example-type = ''
+grammar-construct = '宁可……，也不……'
+hanzi = '他宁可每天吃方便面，也不找父母要钱。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGF3F2Y'

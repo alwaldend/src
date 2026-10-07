@@ -1,0 +1,20 @@
+note_id = 1520716967466
+guid = "Pr?,=~(>Tj"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["AuxiliaryWords", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973330
+ordinal = 0
+
+[fields]
+article-title = 'Non-exhaustive lists with "dengdeng"'
+english = 'I like exercising very much, for example, running, swimming, doing yoga, etc.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A1，A2⋯⋯等 / 等等'
+hanzi = '我很喜欢运动，比如跑步、游泳、做瑜伽等等。'
+notes = ''
+pinyin = 'Wǒ hěn xǐhuan yùndòng, bǐrú pǎobù, yóuyǒng, zuò yújiā děngděng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGF763H'

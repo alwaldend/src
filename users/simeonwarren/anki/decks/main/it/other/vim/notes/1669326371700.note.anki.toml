@@ -1,0 +1,17 @@
+note_id = 1669326371700
+guid = "rG~)z>vGty"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = []
+
+[[cards]]
+id = 1669326371701
+ordinal = 0
+
+[[cards]]
+id = 1669326371702
+ordinal = 1
+
+[fields]
+Back = '^w J'
+Front = 'Move the current window to the very bottom'

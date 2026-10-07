@@ -1,0 +1,20 @@
+note_id = 2017
+guid = "Qiz[]iIC+="
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 2035
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'at once;	right away;	only;	just (emphasis);	as early as;	already;	as soon as;	then;	in that case;	as many as;	even if;	to approach;	to move towards;	to undertake;	to engage in;	to suffer;	subjected to;	to accomplish;	to take advantage of;	to go with (of foods);	with regard to;	concerning.'
+example-sentence = ' 就这样紧张地对峙了三个时辰,夕阳西下,落日的余晖将山边的晚霞点燃,一时间绚烂如火'
+example-type = ''
+grammar-construct = ''
+hanzi = '就'
+notes = ''
+pinyin = '<span class="tone4">jiù</span>	 <!-- jiu -->'
+source = ''

@@ -1,0 +1,20 @@
+note_id = 8004
+guid = "I%*Tq#vTQu"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+id = 8015
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'to foster;	to bring up;	to raise.'
+example-sentence = '可惜就是父母死的早,现在被其舅父舅母抚养着'
+example-type = ''
+grammar-construct = ''
+hanzi = '抚养'
+notes = ''
+pinyin = '<span class="tone3">fǔ</span><span class="tone3">yǎng</span>	 <!-- fu yang -->'
+source = ''

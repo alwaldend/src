@@ -1,0 +1,20 @@
+note_id = 1520716968325
+guid = "Fo#m_e-`no"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716974189
+ordinal = 0
+
+[fields]
+article-title = 'Degree complement'
+english = ''
+example-sentence = ''
+example-type = 'invalid'
+grammar-construct = 'Verb + 得 + [Degree Complement]'
+hanzi = '你说中文很好。'
+notes = ''
+pinyin = 'Nǐ shuō Zhōngwén hěn hǎo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG79STE'

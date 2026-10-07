@@ -1,0 +1,17 @@
+note_id = 1670172147671
+guid = "K.0QoV9v(p"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = []
+
+[[cards]]
+id = 1670172147672
+ordinal = 0
+
+[[cards]]
+id = 1670172147673
+ordinal = 1
+
+[fields]
+Back = ':cdo {COMMAND}'
+Front = 'Execute command on every entry of the quickfix list'

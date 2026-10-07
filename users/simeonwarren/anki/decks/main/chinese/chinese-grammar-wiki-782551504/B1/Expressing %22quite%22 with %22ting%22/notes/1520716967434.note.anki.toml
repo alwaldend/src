@@ -1,0 +1,20 @@
+note_id = 1520716967434
+guid = "P.kv61.;Ff"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["AdverbswithAdjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973298
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "quite" with "ting"'
+english = "Isn't his family is quite rich?"
+example-sentence = ''
+example-type = ''
+grammar-construct = '挺 + Adj. + 的'
+hanzi = '他家不是挺有钱的吗？'
+notes = ''
+pinyin = 'Tā jiā bù shì tǐng yǒuqián de ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDF1F7'

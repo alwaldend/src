@@ -1,0 +1,20 @@
+note_id = 1520716969326
+guid = "cN.*I*p1*x"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Comparisons"]
+
+[[cards]]
+id = 1520716975190
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "gang" and "gangcai"'
+english = 'He just arrived.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '他刚到。'
+notes = 'This gives the impression that not only did he just get here, but he should still be here.'
+pinyin = 'Tā gāng dào.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJFFWG'

@@ -1,0 +1,20 @@
+note_id = 1520716969948
+guid = "ylCeL%vc-s"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Parts_of_Speech", "PrepositionalPhrase"]
+
+[[cards]]
+id = 1520716975812
+ordinal = 0
+
+[fields]
+article-title = 'Defining scope'
+english = 'The following is just my personal opinion.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '级别 / 次序 / 数目 + 以上 / 以下'
+hanzi = '以上只是我个人的看法。'
+notes = ''
+pinyin = 'Yǐshàng zhī shì wǒ gèrén de kànfǎ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG7AE5C'

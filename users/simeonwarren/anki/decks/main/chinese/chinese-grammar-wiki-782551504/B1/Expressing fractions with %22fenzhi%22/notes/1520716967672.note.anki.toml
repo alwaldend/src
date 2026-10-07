@@ -1,0 +1,20 @@
+note_id = 1520716967672
+guid = "g_(d8Q~8XP"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Numbers", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973536
+ordinal = 0
+
+[fields]
+article-title = 'Expressing fractions with "fenzhi"'
+english = 'One third of our classmates are foreign students.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A + 是 / 占 (+ B) + 的 + Denominator + 分之 + Numerator'
+hanzi = '我们班有三分之一的同学是外国人。'
+notes = ''
+pinyin = 'Wǒmen bān yǒu sān fēn zhī yī de tóngxué shì wàiguó rén.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG84RE9'

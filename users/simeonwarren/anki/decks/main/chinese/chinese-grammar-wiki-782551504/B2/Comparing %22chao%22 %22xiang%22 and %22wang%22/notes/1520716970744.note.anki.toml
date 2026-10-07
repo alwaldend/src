@@ -1,0 +1,20 @@
+note_id = 1520716970744
+guid = "vx`$As+:o~"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Comparisons", "Prepositions"]
+
+[[cards]]
+id = 1520716976608
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "chao" "xiang" and "wang"'
+english = 'We are going to make the Environmental Safety Department closely examine the factory sewage.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '向 +  Direction + Abstract Verb'
+hanzi = '我们要向环保部门要求严查工厂排污。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGIHS2L'

@@ -1,0 +1,20 @@
+note_id = 1520716968053
+guid = "mD]yUk}vw&"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+id = 1520716973917
+ordinal = 0
+
+[fields]
+article-title = 'Measure words for verbs'
+english = 'That red-haired boy hit me three times.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + Number + Measure Word'
+hanzi = '那个红头发的男孩打了我三下。'
+notes = ''
+pinyin = 'Nàge hóng tóufa de nánhái dǎ le wǒ sān xià.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5AODR'

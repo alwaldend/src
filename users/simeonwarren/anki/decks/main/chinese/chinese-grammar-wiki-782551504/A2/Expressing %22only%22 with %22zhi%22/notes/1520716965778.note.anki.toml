@@ -1,0 +1,20 @@
+note_id = 1520716965778
+guid = "Ee<r0BPJaf"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971642
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "only" with "zhi"'
+english = 'I only want to be with you.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '只 + 会 / 能 + Verb'
+hanzi = '我只想跟你在一起。'
+notes = ''
+pinyin = 'Wǒ zhǐ xiǎng gēn nǐ zài yīqǐ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGN8C8R'

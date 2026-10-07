@@ -1,0 +1,20 @@
+note_id = 1520716969614
+guid = "iJV-VRY4tP"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975478
+ordinal = 0
+
+[fields]
+article-title = 'Advanced uses of "zong"'
+english = "You took their money, so you're always going to have to help them do stuff."
+example-sentence = ''
+example-type = ''
+grammar-construct = '总 + 会 / 得 / 要 / 能 + Verb'
+hanzi = '你拿了人家的钱，总得帮人家做事吧。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8QS6H'

@@ -1,0 +1,20 @@
+note_id = 1520716967391
+guid = "xp@Ize7tx%"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973255
+ordinal = 0
+
+[fields]
+article-title = 'Using "ye" and "dou" together'
+english = "You're saying it isn't easy for you? It isn't for us, either."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 也都 + 不 / 没 + Predicate'
+hanzi = '你觉得你不容易？我们也都不容易。'
+notes = ''
+pinyin = 'Nǐ juéde nǐ bù róngyì? Wǒmen yě dōu bù róngyì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8GSXY'

@@ -1,0 +1,20 @@
+note_id = 1520716970284
+guid = "GMOd;laWWW"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Cause/EffectStatements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716976148
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "since" with "jiran"'
+english = 'Since you like it so much, buy it then.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '既然＋Fact, 那 / 就 / 那就＋Suggestion / Inference'
+hanzi = '既然你那么喜欢，那就买吧。'
+notes = 'a suggestion)'
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGG4BX9'

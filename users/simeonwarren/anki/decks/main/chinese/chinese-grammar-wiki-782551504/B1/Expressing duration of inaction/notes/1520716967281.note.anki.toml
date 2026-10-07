@@ -1,0 +1,20 @@
+note_id = 1520716967281
+guid = "v&nO`5d.7<"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973145
+ordinal = 0
+
+[fields]
+article-title = 'Expressing duration of inaction'
+english = 'How long has it been since you last shaved?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 已经 + Duration + 没 + Verb + 了'
+hanzi = '你多长时间没刮胡子了？'
+notes = ''
+pinyin = 'Nǐ duō cháng shíjiān méi guā húzi le?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGSVF28'

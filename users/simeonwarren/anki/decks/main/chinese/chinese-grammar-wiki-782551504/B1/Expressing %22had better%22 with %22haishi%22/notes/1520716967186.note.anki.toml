@@ -1,0 +1,20 @@
+note_id = 1520716967186
+guid = "q:;u#e6]!M"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973050
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "had better" with "haishi"'
+english = "It's too dirty here; we'd better leave."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 还是 + [Verb Phrase] + 吧'
+hanzi = '这里太脏了，我们还是走吧。'
+notes = ''
+pinyin = 'Zhèlǐ tài zāng le, wǒmen háishì zǒu ba.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWAR65'

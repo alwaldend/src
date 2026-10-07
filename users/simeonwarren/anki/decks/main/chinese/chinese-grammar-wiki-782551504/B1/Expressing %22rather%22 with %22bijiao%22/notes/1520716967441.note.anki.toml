@@ -1,0 +1,20 @@
+note_id = 1520716967441
+guid = "g|C*;9+o*|"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["AdverbswithAdjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973305
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "rather" with "bijiao"'
+english = 'Is is rather convenient for you to take the metro to work or ride a bike?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 比较 + Adj.'
+hanzi = '你上班坐地铁比较方便还是骑车比较方便？'
+notes = ''
+pinyin = 'Nǐ shàngbān zuò dìtiě bǐjiào fāngbiàn háishì qíchē bǐjiào fāngbiàn?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG72HKP'

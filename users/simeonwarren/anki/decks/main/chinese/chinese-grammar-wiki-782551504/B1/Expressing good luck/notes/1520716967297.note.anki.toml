@@ -1,0 +1,20 @@
+note_id = 1520716967297
+guid = "ie{PD)Kk8A"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973161
+ordinal = 0
+
+[fields]
+article-title = 'Expressing good luck'
+english = 'Luckily I saved it, otherwise I would have lost all of the documents.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '还好 + [Lucky Incident]， 不然……'
+hanzi = '还好我保存了，不然文件都丢了。'
+notes = ''
+pinyin = 'Hái hǎo wǒ bǎocún le, bùrán wénjiàn dōu diū le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGOB1BF'

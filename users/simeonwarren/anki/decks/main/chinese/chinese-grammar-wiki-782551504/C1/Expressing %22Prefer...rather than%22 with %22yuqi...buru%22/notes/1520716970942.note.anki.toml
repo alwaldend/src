@@ -1,0 +1,20 @@
+note_id = 1520716970942
+guid = "sg5P!8B}2="
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["C1", "SentencePatterns"]
+
+[[cards]]
+id = 1520716976806
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "Prefer...rather than" with "yuqi...buru"'
+english = 'My grandfather would rather live in the old house in the countryside than stay in strange big city.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '与其 ⋯⋯ ，Subj. + 宁可 / 宁愿 ⋯⋯'
+hanzi = '与其住在陌生的大城市，爷爷宁可住农村的老房子。'
+notes = ''
+pinyin = '<div>Yǔqí zhù zài mòshēng de dà chéngshì, yéyé nìngkě zhù nóngcūn de lǎo fángzǐ.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWI5CV'

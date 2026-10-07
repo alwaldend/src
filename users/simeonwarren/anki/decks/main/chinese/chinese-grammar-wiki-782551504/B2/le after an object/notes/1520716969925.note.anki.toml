@@ -1,0 +1,20 @@
+note_id = 1520716969925
+guid = "lptwQNNNQ1"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975789
+ordinal = 0
+
+[fields]
+article-title = 'le after an object'
+english = "We did eat.You don't need to cook for us."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 了 + Obj.'
+hanzi = '我们吃了饭了，你不用给我们做吃的。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG4K5WH'

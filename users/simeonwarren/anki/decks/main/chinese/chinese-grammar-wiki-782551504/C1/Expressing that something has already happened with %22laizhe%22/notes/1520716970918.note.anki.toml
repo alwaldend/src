@@ -1,0 +1,20 @@
+note_id = 1520716970918
+guid = "k4<ufj%$LW"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["AuxiliaryWords", "C1"]
+
+[[cards]]
+id = 1520716976782
+ordinal = 0
+
+[fields]
+article-title = 'Expressing that something has already happened with "laizhe"'
+english = 'I told you so! They would come back.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Sentence + 来着'
+hanzi = '我说什么来着！他们会回来的。'
+notes = ''
+pinyin = 'Wǒ shuō shénme láizhe!  Tāmen huì huílái de.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPV5Z2'

@@ -1,0 +1,20 @@
+note_id = 1520716968852
+guid = "L|<[pw]]+f"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974716
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "not only... but also"'
+english = 'Not only can I cook, but my little sister can as well.'
+example-sentence = ''
+example-type = 'invalid'
+grammar-construct = '不但 + Subj. 1 + Adj. / Verb， 而且 + Subj. 2 + Adj. / Verb'
+hanzi = '我不但会做饭，而且我妹妹也会做饭。'
+notes = 'Two subjects, first one in the wrong place'
+pinyin = '<div>Wǒ bùdàn huì zuò fàn, érqiě wǒ mèimei yě huì zuò fàn.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTYJ3E'

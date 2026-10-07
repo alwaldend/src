@@ -1,0 +1,20 @@
+note_id = 1520716968593
+guid = "L@HqSJj!+Z"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716974457
+ordinal = 0
+
+[fields]
+article-title = 'Tricky uses of "dao"'
+english = "I didn't buy it."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '我没买到。'
+notes = ''
+pinyin = 'Wǒ méi mǎidào.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCUSIV'

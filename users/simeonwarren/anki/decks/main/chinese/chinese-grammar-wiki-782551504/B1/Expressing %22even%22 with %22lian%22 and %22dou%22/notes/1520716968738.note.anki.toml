@@ -1,0 +1,20 @@
+note_id = 1520716968738
+guid = "u5uVTt}V04"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974602
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "even" with "lian" and "dou"'
+english = 'This question is so easy that even a three-year-old kid knows the answer.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '连 + Subj. + 都 (+ 不 / 没) + Verb'
+hanzi = '这个问题太简单了，连三岁小孩都知道。'
+notes = ''
+pinyin = 'Zhège wèntí tài jiǎndān le, lián sān suì xiǎohái dōu zhīdào.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNP0WV'

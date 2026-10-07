@@ -1,0 +1,20 @@
+note_id = 1520716969325
+guid = "khf4)<P]$a"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Comparisons", "Nouns"]
+
+[[cards]]
+id = 1520716975189
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "renjia" and "bieren"'
+english = 'There is a house in front, let’s go and take a look.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 人家'
+hanzi = '前面有一户人家，我们去看看吧。'
+notes = ''
+pinyin = '<div>Qiánmiàn yǒuyī hù rénjiā, wǒmen qù kàn kàn ba.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPINA4'

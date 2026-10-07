@@ -1,0 +1,20 @@
+note_id = 1520716968450
+guid = "NQ1R<d*G[U"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716974314
+ordinal = 0
+
+[fields]
+article-title = 'Degree complement'
+english = 'My teeth hurt so terribly!'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '我的牙痛得不行！'
+notes = ''
+pinyin = 'Wǒ de yá tòng de bù xíng!'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG79STE'

@@ -1,0 +1,20 @@
+note_id = 1520716970721
+guid = "zijqpV9.Ec"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Comparisons", "Conjunctions"]
+
+[[cards]]
+id = 1520716976585
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "gen" and "dui"'
+english = "You walk too fast, I can't keep up."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 跟 / 对 + Obj.'
+hanzi = '你走得太快，我跟不上。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGC5Y86'

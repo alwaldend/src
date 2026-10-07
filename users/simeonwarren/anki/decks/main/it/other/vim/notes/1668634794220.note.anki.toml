@@ -1,0 +1,17 @@
+note_id = 1668634794220
+guid = ";m.5#f#98"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = []
+
+[[cards]]
+id = 1668634794220
+ordinal = 0
+
+[[cards]]
+id = 1668965796724
+ordinal = 1
+
+[fields]
+Back = 'A buffer is the in-memory text of a file.<br>A window is a viewport on a buffer.<br>A tab is a collection of windows - aka. a <b>layout</b>.'
+Front = 'What are tabs, windows, and buffers?'

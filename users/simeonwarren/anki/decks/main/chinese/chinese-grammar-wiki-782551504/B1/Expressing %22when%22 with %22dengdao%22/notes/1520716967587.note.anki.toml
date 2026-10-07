@@ -1,0 +1,20 @@
+note_id = 1520716967587
+guid = "shs,sn)ayP"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973451
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "when" with "dengdao"'
+english = 'When this project is finished, our department can have a party to celebrate.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '等(到) + Time Word / [Verb Phrase] ，Subj.  + 再 / 就 / 才 + Predicate'
+hanzi = '等这个项目结束，我们部门会开派对庆祝。'
+notes = ''
+pinyin = 'Děng zhège xiàngmù jiéshù, wǒmen bùmén huì kāi pàiduì qìngzhù.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG68F61'

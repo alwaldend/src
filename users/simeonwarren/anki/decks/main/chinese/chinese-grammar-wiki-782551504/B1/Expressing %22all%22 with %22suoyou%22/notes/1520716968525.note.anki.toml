@@ -1,0 +1,20 @@
+note_id = 1520716968525
+guid = "Bt3rO6ET`]"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "NounPhrases"]
+
+[[cards]]
+id = 1520716974389
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "all" with "suoyou"'
+english = "We can't solve all problems with money."
+example-sentence = ''
+example-type = ''
+grammar-construct = '不是 + 所有 (+ 的) + Noun + 都 + Predicate'
+hanzi = '不是所有问题都能用钱来解决。'
+notes = ''
+pinyin = 'Bù shì suǒyǒu wèntí dōu néng yòng qián lái jiějué.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGOWBSL'

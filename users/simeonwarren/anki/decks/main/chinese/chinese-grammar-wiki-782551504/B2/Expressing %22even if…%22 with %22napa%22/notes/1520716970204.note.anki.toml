@@ -1,0 +1,20 @@
+note_id = 1520716970204
+guid = "pl9($h*|%3"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "EvenIfStatements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716976068
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "even if…" with "napa"'
+english = 'I would still say it clearly even if it made you guys unhappy.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '哪怕 + [Hypothetical Statement] + 也 + [Action]'
+hanzi = '哪怕你们会不高兴，我也要把话说清楚。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGXX3NY'

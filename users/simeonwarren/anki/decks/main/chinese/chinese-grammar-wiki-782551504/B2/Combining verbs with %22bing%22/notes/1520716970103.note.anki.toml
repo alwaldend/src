@@ -1,0 +1,20 @@
+note_id = 1520716970103
+guid = "zd|f.E{B!d"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+id = 1520716975967
+ordinal = 0
+
+[fields]
+article-title = 'Combining verbs with "bing"'
+english = 'Controlling your diet and also exercising more will give you a better and better figure.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb / [Verb Phrase 1] + 并(且) + Verb / [Verb Phrase 2]'
+hanzi = '控制饮食并且多运动，会让你的身材越来越好。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5C89R'

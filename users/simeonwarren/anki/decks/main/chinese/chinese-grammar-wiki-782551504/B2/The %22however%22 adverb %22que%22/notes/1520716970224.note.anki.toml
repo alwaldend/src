@@ -1,0 +1,20 @@
+note_id = 1520716970224
+guid = "QfX%u=N[mv"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "ButStatements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716976088
+ordinal = 0
+
+[fields]
+article-title = 'The "however" adverb "que"'
+english = "They fell in love at first sight, but they didn't end up with each other."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Sentence ，(但是 +) Subj. + 却 ⋯⋯'
+hanzi = '他们一见钟情，却没有在一起。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGEG2QB'

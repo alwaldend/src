@@ -1,0 +1,20 @@
+note_id = 1520716970883
+guid = "h@fnxmnQC2"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "C1"]
+
+[[cards]]
+id = 1520716976747
+ordinal = 0
+
+[fields]
+article-title = 'Advanced usages of the contrary "dao"'
+english = 'What he thought is too simple. How could things be so easy!'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 得 + 倒 + Adj.'
+hanzi = '他想得倒简单，事情怎么可能那么容易！'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGXXP6M'

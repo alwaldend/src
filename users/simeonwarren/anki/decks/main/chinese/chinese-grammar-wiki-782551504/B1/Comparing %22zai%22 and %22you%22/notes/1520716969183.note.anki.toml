@@ -1,0 +1,20 @@
+note_id = 1520716969183
+guid = "G[AkMC{1-p"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Comparisons"]
+
+[[cards]]
+id = 1520716975047
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "zai" and "you"'
+english = "We're having ANOTHER meeting tomorrow. So annoying!"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 又 + 助动词 / 谓语动词 + Obj.'
+hanzi = '明天又要开会，真烦人。'
+notes = ''
+pinyin = '<div>Míngtiān yòu yào kāihuì, zhēn fánrén.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTBHBG'

@@ -1,0 +1,20 @@
+note_id = 1520716965307
+guid = "A3@w!eXwm:"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716971171
+ordinal = 0
+
+[fields]
+article-title = 'Expressing existence in a place with "zai"'
+english = "I'm with a friend at a bar."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 在 + Place'
+hanzi = '我和朋友在酒吧。'
+notes = ''
+pinyin = 'Wǒ hé péngyou zài jiǔbā.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGLRWT8'

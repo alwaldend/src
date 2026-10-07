@@ -1,0 +1,20 @@
+note_id = 1520716966393
+guid = "t^,a|Iq%}J"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+id = 1520716972257
+ordinal = 0
+
+[fields]
+article-title = 'Expressing ongoing duration with double "le"'
+english = 'The boss has been playing video games all morning.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + Obj. + Verb + 了 + Duration + 了'
+hanzi = '老板打游戏打了一个上午了。'
+notes = ''
+pinyin = 'Lǎobǎn dǎ yóuxì dǎ le yī gè shàngwǔ le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG69RR8'

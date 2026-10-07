@@ -1,0 +1,20 @@
+note_id = 1520716967629
+guid = "laY_1fc3,."
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973493
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "when" with "shi"'
+english = 'When the plane took off, he turned off his cell phone and computer.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '(Subj. +) Verb / Adj. + 时⋯⋯'
+hanzi = '飞机起飞时，他关了手机和电脑。'
+notes = ''
+pinyin = 'Fēijī qǐfēi shí, tā guān le shǒujī hé diànnǎo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGGL59D'

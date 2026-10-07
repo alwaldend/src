@@ -1,0 +1,20 @@
+note_id = 1520716970164
+guid = "BU01z]--N%"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "ButStatements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716976028
+ordinal = 0
+
+[fields]
+article-title = 'Expressing contrariness with "dao"'
+english = "The content of this article is great, but it's a little too long."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. 倒 + positive side，不过 / 但是 / 就是＋undesirable things'
+hanzi = '这篇文章的内容倒不错，就是太长了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG1RE80'

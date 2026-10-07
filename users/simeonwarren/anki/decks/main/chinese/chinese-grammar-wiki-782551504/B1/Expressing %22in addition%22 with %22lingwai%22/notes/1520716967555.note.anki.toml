@@ -1,0 +1,20 @@
+note_id = 1520716967555
+guid = "L=x0x5VSrk"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973419
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "in addition" with "lingwai"'
+english = "This lesson is too difficult and I don't want to read it. Besides, I didn't prepare for it."
+example-sentence = ''
+example-type = ''
+grammar-construct = '⋯⋯ ，另外 ，⋯⋯'
+hanzi = '这个课文太难了，我不想学。另外，我也没准备。'
+notes = ''
+pinyin = 'Zhège kèwén tài nán le, wǒ bù xiǎng dú. Lìngwài, wǒ yě méi zhǔnbèi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG2KQZI'

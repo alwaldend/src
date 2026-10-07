@@ -1,0 +1,20 @@
+note_id = 1520716970131
+guid = "osj#aNz[b["
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+id = 1520716975995
+ordinal = 0
+
+[fields]
+article-title = 'Passive verbs with "shou"'
+english = 'Neither of my parents has "received" any good education.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '受 + (到/过) + ([Something / Someone]) + Noun / Verb'
+hanzi = '我父母都没受过很好的教育。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG1DXUD'

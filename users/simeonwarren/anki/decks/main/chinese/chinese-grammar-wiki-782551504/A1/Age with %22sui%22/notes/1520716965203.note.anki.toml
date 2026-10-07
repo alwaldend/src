@@ -1,0 +1,20 @@
+note_id = 1520716965203
+guid = "y_qVyOEyy*"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Numbers", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971067
+ordinal = 0
+
+[fields]
+article-title = 'Age with "sui"'
+english = 'My son is one year old.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Number + 岁'
+hanzi = '我儿子一岁。'
+notes = ''
+pinyin = 'Wǒ érzi yī suì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQUKJF'

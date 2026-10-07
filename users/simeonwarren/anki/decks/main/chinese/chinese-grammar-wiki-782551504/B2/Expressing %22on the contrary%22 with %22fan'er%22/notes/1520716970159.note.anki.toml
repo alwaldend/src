@@ -1,0 +1,20 @@
+note_id = 1520716970159
+guid = "G_DSo9}2Fq"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "ButStatements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716976023
+ordinal = 0
+
+[fields]
+article-title = "Expressing \"on the contrary\" with \"fan'er\""
+english = "You didn't help us by doing this. On the contrary, you brought us trouble."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Sentence，Subj. 不但 + 不 / 没 ⋯⋯，反而 + ⋯⋯'
+hanzi = '你这样做，不但没帮到我们，反而给我们带来了麻烦。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGX5QTV'

@@ -1,0 +1,20 @@
+note_id = 1520716969853
+guid = "u0Dv6x369e"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975717
+ordinal = 0
+
+[fields]
+article-title = 'Using "er" to explain contrasting ideas'
+english = "The regretful person isn't me. It's you."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Sentence 1， + 而 + Sentence 2'
+hanzi = '以后后悔的人不是我，而是你自己。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMX0ZS'

@@ -1,0 +1,20 @@
+note_id = 1520716965355
+guid = "C1TAW/m/<K"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716971219
+ordinal = 0
+
+[fields]
+article-title = 'Using the verb "xing"'
+english = "My father's family name is Zhou. My mother's family name is Lin."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 姓 + [Surname]'
+hanzi = '我爸爸姓周，我妈妈姓林。'
+notes = ''
+pinyin = 'Wǒ bàba xìng Zhōu, wǒ māma xìng Lín.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPS9NY'

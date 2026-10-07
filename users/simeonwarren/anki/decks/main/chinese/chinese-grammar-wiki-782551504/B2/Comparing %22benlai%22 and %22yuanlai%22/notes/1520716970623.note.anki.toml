@@ -1,0 +1,20 @@
+note_id = 1520716970623
+guid = "FI__<#YWmK"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Comparisons"]
+
+[[cards]]
+id = 1520716976487
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "benlai" and "yuanlai"'
+english = "No wonder you treat him so well. You've had feelings for him the whole time."
+example-sentence = ''
+example-type = ''
+grammar-construct = '原来 + 是 + [Fact / Truth / Reason / Purpose]&lt;br /&gt;怪不得 + [Observation / Situation]，原来 + 原来 + 是（因为 / 为了 / 想⋯⋯）'
+hanzi = '怪不得总是对他那么好，原来你一直都喜欢他.'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG56QKW'

@@ -1,0 +1,17 @@
+note_id = 1526927172067
+guid = "gsz>5I.]g7"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = ["SearchandReplace"]
+
+[[cards]]
+id = 1526927195920
+ordinal = 0
+
+[[cards]]
+id = 1668965796693
+ordinal = 1
+
+[fields]
+Back = '/pattern'
+Front = 'Search for pattern'

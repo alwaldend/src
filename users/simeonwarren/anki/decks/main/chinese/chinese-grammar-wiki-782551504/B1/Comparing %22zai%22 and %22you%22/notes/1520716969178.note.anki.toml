@@ -1,0 +1,20 @@
+note_id = 1520716969178
+guid = "kiiD|i:4^$"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Comparisons"]
+
+[[cards]]
+id = 1520716975042
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "zai" and "you"'
+english = 'This old man came again.'
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = 'Subj. + 又 + Verb + 了'
+hanzi = '这个老男人又来了。'
+notes = ''
+pinyin = '<div>Zhège lǎo nánrén yòu láile.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTBHBG'

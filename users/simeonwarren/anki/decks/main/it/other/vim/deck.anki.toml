@@ -1,0 +1,12 @@
+id = 1697205945501
+title = 'main::it::other::vim'
+
+[notes]
+path = 'notes'
+
+[normal]
+config_id = 1
+extend_new = 0
+extend_review = 0
+description = "Please see the <a href='https://ankiweb.net/shared/info/553269875'>shared deck page</a> for more info."
+markdown_description = false

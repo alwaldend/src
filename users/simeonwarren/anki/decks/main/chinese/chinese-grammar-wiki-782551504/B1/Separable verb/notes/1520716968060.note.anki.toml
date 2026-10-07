@@ -1,0 +1,20 @@
+note_id = 1520716968060
+guid = "x{70WjD:g%"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+id = 1520716973924
+ordinal = 0
+
+[fields]
+article-title = 'Separable verb'
+english = 'We can help you.'
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = ''
+hanzi = '我们可以帮你。'
+notes = ''
+pinyin = 'Wǒmen kěyǐ bāng nǐ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG4GVRX'

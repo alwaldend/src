@@ -1,0 +1,20 @@
+note_id = 9997
+guid = "f@|%c=CrRz"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+id = 10003
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'method;	means (of doing sth);	strategy;	trick.<br>Cl: 个'
+example-sentence = '争要堂堂正正的争,不可以动用阴谋手段,损害家族的团结'
+example-type = ''
+grammar-construct = ''
+hanzi = '手段'
+notes = ''
+pinyin = '<span class="tone3">shǒu</span><span class="tone4">duàn</span>	 <!-- shou duan -->'
+source = ''

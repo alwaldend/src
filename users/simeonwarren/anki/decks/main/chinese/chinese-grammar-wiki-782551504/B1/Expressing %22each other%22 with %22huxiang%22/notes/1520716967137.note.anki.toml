@@ -1,0 +1,20 @@
+note_id = 1520716967137
+guid = "I(VC5Y=sA-"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973001
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "each other" with "huxiang"'
+english = 'Encourage each other'
+example-sentence = ''
+example-type = ''
+grammar-construct = '互相 + Verb'
+hanzi = '互相鼓励'
+notes = ''
+pinyin = 'hùxiāng gǔlì'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGF00B7'

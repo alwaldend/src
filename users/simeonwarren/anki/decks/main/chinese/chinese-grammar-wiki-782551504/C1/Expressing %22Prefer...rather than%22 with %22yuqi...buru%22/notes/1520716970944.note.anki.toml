@@ -1,0 +1,20 @@
+note_id = 1520716970944
+guid = "G~a7mh@&cE"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["C1", "SentencePatterns"]
+
+[[cards]]
+id = 1520716976808
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "Prefer...rather than" with "yuqi...buru"'
+english = "We'd rather to buy a big house in suburban area than buy a small one in the city area with the same amount of money."
+example-sentence = ''
+example-type = ''
+grammar-construct = '与其 ⋯⋯ ，Subj. + 宁可 / 宁愿 ⋯⋯'
+hanzi = '一样多的钱，与其在市区买一个小房子，我们宁愿在郊区买大房子。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWI5CV'

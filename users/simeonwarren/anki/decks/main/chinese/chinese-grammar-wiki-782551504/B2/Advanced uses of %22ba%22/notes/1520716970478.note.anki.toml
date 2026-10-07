@@ -1,0 +1,20 @@
+note_id = 1520716970478
+guid = "o?{;3C6fo]"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716976342
+ordinal = 0
+
+[fields]
+article-title = 'Advanced uses of "ba"'
+english = 'He saw 太 as 大.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '把 + Obj. 1 + Perception Verbs'
+hanzi = '他把"太"看成了"大"。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQRS3P'

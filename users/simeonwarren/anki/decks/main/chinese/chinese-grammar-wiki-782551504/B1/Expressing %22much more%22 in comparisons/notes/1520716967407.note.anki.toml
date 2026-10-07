@@ -1,0 +1,20 @@
+note_id = 1520716967407
+guid = "oyYL;}%Q1p"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["AdverbswithAdjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973271
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "much more" in comparisons'
+english = 'He plays basketball much better than I do.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun 1 + 比 + Noun 2 + Adj. + 得多 / 多了 / 很多'
+hanzi = '他打篮球比我厉害多了。'
+notes = ''
+pinyin = 'Tā dǎ lánqiú bǐ wǒ lìhai duō le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG6KUS5'

@@ -1,0 +1,20 @@
+note_id = 1520716967792
+guid = "v|HP)+O!g&"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+id = 1520716973656
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "for" with "gei"'
+english = 'Please give me a pair of chopsticks.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 给 + Recipient + [Verb Phrase]'
+hanzi = '请给我拿一双筷子。'
+notes = ''
+pinyin = 'Qǐng gěi wǒ ná  yī shuāng kuàizi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGLHAV3'

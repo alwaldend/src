@@ -1,0 +1,20 @@
+note_id = 1520716966930
+guid = "QfT6?/WaRA"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972794
+ordinal = 0
+
+[fields]
+article-title = 'Turning adjectives into adverbs'
+english = 'He gave me a very warm embrace.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Adj. + 地 + Verb'
+hanzi = '他热情地拥抱了我。'
+notes = ''
+pinyin = 'Tā rèqíng de yōngbào le wǒ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMAFSX'

@@ -1,0 +1,20 @@
+note_id = 1520716967641
+guid = "eEl@kK_E5U"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973505
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "ever since" with "yilai"'
+english = "She hasn't missed home at all since he went abroad a few month ago."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Time Interval + 来 ，⋯⋯'
+hanzi = '出国几个月来，她一点也不想家。'
+notes = ''
+pinyin = 'Chūguó jǐ gè yuè lái, tā yīdiǎn yě bù xiǎng jiā.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNEMXP'

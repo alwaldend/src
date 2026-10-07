@@ -1,0 +1,20 @@
+note_id = 1520716969133
+guid = "fjO|l+JSUK"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Comparisons"]
+
+[[cards]]
+id = 1520716974997
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "youdian" and "yidian"'
+english = "I'm a little tired today."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '我今天有点累。'
+notes = ''
+pinyin = '<div>Wǒ jīntiān yǒudiǎn lèi.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGV55Y4'

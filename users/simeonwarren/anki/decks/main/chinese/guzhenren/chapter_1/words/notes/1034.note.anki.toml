@@ -1,0 +1,20 @@
+note_id = 1034
+guid = "pZ0puQ}4vF"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+id = 1068
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'only;	merely;	no more than;	but;	however;	anyway (to get back to a previous topic);	cannot be more (after adjectival).'
+example-sentence = ' 方源对局势洞若观火,不过即便死亡将临,他仍旧是面不改色,神情平淡'
+example-type = ''
+grammar-construct = ''
+hanzi = '不过'
+notes = ''
+pinyin = '<span class="tone4">bù</span><span class="tone4">guò</span>	 <!-- bu guo -->'
+source = ''

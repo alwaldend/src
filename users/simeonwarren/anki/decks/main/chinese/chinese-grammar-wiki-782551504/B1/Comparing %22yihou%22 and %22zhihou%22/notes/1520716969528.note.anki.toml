@@ -1,0 +1,20 @@
+note_id = 1520716969528
+guid = "kITWP=UuYv"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Comparisons", "TimeWords"]
+
+[[cards]]
+id = 1520716975392
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "yihou" and "zhihou"'
+english = "We'll talk about future things some time later."
+example-sentence = ''
+example-type = ''
+grammar-construct = '以后，Comment'
+hanzi = '以后的事情以后再说吧。'
+notes = ''
+pinyin = 'Yǐhòu de shìqing yǐhòu zài shuō bā.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGC3SCN'

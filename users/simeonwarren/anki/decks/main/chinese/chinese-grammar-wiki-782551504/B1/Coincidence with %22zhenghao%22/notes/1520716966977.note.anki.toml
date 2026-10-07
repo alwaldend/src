@@ -1,0 +1,20 @@
+note_id = 1520716966977
+guid = "L$A2E!ZC;i"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972841
+ordinal = 0
+
+[fields]
+article-title = 'Coincidence with "zhenghao"'
+english = 'The food you ordered was perfect. We finished them all.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 得 + 正好'
+hanzi = '菜点得正好，都吃完了。'
+notes = ''
+pinyin = 'Cài diǎn de zhènghǎo, dōu chī wán le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGUD25J'

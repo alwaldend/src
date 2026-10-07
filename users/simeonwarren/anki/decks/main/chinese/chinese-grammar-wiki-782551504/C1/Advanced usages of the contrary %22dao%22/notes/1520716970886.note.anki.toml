@@ -1,0 +1,20 @@
+note_id = 1520716970886
+guid = "Cuyk8f_R[p"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "C1"]
+
+[[cards]]
+id = 1520716976750
+ordinal = 0
+
+[fields]
+article-title = 'Advanced usages of the contrary "dao"'
+english = 'Their idea is valuable. We should think about it.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 倒 +  Adj.'
+hanzi = '他们的想法倒挺有价值的，我们应该好好考虑一下。'
+notes = ''
+pinyin = '<div>Tāmen de xiǎngfǎ dào tǐng yǒu jiàzhí de, wǒmen yīnggāi hǎohǎo kǎolǜ yīxià.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGXXP6M'

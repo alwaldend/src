@@ -1,0 +1,20 @@
+note_id = 1520716969854
+guid = "AQ0VATc`l$"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975718
+ordinal = 0
+
+[fields]
+article-title = 'Using "er" to explain contrasting ideas'
+english = 'Now is not the time to accuse who did it wrong, but to figure out how to resolve it.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Sentence 1， + 而 + Sentence 2'
+hanzi = '现在要做的不是责怪谁错了，而是怎么解决。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMX0ZS'

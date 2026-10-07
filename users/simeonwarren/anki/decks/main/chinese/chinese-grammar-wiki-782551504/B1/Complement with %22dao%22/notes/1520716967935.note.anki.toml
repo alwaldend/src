@@ -1,0 +1,20 @@
+note_id = 1520716967935
+guid = "E#yVWd8aSE"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+id = 1520716973799
+ordinal = 0
+
+[fields]
+article-title = 'Complement with "dao"'
+english = "My daughter didn't finish her homework until 12:30 last night."
+example-sentence = ''
+example-type = ''
+grammar-construct = '[Verb Phrase] (+ 一直) + Verb + 到 + Time / Event'
+hanzi = '我女儿昨天晚上写作业写到十二点半。'
+notes = ''
+pinyin = "Wǒ nǚ'ér zuótiān wǎnshang xiě xiě zuòyè dào shí'èr diǎn bàn."
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG1CCAP'

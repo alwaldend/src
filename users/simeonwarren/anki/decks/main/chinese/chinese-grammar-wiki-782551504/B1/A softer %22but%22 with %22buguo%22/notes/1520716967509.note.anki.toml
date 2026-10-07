@@ -1,0 +1,20 @@
+note_id = 1520716967509
+guid = "cY5l!Frdki"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973373
+ordinal = 0
+
+[fields]
+article-title = 'A softer "but" with "buguo"'
+english = "We're considering, but we haven't decided yet."
+example-sentence = ''
+example-type = ''
+grammar-construct = '⋯⋯ ，不过 ⋯⋯'
+hanzi = '我们在考虑，不过还没决定。'
+notes = ''
+pinyin = 'Wǒmen zài kǎolǜ, bùguò hái méi juédìng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGA0S4T'

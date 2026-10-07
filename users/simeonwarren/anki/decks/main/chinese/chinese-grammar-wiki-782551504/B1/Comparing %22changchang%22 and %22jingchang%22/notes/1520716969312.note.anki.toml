@@ -1,0 +1,20 @@
+note_id = 1520716969312
+guid = "uiwSswE>qK"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Comparisons"]
+
+[[cards]]
+id = 1520716975176
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "changchang" and "jingchang"'
+english = 'Come and hang out often!'
+example-sentence = ''
+example-type = ''
+grammar-construct = '常常 / 经常 + Verb'
+hanzi = '常来玩！'
+notes = ''
+pinyin = 'Cháng lái wán!'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGE8FLP'

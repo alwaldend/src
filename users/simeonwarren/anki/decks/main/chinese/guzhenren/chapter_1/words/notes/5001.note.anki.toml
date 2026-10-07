@@ -1,0 +1,20 @@
+note_id = 5001
+guid = "CkVHSFkt+6"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 5006
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'brightly lit.'
+example-sentence = '此时正举办着祭祀大典,因此更是灯火通明,光辉绚烂'
+example-type = ''
+grammar-construct = ''
+hanzi = '灯火通明'
+notes = ''
+pinyin = '<span class="tone1">dēng</span><span class="tone3">huǒ</span><span class="tone1">tōng</span><span class="tone2">míng</span>	 <!-- deng huo tong ming -->'
+source = ''

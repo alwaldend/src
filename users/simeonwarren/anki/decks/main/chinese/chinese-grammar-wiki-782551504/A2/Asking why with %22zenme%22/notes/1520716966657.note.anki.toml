@@ -1,0 +1,20 @@
+note_id = 1520716966657
+guid = "N{NRKj80>2"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+id = 1520716972521
+ordinal = 0
+
+[fields]
+article-title = 'Asking why with "zenme"'
+english = 'How can the air in Beijing be so bad?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 怎么 + 这么 / 那么 + Adj.'
+hanzi = '北京的空气怎么那么差？'
+notes = ''
+pinyin = 'Běijīng de kōngqì zěnme nàme  chà?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGD7NS3'

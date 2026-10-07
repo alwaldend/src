@@ -1,0 +1,20 @@
+note_id = 1520716970989
+guid = "i~*AteV+r}"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["C1", "Comparisons"]
+
+[[cards]]
+id = 1520716976853
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "genju" and "ju"'
+english = 'It is said that he went to Shanghai.'
+example-sentence = ''
+example-type = 'invalid'
+grammar-construct = ''
+hanzi = '根据说他去上海了。'
+notes = ''
+pinyin = 'Gēnjù shuō tā qù shànghǎile.<br>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGXJYJD'

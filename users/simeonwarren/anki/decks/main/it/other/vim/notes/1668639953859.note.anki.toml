@@ -1,0 +1,17 @@
+note_id = 1668639953859
+guid = "xfptnF5htw"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = []
+
+[[cards]]
+id = 1668639953859
+ordinal = 0
+
+[[cards]]
+id = 1668965796746
+ordinal = 1
+
+[fields]
+Back = '!{filter}&nbsp; &nbsp;" like :!ls - note that you cannot put a comment " after a filter command<br>:%!{filter}&nbsp; &nbsp;" like :%!sort -u'
+Front = 'Use external commands {filters} (on the current buffer)'

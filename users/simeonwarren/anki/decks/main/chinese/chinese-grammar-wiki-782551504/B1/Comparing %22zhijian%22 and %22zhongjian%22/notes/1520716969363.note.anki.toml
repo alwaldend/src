@@ -1,0 +1,20 @@
+note_id = 1520716969363
+guid = "c/;Wo|M>wW"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Comparisons", "Nouns"]
+
+[[cards]]
+id = 1520716975227
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "zhijian" and "zhongjian"'
+english = "In the middle of the apartment there's a table."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun + (的 +) 中间'
+hanzi = '房子的中间有一个大桌子。'
+notes = ''
+pinyin = '<div>Fángzǐ de zhōngjiān yǒu yīgè dà zhuōzǐ.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGN6O6J'

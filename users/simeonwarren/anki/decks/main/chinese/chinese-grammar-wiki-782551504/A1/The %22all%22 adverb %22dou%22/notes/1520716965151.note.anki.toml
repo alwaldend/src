@@ -1,0 +1,20 @@
+note_id = 1520716965151
+guid = "m,:iBXUP*%"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971015
+ordinal = 0
+
+[fields]
+article-title = 'The "all" adverb "dou"'
+english = 'Are your father and your mother both Americans?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 都 + [Verb Phrase]'
+hanzi = '你爸爸和你妈妈都是美国人吗？'
+notes = ''
+pinyin = 'Nǐ bàba hé nǐ māma dōu shì Měiguó rén ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG9YK09'

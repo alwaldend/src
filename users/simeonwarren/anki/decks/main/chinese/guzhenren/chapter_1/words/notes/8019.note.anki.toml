@@ -1,0 +1,20 @@
+note_id = 8019
+guid = "ob3>8-@&Kg"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+id = 8045
+ordinal = 0
+
+[fields]
+article-title = ''
+english = "one's conduct;\tdeed;\tactivity;\taccomplishment;\tachievement;\tto act as;\tas (in the capacity of);\tqua;\tto view as;\tto look upon (sth as);\tto take sth to be."
+example-sentence = ' 作为一族之长,对于那些优秀而突出的子弟自然会关注'
+example-type = ''
+grammar-construct = ''
+hanzi = '作为'
+notes = ''
+pinyin = '<span class="tone4">zuò</span><span class="tone2">wéi</span>	 <!-- zuo wei -->'
+source = ''

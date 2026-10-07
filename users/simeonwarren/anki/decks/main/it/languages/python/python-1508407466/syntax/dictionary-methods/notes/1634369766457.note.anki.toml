@@ -1,0 +1,17 @@
+note_id = 1634369766457
+guid = "ljNj_Yrh]s"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634370830803
+ordinal = 0
+
+[fields]
+additional-info = 'Returns the same thing as <i>dict</i>[<i>key</i>]'
+answer = '<i>dict</i>.get(<i>key</i>)'
+example = ''
+question = '<b>Dictionary method</b>&nbsp;that&nbsp;returns the value of the specified key'
+version = ''
+with-options = ''

@@ -1,0 +1,17 @@
+note_id = 1669325211063
+guid = "zv|[M7zKBT"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = []
+
+[[cards]]
+id = 1669325211063
+ordinal = 0
+
+[[cards]]
+id = 1669325211064
+ordinal = 1
+
+[fields]
+Back = 'zm'
+Front = 'Increase fold level (hide more code)'

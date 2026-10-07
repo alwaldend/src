@@ -1,0 +1,20 @@
+note_id = 1520716967266
+guid = "wkYKWRC-N"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973130
+ordinal = 0
+
+[fields]
+article-title = 'Expressing earliness with "jiu"'
+english = 'They will be here in a few minutes.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Time Word + 就 + Verb'
+hanzi = '他们一会儿就到。'
+notes = ''
+pinyin = 'Tāmen yīhuìr jiù dào.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGKITRZ'

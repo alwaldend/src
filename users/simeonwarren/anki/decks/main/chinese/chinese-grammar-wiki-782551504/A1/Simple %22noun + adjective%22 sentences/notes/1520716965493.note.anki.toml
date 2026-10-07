@@ -1,0 +1,20 @@
+note_id = 1520716965493
+guid = "c}/yUWk1XT"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Basics", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716971357
+ordinal = 0
+
+[fields]
+article-title = 'Simple "noun + adjective" sentences'
+english = 'My older brother is also tall.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun + 很 + Adj.'
+hanzi = '我哥哥也很高。'
+notes = ''
+pinyin = 'Wǒ gēge yě hěn gāo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG17BLH'

@@ -1,0 +1,17 @@
+note_id = 1526926835793
+guid = "e{ffH<tsIL"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = ["Marks"]
+
+[[cards]]
+id = 1526926849488
+ordinal = 0
+
+[[cards]]
+id = 1668965796669
+ordinal = 1
+
+[fields]
+Back = "'a"
+Front = 'Jump to line of mark a'

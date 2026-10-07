@@ -1,0 +1,20 @@
+note_id = 1520716967768
+guid = "H@F<K`|iNk"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+id = 1520716973632
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "about" with "guanyu"'
+english = 'There are lots of comments about this matter online.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '关于 ⋯⋯ 的 + Noun'
+hanzi = '网上有很多关于这件事情的评论。'
+notes = ''
+pinyin = 'Wǎngshang you hěn duō guānyú zhè jiàn shìqing de pínglùn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG49889'

@@ -1,0 +1,20 @@
+note_id = 1520716967569
+guid = "zy~KywssuP"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973433
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "in addition" with "zaishuo"'
+english = "It's so late. Stay. Besides, it's raining outside."
+example-sentence = ''
+example-type = ''
+grammar-construct = '⋯⋯ ，再说 ，⋯⋯'
+hanzi = '这么晚，别走了。再说，外面正在下雨。'
+notes = ''
+pinyin = 'Zhème wǎn, bié zǒu le. Zàishuō, wàimiàn zhèngzài xiàyǔ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGATDLX'

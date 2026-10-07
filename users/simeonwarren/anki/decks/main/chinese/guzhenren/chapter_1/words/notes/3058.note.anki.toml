@@ -1,0 +1,20 @@
+note_id = 3058
+guid = "q<mP,I-B.Y"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+id = 3118
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'building;	pavilion.'
+example-sentence = ' 古月山寨的最中央,是一座大气辉煌的楼阁'
+example-type = ''
+grammar-construct = ''
+hanzi = '楼阁'
+notes = ''
+pinyin = '<span class="tone2">lóu</span><span class="tone2">gé</span>	 <!-- lou ge -->'
+source = ''

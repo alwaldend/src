@@ -1,0 +1,20 @@
+note_id = 1520716970336
+guid = "N[D2(u#@`"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Grammatical_Structures", "NoMatterStatements"]
+
+[[cards]]
+id = 1520716976200
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "no matter" with "buguan"'
+english = "Whether you're Chinese or foreigners, you must abide by the law."
+example-sentence = ''
+example-type = ''
+grammar-construct = '不管 + Verb /  Adj. + 不 + Verb /  Adj. ，Subj. + 都 ⋯⋯'
+hanzi = '不管你是中国人还是外国人，都必须遵守中国的法律。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG0NDS6'

@@ -1,0 +1,20 @@
+note_id = 1520716965453
+guid = "FHXR&zZLLP"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+id = 1520716971317
+ordinal = 0
+
+[fields]
+article-title = 'Standard negation with "bu"'
+english = 'Do you not like me?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不 + Verb + Obj.'
+hanzi = '你不喜欢我吗？'
+notes = ''
+pinyin = 'Nǐ bù xǐhuan  wǒ ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGIPYFV'

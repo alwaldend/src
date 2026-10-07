@@ -1,0 +1,20 @@
+note_id = 1520716968145
+guid = "OfoQKE#*p"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716974009
+ordinal = 0
+
+[fields]
+article-title = 'Causative verbs'
+english = 'His speech made the audience very excited.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + [Causative Verb] + Person + Predicate'
+hanzi = '他的演讲使听众们非常激动。'
+notes = ''
+pinyin = 'Tā de yǎnjiǎng shǐ tīngzhòng men fēicháng jīdòng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5T7XC'

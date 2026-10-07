@@ -1,0 +1,20 @@
+note_id = 1520716965637
+guid = "Er-cS7%=0A"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Comparisons", "Numbers"]
+
+[[cards]]
+id = 1520716971501
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "er" and "liang"'
+english = '2 kuai / 2 RMB'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '两块钱'
+notes = ''
+pinyin = 'liǎng kuài qián'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJ46H1'

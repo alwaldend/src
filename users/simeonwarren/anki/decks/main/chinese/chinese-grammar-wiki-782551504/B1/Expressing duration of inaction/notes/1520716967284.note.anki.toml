@@ -1,0 +1,20 @@
+note_id = 1520716967284
+guid = "d)R;1?b^Ux"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973148
+ordinal = 0
+
+[fields]
+article-title = 'Expressing duration of inaction'
+english = 'How long has it been since your last vocation?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 已经 + Duration + 没 + Verb + 了'
+hanzi = '你多久没休假了？'
+notes = ''
+pinyin = 'Nǐ duōjiǔ méi xiūjià le?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGSVF28'

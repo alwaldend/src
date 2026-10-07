@@ -1,0 +1,20 @@
+note_id = 1520716965556
+guid = "jMd`0c?UJT"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+id = 1520716971420
+ordinal = 0
+
+[fields]
+article-title = 'Placement of question words'
+english = "Who do you not like?<br>I don't like my boss."
+example-sentence = ''
+example-type = ''
+grammar-construct = '谁 + Verb ?'
+hanzi = 'A: 你不喜欢谁？<br>B: 我不喜欢我的老板。'
+notes = ''
+pinyin = 'Nǐ bù xǐhuan  shéi?<br>Wǒ bù xǐhuan wǒ de lǎobǎn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJQPSC'

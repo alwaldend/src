@@ -1,0 +1,20 @@
+note_id = 1520716968257
+guid = "iH^qz<fAat"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+id = 1520716974121
+ordinal = 0
+
+[fields]
+article-title = 'Doing something less with "shao"'
+english = 'The doctor told me to stay up less and take more rest.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 少 + Verb-Obj.'
+hanzi = '医生让我少熬夜，多休息。'
+notes = ''
+pinyin = 'Yīshēng ràng wǒ shǎo áoyè, duō xiūxi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG9B0M8'

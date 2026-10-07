@@ -1,0 +1,20 @@
+note_id = 1520716968901
+guid = "B-Fy/u=;yx"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974765
+ordinal = 0
+
+[fields]
+article-title = 'Idiomatic phrases with "zai"'
+english = "This sentence is okay to say in terms of grammar, it's just not very natural."
+example-sentence = ''
+example-type = ''
+grammar-construct = '在 + Abstract Concepts + 上，  Comment Sentence'
+hanzi = '这个句子在语法上是可以说的，就是不太自然。'
+notes = ''
+pinyin = '<div>Zhège jùzǐ zài yǔfǎ shàng shì kěyǐ shuō de, jiùshì bù tài zìrán.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGH13JY'

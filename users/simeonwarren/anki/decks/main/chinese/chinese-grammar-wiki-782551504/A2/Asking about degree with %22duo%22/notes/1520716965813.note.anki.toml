@@ -1,0 +1,20 @@
+note_id = 1520716965813
+guid = "ID+Gl(KoJ*"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "AdverbswithAdjectives", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971677
+ordinal = 0
+
+[fields]
+article-title = 'Asking about degree with "duo"'
+english = 'How far is your house away from here?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 多 + Adj. ?'
+hanzi = '你家离这儿多远？'
+notes = ''
+pinyin = 'Nǐ jiā lí zhèr duō yuǎn?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG9LLJU'

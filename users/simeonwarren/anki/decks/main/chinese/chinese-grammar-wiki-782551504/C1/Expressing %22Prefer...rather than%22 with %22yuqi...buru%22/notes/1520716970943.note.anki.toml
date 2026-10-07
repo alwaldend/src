@@ -1,0 +1,20 @@
+note_id = 1520716970943
+guid = "sEG}3oA#rV"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["C1", "SentencePatterns"]
+
+[[cards]]
+id = 1520716976807
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "Prefer...rather than" with "yuqi...buru"'
+english = "I'd rather break up with sooner him than keep hurting each other."
+example-sentence = ''
+example-type = ''
+grammar-construct = '与其 ⋯⋯ ，Subj. + 宁可 / 宁愿 ⋯⋯'
+hanzi = '与其一直互相伤害，我宁愿早点分手。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWI5CV'

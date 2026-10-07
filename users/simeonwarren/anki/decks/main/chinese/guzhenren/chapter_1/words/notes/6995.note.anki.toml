@@ -1,0 +1,20 @@
+note_id = 6995
+guid = "(3[w7g)-F"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 6996
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'stronghold;	stockade;	camp;	(stockaded) village.variant of 寨.'
+example-sentence = '不错,白家寨、熊家寨这些年都有天才涌现'
+example-type = ''
+grammar-construct = ''
+hanzi = '寨'
+notes = ''
+pinyin = '<span class="tone5">zhàizhài</span>	 <!-- zhai zhai -->'
+source = ''

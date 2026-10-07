@@ -1,0 +1,20 @@
+note_id = 8049
+guid = "hZhdMI&7;)"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 8105
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'reader.<br>Cl: 个'
+example-sentence = '本书的序,希望读者朋友们能够看看,知道这是一本什么样的书'
+example-type = ''
+grammar-construct = ''
+hanzi = '读者'
+notes = ''
+pinyin = '<span class="tone2">dú</span><span class="tone3">zhě</span>	 <!-- du zhe -->'
+source = ''

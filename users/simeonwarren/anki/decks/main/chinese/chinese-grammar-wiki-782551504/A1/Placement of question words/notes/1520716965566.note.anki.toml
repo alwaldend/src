@@ -1,0 +1,20 @@
+note_id = 1520716965566
+guid = "HS]d/UEAc3"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+id = 1520716971430
+ordinal = 0
+
+[fields]
+article-title = 'Placement of question words'
+english = "Why isn't he coming?<br>Because he is busy."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 为什么 + Predicate ?'
+hanzi = 'A: 他为什么不来？<br>B: 因为他很忙。'
+notes = ''
+pinyin = 'Tā wèishénme bù lái?<br>Yīnwèi tā hěn máng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJQPSC'

@@ -1,0 +1,20 @@
+note_id = 1520716968407
+guid = "pBkbA?Q1Zx"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716974271
+ordinal = 0
+
+[fields]
+article-title = 'Potential complement'
+english = "Her leg is injured. She can't stand."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 不 + Complement'
+hanzi = '她的腿受伤了，站不起来了。'
+notes = ''
+pinyin = 'Tā de tuǐ shòushāng le, zhàn bu qǐlái  le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCPJPQ'

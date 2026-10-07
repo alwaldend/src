@@ -1,0 +1,17 @@
+note_id = 1634431170687
+guid = "nwHHqE%9%x"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634431170689
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<b>Keyword</b> used to specify a variables scope as global on declaration.'
+example = ''
+question = '<b>Keyword: </b>global'
+version = ''
+with-options = ''

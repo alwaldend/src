@@ -1,0 +1,20 @@
+note_id = 1520716969179
+guid = "EEeLr-isoC"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Comparisons"]
+
+[[cards]]
+id = 1520716975043
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "zai" and "you"'
+english = "He didn't come to class again. The teacher is probably going to punish him."
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = 'Subj. + 又 + Verb + 了'
+hanzi = '他又不来上课了，老师可能罚他。'
+notes = ''
+pinyin = '<div>Tā yòu bù lái shàngkèle, lǎoshī kěnéng fá tā.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTBHBG'

@@ -1,0 +1,20 @@
+note_id = 1520716968028
+guid = "zi#?]$Q<Hl"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716973892
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "including" with "baokuo"'
+english = 'Including bonuses, this month I received a salary of 10,000 RMB.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '包括 + Obj. (+ 在内)，一共 ⋯⋯'
+hanzi = '包括奖金在内，这个月我拿了一万块钱工资。'
+notes = ''
+pinyin = 'Bāokuò jiǎngjīn zàinèi, zhège yuè wǒ ná le yī wàn kuài qián gōngzī.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG50341'

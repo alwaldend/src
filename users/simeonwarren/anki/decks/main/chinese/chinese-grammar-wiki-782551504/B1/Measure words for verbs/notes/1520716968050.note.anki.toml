@@ -1,0 +1,20 @@
+note_id = 1520716968050
+guid = "G1OgO;Hv/q"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+id = 1520716973914
+ordinal = 0
+
+[fields]
+article-title = 'Measure words for verbs'
+english = "We've been there twice."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + Number + Measure Word'
+hanzi = '我们去过两次。'
+notes = ''
+pinyin = 'Wǒme qù guo liǎng cì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5AODR'

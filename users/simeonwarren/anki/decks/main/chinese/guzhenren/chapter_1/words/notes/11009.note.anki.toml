@@ -1,0 +1,20 @@
+note_id = 11009
+guid = "LzL9g_~p(%"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 11028
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'to return to.'
+example-sentence = '  利用春秋蝉重生了,回到了500年前'
+example-type = ''
+grammar-construct = ''
+hanzi = '回到'
+notes = ''
+pinyin = '<span class="tone2">huí</span><span class="tone4">dào</span>	 <!-- hui dao -->'
+source = ''

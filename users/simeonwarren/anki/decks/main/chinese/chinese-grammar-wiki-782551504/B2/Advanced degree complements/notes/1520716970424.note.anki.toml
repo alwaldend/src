@@ -1,0 +1,20 @@
+note_id = 1520716970424
+guid = "c.sG6OqF,h"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716976288
+ordinal = 0
+
+[fields]
+article-title = 'Advanced degree complements'
+english = 'The traffic is terrible!'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '今天路上堵得要命！'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG9E5BB'

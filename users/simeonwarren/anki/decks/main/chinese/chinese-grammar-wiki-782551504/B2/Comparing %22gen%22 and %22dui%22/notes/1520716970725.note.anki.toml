@@ -1,0 +1,20 @@
+note_id = 1520716970725
+guid = "bmG>`+FY!#"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Comparisons", "Conjunctions"]
+
+[[cards]]
+id = 1520716976589
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "gen" and "dui"'
+english = "Now I'm as tall as my dad."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A + 跟 + B + （不）一样 + Adj.'
+hanzi = '我现在跟我爸一样高。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGC5Y86'

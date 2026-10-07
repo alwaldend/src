@@ -1,0 +1,20 @@
+note_id = 1520716965767
+guid = "dVz9:WjmRA"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971631
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "just" with "gang"'
+english = 'She just got married three months ago.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 刚 + Verb (+ Obj.)  + Duration'
+hanzi = '她刚结婚三个月。'
+notes = ''
+pinyin = 'Tā gāng jiéhūn sān gè yuè.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQJJYO'

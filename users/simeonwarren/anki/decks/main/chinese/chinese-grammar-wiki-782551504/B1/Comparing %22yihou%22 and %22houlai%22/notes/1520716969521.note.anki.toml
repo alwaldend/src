@@ -1,0 +1,20 @@
+note_id = 1520716969521
+guid = "By;8*vrq5f"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Comparisons", "TimeWords"]
+
+[[cards]]
+id = 1520716975385
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "yihou" and "houlai"'
+english = ''
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = 'Past Event 1 + 后来 + Past Event 2'
+hanzi = '我们在一起两个月以后分手了，到现在已经一年了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNPJ7T'

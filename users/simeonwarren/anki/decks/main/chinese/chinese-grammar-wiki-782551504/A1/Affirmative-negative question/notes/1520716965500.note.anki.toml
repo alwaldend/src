@@ -1,0 +1,20 @@
+note_id = 1520716965500
+guid = "cIvqfS|YnK"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+id = 1520716971364
+ordinal = 0
+
+[fields]
+article-title = 'Affirmative-negative question'
+english = 'Is it (or not)?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 不 + Verb'
+hanzi = '是不是？'
+notes = ''
+pinyin = 'Shì bu shì?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGZH7K3'

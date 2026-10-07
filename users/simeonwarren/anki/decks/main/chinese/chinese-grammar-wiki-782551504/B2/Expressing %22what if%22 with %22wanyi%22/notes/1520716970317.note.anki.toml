@@ -1,0 +1,20 @@
+note_id = 1520716970317
+guid = "KVn44=Gild"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Grammatical_Structures", "IfStatements"]
+
+[[cards]]
+id = 1520716976181
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "what if" with "wanyi"'
+english = 'In the unlikely event that this happens, call the police immediately.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '万一 ⋯⋯ ，⋯⋯'
+hanzi = '万一发生这种情况，马上报警。'
+notes = ''
+pinyin = 'Wànyī fāshēng zhè zhǒng qíngkuàng, mǎshàng bàojǐng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG25773'

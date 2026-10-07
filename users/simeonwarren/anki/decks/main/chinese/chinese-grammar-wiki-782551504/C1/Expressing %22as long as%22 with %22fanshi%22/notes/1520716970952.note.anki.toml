@@ -1,0 +1,20 @@
+note_id = 1520716970952
+guid = "F;;Cx<vgs@"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "C1"]
+
+[[cards]]
+id = 1520716976816
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "as long as" with "fanshi"'
+english = 'In China, as long as the student wants to go to college, he needs to pass the college entrance exam.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '凡是 +  Noun / Noun Phrase＋都 / 就 / 一律 / 无不＋ Verb'
+hanzi = '在中国，凡是想上大学的学生，就要通过高考。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG38F8A'

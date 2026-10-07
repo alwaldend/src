@@ -1,0 +1,20 @@
+note_id = 1520716967317
+guid = "Hhnw7BVXG;"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973181
+ordinal = 0
+
+[fields]
+article-title = 'Sequencing with "xian" and "zai"'
+english = "Let's rest a little first, then talk."
+example-sentence = ''
+example-type = ''
+grammar-construct = '先 + [Verb Phrase] + 再说'
+hanzi = '先休息一下再说。'
+notes = ''
+pinyin = 'Xiān xiūxi yīxià zàishuō.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGLJM55'

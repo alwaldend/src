@@ -1,0 +1,20 @@
+note_id = 1520716970932
+guid = "rdd{)ZgqQu"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Comparisons", "TimeWords"]
+
+[[cards]]
+id = 1520716976796
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "pingshi" and "pingchang"'
+english = 'Do you often cook?<br>Correct.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '平常 + 的 + Noun'
+hanzi = 'A:你平时/平常做饭吗？<br>B:对的。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJOGGG'

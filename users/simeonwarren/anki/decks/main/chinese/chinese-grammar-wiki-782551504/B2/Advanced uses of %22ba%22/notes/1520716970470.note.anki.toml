@@ -1,0 +1,20 @@
+note_id = 1520716970470
+guid = "z!iDuzb7%l"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716976334
+ordinal = 0
+
+[fields]
+article-title = 'Advanced uses of "ba"'
+english = 'Please cut the cake into six parts.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '把 + Obj. 1 + Verb + 成 + Obj. 2'
+hanzi = '请你把这个蛋糕切成六块。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQRS3P'

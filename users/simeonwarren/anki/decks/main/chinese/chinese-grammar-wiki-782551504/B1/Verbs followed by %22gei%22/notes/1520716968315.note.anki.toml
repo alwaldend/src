@@ -1,0 +1,20 @@
+note_id = 1520716968315
+guid = "uM;BD8x`ze"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716974179
+ordinal = 0
+
+[fields]
+article-title = 'Verbs followed by "gei"'
+english = "I've already sold my car to a friend of mine."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 把 + Obj. + Verb + 给 + Recipient'
+hanzi = '我已经把车卖给了一个朋友。'
+notes = ''
+pinyin = 'Wǒ yǐjīng bǎ chē mài gěi le yī gè péngyou.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMMHTQ'

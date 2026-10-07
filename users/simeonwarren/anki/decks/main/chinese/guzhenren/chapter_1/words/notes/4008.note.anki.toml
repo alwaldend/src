@@ -1,0 +1,20 @@
+note_id = 4008
+guid = "mTMBLd}=gj"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 4019
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'to laugh heartily;	a belly laugh.'
+example-sentence = ' 这般想着,方源情不自禁放声大笑'
+example-type = ''
+grammar-construct = ''
+hanzi = '大笑'
+notes = ''
+pinyin = '<span class="tone4">dà</span><span class="tone4">xiào</span>	 <!-- da xiao -->'
+source = ''

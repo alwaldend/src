@@ -1,0 +1,20 @@
+note_id = 1520716966641
+guid = "hktk2qdlYv"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Grammatical_Structures", "NumbersandMeasureWords"]
+
+[[cards]]
+id = 1520716972505
+ordinal = 0
+
+[fields]
+article-title = 'Ordinal numbers with "di"'
+english = 'The boss needs to go on a business trip the first week of next month.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '第 + Number + Measure Word + Noun'
+hanzi = '下个月的第一周老板要出差。'
+notes = ''
+pinyin = 'Xià gè yuè de dì-yī zhōu , lǎobǎn yào chūchāi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGK904U'

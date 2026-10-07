@@ -1,0 +1,20 @@
+note_id = 1520716968609
+guid = "G<~X&mkw,}"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716974473
+ordinal = 0
+
+[fields]
+article-title = 'Tricky uses of "dao"'
+english = "If you can really catch her, I'll treat you to a drink."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '如果你追到她了，我就请你喝酒。'
+notes = ''
+pinyin = 'Rúguǒ nǐ zhuīdào tā le, wǒ jiù qǐng nǐ hējiǔ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCUSIV'

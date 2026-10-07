@@ -1,0 +1,20 @@
+note_id = 1520716968435
+guid = "HRAEA0RxG."
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716974299
+ordinal = 0
+
+[fields]
+article-title = 'Result complement "xiaqu"'
+english = "I can't keep living a life with him. I want a divorce."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 不 + 下去 + 了'
+hanzi = '我跟他过不下去了，我要离婚。'
+notes = ''
+pinyin = 'Wǒ gēn tā guò bu xiàqù le, wǒ yào líhūn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG1PTJX'

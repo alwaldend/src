@@ -1,0 +1,20 @@
+note_id = 9032
+guid = "QL0%.emv70"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+id = 9072
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'to contain;	to hold;	(of a person or style etc) reserved;	restrained;	(of words, writings) full of hidden meaning;	implicit;	veiled (criticism).'
+example-sentence = ' 族长这话说的含蓄,但大家都深晓其意'
+example-type = ''
+grammar-construct = ''
+hanzi = '含蓄'
+notes = ''
+pinyin = '<span class="tone2">hán</span><span class="tone4">xù</span>	 <!-- han xu -->'
+source = ''

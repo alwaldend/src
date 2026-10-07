@@ -1,0 +1,17 @@
+note_id = 1685733902101
+guid = "Ko{/}W!@Z<"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = []
+
+[[cards]]
+id = 1685733902102
+ordinal = 0
+
+[[cards]]
+id = 1685733902103
+ordinal = 1
+
+[fields]
+Back = 'v{motion}p<br>'
+Front = 'How can you replace a segment of text in vim with the current text in the default register?'

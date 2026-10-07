@@ -1,0 +1,20 @@
+note_id = 1520716969620
+guid = "oo9li#9)a{"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975484
+ordinal = 0
+
+[fields]
+article-title = 'Advanced uses of "hai"'
+english = 'This kid is brilliant!'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 还 + Predicate + 呢'
+hanzi = '这个小孩还真聪明！'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG4807F'

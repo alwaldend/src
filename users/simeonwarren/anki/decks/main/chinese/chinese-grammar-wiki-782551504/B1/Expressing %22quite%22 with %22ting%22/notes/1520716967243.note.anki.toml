@@ -1,0 +1,20 @@
+note_id = 1520716967243
+guid = "p`h.DjQ85L"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973107
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "quite" with "ting"'
+english = "This job doesn't give you much stress.It quite suits girls."
+example-sentence = ''
+example-type = ''
+grammar-construct = '挺 + Verb + Obj. + 的'
+hanzi = '这份工作压力不大，挺适合女孩子的。'
+notes = ''
+pinyin = 'Zhè fèn gōngzuò yālì bù dà, tǐng shìhé nǚ háizi de.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDF1F7'

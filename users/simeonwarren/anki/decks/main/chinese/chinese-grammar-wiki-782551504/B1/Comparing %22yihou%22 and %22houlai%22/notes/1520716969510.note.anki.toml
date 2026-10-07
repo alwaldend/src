@@ -1,0 +1,20 @@
+note_id = 1520716969510
+guid = "bSCcI)#s><"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Comparisons", "TimeWords"]
+
+[[cards]]
+id = 1520716975374
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "yihou" and "houlai"'
+english = 'We broke up last year, after that, I never saw her again.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Past Event 1 + 后来 + Past Event 2'
+hanzi = '去年我们分手了，后来再也没见过她。'
+notes = ''
+pinyin = 'Qùnián wǒmen fēnshǒu le, hòulái zài yě méi jiàn guo tā.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNPJ7T'

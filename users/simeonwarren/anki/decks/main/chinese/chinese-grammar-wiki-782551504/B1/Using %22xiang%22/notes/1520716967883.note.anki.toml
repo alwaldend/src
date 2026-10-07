@@ -1,0 +1,20 @@
+note_id = 1520716967883
+guid = "k1HHz4UF96"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+id = 1520716973747
+ordinal = 0
+
+[fields]
+article-title = 'Using "xiang"'
+english = 'The policemen are asking his neighbors for more information.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '向 + Person + Verb'
+hanzi = '警察正在向他的邻居了解情况。'
+notes = ''
+pinyin = 'Jǐngchá zhèngzài xiàng tā de línjū liǎojiě qíngkuàng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQXARS'

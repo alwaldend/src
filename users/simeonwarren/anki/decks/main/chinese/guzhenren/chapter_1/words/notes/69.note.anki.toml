@@ -1,0 +1,20 @@
+note_id = 69
+guid = "{Ev~xXf`~"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+id = 137
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'to take risks;	to take chances;	foray;	adventure.'
+example-sentence = '如果朋友们喜欢,那就请我们一起携手共进这场奇妙的冒险旅程'
+example-type = ''
+grammar-construct = ''
+hanzi = '冒险'
+notes = ''
+pinyin = '<span class="tone4">mào</span><span class="tone3">xiǎn</span>	 <!-- mao xian -->'
+source = ''

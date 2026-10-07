@@ -1,0 +1,20 @@
+note_id = 1520716967927
+guid = "pUtTE}l+<5"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+id = 1520716973791
+ordinal = 0
+
+[fields]
+article-title = 'Complement with "dao"'
+english = 'When will you be done playing?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb (+ 一直) + 到 + Time / Event'
+hanzi = '你们要玩到几点？'
+notes = ''
+pinyin = 'Nǐmen yào wán dào jǐ diǎn?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG1CCAP'

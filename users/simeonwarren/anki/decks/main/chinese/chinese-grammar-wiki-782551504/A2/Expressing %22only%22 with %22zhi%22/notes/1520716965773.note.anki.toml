@@ -1,0 +1,20 @@
+note_id = 1520716965773
+guid = "lwYt:LaN2i"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971637
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "only" with "zhi"'
+english = 'They can only speak English.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '只 + 会 / 能 + Verb'
+hanzi = '他们只会说英文。'
+notes = ''
+pinyin = 'Tāmen zhǐ huì shuō Yīngwén.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGN8C8R'

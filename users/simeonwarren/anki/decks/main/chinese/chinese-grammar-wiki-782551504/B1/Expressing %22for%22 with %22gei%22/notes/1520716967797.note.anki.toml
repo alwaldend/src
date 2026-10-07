@@ -1,0 +1,20 @@
+note_id = 1520716967797
+guid = "qW%P6MhB4("
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+id = 1520716973661
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "for" with "gei"'
+english = 'Are you asking me to clean your room for you?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 给 + Recipient + [Verb Phrase]'
+hanzi = '你想让我给你打扫吗？'
+notes = ''
+pinyin = 'Nǐ xiǎng ràng wǒ gěi nǐ dǎsǎo ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGLHAV3'

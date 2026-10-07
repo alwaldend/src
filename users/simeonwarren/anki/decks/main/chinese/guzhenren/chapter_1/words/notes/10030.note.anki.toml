@@ -1,0 +1,20 @@
+note_id = 10030
+guid = "mh}&.g-Xb<"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 10069
+ordinal = 0
+
+[fields]
+article-title = ''
+english = '(great) majority.'
+example-sentence = ' 此刻深夜,寨中大多数人家却还有着灯火,和平时大不相同'
+example-type = ''
+grammar-construct = ''
+hanzi = '大多数'
+notes = ''
+pinyin = '<span class="tone4">dà</span><span class="tone1">duō</span><span class="tone4">shù</span>	 <!-- da duo shu -->'
+source = ''

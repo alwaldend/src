@@ -1,0 +1,20 @@
+note_id = 1520716968993
+guid = "sKs?pS{XA^"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974857
+ordinal = 0
+
+[fields]
+article-title = 'Expressing not knowing how to do something using "hao"'
+english = "There are too much delicious food. The children don't know which one to start with."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不知道 + [Verb Phrase] + 好'
+hanzi = '好吃的太多了，孩子们不知道先吃哪个才好。'
+notes = ''
+pinyin = 'Hǎochī de tài duō le, háizi men bù zhīdào xiān chī nǎge cái hǎo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG0EQQJ'

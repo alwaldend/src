@@ -1,0 +1,20 @@
+note_id = 1520716965269
+guid = "B.*hr]&%Cb"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971133
+ordinal = 0
+
+[fields]
+article-title = 'Expressing possession with "de"'
+english = 'their stuff'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun 1 + 的 + Noun 2'
+hanzi = '他们的东西'
+notes = ''
+pinyin = 'tāmen de dōngxi'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGUHQD2'

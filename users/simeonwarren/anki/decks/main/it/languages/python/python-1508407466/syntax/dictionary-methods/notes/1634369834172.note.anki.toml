@@ -1,0 +1,17 @@
+note_id = 1634369834172
+guid = "wyX1]jsGt:"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634370830805
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<i>dict</i>.keys()'
+example = ''
+question = "<b>Dictionary method</b>&nbsp;that&nbsp;returns a list containing the dictionary's keys."
+version = ''
+with-options = ''

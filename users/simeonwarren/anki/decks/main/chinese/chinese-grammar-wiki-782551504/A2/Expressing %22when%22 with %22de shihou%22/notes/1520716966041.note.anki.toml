@@ -1,0 +1,20 @@
+note_id = 1520716966041
+guid = "DIX,}xpJQ:"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971905
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "when" with "de shihou"'
+english = "Do you talk on the phone when you're driving?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Time Word + 的 时候, ....'
+hanzi = '你开车的时候会打电话吗？'
+notes = ''
+pinyin = 'Nǐ kāichē de shíhou huì dǎ diànhuà ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWN185'

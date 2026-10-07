@@ -1,0 +1,20 @@
+note_id = 1520716967989
+guid = "K9Qx6uK^@="
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716973853
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "compared with" with "gen"'
+english = "Compared to past weeks, this week's weather has been much more comfortable."
+example-sentence = ''
+example-type = ''
+grammar-construct = '跟 + Time 1 + 比 ， Subj. + Time 2 + ~'
+hanzi = '跟前几周比，这周的天气舒服多了。'
+notes = ''
+pinyin = 'Gēn qián jǐ zhōu bǐ, zhè zhōu de tiānqì shūfu duō le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG920B7'

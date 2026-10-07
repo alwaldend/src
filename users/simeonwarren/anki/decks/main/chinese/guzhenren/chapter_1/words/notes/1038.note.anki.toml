@@ -1,0 +1,20 @@
+note_id = 1038
+guid = "gu7ob8#?CC"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+id = 1076
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'still (remaining);	to remain (the same);	yet.'
+example-sentence = ' 方源对局势洞若观火,不过即便死亡将临,他仍旧是面不改色,神情平淡'
+example-type = ''
+grammar-construct = ''
+hanzi = '仍旧'
+notes = ''
+pinyin = '<span class="tone2">réng</span><span class="tone4">jiù</span>	 <!-- reng jiu -->'
+source = ''

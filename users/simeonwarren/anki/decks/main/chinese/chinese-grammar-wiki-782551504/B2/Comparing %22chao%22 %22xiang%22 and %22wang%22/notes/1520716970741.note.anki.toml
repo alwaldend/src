@@ -1,0 +1,20 @@
+note_id = 1520716970741
+guid = "kmgF?>S6q-"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Comparisons", "Prepositions"]
+
+[[cards]]
+id = 1520716976605
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "chao" "xiang" and "wang"'
+english = 'I shot a gun at him.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '向 / 朝 + 动作的对象 + 具体意义的动词'
+hanzi = '我朝他开了一枪。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGIHS2L'

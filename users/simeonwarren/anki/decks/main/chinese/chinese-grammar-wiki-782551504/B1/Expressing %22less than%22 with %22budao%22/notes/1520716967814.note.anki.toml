@@ -1,0 +1,20 @@
+note_id = 1520716967814
+guid = "Myfy#-~]0M"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+id = 1520716973678
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "less than" with "budao"'
+english = 'It took less than one week for her to recover from her sickness.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不到 + Time + 就 + Predicate + 了'
+hanzi = '她的病不到一个星期就好了。'
+notes = ''
+pinyin = 'Tā de bìng bùdào yī gè xīngqī jiù hǎo le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG10CAE'

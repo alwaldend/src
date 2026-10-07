@@ -1,0 +1,20 @@
+note_id = 1520716967384
+guid = "s~Vufn28|0"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973248
+ordinal = 0
+
+[fields]
+article-title = 'Using "ye" and "dou" together'
+english = "I'm good. So are my family."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 也都 + Predicate'
+hanzi = '我很好，我的家人也都很好。'
+notes = ''
+pinyin = 'Wǒ hěn hǎo, wǒ de jiārén yě dōu hěn hǎo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8GSXY'

@@ -1,0 +1,20 @@
+note_id = 1520716966545
+guid = "IU3v!I1szn"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Grammatical_Structures", "NumbersandMeasureWords"]
+
+[[cards]]
+id = 1520716972409
+ordinal = 0
+
+[fields]
+article-title = 'Counting money'
+english = 'How much?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 多少钱 ?'
+hanzi = '多少钱？'
+notes = ''
+pinyin = 'Duōshao qián?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGL6JOE'

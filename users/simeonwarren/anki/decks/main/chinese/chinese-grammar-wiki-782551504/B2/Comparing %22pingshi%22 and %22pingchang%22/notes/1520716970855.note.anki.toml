@@ -1,0 +1,20 @@
+note_id = 1520716970855
+guid = "r>()Q4ksuT"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Comparisons", "TimeWords"]
+
+[[cards]]
+id = 1520716976719
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "pingshi" and "pingchang"'
+english = 'You often like to study jade, right?<br>Correct.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '平常的 + Noun'
+hanzi = 'A:你平时/平常喜欢研究玉对吗？<br>B:对啊。'
+notes = ''
+pinyin = '<div>A: Nǐ píngshí/píngcháng xǐhuān yánjiū yù duì ma?</div><div>B: Duì a.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJOGGG'

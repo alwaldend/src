@@ -1,0 +1,20 @@
+note_id = 1520716967065
+guid = "JoS_58+k>^"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972929
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "all along" with "yuanlai"'
+english = 'You have been tricking me, how could I be so stupid?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '原来 + [New Information]'
+hanzi = '原来你在骗我！我怎么那么傻？'
+notes = ''
+pinyin = 'Yuánlái nǐ zài piàn wǒ! Wǒ zěnme nàme shǎ?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTKXFR'

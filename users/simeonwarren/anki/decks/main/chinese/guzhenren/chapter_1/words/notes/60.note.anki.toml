@@ -1,0 +1,20 @@
+note_id = 60
+guid = "gB&x+j~p*~"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 119
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'meat;	flesh;	pulp (of a fruit);	(coll.) (of a fruit) squashy;	(of a person) flabby;	irresolute;	Kangxi radical 130.'
+example-sentence = '从那刻起,我恨不得吃你肉,喝你的血'
+example-type = ''
+grammar-construct = ''
+hanzi = '肉'
+notes = ''
+pinyin = '<span class="tone4">ròu</span>	 <!-- rou -->'
+source = ''

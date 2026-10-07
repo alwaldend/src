@@ -1,0 +1,20 @@
+note_id = 1520716969146
+guid = "lv2ET]fP$("
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Comparisons"]
+
+[[cards]]
+id = 1520716975010
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "youdian" and "yidian"'
+english = 'This piece of clothing is a bit expensive.'
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = ''
+hanzi = '这件衣服贵了一点儿。'
+notes = ''
+pinyin = '<div>Zhè jiàn yīfú guìle yīdiǎn er.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGV55Y4'

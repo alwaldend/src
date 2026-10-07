@@ -1,0 +1,20 @@
+note_id = 1520716970975
+guid = "D=>S]gYM;c"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["C1", "Comparisons"]
+
+[[cards]]
+id = 1520716976839
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "genben" and "daodi"'
+english = 'Your bag is so heavy! How much stuff are you even carrying?'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '你的包这么重！你到底带了多少东西？'
+notes = ''
+pinyin = 'Nǐ de bāo zhème zhòng! Nǐ dàodǐ dàile duō shào dōngxī?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG9JK0B'

@@ -1,0 +1,20 @@
+note_id = 5040
+guid = "d[Vp@W|<~e"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+id = 5084
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'rising in spirals.'
+example-sentence = '牌位两侧摆着赤铜香炉,香烟袅袅'
+example-type = ''
+grammar-construct = ''
+hanzi = '袅袅'
+notes = ''
+pinyin = '<span class="tone3">niǎo</span><span class="tone3">niǎo</span>	 <!-- niao niao -->'
+source = ''

@@ -1,0 +1,20 @@
+note_id = 1520716970403
+guid = "]lGz=AH|&"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716976267
+ordinal = 0
+
+[fields]
+article-title = 'Using "zhao" as complement'
+english = "I can't eat authentic Chinese food."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 得 / 不 + 着'
+hanzi = '我在国外吃不着地道的中国菜。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGM5ZAB'

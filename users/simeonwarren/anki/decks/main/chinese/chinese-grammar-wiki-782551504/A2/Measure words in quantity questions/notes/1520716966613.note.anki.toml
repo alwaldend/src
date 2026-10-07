@@ -1,0 +1,20 @@
+note_id = 1520716966613
+guid = "GuI_C&i3PS"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Grammatical_Structures", "NumbersandMeasureWords"]
+
+[[cards]]
+id = 1520716972477
+ordinal = 0
+
+[fields]
+article-title = 'Measure words in quantity questions'
+english = 'How many pieces of clothing have you brought?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 几 + Measure Word + Noun？'
+hanzi = '你带了几件衣服？'
+notes = ''
+pinyin = 'Nǐ dài le jǐ jiàn yīfu?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGL9KQM'

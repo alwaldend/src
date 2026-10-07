@@ -1,0 +1,20 @@
+note_id = 1520716967533
+guid = "MxZG2@F+a["
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973397
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "in addition" with "haiyou"'
+english = "Don't put peanut. I'm allergic. In addition, less sugar, please."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Clause 1 ，还有 ， Clause 2'
+hanzi = '不要放花生，我过敏。还有，少放糖。'
+notes = ''
+pinyin = 'Bùyào fàng huāshēng, wǒ guòmǐn. Háiyǒu, shǎo fàng táng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGHQRI1'

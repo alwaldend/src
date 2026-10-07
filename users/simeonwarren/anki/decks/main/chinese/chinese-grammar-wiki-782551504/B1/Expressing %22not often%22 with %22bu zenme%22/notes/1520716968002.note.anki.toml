@@ -1,0 +1,20 @@
+note_id = 1520716968002
+guid = "G#U+)a3u;O"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+id = 1520716973866
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "not often" with "bu zenme"'
+english = "My husband doesn't exercise very often."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不怎么 + Verb'
+hanzi = '我老公不怎么运动。'
+notes = ''
+pinyin = 'Wǒ lǎogōng bù zěnme yùndòng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5BOGP'

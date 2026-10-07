@@ -1,0 +1,20 @@
+note_id = 1520716969823
+guid = "Ivn9HnZT*k"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975687
+ordinal = 0
+
+[fields]
+article-title = 'Expressing indifference with "jiu"'
+english = "Just don't eat, then. You thought I wanted to eat?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 就 + Verb'
+hanzi = '不吃就不吃，你以为我很想吃啊？'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGL4O5E'

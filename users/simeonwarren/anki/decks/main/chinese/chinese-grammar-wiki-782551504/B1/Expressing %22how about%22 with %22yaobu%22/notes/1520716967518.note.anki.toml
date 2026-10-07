@@ -1,0 +1,20 @@
+note_id = 1520716967518
+guid = "zBPZtuI7RX"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973382
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "how about" with "yaobu"'
+english = "You should take a taxi, otherwise you'll be late."
+example-sentence = ''
+example-type = ''
+grammar-construct = '要不 + Option B + 吧 ，Reason / Situation'
+hanzi = '打车去吧，要不会迟到的。'
+notes = ''
+pinyin = 'Dǎ chē qù ba, yào bù huì chídào de.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDFQP7'

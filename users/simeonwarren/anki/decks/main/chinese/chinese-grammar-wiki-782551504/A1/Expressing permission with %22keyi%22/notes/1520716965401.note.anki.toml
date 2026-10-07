@@ -1,0 +1,20 @@
+note_id = 1520716965401
+guid = "c-pFVgm<H("
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Auxiliaryverbs", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971265
+ordinal = 0
+
+[fields]
+article-title = 'Expressing permission with "keyi"'
+english = 'Mom, may I go out and play?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 可以 + Verb + Obj.'
+hanzi = '妈妈，我可以出去玩吗？'
+notes = ''
+pinyin = 'Māma, wǒ kěyǐ chūqù wán ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG6SPYK'

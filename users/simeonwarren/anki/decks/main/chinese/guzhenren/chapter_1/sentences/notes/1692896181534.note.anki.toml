@@ -1,0 +1,24 @@
+note_id = 1692896181534
+guid = "ILRbB=ea&k"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = []
+
+[[cards]]
+id = 1692896181534
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'At this time, there is also a pair of clear eyes, quietly looking at the lights shining in the middle of the night, full of complicated feelings.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '而此时,同样有一对清亮的眸子,静静地看着这些深夜中闪闪的灯光,满怀复杂情怀。'
+notes = ''
+pinyin = """
+<div>Ér\u0020
+cǐ shí, tóngyàng yǒuyī duì qīngliang de móuzǐ, jìng jìng de kànzhe\u0020
+zhèxiē shēnyè zhōng shǎnshǎn de dēngguāng, mǎnhuái fùzá qínghuái.</div>\
+"""
+source = ''

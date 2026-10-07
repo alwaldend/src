@@ -1,0 +1,20 @@
+note_id = 1520716968232
+guid = "HL=Z_+KhH/"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716974096
+ordinal = 0
+
+[fields]
+article-title = 'Verbs followed by "gei"'
+english = 'I wanted sugar, he handed me a bottle of salt.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 给 + [Recipient] + Obj.'
+hanzi = '我要糖，他递给了我一瓶盐。'
+notes = ''
+pinyin = 'Wǒ yào táng, tā dì gěi le wǒ yī píng yán.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMMHTQ'

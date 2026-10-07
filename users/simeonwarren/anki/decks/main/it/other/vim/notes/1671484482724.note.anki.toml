@@ -1,0 +1,17 @@
+note_id = 1671484482724
+guid = "M1uYZB;s0r"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = []
+
+[[cards]]
+id = 1671484482724
+ordinal = 0
+
+[[cards]]
+id = 1671484482725
+ordinal = 1
+
+[fields]
+Back = 'gf<br>" or<br>^w_f&nbsp;<div>“ to also split</div>'
+Front = 'How do you (split and) open the file if the filename is under the cursor (e.g., for a C++ include directive)?'

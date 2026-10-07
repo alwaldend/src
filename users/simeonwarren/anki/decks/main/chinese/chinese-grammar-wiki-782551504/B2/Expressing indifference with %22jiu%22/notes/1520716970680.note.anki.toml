@@ -1,0 +1,20 @@
+note_id = 1520716970680
+guid = "Dw_.q+l}Yb"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716976544
+ordinal = 0
+
+[fields]
+article-title = 'Expressing indifference with "jiu"'
+english = "If you want to get a divorce, let's do it. I wanted to do this long time ago!"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 就 + Verb'
+hanzi = '离婚就离婚，我早就想离了！'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGL4O5E'

@@ -1,0 +1,20 @@
+note_id = 1520716966527
+guid = "o4BC!l*^?0"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Grammatical_Structures", "NounPhrases"]
+
+[[cards]]
+id = 1520716972391
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "some" with "yixie"'
+english = "We're going to meet some new co-workers very soon."
+example-sentence = ''
+example-type = ''
+grammar-construct = '一些 + Noun'
+hanzi = '我们很快会见到一些新同事。'
+notes = ''
+pinyin = 'Wǒmen hěn kuài huì jiàndào yīxiē xīn tóngshì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWVZ0T'

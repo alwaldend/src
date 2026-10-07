@@ -1,0 +1,20 @@
+note_id = 1520716969574
+guid = "EfK[|**Zg/"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adjectives", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975438
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "a bit too"'
+english = 'The money he gave in the red packet seems too little.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Adj. + 了（一）点儿'
+hanzi = '他给的这个红包好像少了点儿。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGEHTV5'

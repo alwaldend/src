@@ -1,0 +1,20 @@
+note_id = 1520716969321
+guid = "e=xZ+&foe5"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Comparisons", "Nouns"]
+
+[[cards]]
+id = 1520716975185
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "renjia" and "bieren"'
+english = 'You meanie, always making fun of me.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '人家 + [Rest of Sentence]'
+hanzi = '讨厌，老是拿人家开玩笑。'
+notes = ''
+pinyin = '<div>Tǎoyàn, lǎo shì ná rénjiā kāiwánxiào.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPINA4'

@@ -1,0 +1,20 @@
+note_id = 1520716967759
+guid = "nCNvbLvwgr"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973623
+ordinal = 0
+
+[fields]
+article-title = 'Reviewing options with "ba"'
+english = "If we go early we'll have to wait, but if we go later, there will be too much traffic."
+example-sentence = ''
+example-type = ''
+grammar-construct = '[Option 1] + 吧 ，⋯⋯ ， [Option 2] + 吧，⋯⋯ 。'
+hanzi = '早去吧，需要等；晚去吧，会堵车。'
+notes = ''
+pinyin = 'Zǎo qù bā, xūyào děng ; wǎn qù bā, huì dǔchē.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGELOTT'

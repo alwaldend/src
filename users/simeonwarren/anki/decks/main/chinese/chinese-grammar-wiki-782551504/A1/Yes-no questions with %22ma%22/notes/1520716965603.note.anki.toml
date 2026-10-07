@@ -1,0 +1,20 @@
+note_id = 1520716965603
+guid = "diFo1wA{r|"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+id = 1520716971467
+ordinal = 0
+
+[fields]
+article-title = 'Yes-no questions with "ma"'
+english = 'Do you miss home?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '[Statement] + 吗 ？'
+hanzi = '你想家吗？'
+notes = 'question'
+pinyin = 'Nǐ xiǎng jiā ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQ2AZA'

@@ -1,0 +1,20 @@
+note_id = 1520716967826
+guid = "HE?9(2aqD^"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+id = 1520716973690
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "toward" with "wang"'
+english = 'The airplane that flies to New York.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '往 + Direction / Place + Verb'
+hanzi = '飞往纽约的飞机'
+notes = ''
+pinyin = 'Fēi wǎng Niǔyuē de fēijī'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGAD070'

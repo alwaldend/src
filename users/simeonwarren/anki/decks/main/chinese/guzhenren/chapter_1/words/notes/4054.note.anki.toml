@@ -1,0 +1,20 @@
+note_id = 4054
+guid = "ow987YIvO1"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+id = 4111
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'central;	middle;	center;	central authorities (of a state).'
+example-sentence = ' 古月山寨的最中央,是一座大气辉煌的楼阁'
+example-type = ''
+grammar-construct = ''
+hanzi = '中央'
+notes = ''
+pinyin = '<span class="tone1">zhōng</span><span class="tone1">yāng</span>	 <!-- zhong yang -->'
+source = ''

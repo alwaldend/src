@@ -1,0 +1,20 @@
+note_id = 1520716969749
+guid = "N&F!vVj>PZ"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975613
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "never again" with "zai ye bu"'
+english = "I haven't touched those books after I took the exam."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 再也 + 没 + Verb + 过 + Obj.'
+hanzi = '考完试以后，我再也没碰过那些书。'
+notes = ''
+pinyin = 'Kǎo wán shì yǐhòu, wǒ zàiyě méi pèng guo nàxiē shū.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG7R8US'

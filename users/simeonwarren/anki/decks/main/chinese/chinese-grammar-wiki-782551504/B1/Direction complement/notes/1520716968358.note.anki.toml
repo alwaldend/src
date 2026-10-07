@@ -1,0 +1,20 @@
+note_id = 1520716968358
+guid = "esXiRZ@GL)"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716974222
+ordinal = 0
+
+[fields]
+article-title = 'Direction complement'
+english = "Are you off work now? When are you coming back for dinner?<br>'m not going back home for dinner tonight."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 来 / 去'
+hanzi = 'A:你下班了吗？几点回来吃饭？<br>B:我今天不回去吃饭。'
+notes = ''
+pinyin = 'Nǐ xiàbān le ma? Jǐ diǎn huílái chīfàn?<br>Wǒ jīntiān bù huíqù chīfàn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8LWBJ'

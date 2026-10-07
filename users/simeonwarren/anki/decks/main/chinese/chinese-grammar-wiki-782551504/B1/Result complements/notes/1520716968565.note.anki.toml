@@ -1,0 +1,20 @@
+note_id = 1520716968565
+guid = "I#H~W^rR;q"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716974429
+ordinal = 0
+
+[fields]
+article-title = 'Result complements'
+english = 'You came late.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '没 + Verb + Adj.'
+hanzi = '你们来晚了。'
+notes = ''
+pinyin = 'Nǐmen lái wǎn le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNNMST'

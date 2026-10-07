@@ -1,0 +1,20 @@
+note_id = 1520716966273
+guid = "uARa^6SC%n"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716972137
+ordinal = 0
+
+[fields]
+article-title = 'Basic comparisons with "meiyou"'
+english = 'Pinyin is not as difficult as Chinese characters.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun 1 + 没有 + Noun 2 + Adj.'
+hanzi = '拼音没有汉字难。'
+notes = ''
+pinyin = 'Pīnyīn méiyǒu Hànzì nán.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGEAH5M'

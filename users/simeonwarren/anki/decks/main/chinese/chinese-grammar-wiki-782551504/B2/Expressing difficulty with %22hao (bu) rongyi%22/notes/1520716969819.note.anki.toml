@@ -1,0 +1,20 @@
+note_id = 1520716969819
+guid = "B5$#-2d*a!"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975683
+ordinal = 0
+
+[fields]
+article-title = 'Expressing difficulty with "hao (bu) rongyi"'
+english = 'They.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 好容易 / 好不容易 + 才 + Verb，[Result Sentence]'
+hanzi = '他们好不容易才爬到了山顶，结果下起了大雨。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG81QV3'

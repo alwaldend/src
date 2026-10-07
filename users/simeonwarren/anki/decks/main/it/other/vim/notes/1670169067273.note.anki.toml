@@ -1,0 +1,17 @@
+note_id = 1670169067273
+guid = "CLcml2QW~O"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = []
+
+[[cards]]
+id = 1670169067275
+ordinal = 0
+
+[[cards]]
+id = 1670169067276
+ordinal = 1
+
+[fields]
+Back = 'gi&nbsp;'
+Front = 'Go back to the last insert and drop into insert mode'

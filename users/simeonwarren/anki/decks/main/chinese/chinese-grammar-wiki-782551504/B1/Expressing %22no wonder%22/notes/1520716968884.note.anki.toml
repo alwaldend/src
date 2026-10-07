@@ -1,0 +1,20 @@
+note_id = 1520716968884
+guid = "qY&CFB6)O3"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974748
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "no wonder"'
+english = 'No wonder she had a diarrhea. She went to eat hotpot again yesterday.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '怪不得 / 难怪 + [Observation] ，原来 (+ 是) + Reason'
+hanzi = '怪不得她拉肚子，原来她昨天又吃火锅了。'
+notes = ''
+pinyin = 'Guàibude tā lādùzi, yuánlái tā zuótiān yòu chī huǒguō le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGFPV2C'

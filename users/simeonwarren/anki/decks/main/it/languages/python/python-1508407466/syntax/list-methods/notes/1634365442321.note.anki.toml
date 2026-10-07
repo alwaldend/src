@@ -1,0 +1,17 @@
+note_id = 1634365442321
+guid = "OA3lz[,6v%"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634370830785
+ordinal = 0
+
+[fields]
+additional-info = "It doesn't remove current&nbsp;<i>item</i>&nbsp;at&nbsp;<i>index</i>&nbsp;(the list's new length is 1 greater)."
+answer = '<i>list</i>.insert(<i>index</i>, <i>item</i>)'
+example = ''
+question = '<b>List method </b>that adds an item&nbsp;into list at <i>index.</i>'
+version = ''
+with-options = ''

@@ -1,0 +1,17 @@
+note_id = 1634418127368
+guid = "MNj_)wNx|b"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634418127368
+ordinal = 0
+
+[fields]
+additional-info = 'Reversed object must be converted from type&nbsp;<i>reverse.</i>'
+answer = '<b>Built in function: </b>reversed(<i>iterable</i>)'
+example = ''
+question = '<b>Built in function</b>&nbsp;that returns a reversed object from an iterable.'
+version = ''
+with-options = ''

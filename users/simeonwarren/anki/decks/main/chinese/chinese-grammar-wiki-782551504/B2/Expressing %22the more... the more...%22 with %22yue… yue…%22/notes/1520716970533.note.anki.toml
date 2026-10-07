@@ -1,0 +1,20 @@
+note_id = 1520716970533
+guid = "O8u)hhrCmS"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716976397
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "the more... the more..." with "yue… yue…"'
+english = 'The more you smell this kind of flower, the more you want to smell it.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 越 + Verb + 越 + 想 + Verb'
+hanzi = '这种花的味道让人越闻越想闻。'
+notes = ''
+pinyin = 'Zhè zhǒng huā de wèidào ràng rén yuè wén yuè xiǎng wén.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGB44F6'

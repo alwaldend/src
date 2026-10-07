@@ -1,0 +1,20 @@
+note_id = 1520716969069
+guid = "b}ILl8]a*f"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974933
+ordinal = 0
+
+[fields]
+article-title = 'Using the "shi... de" construction'
+english = 'Who was it that told you?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 是 + [Information to be Emphasized] + Verb + 的'
+hanzi = '是谁告诉你的？'
+notes = 'Emphasizing "who"'
+pinyin = 'Shì shéi gàosu nǐ de?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8YTSF'

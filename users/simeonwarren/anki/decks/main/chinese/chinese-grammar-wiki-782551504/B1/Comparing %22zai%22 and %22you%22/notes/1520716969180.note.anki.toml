@@ -1,0 +1,20 @@
+note_id = 1520716969180
+guid = "DRBD3zAZG="
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Comparisons"]
+
+[[cards]]
+id = 1520716975044
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "zai" and "you"'
+english = 'Why are you reading that book again？ You already read it.'
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = 'Subj. + 又 + Verb + 了'
+hanzi = '你为什么又看这本书？你已经看过了。'
+notes = ''
+pinyin = '<div>Nǐ wèishéme yòu kàn zhè běn shū? Nǐ yǐjīng kànguòle.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTBHBG'

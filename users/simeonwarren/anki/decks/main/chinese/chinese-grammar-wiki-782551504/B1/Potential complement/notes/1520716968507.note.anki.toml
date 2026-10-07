@@ -1,0 +1,20 @@
+note_id = 1520716968507
+guid = "Px/+Ymq/$>"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716974371
+ordinal = 0
+
+[fields]
+article-title = 'Potential complement'
+english = "When I don't wear glasses, I can't see clearly."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 不 + Complement'
+hanzi = '我没戴眼镜，看不清楚。'
+notes = ''
+pinyin = 'Wǒ méi dài yǎnjìng, kàn bu qīngchu.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCPJPQ'

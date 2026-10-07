@@ -1,0 +1,20 @@
+note_id = 1520716968676
+guid = "uLzp]}[iUp"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974540
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "although" with "suiran" and "danshi"'
+english = "Although it's cold outside, it's warm inside."
+example-sentence = ''
+example-type = ''
+grammar-construct = '虽然 ⋯⋯ ，但是 / 可是 ⋯⋯'
+hanzi = '虽然外面很冷，可是里面很暖和。'
+notes = ''
+pinyin = 'Suīrán wàimiàn hěn lěng, kěshì lǐmiàn hěn nuǎnhuo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGXI560'

@@ -1,0 +1,20 @@
+note_id = 1520716969848
+guid = "f^Rao5c)q<"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975712
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "and" with "he" (advanced)'
+english = ''
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = 'Adj. 1 + 和 + Adj. 2'
+hanzi = '你这么自私和冷漠，怎么会有人喜欢你？！'
+notes = 'Adding a modifier to the adjectives sounds much better.)'
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGXN52R'

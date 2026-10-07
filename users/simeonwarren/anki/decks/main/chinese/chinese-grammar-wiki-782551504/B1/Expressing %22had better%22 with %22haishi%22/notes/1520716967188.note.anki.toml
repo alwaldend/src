@@ -1,0 +1,20 @@
+note_id = 1520716967188
+guid = "n$zNuMx3@a"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973052
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "had better" with "haishi"'
+english = "It's too expensive. You'd better not buy it."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 还是 + [Verb Phrase] + 吧'
+hanzi = '太贵了，还是别买了。'
+notes = ''
+pinyin = 'Tài guì le, háishì bié mǎi le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWAR65'

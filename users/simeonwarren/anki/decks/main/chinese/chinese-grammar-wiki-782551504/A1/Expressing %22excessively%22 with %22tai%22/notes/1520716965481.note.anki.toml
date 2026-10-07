@@ -1,0 +1,20 @@
+note_id = 1520716965481
+guid = "G[)#8L!h8f"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Basics", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716971345
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "excessively" with "tai"'
+english = 'This restroom is too dirty.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '太 + Adj. + 了'
+hanzi = '这个厕所太脏了。'
+notes = ''
+pinyin = 'Zhège cèsuǒ tài zāng le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8HVFN'

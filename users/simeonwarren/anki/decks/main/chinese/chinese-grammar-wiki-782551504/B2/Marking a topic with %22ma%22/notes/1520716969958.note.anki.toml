@@ -1,0 +1,20 @@
+note_id = 1520716969958
+guid = "nY]hI:Ts8t"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975822
+ordinal = 0
+
+[fields]
+article-title = 'Marking a topic with "ma"'
+english = "Kids. It's common that they don't understand these things ."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Topic + 嘛 ，Statement'
+hanzi = '孩子嘛，不懂这些很正常。'
+notes = ''
+pinyin = 'Háizi ma, bù dǒng zhèxiē hěn zhèngcháng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGB33AE'

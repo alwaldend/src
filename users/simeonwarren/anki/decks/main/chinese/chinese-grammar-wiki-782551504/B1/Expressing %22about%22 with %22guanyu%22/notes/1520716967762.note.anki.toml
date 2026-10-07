@@ -1,0 +1,20 @@
+note_id = 1520716967762
+guid = "iB3k#C:IvE"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+id = 1520716973626
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "about" with "guanyu"'
+english = "As for this problem, you'd better ask him."
+example-sentence = ''
+example-type = ''
+grammar-construct = '关于 + Obj. ，⋯⋯'
+hanzi = '关于这个问题，你们还是问他吧。'
+notes = ''
+pinyin = 'Guānyú zhège wèntí, nǐmen háishì wèn tā bā.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG49889'

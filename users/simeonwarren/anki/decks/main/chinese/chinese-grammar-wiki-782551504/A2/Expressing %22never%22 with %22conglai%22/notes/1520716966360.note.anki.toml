@@ -1,0 +1,20 @@
+note_id = 1520716966360
+guid = "Bno[L~fhgP"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+id = 1520716972224
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "never" with "conglai"'
+english = 'He never cares about other people.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 从来 + 不 + [Verb Phrase]'
+hanzi = '他从不关心别人。'
+notes = '来 has been omitted here.'
+pinyin = 'Tā cóng bù guānxīn biérén.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8NM5E'

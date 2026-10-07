@@ -1,0 +1,20 @@
+note_id = 1520716967421
+guid = "M~+)-:{@&e"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["AdverbswithAdjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973285
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "rather" with "bijiao"'
+english = 'This question is rather easier.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 比较 + Adj. / Psychological Verb'
+hanzi = '这个问题比较简单。'
+notes = ''
+pinyin = 'Zhège wèntí bǐjiào jiǎndān.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG72HKP'

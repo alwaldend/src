@@ -1,0 +1,20 @@
+note_id = 1520716969738
+guid = "h1GhNwY#6n"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975602
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "nearly" with "jihu"'
+english = "Almost all our family doesn't drink."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 几乎 + 不 / 没 + Predicate'
+hanzi = '我老板几乎不喝酒。'
+notes = ''
+pinyin = 'Wǒmen jiā rén jīhū dōu bù hējiǔ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGVA70K'

@@ -1,0 +1,20 @@
+note_id = 1520716967487
+guid = "t&`2awXxm@"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973351
+ordinal = 0
+
+[fields]
+article-title = 'A softer "but" with "buguo"'
+english = "Working pressure is a little too much, but I'm already used to it."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Clause 1，不过 + Clause 2'
+hanzi = '工作压力有点大，不过我已经习惯了。'
+notes = ''
+pinyin = 'Gōngzuò yālì yǒudiǎn dà, bùguò wǒ yǐjīng xíguàn le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGA0S4T'

@@ -1,0 +1,20 @@
+note_id = 1520716969361
+guid = "sBpt,Ebk1Z"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Comparisons", "Nouns"]
+
+[[cards]]
+id = 1520716975225
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "zhijian" and "zhongjian"'
+english = 'There are between 170,000 and 200,000 foreigners in Shanghai.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Number 1 + 和 + Number 2 + 之间'
+hanzi = '上海的外国人数量在17万到20万之间。'
+notes = ''
+pinyin = '<div>Shànghǎi de wàiguó rén shùliàng zài 17 wàn dào 20 wàn zhī jiān.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGN6O6J'

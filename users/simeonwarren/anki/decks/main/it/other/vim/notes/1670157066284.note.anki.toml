@@ -1,0 +1,17 @@
+note_id = 1670157066284
+guid = "G?QSL-,KLl"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = []
+
+[[cards]]
+id = 1670157066286
+ordinal = 0
+
+[[cards]]
+id = 1670157066287
+ordinal = 1
+
+[fields]
+Back = "]'"
+Front = 'Go to next line with a mark&nbsp;'

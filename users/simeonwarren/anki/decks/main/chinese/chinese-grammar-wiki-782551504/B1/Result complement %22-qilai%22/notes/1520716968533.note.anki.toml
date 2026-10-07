@@ -1,0 +1,20 @@
+note_id = 1520716968533
+guid = "It{Vd=!Id]"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716974397
+ordinal = 0
+
+[fields]
+article-title = 'Result complement "-qilai"'
+english = 'These clothes feel very comfortable.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 起来 + Adj.'
+hanzi = '这件衣服摸起来很舒服。'
+notes = ''
+pinyin = 'Zhè jiàn yīfu mō qǐlái hěn shūfu.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGBPXOB'

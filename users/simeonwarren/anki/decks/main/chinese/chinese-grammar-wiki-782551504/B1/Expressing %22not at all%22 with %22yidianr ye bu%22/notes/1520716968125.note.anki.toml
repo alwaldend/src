@@ -1,0 +1,20 @@
+note_id = 1520716968125
+guid = "LT1HSn&LDm"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716973989
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "not at all" with "yidianr ye bu"'
+english = "Why didn't you eat this dish at all?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 一点 + 也 / 都 + 不 + Verb'
+hanzi = '这个菜你们怎么一点也没吃？'
+notes = ''
+pinyin = 'Zhège cài nǐmen zěnme yīdiǎn yě méi chī?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGRURCZ'

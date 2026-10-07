@@ -1,0 +1,20 @@
+note_id = 1520716968599
+guid = "j(r87o)0kC"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716974463
+ordinal = 0
+
+[fields]
+article-title = 'Tricky uses of "dao"'
+english = "Today I'm going to pick up the wedding dress, not sure if I'll be able to get it or not."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '今天去拿婚纱，不知道能不能拿到。'
+notes = ''
+pinyin = 'Jīntiān qù ná hūnshā, bù zhīdào néng bu néng nádào.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCUSIV'

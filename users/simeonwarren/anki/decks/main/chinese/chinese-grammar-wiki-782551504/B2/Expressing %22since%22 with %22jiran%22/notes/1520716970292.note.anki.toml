@@ -1,0 +1,20 @@
+note_id = 1520716970292
+guid = "pacb:pxZbo"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Cause/EffectStatements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716976156
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "since" with "jiran"'
+english = "Since your boyfriend is so rich, why can't he be more generous?"
+example-sentence = ''
+example-type = ''
+grammar-construct = '既然 + Fact,   （那 +）rhetorical question'
+hanzi = '既然你男朋友那么有钱，那他为什么不能大方一点？'
+notes = 'a suggestion)'
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGG4BX9'

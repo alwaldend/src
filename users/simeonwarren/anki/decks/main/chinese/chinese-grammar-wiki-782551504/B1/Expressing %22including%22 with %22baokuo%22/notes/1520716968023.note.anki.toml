@@ -1,0 +1,20 @@
+note_id = 1520716968023
+guid = "Ftp(6}spH&"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716973887
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "including" with "baokuo"'
+english = "The company's welfare benefits includes many aspects."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 包括 + Obj.1 ( , + Obj.2, Obj.3 ... )'
+hanzi = '公司的福利包括很多方面。'
+notes = ''
+pinyin = 'Gōngsī de fúlì bāokuò hěn duō fāngmiàn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG50341'

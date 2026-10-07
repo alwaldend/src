@@ -1,0 +1,20 @@
+note_id = 1520716967586
+guid = "Hvx`SQgS_M"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973450
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "when" with "dengdao"'
+english = 'When the rain stops, then I will go outside.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '等(到) + Time Word / [Verb Phrase] ，Subj.  + 再 / 就 / 才 + Predicate'
+hanzi = '等雨停我再出门。'
+notes = ''
+pinyin = 'Děng yǔ tíng wǒ zài chūmén.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG68F61'

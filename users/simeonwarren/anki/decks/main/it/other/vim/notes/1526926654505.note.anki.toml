@@ -1,0 +1,17 @@
+note_id = 1526926654505
+guid = "h*OF,;4,,C"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = ["(VisualMode)", "MarkingText"]
+
+[[cards]]
+id = 1526926664326
+ordinal = 0
+
+[[cards]]
+id = 1668965796654
+ordinal = 1
+
+[fields]
+Back = 'ab'
+Front = 'Motion “around () block”'

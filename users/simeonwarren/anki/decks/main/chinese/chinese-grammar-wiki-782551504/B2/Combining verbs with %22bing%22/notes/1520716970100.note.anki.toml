@@ -1,0 +1,20 @@
+note_id = 1520716970100
+guid = "E}>bN(yKKN"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+id = 1520716975964
+ordinal = 0
+
+[fields]
+article-title = 'Combining verbs with "bing"'
+english = 'I need you to do as I say and also do it well.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb / [Verb Phrase 1] + 并(且) + Verb / [Verb Phrase 2]'
+hanzi = '你要按照我说的做并且要做好。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5C89R'

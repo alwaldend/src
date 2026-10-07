@@ -1,0 +1,20 @@
+note_id = 1520716968551
+guid = "l;x(|/UCs|"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "NounPhrases"]
+
+[[cards]]
+id = 1520716974415
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "the other" with "lingwai"'
+english = 'He has two daughters, one of which married a American guy and the other married a German guy.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '另外 + Number + [Measure Word] + Noun'
+hanzi = '他的两个女儿一个嫁给了美国人，另一个嫁给了德国人。'
+notes = ''
+pinyin = "Tā de  liǎng gè nǚ'ér yī gè jià gěi le Měiguó rén, lìng yī gè jià gěi le Déguó rén."
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGD3FE5'

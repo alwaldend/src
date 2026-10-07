@@ -1,0 +1,20 @@
+note_id = 1520716968730
+guid = "n=@Bzr8,Zm"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974594
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "either... or..." with "yaome"'
+english = 'You either read or do homework. No playing outside.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '要么 + Option A ，要么 + Option B'
+hanzi = '要么看书，要么写作业，不可以出去玩。'
+notes = ''
+pinyin = 'Yàome kànshū, yàome xiě zuòyè, bù kěyǐ chūqù wán.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG30A60'

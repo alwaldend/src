@@ -1,0 +1,20 @@
+note_id = 2049
+guid = "I<v?mhWb@$"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 2099
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'pale;	wan.'
+example-sentence = '因为失血过多而显得苍白的脸,被晚霞映照着,忽然增添了一份嫣然之光彩'
+example-type = ''
+grammar-construct = ''
+hanzi = '苍白'
+notes = ''
+pinyin = '<span class="tone1">cāng</span><span class="tone2">bái</span>	 <!-- cang bai -->'
+source = ''

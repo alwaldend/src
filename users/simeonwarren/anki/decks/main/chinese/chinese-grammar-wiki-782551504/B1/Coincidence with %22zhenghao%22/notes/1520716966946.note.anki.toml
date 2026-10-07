@@ -1,0 +1,20 @@
+note_id = 1520716966946
+guid = "KK+VnxT60q"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972810
+ordinal = 0
+
+[fields]
+article-title = 'Coincidence with "zhenghao"'
+english = "I'm going to meet with him tomorrow. I can ask him about this piece of matter by the way."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 正好 + [Verb Phrase]'
+hanzi = '我明天见他，正好可以问问他这件事。'
+notes = ''
+pinyin = 'Wǒ míngtiān jiàn tā, zhènghǎo kěyǐ wènwen tā zhè jiàn shì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGUD25J'

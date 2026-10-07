@@ -1,0 +1,20 @@
+note_id = 1520716966644
+guid = "K0^h0;mLMJ"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+id = 1520716972508
+ordinal = 0
+
+[fields]
+article-title = 'Asking why with "zenme"'
+english = 'How can you hit people?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 怎么 + Verb + Obj. ?'
+hanzi = '你们怎么打人？'
+notes = ''
+pinyin = 'Nǐmen zěnme dǎ rén?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGD7NS3'

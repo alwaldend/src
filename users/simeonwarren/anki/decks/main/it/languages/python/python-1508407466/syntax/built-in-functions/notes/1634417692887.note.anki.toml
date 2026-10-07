@@ -1,0 +1,17 @@
+note_id = 1634417692887
+guid = "v&X`K]R`gm"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634417692888
+ordinal = 0
+
+[fields]
+additional-info = "Doesn't edit the original object."
+answer = '<b>Built in function:&nbsp;</b>str(<i>object</i>)'
+example = ''
+question = '<b>Built in function</b>&nbsp;that converts an object to a string and returns the new string.'
+version = ''
+with-options = ''

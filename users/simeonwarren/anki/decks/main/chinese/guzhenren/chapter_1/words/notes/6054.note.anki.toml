@@ -1,0 +1,20 @@
+note_id = 6054
+guid = "IN~Vhm,r4z"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 6113
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'Diandian (Chinese microblogging and social networking website);	point;	speck.'
+example-sentence = ' 眼中倒映着点点灯光,族长长叹一声'
+example-type = ''
+grammar-construct = ''
+hanzi = '点点'
+notes = ''
+pinyin = '<span class="tone3">diǎn</span><span class="tone3">diǎn</span>	 <!-- dian dian -->'
+source = ''

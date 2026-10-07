@@ -1,0 +1,20 @@
+note_id = 1520716969495
+guid = "iGE>&3|ny"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Comparisons", "Prepositions"]
+
+[[cards]]
+id = 1520716975359
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "li" and "cong"'
+english = "My father has stopped smoking since my mother's pregnancy."
+example-sentence = ''
+example-type = ''
+grammar-construct = '从 + Time / Event + 开始 / 起'
+hanzi = '从我妈妈怀孕开始，我爸爸就不抽烟了。'
+notes = ''
+pinyin = 'Cóng wǒ māma huáiyùn kāishǐ, wǒ bàba jiù bù chōuyān le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG59C66'

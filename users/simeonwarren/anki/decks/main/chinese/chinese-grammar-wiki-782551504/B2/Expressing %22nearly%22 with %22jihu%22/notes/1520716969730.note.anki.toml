@@ -1,0 +1,20 @@
+note_id = 1520716969730
+guid = "C36`+}2qC2"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975594
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "nearly" with "jihu"'
+english = 'Almost everyone has a cell phone.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '几乎 + Subj. + 都 + Verb / Adj.'
+hanzi = '几乎每个人都有手机。'
+notes = ''
+pinyin = 'Jīhū měi gè rén dōu yǒu shǒujī.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGVA70K'

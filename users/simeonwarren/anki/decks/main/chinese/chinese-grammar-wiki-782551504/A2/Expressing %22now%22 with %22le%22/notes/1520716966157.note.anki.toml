@@ -1,0 +1,20 @@
+note_id = 1520716966157
+guid = "d>[iUTcoMq"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972021
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "now" with "le"'
+english = "It's your turn now."
+example-sentence = ''
+example-type = ''
+grammar-construct = '[New Situation] + 了'
+hanzi = '该你了。'
+notes = ''
+pinyin = 'Gāi nǐ le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGE5Q4J'

@@ -1,0 +1,20 @@
+note_id = 1520716970857
+guid = "e.COu}xQZ6"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["auxiliaryverb", "B2", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716976721
+ordinal = 0
+
+[fields]
+article-title = 'The use of Taiwanese Mandarin "hui"'
+english = 'Are you cold?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 会 + Predicate + 吗 ？'
+hanzi = '你会冷吗？'
+notes = 'means 你 冷 不 冷 ？'
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG22117'

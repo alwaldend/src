@@ -1,0 +1,20 @@
+note_id = 1520716967102
+guid = "q)$DKc$~i?"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972966
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "almost" using "chadian"'
+english = 'She almost went crazy.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 差点 (+就) + Predicate + 了'
+hanzi = '她差点疯了。'
+notes = "She didn't go crazy."
+pinyin = 'Tā chàdiǎn fēng le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG6ESWW'

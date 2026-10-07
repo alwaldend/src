@@ -1,0 +1,20 @@
+note_id = 1520716968177
+guid = "l`iW?xO@=;"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716974041
+ordinal = 0
+
+[fields]
+article-title = 'Expressing comparable degree with "you"'
+english = "This kid is only ten, but he's already 150 jin."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A + 有 + B + 这么 / 那么 + 高 / 深 / 宽 / 长'
+hanzi = '这个孩子才十岁，已经有一百五十斤了。'
+notes = 'One "jin" = 500g'
+pinyin = 'Zhège háizi cái shí suì, yǐjīng yǒu yī bǎi wǔshí jīn le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5DG95'

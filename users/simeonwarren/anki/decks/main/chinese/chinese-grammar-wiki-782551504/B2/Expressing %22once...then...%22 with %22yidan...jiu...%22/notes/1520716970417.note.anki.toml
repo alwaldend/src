@@ -1,0 +1,20 @@
+note_id = 1520716970417
+guid = "qp7Q#Bs%%/"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "ConditionalStatements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716976281
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "once...then..." with "yidan...jiu..."'
+english = "This table isn't very steady. Once there's even a small vibration, it will fall over."
+example-sentence = ''
+example-type = ''
+grammar-construct = '一旦 + Condition，Subj. + 就 + Consequence'
+hanzi = '这张桌子不稳定，一旦发生什么小小的振动，就会倒塌。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGU3ZV1'

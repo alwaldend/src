@@ -1,0 +1,20 @@
+note_id = 1520716965172
+guid = "e(y3GwQ5JE"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971036
+ordinal = 0
+
+[fields]
+article-title = 'The "also" adverb "ye"'
+english = 'My dad is also handsome.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 也 (+ Adv.) + Adj.'
+hanzi = '我爸爸也很帅。'
+notes = ''
+pinyin = 'Wǒ bàba yě hěn  shuài.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGG25MD'

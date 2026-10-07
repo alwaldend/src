@@ -1,0 +1,20 @@
+note_id = 1520716969404
+guid = "k%R2Zq+(~}"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Comparisons", "Prepositions"]
+
+[[cards]]
+id = 1520716975268
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "li" and "cong"'
+english = 'After he gets a girlfriend, he won’t hit on women.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '从 + Time + 开始 / 起 / 以来 ⋯⋯'
+hanzi = '从有了女朋友以后，他不泡妞了。'
+notes = ''
+pinyin = 'Cóng yǒu le nǚ péngyou yǐhòu, tā bù pàoniū le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG59C66'

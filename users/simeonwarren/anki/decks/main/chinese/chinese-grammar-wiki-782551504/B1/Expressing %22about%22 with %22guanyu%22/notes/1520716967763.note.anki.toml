@@ -1,0 +1,20 @@
+note_id = 1520716967763
+guid = "fs9VxSqZ;R"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+id = 1520716973627
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "about" with "guanyu"'
+english = 'As for your suggestion, the boss is still thinking it over.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '关于 + Obj. ，⋯⋯'
+hanzi = '关于你的建议，老板还在考虑。'
+notes = ''
+pinyin = 'Guānyú nǐ de jiànyì, lǎobǎn hái zài kǎolǜ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG49889'

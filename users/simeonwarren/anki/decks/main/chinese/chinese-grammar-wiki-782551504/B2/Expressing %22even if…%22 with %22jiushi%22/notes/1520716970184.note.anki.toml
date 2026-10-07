@@ -1,0 +1,20 @@
+note_id = 1520716970184
+guid = "PFKmU+M}U`"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "EvenIfStatements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716976048
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "even if…" with "jiushi"'
+english = 'Even if he were penniless, I would still be willing to be with him.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '就是 + Hypothetical Statement + 也 + Action'
+hanzi = '就是他变成一个穷光蛋，我也愿意跟他在一起。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGF1TQ2'

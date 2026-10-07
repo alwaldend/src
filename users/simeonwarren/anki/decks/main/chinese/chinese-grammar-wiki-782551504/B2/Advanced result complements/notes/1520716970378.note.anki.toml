@@ -1,0 +1,20 @@
+note_id = 1520716970378
+guid = "KaLh7Z7JPl"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716976242
+ordinal = 0
+
+[fields]
+article-title = 'Advanced result complements'
+english = 'These math problems are a little bit difficult. It took me an hour to work them out.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '这些数学题有点难，我花了一个小时才做出来。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG4OM4T'

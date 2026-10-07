@@ -1,0 +1,20 @@
+note_id = 1520716967676
+guid = "o_L/Zo`tEl"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Numbers", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973540
+ordinal = 0
+
+[fields]
+article-title = 'Expressing fractions with "fenzhi"'
+english = 'Electric car sales occupies five eighths of all new car sales.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A + 是 / 占 (+ B) + 的 + Denominator + 分之 + Numerator'
+hanzi = '电动车的销量占新车销量的八分之五。'
+notes = ''
+pinyin = 'Diàndòngchē de xiāoliàng zhàn xīn chē xiāoliàng de bā fēn zhī wǔ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG84RE9'

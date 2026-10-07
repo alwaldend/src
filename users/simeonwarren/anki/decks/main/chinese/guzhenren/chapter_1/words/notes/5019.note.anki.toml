@@ -1,0 +1,20 @@
+note_id = 5019
+guid = "j.n5HDZL=b"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 5042
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'middle age.'
+example-sentence = ' 古月族长中年模样,两鬓微霜,一身素白庄重的祭祀服装,跪在棕黄色的地板上,直着上身,双手合十,紧闭双目诚心祈祷'
+example-type = ''
+grammar-construct = ''
+hanzi = '中年'
+notes = ''
+pinyin = '<span class="tone1">zhōng</span><span class="tone2">nián</span>	 <!-- zhong nian -->'
+source = ''

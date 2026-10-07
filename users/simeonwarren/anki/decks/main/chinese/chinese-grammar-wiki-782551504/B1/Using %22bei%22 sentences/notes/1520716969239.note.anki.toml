@@ -1,0 +1,20 @@
+note_id = 1520716969239
+guid = "Nb8]Z*Q``="
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716975103
+ordinal = 0
+
+[fields]
+article-title = 'Using "bei" sentences'
+english = 'The coffee was finished finished by me.'
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = 'Subj. + 被 (+ Doer) + Verb + 了'
+hanzi = '咖啡被我喝完了。'
+notes = ''
+pinyin = 'Kāfēi bèi wǒ hē wán le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGHF9F1'

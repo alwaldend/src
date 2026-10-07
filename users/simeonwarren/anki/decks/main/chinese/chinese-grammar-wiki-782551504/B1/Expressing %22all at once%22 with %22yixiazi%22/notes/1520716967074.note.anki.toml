@@ -1,0 +1,20 @@
+note_id = 1520716967074
+guid = "Ky^lM`ML5w"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972938
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "all at once" with "yixiazi"'
+english = 'His new book is very popular. Three thousand books were sold all at once.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 一下子 + 就 + Verb + 了'
+hanzi = '他的新书很受欢迎，一下就卖了三千本。'
+notes = ''
+pinyin = 'Tā de xīn shū hěn shòu huānyíng, yīxià jiù mài le sān qiān běn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG06EA8'

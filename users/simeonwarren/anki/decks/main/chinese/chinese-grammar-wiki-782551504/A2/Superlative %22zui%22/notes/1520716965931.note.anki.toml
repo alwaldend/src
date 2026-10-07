@@ -1,0 +1,20 @@
+note_id = 1520716965931
+guid = "HuJy&3ol|H"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "AdverbswithAdjectives", "leech", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971795
+ordinal = 0
+
+[fields]
+article-title = 'Superlative "zui"'
+english = "Huang Mountain's landscape is the most beautiful."
+example-sentence = ''
+example-type = ''
+grammar-construct = '最 + Adj. (+ 了)'
+hanzi = '黄山的风景最美了。'
+notes = 'This 了 is optional'
+pinyin = 'Huángshān de fēngjǐng zuì měi le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG3544U'

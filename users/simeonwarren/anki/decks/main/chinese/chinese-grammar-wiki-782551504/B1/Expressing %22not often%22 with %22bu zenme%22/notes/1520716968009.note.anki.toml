@@ -1,0 +1,20 @@
+note_id = 1520716968009
+guid = "CvI,WS|>FH"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+id = 1520716973873
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "not often" with "bu zenme"'
+english = "I didn't really think about this before."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不怎么 + Verb'
+hanzi = '我没怎么想过这个问题。'
+notes = ''
+pinyin = 'Wǒ méi zěnme xiǎng guo zhège wèntí.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5BOGP'

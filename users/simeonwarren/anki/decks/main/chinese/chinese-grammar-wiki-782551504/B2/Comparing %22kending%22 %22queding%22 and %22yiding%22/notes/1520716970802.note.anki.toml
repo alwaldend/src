@@ -1,0 +1,20 @@
+note_id = 1520716970802
+guid = "L-va|XPDP="
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Comparisons", "SeparateFunctions"]
+
+[[cards]]
+id = 1520716976666
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "kending" "queding" and "yiding"'
+english = 'The boss approved my recent hard work.'
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = '确定 +  Phrase / Sentence'
+hanzi = '老板肯定了最近我的努力工作。'
+notes = 'By changing the word order, we get a noun phrase instead of a verb phrase.'
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDPS0J'

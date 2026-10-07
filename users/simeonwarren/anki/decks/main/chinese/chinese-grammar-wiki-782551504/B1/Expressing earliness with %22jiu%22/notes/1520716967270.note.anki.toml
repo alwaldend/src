@@ -1,0 +1,20 @@
+note_id = 1520716967270
+guid = "tbxK8Q~qf?"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973134
+ordinal = 0
+
+[fields]
+article-title = 'Expressing earliness with "jiu"'
+english = 'It only took you just one night to finish reading this book?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Time  Word + 就 + Verb + Obj. + 了'
+hanzi = '这本书你一个晚上就看完了？'
+notes = ''
+pinyin = 'Zhè běn shū nǐ yī gè wǎnshang jiù kàn wán le?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGKITRZ'

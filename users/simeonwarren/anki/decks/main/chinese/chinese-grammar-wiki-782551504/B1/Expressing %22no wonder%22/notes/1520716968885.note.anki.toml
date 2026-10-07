@@ -1,0 +1,20 @@
+note_id = 1520716968885
+guid = "Iz7Od_Z.d="
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974749
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "no wonder"'
+english = "No wonder the students don't like this teacher. The homework he gives is too much."
+example-sentence = ''
+example-type = ''
+grammar-construct = '怪不得 / 难怪 + [Observation] ，原来 (+ 是) + Reason'
+hanzi = '难怪学生都不喜欢这个老师，原来他的作业太多了。'
+notes = ''
+pinyin = 'Nánguài xuéshēng dōu bù xǐhuan zhège lǎoshī, yuánlái tā de zuòyè tài duō le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGFPV2C'

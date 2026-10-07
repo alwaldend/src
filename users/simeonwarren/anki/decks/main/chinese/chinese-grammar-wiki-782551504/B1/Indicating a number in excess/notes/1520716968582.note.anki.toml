@@ -1,0 +1,20 @@
+note_id = 1520716968582
+guid = "mU>5$?qCH0"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "NounPhrases"]
+
+[[cards]]
+id = 1520716974446
+ordinal = 0
+
+[fields]
+article-title = 'Indicating a number in excess'
+english = 'I received more than thirty spam messages yesterday.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Number + 多 + [Measure word] (+ Noun)'
+hanzi = '我昨天收到了三十多条垃圾短信。'
+notes = ''
+pinyin = 'Wǒ zuótiān shōudào le sānshí duō tiáo lājī duǎnxìn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG004ZK'

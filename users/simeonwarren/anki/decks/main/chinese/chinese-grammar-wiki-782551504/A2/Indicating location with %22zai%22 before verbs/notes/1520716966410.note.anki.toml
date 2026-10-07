@@ -1,0 +1,20 @@
+note_id = 1520716966410
+guid = "DC#3P<n00H"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+id = 1520716972274
+ordinal = 0
+
+[fields]
+article-title = 'Indicating location with "zai" before verbs'
+english = 'He likes to smoke in the bathroom.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 在 + Place + Verb + Obj.'
+hanzi = '他喜欢在厕所里抽烟。'
+notes = 'In addition to "在" you need a "里" to indicate the location "in the bathroom."'
+pinyin = 'Tā xǐhuan zài cèsuǒ lǐ chōuyān.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGX0Z0N'

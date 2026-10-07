@@ -1,0 +1,17 @@
+note_id = 1526926396056
+guid = "T9cu@pGDJ"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = ["Editing"]
+
+[[cards]]
+id = 1526926409646
+ordinal = 0
+
+[[cards]]
+id = 1668965796640
+ordinal = 1
+
+[fields]
+Back = 'ciw'
+Front = 'Change entire word from any position on it'

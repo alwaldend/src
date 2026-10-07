@@ -1,0 +1,20 @@
+note_id = 1520716966454
+guid = "wL8uq~+c9!"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+id = 1520716972318
+ordinal = 0
+
+[fields]
+article-title = 'Using "dao" to mean "to go to"'
+english = "I've already arrived at the train station."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 到 + Place'
+hanzi = '我已经到火车站了。'
+notes = ''
+pinyin = 'Wǒ yǐjīng dào huǒchēzhàn le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGLFX54'

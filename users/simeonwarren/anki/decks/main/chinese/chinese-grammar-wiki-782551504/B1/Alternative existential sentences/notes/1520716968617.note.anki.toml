@@ -1,0 +1,20 @@
+note_id = 1520716968617
+guid = "uE!eNPD=V@"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974481
+ordinal = 0
+
+[fields]
+article-title = 'Alternative existential sentences'
+english = 'There are several policemen standing in the hall.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Place + Verb + 着 + [Noun Phrase]'
+hanzi = '大厅里站着一些警察。'
+notes = ''
+pinyin = 'Dàtīng lǐ zhàn zhe yīxiē jǐngchá.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGAC619'

@@ -1,0 +1,20 @@
+note_id = 1520716970150
+guid = "eOsEv?Be|j"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "ButStatements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716976014
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "not… but rather…" with "er shi"'
+english = "It's not that I don't want to help, it's that I can't help."
+example-sentence = ''
+example-type = ''
+grammar-construct = '是 + B + 而不是 + A'
+hanzi = '我不是不想帮忙而是没有能力帮忙。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGAJGJD'

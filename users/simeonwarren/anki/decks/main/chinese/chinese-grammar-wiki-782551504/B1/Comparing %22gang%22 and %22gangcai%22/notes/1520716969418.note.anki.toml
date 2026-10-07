@@ -1,0 +1,20 @@
+note_id = 1520716969418
+guid = "MO[~o%UgJL"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Comparisons", "TimeWords"]
+
+[[cards]]
+id = 1520716975282
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "gang" and "gangcai"'
+english = "We've just been to the United States last year."
+example-sentence = ''
+example-type = ''
+grammar-construct = '刚 + Verb'
+hanzi = '我们去年刚去过美国。'
+notes = "This \"just\" is relative, clearly. The speaker feels that a year ago isn't too long ago."
+pinyin = 'Wǒmen qùnián gāng qù guo Měiguó.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJFFWG'

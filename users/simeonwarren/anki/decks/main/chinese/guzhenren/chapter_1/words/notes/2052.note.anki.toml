@@ -1,0 +1,20 @@
+note_id = 2052
+guid = "q(`qucvTqe"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+id = 2105
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'suddenly;	all of a sudden.'
+example-sentence = '因为失血过多而显得苍白的脸,被晚霞映照着,忽然增添了一份嫣然之光彩'
+example-type = ''
+grammar-construct = ''
+hanzi = '忽然'
+notes = ''
+pinyin = '<span class="tone1">hū</span><span class="tone2">rán</span>	 <!-- hu ran -->'
+source = ''

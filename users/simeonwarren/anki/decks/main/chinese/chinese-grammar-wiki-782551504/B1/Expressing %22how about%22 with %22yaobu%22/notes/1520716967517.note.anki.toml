@@ -1,0 +1,20 @@
+note_id = 1520716967517
+guid = "z~0>%>xtG9"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973381
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "how about" with "yaobu"'
+english = "Let's go, or we will miss the last metro."
+example-sentence = ''
+example-type = ''
+grammar-construct = '要不 + Option B + 吧 ，Reason / Situation'
+hanzi = '走吧，要不没地铁了。'
+notes = ''
+pinyin = 'Zǒu ba, yàobù méi dìtiě le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDFQP7'

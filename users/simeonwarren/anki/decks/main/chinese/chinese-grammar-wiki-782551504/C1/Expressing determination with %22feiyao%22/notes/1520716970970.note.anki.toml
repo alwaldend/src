@@ -1,0 +1,20 @@
+note_id = 1520716970970
+guid = "M)*gW3?Ez!"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Auxiliaryverbs", "C1", "leech"]
+
+[[cards]]
+id = 1520716976834
+ordinal = 0
+
+[fields]
+article-title = 'Expressing determination with "feiyao"'
+english = "My girlfriend had to ask me to buy her roses on Valentine's Day."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 非要 + Verb + (不可)'
+hanzi = '情人节那天，我女朋友非要让我给她买玫瑰花。'
+notes = ''
+pinyin = 'Qíngrén jié nèitiān, wǒ nǚ péngyǒu fēi yào ràng wǒ gěi tā mǎi méiguī huā.<br>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQV7TL'

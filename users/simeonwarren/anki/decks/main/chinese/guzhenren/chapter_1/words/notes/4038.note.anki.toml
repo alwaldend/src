@@ -1,0 +1,20 @@
+note_id = 4038
+guid = "qy:v0+b`4y"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+id = 4079
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'a building supported on pillars projecting over a river;	a mountain hut supported on pillars.'
+example-sentence = ' 这些光来源于一座座高脚吊楼,虽称不上万家灯火,却也有数千的规模'
+example-type = ''
+grammar-construct = ''
+hanzi = '吊楼'
+notes = ''
+pinyin = '<span class="tone4">diào</span><span class="tone2">lóu</span>	 <!-- diao lou -->'
+source = ''

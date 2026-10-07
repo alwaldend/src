@@ -1,0 +1,20 @@
+note_id = 1520716968477
+guid = "JxI@!Gn~|("
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716974341
+ordinal = 0
+
+[fields]
+article-title = 'Direction complement'
+english = 'Could you please help me take some books inside?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + [Compound Direction Complement]'
+hanzi = '你们可以帮我拿一些书进去吗？'
+notes = ''
+pinyin = 'Nǐmen kěyǐ bāng wǒ ná yīxiē shū jìnqù ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8LWBJ'

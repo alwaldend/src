@@ -1,0 +1,20 @@
+note_id = 1520716970811
+guid = "KYlO6&/Q>:"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Comparisons", "SeparateFunctions"]
+
+[[cards]]
+id = 1520716976675
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "kending" "queding" and "yiding"'
+english = 'We need to keep a certain distance between us.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '一定 + （的 +） Noun'
+hanzi = '我们之间要保持一定距离。'
+notes = ''
+pinyin = '<div>Wǒmen zhī jiān yào bǎochí yīdìng jùlí.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDPS0J'

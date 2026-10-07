@@ -1,0 +1,20 @@
+note_id = 1520716970491
+guid = "NdNNT!}[h/"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716976355
+ordinal = 0
+
+[fields]
+article-title = 'Conditions with "yao" and "jiu"'
+english = 'If you want to study, study well.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '要 + Verb + 就 + Verb'
+hanzi = '要学就好好学。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGXGADL'

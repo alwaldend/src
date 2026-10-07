@@ -1,0 +1,20 @@
+note_id = 2043
+guid = "B<UB2>qr4t"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 2087
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'blood.'
+example-sentence = ' 此刻,方源脚下的灰白山石,早已经被鲜血染成了暗红'
+example-type = ''
+grammar-construct = ''
+hanzi = '鲜血'
+notes = ''
+pinyin = '<span class="tone1">xiān</span><span class="tone4">xuè</span>	 <!-- xian xue -->'
+source = ''

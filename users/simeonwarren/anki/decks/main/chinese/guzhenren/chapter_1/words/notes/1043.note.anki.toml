@@ -1,0 +1,20 @@
+note_id = 1043
+guid = "c>uO]5;bJ4"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 1086
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'sight;	vision;	view;	gaze;	look.'
+example-sentence = ' 他目光幽幽,如古井深潭一般,一如既往的深不见底'
+example-type = ''
+grammar-construct = ''
+hanzi = '目光'
+notes = ''
+pinyin = '<span class="tone4">mù</span><span class="tone1">guāng</span>	 <!-- mu guang -->'
+source = ''

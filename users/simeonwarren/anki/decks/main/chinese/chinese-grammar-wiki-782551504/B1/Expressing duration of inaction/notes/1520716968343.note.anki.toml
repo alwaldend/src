@@ -1,0 +1,20 @@
+note_id = 1520716968343
+guid = "ICXbp;bT*}"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+id = 1520716974207
+ordinal = 0
+
+[fields]
+article-title = 'Expressing duration of inaction'
+english = "The last time I came to China was the year 2000.   (Same meaning as \"I haven't been to China since the year 2000.\")"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Duration + 没 + Verb + Obj. + 了'
+hanzi = '我上次来中国是2000年。'
+notes = ''
+pinyin = 'Wǒ shàngcì lái Zhōngguó shì liǎngqiān nián.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGSVF28'

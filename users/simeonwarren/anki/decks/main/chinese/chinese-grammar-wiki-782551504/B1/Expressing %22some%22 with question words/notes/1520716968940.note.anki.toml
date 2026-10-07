@@ -1,0 +1,20 @@
+note_id = 1520716968940
+guid = "qsgG*<xASA"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974804
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "some" with question words'
+english = "I've heard someone say this before."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '这件事我听谁说过。'
+notes = ''
+pinyin = 'Zhè jiàn shì wǒ tīng shéi shuō guo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG7ED89'

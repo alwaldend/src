@@ -1,0 +1,20 @@
+note_id = 1520716968765
+guid = "C9_Q<kb&E#"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974629
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "every" with question words'
+english = "You're welcome to come anytime."
+example-sentence = ''
+example-type = ''
+grammar-construct = '什么时候 (+ Verb) + 都 + Predicate'
+hanzi = '什么时候来都欢迎。'
+notes = ''
+pinyin = 'Nǐ shénme shíhou lái dōu huānyíng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG13ALM'

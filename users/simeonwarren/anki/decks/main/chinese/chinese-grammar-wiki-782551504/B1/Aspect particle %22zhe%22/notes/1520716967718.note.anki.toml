@@ -1,0 +1,20 @@
+note_id = 1520716967718
+guid = "k1Pg|EOyZ4"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973582
+ordinal = 0
+
+[fields]
+article-title = 'Aspect particle "zhe"'
+english = ''
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = 'Verb + 着'
+hanzi = '他戴着眼镜。'
+notes = 'Having his glasses (on him) is a state, so using 着 is natural.)'
+pinyin = 'Tā dài zhe yǎnjìng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGOIDEO'

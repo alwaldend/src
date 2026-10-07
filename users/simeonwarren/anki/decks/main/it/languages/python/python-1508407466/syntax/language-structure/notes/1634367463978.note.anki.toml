@@ -1,0 +1,17 @@
+note_id = 1634367463978
+guid = "iTXvT@Qt@G"
+note_type_id = 1630447360002
+note_type = "python-basic"
+tags = []
+
+[[cards]]
+id = 1634370830794
+ordinal = 0
+
+[fields]
+'Additional Info' = ''
+'Back - Basic' = 'for, while'
+'Back - Code' = ''
+Example = 'for x in list:<br>&nbsp; &nbsp; continue<br><br>while True:<br>&nbsp; &nbsp;continue'
+Front = 'What are the 2 main loop types?'
+Version = ''

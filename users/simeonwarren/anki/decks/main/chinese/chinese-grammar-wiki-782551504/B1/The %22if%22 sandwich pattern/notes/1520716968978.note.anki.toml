@@ -1,0 +1,20 @@
+note_id = 1520716968978
+guid = "Fr`MQ~_e>Y"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974842
+ordinal = 0
+
+[fields]
+article-title = 'The "if" sandwich pattern'
+english = "He wouldn't have gotten the job without your help."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '如果没有你的帮助的话，他是不会得到这份工作的。'
+notes = ''
+pinyin = '<div>Rúguǒ méiyǒu nǐ de bāngzhù dehuà, tā shì bù huì dédào zhè fèn gōngzuò de.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGN4VUU'

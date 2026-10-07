@@ -1,0 +1,20 @@
+note_id = 1520716965490
+guid = "tr^OV1@v6L"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Basics", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716971354
+ordinal = 0
+
+[fields]
+article-title = 'Simple "noun + adjective" sentences'
+english = 'Chinese is difficult.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun + 很 + Adj.'
+hanzi = '中文很难。'
+notes = ''
+pinyin = 'Zhōngwén hěn nán.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG17BLH'

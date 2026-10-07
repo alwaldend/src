@@ -1,0 +1,20 @@
+note_id = 1520716968877
+guid = "Q+zN8CIiG<"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974741
+ordinal = 0
+
+[fields]
+article-title = 'Expressing various aspects with "yi fangmian"'
+english = 'One one hand, smart phone makes our life more convenient; on the other hand, it wastes a lot of our time.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '一 方面 + Aspect 1， (另) 一 方面 + Aspect 2'
+hanzi = '智能手机一方面让我们的生活方便了很多，另一方面也浪费了我们不少时间。'
+notes = ''
+pinyin = 'Zhìnéng shǒujī yī fāngmiàn ràng wǒmen de shēnghuó fāngbiàn le hěn duō, lìng yī fāngmiàn yě làngfèi le wǒmen bùshǎo shíjiān.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCWHNF'

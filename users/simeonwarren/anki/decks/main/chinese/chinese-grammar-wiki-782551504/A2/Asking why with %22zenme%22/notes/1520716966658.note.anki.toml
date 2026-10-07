@@ -1,0 +1,20 @@
+note_id = 1520716966658
+guid = "jF-OS]y<ih"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+id = 1520716972522
+ordinal = 0
+
+[fields]
+article-title = 'Asking why with "zenme"'
+english = 'How is your Mandarin so good?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 怎么 + 这么 / 那么 + Adj.'
+hanzi = '你的汉语怎么这么好？'
+notes = ''
+pinyin = 'Nǐ de Hànyǔ zěnme zhème hǎo?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGD7NS3'

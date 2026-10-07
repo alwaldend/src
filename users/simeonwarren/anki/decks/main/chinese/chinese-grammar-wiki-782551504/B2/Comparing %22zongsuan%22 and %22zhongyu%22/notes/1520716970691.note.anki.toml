@@ -1,0 +1,20 @@
+note_id = 1520716970691
+guid = "v|_FW$ZN*r"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["AuxiliaryWords", "B2", "Comparisons"]
+
+[[cards]]
+id = 1520716976555
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "zongsuan" and "zhongyu"'
+english = "You finally didn't arrive late."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 总算 / 终于 + Verb'
+hanzi = '总算没迟到。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGT8AUA'

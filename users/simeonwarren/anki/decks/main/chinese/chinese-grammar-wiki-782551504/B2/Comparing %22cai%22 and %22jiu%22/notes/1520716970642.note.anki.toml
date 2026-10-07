@@ -1,0 +1,20 @@
+note_id = 1520716970642
+guid = "z>T(f:MN_<"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Comparisons"]
+
+[[cards]]
+id = 1520716976506
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "cai" and "jiu"'
+english = 'I bought so many things，'
+example-sentence = ''
+example-type = ''
+grammar-construct = '才 ( + Verb) + Measure Word + Noun'
+hanzi = '我买了这么多东西，才花了五百块。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGLOS9C'

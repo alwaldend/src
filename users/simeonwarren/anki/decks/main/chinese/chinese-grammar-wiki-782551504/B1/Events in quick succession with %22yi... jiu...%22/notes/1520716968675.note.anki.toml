@@ -1,0 +1,20 @@
+note_id = 1520716968675
+guid = "sJ9;Lx!6#-"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974539
+ordinal = 0
+
+[fields]
+article-title = 'Events in quick succession with "yi... jiu..."'
+english = 'Every time we ask my younger brother to stop playing with iPad, he cries.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 一 + Situation / Reason，就 + Result'
+hanzi = '一不让弟弟玩iPad，他就哭。'
+notes = ''
+pinyin = 'Yī bù ràng dìdi wán iPad, tā jiù kū.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTFUD0'

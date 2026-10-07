@@ -1,0 +1,20 @@
+note_id = 1520716970138
+guid = "drR%guWE>J"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Auxiliaryverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716976002
+ordinal = 0
+
+[fields]
+article-title = 'Expressing future with "jiang"'
+english = "We're about to hold protest if the government disapprove."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 将 / 将要 / 将会 + [Verb Phrase]'
+hanzi = '如果政府不批准，我们将会举行抗议。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGIQPUJ'

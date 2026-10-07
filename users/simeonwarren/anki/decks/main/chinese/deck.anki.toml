@@ -1,0 +1,12 @@
+id = 1668055065690
+title = 'main::chinese'
+
+[notes]
+path = 'notes'
+
+[normal]
+config_id = 1
+extend_new = 0
+extend_review = 50
+description = ''
+markdown_description = false

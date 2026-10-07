@@ -1,0 +1,20 @@
+note_id = 1520716966862
+guid = "vi;VpdUj02"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972726
+ordinal = 0
+
+[fields]
+article-title = 'Indicating the whole with "quan"'
+english = 'None of us will be home this weekend.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 全都 + 不 / 没 + Predicate'
+hanzi = '这个周末我们全都不在家。'
+notes = ''
+pinyin = 'Zhège zhōumò wǒmen quán dōu bù zài jiā.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCPDSR'

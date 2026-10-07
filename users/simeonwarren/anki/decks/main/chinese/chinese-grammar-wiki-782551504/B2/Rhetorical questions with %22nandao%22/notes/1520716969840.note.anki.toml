@@ -1,0 +1,20 @@
+note_id = 1520716969840
+guid = "w,2fQ`;2wN"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975704
+ordinal = 0
+
+[fields]
+article-title = 'Rhetorical questions with "nandao"'
+english = "He's so handsome and rich;you are not telling me that you don't want to marry him?"
+example-sentence = ''
+example-type = ''
+grammar-construct = '难道 + [Rhetorical Question]'
+hanzi = '他这么帅，又这么有钱，难道你不想嫁给他吗？'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMCP9V'

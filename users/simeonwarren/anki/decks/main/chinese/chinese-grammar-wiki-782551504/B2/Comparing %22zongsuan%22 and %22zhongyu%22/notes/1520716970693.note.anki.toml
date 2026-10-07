@@ -1,0 +1,20 @@
+note_id = 1520716970693
+guid = "dcb>=Gx[LE"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["AuxiliaryWords", "B2", "Comparisons"]
+
+[[cards]]
+id = 1520716976557
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "zongsuan" and "zhongyu"'
+english = 'You finally decided this!'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 总算 / 终于 + Verb'
+hanzi = '你终于决定了！'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGT8AUA'

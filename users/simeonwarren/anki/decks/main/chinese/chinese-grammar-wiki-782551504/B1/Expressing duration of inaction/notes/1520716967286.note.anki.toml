@@ -1,0 +1,20 @@
+note_id = 1520716967286
+guid = "I)su7JDY9s"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973150
+ordinal = 0
+
+[fields]
+article-title = 'Expressing duration of inaction'
+english = "It seems it's been a long time since you were so happy last time."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 已经 + Duration + 没 + Verb + 了'
+hanzi = '你好像很久没这么开心了。'
+notes = ''
+pinyin = 'Nǐ hǎoxiàng hěnjiǔ méi zhème kāixīn le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGSVF28'

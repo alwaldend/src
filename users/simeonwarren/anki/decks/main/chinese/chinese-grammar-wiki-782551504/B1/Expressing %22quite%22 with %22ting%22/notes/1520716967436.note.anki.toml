@@ -1,0 +1,20 @@
+note_id = 1520716967436
+guid = "P+e-^T`;q_"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["AdverbswithAdjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973300
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "quite" with "ting"'
+english = 'My daughter is quite afraid of his father.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '挺 + [Verb Phrase] + 的'
+hanzi = '我女儿挺怕他爸爸的。'
+notes = ''
+pinyin = "Wǒ nǚ'ér tǐng pà tā bàba de."
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDF1F7'

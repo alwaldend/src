@@ -1,0 +1,20 @@
+note_id = 1520716966968
+guid = "P|eTuH8$5T"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972832
+ordinal = 0
+
+[fields]
+article-title = 'Coincidence with "zhenghao"'
+english = 'Two rooms are perfect. One for me and one for my parents.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 正好'
+hanzi = '两个房间正好，我一间，我爸妈一间。'
+notes = ''
+pinyin = 'Liǎng gè fángjiān zhènghǎo, wǒ yījiān, wǒ bà mā yījiān.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGUD25J'

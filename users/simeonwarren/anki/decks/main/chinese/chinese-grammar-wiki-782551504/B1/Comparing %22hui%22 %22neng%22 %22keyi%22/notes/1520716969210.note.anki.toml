@@ -1,0 +1,20 @@
+note_id = 1520716969210
+guid = "CyH;d#UFn-"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["AuxiliaryWords", "B1", "Comparisons"]
+
+[[cards]]
+id = 1520716975074
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "hui" "neng" "keyi"'
+english = 'Is it possible to change it?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '可以 / 能 + Verb'
+hanzi = '可不可以换一个？'
+notes = ''
+pinyin = 'Kě bù kěyǐ huàn yī gè?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGZL717'

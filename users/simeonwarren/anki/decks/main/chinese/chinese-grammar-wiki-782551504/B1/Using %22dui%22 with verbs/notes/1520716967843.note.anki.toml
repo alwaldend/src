@@ -1,0 +1,20 @@
+note_id = 1520716967843
+guid = "yrMo7cp3FP"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+id = 1520716973707
+ordinal = 0
+
+[fields]
+article-title = 'Using "dui" with verbs'
+english = "Don't lose your temper at the child!"
+example-sentence = ''
+example-type = ''
+grammar-construct = '对 + Obj. + Verb'
+hanzi = '不要对孩子发脾气！'
+notes = ''
+pinyin = 'Bù yào duì háizi fā píqi!'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8ICO9'

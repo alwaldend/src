@@ -1,0 +1,20 @@
+note_id = 9035
+guid = "m^qp~Wz/1I"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+id = 9078
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'to fight over;	to contest;	to vie over.'
+example-sentence = ' 每年为了争夺这些天才后辈,家老们彼此之间都是争的面红耳赤,头破血流'
+example-type = ''
+grammar-construct = ''
+hanzi = '争夺'
+notes = ''
+pinyin = '<span class="tone1">zhēng</span><span class="tone2">duó</span>	 <!-- zheng duo -->'
+source = ''

@@ -1,0 +1,20 @@
+note_id = 1520716968317
+guid = "J/y#M4YuF("
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716974181
+ordinal = 0
+
+[fields]
+article-title = 'Verbs followed by "gei"'
+english = 'Could you please lend me this book?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 把 + Obj. + Verb + 给 + Recipient'
+hanzi = '可以把这本书借给我吗？'
+notes = ''
+pinyin = 'Kěyǐ bǎ zhè běn shū jiè gěi wǒ ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMMHTQ'

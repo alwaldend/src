@@ -1,0 +1,20 @@
+note_id = 1520716967805
+guid = "d!2+K^tl;?"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+id = 1520716973669
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "for" with "wei"'
+english = "Aren't you worried about your child?"
+example-sentence = ''
+example-type = ''
+grammar-construct = '为 + Party + Verb / Adj.'
+hanzi = '你不为自己的孩子担心吗？'
+notes = ''
+pinyin = 'Nǐ bù wèi zìjǐ de háizi dānxīn ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG68RBX'

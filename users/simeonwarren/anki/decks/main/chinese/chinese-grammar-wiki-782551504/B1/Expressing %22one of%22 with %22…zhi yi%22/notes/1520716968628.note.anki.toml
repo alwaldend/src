@@ -1,0 +1,20 @@
+note_id = 1520716968628
+guid = "Rfs_l$m2.1"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "NounPhrases"]
+
+[[cards]]
+id = 1520716974492
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "one of" with "…zhi yi"'
+english = 'in China, air pollution is one of the problems foreigners complain a lot about.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '[Noun Phrase] + 之一'
+hanzi = '中国的空气污染是的老外经常抱怨的问题之一。'
+notes = ''
+pinyin = 'Zhōngguó kōngqì wūrǎn shì lǎowài jīngcháng bàoyuàn de wèntí zhī yī.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMT1M1'

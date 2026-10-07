@@ -1,0 +1,20 @@
+note_id = 1520716965568
+guid = "oV%{LtHnW|"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+id = 1520716971432
+ordinal = 0
+
+[fields]
+article-title = 'Placement of question words'
+english = 'Why do these foreigners not like China?<br>Because China has a lot of people.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 为什么 + Predicate ?'
+hanzi = 'A: 这些外国人为什么不喜欢中国？<br>B: 因为中国人太多。'
+notes = ''
+pinyin = 'Zhèxiē wàiguó rén wèishénme bù xǐhuan Zhōngguó?<br>Yīnwèi Zhōngguó rén tài duō.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJQPSC'

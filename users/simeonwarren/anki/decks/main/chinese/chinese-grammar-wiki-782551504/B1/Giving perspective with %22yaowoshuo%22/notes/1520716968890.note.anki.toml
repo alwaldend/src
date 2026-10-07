@@ -1,0 +1,20 @@
+note_id = 1520716968890
+guid = "lq@.DQV6}V"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974754
+ordinal = 0
+
+[fields]
+article-title = 'Giving perspective with "yaowoshuo"'
+english = "The way I see it, this is something we shouldn't tell Mom and Dad."
+example-sentence = ''
+example-type = ''
+grammar-construct = '要我说， Opinion'
+hanzi = '要我说，这件事先不要告诉爸妈。'
+notes = ''
+pinyin = 'Yào wǒ shuō, zhè jiàn shì xiān bùyào gàosu bà mā.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGITYYM'

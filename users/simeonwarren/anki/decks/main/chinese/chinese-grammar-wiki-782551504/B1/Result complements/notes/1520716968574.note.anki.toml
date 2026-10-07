@@ -1,0 +1,20 @@
+note_id = 1520716968574
+guid = "gAPX2s<eC["
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716974438
+ordinal = 0
+
+[fields]
+article-title = 'Result complements'
+english = 'I just sold my old cell phone.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '没 + Verb + Adj.'
+hanzi = '我刚刚卖掉了我的旧手机。'
+notes = ''
+pinyin = 'Wǒ gānggāng mài diào le wǒ de jiù shǒujī.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNNMST'

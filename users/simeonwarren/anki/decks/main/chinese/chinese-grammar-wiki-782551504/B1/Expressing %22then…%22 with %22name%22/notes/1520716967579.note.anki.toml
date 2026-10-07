@@ -1,0 +1,20 @@
+note_id = 1520716967579
+guid = "F2+gd?U[/8"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973443
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "then…" with "name"'
+english = "It's no use being angry. What shall I do then?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Context ，那么 + Result / Decision'
+hanzi = '生气没有用，那我应该怎么办？'
+notes = ''
+pinyin = 'Shēngqì méiyǒu yòng, nà wǒ yīnggāi zěnmebàn?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGX298Z'

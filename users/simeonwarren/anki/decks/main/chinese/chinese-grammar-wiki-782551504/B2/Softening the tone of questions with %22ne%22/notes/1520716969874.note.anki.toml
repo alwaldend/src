@@ -1,0 +1,20 @@
+note_id = 1520716969874
+guid = "twkoE%M*BX"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975738
+ordinal = 0
+
+[fields]
+article-title = 'Softening the tone of questions with "ne"'
+english = 'Are you going to go shopping?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb 1 + 不 + Verb 1 + (Verb 2) + 呢？'
+hanzi = '你去不去逛街呢？'
+notes = 'Less intense, just asking a question.'
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGW7YXP'

@@ -1,0 +1,21 @@
+note_id = 1634416909968
+guid = "u#1|50><[$"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634416909968
+ordinal = 0
+
+[fields]
+additional-info = 'The default&nbsp;<i>hint</i>&nbsp;is all lines'
+answer = '<i>file</i>.readlines()'
+example = ''
+question = '<b>File method</b>&nbsp;that returns a list of lines from a file.'
+version = ''
+with-options = """
+
+
+<i>file</i>.readlines(<i>hint=-1</i>)&nbsp;\
+"""

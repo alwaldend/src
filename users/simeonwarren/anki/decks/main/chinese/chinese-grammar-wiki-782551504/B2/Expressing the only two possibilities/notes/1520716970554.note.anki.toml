@@ -1,0 +1,20 @@
+note_id = 1520716970554
+guid = "DD}km3dRVv"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716976418
+ordinal = 0
+
+[fields]
+article-title = 'Expressing the only two possibilities'
+english = "All day, if he's not playing games, he's sleeping."
+example-sentence = ''
+example-type = ''
+grammar-construct = '不是 + A，就是 + B'
+hanzi = '他整天不是打游戏就是睡觉。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGEXR6R'

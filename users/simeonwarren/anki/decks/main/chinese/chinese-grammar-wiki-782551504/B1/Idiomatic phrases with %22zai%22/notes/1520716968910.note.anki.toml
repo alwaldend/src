@@ -1,0 +1,20 @@
+note_id = 1520716968910
+guid = "B8CQ^RapZn"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974774
+ordinal = 0
+
+[fields]
+article-title = 'Idiomatic phrases with "zai"'
+english = 'On the topic of raising children, Chinese parents still have a lot of problems.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '在 + Abstract Concept + 方面， Comment Sentence'
+hanzi = '很多中国父母在家庭教育方面还有很多问题。'
+notes = ''
+pinyin = '<div>Hěnduō zhōngguó fùmǔ zài jiātíng jiàoyù fāngmiàn hái yǒu hěnduō wèntí.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGH13JY'

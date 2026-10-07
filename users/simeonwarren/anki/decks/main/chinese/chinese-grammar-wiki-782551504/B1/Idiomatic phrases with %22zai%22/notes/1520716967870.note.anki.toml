@@ -1,0 +1,20 @@
+note_id = 1520716967870
+guid = "L{!reH-R|P"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+id = 1520716973734
+ordinal = 0
+
+[fields]
+article-title = 'Idiomatic phrases with "zai"'
+english = 'Do you think kids will be happy growing up in this kind of environment?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '在 ⋯⋯ 下 ，⋯⋯'
+hanzi = '在这样的环境下长大，孩子会快乐吗？'
+notes = ''
+pinyin = 'Zài zhèyàng de huánjìng xià zhǎngdà, háizi huì kuàilè ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGH13JY'

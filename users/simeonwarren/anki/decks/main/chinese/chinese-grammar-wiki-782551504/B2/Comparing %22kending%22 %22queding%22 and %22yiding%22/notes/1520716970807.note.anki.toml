@@ -1,0 +1,20 @@
+note_id = 1520716970807
+guid = "i#<B8AjN7@"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Comparisons", "SeparateFunctions"]
+
+[[cards]]
+id = 1520716976671
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "kending" "queding" and "yiding"'
+english = "Since it's a command, \"肯定\" is not appropriate."
+example-sentence = ''
+example-type = 'invalid'
+grammar-construct = '一定 + Adj. / Verb'
+hanzi = '你们肯定要去听我的演唱会。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDPS0J'

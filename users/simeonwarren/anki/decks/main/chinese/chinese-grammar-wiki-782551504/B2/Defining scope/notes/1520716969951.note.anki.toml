@@ -1,0 +1,20 @@
+note_id = 1520716969951
+guid = "lY`BJj*(~{"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Parts_of_Speech", "PrepositionalPhrase"]
+
+[[cards]]
+id = 1520716975815
+ordinal = 0
+
+[fields]
+article-title = 'Defining scope'
+english = 'You cannot park within 50 meters of this building.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '时间 / 处所 / 数量 / 范围 + 以内 / 以外'
+hanzi = '这个大楼50米以内不能停车。'
+notes = ''
+pinyin = 'Zhège dàlóu wǔshí mǐ yǐnèi bù néng tíng chē.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG7AE5C'

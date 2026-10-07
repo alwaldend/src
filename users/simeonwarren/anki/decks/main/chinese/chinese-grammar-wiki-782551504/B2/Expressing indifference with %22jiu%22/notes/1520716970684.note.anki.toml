@@ -1,0 +1,20 @@
+note_id = 1520716970684
+guid = "N%c2dnNCqM"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716976548
+ordinal = 0
+
+[fields]
+article-title = 'Expressing indifference with "jiu"'
+english = "It's fine that you don't really understand. There's no point me telling you so much."
+example-sentence = ''
+example-type = ''
+grammar-construct = '不 / 没 + Adj. / Verb + 就 + 不 / 没 + Adj. / Verb'
+hanzi = '你们不懂就不懂，我说那么多也没用。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGL4O5E'

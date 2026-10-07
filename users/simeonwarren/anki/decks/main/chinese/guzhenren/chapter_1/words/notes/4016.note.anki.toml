@@ -1,0 +1,20 @@
+note_id = 4016
+guid = "Mj@6nS2@8."
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 4035
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'at this time;	at this moment.'
+example-sentence = '  群雄逼迫而来,恰在这时,轰的一声,方源悍然自爆'
+example-type = ''
+grammar-construct = ''
+hanzi = '这时'
+notes = ''
+pinyin = '<span class="tone4">zhè</span><span class="tone2">shí</span>	 <!-- zhe shi -->'
+source = ''

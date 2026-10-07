@@ -1,0 +1,20 @@
+note_id = 1520716969129
+guid = "o=5P+K$vS6"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974993
+ordinal = 0
+
+[fields]
+article-title = 'Topic-comment sentences'
+english = 'My younger brother broke my pen.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Topic ，Comment'
+hanzi = '我的笔，弟弟弄坏了。'
+notes = ''
+pinyin = 'Wǒ de bǐ, dìdi nòng huài le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5KNWW'
