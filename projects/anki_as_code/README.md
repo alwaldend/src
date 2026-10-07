@@ -1,6 +1,6 @@
 ---
 title: Anki as code
-description: Export Anki collections, manage state, and inspect configurations
+description: Export and reconcile Anki collections as TOML
 statuses:
   - in_progress
 languages:
@@ -9,12 +9,17 @@ tags:
   - cli
 ---
 
-Anki as code represents notes, decks, and note types as protobuf-backed TOML.
-Configuration APIs work without Anki. State commands use a managed Anki backend
-and modify only a selected collection metadata key. Collection export writes
-editable TOML without changing the source or exporting state. Planning, apply
-and archive rebuilding remain in
-[PR #128](https://github.com/alwaldend/src/pull/128).
+Anki as code exports collections as protobuf-backed TOML, plans changes, and
+reconciles them through Anki's native API. It accepts modern `.colpkg` archives
+containing `collection.anki21b` and offline collection databases such as
+`collection.anki2`. Keep Anki and other writers closed during export, state operations,
+apply, and build. Plan, config dump, and state dump use stdout; status and errors use stderr.
+
+Configuration paths identify objects, similar to Terraform. Native IDs live in
+Anki and collection-backed state; note GUIDs remain Anki metadata. New files
+create new objects; explicit moves retain existing identities and review progress. Apply/build leave
+all configuration files unchanged. New notes and their note types can be created
+in the same apply, without generating or writing identities into source.
 
 Collection operations live under `col` (alias `collection`): `col export`,
 `col plan`, `col apply`, `col build`, and `col state`. The namespace flag
@@ -22,29 +27,35 @@ Collection operations live under `col` (alias `collection`): `col export`,
 `conf`), such as `conf dump`. Collection source flags remain specific to each
 operation: `--collection` for existing collections and `--base` for builds.
 
-## Export collection configs
+## Commands
 
 ```sh
-anki_as_code col export --collection /path/to/collection.colpkg --output /path/to/configs
-anki_as_code col export --collection /path/to/collection.anki2 --output /path/to/configs
+bazel_agent bazel run //projects/anki_as_code -- col export \
+  --collection /absolute/path/collection.colpkg --output /absolute/path/text
+bazel_agent bazel run //projects/anki_as_code -- config dump \
+  --text /absolute/path/text
+# Bind existing objects with state import before editing the exported configs.
+# Edit the TOML files before planning and applying.
+bazel_agent bazel run //projects/anki_as_code -- col plan \
+  --collection /absolute/path/collection.colpkg --text /absolute/path/text
+bazel_agent bazel run //projects/anki_as_code -- col apply \
+  --collection /absolute/path/collection.colpkg --text /absolute/path/text
+bazel_agent bazel run //projects/anki_as_code -- col build \
+  --base /absolute/path/collection.colpkg --text /absolute/path/text \
+  --output /absolute/path/rebuilt.colpkg
 ```
 
-Export accepts existing offline databases and collection packages. It writes the
-fixed TOML hierarchy using the merged exporter and closes its managed native
-session afterward. Keep Anki and other writers closed. Use absolute paths with
-`bazel run`; current-user `~` and `~/...` paths are supported.
+Export the initial `.colpkg` from Anki. Use `col state import` to bind exported paths
+to existing objects before editing configs. Export does not initialize state.
+After build, import
+`rebuilt.colpkg` into Anki; the collection-backed bindings travel with it.
+Apply updates the supplied archive, while build writes a separate one.
 
-Export reads stored bindings for stable filenames and preset aliases.
-`--state-key KEY` selects their namespace. It does not initialize or write state,
-generate a state file, or request native resource mutations. Source archives retain
-their original bytes. Use the explicit state
-commands to bind existing objects before reconciliation.
-
-Declared config files are overwritten directly; unrelated entries and caller-owned
-state files remain untouched. Filesystem errors may leave partial output. For a
-clean snapshot, export into a fresh directory; callers own staging, cleanup and
-synchronization. The destination must not contain the source collection. Success
-status uses stderr and stdout stays empty.
+Use absolute paths with `bazel run`, which can start outside the checkout.
+Current-user `~` and `~/...` paths are supported. `--text` accepts a collection
+root file or its directory. `config dump` defaults to JSON; `--format toml` is
+also available. The CLI locates the repository-built `anki_grpc` server through
+runfiles, with a PATH fallback for installed deployments. No Python is required.
 
 ## Configuration-set export
 
@@ -89,7 +100,7 @@ completion follows the backend library's retention/error contract.
 Missing files and non-regular inputs fail before startup. Anki validates package
 contents during restore. Cleanup uses a bounded context independent of command
 cancellation, and operation and cleanup errors are preserved. Keep Anki and other
-writers closed during these operations. Reconciliation CLI commands remain placeholders.
+writers closed during these operations. Collection export and reconciliation use the same native workflow.
 
 ```sh
 anki_as_code col state dump --collection /path/to/collection.anki2 > state.anki.toml
@@ -253,28 +264,114 @@ the destination after success. Failed builds remove staging and leave the
 destination untouched. Callers own exclusive access to the base and destination.
 State, export and reconciliation borrow prepared services without owning lifetime.
 
-## Configuration commands
+## Export and explicit moves
+
+Export writes configuration TOML without changing the source collection or
+creating a state file. Existing stored bindings retain note and note-type
+filenames on re-export. New note types receive unused filenames with numeric
+suffixes when their names collide with tracked paths, including case-only
+differences and fallback names. Without bindings, native edits can change
+content-derived filenames.
+
+Export selects a note's directory from its first regular card. Card generation or
+changed destinations can therefore change an exported path, including when Anki
+chooses a deck for a new root note. When adopting these new paths, declare
+`[[moved]]` entries from their stored paths before applying. Export does not
+rewrite bindings. Applying the same root-note configs again preserves native
+identity and converges; Anki owns their initial deck selection.
+
+Use `col state import` to bind config paths to existing native objects before the
+first reconciliation. New configs without bindings describe new objects.
+State dump exports stored bindings separately; it does not discover bindings
+for an untracked config tree:
 
 ```sh
-bazel_agent bazel run //projects/anki_as_code -- config dump \
-  --text "$PWD/path/to/collection.anki.toml"
-bazel_agent bazel run //projects/anki_as_code -- config dump \
-  --text "$PWD/path/to/collection.anki.toml" --format toml
+bazel_agent bazel run //projects/anki_as_code -- col state dump \
+  --collection /absolute/path/collection.colpkg > /absolute/path/state.anki.toml
 ```
 
-`--text` accepts a root file or its containing directory. JSON is the default;
-TOML is the other supported format. Dump emits the root `config`, deck groups
-with derived `title` and marker `path`, and note/note-type entries with `path`
-and `config`. Paths are collection-relative and use `/`. Notes in a deck inherit
-its marker path for omitted card deck overrides; root notes have no default deck.
-Explicit empty overrides stay empty. Default protobuf values are omitted;
-optional zero values and empty named fields remain present.
+Export writes declared files directly through `config.Store.Export` and does not reload
+generated files. Other entries remain untouched, including old configs and state
+files. The destination must not contain the source collection. Filesystem errors
+may leave partial output.
 
-Dump leaves files unchanged. It checks syntax, protobuf types, version, and
-filesystem layout, without resolving references, validating Anki semantics,
-normalizing content, allocating identities, or opening a collection. Unfinished
-notes and definitions remain inspectable. Success uses stdout; errors use stderr.
-Missing or unsupported subcommands fail.
+Use a fresh destination for a clean snapshot. For directory cleanup or
+synchronization, export to a temporary directory and use rsync or another
+external tool; those policies belong to the caller.
+
+To rename or move a resource without replacing it, move its file/directory and
+add a root `[[moved]]` pair. Directory moves include descendant notes/decks; type
+moves include their members. Fields/templates use addresses such as
+`note_types/Basic.notetype.anki.toml#fields/Front`. Update readable references in
+the same edit. Moves require independent, nonoverlapping endpoints, reject
+occupied destinations, and are idempotent when retained. The old source must no
+longer be declared. Remove a completed move before reusing its old path.
+
+## Managed and unmanaged entities
+
+- **Notes:** add/remove tracked notes; edit exact named fields and tags shared by
+  their generated cards. Only tracked notes missing from configs are removed.
+- **Regular-deck assignments:** move generated cards using note defaults and
+  template/cloze ordinals. Card entries assign decks and do not declare existence.
+  Before deleting a deck containing retained cards, declare a surviving destination
+  for them. An omitted assignment keeps the card and its existing deck.
+- **Decks:** create, rename/move, remove, and edit normal or filtered configuration.
+  Titles derive from the fixed hierarchy. A deck must be empty in Anki before
+  conversion between normal and filtered kinds. Native APIs must support the requested
+  removal; required native objects cannot silently become untracked.
+- **Note types:** create, rename, remove, and edit ordered fields, templates,
+  CSS, browser fonts, and upstream presentation settings. Explicit member moves
+  preserve field/template identities. Edit affected named note fields together.
+  Existing notes cannot switch to another native note type through this CLI.
+
+These are excluded from editable desired state:
+
+- **Resident filtered cards:** membership, home decks, and temporary scheduling
+  belong to Anki. Their assignments are omitted. Empty the filtered deck before
+  removing referenced resources or changing a resident card's template structure.
+- **Scheduling presets:** referenced by readable names; never created, deleted,
+  or edited. The CLI calls no preset-writing API.
+- **Existing card scheduling/state and review history:** preserved in the database
+  to retain study progress. Anki initializes cards it generates for new notes/templates.
+- **Media payloads:** preserved through Anki’s native package APIs. Field references are
+  editable; media creation/deletion is outside the workflow.
+- **Collection/UI/sync settings and native metadata:** owned by Anki and omitted
+  from text. API operations update their normal bookkeeping as needed.
+- **Untracked objects:** preserved during apply. Import them before edits that
+  would destroy their references, such as deleting a deck with untracked cards,
+  renaming a parent with untracked children, or changing shared field/card structure.
+
+## Publication and planning
+
+Plan reads an API snapshot, resolves config references and moves, checks owned
+relationships, and compares requested resources in memory. It performs no native
+mutations, writes no bindings and creates no database copy. It reports paths,
+resource changes and known card deck assignments. `card_generation_deferred`
+indicates that Anki determines generated-card effects during apply; the planner
+does not claim exact creation/removal counts for those effects.
+
+Anki performs final template validation, normalization and card generation during
+apply. Planning can therefore accept a template that apply rejects. Source values
+that Anki normalizes can remain different from stored values in subsequent plans;
+accepted values are never written back into TOML.
+
+Database apply updates the supplied collection directly. Anki commits each native
+operation, so later errors can leave earlier operations committed. Archive apply
+uses Anki's atomic package export; complete no-ops retain original bytes by skipping
+that call. Failures before export leave the source package unchanged. Build requires
+a distinct archive output and stages its copy before Apply, publishing the completed
+archive atomically after success. Keep other writers closed while using a collection;
+the CLI does not detect concurrent archive replacement.
+
+Collection export writes its declared config files in place. It does
+not traverse, clean or replace the destination directory. Other entries remain
+untouched, and filesystem errors may leave partial output. Callers can export to
+a temporary directory and synchronize it externally when required.
+Converged database apply leaves source bytes unchanged. Note-type comparison
+ignores runtime ordinal hints and unmanaged metadata while retaining explicit
+field/template identity changes. New notes use Anki's batch creation API.
+Export neither writes source state nor produces a state file.
+Failed native reads or projection leave existing output unchanged.
 
 ## Fixed hierarchy
 
@@ -335,8 +432,8 @@ Array order determines field/template positions.
 
 Paths identify resources. Editable configs contain no top-level Anki IDs or note
 GUIDs. A note at a new path declares a new resource; identity-preserving moves
-belong in the root's `moved` list. Explicit state imports bind existing config
-paths to native objects without adding identities to the editable files.
+belong in the root's `moved` list. Explicit state operations install bindings
+inside the collection; export writes configs only.
 The identity generation command has been removed.
 
 The loader lists immediate files in `notes/` and `note_types/`, descending only
@@ -368,9 +465,10 @@ The class diagram shows root and resource configuration messages. References
 use paths; card and template deck references target normal decks. Each note stores
 shared field content and tags, while note types define ordered fields, templates,
 and presentation. The root marker contains the version and explicit moves.
-Attached notes identify each file's location in the fixed hierarchy. The
-operation chart shows discovery and conversion; the JSON/TOML branch changes
-how Dump encodes the complete configuration set.
+Attached notes identify each file's location in the fixed hierarchy. In Load,
+each file is decoded as it is read, and deck titles and omitted card deck paths
+are derived inside the deck loop. Dump selects JSON or TOML encoding for the
+complete configuration set.
 
 TOML decodes to generic values, then JSON, then protobuf using ProtoJSON.
 Unknown keys and incompatible values fail. Unquoted TOML dates/times fail rather
@@ -404,52 +502,64 @@ validation, staging, cleanup, and publication. Export does not load or normalize
 its output; failures may leave partial files. Consumers use the store;
 the layout package remains an implementation API with restricted Bazel visibility.
 
-`internal/config/layout` owns the fixed hierarchy, discovery, file I/O, and direct file
+`config/layout` owns the fixed hierarchy, discovery, file I/O, and direct file
 export. `internal/codec` converts TOML/JSON through protobuf without filesystem
-access. Dependencies flow from config to layout/codec, and from layout to codec.
+access. Config layout, config dump, state CLI commands, and collection export
+reuse its format dispatch; TOML/JSON helpers are private. Dependencies flow from
+config to layout/codec and from layout to codec. State stores have no serialization
+dependency.
 Collection relationship validation and native operations remain outside them.
 
-## Managed boundaries
+## Architecture
 
-Configs express note content/tags, generated-card deck assignments, deck settings,
-and note-type fields/templates/presentation. The config package parses and writes
-those declarations. Anki owns persistence, native rules, normalization, structural
-migrations, and card generation.
+The project keeps one Go module with focused packages. Configs and state are
+protobuf contracts. Runtime resolution models stay private to `internal/plan`; packages expose only operations used by their consumers.
 
-Scheduling presets, review history, card scheduling, media payloads, collection/UI
-settings, and resident filtered cards are excluded from editable desired state.
-They represent study progress, external resources, or Anki's operational state.
-Collection-backed reconciliation state is application metadata, not a user setting.
+![Anki CLI package dependencies](assets/architecture.svg)
 
-## Build and architecture
+The dotted edge shows calls through the CLI-owned application interface. Solid
+edges show component dependencies.
 
-```sh
-bazel_agent bazel build //projects/anki_as_code
-bazel_agent bazel test //projects/anki_as_code/pkg/ankiascode:ankiascode_test \
-  //projects/anki_as_code/internal/state:state_test \
-  //projects/anki_as_code/internal/cli:command_test \
-  //projects/anki_as_code/cmd/anki_as_code:cli_workflow_test \
-  //projects/anki_as_code/internal/config:store_test
-```
+| Package                  | Responsibility                                                 |
+| ------------------------ | -------------------------------------------------------------- |
+| `cmd/anki_as_code`       | App construction, CLI invocation and process signals           |
+| `internal/cli`           | Cobra commands, private application interface and streams      |
+| `internal/collection`    | Source reservations and archive publication                    |
+| `api/collection`         | Generated config, plan, and persisted-state contracts          |
+| `pkg/ankiascode`         | Command routing and shared backend composition                 |
+| `internal/export`        | Native-to-config projection and direct file output             |
+| `internal/plan`          | Pure resolution, comparison, ownership and prepared operations |
+| `internal/reconcile`     | Execute protobuf plans, bind native IDs and persist state      |
+| `internal/rebuild`       | Apply to a staged archive copy and publish it atomically       |
+| `internal/resource`      | Native generated clients and fresh resource snapshots          |
+| `internal/config`        | Root-bound configuration Store for Load, Dump, and Export      |
+| `internal/config/layout` | Fixed hierarchy, discovery, file I/O, and direct export        |
+| `internal/codec`         | Filesystem-independent protobuf/TOML/JSON conversion           |
+| `internal/state`         | Stored-state dump, import, update, and replacement             |
 
-Use absolute paths with `bazel run`, which may execute outside the checkout.
+The command entry point injects App into internal/cli. Commands invoke its private
+application interface without importing the implementation. App borrows a prepared
+connection through collection.Store and constructs its services locally. `export.New(resources, states)` constructs an
+`Exporter` using caller-provided resource and state stores. Its
+`Export(ctx, output)` method owns native-to-config projection,
+filenames and direct config output. State operations remain separate.
+Export has no dependency on reconciliation.
 
-| Package                  | Responsibility                                                  |
-| ------------------------ | --------------------------------------------------------------- |
-| `api/collection`         | Generated resource, configuration, plan, and state contracts    |
-| `internal/config`        | Root-bound configuration Store for Load, Dump and Export        |
-| `internal/config/layout` | Fixed hierarchy, discovery, file I/O, and direct export         |
-| `internal/codec`         | Filesystem-independent protobuf/TOML/JSON conversion            |
-| `internal/state`         | Stored-state dump, batch import, update and replacement         |
-| `internal/export`        | Native-to-config projection, filenames and direct file output   |
-| `internal/plan`          | Pure resolution, ownership checks and executable protobuf plans |
-| `internal/collection`    | Source reservations and archive publication                     |
-| `internal/cli`           | Cobra flags, syntax, serialization and streams                  |
-| `pkg/ankiascode`         | Workflow composition and collection command placeholders        |
-| `cmd/anki_as_code`       | Executable composition and signal cancellation                  |
+`plan.Build(configs, snapshot, stored)` constructs prepared protobuf operations
+without I/O. `reconcile.New(resources, states)` constructs a `Reconciler` whose
+`Apply(ctx, compiled)` method executes them and returns whether native data or
+bindings changed. App shares config loading, capture and plan preparation between
+plan and apply within one collection scope. Planning owns reference resolution,
+comparison and ownership; execution owns native calls and returned identities.
 
-The loader produces protobuf config sets directly. Resource messages use `Config`,
-file wrappers retain source paths, and upstream messages keep their upstream names.
+Config and codec have no Anki runtime dependency. State owns stored path bindings,
+not lifecycle or serialization. App uses the Go backends in
+`projects/anki_grpc` and Anki's collection/package services; Resource owns generated resource clients and fresh native snapshots.
+The executor borrows resource/state stores and owns no process or filesystem resources. There is no archive facade or handwritten ZIP/Zstandard
+handling. Anki owns storage compatibility, normalization, structural migrations,
+field caches, and card generation. No HTML cache rebuilding or SQLite driver is
+implemented in Go. The application does not force Check Database after import;
+normal Anki API updates maintain their caches.
 
 ## Planning Go API
 
@@ -484,14 +594,17 @@ Anki owns native validation, normalization, structural migrations and card gener
 The report compares current card destinations and cards removed with deleted notes;
 template-driven additions, removals and migrations remain deferred through
 `card_generation_deferred`. Prepared operations do not simulate those native effects.
-The native executor and CLI integration are implemented independently in #128.
-That executor accepts the complete protobuf plan; CLI planning displays its report.
+The CLI and App's `ColPlan` return the report; Go services pass the complete plan to
+`reconcile.New(resources, states).Apply(ctx, compiled)`.
 
-The executor contract checks expected stored state before writes, executes prepared operations,
+The executor checks expected stored state before writes, executes prepared operations,
 resolves new native IDs and persists bindings. It never loads configs, captures a
 resource snapshot, matches members or recomputes the plan. Native metadata and
-newly generated cards are read only as needed to execute it. The supplied plan stays
-unchanged. Callers retain exclusive access and own freshness beyond stored-state checks.
+newly generated cards are read only as needed to execute it. A private `applier`
+reads the supplied plan unchanged, clones the proposed bindings, and copies only
+note-type requests whose native identities or presentation need updating. Reports,
+expected state and note bodies are not cloned. Callers retain exclusive access and
+own freshness beyond stored-state checks.
 
 ```go
 compiled, err := plan.Build(configs, snapshot, stored)
@@ -519,7 +632,7 @@ before publication and publication failures leave the original and existing
 destination intact. Staging is removed on return, including panic unwinding;
 cleanup errors are retained. Cancellation preserves both the context error and
 its custom cause for `errors.Is`. Atomic publication does not guarantee power-loss
-durability. App/CLI build integration remains in #128.
+durability. The App callback delegates to `ColApply`.
 
 Run `bazel_agent bazel test //projects/anki_as_code/internal/rebuild:rebuild_test`.
 The native E2E changes real Anki state in the staged archive and emits original,
@@ -597,10 +710,9 @@ the Rust API. The two Rust API approaches require building Anki from source.
 A translation layer can be a C ABI or a gRPC sidecar; it does not remove that
 build requirement.
 
-This project uses a translation layer: application wiring obtains the managed
-connection from `projects/anki_grpc`, whose Rust server forwards operations to
-Anki's Rust API. The backend library implements server and collection lifecycle;
-the application calls its Start, Connection and Stop methods.
+This project uses a translation layer: the Go CLI calls the Rust server in
+`projects/anki_grpc`, which forwards operations to Anki's Rust API. Go owns the
+server process and its failures.
 
 ![Anki backend integration approaches](/docs/projects/anki_as_code/assets/backend-approaches.svg)
 
@@ -609,31 +721,22 @@ The maintained [Mermaid source](backend-approaches.mmd) is rendered by the
 
 ## Verification
 
-The built-CLI E2E runs with an empty executable search path and emits repeatable
-JSON, TOML, and exported-directory artifacts. It checks nested ownership, fixed
-traversal, path references, removed identities/command, exact Unicode/multiline
-fields, optional zero values, empty fields, source preservation, schema/filesystem
-errors, and direct object export without validation or message changes.
+```sh
+bazel_agent bazel build //projects/anki_as_code
+bazel_agent bazel test //projects/anki_as_code/pkg/ankiascode:ankiascode_test \
+  //projects/anki_as_code/internal/export:export_test \
+  //projects/anki_as_code/internal/config:store_test \
+  //projects/anki_as_code/internal/cli:command_test \
+  //projects/anki_as_code/cmd/anki_as_code:cli_workflow_test
+```
 
-State E2E uses a managed native worker for Go API checks and lends its closed
-database to managed CLI invocations with an empty executable search path. Native
-API checks after each CLI call verify cleanup and persistence. It covers batched
-operations, rejected updates, namespace isolation, both formats, invalid-state
-recovery and native-object preservation, and emits TOML, JSON and a closed native
-database. General backend
-lifecycle and archive tests belong to their owning components.
-
-The application E2E exercises state CLI and Go operations on databases and
-packages, direct-write persistence after caller errors, rejected/no-op archive
-writes, batched imports, namespace isolation, cancellation and invalid packages.
-It verifies borrowed connections close, normal temporary restores are removed,
-and notes, reviewed cards, history, presets and media survive state operations.
-Repeatable JSON, TOML, `.anki2` and `.colpkg` artifacts are emitted.
-
-Export CLI E2E checks databases and packages, source-byte preservation, config-only
-output, explicit state imports, namespace-selected filenames, retained caller
-files and permissions, home paths, rejected destinations and failed native reads.
-It emits representative note configs and independent TOML/JSON state dumps.
+Synthetic native E2E verifies reviewed-card/history/preset/media retention, filtered
+cards, field/template migrations, copied notes, config-only export and independent state operations,
+import/moves, untracked-object safety, read-only configs, convergence, rejected
+publication, large fields/archives, and Anki's actual full-package round trip.
+CLI E2E verifies streams, flags, removed generation, and pure config behavior.
+Repeatable TOML, JSON, and collection artifacts are emitted through Bazel's
+undeclared test outputs. Exact-candidate delivery receipts own validation status.
 
 The independent exporter E2E uses a caller-managed native backend and collection.
 It checks exact Unicode/multiline fields, presentation, member bindings, stable

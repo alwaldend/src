@@ -1,0 +1,28 @@
+flowchart LR
+    entry[cmd/anki_as_code] --> cli[internal/cli]
+    entry --> app[pkg/ankiascode.App]
+    cli -. application interface .-> app
+    app --> collections[collection.Store]
+    app --> export[Export: write configs]
+    app --> planning[Plan: prepare operations]
+    app --> reconcile[Reconcile: execute plan]
+    app --> builder[rebuild.Builder: stage and publish archive]
+    planning --> resource
+    app --> config[config.Store: Load, Dump, Export]
+    app --> state[State: persisted bindings]
+    cli --> codec[Codec: TOML and JSON]
+    app --> resource[Resource: native clients and snapshots]
+    export --> resource
+    resource --> services[Generated Anki clients]
+    export --> state
+    export --> config
+    config --> layout[Config layout]
+    config --> codec
+    layout --> codec
+    reconcile --> state
+    reconcile --> resource
+    state --> services
+    collections --> backend[Anki gRPC backends]
+    backend --> server[Anki gRPC server]
+    services -->|gRPC| server
+    server --> native[Anki Rust library]

@@ -12,6 +12,7 @@ go_library(
         "//projects/anki_as_code/internal/collection:__pkg__",
         "//projects/anki_as_code/internal/collection:consumers",
         "//projects/anki_as_code/internal/plan:__pkg__",
+        "//projects/anki_as_code/internal/reconcile:__pkg__",
     ],
     deps = [
         "//projects/anki_as_code/api/collection",
