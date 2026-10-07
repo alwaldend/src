@@ -4,11 +4,14 @@ load("//projects/leetcode_downloader/main/bzl:al_leetcode_submissions.bzl", "al_
 docs_filegroup(
     name = "docs",
     srcs = glob(["*.md"]),
-    visibility = ["//data:__pkg__"],
+    visibility = ["//users/simeonwarren:__pkg__"],
 )
 
 al_leetcode_submissions(
     name = "leetcode_submissions",
     srcs = glob(["languages/*/questions/*/submissions/*/submission.toml"]),
-    visibility = ["//projects/alwaldend.com/content/docs/misc/leetcode_submissions:__pkg__"],
+    visibility = [
+        "//projects/alwaldend.com/content/docs/misc/leetcode_submissions:__pkg__",
+        "//users/simeonwarren:__subpackages__",
+    ],
 )

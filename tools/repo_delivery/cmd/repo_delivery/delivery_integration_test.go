@@ -352,6 +352,66 @@ func (f integrationDeliveryFixture) advanceBase(t *testing.T) {
 	runTestGit(t, f.seed, "push", "origin", "master")
 }
 
+func TestDeliveryPublishesLargePreparationReceipt(t *testing.T) {
+	fixture := newIntegrationDeliveryFixture(t)
+	for i := range 2000 {
+		path := filepath.Join(fixture.work, "submissions", strings.Repeat("a", 100), fmt.Sprintf("%04d", i), "submission.toml")
+		if err := os.MkdirAll(filepath.Dir(path), 0o755); err != nil {
+			t.Fatalf("create submission directory: %v", err)
+		}
+		writeTestFile(t, path, fmt.Sprintf("id = %d\n", i))
+	}
+	if err := os.MkdirAll(filepath.Join(fixture.work, "out", "delivery"), 0o700); err != nil {
+		t.Fatalf("create receipt directory: %v", err)
+	}
+	writeTestFile(t, filepath.Join(fixture.work, "out", "delivery", "commit.md"), "Add large submission collection\n\nExercise guarded publication of a large path inventory.\n")
+	prepared, err := fixture.delivery.prepare(context.Background(), prepareOptions{
+		MessageFile: "out/delivery/commit.md",
+		ReceiptFile: "out/delivery/prepare.json",
+		Paths:       []string{"submissions"},
+	})
+	if err != nil {
+		t.Fatalf("prepare large change: %v", err)
+	}
+	receiptPath := filepath.Join(fixture.work, "out", "delivery", "prepare.json")
+	info, err := os.Stat(receiptPath)
+	if err != nil {
+		t.Fatalf("inspect large receipt: %v", err)
+	}
+	if info.Size() <= 256*1024 {
+		t.Fatalf("receipt size = %d, want more than 256 KiB", info.Size())
+	}
+	published, err := fixture.delivery.publish(context.Background(), publishOptions{
+		ValidatedHead: prepared.HeadOID,
+		ReceiptFile:   "out/delivery/prepare.json",
+	})
+	if err != nil {
+		t.Fatalf("publish large change: %v", err)
+	}
+	if !published.Verified || published.PullRequest == nil || published.PullRequest.HeadRefOID != prepared.HeadOID {
+		t.Fatalf("large change publication was not verified")
+	}
+}
+
+func TestDeliveryRejectsOversizedPreparationReceipt(t *testing.T) {
+	fixture := newIntegrationDeliveryFixture(t)
+	prepared := fixture.prepare(t)
+	receiptPath := filepath.Join(fixture.work, "out", "delivery", "prepare.json")
+	if err := os.WriteFile(receiptPath, []byte(strings.Repeat(" ", 4*1024*1024+1)), 0o600); err != nil {
+		t.Fatalf("write oversized receipt: %v", err)
+	}
+	_, err := fixture.delivery.publish(context.Background(), publishOptions{
+		ValidatedHead: prepared.HeadOID,
+		ReceiptFile:   "out/delivery/prepare.json",
+	})
+	if err == nil || !strings.Contains(err.Error(), "exceeds") {
+		t.Fatalf("publish oversized receipt error = %v, want size refusal", err)
+	}
+	if fixture.forge.pull != nil {
+		t.Fatal("oversized receipt created a pull request")
+	}
+}
+
 func TestPrepareStagesExplicitTrackedDeletion(t *testing.T) {
 	fixture := newIntegrationDeliveryFixture(t)
 	if err := os.MkdirAll(

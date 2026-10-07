@@ -87,6 +87,26 @@ func requireValidated(t *testing.T, fixture integrationDeliveryFixture) *validat
 	return report
 }
 
+func TestValidationRejectsOversizedPlanBeforeRunningChecks(t *testing.T) {
+	fixture, _, runner, _ := newValidationFixture(t)
+	planPath := filepath.Join(fixture.work, testValidationPlan)
+	contents, err := os.ReadFile(planPath)
+	if err != nil {
+		t.Fatalf("read fixture plan: %v", err)
+	}
+	contents = append(contents, []byte(strings.Repeat(" ", 256*1024))...)
+	if err := os.WriteFile(planPath, contents, 0o600); err != nil {
+		t.Fatalf("write oversized plan: %v", err)
+	}
+	_, err = fixture.delivery.validateCandidate(context.Background(), testValidationReceipt, testValidationPlan)
+	if err == nil || !strings.Contains(err.Error(), "exceeds") {
+		t.Fatalf("validate oversized plan error = %v, want size refusal", err)
+	}
+	if len(runner.checks) != 0 {
+		t.Fatalf("oversized plan ran %d checks", len(runner.checks))
+	}
+}
+
 func TestValidationAndContinuation(t *testing.T) {
 	fixture, prepared, runner, _ := newValidationFixture(t)
 	report := requireValidated(t, fixture)

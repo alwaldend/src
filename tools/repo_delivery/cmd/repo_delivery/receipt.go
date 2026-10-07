@@ -21,13 +21,14 @@ import (
 )
 
 const (
-	preparationReceiptSchema   = "repo_delivery/preparation/v1"
-	rewriteAuthorizationSchema = "repo_delivery/rewrite_authorization/v1"
-	receiptFileLimit           = 256 * 1024
-	receiptRevisionBytes       = 32
-	scopeModePaths             = "paths"
-	scopeModeUseIndex          = "use_index"
-	scopeModeMessageOnly       = "message_only"
+	preparationReceiptSchema    = "repo_delivery/preparation/v1"
+	rewriteAuthorizationSchema  = "repo_delivery/rewrite_authorization/v1"
+	receiptFileLimit            = 256 * 1024
+	preparationReceiptFileLimit = 4 * 1024 * 1024
+	receiptRevisionBytes        = 32
+	scopeModePaths              = "paths"
+	scopeModeUseIndex           = "use_index"
+	scopeModeMessageOnly        = "message_only"
 )
 
 type refExpectation struct {
@@ -1160,7 +1161,7 @@ func (v receiptFileVersion) equal(other receiptFileVersion) bool {
 }
 
 func captureReceiptFileVersion(path string) (receiptFileVersion, error) {
-	contents, err := readStableReceiptFile(path)
+	contents, err := readStableReceiptFileWithLimit(path, preparationReceiptFileLimit)
 	if errors.Is(err, os.ErrNotExist) {
 		return receiptFileVersion{}, nil
 	}
@@ -1435,8 +1436,8 @@ func encodePreparationReceipt(receipt preparationReceipt) ([]byte, error) {
 		return nil, fmt.Errorf("encode preparation receipt: %w", err)
 	}
 	contents = append(contents, '\n')
-	if len(contents) > receiptFileLimit {
-		return nil, fmt.Errorf("preparation receipt exceeds 256 KiB")
+	if len(contents) > preparationReceiptFileLimit {
+		return nil, fmt.Errorf("preparation receipt exceeds 4 MiB")
 	}
 	return contents, nil
 }
@@ -1794,6 +1795,14 @@ func stableFileInfo(left os.FileInfo, right os.FileInfo) bool {
 }
 
 func readStableReceiptFile(path string) ([]byte, error) {
+	contents, err := readStableReceiptFileWithLimit(path, receiptFileLimit)
+	if err != nil {
+		return nil, fmt.Errorf("read stable receipt: %w", err)
+	}
+	return contents, nil
+}
+
+func readStableReceiptFileWithLimit(path string, limit int64) ([]byte, error) {
 	pathBefore, err := os.Lstat(path)
 	if err != nil {
 		return nil, fmt.Errorf("inspect preparation receipt: %w", err)
@@ -1814,12 +1823,12 @@ func readStableReceiptFile(path string) ([]byte, error) {
 			"preparation receipt changed while it was being opened",
 		)
 	}
-	first, err := io.ReadAll(io.LimitReader(file, receiptFileLimit+1))
+	first, err := io.ReadAll(io.LimitReader(file, limit+1))
 	if err != nil {
 		return nil, fmt.Errorf("read preparation receipt: %w", err)
 	}
-	if len(first) > receiptFileLimit {
-		return nil, fmt.Errorf("preparation receipt exceeds 256 KiB")
+	if int64(len(first)) > limit {
+		return nil, fmt.Errorf("receipt exceeds %d KiB", limit/1024)
 	}
 	afterFirst, err := file.Stat()
 	if err != nil {
@@ -1831,7 +1840,7 @@ func readStableReceiptFile(path string) ([]byte, error) {
 	if _, err := file.Seek(0, io.SeekStart); err != nil {
 		return nil, fmt.Errorf("rewind preparation receipt: %w", err)
 	}
-	second, err := io.ReadAll(io.LimitReader(file, receiptFileLimit+1))
+	second, err := io.ReadAll(io.LimitReader(file, limit+1))
 	if err != nil {
 		return nil, fmt.Errorf("reread preparation receipt: %w", err)
 	}
@@ -1843,7 +1852,7 @@ func readStableReceiptFile(path string) ([]byte, error) {
 	if err != nil {
 		return nil, fmt.Errorf("reinspect preparation receipt path: %w", err)
 	}
-	if len(second) > receiptFileLimit ||
+	if int64(len(second)) > limit ||
 		!bytes.Equal(first, second) ||
 		!stableFileInfo(afterFirst, afterSecond) ||
 		!stableFileInfo(afterSecond, pathAfter) ||

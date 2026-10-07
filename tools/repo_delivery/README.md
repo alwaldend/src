@@ -12,6 +12,11 @@ tags:
 invokes native Git and a selected forge CLI; it does not infer task ownership,
 choose validation commands, resolve conflicts, or judge review feedback.
 
+Preparation receipts support exact path inventories up to 4 MiB so large source
+relocations can use the guarded workflow. Stable reads and writes enforce that
+limit; other typed local records retain their 256 KiB limit. Receipt schema,
+scope, integrity, and publication checks apply at either size.
+
 ## Provider and delivery workflow
 
 Run delivery commands from this Git worktree's repository root, which owns the
