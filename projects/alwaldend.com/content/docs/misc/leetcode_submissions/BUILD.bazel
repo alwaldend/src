@@ -14,7 +14,7 @@ docs_filegroup(
 pkg_filegroup(
     name = "submissions",
     srcs = [
-        "//data/leetcode_submissions",
+        "//users/simeonwarren/leetcode:leetcode_submissions",
     ],
     prefix = "content/docs/misc/leetcode_submissions",
 )

@@ -1,0 +1,6 @@
+schema: spec-driven
+
+context: |
+  This workspace owns tools/repo_delivery changes. Read its README and agent policy.
+  Keep delivery requirements and maintained changes here. User instructions own
+  authority; specs do not authorize publication.

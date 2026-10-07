@@ -134,6 +134,9 @@ tools/rules_promptfoo/tests/fake_cli/fake_codex_home/auth.json rules-lint-ignore
 projects/alwaldend.com/layouts/** rules-lint-ignored=true
 projects/ci_platform/main/go/docs/swagger.* rules-lint-ignored=true
 projects/dotfiles/vial/** rules-lint-ignored=true
+# The LeetCode downloader owns submission TOML serialization. Preserve its
+# output bytes when relocating stored submissions.
+users/simeonwarren/leetcode/languages/**/submission.toml rules-lint-ignored=true
 
 # Explicit templates require a formatter that understands both the host
 # language and its template dialect. Ordinary Markdown/YAML/HTML files remain
