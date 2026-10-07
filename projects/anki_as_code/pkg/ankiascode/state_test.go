@@ -7,17 +7,22 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"slices"
 	"strings"
 	"testing"
 	"time"
 
 	collectionpb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/collection"
+	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/codec"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/config"
+	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/resource"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/state"
 	"github.com/ankitects/anki/proto/anki/cards"
 	"github.com/ankitects/anki/proto/anki/deck_config"
 	"github.com/ankitects/anki/proto/anki/decks"
 	"github.com/ankitects/anki/proto/anki/notes"
+	"github.com/ankitects/anki/proto/anki/notetypes"
+	"google.golang.org/grpc"
 	"google.golang.org/protobuf/encoding/protojson"
 	"google.golang.org/protobuf/proto"
 )
@@ -473,4 +478,206 @@ func TestStateAPIWorkflow(t *testing.T) {
 		t.Fatal(err)
 	}
 	saveFixtureArtifact(t, fixture.base, "state-api-roundtrip.colpkg")
+}
+
+// prepareFixtureConfigs exports configs and separately binds their native fixture objects.
+func prepareFixtureConfigs(t *testing.T, ctx context.Context, input, output string) error {
+	t.Helper()
+	if err := exportForFixture(ctx, input, output, ""); err != nil {
+		return fmt.Errorf("export fixture configs: %w", err)
+	}
+	root, err := expandPath(output)
+	if err != nil {
+		return fmt.Errorf("resolve fixture export: %w", err)
+	}
+	if err := bindFixtureConfigs(ctx, input, root, ""); err != nil {
+		return fmt.Errorf("bind fixture configs: %w", err)
+	}
+	return nil
+}
+
+// bindFixtureConfigs prepares state independently by matching exact native fixture values.
+func bindFixtureConfigs(ctx context.Context, input, root, key string) error {
+	configs, err := config.New(root).Load()
+	if err != nil {
+		return fmt.Errorf("load fixture configs: %w", err)
+	}
+	if err := runFixtureCollection(ctx, input, input, func(connection grpc.ClientConnInterface) (bool, error) {
+		snapshot, err := resource.New(connection).Snapshot(ctx)
+		if err != nil {
+			return false, fmt.Errorf("read fixture resources: %w", err)
+		}
+		resources := &collectionpb.Resources{
+			Decks: map[string]*collectionpb.DeckState{}, Notes: map[string]*collectionpb.NoteState{},
+			NoteTypes: map[string]*collectionpb.NoteTypeState{}, Presets: map[string]*collectionpb.PresetState{},
+		}
+		decksByName := map[string]*decks.Deck{}
+		for _, native := range snapshot.Decks {
+			decksByName[native.Name] = native
+		}
+		files := slices.Clone(configs.Notes)
+		for _, group := range configs.Decks {
+			native := decksByName[group.Title]
+			resources.Decks[group.Path] = &collectionpb.DeckState{Id: native.Id}
+			files = append(files, group.Notes...)
+			if group.Deck.Preset != "" {
+				resources.Presets[group.Deck.Preset] = &collectionpb.PresetState{Id: native.GetNormal().GetConfigId()}
+			}
+		}
+		typesByName := map[string]*notetypes.Notetype{}
+		for _, native := range snapshot.NoteTypes {
+			typesByName[native.Name] = native
+		}
+		definitions := map[string]*collectionpb.NoteTypeConfig{}
+		for _, file := range configs.NoteTypes {
+			definitions[file.Path] = file.Config
+			native := typesByName[file.Config.Name]
+			binding := &collectionpb.NoteTypeState{Id: native.Id, Fields: map[string]*collectionpb.FieldState{}, Templates: map[string]*collectionpb.TemplateState{}}
+			for index, field := range native.Fields {
+				binding.Fields[field.Name] = &collectionpb.FieldState{Id: field.Config.GetId(), Ordinal: uint32(index)}
+			}
+			for index, template := range native.Templates {
+				binding.Templates[template.Name] = &collectionpb.TemplateState{Id: template.Config.GetId(), Ordinal: uint32(index)}
+			}
+			resources.NoteTypes[file.Path] = binding
+		}
+		candidates := map[string][]int64{}
+		for _, native := range snapshot.Notes {
+			identity := fmt.Sprintf("%d:%s", native.NotetypeId, strings.Join(native.Fields, "\x1f"))
+			candidates[identity] = append(candidates[identity], native.Id)
+		}
+		for _, file := range files {
+			var fields []string
+			for _, field := range definitions[file.Config.NoteType].Fields {
+				fields = append(fields, file.Config.Fields[field.Name])
+			}
+			identity := fmt.Sprintf("%d:%s", resources.NoteTypes[file.Config.NoteType].Id, strings.Join(fields, "\x1f"))
+			matches := candidates[identity]
+			if len(matches) == 0 {
+				return false, fmt.Errorf("no native fixture note matches %q", file.Path)
+			}
+			resources.Notes[file.Path] = &collectionpb.NoteState{Id: matches[0]}
+			candidates[identity] = matches[1:]
+		}
+		changed, err := state.New(connection, key).Replace(ctx, &collectionpb.State{Version: 1, Resources: resources})
+		if err != nil {
+			return false, fmt.Errorf("install fixture bindings: %w", err)
+		}
+		return changed, nil
+	}); err != nil {
+		return fmt.Errorf("bind native fixture: %w", err)
+	}
+	return nil
+}
+
+// TestReconciledExportWorkflow verifies config-only output, read-only export and independent state dumps.
+func TestReconciledExportWorkflow(t *testing.T) {
+	for _, inputFormat := range []string{"package", "database"} {
+		t.Run(inputFormat, func(t *testing.T) {
+			fixture := newFixture(t)
+			input := fixture.base
+			if inputFormat == "database" {
+				input = fixture.database
+			}
+			before, err := os.ReadFile(input)
+			if err != nil {
+				t.Fatal(err)
+			}
+			text := filepath.Join(t.TempDir(), "text")
+			runFixtureCLI(t, "col", "export", "--collection", input, "--output", text)
+			after, err := os.ReadFile(input)
+			if err != nil || string(before) != string(after) {
+				t.Fatal("export modified source collection bytes")
+			}
+			initial := stateFixtureDump(t, input)
+			if len(initial.GetResources().GetDecks())+len(initial.GetResources().GetNotes())+len(initial.GetResources().GetNoteTypes()) != 0 {
+				t.Fatal("export initialized source state")
+			}
+			for _, format := range []string{"toml", "json"} {
+				file := filepath.Join(text, "state.anki."+format)
+				if _, err := os.Stat(file); !os.IsNotExist(err) {
+					t.Fatalf("export generated %s state: %v", format, err)
+				}
+				if err := os.WriteFile(file, []byte("caller state"), 0o600); err != nil {
+					t.Fatal(err)
+				}
+			}
+			runFixtureCLI(t, "col", "export", "--collection", input, "--output", text)
+			for _, format := range []string{"toml", "json"} {
+				if data, err := os.ReadFile(filepath.Join(text, "state.anki."+format)); err != nil || string(data) != "caller state" {
+					t.Fatalf("export changed caller-owned %s state: %v", format, err)
+				}
+			}
+			if err := bindFixtureConfigs(context.Background(), input, text, ""); err != nil {
+				t.Fatal(err)
+			}
+			stored := stateFixtureDump(t, input)
+			if stored.GetResources().GetNotes()["decks/grammar/notes/你好.note.anki.toml"].GetId() != fixture.noteID {
+				t.Fatal("separate state setup did not bind the native note")
+			}
+			for _, format := range []string{"toml", "json"} {
+				data := runFixtureCLI(t, "col", "state", "dump", "--format", format, "--collection", input)
+				value := &collectionpb.State{}
+				if err := codec.Decode(data, codec.Format(format), value); err != nil || !proto.Equal(value, stored) {
+					t.Fatalf("separate %s state dump: %v", format, err)
+				}
+				file := filepath.Join(t.TempDir(), "state.anki."+format)
+				if err := os.WriteFile(file, data, 0o600); err != nil {
+					t.Fatal(err)
+				}
+				saveFixtureArtifact(t, file, "dumped-state-"+inputFormat+"."+format)
+			}
+			assertConverged(t, input, text)
+		})
+	}
+}
+
+// TestNamespacedCollectionWorkflow verifies selected-key moves, export naming, planning, and native builds.
+func TestNamespacedCollectionWorkflow(t *testing.T) {
+	fixture := newFixture(t)
+	key := "anki_as_code/state/workflow"
+	text := filepath.Join(t.TempDir(), "configs")
+	runFixtureCLI(t, "col", "export", "--state-key", key, "--collection", fixture.base, "--output", text)
+	if err := bindFixtureConfigs(context.Background(), fixture.base, text, key); err != nil {
+		t.Fatal(err)
+	}
+	oldPath := "decks/grammar/notes/你好.note.anki.toml"
+	newPath := "decks/grammar/notes/renamed.note.anki.toml"
+	if err := os.Rename(filepath.Join(text, oldPath), filepath.Join(text, newPath)); err != nil {
+		t.Fatal(err)
+	}
+	writeFixtureTOML(t, filepath.Join(text, "collection.anki.toml"), &collectionpb.CollectionConfig{Version: 1, Moved: []*collectionpb.ResourceMove{{From: oldPath, To: newPath}}})
+	plan := &collectionpb.CollectionChangePlan{}
+	if err := protojson.Unmarshal(runFixtureCLI(t, "col", "plan", "--state-key", key, "--collection", fixture.base, "--text", text), plan); err != nil {
+		t.Fatal(err)
+	}
+	if len(plan.Changes) == 0 || plan.NotesAdded != 0 || plan.NotesDeleted != 0 {
+		t.Fatal("namespaced move did not preserve note identity")
+	}
+	runFixtureCLI(t, "col", "apply", "--state-key", key, "--collection", fixture.base, "--text", text)
+	stored := stateFixtureDumpKey(t, fixture.base, key)
+	if stored.GetResources().GetNotes()[newPath].GetId() != fixture.noteID || stored.GetResources().GetNotes()[oldPath] != nil {
+		t.Fatal("namespaced apply did not move the binding")
+	}
+	if err := protojson.Unmarshal(runFixtureCLI(t, "col", "plan", "--state-key", key, "--collection", fixture.base, "--text", text), plan); err != nil || len(plan.Changes) != 0 {
+		t.Fatal("namespaced plan did not converge")
+	}
+	reexported := filepath.Join(t.TempDir(), "reexported")
+	runFixtureCLI(t, "col", "export", "--state-key", key, "--collection", fixture.base, "--output", reexported)
+	if _, err := os.Stat(filepath.Join(reexported, newPath)); err != nil {
+		t.Fatal("namespaced export lost the bound note filename")
+	}
+	output := filepath.Join(t.TempDir(), "built.colpkg")
+	runFixtureCLI(t, "col", "build", "--state-key", key, "--base", fixture.base, "--text", text, "--output", output)
+	if !proto.Equal(stored, stateFixtureDumpKey(t, output, key)) {
+		t.Fatal("namespaced build lost state")
+	}
+	defaultState := stateFixtureDump(t, output)
+	if (len(defaultState.GetResources().GetDecks())+len(defaultState.GetResources().GetNotes())+len(defaultState.GetResources().GetNoteTypes())) != 0 || len(defaultState.GetResources().GetPresets()) != 0 {
+		t.Fatal("namespaced collection commands initialized the default key")
+	}
+	saveFixtureArtifact(t, output, "namespaced-reconciliation.colpkg")
+	stateFile := filepath.Join(t.TempDir(), "namespaced-state.anki.toml")
+	writeFixtureTOML(t, stateFile, stored)
+	saveFixtureArtifact(t, stateFile, "namespaced-state.anki.toml")
 }

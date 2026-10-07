@@ -18,6 +18,8 @@ package_group(
     packages = [
         "//projects/anki_as_code/internal/collection",
         "//projects/anki_as_code/internal/export",
+        "//projects/anki_as_code/internal/plan",
+        "//projects/anki_as_code/internal/reconcile",
         "//projects/anki_as_code/internal/resource",
         "//projects/anki_as_code/internal/state",
         "//projects/anki_grpc/pkg/backend",

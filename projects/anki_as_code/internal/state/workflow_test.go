@@ -96,7 +96,6 @@ func TestStateWorkflow(t *testing.T) {
 	if err != nil || stored.GetResources().GetNoteTypes()["note_types/Basic.notetype.anki.toml"].GetFields()["Front"] == nil {
 		t.Fatalf("native members were not bound: %v", err)
 	}
-	checkStatePreview(t, ctx, store, stored, beforeType)
 	if changed, err := store.Import(ctx, configs, bindings); err != nil || changed {
 		t.Fatalf("identical import: %v %v", changed, err)
 	}
@@ -201,97 +200,6 @@ func TestStateWorkflow(t *testing.T) {
 			t.Fatal(err)
 		}
 		if err := os.WriteFile(filepath.Join(output, "state.anki2"), data, 0o600); err != nil {
-			t.Fatal(err)
-		}
-	}
-}
-
-// checkStatePreview verifies detached protobuf inputs and moves against persisted native state.
-func checkStatePreview(t *testing.T, ctx context.Context, store *state.Store, stored *collectionpb.State, definition *notetypes.Notetype) {
-	t.Helper()
-	const typePath = "note_types/Basic.notetype.anki.toml"
-	configs := &collectionpb.CollectionConfigSet{Config: &collectionpb.CollectionConfig{Version: 1, Moved: []*collectionpb.ResourceMove{
-		{From: "decks/Default", To: "decks/Renamed"},
-		{From: typePath + "#fields/Front", To: typePath + "#fields/Question"},
-	}}}
-	originalConfigs := proto.Clone(configs)
-	preview, err := store.Preview(ctx, configs, nil)
-	if err != nil || preview.GetResources().GetDecks()["decks/Renamed/deck.anki.toml"].GetId() != 1 || preview.GetResources().GetNoteTypes()[typePath].GetFields()["Question"] == nil {
-		t.Fatalf("preview moved bindings: %v %v", preview, err)
-	}
-	if preview.Resources.Decks["decks/Default/deck.anki.toml"] != nil || preview.Resources.NoteTypes[typePath].Fields["Front"] != nil || !proto.Equal(configs, originalConfigs) {
-		t.Fatal("preview retained move sources or changed input configs")
-	}
-	preview.Resources.Decks["decks/Renamed/deck.anki.toml"].Id = 999
-	if value, err := store.Dump(ctx); err != nil || !proto.Equal(value, stored) {
-		t.Fatal("preview or its returned snapshot changed persisted state")
-	}
-	inputs := proto.Clone(stored.Resources).(*collectionpb.Resources)
-	inputs.Notes = map[string]*collectionpb.NoteState{"notes/new.note.anki.toml": {}, "notes/another.note.anki.toml": {}}
-	inputs.Presets = map[string]*collectionpb.PresetState{"existing": {Id: 1}}
-	originalInputs := proto.Clone(inputs)
-	preview, err = store.Preview(ctx, nil, inputs)
-	if err != nil || !proto.Equal(preview.GetResources(), inputs) || preview.Resources.NoteTypes[typePath].Fields["Back"].Ordinal != 1 || preview.Resources.NoteTypes[typePath].Fields["Front"].Id != definition.Fields[0].Config.GetId() {
-		t.Fatalf("preview protobuf bindings: %v", err)
-	}
-	if changed, err := store.Replace(ctx, preview); err == nil || changed {
-		t.Fatal("persisted unresolved preview identities")
-	}
-	preview.Resources.NoteTypes[typePath].Fields["Front"].Id = 0
-	preview.Resources.Notes["notes/new.note.anki.toml"].Id = 999
-	if !proto.Equal(inputs, originalInputs) {
-		t.Fatal("preview aliased or changed its input resources")
-	}
-	retained, err := store.Preview(ctx, nil, nil)
-	if err != nil || !proto.Equal(retained, stored) {
-		t.Fatalf("nil resources did not retain stored bindings: %v", err)
-	}
-	cleared, err := store.Preview(ctx, nil, &collectionpb.Resources{})
-	if err != nil || !proto.Equal(cleared.GetResources(), &collectionpb.Resources{}) {
-		t.Fatalf("empty resources did not clear all groups: %v", err)
-	}
-	for _, invalid := range []*collectionpb.Resources{
-		{Notes: map[string]*collectionpb.NoteState{"../outside": {Id: 1}}},
-		{Notes: map[string]*collectionpb.NoteState{"notes/one": {Id: 1}, "notes/two": {Id: 1}}},
-		{Decks: map[string]*collectionpb.DeckState{"decks/invalid/deck.anki.toml": nil}},
-		{Notes: map[string]*collectionpb.NoteState{"notes/invalid.note.anki.toml": nil}},
-		{NoteTypes: map[string]*collectionpb.NoteTypeState{typePath: nil}},
-		{NoteTypes: map[string]*collectionpb.NoteTypeState{typePath: {Id: definition.Id, Fields: map[string]*collectionpb.FieldState{"Front": nil}}}},
-		{NoteTypes: map[string]*collectionpb.NoteTypeState{typePath: {Id: definition.Id, Templates: map[string]*collectionpb.TemplateState{"Card 1": nil}}}},
-		{Presets: map[string]*collectionpb.PresetState{"invalid": {Id: 0}}},
-	} {
-		if _, err := store.Preview(ctx, nil, invalid); err == nil {
-			t.Fatal("invalid preview bindings accepted")
-		}
-	}
-	for _, moves := range [][]*collectionpb.ResourceMove{
-		{{From: "decks/Default/deck.anki.toml", To: "notes/example.note.anki.toml"}},
-		{{From: "decks/Default", To: "decks/Other"}, {From: "decks/Other", To: "decks/Third"}},
-	} {
-		invalid := &collectionpb.CollectionConfigSet{Config: &collectionpb.CollectionConfig{Version: 1, Moved: moves}}
-		if _, err := store.Preview(ctx, invalid, nil); err == nil {
-			t.Fatal("conflicting preview moves accepted")
-		}
-	}
-	configs.Decks = []*collectionpb.DeckConfigSet{{Path: "decks/Default/deck.anki.toml"}}
-	if _, err := store.Preview(ctx, configs, nil); err == nil {
-		t.Fatal("move source still declared was accepted")
-	}
-	if changed, err := store.Replace(ctx, cleared); err != nil || !changed {
-		t.Fatalf("persist resolved preview: %v %v", changed, err)
-	}
-	if changed, err := store.Replace(ctx, stored); err != nil || !changed {
-		t.Fatalf("restore original bindings: %v %v", changed, err)
-	}
-	if value, err := store.Dump(ctx); err != nil || !proto.Equal(value, stored) {
-		t.Fatal("preview failure or rejected write changed persisted bindings")
-	}
-	if output := os.Getenv("TEST_UNDECLARED_OUTPUTS_DIR"); output != "" {
-		data, err := codec.Encode(cleared, codec.TOML)
-		if err != nil {
-			t.Fatal(err)
-		}
-		if err := os.WriteFile(filepath.Join(output, "state-preview.anki.toml"), data, 0o600); err != nil {
 			t.Fatal(err)
 		}
 	}

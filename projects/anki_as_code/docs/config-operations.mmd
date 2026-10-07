@@ -4,41 +4,51 @@ flowchart TB
         e_start((Start))
         e_root(Write root config)
         e_more{More declarations?}
-        e_encode(Next declaration:<br/>ProtoJSON → TOML)
+        e_json(Next declaration:<br/>encode ProtoJSON)
+        e_values(Decode JSON into Go map)
+        e_toml(Encode TOML)
         e_write(Write supplied relative path)
         e_finish(((End)))
 
         e_start --> e_root --> e_more
-        e_more -->|Yes| e_encode --> e_write --> e_more
+        e_more -->|Yes| e_json --> e_values --> e_toml --> e_write --> e_more
         e_more -->|No| e_finish
     end
 
     subgraph Dump["config.Store.Dump"]
         direction TB
         d_start((Start))
+        d_default(Resolve format<br/>JSON by default)
         d_load[[Store.Load]]
-        d_json(Encode complete set<br/>using ProtoJSON)
         d_format{Output format}
-        d_pretty(Indent JSON and add newline)
-        d_toml(JSON values → TOML)
+        d_json(Encode indented ProtoJSON)
+        d_newline(Add final newline)
+        d_protojson(Encode ProtoJSON)
+        d_values(Decode JSON into Go map)
+        d_toml(Encode TOML)
         d_output(Return bytes)
         d_finish(((End)))
 
-        d_start --> d_load --> d_json --> d_format
-        d_format -->|JSON: default| d_pretty --> d_output
-        d_format -->|TOML| d_toml --> d_output
+        d_start --> d_default --> d_load --> d_format
+        d_format -->|JSON| d_json --> d_newline --> d_output
+        d_format -->|TOML| d_protojson --> d_values --> d_toml --> d_output
         d_output --> d_finish
     end
 
     subgraph Load["config.Store.Load"]
         direction TB
         l_start((Start))
-        l_root(Resolve stored root path)
-        l_declarations(Load root and declarations:<br/>note_types/, notes/, nested decks/)
-        l_decode(Each file: TOML values → JSON<br/>→ protobuf via the schema)
-        l_derived(Record paths and deck titles;<br/>inherit omitted card deck paths)
-        l_output(Return CollectionConfigSet)
+        l_root(Resolve stored root and decode<br/>collection.anki.toml)
+        l_types(Decode note_types/)
+        l_more{More decks?}
+        l_deck(Decode deck.anki.toml;<br/>derive title from directories)
+        l_deck_notes(Decode notes/;<br/>default omitted card deck paths)
+        l_children[[Load child decks/ recursively]]
+        l_notes(Decode root notes/)
+        l_output(Return CollectionConfigSet<br/>with source paths)
         l_finish(((End)))
 
-        l_start --> l_root --> l_declarations --> l_decode --> l_derived --> l_output --> l_finish
+        l_start --> l_root --> l_types --> l_more
+        l_more -->|Yes| l_deck --> l_deck_notes --> l_children --> l_more
+        l_more -->|No| l_notes --> l_output --> l_finish
     end

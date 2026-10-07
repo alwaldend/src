@@ -126,7 +126,10 @@ alias(
 alias(
     name = "config",
     actual = "@com_github_ankitects_anki//:config",
-    visibility = ["//projects/anki_as_code/internal/state:__pkg__"],
+    visibility = [
+        "//projects/anki_as_code/pkg/ankiascode:__pkg__",
+        "//projects/anki_as_code/internal/state:__pkg__",
+    ],
 )
 
 alias(
