@@ -1,0 +1,71 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: seated-body-cloth-022
+  resourceVersion: "3"
+  generation: 1
+  creationTimestamp: "2026-09-04T21:14:27.994390255Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 16
+  criteriaRevision: 4
+  criteriaDigest: sha256:f5fe4b5c4efc12d5b82ad42cf0d41fd7274f48b421abf42e9db1ce5ae316d8a3
+  goalStateDigest: sha256:e6691b9707cd8058509af604fa69338a1e89a3c0e8e09b093c1bc9e663f2a4b5
+  planID: seated-body-cloth-v20
+  workType: candidate
+  stableDefect: Excess collar-to-hem height and rigid skirt panels
+  hypothesis: A shorter seated body with joined cloth removes the measured global height excess without distorting the head or feet
+  subject: Frozen head021 candidate and canonical front/turn references
+  priorAttemptID: hanging-rear-cloth-021
+  nextAction: Apply non-destructive height fields and gathered skirt in pinned Blender, save fresh body022 bytes, render fixed views and review
+status:
+  state: closed
+  closedAt: "2026-09-04T21:27:46.878153862Z"
+  artifacts:
+    planDigest: sha256:95cf98388cbc590c00c1494c47db8b3feeb223b07f727001c0015ecda7b1b34e
+    resultDigest: sha256:5fa247656582675607b848cb0e26de74de20edb4f2adc0b2068792bf18334441
+    evidence:
+    - path: evidence/body_022_evidence.md
+      digest: sha256:5a20d9c0ca728100a440f5a068e65081f11d8cc90f274f6ca28c24260f0bc17e
+    - path: evidence/body_022b_reproduction.md
+      digest: sha256:de462a4637943d3738f3570963dcb329de2a2e5a79cd1376f0878d35cdc61922
+  review:
+    decision: accept
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 3
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-002
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-004
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-005
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-006
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-007
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-09-04T21:27:46.878153862Z"

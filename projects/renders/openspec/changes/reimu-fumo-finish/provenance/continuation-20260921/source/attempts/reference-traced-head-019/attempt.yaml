@@ -1,0 +1,73 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: reference-traced-head-019
+  resourceVersion: "2"
+  generation: 1
+  creationTimestamp: "2026-09-04T20:13:59.837937386Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 16
+  criteriaRevision: 4
+  criteriaDigest: sha256:f5fe4b5c4efc12d5b82ad42cf0d41fd7274f48b421abf42e9db1ce5ae316d8a3
+  goalStateDigest: sha256:c40ab5f6dc0b7b3f758761a7165ffa07c20800678671038088c0481c54612f31
+  planID: reference-traced-cage-v17
+  workType: candidate
+  stableDefect: Raised disconnected-looking forehead plates and squared head silhouette
+  hypothesis: A continuous traced fringe over a rounded shallow head cage matches cloth construction better than separate inflated plates
+  subject: Tracked sanitized A202 donor and frozen Reimu review contract
+  priorAttemptID: native-manual-head-015
+  nextAction: Inspect donor, append isolated candidate, author one connected head and fringe state, and gate pinned renders against references
+status:
+  state: closed
+  closedAt: "2026-09-04T20:35:38.492194609Z"
+  artifacts:
+    planDigest: sha256:7f1834f56a44f0c22fa56bf0c94cbea1cefce45864bb4ed46381e2369caf498f
+    resultDigest: sha256:7aeef0023ab2b4a532f02624dd9b3080c0d275afa00d05e0c01c47095ef1727c
+    evidence:
+    - path: evidence/construction_evidence.md
+      digest: sha256:c8d6ec2605f2faf5c3df8a8b0485a45d807690d483b57e6a72050821b7c15f34
+    - path: evidence/preflight_evidence.md
+      digest: sha256:68612505657063a20658b49be6e18d82a4938486c30922275b3d118f9cb2fa3f
+    - path: evidence/screenshot_evidence.md
+      digest: sha256:9000db9d1a235c6ecd33092a8b9191402b092de7d389297a5705e7c31e18697f
+  review:
+    decision: reset
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 3
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-002
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-004
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-005
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-006
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-007
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-09-04T20:35:38.492194609Z"

@@ -1,0 +1,68 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: unconstrained-rear-triangulation-086
+  resourceVersion: "4"
+  generation: 4
+  creationTimestamp: "2026-09-05T23:56:14.905942871Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 16
+  criteriaRevision: 4
+  criteriaDigest: sha256:f5fe4b5c4efc12d5b82ad42cf0d41fd7274f48b421abf42e9db1ce5ae316d8a3
+  goalStateDigest: sha256:d3dd99930bf18292653455d315de740e68d0a10d03186a30fad1ab2e06501ad6
+  workType: change
+  subject: 778278b759e20c11203b171cab0ddd11be84330ddac8d6a34f9780046b9a589d
+  nextAction: Freeze separate lower-seam support integration hypothesis on086; inspect completed sleeve087section feasibility for subsequent graph-based short sleeves. No wholeacceptance.
+status:
+  state: closed
+  closedAt: "2026-09-06T00:10:18.148996669Z"
+  artifacts:
+    planDigest: sha256:7c8aac2f26dc2cf0c6009712586730545c2902d072c54208da4dc754949d7c50
+    resultDigest: sha256:6d0d24f59fe5c12a3777698175e6a47c240311efde1253e9efe6ebdf72fa078d
+    evidence:
+    - path: evidence/hair_086_pixel_review.md
+      digest: sha256:9c542e8094a58542fe7e80677423eafe99ec6382978ba9cd5ce93f9f4dbf2f32
+    - path: evidence/hair_086_rear_diagnostic.md
+      digest: sha256:800e512d42702de55ef7561b5e70eeaf50e8dd7532927f091b42af1bb2236be2
+  review:
+    decision: accept
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 3
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-002
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-004
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-005
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-006
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-007
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-09-06T00:10:18.148996669Z"

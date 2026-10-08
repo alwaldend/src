@@ -1,0 +1,58 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: shingled-hair-006
+  resourceVersion: "2"
+  generation: 1
+  creationTimestamp: "2026-09-04T08:08:10.426103649Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 1
+  criteriaRevision: 1
+  criteriaDigest: sha256:baccd948c8b16e69f1845fc580981579437436eed22c64aad779f8f37def99d8
+  goalStateDigest: sha256:be31379a39b985018030a33b9c8f877e600f07273fae6e3b228a9d1be384ce6b
+  planID: shingled-locks-v4
+  workType: candidate
+  stableDefect: head-hair-helmet-read
+  hypothesis: Overlapping closed crown gores and separate tapered side locks will preserve a quiet connected crown while exposing distinct stuffed lower hair layers in side and three-quarter views.
+  subject: A157 sha256:433d08ad36be488bb16e4221a85f831d4390660c258a43ea0b08775811574b73
+  affectedCriteria:
+  - criterion-001
+  - criterion-002
+  - criterion-003
+  regressionRefs:
+  - canonical-front-v1
+  - canonical-turn-v1
+  - fixed-five-view-v1
+  priorAttemptID: integrated-hair-005
+  nextAction: Build one immutable shingled-lock candidate through Blender MCP and render pinned front, side, and three-quarter views; reset without correction on any automatic construction defect.
+status:
+  state: closed
+  closedAt: "2026-09-04T08:11:25.107071819Z"
+  artifacts:
+    planDigest: sha256:17938b8891bda1decb0b9e63369ca979dbb7eb47a36d72df8864e28633e1b0b8
+    resultDigest: sha256:4c5fa36cf6e6f69affaac628ecf569f9148f0cd5b92b791f7b8ee9f8b52e4be6
+    evidence:
+    - path: evidence/evidence.md
+      digest: sha256:de74119c2fd6b6eafc8e078b8af3e111cbc802ca9b1b94d183fb883c2a0d26e3
+  review:
+    decision: reset
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 1
+      verdict: fail
+      evidenceRefs:
+      - evidence/evidence.md
+    - criterionID: criterion-002
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs:
+      - evidence/evidence.md
+    - criterionID: criterion-003
+      criterionRevision: 1
+      verdict: fail
+      evidenceRefs:
+      - evidence/evidence.md
+  observedAt: "2026-09-04T08:11:25.107071819Z"

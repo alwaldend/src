@@ -1,0 +1,72 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: readable-sewn-textile-043
+  resourceVersion: "2"
+  generation: 1
+  creationTimestamp: "2026-09-05T07:14:41.482097468Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 16
+  criteriaRevision: 4
+  criteriaDigest: sha256:f5fe4b5c4efc12d5b82ad42cf0d41fd7274f48b421abf42e9db1ce5ae316d8a3
+  goalStateDigest: sha256:8e6be6732249ca728e9a56a0b81fa9ae58322ad598e2ad15004a4b34e06d1ea4
+  planID: readable-sewn-textile-v41
+  workType: change
+  hypothesis: Visible short pile and coherent sewn construction will improve plush read while shape failures remain independently judged
+  subject: Exact042c scene, local head foot pile and bow sleeve construction
+  nextAction: Run textile_043_build.py from exact042c hash; clean-open render all fixed views and presentation, fresh image-only critique
+status:
+  state: closed
+  closedAt: "2026-09-05T07:24:05.353425586Z"
+  artifacts:
+    planDigest: sha256:ce4e5be943d0c70d546847baa76068ffdf78e317a5eeb517bfd8b67c24a380d3
+    resultDigest: sha256:c532094d8058f1a8f0b769f94b1d53f9f274fd446497de6867d61a221b9b22b5
+    evidence:
+    - path: evidence/cloth_042_result.md
+      digest: sha256:8948010e7cca6f80b9acd9e030ad4bf9b758970d5a90935d1b2f9183575c555d
+    - path: evidence/textile_043_result.md
+      digest: sha256:c532094d8058f1a8f0b769f94b1d53f9f274fd446497de6867d61a221b9b22b5
+  review:
+    decision: reset
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 3
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-002
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-004
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-005
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-006
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-007
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-09-05T07:24:05.353425586Z"

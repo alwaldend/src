@@ -1,0 +1,93 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: oriented-shared-head-interface-034
+  resourceVersion: "2"
+  generation: 1
+  creationTimestamp: "2026-09-05T01:24:11.53795599Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 16
+  criteriaRevision: 4
+  criteriaDigest: sha256:f5fe4b5c4efc12d5b82ad42cf0d41fd7274f48b421abf42e9db1ce5ae316d8a3
+  goalStateDigest: sha256:8c9a7d212dfd3d61b13a54c83ea3331bd4ce32b97af69053952b34d2c50a9607
+  workType: candidate
+  stableDefect: Fringe and hood interface remains segmented; chord-projected shared join folds toward retained cloth.
+  hypothesis: An oriented boundary co-normal join removes the measured backward fold without moving protected cloth or recreating overlapping sheets.
+  subject: Shared fringe and hood cloth interface on retained033 head inputs
+  priorAttemptID: sewn-visible-foot-panels-033
+  nextAction: Review one unchanged-cut co-normal helper test, then sole-writer save only if oriented joins and scoped construction checks pass.
+status:
+  state: closed
+  closedAt: "2026-09-05T01:36:41.096788315Z"
+  artifacts:
+    planDigest: sha256:c21bf374e651f587c3f34c4292397e5d10a95e085f182a64b0193379e5bb588d
+    resultDigest: sha256:4e9e0b35589ea7d7752dca5bfcc2cd9d2254325a4c3395460fbd252877e62c23
+    evidence:
+    - path: evidence/head_034_failure_machine.md
+      digest: sha256:4d3952367907f38c4c5fc7cd4d76303665a00e48d8bf0b72c9af9778144faa14
+    - path: evidence/head_034_rejected_sources.md
+      digest: sha256:493fb0dce9b1d2f92de0d75a048b996bd2bf46ae0ef49df536bb8c8f4f69a754
+    - path: evidence/head_034_root_decision.md
+      digest: sha256:d41e7dc652895d46d26f32c14d084f75a60b799e3784fa702475ae98320aab53
+    - path: evidence/head_034_shared_diagnostic.md
+      digest: sha256:7873f5a8b810679d193e12857887adf7e6b9b74bd6960fe7e026dc771b5ff30d
+    - path: evidence/head_034_shared_handoff.md
+      digest: sha256:7db34ff79422d9652bafc9ab72a4f52db219629c5624d2de76fd6a379740f734
+    - path: evidence/head_034_shared_interface_plan.md
+      digest: sha256:7d1c8c5b5d194ebd8890b3e1a911542de856bcc66c5b28e42fbe078b288d8b9a
+    - path: evidence/head_034c_handoff.md
+      digest: sha256:9074ea7b726b699e08dde7c860ee7d7c6fa5aaf6eb0e57b4b23ce01278f6b786
+    - path: evidence/seat_035_occlusion_plan.md
+      digest: sha256:d0fa71713d608e4bc271eb049dce68ca89e59a26598cdcfabe013618ec5df858
+    - path: evidence/seat_035_projection_10deg_evidence.md
+      digest: sha256:595a0bf8ed3ae5aab8d7457fe6d20e98e9bc23d5672218adc2e1b5b0aebc2e7d
+    - path: evidence/seat_035_successor_evidence.md
+      digest: sha256:89f2fedfe48d7cd1609fad14e88a3a5e0bba209cb1d2566b55ec235695afd614
+    - path: evidence/skirt_035_preflight.md
+      digest: sha256:890459f6be423deb53f52d1acbd40ae108585fd0c3ffacba156a8a2e8504fff3
+    - path: evidence/underside_reference_direction.md
+      digest: sha256:4a6be7f9a305851b2f42bb288ac8d38c0c00c562b5c380634a2a268d49e05ab9
+  review:
+    decision: reset
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 3
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-002
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-004
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-005
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-006
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-007
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-09-05T01:36:41.096788315Z"

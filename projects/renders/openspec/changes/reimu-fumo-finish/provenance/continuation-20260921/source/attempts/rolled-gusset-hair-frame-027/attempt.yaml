@@ -1,0 +1,91 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: rolled-gusset-hair-frame-027
+  resourceVersion: "4"
+  generation: 1
+  creationTimestamp: "2026-09-04T22:39:34.449962256Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 16
+  criteriaRevision: 4
+  criteriaDigest: sha256:f5fe4b5c4efc12d5b82ad42cf0d41fd7274f48b421abf42e9db1ce5ae316d8a3
+  goalStateDigest: sha256:f886ec2af3c3654daaa47083e06eb4716a19ad13a8be98f06445a03c004a4cb3
+  workType: candidate
+  stableDefect: helmet-head-card-hair
+  hypothesis: Distinct shaped facial/gusset panels and rooted padded hair remove radial-shell/card construction while preserving front landmarks and neck contact.
+  subject: Frozen026 coupled head and hair assembly
+  priorAttemptID: isolated-curled-hem-026
+  nextAction: Review exact helper target set, construct one protected-source candidate, and compare real-material fixed views.
+status:
+  state: closed
+  closedAt: "2026-09-04T23:23:57.108542187Z"
+  artifacts:
+    planDigest: sha256:99be000aaaa3bdaa68145f6ef0d2dc2503cfdac676d627942af24280d5627ff2
+    resultDigest: sha256:42a14181b4cb3fc462ad3998a0253a66c1bfb1f67f519789be9fe8065e2eb607
+    evidence:
+    - path: evidence/eevee_026_sources.md
+      digest: sha256:0272aa2a3247d8988a147c390517463cffcd013d1a0c380a39455c8d38e63d81
+    - path: evidence/head_027_ergonomics.md
+      digest: sha256:6890c2fe00b1184a2d70354af9da64d83818f7eb950a4c8cbe6dcce57ee9649c
+    - path: evidence/head_027_evidence.md
+      digest: sha256:8111e4d820fc452ada32993e2413f231088209356fbc244df491bc396e655d54
+    - path: evidence/head_027_execution_notes.md
+      digest: sha256:d057ed8b3298c5437e73c35b4d42077a1487bd338b8fee4943c0b4766ae89884
+    - path: evidence/head_027_material_identity.md
+      digest: sha256:167258e050f5696529b3359a49681b1ffed3c9b0862634b6a3d055515d4b96d3
+    - path: evidence/head_027_targets.md
+      digest: sha256:0695eb04a0764f7add50e5a014a2fd5972c11fe96764502571740db8dd290500
+    - path: evidence/head_027b_blind.md
+      digest: sha256:306f6a3b71a7240c2512837fb2f6f70497a0d918d6617876fcc0d402ea407f80
+    - path: evidence/head_027c_blind.md
+      digest: sha256:182212bf109a38fc26a495da37f39a2fedc71aa7a8321da20b0c1af5a2ce1f8d
+    - path: evidence/head_027c_delta.md
+      digest: sha256:0b1a3b73c20a4641e2156eb54d4b84e8ad250bc0e7ffec29b736aff1342c9bd9
+    - path: evidence/head_027c_machine_evidence.md
+      digest: sha256:1300ed895d0fca7837d2b85cab13b4e25915409943df2653d57c60c1bf892c84
+    - path: evidence/head_027c_sources.md
+      digest: sha256:8d08a86624d693877d382249915db9d20a399a7731fef10606948f566da76935
+    - path: evidence/head_027c_technical_audit.md
+      digest: sha256:bc4ee5131b319f98650a91a729abc98c813b655a5d0cadfe9beccea51136b657
+  review:
+    decision: accept
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 3
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-002
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-004
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-005
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-006
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-007
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-09-04T23:23:57.108542187Z"
