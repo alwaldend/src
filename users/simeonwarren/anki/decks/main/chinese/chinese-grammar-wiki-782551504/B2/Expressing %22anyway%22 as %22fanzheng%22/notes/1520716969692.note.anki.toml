@@ -1,0 +1,20 @@
+note_id = 1520716969692
+guid = "k]nh-s$dX5"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975556
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "anyway" as "fanzheng"'
+english = 'No matter you believe this or not, I believe it anyway.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '[Disregarded Situation] ， 反正 ⋯⋯'
+hanzi = '不管你信不信，反正我信。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGZVM27'

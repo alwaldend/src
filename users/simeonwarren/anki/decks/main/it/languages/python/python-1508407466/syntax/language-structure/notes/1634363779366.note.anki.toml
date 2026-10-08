@@ -1,0 +1,17 @@
+note_id = 1634363779366
+guid = "bmvf6A8jQK"
+note_type_id = 1630447360002
+note_type = "python-basic"
+tags = []
+
+[[cards]]
+id = 1634370830773
+ordinal = 0
+
+[fields]
+'Additional Info' = ''
+'Back - Basic' = '<b>Capital</b>: bool values True and False use capital letters as well as None.'
+'Back - Code' = ''
+Example = ''
+Front = 'Do boolean types use capital or lowercase letters?&nbsp;'
+Version = ''

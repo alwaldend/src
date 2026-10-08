@@ -1,0 +1,20 @@
+note_id = 1520716967440
+guid = "tt*RpO*342"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["AdverbswithAdjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973304
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "rather" with "bijiao"'
+english = 'I think this price is rather reasonable.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 比较 + Adj.'
+hanzi = '我觉得这个价格比较贵。'
+notes = ''
+pinyin = 'Wǒ juéde zhège jiàgé bǐjiào guì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG72HKP'

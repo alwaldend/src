@@ -1,0 +1,20 @@
+note_id = 1520716968721
+guid = "qbpMM_Xq;}"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974585
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "although" with "suiran" and "danshi"'
+english = "Although she's sick, she didn't ask for sick leave."
+example-sentence = ''
+example-type = ''
+grammar-construct = '虽然 ⋯⋯ ，但是 / 可是 ⋯⋯'
+hanzi = '虽然她病了，可是她没有请假。'
+notes = ''
+pinyin = 'Suīrán tā bìng le, kěshì tā méiyǒu qǐngjià.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGXI560'

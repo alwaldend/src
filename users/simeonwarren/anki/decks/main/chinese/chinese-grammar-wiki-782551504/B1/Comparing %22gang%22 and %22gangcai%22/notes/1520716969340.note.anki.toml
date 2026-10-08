@@ -1,0 +1,20 @@
+note_id = 1520716969340
+guid = "NnVO^]oQlL"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Comparisons"]
+
+[[cards]]
+id = 1520716975204
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "gang" and "gangcai"'
+english = 'What just happened is really upsetting.'
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = ''
+hanzi = '刚才的事情太让人生气了。'
+notes = ''
+pinyin = 'Gāngcái de shìqing tài ràng rén shēngqì le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJFFWG'

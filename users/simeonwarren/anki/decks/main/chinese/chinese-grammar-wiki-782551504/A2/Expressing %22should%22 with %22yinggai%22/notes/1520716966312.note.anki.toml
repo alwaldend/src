@@ -1,0 +1,20 @@
+note_id = 1520716966312
+guid = "H90D<^m@BL"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Auxiliaryverbs", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972176
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "should" with "yinggai"'
+english = 'He should not hit people.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不 + 应该 + Verb + Obj.'
+hanzi = '他不应该打人。'
+notes = ''
+pinyin = 'Tā bù yīnggāi dǎ rén.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGV01X9'

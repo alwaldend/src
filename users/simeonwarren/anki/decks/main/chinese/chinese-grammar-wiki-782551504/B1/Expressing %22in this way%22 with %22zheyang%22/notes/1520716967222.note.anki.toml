@@ -1,0 +1,20 @@
+note_id = 1520716967222
+guid = "rC`Q&L<N9_"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973086
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "in this way" with "zheyang"'
+english = 'Do you really think so?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '这样 + Verb'
+hanzi = '你们真的是这样想的吗？'
+notes = ''
+pinyin = 'Nǐmen zhēnde shì zhèyàng xiǎng de ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG1F4D1'

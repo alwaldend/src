@@ -1,0 +1,20 @@
+note_id = 7025
+guid = "o))L#Ru`gK"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 7056
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'this (person).'
+example-sentence = '甚至就连老一辈们都感觉到了这位后起之秀的压力'
+example-type = ''
+grammar-construct = ''
+hanzi = '这位'
+notes = ''
+pinyin = '<span class="tone4">zhè</span><span class="tone4">wèi</span>	 <!-- zhe wei -->'
+source = ''

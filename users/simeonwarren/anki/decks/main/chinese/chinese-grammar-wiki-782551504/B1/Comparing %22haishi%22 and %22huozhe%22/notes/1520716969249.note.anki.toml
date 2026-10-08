@@ -1,0 +1,20 @@
+note_id = 1520716969249
+guid = "I:-$>JDsq_"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Comparisons", "Conjunctions"]
+
+[[cards]]
+id = 1520716975113
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "haishi" and "huozhe"'
+english = 'Does she like you or him?'
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = 'Subj. + Verb + Option A + 还是 + Option B'
+hanzi = '她喜欢你还是他？'
+notes = ''
+pinyin = 'Tā xǐhuan nǐ háishì tā?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQJ5IC'

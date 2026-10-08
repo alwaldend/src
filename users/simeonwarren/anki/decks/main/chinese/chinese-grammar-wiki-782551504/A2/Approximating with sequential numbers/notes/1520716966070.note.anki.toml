@@ -1,0 +1,20 @@
+note_id = 1520716966070
+guid = "oX:fC$}sP)"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Numbers", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971934
+ordinal = 0
+
+[fields]
+article-title = 'Approximating with sequential numbers'
+english = 'Their child is about five or six years old.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Number + (Number + 1)'
+hanzi = '他们家的孩子五六岁了吧。'
+notes = ''
+pinyin = 'Tāmen jiā de háizi wǔ liù suì le ba.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGOUD8U'

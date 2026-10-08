@@ -1,0 +1,20 @@
+note_id = 1520716970304
+guid = "u.f,q&+boB"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Grammatical_Structures", "IfStatements"]
+
+[[cards]]
+id = 1520716976168
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "if… then…" with "yaoshi"'
+english = "In my opinion, this man isn't trustworthy."
+example-sentence = ''
+example-type = ''
+grammar-construct = '要不是 ⋯⋯ ，⋯⋯'
+hanzi = '要我说，这个人不能信。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGN4S8O'

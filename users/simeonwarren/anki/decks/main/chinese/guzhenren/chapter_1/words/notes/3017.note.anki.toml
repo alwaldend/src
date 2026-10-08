@@ -1,0 +1,20 @@
+note_id = 3017
+guid = "J0M+t-~S_W"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 3036
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'to (a place);	until (a time);	up to;	to go;	to arrive;	(verb complement denoting completion or result of an action).'
+example-sentence = ' 他本是地球上的华夏学子,机缘巧合穿越到这方世界'
+example-type = ''
+grammar-construct = ''
+hanzi = '到'
+notes = ''
+pinyin = '<span class="tone4">dào</span>	 <!-- dao -->'
+source = ''

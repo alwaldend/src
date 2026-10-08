@@ -1,0 +1,20 @@
+note_id = 1520716968969
+guid = "Dt}WR*<bYw"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974833
+ordinal = 0
+
+[fields]
+article-title = 'Expressing comparable degree with "you"'
+english = 'Can you speak as well as he does?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A + 有 + B + Verb + 得 + Adj. + 吗 ？'
+hanzi = '你有他说得好吗？'
+notes = ''
+pinyin = 'Nǐ yǒu tā shuō de hǎo ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5DG95'

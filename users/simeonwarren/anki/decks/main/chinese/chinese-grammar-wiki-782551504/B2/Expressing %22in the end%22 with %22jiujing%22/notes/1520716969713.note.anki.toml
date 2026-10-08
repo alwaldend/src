@@ -1,0 +1,20 @@
+note_id = 1520716969713
+guid = "qw&c#&~aU&"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975577
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "in the end" with "jiujing"'
+english = 'When exactly are they arriving?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '究竟 + Question Word'
+hanzi = '他们究竟什么时候到？'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDK0BR'

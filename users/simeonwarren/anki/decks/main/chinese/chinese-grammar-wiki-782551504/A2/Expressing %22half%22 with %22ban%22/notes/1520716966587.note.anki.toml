@@ -1,0 +1,20 @@
+note_id = 1520716966587
+guid = "vDz,M|hw|p"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Grammatical_Structures", "NumbersandMeasureWords"]
+
+[[cards]]
+id = 1520716972451
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "half" with "ban"'
+english = 'half a year'
+example-sentence = ''
+example-type = 'invalid'
+grammar-construct = '半 + 天 / 年'
+hanzi = '半个年'
+notes = ''
+pinyin = 'bàn gè nián'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGAC1P9'

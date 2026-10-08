@@ -1,0 +1,17 @@
+note_id = 1634366085718
+guid = "uqf.Y?T8?Z"
+note_type_id = 1630447360002
+note_type = "python-basic"
+tags = []
+
+[[cards]]
+id = 1634370830791
+ordinal = 0
+
+[fields]
+'Additional Info' = ''
+'Back - Basic' = 'for key, value in my_dict.items():<br>&nbsp; &nbsp; print(key, value)'
+'Back - Code' = ''
+Example = ''
+Front = 'For the dict my_dict. Print key and value.'
+Version = ''

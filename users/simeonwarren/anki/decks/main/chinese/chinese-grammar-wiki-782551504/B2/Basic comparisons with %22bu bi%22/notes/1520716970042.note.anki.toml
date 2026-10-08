@@ -1,0 +1,20 @@
+note_id = 1520716970042
+guid = "Jiu.I6rMo$"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716975906
+ordinal = 0
+
+[fields]
+article-title = 'Basic comparisons with "bu bi"'
+english = 'Adults are not smarter than children.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A + 不比 + B + Verb + 得 + Adj.'
+hanzi = '大人不比孩子聪明。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8DVSO'

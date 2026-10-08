@@ -1,0 +1,20 @@
+note_id = 1520716968598
+guid = "ym97*4Wva5"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716974462
+ordinal = 0
+
+[fields]
+article-title = 'Tricky uses of "dao"'
+english = "You take the small bag, I'll take the big bag."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '你拿小包，我拿大包。'
+notes = ''
+pinyin = 'Nǐ ná xiǎo bāo, wǒ ná dà bāo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCUSIV'

@@ -1,0 +1,20 @@
+note_id = 1520716968740
+guid = "D0+VEY{3va"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974604
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "even" with "lian" and "dou"'
+english = 'Everyone in my family plays the stock market. Even my grandma does.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '连 + Subj. + 都 (+ 不 / 没) + Verb'
+hanzi = '我们家人人都炒股，连我奶奶都炒。'
+notes = ''
+pinyin = 'Wǒmen jiā rénrén dōu chǎogǔ, lián wǒ nǎinai dōu chǎo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNP0WV'

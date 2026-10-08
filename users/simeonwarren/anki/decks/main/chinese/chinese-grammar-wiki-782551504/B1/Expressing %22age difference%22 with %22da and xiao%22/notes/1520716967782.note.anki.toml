@@ -1,0 +1,20 @@
+note_id = 1520716967782
+guid = "j36Odqi;7x"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+id = 1520716973646
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "age difference" with "da and xiao"'
+english = 'His girlfriend is 10 years older than him.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A + 比 + B + 大 / 小 + number + 岁'
+hanzi = '他女朋友比他大十岁。'
+notes = ''
+pinyin = 'Tā nǚpéngyou bǐ tā dà shí suì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGE8810'

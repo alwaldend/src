@@ -1,0 +1,20 @@
+note_id = 1520716970697
+guid = "xHmO}FKU;M"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Comparisons", "Conjunctions"]
+
+[[cards]]
+id = 1520716976561
+ordinal = 0
+
+[fields]
+article-title = "Comparing \"fan'er\" and \"que\""
+english = 'However you did it, the quality was no good.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '反而 + Subj.'
+hanzi = '你这么做，反而效果不好。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG0K25S'

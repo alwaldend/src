@@ -1,0 +1,20 @@
+note_id = 2021
+guid = "Jlci7[TZ*e"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 2043
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'time;	one of the 12 two-hour periods of the day.'
+example-sentence = ' 就这样紧张地对峙了三个时辰,夕阳西下,落日的余晖将山边的晚霞点燃,一时间绚烂如火'
+example-type = ''
+grammar-construct = ''
+hanzi = '时辰'
+notes = ''
+pinyin = '<span class="tone2">shí</span><span class="tone5">chen</span>	 <!-- shi chen -->'
+source = ''

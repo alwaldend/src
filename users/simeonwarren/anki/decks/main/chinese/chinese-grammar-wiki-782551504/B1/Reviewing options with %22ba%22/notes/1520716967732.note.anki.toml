@@ -1,0 +1,20 @@
+note_id = 1520716967732
+guid = "ENam:JkJi`"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973596
+ordinal = 0
+
+[fields]
+article-title = 'Reviewing options with "ba"'
+english = "Going in the winter, it's too cold; Going in the summer, it's too hot."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Option 1 + 吧 ，⋯⋯ ；Option 2 + 吧 ，⋯⋯'
+hanzi = '冬天去吧，太冷；夏天去吧，太热。'
+notes = ''
+pinyin = 'Dōngtiān qù ba, tài lěng; xiàtiān qù ba, tài rè.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGELOTT'

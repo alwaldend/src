@@ -1,0 +1,20 @@
+note_id = 1520716968973
+guid = "AA^&E6z>z,"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974837
+ordinal = 0
+
+[fields]
+article-title = 'Expressing comparable degree with "you"'
+english = 'Are you as rich as Bill Gates?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A + 有 (+ B) + 这么 / 那么 + Adj. + 吗 ？'
+hanzi = '你有BillGates那么有钱吗？'
+notes = ''
+pinyin = 'Nǐ yǒu Bill  Gates nàme yǒuqián ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5DG95'

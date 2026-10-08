@@ -1,0 +1,20 @@
+note_id = 1520716968350
+guid = "tgzq+s#SGq"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+id = 1520716974214
+ordinal = 0
+
+[fields]
+article-title = 'Separable verb'
+english = ''
+example-sentence = ''
+example-type = 'invalid'
+grammar-construct = ''
+hanzi = '见面见面'
+notes = ''
+pinyin = 'jiànmiàn jiànmiàn'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG4GVRX'

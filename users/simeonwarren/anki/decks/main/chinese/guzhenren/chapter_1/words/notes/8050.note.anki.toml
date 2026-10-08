@@ -1,0 +1,20 @@
+note_id = 8050
+guid = "e=p}reEk+&"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 8107
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'friend.<br>Cl: 个, 位'
+example-sentence = '本书的序,希望读者朋友们能够看看,知道这是一本什么样的书'
+example-type = ''
+grammar-construct = ''
+hanzi = '朋友'
+notes = ''
+pinyin = '<span class="tone2">péng</span><span class="tone5">you</span>	 <!-- peng you -->'
+source = ''

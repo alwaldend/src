@@ -1,0 +1,20 @@
+note_id = 1520716969208
+guid = "o8}II)D|J#"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["AuxiliaryWords", "B1", "Comparisons"]
+
+[[cards]]
+id = 1520716975072
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "hui" "neng" "keyi"'
+english = "No, you can't."
+example-sentence = ''
+example-type = ''
+grammar-construct = '可以 / 能 + Verb'
+hanzi = 'B:不可以。'
+notes = ''
+pinyin = 'B: Bù kěyǐ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGZL717'

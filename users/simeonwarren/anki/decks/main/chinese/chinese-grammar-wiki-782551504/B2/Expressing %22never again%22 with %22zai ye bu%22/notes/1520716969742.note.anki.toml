@@ -1,0 +1,20 @@
+note_id = 1520716969742
+guid = "Evb_$r0:0+"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975606
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "never again" with "zai ye bu"'
+english = "We're not going to believe you ever again!"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 再也 + 不 + Verb-Obj. + 了'
+hanzi = '我们再也不会相信你了！'
+notes = ''
+pinyin = 'Wǒmen zài yě bù huì xiāngxìn tā le!'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG7R8US'

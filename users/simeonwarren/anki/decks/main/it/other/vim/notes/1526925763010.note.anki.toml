@@ -1,0 +1,17 @@
+note_id = 1526925763010
+guid = "nW3BET&>|:"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = ["Cursor", "Movement"]
+
+[[cards]]
+id = 1526925807085
+ordinal = 0
+
+[[cards]]
+id = 1668965796603
+ordinal = 1
+
+[fields]
+Back = '%'
+Front = "Move to matching character (default supported pairs: '()', '{}', '[]' - use :h matchpairs in vim for more info)"

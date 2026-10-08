@@ -1,0 +1,20 @@
+note_id = 1520716968296
+guid = "m+k&{GEe2r"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+id = 1520716974160
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "not often" with "bu zenme"'
+english = "We didn't discuss this matter much when we were at the meeting."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不怎么 + Verb ( + Obj. )'
+hanzi = '开会的时候，我们没怎么讨论这件事。'
+notes = ''
+pinyin = 'Kāihuì de shíhou, wǒmen méi zěnme tǎolùn zhè jiàn shì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5BOGP'

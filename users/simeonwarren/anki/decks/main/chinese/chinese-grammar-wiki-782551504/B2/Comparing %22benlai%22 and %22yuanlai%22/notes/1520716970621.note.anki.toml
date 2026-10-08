@@ -1,0 +1,20 @@
+note_id = 1520716970621
+guid = "f?P?b1>,Cu"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Comparisons"]
+
+[[cards]]
+id = 1520716976485
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "benlai" and "yuanlai"'
+english = 'No wonder your Chinese is so good. You lived in China for more than 30 years.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '原来 + 是 + [Fact / Truth / Reason / Purpose]&lt;br /&gt;怪不得 + [Observation / Situation]，原来 + 原来 + 是（因为 / 为了 / 想⋯⋯）'
+hanzi = '怪不得你中文说得这么好，原来你在中国住了三十多年。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG56QKW'

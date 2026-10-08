@@ -1,0 +1,21 @@
+note_id = 1638218876386
+guid = "w=jove$Br9"
+note_type_id = 1630447360002
+note_type = "python-basic"
+tags = []
+
+[[cards]]
+id = 1638218876388
+ordinal = 0
+
+[fields]
+'Additional Info' = ''
+'Back - Basic' = """
+
+
+<div>:=</div>\
+"""
+'Back - Code' = ''
+Example = '<div><font color="#555753"># Origional&nbsp;<br></font>x = rand_number_func()</div><div>if x &gt; 3:</div><div>&nbsp; &nbsp; print(x)<br><br><font color="#555753"># New<br></font><div>if x:= rand_number_func()&nbsp;<span style="color: var(--field-fg);">&gt; 3:</span></div><div>&nbsp; &nbsp; print(x)</div></div>'
+Front = 'Symbol to create a variable inside an expression.'
+Version = '3.10'

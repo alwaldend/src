@@ -1,0 +1,20 @@
+note_id = 1520716966280
+guid = "Q+@ga5p#ZM"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716972144
+ordinal = 0
+
+[fields]
+article-title = 'Directional verbs "lai" and "qu"'
+english = 'Do you not want to come to work for our company?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '来 / 去 + Place'
+hanzi = '你不想来我们公司工作吗？'
+notes = ''
+pinyin = 'Nǐ bù xiǎng lái wǒmen gōngsī gōngzuò ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGRBKSL'

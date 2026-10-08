@@ -1,0 +1,20 @@
+note_id = 1520716970065
+guid = "D5RgbQ%,`V"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Parts_of_Speech", "SentencePatterns"]
+
+[[cards]]
+id = 1520716975929
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "thanks to" with "duokui"'
+english = 'It started to rain all of a sudden. Thank God I brought an umbrella.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '多亏 (了) + [Lucky Incident] ，Subj. 才 + [Good Outcome]'
+hanzi = '多亏你的伞，我才没淋湿。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG44TBS'

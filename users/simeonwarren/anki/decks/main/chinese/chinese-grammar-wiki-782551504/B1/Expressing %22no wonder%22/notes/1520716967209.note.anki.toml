@@ -1,0 +1,20 @@
+note_id = 1520716967209
+guid = "op]!=%753%"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973073
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "no wonder"'
+english = "Little Zhang asked for some vacation time, no wonder I haven't seen him today."
+example-sentence = ''
+example-type = ''
+grammar-construct = '难怪 / 怪不得 + [Observation] ，原来 + Reason'
+hanzi = '小张请假了，难怪今天没有看到他。'
+notes = ''
+pinyin = 'Xiǎo Zhāng qǐngjià le, nánguài jīntiān méiyǒu kàndào tā.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGFPV2C'

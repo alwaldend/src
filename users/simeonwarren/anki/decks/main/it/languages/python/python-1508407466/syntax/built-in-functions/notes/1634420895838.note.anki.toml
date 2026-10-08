@@ -1,0 +1,17 @@
+note_id = 1634420895838
+guid = "mJiqK>SlS)"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634420895838
+ordinal = 0
+
+[fields]
+additional-info = 'It can take in multiple iterables or numbers but requires at least one iterable or 2 numbers.'
+answer = '<b>Built in function:&nbsp;</b><div>max(<i>*iterable</i>)</div><div>-or-</div><div>max(<i>num</i>, <i>*numN</i>)</div>'
+example = ''
+question = '<b>Built in function</b>&nbsp;that returns the largest item in an iterable or group of numbers.&nbsp;'
+version = ''
+with-options = ''

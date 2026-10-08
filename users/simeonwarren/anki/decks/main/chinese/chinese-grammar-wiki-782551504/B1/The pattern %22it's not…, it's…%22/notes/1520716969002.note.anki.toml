@@ -1,0 +1,20 @@
+note_id = 1520716969002
+guid = "bm>=`|wOxh"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974866
+ordinal = 0
+
+[fields]
+article-title = "The pattern \"it's not…, it's…\""
+english = "We're not here to play, we're here to do our job."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不是 + [Verb Phrase 1] ， (而)是 + [Verb Phrase 2]'
+hanzi = '我们不是来玩的，是来工作的。'
+notes = ''
+pinyin = 'Wǒmen bù shì lái wán de, shì lái gōngzuò de.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGT9WYR'

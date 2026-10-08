@@ -1,0 +1,20 @@
+note_id = 1520716967483
+guid = "h@}$UG&l`R"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["AuxiliaryWords", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973347
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "stuff like that" with "zhileide"'
+english = 'How would Chinese girls respond to words like "You are beautiful?"'
+example-sentence = ''
+example-type = ''
+grammar-construct = '⋯⋯ 之类的 + [Category]'
+hanzi = '中国女孩会怎么回应像"你真漂亮"之类的话？'
+notes = ''
+pinyin = 'Zhōngguó nǚhái huì zěnme huíyìng xiàng"nǐ zhēn piàoliang"zhī lèi de huà?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPY23Z'

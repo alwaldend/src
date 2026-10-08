@@ -1,0 +1,20 @@
+note_id = 1520716968757
+guid = "M};A)}a*GA"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974621
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "every time" with "mei" and "dou"'
+english = 'My father buys presents for me every time he goes on business trips.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '每次 + Event 1 + 都 + Event 2'
+hanzi = '爸爸每次出差都给我买礼物。'
+notes = ''
+pinyin = 'Bàba měi cì chūchāi dōu gěi wǒ mǎi lǐwù.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGXHQEF'

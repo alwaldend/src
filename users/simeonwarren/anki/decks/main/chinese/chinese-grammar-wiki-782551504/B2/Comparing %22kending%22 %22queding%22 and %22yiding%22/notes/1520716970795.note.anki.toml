@@ -1,0 +1,20 @@
+note_id = 1520716970795
+guid = "qJv9[WU1S|"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Comparisons", "SeparateFunctions"]
+
+[[cards]]
+id = 1520716976659
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "kending" "queding" and "yiding"'
+english = "I'm sure that this is his voice."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + (敢)肯定 + Sentences'
+hanzi = '我敢肯定这就是他的声音。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDPS0J'

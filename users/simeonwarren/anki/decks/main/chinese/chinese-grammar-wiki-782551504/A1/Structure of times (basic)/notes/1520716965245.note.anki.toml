@@ -1,0 +1,20 @@
+note_id = 1520716965245
+guid = "J5co9pP4>="
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Numbers", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971109
+ordinal = 0
+
+[fields]
+article-title = 'Structure of times (basic)'
+english = "7 o'clock a.m."
+example-sentence = ''
+example-type = ''
+grammar-construct = '(Date and/or time of day +) x 点'
+hanzi = '上午七点'
+notes = ''
+pinyin = 'shàngwǔ qī diǎn'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGN6BBU'

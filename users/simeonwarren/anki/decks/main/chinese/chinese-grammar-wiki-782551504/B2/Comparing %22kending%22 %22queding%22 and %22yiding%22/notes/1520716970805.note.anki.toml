@@ -1,0 +1,20 @@
+note_id = 1520716970805
+guid = "vhe1VUdm6j"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Comparisons", "SeparateFunctions"]
+
+[[cards]]
+id = 1520716976669
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "kending" "queding" and "yiding"'
+english = 'You guys are definitely going to come tomorrow.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '一定 + Adj. / Verb'
+hanzi = '明天你们一定要来。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDPS0J'

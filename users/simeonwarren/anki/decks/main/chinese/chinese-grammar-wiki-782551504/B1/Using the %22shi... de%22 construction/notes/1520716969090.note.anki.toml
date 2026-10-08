@@ -1,0 +1,20 @@
+note_id = 1520716969090
+guid = "P%2|-0d>xT"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974954
+ordinal = 0
+
+[fields]
+article-title = 'Using the "shi... de" construction'
+english = 'She used email to reply to us.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 是 + [Information to be Emphasized] + Verb + 的'
+hanzi = '她是用邮件回复我们的。'
+notes = 'used the email is emphasized.'
+pinyin = '<div>Tā shì yòng yóujiàn huífù wǒmen de.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8YTSF'

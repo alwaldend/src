@@ -1,0 +1,20 @@
+note_id = 1520716965577
+guid = "n?Y1}qnuT#"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+id = 1520716971441
+ordinal = 0
+
+[fields]
+article-title = 'Tag questions with "bu"'
+english = "You didn't come back home yesterday, right?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 不 + Verb'
+hanzi = '你昨天没回家，对不对？'
+notes = ''
+pinyin = 'Nǐ zuótiān méi huíjiā, duì bu duì?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG4D8XB'

@@ -1,0 +1,20 @@
+note_id = 1520716967086
+guid = "xHKR}^/&Z!"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972950
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "all at once" with "yixiazi"'
+english = 'Everyone became silent after the teacher came in.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 一下(子) + 就 + Predicate + 了'
+hanzi = '老师进来以后，大家一下子就安静了。'
+notes = ''
+pinyin = 'Lǎoshī jìnlái yǐhòu, dàjiā yīxiàzi jiù ānjìng le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG06EA8'

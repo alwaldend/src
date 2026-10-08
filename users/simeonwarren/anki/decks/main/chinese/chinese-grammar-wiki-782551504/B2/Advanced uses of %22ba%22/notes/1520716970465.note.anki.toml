@@ -1,0 +1,20 @@
+note_id = 1520716970465
+guid = "KxaC~@aUvR"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716976329
+ordinal = 0
+
+[fields]
+article-title = 'Advanced uses of "ba"'
+english = "Many kids make their parents' ideals their own ideals."
+example-sentence = ''
+example-type = ''
+grammar-construct = '把 + Obj.+ 当成 / 看成 / 当作 / 看作 +⋯⋯'
+hanzi = '很多子女把父母的理想当作了自己的理想。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQRS3P'

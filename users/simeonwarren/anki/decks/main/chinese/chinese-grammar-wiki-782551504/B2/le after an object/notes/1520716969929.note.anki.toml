@@ -1,0 +1,20 @@
+note_id = 1520716969929
+guid = "s<rwlvR6Ig"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975793
+ordinal = 0
+
+[fields]
+article-title = 'le after an object'
+english = 'He spent more than two thousand kuai on his lunch.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 了 + Number + Measure Word + Obj.'
+hanzi = '他午饭花了两千多块。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG4K5WH'

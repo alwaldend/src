@@ -1,0 +1,20 @@
+note_id = 1520716966798
+guid = "dDUF)[j98I"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Auxiliaryverbs", "Comparisons"]
+
+[[cards]]
+id = 1520716972662
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "yao" and "xiang"'
+english = 'I sort of miss my family.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 想 + Noun'
+hanzi = '我有点想我的家人。'
+notes = ''
+pinyin = 'Wǒ yǒudiǎn  xiǎng wǒ de jiārén.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGD88UO'

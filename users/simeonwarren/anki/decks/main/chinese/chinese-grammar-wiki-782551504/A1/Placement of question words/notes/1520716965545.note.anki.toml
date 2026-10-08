@@ -1,0 +1,20 @@
+note_id = 1520716965545
+guid = "w|NIvK|C#Z"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+id = 1520716971409
+ordinal = 0
+
+[fields]
+article-title = 'Placement of question words'
+english = "Where are you going now?<br>I'm going to the bathroom."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 哪里 / 哪儿 ?'
+hanzi = 'A: 你要去哪儿？<br>B: 我要去洗手间。'
+notes = ''
+pinyin = 'Nǐ yào qù nǎr?<br>Wǒ yào qù xǐshǒujiān.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJQPSC'

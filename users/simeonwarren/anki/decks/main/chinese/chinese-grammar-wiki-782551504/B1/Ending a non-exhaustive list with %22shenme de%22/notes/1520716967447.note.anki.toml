@@ -1,0 +1,20 @@
+note_id = 1520716967447
+guid = "u~_lwJC,QP"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["AuxiliaryWords", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973311
+ordinal = 0
+
+[fields]
+article-title = 'Ending a non-exhaustive list with "shenme de"'
+english = "Math, chemistry, English, and so on. I think they are all really boring. I don't want to study them!"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'List + 什么的'
+hanzi = '像数学啊，化学啊，英语啊什么的，我都觉得超级无聊，不想学！'
+notes = ''
+pinyin = 'Xiàng shùxué a, huàxué a, yīngyǔ a shénme de, wǒ dū juédé chāojí wúliáo, bùxiǎng xué!'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDIDAC'

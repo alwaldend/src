@@ -1,0 +1,17 @@
+note_id = 1670182453221
+guid = "sS.$oQ$&]f"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = []
+
+[[cards]]
+id = 1670182453224
+ordinal = 0
+
+[[cards]]
+id = 1670182453225
+ordinal = 1
+
+[fields]
+Back = '<ol><li>. " any char except newline matches</li><li>* " zero or more matches</li><li>\ " escape other regex commands</li><li>[] " set of character</li><li>^ " start of line or negation of set</li><li>$ " end of line</li><li>&amp; " back-reference to the entire pattern match in string</li></ol>'
+Front = 'What are pattern operators that do not need to be escaped (without "very" magic)?'

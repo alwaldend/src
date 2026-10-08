@@ -1,0 +1,20 @@
+note_id = 1520716967799
+guid = "Q*u^RK/_<o"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+id = 1520716973663
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "for" with "wei"'
+english = 'We are all happy for you.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '为 + Party + Verb / Adj.'
+hanzi = '我们都为你高兴。'
+notes = ''
+pinyin = 'Wǒmen dōu wèi nǐ gāoxìng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG68RBX'

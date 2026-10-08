@@ -1,0 +1,20 @@
+note_id = 5051
+guid = "~l{LPxR@2"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+id = 5106
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'respect;	aspect;	field;	side.<br>Cl: 个'
+example-sentence = '他们穿着宽大的白色祭服,都是家族中的家老、话事人,执掌着各方面的权柄'
+example-type = ''
+grammar-construct = ''
+hanzi = '方面'
+notes = ''
+pinyin = '<span class="tone1">fāng</span><span class="tone4">miàn</span>	 <!-- fang mian -->'
+source = ''

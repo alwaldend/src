@@ -1,0 +1,20 @@
+note_id = 1520716970072
+guid = "e_V/Op36+v"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716975936
+ordinal = 0
+
+[fields]
+article-title = 'Making "-ize" and "-ify" verbs with "hua"'
+english = 'Deng Xiaoping set forth the Four Modernizations: industrial modernization, agricultural modernization, national defense modernization, and scientific technology modernization.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun / Adj. + 化'
+hanzi = '邓小平提出了四个现代化：工业现代化、农业现代化、国防现代化、科学技术现代化。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGS6UKN'

@@ -1,0 +1,20 @@
+note_id = 1520716967260
+guid = "A1aMr74:gl"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973124
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "small quantity" with "jiu"'
+english = 'I only have one brother.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 就 + Number + [Measure Word] + Noun'
+hanzi = '我就一个哥哥。'
+notes = ''
+pinyin = 'Wǒ jiù yī gè gēge.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPW8PP'

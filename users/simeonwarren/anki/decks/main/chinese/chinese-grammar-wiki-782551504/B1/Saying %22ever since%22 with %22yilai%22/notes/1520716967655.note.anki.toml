@@ -1,0 +1,20 @@
+note_id = 1520716967655
+guid = "tR7jfGSdl2"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973519
+ordinal = 0
+
+[fields]
+article-title = 'Saying "ever since" with "yilai"'
+english = "Since three months ago, we've traveled to a lot of places."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Time Interval + 来'
+hanzi = '三个月来，我们去了很多地方旅游。'
+notes = ''
+pinyin = 'Sān gè yuè lái, wǒmen qù le hěn duō dìfang lǚyóu.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNEMXP'

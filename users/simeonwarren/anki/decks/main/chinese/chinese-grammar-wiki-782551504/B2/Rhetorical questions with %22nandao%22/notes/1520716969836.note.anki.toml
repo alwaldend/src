@@ -1,0 +1,20 @@
+note_id = 1520716969836
+guid = "Ramk@MI.+>"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975700
+ordinal = 0
+
+[fields]
+article-title = 'Rhetorical questions with "nandao"'
+english = "You're not telling me you actually believe him?"
+example-sentence = ''
+example-type = ''
+grammar-construct = '难道 + [Rhetorical Question]'
+hanzi = '难道你真的相信他吗？'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMCP9V'

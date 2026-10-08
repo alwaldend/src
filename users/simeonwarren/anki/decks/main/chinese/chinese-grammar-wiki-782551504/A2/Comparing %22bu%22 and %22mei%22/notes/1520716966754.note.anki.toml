@@ -1,0 +1,20 @@
+note_id = 1520716966754
+guid = "P2[c_7A4b&"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Adverbs", "Comparisons"]
+
+[[cards]]
+id = 1520716972618
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "bu" and "mei"'
+english = 'Are you my teacher or not?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 不 + Verb + Obj.'
+hanzi = '你是不是我的老师？'
+notes = ''
+pinyin = 'Nǐ shì bu shì wǒ de lǎoshī?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGRJ1BI'

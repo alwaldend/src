@@ -1,0 +1,20 @@
+note_id = 1520716969187
+guid = "mG5E^8<&}I"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Comparisons"]
+
+[[cards]]
+id = 1520716975051
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "zai" and "you"'
+english = 'If I can slim down a bit, I can wear my favorite jeans again!'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 又 + 助动词 / 谓语动词 + Obj.'
+hanzi = '如果我能瘦一些，我就又能穿我最喜欢的牛仔裤啦！'
+notes = ''
+pinyin = '<div>Rúguǒ wǒ néng shòu yīxiē, wǒ jiù yòu néng chuān wǒ zuì xǐhuān de niúzǎikù la!</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTBHBG'

@@ -1,0 +1,20 @@
+note_id = 1520716967158
+guid = "Mf-f|i_?&)"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973022
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "as a result" with "jieguo"'
+english = "I went to the airport to pick him up. I didn't find him there."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Situation ，结果 + [Unexpected Result]'
+hanzi = '我去机场接他，结果没接到他。'
+notes = ''
+pinyin = 'Wǒ qù jīchǎng jiē tā, jiéguǒ méi jiēdào tā.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG6B21A'

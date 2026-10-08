@@ -1,0 +1,20 @@
+note_id = 1520716966230
+guid = "sU$gT^c#I0"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972094
+ordinal = 0
+
+[fields]
+article-title = 'Using "guo" with "le"'
+english = 'I called him (already).'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 过 + Obj. + 了'
+hanzi = '我给他打过电话了。'
+notes = ''
+pinyin = 'Wǒ gěi tā dǎ guo diànhuà le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGP69JD'

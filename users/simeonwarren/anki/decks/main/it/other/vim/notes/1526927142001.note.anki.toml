@@ -1,0 +1,17 @@
+note_id = 1526927142001
+guid = "AtI;l$C-t."
+note_type_id = 1520550989354
+note_type = "basic"
+tags = ["Exiting"]
+
+[[cards]]
+id = 1526927157512
+ordinal = 0
+
+[[cards]]
+id = 1668965796691
+ordinal = 1
+
+[fields]
+Back = ':q! or ZQ'
+Front = 'Quit and throw away unsaved changes'

@@ -1,0 +1,20 @@
+note_id = 1520716970569
+guid = "I&cW&_T*3R"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716976433
+ordinal = 0
+
+[fields]
+article-title = 'Advanced uses of "lian"'
+english = 'He just left without even telling.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '连 + Verb + 都 + 不 / 没 + Verb (，就 ⋯⋯)'
+hanzi = '他连说都不说就走了。'
+notes = ''
+pinyin = 'Tā lián shuō dōu bù shuō jiù zǒu le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGF273F'

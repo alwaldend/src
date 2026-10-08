@@ -1,0 +1,20 @@
+note_id = 1520716969436
+guid = "b-lq^B~OM_"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Comparisons", "TimeWords"]
+
+[[cards]]
+id = 1520716975300
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "gang" and "gangcai"'
+english = "She didn't ask me this question just now."
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = '刚 + Adj.'
+hanzi = '她刚才没问我这个问题。'
+notes = "It's fine to use 刚才 with 没 in the past."
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJFFWG'

@@ -1,0 +1,20 @@
+note_id = 1520716969827
+guid = "rMOI%aLvm/"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975691
+ordinal = 0
+
+[fields]
+article-title = 'Expressing indifference with "jiu"'
+english = 'Get angry if you want. You think you scare me?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Negative Adj. + 就 + Negative Adj.'
+hanzi = '生气就生气，谁怕谁！'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGL4O5E'

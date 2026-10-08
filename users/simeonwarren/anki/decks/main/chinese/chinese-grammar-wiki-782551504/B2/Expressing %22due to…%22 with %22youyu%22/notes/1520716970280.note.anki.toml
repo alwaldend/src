@@ -1,0 +1,20 @@
+note_id = 1520716970280
+guid = "JRMm*O~O_Z"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Cause/EffectStatements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716976144
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "due to…" with "youyu"'
+english = 'Due to the need of the development of our company, we plan to hire more new teachers.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '由于 + Cause，Effect'
+hanzi = '由于公司发展的需要，我们打算再招聘一些新的老师。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGL90MR'

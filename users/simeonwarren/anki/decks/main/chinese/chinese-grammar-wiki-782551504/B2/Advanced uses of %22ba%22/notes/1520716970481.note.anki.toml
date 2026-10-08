@@ -1,0 +1,20 @@
+note_id = 1520716970481
+guid = "mE(`SFpcbE"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716976345
+ordinal = 0
+
+[fields]
+article-title = 'Advanced uses of "ba"'
+english = 'Just now you read 派对 as 排队.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '把 + Obj. 1 + Perception Verbs'
+hanzi = '你是不是把"派对"听成了"排队"？'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQRS3P'

@@ -1,0 +1,20 @@
+note_id = 1520716966955
+guid = "AD,^C=_5[L"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972819
+ordinal = 0
+
+[fields]
+article-title = 'Continuation with "hai"'
+english = "Why are you still playing video games? Don't you have an exam tomorrow?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 还在 + [Verb Phrase]'
+hanzi = '你还在玩游戏？明天不是有考试吗？'
+notes = ''
+pinyin = 'Nǐ hái zài wán yóuxì? Míngtiān bù shì yǒu kǎoshì ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGIRILI'

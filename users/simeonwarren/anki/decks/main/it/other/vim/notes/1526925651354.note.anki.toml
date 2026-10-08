@@ -1,0 +1,17 @@
+note_id = 1526925651354
+guid = "p*!NqJL!tm"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = ["Cursor", "Movement"]
+
+[[cards]]
+id = 1526925665269
+ordinal = 0
+
+[[cards]]
+id = 1668965796596
+ordinal = 1
+
+[fields]
+Back = 'L'
+Front = 'Move to bottom of screen'

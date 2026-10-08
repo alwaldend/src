@@ -1,0 +1,20 @@
+note_id = 2038
+guid = "bZAbg$Bl;m"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+id = 2077
+ordinal = 0
+
+[fields]
+article-title = ''
+english = '(name of states and dynasties at several different periods);	surname Qi;	neat;	even;	level with;	identical;	simultaneous;	all together;	to even sth out.'
+example-sentence = ' 群雄顿时一阵骚动,齐齐后退一大步'
+example-type = ''
+grammar-construct = ''
+hanzi = '齐'
+notes = ''
+pinyin = '<span class="tone2">qí</span>	 <!-- qi -->'
+source = ''

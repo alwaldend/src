@@ -1,0 +1,20 @@
+note_id = 1520716967108
+guid = "N=FVcJVM/t"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "leech", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972972
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "always" with "conglai"'
+english = "She's always been this selfish."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 从来 + 都 + Predicate'
+hanzi = '她从来都这么自私。'
+notes = ''
+pinyin = 'Tā cónglái dōu zhème zìsī.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8KUHG'

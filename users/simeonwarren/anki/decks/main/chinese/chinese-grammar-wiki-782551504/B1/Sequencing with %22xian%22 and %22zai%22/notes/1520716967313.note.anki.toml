@@ -1,0 +1,20 @@
+note_id = 1520716967313
+guid = "i;U6!eu^{*"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973177
+ordinal = 0
+
+[fields]
+article-title = 'Sequencing with "xian" and "zai"'
+english = 'Please buy a ticket before you enter.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '先 ⋯⋯ ，再 ⋯⋯'
+hanzi = '请你先买票再进。'
+notes = ''
+pinyin = 'Qǐng nǐ xiān mǎi piào zài jìn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGLJM55'

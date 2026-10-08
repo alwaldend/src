@@ -1,0 +1,20 @@
+note_id = 1033
+guid = "H76jwTfq}z"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+id = 1066
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'clear as a flame (idiom); to see things absolutely clearly.'
+example-sentence = ' 方源对局势洞若观火,不过即便死亡将临,他仍旧是面不改色,神情平淡'
+example-type = ''
+grammar-construct = ''
+hanzi = '洞若观火'
+notes = ''
+pinyin = '<span class="tone4">dòng</span><span class="tone4">ruò</span><span class="tone1">guān</span><span class="tone3">huǒ</span>	 <!-- dong ruo guan huo -->'
+source = ''

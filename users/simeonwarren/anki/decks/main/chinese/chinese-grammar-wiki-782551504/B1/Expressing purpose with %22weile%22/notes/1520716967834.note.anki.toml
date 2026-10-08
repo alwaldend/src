@@ -1,0 +1,20 @@
+note_id = 1520716967834
+guid = "B>Fp%{u48h"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+id = 1520716973698
+ordinal = 0
+
+[fields]
+article-title = 'Expressing purpose with "weile"'
+english = 'In order to have a better language-learning environment, I plan to go to study in China for 1 year.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '为了+ [Purpose]，Subject + Predicate'
+hanzi = '为了让自己有更好的语言环境，我打算去中国留学一年。'
+notes = 'having a better language-learning environment is the purpose'
+pinyin = 'Wèile ràng zìjǐ yǒu gèng hǎo de yǔyán huánjìng, wǒ dǎsuàn qù zhōngguó liúxué yī nián.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQGJXT'

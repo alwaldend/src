@@ -1,0 +1,20 @@
+note_id = 1520716970129
+guid = "L{.-:Ry}/G"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+id = 1520716975993
+ordinal = 0
+
+[fields]
+article-title = 'Passive verbs with "shou"'
+english = "I think your cell phone couldn't get through last night because of the signal interference."
+example-sentence = ''
+example-type = ''
+grammar-construct = '受 + ([Someone / Something]) + Verb'
+hanzi = '你的手机昨晚一直打不通，我想应该是受信号干扰。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG1DXUD'

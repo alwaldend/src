@@ -1,0 +1,20 @@
+note_id = 1520716969628
+guid = "c_c=]5nw=S"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975492
+ordinal = 0
+
+[fields]
+article-title = 'Advanced uses of "hai"'
+english = "It's so hot today, yet you're going out now?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 还 + [Verb Phrase] + 吗 ?'
+hanzi = '今天这么热，你还出门吗？'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG4807F'

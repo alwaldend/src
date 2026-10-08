@@ -1,0 +1,20 @@
+note_id = 1520716968997
+guid = "F/Wc>]r*$A"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974861
+ordinal = 0
+
+[fields]
+article-title = "The pattern \"it's not…, it's…\""
+english = "That isn't a problem, it's an opportunity."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不是 + [Verb Phrase 1] ， (而)是 + [Verb Phrase 2]'
+hanzi = '那不是一个问题，而是一个机会。'
+notes = ''
+pinyin = 'Nà bù shì yī gè wèntí, érshì yī gè jīhuì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGT9WYR'

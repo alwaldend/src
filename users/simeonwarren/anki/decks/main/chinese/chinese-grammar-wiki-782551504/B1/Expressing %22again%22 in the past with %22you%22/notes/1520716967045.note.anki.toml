@@ -1,0 +1,20 @@
+note_id = 1520716967045
+guid = "y!KelNB_&$"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972909
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "again" in the past with "you"'
+english = 'I need to go to work tomorrow AGAIN!'
+example-sentence = ''
+example-type = ''
+grammar-construct = '又 + 要 / 想 / 可以 / 能 + Verb Phrase (+ 了)'
+hanzi = '明天又要上班了!'
+notes = ''
+pinyin = 'Míngtiān yòu yào shàngbān le!'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGN1JR5'

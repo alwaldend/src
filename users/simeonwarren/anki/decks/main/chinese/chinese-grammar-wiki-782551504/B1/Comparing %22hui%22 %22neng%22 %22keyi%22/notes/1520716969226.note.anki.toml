@@ -1,0 +1,20 @@
+note_id = 1520716969226
+guid = "x:L8=H3V|7"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["AuxiliaryWords", "B1", "Comparisons"]
+
+[[cards]]
+id = 1520716975090
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "hui" "neng" "keyi"'
+english = "I studied for two months. I know how to dance now. (It's a learned skill)"
+example-sentence = ''
+example-type = ''
+grammar-construct = '很 + 会／能 + Verb'
+hanzi = '我学了两个月，现在我会跳舞了。'
+notes = ''
+pinyin = 'Wǒ xué le liǎng gè yuè, xiànzài wǒ huì tiàowǔ le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGZL717'

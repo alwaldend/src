@@ -1,0 +1,20 @@
+note_id = 1520716969128
+guid = "i]!jYE*|`Z"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974992
+ordinal = 0
+
+[fields]
+article-title = 'Topic-comment sentences'
+english = "You have a meeting tomorrow afternoon. You remember that, don't you?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Topic ，Comment'
+hanzi = '明天下午要开会，你记得吧？'
+notes = ''
+pinyin = 'Míngtiān xiàwǔ yào kāi huì, nǐ jìde ba?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5KNWW'

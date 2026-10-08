@@ -1,0 +1,20 @@
+note_id = 1520716967901
+guid = "c#bfF2[d.?"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+id = 1520716973765
+ordinal = 0
+
+[fields]
+article-title = 'Using "dui" with verbs'
+english = 'You should be responsible for your job.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '对 + Party + 来说 ，⋯⋯'
+hanzi = '你应该对自己的工作负责。'
+notes = ''
+pinyin = 'Nǐ yīnggāi duì zìjǐ de gōngzuò fùzé .'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8ICO9'

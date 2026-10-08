@@ -1,0 +1,20 @@
+note_id = 1520716967953
+guid = "kWj`7/HpdU"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+id = 1520716973817
+ordinal = 0
+
+[fields]
+article-title = 'Doing something less with "shao"'
+english = 'Can you smoke less?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '少 + Verb'
+hanzi = '你能不能少抽点烟？'
+notes = ''
+pinyin = 'Nǐ néng bu néng shǎo chōu diǎn yān?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG9B0M8'

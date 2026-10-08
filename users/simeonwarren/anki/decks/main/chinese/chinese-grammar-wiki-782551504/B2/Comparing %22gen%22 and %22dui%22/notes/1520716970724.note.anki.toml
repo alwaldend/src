@@ -1,0 +1,20 @@
+note_id = 1520716970724
+guid = "pkHD`t%X~{"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Comparisons", "Conjunctions"]
+
+[[cards]]
+id = 1520716976588
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "gen" and "dui"'
+english = 'Shanghai and New York are alike; they are both international cities.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A + 跟 + B + （不）一样'
+hanzi = '上海跟纽约一样，都是国际大都市。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGC5Y86'

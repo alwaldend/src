@@ -1,0 +1,17 @@
+note_id = 1634364523082
+guid = "Dib_~.G$9}"
+note_type_id = 1630447360002
+note_type = "python-basic"
+tags = []
+
+[[cards]]
+id = 1634370830779
+ordinal = 0
+
+[fields]
+'Additional Info' = ''
+'Back - Basic' = '__init__'
+'Back - Code' = ''
+Example = 'class Example:<br>&nbsp; &nbsp; def __init__(self):<br>&nbsp; &nbsp; &nbsp; &nbsp; pass'
+Front = 'What is the name of the constructor method for a class?'
+Version = ''

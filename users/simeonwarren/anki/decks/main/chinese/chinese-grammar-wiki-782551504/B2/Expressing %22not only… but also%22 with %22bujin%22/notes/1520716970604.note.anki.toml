@@ -1,0 +1,20 @@
+note_id = 1520716970604
+guid = "fGdODh19Mx"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Grammatical_Structures", "Notonly…butalso…"]
+
+[[cards]]
+id = 1520716976468
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "not only… but also" with "bujin"'
+english = 'We not only completed the task, but we did so ten days ahead of schedule.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun + 不仅 + A，而且 + B'
+hanzi = '我们不仅完成了任务而且比规定日期提前了十天。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGEM2VR'

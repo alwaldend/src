@@ -1,0 +1,20 @@
+note_id = 1520716967383
+guid = "94Wd4]AT"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973247
+ordinal = 0
+
+[fields]
+article-title = 'Using "cai" for small numbers'
+english = "They got married? They've only knew each other for three months!"
+example-sentence = ''
+example-type = ''
+grammar-construct = '才 + Verb + Number + Measure Word + Noun'
+hanzi = '他们结婚了？他们才认识三个月！'
+notes = ''
+pinyin = 'Tāmen jiéhūn le? Tāmen cái rènshi sān gè yuè!'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGYW5RS'

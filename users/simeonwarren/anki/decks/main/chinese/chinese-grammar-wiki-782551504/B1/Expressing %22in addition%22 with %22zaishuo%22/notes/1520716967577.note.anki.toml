@@ -1,0 +1,20 @@
+note_id = 1520716967577
+guid = "wR<BLil},["
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973441
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "in addition" with "zaishuo"'
+english = "Don't be so mad. It's not his fault. Besides, it's not a big deal."
+example-sentence = ''
+example-type = ''
+grammar-construct = '⋯⋯ ，再说 ，⋯⋯'
+hanzi = '别怪他。不是他的错。再说，这也不是什么大事。'
+notes = ''
+pinyin = 'Bié guài tā. Bù shì tā de cuò. Zàishuō, zhè yě bù shì shénme dà shì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGATDLX'

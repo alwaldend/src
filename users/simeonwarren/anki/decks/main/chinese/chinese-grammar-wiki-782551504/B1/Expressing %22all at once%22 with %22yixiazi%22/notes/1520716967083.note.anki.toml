@@ -1,0 +1,20 @@
+note_id = 1520716967083
+guid = "N]Lw`tJ-=&"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972947
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "all at once" with "yixiazi"'
+english = 'She suddenly fell when she went downstairs.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 一下(子) + Predicate + 了'
+hanzi = '她下楼的时候一下子摔倒了。'
+notes = ''
+pinyin = 'Tā xiàlóu de shíhou yīxiàzi shuāidǎo le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG06EA8'

@@ -1,0 +1,20 @@
+note_id = 1520716969566
+guid = "e$d^CGp<Mi"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adjectives", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975430
+ordinal = 0
+
+[fields]
+article-title = 'Challenging an adjective with "shenme"'
+english = 'Why so sad? Look at the blue sky, the green fields, life is so beautiful!'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Adj.／Verb + 什么 + (Adj.／Verb)？'
+hanzi = '郁闷什么呀，看看这蓝蓝的天空，绿绿的田园，生活多美好啊！'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNV2TZ'

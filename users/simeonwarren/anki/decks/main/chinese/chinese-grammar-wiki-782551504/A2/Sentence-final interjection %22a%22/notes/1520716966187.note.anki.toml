@@ -1,0 +1,20 @@
+note_id = 1520716966187
+guid = "cQzsc*+yhJ"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972051
+ordinal = 0
+
+[fields]
+article-title = 'Sentence-final interjection "a"'
+english = 'Be careful!'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '小心啊！'
+notes = ''
+pinyin = 'Xiǎoxīn a!'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGW66JM'

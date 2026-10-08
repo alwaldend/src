@@ -1,0 +1,20 @@
+note_id = 1520716968377
+guid = "F]gV?UB}p3"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716974241
+ordinal = 0
+
+[fields]
+article-title = 'Direction complement "-qilai"'
+english = 'The birds starts flying.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb / Adj.+ 起来 +了'
+hanzi = '小鸟飞起来了。'
+notes = ''
+pinyin = 'Xiǎoniǎo fēi qǐláile.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGBPXOB'

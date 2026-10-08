@@ -1,0 +1,20 @@
+note_id = 1520716969392
+guid = "gfSzqh,LjA"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Comparisons"]
+
+[[cards]]
+id = 1520716975256
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "youdian" and "yidian"'
+english = 'A bit faster, we will be late.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '快点，要迟到了。'
+notes = ''
+pinyin = 'Kuài diǎn, yào chídào le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGV55Y4'

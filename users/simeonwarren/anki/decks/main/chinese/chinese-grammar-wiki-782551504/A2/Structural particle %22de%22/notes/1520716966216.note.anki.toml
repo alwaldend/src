@@ -1,0 +1,20 @@
+note_id = 1520716966216
+guid = "zvXqBz1][W"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972080
+ordinal = 0
+
+[fields]
+article-title = 'Structural particle "de"'
+english = 'angrily say'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Adj. + 地 +  Verb'
+hanzi = '生气地说'
+notes = ''
+pinyin = 'shēngqì de shuō'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5MOMM'

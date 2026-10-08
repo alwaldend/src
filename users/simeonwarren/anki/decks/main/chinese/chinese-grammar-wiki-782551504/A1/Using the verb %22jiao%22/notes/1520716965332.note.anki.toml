@@ -1,0 +1,20 @@
+note_id = 1520716965332
+guid = "MyR_d$.F54"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716971196
+ordinal = 0
+
+[fields]
+article-title = 'Using the verb "jiao"'
+english = 'What is that called?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 叫 + [Name]'
+hanzi = '那个叫什么？'
+notes = ''
+pinyin = 'Nàge jiào shénme?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGUGWVZ'

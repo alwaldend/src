@@ -1,0 +1,20 @@
+note_id = 1520716969120
+guid = "z`A}.83l_L"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974984
+ordinal = 0
+
+[fields]
+article-title = 'Topic-comment sentences'
+english = 'Fruit, I like strawberries best.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Topic ，Comment'
+hanzi = '水果，我最爱吃草莓。'
+notes = ''
+pinyin = 'Shuǐguǒ, wǒ zuì ài chī cǎoméi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5KNWW'

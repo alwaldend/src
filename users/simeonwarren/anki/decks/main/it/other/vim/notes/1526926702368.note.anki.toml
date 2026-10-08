@@ -1,0 +1,21 @@
+note_id = 1526926702368
+guid = "EdQ:qv2kI="
+note_type_id = 1520550989354
+note_type = "basic"
+tags = ["VisualCommands"]
+
+[[cards]]
+id = 1526926726945
+ordinal = 0
+
+[[cards]]
+id = 1668965796659
+ordinal = 1
+
+[fields]
+Back = """
+&gt;
+
+&nbsp;(visual mode)\
+"""
+Front = 'Shift text right (visual mode)'

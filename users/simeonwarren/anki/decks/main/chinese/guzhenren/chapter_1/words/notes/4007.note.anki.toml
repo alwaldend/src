@@ -1,0 +1,20 @@
+note_id = 4007
+guid = "E@3hJ@&2;3"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 4017
+ordinal = 0
+
+[fields]
+article-title = ''
+english = "very loudly;\tat the top of one's voice."
+example-sentence = ' 这般想着,方源情不自禁放声大笑'
+example-type = ''
+grammar-construct = ''
+hanzi = '放声'
+notes = ''
+pinyin = '<span class="tone4">fàng</span><span class="tone1">shēng</span>	 <!-- fang sheng -->'
+source = ''

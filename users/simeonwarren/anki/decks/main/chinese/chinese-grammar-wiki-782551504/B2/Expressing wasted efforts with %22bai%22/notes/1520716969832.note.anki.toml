@@ -1,0 +1,20 @@
+note_id = 1520716969832
+guid = "hg5[+@g^AH"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975696
+ordinal = 0
+
+[fields]
+article-title = 'Expressing wasted efforts with "bai"'
+english = "Sorry to make you work this whole morning for nothing. Our boss just said that he couldn't come today."
+example-sentence = ''
+example-type = ''
+grammar-construct = '白 + Verb + 了'
+hanzi = '不好意思，让你白忙了一个早上，我们老板今天来不了了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTIMTS'

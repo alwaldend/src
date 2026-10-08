@@ -1,0 +1,20 @@
+note_id = 1520716965202
+guid = "L,p!xPo@l4"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Numbers", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971066
+ordinal = 0
+
+[fields]
+article-title = 'Age with "sui"'
+english = 'I am 20 years old.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Number + 岁'
+hanzi = '我20岁。'
+notes = ''
+pinyin = 'Wǒ èrshí suì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQUKJF'

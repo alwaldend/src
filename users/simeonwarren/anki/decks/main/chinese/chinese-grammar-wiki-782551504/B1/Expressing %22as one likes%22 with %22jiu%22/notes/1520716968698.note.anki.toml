@@ -1,0 +1,20 @@
+note_id = 1520716968698
+guid = "dN_Zk*E;^A"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974562
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "as one likes" with "jiu"'
+english = 'You can come whenever you like.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '想 + [Question Word] + 就 + [Question Word]'
+hanzi = '想什么时候来就什么时候来。'
+notes = ''
+pinyin = 'Xiǎng shénme shíhou lái jiù shénme shíhou lái.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDUZ55'

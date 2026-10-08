@@ -1,0 +1,20 @@
+note_id = 1520716970190
+guid = "d(6H&u[qA{"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "EvenIfStatements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716976054
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "even if…" with "jiusuan"'
+english = 'Even if the staff would complaint about it, the company are still going to carry out the new policy.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '就算 + [Hypothetical Statement] + 也 + [Action]'
+hanzi = '就算员工会抱怨，公司也要实行这个新政策。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGLI513'

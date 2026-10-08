@@ -1,0 +1,17 @@
+note_id = 1634365656350
+guid = "bdEDCr$~fe"
+note_type_id = 1630447360002
+note_type = "python-basic"
+tags = []
+
+[[cards]]
+id = 1634370830787
+ordinal = 0
+
+[fields]
+'Additional Info' = ''
+'Back - Basic' = ''
+'Back - Code' = 'for key, value in my_dict.items():<br>&nbsp; &nbsp; print(key, value)'
+Example = ''
+Front = 'Loop through the dictionary my_dict and print each key and value.'
+Version = ''

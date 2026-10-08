@@ -1,0 +1,20 @@
+note_id = 1520716965558
+guid = "k!.n*bDhu0"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+id = 1520716971422
+ordinal = 0
+
+[fields]
+article-title = 'Placement of question words'
+english = 'Who wants to drink coffee?<br>I want to drink coffee.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '谁 + Verb ?'
+hanzi = 'A: 谁想喝咖啡？<br>B: 我想喝咖啡。'
+notes = ''
+pinyin = 'Shéi xiǎng hē kāfēi?Wǒ xiǎng hē kāfēi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJQPSC'

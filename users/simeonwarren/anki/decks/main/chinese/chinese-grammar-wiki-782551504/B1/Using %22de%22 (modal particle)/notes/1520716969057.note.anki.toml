@@ -1,0 +1,20 @@
+note_id = 1520716969057
+guid = "pRK9<A+wL%"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974921
+ordinal = 0
+
+[fields]
+article-title = 'Using "de" (modal particle)'
+english = "I was just asking about the price. I won't buy it."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Statement + 的'
+hanzi = '我只想问问价钱，不会买的。'
+notes = ''
+pinyin = 'Wǒ zhǐ xiǎng wèn wèn jiàqián, bù huì mǎi de.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG19S1M'

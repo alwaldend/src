@@ -1,0 +1,17 @@
+note_id = 1634418187052
+guid = "uGe]&ih#_|"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634418187053
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<b>Built in function:&nbsp;</b>repr(<i>object</i>)'
+example = ''
+question = '<b>Built in function</b>&nbsp;that returns a readable version of an object.'
+version = ''
+with-options = ''

@@ -1,0 +1,20 @@
+note_id = 1520716967988
+guid = "t/kOy*X1t,"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716973852
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "compared with" with "gen"'
+english = "Compared to the first half of the year, the company's profits have declined."
+example-sentence = ''
+example-type = ''
+grammar-construct = '跟 + Time 1 + 比 ， Subj. + Time 2 + ~'
+hanzi = '跟上半年比，公司下半年的利润下降了。'
+notes = ''
+pinyin = 'Gēn shàng bàn nián bǐ, gōngsī xià bàn nián de lìrùn xiàjiàng le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG920B7'

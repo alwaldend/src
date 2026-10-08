@@ -1,0 +1,20 @@
+note_id = 1520716967556
+guid = "KDaTS`c`Kk"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973420
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "in addition" with "lingwai"'
+english = 'This flight is always running late. In addition, their meal set is terrible.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '⋯⋯ ，另外 ，⋯⋯'
+hanzi = '这个航班经常晚点。另外，他们的飞机餐也很难吃。'
+notes = ''
+pinyin = 'Zhège hángbān jīngcháng wǎndiǎn. Lìngwài, tāmen de fēijī cān yě hěn nánchī.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG2KQZI'

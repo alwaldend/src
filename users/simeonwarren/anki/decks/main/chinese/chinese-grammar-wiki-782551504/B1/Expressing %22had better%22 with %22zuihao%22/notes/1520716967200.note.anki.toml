@@ -1,0 +1,20 @@
+note_id = 1520716967200
+guid = "kxLim#p`H>"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "leech", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973064
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "had better" with "zuihao"'
+english = "This question is private. We'd better not ask."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 最好 + 别 / 不要 + [Verb Phrase]'
+hanzi = '这个问题是隐私，最好不要问。'
+notes = ''
+pinyin = 'Zhège wèntí shì yǐnsī,  zuìhǎo bùyào wèn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG35CD7'

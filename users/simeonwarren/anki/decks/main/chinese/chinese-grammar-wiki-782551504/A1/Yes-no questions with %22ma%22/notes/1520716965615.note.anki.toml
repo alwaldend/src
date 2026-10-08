@@ -1,0 +1,20 @@
+note_id = 1520716965615
+guid = "lZ$x`Cmc1_"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+id = 1520716971479
+ordinal = 0
+
+[fields]
+article-title = 'Yes-no questions with "ma"'
+english = 'Did you not go to work yesterday?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '[Statement] + 吗 ？'
+hanzi = '你昨天没去上班吗？'
+notes = 'question'
+pinyin = 'Nǐ zuótiān méi qù shàngbān ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQ2AZA'

@@ -1,0 +1,17 @@
+note_id = 1634362890127
+guid = "GZuuK/Xvne"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634370830765
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<i>set</i>.difference(<i>set</i>)<br>'
+example = ''
+question = "<b>Set method</b> that returns a new set with all the items from the first set (called on set) that didn't exist in the second set (argument set).&nbsp;"
+version = ''
+with-options = ''

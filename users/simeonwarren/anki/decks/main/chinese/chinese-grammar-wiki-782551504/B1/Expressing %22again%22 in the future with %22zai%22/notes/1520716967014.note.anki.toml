@@ -1,0 +1,20 @@
+note_id = 1520716967014
+guid = "O{=afZ]nA,"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972878
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "again" in the future with "zai"'
+english = 'Say it again, please.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 再 + Verb Phrase'
+hanzi = '请再说一遍。'
+notes = ''
+pinyin = 'Qǐng zài shuō yī biàn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGIZQJ2'

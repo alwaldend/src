@@ -1,0 +1,20 @@
+note_id = 1520716967541
+guid = "zV;BREJMQD"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973405
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "in addition" with "lingwai"'
+english = "If the students don't find the lesson difficult, the teacher can add more learning materials."
+example-sentence = ''
+example-type = ''
+grammar-construct = '另外 + [Verb Phrase]'
+hanzi = '如果学生觉得不难，老师可以另外再加一些学习内容。'
+notes = ''
+pinyin = 'Rúguǒ xuéshēng juéde bù nán, lǎoshī kěyǐ lìngwài zài jiā yīxiē xuéxí nèiróng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG2KQZI'

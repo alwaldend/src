@@ -1,0 +1,20 @@
+note_id = 1520716966906
+guid = "s}N{X2lm?|"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972770
+ordinal = 0
+
+[fields]
+article-title = 'Reduplication of adjectives'
+english = 'My little sister have always been thin and small.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A A + 的 (+ Noun)'
+hanzi = '我妹妹一直瘦瘦小小的。'
+notes = ''
+pinyin = 'Wǒ mèimei yīzhí shòu shòu xiǎo xiǎo de.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDHE8S'

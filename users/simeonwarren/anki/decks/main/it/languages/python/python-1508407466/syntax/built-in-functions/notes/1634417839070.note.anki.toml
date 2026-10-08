@@ -1,0 +1,17 @@
+note_id = 1634417839070
+guid = "xM}VkyKX{4"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634417839071
+ordinal = 0
+
+[fields]
+additional-info = 'Also accepts optional parameters sort function&nbsp;<i>key</i>, and bool value&nbsp;<i>reverse.</i>'
+answer = '<b>Built in function:&nbsp;</b>sorted(<i>iterable</i>)'
+example = ''
+question = '<b>Built in function</b>&nbsp;that returns a sorted list from an iterable object. &nbsp;'
+version = ''
+with-options = 'sorted(<i>iterable</i>,&nbsp;<i>key=None, reverse=False</i>)'

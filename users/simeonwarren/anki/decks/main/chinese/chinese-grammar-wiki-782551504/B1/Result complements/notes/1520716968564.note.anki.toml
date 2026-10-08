@@ -1,0 +1,20 @@
+note_id = 1520716968564
+guid = "Ja?Ix688ac"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716974428
+ordinal = 0
+
+[fields]
+article-title = 'Result complements'
+english = "I didn't remember incorrectly."
+example-sentence = ''
+example-type = ''
+grammar-construct = '没 + Verb + Adj.'
+hanzi = '我没记错。'
+notes = ''
+pinyin = 'Wǒ méi jì cuò.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNNMST'

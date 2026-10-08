@@ -1,0 +1,17 @@
+note_id = 1634433000277
+guid = "Iavp<f[tMX"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634433000279
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<b>Keyword&nbsp;</b>logical operator used to evaluate to True if either (or both) statements evaluates to True. It will return the first True statement of the 2 statements.'
+example = ''
+question = '<b>Keyword</b>: or'
+version = ''
+with-options = ''

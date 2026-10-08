@@ -1,0 +1,17 @@
+note_id = 1634422636275
+guid = "O,irc%{3,!"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634422636277
+ordinal = 0
+
+[fields]
+additional-info = "<div>Doesn't change the original item.</div>"
+answer = '<b>Built in function </b>that returns a dictionary from an object.'
+example = ''
+question = '<b>Built in function:</b> dict(<i>object</i>)'
+version = ''
+with-options = ''

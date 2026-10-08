@@ -1,0 +1,20 @@
+note_id = 1520716969539
+guid = "Q}fF(6p#k."
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Comparisons", "TimeWords"]
+
+[[cards]]
+id = 1520716975403
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "yihou" "ranhou" "houlai"'
+english = 'The baby woke up. He cried for a little while and then fell asleep again.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '宝宝醒了，哭了一会儿，然后又睡着了。'
+notes = ''
+pinyin = 'Bǎobao xǐng le, kū le yīhuìr, ránhòu yòu shuìzháo le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNPJ7T'

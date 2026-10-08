@@ -1,0 +1,17 @@
+note_id = 1634432557173
+guid = "k.lq0m=s5B"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634432557175
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<b>Keyword</b> used to make the first part of an exception statement (the code that should be attempted before moving to the except, else, or finally statements).'
+example = ''
+question = '<b>Keyword:</b> try'
+version = ''
+with-options = ''

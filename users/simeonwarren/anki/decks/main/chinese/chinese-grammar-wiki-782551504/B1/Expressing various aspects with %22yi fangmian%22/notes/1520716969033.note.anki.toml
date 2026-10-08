@@ -1,0 +1,20 @@
+note_id = 1520716969033
+guid = "i14qpmwne^"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974897
+ordinal = 0
+
+[fields]
+article-title = 'Expressing various aspects with "yi fangmian"'
+english = 'On one hand, smoking can do harm to the smoker himself; on the other hand, it can do harm to people around the smoker.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '一 方面 ⋯⋯ ， (另) 一 方面 ⋯⋯'
+hanzi = '抽烟一方面对自己有害，一方面对身边的人也有害。'
+notes = ''
+pinyin = 'Chōuyān yī fāngmiàn duì zìjǐ yǒuhài, yī fāngmiàn duì shēnbiān de rén yě yǒuhài.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCWHNF'

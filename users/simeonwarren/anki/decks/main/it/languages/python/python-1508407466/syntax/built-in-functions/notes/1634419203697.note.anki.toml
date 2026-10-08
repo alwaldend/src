@@ -1,0 +1,17 @@
+note_id = 1634419203697
+guid = "qGlg#Lm861"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634419203698
+ordinal = 0
+
+[fields]
+additional-info = "Doesn't modify the original number."
+answer = '<b>Built in function:&nbsp;</b>bin(<i>number</i>)'
+example = ''
+question = '<b>Built in function</b>&nbsp;that returns the binary version of a number.'
+version = ''
+with-options = ''

@@ -1,0 +1,17 @@
+note_id = 1634417622769
+guid = "zH2h$o!/IQ"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634417622771
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<b>Built in function:&nbsp;</b>sum(<i>iterable</i>)'
+example = ''
+question = '<b>Built in function</b>&nbsp;that returns the sum of the items of an iterable.'
+version = ''
+with-options = ''

@@ -1,0 +1,20 @@
+note_id = 1520716966565
+guid = "iJI:^OeL.`"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Grammatical_Structures", "NumbersandMeasureWords"]
+
+[[cards]]
+id = 1520716972429
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "every" with "mei"'
+english = 'The boss goes on business trips every month.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '每 + Measure Word + Noun + 都'
+hanzi = '老板每个月都出差。'
+notes = ''
+pinyin = 'Lǎobǎn měi gè yuè dōu chūchāi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGB6L4M'

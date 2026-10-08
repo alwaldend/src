@@ -1,0 +1,20 @@
+note_id = 1520716967116
+guid = "bgqY}})r/c"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972980
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "as a result" with "jieguo"'
+english = 'I was too nervous. As a result, I said a lot of wrong things.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Situation ，结果 + Ending'
+hanzi = '我太紧张了，结果说错了很多。'
+notes = ''
+pinyin = 'Wǒ tài jǐnzhāng le, jiéguǒ shuō cuò le hěn duō.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG6B21A'

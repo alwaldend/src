@@ -1,0 +1,20 @@
+note_id = 10993
+guid = "H+}qxe!uP>"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+id = 10996
+ordinal = 0
+
+[fields]
+article-title = ''
+english = "expression or emotion showing in one's eyes;\tmeaningful glance;\twink;\teyesight (dialect)."
+example-sentence = '春秋蝉果真起作用了   方源眼神幽幽,站在窗户旁,任凭风雨打在身上'
+example-type = ''
+grammar-construct = ''
+hanzi = '眼神'
+notes = ''
+pinyin = '<span class="tone3">yǎn</span><span class="tone2">shén</span>	 <!-- yan shen -->'
+source = ''

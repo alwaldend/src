@@ -1,0 +1,20 @@
+note_id = 9021
+guid = "CfJ>ta`DC+"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+id = 9050
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'must;	to need to;	to be sure to.'
+example-sentence = ' 旋即,咳嗽一声,对诸位家老们道: 诸位,时候不早了,为了明日的开窍大殿,今晚请务必好好休息,保养精神'
+example-type = ''
+grammar-construct = ''
+hanzi = '务必'
+notes = ''
+pinyin = '<span class="tone4">wù</span><span class="tone4">bì</span>	 <!-- wu bi -->'
+source = ''

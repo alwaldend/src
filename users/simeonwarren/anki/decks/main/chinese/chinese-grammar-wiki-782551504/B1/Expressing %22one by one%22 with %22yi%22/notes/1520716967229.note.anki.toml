@@ -1,0 +1,20 @@
+note_id = 1520716967229
+guid = "h&lj`aLIuY"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "leech", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973093
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "one by one" with "yi"'
+english = 'Please inspect room by room.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '一 + Measure Word （+ 一）+ Measure Word + Noun'
+hanzi = '请一个房间一个房间检查。'
+notes = ''
+pinyin = 'Qǐng yī gè fángjiān yī gè fángjiān jiǎnchá.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGBC7A0'

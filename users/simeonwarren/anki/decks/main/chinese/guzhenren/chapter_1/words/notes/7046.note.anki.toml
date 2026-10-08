@@ -1,0 +1,20 @@
+note_id = 7046
+guid = "Hu,#~5?JX."
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 7098
+ordinal = 0
+
+[fields]
+article-title = ''
+english = "that one;\tthat thing;\tthat (as opposed to this);\t(used before a verb or adjective for emphasis);\t(used to humorously or indirectly refer to sth embarrassing, funny etc, or when one can't think of the right word);\t(used in speech as a filler, similar to \"umm\", \"you know\" etc);\t(euph.) menstruation;\tsex;\talso pr. [nei4 ge5]."
+example-sentence = ' 尤其是那个古月方源,甲等资质的可能性非常的大'
+example-type = ''
+grammar-construct = ''
+hanzi = '那个'
+notes = ''
+pinyin = '<span class="tone4">nà</span><span class="tone5">ge</span>	 <!-- na ge -->'
+source = ''

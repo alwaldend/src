@@ -1,0 +1,20 @@
+note_id = 1692896279345
+guid = "KJAxUr#5Zk"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = []
+
+[[cards]]
+id = 1692896279345
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'In short, rebirth.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '简而言之,就是重生。'
+notes = ''
+pinyin = '<div>Jiǎn ér yán zhī, jiùshì chóngshēng.</div>'
+source = ''

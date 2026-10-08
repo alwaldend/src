@@ -1,0 +1,20 @@
+note_id = 1520716970705
+guid = "s]V4:cB}v4"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Comparisons", "Conjunctions"]
+
+[[cards]]
+id = 1520716976569
+ordinal = 0
+
+[fields]
+article-title = "Comparing \"fan'er\" and \"que\""
+english = 'I though the Knicks would win the first game, but they lost.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '却 + Verb'
+hanzi = '我以为Knicks会赢第一场比赛，他却输了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG0K25S'

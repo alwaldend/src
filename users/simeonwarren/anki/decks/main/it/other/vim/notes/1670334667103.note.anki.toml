@@ -1,0 +1,17 @@
+note_id = 1670334667103
+guid = "r1wz0PD>?I"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = []
+
+[[cards]]
+id = 1670334667103
+ordinal = 0
+
+[[cards]]
+id = 1670334667104
+ordinal = 1
+
+[fields]
+Back = 'd “ delete<div>y “ yank</div><div>c “ change/cut</div><div>v “ visual (range selection)</div><div>= “ format</div><div>&gt; “ indent</div><div>&lt; “ outdent&nbsp;</div><div>gu gU g~ “ go lowercase, uppercase, switch</div><div>gw gq “ reflow text (hold cursor, move to end of text)</div>'
+Front = 'What are the vim operators that take motions (as in {operator}{count}{motion})?'

@@ -1,0 +1,20 @@
+note_id = 1520716969699
+guid = "F;@6.jHk?;"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975563
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "have to" with budebu'
+english = 'The situation is very important. We have to take it very seriously.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不得不 + Verb'
+hanzi = '这些情况很重要，我们不得不重视。'
+notes = ''
+pinyin = 'Zhèxiē qíngkuàng hěn zhòngyào wǒmen  bùdébù zhòngshì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG0C825'

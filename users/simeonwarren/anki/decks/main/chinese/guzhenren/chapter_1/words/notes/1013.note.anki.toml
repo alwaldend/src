@@ -1,0 +1,20 @@
+note_id = 1013
+guid = "C{MK{w+;_9"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 1026
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'scarlet;	bright red.'
+example-sentence = ' 鲜红的血液,从身上数百道伤口向外涌着'
+example-type = ''
+grammar-construct = ''
+hanzi = '鲜红'
+notes = ''
+pinyin = '<span class="tone1">xiān</span><span class="tone2">hóng</span>	 <!-- xian hong -->'
+source = ''

@@ -1,0 +1,20 @@
+note_id = 1520716965416
+guid = "P|AI4pOix_"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Auxiliaryverbs", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971280
+ordinal = 0
+
+[fields]
+article-title = 'Wanting to do something with "yao"'
+english = 'What do you want to eat?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 要 + Verb + Obj.'
+hanzi = '你要吃什么？'
+notes = ''
+pinyin = 'Nǐ yào chī shénme?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGXVEAR'

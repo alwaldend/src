@@ -1,0 +1,20 @@
+note_id = 1520716966846
+guid = "ls[5z$VnRj"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972710
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "not very" with "bu zenme"'
+english = "This teacher isn't very professional."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不怎么 + Adj. / [Psychological Verb]'
+hanzi = '这个老师不怎么专业。'
+notes = ''
+pinyin = 'Zhège lǎoshī bù zěnme zhuānyè.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGVYIZT'

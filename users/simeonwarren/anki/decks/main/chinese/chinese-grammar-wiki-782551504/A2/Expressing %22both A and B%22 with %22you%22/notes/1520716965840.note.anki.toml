@@ -1,0 +1,20 @@
+note_id = 1520716965840
+guid = "fCyA|IU,2z"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "AdverbswithAdjectives", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971704
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "both A and B" with "you"'
+english = 'Her boyfriend is both tall and handsome.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 又 + Adj. 1 + 又 + Adj. 2'
+hanzi = '她男朋友又高又帅。'
+notes = ''
+pinyin = 'Tā nánpéngyou yòu gāo yòu shuài.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPFUM2'

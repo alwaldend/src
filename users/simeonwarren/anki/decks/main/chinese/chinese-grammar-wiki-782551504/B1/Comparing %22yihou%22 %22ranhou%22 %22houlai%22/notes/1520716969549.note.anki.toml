@@ -1,0 +1,20 @@
+note_id = 1520716969549
+guid = "I(/RZ`A$pB"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Comparisons", "TimeWords"]
+
+[[cards]]
+id = 1520716975413
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "yihou" "ranhou" "houlai"'
+english = 'They were together in college. They broke up later on.'
+example-sentence = ''
+example-type = 'invalid'
+grammar-construct = '[Past Event 1] ，后来 + [Past Event 2]'
+hanzi = '他们大学的时候在一起过，以后分手了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNPJ7T'

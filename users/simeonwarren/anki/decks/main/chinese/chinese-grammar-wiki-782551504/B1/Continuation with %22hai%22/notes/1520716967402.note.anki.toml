@@ -1,0 +1,20 @@
+note_id = 1520716967402
+guid = "u:>$xTdf;f"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["AdverbswithAdjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973266
+ordinal = 0
+
+[fields]
+article-title = 'Continuation with "hai"'
+english = "You still haven't eaten?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 还 + 不 / 没 + Verb + Obj.'
+hanzi = '你还没吃饭？'
+notes = 'implying the listener should go to eat'
+pinyin = 'Nǐ hái méi chīfàn?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGIRILI'

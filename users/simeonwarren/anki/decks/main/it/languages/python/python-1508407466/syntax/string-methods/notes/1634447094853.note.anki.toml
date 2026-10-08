@@ -1,0 +1,21 @@
+note_id = 1634447094853
+guid = "Fl*w}*eS]g"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634447094854
+ordinal = 0
+
+[fields]
+additional-info = '<strong>Note:</strong>&nbsp;All string methods returns new values. They do not change the original string.'
+answer = '<i>string</i>.replace(<i>old_value</i>, <i>new_value</i>)'
+example = ''
+question = '<b>String method</b>&nbsp;that returns a new string where the first specified value is replaced with the second specified value.'
+version = ''
+with-options = """
+
+
+<i>string</i>.replace(<i>old_value</i>,&nbsp;<i>new_value</i>, <i>count</i>=-1)\
+"""

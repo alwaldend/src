@@ -1,0 +1,20 @@
+note_id = 1520716967031
+guid = "ih.1d7CTe$"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972895
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "again" in the future with "zai"'
+english = 'I want to read this book again.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 再 + [Verb Phrase]'
+hanzi = '这本书我要再看一遍。'
+notes = ''
+pinyin = 'Zhè běn shū wǒ yào zài kàn yī biàn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGIZQJ2'

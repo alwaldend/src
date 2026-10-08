@@ -1,0 +1,20 @@
+note_id = 1520716968321
+guid = "x(*pkib[9<"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716974185
+ordinal = 0
+
+[fields]
+article-title = 'Degree complement'
+english = 'Did your conversation go well?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 得 + [Degree Complement]'
+hanzi = '你们谈得顺利吗？'
+notes = ''
+pinyin = 'Nǐmen tán de shùnlì ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG79STE'

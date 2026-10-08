@@ -1,0 +1,20 @@
+note_id = 1520716970440
+guid = "f,y,>8pUyF"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "ConditionalStatements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716976304
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "unless" with "chufei"'
+english = "Unless you listen to me, I won't help you."
+example-sentence = ''
+example-type = ''
+grammar-construct = '除非 + Condition ，否则 / 不然 + Result / Fact'
+hanzi = '除非你听我的，否则我不会帮你。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMD0YY'

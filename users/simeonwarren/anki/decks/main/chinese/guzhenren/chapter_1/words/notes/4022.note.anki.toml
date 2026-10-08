@@ -1,0 +1,20 @@
+note_id = 4022
+guid = "je=~DmWgT_"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 4047
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'Mt Mao, Daoist mountain southeast of Jurong county 句容, Jiangsu Province.'
+example-sentence = '    春雨绵绵,悄无声息地滋润着青茅山'
+example-type = ''
+grammar-construct = ''
+hanzi = '茅山'
+notes = ''
+pinyin = '<span class="tone2">máo</span><span class="tone1">shān</span>	 <!-- mao shan -->'
+source = ''

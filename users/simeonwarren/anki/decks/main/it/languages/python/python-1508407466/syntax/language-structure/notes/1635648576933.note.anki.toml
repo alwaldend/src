@@ -1,0 +1,17 @@
+note_id = 1635648576933
+guid = "r,7D_Hw8Bv"
+note_type_id = 1630447360002
+note_type = "python-basic"
+tags = []
+
+[[cards]]
+id = 1635648576933
+ordinal = 0
+
+[fields]
+'Additional Info' = ''
+'Back - Basic' = '<b>None: </b>there are no mathematical or bitwise operators that are valid on dictionaries.'
+'Back - Code' = ''
+Example = ''
+Front = 'Which bitwise or mathematical operators are valid on dictionaries?'
+Version = ''

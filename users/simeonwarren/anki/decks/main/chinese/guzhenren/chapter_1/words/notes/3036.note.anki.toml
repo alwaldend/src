@@ -1,0 +1,20 @@
+note_id = 3036
+guid = "j7Xk~dgj+N"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+id = 3074
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'to be defeated;	to lose;	to fail (e.g. experiments);	failure;	defeat.<br>Cl: 次'
+example-sentence = '  终究是失败了呀'
+example-type = ''
+grammar-construct = ''
+hanzi = '失败'
+notes = ''
+pinyin = '<span class="tone1">shī</span><span class="tone4">bài</span>	 <!-- shi bai -->'
+source = ''

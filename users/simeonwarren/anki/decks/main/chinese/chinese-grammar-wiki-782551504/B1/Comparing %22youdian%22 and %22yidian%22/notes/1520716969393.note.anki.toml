@@ -1,0 +1,20 @@
+note_id = 1520716969393
+guid = "oNmgJgaZl("
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Comparisons"]
+
+[[cards]]
+id = 1520716975257
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "youdian" and "yidian"'
+english = "Our children doesn't like our new home much."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '孩子们有点不喜欢我们的新家。'
+notes = ''
+pinyin = 'Háizi men yǒudiǎn bù xǐhuan wǒmen de xīn jiā.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGV55Y4'

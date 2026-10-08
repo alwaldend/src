@@ -1,0 +1,20 @@
+note_id = 66
+guid = "OaqwYz[obV"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 131
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'complicated;	complex.'
+example-sentence = ' 而此时,同样有一对清亮的眸子,静静地看着这些深夜中闪闪的灯光,满怀复杂情怀'
+example-type = ''
+grammar-construct = ''
+hanzi = '复杂'
+notes = ''
+pinyin = '<span class="tone4">fù</span><span class="tone2">zá</span>	 <!-- fu za -->'
+source = ''

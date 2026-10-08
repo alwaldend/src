@@ -1,0 +1,20 @@
+note_id = 1520716967478
+guid = "vOs^k;@$~5"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["AuxiliaryWords", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973342
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "stuff like that" with "zhileide"'
+english = "She's very suitable for jobs like marketing."
+example-sentence = ''
+example-type = ''
+grammar-construct = '⋯⋯ 之类的 + [Category]'
+hanzi = '她很适合做像市场推广之类的工作。'
+notes = ''
+pinyin = 'Tā hěn shìhé zuò xiàng shìchǎng tuīguǎng zhī lèi de gōngzuò.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPY23Z'

@@ -1,0 +1,20 @@
+note_id = 1520716970553
+guid = "n=V&Wo{rgK"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716976417
+ordinal = 0
+
+[fields]
+article-title = 'Expressing simultaneous actions with "yimian"'
+english = "On one hand, the government is going to control inflation, but on the other hand, it's definitely going to protect economic growth."
+example-sentence = ''
+example-type = ''
+grammar-construct = '一面 + Verb +  一面 + Verb'
+hanzi = '政府一面要控制通货膨胀，一面也要保证一定的经济增长速度。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG1QB4K'

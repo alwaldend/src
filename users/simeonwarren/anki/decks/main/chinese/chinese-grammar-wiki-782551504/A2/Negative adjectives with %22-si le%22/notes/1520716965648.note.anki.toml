@@ -1,0 +1,20 @@
+note_id = 1520716965648
+guid = "QK0Ur?<y]b"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Adjectives", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971512
+ordinal = 0
+
+[fields]
+article-title = 'Negative adjectives with "-si le"'
+english = 'The things here are criminally expensive!'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Adj. + 死了'
+hanzi = '这里的东西贵死了。'
+notes = 'Literally, "expensive to death"'
+pinyin = 'Zhèlǐ de dōngxi guì sǐ le!'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGLEVUV'

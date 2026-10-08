@@ -1,0 +1,20 @@
+note_id = 1520716970241
+guid = "dH7,8]23mk"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Grammatical_Structures", "IfStatements"]
+
+[[cards]]
+id = 1520716976105
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "if… then…" with "yaoshi"'
+english = "If you keep talking this way, I'll get really mad."
+example-sentence = ''
+example-type = ''
+grammar-construct = '要是 ……， 就 ……'
+hanzi = '你要是再这么说，我就真生气了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGN4S8O'

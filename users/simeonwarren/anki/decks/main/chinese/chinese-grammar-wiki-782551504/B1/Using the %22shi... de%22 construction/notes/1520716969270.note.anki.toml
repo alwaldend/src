@@ -1,0 +1,20 @@
+note_id = 1520716969270
+guid = "r|;Y]K|cAD"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716975134
+ordinal = 0
+
+[fields]
+article-title = 'Using the "shi... de" construction'
+english = 'What time did you arrive yesterday?'
+example-sentence = ''
+example-type = 'invalid'
+grammar-construct = ''
+hanzi = '你昨天几点到了？'
+notes = ''
+pinyin = 'Nǐ zuótiān jǐ diǎn dào le?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8YTSF'

@@ -1,0 +1,20 @@
+note_id = 1520716967179
+guid = "J]GtgH(L9$"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973043
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "enough" with "gou"'
+english = "We eat take-away every day. We're sick of eating it."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不 + 够 + Adj. / Verb'
+hanzi = '天天吃外卖，我们都吃够了。'
+notes = ''
+pinyin = 'Tiāntiān chī wàimài, wǒmen dōu chī gòu le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG49BE6'

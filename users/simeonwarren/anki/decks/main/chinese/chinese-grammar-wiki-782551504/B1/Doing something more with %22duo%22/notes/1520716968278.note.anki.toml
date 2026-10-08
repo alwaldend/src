@@ -1,0 +1,20 @@
+note_id = 1520716968278
+guid = "t(yc<DaRH]"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+id = 1520716974142
+ordinal = 0
+
+[fields]
+article-title = 'Doing something more with "duo"'
+english = "He's more experienced than you. You should learn from him more often."
+example-sentence = ''
+example-type = ''
+grammar-construct = '多 + Verb-Obj.'
+hanzi = '他比你有经验，你应该多跟他学习。'
+notes = ''
+pinyin = 'Tā bǐ nǐ yǒu jīngyàn, nǐ yīnggāi duō gēn tā xuéxí.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGLKGZP'

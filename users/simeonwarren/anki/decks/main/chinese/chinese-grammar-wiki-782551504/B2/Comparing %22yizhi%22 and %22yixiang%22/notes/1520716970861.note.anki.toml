@@ -1,0 +1,20 @@
+note_id = 1520716970861
+guid = "G1f9;*>u2["
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Comparisons", "TimeWords"]
+
+[[cards]]
+id = 1520716976725
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "yizhi" and "yixiang"'
+english = 'Keep walking ahead, you will see the subway station on your right.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '一直往前走，你会看到地铁站在你右边。'
+notes = ''
+pinyin = '<div>Yīzhí wǎng qián zǒu, nǐ huì kàn dào dìtiě zhàn zài nǐ yòubiān.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGVEP8S'

@@ -1,0 +1,20 @@
+note_id = 1011
+guid = "GIe0(VQ72_"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+id = 1022
+ordinal = 0
+
+[fields]
+article-title = ''
+english = '(onom.) expressing admiration or surprise;	sound of a laugh.'
+example-sentence = ' 山风吹得血袍飘荡,如战旗般嚯嚯作响'
+example-type = ''
+grammar-construct = ''
+hanzi = '嚯'
+notes = ''
+pinyin = '<span class="tone4">huò</span>	 <!-- huo -->'
+source = ''

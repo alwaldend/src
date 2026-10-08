@@ -1,0 +1,20 @@
+note_id = 1520716969814
+guid = "flNLNFu4//"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975678
+ordinal = 0
+
+[fields]
+article-title = 'Expressing concern with "kongpa"'
+english = "I'm afraid today I don't have time to do homework."
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = '(Reason / Situation, ) 恐怕 + Fact / Conclusion'
+hanzi = '恐怕我今天没有时间做作业。'
+notes = 'Always use 恐怕 before 我.'
+pinyin = 'Kǒngpà wǒ jīntiān méiyóu shíjiān zuò zuòyè.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGD4BA3'

@@ -1,0 +1,20 @@
+note_id = 1520716969822
+guid = "vl?Ho_+LLw"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975686
+ordinal = 0
+
+[fields]
+article-title = 'Expressing difficulty with "hao (bu) rongyi"'
+english = "Starting a company isn't easy."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb / [Verb Phrase] + 好容易 / 好不容易'
+hanzi = '创办一个公司好不容易啊。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG81QV3'

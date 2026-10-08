@@ -1,0 +1,20 @@
+note_id = 3023
+guid = "xT;MTiQ(Nb"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 3048
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'world;	earth.'
+example-sentence = '辗转颠簸300年,纵横世间200余年,500多年光阴悠悠,却是晃眼即逝'
+example-type = ''
+grammar-construct = ''
+hanzi = '世间'
+notes = ''
+pinyin = '<span class="tone4">shì</span><span class="tone1">jiān</span>	 <!-- shi jian -->'
+source = ''

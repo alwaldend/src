@@ -1,0 +1,20 @@
+note_id = 1520716968359
+guid = "O.[RsNV27s"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716974223
+ordinal = 0
+
+[fields]
+article-title = 'Direction complement'
+english = "I'm home this afternoon. You can come to my house."
+example-sentence = ''
+example-type = ''
+grammar-construct = '到 + Place + 来 / 去'
+hanzi = '我下午在家，你可以到我家来。'
+notes = ''
+pinyin = 'Wǒ xiàwǔ zài jiā, nǐ kěyǐ dào wǒ jiā lái.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8LWBJ'

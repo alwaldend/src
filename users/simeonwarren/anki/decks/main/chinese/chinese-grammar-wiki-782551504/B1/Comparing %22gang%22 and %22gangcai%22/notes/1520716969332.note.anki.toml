@@ -1,0 +1,20 @@
+note_id = 1520716969332
+guid = "pKW/WX~=fn"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Comparisons"]
+
+[[cards]]
+id = 1520716975196
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "gang" and "gangcai"'
+english = "I didn't know anyone when I just came to Shanghai."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '我刚到上海的时候，谁都不认识。'
+notes = ''
+pinyin = 'Wǒ gāng dào Shànghǎi de shíhou, shéi dōu bù rènshi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJFFWG'

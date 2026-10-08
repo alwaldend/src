@@ -1,0 +1,20 @@
+note_id = 1520716965999
+guid = "hOhq)Hpg4H"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971863
+ordinal = 0
+
+[fields]
+article-title = 'After a specific time with "yihou"'
+english = 'After we get off work, would you like to go play ball with us?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Time / Verb + 以后, ....'
+hanzi = '下班以后你想跟我们一起去打球吗?'
+notes = ''
+pinyin = 'Xiàbān yǐhòu, nǐ xiǎng gēn wǒmen yīqǐ qù dǎqiú ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGRLQGY'

@@ -1,0 +1,20 @@
+note_id = 1520716967479
+guid = "w}$K6}1X5d"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["AuxiliaryWords", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973343
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "stuff like that" with "zhileide"'
+english = 'All the clothes she wears are all brands like Gucci and Chanel.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '⋯⋯ 之类的 + [Category]'
+hanzi = '她穿的衣服都是Gucci、Chanel之类的名牌。'
+notes = ''
+pinyin = 'Tā chuān de yīfu dōu shì Gucci, Chanel zhī lèi de míngpái.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPY23Z'

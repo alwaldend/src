@@ -1,0 +1,20 @@
+note_id = 8044
+guid = "Eo~4$L$qEH"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 8095
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'heart;	mind;	intention;	center;	core.<br>Cl: 颗, 个'
+example-sentence = '一种兴奋、紧张的氛围,笼罩着族人的心,自然有很多人睡不安稳'
+example-type = ''
+grammar-construct = ''
+hanzi = '心'
+notes = ''
+pinyin = '<span class="tone1">xīn</span>	 <!-- xin -->'
+source = ''

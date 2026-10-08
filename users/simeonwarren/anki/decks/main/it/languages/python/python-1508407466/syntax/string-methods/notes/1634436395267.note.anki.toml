@@ -1,0 +1,21 @@
+note_id = 1634436395267
+guid = "o26O:*|;T~"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634436395267
+ordinal = 0
+
+[fields]
+additional-info = '<strong>Note:</strong>&nbsp;All string methods returns new values. They do not change the original string.'
+answer = '<i>string</i>.format(<i>*values</i>)'
+example = """
+"My name is {}".format(<i>value</i>)<div>
+
+"My name is {1}, my favorite food is {0}".format(*<i>values</i>)&nbsp;&nbsp;<br></div>\
+"""
+question = '<b>String method</b> that formats specified values into a string.'
+version = ''
+with-options = ''

@@ -1,0 +1,20 @@
+note_id = 1520716968324
+guid = "GJ|#G`u3wL"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716974188
+ordinal = 0
+
+[fields]
+article-title = 'Degree complement'
+english = 'You speak Chinese well. (lit. You Chinese speak well.)'
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = 'Verb + 得 + [Degree Complement]'
+hanzi = '你的中文说得很好。'
+notes = ''
+pinyin = 'Nǐ de Zhōngwén shuō de hěn hǎo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG79STE'

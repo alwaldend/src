@@ -1,0 +1,17 @@
+note_id = 1634422308066
+guid = "fg3y]d]~TI"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634422308066
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<b>Built in function:&nbsp;</b>complex(<i>object</i>)'
+example = ''
+question = '<b>Built in function</b> returns a complex number from an object.'
+version = ''
+with-options = ''

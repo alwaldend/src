@@ -1,0 +1,20 @@
+note_id = 1520716968482
+guid = "J$9AM~UW>"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716974346
+ordinal = 0
+
+[fields]
+article-title = 'Result complements'
+english = 'Sorry, I remember the time wrong.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 没 + Verb + Adj. (+ Obj.)'
+hanzi = '对不起，我记错了时间。'
+notes = ''
+pinyin = 'Duìbuqǐ, wǒ jì cuò le shíjiān.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNNMST'

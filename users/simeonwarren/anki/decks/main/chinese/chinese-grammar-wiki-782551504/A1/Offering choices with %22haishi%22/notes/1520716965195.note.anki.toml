@@ -1,0 +1,20 @@
+note_id = 1520716965195
+guid = "M1Tyw%|C8K"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971059
+ordinal = 0
+
+[fields]
+article-title = 'Offering choices with "haishi"'
+english = 'Cold or hot?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Option A + 还是 + Option B ?'
+hanzi = '冰的还是热的？'
+notes = ''
+pinyin = 'Bīng de háishì rè de?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGA8NIB'

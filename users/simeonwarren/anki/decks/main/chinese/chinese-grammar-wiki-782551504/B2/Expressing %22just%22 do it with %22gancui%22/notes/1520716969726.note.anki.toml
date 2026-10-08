@@ -1,0 +1,20 @@
+note_id = 1520716969726
+guid = "I.xMM^GSQ4"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975590
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "just" do it with "gancui"'
+english = "There is nothing in the house, let's just go out to eat."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 干脆 + Verb'
+hanzi = '家里什么都没有，干脆出去吃吧。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGZ8MJM'

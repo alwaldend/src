@@ -1,0 +1,20 @@
+note_id = 1520716966029
+guid = "E1!.PJ!GWd"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971893
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "just now" with "gangcai"'
+english = "I'm sorry, I just now stepped out."
+example-sentence = ''
+example-type = ''
+grammar-construct = '刚才 + Verb'
+hanzi = '不好意思，我刚才出去了。'
+notes = ''
+pinyin = 'Bù hǎoyìsi, wǒ gāngcái chūqù le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQ1KOY'

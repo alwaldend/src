@@ -1,0 +1,20 @@
+note_id = 1520716969135
+guid = "oeQA{I6ERd"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Comparisons"]
+
+[[cards]]
+id = 1520716974999
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "youdian" and "yidian"'
+english = 'Sir, a little cheaper please. (directed to the owner of a shop)'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '老板，便宜一点儿吧。'
+notes = ''
+pinyin = 'Lǎobǎn, piányi yīdiǎnr ba.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGV55Y4'

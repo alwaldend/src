@@ -1,0 +1,20 @@
+note_id = 1520716969011
+guid = "sqQ<wOdfz|"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974875
+ordinal = 0
+
+[fields]
+article-title = 'Expressing purpose with "weile"'
+english = 'In order to find inspiration, that writer moved to the countryside.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '为了 ⋯⋯ ，Subj. ⋯⋯'
+hanzi = '为了找灵感，那个作家搬到了农村。'
+notes = ''
+pinyin = 'Wèile zhǎo línggǎn, nàge zuòjiā bān dào le nóngcūn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQGJXT'

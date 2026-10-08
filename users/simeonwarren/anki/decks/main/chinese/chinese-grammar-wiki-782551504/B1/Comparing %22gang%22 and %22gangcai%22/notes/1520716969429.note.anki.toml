@@ -1,0 +1,20 @@
+note_id = 1520716969429
+guid = "dI>f=MPKwm"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Comparisons", "TimeWords"]
+
+[[cards]]
+id = 1520716975293
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "gang" and "gangcai"'
+english = 'You also just found out?'
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = '刚 + Adj.'
+hanzi = '你也刚知道吗？'
+notes = 'The verb 知道 always includes the result of "knowing."'
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJFFWG'

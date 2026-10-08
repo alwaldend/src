@@ -1,0 +1,20 @@
+note_id = 1520716970082
+guid = "r>lT6]-JuR"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Parts_of_Speech", "SentencePatterns"]
+
+[[cards]]
+id = 1520716975946
+ordinal = 0
+
+[fields]
+article-title = 'Using "jiang" as a formal "ba"'
+english = 'The boss decided to sell 20% share of the company to an American company.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 将 + Obj. + [Verb Phrase]'
+hanzi = '老板决定将公司20%的股份卖给一个美国公司。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG68DA5'

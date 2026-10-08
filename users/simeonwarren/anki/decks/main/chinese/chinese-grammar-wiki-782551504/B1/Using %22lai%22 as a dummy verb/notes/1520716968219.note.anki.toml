@@ -1,0 +1,20 @@
+note_id = 1520716968219
+guid = "pvm]cS_gC:"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716974083
+ordinal = 0
+
+[fields]
+article-title = 'Using "lai" as a dummy verb'
+english = "If you don't think my food is tasty, then you cook!"
+example-sentence = ''
+example-type = ''
+grammar-construct = '(让 +) Subj. + 来 + Verb'
+hanzi = '如果你觉得我做饭不好吃，你来做！'
+notes = ''
+pinyin = 'Rúguǒ nǐ juéde wǒ zuòfàn bù hǎochī, nǐ lái zuò!'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG98FZK'

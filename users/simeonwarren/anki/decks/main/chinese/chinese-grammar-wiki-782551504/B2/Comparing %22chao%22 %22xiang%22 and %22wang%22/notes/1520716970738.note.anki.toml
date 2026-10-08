@@ -1,0 +1,20 @@
+note_id = 1520716970738
+guid = "jcA~utfeE`"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Comparisons", "Prepositions"]
+
+[[cards]]
+id = 1520716976602
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "chao" "xiang" and "wang"'
+english = 'The black limo slowly went from East to West.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 向 / 往 + 具体方向'
+hanzi = '一辆黑色的小轿车慢慢地从东驶向西。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGIHS2L'

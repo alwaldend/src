@@ -1,0 +1,20 @@
+note_id = 1520716968597
+guid = "L2%Td6(1Xg"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716974461
+ordinal = 0
+
+[fields]
+article-title = 'Tricky uses of "dao"'
+english = 'Working for this company, I learned a lot of things.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '在这个公司工作，我学到了很多东西。'
+notes = ''
+pinyin = 'Zài zhège gōngsī gōngzuò, wǒ xuédào le hěn duō dōngxi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCUSIV'

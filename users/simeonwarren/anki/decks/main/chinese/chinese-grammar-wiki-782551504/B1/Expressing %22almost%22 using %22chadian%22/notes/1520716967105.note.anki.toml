@@ -1,0 +1,20 @@
+note_id = 1520716967105
+guid = "Am|!`h=-mL"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972969
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "almost" using "chadian"'
+english = 'Our team almost lost.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 差点 (+就) + Predicate + 了'
+hanzi = '我们队差点儿输了。'
+notes = "the team didn't lose"
+pinyin = 'Wǒmen duì chàdiǎnr  shū le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG6ESWW'

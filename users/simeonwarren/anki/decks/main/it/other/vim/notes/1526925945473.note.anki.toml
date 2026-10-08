@@ -1,0 +1,17 @@
+note_id = 1526925945473
+guid = "u~{hgIl6%("
+note_type_id = 1520550989354
+note_type = "basic"
+tags = ["Cursor", "Movement"]
+
+[[cards]]
+id = 1526925977046
+ordinal = 0
+
+[[cards]]
+id = 1668965796614
+ordinal = 1
+
+[fields]
+Back = 'Tx'
+Front = 'Jump with cursor | to <b>after <i>previous</i></b> occurrence of character x<div><br></div><div>Blahx lots of stuff mu|hli</div>'

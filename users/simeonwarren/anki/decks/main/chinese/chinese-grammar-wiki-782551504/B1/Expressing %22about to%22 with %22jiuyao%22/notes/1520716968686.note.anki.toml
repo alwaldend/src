@@ -1,0 +1,20 @@
+note_id = 1520716968686
+guid = "gtAdN}R)y]"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974550
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "about to" with "jiuyao"'
+english = "He's about to go to the USA."
+example-sentence = ''
+example-type = ''
+grammar-construct = '(Subj. +) 就要 + Verb Phrase + 了'
+hanzi = '他快要去美国了。'
+notes = ''
+pinyin = 'Tā kuài yào qù Měiguó le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG9B210'

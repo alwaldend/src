@@ -1,0 +1,20 @@
+note_id = 1520716969158
+guid = "y++@xSz2]4"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716975022
+ordinal = 0
+
+[fields]
+article-title = 'Uses of "shi" with "de"'
+english = 'I came here to do an internship.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Thing + 是 + 用来 + Verb + 的'
+hanzi = '我是来实习的。'
+notes = ''
+pinyin = 'Wǒ shì lái shíxí de.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGE662E'

@@ -1,0 +1,17 @@
+note_id = 1526927088610
+guid = "mpmbl%7(`f"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = ["Exiting"]
+
+[[cards]]
+id = 1526927108195
+ordinal = 0
+
+[[cards]]
+id = 1668965796688
+ordinal = 1
+
+[fields]
+Back = ":w !sudo tee % “ (note that % is the filename of the current buffer;&nbsp;<strong>using <code>tee</code> is a hack to pipe into a file because we're ignoring half of what it does</strong>. <code>sudo tee</code> writes to our file and also sends the buffer contents to standard output, but <strong>we ignore standard output</strong>; finally, :w actually just sends stuff to to stdout and can pick it up with a ! filter)"
+Front = 'Write out the current buffer to file using sudo'

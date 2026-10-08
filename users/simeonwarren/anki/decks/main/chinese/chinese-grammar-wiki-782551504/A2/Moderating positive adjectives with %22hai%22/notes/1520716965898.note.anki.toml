@@ -1,0 +1,20 @@
+note_id = 1520716965898
+guid = "h05R3]sQ:E"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "AdverbswithAdjectives", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971762
+ordinal = 0
+
+[fields]
+article-title = 'Moderating positive adjectives with "hai"'
+english = 'The new office is OK.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 还 + 好 / 可以 / 行 / 不错'
+hanzi = '新的办公室还不错。'
+notes = ''
+pinyin = 'Xīn de bàngōngshì hái bùcuò.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGAY164'

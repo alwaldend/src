@@ -1,0 +1,20 @@
+note_id = 1520716970514
+guid = "uIRs(+a_{P"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716976378
+ordinal = 0
+
+[fields]
+article-title = 'Tricky uses of "dao"'
+english = "I always wanted to get in touch with you, but hasn't got a hold of you."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '我想跟你联系，但是一直联系不到你。'
+notes = ''
+pinyin = 'Wǒ xiǎng gēn nǐ liánxì, dànshì yīzhí liánxì bu dào nǐ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCUSIV'

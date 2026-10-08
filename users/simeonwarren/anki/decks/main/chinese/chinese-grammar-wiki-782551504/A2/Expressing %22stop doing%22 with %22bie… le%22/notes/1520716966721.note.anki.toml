@@ -1,0 +1,20 @@
+note_id = 1520716966721
+guid = "vDTLN1h-c2"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716972585
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "stop doing" with "bie… le"'
+english = 'Stop playing. Do your homework.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '别 + Verb / [Verb Phrase] + 了'
+hanzi = '别玩了，去写作业。'
+notes = ''
+pinyin = 'Bié wán le, qù xiě zuòyè.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGZ8OIF'

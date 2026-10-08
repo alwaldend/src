@@ -1,0 +1,20 @@
+note_id = 1520716969344
+guid = "drhlr7%^/9"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Comparisons"]
+
+[[cards]]
+id = 1520716975208
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "gang" and "gangcai"'
+english = 'I looked at it just now.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '我刚才看了。'
+notes = ''
+pinyin = 'Wǒ gāngcái kàn le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJFFWG'

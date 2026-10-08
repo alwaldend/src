@@ -1,0 +1,17 @@
+note_id = 1670157227809
+guid = "x5FAh1pZO!"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = []
+
+[[cards]]
+id = 1670157227809
+ordinal = 0
+
+[[cards]]
+id = 1670157227810
+ordinal = 1
+
+[fields]
+Back = ":e ~/.vimrc&nbsp;<div>mV</div><div>“ in a later vim session, to open vimrc:</div><div>'V</div>"
+Front = 'Set and goto global mark in .vimrc&nbsp;'

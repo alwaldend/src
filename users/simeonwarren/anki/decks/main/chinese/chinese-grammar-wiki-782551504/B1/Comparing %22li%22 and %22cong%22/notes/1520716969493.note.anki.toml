@@ -1,0 +1,20 @@
+note_id = 1520716969493
+guid = "ExL*!s.{z;"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Comparisons", "Prepositions"]
+
+[[cards]]
+id = 1520716975357
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "li" and "cong"'
+english = "Don't bother to come to work from next month."
+example-sentence = ''
+example-type = ''
+grammar-construct = '从 + Time / Event + 开始 / 起'
+hanzi = '从下个月起，你别来上班了。'
+notes = ''
+pinyin = 'Cóng xià gè yuè qǐ, nǐ bié lái shàngbān le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG59C66'

@@ -1,0 +1,20 @@
+note_id = 1520716968777
+guid = "xoybV0Lb;4"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974641
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "except" and "in addition" with "chule… yiwai"'
+english = 'Except for political news, I read all the types of news.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '除了 ⋯⋯ (+ 以外) ，Subj. + 都 ⋯⋯'
+hanzi = '除了政治新闻以外，其他新闻我都看。'
+notes = ''
+pinyin = 'Chúle zhèngzhì xīnwén yǐwài, qítā xīnwén wǒ dōu kàn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGHFPGG'

@@ -1,0 +1,20 @@
+note_id = 1520716967535
+guid = "hE}Z1sM:B*"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973399
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "in addition" with "haiyou"'
+english = "Sir, you can'r smoke in here. Besides, lower your voice, please."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Clause 1 ，还有 ， Clause 2'
+hanzi = '先生，这里不能抽烟。还有，麻烦你们声音小一点。'
+notes = ''
+pinyin = 'Xiānsheng, zhèlǐ bù néng chōuyān. Háiyǒu, máfan nǐmen shēngyīn xiǎo yīdiǎn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGHQRI1'

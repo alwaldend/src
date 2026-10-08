@@ -1,0 +1,20 @@
+note_id = 1520716970288
+guid = "I[{<m+q@B8"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Cause/EffectStatements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716976152
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "since" with "jiran"'
+english = "Since you don't like him, why do you want to go out with him?"
+example-sentence = ''
+example-type = ''
+grammar-construct = '既然 + Fact,   （那 +）rhetorical question'
+hanzi = '你既然不喜欢他，为什么还想跟他出去？'
+notes = 'a suggestion)'
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGG4BX9'

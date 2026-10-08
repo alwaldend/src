@@ -1,0 +1,20 @@
+note_id = 1520716970087
+guid = ";PnwOZq`Z"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716975951
+ordinal = 0
+
+[fields]
+article-title = 'Using "nanguai" as a verb'
+english = "Don't blame anyone, he just got here, forget it."
+example-sentence = ''
+example-type = ''
+grammar-construct = '难怪 + [Specific Person / People]'
+hanzi = '这也难怪，他刚来嘛，算了算了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGYKH5G'

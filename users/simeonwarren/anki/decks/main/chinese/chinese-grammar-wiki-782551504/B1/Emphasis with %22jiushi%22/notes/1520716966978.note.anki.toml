@@ -1,0 +1,20 @@
+note_id = 1520716966978
+guid = "JzmO)9gC/Q"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972842
+ordinal = 0
+
+[fields]
+article-title = 'Emphasis with "jiushi"'
+english = 'That guy is her new boyfriend.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '就是 + Noun'
+hanzi = '那个人就是她的新男朋友。'
+notes = ''
+pinyin = 'Nàge rén jiù shì tā de xīn nánpéngyou.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGY21RK'

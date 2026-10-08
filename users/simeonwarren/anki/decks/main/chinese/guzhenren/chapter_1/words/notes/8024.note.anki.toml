@@ -1,0 +1,20 @@
+note_id = 8024
+guid = "eTM.r4B%zv"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 8055
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'child;	the younger generation.'
+example-sentence = ' 作为一族之长,对于那些优秀而突出的子弟自然会关注'
+example-type = ''
+grammar-construct = ''
+hanzi = '子弟'
+notes = ''
+pinyin = '<span class="tone3">zǐ</span><span class="tone4">dì</span>	 <!-- zi di -->'
+source = ''

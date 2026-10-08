@@ -1,0 +1,20 @@
+note_id = 1520716967054
+guid = "t~O;3P`T{K"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972918
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "again" in the past with "you"'
+english = 'Sorry, I forgot to bring the book again.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '(Subj. +) 又 + 不 / 没 + Verb'
+hanzi = '对不起，我又没带书。'
+notes = ''
+pinyin = 'Duìbuqǐ, wǒ yòu méi dài shū.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGN1JR5'

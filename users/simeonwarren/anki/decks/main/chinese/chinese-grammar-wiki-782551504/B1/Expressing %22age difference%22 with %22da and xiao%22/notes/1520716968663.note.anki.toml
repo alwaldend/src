@@ -1,0 +1,20 @@
+note_id = 1520716968663
+guid = "o=<$Z0)`&~"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974527
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "age difference" with "da and xiao"'
+english = 'My dad is about the same age with my mom.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A + 和 / 跟 + B + 一样 / 差不多 + 大'
+hanzi = '我爸爸和妈妈差不多大。'
+notes = ''
+pinyin = 'Wǒ bàba hé māma chàbuduō dà.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGE8810'

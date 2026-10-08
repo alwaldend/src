@@ -1,0 +1,20 @@
+note_id = 1520716967232
+guid = "H5{WAI`@{v"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973096
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "one by one" with "yi"'
+english = 'Year by year, mom and dad are becoming old.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '一 + Measure Word （+ 一）+ Measure Word + Noun'
+hanzi = '爸爸妈妈一年一年在变老。'
+notes = ''
+pinyin = 'Bàba māma yī nián yī nián zài biàn lǎo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGBC7A0'

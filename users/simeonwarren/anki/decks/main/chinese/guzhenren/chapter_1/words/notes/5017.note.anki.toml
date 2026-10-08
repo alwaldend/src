@@ -1,0 +1,20 @@
+note_id = 5017
+guid = "fU6tUmw/9D"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 5038
+ordinal = 0
+
+[fields]
+article-title = ''
+english = "surname He;\tJapanese (food, clothes etc);\tand;\ttogether with;\twith;\tsum;\tunion;\tpeace;\tharmony.<br>old variant of 和.<br>old variant of 和;\tharmonious.<br>to compose a poem in reply (to sb's poem) using the same rhyme sequence;\tto join in the singing;\tto chime in with others.<br>to complete a set in mahjong or playing cards.<br>to combine a powdery substance (flour, plaster etc) with water.<br>to mix (ingredients) together;\tto blend;\tclassifier for rinses of clothes;\tclassifier for boilings of medicinal herbs.<br>"
+example-sentence = '  列祖列宗保佑,希望此次开窍大典中能多多涌现出资质优秀的少年,为家族增添新血和希望'
+example-type = ''
+grammar-construct = ''
+hanzi = '和'
+notes = ''
+pinyin = '<span class="tone5">héhéhéhèhúhuóhuò</span>	 <!-- he he he he hu huo huo -->'
+source = ''

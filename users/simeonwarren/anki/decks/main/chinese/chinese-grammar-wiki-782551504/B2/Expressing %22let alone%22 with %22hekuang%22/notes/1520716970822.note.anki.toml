@@ -1,0 +1,20 @@
+note_id = 1520716970822
+guid = "gN]bs!wNPr"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Grammatical_Structures", "Letalone"]
+
+[[cards]]
+id = 1520716976686
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "let alone" with "hekuang"'
+english = "Chinese people don't even know much about it, let alone foreigners."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. (+ 尚且) + 都 / 就 ⋯⋯ ，（更）何况 ⋯⋯'
+hanzi = '中国人尚且不了解，更何况外国人？'
+notes = ''
+pinyin = '<div>Zhōngguó rén shàngqiě bù liǎojiě, gèng hékuàng wàiguó rén?</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG3ZS9G'

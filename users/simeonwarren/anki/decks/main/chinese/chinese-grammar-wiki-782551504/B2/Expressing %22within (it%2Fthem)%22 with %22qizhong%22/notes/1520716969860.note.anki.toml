@@ -1,0 +1,20 @@
+note_id = 1520716969860
+guid = "N<0*~^WmP:"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975724
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "within (it/them)" with "qizhong"'
+english = 'There are solitary people all over the place. I am just one of them.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Category / Group / Context + 其中'
+hanzi = '到处都有孤独的人，我只是其中一个。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGD1LNT'

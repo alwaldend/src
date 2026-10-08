@@ -1,0 +1,20 @@
+note_id = 1520716968356
+guid = "yJm*-d6vCr"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716974220
+ordinal = 0
+
+[fields]
+article-title = 'Direction complement'
+english = "A: Come and hang out with us. We'll be waiting in the bar.<br>B: My mother won't let me go out."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 来 / 去'
+hanzi = 'A:出来玩吧，我们在酒吧等你。<br>B:我妈不让我出去。'
+notes = ''
+pinyin = 'A: Chūlái wán ba, wǒmen zài jiǔbā děng nǐ.<br>B: Wǒ mā bù ràng wǒ chūqù.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8LWBJ'

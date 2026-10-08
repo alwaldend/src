@@ -1,0 +1,20 @@
+note_id = 1520716969924
+guid = "l81U,P6mOS"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975788
+ordinal = 0
+
+[fields]
+article-title = 'le after an object'
+english = 'I did finish my homework. Do you want to see it?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 了 + Obj.'
+hanzi = '我做了作业了，你要看吗？'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG4K5WH'

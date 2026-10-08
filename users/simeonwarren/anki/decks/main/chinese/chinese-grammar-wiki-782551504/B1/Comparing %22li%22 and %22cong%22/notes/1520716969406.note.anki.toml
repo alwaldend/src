@@ -1,0 +1,20 @@
+note_id = 1520716969406
+guid = "OcZ&t3hUlm"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Comparisons", "Prepositions"]
+
+[[cards]]
+id = 1520716975270
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "li" and "cong"'
+english = 'Everyone, from the students to the teachers, are on holiday.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '从 + Place + 到 / 向 + Place'
+hanzi = '从学生到老师都放假了。'
+notes = ''
+pinyin = 'Cóng xuéshēng dào lǎoshī dōu fàngjiàle.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG59C66'

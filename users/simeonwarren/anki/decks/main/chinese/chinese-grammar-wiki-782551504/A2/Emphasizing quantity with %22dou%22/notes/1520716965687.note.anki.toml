@@ -1,0 +1,20 @@
+note_id = 1520716965687
+guid = "NByfr5o(fA"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971551
+ordinal = 0
+
+[fields]
+article-title = 'Emphasizing quantity with "dou"'
+english = 'My girlfriend goes on Taobao every day.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 都 + Verb + Obj.'
+hanzi = '我女朋友每天都上淘宝。'
+notes = "Taobao is China's biggest online shopping website."
+pinyin = 'Wǒ  nǚpéngyou měi tiān dōu shàng Táobǎo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWNEYM'

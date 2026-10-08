@@ -1,0 +1,20 @@
+note_id = 1520716968294
+guid = "J]4w]afHMo"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+id = 1520716974158
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "not often" with "bu zenme"'
+english = "The new roommate doesn't go out and have fun with her friends very often."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不怎么 + Verb ( + Obj. )'
+hanzi = '新室友不怎么跟朋友出去玩。'
+notes = ''
+pinyin = 'Xīn shìyǒu bù zěnme gēn péngyou chūqù wán.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5BOGP'

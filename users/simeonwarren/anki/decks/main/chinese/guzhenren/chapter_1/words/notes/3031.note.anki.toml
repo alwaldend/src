@@ -1,0 +1,20 @@
+note_id = 3031
+guid = "DwRPG-;(1M"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+id = 3064
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'many;	a lot of;	much.'
+example-sentence = ' 深埋在心底的许多记忆,在此刻鲜活起来,栩栩如生地在眼前回现着'
+example-type = ''
+grammar-construct = ''
+hanzi = '许多'
+notes = ''
+pinyin = '<span class="tone3">xǔ</span><span class="tone1">duō</span>	 <!-- xu duo -->'
+source = ''

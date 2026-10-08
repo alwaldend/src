@@ -1,0 +1,20 @@
+note_id = 2020
+guid = "x{FMF:|Xyt"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+id = 2041
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'to stand opposite;	to confront;	confrontation.'
+example-sentence = ' 就这样紧张地对峙了三个时辰,夕阳西下,落日的余晖将山边的晚霞点燃,一时间绚烂如火'
+example-type = ''
+grammar-construct = ''
+hanzi = '对峙'
+notes = ''
+pinyin = '<span class="tone4">duì</span><span class="tone4">zhì</span>	 <!-- dui zhi -->'
+source = ''

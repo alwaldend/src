@@ -1,0 +1,20 @@
+note_id = 1520716967063
+guid = "Ay//VxV[!1"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972927
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "all along" with "yuanlai"'
+english = 'It turns out he was you ex-boyfriend!'
+example-sentence = ''
+example-type = ''
+grammar-construct = '原来 + [New Information]'
+hanzi = '原来他是你前男友！'
+notes = ''
+pinyin = 'Yuánlái tā shì nǐ qián nányǒu!'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTKXFR'

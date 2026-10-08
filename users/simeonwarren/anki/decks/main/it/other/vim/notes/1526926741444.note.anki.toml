@@ -1,0 +1,17 @@
+note_id = 1526926741444
+guid = "M6ce{Wh>|R"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = ["VisualCommands"]
+
+[[cards]]
+id = 1526926748321
+ordinal = 0
+
+[[cards]]
+id = 1668965796662
+ordinal = 1
+
+[fields]
+Back = 'd (visual mode)'
+Front = 'Delete selection (visual mode)'

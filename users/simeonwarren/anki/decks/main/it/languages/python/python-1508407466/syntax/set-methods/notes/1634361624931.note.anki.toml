@@ -1,0 +1,17 @@
+note_id = 1634361624931
+guid = "Dp3eIq_7*<"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634370830755
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<i>set</i>.update(<i>*iterables</i>)'
+example = '<i>set</i>.update({x, y, z}, [q, r, s])&nbsp;'
+question = '<b>Set method</b>&nbsp;to add the values of an iterable or group of iterables to a set (returns None).'
+version = ''
+with-options = ''

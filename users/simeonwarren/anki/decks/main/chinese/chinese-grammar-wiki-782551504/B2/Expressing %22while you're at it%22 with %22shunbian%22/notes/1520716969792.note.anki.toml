@@ -1,0 +1,20 @@
+note_id = 1520716969792
+guid = "E{S2M,5VPc"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975656
+ordinal = 0
+
+[fields]
+article-title = "Expressing \"while you're at it\" with \"shunbian\""
+english = 'Could you please buy me a bottle of milk when you go to the supermarket?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. ＋Verb Phrase 1，顺便 + Verb Phrase 2'
+hanzi = '你去超市能不能顺便帮我买一瓶牛奶？'
+notes = ''
+pinyin = 'Nǐ qù chāoshì néng bu néng shùnbiàn bāng wǒ mǎi yī píng niúnǎi?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5334C'

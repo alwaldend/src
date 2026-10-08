@@ -1,0 +1,20 @@
+note_id = 1520716967651
+guid = "EVf4%{0B!Y"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973515
+ordinal = 0
+
+[fields]
+article-title = 'Saying "ever since" with "yilai"'
+english = "I've had my license for five years."
+example-sentence = ''
+example-type = ''
+grammar-construct = '自 / 从 / 自从 + Time or Event + 以来'
+hanzi = '自从我拿到驾照以来已经有五年了。'
+notes = ''
+pinyin = 'Zìcóng wǒ ná dào jiàzhào yǐlái yǐjīng yǒu wǔ nián le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNEMXP'

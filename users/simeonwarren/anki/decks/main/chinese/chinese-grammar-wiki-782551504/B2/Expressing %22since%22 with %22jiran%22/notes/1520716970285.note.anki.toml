@@ -1,0 +1,20 @@
+note_id = 1520716970285
+guid = "OkjtvS)G,*"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Cause/EffectStatements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716976149
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "since" with "jiran"'
+english = 'Since she just had a breakup, she should be single now.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '既然＋Fact, 那 / 就 / 那就＋Suggestion / Inference'
+hanzi = '她既然刚刚分手，那现在应该是单身吧。'
+notes = 'an inference)'
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGG4BX9'

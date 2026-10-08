@@ -1,0 +1,20 @@
+note_id = 1520716969522
+guid = "mpTniM.aym"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Comparisons", "TimeWords"]
+
+[[cards]]
+id = 1520716975386
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "yihou" and "zhihou"'
+english = 'After it rains, the air will be a lot better.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Special Time + 以后／之后 + Action'
+hanzi = '下过雨以后/之后空气会好很多。'
+notes = ''
+pinyin = 'Xià guo yǔ yǐhòu / zhīhòu kōngqì huì hǎo hěn duō.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGC3SCN'

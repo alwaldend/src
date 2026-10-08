@@ -1,0 +1,20 @@
+note_id = 1520716967183
+guid = "kc@Y_lBHTq"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973047
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "had better" with "haishi"'
+english = "You'd better leave now."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 还是 + [Verb Phrase] + 吧'
+hanzi = '你还是快点走吧。'
+notes = ''
+pinyin = 'Nǐ háishì kuài diǎn zǒu ba.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWAR65'

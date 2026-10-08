@@ -1,0 +1,20 @@
+note_id = 1520716970415
+guid = "hPJd79cN3W"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Cause/EffectStatements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716976279
+ordinal = 0
+
+[fields]
+article-title = 'Stating the effect before the cause'
+english = 'The reason why the company spends money on your training is to help you become more and more professional.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '之所以 ⋯⋯ ，是 + 因为 / 为了 / 想 ⋯⋯'
+hanzi = '公司之所以花钱培训你们是想让你们越来越专业。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTPGXK'

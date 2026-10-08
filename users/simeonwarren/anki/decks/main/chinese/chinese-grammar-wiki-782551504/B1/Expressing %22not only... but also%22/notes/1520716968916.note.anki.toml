@@ -1,0 +1,20 @@
+note_id = 1520716968916
+guid = "d{n@O_j4b("
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974780
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "not only... but also"'
+english = 'This thing is not only expensive, but also hard to buy.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不但 ⋯⋯ ，而且 ⋯⋯'
+hanzi = '这个东西不但贵，而且难买。'
+notes = ''
+pinyin = 'Zhège dōngxi bùdàn guì, érqiě nán mǎi .'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTYJ3E'

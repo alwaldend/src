@@ -1,0 +1,28 @@
+note_id = 1670169496132
+guid = "dbM:lyw7$c"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = []
+
+[[cards]]
+id = 1670169496133
+ordinal = 0
+
+[[cards]]
+id = 1670169496134
+ordinal = 1
+
+[fields]
+Back = """
+:&lt;range&gt; with , as the from-to separator<div><br></div><div><ul>
+<li>
+<code>&lt;number&gt;</code> - Any number <code>&lt;number&gt;</code> in your range refers to a line number.</li>
+<li>
+<code>.</code> - Represent the current line (often the default range).</li><li><code>.+5</code> and <code>.5</code> - The fifth line after the current line</li><li> <code>.-1</code> - The line before the current one</li>
+<li>
+<code>$</code> - Represent the last line of the current buffer.</li>
+<li>
+<code>%</code> - Represent the entire file (same as <code>1,$</code>).</li>
+</ul></div>\
+"""
+Front = 'How do you express line ranges in vim?'

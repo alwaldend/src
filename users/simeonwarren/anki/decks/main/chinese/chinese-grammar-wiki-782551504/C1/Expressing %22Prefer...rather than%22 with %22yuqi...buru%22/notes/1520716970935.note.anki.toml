@@ -1,0 +1,20 @@
+note_id = 1520716970935
+guid = "zhHAc1^~cJ"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["C1", "SentencePatterns"]
+
+[[cards]]
+id = 1520716976799
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "Prefer...rather than" with "yuqi...buru"'
+english = "The weather is so nice. We'd rather go out for a walk than stay at home and watch TV."
+example-sentence = ''
+example-type = ''
+grammar-construct = '与其 ⋯⋯ ，不如 ⋯⋯'
+hanzi = '天气这么好，与其在家看电视，不如出去走走。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWI5CV'

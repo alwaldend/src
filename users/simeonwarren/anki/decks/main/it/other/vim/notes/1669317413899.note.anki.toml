@@ -1,0 +1,17 @@
+note_id = 1669317413899
+guid = "ykGZ|Y`mC-"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = []
+
+[[cards]]
+id = 1669317413901
+ordinal = 0
+
+[[cards]]
+id = 1669317413902
+ordinal = 1
+
+[fields]
+Back = ':term[inal] &nbsp; “ as opposed to :shell&nbsp;'
+Front = 'How to open a shell in its own window in vim?'

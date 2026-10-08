@@ -1,0 +1,20 @@
+note_id = 1520716969567
+guid = "y,xp.Pm:!]"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adjectives", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975431
+ordinal = 0
+
+[fields]
+article-title = 'Challenging an adjective with "shenme"'
+english = "Why are you so anxious? It's still early."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Adj.／Verb + 什么 + (Adj.／Verb)？'
+hanzi = '你急什么急，还早着呢。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNV2TZ'

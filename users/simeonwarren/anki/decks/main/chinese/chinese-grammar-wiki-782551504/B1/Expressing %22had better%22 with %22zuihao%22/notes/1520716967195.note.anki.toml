@@ -1,0 +1,20 @@
+note_id = 1520716967195
+guid = "on%fHBt0N>"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973059
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "had better" with "zuihao"'
+english = "This is an important event. We'd better wear something more formal."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 最好 + [Verb Phrase]'
+hanzi = '这个活动很重要，我们最好穿得正式一点。'
+notes = ''
+pinyin = 'Zhège huódòng hěn zhòngyào, wǒmen zuìhǎo chuān de zhèngshì yīdiǎn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG35CD7'

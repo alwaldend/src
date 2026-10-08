@@ -1,0 +1,20 @@
+note_id = 1520716968494
+guid = "dq*60%YBdR"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716974358
+ordinal = 0
+
+[fields]
+article-title = 'Result complements'
+english = 'I hit the wall by accident.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + [One-syllable Verb] +了 (+ Obj.)'
+hanzi = '我不小心撞到了墙。'
+notes = ''
+pinyin = 'Wǒ bù xiǎoxīn zhuàngdào le qiáng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNNMST'

@@ -1,0 +1,20 @@
+note_id = 1520716969038
+guid = "d3Pscxu,:>"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974902
+ordinal = 0
+
+[fields]
+article-title = 'Expressing various aspects with "yi fangmian"'
+english = "One one hand, this project can increase local people's income; on the other hand, it can protect local environment."
+example-sentence = ''
+example-type = ''
+grammar-construct = '一 方面 ⋯⋯ ， (另) 一 方面 ⋯⋯'
+hanzi = '这个项目一方面能增加当地人的收入，另一方面能保护当地的环境。'
+notes = ''
+pinyin = 'Zhège xiàngmù yī fāngmiàn néng zēngjiā dāngdì rén de shōurù, lìng yī fāngmiàn néng bǎohù dāngdì de huánjìng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCWHNF'

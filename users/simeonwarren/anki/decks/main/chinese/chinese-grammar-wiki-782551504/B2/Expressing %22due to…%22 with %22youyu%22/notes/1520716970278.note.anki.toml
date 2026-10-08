@@ -1,0 +1,20 @@
+note_id = 1520716970278
+guid = "M1$OF]Ej9_"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Cause/EffectStatements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716976142
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "due to…" with "youyu"'
+english = "Due to the influence of the Greenhouse Effect, the whole Earth's climate is getting more and more unusual."
+example-sentence = ''
+example-type = ''
+grammar-construct = '由于 + Cause，Effect'
+hanzi = '由于温室效应的影响，全球的气候变得越来越反常了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGL90MR'

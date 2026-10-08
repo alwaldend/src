@@ -1,0 +1,20 @@
+note_id = 1520716969691
+guid = "g|F`J,G)5$"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975555
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "even" with "shenzhi"'
+english = "I haven't seen him for a few years and he's gotten much fatter. I, as an old friend, couldn't even recognize him."
+example-sentence = ''
+example-type = ''
+grammar-construct = '⋯⋯，甚至 ⋯⋯'
+hanzi = '几年不见，他变胖了很多，甚至连我这个老朋友都认不出来了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGKWV6F'

@@ -1,0 +1,20 @@
+note_id = 1520716969527
+guid = "soUw!>&[rt"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Comparisons", "TimeWords"]
+
+[[cards]]
+id = 1520716975391
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "yihou" and "zhihou"'
+english = 'In the future I might go to college abroad.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '以后，Comment'
+hanzi = '以后我可能会去国外上大学。'
+notes = ''
+pinyin = 'Yǐhòu wǒ kěnéng huì qù guówài shàng dàxué.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGC3SCN'

@@ -1,0 +1,20 @@
+note_id = 1520716966456
+guid = "kCoCZm/6R4"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+id = 1520716972320
+ordinal = 0
+
+[fields]
+article-title = 'Using "dao" to mean "to go to"'
+english = "Tomorrow I'll go to Nanjing Road to buy clothes."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 到 + Place + Verb Phrase'
+hanzi = '明天我要到南京路买衣服。'
+notes = ''
+pinyin = 'Míngtiān wǒ yào dào Nánjīng Lù mǎi yīfu.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGLFX54'

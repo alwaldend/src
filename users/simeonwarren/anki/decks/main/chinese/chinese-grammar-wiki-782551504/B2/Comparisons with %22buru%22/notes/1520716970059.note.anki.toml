@@ -1,0 +1,20 @@
+note_id = 1520716970059
+guid = "h9.Fg8lL2$"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716975923
+ordinal = 0
+
+[fields]
+article-title = 'Comparisons with "buru"'
+english = "It's a waste of time for us to wait here.We might as well go out and eat something first."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A + Verb-Obj. + 不如 + B+ (Verb + 得) + Adj.'
+hanzi = '我们在这里等也是浪费时间，不如先去吃个饭吧。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWH1D5'

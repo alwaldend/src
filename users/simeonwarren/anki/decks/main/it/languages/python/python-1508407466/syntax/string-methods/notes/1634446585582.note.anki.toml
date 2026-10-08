@@ -1,0 +1,17 @@
+note_id = 1634446585582
+guid = "JAxp8rgieK"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634446585586
+ordinal = 0
+
+[fields]
+additional-info = '<div>Left justified adds the character to the <b>right </b>side.</div><strong>Note:</strong>&nbsp;All string methods returns new values. They do not change the original string.'
+answer = '<i>string</i>.ljust(<i>length</i>)'
+example = ''
+question = '<b>String method</b>&nbsp;that returns a left justified version of the string.'
+version = ''
+with-options = '<i>string.</i>ljust(<i>length, character=" "</i>)'

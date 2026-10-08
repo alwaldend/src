@@ -1,0 +1,20 @@
+note_id = 1520716967217
+guid = "pp{$X_0Kb{"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973081
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "no wonder"'
+english = "A: He's late."
+example-sentence = ''
+example-type = ''
+grammar-construct = '这也 + 难怪 + [Specific Person / People]'
+hanzi = 'A: 他迟到了。'
+notes = ''
+pinyin = 'A: Tā chídào le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGFPV2C'

@@ -1,0 +1,20 @@
+note_id = 1520716965995
+guid = "GuLXrAJ:d`"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971859
+ordinal = 0
+
+[fields]
+article-title = 'After a specific time with "yihou"'
+english = 'After one month, she will start working.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Time / Verb + 以后, ....'
+hanzi = '她一个月以后开始上班。'
+notes = ''
+pinyin = 'Tā yī gè yuè yǐhòu kāishǐ shàngbān.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGRLQGY'

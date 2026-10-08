@@ -1,0 +1,20 @@
+note_id = 1520716968453
+guid = "O,R&*9;]vi"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716974317
+ordinal = 0
+
+[fields]
+article-title = 'Direction complement'
+english = "Please wait a moment on the upper floor. I'm coming up to you in a few seconds."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 来 / 去'
+hanzi = '你在楼上等我一下。我一会儿就上去找你。'
+notes = ''
+pinyin = "Nǐ zài lóushàng děng wǒ yīxià. Wǒ yīhuǐ'er jiù shàngqù zhǎo nǐ."
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8LWBJ'

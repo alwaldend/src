@@ -1,0 +1,20 @@
+note_id = 1520716968288
+guid = "wKD%Qyts}="
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716974152
+ordinal = 0
+
+[fields]
+article-title = 'Making judgments with "suan"'
+english = "He's only 1.75 meter. He can't be considered to be very tall."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不 + 算 (+ Adv.) + Adj.'
+hanzi = '他才一米七五，不算高。'
+notes = ''
+pinyin = 'Tā cái yī mǐ qī wǔ, bù suàn gāo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWDWFN'

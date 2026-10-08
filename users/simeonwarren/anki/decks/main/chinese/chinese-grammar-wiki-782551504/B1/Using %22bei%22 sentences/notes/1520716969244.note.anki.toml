@@ -1,0 +1,20 @@
+note_id = 1520716969244
+guid = "A%pKDRo`f&"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716975108
+ordinal = 0
+
+[fields]
+article-title = 'Using "bei" sentences'
+english = 'Did you get fired by the company or not?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 被 (+ Doer) + Verb + 了'
+hanzi = '你是不是被公司炒鱿鱼了？'
+notes = ''
+pinyin = 'Nǐ shì bu shì bèi gōngsī chǎo yóuyú le?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGHF9F1'

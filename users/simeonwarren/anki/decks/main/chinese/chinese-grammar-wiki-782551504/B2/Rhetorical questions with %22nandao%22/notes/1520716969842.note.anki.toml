@@ -1,0 +1,20 @@
+note_id = 1520716969842
+guid = "n:ox~~,Ru"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975706
+ordinal = 0
+
+[fields]
+article-title = 'Rhetorical questions with "nandao"'
+english = 'How many more years do you want to work for this kind of  company?'
+example-sentence = ''
+example-type = 'invalid'
+grammar-construct = '难道 + [Rhetorical Question]'
+hanzi = '难道你还想在这种公司工作多少年？'
+notes = 'Not a 吗 question'
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMCP9V'

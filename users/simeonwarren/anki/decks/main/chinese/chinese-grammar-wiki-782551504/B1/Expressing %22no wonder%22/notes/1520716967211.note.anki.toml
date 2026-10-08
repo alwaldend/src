@@ -1,0 +1,20 @@
+note_id = 1520716967211
+guid = "Q>NVr[1IjP"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973075
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "no wonder"'
+english = "Your cell phone is lost? No wonder I couldn't get through."
+example-sentence = ''
+example-type = ''
+grammar-construct = '难怪 / 怪不得 + [Observation] ，原来 + Reason'
+hanzi = '你的手机丢了？难怪你的手机一直打不通。'
+notes = ''
+pinyin = 'Nǐ de shǒujī diūle? Nánguài nǐ de shǒujī yīzhí dǎ butōng .'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGFPV2C'

@@ -1,0 +1,20 @@
+note_id = 1520716965366
+guid = "j_1nn^`C@`"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Auxiliaryverbs", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971230
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "be going to" with "yao"'
+english = 'We are planning to go to the U.S. this year.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Time + Subj. + 要 + Verb'
+hanzi = '我们今年要去美国。'
+notes = ''
+pinyin = 'Wǒmen jīnnián yào qù Měiguó.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGVT2KN'

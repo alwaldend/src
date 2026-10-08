@@ -1,0 +1,20 @@
+note_id = 1520716967052
+guid = "M;U`Z^N<1."
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972916
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "again" in the past with "you"'
+english = "You don't want to pay? Again?"
+example-sentence = ''
+example-type = ''
+grammar-construct = '(Subj. +) 又 + 不 / 没 + Verb'
+hanzi = '你们又不想给钱？'
+notes = ''
+pinyin = 'Nǐmen yòu bù xiǎng gěi qián?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGN1JR5'

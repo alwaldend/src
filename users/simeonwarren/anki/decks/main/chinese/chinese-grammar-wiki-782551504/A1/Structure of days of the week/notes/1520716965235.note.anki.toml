@@ -1,0 +1,20 @@
+note_id = 1520716965235
+guid = "c5wWQBsng,"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Numbers", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971099
+ordinal = 0
+
+[fields]
+article-title = 'Structure of days of the week'
+english = "Tomorrow is Friday. I'm so happy."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '明天星期五，太高兴了。'
+notes = 'Optional 是 omitted'
+pinyin = 'Míngtiān Xīngqīwǔ, tài gāoxìng le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGVH4Q5'

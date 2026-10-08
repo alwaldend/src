@@ -1,0 +1,20 @@
+note_id = 1520716970584
+guid = "FI|ZiPJ0Vp"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Grammatical_Structures", "Letalone"]
+
+[[cards]]
+id = 1520716976448
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "let alone" with "geng buyong shuo"'
+english = "He can't even recognize his own country's flag, not to mention any other countries' flags."
+example-sentence = ''
+example-type = ''
+grammar-construct = '连 + A + 都 / 也 + Verb， 更不用说 + B + 了'
+hanzi = '他连自己国家的国旗都不认识，更不用说其他国家的了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGHOI8S'

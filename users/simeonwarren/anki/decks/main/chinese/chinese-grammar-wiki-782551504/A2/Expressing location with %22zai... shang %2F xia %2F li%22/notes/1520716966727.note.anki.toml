@@ -1,0 +1,20 @@
+note_id = 1520716966727
+guid = "P%1h6mV#NP"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716972591
+ordinal = 0
+
+[fields]
+article-title = 'Expressing location with "zai... shang / xia / li"'
+english = 'in New York'
+example-sentence = ''
+example-type = ''
+grammar-construct = '在 + Place'
+hanzi = '在纽约'
+notes = ''
+pinyin = 'zài Niǔyuē'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGFBWZL'

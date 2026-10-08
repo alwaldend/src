@@ -1,0 +1,17 @@
+note_id = 1692136988060
+guid = "CB(:#IigB2"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = []
+
+[[cards]]
+id = 1692136988060
+ordinal = 0
+
+[[cards]]
+id = 1692136988061
+ordinal = 1
+
+[fields]
+Back = ']c &nbsp;“ and &nbsp; [c'
+Front = 'How do you move from one diff block to the next in vim[diff]?'

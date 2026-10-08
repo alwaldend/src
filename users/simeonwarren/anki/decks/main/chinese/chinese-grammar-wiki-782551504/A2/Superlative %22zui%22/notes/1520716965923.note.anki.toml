@@ -1,0 +1,20 @@
+note_id = 1520716965923
+guid = "j]qp_G[3O7"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "AdverbswithAdjectives", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971787
+ordinal = 0
+
+[fields]
+article-title = 'Superlative "zui"'
+english = 'In your family who is the most beautiful?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '最 + Adj.'
+hanzi = '你们家谁最漂亮？'
+notes = ''
+pinyin = 'Nǐmen jiā shéi zuì piàoliang?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG3544U'

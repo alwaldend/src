@@ -1,0 +1,20 @@
+note_id = 6000
+guid = "o3|=tFMF2N"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 6005
+ordinal = 0
+
+[fields]
+article-title = ''
+english = '(onom.) slam.'
+example-sentence = '额头碰在棕色的地板上,发出轻轻的砰砰声'
+example-type = ''
+grammar-construct = ''
+hanzi = '砰砰'
+notes = ''
+pinyin = '<span class="tone1">pēng</span><span class="tone1">pēng</span>	 <!-- peng peng -->'
+source = ''

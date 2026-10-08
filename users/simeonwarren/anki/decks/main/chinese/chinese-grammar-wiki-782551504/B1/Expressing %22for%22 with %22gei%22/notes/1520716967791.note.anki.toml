@@ -1,0 +1,20 @@
+note_id = 1520716967791
+guid = "EJ=EWb(;l)"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+id = 1520716973655
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "for" with "gei"'
+english = 'My son likes to give a bath to our dog.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 给 + Recipient + [Verb Phrase]'
+hanzi = '我儿子喜欢给小狗洗澡。'
+notes = ''
+pinyin = 'Wǒ érzi xǐhuan gěi xiǎogǒu xǐzǎo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGLHAV3'

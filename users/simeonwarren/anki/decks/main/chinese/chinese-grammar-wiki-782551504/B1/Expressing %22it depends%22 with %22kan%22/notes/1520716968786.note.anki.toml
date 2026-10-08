@@ -1,0 +1,20 @@
+note_id = 1520716968786
+guid = "Py*!y.)KrM"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974650
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "it depends" with "kan"'
+english = 'Product development depends on the needs of the clients.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '[Unknown Outcome] + 要看 / 得看 + [Unclear Situation]'
+hanzi = '产品开发要看客户的需求。'
+notes = ''
+pinyin = 'Chǎnpǐn kāifā yào kàn kèhù de xūqiú.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG765HD'

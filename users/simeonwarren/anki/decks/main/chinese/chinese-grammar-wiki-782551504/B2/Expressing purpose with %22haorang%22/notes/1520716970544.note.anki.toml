@@ -1,0 +1,20 @@
+note_id = 1520716970544
+guid = "z;MS(yt2lH"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716976408
+ordinal = 0
+
+[fields]
+article-title = 'Expressing purpose with "haorang"'
+english = 'Mother always makes her drink milk in the evening to help her fall asleep.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. 1 + Action， 好让 + Purpose'
+hanzi = '妈妈晚上总是让她喝牛奶，好让她容易入睡。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG18JOA'

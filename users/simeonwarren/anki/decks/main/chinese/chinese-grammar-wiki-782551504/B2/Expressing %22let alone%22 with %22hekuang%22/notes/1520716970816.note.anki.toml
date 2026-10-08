@@ -1,0 +1,20 @@
+note_id = 1520716970816
+guid = "k-o(X_C;xZ"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Grammatical_Structures", "Letalone"]
+
+[[cards]]
+id = 1520716976680
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "let alone" with "hekuang"'
+english = "The baby can't even walk, let alone run."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 连 ⋯⋯ 都 + 不 / 没 + Verb ，何况 ⋯⋯ 呢 ？'
+hanzi = '宝宝连走都不会，更何况跑呢？'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG3ZS9G'

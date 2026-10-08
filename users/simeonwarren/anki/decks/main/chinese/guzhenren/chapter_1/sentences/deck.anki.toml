@@ -1,0 +1,12 @@
+id = 1778614794356
+title = 'main::chinese::guzhenren::chapter_1::sentences'
+
+[notes]
+path = 'notes'
+
+[normal]
+config_id = 1
+extend_new = 0
+extend_review = 0
+description = ''
+markdown_description = false

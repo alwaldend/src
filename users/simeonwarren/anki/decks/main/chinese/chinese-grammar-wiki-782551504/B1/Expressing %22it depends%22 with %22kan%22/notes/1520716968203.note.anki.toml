@@ -1,0 +1,20 @@
+note_id = 1520716968203
+guid = "*;V;z@ddp"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716974067
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "it depends" with "kan"'
+english = 'That depends on whether he feels like it or not.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '这 / 那 + 要看 / 得看 + [Unclear Situation]'
+hanzi = '那要看他愿不愿意。'
+notes = ''
+pinyin = 'Nà yào kàn tā yuàn bu yuànyì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG765HD'

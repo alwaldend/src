@@ -1,0 +1,20 @@
+note_id = 2061
+guid = "xkA`zD{B$A"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+id = 2123
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'hollow of the palm.'
+example-sentence = ' 祈祷了一番后,古月族长率先弯腰,双手平摊,掌心紧紧贴着地板,磕头'
+example-type = ''
+grammar-construct = ''
+hanzi = '掌心'
+notes = ''
+pinyin = '<span class="tone3">zhǎng</span><span class="tone1">xīn</span>	 <!-- zhang xin -->'
+source = ''

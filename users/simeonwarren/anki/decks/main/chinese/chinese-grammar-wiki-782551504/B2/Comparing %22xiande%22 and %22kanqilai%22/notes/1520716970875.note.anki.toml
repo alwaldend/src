@@ -1,0 +1,20 @@
+note_id = 1520716970875
+guid = "L&$./jsV[_"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Comparisons", "Verbs"]
+
+[[cards]]
+id = 1520716976739
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "xiande" and "kanqilai"'
+english = "This restaurant doesn't seem too bad, let's try it out."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 看起来 + Predicate'
+hanzi = '这个餐厅看起来不错，我们可以试试。'
+notes = ''
+pinyin = 'Zhège cāntīng kànqǐlái bùcuò, wǒmen kěyǐ shìshi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGKQEG9'

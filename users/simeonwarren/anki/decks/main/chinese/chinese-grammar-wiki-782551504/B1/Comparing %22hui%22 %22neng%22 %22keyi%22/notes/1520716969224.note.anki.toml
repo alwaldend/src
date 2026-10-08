@@ -1,0 +1,20 @@
+note_id = 1520716969224
+guid = "yV#3W<m|m5"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["AuxiliaryWords", "B1", "Comparisons"]
+
+[[cards]]
+id = 1520716975088
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "hui" "neng" "keyi"'
+english = 'Chinese people really can eat.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '很 + 会／能 + Verb'
+hanzi = '中国人真会吃!'
+notes = 'The subject has great knowledge about food and its culture, a true connoisseur.'
+pinyin = 'Zhōngguó rén zhēn huì chī!'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGZL717'

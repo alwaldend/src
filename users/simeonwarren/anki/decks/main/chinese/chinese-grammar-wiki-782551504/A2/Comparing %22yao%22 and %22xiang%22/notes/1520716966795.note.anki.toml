@@ -1,0 +1,20 @@
+note_id = 1520716966795
+guid = "iLusK98=1&"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Auxiliaryverbs", "Comparisons"]
+
+[[cards]]
+id = 1520716972659
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "yao" and "xiang"'
+english = 'Do you want ice water or hot water?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 要 + Noun'
+hanzi = '你们要冰水还是热水？'
+notes = 'ordering in a restaurant'
+pinyin = 'Nǐmen yào bīng shuǐ háishì rè shuǐ?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGD88UO'

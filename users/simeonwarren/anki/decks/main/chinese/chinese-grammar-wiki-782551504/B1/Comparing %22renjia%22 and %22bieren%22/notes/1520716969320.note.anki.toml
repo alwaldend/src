@@ -1,0 +1,20 @@
+note_id = 1520716969320
+guid = "tBi7:t03[K"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Comparisons", "Nouns"]
+
+[[cards]]
+id = 1520716975184
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "renjia" and "bieren"'
+english = 'Because I like you!'
+example-sentence = ''
+example-type = ''
+grammar-construct = '人家 + [Rest of Sentence]'
+hanzi = '因为人家喜欢你嘛。'
+notes = ''
+pinyin = '<div>Yīn wéi rénjiā xǐhuān nǐ ma.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPINA4'

@@ -1,0 +1,20 @@
+note_id = 1520716967309
+guid = "f]R<Gufjrc"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973173
+ordinal = 0
+
+[fields]
+article-title = 'Expressing lateness with "cai"'
+english = "How come you came here so late? We've waited for more than half an hour."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Time + 才 + Verb'
+hanzi = '你怎么才来？我们等了半个多小时。'
+notes = ''
+pinyin = 'Nǐ zěnme cái lái? Wǒmen děng le bàn gè duō xiǎoshí.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG3WTCJ'

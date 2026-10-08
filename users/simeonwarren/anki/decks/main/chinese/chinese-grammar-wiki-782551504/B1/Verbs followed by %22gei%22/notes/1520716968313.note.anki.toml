@@ -1,0 +1,20 @@
+note_id = 1520716968313
+guid = "o$ep+<}m>3"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716974177
+ordinal = 0
+
+[fields]
+article-title = 'Verbs followed by "gei"'
+english = 'Who are you going to give this present to?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 把 + Obj. + Verb + 给 + Recipient'
+hanzi = '你想把这个礼物送给谁？'
+notes = ''
+pinyin = 'Nǐ xiǎng bǎ zhège lǐwù sòng gěi shéi?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMMHTQ'

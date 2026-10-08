@@ -1,0 +1,154 @@
+id = 1496733135171
+name = 'chinese'
+css = """
+:root {
+    display: flex;
+    //align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.card {
+    //max-width: 40rem;
+    width: 100%;
+    margin: 0;
+    font-size: 1rem;
+    font-family: monospace;
+    //color: black;
+    padding: 0 30% 0 30%;
+}
+
+.mobile .card {
+    padding: 0;
+}
+
+.card.nightMode * {
+    //color: white;
+}
+
+.question {
+    //border-radius: 1em;
+    //border-style: solid;
+    padding: 1rem;
+    //margin: 0 0 1em 0;
+}
+
+.type {
+    //text-transform: uppercase;
+    margin: 0;
+}
+
+.value {
+    padding: 1rem 0 0 0;
+}
+
+.value, .value > div {
+    text-align: left;
+    margin: 0;
+    visibility: hidden;
+}
+
+.value.show-front,
+.value .show-front,
+.back * {
+    visibility: visible;
+}
+
+.example-type {
+    //font-weight: bold;
+    text-transform: uppercase;
+}
+
+.font_big {
+    font-size: 2rem;
+}\
+"""
+
+[[templates]]
+ordinal = 0
+name = 'Translation'
+front = """
+<div lang="zh_CN">
+  <div class="question">
+    <h2 class="type">Sentence</h2>
+    <p class="value show-front font_big">
+      {{ text:hanzi }}
+    </p>
+  </div>
+  {{ #example-type }}
+  <div class="question">
+    <h2 class="type">Question</h2>
+    <p class="value">
+      <span class="show-front">Is this sentence grammatically correct?</span>
+      <br>
+      <br>
+      <span class="example-type">{{ example-type }}</span>
+    </p>
+  </div>
+  {{ /example-type}}
+  <div class="question">
+    <h2 class="type">Pinyin</h2>
+    <p class="value">
+      {{ text:pinyin }}
+    </p>
+  </div>
+  {{ #english }}
+  <div class="question">
+    <h2 class="type">English</h2>
+    <p class="value">{{ english }}</p>
+  </div>
+  {{ /english }}
+  {{ #notes }}
+  <div class="question">
+    <h2 class="type">Notes</h2>
+    <p class="value">{{ notes }}</p>
+  </div>
+  {{ /notes }}
+  {{ #grammar-construct }}
+  <div class="question">
+    <h2 class="type">Grammar</h2>
+    <p class="value">{{ grammar-construct }}</p>
+  </div>
+  {{ /grammar-construct }}
+  {{ #source }}
+  <div class="question">
+    <h2 class="type">Source</h2>
+    <p class="value">
+      <a href="{{ text:source }}">
+      {{ article-title }}
+      </a>
+    </p>
+  </div>
+  {{ /source }}
+  {{ #example-sentence }}
+  <div class="question">
+    <h2 class="type">Example</h2>
+    <p class="value">{{ example-sentence }}</p>
+  </div>
+  {{ /example-sentence }}
+  <div class="question">
+    <h2 class="type">Misc</h2>
+    <p class="value">
+      <a href="https://www.mdbg.net/chinese/dictionary?page=worddict&email=&wdrst=0&wdqb={{ text:hanzi }}"
+        >mdbg</a>
+      <a href="https://www.deepl.com/en/translator#zh/en-us/{{ text:hanzi }}">deepl</a>
+      <a href="https://translate.google.com/?sl=auto&tl=en&text={{ text:hanzi }}&op=translate"
+        >google</a>
+      <span>{{ Deck }}</span>
+    </p>
+  </div>
+</div>
+</div>\
+"""
+back = """
+{{ tts zh_CN hypertts_preset=Back_realtime_0 voices=HyperTTS:hanzi }}
+
+<div class="back">
+  {{ FrontSide }}
+</div>\
+"""
+browser_front = ''
+browser_back = ''
+browser_font = 'Noto Sans Mono CJK SC'
+browser_font_size = 12

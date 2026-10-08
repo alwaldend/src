@@ -1,0 +1,20 @@
+note_id = 1520716968241
+guid = "C:p3_NTVL-"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716974105
+ordinal = 0
+
+[fields]
+article-title = 'Verbs followed by "gei"'
+english = 'The landlord rented a very cheap house to me.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 把 + Obj. + Verb + 给 + Somebody'
+hanzi = '房东把一个很便宜的房子租给了我。'
+notes = ''
+pinyin = 'Fángdōng bǎ yī gè hěn piányi de fángzi zū gěi le wǒ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMMHTQ'

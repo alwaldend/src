@@ -1,0 +1,20 @@
+note_id = 1520716966511
+guid = "Q<=wQr`$bO"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716972375
+ordinal = 0
+
+[fields]
+article-title = 'Result complement "-wan" for finishing'
+english = 'Can you finish doing your homework today?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 完 (+ 了) + Obj.'
+hanzi = '你今天可以做完作业吗？'
+notes = ''
+pinyin = 'Nǐ jīntiān kěyǐ zuò wán zuòyè ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNQUC1'

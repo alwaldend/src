@@ -1,0 +1,20 @@
+note_id = 1520716969511
+guid = "GdI1~18N+/"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Comparisons", "TimeWords"]
+
+[[cards]]
+id = 1520716975375
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "yihou" and "houlai"'
+english = 'He lived in my neighborhood when he was young. Then he moved.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Past Event 1 + 后来 + Past Event 2'
+hanzi = '他小时候住在我家附近，后来他搬家了。'
+notes = ''
+pinyin = 'Tā xiǎoshíhou zhù zài wǒ jiā fùjìn, hòulái tā bānjiā le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNPJ7T'

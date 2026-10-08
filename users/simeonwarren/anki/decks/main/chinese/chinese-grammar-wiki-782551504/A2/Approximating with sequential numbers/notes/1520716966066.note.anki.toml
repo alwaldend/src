@@ -1,0 +1,20 @@
+note_id = 1520716966066
+guid = "gNy~uaUDhU"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Numbers", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971930
+ordinal = 0
+
+[fields]
+article-title = 'Approximating with sequential numbers'
+english = "We've studied this word two or three times now."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Number + (Number + 1)'
+hanzi = '这个词我们学过两三次了。'
+notes = ''
+pinyin = 'Zhège cí wǒmen xué guo liǎng sān cì le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGOUD8U'

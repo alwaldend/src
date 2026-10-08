@@ -1,0 +1,20 @@
+note_id = 1520716967872
+guid = "AkR}1(kDm#"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+id = 1520716973736
+ordinal = 0
+
+[fields]
+article-title = 'Idiomatic phrases with "zai"'
+english = 'In emergencies, you can do that.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '在 ⋯⋯ 下 ，⋯⋯'
+hanzi = '在紧急情况下，你可以这样做。'
+notes = ''
+pinyin = 'Zài jǐnjí qíngkuàng xià, nǐ kěyǐ zhèyàng zuò.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGH13JY'

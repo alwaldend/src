@@ -1,0 +1,20 @@
+note_id = 1520716966504
+guid = "BwH5u`xYM>"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716972368
+ordinal = 0
+
+[fields]
+article-title = 'Potential complement "-bu dong" for not understanding'
+english = 'None of us understand what you mean.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. +  Verb + 不懂'
+hanzi = '我们都听不懂你的意思。'
+notes = 'Literally, "hear-not-understand"'
+pinyin = 'Wǒmen dōu tīng bu dǒng nǐ de yìsi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8R2V8'

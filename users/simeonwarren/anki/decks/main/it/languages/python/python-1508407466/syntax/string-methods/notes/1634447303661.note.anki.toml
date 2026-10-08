@@ -1,0 +1,17 @@
+note_id = 1634447303661
+guid = "q2RJdSw>9&"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634447303662
+ordinal = 0
+
+[fields]
+additional-info = '<strong>Note:</strong>&nbsp;All string methods returns new values. They do not change the original string.'
+answer = '<i>string</i>.rpartition(<i>value</i>)'
+example = ''
+question = '<b>String method</b>&nbsp;that returns a tuple where the string is parted into three parts: one before the last instance of value, the <b>last</b> instance of the value, and one after.'
+version = ''
+with-options = ''

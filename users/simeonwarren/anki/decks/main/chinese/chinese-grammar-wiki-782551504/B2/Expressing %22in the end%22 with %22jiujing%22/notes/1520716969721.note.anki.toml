@@ -1,0 +1,20 @@
+note_id = 1520716969721
+guid = "hfctuaN4~Q"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975585
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "in the end" with "jiujing"'
+english = 'Kids are kids after all. They always think about how to have fun.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A＋究竟 + 是＋ A，……'
+hanzi = '孩子究竟是孩子，总是想着怎么玩。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDK0BR'

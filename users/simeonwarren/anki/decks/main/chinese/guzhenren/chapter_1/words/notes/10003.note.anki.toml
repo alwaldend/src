@@ -1,0 +1,20 @@
+note_id = 10003
+guid = "omE%ulz><K"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+id = 10015
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'to dare; daring; (polite) may I venture.'
+example-sentence = '  不敢'
+example-type = ''
+grammar-construct = ''
+hanzi = '敢'
+notes = ''
+pinyin = '<span class="tone3">gǎn</span>	 <!-- gan -->'
+source = ''

@@ -1,0 +1,20 @@
+note_id = 1520716967040
+guid = "ztGQ(+@Ds]"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972904
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "again" in the past with "you"'
+english = 'It rains again!'
+example-sentence = ''
+example-type = ''
+grammar-construct = '又 + Verb + 了'
+hanzi = '又下雨了！'
+notes = ''
+pinyin = 'Yòu xiàyǔ le!'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGN1JR5'

@@ -1,0 +1,20 @@
+note_id = 1520716967764
+guid = "Q.V9yFwxP3"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+id = 1520716973628
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "about" with "guanyu"'
+english = "As for the result of that research, we don't know much either."
+example-sentence = ''
+example-type = ''
+grammar-construct = '关于 + Obj. ，⋯⋯'
+hanzi = '关于调查结果，我们也不太清楚。'
+notes = ''
+pinyin = 'Guānyú diàochá jiéguǒ, wǒmen yě bù tài qīngchu.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG49889'

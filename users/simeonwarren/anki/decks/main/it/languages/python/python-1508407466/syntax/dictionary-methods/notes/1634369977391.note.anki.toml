@@ -1,0 +1,21 @@
+note_id = 1634369977391
+guid = "v^%xtRX+zx"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634370802980
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<i>dict</i>.setdefault(<i>key</i>)'
+example = ''
+question = '<b>Dictionary method</b>&nbsp;that&nbsp;returns the value of the specified key. If the key does not exist, it inserts the key, with the specified value.'
+version = ''
+with-options = """
+
+
+<i>dict</i>.setdefault(<i>key</i>,&nbsp;<i>value=None</i>)\
+"""

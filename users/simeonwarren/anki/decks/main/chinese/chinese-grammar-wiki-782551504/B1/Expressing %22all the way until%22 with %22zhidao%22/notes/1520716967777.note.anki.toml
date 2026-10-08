@@ -1,0 +1,20 @@
+note_id = 1520716967777
+guid = "e[%dkpG7FU"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+id = 1520716973641
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "all the way until" with "zhidao"'
+english = 'They are classmates. But they had never spoken until they graduated.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '直到 + Time / Event ，Subj. + 都  + 不 / 没 ⋯⋯'
+hanzi = '他们是同学，但是直到毕业，都没说过话。'
+notes = ''
+pinyin = 'Tāmen shì tóngxué, dànshì zhídào bìyè, dōu méi shuō guo huà.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGC6E1C'

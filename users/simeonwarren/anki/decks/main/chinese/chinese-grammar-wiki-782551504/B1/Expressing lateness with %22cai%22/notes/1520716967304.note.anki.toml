@@ -1,0 +1,20 @@
+note_id = 1520716967304
+guid = "j{sJF16}x0"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973168
+ordinal = 0
+
+[fields]
+article-title = 'Expressing lateness with "cai"'
+english = "My daughter didn't go to bed until 12 o'clock yesterday. Too much homework."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Time + 才 + Verb'
+hanzi = '我女儿昨天十二点才睡觉，作业太多了。'
+notes = ''
+pinyin = "Wǒ nǚ'ér zuótiān shí'èr diǎn cái shuìjiào, zuòyè tài duō le."
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG3WTCJ'

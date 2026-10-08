@@ -1,0 +1,20 @@
+note_id = 1520716969639
+guid = "MD$ct(s|sf"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975503
+ordinal = 0
+
+[fields]
+article-title = 'Assessing situations with "kanlai"'
+english = "I guess you didn't have a good time. Is that why you came back so early?"
+example-sentence = ''
+example-type = ''
+grammar-construct = '看来 + Perspective'
+hanzi = '看来你玩得不高兴，怎么这么早就回来了？'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJPQ0Q'

@@ -1,0 +1,17 @@
+note_id = 1634362610197
+guid = "n4yL|`Ad`1"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634370830763
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<i>set</i>.clear()'
+example = ''
+question = '<b>Set method </b>that removes all items from a set.'
+version = ''
+with-options = ''

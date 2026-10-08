@@ -1,0 +1,20 @@
+note_id = 1520716965937
+guid = "FATS+JtNNs"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "AdverbswithAdjectives", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971801
+ordinal = 0
+
+[fields]
+article-title = 'Superlative "zui"'
+english = 'What is your favorite color?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '最 + [Psychological Verb] + Obj. (+ 了)'
+hanzi = '你最喜欢什么颜色？'
+notes = ''
+pinyin = 'Nǐ zuì xǐhuan shénme yánsè?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG3544U'

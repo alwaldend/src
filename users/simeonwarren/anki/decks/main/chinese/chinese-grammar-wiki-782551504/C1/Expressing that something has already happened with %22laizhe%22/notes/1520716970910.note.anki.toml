@@ -1,0 +1,20 @@
+note_id = 1520716970910
+guid = "I*n)B.-7s+"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["AuxiliaryWords", "C1"]
+
+[[cards]]
+id = 1520716976774
+ordinal = 0
+
+[fields]
+article-title = 'Expressing that something has already happened with "laizhe"'
+english = 'There was someone looking for you yesterday.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Sentence + 来着'
+hanzi = '昨天有人来找你来着。'
+notes = ''
+pinyin = 'Zuótiān yǒu rén zhǎo nǐ láizhe.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPV5Z2'

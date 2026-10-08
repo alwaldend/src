@@ -1,0 +1,20 @@
+note_id = 1520716970147
+guid = "cKp4(_9kwV"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "ButStatements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716976011
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "although" with "jinguan"'
+english = "Even though he's failed many times, he still wants to start a business."
+example-sentence = ''
+example-type = ''
+grammar-construct = '尽管 A，还是 / 仍然 B'
+hanzi = '尽管失败了好几次，可他仍然想创业。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGW863F'

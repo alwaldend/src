@@ -1,0 +1,20 @@
+note_id = 7017
+guid = "wG(b1CHZ=("
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 7040
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'young.'
+example-sentence = '在年轻一辈中,可谓独领风骚'
+example-type = ''
+grammar-construct = ''
+hanzi = '年轻'
+notes = ''
+pinyin = '<span class="tone2">nián</span><span class="tone1">qīng</span>	 <!-- nian qing -->'
+source = ''

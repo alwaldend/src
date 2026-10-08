@@ -1,0 +1,20 @@
+note_id = 1520716965456
+guid = "pf$m}m6:25"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+id = 1520716971320
+ordinal = 0
+
+[fields]
+article-title = 'Standard negation with "bu"'
+english = "I don't have time."
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = 'Subj. + 不 + Verb + Obj.'
+hanzi = '我没有时间。'
+notes = ''
+pinyin = 'Wǒ méiyǒu shíjiān.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGIPYFV'

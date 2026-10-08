@@ -1,0 +1,17 @@
+note_id = 1526926726952
+guid = "QZ)_q@ZE?1"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = ["VisualCommands"]
+
+[[cards]]
+id = 1526926733949
+ordinal = 0
+
+[[cards]]
+id = 1668965796660
+ordinal = 1
+
+[fields]
+Back = '&lt;'
+Front = 'Shift text left'

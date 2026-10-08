@@ -1,0 +1,20 @@
+note_id = 1520716967077
+guid = "L}Ao]lJXgd"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "leech", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972941
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "all along" with "yuanlai"'
+english = "Originally they were just neighbors. Now they're very good friends."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 原来 + Predicate'
+hanzi = '她们原来只是邻居，现在是很好的朋友。'
+notes = ''
+pinyin = 'Tāmen yuánlái zhǐ shì línjū, xiànzài shì hěn hǎo de péngyou.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTKXFR'

@@ -1,0 +1,20 @@
+note_id = 1520716970472
+guid = "BFXy_Ow2w`"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716976336
+ordinal = 0
+
+[fields]
+article-title = 'Advanced uses of "ba"'
+english = "The teacher broke the whole class' students up into three small groups."
+example-sentence = ''
+example-type = ''
+grammar-construct = '把 + Obj. 1 + Verb + 成 + Obj. 2'
+hanzi = '老师把全班同学分成了三个小组。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQRS3P'

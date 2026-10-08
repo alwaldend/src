@@ -1,0 +1,20 @@
+note_id = 1520716968409
+guid = "qD0>J)kx]z"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716974273
+ordinal = 0
+
+[fields]
+article-title = 'Potential complement'
+english = 'Can you understand Shanghai dialect?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 不 + Complement'
+hanzi = '你听得懂上海话吗？'
+notes = ''
+pinyin = 'Nǐ tīng de dǒng Shànghǎi-huà ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCPJPQ'

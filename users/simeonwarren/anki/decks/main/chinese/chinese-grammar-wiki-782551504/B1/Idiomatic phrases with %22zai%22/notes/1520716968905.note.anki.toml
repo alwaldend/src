@@ -1,0 +1,20 @@
+note_id = 1520716968905
+guid = "L$*|kQG48["
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974769
+ordinal = 0
+
+[fields]
+article-title = 'Idiomatic phrases with "zai"'
+english = 'In this situation, what would you do?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '在 + Abstract Concept + 下， Result／Comment Sentence'
+hanzi = '在这种情况下，你会怎么做？'
+notes = ''
+pinyin = '<div>Zài zhè zhǒng qíngkuàng xià, nǐ huì zěnme zuò?</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGH13JY'

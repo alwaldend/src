@@ -1,0 +1,20 @@
+note_id = 1520716969777
+guid = "d0z-S!Ol8t"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975641
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "simply" with "jianzhi"'
+english = "China's elevated railroad was simply built really fast!"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + (Obj.) + Verb + 得 + 简直 + Adj.'
+hanzi = '中国的高速铁路修建得简直太快了!'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8OLAE'

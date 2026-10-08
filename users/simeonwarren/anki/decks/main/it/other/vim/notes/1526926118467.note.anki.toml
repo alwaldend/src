@@ -1,0 +1,17 @@
+note_id = 1526926118467
+guid = "ds8.Z>N2[b"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = ["Cursor", "Movement"]
+
+[[cards]]
+id = 1526926131493
+ordinal = 0
+
+[[cards]]
+id = 1668965796622
+ordinal = 1
+
+[fields]
+Back = '^b'
+Front = 'Move back one full screen'

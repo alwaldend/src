@@ -1,0 +1,20 @@
+note_id = 1520716967544
+guid = "s[}Re[@CA/"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973408
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "in addition" with "lingwai"'
+english = 'I bought three tickets. One is for myself, and the other two are for my friends.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '另外 + Noun Phrase'
+hanzi = '我买了三张票，一张是我的，另外两张是给朋友的。'
+notes = ''
+pinyin = 'Wǒ mǎi le sān zhāng piào, yī zhāng shì wǒ de, lìngwài liǎng zhāng shì gěi péngyou de.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG2KQZI'

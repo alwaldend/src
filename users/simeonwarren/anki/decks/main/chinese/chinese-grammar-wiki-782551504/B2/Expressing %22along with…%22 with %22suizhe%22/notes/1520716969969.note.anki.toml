@@ -1,0 +1,20 @@
+note_id = 1520716969969
+guid = "H.9Fdc6DHq"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+id = 1520716975833
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "along with…" with "suizhe"'
+english = 'With the increasing population, there are more and more social problems in big cities.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '随着 + Noun， Subj. + Predicate'
+hanzi = '随着人口不断增加，大城市的社会问题越来越多了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGHVFRA'

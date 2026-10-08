@@ -1,0 +1,20 @@
+note_id = 1520716970026
+guid = "sB2-I(adP:"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Parts_of_Speech", "Pronouns"]
+
+[[cards]]
+id = 1520716975890
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "bici" and "duifang"'
+english = "I apologized to him, but he didn't accepted it."
+example-sentence = ''
+example-type = ''
+grammar-construct = '对方 + Verb Phrase'
+hanzi = '我道歉了，但是对方不接受。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG84D65'

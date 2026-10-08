@@ -1,0 +1,20 @@
+note_id = 1520716969423
+guid = "p#y|p2.usu"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Comparisons", "TimeWords"]
+
+[[cards]]
+id = 1520716975287
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "gang" and "gangcai"'
+english = 'I bought it yesterday.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '刚 + Adj.'
+hanzi = '我昨天买了。'
+notes = ''
+pinyin = '<div>Wǒ zuótiān mǎile.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJFFWG'

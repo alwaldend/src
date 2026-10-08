@@ -1,0 +1,20 @@
+note_id = 1520716969604
+guid = "skvDnEE>$D"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975468
+ordinal = 0
+
+[fields]
+article-title = 'Advanced uses of "dou"'
+english = 'I really miss Mom. Sometimes I can even see her.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 都 + Predicate'
+hanzi = '我很想妈妈，有时候我都能看见她。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQFW44'

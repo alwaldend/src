@@ -1,0 +1,20 @@
+note_id = 1520716970426
+guid = "x7k<~Y2:is"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "ConditionalStatements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716976290
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "only if" with "zhiyou"'
+english = 'Only with hard work is it possible to do a good job.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '只有 + Essential Condition + 才 + Desired Outcome'
+hanzi = '只有努力才能做好工作。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJDV3Y'

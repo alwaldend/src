@@ -1,0 +1,20 @@
+note_id = 2012
+guid = "gW#lE2=88e"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+id = 2025
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'to set about (a task);	to hit;	to punch;	to touch.'
+example-sentence = ' 他们没有动手,都忌惮着方源的临死反扑'
+example-type = ''
+grammar-construct = ''
+hanzi = '动手'
+notes = ''
+pinyin = '<span class="tone4">dòng</span><span class="tone3">shǒu</span>	 <!-- dong shou -->'
+source = ''

@@ -1,0 +1,20 @@
+note_id = 1520716969255
+guid = "Oz)~(e@2j#"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Comparisons", "Conjunctions"]
+
+[[cards]]
+id = 1520716975119
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "haishi" and "huozhe"'
+english = "I'd like to stay at home reading or watching some movies."
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = 'Option 1 + 或者 + Option 2'
+hanzi = '周末我想在家看书或者看电影。'
+notes = ''
+pinyin = 'Zhōumò wǒ xiǎng zài jiā kànshū huòzhě kàn diànyǐng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQJ5IC'

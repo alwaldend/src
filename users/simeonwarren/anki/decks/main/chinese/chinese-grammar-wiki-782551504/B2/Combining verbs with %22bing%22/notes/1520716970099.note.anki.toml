@@ -1,0 +1,20 @@
+note_id = 1520716970099
+guid = "w?BE!>&j;y"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+id = 1520716975963
+ordinal = 0
+
+[fields]
+article-title = 'Combining verbs with "bing"'
+english = 'What we need is an employee with rich work experience and also an understanding of teamwork.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb / [Verb Phrase 1] + 并(且) + Verb / [Verb Phrase 2]'
+hanzi = '我们需要的是有丰富的工作经验并且懂得团队合作的员工。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5C89R'

@@ -1,0 +1,20 @@
+note_id = 1520716969356
+guid = "zFV}?-{C*["
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Comparisons"]
+
+[[cards]]
+id = 1520716975220
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "gang" and "gangcai"'
+english = "Then you don't know what happened just now?<br>What's just happened?"
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = 'A:那你不知道刚才的事吧？<br>B:刚才发生什么事了？'
+notes = ''
+pinyin = 'Nà nǐ bù zhīdào gāngcái de shì ba?<br>Gāngcái fāshēng shénme shì le?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJFFWG'

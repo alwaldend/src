@@ -1,0 +1,20 @@
+note_id = 1520716970177
+guid = "MpIQ5}hs,&"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "EvenIfStatements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716976041
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "even if…" with "jishi"'
+english = "Even if the boss doesn't come, we will still have the meeting as usual."
+example-sentence = ''
+example-type = ''
+grammar-construct = '即使 + Hypothetical Statement + 也 + Action'
+hanzi = '即使领导不来，我们也要照样开会。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGBUXN7'

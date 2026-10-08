@@ -1,0 +1,20 @@
+note_id = 1520716967761
+guid = "J*`$&+:1,A"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+id = 1520716973625
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "about" with "guanyu"'
+english = 'As for this exam, I still have a lot of questions that I need to ask.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '关于 + Obj. ，⋯⋯'
+hanzi = '关于这次考试，我还有几个问题要问。'
+notes = ''
+pinyin = 'Guānyú zhè cì kǎoshì, wǒ hái yǒu jǐ gè wèntí yào wèn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG49889'

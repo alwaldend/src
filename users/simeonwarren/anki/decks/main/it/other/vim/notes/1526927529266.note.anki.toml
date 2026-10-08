@@ -1,0 +1,17 @@
+note_id = 1526927529266
+guid = "rLuYLfCx)%"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = ["WorkingWithMultipleFiles"]
+
+[[cards]]
+id = 1526927559896
+ordinal = 0
+
+[[cards]]
+id = 1668965796714
+ordinal = 1
+
+[fields]
+Back = '^w q &nbsp;or :q[uit]<div>(:q! or ZQ, too, but forces a quit, if there is unwritten state)</div>'
+Front = 'Close a window and exit vim if this was <b>the last window, and there is no unwritten state in that buffer</b>'

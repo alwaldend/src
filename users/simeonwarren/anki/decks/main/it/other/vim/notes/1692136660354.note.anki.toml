@@ -1,0 +1,17 @@
+note_id = 1692136660354
+guid = "hHu[J~ZxA<"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = []
+
+[[cards]]
+id = 1692136660356
+ordinal = 0
+
+[[cards]]
+id = 1692136660357
+ordinal = 1
+
+[fields]
+Back = ':diffget LOCAL|BASE|REMOTE'
+Front = 'When using vimdiff as mergetool, how do you pull the changes from the top windows into the bottom merge area?'

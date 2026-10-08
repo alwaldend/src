@@ -1,0 +1,91 @@
+id = 1630447360006
+name = 'python-cloze'
+css = """
+:root {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.card {
+    font-size: 1em;
+    font-family: monospace;
+    color: black;
+    max-width: 35rem;
+    width: 100%;
+}
+
+table {
+    background-color: white;
+    padding: 0.5rem 0.5rem 0.5rem 0;
+}
+
+.nightMode table {
+    background-color: transparent;
+}
+
+table,
+.value {
+    border: groove;
+    border-radius: 1rem;
+    width: 100%;
+}
+
+.type {
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: center;
+    writing-mode: vertical-lr;
+    rotate: 180deg;
+    padding: 0.5rem 0 0.5rem 0;
+    max-width: 1rem;
+    min-width: 1rem;
+}
+
+.value {
+    text-align: left;
+    padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+    visibility: hidden;
+}
+
+.value.show-front,
+.back .value {
+    visibility: visible;
+}
+
+.nightMode a {
+    color: white;
+}
+
+.font_big {
+    font-size: 3rem;
+}\
+"""
+
+[[templates]]
+ordinal = 0
+name = 'Cloze'
+front = """
+{{cloze:text}}
+<hr />\
+"""
+back = """
+{{cloze:text}}
+<hr />
+
+{{#example}}
+{{example}}
+<hr />
+{{/example}}
+
+{{#version}}
+{{version}}
+<hr />
+{{/version}}\
+"""
+browser_front = ''
+browser_back = ''
+browser_font = ''
+browser_font_size = 0

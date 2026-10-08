@@ -1,0 +1,20 @@
+note_id = 1520716970871
+guid = "MdnV%6Y+;v"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Comparisons", "Verbs"]
+
+[[cards]]
+id = 1520716976735
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "xiande" and "kanqilai"'
+english = 'Doing it like this makes you seem stingy.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A + 显得 + B + Predicate'
+hanzi = '这么做会显得你很小气。'
+notes = ''
+pinyin = 'Zhème zuò huì xiǎnde nǐ hěn xiǎoqì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGKQEG9'

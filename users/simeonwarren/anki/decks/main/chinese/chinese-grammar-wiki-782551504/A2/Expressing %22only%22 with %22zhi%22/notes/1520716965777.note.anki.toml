@@ -1,0 +1,20 @@
+note_id = 1520716965777
+guid = "xW&/!PV(:u"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Adverbs", "leech", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971641
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "only" with "zhi"'
+english = "The baby can only walk. He can't run."
+example-sentence = ''
+example-type = ''
+grammar-construct = '只 + 会 / 能 + Verb'
+hanzi = '宝宝只会走，不会跑。'
+notes = ''
+pinyin = 'Bǎobao zhǐ huì zǒu, bù huì pǎo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGN8C8R'

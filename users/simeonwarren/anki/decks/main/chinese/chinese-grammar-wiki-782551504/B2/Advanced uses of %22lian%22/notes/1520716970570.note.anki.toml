@@ -1,0 +1,20 @@
+note_id = 1520716970570
+guid = "Qs.hN5?(Q?"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716976434
+ordinal = 0
+
+[fields]
+article-title = 'Advanced uses of "lian"'
+english = "You guys didn't even taste it at all and you say it's not tasty?"
+example-sentence = ''
+example-type = ''
+grammar-construct = '连 + Verb + 都 + 不 / 没 + Verb (，就 ⋯⋯)'
+hanzi = '你们连尝都没尝就说不好吃？'
+notes = ''
+pinyin = 'Nǐmen lián cháng dōu méi cháng jiù shuō bù hǎochī?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGF273F'

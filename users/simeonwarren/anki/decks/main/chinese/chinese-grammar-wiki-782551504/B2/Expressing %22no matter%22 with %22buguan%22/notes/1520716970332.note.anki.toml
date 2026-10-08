@@ -1,0 +1,20 @@
+note_id = 1520716970332
+guid = "tdw2J+ow.f"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Grammatical_Structures", "NoMatterStatements"]
+
+[[cards]]
+id = 1520716976196
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "no matter" with "buguan"'
+english = 'We must prepare well no matter what.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '不管 + Question Word ，(Subj. +) 都 ⋯⋯'
+hanzi = '不管怎么样，我们都要好好准备。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG0NDS6'

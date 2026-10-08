@@ -1,0 +1,20 @@
+note_id = 11000
+guid = "k2Q0J82gV="
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 11010
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'odd (number).<br>strange;	odd;	weird;	wonderful;	surprisingly;	unusually.<br>'
+example-sentence = '在十大奇蛊排名中,能名列第七,自然非同小可'
+example-type = ''
+grammar-construct = ''
+hanzi = '奇'
+notes = ''
+pinyin = '<span class="tone5">jīqí</span>	 <!-- ji qi -->'
+source = ''

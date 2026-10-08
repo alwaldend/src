@@ -1,0 +1,17 @@
+note_id = 1634417326653
+guid = "w1=V;&e*,v"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634417326653
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<b>Built in function:&nbsp;</b>super()'
+example = ''
+question = '<b>Built in function</b>&nbsp;that returns an object that represents the parent class'
+version = ''
+with-options = ''

@@ -1,0 +1,20 @@
+note_id = 1520716967291
+guid = "rkK)oe`KlA"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973155
+ordinal = 0
+
+[fields]
+article-title = 'Expressing good luck'
+english = 'Luckily, we came by taxi, otherwise we could have been late.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '幸亏 / 幸好 + [Lucky Incident]（，+ 不然 ⋯⋯)'
+hanzi = '幸亏我们打车来的，不然就迟到了。'
+notes = ''
+pinyin = 'Xìngkuī wǒmen dǎchē lái de, bùrán jiù chídào le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGOB1BF'

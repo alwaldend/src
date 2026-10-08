@@ -1,0 +1,20 @@
+note_id = 1520716967915
+guid = "wuXAemP~6c"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "SentencePatterns"]
+
+[[cards]]
+id = 1520716973779
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "double negation"'
+english = "It's not that I don't have an opinion, I just don't want to say it right now."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不 + 是 / 会 / 能 + 没 + [Verb Phrase]'
+hanzi = '我不是没有想法，只是不想现在就说。'
+notes = ''
+pinyin = 'Wǒ bù shì méiyǒu xiǎngfǎ, zhǐshì bù xiǎng xiànzài jiù shuō.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGEEA2D'

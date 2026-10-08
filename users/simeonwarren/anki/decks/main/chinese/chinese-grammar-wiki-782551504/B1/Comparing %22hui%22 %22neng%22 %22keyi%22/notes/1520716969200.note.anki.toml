@@ -1,0 +1,20 @@
+note_id = 1520716969200
+guid = "vA3k+I2i4v"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["AuxiliaryWords", "B1", "Comparisons"]
+
+[[cards]]
+id = 1520716975064
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "hui" "neng" "keyi"'
+english = "He doesn't know how to fix computers."
+example-sentence = ''
+example-type = ''
+grammar-construct = '会／能 + Verb'
+hanzi = '他不会修电脑。'
+notes = ''
+pinyin = 'Tā bù huì xiū diànnǎo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGZL717'

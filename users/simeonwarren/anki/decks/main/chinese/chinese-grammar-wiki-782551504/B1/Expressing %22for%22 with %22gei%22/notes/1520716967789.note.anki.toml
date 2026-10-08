@@ -1,0 +1,20 @@
+note_id = 1520716967789
+guid = "mt#X`>/Jm7"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+id = 1520716973653
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "for" with "gei"'
+english = 'Pour a cup of tea for the guest.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 给 + Recipient + [Verb Phrase]'
+hanzi = '给客人倒茶。'
+notes = ''
+pinyin = 'Gěi kèrén dàochá.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGLHAV3'

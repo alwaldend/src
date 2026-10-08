@@ -1,0 +1,20 @@
+note_id = 1520716970856
+guid = "fj4jxtg#7x"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Comparisons", "TimeWords"]
+
+[[cards]]
+id = 1520716976720
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "pingshi" and "pingchang"'
+english = "Could you tell me about this piece of jade?<br>It's a common piece of jade."
+example-sentence = ''
+example-type = ''
+grammar-construct = '平常的 + Noun'
+hanzi = 'A:你帮我看一下这块玉怎么样？<br>B:是一块很平常的玉。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJOGGG'

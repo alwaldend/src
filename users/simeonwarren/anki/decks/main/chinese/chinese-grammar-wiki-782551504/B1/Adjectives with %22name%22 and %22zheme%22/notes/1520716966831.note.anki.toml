@@ -1,0 +1,20 @@
+note_id = 1520716966831
+guid = "JE@.]Q8z41"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972695
+ordinal = 0
+
+[fields]
+article-title = 'Adjectives with "name" and "zheme"'
+english = 'You speak so fast. How could I understand you?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 那么 / 这么 + Adj.'
+hanzi = '你说得这么快，我怎么能听懂？'
+notes = ''
+pinyin = 'Nǐ shuōde zhème kuài, wǒ zěnme néng tīngdǒng ?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNKKP6'

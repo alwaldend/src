@@ -1,0 +1,20 @@
+note_id = 1520716966412
+guid = "CdsV:A$X^{"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+id = 1520716972276
+ordinal = 0
+
+[fields]
+article-title = 'Indicating location with "zai" before verbs'
+english = "Now we're singing songs at karaoke."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 在 + Place + Verb + Obj.'
+hanzi = '现在我们在KTV唱歌。'
+notes = ''
+pinyin = 'Xiànzài wǒmen zài KTV chànggē.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGX0Z0N'

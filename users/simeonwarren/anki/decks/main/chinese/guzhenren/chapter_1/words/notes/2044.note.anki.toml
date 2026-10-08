@@ -1,0 +1,20 @@
+note_id = 2044
+guid = "p-SQf:udi;"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+id = 2089
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'Dyed'
+example-sentence = ' 此刻,方源脚下的灰白山石,早已经被鲜血染成了暗红'
+example-type = ''
+grammar-construct = ''
+hanzi = '染成'
+notes = ''
+pinyin = '<span class="tone3">rǎn</span><span class="tone2">chéng</span>	 <!-- ran cheng -->'
+source = ''

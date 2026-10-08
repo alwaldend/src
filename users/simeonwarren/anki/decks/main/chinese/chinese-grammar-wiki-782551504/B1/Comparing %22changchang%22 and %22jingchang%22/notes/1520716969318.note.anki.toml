@@ -1,0 +1,20 @@
+note_id = 1520716969318
+guid = "q;!G:G:3}Y"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Comparisons"]
+
+[[cards]]
+id = 1520716975182
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "changchang" and "jingchang"'
+english = "I don't watch television very often."
+example-sentence = ''
+example-type = 'invalid'
+grammar-construct = '常常 / 经常 + Verb'
+hanzi = '我不常常看电视。'
+notes = ''
+pinyin = 'Wǒ bù chángcháng kàn diànshì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGE8FLP'

@@ -1,0 +1,20 @@
+note_id = 1520716967248
+guid = "K9iHz-+R~6"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973112
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "small quantity" with "jiu"'
+english = "I'm the only person that knows about this."
+example-sentence = ''
+example-type = ''
+grammar-construct = '就 + Subj. + Predicate'
+hanzi = '这件事就我知道。'
+notes = ''
+pinyin = 'Zhè jiàn shì jiù wǒ zhīdào.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPW8PP'

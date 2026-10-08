@@ -1,0 +1,20 @@
+note_id = 1520716969850
+guid = "Jr#H]-aH%g"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975714
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "and" with "he" (advanced)'
+english = ''
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = 'Adj. 1 + 和 + Adj. 2'
+hanzi = '我去了超市，并且买了水果。'
+notes = 'Here we treated the verbs as separate clauses and used 并且 to connect them.)'
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGXN52R'

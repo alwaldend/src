@@ -1,0 +1,20 @@
+note_id = 9043
+guid = "i+~c<tv.Aw"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 9094
+ordinal = 0
+
+[fields]
+article-title = ''
+english = '(adverb of degree);	quite;	very;	awfully.'
+example-sentence = ' 好了,新书终于和大家见面,就像在 御妖至尊 结尾和大家打的招呼,主角很邪恶,本书会饱受争议'
+example-type = ''
+grammar-construct = ''
+hanzi = '很'
+notes = ''
+pinyin = '<span class="tone3">hěn</span>	 <!-- hen -->'
+source = ''

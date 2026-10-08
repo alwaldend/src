@@ -1,0 +1,20 @@
+note_id = 1520716969358
+guid = "y+3ht6G0DW"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Comparisons", "Nouns"]
+
+[[cards]]
+id = 1520716975222
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "zhijian" and "zhongjian"'
+english = "There's a cat between the sofa and the table."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun 1 + 和 + Noun 2 + 之间／中间'
+hanzi = '在沙发和桌子之间有一只猫。'
+notes = ''
+pinyin = '<div>Zài shāfā hé zhuōzǐ zhī jiān yǒuyī zhǐ māo.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGN6O6J'

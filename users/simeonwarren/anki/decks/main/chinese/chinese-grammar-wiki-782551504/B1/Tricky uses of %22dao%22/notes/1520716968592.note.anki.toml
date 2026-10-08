@@ -1,0 +1,20 @@
+note_id = 1520716968592
+guid = "JPp>6!g:%^"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716974456
+ordinal = 0
+
+[fields]
+article-title = 'Tricky uses of "dao"'
+english = "I haven't bought it yet."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '我还没有买。'
+notes = ''
+pinyin = 'Wǒ hái méiyǒu mǎi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCUSIV'

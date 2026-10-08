@@ -1,0 +1,20 @@
+note_id = 1520716966327
+guid = "etVE$8Q_J0"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Auxiliaryverbs", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972191
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "would like to" with "xiang"'
+english = 'I would like to eat noodles.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 想 + Verb (+ Obj.)'
+hanzi = '我想吃面。'
+notes = ''
+pinyin = 'Wǒ xiǎng  chī miàn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGT97VF'

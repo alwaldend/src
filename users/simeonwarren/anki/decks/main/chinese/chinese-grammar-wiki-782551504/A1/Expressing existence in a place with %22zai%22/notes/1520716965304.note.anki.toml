@@ -1,0 +1,20 @@
+note_id = 1520716965304
+guid = "prH9UeWwZd"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716971168
+ordinal = 0
+
+[fields]
+article-title = 'Expressing existence in a place with "zai"'
+english = 'Are you at the office?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 在 + Place'
+hanzi = '你在公司吗？'
+notes = 'Literally, "Are you at the company?"'
+pinyin = 'Nǐ zài gōngsī ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGLRWT8'

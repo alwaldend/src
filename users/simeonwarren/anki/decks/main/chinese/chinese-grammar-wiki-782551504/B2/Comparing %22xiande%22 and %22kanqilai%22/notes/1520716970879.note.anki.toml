@@ -1,0 +1,20 @@
+note_id = 1520716970879
+guid = "KMF;s9(8p8"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Comparisons", "Verbs"]
+
+[[cards]]
+id = 1520716976743
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "xiande" and "kanqilai"'
+english = "You seem very slim today.<br>It's probably these clothes that makes me seem that way."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 看起来 + Predicate'
+hanzi = 'A:你今天看起来很苗条。<br>B:可能是这件衣服显得我很苗条。'
+notes = ''
+pinyin = 'A- : Nǐ jīntiān kànqǐlái hěn miáotiáo.<br>B: Kěnéng shì zhè jiàn yīfu xiǎnde wǒ hěn miáotiáo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGKQEG9'

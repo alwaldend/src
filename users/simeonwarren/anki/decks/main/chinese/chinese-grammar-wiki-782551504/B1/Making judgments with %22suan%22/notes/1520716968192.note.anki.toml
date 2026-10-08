@@ -1,0 +1,20 @@
+note_id = 1520716968192
+guid = "F5y]zsdP5b"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716974056
+ordinal = 0
+
+[fields]
+article-title = 'Making judgments with "suan"'
+english = "Fifty kuai for a haircut. It can't be considered expensive."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不 + 算 (+ Adv.) + Adj.'
+hanzi = '剪个头发五十块，不算贵。'
+notes = ''
+pinyin = 'Jiǎn gè tóufa wǔshí kuài, bù suàn guì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWDWFN'

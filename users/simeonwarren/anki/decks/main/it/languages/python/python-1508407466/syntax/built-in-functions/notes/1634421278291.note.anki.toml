@@ -1,0 +1,17 @@
+note_id = 1634421278291
+guid = "ta<(1VrI|2"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634421278292
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<b>Built in function:&nbsp;</b>hasattr(<i>object</i>, <i>attr</i>)'
+example = ''
+question = '<b>Built in function</b>&nbsp;that returns True if the specified object has the specified attribute (property/method), else False.'
+version = ''
+with-options = ''

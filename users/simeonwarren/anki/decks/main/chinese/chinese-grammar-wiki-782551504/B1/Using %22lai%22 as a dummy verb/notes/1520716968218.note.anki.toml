@@ -1,0 +1,20 @@
+note_id = 1520716968218
+guid = "q.1d#qWGg5"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716974082
+ordinal = 0
+
+[fields]
+article-title = 'Using "lai" as a dummy verb'
+english = 'You write well. You write it.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '(让 +) Subj. + 来 + Verb'
+hanzi = '你写得好看，你来吧。'
+notes = ''
+pinyin = 'Nǐ xiě de hǎokàn, nǐ lái ba.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG98FZK'

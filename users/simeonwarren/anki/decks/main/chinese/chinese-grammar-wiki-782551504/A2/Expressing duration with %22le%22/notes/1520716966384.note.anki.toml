@@ -1,0 +1,20 @@
+note_id = 1520716966384
+guid = "i::00e=JD*"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+id = 1520716972248
+ordinal = 0
+
+[fields]
+article-title = 'Expressing duration with "le"'
+english = 'Yesterday, I played games all afternoon.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + [Time Word] + Verb + 了 + Duration + Obj.'
+hanzi = '我昨天玩了一个下午游戏。'
+notes = ''
+pinyin = 'Wǒ zuótiān wán le yī gè xiàwǔ yóuxì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJ36VN'

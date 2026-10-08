@@ -1,0 +1,20 @@
+note_id = 1520716969251
+guid = "Jn]dB_]ZY;"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Comparisons", "Conjunctions"]
+
+[[cards]]
+id = 1520716975115
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "haishi" and "huozhe"'
+english = 'Are you going out for lunch or order take-out?'
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = 'Subj. + Verb + Option A + 还是 + Option B'
+hanzi = '你中午出去吃还是叫外卖？'
+notes = ''
+pinyin = 'Nǐ zhōngwǔ chūqù chī háishì jiào wàimài?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQJ5IC'

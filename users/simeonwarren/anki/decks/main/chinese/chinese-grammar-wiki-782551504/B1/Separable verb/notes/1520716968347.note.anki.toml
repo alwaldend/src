@@ -1,0 +1,20 @@
+note_id = 1520716968347
+guid = "J5Pjsi^L08"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+id = 1520716974211
+ordinal = 0
+
+[fields]
+article-title = 'Separable verb'
+english = ''
+example-sentence = ''
+example-type = 'invalid'
+grammar-construct = ''
+hanzi = '他不喜欢跟我聊天他的工作。'
+notes = '天 is an extra object; 他的工作 is already the object.'
+pinyin = 'Tā bù xǐhuan liátiān tā de gōngzuò.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG4GVRX'

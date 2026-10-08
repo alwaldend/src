@@ -1,0 +1,20 @@
+note_id = 1520716968496
+guid = "H;;YzV:g:w"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716974360
+ordinal = 0
+
+[fields]
+article-title = 'Result complements'
+english = "My father hasn't learnt how to use a smart phone yet."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + [One-syllable Verb] +了 (+ Obj.)'
+hanzi = '我爸爸还没学会用智能手机。'
+notes = ''
+pinyin = 'Wǒ bàba hái méi xuéhuì yòng zhìnéng shǒujī.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNNMST'

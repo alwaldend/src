@@ -1,0 +1,20 @@
+note_id = 1520716968208
+guid = "qpidQ`VsH2"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716974072
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "it depends" with "kan"'
+english = 'Whether I can stay in China or not depends on whether or not I can get the visa.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '[Unknown Outcome] + 要看 / 得看 + [Unclear Situation]'
+hanzi = '能不能留在中国要看我能不能拿到签证。'
+notes = ''
+pinyin = 'Néng bu néng liú zài Zhōngguó yào kàn wǒ néng bu néng nádào Qiānzhèng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG765HD'

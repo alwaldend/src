@@ -1,0 +1,20 @@
+note_id = 1520716969653
+guid = "vf`u>N3PzC"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975517
+ordinal = 0
+
+[fields]
+article-title = 'Emphatic adverb "ke"'
+english = 'These dogs are so naughty!'
+example-sentence = ''
+example-type = ''
+grammar-construct = '可 + Adj.'
+hanzi = '这只小狗可淘气了！'
+notes = 'The speaker never expected dogs to be this naughty'
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGSPAKW'

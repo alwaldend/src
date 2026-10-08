@@ -1,0 +1,17 @@
+note_id = 1634433963634
+guid = "J}Qe`[T5Dq"
+note_type_id = 1630447360002
+note_type = "python-basic"
+tags = []
+
+[[cards]]
+id = 1634433963636
+ordinal = 0
+
+[fields]
+'Additional Info' = ''
+'Back - Basic' = ''
+'Back - Code' = "with open(\"file.txt\") as file:&nbsp;<br>&nbsp; &nbsp; pass&nbsp;<br><br><font color=\"#555753\"># open function second arguments<br># 'r' -&gt; Read mode&nbsp;<br># 'w' -&gt; Write mode&nbsp;<br># 'x' -&gt; Create mode: If the file already exists, the operation fails.&nbsp;<br># 'a' -&gt; Appending at the end of the file without truncating it.&nbsp;<br>#&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Creates a new file if it does not exist.&nbsp;<br># 't' -&gt; Text mode (default)&nbsp;<br># 'b' -&gt; Binary mode&nbsp;<br># '+' -&gt; Updating mode (read and write)</font>"
+Example = ''
+Front = 'Open a file using the <b>with</b> keyword (open in read, write, create, append, text, bianary or update mode).'
+Version = ''

@@ -1,0 +1,20 @@
+note_id = 1520716967485
+guid = "Oj;dQqr@QR"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973349
+ordinal = 0
+
+[fields]
+article-title = 'A softer "but" with "buguo"'
+english = 'The whether there was not very good, but we had a lot of fun.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Clause 1，不过 + Clause 2'
+hanzi = '那儿的天气不太好，不过我们玩得很开心。'
+notes = ''
+pinyin = 'Nàr de tiānqì bù tài hǎo, bùguò wǒmen wán de hěn kāixīn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGA0S4T'

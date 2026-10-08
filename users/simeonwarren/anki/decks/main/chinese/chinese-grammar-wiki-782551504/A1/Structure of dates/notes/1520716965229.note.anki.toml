@@ -1,0 +1,20 @@
+note_id = 1520716965229
+guid = "Q}&F4_U):h"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Numbers", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971093
+ordinal = 0
+
+[fields]
+article-title = 'Structure of dates'
+english = 'We will go to Shanghai on October 1st.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'x 年 + y 月 + z 号'
+hanzi = '10月1号我们去上海。'
+notes = ''
+pinyin = 'Shíyuè yī hào wǒmen qù Shànghǎi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGT3KF6'

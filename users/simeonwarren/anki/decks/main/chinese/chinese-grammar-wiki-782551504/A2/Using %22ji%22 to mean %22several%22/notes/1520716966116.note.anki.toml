@@ -1,0 +1,20 @@
+note_id = 1520716966116
+guid = "Byt[esec/U"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "NumbersandMeasureWords", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971980
+ordinal = 0
+
+[fields]
+article-title = 'Using "ji" to mean "several"'
+english = 'I have quite a few roommates.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '好几 + Measure Word + Noun'
+hanzi = '我有好几个室友。'
+notes = ''
+pinyin = 'Wǒ yǒu hǎojǐ gè shìyǒu.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGHC9CA'

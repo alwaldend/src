@@ -1,0 +1,20 @@
+note_id = 1520716965363
+guid = "O+~Pk{aG8X"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716971227
+ordinal = 0
+
+[fields]
+article-title = 'Using the verb "xing"'
+english = 'What is your honorable surname?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 姓 + [Surname]'
+hanzi = '您贵姓？'
+notes = ''
+pinyin = 'Nín guì xìng?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPS9NY'

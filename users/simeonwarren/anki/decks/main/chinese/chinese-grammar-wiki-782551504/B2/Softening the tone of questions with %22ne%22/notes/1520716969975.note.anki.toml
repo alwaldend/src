@@ -1,0 +1,20 @@
+note_id = 1520716969975
+guid = "DKDD$fYO{]"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975839
+ordinal = 0
+
+[fields]
+article-title = 'Softening the tone of questions with "ne"'
+english = 'Should we play computer games or go to the bar? I can do either!'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Option 1 + 呢 + 还是 + Option 2 + 呢？'
+hanzi = '咱们打游戏呢，还是泡吧呢，我都可以！'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGW7YXP'

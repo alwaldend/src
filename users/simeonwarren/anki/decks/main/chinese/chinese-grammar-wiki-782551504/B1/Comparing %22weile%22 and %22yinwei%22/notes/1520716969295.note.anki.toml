@@ -1,0 +1,20 @@
+note_id = 1520716969295
+guid = "cW46Vp*:t+"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Comparisons", "Conjunctions"]
+
+[[cards]]
+id = 1520716975159
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "weile" and "yinwei"'
+english = 'In order to be able to learn Chinese well, he came to China.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 为了 + 目的 (+ 而) + Predicate'
+hanzi = '为了能学好中文，他来到了中国。'
+notes = ''
+pinyin = '<div>Wèile néng xuéhǎo zhōngwén, tā lái dàole zhōngguó.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMEC1P'

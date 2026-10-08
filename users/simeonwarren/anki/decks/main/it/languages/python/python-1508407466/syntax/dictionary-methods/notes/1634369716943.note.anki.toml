@@ -1,0 +1,17 @@
+note_id = 1634369716943
+guid = "lq$mlKf$c2"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634370830801
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<i>dict</i>.copy()'
+example = ''
+question = '<b>Dictionary method</b>&nbsp;that&nbsp;returns a shallow copy of the dictionary.'
+version = ''
+with-options = ''

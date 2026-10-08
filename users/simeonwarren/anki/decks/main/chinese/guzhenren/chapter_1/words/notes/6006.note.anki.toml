@@ -1,0 +1,20 @@
+note_id = 6006
+guid = "nzQc6(ntA^"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+id = 6017
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'in silence;	not speaking.'
+example-sentence = ' 身后的家老们各个表情肃穆,也随着默默效仿'
+example-type = ''
+grammar-construct = ''
+hanzi = '默默'
+notes = ''
+pinyin = '<span class="tone4">mò</span><span class="tone4">mò</span>	 <!-- mo mo -->'
+source = ''

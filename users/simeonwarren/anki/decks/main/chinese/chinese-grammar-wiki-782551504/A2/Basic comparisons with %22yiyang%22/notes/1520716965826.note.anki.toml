@@ -1,0 +1,20 @@
+note_id = 1520716965826
+guid = "fS.%cfzGA>"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "AdverbswithAdjectives", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971690
+ordinal = 0
+
+[fields]
+article-title = 'Basic comparisons with "yiyang"'
+english = 'You hair is as long as mine.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun 1 + 跟 / 和 + Noun 2 + 一样 + Adj.'
+hanzi = '你的头发和我的头发一样长。'
+notes = ''
+pinyin = 'Nǐ de tóufa hé wǒ de tóufa yīyàng cháng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGC06N0'

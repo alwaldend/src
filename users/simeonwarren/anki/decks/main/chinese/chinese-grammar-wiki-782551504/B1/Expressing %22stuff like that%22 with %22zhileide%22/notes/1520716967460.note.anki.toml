@@ -1,0 +1,20 @@
+note_id = 1520716967460
+guid = "zn<3_BDo~e"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["AuxiliaryWords", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973324
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "stuff like that" with "zhileide"'
+english = 'I like to stay in big cities like Shanghai, Hong Kong, and places like that.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '像 + [Items] + 之类的'
+hanzi = '我喜欢呆在大城市，像上海、香港之类的。'
+notes = ''
+pinyin = 'Wǒ xǐhuan dāi zài dà chéngshì, xiàng Shànghǎi, Xiānggǎng zhī lèi de.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPY23Z'

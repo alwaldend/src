@@ -1,0 +1,20 @@
+note_id = 1520716967009
+guid = "paT!Cf0R1K"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972873
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "about to" with "jiuyao"'
+english = 'In 10 more minutes I get off work.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '还有 + Time (+ Subj.) + 就 (要) + Verb + 了'
+hanzi = '还有十分钟我就下班了。'
+notes = ''
+pinyin = 'Háiyǒu shí fēnzhōng wǒ jiù xiàbān le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG9B210'

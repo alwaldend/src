@@ -1,0 +1,20 @@
+note_id = 1520716966938
+guid = "Ddb&5r!+Sh"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972802
+ordinal = 0
+
+[fields]
+article-title = 'Turning adjectives into adverbs'
+english = 'We comfortably laid down here.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Adj. + 地 + Verb'
+hanzi = '我们舒服地躺在那里。'
+notes = ''
+pinyin = 'Wǒmen shūfu de tǎng zài nàlǐ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMAFSX'

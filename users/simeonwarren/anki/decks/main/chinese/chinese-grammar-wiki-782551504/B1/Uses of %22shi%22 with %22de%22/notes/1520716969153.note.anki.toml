@@ -1,0 +1,20 @@
+note_id = 1520716969153
+guid = "L/CBu;vwoZ"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716975017
+ordinal = 0
+
+[fields]
+article-title = 'Uses of "shi" with "de"'
+english = 'You are mistaken. That person is a woman.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 是 + [Distinguishing Words] + 的'
+hanzi = '你错了，那个人是女的。'
+notes = ''
+pinyin = 'Nǐ cuò le, nàge rén shì nǚ de.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGE662E'

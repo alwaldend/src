@@ -1,0 +1,20 @@
+note_id = 1520716970434
+guid = "z:LZFkIV!3"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "ConditionalStatements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716976298
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "unless" with "chufei"'
+english = "You can't come in unless you have an appointment."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Result / Fact ，除非 + Condition'
+hanzi = '你不能进，除非你有预约。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMD0YY'

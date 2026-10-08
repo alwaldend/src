@@ -1,0 +1,20 @@
+note_id = 6997
+guid = "A{<EO@<49S"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 7000
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'especially;	particularly.'
+example-sentence = '尤其是白家的白凝冰,天资真是恐怖'
+example-type = ''
+grammar-construct = ''
+hanzi = '尤其'
+notes = ''
+pinyin = '<span class="tone2">yóu</span><span class="tone2">qí</span>	 <!-- you qi -->'
+source = ''

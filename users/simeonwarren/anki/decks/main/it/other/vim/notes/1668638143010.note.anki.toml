@@ -1,0 +1,17 @@
+note_id = 1668638143010
+guid = "E64^}GpL:2"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = []
+
+[[cards]]
+id = 1668638143010
+ordinal = 0
+
+[[cards]]
+id = 1668965796740
+ordinal = 1
+
+[fields]
+Back = "i&lt; i( i[ i{ i\" i' i`&nbsp; &nbsp;\" i for&nbsp;<b>inner</b>"
+Front = "Select content inside surrounding &lt;&gt;, (), [], {}, \"\", '', or `` (visual mode or as motion)"

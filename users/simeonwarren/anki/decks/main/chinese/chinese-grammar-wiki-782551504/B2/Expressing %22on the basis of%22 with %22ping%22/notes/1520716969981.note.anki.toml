@@ -1,0 +1,20 @@
+note_id = 1520716969981
+guid = "toiz4yx4Uv"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+id = 1520716975845
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "on the basis of" with "ping"'
+english = "On the basis of Old Li's twenty years of experience, he is qualified to be your teacher."
+example-sentence = ''
+example-type = ''
+grammar-construct = '凭 + Verb Phrase / Subj.-Predicate'
+hanzi = '凭老李在这一行做了二十年，他就有资格做你的师傅。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGGB3IV'

@@ -1,0 +1,20 @@
+note_id = 1520716966973
+guid = "lP(RGNn|Gw"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972837
+ordinal = 0
+
+[fields]
+article-title = 'Coincidence with "zhenghao"'
+english = 'You arrived at just the right time, not too early and not too late.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 得 + 正好'
+hanzi = '你来得正好，不早也不晚。'
+notes = ''
+pinyin = 'Nǐ láidé zhènghǎo, bù zǎo yě bù wǎn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGUD25J'

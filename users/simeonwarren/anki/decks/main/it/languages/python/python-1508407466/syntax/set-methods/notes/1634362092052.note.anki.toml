@@ -1,0 +1,17 @@
+note_id = 1634362092052
+guid = "jox&}*;>#l"
+note_type_id = 1630447360002
+note_type = "python-basic"
+tags = []
+
+[[cards]]
+id = 1634370830759
+ordinal = 0
+
+[fields]
+'Additional Info' = ''
+'Back - Basic' = '.remove() will throw an error if the element is not found in the set while .discard() will not.'
+'Back - Code' = ''
+Example = ''
+Front = 'What is the difference between the set methods .remove() and .discard()?'
+Version = ''

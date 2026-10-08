@@ -1,0 +1,20 @@
+note_id = 1520716969280
+guid = "o$2JrDb&C$"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716975144
+ordinal = 0
+
+[fields]
+article-title = 'Using the "shi... de" construction'
+english = 'Did you come by bike?<br>I came by foot.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 是 + [Information to be Emphasized] + Verb + 的'
+hanzi = 'A:你骑自行车来的吗？<br>B:我走来的。'
+notes = 'Emphasizing "by bike"Emphasizing "by foot"'
+pinyin = 'Nǐ qí zìxíngchē lái de ma?<br>Wǒ zǒu lái de.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8YTSF'

@@ -1,0 +1,17 @@
+note_id = 1634419334381
+guid = "z:p?D3UYo#"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634419334382
+ordinal = 0
+
+[fields]
+additional-info = 'Also accepts an optional prompt parameter.'
+answer = '<b>Built in function:&nbsp;</b>input()'
+example = 'name = input("what is your name?")'
+question = '<b>Built in function</b>&nbsp;that gets a users input.'
+version = ''
+with-options = 'input(<i>prompt=None</i>)'

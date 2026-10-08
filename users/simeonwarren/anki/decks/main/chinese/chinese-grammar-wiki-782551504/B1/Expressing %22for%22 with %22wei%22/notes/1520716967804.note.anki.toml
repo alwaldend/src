@@ -1,0 +1,20 @@
+note_id = 1520716967804
+guid = "Dis;O~Wdkm"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+id = 1520716973668
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "for" with "wei"'
+english = 'Parents all need to do a lot for their family.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '为 + Party + Verb / Adj.'
+hanzi = '父母都要为家庭付出很多。'
+notes = ''
+pinyin = 'Fùmǔ dōu yào wèi jiātíng fùchū hěn duō.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG68RBX'

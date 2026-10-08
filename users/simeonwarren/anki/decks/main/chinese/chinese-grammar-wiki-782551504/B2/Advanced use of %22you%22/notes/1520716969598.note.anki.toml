@@ -1,0 +1,20 @@
+note_id = 1520716969598
+guid = "Py/83{H4`"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975462
+ordinal = 0
+
+[fields]
+article-title = 'Advanced use of "you"'
+english = 'I tasted again and again, but I still think those food has gone bad.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. ＋Verb + 了 + 又 + Verb，还是 / 就是 ……'
+hanzi = '我尝了又尝，还是觉得这些菜坏了。'
+notes = ''
+pinyin = 'Wǒ cháng le yòu cháng, háishì juéde zhèxiē cài huài le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGF08B6'

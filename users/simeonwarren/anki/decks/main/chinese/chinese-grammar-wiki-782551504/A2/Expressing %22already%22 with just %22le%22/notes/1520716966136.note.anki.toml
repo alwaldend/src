@@ -1,0 +1,20 @@
+note_id = 1520716966136
+guid = "v<Xg_nY2G1"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972000
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "already" with just "le"'
+english = 'Are your kids still in college?<br>They (already) work.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + [Verb Phrase] + 了'
+hanzi = 'A: 孩子还在上大学吗？<br>B: 他们工作了。'
+notes = "This expression emphasizes that they're not students anymore, and have already entered the workforce."
+pinyin = 'Háizi hái zài shàng dàxué ma?<br>Tāmen gōngzuò le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGM055L'

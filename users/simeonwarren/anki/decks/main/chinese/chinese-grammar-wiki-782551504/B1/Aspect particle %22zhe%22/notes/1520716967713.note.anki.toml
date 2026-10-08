@@ -1,0 +1,20 @@
+note_id = 1520716967713
+guid = "h6vYrpuXY@"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973577
+ordinal = 0
+
+[fields]
+article-title = 'Aspect particle "zhe"'
+english = "Don't be mad. I was just joking."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 是 + Verb + 着 + 玩 + 的'
+hanzi = '你不要生气，我是说着玩的。'
+notes = ''
+pinyin = 'Nǐ bùyào shēngqì, wǒ shì shuō zhe wán de!'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGOIDEO'

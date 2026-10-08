@@ -1,0 +1,20 @@
+note_id = 1520716965532
+guid = "IvmNp6|O4<"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+id = 1520716971396
+ordinal = 0
+
+[fields]
+article-title = 'Placement of question words'
+english = 'who'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '谁'
+notes = 'In spoken Chinese, people normally say "shéi," not "shuí"'
+pinyin = 'shéi'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJQPSC'

@@ -1,0 +1,20 @@
+note_id = 1520716969205
+guid = "B6V[t#O62d"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["AuxiliaryWords", "B1", "Comparisons"]
+
+[[cards]]
+id = 1520716975069
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "hui" "neng" "keyi"'
+english = 'Could you help me a bit?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '可以 / 能 + Verb'
+hanzi = '你能不能帮我一下吗？'
+notes = ''
+pinyin = 'Nǐ néng bu néng bāng wǒ yīxià ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGZL717'

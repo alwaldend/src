@@ -1,0 +1,20 @@
+note_id = 1520716969384
+guid = "ca9ag&]/M."
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Comparisons", "Prepositions"]
+
+[[cards]]
+id = 1520716975248
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "dui" and "duiyu"'
+english = "Don't point the gun at people."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 对着／对上／对不上'
+hanzi = '枪口不要对着人。'
+notes = ''
+pinyin = 'Qiāng kǒu bùyào duìzhe rén.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG3JELV'

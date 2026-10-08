@@ -1,0 +1,20 @@
+note_id = 1520716969559
+guid = "sSr&Sv}ru/"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adjectives", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975423
+ordinal = 0
+
+[fields]
+article-title = 'Adjectival complement "de hen"'
+english = "Don't worry. This test is very simple."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Adj.+ 得很'
+hanzi = '不用担心，这次考试简单得很。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGG1ZBL'

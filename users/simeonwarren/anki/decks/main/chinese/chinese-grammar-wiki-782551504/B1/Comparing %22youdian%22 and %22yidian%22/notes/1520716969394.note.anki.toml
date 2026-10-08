@@ -1,0 +1,20 @@
+note_id = 1520716969394
+guid = "i96BtH4Wcz"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Comparisons"]
+
+[[cards]]
+id = 1520716975258
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "youdian" and "yidian"'
+english = "She doesn't feel very well."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '她有点不舒服。'
+notes = ''
+pinyin = 'Tā yǒudiǎn bù shūfu.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGV55Y4'

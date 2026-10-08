@@ -1,0 +1,20 @@
+note_id = 1520716970583
+guid = "w<lms!+!R]"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Grammatical_Structures", "Letalone"]
+
+[[cards]]
+id = 1520716976447
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "let alone" with "geng buyong shuo"'
+english = "He can't boil an egg, let alone prepare a banquet."
+example-sentence = ''
+example-type = ''
+grammar-construct = '连 + A + 都 / 也 + Verb， 更不用说 + B + 了'
+hanzi = '他都不会煮鸡蛋，更不用说做一大桌子的菜了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGHOI8S'

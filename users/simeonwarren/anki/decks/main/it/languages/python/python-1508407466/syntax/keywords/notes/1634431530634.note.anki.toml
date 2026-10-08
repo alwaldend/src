@@ -1,0 +1,17 @@
+note_id = 1634431530634
+guid = "x/AwIB(fTZ"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634431530636
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<b>Keyword</b> used to create an anonymous one line function.'
+example = 'lambda x: x *2 <font color="#555753">#doubles x</font>'
+question = '<b>Keyword:</b> lambda'
+version = ''
+with-options = ''

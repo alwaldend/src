@@ -1,0 +1,20 @@
+note_id = 1520716965321
+guid = "EYU#`|ja|8"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716971185
+ordinal = 0
+
+[fields]
+article-title = 'Expressing possession with "you"'
+english = "She doesn't have a car."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 有 + Obj.'
+hanzi = '她没有车。'
+notes = ''
+pinyin = 'Tā méi yǒu chē.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGOOCVO'

@@ -1,0 +1,20 @@
+note_id = 1520716965236
+guid = "QTvBv-o@gU"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Numbers", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971100
+ordinal = 0
+
+[fields]
+article-title = 'Structure of days of the week'
+english = "I'm not here in Shanghai on Wednesday."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '星期三我不在上海。'
+notes = ''
+pinyin = 'Xīngqīsān wǒ bù zài Shànghǎi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGVH4Q5'

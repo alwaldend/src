@@ -1,0 +1,20 @@
+note_id = 1520716969064
+guid = "Q-{dUT*MaL"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974928
+ordinal = 0
+
+[fields]
+article-title = 'Using the "shi... de" construction'
+english = 'I ate with my family in a restaurant last Saturday.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 是 + [Information to be Emphasized] + Verb + 的'
+hanzi = '我上周六跟我家人在饭店吃饭。'
+notes = ''
+pinyin = 'Wǒ shàng zhōuliù gēn wǒ jiārén zài fàndiàn chīfàn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8YTSF'

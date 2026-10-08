@@ -1,0 +1,20 @@
+note_id = 1520716969962
+guid = "tV@,aV{.d1"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+id = 1520716975826
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "along with…" with "suizhe"'
+english = 'The pollutants entered the body through normal breathing.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 随着 + Noun + Verb Phrase'
+hanzi = '污染物随着人的呼吸进入了人体内部。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGHVFRA'

@@ -1,0 +1,20 @@
+note_id = 1520716970754
+guid = "D(GJ]^Qs,i"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Comparisons", "Prepositions"]
+
+[[cards]]
+id = 1520716976618
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "duiyu" and "zhiyu"'
+english = 'As for this kind of person, you are not supposed to reason with them.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '对于 + Modifier， Subj. + Predicate'
+hanzi = '对于这种人，就不该跟他们讲道理。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGC01S0'

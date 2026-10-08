@@ -1,0 +1,20 @@
+note_id = 1520716968332
+guid = "HvO2;iS,o+"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716974196
+ordinal = 0
+
+[fields]
+article-title = 'Degree complement'
+english = 'The weather here is so comfortable.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 得 + [Degree Complement]'
+hanzi = '这里的天气舒服极了。'
+notes = ''
+pinyin = 'Zhèlǐ de tiānqì shūfu jíle.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG79STE'

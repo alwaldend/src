@@ -1,0 +1,20 @@
+note_id = 1520716965750
+guid = "yqL;FFfUC,"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971614
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "even more" with "geng"'
+english = 'I want to find a more handsome boyfriend.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '更 + Adj.'
+hanzi = '我想找一个更帅的男朋友。'
+notes = 'It is implied that my boyfriend now is already handsome, but I want to find an even more handsome boyfriend.'
+pinyin = 'Wǒ xiǎng zhǎo yī gè gèng shuài de nánpéngyou.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG4NIPB'

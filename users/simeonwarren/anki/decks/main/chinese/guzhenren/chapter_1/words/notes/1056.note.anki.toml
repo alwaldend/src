@@ -1,0 +1,20 @@
+note_id = 1056
+guid = "A1b`ZBLea3"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 1112
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'early youth;	youngster;	(literary) youth;	young man.'
+example-sentence = ' 围攻他的正道群雄,不是堂堂一派之长者尊贵,就是名动四方之少年英豪'
+example-type = ''
+grammar-construct = ''
+hanzi = '少年'
+notes = ''
+pinyin = '<span class="tone4">shào</span><span class="tone2">nián</span>	 <!-- shao nian -->'
+source = ''

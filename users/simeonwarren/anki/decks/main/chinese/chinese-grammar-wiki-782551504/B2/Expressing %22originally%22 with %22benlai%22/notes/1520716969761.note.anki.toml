@@ -1,0 +1,20 @@
+note_id = 1520716969761
+guid = "Q^Jx8HFWKO"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975625
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "originally" with "benlai"'
+english = 'Teachers are supposed to prepare their lessons well.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 本来 + 就 + 会 / 要 / 得 / 应该 + Verb'
+hanzi = '老师本来就应该好好备课。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG6F157'

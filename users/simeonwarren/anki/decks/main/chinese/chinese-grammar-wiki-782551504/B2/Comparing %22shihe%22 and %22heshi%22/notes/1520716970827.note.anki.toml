@@ -1,0 +1,20 @@
+note_id = 1520716970827
+guid = "tii-USGfH!"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Comparisons", "SeparateFunctions"]
+
+[[cards]]
+id = 1520716976691
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "shihe" and "heshi"'
+english = 'Inside the office, smoking is not suitable.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Adv. + 合适'
+hanzi = '在办公室里抽烟有点不合适吧。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGVDOXL'

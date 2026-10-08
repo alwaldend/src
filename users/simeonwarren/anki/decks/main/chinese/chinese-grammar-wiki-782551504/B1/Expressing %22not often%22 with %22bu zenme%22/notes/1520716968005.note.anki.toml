@@ -1,0 +1,20 @@
+note_id = 1520716968005
+guid = "s;+jCs{qof"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+id = 1520716973869
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "not often" with "bu zenme"'
+english = "My boss doesn't come to the office very often."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不怎么 + Verb'
+hanzi = '老板不怎么来办公室。'
+notes = ''
+pinyin = 'Lǎobǎn bù zěnme lái bàngōngshì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5BOGP'

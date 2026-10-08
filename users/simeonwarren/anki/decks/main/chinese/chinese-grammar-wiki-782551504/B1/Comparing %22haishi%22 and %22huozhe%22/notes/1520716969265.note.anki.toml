@@ -1,0 +1,20 @@
+note_id = 1520716969265
+guid = "BggVZLEhng"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Comparisons", "Conjunctions"]
+
+[[cards]]
+id = 1520716975129
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "haishi" and "huozhe"'
+english = ''
+example-sentence = ''
+example-type = 'invalid'
+grammar-construct = 'Option 1 + 或者 + Option 2'
+hanzi = '我困死了，或者回家睡觉吧。'
+notes = "或者 isn't used for suggestions."
+pinyin = '<div>Wǒ kùn sǐle, huòzhě huí jiā shuìjiào ba.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQJ5IC'

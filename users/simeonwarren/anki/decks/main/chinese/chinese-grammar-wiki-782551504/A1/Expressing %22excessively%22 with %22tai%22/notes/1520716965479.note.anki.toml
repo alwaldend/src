@@ -1,0 +1,20 @@
+note_id = 1520716965479
+guid = "P%K8,/LUl/"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Basics", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716971343
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "excessively" with "tai"'
+english = 'The boss is too busy.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '太 + Adj. + 了'
+hanzi = '老板太忙了。'
+notes = ''
+pinyin = 'Lǎobǎn tài máng le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8HVFN'

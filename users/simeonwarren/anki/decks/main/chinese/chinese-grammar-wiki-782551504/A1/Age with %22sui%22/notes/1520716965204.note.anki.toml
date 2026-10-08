@@ -1,0 +1,20 @@
+note_id = 1520716965204
+guid = "APtPj,-+j["
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Numbers", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971068
+ordinal = 0
+
+[fields]
+article-title = 'Age with "sui"'
+english = 'My mother is 45 years old this year.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Number + 岁'
+hanzi = '我妈妈今年45岁。'
+notes = ''
+pinyin = 'Wǒ māma jīnnián sìshí-wǔ suì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQUKJF'

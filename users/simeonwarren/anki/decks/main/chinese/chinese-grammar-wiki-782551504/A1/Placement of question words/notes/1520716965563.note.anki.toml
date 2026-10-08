@@ -1,0 +1,20 @@
+note_id = 1520716965563
+guid = "H5:34iz&Yn"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+id = 1520716971427
+ordinal = 0
+
+[fields]
+article-title = 'Placement of question words'
+english = "When is your airplane arriving in Shanghai?<br>Eight o'clock this evening."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 什么时候 + Predicate ?'
+hanzi = 'A: 你的飞机什么时候到上海?<br>B: 晚上八点。'
+notes = ''
+pinyin = 'Nǐ de fēijī shénme shíhou dào Shànghǎi?<br>Wǎnshang bā diǎn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJQPSC'

@@ -1,0 +1,20 @@
+note_id = 1520716967235
+guid = "e3W5Nsga$)"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973099
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "one by one" with "yi"'
+english = 'Why do you listen to this song on repeat?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '一 + Measure Word（+ 又）+ 一 + Measure Word'
+hanzi = '你为什么一遍又一遍地听这首歌？'
+notes = ''
+pinyin = 'Nǐ wèishénme yī biàn yòu yī biàn de tīng zhè shǒu gē?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGBC7A0'

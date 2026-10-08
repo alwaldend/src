@@ -1,0 +1,20 @@
+note_id = 1520716970496
+guid = "wW&+x(L(.B"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716976360
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "any" with "renhe"'
+english = "This is our secret. Don't tell it to anyone."
+example-sentence = ''
+example-type = ''
+grammar-construct = '任何 + Noun'
+hanzi = '这是我们俩的秘密，跟任何人都不要说。'
+notes = ''
+pinyin = 'Zhè shì wǒmen liǎ de mìmì, gēn rènhé rén dōu bùyào shuō.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGP8DXU'

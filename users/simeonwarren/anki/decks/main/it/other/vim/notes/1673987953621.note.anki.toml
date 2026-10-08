@@ -1,0 +1,17 @@
+note_id = 1673987953621
+guid = "OjzKiJ6g0/"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = []
+
+[[cards]]
+id = 1673987953623
+ordinal = 0
+
+[[cards]]
+id = 1673987953624
+ordinal = 1
+
+[fields]
+Back = 'gw leaves the cursor where it was before the formatting, gq moves the cursor to the end of the text being formatted'
+Front = 'What is the difference between gw• and gq• (where • is some motion)?'

@@ -1,0 +1,20 @@
+note_id = 1520716970796
+guid = "B)RCDY{qbh"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Comparisons", "SeparateFunctions"]
+
+[[cards]]
+id = 1520716976660
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "kending" "queding" and "yiding"'
+english = "We still haven't decided when to start."
+example-sentence = ''
+example-type = ''
+grammar-construct = '确定 +  Phrase / Sentence'
+hanzi = '我们还没有确定什么时候开始。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDPS0J'

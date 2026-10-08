@@ -1,0 +1,20 @@
+note_id = 1520716967414
+guid = "p_@5?Tu7cI"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["AdverbswithAdjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973278
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "much more" in comparisons'
+english = "You're even lazier than me."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun 1 + 比 + Noun 2 + 还 + Adj.'
+hanzi = '你比我还懒。'
+notes = ''
+pinyin = 'Nǐ bǐ wǒ hái lǎn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG6KUS5'

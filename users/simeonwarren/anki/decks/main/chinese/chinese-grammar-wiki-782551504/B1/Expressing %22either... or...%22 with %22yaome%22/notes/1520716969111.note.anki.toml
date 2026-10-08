@@ -1,0 +1,20 @@
+note_id = 1520716969111
+guid = "ESxK$l+)w"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Either…or", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716974975
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "either... or..." with "yaome"'
+english = 'Either listen to the lesson carefully or get out right now.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '要么 + Option A ，要么 + Option B'
+hanzi = '要么好好听课，要么现在就出去。'
+notes = ''
+pinyin = 'Yàome hǎohǎo tīngkè, yàome xiànzài jiù chūqù.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG30A60'

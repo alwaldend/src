@@ -1,0 +1,20 @@
+note_id = 1520716968865
+guid = "FYD:-?wu*-"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974729
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "multiples" with "bei"'
+english = "The company's current scope is five times what it was 10 years ago."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A + 是 + B + 的 + Number + 倍'
+hanzi = '公司现在的规模是十年前的五倍。'
+notes = ''
+pinyin = 'Gōngsī xiànzài de guīmó shì shí nián qián de wǔ  bèi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG7D4EC'

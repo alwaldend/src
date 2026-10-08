@@ -1,0 +1,20 @@
+note_id = 1520716967581
+guid = "dd@)qRbj21"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973445
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "then…" with "name"'
+english = 'The boss is not very satisfied with the paln, so you keep working on it.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Context ，那么 + Result / Decision'
+hanzi = '老板不满意这个方案，那么你们再改改。'
+notes = ''
+pinyin = "Lǎobǎn bù mǎnyì zhège fāng'àn, nàme nǐmen zài gǎigai."
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGX298Z'

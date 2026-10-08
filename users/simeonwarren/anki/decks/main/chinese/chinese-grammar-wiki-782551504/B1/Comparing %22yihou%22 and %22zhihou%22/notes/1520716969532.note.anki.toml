@@ -1,0 +1,20 @@
+note_id = 1520716969532
+guid = "sk*djn{Bm~"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Comparisons", "TimeWords"]
+
+[[cards]]
+id = 1520716975396
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "yihou" and "zhihou"'
+english = ''
+example-sentence = ''
+example-type = 'invalid'
+grammar-construct = 'Subj. + Event， 之后 + Action'
+hanzi = '我六点下班，以后，我去跟朋友吃饭。'
+notes = "Since there is nothing that \"以后\" modifies, this sentence doesn't work."
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGC3SCN'

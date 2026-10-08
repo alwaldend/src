@@ -1,0 +1,17 @@
+note_id = 1638129892873
+guid = "Qk4%OW]iUg"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = ["leech"]
+
+[[cards]]
+id = 1638129892873
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<i>set</i>.intersection_update(*<i>sets</i>)'
+example = ''
+question = '<b>Set method</b>&nbsp;that removes the items in the called on set that are not present in any of the other, argument set(s).'
+version = ''
+with-options = ''

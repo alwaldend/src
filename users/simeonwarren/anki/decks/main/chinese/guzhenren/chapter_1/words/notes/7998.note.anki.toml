@@ -1,0 +1,20 @@
+note_id = 7998
+guid = "cN.TH2L%Ao"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 8003
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'father and mother;	parents.'
+example-sentence = '可惜就是父母死的早,现在被其舅父舅母抚养着'
+example-type = ''
+grammar-construct = ''
+hanzi = '父母'
+notes = ''
+pinyin = '<span class="tone4">fù</span><span class="tone3">mǔ</span>	 <!-- fu mu -->'
+source = ''

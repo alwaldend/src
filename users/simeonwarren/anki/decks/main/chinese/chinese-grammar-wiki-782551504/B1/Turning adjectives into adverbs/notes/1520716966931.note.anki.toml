@@ -1,0 +1,20 @@
+note_id = 1520716966931
+guid = "A,kXMayPcw"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adjectives", "B1", "leech", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972795
+ordinal = 0
+
+[fields]
+article-title = 'Turning adjectives into adverbs'
+english = 'She said "Thank you" to me excitedly.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Adj. + 地 + Verb'
+hanzi = '她激动地对我说"谢谢"。'
+notes = ''
+pinyin = 'Tā jīdòng de duì wǒ shuō "xièxie".'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMAFSX'

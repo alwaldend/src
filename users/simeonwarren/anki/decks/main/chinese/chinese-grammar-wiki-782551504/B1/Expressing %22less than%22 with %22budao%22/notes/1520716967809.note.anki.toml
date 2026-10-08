@@ -1,0 +1,20 @@
+note_id = 1520716967809
+guid = "O=V+SggO08"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+id = 1520716973673
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "less than" with "budao"'
+english = 'My daughter is less than three years old.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不到 + Number + [Measure Word] + Noun'
+hanzi = '我女儿不到三岁。'
+notes = ''
+pinyin = "Wǒ nǚ'ér bùdào sān suì."
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG10CAE'

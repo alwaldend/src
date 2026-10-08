@@ -1,0 +1,17 @@
+note_id = 1634431084488
+guid = "kT.3~z/<9Z"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634431084490
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<b>Keyword</b> used to import a <b>specific</b> part of a module.'
+example = 'from <i>module</i> import <i>item</i>'
+question = '<b>Keyword: </b>from'
+version = ''
+with-options = ''

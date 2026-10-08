@@ -1,0 +1,20 @@
+note_id = 1520716967307
+guid = "bY,*N#uKm@"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973171
+ordinal = 0
+
+[fields]
+article-title = 'Expressing lateness with "cai"'
+english = "The movie began at 7:30, but we didn't arrive until eight because of traffic."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Time + 才 + Verb'
+hanzi = '电影七点半开始，可是因为堵车，我们八点才到。'
+notes = ''
+pinyin = 'Diànyǐng qī diǎn bàn kāishǐ, kěshì yīnwèi dǔchē, wǒmen bā diǎn cái dào.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG3WTCJ'

@@ -1,0 +1,20 @@
+note_id = 1520716970420
+guid = "p~l{Pq!{Bx"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716976284
+ordinal = 0
+
+[fields]
+article-title = 'Advanced degree complements'
+english = 'This child is super selfish.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '这个孩子自私得很。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG9E5BB'

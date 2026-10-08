@@ -1,0 +1,20 @@
+note_id = 1520716968227
+guid = "P?/{PyS/Zv"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716974091
+ordinal = 0
+
+[fields]
+article-title = 'Verbs followed by "gei"'
+english = 'He gave me a bouquet of flowers.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 给 + [Recipient] + Obj.'
+hanzi = '他送给了我一束花。'
+notes = ''
+pinyin = 'Tā sòng gěi le wǒ yī shù huā.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMMHTQ'

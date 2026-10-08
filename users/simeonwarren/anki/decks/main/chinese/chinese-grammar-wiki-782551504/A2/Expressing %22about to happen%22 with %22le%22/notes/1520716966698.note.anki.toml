@@ -1,0 +1,20 @@
+note_id = 1520716966698
+guid = "dwkq?wmTSA"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Grammatical_Structures", "leech", "SentencePatterns"]
+
+[[cards]]
+id = 1520716972562
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "about to happen" with "le"'
+english = "It's almost Christmas. What plans do you have?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 要 + Verb / Adj. + 了'
+hanzi = '圣诞节要到了，你有什么打算？'
+notes = ''
+pinyin = 'Shèngdànjié yào dào le, nǐ yǒu shénme dǎsuàn?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNGEU8'

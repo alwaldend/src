@@ -1,0 +1,20 @@
+note_id = 1520716968492
+guid = "h+:{E@)j4Y"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716974356
+ordinal = 0
+
+[fields]
+article-title = 'Result complements'
+english = "I read it, but I didn't really understand it."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + [One-syllable Verb] +了 (+ Obj.)'
+hanzi = '我看了，但是没看懂。'
+notes = ''
+pinyin = 'Wǒ kàn le, dànshì méi kàndǒng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNNMST'

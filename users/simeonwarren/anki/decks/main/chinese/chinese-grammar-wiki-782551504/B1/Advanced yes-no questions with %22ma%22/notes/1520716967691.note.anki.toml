@@ -1,0 +1,20 @@
+note_id = 1520716967691
+guid = "BIhYj(vm@N"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973555
+ordinal = 0
+
+[fields]
+article-title = 'Advanced yes-no questions with "ma"'
+english = 'What is your question?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '[Question Word] + 吗 ？'
+hanzi = '你的问题是什么？'
+notes = ''
+pinyin = 'Nǐ de wèntí shì shénme?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGI9WXT'

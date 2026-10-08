@@ -1,0 +1,17 @@
+note_id = 1634416859708
+guid = "ia8L|hYSG."
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634416859709
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<i>file</i>.isatty()'
+example = ''
+question = '<b>File method</b>&nbsp;that returns True if a file is interactive, else False.'
+version = ''
+with-options = ''

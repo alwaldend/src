@@ -1,0 +1,20 @@
+note_id = 1520716968201
+guid = "K5v2$s=gn}"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716974065
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "it depends" with "kan"'
+english = 'It depends on how the weather is.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '这 / 那 + 要看 / 得看 + [Unclear Situation]'
+hanzi = '这得看天气怎么样。'
+notes = ''
+pinyin = 'Zhè děi kàn tiānqì zěnmeyàng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG765HD'

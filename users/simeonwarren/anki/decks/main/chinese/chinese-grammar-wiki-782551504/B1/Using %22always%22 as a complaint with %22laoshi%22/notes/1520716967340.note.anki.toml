@@ -1,0 +1,20 @@
+note_id = 1520716967340
+guid = "q[YAXs{wS`"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "leech", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973204
+ordinal = 0
+
+[fields]
+article-title = 'Using "always" as a complaint with "laoshi"'
+english = "Don't be so self-absorbed all the time."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 老是 + Adv. + Adj.'
+hanzi = '别老是那么自恋。'
+notes = ''
+pinyin = 'Bié lǎoshì nàme zìliàn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGII66E'

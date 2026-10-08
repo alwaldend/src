@@ -1,0 +1,17 @@
+note_id = 1669325944770
+guid = "f#bIs7jX5B"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = []
+
+[[cards]]
+id = 1669325944770
+ordinal = 0
+
+[[cards]]
+id = 1669325944771
+ordinal = 1
+
+[fields]
+Back = '^w H'
+Front = 'Move the current window to the far left'

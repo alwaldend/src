@@ -1,0 +1,20 @@
+note_id = 1520716966255
+guid = "zlWvS!SP:."
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+id = 1520716972119
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "from… to…" with "cong… dao…"'
+english = 'from 2004 to 2008'
+example-sentence = ''
+example-type = ''
+grammar-construct = '从 + Time 1 + 到 + Time 2'
+hanzi = '从2004年到2008年'
+notes = ''
+pinyin = 'cóng èr-líng-líng-sì nián dào èr-líng-líng-bā nián'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGGGIW8'

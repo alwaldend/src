@@ -1,0 +1,20 @@
+note_id = 1520716966139
+guid = "coAVr?q4gD"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972003
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "already" with just "le"'
+english = 'You should ask the teacher.<br>I (already) asked.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + [Verb Phrase] + 了'
+hanzi = 'A: 你应该问老师。<br>&lt;/br&gt;<br>B: 我问了。'
+notes = ''
+pinyin = 'Nǐ  yīnggāi wèn lǎoshī.<br>&lt;/br&gt;<br>Wǒ wèn le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGM055L'

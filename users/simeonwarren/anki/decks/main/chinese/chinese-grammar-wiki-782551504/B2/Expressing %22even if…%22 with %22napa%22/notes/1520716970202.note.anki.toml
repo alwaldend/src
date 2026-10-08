@@ -1,0 +1,20 @@
+note_id = 1520716970202
+guid = "fOtz?frjC]"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "EvenIfStatements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716976066
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "even if…" with "napa"'
+english = 'It would make the child really happy even if you spend only a few minutes with her.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '哪怕 + [Hypothetical Statement] + 也 + [Action]'
+hanzi = '哪怕你就陪孩子玩一小会儿，她也会很开心的。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGXX3NY'

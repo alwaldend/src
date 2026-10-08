@@ -1,0 +1,20 @@
+note_id = 1520716969177
+guid = "Hus+3&xs*7"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Comparisons"]
+
+[[cards]]
+id = 1520716975041
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "zai" and "you"'
+english = "You keep calling me, what's the matter?"
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = 'Subj. + 又 + Verb + 了'
+hanzi = '你怎么又给我打电话，什么事？'
+notes = ''
+pinyin = '<div>Nǐ zěnme yòu gěi wǒ dǎ diànhuà, shénme shì?</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTBHBG'

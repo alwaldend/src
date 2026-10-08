@@ -1,0 +1,20 @@
+note_id = 1520716965383
+guid = "NQE-TKV2>^"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Auxiliaryverbs", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971247
+ordinal = 0
+
+[fields]
+article-title = 'Expressing a learned skill with "hui"'
+english = "You can't drive a car?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不 + 会 + Verb + Obj.'
+hanzi = '你不会开车吗？'
+notes = ''
+pinyin = 'Nǐ bù huì  kāichē ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGRHM0E'

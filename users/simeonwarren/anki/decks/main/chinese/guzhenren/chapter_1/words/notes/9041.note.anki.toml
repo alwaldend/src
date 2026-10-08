@@ -1,0 +1,20 @@
+note_id = 9041
+guid = "ge&ae32-=w"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+id = 9090
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'to call out to;	to greet;	to say hello to;	to inform;	to take care of;	to take care that one does not.'
+example-sentence = ' 好了,新书终于和大家见面,就像在 御妖至尊 结尾和大家打的招呼,主角很邪恶,本书会饱受争议'
+example-type = ''
+grammar-construct = ''
+hanzi = '招呼'
+notes = ''
+pinyin = '<span class="tone1">zhāo</span><span class="tone5">hu</span>	 <!-- zhao hu -->'
+source = ''

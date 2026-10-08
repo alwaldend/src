@@ -1,0 +1,20 @@
+note_id = 1520716970088
+guid = "bkmIB91Rb2"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Auxiliaryverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975952
+ordinal = 0
+
+[fields]
+article-title = 'Expressing future with "jiang"'
+english = 'I believe that you will soon become a successful entrepreneur.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '将 + [Imminent Event]'
+hanzi = '我相信你将会成为一个成功的企业家。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGIQPUJ'

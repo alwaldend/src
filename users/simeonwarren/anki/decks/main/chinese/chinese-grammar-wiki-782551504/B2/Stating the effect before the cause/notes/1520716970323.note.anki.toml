@@ -1,0 +1,20 @@
+note_id = 1520716970323
+guid = "xBdjDb06Z1"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Cause/EffectStatements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716976187
+ordinal = 0
+
+[fields]
+article-title = 'Stating the effect before the cause'
+english = 'The reason you can pursue spiritual happiness is because you already have a stable material foundation.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj.+ 之所以 + Effect + 是因为 + Cause'
+hanzi = '你之所以能够追求精神上的快乐是因为你已经有了稳定的物质基础。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTPGXK'

@@ -1,0 +1,20 @@
+note_id = 1520716970833
+guid = "Hs$,f]0yJ$"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Comparisons", "SeparateFunctions"]
+
+[[cards]]
+id = 1520716976697
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "shihe" and "heshi"'
+english = "Do you know what kind of clothes would suit this party?<br>I don't know, but wearing jeans is definitely not suitable."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Adv. + 合适'
+hanzi = 'A:你知道穿什么衣服最适合参加这个聚会吗？<br>B:我不知道。但是穿牛仔裤一定不合适。'
+notes = ''
+pinyin = '<div>A: Nǐ zhīdào chuān shénme yīfú zuì shìhé cānjiā zhège jùhuì ma?</div><div>B: Wǒ bù zhīdào. Dànshì chuān niúzǎikù yīdìng bù héshì.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGVDOXL'

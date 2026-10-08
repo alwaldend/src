@@ -1,0 +1,17 @@
+note_id = 1780388676476
+guid = "xO$@=5t@EA"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = []
+
+[[cards]]
+id = 1780388676477
+ordinal = 0
+
+[[cards]]
+id = 1780388676478
+ordinal = 1
+
+[fields]
+Back = 'Entity component system (ECS) is a software architectural pattern. An ECS consists of entities composed of data components, along with systems that operate on those components. It is most associated with video game development for the representation of game world objects.<br><br>https://en.wikipedia.org/wiki/Entity_component_system'
+Front = 'Entity component system'

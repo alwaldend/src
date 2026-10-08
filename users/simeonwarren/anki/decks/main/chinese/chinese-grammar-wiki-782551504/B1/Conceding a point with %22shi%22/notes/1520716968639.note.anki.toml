@@ -1,0 +1,20 @@
+note_id = 1520716968639
+guid = "jAX,45fnPk"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974503
+ordinal = 0
+
+[fields]
+article-title = 'Conceding a point with "shi"'
+english = 'It is difficult, but I believe that I can do it.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Adj. + 是 + Adj. ， 但是 / 就是 ⋯⋯'
+hanzi = '难是难，但是我相信我能做到。'
+notes = ''
+pinyin = 'Nán shì nán, dànshì wǒ xiāngxìn wǒ néng zuòdào.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGT9Y8P'

@@ -1,0 +1,20 @@
+note_id = 1520716965227
+guid = "tA-V:w^5i8"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Numbers", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971091
+ordinal = 0
+
+[fields]
+article-title = 'Structure of dates'
+english = "January 1st is New Year's Day."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'x 年 + y 月 + z 号'
+hanzi = '1月1日是新年。'
+notes = ''
+pinyin = 'Yīyuè yī rì shì Xīnnián.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGT3KF6'

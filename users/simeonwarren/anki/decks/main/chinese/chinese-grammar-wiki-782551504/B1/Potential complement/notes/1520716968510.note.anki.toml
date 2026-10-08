@@ -1,0 +1,20 @@
+note_id = 1520716968510
+guid = "gHioZL<83K"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716974374
+ordinal = 0
+
+[fields]
+article-title = 'Potential complement'
+english = "I can't hear what you said."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 不 + Complement'
+hanzi = '我听不见你说的话。'
+notes = ''
+pinyin = '<div>Wǒ tīng bùjiàn nǐ shuō dehuà.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCPJPQ'

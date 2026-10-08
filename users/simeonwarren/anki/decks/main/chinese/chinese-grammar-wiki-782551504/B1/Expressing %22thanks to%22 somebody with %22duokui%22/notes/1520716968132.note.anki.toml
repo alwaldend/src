@@ -1,0 +1,20 @@
+note_id = 1520716968132
+guid = "la3B%u6.4W"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716973996
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "thanks to" somebody with "duokui"'
+english = 'Thanks to you taking her to the hospital, otherwise her condition can be really severe.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '多亏（了）……，不然 Subj. ……'
+hanzi = '多亏你送她去医院了，不然她的情况会很严重。'
+notes = ''
+pinyin = 'Duō kuī nǐ sòng tā qù yīyuàn le, bùrán tā de qíngkuàng huì hěn yánzhòng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG44TBS'

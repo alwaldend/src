@@ -1,0 +1,20 @@
+note_id = 1520716969610
+guid = "x;cP3nCZ,N"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975474
+ordinal = 0
+
+[fields]
+article-title = 'Advanced uses of "zong"'
+english = 'This is his home. He will always come back.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '总 + 会 / 得 / 要 / 能 + Verb'
+hanzi = '这里是他家，他总会回来的。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8QS6H'

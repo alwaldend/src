@@ -1,0 +1,20 @@
+note_id = 10033
+guid = "dr+X2&V:05"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 10075
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'ordinarily;	in normal times;	in peacetime.'
+example-sentence = ' 此刻深夜,寨中大多数人家却还有着灯火,和平时大不相同'
+example-type = ''
+grammar-construct = ''
+hanzi = '平时'
+notes = ''
+pinyin = '<span class="tone2">píng</span><span class="tone2">shí</span>	 <!-- ping shi -->'
+source = ''

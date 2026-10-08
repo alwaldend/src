@@ -1,0 +1,12 @@
+id = 1778614828012
+title = 'main::chinese::chinese-grammar-wiki-782551504::B2::Emphasizing the doer of an action with "you"'
+
+[notes]
+path = 'notes'
+
+[normal]
+config_id = 1
+extend_new = 20
+extend_review = 50
+description = "Please see the <a href='https://ankiweb.net/shared/info/782551504'>shared deck page</a> for more info."
+markdown_description = false

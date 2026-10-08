@@ -1,0 +1,20 @@
+note_id = 1520716969733
+guid = "Q>7z<I}#0W"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975597
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "nearly" with "jihu"'
+english = 'Almost everyone believes what he said.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '几乎 + Subj. + 都 + Verb / Adj.'
+hanzi = '几乎所有人都相信他。'
+notes = ''
+pinyin = 'Jīhū suǒyǒu rén dōu xiāngxìn tā.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGVA70K'

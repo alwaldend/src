@@ -1,0 +1,20 @@
+note_id = 1520716970313
+guid = "tu&kHPavt9"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Grammatical_Structures", "IfStatements"]
+
+[[cards]]
+id = 1520716976177
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "what if" with "wanyi"'
+english = 'Drive slowly! What if you hit someone?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '万一 ⋯⋯ 呢 ？'
+hanzi = '开慢点！万一撞到人怎么办？'
+notes = ''
+pinyin = 'Kāi màn diǎn! Wànyī zhuàngdào rén zěnme bàn?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG25773'

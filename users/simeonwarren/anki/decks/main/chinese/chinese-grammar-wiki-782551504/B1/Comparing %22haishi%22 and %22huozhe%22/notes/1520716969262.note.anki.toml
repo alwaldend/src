@@ -1,0 +1,20 @@
+note_id = 1520716969262
+guid = "P>W,QQ:>uR"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Comparisons", "Conjunctions"]
+
+[[cards]]
+id = 1520716975126
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "haishi" and "huozhe"'
+english = "I'm extremely busy tonight, so I can't go to the bar. I'd better do my homework."
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = 'Option 1 + 或者 + Option 2'
+hanzi = '今天晚上我太忙了，不可以去酒吧。我还是做作业吧。'
+notes = ''
+pinyin = '<div>Jīntiān wǎnshàng wǒ tài mángle, bù kěyǐ qù jiǔbā. Wǒ háishì zuò zuo yè ba.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQJ5IC'

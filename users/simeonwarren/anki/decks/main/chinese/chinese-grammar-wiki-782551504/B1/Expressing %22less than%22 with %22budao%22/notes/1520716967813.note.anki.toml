@@ -1,0 +1,20 @@
+note_id = 1520716967813
+guid = "J0GMc+.[=%"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+id = 1520716973677
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "less than" with "budao"'
+english = "In America, people under 21 can't drink alcohol."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不到 + Number + [Measure Word] + Noun'
+hanzi = '在美国，不到21岁不能喝酒。'
+notes = ''
+pinyin = 'Zài Měiguó, bùdào èrshí-yī suì, bù néng hējiǔ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG10CAE'

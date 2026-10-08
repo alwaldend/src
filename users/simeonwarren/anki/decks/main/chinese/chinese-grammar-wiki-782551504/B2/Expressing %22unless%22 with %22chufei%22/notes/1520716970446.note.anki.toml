@@ -1,0 +1,20 @@
+note_id = 1520716970446
+guid = "eI6LTyV~rj"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "ConditionalStatements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716976310
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "unless" with "chufei"'
+english = 'Only if the boss gives me a pay raise, I will stay.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '除非 x，才 y'
+hanzi = '除非老板给我加薪，我才会留下来。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMD0YY'

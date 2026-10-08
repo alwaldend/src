@@ -1,0 +1,17 @@
+note_id = 1634448335180
+guid = "Orr]DSL/{;"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634448335181
+ordinal = 0
+
+[fields]
+additional-info = '<strong>Note:</strong>&nbsp;All string methods returns new values. They do not change the original string.'
+answer = '<i>string</i>.startswith(<i>value</i>)'
+example = ''
+question = '<b>String method</b> that returns True if the string starts with the specified value, else False.&nbsp;'
+version = ''
+with-options = ''

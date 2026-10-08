@@ -1,0 +1,20 @@
+note_id = 1520716968250
+guid = "tuIGoW9F=>"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+id = 1520716974114
+ordinal = 0
+
+[fields]
+article-title = 'Doing something less with "shao"'
+english = 'My mother tells me to eat less spicy food.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 少 + Verb-Obj.'
+hanzi = '我妈让我少吃辣。'
+notes = ''
+pinyin = 'Wǒ mā ràng wǒ shǎo chī là.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG9B0M8'

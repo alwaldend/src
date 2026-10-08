@@ -1,0 +1,20 @@
+note_id = 1520716965969
+guid = "Q-3v([2#X?"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971833
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "with" with "gen"'
+english = ''
+example-sentence = ''
+example-type = 'invalid'
+grammar-construct = 'Subj. + 跟 + Person + 一起 + Verb + Obj.'
+hanzi = '我要见面你。'
+notes = ''
+pinyin = 'Wǒ yào jiànmiàn  nǐ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGSZ0HP'

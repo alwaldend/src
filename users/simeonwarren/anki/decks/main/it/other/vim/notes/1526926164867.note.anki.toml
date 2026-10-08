@@ -1,0 +1,17 @@
+note_id = 1526926164867
+guid = "p&[F>4$<vZ"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = ["Cursor", "Movement"]
+
+[[cards]]
+id = 1526926175888
+ordinal = 0
+
+[[cards]]
+id = 1668965796625
+ordinal = 1
+
+[fields]
+Back = '^u'
+Front = 'Move back 1/2 a screen'

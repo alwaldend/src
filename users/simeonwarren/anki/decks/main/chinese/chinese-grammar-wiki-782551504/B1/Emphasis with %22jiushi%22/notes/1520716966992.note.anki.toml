@@ -1,0 +1,20 @@
+note_id = 1520716966992
+guid = "q?MAY+-@XM"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972856
+ordinal = 0
+
+[fields]
+article-title = 'Emphasis with "jiushi"'
+english = "The student just wouldn't listen to his teacher."
+example-sentence = ''
+example-type = ''
+grammar-construct = '就(是) + (不) + Verb'
+hanzi = '这个学生就是不听老师的话。'
+notes = ''
+pinyin = 'Zhège xuéshēng jiù bù tīng lǎoshī de huà.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGY21RK'

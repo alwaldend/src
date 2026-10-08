@@ -1,0 +1,20 @@
+note_id = 1520716968662
+guid = "GT8o>$h7=W"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974526
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "age difference" with "da and xiao"'
+english = 'His girlfriend is about the same age with his daughter.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A + 和 / 跟 + B + 一样 / 差不多 + 大'
+hanzi = '他女朋友和他女儿一样大。'
+notes = ''
+pinyin = "Tā nǚpéngyou hé tā nǚ'ér yīyàng dà."
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGE8810'

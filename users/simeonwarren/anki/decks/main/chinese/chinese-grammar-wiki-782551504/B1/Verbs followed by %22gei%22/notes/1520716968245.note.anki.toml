@@ -1,0 +1,20 @@
+note_id = 1520716968245
+guid = "s,l*i8drKV"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716974109
+ordinal = 0
+
+[fields]
+article-title = 'Verbs followed by "gei"'
+english = 'The teacher passed on a lot of experience to us.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 把 + Obj. + Verb + 给 + Somebody'
+hanzi = '老师把很多经验都传授给了学生。'
+notes = ''
+pinyin = 'Lǎoshī bǎ hěn duō jīngyàn  dōu chuánshòu gěi le xuésheng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMMHTQ'

@@ -1,0 +1,20 @@
+note_id = 1520716968249
+guid = "B;6|(z!Z;T"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716974113
+ordinal = 0
+
+[fields]
+article-title = 'Verbs followed by "gei"'
+english = 'A child gave me a letter.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 把 + Obj. + Verb + 给 + Somebody'
+hanzi = '一个孩子把一封信交给了我。'
+notes = ''
+pinyin = 'Yī gè xiǎohái bǎ yī fēng xìn jiāo gěi le wǒ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMMHTQ'

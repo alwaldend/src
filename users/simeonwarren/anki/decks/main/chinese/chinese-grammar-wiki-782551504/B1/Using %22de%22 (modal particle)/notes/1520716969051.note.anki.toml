@@ -1,0 +1,20 @@
+note_id = 1520716969051
+guid = "|E%}:*L97"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974915
+ordinal = 0
+
+[fields]
+article-title = 'Using "de" (modal particle)'
+english = 'Their relationship is very good. They never quarreled.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Statement + 的'
+hanzi = '他们关系很好的，从来不吵架。'
+notes = ''
+pinyin = 'Tāmen guānxi hěn hǎo de, cónglái bù chǎojià.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG19S1M'

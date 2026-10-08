@@ -1,0 +1,20 @@
+note_id = 3009
+guid = "Gpdmhe)GyO"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 3020
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'to go out;	to come out;	to occur;	to produce;	to go beyond;	to rise;	to put forth;	to happen;	(used after a verb to indicate an outward direction or a positive result);	classifier for dramas, plays, operas etc.variant of 出 (classifier for plays or chapters of classical novels).'
+example-sentence = '  说这话的时候,眼前忽的就浮现出前世地球上的种种'
+example-type = ''
+grammar-construct = ''
+hanzi = '出'
+notes = ''
+pinyin = '<span class="tone5">chūchū</span>	 <!-- chu chu -->'
+source = ''

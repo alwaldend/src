@@ -1,0 +1,20 @@
+note_id = 1520716969642
+guid = "i_ncv`(NAb"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975506
+ordinal = 0
+
+[fields]
+article-title = 'Assessing situations with "kanlai"'
+english = "According to him, the size of the company isn't important. What's important is whether or not the boss is good."
+example-sentence = ''
+example-type = ''
+grammar-construct = '在 + Person + 看来 + Perspective'
+hanzi = '在他看来，公司大小不重要，重要的是老板好不好。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJPQ0Q'

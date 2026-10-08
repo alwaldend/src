@@ -1,0 +1,20 @@
+note_id = 1520716968822
+guid = "RhkTLB0]A^"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974686
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "if…, then…" with "ruguo…, jiu…"'
+english = 'If none of you are interested, I will stop talking.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '如果 ⋯⋯ ，那么 / 那 ⋯⋯'
+hanzi = '如果大家都不感兴趣，那我不说了。'
+notes = ''
+pinyin = 'Rúguǒ dàjiā dōu bù gǎn xìngqù, nà wǒ bù shuō le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGGIVT0'

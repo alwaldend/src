@@ -1,0 +1,20 @@
+note_id = 1520716969127
+guid = "Aa:gz|%bZ<"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974991
+ordinal = 0
+
+[fields]
+article-title = 'Topic-comment sentences'
+english = "I don't want to be so much involved in his business."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Topic ，Comment'
+hanzi = '他的事，我不想管那么多。'
+notes = ''
+pinyin = 'Tā de shì, wǒ bù xiǎng guǎn nàme duō.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5KNWW'

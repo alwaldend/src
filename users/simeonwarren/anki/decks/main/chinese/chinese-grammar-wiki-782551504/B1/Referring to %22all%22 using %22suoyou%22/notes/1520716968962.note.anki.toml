@@ -1,0 +1,20 @@
+note_id = 1520716968962
+guid = "OW5L_?TjGp"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974826
+ordinal = 0
+
+[fields]
+article-title = 'Referring to "all" using "suoyou"'
+english = "I've seen all the Disney movies."
+example-sentence = ''
+example-type = ''
+grammar-construct = '所有的 + Noun + 都 + Verb / Adj.'
+hanzi = '我看过所有的迪斯尼动画片。'
+notes = ''
+pinyin = 'Wǒ kàn guò suǒyǒude Dísīní dònghuàpiàn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGOWBSL'

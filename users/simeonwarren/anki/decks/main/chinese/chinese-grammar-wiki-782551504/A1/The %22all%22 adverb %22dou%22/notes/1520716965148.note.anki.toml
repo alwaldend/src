@@ -1,0 +1,20 @@
+note_id = 1520716965148
+guid = "jE~_q<$p(9"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971012
+ordinal = 0
+
+[fields]
+article-title = 'The "all" adverb "dou"'
+english = 'Do you all use the wiki?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 都 + [Verb Phrase]'
+hanzi = '你们都用wiki吗？'
+notes = ''
+pinyin = 'Nǐmen dōu yòng wiki ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG9YK09'

@@ -1,0 +1,20 @@
+note_id = 1520716965179
+guid = "e5m..FSJ]e"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971043
+ordinal = 0
+
+[fields]
+article-title = 'The "also" adverb "ye"'
+english = 'I think that this restaurant is also good.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 也 (+ Adv.) + Adj.'
+hanzi = '我觉得这个餐厅也很好。'
+notes = ''
+pinyin = 'Wǒ juéde zhège cāntīng yě hěn hǎo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGG25MD'

@@ -1,0 +1,20 @@
+note_id = 1520716968855
+guid = "C${LKzlv9)"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974719
+ordinal = 0
+
+[fields]
+article-title = 'Expressing not knowing how to do something using "hao"'
+english = 'None of us knew what to say about it.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不知道 + Verb Phrase + 好'
+hanzi = '我们都不知道说什么好。'
+notes = ''
+pinyin = 'Wǒmen dōu bù zhīdào shuō shénme hǎo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG0EQQJ'

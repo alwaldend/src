@@ -1,0 +1,20 @@
+note_id = 1520716967818
+guid = "kFkuK!y/>;"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+id = 1520716973682
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "less than" with "budao"'
+english = 'My boss is less than 30 years old and already has white hair showing on his head.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不到 + Time + 就 + Predicate + 了'
+hanzi = '老板不到30岁就有白头发了。'
+notes = ''
+pinyin = 'Lǎobǎn bùdào sānshí suì jiù yǒu bái tóufa le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG10CAE'

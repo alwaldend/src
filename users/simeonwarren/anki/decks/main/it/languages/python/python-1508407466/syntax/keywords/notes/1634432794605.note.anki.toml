@@ -1,0 +1,17 @@
+note_id = 1634432794605
+guid = "Eg7aBRx;W!"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634432794606
+ordinal = 0
+
+[fields]
+additional-info = 'Used in a function or iteration body that has been declared but has no logical code added yet.'
+answer = '<b>Keyword</b> that acts as a null statement, a statement that will do nothing.'
+example = ''
+question = '<b>Keyword: </b>pass'
+version = ''
+with-options = ''

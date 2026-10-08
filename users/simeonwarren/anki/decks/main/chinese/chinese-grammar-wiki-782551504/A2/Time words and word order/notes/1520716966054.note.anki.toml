@@ -1,0 +1,20 @@
+note_id = 1520716966054
+guid = "b<72)[??b3"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971918
+ordinal = 0
+
+[fields]
+article-title = 'Time words and word order'
+english = 'I went to the bar yesterday.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Time + Verb + Obj.'
+hanzi = '我昨天去了酒吧。'
+notes = ''
+pinyin = 'Wǒ zuótiān qù le jiǔbā.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5RWKO'

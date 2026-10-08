@@ -1,0 +1,17 @@
+note_id = 1634433212130
+guid = "pgSj>bad=$"
+note_type_id = 1630447360002
+note_type = "python-basic"
+tags = []
+
+[[cards]]
+id = 1634433212131
+ordinal = 0
+
+[fields]
+'Additional Info' = ''
+'Back - Basic' = ''
+'Back - Code' = 'except Exception as e:'
+Example = ''
+Front = 'Create an exception handler with the default exception type and the variable <b><i>e</i> </b>as the exception error.'
+Version = ''

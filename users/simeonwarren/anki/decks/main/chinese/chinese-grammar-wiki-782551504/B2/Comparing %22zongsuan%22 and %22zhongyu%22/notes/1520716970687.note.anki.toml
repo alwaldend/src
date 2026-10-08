@@ -1,0 +1,20 @@
+note_id = 1520716970687
+guid = "u]sYoHc4(M"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["AuxiliaryWords", "B2", "Comparisons"]
+
+[[cards]]
+id = 1520716976551
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "zongsuan" and "zhongyu"'
+english = 'The rain finally stopped.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 总算 / 终于 + Verb'
+hanzi = '雨总算停了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGT8AUA'

@@ -1,0 +1,20 @@
+note_id = 1520716968247
+guid = "He`f:,b^1Q"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716974111
+ordinal = 0
+
+[fields]
+article-title = 'Verbs followed by "gei"'
+english = 'These alumnus donated two hundred thousand to the school.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 把 + Obj. + Verb + 给 + Somebody'
+hanzi = '这些校友把二十万捐给了学校。'
+notes = ''
+pinyin = 'Zhèxiē xiàoyǒu bǎ èrshí wàn juān gěi le xuéxiào.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMMHTQ'

@@ -1,0 +1,20 @@
+note_id = 1520716969807
+guid = "sQ-b4yoeke"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975671
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "simply" with "jianzhi"'
+english = 'They are basically stealing our creativity.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 简直 + 是(在) + Predicate'
+hanzi = '他们简直就是在抄我们的创意。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8OLAE'

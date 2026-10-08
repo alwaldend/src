@@ -1,0 +1,20 @@
+note_id = 1520716965298
+guid = "F*a{PumD,G"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971162
+ordinal = 0
+
+[fields]
+article-title = 'Suggestions with "ba"'
+english = 'Boss, can you make it cheaper?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Command + 吧'
+hanzi = '老板，便宜一点吧。'
+notes = 'This is more of a request, made to a shopkeeper.'
+pinyin = 'Lǎobǎn, piányi yīdiǎn ba.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMPZ6D'

@@ -1,0 +1,20 @@
+note_id = 6039
+guid = "ry1Hkp^,3."
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 6083
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'this year.'
+example-sentence = '   明日就是一年一度的开窍大典了,不知道今年会涌现出什么样的家族新血呢'
+example-type = ''
+grammar-construct = ''
+hanzi = '今年'
+notes = ''
+pinyin = '<span class="tone1">jīn</span><span class="tone2">nián</span>	 <!-- jin nian -->'
+source = ''

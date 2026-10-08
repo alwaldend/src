@@ -1,0 +1,20 @@
+note_id = 1520716968265
+guid = "A6|fp9qXj]"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716974129
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "mistakenly think that" with "yiwei"'
+english = 'I saw that picture and I thought you had a boyfriend.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 以为 ⋯⋯'
+hanzi = '我看到那张照片，以为你有男朋友了。'
+notes = ''
+pinyin = 'Wǒ kàndào nà zhāng zhàopiàn, yǐwéi nǐ yǒu nánpéngyou le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGRBC43'

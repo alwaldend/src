@@ -1,0 +1,20 @@
+note_id = 1520716965317
+guid = "oh{.am:Qk*"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716971181
+ordinal = 0
+
+[fields]
+article-title = 'Expressing existence with "you"'
+english = 'Your number is in my cell phone.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Place + 有 + Obj.'
+hanzi = '我的手机里有你的号码。'
+notes = ''
+pinyin = 'Wǒ de shǒujī lǐ yǒu nǐ de hàomǎ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG04ZCI'

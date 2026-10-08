@@ -1,0 +1,20 @@
+note_id = 1520716970939
+guid = "NLu5:Hfph2"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["C1", "SentencePatterns"]
+
+[[cards]]
+id = 1520716976803
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "Prefer...rather than" with "yuqi...buru"'
+english = "Instead of troubling other people, I'd rather think of the solution."
+example-sentence = ''
+example-type = ''
+grammar-construct = '与其 ⋯⋯ ，不如 ⋯⋯'
+hanzi = '与其麻烦别人，不如自己想办法。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWI5CV'

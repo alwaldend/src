@@ -1,0 +1,17 @@
+note_id = 1526927392164
+guid = "o-_ft1z;aT"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = ["Files", "Multiple", "Search"]
+
+[[cards]]
+id = 1526927410400
+ordinal = 0
+
+[[cards]]
+id = 1668965796704
+ordinal = 1
+
+[fields]
+Back = ':copen'
+Front = 'Open a window containing the list of matches&nbsp;in the quickfix list [after a vimgrep (across files)]'

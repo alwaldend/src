@@ -1,0 +1,20 @@
+note_id = 1520716969943
+guid = "m$2kX([c1B"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Parts_of_Speech", "PrepositionalPhrase"]
+
+[[cards]]
+id = 1520716975807
+ordinal = 0
+
+[fields]
+article-title = 'Defining scope'
+english = 'We need people with two years of working experience or more.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '级别 / 次序 / 数目 + 以上 / 以下'
+hanzi = '我们需要有两年以上工作经验的人。'
+notes = ''
+pinyin = 'Wǒmen xūyào yǒu liǎng nián yǐshàng gōngzuò jīngyàn de rén.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG7AE5C'

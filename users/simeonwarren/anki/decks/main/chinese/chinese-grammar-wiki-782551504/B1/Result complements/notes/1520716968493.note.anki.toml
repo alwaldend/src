@@ -1,0 +1,20 @@
+note_id = 1520716968493
+guid = "PM:~mfzVt5"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716974357
+ordinal = 0
+
+[fields]
+article-title = 'Result complements'
+english = "You're stepping on my foot."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + [One-syllable Verb] +了 (+ Obj.)'
+hanzi = '你踩到了我的脚。'
+notes = ''
+pinyin = 'Nǐ cǎidào le wǒ de jiǎo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNNMST'

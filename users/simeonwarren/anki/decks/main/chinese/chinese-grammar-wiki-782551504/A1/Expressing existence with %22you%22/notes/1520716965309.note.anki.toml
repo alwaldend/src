@@ -1,0 +1,20 @@
+note_id = 1520716965309
+guid = "sN~sd#]AB^"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716971173
+ordinal = 0
+
+[fields]
+article-title = 'Expressing existence with "you"'
+english = 'There are a lot of puppies in my home.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Place + 有 + Obj.'
+hanzi = '我家有很多小狗。'
+notes = ''
+pinyin = 'Wǒ jiā yǒu hěn duō xiǎo gǒu.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG04ZCI'

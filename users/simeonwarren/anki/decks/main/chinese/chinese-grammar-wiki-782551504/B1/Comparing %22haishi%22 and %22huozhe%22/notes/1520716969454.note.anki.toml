@@ -1,0 +1,20 @@
+note_id = 1520716969454
+guid = "kTu$L~9q^~"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Comparisons", "Conjunctions"]
+
+[[cards]]
+id = 1520716975318
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "haishi" and "huozhe"'
+english = "You can take Line 1 or Line 2 to People's Square."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Possibility 1 + 或者 + Possibility 2'
+hanzi = '你可以坐1号线或者2号线去人民广场。'
+notes = ''
+pinyin = 'Nǐ kěyǐ zuò yī hào xiàn huòzhě èr hào xiàn qù Rénmín Guǎngchǎng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQJ5IC'

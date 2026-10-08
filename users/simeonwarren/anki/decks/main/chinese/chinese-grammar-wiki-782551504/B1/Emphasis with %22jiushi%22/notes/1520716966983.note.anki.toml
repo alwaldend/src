@@ -1,0 +1,20 @@
+note_id = 1520716966983
+guid = "A:GSWj3>Ut"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972847
+ordinal = 0
+
+[fields]
+article-title = 'Emphasis with "jiushi"'
+english = "He didn't travel only because he doesn't want to spend the money."
+example-sentence = ''
+example-type = ''
+grammar-construct = '就是 + Noun'
+hanzi = '他不去旅游就是不想花钱。'
+notes = ''
+pinyin = 'Tā bù qù lǚyóu jiùshì bù xiǎng huāqián.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGY21RK'

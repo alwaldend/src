@@ -1,0 +1,20 @@
+note_id = 1520716968513
+guid = "g=gm:/4I9o"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716974377
+ordinal = 0
+
+[fields]
+article-title = 'Potential complement'
+english = 'Can you finish eating this big bowl of noodles?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 不 + Complement'
+hanzi = '这一大碗面你吃得完吗？'
+notes = ''
+pinyin = '<div>Zhè yī dà wǎn miàn nǐ chī dé wán ma?</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCPJPQ'

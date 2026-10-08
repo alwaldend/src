@@ -1,0 +1,20 @@
+note_id = 1520716968393
+guid = "h-K(Eq3jrD"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "IfStatements"]
+
+[[cards]]
+id = 1520716974257
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "if…, then…" with "ruguo…, jiu…"'
+english = 'If you go, tell her I say hello.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '如果 + Statement + 的话，(就) Result'
+hanzi = '如果你去的话，帮我跟她问好。'
+notes = ''
+pinyin = 'Rúguǒ nǐ qù de huà, bāng wǒ gēn tā wènhǎo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGGIVT0'

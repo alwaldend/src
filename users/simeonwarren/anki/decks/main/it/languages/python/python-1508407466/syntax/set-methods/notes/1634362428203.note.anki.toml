@@ -1,0 +1,17 @@
+note_id = 1634362428203
+guid = "j7h]+^Rn5:"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634370830761
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<i>set</i>.remove(<i>value</i>)'
+example = ''
+question = "<b>Set method </b>that deletes an element from a set (returns None). Throws a ValueError if the element doesn't exist."
+version = ''
+with-options = ''

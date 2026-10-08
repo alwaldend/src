@@ -1,0 +1,20 @@
+note_id = 1520716968206
+guid = "Q[y?q:[x}}"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716974070
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "it depends" with "kan"'
+english = "When to go depends on the company's arrangement."
+example-sentence = ''
+example-type = ''
+grammar-construct = '[Unknown Outcome] + 要看 / 得看 + [Unclear Situation]'
+hanzi = '什么时候去要看公司的安排。'
+notes = ''
+pinyin = 'Shénme shíhou qù yào kàn gōngsī de ānpái.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG765HD'

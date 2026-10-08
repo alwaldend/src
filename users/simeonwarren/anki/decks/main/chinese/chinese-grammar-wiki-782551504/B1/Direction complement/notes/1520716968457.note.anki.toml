@@ -1,0 +1,20 @@
+note_id = 1520716968457
+guid = "thW@Oh$g,o"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716974321
+ordinal = 0
+
+[fields]
+article-title = 'Direction complement'
+english = "It's too hot outside. Don't go outside."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 来 / 去'
+hanzi = '外面太热了，不要出去。'
+notes = ''
+pinyin = 'Wàimiàn tài rè le, bù yào chūqù.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8LWBJ'

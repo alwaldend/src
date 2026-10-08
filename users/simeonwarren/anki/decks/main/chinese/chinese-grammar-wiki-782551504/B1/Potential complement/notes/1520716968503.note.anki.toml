@@ -1,0 +1,20 @@
+note_id = 1520716968503
+guid = "HN{BOR)t:;"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716974367
+ordinal = 0
+
+[fields]
+article-title = 'Potential complement'
+english = 'Can he eat all the food by himself?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 得 + Complement'
+hanzi = '他一个人吃得完这么多饭吗？'
+notes = ''
+pinyin = 'Tā yīgèrén chī de wán zhème duō fàn ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCPJPQ'

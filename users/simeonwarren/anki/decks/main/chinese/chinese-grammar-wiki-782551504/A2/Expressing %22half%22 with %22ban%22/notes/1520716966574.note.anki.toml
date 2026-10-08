@@ -1,0 +1,20 @@
+note_id = 1520716966574
+guid = "r|oU8APw9N"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Grammatical_Structures", "NumbersandMeasureWords"]
+
+[[cards]]
+id = 1520716972438
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "half" with "ban"'
+english = 'half a month'
+example-sentence = ''
+example-type = ''
+grammar-construct = '半 + Measure Word + Noun'
+hanzi = '半个月'
+notes = ''
+pinyin = 'bàn gè yuè'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGAC1P9'

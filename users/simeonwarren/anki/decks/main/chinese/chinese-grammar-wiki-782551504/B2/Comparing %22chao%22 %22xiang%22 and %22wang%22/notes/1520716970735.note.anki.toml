@@ -1,0 +1,20 @@
+note_id = 1520716970735
+guid = "wJ1c+soeLM"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Comparisons", "Prepositions"]
+
+[[cards]]
+id = 1520716976599
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "chao" "xiang" and "wang"'
+english = 'Walk forward for ten minutes.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '向 / 朝 / 往 + 具体方向 + Verb'
+hanzi = '往前走十分钟。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGIHS2L'

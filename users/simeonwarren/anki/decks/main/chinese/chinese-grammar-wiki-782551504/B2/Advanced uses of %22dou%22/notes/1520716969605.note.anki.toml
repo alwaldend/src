@@ -1,0 +1,20 @@
+note_id = 1520716969605
+guid = "wB21ES,sj0"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975469
+ordinal = 0
+
+[fields]
+article-title = 'Advanced uses of "dou"'
+english = 'Even though he said that, you still have the guts to ask for his help?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '都 + 小句，主句'
+hanzi = '他都这么说了，你还好意思再找他帮忙？'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQFW44'

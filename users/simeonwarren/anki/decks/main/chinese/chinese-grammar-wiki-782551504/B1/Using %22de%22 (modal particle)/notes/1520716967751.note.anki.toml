@@ -1,0 +1,20 @@
+note_id = 1520716967751
+guid = "pBEA2vxD@["
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973615
+ordinal = 0
+
+[fields]
+article-title = 'Using "de" (modal particle)'
+english = "He's not going to apologize."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Statement + 的'
+hanzi = '他不会道歉的。'
+notes = ''
+pinyin = 'Tā bù huì dàoqiàn de.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG19S1M'

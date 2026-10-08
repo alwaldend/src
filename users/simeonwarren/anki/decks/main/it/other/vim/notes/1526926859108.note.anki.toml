@@ -1,0 +1,17 @@
+note_id = 1526926859108
+guid = "L/?LfA@U-k"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = ["Macros"]
+
+[[cards]]
+id = 1526926875852
+ordinal = 0
+
+[[cards]]
+id = 1668965796671
+ordinal = 1
+
+[fields]
+Back = 'qa &nbsp;…. &nbsp;q'
+Front = 'Record macro a'

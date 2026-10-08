@@ -1,0 +1,20 @@
+note_id = 1520716968971
+guid = "HB,W/4W*`0"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974835
+ordinal = 0
+
+[fields]
+article-title = 'Expressing comparable degree with "you"'
+english = 'Is she that pretty? Really?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A + 有 (+ B) + 这么 / 那么 + Adj. + 吗 ？'
+hanzi = '她有那么漂亮吗？'
+notes = ''
+pinyin = 'Tā yǒu  nàme piàoliang ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5DG95'

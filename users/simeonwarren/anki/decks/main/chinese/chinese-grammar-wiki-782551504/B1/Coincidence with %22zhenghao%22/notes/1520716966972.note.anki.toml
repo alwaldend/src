@@ -1,0 +1,20 @@
+note_id = 1520716966972
+guid = "n(G2^<EL7R"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972836
+ordinal = 0
+
+[fields]
+article-title = 'Coincidence with "zhenghao"'
+english = 'Are you all coming? Great! So you can help me to move.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '正好 + Verb'
+hanzi = '你们都要来？太好了！正好帮我搬家。'
+notes = ''
+pinyin = 'Nǐmen dōu yào lái? Tài hǎo le! Zhènghǎo bāng wǒ bānjiā.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGUD25J'

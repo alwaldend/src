@@ -1,0 +1,20 @@
+note_id = 58
+guid = "ixqM<iL.JX"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 115
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'wishing one could do sth;	to hate to be unable;	itching to do sth.'
+example-sentence = '从那刻起,我恨不得吃你肉,喝你的血'
+example-type = ''
+grammar-construct = ''
+hanzi = '恨不得'
+notes = ''
+pinyin = '<span class="tone4">hèn</span><span class="tone5">bu</span><span class="tone5">de</span>	 <!-- hen bu de -->'
+source = ''

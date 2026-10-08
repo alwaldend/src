@@ -1,0 +1,17 @@
+note_id = 1668637966640
+guid = "gn2{5|Rlsj"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = []
+
+[[cards]]
+id = 1668637966641
+ordinal = 0
+
+[[cards]]
+id = 1668965796737
+ordinal = 1
+
+[fields]
+Back = 'at'
+Front = 'Select a whole HTML element from &lt;tag&gt; to &lt;/tag&gt; (visual mode)'

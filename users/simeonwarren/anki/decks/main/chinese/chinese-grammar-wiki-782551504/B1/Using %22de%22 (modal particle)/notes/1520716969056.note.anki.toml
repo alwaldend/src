@@ -1,0 +1,20 @@
+note_id = 1520716969056
+guid = "I=zfQii0Sd"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974920
+ordinal = 0
+
+[fields]
+article-title = 'Using "de" (modal particle)'
+english = 'You will definitely succeed.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Statement + 的'
+hanzi = '我们一定会成功的。'
+notes = ''
+pinyin = 'Wǒmen yīdìng huì chénggōng de.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG19S1M'

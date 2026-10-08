@@ -1,0 +1,20 @@
+note_id = 1520716967445
+guid = "orr$%(KbrF"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["AdverbswithAdjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973309
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "rather" with "bijiao"'
+english = 'The boss usually pay more attention on the results in stead of the process.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 比较 + [Verb Phrase]'
+hanzi = '老板通常比较关注结果，不是过程。'
+notes = ''
+pinyin = 'Lǎobǎn tōngcháng bǐjiào guānzhù jiéguǒ, bù shì guòchéng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG72HKP'

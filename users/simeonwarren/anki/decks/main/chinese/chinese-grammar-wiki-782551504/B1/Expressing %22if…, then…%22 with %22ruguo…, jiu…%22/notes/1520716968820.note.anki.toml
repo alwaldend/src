@@ -1,0 +1,20 @@
+note_id = 1520716968820
+guid = "uQJRL?V!XH"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974684
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "if…, then…" with "ruguo…, jiu…"'
+english = 'If you no longer love each other, break up then.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '如果 ⋯⋯ ，就 ⋯⋯'
+hanzi = '如果你们已经不相爱了，就分手吧。'
+notes = ''
+pinyin = 'Rúguǒ nǐmen yǐjīng bù xiāngài le, jiù fēnshǒu ba.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGGIVT0'

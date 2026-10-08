@@ -1,0 +1,20 @@
+note_id = 1520716970473
+guid = "p((0HWVaH~"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716976337
+ordinal = 0
+
+[fields]
+article-title = 'Advanced uses of "ba"'
+english = 'Every month, I have to convert some USD into RMB.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '把 + Obj. 1 + Verb + 成 + Obj. 2'
+hanzi = '我每个月都要把这些美元换成人民币。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQRS3P'

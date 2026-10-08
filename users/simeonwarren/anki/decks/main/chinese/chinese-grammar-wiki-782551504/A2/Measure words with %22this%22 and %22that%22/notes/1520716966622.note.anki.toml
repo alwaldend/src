@@ -1,0 +1,20 @@
+note_id = 1520716966622
+guid = "CmDVlrThAQ"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Grammatical_Structures", "NumbersandMeasureWords"]
+
+[[cards]]
+id = 1520716972486
+ordinal = 0
+
+[fields]
+article-title = 'Measure words with "this" and "that"'
+english = 'that matter (in the sense of business, affair, or thing)'
+example-sentence = ''
+example-type = ''
+grammar-construct = '这 / 那 + Measure Word + Noun'
+hanzi = '那件事'
+notes = ''
+pinyin = 'nà jiàn shì'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGZC42B'

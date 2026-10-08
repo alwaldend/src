@@ -1,0 +1,20 @@
+note_id = 1520716967002
+guid = "D[v#jf=RMA"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972866
+ordinal = 0
+
+[fields]
+article-title = 'Emphasizing negation with "you"'
+english = "It's not any of your business. Why ask so much?"
+example-sentence = ''
+example-type = ''
+grammar-construct = '又 + 不 / 没 + Predicate'
+hanzi = '又不关你的事，问那么多干吗？'
+notes = ''
+pinyin = 'Yòu bù guān nǐ de shì, wèn nàme duō gànmá?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGD3C4S'

@@ -1,0 +1,20 @@
+note_id = 1520716967829
+guid = "MX4U2Uu1u)"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+id = 1520716973693
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "toward" with "wang"'
+english = 'Keep reading.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '往 + Direction / Place + Verb'
+hanzi = '往下读。'
+notes = ''
+pinyin = 'Wǎng xià dú.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGAD070'

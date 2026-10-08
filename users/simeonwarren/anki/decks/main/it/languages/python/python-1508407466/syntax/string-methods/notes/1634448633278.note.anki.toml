@@ -1,0 +1,17 @@
+note_id = 1634448633278
+guid = "Fk_|Gi,h,L"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634448633278
+ordinal = 0
+
+[fields]
+additional-info = '<strong>Note:</strong>&nbsp;All string methods returns new values. They do not change the original string.'
+answer = '<i>string</i>.upper()'
+example = ''
+question = '<b>String method</b> that converts all the characters in a string into upper case and returns the new string.'
+version = ''
+with-options = ''

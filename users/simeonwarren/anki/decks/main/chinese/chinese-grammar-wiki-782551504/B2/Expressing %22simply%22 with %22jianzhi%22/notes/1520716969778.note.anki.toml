@@ -1,0 +1,20 @@
+note_id = 1520716969778
+guid = "e^:&Sh4;1k"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975642
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "simply" with "jianzhi"'
+english = 'Your boyfriend is just so handsome!'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 简直 + Adj.'
+hanzi = '你的男朋友简直（是）太帅了!'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8OLAE'

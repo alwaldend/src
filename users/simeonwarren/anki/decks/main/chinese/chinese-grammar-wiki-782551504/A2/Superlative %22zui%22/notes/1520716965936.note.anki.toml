@@ -1,0 +1,20 @@
+note_id = 1520716965936
+guid = "nrK)H>cqvN"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "AdverbswithAdjectives", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971800
+ordinal = 0
+
+[fields]
+article-title = 'Superlative "zui"'
+english = 'She most hates men that smoke.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '最 + [Psychological Verb] + Obj. (+ 了)'
+hanzi = '她最讨厌抽烟的男人了。'
+notes = ''
+pinyin = 'Tā zuì tǎoyàn chōuyān de nánrén le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG3544U'

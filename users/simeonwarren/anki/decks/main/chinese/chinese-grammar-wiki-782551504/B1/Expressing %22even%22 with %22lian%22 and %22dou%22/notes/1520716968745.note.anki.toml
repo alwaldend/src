@@ -1,0 +1,20 @@
+note_id = 1520716968745
+guid = "N_t]frfTrx"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974609
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "even" with "lian" and "dou"'
+english = "Your boss is so petty. He didn't even give mooncakes on Mid-autumn Festival."
+example-sentence = ''
+example-type = ''
+grammar-construct = '连 + Obj. + 都 (+ 不 / 没) + Verb'
+hanzi = '你们老板真小气，中秋节连月饼都不发。'
+notes = ''
+pinyin = 'Nǐmen lǎobǎn zhēn xiǎoqì, Zhōngqiū jié lián yuèbǐng dōu bù fā.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNP0WV'

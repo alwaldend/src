@@ -1,0 +1,20 @@
+note_id = 1520716966016
+guid = "rs1-+fiPyW"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971880
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "before" in general with "yiqian"'
+english = 'Was he our client before?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 以前 + Verb + Obj.'
+hanzi = '以前他是我们的客户吗？'
+notes = ''
+pinyin = 'Yǐqián tā shì wǒmen de kèhù ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGVCWLU'

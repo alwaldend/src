@@ -1,0 +1,17 @@
+note_id = 1526925570311
+guid = "t+lsoIW+~5"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = ["Global"]
+
+[[cards]]
+id = 1526925584235
+ordinal = 0
+
+[[cards]]
+id = 1668965796589
+ordinal = 1
+
+[fields]
+Back = 'K'
+Front = 'Open man page for word under cursor'

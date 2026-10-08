@@ -1,0 +1,17 @@
+note_id = 1526926342869
+guid = "AQ7fu*TApm"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = ["Editing"]
+
+[[cards]]
+id = 1526926354605
+ordinal = 0
+
+[[cards]]
+id = 1668965796636
+ordinal = 1
+
+[fields]
+Back = 'gJ'
+Front = 'Join line below to the current one <b>without</b> <b>space</b> in between'

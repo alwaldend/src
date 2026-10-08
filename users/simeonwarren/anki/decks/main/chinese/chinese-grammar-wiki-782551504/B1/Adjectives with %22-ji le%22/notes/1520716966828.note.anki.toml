@@ -1,0 +1,20 @@
+note_id = 1520716966828
+guid = "vjdvJEuwd$"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972692
+ordinal = 0
+
+[fields]
+article-title = 'Adjectives with "-ji le"'
+english = 'I was really nervous the day I took the college entrance examination.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Adj. + 极了'
+hanzi = '高考那天，我紧张极了。'
+notes = ''
+pinyin = 'Gāokǎo nà tiān, wǒ jǐnzhāng jíle.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGVME5V'

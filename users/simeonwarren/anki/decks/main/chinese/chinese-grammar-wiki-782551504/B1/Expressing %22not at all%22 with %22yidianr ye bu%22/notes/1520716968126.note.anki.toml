@@ -1,0 +1,20 @@
+note_id = 1520716968126
+guid = "h(CW6q3*P"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716973990
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "not at all" with "yidianr ye bu"'
+english = "You didn't even spend a bit of the money you mother gave you?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 一点 + 也 / 都 + 不 + Verb'
+hanzi = '你妈给你的钱你一点都没花？'
+notes = ''
+pinyin = 'Nǐ mā gěi nǐ de qián nǐ yīdiǎn dōu méi huā?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGRURCZ'

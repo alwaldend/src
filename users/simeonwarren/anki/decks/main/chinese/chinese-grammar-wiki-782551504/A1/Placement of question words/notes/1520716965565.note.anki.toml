@@ -1,0 +1,20 @@
+note_id = 1520716965565
+guid = "s|nQM0m,S-"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+id = 1520716971429
+ordinal = 0
+
+[fields]
+article-title = 'Placement of question words'
+english = "Why don't you drink coffee?<br>Because coffee is bitter."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 为什么 + Predicate ?'
+hanzi = 'A: 他们为什么不喝咖啡？<br>B: 因为咖啡很苦。'
+notes = ''
+pinyin = 'Tāmen wèishénme bù hē kāfēi?<br>Yīnwèi kāfēi hěn kǔ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJQPSC'

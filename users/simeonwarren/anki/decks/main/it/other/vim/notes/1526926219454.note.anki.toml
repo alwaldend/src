@@ -1,0 +1,17 @@
+note_id = 1526926219454
+guid = "LYtP]*vhd@"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = ["Insert", "Mode"]
+
+[[cards]]
+id = 1526926231318
+ordinal = 0
+
+[[cards]]
+id = 1668965796628
+ordinal = 1
+
+[fields]
+Back = 'a'
+Front = 'Append after the cursor'

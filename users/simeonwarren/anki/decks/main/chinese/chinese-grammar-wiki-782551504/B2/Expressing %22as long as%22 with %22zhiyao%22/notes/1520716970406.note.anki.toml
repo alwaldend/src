@@ -1,0 +1,20 @@
+note_id = 1520716970406
+guid = "PeG=DxsljC"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "ConditionalStatements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716976270
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "as long as" with "zhiyao"'
+english = "As long as you study hard, you'll make progress."
+example-sentence = ''
+example-type = ''
+grammar-construct = '只要 + Condition ， 就 + Result'
+hanzi = '只要你努力学习，就会有进步。'
+notes = ''
+pinyin = 'Zhǐyào nǐ nǔlì xuéxí,  jiù huì yǒu jìnbù.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG98C1A'

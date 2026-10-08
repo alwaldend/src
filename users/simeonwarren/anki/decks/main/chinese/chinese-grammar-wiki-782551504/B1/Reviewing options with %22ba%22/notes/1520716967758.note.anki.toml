@@ -1,0 +1,20 @@
+note_id = 1520716967758
+guid = "zgGyHdrIVu"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973622
+ordinal = 0
+
+[fields]
+article-title = 'Reviewing options with "ba"'
+english = "If I buy it, too expensive, but if I don't buy them, I won't be unhappy."
+example-sentence = ''
+example-type = ''
+grammar-construct = '[Option 1] + 吧 ，⋯⋯ ， [Option 2] + 吧，⋯⋯ 。'
+hanzi = '买吧，不想花那么多钱；不买吧，又不开心。'
+notes = ''
+pinyin = 'Mǎi bā, bù xiǎng huā nàme duō qián ; bù mǎi bā, yòu bù kāixīn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGELOTT'

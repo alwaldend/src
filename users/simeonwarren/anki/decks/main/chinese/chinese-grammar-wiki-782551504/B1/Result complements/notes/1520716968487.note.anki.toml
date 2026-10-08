@@ -1,0 +1,20 @@
+note_id = 1520716968487
+guid = "s9r3J!!u+7"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716974351
+ordinal = 0
+
+[fields]
+article-title = 'Result complements'
+english = "We didn't hear it clearly. Please say it again."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 没 + Verb + Adj. (+ Obj.)'
+hanzi = '我们没听清楚，请再说一遍。'
+notes = ''
+pinyin = 'Wǒmen méi tīng qīngchu, qǐng zài shuō yī biàn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNNMST'

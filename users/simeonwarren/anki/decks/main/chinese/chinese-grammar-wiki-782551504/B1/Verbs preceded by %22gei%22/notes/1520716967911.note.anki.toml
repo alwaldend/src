@@ -1,0 +1,20 @@
+note_id = 1520716967911
+guid = "lr}4CneVhE"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+id = 1520716973775
+ordinal = 0
+
+[fields]
+article-title = 'Verbs preceded by "gei"'
+english = 'The father should apologize to his son.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 给 + Target + [Verb Phrase]'
+hanzi = '爸爸应该给儿子道歉。'
+notes = ''
+pinyin = 'Bàba yīnggāi gěi érzi dàoqiàn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG3ORNN'

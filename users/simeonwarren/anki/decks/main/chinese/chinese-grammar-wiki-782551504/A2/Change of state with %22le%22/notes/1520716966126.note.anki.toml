@@ -1,0 +1,20 @@
+note_id = 1520716966126
+guid = "D|a>n2Q6]m"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971990
+ordinal = 0
+
+[fields]
+article-title = 'Change of state with "le"'
+english = 'The baby can speak.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '[New Situation] + 了'
+hanzi = '宝宝会说话了。'
+notes = "He couldn't before."
+pinyin = 'Bǎobao huì shuōhuà le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGT185D'

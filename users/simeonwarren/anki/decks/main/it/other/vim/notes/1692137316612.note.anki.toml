@@ -1,0 +1,17 @@
+note_id = 1692137316612
+guid = "J[)>@L7?;h"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = []
+
+[[cards]]
+id = 1692137316614
+ordinal = 0
+
+[[cards]]
+id = 1692137316615
+ordinal = 1
+
+[fields]
+Back = ':<b>diffput</b> “ change from left file to right<div><br></div><div>:<b>diffget</b> “ change from right to left</div><div><br></div><div>:<b>diffupdate</b> “ show changes again after undo</div>'
+Front = 'What vimdiff commands are needed to align two files?'

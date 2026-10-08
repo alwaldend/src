@@ -1,0 +1,20 @@
+note_id = 1520716965960
+guid = "b*N=Kn1E1>"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971824
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "with" with "gen"'
+english = "Don't talk to me!"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 跟 + Person + 一起 + Verb + Obj.'
+hanzi = '不要跟我说话！'
+notes = ''
+pinyin = 'Bùyào gēn wǒ shuōhuà!'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGSZ0HP'

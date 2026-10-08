@@ -1,0 +1,20 @@
+note_id = 1520716970815
+guid = "t4LQ(*R{@-"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Grammatical_Structures", "Letalone"]
+
+[[cards]]
+id = 1520716976679
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "let alone" with "hekuang"'
+english = "My grandmother hasn't even taken the high-speed train, let alone the airplane."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 连 ⋯⋯ 都 + 不 / 没 + Verb ，何况 ⋯⋯ 呢 ？'
+hanzi = '我奶奶连高铁都没坐过，何况飞机呢？'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG3ZS9G'

@@ -1,0 +1,17 @@
+note_id = 1634365248058
+guid = "x}R6aws5(9"
+note_type_id = 1630447360002
+note_type = "python-basic"
+tags = []
+
+[[cards]]
+id = 1634370830784
+ordinal = 0
+
+[fields]
+'Additional Info' = ''
+'Back - Basic' = 'Creates an array from number x to but not including y with z steps in between each number. (z can be negative for s reversed list).'
+'Back - Code' = ''
+Example = ''
+Front = 'Explain the variables <i>x</i>,<i> y</i>, <i>z</i> range function: range(x, y, z).'
+Version = ''

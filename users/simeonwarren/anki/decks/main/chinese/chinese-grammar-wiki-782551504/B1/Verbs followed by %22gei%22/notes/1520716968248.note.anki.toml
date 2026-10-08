@@ -1,0 +1,20 @@
+note_id = 1520716968248
+guid = "AdDd#l,A9`"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716974112
+ordinal = 0
+
+[fields]
+article-title = 'Verbs followed by "gei"'
+english = 'The owner rewarded his dog with a piece of meat.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 把 + Obj. + Verb + 给 + Somebody'
+hanzi = '主人把一块肉赏给了小狗。'
+notes = ''
+pinyin = 'Zhǔrén bǎ yīkuài ròu shǎng gěi le xiǎo gǒu.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMMHTQ'

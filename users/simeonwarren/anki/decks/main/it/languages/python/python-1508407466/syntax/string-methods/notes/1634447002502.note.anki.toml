@@ -1,0 +1,17 @@
+note_id = 1634447002502
+guid = "DbtFux<{T3"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634447002504
+ordinal = 0
+
+[fields]
+additional-info = '<strong>Note:</strong>&nbsp;All string methods returns new values. They do not change the original string.'
+answer = '<i>string</i>.partition(<i>value</i>)'
+example = ''
+question = '<b>String method</b>&nbsp;that returns a tuple where the string is parted into three parts (one before the value, the first instance of the value, and one after).'
+version = ''
+with-options = ''

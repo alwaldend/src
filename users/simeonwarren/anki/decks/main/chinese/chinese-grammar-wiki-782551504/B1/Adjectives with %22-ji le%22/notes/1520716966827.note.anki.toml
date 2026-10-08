@@ -1,0 +1,20 @@
+note_id = 1520716966827
+guid = "uyUn[Ci1${"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adjectives", "B1", "leech", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972691
+ordinal = 0
+
+[fields]
+article-title = 'Adjectives with "-ji le"'
+english = 'He was so angry. We were all very scared.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Adj. + 极了'
+hanzi = '他那么生气，我们都害怕极了。'
+notes = ''
+pinyin = 'Tā nàme shēngqì, wǒmen dōu hàipà jíle.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGVME5V'

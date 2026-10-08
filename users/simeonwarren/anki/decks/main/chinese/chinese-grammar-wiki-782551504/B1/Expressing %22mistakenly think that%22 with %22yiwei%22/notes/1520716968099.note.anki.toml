@@ -1,0 +1,20 @@
+note_id = 1520716968099
+guid = "mPwv5Bu&$_"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716973963
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "mistakenly think that" with "yiwei"'
+english = 'I thought you guys broke up.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 以为 ⋯⋯'
+hanzi = '我以为你们分手了。'
+notes = ''
+pinyin = 'Wǒ yǐwéi nǐmen fēnshǒu le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGRBC43'

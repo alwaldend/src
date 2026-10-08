@@ -1,0 +1,20 @@
+note_id = 1520716969796
+guid = "rpl=QH},4h"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975660
+ordinal = 0
+
+[fields]
+article-title = "Expressing \"while you're at it\" with \"shunbian\""
+english = "Ask him if he's coming this weekend when you meet him."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. ＋Verb Phrase 1，顺便 + Verb Phrase 2'
+hanzi = '你见他的时候顺便问一下他周末来不来。'
+notes = ''
+pinyin = 'Nǐ jiàn tā de shíhou shùnbiàn wèn yīxià tā zhōumò lái bu lái.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5334C'

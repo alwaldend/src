@@ -1,0 +1,20 @@
+note_id = 1520716967500
+guid = "u,/jEhzQON"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["AuxiliaryWords", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973364
+ordinal = 0
+
+[fields]
+article-title = 'Non-exhaustive lists with "dengdeng"'
+english = 'Oxford, Cambridge and so on are the most famous British Universities.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A1，A2 ⋯⋯ 等 + [Category] + Predicate'
+hanzi = '牛津、剑桥等大学是英国最有名的大学。'
+notes = ''
+pinyin = 'Niújīn, Jiànqiáo děng dàxué shì Yīngguó zuì yǒumíng de dàxué.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGF763H'

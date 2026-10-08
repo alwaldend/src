@@ -1,0 +1,20 @@
+note_id = 1520716968975
+guid = "PJnBGoZ.[{"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974839
+ordinal = 0
+
+[fields]
+article-title = 'Sequencing with "xian" and "zai"'
+english = 'First you need to do your homework, and then you can watch.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '先 + [Verb Phrase 1] + 再 + [Verb Phrase 2]'
+hanzi = '你要先做作业再看电视。'
+notes = ''
+pinyin = 'Tā yào xiān zuò zuòyè, zài kàn diànshì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGLJM55'

@@ -1,0 +1,32 @@
+note_id = 1654616587783
+guid = "P;T)`[xnc4"
+note_type_id = 1630447360002
+note_type = "python-basic"
+tags = []
+
+[[cards]]
+id = 1654616587785
+ordinal = 0
+
+[fields]
+'Additional Info' = 'All built in functions that do this can be called as decorators. The most common are class method functions like staticmethod() or classmethod().'
+'Back - Basic' = 'A decorator is a function that takes in a function as an argument, adds some functionality and returns it.'
+'Back - Code' = '@<i>decorator_function</i>'
+Example = """
+<pre><code><span style="color: rgb(198, 120, 221);">def</span> <span style="color: rgb(97, 174, 238);">make_pretty</span>(func):
+    <span style="color: rgb(198, 120, 221);">def</span> <span style="color: rgb(97, 174, 238);">inner</span>():
+        <span style="color: rgb(198, 120, 221);">print</span>(<span style="color: rgb(152, 195, 121);">"I got decorated"</span>)
+        func()
+    <span style="color: rgb(198, 120, 221);">return</span> inner
+<font color="#868888">
+# before
+</font><span style="color: rgb(198, 120, 221);">def</span> <span style="color: rgb(97, 174, 238);">ordinary</span>():
+    <span style="color: rgb(198, 120, 221);">print</span>(<span style="color: rgb(152, 195, 121);">"I am ordinary"</span>)<font color="#61aeee">
+</font>pretty = make_pretty(ordinary)
+<br><code><code><font color="#868888"># after
+</font><font color="#61aeee">@make_pretty
+</font></code><span style="color: rgb(198, 120, 221);">def</span> <span style="color: rgb(97, 174, 238);">pretty</span>():
+    <span style="color: rgb(198, 120, 221);">print</span>(<span style="color: rgb(152, 195, 121);">"I am ordinary"</span>)</code></code></pre>\
+"""
+Front = 'What is a decorator in python?'
+Version = ''

@@ -1,0 +1,17 @@
+note_id = 1526925518347
+guid = "xb{$YpCAF-"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = ["Global"]
+
+[[cards]]
+id = 1526925548992
+ordinal = 0
+
+[[cards]]
+id = 1668965796586
+ordinal = 1
+
+[fields]
+Back = ':help keyword'
+Front = 'Open the help window for "keyword"'

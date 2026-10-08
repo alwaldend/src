@@ -1,0 +1,20 @@
+note_id = 1520716970751
+guid = "I9@kuR`.bK"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Comparisons", "Prepositions"]
+
+[[cards]]
+id = 1520716976615
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "chao" "xiang" and "wang"'
+english = ''
+example-sentence = ''
+example-type = 'invalid'
+grammar-construct = '向 +  Direction + Abstract Verb'
+hanzi = '帅哥往我笑了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGIHS2L'

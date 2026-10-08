@@ -1,0 +1,20 @@
+note_id = 1520716967744
+guid = "vq6c]Y3@Vr"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973608
+ordinal = 0
+
+[fields]
+article-title = 'Expressing the self-evident with "ma"'
+english = 'Americans are very open-minded.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Statement + 嘛'
+hanzi = '美国人很开放嘛。'
+notes = ''
+pinyin = 'Měiguó rén hěn kāifàng ma.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGVMC4B'

@@ -1,0 +1,20 @@
+note_id = 1520716970780
+guid = "mKrbuC33AJ"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Comparisons", "Prepositions"]
+
+[[cards]]
+id = 1520716976644
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "guanyu" and "duiyu"'
+english = 'Is there anything that anyone wants to add to this decision?'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '关于/对于这份决议，大家还有什么补充吗？'
+notes = ''
+pinyin = 'Guānyú/duìyú zhè fèn juéyì, dàjiā hái yǒu shé me bǔchōng ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG1HNBU'

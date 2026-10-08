@@ -1,0 +1,20 @@
+note_id = 5007
+guid = "P01.!v?^<l"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 5018
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'to get it straight;	to start to understand things properly;	enlightenment dawns.'
+example-sentence = '  列祖列宗保佑,希望此次开窍大典中能多多涌现出资质优秀的少年,为家族增添新血和希望'
+example-type = ''
+grammar-construct = ''
+hanzi = '开窍'
+notes = ''
+pinyin = '<span class="tone1">kāi</span><span class="tone4">qiào</span>	 <!-- kai qiao -->'
+source = ''

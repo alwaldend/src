@@ -1,0 +1,20 @@
+note_id = 1520716966870
+guid = "p#fxRZh>/Q"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972734
+ordinal = 0
+
+[fields]
+article-title = 'Indicating the whole with "quan"'
+english = "You spoke too fast. I didn't write down all of what you said."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj.+ 不 / 没 + 全都 + Predicate'
+hanzi = '你说得太快了，我没全都记下来。'
+notes = ''
+pinyin = 'Nǐ shuō de tài kuài le, wǒ méi quán dōu jì xiàlái.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCPDSR'

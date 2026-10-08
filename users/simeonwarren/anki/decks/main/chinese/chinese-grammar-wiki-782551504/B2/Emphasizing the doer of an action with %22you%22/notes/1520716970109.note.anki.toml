@@ -1,0 +1,20 @@
+note_id = 1520716970109
+guid = "H>}cH+m&EH"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+id = 1520716975973
+ordinal = 0
+
+[fields]
+article-title = 'Emphasizing the doer of an action with "you"'
+english = "This is for him to decide, don't meddle."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Topic + 由 + Person + Verb'
+hanzi = '这是由他决定的，你就别干涉了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGGNXVR'

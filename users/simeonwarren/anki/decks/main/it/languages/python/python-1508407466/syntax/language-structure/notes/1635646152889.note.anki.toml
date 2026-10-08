@@ -1,0 +1,17 @@
+note_id = 1635646152889
+guid = "E4luo<#^o-"
+note_type_id = 1630447360002
+note_type = "python-basic"
+tags = []
+
+[[cards]]
+id = 1635646152889
+ordinal = 0
+
+[fields]
+'Additional Info' = ''
+'Back - Basic' = ''
+'Back - Code' = '<i>truth_statment</i><font color="#3465a4">&nbsp;if</font>&nbsp;True&nbsp;<font color="#3465a4">else</font>&nbsp;<i>false_statement</i>'
+Example = ''
+Front = 'What is the syntax for the&nbsp;<span style="color: rgb(35, 38, 41);">ternary operation in Python?</span>'
+Version = ''

@@ -1,0 +1,20 @@
+note_id = 1520716970652
+guid = "hJthqHI?3C"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Comparisons"]
+
+[[cards]]
+id = 1520716976516
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "cai" and "jiu"'
+english = 'Your younger sister started college when she was only fifteen?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Time + 就 + Verb + Obj.＋了'
+hanzi = '你妹妹十五岁就上大学了？'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGLOS9C'

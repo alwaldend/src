@@ -1,0 +1,20 @@
+note_id = 1520716968081
+guid = "AJs:~k@W6["
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+id = 1520716973945
+ordinal = 0
+
+[fields]
+article-title = 'Separable verb'
+english = "He's eating a meal right now."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '他吃着饭呢。'
+notes = ''
+pinyin = 'Tā chī zhe fàn ne.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG4GVRX'

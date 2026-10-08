@@ -1,0 +1,20 @@
+note_id = 1520716968173
+guid = "c(a|=oYoG6"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716974037
+ordinal = 0
+
+[fields]
+article-title = 'Expressing comparable degree with "you"'
+english = 'He is already as tall as his father.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A + 有 + B + 这么 / 那么 + 高 / 深 / 宽 / 长'
+hanzi = '他有他那么爸爸高。'
+notes = ''
+pinyin = 'Tā yǒu tā bàba nàme gāo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5DG95'

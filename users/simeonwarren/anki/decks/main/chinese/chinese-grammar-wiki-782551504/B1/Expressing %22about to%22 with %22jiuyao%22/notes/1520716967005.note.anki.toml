@@ -1,0 +1,20 @@
+note_id = 1520716967005
+guid = "unWo7,:Q9-"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972869
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "about to" with "jiuyao"'
+english = 'Our big boss is coming soon.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '(Subj. +) 就要 + Verb + 了'
+hanzi = '我们的大老板就要来了。'
+notes = ''
+pinyin = 'Wǒmen de dà lǎobǎn jiùyào lái le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG9B210'

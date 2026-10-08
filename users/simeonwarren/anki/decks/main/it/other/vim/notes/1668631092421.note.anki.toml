@@ -1,0 +1,17 @@
+note_id = 1668631092421
+guid = "G.9]s;?Y-d"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = []
+
+[[cards]]
+id = 1668631092421
+ordinal = 0
+
+[[cards]]
+id = 1668965796719
+ordinal = 1
+
+[fields]
+Back = '^w h|j|k|l or ^w w'
+Front = 'How do you move the cursor to another window across a split?'

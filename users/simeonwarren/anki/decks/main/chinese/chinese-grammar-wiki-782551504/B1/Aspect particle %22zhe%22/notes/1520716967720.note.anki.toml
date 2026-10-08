@@ -1,0 +1,20 @@
+note_id = 1520716967720
+guid = "ti33/Ayhk:"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973584
+ordinal = 0
+
+[fields]
+article-title = 'Aspect particle "zhe"'
+english = "I'm not very serious, I like to have a lot of fun."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 着 + 玩 + 的'
+hanzi = '我不是认真的，我是闹着玩的。'
+notes = ''
+pinyin = 'Wǒ bùshì rènzhēn de, wǒ shì nào zhe wá de.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGOIDEO'

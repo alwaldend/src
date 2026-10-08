@@ -1,0 +1,20 @@
+note_id = 42
+guid = "cE]Vd9G</L"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+id = 83
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'sin;	crime;	wrongdoing.'
+example-sentence = '你已经犯下了滔天的罪孽,罪无可恕,罄竹难书'
+example-type = ''
+grammar-construct = ''
+hanzi = '罪孽'
+notes = ''
+pinyin = '<span class="tone4">zuì</span><span class="tone4">niè</span>	 <!-- zui nie -->'
+source = ''

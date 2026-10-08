@@ -1,0 +1,20 @@
+note_id = 1520716970153
+guid = "z,zUJr>1PG"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "ButStatements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716976017
+ordinal = 0
+
+[fields]
+article-title = "Expressing \"on the contrary\" with \"fan'er\""
+english = ''
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = 'Sentence， Subj. + 反而 + ⋯⋯'
+hanzi = '我帮了她，她反而生气了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGX5QTV'

@@ -1,0 +1,20 @@
+note_id = 1520716967218
+guid = "E$%*XY,eMk"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973082
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "no wonder"'
+english = "B: Don't blame him. The subway broke down today."
+example-sentence = ''
+example-type = ''
+grammar-construct = '这也 + 难怪 + [Specific Person / People]'
+hanzi = 'B: 这也难怪他。今天地铁坏了。'
+notes = ''
+pinyin = 'B: Zhè yě nánguài tā. Jīntiān dìtiě huài le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGFPV2C'

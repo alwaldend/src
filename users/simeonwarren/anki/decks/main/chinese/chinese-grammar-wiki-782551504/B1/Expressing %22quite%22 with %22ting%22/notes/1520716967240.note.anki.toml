@@ -1,0 +1,20 @@
+note_id = 1520716967240
+guid = "teE([9kLYo"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973104
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "quite" with "ting"'
+english = "You don't think he's quite handsome?"
+example-sentence = ''
+example-type = ''
+grammar-construct = '挺 + Adj. + 的'
+hanzi = '你不觉得他挺帅的吗？'
+notes = ''
+pinyin = 'Nǐ bù juéde tā  tǐng shuài  de ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDF1F7'

@@ -1,0 +1,20 @@
+note_id = 1520716966901
+guid = "FW;|@^H0J6"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972765
+ordinal = 0
+
+[fields]
+article-title = 'Reduplication of adjectives'
+english = "My little sister's birthday is coming and I'm going to throw her a birthday party and have a blast."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + AB + 一下'
+hanzi = '妹妹快过生日了，我打算给她办一个生日派对，热闹热闹。'
+notes = ''
+pinyin = 'Mèimei kuàiguò shēngrìle, wǒ dǎsuàn gěi tā bàn yīgè shēngrì pàiduì, rènao rènao.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDHE8S'

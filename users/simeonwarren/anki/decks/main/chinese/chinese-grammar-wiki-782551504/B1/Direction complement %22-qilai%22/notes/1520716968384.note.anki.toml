@@ -1,0 +1,20 @@
+note_id = 1520716968384
+guid = "f`W^`qeKdF"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716974248
+ordinal = 0
+
+[fields]
+article-title = 'Direction complement "-qilai"'
+english = "Let's start cooking."
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = 'Verb / Adj.+ 起来 +了'
+hanzi = '我们开始做饭吧。'
+notes = ''
+pinyin = 'Wǒmen kāishǐ zuòfàn ba.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGBPXOB'

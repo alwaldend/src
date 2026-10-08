@@ -1,0 +1,20 @@
+note_id = 1520716966176
+guid = "p%k[ab31yN"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972040
+ordinal = 0
+
+[fields]
+article-title = 'Expressing experiences with "guo"'
+english = 'Mom has never bought any expensive clothes before.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 没 + Verb + 过 + Obj.'
+hanzi = '妈妈没买过很贵的衣服。'
+notes = ''
+pinyin = 'Māma méi mǎi guo  hěn guì de yīfu.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQGV3P'

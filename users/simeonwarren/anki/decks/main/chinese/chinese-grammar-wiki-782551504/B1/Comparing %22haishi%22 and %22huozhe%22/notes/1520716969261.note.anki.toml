@@ -1,0 +1,20 @@
+note_id = 1520716969261
+guid = "tx?<Vg[.xz"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Comparisons", "Conjunctions"]
+
+[[cards]]
+id = 1520716975125
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "haishi" and "huozhe"'
+english = ''
+example-sentence = ''
+example-type = 'invalid'
+grammar-construct = 'Option 1 + 或者 + Option 2'
+hanzi = '我不知道他要看电影或者听音乐。'
+notes = "It's an embedded question, so it should use \"还是\""
+pinyin = '<div>Wǒ bù zhīdào tā yào kàn diànyǐng huòzhě tīng yīnyuè.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQJ5IC'

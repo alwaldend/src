@@ -1,0 +1,20 @@
+note_id = 1520716968530
+guid = "EInIR?!fSd"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716974394
+ordinal = 0
+
+[fields]
+article-title = 'Result complement "-qilai"'
+english = 'Everyone started laughing.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb / Adj. + 起来 +了'
+hanzi = '大家笑起来了。'
+notes = ''
+pinyin = 'Dàjiā xiào qǐlái le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGBPXOB'

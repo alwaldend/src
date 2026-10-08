@@ -1,0 +1,20 @@
+note_id = 1520716965461
+guid = "sCH0W_AQ7w"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+id = 1520716971325
+ordinal = 0
+
+[fields]
+article-title = 'Standard negation with "bu"'
+english = 'My older brother is not tall, but he is very handsome.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不 + Adj.'
+hanzi = '我哥哥不高，但是很帅。'
+notes = ''
+pinyin = 'Wǒ gēge bù gāo , dànshì hěn shuài.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGIPYFV'

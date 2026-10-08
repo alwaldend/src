@@ -1,0 +1,20 @@
+note_id = 1520716968566
+guid = "!pC-[J9+a"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716974430
+ordinal = 0
+
+[fields]
+article-title = 'Result complements'
+english = 'Are you not full?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '没 + Verb + Adj.'
+hanzi = '你没吃饱吗？'
+notes = ''
+pinyin = 'Nǐ méi chī bǎo ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNNMST'

@@ -1,0 +1,20 @@
+note_id = 1520716969615
+guid = "qVKCraWK]<"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975479
+ordinal = 0
+
+[fields]
+article-title = 'Advanced uses of "zong"'
+english = "You talk to each other so little. It seems that you're barely family."
+example-sentence = ''
+example-type = ''
+grammar-construct = '总 + 不 / 没 + Verb'
+hanzi = '你们之间的联系这么少，看起来总不像是一家人。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8QS6H'

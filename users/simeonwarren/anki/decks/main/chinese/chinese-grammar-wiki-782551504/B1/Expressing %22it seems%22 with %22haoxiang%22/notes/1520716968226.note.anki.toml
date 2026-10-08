@@ -1,0 +1,20 @@
+note_id = 1520716968226
+guid = "g[6Q;{r/=`"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716974090
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "it seems" with "haoxiang"'
+english = 'It seems that someone was here.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 好像 ⋯⋯'
+hanzi = '好像有人来过。'
+notes = ''
+pinyin = 'Hǎoxiàng yǒu rén lái guo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG3ROPY'

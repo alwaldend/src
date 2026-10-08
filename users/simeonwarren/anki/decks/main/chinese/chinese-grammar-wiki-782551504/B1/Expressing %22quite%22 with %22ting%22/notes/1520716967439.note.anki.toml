@@ -1,0 +1,20 @@
+note_id = 1520716967439
+guid = "F]$C}tW+/n"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["AdverbswithAdjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973303
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "quite" with "ting"'
+english = "Don't you love him a lot? How come you broke up with him?"
+example-sentence = ''
+example-type = ''
+grammar-construct = '挺 + [Verb Phrase] + 的'
+hanzi = '你不是挺爱他的吗？怎么分手了？'
+notes = ''
+pinyin = 'Nǐ bù shì tǐng ài tā de ma? Zěnme fēnshǒu le?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDF1F7'

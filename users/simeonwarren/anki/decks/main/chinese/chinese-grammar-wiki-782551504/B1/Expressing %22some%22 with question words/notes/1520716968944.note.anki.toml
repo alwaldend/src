@@ -1,0 +1,20 @@
+note_id = 1520716968944
+guid = "lwI$Orpj5z"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974808
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "some" with question words'
+english = 'I want to drink something.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '我想喝点儿什么。'
+notes = ''
+pinyin = 'Wǒ xiǎng hē diǎnr shénme.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG7ED89'

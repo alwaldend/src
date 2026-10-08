@@ -1,0 +1,20 @@
+note_id = 1520716965548
+guid = "fJ$~x&n~`m"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+id = 1520716971412
+ordinal = 0
+
+[fields]
+article-title = 'Placement of question words'
+english = 'Hello, where do you want to go?<br>I want to go to the Bund.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 哪里 / 哪儿 ?'
+hanzi = 'A: 你好，你要去哪儿？<br>B: 我要去外滩。'
+notes = ''
+pinyin = 'Nǐhǎo, nǐ yào qù nǎr?<br>Wǒ yào qù Wàitān.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJQPSC'

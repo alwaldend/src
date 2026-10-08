@@ -1,0 +1,20 @@
+note_id = 1520716967103
+guid = "o.8w$Jwqf{"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972967
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "almost" using "chadian"'
+english = 'He almost died.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 差点 (+就) + Predicate + 了'
+hanzi = '他差点就死了。'
+notes = "He didn't die."
+pinyin = 'Tā chàdiǎn jiù sǐ le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG6ESWW'

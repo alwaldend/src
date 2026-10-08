@@ -1,0 +1,20 @@
+note_id = 1520716967551
+guid = "P}|R^v4B1k"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973415
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "in addition" with "haiyou"'
+english = "Who's going to book the hotel room? In addition, did they buy the air tickets?"
+example-sentence = ''
+example-type = ''
+grammar-construct = '⋯⋯ ，还有 ，⋯⋯'
+hanzi = '酒店谁来订？还有，机票买了吗？'
+notes = ''
+pinyin = 'Jiǔdiàn shéi lái dìng? Háiyǒu, jīpiào mǎi hǎo le ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGHQRI1'

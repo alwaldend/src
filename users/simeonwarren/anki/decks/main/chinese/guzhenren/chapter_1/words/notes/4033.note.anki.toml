@@ -1,0 +1,20 @@
+note_id = 4033
+guid = "AWJbe]p!M9"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 4069
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'as if;	to seem like.'
+example-sentence = ' 青茅山却不黑暗,从山腰至山脚,闪着许多莹莹的微光,好像是披着一条灿烂的光带'
+example-type = ''
+grammar-construct = ''
+hanzi = '好像'
+notes = ''
+pinyin = '<span class="tone3">hǎo</span><span class="tone4">xiàng</span>	 <!-- hao xiang -->'
+source = ''

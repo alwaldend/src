@@ -1,0 +1,20 @@
+note_id = 1520716967185
+guid = "jNEcGagd|H"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973049
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "had better" with "haishi"'
+english = "It's too late. We'd better go home now."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 还是 + [Verb Phrase] + 吧'
+hanzi = '太晚了，还是先回家吧。'
+notes = ''
+pinyin = 'Tài wǎn le, háishì xiān huíjiā ba.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWAR65'

@@ -1,0 +1,20 @@
+note_id = 1520716967227
+guid = "PsIk_5~pKg"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973091
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "in this way" with "zheyang"'
+english = "If this is the case, I think we're going to have a big trouble."
+example-sentence = ''
+example-type = ''
+grammar-construct = '(如果是 +) 这样的话 ，⋯⋯'
+hanzi = '如果是这样的话，麻烦就大了。'
+notes = ''
+pinyin = 'Rúguǒ shì zhèyàng dehuà, máfan jiù dà le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG1F4D1'

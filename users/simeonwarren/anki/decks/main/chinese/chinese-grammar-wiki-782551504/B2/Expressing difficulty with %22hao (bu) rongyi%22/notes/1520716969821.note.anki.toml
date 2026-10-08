@@ -1,0 +1,20 @@
+note_id = 1520716969821
+guid = "A#D)Bw){d&"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975685
+ordinal = 0
+
+[fields]
+article-title = 'Expressing difficulty with "hao (bu) rongyi"'
+english = 'Raising a child is not an easy thing to do.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb / [Verb Phrase] + 好容易 / 好不容易'
+hanzi = '养大一个孩子好不容易。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG81QV3'

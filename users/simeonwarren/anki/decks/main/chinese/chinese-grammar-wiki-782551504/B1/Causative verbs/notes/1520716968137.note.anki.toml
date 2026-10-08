@@ -1,0 +1,20 @@
+note_id = 1520716968137
+guid = "b~lGElMa<!"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716974001
+ordinal = 0
+
+[fields]
+article-title = 'Causative verbs'
+english = "Why wouldn't you let me go there?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + [Causative Verb] + Person + Predicate'
+hanzi = '你为什么不让我去？'
+notes = ''
+pinyin = 'Nǐ wèishénme bù ràng wǒ qù?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5T7XC'

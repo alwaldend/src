@@ -1,0 +1,20 @@
+note_id = 1520716968937
+guid = "u=XnerW/u*"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974801
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "some" with question words'
+english = "I've heard this song somewhere."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '这首歌我在哪儿听过。'
+notes = ''
+pinyin = 'Zhè shǒu gē wǒ zài nǎr tīng guo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG7ED89'

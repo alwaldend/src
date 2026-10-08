@@ -1,0 +1,17 @@
+note_id = 1526927479408
+guid = "s8K&[.p!fL"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = []
+
+[[cards]]
+id = 1526927495144
+ordinal = 0
+
+[[cards]]
+id = 1668965796710
+ordinal = 1
+
+[fields]
+Back = ':sp {file} &nbsp; “ or :new {file}'
+Front = 'Open a file in a new buffer and split window'

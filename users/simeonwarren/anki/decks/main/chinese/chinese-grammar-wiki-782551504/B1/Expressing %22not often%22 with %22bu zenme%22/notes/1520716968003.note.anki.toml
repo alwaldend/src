@@ -1,0 +1,20 @@
+note_id = 1520716968003
+guid = "vhuYo91?P!"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+id = 1520716973867
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "not often" with "bu zenme"'
+english = "We don't watch a lot of television at home."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不怎么 + Verb'
+hanzi = '我们在家不怎么看电视。'
+notes = ''
+pinyin = 'Wǒmen zài jiā bù zěnme kàn diànshì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5BOGP'

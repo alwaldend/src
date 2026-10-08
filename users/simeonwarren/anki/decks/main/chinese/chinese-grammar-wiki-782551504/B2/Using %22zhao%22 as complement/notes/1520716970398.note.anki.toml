@@ -1,0 +1,20 @@
+note_id = 1520716970398
+guid = "oCdNRIILJb"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716976262
+ordinal = 0
+
+[fields]
+article-title = 'Using "zhao" as complement'
+english = 'Did you find your cell phone?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 着'
+hanzi = '你的手机找着了吗？'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGM5ZAB'

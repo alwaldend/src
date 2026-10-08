@@ -1,0 +1,20 @@
+note_id = 1520716966112
+guid = "jY1=:bqKbw"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "NumbersandMeasureWords", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971976
+ordinal = 0
+
+[fields]
+article-title = 'Using "ji" to mean "several"'
+english = 'Several hundred foreign companies attended this conference.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '几 + 百 / 千 / 万 + Measure Word + Noun'
+hanzi = '几百家外国公司参加了这个大会。'
+notes = ''
+pinyin = 'Jǐ bǎi jiā wàiguó gōngsī cānjiā le zhège dàhuì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGHC9CA'

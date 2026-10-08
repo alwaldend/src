@@ -1,0 +1,20 @@
+note_id = 1520716967368
+guid = "LhF;Tw/TB4"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973232
+ordinal = 0
+
+[fields]
+article-title = 'Using "ye" and "dou" together'
+english = "He's tall. His two little brothers and he are more or less the same height."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 也都 + Verb / Adj.'
+hanzi = '他很高，他的两个弟弟也都跟他差不多高。'
+notes = ''
+pinyin = 'Tā hěn gāo, tā de liǎng gè dìdi  yě dōu gēn tā chàbuduō gāo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8GSXY'

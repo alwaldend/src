@@ -1,0 +1,17 @@
+note_id = 1670354434054
+guid = "sa99n8Kz>N"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = []
+
+[[cards]]
+id = 1670354434055
+ordinal = 0
+
+[[cards]]
+id = 1670354434056
+ordinal = 1
+
+[fields]
+Back = 'g^a (visual mode)'
+Front = 'Increment the first number on each line of a <b>visual</b> block by one more than the number on the line before'

@@ -1,0 +1,20 @@
+note_id = 1520716970698
+guid = "v]3[}<L^@F"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Comparisons", "Conjunctions"]
+
+[[cards]]
+id = 1520716976562
+ordinal = 0
+
+[fields]
+article-title = "Comparing \"fan'er\" and \"que\""
+english = "It's raining outside, and I didn't bring an umbrella."
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = 'Subj. + 却'
+hanzi = '外面下雨，他却没带伞。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG0K25S'

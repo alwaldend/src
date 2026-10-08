@@ -1,0 +1,20 @@
+note_id = 1520716969194
+guid = "H)H2p_KT:|"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716975058
+ordinal = 0
+
+[fields]
+article-title = 'Using "ba" sentences'
+english = 'Please bring my glasses over here.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 把 + Obj. 1 + Verb + 给 + Obj. 2'
+hanzi = '把我的眼镜拿过来。'
+notes = ''
+pinyin = 'Bǎ wǒ de yǎnjìng ná guòlái.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG2UB2B'

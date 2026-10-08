@@ -1,0 +1,20 @@
+note_id = 1520716968920
+guid = "kfs<2<!g>F"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974784
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "not only... but also"'
+english = 'Not only did he finish it in advance, but he did it very well.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不但 ⋯⋯ ，而且 ⋯⋯'
+hanzi = '他不但提前做完了，而且做得很好。'
+notes = ''
+pinyin = 'Tā bùdàn tíqián zuò wán le, érqiě zuò de hěn hǎo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTYJ3E'

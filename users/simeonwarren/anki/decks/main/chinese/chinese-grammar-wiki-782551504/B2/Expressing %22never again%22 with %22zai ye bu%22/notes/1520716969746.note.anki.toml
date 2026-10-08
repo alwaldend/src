@@ -1,0 +1,20 @@
+note_id = 1520716969746
+guid = "c=M]lvP(.^"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975610
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "never again" with "zai ye bu"'
+english = "I've never eaten any authentic Chinese food ever since I left the country."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 再也 + 没 + Verb + 过 + Obj.'
+hanzi = '出国以后，我再也没吃过地道的中国菜。'
+notes = ''
+pinyin = 'Chūguó yǐhòu, wǒ zài yě méi chī guo dìdào de Zhōngguó cài.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG7R8US'

@@ -1,0 +1,20 @@
+note_id = 1520716966849
+guid = "hO-84H76UU"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972713
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "not very" with "bu zenme"'
+english = "He and his parents don't look very much alike."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不怎么 + Adj. / [Psychological Verb]'
+hanzi = '他跟他父母长得不怎么像。'
+notes = ''
+pinyin = 'Tā gēn tā fùmǔ zhǎng de bù zěnme xiàng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGVYIZT'

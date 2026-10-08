@@ -1,0 +1,20 @@
+note_id = 1520716965196
+guid = "xPinstWX4/"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971060
+ordinal = 0
+
+[fields]
+article-title = 'Offering choices with "haishi"'
+english = 'Shanghai or Beijing?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Option A + 还是 + Option B ?'
+hanzi = '上海还是北京？'
+notes = 'The eternal China expat question! Choose wisely...'
+pinyin = 'Shànghǎi háishì Běijīng?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGA8NIB'

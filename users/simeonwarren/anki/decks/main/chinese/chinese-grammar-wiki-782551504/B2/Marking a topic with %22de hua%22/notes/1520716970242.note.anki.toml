@@ -1,0 +1,20 @@
+note_id = 1520716970242
+guid = "EOQ36Q>I2#"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Grammatical_Structures", "IfStatements"]
+
+[[cards]]
+id = 1520716976106
+ordinal = 0
+
+[fields]
+article-title = 'Marking a topic with "de hua"'
+english = 'With Yunnan, spring is the best time to go.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Topic + 的话， Comment'
+hanzi = '云南的话，春天去最好。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGB0MXK'

@@ -1,0 +1,20 @@
+note_id = 1520716968514
+guid = "zZwgS;#cHa"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716974378
+ordinal = 0
+
+[fields]
+article-title = 'Potential complement'
+english = "You can't eat this kind of street food in Shanghai."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 不 + Complement'
+hanzi = '你在上海吃不到这样的小吃。'
+notes = ''
+pinyin = '<div>Nǐ zài shànghǎi chī bù dào zhèyàng de xiǎochī.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCPJPQ'

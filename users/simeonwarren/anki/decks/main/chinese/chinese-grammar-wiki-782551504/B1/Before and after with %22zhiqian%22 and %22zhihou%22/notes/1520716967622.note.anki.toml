@@ -1,0 +1,20 @@
+note_id = 1520716967622
+guid = "q=UwX*W2&("
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "leech", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973486
+ordinal = 0
+
+[fields]
+article-title = 'Before and after with "zhiqian" and "zhihou"'
+english = "I'm going to eat now. After that I will go to meet a potential client."
+example-sentence = ''
+example-type = ''
+grammar-construct = '⋯⋯ ，之前 / 之后 ⋯⋯'
+hanzi = '我现在去吃饭，之后去见潜在客户。'
+notes = ''
+pinyin = 'Wǒ xiànzài qù chīfàn, zhīhòu qù qián​zài kèhù.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTD3L3'

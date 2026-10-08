@@ -1,0 +1,17 @@
+note_id = 1526926205970
+guid = "wD;Z7Dy8f`"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = ["Insert", "Mode"]
+
+[[cards]]
+id = 1526926219450
+ordinal = 0
+
+[[cards]]
+id = 1668965796627
+ordinal = 1
+
+[fields]
+Back = 'I &nbsp;“ uppercase i'
+Front = 'Insert at the beginning of the line'

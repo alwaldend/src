@@ -1,0 +1,20 @@
+note_id = 1520716968548
+guid = "r9e|zuz&/N"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "NounPhrases"]
+
+[[cards]]
+id = 1520716974412
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "the other" with "lingwai"'
+english = "Half of this cake is yours. The other half is your little sister's."
+example-sentence = ''
+example-type = ''
+grammar-construct = '另外 + Number + [Measure Word] + Noun'
+hanzi = '这个蛋糕一半是你的，另一半是妹妹的。'
+notes = ''
+pinyin = 'Zhège dàngāo yībàn shì nǐ de, lìng yībàn shì mèimei de.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGD3FE5'

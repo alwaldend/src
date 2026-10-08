@@ -1,0 +1,20 @@
+note_id = 1520716969722
+guid = "rE6BG1rn@t"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975586
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "in the end" with "jiujing"'
+english = 'Shanghai is Shanghai after all. The living expense here is high.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A＋究竟 + 是＋ A，……'
+hanzi = '上海究竟是上海，生活成本就是高。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDK0BR'

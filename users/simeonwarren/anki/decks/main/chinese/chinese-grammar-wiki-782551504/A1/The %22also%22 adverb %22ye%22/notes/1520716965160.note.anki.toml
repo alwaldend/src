@@ -1,0 +1,20 @@
+note_id = 1520716965160
+guid = "bqY<T#>aSe"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971024
+ordinal = 0
+
+[fields]
+article-title = 'The "also" adverb "ye"'
+english = 'Are they also going?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 也 + Verb / [Verb Phrase]'
+hanzi = '他们也会去吗？'
+notes = ''
+pinyin = 'Tāmen yě huì qù ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGG25MD'

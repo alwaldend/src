@@ -1,0 +1,20 @@
+note_id = 1520716967904
+guid = "J^RS7qDt"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+id = 1520716973768
+ordinal = 0
+
+[fields]
+article-title = 'Using "dui" with verbs'
+english = 'My younger daughter is curious about all the animals.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '对 + Party + 来说 ，⋯⋯'
+hanzi = '我的小女儿对所有动物都很好奇。'
+notes = ''
+pinyin = "Wǒ de xiǎo nǚ'ér duì suǒyǒu dòngwù dōu hěn hàoqí."
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8ICO9'

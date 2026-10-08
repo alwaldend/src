@@ -1,0 +1,20 @@
+note_id = 1520716965313
+guid = "sNMG^@D[-+"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716971177
+ordinal = 0
+
+[fields]
+article-title = 'Expressing existence with "you"'
+english = 'Is there milk in your house?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Place + 有 + Obj.'
+hanzi = '你家有牛奶吗？'
+notes = ''
+pinyin = 'Nǐ jiā yǒu niúnǎi ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG04ZCI'

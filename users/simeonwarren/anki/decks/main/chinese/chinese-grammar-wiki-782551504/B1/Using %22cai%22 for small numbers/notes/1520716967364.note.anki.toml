@@ -1,0 +1,20 @@
+note_id = 1520716967364
+guid = "D+eAxEEZWL"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973228
+ordinal = 0
+
+[fields]
+article-title = 'Using "cai" for small numbers'
+english = 'I only ate one. Can I have one more?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '才 (+ Verb) + Number + Measure Word + Noun'
+hanzi = '我才吃一个，可以再吃一个吗？'
+notes = ''
+pinyin = 'Wǒ cái chī yī gè, kěyǐ zài chī yī gè ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGYW5RS'

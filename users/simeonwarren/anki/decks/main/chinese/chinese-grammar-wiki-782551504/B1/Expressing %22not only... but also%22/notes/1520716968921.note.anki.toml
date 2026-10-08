@@ -1,0 +1,20 @@
+note_id = 1520716968921
+guid = "pqW40^hEhx"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974785
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "not only... but also"'
+english = "Not only is it hard to find a job for undergraduates, but it's also hard for graduates."
+example-sentence = ''
+example-type = ''
+grammar-construct = '不但 + Subj. 1 ⋯⋯ ，而且 + Subj. 2 + 也 ⋯⋯'
+hanzi = '不但大学生找工作难，而且研究生也不容易。'
+notes = ''
+pinyin = 'Bùdàn dàxuéshēng zhǎo gōngzuò nán, érqiě yánjiūshēng yě bù róngyì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTYJ3E'

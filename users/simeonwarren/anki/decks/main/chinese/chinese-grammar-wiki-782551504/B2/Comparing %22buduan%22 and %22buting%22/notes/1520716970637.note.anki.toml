@@ -1,0 +1,20 @@
+note_id = 1520716970637
+guid = "e`Na>{FkC-"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Comparisons"]
+
+[[cards]]
+id = 1520716976501
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "buduan" and "buting"'
+english = "In the evening, the wife doesn't stop chatting. Can you stand it?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 个 + 不停'
+hanzi = '一天到晚老婆唠叨个不停，你受得了吗？'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGIKHUH'

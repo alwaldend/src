@@ -1,0 +1,20 @@
+note_id = 1520716968728
+guid = "p{>!N-qUP#"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974592
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "either... or..." with "yaome"'
+english = 'Either buy it now, or we get out of here now.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '要么 + Option A ，要么 + Option B'
+hanzi = '要么现在就买，要么现在就走。'
+notes = ''
+pinyin = 'Yàome xiànzài jiù mǎi, yàome xiànzài jiù zǒu.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG30A60'

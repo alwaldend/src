@@ -1,0 +1,20 @@
+note_id = 1520716969581
+guid = "uf?ye9mBbL"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adjectives", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975445
+ordinal = 0
+
+[fields]
+article-title = 'Saying "a lot" with "youdeshi"'
+english = "I have a lot of spare change, you don't need to give me change."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun + Subj. + 有的是 。'
+hanzi = '他爸是大老板，有的是钱。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGVACYB'

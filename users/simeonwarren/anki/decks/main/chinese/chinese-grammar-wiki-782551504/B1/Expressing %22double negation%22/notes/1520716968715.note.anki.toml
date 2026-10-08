@@ -1,0 +1,20 @@
+note_id = 1520716968715
+guid = "zAgGOg+]>8"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974579
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "double negation"'
+english = 'There is no single one that is not spicy among these dishes.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '(Topic +) 没有 + [Single Noun] + 不 / 没 + Predicate + 的'
+hanzi = '这些菜没有一个不辣的。'
+notes = ''
+pinyin = 'Zhèxiē cài méiyǒu yī gè bù là de.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGEEA2D'

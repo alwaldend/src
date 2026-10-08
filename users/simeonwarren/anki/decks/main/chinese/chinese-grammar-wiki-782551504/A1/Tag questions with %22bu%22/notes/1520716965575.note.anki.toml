@@ -1,0 +1,20 @@
+note_id = 1520716965575
+guid = "G>5oWb;98K"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+id = 1520716971439
+ordinal = 0
+
+[fields]
+article-title = 'Tag questions with "bu"'
+english = "He's your boss, right?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 不 + Verb'
+hanzi = '他是你的老板，对不对？'
+notes = ''
+pinyin = 'Tā shì nǐ de lǎobǎn, duì bu duì?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG4D8XB'

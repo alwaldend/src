@@ -1,0 +1,25 @@
+note_id = 1634446611530
+guid = "mVToUB@/~9"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634446611531
+ordinal = 0
+
+[fields]
+additional-info = '<strong>Note:</strong>&nbsp;All string methods returns new values. They do not change the original string.'
+answer = '<i>string</i>.rjust(<i>length</i>)'
+example = """
+<pre><code>&gt;&gt;&gt; mystr = 'Hello'
+&gt;&gt;&gt; mystr.rjust(2)
+'Hello'
+&gt;&gt;&gt; mystr.rjust(2,'*')
+'Hello'
+&gt;&gt;&gt; mystr.rjust(8,'*')
+'***Hello'</code></pre>\
+"""
+question = '<b>String method</b>&nbsp;that returns a right justified version of the string.'
+version = ''
+with-options = '<i>string</i>.rjust(<i>length</i>,&nbsp;<i>character=" "</i>)&nbsp;'

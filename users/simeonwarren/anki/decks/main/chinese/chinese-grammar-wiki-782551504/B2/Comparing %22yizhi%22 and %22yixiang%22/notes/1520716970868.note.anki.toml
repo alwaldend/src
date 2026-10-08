@@ -1,0 +1,20 @@
+note_id = 1520716970868
+guid = "Ltg}a!RQ_o"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Comparisons", "TimeWords"]
+
+[[cards]]
+id = 1520716976732
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "yizhi" and "yixiang"'
+english = "This friend of mine is always very generous,so today he's definitely paying."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '我这个朋友一向都很大方，今天肯定是他请客。'
+notes = ''
+pinyin = '<div>Wǒ zhège péngyǒu yīxiàng dōu hěn dàfāng, jīntiān kěndìng shì tā qǐngkè.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGVEP8S'

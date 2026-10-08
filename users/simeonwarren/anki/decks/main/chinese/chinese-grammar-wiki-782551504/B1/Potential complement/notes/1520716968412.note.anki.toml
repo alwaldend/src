@@ -1,0 +1,20 @@
+note_id = 1520716968412
+guid = "G-S7,`Hw,c"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716974276
+ordinal = 0
+
+[fields]
+article-title = 'Potential complement'
+english = "You can't buyThis type of cell phone now."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 不 + Complement'
+hanzi = '这种手机现在买不到了。'
+notes = ''
+pinyin = 'Zhè zhǒng shǒujī xiànzài mǎi bu dào le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCPJPQ'

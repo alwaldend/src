@@ -1,0 +1,20 @@
+note_id = 1520716967070
+guid = "kKL?6D5/7k"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972934
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "all at once" with "yixiazi"'
+english = 'She lost ten jin the first month she was in the USA.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 一下子 + Verb + 了'
+hanzi = '她在美国的第一个月一下瘦了十斤。'
+notes = 'One "jin" = 500g'
+pinyin = 'Tā zài Měiguó de dì yī gè yuè yīxià shòu le shí jīn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG06EA8'

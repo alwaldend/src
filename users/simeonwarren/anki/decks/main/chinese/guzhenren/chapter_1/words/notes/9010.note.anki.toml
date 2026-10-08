@@ -1,0 +1,20 @@
+note_id = 9010
+guid = "j7Edo#v2sj"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+id = 9028
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'slight;	faint;	humble.'
+example-sentence = ' 这一念生出,古月族长的嘴角不由地微微翘起,浮现出一抹微笑'
+example-type = ''
+grammar-construct = ''
+hanzi = '微微'
+notes = ''
+pinyin = '<span class="tone1">wēi</span><span class="tone1">wēi</span>	 <!-- wei wei -->'
+source = ''

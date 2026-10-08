@@ -1,0 +1,20 @@
+note_id = 1520716969845
+guid = "CD9dH]5.(Y"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["AuxiliaryWords", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975709
+ordinal = 0
+
+[fields]
+article-title = 'Listing things with "a"'
+english = 'Chairs, tables, computers, and so one have all been bough. Now the office only needs to hire workers!'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A 啊， B 啊， C 啊⋯⋯'
+hanzi = '椅子啊，桌子啊，电脑啊什么的都买好了，现在办公室只差招员工了！'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGGPG97'

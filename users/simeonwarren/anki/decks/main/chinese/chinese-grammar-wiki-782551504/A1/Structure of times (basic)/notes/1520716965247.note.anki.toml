@@ -1,0 +1,20 @@
+note_id = 1520716965247
+guid = "z|J.Nz7q7~"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Numbers", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971111
+ordinal = 0
+
+[fields]
+article-title = 'Structure of times (basic)'
+english = "12 o'clock noon"
+example-sentence = ''
+example-type = ''
+grammar-construct = '(Date and/or time of day +) x 点'
+hanzi = '中午十二点'
+notes = ''
+pinyin = "zhōngwǔ shí'èr diǎn"
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGN6BBU'

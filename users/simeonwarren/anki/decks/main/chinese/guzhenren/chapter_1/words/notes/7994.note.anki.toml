@@ -1,0 +1,20 @@
+note_id = 7994
+guid = "BxAr~IV}Nz"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 7995
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'bright;	witty;	intelligent.'
+example-sentence = '五岁时就能作诗诵词,聪慧异常,才华横溢'
+example-type = ''
+grammar-construct = ''
+hanzi = '聪慧'
+notes = ''
+pinyin = '<span class="tone1">cōng</span><span class="tone4">huì</span>	 <!-- cong hui -->'
+source = ''

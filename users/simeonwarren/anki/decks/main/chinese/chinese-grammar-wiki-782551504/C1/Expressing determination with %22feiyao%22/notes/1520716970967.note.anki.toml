@@ -1,0 +1,20 @@
+note_id = 1520716970967
+guid = "f?lw1fTKxd"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Auxiliaryverbs", "C1"]
+
+[[cards]]
+id = 1520716976831
+ordinal = 0
+
+[fields]
+article-title = 'Expressing determination with "feiyao"'
+english = "I didn't want to tell, but she made me tell."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 非要 + Verb + (不可)'
+hanzi = '我不想说，可是她非要让我说不可。'
+notes = ''
+pinyin = 'Wǒ bùxiǎng shuō, kěshì tā fēi yào ràng wǒ shuō bu kě.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQV7TL'

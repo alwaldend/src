@@ -1,0 +1,17 @@
+note_id = 1634369795421
+guid = "lvW{OkuY(#"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634370830804
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<i>dict</i>.items()'
+example = ''
+question = '<b>Dictionary method</b>&nbsp;that&nbsp;returns a list containing a tuple for each key value pair.'
+version = ''
+with-options = ''

@@ -1,0 +1,20 @@
+note_id = 1520716968775
+guid = "hI5MgQcBdC"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974639
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "except" and "in addition" with "chule… yiwai"'
+english = 'Except for weekends, the boss works overtime everyday.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '除了 ⋯⋯ (+ 以外) ，Subj. + 都 ⋯⋯'
+hanzi = '除了周末，老板每天都加班。'
+notes = ''
+pinyin = 'Chúle zhōumò, lǎobǎn měi tiān dōu jiābān.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGHFPGG'

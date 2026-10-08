@@ -1,0 +1,20 @@
+note_id = 1520716966948
+guid = "xaAAdFyj1B"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972812
+ordinal = 0
+
+[fields]
+article-title = 'Coincidence with "zhenghao"'
+english = 'He just happened to be leaving the house while I was knocking at the door.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 正好 + [Verb Phrase]'
+hanzi = '我敲门的时候，他正好出门。'
+notes = ''
+pinyin = 'Wǒ qiāo mén de shíhou, tā zhènghǎo chūmén.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGUD25J'

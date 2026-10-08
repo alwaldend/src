@@ -1,0 +1,20 @@
+note_id = 1520716969931
+guid = "H]*L;=y;<{"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975795
+ordinal = 0
+
+[fields]
+article-title = 'le after an object'
+english = 'The teacher asked five questions.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 了 + Number + Measure Word + Obj.'
+hanzi = '老师问了五个问题。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG4K5WH'

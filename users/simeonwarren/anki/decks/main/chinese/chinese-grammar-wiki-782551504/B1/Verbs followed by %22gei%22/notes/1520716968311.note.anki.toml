@@ -1,0 +1,20 @@
+note_id = 1520716968311
+guid = "IS9[04x}Os"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716974175
+ordinal = 0
+
+[fields]
+article-title = 'Verbs followed by "gei"'
+english = 'Please pass me a box of tissues.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 给 + Recipient + Obj.'
+hanzi = '请递给我一盒纸巾。'
+notes = ''
+pinyin = 'Qǐng dìgěi wǒ yī hé zhǐjīn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMMHTQ'

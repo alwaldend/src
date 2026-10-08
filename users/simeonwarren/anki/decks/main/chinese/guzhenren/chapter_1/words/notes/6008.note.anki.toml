@@ -1,0 +1,20 @@
+note_id = 6008
+guid = "z>Duo$3xGA"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 6021
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'clan;	clansman.'
+example-sentence = ' 一时间,宗族祠堂中尽是额头碰撞地板的轻响'
+example-type = ''
+grammar-construct = ''
+hanzi = '宗族'
+notes = ''
+pinyin = '<span class="tone1">zōng</span><span class="tone2">zú</span>	 <!-- zong zu -->'
+source = ''

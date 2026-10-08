@@ -1,0 +1,20 @@
+note_id = 1520716967215
+guid = "llidSd@bnf"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973079
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "no wonder"'
+english = "Don't blame yourself. He just replied to you yesterday."
+example-sentence = ''
+example-type = ''
+grammar-construct = '这也 + 难怪 + [Specific Person / People]'
+hanzi = '这也难怪你，他昨天才给你回复。'
+notes = ''
+pinyin = 'Zhè yě nánguài nǐ, tā  zuótiān cái gěi nǐ huífù.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGFPV2C'

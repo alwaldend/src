@@ -1,0 +1,20 @@
+note_id = 2015
+guid = "ARMC8h`#6A"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 2031
+ordinal = 0
+
+[fields]
+article-title = ''
+english = "facing death;\tat death's door."
+example-sentence = ' 他们没有动手,都忌惮着方源的临死反扑'
+example-type = ''
+grammar-construct = ''
+hanzi = '临死'
+notes = ''
+pinyin = '<span class="tone2">lín</span><span class="tone3">sǐ</span>	 <!-- lin si -->'
+source = ''

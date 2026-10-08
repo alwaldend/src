@@ -1,0 +1,20 @@
+note_id = 1520716967452
+guid = "A]i^e$yg0!"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["AuxiliaryWords", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973316
+ordinal = 0
+
+[fields]
+article-title = 'Ending a non-exhaustive list with "shenme de"'
+english = 'I like practical presents, watch, clothes, books and so on.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun 1, Noun 2 (+ Noun 3) + 什么的'
+hanzi = '我喜欢实用的礼物，手表、衣服、书什么的。'
+notes = ''
+pinyin = 'Wǒ xǐhuan shíyòng de lǐwù, shǒubiǎo, yīfu, shū shénme de.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDIDAC'

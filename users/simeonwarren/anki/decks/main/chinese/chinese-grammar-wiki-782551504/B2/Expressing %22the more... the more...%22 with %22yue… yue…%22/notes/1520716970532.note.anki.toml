@@ -1,0 +1,20 @@
+note_id = 1520716970532
+guid = "bM$YW7TI]("
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716976396
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "the more... the more..." with "yue… yue…"'
+english = 'The more you eat it, the more you will want to eat.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 越 + Verb + 越 + 想 + Verb'
+hanzi = '你会越吃越想吃。'
+notes = ''
+pinyin = 'Nǐ huì yuè chī yuè xiǎng chī.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGB44F6'

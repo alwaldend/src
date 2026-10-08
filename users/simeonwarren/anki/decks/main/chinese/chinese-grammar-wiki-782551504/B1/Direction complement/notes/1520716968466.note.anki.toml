@@ -1,0 +1,20 @@
+note_id = 1520716968466
+guid = "imwr_ALWyB"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716974330
+ordinal = 0
+
+[fields]
+article-title = 'Direction complement'
+english = "I'm waiting for him in the meeting room. Tell him to come here right now."
+example-sentence = ''
+example-type = ''
+grammar-construct = '到 + Place + 来 / 去'
+hanzi = '我就在会议室等他，你让他马上到会议室来。'
+notes = ''
+pinyin = 'Wǒ jiù zài huìyìshì děng tā, nǐ ràng tā mǎshàng dào huìyìshì lái.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8LWBJ'

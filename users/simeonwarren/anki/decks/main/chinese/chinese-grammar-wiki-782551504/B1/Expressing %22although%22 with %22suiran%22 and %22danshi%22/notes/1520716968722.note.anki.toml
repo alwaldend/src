@@ -1,0 +1,20 @@
+note_id = 1520716968722
+guid = "uV?_U=d!Zf"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974586
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "although" with "suiran" and "danshi"'
+english = "Although he's not very talented, he works very hard."
+example-sentence = ''
+example-type = ''
+grammar-construct = '虽然 ⋯⋯ ，但是 / 可是 ⋯⋯'
+hanzi = '虽然他不是很有天赋，可是他非常努力。'
+notes = ''
+pinyin = 'Suīrán tā bù shì hěn yǒu tiānfù, kěshì tā fēicháng nǔlì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGXI560'

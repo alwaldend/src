@@ -1,0 +1,20 @@
+note_id = 1520716970334
+guid = "qT4>c&K@!,"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Grammatical_Structures", "NoMatterStatements"]
+
+[[cards]]
+id = 1520716976198
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "no matter" with "buguan"'
+english = 'No matter how other people think, you need to keep going.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '不管 + Question Word ，(Subj. +) 都 ⋯⋯'
+hanzi = '不管别人怎么想，你都要坚持。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG0NDS6'

@@ -1,0 +1,20 @@
+note_id = 1520716967736
+guid = "F<Q,LX~*#K"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973600
+ordinal = 0
+
+[fields]
+article-title = 'Reviewing options with "ba"'
+english = 'Not telling him, he will still do it wrong next time; Telling him, he must be upset.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Option 1 + 吧 ，⋯⋯ ；Option 2 + 吧 ，⋯⋯'
+hanzi = '不说吧，他还会做错；说吧，他肯定不高兴。'
+notes = ''
+pinyin = 'Bù shuō ba, tā hái huì zuò cuò; shuō ba, tā kěndìng bù gāoxìng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGELOTT'

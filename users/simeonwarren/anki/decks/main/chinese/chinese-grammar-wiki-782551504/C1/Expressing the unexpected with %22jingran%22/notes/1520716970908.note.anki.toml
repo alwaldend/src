@@ -1,0 +1,20 @@
+note_id = 1520716970908
+guid = "lxjxFYqT^P"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "C1"]
+
+[[cards]]
+id = 1520716976772
+ordinal = 0
+
+[fields]
+article-title = 'Expressing the unexpected with "jingran"'
+english = "Xiao Li is a hard worker. I don't know why he didn't pass."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subject + 竟  ⋯⋯'
+hanzi = '小李那么用功，不知道为什么他竟然没考及格。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG0D90L'

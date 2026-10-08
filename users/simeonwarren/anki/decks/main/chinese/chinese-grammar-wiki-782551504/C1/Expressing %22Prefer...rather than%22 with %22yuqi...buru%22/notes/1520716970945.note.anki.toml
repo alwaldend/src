@@ -1,0 +1,20 @@
+note_id = 1520716970945
+guid = "HNwODh:0QE"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["C1", "SentencePatterns"]
+
+[[cards]]
+id = 1520716976809
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "Prefer...rather than" with "yuqi...buru"'
+english = "I'd rather say that he's my friend than my teacher."
+example-sentence = ''
+example-type = ''
+grammar-construct = '与其说 + A，不如说 + B'
+hanzi = '与其说他是我的老师，不如说他是我的朋友。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWI5CV'

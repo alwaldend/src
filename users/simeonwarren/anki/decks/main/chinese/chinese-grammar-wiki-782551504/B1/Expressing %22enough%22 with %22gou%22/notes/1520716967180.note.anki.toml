@@ -1,0 +1,20 @@
+note_id = 1520716967180
+guid = "C^la@e5m[f"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973044
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "enough" with "gou"'
+english = 'Are you done playing or not?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不 + 够 + Adj. / Verb'
+hanzi = '你玩够了没有？'
+notes = ''
+pinyin = 'Nǐ wán gòu le méiyǒu?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG49BE6'

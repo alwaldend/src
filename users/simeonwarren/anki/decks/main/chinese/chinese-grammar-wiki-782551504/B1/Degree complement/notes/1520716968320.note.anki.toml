@@ -1,0 +1,20 @@
+note_id = 1520716968320
+guid = "EBn3G>.Vyk"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716974184
+ordinal = 0
+
+[fields]
+article-title = 'Degree complement'
+english = "I'm stuffed."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 得 + [Degree Complement]'
+hanzi = '我吃得太饱了。'
+notes = ''
+pinyin = 'Wǒ chī de tài bǎo le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG79STE'

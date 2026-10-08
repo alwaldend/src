@@ -1,0 +1,20 @@
+note_id = 1520716969922
+guid = "H}e:Ge>sz_"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975786
+ordinal = 0
+
+[fields]
+article-title = 'le after an object'
+english = 'She watched TV.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 了 + Obj.'
+hanzi = '她看了电视.'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG4K5WH'

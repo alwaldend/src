@@ -1,0 +1,20 @@
+note_id = 1520716967653
+guid = "D|E_;fj,P?"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973517
+ordinal = 0
+
+[fields]
+article-title = 'Saying "ever since" with "yilai"'
+english = "Since he left school,he's been helping her parents do farm work."
+example-sentence = ''
+example-type = ''
+grammar-construct = '自 / 从 / 自从 + Time or Event + 以来'
+hanzi = '自从退学以来，他一直在帮父母做农活。'
+notes = ''
+pinyin = 'Zìcóng tuìxué yǐlái, tā yīzhí zài bāng fùmǔ zuò nónghuó.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNEMXP'

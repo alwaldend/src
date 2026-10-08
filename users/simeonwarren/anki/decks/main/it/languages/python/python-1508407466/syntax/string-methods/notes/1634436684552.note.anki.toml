@@ -1,0 +1,17 @@
+note_id = 1634436684552
+guid = "o(3;3qEqf="
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634436684553
+ordinal = 0
+
+[fields]
+additional-info = '<strong>Note:</strong>&nbsp;All string methods returns new values. They do not change the original string.'
+answer = '<i>string</i>.isascii()'
+example = ''
+question = '<b>String method</b>&nbsp;that returns True if all characters in the string are ascii characters, otherwise it returns False.'
+version = ''
+with-options = ''

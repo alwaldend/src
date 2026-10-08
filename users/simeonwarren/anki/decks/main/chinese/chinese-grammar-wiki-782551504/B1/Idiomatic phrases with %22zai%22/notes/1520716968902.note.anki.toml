@@ -1,0 +1,20 @@
+note_id = 1520716968902
+guid = "kkEsHjtgJ!"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974766
+ordinal = 0
+
+[fields]
+article-title = 'Idiomatic phrases with "zai"'
+english = 'In American history, who is the most important president?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '在 + Abstract Concepts + 上，  Comment Sentence'
+hanzi = '在美国历史上，最重要的总统是谁？'
+notes = ''
+pinyin = '<div>Tā gāng lái gōngsī bùjiǔ, zài gōngzuò fāngmiàn, hái xūyào nǐ duō bāng bāng tā.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGH13JY'

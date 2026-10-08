@@ -1,0 +1,20 @@
+note_id = 1520716966684
+guid = "Kt$m,l_vnE"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716972548
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "about to happen" with "le"'
+english = "We're almost there."
+example-sentence = ''
+example-type = ''
+grammar-construct = '快要 + Verb + 了'
+hanzi = '我们快到了。'
+notes = ''
+pinyin = 'Wǒmen kuài dào le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNGEU8'

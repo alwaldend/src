@@ -1,0 +1,20 @@
+note_id = 1520716969469
+guid = "-sQ>V3^l."
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Comparisons", "Nouns"]
+
+[[cards]]
+id = 1520716975333
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "renjia" and "bieren"'
+english = "That's other people's business. Why would you care so much?"
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '那是人家的事，你管那么多干嘛？'
+notes = ''
+pinyin = 'Nà shì rénjia de shì, nǐ guǎn nàme duō gàn ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPINA4'

@@ -1,0 +1,20 @@
+note_id = 1520716967948
+guid = "w(CTl=/)-9"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716973812
+ordinal = 0
+
+[fields]
+article-title = 'Causative verbs'
+english = 'I asked him to come and help me fix the computer.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Causative Verb + Noun / Pronoun + Verb-Obj.'
+hanzi = '我请他过来帮我修电脑。'
+notes = ''
+pinyin = 'Wǒ qǐng tā guòlái bāng wǒ xiū diànnǎo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5T7XC'

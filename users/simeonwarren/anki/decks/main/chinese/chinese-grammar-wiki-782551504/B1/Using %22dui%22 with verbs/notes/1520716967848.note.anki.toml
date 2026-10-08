@@ -1,0 +1,20 @@
+note_id = 1520716967848
+guid = "iIP8[Z4E&?"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+id = 1520716973712
+ordinal = 0
+
+[fields]
+article-title = 'Using "dui" with verbs'
+english = 'For a five-year-old kid, this question is too complicated.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '对 + Person + 来说'
+hanzi = '这个问题对一个五岁的孩子来说太复杂了。'
+notes = ''
+pinyin = 'Zhè gè wèntí duì yī gè wǔ suì de háizi lái shuō tài fùzá le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8ICO9'

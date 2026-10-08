@@ -1,0 +1,20 @@
+note_id = 1520716969945
+guid = "zo]tzHV)ja"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Parts_of_Speech", "PrepositionalPhrase"]
+
+[[cards]]
+id = 1520716975809
+ordinal = 0
+
+[fields]
+article-title = 'Defining scope'
+english = 'When we go on business trips, we stay at hotels with at least a 3-star rating.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '级别 / 次序 / 数目 + 以上 / 以下'
+hanzi = '我们出差都住三星级以上的酒店。'
+notes = ''
+pinyin = 'Wǒmen chūchāi dōu zhù sān xīngjí yǐshàng de jiǔdiàn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG7AE5C'

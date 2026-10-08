@@ -1,0 +1,20 @@
+note_id = 1520716966869
+guid = "PLoMH,,Ys6"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972733
+ordinal = 0
+
+[fields]
+article-title = 'Indicating the whole with "quan"'
+english = 'Not all of my family came to my wedding.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj.+ 不 / 没 + 全都 + Predicate'
+hanzi = '我的家人没全都来参加我的婚礼。'
+notes = ''
+pinyin = 'Wǒ de jiārén méi quán dōu lái cānjiā wǒ de hūnlǐ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCPDSR'

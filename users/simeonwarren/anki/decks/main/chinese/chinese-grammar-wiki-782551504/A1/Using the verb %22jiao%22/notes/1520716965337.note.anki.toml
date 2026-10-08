@@ -1,0 +1,20 @@
+note_id = 1520716965337
+guid = "h?MOh=L?sI"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716971201
+ordinal = 0
+
+[fields]
+article-title = 'Using the verb "jiao"'
+english = "What is your dad's name?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 叫 + [Name]'
+hanzi = '你爸爸叫什么？'
+notes = ''
+pinyin = 'Nǐ bàba jiào shénme?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGUGWVZ'

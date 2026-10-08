@@ -1,0 +1,20 @@
+note_id = 1520716966860
+guid = "JNK.=Rw[L-"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972724
+ordinal = 0
+
+[fields]
+article-title = 'Indicating the whole with "quan"'
+english = 'Take them all.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 全都 + Predicate'
+hanzi = '你全都拿走吧。'
+notes = ''
+pinyin = 'Nǐ quán dōu názǒu ba.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCPDSR'

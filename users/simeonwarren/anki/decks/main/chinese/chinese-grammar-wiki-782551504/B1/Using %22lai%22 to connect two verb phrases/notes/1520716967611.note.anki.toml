@@ -1,0 +1,20 @@
+note_id = 1520716967611
+guid = "CY15FKA#2M"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973475
+ordinal = 0
+
+[fields]
+article-title = 'Using "lai" to connect two verb phrases'
+english = 'We need to improve our service quality through training.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '通过 / 用 + Agent + 来 + [Verb Phrase]'
+hanzi = '我们需要通过培训来提高服务质量。'
+notes = ''
+pinyin = 'Wǒmen xūyào tōngguò péixùn lái tígāo fúwù zhìliàng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGBZ578'

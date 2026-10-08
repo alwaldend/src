@@ -1,0 +1,20 @@
+note_id = 4040
+guid = "Jyhzc@G^6+"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 4083
+ordinal = 0
+
+[fields]
+article-title = ''
+english = '(of a city etc) ablaze with lights.'
+example-sentence = ' 这些光来源于一座座高脚吊楼,虽称不上万家灯火,却也有数千的规模'
+example-type = ''
+grammar-construct = ''
+hanzi = '万家灯火'
+notes = ''
+pinyin = '<span class="tone4">wàn</span><span class="tone1">jiā</span><span class="tone1">dēng</span><span class="tone3">huǒ</span>	 <!-- wan jia deng huo -->'
+source = ''

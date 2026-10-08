@@ -1,0 +1,20 @@
+note_id = 1520716970752
+guid = "LXAu:[S,4T"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Comparisons", "Prepositions"]
+
+[[cards]]
+id = 1520716976616
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "chao" "xiang" and "wang"'
+english = 'He walked south.&lt;br /&gt;Why did you make him go south? Going south is dangerous.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '向 +  Direction + Abstract Verb'
+hanzi = 'A:他往南走了。&lt;br /&gt;B:你怎么让他往南走呢？南边很危险。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGIHS2L'

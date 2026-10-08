@@ -1,0 +1,20 @@
+note_id = 1520716970149
+guid = "O.Tr-Bgi-0"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "ButStatements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716976013
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "although" with "jinguan"'
+english = 'Even though nobody agreed with him,he still holds to his views.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '尽管 A，还是 / 仍然 B'
+hanzi = '尽管没人赞同他的观点，他还是坚持自己的看法。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGW863F'

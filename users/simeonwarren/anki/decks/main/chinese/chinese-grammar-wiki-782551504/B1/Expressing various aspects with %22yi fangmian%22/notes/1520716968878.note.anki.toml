@@ -1,0 +1,20 @@
+note_id = 1520716968878
+guid = "KC^uT`7r15"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974742
+ordinal = 0
+
+[fields]
+article-title = 'Expressing various aspects with "yi fangmian"'
+english = 'On one hand, developing solar power can reduce pollution; on the other hand, it could also reduce the cost.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '一 方面 + Aspect 1， (另) 一 方面 + Aspect 2'
+hanzi = '开发太阳能一方面可以减少污染，一方面也可以降低成本。'
+notes = ''
+pinyin = 'Kāifā tàiyángnéng yī fāngmiànkěyǐ jiǎnshǎo wūrǎn, yī fāngmiàn yě kěyǐ jiàngdī chéngběn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCWHNF'

@@ -1,0 +1,20 @@
+note_id = 1520716967144
+guid = "N(9:C.k<Z,"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973008
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "enough" with "gou"'
+english = 'We bought a lot of food. It must be good enough to eat.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 够 + Verb (+ 了)'
+hanzi = '我们买了很多菜，肯定够吃。'
+notes = ''
+pinyin = 'Wǒmen mǎi le hěnduō cài, kěndìng gòu chī.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG49BE6'

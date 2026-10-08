@@ -1,0 +1,17 @@
+note_id = 1526926916923
+guid = "KYnbZ/]vIA"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = ["CutandPaste"]
+
+[[cards]]
+id = 1526926923354
+ordinal = 0
+
+[[cards]]
+id = 1668965796676
+ordinal = 1
+
+[fields]
+Back = '2yy " or &nbsp;yj&nbsp;'
+Front = 'Copy this line and the next'

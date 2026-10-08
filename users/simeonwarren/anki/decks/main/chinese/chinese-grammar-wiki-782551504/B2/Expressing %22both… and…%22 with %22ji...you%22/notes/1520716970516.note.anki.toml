@@ -1,0 +1,20 @@
+note_id = 1520716970516
+guid = "n{J7oGp2z."
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716976380
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "both… and…" with "ji...you"'
+english = "This bank's service is both enthusiastic and thorough."
+example-sentence = ''
+example-type = ''
+grammar-construct = '既 + A + 又 + B'
+hanzi = '这家银行的服务既热情又周到。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGZRPCK'

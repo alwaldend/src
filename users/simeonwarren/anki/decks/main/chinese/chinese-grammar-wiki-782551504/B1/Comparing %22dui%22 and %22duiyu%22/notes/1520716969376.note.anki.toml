@@ -1,0 +1,20 @@
+note_id = 1520716969376
+guid = "e^=Bckjg2)"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Comparisons", "Prepositions"]
+
+[[cards]]
+id = 1520716975240
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "dui" and "duiyu"'
+english = "As for this kind of thing, what's your perspective?"
+example-sentence = ''
+example-type = ''
+grammar-construct = '对／对于 + 动作对象 + Verb'
+hanzi = '对这种事情，你有什么看法？'
+notes = ''
+pinyin = '<div>Duì zhè zhǒng shìqíng, nǐ yǒu shé me kànfǎ?</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG3JELV'

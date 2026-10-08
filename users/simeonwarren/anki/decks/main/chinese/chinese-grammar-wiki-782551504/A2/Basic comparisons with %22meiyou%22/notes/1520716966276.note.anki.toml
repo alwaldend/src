@@ -1,0 +1,20 @@
+note_id = 1520716966276
+guid = "y)/K^csv({"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716972140
+ordinal = 0
+
+[fields]
+article-title = 'Basic comparisons with "meiyou"'
+english = 'The food dad cooks is not as tasty as the food mom cooks.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun 1 + 没有 + Noun 2 + Adj.'
+hanzi = '爸爸做的菜没有妈妈做的菜好吃。'
+notes = ''
+pinyin = 'Bàba zuò de cài méiyǒu māma zuò de cài hǎochī.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGEAH5M'

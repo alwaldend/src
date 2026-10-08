@@ -1,0 +1,20 @@
+note_id = 3060
+guid = "kj?;*/MYxQ"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 3122
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'hundred years;	century;	lifetime.'
+example-sentence = '若是能收入自己这一脉中,好好培养,可保自己这一支百年的昌盛不衰'
+example-type = ''
+grammar-construct = ''
+hanzi = '百年'
+notes = ''
+pinyin = '<span class="tone3">bǎi</span><span class="tone2">nián</span>	 <!-- bai nian -->'
+source = ''

@@ -1,0 +1,20 @@
+note_id = 1520716970535
+guid = "cItfCEJ2}O"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716976399
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "the more... the more..." with "yue… yue…"'
+english = "I'm always so sleepy after taking this medicine. And also, the more I sleep, the more l want to sleep."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 越 + Verb + 越 + 想 + Verb'
+hanzi = '我吃了这个药以后总是想睡觉，而且越睡越想睡。'
+notes = ''
+pinyin = 'Chī le zhège yào yǐhòu, wǒ zǒngshì hěn xiǎng shuìjiào, érqiě yuè shuì yuè xiǎng shuì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGB44F6'

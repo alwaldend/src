@@ -1,0 +1,20 @@
+note_id = 1520716968190
+guid = "jmQ5R1.|9A"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716974054
+ordinal = 0
+
+[fields]
+article-title = 'Making judgments with "suan"'
+english = "It can't be considered to be late to get married at 30."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不 + 算 (+ Adv.) + Adj.'
+hanzi = '三十岁结婚不算晚。'
+notes = ''
+pinyin = 'Sānshí suì jiéhūn bù suàn wǎn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWDWFN'

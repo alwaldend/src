@@ -1,0 +1,20 @@
+note_id = 1520716969565
+guid = "gXm[Zys_K`"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adjectives", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975429
+ordinal = 0
+
+[fields]
+article-title = 'Challenging an adjective with "shenme"'
+english = "What are you nervous for? Haven't you been on stage a bunch of times? You should be used to it by now."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Adj.／Verb + 什么 + (Adj.／Verb)？'
+hanzi = '紧张什么啊，你不是上过好几次舞台了吗？应该早就习惯了吧。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNV2TZ'

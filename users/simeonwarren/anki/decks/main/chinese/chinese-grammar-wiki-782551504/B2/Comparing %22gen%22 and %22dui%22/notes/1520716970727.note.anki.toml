@@ -1,0 +1,20 @@
+note_id = 1520716970727
+guid = "Nvp9B[;1^d"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Comparisons", "Conjunctions"]
+
+[[cards]]
+id = 1520716976591
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "gen" and "dui"'
+english = 'Are you going to go with me?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. 1 跟 Subj. 2 + Verb-Obj.'
+hanzi = '你要跟我一起去吗？'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGC5Y86'

@@ -1,0 +1,20 @@
+note_id = 1520716967442
+guid = "NMW:7dwElg"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["AdverbswithAdjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973306
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "rather" with "bijiao"'
+english = 'Do you prefer to use Gmail or hotmail?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 比较 + [Verb Phrase]'
+hanzi = '你比较喜欢用gmail还是hotmail？'
+notes = ''
+pinyin = 'Nǐ bǐjiào xǐhuan yòng gmail háishì hotmail?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG72HKP'

@@ -1,0 +1,20 @@
+note_id = 1520716968640
+guid = "i#7oq6wT-n"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974504
+ordinal = 0
+
+[fields]
+article-title = 'Conceding a point with "shi"'
+english = "It is tasty, but it's not very healthy."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Adj. + 是 + Adj. ， 但是 / 就是 ⋯⋯'
+hanzi = '好吃是好吃，就是不太健康。'
+notes = ''
+pinyin = 'Hǎochī shì hǎochī, jiùshì bù tài jiànkāng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGT9Y8P'

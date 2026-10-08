@@ -1,0 +1,20 @@
+note_id = 1520716968283
+guid = "OPX{_##[,="
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716974147
+ordinal = 0
+
+[fields]
+article-title = 'Making judgments with "suan"'
+english = 'Do you consider this as a secret?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. (+ 不) + 算 + Noun'
+hanzi = '这算秘密吗？'
+notes = ''
+pinyin = 'Zhè suàn mìmì ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWDWFN'

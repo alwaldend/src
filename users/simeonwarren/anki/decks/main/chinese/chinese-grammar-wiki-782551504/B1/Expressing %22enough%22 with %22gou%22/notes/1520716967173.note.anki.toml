@@ -1,0 +1,20 @@
+note_id = 1520716967173
+guid = "x,!rrlYziu"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973037
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "enough" with "gou"'
+english = "Stop complaining. You've been lucky enough."
+example-sentence = ''
+example-type = ''
+grammar-construct = '够 + Verb / Adj. + 了'
+hanzi = '别抱怨了，你够幸运了。'
+notes = ''
+pinyin = 'Bié bàoyuàn le, nǐ gòu xìngyùn le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG49BE6'

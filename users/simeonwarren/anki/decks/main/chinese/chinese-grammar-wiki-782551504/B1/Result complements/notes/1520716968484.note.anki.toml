@@ -1,0 +1,20 @@
+note_id = 1520716968484
+guid = "cdzZ;tGFci"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716974348
+ordinal = 0
+
+[fields]
+article-title = 'Result complements'
+english = "He broke his older brother's toy."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 没 + Verb + Adj. (+ Obj.)'
+hanzi = '他玩坏了哥哥的玩具。'
+notes = ''
+pinyin = 'Tā wán huài le gēge de wánjù.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNNMST'

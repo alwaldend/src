@@ -1,0 +1,17 @@
+note_id = 1652477065085
+guid = "l.8T`Wh-])"
+note_type_id = 1630447360002
+note_type = "python-basic"
+tags = []
+
+[[cards]]
+id = 1652477065086
+ordinal = 0
+
+[fields]
+'Additional Info' = "This is equivalent to the method <i>dict</i>.get(<i>key</i>) but&nbsp;<i>dict</i>.<i>key</i> doesn't work in python."
+'Back - Basic' = '<i>dict</i>[<i>key</i>]'
+'Back - Code' = ''
+Example = ''
+Front = 'How do you access a value in a dictionary at a specific <i>key </i>without a dict method?'
+Version = ''

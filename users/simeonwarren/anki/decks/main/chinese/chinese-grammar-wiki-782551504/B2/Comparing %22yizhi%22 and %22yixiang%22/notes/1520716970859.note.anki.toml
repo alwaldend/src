@@ -1,0 +1,20 @@
+note_id = 1520716970859
+guid = "jb+)cXNzfx"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Comparisons", "TimeWords"]
+
+[[cards]]
+id = 1520716976723
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "yizhi" and "yixiang"'
+english = 'I will always be with you.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '我会一直陪着你。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGVEP8S'

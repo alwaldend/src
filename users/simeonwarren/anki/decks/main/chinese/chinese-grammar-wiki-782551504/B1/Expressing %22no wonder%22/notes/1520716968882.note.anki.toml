@@ -1,0 +1,20 @@
+note_id = 1520716968882
+guid = "e!k.{^&Urr"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974746
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "no wonder"'
+english = "Your cell phone is out of battery? No wonder I couldn't get through."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Reason ，怪不得 / 难怪 + [Observation]'
+hanzi = '你手机没电了？怪不得我打不通。'
+notes = ''
+pinyin = 'Nǐ shǒujī méi diàn le? Guàibude wǒ dǎ bu tōng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGFPV2C'

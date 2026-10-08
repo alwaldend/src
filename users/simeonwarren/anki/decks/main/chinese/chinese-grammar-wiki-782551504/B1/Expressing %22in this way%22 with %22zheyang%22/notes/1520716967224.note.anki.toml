@@ -1,0 +1,20 @@
+note_id = 1520716967224
+guid = "NT*Y,#[LBz"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973088
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "in this way" with "zheyang"'
+english = 'Parents should spend more time with their children, which will make the children happier.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '⋯⋯ ，这样 + 会 / 才 ⋯⋯'
+hanzi = '父母应该多陪孩子，这样孩子会更快乐。'
+notes = ''
+pinyin = 'Fùmǔ yīnggāi duō péi háizi, zhèyàng háizi huì gèng kuàilè.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG1F4D1'

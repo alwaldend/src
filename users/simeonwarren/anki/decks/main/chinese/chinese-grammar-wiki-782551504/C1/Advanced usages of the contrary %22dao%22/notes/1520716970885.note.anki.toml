@@ -1,0 +1,20 @@
+note_id = 1520716970885
+guid = "jf/by|vl6d"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "C1"]
+
+[[cards]]
+id = 1520716976749
+ordinal = 0
+
+[fields]
+article-title = 'Advanced usages of the contrary "dao"'
+english = "It's great to watch some movie and do some exercise after work."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 倒 +  Adj.'
+hanzi = '业余时间看看电影，做做运动倒也不错。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGXXP6M'

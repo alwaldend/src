@@ -1,0 +1,20 @@
+note_id = 1520716970777
+guid = "fgG;~/:%Ne"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Comparisons", "Prepositions"]
+
+[[cards]]
+id = 1520716976641
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "guanyu" and "duiyu"'
+english = "About children's education, her opinion is very different from her husband's."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '关于孩子的教育，她跟丈夫的看法很不一样。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG1HNBU'

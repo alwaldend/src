@@ -1,0 +1,20 @@
+note_id = 1520716967450
+guid = "Gm1irP659y"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["AuxiliaryWords", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973314
+ordinal = 0
+
+[fields]
+article-title = 'Ending a non-exhaustive list with "shenme de"'
+english = 'Having a dog gives you too much trouble. You need to feed it, give it a bath, play with it, and so on.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun 1, Noun 2 (+ Noun 3) + 什么的'
+hanzi = '养狗很麻烦，你要喂它，给他洗澡，跟它玩什么的。'
+notes = ''
+pinyin = 'Yǎng gǒu hěn máfan, nǐ yào wèi tā, gěi tā xǐzǎo, gēn tā wán shénme de.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDIDAC'

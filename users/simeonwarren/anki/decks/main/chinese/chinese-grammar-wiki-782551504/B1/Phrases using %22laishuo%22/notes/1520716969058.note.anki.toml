@@ -1,0 +1,20 @@
+note_id = 1520716969058
+guid = "LQ^n{<6Go*"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974922
+ordinal = 0
+
+[fields]
+article-title = 'Phrases using "laishuo"'
+english = 'Generally speaking, private schools are more expensive.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '一般来说，私立学校都比较贵。'
+notes = ''
+pinyin = 'Yībān lái shuō, sīlì xuéxiào dōu bǐjiào guì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGD60A6'

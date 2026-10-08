@@ -1,0 +1,20 @@
+note_id = 1520716967338
+guid = "Q1IswJCZxA"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "leech", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973202
+ordinal = 0
+
+[fields]
+article-title = 'Using "always" as a complaint with "laoshi"'
+english = 'Why are you always so mean to me?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 老是 + Adv. + Adj.'
+hanzi = '你老是这么凶干吗？'
+notes = ''
+pinyin = 'Nǐ lǎoshì zhème xiōng gànmá?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGII66E'

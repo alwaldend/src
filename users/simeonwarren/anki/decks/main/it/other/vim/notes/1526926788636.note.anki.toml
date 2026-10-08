@@ -1,0 +1,17 @@
+note_id = 1526926788636
+guid = "hI%%mYJ@7J"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = ["Registers"]
+
+[[cards]]
+id = 1526926798666
+ordinal = 0
+
+[[cards]]
+id = 1668965796666
+ordinal = 1
+
+[fields]
+Back = '"xp'
+Front = 'Paste contents of register x'

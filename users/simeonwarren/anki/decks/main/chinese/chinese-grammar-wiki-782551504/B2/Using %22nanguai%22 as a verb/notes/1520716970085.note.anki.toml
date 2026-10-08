@@ -1,0 +1,20 @@
+note_id = 1520716970085
+guid = "hy].G=`ib#"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716975949
+ordinal = 0
+
+[fields]
+article-title = 'Using "nanguai" as a verb'
+english = "Don't blame him, he's just a child. He doesn't know any better."
+example-sentence = ''
+example-type = ''
+grammar-construct = '难怪 + [Specific Person / People]'
+hanzi = '难怪他，他还是个孩子呢，什么都不懂。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGYKH5G'

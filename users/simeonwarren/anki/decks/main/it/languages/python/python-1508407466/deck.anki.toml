@@ -1,0 +1,12 @@
+id = 1694865976420
+title = 'main::it::languages::python::python-1508407466'
+
+[notes]
+path = 'notes'
+
+[normal]
+config_id = 1
+extend_new = 40
+extend_review = 0
+description = "Please see the <a href='https://ankiweb.net/shared/info/1508407466'>shared deck page</a> for more info."
+markdown_description = false

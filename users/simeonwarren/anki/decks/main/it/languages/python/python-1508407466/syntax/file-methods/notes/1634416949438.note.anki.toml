@@ -1,0 +1,17 @@
+note_id = 1634416949438
+guid = "MHkh28R9%I"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634416949438
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<i>file</i>.seek(<i>offset</i>)'
+example = ''
+question = "<b>File method</b>&nbsp;that changes a file's position"
+version = ''
+with-options = ''

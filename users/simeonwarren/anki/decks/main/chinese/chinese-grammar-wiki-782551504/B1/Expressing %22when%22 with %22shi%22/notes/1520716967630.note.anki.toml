@@ -1,0 +1,20 @@
+note_id = 1520716967630
+guid = "f&0>9H>z(X"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973494
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "when" with "shi"'
+english = 'His children were not around when he died.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '(Subj. +) Verb / Adj. + 时⋯⋯'
+hanzi = '他去世时儿女都不在身边。'
+notes = ''
+pinyin = 'Tā qùshì shí érnǚ dōu bùzài shēnbiān.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGGL59D'

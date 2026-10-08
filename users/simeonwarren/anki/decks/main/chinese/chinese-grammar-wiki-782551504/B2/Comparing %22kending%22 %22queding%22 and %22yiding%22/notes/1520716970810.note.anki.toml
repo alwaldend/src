@@ -1,0 +1,20 @@
+note_id = 1520716970810
+guid = "NUFT2lCLw2"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Comparisons", "SeparateFunctions"]
+
+[[cards]]
+id = 1520716976674
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "kending" "queding" and "yiding"'
+english = "Please give me a definite response. Don't always be so vague."
+example-sentence = ''
+example-type = ''
+grammar-construct = '一定 + （的 +） Noun'
+hanzi = '请给我一个确定的回答，不要总是这么模糊。'
+notes = ''
+pinyin = '<div>Qǐng gěi wǒ yīgè quèdìng de huídá, bùyào zǒng shì zhème móhú.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDPS0J'

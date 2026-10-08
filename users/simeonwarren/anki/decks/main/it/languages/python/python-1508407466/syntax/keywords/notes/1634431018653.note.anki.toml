@@ -1,0 +1,17 @@
+note_id = 1634431018653
+guid = "b~KAZj$}$%"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634431018655
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<b>Keyword</b> used to loop through an iterable object.'
+example = ''
+question = '<b>Keyword:</b> for'
+version = ''
+with-options = ''

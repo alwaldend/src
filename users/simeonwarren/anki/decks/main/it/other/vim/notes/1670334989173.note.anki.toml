@@ -1,0 +1,17 @@
+note_id = 1670334989173
+guid = "l|1d_4jX2}"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = []
+
+[[cards]]
+id = 1670334989173
+ordinal = 0
+
+[[cards]]
+id = 1670334989174
+ordinal = 1
+
+[fields]
+Back = "w “ word<div>W “ word</div><div>s “ sentence</div><div>p “ paragraph&nbsp;</div><div>b “ block ()</div><div>B “ block {}</div><div>t “ tag HTML element</div><div>`'\" “ quote pairs</div><div>([{&lt; “ enclosures&nbsp;</div>"
+Front = 'What are the text objects in vim for i[nner] and a[round] actions?'

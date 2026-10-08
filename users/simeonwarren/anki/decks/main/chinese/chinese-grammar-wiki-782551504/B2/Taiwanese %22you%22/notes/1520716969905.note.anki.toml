@@ -1,0 +1,20 @@
+note_id = 1520716969905
+guid = "tjw]&S_/`H"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975769
+ordinal = 0
+
+[fields]
+article-title = 'Taiwanese "you"'
+english = 'Have you seen that person before?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 有 + Verb + 过 + Obj.'
+hanzi = '你有见过那个人吗？'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGY2D79'

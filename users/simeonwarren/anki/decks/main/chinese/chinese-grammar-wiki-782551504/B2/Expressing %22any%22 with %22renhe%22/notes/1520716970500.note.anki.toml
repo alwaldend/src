@@ -1,0 +1,20 @@
+note_id = 1520716970500
+guid = "C`0K-3ps5#"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716976364
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "any" with "renhe"'
+english = 'Our boss is a very good person. Any thoughts you have you can discuss with him.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '任何 + Noun'
+hanzi = '我们老板人很好，你有任何想法都可以跟他说。'
+notes = ''
+pinyin = 'Wǒmen lǎobǎn rén hěn hǎo, nǐ yǒu rènhé xiǎngfǎ dōu kěyǐ gēn tā shuō.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGP8DXU'

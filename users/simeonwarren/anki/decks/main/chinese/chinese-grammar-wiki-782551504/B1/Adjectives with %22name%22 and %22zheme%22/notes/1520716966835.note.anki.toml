@@ -1,0 +1,20 @@
+note_id = 1520716966835
+guid = "sV!pcz5%|B"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972699
+ordinal = 0
+
+[fields]
+article-title = 'Adjectives with "name" and "zheme"'
+english = 'China has such a big  population. Of course there will be many social problems.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 那么 / 这么 + Adj.'
+hanzi = '中国人口这么多，当然会有很多社会问题。'
+notes = ''
+pinyin = 'Zhōngguó rénkǒu zhème  duō, dāngrán huì yǒu hěn duō shèhuì wèntí.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNKKP6'

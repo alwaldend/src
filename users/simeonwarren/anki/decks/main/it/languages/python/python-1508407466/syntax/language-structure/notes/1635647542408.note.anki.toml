@@ -1,0 +1,17 @@
+note_id = 1635647542408
+guid = "I-Xk*:u+|N"
+note_type_id = 1630447360002
+note_type = "python-basic"
+tags = []
+
+[[cards]]
+id = 1635647542408
+ordinal = 0
+
+[fields]
+'Additional Info' = ''
+'Back - Basic' = 'only the <b>+&nbsp;</b>operator'
+'Back - Code' = ''
+Example = '<div><div>x = [2, 3, 5]</div></div>y = [4, 3, 1]<br>x += y'
+Front = 'Which bitwise and mathematical operators can be used on lists in python?'
+Version = ''

@@ -1,0 +1,20 @@
+note_id = 7027
+guid = "x{s_l}typ4"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 7060
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'pressure.'
+example-sentence = '甚至就连老一辈们都感觉到了这位后起之秀的压力'
+example-type = ''
+grammar-construct = ''
+hanzi = '压力'
+notes = ''
+pinyin = '<span class="tone1">yā</span><span class="tone4">lì</span>	 <!-- ya li -->'
+source = ''

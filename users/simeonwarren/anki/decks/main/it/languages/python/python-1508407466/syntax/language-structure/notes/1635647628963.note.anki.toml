@@ -1,0 +1,17 @@
+note_id = 1635647628963
+guid = "pki?oz|[(C"
+note_type_id = 1630447360002
+note_type = "python-basic"
+tags = []
+
+[[cards]]
+id = 1635647628963
+ordinal = 0
+
+[fields]
+'Additional Info' = ''
+'Back - Basic' = ''
+'Back - Code' = "TypeError: unsupported operand type(s) for -: 'list' and 'list'&nbsp;"
+Example = ''
+Front = '<div><div>What would the result of this code be?&nbsp;<br><br>x = [2, 3, 5]</div><div>y = [4, 3, 1]</div><div>print(x - y)</div></div>'
+Version = ''

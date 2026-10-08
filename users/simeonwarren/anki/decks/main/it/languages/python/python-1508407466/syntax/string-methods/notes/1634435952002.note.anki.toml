@@ -1,0 +1,17 @@
+note_id = 1634435952002
+guid = "m{.~au~^P<"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634435952002
+ordinal = 0
+
+[fields]
+additional-info = '<div>Length refers to the length of the whole string not the space on either side.</div><strong>Note:</strong>&nbsp;All string methods returns new values. They do not change the original string.'
+answer = '<i>string</i>.center(<i>length</i>)'
+example = ''
+question = '<b>String method</b> that returns a centered string.'
+version = ''
+with-options = '<i>string</i>.center(<i>length, character=" "</i>)'

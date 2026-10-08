@@ -1,0 +1,20 @@
+note_id = 1520716965727
+guid = "Ac:Vt4:/{1"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971591
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "always" with "zongshi"'
+english = 'Your boyfriend always uses foul language.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 总是 + Verb'
+hanzi = '你男朋友总是说脏话。'
+notes = ''
+pinyin = 'Nǐ nánpéngyou zǒngshì shuō zānghuà.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGXJPJS'

@@ -1,0 +1,20 @@
+note_id = 1520716969820
+guid = "NKTA$vT1_^"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975684
+ordinal = 0
+
+[fields]
+article-title = 'Expressing difficulty with "hao (bu) rongyi"'
+english = 'Finishing this big project will not be an easy task.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb / [Verb Phrase] + 好容易 / 好不容易'
+hanzi = '要完成这个大项目好不容易啊。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG81QV3'

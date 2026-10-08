@@ -1,0 +1,20 @@
+note_id = 1520716968364
+guid = "d0cf_c>~h*"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716974228
+ordinal = 0
+
+[fields]
+article-title = 'Direction complement'
+english = 'Did you take all your stuff out of your bag?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + [Compound Direction Complement]'
+hanzi = '你包里的东西都拿出来了吗？'
+notes = ''
+pinyin = 'Nǐ bāo lǐ de dōngxi dōu ná chūlái le ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8LWBJ'

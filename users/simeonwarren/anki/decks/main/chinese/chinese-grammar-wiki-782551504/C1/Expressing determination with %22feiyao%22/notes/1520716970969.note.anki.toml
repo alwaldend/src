@@ -1,0 +1,20 @@
+note_id = 1520716970969
+guid = "msH{k.5iKW"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Auxiliaryverbs", "C1"]
+
+[[cards]]
+id = 1520716976833
+ordinal = 0
+
+[fields]
+article-title = 'Expressing determination with "feiyao"'
+english = 'He can solve this problem by himself. Why would you have to help him?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 非要 + Verb + (不可)'
+hanzi = '他自己可以解决这个问题，干嘛非要你去帮他？'
+notes = ''
+pinyin = 'Tā zìjǐ kěyǐ jiějué zhège wèntí, gàn ma fēi yào nǐ qù bāng tā?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQV7TL'

@@ -1,0 +1,17 @@
+note_id = 1634428082911
+guid = "f^z~WS~E0^"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634428082912
+ordinal = 0
+
+[fields]
+additional-info = 'Can also be used as "else if".'
+answer = '<b>Keyword</b> used for conditional else statements.'
+example = ''
+question = '<b>Keyword: </b>elif'
+version = ''
+with-options = ''

@@ -1,0 +1,17 @@
+note_id = 1669842118521
+guid = "F7lA19mQi6"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = []
+
+[[cards]]
+id = 1669842118521
+ordinal = 0
+
+[[cards]]
+id = 1669842118522
+ordinal = 1
+
+[fields]
+Back = '^w N&nbsp;&nbsp; " to drop into normal mode, and then just move the cursor around; Use i to go back to insert mode. Uppercase N'
+Front = 'How do you scroll back in a vim <b>terminal</b> buffer?'

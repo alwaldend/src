@@ -1,0 +1,20 @@
+note_id = 1520716969882
+guid = "r;!)Tt[/oI"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975746
+ordinal = 0
+
+[fields]
+article-title = 'Taiwanese "you"'
+english = 'I saw her and your ex-boyfriend together.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 有 + Verb + Obj.'
+hanzi = '我有看到她跟你前男友在一起。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGY2D79'

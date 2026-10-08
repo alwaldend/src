@@ -1,0 +1,20 @@
+note_id = 1520716969419
+guid = "sf-15Sb7Ub"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Comparisons", "TimeWords"]
+
+[[cards]]
+id = 1520716975283
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "gang" and "gangcai"'
+english = 'He came just now.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '刚才 + Verb'
+hanzi = '他刚才来过。'
+notes = "In this case, he's come and gone already. He's not here anymore."
+pinyin = 'Tā  gāngcái lái guo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJFFWG'

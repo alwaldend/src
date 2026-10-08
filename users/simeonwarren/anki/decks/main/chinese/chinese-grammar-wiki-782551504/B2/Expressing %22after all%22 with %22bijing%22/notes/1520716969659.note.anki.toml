@@ -1,0 +1,20 @@
+note_id = 1520716969659
+guid = "H2*Dj)MqCC"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975523
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "after all" with "bijing"'
+english = "For us, moving is a difficult decision, after all, we've lived here for a few years."
+example-sentence = ''
+example-type = ''
+grammar-construct = '毕竟 + Reason / Characteristic'
+hanzi = '对我们来说，搬家是个很难的决定，毕竟我们已经在这儿生活了好几年。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG4V36Q'

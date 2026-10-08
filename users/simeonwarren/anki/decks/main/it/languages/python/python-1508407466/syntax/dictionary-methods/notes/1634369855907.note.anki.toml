@@ -1,0 +1,21 @@
+note_id = 1634369855907
+guid = "B`!}8uhxVp"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634370830806
+ordinal = 0
+
+[fields]
+additional-info = 'It also takes in an optional default value to be returned if the key is not found. If no default value is added, it will throw a ValueError if no key is found.'
+answer = '<i>dict</i>.pop(<i>key</i>)'
+example = ''
+question = '<b>Dictionary method</b>&nbsp;that&nbsp;removes the element with the specified key from the dictionary and returns it.'
+version = ''
+with-options = """
+
+
+<i>dict</i>.pop(<i>key</i>,&nbsp;<i>defaultvalue=None</i>)\
+"""

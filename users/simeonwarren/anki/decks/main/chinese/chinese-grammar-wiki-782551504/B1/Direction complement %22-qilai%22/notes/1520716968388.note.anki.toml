@@ -1,0 +1,20 @@
+note_id = 1520716968388
+guid = "jI9X:qjjhQ"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716974252
+ordinal = 0
+
+[fields]
+article-title = 'Direction complement "-qilai"'
+english = 'These food taste all good.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 起来 + Adv. + Adj.'
+hanzi = '这些菜尝起来都不错。'
+notes = ''
+pinyin = 'Zhèxiē cài cháng qǐlái dōu bùcuò.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGBPXOB'

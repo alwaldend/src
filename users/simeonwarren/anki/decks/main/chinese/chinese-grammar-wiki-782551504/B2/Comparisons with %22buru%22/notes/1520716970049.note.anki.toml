@@ -1,0 +1,20 @@
+note_id = 1520716970049
+guid = "Eh?WAHrZSW"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716975913
+ordinal = 0
+
+[fields]
+article-title = 'Comparisons with "buru"'
+english = "My elder brother's ."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A + 不如 + B'
+hanzi = '我哥的成绩不如我。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWH1D5'

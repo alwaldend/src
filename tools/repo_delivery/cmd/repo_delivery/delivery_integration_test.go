@@ -354,8 +354,8 @@ func (f integrationDeliveryFixture) advanceBase(t *testing.T) {
 
 func TestDeliveryPublishesLargePreparationReceipt(t *testing.T) {
 	fixture := newIntegrationDeliveryFixture(t)
-	for i := range 2000 {
-		path := filepath.Join(fixture.work, "submissions", strings.Repeat("a", 100), fmt.Sprintf("%04d", i), "submission.toml")
+	for i := range 6000 {
+		path := filepath.Join(fixture.work, "submissions", strings.Repeat("a", 180), fmt.Sprintf("%04d", i), "submission.toml")
 		if err := os.MkdirAll(filepath.Dir(path), 0o755); err != nil {
 			t.Fatalf("create submission directory: %v", err)
 		}
@@ -390,6 +390,12 @@ func TestDeliveryPublishesLargePreparationReceipt(t *testing.T) {
 	}
 	if !published.Verified || published.PullRequest == nil || published.PullRequest.HeadRefOID != prepared.HeadOID {
 		t.Fatalf("large change publication was not verified")
+	}
+	if artifacts := os.Getenv("TEST_UNDECLARED_OUTPUTS_DIR"); artifacts != "" {
+		report := fmt.Sprintf("paths=6000\nreceipt_bytes=%d\nverified=%t\n", info.Size(), published.Verified)
+		if err := os.WriteFile(filepath.Join(artifacts, "large-publication.txt"), []byte(report), 0o600); err != nil {
+			t.Fatal(err)
+		}
 	}
 }
 
@@ -628,6 +634,61 @@ func TestDeliveryPreparePublishVerify(t *testing.T) {
 	}
 	if !hasFinalLine(published.PullRequest.Body, pullRequestDisclaimer) {
 		t.Fatalf("pull request body lacks disclaimer: %q", published.PullRequest.Body)
+	}
+}
+
+func TestDeliveryPreparePublishLargeCollection(t *testing.T) {
+	fixture := newIntegrationDeliveryFixture(t)
+	directory := filepath.Join(fixture.work, "notes")
+	if err := os.MkdirAll(directory, 0o700); err != nil {
+		t.Fatal(err)
+	}
+	for index := 0; index < 2200; index++ {
+		name := fmt.Sprintf("%04d-%s.toml", index, strings.Repeat("field", 24))
+		writeTestFile(t, filepath.Join(directory, name), "note_id = 1\n")
+	}
+	messageDirectory := filepath.Join(fixture.work, "out", "delivery")
+	if err := os.MkdirAll(messageDirectory, 0o700); err != nil {
+		t.Fatal(err)
+	}
+	writeTestFile(t, filepath.Join(messageDirectory, "commit.md"), "Export a large collection\n")
+	prepared, err := fixture.delivery.prepare(context.Background(), prepareOptions{
+		MessageFile: "out/delivery/commit.md",
+		ReceiptFile: "out/delivery/prepare.json",
+		Paths:       []string{"notes"},
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+	info, err := os.Stat(filepath.Join(messageDirectory, "prepare.json"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if info.Size() <= 256*1024 || len(prepared.Receipt.Scope.AggregatePaths) != 2200 {
+		t.Fatalf("large receipt: %d bytes and %d paths", info.Size(), len(prepared.Receipt.Scope.AggregatePaths))
+	}
+	published, err := fixture.delivery.publish(context.Background(), publishOptions{
+		ValidatedHead: prepared.HeadOID,
+		ReceiptFile:   "out/delivery/prepare.json",
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !published.Verified || published.PullRequest == nil || published.PullRequest.HeadRefOID != prepared.HeadOID {
+		t.Fatal("large collection publication was not verified")
+	}
+	oversize := filepath.Join(messageDirectory, "oversize.json")
+	if err := os.WriteFile(oversize, make([]byte, 4*1024*1024+1), 0o600); err != nil {
+		t.Fatal(err)
+	}
+	if _, err := readStableReceiptFileWithLimit(oversize, preparationReceiptFileLimit); err == nil || !strings.Contains(err.Error(), "exceeds") {
+		t.Fatalf("oversized receipt was not refused: %v", err)
+	}
+	if artifactDirectory := os.Getenv("TEST_UNDECLARED_OUTPUTS_DIR"); artifactDirectory != "" {
+		verification := fmt.Sprintf("files=2200\nreceipt_bytes=%d\npublication_verified=true\noversize_refused=true\n", info.Size())
+		if err := os.WriteFile(filepath.Join(artifactDirectory, "large-collection-verification.txt"), []byte(verification), 0o600); err != nil {
+			t.Fatal(err)
+		}
 	}
 }
 

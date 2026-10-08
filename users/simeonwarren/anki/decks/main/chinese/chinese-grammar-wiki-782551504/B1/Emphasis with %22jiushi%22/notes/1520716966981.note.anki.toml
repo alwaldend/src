@@ -1,0 +1,20 @@
+note_id = 1520716966981
+guid = "PfbLg(2Vy5"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972845
+ordinal = 0
+
+[fields]
+article-title = 'Emphasis with "jiushi"'
+english = 'A moron is precisely what you are!'
+example-sentence = ''
+example-type = ''
+grammar-construct = '就是 + Noun'
+hanzi = '你就是个笨蛋！'
+notes = ''
+pinyin = 'Nǐ jiù shì gè bèndàn!'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGY21RK'

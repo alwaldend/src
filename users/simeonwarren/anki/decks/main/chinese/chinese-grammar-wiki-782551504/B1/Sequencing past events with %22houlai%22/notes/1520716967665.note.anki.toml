@@ -1,0 +1,20 @@
+note_id = 1520716967665
+guid = "p5o`^g>+[g"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973529
+ordinal = 0
+
+[fields]
+article-title = 'Sequencing past events with "houlai"'
+english = 'She used to be a part time teacher. Afterwards she became full time.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '[Past Event 1] ，后来 ，[Past Event 2]'
+hanzi = '她以前是兼职老师，后来做了全职。'
+notes = ''
+pinyin = 'Tā yǐqián shì jiānzhí lǎoshī, hòulái zuò le quánzhí.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGY0UDC'

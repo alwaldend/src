@@ -1,0 +1,20 @@
+note_id = 1520716966134
+guid = "JL>/%EhwS~"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971998
+ordinal = 0
+
+[fields]
+article-title = 'Conceding with "ba"'
+english = "I'm not feeling well today. Can you go by yourself?<br>All right, rest well then."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Statement + 吧'
+hanzi = 'A: 我今天不太舒服，你可以自己去吗？<br>B: 好吧，那你好好休息。'
+notes = ''
+pinyin = 'Wǒ jīntiān bù tài shūfu, nǐ kěyǐ zìjǐ qù ma?<br>Hǎo ba, nà nǐ hǎohǎo xiūxi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJIP2E'

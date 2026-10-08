@@ -1,0 +1,20 @@
+note_id = 1520716967073
+guid = "MYYVluZ:g6"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972937
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "all at once" with "yixiazi"'
+english = 'He became very famous soon after that movie.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 一下子 + 就 + Verb + 了'
+hanzi = '拍完那部电影以后，他一下子就出名了。'
+notes = ''
+pinyin = 'Pāi wán nà bù diànyǐng yǐhòu, tā yīxiàzi jiù chūmíng le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG06EA8'

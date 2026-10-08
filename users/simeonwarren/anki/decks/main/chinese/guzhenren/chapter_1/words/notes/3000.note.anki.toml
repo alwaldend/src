@@ -1,0 +1,20 @@
+note_id = 3000
+guid = "IXuFuB1~!B"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 3002
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'fine black hair;	dried plum (sliced, as cake ingredient).'
+example-sentence = '当真是朝如青丝暮成雪,是非成败转头空'
+example-type = ''
+grammar-construct = ''
+hanzi = '青丝'
+notes = ''
+pinyin = '<span class="tone1">qīng</span><span class="tone1">sī</span>	 <!-- qing si -->'
+source = ''

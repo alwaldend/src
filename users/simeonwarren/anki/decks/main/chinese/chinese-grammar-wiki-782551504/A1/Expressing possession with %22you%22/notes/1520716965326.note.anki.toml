@@ -1,0 +1,20 @@
+note_id = 1520716965326
+guid = "Fng<&UPJ]}"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716971190
+ordinal = 0
+
+[fields]
+article-title = 'Expressing possession with "you"'
+english = 'Does your teacher have an iPad?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 有 + Obj.'
+hanzi = '你的老师有iPad吗？'
+notes = ''
+pinyin = 'Nǐ de lǎoshī yǒu iPad ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGOOCVO'

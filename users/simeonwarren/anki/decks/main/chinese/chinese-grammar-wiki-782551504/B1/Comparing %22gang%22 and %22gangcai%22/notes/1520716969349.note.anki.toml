@@ -1,0 +1,20 @@
+note_id = 1520716969349
+guid = "p>>.Yj$xPk"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Comparisons"]
+
+[[cards]]
+id = 1520716975213
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "gang" and "gangcai"'
+english = 'I just heard.'
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = ''
+hanzi = '我刚听说。'
+notes = 'The verb 听说 includes a clear enough indication of result.'
+pinyin = 'Wǒ gāng tīngshuō.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJFFWG'

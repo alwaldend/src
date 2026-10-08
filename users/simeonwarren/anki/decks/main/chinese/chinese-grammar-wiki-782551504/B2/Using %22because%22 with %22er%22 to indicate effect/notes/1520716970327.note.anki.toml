@@ -1,0 +1,20 @@
+note_id = 1520716970327
+guid = "t!ci<b5O/="
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Cause/EffectStatements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716976191
+ordinal = 0
+
+[fields]
+article-title = 'Using "because" with "er" to indicate effect'
+english = 'Because I got sick, I asked for time off.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 因(为) + Cause + 而 + Result'
+hanzi = '我因为生病而请假。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGL1V0A'

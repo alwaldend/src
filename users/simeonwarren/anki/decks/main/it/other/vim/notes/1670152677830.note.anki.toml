@@ -1,0 +1,17 @@
+note_id = 1670152677830
+guid = "L(R{f9W4ws"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = []
+
+[[cards]]
+id = 1670152677830
+ordinal = 0
+
+[[cards]]
+id = 1670152677831
+ordinal = 1
+
+[fields]
+Back = 'zt'
+Front = 'Move cursor and current line to the top of the screen.'

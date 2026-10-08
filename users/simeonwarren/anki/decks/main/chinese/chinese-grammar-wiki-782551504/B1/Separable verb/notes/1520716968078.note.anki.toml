@@ -1,0 +1,20 @@
+note_id = 1520716968078
+guid = "kn#W)NYu3D"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+id = 1520716973942
+ordinal = 0
+
+[fields]
+article-title = 'Separable verb'
+english = "We're having a meeting right now."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '我们开着会呢。'
+notes = ''
+pinyin = 'Wǒmen kāi zhe huì ne.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG4GVRX'

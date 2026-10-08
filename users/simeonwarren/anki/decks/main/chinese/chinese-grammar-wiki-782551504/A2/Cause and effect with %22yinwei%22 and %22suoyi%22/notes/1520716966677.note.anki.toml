@@ -1,0 +1,20 @@
+note_id = 1520716966677
+guid = "c8{j)[5(Rh"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716972541
+ordinal = 0
+
+[fields]
+article-title = 'Cause and effect with "yinwei" and "suoyi"'
+english = "I was too busy, so I didn't have time to give you a call."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Reason, 所以 + Result'
+hanzi = '我太忙了，所以没有时间给你打电话。'
+notes = ''
+pinyin = 'Wǒ tài máng le, suǒyǐ méiyǒu shíjiān gěi nǐ dǎ diànhuà.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTDUJO'

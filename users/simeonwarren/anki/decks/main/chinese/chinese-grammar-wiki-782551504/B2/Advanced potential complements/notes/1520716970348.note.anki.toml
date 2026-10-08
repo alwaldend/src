@@ -1,0 +1,20 @@
+note_id = 1520716970348
+guid = "QTJmOyu[6]"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716976212
+ordinal = 0
+
+[fields]
+article-title = 'Advanced potential complements'
+english = 'Is there enough room in your house to accommodate that many people?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 得 / 不 + 下'
+hanzi = '你家住得下这么多人吗？'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG516F9'

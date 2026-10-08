@@ -1,0 +1,20 @@
+note_id = 1520716969913
+guid = "G>40Ge)Xs."
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975777
+ordinal = 0
+
+[fields]
+article-title = 'Taiwanese "you"'
+english = 'At that time, were you working?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 有 + 在 + Verb'
+hanzi = '那时候你有在工作吗？'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGY2D79'

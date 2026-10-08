@@ -1,0 +1,20 @@
+note_id = 1520716966063
+guid = "g$:W*[4uyu"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Numbers", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971927
+ordinal = 0
+
+[fields]
+article-title = 'Approximating with sequential numbers'
+english = 'one or two days'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Number + (Number + 1)'
+hanzi = '一两天'
+notes = ''
+pinyin = 'yī liǎng tiān'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGOUD8U'

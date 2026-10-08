@@ -1,0 +1,20 @@
+note_id = 1520716968144
+guid = "n;N?l_]$=R"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716974008
+ordinal = 0
+
+[fields]
+article-title = 'Causative verbs'
+english = 'Can I ask you to look after my dog tomorrow?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + [Causative Verb] + Person + Predicate'
+hanzi = '能不能请你明天照顾一下我的狗？'
+notes = ''
+pinyin = 'Néng bu néng qǐng nǐ míngtiān zhàogu yīxià wǒ de gǒu?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5T7XC'

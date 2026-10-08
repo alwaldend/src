@@ -1,0 +1,17 @@
+note_id = 1634415122849
+guid = "or21Y~XPME"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634415122850
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<i>file</i>.close()'
+example = ''
+question = '<b>File method</b>&nbsp;used to close a file.'
+version = ''
+with-options = ''

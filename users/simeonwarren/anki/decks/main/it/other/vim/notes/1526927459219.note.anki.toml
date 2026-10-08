@@ -1,0 +1,17 @@
+note_id = 1526927459219
+guid = "C+^}%qlZkV"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = ["WorkingWithMultipleFiles"]
+
+[[cards]]
+id = 1526927470077
+ordinal = 0
+
+[[cards]]
+id = 1668965796708
+ordinal = 1
+
+[fields]
+Back = ':bd[elete]'
+Front = 'Delete a buffer'

@@ -1,0 +1,20 @@
+note_id = 1520716970263
+guid = "z}}XWmH_)_"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "EvenIfStatements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716976127
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "even if…" with "jiusuan"'
+english = 'We should carry on no matter how difficult it is.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '就算 + Subj. 1 + 再 ⋯⋯ ，Subj. 2 + 也 ⋯⋯'
+hanzi = '就算再困难，我们也要坚持。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGLI513'

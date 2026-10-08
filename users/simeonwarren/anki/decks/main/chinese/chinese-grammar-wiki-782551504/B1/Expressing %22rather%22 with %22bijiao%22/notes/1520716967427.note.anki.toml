@@ -1,0 +1,20 @@
+note_id = 1520716967427
+guid = "L3r_d:^)aD"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["AdverbswithAdjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973291
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "rather" with "bijiao"'
+english = 'Nowadays young people prefer to use App to watch TV.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 比较 + Adj. / Psychological Verb'
+hanzi = '现在的年轻人比较喜欢用App看电视。'
+notes = ''
+pinyin = 'Xiànzài de niánqīng rén bǐjiào xǐhuan yòng App kàn diànshì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG72HKP'

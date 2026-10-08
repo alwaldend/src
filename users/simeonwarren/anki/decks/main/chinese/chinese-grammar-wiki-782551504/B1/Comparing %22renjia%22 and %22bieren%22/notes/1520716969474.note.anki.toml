@@ -1,0 +1,20 @@
+note_id = 1520716969474
+guid = "qd}38$QjJ,"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Comparisons", "Nouns"]
+
+[[cards]]
+id = 1520716975338
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "renjia" and "bieren"'
+english = 'How many household are here in this compartment?'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '这个小区有多少户人家？'
+notes = ''
+pinyin = 'Zhège xiǎoqū yǒu duōshǎo hù rénjiā?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPINA4'

@@ -1,0 +1,20 @@
+note_id = 1520716968644
+guid = "M/6/hk3}s|"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974508
+ordinal = 0
+
+[fields]
+article-title = 'Conceding a point with "shi"'
+english = "This teacher teaches very well; It's just she's too strict."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Adj. + 是 + Adj. ， 但是 / 就是 ⋯⋯'
+hanzi = '这个老师教得好是好，就是太严格。'
+notes = ''
+pinyin = 'Zhège lǎoshī jiāo de hǎo shì hǎo, jiùshì tài yángé.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGT9Y8P'

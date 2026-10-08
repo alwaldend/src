@@ -1,0 +1,20 @@
+note_id = 1520716969030
+guid = "kib.g;AAV9"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974894
+ordinal = 0
+
+[fields]
+article-title = 'Expressing various aspects with "yi fangmian"'
+english = 'On one hand, cook for yourself is more healthier; on the other hand, it can help to save some money.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '一 方面 ⋯⋯ ， (另) 一 方面 ⋯⋯'
+hanzi = '自己做饭一方面更健康，一方面还能省点钱。'
+notes = ''
+pinyin = 'Zìjǐ zuòfàn yī fāngmiàn gèng jiànkāng, yī fāngmiàn hái  néng shěng diǎn qián.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCWHNF'

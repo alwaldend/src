@@ -1,0 +1,20 @@
+note_id = 1520716969885
+guid = "qDk/$<O%#6"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975749
+ordinal = 0
+
+[fields]
+article-title = 'Taiwanese "you"'
+english = 'He has told me your phone number.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 有 +  Verb + Obj.'
+hanzi = '他有告诉我你的电话号码。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGY2D79'

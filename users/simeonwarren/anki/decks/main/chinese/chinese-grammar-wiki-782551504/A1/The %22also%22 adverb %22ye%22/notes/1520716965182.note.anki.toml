@@ -1,0 +1,20 @@
+note_id = 1520716965182
+guid = "cI`Nkeao/`"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971046
+ordinal = 0
+
+[fields]
+article-title = 'The "also" adverb "ye"'
+english = 'I am an American.<br>Me too. / I am too.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 也 (+ Adv.) + Adj.'
+hanzi = 'A:我是美国人。<br>B:我也是。'
+notes = ''
+pinyin = 'Wǒ shì Měiguó rén.<br>Wǒ yě shì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGG25MD'

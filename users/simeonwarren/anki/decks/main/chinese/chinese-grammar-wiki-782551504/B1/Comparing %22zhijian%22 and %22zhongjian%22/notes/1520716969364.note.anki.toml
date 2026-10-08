@@ -1,0 +1,20 @@
+note_id = 1520716969364
+guid = "cMcC}@+m9+"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Comparisons", "Nouns"]
+
+[[cards]]
+id = 1520716975228
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "zhijian" and "zhongjian"'
+english = "I'm in the middle of this row of seats."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun + (的 +) 中间'
+hanzi = '我在这一排座位的中间。'
+notes = ''
+pinyin = '<div>Wǒ zài zhè yī pái zuòwèi de zhōngjiān.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGN6O6J'

@@ -1,0 +1,20 @@
+note_id = 1520716968269
+guid = "KwLt/bPR}!"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716974133
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "through" with "tongguo"'
+english = "He didn't pass yesterday's job interview."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '他没通过昨天的面试。'
+notes = ''
+pinyin = 'Tā méi tōngguò zuótiān de miànshì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG9B1E3'

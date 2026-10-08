@@ -1,0 +1,20 @@
+note_id = 1520716969437
+guid = "nkhyORrk%H"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Comparisons", "TimeWords"]
+
+[[cards]]
+id = 1520716975301
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "gang" and "gangcai"'
+english = "I just didn't drink your beer."
+example-sentence = ''
+example-type = 'invalid'
+grammar-construct = '刚 + Adj.'
+hanzi = '我刚没喝你的啤酒。'
+notes = "Don't use 刚 with 没 in the past."
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJFFWG'

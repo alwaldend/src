@@ -1,0 +1,20 @@
+note_id = 5046
+guid = "EFFf*ocnM|"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 5096
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'home;	family;	(polite) my (sister, uncle etc);	classifier for families or businesses;	refers to the philosophical schools of pre-Han China;	noun suffix for a specialist in some activity, such as a musician or revolutionary, corresponding to English -ist, -er, -ary or -ian.see 家伙.<br>Cl: 个'
+example-sentence = '他们穿着宽大的白色祭服,都是家族中的家老、话事人,执掌着各方面的权柄'
+example-type = ''
+grammar-construct = ''
+hanzi = '家'
+notes = ''
+pinyin = '<span class="tone5">jiājiā</span>	 <!-- jia jia -->'
+source = ''

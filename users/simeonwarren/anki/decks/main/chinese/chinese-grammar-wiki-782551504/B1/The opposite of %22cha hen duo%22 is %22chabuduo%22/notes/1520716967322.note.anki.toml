@@ -1,0 +1,20 @@
+note_id = 1520716967322
+guid = "B*Rt@+3{tO"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973186
+ordinal = 0
+
+[fields]
+article-title = 'The opposite of "cha hen duo" is "chabuduo"'
+english = 'There is a big difference in price you two charge.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A + 跟 / 和 + B + 差很多'
+hanzi = '你们两个人要的价格差很多。'
+notes = ''
+pinyin = 'Nǐmen liǎng gè rén yào de jiàgé chà hěn duō.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQAN74'

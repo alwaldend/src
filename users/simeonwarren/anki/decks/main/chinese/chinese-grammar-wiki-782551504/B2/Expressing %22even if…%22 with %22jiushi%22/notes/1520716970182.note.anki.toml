@@ -1,0 +1,20 @@
+note_id = 1520716970182
+guid = "DXvHfl<nBM"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "EvenIfStatements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716976046
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "even if…" with "jiushi"'
+english = "Even if this computer's price is over 10,000 yuan, I'm still going to buy it."
+example-sentence = ''
+example-type = ''
+grammar-construct = '就是 + Hypothetical Statement + 也 + Action'
+hanzi = '就是这台电脑价格上万，我也会买。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGF1TQ2'

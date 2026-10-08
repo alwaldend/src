@@ -1,0 +1,20 @@
+note_id = 1520716968904
+guid = "M8>?ATuQSJ"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974768
+ordinal = 0
+
+[fields]
+article-title = 'Idiomatic phrases with "zai"'
+english = 'How can kids be happy growing up in this kind of environment?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '在 + Abstract Concept + 下， Result／Comment Sentence'
+hanzi = '在这样的环境下长大，孩子怎么可能会快乐？'
+notes = ''
+pinyin = '<div>Zài zhèyàng de huánjìng xià zhǎng dà, háizǐ zěnme kěnéng huì kuàilè?</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGH13JY'

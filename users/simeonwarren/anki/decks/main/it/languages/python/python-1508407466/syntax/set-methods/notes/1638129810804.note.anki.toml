@@ -1,0 +1,17 @@
+note_id = 1638129810804
+guid = "opFE>&f^:i"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1638129810804
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<i>set</i>.symmetric_difference_update(<i>set</i>)'
+example = '<div>x = {1, 2, 4, 5}<br></div><div>y = {2, 3, 4, 6}</div><div>x.symmetric_difference_update(y)</div><div>print(x) #{1, 3, 5, 6}&nbsp;</div>'
+question = '<b>Set method</b>&nbsp;that updates the called on set (example <i>x</i>) to include items that either exist in the called on set (example <i>x</i>), or the argument set (example&nbsp;<i>y</i>), <b>but not both,</b> into the called on set (xor).&nbsp;'
+version = ''
+with-options = ''

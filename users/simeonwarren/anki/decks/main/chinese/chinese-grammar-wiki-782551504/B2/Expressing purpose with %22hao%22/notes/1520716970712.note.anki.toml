@@ -1,0 +1,20 @@
+note_id = 1520716970712
+guid = "IFZh>m}Ui7"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716976576
+ordinal = 0
+
+[fields]
+article-title = 'Expressing purpose with "hao"'
+english = 'Teacher, you need to speak a little slower so that we can write them down.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Action ，好 + Purpose'
+hanzi = '老师，请说慢点儿，我们好做笔记。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG18JOA'

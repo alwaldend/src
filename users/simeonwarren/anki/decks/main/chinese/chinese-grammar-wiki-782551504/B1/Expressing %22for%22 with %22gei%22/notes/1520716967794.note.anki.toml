@@ -1,0 +1,20 @@
+note_id = 1520716967794
+guid = "m;?TX(~ces"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+id = 1520716973658
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "for" with "gei"'
+english = 'Can you take my suitcase for me?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 给 + Recipient + [Verb Phrase]'
+hanzi = '可以给我拿一下行李吗？'
+notes = ''
+pinyin = 'Kěyǐ gěi wǒ ná yīxià xíngli ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGLHAV3'

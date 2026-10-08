@@ -1,0 +1,20 @@
+note_id = 1520716966694
+guid = "e:n3.p0ygz"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716972558
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "about to happen" with "le"'
+english = "I'm going to get angry!"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 要 + Verb / Adj. + 了'
+hanzi = '我要生气了！'
+notes = ''
+pinyin = 'Wǒ yào shēngqì le!'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNGEU8'

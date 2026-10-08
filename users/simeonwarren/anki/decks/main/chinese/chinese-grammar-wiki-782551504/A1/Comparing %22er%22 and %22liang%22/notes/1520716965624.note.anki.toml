@@ -1,0 +1,20 @@
+note_id = 1520716965624
+guid = "OWX]1m,JpO"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Comparisons", "Numbers"]
+
+[[cards]]
+id = 1520716971488
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "er" and "liang"'
+english = 'second floor'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '二楼'
+notes = ''
+pinyin = 'èr lóu'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJ46H1'

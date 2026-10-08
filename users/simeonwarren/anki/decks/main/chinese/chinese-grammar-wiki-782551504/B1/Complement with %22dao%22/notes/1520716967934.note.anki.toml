@@ -1,0 +1,20 @@
+note_id = 1520716967934
+guid = "vhjT}y;8kw"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+id = 1520716973798
+ordinal = 0
+
+[fields]
+article-title = 'Complement with "dao"'
+english = 'Do you know we waited for you until midnight?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '[Verb Phrase] (+ 一直) + Verb + 到 + Time / Event'
+hanzi = '你知不知道我们等你等到半夜？'
+notes = ''
+pinyin = 'Nǐ zhī bu zhīdào wǒmen děng dào bànyè?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG1CCAP'

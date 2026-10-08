@@ -1,0 +1,20 @@
+note_id = 1520716969888
+guid = "ehPmP_jgu1"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975752
+ordinal = 0
+
+[fields]
+article-title = 'Taiwanese "you"'
+english = 'The first time I exercised so much, I was so tired.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 有 + Adj. + 到'
+hanzi = '第一次做这么多运动，真的有累到。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGY2D79'

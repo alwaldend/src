@@ -1,0 +1,20 @@
+note_id = 1520716965997
+guid = "A*a#Q%dN8J"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971861
+ordinal = 0
+
+[fields]
+article-title = 'After a specific time with "yihou"'
+english = 'In a few years, our company will be even bigger.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Time / Verb + 以后, ....'
+hanzi = '几年以后，我们公司会更大。'
+notes = ''
+pinyin = 'Jǐ nián  yǐhòu, wǒmen gōngsī huì gèng dà.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGRLQGY'

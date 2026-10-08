@@ -1,0 +1,20 @@
+note_id = 1520716970369
+guid = "ixpc_<G,ze"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716976233
+ordinal = 0
+
+[fields]
+article-title = 'Advanced result complements'
+english = 'He turned on his cell phone to play games as soon as he opened his eyes this morning.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '他早上一睁开眼就打开手机玩游戏。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG4OM4T'

@@ -1,0 +1,20 @@
+note_id = 1520716965701
+guid = "gCQ/FVSF67"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971565
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "all along" with "yizhi"'
+english = 'Have you always worked in this company?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 一直 + Predicate'
+hanzi = '你一直在这家公司工作吗？'
+notes = ''
+pinyin = 'Nǐ yīzhí zài zhè jiā gōngsī gōngzuò ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGP000J'

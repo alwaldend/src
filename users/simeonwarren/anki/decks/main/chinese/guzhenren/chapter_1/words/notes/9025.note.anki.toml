@@ -1,0 +1,20 @@
+note_id = 9025
+guid = "FHqa2NIc7A"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+id = 9058
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'spirit;	mind;	consciousness;	thought;	mental;	psychological;	essence;	gist.<br>vigor;	vitality;	drive;	spiritual.<br><br>Cl: 个'
+example-sentence = ' 旋即,咳嗽一声,对诸位家老们道: 诸位,时候不早了,为了明日的开窍大殿,今晚请务必好好休息,保养精神'
+example-type = ''
+grammar-construct = ''
+hanzi = '精神'
+notes = ''
+pinyin = '<span class="tone1">jīng</span><span class="tone5">shénjīng</span><span class="tone5">shen</span>	 <!-- jing shen jing shen -->'
+source = ''

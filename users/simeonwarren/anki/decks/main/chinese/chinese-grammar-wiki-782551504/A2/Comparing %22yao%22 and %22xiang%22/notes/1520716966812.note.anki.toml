@@ -1,0 +1,20 @@
+note_id = 1520716966812
+guid = "Fv.:6^efGW"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Auxiliaryverbs", "Comparisons"]
+
+[[cards]]
+id = 1520716972676
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "yao" and "xiang"'
+english = 'She is going to look for a new job next month.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 要 + Verb'
+hanzi = '下个月她要找新工作。'
+notes = ''
+pinyin = 'Xià gè yuè tā yào zhǎo xīn gōngzuò.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGD88UO'

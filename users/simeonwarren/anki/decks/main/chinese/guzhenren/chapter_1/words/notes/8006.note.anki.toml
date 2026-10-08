@@ -1,0 +1,20 @@
+note_id = 8006
+guid = "BA~EERynIt"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+id = 8019
+ordinal = 0
+
+[fields]
+article-title = ''
+english = '(not only ...) but also;	moreover;	in addition;	furthermore.'
+example-sentence = '   嗯,这是有早智的,而且有大志向'
+example-type = ''
+grammar-construct = ''
+hanzi = '而且'
+notes = ''
+pinyin = '<span class="tone2">ér</span><span class="tone3">qiě</span>	 <!-- er qie -->'
+source = ''

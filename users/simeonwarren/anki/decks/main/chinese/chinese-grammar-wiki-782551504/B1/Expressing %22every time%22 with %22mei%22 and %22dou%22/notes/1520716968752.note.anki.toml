@@ -1,0 +1,20 @@
+note_id = 1520716968752
+guid = "bGurLVu8op"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974616
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "every time" with "mei" and "dou"'
+english = "He would say it's because of traffic jam every time he's late."
+example-sentence = ''
+example-type = ''
+grammar-construct = '每次 + Event 1 + 都 + Event 2'
+hanzi = '他每次迟到都说因为堵车。'
+notes = ''
+pinyin = 'Tā měicì chídào dōu shuō yīnwèi dǔchē.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGXHQEF'

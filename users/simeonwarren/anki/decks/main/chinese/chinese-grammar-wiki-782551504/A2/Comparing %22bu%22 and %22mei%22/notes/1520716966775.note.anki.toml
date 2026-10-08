@@ -1,0 +1,20 @@
+note_id = 1520716966775
+guid = "kp##47u,uA"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Adverbs", "Comparisons"]
+
+[[cards]]
+id = 1520716972639
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "bu" and "mei"'
+english = "I don't have a way."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 没有 + Obj.'
+hanzi = '我没办法。'
+notes = ''
+pinyin = 'Wǒ méi bànfǎ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGRJ1BI'

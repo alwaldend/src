@@ -1,0 +1,20 @@
+note_id = 1520716967589
+guid = "JzSL]Kn0dm"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973453
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "when" with "dengdao"'
+english = 'It was not until  Friday evening that we finished this activity program.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '直到 + Time Word / [Verb Phrase] ，Subj. + 都  + 不 / 没 + Predicate'
+hanzi = '直到周五晚上，我们才做好这个活动方案。'
+notes = ''
+pinyin = "Zhídào Zhōuwǔ wǎnshang, wǒmen cái zuòhǎo zhège huódòng fāng'àn."
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG68F61'

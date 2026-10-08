@@ -1,0 +1,20 @@
+note_id = 1520716967496
+guid = "d(B!;HepWd"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["AuxiliaryWords", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973360
+ordinal = 0
+
+[fields]
+article-title = 'Non-exhaustive lists with "dengdeng"'
+english = 'Our company has marketing department, design department, technology department, etc.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A1，A2 ⋯⋯ 等 / 等等'
+hanzi = '我们公司有市场部、设计部、技术部，等等。'
+notes = ''
+pinyin = 'Wǒmen gōngsī yǒu shìchǎng bù, shèjì bù, jìshù bù, děngděng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGF763H'

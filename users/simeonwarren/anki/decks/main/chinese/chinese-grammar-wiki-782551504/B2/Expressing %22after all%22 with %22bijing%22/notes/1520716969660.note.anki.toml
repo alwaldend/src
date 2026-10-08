@@ -1,0 +1,20 @@
+note_id = 1520716969660
+guid = "E8jI[t/o~r"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975524
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "after all" with "bijing"'
+english = "Although he did something wrong, he is, after all, so young. So don't hit him."
+example-sentence = ''
+example-type = ''
+grammar-construct = '虽然 ⋯⋯ ， 但 + 毕竟 ⋯⋯ ， (As a Result)， ⋯⋯'
+hanzi = '虽然他做错了，但毕竟他还是小，你就别打他了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG4V36Q'

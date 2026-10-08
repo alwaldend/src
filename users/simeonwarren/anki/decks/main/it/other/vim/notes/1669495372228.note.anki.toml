@@ -1,0 +1,17 @@
+note_id = 1669495372228
+guid = "JaRJ0/OX4v"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = []
+
+[[cards]]
+id = 1669495372228
+ordinal = 0
+
+[[cards]]
+id = 1669495372229
+ordinal = 1
+
+[fields]
+Back = '[m'
+Front = 'Go to previous method'

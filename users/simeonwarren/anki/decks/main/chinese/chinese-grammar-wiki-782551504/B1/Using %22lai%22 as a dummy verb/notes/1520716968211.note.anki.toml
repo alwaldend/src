@@ -1,0 +1,20 @@
+note_id = 1520716968211
+guid = "P^6=YE~2<U"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716974075
+ordinal = 0
+
+[fields]
+article-title = 'Using "lai" as a dummy verb'
+english = 'Let me do it.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '(让 +) Subj. + 来 + Verb'
+hanzi = '我来吧。'
+notes = ''
+pinyin = 'Wǒ lái ba.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG98FZK'

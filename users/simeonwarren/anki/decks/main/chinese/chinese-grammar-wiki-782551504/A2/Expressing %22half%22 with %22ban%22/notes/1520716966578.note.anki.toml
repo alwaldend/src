@@ -1,0 +1,20 @@
+note_id = 1520716966578
+guid = "G8o`%fAcHm"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Grammatical_Structures", "NumbersandMeasureWords"]
+
+[[cards]]
+id = 1520716972442
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "half" with "ban"'
+english = 'an hour and a half'
+example-sentence = ''
+example-type = ''
+grammar-construct = '半 + Measure Word + Noun'
+hanzi = '一个半小时'
+notes = ''
+pinyin = 'yī gè bàn xiǎoshí'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGAC1P9'

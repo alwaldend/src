@@ -1,0 +1,17 @@
+note_id = 1526925665275
+guid = "u;=_w@@nQ9"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = ["Cursor", "Movement"]
+
+[[cards]]
+id = 1526925679625
+ordinal = 0
+
+[[cards]]
+id = 1668965796597
+ordinal = 1
+
+[fields]
+Back = 'w'
+Front = 'Jump forwards to the start of a word'

@@ -1,0 +1,20 @@
+note_id = 1520716969391
+guid = "cG^62h8wV7"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Comparisons"]
+
+[[cards]]
+id = 1520716975255
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "youdian" and "yidian"'
+english = 'Please speak a little more slowly.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '请说慢一点。'
+notes = ''
+pinyin = 'Qǐng shuō màn yīdiǎn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGV55Y4'

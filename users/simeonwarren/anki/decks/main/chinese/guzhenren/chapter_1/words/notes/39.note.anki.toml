@@ -1,0 +1,20 @@
+note_id = 39
+guid = "G2cA:|.#$x"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 77
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'man;	person;	people.<br>Cl: 个, 位'
+example-sentence = '   方源你个该死的魔头,你为了练成春秋蝉,杀了千万人的性命'
+example-type = ''
+grammar-construct = ''
+hanzi = '人'
+notes = ''
+pinyin = '<span class="tone2">rén</span>	 <!-- ren -->'
+source = ''

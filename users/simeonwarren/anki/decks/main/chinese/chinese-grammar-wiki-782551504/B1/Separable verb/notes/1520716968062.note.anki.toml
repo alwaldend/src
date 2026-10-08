@@ -1,0 +1,20 @@
+note_id = 1520716968062
+guid = "MrGD_5Q)pe"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+id = 1520716973926
+ordinal = 0
+
+[fields]
+article-title = 'Separable verb'
+english = 'Can you do me a favor?'
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = ''
+hanzi = '你可以帮我一个忙吗？'
+notes = ''
+pinyin = 'Nǐ kěyǐ bāng wǒ yī gè máng ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG4GVRX'

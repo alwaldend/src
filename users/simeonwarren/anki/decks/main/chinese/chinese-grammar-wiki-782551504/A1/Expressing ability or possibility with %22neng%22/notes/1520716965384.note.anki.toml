@@ -1,0 +1,20 @@
+note_id = 1520716965384
+guid = "nMf4~IW1dr"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Auxiliaryverbs", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971248
+ordinal = 0
+
+[fields]
+article-title = 'Expressing ability or possibility with "neng"'
+english = 'I can eat 40 dumplings.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 能 + Verb + Obj.'
+hanzi = '我能吃四十个饺子。'
+notes = ''
+pinyin = 'Wǒ néng chī sìshí gè jiǎozi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG9PQ40'

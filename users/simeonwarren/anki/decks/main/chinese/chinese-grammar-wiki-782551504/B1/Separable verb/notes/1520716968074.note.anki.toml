@@ -1,0 +1,20 @@
+note_id = 1520716968074
+guid = "D^oX37}qg1"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+id = 1520716973938
+ordinal = 0
+
+[fields]
+article-title = 'Separable verb'
+english = "We've met yesterday."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '我们昨天见了面。'
+notes = 'separated, 了 inserted'
+pinyin = 'Wǒmen zuótiān jiàn le miàn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG4GVRX'

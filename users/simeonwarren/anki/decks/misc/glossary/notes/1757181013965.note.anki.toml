@@ -1,0 +1,17 @@
+note_id = 1757181013965
+guid = "zSn&_O)jc^"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = []
+
+[[cards]]
+id = 1757181013966
+ordinal = 0
+
+[[cards]]
+id = 1757181013967
+ordinal = 1
+
+[fields]
+Back = 'A power distribution unit (PDU) is a device fitted with multiple outputs designed to distribute electric power, especially to racks of computers and networking equipment located within a data center.<br><br>https://en.m.wikipedia.org/wiki/Power_distribution_unit'
+Front = 'What is PDU?'

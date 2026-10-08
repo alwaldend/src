@@ -1,0 +1,20 @@
+note_id = 1520716970635
+guid = "l@U/Gvxosx"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Comparisons"]
+
+[[cards]]
+id = 1520716976499
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "buduan" and "buting"'
+english = 'The child is crying constantly. Does he have a fever?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 个 + 不停'
+hanzi = '孩子哭个不停，是不是发烧了？'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGIKHUH'

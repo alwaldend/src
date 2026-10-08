@@ -1,0 +1,20 @@
+note_id = 1520716965513
+guid = "mq+db|[V:!"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+id = 1520716971377
+ordinal = 0
+
+[fields]
+article-title = 'Affirmative-negative question'
+english = 'Is the coffee expensive here?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Adj. + 不 + Adj.'
+hanzi = '这里的咖啡贵不贵？'
+notes = ''
+pinyin = 'Zhèlǐ de kāfēi gùi bu gùi?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGZH7K3'

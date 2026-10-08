@@ -1,0 +1,20 @@
+note_id = 1520716969052
+guid = "CD|?zm`=ns"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974916
+ordinal = 0
+
+[fields]
+article-title = 'Using "de" (modal particle)'
+english = 'I believe it will become better and better.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Statement + 的'
+hanzi = '我相信会越来越好的。'
+notes = ''
+pinyin = 'Wǒ xiāngxìn huì yuèláiyuè hǎo de.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG19S1M'

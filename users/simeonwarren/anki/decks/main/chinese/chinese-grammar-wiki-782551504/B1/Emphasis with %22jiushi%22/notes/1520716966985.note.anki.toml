@@ -1,0 +1,20 @@
+note_id = 1520716966985
+guid = "Lo,Wi(7bSb"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "leech", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972849
+ordinal = 0
+
+[fields]
+article-title = 'Emphasis with "jiushi"'
+english = 'He said this only because he envies me.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '就是 + Noun'
+hanzi = '他这样说就是嫉妒我。'
+notes = ''
+pinyin = 'Tā zhèyàng shuō jiùshì jídù wǒ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGY21RK'

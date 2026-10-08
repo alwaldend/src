@@ -1,0 +1,20 @@
+note_id = 1520716966069
+guid = "dzYp8/Z)08"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Numbers", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971933
+ordinal = 0
+
+[fields]
+article-title = 'Approximating with sequential numbers'
+english = 'To complete this work, you need one to two months.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Number + (Number + 1)'
+hanzi = '要做完这个工作需要一两个月。'
+notes = ''
+pinyin = 'Yào zuò wán zhège gōngzuò xūyào yī liǎng gè yuè.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGOUD8U'

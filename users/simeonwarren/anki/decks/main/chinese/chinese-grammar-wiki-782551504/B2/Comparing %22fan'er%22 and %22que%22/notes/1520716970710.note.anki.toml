@@ -1,0 +1,20 @@
+note_id = 1520716970710
+guid = "QYB/LMP<`^"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Comparisons", "Conjunctions"]
+
+[[cards]]
+id = 1520716976574
+ordinal = 0
+
+[fields]
+article-title = "Comparing \"fan'er\" and \"que\""
+english = "They are all trying to assert their opinions, but you're there not talking. Why?&lt;br /&gt;I used to bring them up a lot, but you didn't commend me for it. Instead you said I spoke too much, so now I don't speak."
+example-sentence = ''
+example-type = ''
+grammar-construct = '⋯⋯， 但（是）却⋯⋯'
+hanzi = 'A:他们都在提自己的建议，你却坐在那里不说话？&lt;br /&gt;B:我以前经常提建议，你没表扬我，反而说我话多。我只好不说了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG0K25S'

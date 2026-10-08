@@ -1,0 +1,20 @@
+note_id = 1520716970799
+guid = "l2nFTK/4z1"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Comparisons", "SeparateFunctions"]
+
+[[cards]]
+id = 1520716976663
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "kending" "queding" and "yiding"'
+english = ''
+example-sentence = ''
+example-type = 'invalid'
+grammar-construct = '确定 +  Phrase / Sentence'
+hanzi = '我们要先肯定一个形式才能开始做。'
+notes = 'In this sentence, "肯定" needs  to be followed by a noun or a noun phrase.'
+pinyin = '<div>Wǒmen yào xiān kěndìng yīgè xíngshì cáinéng kāishǐ zuò.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDPS0J'

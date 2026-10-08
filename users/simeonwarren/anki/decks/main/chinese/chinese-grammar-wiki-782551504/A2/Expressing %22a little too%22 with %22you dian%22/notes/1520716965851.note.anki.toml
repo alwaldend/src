@@ -1,0 +1,20 @@
+note_id = 1520716965851
+guid = "nt*(4(1=8O"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "AdverbswithAdjectives", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971715
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "a little too" with "you dian"'
+english = 'This dish is a little too spicy.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 有点(儿) + Adj.'
+hanzi = '这个菜有一点辣。'
+notes = ''
+pinyin = 'Zhège cài yǒuyīdiǎn là.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPM3MY'

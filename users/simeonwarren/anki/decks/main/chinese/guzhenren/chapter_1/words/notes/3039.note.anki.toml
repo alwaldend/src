@@ -1,0 +1,20 @@
+note_id = 3039
+guid = "LO^e4/!Jc:"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 3080
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'to sigh;	to exclaim.variant of 叹.'
+example-sentence = ' 方源心中叹着,有些感慨,却并不后悔'
+example-type = ''
+grammar-construct = ''
+hanzi = '叹'
+notes = ''
+pinyin = '<span class="tone5">tàntàn</span>	 <!-- tan tan -->'
+source = ''

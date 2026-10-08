@@ -1,0 +1,17 @@
+note_id = 1634371207917
+guid = "e0@^8MTFGd"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634371207917
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<i>list</i>.count(<i>value</i>)'
+example = ''
+question = '<b>List method</b>&nbsp;that returns the number of times the specified value occurs in a list.'
+version = ''
+with-options = ''

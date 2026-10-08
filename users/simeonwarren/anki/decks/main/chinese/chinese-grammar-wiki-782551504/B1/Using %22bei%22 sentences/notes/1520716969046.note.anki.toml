@@ -1,0 +1,20 @@
+note_id = 1520716969046
+guid = "s;*1r1,JJ/"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974910
+ordinal = 0
+
+[fields]
+article-title = 'Using "bei" sentences'
+english = 'He will definitely get fired.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '他肯定会被开除。'
+notes = ''
+pinyin = '<div>Tā kěndìng huì bèi kāichú.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGHF9F1'

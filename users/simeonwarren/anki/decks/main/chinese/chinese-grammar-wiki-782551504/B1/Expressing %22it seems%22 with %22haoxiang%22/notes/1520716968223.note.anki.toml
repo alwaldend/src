@@ -1,0 +1,20 @@
+note_id = 1520716968223
+guid = "t5W6`$9D*2"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716974087
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "it seems" with "haoxiang"'
+english = "He's sitting there all by himself. It seems like that he's thinking about something."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 好像 ⋯⋯'
+hanzi = '他一个人坐在那儿，好像在想事情。'
+notes = ''
+pinyin = 'Tā yī gèrén zuò zài nàr, hǎoxiàng zài xiǎng shìqing.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG3ROPY'

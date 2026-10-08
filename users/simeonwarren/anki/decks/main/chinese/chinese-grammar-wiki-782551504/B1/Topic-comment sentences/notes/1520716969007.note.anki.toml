@@ -1,0 +1,20 @@
+note_id = 1520716969007
+guid = "M44uUHvAPv"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974871
+ordinal = 0
+
+[fields]
+article-title = 'Topic-comment sentences'
+english = "I can't speak Japanese well no matter how hard I try."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '日语，我怎么说也说得不好。'
+notes = 'Japanese is the topic that is emphasized.'
+pinyin = '<div>Rìyǔ, wǒ zěnme shuō yě shuō dé bù hǎo.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5KNWW'

@@ -1,0 +1,20 @@
+note_id = 1520716968001
+guid = "j=eTsztT{I"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+id = 1520716973865
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "not often" with "bu zenme"'
+english = "He doesn't like talking too much."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不怎么 + Verb'
+hanzi = '他不怎么爱说话。'
+notes = ''
+pinyin = 'Tā bù zěnme ài shuōhuà.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5BOGP'

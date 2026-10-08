@@ -1,0 +1,17 @@
+note_id = 1526927615415
+guid = "O;7dO$[N2u"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = ["WorkingWithMultipleFiles"]
+
+[[cards]]
+id = 1526927632757
+ordinal = 0
+
+[[cards]]
+id = 1668965796717
+ordinal = 1
+
+[fields]
+Back = '^w l &nbsp;“ lowercase L'
+Front = 'Move cursor to the right window (across a vertical split)'

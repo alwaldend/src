@@ -1,0 +1,20 @@
+note_id = 1520716970125
+guid = "eAlj0oDcq0"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+id = 1520716975989
+ordinal = 0
+
+[fields]
+article-title = 'Passive verbs with "shou"'
+english = "Teacher Zhang's lessons are welcomed by the students."
+example-sentence = ''
+example-type = ''
+grammar-construct = '受 + ([Someone / Something]) + Verb'
+hanzi = '张老师的课很受学生的欢迎。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG1DXUD'

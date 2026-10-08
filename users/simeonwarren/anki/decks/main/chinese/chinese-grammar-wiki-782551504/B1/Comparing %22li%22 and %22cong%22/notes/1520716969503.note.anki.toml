@@ -1,0 +1,20 @@
+note_id = 1520716969503
+guid = "x+$?5~7$-]"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Comparisons", "Prepositions"]
+
+[[cards]]
+id = 1520716975367
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "li" and "cong"'
+english = "We've just started our relationship. It's too soon to talk about marriage."
+example-sentence = ''
+example-type = ''
+grammar-construct = '离 + Event + 还有 + Duration'
+hanzi = '我们刚刚开始谈恋爱，离结婚还远呢。'
+notes = ''
+pinyin = 'Wǒmen gānggāng kāishǐ tánliànài, lí jiéhūn hái yuǎn ne.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG59C66'

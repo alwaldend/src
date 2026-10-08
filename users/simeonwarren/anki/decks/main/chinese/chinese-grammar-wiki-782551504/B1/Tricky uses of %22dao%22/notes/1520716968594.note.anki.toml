@@ -1,0 +1,20 @@
+note_id = 1520716968594
+guid = "!YHNtZdSP"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716974458
+ordinal = 0
+
+[fields]
+article-title = 'Tricky uses of "dao"'
+english = "It's hard to buy imported good here."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '这里很难买到进口食品。'
+notes = ''
+pinyin = 'Zhèlǐ hěn nán mǎidào jìnkǒu shípǐn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCUSIV'

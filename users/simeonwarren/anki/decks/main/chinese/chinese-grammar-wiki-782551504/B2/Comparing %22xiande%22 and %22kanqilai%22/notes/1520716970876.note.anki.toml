@@ -1,0 +1,20 @@
+note_id = 1520716970876
+guid = "xbE$]/MB^<"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Comparisons", "Verbs"]
+
+[[cards]]
+id = 1520716976740
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "xiande" and "kanqilai"'
+english = 'She seems a little angry.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 看起来 + Predicate'
+hanzi = '她看起来有点生气。'
+notes = ''
+pinyin = 'Tā kànqǐlái yǒu diǎn shēngqì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGKQEG9'

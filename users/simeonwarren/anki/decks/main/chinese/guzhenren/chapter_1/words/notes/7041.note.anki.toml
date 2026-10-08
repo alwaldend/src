@@ -1,0 +1,20 @@
+note_id = 7041
+guid = "n<{[6M6]R="
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 7088
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'April;	fourth month (of the lunar year).'
+example-sentence = '三月能言,四月能走'
+example-type = ''
+grammar-construct = ''
+hanzi = '四月'
+notes = ''
+pinyin = '<span class="tone4">sì</span><span class="tone4">yuè</span>	 <!-- si yue -->'
+source = ''

@@ -1,0 +1,20 @@
+note_id = 1520716965539
+guid = "Kz)H$1@UC{"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+id = 1520716971403
+ordinal = 0
+
+[fields]
+article-title = 'Placement of question words'
+english = 'What is this?<br>This is my iPad.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 什么 + (Noun) ?'
+hanzi = 'A: 这是什么？<br>B: 这是我的iPad。'
+notes = ''
+pinyin = 'Zhè shì shénme?<br>Zhè shì wǒ de iPad.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJQPSC'

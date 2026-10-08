@@ -1,0 +1,20 @@
+note_id = 1520716965221
+guid = "f:HK!5E7K["
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Numbers", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971085
+ordinal = 0
+
+[fields]
+article-title = 'Measure word "ge"'
+english = 'She is a good teacher.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 个 + Noun'
+hanzi = '她是个好老师。'
+notes = ''
+pinyin = 'Tā shì gè hǎo lǎoshī.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGI0T9S'

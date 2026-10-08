@@ -1,0 +1,20 @@
+note_id = 1520716967769
+guid = "vAtpBY(Jqa"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+id = 1520716973633
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "about" with "guanyu"'
+english = 'He wrote many articles about gender equality.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '关于 ⋯⋯ 的 + Noun'
+hanzi = '他写过很多关于男女平等的文章。'
+notes = ''
+pinyin = 'Tā xiě guo hěn duō guānyú nánnǚ píngděng de wénzhāng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG49889'

@@ -1,0 +1,20 @@
+note_id = 1520716967193
+guid = "mz.^=/]90M"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973057
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "had better" with "zuihao"'
+english = "It's not easy to find that place. We'd better search it on Baidu Map."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 最好 + [Verb Phrase]'
+hanzi = '那个地方不好找，我们最好查一下百度地图。'
+notes = ''
+pinyin = 'Nàge dìfang bù hǎo zhǎo, wǒmen zuìhǎo chá yīxià Bǎidù dìtú.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG35CD7'

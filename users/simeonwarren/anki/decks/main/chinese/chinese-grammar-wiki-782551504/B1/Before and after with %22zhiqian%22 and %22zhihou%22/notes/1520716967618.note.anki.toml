@@ -1,0 +1,20 @@
+note_id = 1520716967618
+guid = "G19n:4&y3^"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973482
+ordinal = 0
+
+[fields]
+article-title = 'Before and after with "zhiqian" and "zhihou"'
+english = 'He finished college in England. Afterwards, he returned to Shanghai.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '⋯⋯ ，之前 / 之后 ⋯⋯'
+hanzi = '他在英国读完了大学，之后回上海了。'
+notes = ''
+pinyin = 'Tā zài Yīngguó dú wán le dàxué, zhīhòu huí Shànghǎi le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTD3L3'

@@ -1,0 +1,20 @@
+note_id = 1520716970534
+guid = "K!t]BaTxgV"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716976398
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "the more... the more..." with "yue… yue…"'
+english = "Don't give this kind of drink to kids. The more they drink it, the more they want to drink it."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 越 + Verb + 越 + 想 + Verb'
+hanzi = '不要给孩子喝这种饮料，他们会越喝越想喝。'
+notes = ''
+pinyin = 'Bùyào gěi háizi hē zhè zhǒng yǐnliào tāmen huì yuè hē yuè xiǎng hē.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGB44F6'

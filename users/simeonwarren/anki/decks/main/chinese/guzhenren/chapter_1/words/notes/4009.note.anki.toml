@@ -1,0 +1,20 @@
+note_id = 4009
+guid = "zoeG8pyw%p"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 4021
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'laugh;	smile.old variant of 笑.<br>Cl: 个'
+example-sentence = '  老魔,你笑什么'
+example-type = ''
+grammar-construct = ''
+hanzi = '笑'
+notes = ''
+pinyin = '<span class="tone5">xiàoxiào</span>	 <!-- xiao xiao -->'
+source = ''

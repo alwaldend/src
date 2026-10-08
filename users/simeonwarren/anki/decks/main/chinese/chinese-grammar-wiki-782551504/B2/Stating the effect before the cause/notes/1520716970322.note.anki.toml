@@ -1,0 +1,20 @@
+note_id = 1520716970322
+guid = "M6@@ZxVOk/"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Cause/EffectStatements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716976186
+ordinal = 0
+
+[fields]
+article-title = 'Stating the effect before the cause'
+english = 'The reason minorities receive a lot of attention from anthropologists is because they maintain most of their traditional culture up until today.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj.+ 之所以 + Effect + 是因为 + Cause'
+hanzi = '少数民族之所以受到人类学家的注意是因为他们至今还保留着许多传统文化。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTPGXK'

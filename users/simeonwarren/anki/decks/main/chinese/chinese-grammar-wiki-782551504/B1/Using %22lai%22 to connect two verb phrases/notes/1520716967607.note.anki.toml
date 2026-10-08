@@ -1,0 +1,20 @@
+note_id = 1520716967607
+guid = "RjgR(E{X5m"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973471
+ordinal = 0
+
+[fields]
+article-title = 'Using "lai" to connect two verb phrases'
+english = 'You can follow us on WeChat.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '通过 / 用 + Agent + 来 + [Verb Phrase]'
+hanzi = '你可以通过微信来关注我们。'
+notes = ''
+pinyin = 'Nǐ kěyǐ tōngguò Wēixìn lái guānzhù wǒmen.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGBZ578'

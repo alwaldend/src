@@ -1,0 +1,20 @@
+note_id = 1520716970124
+guid = "zmMUPS^,9#"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+id = 1520716975988
+ordinal = 0
+
+[fields]
+article-title = 'Facilitating an outcome with "yibian"'
+english = 'The teacher slowed down her talking speed so that the students could understand her.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '[Action] +  以便 + [Outcome]'
+hanzi = '老师减慢了语速，以便学生能听懂。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGXU2H4'

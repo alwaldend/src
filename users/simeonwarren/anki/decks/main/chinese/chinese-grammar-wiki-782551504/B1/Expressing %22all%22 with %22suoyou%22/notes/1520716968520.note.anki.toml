@@ -1,0 +1,20 @@
+note_id = 1520716968520
+guid = "i]esq|.BX/"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "NounPhrases"]
+
+[[cards]]
+id = 1520716974384
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "all" with "suoyou"'
+english = 'Did all the people leave?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '所有 (+ 的) + Noun + 都 + Predicate'
+hanzi = '所有人都走了吗？'
+notes = ''
+pinyin = 'Suǒyǒu rén dōu zǒu le ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGOWBSL'

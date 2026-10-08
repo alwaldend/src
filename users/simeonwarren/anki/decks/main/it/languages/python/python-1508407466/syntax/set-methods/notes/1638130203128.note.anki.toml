@@ -1,0 +1,17 @@
+note_id = 1638130203128
+guid = "fi3i129N@M"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1638130203128
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<em>set</em>.isdisjoint(<em>set</em>)'
+example = ''
+question = '<b>Set method</b>&nbsp;that returns True if neither set has items from the other set, else False.'
+version = ''
+with-options = ''

@@ -1,0 +1,17 @@
+note_id = 1634362964925
+guid = "pE?7Au5Yd}"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634370830766
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<i>set</i>.pop()'
+example = ''
+question = '<b>Set method </b>that removes a random item from a set and returns it.'
+version = ''
+with-options = ''

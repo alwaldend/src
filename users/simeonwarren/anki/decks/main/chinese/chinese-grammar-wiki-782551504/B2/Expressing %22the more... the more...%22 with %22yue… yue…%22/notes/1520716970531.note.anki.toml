@@ -1,0 +1,20 @@
+note_id = 1520716970531
+guid = "KG1l^R$t_{"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716976395
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "the more... the more..." with "yue… yue…"'
+english = 'The more I watch it, the more I want to watch.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 越 + Verb + 越 + 想 + Verb'
+hanzi = '我越看越想看。'
+notes = ''
+pinyin = 'Wǒ yuè kàn yuè xiǎng kàn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGB44F6'

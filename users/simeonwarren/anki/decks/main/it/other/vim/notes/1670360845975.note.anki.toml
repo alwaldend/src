@@ -1,0 +1,17 @@
+note_id = 1670360845975
+guid = "AlP%RpMl81"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = []
+
+[[cards]]
+id = 1670360845976
+ordinal = 0
+
+[[cards]]
+id = 1670360845977
+ordinal = 1
+
+[fields]
+Back = 'pattern<b>\</b>{n,m} " only one backslash'
+Front = 'Match pattern n to m times'

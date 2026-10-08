@@ -1,0 +1,20 @@
+note_id = 1520716965622
+guid = "F(HjLQ{9d_"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Comparisons", "Numbers"]
+
+[[cards]]
+id = 1520716971486
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "er" and "liang"'
+english = '#2; the second (of the month)'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '二号'
+notes = ''
+pinyin = 'èr hào'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJ46H1'

@@ -1,0 +1,20 @@
+note_id = 1520716969562
+guid = "sCt$O#zRZA"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adjectives", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975426
+ordinal = 0
+
+[fields]
+article-title = 'Adjectival complement "de hen"'
+english = "I've been quite busy lately. I need to work late every day."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Adj.+ 得很'
+hanzi = '我最近忙得很，每天都要加班。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGG1ZBL'

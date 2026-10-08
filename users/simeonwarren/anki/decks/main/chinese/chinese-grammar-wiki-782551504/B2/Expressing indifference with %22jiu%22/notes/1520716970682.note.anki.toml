@@ -1,0 +1,20 @@
+note_id = 1520716970682
+guid = "Oao_J2:q=["
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716976546
+ordinal = 0
+
+[fields]
+article-title = 'Expressing indifference with "jiu"'
+english = "If she's unhappy, she's unhappy. It's not like it's my fault."
+example-sentence = ''
+example-type = ''
+grammar-construct = '不 / 没 + Adj. / Verb + 就 + 不 / 没 + Adj. / Verb'
+hanzi = '她不高兴就不高兴，不是我的错。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGL4O5E'

@@ -1,0 +1,20 @@
+note_id = 1520716968712
+guid = "l7;cbn1jz*"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974576
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "double negation"'
+english = "She's too shy; It's not that she's not polite."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不 + 会 / 能 / 可能 + 不 / 没 + Predicate'
+hanzi = '她太害羞了，不是不礼貌。'
+notes = ''
+pinyin = 'Tā tài hàixiū le, bù shì bù lǐmào.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGEEA2D'

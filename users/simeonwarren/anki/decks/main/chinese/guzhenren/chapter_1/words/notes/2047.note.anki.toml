@@ -1,0 +1,20 @@
+note_id = 2047
+guid = "fb[n4o]}zz"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 2095
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'and;	as well as;	and so;	but (not);	yet (not);	(indicates causal relation);	(indicates change of state);	(indicates contrast).'
+example-sentence = '因为失血过多而显得苍白的脸,被晚霞映照着,忽然增添了一份嫣然之光彩'
+example-type = ''
+grammar-construct = ''
+hanzi = '而'
+notes = ''
+pinyin = '<span class="tone2">ér</span>	 <!-- er -->'
+source = ''

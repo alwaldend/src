@@ -1,0 +1,17 @@
+note_id = 1668640218242
+guid = "wc!j>M,!wc"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = []
+
+[[cards]]
+id = 1668640218242
+ordinal = 0
+
+[[cards]]
+id = 1668965796748
+ordinal = 1
+
+[fields]
+Back = ':%!sort&nbsp; &nbsp;" %: to all lines in buffer, !: apply that filter command<div><br></div><div>“ built-in in modern vim:</div><div>:sort</div><div>:sort! &nbsp;“ reverse</div>'
+Front = 'Sort all lines in the current buffer'

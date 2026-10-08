@@ -1,0 +1,20 @@
+note_id = 1520716970141
+guid = "IGufQ=6Q`/"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Auxiliaryverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716976005
+ordinal = 0
+
+[fields]
+article-title = 'Expressing future with "jiang"'
+english = 'The government is about to make new industry regulations to supervise stock market.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 将 / 将要 / 将会 + [Verb Phrase]'
+hanzi = '政府将制定新的行业法规，管理股票市场。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGIQPUJ'

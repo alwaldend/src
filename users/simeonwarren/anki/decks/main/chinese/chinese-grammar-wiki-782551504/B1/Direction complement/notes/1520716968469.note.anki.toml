@@ -1,0 +1,20 @@
+note_id = 1520716968469
+guid = "dbYvQt/_G8"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716974333
+ordinal = 0
+
+[fields]
+article-title = 'Direction complement'
+english = 'Could you please stand up?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + [Compound Direction Complement]'
+hanzi = '你可以站起来吗？'
+notes = ''
+pinyin = 'Nǐ kěyǐ zhàn qǐlái ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8LWBJ'

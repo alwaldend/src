@@ -1,0 +1,17 @@
+note_id = 1634363673328
+guid = "z80Y/c5o?<"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634370830772
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<i>set</i>.issuperset(<i>set</i>)&nbsp;&nbsp;'
+example = '<div>x = { 1 ,2, 3, 4 }</div><div>y = { 1,&nbsp;<span style="color: var(--field-fg); background: var(--field-bg);">4 }</span></div>x.issuperset(y) # returns true'
+question = '<b>Set method</b> that returns True if the called on set (example&nbsp;<i>x</i>) is a superset of the argument set (example&nbsp;<i>y</i>) else False,'
+version = ''
+with-options = ''

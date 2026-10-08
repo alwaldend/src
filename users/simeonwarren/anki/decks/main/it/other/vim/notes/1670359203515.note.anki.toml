@@ -1,0 +1,17 @@
+note_id = 1670359203515
+guid = "QO3i-An.1o"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = []
+
+[[cards]]
+id = 1670359203515
+ordinal = 0
+
+[[cards]]
+id = 1670359203516
+ordinal = 1
+
+[fields]
+Back = 'S'
+Front = 'Change entire line (single operator)'

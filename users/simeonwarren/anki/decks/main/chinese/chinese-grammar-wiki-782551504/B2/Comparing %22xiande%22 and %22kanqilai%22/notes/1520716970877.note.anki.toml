@@ -1,0 +1,20 @@
+note_id = 1520716970877
+guid = "rdxs(Q%Y_["
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Comparisons", "Verbs"]
+
+[[cards]]
+id = 1520716976741
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "xiande" and "kanqilai"'
+english = 'Your clothes seems expensive to me.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 看起来 + Predicate'
+hanzi = '你的衣服看起来挺贵的。'
+notes = ''
+pinyin = 'Nǐ de yīfu kànqǐlái tǐng guì de.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGKQEG9'

@@ -1,0 +1,20 @@
+note_id = 1520716965709
+guid = "HU<~8I}nNa"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971573
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "already" with "yijing"'
+english = 'Mom and dad are already old.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '已经 + (很 +) Adj. + 了'
+hanzi = '爸爸妈妈已经老了。'
+notes = ''
+pinyin = 'Bàba māma yǐjīng lǎo le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNXI27'

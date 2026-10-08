@@ -1,0 +1,20 @@
+note_id = 1520716967831
+guid = "lY}(##[gjH"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+id = 1520716973695
+ordinal = 0
+
+[fields]
+article-title = 'Expressing purpose with "weile"'
+english = 'He betrayed his friends for money.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '为了+ [Purpose]，Subject + Predicate'
+hanzi = '为了钱，他出卖了朋友。'
+notes = 'money is the purpose'
+pinyin = 'Wèile qián, tā chūmài le péngyou.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQGJXT'

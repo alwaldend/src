@@ -1,0 +1,20 @@
+note_id = 1520716970948
+guid = "EX,f`2@oX"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["C1", "SentencePatterns"]
+
+[[cards]]
+id = 1520716976812
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "Prefer...rather than" with "yuqi...buru"'
+english = "I'd rather say it's a action movie than a love movie."
+example-sentence = ''
+example-type = ''
+grammar-construct = '与其说 + A，不如说 + B'
+hanzi = '与其说它是一部爱情电影，不如说它是一部动作电影。'
+notes = ''
+pinyin = '<div>Yǔqí shuō tā shì yī bù àiqíng diànyǐng, bùrú shuō tā shì yī bù dòngzuò diànyǐng.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWI5CV'

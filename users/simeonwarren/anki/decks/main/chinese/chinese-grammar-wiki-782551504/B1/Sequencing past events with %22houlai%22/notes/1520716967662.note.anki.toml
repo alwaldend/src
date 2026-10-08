@@ -1,0 +1,20 @@
+note_id = 1520716967662
+guid = "xt#FI)b2D6"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973526
+ordinal = 0
+
+[fields]
+article-title = 'Sequencing past events with "houlai"'
+english = 'My parents disapproved in the beginning, but they approved later.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '[Past Event 1] ，后来 ，[Past Event 2]'
+hanzi = '开始我父母不同意，后来他们同意了。'
+notes = ''
+pinyin = 'Kāishǐ wǒ fùmǔ bù tóngyì, hòulái tāmen tóngyì le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGY0UDC'

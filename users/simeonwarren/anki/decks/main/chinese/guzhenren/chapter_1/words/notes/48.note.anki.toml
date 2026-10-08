@@ -1,0 +1,20 @@
+note_id = 48
+guid = "M6>#mvg*Gg"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 95
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'to insult;	to humiliate;	dishonor.'
+example-sentence = '   魔头,300年前你侮辱了我,夺走了我的清白之身,杀光我全家,诛了我的九族'
+example-type = ''
+grammar-construct = ''
+hanzi = '侮辱'
+notes = ''
+pinyin = '<span class="tone3">wǔ</span><span class="tone3">rǔ</span>	 <!-- wu ru -->'
+source = ''

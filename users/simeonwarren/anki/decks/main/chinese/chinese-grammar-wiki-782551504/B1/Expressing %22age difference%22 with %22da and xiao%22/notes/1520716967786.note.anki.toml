@@ -1,0 +1,20 @@
+note_id = 1520716967786
+guid = "I4I:3ay5{d"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+id = 1520716973650
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "age difference" with "da and xiao"'
+english = 'Who is the youngest among the five of you?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A + 比 + B + 大 / 小 + number + 岁'
+hanzi = '你们五个人里面谁最小？'
+notes = ''
+pinyin = 'Nǐmen wǔ gè rén lǐmiàn shéi zuì xiǎo?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGE8810'

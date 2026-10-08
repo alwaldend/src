@@ -1,0 +1,20 @@
+note_id = 1520716966950
+guid = "0u!o.{t0z"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972814
+ordinal = 0
+
+[fields]
+article-title = 'Coincidence with "zhenghao"'
+english = 'The temperature of the water is perfect, not too cold, not too hot.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 正好 + [Verb Phrase]'
+hanzi = '水温正好，不冷也不热。'
+notes = ''
+pinyin = 'Shuǐwēn zhènghǎo, bù lěng yě bù rè.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGUD25J'

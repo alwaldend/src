@@ -1,0 +1,20 @@
+note_id = 1520716966832
+guid = "GEJrII{l`Y"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972696
+ordinal = 0
+
+[fields]
+article-title = 'Adjectives with "name" and "zheme"'
+english = 'How come you are so busy?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 那么 / 这么 + Adj.'
+hanzi = '你怎么那么忙？'
+notes = ''
+pinyin = 'Nǐ zěnme nàme máng?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNKKP6'

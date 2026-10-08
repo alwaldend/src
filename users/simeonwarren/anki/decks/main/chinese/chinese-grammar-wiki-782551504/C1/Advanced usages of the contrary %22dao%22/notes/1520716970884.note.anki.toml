@@ -1,0 +1,20 @@
+note_id = 1520716970884
+guid = "f=6R:7ICpN"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "C1"]
+
+[[cards]]
+id = 1520716976748
+ordinal = 0
+
+[fields]
+article-title = 'Advanced usages of the contrary "dao"'
+english = 'This little girl is quite brave.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 倒 +  Adj.'
+hanzi = '这个小女孩倒挺勇敢的。'
+notes = ''
+pinyin = '<div>Zhège xiǎo nǚhái dào tǐng yǒnggǎn de.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGXXP6M'

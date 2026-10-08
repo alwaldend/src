@@ -1,0 +1,20 @@
+note_id = 1520716967456
+guid = "eU]uB&q<#|"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["AuxiliaryWords", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973320
+ordinal = 0
+
+[fields]
+article-title = 'Ending a non-exhaustive list with "shenme de"'
+english = "The Great Wall, Summer Palace, and so on. They're all very famous tourist attractions in Beijing."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun 1, Noun 2 (+ Noun 3) + 什么的'
+hanzi = '长城、故宫什么的，都是北京很有名的景点。'
+notes = ''
+pinyin = 'Chángchéng, Gùgōng shénme de, dōu shì Běijīng hěn yǒumíng de jǐngdiǎn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDIDAC'

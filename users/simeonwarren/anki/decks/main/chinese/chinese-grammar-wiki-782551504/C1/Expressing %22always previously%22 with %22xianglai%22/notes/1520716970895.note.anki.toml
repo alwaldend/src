@@ -1,0 +1,20 @@
+note_id = 1520716970895
+guid = "M|1#l,nO4u"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "C1"]
+
+[[cards]]
+id = 1520716976759
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "always previously" with "xianglai"'
+english = 'My parents have always disliked me going out to play with you guys.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subject + 向来（都） + Verb/Verb Phrase'
+hanzi = '我父母向来不喜欢我跟你们一起出去玩儿。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDU0XL'

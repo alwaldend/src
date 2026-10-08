@@ -1,0 +1,20 @@
+note_id = 1520716968897
+guid = "og6a&`a~t3"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974761
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "not at all" with "yidianr ye bu"'
+english = "She didn't prepare at all."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 一点 + 也 / 都 + 不 + [Verb Phrase]'
+hanzi = '她一点都没准备。'
+notes = ''
+pinyin = 'Tā yīdiǎn dōu méi zhǔnbèi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGRURCZ'

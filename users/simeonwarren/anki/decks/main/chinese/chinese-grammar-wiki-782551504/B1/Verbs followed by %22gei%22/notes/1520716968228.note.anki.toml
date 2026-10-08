@@ -1,0 +1,20 @@
+note_id = 1520716968228
+guid = "DlVAltK*Nv"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716974092
+ordinal = 0
+
+[fields]
+article-title = 'Verbs followed by "gei"'
+english = 'This boss sold me a dead fish.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 给 + [Recipient] + Obj.'
+hanzi = '这个老板卖给了我一条死鱼。'
+notes = ''
+pinyin = 'Zhège lǎobǎn mài gěi le wǒ yītiáo sǐ yú.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMMHTQ'

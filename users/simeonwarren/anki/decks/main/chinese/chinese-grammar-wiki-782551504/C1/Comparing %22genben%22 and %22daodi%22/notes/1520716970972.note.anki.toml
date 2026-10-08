@@ -1,0 +1,20 @@
+note_id = 1520716970972
+guid = "xqS{Q|sVZK"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["C1", "Comparisons"]
+
+[[cards]]
+id = 1520716976836
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "genben" and "daodi"'
+english = "Why did say you saw me on the street yesterday? I didn't even go out!"
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '你为什么说昨天在街上看到我了？我根本没有出去！'
+notes = ''
+pinyin = 'Nǐ wèishéme shuō zuótiān zài jiē shàng kàn dào wǒle? Wǒ gēnběn méiyǒu chūqù!<br>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG9JK0B'

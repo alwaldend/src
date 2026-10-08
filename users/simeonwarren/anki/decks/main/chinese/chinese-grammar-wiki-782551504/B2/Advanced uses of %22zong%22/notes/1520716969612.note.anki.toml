@@ -1,0 +1,20 @@
+note_id = 1520716969612
+guid = "DdAAWj`q[F"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975476
+ordinal = 0
+
+[fields]
+article-title = 'Advanced uses of "zong"'
+english = 'No matter what happens, people have to eat.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '总 + 会 / 得 / 要 / 能 + Verb'
+hanzi = '不管发生了什么，人总要吃饭吧。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8QS6H'

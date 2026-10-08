@@ -1,0 +1,20 @@
+note_id = 1520716969914
+guid = "L4h6>!*IJk"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975778
+ordinal = 0
+
+[fields]
+article-title = 'Taiwanese "you"'
+english = 'Is this store selling children’s clothes?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 有 + 在 + Verb'
+hanzi = '这家店有在卖小孩子的衣服吗？'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGY2D79'

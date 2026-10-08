@@ -1,0 +1,20 @@
+note_id = 1520716966708
+guid = "dAtCV%Q0=Y"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716972572
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "everything" with "shenme dou"'
+english = "You shouldn't tell him everything."
+example-sentence = ''
+example-type = ''
+grammar-construct = '什么 + Noun + 都 + Verb'
+hanzi = '你不应该什么话都跟他说。'
+notes = ''
+pinyin = 'Nǐ bù yīnggāi shénme huà dōu gēn tā shuō.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGAQV6C'

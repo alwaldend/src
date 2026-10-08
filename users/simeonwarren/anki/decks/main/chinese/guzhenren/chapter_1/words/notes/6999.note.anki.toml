@@ -1,0 +1,20 @@
+note_id = 6999
+guid = "nDy?nD4TSu"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 7004
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'to freeze.'
+example-sentence = '尤其是白家的白凝冰,天资真是恐怖'
+example-type = ''
+grammar-construct = ''
+hanzi = '凝冰'
+notes = ''
+pinyin = '<span class="tone2">níng</span><span class="tone1">bīng</span>	 <!-- ning bing -->'
+source = ''

@@ -1,0 +1,20 @@
+note_id = 1520716969451
+guid = "qsp7|!/bYE"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Comparisons", "TimeWords"]
+
+[[cards]]
+id = 1520716975315
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "gang" and "gangcai"'
+english = 'Where did you go just now?<br>I just got done in the bathroom.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '刚 + Adj.'
+hanzi = 'A:你刚才去哪儿了？<br>B:我刚上完厕所。'
+notes = ''
+pinyin = "<div>A: Nǐ gāngcái qù nǎ'erle?</div><div>B: Wǒ gāng shàng wán cèsuǒ.</div>"
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJFFWG'

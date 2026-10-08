@@ -1,0 +1,20 @@
+note_id = 6030
+guid = "A2+R~D{z@C"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 6065
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'yesterday.'
+example-sentence = '   上一届的开窍大典就像是昨天发生的一样,依旧历历在目呢'
+example-type = ''
+grammar-construct = ''
+hanzi = '昨天'
+notes = ''
+pinyin = '<span class="tone2">zuó</span><span class="tone1">tiān</span>	 <!-- zuo tian -->'
+source = ''

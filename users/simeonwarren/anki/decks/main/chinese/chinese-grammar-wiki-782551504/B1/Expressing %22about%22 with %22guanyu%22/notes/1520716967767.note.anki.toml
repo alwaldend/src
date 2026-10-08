@@ -1,0 +1,20 @@
+note_id = 1520716967767
+guid = "IvkW.Wefh}"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+id = 1520716973631
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "about" with "guanyu"'
+english = 'I saw a documentary about animal protection yesterday.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '关于 ⋯⋯ 的 + Noun'
+hanzi = '我昨天看了一部关于动物保护的纪录片。'
+notes = ''
+pinyin = 'Wǒ zuótiān kàn le yī bù guānyú dòngwù bǎohù de jìlùpiàn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG49889'

@@ -1,0 +1,17 @@
+note_id = 1757185344116
+guid = "Hn53.j-?NQ"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = []
+
+[[cards]]
+id = 1757185344117
+ordinal = 0
+
+[[cards]]
+id = 1757185344118
+ordinal = 1
+
+[fields]
+Back = 'In computing, Internet Protocol Security (IPsec) is a secure network protocol suite that authenticates and encrypts packets of data to provide secure encrypted communication between two computers over an Internet Protocol network. It is used in virtual private networks (VPNs). <br><br>https://en.m.wikipedia.org/wiki/IPsec'
+Front = 'IPSec'

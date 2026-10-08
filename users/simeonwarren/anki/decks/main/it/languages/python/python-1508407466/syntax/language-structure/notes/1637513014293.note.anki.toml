@@ -1,0 +1,18 @@
+note_id = 1637513014293
+guid = "de^yA5+>j{"
+note_type_id = 1630447360006
+note_type = "python-cloze"
+tags = []
+
+[[cards]]
+id = 1637513014293
+ordinal = 1
+
+[[cards]]
+id = 1637513014294
+ordinal = 0
+
+[fields]
+example = ''
+text = 'Symbols and meanings:<br><ol><li>{{c1::Addition}}: {{c2::+}}</li><li>{{c1::Subtraction}}: {{c2::-}}</li><li>{{c1::Division}}: {{c2::/}}</li><li>{{c1::Floor Division}}: {{c2:://}}</li><li>{{c1::Multiplication}}: {{c2::*}}</li><li>{{c1::Modulo}}: {{c2::%}}</li><li>{{c1::Exponent}}: {{c2::**}}</li></ol>'
+version = ''

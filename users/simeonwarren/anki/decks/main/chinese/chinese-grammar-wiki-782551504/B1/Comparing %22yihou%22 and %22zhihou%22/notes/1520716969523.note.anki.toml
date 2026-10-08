@@ -1,0 +1,20 @@
+note_id = 1520716969523
+guid = "NaL[iVt$v^"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Comparisons", "TimeWords"]
+
+[[cards]]
+id = 1520716975387
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "yihou" and "zhihou"'
+english = 'After getting married, they had two babies.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Special Time + 以后／之后 + Action'
+hanzi = '结婚以后/之后他们有了两个宝宝。'
+notes = ''
+pinyin = 'Jiéhūn yǐhòu / zhīhòu tāmen yǒu le liǎng gè bǎobǎo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGC3SCN'

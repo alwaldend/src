@@ -1,0 +1,20 @@
+note_id = 1520716966150
+guid = "wTtNug8$GK"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972014
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "now" with "le"'
+english = 'Now I understand.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '[New Situation] + 了'
+hanzi = '懂了。'
+notes = ''
+pinyin = 'Dǒng le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGE5Q4J'

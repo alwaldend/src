@@ -1,0 +1,20 @@
+note_id = 1520716967386
+guid = "H]P1qrT$(!"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973250
+ordinal = 0
+
+[fields]
+article-title = 'Using "ye" and "dou" together'
+english = 'My boss is American. Lots of our clients are also Americans.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 也都 + Predicate'
+hanzi = '我老板是美国人，很多客户也都是美国人。'
+notes = ''
+pinyin = 'Wǒ lǎobǎn shì Měiguó rén, hěn duō kèhù yě dōu shì Měiguó rén.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8GSXY'

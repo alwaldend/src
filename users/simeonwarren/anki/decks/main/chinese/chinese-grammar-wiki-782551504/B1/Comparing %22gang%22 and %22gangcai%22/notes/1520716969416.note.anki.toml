@@ -1,0 +1,20 @@
+note_id = 1520716969416
+guid = "M+aylNg&{y"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Comparisons", "TimeWords"]
+
+[[cards]]
+id = 1520716975280
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "gang" and "gangcai"'
+english = 'I just saw him yesterday.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '刚 + Verb'
+hanzi = '我昨天刚看到他。'
+notes = ''
+pinyin = 'Wǒ zuótiān gāng kàndào tā.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJFFWG'

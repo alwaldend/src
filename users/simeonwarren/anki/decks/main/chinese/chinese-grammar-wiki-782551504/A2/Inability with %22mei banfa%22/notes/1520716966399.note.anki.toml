@@ -1,0 +1,20 @@
+note_id = 1520716966399
+guid = "xEr3SJG{V0"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+id = 1520716972263
+ordinal = 0
+
+[fields]
+article-title = 'Inability with "mei banfa"'
+english = "It‘s too noisy here. I can't work."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 没办法 + Verb + Obj.'
+hanzi = '这里太吵了，我没办法工作。'
+notes = ''
+pinyin = 'Zhèlǐ tài chǎo le, wǒ méi bànfǎ gōngzuò.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGI2KHC'

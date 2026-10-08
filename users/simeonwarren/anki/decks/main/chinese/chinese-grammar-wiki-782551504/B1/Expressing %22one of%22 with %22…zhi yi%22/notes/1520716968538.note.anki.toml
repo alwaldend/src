@@ -1,0 +1,20 @@
+note_id = 1520716968538
+guid = "oOY5<P%Sqs"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "NounPhrases"]
+
+[[cards]]
+id = 1520716974402
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "one of" with "…zhi yi"'
+english = 'Jackie Cheng is one of the most famous action movie stars.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '[Noun Phrase] + 之一 + 是 ⋯⋯'
+hanzi = '成龙是最有名的动作明星之一。'
+notes = ''
+pinyin = 'Chéng Lóng shì zuì yǒumíng de dòngzuò míngxīng zhī yī.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMT1M1'

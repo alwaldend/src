@@ -1,0 +1,17 @@
+note_id = 1634415644412
+guid = "uL2%KeZ-gG"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634415644412
+ordinal = 0
+
+[fields]
+additional-info = '<div>Takes in a max size in bytes.&nbsp;<span style="color: var(--field-fg); background-color: ;">The default is -1 (the whole line).</span></div>'
+answer = '<i>file</i>.readline()'
+example = ''
+question = '<b>File method</b>&nbsp;that returns one line from the file.'
+version = ''
+with-options = '<i>file</i>.readline(<i>size=-1</i>)'

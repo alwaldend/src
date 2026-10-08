@@ -1,0 +1,20 @@
+note_id = 1520716968434
+guid = "Bn9H=FxFjm"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716974298
+ordinal = 0
+
+[fields]
+article-title = 'Result complement "xiaqu"'
+english = "This hotel is too dirty. I can't stay here any longer."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 不 + 下去 + 了'
+hanzi = '这个宾馆太脏了，我待不下去了。'
+notes = ''
+pinyin = 'Zhège bīnguǎn tài zāng le, wǒ dāi bu xiàqù le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG1PTJX'

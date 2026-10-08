@@ -1,0 +1,20 @@
+note_id = 1520716966332
+guid = "jkcU9tjQ93"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Auxiliaryverbs", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972196
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "would like to" with "xiang"'
+english = 'Would you not like to know this beautiful lady?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不 + 想 + Verb + Obj.'
+hanzi = '你不想认识这个美女吗？'
+notes = ''
+pinyin = 'Nǐ  bù xiǎng rènshi zhège měinǚ ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGT97VF'

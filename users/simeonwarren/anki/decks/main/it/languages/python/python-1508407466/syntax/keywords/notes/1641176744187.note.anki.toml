@@ -1,0 +1,17 @@
+note_id = 1641176744187
+guid = "P;BDU+9E+>"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1641176744187
+ordinal = 0
+
+[fields]
+additional-info = 'The example below is to show syntax, and is not a good real world example.'
+answer = '<b>Keyword </b>used to create the python version of a switch statement.'
+example = 'my_guess = 2&nbsp;<br><br><font color="#555753"># Before<br></font>if my_guess == 3:<br>&nbsp; &nbsp; print("Its 3")<br>else:<br>&nbsp; &nbsp; print("Incorrect")<br><br><font color="#555753"># After<br></font>match my_guess:<br>&nbsp; &nbsp; case 3:<br>&nbsp; &nbsp; &nbsp; &nbsp;print("Its 3")<br>&nbsp; &nbsp; case _:<br>&nbsp; &nbsp; &nbsp; &nbsp;print("Incorrect")'
+question = '<b>Keyword:</b> match'
+version = '3.10'
+with-options = ''

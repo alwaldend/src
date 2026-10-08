@@ -1,0 +1,20 @@
+note_id = 11030
+guid = "kuA|HsqU_+"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 11070
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'good;	well;	proper;	good to;	easy to;	very;	so;	(suffix indicating completion or readiness);	(of two people) close;	on intimate terms;	(after a personal pronoun) hello.<br>to be fond of;	to have a tendency to;	to be prone to.<br>'
+example-sentence = ' 好了,新书终于和大家见面,就像在 御妖至尊 结尾和大家打的招呼,主角很邪恶,本书会饱受争议'
+example-type = ''
+grammar-construct = ''
+hanzi = '好'
+notes = ''
+pinyin = '<span class="tone5">hǎohào</span>	 <!-- hao hao -->'
+source = ''

@@ -1,0 +1,20 @@
+note_id = 1520716967521
+guid = "Qamnht?u]w"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973385
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "how about" with "yaobu"'
+english = "Everyone is a little tired. Let's rest for a while."
+example-sentence = ''
+example-type = ''
+grammar-construct = '要不 + Suggestion ，Reason / Situation'
+hanzi = '大家都有点累了，要不休息一会儿吧。'
+notes = ''
+pinyin = 'Dàjiā dōu yǒudiǎn lèi le, yàobù xiūxi yīhuìr ba.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDFQP7'

@@ -1,0 +1,20 @@
+note_id = 1520716970572
+guid = "J:Ci<Mz(AV"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716976436
+ordinal = 0
+
+[fields]
+article-title = 'Advanced uses of "lian"'
+english = "He doesn't even have one suit?"
+example-sentence = ''
+example-type = ''
+grammar-construct = '连 + 一 + Measure Word (+ Noun) + 都 + 不 / 没 + Verb'
+hanzi = '他连一套西服都没有？'
+notes = ''
+pinyin = 'Tā lián yī  tào xīfú dōu méiyǒu?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGF273F'

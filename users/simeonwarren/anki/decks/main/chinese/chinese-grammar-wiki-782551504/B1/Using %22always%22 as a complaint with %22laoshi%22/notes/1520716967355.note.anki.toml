@@ -1,0 +1,20 @@
+note_id = 1520716967355
+guid = "O!k>_x>YLO"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973219
+ordinal = 0
+
+[fields]
+article-title = 'Using "always" as a complaint with "laoshi"'
+english = "He's such a nuisance. He borrows money from his friend very often."
+example-sentence = ''
+example-type = ''
+grammar-construct = '老是 + Predicate'
+hanzi = '他真讨厌，老是跟朋友借钱。'
+notes = ''
+pinyin = 'Tā zhēn tǎoyàn, lǎoshì gēn péngyou jièqián.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGII66E'

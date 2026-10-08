@@ -1,0 +1,20 @@
+note_id = 1520716965579
+guid = "nrv]?N_rbR"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+id = 1520716971443
+ordinal = 0
+
+[fields]
+article-title = 'Tag questions with "bu"'
+english = 'We are going to hold a meeting at 9, right?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 不 + Verb'
+hanzi = '九点开会，是不是？'
+notes = ''
+pinyin = 'Jiǔ diǎn kāihuì,  shì bu shì?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG4D8XB'

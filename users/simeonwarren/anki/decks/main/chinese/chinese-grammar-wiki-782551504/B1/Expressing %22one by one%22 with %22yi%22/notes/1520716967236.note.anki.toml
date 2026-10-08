@@ -1,0 +1,20 @@
+note_id = 1520716967236
+guid = "j@|6l,hJC;"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "leech", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973100
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "one by one" with "yi"'
+english = 'They make this mistake over and over again, giving the manager a headache.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '一 + Measure Word（+ 又）+ 一 + Measure Word'
+hanzi = '他们一次又一次犯这种小错误，让经理很头疼。'
+notes = ''
+pinyin = 'Tāmen yī cì yòu yī cì fàn zhè zhǒng xiǎo cuòwù, ràng jīnglǐ hěn tóuténg.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGBC7A0'

@@ -1,0 +1,20 @@
+note_id = 1520716965400
+guid = "vl;Y}yw9m."
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Auxiliaryverbs", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971264
+ordinal = 0
+
+[fields]
+article-title = 'Expressing permission with "keyi"'
+english = 'After you are 21 years old, you may drink alcohol.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 可以 + Verb + Obj.'
+hanzi = '二十一岁以后可以喝酒。'
+notes = ''
+pinyin = 'Èrshí-yī suì yǐhòu kěyǐ hējiǔ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG6SPYK'

@@ -1,0 +1,20 @@
+note_id = 1520716968281
+guid = "s{tX(Fjf8)"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+id = 1520716974145
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "must" with "dei"'
+english = "This way doesn't work. You need to find another way."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 得 + Verb + Obj.'
+hanzi = '这个方法不行，你得换个方法。'
+notes = ''
+pinyin = 'Zhège fāngfǎ bùxíng, nǐ děi huàn gè fāngfǎ .'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPXLP9'

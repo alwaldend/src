@@ -1,0 +1,20 @@
+note_id = 1520716969198
+guid = "GIF~+se%.N"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716975062
+ordinal = 0
+
+[fields]
+article-title = 'Using "ba" sentences'
+english = 'Can you clean your room or not?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 把 + Obj. 1 + Verb + 给 + Obj. 2'
+hanzi = '你能不能把你房间打扫干净？'
+notes = ''
+pinyin = 'Nǐ néng bu néng bǎ nǐ fángjiān dǎsǎo gānjìng?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG2UB2B'

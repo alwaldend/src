@@ -1,0 +1,20 @@
+note_id = 1520716970166
+guid = "F^<%nSOZE>"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "ButStatements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716976030
+ordinal = 0
+
+[fields]
+article-title = 'Expressing contrariness with "dao"'
+english = "The service you provide is great, but it's too expensive to me."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. 倒 + positive side，不过 / 但是 / 就是＋undesirable things'
+hanzi = '你们提供的服务倒不错，但是对我来说太贵了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG1RE80'

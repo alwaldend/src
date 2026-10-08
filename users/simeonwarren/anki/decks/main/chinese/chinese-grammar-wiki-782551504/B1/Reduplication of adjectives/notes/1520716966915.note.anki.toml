@@ -1,0 +1,20 @@
+note_id = 1520716966915
+guid = "B8[f1u=t^a"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972779
+ordinal = 0
+
+[fields]
+article-title = 'Reduplication of adjectives'
+english = "At Chinese New Year, our whole family gathers together and joyously shares a New Year's Eve meal."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A A B B + 地 + Verb'
+hanzi = '过年的时候，我们全家人都聚在一起，热热闹闹地吃年夜饭。'
+notes = ''
+pinyin = 'Guònián de shíhou, wǒmen quán jiārén dōu jù zài yīqǐ, rè rè nāo nāo de chī niányè fàn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDHE8S'

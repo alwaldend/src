@@ -1,0 +1,17 @@
+note_id = 1526927345000
+guid = "sT1f;hc;m>"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = ["Files", "Multiple", "Search"]
+
+[[cards]]
+id = 1526927359668
+ordinal = 0
+
+[[cards]]
+id = 1668965796702
+ordinal = 1
+
+[fields]
+Back = ':cn[ext]'
+Front = 'Jump to the next match in the quickfix list [after a vimgrep (across files)]'

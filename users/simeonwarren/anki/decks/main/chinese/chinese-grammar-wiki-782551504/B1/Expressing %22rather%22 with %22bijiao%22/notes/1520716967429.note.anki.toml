@@ -1,0 +1,20 @@
+note_id = 1520716967429
+guid = "FCAhr;@/C|"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["AdverbswithAdjectives", "B1", "leech", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973293
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "rather" with "bijiao"'
+english = 'Chinese government cares a lot about the development of the rural area.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 比较 + Adj. / Psychological Verb'
+hanzi = '中国政府比较关注农村的发展。'
+notes = ''
+pinyin = 'Zhōngguó zhèngfǔ bǐjiào guānzhù nóngcūn de fāzhǎn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG72HKP'

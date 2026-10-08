@@ -1,0 +1,20 @@
+note_id = 1520716969337
+guid = "M$^MZu&A}9"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Comparisons"]
+
+[[cards]]
+id = 1520716975201
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "gang" and "gangcai"'
+english = 'I just now saw him.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '我刚才看到他了。'
+notes = "Sounds like he's not here anymore; I just saw him, but don't see him now."
+pinyin = 'Wǒ gāngcái kàndào tā le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJFFWG'

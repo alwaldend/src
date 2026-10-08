@@ -1,0 +1,20 @@
+note_id = 1520716969986
+guid = "Ks]8TsgiAn"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+id = 1520716975850
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "on the basis of" with "ping"'
+english = 'Off of his own hard work, Little Bai was able to become rich.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '凭着 + Noun / Noun Phrase'
+hanzi = '小白凭着自己的努力致富。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGGB3IV'

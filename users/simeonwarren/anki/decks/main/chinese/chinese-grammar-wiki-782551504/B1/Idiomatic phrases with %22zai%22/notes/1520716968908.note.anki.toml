@@ -1,0 +1,20 @@
+note_id = 1520716968908
+guid = "J*Hl|a>K`C"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974772
+ordinal = 0
+
+[fields]
+article-title = 'Idiomatic phrases with "zai"'
+english = 'With the support of my friends, I was able to start my own business.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '在 + Abstract Concept + 下， Result／Comment Sentence'
+hanzi = '在朋友的支持下，我自己开了一个公司。'
+notes = ''
+pinyin = '<div>Zài péngyǒu de zhīchí xià, wǒ zìjǐ kāile yīgè gōngsī.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGH13JY'

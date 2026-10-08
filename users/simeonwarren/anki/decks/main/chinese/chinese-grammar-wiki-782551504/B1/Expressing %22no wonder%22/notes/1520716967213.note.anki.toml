@@ -1,0 +1,20 @@
+note_id = 1520716967213
+guid = "kLQo$#c_@~"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973077
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "no wonder"'
+english = "No wonder he hasn't told me. It turns out that he doesn't want me to worry about this."
+example-sentence = ''
+example-type = ''
+grammar-construct = '难怪 / 怪不得 + [Observation] ，原来 + Reason'
+hanzi = '难怪他没告诉我，原来是不想让我担心。'
+notes = ''
+pinyin = 'Nánguài tā méi gàosu wǒ, yuánlái shì bù xiǎng ràng wǒ dānxīn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGFPV2C'

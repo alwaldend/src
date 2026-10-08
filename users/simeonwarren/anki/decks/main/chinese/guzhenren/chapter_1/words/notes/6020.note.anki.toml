@@ -1,0 +1,20 @@
+note_id = 6020
+guid = "L=x<!O0b8d"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 6045
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'one of (sth);	one out of a multitude;	one (third, quarter, percent etc).'
+example-sentence = ' 在走廊中,众家老默默地舒了一口气,气氛为之一松'
+example-type = ''
+grammar-construct = ''
+hanzi = '之一'
+notes = ''
+pinyin = '<span class="tone1">zhī</span><span class="tone1">yī</span>	 <!-- zhi yi -->'
+source = ''

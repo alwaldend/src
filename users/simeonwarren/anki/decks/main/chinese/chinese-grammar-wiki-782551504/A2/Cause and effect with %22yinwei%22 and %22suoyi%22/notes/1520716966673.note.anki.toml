@@ -1,0 +1,20 @@
+note_id = 1520716966673
+guid = "Fq5~%Nxl&!"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716972537
+ordinal = 0
+
+[fields]
+article-title = 'Cause and effect with "yinwei" and "suoyi"'
+english = 'We are very busy today because we have lots of work.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Result, 因为 + Reason'
+hanzi = '今天我们很忙，因为有很多工作。'
+notes = ''
+pinyin = 'Jīntiān wǒmen hěn máng, yīnwèi yǒu hěn duō gōngzuò.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTDUJO'

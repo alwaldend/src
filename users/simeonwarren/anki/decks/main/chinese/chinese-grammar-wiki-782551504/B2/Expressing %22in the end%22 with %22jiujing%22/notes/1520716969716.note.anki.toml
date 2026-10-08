@@ -1,0 +1,20 @@
+note_id = 1520716969716
+guid = "M(wuOG!}Q`"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975580
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "in the end" with "jiujing"'
+english = 'Are you coming or not?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '究竟＋Verb＋没 / 不＋Verb'
+hanzi = '你究竟来不来？'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDK0BR'

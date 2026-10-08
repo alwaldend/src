@@ -1,0 +1,20 @@
+note_id = 1520716967161
+guid = "m}6l{R|[pC"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973025
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "finally" with "zhongyu"'
+english = 'You finally understood.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 终于 + Verb Phrase + 了'
+hanzi = '你们终于明白了。'
+notes = ''
+pinyin = 'Nǐmen zhōngyú míngbai le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG700A5'

@@ -1,0 +1,20 @@
+note_id = 1520716967815
+guid = "v4Sfk<Fox~"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+id = 1520716973679
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "less than" with "budao"'
+english = "They've known each other for less than two months and are already married."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不到 + Time + 就 + Predicate + 了'
+hanzi = '他们认识不到两个月就结婚了。'
+notes = ''
+pinyin = 'Tāmen rènshi bùdào liǎng gè yuè jiù jiéhūn le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG10CAE'

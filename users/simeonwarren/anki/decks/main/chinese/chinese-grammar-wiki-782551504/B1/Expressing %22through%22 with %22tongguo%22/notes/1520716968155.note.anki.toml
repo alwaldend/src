@@ -1,0 +1,20 @@
+note_id = 1520716968155
+guid = "rwK,(f>vSd"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716974019
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "through" with "tongguo"'
+english = "Go straight ahead, go through a red door, turn left, and you'll see it."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '你往前走，通过一个红色的大门，然后左拐就看到了。'
+notes = ''
+pinyin = 'Nǐ wǎng qián zǒu, tōngguò yī shān hóng sè de dà mén, ránhòu zuǒ guǎi jiù kàn dào le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG9B1E3'

@@ -1,0 +1,20 @@
+note_id = 1520716970427
+guid = "j02kfGY-N7"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "ConditionalStatements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716976291
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "only if" with "zhiyou"'
+english = 'Only if the economy develops will it be possible to have an even better tomorrow.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '只有 + Essential Condition + 才 + Desired Outcome'
+hanzi = '只有经济发展才会有更好的明天。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJDV3Y'

@@ -1,0 +1,20 @@
+note_id = 1520716970257
+guid = "k|e#ex_e{E"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "EvenIfStatements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716976121
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "even if…" with "jiusuan"'
+english = "Even if you didn't want to listen, I still need to say it."
+example-sentence = ''
+example-type = ''
+grammar-construct = '就算 ⋯⋯ ，也 ⋯⋯'
+hanzi = '就算你不想听，我也要说。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGLI513'

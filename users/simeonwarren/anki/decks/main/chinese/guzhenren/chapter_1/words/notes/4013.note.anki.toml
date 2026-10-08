@@ -1,0 +1,20 @@
+note_id = 4013
+guid = "enNI[Yf8f("
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+id = 4029
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'to befall;	to be imminent.'
+example-sentence = '   大家小心,魔头死到临头要反扑了'
+example-type = ''
+grammar-construct = ''
+hanzi = '临头'
+notes = ''
+pinyin = '<span class="tone2">lín</span><span class="tone2">tóu</span>	 <!-- lin tou -->'
+source = ''

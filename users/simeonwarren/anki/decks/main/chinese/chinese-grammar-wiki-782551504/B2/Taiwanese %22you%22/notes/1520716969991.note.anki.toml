@@ -1,0 +1,20 @@
+note_id = 1520716969991
+guid = "bZ8D|$>Oy;"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975855
+ordinal = 0
+
+[fields]
+article-title = 'Taiwanese "you"'
+english = 'I was moving yesterday and I was so tired.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 有 + Adj. + 到'
+hanzi = '昨天搬家，真的有累到。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGY2D79'

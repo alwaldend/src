@@ -1,0 +1,17 @@
+note_id = 1671485024193
+guid = "geaWyj8pcE"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = []
+
+[[cards]]
+id = 1671485024193
+ordinal = 0
+
+[[cards]]
+id = 1671485024194
+ordinal = 1
+
+[fields]
+Back = ':b[uffer] TAB " choose relevant buffer by unique name<br><br>:b# " where # is the buffer number you can see with :ls'
+Front = 'How do you efficiently switch to another buffer, especially if more than two are open?'

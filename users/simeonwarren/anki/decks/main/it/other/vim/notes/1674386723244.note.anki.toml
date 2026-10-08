@@ -1,0 +1,21 @@
+note_id = 1674386723244
+guid = "sS}zyCM%L4"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = []
+
+[[cards]]
+id = 1674386723244
+ordinal = 0
+
+[[cards]]
+id = 1674386723245
+ordinal = 1
+
+[fields]
+Back = """
+<div>:* &nbsp;“ same as &nbsp;<code>:'&lt;,'&gt;</code>&nbsp;</div>
+
+<div><br></div>\
+"""
+Front = 'How do you use the range of lines selected during the last visual mode usage?'

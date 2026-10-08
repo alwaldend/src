@@ -1,0 +1,20 @@
+note_id = 1520716968913
+guid = "JA_<fN0T=`"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974777
+ordinal = 0
+
+[fields]
+article-title = 'Idiomatic phrases with "zai"'
+english = "In these aspects, our company's service is not good enough."
+example-sentence = ''
+example-type = ''
+grammar-construct = '在 + Abstract Concept + 方面， Comment Sentence'
+hanzi = '我们公司在这些方面的服务还不够好。'
+notes = ''
+pinyin = '<div>Wǒmen gōngsī zài zhèxiē fāngmiàn de fúwù hái bùgòu hǎo.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGH13JY'

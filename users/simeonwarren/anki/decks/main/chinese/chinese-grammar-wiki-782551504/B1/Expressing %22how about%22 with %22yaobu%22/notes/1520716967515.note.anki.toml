@@ -1,0 +1,20 @@
+note_id = 1520716967515
+guid = "K/ayVTZpm2"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973379
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "how about" with "yaobu"'
+english = "It's quite far away to walk there. How about I drive you there?"
+example-sentence = ''
+example-type = ''
+grammar-construct = '要不 + Option B + 吧 ，Reason / Situation'
+hanzi = '走路去挺远的，要不我开车送你去吧。'
+notes = ''
+pinyin = 'Zǒulù qù tǐng yuǎn de, yàobù wǒ kāichē sòng nǐ qù ba.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDFQP7'

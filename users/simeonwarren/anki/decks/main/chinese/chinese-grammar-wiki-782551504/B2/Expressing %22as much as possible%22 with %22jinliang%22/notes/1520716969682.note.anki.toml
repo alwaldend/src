@@ -1,0 +1,20 @@
+note_id = 1520716969682
+guid = "kjfNvOg^vK"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975546
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "as much as possible" with "jinliang"'
+english = 'You are the big brother and you should try your best to take good care of you little sister.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '尽量 + Verb / Adj.'
+hanzi = '你是哥哥，要尽量照顾好妹妹。'
+notes = ''
+pinyin = 'Nǐ  shì gēge, yào jǐnliàng  zhàogù hǎo mèimei .'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGINBWJ'

@@ -1,0 +1,20 @@
+note_id = 1520716966958
+guid = "P|fH%x97Q!"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972822
+ordinal = 0
+
+[fields]
+article-title = 'Continuation with "hai"'
+english = 'He still went there although his patents disagreed.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '⋯⋯ ，(但是 / 可是 +) Subj. + 还是 + [Verb Phrase]'
+hanzi = '父母不同意他去，可是他还是去了。'
+notes = ''
+pinyin = 'Fùmǔ bù tóngyì tā qù, kěshì tā háishì qù le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGIRILI'

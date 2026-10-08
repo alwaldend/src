@@ -1,0 +1,17 @@
+note_id = 1634425329261
+guid = "Pe#Tg-8@h)"
+note_type_id = 1630447360002
+note_type = "python-basic"
+tags = []
+
+[[cards]]
+id = 1634425329263
+ordinal = 0
+
+[fields]
+'Additional Info' = ''
+'Back - Basic' = ''
+'Back - Code' = 'class Dog(Animal):&nbsp;<br>&nbsp; &nbsp; def __init__(self, dog_args, animal_args):<div>&nbsp; &nbsp; &nbsp; &nbsp; super().__init__(animal_args)<br>&nbsp; &nbsp; &nbsp; &nbsp; self.dog_args = dog_args&nbsp;</div>'
+Example = ''
+Front = 'Build a subclass Dog from class Animal.'
+Version = ''

@@ -1,0 +1,20 @@
+note_id = 1520716969852
+guid = "mkkAGso)ec"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975716
+ordinal = 0
+
+[fields]
+article-title = 'Using "er" to explain contrasting ideas'
+english = "We all thought this was his task, but the fact is, he simply doesn't know about this topic."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Sentence 1， + 而 + Sentence 2'
+hanzi = '我们都以为这是他干的，而事实是，他根本不知道这件事情。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMX0ZS'

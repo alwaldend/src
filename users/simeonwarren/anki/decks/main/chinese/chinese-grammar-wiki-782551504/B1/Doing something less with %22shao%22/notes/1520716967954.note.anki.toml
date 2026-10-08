@@ -1,0 +1,20 @@
+note_id = 1520716967954
+guid = "m{9Oyl2Xuq"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+id = 1520716973818
+ordinal = 0
+
+[fields]
+article-title = 'Doing something less with "shao"'
+english = "You're going to take the mid-term exam. Stop playing so much video games."
+example-sentence = ''
+example-type = ''
+grammar-construct = '少 + Verb'
+hanzi = '快期中考试了，少玩点游戏吧。'
+notes = ''
+pinyin = 'Kuài qīzhōng kǎoshì le, shǎo wán diǎn yóuxì ba.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG9B0M8'

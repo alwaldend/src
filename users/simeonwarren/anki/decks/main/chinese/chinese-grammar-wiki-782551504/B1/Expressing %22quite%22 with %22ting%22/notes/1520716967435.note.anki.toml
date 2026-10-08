@@ -1,0 +1,20 @@
+note_id = 1520716967435
+guid = "hQ^~E$yH+Z"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["AdverbswithAdjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973299
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "quite" with "ting"'
+english = 'I quite like this job.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '挺 + [Verb Phrase] + 的'
+hanzi = '我挺喜欢这份工作的。'
+notes = ''
+pinyin = 'Wǒ tǐng xǐhuan zhè fèn gōngzuò de.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDF1F7'

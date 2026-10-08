@@ -1,0 +1,20 @@
+note_id = 1520716967523
+guid = "o_xY.W-)O{"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973387
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "how about" with "yaobu"'
+english = "It's so far. How about I drive you there?"
+example-sentence = ''
+example-type = ''
+grammar-construct = '要不 + Suggestion ，Reason / Situation'
+hanzi = '这么远，要不我开车送你去？'
+notes = ''
+pinyin = 'Zhème yuǎn, yàobù wǒ kāichē sòng nǐ qù?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDFQP7'

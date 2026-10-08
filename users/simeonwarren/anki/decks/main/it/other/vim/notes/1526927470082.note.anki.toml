@@ -1,0 +1,17 @@
+note_id = 1526927470082
+guid = "hv3Z^)]>Lo"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = ["WorkingWithMultipleFiles"]
+
+[[cards]]
+id = 1526927479402
+ordinal = 0
+
+[[cards]]
+id = 1668965796709
+ordinal = 1
+
+[fields]
+Back = ':ls or :buffers'
+Front = 'List all open buffers'

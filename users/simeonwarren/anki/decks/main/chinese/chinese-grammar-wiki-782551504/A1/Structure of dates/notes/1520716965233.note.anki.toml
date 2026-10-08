@@ -1,0 +1,20 @@
+note_id = 1520716965233
+guid = "k=@f+f>B6)"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Numbers", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971097
+ordinal = 0
+
+[fields]
+article-title = 'Structure of dates'
+english = 'We got married on September 4th, 1980.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'x 年 + y 月 + z 号'
+hanzi = '1980年9月4号我们结婚了。'
+notes = ''
+pinyin = 'Yī-jiǔ-bā-líng nián Jiǔyuè sì hào wǒmen jiéhūn le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGT3KF6'

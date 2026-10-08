@@ -1,0 +1,20 @@
+note_id = 1520716970660
+guid = "i~{g66JxDu"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Comparisons"]
+
+[[cards]]
+id = 1520716976524
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "turan" and "huran"'
+english = 'He was talking and talking, and suddenly stopped.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '突然／忽然 + Verb'
+hanzi = '他说着说着突然不说了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGHKZP4'

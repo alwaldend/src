@@ -1,0 +1,20 @@
+note_id = 1520716968812
+guid = "Q>U{LFuo-)"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974676
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "more and more" with "yuelaiyue"'
+english = 'My daughter likes learning English more and more'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 越来越 + [Verb Phrase] + 了'
+hanzi = '我女儿越来越爱学英语了。'
+notes = ''
+pinyin = "Wǒ nǚ'ér yuè lái yuè ài xué yīngyǔle"
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG7UE4H'

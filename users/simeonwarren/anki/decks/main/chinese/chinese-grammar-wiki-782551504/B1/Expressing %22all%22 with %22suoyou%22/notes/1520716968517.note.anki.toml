@@ -1,0 +1,20 @@
+note_id = 1520716968517
+guid = "f#IM|#ii+P"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "NounPhrases"]
+
+[[cards]]
+id = 1520716974381
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "all" with "suoyou"'
+english = 'I like all the food my mom cooks.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '所有 (+ 的) + Noun'
+hanzi = '我喜欢所有我妈妈做的菜。'
+notes = ''
+pinyin = 'Wǒ xǐhuan suǒyǒu wǒ māma zuò de cài.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGOWBSL'

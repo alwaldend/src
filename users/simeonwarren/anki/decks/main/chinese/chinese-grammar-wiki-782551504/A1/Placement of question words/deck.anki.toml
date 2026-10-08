@@ -1,0 +1,12 @@
+id = 1778614827713
+title = 'main::chinese::chinese-grammar-wiki-782551504::A1::Placement of question words'
+
+[notes]
+path = 'notes'
+
+[normal]
+config_id = 1
+extend_new = 20
+extend_review = 50
+description = "Please see the <a href='https://ankiweb.net/shared/info/782551504'>shared deck page</a> for more info."
+markdown_description = false

@@ -1,0 +1,20 @@
+note_id = 1520716965180
+guid = "k)}~h)pO~5"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971044
+ordinal = 0
+
+[fields]
+article-title = 'The "also" adverb "ye"'
+english = 'I am too. / Me too.'
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = 'Subj. + 也 (+ Adv.) + Adj.'
+hanzi = '我也是。'
+notes = 'The 是 fills in for whatever was just said.'
+pinyin = 'Wǒ yě shì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGG25MD'

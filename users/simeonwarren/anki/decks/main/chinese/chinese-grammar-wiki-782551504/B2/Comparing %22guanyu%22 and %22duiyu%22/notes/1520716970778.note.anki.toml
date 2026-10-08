@@ -1,0 +1,20 @@
+note_id = 1520716970778
+guid = "ych9O9:7d."
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Comparisons", "Prepositions"]
+
+[[cards]]
+id = 1520716976642
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "guanyu" and "duiyu"'
+english = 'Regarding Department Adjustments and Human Affairs'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '关于部门调整和人事安排'
+notes = ''
+pinyin = '<div>Guānyú bùmén tiáozhěng hé rénshì ānpái</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG1HNBU'

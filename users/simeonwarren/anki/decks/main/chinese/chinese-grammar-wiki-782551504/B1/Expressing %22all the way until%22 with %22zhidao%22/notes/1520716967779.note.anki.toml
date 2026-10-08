@@ -1,0 +1,20 @@
+note_id = 1520716967779
+guid = "mHaUdKs|+a"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+id = 1520716973643
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "all the way until" with "zhidao"'
+english = "My younger brother could't wash clothes until he went to college."
+example-sentence = ''
+example-type = ''
+grammar-construct = '直到 + Time / Event ，Subj. + 都  + 不 / 没 ⋯⋯'
+hanzi = '直到我弟弟上大学，他都不会洗衣服。'
+notes = ''
+pinyin = 'Zhídào wǒ dìdi shàng dàxué, tā dōu bù huì xǐ yīfu.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGC6E1C'

@@ -1,0 +1,20 @@
+note_id = 1520716965437
+guid = "b`)KC{zcyB"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+id = 1520716971301
+ordinal = 0
+
+[fields]
+article-title = 'Negation of past actions with "meiyou"'
+english = "Mom didn't cook food this evening."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 没有 / 没 + Verb'
+hanzi = '妈妈晚上没做饭。'
+notes = ''
+pinyin = 'Māma wǎnshang méi zuòfàn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGAUCXK'

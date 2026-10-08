@@ -1,0 +1,17 @@
+note_id = 1634446719900
+guid = "NXWc/dagXF"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634446719902
+ordinal = 0
+
+[fields]
+additional-info = '<strong>Note:</strong>&nbsp;All string methods returns new values. They do not change the original string.'
+answer = '<i>string</i>.lower()'
+example = ''
+question = '<b>String method</b>&nbsp;that returns a new string where the upper case characters are converted to lower case.&nbsp;'
+version = ''
+with-options = ''

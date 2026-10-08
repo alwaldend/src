@@ -1,0 +1,20 @@
+note_id = 1520716965130
+guid = "pbM021WH*K"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716970994
+ordinal = 0
+
+[fields]
+article-title = 'Negation of "you" with "mei"'
+english = 'Does he not have a job?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '没 + 有 (+ Obj.)'
+hanzi = '他没有工作吗？'
+notes = ''
+pinyin = 'Tā méiyǒu gōngzuò ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPNV3Q'

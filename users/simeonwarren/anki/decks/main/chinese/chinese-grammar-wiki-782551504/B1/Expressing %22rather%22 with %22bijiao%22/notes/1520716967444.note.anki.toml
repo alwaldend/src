@@ -1,0 +1,20 @@
+note_id = 1520716967444
+guid = "G7et-jmBSH"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["AdverbswithAdjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973308
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "rather" with "bijiao"'
+english = 'The public comparatively support the new employment policy.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 比较 + [Verb Phrase]'
+hanzi = '民众比较支持新的就业政策。'
+notes = ''
+pinyin = 'Mínzhòng bǐjiào zhīchí xīn de jiùyè zhèngcè.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG72HKP'

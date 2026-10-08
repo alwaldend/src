@@ -1,0 +1,20 @@
+note_id = 1520716967634
+guid = "pC!zAN%Ai/"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973498
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "ever since" with "yilai"'
+english = "We've never had a fight since we got married."
+example-sentence = ''
+example-type = ''
+grammar-construct = '自 / 从 / 自从 + Time / Event + 以来'
+hanzi = '结婚以来，我们没吵过架。'
+notes = ''
+pinyin = 'Jiéhūn yǐlái, wǒmen méi chǎo guo jià.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNEMXP'

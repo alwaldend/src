@@ -1,0 +1,20 @@
+note_id = 1520716968691
+guid = "OZFd#[?|ew"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974555
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "as one likes" with "jiu"'
+english = "Go if you want to. Just don't come back too late."
+example-sentence = ''
+example-type = ''
+grammar-construct = '想 + Verb + 就 + Verb'
+hanzi = '想去就去吧，不过要早点回来。'
+notes = ''
+pinyin = 'Xiǎng qù jiù qù ba, bùguò yào zǎodiǎn huílái.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDUZ55'

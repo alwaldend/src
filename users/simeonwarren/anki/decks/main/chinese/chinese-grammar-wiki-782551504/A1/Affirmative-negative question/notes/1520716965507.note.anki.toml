@@ -1,0 +1,20 @@
+note_id = 1520716965507
+guid = "sBQ;@7L2zR"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+id = 1520716971371
+ordinal = 0
+
+[fields]
+article-title = 'Affirmative-negative question'
+english = 'Do you want rice?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 不 + Verb + Obj.'
+hanzi = '你们要不要米饭？'
+notes = ''
+pinyin = 'Nǐmen yào bu yào mǐfàn?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGZH7K3'

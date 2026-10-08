@@ -1,0 +1,20 @@
+note_id = 1520716968540
+guid = "z?L(eJ/r52"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "NounPhrases"]
+
+[[cards]]
+id = 1520716974404
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "one of" with "…zhi yi"'
+english = 'Globalization is one of the major features of the 21st century.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '[Noun Phrase] + 之一 + 是 ⋯⋯'
+hanzi = '全球化是21世纪最大的特点之一。'
+notes = ''
+pinyin = 'Quánqiúhuà shì èrshí-yī shìjì zuì dà de tèdiǎn zhī yī.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMT1M1'

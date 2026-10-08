@@ -1,0 +1,20 @@
+note_id = 1520716968406
+guid = "xT3hNyl7gp"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716974270
+ordinal = 0
+
+[fields]
+article-title = 'Potential complement'
+english = 'This bike is so broken. Nobody can fix it.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 不 + Complement'
+hanzi = '这个自行车太破了，谁都修不好。'
+notes = ''
+pinyin = 'Zhège zìxíngchē tài pò le, shéi dōu xiū bu hǎo .'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCPJPQ'

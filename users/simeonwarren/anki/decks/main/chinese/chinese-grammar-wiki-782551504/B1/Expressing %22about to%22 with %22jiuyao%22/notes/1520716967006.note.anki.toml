@@ -1,0 +1,20 @@
+note_id = 1520716967006
+guid = "qC;0!gn|#V"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972870
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "about to" with "jiuyao"'
+english = 'They are about to get married.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '(Subj. +) 就要 + Verb + 了'
+hanzi = '他们就要结婚了。'
+notes = ''
+pinyin = 'Tāmen jiù yào jiéhūn le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG9B210'

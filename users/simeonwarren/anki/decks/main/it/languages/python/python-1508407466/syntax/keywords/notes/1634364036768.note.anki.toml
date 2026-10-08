@@ -1,0 +1,17 @@
+note_id = 1634364036768
+guid = "rH/}eZmR{7"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634370830775
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<b>Keyword</b>&nbsp;to exit out of a loop without continuing.'
+example = ''
+question = '<b>Keyword: </b>break'
+version = ''
+with-options = ''

@@ -1,0 +1,12 @@
+id = 1729355898396
+title = 'main::chinese::chinese-grammar-wiki-782551504::A1::Age with sui'
+
+[notes]
+path = 'notes'
+
+[normal]
+config_id = 1
+extend_new = 0
+extend_review = 0
+description = ''
+markdown_description = false

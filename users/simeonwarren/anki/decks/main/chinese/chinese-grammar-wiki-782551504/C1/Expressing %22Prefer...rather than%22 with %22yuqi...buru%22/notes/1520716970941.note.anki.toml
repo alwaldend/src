@@ -1,0 +1,20 @@
+note_id = 1520716970941
+guid = "i*cqV7818k"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["C1", "SentencePatterns"]
+
+[[cards]]
+id = 1520716976805
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "Prefer...rather than" with "yuqi...buru"'
+english = 'I would rather work than go to a third-rate university'
+example-sentence = ''
+example-type = ''
+grammar-construct = '与其 ⋯⋯ ，Subj. + 宁可 / 宁愿 ⋯⋯'
+hanzi = '与其去上一个三流的大学，我宁可先工作。'
+notes = ''
+pinyin = 'Yǔqí qù shàng yīgè sānliú de dàxué, wǒ nìngkě xiān gōngzuò'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWI5CV'

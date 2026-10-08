@@ -1,0 +1,20 @@
+note_id = 1520716965598
+guid = "hZM|)1eeuv"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+id = 1520716971462
+ordinal = 0
+
+[fields]
+article-title = 'Yes-no questions with "ma"'
+english = 'He is the boss.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '[Statement] + 吗 ？'
+hanzi = '他是老板。'
+notes = 'statement'
+pinyin = 'Tā shì lǎobǎn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQ2AZA'

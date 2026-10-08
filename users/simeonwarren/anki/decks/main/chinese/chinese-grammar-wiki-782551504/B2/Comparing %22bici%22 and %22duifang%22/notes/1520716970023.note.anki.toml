@@ -1,0 +1,20 @@
+note_id = 1520716970023
+guid = "uS4lVQBy7["
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Parts_of_Speech", "Pronouns"]
+
+[[cards]]
+id = 1520716975887
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "bici" and "duifang"'
+english = 'You both did this to hurt each other.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '彼此 + 的＋Noun'
+hanzi = '你们应该多关注彼此的优点。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG84D65'

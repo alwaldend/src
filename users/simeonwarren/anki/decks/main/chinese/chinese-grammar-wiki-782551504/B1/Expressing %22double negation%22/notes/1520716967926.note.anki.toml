@@ -1,0 +1,20 @@
+note_id = 1520716967926
+guid = "Mr>HtR!3{/"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "SentencePatterns"]
+
+[[cards]]
+id = 1520716973790
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "double negation"'
+english = "Our family doesn't have a single person who didn't go to college."
+example-sentence = ''
+example-type = ''
+grammar-construct = '没有 +  Single Noun + 不 / 没 + Adj. / [Verb Phrase]'
+hanzi = '我们家没有一个没上过大学的。'
+notes = ''
+pinyin = 'Wǒmen jiā méiyǒu yī gè méi shàng guo dàxué de.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGEEA2D'

@@ -1,0 +1,20 @@
+note_id = 1520716968643
+guid = "oO*w.{df9H"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974507
+ordinal = 0
+
+[fields]
+article-title = 'Conceding a point with "shi"'
+english = 'His girlfriend is pretty, but she is a little short.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Adj. + 是 + Adj. ， 但是 / 就是 ⋯⋯'
+hanzi = '他女朋友漂亮是漂亮，就是有点矮。'
+notes = ''
+pinyin = 'Tā nǚpéngyou  piàoliang shì piàoliang, jiùshì yǒudiǎn ǎi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGT9Y8P'

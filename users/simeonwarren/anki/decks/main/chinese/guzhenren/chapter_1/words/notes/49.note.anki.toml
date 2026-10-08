@@ -1,0 +1,20 @@
+note_id = 49
+guid = "In.XVNz>Fx"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+id = 97
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'to snatch away.'
+example-sentence = '   魔头,300年前你侮辱了我,夺走了我的清白之身,杀光我全家,诛了我的九族'
+example-type = ''
+grammar-construct = ''
+hanzi = '夺走'
+notes = ''
+pinyin = '<span class="tone2">duó</span><span class="tone3">zǒu</span>	 <!-- duo zou -->'
+source = ''

@@ -1,0 +1,20 @@
+note_id = 1520716969421
+guid = "rWPy.zl+1j"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Comparisons", "TimeWords"]
+
+[[cards]]
+id = 1520716975285
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "gang" and "gangcai"'
+english = 'I feel a little better now than just before.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '刚才 + Verb'
+hanzi = '我现在感觉比刚才好一点。'
+notes = ''
+pinyin = 'Wǒ xiànzài gǎnjué bǐ gāngcái hǎo yīdiǎn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJFFWG'

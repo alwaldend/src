@@ -1,0 +1,17 @@
+note_id = 1634417060874
+guid = "e_Y4K/Y>`"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634417060875
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<i>file</i>.tell()'
+example = ''
+question = '<b>File method</b>&nbsp;that returns a files current position.'
+version = ''
+with-options = ''

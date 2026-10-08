@@ -1,0 +1,12 @@
+id = 1694866096863
+title = 'main::it::languages::python'
+
+[notes]
+path = 'notes'
+
+[normal]
+config_id = 1
+extend_new = 0
+extend_review = 0
+description = ''
+markdown_description = false

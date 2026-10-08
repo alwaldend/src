@@ -1,0 +1,20 @@
+note_id = 1520716966346
+guid = "MDx%2%]AUI"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+id = 1520716972210
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "difficult" with "nan"'
+english = 'This sentence is hard to understand.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + (很) 难 + Verb'
+hanzi = '这句话很难懂。'
+notes = ''
+pinyin = 'Zhè jù huà hěn nán dǒng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG35T4H'

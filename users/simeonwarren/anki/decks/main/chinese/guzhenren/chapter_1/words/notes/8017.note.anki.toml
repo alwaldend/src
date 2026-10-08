@@ -1,0 +1,20 @@
+note_id = 8017
+guid = "i9Y98RyuDo"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 8041
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'position;	location;	place;	seat;	classifier for people (honorific);	classifier for binary bits (e.g. 十六位 16-bit or 2 bytes);	(physics) potential.'
+example-sentence = ' 顿时就知道,家老们此时议论的是一位叫做古月方源的少年'
+example-type = ''
+grammar-construct = ''
+hanzi = '位'
+notes = ''
+pinyin = '<span class="tone4">wèi</span>	 <!-- wei -->'
+source = ''

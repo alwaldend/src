@@ -1,0 +1,20 @@
+note_id = 1520716966060
+guid = "e~Km$zg51P"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971924
+ordinal = 0
+
+[fields]
+article-title = 'Time words and word order'
+english = 'Shall we get married next month?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Time + Verb + Obj.'
+hanzi = '我们下个月结婚吧？'
+notes = ''
+pinyin = 'Wǒmen xià gè yuè jiéhūn ba?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5RWKO'

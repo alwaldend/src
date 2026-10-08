@@ -1,0 +1,20 @@
+note_id = 2062
+guid = "EeWa7kVm:3"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+id = 2125
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'prosperous.'
+example-sentence = '若是能收入自己这一脉中,好好培养,可保自己这一支百年的昌盛不衰'
+example-type = ''
+grammar-construct = ''
+hanzi = '昌盛'
+notes = ''
+pinyin = '<span class="tone1">chāng</span><span class="tone4">shèng</span>	 <!-- chang sheng -->'
+source = ''

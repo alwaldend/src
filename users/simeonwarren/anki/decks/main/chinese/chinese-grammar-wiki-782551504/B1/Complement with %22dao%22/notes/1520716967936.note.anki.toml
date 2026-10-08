@@ -1,0 +1,20 @@
+note_id = 1520716967936
+guid = "EiZ2G<p&!8"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+id = 1520716973800
+ordinal = 0
+
+[fields]
+article-title = 'Complement with "dao"'
+english = 'She called her boyfriend and they kept talking until her phone was out of battery.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '[Verb Phrase] (+ 一直) + Verb + 到 + Time / Event'
+hanzi = '她给男朋友打电话打到手机没电。'
+notes = ''
+pinyin = 'Tā gěi nánpéngyou dǎ diànhuà dǎ dào shǒujī méi diàn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG1CCAP'

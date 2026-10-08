@@ -1,0 +1,20 @@
+note_id = 1520716967000
+guid = "mxC3g{duFE"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972864
+ordinal = 0
+
+[fields]
+article-title = 'Emphasizing negation with "you"'
+english = "The child didn't do anything wrong. Why hit him?"
+example-sentence = ''
+example-type = ''
+grammar-construct = '又 + 不 / 没 + Predicate'
+hanzi = '孩子又没做错，打他干吗？'
+notes = ''
+pinyin = 'Háizi yòu méi zuò cuò, dǎ tā gànmá?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGD3C4S'

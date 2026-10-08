@@ -1,0 +1,20 @@
+note_id = 1520716966871
+guid = "P<v%x7EU!#"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972735
+ordinal = 0
+
+[fields]
+article-title = 'Indicating the whole with "quan"'
+english = 'People in the whole country know about this news.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '全 + Noun + 都  + Verb'
+hanzi = '全国人民都知道这个新闻。'
+notes = ''
+pinyin = 'Quán guó rénmín dōu zhīdào zhège xīnwén.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCPDSR'

@@ -1,0 +1,20 @@
+note_id = 1520716967084
+guid = "C9Ha,9FU$R"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972948
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "all at once" with "yixiazi"'
+english = 'She burst into tears when we were talking.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 一下(子) + Predicate + 了'
+hanzi = '我们说话的时候，她一下子哭了起来。'
+notes = ''
+pinyin = 'Wǒmen shuōhuà de shíhou, tā yīxiàzi kū le qǐlai.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG06EA8'

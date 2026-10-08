@@ -1,0 +1,20 @@
+note_id = 1520716969063
+guid = "GC)fwD#snu"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974927
+ordinal = 0
+
+[fields]
+article-title = 'Phrases using "laishuo"'
+english = 'To be specific, there are three benefits in doing so.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '具体来说，这样做有三个好处。'
+notes = ''
+pinyin = 'Jùtǐ lái shuō, zhèyàng zuò  yǒu sān gè hǎochù.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGD60A6'

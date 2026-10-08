@@ -1,0 +1,20 @@
+note_id = 1520716966739
+guid = "qqk~}OSGbw"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Adverbs", "Comparisons"]
+
+[[cards]]
+id = 1520716972603
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "bu" and "mei"'
+english = "Tonight I'm not going to drink."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不 + Verb'
+hanzi = '我今天晚上不喝酒。'
+notes = ''
+pinyin = 'Wǒ jīntiān wǎnshang bù hējiǔ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGRJ1BI'

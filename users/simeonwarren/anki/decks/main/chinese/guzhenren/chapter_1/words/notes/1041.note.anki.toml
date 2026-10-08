@@ -1,0 +1,20 @@
+note_id = 1041
+guid = "w*u#9~[;py"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+id = 1082
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'look;	expression.'
+example-sentence = ' 方源对局势洞若观火,不过即便死亡将临,他仍旧是面不改色,神情平淡'
+example-type = ''
+grammar-construct = ''
+hanzi = '神情'
+notes = ''
+pinyin = '<span class="tone2">shén</span><span class="tone2">qíng</span>	 <!-- shen qing -->'
+source = ''

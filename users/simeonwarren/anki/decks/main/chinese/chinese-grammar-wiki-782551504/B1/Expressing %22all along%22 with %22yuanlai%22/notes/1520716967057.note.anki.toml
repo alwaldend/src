@@ -1,0 +1,20 @@
+note_id = 1520716967057
+guid = "m}e`3{S]-C"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972921
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "all along" with "yuanlai"'
+english = 'The original price is 999 RMB.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '原来 + 的 + Noun<br>Subj. + 原来 + [Verb Phrase]'
+hanzi = '这件衣服原来的价格是999块。'
+notes = ''
+pinyin = 'Zhè jiàn yīfu yuánlái de jiàgé shì 999 kuài.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTKXFR'

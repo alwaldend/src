@@ -1,0 +1,20 @@
+note_id = 1520716970700
+guid = "vAHUX40bSY"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Comparisons", "Conjunctions"]
+
+[[cards]]
+id = 1520716976564
+ordinal = 0
+
+[fields]
+article-title = "Comparing \"fan'er\" and \"que\""
+english = "The Chicago Bulls didn't win their last game, but the Knicks did."
+example-sentence = ''
+example-type = ''
+grammar-construct = '反而 + Sentence'
+hanzi = 'ChicagoBulls没赢最后一场比赛，反而是Knicks。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG0K25S'

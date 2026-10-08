@@ -1,0 +1,20 @@
+note_id = 1520716967082
+guid = "o.2@<#umNq"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972946
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "all at once" with "yixiazi"'
+english = 'He ate three bowls of rice at all once.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 一下(子) + Predicate + 了'
+hanzi = '他一下吃了三碗米饭。'
+notes = ''
+pinyin = 'Tā yīxià chī le sān wǎn mǐfàn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG06EA8'

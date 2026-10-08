@@ -1,0 +1,20 @@
+note_id = 1520716970529
+guid = "H$ck.$Btwt"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716976393
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "the more... the more..." with "yue… yue…"'
+english = 'The more he asks, the less I want to talk.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. 1 + 越 + Verb 1，Subj. 2 + 越 + Verb 2'
+hanzi = '他越问，我越不想说。'
+notes = ''
+pinyin = 'Tā yuè wèn, wǒ yuè bù xiǎng shuō.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGB44F6'

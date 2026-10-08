@@ -1,0 +1,20 @@
+note_id = 10032
+guid = "N#h$MrA:vB"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 10073
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'lights.'
+example-sentence = ' 此刻深夜,寨中大多数人家却还有着灯火,和平时大不相同'
+example-type = ''
+grammar-construct = ''
+hanzi = '灯火'
+notes = ''
+pinyin = '<span class="tone1">dēng</span><span class="tone3">huǒ</span>	 <!-- deng huo -->'
+source = ''

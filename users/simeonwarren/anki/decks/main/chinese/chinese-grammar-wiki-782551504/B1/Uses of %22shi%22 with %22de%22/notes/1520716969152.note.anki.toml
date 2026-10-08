@@ -1,0 +1,20 @@
+note_id = 1520716969152
+guid = "B&TpwuRky:"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716975016
+ordinal = 0
+
+[fields]
+article-title = 'Uses of "shi" with "de"'
+english = 'This apple is bad.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 是 + [Distinguishing Words] + 的'
+hanzi = '这个苹果是坏的。'
+notes = ''
+pinyin = 'Zhège píngguǒ shì huài de.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGE662E'

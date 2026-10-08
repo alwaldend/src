@@ -1,0 +1,17 @@
+note_id = 1526926065340
+guid = "BL1_!o2Z@H"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = ["Cursor", "Movement"]
+
+[[cards]]
+id = 1526926081073
+ordinal = 0
+
+[[cards]]
+id = 1668965796619
+ordinal = 1
+
+[fields]
+Back = 'zz'
+Front = 'Center cursor on screen (scrolling the line it is on to the centre, too)'

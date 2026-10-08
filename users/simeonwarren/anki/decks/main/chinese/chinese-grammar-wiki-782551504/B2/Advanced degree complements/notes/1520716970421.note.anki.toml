@@ -1,0 +1,20 @@
+note_id = 1520716970421
+guid = "Q1*DS`bZ:R"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716976285
+ordinal = 0
+
+[fields]
+article-title = 'Advanced degree complements'
+english = "My wife's job is extremely easy and relaxed."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '我老婆的工作轻松得很。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG9E5BB'

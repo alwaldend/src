@@ -1,0 +1,25 @@
+note_id = 1520716970770
+guid = "o]c<~J`{yB"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Comparisons", "Prepositions"]
+
+[[cards]]
+id = 1520716976634
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "duiyu" and "zhiyu"'
+english = "We've already decided about developing the markets, the problem now is when to start.<br>Then, as for this topic, I have nothing more to say."
+example-sentence = ''
+example-type = ''
+grammar-construct = '（不）至于 +  Degree'
+hanzi = 'A: 对于是不是开发中国市场我们已经决定了，现在的问题是什么时候开发。<br>B: 那么，关于这个议题，我没有什么可说的了。'
+notes = ''
+pinyin = """
+<div>A:\u0020
+Duìyú shì bùshì kāifā zhōngguó shìchǎng wǒmen yǐjīng juédìngle, xiànzài\u0020
+de wèntí shì shénme shíhòu kāifā.<br>B: Nàme, guānyú zhège yìtí,\u0020
+wǒ méiyǒu shé me kě shuō dele.<br></div>\
+"""
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGC01S0'

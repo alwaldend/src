@@ -1,0 +1,20 @@
+note_id = 1520716967741
+guid = "B^8o`B):<I"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973605
+ordinal = 0
+
+[fields]
+article-title = 'Reviewing options with "ba"'
+english = "Selling this old house, I'm afraid my parents disagree; Not selling it, I don't have money to buy a new car."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Option 1 + 吧 ，⋯⋯ ；Option 2 + 吧 ，⋯⋯'
+hanzi = '这个老房子，卖吧，怕父母不同意；不卖吧，就没钱买新车。'
+notes = ''
+pinyin = 'Zhège lǎo fángzi, mài ba, pà fùmǔ bù tóngyì; bù mài ba, jiù méi qián mǎi xīn chē.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGELOTT'

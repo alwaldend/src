@@ -1,0 +1,17 @@
+note_id = 1634418728651
+guid = "mfwb-5?IMY"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634418728651
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<b>Built in function:&nbsp;</b>all(<i>iterable</i>)'
+example = ''
+question = '<b>Built in function</b>&nbsp;that returns True if all items in an iterable object evaluate to true, else it returns False.'
+version = ''
+with-options = ''

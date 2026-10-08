@@ -1,0 +1,20 @@
+note_id = 1520716967178
+guid = "CCP},:4HD0"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973042
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "enough" with "gou"'
+english = 'I had enough of it!'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不 + 够 + Adj. / Verb'
+hanzi = '我受够了！'
+notes = ''
+pinyin = 'Wǒ shòu gòu le!'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG49BE6'

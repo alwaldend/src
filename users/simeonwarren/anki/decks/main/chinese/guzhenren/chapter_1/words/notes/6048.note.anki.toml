@@ -1,0 +1,20 @@
+note_id = 6048
+guid = "rZxHvJ#a.8"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 6101
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'talent;	gift;	genius;	talented;	gifted.'
+example-sentence = '我们古月一族已经有三年没有这样的天才出现了'
+example-type = ''
+grammar-construct = ''
+hanzi = '天才'
+notes = ''
+pinyin = '<span class="tone1">tiān</span><span class="tone2">cái</span>	 <!-- tian cai -->'
+source = ''

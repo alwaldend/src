@@ -1,0 +1,20 @@
+note_id = 1520716967793
+guid = "cx(CcZ`Zhe"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+id = 1520716973657
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "for" with "gei"'
+english = 'Could you please buy me a cup of coffee?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 给 + Recipient + [Verb Phrase]'
+hanzi = '可以给我买一杯咖啡吗？'
+notes = ''
+pinyin = 'Kěyǐ gěi wǒ mǎi yī bēi kāfēi ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGLHAV3'

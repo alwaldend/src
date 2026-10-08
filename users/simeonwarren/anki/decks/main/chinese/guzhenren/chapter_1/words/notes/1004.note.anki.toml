@@ -1,0 +1,20 @@
+note_id = 1004
+guid = "l{1:-I4$@j"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+id = 1008
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'all over;	from head to foot.'
+example-sentence = '方源一身残破的碧绿大袍,披头散发,浑身浴血,环顾四周'
+example-type = ''
+grammar-construct = ''
+hanzi = '浑身'
+notes = ''
+pinyin = '<span class="tone2">hún</span><span class="tone1">shēn</span>	 <!-- hun shen -->'
+source = ''

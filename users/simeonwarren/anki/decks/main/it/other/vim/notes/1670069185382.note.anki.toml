@@ -1,0 +1,17 @@
+note_id = 1670069185382
+guid = "L`Ro<Ds8Ev"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = []
+
+[[cards]]
+id = 1670069185382
+ordinal = 0
+
+[[cards]]
+id = 1670069185384
+ordinal = 1
+
+[fields]
+Back = 'c/xy'
+Front = 'Change up to a specific 2 character sequence “xy”'

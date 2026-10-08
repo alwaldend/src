@@ -1,0 +1,20 @@
+note_id = 1520716966526
+guid = "s[L9-<N_*2"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Grammatical_Structures", "NounPhrases"]
+
+[[cards]]
+id = 1520716972390
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "some" with "yixie"'
+english = 'He bought some clothes last weekend.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '一些 + Noun'
+hanzi = '上个周末他买了一些衣服。'
+notes = ''
+pinyin = 'Shàng gè zhōumò tā mǎi le yīxiē yīfu.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWVZ0T'

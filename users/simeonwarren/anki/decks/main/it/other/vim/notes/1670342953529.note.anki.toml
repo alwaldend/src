@@ -1,0 +1,17 @@
+note_id = 1670342953529
+guid = "r8vuJmGlq]"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = []
+
+[[cards]]
+id = 1670342953529
+ordinal = 0
+
+[[cards]]
+id = 1670342953530
+ordinal = 1
+
+[fields]
+Back = '/pattern/string<b>&amp;</b> " ampersand'
+Front = 'Insert (pattern) match after the string in: /{pattern}/{string}'

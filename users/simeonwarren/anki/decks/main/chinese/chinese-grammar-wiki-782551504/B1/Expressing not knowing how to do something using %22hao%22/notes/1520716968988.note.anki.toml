@@ -1,0 +1,20 @@
+note_id = 1520716968988
+guid = "MUSD]B&e{,"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974852
+ordinal = 0
+
+[fields]
+article-title = 'Expressing not knowing how to do something using "hao"'
+english = "I really don't know what to do with it."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不知道 + [Verb Phrase] + 好'
+hanzi = '我真的不知道怎么办才好。'
+notes = ''
+pinyin = 'Wǒ zhēnde bù zhīdào zěnme bàn cái hǎo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG0EQQJ'

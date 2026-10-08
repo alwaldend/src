@@ -1,0 +1,20 @@
+note_id = 1520716970362
+guid = "Hr!?;RJMMJ"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716976226
+ordinal = 0
+
+[fields]
+article-title = 'Advanced result complements'
+english = "Excuse me. You're standing in my way."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '不好意思，你挡住了我的路。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG4OM4T'

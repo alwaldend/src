@@ -1,0 +1,20 @@
+note_id = 1520716967337
+guid = "t^_q-h.z?d"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973201
+ordinal = 0
+
+[fields]
+article-title = 'Using "always" as a complaint with "laoshi"'
+english = 'This teacher is always very serious.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 老是 + Adv. + Adj.'
+hanzi = '这个老师老是很严肃。'
+notes = ''
+pinyin = 'Zhège lǎoshī lǎoshì hěn yánsù.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGII66E'

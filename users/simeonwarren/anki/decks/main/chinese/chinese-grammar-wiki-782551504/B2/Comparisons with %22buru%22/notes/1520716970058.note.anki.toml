@@ -1,0 +1,20 @@
+note_id = 1520716970058
+guid = "x|#Nh@Q^`:"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716975922
+ordinal = 0
+
+[fields]
+article-title = 'Comparisons with "buru"'
+english = ', might as well .'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A + Verb-Obj. + 不如 + B+ (Verb + 得) + Adj.'
+hanzi = '在家看电视多无聊！不如去KTV吧。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWH1D5'

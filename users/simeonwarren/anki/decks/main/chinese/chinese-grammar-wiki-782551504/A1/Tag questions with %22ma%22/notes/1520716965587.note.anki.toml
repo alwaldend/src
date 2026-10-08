@@ -1,0 +1,20 @@
+note_id = 1520716965587
+guid = "#zt4rtLp$"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+id = 1520716971451
+ordinal = 0
+
+[fields]
+article-title = 'Tag questions with "ma"'
+english = "You haven't been here, right?"
+example-sentence = ''
+example-type = ''
+grammar-construct = '⋯⋯， 好 / 对 / 是 / 可以 +  吗？'
+hanzi = '你没来过，是吗？'
+notes = ''
+pinyin = 'Nǐ méi lái guo, shì ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGSJYZ2'

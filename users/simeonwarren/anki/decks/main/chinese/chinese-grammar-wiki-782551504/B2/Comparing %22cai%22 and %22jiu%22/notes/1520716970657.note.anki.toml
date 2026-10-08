@@ -1,0 +1,20 @@
+note_id = 1520716970657
+guid = "DAo?[rSqm]"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Comparisons"]
+
+[[cards]]
+id = 1520716976521
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "cai" and "jiu"'
+english = '.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 就 + (＋Verb) ＋ Measure Word ＋ Noun'
+hanzi = '每个人都写了五页纸，你就写了一页纸！'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGLOS9C'

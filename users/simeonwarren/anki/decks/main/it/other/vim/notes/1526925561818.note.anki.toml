@@ -1,0 +1,17 @@
+note_id = 1526925561818
+guid = "uhh_Hb_oR_"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = ["Global"]
+
+[[cards]]
+id = 1526925570306
+ordinal = 0
+
+[[cards]]
+id = 1668965796588
+ordinal = 1
+
+[fields]
+Back = ':clo[se] &nbsp; “ or ^w c'
+Front = 'Close the current window, unless it is the last open window'

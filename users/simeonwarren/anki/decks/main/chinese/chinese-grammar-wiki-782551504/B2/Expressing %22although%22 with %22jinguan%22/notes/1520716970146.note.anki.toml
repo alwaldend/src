@@ -1,0 +1,20 @@
+note_id = 1520716970146
+guid = "L!nYj_k-(w"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "ButStatements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716976010
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "although" with "jinguan"'
+english = 'Even though the fire was big and it was very dangerous, the firefighters are still bravely running in.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '尽管 A，还是 / 仍然 B'
+hanzi = '尽管火很大，很危险，消防员仍然勇敢地冲了进去。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGW863F'

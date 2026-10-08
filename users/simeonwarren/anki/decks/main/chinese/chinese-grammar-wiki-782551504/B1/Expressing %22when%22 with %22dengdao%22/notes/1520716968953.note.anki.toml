@@ -1,0 +1,20 @@
+note_id = 1520716968953
+guid = "keAxu3Zj^a"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974817
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "when" with "dengdao"'
+english = "She didn't start working until her children went to elementary school."
+example-sentence = ''
+example-type = ''
+grammar-construct = '等(到) + Time / Event ，Subj. + 才 + Predicate'
+hanzi = '等到孩子上了小学，她才开始工作。'
+notes = ''
+pinyin = 'Děngdào háizi shàng le xiǎoxué, tā cái kāishǐ gōngzuò.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG68F61'

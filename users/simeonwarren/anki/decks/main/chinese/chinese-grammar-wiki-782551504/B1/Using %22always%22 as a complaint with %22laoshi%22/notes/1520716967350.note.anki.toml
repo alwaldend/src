@@ -1,0 +1,20 @@
+note_id = 1520716967350
+guid = "b)P_s:7xE@"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973214
+ordinal = 0
+
+[fields]
+article-title = 'Using "always" as a complaint with "laoshi"'
+english = 'Your son talks all the time in the class.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '老是 + Predicate'
+hanzi = '你儿子上课的时候老是说话。'
+notes = ''
+pinyin = 'Nǐ érzi shàngkè de shíhou lǎoshì shuōhuà.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGII66E'

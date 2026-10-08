@@ -1,0 +1,20 @@
+note_id = 1520716968802
+guid = "m~ZgrGFI|P"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974666
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "how often"'
+english = 'How often do you eat avocado?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + [Length of Time]  + Verb + Times (+ Obj.)'
+hanzi = '你多长时间吃一次牛油果？'
+notes = ''
+pinyin = 'Nǐ duō cháng shíjiān chī yī cì niúyóuguǒ?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCED31'

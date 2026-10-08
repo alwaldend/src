@@ -1,0 +1,20 @@
+note_id = 7024
+guid = "Gxh{Kv[vtv"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 7054
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'to feel;	to become aware of;	feeling;	sense;	perception.<br>Cl: 个'
+example-sentence = '甚至就连老一辈们都感觉到了这位后起之秀的压力'
+example-type = ''
+grammar-construct = ''
+hanzi = '感觉'
+notes = ''
+pinyin = '<span class="tone3">gǎn</span><span class="tone2">jué</span>	 <!-- gan jue -->'
+source = ''

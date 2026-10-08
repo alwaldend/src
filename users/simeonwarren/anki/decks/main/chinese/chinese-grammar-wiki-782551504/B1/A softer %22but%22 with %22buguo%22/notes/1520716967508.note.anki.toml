@@ -1,0 +1,20 @@
+note_id = 1520716967508
+guid = "nR-a#NOGpV"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973372
+ordinal = 0
+
+[fields]
+article-title = 'A softer "but" with "buguo"'
+english = 'You can participate, but there is a condition.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '⋯⋯ ，不过 ⋯⋯'
+hanzi = '你可以参加，不过有个条件。'
+notes = ''
+pinyin = 'Nǐ kěyǐ cānjiā, bùguò wǒ yǒu gè tiáojiàn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGA0S4T'

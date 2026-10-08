@@ -1,0 +1,17 @@
+note_id = 1634436914319
+guid = "OOtpDJc~kW"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634436914320
+ordinal = 0
+
+[fields]
+additional-info = '<strong>Note:</strong>&nbsp;All string methods returns new values. They do not change the original string.'
+answer = '<i>string</i>.isnumeric()'
+example = ''
+question = "<b>String method</b>&nbsp;that returns True if all characters in the string are numbers (1 - 9) but doesn't work on numaric symbols. It <b>will</b> work on nonstandardized numbers (Chinese/Japanese characters) as well."
+version = ''
+with-options = ''

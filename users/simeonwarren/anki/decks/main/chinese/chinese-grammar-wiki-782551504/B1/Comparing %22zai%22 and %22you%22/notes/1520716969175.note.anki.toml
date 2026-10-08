@@ -1,0 +1,20 @@
+note_id = 1520716969175
+guid = "GI;}Xj),?%"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Comparisons"]
+
+[[cards]]
+id = 1520716975039
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "zai" and "you"'
+english = ''
+example-sentence = ''
+example-type = 'invalid'
+grammar-construct = 'Subj. + (先) + Action 1 + 再 + Action 2'
+hanzi = '我要看完书又睡觉。'
+notes = "'\"又\"can not be used as the action\"go to bed\" haven't occured yet."
+pinyin = '<div>Wǒ yào kàn wán shū yòu shuìjiào.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTBHBG'

@@ -1,0 +1,20 @@
+note_id = 1520716967643
+guid = "D@*m4t%icT"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973507
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "when" with "shi"'
+english = 'I often ask this question in a job interview.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb-Obj. + 时 ，Subj. ⋯⋯'
+hanzi = '我面试时经常会问这个问题。'
+notes = ''
+pinyin = 'Wǒ miànshì shí jīngcháng huì wèn zhège wèntí.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGGL59D'

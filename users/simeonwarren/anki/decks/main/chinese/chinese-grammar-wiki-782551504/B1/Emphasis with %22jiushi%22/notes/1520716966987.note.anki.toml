@@ -1,0 +1,20 @@
+note_id = 1520716966987
+guid = "b+@B/pu=T8"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972851
+ordinal = 0
+
+[fields]
+article-title = 'Emphasis with "jiushi"'
+english = "She's just pretty; she doesn't have any other strengths."
+example-sentence = ''
+example-type = ''
+grammar-construct = '就是 + Noun'
+hanzi = '她就是漂亮，没别的优势。'
+notes = ''
+pinyin = 'Tā jiùshì piàoliang, méi biéde yōushì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGY21RK'

@@ -1,0 +1,17 @@
+note_id = 1526925630373
+guid = "Q2N8me+=4V"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = ["Cursor", "Movement"]
+
+[[cards]]
+id = 1526925642659
+ordinal = 0
+
+[[cards]]
+id = 1668965796594
+ordinal = 1
+
+[fields]
+Back = 'H'
+Front = 'Move to top of screen'

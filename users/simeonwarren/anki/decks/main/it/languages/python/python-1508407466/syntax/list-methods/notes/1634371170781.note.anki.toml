@@ -1,0 +1,17 @@
+note_id = 1634371170781
+guid = "NZ8n>|r*5b"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634371170782
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<i>list</i>.extend(<i>iterable</i>)'
+example = ''
+question = '<b>List method</b>&nbsp;that adds the elements of an iterable to the end of a list.'
+version = ''
+with-options = ''

@@ -1,0 +1,17 @@
+note_id = 1668637009438
+guid = "vy*~k@7!Vf"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = []
+
+[[cards]]
+id = 1668637009438
+ordinal = 0
+
+[[cards]]
+id = 1668965796729
+ordinal = 1
+
+[fields]
+Back = ':tabnew {file}&nbsp; " open a new tab ... after current tab<br>:+tabnew {file}&nbsp; &nbsp;" ... after next tab&nbsp;<br>:-tabnew&nbsp;{file}&nbsp; &nbsp;" ... before current tab&nbsp;<br>:0tabnew&nbsp;{file}&nbsp; &nbsp;" ... before first tab&nbsp;<br>:$tabnew&nbsp;{file}&nbsp; &nbsp;" ... after last tab&nbsp;'
+Front = 'Open a new tab page before/after current/first/last tab [with a file]'

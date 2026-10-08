@@ -1,0 +1,20 @@
+note_id = 1520716968633
+guid = "LGV65[h(()"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "NounPhrases"]
+
+[[cards]]
+id = 1520716974497
+ordinal = 0
+
+[fields]
+article-title = 'Indicating a number in excess'
+english = 'This bag cost me more than thirty thousand kuai.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Number + 多 + Measure word + (Noun)'
+hanzi = '这个包花了我三万多块钱。'
+notes = ''
+pinyin = 'Zhège bāo huā le wǒ sān wàn duō kuài qián.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG004ZK'

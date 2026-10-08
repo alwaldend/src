@@ -1,0 +1,20 @@
+note_id = 1520716968681
+guid = "tf(-WnNN:c"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974545
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "although" with "suiran" and "danshi"'
+english = "Although she's prepared very well, she's still a little nervous."
+example-sentence = ''
+example-type = ''
+grammar-construct = '虽然 ⋯⋯ ，但是 / 可是 ⋯⋯'
+hanzi = '虽然她准备得很好，但是还是有点紧张。'
+notes = ''
+pinyin = 'Suīrán tā zhǔnbèi de hěn hǎo, dànshì háishì yǒudiǎn jǐnzhāng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGXI560'

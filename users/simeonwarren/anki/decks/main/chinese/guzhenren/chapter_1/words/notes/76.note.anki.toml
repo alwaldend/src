@@ -1,0 +1,20 @@
+note_id = 76
+guid = "q(Nd<d(}JT"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+id = 151
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'to comment on;	to discuss;	comment;	commentary.<br>Cl: 篇'
+example-sentence = '新书伊始,朋友们的收该藏、推荐票以及评论,是最好的鼓励'
+example-type = ''
+grammar-construct = ''
+hanzi = '评论'
+notes = ''
+pinyin = '<span class="tone2">píng</span><span class="tone4">lùn</span>	 <!-- ping lun -->'
+source = ''

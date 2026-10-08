@@ -1,0 +1,20 @@
+note_id = 1520716968043
+guid = "h4oQ+)aS7!"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716973907
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "it seems" with "haoxiang"'
+english = 'It seems that nobody can help him.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 好像 + [Observation]'
+hanzi = '好像没有人能帮他。'
+notes = ''
+pinyin = 'Hǎoxiàng méiyǒu rén néng bāng tā.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG3ROPY'

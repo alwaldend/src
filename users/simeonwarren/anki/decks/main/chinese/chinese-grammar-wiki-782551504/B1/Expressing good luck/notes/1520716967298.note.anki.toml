@@ -1,0 +1,20 @@
+note_id = 1520716967298
+guid = "hc5MkbSB/m"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "leech", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973162
+ordinal = 0
+
+[fields]
+article-title = 'Expressing good luck'
+english = "Luckily I didn't buy a lot, otherwise it would be all wasted."
+example-sentence = ''
+example-type = ''
+grammar-construct = '还好 + [Lucky Incident]， 不然……'
+hanzi = '还好我买得少，不然都浪费了。'
+notes = ''
+pinyin = 'Hái hǎo mǎi de shǎo, bùrán dōu làngfèi le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGOB1BF'

@@ -1,0 +1,20 @@
+note_id = 1520716968764
+guid = "Ca4)>SSWuf"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974628
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "every" with question words'
+english = 'Anytime is fine.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '什么时候 (+ Verb) + 都 + Predicate'
+hanzi = '什么时候都可以。'
+notes = ''
+pinyin = 'Shénme shíhou dōu kěyǐ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG13ALM'

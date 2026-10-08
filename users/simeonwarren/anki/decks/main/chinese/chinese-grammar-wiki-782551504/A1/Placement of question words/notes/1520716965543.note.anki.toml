@@ -1,0 +1,20 @@
+note_id = 1520716965543
+guid = "kDmBrKE4OT"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+id = 1520716971407
+ordinal = 0
+
+[fields]
+article-title = 'Placement of question words'
+english = 'What kind of car does he drive?<br>He drives a BMW.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 什么 + (Noun) ?'
+hanzi = 'A: 他开什么车？<br>B: 他开宝马。'
+notes = ''
+pinyin = 'Tā kāi shénme chē?<br>Tā kāi Bǎomǎ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJQPSC'

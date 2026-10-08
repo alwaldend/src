@@ -1,0 +1,20 @@
+note_id = 1520716967919
+guid = ")|^}KwpE9"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "SentencePatterns"]
+
+[[cards]]
+id = 1520716973783
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "double negation"'
+english = "He is your best friend. There is no possibility he won't come take part in your wedding."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不 + 是 / 会 / 能 + 没 + [Verb Phrase]'
+hanzi = '他是你最好的朋友，不会不来参加你的婚礼。'
+notes = ''
+pinyin = 'Tā shì nǐ zuìhǎo de péngyou, bù huì bù lái cānjiā nǐ de hūnlǐ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGEEA2D'

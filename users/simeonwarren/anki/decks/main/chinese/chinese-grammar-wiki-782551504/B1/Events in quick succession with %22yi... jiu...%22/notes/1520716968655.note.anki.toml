@@ -1,0 +1,20 @@
+note_id = 1520716968655
+guid = "A&aU%w.Gi$"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974519
+ordinal = 0
+
+[fields]
+article-title = 'Events in quick succession with "yi... jiu..."'
+english = 'Every time I think about this, I get upset.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '一 + Reason，就 + Result'
+hanzi = '我一想到这件事就不高兴。'
+notes = ''
+pinyin = 'Wǒ yī xiǎngdào zhè jiàn shì jiù bù gāoxìng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTFUD0'

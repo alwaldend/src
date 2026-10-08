@@ -1,0 +1,20 @@
+note_id = 1520716969260
+guid = "rC+GDRea]l"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Comparisons", "Conjunctions"]
+
+[[cards]]
+id = 1520716975124
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "haishi" and "huozhe"'
+english = ''
+example-sentence = ''
+example-type = 'invalid'
+grammar-construct = 'Option 1 + 或者 + Option 2'
+hanzi = '老板现在还不确定是这个周出差或者下个周。'
+notes = "It's an embedded question, so it should use \"还是\""
+pinyin = '<div>Lǎobǎn xiànzài hái bù quèdìng shì zhège zhōu chūchāi huòzhě xià gè zhōu.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQJ5IC'

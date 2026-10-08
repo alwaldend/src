@@ -1,0 +1,20 @@
+note_id = 1520716965431
+guid = "cH]Q;dX0){"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+id = 1520716971295
+ordinal = 0
+
+[fields]
+article-title = 'Negation of past actions with "meiyou"'
+english = "She didn't see you."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 没有 / 没 + Verb'
+hanzi = '她没有看到你。'
+notes = ''
+pinyin = 'Tā méiyǒu kàndào nǐ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGAUCXK'

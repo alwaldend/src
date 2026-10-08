@@ -1,0 +1,20 @@
+note_id = 2000
+guid = "b%.(N}z7p"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 2001
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'firmly;	safely.'
+example-sentence = '此时牢牢包围着方源,有的在咆哮,有的在冷笑,有的双眼眯起闪着警惕的光,有的捂着伤口恐惧地望着'
+example-type = ''
+grammar-construct = ''
+hanzi = '牢牢'
+notes = ''
+pinyin = '<span class="tone2">láo</span><span class="tone2">láo</span>	 <!-- lao lao -->'
+source = ''

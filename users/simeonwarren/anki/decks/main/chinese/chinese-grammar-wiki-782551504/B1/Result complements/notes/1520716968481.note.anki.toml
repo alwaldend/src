@@ -1,0 +1,20 @@
+note_id = 1520716968481
+guid = "ge-.{U%Rml"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716974345
+ordinal = 0
+
+[fields]
+article-title = 'Result complements'
+english = 'Are you done eating?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 没 + Verb + Adj. (+ Obj.)'
+hanzi = '你吃好了吗？'
+notes = ''
+pinyin = 'Nǐ chī hǎo le ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNNMST'

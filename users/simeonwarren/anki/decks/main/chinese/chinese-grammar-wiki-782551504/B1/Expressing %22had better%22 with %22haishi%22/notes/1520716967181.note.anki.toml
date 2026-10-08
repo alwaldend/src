@@ -1,0 +1,20 @@
+note_id = 1520716967181
+guid = "F12`:N!m5."
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973045
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "had better" with "haishi"'
+english = "We'd better go tomorrow."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 还是 + [Verb Phrase] + 吧'
+hanzi = '还是明天去吧。'
+notes = ''
+pinyin = 'Háishì míngtiān qù ba.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWAR65'

@@ -1,0 +1,20 @@
+note_id = 1520716969410
+guid = "xzxN&zT)M}"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["AuxiliaryWords", "B1", "Comparisons"]
+
+[[cards]]
+id = 1520716975274
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "hui" "neng" "keyi"'
+english = 'Can you speak Chinese?<br>Sorry, I can only speak a little.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '会／能 + Verb'
+hanzi = 'A:你会说中文吗？<br>B:不好意思，我只会说一点。'
+notes = ''
+pinyin = 'Nǐ huì shuō Zhōngwén ma?<br>Bù hǎoyìsi, wǒ zhǐ huì shuō yīdiǎn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGZL717'

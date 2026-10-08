@@ -1,0 +1,20 @@
+note_id = 1520716968445
+guid = "mYyFV~M;v%"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716974309
+ordinal = 0
+
+[fields]
+article-title = 'Degree complement'
+english = 'In my opinion, your job is extremely relaxed.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '我看，你的工作轻松得很。'
+notes = ''
+pinyin = 'Wǒkàn, nǐ de gōngzuò qīngsōng de hěn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG79STE'

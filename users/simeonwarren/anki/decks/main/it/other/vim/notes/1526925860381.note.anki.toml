@@ -1,0 +1,17 @@
+note_id = 1526925860381
+guid = "MiYhNoP50."
+note_type_id = 1520550989354
+note_type = "basic"
+tags = ["Cursor", "Movement"]
+
+[[cards]]
+id = 1526925876067
+ordinal = 0
+
+[[cards]]
+id = 1668965796607
+ordinal = 1
+
+[fields]
+Back = 'g_'
+Front = 'Jump to the last non-blank character of the line'

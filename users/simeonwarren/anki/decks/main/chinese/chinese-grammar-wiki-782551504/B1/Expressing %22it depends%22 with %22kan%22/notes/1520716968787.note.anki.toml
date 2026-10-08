@@ -1,0 +1,20 @@
+note_id = 1520716968787
+guid = "NC8kjC{~qU"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974651
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "it depends" with "kan"'
+english = 'When to give you the promotion depends on your performance.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '[Unknown Outcome] + 要看 / 得看 + [Unclear Situation]'
+hanzi = '什么时候给你升职得看你的业绩。'
+notes = ''
+pinyin = 'Shénme shíhou gěi nǐ shēngzhí děi kàn nǐ de yèjì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG765HD'

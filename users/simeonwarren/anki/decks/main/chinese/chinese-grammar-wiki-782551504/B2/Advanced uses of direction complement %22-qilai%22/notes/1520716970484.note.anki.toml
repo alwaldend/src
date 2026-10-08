@@ -1,0 +1,20 @@
+note_id = 1520716970484
+guid = "isENvd5@U~"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716976348
+ordinal = 0
+
+[fields]
+article-title = 'Advanced uses of direction complement "-qilai"'
+english = 'He put away his clothes.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 把 + Obj. + Verb + 起来'
+hanzi = '他把衣服都收起来了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGSCN01'

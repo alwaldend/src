@@ -1,0 +1,20 @@
+note_id = 1520716965159
+guid = "wj1.zCEqec"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971023
+ordinal = 0
+
+[fields]
+article-title = 'The "also" adverb "ye"'
+english = 'I also want to study Chinese.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 也 + Verb / [Verb Phrase]'
+hanzi = '我也想学中文。'
+notes = ''
+pinyin = 'Wǒ yě xiǎng xué Zhōngwén.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGG25MD'

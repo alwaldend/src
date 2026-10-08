@@ -1,0 +1,20 @@
+note_id = 1520716970825
+guid = "JSO{Y[b:(:"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Comparisons", "SeparateFunctions"]
+
+[[cards]]
+id = 1520716976689
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "shihe" and "heshi"'
+english = 'This movie does not suit children (to watch).'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 适合 + Obj.'
+hanzi = '这部电影不适合儿童看。'
+notes = "This translation is a little awkward in English, but we're trying to avoid using the word \"suitable,\" which is an adjective."
+pinyin = '<div>Zhè bù diànyǐng bù shìhé értóng kàn.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGVDOXL'

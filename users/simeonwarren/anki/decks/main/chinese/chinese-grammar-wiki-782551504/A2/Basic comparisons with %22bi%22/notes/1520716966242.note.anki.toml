@@ -1,0 +1,20 @@
+note_id = 1520716966242
+guid = "m~4<EHS~eK"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+id = 1520716972106
+ordinal = 0
+
+[fields]
+article-title = 'Basic comparisons with "bi"'
+english = 'She is prettier than her mother.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun 1 + 比 + Noun 2 + Adj.'
+hanzi = '她比她妈妈漂亮。'
+notes = ''
+pinyin = 'Tā bǐ tā māma  piàoliang .'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8SI2K'

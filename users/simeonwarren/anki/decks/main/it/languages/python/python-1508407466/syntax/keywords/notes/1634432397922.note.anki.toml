@@ -1,0 +1,17 @@
+note_id = 1634432397922
+guid = "ge?v:gw[D."
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634432397923
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<b>Keyword</b> used to simplify exception handling for opening a file.'
+example = 'with open("file_name") as file:<div>&nbsp; &nbsp; #do some stuff here</div>'
+question = '<b>Keyword: </b>with'
+version = ''
+with-options = ''

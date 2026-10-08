@@ -1,0 +1,20 @@
+note_id = 1520716969984
+guid = "c0Jw:XKk!h"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+id = 1520716975848
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "on the basis of" with "ping"'
+english = "I haven't done anything wrong. How can you scold me?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 凭什么 + Verb Phrase'
+hanzi = '我没有做错，他凭什么骂我？'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGGB3IV'

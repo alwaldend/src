@@ -1,0 +1,20 @@
+note_id = 1520716967431
+guid = "w=1Oe#8A<P"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["AdverbswithAdjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973295
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "quite" with "ting"'
+english = 'This teacher is quite young.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '挺 + Adj. + 的'
+hanzi = '这个老师挺年轻的。'
+notes = ''
+pinyin = 'Zhège lǎoshī tǐng niánqīng de.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDF1F7'

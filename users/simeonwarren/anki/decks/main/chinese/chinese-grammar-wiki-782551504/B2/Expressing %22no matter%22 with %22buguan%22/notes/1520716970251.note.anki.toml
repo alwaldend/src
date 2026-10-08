@@ -1,0 +1,20 @@
+note_id = 1520716970251
+guid = "m?(Bl4/&|"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Grammatical_Structures", "NoMatterStatements"]
+
+[[cards]]
+id = 1520716976115
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "no matter" with "buguan"'
+english = '.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '不管 + Verb /  Adj. + 不 + Verb /  Adj. ，Subj. + 都 ⋯⋯'
+hanzi = '不管明天下不下雨，我都要出门。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG0NDS6'

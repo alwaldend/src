@@ -1,0 +1,20 @@
+note_id = 1520716968995
+guid = "lo6AJP.n+G"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974859
+ordinal = 0
+
+[fields]
+article-title = "The pattern \"it's not…, it's…\""
+english = "He isn't Chinese, he's American."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不是 + [Verb Phrase 1] ， (而)是 + [Verb Phrase 2]'
+hanzi = '他不是中国人，是美国人。'
+notes = ''
+pinyin = 'Tā bù shì Zhōngguó rén, shì Měiguó rén.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGT9WYR'

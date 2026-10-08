@@ -1,0 +1,12 @@
+id = 1735325009166
+title = 'filtered'
+
+[notes]
+path = 'notes'
+
+[normal]
+config_id = 1
+extend_new = 0
+extend_review = 0
+description = ''
+markdown_description = false

@@ -1,0 +1,17 @@
+note_id = 1670359127576
+guid = "c}2|Oi/(7m"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = []
+
+[[cards]]
+id = 1670359127576
+ordinal = 0
+
+[[cards]]
+id = 1670359127577
+ordinal = 1
+
+[fields]
+Back = 'Y'
+Front = 'Copy this line (single operator)'

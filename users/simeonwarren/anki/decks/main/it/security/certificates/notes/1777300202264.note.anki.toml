@@ -1,0 +1,17 @@
+note_id = 1777300202264
+guid = "iCzv!Z%!db"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = []
+
+[[cards]]
+id = 1777300202265
+ordinal = 0
+
+[[cards]]
+id = 1777300202266
+ordinal = 1
+
+[fields]
+Back = 'https://owasp.org/www-community/controls/Certificate_and_Public_Key_Pinning'
+Front = 'Certificate and Public Key Pinning'

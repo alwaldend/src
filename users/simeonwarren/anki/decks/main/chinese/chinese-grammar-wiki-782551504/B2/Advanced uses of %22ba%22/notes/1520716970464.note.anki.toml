@@ -1,0 +1,20 @@
+note_id = 1520716970464
+guid = "kTL7:8P_kc"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716976328
+ordinal = 0
+
+[fields]
+article-title = 'Advanced uses of "ba"'
+english = 'Some Chinese girls would think about being liked as being in love.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '把 + Obj.+ 当成 / 看成 / 当作 / 看作 +⋯⋯'
+hanzi = '有的中国女生会把喜欢当成爱。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQRS3P'

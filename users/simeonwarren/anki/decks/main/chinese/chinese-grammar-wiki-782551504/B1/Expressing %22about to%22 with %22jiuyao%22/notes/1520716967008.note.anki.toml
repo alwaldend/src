@@ -1,0 +1,20 @@
+note_id = 1520716967008
+guid = "Eimz[1W_+t"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972872
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "about to" with "jiuyao"'
+english = 'In ten more days, the baby will be one year old.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '还有 + Time (+ Subj.) + 就 (要) + Verb + 了'
+hanzi = '还有十天宝宝就一岁了。'
+notes = ''
+pinyin = 'Háiyǒu shí tiān bǎobao jiù yī suì le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG9B210'

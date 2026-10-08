@@ -1,0 +1,20 @@
+note_id = 1520716966577
+guid = "E+0LZ}5w=Q"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Grammatical_Structures", "NumbersandMeasureWords"]
+
+[[cards]]
+id = 1520716972441
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "half" with "ban"'
+english = 'half a serving of chow mein'
+example-sentence = ''
+example-type = ''
+grammar-construct = '半 + Measure Word + Noun'
+hanzi = '半份炒面'
+notes = ''
+pinyin = 'bàn fèn chǎomiàn'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGAC1P9'

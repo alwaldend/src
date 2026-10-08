@@ -1,0 +1,17 @@
+note_id = 1668636586166
+guid = "o+jWMQ*3jp"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = []
+
+[[cards]]
+id = 1668636586166
+ordinal = 0
+
+[[cards]]
+id = 1668965796725
+ordinal = 1
+
+[fields]
+Back = '^w T &nbsp;“ current tab must have at least one split<div>^w t &nbsp;only moves the cursor to the top left window</div>'
+Front = 'Move the current window to the next tab'

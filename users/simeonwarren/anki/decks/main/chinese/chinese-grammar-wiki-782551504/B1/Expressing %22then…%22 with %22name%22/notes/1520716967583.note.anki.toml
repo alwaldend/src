@@ -1,0 +1,20 @@
+note_id = 1520716967583
+guid = "sswiTl`M[R"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973447
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "then…" with "name"'
+english = "You don't think this idea is good. Then have you got any other good idea?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Context ，那么 + Result / Decision'
+hanzi = '你认为这个想法不行，那你有别的想法吗？'
+notes = ''
+pinyin = 'Nǐ rènwéi zhège xiǎngfǎ bù xíng , nà nǐ yǒu bié de xiǎngfǎ ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGX298Z'

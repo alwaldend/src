@@ -1,0 +1,20 @@
+note_id = 1520716969745
+guid = "KRiFg/=VP"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975609
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "never again" with "zai ye bu"'
+english = "I've never been to the bar again since then."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 再也 + 没 + Verb + 过 + Obj.'
+hanzi = '从那以后，我再也没去过酒吧。'
+notes = ''
+pinyin = 'Cóng nà yǐhòu, wǒ zài yě méi qù guo jiǔbā.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG7R8US'

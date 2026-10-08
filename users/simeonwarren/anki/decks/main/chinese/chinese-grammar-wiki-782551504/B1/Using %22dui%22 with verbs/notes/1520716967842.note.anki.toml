@@ -1,0 +1,20 @@
+note_id = 1520716967842
+guid = "jEB}:aR4Wp"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+id = 1520716973706
+ordinal = 0
+
+[fields]
+article-title = 'Using "dui" with verbs'
+english = 'How could you shout at your mother?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '对 + Obj. + Verb'
+hanzi = '你怎么能对你妈妈大喊大叫？'
+notes = ''
+pinyin = 'Nǐ zěnme néng duì nǐ māma dà hǎn dà jiào?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8ICO9'

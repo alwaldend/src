@@ -1,0 +1,20 @@
+note_id = 1520716969875
+guid = "IVI^|0g<{3"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975739
+ordinal = 0
+
+[fields]
+article-title = 'Softening the tone of questions with "ne"'
+english = 'Did you drink the milk or not?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb 1 + 不 + Verb 1 + (Verb 2) + 呢？'
+hanzi = '牛奶你喝不喝？'
+notes = "Said to a child, with the implication that if the milk isn't drunk, there will be consequences, with emphasis placed on 喝"
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGW7YXP'

@@ -1,0 +1,20 @@
+note_id = 1520716969374
+guid = "F.SBjb^+Po"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Comparisons", "Nouns"]
+
+[[cards]]
+id = 1520716975238
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "zhijian" and "zhongjian"'
+english = 'intermediary (lit. "middle person")'
+example-sentence = ''
+example-type = ''
+grammar-construct = '中间 + Noun'
+hanzi = '中间人'
+notes = ''
+pinyin = '<div>Zhōngjiānrén</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGN6O6J'

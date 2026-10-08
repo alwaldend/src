@@ -1,0 +1,20 @@
+note_id = 1520716967319
+guid = "QmI4=c,x.2"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973183
+ordinal = 0
+
+[fields]
+article-title = 'Sequencing with "xian" and "zai"'
+english = "I'm going to ask the boss first."
+example-sentence = ''
+example-type = ''
+grammar-construct = '先 + [Verb Phrase] + 再说'
+hanzi = '我先问一下老板再说。'
+notes = ''
+pinyin = 'Wǒ xiān wèn yīxià lǎobǎn zàishuō.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGLJM55'

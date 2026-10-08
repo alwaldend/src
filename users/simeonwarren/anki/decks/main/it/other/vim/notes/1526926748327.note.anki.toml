@@ -1,0 +1,17 @@
+note_id = 1526926748327
+guid = "FCQ>_R}<]0"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = ["VisualCommands"]
+
+[[cards]]
+id = 1526926761282
+ordinal = 0
+
+[[cards]]
+id = 1668965796663
+ordinal = 1
+
+[fields]
+Back = '~'
+Front = 'Switch case'

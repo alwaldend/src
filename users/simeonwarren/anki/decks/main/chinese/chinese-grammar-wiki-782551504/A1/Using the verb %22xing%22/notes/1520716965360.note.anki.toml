@@ -1,0 +1,20 @@
+note_id = 1520716965360
+guid = "o[lPpUK%Es"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716971224
+ordinal = 0
+
+[fields]
+article-title = 'Using the verb "xing"'
+english = "Is your grandma's family name also Chen?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 姓 + [Surname]'
+hanzi = '你奶奶也姓陈吗？'
+notes = ''
+pinyin = 'Nǐ nǎinai yě xìng Chén ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPS9NY'

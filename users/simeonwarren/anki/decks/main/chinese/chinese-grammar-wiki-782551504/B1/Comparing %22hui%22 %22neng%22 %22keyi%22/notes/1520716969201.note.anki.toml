@@ -1,0 +1,20 @@
+note_id = 1520716969201
+guid = "h/CPm+;r5R"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["AuxiliaryWords", "B1", "Comparisons"]
+
+[[cards]]
+id = 1520716975065
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "hui" "neng" "keyi"'
+english = 'Are you really able to eat three bowls of rice?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '会／能 + Verb'
+hanzi = '你真的能吃三碗米饭吗？'
+notes = ''
+pinyin = 'Nǐ zhēnde néng chī sān wǎn mǐfàn ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGZL717'

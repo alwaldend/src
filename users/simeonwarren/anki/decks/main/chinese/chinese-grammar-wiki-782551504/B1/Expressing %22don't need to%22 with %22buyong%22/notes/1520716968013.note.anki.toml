@@ -1,0 +1,20 @@
+note_id = 1520716968013
+guid = "mb>FTbu25L"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716973877
+ordinal = 0
+
+[fields]
+article-title = "Expressing \"don't need to\" with \"buyong\""
+english = "We don't need to work overtime today."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不用 + [Verb Phrase]'
+hanzi = '今天不用加班。'
+notes = ''
+pinyin = 'Jīntiān bùyòng jiābān.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGECD0E'

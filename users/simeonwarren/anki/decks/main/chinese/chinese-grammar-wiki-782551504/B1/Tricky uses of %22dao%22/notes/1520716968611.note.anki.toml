@@ -1,0 +1,20 @@
+note_id = 1520716968611
+guid = "JPMYl|CoR="
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716974475
+ordinal = 0
+
+[fields]
+article-title = 'Tricky uses of "dao"'
+english = 'We just understood the new information.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '我们刚刚了解到一些新的信息。'
+notes = ''
+pinyin = 'Wǒmen gānggāng liǎojiědào yīxiē xīn de xìnxī.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCUSIV'

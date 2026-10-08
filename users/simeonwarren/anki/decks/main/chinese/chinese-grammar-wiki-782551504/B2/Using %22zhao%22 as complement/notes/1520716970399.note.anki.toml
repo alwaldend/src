@@ -1,0 +1,20 @@
+note_id = 1520716970399
+guid = "r&X~5[SOM_"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716976263
+ordinal = 0
+
+[fields]
+article-title = 'Using "zhao" as complement'
+english = "The supermarket is closed. I didn't buy things that you need."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 着'
+hanzi = '超市关门了，你要的东西我没买着。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGM5ZAB'

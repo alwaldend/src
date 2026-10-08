@@ -1,0 +1,20 @@
+note_id = 1520716968603
+guid = "xdQ(>j|O=."
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716974467
+ordinal = 0
+
+[fields]
+article-title = 'Tricky uses of "dao"'
+english = 'None of us thought that he would say it like that.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '我们都没想到他会这么说。'
+notes = ''
+pinyin = 'Wǒmen dōu méi xiǎngdào tā huì zhème shuō.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCUSIV'

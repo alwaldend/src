@@ -1,0 +1,17 @@
+note_id = 1526925920641
+guid = "D%6tV;+scb"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = ["Cursor", "Movement"]
+
+[[cards]]
+id = 1526925933316
+ordinal = 0
+
+[[cards]]
+id = 1668965796612
+ordinal = 1
+
+[fields]
+Back = 'tx'
+Front = 'Jump to <b>before</b> next occurrence of character x'

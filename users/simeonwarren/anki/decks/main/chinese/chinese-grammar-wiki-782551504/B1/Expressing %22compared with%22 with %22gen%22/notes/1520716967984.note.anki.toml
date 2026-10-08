@@ -1,0 +1,20 @@
+note_id = 1520716967984
+guid = "bP3I:tnC4x"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716973848
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "compared with" with "gen"'
+english = "Compared to John, that foreigner's Chinese is so-so."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'B + 跟 + A + 比 ，  ~'
+hanzi = '那个老外的中文跟John比，马马虎虎。'
+notes = ''
+pinyin = 'Nàge lǎowài de Zhōngwén gēn John bǐ, mǎmahūhū.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG920B7'

@@ -1,0 +1,20 @@
+note_id = 1520716970530
+guid = "FriIa9iPr+"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716976394
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "the more... the more..." with "yue… yue…"'
+english = 'The more you push him, the more he hates you.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. 1 + 越 + Verb 1，Subj. 2 + 越 + Verb 2'
+hanzi = '你越逼他，他越讨厌你。'
+notes = ''
+pinyin = 'Nǐ yuè bī tā, tā yuè tǎoyàn nǐ .'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGB44F6'

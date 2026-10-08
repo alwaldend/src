@@ -1,0 +1,17 @@
+note_id = 1634436263318
+guid = "jx@05|fIO."
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634436263319
+ordinal = 0
+
+[fields]
+additional-info = '<strong>Note:</strong>&nbsp;All string methods returns new values. They do not change the original string.'
+answer = '<i>string</i>.endswith(<i>value</i>)'
+example = ''
+question = '<b>String</b> <b>method</b> that returns True if the string ends with the specified value, else False.'
+version = ''
+with-options = ''

@@ -1,0 +1,20 @@
+note_id = 1520716967167
+guid = "xOC|e-3*WJ"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973031
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "finally" with "zhongyu"'
+english = "We'd been looking for that shop for more than two hours. We finally found it."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 终于 + Verb Phrase + 了'
+hanzi = '我们找了两个多小时，终于找到了那家店。'
+notes = ''
+pinyin = 'Wǒmen zhǎo le liǎng gè duō xiǎoshí, zhōngyú zhǎodào le nà jiā diàn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG700A5'

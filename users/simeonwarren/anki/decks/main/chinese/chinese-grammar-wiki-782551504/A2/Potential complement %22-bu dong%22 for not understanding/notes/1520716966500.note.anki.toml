@@ -1,0 +1,20 @@
+note_id = 1520716966500
+guid = "MVPQ2`NJNF"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716972364
+ordinal = 0
+
+[fields]
+article-title = 'Potential complement "-bu dong" for not understanding'
+english = "The boss speaks very good Chinese, but he doesn't understand Chinese newspapers."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. +  Verb + 不懂'
+hanzi = '老板的中文说得很好，可是他看不懂中文报纸。'
+notes = 'Literally, "read-not-understand"'
+pinyin = 'Lǎobǎn de Zhōngwén shuō de hěn hǎo, kěshì tā kàn bu dǒng Zhōngwén bàozhǐ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8R2V8'

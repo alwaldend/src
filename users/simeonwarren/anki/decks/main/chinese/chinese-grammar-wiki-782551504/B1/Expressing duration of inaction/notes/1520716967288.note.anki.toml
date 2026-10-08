@@ -1,0 +1,20 @@
+note_id = 1520716967288
+guid = "bsGGt>g<rS"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973152
+ordinal = 0
+
+[fields]
+article-title = 'Expressing duration of inaction'
+english = "The last time I came to China was over ten years ago. (Same meaning as \"I haven't been to China since 20 years ago.\")"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 已经 + Duration + 没 + Verb + 了'
+hanzi = '我上次来中国是二十年前。'
+notes = ''
+pinyin = 'Wǒ shàngcì lái Zhōngguó shì èrshí nián qián.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGSVF28'

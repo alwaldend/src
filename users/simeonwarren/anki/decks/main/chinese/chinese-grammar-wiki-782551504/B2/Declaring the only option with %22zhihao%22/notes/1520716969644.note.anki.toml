@@ -1,0 +1,20 @@
+note_id = 1520716969644
+guid = "pQ,nsvM8[_"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975508
+ordinal = 0
+
+[fields]
+article-title = 'Declaring the only option with "zhihao"'
+english = "It's too late. I had to take a taxi back home."
+example-sentence = ''
+example-type = ''
+grammar-construct = '……，（Subj.）＋只好 + Verb Phrase'
+hanzi = '太晚了，我只好打车回去。'
+notes = ''
+pinyin = 'Tài wǎn le, wǒ  zhǐhǎo dǎchē huíqù.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG767A2'

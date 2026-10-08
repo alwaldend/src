@@ -1,0 +1,17 @@
+note_id = 1670173810115
+guid = "PVk}ieB7Gy"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = []
+
+[[cards]]
+id = 1670173810118
+ordinal = 0
+
+[[cards]]
+id = 1670173810119
+ordinal = 1
+
+[fields]
+Back = ':s/pattern/replacement/flags <b>5</b><div><b><br></b></div><div>“ also valid:</div><div>:.,.5s</div><div>:.,.+5s</div>'
+Front = 'How to run the substitute regex on the next five lines?'

@@ -1,0 +1,20 @@
+note_id = 1520716970062
+guid = "rBWWXT%zZj"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Parts_of_Speech", "SentencePatterns"]
+
+[[cards]]
+id = 1520716975926
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "thanks to" with "duokui"'
+english = 'I can finish doing it so soon. Thanks to your help.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '[Good Outcome] ，多亏 (了) + [Lucky Incident]'
+hanzi = '我能这么快做完，多亏了你帮我。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG44TBS'

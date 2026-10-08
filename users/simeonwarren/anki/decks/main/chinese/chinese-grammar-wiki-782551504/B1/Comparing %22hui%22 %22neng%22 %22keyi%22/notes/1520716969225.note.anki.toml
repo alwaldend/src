@@ -1,0 +1,20 @@
+note_id = 1520716969225
+guid = "l}St7(g/{<"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["AuxiliaryWords", "B1", "Comparisons"]
+
+[[cards]]
+id = 1520716975089
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "hui" "neng" "keyi"'
+english = 'I am able to dance now since my foot is better. (The condition changed)'
+example-sentence = ''
+example-type = ''
+grammar-construct = '很 + 会／能 + Verb'
+hanzi = '我的脚好了，现在又能跳舞了。'
+notes = ''
+pinyin = 'Wǒ de jiǎo hǎo le, xiànzài yòu néng tiàowǔ le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGZL717'

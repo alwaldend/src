@@ -1,0 +1,20 @@
+note_id = 1520716969315
+guid = "E+*TC!5s.`"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Comparisons"]
+
+[[cards]]
+id = 1520716975179
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "changchang" and "jingchang"'
+english = "It's a common job for hotel's manager to deal with customers' complaints."
+example-sentence = ''
+example-type = ''
+grammar-construct = '常常 / 经常 + Verb'
+hanzi = '处理顾客投诉是酒店经理经常性的工作。'
+notes = ''
+pinyin = 'Chǔlǐ gùkè tóusù shì jiǔdiàn jīnglǐ jīngchángxìng de gōngzuò.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGE8FLP'

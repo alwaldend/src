@@ -1,0 +1,20 @@
+note_id = 1520716965145
+guid = "C$#YrWcz$S"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971009
+ordinal = 0
+
+[fields]
+article-title = 'The "all" adverb "dou"'
+english = 'Do you all know John?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 都 + [Verb Phrase]'
+hanzi = '你们都认识John吗？'
+notes = ''
+pinyin = 'Nǐmen dōu rènshi John ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG9YK09'

@@ -1,0 +1,20 @@
+note_id = 1520716965589
+guid = "h)z&d?OFs/"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+id = 1520716971453
+ordinal = 0
+
+[fields]
+article-title = 'Tag questions with "ma"'
+english = "Let's go to your place, OK?"
+example-sentence = ''
+example-type = ''
+grammar-construct = '⋯⋯， 好 / 对 / 是 / 可以 +  吗？'
+hanzi = '我们去你家，好吗？'
+notes = ''
+pinyin = 'Wǒmen qù nǐ jiā, hǎo ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGSJYZ2'

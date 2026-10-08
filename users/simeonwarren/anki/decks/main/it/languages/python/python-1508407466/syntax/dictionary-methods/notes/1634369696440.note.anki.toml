@@ -1,0 +1,17 @@
+note_id = 1634369696440
+guid = "JiXw#14VvC"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634370830800
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<i>dict</i>.clear()'
+example = ''
+question = '<b>Dictionary method</b>&nbsp;that&nbsp;removes all the items from the dictionary'
+version = ''
+with-options = ''

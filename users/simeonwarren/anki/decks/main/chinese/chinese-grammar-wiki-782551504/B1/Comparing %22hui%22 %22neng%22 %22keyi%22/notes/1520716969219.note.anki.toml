@@ -1,0 +1,20 @@
+note_id = 1520716969219
+guid = "FDIX_LBJo2"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["AuxiliaryWords", "B1", "Comparisons"]
+
+[[cards]]
+id = 1520716975083
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "hui" "neng" "keyi"'
+english = "He's a smooth talker."
+example-sentence = ''
+example-type = ''
+grammar-construct = '很 + 会／能 + Verb'
+hanzi = '他很会说话。'
+notes = 'The subject has good speaking skills.'
+pinyin = 'Tā hěn huì shuōhuà.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGZL717'

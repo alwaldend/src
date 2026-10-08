@@ -1,0 +1,20 @@
+note_id = 1520716966055
+guid = "l2+[JEQVP("
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971919
+ordinal = 0
+
+[fields]
+article-title = 'Time words and word order'
+english = 'Next week he is going back to his country.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Time + Verb + Obj.'
+hanzi = '下个星期他要回国。'
+notes = ''
+pinyin = 'Xià gè xīngqī tā yào huí guó.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5RWKO'

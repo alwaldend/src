@@ -1,0 +1,20 @@
+note_id = 1520716970309
+guid = "e)~=Csxrzk"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Grammatical_Structures", "IfStatements"]
+
+[[cards]]
+id = 1520716976173
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "what if" with "wanyi"'
+english = 'What if my parents disapprove?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '万一 ⋯⋯ 呢 ？'
+hanzi = '万一我父母不同意呢？'
+notes = ''
+pinyin = 'Wànyī wǒ fùmǔ bù tóngyì ne?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG25773'

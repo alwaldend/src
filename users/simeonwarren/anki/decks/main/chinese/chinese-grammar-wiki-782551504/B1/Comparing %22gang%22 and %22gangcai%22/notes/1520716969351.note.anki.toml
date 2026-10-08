@@ -1,0 +1,20 @@
+note_id = 1520716969351
+guid = "f0:`lj~=0p"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Comparisons"]
+
+[[cards]]
+id = 1520716975215
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "gang" and "gangcai"'
+english = "I just didn't see it."
+example-sentence = ''
+example-type = 'invalid'
+grammar-construct = ''
+hanzi = '我刚没看到。'
+notes = "Don't use 刚 with 没 in the past."
+pinyin = 'Wǒ gāng méi kàndào.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJFFWG'

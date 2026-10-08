@@ -1,0 +1,17 @@
+note_id = 1526926316459
+guid = "i9)?[A%X/Y"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = ["Editing"]
+
+[[cards]]
+id = 1526926342860
+ordinal = 0
+
+[[cards]]
+id = 1668965796635
+ordinal = 1
+
+[fields]
+Back = 'J'
+Front = 'Join line below to the current one with one space in between'

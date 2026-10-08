@@ -1,0 +1,20 @@
+note_id = 1520716967366
+guid = "Mo>b:1&.eY"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973230
+ordinal = 0
+
+[fields]
+article-title = 'Using "ye" and "dou" together'
+english = 'They are also all French people.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 也都 + Verb / Adj.'
+hanzi = '他们也都是法国人。'
+notes = ''
+pinyin = 'Tāmen yě dōu shì Fǎguó rén.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8GSXY'

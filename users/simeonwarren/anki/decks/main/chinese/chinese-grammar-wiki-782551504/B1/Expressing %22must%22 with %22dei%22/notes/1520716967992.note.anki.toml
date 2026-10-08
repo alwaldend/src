@@ -1,0 +1,20 @@
+note_id = 1520716967992
+guid = "LV3$,LO{$R"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+id = 1520716973856
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "must" with "dei"'
+english = "It's getting late. I have to go home."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 得 + [Verb Phrase]'
+hanzi = '时间不早了，我得回家了。'
+notes = ''
+pinyin = 'Shíjiān bù zǎo le, wǒ děi huíjiā le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPXLP9'

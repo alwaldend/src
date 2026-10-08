@@ -1,0 +1,20 @@
+note_id = 1520716968022
+guid = "Q!!sAlGN)L"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716973886
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "including" with "baokuo"'
+english = 'My monthly rent does not include my water and electric bill.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 包括 + Obj.1 ( , + Obj.2, Obj.3 ... )'
+hanzi = '我每个月的房租不包括水电费。'
+notes = ''
+pinyin = 'Wǒ měi gè yuè de fángzū bù bāokuò shuǐ diàn fèi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG50341'

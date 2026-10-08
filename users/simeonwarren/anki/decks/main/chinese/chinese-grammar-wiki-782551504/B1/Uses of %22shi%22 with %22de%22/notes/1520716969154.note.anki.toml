@@ -1,0 +1,20 @@
+note_id = 1520716969154
+guid = "NPF|]3QakB"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716975018
+ordinal = 0
+
+[fields]
+article-title = 'Uses of "shi" with "de"'
+english = 'The furniture in his house is all in the Chinese style.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 是 + [Distinguishing Words] + 的'
+hanzi = '他家的家具都是中式的。'
+notes = ''
+pinyin = 'Tā jiā de jiājù dōu shì Zhōng shì de.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGE662E'

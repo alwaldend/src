@@ -1,0 +1,20 @@
+note_id = 1520716967716
+guid = "zHB{%G|L8m"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973580
+ordinal = 0
+
+[fields]
+article-title = 'Aspect particle "zhe"'
+english = ''
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = 'Verb + 着'
+hanzi = '家里的灯开着。'
+notes = 'Being on is a state, so using 着 is natural.'
+pinyin = 'Jiālǐ de dēng kāi zhe.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGOIDEO'

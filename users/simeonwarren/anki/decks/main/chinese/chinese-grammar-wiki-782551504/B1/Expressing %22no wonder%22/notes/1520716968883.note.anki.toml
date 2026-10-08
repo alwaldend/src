@@ -1,0 +1,20 @@
+note_id = 1520716968883
+guid = "m%s48%pY`3"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974747
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "no wonder"'
+english = 'You put vinegar. No wonder it taste so bad!'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Reason ，怪不得 / 难怪 + [Observation]'
+hanzi = '你放了醋？难怪这么难吃！'
+notes = ''
+pinyin = 'Nǐ fàng le cù? Nánguài zhème nánchī!'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGFPV2C'

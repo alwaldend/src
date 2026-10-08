@@ -1,0 +1,20 @@
+note_id = 1520716967573
+guid = "j<OAnvwZCW"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973437
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "in addition" with "zaishuo"'
+english = "Stop eating more. You've already eaten five. Besides, the rest of us haven't eaten yet."
+example-sentence = ''
+example-type = ''
+grammar-construct = '⋯⋯ ，再说 ，⋯⋯'
+hanzi = '别吃了，你已经吃了五个了。再说，我们还没吃呢。'
+notes = ''
+pinyin = 'Bié chī le, nǐ yǐjīng chī le wǔ gè le. Zàishuō, wǒmen hái méi chī ne.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGATDLX'

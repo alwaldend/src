@@ -1,0 +1,20 @@
+note_id = 1520716967282
+guid = "HF(em3dE^w"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973146
+ordinal = 0
+
+[fields]
+article-title = 'Expressing duration of inaction'
+english = "It's been half a month since last time she left the house."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 已经 + Duration + 没 + Verb + 了'
+hanzi = '她半个月没出门了。'
+notes = ''
+pinyin = 'Tā bàn gè yuè méi chūmén le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGSVF28'

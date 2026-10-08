@@ -1,0 +1,20 @@
+note_id = 1520716968007
+guid = "Em!o@l5fGA"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+id = 1520716973871
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "not often" with "bu zenme"'
+english = "They don't go out and have fun with her friends very often."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不怎么 + Verb'
+hanzi = '他们不怎么跟朋友出去玩。'
+notes = ''
+pinyin = 'Tāmen bù zěnme gēn péngyou chūqù wán.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5BOGP'

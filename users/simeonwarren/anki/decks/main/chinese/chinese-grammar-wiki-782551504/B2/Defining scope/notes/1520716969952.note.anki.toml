@@ -1,0 +1,20 @@
+note_id = 1520716969952
+guid = "od+GDHW$N{"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Parts_of_Speech", "PrepositionalPhrase"]
+
+[[cards]]
+id = 1520716975816
+ordinal = 0
+
+[fields]
+article-title = 'Defining scope'
+english = 'Can you stop 2 meters outside of this place?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '时间 / 处所 / 数量 / 范围 + 以内 / 以外'
+hanzi = '请你站在两米以外的地方。'
+notes = ''
+pinyin = 'Qǐng nǐ zhàn zài liǎng mǐ yǐwài de dìfang.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG7AE5C'

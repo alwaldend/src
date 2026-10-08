@@ -1,0 +1,20 @@
+note_id = 1520716969685
+guid = "GoM;sBk~n;"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975549
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "even" with "shenzhi"'
+english = "I've been to many cities in China, Beijing, Shanghai, Hangzhou, Kunming, Guilin. I even went to Lasa once."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A，B，甚至 C + 都 / 也 ⋯⋯'
+hanzi = '我去过很多中国的城市，北京、上海、杭州、昆明、桂林，甚至拉萨我也去过。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGKWV6F'

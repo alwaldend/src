@@ -1,0 +1,20 @@
+note_id = 1520716968049
+guid = "qo{^6+04tn"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+id = 1520716973913
+ordinal = 0
+
+[fields]
+article-title = 'Measure words for verbs'
+english = "I've heard her tell this story more than one hundred times."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + Number + Measure Word'
+hanzi = '这个故事我听她说过一百多遍了。'
+notes = ''
+pinyin = 'Zhège gùshi wǒ tīng tā shuō guo yī bǎi duō biàn le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5AODR'

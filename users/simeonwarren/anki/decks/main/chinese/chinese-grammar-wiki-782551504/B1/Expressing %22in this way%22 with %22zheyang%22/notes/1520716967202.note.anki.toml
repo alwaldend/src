@@ -1,0 +1,20 @@
+note_id = 1520716967202
+guid = "wc|guuo,<L"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973066
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "in this way" with "zheyang"'
+english = "You should eat more vegetables. It's better for your body this way."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Condition, 这样 + Result / Purpose'
+hanzi = '你要多吃蔬菜，这样对身体更好。'
+notes = ''
+pinyin = 'Nǐ yào duō chī shūcài,  zhèyàng duì shēntǐ hǎo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG1F4D1'

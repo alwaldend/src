@@ -1,0 +1,17 @@
+note_id = 1670169619082
+guid = "nnt8R^r1R#"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = []
+
+[[cards]]
+id = 1670169619083
+ordinal = 0
+
+[[cards]]
+id = 1670169619084
+ordinal = 1
+
+[fields]
+Back = ':cfirst &nbsp;and &nbsp;:clast&nbsp;'
+Front = 'Move to the first/last entry of the quick fix list'

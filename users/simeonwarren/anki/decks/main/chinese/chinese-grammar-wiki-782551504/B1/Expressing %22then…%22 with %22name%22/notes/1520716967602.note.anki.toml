@@ -1,0 +1,20 @@
+note_id = 1520716967602
+guid = "F@s6F%]fs5"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973466
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "then…" with "name"'
+english = "It shouldn't be difficult to reach this goal. Let's make an effort."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Situation ，那么 + Suggestion / Decision'
+hanzi = '实现这个目标应该不难，那么我们一起努力吧。'
+notes = ''
+pinyin = 'Shíxiàn zhège mùbiāo yīnggāi bù nán, nàme wǒmen yīqǐ nǔlì ba.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGX298Z'

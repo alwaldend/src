@@ -1,0 +1,20 @@
+note_id = 1520716967876
+guid = "B~!,TMlpwl"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+id = 1520716973740
+ordinal = 0
+
+[fields]
+article-title = 'Idiomatic phrases with "zai"'
+english = 'On the topic of management, you have more experience than I do.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '在 + Topic + 方面 ，Subj. ⋯⋯'
+hanzi = '在管理方面，你比我有经验。'
+notes = ''
+pinyin = 'Zài guǎnlǐ fāngmiàn, nǐ bǐ wǒ yǒu jīngyàn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGH13JY'

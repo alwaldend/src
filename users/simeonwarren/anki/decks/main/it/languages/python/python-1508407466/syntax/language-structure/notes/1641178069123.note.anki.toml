@@ -1,0 +1,17 @@
+note_id = 1641178069123
+guid = "gvnM:it-6]"
+note_type_id = 1630447360002
+note_type = "python-basic"
+tags = []
+
+[[cards]]
+id = 1641178069124
+ordinal = 0
+
+[fields]
+'Additional Info' = ''
+'Back - Basic' = ''
+'Back - Code' = '<font color="#204a87">match</font> <i>value</i>:<br>&nbsp; &nbsp; <font color="#204a87">case</font>&nbsp; 1 | 2 | 3 | 4:<br>&nbsp; &nbsp; &nbsp; &nbsp; <font color="#204a87">print</font>(<i>value</i>)<br>&nbsp; &nbsp; <font color="#204a87">case</font> _:<br>&nbsp; &nbsp; &nbsp; &nbsp; <font color="#204a87">print</font>("Greater than 4!")'
+Example = ''
+Front = 'Create the python version of a switch statement that checks for values 1-4 and prints them with a default print statment of "greater than 4!".'
+Version = '3.10'

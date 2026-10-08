@@ -1,0 +1,20 @@
+note_id = 1520716969918
+guid = "eO%P_(hm>4"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975782
+ordinal = 0
+
+[fields]
+article-title = 'le after an object'
+english = 'I had breakfast.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 了 + Obj.'
+hanzi = '我吃了早饭。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG4K5WH'

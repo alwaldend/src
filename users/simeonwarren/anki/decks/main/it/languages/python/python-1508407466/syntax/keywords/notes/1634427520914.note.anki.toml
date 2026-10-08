@@ -1,0 +1,17 @@
+note_id = 1634427520914
+guid = "q0d!q0)Hu$"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634427520917
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<b>Keyword</b> that raises a AssertionError error if the statement evaluates to False.'
+example = ''
+question = '<b>Keyword: </b>assert'
+version = ''
+with-options = ''

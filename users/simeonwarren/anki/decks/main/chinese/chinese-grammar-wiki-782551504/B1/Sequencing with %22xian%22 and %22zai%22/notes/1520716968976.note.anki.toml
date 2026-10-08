@@ -1,0 +1,20 @@
+note_id = 1520716968976
+guid = "yt6#38TRUa"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974840
+ordinal = 0
+
+[fields]
+article-title = 'Sequencing with "xian" and "zai"'
+english = 'First find a job, then you can think about buying a house.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '先 + [Verb Phrase 1] + 再 + [Verb Phrase 2]'
+hanzi = '你先找工作再考虑买房子。'
+notes = ''
+pinyin = 'Nǐ xiān zhǎo gōngzuò zài kǎolǜ mǎi fángzi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGLJM55'

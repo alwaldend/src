@@ -1,0 +1,20 @@
+note_id = 1520716967584
+guid = "ygI7Eo~YFO"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973448
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "when" with "dengdao"'
+english = "When I finish college, I won't be living in school."
+example-sentence = ''
+example-type = ''
+grammar-construct = '等(到) + Time Word / [Verb Phrase] ，Subj.  + 再 / 就 / 才 + Predicate'
+hanzi = '等到大学毕业，我就不住在学校里了。'
+notes = ''
+pinyin = 'Děngdào dàxué bìyè, wǒ jiù bù zhù zài xuéxiào lǐ le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG68F61'

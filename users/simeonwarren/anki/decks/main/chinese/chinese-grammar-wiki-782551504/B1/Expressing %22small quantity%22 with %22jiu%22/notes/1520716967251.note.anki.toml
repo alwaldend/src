@@ -1,0 +1,20 @@
+note_id = 1520716967251
+guid = "f2==5)m3pa"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973115
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "small quantity" with "jiu"'
+english = 'All the food is delicious. Just these two dishes are a little salty.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '就 + Subj. + Predicate'
+hanzi = '所有的菜都很好吃，就这两个菜有点咸。'
+notes = ''
+pinyin = 'Suǒyǒu de cài dōu hěn hǎochī, jiù zhè liǎng gè cài yǒudiǎn xián.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPW8PP'

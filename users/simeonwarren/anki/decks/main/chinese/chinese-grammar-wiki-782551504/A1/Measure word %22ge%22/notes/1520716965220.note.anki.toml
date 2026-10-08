@@ -1,0 +1,20 @@
+note_id = 1520716965220
+guid = "fDJQ6m<mt9"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Numbers", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971084
+ordinal = 0
+
+[fields]
+article-title = 'Measure word "ge"'
+english = 'I have a son.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 个 + Noun'
+hanzi = '我有个儿子。'
+notes = ''
+pinyin = 'Wǒ yǒu gè érzi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGI0T9S'

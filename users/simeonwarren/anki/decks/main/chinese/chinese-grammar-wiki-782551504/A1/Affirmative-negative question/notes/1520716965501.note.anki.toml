@@ -1,0 +1,20 @@
+note_id = 1520716965501
+guid = "g~5elc1gEm"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+id = 1520716971365
+ordinal = 0
+
+[fields]
+article-title = 'Affirmative-negative question'
+english = 'Are they going to come or not?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 不 + Verb'
+hanzi = '他们来不来？'
+notes = ''
+pinyin = 'Tāmen lái bu lái?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGZH7K3'

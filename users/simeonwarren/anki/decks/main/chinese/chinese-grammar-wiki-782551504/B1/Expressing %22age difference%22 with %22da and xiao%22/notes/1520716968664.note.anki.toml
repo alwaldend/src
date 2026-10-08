@@ -1,0 +1,20 @@
+note_id = 1520716968664
+guid = "K.5?QRz4@y"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974528
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "age difference" with "da and xiao"'
+english = 'Kid, how old are you?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A + 和 / 跟 + B + 一样 / 差不多 + 大'
+hanzi = '小朋友，你几岁了？'
+notes = ''
+pinyin = 'Xiǎopéngyou, nǐ jǐ suì le?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGE8810'

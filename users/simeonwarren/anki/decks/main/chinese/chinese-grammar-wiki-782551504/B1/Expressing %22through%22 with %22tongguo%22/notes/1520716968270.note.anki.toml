@@ -1,0 +1,20 @@
+note_id = 1520716968270
+guid = "n>(v[zjY[d"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716974134
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "through" with "tongguo"'
+english = "That man in black didn't pass the security check at the airport."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '那个穿黑衣服的男人没通过机场的安检。'
+notes = ''
+pinyin = 'Nàge chuān hēi yīfu de nánrén méi tōngguò jīchǎng de ānjiǎn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG9B1E3'

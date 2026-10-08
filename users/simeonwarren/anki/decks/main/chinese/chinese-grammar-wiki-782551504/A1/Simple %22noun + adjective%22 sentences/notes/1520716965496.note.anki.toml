@@ -1,0 +1,20 @@
+note_id = 1520716965496
+guid = "l_?]4)`4Lm"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Basics", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716971360
+ordinal = 0
+
+[fields]
+article-title = 'Simple "noun + adjective" sentences'
+english = 'He and his younger brother are both handsome.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun + 很 + Adj.'
+hanzi = '他和他弟弟都很帅。'
+notes = ''
+pinyin = 'Tā hé tā dìdi dōu hěn shuài.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG17BLH'

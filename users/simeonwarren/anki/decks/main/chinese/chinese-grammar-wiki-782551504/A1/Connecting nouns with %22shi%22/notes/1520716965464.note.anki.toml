@@ -1,0 +1,20 @@
+note_id = 1520716965464
+guid = "r)gF9BY+y~"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Basics", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716971328
+ordinal = 0
+
+[fields]
+article-title = 'Connecting nouns with "shi"'
+english = 'They are rich people.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun 1 + 是 + Noun 2'
+hanzi = '他们是有钱人。'
+notes = ''
+pinyin = 'Tāmen shì yǒuqián rén.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGUN7RX'

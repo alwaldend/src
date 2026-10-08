@@ -1,0 +1,20 @@
+note_id = 1520716968285
+guid = "p1*lD1{!-1"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716974149
+ordinal = 0
+
+[fields]
+article-title = 'Making judgments with "suan"'
+english = 'Can American Chinese food be considered as Chinese food?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. (+ 不) + 算 + Noun'
+hanzi = '美国的中国菜算中国菜吗？'
+notes = ''
+pinyin = 'Měiguó de Zhōngguó cài suàn Zhōngguó cài ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWDWFN'

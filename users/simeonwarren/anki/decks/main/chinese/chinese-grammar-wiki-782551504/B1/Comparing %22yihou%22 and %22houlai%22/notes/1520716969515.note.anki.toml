@@ -1,0 +1,20 @@
+note_id = 1520716969515
+guid = "HVoA.C.}|b"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Comparisons", "TimeWords"]
+
+[[cards]]
+id = 1520716975379
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "yihou" and "houlai"'
+english = ''
+example-sentence = ''
+example-type = 'invalid'
+grammar-construct = 'Past Event 1 + 后来 + Past Event 2'
+hanzi = '我决定后来不喝葡萄酒。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNPJ7T'

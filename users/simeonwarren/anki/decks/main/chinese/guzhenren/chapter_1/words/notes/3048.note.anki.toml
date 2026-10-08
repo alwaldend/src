@@ -1,0 +1,20 @@
+note_id = 3048
+guid = "j~6Nah/mBc"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 3098
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'surname Ye;	also;	too;	(in Classical Chinese) final particle implying affirmation.'
+example-sentence = ' 这种结果,他也早有预见'
+example-type = ''
+grammar-construct = ''
+hanzi = '也'
+notes = ''
+pinyin = '<span class="tone3">yě</span>	 <!-- ye -->'
+source = ''

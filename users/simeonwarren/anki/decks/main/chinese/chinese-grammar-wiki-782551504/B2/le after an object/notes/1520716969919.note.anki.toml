@@ -1,0 +1,20 @@
+note_id = 1520716969919
+guid = "m11X,z18.j"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975783
+ordinal = 0
+
+[fields]
+article-title = 'le after an object'
+english = 'Mom found a new job.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 了 + Obj.'
+hanzi = '妈妈找到了新工作。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG4K5WH'

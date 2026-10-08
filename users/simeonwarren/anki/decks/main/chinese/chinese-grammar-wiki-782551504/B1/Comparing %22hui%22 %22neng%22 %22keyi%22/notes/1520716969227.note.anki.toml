@@ -1,0 +1,20 @@
+note_id = 1520716969227
+guid = "u2{0*rI|Uv"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["AuxiliaryWords", "B1", "Comparisons"]
+
+[[cards]]
+id = 1520716975091
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "hui" "neng" "keyi"'
+english = "My parents agreed. I'm allowed to dance now. (The dad gave permission)"
+example-sentence = ''
+example-type = ''
+grammar-construct = '很 + 会／能 + Verb'
+hanzi = '我爸妈同意了，现在我可以跳舞了。'
+notes = ''
+pinyin = 'Wǒ fùmǔ tóngyì le, xiànzài wǒ kěyǐ tiàowǔ le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGZL717'

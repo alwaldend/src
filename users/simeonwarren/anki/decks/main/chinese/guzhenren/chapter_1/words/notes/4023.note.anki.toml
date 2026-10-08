@@ -1,0 +1,20 @@
+note_id = 4023
+guid = "D-pm)=;l$H"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 4049
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'night.variant of 夜.'
+example-sentence = ' 夜已经深了,丝丝凉风吹拂着细雨'
+example-type = ''
+grammar-construct = ''
+hanzi = '夜'
+notes = ''
+pinyin = '<span class="tone5">yèyè</span>	 <!-- ye ye -->'
+source = ''

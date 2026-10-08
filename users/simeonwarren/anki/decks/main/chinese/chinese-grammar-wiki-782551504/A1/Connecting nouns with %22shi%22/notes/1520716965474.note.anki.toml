@@ -1,0 +1,20 @@
+note_id = 1520716965474
+guid = "jVX?+B/9z>"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Basics", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716971338
+ordinal = 0
+
+[fields]
+article-title = 'Connecting nouns with "shi"'
+english = 'Are you Chinese?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun 1 + 是 + Noun 2'
+hanzi = '你们是不是中国人？'
+notes = ''
+pinyin = 'Nǐmen shì bu shì Zhōngguó rén?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGUN7RX'

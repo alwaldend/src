@@ -1,0 +1,20 @@
+note_id = 1520716970226
+guid = "DO#knDHXsK"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "ButStatements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716976090
+ordinal = 0
+
+[fields]
+article-title = 'The "however" adverb "que"'
+english = "We're not very well-paid, but the additional benefits are quite good."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Sentence ，(但是 +) Subj. + 却 ⋯⋯'
+hanzi = '我们的工资不高，但是福利却很好。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGEG2QB'

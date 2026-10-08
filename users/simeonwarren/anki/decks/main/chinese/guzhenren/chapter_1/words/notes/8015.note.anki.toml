@@ -1,0 +1,20 @@
+note_id = 8015
+guid = "oLG=pNuKVx"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 8037
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'to comment;	to talk about;	to discuss;	discussion.<br>Cl: 个'
+example-sentence = '  古月族长最后一个走出宗祖祠堂,慢慢地关上门,便听到走廊中家老们的议论声音'
+example-type = ''
+grammar-construct = ''
+hanzi = '议论'
+notes = ''
+pinyin = '<span class="tone4">yì</span><span class="tone4">lùn</span>	 <!-- yi lun -->'
+source = ''

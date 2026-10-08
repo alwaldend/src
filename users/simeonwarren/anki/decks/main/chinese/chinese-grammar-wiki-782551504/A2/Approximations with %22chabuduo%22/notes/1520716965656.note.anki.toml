@@ -1,0 +1,20 @@
+note_id = 1520716965656
+guid = "yg*}[3rhNP"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971520
+ordinal = 0
+
+[fields]
+article-title = 'Approximations with "chabuduo"'
+english = 'Our ways of thinking are pretty much the same.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 差不多'
+hanzi = '我们的想法差不多。'
+notes = ''
+pinyin = 'Wǒmen de xiǎngfǎ chàbuduō.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG1NAXO'

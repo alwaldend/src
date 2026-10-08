@@ -1,0 +1,20 @@
+note_id = 1520716965483
+guid = "I./r2i@4cE"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Basics", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716971347
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "excessively" with "tai"'
+english = 'He is very handsome.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '太 + Adj. + 了'
+hanzi = '他太帅了。'
+notes = ''
+pinyin = 'Tā tài shuài le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8HVFN'

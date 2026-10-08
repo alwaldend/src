@@ -1,0 +1,20 @@
+note_id = 3014
+guid = "J3U7M{2{je"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+id = 3030
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'old name for China;	Cathay.'
+example-sentence = ' 他本是地球上的华夏学子,机缘巧合穿越到这方世界'
+example-type = ''
+grammar-construct = ''
+hanzi = '华夏'
+notes = ''
+pinyin = '<span class="tone2">huá</span><span class="tone4">xià</span>	 <!-- hua xia -->'
+source = ''

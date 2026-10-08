@@ -1,0 +1,20 @@
+note_id = 1520716967669
+guid = "eD[CYX6DQ)"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Numbers", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973533
+ordinal = 0
+
+[fields]
+article-title = 'Expressing fractions with "fenzhi"'
+english = 'This bucket of water is still three fifths full.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Denominator + 分之 + Numerator'
+hanzi = '这桶水还有五分之三。'
+notes = ''
+pinyin = 'Zhè tǒng shuǐ háiyǒu wǔ fēn zhī sān.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG84RE9'

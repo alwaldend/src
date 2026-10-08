@@ -1,0 +1,17 @@
+note_id = 1670159260191
+guid = "hr+GR(e<-z"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = []
+
+[[cards]]
+id = 1670159260191
+ordinal = 0
+
+[[cards]]
+id = 1670159260192
+ordinal = 1
+
+[fields]
+Back = 'gq• &nbsp;“ • is any motion, like ab or i{'
+Front = 'Reflow text or code if too long and move cursor to end of text being reflowed'

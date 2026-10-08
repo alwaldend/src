@@ -1,0 +1,20 @@
+note_id = 1520716969898
+guid = "ln5nDfo3A$"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975762
+ordinal = 0
+
+[fields]
+article-title = 'Taiwanese "you"'
+english = 'I just now finished using the restaurant.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 有 + Verb + 了'
+hanzi = '我刚才有上厕所了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGY2D79'

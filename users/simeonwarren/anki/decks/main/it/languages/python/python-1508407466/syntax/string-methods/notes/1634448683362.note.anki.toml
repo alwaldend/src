@@ -1,0 +1,17 @@
+note_id = 1634448683362
+guid = "PmI7#92Awd"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634448683363
+ordinal = 0
+
+[fields]
+additional-info = '<strong>Note:</strong>&nbsp;All string methods returns new values. They do not change the original string.'
+answer = '<i>string</i>.zfill(<i>len</i>)'
+example = ''
+question = '<b>String method</b> that fills a string with a specified number of 0 values at the beginning.'
+version = ''
+with-options = ''

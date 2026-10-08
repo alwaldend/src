@@ -1,0 +1,20 @@
+note_id = 1520716970436
+guid = "I5F6^`M(Pk"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "ConditionalStatements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716976300
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "unless" with "chufei"'
+english = "You won't get promoted so soon unless you perform very well."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Result / Fact ，除非 + Condition'
+hanzi = '你不会这么快升职，除非你表现很好。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMD0YY'

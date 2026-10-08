@@ -1,0 +1,17 @@
+note_id = 1526926028799
+guid = "z-^?&(gm/@"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = ["Cursor", "Movement"]
+
+[[cards]]
+id = 1526926051373
+ordinal = 0
+
+[[cards]]
+id = 1668965796617
+ordinal = 1
+
+[fields]
+Back = '}'
+Front = 'Jump to next paragraph (or function/block, when editing code)'

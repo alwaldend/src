@@ -1,0 +1,20 @@
+note_id = 1520716969459
+guid = "fHU6Mfjbe."
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Comparisons", "Conjunctions"]
+
+[[cards]]
+id = 1520716975323
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "haishi" and "huozhe"'
+english = "I'm wondering if that person is male or female."
+example-sentence = ''
+example-type = 'invalid'
+grammar-construct = 'Possibility 1 + 或者 + Possibility 2'
+hanzi = '我想知道那个人是男的或者女的。'
+notes = "It's an embedded question, so it should use 还是"
+pinyin = 'Wǒ xiǎng zhīdào nàge rén shì nánde huòzhě nǚde.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQJ5IC'

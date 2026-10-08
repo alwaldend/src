@@ -1,0 +1,20 @@
+note_id = 1520716966964
+guid = "rW`l;);dF1"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972828
+ordinal = 0
+
+[fields]
+article-title = 'Continuation with "hai"'
+english = "I've explained so many times, and you still don't understand?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 还 + 不 / 没 + [Verb Phrase]'
+hanzi = '我解释了这么多遍，你还不懂？'
+notes = ''
+pinyin = 'Wǒ jiěshì le zhème duō biàn, nǐ hái bù dǒng?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGIRILI'

@@ -1,0 +1,20 @@
+note_id = 1520716968990
+guid = "wC*K&Q2>*A"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974854
+ordinal = 0
+
+[fields]
+article-title = 'Expressing not knowing how to do something using "hao"'
+english = "The boss wasn't sure about who to blame."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不知道 + [Verb Phrase] + 好'
+hanzi = '老板不知道怪谁好。'
+notes = ''
+pinyin = 'Lǎobǎn bù zhīdào guài shéi hǎo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG0EQQJ'

@@ -1,0 +1,17 @@
+note_id = 1634431367452
+guid = "f!)=?gT;me"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634431367453
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<b>Keyword</b> used to check if a value is present in an iterable object or to iterate through a for loop.'
+example = ''
+question = '<b>Keyword: </b>in'
+version = ''
+with-options = ''

@@ -1,0 +1,20 @@
+note_id = 1520716967598
+guid = "cI/jElq@2_"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973462
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "then…" with "name"'
+english = "He's studied Chinese for ten years? He must speak Chinese very well?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Situation ，那么 + Suggestion / Decision'
+hanzi = '他学过十年中文？那他的中文说得很好吧？'
+notes = ''
+pinyin = 'Tā xué guo shí nián Zhōngwén? Nà tā de Zhōngwén shuō de hěn hǎo ba?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGX298Z'

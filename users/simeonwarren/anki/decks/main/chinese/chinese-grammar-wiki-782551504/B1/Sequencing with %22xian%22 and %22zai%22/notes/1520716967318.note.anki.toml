@@ -1,0 +1,20 @@
+note_id = 1520716967318
+guid = "zi}-0N91S3"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973182
+ordinal = 0
+
+[fields]
+article-title = 'Sequencing with "xian" and "zai"'
+english = 'Finish reading first, and then we can talk.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '先 + [Verb Phrase] + 再说'
+hanzi = '你先看完再说。'
+notes = ''
+pinyin = 'Nǐ xiān kàn wán zàishuō.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGLJM55'

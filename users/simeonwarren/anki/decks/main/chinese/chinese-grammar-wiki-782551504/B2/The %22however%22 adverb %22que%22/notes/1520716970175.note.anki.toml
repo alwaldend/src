@@ -1,0 +1,20 @@
+note_id = 1520716970175
+guid = "bP_AyiW?IM"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "ButStatements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716976039
+ordinal = 0
+
+[fields]
+article-title = 'The "however" adverb "que"'
+english = "Although it's home-grown veggies, it's flavor just isn't as good as the supermarket's."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Sentence， Subj. + 却 + ⋯⋯'
+hanzi = '虽然是自己种的菜，不过味道却没有超市的好。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGEG2QB'

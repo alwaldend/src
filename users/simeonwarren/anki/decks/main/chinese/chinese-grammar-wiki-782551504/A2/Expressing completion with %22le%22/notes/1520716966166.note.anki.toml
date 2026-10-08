@@ -1,0 +1,20 @@
+note_id = 1520716966166
+guid = "CqI@%WoYrw"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972030
+ordinal = 0
+
+[fields]
+article-title = 'Expressing completion with "le"'
+english = 'After you have found it, give me a call.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 了 + Obj.'
+hanzi = '你找到了以后，给我打电话。'
+notes = 'future action'
+pinyin = 'Nǐ zhǎodào​ le yǐhòu, gěi wǒ dǎ diànhuà.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGAGDCQ'

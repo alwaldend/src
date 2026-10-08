@@ -1,0 +1,20 @@
+note_id = 1520716965546
+guid = "yeSKCMH2^h"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+id = 1520716971410
+ordinal = 0
+
+[fields]
+article-title = 'Placement of question words'
+english = 'Where are we?<br>We are at West Nanjing road.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 哪里 / 哪儿 ?'
+hanzi = 'A: 我们在哪儿？<br>B: 我们在南京西路。'
+notes = ''
+pinyin = 'Wǒmen zài nǎr?<br>Wǒmen zài Nánjīng Xī Lù.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJQPSC'

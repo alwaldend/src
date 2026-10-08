@@ -1,0 +1,20 @@
+note_id = 1520716969509
+guid = "Gu`}~W#fgq"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Comparisons", "TimeWords"]
+
+[[cards]]
+id = 1520716975373
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "yihou" and "houlai"'
+english = 'After that time, I never saw her again.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Time + 以后， Subj. + Verb + Obj.'
+hanzi = '从那以后，我再也没见过她。'
+notes = ''
+pinyin = 'Cóng nà yǐhòu, wǒ zài yě méi jiàn guo tā.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNPJ7T'

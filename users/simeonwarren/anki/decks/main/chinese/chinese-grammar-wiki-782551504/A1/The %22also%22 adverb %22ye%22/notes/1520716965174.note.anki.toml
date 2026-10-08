@@ -1,0 +1,20 @@
+note_id = 1520716965174
+guid = "Gtr)G}5haQ"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971038
+ordinal = 0
+
+[fields]
+article-title = 'The "also" adverb "ye"'
+english = 'This kind of alcohol is also good.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 也 (+ Adv.) + Adj.'
+hanzi = '这种酒也很好喝。'
+notes = ''
+pinyin = 'Zhè zhǒng jiǔ yě hěn hǎohē.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGG25MD'

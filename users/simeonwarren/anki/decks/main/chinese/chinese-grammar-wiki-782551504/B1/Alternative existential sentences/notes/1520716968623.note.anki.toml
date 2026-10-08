@@ -1,0 +1,20 @@
+note_id = 1520716968623
+guid = "P1[T/fB4*}"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974487
+ordinal = 0
+
+[fields]
+article-title = 'Alternative existential sentences'
+english = "His family's photos are hanging on the wall."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Place + 是 + [Noun Phrase]'
+hanzi = '墙上都是他家人的照片。'
+notes = "There is nothing on the wall other than his family's photos."
+pinyin = 'Qiáng shàng dōu shì tā jiārén de zhàopiàn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGAC619'

@@ -1,0 +1,20 @@
+note_id = 5997
+guid = "cLoy{&9]dM"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 5999
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'brown.'
+example-sentence = '额头碰在棕色的地板上,发出轻轻的砰砰声'
+example-type = ''
+grammar-construct = ''
+hanzi = '棕色'
+notes = ''
+pinyin = '<span class="tone1">zōng</span><span class="tone4">sè</span>	 <!-- zong se -->'
+source = ''

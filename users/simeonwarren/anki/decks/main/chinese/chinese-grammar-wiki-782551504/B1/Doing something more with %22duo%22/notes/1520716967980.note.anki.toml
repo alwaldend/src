@@ -1,0 +1,20 @@
+note_id = 1520716967980
+guid = "x%E.X[.]Ay"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+id = 1520716973844
+ordinal = 0
+
+[fields]
+article-title = 'Doing something more with "duo"'
+english = 'If you want to improve your speaking Chinese, you need to practice more.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '多 + Verb'
+hanzi = '想提高汉语口语，就要多练习。'
+notes = ''
+pinyin = 'Xiǎng tígāo Hànyǔ kǒuyǔ, jiùyào duō liànxí.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGLKGZP'

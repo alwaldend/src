@@ -1,0 +1,20 @@
+note_id = 1520716965346
+guid = "CD3vbgz_mb"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716971210
+ordinal = 0
+
+[fields]
+article-title = 'Using the verb "qu"'
+english = 'Are you going to my place?<br>Yes.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 去 + [Place]'
+hanzi = 'A:你去我家吗？<br>B: 我去。'
+notes = "literally, \"I'm going.\""
+pinyin = 'Nǐ qù  wǒ jiā ma ?<br>Wǒ qù.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGFYNCL'

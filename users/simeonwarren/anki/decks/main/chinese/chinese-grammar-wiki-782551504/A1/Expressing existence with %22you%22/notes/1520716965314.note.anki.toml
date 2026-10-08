@@ -1,0 +1,20 @@
+note_id = 1520716965314
+guid = "P@gg{Tbdr<"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716971178
+ordinal = 0
+
+[fields]
+article-title = 'Expressing existence with "you"'
+english = 'There is a problem here.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Place + 有 + Obj.'
+hanzi = '这里有一个问题。'
+notes = ''
+pinyin = 'Zhèlǐ yǒu yī gè wèntí.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG04ZCI'

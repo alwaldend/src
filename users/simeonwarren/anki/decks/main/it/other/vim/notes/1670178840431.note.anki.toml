@@ -1,0 +1,17 @@
+note_id = 1670178840431
+guid = "tbDR/SVDza"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = []
+
+[[cards]]
+id = 1670178840433
+ordinal = 0
+
+[[cards]]
+id = 1670178840434
+ordinal = 1
+
+[fields]
+Back = "'^ &nbsp; or &nbsp; `^ &nbsp; “ uses the special mark ^; goto line or line and column"
+Front = 'Move to the last insertion point'

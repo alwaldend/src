@@ -1,0 +1,25 @@
+note_id = 1692896308144
+guid = "B9`u=3%6!C"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = []
+
+[[cards]]
+id = 1692896308144
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'Fang Yuan stretched out his hand, looked at his young and immature pale palm, then slowly clenched it tightly, feeling the truth with all his strength.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '方源伸出手,目光定定地看着自己年轻稚嫩的有些苍白的手掌,然后慢慢握紧,用力感受着这份真实。'
+notes = ''
+pinyin = """
+<div>Fāng
+ yuán shēn chūshǒu, mùguāng dìng dìng dì kànzhe zìjǐ niánqīng zhìnèn de\u0020
+yǒuxiē cāngbái de shǒuzhǎng, ránhòu màn man wò jǐn, yònglì gǎnshòuzhe\u0020
+zhè fèn zhēnshí.</div>\
+"""
+source = ''

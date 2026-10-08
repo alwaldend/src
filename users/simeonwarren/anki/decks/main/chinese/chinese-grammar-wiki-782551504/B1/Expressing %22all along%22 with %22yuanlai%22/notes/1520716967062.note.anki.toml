@@ -1,0 +1,20 @@
+note_id = 1520716967062
+guid = "jIjsV?9N;["
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972926
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "all along" with "yuanlai"'
+english = "So you've known each other this whole time!"
+example-sentence = ''
+example-type = ''
+grammar-construct = '原来 + [New Information]'
+hanzi = '原来你们认识！'
+notes = ''
+pinyin = 'Yuánlái nǐmen rènshi!'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTKXFR'

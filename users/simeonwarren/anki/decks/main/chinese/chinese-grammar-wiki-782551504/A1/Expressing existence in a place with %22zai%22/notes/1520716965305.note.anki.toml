@@ -1,0 +1,20 @@
+note_id = 1520716965305
+guid = "yY7HUwY%05"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+id = 1520716971169
+ordinal = 0
+
+[fields]
+article-title = 'Expressing existence in a place with "zai"'
+english = 'Is the teacher not in the office?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 在 + Place'
+hanzi = '老师不在办公室吗？'
+notes = ''
+pinyin = 'Lǎoshī bù zài  bàngōngshì ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGLRWT8'

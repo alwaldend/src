@@ -1,0 +1,20 @@
+note_id = 1520716969600
+guid = "eiKpuYs$el"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975464
+ordinal = 0
+
+[fields]
+article-title = 'Advanced use of "you"'
+english = 'This plan was changed again and again, and finally it passed.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. ＋Verb + 了 + 又 + Verb，还是 / 就是 ……'
+hanzi = '这个方案改了又改，终于通过了。'
+notes = ''
+pinyin = "Zhège fāng'àn gǎi le yòu gǎi, zhōngyú tōngguò le."
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGF08B6'

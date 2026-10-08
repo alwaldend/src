@@ -1,0 +1,20 @@
+note_id = 7005
+guid = "v!DQLrSi($"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+id = 7016
+ordinal = 0
+
+[fields]
+article-title = ''
+english = "to mention;\tto raise (a subject);\tto bring to sb's attention."
+example-sentence = '  不知是谁,提及到白凝冰这个名字,众家老的脸上不由地浮现出一层忧色'
+example-type = ''
+grammar-construct = ''
+hanzi = '提及'
+notes = ''
+pinyin = '<span class="tone2">tí</span><span class="tone2">jí</span>	 <!-- ti ji -->'
+source = ''

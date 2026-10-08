@@ -1,0 +1,20 @@
+note_id = 4028
+guid = "Mdaj3a08N5"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 4059
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'dark;	darkly;	darkness.'
+example-sentence = ' 青茅山却不黑暗,从山腰至山脚,闪着许多莹莹的微光,好像是披着一条灿烂的光带'
+example-type = ''
+grammar-construct = ''
+hanzi = '黑暗'
+notes = ''
+pinyin = '<span class="tone1">hēi</span><span class="tone4">àn</span>	 <!-- hei an -->'
+source = ''

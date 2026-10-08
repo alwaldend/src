@@ -1,0 +1,20 @@
+note_id = 3034
+guid = "nz:xQO*]P:"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 3070
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'vivid and lifelike (idiom); true to life;	realistic.'
+example-sentence = ' 深埋在心底的许多记忆,在此刻鲜活起来,栩栩如生地在眼前回现着'
+example-type = ''
+grammar-construct = ''
+hanzi = '栩栩如生'
+notes = ''
+pinyin = '<span class="tone3">xǔ</span><span class="tone3">xǔ</span><span class="tone2">rú</span><span class="tone1">shēng</span>	 <!-- xu xu ru sheng -->'
+source = ''

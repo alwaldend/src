@@ -1,0 +1,20 @@
+note_id = 1520716970867
+guid = "nwT{FDL=*f"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Comparisons", "leech", "TimeWords"]
+
+[[cards]]
+id = 1520716976731
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "yizhi" and "yixiang"'
+english = "She has always liked showing off, she's horrible."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '她这个人一向喜欢炫耀，很讨厌。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGVEP8S'

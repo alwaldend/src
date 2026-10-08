@@ -1,0 +1,20 @@
+note_id = 1520716967246
+guid = "JvvFtR6,cx"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973110
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "quite" with "ting"'
+english = "Don't you really like him? Why do you want to break up with him?"
+example-sentence = ''
+example-type = ''
+grammar-construct = '挺 + Verb + Obj. + 的'
+hanzi = '你不是挺喜欢他的吗？为什么要跟他分手？'
+notes = ''
+pinyin = 'Nǐ bùshì tǐng xǐhuān tā de ma? Wèishéme yào gēn tā fēnshǒu?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDF1F7'

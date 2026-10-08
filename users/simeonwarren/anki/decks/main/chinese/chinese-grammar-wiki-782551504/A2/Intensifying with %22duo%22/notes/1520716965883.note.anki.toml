@@ -1,0 +1,20 @@
+note_id = 1520716965883
+guid = "i*qSCs#:T]"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "AdverbswithAdjectives", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971747
+ordinal = 0
+
+[fields]
+article-title = 'Intensifying with "duo"'
+english = "It's so nice being alone!"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 多 + Adj.'
+hanzi = '一个人多好！'
+notes = ''
+pinyin = 'Yīgèrén duō hǎo!'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGGH7RR'

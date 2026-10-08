@@ -1,0 +1,20 @@
+note_id = 1520716970899
+guid = "AK`=){c.C1"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Comparisons"]
+
+[[cards]]
+id = 1520716976763
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "zai" and "you"'
+english = 'I want to take a look again.'
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = 'Subj. + 再 + Verb'
+hanzi = '我想再看一下，这些不够。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTBHBG'

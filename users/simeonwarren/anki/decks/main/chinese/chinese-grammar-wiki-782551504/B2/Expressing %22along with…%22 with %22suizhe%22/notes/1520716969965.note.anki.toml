@@ -1,0 +1,20 @@
+note_id = 1520716969965
+guid = "e7n:lqG~)K"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+id = 1520716975829
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "along with…" with "suizhe"'
+english = "Along with economic development, people's lifestyles get progressively better."
+example-sentence = ''
+example-type = ''
+grammar-construct = '随着 + Noun， Subj. + Predicate'
+hanzi = '随着经济的发展，人们的生活越来越好了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGHVFRA'

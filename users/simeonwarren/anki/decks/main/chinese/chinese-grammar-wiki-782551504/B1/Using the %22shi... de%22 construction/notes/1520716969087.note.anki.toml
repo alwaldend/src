@@ -1,0 +1,20 @@
+note_id = 1520716969087
+guid = "HNw5&IF],^"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974951
+ordinal = 0
+
+[fields]
+article-title = 'Using the "shi... de" construction'
+english = 'I met her in France.'
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = 'Subj. + 是 + [Information to be Emphasized] + Verb + 的'
+hanzi = '我是在法国认识她的。'
+notes = 'the 的 can only come after the object 她'
+pinyin = '<div>Wǒ shì zài fàguó rènshí tā de.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8YTSF'

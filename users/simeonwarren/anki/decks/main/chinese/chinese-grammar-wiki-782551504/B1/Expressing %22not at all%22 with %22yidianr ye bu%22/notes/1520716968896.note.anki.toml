@@ -1,0 +1,20 @@
+note_id = 1520716968896
+guid = "Ad@=H9<+oU"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974760
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "not at all" with "yidianr ye bu"'
+english = "My son doesn't like playing video games at all."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 一点 + 也 / 都 + 不 + [Verb Phrase]'
+hanzi = '我儿子一点都不爱玩游戏。'
+notes = ''
+pinyin = 'Wǒ érzi yīdiǎn dōu bù ài wán yóuxì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGRURCZ'

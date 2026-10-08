@@ -1,0 +1,20 @@
+note_id = 1520716968292
+guid = "McX+Em_*;F"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+id = 1520716974156
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "not often" with "bu zenme"'
+english = "It seems that you don't drink very often."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不怎么 + Verb ( + Obj. )'
+hanzi = '你好像不怎么喝酒。'
+notes = ''
+pinyin = 'Nǐ hǎoxiàng bù zěnme hējiǔ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5BOGP'

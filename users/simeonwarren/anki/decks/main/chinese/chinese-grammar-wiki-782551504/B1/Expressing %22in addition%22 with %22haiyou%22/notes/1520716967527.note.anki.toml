@@ -1,0 +1,20 @@
+note_id = 1520716967527
+guid = "K:=m@Ub15#"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716973391
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "in addition" with "haiyou"'
+english = "You need to finish this report today. In addition, get everything we need for tomorrow's meeting."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Clause 1 ，还有 ， Clause 2'
+hanzi = '今天要做完这个报告。还有，准备好明天开会的东西。'
+notes = ''
+pinyin = 'Jīntiān yào zuò wán zhège bàogào. Háiyǒu, zhǔnbèi hǎo míngtiān kāihuì de dōngxi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGHQRI1'

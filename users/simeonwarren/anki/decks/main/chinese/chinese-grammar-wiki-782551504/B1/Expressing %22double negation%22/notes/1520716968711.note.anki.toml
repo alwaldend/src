@@ -1,0 +1,20 @@
+note_id = 1520716968711
+guid = "og1@F%!l[4"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974575
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "double negation"'
+english = "There is no way she doesn't know about this."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不 + 会 / 能 / 可能 + 不 / 没 + Predicate'
+hanzi = '她不可能不知道。'
+notes = ''
+pinyin = 'Tā bù kěnéng bù zhīdào.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGEEA2D'

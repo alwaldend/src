@@ -1,0 +1,17 @@
+note_id = 1634363555809
+guid = "L!1>Cmozo8"
+note_type_id = 1630447360003
+note_type = "python-basic-and-reversed"
+tags = []
+
+[[cards]]
+id = 1634370830770
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<i>set</i>.issubset(<i>set</i>)'
+example = '<div>x = { 3, 4 }</div><div>y = { 3, 4, 5 }</div>x.issubset(y) #returns true'
+question = '<b>Set method</b> that returns True if the set being called on (example&nbsp;<i>x</i>)<i>&nbsp;</i>is a subset of the argument set (example&nbsp;<i>y</i>)<i>&nbsp;</i>else False.'
+version = ''
+with-options = ''

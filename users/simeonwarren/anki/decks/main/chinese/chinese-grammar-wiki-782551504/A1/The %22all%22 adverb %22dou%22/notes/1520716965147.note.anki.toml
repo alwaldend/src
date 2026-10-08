@@ -1,0 +1,20 @@
+note_id = 1520716965147
+guid = "z/.8hEj2+Z"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971011
+ordinal = 0
+
+[fields]
+article-title = 'The "all" adverb "dou"'
+english = 'Tomorrow we all can go.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 都 + [Verb Phrase]'
+hanzi = '明天我们都可以去。'
+notes = ''
+pinyin = 'Míngtiān wǒmen dōu kěyǐ qù.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG9YK09'

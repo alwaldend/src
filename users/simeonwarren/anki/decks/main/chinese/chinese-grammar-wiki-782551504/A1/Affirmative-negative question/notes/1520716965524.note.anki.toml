@@ -1,0 +1,20 @@
+note_id = 1520716965524
+guid = "sH#a3I!V[y"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+id = 1520716971388
+ordinal = 0
+
+[fields]
+article-title = 'Affirmative-negative question'
+english = 'Is that place fun?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '[First Character of Adj.] + 不 + Adj.'
+hanzi = '那个地方好不好玩？'
+notes = 'only the first character repeated'
+pinyin = 'Nàge dìfang  hǎo bu hǎowán?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGZH7K3'

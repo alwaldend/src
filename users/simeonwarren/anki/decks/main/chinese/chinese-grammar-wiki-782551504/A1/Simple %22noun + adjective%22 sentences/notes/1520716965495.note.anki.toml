@@ -1,0 +1,20 @@
+note_id = 1520716965495
+guid = "rFZmW+HoV("
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Basics", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716971359
+ordinal = 0
+
+[fields]
+article-title = 'Simple "noun + adjective" sentences'
+english = 'Dad is busy, and mom is also busy.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun + 很 + Adj.'
+hanzi = '爸爸很忙，妈妈也很忙。'
+notes = ''
+pinyin = 'Bàba hěn máng, māma  yě hěn máng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG17BLH'

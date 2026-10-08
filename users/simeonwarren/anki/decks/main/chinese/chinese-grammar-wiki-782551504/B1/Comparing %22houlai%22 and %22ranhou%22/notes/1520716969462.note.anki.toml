@@ -1,0 +1,20 @@
+note_id = 1520716969462
+guid = "x6Oen;se^5"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Comparisons", "TimeWords"]
+
+[[cards]]
+id = 1520716975326
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "houlai" and "ranhou"'
+english = 'First he told the good news, then he told the bad news.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Action 1，然后 + Action 2'
+hanzi = '他先说了一个好消息，然后又说了一个坏消息。'
+notes = ''
+pinyin = 'Tā xiān shuō le yī gè hǎo xiāoxi, ránhòu yòu shuō le yī gè huài xiāoxi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGA3RJD'

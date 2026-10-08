@@ -1,0 +1,20 @@
+note_id = 1520716968069
+guid = "JENLNV6nHy"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+id = 1520716973933
+ordinal = 0
+
+[fields]
+article-title = 'Separable verb'
+english = ''
+example-sentence = ''
+example-type = 'invalid'
+grammar-construct = ''
+hanzi = '爸爸不喜欢聊关于他的工作。'
+notes = ''
+pinyin = 'Bàba bù xǐhuan liá guānyú tā de gōngzuò.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG4GVRX'

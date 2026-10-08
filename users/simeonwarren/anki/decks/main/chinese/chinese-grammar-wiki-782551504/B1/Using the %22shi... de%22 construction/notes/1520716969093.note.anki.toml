@@ -1,0 +1,20 @@
+note_id = 1520716969093
+guid = "EA/]SCd/&"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974957
+ordinal = 0
+
+[fields]
+article-title = 'Using the "shi... de" construction'
+english = 'Who did you make food for?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 是 + [Information to be Emphasized] + Verb + 的'
+hanzi = '你是给谁做的饭？'
+notes = 'for whom is emphasized.'
+pinyin = '<div>Nǐ shì gěi shéi zuò de fàn?</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8YTSF'

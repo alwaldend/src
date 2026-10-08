@@ -1,0 +1,20 @@
+note_id = 1014
+guid = "E:aR59lx@,"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+id = 1028
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'blood.'
+example-sentence = ' 鲜红的血液,从身上数百道伤口向外涌着'
+example-type = ''
+grammar-construct = ''
+hanzi = '血液'
+notes = ''
+pinyin = '<span class="tone4">xuè</span><span class="tone4">yè</span>	 <!-- xue ye -->'
+source = ''

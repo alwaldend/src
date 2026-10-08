@@ -1,0 +1,20 @@
+note_id = 1520716969809
+guid = "lF5{kU<E3o"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975673
+ordinal = 0
+
+[fields]
+article-title = 'Expressing concern with "kongpa"'
+english = "It's already very late. I'm afraid he's not coming."
+example-sentence = ''
+example-type = ''
+grammar-construct = '(Reason / Situation, ) 恐怕 + Fact / Conclusion'
+hanzi = '已经很晚了，恐怕他不会来了。'
+notes = ''
+pinyin = 'Yǐjīng hěn wǎn le, kǒngpà  tā bù huì lái le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGD4BA3'

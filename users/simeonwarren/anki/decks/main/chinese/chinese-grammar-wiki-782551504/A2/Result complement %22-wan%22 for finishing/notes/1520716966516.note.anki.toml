@@ -1,0 +1,20 @@
+note_id = 1520716966516
+guid = "B:h`~a3P)M"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+id = 1520716972380
+ordinal = 0
+
+[fields]
+article-title = 'Result complement "-wan" for finishing'
+english = 'We have finished learning 100 words.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 完 (+ 了) + Obj.'
+hanzi = '我们学完了一百个词。'
+notes = ''
+pinyin = 'Wǒmen xué wán le yībǎi gè cí.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNQUC1'

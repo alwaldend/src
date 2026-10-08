@@ -1,0 +1,20 @@
+note_id = 1520716967111
+guid = "Gq6J!v7=`A"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972975
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "always" with "conglai"'
+english = 'She always wants those good-looking guys when she looks for boyfriend.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 从来 + 都 + Predicate'
+hanzi = '她找男朋友从来都是要长得帅的。'
+notes = ''
+pinyin = 'Tā zhǎo nánpéngyou cónglái dōu shì yào  zhǎo zhǎng de shuài de.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8KUHG'

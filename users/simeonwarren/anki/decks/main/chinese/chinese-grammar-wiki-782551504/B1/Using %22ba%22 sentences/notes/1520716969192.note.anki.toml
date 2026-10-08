@@ -1,0 +1,20 @@
+note_id = 1520716969192
+guid = "KKGadmK1-."
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716975056
+ordinal = 0
+
+[fields]
+article-title = 'Using "ba" sentences'
+english = 'The teacher read my name wrong.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 把 + Obj. 1 + Verb + 给 + Obj. 2'
+hanzi = '老师把我的名字读错了。'
+notes = ''
+pinyin = 'Lǎowhī bǎ wǒ de míngzì dú cuò le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG2UB2B'

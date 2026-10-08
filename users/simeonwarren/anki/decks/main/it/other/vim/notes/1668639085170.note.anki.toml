@@ -1,0 +1,17 @@
+note_id = 1668639085170
+guid = "x3)bwxa6PZ"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = []
+
+[[cards]]
+id = 1668639085170
+ordinal = 0
+
+[[cards]]
+id = 1668965796744
+ordinal = 1
+
+[fields]
+Back = ':%norm {command}'
+Front = 'Apply a normal comand to every line of the buffer'

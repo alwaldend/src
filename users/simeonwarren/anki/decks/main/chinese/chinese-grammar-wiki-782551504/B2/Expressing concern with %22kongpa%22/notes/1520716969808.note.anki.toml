@@ -1,0 +1,20 @@
+note_id = 1520716969808
+guid = "bv,ke[X|,d"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975672
+ordinal = 0
+
+[fields]
+article-title = 'Expressing concern with "kongpa"'
+english = "I'm busy tomorrow, I'm afraid I don't have time."
+example-sentence = ''
+example-type = ''
+grammar-construct = '(Reason / Situation, ) 恐怕 + Fact / Conclusion'
+hanzi = '明天我很忙，恐怕没有时间。'
+notes = ''
+pinyin = 'Míngtiān wǒ hěn máng, kǒngpà méiyǒu shíjiān.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGD4BA3'

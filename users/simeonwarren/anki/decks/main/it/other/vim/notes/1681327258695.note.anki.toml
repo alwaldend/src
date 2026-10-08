@@ -1,0 +1,17 @@
+note_id = 1681327258695
+guid = "NcRK36`j$%"
+note_type_id = 1520550989354
+note_type = "basic"
+tags = []
+
+[[cards]]
+id = 1681327258695
+ordinal = 0
+
+[[cards]]
+id = 1681327258696
+ordinal = 1
+
+[fields]
+Back = '#'
+Front = 'Find word under cursor again, backward'

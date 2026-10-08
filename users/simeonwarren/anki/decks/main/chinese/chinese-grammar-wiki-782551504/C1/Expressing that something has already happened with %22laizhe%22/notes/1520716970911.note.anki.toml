@@ -1,0 +1,20 @@
+note_id = 1520716970911
+guid = "v%fYwoADV]"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["AuxiliaryWords", "C1"]
+
+[[cards]]
+id = 1520716976775
+ordinal = 0
+
+[fields]
+article-title = 'Expressing that something has already happened with "laizhe"'
+english = "That book was here yesterday. Why can't I find it today?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Sentence + 来着'
+hanzi = '那本书昨天还在这儿来着，今天怎么找不到了？'
+notes = ''
+pinyin = 'Nà běn shū zuótiān hái zài zhèr láizhe,  jīntiān zěnme zhǎo bùdào le?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPV5Z2'

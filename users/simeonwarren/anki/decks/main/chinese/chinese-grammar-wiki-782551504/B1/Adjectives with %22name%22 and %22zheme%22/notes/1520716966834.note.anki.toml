@@ -1,0 +1,20 @@
+note_id = 1520716966834
+guid = "QwdC0^Gv]A"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716972698
+ordinal = 0
+
+[fields]
+article-title = 'Adjectives with "name" and "zheme"'
+english = 'You are so rich. Why are you still working?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 那么 / 这么 + Adj.'
+hanzi = '你那么有钱，为什么还要工作？'
+notes = ''
+pinyin = 'Nǐ nàme yǒuqián, wèishénme hái yào gōngzuò.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNKKP6'

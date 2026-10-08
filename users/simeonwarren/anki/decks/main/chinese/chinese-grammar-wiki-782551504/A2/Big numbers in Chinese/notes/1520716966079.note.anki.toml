@@ -1,0 +1,20 @@
+note_id = 1520716966079
+guid = "oT@>9.}_JR"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "Numbers", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971943
+ordinal = 0
+
+[fields]
+article-title = 'Big numbers in Chinese'
+english = '53,798,250'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '五千三百七十九万八千两百五十'
+notes = ''
+pinyin = 'wǔqiān sānbǎi qīshí-jiǔ wàn bāqiān liǎngbǎi wǔshí'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGIM3AX'

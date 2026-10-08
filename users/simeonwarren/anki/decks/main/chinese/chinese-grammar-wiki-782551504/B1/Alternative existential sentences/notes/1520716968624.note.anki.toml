@@ -1,0 +1,20 @@
+note_id = 1520716968624
+guid = "A}_dN(T8GI"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+id = 1520716974488
+ordinal = 0
+
+[fields]
+article-title = 'Alternative existential sentences'
+english = 'The gifts that I bought for my friends are inside my suitcase.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Place + 是 + [Noun Phrase]'
+hanzi = '盒子里是你的礼物。'
+notes = 'Other than your gift, there is nothing else in the box.'
+pinyin = 'Hézi lǐ shì nǐ de lǐwù.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGAC619'

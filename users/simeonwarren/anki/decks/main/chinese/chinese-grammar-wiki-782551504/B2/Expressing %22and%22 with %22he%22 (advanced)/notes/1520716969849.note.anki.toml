@@ -1,0 +1,20 @@
+note_id = 1520716969849
+guid = "jEF?yoWxI."
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975713
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "and" with "he" (advanced)'
+english = ''
+example-sentence = ''
+example-type = 'invalid'
+grammar-construct = 'Adj. 1 + 和 + Adj. 2'
+hanzi = '我去了超市和买了水果。'
+notes = "You could look at these actions as two separate clauses or verbs with separate objects. Either way, it's bad.)"
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGXN52R'

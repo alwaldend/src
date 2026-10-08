@@ -1,0 +1,20 @@
+note_id = 1520716968391
+guid = "GxPRB4+yv#"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B1", "Grammatical_Structures", "IfStatements"]
+
+[[cards]]
+id = 1520716974255
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "if…, then…" with "ruguo…, jiu…"'
+english = "If he hadn't been so addicted to the video games, he would have been admitted to a better university."
+example-sentence = ''
+example-type = ''
+grammar-construct = '如果 + Statement + 就 + Result'
+hanzi = '他如果不迷恋网络游戏，就能考上好的大学。'
+notes = ''
+pinyin = 'Tā rúguǒ bù míliàn wǎngluò yóuxì, jiù néng kǎo shàng hǎo de dàxué.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGGIVT0'

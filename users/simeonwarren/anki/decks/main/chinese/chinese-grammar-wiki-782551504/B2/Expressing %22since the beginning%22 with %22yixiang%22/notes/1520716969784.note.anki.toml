@@ -1,0 +1,20 @@
+note_id = 1520716969784
+guid = "pfe{GJB:RQ"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975648
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "since the beginning" with "yixiang"'
+english = "He's always been a good student, why would he possibly cheat?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 一向 + Habit / Attitude / etc.'
+hanzi = '他一向是个好学生，怎么可能会作弊呢？'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGACMNQ'

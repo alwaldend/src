@@ -1,0 +1,20 @@
+note_id = 1520716969917
+guid = "O^3=G*MQp:"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["B2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716975781
+ordinal = 0
+
+[fields]
+article-title = 'Taiwanese "you"'
+english = 'Do your students write diaries?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 有 + 在 + Verb'
+hanzi = '你的学生有在写日记吗？'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGY2D79'

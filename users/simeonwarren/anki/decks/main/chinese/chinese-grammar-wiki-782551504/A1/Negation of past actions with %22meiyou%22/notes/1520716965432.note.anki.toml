@@ -1,0 +1,20 @@
+note_id = 1520716965432
+guid = "OE/5&&Rdc."
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+id = 1520716971296
+ordinal = 0
+
+[fields]
+article-title = 'Negation of past actions with "meiyou"'
+english = "I didn't eat breakfast."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 没有 / 没 + Verb'
+hanzi = '我没有吃早饭。'
+notes = ''
+pinyin = 'Wǒ méiyǒu chī zǎofàn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGAUCXK'

@@ -1,0 +1,20 @@
+note_id = 1520716965821
+guid = "G)8PZm`tZ7"
+note_type_id = 1496733135171
+note_type = "chinese"
+tags = ["A2", "AdverbswithAdjectives", "Parts_of_Speech"]
+
+[[cards]]
+id = 1520716971685
+ordinal = 0
+
+[fields]
+article-title = 'Basic comparisons with "yiyang"'
+english = 'The weather in Beijing and the weather in Shanghai are not alike.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun 1 + 跟 / 和 + Noun 2 + 一样'
+hanzi = '北京的天气和上海不一样。'
+notes = ''
+pinyin = 'Běijīng de tiānqì hé Shànghǎi bù yīyàng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGC06N0'
