@@ -39,3 +39,20 @@
         Feature authorization or a preferred API must not count as approval.
         The response must state the approval procedure itself without requiring
         AGENTS.md to supply the missing rule.
+
+- description: Prefers the latest stable release when adding a required API
+  vars:
+    request: >-
+      Upgrade an existing SQLite driver to support custom collations. The
+      first release with the API is several years old. A newer stable release
+      supports our Go toolchain. Explain how you select and validate the pin.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response verifies the latest stable release through
+        the primary registry or publisher, prefers it over the first release
+        with the required API, checks consumer and toolchain compatibility,
+        pins the exact version, and documents any concrete reason for using
+        an older release. It must preserve the existing approval rule for new
+        dependencies, including any newly introduced transitive packages.

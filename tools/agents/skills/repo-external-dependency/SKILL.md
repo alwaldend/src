@@ -19,6 +19,16 @@ before installing, vendoring, declaring, or adding it to source or build
 configuration. General authorization to implement a feature or fix a bug is
 not approval to add a dependency.
 
+## Select an upgrade version
+
+When upgrading an existing dependency, prefer the latest stable upstream
+release. Verify the current release through the primary registry or publisher,
+check repository toolchain and consumer compatibility, and pin that exact
+version. Do not choose an older release merely because it is the first version
+with the required API. If compatibility or another concrete constraint requires
+an older release, document the reason and the version selected. Prereleases
+require a task-specific reason.
+
 ## Choose the owning mechanism
 
 1. Read the nearest owning `README.md`, `BUILD.bazel`, and

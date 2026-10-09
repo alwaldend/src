@@ -29,3 +29,16 @@
         declares the Go dependency in BUILD.bazel, and verifies literal filenames
         with an isolated command-level fixture. It must not use host Go, hand-edit
         generated locks, disable host verification, or run against a live host.
+- description: Uses Cobra for Go command-line interfaces
+  vars:
+    request: >-
+      Implement a Go CLI with export and plan subcommands and required flags
+      in this repository.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if it uses the existing pinned Cobra module, defines separate
+        subcommands and command-specific required flags, propagates command
+        context, wraps errors with useful context, and declares the module in
+        Bazel deps. It must not introduce a separate manual flag parser.

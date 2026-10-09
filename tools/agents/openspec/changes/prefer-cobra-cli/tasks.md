@@ -1,0 +1,2 @@
+- [x] Update the canonical Go skill and its offline eval case.
+- [x] Select skill validation and discovery checks in shared dependency and skill delivery.

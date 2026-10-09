@@ -33,6 +33,11 @@ layer.
 
 ## Commands and dependencies
 
+Use Cobra for Go command-line interfaces. Define subcommands with their own
+flags and required-flag validation, pass the command context to operations,
+and keep output and error handling at the command boundary. Reuse the existing
+repository-pinned Cobra module and declare it in the owning Bazel deps.
+
 Pass local subprocess arguments as an argv slice through `exec.CommandContext`.
 Keep shell use limited to operations that need shell syntax; preserve literal
 shell arguments with the existing quoting mechanism. Propagate cancellation
