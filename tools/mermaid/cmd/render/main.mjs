@@ -152,7 +152,7 @@ try {
             output,
             puppeteerConfig,
             deviceScaleFactor:
-                flags.scale === undefined ? 2 : Number(flags.scale),
+                flags.scale === undefined ? 1 : Number(flags.scale),
             aspectRatio:
                 flags["aspect-ratio"] === undefined
                     ? undefined

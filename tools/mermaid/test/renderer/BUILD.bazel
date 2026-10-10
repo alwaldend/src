@@ -70,6 +70,7 @@ mermaid_webp(
     label_font = "@com_alwaldend_src_tools_drawio_fonts//:LiberationSans-Regular.ttf",
     native = True,
     palette = "//projects/alwaldend.com/assets:mermaid_palette",
+    scale = 2,
     theme = "//projects/alwaldend.com/pkg/mermaid:theme.json",
 )
 
@@ -81,6 +82,7 @@ mermaid_webp(
     label_font = "@com_alwaldend_src_tools_drawio_fonts//:LiberationSans-Regular.ttf",
     native = True,
     palette = "//projects/alwaldend.com/assets:mermaid_palette",
+    scale = 2,
     theme = "//projects/alwaldend.com/pkg/mermaid:theme.json",
 )
 
@@ -122,6 +124,7 @@ mermaid_webp(
     label_font = "@com_alwaldend_src_tools_drawio_fonts//:LiberationSans-Regular.ttf",
     native = True,
     palette = "//projects/alwaldend.com/assets:mermaid_palette",
+    scale = 2,
     theme = "//projects/alwaldend.com/pkg/mermaid:theme.json",
 )
 

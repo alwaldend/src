@@ -9,8 +9,7 @@ import puppeteer from "puppeteer";
 // performs the encode, so the rule needs no image-conversion toolchain.
 //
 // The raster is authored at the diagram's natural size, then scaled by
-// `deviceScaleFactor` so a node-sized diagram still carries crisp text when an
-// upload endpoint re-encodes it.
+// `deviceScaleFactor` when a consumer requests higher pixel density.
 
 // readDimensions returns the drawing's own size. Mermaid writes the size into
 // `viewBox`; taking it there ignores any `width`/`height` the document also
@@ -44,14 +43,14 @@ const readBackground = (svg) => {
  * @param {string} options.svgPath Rendered SVG on disk, with its theme and font.
  * @param {string} options.output Destination `.webp` path.
  * @param {object} options.puppeteerConfig Launch options, including pinned fonts.
- * @param {number} options.deviceScaleFactor Raster scale; 2 keeps text crisp.
+ * @param {number} options.deviceScaleFactor Raster scale; 1 uses natural size.
  * @param {number[]} [options.aspectRatio] Optional positive integer width/height.
  */
 export async function renderWebp({
     svgPath,
     output,
     puppeteerConfig,
-    deviceScaleFactor = 2,
+    deviceScaleFactor = 1,
     aspectRatio,
 }) {
     if (!Number.isSafeInteger(deviceScaleFactor) || deviceScaleFactor <= 0)

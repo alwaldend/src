@@ -317,9 +317,9 @@ func TestRasterRenderIsWebp(t *testing.T) {
 	if err != nil {
 		t.Fatalf("read SVG canvas: %v", err)
 	}
-	// The rule authors the raster at the diagram's natural size and scales it
-	// by two, so the canvas is the SVG's geometry at that scale.
-	const scale = 2
+	// The rule defaults to the diagram's natural size, so the raster canvas
+	// follows the SVG's geometry without increasing its pixel density.
+	const scale = 1
 	for _, expected := range []struct {
 		name string
 		got  int
