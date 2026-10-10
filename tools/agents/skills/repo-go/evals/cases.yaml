@@ -56,3 +56,24 @@
         initialization failures are returned with contextual wrapped errors,
         no init function remains, and Deck methods are in the same source file
         as the Deck receiver type declaration. Do not introduce a dependency.
+- description: Documents Go package ownership and boundaries
+  vars:
+    request: >-
+      Add a Go reconciliation package and a command package to this repository.
+      Include exported and private structs, embedded fields, methods, helpers,
+      constants, and package variables. The reconciliation package consumes
+      generated protobuf models and writes
+      SQLite changes. Document their module boundaries using Go conventions.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if each first-party package has exactly one package comment
+        in doc.go immediately before the package declaration, starts with
+        Package and its package name, and describes responsibilities and
+        boundaries accurately. Include the command package and wire doc.go
+        into Bazel targets. Do not edit generated protobuf code or upstream
+        dependencies, duplicate package comments, or use a README alone as
+        package documentation. Document every top-level declaration and struct field,
+        including unexported and embedded fields, with a name-led comment that
+        describes its purpose or behavior. Keep module-wide architecture in the README.

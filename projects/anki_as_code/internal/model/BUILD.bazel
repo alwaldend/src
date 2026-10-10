@@ -5,6 +5,7 @@ go_library(
     srcs = [
         "collection.go",
         "deck.go",
+        "doc.go",
         "note.go",
         "state.go",
     ],

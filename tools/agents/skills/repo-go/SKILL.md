@@ -18,6 +18,24 @@ Avoid `init()` functions. Initialize components explicitly from their owning
 entry point so ordering is visible and failures can be returned with context.
 Keep methods in the same source file as the declaration of their receiver type.
 
+## Document package boundaries
+
+Every first-party Go package must have one package documentation comment in
+`doc.go`, immediately before its package declaration. Start with `Package <name>` and describe the package purpose, responsibilities, and important
+boundaries or guarantees. Include command packages and handwritten wrappers
+for generated code; do not edit generated files or upstream dependencies.
+Keep the comment accurate when behavior changes and include `doc.go` in the
+owning Bazel target. Module-wide architecture belongs in the owning README.
+
+Document every top-level declaration, including exported and unexported types,
+functions, methods, constants, and package variables. Document every struct
+field, including embedded and private fields. Start each comment with the
+declared name and explain its purpose or behavior; record meaningful contracts
+without restating the identifier. Preserve accurate existing comments and
+update them alongside changes to the declaration. Apply the same rules to
+named declarations and struct fields in tests. Generated declarations rely on
+their source schema or generator documentation; do not edit generated files.
+
 ## Preserve error causes
 
 Always wrap propagated non-nil errors with useful operation and resource
