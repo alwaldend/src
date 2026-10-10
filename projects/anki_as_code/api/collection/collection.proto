@@ -1,0 +1,150 @@
+syntax = "proto3";
+
+package anki_as_code.collection;
+
+option go_package = "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/collection;collectionpb";
+
+// These messages define the editable TOML and plan JSON contracts. Database
+// protobuf configuration uses the existing generated upstream Anki schemas.
+
+// CollectionConfig describes the collection text format and locates its managed resources.
+message CollectionConfig {
+  // Version identifies the supported collection text format.
+  int64 format_version = 1;
+  // DecksPath locates the recursively discovered deck markers relative to this config.
+  string decks_path = 2;
+  // NoteTypesPath locates note-type appearance files relative to this config.
+  string note_types_path = 3;
+  // NotesPath optionally locates notes without managed cards relative to this config.
+  optional string notes_path = 4;
+}
+
+// DeckConfig describes a regular deck's configuration and preserves its
+// scheduling preset reference and unknown configuration fields.
+message DeckConfig {
+  // ConfigID references the existing Anki scheduling preset; the preset itself is unmanaged.
+  uint64 config_id = 1;
+  // ExtendNew stores the deck's new-card limit extension.
+  uint64 extend_new = 2;
+  // ExtendReview stores the deck's review-card limit extension.
+  uint64 extend_review = 3;
+  // Description contains the deck description displayed by Anki.
+  string description = 4;
+  // MarkdownDescription selects Markdown rendering for Description.
+  bool markdown_description = 5;
+  // ExtraFieldsBase64 preserves unmanaged protobuf members separately from editable fields.
+  optional string extra_fields_base64 = 6;
+}
+
+// Deck describes an Anki deck, its configuration, and the location of its notes.
+// Name retains Anki's full deck title, including any :: hierarchy separators.
+message Deck {
+  // ID identifies the Anki deck; new declarations receive an allocated identity.
+  int64 id = 1;
+  // Name is the full Anki title, serialized as title, with :: hierarchy separators.
+  string title = 2;
+  // NotesPath locates this deck's notes relative to its marker file.
+  string notes_path = 3;
+  // Normal contains regular-deck settings and is nil for filtered decks.
+  DeckConfig normal = 4;
+  // FilteredBase64 preserves filtered-deck configuration; it does not describe resident cards.
+  optional string filtered_base64 = 5;
+}
+
+// Card identifies a card generated from a note and its template ordinal and deck.
+message Card {
+  // ID identifies a managed regular-deck card.
+  int64 id = 1;
+  // Ord is the zero-based template ordinal, or cloze number minus one.
+  int64 ordinal = 2;
+  // Deck is an optional Anki title override; loading resolves an omitted value from the note root.
+  optional string deck = 3;
+}
+
+// Note describes editable shared content, tags, and managed regular-deck cards.
+// Field names map directly to their exact text content.
+message Note {
+  // ID identifies the Anki note; new notes receive an allocated identity.
+  int64 note_id = 1;
+  // GUID preserves the Anki note identity used across collections.
+  string guid = 2;
+  // TypeID references the existing upstream note-type identity.
+  int64 note_type_id = 3;
+  // TypeName records the note-type name for readable declarations and validation.
+  string note_type = 4;
+  // Tags contains the note's editable Anki tags.
+  repeated string tags = 5;
+  // Cards contains managed regular-deck cards; resident filtered cards are excluded.
+  repeated Card cards = 6;
+  // NamedFields maps editable field names to their exact content.
+  map<string, string> fields = 7;
+}
+
+// NoteTypeAppearance describes editable CSS and card templates for a note type,
+// without changing its field structure or scheduling profiles.
+message NoteTypeAppearance {
+  // ID references the existing note type whose appearance is edited.
+  int64 id = 1;
+  // Name records the existing note-type name for validation.
+  string name = 2;
+  // CSS contains the shared stylesheet applied to this note type's cards.
+  string css = 3;
+  // Templates contains appearance settings for the existing card templates.
+  repeated TemplateAppearance templates = 4;
+}
+
+// TemplateAppearance describes the rendering and browser display of one card template.
+message TemplateAppearance {
+  // Ord identifies the existing template by its zero-based ordinal.
+  int64 ordinal = 1;
+  // Name records the existing template name for validation.
+  string name = 2;
+  // Front contains the question-side HTML template.
+  string front = 3;
+  // Back contains the answer-side HTML template.
+  string back = 4;
+  // BrowserFront contains the question template used in Anki's browser.
+  string browser_front = 5;
+  // BrowserBack contains the answer template used in Anki's browser.
+  string browser_back = 6;
+  // BrowserFont names the font used for this template in Anki's browser.
+  string browser_font = 7;
+  // BrowserFontSize stores the browser font size from the upstream template configuration.
+  uint32 browser_font_size = 8;
+}
+
+// CollectionChange identifies a planned action on one managed collection resource.
+message CollectionChange {
+  // Resource identifies the resource kind: note, card, deck, or appearance.
+  string resource = 1;
+  // ID identifies the resource; deck changes use the Anki title.
+  string id = 2;
+  // Action identifies the planned operation: add, update, or delete.
+  string action = 3;
+}
+
+// CollectionChangePlan summarizes the actions needed to reconcile current and desired state.
+message CollectionChangePlan {
+  // AppearanceChanged counts note types with appearance edits.
+  int64 appearance_changed = 1;
+  // NotesAdded counts new notes.
+  int64 notes_added = 2;
+  // NotesChanged counts notes with field or tag edits.
+  int64 notes_changed = 3;
+  // NotesDeleted counts notes absent from desired state.
+  int64 notes_deleted = 4;
+  // CardsAdded counts new managed cards.
+  int64 cards_added = 5;
+  // CardsChanged counts managed cards whose deck assignments change.
+  int64 cards_changed = 6;
+  // CardsDeleted counts managed cards absent from desired state.
+  int64 cards_deleted = 7;
+  // DecksAdded counts new decks.
+  int64 decks_added = 8;
+  // DecksChanged counts decks with title or configuration edits.
+  int64 decks_changed = 9;
+  // DecksDeleted counts decks absent from desired state.
+  int64 decks_deleted = 10;
+  // Changes contains individual actions sorted by resource kind and identity.
+  repeated CollectionChange changes = 11;
+}
