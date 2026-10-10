@@ -13,6 +13,7 @@ go_library(
         "rebase.go",
         "receipt.go",
         "review.go",
+        "review_address.go",
         "runner.go",
         "validation.go",
     ],
@@ -29,13 +30,14 @@ go_binary(
 
 go_test(
     name = "go_test",
-    size = "small",
+    size = "medium",
     srcs = [
         "delivery_integration_test.go",
         "delivery_test.go",
         "git_integration_test.go",
         "github_test.go",
         "receipt_test.go",
+        "review_address_test.go",
         "review_test.go",
         "runner_test.go",
         "validation_test.go",

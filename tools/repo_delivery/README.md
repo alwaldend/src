@@ -313,7 +313,32 @@ Start with a bounded structured inventory:
 bazel_agent bazel run //tools/repo_delivery -- review inspect
 ```
 
-Carry values from the latest inspection literally. All mutations require the
+For feedback on an exact candidate with recorded passing validation that is
+already published, use one command:
+
+```sh
+out/task/repo_delivery review address \
+  --receipt-file out/task/prepare.json \
+  --thread-id <thread-id> --body-file out/task/reply.md
+```
+
+`address` verifies the publication and validation evidence, derives current
+provider guards, posts the reasoned reply, saves its receipt, and resolves the
+thread. The default reply receipt path is derived from the preparation receipt
+and thread; `--reply-receipt-file` selects an explicit path in the same task
+directory. A durable attempt checkpoint beside that file prevents duplicate
+replies after interruption, success, or an unknown reply outcome. Retry with
+the same paths after an explicitly reported read-failure restoration to resume
+resolution using the unchanged receipt and expiry. Expired, consumed, or
+changed authority stops without reposting. Inspect the actual remote state
+before explicitly selecting a fresh receipt path for recovery. Keep checkpoints
+trusted and do not delete them to bypass this protection.
+
+Thread inventory includes each thread's first comment page in its enclosing
+request. Only additional comment pages need separate queries. All pages retain
+shared byte, node, request, cursor, and metadata consistency checks.
+
+The low-level commands remain available. Carry values from the latest inspection literally. All mutations require the
 pull-request node ID, expected head, and pull-request expectation digest. A
 top-level reply also requires the
 reported last-comment sentinel and top-level inventory digest:
@@ -372,7 +397,7 @@ Reinspect after every mutation and use the newly reported IDs and digests for
 the next one.
 The one-use reply authority expires no more than five minutes after issuance.
 Resolution verifies the authority window and atomically consumes the receipt
-before contacting the provider. If a provider read fails before any resolution
+before contacting the provider. If a provider read fails or the review epoch advances before any resolution
 mutation is attempted, the tool can restore the original unexpired receipt
 without replacing another file or extending its authority window. Only an
 explicit restoration report permits retry with that receipt; no additional

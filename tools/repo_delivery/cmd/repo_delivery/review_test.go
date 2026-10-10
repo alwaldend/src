@@ -356,10 +356,6 @@ func TestGitHubReviewThreadsPaginateCompletely(t *testing.T) {
 	t.Parallel()
 	repository := remoteRepository{Host: "github.com", Owner: "owner", Name: "repo"}
 	pullRequest := testPullRequest()
-	threadOneVariables := githubVariables(repository, pullRequest, "")
-	threadOneVariables["threadId"] = "RT1"
-	threadTwoVariables := githubVariables(repository, pullRequest, "")
-	threadTwoVariables["threadId"] = "RT2"
 	runner := &transcriptRunner{t: t, expected: []expectedCommand{
 		{
 			command: githubGraphQLTestCommand(
@@ -368,7 +364,7 @@ func TestGitHubReviewThreadsPaginateCompletely(t *testing.T) {
 			),
 			result: githubPullRequestConnectionResult(
 				t, "reviewThreads", map[string]any{
-					"nodes": []any{githubThreadNode("RT1")},
+					"nodes": []any{githubThreadWithComments("RT1", "RC1")},
 					"pageInfo": map[string]any{
 						"hasNextPage": true, "endCursor": "threads-1",
 					},
@@ -377,39 +373,17 @@ func TestGitHubReviewThreadsPaginateCompletely(t *testing.T) {
 		},
 		{
 			command: githubGraphQLTestCommand(
-				t, repository, githubThreadCommentsQuery, threadOneVariables,
-			),
-			result: githubThreadCommentsResult(t, "RT1", map[string]any{
-				"nodes": []any{githubReviewCommentNode("RC1")},
-				"pageInfo": map[string]any{
-					"hasNextPage": false, "endCursor": nil,
-				},
-			}),
-		},
-		{
-			command: githubGraphQLTestCommand(
 				t, repository, githubThreadsQuery,
 				githubVariables(repository, pullRequest, "threads-1"),
 			),
 			result: githubPullRequestConnectionResult(
 				t, "reviewThreads", map[string]any{
-					"nodes": []any{githubThreadNode("RT2")},
+					"nodes": []any{githubThreadWithComments("RT2", "RC2")},
 					"pageInfo": map[string]any{
 						"hasNextPage": false, "endCursor": nil,
 					},
 				},
 			),
-		},
-		{
-			command: githubGraphQLTestCommand(
-				t, repository, githubThreadCommentsQuery, threadTwoVariables,
-			),
-			result: githubThreadCommentsResult(t, "RT2", map[string]any{
-				"nodes": []any{githubReviewCommentNode("RC2")},
-				"pageInfo": map[string]any{
-					"hasNextPage": false, "endCursor": nil,
-				},
-			}),
 		},
 	}}
 	forge := &githubForge{executable: "gh-test", runner: runner, directory: "/repo"}
@@ -963,6 +937,7 @@ type reviewLifecycleRunner struct {
 	sawReply                    bool
 	sawResolve                  bool
 	sawRequest                  bool
+	advanceEpochBeforeFinalRead bool
 	appendBeforeFinalThreadRead bool
 	threadCommentsReadCount     int
 }
@@ -1197,7 +1172,7 @@ func (r *reviewLifecycleRunner) graphQL(
 		}), nil
 	case githubThreadsQuery:
 		return r.pullRequestConnectionResult("reviewThreads", map[string]any{
-			"nodes": []any{r.threadMap()},
+			"nodes": []any{r.threadCommentsMap()},
 			"pageInfo": map[string]any{
 				"hasNextPage": false,
 				"endCursor":   nil,
@@ -1206,10 +1181,13 @@ func (r *reviewLifecycleRunner) graphQL(
 	case githubThreadCommentsQuery:
 		r.requireThreadID(payload.Variables)
 		r.threadCommentsReadCount++
-		if r.threadCommentsReadCount == 2 && (r.finalThreadReadErr != nil || r.finalThreadReadTruncated) {
+		if r.threadCommentsReadCount == 1 && (r.finalThreadReadErr != nil || r.finalThreadReadTruncated) {
 			return commandResult{Truncated: r.finalThreadReadTruncated}, r.finalThreadReadErr
 		}
-		if r.appendBeforeFinalThreadRead && r.threadCommentsReadCount == 2 {
+		if r.advanceEpochBeforeFinalRead && r.threadCommentsReadCount == 1 {
+			r.pullRequestUpdatedAt = "2026-08-30T00:02:00Z"
+		}
+		if r.appendBeforeFinalThreadRead && r.threadCommentsReadCount == 1 {
 			r.comments = append(r.comments, reviewComment{
 				ID: "RC_human_late", URL: "https://github.com/owner/repo/pull/7#late",
 				Body: "late concurrent reply", AuthorLogin: "human",
@@ -1539,7 +1517,7 @@ func TestGitHubInspectReviewsSharesRawByteBudgetAcrossEveryRead(t *testing.T) {
 	runner := &aggregateReviewInventoryRunner{
 		t:        t,
 		delegate: lifecycle,
-		padding:  strings.Repeat(" ", githubInventoryByteLimit/7),
+		padding:  strings.Repeat(" ", githubInventoryByteLimit/6),
 	}
 	forge := &githubForge{executable: "gh-test", runner: runner, directory: "/repo"}
 	_, err := forge.InspectReviews(
@@ -1559,7 +1537,6 @@ func TestGitHubInspectReviewsSharesRawByteBudgetAcrossEveryRead(t *testing.T) {
 		"comments",
 		"reviews",
 		"review threads",
-		"review thread comments",
 		"review requests",
 		"pull-request coherence reads",
 	}
@@ -2200,6 +2177,14 @@ func TestGitHubResolveMarksOnlyPreMutationReadFailures(t *testing.T) {
 			},
 			readFailed: true,
 			wantCause:  connectionErr,
+		},
+		{
+			name: "final read epoch advances",
+			configure: func(r *reviewLifecycleRunner) {
+				r.advanceEpochBeforeFinalRead = true
+			},
+			readFailed: true,
+			wantCause:  errGitHubReviewEpochAdvanced,
 		},
 		{
 			name: "truncated initial read with error",
@@ -3717,4 +3702,35 @@ func TestGithubReviewersPresentTreatsBotsConsistently(t *testing.T) {
 	if !githubReviewersPresent(inspection, []string{"automation-bot"}) {
 		t.Fatal("requested bot was not recognized as present")
 	}
+}
+
+func githubThreadWithComments(threadID, commentID string) map[string]any {
+	node := githubThreadNode(threadID)
+	node["comments"] = map[string]any{
+		"nodes":    []any{githubReviewCommentNode(commentID)},
+		"pageInfo": map[string]any{"hasNextPage": false, "endCursor": nil},
+	}
+	return node
+}
+
+func TestGitHubResolutionEpochAdvanceIsReadFailure(t *testing.T) {
+	repository := remoteRepository{Host: "github.com", Owner: "owner", Name: "repo"}
+	pull := testPullRequest()
+	changed := githubGraphQLPullRequestMap()
+	changed["updatedAt"] = "2026-08-30T00:01:00Z"
+	changed["comments"] = map[string]any{"nodes": []any{}, "pageInfo": map[string]any{"hasNextPage": false, "endCursor": nil}}
+	runner := &transcriptRunner{t: t, expected: []expectedCommand{
+		{command: githubCommand([]string{"pr", "view", "7", "--repo", "github.com/owner/repo", "--json", githubPullRequestFields}, ""), result: commandResult{Stdout: githubPRJSON("Title", "Body")}},
+		{command: githubGraphQLTestCommand(t, repository, githubCommentsQuery, githubVariables(repository, pull, "")), result: githubGraphQLResult(t, map[string]any{"repository": map[string]any{"pullRequest": changed}})},
+	}}
+	forge := &githubForge{executable: "gh-test", runner: runner, directory: "/repo"}
+	_, err := forge.ResolveReviewThread(context.Background(), repository, pull, reviewThreadExpectation{
+		ThreadID: "RT1", ExpectedLastCommentID: "RC1", ExpectedDigest: strings.Repeat("a", 64),
+		RequiredReplyBodyDigest: strings.Repeat("b", 64), RequiredInventoryDigest: strings.Repeat("c", 64), AuthorityExpiresAt: time.Now().Add(time.Minute).Format(time.RFC3339Nano),
+	})
+	var readFailure *reviewResolutionReadError
+	if !errors.As(err, &readFailure) {
+		t.Fatalf("epoch advancement must preserve unexpired reply authority before mutation: %v", err)
+	}
+	runner.done()
 }

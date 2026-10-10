@@ -41,7 +41,10 @@ The structured path rejects stale inputs and never automatically repeats an
 uncertain publication. The launcher case avoids nesting validation beneath an
 ordinary lock-holding Bazel invocation on an older installed runner.
 Review reads and mutations stay inside
-`repo_delivery review`.
+`repo_delivery review`. The address case prefers the published candidate receipt,
+thread ID, and body file over manual provider guard handoff; it preserves the
+saved reply and expiry on read-failure recovery and refuses automatic reposting
+after unknown outcomes.
 Every behavior-changing review fix also invalidates the prior correctness
 verdict and requires a fresh, proportional, diff-focused scrutiny pass; green
 tests alone do not replace that reasoning gate.

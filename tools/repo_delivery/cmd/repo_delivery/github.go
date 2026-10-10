@@ -121,6 +121,21 @@ query($owner:String!,$name:String!,$number:Int!,$cursor:String) {
           originalLine
           startLine
           originalStartLine
+          comments(first:100) {
+            nodes {
+              id
+              url
+              body
+              author { login }
+              createdAt
+              updatedAt
+              path
+              line
+              originalLine
+              commit { oid }
+            }
+            pageInfo { hasNextPage endCursor }
+          }
         }
         pageInfo { hasNextPage endCursor }
       }
@@ -1163,14 +1178,15 @@ func (r githubReview) pullRequestReview() pullRequestReview {
 }
 
 type githubReviewThread struct {
-	ID                string `json:"id"`
-	IsResolved        bool   `json:"isResolved"`
-	IsOutdated        bool   `json:"isOutdated"`
-	Path              string `json:"path"`
-	Line              *int   `json:"line"`
-	OriginalLine      *int   `json:"originalLine"`
-	StartLine         *int   `json:"startLine"`
-	OriginalStartLine *int   `json:"originalStartLine"`
+	ID                string                                 `json:"id"`
+	IsResolved        bool                                   `json:"isResolved"`
+	IsOutdated        bool                                   `json:"isOutdated"`
+	Path              string                                 `json:"path"`
+	Line              *int                                   `json:"line"`
+	OriginalLine      *int                                   `json:"originalLine"`
+	StartLine         *int                                   `json:"startLine"`
+	OriginalStartLine *int                                   `json:"originalStartLine"`
+	Comments          *githubConnection[githubReviewComment] `json:"comments"`
 }
 
 func validateGitHubReviewThread(value githubReviewThread) error {
@@ -1760,12 +1776,8 @@ func (g *githubForge) reviewThreadsWithBudget(
 			if err := rememberGithubNode("review threads", node.ID, seenNodes); err != nil {
 				return nil, err
 			}
-			thread, err := g.reviewThreadDetailsWithBudget(
-				ctx,
-				repository,
-				pullRequest,
-				node.ID,
-				budget,
+			thread, err := g.reviewThreadCommentsWithBudget(
+				ctx, repository, pullRequest, node.ID, budget, &node,
 			)
 			if err != nil {
 				return nil, err
@@ -1816,60 +1828,79 @@ func (g *githubForge) reviewThreadDetailsWithBudget(
 	threadID string,
 	budget *githubInventoryBudget,
 ) (reviewThread, error) {
+	thread, err := g.reviewThreadCommentsWithBudget(ctx, repository, pullRequest, threadID, budget, nil)
+	if err != nil {
+		return reviewThread{}, fmt.Errorf("read GitHub review thread %q: %w", threadID, err)
+	}
+	return thread, nil
+}
+
+// A seeded first page comes from the thread inventory. Only subsequent comment
+// pages require individual queries; every page shares the inventory budget.
+func (g *githubForge) reviewThreadCommentsWithBudget(
+	ctx context.Context,
+	repository remoteRepository,
+	pullRequest pullRequest,
+	threadID string,
+	budget *githubInventoryBudget,
+	first *githubReviewThread,
+) (reviewThread, error) {
 	comments := []reviewComment{}
 	var snapshot *reviewThread
 	seenNodes := map[string]bool{}
 	seenCursors := map[string]bool{}
 	cursor := ""
 	for page := 1; ; page++ {
-		if err := budget.consumeRequest("review thread comments"); err != nil {
-			return reviewThread{}, err
-		}
-		variables := githubVariables(repository, pullRequest, cursor)
-		variables["threadId"] = threadID
-		var data struct {
-			Repository struct {
-				PullRequest *githubPullRequest `json:"pullRequest"`
-			} `json:"repository"`
-			Node *struct {
-				githubReviewThread
-				Comments *githubConnection[githubReviewComment] `json:"comments"`
-			} `json:"node"`
-		}
-		err := g.inventoryGraphQL(
-			ctx,
-			repository,
-			githubThreadCommentsQuery,
-			variables,
-			&data,
-			budget,
-			"review thread comments",
-		)
-		if err != nil {
-			return reviewThread{}, fmt.Errorf(
-				"read comments for GitHub review thread %q: %w",
-				threadID,
-				err,
+		node := first
+		if page != 1 || node == nil {
+			if err := budget.consumeRequest("review thread comments"); err != nil {
+				return reviewThread{}, fmt.Errorf("read review thread %q comments: %w", threadID, err)
+			}
+			variables := githubVariables(repository, pullRequest, cursor)
+			variables["threadId"] = threadID
+			var data struct {
+				Repository struct {
+					PullRequest *githubPullRequest `json:"pullRequest"`
+				} `json:"repository"`
+				Node *githubReviewThread `json:"node"`
+			}
+			err := g.inventoryGraphQL(
+				ctx,
+				repository,
+				githubThreadCommentsQuery,
+				variables,
+				&data,
+				budget,
+				"review thread comments",
 			)
+			if err != nil {
+				return reviewThread{}, fmt.Errorf(
+					"read comments for GitHub review thread %q: %w",
+					threadID,
+					err,
+				)
+			}
+			if err := validateGithubReviewPullRequest(
+				data.Repository.PullRequest,
+				pullRequest,
+			); err != nil {
+				return reviewThread{}, fmt.Errorf("read review thread %q comments: %w", threadID, err)
+			}
+			if data.Node == nil || data.Node.ID != threadID {
+				return reviewThread{}, fmt.Errorf(
+					"GitHub did not return exact review thread %q",
+					threadID,
+				)
+			}
+			node = data.Node
 		}
-		if err := validateGithubReviewPullRequest(
-			data.Repository.PullRequest,
-			pullRequest,
-		); err != nil {
-			return reviewThread{}, err
-		}
-		if data.Node == nil || data.Node.ID != threadID {
-			return reviewThread{}, fmt.Errorf(
-				"GitHub did not return exact review thread %q",
-				threadID,
-			)
-		}
+
 		if err := validateGitHubReviewThread(
-			data.Node.githubReviewThread,
+			*node,
 		); err != nil {
-			return reviewThread{}, err
+			return reviewThread{}, fmt.Errorf("read review thread %q comments: %w", threadID, err)
 		}
-		current := data.Node.githubReviewThread.reviewThread()
+		current := node.reviewThread()
 		if snapshot == nil {
 			snapshot = &current
 		} else if !sameGithubThreadMetadata(*snapshot, current) {
@@ -1880,24 +1911,24 @@ func (g *githubForge) reviewThreadDetailsWithBudget(
 		}
 		nodes, pageInfo, err := githubConnectionPage(
 			"review thread comments",
-			data.Node.Comments,
+			node.Comments,
 		)
 		if err != nil {
-			return reviewThread{}, err
+			return reviewThread{}, fmt.Errorf("read review thread %q comments: %w", threadID, err)
 		}
 		for _, node := range nodes {
 			if err := budget.consumeNode("review thread comments"); err != nil {
-				return reviewThread{}, err
+				return reviewThread{}, fmt.Errorf("read review thread %q comments: %w", threadID, err)
 			}
 			if err := validateGitHubReviewComment(node); err != nil {
-				return reviewThread{}, err
+				return reviewThread{}, fmt.Errorf("read review thread %q comments: %w", threadID, err)
 			}
 			if err := rememberGithubNode(
 				"review thread comments",
 				node.ID,
 				seenNodes,
 			); err != nil {
-				return reviewThread{}, err
+				return reviewThread{}, fmt.Errorf("read review thread %q comments: %w", threadID, err)
 			}
 			comments = append(comments, node.reviewComment())
 		}
@@ -1908,7 +1939,7 @@ func (g *githubForge) reviewThreadDetailsWithBudget(
 			seenCursors,
 		)
 		if err != nil {
-			return reviewThread{}, err
+			return reviewThread{}, fmt.Errorf("read review thread %q comments: %w", threadID, err)
 		}
 		if done {
 			if snapshot == nil {
@@ -2657,6 +2688,17 @@ func (r githubResolutionReadRunner) Run(
 	return result, err
 }
 
+// classifyGitHubResolutionReadError preserves reply authority only when a
+// successful pre-resolution read detects an advancing provider epoch. Other
+// state-validation failures remain terminal.
+func classifyGitHubResolutionReadError(err error) error {
+	var advanced *githubReviewEpochAdvancedError
+	if errors.As(err, &advanced) {
+		return &reviewResolutionReadError{err: err}
+	}
+	return err
+}
+
 func (g *githubForge) ResolveReviewThread(
 	ctx context.Context,
 	repository remoteRepository,
@@ -2671,7 +2713,7 @@ func (g *githubForge) ResolveReviewThread(
 	budget := &githubInventoryBudget{}
 	before, err := reader.inspectReviews(ctx, repository, pullRequest, budget)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("inspect pre-resolution review inventory: %w", classifyGitHubResolutionReadError(err))
 	}
 	if err := validateReviewInventoryUnique(before); err != nil {
 		return nil, err
@@ -2709,7 +2751,7 @@ func (g *githubForge) ResolveReviewThread(
 		budget,
 	)
 	if err != nil {
-		return nil, fmt.Errorf("reread review thread before resolution: %w", err)
+		return nil, fmt.Errorf("reread review thread before resolution: %w", classifyGitHubResolutionReadError(err))
 	}
 	if !sameGithubReviewThreadSnapshot(*beforeThread, latestThread) {
 		return nil, fmt.Errorf("review thread changed immediately before resolution")

@@ -139,6 +139,7 @@ func newReviewCommand(
 		Args:  cobra.NoArgs,
 	}
 	command.AddCommand(
+		newReviewAddressCommand(ctx, config, getenv, stdout, runner),
 		newReviewInspectCommand(ctx, config, getenv, stdout, runner),
 		newReviewCommentCommand(ctx, config, getenv, stdout, runner),
 		newReviewReplyCommand(ctx, config, getenv, stdout, runner),

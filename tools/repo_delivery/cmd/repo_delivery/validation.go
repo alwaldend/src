@@ -591,44 +591,8 @@ func (d *delivery) continueCandidate(ctx context.Context, receiptFile string, pu
 	if state.ReceiptRevision != receipt.RevisionNonce {
 		return report, fmt.Errorf("preparation receipt changed after validation; run validate")
 	}
-	if err := d.requireSameTaskOutputs(receiptFile, state.PlanFile); err != nil {
-		return report, err
-	}
-	plan, digest, err := d.readValidationPlan(ctx, state.PlanFile)
-	if err != nil {
-		return report, err
-	}
-	if digest != state.PlanDigest {
-		return report, fmt.Errorf("validation plan changed after validation; run validate")
-	}
-	if err := d.checkValidationPlan(plan, receipt); err != nil {
-		return report, err
-	}
-	if len(state.Results) != len(plan.Checks) || state.CompletedAt == "" {
-		return report, fmt.Errorf("validation results are incomplete")
-	}
-	for index, result := range state.Results {
-		if result.Index != index || result.Status != "passed" || result.ExitCode != 0 || result.Truncated || !validSHA256Digest(result.LogDigest) {
-			return report, fmt.Errorf("validation results do not establish passing checks")
-		}
-		wantLog := fmt.Sprintf("%s.check-%02d.log", validationStatePath(receiptFile), index+1)
-		if result.LogFile != wantLog {
-			return report, fmt.Errorf("validation result log path differs from its check")
-		}
-		absolute, err := d.receiptPath(ctx, wantLog, true)
-		if err != nil {
-			return report, err
-		}
-		contents, err := readStableReceiptFile(absolute)
-		if err != nil {
-			return report, err
-		}
-		if digestStrings("repo_delivery validation log v1", string(contents)) != result.LogDigest {
-			return report, fmt.Errorf("validation result log changed")
-		}
-	}
-	if validationEnvironmentDigest() != state.EnvironmentDigest {
-		return report, fmt.Errorf("validation environment changed; run validate")
+	if err := state.requirePassingValidation(ctx, d, receiptFile, receipt); err != nil {
+		return report, fmt.Errorf("verify recorded passing validation: %w", err)
 	}
 	if !publish {
 		return report, nil
@@ -674,4 +638,55 @@ func validationEnvironmentDigest() string {
 	environment := mergeEnvironment(os.Environ(), nil, unset, gitUnsetEnvironmentPrefixes)
 	sort.Strings(environment)
 	return digestStrings("repo_delivery validation environment v1", environment...)
+}
+
+// requirePassingValidation is shared by publication and guarded review delivery.
+// It checks the recorded evidence without requiring review threads to be resolved.
+func (state validationState) requirePassingValidation(ctx context.Context, d *delivery, receiptFile string, receipt preparationReceipt) error {
+	var err error
+	receiptFile, err = d.receiptPath(ctx, receiptFile, true)
+	if err != nil {
+		return fmt.Errorf("locate validation preparation receipt: %w", err)
+	}
+
+	if err := d.requireSameTaskOutputs(receiptFile, state.PlanFile); err != nil {
+		return fmt.Errorf("validate evidence output scope: %w", err)
+	}
+	plan, digest, err := d.readValidationPlan(ctx, state.PlanFile)
+	if err != nil {
+		return fmt.Errorf("read recorded validation plan: %w", err)
+	}
+	if digest != state.PlanDigest {
+		return fmt.Errorf("validation plan changed after validation; run validate")
+	}
+	if err := d.checkValidationPlan(plan, receipt); err != nil {
+		return fmt.Errorf("check recorded validation scope: %w", err)
+	}
+	if len(state.Results) != len(plan.Checks) || state.CompletedAt == "" {
+		return fmt.Errorf("validation results are incomplete")
+	}
+	for index, result := range state.Results {
+		if result.Index != index || result.Status != "passed" || result.ExitCode != 0 || result.Truncated || !validSHA256Digest(result.LogDigest) {
+			return fmt.Errorf("validation results do not establish passing checks")
+		}
+		wantLog := fmt.Sprintf("%s.check-%02d.log", validationStatePath(receiptFile), index+1)
+		if result.LogFile != wantLog {
+			return fmt.Errorf("validation result log path differs from its check")
+		}
+		absolute, err := d.receiptPath(ctx, wantLog, true)
+		if err != nil {
+			return fmt.Errorf("locate validation check %d log: %w", index+1, err)
+		}
+		contents, err := readStableReceiptFile(absolute)
+		if err != nil {
+			return fmt.Errorf("read validation check %d log: %w", index+1, err)
+		}
+		if digestStrings("repo_delivery validation log v1", string(contents)) != result.LogDigest {
+			return fmt.Errorf("validation result log changed")
+		}
+	}
+	if validationEnvironmentDigest() != state.EnvironmentDigest {
+		return fmt.Errorf("validation environment changed; run validate")
+	}
+	return nil
 }

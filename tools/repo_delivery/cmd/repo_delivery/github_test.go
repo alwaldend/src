@@ -373,7 +373,6 @@ func TestDecodeGitHubJSONRequiresFlattenedThreadFields(t *testing.T) {
 	type response struct {
 		Node *struct {
 			githubReviewThread
-			Comments *githubConnection[githubReviewComment] `json:"comments"`
 		} `json:"node"`
 	}
 	withoutLine := []byte(`{
