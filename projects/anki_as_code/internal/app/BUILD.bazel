@@ -1,0 +1,8 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "app",
+    srcs = ["app.go"],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/app",
+    visibility = ["//projects/anki_as_code/cmd/anki_as_code:__pkg__"],
+)

@@ -18,6 +18,7 @@ al_release_binary(
         for package in subpackages(
             include = ["*"],
             exclude = [
+                "anki_as_code",
                 "mcp_cordis",
                 "mlops_2026",
                 "alwaldend.com",

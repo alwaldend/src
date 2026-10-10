@@ -1,0 +1,6 @@
+schema: spec-driven
+
+context: |
+  This workspace owns projects/anki_as_code, its CLI and collection-text workflow.
+  Command scaffolding is independent of collection business logic. Preserve
+  scheduling, review history, and media when implementing reconciliation.

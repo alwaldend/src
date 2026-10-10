@@ -8,6 +8,7 @@ PROJECTS = [
     "activitywatch_ingester_android",
     "al",
     "android_launcher",
+    "anki_as_code",
     "ansible_collection",
     "autoscroll",
     "bazel_agent",
