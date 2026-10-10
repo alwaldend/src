@@ -11,6 +11,29 @@ description: >-
 Read the owning README and BUILD.bazel before editing. Use project-layout for
 new source locations and preserve unrelated legacy layouts.
 
+## Document modules and declarations
+
+Every first-party Python module, including package `__init__.py` files, must
+have a module docstring describing its purpose, responsibilities, and important
+boundaries or guarantees. Document every class, function, and method, including
+private declarations, constructors, async functions, and test helpers, with a
+docstring immediately inside the definition. Describe purpose and behavior;
+record meaningful contracts without merely restating the name.
+
+Document every module-level constant, variable, and type alias, and every class
+or instance attribute, including private and serialized fields, with a variable
+or attribute docstring immediately after its declaration or assignment. Use a
+standalone string literal describing its purpose and contract, including in
+nested assignment contexts and methods other than `__init__`. Do not substitute
+comments for docstrings or move assignments merely to satisfy extraction tools.
+Source documentation tools may not extract these strings in every context;
+that limitation does not relax the documentation requirement. These docstrings
+do not become the assigned value's runtime `__doc__`.
+Apply these rules to declarations and fields in tests too. Preserve accurate
+existing documentation and update it with the declaration. Do not edit generated
+code or upstream dependencies; document generated contracts at their source.
+Project architecture belongs in the owning README.
+
 ## Require type hints everywhere
 
 Type hints are mandatory everywhere in Python code. Annotate every function

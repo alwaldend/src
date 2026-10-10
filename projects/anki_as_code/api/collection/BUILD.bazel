@@ -19,6 +19,7 @@ go_proto_library(
 
 go_library(
     name = "collection",
+    srcs = ["doc.go"],
     embed = [":collection_go_proto"],
     importpath = "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/collection",
     visibility = ["//projects/anki_as_code:__subpackages__"],

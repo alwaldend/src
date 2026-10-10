@@ -3,6 +3,7 @@ load("@rules_go//go:def.bzl", "go_binary")
 go_binary(
     name = "anki_as_code",
     srcs = [
+        "doc.go",
         "flags.go",
         "main.go",
     ],

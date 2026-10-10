@@ -57,3 +57,29 @@
         default, uses typed read-only properties for intentional public access,
         and keeps Pydantic serialized fields public with their specified names.
         Preserves established public APIs rather than renaming every member.
+
+- description: Documents modules, declarations, and attributes
+  vars:
+    request: >-
+      Add a Python module with a public model, private helper, async method,
+      constructor, constants, module variables, a type alias, and private and
+      serialized attributes, including assignments nested in conditionals and
+      outside __init__, and aliases using the type statement. What documentation
+      is required?
+  assert:
+    - type: llm-rubric
+      value: >-
+        Requires a module docstring, including in package __init__.py files,
+        and immediate docstrings for all classes, functions, and methods,
+        including private helpers, constructors, async methods, and test helpers.
+        Requires variable or attribute docstrings as standalone string literals
+        immediately after declarations or assignments for constants, variables,
+        aliases, and private or serialized fields, including nested assignments
+        and attributes assigned outside __init__. Treats incomplete extraction
+        support as a tool limitation rather than an exception or a requirement
+        to move documentation into the owning class or module docstring. Does
+        not move assignments, substitute comments, or claim these strings become
+        the assigned value runtime __doc__. Does not edit
+        generated or upstream source. Describes purposes,
+        boundaries, and meaningful behavior rather than restating identifiers,
+        preserves accurate existing docs, and keeps architecture in the README.
