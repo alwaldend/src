@@ -1,0 +1,14 @@
+load("@rules_go//go:def.bzl", "go_binary")
+
+go_binary(
+    name = "anki_as_code",
+    srcs = [
+        "flags.go",
+        "main.go",
+    ],
+    visibility = ["//projects/anki_as_code:__pkg__"],
+    deps = [
+        "//projects/anki_as_code/internal/app",
+        "@com_github_spf13_cobra//:cobra",
+    ],
+)
