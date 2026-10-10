@@ -2,12 +2,12 @@ package main
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
 	"os"
 	"os/signal"
 
 	"github.com/spf13/cobra"
+	"google.golang.org/protobuf/encoding/protojson"
 
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/app"
 )
@@ -16,7 +16,7 @@ import (
 func newRootCommand(application *app.App) *cobra.Command {
 	command := &cobra.Command{
 		Use:           "anki_as_code",
-		Short:         "Anki as code CLI scaffold (operations not implemented)",
+		Short:         "Export and reconcile Anki collections as TOML",
 		SilenceErrors: true,
 		SilenceUsage:  true,
 	}
@@ -58,9 +58,11 @@ func newPlanCommand(application *app.App) *cobra.Command {
 			if err != nil {
 				return fmt.Errorf("plan: %w", err)
 			}
-			encoder := json.NewEncoder(command.OutOrStdout())
-			encoder.SetIndent("", "  ")
-			if err := encoder.Encode(plan); err != nil {
+			data, err := (protojson.MarshalOptions{UseProtoNames: true, EmitDefaultValues: true, Indent: "  "}).Marshal(plan)
+			if err != nil {
+				return fmt.Errorf("encode plan: %w", err)
+			}
+			if _, err := fmt.Fprintln(command.OutOrStdout(), string(data)); err != nil {
 				return fmt.Errorf("write plan: %w", err)
 			}
 			return nil
