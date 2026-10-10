@@ -3,22 +3,34 @@
 Read when feedback requires a reply, resolution, or review request. Commands
 use the invocation selected in the skill entry point.
 
-Use `repo_delivery review inspect` to read a bounded structured inventory of
-all threads, reviews, review requests, and top-level comments. GitHub does not
-offer an atomic multi-connection snapshot, so reinspect before mutation and
-after every result. Evaluate each unresolved item against the request,
-repository evidence, and current diff. Carry the exact pull-request node ID,
-head OID, and pull-request expectation digest from the latest inspection into
-every review mutation. For a top-level reply, also carry the last-comment
-sentinel and top-level inventory digest into `review comment`. For a thread
-reply or resolution, carry its thread ID, last-comment ID, and expectation
-digest. Put comment bodies under ignored `out/<task>/` and pass them with
-`--body-file`. `review reply` also writes a strict reply receipt in that task
-directory; pass that exact receipt to `review resolve`. Use
-`review request --reviewer <login>` for explicit user accounts. Never invoke
-`gh` directly for these mutations. After a reply, resolve with the receipt's
-`result_thread_digest` and `reply_comment_id` (the post-reply thread state
-and appended comment), not the pre-reply inspection values.
+Use `repo_delivery review inspect` to evaluate feedback against the request,
+repository evidence, and current diff. For a thread on a candidate with recorded
+passing validation that is already published, prefer:
+
+```sh
+out/task/repo_delivery review address \
+  --receipt-file out/task/prepare.json \
+  --thread-id <thread-id> --body-file out/task/reply.md
+```
+
+The command verifies the exact published candidate, derives current provider
+expectations, posts a reasoned reply with the disclaimer, saves its one-use
+receipt, and resolves the thread. Keep the same paths when retrying after an
+explicit restoration report: it resumes resolution without reposting. Its
+persistent attempt checkpoint prevents automatic replies after success or an
+unknown mutation outcome. Never delete the checkpoint to force a retry. After
+expiry or a state mismatch, inspect and diagnose before choosing an explicit
+fresh `--reply-receipt-file` path for a new reasoned reply.
+
+The low-level commands remain useful for comments, review requests, and
+recovery. Carry the exact pull-request node ID, head OID, and expectation
+digest from the latest inspection into those mutations. `review comment`
+also binds the last top-level comment and inventory digest; `review reply`
+binds the thread, last comment, and thread digest. Pass ignored
+`out/<task>/` bodies with `--body-file`, and pass the exact receipt written by
+`review reply` to `review resolve`, using its `reply_comment_id` and
+`result_thread_digest`. Use `review request --reviewer <login>` for explicit
+user accounts. Never invoke `gh` directly for these mutations.
 
 - For valid feedback, implement the fix, prepare the aggregate commit again,
   rerun all checks that establish publish readiness against the exact new
@@ -38,7 +50,7 @@ projection: every top-level comment, review, thread and thread comment, and
 review request. Its parent
 pull-request `UpdatedAt` is a nondecreasing floor because reply side effects
 can advance that timestamp asynchronously without changing the bound
-inventory. For a failed provider read conclusively before any resolution
+inventory. For a failed provider read or advancing review epoch conclusively before any resolution
 mutation, the tool may restore the original receipt within its unchanged
 expiration window. Retry without another public reply only when the tool
 explicitly reports that restoration; never restore or extend it yourself.

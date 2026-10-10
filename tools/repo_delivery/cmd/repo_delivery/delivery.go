@@ -2800,9 +2800,28 @@ type verifyReport struct {
 	Verified   bool        `json:"verified"`
 }
 
-func (d *delivery) verify(
+func (d *delivery) verify(ctx context.Context, receipt *preparationReceipt) (*verifyReport, error) {
+	report, err := d.verifyCandidate(ctx, receipt, true)
+	if err != nil {
+		return nil, fmt.Errorf("verify publication and reviews: %w", err)
+	}
+	return report, nil
+}
+
+// verifyPublication checks the exact published candidate independently of
+// review completion, which guarded review delivery must establish afterward.
+func (d *delivery) verifyPublication(ctx context.Context, receipt *preparationReceipt) (*verifyReport, error) {
+	report, err := d.verifyCandidate(ctx, receipt, false)
+	if err != nil {
+		return nil, fmt.Errorf("verify publication: %w", err)
+	}
+	return report, nil
+}
+
+func (d *delivery) verifyCandidate(
 	ctx context.Context,
 	receipt *preparationReceipt,
+	requireResolvedReviews bool,
 ) (*verifyReport, error) {
 	report, err := d.inspect(ctx)
 	if err != nil {
@@ -2867,13 +2886,15 @@ func (d *delivery) verify(
 			return nil, fmt.Errorf("the expected pull request is absent")
 		}
 	} else {
-		reviewInspection, err := d.inspectReviews(ctx)
-		if err != nil {
-			return nil, fmt.Errorf("inspect review threads: %w", err)
-		}
-		for _, thread := range reviewInspection.Threads {
-			if !thread.IsResolved && !thread.IsOutdated {
-				return nil, unresolvedReviewThreadError(thread)
+		if requireResolvedReviews {
+			reviews, err := d.inspectReviews(ctx)
+			if err != nil {
+				return nil, fmt.Errorf("inspect review threads: %w", err)
+			}
+			for _, thread := range reviews.Threads {
+				if !thread.IsResolved && !thread.IsOutdated {
+					return nil, unresolvedReviewThreadError(thread)
+				}
 			}
 		}
 		if report.PullRequest.HeadRefOID != report.LocalHeadOID {

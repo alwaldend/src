@@ -107,16 +107,23 @@
             "id": "repo-delivery.review-mutate",
             "selector": "review",
             "classification": "classified",
-            "effects": ["credential.consume", "network.read", "remote.write"],
+            "effects": [
+                "credential.consume",
+                "network.read",
+                "remote.write",
+                "task_state.write"
+            ],
             "inputs": [
                 "review inventory",
                 "one-shot mutation receipt",
                 "goal or delivery ref",
-                "defect identity"
+                "defect identity",
+                "published preparation receipt and recorded validation for review address"
             ],
             "outputs": [
                 "comment or thread disposition",
-                "joined durable review receipt"
+                "joined durable review receipt",
+                "durable attempt checkpoint for review address"
             ],
             "information": ["public", "secret"],
             "credentialUse": "forge credentials",
@@ -125,9 +132,9 @@
             "authorityGate": "explicit review mutation and exact guards",
             "preflight": "reinspect bounded review inventory",
             "verification": "post-mutation inventory",
-            "cost": "one bounded forge mutation",
+            "cost": "bounded guarded review operations; address posts at most one reply per workflow",
             "cacheability": "not_cacheable",
-            "cancellation": "one-shot receipt is consumed on attempt"
+            "cancellation": "address checkpoint prevents automatic reposting; only conclusively pre-mutation resolution read failures restore unexpired authority"
         }
     ],
     "removedAliases": []

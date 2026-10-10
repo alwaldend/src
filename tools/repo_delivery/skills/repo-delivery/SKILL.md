@@ -164,7 +164,9 @@ not wait indefinitely or retrigger the review. Report failed or cancelled runs
 explicitly. Publishing a new head invalidates an older review's completion.
 
 When findings need a reply, resolution, or review request, read
-[the review workflow](references/reviews.md) before mutation. Fix valid feedback,
+[the review workflow](references/reviews.md) before mutation. Prefer `review address`
+for thread feedback on a validated published candidate; it derives guards and
+retains reply state for safe resolution recovery. Fix valid feedback,
 revalidate and publish, then reply with the reasoned change. Explain inapplicable
 feedback before resolving it. Never silently resolve, bypass receipt guards,
 or post routine progress/completion comments. Do not mutate actively coedited
