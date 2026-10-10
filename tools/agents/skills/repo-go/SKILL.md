@@ -12,6 +12,12 @@ Read the owning README and BUILD.bazel before editing. Keep the package's
 existing style and use project-layout for new source locations; a focused
 change does not authorize moving unrelated legacy packages.
 
+## Organize code and initialization
+
+Avoid `init()` functions. Initialize components explicitly from their owning
+entry point so ordering is visible and failures can be returned with context.
+Keep methods in the same source file as the declaration of their receiver type.
+
 ## Preserve error causes
 
 Always wrap propagated non-nil errors with useful operation and resource

@@ -42,3 +42,17 @@
         subcommands and command-specific required flags, propagates command
         context, wraps errors with useful context, and declares the module in
         Bazel deps. It must not introduce a separate manual flag parser.
+- description: Initializes explicitly and colocates receiver methods
+  vars:
+    request: >-
+      A Go SQLite package registers a collation in init() and declares its Deck
+      type in text.go while the Deck encoding methods live in protobuf.go.
+      Refactor it according to this repository's Go standards.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if initialization is explicit at the owning entry point,
+        initialization failures are returned with contextual wrapped errors,
+        no init function remains, and Deck methods are in the same source file
+        as the Deck receiver type declaration. Do not introduce a dependency.
