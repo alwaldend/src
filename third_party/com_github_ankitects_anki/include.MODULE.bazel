@@ -1,0 +1,10 @@
+http_archive = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
+http_archive(
+    name = "com_github_ankitects_anki",
+    build_file = "//third_party/com_github_ankitects_anki:anki.BUILD.bazel",
+    integrity = "sha256-MR3LQGYG3Mqg+flKWHAJmnd2kOGgVv7v49daS75OFBY=",
+    strip_prefix = "anki-26.09.3/proto",
+    type = "tar.gz",
+    urls = ["https://codeload.github.com/ankitects/anki/tar.gz/refs/tags/26.09.3"],
+)

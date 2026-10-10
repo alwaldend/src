@@ -1,0 +1,21 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+
+exports_files(["anki.BUILD.bazel"])
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//third_party:__pkg__"],
+)
+
+alias(
+    name = "decks",
+    actual = "@com_github_ankitects_anki//:decks",
+    visibility = ["//projects/anki_as_code:__subpackages__"],
+)
+
+alias(
+    name = "notetypes",
+    actual = "@com_github_ankitects_anki//:notetypes",
+    visibility = ["//projects/anki_as_code:__subpackages__"],
+)
