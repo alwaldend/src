@@ -1,0 +1,32 @@
+load("@protobuf//bazel:proto_library.bzl", "proto_library")
+load("@rules_go//proto:def.bzl", "go_proto_library")
+
+package(default_visibility = ["@//third_party/com_github_ankitects_anki:__pkg__"])
+
+# Compile the unmodified upstream schemas and their complete import closure.
+_SCHEMAS = {
+    "generic": [],
+    "sync": ["generic"],
+    "collection": ["generic", "sync"],
+    "decks": ["generic", "collection"],
+    "notetypes": ["generic", "collection"],
+}
+
+[
+    proto_library(
+        name = name + "_proto",
+        srcs = ["anki/" + name + ".proto"],
+        deps = [":" + dependency + "_proto" for dependency in dependencies],
+    )
+    for name, dependencies in _SCHEMAS.items()
+]
+
+[
+    go_proto_library(
+        name = name,
+        importpath = "github.com/ankitects/anki/proto/anki/" + name,
+        proto = ":" + name + "_proto",
+        deps = [":" + dependency for dependency in dependencies],
+    )
+    for name, dependencies in _SCHEMAS.items()
+]
