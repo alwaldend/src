@@ -1,0 +1,42 @@
+load("@protobuf//bazel:proto_library.bzl", "proto_library")
+load("@protobuf//bazel:py_proto_library.bzl", "py_proto_library")
+load("@rules_go//go:def.bzl", "go_library")
+load("@rules_go//proto:def.bzl", "go_proto_library")
+load("@rules_java//java:defs.bzl", "java_library", "java_proto_library")
+
+proto_library(
+    name = "collection_proto",
+    srcs = ["collection.proto"],
+    visibility = ["//projects/anki_as_code:__subpackages__"],
+)
+
+go_proto_library(
+    name = "collection_go_proto",
+    importpath = "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/collection",
+    proto = ":collection_proto",
+    visibility = ["//projects/anki_as_code:__subpackages__"],
+)
+
+go_library(
+    name = "collection",
+    embed = [":collection_go_proto"],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/collection",
+    visibility = ["//projects/anki_as_code:__subpackages__"],
+)
+
+java_proto_library(
+    name = "collection_java_proto",
+    deps = [":collection_proto"],
+)
+
+java_library(
+    name = "collection_java_library",
+    visibility = ["//:__subpackages__"],
+    exports = [":collection_java_proto"],
+)
+
+py_proto_library(
+    name = "collection_py_pb2",
+    visibility = ["//:__subpackages__"],
+    deps = [":collection_proto"],
+)
