@@ -233,10 +233,10 @@ mermaid_webp = rule(
             doc = "Rendered .webp output.",
         ),
         "scale": attr.int(
-            default = 2,
+            default = 1,
             doc = "Raster scale factor. The image is authored at the " +
                   "diagram's natural size and scaled by this factor, so a " +
-                  "node-sized diagram still carries crisp text.",
+                  "consumer can request higher pixel density explicitly.",
         ),
         "aspect_ratio": attr.int_list(
             doc = "Optional [width, height] ratio of positive integers. Adds " +

@@ -273,8 +273,8 @@ fixed appearance for page embeds, social cards, and service uploads.
 
 Encoding stays inside the hermetic graph and adds no image-conversion
 dependency. The raster is authored at the diagram's
-natural size and scaled by the rule's `scale` (default `2`), so a node-sized
-diagram still carries crisp text when a consumer re-encodes it. A raster render
+natural size and scaled by the rule's `scale` (default `1`). Set `scale = 2`
+when a consumer needs higher pixel density for text or re-encoding. A raster render
 always uses the maintained appearance; it has no `plain` opt-out, because a
 plain raster could not show the contrast a comparison needs any more reliably
 than the SVG rule's.
