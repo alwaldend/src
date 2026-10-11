@@ -1,3 +1,24 @@
+- description: Exposes only deliberate Python APIs and required contracts
+  vars:
+    request: >-
+      Review a Python package whose __init__.py re-exports every declaration.
+      Consumers need Service and its run method. A normalization helper,
+      parser class, cache constant, type alias, and refresh method are used only
+      inside the package; the helper is also imported by tests. A Pydantic
+      Response has a required serialized title field, and a framework calls
+      Service.on_start. How should visibility and re-exports be organized?
+  assert:
+    - type: llm-rubric
+      value: >-
+        Uses leading underscores for the implementation helper, parser,
+        constant, alias, and refresh method, checks callers and contracts before
+        narrowing visibility, and removes implementation re-exports. Keeps
+        Service, run, title, and on_start public for their actual consumers or
+        serialization/framework contracts. Uses explicit typed __all__ for
+        the deliberate package API. Tests and hypothetical reuse alone do not
+        justify exports. Records public API reasons in documentation or change
+        rationale without claiming underscores enforce access control or
+        blindly renaming established APIs or serialized fields.
 - description: Requires complete typing and repository validation
   vars:
     request: >-

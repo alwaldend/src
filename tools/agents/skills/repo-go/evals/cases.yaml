@@ -1,3 +1,24 @@
+- description: Exports only declarations required by consumers or contracts
+  vars:
+    request: >-
+      Review a Go internal/storage package. ReadArchive is called by the CLI
+      package, NormalizePath is called only inside storage, and NormalizePath
+      was exported so an external test package could call it. A Response has
+      a serialized Name field and an exported Cache field used only internally.
+      Its String method implements fmt.Stringer. Which declarations should be
+      exported, and what must be checked before changing them?
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Keeps ReadArchive exported for its cross-package consumer, Name public
+        for serialization, and String public for the interface contract. Makes
+        NormalizePath and Cache private after checking callers and contracts;
+        external tests alone do not justify an export. Requires a concrete
+        consumer or contract and records the reason in API documentation or
+        change rationale. Applies the same rule within internal directories.
+        Does not export speculative helpers, break required serialized names,
+        or edit generated declarations.
 - description: Preserves causes with useful error context
   vars:
     request: >-

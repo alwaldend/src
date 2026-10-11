@@ -45,7 +45,18 @@ Use precise collection and optional types; do not silence missing annotations
 with `Any`, blanket ignores, or disabled type checks. Model external boundaries
 with appropriate typed interfaces and narrow validated values before use.
 
-## Keep implementation attributes private
+## Expose only deliberate APIs
+
+Keep implementation classes, functions, methods, constants, variables, type
+aliases, and attributes private by convention, using leading underscores.
+Expose or re-export them only for an actual external consumer or a defined
+public API, framework, or serialization contract. Make that reason clear in
+API documentation or the change rationale. Internal use, access from tests
+alone, and hypothetical future reuse do not justify public names. Keep package
+re-exports limited to the deliberate API in an explicit typed `__all__`;
+avoid re-exporting every declaration. Before narrowing existing visibility,
+check callers and required contracts. Underscores and `__all__` express intent;
+they do not enforce access control.
 
 Instance and class attributes are private by default: prefix implementation
 state with `_`, for example `self._model` and `self._recommendations`.
