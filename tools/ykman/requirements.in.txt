@@ -1,2 +1,0 @@
-yubikey-manager
-cryptography>=48.0.1

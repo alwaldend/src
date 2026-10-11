@@ -8,8 +8,8 @@ bazel_dep(name = "aspect_bazel_lib", version = "2.22.5")
 bazel_dep(name = "bazelrc-preset.bzl", version = "1.9.2")
 
 # Python
-bazel_dep(name = "rules_python", version = "1.9.0")
-bazel_dep(name = "rules_python_gazelle_plugin", version = "1.9.0")
+bazel_dep(name = "rules_python", version = "2.4.2")
+bazel_dep(name = "rules_python_gazelle_plugin", version = "2.4.2")
 
 # Proto
 # Keep this aligned with rules_android's embedded protobuf Java runtime.

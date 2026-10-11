@@ -3,7 +3,7 @@
 load("@bazel_skylib//rules:build_test.bzl", "build_test")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_python//python:packaging.bzl", "py_wheel")
-load("@rules_python//python:pip.bzl", "compile_pip_requirements")
+load("@rules_python//python/uv:lock.bzl", "lock")
 
 build_test(
     name = "autoscroll_test",
@@ -15,12 +15,10 @@ build_test(
 # gazelle:resolve py pynput @com_alwaldend_src_projects_autoscroll_pip//pynput
 # gazelle:resolve py PySide6 @com_alwaldend_src_projects_autoscroll_pip//pyside6_essentials
 
-compile_pip_requirements(
-    name = "requirements",
-    timeout = "long",
+lock(
+    name = "uv_lock",
     srcs = [":pyproject.toml"],
-    extra_args = ["--no-strip-extras"],
-    requirements_txt = ":requirements.txt",
+    out = "uv.lock",
 )
 
 docs_filegroup(

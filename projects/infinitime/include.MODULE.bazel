@@ -9,42 +9,24 @@ git_repository(
     commit = "0a89c99b2994d9f9b58a05e870557783a3f74bc7",
     init_submodules = True,
     patch_args = ["-p1"],
-    patches = ["//projects/infinitime/main/patch:cmake_toolchain.patch"],
+    patches = [
+        "//projects/infinitime/main/patch:cmake_toolchain.patch",
+        "//projects/infinitime/main/patch:native_uv.patch",
+    ],
     recursive_init_submodules = True,
     remote = "https://github.com/alwaldend/com_github_infinitimeorg_infinitime.git",
     shallow_since = "1733253068 +0100",
 )
 
-# Separate extension identities prevent unrelated pip/npm consumers from
-# reading firmware lockfiles and thereby fetching the source repository.
+# The native Python lock is local, so the standard pip extension can read it
+# without fetching firmware source. npm still needs a separate identity for
+# its upstream lockfile.
 # Python and Node toolchains are provided by //tools/py and //tools/js.
-pip = use_extension("//projects/infinitime/internal:pip.bzl", "pip")
-
-# Re-exporting pip also isolates rules_python's MODULE.bazel platform defaults.
-# Restore the platform used by the pinned x86_64 Linux firmware compiler below.
-pip.default(
-    arch_name = "x86_64",
-    config_settings = [
-        "@platforms//cpu:x86_64",
-        "@platforms//os:linux",
-        "@rules_python//python/config_settings:_is_py_freethreaded_no",
-    ],
-    env = {"platform_version": "0"},
-    os_name = "linux",
-    platform = "linux_x86_64",
-    whl_abi_tags = [
-        "abi3",
-        "cp{major}{minor}",
-    ],
-    whl_platform_tags = [
-        "linux_x86_64",
-        "manylinux_*_x86_64",
-    ],
-)
+pip = use_extension("@rules_python//python/extensions:pip.bzl", "pip")
 pip.parse(
     hub_name = "com_alwaldend_com_github_infinitimeorg_infinitime_pip",
-    python_version = "3.13.9",
-    requirements_lock = "@com_alwaldend_com_github_infinitimeorg_infinitime//bazel/py:requirements.txt",
+    python_version = "3.14.4",
+    uv_lock = "//projects/infinitime:uv.lock",
 )
 use_repo(pip, "com_alwaldend_com_github_infinitimeorg_infinitime_pip")
 

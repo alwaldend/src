@@ -25,10 +25,10 @@ gazelle_binary(
 
 gazelle_python_manifest(
     name = "gazelle_python_manifest",
+    lockfiles = "//tools/py:uv.lock",
     manifest = "//:gazelle_python.yaml",
     modules_mapping = ":modules_map",
     pip_repository_name = "com_alwaldend_src_pip",
-    requirements = "//tools/py:requirements.txt",
     visibility = ["//:__subpackages__"],
 )
 

@@ -18,7 +18,7 @@ ICON_ERROR: str = (
     "icon is enabled (it is disabled by default), but the "
     "'pyside6' package is not installed. "
     "remove '--icon-enable' or install the package\n"
-    "\npip install pyside6\n"
+    "\nuv pip install pyside6\n"
 )
 
 CONFIG_PATH: str = f"{os.environ.get('HOME')}/.config/autoscroll/config.txt"

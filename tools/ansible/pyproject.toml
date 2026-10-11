@@ -1,0 +1,11 @@
+[project]
+name = "com-alwaldend-src-ansible"
+version = "0.0.0"
+requires-python = ">=3.12, <4"
+dependencies = [
+  "ansible>=13.0.0",
+  "ansible-lint",
+  "ansible-core>=2.20.7rc1",
+  "cryptography>=48.0.1",
+  "proxmoxer",
+]

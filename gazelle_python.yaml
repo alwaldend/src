@@ -11,20 +11,24 @@ manifest:
     annotated_doc: annotated_doc
     annotated_types: annotated_types
     anyio: anyio
+    backports: backports.tarfile
     black: black
     blackd: black
     blib2to3: black
+    c787785866c7b801238d__mypyc: tomli
     certifi: certifi
     cffi: cffi
     cfgv: cfgv
     charset_normalizer: charset_normalizer
     click: click
     cloudpickle: cloudpickle
+    colorama: colorama
     cryptography: cryptography
     dateutil: python_dateutil
     distlib: distlib
     docutils: docutils
     dotenv: python_dotenv
+    exceptiongroup: exceptiongroup
     fastapi: fastapi
     fd7dcdb10166ebd4db98__mypyc: pytokens
     filelock: filelock
@@ -36,6 +40,7 @@ manifest:
     id: id
     identify: identify
     idna: idna
+    importlib_metadata: importlib_metadata
     isort: isort
     jaraco.classes: jaraco.classes
     jaraco.context: jaraco_context
@@ -79,6 +84,7 @@ manifest:
     pyflakes: pyflakes
     pygments: pygments
     pytokens: pytokens
+    pytz: pytz
     readme_renderer: readme_renderer
     requests: requests
     requests_toolbelt: requests_toolbelt
@@ -90,16 +96,20 @@ manifest:
     sklearn: scikit_learn
     starlette: starlette
     threadpoolctl: threadpoolctl
+    tomli: tomli
     twine: twine
     typing_extensions: typing_extensions
     typing_inspection: typing_inspection
+    tzdata: tzdata
     urllib3: urllib3
     uvicorn: uvicorn
     uvloop: uvloop
     virtualenv: virtualenv
     watchfiles: watchfiles
     websockets: websockets
+    win32ctypes: pywin32_ctypes
     yaml: pyyaml
+    zipp: zipp
   pip_repository:
     name: com_alwaldend_src_pip
-integrity: 698811d5b3e024609fbf1093450271786ebf7a838015cdbfe4a3013256e97aa1
+integrity: 65d5e2ebb3eedf14f2fed7ca4f4c28be491dc83af20b0844dfeefafd5c33f27f

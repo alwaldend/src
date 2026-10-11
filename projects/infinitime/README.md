@@ -30,13 +30,20 @@ repository packages the pinned firmware source and its build dependencies.
 The root workspace declares the pinned firmware with `use_repo_rule` in
 `include.MODULE.bazel`, preserving recursive Git submodules and the CMake
 toolchain patch. Firmware source is fetched when referenced, rather than
-during module resolution. Its Python/npm lockfiles and SDK archives retain
-the upstream pins; Python and Node runtimes use the root workspace toolchains.
-The project re-exports pip and npm with separate extension identities so
-unrelated Python/npm targets do not fetch firmware to read those lockfiles.
-The isolated pip extension declares the Linux x86_64 host platform used by
-the pinned ARM compiler archive.
+during module resolution. The Python tooling manifest and native `uv.lock` live
+in this project; npm and SDK archives retain their upstream pins. Python and
+Node runtimes use the root workspace toolchains.
+The standard pip extension reads the local `uv.lock` without fetching firmware.
+The project re-exports npm with a separate extension identity so unrelated npm
+targets do not fetch firmware to read its upstream lockfile.
 `bazel mod deps` deliberately evaluates all extensions and can still fetch it.
+
+`native_uv.patch` removes the upstream source's pip-tools lock target. This
+project owns the effective Python dependencies in `pyproject.toml`; update
+them with `//projects/infinitime:uv_lock.update` using the shared
+[uv workflow](../../tools/py/README.md). Explicit lock generation uses sandboxed
+`uv lock` and requires network access to PyPI. Firmware builds consume the
+checked-in native lock without running resolution.
 
 Validate the firmware with `bazel test //projects/infinitime:build_test`.
 

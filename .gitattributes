@@ -122,7 +122,7 @@ tools/*/openspec/changes/**/provenance/** whitespace=-blank-at-eof
 **/lazy-lock.json rules-lint-ignored=true
 **/binary_toolchain.json rules-lint-ignored=true
 maven_install.json rules-lint-ignored=true
-requirements.txt rules-lint-ignored=true
+uv.lock rules-lint-ignored=true
 gazelle_python.yaml rules-lint-ignored=true
 infra/dns/types-dnscontrol.d.ts rules-lint-ignored=true
 # Generated DNS declaration pages are written by //infra/dns/cmd/dump and are

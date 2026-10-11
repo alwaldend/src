@@ -135,13 +135,8 @@ alias(
 )
 
 alias(
-    name = "requirements.update",
-    actual = "//tools/py:requirements.update",
-)
-
-test_suite(
-    name = "requirements.test",
-    tests = ["//tools/py:requirements.test"],
+    name = "uv_lock.update",
+    actual = "//tools/py:uv_lock.update",
 )
 
 alias(
@@ -153,12 +148,6 @@ alias(
 test_suite(
     name = "gazelle_python_manifest.test",
     tests = ["//tools/gazelle:gazelle_python_manifest.test"],
-)
-
-test_suite(
-    name = "requirements_test",
-    tags = ["manual"],
-    tests = ["//tools/py:requirements.test"],
 )
 
 alias(
