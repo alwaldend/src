@@ -1,0 +1,5 @@
+filegroup(
+    name = "source",
+    srcs = glob(["**"], exclude = ["BUILD.bazel", "MODULE.bazel", "REPO.bazel", "WORKSPACE"]),
+    visibility = ["@//third_party/com_github_yandex_practicum_mlops_course:__pkg__"],
+)
