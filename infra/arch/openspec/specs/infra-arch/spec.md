@@ -14,10 +14,11 @@ inventory, deployment, or health.
 
 The project SHALL use `arch.drawio` as the canonical source for its maintained
 SVG diagrams and SHALL expose the source through the `//infra/arch` editor
-target. The named render mapping SHALL preserve the 14 remaining source pages,
-including the five pages classified as archives. The `T3code` page moved to this
+target. The named render mapping SHALL preserve the 13 remaining source pages,
+including the five pages classified as archives. The `T3code` page moved to its
 owner's Mermaid diagram under `users/simeonwarren/host_bot`, so `infra/arch` no
-longer renders it.
+longer renders it. The `Threexui` page now belongs to the Mermaid diagram in
+`infra/threexui` and is no longer part of this Drawio document.
 
 Sources: [project documentation](../../../README.md),
 [target and page definitions](../../../BUILD.bazel), and
@@ -26,7 +27,7 @@ Sources: [project documentation](../../../README.md),
 #### Scenario: Render the maintained page set
 
 - **WHEN** the `//infra/arch:rendered` target processes the canonical document
-- **THEN** it produces the SVG output mapped to each of the 14 named pages,
+- **THEN** it produces the SVG output mapped to each of the 13 named pages,
   including separate outputs for archived pages.
 
 ### Requirement: Reproducible diagram refresh

@@ -11,6 +11,8 @@ They describe the source document, not a live inventory or health check. Pages
 marked **Archive** retain the source's historical classification.
 Open an image for its full-size SVG.
 
+The [3x-ui architecture](../threexui/) is maintained as Mermaid by its component.
+
 ## DC1
 
 [![DC1 infrastructure diagram](assets/dc1.svg)](assets/dc1.svg)
@@ -30,10 +32,6 @@ Open an image for its full-size SVG.
 ## www
 
 [![www infrastructure diagram](assets/www.svg)](assets/www.svg)
-
-## Threexui
-
-[![Threexui infrastructure diagram](assets/threexui.svg)](assets/threexui.svg)
 
 ## DNS
 
@@ -82,7 +80,7 @@ bazel_agent bazel run //infra/arch:update
 bazel_agent bazel test //infra/arch:update_tests
 ```
 
-The update target renders all 14 named pages in Bazel sandboxes with Drawio
+The update target renders all 13 named pages in Bazel sandboxes with Drawio
 30.2.6 web assets from the [pinned desktop archive](https://github.com/alwaldend/src/blob/master/third_party/com_drawio_desktop_bin/binary_toolchain.json)
 and the repository's [pinned headless Chrome](https://github.com/alwaldend/src/blob/master/third_party/com_google_chrome_headless_shell/binary_toolchain.json).
 A [pinned Liberation font set](https://github.com/alwaldend/src/blob/master/tools/drawio/include.MODULE.bazel) and isolated

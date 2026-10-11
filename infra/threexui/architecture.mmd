@@ -1,0 +1,43 @@
+flowchart LR
+    admin[Admin]
+    user[User]
+
+    subgraph proxmox["Proxmox · pve.alwaldend.com"]
+        subgraph control_vm["VM · threexui.alwaldend.com"]
+            control_traefik[Traefik]
+            panel[3x-ui control panel]
+            control_traefik --> panel
+        end
+    end
+
+    subgraph njalla_dc["njal.la datacenter"]
+        njalla1[Node · njalla1]
+        work1[Node · work1]
+    end
+
+    subgraph yandex_dc["Yandex Cloud datacenter"]
+        yc1[Node · yc1]
+    end
+
+    subgraph node_details["Node internals · shared by all data-plane nodes"]
+        node_traefik[Traefik]
+        node_ui[3x-ui]
+        node_xray[Xray]
+        node_traefik -->|HTTPS| node_ui
+        node_traefik -->|VLESS over XHTTP| node_xray
+        node_ui -->|Configure / manage| node_xray
+    end
+
+    acme["Let's Encrypt · letsencrypt.org"]
+    vault["Vault · vault.alwaldend.com"]
+    mullvad["Mullvad · mullvad.net"]
+
+    admin -->|HTTPS| control_traefik
+    user -->|VLESS over XHTTP| njalla1 & work1 & yc1
+    panel -->|Node control: HTTPS + mTLS| njalla1 & work1 & yc1
+    work1 -.->|Expanded view| node_traefik
+    control_traefik -->|ACME| vault
+    panel ~~~ vault
+    node_traefik -->|ACME| acme
+    node_xray ~~~ acme
+    node_xray -->|WireGuard| mullvad

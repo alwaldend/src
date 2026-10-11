@@ -1,6 +1,7 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("//projects/al/rules/al:al_binary.bzl", "al_binary_run_map")
 load("//projects/al/rules/al:al_config.bzl", "al_config")
+load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_site_svg", "mermaid_site_webp")
 load("//tools/vault:defs.bzl", "vault_binary_map")
 
 al_config(
@@ -41,10 +42,32 @@ vault_binary_map(
 
 docs_filegroup(
     name = "docs",
-    srcs = glob(["*.md"]),
+    srcs = glob(["*.md"]) + ["architecture.mmd"],
     visibility = ["//infra:__pkg__"],
-    deps = subpackages(
+    deps = [":docs_assets"] + subpackages(
         include = ["*"],
         allow_empty = True,
     ),
+)
+
+mermaid_site_svg(
+    name = "architecture",
+    src = "architecture.mmd",
+    out = "rendered/architecture.svg",
+)
+
+mermaid_site_webp(
+    name = "architecture_webp",
+    src = "architecture.mmd",
+    out = "rendered/architecture.webp",
+    scale = 2,
+)
+
+docs_filegroup(
+    name = "docs_assets",
+    srcs = [
+        ":architecture",
+        ":architecture_webp",
+    ],
+    prefix = "content/docs/infra/threexui/assets",
 )
