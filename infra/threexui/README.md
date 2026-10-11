@@ -6,6 +6,14 @@ tags:
   - vpn
 ---
 
+## Architecture
+
+[![3x-ui architecture](assets/architecture.svg)](assets/architecture.svg)
+
+The diagram is rendered from [the Mermaid source](architecture.mmd). It describes
+checked-in configuration rather than live deployment or health.
+[Download the WebP diagram](assets/architecture.webp).
+
 ## Links
 
 - Site: https://docs.sanaei.dev/
