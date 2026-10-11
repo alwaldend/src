@@ -50,8 +50,8 @@ output bases, repository contents, and install state; the volume group retains
 about 900 GiB for later growth or another logical volume. Because the volume is
 striped, either SSD failing invalidates the disposable cache.
 
-The managed user bazelrc limits each Bazel invocation to eight concurrent jobs
-and budgets half of the host CPUs for local actions. These scheduling limits
+The managed user bazelrc limits each Bazel invocation to four concurrent jobs
+and budgets one quarter of the host CPUs for local actions. These scheduling limits
 apply to builds and tests; they do not impose a combined CPU cap across
 independent Bazel processes or Codex sessions.
 
