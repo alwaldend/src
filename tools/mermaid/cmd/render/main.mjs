@@ -156,7 +156,9 @@ try {
             aspectRatio:
                 flags["aspect-ratio"] === undefined
                     ? undefined
-                    : asList(flags["aspect-ratio"]).map(Number),
+                    : flags["aspect-ratio"] === "natural"
+                      ? []
+                      : asList(flags["aspect-ratio"]).map(Number),
         });
     } else if (flags.native) {
         for (const required of ["palette", "dark-output", "font"])

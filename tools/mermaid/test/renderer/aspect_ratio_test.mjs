@@ -21,7 +21,6 @@ const invalidWebp = path.join(output, "invalid.webp");
 const options = { svgPath: invalidSvg, output: invalidWebp, puppeteerConfig };
 await fs.writeFile(invalidSvg, '<svg viewBox="0 0 100 50"/>');
 for (const aspectRatio of [
-    [],
     [5],
     [5, 2, 1],
     [0, 2],
@@ -69,6 +68,20 @@ try {
         const scale = Number(scaleValue);
         const svg = await fs.readFile(path.resolve(svgFile), "utf8");
         const raster = await fs.readFile(path.resolve(rasterFile));
+        if (name === "classic") {
+            const defaultOutput = path.join(output, "encoder-default.webp");
+            await renderWebp({
+                svgPath: path.resolve(svgFile),
+                output: defaultOutput,
+                puppeteerConfig,
+                deviceScaleFactor: scale,
+            });
+            assert.deepEqual(
+                await fs.readFile(defaultOutput),
+                raster,
+                "Encoder and Bazel/CLI defaults must produce the same raster",
+            );
+        }
         await fs.copyFile(
             path.resolve(rasterFile),
             path.join(output, `${name}-actual.webp`),

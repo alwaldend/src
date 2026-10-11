@@ -55,7 +55,7 @@ func TestRasterRenderConvertsPost(t *testing.T) {
 	if err != nil {
 		t.Fatalf("read source render canvas: %v", err)
 	}
-	// The shared fixture uses the raster rule's natural-size default.
+	// The shared fixture explicitly selects the raster rule's natural canvas.
 	const scale = 1
 	if math.Abs(float64(width)-viewWidth*scale) > scale || math.Abs(float64(height)-viewHeight*scale) > scale {
 		t.Errorf("raster render measures %dx%d, but the SVG geometry at scale %d is %.0fx%.0f",

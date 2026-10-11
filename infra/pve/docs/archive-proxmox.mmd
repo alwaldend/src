@@ -1,0 +1,15 @@
+flowchart LR
+    subgraph dc1_alwaldend_com["dc1.alwaldend.com"]
+        subgraph pve_bm["PVE BM · pve.alwaldend.com"]
+            proxmox["Proxmox"]
+            ceph["Ceph"]
+            ssd_db_wal_x2["SSD (DB, WAL) x2"]
+            hdd_data_x5["HDD (Data) x5"]
+        end
+    end
+    vault["Vault<br/>vault.alwaldend.com"]
+
+    proxmox <--> ceph
+    ceph ---|"SATA"| ssd_db_wal_x2
+    ceph ---|"USB"| hdd_data_x5
+    proxmox -->|"ACME"| vault

@@ -44,24 +44,21 @@ const readBackground = (svg) => {
  * @param {string} options.output Destination `.webp` path.
  * @param {object} options.puppeteerConfig Launch options, including pinned fonts.
  * @param {number} options.deviceScaleFactor Raster scale; 1 uses natural size.
- * @param {number[]} [options.aspectRatio] Optional positive integer width/height.
+ * @param {number[]} [options.aspectRatio] Width/height, default [5, 2]; [] is natural.
  */
 export async function renderWebp({
     svgPath,
     output,
     puppeteerConfig,
     deviceScaleFactor = 1,
-    aspectRatio,
+    aspectRatio = [5, 2],
 }) {
     if (!Number.isSafeInteger(deviceScaleFactor) || deviceScaleFactor <= 0)
         throw new Error("Raster scale must be a positive safe integer");
     if (
-        aspectRatio !== undefined &&
-        (!Array.isArray(aspectRatio) ||
-            aspectRatio.length !== 2 ||
-            !aspectRatio.every(
-                (term) => Number.isSafeInteger(term) && term > 0,
-            ))
+        !Array.isArray(aspectRatio) ||
+        (aspectRatio.length !== 0 && aspectRatio.length !== 2) ||
+        !aspectRatio.every((term) => Number.isSafeInteger(term) && term > 0)
     )
         throw new Error(
             "Raster aspect ratio must contain two positive safe integers",
@@ -78,7 +75,7 @@ export async function renderWebp({
     const height = Math.ceil(viewBox.height);
     let canvasWidth = width * deviceScaleFactor;
     let canvasHeight = height * deviceScaleFactor;
-    if (aspectRatio !== undefined) {
+    if (aspectRatio.length > 0) {
         let [numerator, denominator] = aspectRatio;
         while (denominator !== 0)
             [numerator, denominator] = [denominator, numerator % denominator];
@@ -118,10 +115,10 @@ export async function renderWebp({
     try {
         const page = await browser.newPage();
         // A ratio applies to final pixels, not CSS pixels. Use a physical-pixel
-        // viewport for this opt-in path so odd dimensions remain exact even at
-        // scale 2 or 3. The SVG keeps the same scaled geometry. The default
-        // path retains its existing device scale, layout, and capture bounds.
-        const padded = aspectRatio !== undefined;
+        // viewport for ratio padding so odd dimensions remain exact even at
+        // scale 2 or 3. The SVG keeps the same scaled geometry. Natural output
+        // retains its device scale, layout, and capture bounds.
+        const padded = aspectRatio.length > 0;
         const renderScale = padded ? deviceScaleFactor : 1;
         const viewportScale = padded ? 1 : deviceScaleFactor;
         await page.setViewport({

@@ -1,0 +1,24 @@
+flowchart LR
+    subgraph local_infra["Local infra · dc1.alwaldend.com"]
+        router_mikrotik["Router (Mikrotik)<br/>router1.dc1.alwaldend.com"]
+        actor("Actor")
+    end
+    actor_2("Actor")
+    subgraph yandex_cloud["Yandex Cloud · yandex.cloud"]
+        subgraph vm["VM · hermes.simeonwarren.users.alwaldend.com"]
+            traefik["Traefik"]
+            wireguard["Wireguard"]
+            hermes["Hermes<br/>agent"]
+            hermes_2["Hermes<br/>gateway"]
+            hermes_3["Hermes<br/>dashboard"]
+        end
+    end
+    openrouter["Openrouter<br/>openrouter.ai"]
+    let_s_encrypt["Let's Encrypt<br/>letsencrypt.org"]
+
+    traefik --> hermes_3
+    actor_2 -->|"HTTPS +<br/>mTLS +<br/>Basic Auth"| traefik
+    router_mikrotik -->|"Wireguard"| wireguard
+    actor -->|"HTTPS<br/>+ Basic Auth<br/>(over Wireguard)"| traefik
+    hermes -->|"Inference"| openrouter
+    traefik -->|"ACME"| let_s_encrypt

@@ -7,6 +7,14 @@ tags:
   - forgejo
 ---
 
+## Historical architecture
+
+This diagram preserves the former Proxmox deployment. Forgejo now runs on XCP-ng;
+see [Deployment](#deployment) for the maintained deployment contract.
+The [Mermaid source](docs/architecture.mmd) is authoritative; Bazel renders its light and dark SVGs.
+
+[![Historical Forgejo architecture](docs/assets/architecture.svg)](docs/assets/architecture.svg)
+
 ## Links
 
 - Docs: https://forgejo.org/docs/latest/admin/installation/binary/

@@ -1,0 +1,83 @@
+flowchart TB
+    subgraph overview["Overview"]
+        direction LR
+        overview_user[User]
+        overview_admin[Admin]
+
+        subgraph overview_data["Data plane"]
+            direction TB
+            subgraph overview_njalla["njal.la"]
+                overview_njalla1["Node<br/>njalla1.nodes.threexui.alwaldend.com"]
+                overview_work1["Node<br/>work1.nodes.threexui.alwaldend.com"]
+            end
+            subgraph overview_yandex["Yandex Cloud"]
+                overview_yc1["Node<br/>yc1.nodes.threexui.alwaldend.com"]
+            end
+        end
+
+        subgraph overview_control["Control Plane"]
+            subgraph overview_proxmox["Proxmox<br/>pve.alwaldend.com"]
+                overview_master["Master<br/>threexui.alwaldend.com"]
+            end
+        end
+
+        subgraph overview_external["External services"]
+            overview_acme["Let's Encrypt<br/>letsencrypt.org"]
+            overview_mullvad["Mullvad<br/>mullvad.net"]
+            overview_vault["Vault<br/>vault.alwaldend.com"]
+        end
+
+        overview_user -->|VLESS over XHTTP| overview_data
+        overview_data -->|ACME| overview_acme
+        overview_data -->|WireGuard| overview_mullvad
+        overview_admin -->|HTTPS| overview_control
+        overview_control -->|HTTPS + mTLS| overview_data
+        overview_control -->|ACME| overview_vault
+    end
+
+    subgraph control_detail["Control plane"]
+        direction LR
+        control_admin[Admin]
+
+        subgraph control_proxmox["Proxmox<br/>pve.alwaldend.com"]
+            subgraph control_vm["3x-ui VM<br/>threexui.alwaldend.com"]
+                control_traefik[Traefik]
+                control_panel[3x-ui control panel]
+                control_traefik --> control_panel
+            end
+        end
+
+        control_node[Data-plane node]
+        control_vault["Vault<br/>vault.alwaldend.com"]
+
+        control_admin -->|HTTPS| control_traefik
+        control_traefik -->|ACME| control_vault
+        control_panel -->|HTTPS + mTLS| control_node
+    end
+
+    subgraph data_detail["Data plane"]
+        direction LR
+        data_user[User]
+        data_control["Control plane<br/>threexui.alwaldend.com"]
+
+        subgraph data_node["Data-plane node"]
+            data_traefik[Traefik]
+            data_ui[3x-ui]
+            data_xray[Xray]
+            data_traefik -->|HTTPS| data_ui
+            data_traefik -->|VLESS over XHTTP| data_xray
+            data_ui -->|Configure / manage| data_xray
+        end
+
+        data_acme["Let's Encrypt<br/>letsencrypt.org"]
+        data_mullvad["Mullvad<br/>mullvad.net"]
+
+        data_user -->|VLESS over XHTTP| data_traefik
+        data_control -->|HTTPS + mTLS| data_traefik
+        data_traefik -->|ACME| data_acme
+        data_xray -->|WireGuard| data_mullvad
+    end
+
+    %% Invisible links order the views without introducing architecture edges.
+    overview ~~~ control_detail
+    overview ~~~ data_detail

@@ -279,12 +279,15 @@ always uses the maintained appearance; it has no `plain` opt-out, because a
 plain raster could not show the contrast a comparison needs any more reliably
 than the SVG rule's.
 
-Set `aspect_ratio = [5, 2]` when a cover image needs fixed proportions. The
+WebP canvases default to `aspect_ratio = [5, 2]`. The
 encoder reduces the two positive integer terms and adds the selected theme's
 background around the scaled diagram. It uses the smallest whole-pixel canvas
 with that exact ratio that contains the original image, centers the diagram,
-and never crops or stretches it. SVG output is unaffected. Omitting the ratio
-keeps the natural raster canvas. `scale` must be a positive integer, and the
+and never crops or stretches it. SVG output is unaffected. Set `aspect_ratio = []`
+for the natural raster canvas, or select another positive integer pair. The CLI
+uses the same default; `--aspect-ratio natural` selects natural output, and two
+repeated numeric `--aspect-ratio` flags select another ratio.
+`scale` must be a positive integer, and the
 final image must fit WebP's 16383-pixel limit in each dimension.
 
 Consumers that must keep the image as a checked-in asset obtain it from the

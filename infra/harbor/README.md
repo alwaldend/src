@@ -7,6 +7,13 @@ tags:
   - pve
 ---
 
+## Archive/Harbor
+
+This archived diagram preserves the historical source topology.
+The [Mermaid source](docs/archive-harbor.mmd) is authoritative; Bazel renders its light and dark SVGs.
+
+[![Archive/Harbor architecture](docs/assets/archive-harbor.svg)](docs/assets/archive-harbor.svg)
+
 ## Links
 
 - Site: https://goharbor.io/

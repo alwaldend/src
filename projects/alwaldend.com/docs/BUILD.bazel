@@ -1,0 +1,23 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_site_svg")
+
+mermaid_site_svg(
+    name = "legacy_www",
+    src = "legacy-www.mmd",
+    out = "rendered/legacy-www.svg",
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.mmd"]),
+    visibility = ["//projects/alwaldend.com:__pkg__"],
+    deps = [":docs_assets"],
+)
+
+docs_filegroup(
+    name = "docs_assets",
+    srcs = [
+        ":legacy_www",
+    ],
+    prefix = "content/docs/projects/alwaldend.com/docs/assets",
+)

@@ -1,0 +1,23 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_site_svg")
+
+mermaid_site_svg(
+    name = "archive_harbor",
+    src = "archive-harbor.mmd",
+    out = "rendered/archive-harbor.svg",
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.mmd"]),
+    visibility = ["//infra/harbor:__pkg__"],
+    deps = [":docs_assets"],
+)
+
+docs_filegroup(
+    name = "docs_assets",
+    srcs = [
+        ":archive_harbor",
+    ],
+    prefix = "content/docs/infra/harbor/docs/assets",
+)

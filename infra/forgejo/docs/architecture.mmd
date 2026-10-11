@@ -1,0 +1,17 @@
+flowchart LR
+    subgraph proxmox["Historical · Proxmox · pve.alwaldend.com"]
+        subgraph forgejo_vm["Forgejo VM · forgejo.alwaldend.com"]
+            traefik["Traefik"]
+            forgejo["Forgejo"]
+        end
+    end
+    vault["Vault<br/>vault.alwaldend.com"]
+    actor("Actor")
+    github["Github<br/>github.com"]
+
+    traefik --> forgejo
+    forgejo -->|"OIDC"| vault
+    actor -->|"HTTPS"| traefik
+    actor -->|"SSH"| forgejo
+    actor -->|"OIDC"| vault
+    forgejo -->|"Push mirror"| github

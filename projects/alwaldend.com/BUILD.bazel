@@ -73,6 +73,7 @@ docs_filegroup(
         "//projects:__pkg__",
     ],
     deps = [
+        "//projects/alwaldend.com/docs",
         "//projects/alwaldend.com/releases:docs",
         "//projects/alwaldend.com/tf:docs",
     ],

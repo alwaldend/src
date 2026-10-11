@@ -4,7 +4,8 @@
 
 Describe the maintained architecture diagram owned by
 `users/simeonwarren/host_bot`. The diagram replaced the `T3code` page of the
-`infra/arch` Drawio document, which no longer renders or publishes that page.
+former central Drawio document. Infrastructure diagrams now live with their
+owning projects, with ownerless archived diagrams under `infra/archive`.
 The diagram describes checked-in configuration; it is not a live inventory or
 health check.
 

@@ -19,13 +19,13 @@ go_test(
         "support_test.go",
     ],
     args = [
-        "-raster-render=$(rlocationpath //tools/mermaid/test/renderer:smoke_webp)",
+        "-raster-render=$(rlocationpath //tools/mermaid/test/renderer:smoke_natural_webp)",
         "-raster-source=$(rlocationpath //tools/mermaid/test/renderer:smoke_svg)",
     ],
     data = [
         "//projects/alwaldend.com/content/blog:test_data",
+        "//tools/mermaid/test/renderer:smoke_natural_webp",
         "//tools/mermaid/test/renderer:smoke_svg",
-        "//tools/mermaid/test/renderer:smoke_webp",
     ],
     deps = [
         "//projects/x_article_uploader/internal/draft",

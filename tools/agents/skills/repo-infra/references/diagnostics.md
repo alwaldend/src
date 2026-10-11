@@ -6,9 +6,8 @@ desired state. It is read-only and never authorizes a repair.
 ## Establish the intended state
 
 Read the root `AGENTS.md`, the owning `README.md`, the component's
-`BUILD.bazel`, `al.lua`, and the relevant files under `ansible/`. Consult
-`infra/arch/README.md` and `infra/arch/arch.drawio` only when the topology
-matters.
+`BUILD.bazel`, `al.lua`, and the relevant files under `ansible/`. Consult the owning component's README and Mermaid source under `docs/` when
+the topology matters; ownerless historical diagrams live in `infra/archive`.
 
 Treat the checked-in Terraform and Ansible as desired state. Do not infer
 external reachability from a listening socket alone: account for its bind

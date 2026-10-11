@@ -1,0 +1,13 @@
+flowchart LR
+    subgraph local_infra["Local infra · dc1.alwaldend.com"]
+        actor("Actor")
+        router_mikrotik["Router (Mikrotik)<br/>router1.dc1.alwaldend.com"]
+    end
+    actor_2("Actor")
+    cloudflare["Cloudflare<br/>cloudflare.com"]
+    isp_dns_server["ISP DNS server"]
+
+    actor -->|"DNS"| router_mikrotik
+    actor_2 -->|"DNS"| cloudflare
+    router_mikrotik -->|"DNS over HTTPS"| cloudflare
+    router_mikrotik -->|"DNS<br/>(for DNS over HTTPS)"| isp_dns_server
