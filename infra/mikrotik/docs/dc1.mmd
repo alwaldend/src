@@ -1,0 +1,9 @@
+flowchart LR
+    subgraph dc1_alwaldend_com["dc1.alwaldend.com"]
+        router_mikrotik["Router (Mikrotik)<br/>router1.dc1.alwaldend.com"]
+        switch_mikrotik["Switch (Mikrotik)<br/>switch1.dc1.alwaldend.com"]
+    end
+    isp["ISP"]
+
+    router_mikrotik <--> switch_mikrotik
+    router_mikrotik <--> isp

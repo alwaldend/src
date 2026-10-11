@@ -89,6 +89,9 @@ and `label_font`. Native WebP follows the selected SVG without post-processing;
 both modes use the pinned browser encoder with no image-conversion toolchain.
 The raster uses the diagram's natural size and the rule's `scale` (default `1`).
 Set `scale = 2` when the consumer needs higher pixel density.
+WebP canvases default to 5:2 proportions with centered, theme-colored padding.
+Set `aspect_ratio = []` for natural proportions or supply another positive integer
+width/height pair. The CLI equivalent for natural output is `--aspect-ratio natural`.
 There is no `plain` raster: use the SVG rule's `plain` opt-out for comparison.
 
 For a consumer that keeps the image as a checked-in asset, copy the rule output

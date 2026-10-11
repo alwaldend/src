@@ -50,6 +50,15 @@ mermaid_webp(
     visibility = ["//visibility:public"],
 )
 
+# The uploader's projection check explicitly exercises unpadded SVG geometry.
+mermaid_webp(
+    name = "smoke_natural_webp",
+    src = "smoke.mmd",
+    out = "smoke-natural.webp",
+    aspect_ratio = [],
+    visibility = ["//visibility:public"],
+)
+
 # The native raster must preserve the consumer's SVG palette, font, and canvas.
 # Reuse the site's maintained inputs instead of maintaining a test-only theme.
 mermaid_svg(
@@ -67,6 +76,7 @@ mermaid_webp(
     name = "edge_labels_native_webp",
     src = "edge_labels.mmd",
     out = "edge-labels-native.webp",
+    aspect_ratio = [],
     label_font = "@com_alwaldend_src_tools_drawio_fonts//:LiberationSans-Regular.ttf",
     native = True,
     palette = "//projects/alwaldend.com/assets:mermaid_palette",
@@ -78,6 +88,7 @@ mermaid_webp(
     name = "edge_labels_native_dark_webp",
     src = "edge_labels.mmd",
     out = "edge-labels-native.dark.webp",
+    aspect_ratio = [],
     color_scheme = "dark",
     label_font = "@com_alwaldend_src_tools_drawio_fonts//:LiberationSans-Regular.ttf",
     native = True,
@@ -90,10 +101,6 @@ mermaid_webp(
     name = "smoke_cover_webp",
     src = "smoke.mmd",
     out = "smoke-cover.webp",
-    aspect_ratio = [
-        5,
-        2,
-    ],
     scale = 3,
 )
 

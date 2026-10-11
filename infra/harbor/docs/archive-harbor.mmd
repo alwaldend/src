@@ -1,0 +1,41 @@
+flowchart LR
+    subgraph proxmox["Proxmox · pve.alwaldend.com"]
+        subgraph harbor_cluster["Harbor cluster"]
+            traefik["Traefik"]
+            harbor["harbor<br/>harbor.alwaldend.com"]
+            redis["Redis"]
+            postgresql["Postgresql"]
+            kube_apiserver["kube-apiserver"]
+        end
+    end
+    actor("Actor")
+    vault["Vault<br/>vault.alwaldend.com"]
+    external["External<br/>registries"]
+    subgraph harbor_api_auth_with_oidc["Harbor API auth with OIDC"]
+        start("Start")
+        finish("End")
+        hit_oidc_login_endpoint["Hit OIDC login endpoint"]
+        parse_redirect["Parse redirect"]
+        authenticate_with_the_oidc_provider["Authenticate with the OIDC provider"]
+        hit_the_oidc_callback_endpoint["Hit the OIDC callback endpoint"]
+        parse_the_session_cookie["Parse the session cookie"]
+    end
+    fluxcd["Fluxcd<br/>flux.alwaldend.com"]
+    forgejo["Forgejo<br/>forgejo.alwaldend.com"]
+
+    traefik --> harbor
+    harbor --> redis
+    harbor --> postgresql
+    actor -->|"HTTPS"| traefik
+    actor -->|"OIDC"| vault
+    harbor -->|"OCI"| external
+    harbor -->|"OIDC, Secrets"| vault
+    start --> hit_oidc_login_endpoint
+    hit_oidc_login_endpoint --> parse_redirect
+    parse_redirect --> authenticate_with_the_oidc_provider
+    authenticate_with_the_oidc_provider --> hit_the_oidc_callback_endpoint
+    hit_the_oidc_callback_endpoint --> parse_the_session_cookie
+    parse_the_session_cookie --> finish
+    fluxcd -->|"GitOps"| kube_apiserver
+    fluxcd -->|"Vendored Harbor chart"| forgejo
+    kube_apiserver -->|"OIDC"| fluxcd

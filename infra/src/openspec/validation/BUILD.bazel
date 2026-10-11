@@ -9,7 +9,6 @@ package_group(
 
 _WORKSPACE_SOURCES = {
     "repository": "//infra/src/openspec:source",
-    "infra_arch": "//infra/arch/openspec:source",
     "infra_ceph": "//infra/ceph/openspec:source",
     "infra_cloud_init": "//infra/cloud_init/openspec:source",
     "infra_download": "//infra/download/openspec:source",

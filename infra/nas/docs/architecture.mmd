@@ -1,0 +1,18 @@
+flowchart LR
+    subgraph local_infra["Local infra · dc1.alwaldend.com"]
+        subgraph truenas["TrueNAS · nas.alwaldend.com"]
+            nextcloud["Nextcloud<br/>cloud.alwaldend.com"]
+        end
+        actor("Actor")
+    end
+    let_sencrypt["Let'sEncrypt<br/>letsencrypt.org"]
+    cloudflare["Cloudflare<br/>cloudflare.com"]
+    ingress["Ingress<br/>ingress.alwaldend.com"]
+    actor_2("Actor")
+
+    actor -->|"HTTPS"| truenas
+    let_sencrypt -->|"DNS"| cloudflare
+    truenas -->|"ACME"| let_sencrypt
+    ingress -->|"HTTPS over Wireguard"| truenas
+    actor_2 -->|"HTTPS + mTLS"| ingress
+    truenas -->|"ACME"| cloudflare

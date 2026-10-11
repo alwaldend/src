@@ -175,6 +175,8 @@ def _mermaid_webp_impl(ctx):
     if ctx.attr.aspect_ratio:
         for term in ctx.attr.aspect_ratio:
             args.add("--aspect-ratio", str(term))
+    else:
+        args.add("--aspect-ratio", "natural")
     args.add("--config", theme.path)
     args.add("--font", label_font.path)
     if ctx.attr.native:
@@ -239,7 +241,8 @@ mermaid_webp = rule(
                   "consumer can request higher pixel density explicitly.",
         ),
         "aspect_ratio": attr.int_list(
-            doc = "Optional [width, height] ratio of positive integers. Adds " +
+            default = [5, 2],
+            doc = "Canvas [width, height] ratio, default [5, 2]. Adds " +
                   "theme-colored padding around the scaled diagram without " +
                   "cropping or stretching; empty keeps the natural canvas.",
         ),

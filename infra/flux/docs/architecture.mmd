@@ -1,0 +1,24 @@
+flowchart LR
+    actor("Actor")
+    vault["Vault<br/>vault.alwaldend.com"]
+    forgejo["Forgejo<br/>forgejo.alwaldend.com"]
+    other_clusters["Other clusters"]
+    subgraph proxmox["Proxmox · pve.alwaldend.com"]
+        subgraph flux_cluster["Flux cluster · flux.alwaldend.com"]
+            flux["Flux"]
+            flux_operator["Flux operator<br/>operator.flux.alwaldend.com"]
+            traefik_gateway["Traefik (Gateway)"]
+            cert_manager["Cert-manager"]
+        end
+    end
+
+    actor -->|"HTTPS"| traefik_gateway
+    actor -->|"OIDC"| vault
+    cert_manager -->|"Certificate<br/>signing"| vault
+    flux_operator -->|"OIDC"| vault
+    flux -->|"GitOps"| forgejo
+    flux -->|"GitOps"| other_clusters
+    flux_operator --> flux
+    traefik_gateway --> flux_operator
+    traefik_gateway -->|"Certificate<br/>secret"| cert_manager
+    flux -->|"SOPS"| vault

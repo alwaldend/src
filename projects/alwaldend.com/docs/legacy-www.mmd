@@ -1,0 +1,22 @@
+flowchart LR
+    subgraph proxmox["Proxmox · pve.alwaldend.com"]
+        unikernel_go_fileserver_vm["Unikernel go fileserver VM<br/>host1.pve.www.alwaldend.com"]
+    end
+    actor("Actor")
+    vault["Vault<br/>vault.alwaldend.com"]
+    subgraph deploy["Deploy"]
+        start("Start")
+        go_binary["Go binary<br/>Bazel build"]
+        iso_image["ISO image<br/>ops build"]
+        copy_iso_to_proxmox["Copy ISO to Proxmox"]
+        import_iso_as_a_vm_disk["Import ISO as a VM disk"]
+        finish("End")
+    end
+
+    actor -->|"HTTP"| unikernel_go_fileserver_vm
+    unikernel_go_fileserver_vm -->|"ACME"| vault
+    start --> go_binary
+    iso_image --> copy_iso_to_proxmox
+    copy_iso_to_proxmox --> import_iso_as_a_vm_disk
+    go_binary --> iso_image
+    import_iso_as_a_vm_disk --> finish

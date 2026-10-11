@@ -22,8 +22,8 @@ uses a host display server or accesses the network. JavaScript keeps this
 adapter close to Drawio's browser API and the existing Puppeteer dependency.
 
 Use the rule from an explicit source-update target with `write_source_files`,
-as in `//infra/arch:update`. Normal documentation consumes the maintained SVGs,
-not the rendering tool. The generated freshness tests catch stale output.
+when a consumer requires checked-in SVGs. Normal documentation consumes the
+maintained SVGs, not the rendering tool. The generated freshness tests catch stale output.
 
 Exports use a light theme with an opaque white canvas, keeping labels and
 connectors readable in both light and dark documentation themes and standalone

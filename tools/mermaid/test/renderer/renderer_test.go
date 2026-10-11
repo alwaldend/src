@@ -9,7 +9,6 @@ package renderer_test
 
 import (
 	"flag"
-	"math"
 	"os"
 	"strings"
 	"testing"
@@ -317,20 +316,12 @@ func TestRasterRenderIsWebp(t *testing.T) {
 	if err != nil {
 		t.Fatalf("read SVG canvas: %v", err)
 	}
-	// The rule defaults to the diagram's natural size, so the raster canvas
-	// follows the SVG's geometry without increasing its pixel density.
-	const scale = 1
-	for _, expected := range []struct {
-		name string
-		got  int
-		want float64
-	}{
-		{"width", width, viewWidth * scale},
-		{"height", height, viewHeight * scale},
-	} {
-		if math.Abs(float64(expected.got)-expected.want) > scale {
-			t.Errorf("raster %s is %d, but the SVG geometry at scale %d is %.1f",
-				expected.name, expected.got, scale, expected.want)
-		}
+	// Default padding must retain the entire natural-size drawing on a 5:2 canvas.
+	if width*2 != height*5 {
+		t.Errorf("default raster is %dx%d, expected 5:2 proportions", width, height)
+	}
+	if float64(width) < viewWidth || float64(height) < viewHeight {
+		t.Errorf("raster %dx%d cannot contain SVG geometry %.1fx%.1f",
+			width, height, viewWidth, viewHeight)
 	}
 }

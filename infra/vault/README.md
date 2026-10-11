@@ -6,6 +6,13 @@ tags:
   - terraform
 ---
 
+## Architecture
+
+This diagram describes the maintained architecture source, not live inventory or service health.
+The [Mermaid source](docs/architecture.mmd) is authoritative; Bazel renders its light and dark SVGs.
+
+[![Vault architecture](docs/assets/architecture.svg)](docs/assets/architecture.svg)
+
 ## Links
 
 - Intermediate CA: https://developer.hashicorp.com/vault/tutorials/pki/pki-engine-external-ca

@@ -6,6 +6,13 @@ tags:
   - pve
 ---
 
+## Archive/Proxmox
+
+This archived diagram preserves the historical source topology.
+The [Mermaid source](docs/archive-proxmox.mmd) is authoritative; Bazel renders its light and dark SVGs.
+
+[![Archive/Proxmox architecture](docs/assets/archive-proxmox.svg)](docs/assets/archive-proxmox.svg)
+
 ## Links
 
 - Docs: https://www.proxmox.com/en/products/proxmox-virtual-environment/overview

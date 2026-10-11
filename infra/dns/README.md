@@ -11,6 +11,13 @@ through the reusable [Terraform DNS module](../../projects/tf_modules/dns_record
 from its designated `tf_setup` or `tf` root. This component's
 [dnsconfig.json](dnsconfig.json) owns shared apex and mail records.
 
+## Architecture
+
+This diagram describes the maintained architecture source, not live inventory or service health.
+The [Mermaid source](docs/architecture.mmd) is authoritative; Bazel renders its light and dark SVGs.
+
+[![DNS architecture](docs/assets/architecture.svg)](docs/assets/architecture.svg)
+
 ## Declaration pages
 
 [Cloudflare DNS](cloudflare_dns.md) and [Mikrotik DNS](mikrotik_dns.md) list the

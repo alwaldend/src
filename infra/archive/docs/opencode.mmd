@@ -1,0 +1,18 @@
+flowchart LR
+    subgraph proxmox["Proxmox · pve.alwaldend.com"]
+        subgraph opencode_vm["Opencode VM · opencode.simeonwarren.users.alwaldend.com"]
+            traefik["Traefik"]
+            opencode["Opencode"]
+        end
+    end
+    actor("Actor")
+    vault["Vault<br/>vault.alwaldend.com"]
+    forgejo["Forgejo<br/>forgejo.alwaldend.com"]
+    yandex_cloud["Yandex Cloud<br/>ai.api.cloud.yandex.net/v1"]
+
+    traefik --> opencode
+    actor -->|"HTTPS<br/>(Basic Auth)"| traefik
+    actor -->|"OIDC"| vault
+    opencode -->|"Restricted push<br/>access"| forgejo
+    opencode -->|"OIDC (Workloads), Secrets"| vault
+    opencode -->|"LLMs"| yandex_cloud

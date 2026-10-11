@@ -13,6 +13,13 @@ tags:
 Alwaldend.com is the repository's main website and documentation site. It
 uses Hugo with Docsy to publish project documentation on GitHub Pages.
 
+## Historical www architecture
+
+This historical diagram preserves the former Proxmox unikernel deployment; see Deployment for the current website.
+The [Mermaid source](docs/legacy-www.mmd) is authoritative; Bazel renders its light and dark SVGs.
+
+[![www architecture](docs/assets/legacy-www.svg)](docs/assets/legacy-www.svg)
+
 ## Links
 
 - Source code: https://github.com/alwaldend/src/tree/master/projects/alwaldend.com

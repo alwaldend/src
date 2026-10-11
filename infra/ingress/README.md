@@ -7,6 +7,13 @@ tags:
   - traefik
 ---
 
+## Architecture
+
+This diagram describes the maintained architecture source, not live inventory or service health.
+The [Mermaid source](docs/architecture.mmd) is authoritative; Bazel renders its light and dark SVGs.
+
+[![Ingress architecture](docs/assets/architecture.svg)](docs/assets/architecture.svg)
+
 ## Run ansible
 
 ```sh

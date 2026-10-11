@@ -1,0 +1,6 @@
+flowchart LR
+    subgraph local_infra["Local infra · dc1.alwaldend.com"]
+        master1["Master1<br/>master1.harvester.alwaldend.com<br/>Storage: SATA SSD x2<br/>RAM: 64GB DDR4"]
+        worker1["Worker1<br/>worker1.harvester.alwaldend.com<br/>Storage: NVME M.2 x1<br/>Storage: DAS HDD x5<br/>RAM: 64GB DDR5"]
+        master1 <--> worker1
+    end

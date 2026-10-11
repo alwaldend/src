@@ -1,0 +1,37 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_site_svg")
+
+mermaid_site_svg(
+    name = "harvester",
+    src = "harvester.mmd",
+    out = "rendered/harvester.svg",
+)
+
+mermaid_site_svg(
+    name = "opencode",
+    src = "opencode.mmd",
+    out = "rendered/opencode.svg",
+)
+
+mermaid_site_svg(
+    name = "hermes",
+    src = "hermes.mmd",
+    out = "rendered/hermes.svg",
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.mmd"]),
+    visibility = ["//infra/archive:__pkg__"],
+    deps = [":docs_assets"],
+)
+
+docs_filegroup(
+    name = "docs_assets",
+    srcs = [
+        ":harvester",
+        ":hermes",
+        ":opencode",
+    ],
+    prefix = "content/docs/infra/archive/docs/assets",
+)

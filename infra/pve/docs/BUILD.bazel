@@ -1,0 +1,23 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_site_svg")
+
+mermaid_site_svg(
+    name = "archive_proxmox",
+    src = "archive-proxmox.mmd",
+    out = "rendered/archive-proxmox.svg",
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.mmd"]),
+    visibility = ["//infra/pve:__pkg__"],
+    deps = [":docs_assets"],
+)
+
+docs_filegroup(
+    name = "docs_assets",
+    srcs = [
+        ":archive_proxmox",
+    ],
+    prefix = "content/docs/infra/pve/docs/assets",
+)

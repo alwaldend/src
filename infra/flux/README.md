@@ -8,6 +8,13 @@ tags:
   - k3s
 ---
 
+## Architecture
+
+This diagram describes the maintained architecture source, not live inventory or service health.
+The [Mermaid source](docs/architecture.mmd) is authoritative; Bazel renders its light and dark SVGs.
+
+[![Flux architecture](docs/assets/architecture.svg)](docs/assets/architecture.svg)
+
 ## Links
 
 - Site: https://fluxcd.io/
