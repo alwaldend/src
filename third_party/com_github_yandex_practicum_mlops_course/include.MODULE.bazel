@@ -1,0 +1,10 @@
+http_archive = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
+http_archive(
+    name = "com_github_yandex_practicum_mlops_course",
+    build_file = "//third_party/com_github_yandex_practicum_mlops_course:course.BUILD.bazel",
+    integrity = "sha256-3NRZHMbox0tcPDoWiMJL1d6QSeGTtx0g8ARyJliKgas=",
+    strip_prefix = "mlops-course-74dc45062f43f9b4abfbca738ffa6b56db4d5daa",
+    type = "tar.gz",
+    urls = ["https://codeload.github.com/Yandex-Practicum/mlops-course/tar.gz/74dc45062f43f9b4abfbca738ffa6b56db4d5daa"],
+)

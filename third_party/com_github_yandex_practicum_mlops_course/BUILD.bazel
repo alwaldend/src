@@ -1,0 +1,18 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+
+exports_files(
+    ["course.BUILD.bazel"],
+    visibility = ["//:__subpackages__"],
+)
+
+alias(
+    name = "source",
+    actual = "@com_github_yandex_practicum_mlops_course//:source",
+    visibility = ["//:__subpackages__"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//third_party:__pkg__"],
+)
