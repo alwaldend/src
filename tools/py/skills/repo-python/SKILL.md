@@ -119,19 +119,25 @@ packages into the host environment for validation.
 
 Use repo-external-dependency for dependency approval and pinning. Root Python
 dependencies are declared in tools/py/pyproject.toml and locked in
-tools/py/requirements.txt.
+tools/py/uv.lock.
+Locks use Bazel-managed uv through upstream `@rules_python//python/uv:lock.bzl`.
+Select native locking with `out = "uv.lock"`; preserve hashes and extras.
+Use the update targets below rather than host
+pip-tools or uv installs.
 Component-specific manifests retain their own ownership; inspect their wiring
 in tools/py/include.MODULE.bazel before changing them.
 
 For root dependency changes, use the owning workflows in order:
 
 ```sh
-bazel_agent bazel run //tools/py:requirements.update
+bazel_agent bazel run //tools/py:uv_lock.update
 bazel_agent bazel run //tools/gazelle:gazelle_python_manifest.update
 bazel_agent bazel run //:gazelle
 ```
 
-Do not hand-edit requirements.txt or gazelle_python.yaml. Review generated
+Do not hand-edit uv.lock or gazelle_python.yaml. Bazel imports the native lock
+with pip.parse's uv_lock attribute; Gazelle uses its lockfiles attribute.
+Review generated
 diffs, including transitive packages and import mappings. Preserve requested
 extras. Gazelle wires Python imports to Bazel dependencies; declare runtime
 resources in data and inspect generated entry points and library boundaries.
@@ -140,8 +146,10 @@ resources in data and inspect generated entry points and library boundaries.
 
 Use bazel-agent and repo-bazel for pinned execution, package checks, and
 semantic lint. Validate root dependency changes with
-//tools/py:requirements.test and //tools/gazelle:gazelle_python_manifest.test,
-plus affected consumers. Prefer repeatable end-to-end artifacts for complex
-behavior and follow the root test policy before implementing isolated tests.
+//tools/py:uv_lock (a build target), review the regenerated lock diff, and
+run //tools/gazelle:gazelle_python_manifest.test plus affected consumers.
+Upstream uv locking has no test target because resolution depends on the package
+index. Prefer repeatable end-to-end artifacts for complex behavior and follow
+the root test policy before implementing isolated tests.
 Complete repo-delivery's publication gates. Offline skill eval validation proves
 configuration and packaging, not that an agent follows these instructions.

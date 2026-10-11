@@ -1,5 +1,17 @@
 load("@bazel_skylib//rules:build_test.bzl", "build_test")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("@rules_python//python/uv:lock.bzl", "lock")
+
+exports_files(
+    ["uv.lock"],
+    visibility = ["//:__pkg__"],
+)
+
+lock(
+    name = "uv_lock",
+    srcs = ["pyproject.toml"],
+    out = "uv.lock",
+)
 
 build_test(
     name = "build_test",

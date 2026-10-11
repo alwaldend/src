@@ -1,0 +1,12 @@
+[project]
+name = "com-alwaldend-src-infinitime-tools"
+version = "0.0.0"
+requires-python = ">=3.10, <4"
+dependencies = [
+  "Pillow",
+  "adafruit-nrfutil",
+  "cryptography>=2.6",
+  "intelhex",
+  "click",
+  "cbor>=1.0.0",
+]

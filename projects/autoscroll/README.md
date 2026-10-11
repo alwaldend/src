@@ -56,11 +56,18 @@ If `--scrolling-acceleration` is 0, the speed of scrolling will be constant
 #### Use the package
 
 ```bash
-python3 -m venv venv
+uv venv venv
 . venv/bin/activate
-pip install autoscroll
+uv pip install autoscroll
 autoscroll
 ```
+
+Repository Python dependencies use the shared [uv locking workflow](../../tools/py/README.md).
+Dependencies are declared in `pyproject.toml` and locked in `uv.lock`.
+Update the native lock with `//projects/autoscroll:uv_lock.update` and
+review its diff. Build `//projects/autoscroll:uv_lock` to generate it
+without source writes.
+The sandboxed resolution action requires network access to PyPI.
 
 #### Command line options
 

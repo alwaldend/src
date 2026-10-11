@@ -2,17 +2,38 @@
   tags:
     - k3s_bootstrap
   block:
-    - name: Ensure python3-venv is present
+    - name: Install Python and uv
       ansible.builtin.package:
         name:
-          - python3-venv
+          - python3
+          - uv
         state: present
-    - name: Create venv
-      ansible.builtin.pip:
-        name:
+    - name: Create the Kubernetes virtual environment
+      ansible.builtin.command:
+        argv:
+          - uv
+          - venv
+          - --python
+          - python3
+          - --no-python-downloads
+          - "{{ k3s_bootstrap_venv_dir }}"
+        creates: "{{ k3s_bootstrap_venv_bin }}"
+    - name: Install the Kubernetes Python package
+      register: k3s_bootstrap_install_result
+      changed_when: >-
+        k3s_bootstrap_install_result.stderr is
+        search('(?m)^(Installed|Uninstalled) [1-9][0-9]* packages? in ')
+      ansible.builtin.command:
+        argv:
+          - uv
+          - --color
+          - never
+          - --no-progress
+          - pip
+          - install
+          - --python
+          - "{{ k3s_bootstrap_venv_bin }}"
           - kubernetes
-        virtualenv: "{{ k3s_bootstrap_venv_dir }}"
-        virtualenv_command: python3 -m venv
     - name: Create kubernetes resources
       kubernetes.core.k8s:
         definition: "{{ lookup('kubernetes.core.kustomize', dir=k3s_bootstrap_apply_path) }}"

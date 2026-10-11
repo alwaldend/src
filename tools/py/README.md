@@ -9,10 +9,27 @@ tags:
 ---
 
 This package owns the repository Python dependency manifest `pyproject.toml`
-and lock `requirements.txt`. Update it with `//tools/py:requirements.update` and validate
-it with `//tools/py:requirements.test`; the root labels remain compatibility
-entry points. These upstream pip-tools workflows require network access to
-resolve and validate package versions and run outside the action sandbox.
+and native `uv.lock`. Update it with `//tools/py:uv_lock.update`; root
+`//:uv_lock.update` is an alias. Bazel's `pip.parse` reads `uv.lock` directly,
+and Gazelle uses that same lock to validate its import manifest. There are no
+requirements-file exports or separately maintained pip locks.
+
+BUILD files load `lock` directly from `@rules_python//python/uv:lock.bzl` with
+`out = "uv.lock"`, which selects native `uv lock`. Build `uv_lock` to regenerate
+the lock without modifying source. Run `uv_lock.update` to replace the checked-in
+file, then review package versions, hashes and platform/Python markers. Extras
+are declared in `pyproject.toml` and retained in the native lock.
+
+The same workflow owns component-local manifests and locks in `//tools/ansible`,
+`//tools/ykman`, `//projects/autoscroll` and `//projects/infinitime`. Update each
+through its own `uv_lock.update` target. Lock generation needs PyPI access, so
+only the upstream resolution action carries `requires-network`; it remains
+sandboxed. All locking targets are manual. Normal consumers use checked-in
+locks without running resolution, and there is no custom lock freshness test.
+
+`include.MODULE.bazel` pins uv and Python 3.14.4, the newest stable runtime in
+rules_python 2.4.2's bundled version catalog. This updates Bazel-managed Python
+without changing the host interpreter or adding a custom runtime archive.
 
 The root `pyproject.toml` contains only shared tool settings. Ruff and other
 Python tools discover it from source packages, and the repository checker

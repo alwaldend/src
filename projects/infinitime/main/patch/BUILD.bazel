@@ -1,7 +1,10 @@
 load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
 
 exports_files(
-    ["cmake_toolchain.patch"],
+    [
+        "cmake_toolchain.patch",
+        "native_uv.patch",
+    ],
     visibility = ["//:__pkg__"],
 )
 

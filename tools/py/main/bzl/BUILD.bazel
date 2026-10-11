@@ -4,10 +4,6 @@ load("//tools/bzl/main/bzl:al_bzl_library_map.bzl", "al_bzl_library_map")
 al_bzl_library_map(
     name = "libs",
     libs = {
-        "al_compile_pip_requirements_combined": [
-            "//tools/txt/main/bzl:al_combine_files",
-            "@rules_python//python:pip_bzl",
-        ],
         "al_genrule_with_wheels": [],
         "al_py_binary_shell": [
             "@rules_python//python:py_binary_bzl",

@@ -41,9 +41,13 @@
     - type: llm-rubric
       value: >-
         Updates tools/py/pyproject.toml, preserves the standard extra, regenerates
-        tools/py/requirements.txt through tools/py:requirements.update, then updates
+        tools/py/uv.lock through tools/py:uv_lock.update, then updates
         the Gazelle Python manifest and runs Gazelle through bazel_agent.
         Reviews generated diffs and validates locks and affected consumers.
+        Uses native uv lock and Bazel's uv_lock and Gazelle's lockfiles inputs,
+        preserving hashes and extras without exporting requirements.txt.
+        Uses upstream uv lock directly; building the lock
+        does not modify source files, and upstream provides no lock test target.
         Does not hand-edit generated locks or install into host Python.
 
 - description: Requires namespaced Python imports

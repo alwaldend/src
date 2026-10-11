@@ -1,3 +1,5 @@
+"""Parse grouped Autoscroll options and format their command-line help."""
+
 import argparse
 import typing
 
@@ -46,6 +48,8 @@ class ArgparseFormatter(argparse.HelpFormatter):
         """
         if not action.option_strings:
             return self._metavar_formatter(action, action.dest)(1)[0]
+        if action.nargs == 0:
+            return ", ".join(action.option_strings)
         # option takes no arguments -> -s, --long
         # option takes arguments:
         #    default output -> -s ARGS, --long ARGS
