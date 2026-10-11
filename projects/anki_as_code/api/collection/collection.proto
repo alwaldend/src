@@ -2,6 +2,9 @@ syntax = "proto3";
 
 package anki_as_code.collection;
 
+import "anki/decks.proto";
+import "anki/notetypes.proto";
+
 option go_package = "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/collection;collectionpb";
 
 // These messages define the editable TOML and plan JSON contracts. Database
@@ -13,27 +16,10 @@ message CollectionConfig {
   int64 format_version = 1;
   // DecksPath locates the recursively discovered deck markers relative to this config.
   string decks_path = 2;
-  // NoteTypesPath locates note-type appearance files relative to this config.
+  // NoteTypesPath locates note-type settings files relative to this config.
   string note_types_path = 3;
   // NotesPath optionally locates notes without managed cards relative to this config.
   optional string notes_path = 4;
-}
-
-// DeckConfig describes a regular deck's configuration and preserves its
-// scheduling preset reference and unknown configuration fields.
-message DeckConfig {
-  // ConfigID references the existing Anki scheduling preset; the preset itself is unmanaged.
-  uint64 config_id = 1;
-  // ExtendNew stores the deck's new-card limit extension.
-  uint64 extend_new = 2;
-  // ExtendReview stores the deck's review-card limit extension.
-  uint64 extend_review = 3;
-  // Description contains the deck description displayed by Anki.
-  string description = 4;
-  // MarkdownDescription selects Markdown rendering for Description.
-  bool markdown_description = 5;
-  // ExtraFieldsBase64 preserves unmanaged protobuf members separately from editable fields.
-  optional string extra_fields_base64 = 6;
 }
 
 // Deck describes an Anki deck, its configuration, and the location of its notes.
@@ -46,9 +32,11 @@ message Deck {
   // NotesPath locates this deck's notes relative to its marker file.
   string notes_path = 3;
   // Normal contains regular-deck settings and is nil for filtered decks.
-  DeckConfig normal = 4;
-  // FilteredBase64 preserves filtered-deck configuration; it does not describe resident cards.
-  optional string filtered_base64 = 5;
+  anki.decks.Deck.Normal normal = 4;
+  reserved 5;
+  reserved "filtered_base64";
+  // Filtered exposes upstream filtered-deck settings without managing resident cards.
+  anki.decks.Deck.Filtered filtered = 6;
 }
 
 // Card identifies a card generated from a note and its template ordinal and deck.
@@ -68,7 +56,7 @@ message Note {
   int64 note_id = 1;
   // GUID preserves the Anki note identity used across collections.
   string guid = 2;
-  // TypeID references the existing upstream note-type identity.
+  // TypeID references a declared note-type identity.
   int64 note_type_id = 3;
   // TypeName records the note-type name for readable declarations and validation.
   string note_type = 4;
@@ -80,42 +68,35 @@ message Note {
   map<string, string> fields = 7;
 }
 
-// NoteTypeAppearance describes editable CSS and card templates for a note type,
-// without changing its field structure or scheduling profiles.
-message NoteTypeAppearance {
-  // ID references the existing note type whose appearance is edited.
+// NoteTypeSettings declares a note type, its ordered fields, and card templates.
+message NoteTypeSettings {
+  // ID identifies the note type; new declarations may allocate an identity.
   int64 id = 1;
-  // Name records the existing note-type name for validation.
+  // Name is the editable note-type title.
   string name = 2;
-  // CSS contains the shared stylesheet applied to this note type's cards.
-  string css = 3;
-  // Templates contains appearance settings for the existing card templates.
-  repeated TemplateAppearance templates = 4;
+  // Config reuses upstream note-type configuration.
+  anki.notetypes.Notetype.Config config = 3;
+  // Templates contains the explicit card template declarations.
+  repeated TemplateSettings templates = 4;
+  // Fields contains upstream field definitions in their desired storage order.
+  repeated anki.notetypes.Notetype.Field fields = 5;
 }
 
-// TemplateAppearance describes the rendering and browser display of one card template.
-message TemplateAppearance {
-  // Ord identifies the existing template by its zero-based ordinal.
+// TemplateSettings declares a card template at its desired storage ordinal.
+message TemplateSettings {
+  // Ord identifies the template by its zero-based ordinal.
   int64 ordinal = 1;
-  // Name records the existing template name for validation.
+  // Name is the editable template title.
   string name = 2;
-  // Front contains the question-side HTML template.
-  string front = 3;
-  // Back contains the answer-side HTML template.
-  string back = 4;
-  // BrowserFront contains the question template used in Anki's browser.
-  string browser_front = 5;
-  // BrowserBack contains the answer template used in Anki's browser.
-  string browser_back = 6;
-  // BrowserFont names the font used for this template in Anki's browser.
-  string browser_font = 7;
-  // BrowserFontSize stores the browser font size from the upstream template configuration.
-  uint32 browser_font_size = 8;
+  reserved 3 to 8;
+  reserved "front", "back", "browser_front", "browser_back", "browser_font", "browser_font_size";
+  // Config reuses upstream template configuration.
+  anki.notetypes.Notetype.Template.Config config = 9;
 }
 
 // CollectionChange identifies a planned action on one managed collection resource.
 message CollectionChange {
-  // Resource identifies the resource kind: note, card, deck, or appearance.
+  // Resource identifies the resource kind: note, card, deck, or note_type.
   string resource = 1;
   // ID identifies the resource; deck changes use the Anki title.
   string id = 2;
@@ -125,8 +106,8 @@ message CollectionChange {
 
 // CollectionChangePlan summarizes the actions needed to reconcile current and desired state.
 message CollectionChangePlan {
-  // AppearanceChanged counts note types with appearance edits.
-  int64 appearance_changed = 1;
+  reserved 1;
+  reserved "appearance_changed";
   // NotesAdded counts new notes.
   int64 notes_added = 2;
   // NotesChanged counts notes with field or tag edits.
@@ -147,4 +128,10 @@ message CollectionChangePlan {
   int64 decks_deleted = 10;
   // Changes contains individual actions sorted by resource kind and identity.
   repeated CollectionChange changes = 11;
+  // NoteTypesAdded counts new note types.
+  int64 note_types_added = 12;
+  // NoteTypesChanged counts note types with settings or structural edits.
+  int64 note_types_changed = 13;
+  // NoteTypesDeleted counts note types absent from desired state.
+  int64 note_types_deleted = 14;
 }

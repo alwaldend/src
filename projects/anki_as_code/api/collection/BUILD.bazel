@@ -8,6 +8,10 @@ proto_library(
     name = "collection_proto",
     srcs = ["collection.proto"],
     visibility = ["//projects/anki_as_code:__subpackages__"],
+    deps = [
+        "//third_party/com_github_ankitects_anki:decks_proto",
+        "//third_party/com_github_ankitects_anki:notetypes_proto",
+    ],
 )
 
 go_proto_library(
@@ -15,6 +19,10 @@ go_proto_library(
     importpath = "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/collection",
     proto = ":collection_proto",
     visibility = ["//projects/anki_as_code:__subpackages__"],
+    deps = [
+        "//third_party/com_github_ankitects_anki:decks",
+        "//third_party/com_github_ankitects_anki:notetypes",
+    ],
 )
 
 go_library(

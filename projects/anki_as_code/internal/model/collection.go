@@ -10,6 +10,6 @@ type CollectionDesiredState struct {
 	Notes []Note
 	// Decks contains the complete desired set of deck declarations.
 	Decks []Deck
-	// Appearance contains the desired CSS and existing card-template settings.
-	Appearance []*collectionpb.NoteTypeAppearance
+	// NoteTypes contains the complete desired set of note-type settings declarations.
+	NoteTypes []*collectionpb.NoteTypeSettings
 }

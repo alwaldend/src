@@ -1,0 +1,34 @@
+load("@rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "validation",
+    srcs = [
+        "desired.go",
+        "doc.go",
+        "note.go",
+        "notetypes.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/validation",
+    visibility = ["//projects/anki_as_code/internal:__subpackages__"],
+    deps = [
+        "//projects/anki_as_code/api/collection",
+        "//projects/anki_as_code/internal/ankiformat",
+        "//projects/anki_as_code/internal/model",
+        "//third_party/com_github_ankitects_anki:notetypes",
+        "@org_golang_google_protobuf//proto",
+    ],
+)
+
+go_test(
+    name = "workflow_test",
+    srcs = ["workflow_test.go"],
+    deps = [
+        ":validation",
+        "//projects/anki_as_code/api/collection",
+        "//projects/anki_as_code/internal/ankiformat",
+        "//projects/anki_as_code/internal/model",
+        "//third_party/com_github_ankitects_anki:decks",
+        "//third_party/com_github_ankitects_anki:notetypes",
+        "@org_golang_google_protobuf//proto",
+    ],
+)

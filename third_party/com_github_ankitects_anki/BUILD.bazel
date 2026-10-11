@@ -19,3 +19,15 @@ alias(
     actual = "@com_github_ankitects_anki//:notetypes",
     visibility = ["//projects/anki_as_code:__subpackages__"],
 )
+
+alias(
+    name = "decks_proto",
+    actual = "@com_github_ankitects_anki//:decks_proto",
+    visibility = ["//projects/anki_as_code:__subpackages__"],
+)
+
+alias(
+    name = "notetypes_proto",
+    actual = "@com_github_ankitects_anki//:notetypes_proto",
+    visibility = ["//projects/anki_as_code:__subpackages__"],
+)
