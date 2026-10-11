@@ -39,6 +39,17 @@
             },
             "dsp": ["all"]
         },
+        "work1": {
+            "A": {
+                "name": "work1.nodes.threexui",
+                "address": "45.142.142.192"
+            },
+            "AAAA": {
+                "name": "work1.nodes.threexui",
+                "address": "2a0a:3840:8078:142::2d8e:8ec0:1337"
+            },
+            "dsp": ["all"]
+        },
         "yc1": {
             "CNAME": {
                 "name": "yc1.nodes.threexui",

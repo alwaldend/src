@@ -1,14 +1,15 @@
 locals {
+  mullvad_min_shared = [
+    "nl-ams-wg-008",
+    "us-sjc-wg-003",
+    "sg-sin-wg-003",
+    "de-dus-wg-003",
+    "fr-mrs-wg-002",
+  ]
   nodes = {
     njalla1 = {
-      address = "njalla1.nodes.threexui.alwaldend.com"
-      mullvad_min = [
-        "nl-ams-wg-008",
-        "us-sjc-wg-003",
-        "sg-sin-wg-003",
-        "de-dus-wg-003",
-        "fr-mrs-wg-002",
-      ]
+      address     = "njalla1.nodes.threexui.alwaldend.com"
+      mullvad_min = local.mullvad_min_shared
     }
     yc1 = {
       address = "yc1.nodes.threexui.alwaldend.com"
@@ -18,6 +19,13 @@ locals {
         "ca-mtr-wg-301",
         "jp-osa-wg-102",
         "nz-akl-wg-302",
+      ]
+    }
+    work1 = {
+      address = "work1.nodes.threexui.alwaldend.com"
+      mullvad_min = [
+        for relay in local.mullvad_min_shared :
+        relay == "de-dus-wg-003" ? "de-fra-wg-001" : relay
       ]
     }
   }
@@ -33,6 +41,13 @@ provider "threexui" {
 provider "threexui" {
   alias    = "yc1"
   endpoint = "https://${local.nodes.yc1.address}${var.node_xui_base_path}"
+  username = var.node_xui_username
+  password = var.node_xui_password
+}
+
+provider "threexui" {
+  alias    = "work1"
+  endpoint = "https://${local.nodes.work1.address}${var.node_xui_base_path}"
   username = var.node_xui_username
   password = var.node_xui_password
 }
@@ -64,6 +79,21 @@ module "node_yc1" {
   xui_password  = var.node_xui_password
   mullvad_key   = var.mullvad_keys["yc1"]
   mullvad_min   = local.nodes.yc1.mullvad_min
+  http_proxies  = var.http_proxies
+}
+
+module "node_work1" {
+  source = "./node"
+  providers = {
+    threexui = threexui.work1
+  }
+  xui_base_path = var.node_xui_base_path
+  xui_address   = local.nodes.work1.address
+  xui_url       = "https://${local.nodes.work1.address}${var.node_xui_base_path}"
+  xui_username  = var.node_xui_username
+  xui_password  = var.node_xui_password
+  mullvad_key   = var.mullvad_keys["work1"]
+  mullvad_min   = local.nodes.work1.mullvad_min
   http_proxies  = var.http_proxies
 }
 
