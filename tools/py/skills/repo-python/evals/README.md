@@ -4,7 +4,9 @@ title: Repository Python skill evaluations
 
 The offline target validates the Promptfoo configuration, cases, and staged
 skill without model calls. Cases cover mandatory annotations, Python support
-boundaries, namespaced imports, extras, dependency locking, and Gazelle regeneration.
+boundaries, namespaced imports, extras, dependency locking, Gazelle regeneration,
+and justified public APIs with private helpers and required framework or
+serialization names.
 
 Live evaluation is omitted because representative behavior requires a
 fixture checkout and tool access to the pinned Bazel generators and Python

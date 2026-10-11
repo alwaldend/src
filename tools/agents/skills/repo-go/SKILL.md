@@ -18,6 +18,19 @@ Avoid `init()` functions. Initialize components explicitly from their owning
 entry point so ordering is visible and failures can be returned with context.
 Keep methods in the same source file as the declaration of their receiver type.
 
+## Export only deliberate APIs
+
+Keep types, functions, methods, constants, package variables, and struct fields
+unexported by default. Export a declaration only for an actual cross-package
+consumer or a defined public API, interface, framework, or serialization
+contract. Make that reason clear in its API documentation or the change
+rationale. Same-package use, access from tests alone, and hypothetical future
+reuse do not justify exporting implementation details. This also applies to
+packages under `internal`; their cross-package APIs should remain small.
+Before narrowing existing visibility, check callers and required contracts;
+preserve established public APIs and required exported names. Do not edit
+generated declarations to change visibility.
+
 ## Document package boundaries
 
 Every first-party Go package must have one package documentation comment in
