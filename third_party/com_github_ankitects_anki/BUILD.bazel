@@ -1,6 +1,10 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 
-exports_files(["anki.BUILD.bazel"])
+exports_files([
+    "Cargo.lock",
+    "anki.BUILD.bazel",
+    "native.bzl",
+])
 
 docs_filegroup(
     name = "docs",
@@ -8,14 +12,87 @@ docs_filegroup(
     visibility = ["//third_party:__pkg__"],
 )
 
+package_group(
+    name = "native_build_consumers",
+    packages = ["//projects/anki_grpc/cmd/anki_grpc"],
+)
+
+package_group(
+    name = "schema_consumers",
+    packages = [
+        "//projects/anki_as_code/...",
+        "//projects/anki_grpc/test/transport",
+    ],
+)
+
+alias(
+    name = "protos",
+    actual = "@com_github_ankitects_anki//:protos",
+    visibility = [":schema_consumers"],
+)
+
 alias(
     name = "decks",
     actual = "@com_github_ankitects_anki//:decks",
-    visibility = ["//projects/anki_as_code:__subpackages__"],
+    visibility = [":schema_consumers"],
 )
 
 alias(
     name = "notetypes",
     actual = "@com_github_ankitects_anki//:notetypes",
-    visibility = ["//projects/anki_as_code:__subpackages__"],
+    visibility = [":schema_consumers"],
+)
+
+alias(
+    name = "descriptors",
+    actual = "@com_github_ankitects_anki//:descriptors",
+    visibility = [":native_build_consumers"],
+)
+
+alias(
+    name = "native",
+    actual = "@com_github_ankitects_anki//:anki",
+    visibility = [":native_build_consumers"],
+)
+
+alias(
+    name = "proto_gen",
+    actual = "@com_github_ankitects_anki//:anki_proto_gen",
+    visibility = [":native_build_consumers"],
+)
+
+alias(
+    name = "prost_reflect",
+    actual = "@com_github_ankitects_anki_crates//:prost-reflect",
+    visibility = [":native_build_consumers"],
+)
+
+alias(
+    name = "backend",
+    actual = "@com_github_ankitects_anki//:backend",
+    visibility = [":schema_consumers"],
+)
+
+alias(
+    name = "cards",
+    actual = "@com_github_ankitects_anki//:cards",
+    visibility = [":schema_consumers"],
+)
+
+alias(
+    name = "collection",
+    actual = "@com_github_ankitects_anki//:collection",
+    visibility = [":schema_consumers"],
+)
+
+alias(
+    name = "generic",
+    actual = "@com_github_ankitects_anki//:generic",
+    visibility = [":schema_consumers"],
+)
+
+alias(
+    name = "notes",
+    actual = "@com_github_ankitects_anki//:notes",
+    visibility = [":schema_consumers"],
 )

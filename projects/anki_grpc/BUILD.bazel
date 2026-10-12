@@ -1,0 +1,29 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+
+alias(
+    name = "anki_grpc",
+    actual = "//projects/anki_grpc/cmd/anki_grpc",
+    visibility = [":server_consumers"],
+)
+
+alias(
+    name = "clippy",
+    actual = "//projects/anki_grpc/cmd/anki_grpc:clippy",
+    visibility = ["//:__subpackages__"],
+)
+
+package_group(
+    name = "server_consumers",
+    packages = [
+        "//projects/anki_as_code/internal/ankiapi",
+        "//projects/anki_grpc/releases",
+        "//projects/anki_grpc/test/transport",
+    ],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//projects:__pkg__"],
+    deps = ["//projects/anki_grpc/releases:docs"],
+)

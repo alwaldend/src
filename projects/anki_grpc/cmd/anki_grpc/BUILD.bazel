@@ -1,0 +1,52 @@
+load("@rules_rust//cargo:defs.bzl", "cargo_build_script")
+load("@rules_rust//rust:defs.bzl", "rust_binary", "rust_clippy")
+
+cargo_build_script(
+    name = "command_ids",
+    srcs = ["build.rs"],
+    build_script_env = {
+        "DESCRIPTORS_BIN": "$(execpath //third_party/com_github_ankitects_anki:descriptors)/anki_descriptors.bin",
+    },
+    crate_root = "build.rs",
+    data = ["//third_party/com_github_ankitects_anki:descriptors"],
+    edition = "2021",
+    use_cc_toolchain = False,
+    deps = [
+        "//third_party/com_github_ankitects_anki:prost_reflect",
+        "//third_party/com_github_ankitects_anki:proto_gen",
+    ],
+)
+
+rust_binary(
+    name = "anki_grpc",
+    srcs = [
+        "cli.rs",
+        "main.rs",
+    ],
+    crate_root = "main.rs",
+    edition = "2021",
+    rustc_flags = ["-Cpanic=abort"],
+    target_compatible_with = [
+        "@platforms//os:linux",
+        "@platforms//cpu:x86_64",
+    ],
+    visibility = ["//projects/anki_grpc:__pkg__"],
+    deps = [
+        ":command_ids",
+        "//third_party/com_github_ankitects_anki:native",
+        "@com_github_ankitects_anki_crates//:bytes",
+        "@com_github_ankitects_anki_crates//:hyper",
+        "@com_github_ankitects_anki_crates//:hyper-util",
+        "@com_github_ankitects_anki_crates//:tokio",
+        "@com_github_ankitects_anki_crates//:tonic",
+    ],
+)
+
+rust_clippy(
+    name = "clippy",
+    visibility = ["//projects/anki_grpc:__pkg__"],
+    deps = [
+        ":anki_grpc",
+        ":command_ids_",
+    ],
+)
