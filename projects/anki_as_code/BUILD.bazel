@@ -1,4 +1,5 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_site_svg", "mermaid_site_webp")
 
 alias(
     name = "anki_as_code",
@@ -10,4 +11,26 @@ docs_filegroup(
     name = "docs",
     srcs = ["README.md"],
     visibility = ["//projects:__pkg__"],
+    deps = [":docs_assets"],
+)
+
+mermaid_site_svg(
+    name = "backend_approaches",
+    src = "backend-approaches.mmd",
+    out = "rendered/backend-approaches.svg",
+)
+
+docs_filegroup(
+    name = "docs_assets",
+    srcs = [":backend_approaches"],
+    prefix = "content/docs/projects/anki_as_code/assets",
+)
+
+mermaid_site_webp(
+    name = "backend_approaches_preview",
+    src = "backend-approaches.mmd",
+    out = "rendered/backend-approaches.webp",
+    aspect_ratio = [],
+    color_scheme = "dark",
+    tags = ["manual"],
 )

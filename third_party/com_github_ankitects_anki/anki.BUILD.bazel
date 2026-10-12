@@ -38,6 +38,10 @@ _SCHEMAS = {
 [
     go_proto_library(
         name = name,
+        compilers = [
+            "@rules_go//proto:go_grpc_v2",
+            "@rules_go//proto:go_proto",
+        ],
         importpath = "github.com/ankitects/anki/proto/anki/" + name,
         proto = ":" + name + "_proto",
         deps = [":" + dependency for dependency in dependencies],

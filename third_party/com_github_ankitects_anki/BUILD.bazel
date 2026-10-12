@@ -21,6 +21,7 @@ package_group(
     name = "schema_consumers",
     packages = [
         "//projects/anki_as_code/...",
+        "//projects/anki_grpc/pkg/backend",
         "//projects/anki_grpc/test/transport",
     ],
 )

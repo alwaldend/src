@@ -1,0 +1,32 @@
+flowchart LR
+    subgraph translated["Approach 4"]
+        direction LR
+        other_app[Application] --> bridge[Translation layer<br/>ABI/gRPC/Other]
+        bridge --> native_api[Anki Rust API<br/>Complex build from source]
+        native_api --> translated_storage["Storage<br/>SQLite (with Protobuf)"]
+    end
+    other_note@{ shape: notch-rect, label: "Seems like a<br/>reasonable approach" }
+    translated ~~~ other_note
+
+    subgraph rust["Approach 3"]
+        direction LR
+        rust_app[Application<br/>Rust] --> rust_api[Anki Rust API<br/>Complex build from source]
+        rust_api --> rust_storage["Storage<br/>SQLite (with Protobuf)"]
+    end
+    rust_note@{ shape: notch-rect, label: "Don't feel like learning<br/>Rust for this" }
+    rust ~~~ rust_note
+
+    subgraph python["Approach 2"]
+        direction LR
+        python_app[Application<br/>Python] --> python_sdk[Official Anki Python SDK]
+        python_sdk --> python_storage["Storage<br/>SQLite (with Protobuf)"]
+    end
+    python_note@{ shape: notch-rect, label: "Python" }
+    python ~~~ python_note
+
+    subgraph direct["Approach 1"]
+        direction LR
+        direct_app[Application] --> direct_storage["Storage<br/>SQLite (with Protobuf)"]
+    end
+    direct_note@{ shape: notch-rect, label: "Brittle<br/>Duplication of business logic" }
+    direct ~~~ direct_note
