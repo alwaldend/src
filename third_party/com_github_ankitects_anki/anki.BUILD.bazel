@@ -1,7 +1,16 @@
 load("@protobuf//bazel:proto_library.bzl", "proto_library")
 load("@rules_go//proto:def.bzl", "go_proto_library")
+load("@@//third_party/com_github_ankitects_anki:native.bzl", "anki_crate")
 
 package(default_visibility = ["@//third_party/com_github_ankitects_anki:__pkg__"])
+
+exports_files(["Cargo.toml", "Cargo.lock", ".version"])
+
+proto_library(
+    name = "protos",
+    srcs = glob(["proto/anki/**/*.proto"]),
+    strip_import_prefix = "proto",
+)
 
 # Compile the unmodified upstream schemas and their complete import closure.
 _SCHEMAS = {
@@ -10,12 +19,17 @@ _SCHEMAS = {
     "collection": ["generic", "sync"],
     "decks": ["generic", "collection"],
     "notetypes": ["generic", "collection"],
+    "cards": ["collection"],
+    "notes": ["notetypes", "collection", "decks", "cards"],
+    "links": ["generic"],
+    "backend": ["links"],
 }
 
 [
     proto_library(
         name = name + "_proto",
-        srcs = ["anki/" + name + ".proto"],
+        srcs = ["proto/anki/" + name + ".proto"],
+        strip_import_prefix = "proto",
         deps = [":" + dependency + "_proto" for dependency in dependencies],
     )
     for name, dependencies in _SCHEMAS.items()
@@ -30,3 +44,52 @@ _SCHEMAS = {
     )
     for name, dependencies in _SCHEMAS.items()
 ]
+
+
+# Cargo supplies external dependencies; Bazel wires the workspace members.
+anki_crate(
+    name = "anki_io",
+    path = "rslib/io",
+)
+
+anki_crate(
+    name = "anki_proto_gen",
+    path = "rslib/proto_gen",
+    deps = [":anki_io"],
+)
+
+anki_crate(
+    name = "anki_proto",
+    path = "rslib/proto",
+    build_deps = [":anki_io", ":anki_proto_gen"],
+    build_data = glob(["proto/**/*.proto"]),
+    build_env = {
+        "PROTOC": "$(execpath @protobuf//:protoc)",
+        "DESCRIPTORS_BIN": "$${pwd}/$(BINDIR)/external/" + repo_name() + "/anki_proto_build.out_dir/anki_descriptors.bin",
+    },
+    build_tools = ["@protobuf//:protoc"],
+)
+
+filegroup(
+    name = "descriptors",
+    srcs = [":anki_proto_build"],
+)
+
+anki_crate(
+    name = "anki_i18n",
+    path = "rslib/i18n",
+    deps = [":anki_io"],
+    build_deps = [":anki_io"],
+    build_data = glob(["ftl/**/*.ftl"]),
+)
+
+anki_crate(
+    name = "anki",
+    path = "rslib",
+    deps = [":anki_i18n", ":anki_io", ":anki_proto"],
+    build_deps = [":anki_io", ":anki_proto", ":anki_proto_gen"],
+    build_data = [":descriptors"],
+    build_env = {"DESCRIPTORS_BIN": "$(execpath :descriptors)/anki_descriptors.bin"},
+    features = ["rustls"],
+    compile_data = [".version"],
+)

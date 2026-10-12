@@ -1,10 +1,55 @@
-http_archive = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+git_repository = use_repo_rule("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 
-http_archive(
+git_repository(
     name = "com_github_ankitects_anki",
     build_file = "//third_party/com_github_ankitects_anki:anki.BUILD.bazel",
-    integrity = "sha256-MR3LQGYG3Mqg+flKWHAJmnd2kOGgVv7v49daS75OFBY=",
-    strip_prefix = "anki-26.09.3/proto",
-    type = "tar.gz",
-    urls = ["https://codeload.github.com/ankitects/anki/tar.gz/refs/tags/26.09.3"],
+    commit = "29bb700b951e3f0c0cb69b77c0180fc1fe33e6ba",
+    init_submodules = True,
+    recursive_init_submodules = True,
+    remote = "https://github.com/ankitects/anki.git",
 )
+
+anki_crates = use_extension("@rules_rust//crate_universe:extensions.bzl", "crate")
+anki_crates.annotation(
+    crate = "openssl-sys",
+    version = "0.9.116",
+    build_script_data = ["@org_openssl_openssl//:gen_dir"],
+    build_script_env = {
+        "OPENSSL_INCLUDE_DIR": "$(execpath @org_openssl_openssl//:gen_dir)/include",
+        "OPENSSL_LIB_DIR": "$(execpath @org_openssl_openssl//:gen_dir)/lib64",
+        "OPENSSL_STATIC": "1",
+    },
+    label_injections = {"@org_openssl_openssl//:gen_dir": "@org_openssl_openssl"},
+    link_deps = ["@org_openssl_openssl//:org_openssl_openssl"],
+)
+anki_crates.from_cargo(
+    name = "com_github_ankitects_anki_crates",
+    cargo_lockfile = "//third_party/com_github_ankitects_anki:Cargo.lock",
+    isolated = False,
+    manifests = ["@com_github_ankitects_anki//:Cargo.toml"],
+    supported_platform_triples = ["x86_64-unknown-linux-gnu"],
+)
+
+# Approved server dependencies join the upstream workspace during Cargo resolution.
+anki_crates.spec(package = "bytes", version = "=1.11.1")
+anki_crates.spec(
+    package = "hyper",
+    default_features = False,
+    features = ["http2", "server"],
+    version = "=1.7.0",
+)
+anki_crates.spec(
+    package = "hyper-util",
+    features = ["tokio"],
+    version = "=0.1.16",
+)
+anki_crates.spec(
+    package = "tokio",
+    features = ["io-std", "io-util", "macros", "net", "rt-multi-thread"],
+    version = "=1.47.1",
+)
+anki_crates.spec(package = "tonic", default_features = False, version = "=0.14.6")
+anki_crates.spec(package = "h2", version = "=0.4.20")
+anki_crates.spec(package = "tokio-stream", version = "=0.1.19")
+anki_crates.spec(package = "prost-reflect", version = "=0.14.7")
+use_repo(anki_crates, "com_github_ankitects_anki_crates")

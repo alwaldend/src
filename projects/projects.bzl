@@ -9,6 +9,7 @@ PROJECTS = [
     "al",
     "android_launcher",
     "anki_as_code",
+    "anki_grpc",
     "ansible_collection",
     "autoscroll",
     "bazel_agent",
