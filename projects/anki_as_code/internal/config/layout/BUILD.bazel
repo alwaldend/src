@@ -1,0 +1,20 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "layout",
+    srcs = [
+        "discovery.go",
+        "doc.go",
+        "export.go",
+        "files.go",
+        "load.go",
+        "notetypes.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/config/layout",
+    visibility = ["//projects/anki_as_code/internal/config:implementation_consumers"],
+    deps = [
+        "//projects/anki_as_code/api/collection",
+        "//projects/anki_as_code/internal/config/codec",
+        "@org_golang_google_protobuf//proto",
+    ],
+)

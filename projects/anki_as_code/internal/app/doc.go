@@ -1,4 +1,5 @@
-// Package app exposes collection operations consumed by the command tree.
+// Package app exposes configuration operations consumed by the command tree.
 //
-// It separates command input and output handling from collection processing.
+// It adapts pure text operations without Anki collection access. Collection
+// operation placeholders are implemented by the separate reconciliation change.
 package app

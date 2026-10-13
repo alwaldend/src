@@ -20,7 +20,7 @@ var (
 		name:  "input",
 		usage: "Collection archive or offline SQLite database",
 	}
-	// textFlag describes the desired declaration input used by reconciliation commands.
+	// textFlag describes the declaration input shared by configuration and collection commands.
 	textFlag = stringFlag{
 		name:  "text",
 		usage: "Collection root config or its containing directory",
@@ -34,11 +34,6 @@ var (
 	baseFlag = stringFlag{
 		name:  "base",
 		usage: "Original collection archive",
-	}
-	// collectionFlag describes the root config option used for identity reservation.
-	collectionFlag = stringFlag{
-		name:  "collection",
-		usage: "Root collection config for identity reservation, including external note paths",
 	}
 )
 

@@ -1,0 +1,22 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "config",
+    srcs = [
+        "config.go",
+        "doc.go",
+        "dump.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/config",
+    visibility = ["//projects/anki_as_code:config_consumers"],
+    deps = [
+        "//projects/anki_as_code/api/collection",
+        "//projects/anki_as_code/internal/config/codec",
+        "//projects/anki_as_code/internal/config/layout",
+    ],
+)
+
+package_group(
+    name = "implementation_consumers",
+    packages = ["//projects/anki_as_code/internal/config/..."],
+)
