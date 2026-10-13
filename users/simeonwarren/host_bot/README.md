@@ -50,6 +50,17 @@ output bases, repository contents, and install state; the volume group retains
 about 900 GiB for later growth or another logical volume. Because the volume is
 striped, either SSD failing invalidates the disposable cache.
 
+The managed bazelrc sets `GO_REPOSITORY_EPHEMERAL_MODCACHE=1`. Gazelle 0.53.0
+uses a temporary Go module cache for each module fetch and deletes it after
+materializing the repository. Pinned, reproducible Go repositories can then
+be reused through the shared Bazel repository-contents cache across worktrees.
+The variable saves duplicate download-cache space; it does not enable Bazel
+cache reuse. A repository-contents cache miss downloads the module again,
+including after changes to Gazelle or generation inputs. Gazelle's default
+instead retains module ZIPs within each output base while pruning extracted
+module trees. Explicit host module-cache settings take precedence over
+ephemeral mode.
+
 The managed user bazelrc limits each Bazel invocation to four concurrent jobs
 and budgets one quarter of the host CPUs for local actions. These scheduling limits
 apply to builds and tests; they do not impose a combined CPU cap across
@@ -136,6 +147,24 @@ T3 Code, set its `CODEX_HOME path` to
 `T3_MCP_BEARER_TOKEN` authenticates the Codex app-server's loopback MCP
 connection to T3 Code at `/mcp`. Codex excludes it from model-spawned commands
 so those subprocesses do not inherit the credential.
+
+## Cache cleaning
+
+`bazel_agent bazel clean` removes the current workspace's build outputs and
+resets its local action cache. Adding `--expunge` removes that workspace's
+entire output base and stops its Bazel server. Neither operation purges the
+shared action disk cache, repository-contents cache, or archive-download cache,
+so another worktree can continue reusing them.
+
+With the pinned Bazel 8.7.0, repository-contents garbage collection removes
+entries unused for 14 days after the server has been idle for five minutes,
+using the defaults of `--repo_contents_cache_gc_max_age` and
+`--repo_contents_cache_gc_idle_delay`. Routine manual cleanup of that cache
+is unnecessary. The action disk cache uses the managed 700-GiB cap described
+above. The archive-download cache at
+`/var/cache/bazel/output_user_root/cache/repos/v1` has no automatic cleanup
+configured and requires separate maintenance to reclaim its space. Gazelle's
+ephemeral module download cache is already deleted after each fetch.
 
 ## Architecture
 

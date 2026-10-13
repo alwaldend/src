@@ -7,5 +7,8 @@ common --experimental_disk_cache_gc_max_size=700G
 # worktree does not re-extract large toolchains such as the pinned LLVM
 # distribution. The repository cache still avoids the network download.
 common --repo_contents_cache=/var/cache/bazel/repo_contents_cache
+# Keep only the completed Go repositories in Bazel's shared contents cache;
+# discard Gazelle's temporary module downloads after each repository fetch.
+common --repo_env=GO_REPOSITORY_EPHEMERAL_MODCACHE=1
 build --local_resources=cpu=HOST_CPUS*0.25
 build --jobs=4
