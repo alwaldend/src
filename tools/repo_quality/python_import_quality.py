@@ -125,10 +125,21 @@ def main() -> None:
         check=True,
         timeout=15,
     )
+    attributes: subprocess.CompletedProcess[str] = subprocess.run(
+        ["git", "check-attr", "-z", "--stdin", "linguist-vendored"],
+        input=tracked.stdout,
+        cwd=workspace,
+        capture_output=True,
+        text=True,
+        check=True,
+        timeout=15,
+    )
+    entries: list[str] = attributes.stdout.split("\0")
     sources: list[str] = [
-        path
-        for path in tracked.stdout.split("\0")
-        if path and (workspace / path).is_file()
+        entries[index]
+        for index in range(0, len(entries) - 1, 3)
+        if entries[index + 2] not in {"set", "true"}
+        and (workspace / entries[index]).is_file()
     ]
     modules: set[str] = set()
     path: str
