@@ -47,3 +47,41 @@ bazel_agent bazel run //projects/anki_as_code:anki_as_code -- --help
 The collection implementation is developed separately in
 [PR #128](https://github.com/alwaldend/src/pull/128). Its end-to-end CLI test
 requires real note-identity generation and belongs with that implementation.
+
+## Anki backend API
+
+The reusable Go backend and Rust server belong to
+[projects/anki_grpc](../anki_grpc/README.md#go-backend). The Go package owns the
+server process and exposes a managed gRPC connection. Callers use Anki's generated
+service clients for typed methods. Anki owns collection validation, note updates,
+card generation, and persistence; this CLI owns TOML and reconciliation.
+
+## Integration approaches considered
+
+Direct storage editing has the simplest integration: an application edits
+SQLite and protobuf itself, taking responsibility for Anki's data invariants and
+business logic. The API-based approaches are Python with Anki's official SDK,
+Rust with Anki's Rust API, and another language with a translation layer around
+the Rust API. The two Rust API approaches require building Anki from source.
+A translation layer can be a C ABI or a gRPC sidecar; it does not remove that
+build requirement.
+
+This project uses a translation layer: the Go CLI calls the Rust server in
+`projects/anki_grpc`, which forwards operations to Anki's Rust API. Go owns the
+server process and its failures.
+
+![Anki backend integration approaches](/docs/projects/anki_as_code/assets/backend-approaches.svg)
+
+The maintained [Mermaid source](backend-approaches.mmd) is rendered by the
+`:backend_approaches` Bazel target and published with the project documentation.
+
+## Verification
+
+The [backend E2E](../anki_grpc/README.md#verification) verifies native persistence,
+typed service calls, and process lifecycle. CLI reconciliation remains in PR #128.
+
+```sh
+bazel_agent bazel test //projects/anki_grpc/pkg/backend:backend_test
+bazel_agent bazel build //projects/anki_grpc:clippy
+bazel_agent bazel build //projects/anki_as_code:backend_approaches
+```

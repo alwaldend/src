@@ -60,8 +60,9 @@ executable targets, and Clippy checks belong to
 
 The `:protos` target groups all upstream Anki schemas into one `proto_library`.
 A glob discovers schema files and their internal imports. Go bindings retain
-separate package targets to preserve existing import paths; Rust uses the
-upstream `anki_proto` workspace member.
+separate package targets to preserve existing import paths and generate typed
+gRPC clients from the original service declarations using rules_go's standard
+compilers. Rust uses the upstream `anki_proto` workspace member.
 
 ## Dependency metadata
 

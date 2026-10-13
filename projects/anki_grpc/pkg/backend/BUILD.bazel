@@ -1,0 +1,50 @@
+load("@rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "backend",
+    srcs = [
+        "api.go",
+        "connection.go",
+        "doc.go",
+    ],
+    data = ["//projects/anki_grpc"],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/backend",
+    target_compatible_with = [
+        "@platforms//os:linux",
+        "@platforms//cpu:x86_64",
+    ],
+    visibility = ["//projects/anki_as_code:__subpackages__"],
+    deps = [
+        "//third_party/com_github_ankitects_anki:backend",
+        "@org_golang_google_grpc//:grpc",
+        "@org_golang_google_grpc//connectivity",
+        "@org_golang_google_grpc//credentials/insecure",
+        "@org_golang_google_grpc//metadata",
+        "@org_golang_google_protobuf//proto",
+    ],
+)
+
+go_test(
+    name = "backend_test",
+    srcs = ["api_test.go"],
+    args = ["-worker=$(rlocationpath //projects/anki_grpc:anki_grpc)"],
+    data = ["//projects/anki_grpc"],
+    target_compatible_with = [
+        "@platforms//os:linux",
+        "@platforms//cpu:x86_64",
+    ],
+    deps = [
+        ":backend",
+        "//third_party/com_github_ankitects_anki:backend",
+        "//third_party/com_github_ankitects_anki:collection",
+        "//third_party/com_github_ankitects_anki:generic",
+        "//third_party/com_github_ankitects_anki:notes",
+        "//third_party/com_github_ankitects_anki:notetypes",
+        "@org_golang_google_grpc//:grpc",
+        "@org_golang_google_grpc//codes",
+        "@org_golang_google_grpc//metadata",
+        "@org_golang_google_grpc//status",
+        "@org_golang_google_protobuf//proto",
+        "@rules_go//go/runfiles",
+    ],
+)

@@ -1,4 +1,5 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_site_svg", "mermaid_site_webp")
 
 alias(
     name = "anki_grpc",
@@ -15,7 +16,7 @@ alias(
 package_group(
     name = "server_consumers",
     packages = [
-        "//projects/anki_as_code/internal/ankiapi",
+        "//projects/anki_grpc/pkg/backend",
         "//projects/anki_grpc/releases",
         "//projects/anki_grpc/test/transport",
     ],
@@ -25,5 +26,29 @@ docs_filegroup(
     name = "docs",
     srcs = ["README.md"],
     visibility = ["//projects:__pkg__"],
-    deps = ["//projects/anki_grpc/releases:docs"],
+    deps = [
+        ":docs_assets",
+        "//projects/anki_grpc/releases:docs",
+    ],
+)
+
+mermaid_site_svg(
+    name = "architecture",
+    src = "docs/architecture.mmd",
+    out = "rendered/architecture.svg",
+)
+
+docs_filegroup(
+    name = "docs_assets",
+    srcs = [":architecture"],
+    prefix = "content/docs/projects/anki_grpc/assets",
+)
+
+mermaid_site_webp(
+    name = "architecture_preview",
+    src = "docs/architecture.mmd",
+    out = "rendered/architecture.webp",
+    aspect_ratio = [],
+    color_scheme = "dark",
+    tags = ["manual"],
 )
