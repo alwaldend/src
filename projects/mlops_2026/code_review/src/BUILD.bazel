@@ -1,0 +1,36 @@
+load("@rules_python//python:defs.bzl", "py_binary", "py_library")
+
+# gazelle:ignore
+
+package(transitive_visibility = "//projects:transitive_consumers")
+
+py_library(
+    name = "training_lib",
+    srcs = [
+        "data.py",
+        "features.py",
+        "model.py",
+    ],
+    deps = [
+        "@com_alwaldend_src_pip//numpy",
+        "@com_alwaldend_src_pip//pandas",
+        "@com_alwaldend_src_pip//scikit_learn",
+    ],
+)
+
+py_binary(
+    name = "train",
+    srcs = ["main.py"],
+    args = [
+        "--dataset",
+        "$(rlocationpath //projects/mlops_2026/code_review:data)",
+    ],
+    data = ["//projects/mlops_2026/code_review:data"],
+    main = "main.py",
+    visibility = ["//projects/mlops_2026/code_review:consumers"],
+    deps = [
+        ":training_lib",
+        "@com_alwaldend_src_pip//pandas",
+        "@rules_python//python/runfiles",
+    ],
+)

@@ -10,6 +10,7 @@ docs_filegroup(
     visibility = ["//projects:__pkg__"],
     deps = [
         ":docs_assets",
+        "//projects/mlops_2026/code_review:docs",
         "//projects/mlops_2026/openspec:docs",
     ],
 )

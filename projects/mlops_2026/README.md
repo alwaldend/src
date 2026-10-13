@@ -78,6 +78,16 @@ model. Repeatable JSON artifacts are saved in each test's undeclared outputs
 under `bazel-testlogs/projects/mlops_2026/test/e2e/`.
 There is no deployment or release target.
 
+## Code-review lesson
+
+The [taxi-fare exercise](code_review/README.md) has a Bazel training command,
+dependency-backed CSV, saved model and metrics, and a reproducibility test:
+
+```sh
+bazel run //projects/mlops_2026/code_review:train -- --limit 99
+bazel test //projects/mlops_2026/code_review/tests:training_test
+```
+
 ## Links
 
 - [Yandex Practicum MLOps course](https://practicum.yandex.ru/mlops/)

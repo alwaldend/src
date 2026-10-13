@@ -1,0 +1,36 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load(":training.bzl", "taxi_model")
+
+# gazelle:ignore
+
+package(transitive_visibility = "//projects:transitive_consumers")
+
+package_group(
+    name = "consumers",
+    packages = ["//projects/mlops_2026/code_review/..."],
+)
+
+alias(
+    name = "data",
+    actual = "//third_party/com_github_yandex_practicum_mlops_course:taxi_data",
+    visibility = [":consumers"],
+)
+
+alias(
+    name = "train",
+    actual = "//projects/mlops_2026/code_review/src:train",
+    visibility = [":consumers"],
+)
+
+taxi_model(
+    name = "model",
+    dataset = ":data",
+    tags = ["manual"],
+    trainer = ":train",
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//projects/mlops_2026:__pkg__"],
+)

@@ -3,3 +3,9 @@ filegroup(
     srcs = glob(["**"], exclude = ["BUILD.bazel", "MODULE.bazel", "REPO.bazel", "WORKSPACE"]),
     visibility = ["@//third_party/com_github_yandex_practicum_mlops_course:__pkg__"],
 )
+
+filegroup(
+    name = "taxi_data",
+    srcs = ["lesson-08-code-review/data/uber.csv"],
+    visibility = ["@//third_party/com_github_yandex_practicum_mlops_course:__pkg__"],
+)
