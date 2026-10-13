@@ -22,7 +22,7 @@ bazel_dep(name = "rules_rust", version = "0.74.0")
 
 # Golang
 bazel_dep(name = "rules_go", version = "0.60.0")
-bazel_dep(name = "gazelle", version = "0.47.0")
+bazel_dep(name = "gazelle", version = "0.53.0")
 
 # Javascript
 bazel_dep(name = "rules_nodejs", version = "6.7.3")
