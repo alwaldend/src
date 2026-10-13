@@ -59,9 +59,11 @@ files. This is a local-checkout guarantee, like the root Buildifier test; tool
 acquisition remains hermetic and pinned through Bazel.
 
 The quality suite also runs pinned ast-grep against every tracked first-party
-Python file, rejecting symbol imports in favor of module imports and
-qualified member access. Explicit public re-exports listed in `__all__` may
-use direct symbol imports in `__init__.py`; wildcard imports remain forbidden.
+Python file not marked `linguist-vendored` or `linguist-vendored=true`, rejecting symbol imports in
+favor of module imports and qualified member access. Formatting exclusions do
+not exempt first-party Python from this check. Explicit public re-exports
+listed in `__all__` may use direct symbol imports in `__init__.py`; wildcard
+imports remain forbidden.
 Its syntax fixtures distinguish real imports from
 comments and strings. Module from-imports are verified against source paths
 and pinned Python module specifications without executing imported packages.
