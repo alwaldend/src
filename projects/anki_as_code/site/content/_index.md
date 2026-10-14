@@ -1,7 +1,7 @@
 ---
 title: Anki as code
 linkTitle: Anki as code
-description: A CLI project for managing Anki collections through editable TOML
+description: Inspect and manipulate schema-backed Anki configuration files
 layout: landing
 statuses:
   - in_progress
@@ -11,11 +11,14 @@ tags:
   - cli
 ---
 
-Anki as code aims to let you edit notes, decks, and card appearance in text
-files, inspect proposed changes, and reconcile an existing Anki collection.
+Anki as code represents notes, decks, and card appearance in schema-backed TOML.
+Deck directory names define Anki titles, with each deck containing `notes/` and
+child `decks/` directories. Note types live in collection-root `note_types/`.
+Use `config dump` to inspect parsed configuration as JSON by default or select
+TOML with `--format toml`. Configuration paths identify resources; references use
+readable paths and names. These commands work directly on text files without Anki running.
 
-The project currently provides a CLI scaffold with export, plan, apply, build,
-and generate-id commands. Collection operations are still placeholders and
-return explicit errors. They do not change your collection.
+Collection export, planning, apply, and archive rebuilding are developed in the
+separate reconciliation change.
 
 [Read the documentation](/docs/projects/anki_as_code/)

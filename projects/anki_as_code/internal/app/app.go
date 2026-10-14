@@ -3,10 +3,13 @@ package app
 import (
 	"context"
 	"errors"
+	"fmt"
+
+	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/config"
 )
 
-// App coordinates collection operations. This scaffold retains placeholders;
-// collection processing is implemented in the separate business-logic change.
+// App exposes configuration operations to the CLI and retains collection placeholders.
+// Anki collection processing belongs to the separate reconciliation change.
 type App struct{}
 
 // Export writes an editable text representation of a collection.
@@ -33,8 +36,17 @@ func (application *App) Build(ctx context.Context, base, text, output string) er
 	return errors.New("build is not implemented")
 }
 
-// GenerateIDsWithConfig assigns identities to notes using a collection config.
-// The scaffold returns a not-implemented error without processing collections.
-func (application *App) GenerateIDsWithConfig(ctx context.Context, paths []string, config string) (int, error) {
-	return 0, errors.New("generate-id is not implemented")
+// Dump prints parsed configurations through the pure text adapter, without Anki access.
+func (application *App) Dump(ctx context.Context, input, format string) ([]byte, error) {
+	if err := ctx.Err(); err != nil {
+		return nil, fmt.Errorf("dump configuration: %w", err)
+	}
+	data, err := config.Dump(input, format)
+	if err != nil {
+		return nil, fmt.Errorf("dump configuration: %w", err)
+	}
+	if err := ctx.Err(); err != nil {
+		return nil, fmt.Errorf("finish configuration dump: %w", err)
+	}
+	return data, nil
 }

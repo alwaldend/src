@@ -1,8 +1,9 @@
-load("@rules_go//go:def.bzl", "go_binary")
+load("@rules_go//go:def.bzl", "go_binary", "go_test")
 
 go_binary(
     name = "anki_as_code",
     srcs = [
+        "config.go",
         "doc.go",
         "flags.go",
         "main.go",
@@ -11,5 +12,21 @@ go_binary(
     deps = [
         "//projects/anki_as_code/internal/app",
         "@com_github_spf13_cobra//:cobra",
+    ],
+)
+
+go_test(
+    name = "config_workflow_test",
+    srcs = ["config_workflow_test.go"],
+    data = [":anki_as_code"],
+    env = {"ANKI_CLI": "$(rootpath :anki_as_code)"},
+    deps = [
+        "//projects/anki_as_code/api/collection",
+        "//projects/anki_as_code/internal/config",
+        "//third_party/com_github_ankitects_anki:decks",
+        "//third_party/com_github_ankitects_anki:notetypes",
+        "@com_github_burntsushi_toml//:toml",
+        "@org_golang_google_protobuf//encoding/protojson",
+        "@org_golang_google_protobuf//proto",
     ],
 )

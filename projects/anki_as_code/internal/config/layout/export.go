@@ -1,0 +1,57 @@
+package layout
+
+import (
+	"fmt"
+	"os"
+	"path/filepath"
+
+	collectionpb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/collection"
+	"google.golang.org/protobuf/proto"
+)
+
+// Export writes supplied configurations as TOML files in the fixed hierarchy.
+// Callers own validation and unique, representable paths. Declared files are
+// overwritten; other files are untouched. Failures may leave partial output.
+func Export(configs *collectionpb.CollectionConfigSet, output string) error {
+	if err := exportFile(filepath.Join(output, collectionMarker), configs.GetConfig()); err != nil {
+		return fmt.Errorf("export collection config: %w", err)
+	}
+	for _, deck := range configs.GetDecks() {
+		if err := exportFile(filepath.Join(output, filepath.FromSlash(deck.Path)), deck.Deck); err != nil {
+			return fmt.Errorf("export deck %q: %w", deck.Path, err)
+		}
+		if err := exportNotes(output, deck.Notes); err != nil {
+			return fmt.Errorf("export deck notes: %w", err)
+		}
+	}
+	if err := exportNotes(output, configs.Notes); err != nil {
+		return fmt.Errorf("export root notes: %w", err)
+	}
+	for _, definition := range configs.NoteTypes {
+		if err := exportFile(filepath.Join(output, filepath.FromSlash(definition.Path)), definition.Config); err != nil {
+			return fmt.Errorf("export note type %q: %w", definition.Path, err)
+		}
+	}
+	return nil
+}
+
+// exportNotes writes each supplied note at its collection-relative path.
+func exportNotes(root string, notes []*collectionpb.NoteConfigFile) error {
+	for _, note := range notes {
+		if err := exportFile(filepath.Join(root, filepath.FromSlash(note.Path)), note.Config); err != nil {
+			return fmt.Errorf("export note %q: %w", note.Path, err)
+		}
+	}
+	return nil
+}
+
+// exportFile creates parent directories and writes one encoded configuration.
+func exportFile(path string, message proto.Message) error {
+	if err := os.MkdirAll(filepath.Dir(path), 0o755); err != nil {
+		return fmt.Errorf("create config directory for %q: %w", path, err)
+	}
+	if err := writeTOML(path, message); err != nil {
+		return fmt.Errorf("export config file %q: %w", path, err)
+	}
+	return nil
+}

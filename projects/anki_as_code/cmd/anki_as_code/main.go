@@ -16,13 +16,13 @@ import (
 func newRootCommand(application *app.App) *cobra.Command {
 	command := &cobra.Command{
 		Use:           "anki_as_code",
-		Short:         "Anki as code CLI scaffold (operations not implemented)",
+		Short:         "Inspect and manipulate Anki configurations",
 		SilenceErrors: true,
 		SilenceUsage:  true,
 	}
 	command.CompletionOptions.DisableDefaultCmd = true
-	command.AddCommand(newExportCommand(application), newPlanCommand(application), newApplyCommand(application),
-		newBuildCommand(application), newGenerateIDCommand(application))
+	command.AddCommand(newConfigCommand(application), newExportCommand(application), newPlanCommand(application), newApplyCommand(application),
+		newBuildCommand(application))
 	return command
 }
 
@@ -109,26 +109,6 @@ func newBuildCommand(application *app.App) *cobra.Command {
 	baseFlag.bindRequired(command, &base)
 	textFlag.bindRequired(command, &text)
 	outputFlag.bindRequired(command, &output)
-	return command
-}
-
-// newGenerateIDCommand defines note-identity generation arguments and reports the processed count.
-func newGenerateIDCommand(application *app.App) *cobra.Command {
-	var config string
-	command := &cobra.Command{
-		Use:   "generate-id <note-file-or-directory>...",
-		Short: "Give note files new note, card, and synchronization identities",
-		Args:  cobra.MinimumNArgs(1),
-		RunE: func(command *cobra.Command, paths []string) error {
-			count, err := application.GenerateIDsWithConfig(command.Context(), paths, config)
-			if err != nil {
-				return fmt.Errorf("generate note identities: %w", err)
-			}
-			fmt.Fprintf(command.ErrOrStderr(), "Generated identities for %d notes\n", count)
-			return nil
-		},
-	}
-	collectionFlag.bind(command, &config)
 	return command
 }
 
