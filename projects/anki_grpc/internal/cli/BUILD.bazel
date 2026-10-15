@@ -1,0 +1,34 @@
+load("@rules_go//go:def.bzl", "go_library")
+load(":generate.bzl", "anki_cli_source")
+
+anki_cli_source(
+    name = "commands_generated",
+    schema = "//third_party/com_github_ankitects_anki:protos",
+)
+
+go_library(
+    name = "cli",
+    srcs = [
+        "command.go",
+        "doc.go",
+        ":commands_generated",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/anki_grpc/internal/cli",
+    visibility = ["//projects/anki_grpc/cmd/anki_rpc:__pkg__"],
+    deps = [
+        "//projects/anki_grpc/pkg/backend",
+        "//third_party/com_github_ankitects_anki:collection",
+        "@com_github_spf13_cobra//:cobra",
+        "@org_golang_google_grpc//:grpc",
+        "@org_golang_google_grpc//credentials/insecure",
+        "@org_golang_google_grpc//metadata",
+        "@org_golang_google_protobuf//encoding/protojson",
+        "@org_golang_google_protobuf//proto",
+        "@org_golang_google_protobuf//reflect/protodesc",
+        "@org_golang_google_protobuf//reflect/protoreflect",
+        "@org_golang_google_protobuf//reflect/protoregistry",
+        "@org_golang_google_protobuf//types/descriptorpb",
+        "@org_golang_google_protobuf//types/dynamicpb",
+        "@rules_go//go/runfiles",
+    ],
+)

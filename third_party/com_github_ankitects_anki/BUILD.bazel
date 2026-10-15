@@ -22,6 +22,7 @@ package_group(
     packages = [
         "//projects/anki_as_code/...",
         "//projects/anki_grpc/pkg/backend",
+        "//projects/anki_grpc/internal/cli",
         "//projects/anki_grpc/test/transport",
     ],
 )

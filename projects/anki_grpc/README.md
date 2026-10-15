@@ -60,12 +60,68 @@ backend and its open collection. Close a collection through Anki before
 reopening it or shutting down the process. Disconnecting a network client
 leaves the backend available to later clients.
 
+## Protobuf CLI
+
+`anki_rpc` generates a Cobra command for every declared unary RPC in the pinned
+Anki schema. Fully qualified service names and exact method names match gRPC;
+help displays request and response message types without starting a worker.
+
+```sh
+bazel_agent bazel run //projects/anki_grpc:anki_rpc -- --help
+bazel_agent bazel run //projects/anki_grpc:anki_rpc -- \
+  anki.notes.NotesService GetNote --help
+bazel_agent bazel run //projects/anki_grpc:anki_rpc -- \
+  --collection "$PWD/collection.anki2" \
+  anki.notetypes.NotetypesService GetNotetypeIdByName --request '{"val":"Basic"}'
+```
+
+`--request` accepts inline ProtoJSON, `@/path/request.json`, or `-` for stdin;
+it defaults to `{}`. Responses use ProtoJSON with original snake_case field names,
+quoted 64-bit integers, base64 bytes, and omitted default values. Unknown fields
+and malformed requests fail before starting Anki. Errors go to stderr with a
+nonzero exit status. `--timeout` bounds startup and the RPC (default 30 seconds).
+
+Default transport starts a managed stdio server from Bazel runfiles. Outside
+Bazel, pass `--worker /path/to/anki_grpc` or install that executable in PATH.
+`--collection` opens a local database for one operation and closes it afterward.
+Media paths default to `COLLECTION.media` and `COLLECTION.media.db`; override them
+with `--media-folder` and `--media-db` for an existing profile. The native package
+export operation consumes the open collection, which cleanup handles directly:
+
+```sh
+anki_rpc --collection /path/collection.anki2 \
+  anki.import_export.BackendImportExportService ExportCollectionPackage \
+  --request '{"out_path":"/path/export.colpkg","include_media":true}'
+```
+
+To call startup/import operations, omit `--collection` and provide their paths in
+JSON. To keep a collection open across invocations, start a TCP or Unix server and
+pass `--target localhost:50051` or `--target unix:///path/anki.sock`. Then invoke
+`BackendCollectionService.OpenCollection`, ordinary operations, and
+`BackendCollectionService.CloseCollection` through their generated commands.
+The CLI closes only its network connection; it leaves the server and collection
+lifetime to the caller. Paths in requests refer to the server's filesystem.
+`--target` cannot be combined with managed-worker or local-collection options.
+
+The command generator consumes upstream protobuf descriptors in a sandboxed
+Bazel action and emits Go registrations plus the schema into build outputs.
+Handwritten code provides one JSON/RPC runner. All declared operations are exposed
+through original service paths; implicit backend aliases do not need duplicate
+commands. Unsupported streaming methods fail generation. Neither generated Go
+nor copies of upstream schemas are checked in. These are direct native API calls:
+Anki owns validation and mutation semantics, and cancellation does not guarantee
+rollback of native work.
+
 ## Project layout
 
 - `cmd/anki_grpc/main.rs`: Transport listeners, opaque protobuf codec, and Anki dispatch.
 - `cmd/anki_grpc/cli.rs`: CLI help and transport argument validation.
 - `cmd/anki_grpc/build.rs`: Command lookup generated from Anki's own descriptors.
 - `cmd/anki_grpc/BUILD.bazel`: Executable, descriptor generator, and Clippy targets.
+- `cmd/anki_rpc/`: Go entry point for generated service/method commands.
+- `cmd/generate_anki_cli/`: Build-time descriptor-to-Go command generator.
+- `internal/cli/`: Shared ProtoJSON invocation and connection ownership.
+- `test/cli/`: Built-command E2E over stdio, TCP, and Unix sockets.
 - `pkg/backend/`: Reusable Go owner of the server process and gRPC connection.
 - `docs/architecture.mmd`: Client, server, and storage diagram source.
 - `test/transport/`: CLI and network transport E2E using official Anki messages.
@@ -187,3 +243,13 @@ five-second grace period, and a configured grace period. They also verify invali
 timeout rejection and native failure details. The forwarding fixture reaps its
 inner Anki process before testing forced shutdown of the outer worker. It emits `collection.anki2`
 and JSON verification reports.
+
+The protobuf CLI E2E checks generated help without a worker, inline/file/stdin
+requests, native updates across invocations, package import/export with media,
+malformed/unknown input, native failures, invalid options, deadline/transport
+failures, and shared TCP/Unix server state. It emits a native collection package
+and representative JSON response as repeatable artifacts.
+
+```sh
+bazel_agent bazel test //projects/anki_grpc/test/cli:cli_workflow_test
+```

@@ -1,0 +1,19 @@
+load("@rules_go//go:def.bzl", "go_test")
+
+go_test(
+    name = "cli_workflow_test",
+    size = "medium",
+    srcs = [
+        "doc.go",
+        "workflow_test.go",
+    ],
+    args = [
+        "-cli=$(rlocationpath //projects/anki_grpc:anki_rpc)",
+        "-worker=$(rlocationpath //projects/anki_grpc:anki_grpc)",
+    ],
+    data = [
+        "//projects/anki_grpc",
+        "//projects/anki_grpc:anki_rpc",
+    ],
+    deps = ["@rules_go//go/runfiles"],
+)
