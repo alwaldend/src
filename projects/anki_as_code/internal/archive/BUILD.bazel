@@ -1,0 +1,42 @@
+load("@rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "archive",
+    srcs = [
+        "archive.go",
+        "doc.go",
+        "source.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/archive",
+    visibility = ["//projects/anki_as_code/internal/collection:__pkg__"],
+    deps = [
+        "//third_party/com_github_ankitects_anki:collection",
+        "//third_party/com_github_ankitects_anki:import_export",
+        "@org_golang_google_grpc//:grpc",
+    ],
+)
+
+go_test(
+    name = "archive_workflow_test",
+    size = "medium",
+    srcs = ["workflow_test.go"],
+    args = ["-worker=$(rlocationpath //projects/anki_grpc:anki_grpc)"],
+    data = ["//projects/anki_grpc"],
+    deps = [
+        ":archive",
+        "//projects/anki_grpc/pkg/backend",
+        "//third_party/com_github_ankitects_anki:cards",
+        "//third_party/com_github_ankitects_anki:collection",
+        "//third_party/com_github_ankitects_anki:config",
+        "//third_party/com_github_ankitects_anki:generic",
+        "//third_party/com_github_ankitects_anki:import_export",
+        "//third_party/com_github_ankitects_anki:media",
+        "//third_party/com_github_ankitects_anki:notes",
+        "//third_party/com_github_ankitects_anki:notetypes",
+        "//third_party/com_github_ankitects_anki:scheduler",
+        "//third_party/com_github_ankitects_anki:search",
+        "//third_party/com_github_ankitects_anki:stats",
+        "@org_golang_google_grpc//:grpc",
+        "@rules_go//go/runfiles",
+    ],
+)

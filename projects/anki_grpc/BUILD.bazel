@@ -4,22 +4,13 @@ load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_site_svg", "merma
 alias(
     name = "anki_grpc",
     actual = "//projects/anki_grpc/cmd/anki_grpc",
-    visibility = [":server_consumers"],
+    visibility = ["//:__subpackages__"],
 )
 
 alias(
     name = "clippy",
     actual = "//projects/anki_grpc/cmd/anki_grpc:clippy",
     visibility = ["//:__subpackages__"],
-)
-
-package_group(
-    name = "server_consumers",
-    packages = [
-        "//projects/anki_grpc/pkg/backend",
-        "//projects/anki_grpc/releases",
-        "//projects/anki_grpc/test/transport",
-    ],
 )
 
 docs_filegroup(

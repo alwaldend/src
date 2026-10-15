@@ -10,7 +10,8 @@ tags:
 ---
 
 Anki as code represents notes, decks, and note types as protobuf-backed TOML.
-This change provides the pure configuration API and `config dump`. Collection
+Current implementations provide the pure configuration API, `config dump`, and
+archive file resources. Collection
 export, state import, planning, apply, and rebuilding belong to
 [PR #128](https://github.com/alwaldend/src/pull/128); collection commands remain
 explicit placeholders here. Configuration commands require neither Anki nor Rust.
@@ -141,6 +142,39 @@ export. `config/codec` converts TOML/JSON through protobuf without filesystem
 access. Dependencies flow from config to layout/codec, and from layout to codec.
 Collection relationship validation and native operations remain outside them.
 
+## Archive resources
+
+`internal/archive` delegates collection-package import and export to Anki's
+native API, including media. It contains no ZIP, Zstandard, or SQL implementation.
+Anki determines supported package versions and content. Arbitrary ZIP extensions
+and comments are outside the collection-package contract.
+
+| API                                             | Consumer and responsibility                            |
+| ----------------------------------------------- | ------------------------------------------------------ |
+| `OpenSource(ctx, connection, path, scratch)`    | Read/apply: open a private package or offline database |
+| `OpenPackage(ctx, connection, path, scratch)`   | Build: require a collection package                    |
+| `FileHash(path)`                                | Record the expected destination digest before editing  |
+| `Source.Publish(ctx, path, mode, expectedHash)` | Publish a completed native package or offline database |
+| `Source.Close()`                                | Close the private collection and remove its files      |
+
+Constructors borrow an already-running gRPC connection with no open collection.
+The caller owns server startup/shutdown, keeps the connection alive, and serializes
+collection operations until Close or Publish. Archive code never starts or stops
+workers. Callers use the same connection for their generated Anki service clients.
+Publish consumes the source on success or failure; reopen to retry. Close is
+idempotent and leaves the server running. Native export consumes the collection.
+Cancellation is checked between stages. Once a native filesystem call starts,
+the operation waits for its response before cleanup; cancellation does not abort
+that call or roll back native work. Process and transport failures belong to the
+caller.
+
+Outputs are staged beside the destination, synced, assigned the requested mode,
+and optionally checked against the expected target digest before replacement.
+An empty expected digest permits unguarded output. Callers serialize other
+writers: digest checking and rename are separate operations. Offline sources
+must have no WAL/journal sidecars. Raw output contains the database only; media
+remains external to a standalone database.
+
 ## Managed boundaries
 
 Configs express note content/tags, generated-card deck assignments, deck settings,
@@ -158,6 +192,7 @@ Collection-backed reconciliation state is application metadata, not a user setti
 ```sh
 bazel_agent bazel build //projects/anki_as_code
 bazel_agent bazel test //projects/anki_as_code/cmd/anki_as_code:config_workflow_test
+bazel_agent bazel test //projects/anki_as_code/internal/archive:archive_workflow_test
 ```
 
 Use absolute paths with `bazel run`, which may execute outside the checkout.
@@ -168,6 +203,7 @@ Use absolute paths with `bazel run`, which may execute outside the checkout.
 | `internal/config`        | Public configuration facade and dump operation               |
 | `internal/config/layout` | Fixed hierarchy, discovery, file I/O, and direct export      |
 | `internal/config/codec`  | Filesystem-independent protobuf/TOML/JSON conversion         |
+| `internal/archive`       | Private native collections and guarded file publication      |
 | `internal/model`         | Shared runtime snapshot models, without business logic       |
 | `internal/app`           | Configuration adapter and collection placeholders            |
 | `cmd/anki_as_code`       | Cobra flags, cancellation, output, and errors                |
@@ -210,5 +246,10 @@ traversal, path references, removed identities/command, exact Unicode/multiline
 fields, optional zero values, empty fields, source preservation, schema/filesystem
 errors, and direct object export without validation or message changes.
 
-This PR targets master independently. Merge #151 first, then rebase #128 to remove
-the temporary prerequisite overlap. Delivery receipts own publication/review status.
+The archive native E2E creates a reviewed note, media, and custom state through
+Anki, edits a private collection, and reimports its published package through the
+same API. It verifies identities, review history, content, media, and state;
+checks raw database publication, modes, journal rejection, conflicts, cancellation,
+failed opening/output, consumed-source rejection, and cleanup; and emits native
+source/rebuilt packages as repeatable artifacts. Delivery receipts own publication
+and review status.

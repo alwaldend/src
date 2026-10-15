@@ -97,3 +97,45 @@ alias(
     actual = "@com_github_ankitects_anki//:notes",
     visibility = [":schema_consumers"],
 )
+
+alias(
+    name = "config",
+    actual = "@com_github_ankitects_anki//:config",
+    visibility = [":schema_consumers"],
+)
+
+alias(
+    name = "deck_config",
+    actual = "@com_github_ankitects_anki//:deck_config",
+    visibility = [":schema_consumers"],
+)
+
+alias(
+    name = "scheduler",
+    actual = "@com_github_ankitects_anki//:scheduler",
+    visibility = [":schema_consumers"],
+)
+
+alias(
+    name = "search",
+    actual = "@com_github_ankitects_anki//:search",
+    visibility = [":schema_consumers"],
+)
+
+alias(
+    name = "stats",
+    actual = "@com_github_ankitects_anki//:stats",
+    visibility = [":schema_consumers"],
+)
+
+alias(
+    name = "import_export",
+    actual = "@com_github_ankitects_anki//:import_export",
+    visibility = [":schema_consumers"],
+)
+
+alias(
+    name = "media",
+    actual = "@com_github_ankitects_anki//:media",
+    visibility = [":schema_consumers"],
+)
