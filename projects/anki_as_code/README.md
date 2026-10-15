@@ -115,6 +115,25 @@ values without semantic checks.
 
 ## Serialization and package APIs
 
+![Load, Dump, and Export configuration processes](assets/config-operations.svg)
+
+These operations work with configuration files and protobuf objects without
+opening Anki. Load checks syntax, schema, version, and filesystem layout; callers
+own collection semantics. Dump calls Load and serializes the complete parsed set.
+Export can write a caller-supplied object directly without loading it first.
+Read, encoding, and filesystem failures end the operation with an error. Export
+may leave partial output; it does not validate relationships or clean up files.
+
+![Configuration model](assets/config-references.svg)
+
+The class diagram shows root and resource configuration messages. References
+use paths; card and template deck references target normal decks. Each note stores
+shared field content and tags, while note types define ordered fields, templates,
+and presentation. The root marker contains the version and explicit moves.
+Attached notes identify each file's location in the fixed hierarchy. The
+operation chart shows discovery and conversion; the JSON/TOML branch changes
+how Dump encodes the complete configuration set.
+
 TOML decodes to generic values, then JSON, then protobuf using ProtoJSON.
 Unknown keys and incompatible values fail. Unquoted TOML dates/times fail rather
 than silently becoming strings; quote dates used as note text. Output converts
@@ -209,6 +228,3 @@ JSON, TOML, and exported-directory artifacts. It checks nested ownership, fixed
 traversal, path references, removed identities/command, exact Unicode/multiline
 fields, optional zero values, empty fields, source preservation, schema/filesystem
 errors, and direct object export without validation or message changes.
-
-This PR targets master independently. Merge #151 first, then rebase #128 to remove
-the temporary prerequisite overlap. Delivery receipts own publication/review status.
