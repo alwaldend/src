@@ -23,6 +23,13 @@ _SCHEMAS = {
     "notes": ["notetypes", "collection", "decks", "cards"],
     "links": ["generic"],
     "backend": ["links"],
+    "config": ["generic", "collection"],
+    "deck_config": ["generic", "collection", "decks"],
+    "scheduler": ["generic", "cards", "decks", "collection", "config", "deck_config"],
+    "search": ["generic", "collection"],
+    "stats": ["generic", "cards"],
+    "import_export": ["cards", "collection", "notes", "generic"],
+    "media": ["generic", "notetypes"],
 }
 
 [
