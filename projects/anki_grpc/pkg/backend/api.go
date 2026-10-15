@@ -20,13 +20,16 @@ import (
 	"google.golang.org/protobuf/proto"
 )
 
-// Backend manages an Anki server and its connection for generated service clients.
+// ankiErrorTrailer carries Anki's serialized BackendError on failed native calls.
+const ankiErrorTrailer = "anki-error-bin"
+
+// Backend manages Anki resource readiness and its connection for generated service clients.
 type Backend interface {
-	// Start launches the server and waits for readiness; ctx bounds startup only.
+	// Start prepares owned resources; ctx bounds startup only.
 	Start(ctx context.Context) error
 	// Connection returns the managed connection, or an error when unavailable.
 	Connection() (grpc.ClientConnInterface, error)
-	// Stop bounds graceful shutdown with ctx, then forces termination and reaping.
+	// Stop uses ctx to bound graceful cleanup; BackendSTD always completes process reaping.
 	Stop(ctx context.Context) error
 }
 
@@ -233,7 +236,7 @@ func (backend *BackendSTD) intercept(ctx context.Context, method string, input, 
 	if ctx.Err() != nil {
 		return fmt.Errorf("call Anki %s: %w", method, ctx.Err())
 	}
-	data := trailers.Get("anki-error-bin")
+	data := trailers.Get(ankiErrorTrailer)
 	if len(data) != 1 {
 		return fmt.Errorf("call Anki %s: %w", method, err)
 	}

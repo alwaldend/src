@@ -4,6 +4,8 @@ go_library(
     name = "backend",
     srcs = [
         "api.go",
+        "collection.go",
+        "collection_connection.go",
         "connection.go",
         "doc.go",
     ],
@@ -16,6 +18,8 @@ go_library(
     visibility = ["//projects/anki_as_code:__subpackages__"],
     deps = [
         "//third_party/com_github_ankitects_anki:backend",
+        "//third_party/com_github_ankitects_anki:collection",
+        "//third_party/com_github_ankitects_anki:import_export",
         "@org_golang_google_grpc//:grpc",
         "@org_golang_google_grpc//connectivity",
         "@org_golang_google_grpc//credentials/insecure",
@@ -26,7 +30,10 @@ go_library(
 
 go_test(
     name = "backend_test",
-    srcs = ["api_test.go"],
+    srcs = [
+        "api_test.go",
+        "collection_test.go",
+    ],
     args = ["-worker=$(rlocationpath //projects/anki_grpc:anki_grpc)"],
     data = ["//projects/anki_grpc"],
     target_compatible_with = [
@@ -38,6 +45,8 @@ go_test(
         "//third_party/com_github_ankitects_anki:backend",
         "//third_party/com_github_ankitects_anki:collection",
         "//third_party/com_github_ankitects_anki:generic",
+        "//third_party/com_github_ankitects_anki:import_export",
+        "//third_party/com_github_ankitects_anki:media",
         "//third_party/com_github_ankitects_anki:notes",
         "//third_party/com_github_ankitects_anki:notetypes",
         "@org_golang_google_grpc//:grpc",

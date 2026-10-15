@@ -132,7 +132,7 @@ alias(
 alias(
     name = "import_export",
     actual = "@com_github_ankitects_anki//:import_export",
-    visibility = ["//projects/anki_as_code/internal/collection:__pkg__"],
+    visibility = [":schema_consumers"],
 )
 
 alias(
