@@ -6,6 +6,9 @@
 // context to bound graceful shutdown and always completes process reaping.
 // Its expiry cancels a backend-owned command context for forced termination.
 // Connection reports an error when the server is unavailable.
-// Callers close an open collection before stopping its backend. RPC cancellation
+// BackendCollection accepts BackendCollectionOptions and borrows an already-started
+// backend. It opens databases in place or restores packages to a temporary directory
+// by default, gates collection clients, and closes storage without stopping its backend.
+// Callers stop the collection before stopping its backend. RPC cancellation
 // stops waiting without guaranteeing rollback. Failed requests are not replayed.
 package backend

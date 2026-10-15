@@ -1,0 +1,6 @@
+schema: spec-driven
+
+context: |
+  This workspace owns the Anki Rust gRPC server and reusable Go backend library.
+  Reuse upstream Anki protobuf schemas and existing dependencies.
+  Anki owns storage semantics; Go owns explicit resource lifecycle.

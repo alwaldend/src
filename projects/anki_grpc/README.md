@@ -132,7 +132,7 @@ items := notes.NewNotesServiceClient(connection)
 _, err = collections.OpenCollection(ctx, &collection.OpenCollectionRequest{
     CollectionPath:  "/path/to/collection.anki2",
     MediaFolderPath: "/path/to/collection.media",
-    MediaDbPath:     "/path/to/collection.media.db",
+    MediaDbPath:     "/path/to/collection.media.db2",
 })
 if err != nil {
     return fmt.Errorf("open collection: %w", err)
@@ -165,6 +165,68 @@ startup/shutdown, after Stop, or after worker exit. Construct service clients af
 Start succeeds. Retained clients reject calls
 once Stop begins. The backend owns the connection: shut it down through Stop.
 
+### Collection backend
+
+`BackendCollection` implements the same interface for collection lifetime. It
+borrows an already-started backend and never starts or stops that backend:
+
+```go
+collectionBackend := backend.NewCollection(backend.BackendCollectionOptions{
+    Backend: worker, // already started; no collection open
+    Path:    "/path/to/collection.colpkg", // or collection.anki2
+})
+if err := collectionBackend.Start(ctx); err != nil {
+    return fmt.Errorf("prepare collection: %w", err)
+}
+connection, err := collectionBackend.Connection()
+if err != nil {
+    return fmt.Errorf("get collection connection: %w", err)
+}
+items := notes.NewNotesServiceClient(connection)
+```
+
+The options object is copied. `Path` accepts `.anki2` and `.colpkg` extensions,
+case-insensitively. Databases open directly; Anki can create a missing database.
+Media uses the database stem plus `.media`, with a `.media.db2` index. Database
+writes commit in place and Stop does not roll them back.
+
+Packages restore through Anki into an owned temporary directory by default.
+Set `RestoreDirectory` to use an empty persistent destination instead; it can be
+created when missing and is retained on Stop. `RestoreDirectory` is invalid for a
+database input. The source package is not modified. The backend API remains
+Start, Connection and Stop; restore paths are supplied through options.
+
+After work, call `collectionBackend.Stop(cleanupContext)` and then
+`worker.Stop(cleanupContext)`, preserving both errors. A clean collection Stop
+closes native storage and deletes only its owned temporary restore. Call Stop
+even after Start fails. Startup leaves cleanup to the caller and adds no separate
+shutdown timeout. The borrowed backend stays available for another collection.
+Retained generated Anki clients reject after Stop. Start permits one attempt;
+Stop is terminal and idempotent, including before Start and after failed preparation. Lifecycle-changing native
+calls must use the collection connection, and callers must give the wrapper
+exclusive collection ownership. Anki exposes unary RPCs; a small connection adapter
+tracks active calls and observes CloseCollection and ExportCollectionPackage
+while forwarding generated client calls over the borrowed connection. These operations close the collection
+without closing the transport. Export also consumes it on a native failure, so
+confirmed completion lets Stop clean up without attempting a second close.
+Transport failures or cancellation without a native response retain the files.
+
+Cancellation can stop waiting while native work continues. If native completion
+cannot be established, Stop reports failure and retains restore files instead
+of deleting files potentially still in use. Stop the borrowed backend first;
+after it is reaped, retained restore files can be removed using the location
+reported in the cleanup error. For programmatic cleanup, pass a caller-owned
+`RestoreDirectory` through options and remove it only after backend shutdown.
+Explicit destinations always remain caller-owned. Callers retain
+backend shutdown responsibility even when collection startup fails.
+
+Ordinary calls remain concurrent. Stop waits for registered Go calls within its
+context before closing storage. Any unconfirmed native response invalidates
+collection access and keeps cleanup uncertain, including after later calls succeed.
+Anki's collection mutex protects running native work; it cannot acknowledge a
+cancelled call still queued in Rust. Stop therefore retains the restore and reports
+failure in that case; stop the borrowed backend before cleaning its temporary files.
+
 ## Verification
 
 ```sh
@@ -187,3 +249,11 @@ five-second grace period, and a configured grace period. They also verify invali
 timeout rejection and native failure details. The forwarding fixture reaps its
 inner Anki process before testing forced shutdown of the outer worker. It emits `collection.anki2`
 and JSON verification reports.
+
+The collection-backend E2E verifies prepared-backend borrowing, direct database
+persistence and media layout, native package exports/restores, temporary cleanup,
+persistent destinations, retained-client rejection, backend reuse and failed or
+cancelled lifecycle calls. It emits a native database/package and verification report.
+It also blocks a real native media download, cancels the client, and verifies
+that shutdown waits for active callers and retains unconfirmed restores until
+backend shutdown.
