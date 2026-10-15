@@ -22,7 +22,10 @@ docs_filegroup(
     name = "docs",
     srcs = ["README.md"],
     visibility = ["//projects:__pkg__"],
-    deps = [":docs_assets"],
+    deps = [
+        ":docs_assets",
+        "//projects/anki_as_code/docs:assets",
+    ],
 )
 
 mermaid_site_svg(

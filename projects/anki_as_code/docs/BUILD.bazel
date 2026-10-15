@@ -1,0 +1,42 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_site_svg", "mermaid_site_webp")
+
+docs_filegroup(
+    name = "assets",
+    srcs = [
+        ":config_operations",
+        ":config_references",
+    ],
+    prefix = "content/docs/projects/anki_as_code/assets",
+    visibility = ["//projects/anki_as_code:__pkg__"],
+)
+
+mermaid_site_svg(
+    name = "config_operations",
+    src = "config-operations.mmd",
+    out = "rendered/config-operations.svg",
+)
+
+mermaid_site_svg(
+    name = "config_references",
+    src = "config-references.mmd",
+    out = "rendered/config-references.svg",
+)
+
+mermaid_site_webp(
+    name = "config_operations_preview",
+    src = "config-operations.mmd",
+    out = "rendered/config-operations.webp",
+    aspect_ratio = [],
+    color_scheme = "dark",
+    tags = ["manual"],
+)
+
+mermaid_site_webp(
+    name = "config_references_preview",
+    src = "config-references.mmd",
+    out = "rendered/config-references.webp",
+    aspect_ratio = [],
+    color_scheme = "dark",
+    tags = ["manual"],
+)

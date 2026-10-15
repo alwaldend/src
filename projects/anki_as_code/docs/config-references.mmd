@@ -1,0 +1,32 @@
+classDiagram
+    direction TB
+    class CollectionConfig {
+        int64 version
+        ResourceMove[] moved
+    }
+    class NoteConfig {
+        string note_type
+        map fields
+        string[] tags
+        CardConfig[] cards
+    }
+    class NoteTypeConfig {
+        string name
+        string sort_field
+        Config config
+        Field[] fields
+        TemplateConfig[] templates
+    }
+    class DeckConfig {
+        string preset
+        Normal normal
+        Filtered filtered
+    }
+    NoteConfig ..> NoteTypeConfig : note_type
+    NoteConfig ..> DeckConfig : cards.deck
+    NoteTypeConfig ..> DeckConfig : templates.target_deck
+
+    note for CollectionConfig "collection.anki.toml"
+    note for NoteConfig "notes/*.note.anki.toml<br/>(root or deck)"
+    note for NoteTypeConfig "note_types/<br/>*.notetype.anki.toml"
+    note for DeckConfig "decks/name/deck.anki.toml<br/>Child decks nest through decks/"
