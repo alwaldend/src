@@ -5,7 +5,7 @@ import collectionpb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/c
 // CollectionState is the current snapshot shared by export, validation, and planning.
 type CollectionState struct {
 	// Bindings contains the path-to-native mappings persisted in the collection.
-	Bindings *collectionpb.ReconciliationState
+	Bindings *collectionpb.State
 	// Presets indexes existing scheduling preset names by native identity; they remain unmanaged.
 	Presets map[int64]string
 	// Notes indexes notes by GUID, excluding filtered cards from their declarations.

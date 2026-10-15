@@ -166,31 +166,67 @@ message NoteTypeConfigFile {
   NoteTypeConfig config = 2;
 }
 
-// ResourceKind distinguishes native objects and nested bindings in collection state.
-enum ResourceKind {
-  RESOURCE_KIND_UNSPECIFIED = 0;
-  RESOURCE_KIND_DECK = 1;
-  RESOURCE_KIND_NOTE = 2;
-  RESOURCE_KIND_NOTE_TYPE = 3;
-  RESOURCE_KIND_FIELD = 4;
-  RESOURCE_KIND_TEMPLATE = 5;
-  RESOURCE_KIND_PRESET = 6;
+// DeckState binds a deck configuration path to its native deck.
+message DeckState {
+  // Id identifies the existing Anki deck.
+  int64 id = 1;
 }
 
-// ResourceBinding stores a native identity without exposing it in resource TOML.
-message ResourceBinding {
-  // Kind identifies the API resource represented by this address.
-  ResourceKind kind = 1;
-  // Id is the native object or optional field/template identity.
-  int64 id = 2;
-  // Ordinal retains native field/template positions for structural migrations.
-  uint32 ordinal = 3;
+// NoteState binds a note configuration path to its native note.
+message NoteState {
+  // Id identifies the existing Anki note and its retained review identity.
+  int64 id = 1;
 }
 
-// ReconciliationState is persisted inside the collection through Anki's config API.
-message ReconciliationState {
-  // Version identifies the unreleased state schema.
+// NoteTypeState binds a note-type path and its named native members.
+message NoteTypeState {
+  // Id identifies the existing Anki note type.
+  int64 id = 1;
+  // Fields binds each field name to its native identity and position.
+  map<string, FieldState> fields = 2;
+  // Templates binds each template name to its native identity and position.
+  map<string, TemplateState> templates = 3;
+}
+
+// FieldState retains a field identity within its owning note type.
+message FieldState {
+  // Id is the optional native field identity; zero uses ordinal matching.
+  int64 id = 1;
+  // Ordinal retains the native field position for structural migrations.
+  uint32 ordinal = 2;
+}
+
+// TemplateState retains a template identity within its owning note type.
+message TemplateState {
+  // Id is the optional native template identity; zero uses ordinal matching.
+  int64 id = 1;
+  // Ordinal retains the native template position for structural migrations.
+  uint32 ordinal = 2;
+}
+
+// PresetState binds a readable alias to an existing scheduling preset.
+// It does not manage the preset's scheduling configuration or lifecycle.
+message PresetState {
+  // Id identifies the existing Anki scheduling preset.
+  int64 id = 1;
+}
+
+// Resources groups typed native bindings for the selected state namespace.
+message Resources {
+  // Decks maps deck marker paths to native deck state.
+  map<string, DeckState> decks = 1;
+  // Notes maps note configuration paths to native note state.
+  map<string, NoteState> notes = 2;
+  // NoteTypes maps note-type paths to native definitions and members.
+  map<string, NoteTypeState> note_types = 3;
+  // Presets maps readable aliases to existing scheduling-preset state objects.
+  map<string, PresetState> presets = 4;
+}
+
+// State is persisted under a caller-selected key through Anki's collection config API.
+message State {
+  // Version identifies the unreleased state schema, currently version 1.
   int64 version = 1;
-  // Resources maps configuration and nested addresses to native bindings.
-  map<string, ResourceBinding> resources = 2;
+  // Resources contains the independently typed bindings owned by this namespace.
+  Resources resources = 2;
 }

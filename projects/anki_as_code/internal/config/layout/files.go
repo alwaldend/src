@@ -30,7 +30,7 @@ func readTOML(path string, message proto.Message) error {
 	if err != nil {
 		return fmt.Errorf("read TOML input: %w", err)
 	}
-	if err := codec.DecodeTOML(b, message); err != nil {
+	if err := codec.Decode(b, codec.TOML, message); err != nil {
 		return fmt.Errorf("parse %q: %w", path, err)
 	}
 	return nil
@@ -38,7 +38,7 @@ func readTOML(path string, message proto.Message) error {
 
 // writeTOML serializes a protobuf message to a TOML declaration file.
 func writeTOML(path string, message proto.Message) error {
-	b, err := codec.EncodeTOML(message)
+	b, err := codec.Encode(message, codec.TOML)
 	if err != nil {
 		return fmt.Errorf("serialize config %q: %w", path, err)
 	}

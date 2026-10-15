@@ -9,6 +9,7 @@ package_group(
     packages = [
         "//projects/anki_as_code/cmd/anki_as_code",
         "//projects/anki_as_code/internal/app",
+        "//projects/anki_as_code/internal/state",
     ],
 )
 

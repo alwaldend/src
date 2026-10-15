@@ -11,11 +11,58 @@ import (
 	"google.golang.org/protobuf/proto"
 )
 
-// DecodeTOML decodes TOML values into the supplied protobuf message.
-func DecodeTOML(b []byte, message proto.Message) error {
+// Format selects a supported protobuf text encoding for configuration and state.
+type Format string
+
+const (
+	// TOML encodes configuration and state as schema-backed TOML.
+	TOML Format = "toml"
+	// JSON encodes configuration and state using ProtoJSON.
+	JSON Format = "json"
+)
+
+// Encode serializes a protobuf message as TOML or JSON for config and state callers.
+// An empty format selects TOML; JSON uses readable ProtoJSON with a final newline.
+func Encode(message proto.Message, format Format) ([]byte, error) {
+	var data []byte
+	var err error
+	switch format {
+	case "", TOML:
+		data, err = encodeTOML(message)
+	case JSON:
+		data, err = encodeJSON(message)
+	default:
+		return nil, fmt.Errorf("unsupported encoding format %q; use toml or json", format)
+	}
+	if err != nil {
+		return nil, fmt.Errorf("encode protobuf message: %w", err)
+	}
+	return data, nil
+}
+
+// Decode parses TOML or JSON into the supplied protobuf message, checking its schema.
+// An empty format selects TOML. Resource and state semantics remain caller-owned.
+func Decode(data []byte, format Format, message proto.Message) error {
 	if message == nil || !message.ProtoReflect().IsValid() {
 		return fmt.Errorf("nil protobuf input message")
 	}
+	var err error
+	switch format {
+	case "", TOML:
+		err = decodeTOML(data, message)
+	case JSON:
+		err = protojson.Unmarshal(data, message)
+	default:
+		return fmt.Errorf("unsupported encoding format %q; use toml or json", format)
+	}
+	if err != nil {
+		return fmt.Errorf("decode protobuf message: %w", err)
+	}
+	return nil
+}
+
+// decodeTOML decodes TOML values into the supplied protobuf message.
+func decodeTOML(b []byte, message proto.Message) error {
 	var values map[string]any
 	if _, err := toml.Decode(string(b), &values); err != nil {
 		return fmt.Errorf("decode TOML: %w", err)
@@ -61,9 +108,9 @@ func checkJSONValue(value any) error {
 	return nil
 }
 
-// EncodeTOML converts protobuf JSON values directly to TOML.
+// encodeTOML converts protobuf JSON values directly to TOML.
 // Numeric strings, field presence, and omitted defaults follow ProtoJSON.
-func EncodeTOML(message proto.Message) ([]byte, error) {
+func encodeTOML(message proto.Message) ([]byte, error) {
 	data, err := (protojson.MarshalOptions{UseProtoNames: true}).Marshal(message)
 	if err != nil {
 		return nil, fmt.Errorf("encode protobuf JSON: %w", err)
@@ -83,8 +130,8 @@ func EncodeTOML(message proto.Message) ([]byte, error) {
 	return output.Bytes(), nil
 }
 
-// EncodeJSON serializes protobuf configuration with readable ProtoJSON and a final newline.
-func EncodeJSON(message proto.Message) ([]byte, error) {
+// encodeJSON serializes a protobuf message with readable ProtoJSON and a final newline.
+func encodeJSON(message proto.Message) ([]byte, error) {
 	data, err := (protojson.MarshalOptions{UseProtoNames: true, Indent: "  "}).Marshal(message)
 	if err != nil {
 		return nil, fmt.Errorf("encode protobuf JSON: %w", err)
