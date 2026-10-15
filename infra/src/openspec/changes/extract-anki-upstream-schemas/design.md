@@ -19,3 +19,18 @@ Temporary overlapping files require merge ordering. Link the prerequisite in #12
 ## Review fixes
 
 Use `github.com/ankitects/anki/proto/anki/<schema>` for generated imports. Fetch the 26.09.3 tag archive and compute its own integrity; retain the resolved commit in provenance. External schema targets grant access only to `@//third_party/com_github_ankitects_anki:__pkg__`; sibling targets retain same-package access. Update #128 with identical dependency files and upstream imports so both candidates remain buildable.
+
+## Additional service binding extraction
+
+Extract the config, deck_config, scheduler, search, stats, import_export, and media
+Go clients from #128 at bfe383772f0a983eabdc3f1c9e1b8a8de02ffc5d. Preserve the
+existing upstream release, original schema files, import closures, alias
+visibility, native library, and locks. The branch starts at fresh master
+376a43ac10356e9ef79ea8e421af8f2c2e8a1b1e and contains only binding build wiring
+and this owner-local change record. No additional dependency is introduced.
+
+Build the aliases and inspect generated typed methods. Quality and semantic
+lint cover the exact prepared candidate. No new runtime behavior or manual
+schema copies are added. Both PRs target master; #128 retains identical wiring
+until this prerequisite merges. Delivery receipts under out/anki-bindings-split
+own publication state.

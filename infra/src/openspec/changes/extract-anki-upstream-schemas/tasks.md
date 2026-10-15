@@ -10,3 +10,9 @@
 - [x] 2.1 Verify the tagged archive resolves to the recorded release commit and retains the schema files; record its integrity.
 - [x] 2.2 Use upstream Go import paths and wrapper-only target visibility; verify generated aliases compile and a direct external consumer is rejected.
 - [x] 2.3 Select exact-candidate checks, publication, and reasoned replies for all three review threads through delivery receipts.
+
+## 3. Additional native service clients
+
+- [x] 3.1 Extract the seven additional upstream Go service bindings and aliases from #128 without changing source pins, schemas, native targets, or locks.
+- [x] 3.2 Build the generated aliases and inspect representative typed service methods; select repository quality and semantic lint for exact-candidate delivery.
+- [x] 3.3 Select independent master-based delivery and prerequisite linking from #128, retaining its buildable overlap until merge; delivery receipts own publication state.
