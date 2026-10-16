@@ -3,7 +3,7 @@ package config
 import (
 	"fmt"
 
-	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/config/codec"
+	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/codec"
 )
 
 // Dump loads and encodes the configuration set for the CLI adapter.

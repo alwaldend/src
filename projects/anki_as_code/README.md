@@ -114,7 +114,16 @@ same prepared connection. The changed flag reports whether state was written.
 `State.Resources` groups typed deck, note, note-type and preset maps; note types
 own field/template maps.
 
-`config/codec` shares file serialization with config operations:
+`Store.Preview(ctx, configs, resources)` constructs a detached state snapshot
+without writing to Anki. Optional configs supply explicit moves. The input is
+`*collectionpb.Resources`: nil retains stored bindings after moves; a supplied
+message replaces every resource group, including clearing them when empty.
+Callers construct protobuf input data using private native-value conversions;
+the store owns state moves, ownership validation, and persistence. Inputs and
+stored bindings remain unchanged. Preview permits zero resource IDs for planned
+creations; `Replace` rejects unresolved IDs before persistence.
+
+`internal/codec` shares file serialization with config operations:
 `Encode(message proto.Message, format codec.Format)` and
 `Decode(data []byte, format codec.Format, message proto.Message)`. Use `codec.TOML`
 or `codec.JSON`; an empty format defaults to TOML. The state store has no codec
@@ -258,10 +267,10 @@ Export writes directly, preserves input messages, overwrites declared files, and
 leaves unrelated/stale files alone. Callers own valid, unique paths, layout,
 validation, staging, cleanup, and publication. Export does not load or normalize
 its output; failures may leave partial files. Consumers use this facade;
-the child packages remain implementation APIs with restricted Bazel visibility.
+the layout package remains an implementation API with restricted Bazel visibility.
 
-`config/layout` owns the fixed hierarchy, discovery, file I/O, and direct file
-export. `config/codec` converts TOML/JSON through protobuf without filesystem
+`internal/config/layout` owns the fixed hierarchy, discovery, file I/O, and direct file
+export. `internal/codec` converts TOML/JSON through protobuf without filesystem
 access. Dependencies flow from config to layout/codec, and from layout to codec.
 Collection relationship validation and native operations remain outside them.
 
@@ -294,7 +303,7 @@ Use absolute paths with `bazel run`, which may execute outside the checkout.
 | `api/collection`         | Generated resource, configuration, plan, and state contracts                      |
 | `internal/config`        | Public configuration facade and dump operation                                    |
 | `internal/config/layout` | Fixed hierarchy, discovery, file I/O, and direct export                           |
-| `internal/config/codec`  | Filesystem-independent protobuf/TOML/JSON conversion                              |
+| `internal/codec`         | Filesystem-independent protobuf/TOML/JSON conversion                              |
 | `internal/state`         | Stored-state dump, batch import, update and replacement                           |
 | `internal/model`         | Shared runtime snapshot models, without business logic                            |
 | `internal/app`           | Configuration adapter, explicit application lifecycle and collection placeholders |

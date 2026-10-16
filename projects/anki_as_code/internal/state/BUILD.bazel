@@ -5,6 +5,7 @@ go_library(
     srcs = [
         "bindings.go",
         "doc.go",
+        "moves.go",
         "store.go",
     ],
     importpath = "git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/state",
@@ -34,8 +35,8 @@ go_test(
     deps = [
         ":state",
         "//projects/anki_as_code/api/collection",
+        "//projects/anki_as_code/internal/codec",
         "//projects/anki_as_code/internal/config",
-        "//projects/anki_as_code/internal/config/codec",
         "//projects/anki_grpc/pkg/backend",
         "//third_party/com_github_ankitects_anki:cards",
         "//third_party/com_github_ankitects_anki:collection",

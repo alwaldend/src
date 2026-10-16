@@ -9,8 +9,8 @@ import (
 
 	collectionpb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/collection"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/app"
+	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/codec"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/config"
-	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/config/codec"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/state"
 	"github.com/spf13/cobra"
 )
