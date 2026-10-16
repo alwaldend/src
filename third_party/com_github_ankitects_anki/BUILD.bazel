@@ -140,3 +140,9 @@ alias(
     actual = "@com_github_ankitects_anki//:media",
     visibility = [":schema_consumers"],
 )
+
+alias(
+    name = "card_rendering",
+    actual = "@com_github_ankitects_anki//:card_rendering",
+    visibility = [":schema_consumers"],
+)

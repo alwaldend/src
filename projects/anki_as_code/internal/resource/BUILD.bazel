@@ -19,6 +19,7 @@ go_library(
     importpath = "git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/resource",
     visibility = [":consumers"],
     deps = [
+        "//third_party/com_github_ankitects_anki:card_rendering",
         "//third_party/com_github_ankitects_anki:cards",
         "//third_party/com_github_ankitects_anki:deck_config",
         "//third_party/com_github_ankitects_anki:decks",

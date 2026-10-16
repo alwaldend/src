@@ -1,6 +1,6 @@
+load("@@//third_party/com_github_ankitects_anki:native.bzl", "anki_crate")
 load("@protobuf//bazel:proto_library.bzl", "proto_library")
 load("@rules_go//proto:def.bzl", "go_proto_library")
-load("@@//third_party/com_github_ankitects_anki:native.bzl", "anki_crate")
 
 package(default_visibility = ["@//third_party/com_github_ankitects_anki:__pkg__"])
 
@@ -19,6 +19,7 @@ _SCHEMAS = {
     "collection": ["generic", "sync"],
     "decks": ["generic", "collection"],
     "notetypes": ["generic", "collection"],
+    "card_rendering": ["generic", "notes", "notetypes"],
     "cards": ["collection"],
     "notes": ["notetypes", "collection", "decks", "cards"],
     "links": ["generic"],
@@ -55,7 +56,6 @@ _SCHEMAS = {
     )
     for name, dependencies in _SCHEMAS.items()
 ]
-
 
 # Cargo supplies external dependencies; Bazel wires the workspace members.
 anki_crate(

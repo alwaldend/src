@@ -129,28 +129,6 @@ creations; `Replace` rejects unresolved IDs before persistence.
 or `codec.JSON`; an empty format defaults to TOML. The state store has no codec
 or filesystem dependency.
 
-## Native resource Go API
-
-`internal/resource` shares generated native clients and complete snapshots on a
-caller-owned prepared connection:
-
-```go
-resources := resource.New(connection)
-snapshot, err := resources.Snapshot(ctx)
-note, err := resources.Notes.GetNote(ctx, &notes.NoteId{Nid: noteID})
-```
-
-Store exposes the generated deck, note-type, note, card, search and preset clients
-without forwarding wrappers. Snapshot returns upstream protobuf objects,
-including unmanaged resources and resident filtered cards, plus preset names.
-Decks are ordered by title; note types, notes and cards by native ID. Each call
-reads fresh values and returns caller-owned results. There is no cache or atomic
-snapshot guarantee; callers provide exclusive offline access.
-
-The resource store owns no backend lifecycle, state bindings, configs, projection,
-planning or mutation order. Export and reconciliation retain those policies.
-No SQL or duplicate storage logic is involved.
-
 ## Configuration commands
 
 ```sh
@@ -282,7 +260,6 @@ ProtoJSON directly to TOML, preserving optional presence and exact text values.
 - `Dump(input, format string) ([]byte, error)` loads and encodes JSON or TOML.
 - `Export(configs *collectionpb.CollectionConfigSet, output string) error` writes
   the root marker and supplied path/config pairs as TOML files.
-- `IsConfigFile(name string) bool` recognizes declaration filenames for caller-owned cleanup.
 - `Version` supplies the supported schema version to collection exporters.
 
 Export writes directly, preserves input messages, overwrites declared files, and
@@ -327,12 +304,67 @@ Use absolute paths with `bazel run`, which may execute outside the checkout.
 | `internal/config/layout` | Fixed hierarchy, discovery, file I/O, and direct export                           |
 | `internal/codec`         | Filesystem-independent protobuf/TOML/JSON conversion                              |
 | `internal/state`         | Stored-state dump, batch import, update and replacement                           |
+| `internal/export`        | Native-to-config projection, filenames and direct file output                     |
 | `internal/model`         | Shared runtime snapshot models, without business logic                            |
 | `internal/app`           | Configuration adapter, explicit application lifecycle and collection placeholders |
 | `cmd/anki_as_code`       | Cobra flags, cancellation, output, and errors                                     |
 
 The loader produces protobuf config sets directly. Resource messages use `Config`,
 file wrappers retain source paths, and upstream messages keep their upstream names.
+
+## Native resource Go API
+
+`internal/resource` shares generated native clients and complete snapshots on a
+caller-owned prepared connection:
+
+```go
+resources := resource.New(connection)
+snapshot, err := resources.Snapshot(ctx)
+note, err := resources.Notes.GetNote(ctx, &notes.NoteId{Nid: noteID})
+```
+
+Store exposes the generated deck, note-type, note, card, search, preset and rendering clients
+without forwarding wrappers. Snapshot returns upstream protobuf objects,
+including unmanaged resources and resident filtered cards, plus preset names.
+Decks are ordered by title; note types, notes and cards by native ID. Each call
+reads fresh values and returns caller-owned results. There is no cache or atomic
+snapshot guarantee; callers provide exclusive offline access.
+
+The resource store owns no backend lifecycle, state bindings, configs, projection,
+planning or mutation order. Export and reconciliation retain those policies.
+No SQL or duplicate storage logic is involved.
+
+## Collection export Go API
+
+![Export data flow](/docs/projects/anki_as_code/assets/export.svg)
+
+`internal/export` borrows resource and state stores for the same prepared collection:
+
+```go
+resources := resource.New(connection)
+states := state.New(connection, key)
+exporter := export.New(resources, states)
+err := exporter.Export(ctx, absoluteOutputDirectory)
+```
+
+Stored bindings retain filenames and preset aliases; export does not generate,
+serialize, write or install state. State operations remain separate.
+The destination must not contain the source collection.
+
+New note filenames use Anki's `HtmlToTextLine` result for the configured sort
+field. Go only sanitizes that text into a bounded Unicode filename. Bound names
+are reused from state; filename conversion never changes stored note fields.
+
+Export owns config projection and readable filenames and delegates file output
+to `config.Export`. It overwrites declared configs in place and leaves other
+entries untouched, including stale configs and caller-owned state files.
+Filesystem errors may leave partial output. For cleanup or publication policies,
+export to a temporary directory and synchronize it externally, for example with
+rsync. The caller also owns exclusive offline access, backend startup,
+collection preparation and shutdown.
+
+Export and reconciliation share `resource.Store` for generated clients and fresh
+native snapshots; their projection and policy remain separate.
 
 ## Anki backend API
 
@@ -382,3 +414,10 @@ The application E2E starts once, exercises nested and sequential state access,
 checks rejected repeated startup and access before/after lifecycle boundaries,
 and verifies callback/cancellation error handling. It reopens the collection in a
 new application to verify persistence, emitting JSON and a closed native database.
+
+The independent exporter E2E uses a caller-managed native backend and collection.
+It checks exact Unicode/multiline fields, presentation, member bindings, stable
+bound/discovered paths, native filename text conversion, filtered-card exclusion,
+read-only state namespaces, untouched existing entries, cancellation and partial output
+after filesystem errors. It emits a complete text tree and a native `.colpkg` artifact.
+Run `bazel_agent bazel test //projects/anki_as_code/internal/export:export_test`.

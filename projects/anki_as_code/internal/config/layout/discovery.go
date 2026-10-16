@@ -20,12 +20,6 @@ const (
 	noteTypeSuffix = ".notetype.anki.toml"
 )
 
-// IsConfigFile identifies declaration filenames for callers managing export directories.
-// It performs no filesystem inspection or configuration validation.
-func IsConfigFile(name string) bool {
-	return name == collectionMarker || name == deckMarker || strings.HasSuffix(name, noteSuffix) || strings.HasSuffix(name, noteTypeSuffix)
-}
-
 // regularPath rejects paths containing symlinks or unsuitable filesystem entries.
 func regularPath(path string) error {
 	resolved, err := filepath.EvalSymlinks(path)
