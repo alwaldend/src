@@ -1,0 +1,62 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: minimal-generic-base-intake-108
+  resourceVersion: "1"
+  generation: 1
+  creationTimestamp: "2026-09-06T08:51:33.251184716Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 16
+  criteriaRevision: 4
+  criteriaDigest: sha256:f5fe4b5c4efc12d5b82ad42cf0d41fd7274f48b421abf42e9db1ce5ae316d8a3
+  goalStateDigest: sha256:d3dd99930bf18292653455d315de740e68d0a10d03186a30fad1ab2e06501ad6
+  workType: change
+  subject: base_108_minimal.blend;sha256=39462409c00d15348c2731284e75382be348d40c05482232b8da1d8a705318cc
+  priorAttemptID: sewn-sleeve-capability-107
+  nextAction: Reshape only the minimal donor head loops into an original cushion study; inspect front and profile before adding character detail.
+status:
+  state: closed
+  closedAt: "2026-09-06T08:51:33.251184716Z"
+  artifacts:
+    planDigest: sha256:cc5ae94820462e775122cd82a73b08cb190bc9a7c9fa382ff2a43347cd313a19
+    resultDigest: sha256:f4d6bea4572539b57f0c125509a350894a1523d48a10fb606a11fee6ff2a6193
+    evidence: []
+  review:
+    decision: refine
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-002
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-004
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-005
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-006
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-007
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-09-06T08:51:33.251184716Z"

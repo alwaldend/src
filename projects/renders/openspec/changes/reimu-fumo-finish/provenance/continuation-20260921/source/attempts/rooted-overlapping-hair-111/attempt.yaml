@@ -1,0 +1,62 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: rooted-overlapping-hair-111
+  resourceVersion: "2"
+  generation: 2
+  creationTimestamp: "2026-09-06T10:13:19.418320239Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 16
+  criteriaRevision: 4
+  criteriaDigest: sha256:f5fe4b5c4efc12d5b82ad42cf0d41fd7274f48b421abf42e9db1ce5ae316d8a3
+  goalStateDigest: sha256:d3dd99930bf18292653455d315de740e68d0a10d03186a30fad1ab2e06501ad6
+  workType: change
+  subject: head_110_panel_fit.blend;sha256=16f71cf5295a0532abdecc2dbc06fd51cbeddbe159bec68e512d03e472adc2a8;rooted-hair-rebuild-planned
+  priorAttemptID: coherent-trimmed-head-context-110
+  nextAction: Reset hair to continuous fabric-pattern construction from unchanged109head; no111geometry retention.
+status:
+  state: closed
+  closedAt: "2026-09-06T10:21:44.338872575Z"
+  artifacts:
+    planDigest: sha256:d05140e8f824265c49a24b82f3f0288fe35e3adedd400576a8b368c1049697c5
+    resultDigest: sha256:535547b358aff3fb573a99d345b86eb161520cbd811829e47a979e1451603d1b
+    evidence: []
+  review:
+    decision: reset
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-002
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-004
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-005
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-006
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-007
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-09-06T10:21:44.338872575Z"

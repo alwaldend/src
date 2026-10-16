@@ -1,0 +1,89 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: cylindrical-head-interface-036
+  resourceVersion: "4"
+  generation: 1
+  creationTimestamp: "2026-09-05T01:57:40.22079678Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 16
+  criteriaRevision: 4
+  criteriaDigest: sha256:f5fe4b5c4efc12d5b82ad42cf0d41fd7274f48b421abf42e9db1ce5ae316d8a3
+  goalStateDigest: sha256:583de00133b108fd4f93a14d0097e02f5c1a81d0c055eacfd943db4cd30fc8cc
+  workType: candidate
+  stableDefect: Front-plane chart discards the wrapped side-root depth needed for a single hair surface.
+  hypothesis: A fixed anatomical angle-height chart yields a single-valued radius field with valid boundary and shell orientation.
+  subject: Same035 local head-interface support, no additional ring or axis fit
+  priorAttemptID: chart-triangulated-head-interface-035
+  nextAction: Check retained-face radial conditioning and captured inner boundary, then one unsaved triangulated-radius state if valid.
+status:
+  state: closed
+  closedAt: "2026-09-05T02:47:36.023527348Z"
+  artifacts:
+    planDigest: sha256:da8907798f529bd2f396fd8af57445fcf10fe338ee2a00155483994974324221
+    resultDigest: sha256:93b5eaa0d6416d2ffc64970c8d8c4b8dfda10b02649770abacee88541db7a78d
+    evidence:
+    - path: evidence/head_036_boundary_evidence.md
+      digest: sha256:24a55de01fe6f409db0dabe9af1d6179e99f0fcc61a7d72f02f32aed159bbbdd
+    - path: evidence/head_036_closure_plan.md
+      digest: sha256:fa241559776606e9abb878d338c205da6e29eb6612507a7d5e3e63832f73feb2
+    - path: evidence/head_036_handoff.md
+      digest: sha256:8c1687efa50de0adfb7f37659405801de4e12edcfba9f8cf63971c8bd04bc40f
+    - path: evidence/head_036_preview_blind.md
+      digest: sha256:95e9d494b48631260e8a2fbe288bc2f946b4229f4d985196491b20494d74dfc5
+    - path: evidence/head_036_root_review.md
+      digest: sha256:46c2a10075eb4965e28d8be6ad27a4627bd2cf4c0cdc4406826efe8224344c0f
+    - path: evidence/head_036_solver_plan.md
+      digest: sha256:c5d88cd6f72f0506d1c4eca48c615fbf3ffec2e2ce9c88b3806d54c18b3d4b8c
+    - path: evidence/rig_037_coordinate_plan.md
+      digest: sha256:ccc6d98f3a631691c4d437718bee3196930e4c8c9dea8397dfdd9e5d76b2aaa2
+    - path: evidence/rig_037_guard_correction.md
+      digest: sha256:91615058fc9a705843383017aca7ac1561a628e96b10b48e75189009e14925b2
+    - path: evidence/rig_037_sleeve_result.md
+      digest: sha256:7cd852cc27ff4f892d7b02883179238d390bf0768f2d45e7c43916e82d6fda6e
+    - path: evidence/rig_rest_bake_preflight.md
+      digest: sha256:c31a8ade6a13f8c1985fc68ad5e18ad1e9c012a4f350a8e35760314f43d9c51a
+  review:
+    decision: reset
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 3
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-002
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-004
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-005
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-006
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-007
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-09-05T02:47:36.023527348Z"

@@ -1,0 +1,62 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: layered-hair-clean-sleeve-061
+  resourceVersion: "2"
+  generation: 1
+  creationTimestamp: "2026-09-05T15:54:44.820727371Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 16
+  criteriaRevision: 4
+  criteriaDigest: sha256:f5fe4b5c4efc12d5b82ad42cf0d41fd7274f48b421abf42e9db1ce5ae316d8a3
+  goalStateDigest: sha256:7d8d3efa02ca505b4084666961eb0cd9b3460272202604f671cda1ab937d16a3
+  planID: layered-hair-clean-sleeve-v55
+  workType: change
+status:
+  state: closed
+  closedAt: "2026-09-05T16:41:05.038440702Z"
+  artifacts:
+    planDigest: sha256:5e25e3d07e17c957f8cf0c84ff743f5d8b6f4314a1b0c0c6315e7250e0bd987e
+    resultDigest: sha256:db6c4523cb9521ed5633dc01fba289db16ee780326fc3bc100f119dc68eeb9bf
+    evidence: []
+  review:
+    decision: reset
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 3
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-002
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-004
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-005
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-006
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-007
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-09-05T16:41:05.038440702Z"

@@ -1,0 +1,61 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: native-manual-head-015
+  resourceVersion: "2"
+  generation: 1
+  creationTimestamp: "2026-09-04T11:29:59.117519251Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 14
+  criteriaRevision: 4
+  criteriaDigest: sha256:f5fe4b5c4efc12d5b82ad42cf0d41fd7274f48b421abf42e9db1ce5ae316d8a3
+  goalStateDigest: sha256:993490970276e090e6e3df3a169ce8288a43e1783e7a3b043c932ccc67f900b8
+  planID: native-manual-head-v13
+  workType: candidate
+  stableDefect: head-hair-helmet-read
+  hypothesis: A manually sculpted shallow cushion plus four or fewer independently rooted native-shaped hair forms will replace the enclosing second-skin mechanism and match the taller lower-weighted reference envelope without card or pillow-cluster failures
+  subject: Protected A157 SHA-256 433d08ad36be488bb16e4221a85f831d4390660c258a43ea0b08775811574b73; head cushion and replacement hair forms only; sole writer native_head_artist
+  affectedCriteria:
+  - criterion-001
+  - criterion-002
+  - criterion-003
+  regressionRefs:
+  - a157-five-view-baseline
+  - evaluated-lobes-007
+  - integrated-hair-005
+  - macro-sculpt-010
+  - native-crown-patch-014
+  priorAttemptID: native-crown-patch-014
+  measurableDelta: One manually shaped cushion reaches the frozen head, face, and depth bands while no more than four separate rooted hair forms replace the 81.4 percent enclosing cap and every non-head geometry digest remains unchanged
+  nextAction: Named sole writer creates and saves one complete native manual head state; coordinator then pinned-renders the fast trio and either retains it after blind review or stops autonomous model variants
+status:
+  state: closed
+  closedAt: "2026-09-04T11:56:06.476374518Z"
+  artifacts:
+    planDigest: sha256:ff09f012780d8ea846557d60ed538aa0b0c9bcb66c8bd281a467f60a709ab12f
+    resultDigest: sha256:424378f0cb4661f20103170d757edfc90958a92449e0f4a1a1b3f62f83ba6787
+    evidence:
+    - path: evidence/native_manual_head_015_evidence.md
+      digest: sha256:40143ee6e40710ec13bf626ca2fb4f5a1862a9e97159fe69ce29e2cc8489869e
+  review:
+    decision: reset
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 3
+      verdict: fail
+      evidenceRefs:
+      - evidence/native_manual_head_015_evidence.md
+    - criterionID: criterion-002
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs:
+      - evidence/native_manual_head_015_evidence.md
+    - criterionID: criterion-003
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - evidence/native_manual_head_015_evidence.md
+  observedAt: "2026-09-04T11:56:06.476374518Z"

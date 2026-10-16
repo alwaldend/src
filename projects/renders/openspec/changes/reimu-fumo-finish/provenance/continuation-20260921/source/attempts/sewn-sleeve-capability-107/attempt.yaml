@@ -1,0 +1,62 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: sewn-sleeve-capability-107
+  resourceVersion: "3"
+  generation: 3
+  creationTimestamp: "2026-09-06T08:02:23.183020749Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 16
+  criteriaRevision: 4
+  criteriaDigest: sha256:f5fe4b5c4efc12d5b82ad42cf0d41fd7274f48b421abf42e9db1ce5ae316d8a3
+  goalStateDigest: sha256:d3dd99930bf18292653455d315de740e68d0a10d03186a30fad1ab2e06501ad6
+  workType: change
+  subject: sha256:5880a74d61d3f55026fc1bcf57a8b89ea332e56f8318e3c49aad8433ae762053
+  priorAttemptID: spatial-cloth-whole-macro-106
+  nextAction: Ask whether user permits adapting suitably licensed base geometry; do not acquire/use outside assets or start another rejected cage/solver variant without direction.
+status:
+  state: closed
+  closedAt: "2026-09-06T08:18:31.790665851Z"
+  artifacts:
+    planDigest: sha256:f6ad1ac91e0186caf8d2a5dd4314a73a6df0d89b5052b0d240a18b81807e7298
+    resultDigest: sha256:17c3fb74e216cbdaf156d3797bdd923157b01256a9f5dbc64845d966a16632cc
+    evidence: []
+  review:
+    decision: reset
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-002
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-004
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-005
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-006
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-007
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-09-06T08:18:31.790665851Z"

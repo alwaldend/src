@@ -1,0 +1,73 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: continuous-sleeve-corridor-arms-099
+  resourceVersion: "4"
+  generation: 4
+  creationTimestamp: "2026-09-06T04:01:07.566946024Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 16
+  criteriaRevision: 4
+  criteriaDigest: sha256:f5fe4b5c4efc12d5b82ad42cf0d41fd7274f48b421abf42e9db1ce5ae316d8a3
+  goalStateDigest: sha256:d3dd99930bf18292653455d315de740e68d0a10d03186a30fad1ab2e06501ad6
+  workType: change
+  subject: 925350ae56377cea29f22fbf55045f26e6df1b5040ca38e8efd4d4526ed1290a
+  nextAction: Retained098 remains source; freeze a cuff-plane capsule-hand100 proposal after bounded design review, no099postrenderedit.
+status:
+  state: closed
+  closedAt: "2026-09-06T04:19:32.810732171Z"
+  artifacts:
+    planDigest: sha256:55b9078a00d134e7c6baf5ce095c76325c786bb9b0632cd97283cf65838ea785
+    resultDigest: sha256:190f5fd5f812a9cdbe6f79232f6fd906347adbc8baf9f3e66bf2cf0967641fbe
+    evidence:
+    - path: evidence/arm_098_source_attachment.md
+      digest: sha256:cad825ec17c11891ade2a5b7bf3c2586d792b72920447b3aec79a06032fa5f5e
+    - path: evidence/arm_099_design_review.md
+      digest: sha256:65e706c0e85a2f9d3a25d02b1a6e5ee0d7290d9db3220b7ff8d7ab19b9bc308c
+    - path: evidence/arm_099_pixel_review.md
+      digest: sha256:326f25724b46691b6614ab86dde49fcfa7036587d89b52b158411c7c02c388c9
+    - path: evidence/arm_099_saved.md
+      digest: sha256:b0eea2306fa031ff76705865ac8e997e8252d807fbb2aadb7d001b45e9ff4c49
+    - path: evidence/process_099_review.md
+      digest: sha256:d70a5b59b317b0e6138a5edeb37b13960d90ff10bef28491acaa4910ce767e85
+  review:
+    decision: reset
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 3
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-002
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-004
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-005
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-006
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-007
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-09-06T04:19:32.810732171Z"

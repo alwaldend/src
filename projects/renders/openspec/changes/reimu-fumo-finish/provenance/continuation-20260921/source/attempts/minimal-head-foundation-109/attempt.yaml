@@ -1,0 +1,66 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: minimal-head-foundation-109
+  resourceVersion: "4"
+  generation: 4
+  creationTimestamp: "2026-09-06T08:54:21.669698966Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 16
+  criteriaRevision: 4
+  criteriaDigest: sha256:f5fe4b5c4efc12d5b82ad42cf0d41fd7274f48b421abf42e9db1ce5ae316d8a3
+  goalStateDigest: sha256:d3dd99930bf18292653455d315de740e68d0a10d03186a30fad1ab2e06501ad6
+  workType: change
+  subject: head_109_context.blend;sha256=a6497b16da7cc8e6fa8f3479135beecf47fcf5438cd2fbcd5fd5930c57d02b92;rejected
+  priorAttemptID: minimal-generic-base-intake-108
+  nextAction: "110: replace folded pole-to-hem loft with a coherently trimmed receiver-following shell; keep the original minimal head unchanged."
+status:
+  state: closed
+  closedAt: "2026-09-06T09:50:50.497242957Z"
+  artifacts:
+    planDigest: sha256:d31bde9ea9ca9b20f219e4870d459c9a545d9c7f96adc779af1e205e833865a4
+    resultDigest: sha256:31446be1f78711ec465ab2fbb792baa8efd1e200bdc9f7eefd277beee71f00f5
+    evidence:
+    - path: evidence/head_109_context_plan.md
+      digest: sha256:8b51ee68f4fdcb12fe83b29cbebe2fc05b0b7399f5583988c84fab90d247fb6c
+    - path: evidence/head_109_context_setup_repair.md
+      digest: sha256:9e8b2c3cb8cd20425b2f2f9709104e48f60f69b578fb53ca4c52f6b10284b4df
+  review:
+    decision: reset
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-002
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-004
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-005
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-006
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-007
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-09-06T09:50:50.497242957Z"

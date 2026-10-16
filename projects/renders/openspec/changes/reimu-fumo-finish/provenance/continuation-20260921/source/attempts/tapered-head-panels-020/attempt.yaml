@@ -1,0 +1,73 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: tapered-head-panels-020
+  resourceVersion: "3"
+  generation: 1
+  creationTimestamp: "2026-09-04T20:38:53.724040801Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 16
+  criteriaRevision: 4
+  criteriaDigest: sha256:f5fe4b5c4efc12d5b82ad42cf0d41fd7274f48b421abf42e9db1ce5ae316d8a3
+  goalStateDigest: sha256:d09a028a39dbc26f29dae7cd7fe39d59a3c9d7fa6d561acd88039f25617189ee
+  planID: tapered-stuffed-panels-v18
+  workType: candidate
+  stableDefect: Constant-depth head wall and exposed collar gap
+  hypothesis: Nonuniform front and back panel depth with lower seating removes barrel read and restores compact collar contact
+  subject: Protected A202 donor with traced front contour and frozen review contract
+  priorAttemptID: reference-traced-head-019
+  nextAction: Reconstruct tapered panels from donor, freeze candidate, inspect side and collar contact, and independently review only if fast gates pass
+status:
+  state: closed
+  closedAt: "2026-09-04T20:50:59.818367339Z"
+  artifacts:
+    planDigest: sha256:14c1f350b6a3656c9bfee6a05c6f8c4edc6c2bc0843cb8da09002138b0c9cfc5
+    resultDigest: sha256:1c3bfe4967e253434bbe1a84d000aedc1725d64a6ea3fddc19accdce0133efc6
+    evidence:
+    - path: evidence/preflight_evidence.md
+      digest: sha256:68612505657063a20658b49be6e18d82a4938486c30922275b3d118f9cb2fa3f
+    - path: evidence/repair_020_evidence.md
+      digest: sha256:efdc8556e0a0369f20dbff8ea0bdff9f58f5eca71ffa809a9b090a893df2641e
+    - path: evidence/screenshot_evidence.md
+      digest: sha256:9000db9d1a235c6ecd33092a8b9191402b092de7d389297a5705e7c31e18697f
+  review:
+    decision: reset
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 3
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-002
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-004
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-005
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-006
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-007
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-09-04T20:50:59.818367339Z"

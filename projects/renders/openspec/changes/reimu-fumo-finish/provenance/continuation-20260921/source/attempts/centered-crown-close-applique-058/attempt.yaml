@@ -1,0 +1,71 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: centered-crown-close-applique-058
+  resourceVersion: "2"
+  generation: 1
+  creationTimestamp: "2026-09-05T13:50:59.274688223Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 16
+  criteriaRevision: 4
+  criteriaDigest: sha256:f5fe4b5c4efc12d5b82ad42cf0d41fd7274f48b421abf42e9db1ce5ae316d8a3
+  goalStateDigest: sha256:b985c4397726290ed29fbb74f24b4968328ac1c85f99ead91857e86e1d15d685
+  planID: centered-crown-close-applique-v52
+  workType: change
+  stableDefect: swept-crown-proud-applique
+  hypothesis: Centering the crown while preserving cheek convexity removes backward sweep; locally fitted embroidery removes proud eye edges.
+  subject: source050 sha256:6098307ff3b44052bd31ab73e80f1f2df1c8dee5ae79391f1f0aa5fb685dd93b; builder058 sha256:47e50a92f31a4aa9690c2cff0737ea330f25ee06880ab233bc55b0be708276cb
+  affectedCriteria:
+  - criterion-001
+  - criterion-002
+  - criterion-003
+  priorAttemptID: shared-skin-fringe-057
+  nextAction: Execute058 once and render fixed front-side if saved; reject silhouette or contact regressions.
+status:
+  state: closed
+  closedAt: "2026-09-05T14:06:50.635614745Z"
+  artifacts:
+    planDigest: sha256:5466e066560994c8c68d8ed0654f6fd1e22cc5d08ad5c9dbf7dc427ec41c1e58
+    resultDigest: sha256:05bbaa09763668fb9d5bf21c9d0e1392504abfb3fab306c3dc0f3a2455a5e0e7
+    evidence: []
+  review:
+    decision: reset
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 3
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-002
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-004
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-005
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-006
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-007
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-09-05T14:06:50.635614745Z"

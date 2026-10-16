@@ -1,0 +1,65 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: broad-front-panel-reloft-074
+  resourceVersion: "3"
+  generation: 3
+  creationTimestamp: "2026-09-05T20:00:21.453991891Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 16
+  criteriaRevision: 4
+  criteriaDigest: sha256:f5fe4b5c4efc12d5b82ad42cf0d41fd7274f48b421abf42e9db1ce5ae316d8a3
+  goalStateDigest: sha256:d3dd99930bf18292653455d315de740e68d0a10d03186a30fad1ab2e06501ad6
+  workType: change
+  subject: f3f5573dc6b39bd9ed586d72cc9e722968847ece96073c964b3c7642ae861474
+  nextAction: Restore071 free hair shapes; preserve074 head provisionally. Fit front free locks rigidly with root-only attachment instead of deforming whole free panels with the head cage.
+status:
+  state: closed
+  closedAt: "2026-09-05T20:12:40.361033297Z"
+  artifacts:
+    planDigest: sha256:8f27bb46da565a5e6582c25480ec24f07589f0eb2b84b5f12bb7f3f37d17744c
+    resultDigest: sha256:3483383188ad3b3208ae3defb8b9873faa1accd178f065e8a27ccd018d32fd79
+    evidence:
+    - path: evidence/face_074_reference_diagnosis.md
+      digest: sha256:d788888f84812ac71db79375bafc2ba469c52068b4f2fedc70ac6a6de636db3a
+  review:
+    decision: reset
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 3
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-002
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-004
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-005
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-006
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-007
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-09-05T20:12:40.361033297Z"

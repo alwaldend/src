@@ -1,0 +1,68 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: integrated-lower-seam-support-087
+  resourceVersion: "3"
+  generation: 3
+  creationTimestamp: "2026-09-06T00:12:50.083589523Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 16
+  criteriaRevision: 4
+  criteriaDigest: sha256:f5fe4b5c4efc12d5b82ad42cf0d41fd7274f48b421abf42e9db1ce5ae316d8a3
+  goalStateDigest: sha256:d3dd99930bf18292653455d315de740e68d0a10d03186a30fad1ab2e06501ad6
+  workType: change
+  subject: c171fea554811e825e2cd9d7f1d5a069c6b305e85888c6058d2390e1a20738e1
+  nextAction: Freeze and execute measured-root short graph sleeves088; retain087 bounded chin improvement only, whole goal open.
+status:
+  state: closed
+  closedAt: "2026-09-06T00:29:15.146509649Z"
+  artifacts:
+    planDigest: sha256:e39aebf88578eb1b73aefcce10670bd59d4aa85c73f710151bc6ed7cf62ee8f3
+    resultDigest: sha256:23c82e4bab7a59e2e8b79aed976dbdbc4ef71a417c26ea7fe584173647d1f445
+    evidence:
+    - path: evidence/chin_087_pixel_review.md
+      digest: sha256:07c549a2a62ce3945cc2c8ee28f285ffba4ec6a477be0ac09803fc5fc5bfb7d1
+    - path: evidence/process_087_review.md
+      digest: sha256:97fba2a71f8aa47a0ad3da3051b602b9defeafc14255ded2680b9b92f85b2d31
+  review:
+    decision: accept
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 3
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-002
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-004
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-005
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-006
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-007
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-09-06T00:29:15.146509649Z"
