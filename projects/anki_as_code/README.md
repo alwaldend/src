@@ -129,6 +129,28 @@ creations; `Replace` rejects unresolved IDs before persistence.
 or `codec.JSON`; an empty format defaults to TOML. The state store has no codec
 or filesystem dependency.
 
+## Native resource Go API
+
+`internal/resource` shares generated native clients and complete snapshots on a
+caller-owned prepared connection:
+
+```go
+resources := resource.New(connection)
+snapshot, err := resources.Snapshot(ctx)
+note, err := resources.Notes.GetNote(ctx, &notes.NoteId{Nid: noteID})
+```
+
+Store exposes the generated deck, note-type, note, card, search and preset clients
+without forwarding wrappers. Snapshot returns upstream protobuf objects,
+including unmanaged resources and resident filtered cards, plus preset names.
+Decks are ordered by title; note types, notes and cards by native ID. Each call
+reads fresh values and returns caller-owned results. There is no cache or atomic
+snapshot guarantee; callers provide exclusive offline access.
+
+The resource store owns no backend lifecycle, state bindings, configs, projection,
+planning or mutation order. Export and reconciliation retain those policies.
+No SQL or duplicate storage logic is involved.
+
 ## Configuration commands
 
 ```sh
