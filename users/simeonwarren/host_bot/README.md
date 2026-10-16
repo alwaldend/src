@@ -83,7 +83,12 @@ The managed Codex configuration allows up to 20 concurrent subagents per
 session. The root agent is accounted for separately.
 
 Node.js and npm are provisioned through the development VM role's mutable or
-OSTree package backend. Open Computer Use 0.3.3 is then installed without npm
+OSTree package backend. OpenSpec 1.14.2 (`@fission-ai/openspec`) is installed
+without npm lifecycle scripts under the managed user's `~/.local` prefix,
+providing `~/.local/bin/openspec`. Its exact version is controlled by
+`openspec_version`; the `openspec` tag selects its prerequisites and installation.
+Repository workflows continue to use the repository-pinned Bazel CLI wrapper.
+Open Computer Use 0.3.3 is then installed without npm
 lifecycle scripts under the managed user's `~/.local` prefix. Its skill is
 then installed for the whole host under `/etc/codex/skills` from the matching
 immutable upstream revision. The deployment configures its stdio MCP server in

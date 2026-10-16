@@ -1,4 +1,6 @@
 ansible_user: simeonwarrenbot
+openspec_version: "1.14.2"
+openspec_npm_prefix: "{{ dev_vm_bazel_home }}/.local"
 open_computer_use_version: "0.3.3"
 open_computer_use_npm_prefix: "{{ dev_vm_bazel_home }}/.local"
 open_computer_use_skill_repository: iFurySt/open-codex-computer-use
