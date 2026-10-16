@@ -30,9 +30,3 @@ func Export(configs *collectionpb.CollectionConfigSet, output string) error {
 	}
 	return nil
 }
-
-// IsConfigFile identifies declaration filenames for callers managing export directories.
-// It performs no filesystem inspection or configuration validation.
-func IsConfigFile(name string) bool {
-	return layout.IsConfigFile(name)
-}

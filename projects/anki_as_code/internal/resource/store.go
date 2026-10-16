@@ -7,6 +7,7 @@ import (
 	"slices"
 	"strings"
 
+	"github.com/ankitects/anki/proto/anki/card_rendering"
 	"github.com/ankitects/anki/proto/anki/cards"
 	"github.com/ankitects/anki/proto/anki/deck_config"
 	"github.com/ankitects/anki/proto/anki/decks"
@@ -32,6 +33,8 @@ type Store struct {
 	Search search.SearchServiceClient
 	// Presets reads existing scheduling references; consumers own managed scope.
 	Presets deck_config.DeckConfigServiceClient
+	// Rendering exposes Anki's text conversion and card rendering operations.
+	Rendering card_rendering.CardRenderingServiceClient
 }
 
 // New constructs reusable generated clients without native work or lifecycle ownership.
@@ -43,6 +46,7 @@ func New(connection grpc.ClientConnInterface) *Store {
 		Cards:     cards.NewCardsServiceClient(connection),
 		Search:    search.NewSearchServiceClient(connection),
 		Presets:   deck_config.NewDeckConfigServiceClient(connection),
+		Rendering: card_rendering.NewCardRenderingServiceClient(connection),
 	}
 }
 

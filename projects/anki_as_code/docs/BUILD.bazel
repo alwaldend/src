@@ -6,6 +6,7 @@ docs_filegroup(
     srcs = [
         ":config_operations",
         ":config_references",
+        ":export",
     ],
     prefix = "content/docs/projects/anki_as_code/assets",
     visibility = ["//projects/anki_as_code:__pkg__"],
@@ -38,5 +39,21 @@ mermaid_site_webp(
     out = "rendered/config-references.webp",
     aspect_ratio = [],
     color_scheme = "dark",
+    tags = ["manual"],
+)
+
+mermaid_site_svg(
+    name = "export",
+    src = "export.mmd",
+    out = "rendered/export.svg",
+)
+
+mermaid_site_webp(
+    name = "export_preview",
+    src = "export.mmd",
+    out = "rendered/export.webp",
+    aspect_ratio = [],
+    color_scheme = "dark",
+    scale = 2,
     tags = ["manual"],
 )

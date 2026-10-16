@@ -13,6 +13,9 @@ import (
 // DefaultKey is the versioned Anki config namespace selected when callers omit a key.
 const DefaultKey = "anki_as_code/state/v1"
 
+// invalidAddressCharacters excludes Windows separators and NUL from collection-relative state paths.
+const invalidAddressCharacters = "\\\x00"
+
 // cloneState preserves bindings and initializes typed maps for import.
 func cloneState(value *collectionpb.State) *collectionpb.State {
 	result := proto.Clone(value).(*collectionpb.State)
@@ -36,7 +39,7 @@ func cloneState(value *collectionpb.State) *collectionpb.State {
 
 // validAddress rejects addresses outside the collection or noncanonical filesystem paths.
 func validAddress(address string) error {
-	if address == "" || address == "." || strings.HasPrefix(address, "/") || strings.ContainsAny(address, "\\\x00") || path.Clean(address) != address || address == ".." || strings.HasPrefix(address, "../") {
+	if address == "" || address == "." || strings.HasPrefix(address, "/") || strings.ContainsAny(address, invalidAddressCharacters) || path.Clean(address) != address || address == ".." || strings.HasPrefix(address, "../") {
 		return fmt.Errorf("invalid collection-relative address %q", address)
 	}
 	return nil

@@ -1,0 +1,22 @@
+flowchart LR
+    subgraph application["anki_as_code"]
+        exporter["export.Exporter"]
+        resources["resource.Store"]
+        states["state.Store"]
+
+        exporter --> resources
+        exporter --> states
+    end
+
+    connection["anki_grpc"]
+    configs["Configs"]
+
+    subgraph storage["Anki storage"]
+        storedResources["Resources"]
+        state["State"]
+    end
+
+    resources -->|gRPC| connection
+    states -->|gRPC| connection
+    connection --> storage
+    exporter -->|Write| configs
