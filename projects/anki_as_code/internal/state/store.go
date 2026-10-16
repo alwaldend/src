@@ -78,17 +78,44 @@ func (store *Store) Dump(ctx context.Context) (*collectionpb.State, error) {
 			return nil, fmt.Errorf("decode collection state: %w", err)
 		}
 	}
-	if err := validateState(value); err != nil {
+	if err := validateState(value, false); err != nil {
 		return nil, fmt.Errorf("read collection state: %w", err)
 	}
 	return value, nil
+}
+
+// Preview applies config moves and returns a detached state snapshot without writes.
+// Nil resources retain moved stored bindings; a supplied message replaces all groups,
+// including clearing them when empty. Inputs remain unchanged. Zero resource IDs
+// are allowed for planning but cannot be persisted.
+func (store *Store) Preview(ctx context.Context, configs *collectionpb.CollectionConfigSet, resources *collectionpb.Resources) (*collectionpb.State, error) {
+	before, err := store.Dump(ctx)
+	if err != nil {
+		return nil, fmt.Errorf("read state before preview: %w", err)
+	}
+	if configs != nil {
+		if err := validateMoveSources(configs); err != nil {
+			return nil, fmt.Errorf("validate move declarations: %w", err)
+		}
+	}
+	value, err := moveState(before, configs.GetConfig().GetMoved())
+	if err != nil {
+		return nil, fmt.Errorf("preview state moves: %w", err)
+	}
+	if resources != nil {
+		value.Resources = resources
+	}
+	if err := validateState(value, true); err != nil {
+		return nil, fmt.Errorf("validate preview state: %w", err)
+	}
+	return proto.Clone(value).(*collectionpb.State), nil
 }
 
 // Replace replaces the complete stored object, including removal of omitted bindings.
 // It validates state metadata, leaves native objects untouched, and reports actual changes.
 // Invalid saved state can be replaced; native read errors still fail the operation.
 func (store *Store) Replace(ctx context.Context, value *collectionpb.State) (bool, error) {
-	if err := validateState(value); err != nil {
+	if err := validateState(value, false); err != nil {
 		return false, fmt.Errorf("replacement state: %w", err)
 	}
 	data, err := store.read(ctx)
@@ -113,7 +140,7 @@ func (store *Store) Replace(ctx context.Context, value *collectionpb.State) (boo
 // Supplied map keys replace complete typed entries, including note-type members.
 // It validates the merged ownership before one write and leaves its input unchanged.
 func (store *Store) Update(ctx context.Context, value *collectionpb.State) (bool, error) {
-	if err := validateState(value); err != nil {
+	if err := validateState(value, false); err != nil {
 		return false, fmt.Errorf("update state: %w", err)
 	}
 	if resources := value.Resources; resources == nil || len(resources.Decks)+len(resources.Notes)+len(resources.NoteTypes)+len(resources.Presets) == 0 {
@@ -125,7 +152,7 @@ func (store *Store) Update(ctx context.Context, value *collectionpb.State) (bool
 	}
 	merged := proto.Clone(before).(*collectionpb.State)
 	proto.Merge(merged, value)
-	if err := validateState(merged); err != nil {
+	if err := validateState(merged, false); err != nil {
 		return false, fmt.Errorf("merged state: %w", err)
 	}
 	changed, err := store.write(ctx, before, merged)
@@ -193,7 +220,7 @@ func (store *Store) Import(ctx context.Context, configs *collectionpb.Collection
 			return false, fmt.Errorf("import binding %q: %w", address, err)
 		}
 	}
-	if err := validateState(value); err != nil {
+	if err := validateState(value, false); err != nil {
 		return false, fmt.Errorf("validate imported state: %w", err)
 	}
 	changed, err := store.write(ctx, before, value)
@@ -256,11 +283,11 @@ func (store *Store) importNoteType(ctx context.Context, value *collectionpb.Stat
 	if definition.Id != id {
 		return fmt.Errorf("note type identity %d does not exist", id)
 	}
-	projected := &collectionpb.NoteTypeConfig{Fields: definition.Fields}
-	for _, template := range definition.Templates {
-		projected.Templates = append(projected.Templates, &collectionpb.TemplateConfig{Name: template.Name, Config: template.Config})
+	binding, err := bindType(definition)
+	if err != nil {
+		return fmt.Errorf("bind imported note type: %w", err)
 	}
-	bindType(value, address, id, projected)
+	value.Resources.NoteTypes[address] = binding
 	return nil
 }
 

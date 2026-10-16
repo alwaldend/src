@@ -6,7 +6,7 @@ import (
 	"io"
 	"os"
 
-	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/config/codec"
+	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/codec"
 	"google.golang.org/protobuf/proto"
 )
 

@@ -6,6 +6,7 @@ import (
 	"strings"
 
 	collectionpb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/collection"
+	"github.com/ankitects/anki/proto/anki/notetypes"
 	"google.golang.org/protobuf/proto"
 )
 
@@ -42,11 +43,11 @@ func validAddress(address string) error {
 }
 
 // claimBinding checks path ownership across maps and native identity ownership within a map.
-func claimBinding(address string, id int64, paths map[string]bool, identities map[int64]string) error {
+func claimBinding(address string, id int64, paths map[string]bool, identities map[int64]string, allowUnresolved bool) error {
 	if err := validAddress(address); err != nil {
 		return fmt.Errorf("state address: %w", err)
 	}
-	if id <= 0 {
+	if id < 0 || (id == 0 && !allowUnresolved) {
 		return fmt.Errorf("invalid native identity at %q", address)
 	}
 	if paths[address] {
@@ -55,32 +56,44 @@ func claimBinding(address string, id int64, paths map[string]bool, identities ma
 	if previous := identities[id]; previous != "" {
 		return fmt.Errorf("native identity is bound to both %q and %q", previous, address)
 	}
-	paths[address], identities[id] = true, address
+	paths[address] = true
+	if id != 0 {
+		identities[id] = address
+	}
 	return nil
 }
 
 // validateState checks only the application's metadata schema and identity ownership.
-func validateState(value *collectionpb.State) error {
+func validateState(value *collectionpb.State, allowUnresolved bool) error {
 	if value == nil || value.Version != 1 {
 		return fmt.Errorf("state must have version 1")
 	}
 	paths := map[string]bool{}
 	decks := map[int64]string{}
 	for address, deck := range value.GetResources().GetDecks() {
-		if err := claimBinding(address, deck.GetId(), paths, decks); err != nil {
+		if deck == nil {
+			return fmt.Errorf("nil deck state at %q", address)
+		}
+		if err := claimBinding(address, deck.GetId(), paths, decks, allowUnresolved); err != nil {
 			return fmt.Errorf("deck binding: %w", err)
 		}
 	}
 	notes := map[int64]string{}
 	for address, note := range value.GetResources().GetNotes() {
-		if err := claimBinding(address, note.GetId(), paths, notes); err != nil {
+		if note == nil {
+			return fmt.Errorf("nil note state at %q", address)
+		}
+		if err := claimBinding(address, note.GetId(), paths, notes, allowUnresolved); err != nil {
 			return fmt.Errorf("note binding: %w", err)
 		}
 	}
 	types := map[int64]string{}
 	for address, definition := range value.GetResources().GetNoteTypes() {
-		if err := claimBinding(address, definition.GetId(), paths, types); err != nil {
+		if err := claimBinding(address, definition.GetId(), paths, types, allowUnresolved); err != nil {
 			return fmt.Errorf("note-type binding: %w", err)
+		}
+		if definition == nil {
+			return fmt.Errorf("nil note-type state at %q", address)
 		}
 		for name, field := range definition.Fields {
 			if field == nil {
@@ -101,18 +114,27 @@ func validateState(value *collectionpb.State) error {
 	return nil
 }
 
-// bindType projects native fields and templates beneath their owning note-type state.
-func bindType(value *collectionpb.State, address string, id int64, definition *collectionpb.NoteTypeConfig) {
+// bindType projects native member identities and ordinals into a fresh owned binding.
+func bindType(definition *notetypes.Notetype) (*collectionpb.NoteTypeState, error) {
+	if definition == nil {
+		return nil, fmt.Errorf("nil native note type")
+	}
 	binding := &collectionpb.NoteTypeState{
-		Id:        id,
+		Id:        definition.Id,
 		Fields:    map[string]*collectionpb.FieldState{},
 		Templates: map[string]*collectionpb.TemplateState{},
 	}
 	for ordinal, field := range definition.Fields {
+		if field == nil {
+			return nil, fmt.Errorf("nil native field at ordinal %d", ordinal)
+		}
 		binding.Fields[field.Name] = &collectionpb.FieldState{Id: field.Config.GetId(), Ordinal: uint32(ordinal)}
 	}
 	for ordinal, template := range definition.Templates {
+		if template == nil {
+			return nil, fmt.Errorf("nil native template at ordinal %d", ordinal)
+		}
 		binding.Templates[template.Name] = &collectionpb.TemplateState{Id: template.Config.GetId(), Ordinal: uint32(ordinal)}
 	}
-	value.Resources.NoteTypes[address] = binding
+	return binding, nil
 }

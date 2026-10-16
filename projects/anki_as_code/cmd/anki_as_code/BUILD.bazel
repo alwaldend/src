@@ -13,8 +13,8 @@ go_binary(
     deps = [
         "//projects/anki_as_code/api/collection",
         "//projects/anki_as_code/internal/app",
+        "//projects/anki_as_code/internal/codec",
         "//projects/anki_as_code/internal/config",
-        "//projects/anki_as_code/internal/config/codec",
         "//projects/anki_as_code/internal/state",
         "@com_github_spf13_cobra//:cobra",
     ],
