@@ -254,18 +254,30 @@ than silently becoming strings; quote dates used as note text. Output converts
 ProtoJSON directly to TOML, preserving optional presence and exact text values.
 64-bit values use quoted decimal strings, including `version = "1"`.
 
-`internal/config` exposes:
+`config.New(root)` returns a `*config.Store` bound to a configuration path without
+accessing the filesystem. Use a directory for writing; reads also accept a root
+config file. The store exposes:
 
-- `Load(input string) (*collectionpb.CollectionConfigSet, error)` parses the hierarchy.
-- `Dump(input, format string) ([]byte, error)` loads and encodes JSON or TOML.
-- `Export(configs *collectionpb.CollectionConfigSet, output string) error` writes
-  the root marker and supplied path/config pairs as TOML files.
-- `Version` supplies the supported schema version to collection exporters.
+- `Load() (*collectionpb.CollectionConfigSet, error)` parses the hierarchy.
+- `Dump(format string) ([]byte, error)` loads and encodes JSON or TOML.
+- `Export(configs *collectionpb.CollectionConfigSet) error` writes the root
+  marker and supplied path/config pairs as TOML files beneath its directory.
+
+```go
+store := config.New(absoluteDirectory)
+configs, err := store.Load()
+data, err := store.Dump("json")
+err = store.Export(configs)
+```
+
+Stores retain no parsed messages or open files. Each Load reads fresh values;
+callers own filesystem coordination and the returned messages. `config.Version`
+supplies the supported schema version to collection exporters.
 
 Export writes directly, preserves input messages, overwrites declared files, and
 leaves unrelated/stale files alone. Callers own valid, unique paths, layout,
 validation, staging, cleanup, and publication. Export does not load or normalize
-its output; failures may leave partial files. Consumers use this facade;
+its output; failures may leave partial files. Consumers use the store;
 the layout package remains an implementation API with restricted Bazel visibility.
 
 `internal/config/layout` owns the fixed hierarchy, discovery, file I/O, and direct file
@@ -300,7 +312,7 @@ Use absolute paths with `bazel run`, which may execute outside the checkout.
 | Package                  | Responsibility                                                                    |
 | ------------------------ | --------------------------------------------------------------------------------- |
 | `api/collection`         | Generated resource, configuration, plan, and state contracts                      |
-| `internal/config`        | Public configuration facade and dump operation                                    |
+| `internal/config`        | Root-bound configuration Store for Load, Dump and Export                          |
 | `internal/config/layout` | Fixed hierarchy, discovery, file I/O, and direct export                           |
 | `internal/codec`         | Filesystem-independent protobuf/TOML/JSON conversion                              |
 | `internal/state`         | Stored-state dump, batch import, update and replacement                           |
@@ -356,7 +368,7 @@ field. Go only sanitizes that text into a bounded Unicode filename. Bound names
 are reused from state; filename conversion never changes stored note fields.
 
 Export owns config projection and readable filenames and delegates file output
-to `config.Export`. It overwrites declared configs in place and leaves other
+to `config.Store.Export`. It overwrites declared configs in place and leaves other
 entries untouched, including stale configs and caller-owned state files.
 Filesystem errors may leave partial output. For cleanup or publication policies,
 export to a temporary directory and synchronize it externally, for example with

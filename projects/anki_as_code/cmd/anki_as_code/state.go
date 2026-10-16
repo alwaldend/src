@@ -86,7 +86,7 @@ func newStateImportCommand(application *app.App, options *app.StateOptions) *cob
 				}
 				bindings[address] = argument[separator+1:]
 			}
-			configs, err := config.Load(text)
+			configs, err := config.New(text).Load()
 			if err != nil {
 				return fmt.Errorf("load import configs: %w", err)
 			}
