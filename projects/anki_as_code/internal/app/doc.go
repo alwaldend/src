@@ -1,5 +1,7 @@
-// Package app exposes configuration operations consumed by the command tree.
+// Package app wires configuration and state operations consumed by the command tree.
 //
-// It adapts pure text operations without Anki collection access. Collection
-// operation placeholders are implemented by the separate reconciliation change.
+// Pure configuration operations need no Anki access. Start prepares one managed
+// worker and collection; WithState borrows their connection across operations;
+// Stop closes them in order. Collection input belongs to Options, while state
+// options select only a namespace. Reconciliation remains a separate change.
 package app

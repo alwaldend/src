@@ -1,0 +1,50 @@
+load("@rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "state",
+    srcs = [
+        "bindings.go",
+        "doc.go",
+        "store.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/state",
+    visibility = ["//projects/anki_as_code:__subpackages__"],
+    deps = [
+        "//projects/anki_as_code/api/collection",
+        "//third_party/com_github_ankitects_anki:config",
+        "//third_party/com_github_ankitects_anki:deck_config",
+        "//third_party/com_github_ankitects_anki:decks",
+        "//third_party/com_github_ankitects_anki:generic",
+        "//third_party/com_github_ankitects_anki:notes",
+        "//third_party/com_github_ankitects_anki:notetypes",
+        "@org_golang_google_grpc//:grpc",
+        "@org_golang_google_protobuf//encoding/protojson",
+        "@org_golang_google_protobuf//proto",
+    ],
+)
+
+go_test(
+    name = "state_test",
+    srcs = ["workflow_test.go"],
+    data = [
+        "//projects/anki_as_code",
+        "//projects/anki_grpc",
+    ],
+    env = {"ANKI_CLI": "$(rootpath //projects/anki_as_code)"},
+    deps = [
+        ":state",
+        "//projects/anki_as_code/api/collection",
+        "//projects/anki_as_code/internal/config",
+        "//projects/anki_as_code/internal/config/codec",
+        "//projects/anki_grpc/pkg/backend",
+        "//third_party/com_github_ankitects_anki:cards",
+        "//third_party/com_github_ankitects_anki:collection",
+        "//third_party/com_github_ankitects_anki:config",
+        "//third_party/com_github_ankitects_anki:generic",
+        "//third_party/com_github_ankitects_anki:notes",
+        "//third_party/com_github_ankitects_anki:notetypes",
+        "@org_golang_google_grpc//:grpc",
+        "@org_golang_google_protobuf//proto",
+        "@rules_go//go/runfiles",
+    ],
+)

@@ -3,26 +3,31 @@ package main
 import (
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"os"
 	"os/signal"
+	"time"
 
 	"github.com/spf13/cobra"
 
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/app"
+	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/state"
 )
 
 // newRootCommand assembles the Cobra command tree around the supplied application.
 func newRootCommand(application *app.App) *cobra.Command {
 	command := &cobra.Command{
 		Use:           "anki_as_code",
-		Short:         "Inspect and manipulate Anki configurations",
+		Short:         "Manage Anki collection state and inspect configs",
 		SilenceErrors: true,
 		SilenceUsage:  true,
 	}
 	command.CompletionOptions.DisableDefaultCmd = true
+	stateOptions := &app.StateOptions{}
+	command.PersistentFlags().StringVar(&stateOptions.Key, "state-key", state.DefaultKey, "Collection state namespace key")
 	command.AddCommand(newConfigCommand(application), newExportCommand(application), newPlanCommand(application), newApplyCommand(application),
-		newBuildCommand(application))
+		newBuildCommand(application), newStateCommand(application, stateOptions))
 	return command
 }
 
@@ -112,9 +117,16 @@ func newBuildCommand(application *app.App) *cobra.Command {
 	return command
 }
 
-// run executes the command tree with the supplied context and arguments.
-func run(ctx context.Context, args []string) error {
+// run executes the command tree and always closes any initialized application.
+func run(ctx context.Context, args []string) (err error) {
 	application := &app.App{}
+	defer func() {
+		cleanup, cancel := context.WithTimeout(context.WithoutCancel(ctx), 5*time.Second)
+		defer cancel()
+		if stopErr := application.Stop(cleanup); stopErr != nil {
+			err = errors.Join(err, fmt.Errorf("close application: %w", stopErr))
+		}
+	}()
 	command := newRootCommand(application)
 	command.SetArgs(args)
 	if err := command.ExecuteContext(ctx); err != nil {
