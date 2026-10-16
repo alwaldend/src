@@ -91,7 +91,7 @@
       ansible.builtin.import_role:
         name: alwaldend.main.dev_vm
         tasks_from: bazel
-    - name: Install Open Computer Use dependencies
+    - name: Install Node.js CLI dependencies
       ansible.builtin.import_role:
         name: alwaldend.main.dev_vm
         tasks_from: packages
@@ -102,6 +102,20 @@
       tags:
         - codex
         - open_computer_use
+        - openspec
+    - name: Install OpenSpec CLI
+      become: false
+      community.general.npm:
+        name: "@fission-ai/openspec"
+        version: "{{ openspec_version }}"
+        global: true
+        state: present
+        ignore_scripts: true
+        executable: /usr/bin/npm
+      environment:
+        NPM_CONFIG_PREFIX: "{{ openspec_npm_prefix }}"
+      tags:
+        - openspec
     - name: Install Open Computer Use
       become: false
       community.general.npm:
