@@ -8,9 +8,6 @@ go_library(
         "collection_connection.go",
         "connection.go",
         "doc.go",
-        "manager.go",
-        "manager_collection.go",
-        "manager_std.go",
     ],
     data = ["//projects/anki_grpc"],
     importpath = "git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/backend",
@@ -36,7 +33,6 @@ go_test(
     srcs = [
         "api_test.go",
         "collection_test.go",
-        "manager_test.go",
     ],
     args = ["-worker=$(rlocationpath //projects/anki_grpc:anki_grpc)"],
     data = ["//projects/anki_grpc"],

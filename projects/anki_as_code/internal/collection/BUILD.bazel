@@ -36,7 +36,6 @@ go_test(
         "//projects/anki_as_code/internal/resource",
         "//projects/anki_as_code/internal/state",
         "//projects/anki_grpc/pkg/backend",
-        "//third_party/com_github_ankitects_anki:generic",
         "//third_party/com_github_ankitects_anki:import_export",
         "//third_party/com_github_ankitects_anki:notes",
         "//third_party/com_github_ankitects_anki:notetypes",

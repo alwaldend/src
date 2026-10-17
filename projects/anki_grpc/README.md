@@ -227,64 +227,21 @@ Anki's collection mutex protects running native work; it cannot acknowledge a
 cancelled call still queued in Rust. Stop therefore retains the restore and reports
 failure in that case; stop the borrowed backend before cleaning its temporary files.
 
-### Scoped managers
+### Application scopes
 
-Use `ManagerSTD` when a callback should borrow a running backend without owning
-startup or shutdown. It implements the `Manager` interface through
-`WithBackend(ctx, callback)`. Each scope creates a fresh process, and constructor
-arguments are copied. The manager reaps its worker before returning, including
-after callback failure, cancellation or panic unwinding. Its cleanup uses the
-configured backend shutdown timeout independently of callback cancellation.
+Applications compose the process and collection owners. Start the worker before
+the collection, close the collection before stopping the worker, and attempt
+cleanup after failed startup, callback errors, cancellation or panic unwinding.
+Use bounded cleanup contexts independent of operation cancellation and preserve
+both operation and cleanup errors.
 
-`ManagerCollection` accepts that interface and exposes
-`WithCollection(ctx, path, callback)`. It opens the collection inside the borrowed
-transport scope and closes it before releasing the transport. The path follows
-`BackendCollection`'s direct database and temporary package-restore behavior.
-Collection cleanup has a five-second bound independent of caller cancellation.
-Both cleanup contexts retain caller context values.
-Both managers delegate startup, callback execution and cleanup to one private
-helper; their public lifecycle API remains unchanged.
+The [Anki as code collection store](../anki_as_code/README.md#collection-lifecycle)
+owns its callback scope, source reservations and archive publication. The backend
+library supplies the explicit native owners and their existing readiness,
+shutdown and restore-retention contracts.
 
-```go
-transports := backend.NewManagerSTD(backend.BackendSTDOptions{Binary: workerPath})
-collections := backend.NewManagerCollection(transports)
-err := collections.WithCollection(ctx, "/path/to/collection.colpkg", func(prepared backend.Backend) error {
-    connection, err := prepared.Connection()
-    if err != nil {
-        return fmt.Errorf("get prepared collection: %w", err)
-    }
-    note, err := notes.NewNotesServiceClient(connection).GetNote(ctx, &notes.NoteId{Nid: noteID})
-    if err != nil {
-        return fmt.Errorf("read note: %w", err)
-    }
-    // Use note while this callback owns access to the collection.
-    _ = note
-    return nil
-})
-```
-
-Callbacks finish their work before returning and leave `Start` and `Stop` to the
-managers. Retained collection clients reject calls after cleanup. Callback,
-startup and cleanup error causes remain discoverable through `errors.Is` and
-`errors.As`. Panics propagate after deferred cleanup; successful callbacks still
-report cancellation observed before completion. Manager cancellation checks preserve
-custom `context.WithCancelCause` identities alongside the standard context error.
-Cancellation does not roll back
-native writes. Unconfirmed native completion keeps the existing restore-retention
-contract, and errors report retained restore paths.
-
-An alternative transport implements `Manager`; `ManagerCollection` constructs no
-STD backend and owns no server process directly. Such managers must lend exclusive
-native collection access, serializing shared servers when needed. ManagerSTD
-supports independent overlapping scopes with separate workers. No idle-worker
-cache, source reservation registry or automatic archive publication is added.
-Callers coordinate same-source access and explicitly export changed packages
-through Anki when needed. Existing low-level APIs remain available for callers
-that need manual scopes or persistent restore directories.
-
-Public names use a consistent family-first convention: `BackendSTD`,
-`BackendCollection`, `ManagerSTD` and `ManagerCollection`. The Go package remains
-`backend`; `anki_grpc` is the project and server name.
+Public backend names are `BackendSTD` and `BackendCollection`. The Go package
+is `backend`; `anki_grpc` is the project and server name.
 
 ## Verification
 
@@ -317,8 +274,6 @@ It also blocks a real native media download, cancels the client, and verifies
 that shutdown waits for active callers and retains unconfirmed restores until
 backend shutdown.
 
-The manager E2E composes the existing native backends and verifies process reaping,
-copied configuration, callback failures/cancellation/panics, combined crash and
-callback errors, delegated collection-before-transport cleanup, persistence and
-package source preservation. It emits closed managed collection databases,
-archives and JSON verification reports.
+Application scope verification belongs to the Anki as code collection-store E2E.
+It exercises real workers across callback success, failure, cancellation, panic
+and crashes, checking process reaping, source reuse and archive preservation.
