@@ -11,6 +11,7 @@ go_library(
     visibility = ["//projects/anki_as_code:__subpackages__"],
     deps = [
         "//projects/anki_as_code/api/collection",
+        "//projects/anki_as_code/internal/resource",
         "//third_party/com_github_ankitects_anki:config",
         "//third_party/com_github_ankitects_anki:deck_config",
         "//third_party/com_github_ankitects_anki:decks",

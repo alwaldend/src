@@ -394,7 +394,7 @@ func saveFixtureArtifact(t *testing.T, input, name string) {
 // exportForFixture invokes the application workflow with the fixture namespace.
 func exportForFixture(ctx context.Context, input, output, key string) error {
 	application := &App{}
-	if err := application.ColExport(ctx, input, output, key); err != nil {
+	if err := application.ColExport(ctx, input, output, "", key); err != nil {
 		return fmt.Errorf("export fixture: %w", err)
 	}
 	return nil

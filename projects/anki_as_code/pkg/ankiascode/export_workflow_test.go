@@ -14,6 +14,164 @@ import (
 	"google.golang.org/protobuf/proto"
 )
 
+// TestExportStateOnboardingWorkflow exercises whole-collection binding through the native CLI.
+// Export must preserve source data, use selected paths, and converge after state installation.
+func TestExportStateOnboardingWorkflow(t *testing.T) {
+	for _, inputFormat := range []string{"package", "database"} {
+		t.Run(inputFormat, func(t *testing.T) {
+			fixture := newFixture(t)
+			input := fixture.base
+			if inputFormat == "database" {
+				input = fixture.database
+			}
+			before, err := os.ReadFile(input)
+			if err != nil {
+				t.Fatal(err)
+			}
+			root := t.TempDir()
+			text, stateFile := filepath.Join(root, "configs"), filepath.Join(root, "state.anki.toml")
+			runFixtureCLI(t, "col", "export", "--collection", input, "--output", text, "--state-output", stateFile)
+			if after, err := os.ReadFile(input); err != nil || string(after) != string(before) {
+				t.Fatal("state export changed source bytes", err)
+			}
+			data, err := os.ReadFile(stateFile)
+			if err != nil {
+				t.Fatal(err)
+			}
+			generated := &collectionpb.State{}
+			if err := codec.Decode(data, codec.TOML, generated); err != nil {
+				t.Fatal(err)
+			}
+			notePath := "decks/grammar/notes/你好.note.anki.toml"
+			if generated.GetResources().GetNotes()[notePath].GetId() != fixture.noteID ||
+				generated.GetResources().GetDecks()["decks/grammar/deck.anki.toml"].GetId() != 1 ||
+				generated.GetResources().GetNoteTypes()["note_types/Chinese.notetype.anki.toml"].GetId() != fixture.typeID ||
+				len(generated.GetResources().GetPresets()) == 0 {
+				t.Fatal("generated bindings do not identify exported native objects", generated)
+			}
+			definition := generated.Resources.NoteTypes["note_types/Chinese.notetype.anki.toml"]
+			if len(definition.Fields) == 0 || len(definition.Templates) == 0 {
+				t.Fatal("missing native member bindings")
+			}
+			if len(stateFixtureDump(t, input).GetResources().GetNotes()) != 0 {
+				t.Fatal("export installed state")
+			}
+			runFixtureCLI(t, "col", "state", "update", "--collection", input, stateFile)
+			if !proto.Equal(generated, stateFixtureDump(t, input)) {
+				t.Fatal("generated state did not round-trip through update")
+			}
+			assertConverged(t, input, text)
+			plan := runFixtureCLI(t, "col", "plan", "--collection", input, "--text", text)
+			planFile := filepath.Join(root, "plan.json")
+			if err := os.WriteFile(planFile, plan, 0o600); err != nil {
+				t.Fatal(err)
+			}
+			// A second export discovers new bindings while preserving a custom namespace's names.
+			key := "export-state/custom"
+			custom := proto.Clone(generated).(*collectionpb.State)
+			customPath := "decks/grammar/notes/custom.note.anki.toml"
+			custom.Resources.Notes[customPath] = custom.Resources.Notes[notePath]
+			delete(custom.Resources.Notes, notePath)
+			for _, preset := range custom.Resources.Presets {
+				custom.Resources.Presets = map[string]*collectionpb.PresetState{"study": preset}
+				break
+			}
+			writeFixtureTOML(t, stateFile, custom)
+			runFixtureCLI(t, "col", "state", "replace", "--collection", input, "--state-key", key, stateFile)
+			selected := filepath.Join(root, "selected")
+			selectedState := filepath.Join(selected, "state.anki.toml")
+			runFixtureCLI(t, "col", "export", "--collection", input, "--output", selected, "--state-output", selectedState, "--state-key", key)
+			selectedData, err := os.ReadFile(selectedState)
+			if err != nil {
+				t.Fatal(err)
+			}
+			selectedBindings := &collectionpb.State{}
+			if err := codec.Decode(selectedData, codec.TOML, selectedBindings); err != nil || !proto.Equal(custom, selectedBindings) {
+				t.Fatalf("selected bindings differ from generated paths: %v\n%s", err, selectedData)
+			}
+			if _, err := config.New(selected).Load(); err != nil {
+				t.Fatal("state output broke config loading", err)
+			}
+			saveFixtureArtifact(t, selectedState, "onboarding-state-"+inputFormat+".toml")
+			saveFixtureArtifact(t, filepath.Join(selected, filepath.FromSlash(customPath)), "onboarding-note-"+inputFormat+".toml")
+			saveFixtureArtifact(t, planFile, "onboarding-plan-"+inputFormat+".json")
+		})
+	}
+}
+
+// TestExportStateDestinationWorkflow rejects destructive destinations and retains prior state on failure.
+func TestExportStateDestinationWorkflow(t *testing.T) {
+	fixture := newFixture(t)
+	root := t.TempDir()
+	text := filepath.Join(root, "configs")
+	application := &App{}
+	for _, destination := range []string{fixture.base, filepath.Join(text, "collection.anki.toml"), filepath.Join(text, "collection.anki.toml", "state.toml"), filepath.Join(text, "decks"), filepath.Join(text, "note_types", "Chinese.notetype.anki.toml")} {
+		if err := application.ColExport(t.Context(), fixture.base, text, destination, ""); err == nil {
+			t.Fatalf("accepted unsafe state destination %q", destination)
+		}
+		if _, err := os.Stat(text); !os.IsNotExist(err) {
+			t.Fatal("rejected destination wrote config output", err)
+		}
+	}
+	for _, linkKind := range []string{"symlink", "hardlink"} {
+		alias := filepath.Join(root, linkKind)
+		link := os.Link
+		if linkKind == "symlink" {
+			link = os.Symlink
+		}
+		if err := link(fixture.base, alias); err != nil {
+			t.Fatal(err)
+		}
+		if err := application.ColExport(t.Context(), fixture.base, text, alias, ""); err == nil {
+			t.Fatal("accepted source alias", linkKind)
+		}
+	}
+	for _, scenario := range []string{"dangling file", "dangling directory"} {
+		t.Run(scenario, func(t *testing.T) {
+			root := t.TempDir()
+			text := filepath.Join(root, "configs")
+			if err := os.Mkdir(text, 0o755); err != nil {
+				t.Fatal(err)
+			}
+			stateFile := filepath.Join(root, "state.anki.toml")
+			linkPath, target := filepath.Join(text, "collection.anki.toml"), stateFile
+			if scenario == "dangling directory" {
+				target = filepath.Join(root, "external-types")
+				linkPath = filepath.Join(text, "note_types")
+				stateFile = filepath.Join(target, "Chinese.notetype.anki.toml")
+			}
+			if err := os.Symlink(target, linkPath); err != nil {
+				t.Fatal(err)
+			}
+			if err := application.ColExport(t.Context(), fixture.base, text, stateFile, ""); err == nil {
+				t.Fatal("accepted dangling config alias to state output")
+			}
+			if _, err := os.Stat(stateFile); !os.IsNotExist(err) {
+				t.Fatal("rejected dangling alias wrote state destination", err)
+			}
+			if actual, err := os.Readlink(linkPath); err != nil || actual != target {
+				t.Fatal("rejected export changed symlink", err)
+			}
+			if entries, err := os.ReadDir(text); err != nil || len(entries) != 1 {
+				t.Fatal("rejected export wrote configs", err)
+			}
+		})
+	}
+	stateFile := filepath.Join(root, "state.anki.toml")
+	if err := os.WriteFile(stateFile, []byte("previous state"), 0o600); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(text, []byte("blocks config directory"), 0o600); err != nil {
+		t.Fatal(err)
+	}
+	if err := application.ColExport(t.Context(), fixture.base, text, stateFile, ""); err == nil {
+		t.Fatal("accepted blocked config output")
+	}
+	if data, err := os.ReadFile(stateFile); err != nil || string(data) != "previous state" {
+		t.Fatal("failed config export changed state output", err)
+	}
+}
+
 // TestExportConfigOnlyWorkflow verifies config-only output, read-only export and independent state dumps.
 func TestExportConfigOnlyWorkflow(t *testing.T) {
 	for _, inputFormat := range []string{"package", "database"} {

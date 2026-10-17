@@ -272,7 +272,7 @@ func TestStoreServices(t *testing.T) {
 				if err != nil {
 					return false, fmt.Errorf("update shared state: %w", err)
 				}
-				if err := exporter.Export(ctx, output); err != nil {
+				if err := exporter.Export(ctx, output, ""); err != nil {
 					return false, fmt.Errorf("export collection services: %w", err)
 				}
 				expected.Resources.Presets["second"] = &collectionpb.PresetState{Id: 1}
