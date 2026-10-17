@@ -1,0 +1,27 @@
+%%{init: {"layout": "elk", "elk": {"forceNodeModelOrder": true}, "flowchart": {"nodeSpacing": 20, "rankSpacing": 32, "edgeSpacing": 16}}}%%
+flowchart LR
+    configs["Input configs"]
+    input_state["Input state"]
+
+    subgraph store["state.Store"]
+        dump["Dump"]
+        import["Import"]
+        update["Update"]
+        replace["Replace"]
+    end
+
+    configs --> import
+    input_state --> update
+    input_state --> replace
+
+    connection["anki_grpc<br/>connection"]
+
+    subgraph storage["Anki storage"]
+        state["State"]
+    end
+
+    dump -->|read| connection
+    import -->|"read/write"| connection
+    update -->|"read/write"| connection
+    replace -->|"read/write"| connection
+    connection --> state

@@ -13,10 +13,11 @@ import (
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/config"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/state"
 	"github.com/spf13/cobra"
+	"google.golang.org/grpc"
 )
 
 // newStateCommand groups state operations using application-managed collection access.
-func newStateCommand(application *app.App, options *app.StateOptions) *cobra.Command {
+func newStateCommand(application *app.App) *cobra.Command {
 	command := &cobra.Command{
 		Use:   "state",
 		Short: "Inspect and manage collection-backed path bindings",
@@ -25,38 +26,36 @@ func newStateCommand(application *app.App, options *app.StateOptions) *cobra.Com
 			return fmt.Errorf("state requires a subcommand")
 		},
 	}
-	command.PersistentFlags().StringVar(&application.Options.Input, "input", "", "Existing .anki2 collection database")
-	if err := command.MarkPersistentFlagRequired("input"); err != nil {
+	command.PersistentFlags().StringVar(&application.Options.Collection, collectionFlag.name, "", collectionFlag.usage)
+	if err := command.MarkPersistentFlagRequired(collectionFlag.name); err != nil {
 		panic(fmt.Errorf("register required state input: %w", err))
 	}
-	command.AddCommand(newStateDumpCommand(application, options), newStateImportCommand(application, options),
-		newStateWriteCommand(application, options, "replace", "Replace the whole stored state object", (*state.Store).Replace),
-		newStateWriteCommand(application, options, "update", "Merge an external state object into stored state", (*state.Store).Update))
+	command.AddCommand(newStateDumpCommand(application), newStateImportCommand(application),
+		newStateWriteCommand(application, "replace", "Replace the whole stored state object", (*state.Store).Replace),
+		newStateWriteCommand(application, "update", "Merge an external state object into stored state", (*state.Store).Update))
 	return command
 }
 
 // newStateDumpCommand prints stored bindings through application-managed access.
-func newStateDumpCommand(application *app.App, options *app.StateOptions) *cobra.Command {
+func newStateDumpCommand(application *app.App) *cobra.Command {
 	var format string
 	command := &cobra.Command{
 		Use: "dump", Short: "Dump the stored state object", Args: cobra.NoArgs,
 		RunE: func(command *cobra.Command, _ []string) error {
-			if err := application.Start(command.Context()); err != nil {
-				return fmt.Errorf("initialize state application: %w", err)
-			}
-			err := application.WithState(command.Context(), *options, func(store *state.Store) error {
+			err := application.WithCollection(command.Context(), func(connection grpc.ClientConnInterface) (bool, error) {
+				store := state.New(connection, application.StateOptions.Key)
 				value, err := store.Dump(command.Context())
 				if err != nil {
-					return fmt.Errorf("dump state: %w", err)
+					return false, fmt.Errorf("dump state: %w", err)
 				}
 				data, err := codec.Encode(value, codec.Format(format))
 				if err != nil {
-					return fmt.Errorf("encode dumped state: %w", err)
+					return false, fmt.Errorf("encode dumped state: %w", err)
 				}
 				if _, err := command.OutOrStdout().Write(data); err != nil {
-					return fmt.Errorf("write dumped state: %w", err)
+					return false, fmt.Errorf("write dumped state: %w", err)
 				}
-				return nil
+				return false, nil
 			})
 			if err != nil {
 				return fmt.Errorf("state dump: %w", err)
@@ -69,7 +68,7 @@ func newStateDumpCommand(application *app.App, options *app.StateOptions) *cobra
 }
 
 // newStateImportCommand passes a complete PATH=ID batch to one managed state operation.
-func newStateImportCommand(application *app.App, options *app.StateOptions) *cobra.Command {
+func newStateImportCommand(application *app.App) *cobra.Command {
 	var text string
 	command := &cobra.Command{
 		Use: "import PATH=ID [PATH=ID...]", Short: "Bind external objects to configuration paths", Args: cobra.MinimumNArgs(1),
@@ -90,20 +89,15 @@ func newStateImportCommand(application *app.App, options *app.StateOptions) *cob
 			if err != nil {
 				return fmt.Errorf("load import configs: %w", err)
 			}
-			if err := application.Start(command.Context()); err != nil {
-				return fmt.Errorf("initialize state application: %w", err)
-			}
-			err = application.WithState(command.Context(), *options, func(store *state.Store) error {
-				if _, err := store.Import(command.Context(), configs, bindings); err != nil {
-					return fmt.Errorf("import collection bindings: %w", err)
-				}
-				if _, err := fmt.Fprintln(command.ErrOrStderr(), "Imported collection bindings:", len(bindings)); err != nil {
-					return fmt.Errorf("write import status: %w", err)
-				}
-				return nil
+			err = application.WithCollection(command.Context(), func(connection grpc.ClientConnInterface) (bool, error) {
+				store := state.New(connection, application.StateOptions.Key)
+				return store.Import(command.Context(), configs, bindings)
 			})
 			if err != nil {
 				return fmt.Errorf("state import: %w", err)
+			}
+			if _, err := fmt.Fprintln(command.ErrOrStderr(), "Imported collection bindings:", len(bindings)); err != nil {
+				return fmt.Errorf("write import status: %w", err)
 			}
 			return nil
 		},
@@ -113,7 +107,7 @@ func newStateImportCommand(application *app.App, options *app.StateOptions) *cob
 }
 
 // newStateWriteCommand decodes an external object and invokes its selected state operation.
-func newStateWriteCommand(application *app.App, options *app.StateOptions, name, summary string, write func(*state.Store, context.Context, *collectionpb.State) (bool, error)) *cobra.Command {
+func newStateWriteCommand(application *app.App, name, summary string, write func(*state.Store, context.Context, *collectionpb.State) (bool, error)) *cobra.Command {
 	var format string
 	command := &cobra.Command{
 		Use: name + " [FILE]", Short: summary, Args: cobra.MaximumNArgs(1),
@@ -132,20 +126,15 @@ func newStateWriteCommand(application *app.App, options *app.StateOptions, name,
 			if err := codec.Decode(data, codec.Format(format), value); err != nil {
 				return fmt.Errorf("decode state for %s: %w", name, err)
 			}
-			if err := application.Start(command.Context()); err != nil {
-				return fmt.Errorf("initialize state application: %w", err)
-			}
-			err = application.WithState(command.Context(), *options, func(store *state.Store) error {
-				if _, err := write(store, command.Context(), value); err != nil {
-					return fmt.Errorf("%s state: %w", name, err)
-				}
-				if _, err := fmt.Fprintf(command.ErrOrStderr(), "Collection state %s completed\n", name); err != nil {
-					return fmt.Errorf("write %s status: %w", name, err)
-				}
-				return nil
+			err = application.WithCollection(command.Context(), func(connection grpc.ClientConnInterface) (bool, error) {
+				store := state.New(connection, application.StateOptions.Key)
+				return write(store, command.Context(), value)
 			})
 			if err != nil {
 				return fmt.Errorf("state %s: %w", name, err)
+			}
+			if _, err := fmt.Fprintf(command.ErrOrStderr(), "Collection state %s completed\n", name); err != nil {
+				return fmt.Errorf("write %s status: %w", name, err)
 			}
 			return nil
 		},

@@ -17,6 +17,7 @@ go_binary(
         "//projects/anki_as_code/internal/config",
         "//projects/anki_as_code/internal/state",
         "@com_github_spf13_cobra//:cobra",
+        "@org_golang_google_grpc//:grpc",
     ],
 )
 

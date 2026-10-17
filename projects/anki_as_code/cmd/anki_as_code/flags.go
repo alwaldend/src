@@ -15,10 +15,10 @@ type stringFlag struct {
 }
 
 var (
-	// inputFlag describes the source collection option shared by collection commands.
-	inputFlag = stringFlag{
-		name:  "input",
-		usage: "Collection archive or offline SQLite database",
+	// collectionFlag describes the source collection option shared by collection commands.
+	collectionFlag = stringFlag{
+		name:  "collection",
+		usage: "Anki .colpkg archive or offline .anki2 database",
 	}
 	// textFlag describes the declaration input shared by configuration and collection commands.
 	textFlag = stringFlag{

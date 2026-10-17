@@ -3,11 +3,9 @@ package main
 import (
 	"context"
 	"encoding/json"
-	"errors"
 	"fmt"
 	"os"
 	"os/signal"
-	"time"
 
 	"github.com/spf13/cobra"
 
@@ -24,10 +22,9 @@ func newRootCommand(application *app.App) *cobra.Command {
 		SilenceUsage:  true,
 	}
 	command.CompletionOptions.DisableDefaultCmd = true
-	stateOptions := &app.StateOptions{}
-	command.PersistentFlags().StringVar(&stateOptions.Key, "state-key", state.DefaultKey, "Collection state namespace key")
+	command.PersistentFlags().StringVar(&application.StateOptions.Key, "state-key", state.DefaultKey, "Collection state namespace key")
 	command.AddCommand(newConfigCommand(application), newExportCommand(application), newPlanCommand(application), newApplyCommand(application),
-		newBuildCommand(application), newStateCommand(application, stateOptions))
+		newBuildCommand(application), newStateCommand(application))
 	return command
 }
 
@@ -46,7 +43,7 @@ func newExportCommand(application *app.App) *cobra.Command {
 			return nil
 		},
 	}
-	inputFlag.bindRequired(command, &input)
+	collectionFlag.bindRequired(command, &input)
 	outputFlag.bindRequired(command, &output)
 	return command
 }
@@ -71,7 +68,7 @@ func newPlanCommand(application *app.App) *cobra.Command {
 			return nil
 		},
 	}
-	inputFlag.bindRequired(command, &input)
+	collectionFlag.bindRequired(command, &input)
 	textFlag.bindRequired(command, &text)
 	return command
 }
@@ -91,7 +88,7 @@ func newApplyCommand(application *app.App) *cobra.Command {
 			return nil
 		},
 	}
-	inputFlag.bindRequired(command, &input)
+	collectionFlag.bindRequired(command, &input)
 	textFlag.bindRequired(command, &text)
 	return command
 }
@@ -117,16 +114,9 @@ func newBuildCommand(application *app.App) *cobra.Command {
 	return command
 }
 
-// run executes the command tree and always closes any initialized application.
-func run(ctx context.Context, args []string) (err error) {
+// run executes the command tree; each workflow owns its native lifetime.
+func run(ctx context.Context, args []string) error {
 	application := &app.App{}
-	defer func() {
-		cleanup, cancel := context.WithTimeout(context.WithoutCancel(ctx), 5*time.Second)
-		defer cancel()
-		if stopErr := application.Stop(cleanup); stopErr != nil {
-			err = errors.Join(err, fmt.Errorf("close application: %w", stopErr))
-		}
-	}()
 	command := newRootCommand(application)
 	command.SetArgs(args)
 	if err := command.ExecuteContext(ctx); err != nil {

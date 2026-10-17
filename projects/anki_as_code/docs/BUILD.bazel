@@ -7,6 +7,7 @@ docs_filegroup(
         ":config_operations",
         ":config_references",
         ":export",
+        ":state_store",
     ],
     prefix = "content/docs/projects/anki_as_code/assets",
     visibility = ["//projects/anki_as_code:__pkg__"],
@@ -52,6 +53,22 @@ mermaid_site_webp(
     name = "export_preview",
     src = "export.mmd",
     out = "rendered/export.webp",
+    aspect_ratio = [],
+    color_scheme = "dark",
+    scale = 2,
+    tags = ["manual"],
+)
+
+mermaid_site_svg(
+    name = "state_store",
+    src = "state-store.mmd",
+    out = "rendered/state-store.svg",
+)
+
+mermaid_site_webp(
+    name = "state_store_preview",
+    src = "state-store.mmd",
+    out = "rendered/state-store.webp",
     aspect_ratio = [],
     color_scheme = "dark",
     scale = 2,

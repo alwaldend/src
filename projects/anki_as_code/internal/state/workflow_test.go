@@ -400,7 +400,7 @@ func runStateCLI(t *testing.T, connection grpc.ClientConnInterface, open *collec
 			t.Error(err)
 		}
 	}()
-	arguments := append([]string{"state", "--input", open.CollectionPath, "--state-key", key}, args...)
+	arguments := append([]string{"state", "--collection", open.CollectionPath, "--state-key", key}, args...)
 	command := exec.CommandContext(ctx, binary, arguments...)
 	command.Env = append(os.Environ(), "PATH=")
 	command.Stdin = bytes.NewReader(input)
