@@ -1,4 +1,4 @@
-package app
+package ankiascode
 
 import (
 	"context"
@@ -45,7 +45,7 @@ func stateFixtureDump(t *testing.T, input string) *collectionpb.State {
 func stateFixtureDumpKey(t *testing.T, input, key string) *collectionpb.State {
 	t.Helper()
 	file := filepath.Join(t.TempDir(), "state.anki.toml")
-	if err := os.WriteFile(file, runFixtureCLI(t, "state", "dump", "--state-key", key, "--collection", input), 0o600); err != nil {
+	if err := os.WriteFile(file, runFixtureCLI(t, "col", "state", "dump", "--state-key", key, "--collection", input), 0o600); err != nil {
 		t.Fatal(err)
 	}
 	value := &collectionpb.State{}
@@ -92,7 +92,7 @@ func TestStateCLIWorkflow(t *testing.T) {
 				t.Fatal("dump modified collection bytes")
 			}
 			arguments := []string{
-				"state", "import", "--collection", input, "--text", text,
+				"col", "state", "import", "--collection", input, "--text", text,
 				"decks/grammar/deck.anki.toml=1",
 				fmt.Sprintf("decks/grammar/notes/example.note.anki.toml=%d", fixture.noteID),
 				fmt.Sprintf("note_types/Chinese.notetype.anki.toml=%d", fixture.typeID),
@@ -105,7 +105,7 @@ func TestStateCLIWorkflow(t *testing.T) {
 			patch := &collectionpb.State{Version: 1, Resources: &collectionpb.Resources{Presets: map[string]*collectionpb.PresetState{"updated": {Id: 1}}}}
 			patchFile := filepath.Join(t.TempDir(), "update.anki.toml")
 			writeFixtureTOML(t, patchFile, patch)
-			runFixtureCLI(t, "state", "update", "--collection", input, patchFile)
+			runFixtureCLI(t, "col", "state", "update", "--collection", input, patchFile)
 			stored.GetResources().Presets["updated"] = &collectionpb.PresetState{Id: 1}
 			if !proto.Equal(stored, stateFixtureDump(t, input)) {
 				t.Fatal("CLI update dropped omitted bindings")
@@ -122,11 +122,11 @@ func TestStateCLIWorkflow(t *testing.T) {
 			if err != nil {
 				t.Fatal(err)
 			}
-			runFixtureCLI(t, "state", "update", "--collection", input, patchFile)
-			runFixtureCLI(t, "state", "update", "--format", "json", "--collection", input, patchJSONFile)
+			runFixtureCLI(t, "col", "state", "update", "--collection", input, patchFile)
+			runFixtureCLI(t, "col", "state", "update", "--format", "json", "--collection", input, patchJSONFile)
 			invalidPatch := &collectionpb.State{Version: 1, Resources: &collectionpb.Resources{Notes: map[string]*collectionpb.NoteState{"decks/grammar/deck.anki.toml": {Id: 999}}}}
 			writeFixtureTOML(t, patchFile, invalidPatch)
-			rejectStateCLI(t, "state", "update", "--collection", input, patchFile)
+			rejectStateCLI(t, "col", "state", "update", "--collection", input, patchFile)
 			afterUpdate, err := os.ReadFile(input)
 			if err != nil || string(beforeUpdate) != string(afterUpdate) {
 				t.Fatal("no-op or rejected CLI update changed source bytes")
@@ -135,8 +135,8 @@ func TestStateCLIWorkflow(t *testing.T) {
 			custom := &collectionpb.State{Version: 1, Resources: &collectionpb.Resources{Presets: map[string]*collectionpb.PresetState{"alternate": {Id: 1}}}}
 			customFile := filepath.Join(t.TempDir(), "alternate.anki.toml")
 			writeFixtureTOML(t, customFile, custom)
-			runFixtureCLI(t, "state", "replace", "--state-key", customKey, "--collection", input, customFile)
-			runFixtureCLI(t, "state", "import", "--state-key", customKey, "--collection", input, "--text", text, "presets/second=1")
+			runFixtureCLI(t, "col", "state", "replace", "--state-key", customKey, "--collection", input, customFile)
+			runFixtureCLI(t, "col", "state", "import", "--state-key", customKey, "--collection", input, "--text", text, "presets/second=1")
 			custom.GetResources().GetPresets()["second"] = &collectionpb.PresetState{Id: 1}
 			if !proto.Equal(custom, stateFixtureDumpKey(t, input, customKey)) || !proto.Equal(stored, stateFixtureDump(t, input)) {
 				t.Fatal("CLI state namespaces interfered")
@@ -146,15 +146,15 @@ func TestStateCLIWorkflow(t *testing.T) {
 				t.Fatal(err)
 			}
 			runFixtureCLI(t, arguments...)
-			failure := rejectStateCLI(t, "state", "import", "--collection", input, "--text", text, "notes/missing.note.anki.toml=opaque-id")
+			failure := rejectStateCLI(t, "col", "state", "import", "--collection", input, "--text", text, "notes/missing.note.anki.toml=opaque-id")
 			if !strings.Contains(failure, "is not declared") {
 				t.Fatalf("identifier checked before resource: %s", failure)
 			}
 			for _, identifier := range []string{"opaque-id", "", "0", "-1", "9223372036854775808"} {
-				rejectStateCLI(t, "state", "import", "--collection", input, "--text", text, "presets/new="+identifier)
+				rejectStateCLI(t, "col", "state", "import", "--collection", input, "--text", text, "presets/new="+identifier)
 			}
-			rejectStateCLI(t, "state", "import", "--collection", input, "--text", text, "presets/new=1", "presets/missing=9223372036854775807")
-			rejectStateCLI(t, "state", "import", "--collection", input, "--text", text, "presets/new=1", fmt.Sprintf("decks/grammar/notes/other.note.anki.toml=%d", fixture.noteID))
+			rejectStateCLI(t, "col", "state", "import", "--collection", input, "--text", text, "presets/new=1", "presets/missing=9223372036854775807")
+			rejectStateCLI(t, "col", "state", "import", "--collection", input, "--text", text, "presets/new=1", fmt.Sprintf("decks/grammar/notes/other.note.anki.toml=%d", fixture.noteID))
 			after, err = os.ReadFile(input)
 			if err != nil || string(before) != string(after) {
 				t.Fatal("no-op or rejected batch changed collection")
@@ -165,7 +165,7 @@ func TestStateCLIWorkflow(t *testing.T) {
 			file := filepath.Join(t.TempDir(), "state.anki.toml")
 			replacement := &collectionpb.State{Version: 1, Resources: &collectionpb.Resources{Presets: map[string]*collectionpb.PresetState{"only": {Id: 1}}}}
 			writeFixtureTOML(t, file, replacement)
-			runFixtureCLI(t, "state", "replace", "--collection", input, file)
+			runFixtureCLI(t, "col", "state", "replace", "--collection", input, file)
 			if !proto.Equal(replacement, stateFixtureDump(t, input)) {
 				t.Fatal("replace merged rather than replaced state")
 			}
@@ -173,12 +173,12 @@ func TestStateCLIWorkflow(t *testing.T) {
 			if err != nil {
 				t.Fatal(err)
 			}
-			runFixtureCLI(t, "state", "replace", "--collection", input, file)
+			runFixtureCLI(t, "col", "state", "replace", "--collection", input, file)
 			after, err = os.ReadFile(input)
 			if err != nil || string(before) != string(after) {
 				t.Fatal("identical replacement changed collection bytes")
 			}
-			jsonData := runFixtureCLI(t, "state", "dump", "--format", "json", "--collection", input)
+			jsonData := runFixtureCLI(t, "col", "state", "dump", "--format", "json", "--collection", input)
 			jsonState := &collectionpb.State{}
 			if err := protojson.Unmarshal(jsonData, jsonState); err != nil || !proto.Equal(replacement, jsonState) {
 				t.Fatalf("JSON dump differs from TOML: %v", err)
@@ -187,12 +187,12 @@ func TestStateCLIWorkflow(t *testing.T) {
 			if err := os.WriteFile(jsonFile, jsonData, 0o600); err != nil {
 				t.Fatal(err)
 			}
-			runFixtureCLI(t, "state", "replace", "--format", "json", "--collection", input, jsonFile)
-			tomlData := runFixtureCLI(t, "state", "dump", "--collection", input)
+			runFixtureCLI(t, "col", "state", "replace", "--format", "json", "--collection", input, jsonFile)
+			tomlData := runFixtureCLI(t, "col", "state", "dump", "--collection", input)
 			binary := filepath.Join(os.Getenv("TEST_SRCDIR"), os.Getenv("TEST_WORKSPACE"), os.Getenv("ANKI_CLI"))
 			ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
 			defer cancel()
-			command := exec.CommandContext(ctx, binary, "state", "replace", "--collection", input, "-")
+			command := exec.CommandContext(ctx, binary, "col", "state", "replace", "--collection", input, "-")
 			command.Stdin = strings.NewReader(string(tomlData))
 			if output, err := command.CombinedOutput(); err != nil {
 				t.Fatalf("replace TOML from stdin: %v: %s", err, output)
@@ -201,9 +201,9 @@ func TestStateCLIWorkflow(t *testing.T) {
 			if err := os.WriteFile(invalid, []byte("version = ["), 0o600); err != nil {
 				t.Fatal(err)
 			}
-			rejectStateCLI(t, "state", "replace", "--collection", input, invalid)
-			rejectStateCLI(t, "state", "replace", "--format", "yaml", "--collection", input, file)
-			rejectStateCLI(t, "state", "dump", "--format", "yaml", "--collection", input)
+			rejectStateCLI(t, "col", "state", "replace", "--collection", input, invalid)
+			rejectStateCLI(t, "col", "state", "replace", "--format", "yaml", "--collection", input, file)
+			rejectStateCLI(t, "col", "state", "dump", "--format", "yaml", "--collection", input)
 			after, err = os.ReadFile(input)
 			if err != nil || string(before) != string(after) {
 				t.Fatal("encoding round trips or invalid state input changed collection bytes")

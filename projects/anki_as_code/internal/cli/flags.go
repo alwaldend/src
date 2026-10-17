@@ -1,4 +1,4 @@
-package main
+package cli
 
 import (
 	"fmt"
@@ -15,6 +15,11 @@ type stringFlag struct {
 }
 
 var (
+	// stateKeyFlag selects the namespace used by collection operations.
+	stateKeyFlag = stringFlag{
+		name:  "state-key",
+		usage: "Collection state namespace key",
+	}
 	// collectionFlag describes the source collection option shared by collection commands.
 	collectionFlag = stringFlag{
 		name:  "collection",
@@ -49,4 +54,10 @@ func (flag stringFlag) bindRequired(command *cobra.Command, value *string) {
 	if err := command.MarkFlagRequired(flag.name); err != nil {
 		panic(fmt.Errorf("register required flag %q: %w", flag.name, err))
 	}
+}
+
+// commandStateKey reads the collection group's namespace flag after Cobra parsing.
+// newCollectionCommand owns this flag for every native collection workflow.
+func commandStateKey(command *cobra.Command) string {
+	return command.Flag(stateKeyFlag.name).Value.String()
 }

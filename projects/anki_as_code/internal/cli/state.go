@@ -1,4 +1,4 @@
-package main
+package cli
 
 import (
 	"context"
@@ -8,21 +8,13 @@ import (
 	"strings"
 
 	collectionpb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/collection"
-	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/app"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/codec"
 	"github.com/spf13/cobra"
 )
 
-// stateFlags holds command-owned flag values shared by the state subcommands.
-type stateFlags struct {
-	// collection selects the source database or collection package.
-	collection string
-	// key selects the state namespace; empty uses the store's default namespace.
-	key string
-}
-
 // newStateCommand groups state operations using application-managed collection access.
-func newStateCommand(application *app.App, flags *stateFlags) *cobra.Command {
+func newStateCommand(application application) *cobra.Command {
+	var input string
 	command := &cobra.Command{
 		Use:   "state",
 		Short: "Inspect and manage collection-backed path bindings",
@@ -31,23 +23,23 @@ func newStateCommand(application *app.App, flags *stateFlags) *cobra.Command {
 			return fmt.Errorf("state requires a subcommand")
 		},
 	}
-	command.PersistentFlags().StringVar(&flags.collection, collectionFlag.name, "", collectionFlag.usage)
+	command.PersistentFlags().StringVar(&input, collectionFlag.name, "", collectionFlag.usage)
 	if err := command.MarkPersistentFlagRequired(collectionFlag.name); err != nil {
 		panic(fmt.Errorf("register required state input: %w", err))
 	}
-	command.AddCommand(newStateDumpCommand(application, flags), newStateImportCommand(application, flags),
-		newStateWriteCommand(flags, "replace", "Replace the whole stored state object", application.ColStateReplace),
-		newStateWriteCommand(flags, "update", "Merge an external state object into stored state", application.ColStateUpdate))
+	command.AddCommand(newStateDumpCommand(application, &input), newStateImportCommand(application, &input),
+		newStateWriteCommand(&input, "replace", "Replace the whole stored state object", application.ColStateReplace),
+		newStateWriteCommand(&input, "update", "Merge an external state object into stored state", application.ColStateUpdate))
 	return command
 }
 
 // newStateDumpCommand prints stored bindings through application-managed access.
-func newStateDumpCommand(application *app.App, flags *stateFlags) *cobra.Command {
+func newStateDumpCommand(application application, input *string) *cobra.Command {
 	var format string
 	command := &cobra.Command{
 		Use: "dump", Short: "Dump the stored state object", Args: cobra.NoArgs,
 		RunE: func(command *cobra.Command, _ []string) error {
-			value, err := application.ColStateDump(command.Context(), flags.collection, flags.key)
+			value, err := application.ColStateDump(command.Context(), *input, commandStateKey(command))
 			if err != nil {
 				return fmt.Errorf("state dump: %w", err)
 			}
@@ -66,7 +58,7 @@ func newStateDumpCommand(application *app.App, flags *stateFlags) *cobra.Command
 }
 
 // newStateImportCommand passes a complete PATH=ID batch to one managed state operation.
-func newStateImportCommand(application *app.App, flags *stateFlags) *cobra.Command {
+func newStateImportCommand(application application, input *string) *cobra.Command {
 	var text string
 	command := &cobra.Command{
 		Use: "import PATH=ID [PATH=ID...]", Short: "Bind external objects to configuration paths", Args: cobra.MinimumNArgs(1),
@@ -83,7 +75,7 @@ func newStateImportCommand(application *app.App, flags *stateFlags) *cobra.Comma
 				}
 				bindings[address] = argument[separator+1:]
 			}
-			if err := application.ColStateImport(command.Context(), flags.collection, text, flags.key, bindings); err != nil {
+			if err := application.ColStateImport(command.Context(), *input, text, commandStateKey(command), bindings); err != nil {
 				return fmt.Errorf("state import: %w", err)
 			}
 			if _, err := fmt.Fprintln(command.ErrOrStderr(), "Imported collection bindings:", len(bindings)); err != nil {
@@ -97,7 +89,7 @@ func newStateImportCommand(application *app.App, flags *stateFlags) *cobra.Comma
 }
 
 // newStateWriteCommand decodes an external object and invokes its selected state operation.
-func newStateWriteCommand(flags *stateFlags, name, summary string, write func(context.Context, string, string, *collectionpb.State) error) *cobra.Command {
+func newStateWriteCommand(input *string, name, summary string, write func(context.Context, string, string, *collectionpb.State) error) *cobra.Command {
 	var format string
 	command := &cobra.Command{
 		Use: name + " [FILE]", Short: summary, Args: cobra.MaximumNArgs(1),
@@ -116,7 +108,7 @@ func newStateWriteCommand(flags *stateFlags, name, summary string, write func(co
 			if err := codec.Decode(data, codec.Format(format), value); err != nil {
 				return fmt.Errorf("decode state for %s: %w", name, err)
 			}
-			if err := write(command.Context(), flags.collection, flags.key, value); err != nil {
+			if err := write(command.Context(), *input, commandStateKey(command), value); err != nil {
 				return fmt.Errorf("state %s: %w", name, err)
 			}
 			if _, err := fmt.Fprintf(command.ErrOrStderr(), "Collection state %s completed\n", name); err != nil {

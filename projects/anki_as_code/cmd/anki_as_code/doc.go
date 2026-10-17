@@ -1,5 +1,3 @@
-// Package main implements the Anki as code command-line interface.
-//
-// It defines Cobra commands, flags, cancellation, and output routing.
-// Collection operations are delegated to the app package.
+// Command anki_as_code constructs App and runs the CLI with signal cancellation.
+// The internal CLI package owns commands and its substitutable application contract.
 package main

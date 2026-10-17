@@ -1,4 +1,4 @@
-package app
+package ankiascode
 
 import (
 	"context"
@@ -8,6 +8,7 @@ import (
 	"path/filepath"
 	"strings"
 	"testing"
+	"time"
 
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/collection"
 
@@ -121,7 +122,7 @@ func TestNativePublicationWorkflow(t *testing.T) {
 	}
 }
 
-// TestCollectionLifecycleWorkflow verifies native persistence and connection shutdown through the collection store.
+// TestCollectionLifecycleWorkflow verifies native persistence and connection shutdown through the app.
 func TestCollectionLifecycleWorkflow(t *testing.T) {
 	for _, format := range []string{"package", "database"} {
 		t.Run(format, func(t *testing.T) {
@@ -179,7 +180,27 @@ func TestCollectionLifecycleWorkflow(t *testing.T) {
 	}
 }
 
-// runFixtureCollection adapts native fixture operations to the public collection store.
+// TestStateInputFailures rejects unavailable or malformed sources without creating collections.
+func TestStateInputFailures(t *testing.T) {
+	root := t.TempDir()
+	archive := filepath.Join(root, "collection.colpkg")
+	if err := os.WriteFile(archive, []byte("invalid collection archive"), 0o600); err != nil {
+		t.Fatal(err)
+	}
+	for _, input := range []string{filepath.Join(root, "missing.anki2"), root, archive} {
+		ctx, cancel := context.WithTimeout(t.Context(), 5*time.Second)
+		value, err := (&App{}).ColStateDump(ctx, input, "")
+		cancel()
+		if err == nil || value != nil {
+			t.Fatalf("invalid collection input %q: error=%v state=%v", input, err, value)
+		}
+	}
+	if _, err := os.Stat(filepath.Join(root, "missing.anki2")); !os.IsNotExist(err) {
+		t.Fatalf("state command created a missing database: %v", err)
+	}
+}
+
+// runFixtureCollection exercises native callbacks through collection.Store.
 func runFixtureCollection(ctx context.Context, input, output string, operation func(grpc.ClientConnInterface) (bool, error)) error {
 	store := &collection.Store{}
 	if err := store.WithCollection(ctx, input, func(connection grpc.ClientConnInterface) (bool, error) {

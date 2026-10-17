@@ -1,0 +1,35 @@
+load("@rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "cli",
+    srcs = [
+        "application.go",
+        "collection.go",
+        "config.go",
+        "doc.go",
+        "flags.go",
+        "root.go",
+        "state.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/cli",
+    visibility = ["//projects/anki_as_code/cmd/anki_as_code:__pkg__"],
+    deps = [
+        "//projects/anki_as_code/api/collection",
+        "//projects/anki_as_code/internal/codec",
+        "//projects/anki_as_code/internal/state",
+        "@com_github_spf13_cobra//:cobra",
+        "@org_golang_google_protobuf//encoding/protojson",
+    ],
+)
+
+go_test(
+    name = "command_test",
+    srcs = ["command_test.go"],
+    embed = [":cli"],
+    deps = [
+        "//projects/anki_as_code/api/collection",
+        "//projects/anki_as_code/internal/codec",
+        "//projects/anki_as_code/internal/state",
+        "@org_golang_google_protobuf//proto",
+    ],
+)

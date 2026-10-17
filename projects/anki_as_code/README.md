@@ -1,6 +1,6 @@
 ---
 title: Anki as code
-description: Manage collection-backed state and inspect Anki configurations
+description: Export Anki collections, manage state, and inspect configurations
 statuses:
   - in_progress
 languages:
@@ -11,18 +11,73 @@ tags:
 
 Anki as code represents notes, decks, and note types as protobuf-backed TOML.
 Configuration APIs work without Anki. State commands use a managed Anki backend
-and modify only a selected collection metadata key. Collection
-export, planning and apply remain in
+and modify only a selected collection metadata key. Collection export writes
+editable TOML without changing the source or exporting state. Planning, apply
+and archive rebuilding remain in
 [PR #128](https://github.com/alwaldend/src/pull/128).
+
+Collection operations live under `col` (alias `collection`): `col export`,
+`col plan`, `col apply`, `col build`, and `col state`. The namespace flag
+`--state-key` belongs to this group. Text-only operations use `config` (alias
+`conf`), such as `conf dump`. Collection source flags remain specific to each
+operation: `--collection` for existing collections and `--base` for builds.
+
+## Export collection configs
+
+```sh
+anki_as_code col export --collection /path/to/collection.colpkg --output /path/to/configs
+anki_as_code col export --collection /path/to/collection.anki2 --output /path/to/configs
+```
+
+Export accepts existing offline databases and collection packages. It writes the
+fixed TOML hierarchy using the merged exporter and closes its managed native
+session afterward. Keep Anki and other writers closed. Use absolute paths with
+`bazel run`; current-user `~` and `~/...` paths are supported.
+
+Export reads stored bindings for stable filenames and preset aliases.
+`--state-key KEY` selects their namespace. It does not initialize or write state,
+generate a state file, or request native resource mutations. Source archives retain
+their original bytes. Use the explicit state
+commands to bind existing objects before reconciliation.
+
+Declared config files are overwritten directly; unrelated entries and caller-owned
+state files remain untouched. Filesystem errors may leave partial output. For a
+clean snapshot, export into a fresh directory; callers own staging, cleanup and
+synchronization. The destination must not contain the source collection. Success
+status uses stderr and stdout stays empty.
+
+## Configuration-set export
+
+`config export [FILE] --output DIRECTORY` writes a serialized
+`CollectionConfigSet` as the fixed TOML hierarchy. Input defaults to JSON;
+`--format toml` accepts a TOML-encoded config set. Omit FILE or use `-` to read
+stdin. The `conf` alias works for both dump and export. These commands operate
+without opening Anki.
+
+```sh
+anki_as_code config dump --text ./configs > configs.json
+anki_as_code config export configs.json --output ./copy
+anki_as_code config dump --text ./configs | anki_as_code config export --output ./copy
+```
+
+The caller supplies complete configs with valid, unique collection-relative
+paths. Schema decoding happens before writes; collection semantics and path
+validation remain the caller's responsibility. Export overwrites declared files
+and retains unrelated entries. Filesystem failures can leave partial output;
+callers can export to a temporary directory when they need staged publication.
+Status goes to stderr and stdout stays empty.
+
+`App.ConfigExport(ctx, output, configs)` exposes the same writer for Go callers
+through `config.Store.Export`, without changing the supplied protobuf object.
 
 ## State operations
 
 State commands accept an existing offline `.anki2` database or `.colpkg` archive
-through `--collection`. The CLI calls App's typed state workflows. App borrows
-a prepared connection from `collection.Store`, which reserves the source and delegates
-native startup and cleanup to `backend.ManagerCollection`. Native collection
-cleanup finishes before transport cleanup and source reservation release.
-State stores borrow the prepared connection and own no backend lifetime or files.
+through `--collection`. Commands call App's typed state workflows. App borrows
+one prepared connection from `collection.Store`, which reserves the source and
+delegates native preparation and cleanup to `backend.ManagerCollection`.
+Collection cleanup finishes before transport cleanup and source reservation
+release. State stores borrow the connection and own no native lifetime or files.
 
 Databases are opened directly and committed writes persist in place, including
 when a later operation fails. Packages are restored into a temporary directory
@@ -34,15 +89,14 @@ completion follows the backend library's retention/error contract.
 Missing files and non-regular inputs fail before startup. Anki validates package
 contents during restore. Cleanup uses a bounded context independent of command
 cancellation, and operation and cleanup errors are preserved. Keep Anki and other
-writers closed during these operations. Collection export and reconciliation CLI
-commands remain placeholders in this extraction.
+writers closed during these operations. Reconciliation CLI commands remain placeholders.
 
 ```sh
-anki_as_code state dump --collection /path/to/collection.anki2 > state.anki.toml
-anki_as_code state import --collection /path/to/collection.anki2 --text /path/to/configs \
+anki_as_code col state dump --collection /path/to/collection.anki2 > state.anki.toml
+anki_as_code col state import --collection /path/to/collection.anki2 --text /path/to/configs \
   decks/Default/deck.anki.toml=1 notes/example.note.anki.toml=123
-anki_as_code state update --collection /path/to/collection.anki2 state.anki.toml
-anki_as_code state replace --collection /path/to/collection.anki2 state.anki.toml
+anki_as_code col state update --collection /path/to/collection.anki2 state.anki.toml
+anki_as_code col state replace --collection /path/to/collection.anki2 state.anki.toml
 ```
 
 Dump returns stored bindings without writes or discovery. An absent namespace
@@ -67,7 +121,7 @@ perform no state write. Native notes, cards, scheduling, history, presets and
 media remain owned by Anki.
 
 Missing or unknown state subcommands fail with nonzero status and stderr output.
-Explicit `state --help` succeeds.
+Explicit `col state --help` succeeds.
 
 `--state-key KEY` selects a namespace; the default is `anki_as_code/state/v1`.
 Only that key is written. Callers coordinate concurrent writes to the same key.
@@ -87,27 +141,31 @@ id = "789"
 id = "1"
 ```
 
-The CLI owns flags, formats and streams. App owns configuration loading, state
-service access and publication decisions. Each workflow accepts the source path
-and namespace key explicitly and completes native cleanup before returning.
-Batched imports share one native scope. Mutation status is printed after successful
-persistence.
+`pkg/ankiascode` provides the concrete `ankiascode.App`. Its zero value is
+ready to use. Operations follow the CLI namespaces: `ConfigDump`, `ConfigExport`, `ColExport`,
+`ColPlan`, `ColApply`, `ColBuild`, and `ColStateDump`, `ColStateImport`,
+`ColStateUpdate`, `ColStateReplace`. Collection inputs are ordinary file paths;
+there are no collection reference objects, lookup IDs or selector messages.
+
+`internal/cli` owns Cobra commands, flags, binding syntax, formats and streams.
+Its root constructor receives one implementation of its private `application`
+interface. The interface uses strings, protobuf messages and standard-library
+types. This package does not import App or the native backend. `cmd/anki_as_code`
+constructs `ankiascode.App`, passes it to `cli.New` and handles process signals.
+Isolated command tests supply one fake without constructing App or starting Anki.
+Commands pass namespaces explicitly, and App retains no command configuration.
 
 ```go
-application := &app.App{}
-value, err := application.ColStateDump(ctx, collectionPath, key)
-err = application.ColStateImport(ctx, collectionPath, configDirectory, key, bindings)
-err = application.ColStateUpdate(ctx, collectionPath, key, patch)
-err = application.ColStateReplace(ctx, collectionPath, key, replacement)
+application := &ankiascode.App{}
+// ConfigDump(ctx, path, format) works without a native backend.
+value, err := application.ColStateDump(ctx, absoluteCollectionPath, key)
+err = application.ColStateImport(ctx, absoluteCollectionPath, absoluteConfigPath, key, bindings)
+err = application.ColStateUpdate(ctx, absoluteCollectionPath, key, external)
+err = application.ColStateReplace(ctx, absoluteCollectionPath, key, replacement)
 ```
 
-App exposes complete operations without raw connections, callbacks or flag options.
-Go callers needing several operations within one prepared scope use collection.Store
-below. Callers with an existing connection use state.New directly and retain
-backend ownership. Collection paths support absolute and current-user home paths;
-`--collection` replaces the unreleased `--input` spelling across the scaffold.
-
-## Collection Go API
+App's path-based operations return after cleanup. Internal callers needing
+several operations in one scope can use collection.Store directly.
 
 `internal/collection.Store` reserves existing sources and publishes changed archives.
 Its zero value is ready to use. `WithCollection` injects a prepared
@@ -186,6 +244,29 @@ creations; `Replace` rejects unresolved IDs before persistence.
 `Decode(data []byte, format codec.Format, message proto.Message)`. Use `codec.TOML`
 or `codec.JSON`; an empty format defaults to TOML. The state store has no codec
 or filesystem dependency.
+
+## Collection lifecycle
+
+App delegates native access to `collection.Store.WithCollection`. The store
+reserves the source and uses `backend.ManagerCollection` over an optional
+injected transport manager. Nil selects the bundled server or PATH.
+BackendCollection restores packages into temporary storage or opens databases
+directly. Callbacks receive the prepared connection and construct their own
+services. Managers close native storage before releasing the transport.
+
+BackendCollection owns readiness, native import/open/close and restore cleanup.
+Its failure contract can retain restore files when native completion is uncertain,
+reporting their path. The CLI and App add no restore owner or lifecycle state machine.
+
+Store reserves each source before startup and retains that reservation through
+cleanup. A successful callback returning true publishes only its own source
+archive through Anki's `ExportCollectionPackage`; false, errors and cancellation
+skip publication. Anki writes and atomically replaces that archive. Database
+operations persist in place. Build separately copies its base to a temporary
+directory beside the destination, applies to that copy and atomically replaces
+the destination after success. Failed builds remove staging and leave the
+destination untouched. Callers own exclusive access to the base and destination.
+State, export and reconciliation borrow prepared services without owning lifetime.
 
 ## Configuration commands
 
@@ -359,10 +440,11 @@ Collection-backed reconciliation state is application metadata, not a user setti
 
 ```sh
 bazel_agent bazel build //projects/anki_as_code
-bazel_agent bazel test //projects/anki_as_code/internal/app:app_test \
+bazel_agent bazel test //projects/anki_as_code/pkg/ankiascode:ankiascode_test \
   //projects/anki_as_code/internal/state:state_test \
+  //projects/anki_as_code/internal/cli:command_test \
   //projects/anki_as_code/cmd/anki_as_code:cli_workflow_test \
-  //projects/anki_as_code/cmd/anki_as_code:config_workflow_test
+  //projects/anki_as_code/internal/config:store_test
 ```
 
 Use absolute paths with `bazel run`, which may execute outside the checkout.
@@ -377,7 +459,8 @@ Use absolute paths with `bazel run`, which may execute outside the checkout.
 | `internal/export`        | Native-to-config projection, filenames and direct file output |
 | `internal/model`         | Shared runtime snapshot models, without business logic        |
 | `internal/collection`    | Source reservations and archive publication                   |
-| `internal/app`           | Command workflows delegating collection lifetime to Store     |
+| `internal/cli`           | Cobra flags, syntax, serialization and streams                |
+| `pkg/ankiascode`         | Workflow composition and collection command placeholders      |
 | `cmd/anki_as_code`       | Executable composition and signal cancellation                |
 
 The loader produces protobuf config sets directly. Resource messages use `Config`,
@@ -458,7 +541,7 @@ build requirement.
 This project uses a translation layer: application wiring obtains the managed
 connection from `projects/anki_grpc`, whose Rust server forwards operations to
 Anki's Rust API. The backend library implements server and collection lifecycle;
-the collection store delegates native lifetime to its backend managers.
+the application calls its Start, Connection and Stop methods.
 
 ![Anki backend integration approaches](/docs/projects/anki_as_code/assets/backend-approaches.svg)
 
@@ -481,12 +564,17 @@ recovery and native-object preservation, and emits TOML, JSON and a closed nativ
 database. General backend
 lifecycle and archive tests belong to their owning components.
 
-The application E2E exercises state CLI and typed App operations on databases and
+The application E2E exercises state CLI and Go operations on databases and
 packages, direct-write persistence after caller errors, rejected/no-op archive
 writes, batched imports, namespace isolation, cancellation and invalid packages.
 It verifies borrowed connections close, normal temporary restores are removed,
 and notes, reviewed cards, history, presets and media survive state operations.
 Repeatable JSON, TOML, `.anki2` and `.colpkg` artifacts are emitted.
+
+Export CLI E2E checks databases and packages, source-byte preservation, config-only
+output, explicit state imports, namespace-selected filenames, retained caller
+files and permissions, home paths, rejected destinations and failed native reads.
+It emits representative note configs and independent TOML/JSON state dumps.
 
 The independent exporter E2E uses a caller-managed native backend and collection.
 It checks exact Unicode/multiline fields, presentation, member bindings, stable
@@ -494,9 +582,3 @@ bound/discovered paths, native filename text conversion, filtered-card exclusion
 read-only state namespaces, untouched existing entries, cancellation and partial output
 after filesystem errors. It emits a complete text tree and a native `.colpkg` artifact.
 Run `bazel_agent bazel test //projects/anki_as_code/internal/export:export_test`.
-
-The collection-store E2E injects a real native transport manager and verifies that
-collection services use its backend. Callback errors, custom cancellation and
-panic unwinding release native access and source reservations while leaving
-transport shutdown with the injected manager. Existing cases verify locally reused
-services, namespace isolation, successful source publication and explicit exports.

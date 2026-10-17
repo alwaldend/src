@@ -1,4 +1,4 @@
-package app
+package ankiascode
 
 import (
 	"context"
@@ -335,7 +335,11 @@ func runFixtureCLI(t *testing.T, arguments ...string) []byte {
 	if err := command.Run(); err != nil {
 		t.Fatalf("CLI %s: %v: %s", arguments[0], err, stderr.String())
 	}
-	if !(len(arguments) > 1 && arguments[0] == "state" && arguments[1] == "dump") && stdout.Len() != 0 {
+	operation := arguments
+	if operation[0] == "col" || operation[0] == "collection" {
+		operation = operation[1:]
+	}
+	if operation[0] != "plan" && !(len(operation) > 1 && operation[0] == "state" && operation[1] == "dump") && stdout.Len() != 0 {
 		t.Fatalf("status polluted stdout for %s", arguments[0])
 	}
 	return []byte(stdout.String())
@@ -392,4 +396,13 @@ func assertFixtureSources(t *testing.T, root string, before map[string]string) {
 			t.Fatalf("source changed: %s", path)
 		}
 	}
+}
+
+// exportForFixture invokes the application workflow with the fixture namespace.
+func exportForFixture(ctx context.Context, input, output, key string) error {
+	application := &App{}
+	if err := application.ColExport(ctx, input, output, key); err != nil {
+		return fmt.Errorf("export fixture: %w", err)
+	}
+	return nil
 }

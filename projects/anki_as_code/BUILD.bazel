@@ -8,10 +8,10 @@ package_group(
     name = "config_consumers",
     packages = [
         "//projects/anki_as_code/cmd/anki_as_code",
-        "//projects/anki_as_code/internal/app",
         "//projects/anki_as_code/internal/collection",
         "//projects/anki_as_code/internal/export",
         "//projects/anki_as_code/internal/state",
+        "//projects/anki_as_code/pkg/ankiascode",
     ],
 )
 
