@@ -84,33 +84,6 @@ func (store *Store) Dump(ctx context.Context) (*collectionpb.State, error) {
 	return value, nil
 }
 
-// Preview applies config moves and returns a detached state snapshot without writes.
-// Nil resources retain moved stored bindings; a supplied message replaces all groups,
-// including clearing them when empty. Inputs remain unchanged. Zero resource IDs
-// are allowed for planning but cannot be persisted.
-func (store *Store) Preview(ctx context.Context, configs *collectionpb.CollectionConfigSet, resources *collectionpb.Resources) (*collectionpb.State, error) {
-	before, err := store.Dump(ctx)
-	if err != nil {
-		return nil, fmt.Errorf("read state before preview: %w", err)
-	}
-	if configs != nil {
-		if err := validateMoveSources(configs); err != nil {
-			return nil, fmt.Errorf("validate move declarations: %w", err)
-		}
-	}
-	value, err := moveState(before, configs.GetConfig().GetMoved())
-	if err != nil {
-		return nil, fmt.Errorf("preview state moves: %w", err)
-	}
-	if resources != nil {
-		value.Resources = resources
-	}
-	if err := validateState(value, true); err != nil {
-		return nil, fmt.Errorf("validate preview state: %w", err)
-	}
-	return proto.Clone(value).(*collectionpb.State), nil
-}
-
 // Replace replaces the complete stored object, including removal of omitted bindings.
 // It validates state metadata, leaves native objects untouched, and reports actual changes.
 // Invalid saved state can be replaced; native read errors still fail the operation.

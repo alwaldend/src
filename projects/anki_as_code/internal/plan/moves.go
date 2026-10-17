@@ -1,16 +1,19 @@
-package state
+package plan
 
 import (
 	"fmt"
+	"io/fs"
 	"strings"
 
 	collectionpb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/collection"
+	"google.golang.org/protobuf/proto"
 )
 
 // validMoveAddress validates the filesystem portion of a resource or member address.
 func validMoveAddress(address string) error {
-	if err := validAddress(resourceRoot(address)); err != nil {
-		return fmt.Errorf("move address %q: %w", address, err)
+	file := resourceRoot(address)
+	if file == "." || !fs.ValidPath(file) || strings.ContainsAny(file, "\\\x00") {
+		return fmt.Errorf("invalid collection-relative move address %q", address)
 	}
 	return nil
 }
@@ -24,9 +27,12 @@ func addressDescendant(address, prefix string) bool {
 	return file == prefix || strings.HasPrefix(file, prefix+"/")
 }
 
-// moveState applies independent explicit moves to a clone; retained moves are idempotent.
-func moveState(state *collectionpb.State, moves []*collectionpb.ResourceMove) (*collectionpb.State, error) {
-	result := cloneState(state)
+// moveResources applies independent explicit moves to owned bindings; retained moves are idempotent.
+func moveResources(bindings *collectionpb.Resources, moves []*collectionpb.ResourceMove) (*collectionpb.Resources, error) {
+	result := proto.CloneOf(bindings)
+	if result == nil {
+		result = &collectionpb.Resources{}
+	}
 	for index, move := range moves {
 		for _, other := range moves[:index] {
 			endpoints := []string{other.From, other.To}
@@ -51,23 +57,13 @@ func moveState(state *collectionpb.State, moves []*collectionpb.ResourceMove) (*
 			}
 			continue
 		}
-		occupied := map[string]bool{}
-		for address := range result.Resources.Decks {
-			occupied[address] = true
-		}
-		for address := range result.Resources.Notes {
-			occupied[address] = true
-		}
-		for address := range result.Resources.NoteTypes {
-			occupied[address] = true
-		}
-		if err := moveBindings(result.Resources.Decks, move, occupied); err != nil {
+		if err := moveBindings(result.Decks, move, result); err != nil {
 			return nil, fmt.Errorf("move deck state: %w", err)
 		}
-		if err := moveBindings(result.Resources.Notes, move, occupied); err != nil {
+		if err := moveBindings(result.Notes, move, result); err != nil {
 			return nil, fmt.Errorf("move note state: %w", err)
 		}
-		if err := moveBindings(result.Resources.NoteTypes, move, occupied); err != nil {
+		if err := moveBindings(result.NoteTypes, move, result); err != nil {
 			return nil, fmt.Errorf("move note-type state: %w", err)
 		}
 	}
@@ -85,78 +81,60 @@ func memberAddress(address string) (string, string, string) {
 	return address, "", ""
 }
 
-// moveBindings moves file or directory keys without changing the typed values.
-func moveBindings[T any](bindings map[string]T, move *collectionpb.ResourceMove, occupied map[string]bool) error {
-	replacements := map[string]T{}
+// moveBindings renames disjoint keys and checks destinations against the typed resource maps.
+func moveBindings[T any](bindings map[string]T, move *collectionpb.ResourceMove, resources *collectionpb.Resources) error {
 	for address, binding := range bindings {
 		if addressDescendant(address, move.From) {
 			destination := move.To + strings.TrimPrefix(address, move.From)
-			if occupied[destination] {
+			_, deck := resources.Decks[destination]
+			_, note := resources.Notes[destination]
+			_, definition := resources.NoteTypes[destination]
+			if deck || note || definition {
 				return fmt.Errorf("move destination %q is already bound", destination)
 			}
-			replacements[destination] = binding
-		}
-	}
-	for address := range bindings {
-		if addressDescendant(address, move.From) {
+			// A disjoint destination cannot be visited as another source in this range.
 			delete(bindings, address)
+			bindings[destination] = binding
 		}
-	}
-	for address, binding := range replacements {
-		bindings[address] = binding
 	}
 	return nil
 }
 
-// moveMember renames a field or template while retaining its native identity and ordinal.
-func moveMember(value *collectionpb.State, move *collectionpb.ResourceMove) error {
+// moveMember renames a field or template within its original native note type.
+func moveMember(value *collectionpb.Resources, move *collectionpb.ResourceMove) error {
 	fromFile, fromCategory, fromName := memberAddress(move.From)
 	toFile, toCategory, toName := memberAddress(move.To)
-	if fromCategory == "" || fromCategory != toCategory {
-		return fmt.Errorf("member moves require matching field or template endpoints")
+	if fromFile != toFile || fromCategory == "" || fromCategory != toCategory {
+		return fmt.Errorf("member moves require matching field or template endpoints within the same note type")
 	}
-	from := value.Resources.NoteTypes[fromFile]
-	if from == nil {
+	binding := value.NoteTypes[fromFile]
+	if binding == nil {
 		return nil
 	}
-	to := value.Resources.NoteTypes[toFile]
 	if fromCategory == "fields" {
-		if from.Fields[fromName] == nil {
-			return nil
-		}
-		if to == nil {
-			return fmt.Errorf("member destination %q must be a bound note type", toFile)
-		}
-		if to.Fields == nil {
-			to.Fields = map[string]*collectionpb.FieldState{}
-		}
-		if err := moveNamedMember(from.Fields, to.Fields, fromName, toName); err != nil {
+		if err := renameMember(binding.Fields, fromName, toName); err != nil {
 			return fmt.Errorf("move field: %w", err)
 		}
 	} else {
-		if from.Templates[fromName] == nil {
-			return nil
-		}
-		if to == nil {
-			return fmt.Errorf("member destination %q must be a bound note type", toFile)
-		}
-		if to.Templates == nil {
-			to.Templates = map[string]*collectionpb.TemplateState{}
-		}
-		if err := moveNamedMember(from.Templates, to.Templates, fromName, toName); err != nil {
+		if err := renameMember(binding.Templates, fromName, toName); err != nil {
 			return fmt.Errorf("move template: %w", err)
 		}
 	}
 	return nil
 }
 
-// moveNamedMember transfers one typed member between note-type maps without overwriting a destination.
-func moveNamedMember[T any](source, destination map[string]T, from, to string) error {
-	if _, exists := destination[to]; exists {
+// renameMember changes one map key while preserving its typed identity and ordinal.
+// An absent source makes a retained move idempotent; existing destinations cannot be overwritten.
+func renameMember[T any](bindings map[string]T, from, to string) error {
+	value, exists := bindings[from]
+	if !exists {
+		return nil
+	}
+	if _, exists := bindings[to]; exists {
 		return fmt.Errorf("member destination %q is already bound", to)
 	}
-	destination[to] = source[from]
-	delete(source, from)
+	bindings[to] = value
+	delete(bindings, from)
 	return nil
 }
 
