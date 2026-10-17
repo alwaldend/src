@@ -12,29 +12,37 @@ tags:
 Anki as code represents notes, decks, and note types as protobuf-backed TOML.
 Configuration APIs work without Anki. State commands use a managed Anki backend
 and modify only a selected collection metadata key. Collection
-export, planning, apply and archive handling remain in
+export, planning and apply remain in
 [PR #128](https://github.com/alwaldend/src/pull/128).
 
 ## State operations
 
-State commands require `--input` pointing to an existing `.anki2` database. The
-CLI initializes the application once after parsing command inputs. `App.Start`
-starts the packaged Anki server and opens the database through `BackendCollection`.
-`WithState` borrows that prepared connection; it does not start or close resources.
-The command boundary always calls `App.Stop`, which closes the collection before
-the server, including on operation failure. CLI cleanup has a bounded context
-independent of command cancellation; operation and cleanup errors are preserved.
+State commands accept an existing offline `.anki2` database or `.colpkg` archive
+through `--collection`. `App.WithCollection` starts the native process and collection
+backends, lends a prepared connection, then closes the collection before the process.
+Inside its callback, commands construct a namespaced store with `state.New` using
+that connection. Stores own no backend lifecycle or cleanup. The existing backend owns prepared connections and archive restore
+files; the app adds no collection wrapper or manual package handling.
 
-Missing files, directories and other extensions are rejected before backend
-startup. State commands do not create collections or handle archives. Database
-changes persist in place; archive export and reconciliation remain in #128.
+Databases are opened directly and committed writes persist in place, including
+when a later operation fails. Packages are restored into a temporary directory
+and changed results are exported through Anki's atomic package API including media.
+Dump and unchanged writes retain the source archive bytes. Failures before export
+discard restored changes. Normal cleanup removes restored files; uncertain native
+completion follows the backend library's retention/error contract.
+
+Missing files and non-regular inputs fail before startup. Anki validates package
+contents during restore. Cleanup uses a bounded context independent of command
+cancellation, and operation and cleanup errors are preserved. Keep Anki and other
+writers closed during these operations. Collection export and reconciliation CLI
+commands remain placeholders in this extraction.
 
 ```sh
-anki_as_code state dump --input /path/to/collection.anki2 > state.anki.toml
-anki_as_code state import --input /path/to/collection.anki2 --text /path/to/configs \
+anki_as_code state dump --collection /path/to/collection.anki2 > state.anki.toml
+anki_as_code state import --collection /path/to/collection.anki2 --text /path/to/configs \
   decks/Default/deck.anki.toml=1 notes/example.note.anki.toml=123
-anki_as_code state update --input /path/to/collection.anki2 state.anki.toml
-anki_as_code state replace --input /path/to/collection.anki2 state.anki.toml
+anki_as_code state update --collection /path/to/collection.anki2 state.anki.toml
+anki_as_code state replace --collection /path/to/collection.anki2 state.anki.toml
 ```
 
 Dump returns stored bindings without writes or discovery. An absent namespace
@@ -79,21 +87,39 @@ id = "789"
 id = "1"
 ```
 
-The CLI owns flags and output. `App.Start` and `App.Stop` compose the lifecycle
-implemented by `projects/anki_grpc/pkg/backend`; only that backend creates and
-closes the gRPC connection. Collection `Input` belongs to `app.Options` and is read
-during startup. `app.StateOptions` contains only `Key` and is passed by value to
-`WithState`. The CLI binds application options directly; formats and streams
-remain command concerns.
+The CLI owns flags, formats and streams. `app.Options.Collection` selects the
+input; `app.StateOptions.Key` selects the namespace. Each command calls WithCollection
+once and constructs its state store inside the callback. Batched imports share
+that one session. State callbacks return whether they changed bindings
+so unchanged archives need no publication. Mutation status is printed after successful
+persistence.
 
-Go callers configure `App.Options`, call `Start` once, reuse `WithState` for any
-number of state operations, then call `Stop` with a suitable cleanup context.
-Call `Stop` even if startup fails. Lifecycle calls must be serialized. State
-access before successful startup or after shutdown fails without invoking its
-callback. Repeated startup is rejected without replacing an initialized backend;
-state operation errors leave cleanup to the caller.
+```go
+application := &app.App{
+    Options: app.Options{Collection: absoluteCollectionPath},
+    StateOptions: app.StateOptions{Key: key},
+}
+err := application.WithCollection(ctx, func(connection grpc.ClientConnInterface) (bool, error) {
+    store := state.New(connection, application.StateOptions.Key)
+    changed, err := store.Replace(ctx, replacement)
+    if err != nil {
+        return false, fmt.Errorf("replace application state: %w", err)
+    }
+    return changed, nil
+})
+```
+
+WithCollection returns after cleanup; callers need no separate App.Start/Stop.
+State stores only borrow the supplied connection; they do not open, publish or
+close a collection.
+Go callers with an existing prepared connection use state.New directly and retain
+their own collection/backend lifetime. The shared collection workflow normalizes
+absolute and current-user home paths; `--collection` replaces the unreleased
+`--input` spelling across the command scaffold.
 
 ## State Go API
+
+![State store operations and Anki storage](assets/state-store.svg)
 
 `internal/state` borrows a prepared connection and owns no process, collection
 lifecycle or files. The selected namespace defaults when the key is empty:
@@ -211,8 +237,8 @@ Array order determines field/template positions.
 
 Paths identify resources. Editable configs contain no top-level Anki IDs or note
 GUIDs. A note at a new path declares a new resource; identity-preserving moves
-belong in the root's `moved` list. PR #128 exports native identity bindings
-as a separate state object; explicit state operations install it in the collection.
+belong in the root's `moved` list. Explicit state imports bind existing config
+paths to native objects without adding identities to the editable files.
 The identity generation command has been removed.
 
 The loader lists immediate files in `notes/` and `note_types/`, descending only
@@ -309,17 +335,17 @@ bazel_agent bazel test //projects/anki_as_code/internal/app:app_test \
 
 Use absolute paths with `bazel run`, which may execute outside the checkout.
 
-| Package                  | Responsibility                                                                    |
-| ------------------------ | --------------------------------------------------------------------------------- |
-| `api/collection`         | Generated resource, configuration, plan, and state contracts                      |
-| `internal/config`        | Root-bound configuration Store for Load, Dump and Export                          |
-| `internal/config/layout` | Fixed hierarchy, discovery, file I/O, and direct export                           |
-| `internal/codec`         | Filesystem-independent protobuf/TOML/JSON conversion                              |
-| `internal/state`         | Stored-state dump, batch import, update and replacement                           |
-| `internal/export`        | Native-to-config projection, filenames and direct file output                     |
-| `internal/model`         | Shared runtime snapshot models, without business logic                            |
-| `internal/app`           | Configuration adapter, explicit application lifecycle and collection placeholders |
-| `cmd/anki_as_code`       | Cobra flags, cancellation, output, and errors                                     |
+| Package                  | Responsibility                                                     |
+| ------------------------ | ------------------------------------------------------------------ |
+| `api/collection`         | Generated resource, configuration, plan, and state contracts       |
+| `internal/config`        | Root-bound configuration Store for Load, Dump and Export           |
+| `internal/config/layout` | Fixed hierarchy, discovery, file I/O, and direct export            |
+| `internal/codec`         | Filesystem-independent protobuf/TOML/JSON conversion               |
+| `internal/state`         | Stored-state dump, batch import, update and replacement            |
+| `internal/export`        | Native-to-config projection, filenames and direct file output      |
+| `internal/model`         | Shared runtime snapshot models, without business logic             |
+| `internal/app`           | Per-operation native lifecycle and collection command placeholders |
+| `cmd/anki_as_code`       | Cobra flags, cancellation, output, and errors                      |
 
 The loader produces protobuf config sets directly. Resource messages use `Config`,
 file wrappers retain source paths, and upstream messages keep their upstream names.
@@ -422,10 +448,12 @@ recovery and native-object preservation, and emits TOML, JSON and a closed nativ
 database. General backend
 lifecycle and archive tests belong to their owning components.
 
-The application E2E starts once, exercises nested and sequential state access,
-checks rejected repeated startup and access before/after lifecycle boundaries,
-and verifies callback/cancellation error handling. It reopens the collection in a
-new application to verify persistence, emitting JSON and a closed native database.
+The application E2E exercises state CLI and Go operations on databases and
+packages, direct-write persistence after caller errors, rejected/no-op archive
+writes, batched imports, namespace isolation, cancellation and invalid packages.
+It verifies borrowed connections close, normal temporary restores are removed,
+and notes, reviewed cards, history, presets and media survive state operations.
+Repeatable JSON, TOML, `.anki2` and `.colpkg` artifacts are emitted.
 
 The independent exporter E2E uses a caller-managed native backend and collection.
 It checks exact Unicode/multiline fields, presentation, member bindings, stable

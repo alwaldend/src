@@ -16,9 +16,9 @@ func TestStateSubcommandErrors(t *testing.T) {
 	binary := filepath.Join(os.Getenv("TEST_SRCDIR"), os.Getenv("TEST_WORKSPACE"), os.Getenv("ANKI_CLI"))
 	for _, args := range [][]string{
 		{"state"},
-		{"state", "--input", "unused.anki2"},
+		{"state", "--collection", "unused.anki2"},
 		{"state", "nonsense"},
-		{"state", "nonsense", "--input", "unused.anki2"},
+		{"state", "nonsense", "--collection", "unused.anki2"},
 	} {
 		ctx, cancel := context.WithTimeout(t.Context(), 5*time.Second)
 		command := exec.CommandContext(ctx, binary, args...)
@@ -67,7 +67,7 @@ func TestStateCommandSyntax(t *testing.T) {
 		{"notes/a.note.anki.toml=1", "notes/a.note.anki.toml=2"},
 	} {
 		ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
-		args := append([]string{"state", "import", "--input", "unused.anki2", "--text", "missing"}, arguments...)
+		args := append([]string{"state", "import", "--collection", "unused.anki2", "--text", "missing"}, arguments...)
 		command := exec.CommandContext(ctx, binary, args...)
 		var stdout, stderr bytes.Buffer
 		command.Stdout, command.Stderr = &stdout, &stderr
@@ -79,7 +79,7 @@ func TestStateCommandSyntax(t *testing.T) {
 	}
 	for _, identifier := range []string{"opaque-id", "", "0", "-1", "9223372036854775808"} {
 		ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
-		command := exec.CommandContext(ctx, binary, "state", "import", "--input", "unused.anki2", "--text", "missing", "notes/a.note.anki.toml="+identifier)
+		command := exec.CommandContext(ctx, binary, "state", "import", "--collection", "unused.anki2", "--text", "missing", "notes/a.note.anki.toml="+identifier)
 		var stdout, stderr bytes.Buffer
 		command.Stdout, command.Stderr = &stdout, &stderr
 		err := command.Run()
@@ -90,22 +90,22 @@ func TestStateCommandSyntax(t *testing.T) {
 	}
 }
 
-// TestStateDatabaseInput rejects unavailable sources without creating collections.
-func TestStateDatabaseInput(t *testing.T) {
+// TestStateInputFailures rejects unavailable or malformed sources without creating collections.
+func TestStateInputFailures(t *testing.T) {
 	binary := filepath.Join(os.Getenv("TEST_SRCDIR"), os.Getenv("TEST_WORKSPACE"), os.Getenv("ANKI_CLI"))
 	root := t.TempDir()
 	archive := filepath.Join(root, "collection.colpkg")
-	if err := os.WriteFile(archive, []byte("archive is not a database"), 0o600); err != nil {
+	if err := os.WriteFile(archive, []byte("invalid collection archive"), 0o600); err != nil {
 		t.Fatal(err)
 	}
 	for _, input := range []string{filepath.Join(root, "missing.anki2"), root, archive} {
 		ctx, cancel := context.WithTimeout(t.Context(), 5*time.Second)
-		command := exec.CommandContext(ctx, binary, "state", "dump", "--input", input)
+		command := exec.CommandContext(ctx, binary, "state", "dump", "--collection", input)
 		var stdout, stderr bytes.Buffer
 		command.Stdout, command.Stderr = &stdout, &stderr
 		err := command.Run()
 		cancel()
-		if err == nil || stdout.Len() != 0 || !strings.Contains(stderr.String(), "collection input") {
+		if err == nil || stdout.Len() != 0 || stderr.Len() == 0 {
 			t.Fatalf("invalid collection input %q: error=%v stdout=%q stderr=%q", input, err, stdout.String(), stderr.String())
 		}
 	}

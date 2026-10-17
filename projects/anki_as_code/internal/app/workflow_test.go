@@ -1,4 +1,4 @@
-package app_test
+package app
 
 import (
 	"context"
@@ -7,160 +7,171 @@ import (
 	"os"
 	"path/filepath"
 	"testing"
-	"time"
 
 	collectionpb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/collection"
-	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/app"
-	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/state"
-	"git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/backend"
-	"github.com/bazelbuild/rules_go/go/runfiles"
-	"google.golang.org/protobuf/encoding/protojson"
 	"google.golang.org/protobuf/proto"
+
+	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/state"
+	"google.golang.org/grpc"
 )
 
-// TestStateLifecycleWorkflow shares one prepared application across state operations.
-// It covers unavailable/stopped access, repeated startup, nested calls, cancellation,
-// callback errors and native persistence after explicit shutdown.
-func TestStateLifecycleWorkflow(t *testing.T) {
-	ctx, cancel := context.WithTimeout(t.Context(), time.Minute)
-	defer cancel()
-	database := filepath.Join(t.TempDir(), "collection.anki2")
-	createCollection(t, ctx, database)
-	application := &app.App{Options: app.Options{Input: database}}
-	t.Cleanup(func() { stopApplication(t, application) })
-	options := app.StateOptions{Key: "anki_as_code/state/application"}
-	called := false
-	if err := application.WithState(ctx, options, func(*state.Store) error {
-		called = true
-		return nil
-	}); err == nil || called {
-		t.Fatal("unprepared application invoked a state operation")
-	}
-	if err := application.Start(ctx); err != nil {
-		t.Fatal(err)
-	}
-	if err := application.Start(ctx); err == nil {
-		t.Fatal("second startup replaced an active application")
-	}
-	expected := &collectionpb.State{Version: 1, Resources: &collectionpb.Resources{Presets: map[string]*collectionpb.PresetState{"shared": {Id: 1}}}}
-	if err := application.WithState(ctx, options, func(store *state.Store) error {
-		if _, err := store.Replace(ctx, expected); err != nil {
-			return fmt.Errorf("write shared state: %w", err)
+// TestDirectDatabaseWorkflow verifies native writes persist without a staging copy, including before a caller error.
+func TestDirectDatabaseWorkflow(t *testing.T) {
+	fixture := newFixture(t)
+	scratch := t.TempDir()
+	t.Setenv("TMPDIR", scratch)
+	ctx := context.Background()
+	application := &App{Options: Options{Collection: fixture.database}}
+	expected := &collectionpb.State{Version: 1, Resources: &collectionpb.Resources{Presets: map[string]*collectionpb.PresetState{"direct": {Id: 1}}}}
+	for _, fail := range []bool{false, true} {
+		if fail {
+			expected.Resources.Presets["committed"] = &collectionpb.PresetState{Id: 1}
 		}
-		if err := application.WithState(ctx, options, func(nested *state.Store) error {
-			value, err := nested.Dump(ctx)
+		failure := errors.New("operation failed after its native write")
+		err := application.WithCollection(ctx, func(connection grpc.ClientConnInterface) (bool, error) {
+			store := state.New(connection, application.StateOptions.Key)
+			changed, err := store.Replace(ctx, expected)
 			if err != nil {
-				return fmt.Errorf("read nested state: %w", err)
+				return false, fmt.Errorf("replace direct state: %w", err)
 			}
-			if !proto.Equal(value, expected) {
-				return fmt.Errorf("nested operation did not share the collection")
+			if fail {
+				return false, failure
 			}
-			return nil
-		}); err != nil {
-			return fmt.Errorf("reuse prepared application: %w", err)
+			return changed, nil
+		})
+		if fail && !errors.Is(err, failure) || !fail && err != nil {
+			t.Fatalf("direct operation result: %v", err)
 		}
-		return nil
-	}); err != nil {
-		t.Fatal(err)
-	}
-	failure := errors.New("state callback failure")
-	if err := application.WithState(ctx, options, func(*state.Store) error {
-		return fmt.Errorf("injected operation failure: %w", failure)
-	}); !errors.Is(err, failure) {
-		t.Fatalf("operation error cause was lost: %v", err)
-	}
-	cancelled, stop := context.WithCancel(ctx)
-	stop()
-	if err := application.WithState(cancelled, options, func(*state.Store) error {
-		called = true
-		return nil
-	}); !errors.Is(err, context.Canceled) || called {
-		t.Fatalf("cancelled state access: called=%v error=%v", called, err)
-	}
-	checkState(t, ctx, application, options, expected)
-	checkState(t, ctx, application, app.StateOptions{}, &collectionpb.State{Version: 1})
-	stopApplication(t, application)
-	if err := application.WithState(ctx, options, func(*state.Store) error {
-		called = true
-		return nil
-	}); err == nil || called {
-		t.Fatal("stopped application invoked a state operation")
-	}
-	reopened := &app.App{Options: app.Options{Input: database}}
-	t.Cleanup(func() { stopApplication(t, reopened) })
-	if err := reopened.Start(ctx); err != nil {
-		t.Fatal(err)
-	}
-	checkState(t, ctx, reopened, options, expected)
-	stopApplication(t, reopened)
-	if output := os.Getenv("TEST_UNDECLARED_OUTPUTS_DIR"); output != "" {
-		data, err := protojson.Marshal(expected)
+		client := connectFixture(t, fixture.database)
+		connection, err := client.worker.Connection()
 		if err != nil {
 			t.Fatal(err)
 		}
-		if err := os.WriteFile(filepath.Join(output, "state.anki.json"), data, 0o600); err != nil {
-			t.Fatal(err)
+		stored, err := state.New(connection, "").Dump(ctx)
+		if err != nil || !proto.Equal(stored, expected) {
+			t.Fatal("direct native write did not survive close")
 		}
-		data, err = os.ReadFile(database)
-		if err != nil {
-			t.Fatal(err)
-		}
-		if err := os.WriteFile(filepath.Join(output, "state.anki2"), data, 0o600); err != nil {
+		if err := client.close(); err != nil {
 			t.Fatal(err)
 		}
 	}
+	files, err := os.ReadDir(scratch)
+	if err != nil || len(files) != 0 {
+		t.Fatalf("direct database workflow created private files: %v %v", files, err)
+	}
+	saveFixtureArtifact(t, fixture.database, "direct.anki2")
 }
 
-// checkState reads a namespace without changing the application's lifetime.
-func checkState(t *testing.T, ctx context.Context, application *app.App, options app.StateOptions, expected *collectionpb.State) {
-	t.Helper()
-	if err := application.WithState(ctx, options, func(store *state.Store) error {
-		value, err := store.Dump(ctx)
-		if err != nil {
-			return fmt.Errorf("read application state: %w", err)
-		}
-		if !proto.Equal(value, expected) {
-			return fmt.Errorf("application state differs: %v", value)
-		}
-		return nil
-	}); err != nil {
-		t.Fatal(err)
+// TestNativePublicationWorkflow verifies that failed operations leave source archives unchanged.
+func TestNativePublicationWorkflow(t *testing.T) {
+	for _, scenario := range []string{"operation error", "cancelled operation", "cancelled open", "invalid package"} {
+		t.Run(scenario, func(t *testing.T) {
+			fixture := newFixture(t)
+			input := fixture.base
+			if scenario == "invalid package" {
+				input = filepath.Join(t.TempDir(), "invalid.colpkg")
+				if err := os.WriteFile(input, []byte("invalid collection package"), 0o600); err != nil {
+					t.Fatal(err)
+				}
+			}
+			original, err := os.ReadFile(input)
+			if err != nil {
+				t.Fatal(err)
+			}
+			scratch := t.TempDir()
+			t.Setenv("TMPDIR", scratch)
+			ctx, cancel := context.WithCancel(context.Background())
+			defer cancel()
+			if scenario == "cancelled open" {
+				cancel()
+			}
+			called := false
+			failure := errors.New("operation failed after a native write")
+			err = runCollection(ctx, input, input, func(connection grpc.ClientConnInterface) (bool, error) {
+				called = true
+				expected := &collectionpb.State{Version: 1, Resources: &collectionpb.Resources{Presets: map[string]*collectionpb.PresetState{"discarded": {Id: 1}}}}
+				if _, err := state.New(connection, "").Replace(ctx, expected); err != nil {
+					return false, fmt.Errorf("write restored collection: %w", err)
+				}
+				if scenario == "operation error" {
+					return false, failure
+				}
+				cancel()
+				return true, nil
+			})
+			if err == nil || scenario == "operation error" && !errors.Is(err, failure) {
+				t.Fatalf("failed operation result: %v", err)
+			}
+			if called != (scenario == "operation error" || scenario == "cancelled operation") {
+				t.Fatal("collection preparation did not gate the operation")
+			}
+			actual, err := os.ReadFile(input)
+			if err != nil || string(actual) != string(original) {
+				t.Fatalf("failed operation changed the source archive: %v", err)
+			}
+			files, err := os.ReadDir(scratch)
+			if err != nil || len(files) != 0 {
+				t.Fatalf("normal native cleanup retained restore files: %v %v", files, err)
+			}
+			saveFixtureArtifact(t, input, "failed-"+scenario+".colpkg")
+		})
 	}
 }
 
-// stopApplication bounds cleanup independently of the operation context.
-func stopApplication(t *testing.T, application *app.App) {
-	t.Helper()
-	cleanup, cancel := context.WithTimeout(context.Background(), 5*time.Second)
-	defer cancel()
-	if err := application.Stop(cleanup); err != nil {
-		t.Error(err)
-	}
-}
-
-// createCollection creates a native fixture through the existing backend library.
-func createCollection(t *testing.T, ctx context.Context, database string) {
-	t.Helper()
-	binary, err := runfiles.Rlocation("_main/projects/anki_grpc/cmd/anki_grpc/anki_grpc")
-	if err != nil {
-		t.Fatal(err)
-	}
-	worker := backend.New(backend.BackendSTDOptions{Binary: binary})
-	collection := backend.NewCollection(backend.BackendCollectionOptions{Backend: worker, Path: database})
-	defer func() {
-		cleanup, cancel := context.WithTimeout(context.Background(), 5*time.Second)
-		defer cancel()
-		if err := collection.Stop(cleanup); err != nil {
-			t.Error(err)
-		}
-		if err := worker.Stop(cleanup); err != nil {
-			t.Error(err)
-		}
-	}()
-	if err := worker.Start(ctx); err != nil {
-		t.Fatal(err)
-	}
-	if err := collection.Start(ctx); err != nil {
-		t.Fatal(err)
+// TestCollectionLifecycleWorkflow verifies native persistence and connection shutdown through the app.
+func TestCollectionLifecycleWorkflow(t *testing.T) {
+	for _, format := range []string{"package", "database"} {
+		t.Run(format, func(t *testing.T) {
+			fixture := newFixture(t)
+			input := fixture.base
+			output := filepath.Join(t.TempDir(), "lifecycle.colpkg")
+			if format == "database" {
+				input, output = fixture.database, fixture.database
+			}
+			original, err := os.ReadFile(input)
+			if err != nil {
+				t.Fatal(err)
+			}
+			scratch := t.TempDir()
+			t.Setenv("TMPDIR", scratch)
+			ctx := context.Background()
+			expected := &collectionpb.State{Version: 1, Resources: &collectionpb.Resources{Presets: map[string]*collectionpb.PresetState{"lifecycle": {Id: 1}}}}
+			var borrowed grpc.ClientConnInterface
+			if err := runCollection(ctx, input, output, func(connection grpc.ClientConnInterface) (bool, error) {
+				borrowed = connection
+				changed, err := state.New(connection, "").Replace(ctx, expected)
+				if err != nil {
+					return false, fmt.Errorf("write collection state: %w", err)
+				}
+				return changed, nil
+			}); err != nil {
+				t.Fatal(err)
+			}
+			if _, err := state.New(borrowed, "").Dump(ctx); err == nil {
+				t.Fatal("borrowed connection remained usable after the workflow")
+			}
+			files, err := os.ReadDir(scratch)
+			if err != nil || len(files) != 0 {
+				t.Fatalf("completed workflow retained restore files: %v %v", files, err)
+			}
+			if !proto.Equal(expected, stateFixtureDump(t, output)) {
+				t.Fatal("native state did not survive collection shutdown")
+			}
+			if format == "package" {
+				actual, err := os.ReadFile(input)
+				if err != nil || string(actual) != string(original) {
+					t.Fatal("writing a distinct native package changed its input")
+				}
+			} else {
+				output = filepath.Join(t.TempDir(), "lifecycle.colpkg")
+				packageFixture(t, input, output)
+			}
+			restored := inspectFixture(t, output)
+			assertFixtureMedia(t, restored)
+			if err := restored.close(); err != nil {
+				t.Fatal(err)
+			}
+			saveFixtureArtifact(t, output, "lifecycle-"+format+".colpkg")
+		})
 	}
 }
