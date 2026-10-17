@@ -7,6 +7,7 @@ docs_filegroup(
         ":config_operations",
         ":config_references",
         ":export",
+        ":planning",
         ":state_store",
     ],
     prefix = "content/docs/projects/anki_as_code/assets",
@@ -69,6 +70,22 @@ mermaid_site_webp(
     name = "state_store_preview",
     src = "state-store.mmd",
     out = "rendered/state-store.webp",
+    aspect_ratio = [],
+    color_scheme = "dark",
+    scale = 2,
+    tags = ["manual"],
+)
+
+mermaid_site_svg(
+    name = "planning",
+    src = "planning.mmd",
+    out = "rendered/planning.svg",
+)
+
+mermaid_site_webp(
+    name = "planning_preview",
+    src = "planning.mmd",
+    out = "rendered/planning.webp",
     aspect_ratio = [],
     color_scheme = "dark",
     scale = 2,

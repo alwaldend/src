@@ -1,0 +1,46 @@
+%%{init: {"layout": "elk", "elk": {"forceNodeModelOrder": true}, "flowchart": {"nodeSpacing": 24, "rankSpacing": 40, "edgeSpacing": 16}}}%%
+flowchart LR
+    subgraph application["anki_as_code"]
+        app["ankiascode.App"]
+        build["plan.Build"]
+
+        app ---->|"Configs, snapshot,<br/>state"| build
+
+        %% Junctions route App call edges through their visual scopes.
+        subgraph preparation["Preparation"]
+            setupCalls@{shape: f-circ}
+            collections["collection.Store"]
+            configs["config.Store"]
+
+            setupCalls -->|"Get collection<br/>connection"| collections
+            setupCalls -->|Load| configs
+
+            subgraph withConnection["WithConnection"]
+                activeCalls@{shape: f-circ}
+                resources["resource.Store"]
+                states["state.Store"]
+
+                activeCalls -->|Snapshot| resources
+                activeCalls -->|Dump| states
+            end
+        end
+
+        app --- setupCalls
+        app --- activeCalls
+    end
+
+    result["CollectionPlan<br/>Operations + report"]
+    connection["anki_grpc<br/>connection"]
+    files["Configs<br/>TOML files"]
+
+    subgraph storage["Anki storage"]
+        storedResources["Resources"]
+        storedState["State"]
+    end
+
+    build --> result
+    collections -.->|"Open / close"| connection
+    configs --> files
+    resources -->|gRPC| connection
+    states -->|gRPC| connection
+    connection --> storage

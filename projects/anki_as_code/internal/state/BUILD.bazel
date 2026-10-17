@@ -5,7 +5,6 @@ go_library(
     srcs = [
         "bindings.go",
         "doc.go",
-        "moves.go",
         "store.go",
     ],
     importpath = "git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/state",

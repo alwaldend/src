@@ -10,6 +10,7 @@ package_group(
         "//projects/anki_as_code/cmd/anki_as_code",
         "//projects/anki_as_code/internal/collection",
         "//projects/anki_as_code/internal/export",
+        "//projects/anki_as_code/internal/plan",
         "//projects/anki_as_code/internal/state",
         "//projects/anki_as_code/pkg/ankiascode",
     ],
