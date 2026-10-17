@@ -41,7 +41,7 @@ func (exporter *Exporter) Export(ctx context.Context, output string) error {
 	if err != nil {
 		return fmt.Errorf("project export configs: %w", err)
 	}
-	if err := config.Export(configs, output); err != nil {
+	if err := config.New(output).Export(configs); err != nil {
 		return fmt.Errorf("write exported configs: %w", err)
 	}
 	return nil

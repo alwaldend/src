@@ -116,7 +116,7 @@ func TestExportWorkflow(t *testing.T) {
 	if err := exporter.Export(ctx, output); err != nil {
 		t.Fatal(err)
 	}
-	configs, err := config.Load(output)
+	configs, err := config.New(output).Load()
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -247,7 +247,7 @@ func TestExportWorkflow(t *testing.T) {
 	if duplicate.NoteType != "note_types/Readable-2.notetype.anki.toml" {
 		t.Fatal("discovered note references wrong type")
 	}
-	if _, err := config.Load(output); err != nil {
+	if _, err := config.New(output).Load(); err != nil {
 		t.Fatal(err)
 	}
 	for _, name := range []string{"state.anki.toml", "state.anki.json"} {
@@ -293,7 +293,7 @@ func TestExportWorkflow(t *testing.T) {
 			t.Fatal("cancelled export changed output")
 		}
 	})
-	configs, err = config.Load(output)
+	configs, err = config.New(output).Load()
 	if err != nil {
 		t.Fatal(err)
 	}

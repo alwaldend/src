@@ -3,9 +3,11 @@ flowchart LR
         exporter["export.Exporter"]
         resources["resource.Store"]
         states["state.Store"]
+        files["config.Store"]
 
         exporter --> resources
         exporter --> states
+        exporter --> files
     end
 
     connection["anki_grpc"]
@@ -19,4 +21,4 @@ flowchart LR
     resources -->|gRPC| connection
     states -->|gRPC| connection
     connection --> storage
-    exporter -->|Write| configs
+    files -->|Write| configs

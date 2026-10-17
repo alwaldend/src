@@ -1,5 +1,5 @@
 flowchart TB
-    subgraph Export
+    subgraph Export["config.Store.Export"]
         direction TB
         e_start((Start))
         e_root(Write root config)
@@ -13,10 +13,10 @@ flowchart TB
         e_more -->|No| e_finish
     end
 
-    subgraph Dump
+    subgraph Dump["config.Store.Dump"]
         direction TB
         d_start((Start))
-        d_load[[Load config set]]
+        d_load[[Store.Load]]
         d_json(Encode complete set<br/>using ProtoJSON)
         d_format{Output format}
         d_pretty(Indent JSON and add newline)
@@ -30,10 +30,10 @@ flowchart TB
         d_output --> d_finish
     end
 
-    subgraph Load
+    subgraph Load["config.Store.Load"]
         direction TB
         l_start((Start))
-        l_root(Locate collection.anki.toml)
+        l_root(Resolve stored root path)
         l_declarations(Load root and declarations:<br/>note_types/, notes/, nested decks/)
         l_decode(Each file: TOML values → JSON<br/>→ protobuf via the schema)
         l_derived(Record paths and deck titles;<br/>inherit omitted card deck paths)

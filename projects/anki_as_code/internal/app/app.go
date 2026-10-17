@@ -68,7 +68,7 @@ func (application *App) Dump(ctx context.Context, input, format string) ([]byte,
 	if err := ctx.Err(); err != nil {
 		return nil, fmt.Errorf("dump configuration: %w", err)
 	}
-	data, err := config.Dump(input, format)
+	data, err := config.New(input).Dump(format)
 	if err != nil {
 		return nil, fmt.Errorf("dump configuration: %w", err)
 	}

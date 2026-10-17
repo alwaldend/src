@@ -79,7 +79,7 @@ func TestStateWorkflow(t *testing.T) {
 		t.Fatal(err)
 	}
 	root := writeConfigs(t)
-	configs, err := config.Load(root)
+	configs, err := config.New(root).Load()
 	if err != nil {
 		t.Fatal(err)
 	}
