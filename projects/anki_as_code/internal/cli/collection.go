@@ -26,13 +26,13 @@ func newCollectionCommand(application application) *cobra.Command {
 
 // newExportCommand defines export flags and delegates execution to the application.
 func newExportCommand(application application) *cobra.Command {
-	var input, output string
+	var input, output, stateOutput string
 	command := &cobra.Command{
 		Use:   "export",
 		Short: "Export a collection to editable TOML",
 		Args:  cobra.NoArgs,
 		RunE: func(command *cobra.Command, _ []string) error {
-			if err := application.ColExport(command.Context(), input, output, commandStateKey(command)); err != nil {
+			if err := application.ColExport(command.Context(), input, output, stateOutput, commandStateKey(command)); err != nil {
 				return fmt.Errorf("export: %w", err)
 			}
 			if _, err := fmt.Fprintln(command.ErrOrStderr(), "Exported collection text to", output); err != nil {
@@ -43,6 +43,7 @@ func newExportCommand(application application) *cobra.Command {
 	}
 	collectionFlag.bindRequired(command, &input)
 	outputFlag.bindRequired(command, &output)
+	command.Flags().StringVar(&stateOutput, "state-output", "", "Optional destination file for exported TOML state bindings")
 	return command
 }
 

@@ -27,29 +27,61 @@ Collection operations live under `col` (alias `collection`): `col export`,
 `conf`), such as `conf dump`. Collection source flags remain specific to each
 operation: `--collection` for existing collections and `--base` for builds.
 
-## Commands
+## Onboarding an existing collection
+
+Export a full `.colpkg` from Anki, then close Anki and other collection writers.
+Use a fresh text directory so stale declarations from earlier exports are not
+included. Export configs and their native bindings together:
 
 ```sh
 bazel_agent bazel run //projects/anki_as_code -- col export \
-  --collection /absolute/path/collection.colpkg --output /absolute/path/text
+  --collection /absolute/path/collection.colpkg --output /absolute/path/text \
+  --state-output /absolute/path/state.anki.toml
+bazel_agent bazel run //projects/anki_as_code -- col state update \
+  --collection /absolute/path/collection.colpkg /absolute/path/state.anki.toml
 bazel_agent bazel run //projects/anki_as_code -- config dump \
   --text /absolute/path/text
-# Bind existing objects with state import before editing the exported configs.
 # Edit the TOML files before planning and applying.
 bazel_agent bazel run //projects/anki_as_code -- col plan \
   --collection /absolute/path/collection.colpkg --text /absolute/path/text
 bazel_agent bazel run //projects/anki_as_code -- col apply \
   --collection /absolute/path/collection.colpkg --text /absolute/path/text
+# Alternatively, build a separate archive instead of applying in place.
 bazel_agent bazel run //projects/anki_as_code -- col build \
   --base /absolute/path/collection.colpkg --text /absolute/path/text \
   --output /absolute/path/rebuilt.colpkg
 ```
 
-Export the initial `.colpkg` from Anki. Use `col state import` to bind exported paths
-to existing objects before editing configs. Export does not initialize state.
-After build, import
-`rebuilt.colpkg` into Anki; the collection-backed bindings travel with it.
-Apply updates the supplied archive, while build writes a separate one.
+The export leaves the source collection and its stored state unchanged. The
+optional state file contains version-1 TOML bindings for every exported deck,
+note and note type, including field/template identities and referenced
+scheduling preset aliases. It uses the exact generated filenames, including
+collision suffixes and names retained from the selected state namespace.
+`col state update` installs those bindings into the same collection before you
+edit configs. This preserves existing object identities and review progress
+when you later apply changes. Use the same `--state-key` for export, state
+update, plan, apply and build if selecting a custom namespace.
+
+After editing, inspect `col plan`, then use `col apply` to update the supplied
+collection or `col build` to write a separate archive. After apply, import the
+updated archive into Anki; after build, import `rebuilt.colpkg`. Collection-backed
+bindings travel with the archive.
+
+Omit `--state-output` for config-only export. Use `col state import` for selective
+manual bindings. Generated state belongs to the collection it was exported
+from; do not install it into an unrelated collection. State update merges
+bindings and retains omitted entries; `col state replace` intentionally removes
+omitted bindings. For an already managed collection, review exported state
+before installing it, especially if paths have changed.
+
+`--state-output` names a TOML file, regardless of its extension. Current-user
+`~` paths are supported. The file may live outside the text directory or inside
+it under an unrelated name such as `state.anki.toml`. Export rejects source
+aliases, config declaration filenames and directories needed by exported
+configs. State output is atomically replaced after config export succeeds.
+Filesystem failures may leave partial configs; a failed config export retains
+the previous state output. The config tree and state file are not published as
+one filesystem transaction.
 
 Use absolute paths with `bazel run`, which can start outside the checkout.
 Current-user `~` and `~/...` paths are supported. `--text` accepts a collection
@@ -153,7 +185,8 @@ id = "1"
 ```
 
 `pkg/ankiascode` provides the concrete `ankiascode.App`. Its zero value is
-ready to use. Operations follow the CLI namespaces: `ConfigDump`, `ConfigExport`, `ColExport`,
+ready to use. Operations follow the CLI namespaces: `ConfigDump`, `ConfigExport`,
+`ColExport`,
 `ColPlan`, `ColApply`, `ColBuild`, and `ColStateDump`, `ColStateImport`,
 `ColStateUpdate`, `ColStateReplace`. Collection inputs are ordinary file paths;
 there are no collection reference objects, lookup IDs or selector messages.
@@ -178,6 +211,9 @@ err = application.ColStateReplace(ctx, absoluteCollectionPath, key, replacement)
 App's path-based operations return after cleanup. Internal callers needing
 several operations in one scope can use collection.Store directly.
 
+`ColExport(ctx, source, output, stateOutput, stateKey)` accepts an empty
+`stateOutput` for config-only export or a TOML file path for snapshot bindings.
+
 `internal/collection.Store` reserves existing sources and publishes changed archives.
 Its zero value is ready to use. `WithCollection` injects a prepared
 `grpc.ClientConnInterface` into its callback. Construct the services you need on
@@ -194,7 +230,7 @@ err := store.WithCollection(ctx, path, func(connection grpc.ClientConnInterface)
     resources := resource.New(connection)
     states := state.New(connection, key)
     exporter := export.New(resources, states)
-    if err := exporter.Export(ctx, directory); err != nil {
+    if err := exporter.Export(ctx, directory, ""); err != nil {
         return false, fmt.Errorf("export configs: %w", err)
     }
     changed, err := states.Replace(ctx, replacement)
@@ -241,6 +277,12 @@ same prepared connection. The changed flag reports whether state was written.
 `State.Resources` groups typed deck, note, note-type and preset maps; note types
 own field/template maps.
 
+`state.Export(configs, snapshot, identities)` generates version-1 bindings from
+projected configs, their path-to-native-ID map and the same native snapshot.
+State owns construction and validation of resource and member bindings,
+including scheduling preset aliases. This pure operation performs no backend
+calls and installs no state. Collection export owns config paths and file output.
+
 ## Collection lifecycle
 
 App delegates native access to `collection.Store.WithCollection`. The store
@@ -266,9 +308,10 @@ State, export and reconciliation borrow prepared services without owning lifetim
 
 ## Export and explicit moves
 
-Export writes configuration TOML without changing the source collection or
-creating a state file. Existing stored bindings retain note and note-type
-filenames on re-export. New note types receive unused filenames with numeric
+Export writes configuration TOML without changing the source collection.
+`--state-output` optionally writes matching snapshot bindings for onboarding.
+Existing stored bindings retain note and note-type filenames on re-export.
+New note types receive unused filenames with numeric
 suffixes when their names collide with tracked paths, including case-only
 differences and fallback names. Without bindings, native edits can change
 content-derived filenames.
@@ -280,8 +323,9 @@ chooses a deck for a new root note. When adopting these new paths, declare
 rewrite bindings. Applying the same root-note configs again preserves native
 identity and converges; Anki owns their initial deck selection.
 
-Use `col state import` to bind config paths to existing native objects before the
-first reconciliation. New configs without bindings describe new objects.
+Follow [onboarding](#onboarding-an-existing-collection) to bind the whole export
+before the first reconciliation, or use `col state import` for selective
+bindings. New configs without bindings describe new objects.
 State dump exports stored bindings separately; it does not discover bindings
 for an untracked config tree:
 
@@ -292,8 +336,8 @@ bazel_agent bazel run //projects/anki_as_code -- col state dump \
 
 Export writes declared files directly through `config.Store.Export` and does not reload
 generated files. Other entries remain untouched, including old configs and state
-files. The destination must not contain the source collection. Filesystem errors
-may leave partial output.
+files other than an explicit `--state-output` destination. The destination must
+not contain the source collection. Filesystem errors may leave partial output.
 
 Use a fresh destination for a clean snapshot. For directory cleanup or
 synchronization, export to a temporary directory and use rsync or another
@@ -670,11 +714,13 @@ No SQL or duplicate storage logic is involved.
 resources := resource.New(connection)
 states := state.New(connection, key)
 exporter := export.New(resources, states)
-err := exporter.Export(ctx, absoluteOutputDirectory)
+err := exporter.Export(ctx, absoluteOutputDirectory, absoluteStateFile)
 ```
 
-Stored bindings retain filenames and preset aliases; export does not generate,
-serialize, write or install state. State operations remain separate.
+Stored bindings retain filenames and preset aliases.
+`Export(ctx, directory, stateFile)` writes configs and optional bindings from
+the same snapshot as TOML. An empty state destination selects config-only
+behavior. Export never installs state; state operations remain separate.
 The destination must not contain the source collection.
 
 New note filenames use Anki's `HtmlToTextLine` result for the configured sort

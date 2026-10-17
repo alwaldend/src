@@ -16,6 +16,7 @@ go_library(
     ],
     deps = [
         "//projects/anki_as_code/api/collection",
+        "//projects/anki_as_code/internal/codec",
         "//projects/anki_as_code/internal/config",
         "//projects/anki_as_code/internal/resource",
         "//projects/anki_as_code/internal/state",

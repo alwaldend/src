@@ -33,6 +33,8 @@ type configProjection struct {
 	stored *collectionpb.State
 	// configs collects the editable configuration files.
 	configs *collectionpb.CollectionConfigSet
+	// identities records native IDs at the actual projected config paths.
+	identities map[string]int64
 	// decks resolves native deck IDs to their projected destinations.
 	decks map[int64]*collectionpb.DeckConfigSet
 	// typePaths resolves native note-type IDs to their projected filenames.
@@ -45,24 +47,25 @@ func exportConfigs(
 	current *resource.Snapshot,
 	stored *collectionpb.State,
 	rendering card_rendering.CardRenderingServiceClient,
-) (*collectionpb.CollectionConfigSet, error) {
+) (*collectionpb.CollectionConfigSet, map[string]int64, error) {
 	projection := configProjection{
-		current:   current,
-		stored:    stored,
-		configs:   &collectionpb.CollectionConfigSet{Config: &collectionpb.CollectionConfig{Version: config.Version}},
-		decks:     map[int64]*collectionpb.DeckConfigSet{},
-		typePaths: map[int64]string{},
+		current:    current,
+		stored:     stored,
+		configs:    &collectionpb.CollectionConfigSet{Config: &collectionpb.CollectionConfig{Version: config.Version}},
+		decks:      map[int64]*collectionpb.DeckConfigSet{},
+		typePaths:  map[int64]string{},
+		identities: map[string]int64{},
 	}
 	if err := projection.projectDecks(); err != nil {
-		return nil, fmt.Errorf("project decks: %w", err)
+		return nil, nil, fmt.Errorf("project decks: %w", err)
 	}
 	if err := projection.projectNoteTypes(); err != nil {
-		return nil, fmt.Errorf("project note types: %w", err)
+		return nil, nil, fmt.Errorf("project note types: %w", err)
 	}
 	if err := projection.projectNotes(ctx, rendering); err != nil {
-		return nil, fmt.Errorf("project notes: %w", err)
+		return nil, nil, fmt.Errorf("project notes: %w", err)
 	}
-	return projection.configs, nil
+	return projection.configs, projection.identities, nil
 }
 
 // projectDecks assigns literal deck paths and resolves editable preset references.
@@ -111,6 +114,7 @@ func (projection *configProjection) projectDecks() error {
 		deckPaths[group.Path] = true
 		projection.configs.Decks = append(projection.configs.Decks, group)
 		projection.decks[deck.Id] = group
+		projection.identities[group.Path] = deck.Id
 	}
 	return nil
 }
@@ -153,6 +157,7 @@ func (projection *configProjection) projectNoteTypes() error {
 			return fmt.Errorf("export note-type path %q represents multiple objects", address)
 		}
 		typePathsUsed[address] = true
+		projection.identities[address] = definition.Id
 		copy := proto.Clone(definition).(*notetypes.Notetype)
 		value := &collectionpb.NoteTypeConfig{Name: copy.Name, Config: copy.Config, Fields: copy.Fields}
 		if int(value.Config.SortFieldIdx) >= len(value.Fields) {
@@ -287,6 +292,7 @@ func (projection *configProjection) projectNotes(ctx context.Context, rendering 
 			value.Cards = append(value.Cards, assignment)
 		}
 		file := &collectionpb.NoteConfigFile{Path: address, Config: value}
+		projection.identities[address] = note.Id
 		if home == nil {
 			projection.configs.Notes = append(projection.configs.Notes, file)
 		} else {

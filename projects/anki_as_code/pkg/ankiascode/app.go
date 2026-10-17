@@ -3,6 +3,7 @@ package ankiascode
 import (
 	"context"
 	"fmt"
+	"os"
 	"path/filepath"
 
 	collectionpb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/collection"
@@ -58,8 +59,9 @@ func (application *App) ConfigExport(ctx context.Context, output string, configs
 	return nil
 }
 
-// ColExport writes editable TOML without exporting state or changing the source collection.
-func (application *App) ColExport(ctx context.Context, input, output, stateKey string) error {
+// ColExport optionally writes snapshot bindings as TOML after exporting configs.
+// The source collection and its stored state remain unchanged; stateOutput may be empty.
+func (application *App) ColExport(ctx context.Context, input, output, stateOutput, stateKey string) error {
 	output, err := expandPath(output)
 	if err != nil {
 		return fmt.Errorf("resolve output path: %w", err)
@@ -72,7 +74,7 @@ func (application *App) ColExport(ctx context.Context, input, output, stateKey s
 	if err != nil {
 		return fmt.Errorf("resolve export source aliases: %w", err)
 	}
-	output, err = resolveExportOutputPath(output)
+	output, err = export.ResolveOutputPath(output)
 	if err != nil {
 		return fmt.Errorf("resolve export destination: %w", err)
 	}
@@ -83,9 +85,30 @@ func (application *App) ColExport(ctx context.Context, input, output, stateKey s
 	if filepath.IsLocal(relative) {
 		return fmt.Errorf("export destination must not contain the source collection")
 	}
+	if stateOutput != "" {
+		stateOutput, err = expandPath(stateOutput)
+		if err != nil {
+			return fmt.Errorf("resolve state output: %w", err)
+		}
+		stateOutput, err = export.ResolveOutputPath(stateOutput)
+		if err != nil {
+			return fmt.Errorf("resolve state output aliases: %w", err)
+		}
+		sourceInfo, err := os.Stat(source)
+		if err != nil {
+			return fmt.Errorf("inspect source collection: %w", err)
+		}
+		if info, err := os.Stat(stateOutput); err == nil {
+			if !info.Mode().IsRegular() || os.SameFile(sourceInfo, info) {
+				return fmt.Errorf("state output must be a regular file distinct from the source collection")
+			}
+		} else if !os.IsNotExist(err) {
+			return fmt.Errorf("inspect state output: %w", err)
+		}
+	}
 	if err := application.collections.WithCollection(ctx, input, func(connection grpc.ClientConnInterface) (bool, error) {
 		exporter := export.New(resource.New(connection), state.New(connection, stateKey))
-		if err := exporter.Export(ctx, output); err != nil {
+		if err := exporter.Export(ctx, output, stateOutput); err != nil {
 			return false, fmt.Errorf("export prepared collection: %w", err)
 		}
 		return false, nil

@@ -126,7 +126,7 @@ func TestPlanningWorkflow(t *testing.T) {
 	if _, err := resources.Decks.AddDeck(ctx, &decks.Deck{Name: "Spare", Kind: &decks.Deck_Normal_{Normal: &decks.Deck_Normal{ConfigId: 1}}}); err != nil {
 		t.Fatal(err)
 	}
-	if err := export.New(resources, states).Export(ctx, root); err != nil {
+	if err := export.New(resources, states).Export(ctx, root, ""); err != nil {
 		t.Fatal(err)
 	}
 	configs, err := config.New(root).Load()

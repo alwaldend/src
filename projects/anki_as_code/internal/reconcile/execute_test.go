@@ -126,7 +126,7 @@ func TestSavedPlanWorkflow(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if err := export.New(resources, states).Export(ctx, root); err != nil {
+	if err := export.New(resources, states).Export(ctx, root, ""); err != nil {
 		t.Fatal(err)
 	}
 	configs, err := config.New(root).Load()
@@ -513,7 +513,7 @@ func checkRootNoteCreation(t *testing.T, resources *resource.Store, states *stat
 			t.Fatalf("converged root note changed: %v %v", changed, err)
 		}
 		output := filepath.Join(t.TempDir(), "export")
-		if err := export.New(resources, states).Export(ctx, output); err != nil {
+		if err := export.New(resources, states).Export(ctx, output, ""); err != nil {
 			t.Fatal(err)
 		}
 		exported, err := config.New(output).Load()

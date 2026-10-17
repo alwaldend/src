@@ -13,8 +13,8 @@ type application interface {
 	ConfigDump(ctx context.Context, text, format string) ([]byte, error)
 	// ConfigExport writes a parsed configuration set as a TOML tree.
 	ConfigExport(ctx context.Context, output string, configs *collectionpb.CollectionConfigSet) error
-	// ColExport writes editable collection configurations.
-	ColExport(ctx context.Context, collection, output, stateKey string) error
+	// ColExport writes editable configs and optional snapshot bindings.
+	ColExport(ctx context.Context, collection, output, stateOutput, stateKey string) error
 	// ColPlan describes proposed collection changes.
 	ColPlan(ctx context.Context, collection, text, stateKey string) (*collectionpb.CollectionChangePlan, error)
 	// ColApply reconciles the supplied collection in place.

@@ -22,24 +22,3 @@ func expandPath(input string) (string, error) {
 	}
 	return path, nil
 }
-
-// resolveExportOutputPath follows symlinks through an absolute path's nearest existing ancestor.
-// The remaining suffix may name directories that Export has yet to create.
-func resolveExportOutputPath(path string) (string, error) {
-	ancestor := path
-	for {
-		resolved, err := filepath.EvalSymlinks(ancestor)
-		if err == nil {
-			suffix, err := filepath.Rel(ancestor, path)
-			if err != nil {
-				return "", fmt.Errorf("resolve export suffix: %w", err)
-			}
-			return filepath.Join(resolved, suffix), nil
-		}
-		parent := filepath.Dir(ancestor)
-		if !os.IsNotExist(err) || parent == ancestor {
-			return "", fmt.Errorf("resolve export path %q: %w", path, err)
-		}
-		ancestor = parent
-	}
-}

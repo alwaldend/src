@@ -113,7 +113,7 @@ func TestExportWorkflow(t *testing.T) {
 		t.Fatal(err)
 	}
 	output := filepath.Join(t.TempDir(), "text")
-	if err := exporter.Export(ctx, output); err != nil {
+	if err := exporter.Export(ctx, output, ""); err != nil {
 		t.Fatal(err)
 	}
 	configs, err := config.New(output).Load()
@@ -199,7 +199,7 @@ func TestExportWorkflow(t *testing.T) {
 		if err := os.WriteFile(filepath.Join(obstruction, "keep"), []byte("keep"), 0o600); err != nil {
 			t.Fatal(err)
 		}
-		if err := exporter.Export(ctx, blocked); err == nil {
+		if err := exporter.Export(ctx, blocked, ""); err == nil {
 			t.Fatal("config-file directory obstruction was ignored")
 		}
 		if _, err := os.Stat(filepath.Join(blocked, "collection.anki.toml")); err != nil {
@@ -232,7 +232,7 @@ func TestExportWorkflow(t *testing.T) {
 			t.Fatal(err)
 		}
 	}
-	if err := exporter.Export(ctx, output); err != nil {
+	if err := exporter.Export(ctx, output, ""); err != nil {
 		t.Fatal(err)
 	}
 	for name, title := range map[string]string{"Readable": "Renamed", "Readable-2": "Readable"} {
@@ -286,7 +286,7 @@ func TestExportWorkflow(t *testing.T) {
 	t.Run("cancelled", func(t *testing.T) {
 		cancelled, cancel := context.WithCancel(ctx)
 		cancel()
-		if err := exporter.Export(cancelled, output); err == nil {
+		if err := exporter.Export(cancelled, output, ""); err == nil {
 			t.Fatal("cancelled export succeeded")
 		}
 		if after := exportTree(t, output); !maps.Equal(before, after) {
@@ -303,7 +303,7 @@ func TestExportWorkflow(t *testing.T) {
 	}); err != nil {
 		t.Fatal(err)
 	}
-	if err := exporter.Export(ctx, output); err != nil {
+	if err := exporter.Export(ctx, output, ""); err != nil {
 		t.Fatal(err)
 	}
 	if !maps.Equal(before, exportTree(t, output)) {
@@ -348,7 +348,7 @@ func TestExportWorkflow(t *testing.T) {
 			cases[name] = native.Fields[1]
 		}
 		nativeOutput := filepath.Join(t.TempDir(), "text")
-		if err := exporter.Export(ctx, nativeOutput); err != nil {
+		if err := exporter.Export(ctx, nativeOutput, ""); err != nil {
 			t.Fatal(err)
 		}
 		for name, field := range cases {

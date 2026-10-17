@@ -46,8 +46,8 @@ func (application *recordingApplication) record(ctx context.Context, operation s
 	application.ctx, application.operation, application.paths = ctx, operation, paths
 }
 
-// ColExport records collection-to-directory dispatch.
-func (application *recordingApplication) ColExport(ctx context.Context, input string, output, key string) error {
+// ColExport records collection-to-directory dispatch and optional state output.
+func (application *recordingApplication) ColExport(ctx context.Context, input string, output, stateOutput, key string) error {
 	application.key = key
 	application.collection = input
 	application.record(ctx, "export", output)

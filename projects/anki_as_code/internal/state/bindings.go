@@ -6,6 +6,8 @@ import (
 	"strings"
 
 	collectionpb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/collection"
+	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/resource"
+	"github.com/ankitects/anki/proto/anki/decks"
 	"github.com/ankitects/anki/proto/anki/notetypes"
 	"google.golang.org/protobuf/proto"
 )
@@ -15,6 +17,76 @@ const DefaultKey = "anki_as_code/state/v1"
 
 // invalidAddressCharacters excludes Windows separators and NUL from collection-relative state paths.
 const invalidAddressCharacters = "\\\x00"
+
+// Export generates complete version-1 bindings for projected configs from one native snapshot.
+// identities supplies the native ID assigned to each config path by its exporter.
+// This operation reads only its inputs; it neither reads nor installs stored state.
+func Export(configs *collectionpb.CollectionConfigSet, snapshot *resource.Snapshot, identities map[string]int64) (*collectionpb.State, error) {
+	if configs == nil || snapshot == nil {
+		return nil, fmt.Errorf("state export requires configs and a native snapshot")
+	}
+	value := cloneState(&collectionpb.State{Version: 1})
+	nativeDecks := map[int64]*decks.Deck{}
+	for _, deck := range snapshot.Decks {
+		nativeDecks[deck.Id] = deck
+	}
+	nativeNotes := map[int64]bool{}
+	for _, note := range snapshot.Notes {
+		nativeNotes[note.Id] = true
+	}
+	nativeTypes := map[int64]*notetypes.Notetype{}
+	for _, definition := range snapshot.NoteTypes {
+		nativeTypes[definition.Id] = definition
+	}
+	for _, deck := range configs.Decks {
+		id := identities[deck.Path]
+		native := nativeDecks[id]
+		if native == nil {
+			return nil, fmt.Errorf("exported deck %q has no native identity", deck.Path)
+		}
+		value.Resources.Decks[deck.Path] = &collectionpb.DeckState{Id: id}
+		if normal := native.GetNormal(); normal != nil {
+			alias := deck.GetDeck().GetPreset()
+			if alias == "" || snapshot.Presets[normal.ConfigId] == "" {
+				return nil, fmt.Errorf("exported deck %q has no scheduling preset", deck.Path)
+			}
+			if previous := value.Resources.Presets[alias]; previous != nil && previous.Id != normal.ConfigId {
+				return nil, fmt.Errorf("exported preset alias %q identifies multiple presets", alias)
+			}
+			value.Resources.Presets[alias] = &collectionpb.PresetState{Id: normal.ConfigId}
+		}
+		if err := bindExportedNotes(value, deck.Notes, identities, nativeNotes); err != nil {
+			return nil, fmt.Errorf("bind exported deck notes: %w", err)
+		}
+	}
+	if err := bindExportedNotes(value, configs.Notes, identities, nativeNotes); err != nil {
+		return nil, fmt.Errorf("bind exported root notes: %w", err)
+	}
+	for _, definition := range configs.NoteTypes {
+		id := identities[definition.Path]
+		binding, err := bindType(nativeTypes[id])
+		if err != nil {
+			return nil, fmt.Errorf("bind exported note type %q: %w", definition.Path, err)
+		}
+		value.Resources.NoteTypes[definition.Path] = binding
+	}
+	if err := validateState(value, false); err != nil {
+		return nil, fmt.Errorf("validate exported state: %w", err)
+	}
+	return value, nil
+}
+
+// bindExportedNotes resolves declared note paths against identities in the export snapshot.
+func bindExportedNotes(value *collectionpb.State, notes []*collectionpb.NoteConfigFile, identities map[string]int64, nativeNotes map[int64]bool) error {
+	for _, note := range notes {
+		id := identities[note.Path]
+		if !nativeNotes[id] {
+			return fmt.Errorf("exported note %q has no native identity", note.Path)
+		}
+		value.Resources.Notes[note.Path] = &collectionpb.NoteState{Id: id}
+	}
+	return nil
+}
 
 // cloneState preserves bindings and initializes typed maps for import.
 func cloneState(value *collectionpb.State) *collectionpb.State {
@@ -117,7 +189,7 @@ func validateState(value *collectionpb.State, allowUnresolved bool) error {
 	return nil
 }
 
-// bindType projects native member identities and ordinals into a fresh owned binding.
+// bindType projects native member identities and ordinals for state import and export.
 func bindType(definition *notetypes.Notetype) (*collectionpb.NoteTypeState, error) {
 	if definition == nil {
 		return nil, fmt.Errorf("nil native note type")

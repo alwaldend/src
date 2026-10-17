@@ -53,7 +53,7 @@ func captureFilteredCloze(t *testing.T, resources *resource.Store, states *state
 		}
 	}
 	root := filepath.Join(t.TempDir(), "cloze")
-	if err := export.New(resources, states).Export(ctx, root); err != nil {
+	if err := export.New(resources, states).Export(ctx, root, ""); err != nil {
 		t.Fatal(err)
 	}
 	all, err := config.New(root).Load()
