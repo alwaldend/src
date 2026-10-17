@@ -230,21 +230,6 @@ same prepared connection. The changed flag reports whether state was written.
 `State.Resources` groups typed deck, note, note-type and preset maps; note types
 own field/template maps.
 
-`Store.Preview(ctx, configs, resources)` constructs a detached state snapshot
-without writing to Anki. Optional configs supply explicit moves. The input is
-`*collectionpb.Resources`: nil retains stored bindings after moves; a supplied
-message replaces every resource group, including clearing them when empty.
-Callers construct protobuf input data using private native-value conversions;
-the store owns state moves, ownership validation, and persistence. Inputs and
-stored bindings remain unchanged. Preview permits zero resource IDs for planned
-creations; `Replace` rejects unresolved IDs before persistence.
-
-`internal/codec` shares file serialization with config operations:
-`Encode(message proto.Message, format codec.Format)` and
-`Decode(data []byte, format codec.Format, message proto.Message)`. Use `codec.TOML`
-or `codec.JSON`; an empty format defaults to TOML. The state store has no codec
-or filesystem dependency.
-
 ## Collection lifecycle
 
 App delegates native access to `collection.Store.WithCollection`. The store
@@ -449,22 +434,66 @@ bazel_agent bazel test //projects/anki_as_code/pkg/ankiascode:ankiascode_test \
 
 Use absolute paths with `bazel run`, which may execute outside the checkout.
 
-| Package                  | Responsibility                                                |
-| ------------------------ | ------------------------------------------------------------- |
-| `api/collection`         | Generated resource, configuration, plan, and state contracts  |
-| `internal/config`        | Root-bound configuration Store for Load, Dump and Export      |
-| `internal/config/layout` | Fixed hierarchy, discovery, file I/O, and direct export       |
-| `internal/codec`         | Filesystem-independent protobuf/TOML/JSON conversion          |
-| `internal/state`         | Stored-state dump, batch import, update and replacement       |
-| `internal/export`        | Native-to-config projection, filenames and direct file output |
-| `internal/model`         | Shared runtime snapshot models, without business logic        |
-| `internal/collection`    | Source reservations and archive publication                   |
-| `internal/cli`           | Cobra flags, syntax, serialization and streams                |
-| `pkg/ankiascode`         | Workflow composition and collection command placeholders      |
-| `cmd/anki_as_code`       | Executable composition and signal cancellation                |
+| Package                  | Responsibility                                                  |
+| ------------------------ | --------------------------------------------------------------- |
+| `api/collection`         | Generated resource, configuration, plan, and state contracts    |
+| `internal/config`        | Root-bound configuration Store for Load, Dump and Export        |
+| `internal/config/layout` | Fixed hierarchy, discovery, file I/O, and direct export         |
+| `internal/codec`         | Filesystem-independent protobuf/TOML/JSON conversion            |
+| `internal/state`         | Stored-state dump, batch import, update and replacement         |
+| `internal/export`        | Native-to-config projection, filenames and direct file output   |
+| `internal/plan`          | Pure resolution, ownership checks and executable protobuf plans |
+| `internal/collection`    | Source reservations and archive publication                     |
+| `internal/cli`           | Cobra flags, syntax, serialization and streams                  |
+| `pkg/ankiascode`         | Workflow composition and collection command placeholders        |
+| `cmd/anki_as_code`       | Executable composition and signal cancellation                  |
 
 The loader produces protobuf config sets directly. Resource messages use `Config`,
 file wrappers retain source paths, and upstream messages keep their upstream names.
+
+## Planning Go API
+
+![Planning orchestration and pure plan construction](assets/planning.svg)
+
+`plan.Build(configs, snapshot, stored)` returns an executable protobuf
+`CollectionPlan` from caller-supplied configs, a resource snapshot and stored
+bindings. It performs no I/O and leaves all inputs unchanged. Callers capture
+fresh inputs under exclusive offline access to the same collection and namespace.
+Planning can run after the backend closes.
+
+The plan separates `expected_state` from `proposed_bindings` and contains a change
+report, prepared deck/type/note operations, name releases, tracked deletions and
+card destinations. New objects have zero native IDs; prepared note-type and
+template-deck references use configuration paths. Resource comparison produces
+operations and report entries together. Converged plans have no native operations.
+Card destinations are included only for known changes or relevant native generation.
+Runtime models stay private to `internal/plan`.
+Member moves rename fields or templates within one note type; cross-type identity
+transfers are rejected. Stable native member IDs are authoritative. Without IDs,
+matching uses original stored names, including before explicit renames; stale
+ordinals cannot claim another current member. Ambiguous bindings fail before a
+plan is returned. Untracked resources and resident filtered cards stay unmanaged,
+including deck targets referenced by untracked templates. All cloze card ordinals
+share template zero; resident cards block template replacement or removal, while
+explicit template moves that preserve identity remain allowed.
+
+Anki owns native validation, normalization, structural migrations and card generation.
+The report compares current card destinations and cards removed with deleted notes;
+template-driven additions, removals and migrations remain deferred through
+`card_generation_deferred`. Prepared operations do not simulate those native effects.
+The native executor and CLI integration are implemented independently in #128.
+That executor accepts the complete protobuf plan; CLI planning displays its report.
+
+The executor contract checks expected stored state before writes, executes prepared operations,
+resolves new native IDs and persists bindings. It never loads configs, captures a
+resource snapshot, matches members or recomputes the plan. Native metadata and
+newly generated cards are read only as needed to execute it. The supplied plan stays
+unchanged. Callers retain exclusive access and own freshness beyond stored-state checks.
+
+```go
+compiled, err := plan.Build(configs, snapshot, stored)
+changed, err := reconcile.New(resources, states).Apply(ctx, compiled)
+```
 
 ## Native resource Go API
 

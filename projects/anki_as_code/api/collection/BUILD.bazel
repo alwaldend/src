@@ -18,6 +18,7 @@ go_proto_library(
     visibility = ["//projects/anki_as_code:__subpackages__"],
     deps = [
         "//third_party/com_github_ankitects_anki:decks",
+        "//third_party/com_github_ankitects_anki:notes",
         "//third_party/com_github_ankitects_anki:notetypes",
     ],
 )
