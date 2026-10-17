@@ -9,6 +9,7 @@ import (
 	"path/filepath"
 	"strings"
 	"sync"
+	"time"
 
 	"git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/backend"
 	"github.com/ankitects/anki/proto/anki/import_export"
@@ -16,12 +17,14 @@ import (
 	"google.golang.org/grpc"
 )
 
+// backendCleanupTimeout bounds each native owner cleanup independently of callback cancellation.
+const backendCleanupTimeout = 5 * time.Second
+
 // Store reserves collection sources and publishes changed archives within managed native scopes.
 // Its zero value is ready to use. It must not be copied after use.
 type Store struct {
-	// BackendManager optionally supplies native transports; nil selects the bundled server or PATH.
-	// Set it before using the Store. The manager retains transport lifecycle ownership.
-	BackendManager backend.Manager
+	// backendOptions configures each owned worker; an empty Binary uses bundled-server/PATH discovery.
+	backendOptions backend.BackendSTDOptions
 	// mutex protects source reservations, never native work.
 	mutex sync.Mutex
 	// entries retains sources from reservation through native cleanup.
@@ -33,7 +36,7 @@ type Store struct {
 // errors and cancellation skip publication. Callers exporting elsewhere through
 // Anki return false to skip source publication. Database writes persist in place.
 // Callers construct services on the connection and finish all work before returning.
-// Backend managers own native preparation and cleanup; retained connections reject later calls.
+// Store starts and stops both native owners; retained connections reject later calls.
 func (store *Store) WithCollection(ctx context.Context, path string, operation func(grpc.ClientConnInterface) (bool, error)) error {
 	if operation == nil {
 		return fmt.Errorf("collection access requires an operation")
@@ -47,49 +50,81 @@ func (store *Store) WithCollection(ctx context.Context, path string, operation f
 		delete(store.entries, source)
 		store.mutex.Unlock()
 	}()
-	manager, err := store.backendManager()
+	worker, err := store.newBackend()
 	if err != nil {
-		return fmt.Errorf("select collection backend manager: %w", err)
+		return fmt.Errorf("configure collection worker: %w", err)
 	}
-	if err := backend.NewManagerCollection(manager).WithCollection(ctx, source, func(prepared backend.Backend) error {
-		connection, err := prepared.Connection()
-		if err != nil {
-			return fmt.Errorf("get prepared collection connection: %w", err)
-		}
-		changed, err := operation(connection)
-		if err != nil {
-			return fmt.Errorf("run collection scope: %w", err)
-		}
-		if err := ctx.Err(); err != nil {
-			return fmt.Errorf("finish collection scope: %w", errors.Join(err, context.Cause(ctx)))
-		}
-		if changed && !strings.EqualFold(filepath.Ext(source), ".anki2") {
-			if _, err := import_export.NewBackendImportExportServiceClient(connection).ExportCollectionPackage(ctx, &import_export.ExportCollectionPackageRequest{
-				OutPath: source, IncludeMedia: true,
-			}); err != nil {
-				return fmt.Errorf("publish collection scope: %w", err)
+	if err := withBackend(ctx, worker, func() error {
+		prepared := backend.NewCollection(backend.BackendCollectionOptions{Backend: worker, Path: source})
+		if err := withBackend(ctx, prepared, func() error {
+			connection, err := prepared.Connection()
+			if err != nil {
+				return fmt.Errorf("get prepared collection connection: %w", err)
 			}
+			changed, err := operation(connection)
+			if err != nil {
+				return fmt.Errorf("run collection callback: %w", err)
+			}
+			if err := ctx.Err(); err != nil {
+				return fmt.Errorf("finish collection scope: %w", errors.Join(err, context.Cause(ctx)))
+			}
+			if changed && !strings.EqualFold(filepath.Ext(source), ".anki2") {
+				if _, err := import_export.NewBackendImportExportServiceClient(connection).ExportCollectionPackage(ctx, &import_export.ExportCollectionPackageRequest{
+					OutPath: source, IncludeMedia: true,
+				}); err != nil {
+					return fmt.Errorf("publish collection scope: %w", err)
+				}
+			}
+			return nil
+		}); err != nil {
+			return fmt.Errorf("run prepared collection: %w", err)
 		}
 		return nil
 	}); err != nil {
-		return fmt.Errorf("manage collection scope: %w", err)
+		return fmt.Errorf("run collection scope: %w", err)
 	}
 	return nil
 }
 
-// backendManager selects injected transport ownership or configures a default native worker manager.
-func (store *Store) backendManager() (backend.Manager, error) {
-	if store.BackendManager != nil {
-		return store.BackendManager, nil
+// newBackend configures a fresh worker using explicit options or bundled-server/PATH discovery.
+func (store *Store) newBackend() (*backend.BackendSTD, error) {
+	options := store.backendOptions
+	if options.Binary == "" {
+		binary, err := runfiles.Rlocation("_main/projects/anki_grpc/cmd/anki_grpc/anki_grpc")
+		if err != nil {
+			binary, err = exec.LookPath("anki_grpc")
+		}
+		if err != nil {
+			return nil, fmt.Errorf("locate Anki server: %w", err)
+		}
+		options.Binary = binary
 	}
-	binary, err := runfiles.Rlocation("_main/projects/anki_grpc/cmd/anki_grpc/anki_grpc")
-	if err != nil {
-		binary, err = exec.LookPath("anki_grpc")
+	return backend.New(options), nil
+}
+
+// withBackend starts one owned backend and stops it after every startup attempt or callback exit.
+// Cleanup is bounded independently of cancellation; callback and cleanup errors remain discoverable.
+func withBackend(ctx context.Context, owned backend.Backend, operation func() error) (err error) {
+	if err := ctx.Err(); err != nil {
+		return fmt.Errorf("start backend scope: %w", errors.Join(err, context.Cause(ctx)))
 	}
-	if err != nil {
-		return nil, fmt.Errorf("locate Anki server: %w", err)
+	defer func() {
+		cleanup, cancel := context.WithTimeout(context.WithoutCancel(ctx), backendCleanupTimeout)
+		defer cancel()
+		if stopErr := owned.Stop(cleanup); stopErr != nil {
+			err = errors.Join(err, fmt.Errorf("stop collection scope backend: %w", stopErr))
+		}
+	}()
+	if err := owned.Start(ctx); err != nil {
+		return fmt.Errorf("start collection scope backend: %w", err)
 	}
-	return backend.NewManagerSTD(backend.BackendSTDOptions{Binary: binary}), nil
+	if err := operation(); err != nil {
+		return fmt.Errorf("run prepared backend: %w", err)
+	}
+	if err := ctx.Err(); err != nil {
+		return fmt.Errorf("finish backend scope: %w", errors.Join(err, context.Cause(ctx)))
+	}
+	return nil
 }
 
 // reserve records physical source identity before startup so concurrent opens cannot bypass the guard.

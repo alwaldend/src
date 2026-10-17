@@ -75,7 +75,7 @@ through `config.Store.Export`, without changing the supplied protobuf object.
 State commands accept an existing offline `.anki2` database or `.colpkg` archive
 through `--collection`. Commands call App's typed state workflows. App borrows
 one prepared connection from `collection.Store`, which reserves the source and
-delegates native preparation and cleanup to `backend.ManagerCollection`.
+constructs the native worker and collection backends.
 Collection cleanup finishes before transport cleanup and source reservation
 release. State stores borrow the connection and own no native lifetime or files.
 
@@ -172,10 +172,10 @@ Its zero value is ready to use. `WithCollection` injects a prepared
 `grpc.ClientConnInterface` into its callback. Construct the services you need on
 that connection and reuse local instances for several operations.
 
-Set `BackendManager` before use to inject a `backend.Manager`. Nil selects the
-bundled server or PATH. `backend.ManagerCollection` owns preparation and cleanup,
-closing native storage before releasing its transport. Store retains only source
-reservations and delegates native lifetime to that manager.
+Store locates the bundled server or falls back to PATH and constructs a fresh
+stdin/stdout worker and collection backend for each scope. It closes native
+storage before stopping the worker. Each cleanup has a five-second bound
+independent of callback cancellation; source reservations outlive cleanup.
 
 ```go
 store := &collection.Store{}
@@ -248,11 +248,11 @@ or filesystem dependency.
 ## Collection lifecycle
 
 App delegates native access to `collection.Store.WithCollection`. The store
-reserves the source and uses `backend.ManagerCollection` over an optional
-injected transport manager. Nil selects the bundled server or PATH.
-BackendCollection restores packages into temporary storage or opens databases
-directly. Callbacks receive the prepared connection and construct their own
-services. Managers close native storage before releasing the transport.
+reserves the source and constructs `BackendSTD` and `BackendCollection`, using
+the bundled server or PATH. BackendCollection restores packages into temporary
+storage or opens databases directly. Callbacks receive the prepared connection
+and construct their own services. Store closes the collection before stopping
+the worker, including after callback errors, cancellation and panic unwinding.
 
 BackendCollection owns readiness, native import/open/close and restore cleanup.
 Its failure contract can retain restore files when native completion is uncertain,

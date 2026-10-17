@@ -5,7 +5,10 @@ import (
 	"errors"
 	"fmt"
 	"os"
+	"os/exec"
 	"path/filepath"
+	"strconv"
+	"syscall"
 	"testing"
 	"time"
 
@@ -15,7 +18,6 @@ import (
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/resource"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/state"
 	"git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/backend"
-	"github.com/ankitects/anki/proto/anki/generic"
 	"github.com/ankitects/anki/proto/anki/import_export"
 	"github.com/ankitects/anki/proto/anki/notes"
 	"github.com/ankitects/anki/proto/anki/notetypes"
@@ -24,63 +26,45 @@ import (
 	"google.golang.org/protobuf/proto"
 )
 
-// observedManager lends real native transports and verifies borrowers leave their lifetime to the manager.
-type observedManager struct {
-	// delegate owns actual worker startup and process reaping.
-	delegate backend.Manager
-	// workers records injected native transports for readiness and scope-exit checks.
-	workers []backend.Backend
-}
-
-// WithBackend records each delegated worker and checks transport ownership after collection cleanup.
-func (manager *observedManager) WithBackend(ctx context.Context, operation func(backend.Backend) error) error {
-	if err := manager.delegate.WithBackend(ctx, func(worker backend.Backend) error {
-		manager.workers = append(manager.workers, worker)
-		operationError := operation(worker)
-		if _, err := worker.Connection(); err != nil {
-			return errors.Join(operationError, fmt.Errorf("collection scope stopped its borrowed transport: %w", err))
+// TestStoreBackendLifecycle verifies native process ownership and source release on every scope exit.
+func TestStoreBackendLifecycle(t *testing.T) {
+	if os.Getenv("ANKI_STORE_RECORD_WORKER") == "1" {
+		if err := os.WriteFile(os.Getenv("ANKI_STORE_PID_FILE"), []byte(strconv.Itoa(os.Getpid())), 0o600); err != nil {
+			t.Fatal(err)
 		}
-		if operationError != nil {
-			return fmt.Errorf("run observed collection scope: %w", operationError)
+		binary, err := runfiles.Rlocation("_main/projects/anki_grpc/cmd/anki_grpc/anki_grpc")
+		if err != nil {
+			t.Fatal(err)
 		}
-		return nil
-	}); err != nil {
-		return fmt.Errorf("manage observed native transport: %w", err)
+		if err := syscall.Exec(binary, []string{binary}, os.Environ()); err != nil {
+			t.Fatal(err)
+		}
+		return
 	}
-	return nil
-}
-
-// TestStoreBackendManager verifies native manager injection, ordered cleanup and reservation release on every callback exit.
-func TestStoreBackendManager(t *testing.T) {
 	_, archive := nativeSource(t)
-	binary, err := runfiles.Rlocation("_main/projects/anki_grpc/cmd/anki_grpc/anki_grpc")
-	if err != nil {
-		t.Fatal(err)
-	}
-	manager := &observedManager{delegate: backend.NewManagerSTD(backend.BackendSTDOptions{Binary: binary})}
-	store := &Store{BackendManager: manager}
-	for _, scenario := range []string{"success", "error", "cancel", "panic"} {
+	pidFile := filepath.Join(t.TempDir(), "worker.pid")
+	t.Setenv("TMPDIR", t.TempDir())
+	t.Setenv("ANKI_STORE_RECORD_WORKER", "1")
+	t.Setenv("ANKI_STORE_PID_FILE", pidFile)
+	store := &Store{backendOptions: backend.BackendSTDOptions{
+		Binary: os.Args[0], Arguments: []string{"-test.run=^TestStoreBackendLifecycle$"},
+	}}
+	for _, scenario := range []string{"success", "error", "cancel", "panic", "crash"} {
 		t.Run(scenario, func(t *testing.T) {
 			ctx, cancel := context.WithCancelCause(t.Context())
 			defer cancel(nil)
-			failure := errors.New("managed collection callback failed")
+			failure := errors.New("collection callback failed")
 			var recovered any
 			var scopeError error
+			var retained grpc.ClientConnInterface
+			var pid int
 			func() {
 				defer func() { recovered = recover() }()
 				scopeError = store.WithCollection(ctx, archive, func(connection grpc.ClientConnInterface) (bool, error) {
-					if len(manager.workers) == 0 {
-						return false, fmt.Errorf("collection did not use its injected manager")
-					}
-					transport, err := manager.workers[len(manager.workers)-1].Connection()
-					if err != nil {
-						return false, fmt.Errorf("get injected native connection: %w", err)
-					}
-					if _, err := notetypes.NewNotetypesServiceClient(transport).GetNotetypeIdByName(ctx, &generic.String{Val: "Example"}); err != nil {
-						return false, fmt.Errorf("collection opened outside the injected backend: %w", err)
-					}
+					retained = connection
+					pid = recordedWorkerPID(t, pidFile)
 					if _, err := state.New(connection, "").Dump(ctx); err != nil {
-						return false, fmt.Errorf("read managed native collection: %w", err)
+						return false, fmt.Errorf("read prepared native collection: %w", err)
 					}
 					switch scenario {
 					case "error":
@@ -89,6 +73,11 @@ func TestStoreBackendManager(t *testing.T) {
 						cancel(failure)
 					case "panic":
 						panic(failure)
+					case "crash":
+						if err := syscall.Kill(pid, syscall.SIGKILL); err != nil {
+							return false, fmt.Errorf("terminate fixture worker: %w", errors.Join(failure, err))
+						}
+						return false, failure
 					}
 					return false, nil
 				})
@@ -96,28 +85,69 @@ func TestStoreBackendManager(t *testing.T) {
 			switch scenario {
 			case "success":
 				if scopeError != nil || recovered != nil {
-					t.Fatalf("managed collection failed: %v %v", scopeError, recovered)
+					t.Fatalf("native collection failed: %v %v", scopeError, recovered)
 				}
 			case "panic":
 				if recovered != failure {
-					t.Fatalf("managed collection lost its panic: %v", recovered)
+					t.Fatalf("collection scope lost its panic: %v", recovered)
 				}
 			default:
 				if !errors.Is(scopeError, failure) || scenario == "cancel" && !errors.Is(scopeError, context.Canceled) {
-					t.Fatalf("managed collection lost callback/cancellation errors: %v", scopeError)
+					t.Fatalf("scope lost callback/cancellation errors: %v", scopeError)
+				}
+				if scenario == "crash" {
+					var exit *exec.ExitError
+					if !errors.As(scopeError, &exit) || exit.Pid() != pid {
+						t.Fatalf("scope lost worker crash: %v", scopeError)
+					}
 				}
 			}
-			for _, worker := range manager.workers {
-				if _, err := worker.Connection(); err == nil {
-					t.Fatal("managed collection retained a running backend")
-				}
+			assertWorkerReaped(t, pid)
+			if _, err := state.New(retained, "").Dump(t.Context()); err == nil {
+				t.Fatal("completed scope retained a prepared connection")
 			}
 			if _, err := readState(t.Context(), store, archive, ""); err != nil {
-				t.Fatalf("managed collection retained its source reservation: %v", err)
+				t.Fatalf("scope retained its source reservation: %v", err)
 			}
+			assertWorkerReaped(t, recordedWorkerPID(t, pidFile))
 		})
 	}
-	emitArtifact(t, archive, "manager-backed.colpkg")
+	store.backendOptions.Binary = filepath.Join(t.TempDir(), "missing-worker")
+	if _, err := readState(t.Context(), store, archive, ""); !errors.Is(err, os.ErrNotExist) {
+		t.Fatalf("startup failure lost its cause: %v", err)
+	}
+	store.backendOptions.Binary = os.Args[0]
+	if _, err := readState(t.Context(), store, archive, ""); err != nil {
+		t.Fatalf("startup failure retained its source reservation: %v", err)
+	}
+	assertWorkerReaped(t, recordedWorkerPID(t, pidFile))
+	emitArtifact(t, archive, "direct-backend.colpkg")
+}
+
+// recordedWorkerPID reads the subprocess fixture's native worker identity after readiness.
+func recordedWorkerPID(t *testing.T, path string) int {
+	t.Helper()
+	data, err := os.ReadFile(path)
+	if err != nil {
+		t.Fatal(err)
+	}
+	pid, err := strconv.Atoi(string(data))
+	if err != nil || pid <= 0 {
+		t.Fatalf("invalid worker PID: %q %v", data, err)
+	}
+	return pid
+}
+
+// assertWorkerReaped verifies the scope waited for its owned child and released its process.
+func assertWorkerReaped(t *testing.T, pid int) {
+	t.Helper()
+	if err := syscall.Kill(pid, 0); !errors.Is(err, syscall.ESRCH) {
+		t.Fatalf("scope retained worker PID %d: %v", pid, err)
+	}
+	var status syscall.WaitStatus
+	if _, err := syscall.Wait4(pid, &status, syscall.WNOHANG, nil); !errors.Is(err, syscall.ECHILD) {
+		t.Fatalf("scope did not reap worker PID %d: %v", pid, err)
+	}
 }
 
 // nativeSource creates one representative note and its archive entirely through Anki.

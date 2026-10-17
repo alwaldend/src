@@ -1,5 +1,5 @@
 // Package collection coordinates source reservations and archive publication.
-// Store.WithCollection delegates native preparation and cleanup to backend managers
+// Store.WithCollection constructs and owns native worker and collection backends
 // and lends a prepared gRPC connection. Callers construct and reuse their own
 // resource/state stores and exporters within the callback. Source aliases remain
 // reserved through native cleanup. Successful changed package scopes publish back
