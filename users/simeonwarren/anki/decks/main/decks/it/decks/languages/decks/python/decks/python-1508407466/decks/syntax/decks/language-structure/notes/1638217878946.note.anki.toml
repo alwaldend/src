@@ -1,0 +1,10 @@
+note_type = "note_types/python-cloze.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+example = ''
+text = 'List unpacking: {{c1::<i>*list</i>}}<div>Dictionary unpacking: {{c1::<i>**dict</i>}}</div>'
+version = '&gt;= 3.7, 3.10'

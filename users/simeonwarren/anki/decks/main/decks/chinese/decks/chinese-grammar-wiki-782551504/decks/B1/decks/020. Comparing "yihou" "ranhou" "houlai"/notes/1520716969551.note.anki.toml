@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "TimeWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "yihou" "ranhou" "houlai"'
+english = 'I saw him once. I never saw him again.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '[Past Event 1] ，后来 + [Past Event 2]'
+hanzi = 'A:见过一次。后来再也没见过。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNPJ7T'

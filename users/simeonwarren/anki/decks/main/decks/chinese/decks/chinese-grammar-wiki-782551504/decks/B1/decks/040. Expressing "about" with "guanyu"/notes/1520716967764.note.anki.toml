@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "about" with "guanyu"'
+english = "As for the result of that research, we don't know much either."
+example-sentence = ''
+example-type = ''
+grammar-construct = '关于 + Obj. ，⋯⋯'
+hanzi = '关于调查结果，我们也不太清楚。'
+notes = ''
+pinyin = 'Guānyú diàochá jiéguǒ, wǒmen yě bù tài qīngchu.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG49889'

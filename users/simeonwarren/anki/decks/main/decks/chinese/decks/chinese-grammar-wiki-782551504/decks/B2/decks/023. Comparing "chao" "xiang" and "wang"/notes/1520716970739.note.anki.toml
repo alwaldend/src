@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "chao" "xiang" and "wang"'
+english = 'The little birds flew towards the sky.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 向 / 往 + 具体方向'
+hanzi = '像鸟儿一样飞向蓝天。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGIHS2L'

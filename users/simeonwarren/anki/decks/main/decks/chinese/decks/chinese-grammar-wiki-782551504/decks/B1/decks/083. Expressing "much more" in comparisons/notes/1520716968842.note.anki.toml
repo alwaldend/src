@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "much more" in comparisons'
+english = 'I feel much better today than yesterday.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun 1 + 比 + Noun 2 + Adj. + 很多 / 多了 / 得多'
+hanzi = '我感觉今天比昨天好多了。'
+notes = ''
+pinyin = 'Wǒ gǎnjué jīntiān bǐ zuótiān hǎo duō le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG6KUS5'

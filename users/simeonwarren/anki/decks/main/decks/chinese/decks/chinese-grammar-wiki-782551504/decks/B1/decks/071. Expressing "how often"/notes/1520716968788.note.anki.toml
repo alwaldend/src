@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "how often"'
+english = ''
+example-sentence = ''
+example-type = 'invalid'
+grammar-construct = 'Subj. + 多长时间 + Verb + 一次 (+ Obj.)'
+hanzi = '你的手机多长时间充电一次？'
+notes = ''
+pinyin = 'Nǐ de shǒujī duō cháng shíjiān chōngdiàn yī cì?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCED31'

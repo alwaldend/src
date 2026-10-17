@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "TimeWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "yizhi" and "yixiang"'
+english = "He hasn't found a job that he really enjoys since his graduation from his college."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '他毕业以后一直没有找到真正喜欢的工作。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGVEP8S'

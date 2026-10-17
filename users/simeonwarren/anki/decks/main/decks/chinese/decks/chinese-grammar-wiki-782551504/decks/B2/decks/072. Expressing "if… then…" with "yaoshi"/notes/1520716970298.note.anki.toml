@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Grammatical_Structures", "IfStatements"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "if… then…" with "yaoshi"'
+english = "If it weren't for the traffic jam, I would have gotten here sooner."
+example-sentence = ''
+example-type = ''
+grammar-construct = '要不是 ⋯⋯ ，⋯⋯'
+hanzi = '要不是堵车，我早就到了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGN4S8O'

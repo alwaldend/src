@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["AuxiliaryWords", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Non-exhaustive lists with "dengdeng"'
+english = 'The working languages of the UN are English, French, Spanish, etc.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A1，A2 ⋯⋯ 等 / 等等'
+hanzi = '联合国的工作语言有英语、法语、西班牙语等。'
+notes = ''
+pinyin = 'Liánhéguó de gōngzuò yǔyán yǒu Yīngyǔ, Fǎyǔ, Xībānyáyǔ děng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGF763H'

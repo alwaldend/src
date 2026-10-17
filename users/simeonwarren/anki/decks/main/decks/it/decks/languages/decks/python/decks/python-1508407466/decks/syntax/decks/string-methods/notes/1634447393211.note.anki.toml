@@ -1,0 +1,13 @@
+note_type = "note_types/python-basic-and-reversed.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+additional-info = '<strong>Note:</strong>&nbsp;All string methods returns new values. They do not change the original string.'
+answer = '<i>string</i>.rsplit()'
+example = ''
+question = '<b>String method</b>&nbsp;that splits a string at the specified separator, and returns a list. It also takes in an additional maxsplit parameter. If no max split is provided it returns the same thing as the regular version of this method.'
+version = ''
+with-options = '<i>string</i>.rsplit(<i>seperator=" "</i>,&nbsp;<i>maxsplit=-1</i>)'

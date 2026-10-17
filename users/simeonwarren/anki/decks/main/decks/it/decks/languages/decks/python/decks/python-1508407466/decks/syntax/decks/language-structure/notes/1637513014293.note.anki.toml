@@ -1,0 +1,13 @@
+note_type = "note_types/python-cloze.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[[cards]]
+ordinal = 1
+
+[fields]
+example = ''
+text = 'Symbols and meanings:<br><ol><li>{{c1::Addition}}: {{c2::+}}</li><li>{{c1::Subtraction}}: {{c2::-}}</li><li>{{c1::Division}}: {{c2::/}}</li><li>{{c1::Floor Division}}: {{c2:://}}</li><li>{{c1::Multiplication}}: {{c2::*}}</li><li>{{c1::Modulo}}: {{c2::%}}</li><li>{{c1::Exponent}}: {{c2::**}}</li></ol>'
+version = ''

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "if…, then…" with "ruguo…, jiu…"'
+english = 'If there is any difficulty, give me a call.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '如果 ⋯⋯ ，就 ⋯⋯'
+hanzi = '如果有困难，就给我打电话。'
+notes = ''
+pinyin = 'Rúguǒ yǒu kùnnan, jiù gěi wǒ dǎ diànhuà.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGGIVT0'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Measure words for verbs'
+english = "I've seen this movie twice."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + Number + Measure Word'
+hanzi = '这个电影我看过两遍。'
+notes = ''
+pinyin = 'Zhège diànyǐng wǒ kàn guo liǎng biàn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5AODR'

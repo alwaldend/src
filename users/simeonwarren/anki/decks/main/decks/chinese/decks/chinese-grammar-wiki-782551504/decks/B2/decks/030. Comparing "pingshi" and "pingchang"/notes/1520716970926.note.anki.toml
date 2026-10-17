@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "TimeWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "pingshi" and "pingchang"'
+english = 'Do you watch the news often?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 平常 + Verb'
+hanzi = '你平时看新闻吗？'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJOGGG'

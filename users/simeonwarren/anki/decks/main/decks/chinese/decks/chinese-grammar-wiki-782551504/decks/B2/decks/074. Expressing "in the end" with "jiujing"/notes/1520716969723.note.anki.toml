@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "in the end" with "jiujing"'
+english = 'Young people are young people after all. Their are so energetic.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A＋究竟 + 是＋ A，……'
+hanzi = '年轻人究竟是年轻人，精力真好。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDK0BR'

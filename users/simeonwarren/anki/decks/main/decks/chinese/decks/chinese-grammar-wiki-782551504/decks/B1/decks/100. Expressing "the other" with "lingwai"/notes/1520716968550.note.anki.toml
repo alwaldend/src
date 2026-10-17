@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "NounPhrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "the other" with "lingwai"'
+english = 'Our company shares the office with the other two companies.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '另外 + Number + [Measure Word] + Noun'
+hanzi = '我们公司和另外两家公司共用一个办公室。'
+notes = ''
+pinyin = 'Wǒmen gōngsī hé lìngwài liǎng jiā gōngsī gòngyòng yī gè bàngōngshì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGD3FE5'

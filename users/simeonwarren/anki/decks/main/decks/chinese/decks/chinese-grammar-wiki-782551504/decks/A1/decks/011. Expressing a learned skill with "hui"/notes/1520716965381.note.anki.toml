@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Auxiliaryverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing a learned skill with "hui"'
+english = "You can't swim?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不 + 会 + Verb + Obj.'
+hanzi = '你不会游泳吗？'
+notes = ''
+pinyin = 'Nǐ bù huì yóuyǒng ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGRHM0E'

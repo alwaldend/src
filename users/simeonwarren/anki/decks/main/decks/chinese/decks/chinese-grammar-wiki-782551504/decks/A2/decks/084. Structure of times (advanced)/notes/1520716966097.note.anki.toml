@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Numbers", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Structure of times (advanced)'
+english = "three minutes til 12 o'clock"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Hour + 点 + 差 + Minutes + 分'
+hanzi = '十二点差三分'
+notes = ''
+pinyin = "shí'èr diǎn chā sān fēn"
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDTO07'

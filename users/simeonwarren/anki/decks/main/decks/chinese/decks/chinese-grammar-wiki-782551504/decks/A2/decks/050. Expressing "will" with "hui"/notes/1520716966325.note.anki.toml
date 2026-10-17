@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Auxiliaryverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "will" with "hui"'
+english = 'Tonight I will not eat out.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不 + 会 + Verb + Obj.'
+hanzi = '今晚我不会在外面吃饭。'
+notes = ''
+pinyin = 'Jīnwǎn wǒ bù huì zài wàimiàn chīfàn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGW9737'

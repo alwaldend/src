@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "as a result" with "jieguo"'
+english = "He's always late for work. As a result, his boss fired him."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Situation ，结果 + Ending'
+hanzi = '他总是迟到，结果老板炒了他的鱿鱼。'
+notes = ''
+pinyin = 'Tā zǒngshì chídào, jiéguǒ lǎobǎn chǎo le tā de yóuyú.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG6B21A'

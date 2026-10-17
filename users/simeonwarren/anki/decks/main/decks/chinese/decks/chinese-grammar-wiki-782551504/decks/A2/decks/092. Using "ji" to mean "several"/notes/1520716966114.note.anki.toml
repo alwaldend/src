@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "NumbersandMeasureWords", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "ji" to mean "several"'
+english = 'I have a friend that has a couple hundred pairs of shoes.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '几 + 百 / 千 / 万 + Measure Word + Noun'
+hanzi = '我认识一个朋友，她有几百双鞋。'
+notes = ''
+pinyin = 'Wǒ rènshi yī gè péngyou, tā yǒu jǐ bǎi shuāng xié.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGHC9CA'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Numbers", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Structure of days of the week'
+english = "We're going to a bar this Friday night."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '这个星期五晚上我们要去酒吧。'
+notes = ''
+pinyin = 'Zhège Xīngqīwǔ wǎnshang wǒmen yào qù jiǔbā.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGVH4Q5'

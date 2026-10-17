@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Affirmative-negative question'
+english = 'We are going to the bar. Do you want to go?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 不 + Verb'
+hanzi = '我们要去酒吧，你去不去？'
+notes = ''
+pinyin = 'Wǒmen yào qù jiǔbā, nǐ  qù bu qù?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGZH7K3'

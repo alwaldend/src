@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing not knowing how to do something using "hao"'
+english = "I really don't know what to do with it."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不知道 + [Verb Phrase] + 好'
+hanzi = '我真的不知道怎么办才好。'
+notes = ''
+pinyin = 'Wǒ zhēnde bù zhīdào zěnme bàn cái hǎo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG0EQQJ'

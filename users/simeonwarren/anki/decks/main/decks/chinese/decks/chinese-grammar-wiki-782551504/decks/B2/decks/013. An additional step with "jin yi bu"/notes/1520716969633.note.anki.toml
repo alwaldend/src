@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'An additional step with "jin yi bu"'
+english = 'After swimming together, our friendship developed further.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 进一步 + Verb'
+hanzi = '我们在一起旅游后我们的友谊有了进一步的发展.'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGET76G'

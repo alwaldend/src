@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "even" with "shenzhi"'
+english = 'This question is simple, even kids know the answer.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '⋯⋯，甚至 ⋯⋯'
+hanzi = '这个问题很简单，甚至连孩子都知道。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGKWV6F'

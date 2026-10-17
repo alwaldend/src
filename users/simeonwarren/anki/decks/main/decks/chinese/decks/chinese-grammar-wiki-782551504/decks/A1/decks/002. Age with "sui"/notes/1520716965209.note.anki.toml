@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Numbers", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Age with "sui"'
+english = 'My child is one year old.'
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = 'Subj. + Number + 岁'
+hanzi = '我的孩子一岁。'
+notes = ''
+pinyin = 'Wǒ de háizi yī suì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQUKJF'

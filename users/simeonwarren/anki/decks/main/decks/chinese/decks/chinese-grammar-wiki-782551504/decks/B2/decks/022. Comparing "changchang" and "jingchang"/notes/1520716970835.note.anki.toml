@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "TimeWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "changchang" and "jingchang"'
+english = "Before, I often didn't eat breakfast."
+example-sentence = ''
+example-type = ''
+grammar-construct = '常常 / 经常 + Verb'
+hanzi = '以前，我经常不吃早饭。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGE8FLP'

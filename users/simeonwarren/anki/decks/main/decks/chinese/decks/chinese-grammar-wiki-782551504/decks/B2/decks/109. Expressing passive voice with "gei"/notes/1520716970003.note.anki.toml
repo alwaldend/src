@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing passive voice with "gei"'
+english = 'The water here is all polluted.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Receiver + 给 + The Doer + Verb Phrase'
+hanzi = '这里的水都给污染了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGEZ2HN'

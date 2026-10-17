@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["AuxiliaryWords", "B1", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "hui" "neng" "keyi"'
+english = 'Is it possible to change it?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '可以 / 能 + Verb'
+hanzi = '可不可以换一个？'
+notes = ''
+pinyin = 'Kě bù kěyǐ huàn yī gè?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGZL717'

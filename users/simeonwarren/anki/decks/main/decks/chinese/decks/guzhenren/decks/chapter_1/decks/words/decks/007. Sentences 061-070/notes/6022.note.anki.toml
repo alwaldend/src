@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'gradually.'
+example-sentence = ' 议论声渐渐地起来'
+example-type = ''
+grammar-construct = ''
+hanzi = '渐渐'
+notes = ''
+pinyin = '<span class="tone4">jiàn</span><span class="tone4">jiàn</span>	 <!-- jian jian -->'
+source = ''

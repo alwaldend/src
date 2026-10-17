@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Grammatical_Structures", "NumbersandMeasureWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "every" with "mei"'
+english = 'Each of the students in this class are very smart.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '每 + Measure Word + Noun + 都'
+hanzi = '这个班的每个学生都很聪明。'
+notes = ''
+pinyin = 'Zhège bān de měi gè xuéshēng dōu hěn cōngming.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGB6L4M'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "except" and "in addition" with "chule… yiwai"'
+english = 'In addition to seafood, what else are you allergic to?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '除了 ⋯⋯ (+ 以外) ，Subj. + 也 / 还 ⋯⋯'
+hanzi = '除了海鲜，你还对什么过敏？'
+notes = ''
+pinyin = 'Chúle hǎixiān, nǐ hái duì shénme guòmǐn?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGHFPGG'

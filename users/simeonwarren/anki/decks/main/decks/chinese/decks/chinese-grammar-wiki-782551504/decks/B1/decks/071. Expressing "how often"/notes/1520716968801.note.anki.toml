@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "how often"'
+english = 'How often do you work overtime?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + [Length of Time]  + Verb + Times (+ Obj.)'
+hanzi = '你多长时间加一次班？'
+notes = ''
+pinyin = 'Nǐ duō cháng shíjiān jiā yī cì bān?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCED31'

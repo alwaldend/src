@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'surname Zhi;	Zhi (c. 2000 BC), fifth of the legendary Flame Emperors 炎帝 descended from Shennong 神农 Farmer God;	straight;	to straighten;	fair and reasonable;	frank;	straightforward;	(indicates continuing motion or action);	vertical;	vertical downward stroke in Chinese characters.'
+example-sentence = ' 古月族长中年模样,两鬓微霜,一身素白庄重的祭祀服装,跪在棕黄色的地板上,直着上身,双手合十,紧闭双目诚心祈祷'
+example-type = ''
+grammar-construct = ''
+hanzi = '直'
+notes = ''
+pinyin = '<span class="tone2">zhí</span>	 <!-- zhi -->'
+source = ''

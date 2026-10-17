@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Occurring together with "shaobuliao"'
+english = 'There are always birthday cakes when we spend birthdays.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 少不了 + 要 + [Verb Phrase]'
+hanzi = '过生日少不了要吃生日蛋糕。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG3IR71'

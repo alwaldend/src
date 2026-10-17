@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "for" with "gei"'
+english = 'Could you please buy me a cup of coffee?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 给 + Recipient + [Verb Phrase]'
+hanzi = '可以给我买一杯咖啡吗？'
+notes = ''
+pinyin = 'Kěyǐ gěi wǒ mǎi yī bēi kāfēi ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGLHAV3'

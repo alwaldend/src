@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "zai" and "you"'
+english = 'If I can slim down a bit, I can wear my favorite jeans again!'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 又 + 助动词 / 谓语动词 + Obj.'
+hanzi = '如果我能瘦一些，我就又能穿我最喜欢的牛仔裤啦！'
+notes = ''
+pinyin = '<div>Rúguǒ wǒ néng shòu yīxiē, wǒ jiù yòu néng chuān wǒ zuì xǐhuān de niúzǎikù la!</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTBHBG'

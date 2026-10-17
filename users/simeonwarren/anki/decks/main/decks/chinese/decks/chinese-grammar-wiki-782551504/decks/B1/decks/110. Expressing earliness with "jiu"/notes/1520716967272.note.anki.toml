@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing earliness with "jiu"'
+english = 'We have class at nine in the morning, and he came at eight.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Time  Word + 就 + Verb + Obj. + 了'
+hanzi = '我们早上九点上课，他八点就来了。'
+notes = ''
+pinyin = 'Wǒmen zǎoshang jiǔ diǎn shàngkè, tā bā diǎn jiù lái le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGKITRZ'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Auxiliaryverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Wanting to do something with "yao"'
+english = 'I want to drink coffee.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 要 + Verb + Obj.'
+hanzi = '我要喝咖啡。'
+notes = 'I am going to get my hands on some coffee'
+pinyin = 'Wǒ yào hē kāfēi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGXVEAR'

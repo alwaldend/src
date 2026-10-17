@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'The so-called evil way means not cultivating good fruits, killing people and setting fire.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '所谓魔道,就是不修善果,杀人放火。'
+notes = ''
+pinyin = ''
+source = ''

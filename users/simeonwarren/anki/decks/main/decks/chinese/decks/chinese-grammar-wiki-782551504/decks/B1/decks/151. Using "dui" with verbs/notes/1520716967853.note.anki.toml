@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "dui" with verbs'
+english = 'This method helps a lot with my English learning.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '对 + Person + 来说'
+hanzi = '这个App对我的英语学习很有帮助。'
+notes = ''
+pinyin = 'Zhège App duì wǒ de Yīngyǔ xuéxí hěn yǒu bāngzhù.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8ICO9'

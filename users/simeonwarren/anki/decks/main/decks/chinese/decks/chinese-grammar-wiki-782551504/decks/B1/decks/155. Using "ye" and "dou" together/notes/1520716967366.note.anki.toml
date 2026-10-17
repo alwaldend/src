@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "ye" and "dou" together'
+english = 'They are also all French people.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 也都 + Verb / Adj.'
+hanzi = '他们也都是法国人。'
+notes = ''
+pinyin = 'Tāmen yě dōu shì Fǎguó rén.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8GSXY'

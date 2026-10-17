@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'The opposite of "cha hen duo" is "chabuduo"'
+english = "There is a big difference between her age and her husband's age."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A + 跟 / 和 + B + 差很多'
+hanzi = '她和她老公的年龄差很多。'
+notes = ''
+pinyin = 'Tā hé tā lǎogōng de niánlíng chà hěn duō.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQAN74'

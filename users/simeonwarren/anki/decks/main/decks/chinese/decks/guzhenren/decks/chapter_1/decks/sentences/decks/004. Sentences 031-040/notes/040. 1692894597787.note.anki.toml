@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'Everyone be careful, the devil is about to fight back when he is about to die!'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '大家小心,魔头死到临头要反扑了！'
+notes = ''
+pinyin = ''
+source = ''

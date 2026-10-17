@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing existence in a place with "zai"'
+english = "They're in England."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 在 + Place'
+hanzi = '他们在英国。'
+notes = ''
+pinyin = 'Tāmen zài Yīngguó.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGLRWT8'

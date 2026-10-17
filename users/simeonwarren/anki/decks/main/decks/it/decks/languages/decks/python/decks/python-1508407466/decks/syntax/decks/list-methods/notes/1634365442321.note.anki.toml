@@ -1,0 +1,13 @@
+note_type = "note_types/python-basic-and-reversed.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+additional-info = "It doesn't remove current&nbsp;<i>item</i>&nbsp;at&nbsp;<i>index</i>&nbsp;(the list's new length is 1 greater)."
+answer = '<i>list</i>.insert(<i>index</i>, <i>item</i>)'
+example = ''
+question = '<b>List method </b>that adds an item&nbsp;into list at <i>index.</i>'
+version = ''
+with-options = ''

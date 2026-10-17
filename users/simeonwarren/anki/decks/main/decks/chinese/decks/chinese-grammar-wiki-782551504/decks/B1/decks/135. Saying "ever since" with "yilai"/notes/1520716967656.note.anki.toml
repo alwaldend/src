@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Saying "ever since" with "yilai"'
+english = 'Ever since five years ago, prices have been going up.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Time Interval + 来'
+hanzi = '五年来，物价一直上涨。'
+notes = ''
+pinyin = 'Wǔ nián lái, wùjià yīzhí shàngzhǎng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNEMXP'

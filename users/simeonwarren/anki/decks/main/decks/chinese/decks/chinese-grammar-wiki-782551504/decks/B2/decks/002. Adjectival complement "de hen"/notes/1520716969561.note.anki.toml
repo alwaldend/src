@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adjectives", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Adjectival complement "de hen"'
+english = "You think he's unhappy? From what I see, he's in good mood today!"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Adj.+ 得很'
+hanzi = '你觉得他不高兴？我看他今天心情好得很！'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGG1ZBL'

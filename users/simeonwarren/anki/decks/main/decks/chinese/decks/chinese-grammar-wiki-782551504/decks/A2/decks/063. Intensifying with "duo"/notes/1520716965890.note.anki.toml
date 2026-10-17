@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "AdverbswithAdjectives", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Intensifying with "duo"'
+english = 'Doing it this way is so troublesome!'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 多 + Adj.'
+hanzi = '这样做多麻烦！'
+notes = ''
+pinyin = 'Zhèyàng zuò duō máfan!'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGGH7RR'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "just now" with "gangcai"'
+english = 'The boss just got angry.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '刚才 + Verb'
+hanzi = '老板刚才生气了。'
+notes = ''
+pinyin = 'Lǎobǎn gāngcái shēngqì le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQ1KOY'

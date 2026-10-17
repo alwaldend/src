@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "compared with" with "gen"'
+english = 'Compared to about a few decades ago, the life of rural people are much better.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '跟 + Time + 比 (起来) ，⋯⋯'
+hanzi = '跟几十年前比起来，中国人的生活水平提高了很多。'
+notes = ''
+pinyin = 'Gēn jǐ shí nián qián bǐ qǐlái, Zhōngguó rén de shēnghuó shuǐpíng tígāo le hěn duō.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG920B7'

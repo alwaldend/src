@@ -1,0 +1,17 @@
+note_type = "note_types/python-basic-and-reversed.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+additional-info = '<strong>Note:</strong>&nbsp;All string methods returns new values. They do not change the original string.'
+answer = '<i>string</i>.replace(<i>old_value</i>, <i>new_value</i>)'
+example = ''
+question = '<b>String method</b>&nbsp;that returns a new string where the first specified value is replaced with the second specified value.'
+version = ''
+with-options = """
+
+
+<i>string</i>.replace(<i>old_value</i>,&nbsp;<i>new_value</i>, <i>count</i>=-1)\
+"""

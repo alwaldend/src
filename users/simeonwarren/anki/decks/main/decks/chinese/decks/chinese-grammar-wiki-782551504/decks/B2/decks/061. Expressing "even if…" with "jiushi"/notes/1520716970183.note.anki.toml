@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "EvenIfStatements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "even if…" with "jiushi"'
+english = "Even if it's starting to get cooler, I'm still going to wear short shorts. It's the fad!"
+example-sentence = ''
+example-type = ''
+grammar-construct = '就是 + Hypothetical Statement + 也 + Action'
+hanzi = '就是降温了，我也要穿热裤，时尚嘛!'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGF1TQ2'

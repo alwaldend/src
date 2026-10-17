@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "enough" with "gou"'
+english = "We only have three people. I'm sure your car is big enough to sit in."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 够 + Verb (+ 了)'
+hanzi = '我们只有三个人，你的车肯定够坐。'
+notes = ''
+pinyin = 'Wǒmen zhǐ yǒu sān gè rén, nǐ de chē kěndìng gòu zuò.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG49BE6'

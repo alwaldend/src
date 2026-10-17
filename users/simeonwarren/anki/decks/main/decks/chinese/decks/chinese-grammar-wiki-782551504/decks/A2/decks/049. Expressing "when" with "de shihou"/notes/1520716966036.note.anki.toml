@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "when" with "de shihou"'
+english = 'When the boss works, he likes to drink coffee.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Time Word + 的 时候, ....'
+hanzi = '老板工作的时候喜欢喝咖啡。'
+notes = ''
+pinyin = 'Lǎobǎn gōngzuò de shíhou xǐhuan hē kāfēi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWN185'

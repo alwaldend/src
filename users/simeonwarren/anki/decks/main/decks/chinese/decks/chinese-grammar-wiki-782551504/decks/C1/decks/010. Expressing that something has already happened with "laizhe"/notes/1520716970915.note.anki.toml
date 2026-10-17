@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["AuxiliaryWords", "C1"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing that something has already happened with "laizhe"'
+english = 'I told you so! You have a diarrhea every time you eat hotpot!'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Sentence + 来着'
+hanzi = '我说什么来着！你一吃火锅就拉肚子！'
+notes = ''
+pinyin = 'Wǒ shuō shénme láizhe! Nǐ yī chī huǒguō jiù lā dùzi!'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPV5Z2'

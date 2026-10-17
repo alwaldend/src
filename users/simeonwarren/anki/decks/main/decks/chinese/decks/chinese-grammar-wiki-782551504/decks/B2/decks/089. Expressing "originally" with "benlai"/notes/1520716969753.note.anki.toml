@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "originally" with "benlai"'
+english = "This work needs to be done by today. But it's OK to leave it to tomorrow."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 本来 + 是 +（不）要 / 会 / 应该 + Verb + 的，但是 / 可是 ...'
+hanzi = '这些工作本来是要今天做完的，不过明天做也可以。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG6F157'

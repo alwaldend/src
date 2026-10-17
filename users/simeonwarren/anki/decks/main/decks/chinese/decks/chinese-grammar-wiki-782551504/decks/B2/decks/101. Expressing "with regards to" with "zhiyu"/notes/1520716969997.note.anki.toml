@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "with regards to" with "zhiyu"'
+english = "She told me she was coming back tomorrow. In regards to a specific time, I don't know."
+example-sentence = ''
+example-type = ''
+grammar-construct = '至于 + Topic， Comment'
+hanzi = '她跟我说明天回来，至于具体的时间，我就不知道了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGZRKTG'

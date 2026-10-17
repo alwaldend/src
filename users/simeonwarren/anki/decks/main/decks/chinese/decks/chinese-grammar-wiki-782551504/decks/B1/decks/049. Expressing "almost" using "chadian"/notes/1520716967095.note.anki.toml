@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "almost" using "chadian"'
+english = 'We almost missed the last metro.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 差点(儿) + (就) + [Verb Phrase] / Adj. + 了'
+hanzi = '我们差点儿错过了最后一班地铁。'
+notes = "We didn't miss it."
+pinyin = 'Wǒmen chàdiǎnr cuòguò le zuìhòu yī bān dìtiě.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG6ESWW'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "in addition" with "lingwai"'
+english = "If the students don't find the lesson difficult, the teacher can add more learning materials."
+example-sentence = ''
+example-type = ''
+grammar-construct = '另外 + [Verb Phrase]'
+hanzi = '如果学生觉得不难，老师可以另外加一些学习内容。'
+notes = ''
+pinyin = 'Rúguǒ xuéshēng juéde bù nán, lǎoshī kěyǐ lìngwài jiā yīxiē xuéxí nèiróng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG2KQZI'

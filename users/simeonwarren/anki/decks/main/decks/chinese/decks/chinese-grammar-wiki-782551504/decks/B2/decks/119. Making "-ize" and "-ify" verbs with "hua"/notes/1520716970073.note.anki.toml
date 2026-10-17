@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Making "-ize" and "-ify" verbs with "hua"'
+english = "These days our company's workflows and HR management have already started to be systematized."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun / Adj. + 化'
+hanzi = '现在我们公司的工作流程和人事管理已经初步制度化了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGS6UKN'

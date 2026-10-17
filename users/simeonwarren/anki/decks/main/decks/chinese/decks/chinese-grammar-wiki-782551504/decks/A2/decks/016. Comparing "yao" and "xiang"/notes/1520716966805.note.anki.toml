@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Auxiliaryverbs", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "yao" and "xiang"'
+english = 'I want to help the boss finish this work.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 要 + Verb'
+hanzi = '我要帮老板做完这些工作。'
+notes = ''
+pinyin = 'Wǒ yào  bāng lǎobǎn zuò wán zhèxiē gōngzuò.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGD88UO'

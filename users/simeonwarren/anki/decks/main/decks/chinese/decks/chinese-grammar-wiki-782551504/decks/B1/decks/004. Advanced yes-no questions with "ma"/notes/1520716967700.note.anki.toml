@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Advanced yes-no questions with "ma"'
+english = 'Do you understand what he is saying?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '[Question-word Question] + 吗 ？'
+hanzi = '你懂他什么意思吗？'
+notes = ''
+pinyin = 'Nǐ dǒng tā shénme yìsi ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGI9WXT'

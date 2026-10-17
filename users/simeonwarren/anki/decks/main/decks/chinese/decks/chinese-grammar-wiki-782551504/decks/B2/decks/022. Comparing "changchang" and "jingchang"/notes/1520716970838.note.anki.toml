@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "TimeWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "changchang" and "jingchang"'
+english = 'Her forgetting to bring a key is a frequent occurrence.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '经常 + Noun'
+hanzi = '她忘记带钥匙是经常的事情。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGE8FLP'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Direction complement'
+english = 'Please sit down.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + [Compound Direction Complement]'
+hanzi = '你坐下来吧。'
+notes = ''
+pinyin = 'Nǐ zuò xiàlái ba.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8LWBJ'

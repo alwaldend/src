@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adjectives", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Adjectival complement "de hen"'
+english = 'The traffic is really heavy in rush hours. I suggest you take the metro to work.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Adj.+ 得很'
+hanzi = '高峰期路上堵得很，我建议你上班坐地铁。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGG1ZBL'

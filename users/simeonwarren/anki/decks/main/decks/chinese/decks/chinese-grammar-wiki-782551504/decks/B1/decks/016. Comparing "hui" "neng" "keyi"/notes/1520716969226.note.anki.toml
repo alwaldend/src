@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["AuxiliaryWords", "B1", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "hui" "neng" "keyi"'
+english = "I studied for two months. I know how to dance now. (It's a learned skill)"
+example-sentence = ''
+example-type = ''
+grammar-construct = '很 + 会／能 + Verb'
+hanzi = '我学了两个月，现在我会跳舞了。'
+notes = ''
+pinyin = 'Wǒ xué le liǎng gè yuè, xiànzài wǒ huì tiàowǔ le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGZL717'

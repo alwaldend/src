@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "more and more" with "yuelaiyue"'
+english = 'I believe him less and less.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 越来越 + Verb + 了'
+hanzi = '我越来越不相信他了。'
+notes = ''
+pinyin = 'Wǒ yuèláiyuè bù xiāngxìn tā le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG7UE4H'

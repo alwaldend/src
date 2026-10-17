@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Result complement "-wan" for finishing'
+english = 'When can you finish reading this book?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 完 (+ 了) + Obj.'
+hanzi = '你什么时候可以看完这本书？'
+notes = ''
+pinyin = 'Nǐ shénme shíhou kěyǐ kàn wán zhè běn shū?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNQUC1'

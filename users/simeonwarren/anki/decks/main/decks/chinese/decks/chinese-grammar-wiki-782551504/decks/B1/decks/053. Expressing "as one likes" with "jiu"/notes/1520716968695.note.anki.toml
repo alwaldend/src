@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "as one likes" with "jiu"'
+english = 'If you want to do it, do it. Why would you consider so much?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '想 + Verb + 就 + Verb'
+hanzi = '想做就做，考虑那么多干吗？'
+notes = ''
+pinyin = 'Xiǎng zuò jiù zuò, kǎolǜ nàme duō gànmá?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDUZ55'

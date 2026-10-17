@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "some" with question words'
+english = "Boss, aren't you going to say something?"
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '老大，你不说点儿什么？'
+notes = ''
+pinyin = 'Lǎodà, nǐ bù shuō diǎnr shénme?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG7ED89'

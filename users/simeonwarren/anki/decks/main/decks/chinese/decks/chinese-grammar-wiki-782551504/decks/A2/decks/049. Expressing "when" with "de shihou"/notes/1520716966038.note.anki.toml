@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "when" with "de shihou"'
+english = 'When mom is not home, I cook for myself.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Time Word + 的 时候, ....'
+hanzi = '妈妈不在家的时候，我自己做饭。'
+notes = ''
+pinyin = 'Māma bù zài jiā de shíhou, wǒ zìjǐ zuòfàn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWN185'

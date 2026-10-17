@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "SeparateFunctions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "shihe" and "heshi"'
+english = ''
+example-sentence = ''
+example-type = 'invalid'
+grammar-construct = 'Subj. + Adv. + 合适'
+hanzi = '这个鞋码很适合。'
+notes = "This would be treating 适合 like an adjective, when it's a verb)"
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGVDOXL'

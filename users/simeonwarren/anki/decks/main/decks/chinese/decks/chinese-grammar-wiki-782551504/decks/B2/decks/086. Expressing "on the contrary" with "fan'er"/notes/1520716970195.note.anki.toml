@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "ButStatements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = "Expressing \"on the contrary\" with \"fan'er\""
+english = "Your involvement wasn't really helpful; on the contrary, it gave us trouble."
+example-sentence = ''
+example-type = ''
+grammar-construct = '⋯⋯ ，Subj. + 反而 + [Unexpected Outcome]'
+hanzi = '你的参与反而给我们带来了麻烦。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGX5QTV'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Numbers", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Structure of dates'
+english = 'Is your birthday November 11th?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'x 年 + y 月 + z 号'
+hanzi = '你的生日是11月11号吗？'
+notes = ''
+pinyin = 'Nǐ de shēngrì shì Shíyīyuè shíyī hào ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGT3KF6'

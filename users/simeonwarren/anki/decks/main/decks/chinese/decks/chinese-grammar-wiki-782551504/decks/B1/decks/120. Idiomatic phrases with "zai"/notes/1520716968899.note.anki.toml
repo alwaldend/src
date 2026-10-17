@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Idiomatic phrases with "zai"'
+english = 'In regards to this problem, our perspective is not the same.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '在 + Abstract Concepts + 上，  Comment Sentence'
+hanzi = '在这个问题上，我们的看法不一样。'
+notes = ''
+pinyin = '<div>Zài zhège wèntí shàng, wǒmen de kànfǎ bù yīyàng.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGH13JY'

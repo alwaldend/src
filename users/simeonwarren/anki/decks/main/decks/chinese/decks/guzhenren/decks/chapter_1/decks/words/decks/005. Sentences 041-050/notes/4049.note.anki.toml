@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'mountain range;	unbroken chain of peaks.'
+example-sentence = ' 正是坐落在青茅山的古月山寨,给广袤幽静的山峦增添了一份浓郁的人烟气息'
+example-type = ''
+grammar-construct = ''
+hanzi = '山峦'
+notes = ''
+pinyin = '<span class="tone1">shān</span><span class="tone2">luán</span>	 <!-- shan luan -->'
+source = ''

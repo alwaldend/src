@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'tone;	manner of speaking;	mood.<br>Cl: 个'
+example-sentence = ' 族长语气严肃地关照道'
+example-type = ''
+grammar-construct = ''
+hanzi = '语气'
+notes = ''
+pinyin = '<span class="tone3">yǔ</span><span class="tone4">qì</span>	 <!-- yu qi -->'
+source = ''

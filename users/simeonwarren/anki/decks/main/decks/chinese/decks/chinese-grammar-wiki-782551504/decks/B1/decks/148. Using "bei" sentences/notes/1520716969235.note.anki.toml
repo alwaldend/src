@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "bei" sentences'
+english = "The bad things they've done got caught."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 被 (+ Doer) + Verb + 了'
+hanzi = '他们做的坏事被发现了。'
+notes = ''
+pinyin = 'Tāmen zuò de huàishì bèi fāxiàn le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGHF9F1'

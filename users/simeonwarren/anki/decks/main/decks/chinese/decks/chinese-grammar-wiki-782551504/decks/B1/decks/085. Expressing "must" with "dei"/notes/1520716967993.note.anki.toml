@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "must" with "dei"'
+english = 'He is your younger brother. You must help him.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 得 + [Verb Phrase]'
+hanzi = '他是你弟弟，你得帮他。'
+notes = ''
+pinyin = 'Tā shì nǐ dìdi, nǐ de bāng tā.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPXLP9'

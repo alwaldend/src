@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "would rather" with "ningke"'
+english = "We'd rather spend some more money to solve this problem."
+example-sentence = ''
+example-type = ''
+grammar-construct = '宁可 ……，也要 ……'
+hanzi = '我们宁可多花点钱，也要解决这个问题。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGF3F2Y'

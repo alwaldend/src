@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "when" with "de shihou"'
+english = 'When I was in college, I had a lot of friends.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Time Word + 的 时候, ....'
+hanzi = '我上大学的时候，有很多朋友。'
+notes = ''
+pinyin = 'Wǒ shàng dàxué de shíhou, yǒu hěn duō péngyou.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWN185'

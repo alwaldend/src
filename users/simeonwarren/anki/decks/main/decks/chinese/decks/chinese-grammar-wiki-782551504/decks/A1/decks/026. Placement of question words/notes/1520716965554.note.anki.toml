@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Placement of question words'
+english = "Who are you?<br>I'm his girlfriend."
+example-sentence = ''
+example-type = ''
+grammar-construct = '谁 + Verb ?'
+hanzi = 'A: 你是谁？<br>B: 我是他女朋友。'
+notes = ''
+pinyin = 'Nǐ shì shéi?<br>Wǒ shì tā nǚpéngyou.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJQPSC'

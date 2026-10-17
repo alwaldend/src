@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Auxiliaryverbs", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "yao" and "xiang"'
+english = 'Does everyone want to go out to eat tonight?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 要 + Verb'
+hanzi = '大家晚上要不要出去吃？'
+notes = ''
+pinyin = 'Dàjiā wǎnshang yào bu yào chūqù chī?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGD88UO'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "how about" with "yaobu"'
+english = 'Hurry and go home, or your parents will start to worry.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '要不 + Option B + 吧 ，Reason / Situation'
+hanzi = '快点回家吧，要不你爸妈会担心的。'
+notes = ''
+pinyin = 'Kuài diǎn huíjiā ba, yào bù nǐ bàmā huì dānxīn de.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDFQP7'

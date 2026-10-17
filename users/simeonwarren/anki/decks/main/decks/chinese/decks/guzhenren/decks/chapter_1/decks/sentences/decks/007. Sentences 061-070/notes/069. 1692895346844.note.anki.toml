@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'Especially Bai Ningbing from the Bai family, whose talent is truly terrifying.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '尤其是白家的白凝冰,天资真是恐怖。'
+notes = ''
+pinyin = ''
+source = ''

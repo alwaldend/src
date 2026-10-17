@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Auxiliaryverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "should" with "yinggai"'
+english = 'You should come to the office tomorrow at 8:30.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 应该 + Verb + Obj.'
+hanzi = '明天你应该八点半来公司。'
+notes = ''
+pinyin = 'Míngtiān nǐ yīnggāi bādiǎn bàn lái gōngsī.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGV01X9'

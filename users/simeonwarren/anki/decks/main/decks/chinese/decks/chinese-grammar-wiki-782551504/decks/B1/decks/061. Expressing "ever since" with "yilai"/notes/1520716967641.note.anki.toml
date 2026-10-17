@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "ever since" with "yilai"'
+english = "She hasn't missed home at all since he went abroad a few month ago."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Time Interval + 来 ，⋯⋯'
+hanzi = '出国几个月来，她一点也不想家。'
+notes = ''
+pinyin = 'Chūguó jǐ gè yuè lái, tā yīdiǎn yě bù xiǎng jiā.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNEMXP'

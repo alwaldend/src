@@ -1,0 +1,13 @@
+note_type = "note_types/python-basic-and-reversed.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+additional-info = '<div>Length refers to the length of the whole string not the space on either side.</div><strong>Note:</strong>&nbsp;All string methods returns new values. They do not change the original string.'
+answer = '<i>string</i>.center(<i>length</i>)'
+example = ''
+question = '<b>String method</b> that returns a centered string.'
+version = ''
+with-options = '<i>string</i>.center(<i>length, character=" "</i>)'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Reduplication of verbs'
+english = "Don't be mad, gimme a smile!"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 一 + Verb'
+hanzi = '别生气了，笑一笑！'
+notes = ''
+pinyin = 'Bié shēngqì le, xiào yī xiào!'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGYC77J'

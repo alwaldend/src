@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "bu" and "mei"'
+english = 'My home is not far.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '不 + Adj.'
+hanzi = '我家不远。'
+notes = ''
+pinyin = 'Wǒ jiā bù yuǎn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGRJ1BI'

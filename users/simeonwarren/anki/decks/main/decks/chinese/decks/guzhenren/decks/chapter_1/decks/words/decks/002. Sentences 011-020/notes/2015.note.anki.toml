@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = "facing death;\tat death's door."
+example-sentence = ' 他们没有动手,都忌惮着方源的临死反扑'
+example-type = ''
+grammar-construct = ''
+hanzi = '临死'
+notes = ''
+pinyin = '<span class="tone2">lín</span><span class="tone3">sǐ</span>	 <!-- lin si -->'
+source = ''

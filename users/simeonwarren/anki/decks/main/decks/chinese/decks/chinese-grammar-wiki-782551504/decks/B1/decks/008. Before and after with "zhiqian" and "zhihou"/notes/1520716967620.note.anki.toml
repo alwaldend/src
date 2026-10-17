@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Before and after with "zhiqian" and "zhihou"'
+english = 'The boss just came back to work. He was on vocation before.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '⋯⋯ ，之前 / 之后 ⋯⋯'
+hanzi = '老板刚刚回来工作，之前在休假。'
+notes = ''
+pinyin = 'Lǎobǎn gānggāng huílái gōngzuò, zhīqián zài xiūjià.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTD3L3'

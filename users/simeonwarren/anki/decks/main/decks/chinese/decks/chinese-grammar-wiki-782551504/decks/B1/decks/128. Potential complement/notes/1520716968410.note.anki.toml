@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Potential complement'
+english = "She's so young. Can she really understand this book?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 不 + Complement'
+hanzi = '她这么小，看得懂这本书吗？'
+notes = ''
+pinyin = 'Tā zhème xiǎo, kàn de dǒng zhè běn shū ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCPJPQ'

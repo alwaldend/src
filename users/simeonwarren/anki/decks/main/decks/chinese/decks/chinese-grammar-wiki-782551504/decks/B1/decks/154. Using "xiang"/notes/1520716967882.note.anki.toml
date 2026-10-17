@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "xiang"'
+english = 'You should learn from good students.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '向 + Person + Verb'
+hanzi = '你要向好学生学习。'
+notes = ''
+pinyin = 'Nǐ yào xiàng hǎo xuéshēng xuéxí.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQXARS'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "leech", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Sentence-final interjection "a"'
+english = 'What are you looking at? Have you never seen a pretty girl before?'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '看什么啊？没见过漂亮姑娘啊？'
+notes = ''
+pinyin = 'Kàn shénme a?  Méi jiàn guo piàoliang gūniang a?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGW66JM'

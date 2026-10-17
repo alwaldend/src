@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "EvenIfStatements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "even if…" with "napa"'
+english = "I wouldn't marry him even if his father is the president!"
+example-sentence = ''
+example-type = ''
+grammar-construct = '哪怕 + [Hypothetical Statement] + 也 + [Action]'
+hanzi = '哪怕他爸爸是总统，我也不要嫁给他！'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGXX3NY'

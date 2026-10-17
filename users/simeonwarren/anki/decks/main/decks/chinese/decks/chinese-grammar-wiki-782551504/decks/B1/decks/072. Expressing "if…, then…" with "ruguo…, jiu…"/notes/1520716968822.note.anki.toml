@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "if…, then…" with "ruguo…, jiu…"'
+english = 'If none of you are interested, I will stop talking.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '如果 ⋯⋯ ，那么 / 那 ⋯⋯'
+hanzi = '如果大家都不感兴趣，那我不说了。'
+notes = ''
+pinyin = 'Rúguǒ dàjiā dōu bù gǎn xìngqù, nà wǒ bù shuō le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGGIVT0'

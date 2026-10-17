@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "gang" and "gangcai"'
+english = 'What just happened is really upsetting.'
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = ''
+hanzi = '刚才的事情太让人生气了。'
+notes = ''
+pinyin = 'Gāngcái de shìqing tài ràng rén shēngqì le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJFFWG'

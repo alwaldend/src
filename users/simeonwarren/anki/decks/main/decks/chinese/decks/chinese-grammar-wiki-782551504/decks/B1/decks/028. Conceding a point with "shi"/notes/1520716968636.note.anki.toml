@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Conceding a point with "shi"'
+english = "This piece of clothing looks good, but it doesn't look good on me."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Adj. + 是 + Adj. ， 但是 / 就是 ⋯⋯'
+hanzi = '这件衣服好看是好看，但是不适合我。'
+notes = ''
+pinyin = 'Zhè jiàn yīfu  hǎokàn shì hǎokàn, dànshì bù shìhé wǒ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGT9Y8P'

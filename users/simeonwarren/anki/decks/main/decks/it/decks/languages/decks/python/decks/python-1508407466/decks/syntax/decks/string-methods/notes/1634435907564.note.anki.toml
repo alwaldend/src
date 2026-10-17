@@ -1,0 +1,16 @@
+note_type = "note_types/python-basic.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+'Additional Info' = ''
+'Back - Basic' = """
+The casefold() method returns a string where all the characters are in lower case. It is similar to the lower() method, but the casefold() method converts more characters into lower case.
+<br>For example, the German lowercase letter 'ß' is equivalent to 'ss'. Since it is already lowercase, the lower() method would not convert it; whereas the casefold() converts it to 'ss'.\
+"""
+'Back - Code' = ''
+Example = ''
+Front = 'What is the difference between the string methods .lower() and .casefold()?'
+Version = ''

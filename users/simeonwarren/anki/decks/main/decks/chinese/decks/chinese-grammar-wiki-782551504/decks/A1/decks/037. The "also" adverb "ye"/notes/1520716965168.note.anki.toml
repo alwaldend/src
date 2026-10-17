@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'The "also" adverb "ye"'
+english = "He doesn't have it either."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 也 + Verb / [Verb Phrase]'
+hanzi = '他也没有。'
+notes = ''
+pinyin = 'Tā yě méiyǒu.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGG25MD'

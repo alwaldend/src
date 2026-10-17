@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'stronghold;	stockade;	camp;	(stockaded) village.variant of 寨.'
+example-sentence = '不错,白家寨、熊家寨这些年都有天才涌现'
+example-type = ''
+grammar-construct = ''
+hanzi = '寨'
+notes = ''
+pinyin = '<span class="tone5">zhàizhài</span>	 <!-- zhai zhai -->'
+source = ''

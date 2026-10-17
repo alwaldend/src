@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["AuxiliaryWords", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Ending a non-exhaustive list with "shenme de"'
+english = "The Great Wall, Summer Palace, and so on. They're all very famous tourist attractions in Beijing."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun 1, Noun 2 (+ Noun 3) + 什么的'
+hanzi = '长城、故宫什么的，都是北京很有名的景点。'
+notes = ''
+pinyin = 'Chángchéng, Gùgōng shénme de, dōu shì Běijīng hěn yǒumíng de jǐngdiǎn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDIDAC'

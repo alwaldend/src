@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "all along" with "yizhi"'
+english = 'My boyfriend has always been teaching English in China.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 一直 + Predicate'
+hanzi = '我男朋友一直在中国教英文。'
+notes = ''
+pinyin = 'Wǒ nánpéngyou yīzhí zài Zhōngguó jiāo Yīngwén.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGP000J'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'A softer "but" with "buguo"'
+english = "This student is very smart, but he's a little lazy."
+example-sentence = ''
+example-type = ''
+grammar-construct = '⋯⋯ ，不过 ⋯⋯'
+hanzi = '这个学生很聪明，不过有点懒。'
+notes = ''
+pinyin = 'Zhège xuéshēng hěn cōngming, bùguò yǒudiǎn lǎn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGA0S4T'

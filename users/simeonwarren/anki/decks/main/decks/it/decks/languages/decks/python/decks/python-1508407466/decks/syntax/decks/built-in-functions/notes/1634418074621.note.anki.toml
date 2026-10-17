@@ -1,0 +1,13 @@
+note_type = "note_types/python-basic-and-reversed.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+additional-info = "Doesn't modify the original iterable item."
+answer = '<b>Built in function:&nbsp;</b>set(<i>iterable</i>)'
+example = ''
+question = '<b>Built in function</b>&nbsp;that returns a new set object from an iterable.'
+version = ''
+with-options = ''

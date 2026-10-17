@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Causative verbs'
+english = 'In preparation for the ball, she invited a makeup artist to help her put on makeup.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Causative Verb + Noun / Pronoun + Verb-Obj.'
+hanzi = '为了去舞会，她请了一位化妆师来帮她化妆。'
+notes = ''
+pinyin = 'Wèi le qù wǔhuì, tā qǐng le yī wèi huàzhuāng shī lái bāng tā huàzhuāng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5T7XC'

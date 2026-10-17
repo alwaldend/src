@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'to originate in.'
+example-sentence = ' 这些光来源于一座座高脚吊楼,虽称不上万家灯火,却也有数千的规模'
+example-type = ''
+grammar-construct = ''
+hanzi = '来源于'
+notes = ''
+pinyin = '<span class="tone2">lái</span><span class="tone2">yuán</span><span class="tone2">yú</span>	 <!-- lai yuan yu -->'
+source = ''

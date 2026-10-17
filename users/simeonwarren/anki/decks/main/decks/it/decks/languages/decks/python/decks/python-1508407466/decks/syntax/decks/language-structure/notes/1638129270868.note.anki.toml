@@ -1,0 +1,13 @@
+note_type = "note_types/python-basic.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+'Additional Info' = ''
+'Back - Basic' = '<ol><li>Union: |</li><li>Intersection: &amp;</li><li>Difference: -</li><li>Symmetric Difference: ^</li><li>Is Subset: &lt;=</li><li>Is Superset: &gt;=</li></ol><div><b>Note</b>: you can use - but <i>not</i>&nbsp;+ on sets.</div>'
+'Back - Code' = ''
+Example = ''
+Front = 'Which bitwise and mathematical operators can be used on a set?'
+Version = ''

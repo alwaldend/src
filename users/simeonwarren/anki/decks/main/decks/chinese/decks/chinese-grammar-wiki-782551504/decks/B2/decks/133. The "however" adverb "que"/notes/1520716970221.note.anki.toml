@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "ButStatements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'The "however" adverb "que"'
+english = "He's very well-educated, but his ability is average."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Sentence ，(但是 +) Subj. + 却 ⋯⋯'
+hanzi = '他的学历很高，能力却很一般。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGEG2QB'

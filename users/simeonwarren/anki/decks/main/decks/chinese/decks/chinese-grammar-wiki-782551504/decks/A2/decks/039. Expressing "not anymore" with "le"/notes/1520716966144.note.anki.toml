@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "not anymore" with "le"'
+english = "He doesn't have his home anymore."
+example-sentence = ''
+example-type = ''
+grammar-construct = '没(有) + [Noun Phrase] + 了'
+hanzi = '他没有家了。'
+notes = ''
+pinyin = 'Tā méiyǒu jiā le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGFR96B'

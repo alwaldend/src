@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "again" in the future with "zai"'
+english = 'Would you like to try it again?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 再 + [Verb Phrase]'
+hanzi = '要不要再试一下？'
+notes = ''
+pinyin = 'Yào bù yàozài shì yīxià?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGIZQJ2'

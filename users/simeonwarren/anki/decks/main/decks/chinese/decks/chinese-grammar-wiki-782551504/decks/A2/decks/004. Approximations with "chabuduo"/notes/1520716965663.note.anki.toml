@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Approximations with "chabuduo"'
+english = 'Your new cell phone is pretty much like my old cell phone.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A + 跟 / 和 +  B + 差不多'
+hanzi = '你的新手机跟我的旧手机差不多。'
+notes = ''
+pinyin = 'Nǐ de xīn shǒujī gēn wǒ de jiù shǒujī chàbuduō.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG1NAXO'

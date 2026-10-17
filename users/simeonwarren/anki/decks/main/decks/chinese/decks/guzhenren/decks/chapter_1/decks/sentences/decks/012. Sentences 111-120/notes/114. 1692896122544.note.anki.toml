@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = "Tomorrow is the enlightenment ceremony, which is related to everyone's vital interests."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '明天就是开窍大典,关乎着每个人的切身利益。'
+notes = ''
+pinyin = '<div>Míngtiān jiùshì kāiqiào dàdiǎn, guānhūzhe měi gèrén de qièshēn lìyì.</div>'
+source = ''

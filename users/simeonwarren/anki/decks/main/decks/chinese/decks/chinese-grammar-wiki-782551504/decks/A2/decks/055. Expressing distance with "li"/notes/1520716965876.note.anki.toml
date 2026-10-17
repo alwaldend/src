@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "AdverbswithAdjectives", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing distance with "li"'
+english = "I don't want to go work at a place very far away from home."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Place 1 + 离 + Place 2 + Adv. + 近 / 远'
+hanzi = '我不想去离家很远的地方工作。'
+notes = ''
+pinyin = 'Wǒ bù xiǎng qù lí jiā hěn yuǎn de dìfang gōngzuò.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGI96BQ'

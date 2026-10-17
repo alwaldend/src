@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "along with…" with "suizhe"'
+english = 'These garbage flow into the sea along with the river.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 随着 + Noun + Verb Phrase'
+hanzi = '这些垃圾随着河水流到了大海。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGHVFRA'

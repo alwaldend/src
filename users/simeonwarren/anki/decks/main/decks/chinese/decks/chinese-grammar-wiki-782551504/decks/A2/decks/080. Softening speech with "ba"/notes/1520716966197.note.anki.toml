@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Softening speech with "ba"'
+english = "It's too little money."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Statement + 吧'
+hanzi = '钱太少了吧。'
+notes = ''
+pinyin = 'Qián tài shǎo le ba.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDHC1H'

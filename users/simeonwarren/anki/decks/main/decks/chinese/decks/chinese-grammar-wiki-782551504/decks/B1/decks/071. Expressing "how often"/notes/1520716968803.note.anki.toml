@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "how often"'
+english = 'Do you often buy a new cell phone?'
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = 'Subj. + [Length of Time]  + Verb + Times (+ Obj.)'
+hanzi = '你经常换手机吗？'
+notes = ''
+pinyin = 'Nǐ jīngcháng huàn shǒujī ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCED31'

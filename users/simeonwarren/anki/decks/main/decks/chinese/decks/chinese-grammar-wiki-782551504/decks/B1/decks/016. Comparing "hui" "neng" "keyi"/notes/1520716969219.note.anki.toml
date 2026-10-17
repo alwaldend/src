@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["AuxiliaryWords", "B1", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "hui" "neng" "keyi"'
+english = "He's a smooth talker."
+example-sentence = ''
+example-type = ''
+grammar-construct = '很 + 会／能 + Verb'
+hanzi = '他很会说话。'
+notes = 'The subject has good speaking skills.'
+pinyin = 'Tā hěn huì shuōhuà.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGZL717'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'The "if" sandwich pattern'
+english = "If you don't come, the teacher will be disappointed."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '如果你不来的话，老师会很失望。'
+notes = ''
+pinyin = '<div>Rúguǒ nǐ bù lái dehuà, lǎoshī huì hěn shīwàng.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGN4VUU'

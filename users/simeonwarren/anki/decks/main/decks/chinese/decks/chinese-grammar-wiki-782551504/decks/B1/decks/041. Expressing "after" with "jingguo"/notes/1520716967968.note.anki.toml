@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "leech", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "after" with "jingguo"'
+english = "After a month of training, he has become more familiar with the company's business"
+example-sentence = ''
+example-type = ''
+grammar-construct = '经过 + Event / Time，Subj. + Predicate'
+hanzi = '经过一个月的培训，他对公司的业务已经比较熟悉了。'
+notes = ''
+pinyin = 'Jīngguò yīgè yuè de péixùn, tā duì gōngsī de yèwù yǐjīng bǐjiào shúxīle'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG11DA8'

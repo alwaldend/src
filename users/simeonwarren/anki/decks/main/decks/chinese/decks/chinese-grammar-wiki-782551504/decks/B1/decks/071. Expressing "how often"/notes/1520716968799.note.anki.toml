@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "how often"'
+english = 'You should take the physical examination every half a year.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + [Length of Time]  + Verb + Times (+ Obj.)'
+hanzi = '你应该半年做一次体检。'
+notes = ''
+pinyin = 'Nǐ yīnggāi bàn nián zuò yī cì tǐjiǎn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCED31'

@@ -1,0 +1,13 @@
+note_type = "note_types/python-basic-and-reversed.notetype.anki.toml"
+tags = ["leech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<i>set</i>.intersection_update(*<i>sets</i>)'
+example = ''
+question = '<b>Set method</b>&nbsp;that removes the items in the called on set that are not present in any of the other, argument set(s).'
+version = ''
+with-options = ''

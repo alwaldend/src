@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using the verb "xing"'
+english = "My last name is Zhao. My wife's last name is also Zhao."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 姓 + [Surname]'
+hanzi = '我姓赵，我太太也姓赵。'
+notes = ''
+pinyin = 'Wǒ xìng Zhào, wǒ tàitai yě xìng Zhào.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPS9NY'

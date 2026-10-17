@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Sentence-final interjection "a"'
+english = 'Are you going or what?'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '你走不走啊？'
+notes = ''
+pinyin = 'Nǐ zǒu bu zǒu a?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGW66JM'

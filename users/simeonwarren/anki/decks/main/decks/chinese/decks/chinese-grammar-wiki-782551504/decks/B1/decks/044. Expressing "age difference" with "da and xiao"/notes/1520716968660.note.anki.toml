@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "age difference" with "da and xiao"'
+english = 'Who is elder between you two?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A + 比 + B + 大 / 小 + Number + 岁'
+hanzi = '你俩谁大？'
+notes = ''
+pinyin = 'Nǐ liǎ shéi dà ?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGE8810'

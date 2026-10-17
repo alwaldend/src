@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing passive voice with "gei"'
+english = "You've eaten all the food?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Receiver + 给 + The Doer + Verb Phrase'
+hanzi = '菜都给你们吃完了吗？'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGEZ2HN'

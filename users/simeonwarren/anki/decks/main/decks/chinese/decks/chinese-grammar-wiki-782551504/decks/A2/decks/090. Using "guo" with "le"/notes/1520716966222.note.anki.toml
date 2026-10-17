@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "guo" with "le"'
+english = 'She has eaten (already).'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 过 + 了'
+hanzi = '她吃过了。'
+notes = ''
+pinyin = 'Tā chī guo le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGP69JD'

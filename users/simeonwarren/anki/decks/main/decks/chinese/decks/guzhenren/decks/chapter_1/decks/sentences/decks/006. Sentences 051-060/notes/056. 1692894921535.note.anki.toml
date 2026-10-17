@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'After praying for a while, Patriarch Gu Yue bent down first, spread his hands flat, palms pressed against the floor, and kowtowed.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '祈祷了一番后,古月族长率先弯腰,双手平摊,掌心紧紧贴着地板,磕头。'
+notes = ''
+pinyin = ''
+source = ''

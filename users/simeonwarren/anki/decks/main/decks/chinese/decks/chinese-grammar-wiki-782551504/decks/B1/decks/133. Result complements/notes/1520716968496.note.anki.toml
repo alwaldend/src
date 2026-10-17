@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Result complements'
+english = "My father hasn't learnt how to use a smart phone yet."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + [One-syllable Verb] +了 (+ Obj.)'
+hanzi = '我爸爸还没学会用智能手机。'
+notes = ''
+pinyin = 'Wǒ bàba hái méi xuéhuì yòng zhìnéng shǒujī.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNNMST'

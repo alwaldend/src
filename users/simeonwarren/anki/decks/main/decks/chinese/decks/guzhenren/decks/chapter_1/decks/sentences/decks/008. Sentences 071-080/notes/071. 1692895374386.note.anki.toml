@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = "This son's aptitude is extremely outstanding, in just two years of effort, he has already cultivated to rank three Gu Master."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '此子的资质极端出色,短短两年功夫,就已经修行到三转蛊师。'
+notes = ''
+pinyin = ''
+source = ''

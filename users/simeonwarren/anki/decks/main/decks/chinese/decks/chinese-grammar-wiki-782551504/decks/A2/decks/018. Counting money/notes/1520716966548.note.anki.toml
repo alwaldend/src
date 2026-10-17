@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Grammatical_Structures", "NumbersandMeasureWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Counting money'
+english = 'How much for this cup of coffee?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 多少钱 ?'
+hanzi = '这杯咖啡多少钱？'
+notes = ''
+pinyin = 'Zhè bēi kāfēi duōshao qián?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGL6JOE'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'His gaze was gloomy, like an ancient well and deep pool, as always bottomless.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '他目光幽幽,如古井深潭一般,一如既往的深不见底。'
+notes = ''
+pinyin = ''
+source = ''

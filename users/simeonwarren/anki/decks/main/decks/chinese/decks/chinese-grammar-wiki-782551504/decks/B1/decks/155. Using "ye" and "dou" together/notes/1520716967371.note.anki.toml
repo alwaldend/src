@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "ye" and "dou" together'
+english = "We all haven't eaten. Let's go together."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 也都 + 不 / 没 + Verb &lt;br /&gt;Subj. + 也都 + 不 + Adj.'
+hanzi = '我们也都没吃饭，一起去吧。'
+notes = ''
+pinyin = 'Wǒmen yě dōu méi chīfàn, yīqǐ qù ba.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8GSXY'

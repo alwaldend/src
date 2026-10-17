@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'but;	yet;	however;	only;	merely;	still.'
+example-sentence = ' 族长这话说的含蓄,但大家都深晓其意'
+example-type = ''
+grammar-construct = ''
+hanzi = '但'
+notes = ''
+pinyin = '<span class="tone4">dàn</span>	 <!-- dan -->'
+source = ''

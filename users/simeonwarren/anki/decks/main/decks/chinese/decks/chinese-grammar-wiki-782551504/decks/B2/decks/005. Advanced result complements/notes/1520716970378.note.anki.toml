@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Advanced result complements'
+english = 'These math problems are a little bit difficult. It took me an hour to work them out.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '这些数学题有点难，我花了一个小时才做出来。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG4OM4T'

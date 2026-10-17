@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "Conjunctions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "weile" and "yinwei"'
+english = ''
+example-sentence = ''
+example-type = 'invalid'
+grammar-construct = '因为 + Reason，所以 + result'
+hanzi = '为了今天要下雨，我带了一把雨伞。'
+notes = ''
+pinyin = '<div>Wèile jīntiān yào xià yǔ, wǒ dàile yī bǎ yǔsǎn.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMEC1P'

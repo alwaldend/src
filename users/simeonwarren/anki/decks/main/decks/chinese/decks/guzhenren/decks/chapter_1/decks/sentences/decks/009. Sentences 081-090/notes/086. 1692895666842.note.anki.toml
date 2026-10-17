@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'As the head of the clan, he would naturally pay attention to those outstanding and outstanding children.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '作为一族之长,对于那些优秀而突出的子弟自然会关注。'
+notes = ''
+pinyin = ''
+source = ''

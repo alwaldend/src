@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "to be worth" doing with "zhide"'
+english = 'Studying Chinese is really worth it.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '([Verb Phrase]) + 值得'
+hanzi = '学汉语是值得的。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGGJA6A'

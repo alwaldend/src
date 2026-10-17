@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "with" with "gen"'
+english = 'When are you going to meet with her?'
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = 'Subj. + 跟 + Person + 一起 + Verb + Obj.'
+hanzi = '你什么时候跟她见面？'
+notes = ''
+pinyin = 'Nǐ shénme shíhou gēn tā jiànmiàn?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGSZ0HP'

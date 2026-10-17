@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'even;	so much so that.'
+example-sentence = '甚至就连老一辈们都感觉到了这位后起之秀的压力'
+example-type = ''
+grammar-construct = ''
+hanzi = '甚至'
+notes = ''
+pinyin = '<span class="tone4">shèn</span><span class="tone4">zhì</span>	 <!-- shen zhi -->'
+source = ''

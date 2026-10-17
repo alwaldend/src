@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing actions in progress (full form)'
+english = "I'm eating now."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + Obj. + 呢'
+hanzi = '我吃饭呢。'
+notes = ''
+pinyin = 'Wǒ chīfàn ne.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGEYQ9O'

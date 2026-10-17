@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Questions with "le ma"'
+english = 'Did the boss leave?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + Obj. + 了吗?'
+hanzi = '老板走了吗？'
+notes = ''
+pinyin = 'Lǎobǎn zǒu le ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGYKDNF'

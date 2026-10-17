@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Basic", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Phrases using "laishuo"'
+english = "I'm satisfied with everybody in general."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '总的来说，我对大家很满意。'
+notes = ''
+pinyin = 'Zǒng de lái shuō, wǒ duì dàjiā hěn mǎnyì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGD60A6'

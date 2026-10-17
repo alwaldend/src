@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Questions with "ne"'
+english = "Where's my cell phone?"
+example-sentence = ''
+example-type = ''
+grammar-construct = '[Missing Person / Thing] + 呢 ？'
+hanzi = '我的手机呢？'
+notes = ''
+pinyin = 'Wǒ de shǒujī ne?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMJHZO'

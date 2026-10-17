@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "with" with "gen"'
+english = 'Please read together with the teacher.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 跟 + Person + 一起 + Verb + Obj.'
+hanzi = '请你们跟老师一起读。'
+notes = ''
+pinyin = 'Qǐng nǐmen  gēn lǎoshī yīqǐ dú.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGSZ0HP'

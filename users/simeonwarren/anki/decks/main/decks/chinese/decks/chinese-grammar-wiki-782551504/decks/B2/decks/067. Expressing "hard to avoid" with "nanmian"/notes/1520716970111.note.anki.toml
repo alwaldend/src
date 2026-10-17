@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "hard to avoid" with "nanmian"'
+english = 'When you first start speaking a foreign language, there are inevitably going to be some misunderstandings.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '(Subj.) + 难免 + Verb'
+hanzi = '刚开始说外语时难免会有一些误会。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGYDKT3'

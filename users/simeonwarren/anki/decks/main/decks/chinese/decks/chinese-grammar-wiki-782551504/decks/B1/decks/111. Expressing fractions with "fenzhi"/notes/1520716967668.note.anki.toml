@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Numbers", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing fractions with "fenzhi"'
+english = 'There is still one eighth of the cake left.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Denominator + 分之 + Numerator'
+hanzi = '蛋糕还有八分之一。'
+notes = ''
+pinyin = 'Dàngāo háiyǒu bā fēn zhī yī.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG84RE9'

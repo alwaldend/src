@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "anyway" as "fanzheng"'
+english = "They are not coming anyway, so let's just go by ourselves."
+example-sentence = ''
+example-type = ''
+grammar-construct = '反正＋condition，decision or resolution'
+hanzi = '反正他们不来了，咱们自己去吧。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGZVM27'

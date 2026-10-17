@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'An additional step with "jin yi bu"'
+english = 'If you are going to work in China, you had better study Chinese a little bit more.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 进一步 + Verb'
+hanzi = '如果你要在中国工作你最好进一步学汉语。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGET76G'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Negation of "you" with "mei"'
+english = "I don't have a car."
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = '没 + 有 (+ Obj.)'
+hanzi = '我没有车。'
+notes = 'Always use 没 with 有.'
+pinyin = 'Wǒ méiyǒu chē.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPNV3Q'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "Nouns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "renjia" and "bieren"'
+english = 'How possibly can I know what other people think?'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '别人怎么想我怎么知道？'
+notes = ''
+pinyin = 'Biérén zěnme xiǎng wǒ zěnme zhīdào?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPINA4'

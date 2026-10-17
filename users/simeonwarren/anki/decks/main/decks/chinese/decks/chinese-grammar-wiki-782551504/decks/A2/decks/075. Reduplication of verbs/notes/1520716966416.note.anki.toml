@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Reduplication of verbs'
+english = "I'll give it a try."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + Verb'
+hanzi = '我试试。'
+notes = ''
+pinyin = 'Wǒ shìshi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGYC77J'

@@ -1,0 +1,13 @@
+note_type = "note_types/python-basic.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+'Additional Info' = ''
+'Back - Basic' = '__init__'
+'Back - Code' = ''
+Example = 'class Example:<br>&nbsp; &nbsp; def __init__(self):<br>&nbsp; &nbsp; &nbsp; &nbsp; pass'
+Front = 'What is the name of the constructor method for a class?'
+Version = ''

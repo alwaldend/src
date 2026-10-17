@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Direction complement'
+english = "The delivery man hasn't delivered my things yet."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 把 + Obj. + Verb + [Direction Complement]'
+hanzi = '快递还没把我的东西送来。'
+notes = ''
+pinyin = 'Kuàidì háiméi bǎ wǒ de dōngxi sòng lái.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8LWBJ'

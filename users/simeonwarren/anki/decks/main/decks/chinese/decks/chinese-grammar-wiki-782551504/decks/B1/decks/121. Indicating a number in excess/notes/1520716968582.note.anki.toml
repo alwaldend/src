@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "NounPhrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Indicating a number in excess'
+english = 'I received more than thirty spam messages yesterday.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Number + 多 + [Measure word] (+ Noun)'
+hanzi = '我昨天收到了三十多条垃圾短信。'
+notes = ''
+pinyin = 'Wǒ zuótiān shōudào le sānshí duō tiáo lājī duǎnxìn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG004ZK'

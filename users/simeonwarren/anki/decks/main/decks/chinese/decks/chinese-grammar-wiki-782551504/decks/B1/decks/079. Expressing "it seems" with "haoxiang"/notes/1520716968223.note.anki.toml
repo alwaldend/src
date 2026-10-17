@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "it seems" with "haoxiang"'
+english = "He's sitting there all by himself. It seems like that he's thinking about something."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 好像 ⋯⋯'
+hanzi = '他一个人坐在那儿，好像在想事情。'
+notes = ''
+pinyin = 'Tā yī gèrén zuò zài nàr, hǎoxiàng zài xiǎng shìqing.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG3ROPY'

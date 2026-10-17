@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Opportune timing with "chen"'
+english = "You guys should go have more fun while you're still young."
+example-sentence = ''
+example-type = ''
+grammar-construct = '趁 + [Situation / Opportunity]'
+hanzi = '趁年轻，多去玩玩吧。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGI9PNV'

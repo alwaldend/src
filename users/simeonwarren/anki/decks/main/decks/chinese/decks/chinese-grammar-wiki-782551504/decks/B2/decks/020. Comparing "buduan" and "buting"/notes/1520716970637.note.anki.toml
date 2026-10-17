@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "buduan" and "buting"'
+english = "In the evening, the wife doesn't stop chatting. Can you stand it?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 个 + 不停'
+hanzi = '一天到晚老婆唠叨个不停，你受得了吗？'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGIKHUH'

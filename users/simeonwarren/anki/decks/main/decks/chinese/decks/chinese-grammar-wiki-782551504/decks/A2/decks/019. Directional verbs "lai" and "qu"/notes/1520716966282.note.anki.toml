@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Directional verbs "lai" and "qu"'
+english = 'Would you like to go to Starbucks or Costa?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '来 / 去 + Place'
+hanzi = '你们想去Starbucks还是Costa？'
+notes = ''
+pinyin = 'Nǐmen xiǎng qù Starbucks háishì Costa?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGRBKSL'

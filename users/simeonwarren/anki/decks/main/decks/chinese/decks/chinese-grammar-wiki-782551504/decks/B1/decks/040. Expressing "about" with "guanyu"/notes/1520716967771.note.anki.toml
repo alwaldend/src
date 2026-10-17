@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "about" with "guanyu"'
+english = "Today, we need to hold a meeting about next month's company training."
+example-sentence = ''
+example-type = ''
+grammar-construct = '关于 ⋯⋯ 的 + Noun'
+hanzi = '今天开会要说说公司下个月的培训。'
+notes = ''
+pinyin = 'Jīntiān kāihuì yào shuōshuo gōngsī xià gè yuè de péixùn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG49889'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "towards" with "xiang"'
+english = 'You should report this to the boss!'
+example-sentence = ''
+example-type = ''
+grammar-construct = '向 + Direction / Person + Verb'
+hanzi = '这件事你应该向老板汇报一下。'
+notes = ''
+pinyin = 'Zhè jiàn shì nǐ yīnggāi xiàng lǎobǎn huìbào yīxià.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQXARS'

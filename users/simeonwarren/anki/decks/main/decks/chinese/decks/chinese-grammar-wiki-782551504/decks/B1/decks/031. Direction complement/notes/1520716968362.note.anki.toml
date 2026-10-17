@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Direction complement'
+english = "Don't let it run out."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + [Compound Direction Complement]'
+hanzi = '不要让它跑出去。'
+notes = ''
+pinyin = 'Bùyào ràng tā pǎo chūqù.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8LWBJ'

@@ -1,0 +1,12 @@
+note_type = "note_types/basic.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[[cards]]
+ordinal = 1
+
+[fields]
+Back = ':%!sort&nbsp; &nbsp;" %: to all lines in buffer, !: apply that filter command<div><br></div><div>“ built-in in modern vim:</div><div>:sort</div><div>:sort! &nbsp;“ reverse</div>'
+Front = 'Sort all lines in the current buffer'

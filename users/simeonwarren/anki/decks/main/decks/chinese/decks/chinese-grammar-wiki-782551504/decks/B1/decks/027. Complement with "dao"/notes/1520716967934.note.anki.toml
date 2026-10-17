@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Complement with "dao"'
+english = 'Do you know we waited for you until midnight?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '[Verb Phrase] (+ 一直) + Verb + 到 + Time / Event'
+hanzi = '你知不知道我们等你等到半夜？'
+notes = ''
+pinyin = 'Nǐ zhī bu zhīdào wǒmen děng dào bànyè?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG1CCAP'

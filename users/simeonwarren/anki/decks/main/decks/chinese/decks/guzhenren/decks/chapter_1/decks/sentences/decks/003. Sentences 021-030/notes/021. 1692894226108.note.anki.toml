@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'Fang Yuan, who had always been as quiet as a sculpture, turned around slowly.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '一直静如雕塑的方源,慢慢转身。'
+notes = ''
+pinyin = ''
+source = ''

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Grammatical_Structures", "NounPhrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "youde" to mean "some"'
+english = "Some foreigners are rich, but some aren't."
+example-sentence = ''
+example-type = ''
+grammar-construct = '有的 + (Subj.) + Predicate， 有的 + (Subj.) + Predicate'
+hanzi = '外国人有的很有钱，有的没钱。'
+notes = ''
+pinyin = 'Wàiguó rén yǒude hěn yǒuqián, yǒude méi qián.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG4NDHB'

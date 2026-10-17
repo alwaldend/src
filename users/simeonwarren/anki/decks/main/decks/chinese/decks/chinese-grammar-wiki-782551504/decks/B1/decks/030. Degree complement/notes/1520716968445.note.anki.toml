@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Degree complement'
+english = 'In my opinion, your job is extremely relaxed.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '我看，你的工作轻松得很。'
+notes = ''
+pinyin = 'Wǒkàn, nǐ de gōngzuò qīngsōng de hěn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG79STE'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Standard negation with "bu"'
+english = "I don't have time."
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = 'Subj. + 不 + Verb + Obj.'
+hanzi = '我没有时间。'
+notes = ''
+pinyin = 'Wǒ méiyǒu shíjiān.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGIPYFV'

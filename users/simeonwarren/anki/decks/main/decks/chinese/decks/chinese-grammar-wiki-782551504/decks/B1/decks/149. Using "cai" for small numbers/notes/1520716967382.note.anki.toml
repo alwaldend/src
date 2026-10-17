@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "cai" for small numbers'
+english = 'We only played for a short while. Can we play a little bit longer?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '才 + Verb + Number + Measure Word + Noun'
+hanzi = '我们才玩一会儿，再玩一会儿吧？'
+notes = ''
+pinyin = 'Wǒmen cái wán yīhuìr, zài wán yīhuìr ba?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGYW5RS'

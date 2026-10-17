@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "double negation"'
+english = "It's not that I don't have an opinion, I just don't want to say it right now."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不 + 是 / 会 / 能 + 没 + [Verb Phrase]'
+hanzi = '我不是没有想法，只是不想现在就说。'
+notes = ''
+pinyin = 'Wǒ bù shì méiyǒu xiǎngfǎ, zhǐshì bù xiǎng xiànzài jiù shuō.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGEEA2D'

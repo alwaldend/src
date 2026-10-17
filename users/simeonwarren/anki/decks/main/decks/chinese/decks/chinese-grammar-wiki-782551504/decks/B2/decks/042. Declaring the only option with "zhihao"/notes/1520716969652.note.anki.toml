@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Declaring the only option with "zhihao"'
+english = 'My parents are not home today. It has to be me who looks after my little sister.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '……，只好 + Subj.＋Verb Phrase'
+hanzi = '爸妈今天不在家，只好我来照顾妹妹了。'
+notes = ''
+pinyin = 'Bà mā jīntiān bù zài jiā,  zhǐhǎo wǒ lái zhàogu mèimei le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG767A2'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing experiences with "guo"'
+english = 'Have you seen that person before?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 过 + Obj.'
+hanzi = '你见过那个人吗？'
+notes = ''
+pinyin = 'Nǐ jiàn guo nàge rén ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQGV3P'

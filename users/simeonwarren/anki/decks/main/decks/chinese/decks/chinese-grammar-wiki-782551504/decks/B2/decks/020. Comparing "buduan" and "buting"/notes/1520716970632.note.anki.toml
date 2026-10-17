@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "buduan" and "buting"'
+english = "I'm so tired today. I can't stop yawning."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不停 + 地 + Verb'
+hanzi = '我今天很困，不停地打哈欠。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGIKHUH'

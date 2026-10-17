@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "multiples" with "bei"'
+english = 'Your speed is twice faster than ours.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A + 比 + B + Adj. + Number + 倍'
+hanzi = '你的速度比我们的速度快两倍。'
+notes = ''
+pinyin = 'Nǐ de sùdù bǐ wǒmen de sùdù kuài liǎng bèi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG7D4EC'

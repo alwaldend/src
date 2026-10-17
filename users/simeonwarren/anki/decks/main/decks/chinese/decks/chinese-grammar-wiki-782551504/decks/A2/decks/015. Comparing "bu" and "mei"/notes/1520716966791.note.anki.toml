@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "bu" and "mei"'
+english = 'I was not home yesterday.'
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = 'Noun 1 + 没有 + Noun 2 + Adj.'
+hanzi = '昨天我不在家。'
+notes = ''
+pinyin = 'Zuótiān wǒ bù zài jiā.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGRJ1BI'

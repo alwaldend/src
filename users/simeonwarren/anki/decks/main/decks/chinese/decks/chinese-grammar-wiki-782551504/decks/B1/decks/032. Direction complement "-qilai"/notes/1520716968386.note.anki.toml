@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Direction complement "-qilai"'
+english = 'Your hair smells good.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 起来 + Adv. + Adj.'
+hanzi = '你的头发闻起来很香。'
+notes = ''
+pinyin = 'Nǐ de tóufa wén qǐlái hěn xiāng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGBPXOB'

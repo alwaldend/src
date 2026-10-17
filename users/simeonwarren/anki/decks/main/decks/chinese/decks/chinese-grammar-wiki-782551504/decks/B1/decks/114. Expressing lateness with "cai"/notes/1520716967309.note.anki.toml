@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing lateness with "cai"'
+english = "How come you came here so late? We've waited for more than half an hour."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Time + 才 + Verb'
+hanzi = '你怎么才来？我们等了半个多小时。'
+notes = ''
+pinyin = 'Nǐ zěnme cái lái? Wǒmen děng le bàn gè duō xiǎoshí.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG3WTCJ'

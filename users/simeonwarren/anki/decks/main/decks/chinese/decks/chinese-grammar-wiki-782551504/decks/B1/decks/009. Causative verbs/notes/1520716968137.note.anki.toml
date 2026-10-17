@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Causative verbs'
+english = "Why wouldn't you let me go there?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + [Causative Verb] + Person + Predicate'
+hanzi = '你为什么不让我去？'
+notes = ''
+pinyin = 'Nǐ wèishénme bù ràng wǒ qù?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5T7XC'

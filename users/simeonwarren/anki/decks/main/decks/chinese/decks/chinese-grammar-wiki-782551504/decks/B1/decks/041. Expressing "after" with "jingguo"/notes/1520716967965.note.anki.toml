@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "after" with "jingguo"'
+english = 'After two months of preparation, he successfully passed the job interview.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '经过 + Event / Time，Subj. + Predicate'
+hanzi = '经过两个月的准备，他顺利地通过了这次面试。'
+notes = ''
+pinyin = 'Jīngguò liǎng gè yuè de zhǔnbèi, tā shùnlì de tōngguò le zhè cì miànshì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG11DA8'

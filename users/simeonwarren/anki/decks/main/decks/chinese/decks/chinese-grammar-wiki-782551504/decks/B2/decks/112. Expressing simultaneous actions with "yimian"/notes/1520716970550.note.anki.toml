@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing simultaneous actions with "yimian"'
+english = 'Can you pat your head and rub your belly at the same time?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '一面 + Verb +  一面 + Verb'
+hanzi = '你会一面拍头一面揉肚子吗？'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG1QB4K'

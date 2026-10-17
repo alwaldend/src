@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Direction complement'
+english = 'Do you want to come to my house?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '到 + Place + 来 / 去'
+hanzi = '你想到我家来吗？'
+notes = ''
+pinyin = 'Nǐ xiǎng dào wǒ jiā lái ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8LWBJ'

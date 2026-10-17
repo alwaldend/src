@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Occurring together with "shaobuliao"'
+english = 'Look at how he looks. He must have argued with his girlfriend.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Situation / Result ，少不了 + 是 + Reason'
+hanzi = '看他的样子，少不了是跟女朋友吵架了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG3IR71'

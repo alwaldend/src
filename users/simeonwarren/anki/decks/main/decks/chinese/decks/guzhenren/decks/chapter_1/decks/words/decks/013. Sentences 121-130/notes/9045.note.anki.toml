@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'to endure;	to suffer;	to be subjected to.'
+example-sentence = ' 好了,新书终于和大家见面,就像在 御妖至尊 结尾和大家打的招呼,主角很邪恶,本书会饱受争议'
+example-type = ''
+grammar-construct = ''
+hanzi = '饱受'
+notes = ''
+pinyin = '<span class="tone3">bǎo</span><span class="tone4">shòu</span>	 <!-- bao shou -->'
+source = ''

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "bu" and "mei"'
+english = "Don't you shower at night?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不 + Verb + Obj.'
+hanzi = '你晚上不洗澡吗？'
+notes = ''
+pinyin = 'Nǐ wǎnshang bù xǐzǎo ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGRJ1BI'

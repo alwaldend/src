@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Basic comparisons with "meiyou"'
+english = 'The Xiaomi phone is not as expensive as the iPhone.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun 1 + 没有 + Noun 2 + Adj.'
+hanzi = '小米手机没有iPhone贵。'
+notes = ''
+pinyin = 'Xiǎomǐ shǒujī méiyǒu  iPhone guì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGEAH5M'

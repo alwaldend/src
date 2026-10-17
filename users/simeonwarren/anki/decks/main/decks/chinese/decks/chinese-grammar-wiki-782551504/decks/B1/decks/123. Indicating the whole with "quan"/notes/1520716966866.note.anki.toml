@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Indicating the whole with "quan"'
+english = "He has a point, but I can't say I agree on all of it."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj.+ 不 / 没 + 全都 + Predicate'
+hanzi = '他说得有道理，但我不全都同意。'
+notes = ''
+pinyin = 'Tā shuō de yǒu dàolǐ, dàn wǒ bù quán dōu tóngyì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCPDSR'

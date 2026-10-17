@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Two words for "but"'
+english = "The iPhone is great, but I don't have the money to buy it."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Statement， 可是 / 但是 + [Contrary Statement]'
+hanzi = 'iPhone很好，但是我没钱买。'
+notes = ''
+pinyin = 'iPhone hěn hǎo, dànshì wǒ méi qián mǎi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGUD81S'

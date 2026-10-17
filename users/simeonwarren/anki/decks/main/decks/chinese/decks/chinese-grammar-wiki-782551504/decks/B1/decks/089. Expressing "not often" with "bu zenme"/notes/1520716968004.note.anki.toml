@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "not often" with "bu zenme"'
+english = "My son doesn't eat snacks very often."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不怎么 + Verb'
+hanzi = '我儿子不怎么吃零食。'
+notes = ''
+pinyin = 'Wǒ érzi bùzěnme chī língshí.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5BOGP'

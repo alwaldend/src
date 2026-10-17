@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "compared with" with "gen"'
+english = 'Compared to the older sister, the younger sister is a bit shy.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'B + 跟 + A + 比 (起来) ，⋯⋯'
+hanzi = '妹妹跟姐姐比起来有点害羞。'
+notes = ''
+pinyin = 'Mèimei gēn jiějie bǐ qǐlái yǒudiǎn hàixiū.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG920B7'

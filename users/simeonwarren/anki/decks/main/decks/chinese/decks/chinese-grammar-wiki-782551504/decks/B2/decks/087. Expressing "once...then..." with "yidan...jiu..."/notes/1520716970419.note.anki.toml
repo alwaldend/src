@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "ConditionalStatements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "once...then..." with "yidan...jiu..."'
+english = 'You must absolutely not trade stocks in an economic bubble. Once the market collapses, you will regret it!'
+example-sentence = ''
+example-type = ''
+grammar-construct = '一旦 + Condition，Subj. + 就 + Consequence'
+hanzi = '千万不要在经济泡沫中炒股，一旦市场崩溃，你会很后悔的！'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGU3ZV1'

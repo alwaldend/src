@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Verbs followed by "gei"'
+english = 'Who are you going to give this present to?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 把 + Obj. + Verb + 给 + Recipient'
+hanzi = '你想把这个礼物送给谁？'
+notes = ''
+pinyin = 'Nǐ xiǎng bǎ zhège lǐwù sòng gěi shéi?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMMHTQ'

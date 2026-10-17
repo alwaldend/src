@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing duration with "le"'
+english = 'We took a fifteen hour flight to the United States.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 了 + Duration + Obj.'
+hanzi = '我们坐了十五个小时飞机去美国。'
+notes = ''
+pinyin = 'Wǒmen zuò le  shíwǔ gè xiǎoshí fēijī qù Měiguó.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJ36VN'

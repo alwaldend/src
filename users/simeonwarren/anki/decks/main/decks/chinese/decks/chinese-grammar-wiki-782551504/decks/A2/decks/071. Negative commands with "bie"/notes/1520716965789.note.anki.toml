@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Negative commands with "bie"'
+english = "Don't leave."
+example-sentence = ''
+example-type = ''
+grammar-construct = '别 + Verb (+ Obj.)'
+hanzi = '别走。'
+notes = ''
+pinyin = 'Bié zǒu.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG9W0UX'

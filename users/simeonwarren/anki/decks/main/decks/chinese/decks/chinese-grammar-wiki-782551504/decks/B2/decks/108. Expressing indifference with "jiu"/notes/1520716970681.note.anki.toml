@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing indifference with "jiu"'
+english = "It's fine that he didn't show up. I can handle it by myself."
+example-sentence = ''
+example-type = ''
+grammar-construct = '不 / 没 + Adj. / Verb + 就 + 不 / 没 + Adj. / Verb'
+hanzi = '他没来就没来，我一个人可以搞定。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGL4O5E'

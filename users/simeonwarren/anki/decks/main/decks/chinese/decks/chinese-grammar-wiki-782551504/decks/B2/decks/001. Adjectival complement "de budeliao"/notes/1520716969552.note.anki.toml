@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adjectives", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Adjectival complement "de budeliao"'
+english = 'The fact that he got promoted made him extremely happy.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Adj. +  得不得了'
+hanzi = '升职的事情让他高兴得不得了。'
+notes = ''
+pinyin = '<div>Shēng zhí de shìqíng ràng tā gāoxìng dé bùdéliǎo.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGB8BWA'

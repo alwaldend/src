@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["AuxiliaryWords", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Ending a non-exhaustive list with "shenme de"'
+english = "Math, physics, chemistry, and so on. I'm not interested in any of them."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun 1, Noun 2 (+ Noun 3) + 什么的'
+hanzi = '数学、物理、化学什么的，我都不感兴趣。'
+notes = ''
+pinyin = 'Shùxué, wùlǐ, huàxué shénme de, wǒ dōu bù gǎnxìngqù.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDIDAC'

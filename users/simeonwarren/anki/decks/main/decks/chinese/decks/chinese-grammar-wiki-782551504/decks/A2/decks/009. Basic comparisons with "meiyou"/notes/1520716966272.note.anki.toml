@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Basic comparisons with "meiyou"'
+english = 'Your company is not as big as ours.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun 1 + 没有 + Noun 2 + Adj.'
+hanzi = '你们公司没有我们公司大。'
+notes = ''
+pinyin = 'Nǐmen gōngsī méiyǒu wǒmen gōngsī dà.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGEAH5M'

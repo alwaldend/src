@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using the verb "xing"'
+english = "My father's family name is Zhou. My mother's family name is Lin."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 姓 + [Surname]'
+hanzi = '我爸爸姓周，我妈妈姓林。'
+notes = ''
+pinyin = 'Wǒ bàba xìng Zhōu, wǒ māma xìng Lín.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPS9NY'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "TimeWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "gang" and "gangcai"'
+english = "I didn't drink your beer just now."
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = '刚 + Adj.'
+hanzi = '我刚才没喝你的啤酒。'
+notes = "It's fine to use 刚才 with 没 in the past."
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJFFWG'

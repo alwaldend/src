@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'previous generations;	previous incarnation (Buddhism).'
+example-sentence = '  说这话的时候,眼前忽的就浮现出前世地球上的种种'
+example-type = ''
+grammar-construct = ''
+hanzi = '前世'
+notes = ''
+pinyin = '<span class="tone2">qián</span><span class="tone4">shì</span>	 <!-- qian shi -->'
+source = ''

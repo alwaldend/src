@@ -1,0 +1,12 @@
+note_type = "note_types/basic.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[[cards]]
+ordinal = 1
+
+[fields]
+Back = 'gf<br>" or<br>^w_f&nbsp;<div>“ to also split</div>'
+Front = 'How do you (split and) open the file if the filename is under the cursor (e.g., for a C++ include directive)?'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adjectives", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Challenging an adjective with "shenme"'
+english = "Why are you so anxious? It's still early."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Adj.／Verb + 什么 + (Adj.／Verb)？'
+hanzi = '你急什么急，还早着呢。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNV2TZ'

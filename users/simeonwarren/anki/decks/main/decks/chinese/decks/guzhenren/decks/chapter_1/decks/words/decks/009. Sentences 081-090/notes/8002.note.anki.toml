@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = "mother's brother;\tmaternal uncle."
+example-sentence = '可惜就是父母死的早,现在被其舅父舅母抚养着'
+example-type = ''
+grammar-construct = ''
+hanzi = '舅父'
+notes = ''
+pinyin = '<span class="tone4">jiù</span><span class="tone4">fù</span>	 <!-- jiu fu -->'
+source = ''

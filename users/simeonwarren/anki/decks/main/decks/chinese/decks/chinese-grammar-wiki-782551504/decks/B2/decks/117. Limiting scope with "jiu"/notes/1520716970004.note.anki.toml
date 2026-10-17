@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Limiting scope with "jiu"'
+english = "As for China's One Child Policy, every expert has their own opinion."
+example-sentence = ''
+example-type = ''
+grammar-construct = '就 + Topic + (来说 / 而言) + Comment'
+hanzi = '就中国的独生子女政策而言，专家各有各的看法。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8RW47'

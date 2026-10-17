@@ -1,0 +1,13 @@
+note_type = "note_types/python-basic.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+'Additional Info' = ''
+'Back - Basic' = ''
+'Back - Code' = '{2, 5}'
+Example = ''
+Front = 'What would the result of this code be?&nbsp;<br><br>x = {2, 3, 5} <br>y = {4, 3, 1} <br>print(x - y)<br><div><br></div>'
+Version = ''

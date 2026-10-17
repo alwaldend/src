@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "about" with "guanyu"'
+english = 'This is a report about the Chinese luxury market.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '关于 ⋯⋯ 的 + Noun'
+hanzi = '这是一份关于中国奢侈品市场的报告。'
+notes = ''
+pinyin = 'Zhè shì yī fèn guānyú Zhōngguó shēchǐ pǐn shìchǎng de bàogào.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG49889'

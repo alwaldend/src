@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'solemn and respectful;	serene.'
+example-sentence = ' 身后的家老们各个表情肃穆,也随着默默效仿'
+example-type = ''
+grammar-construct = ''
+hanzi = '肃穆'
+notes = ''
+pinyin = '<span class="tone4">sù</span><span class="tone4">mù</span>	 <!-- su mu -->'
+source = ''

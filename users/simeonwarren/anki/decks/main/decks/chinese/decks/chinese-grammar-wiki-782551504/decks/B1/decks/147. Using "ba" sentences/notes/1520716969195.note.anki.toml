@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "ba" sentences'
+english = 'Did you solve that problem?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 把 + Obj. 1 + Verb + 给 + Obj. 2'
+hanzi = '你们把那个问题解决了吗？'
+notes = ''
+pinyin = 'Nǐmen bǎ nàge wèntí jiějué le ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG2UB2B'

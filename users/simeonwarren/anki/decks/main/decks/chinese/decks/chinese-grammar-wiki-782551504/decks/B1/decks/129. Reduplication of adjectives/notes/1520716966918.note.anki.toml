@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Reduplication of adjectives'
+english = "Right now I'd really like to comfortably lie on the couch and watch TV."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A A B B + 地 + Verb'
+hanzi = '我现在真想舒舒服服地躺在沙发上看电视。'
+notes = ''
+pinyin = 'Wǒ xiànzài zhēn xiǎng shū shū fú fú de tǎng zài shāfā shàng kàn diànshì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDHE8S'

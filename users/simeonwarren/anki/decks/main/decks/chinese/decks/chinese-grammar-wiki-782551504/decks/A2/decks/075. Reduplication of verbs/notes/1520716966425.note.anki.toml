@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "leech", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Reduplication of verbs'
+english = 'think it over'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 一 + Verb'
+hanzi = '考虑考虑'
+notes = ''
+pinyin = 'kǎolǜ kǎolǜ'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGYC77J'

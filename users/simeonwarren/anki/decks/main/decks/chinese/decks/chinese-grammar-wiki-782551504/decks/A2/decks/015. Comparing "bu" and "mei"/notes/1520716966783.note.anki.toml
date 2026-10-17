@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "bu" and "mei"'
+english = ''
+example-sentence = ''
+example-type = 'invalid'
+grammar-construct = 'Noun 1 + 没有 + Noun 2 + Adj.'
+hanzi = '上海的冬天不有北京的冬天冷。'
+notes = ''
+pinyin = 'Shànghǎi de dōngtiān bù yǒu Běijīng de dōngtiān lěng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGRJ1BI'

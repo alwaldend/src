@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Placement of question words'
+english = 'When is dad coming back?<br>Dad is coming back this weekend.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 什么时候 + Predicate ?'
+hanzi = 'A: 爸爸什么时候回来？<br>B: 爸爸周末回来。'
+notes = ''
+pinyin = 'Bàba shénme shíhou huílái?<br>Bàba zhōumò huílái.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJQPSC'

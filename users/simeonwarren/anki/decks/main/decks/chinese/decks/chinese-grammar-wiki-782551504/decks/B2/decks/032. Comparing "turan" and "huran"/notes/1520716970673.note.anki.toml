@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "turan" and "huran"'
+english = ''
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = 'Subj. +  突然 + Modifier'
+hanzi = '一切发生得太突然。'
+notes = '突然 can be a complement, but 忽然 cannot.'
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGHKZP4'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "cai" and "jiu"'
+english = "It's only six. Why did you get up so early?"
+example-sentence = ''
+example-type = ''
+grammar-construct = '(现在) + 才 + Time'
+hanzi = '才六点，起那么早干嘛？'
+notes = ''
+pinyin = '<div class="kO6q6e" dir="ltr" jsname="jTaUub"><span jsname="toZopb">Cái liù diǎn, qǐ nàme zǎo gàn ma?</span></div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGLOS9C'

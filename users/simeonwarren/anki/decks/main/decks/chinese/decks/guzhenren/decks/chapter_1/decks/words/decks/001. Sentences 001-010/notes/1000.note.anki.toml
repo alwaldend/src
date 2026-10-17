@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'whole body;	from head to toe;	single person;	a suit of clothes.'
+example-sentence = '方源一身残破的碧绿大袍,披头散发,浑身浴血,环顾四周'
+example-type = ''
+grammar-construct = ''
+hanzi = '一身'
+notes = ''
+pinyin = '<span class="tone1">yī</span><span class="tone1">shēn</span>	 <!-- yi shen -->'
+source = ''

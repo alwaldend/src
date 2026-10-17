@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Advanced potential complements'
+english = "I have things to do tonight. I won't be able to go."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 得 / 不 + 了'
+hanzi = '今晚我有事，去不了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG516F9'

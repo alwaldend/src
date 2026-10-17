@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Auxiliaryverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing permission with "keyi"'
+english = "You can't go in right now."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不 + 可以 + Verb + Obj.'
+hanzi = '你现在不可以进去。'
+notes = ''
+pinyin = 'Nǐ xiànzài bù kěyǐ jìnqù.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG6SPYK'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'A softer "but" with "buguo"'
+english = "I lost my wallet, but I didn't lose anything important."
+example-sentence = ''
+example-type = ''
+grammar-construct = '⋯⋯ ，不过 ⋯⋯'
+hanzi = '我的钱包丢了，不过没丢什么重要的东西。'
+notes = ''
+pinyin = 'Wǒ de qiánbāo diū le, bùguò méi diū shénme zhòngyào de dōngxi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGA0S4T'

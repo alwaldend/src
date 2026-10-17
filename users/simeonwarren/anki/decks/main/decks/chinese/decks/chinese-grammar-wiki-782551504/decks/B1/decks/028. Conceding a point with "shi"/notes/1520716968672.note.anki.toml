@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Conceding a point with "shi"'
+english = "This sport may be dangerous, but it's also very exciting."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Adj. + 是 + Adj. ， 但是 / 就是 ⋯⋯'
+hanzi = '这个运动危险是危险，但是很刺激。'
+notes = ''
+pinyin = 'Zhège yùndòng  wēixiǎn shì wēixiǎn, dànshì hěn cìjī.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGT9Y8P'

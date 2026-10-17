@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "much more" in comparisons'
+english = 'Pinyin is much easier than Chinese characters.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun 1 + 比 + Noun 2 + Adj. + 很多 / 多了 / 得多'
+hanzi = '拼音比汉字容易很多。'
+notes = ''
+pinyin = 'Pīnyīn bǐ Hànzì róngyì hěn duō.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG6KUS5'

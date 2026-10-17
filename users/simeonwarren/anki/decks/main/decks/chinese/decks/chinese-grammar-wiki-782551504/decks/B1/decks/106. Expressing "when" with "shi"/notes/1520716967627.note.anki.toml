@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "when" with "shi"'
+english = "They've got nothing when they got married."
+example-sentence = ''
+example-type = ''
+grammar-construct = '(Subj. +) Verb / Adj. + 时⋯⋯'
+hanzi = '他们结婚时什么都没有。'
+notes = ''
+pinyin = 'Tāmen jiéhūn shí shénme dōu méiyǒu.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGGL59D'

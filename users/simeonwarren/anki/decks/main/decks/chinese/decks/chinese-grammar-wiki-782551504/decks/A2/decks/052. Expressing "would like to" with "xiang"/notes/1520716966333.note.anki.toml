@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Auxiliaryverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "would like to" with "xiang"'
+english = "I wouldn't like to return home."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不 + 想 + Verb + Obj.'
+hanzi = '我不想回家。'
+notes = ''
+pinyin = 'Wǒ bù xiǎng huíjiā.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGT97VF'

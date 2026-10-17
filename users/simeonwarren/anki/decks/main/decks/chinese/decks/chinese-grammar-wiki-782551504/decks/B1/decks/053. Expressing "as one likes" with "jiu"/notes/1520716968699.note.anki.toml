@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "as one likes" with "jiu"'
+english = "You can order whatever you like. I'm buying."
+example-sentence = ''
+example-type = ''
+grammar-construct = '想 + [Question Word] + 就 + [Question Word]'
+hanzi = '想点什么就点什么，我请客。'
+notes = ''
+pinyin = 'Xiǎng diǎn shénme jiù diǎn shénme, wǒ qǐngkè.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDUZ55'

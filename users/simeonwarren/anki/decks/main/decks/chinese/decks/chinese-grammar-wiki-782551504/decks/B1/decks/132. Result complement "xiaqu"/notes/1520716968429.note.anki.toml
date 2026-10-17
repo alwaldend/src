@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Result complement "xiaqu"'
+english = "You'll be dead if you keep playing."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 下去'
+hanzi = '再玩下去你就死定了。'
+notes = ''
+pinyin = 'Zài wán xiàqù nǐ jiù sǐ dìng le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG1PTJX'

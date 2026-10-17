@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "the more... the more..." with "yue… yue…"'
+english = 'The more you eat it, the more you will want to eat.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 越 + Verb + 越 + 想 + Verb'
+hanzi = '你会越吃越想吃。'
+notes = ''
+pinyin = 'Nǐ huì yuè chī yuè xiǎng chī.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGB44F6'

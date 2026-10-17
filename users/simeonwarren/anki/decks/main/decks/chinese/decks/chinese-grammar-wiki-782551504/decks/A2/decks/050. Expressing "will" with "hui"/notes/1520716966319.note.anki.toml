@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Auxiliaryverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "will" with "hui"'
+english = "I'm going out for a little while. I'll come back very soon."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 会 + Verb + Obj.'
+hanzi = '我出去一下，很快会回来。'
+notes = ''
+pinyin = 'Wǒ chūqù yīxià, hěnkuài huì huílái.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGW9737'

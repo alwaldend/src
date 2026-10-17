@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "in this way" with "zheyang"'
+english = 'If this is the case, I think you need to get more help.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '（如果是 + ）这样的话，……'
+hanzi = '如果是这样的话，我觉得你们需要更多的帮助。'
+notes = ''
+pinyin = 'Rúguǒ shì dehuà zhèyàng de huà, wǒ juéde nǐmen xūyào gèng duō de bāngzhù.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG1F4D1'

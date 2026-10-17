@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Parts_of_Speech", "Pronouns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "bici" and "duifang"'
+english = "I asked, but they didn't agree."
+example-sentence = ''
+example-type = ''
+grammar-construct = '对方 + Verb Phrase'
+hanzi = '我问了人家，但是对方不同意。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG84D65'

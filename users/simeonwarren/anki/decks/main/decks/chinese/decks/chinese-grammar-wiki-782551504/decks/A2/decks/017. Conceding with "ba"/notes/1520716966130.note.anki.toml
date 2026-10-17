@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Conceding with "ba"'
+english = "That's too expensive!<br>All right, we can take a look at something else."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Statement + 吧'
+hanzi = 'A:太贵了！<br>B: 好吧，我们可以看看别的。'
+notes = ''
+pinyin = 'Tài guì le!<br>Hǎo  ba, wǒmen kěyǐ kànkan biéde.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJIP2E'

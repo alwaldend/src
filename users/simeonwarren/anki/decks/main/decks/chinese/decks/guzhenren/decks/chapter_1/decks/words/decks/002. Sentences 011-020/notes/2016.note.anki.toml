@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'to counterattack;	to come back after a defeat;	to retrieve lost ground.'
+example-sentence = ' 他们没有动手,都忌惮着方源的临死反扑'
+example-type = ''
+grammar-construct = ''
+hanzi = '反扑'
+notes = ''
+pinyin = '<span class="tone3">fǎn</span><span class="tone1">pū</span>	 <!-- fan pu -->'
+source = ''

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["AuxiliaryWords", "C1"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing that something has already happened with "laizhe"'
+english = 'What was his name again?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Sentence + 来着'
+hanzi = '他叫什么来着？'
+notes = ''
+pinyin = 'Tā jiào shénme láizhe?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPV5Z2'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Verbs followed by "gei"'
+english = 'Please pass me the salt. Thanks.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 把 + Obj. + Verb + 给 + Recipient'
+hanzi = '请把盐递给我，谢谢。'
+notes = ''
+pinyin = 'Qǐng bǎ yán dì gěi wǒ, xièxie.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMMHTQ'

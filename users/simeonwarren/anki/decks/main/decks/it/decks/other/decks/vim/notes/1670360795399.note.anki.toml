@@ -1,0 +1,12 @@
+note_type = "note_types/basic.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[[cards]]
+ordinal = 1
+
+[fields]
+Back = 'pattern<b>\</b>{-} " only one backslash'
+Front = 'Non-greedy pattern quantifier (vs. greedy Kleene-star)'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "ba" sentences'
+english = 'Can you eat these all?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 把 + Obj. 1 + Verb + Preposition + Obj. 2'
+hanzi = '你可以把这些都吃完吗？'
+notes = ''
+pinyin = 'Nǐ kěyǐ bǎ zhèxiē dōu chī wán ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG2UB2B'

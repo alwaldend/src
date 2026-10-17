@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Conceding with "ba"'
+english = "It's raining heavily. Let's go buy it tomorrow.<br>Fine, but tomorrow we definitely have to buy it."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Statement + 吧'
+hanzi = 'A: 雨太大了，明天再去买吧。<br>B: 好吧，但是明天一定要买到。'
+notes = ''
+pinyin = 'Yǔ tài dà le, míngtiān zài qù mǎi ba.<br>Hǎo  ba, dànshì míngtiān yídìng yào mǎidào.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJIP2E'

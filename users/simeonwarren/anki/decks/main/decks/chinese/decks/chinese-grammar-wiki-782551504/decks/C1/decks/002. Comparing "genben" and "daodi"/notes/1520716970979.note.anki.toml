@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["C1", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "genben" and "daodi"'
+english = "He didn't listen to me after all."
+example-sentence = ''
+example-type = 'invalid'
+grammar-construct = ''
+hanzi = '他到底没有听我的话。'
+notes = '到底 is normally used for questions.'
+pinyin = 'Tā dàodǐ méiyǒu tīng wǒ dehuà.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG9JK0B'

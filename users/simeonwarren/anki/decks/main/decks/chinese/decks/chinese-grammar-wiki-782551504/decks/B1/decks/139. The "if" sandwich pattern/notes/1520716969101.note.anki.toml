@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'The "if" sandwich pattern'
+english = "If you think it's tasty, eat some more."
+example-sentence = ''
+example-type = ''
+grammar-construct = '⋯⋯ (的话) ，就 ⋯⋯'
+hanzi = '好吃的的话，就多吃点。'
+notes = ''
+pinyin = 'Hǎochī de dehuà, jiù duō chī diǎn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGN4VUU'

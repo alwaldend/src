@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Direction complement'
+english = 'They took some presents there.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + [Compound Direction Complement]'
+hanzi = '他们带了一些礼物去。'
+notes = ''
+pinyin = 'Tāmen dài le yīxiē lǐwù qù.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8LWBJ'

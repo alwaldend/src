@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Reduplication of verbs'
+english = 'inquire about it'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 一 + Verb'
+hanzi = '打听打听'
+notes = ''
+pinyin = 'dǎting dǎting'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGYC77J'

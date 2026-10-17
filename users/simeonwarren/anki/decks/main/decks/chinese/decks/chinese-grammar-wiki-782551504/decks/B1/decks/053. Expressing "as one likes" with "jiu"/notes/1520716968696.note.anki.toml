@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "as one likes" with "jiu"'
+english = 'You can go wherever you like to go.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '想 + [Question Word] + 就 + [Question Word]'
+hanzi = '想去哪儿就去哪儿。'
+notes = ''
+pinyin = 'Xiǎng qù nǎr jiù qù nǎr.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDUZ55'

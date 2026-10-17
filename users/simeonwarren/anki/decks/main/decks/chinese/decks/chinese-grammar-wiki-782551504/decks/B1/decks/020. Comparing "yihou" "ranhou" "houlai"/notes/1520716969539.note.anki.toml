@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "TimeWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "yihou" "ranhou" "houlai"'
+english = 'The baby woke up. He cried for a little while and then fell asleep again.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '宝宝醒了，哭了一会儿，然后又睡着了。'
+notes = ''
+pinyin = 'Bǎobao xǐng le, kū le yīhuìr, ránhòu yòu shuìzháo le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNPJ7T'

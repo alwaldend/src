@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Cause/EffectStatements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "since" with "jiran"'
+english = 'Since she just had a breakup, she should be single now.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '既然＋Fact, 那 / 就 / 那就＋Suggestion / Inference'
+hanzi = '她既然刚刚分手，那现在应该是单身吧。'
+notes = 'an inference)'
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGG4BX9'

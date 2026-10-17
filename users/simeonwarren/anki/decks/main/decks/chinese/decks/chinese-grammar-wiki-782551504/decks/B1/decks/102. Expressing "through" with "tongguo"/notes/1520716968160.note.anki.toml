@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "through" with "tongguo"'
+english = 'Through this survey, we found many employees are not very satisfied with the new policy.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '通过 + [Verb Phrase] ，Subj. + ~'
+hanzi = '通过这次调查，我们发现很多员工对新政策都不满意。'
+notes = ''
+pinyin = 'Tōngguò zhè cì diàochá, wǒmen fāxiàn hěn duō yuángōng duì xīn zhèngcè dōu bù mǎnyì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG9B1E3'

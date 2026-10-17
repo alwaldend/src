@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "every" with question words'
+english = 'You can spend these money however you want.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '怎么 + Verb + 都 + Predicate'
+hanzi = '这些钱你怎么花都行。'
+notes = ''
+pinyin = 'Zhèxiē qián nǐ zěnme huā dōu xíng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG13ALM'

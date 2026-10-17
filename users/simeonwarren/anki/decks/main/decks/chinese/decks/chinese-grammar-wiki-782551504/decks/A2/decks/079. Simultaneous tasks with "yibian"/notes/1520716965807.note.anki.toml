@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Simultaneous tasks with "yibian"'
+english = 'Many people play with their cell phones while working.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 一边 + Verb (，) + 一边 + Verb'
+hanzi = '很多人都一边上班，一边玩手机。'
+notes = ''
+pinyin = 'Hěn duō rén dōu yībiān shàngbān, yībiān wán shǒujī.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG2ZC5S'

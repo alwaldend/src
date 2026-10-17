@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = "That's my farewell. Please stay, Lord Patriarch."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '这就告辞了,族长大人请留步。'
+notes = ''
+pinyin = ''
+source = ''

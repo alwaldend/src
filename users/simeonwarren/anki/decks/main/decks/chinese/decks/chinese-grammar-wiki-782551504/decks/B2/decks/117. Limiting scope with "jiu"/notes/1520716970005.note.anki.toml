@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Limiting scope with "jiu"'
+english = 'As for the Cultural Revolution, a large part of the people think it was a disaster.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '就 + Topic + (来说 / 而言) + Comment'
+hanzi = '就文化大革命而言，大部分的人都认为那是一场灾难。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8RW47'

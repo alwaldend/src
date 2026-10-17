@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Direction complement'
+english = "Hurry up, take the child there. Don't be late."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + [Compound Direction Complement]'
+hanzi = '快点送孩子去吧，别迟到了。'
+notes = ''
+pinyin = 'Kuàidiǎn sòng háizi qù ba, bié chídào le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8LWBJ'

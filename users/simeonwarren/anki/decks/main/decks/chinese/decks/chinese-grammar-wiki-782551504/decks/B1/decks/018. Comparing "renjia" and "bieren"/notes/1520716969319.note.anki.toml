@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "Nouns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "renjia" and "bieren"'
+english = "I don't care what other people say."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 人家／别人'
+hanzi = '我不在乎别人怎么说。'
+notes = ''
+pinyin = '<div>Wǒ bùzàihū biérén zěnme shuō.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPINA4'

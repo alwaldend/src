@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "TimeWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "changchang" and "jingchang"'
+english = "He doesn't come to my house very often."
+example-sentence = ''
+example-type = ''
+grammar-construct = '不 + 常'
+hanzi = '他不常来我家。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGE8FLP'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'to appear;	to arise;	to emerge;	to show up.'
+example-sentence = '   唉,希望有甲等资质的少年出现'
+example-type = ''
+grammar-construct = ''
+hanzi = '出现'
+notes = ''
+pinyin = '<span class="tone1">chū</span><span class="tone4">xiàn</span>	 <!-- chu xian -->'
+source = ''

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "everything" with "shenme dou"'
+english = 'All of her clothes are black.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '什么 + Noun + 都 + Verb'
+hanzi = '她什么衣服都是黑色的。'
+notes = ''
+pinyin = 'Tā shénme yīfu dōu shì hēisè de.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGAQV6C'

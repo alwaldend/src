@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Taiwanese "you"'
+english = 'Everything in this store is 90% off today. I bought a lot. It was so cheap!'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 有 + Adj. + 到'
+hanzi = '这家店今天全场打一折，我买了好多，有赚到！'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGY2D79'

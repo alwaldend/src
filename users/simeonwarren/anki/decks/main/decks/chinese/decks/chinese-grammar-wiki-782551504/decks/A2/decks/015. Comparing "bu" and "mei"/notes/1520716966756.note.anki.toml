@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "bu" and "mei"'
+english = 'Do you love me or not?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 不 + Verb + Obj.'
+hanzi = '你爱不爱我？'
+notes = ''
+pinyin = 'Nǐ ài bu ài wǒ?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGRJ1BI'

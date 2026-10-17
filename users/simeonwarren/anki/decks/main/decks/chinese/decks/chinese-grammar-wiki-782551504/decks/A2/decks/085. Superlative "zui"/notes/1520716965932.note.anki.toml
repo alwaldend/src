@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "AdverbswithAdjectives", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Superlative "zui"'
+english = 'The boss likes you the best!'
+example-sentence = ''
+example-type = ''
+grammar-construct = '最 + [Psychological Verb] + Obj. (+ 了)'
+hanzi = '老板最喜欢你了！'
+notes = ''
+pinyin = 'Lǎobǎn zuì xǐhuan nǐ le!'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG3544U'

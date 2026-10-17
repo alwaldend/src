@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "as a result" with "jieguo"'
+english = "He didn't review well. As a result, he didn't do well in the exam."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Situation ，结果 + Ending'
+hanzi = '他没好好复习，结果考试没考好。'
+notes = ''
+pinyin = 'Tā méi hǎohǎo fùxí, jiéguǒ kǎoshì méi kǎo hǎo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG6B21A'

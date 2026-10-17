@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'There was a trace of vigilance hidden in the gazes they looked at each other.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '看向彼此的目光中都隐藏了一丝警惕之色。'
+notes = ''
+pinyin = ''
+source = ''

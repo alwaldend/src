@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Offering choices with "haishi"'
+english = 'Spicy or non-spicy?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Option A + 还是 + Option B ?'
+hanzi = '辣的还是不辣的？'
+notes = ''
+pinyin = 'Là de háishì bù là de?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGA8NIB'

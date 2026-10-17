@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Offering choices with "haishi"'
+english = 'Do you want  to drink tea or coffee?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + Option A + 还是 + Option B ?'
+hanzi = '你要喝茶还是咖啡？'
+notes = ''
+pinyin = 'Nǐ yào hē chá háishì kāfēi?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGA8NIB'

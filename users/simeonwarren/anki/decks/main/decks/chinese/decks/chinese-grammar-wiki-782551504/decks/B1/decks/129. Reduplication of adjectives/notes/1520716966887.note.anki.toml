@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Reduplication of adjectives'
+english = 'The moon is round tonight.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A A + 的 (+ Noun)'
+hanzi = '今晚的月亮圆圆的。'
+notes = ''
+pinyin = 'Jīnwǎn de yuèliang yuán yuán de.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDHE8S'

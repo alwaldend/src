@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Tricky uses of "dao"'
+english = 'I haven‘t done it.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '我还没有做。'
+notes = ''
+pinyin = 'Wǒ hái méiyǒu zuò.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCUSIV'

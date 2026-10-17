@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = "to consecrate;\tto enshrine and worship;\tan offering (to one's ancestors);\ta sacrifice (to a God)."
+example-sentence = ' 他面对着高高的黑漆台案,在台案有三层,供奉着先祖的牌位'
+example-type = ''
+grammar-construct = ''
+hanzi = '供奉'
+notes = ''
+pinyin = '<span class="tone4">gòng</span><span class="tone4">fèng</span>	 <!-- gong feng -->'
+source = ''

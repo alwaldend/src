@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'corner of the mouth.'
+example-sentence = ' 这一念生出,古月族长的嘴角不由地微微翘起,浮现出一抹微笑'
+example-type = ''
+grammar-construct = ''
+hanzi = '嘴角'
+notes = ''
+pinyin = '<span class="tone3">zuǐ</span><span class="tone3">jiǎo</span>	 <!-- zui jiao -->'
+source = ''

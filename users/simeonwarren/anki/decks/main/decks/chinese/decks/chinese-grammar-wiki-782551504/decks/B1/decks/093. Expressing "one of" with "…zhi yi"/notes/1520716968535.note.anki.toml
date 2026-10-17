@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "NounPhrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "one of" with "…zhi yi"'
+english = 'Frozen is one of my favorite Disney movies.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '[Noun Phrase] + 之一 + 是 ⋯⋯'
+hanzi = 'Frozen是我最喜欢的迪斯尼电影之一。'
+notes = ''
+pinyin = 'Frozen shì wǒ zuì xǐhuan de Dísīní diànyǐng zhī yī.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMT1M1'

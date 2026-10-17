@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Taiwanese "you"'
+english = 'I have taken medicine, but my cold hasn’t gotten better.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 有 +  Verb + Obj.'
+hanzi = '我有吃药，可是感冒还是美好。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGY2D79'

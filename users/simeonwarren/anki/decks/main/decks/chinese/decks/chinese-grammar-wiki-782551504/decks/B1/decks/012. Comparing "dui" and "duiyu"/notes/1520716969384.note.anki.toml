@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "dui" and "duiyu"'
+english = "Don't point the gun at people."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 对着／对上／对不上'
+hanzi = '枪口不要对着人。'
+notes = ''
+pinyin = 'Qiāng kǒu bùyào duìzhe rén.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG3JELV'

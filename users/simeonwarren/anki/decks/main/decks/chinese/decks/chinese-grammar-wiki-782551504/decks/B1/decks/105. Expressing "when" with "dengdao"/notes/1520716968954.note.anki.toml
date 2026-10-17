@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "when" with "dengdao"'
+english = "The teacher didn't begin the class until the students all became quiet."
+example-sentence = ''
+example-type = ''
+grammar-construct = '等(到) + Time / Event ，Subj. + 才 + Predicate'
+hanzi = '等学生都安静了，老师才开始上课。'
+notes = ''
+pinyin = 'Děng xuéshēng dōu ānjìng le, lǎoshī cái kāishǐ shàngkè.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG68F61'

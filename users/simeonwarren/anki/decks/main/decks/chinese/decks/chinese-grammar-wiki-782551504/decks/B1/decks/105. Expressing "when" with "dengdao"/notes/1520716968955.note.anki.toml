@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "when" with "dengdao"'
+english = "It wasn't until he had a child that he realized how hard it is to be a parent."
+example-sentence = ''
+example-type = ''
+grammar-construct = '等(到) + Time / Event ，Subj. + 才 + Predicate'
+hanzi = '等他有了孩子，才知道做父母多么不容易。'
+notes = ''
+pinyin = 'Děng tā yǒu le háizi, cái zhīdào zuò fùmǔ duōme bù róngyì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG68F61'

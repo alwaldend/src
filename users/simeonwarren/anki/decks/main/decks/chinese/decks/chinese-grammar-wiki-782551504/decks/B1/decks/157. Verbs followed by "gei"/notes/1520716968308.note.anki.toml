@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Verbs followed by "gei"'
+english = 'Someone gave me a bouquet of flowers.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 给 + Recipient + Obj.'
+hanzi = '昨天有人送给我一束花。'
+notes = ''
+pinyin = 'Zuótiān  sòng gěi  yī shù huā.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMMHTQ'

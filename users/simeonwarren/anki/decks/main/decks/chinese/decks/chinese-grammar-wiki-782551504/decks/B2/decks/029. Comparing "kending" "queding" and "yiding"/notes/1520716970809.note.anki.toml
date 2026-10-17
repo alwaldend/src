@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "SeparateFunctions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "kending" "queding" and "yiding"'
+english = 'If you ask me if I know about this, my answer will be sure.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '一定 + （的 +） Noun'
+hanzi = '如果你问我是不是知道这件事情，我的回答是肯定的。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDPS0J'

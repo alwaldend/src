@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Before a specific time with "yiqian"'
+english = 'Did you know him two years ago?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Time / Verb + 以前, ....'
+hanzi = '两年以前，你认识他吗？'
+notes = ''
+pinyin = 'Liǎng nián  yǐqián,  nǐ rènshi tā ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJ2OJC'

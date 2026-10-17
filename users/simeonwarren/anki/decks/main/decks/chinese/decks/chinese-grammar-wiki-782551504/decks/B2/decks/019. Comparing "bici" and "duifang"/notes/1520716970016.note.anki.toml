@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Parts_of_Speech", "Pronouns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "bici" and "duifang"'
+english = 'Before they get married, the husband and wife should spend more time getting to know each other.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '彼此 + Verb'
+hanzi = '结婚以前夫妻应该多花时间彼此了解。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG84D65'

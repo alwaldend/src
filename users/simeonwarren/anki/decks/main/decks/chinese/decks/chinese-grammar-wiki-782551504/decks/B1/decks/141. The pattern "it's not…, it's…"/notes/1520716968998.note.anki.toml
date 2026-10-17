@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = "The pattern \"it's not…, it's…\""
+english = "What's important is not how you look outside, it's your inside."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不是 + [Verb Phrase 1] ， (而)是 + [Verb Phrase 2]'
+hanzi = '重要的不是你的外表，而是你的内心。'
+notes = ''
+pinyin = 'Zhòngyào de bù shì nǐ de wàibiǎo, érshì nǐ de nèixīn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGT9WYR'

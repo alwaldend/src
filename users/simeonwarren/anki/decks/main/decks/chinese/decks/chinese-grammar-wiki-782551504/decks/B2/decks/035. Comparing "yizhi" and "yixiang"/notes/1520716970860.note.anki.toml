@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "TimeWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "yizhi" and "yixiang"'
+english = "It's constantly raining, I have no way to go out."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '雨一直在下，我没办法出去。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGVEP8S'

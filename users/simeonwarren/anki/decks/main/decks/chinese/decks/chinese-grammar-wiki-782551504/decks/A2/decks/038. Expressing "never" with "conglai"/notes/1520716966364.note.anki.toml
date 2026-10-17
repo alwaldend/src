@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "never" with "conglai"'
+english = 'Have you never heard about this place before?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 从来 + 没(有) + Verb + 过'
+hanzi = '你们从来没有听说过这个地方吗？'
+notes = ''
+pinyin = 'Nǐmen cónglái méiyǒu tīngshuō guo zhège dìfang ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8NM5E'

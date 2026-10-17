@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "buduan" and "buting"'
+english = "The client won't stop changing his ideas. What should I do?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不断 + 地 + Verb'
+hanzi = '客户不断地改变主意，怎么办？'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGIKHUH'

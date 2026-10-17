@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Cause/EffectStatements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "due to…" with "youyu"'
+english = 'Due to differing opinions, two bosses started to argue.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '由于 + Cause，Effect'
+hanzi = '由于意见不一致，两位老板吵了起来。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGL90MR'

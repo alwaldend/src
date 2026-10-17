@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'le after an object'
+english = "We did eat.You don't need to cook for us."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 了 + Obj.'
+hanzi = '我们吃了饭了，你不用给我们做吃的。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG4K5WH'

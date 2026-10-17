@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "already" with just "le"'
+english = 'How about using my car?<br>Thanks. We (already) have a car.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + [Verb Phrase] + 了'
+hanzi = 'A: 用我的车吧？<br>B: 谢谢，我们有车了。'
+notes = ''
+pinyin = 'Yòng wǒ de chē ba?<br>Xièxie, wǒmen yǒu chē le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGM055L'

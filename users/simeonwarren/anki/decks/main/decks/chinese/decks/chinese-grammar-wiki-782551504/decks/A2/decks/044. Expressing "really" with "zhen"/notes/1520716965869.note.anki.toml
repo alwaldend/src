@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "AdverbswithAdjectives", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "really" with "zhen"'
+english = 'I really hate this kind of guy!'
+example-sentence = ''
+example-type = ''
+grammar-construct = '真 + Verb'
+hanzi = '我真讨厌这种男人！'
+notes = ''
+pinyin = 'Wǒ zhēn tǎoyàn zhè zhǒng nánrén!'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGC885D'

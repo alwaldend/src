@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "TimeWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "pingshi" and "pingchang"'
+english = 'What can you cook?<br>Just those ordinary ones.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '平常 + 的 + Noun'
+hanzi = 'A:你会做什么菜<br>B:都是很平常的菜。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJOGGG'

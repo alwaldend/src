@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = "Expressing \"don't need to\" with \"buyong\""
+english = "You don't need to help."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不用 + [Verb Phrase]'
+hanzi = '不用你帮忙。'
+notes = ''
+pinyin = 'Bùyòng nǐ bāngmáng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGECD0E'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "enough" with "gou"'
+english = 'The paper in the office is not enough to use. You should go buy some tomorrow.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不够 + Verb'
+hanzi = '办公室的纸不够用了，你明天去买一些吧。'
+notes = ''
+pinyin = 'Bàngōngshì de zhǐ bùgòu yòng le, nǐ míngtiān qù mǎi yīxiē ba.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG49BE6'

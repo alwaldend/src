@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "AdverbswithAdjectives", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "really" with "zhen"'
+english = 'You ate so much!'
+example-sentence = ''
+example-type = ''
+grammar-construct = '真 + Verb'
+hanzi = '你真能吃！'
+notes = ''
+pinyin = 'Nǐ zhēn néng chī!'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGC885D'

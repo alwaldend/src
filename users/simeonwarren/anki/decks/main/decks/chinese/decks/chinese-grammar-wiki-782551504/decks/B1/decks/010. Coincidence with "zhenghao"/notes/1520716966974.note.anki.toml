@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "leech", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Coincidence with "zhenghao"'
+english = 'The rice was made perfectly, not too hard and not too soft.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 得 + 正好'
+hanzi = '米饭煮得正好，不硬也不软。'
+notes = ''
+pinyin = 'Mǐfàn zhǔ dé zhènghǎo, bù yìng yě bù ruǎn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGUD25J'

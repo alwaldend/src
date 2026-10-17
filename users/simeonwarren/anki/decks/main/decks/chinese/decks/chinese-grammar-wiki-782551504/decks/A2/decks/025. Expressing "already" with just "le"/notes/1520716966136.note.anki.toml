@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "already" with just "le"'
+english = 'Are your kids still in college?<br>They (already) work.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + [Verb Phrase] + 了'
+hanzi = 'A: 孩子还在上大学吗？<br>B: 他们工作了。'
+notes = "This expression emphasizes that they're not students anymore, and have already entered the workforce."
+pinyin = 'Háizi hái zài shàng dàxué ma?<br>Tāmen gōngzuò le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGM055L'

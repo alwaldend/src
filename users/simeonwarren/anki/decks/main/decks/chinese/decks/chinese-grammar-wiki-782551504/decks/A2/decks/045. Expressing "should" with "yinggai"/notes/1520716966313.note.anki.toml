@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Auxiliaryverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "should" with "yinggai"'
+english = "We shouldn't be late."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不 + 应该 + Verb + Obj.'
+hanzi = '我们不应该迟到。'
+notes = ''
+pinyin = 'Wǒmen bù yīnggāi chídào.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGV01X9'

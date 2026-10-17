@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Separable verb'
+english = 'The boss invited everyone to dinner.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '老板请大家吃了一顿饭。'
+notes = ''
+pinyin = 'Lǎobǎn qǐng dàjiā chīle yī dùn fàn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG4GVRX'

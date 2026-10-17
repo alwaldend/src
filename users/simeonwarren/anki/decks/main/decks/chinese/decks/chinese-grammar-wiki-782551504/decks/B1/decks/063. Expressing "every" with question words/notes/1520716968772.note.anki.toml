@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "every" with question words'
+english = "It doesn't matter however other people think."
+example-sentence = ''
+example-type = ''
+grammar-construct = '怎么 + Verb + 都 + Predicate'
+hanzi = '别人怎么想都不重要。'
+notes = ''
+pinyin = 'Biérén zěnme xiǎng dōu bù zhòngyào.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG13ALM'

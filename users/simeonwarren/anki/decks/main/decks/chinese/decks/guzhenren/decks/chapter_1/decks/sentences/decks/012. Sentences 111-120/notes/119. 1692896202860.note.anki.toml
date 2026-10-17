@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'Guyue cottage, this is 500 years ago?!'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '古月山寨,这是500年前？！'
+notes = ''
+pinyin = ''
+source = ''

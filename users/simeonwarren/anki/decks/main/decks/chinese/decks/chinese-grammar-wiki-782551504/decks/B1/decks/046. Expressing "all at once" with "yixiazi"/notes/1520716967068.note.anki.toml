@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "all at once" with "yixiazi"'
+english = "She wasn't careful going down the stairs, and suddenly fell."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 一下子 + Verb + 了'
+hanzi = '她下楼的时候不小心，一下子摔倒了。'
+notes = ''
+pinyin = 'Tā xiàlóu de shíhou bù xiǎoxīn, yīxiàzi shuāidǎo le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG06EA8'

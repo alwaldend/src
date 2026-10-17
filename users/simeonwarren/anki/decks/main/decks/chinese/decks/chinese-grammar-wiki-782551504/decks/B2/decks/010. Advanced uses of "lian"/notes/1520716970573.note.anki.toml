@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Advanced uses of "lian"'
+english = "We haven't even met once."
+example-sentence = ''
+example-type = ''
+grammar-construct = '连 + 一 + Measure Word (+ Noun) + 都 + 不 / 没 + Verb'
+hanzi = '我们连一次都没见过。'
+notes = ''
+pinyin = 'Wǒmen lián yī cì dōu méi jiàn guo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGF273F'

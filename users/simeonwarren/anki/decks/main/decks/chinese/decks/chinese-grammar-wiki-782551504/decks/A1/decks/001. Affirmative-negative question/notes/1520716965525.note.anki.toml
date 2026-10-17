@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Affirmative-negative question'
+english = 'Does your older brother have a girlfriend?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 有 没有 + Obj.'
+hanzi = '你哥哥有没有女朋友？'
+notes = ''
+pinyin = 'Nǐ gēge yǒu méiyǒu nǚpéngyou?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGZH7K3'

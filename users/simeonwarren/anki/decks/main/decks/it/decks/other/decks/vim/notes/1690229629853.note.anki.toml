@@ -1,0 +1,12 @@
+note_type = "note_types/basic.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[[cards]]
+ordinal = 1
+
+[fields]
+Back = ':cop[en]&nbsp;<div>:ccl[ose]</div><div><br></div><div>:cf[irst]</div><div>:cl[ast]</div><div><br><div>:cn[ext]</div><div>:cp[rev]</div><div><br></div><div>:col[der]<br></div></div><div>:cne[wer]</div><div><br></div><div>:cdo COMMAND</div><div>:cfdo COMMAND</div>'
+Front = 'What are the main commands to operate on the quickfix list?'

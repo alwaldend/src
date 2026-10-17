@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Aspect particle "zhe"'
+english = "Don't be mad. I was just joking."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 是 + Verb + 着 + 玩 + 的'
+hanzi = '你不要生气，我是说着玩的。'
+notes = ''
+pinyin = 'Nǐ bùyào shēngqì, wǒ shì shuō zhe wán de!'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGOIDEO'

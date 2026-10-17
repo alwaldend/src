@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'to do;	to make;	to produce;	to write;	to compose;	to act as;	to engage in;	to hold (a party);	to be;	to become;	to function (in some capacity);	to serve as;	to be used for;	to form (a bond or relationship);	to pretend;	to feign;	to act a part;	to put on appearance.'
+example-sentence = '若是刚炼成的春秋蝉有效,来生还是要做邪魔'
+example-type = ''
+grammar-construct = ''
+hanzi = '做'
+notes = ''
+pinyin = '<span class="tone4">zuò</span>	 <!-- zuo -->'
+source = ''

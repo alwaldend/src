@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "C1"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing the unexpected with "jingran"'
+english = "That person cheated you out of your money, and you're not angry with him?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 竟然 ⋯⋯'
+hanzi = '那个人骗了你的钱，你竟不生他的气？'
+notes = ''
+pinyin = 'Nàgè rén piànle nǐ de qián, nǐ jìng bù shēng tā de qì?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG0D90L'

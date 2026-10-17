@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Reduplication of adjectives'
+english = 'clean'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A  A  B  B  + 的 (+ Noun)'
+hanzi = '干净→干干净净'
+notes = ''
+pinyin = 'gānjìng ￫ gān gān jìng jìng'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDHE8S'

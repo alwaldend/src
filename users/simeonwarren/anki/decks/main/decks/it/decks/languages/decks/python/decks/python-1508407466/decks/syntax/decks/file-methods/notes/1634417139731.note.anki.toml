@@ -1,0 +1,13 @@
+note_type = "note_types/python-basic-and-reversed.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<i>file</i>.seekable()'
+example = ''
+question = "<b>File method</b>&nbsp;that returns True if a file allows us to change it's position, else False."
+version = ''
+with-options = ''

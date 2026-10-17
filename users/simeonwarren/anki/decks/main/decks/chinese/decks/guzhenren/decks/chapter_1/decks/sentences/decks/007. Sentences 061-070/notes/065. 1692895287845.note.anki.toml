@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'Tomorrow is the annual enlightenment ceremony. I wonder what kind of new family blood will emerge this year?'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '明日就是一年一度的开窍大典了,不知道今年会涌现出什么样的家族新血呢？'
+notes = ''
+pinyin = ''
+source = ''

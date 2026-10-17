@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Placement of question words'
+english = "When is your airplane arriving in Shanghai?<br>Eight o'clock this evening."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 什么时候 + Predicate ?'
+hanzi = 'A: 你的飞机什么时候到上海?<br>B: 晚上八点。'
+notes = ''
+pinyin = 'Nǐ de fēijī shénme shíhou dào Shànghǎi?<br>Wǎnshang bā diǎn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJQPSC'

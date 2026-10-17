@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "buduan" and "buting"'
+english = 'I got a cold. My throat hurts and my nose keeps running.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不停 + 地 + Verb'
+hanzi = '感冒了，喉咙痛，还不停地留鼻水。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGIKHUH'

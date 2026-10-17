@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "SeparateFunctions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "kending" "queding" and "yiding"'
+english = "I'm not lying this time. Cross my heart."
+example-sentence = ''
+example-type = ''
+grammar-construct = '肯定 + Adj. / Verb'
+hanzi = '这次我肯定不骗你，骗你是小狗，好吧？'
+notes = "The idiom \"骗你是小狗\" literally means \"To deceive you is to be a small dog.\" It doesn't have a good English equivalent."
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDPS0J'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Softening speech with "ba"'
+english = "It's too late now, don't leave."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Statement + 吧'
+hanzi = '太晚了，不要走了吧。'
+notes = ''
+pinyin = 'Tài wǎn le,  bùyào zǒu le ba.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDHC1H'

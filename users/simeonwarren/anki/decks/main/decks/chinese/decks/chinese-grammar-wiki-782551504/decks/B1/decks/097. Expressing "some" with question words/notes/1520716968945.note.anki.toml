@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "some" with question words'
+english = "Let's meet and talk about this sometime."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '什么时候我们见面谈吧。'
+notes = ''
+pinyin = 'Shénme shíhou wǒmen jiànmiàn tán ba.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG7ED89'

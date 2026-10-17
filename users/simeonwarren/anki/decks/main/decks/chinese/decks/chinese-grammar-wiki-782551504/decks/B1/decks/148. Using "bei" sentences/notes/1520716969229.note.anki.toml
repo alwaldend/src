@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "bei" sentences'
+english = 'You got fired by the company?'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '你被公司炒鱿鱼了？'
+notes = ''
+pinyin = 'Nǐ bèi gōngsī chǎo yóuyú le?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGHF9F1'

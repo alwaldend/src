@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing indifference with "jiu"'
+english = "If she's unhappy, she's unhappy. It's not like it's my fault."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Negative Adj. + 就 + Negative Adj.'
+hanzi = '她不高兴就不高兴，又不是我的错。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGL4O5E'

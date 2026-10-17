@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "after all" with "bijing"'
+english = "It is normal that he doesn't know. After all, he is not a local."
+example-sentence = ''
+example-type = ''
+grammar-construct = '毕竟 + Reason / Characteristic'
+hanzi = '他不知道也很正常，毕竟他不是本地人。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG4V36Q'

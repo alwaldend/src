@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Opportune timing with "chen"'
+english = "The thief must have stolen my cell phone when I wasn't paying attention."
+example-sentence = ''
+example-type = ''
+grammar-construct = '趁 + [Situation / Opportunity]'
+hanzi = '小偷一定是趁我不注意的时候，把我的手机偷走的。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGI9PNV'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing various aspects with "yi fangmian"'
+english = "On one hand, he wants to change; on the other hand, he's afraid of change."
+example-sentence = ''
+example-type = ''
+grammar-construct = '一 方面 ⋯⋯ ， (另) 一 方面 ⋯⋯'
+hanzi = '他一方面想改变，一方面又害怕改变。'
+notes = ''
+pinyin = 'Tā yī fāngmiàn xiǎng gǎibiàn, yī fāngmiàn yòu hàipà gǎibiàn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCWHNF'

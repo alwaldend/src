@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "bu" and "mei"'
+english = "Let's go eat, is that OK?"
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = 'Subj. + Verb + 不 + Verb + Obj.'
+hanzi = '我们去吃饭，好不好？'
+notes = ''
+pinyin = 'Wǒmen qù chīfàn, hǎo bu hǎo?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGRJ1BI'

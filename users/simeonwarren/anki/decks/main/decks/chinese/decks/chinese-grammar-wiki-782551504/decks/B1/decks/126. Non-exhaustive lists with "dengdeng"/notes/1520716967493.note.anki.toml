@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["AuxiliaryWords", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Non-exhaustive lists with "dengdeng"'
+english = 'Watermelons, pineapples, apples, grapes and so on, I like them all.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A1，A2 ⋯⋯ 等 / 等等'
+hanzi = '西瓜、菠萝、葡萄，等等，我都喜欢吃。'
+notes = ''
+pinyin = 'Xīguā, bōluó, pútáo, děngděng,  wǒ dōu xǐhuan chī.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGF763H'

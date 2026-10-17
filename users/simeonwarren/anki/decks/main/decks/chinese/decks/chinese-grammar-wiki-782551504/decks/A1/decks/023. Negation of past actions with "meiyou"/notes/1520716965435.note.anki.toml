@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Negation of past actions with "meiyou"'
+english = "The boss didn't come today?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 没有 / 没 + Verb'
+hanzi = '老板今天没来吗？'
+notes = ''
+pinyin = 'Lǎobǎn jīntiān méi​ lái ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGAUCXK'

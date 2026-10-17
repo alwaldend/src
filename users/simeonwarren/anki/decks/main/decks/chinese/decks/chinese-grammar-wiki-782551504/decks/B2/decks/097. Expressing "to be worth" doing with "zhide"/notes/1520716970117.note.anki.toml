@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "to be worth" doing with "zhide"'
+english = "Ba Jin's prose deserves a look."
+example-sentence = ''
+example-type = ''
+grammar-construct = '值得 + Verb / [Verb Phrase]'
+hanzi = '巴金的散文很值得一看。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGGJA6A'

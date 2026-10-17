@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'He was originally a Chinese scholar on Earth, and he traveled to this world by chance.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '他本是地球上的华夏学子,机缘巧合穿越到这方世界。'
+notes = ''
+pinyin = ''
+source = ''

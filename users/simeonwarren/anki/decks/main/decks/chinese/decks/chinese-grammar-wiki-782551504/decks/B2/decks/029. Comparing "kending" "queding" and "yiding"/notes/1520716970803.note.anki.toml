@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "SeparateFunctions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "kending" "queding" and "yiding"'
+english = "He definitely hasn't gotten out of bed yet， because his phone is still off."
+example-sentence = ''
+example-type = ''
+grammar-construct = '肯定 + Adj. / Verb'
+hanzi = '他肯定还没起床，因为他的手机现在还没开机。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDPS0J'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Rhetorical questions with "nandao"'
+english = "Today's my birthday; you're telling me you didn't know?"
+example-sentence = ''
+example-type = ''
+grammar-construct = '难道 + [Rhetorical Question]'
+hanzi = '今天是我的生日，难道你不知道吗？'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMCP9V'

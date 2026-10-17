@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "duiyu" and "zhiyu"'
+english = ''
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = '（不）至于 +  Degree'
+hanzi = '对于他的无礼，你是不是不太高兴？'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGC01S0'

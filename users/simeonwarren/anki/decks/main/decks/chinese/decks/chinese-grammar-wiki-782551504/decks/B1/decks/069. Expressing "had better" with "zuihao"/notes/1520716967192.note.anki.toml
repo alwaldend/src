@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "had better" with "zuihao"'
+english = "You'd better call and ask him."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 最好 + [Verb Phrase]'
+hanzi = '你们最好给他打个电话问一下。'
+notes = ''
+pinyin = 'Nǐmen zuìhǎo gěi tā dǎ gè diànhuà wèn yīxià.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG35CD7'

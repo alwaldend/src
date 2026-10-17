@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "TimeWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "yihou" "ranhou" "houlai"'
+english = "We're going to Beijing on a business trip and then we go to Europe on vacation."
+example-sentence = ''
+example-type = 'invalid'
+grammar-construct = ''
+hanzi = '我们下周去北京出差，以后去欧洲度假。'
+notes = ''
+pinyin = 'Wǒmen xiàzhōu qù Běijīng chūchāi, yǐhòu qù Ōuzhōu dùjià.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNPJ7T'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "EvenIfStatements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "even if…" with "napa"'
+english = 'No matter how many times you ask her, she will not say a single word.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '哪怕 + [Subj. 1] + 再 + Adj. [Subj. 2] + 也 + [Verb Phrase]'
+hanzi = '哪怕你问再多遍，她现在也不会说一个字。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGXX3NY'

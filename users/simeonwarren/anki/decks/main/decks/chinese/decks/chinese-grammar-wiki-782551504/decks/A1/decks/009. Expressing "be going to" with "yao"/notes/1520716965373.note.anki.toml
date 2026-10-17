@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Auxiliaryverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "be going to" with "yao"'
+english = 'Are you planning to go home after getting off work?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Time + Subj. + 要 + Verb'
+hanzi = '下班以后你要回家吗？'
+notes = ''
+pinyin = 'Xiàbān yǐhòu nǐ yào huíjiā ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGVT2KN'

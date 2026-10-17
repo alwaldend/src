@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "not only... but also"'
+english = 'The teacher found not only did the student lie, but their parents did.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '不但 + Subj. 1 ⋯⋯ ，而且 + Subj. 2 + 也 ⋯⋯'
+hanzi = '老师发现，不但学生说谎，而且家长也说谎。'
+notes = ''
+pinyin = 'Lǎoshī fāxiàn, bùdàn xuéshēng shuōhuǎng, érqiě jiāzhǎng yě shuōhuǎng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTYJ3E'

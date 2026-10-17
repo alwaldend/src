@@ -1,0 +1,13 @@
+note_type = "note_types/python-basic-and-reversed.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+additional-info = 'Used in a function or iteration body that has been declared but has no logical code added yet.'
+answer = '<b>Keyword</b> that acts as a null statement, a statement that will do nothing.'
+example = ''
+question = '<b>Keyword: </b>pass'
+version = ''
+with-options = ''

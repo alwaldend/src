@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'tomorrow.'
+example-sentence = '   明日就是一年一度的开窍大典了,不知道今年会涌现出什么样的家族新血呢'
+example-type = ''
+grammar-construct = ''
+hanzi = '明日'
+notes = ''
+pinyin = '<span class="tone2">míng</span><span class="tone4">rì</span>	 <!-- ming ri -->'
+source = ''

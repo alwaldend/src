@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'After a specific time with "yihou"'
+english = 'After the boss came, everyone stopped talking.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Time / Verb + 以后, ....'
+hanzi = '老板来了以后，大家都不说话了。'
+notes = ''
+pinyin = 'Lǎobǎn  lái   le yǐhòu, dàjiā dōu bù shuōhuà le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGRLQGY'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using the verb "xing"'
+english = 'Hello. My last name is Mao.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 姓 + [Surname]'
+hanzi = '你好，我姓毛。'
+notes = ''
+pinyin = 'Nǐ hǎo, wǒ xìng Máo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPS9NY'

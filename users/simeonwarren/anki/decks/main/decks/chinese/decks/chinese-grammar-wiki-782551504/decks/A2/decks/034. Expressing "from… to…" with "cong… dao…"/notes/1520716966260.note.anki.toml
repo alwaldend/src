@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "from… to…" with "cong… dao…"'
+english = 'from West Nanjing Road to East Nanjing Road'
+example-sentence = ''
+example-type = ''
+grammar-construct = '从 + Place 1 + 到 + Place 2'
+hanzi = '从南京西路到南京东路'
+notes = ''
+pinyin = 'cóng Nánjīng Xī Lù dào  Nánjīng Dōng Lù'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGGGIW8'

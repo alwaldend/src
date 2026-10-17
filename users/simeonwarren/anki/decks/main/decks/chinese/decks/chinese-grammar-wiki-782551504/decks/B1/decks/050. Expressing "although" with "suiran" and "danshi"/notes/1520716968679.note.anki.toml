@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "although" with "suiran" and "danshi"'
+english = 'Even though his family is rich, he never wastes money.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '虽然 ⋯⋯ ，但是 / 可是 ⋯⋯'
+hanzi = '虽然他家很有钱，可是他从来不浪费钱。'
+notes = ''
+pinyin = 'Suīrán tā jiā hěn yǒuqián, kěshì tā cónglái bù làngfèi qián.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGXI560'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "although" with "suiran" and "danshi"'
+english = "Although he didn't want to go, he ended up going."
+example-sentence = ''
+example-type = ''
+grammar-construct = '虽然 ⋯⋯ ，但是 / 可是 ⋯⋯'
+hanzi = '他虽然不想去，但是还是去了。'
+notes = ''
+pinyin = 'Tā suīrán bù xiǎng qù, dànshì háishì qù le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGXI560'

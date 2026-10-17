@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Placement of question words'
+english = 'Where do you want to go this weekend?<br>I want to go to the park.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 哪里 / 哪儿 ?'
+hanzi = 'A: 这个周末你想去哪儿？<br>B: 我想去公园。'
+notes = ''
+pinyin = 'Zhège zhōumò nǐ xiǎng qù nǎr?<br>Wǒ xiǎng qù gōngyuán.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJQPSC'

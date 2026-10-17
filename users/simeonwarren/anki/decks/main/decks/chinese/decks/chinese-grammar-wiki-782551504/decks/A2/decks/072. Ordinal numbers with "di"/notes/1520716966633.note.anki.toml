@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Grammatical_Structures", "NumbersandMeasureWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Ordinal numbers with "di"'
+english = 'Dad‘s first cell phone was a  Nokia.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '第 + Number + Measure Word + Noun'
+hanzi = '爸爸的第一个手机是NOKIA。'
+notes = ''
+pinyin = 'Bàba de dì-yī gè shǒujī shì NOKIA.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGK904U'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "only" with "zhi"'
+english = 'They can only speak English.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '只 + 会 / 能 + Verb'
+hanzi = '他们只会说英文。'
+notes = ''
+pinyin = 'Tāmen zhǐ huì shuō Yīngwén.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGN8C8R'

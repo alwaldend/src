@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Sequencing with "xian" and "zai"'
+english = 'I prefer to take a bath before I go to bed.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '先 ⋯⋯ ，再 ⋯⋯'
+hanzi = '我喜欢先洗澡，再睡觉。'
+notes = ''
+pinyin = 'Wǒ xǐhuan xiān xǐzǎo, zài shuìjiào.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGLJM55'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "cai" and "jiu"'
+english = "The movie just started and you don't want to see it now?"
+example-sentence = ''
+example-type = ''
+grammar-construct = '(现在) + 才 + Time'
+hanzi = '电影才开始你就不想看了？'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGLOS9C'

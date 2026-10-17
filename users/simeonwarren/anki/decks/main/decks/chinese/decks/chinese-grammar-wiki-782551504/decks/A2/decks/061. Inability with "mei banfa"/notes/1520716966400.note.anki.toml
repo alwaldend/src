@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Inability with "mei banfa"'
+english = "He didn't open the door, so she has no way to enter."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 没办法 + Verb + Obj.'
+hanzi = '他不开门，所以她没办法进去。'
+notes = ''
+pinyin = 'Tā bù kāimén, suǒyǐ tā méi bànfǎ jìnqù.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGI2KHC'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing simultaneous actions with "yimian"'
+english = 'They enjoy the moon and eat mooncakes together as a family.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '一面 + Verb +  一面 + Verb'
+hanzi = '他们一家人一面赏月一面吃月饼。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG1QB4K'

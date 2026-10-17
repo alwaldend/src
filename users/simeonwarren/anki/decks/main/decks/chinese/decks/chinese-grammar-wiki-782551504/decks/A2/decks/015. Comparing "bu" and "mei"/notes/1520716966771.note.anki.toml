@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "bu" and "mei"'
+english = ''
+example-sentence = ''
+example-type = 'invalid'
+grammar-construct = 'Subj. + 没有 + Obj.'
+hanzi = '我不有钱。'
+notes = ''
+pinyin = 'Wǒ bù yǒu qián.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGRJ1BI'

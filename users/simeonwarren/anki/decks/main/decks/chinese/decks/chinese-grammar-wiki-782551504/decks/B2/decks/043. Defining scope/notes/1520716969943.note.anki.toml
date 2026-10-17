@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Parts_of_Speech", "PrepositionalPhrase"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Defining scope'
+english = 'We need people with two years of working experience or more.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '级别 / 次序 / 数目 + 以上 / 以下'
+hanzi = '我们需要有两年以上工作经验的人。'
+notes = ''
+pinyin = 'Wǒmen xūyào yǒu liǎng nián yǐshàng gōngzuò jīngyàn de rén.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG7AE5C'

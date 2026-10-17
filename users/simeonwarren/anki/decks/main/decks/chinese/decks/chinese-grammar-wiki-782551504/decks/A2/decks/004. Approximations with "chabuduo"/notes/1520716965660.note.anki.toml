@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Approximations with "chabuduo"'
+english = 'Starbucks and Costa are almost the same.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A + 跟 / 和 +  B + 差不多'
+hanzi = 'Starbucks和Costa差不多。'
+notes = ''
+pinyin = 'Starbucks hé Costa chàbuduō.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG1NAXO'

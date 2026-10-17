@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Grammatical_Structures", "NounPhrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "some" with "yixie"'
+english = 'Mom went to the supermarket and bought some fruit.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '一些 + Noun'
+hanzi = '妈妈去超市买了一些水果。'
+notes = ''
+pinyin = 'Māma qù chāoshì mǎi le yīxiē shuǐguǒ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWVZ0T'

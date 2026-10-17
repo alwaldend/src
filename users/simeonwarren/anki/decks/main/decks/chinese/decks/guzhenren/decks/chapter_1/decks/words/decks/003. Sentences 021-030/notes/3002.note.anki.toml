@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = "to turn one's head;\tto change direction;\tU-turn;\tvolte face;\tto repent.<br>nutation (plants turning to face the sun).<br>"
+example-sentence = '当真是朝如青丝暮成雪,是非成败转头空'
+example-type = ''
+grammar-construct = ''
+hanzi = '转头'
+notes = ''
+pinyin = '<span class="tone3">zhuǎn</span><span class="tone5">tóuzhuàn</span><span class="tone2">tóu</span>	 <!-- zhuan tou zhuan tou -->'
+source = ''

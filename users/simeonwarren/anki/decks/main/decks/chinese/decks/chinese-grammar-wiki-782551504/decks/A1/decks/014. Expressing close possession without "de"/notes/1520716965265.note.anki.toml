@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing close possession without "de"'
+english = 'His dad is the boss of our company.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Pronoun + Noun'
+hanzi = '他爸爸是我们公司的老板。'
+notes = ''
+pinyin = 'Tā bàba shì wǒmen gōngsī de lǎobǎn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCI0KG'

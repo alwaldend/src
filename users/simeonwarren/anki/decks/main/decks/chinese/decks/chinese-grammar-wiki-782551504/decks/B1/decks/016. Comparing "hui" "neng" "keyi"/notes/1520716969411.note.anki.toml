@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["AuxiliaryWords", "B1", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "hui" "neng" "keyi"'
+english = "Are you able to eat three bowls of rice?<br>I can't."
+example-sentence = ''
+example-type = ''
+grammar-construct = '会／能 + Verb'
+hanzi = 'A:你能吃三碗米饭吗？<br>B:不能。'
+notes = ''
+pinyin = 'Nǐ néng chī sān wǎn mǐfàn ma?<br>Bù néng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGZL717'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Conceding a point with "shi"'
+english = "It's tiring, but it's all worth it."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Adj. + 是 + Adj. ， 但是 / 就是 ⋯⋯'
+hanzi = '累是累，但是很值得。'
+notes = ''
+pinyin = 'Lèi shì lèi, dànshì hěn zhídé.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGT9Y8P'

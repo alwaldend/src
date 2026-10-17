@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'an up-and-coming youngster;	new talent;	a brilliant younger generation.'
+example-sentence = '甚至就连老一辈们都感觉到了这位后起之秀的压力'
+example-type = ''
+grammar-construct = ''
+hanzi = '后起之秀'
+notes = ''
+pinyin = '<span class="tone4">hòu</span><span class="tone3">qǐ</span><span class="tone1">zhī</span><span class="tone4">xiù</span>	 <!-- hou qi zhi xiu -->'
+source = ''

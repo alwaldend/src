@@ -1,0 +1,12 @@
+note_type = "note_types/basic.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[[cards]]
+ordinal = 1
+
+[fields]
+Back = ':tabp[revious]'
+Front = 'Move to the previous tab, using a <b>command</b>&nbsp;(and not an operator)'

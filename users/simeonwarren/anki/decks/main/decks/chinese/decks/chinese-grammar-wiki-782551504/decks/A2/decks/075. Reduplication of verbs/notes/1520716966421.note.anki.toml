@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Reduplication of verbs'
+english = 'Go and ask them where the bathroom is.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 一 + Verb'
+hanzi = '你去问一问他们厕所在哪里。'
+notes = ''
+pinyin = 'Nǐ qù wèn yī wèn tāmen cèsuǒ zài nǎlǐ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGYC77J'

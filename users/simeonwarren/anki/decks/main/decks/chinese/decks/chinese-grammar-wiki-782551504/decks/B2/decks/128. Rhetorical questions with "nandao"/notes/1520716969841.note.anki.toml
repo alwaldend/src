@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Rhetorical questions with "nandao"'
+english = 'How much money should I give you?'
+example-sentence = ''
+example-type = 'invalid'
+grammar-construct = '难道 + [Rhetorical Question]'
+hanzi = '难道我应该给你多少钱？'
+notes = 'Not a 吗 question'
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMCP9V'

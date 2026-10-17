@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "nearly" with "jihu"'
+english = 'He almost ate this whole cake by himself.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 几乎 + 不 / 没 + Predicate'
+hanzi = '他一个人几乎吃了一整个蛋糕。'
+notes = ''
+pinyin = 'Tā yī gèrén jīhū chī le yī zhěng gè dàngāo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGVA70K'

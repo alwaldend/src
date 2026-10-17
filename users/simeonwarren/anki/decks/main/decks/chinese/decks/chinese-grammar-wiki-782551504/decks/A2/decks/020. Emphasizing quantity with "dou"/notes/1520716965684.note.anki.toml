@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Emphasizing quantity with "dou"'
+english = 'I have to go to work every day.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 都 + Verb + Obj.'
+hanzi = '我每天都要上班。'
+notes = ''
+pinyin = 'Wǒ měi tiān  dōu yào shàngbān.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWNEYM'

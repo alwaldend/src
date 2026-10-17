@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Idiomatic phrases with "zai"'
+english = 'There are many differences between northern and southern people on the topic of living habits.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '在 + Topic + 上 ，Subj. ⋯⋯'
+hanzi = '南方人和北方人在生活习惯上有很多差异。'
+notes = ''
+pinyin = 'Nánfāng rén hé běifāng rén zài shēnghuó xíguàn shàng yǒu hěn duō chāyì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGH13JY'

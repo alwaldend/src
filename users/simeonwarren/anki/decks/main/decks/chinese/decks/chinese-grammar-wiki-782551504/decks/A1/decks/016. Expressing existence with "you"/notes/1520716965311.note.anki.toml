@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing existence with "you"'
+english = 'There are many Chinese people in Japan.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Place + 有 + Obj.'
+hanzi = '日本有很多中国人。'
+notes = ''
+pinyin = 'Rìběn yǒu hěn duō Zhōngguó rén.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG04ZCI'

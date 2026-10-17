@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "except" and "in addition" with "chule… yiwai"'
+english = 'He can drink anything except white wine.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '除了 ⋯⋯ (+ 以外) ，Subj. + 都 ⋯⋯'
+hanzi = '除了白酒，别的酒他都喝。'
+notes = ''
+pinyin = 'Chúle báijiǔ, biéde jiǔ tā dōu hē.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGHFPGG'

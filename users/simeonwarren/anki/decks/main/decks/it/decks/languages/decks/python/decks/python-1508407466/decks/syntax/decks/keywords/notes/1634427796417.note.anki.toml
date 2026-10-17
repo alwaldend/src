@@ -1,0 +1,13 @@
+note_type = "note_types/python-basic-and-reversed.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<b>Keyword</b> to define a new class.'
+example = ''
+question = '<b>Keyword: </b>class'
+version = ''
+with-options = ''

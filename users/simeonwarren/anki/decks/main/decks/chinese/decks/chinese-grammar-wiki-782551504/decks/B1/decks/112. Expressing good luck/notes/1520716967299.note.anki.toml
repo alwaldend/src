@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing good luck'
+english = "Luckily the boss doesn't know about it, otherwise you will definitely get fired."
+example-sentence = ''
+example-type = ''
+grammar-construct = '还好 + [Lucky Incident]， 不然……'
+hanzi = '还好老板不知道，不然你肯定被炒鱿鱼。'
+notes = ''
+pinyin = 'Hái hǎo lǎobǎn bù zhīdào, bùrán nǐ kěndìng bèi chǎo yóuyú.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGOB1BF'

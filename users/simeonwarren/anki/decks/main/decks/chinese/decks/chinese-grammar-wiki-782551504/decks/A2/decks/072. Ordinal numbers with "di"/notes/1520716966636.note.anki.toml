@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Grammatical_Structures", "NumbersandMeasureWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Ordinal numbers with "di"'
+english = 'How do you read the fifth character from the second line?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '第 + Number + Measure Word + Noun'
+hanzi = '第二行第五个汉字怎么读？'
+notes = ''
+pinyin = 'Dì-èr háng  dì-wǔ  gè Hànzì zěnme dú?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGK904U'

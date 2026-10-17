@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "TimeWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "yihou" and "houlai"'
+english = "After two weeks, I'm going to return to the USA."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Time + 以后， Subj. + Verb + Obj.'
+hanzi = '两个星期以后，我要回美国。'
+notes = ''
+pinyin = 'Liǎng gè xīngqī yǐhòu, wǒ yào huí Měiguó.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNPJ7T'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "one by one" with "yi"'
+english = 'Why do you listen to this song on repeat?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '一 + Measure Word（+ 又）+ 一 + Measure Word'
+hanzi = '你为什么一遍又一遍地听这首歌？'
+notes = ''
+pinyin = 'Nǐ wèishénme yī biàn yòu yī biàn de tīng zhè shǒu gē?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGBC7A0'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Complement "-huai le"'
+english = 'A man took out a gun all of a sudden and the passengers were scared to death.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Adj. + 坏了'
+hanzi = '一个男人突然拿出一把枪，乘客们都吓坏了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGT0GYL'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "some" with question words'
+english = "I've heard this song somewhere."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '这首歌我在哪儿听过。'
+notes = ''
+pinyin = 'Zhè shǒu gē wǒ zài nǎr tīng guo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG7ED89'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Cause/EffectStatements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "since" with "jiran"'
+english = "Since you don't like him, why do you want to go out with him?"
+example-sentence = ''
+example-type = ''
+grammar-construct = '既然 + Fact,   （那 +）rhetorical question'
+hanzi = '你既然不喜欢他，为什么还想跟他出去？'
+notes = 'a suggestion)'
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGG4BX9'

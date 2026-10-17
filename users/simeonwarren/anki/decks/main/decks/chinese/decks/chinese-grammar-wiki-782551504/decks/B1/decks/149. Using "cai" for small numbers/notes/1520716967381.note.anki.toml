@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "cai" for small numbers'
+english = "It's been two days and you only finished reading one page?"
+example-sentence = ''
+example-type = ''
+grammar-construct = '才 + Verb + Number + Measure Word + Noun'
+hanzi = '已经两天了，你才看完一页？'
+notes = ''
+pinyin = 'Yǐjīng liǎngtiān le, nǐ cái kàn wán yī yè?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGYW5RS'

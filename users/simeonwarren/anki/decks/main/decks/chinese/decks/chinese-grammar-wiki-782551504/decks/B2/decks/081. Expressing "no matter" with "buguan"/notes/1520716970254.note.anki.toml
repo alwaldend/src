@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Grammatical_Structures", "NoMatterStatements"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "no matter" with "buguan"'
+english = "No matter how far it is, I'm going with."
+example-sentence = ''
+example-type = ''
+grammar-construct = '不管 + 多 + Adj., Subj. + 都 ⋯⋯'
+hanzi = '不管多远，我都要跟你一起去。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG0NDS6'

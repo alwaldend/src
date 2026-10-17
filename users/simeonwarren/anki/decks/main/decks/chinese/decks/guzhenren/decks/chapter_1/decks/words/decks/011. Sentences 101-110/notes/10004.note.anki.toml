@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'surely;	certainly;	necessarily;	fixed;	a certain (extent etc);	given;	particular;	must.'
+example-sentence = '   一定牢记在心'
+example-type = ''
+grammar-construct = ''
+hanzi = '一定'
+notes = ''
+pinyin = '<span class="tone1">yī</span><span class="tone4">dìng</span>	 <!-- yi ding -->'
+source = ''

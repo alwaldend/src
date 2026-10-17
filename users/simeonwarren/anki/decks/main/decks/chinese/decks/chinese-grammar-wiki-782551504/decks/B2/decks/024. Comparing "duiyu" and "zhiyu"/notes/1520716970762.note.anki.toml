@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "duiyu" and "zhiyu"'
+english = 'For this problem, we need a further discussion.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '至于 + Topic，Subj. + Verb Phrase'
+hanzi = '至于这个问题，我们还需要进一步讨论。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGC01S0'

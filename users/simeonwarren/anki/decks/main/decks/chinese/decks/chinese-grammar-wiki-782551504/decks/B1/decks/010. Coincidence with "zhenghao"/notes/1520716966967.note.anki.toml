@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Coincidence with "zhenghao"'
+english = 'The floor is perfect, not too high, not too low.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 正好'
+hanzi = '这个楼层正好，不高也不低。'
+notes = ''
+pinyin = 'Zhège lóucéng zhènghǎo, bù gāo yě bù dī.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGUD25J'

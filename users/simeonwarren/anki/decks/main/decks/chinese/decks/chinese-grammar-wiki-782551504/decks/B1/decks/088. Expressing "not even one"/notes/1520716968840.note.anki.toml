@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "not even one"'
+english = 'Not one person in our company has participated in this activity.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Topic + Subj. + 一 + Measure Word + (Noun) + 也 / 都 + Verb'
+hanzi = '这次活动我们公司一个人也没参加。'
+notes = ''
+pinyin = 'Zhè cì huódòng wǒmen gōngsī yī gè rén yě méi cānjiā.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGUQ861'

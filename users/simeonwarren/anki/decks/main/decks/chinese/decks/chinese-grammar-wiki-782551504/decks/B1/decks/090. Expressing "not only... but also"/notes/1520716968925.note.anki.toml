@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "not only... but also"'
+english = 'Not only do the ordinary people fear these people, but the police fear them.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '不但 + Subj. 1 ⋯⋯ ，而且 + Subj. 2 + 也 ⋯⋯'
+hanzi = '不但老百姓害怕这些人，警察也害怕。'
+notes = ''
+pinyin = 'Bùdàn lǎobǎixìng hàipà zhèxiē rén, érqiě jǐngchá yě hàipà.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTYJ3E'

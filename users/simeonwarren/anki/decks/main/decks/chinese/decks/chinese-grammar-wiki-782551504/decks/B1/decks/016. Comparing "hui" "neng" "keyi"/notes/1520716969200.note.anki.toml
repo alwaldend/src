@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["AuxiliaryWords", "B1", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "hui" "neng" "keyi"'
+english = "He doesn't know how to fix computers."
+example-sentence = ''
+example-type = ''
+grammar-construct = '会／能 + Verb'
+hanzi = '他不会修电脑。'
+notes = ''
+pinyin = 'Tā bù huì xiū diànnǎo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGZL717'

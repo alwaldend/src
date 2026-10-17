@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "EvenIfStatements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "even if…" with "jiushi"'
+english = 'Even if he were penniless, I would still be willing to be with him.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '就是 + Hypothetical Statement + 也 + Action'
+hanzi = '就是他变成一个穷光蛋，我也愿意跟他在一起。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGF1TQ2'

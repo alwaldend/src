@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Basic comparisons with "bi"'
+english = 'You are smarter than me.'
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = 'Noun 1 + 比 + Noun 2 + Adj.'
+hanzi = '你比我聪明。'
+notes = ''
+pinyin = 'Nǐ bǐ wǒ cōngming .'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8SI2K'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Basics", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "excessively" with "tai"'
+english = 'The teacher is too tired.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '太 + Adj. + 了'
+hanzi = '老师太累了。'
+notes = ''
+pinyin = 'Lǎoshī tài lèi le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8HVFN'

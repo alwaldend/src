@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Negative commands with "buyao"'
+english = "Don't get angry, OK?"
+example-sentence = ''
+example-type = ''
+grammar-construct = '不要 + Verb'
+hanzi = '不要生气，好吗？'
+notes = ''
+pinyin = 'Bùyào shēngqì, hǎo ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGIVZJU'

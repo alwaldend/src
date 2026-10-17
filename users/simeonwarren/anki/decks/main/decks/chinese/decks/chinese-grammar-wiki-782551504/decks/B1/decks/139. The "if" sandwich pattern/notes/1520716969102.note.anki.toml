@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'The "if" sandwich pattern'
+english = 'Take it if you like it.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '⋯⋯ (的话) ，就 ⋯⋯'
+hanzi = '喜欢就拿走吧。'
+notes = ''
+pinyin = 'Xǐhuan jiù názǒu ba.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGN4VUU'

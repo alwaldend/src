@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Auxiliaryverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing future with "jiang"'
+english = "This policy is about to improve farmers' income."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 将 / 将要 / 将会 + [Verb Phrase]'
+hanzi = '这个政策将会大大改善农民的收入。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGIQPUJ'

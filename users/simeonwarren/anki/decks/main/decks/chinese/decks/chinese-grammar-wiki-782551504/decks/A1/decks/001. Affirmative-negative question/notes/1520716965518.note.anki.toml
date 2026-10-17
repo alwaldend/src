@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Affirmative-negative question'
+english = 'Are you happy?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '[First Character of Adj.] + 不 + Adj.'
+hanzi = '高不高兴？'
+notes = 'only the first character repeated'
+pinyin = 'Gāo bu gāoxìng?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGZH7K3'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Placement of question words'
+english = "When are we eating?<br>We're eating at 6:00."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 什么时候 + Predicate ?'
+hanzi = 'A: 我们什么时候吃饭？<br>B: 我们6点吃饭。'
+notes = ''
+pinyin = 'Wǒmen shénme shíhou chīfàn?<br>Wǒmen liù diǎn chīfàn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJQPSC'

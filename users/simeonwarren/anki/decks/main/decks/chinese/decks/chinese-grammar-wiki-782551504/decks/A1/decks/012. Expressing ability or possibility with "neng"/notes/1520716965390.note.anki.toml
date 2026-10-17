@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Auxiliaryverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing ability or possibility with "neng"'
+english = 'Would it be possible for them to come a little earlier tomorrow?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 能 + Verb + Obj.'
+hanzi = '他们明天能早点来吗？'
+notes = ''
+pinyin = 'Tāmen míngtiān néng zǎo diǎn lái ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG9PQ40'

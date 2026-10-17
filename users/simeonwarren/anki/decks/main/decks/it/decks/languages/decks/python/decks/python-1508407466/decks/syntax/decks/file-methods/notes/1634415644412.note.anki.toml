@@ -1,0 +1,13 @@
+note_type = "note_types/python-basic-and-reversed.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+additional-info = '<div>Takes in a max size in bytes.&nbsp;<span style="color: var(--field-fg); background-color: ;">The default is -1 (the whole line).</span></div>'
+answer = '<i>file</i>.readline()'
+example = ''
+question = '<b>File method</b>&nbsp;that returns one line from the file.'
+version = ''
+with-options = '<i>file</i>.readline(<i>size=-1</i>)'

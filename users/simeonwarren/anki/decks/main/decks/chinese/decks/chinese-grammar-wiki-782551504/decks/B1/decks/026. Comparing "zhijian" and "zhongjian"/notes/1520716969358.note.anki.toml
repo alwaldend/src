@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "Nouns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "zhijian" and "zhongjian"'
+english = "There's a cat between the sofa and the table."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun 1 + 和 + Noun 2 + 之间／中间'
+hanzi = '在沙发和桌子之间有一只猫。'
+notes = ''
+pinyin = '<div>Zài shāfā hé zhuōzǐ zhī jiān yǒuyī zhǐ māo.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGN6O6J'

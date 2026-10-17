@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "TimeWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "yihou" and "houlai"'
+english = 'He lived in my neighborhood when he was young. Then he moved.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Past Event 1 + 后来 + Past Event 2'
+hanzi = '他小时候住在我家附近，后来他搬家了。'
+notes = ''
+pinyin = 'Tā xiǎoshíhou zhù zài wǒ jiā fùjìn, hòulái tā bānjiā le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNPJ7T'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Questions with "le ma"'
+english = 'Have you finished washing the clothes?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Topic (+ Subj.) + Verb + 了吗?'
+hanzi = '衣服你洗好了吗？'
+notes = ''
+pinyin = 'Yīfu nǐ xǐ hǎo le ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGYKDNF'

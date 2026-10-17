@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "er" to explain contrasting ideas'
+english = 'I like Chinese food, but he does not.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Sentence 1， + 而 + Sentence 2'
+hanzi = '我喜欢中国菜，而他不喜欢。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMX0ZS'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Questions with "ne"'
+english = 'I want to go to a bar this weekend. What about you all?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Topic + 呢 ？'
+hanzi = '这个周末我想去酒吧。你们呢？'
+notes = ''
+pinyin = 'Zhège zhōumò wǒ xiǎng qù jiǔbā. Nǐmen ne?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMJHZO'

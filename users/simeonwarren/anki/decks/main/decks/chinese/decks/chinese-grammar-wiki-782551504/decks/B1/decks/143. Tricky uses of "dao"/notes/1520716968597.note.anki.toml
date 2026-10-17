@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Tricky uses of "dao"'
+english = 'Working for this company, I learned a lot of things.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '在这个公司工作，我学到了很多东西。'
+notes = ''
+pinyin = 'Zài zhège gōngsī gōngzuò, wǒ xuédào le hěn duō dōngxi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCUSIV'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Conceding a point with "shi"'
+english = "I am busy at work, but I'm very happy with my job."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Adj. + 是 + Adj. ， 但是 / 就是 ⋯⋯'
+hanzi = '工作忙是忙，但是我很开心。'
+notes = ''
+pinyin = 'Gōngzuò máng  shì máng, dànshì wǒ hěn kāixīn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGT9Y8P'

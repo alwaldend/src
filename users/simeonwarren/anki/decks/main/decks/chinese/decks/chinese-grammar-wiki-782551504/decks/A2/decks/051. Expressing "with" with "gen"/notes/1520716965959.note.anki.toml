@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "with" with "gen"'
+english = 'I went to the beach with friends yesterday.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 跟 + Person + 一起 + Verb + Obj.'
+hanzi = '我昨天跟朋友去海滩了。'
+notes = ''
+pinyin = 'Wǒ zuótiān gēn péngyou  qù  hǎitān le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGSZ0HP'

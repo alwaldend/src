@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "ButStatements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing contrariness with "dao"'
+english = 'He is a foreigner, but he speaks fluent Chinese.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '⋯⋯，Subj.＋倒 + （也 / 又）⋯⋯'
+hanzi = '他是个老外，普通话倒挺流利。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG1RE80'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'laugh;	smile.old variant of 笑.<br>Cl: 个'
+example-sentence = '  老魔,你笑什么'
+example-type = ''
+grammar-construct = ''
+hanzi = '笑'
+notes = ''
+pinyin = '<span class="tone5">xiàoxiào</span>	 <!-- xiao xiao -->'
+source = ''

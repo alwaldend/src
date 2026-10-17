@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing close possession without "de"'
+english = 'Your boyfriend is very handsome.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Pronoun + Noun'
+hanzi = '你男朋友很帅。'
+notes = ''
+pinyin = 'Nǐ nánpéngyou hěn shuài.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCI0KG'

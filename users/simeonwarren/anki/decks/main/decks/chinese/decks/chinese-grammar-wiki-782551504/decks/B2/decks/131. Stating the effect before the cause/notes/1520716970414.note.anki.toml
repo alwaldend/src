@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Cause/EffectStatements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Stating the effect before the cause'
+english = 'The reason why we kept it a secret is that we wanted to give her a surprise.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '之所以 ⋯⋯ ，是 + 因为 / 为了 / 想 ⋯⋯'
+hanzi = '我们之所以保密是想给她一个惊喜。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTPGXK'

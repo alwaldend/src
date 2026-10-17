@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "cai" and "jiu"'
+english = "The boss didn't come to the office until 11 o'clock."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Time Word + 才 + Verb'
+hanzi = '老板十一点才到办公室。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGLOS9C'

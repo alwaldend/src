@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "after" with "jingguo"'
+english = 'Please tell us the whole story about f this car accident.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '经过 + Event / Time ，⋯⋯'
+hanzi = '请你说说他们车祸的经过。'
+notes = ''
+pinyin = 'Qǐng nǐ shuōshuo chēhuò de jīngguò.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG11DA8'

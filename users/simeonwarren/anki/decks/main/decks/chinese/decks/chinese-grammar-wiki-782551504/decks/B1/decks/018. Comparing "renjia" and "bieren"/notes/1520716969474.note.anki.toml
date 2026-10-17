@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "Nouns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "renjia" and "bieren"'
+english = 'How many household are here in this compartment?'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '这个小区有多少户人家？'
+notes = ''
+pinyin = 'Zhège xiǎoqū yǒu duōshǎo hù rénjiā?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPINA4'

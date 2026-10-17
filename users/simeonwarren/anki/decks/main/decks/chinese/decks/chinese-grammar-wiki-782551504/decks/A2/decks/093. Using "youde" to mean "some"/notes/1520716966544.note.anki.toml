@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Grammatical_Structures", "NounPhrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "youde" to mean "some"'
+english = 'I know a lot of people because of my work. Some are college teachers and some are CEOs.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '有的 + (Subj.) + Predicate， 有的 + (Subj.) + Predicate'
+hanzi = '因为工作，我认识了很多人，有的是大学老师，有的是CEO。'
+notes = ''
+pinyin = 'Yīnwèi gōngzuò, wǒ rènshi le hěn duō rén, yǒude shì dàxué lǎoshī, yǒude shì CEO.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG4NDHB'

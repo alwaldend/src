@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'to recommend;	recommendation.'
+example-sentence = '新书伊始,朋友们的收该藏、推荐票以及评论,是最好的鼓励'
+example-type = ''
+grammar-construct = ''
+hanzi = '推荐'
+notes = ''
+pinyin = '<span class="tone1">tuī</span><span class="tone4">jiàn</span>	 <!-- tui jian -->'
+source = ''

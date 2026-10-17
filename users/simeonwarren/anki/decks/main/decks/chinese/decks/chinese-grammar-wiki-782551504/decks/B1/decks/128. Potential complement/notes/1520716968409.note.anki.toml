@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Potential complement'
+english = 'Can you understand Shanghai dialect?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 不 + Complement'
+hanzi = '你听得懂上海话吗？'
+notes = ''
+pinyin = 'Nǐ tīng de dǒng Shànghǎi-huà ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCPJPQ'

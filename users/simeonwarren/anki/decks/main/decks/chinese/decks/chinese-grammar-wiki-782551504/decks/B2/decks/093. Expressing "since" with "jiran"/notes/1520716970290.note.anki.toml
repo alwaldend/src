@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Cause/EffectStatements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "since" with "jiran"'
+english = "Since he's so busy, why would you bother him?"
+example-sentence = ''
+example-type = ''
+grammar-construct = '既然 + Fact,   （那 +）rhetorical question'
+hanzi = '既然他那么忙，你为什么还去打扰他？'
+notes = 'a suggestion)'
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGG4BX9'

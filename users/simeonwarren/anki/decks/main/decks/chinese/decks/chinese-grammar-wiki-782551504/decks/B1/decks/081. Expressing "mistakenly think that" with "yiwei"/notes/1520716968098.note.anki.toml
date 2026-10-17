@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "mistakenly think that" with "yiwei"'
+english = "Many people thought I'm in my twenties."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 以为 ⋯⋯'
+hanzi = '很多人都以为我二十几岁。'
+notes = ''
+pinyin = 'Hěn duō rén dōu yǐwéi wǒ èrshí jǐ suì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGRBC43'

@@ -1,0 +1,13 @@
+note_type = "note_types/python-basic-and-reversed.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<b>Keyword</b> used to exit a function and return a value.'
+example = ''
+question = '<b>Keyword:</b> return&nbsp;'
+version = ''
+with-options = ''

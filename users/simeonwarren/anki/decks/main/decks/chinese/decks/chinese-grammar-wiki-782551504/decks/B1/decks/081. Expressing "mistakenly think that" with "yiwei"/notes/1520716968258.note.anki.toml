@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "mistakenly think that" with "yiwei"'
+english = "We thought you weren't at home."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 以为 ⋯⋯'
+hanzi = '我们以为你不在家。'
+notes = ''
+pinyin = 'Wǒmen yǐwéi nǐ bù zài jiā .'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGRBC43'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Verbs followed by "gei"'
+english = 'Older sister gave me a piece of cake.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 给 + [Recipient] + Obj.'
+hanzi = '姐姐分给了我一块蛋糕。'
+notes = ''
+pinyin = 'Jiějie fēn gěi le wǒ yīkuài dàngāo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMMHTQ'

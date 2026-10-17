@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "leech", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "enough" with "gou"'
+english = 'He brought a lot of clothes. It should be enough to change.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 够 + Verb (+ 了)'
+hanzi = '他带了好多衣服，应该够换。'
+notes = ''
+pinyin = 'Tā dài le hǎo duō yīfu, yīnggāi gòu huàn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG49BE6'

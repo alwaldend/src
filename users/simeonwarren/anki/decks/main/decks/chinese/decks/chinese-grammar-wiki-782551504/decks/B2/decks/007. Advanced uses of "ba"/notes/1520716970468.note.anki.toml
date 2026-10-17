@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Advanced uses of "ba"'
+english = "Some parents never take their kids' problems seriously."
+example-sentence = ''
+example-type = ''
+grammar-construct = '(别 / 不）把 + Obj.1 + 当回事'
+hanzi = '有的父母从不把孩子的一些小问题当回事!'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQRS3P'

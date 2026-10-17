@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "in addition" with "zaishuo"'
+english = "The risk of this project is too high. Besides, it's very hard to find investment now."
+example-sentence = ''
+example-type = ''
+grammar-construct = '⋯⋯ ，再说 ，⋯⋯'
+hanzi = '这个项目的风险太大了。再说，现在很难找到投资。'
+notes = ''
+pinyin = 'Zhège xiàngmù de fēngxiǎn tài dà le. Zàishuō, xiànzài hěn nán zhǎodào tóuzī.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGATDLX'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "it depends" with "kan"'
+english = "It depends on your children's interest for them to study music or painting."
+example-sentence = ''
+example-type = ''
+grammar-construct = '[Unknown Outcome] + 要看 / 得看 + [Unclear Situation]'
+hanzi = '学音乐还是学画画要看孩子的兴趣。'
+notes = ''
+pinyin = 'Xué yīnyuè háishì xué huàhuà yào kàn háizi de xìngqù.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG765HD'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'Even the older generations are feeling the pressure of the rising star.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '甚至就连老一辈们都感觉到了这位后起之秀的压力。'
+notes = ''
+pinyin = ''
+source = ''

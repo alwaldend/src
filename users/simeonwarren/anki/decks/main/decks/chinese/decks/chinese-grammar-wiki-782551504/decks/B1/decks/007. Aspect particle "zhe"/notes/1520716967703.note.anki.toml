@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Aspect particle "zhe"'
+english = "I'll read the letter, and you will listen."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 着'
+hanzi = '我读，你听着。'
+notes = ''
+pinyin = 'Wǒ dú, nǐ tīng zhe.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGOIDEO'

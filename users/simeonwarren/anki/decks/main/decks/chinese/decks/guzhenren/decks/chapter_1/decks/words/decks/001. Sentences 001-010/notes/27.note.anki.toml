@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'to arrange;	to lay out.'
+example-sentence = '这里早已经布下天罗地网,这次你必定身首异处'
+example-type = ''
+grammar-construct = ''
+hanzi = '布下'
+notes = ''
+pinyin = '<span class="tone4">bù</span><span class="tone4">xià</span>	 <!-- bu xia -->'
+source = ''

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = '(located) at;	(to be) in;	to exist;	in the middle of doing sth;	(indicating an action in progress).'
+example-sentence = '此时牢牢包围着方源,有的在咆哮,有的在冷笑,有的双眼眯起闪着警惕的光,有的捂着伤口恐惧地望着'
+example-type = ''
+grammar-construct = ''
+hanzi = '在'
+notes = ''
+pinyin = '<span class="tone4">zài</span>	 <!-- zai -->'
+source = ''

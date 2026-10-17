@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "had better" with "zuihao"'
+english = "It's not easy to find that place. We'd better search it on Baidu Map."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 最好 + [Verb Phrase]'
+hanzi = '那个地方不好找，我们最好查一下百度地图。'
+notes = ''
+pinyin = 'Nàge dìfang bù hǎo zhǎo, wǒmen zuìhǎo chá yīxià Bǎidù dìtú.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG35CD7'

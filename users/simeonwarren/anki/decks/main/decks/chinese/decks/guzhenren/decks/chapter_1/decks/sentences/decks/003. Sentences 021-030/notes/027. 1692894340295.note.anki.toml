@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'When he said this, all kinds of things on the earth in his previous life suddenly appeared in front of his eyes.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '说这话的时候,眼前忽的就浮现出前世地球上的种种。'
+notes = ''
+pinyin = ''
+source = ''

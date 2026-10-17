@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing earliness with "jiu"'
+english = 'She graduated from college when she was only 18 years old.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Time  Word + 就 + Verb + Obj. + 了'
+hanzi = '她十八岁就大学毕业了。'
+notes = ''
+pinyin = 'Tā shíbā suì jiù dàxué bìyè le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGKITRZ'

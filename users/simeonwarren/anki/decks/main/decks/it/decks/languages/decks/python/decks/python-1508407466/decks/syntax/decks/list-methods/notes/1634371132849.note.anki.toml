@@ -1,0 +1,13 @@
+note_type = "note_types/python-basic-and-reversed.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<i>list</i>.append(<i>item</i>)'
+example = ''
+question = '<b>List method</b> that adds a single item or value to the end of the list.'
+version = ''
+with-options = ''

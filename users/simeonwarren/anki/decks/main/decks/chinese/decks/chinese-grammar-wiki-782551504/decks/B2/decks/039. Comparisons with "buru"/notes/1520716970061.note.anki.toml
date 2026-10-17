@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparisons with "buru"'
+english = 'Rather than fighting each and every day, you might as well break up.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A + Verb-Obj. + 不如 + B+ (Verb + 得) + Adj.'
+hanzi = '与其天天吵架，不如离婚。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWH1D5'

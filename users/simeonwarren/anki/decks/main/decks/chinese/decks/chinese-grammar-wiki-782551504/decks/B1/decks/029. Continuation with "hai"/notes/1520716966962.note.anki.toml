@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Continuation with "hai"'
+english = "The movie has started already, and you haven't left the house?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 还 + 不 / 没 + [Verb Phrase]'
+hanzi = '电影已经开始了，你还没出门？'
+notes = ''
+pinyin = 'Diànyǐng yǐjīng kāishǐ le, nǐ hái méi chūmén?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGIRILI'

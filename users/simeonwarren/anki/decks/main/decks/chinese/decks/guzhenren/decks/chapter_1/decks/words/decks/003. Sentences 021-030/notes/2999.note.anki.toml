@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'abbr. for 朝鲜 Korea;	imperial or royal court;	government;	dynasty;	reign of a sovereign or emperor;	court or assembly held by a sovereign or emperor;	to make a pilgrimage to;	facing;	towards.<br>morning.<br>'
+example-sentence = '当真是朝如青丝暮成雪,是非成败转头空'
+example-type = ''
+grammar-construct = ''
+hanzi = '朝'
+notes = ''
+pinyin = '<span class="tone5">cháozhāo</span>	 <!-- chao zhao -->'
+source = ''

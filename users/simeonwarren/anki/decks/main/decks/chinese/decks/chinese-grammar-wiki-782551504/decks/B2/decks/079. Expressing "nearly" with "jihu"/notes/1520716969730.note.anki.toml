@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "nearly" with "jihu"'
+english = 'Almost everyone has a cell phone.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '几乎 + Subj. + 都 + Verb / Adj.'
+hanzi = '几乎每个人都有手机。'
+notes = ''
+pinyin = 'Jīhū měi gè rén dōu yǒu shǒujī.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGVA70K'

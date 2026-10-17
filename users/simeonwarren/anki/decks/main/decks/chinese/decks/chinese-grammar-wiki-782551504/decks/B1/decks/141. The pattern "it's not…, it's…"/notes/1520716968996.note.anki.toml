@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = "The pattern \"it's not…, it's…\""
+english = "This building isn't an apartment building, it's an office building."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不是 + [Verb Phrase 1] ， (而)是 + [Verb Phrase 2]'
+hanzi = '这个大楼不是公寓，是办公楼。'
+notes = ''
+pinyin = 'Zhège dàlóu bù shì gōngyù,  shì bàngōnglóu.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGT9WYR'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Result complement "xiaqu"'
+english = "He left because he didn't have a face to keep staying."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 下去'
+hanzi = '他走了，因为他没脸待下去了。'
+notes = ''
+pinyin = 'Tā zǒu le, yīnwèi tā méiliǎn dāi xiàqù le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG1PTJX'

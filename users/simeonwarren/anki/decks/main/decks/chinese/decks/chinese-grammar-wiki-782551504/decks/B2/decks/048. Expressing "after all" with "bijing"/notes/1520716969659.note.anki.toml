@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "after all" with "bijing"'
+english = "For us, moving is a difficult decision, after all, we've lived here for a few years."
+example-sentence = ''
+example-type = ''
+grammar-construct = '毕竟 + Reason / Characteristic'
+hanzi = '对我们来说，搬家是个很难的决定，毕竟我们已经在这儿生活了好几年。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG4V36Q'

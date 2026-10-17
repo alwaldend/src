@@ -1,0 +1,13 @@
+note_type = "note_types/python-basic-and-reversed.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<b>Keyword</b> used to test if two items refer to the same object.'
+example = ''
+question = '<b>Keyword: </b>is'
+version = ''
+with-options = ''

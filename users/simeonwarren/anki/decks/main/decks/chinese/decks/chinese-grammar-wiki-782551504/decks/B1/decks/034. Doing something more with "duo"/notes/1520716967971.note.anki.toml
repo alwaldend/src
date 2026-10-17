@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Doing something more with "duo"'
+english = 'Eat a little more.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '多 + Verb'
+hanzi = '多吃点。'
+notes = ''
+pinyin = 'Duō chī diǎn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGLKGZP'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Auxiliaryverbs", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "yao" and "xiang"'
+english = 'Do you also want tea?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 要 + Noun'
+hanzi = '你也要茶吗？'
+notes = 'ordering in a restaurant'
+pinyin = 'Nǐ yě yào chá ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGD88UO'

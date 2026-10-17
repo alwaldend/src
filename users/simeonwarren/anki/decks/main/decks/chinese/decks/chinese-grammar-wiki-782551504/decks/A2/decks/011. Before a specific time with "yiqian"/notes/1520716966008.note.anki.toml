@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Before a specific time with "yiqian"'
+english = 'Before getting married, you should first buy a house.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Time / Verb + 以前, ....'
+hanzi = '结婚以前，你应该先买房子。'
+notes = ''
+pinyin = 'Jiéhūn yǐqián, nǐ yīnggāi xiān mǎi fángzi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJ2OJC'

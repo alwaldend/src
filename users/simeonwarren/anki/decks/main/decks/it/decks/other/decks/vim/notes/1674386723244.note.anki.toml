@@ -1,0 +1,16 @@
+note_type = "note_types/basic.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[[cards]]
+ordinal = 1
+
+[fields]
+Back = """
+<div>:* &nbsp;“ same as &nbsp;<code>:'&lt;,'&gt;</code>&nbsp;</div>
+
+<div><br></div>\
+"""
+Front = 'How do you use the range of lines selected during the last visual mode usage?'

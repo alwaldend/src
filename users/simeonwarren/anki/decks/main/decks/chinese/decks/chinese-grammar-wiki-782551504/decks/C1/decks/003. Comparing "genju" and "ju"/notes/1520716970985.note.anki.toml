@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["C1", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "genju" and "ju"'
+english = 'According to the report'
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = ''
+hanzi = '据实报道'
+notes = ''
+pinyin = 'Jù shí bàodào'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGXJYJD'

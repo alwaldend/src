@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "AdverbswithAdjectives", "leech", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Superlative "zui"'
+english = "Huang Mountain's landscape is the most beautiful."
+example-sentence = ''
+example-type = ''
+grammar-construct = '最 + Adj. (+ 了)'
+hanzi = '黄山的风景最美了。'
+notes = 'This 了 is optional'
+pinyin = 'Huángshān de fēngjǐng zuì měi le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG3544U'

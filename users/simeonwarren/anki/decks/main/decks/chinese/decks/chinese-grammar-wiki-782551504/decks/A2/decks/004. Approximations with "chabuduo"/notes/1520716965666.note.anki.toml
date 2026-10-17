@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Approximations with "chabuduo"'
+english = "I'm almost at the entrance of the park."
+example-sentence = ''
+example-type = ''
+grammar-construct = '差不多 + Adj. / Verb'
+hanzi = '我差不多到公园门口了。'
+notes = ''
+pinyin = 'Wǒ chàbuduō dào gōngyuán ménkǒu le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG1NAXO'

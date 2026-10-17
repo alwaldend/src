@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Conjunctions", "leech", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "or" in statements'
+english = 'Next month I plan to go to Hangzhou or Suzhou to travel.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Possibility 1 + 或者 + Possibility 2'
+hanzi = '下个月我打算去杭州或者苏州旅行。'
+notes = ''
+pinyin = 'Xià gè yuè wǒ dǎsuàn qù Hángzhōu huòzhě Sūzhōu lǚxíng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG6HYOU'

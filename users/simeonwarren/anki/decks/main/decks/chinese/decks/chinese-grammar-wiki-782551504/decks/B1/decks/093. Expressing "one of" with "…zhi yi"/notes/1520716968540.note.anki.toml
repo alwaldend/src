@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "NounPhrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "one of" with "…zhi yi"'
+english = 'Globalization is one of the major features of the 21st century.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '[Noun Phrase] + 之一 + 是 ⋯⋯'
+hanzi = '全球化是21世纪最大的特点之一。'
+notes = ''
+pinyin = 'Quánqiúhuà shì èrshí-yī shìjì zuì dà de tèdiǎn zhī yī.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMT1M1'

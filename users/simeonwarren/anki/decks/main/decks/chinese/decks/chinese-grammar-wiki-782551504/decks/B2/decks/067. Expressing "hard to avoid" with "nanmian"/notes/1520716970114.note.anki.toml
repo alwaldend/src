@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "hard to avoid" with "nanmian"'
+english = "It's rush hour right now. There's no way to avoid the congestion in the subway."
+example-sentence = ''
+example-type = ''
+grammar-construct = '(Subj.) + 难免 + Verb'
+hanzi = '现在是高峰期，地铁难免会拥挤。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGYDKT3'

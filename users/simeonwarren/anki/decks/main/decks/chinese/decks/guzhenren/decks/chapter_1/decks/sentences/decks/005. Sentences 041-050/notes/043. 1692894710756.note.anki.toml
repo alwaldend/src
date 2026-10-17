@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'The spring rain continuously moistens Qingmao Mountain silently.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '春雨绵绵,悄无声息地滋润着青茅山。'
+notes = ''
+pinyin = ''
+source = ''

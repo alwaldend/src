@@ -1,0 +1,12 @@
+note_type = "note_types/basic.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[[cards]]
+ordinal = 1
+
+[fields]
+Back = ':r[ead] {file}&nbsp; &nbsp;" inserts the content of file at the cursor position<br>:r[ead] !{filter}&nbsp; &nbsp;" like :r !ls inserts the content of ls into the current buffer'
+Front = 'Read external content or program and insert it at the current cursor'

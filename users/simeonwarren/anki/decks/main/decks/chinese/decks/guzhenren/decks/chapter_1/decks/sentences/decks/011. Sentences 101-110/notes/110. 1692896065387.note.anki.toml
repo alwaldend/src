@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'The slanting wind of spring rain was blowing through the window, and the patriarch walked gently to the window.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '春雨斜风透过窗户吹拂过来,族长轻轻举步,走到窗前。'
+notes = ''
+pinyin = ''
+source = ''

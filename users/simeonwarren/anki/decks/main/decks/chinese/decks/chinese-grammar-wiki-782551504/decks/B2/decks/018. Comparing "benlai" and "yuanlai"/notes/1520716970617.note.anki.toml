@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "benlai" and "yuanlai"'
+english = 'He was never a good person. Why do you still want to help him?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 本来 + 就 ＋ ⋯⋯'
+hanzi = '他本来就不是个好人，你怎么还要帮他？'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG56QKW'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "again" in the future with "zai"'
+english = 'Eat more.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 再 + Verb-Obj.'
+hanzi = '再吃一点。'
+notes = ''
+pinyin = 'Zài chī yīdiǎn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGIZQJ2'

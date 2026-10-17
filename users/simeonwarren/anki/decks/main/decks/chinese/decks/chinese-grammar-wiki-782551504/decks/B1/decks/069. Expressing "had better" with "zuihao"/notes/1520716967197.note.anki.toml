@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "had better" with "zuihao"'
+english = "You'd better not to say it like that."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 最好 + 别 / 不要 + [Verb Phrase]'
+hanzi = '最好不要这样说。'
+notes = ''
+pinyin = 'Zuìhǎo bùyào zhèyàng shuō.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG35CD7'

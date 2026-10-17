@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Softening speech with "ba"'
+english = "Let's forget it."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Statement + 吧'
+hanzi = '算了吧。'
+notes = ''
+pinyin = 'Suàn le ba.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDHC1H'

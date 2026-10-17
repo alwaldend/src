@@ -1,0 +1,13 @@
+note_type = "note_types/python-basic.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+'Additional Info' = 'value types such as int, str, bool, ect.'
+'Back - Basic' = '-&gt;'
+'Back - Code' = ''
+Example = 'def example() -&gt; <i>type</i>:<br>&nbsp; &nbsp; &nbsp;<font color="#555753"># do some stuff here</font><br>&nbsp; &nbsp; &nbsp;return <i>type</i>'
+Front = "What is the syntax used to declare a return value type in a function's declaration?&nbsp;&nbsp;"
+Version = ''

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'a bit;	a little;	one dot;	one point.'
+example-sentence = '没有人怀疑过这一点'
+example-type = ''
+grammar-construct = ''
+hanzi = '一点'
+notes = ''
+pinyin = '<span class="tone1">yī</span><span class="tone3">diǎn</span>	 <!-- yi dian -->'
+source = ''

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Before a specific time with "yiqian"'
+english = "Before he became the president, Obama didn't have white hair."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Time / Verb + 以前, ....'
+hanzi = '当总统以前，Obama没有白头发。'
+notes = ''
+pinyin = 'Dāng zǒngtǒng yǐqián, Obama méiyǒu bái tóufa.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJ2OJC'

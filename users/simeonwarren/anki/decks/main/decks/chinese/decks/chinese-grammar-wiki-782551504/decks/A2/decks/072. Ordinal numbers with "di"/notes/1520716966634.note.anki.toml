@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Grammatical_Structures", "NumbersandMeasureWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Ordinal numbers with "di"'
+english = 'What was your first job?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '第 + Number + Measure Word + Noun'
+hanzi = '你的第一个工作是什么？'
+notes = ''
+pinyin = 'Nǐ de dì-yī gè gōngzuò shì shénme?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGK904U'

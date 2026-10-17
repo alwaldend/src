@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'to stick up;	to point sth up.'
+example-sentence = ' 这一念生出,古月族长的嘴角不由地微微翘起,浮现出一抹微笑'
+example-type = ''
+grammar-construct = ''
+hanzi = '翘起'
+notes = ''
+pinyin = '<span class="tone4">qiào</span><span class="tone3">qǐ</span>	 <!-- qiao qi -->'
+source = ''

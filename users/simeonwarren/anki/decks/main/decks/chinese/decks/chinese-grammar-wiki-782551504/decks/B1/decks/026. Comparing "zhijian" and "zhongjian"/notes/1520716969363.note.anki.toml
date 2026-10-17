@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "Nouns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "zhijian" and "zhongjian"'
+english = "In the middle of the apartment there's a table."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun + (的 +) 中间'
+hanzi = '房子的中间有一个大桌子。'
+notes = ''
+pinyin = '<div>Fángzǐ de zhōngjiān yǒu yīgè dà zhuōzǐ.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGN6O6J'

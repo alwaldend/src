@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "again" in the future with "zai"'
+english = "It's only 6:30. I want to sleep a little longer."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 再 + Verb Phrase'
+hanzi = '现在才六点半，我想再睡一会儿。'
+notes = ''
+pinyin = "Xiànzài cái liù diǎn bàn, wǒ xiǎng zài shuì yīhuǐ'er."
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGIZQJ2'

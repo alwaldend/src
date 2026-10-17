@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Basic comparisons with "bi"'
+english = 'The coffee at Starbucks is more expensive than the coffee here.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun 1 + 比 + Noun 2 + Adj.'
+hanzi = '星巴克的咖啡比这里的咖啡贵。'
+notes = ''
+pinyin = 'Xīngbākè de kāfēi bǐ zhèlǐ de kāfēi guì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8SI2K'

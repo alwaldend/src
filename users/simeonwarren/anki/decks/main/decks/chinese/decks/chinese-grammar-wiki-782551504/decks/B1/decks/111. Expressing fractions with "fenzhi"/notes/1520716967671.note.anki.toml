@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Numbers", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing fractions with "fenzhi"'
+english = 'The deposit is 20%.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Denominator + 分之 + Numerator'
+hanzi = '押金要付百分之二十。'
+notes = ''
+pinyin = 'Yājīnyào fù bǎifēnzhī èrshí.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG84RE9'

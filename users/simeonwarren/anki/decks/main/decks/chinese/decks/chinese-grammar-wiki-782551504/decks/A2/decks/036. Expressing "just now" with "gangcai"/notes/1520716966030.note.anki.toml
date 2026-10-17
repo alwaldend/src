@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "just now" with "gangcai"'
+english = 'The baby just cried.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '刚才 + Verb'
+hanzi = '宝宝刚才哭了。'
+notes = ''
+pinyin = 'Bǎobao gāngcái kū le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQ1KOY'

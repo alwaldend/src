@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'beach;	shoal;	rapids;	classifier for liquids: pool, puddle.<br>Cl: 片'
+example-sentence = '只是站着一会儿,方源脚下已经积了一大滩的血水'
+example-type = ''
+grammar-construct = ''
+hanzi = '滩'
+notes = ''
+pinyin = '<span class="tone1">tān</span>	 <!-- tan -->'
+source = ''

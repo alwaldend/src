@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'inevitable;	certain;	necessity.'
+example-sentence = ' 假以时日,他必然是白家寨的顶梁柱'
+example-type = ''
+grammar-construct = ''
+hanzi = '必然'
+notes = ''
+pinyin = '<span class="tone4">bì</span><span class="tone2">rán</span>	 <!-- bi ran -->'
+source = ''

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing actions in progress (full form)'
+english = "Grandpa is reading newspapers now. Don't disturb him."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + Obj. + 呢'
+hanzi = '爷爷看报纸呢，别打扰他。'
+notes = ''
+pinyin = 'Yéye kàn bàozhǐ ne, bié dǎrǎo tā.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGEYQ9O'

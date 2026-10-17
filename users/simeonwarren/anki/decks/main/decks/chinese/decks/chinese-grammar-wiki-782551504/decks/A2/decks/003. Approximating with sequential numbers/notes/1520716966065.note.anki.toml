@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "leech", "Numbers", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Approximating with sequential numbers'
+english = 'The boss drank 7 or 8 bottles of carrot juice yesterday.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Number + (Number + 1)'
+hanzi = '老板昨天喝了七八瓶胡萝卜汁。'
+notes = ''
+pinyin = 'Lǎobǎn zuótiān hē le qī bā píng húluóbo zhī.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGOUD8U'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "bu" and "mei"'
+english = 'Do you all go to work on weekends?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 不 + Verb + Obj.'
+hanzi = '你们周末上不上班？'
+notes = ''
+pinyin = 'Nǐmen zhōumò shàng bu shàngbān?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGRJ1BI'

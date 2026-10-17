@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "together" with "yiqi"'
+english = 'Will you live together with your parents after you get married?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 一起 + Verb + Obj.'
+hanzi = '结婚以后，你和父母会一起住吗？'
+notes = ''
+pinyin = 'Jiéhūn yǐhòu, nǐ hé fùmǔ huì yīqǐ zhù ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNVE15'

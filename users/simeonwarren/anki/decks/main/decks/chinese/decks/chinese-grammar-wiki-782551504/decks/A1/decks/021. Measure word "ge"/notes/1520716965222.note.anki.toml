@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Numbers", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Measure word "ge"'
+english = 'Would you like to eat a stuffed steamed bun?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 个 + Noun'
+hanzi = '你想吃个包子吗？'
+notes = ''
+pinyin = 'Nǐ xiǎng chī gè bāozi ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGI0T9S'

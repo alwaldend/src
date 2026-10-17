@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "already" with "yijing"'
+english = 'It is already very cheap.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '已经 + (很 +) Adj. + 了'
+hanzi = '已经很便宜了。'
+notes = ''
+pinyin = 'Yǐjīng hěn piányi le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNXI27'

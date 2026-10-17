@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "IfStatements"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "if…, then…" with "ruguo…, jiu…"'
+english = "If you're not busy, can you help me connect with customers?"
+example-sentence = ''
+example-type = ''
+grammar-construct = '如果 + Statement + 的话，(就) Result'
+hanzi = '如果你不忙的话，可以帮我联系客户吗？'
+notes = ''
+pinyin = 'Rúguǒ nǐ bù máng de huà, kěyǐ bāng wǒ liánxì kèhù ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGGIVT0'

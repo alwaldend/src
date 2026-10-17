@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "SeparateFunctions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "kending" "queding" and "yiding"'
+english = 'We need to keep a certain distance between us.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '一定 + （的 +） Noun'
+hanzi = '我们之间要保持一定距离。'
+notes = ''
+pinyin = '<div>Wǒmen zhī jiān yào bǎochí yīdìng jùlí.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDPS0J'

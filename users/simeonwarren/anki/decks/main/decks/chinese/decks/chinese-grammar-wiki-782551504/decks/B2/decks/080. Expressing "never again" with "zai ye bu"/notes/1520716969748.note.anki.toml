@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "never again" with "zai ye bu"'
+english = "She has never spent her parents' money after she graduated."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 再也 + 没 + Verb + 过 + Obj.'
+hanzi = '毕业以后，她再也没花过父母的钱。'
+notes = ''
+pinyin = 'Bìyè yǐhòu, tā zài yě méi huā guo fùmǔ de qián.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG7R8US'

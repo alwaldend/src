@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing various aspects with "yi fangmian"'
+english = "On one hand, he wants to start a business, but on the other hand, he's afraid the risk is too great."
+example-sentence = ''
+example-type = ''
+grammar-construct = '一 方面 + Aspect 1， (另) 一 方面 + Aspect 2'
+hanzi = '他一方面很想创业，另一方面又担心风险太大。'
+notes = ''
+pinyin = 'Tā yī fāngmiàn hěn xiǎng chuàngyè, lìng yī fāngmiàn yòu dānxīn fēngxiǎn tài dà.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCWHNF'

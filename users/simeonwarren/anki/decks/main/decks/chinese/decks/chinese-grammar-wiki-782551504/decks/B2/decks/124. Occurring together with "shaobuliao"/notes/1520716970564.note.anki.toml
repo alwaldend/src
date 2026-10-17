@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Occurring together with "shaobuliao"'
+english = "It's so stuffy. It must be about to storm."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Situation / Result ，少不了 + 是 + Reason'
+hanzi = '这么闷热，少不了是要下暴雨。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG3IR71'

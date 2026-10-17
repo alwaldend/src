@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "for" with "wei"'
+english = 'You guys can come to cheer us up.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '为 + Party + Verb / Adj.'
+hanzi = '你们可以来为我们加油。'
+notes = ''
+pinyin = 'Nǐmen kěyǐ lái wèi wǒmen jiāyóu.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG68RBX'

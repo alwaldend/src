@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Referring to "all" using "suoyou"'
+english = 'He went to all his friends, but nobody helped him.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '所有的 + Noun + 都 + Verb / Adj.'
+hanzi = '他找了所有的朋友，但是没有人帮他。'
+notes = ''
+pinyin = 'Tā zhǎo le suǒyǒude péngyǒu, dànshì méiyǒu rén bāng tā.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGOWBSL'

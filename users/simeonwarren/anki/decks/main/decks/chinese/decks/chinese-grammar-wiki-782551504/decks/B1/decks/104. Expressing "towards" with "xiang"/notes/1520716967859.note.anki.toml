@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "towards" with "xiang"'
+english = 'The train already took off. She kept waving towards me.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '向 + Direction / Person + Verb'
+hanzi = '火车已经开了，她还在向我招手。'
+notes = ''
+pinyin = 'Huǒchē yǐjīng kāi le, tā hái zài xiàng wǒ zhāoshǒu.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQXARS'

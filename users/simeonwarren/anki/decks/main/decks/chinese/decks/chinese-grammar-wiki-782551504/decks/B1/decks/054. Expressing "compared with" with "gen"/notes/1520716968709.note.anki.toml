@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "compared with" with "gen"'
+english = "Compared to when he graduated, he's grown mature a lot."
+example-sentence = ''
+example-type = ''
+grammar-construct = '跟 + Time + 比 (起来) ，⋯⋯'
+hanzi = '跟刚毕业的时候比起来，他成熟了很多。'
+notes = ''
+pinyin = 'Gēn gāng bìyè de shíhou bǐ qǐlái, tā chéngshú le hěn duō.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG920B7'

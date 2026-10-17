@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'ticket;	ballot;	banknote;	person held for ransom;	amateur performance of Chinese opera;	classifier for groups, batches, business transactions.<br>Cl: 张'
+example-sentence = '新书伊始,朋友们的收该藏、推荐票以及评论,是最好的鼓励'
+example-type = ''
+grammar-construct = ''
+hanzi = '票'
+notes = ''
+pinyin = '<span class="tone4">piào</span>	 <!-- piao -->'
+source = ''

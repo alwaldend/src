@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adjectives", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Adjectival complement "de budeliao"'
+english = 'The relationship between him and the chief officer is really good, you need to be careful!'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Adj. +  得不得了'
+hanzi = '嗨，他跟老总的关系好得不得了，你一定要小心！'
+notes = ''
+pinyin = '<div>Hāi, tā gēn lǎozǒng de guānxì hǎo dé bù​dé​liǎo, nǐ yīdìng yào xiǎoxīn!</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGB8BWA'

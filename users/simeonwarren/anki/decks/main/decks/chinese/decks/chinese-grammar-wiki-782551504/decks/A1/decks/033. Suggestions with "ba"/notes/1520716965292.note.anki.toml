@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Suggestions with "ba"'
+english = 'Give me two.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Command + 吧'
+hanzi = '给我两个吧。'
+notes = 'This is a suggestion.'
+pinyin = 'Gěi wǒ liǎng gè ba.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMPZ6D'

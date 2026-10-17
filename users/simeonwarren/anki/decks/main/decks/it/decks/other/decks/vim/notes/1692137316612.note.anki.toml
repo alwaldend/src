@@ -1,0 +1,12 @@
+note_type = "note_types/basic.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[[cards]]
+ordinal = 1
+
+[fields]
+Back = ':<b>diffput</b> “ change from left file to right<div><br></div><div>:<b>diffget</b> “ change from right to left</div><div><br></div><div>:<b>diffupdate</b> “ show changes again after undo</div>'
+Front = 'What vimdiff commands are needed to align two files?'

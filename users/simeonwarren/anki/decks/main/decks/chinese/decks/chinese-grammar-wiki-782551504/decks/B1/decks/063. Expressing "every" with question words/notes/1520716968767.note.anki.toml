@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "every" with question words'
+english = 'You can eat however much you want.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 多少 + 都 + Predicate'
+hanzi = '你想吃多少都可以。'
+notes = ''
+pinyin = 'Nǐ xiǎng chī duōshao dōu kěyǐ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG13ALM'

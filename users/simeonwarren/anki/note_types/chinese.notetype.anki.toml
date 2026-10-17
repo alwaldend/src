@@ -1,154 +1,69 @@
-id = 1496733135171
-name = 'chinese'
-css = """
-:root {
-    display: flex;
-    //align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-}
+name = "chinese"
+sort_field = "article-title"
 
-.card {
-    //max-width: 40rem;
-    width: 100%;
-    margin: 0;
-    font-size: 1rem;
-    font-family: monospace;
-    //color: black;
-    padding: 0 30% 0 30%;
-}
+[config]
+css = ":root {\n    display: flex;\n    //align-items: center;\n    justify-content: center;\n    width: 100%;\n    height: 100%;\n}\n\n.card {\n    //max-width: 40rem;\n    width: 100%;\n    margin: 0;\n    font-size: 1rem;\n    font-family: monospace;\n    //color: black;\n    padding: 0 30% 0 30%;\n}\n\n.mobile .card {\n    padding: 0;\n}\n\n.card.nightMode * {\n    //color: white;\n}\n\n.question {\n    //border-radius: 1em;\n    //border-style: solid;\n    padding: 1rem;\n    //margin: 0 0 1em 0;\n}\n\n.type {\n    //text-transform: uppercase;\n    margin: 0;\n}\n\n.value {\n    padding: 1rem 0 0 0;\n}\n\n.value, .value > div {\n    text-align: left;\n    margin: 0;\n    visibility: hidden;\n}\n\n.value.show-front,\n.value .show-front,\n.back * {\n    visibility: visible;\n}\n\n.example-type {\n    //font-weight: bold;\n    text-transform: uppercase;\n}\n\n.font_big {\n    font-size: 2rem;\n}"
+latex_post = "\\end{document}"
+latex_pre = "\\documentclass[12pt]{article}\n\\special{papersize=3in,5in}\n\\usepackage[utf8]{inputenc}\n\\usepackage{amssymb,amsmath}\n\\pagestyle{empty}\n\\setlength{\\parindent}{0in}\n\\begin{document}\n"
 
-.mobile .card {
-    padding: 0;
-}
+[[fields]]
+name = "hanzi"
+[fields.config]
+font_name = "Liberation Sans"
+font_size = 20
 
-.card.nightMode * {
-    //color: white;
-}
+[[fields]]
+name = "pinyin"
+[fields.config]
+font_name = "Arial"
+font_size = 20
 
-.question {
-    //border-radius: 1em;
-    //border-style: solid;
-    padding: 1rem;
-    //margin: 0 0 1em 0;
-}
+[[fields]]
+name = "english"
+[fields.config]
+font_name = "Arial"
+font_size = 20
 
-.type {
-    //text-transform: uppercase;
-    margin: 0;
-}
+[[fields]]
+name = "notes"
+[fields.config]
+font_name = "Arial"
+font_size = 20
 
-.value {
-    padding: 1rem 0 0 0;
-}
+[[fields]]
+name = "example-type"
+[fields.config]
+font_name = "Arial"
+font_size = 20
 
-.value, .value > div {
-    text-align: left;
-    margin: 0;
-    visibility: hidden;
-}
+[[fields]]
+name = "article-title"
+[fields.config]
+font_name = "Arial"
+font_size = 20
 
-.value.show-front,
-.value .show-front,
-.back * {
-    visibility: visible;
-}
+[[fields]]
+name = "grammar-construct"
+[fields.config]
+font_name = "Arial"
+font_size = 20
 
-.example-type {
-    //font-weight: bold;
-    text-transform: uppercase;
-}
+[[fields]]
+name = "source"
+[fields.config]
+font_name = "Liberation Sans"
+font_size = 20
 
-.font_big {
-    font-size: 2rem;
-}\
-"""
+[[fields]]
+name = "example-sentence"
+[fields.config]
+font_name = "Arial"
+font_size = 20
 
 [[templates]]
-ordinal = 0
-name = 'Translation'
-front = """
-<div lang="zh_CN">
-  <div class="question">
-    <h2 class="type">Sentence</h2>
-    <p class="value show-front font_big">
-      {{ text:hanzi }}
-    </p>
-  </div>
-  {{ #example-type }}
-  <div class="question">
-    <h2 class="type">Question</h2>
-    <p class="value">
-      <span class="show-front">Is this sentence grammatically correct?</span>
-      <br>
-      <br>
-      <span class="example-type">{{ example-type }}</span>
-    </p>
-  </div>
-  {{ /example-type}}
-  <div class="question">
-    <h2 class="type">Pinyin</h2>
-    <p class="value">
-      {{ text:pinyin }}
-    </p>
-  </div>
-  {{ #english }}
-  <div class="question">
-    <h2 class="type">English</h2>
-    <p class="value">{{ english }}</p>
-  </div>
-  {{ /english }}
-  {{ #notes }}
-  <div class="question">
-    <h2 class="type">Notes</h2>
-    <p class="value">{{ notes }}</p>
-  </div>
-  {{ /notes }}
-  {{ #grammar-construct }}
-  <div class="question">
-    <h2 class="type">Grammar</h2>
-    <p class="value">{{ grammar-construct }}</p>
-  </div>
-  {{ /grammar-construct }}
-  {{ #source }}
-  <div class="question">
-    <h2 class="type">Source</h2>
-    <p class="value">
-      <a href="{{ text:source }}">
-      {{ article-title }}
-      </a>
-    </p>
-  </div>
-  {{ /source }}
-  {{ #example-sentence }}
-  <div class="question">
-    <h2 class="type">Example</h2>
-    <p class="value">{{ example-sentence }}</p>
-  </div>
-  {{ /example-sentence }}
-  <div class="question">
-    <h2 class="type">Misc</h2>
-    <p class="value">
-      <a href="https://www.mdbg.net/chinese/dictionary?page=worddict&email=&wdrst=0&wdqb={{ text:hanzi }}"
-        >mdbg</a>
-      <a href="https://www.deepl.com/en/translator#zh/en-us/{{ text:hanzi }}">deepl</a>
-      <a href="https://translate.google.com/?sl=auto&tl=en&text={{ text:hanzi }}&op=translate"
-        >google</a>
-      <span>{{ Deck }}</span>
-    </p>
-  </div>
-</div>
-</div>\
-"""
-back = """
-{{ tts zh_CN hypertts_preset=Back_realtime_0 voices=HyperTTS:hanzi }}
-
-<div class="back">
-  {{ FrontSide }}
-</div>\
-"""
-browser_front = ''
-browser_back = ''
-browser_font = 'Noto Sans Mono CJK SC'
+name = "Translation"
+[templates.config]
+a_format = "{{ tts zh_CN hypertts_preset=Back_realtime_0 voices=HyperTTS:hanzi }}\n\n<div class=\"back\">\n  {{ FrontSide }}\n</div>"
+browser_font_name = "Noto Sans Mono CJK SC"
 browser_font_size = 12
+q_format = "<div lang=\"zh_CN\">\n  <div class=\"question\">\n    <h2 class=\"type\">Sentence</h2>\n    <p class=\"value show-front font_big\">\n      {{ text:hanzi }}\n    </p>\n  </div>\n  {{ #example-type }}\n  <div class=\"question\">\n    <h2 class=\"type\">Question</h2>\n    <p class=\"value\">\n      <span class=\"show-front\">Is this sentence grammatically correct?</span>\n      <br>\n      <br>\n      <span class=\"example-type\">{{ example-type }}</span>\n    </p>\n  </div>\n  {{ /example-type}}\n  <div class=\"question\">\n    <h2 class=\"type\">Pinyin</h2>\n    <p class=\"value\">\n      {{ text:pinyin }}\n    </p>\n  </div>\n  {{ #english }}\n  <div class=\"question\">\n    <h2 class=\"type\">English</h2>\n    <p class=\"value\">{{ english }}</p>\n  </div>\n  {{ /english }}\n  {{ #notes }}\n  <div class=\"question\">\n    <h2 class=\"type\">Notes</h2>\n    <p class=\"value\">{{ notes }}</p>\n  </div>\n  {{ /notes }}\n  {{ #grammar-construct }}\n  <div class=\"question\">\n    <h2 class=\"type\">Grammar</h2>\n    <p class=\"value\">{{ grammar-construct }}</p>\n  </div>\n  {{ /grammar-construct }}\n  {{ #source }}\n  <div class=\"question\">\n    <h2 class=\"type\">Source</h2>\n    <p class=\"value\">\n      <a href=\"{{ text:source }}\">\n      {{ article-title }}\n      </a>\n    </p>\n  </div>\n  {{ /source }}\n  {{ #example-sentence }}\n  <div class=\"question\">\n    <h2 class=\"type\">Example</h2>\n    <p class=\"value\">{{ example-sentence }}</p>\n  </div>\n  {{ /example-sentence }}\n  <div class=\"question\">\n    <h2 class=\"type\">Misc</h2>\n    <p class=\"value\">\n      <a href=\"https://www.mdbg.net/chinese/dictionary?page=worddict&email=&wdrst=0&wdqb={{ text:hanzi }}\"\n        >mdbg</a>\n      <a href=\"https://www.deepl.com/en/translator#zh/en-us/{{ text:hanzi }}\">deepl</a>\n      <a href=\"https://translate.google.com/?sl=auto&tl=en&text={{ text:hanzi }}&op=translate\"\n        >google</a>\n      <span>{{ Deck }}</span>\n    </p>\n  </div>\n</div>\n</div>"

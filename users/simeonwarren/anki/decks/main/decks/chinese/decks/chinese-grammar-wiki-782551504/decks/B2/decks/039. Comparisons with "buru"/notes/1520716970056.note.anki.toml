@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparisons with "buru"'
+english = "He doesn't speak Chinese as authentically as his wife does."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A + Verb-Obj. + 不如 + B+ (Verb + 得) + Adj.'
+hanzi = '他说中文不如他老婆说得地道。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWH1D5'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Causative verbs'
+english = 'His speech made the audience very excited.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + [Causative Verb] + Person + Predicate'
+hanzi = '他的演讲使听众们非常激动。'
+notes = ''
+pinyin = 'Tā de yǎnjiǎng shǐ tīngzhòng men fēicháng jīdòng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5T7XC'

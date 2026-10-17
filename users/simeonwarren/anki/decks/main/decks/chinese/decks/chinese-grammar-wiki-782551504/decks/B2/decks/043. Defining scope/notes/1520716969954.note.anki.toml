@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Parts_of_Speech", "PrepositionalPhrase"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Defining scope'
+english = 'Aside from the students in Grade Three and Grade Four, students in Grade Five can also participate.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '时间 / 处所 / 数量 / 范围 + 以内 / 以外'
+hanzi = '除了三四年级的学生以外，五年级的学生也可以参加。'
+notes = ''
+pinyin = 'Chúle sān sì niánjí de xuéshēng yǐwài, wǔ niánjí de xuéshēng yě kěyǐ cānjiā.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG7AE5C'

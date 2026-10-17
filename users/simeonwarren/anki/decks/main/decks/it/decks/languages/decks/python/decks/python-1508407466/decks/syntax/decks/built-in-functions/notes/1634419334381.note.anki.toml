@@ -1,0 +1,13 @@
+note_type = "note_types/python-basic-and-reversed.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+additional-info = 'Also accepts an optional prompt parameter.'
+answer = '<b>Built in function:&nbsp;</b>input()'
+example = 'name = input("what is your name?")'
+question = '<b>Built in function</b>&nbsp;that gets a users input.'
+version = ''
+with-options = 'input(<i>prompt=None</i>)'

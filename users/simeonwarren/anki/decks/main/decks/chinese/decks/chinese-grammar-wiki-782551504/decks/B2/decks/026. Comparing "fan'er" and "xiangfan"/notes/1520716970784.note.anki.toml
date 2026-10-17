@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "SeparateFunctions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = "Comparing \"fan'er\" and \"xiangfan\""
+english = 'If you work hard, you will get promoted. On the contrary, if you don’t work hard, you won’t get promoted.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Expectation，反而 + The Opposite of Expectation'
+hanzi = '好好工作就会升职，相反，不好好工作是不会升职的。'
+notes = ''
+pinyin = '<div>Hǎohǎo gōngzuò jiù huì shēng zhí, xiāngfǎn, bù hǎohǎo gōngzuò shì bù huì shēng zhí de.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGFNS52'

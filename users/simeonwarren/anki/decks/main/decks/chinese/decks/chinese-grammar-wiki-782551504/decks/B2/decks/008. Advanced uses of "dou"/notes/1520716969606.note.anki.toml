@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Advanced uses of "dou"'
+english = 'Since everyone got here, we need to go now.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '都 + 小句，主句'
+hanzi = '来都来了，就先别急着走了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQFW44'

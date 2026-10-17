@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "TimeWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "gang" and "gangcai"'
+english = 'He just now came yesterday.'
+example-sentence = ''
+example-type = 'invalid'
+grammar-construct = '刚 + Adj.'
+hanzi = '昨天他刚才来过。'
+notes = '刚才 should be used for events a lot closer in time than 昨天.'
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJFFWG'

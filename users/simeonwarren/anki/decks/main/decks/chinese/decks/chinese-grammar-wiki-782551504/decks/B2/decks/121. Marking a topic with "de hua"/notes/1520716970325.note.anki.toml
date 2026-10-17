@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Grammatical_Structures", "IfStatements"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Marking a topic with "de hua"'
+english = "As for this question, it's not convenient for me to talk about it."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Topic + 的话 ，Comment'
+hanzi = '这个问题的话，我不太方便说。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGB0MXK'

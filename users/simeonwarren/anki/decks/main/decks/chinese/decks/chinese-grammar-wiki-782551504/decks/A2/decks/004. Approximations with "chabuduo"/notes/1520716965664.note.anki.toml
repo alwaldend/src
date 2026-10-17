@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Approximations with "chabuduo"'
+english = 'These two children are more or less the same age.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '差不多 + Adj. / Verb'
+hanzi = '这两个孩子差不多大。'
+notes = ''
+pinyin = 'Zhè liǎng gè háizi chàbuduō dà.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG1NAXO'

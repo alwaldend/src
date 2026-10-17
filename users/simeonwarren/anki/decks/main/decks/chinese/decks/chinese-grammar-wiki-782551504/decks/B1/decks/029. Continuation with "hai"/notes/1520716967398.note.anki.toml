@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["AdverbswithAdjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Continuation with "hai"'
+english = 'The doctor told her to stop drinking alcohol, but she still drinks it everyday.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Situation, (但是 / 可是 +) Subj. + 还是 + [Verb Phrase]'
+hanzi = '医生不让她喝酒，但她还是天天喝。'
+notes = ''
+pinyin = 'Yīshēng bù ràng tā hējiǔ, dàn tā háishì tiāntiān hē.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGIRILI'

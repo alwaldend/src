@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "small quantity" with "jiu"'
+english = 'Does this place only have one bathroom?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 就 + Number + [Measure Word] + Noun'
+hanzi = '这里就一个厕所？'
+notes = ''
+pinyin = 'Zhèlǐ jiù yī gè cèsuǒ?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPW8PP'

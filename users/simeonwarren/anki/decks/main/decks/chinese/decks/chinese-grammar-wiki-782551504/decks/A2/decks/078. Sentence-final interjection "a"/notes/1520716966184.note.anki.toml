@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Sentence-final interjection "a"'
+english = 'Definitely, I think so too!'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '是啊，我也觉得！'
+notes = ''
+pinyin = 'Shì a, wǒ yě juéde!'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGW66JM'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Affirmative-negative question'
+english = 'Is it good?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Adj. + 不 + Adj.'
+hanzi = '好不好？'
+notes = 'Literally, "good or not good?"'
+pinyin = 'Hǎo bu hǎo?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGZH7K3'

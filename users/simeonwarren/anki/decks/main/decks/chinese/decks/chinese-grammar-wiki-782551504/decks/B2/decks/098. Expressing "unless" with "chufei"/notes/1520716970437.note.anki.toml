@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "ConditionalStatements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "unless" with "chufei"'
+english = "The company won't allow it's staff time off unless their reason is good enough."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Result / Fact ，除非 + Condition'
+hanzi = '我们公司一般不允许员工请假，除非理由很充分。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMD0YY'

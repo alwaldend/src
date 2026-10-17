@@ -1,0 +1,17 @@
+note_type = "note_types/python-basic-and-reversed.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+additional-info = '<strong>Note:</strong>&nbsp;All string methods returns new values. They do not change the original string.'
+answer = '<i>string</i>.format(<i>*values</i>)'
+example = """
+"My name is {}".format(<i>value</i>)<div>
+
+"My name is {1}, my favorite food is {0}".format(*<i>values</i>)&nbsp;&nbsp;<br></div>\
+"""
+question = '<b>String method</b> that formats specified values into a string.'
+version = ''
+with-options = ''

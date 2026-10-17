@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Appearance with "kanqilai"'
+english = 'You two seem to have the same height.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 看起来 ⋯⋯'
+hanzi = '你们看起来差不多高。'
+notes = ''
+pinyin = 'Nǐmen kànqǐlái chàbuduō gāo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG9K0F8'

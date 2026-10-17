@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing lateness with "cai"'
+english = "How come you are eating supper now? It's 10 pm."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Time + 才 + Verb'
+hanzi = '你怎么才吃晚饭？已经十点了。'
+notes = ''
+pinyin = 'Nǐ zěnme cái chī wǎnfàn? Yǐjīng shí diǎn le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG3WTCJ'

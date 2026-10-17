@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Tricky uses of "dao"'
+english = 'After seeing this photo, I thought of my daughter.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '看到这张照片，我想到了我的女儿。'
+notes = ''
+pinyin = "Kàndào zhè zhāng zhàopiàn, wǒ xiǎngdào le wǒ de nǚ'ér."
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCUSIV'

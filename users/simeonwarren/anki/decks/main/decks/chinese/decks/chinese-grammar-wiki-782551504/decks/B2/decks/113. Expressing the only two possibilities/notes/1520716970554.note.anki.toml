@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing the only two possibilities'
+english = "All day, if he's not playing games, he's sleeping."
+example-sentence = ''
+example-type = ''
+grammar-construct = '不是 + A，就是 + B'
+hanzi = '他整天不是打游戏就是睡觉。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGEXR6R'

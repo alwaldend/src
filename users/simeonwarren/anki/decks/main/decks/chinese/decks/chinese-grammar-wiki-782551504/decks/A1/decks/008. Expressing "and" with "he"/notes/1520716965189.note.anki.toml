@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "and" with "he"'
+english = 'Are both German and French difficult?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun 1 + 和 + Noun 2'
+hanzi = '德语和法语都很难吗？'
+notes = ''
+pinyin = 'Déyǔ hé Fǎyǔ dōu hěn nán ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGP0KFF'

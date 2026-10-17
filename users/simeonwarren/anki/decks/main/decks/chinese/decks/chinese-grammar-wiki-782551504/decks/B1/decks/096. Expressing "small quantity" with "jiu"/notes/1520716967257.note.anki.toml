@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "small quantity" with "jiu"'
+english = 'She has worked at our company for only two months.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 就 + [Verb Phrase]'
+hanzi = '她在我们公司就工作了两个月。'
+notes = ''
+pinyin = 'Tā zài wǒmen gōngsī jiù gōngzuò le liǎng gè yuè.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPW8PP'

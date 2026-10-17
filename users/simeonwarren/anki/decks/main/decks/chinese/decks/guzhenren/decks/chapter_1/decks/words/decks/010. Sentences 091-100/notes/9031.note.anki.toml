@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'to hide;	to conceal;	to mask;	to shelter;	to harbor (i.e. keep sth hidden);	to hide oneself;	to lie low;	to nestle;	hidden;	implicit;	private;	covert;	recessed (lighting).'
+example-sentence = '看向彼此的目光中都隐藏了一丝警惕之色'
+example-type = ''
+grammar-construct = ''
+hanzi = '隐藏'
+notes = ''
+pinyin = '<span class="tone3">yǐn</span><span class="tone2">cáng</span>	 <!-- yin cang -->'
+source = ''

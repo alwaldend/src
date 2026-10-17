@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "both… and…" with "ji...you"'
+english = 'He does things both quickly and well.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '既 + A + 又 + B'
+hanzi = '他做事情既快又好。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGZRPCK'

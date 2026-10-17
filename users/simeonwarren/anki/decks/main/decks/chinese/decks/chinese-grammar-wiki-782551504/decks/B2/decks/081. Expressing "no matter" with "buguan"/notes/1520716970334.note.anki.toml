@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Grammatical_Structures", "NoMatterStatements"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "no matter" with "buguan"'
+english = 'No matter how other people think, you need to keep going.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '不管 + Question Word ，(Subj. +) 都 ⋯⋯'
+hanzi = '不管别人怎么想，你都要坚持。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG0NDS6'

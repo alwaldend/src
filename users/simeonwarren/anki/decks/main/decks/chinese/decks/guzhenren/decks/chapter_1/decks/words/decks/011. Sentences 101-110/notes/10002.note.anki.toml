@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'to take care;	to keep an eye on;	to look after;	to tell;	to remind.'
+example-sentence = ' 族长语气严肃地关照道'
+example-type = ''
+grammar-construct = ''
+hanzi = '关照'
+notes = ''
+pinyin = '<span class="tone1">guān</span><span class="tone4">zhào</span>	 <!-- guan zhao -->'
+source = ''

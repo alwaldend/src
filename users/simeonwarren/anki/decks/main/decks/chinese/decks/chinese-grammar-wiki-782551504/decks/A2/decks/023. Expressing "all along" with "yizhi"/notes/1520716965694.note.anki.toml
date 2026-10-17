@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "all along" with "yizhi"'
+english = "I've been studying Chinese all along."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 一直 + Predicate'
+hanzi = '我一直在学习中文。'
+notes = ''
+pinyin = 'Wǒ yīzhí zài xuéxí Zhōngwén.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGP000J'

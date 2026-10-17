@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "EvenIfStatements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "even if…" with "napa"'
+english = "No matter how disobedient the students are, their teachers shouldn't hit them."
+example-sentence = ''
+example-type = ''
+grammar-construct = '哪怕 + [Subj. 1] + 再 + Adj. [Subj. 2] + 也 + [Verb Phrase]'
+hanzi = '哪怕学生再不听话，老师也不应该打他们。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGXX3NY'

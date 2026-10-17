@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Grammatical_Structures", "NumbersandMeasureWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Measure words in quantity questions'
+english = 'How many students are there in your class?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 多少 + Measure Word + Noun ？'
+hanzi = '你们班有多少个学生？'
+notes = ''
+pinyin = 'Nǐmen bān yǒu duōshao gè xuéshēng?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGL9KQM'

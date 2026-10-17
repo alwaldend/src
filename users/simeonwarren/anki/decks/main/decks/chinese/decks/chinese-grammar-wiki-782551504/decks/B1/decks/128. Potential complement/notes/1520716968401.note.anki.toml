@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Potential complement'
+english = "You're so smart. You can definitely learn this."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 得 + Complement'
+hanzi = '你这么聪明，肯定学得会。'
+notes = ''
+pinyin = 'Nǐ zhème cōngming, kěndìng xué de huì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCPJPQ'

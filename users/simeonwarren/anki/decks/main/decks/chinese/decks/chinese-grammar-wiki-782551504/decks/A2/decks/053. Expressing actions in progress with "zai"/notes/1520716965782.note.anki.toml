@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "leech", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing actions in progress with "zai"'
+english = 'The cleaning lady is cleaning our room right now.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 正在 + Verb + Obj.'
+hanzi = '阿姨正在打扫我们的房间。'
+notes = ''
+pinyin = 'Āyí zhèngzài dǎsǎo wǒmen de fángjiān.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG846EA'

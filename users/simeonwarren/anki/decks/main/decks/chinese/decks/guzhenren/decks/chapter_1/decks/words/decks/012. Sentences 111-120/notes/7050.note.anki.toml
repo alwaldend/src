@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = "interjection of surprise;\tAh!;\tOh!.<br>interjection expressing doubt or requiring answer;\tEh?;\twhat?.<br>interjection of surprise or doubt;\tEh?;\tMy!;\twhat's up?.<br>interjection or grunt of agreement;\tuhm;\tAh, OK;\texpression of recognition;\tOh, it's you!.<br>modal particle ending sentence, showing affirmation, approval, or consent.<br>"
+example-sentence = '  这就是家族未来的希望啊'
+example-type = ''
+grammar-construct = ''
+hanzi = '啊'
+notes = ''
+pinyin = '<span class="tone5">āáǎàa</span>	 <!-- a a a a a -->'
+source = ''

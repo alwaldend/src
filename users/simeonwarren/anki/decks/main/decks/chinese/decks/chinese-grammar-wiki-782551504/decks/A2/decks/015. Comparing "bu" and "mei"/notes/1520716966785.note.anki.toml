@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "bu" and "mei"'
+english = ''
+example-sentence = ''
+example-type = 'invalid'
+grammar-construct = 'Noun 1 + 没有 + Noun 2 + Adj.'
+hanzi = '他以前没是我的老板。'
+notes = ''
+pinyin = 'Tā yǐqián méi shì wǒ de lǎobǎn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGRJ1BI'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Numbers", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Structure of days of the week'
+english = "Saturday and Sunday we don't work."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '星期六和星期天我们不上班。'
+notes = ''
+pinyin = 'Xīngqīliù hé Xīngqītiān wǒmen bù shàngbān.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGVH4Q5'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Alternative existential sentences'
+english = 'There are dirty clothes inside the washing machine.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Place + 是 + [Noun Phrase]'
+hanzi = '洗衣机里是一些脏衣服。'
+notes = 'There is nothing in the washing machine other than the dirty clothes.'
+pinyin = 'Xǐyījī lǐ shì yīxiē zāng yīfu.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGAC619'

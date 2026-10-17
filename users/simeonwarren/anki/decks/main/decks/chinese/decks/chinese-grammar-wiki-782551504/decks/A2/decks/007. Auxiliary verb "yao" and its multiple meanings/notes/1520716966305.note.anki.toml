@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Auxiliaryverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Auxiliary verb "yao" and its multiple meanings'
+english = 'Are you going to return home this year to celebrate the Chinese New Year?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 要 + Verb'
+hanzi = '今年你要回家过年吗？'
+notes = ''
+pinyin = 'Jīnnián nǐ yào huíjiā guònián ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG95AL1'

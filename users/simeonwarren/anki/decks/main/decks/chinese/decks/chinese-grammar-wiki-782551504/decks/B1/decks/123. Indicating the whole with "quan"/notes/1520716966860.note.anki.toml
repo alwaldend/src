@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Indicating the whole with "quan"'
+english = 'Take them all.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 全都 + Predicate'
+hanzi = '你全都拿走吧。'
+notes = ''
+pinyin = 'Nǐ quán dōu názǒu ba.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCPDSR'

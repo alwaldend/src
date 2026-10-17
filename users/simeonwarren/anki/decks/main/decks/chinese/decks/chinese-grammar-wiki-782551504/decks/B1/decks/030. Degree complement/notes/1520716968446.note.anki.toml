@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Degree complement'
+english = 'He is awfully stubborn.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '他固执得不得了。'
+notes = ''
+pinyin = 'Tā gùzhí de bùdéliǎo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG79STE'

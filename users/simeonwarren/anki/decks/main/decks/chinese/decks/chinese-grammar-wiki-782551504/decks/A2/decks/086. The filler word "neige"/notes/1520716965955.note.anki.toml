@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'The filler word "neige"'
+english = "She's very pretty, just like, you know, a celebrity."
+example-sentence = ''
+example-type = ''
+grammar-construct = '(那个⋯⋯) (那个⋯⋯) + [anything] + (那个⋯⋯)'
+hanzi = '她很漂亮，就像那个⋯⋯明星一样。'
+notes = ''
+pinyin = 'Tā hěn piàoliang, jiù xiàng nèige... míngxīng yīyàng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8VJM8'

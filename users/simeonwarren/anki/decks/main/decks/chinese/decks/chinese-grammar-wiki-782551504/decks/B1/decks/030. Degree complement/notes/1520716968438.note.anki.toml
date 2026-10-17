@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Degree complement'
+english = 'Grandma walks very slowly.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '奶奶走得很慢。'
+notes = ''
+pinyin = 'Nǎinai zǒu de hěn màn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG79STE'

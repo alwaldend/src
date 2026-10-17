@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Verbs preceded by "gei"'
+english = 'You should apologize to him.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 给 + Target + Verb + Obj.'
+hanzi = '你应该给他道歉。'
+notes = ''
+pinyin = 'Nǐ yīnggāi gěi tā dàoqiàn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG3ORNN'

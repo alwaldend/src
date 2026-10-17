@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "cai" and "jiu"'
+english = 'How come he found such a good job while he just graduated from college?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '(现在) + 才 + Time'
+hanzi = '他才毕业就找到了这么好的工作？'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGLOS9C'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Advanced potential complements'
+english = "The child is all grown up. His mother can't hold him anymore."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 得 / 不 + 动'
+hanzi = '孩子真的长大了，妈妈都抱不动了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG516F9'

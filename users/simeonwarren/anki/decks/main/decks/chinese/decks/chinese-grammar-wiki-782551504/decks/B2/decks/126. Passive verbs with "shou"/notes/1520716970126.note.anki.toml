@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Passive verbs with "shou"'
+english = "People don't have to be rich or successful to receive respect from other people."
+example-sentence = ''
+example-type = ''
+grammar-construct = '受 + ([Someone / Something]) + Verb'
+hanzi = '一个人不一定要变得很有钱或者很成功才会受人尊重。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG1DXUD'

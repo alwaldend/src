@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Combining verbs with "bing"'
+english = 'I can help you find the problem and also solve it.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb / [Verb Phrase 1] + 并(且) + Verb / [Verb Phrase 2]'
+hanzi = '我会帮你找到问题并且解决问题。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5C89R'

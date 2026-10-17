@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Events in quick succession with "yi... jiu..."'
+english = 'Every time he takes English class, he feels like falling asleep.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '一 + Reason，就 + Result'
+hanzi = '他一上英语课就想睡觉。'
+notes = ''
+pinyin = 'Tā yī shàng Yīngyǔ kè jiù xiǎng shuìjiào.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTFUD0'

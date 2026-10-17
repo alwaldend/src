@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "always" as a complaint with "laoshi"'
+english = 'Why do you always work overtime?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '老是 + Verb'
+hanzi = '你怎么老是加班？'
+notes = ''
+pinyin = 'Nǐ zěnme lǎoshì jiābān?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGII66E'

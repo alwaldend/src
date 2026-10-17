@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "AdverbswithAdjectives", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "not very" with "bu tai"'
+english = 'The clothes in this shop are not too expensive.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不太 + Adj.'
+hanzi = '这个店的衣服不太贵。'
+notes = ''
+pinyin = 'Zhège diàn de yīfu bù tài guì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGUNMHU'

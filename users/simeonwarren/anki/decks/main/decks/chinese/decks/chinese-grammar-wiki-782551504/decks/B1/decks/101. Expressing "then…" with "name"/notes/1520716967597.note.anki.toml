@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "then…" with "name"'
+english = 'The rain stopped. Shall we go?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Situation ，那么 + Suggestion / Decision'
+hanzi = '雨停了，那我们走吧。'
+notes = ''
+pinyin = 'Yǔ tíng le, nà wǒmen zǒu ba.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGX298Z'

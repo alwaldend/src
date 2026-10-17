@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["auxiliaryverb", "B2", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'The use of Taiwanese Mandarin "hui"'
+english = 'Is this spicy?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 会 + Predicate + 吗 ？'
+hanzi = '这个会辣吗？'
+notes = 'means 这个 辣 不 辣 ？'
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG22117'

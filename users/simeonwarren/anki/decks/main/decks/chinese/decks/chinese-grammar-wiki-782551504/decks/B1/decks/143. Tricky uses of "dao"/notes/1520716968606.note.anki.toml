@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Tricky uses of "dao"'
+english = 'I see him, over there!'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '我看到他了，在那里！'
+notes = ''
+pinyin = 'Wǒ kàndào tā le, zài nàlǐ!'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCUSIV'

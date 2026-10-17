@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'race;	nationality;	ethnicity;	clan;	by extension, social group (e.g. office workers 上班族).'
+example-sentence = '我们古月一族已经有三年没有这样的天才出现了'
+example-type = ''
+grammar-construct = ''
+hanzi = '族'
+notes = ''
+pinyin = '<span class="tone2">zú</span>	 <!-- zu -->'
+source = ''

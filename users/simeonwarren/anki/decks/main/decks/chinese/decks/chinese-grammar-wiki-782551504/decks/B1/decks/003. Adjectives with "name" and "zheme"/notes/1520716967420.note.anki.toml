@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["AdverbswithAdjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Adjectives with "name" and "zheme"'
+english = 'Why are you so impolite?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 那么 / 这么 + Adj.'
+hanzi = '你怎么这么没礼貌？'
+notes = ''
+pinyin = 'Nǐ zěnme zhème méi lǐmào?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNKKP6'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Special cases of "zai" following verbs'
+english = ''
+example-sentence = ''
+example-type = 'invalid'
+grammar-construct = 'Subj. + [Special Verb] + 在 + Location'
+hanzi = '我学习在图书馆。'
+notes = ''
+pinyin = 'Wǒ xuéxí zài túshūguǎn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG90DXK'

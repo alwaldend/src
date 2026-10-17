@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Marking a topic with "ma"'
+english = "First time. You'll learn soon."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Topic + 嘛 ，Statement'
+hanzi = '第一次嘛，以后就会了。'
+notes = ''
+pinyin = 'Dì-yī cì ma, yǐhòu jiù huì le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGB33AE'

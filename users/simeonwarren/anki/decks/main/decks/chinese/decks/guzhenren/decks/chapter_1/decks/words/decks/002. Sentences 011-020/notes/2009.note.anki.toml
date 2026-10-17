@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = "to enclose;\tto cover with the hand (one's eyes, nose or ears);\tto cover up (an affair);\tcontrary;\tto contradict."
+example-sentence = '此时牢牢包围着方源,有的在咆哮,有的在冷笑,有的双眼眯起闪着警惕的光,有的捂着伤口恐惧地望着'
+example-type = ''
+grammar-construct = ''
+hanzi = '捂'
+notes = ''
+pinyin = '<span class="tone3">wǔ</span>	 <!-- wu -->'
+source = ''

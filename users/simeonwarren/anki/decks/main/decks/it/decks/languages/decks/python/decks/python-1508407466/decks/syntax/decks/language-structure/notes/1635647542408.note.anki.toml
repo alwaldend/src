@@ -1,0 +1,13 @@
+note_type = "note_types/python-basic.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+'Additional Info' = ''
+'Back - Basic' = 'only the <b>+&nbsp;</b>operator'
+'Back - Code' = ''
+Example = '<div><div>x = [2, 3, 5]</div></div>y = [4, 3, 1]<br>x += y'
+Front = 'Which bitwise and mathematical operators can be used on lists in python?'
+Version = ''

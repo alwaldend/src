@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "TimeWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "yihou" and "zhihou"'
+english = 'Yesterday I ate dinner with a friend, and afterward we went to a bar.'
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = 'Subj. + Event， 之后 + Action'
+hanzi = '昨天我跟朋友去吃饭了，之后，我们去了酒吧。'
+notes = '之后 works in this sentence.'
+pinyin = 'Zuótiān wǒ gēn péngyou qù chīfàn le, zhīhòu, wǒmen qù le jiǔbā.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGC3SCN'

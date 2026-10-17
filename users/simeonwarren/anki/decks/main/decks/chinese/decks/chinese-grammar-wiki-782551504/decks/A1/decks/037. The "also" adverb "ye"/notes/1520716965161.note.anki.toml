@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'The "also" adverb "ye"'
+english = 'My mother likes to eat boiled dumplings too.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 也 + Verb / [Verb Phrase]'
+hanzi = '我妈妈也喜欢吃饺子。'
+notes = ''
+pinyin = 'Wǒ māma yě xǐhuan chī jiǎozi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGG25MD'

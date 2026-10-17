@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "when" with "shi"'
+english = "His children weren't there when he passed away."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb-Obj. + 时 ，Subj. ⋯⋯'
+hanzi = '他去世时，他的孩子都不在身边。'
+notes = ''
+pinyin = 'Tā qùshì shí, tā de háizi dōu bù zài shēnbiān.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGGL59D'

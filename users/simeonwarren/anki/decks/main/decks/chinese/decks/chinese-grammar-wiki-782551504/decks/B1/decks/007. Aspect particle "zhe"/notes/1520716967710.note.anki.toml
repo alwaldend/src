@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Aspect particle "zhe"'
+english = ''
+example-sentence = ''
+example-type = 'invalid'
+grammar-construct = 'Verb 1 + 着 + Verb 2'
+hanzi = '她在穿一条小黑裙。'
+notes = "Be wearing is not an action, so don't use 在.)"
+pinyin = 'Tā zài chuān yī tiáo xiǎo hēi qún.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGOIDEO'

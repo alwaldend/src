@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "TimeWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "changchang" and "jingchang"'
+english = ''
+example-sentence = ''
+example-type = 'invalid'
+grammar-construct = '不 + 常'
+hanzi = '你以后要常常做运动。'
+notes = "常常 can't be used in the future."
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGE8FLP'

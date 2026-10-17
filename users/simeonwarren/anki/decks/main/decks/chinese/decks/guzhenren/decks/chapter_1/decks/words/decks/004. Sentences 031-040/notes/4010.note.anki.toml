@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'what?;	something;	anything.'
+example-sentence = '  老魔,你笑什么'
+example-type = ''
+grammar-construct = ''
+hanzi = '什么'
+notes = ''
+pinyin = '<span class="tone2">shén</span><span class="tone5">me</span>	 <!-- shen me -->'
+source = ''

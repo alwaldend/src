@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Taiwanese "you"'
+english = 'Of course she was disappointed. You forgot her birthday again!'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 有 + Adj.'
+hanzi = '她当然有失望，你又忘了她的生日！'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGY2D79'

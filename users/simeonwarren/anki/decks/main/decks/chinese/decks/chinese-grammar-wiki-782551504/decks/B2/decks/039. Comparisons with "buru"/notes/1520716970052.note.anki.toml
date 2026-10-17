@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparisons with "buru"'
+english = "This dress doesn't look as good as that one."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A + Verb-Obj. + 不如 + B+ (Verb + 得) + Adj.'
+hanzi = '这件裙子不如那件好看。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWH1D5'

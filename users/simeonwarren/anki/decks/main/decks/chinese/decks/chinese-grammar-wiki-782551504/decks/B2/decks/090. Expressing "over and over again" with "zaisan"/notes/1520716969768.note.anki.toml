@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "over and over again" with "zaisan"'
+english = 'After back and forth considering,  we decided to satisfy your requirements.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '再三 + Verb'
+hanzi = '我们再三考虑过后，决定满足你的这个要求。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGP6LVA'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Appearance with "kanqilai"'
+english = 'Your boyfriend seems very mature.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 看起来 ⋯⋯'
+hanzi = '你男朋友看起来很成熟。'
+notes = ''
+pinyin = 'Nǐ nánpéngyou kànqǐlái hěn chéngshú.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG9K0F8'

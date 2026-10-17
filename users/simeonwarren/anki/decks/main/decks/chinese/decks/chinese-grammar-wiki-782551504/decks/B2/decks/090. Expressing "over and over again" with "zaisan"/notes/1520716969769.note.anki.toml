@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "over and over again" with "zaisan"'
+english = 'I reminded you, again and again, that you need to be careful with your wallet when you travel abroad.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '再三 + Verb'
+hanzi = '我再三提醒你出国旅游一定要小心你的钱包。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGP6LVA'

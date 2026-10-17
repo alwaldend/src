@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "enough" with "gou"'
+english = 'Are these paper good enough to use?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '够 + Verb / Adj. + 了'
+hanzi = '这些纸够用吗？'
+notes = ''
+pinyin = 'Zhèxiē zhǐ gòu yòng ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG49BE6'

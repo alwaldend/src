@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing purpose with "haorang"'
+english = 'I already prepared the work so that you guys can start it as soon as possible.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. 1 + Action， 好让 + Purpose'
+hanzi = '我已经把准备工作做好了，好让你们尽快开始。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG18JOA'

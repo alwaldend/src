@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Aspect particle "zhe"'
+english = 'We will do it, and you will watch.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 着'
+hanzi = '我们做，你们看着。'
+notes = ''
+pinyin = 'Wǒmen zuò, nǐmen kàn zhe.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGOIDEO'

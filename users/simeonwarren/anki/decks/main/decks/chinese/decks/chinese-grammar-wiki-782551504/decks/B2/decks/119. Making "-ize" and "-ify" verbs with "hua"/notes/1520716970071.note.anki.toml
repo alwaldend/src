@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Making "-ize" and "-ify" verbs with "hua"'
+english = "KFC's Chinese localization has been implemented very successfully."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun / Adj. + 化'
+hanzi = 'KFC的中国本土化经营做得非常成功。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGS6UKN'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "AdverbswithAdjectives", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing distance with "li"'
+english = 'This hotel is very close to the train station.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Place 1 + 离 + Place 2 + Adv. + 近 / 远'
+hanzi = '这个酒店离火车站很近。'
+notes = ''
+pinyin = 'Zhège jiǔdiàn lí huǒchēzhàn hěn jìn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGI96BQ'

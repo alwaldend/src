@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "TimeWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "yihou" and "zhihou"'
+english = "Last summer, he came to my house. After that, I haven't seen him."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Event， 之后 + Action'
+hanzi = '去年夏天他来过我家，之后再也没见到他。'
+notes = ''
+pinyin = 'Qùnián xiàtiān tā lái guò wǒ jiā, zhīhòu zài yě méi jiàn dào tā.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGC3SCN'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Standard negation with "bu"'
+english = "We don't drink alcohol."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不 + Verb + Obj.'
+hanzi = '我们不喝酒。'
+notes = ''
+pinyin = 'Wǒmen bù hējiǔ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGIPYFV'

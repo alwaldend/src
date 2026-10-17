@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Before and after with "zhiqian" and "zhihou"'
+english = "She's been a Chinese teacher for more than four years. She used to be an English teacher."
+example-sentence = ''
+example-type = ''
+grammar-construct = '⋯⋯ ，之前 / 之后 ⋯⋯'
+hanzi = '她当汉语老师四年多了，之前是教英语的。'
+notes = ''
+pinyin = 'Tā dāng Hànyǔ lǎoshī sì nián duō le, zhīqián shì jiāo Yīngyǔ de.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTD3L3'

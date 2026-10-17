@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Idiomatic phrases with "zai"'
+english = 'Do you think kids will be happy growing up in this kind of environment?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '在 ⋯⋯ 下 ，⋯⋯'
+hanzi = '在这样的环境下长大，孩子会快乐吗？'
+notes = ''
+pinyin = 'Zài zhèyàng de huánjìng xià zhǎngdà, háizi huì kuàilè ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGH13JY'

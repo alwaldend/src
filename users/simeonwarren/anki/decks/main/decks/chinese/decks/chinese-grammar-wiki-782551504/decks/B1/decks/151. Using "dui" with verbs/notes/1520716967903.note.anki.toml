@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "dui" with verbs'
+english = 'Everyone is very disappointed with the result of the game.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '对 + Party + 来说 ，⋯⋯'
+hanzi = '观众对比赛结果非常失望。'
+notes = ''
+pinyin = 'Guānzhòng duì bǐsài jiéguǒ fēicháng shīwàng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8ICO9'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "in this way" with "zheyang"'
+english = "It's closer to walk this way over there."
+example-sentence = ''
+example-type = ''
+grammar-construct = '这样 + Verb'
+hanzi = '这样走过去更近。'
+notes = ''
+pinyin = 'Zhèyàng zǒu guòqù gèng jìn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG1F4D1'

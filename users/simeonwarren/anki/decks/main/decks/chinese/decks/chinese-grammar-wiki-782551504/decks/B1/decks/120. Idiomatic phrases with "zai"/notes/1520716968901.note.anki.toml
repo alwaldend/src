@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Idiomatic phrases with "zai"'
+english = "This sentence is okay to say in terms of grammar, it's just not very natural."
+example-sentence = ''
+example-type = ''
+grammar-construct = '在 + Abstract Concepts + 上，  Comment Sentence'
+hanzi = '这个句子在语法上是可以说的，就是不太自然。'
+notes = ''
+pinyin = '<div>Zhège jùzǐ zài yǔfǎ shàng shì kěyǐ shuō de, jiùshì bù tài zìrán.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGH13JY'

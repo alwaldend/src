@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Potential complement'
+english = 'The mountain is so high. Can you make it to the top?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 得 + Complement'
+hanzi = '这么高的山，你爬得上去吗？'
+notes = ''
+pinyin = 'Zhème gāo de shān, nǐ pá de shàngqù ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCPJPQ'

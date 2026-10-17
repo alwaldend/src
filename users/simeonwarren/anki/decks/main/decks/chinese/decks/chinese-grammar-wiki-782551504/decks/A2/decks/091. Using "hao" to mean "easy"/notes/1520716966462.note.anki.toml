@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "hao" to mean "easy"'
+english = 'This Chinese character is easy to write.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + (很) 好 + Verb'
+hanzi = '这个汉字很好写。'
+notes = ''
+pinyin = 'Zhège Hànzì hěn hǎo xiě.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJQU93'

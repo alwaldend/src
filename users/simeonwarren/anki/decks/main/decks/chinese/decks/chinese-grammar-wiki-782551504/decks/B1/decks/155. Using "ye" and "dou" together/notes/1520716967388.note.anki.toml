@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "ye" and "dou" together'
+english = 'The boss works late, but do you all need to work late?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 也都 + Predicate'
+hanzi = '老板加班，你们也都要加班吗？'
+notes = ''
+pinyin = 'Lǎobǎn jiābān, nǐmen yě dōu yào jiābān ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8GSXY'

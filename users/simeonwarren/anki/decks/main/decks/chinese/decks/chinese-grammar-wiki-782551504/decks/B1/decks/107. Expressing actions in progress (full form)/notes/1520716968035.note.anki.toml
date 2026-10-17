@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing actions in progress (full form)'
+english = "The boss is in the middle of a meeting. It's not convenient for him to talk on the phone."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + Obj. + 呢'
+hanzi = '老板开着会呢，不方便接电话。'
+notes = ''
+pinyin = 'Lǎobǎn kāi zhe huì ne, bù fāngbiàn jiē diànhuà.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGEYQ9O'

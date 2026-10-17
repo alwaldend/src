@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "hard to avoid" with "nanmian"'
+english = 'Young people are always going to face problems, but the most important thing is to learn how to overcome them.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '(Subj.) + 难免 + Verb'
+hanzi = '年轻人难免会遇到挫折，关键是学习怎么样克服。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGYDKT3'

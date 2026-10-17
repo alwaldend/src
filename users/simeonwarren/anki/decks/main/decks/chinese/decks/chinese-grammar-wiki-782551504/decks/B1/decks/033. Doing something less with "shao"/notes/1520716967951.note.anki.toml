@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Doing something less with "shao"'
+english = 'Eat junk food less.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '少 + Verb'
+hanzi = '少吃垃圾食品。'
+notes = ''
+pinyin = 'Shǎo chī lājī shípǐn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG9B0M8'

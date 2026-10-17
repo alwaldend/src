@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "AdverbswithAdjectives", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "not very" with "bu tai"'
+english = "I can't really speak English."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不太 + Verb'
+hanzi = '我不太会说英语。'
+notes = ''
+pinyin = 'Wǒ bù tài huì shuō Yīngyǔ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGUNMHU'

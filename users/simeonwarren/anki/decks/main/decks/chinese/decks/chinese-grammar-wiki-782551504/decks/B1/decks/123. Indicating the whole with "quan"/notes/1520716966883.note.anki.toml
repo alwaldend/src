@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Indicating the whole with "quan"'
+english = "You spoke too fast. I can't write down all of what you said."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj.＋不 / 没＋全都＋Verb / Adj.'
+hanzi = '你说得太快了，我不可能全都记下来。'
+notes = ''
+pinyin = 'Nǐ shuō de tài kuài le, wǒ bù kěnéng quán dōu jì xiàlái.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCPDSR'

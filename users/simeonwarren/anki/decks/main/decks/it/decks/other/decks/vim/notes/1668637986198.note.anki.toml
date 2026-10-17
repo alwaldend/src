@@ -1,0 +1,12 @@
+note_type = "note_types/basic.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[[cards]]
+ordinal = 1
+
+[fields]
+Back = 'it'
+Front = 'Select inner content of a HTML element between &lt;tag&gt; and &lt;/tag&gt;&nbsp;(visual mode)'

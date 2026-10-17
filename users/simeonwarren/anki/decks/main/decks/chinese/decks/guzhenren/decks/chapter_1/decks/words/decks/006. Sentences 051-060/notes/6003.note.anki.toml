@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = "(facial) expression;\tto express one's feelings;\texpression."
+example-sentence = ' 身后的家老们各个表情肃穆,也随着默默效仿'
+example-type = ''
+grammar-construct = ''
+hanzi = '表情'
+notes = ''
+pinyin = '<span class="tone3">biǎo</span><span class="tone2">qíng</span>	 <!-- biao qing -->'
+source = ''

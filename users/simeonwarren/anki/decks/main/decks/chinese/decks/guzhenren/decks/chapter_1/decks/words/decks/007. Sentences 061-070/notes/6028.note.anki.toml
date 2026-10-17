@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = '(in the) past;	former;	previous;	to go over;	to pass by.<br>(verb suffix).<br>'
+example-sentence = '  时间过的真是太快了,一眨眼,一年就都过去了'
+example-type = ''
+grammar-construct = ''
+hanzi = '过去'
+notes = ''
+pinyin = '<span class="tone4">guò</span><span class="tone5">qùguò</span><span class="tone5">qu</span>	 <!-- guo qu guo qu -->'
+source = ''

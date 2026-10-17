@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "even" with "lian" and "dou"'
+english = "He's very poor now. He couldn't even afford a meal at McDonald."
+example-sentence = ''
+example-type = ''
+grammar-construct = '连 + Obj. + 都 (+ 不 / 没) + Verb'
+hanzi = '他现在很穷，连麦当劳都吃不起。'
+notes = ''
+pinyin = 'Tā xiànzài hěn qióng, lián Màidāngláo dōu chī bu qǐ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNP0WV'

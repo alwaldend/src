@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adjectives", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Adjectival complement "de budeliao"'
+english = "Dad is super angry. You're going to be unlucky."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Adj. +  得不得了'
+hanzi = '爸爸气得不得了，你要倒霉啦。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGB8BWA'

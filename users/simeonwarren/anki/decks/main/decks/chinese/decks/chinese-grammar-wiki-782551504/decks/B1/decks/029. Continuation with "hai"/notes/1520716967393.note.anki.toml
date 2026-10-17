@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["AdverbswithAdjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Continuation with "hai"'
+english = "It's ten o'clock, are you still sleeping?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 还在 + Verb'
+hanzi = '十点了，你还在睡？'
+notes = ''
+pinyin = 'Shí diǎn le, nǐ háizài shuì?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGIRILI'

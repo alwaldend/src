@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Placement of question words'
+english = "Where are you?<br>I'm at home."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 哪里 / 哪儿 ?'
+hanzi = 'A: 你在哪里？<br>B: 我在家。'
+notes = ''
+pinyin = 'Nǐ zài nǎlǐ?<br>Wǒ zài jiā.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJQPSC'

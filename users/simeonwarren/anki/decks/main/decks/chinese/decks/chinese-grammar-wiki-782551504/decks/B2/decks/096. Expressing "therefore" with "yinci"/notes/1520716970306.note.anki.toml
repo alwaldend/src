@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Cause/EffectStatements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "therefore" with "yinci"'
+english = "She grew up in the country, so she understands the country people's way of life."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Cause + 因此 + Effect'
+hanzi = '她在农村长大，因此很了解农民的生活。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGUEFAL'

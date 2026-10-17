@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'this;	these;	(commonly pr. [zhei4] before a classifier, esp. in Beijing).'
+example-sentence = ' 看着这青山落日,方源轻声一笑: 青山落日,秋月春风'
+example-type = ''
+grammar-construct = ''
+hanzi = '这'
+notes = ''
+pinyin = '<span class="tone4">zhè</span>	 <!-- zhe -->'
+source = ''

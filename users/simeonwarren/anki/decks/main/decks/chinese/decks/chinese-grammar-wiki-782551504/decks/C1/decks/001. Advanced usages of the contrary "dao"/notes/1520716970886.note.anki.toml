@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "C1"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Advanced usages of the contrary "dao"'
+english = 'Their idea is valuable. We should think about it.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 倒 +  Adj.'
+hanzi = '他们的想法倒挺有价值的，我们应该好好考虑一下。'
+notes = ''
+pinyin = '<div>Tāmen de xiǎngfǎ dào tǐng yǒu jiàzhí de, wǒmen yīnggāi hǎohǎo kǎolǜ yīxià.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGXXP6M'

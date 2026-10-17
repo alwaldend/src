@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'to participate;	to take part;	to join.'
+example-sentence = '  不过今年参加开窍大典的少年里,也不是没有希望'
+example-type = ''
+grammar-construct = ''
+hanzi = '参加'
+notes = ''
+pinyin = '<span class="tone1">cān</span><span class="tone1">jiā</span>	 <!-- can jia -->'
+source = ''

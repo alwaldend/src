@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Grammatical_Structures", "NumbersandMeasureWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Measure words for counting'
+english = 'a dragon'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Number + Measure Word + Noun'
+hanzi = '一条龙'
+notes = ''
+pinyin = 'yī tiáo lóng'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG64BTE'

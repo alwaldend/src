@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = "Expressing \"don't need to\" with \"buyong\""
+english = "Not all of you need to come. We don't need so many people."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不用 + [Verb Phrase]'
+hanzi = '你们不用都来，我们不需要这么多人。'
+notes = ''
+pinyin = 'Nǐmen bùyòng dōu lái, wǒmen bù xūyào zhème duō rén.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGECD0E'

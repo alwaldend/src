@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Indicating purpose or intent using "shi...de"'
+english = 'This kind of car is for moving.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '这种车是用来搬家的。'
+notes = ''
+pinyin = 'Zhè zhǒng chē shì yònglái bānjiāde.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG0UFR4'

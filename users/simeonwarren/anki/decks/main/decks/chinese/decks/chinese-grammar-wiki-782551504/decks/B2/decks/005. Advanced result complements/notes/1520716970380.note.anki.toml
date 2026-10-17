@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Advanced result complements'
+english = 'She must be from the north. I can hear it.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '她肯定是北方人，我能听出来。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG4OM4T'

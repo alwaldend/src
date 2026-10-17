@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Reviewing options with "ba"'
+english = 'Wearing a little more, it will be hot; Wearing a little less, it will be cold.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Option 1 + 吧 ，⋯⋯ ；Option 2 + 吧 ，⋯⋯'
+hanzi = '穿得多一点吧，会热；穿得少一点吧，会冷。'
+notes = ''
+pinyin = 'Chuān de duō yīdiǎn ba, huì rè; chuān de shǎo yīdiǎn ba, huì lěng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGELOTT'

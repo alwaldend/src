@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "duiyu" and "zhiyu"'
+english = "For this topic, I don't think there is anything to be discussed."
+example-sentence = ''
+example-type = ''
+grammar-construct = '对于 + Modifier， Subj. + Predicate'
+hanzi = '关于这个话题，我觉得没什么可讨论的。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGC01S0'

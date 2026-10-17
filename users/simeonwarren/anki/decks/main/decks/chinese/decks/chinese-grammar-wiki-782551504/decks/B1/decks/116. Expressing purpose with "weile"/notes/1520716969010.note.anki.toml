@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing purpose with "weile"'
+english = 'He bought a very expensive suit for this job interview.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '为了 ⋯⋯ ，Subj. ⋯⋯'
+hanzi = '为了这个面试，他买了一套很贵的西服。'
+notes = ''
+pinyin = 'Wèile zhège miànshì, tā mǎi le yī tào hěn guì de xīfú.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQGJXT'

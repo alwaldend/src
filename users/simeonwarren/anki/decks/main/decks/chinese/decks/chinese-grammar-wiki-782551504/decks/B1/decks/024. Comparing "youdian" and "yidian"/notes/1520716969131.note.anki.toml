@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "youdian" and "yidian"'
+english = "There's still a little rice in your bowl. Finish eating it."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '你碗里还有一点饭，吃完吧。'
+notes = ''
+pinyin = 'Nǐ wǎn lǐ hái yǒu yīdiǎn fàn, chī wán ba.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGV55Y4'

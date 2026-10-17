@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Degree complement'
+english = "The teacher said there's no homework for today, which made the students extremely happy."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 得 + [Degree Complement]'
+hanzi = '老师说今天没有作业，我们都高兴坏了。'
+notes = ''
+pinyin = 'Lǎoshī shuō jīntiān méiyǒu zuòyè, wǒmen dōu gāoxìng huài le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG79STE'

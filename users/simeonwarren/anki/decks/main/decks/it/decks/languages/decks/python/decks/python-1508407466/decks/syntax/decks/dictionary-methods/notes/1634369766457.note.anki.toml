@@ -1,0 +1,13 @@
+note_type = "note_types/python-basic-and-reversed.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+additional-info = 'Returns the same thing as <i>dict</i>[<i>key</i>]'
+answer = '<i>dict</i>.get(<i>key</i>)'
+example = ''
+question = '<b>Dictionary method</b>&nbsp;that&nbsp;returns the value of the specified key'
+version = ''
+with-options = ''

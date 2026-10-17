@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "NounPhrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "all" with "suoyou"'
+english = "He remembers all his friends' birthdays."
+example-sentence = ''
+example-type = ''
+grammar-construct = '所有 (+ 的) + Noun'
+hanzi = '他记得所有朋友的生日。'
+notes = ''
+pinyin = 'Tā jìde suǒyǒu péngyou de shēngrì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGOWBSL'

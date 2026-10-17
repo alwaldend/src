@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'to utilize;	to put sth to use.'
+example-sentence = '争要堂堂正正的争,不可以动用阴谋手段,损害家族的团结'
+example-type = ''
+grammar-construct = ''
+hanzi = '动用'
+notes = ''
+pinyin = '<span class="tone4">dòng</span><span class="tone4">yòng</span>	 <!-- dong yong -->'
+source = ''

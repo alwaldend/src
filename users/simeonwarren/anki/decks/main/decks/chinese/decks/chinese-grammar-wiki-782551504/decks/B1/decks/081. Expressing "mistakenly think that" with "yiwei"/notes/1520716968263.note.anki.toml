@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "mistakenly think that" with "yiwei"'
+english = "You went to eat Sichuan hotpot? I thought you don't like eating spicy food."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 以为 ⋯⋯'
+hanzi = '你去吃四川火锅了？我以为你不爱吃辣。'
+notes = ''
+pinyin = 'Nǐ qù chī  Sìchuān huǒguō le? Wǒ yǐwéi nǐ bù ài chī là.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGRBC43'

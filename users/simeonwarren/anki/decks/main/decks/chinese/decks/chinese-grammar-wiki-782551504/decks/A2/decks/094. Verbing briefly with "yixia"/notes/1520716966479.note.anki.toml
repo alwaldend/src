@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Verbing briefly with "yixia"'
+english = 'Try it.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 一下 + Obj.'
+hanzi = '试一下吧。'
+notes = 'How long can trying it take?'
+pinyin = 'Shì yīxià ba.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWCESP'

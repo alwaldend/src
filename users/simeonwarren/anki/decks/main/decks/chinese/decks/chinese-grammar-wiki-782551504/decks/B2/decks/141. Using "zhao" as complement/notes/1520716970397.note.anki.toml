@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "zhao" as complement'
+english = 'The baby just fell asleep.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 着'
+hanzi = '宝宝刚睡着。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGM5ZAB'

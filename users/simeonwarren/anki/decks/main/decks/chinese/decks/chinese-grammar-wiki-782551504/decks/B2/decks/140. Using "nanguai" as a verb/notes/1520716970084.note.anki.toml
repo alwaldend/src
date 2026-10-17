@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "nanguai" as a verb'
+english = "A: He's late. B: Don't blame him, the subway broke down today."
+example-sentence = ''
+example-type = ''
+grammar-construct = '难怪 + [Specific Person / People]'
+hanzi = 'A:他迟到了。B:这也难怪。今天地铁坏了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGYKH5G'

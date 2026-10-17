@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "bei" sentences'
+english = 'By whom he got beaten up?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 被 (+ Doer) + Verb + 了'
+hanzi = '他被谁打的？'
+notes = ''
+pinyin = 'Tā bèi shéi dǎ de?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGHF9F1'

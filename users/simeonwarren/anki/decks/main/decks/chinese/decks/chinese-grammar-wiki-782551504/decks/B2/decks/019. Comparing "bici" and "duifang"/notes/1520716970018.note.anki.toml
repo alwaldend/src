@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Parts_of_Speech", "Pronouns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "bici" and "duifang"'
+english = "If you can trust each other, this cooperation probably won't succeed."
+example-sentence = ''
+example-type = ''
+grammar-construct = '彼此 + Verb'
+hanzi = '如果你们不能彼此信任，这次合作不太可能成功。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG84D65'

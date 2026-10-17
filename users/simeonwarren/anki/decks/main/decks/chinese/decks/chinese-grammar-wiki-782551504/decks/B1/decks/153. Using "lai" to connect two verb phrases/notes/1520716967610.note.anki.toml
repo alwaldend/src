@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "lai" to connect two verb phrases'
+english = 'Through what platform did you promote the new product?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '通过 / 用 + Agent + 来 + [Verb Phrase]'
+hanzi = '你们是通过什么平台来推广新产品的？'
+notes = ''
+pinyin = 'Nǐmen shì tōngguò shénme píngtái lái tuīguǎng xīn chǎnpǐn de?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGBZ578'

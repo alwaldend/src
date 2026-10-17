@@ -1,0 +1,13 @@
+note_type = "note_types/python-basic-and-reversed.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<b>Keyword</b> used to make the first part of an exception statement (the code that should be attempted before moving to the except, else, or finally statements).'
+example = ''
+question = '<b>Keyword:</b> try'
+version = ''
+with-options = ''

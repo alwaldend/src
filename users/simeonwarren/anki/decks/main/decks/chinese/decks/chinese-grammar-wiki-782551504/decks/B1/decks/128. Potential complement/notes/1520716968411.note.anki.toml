@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Potential complement'
+english = "I'm afraid that I can't do this job well."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 不 + Complement'
+hanzi = '我怕我做不好这份工作。'
+notes = ''
+pinyin = 'Wǒ pà wǒ zuò bu hǎo zhè fèn gōngzuò.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCPJPQ'

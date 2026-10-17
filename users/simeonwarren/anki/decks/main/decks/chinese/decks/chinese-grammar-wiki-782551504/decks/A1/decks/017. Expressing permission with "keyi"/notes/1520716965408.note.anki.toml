@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Auxiliaryverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing permission with "keyi"'
+english = "You can't say swear words."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不 + 可以 + Verb + Obj.'
+hanzi = '你不可以说脏话。'
+notes = ''
+pinyin = 'Nǐ  bù kěyǐ shuō zānghuà.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG6SPYK'

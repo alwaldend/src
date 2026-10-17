@@ -1,0 +1,13 @@
+note_type = "note_types/python-basic-and-reversed.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<i>list</i>.count(<i>value</i>)'
+example = ''
+question = '<b>List method</b>&nbsp;that returns the number of times the specified value occurs in a list.'
+version = ''
+with-options = ''

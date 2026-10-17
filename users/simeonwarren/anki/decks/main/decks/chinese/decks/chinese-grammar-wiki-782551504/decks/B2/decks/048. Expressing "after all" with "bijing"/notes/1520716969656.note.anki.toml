@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "after all" with "bijing"'
+english = "It's winter after all. You'd better wear more clothes."
+example-sentence = ''
+example-type = ''
+grammar-construct = '毕竟 + Reason / Characteristic'
+hanzi = '毕竟是冬天，你还是多穿点吧。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG4V36Q'

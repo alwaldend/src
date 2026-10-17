@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "Nouns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "zhijian" and "zhongjian"'
+english = "I'm in the middle of this row of seats."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun + (的 +) 中间'
+hanzi = '我在这一排座位的中间。'
+notes = ''
+pinyin = '<div>Wǒ zài zhè yī pái zuòwèi de zhōngjiān.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGN6O6J'

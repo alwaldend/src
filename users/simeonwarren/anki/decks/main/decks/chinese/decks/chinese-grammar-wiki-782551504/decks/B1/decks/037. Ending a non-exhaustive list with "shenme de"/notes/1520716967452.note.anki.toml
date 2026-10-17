@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["AuxiliaryWords", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Ending a non-exhaustive list with "shenme de"'
+english = 'I like practical presents, watch, clothes, books and so on.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun 1, Noun 2 (+ Noun 3) + 什么的'
+hanzi = '我喜欢实用的礼物，手表、衣服、书什么的。'
+notes = ''
+pinyin = 'Wǒ xǐhuan shíyòng de lǐwù, shǒubiǎo, yīfu, shū shénme de.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDIDAC'

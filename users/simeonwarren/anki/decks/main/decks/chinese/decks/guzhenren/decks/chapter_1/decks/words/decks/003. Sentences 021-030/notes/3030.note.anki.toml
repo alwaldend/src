@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = "bottom of one's heart."
+example-sentence = ' 深埋在心底的许多记忆,在此刻鲜活起来,栩栩如生地在眼前回现着'
+example-type = ''
+grammar-construct = ''
+hanzi = '心底'
+notes = ''
+pinyin = '<span class="tone1">xīn</span><span class="tone3">dǐ</span>	 <!-- xin di -->'
+source = ''

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "NumbersandMeasureWords", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "ji" to mean "several"'
+english = 'The boss had a few important meetings today.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '几 + Measure Word + Noun'
+hanzi = '老板今天开了几个重要的会。'
+notes = ''
+pinyin = 'Lǎobǎn jīntiān kāi le jǐ gè zhòngyào de huì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGHC9CA'

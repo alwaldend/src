@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing ongoing duration with double "le"'
+english = 'You have been sleeping for the whole day.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 了 + Duration + 了'
+hanzi = '你睡了一天了。'
+notes = ''
+pinyin = 'Nǐ shuì le yī tiān le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG69RR8'

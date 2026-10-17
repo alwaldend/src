@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "as one likes" with "jiu"'
+english = "Don't be afraid. If you want to sing, sing loudly."
+example-sentence = ''
+example-type = ''
+grammar-construct = '想 + Verb (+ Obj.) + 就 + Verb (+ Obj.)'
+hanzi = '别害怕，想唱就大声唱。'
+notes = ''
+pinyin = 'Bié hàipà, xiǎng chàng jiù dàshēng chàng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDUZ55'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "EvenIfStatements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "even if…" with "jiusuan"'
+english = "Even if you pass the interview successfully, we can't say you are definitely going to be hired."
+example-sentence = ''
+example-type = ''
+grammar-construct = '就算 + [Hypothetical Statement] + 也 + [Action]'
+hanzi = '就算你顺利通过了面试，也不一定能被录用。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGLI513'

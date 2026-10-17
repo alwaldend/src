@@ -1,0 +1,12 @@
+note_type = "note_types/basic.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[[cards]]
+ordinal = 1
+
+[fields]
+Back = '!{filter}&nbsp; &nbsp;" like :!ls - note that you cannot put a comment " after a filter command<br>:%!{filter}&nbsp; &nbsp;" like :%!sort -u'
+Front = 'Use external commands {filters} (on the current buffer)'

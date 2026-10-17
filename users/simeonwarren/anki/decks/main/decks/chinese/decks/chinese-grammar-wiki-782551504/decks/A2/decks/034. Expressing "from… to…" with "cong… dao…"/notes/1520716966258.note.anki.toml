@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "from… to…" with "cong… dao…"'
+english = "She's lived alone since she was 18 until now."
+example-sentence = ''
+example-type = ''
+grammar-construct = '从 + Time 1 + 到 + Time 2'
+hanzi = '她从18岁到现在都一个人住。'
+notes = ''
+pinyin = 'Tā cóng shíbā suì dào xiànzài dōu yīgèrén zhù.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGGGIW8'

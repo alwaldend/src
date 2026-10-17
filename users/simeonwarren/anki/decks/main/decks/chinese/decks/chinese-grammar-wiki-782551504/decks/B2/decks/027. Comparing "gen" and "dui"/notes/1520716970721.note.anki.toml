@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "Conjunctions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "gen" and "dui"'
+english = "You walk too fast, I can't keep up."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 跟 / 对 + Obj.'
+hanzi = '你走得太快，我跟不上。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGC5Y86'

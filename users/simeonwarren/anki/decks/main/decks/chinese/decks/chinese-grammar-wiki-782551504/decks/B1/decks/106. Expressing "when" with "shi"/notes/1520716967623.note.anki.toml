@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "when" with "shi"'
+english = "When you take a test, don't talk."
+example-sentence = ''
+example-type = ''
+grammar-construct = '(Subj. +) Verb / Adj. + 时⋯⋯'
+hanzi = '考试时不要说话。'
+notes = ''
+pinyin = 'Kǎoshì shí bùyào shuōhuà.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGGL59D'

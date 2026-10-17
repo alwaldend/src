@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "not at all" with "yidianr ye bu"'
+english = "You can't even speak a little?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 一点 + 也 / 都 + 不 + Verb'
+hanzi = '你一点也不会说吗？'
+notes = ''
+pinyin = 'Nǐ yīdiǎn yě bù huì shuō ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGRURCZ'

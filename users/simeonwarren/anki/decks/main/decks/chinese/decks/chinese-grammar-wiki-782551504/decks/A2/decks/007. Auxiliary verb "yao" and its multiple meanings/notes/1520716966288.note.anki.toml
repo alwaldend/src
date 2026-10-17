@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Auxiliaryverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Auxiliary verb "yao" and its multiple meanings'
+english = 'Do you all want coke with ice?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 要 + Noun'
+hanzi = '你们都要冰可乐吗？'
+notes = ''
+pinyin = 'Nǐmen dōu yào bīng kělè ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG95AL1'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Negation of "you" with "mei"'
+english = "My teacher doesn't have a boyfriend now."
+example-sentence = ''
+example-type = ''
+grammar-construct = '没 + 有 (+ Obj.)'
+hanzi = '我的老师现在没有男朋友。'
+notes = ''
+pinyin = 'Wǒ de lǎoshī xiànzài méiyǒu nánpéngyou.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPNV3Q'

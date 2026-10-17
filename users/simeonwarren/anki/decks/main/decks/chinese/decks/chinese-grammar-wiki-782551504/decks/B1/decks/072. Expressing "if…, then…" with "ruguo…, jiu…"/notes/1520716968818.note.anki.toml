@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "if…, then…" with "ruguo…, jiu…"'
+english = "If you can't find it back, then buy a new one."
+example-sentence = ''
+example-type = ''
+grammar-construct = '如果 ⋯⋯ ，就 ⋯⋯'
+hanzi = '如果真的找不回来，就再买一个吧。'
+notes = ''
+pinyin = 'Rúguǒ zhēnde zhǎo bu huílái, jiù zài mǎi yī gè ba.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGGIVT0'

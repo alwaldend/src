@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Advanced uses of "dou"'
+english = "It's all your fault, leaving without bringing an umbrella."
+example-sentence = ''
+example-type = ''
+grammar-construct = '都 + 怨 / 是 / 怪 + Somebody'
+hanzi = '都怪你，出门不带伞。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQFW44'

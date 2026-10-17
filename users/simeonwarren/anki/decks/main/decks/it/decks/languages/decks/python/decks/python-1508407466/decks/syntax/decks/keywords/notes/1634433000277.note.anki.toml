@@ -1,0 +1,13 @@
+note_type = "note_types/python-basic-and-reversed.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<b>Keyword&nbsp;</b>logical operator used to evaluate to True if either (or both) statements evaluates to True. It will return the first True statement of the 2 statements.'
+example = ''
+question = '<b>Keyword</b>: or'
+version = ''
+with-options = ''

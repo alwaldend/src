@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'After a specific time with "yihou"'
+english = 'After half an hour, the boss will return.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Time / Verb + 以后, ....'
+hanzi = '老板半个小时以后回来。'
+notes = ''
+pinyin = 'Lǎobǎn  bàn gè xiǎoshí yǐhòu huílái.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGRLQGY'

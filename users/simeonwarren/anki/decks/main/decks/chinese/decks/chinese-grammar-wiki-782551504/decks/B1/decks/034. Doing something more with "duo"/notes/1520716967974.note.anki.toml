@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Doing something more with "duo"'
+english = 'You need to go out and take a walk more often.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '多 + Verb'
+hanzi = '爷爷，你要多出去走走。'
+notes = ''
+pinyin = 'Yéye, nǐ yào duō chūqù zǒuzou.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGLKGZP'

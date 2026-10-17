@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Uses of "shi" with "de"'
+english = 'A: When was it that you started studying Chinese?<br>It was two years ago when I started studying Chinese.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 是 + [Information to be Emphasized] + Verb + 的'
+hanzi = 'A:你是什么时候开始学中文的？<br>B:我是两年前开始学中文的。'
+notes = ''
+pinyin = 'Nǐ shì shénme shíhou kāishǐ xué Zhōngwén de?<br>Wǒ shì liǎng nián qián kāishǐ xué Zhōngwén de.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGE662E'

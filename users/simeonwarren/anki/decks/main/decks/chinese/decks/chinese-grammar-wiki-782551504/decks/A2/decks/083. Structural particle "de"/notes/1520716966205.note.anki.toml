@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Structural particle "de"'
+english = 'red bicycle'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '红色的自行车'
+notes = ''
+pinyin = 'hóngsè de zìxíngchē'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5MOMM'

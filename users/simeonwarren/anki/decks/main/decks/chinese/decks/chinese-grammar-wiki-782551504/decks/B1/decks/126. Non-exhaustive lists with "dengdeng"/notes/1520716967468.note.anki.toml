@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["AuxiliaryWords", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Non-exhaustive lists with "dengdeng"'
+english = 'Jackie Chan, Jet Li, Bruce Li, etc. are all famous Chinese martial arts stars.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A1，A2⋯⋯等 / 等等'
+hanzi = 'JackieChan、JetLi、BruceLi等都是中国有名的功夫明星。'
+notes = ''
+pinyin = 'Jackie Chan, Jet Li, Bruce Li děng dōu shì Zhōngguó yǒumíng de gōngfu míngxīng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGF763H'

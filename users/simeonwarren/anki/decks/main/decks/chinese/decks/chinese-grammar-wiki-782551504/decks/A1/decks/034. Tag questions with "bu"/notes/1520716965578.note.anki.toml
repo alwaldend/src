@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Tag questions with "bu"'
+english = 'You have a new girlfriend, right?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 不 + Verb'
+hanzi = '你有新女朋友了，是不是？'
+notes = ''
+pinyin = 'Nǐ yǒu xīn nǚpéngyou le, shì bu shì?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG4D8XB'

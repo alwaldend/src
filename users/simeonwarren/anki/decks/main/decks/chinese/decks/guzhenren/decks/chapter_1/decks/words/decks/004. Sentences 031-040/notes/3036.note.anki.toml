@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'to be defeated;	to lose;	to fail (e.g. experiments);	failure;	defeat.<br>Cl: 次'
+example-sentence = '  终究是失败了呀'
+example-type = ''
+grammar-construct = ''
+hanzi = '失败'
+notes = ''
+pinyin = '<span class="tone1">shī</span><span class="tone4">bài</span>	 <!-- shi bai -->'
+source = ''

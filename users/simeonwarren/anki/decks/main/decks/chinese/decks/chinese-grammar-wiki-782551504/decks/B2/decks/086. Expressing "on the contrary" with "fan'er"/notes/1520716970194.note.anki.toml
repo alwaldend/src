@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "ButStatements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = "Expressing \"on the contrary\" with \"fan'er\""
+english = "After taking medicine, the illness didn't get better. On the contrary, it got even worse."
+example-sentence = ''
+example-type = ''
+grammar-construct = '⋯⋯ ，Subj. + 反而 + [Unexpected Outcome]'
+hanzi = '吃了这个药，病反而更严重了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGX5QTV'

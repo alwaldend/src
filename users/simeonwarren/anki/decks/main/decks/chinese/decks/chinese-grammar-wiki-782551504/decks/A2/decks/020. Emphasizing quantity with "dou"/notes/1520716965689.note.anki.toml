@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Emphasizing quantity with "dou"'
+english = 'Americans all speak English.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 都 + Verb + Obj.'
+hanzi = '美国人都说英文。'
+notes = ''
+pinyin = 'Měiguó rén dōu shuō Yīngwén.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWNEYM'

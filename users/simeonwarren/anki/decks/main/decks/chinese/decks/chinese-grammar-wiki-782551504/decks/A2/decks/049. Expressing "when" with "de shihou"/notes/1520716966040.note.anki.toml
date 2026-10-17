@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "when" with "de shihou"'
+english = "Don't talk when eating."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Time Word + 的 时候, ....'
+hanzi = '吃东西的时候不要说话。'
+notes = ''
+pinyin = 'Chī dōngxi de shíhou bùyào shuōhuà.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWN185'

@@ -1,12 +1,5 @@
-id = 1
-title = 'Default'
-
-[notes]
-path = 'notes'
+preset = "Default"
 
 [normal]
-config_id = 1
 extend_new = 10
 extend_review = 50
-description = ''
-markdown_description = false

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["AdverbswithAdjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "rather" with "bijiao"'
+english = 'Working pressure in big cities are rather more.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 比较 + Adj. / Psychological Verb'
+hanzi = '大城市的工作压力比较大。'
+notes = ''
+pinyin = 'Dà chéngshì de gōngzuò yālì bǐjiào dà.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG72HKP'

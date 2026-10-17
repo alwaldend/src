@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "EvenIfStatements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "even if…" with "jiusuan"'
+english = "Even if I would fail, I won't regret."
+example-sentence = ''
+example-type = ''
+grammar-construct = '就算 ⋯⋯ ，也 ⋯⋯'
+hanzi = '就算会失败，我也不后悔。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGLI513'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "in addition" with "haiyou"'
+english = "They don't want to have kids. In addition, they don't have time to look after kids (even if they had one)."
+example-sentence = ''
+example-type = ''
+grammar-construct = '⋯⋯ ，还有 ，⋯⋯'
+hanzi = '他们不想要孩子。还有，他们也没时间照顾孩子。'
+notes = ''
+pinyin = 'Tāmen bù xiǎng yào háizi. Háiyǒu, tāmen yě méi shíjiān zhàogu háizi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGHQRI1'

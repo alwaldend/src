@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "just now" with "gangcai"'
+english = "I'm sorry, I just now stepped out."
+example-sentence = ''
+example-type = ''
+grammar-construct = '刚才 + Verb'
+hanzi = '不好意思，我刚才出去了。'
+notes = ''
+pinyin = 'Bù hǎoyìsi, wǒ gāngcái chūqù le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQ1KOY'

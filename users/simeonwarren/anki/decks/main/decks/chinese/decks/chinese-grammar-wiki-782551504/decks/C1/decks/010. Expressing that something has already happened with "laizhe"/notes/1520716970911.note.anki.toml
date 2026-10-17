@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["AuxiliaryWords", "C1"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing that something has already happened with "laizhe"'
+english = "That book was here yesterday. Why can't I find it today?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Sentence + 来着'
+hanzi = '那本书昨天还在这儿来着，今天怎么找不到了？'
+notes = ''
+pinyin = 'Nà běn shū zuótiān hái zài zhèr láizhe,  jīntiān zěnme zhǎo bùdào le?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPV5Z2'

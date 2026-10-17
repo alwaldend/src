@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "NounPhrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "all" with "suoyou"'
+english = "You've bought all her books?"
+example-sentence = ''
+example-type = ''
+grammar-construct = '所有 (+ 的) + Noun'
+hanzi = '你买了她所有的书？'
+notes = ''
+pinyin = 'Nǐ mǎi le tā suǒyǒu de shū?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGOWBSL'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Idiomatic phrases with "zai"'
+english = 'On the topic of salaries, I think we should discuss a little more.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '在 + Abstract Concept + 方面， Comment Sentence'
+hanzi = '在工资方面，我觉得我们还要再讨论一下。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGH13JY'

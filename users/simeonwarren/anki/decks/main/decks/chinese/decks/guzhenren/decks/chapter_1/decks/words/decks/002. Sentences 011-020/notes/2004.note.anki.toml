@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'to roar;	to thunder;	to snarl;	to bluster (of wind, waves etc);	crashing waves (onom.);	to rage (of a person).'
+example-sentence = '此时牢牢包围着方源,有的在咆哮,有的在冷笑,有的双眼眯起闪着警惕的光,有的捂着伤口恐惧地望着'
+example-type = ''
+grammar-construct = ''
+hanzi = '咆哮'
+notes = ''
+pinyin = '<span class="tone2">páo</span><span class="tone4">xiào</span>	 <!-- pao xiao -->'
+source = ''

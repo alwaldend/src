@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing purpose with "weile"'
+english = 'The reason why we disagree is that the risk is too high.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '⋯⋯ 是 + 为了 / 因为 ⋯⋯'
+hanzi = '我们反对是因为风险太大。'
+notes = ''
+pinyin = '<div>Wǒmen fǎnduì shì yīnwèi fēngxiǎn tài dà.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQGJXT'

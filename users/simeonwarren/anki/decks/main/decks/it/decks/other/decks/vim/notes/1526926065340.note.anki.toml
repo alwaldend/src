@@ -1,0 +1,12 @@
+note_type = "note_types/basic.notetype.anki.toml"
+tags = ["Cursor", "Movement"]
+
+[[cards]]
+ordinal = 0
+
+[[cards]]
+ordinal = 1
+
+[fields]
+Back = 'zz'
+Front = 'Center cursor on screen (scrolling the line it is on to the centre, too)'

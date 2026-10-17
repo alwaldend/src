@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "small quantity" with "jiu"'
+english = "I've only been there once."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 就 + [Verb Phrase]'
+hanzi = '我就去过一次。'
+notes = ''
+pinyin = 'Wǒ jiù qù guo yī cì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPW8PP'

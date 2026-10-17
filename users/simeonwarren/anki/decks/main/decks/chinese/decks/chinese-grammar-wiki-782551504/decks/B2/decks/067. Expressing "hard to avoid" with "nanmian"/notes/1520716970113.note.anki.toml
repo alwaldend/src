@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "hard to avoid" with "nanmian"'
+english = 'There‘s no way not to feel excited about it the first time you go abroad by plane .'
+example-sentence = ''
+example-type = ''
+grammar-construct = '(Subj.) + 难免 + Verb'
+hanzi = '第一次坐飞机出国难免会有点兴奋。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGYDKT3'

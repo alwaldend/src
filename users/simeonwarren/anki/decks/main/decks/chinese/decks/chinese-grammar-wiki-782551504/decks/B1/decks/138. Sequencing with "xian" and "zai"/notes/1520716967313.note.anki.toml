@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Sequencing with "xian" and "zai"'
+english = 'Please buy a ticket before you enter.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '先 ⋯⋯ ，再 ⋯⋯'
+hanzi = '请你先买票再进。'
+notes = ''
+pinyin = 'Qǐng nǐ xiān mǎi piào zài jìn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGLJM55'

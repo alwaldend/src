@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Actions in a row'
+english = 'Are you going to the supermarket to buy things?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + [Verb Phrase 1] + [Verb Phrase 2]'
+hanzi = '你要去超市买东西吗？'
+notes = ''
+pinyin = 'Nǐ yào qù chāoshì mǎi dōngxi ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPRGAX'

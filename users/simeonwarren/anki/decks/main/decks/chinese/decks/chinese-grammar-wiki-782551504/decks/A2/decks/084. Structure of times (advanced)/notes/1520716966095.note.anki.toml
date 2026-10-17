@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Numbers", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Structure of times (advanced)'
+english = '6:45'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'x 点 y 刻'
+hanzi = '六点三刻'
+notes = ''
+pinyin = 'liù diǎn sān kè'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDTO07'

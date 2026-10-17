@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Making judgments with "suan"'
+english = 'The things in this shop are fairly cheap.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 算 + (是) + Adj. + 的'
+hanzi = '这家店的东西算便宜的。'
+notes = ''
+pinyin = 'Zhè jiā diàn de dōngxi suàn piányi de.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWDWFN'

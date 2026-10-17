@@ -1,0 +1,13 @@
+note_type = "note_types/python-basic-and-reversed.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<b>Keyword</b> used to import a <b>specific</b> part of a module.'
+example = 'from <i>module</i> import <i>item</i>'
+question = '<b>Keyword: </b>from'
+version = ''
+with-options = ''

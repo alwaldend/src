@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "TimeWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "changchang" and "jingchang"'
+english = 'Before Grandma died, I often went to see her.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '常常 / 经常 + Verb'
+hanzi = '奶奶去世以前，我常常去看她。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGE8FLP'

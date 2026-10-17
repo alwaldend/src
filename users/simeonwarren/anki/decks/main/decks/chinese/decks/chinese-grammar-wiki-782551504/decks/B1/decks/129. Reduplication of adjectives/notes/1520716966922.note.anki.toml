@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Reduplication of adjectives'
+english = 'Come on, have a little wine and enjoy yourself.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + A B + 一下'
+hanzi = '来，喝点酒，高兴一下。'
+notes = ''
+pinyin = 'Lái, hē diǎn jiǔ, gāoxìng yīxià.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDHE8S'

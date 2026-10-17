@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Result complement "xiaqu"'
+english = 'Keep talking.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 下去'
+hanzi = '说下去。'
+notes = ''
+pinyin = 'Shuō xiàqù.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG1PTJX'

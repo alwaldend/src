@@ -1,0 +1,13 @@
+note_type = "note_types/python-basic-and-reversed.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<b>Keyword</b> used to throw an exception (not part of try/except block).'
+example = 'x = -1<br><br>if x &lt; 0:<br>&nbsp; &nbsp; raise Exception("Sorry, no numbers below zero") &nbsp;'
+question = '<b>Keyword: </b>raise'
+version = ''
+with-options = 'raise Exception(<i>errorMessage</i>)'

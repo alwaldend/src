@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing purpose with "hao"'
+english = 'Please park the car inside so that other people can walk.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Action ，好 + Purpose'
+hanzi = '请把车停到里面，好让别人走路。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG18JOA'

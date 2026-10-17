@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing specifically with "xiang"'
+english = 'The winter in Shanghai is not as dry as it is in Beijing.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun 1 + 不像 + Noun 2 + (⋯⋯ ) 这么 / 那么 + Adj. / Verb'
+hanzi = '上海的冬天不像北京那么干。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG1MD4N'

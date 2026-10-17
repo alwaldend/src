@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "then…" with "name"'
+english = "Everyone agrees on this, so we'll start to do it."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Context ，那么 + Result / Decision'
+hanzi = '大家都同意，那么我们就开始做吧。'
+notes = ''
+pinyin = 'Dàjiā dōu tóngyì, nàme wǒmen jiù kāishǐ zuò ba.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGX298Z'

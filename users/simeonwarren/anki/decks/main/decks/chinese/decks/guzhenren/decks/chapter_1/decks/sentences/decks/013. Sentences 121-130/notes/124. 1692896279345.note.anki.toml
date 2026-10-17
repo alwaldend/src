@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'In short, rebirth.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '简而言之,就是重生。'
+notes = ''
+pinyin = '<div>Jiǎn ér yán zhī, jiùshì chóngshēng.</div>'
+source = ''

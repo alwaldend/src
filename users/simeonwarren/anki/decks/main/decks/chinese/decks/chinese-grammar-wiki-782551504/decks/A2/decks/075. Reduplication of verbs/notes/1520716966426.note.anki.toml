@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Reduplication of verbs'
+english = 'discuss it'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 一 + Verb'
+hanzi = '讨论讨论'
+notes = ''
+pinyin = 'tǎolùn tǎolùn'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGYC77J'

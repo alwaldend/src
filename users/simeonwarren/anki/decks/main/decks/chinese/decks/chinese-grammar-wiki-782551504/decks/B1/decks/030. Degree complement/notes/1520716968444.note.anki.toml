@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Degree complement'
+english = 'This student is super smart.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '这个学生聪明得很。'
+notes = ''
+pinyin = 'Zhège xuéshēng cōngming de hěn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG79STE'

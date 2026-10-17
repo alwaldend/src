@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'Parents, please keep this in mind!'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '诸位家老们请牢记在心！'
+notes = ''
+pinyin = ''
+source = ''

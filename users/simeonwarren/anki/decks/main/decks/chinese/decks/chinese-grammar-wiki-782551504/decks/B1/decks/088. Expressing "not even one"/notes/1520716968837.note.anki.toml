@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "not even one"'
+english = "He didn't have a foreign friend before he came to Shanghai."
+example-sentence = ''
+example-type = ''
+grammar-construct = '一 + Measure Word + (Noun) + 也 / 都 + 不 / 没 + Verb'
+hanzi = '来上海以前，他一个外国朋友都没有。'
+notes = ''
+pinyin = 'Lái Shànghǎi yǐqián, tā yī gè wàiguó péngyou dōu méiyǒu.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGUQ861'

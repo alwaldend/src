@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "TimeWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "pingshi" and "pingchang"'
+english = 'He has a common job and lives a common lifestyle.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '平常的 + Noun'
+hanzi = '他有一份很平常的工作，过着很平常的生活。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJOGGG'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "cai" and "jiu"'
+english = "It's only nine o'clock. Stay and hang out a little bit more."
+example-sentence = ''
+example-type = ''
+grammar-construct = '(现在) + 才 + Time'
+hanzi = '现在才九点，再玩一会儿。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGLOS9C'

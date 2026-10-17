@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "small quantity" with "jiu"'
+english = 'I only have one brother.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 就 + Number + [Measure Word] + Noun'
+hanzi = '我就一个哥哥。'
+notes = ''
+pinyin = 'Wǒ jiù yī gè gēge.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPW8PP'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Auxiliaryverbs", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "yao" and "xiang"'
+english = 'Do you miss your girlfriend when she is not around?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 想 + Noun'
+hanzi = '你女朋友不在的时候，你会想她吗？'
+notes = ''
+pinyin = 'Nǐ nǚpéngyou bù zài de shíhou, nǐ huì xiǎng tā ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGD88UO'

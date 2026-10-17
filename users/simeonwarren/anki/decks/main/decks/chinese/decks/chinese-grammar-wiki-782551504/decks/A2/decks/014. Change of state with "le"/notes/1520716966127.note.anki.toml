@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Change of state with "le"'
+english = 'Does your older brother have a girlfriend?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '[New Situation] + 了'
+hanzi = '你哥哥有女朋友了吗？'
+notes = "He didn't have one before."
+pinyin = 'Nǐ gēge yǒu nǚpéngyou le ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGT185D'

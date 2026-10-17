@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "multiples" with "bei"'
+english = "The company's current scope is five times what it was 10 years ago."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A + 是 + B + 的 + Number + 倍'
+hanzi = '公司现在的规模是十年前的五倍。'
+notes = ''
+pinyin = 'Gōngsī xiànzài de guīmó shì shí nián qián de wǔ  bèi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG7D4EC'

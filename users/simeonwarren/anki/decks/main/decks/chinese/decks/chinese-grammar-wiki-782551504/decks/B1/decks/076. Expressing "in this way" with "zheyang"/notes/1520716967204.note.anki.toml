@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "in this way" with "zheyang"'
+english = 'You should let him do it by himself. Only in this way can he learn.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Condition, 这样 + Result / Purpose'
+hanzi = '你要让他自己做，只有这样他才能学会。'
+notes = ''
+pinyin = 'Nǐ yào ràng tā zìjǐ zuò, zhǐyǒu zhèyàng tā cái néng xuéhuì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG1F4D1'

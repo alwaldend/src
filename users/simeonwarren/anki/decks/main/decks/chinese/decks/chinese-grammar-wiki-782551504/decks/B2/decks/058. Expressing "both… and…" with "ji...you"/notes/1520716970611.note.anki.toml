@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "both… and…" with "ji...you"'
+english = 'The requirement is that you need to speak both fluent Chinese and English.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '既 + [Verb Phrase] ，也 + [Verb Phrase]'
+hanzi = '要求是你既要会说流利的中文，也要会说流利的英文。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGZRPCK'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "xiande" and "kanqilai"'
+english = "It's probably these clothes that makes me seem that way."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 看起来 + Predicate'
+hanzi = 'B:可能是这件衣服显得我很苗条。'
+notes = ''
+pinyin = 'B: Kěnéng shì zhè jiàn yīfu xiǎnde wǒ hěn miáotiáo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGKQEG9'

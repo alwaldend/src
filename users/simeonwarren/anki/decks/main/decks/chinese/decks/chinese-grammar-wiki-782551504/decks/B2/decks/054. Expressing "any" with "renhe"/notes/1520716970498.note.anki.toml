@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "any" with "renhe"'
+english = "So many years have passed, and he hasn't changed a bit."
+example-sentence = ''
+example-type = ''
+grammar-construct = '任何 + Noun'
+hanzi = '这么多年过去了，他还是没有任何变化。'
+notes = ''
+pinyin = 'Zhème duō nián guòqù le, tā háishì méiyǒu  rènhé biànhuà.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGP8DXU'

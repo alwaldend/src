@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Negative commands with "buyao"'
+english = "You guys, don't drink alcohol."
+example-sentence = ''
+example-type = ''
+grammar-construct = '不要 + Verb'
+hanzi = '你们不要喝酒。'
+notes = ''
+pinyin = 'Nǐmen bùyào hējiǔ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGIVZJU'

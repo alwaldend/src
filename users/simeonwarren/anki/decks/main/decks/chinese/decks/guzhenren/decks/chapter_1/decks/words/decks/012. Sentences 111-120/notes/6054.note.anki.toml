@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'Diandian (Chinese microblogging and social networking website);	point;	speck.'
+example-sentence = ' 眼中倒映着点点灯光,族长长叹一声'
+example-type = ''
+grammar-construct = ''
+hanzi = '点点'
+notes = ''
+pinyin = '<span class="tone3">diǎn</span><span class="tone3">diǎn</span>	 <!-- dian dian -->'
+source = ''

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Numbers", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Structure of days of the week'
+english = 'Are you free this Wednesday evening?'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '这个星期三晚上你有空吗？'
+notes = ''
+pinyin = 'Zhège Xīngqīsān wǎnshang nǐ yǒu kòng ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGVH4Q5'

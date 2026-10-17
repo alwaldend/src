@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "anyway" as "fanzheng"'
+english = 'No matter you believe this or not, I believe it anyway.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '[Disregarded Situation] ， 反正 ⋯⋯'
+hanzi = '不管你信不信，反正我信。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGZVM27'

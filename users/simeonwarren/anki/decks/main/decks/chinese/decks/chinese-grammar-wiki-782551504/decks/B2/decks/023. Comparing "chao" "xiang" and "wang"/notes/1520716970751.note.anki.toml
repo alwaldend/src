@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "chao" "xiang" and "wang"'
+english = ''
+example-sentence = ''
+example-type = 'invalid'
+grammar-construct = '向 +  Direction + Abstract Verb'
+hanzi = '帅哥往我笑了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGIHS2L'

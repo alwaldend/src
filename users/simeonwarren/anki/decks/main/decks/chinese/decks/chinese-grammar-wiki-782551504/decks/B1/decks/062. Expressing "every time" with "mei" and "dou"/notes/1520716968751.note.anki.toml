@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "every time" with "mei" and "dou"'
+english = 'Why do you have diarrhea every time you eat hotpot?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '每次 + Event 1 + 都 + Event 2'
+hanzi = '你怎么每次吃火锅都拉肚子？'
+notes = ''
+pinyin = 'Nǐ zěnme měicì chī huǒguō dōu lādùzi?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGXHQEF'

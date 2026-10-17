@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "in the end" with "jiujing"'
+english = 'Kids are kids after all. They always think about how to have fun.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A＋究竟 + 是＋ A，……'
+hanzi = '孩子究竟是孩子，总是想着怎么玩。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDK0BR'

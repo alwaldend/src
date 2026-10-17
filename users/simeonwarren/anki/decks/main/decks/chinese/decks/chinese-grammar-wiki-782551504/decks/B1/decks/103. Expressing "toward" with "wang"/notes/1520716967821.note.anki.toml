@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "toward" with "wang"'
+english = 'Look up there.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '往 + Direction / Place + Verb'
+hanzi = '往上看。'
+notes = ''
+pinyin = 'Wǎng shàng kàn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGAD070'

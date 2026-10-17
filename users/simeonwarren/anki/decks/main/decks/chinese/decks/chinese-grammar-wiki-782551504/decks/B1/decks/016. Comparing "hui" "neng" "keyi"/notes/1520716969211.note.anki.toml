@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["AuxiliaryWords", "B1", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "hui" "neng" "keyi"'
+english = 'Is it possible to not attend?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '可以 / 能 + Verb'
+hanzi = '能不参加吗？'
+notes = ''
+pinyin = 'Néngbù cānjiā ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGZL717'

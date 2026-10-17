@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "and also" with "hai"'
+english = 'My boss can speak French and can also speak Japanese.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + Obj. 1， 还 + Verb + Obj. 2'
+hanzi = '我老板会说法语，还会说日语。'
+notes = ''
+pinyin = 'Wǒ lǎobǎn huì shuō Fǎyǔ, hái huì shuō Rìyǔ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJBZKC'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Auxiliaryverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "should" with "yinggai"'
+english = 'How much money should I give you?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 应该 + Verb + Obj.'
+hanzi = '我应该给你多少钱？'
+notes = ''
+pinyin = 'Wǒ yīnggāi gěi nǐ duōshao qián?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGV01X9'

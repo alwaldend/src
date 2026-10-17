@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Affirmative-negative question'
+english = 'Does your dad drink alcohol or not?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 不 + Verb + Obj.'
+hanzi = '你爸爸喝不喝酒？'
+notes = ''
+pinyin = 'Nǐ bàba ​hē bu hējiǔ?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGZH7K3'

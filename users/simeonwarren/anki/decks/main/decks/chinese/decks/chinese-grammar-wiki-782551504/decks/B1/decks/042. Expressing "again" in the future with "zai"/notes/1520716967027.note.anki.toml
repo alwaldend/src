@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "again" in the future with "zai"'
+english = 'Do you guys want to rest for a little longer?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 再 + Verb Phrase'
+hanzi = '你们想不想再休息一会儿？'
+notes = ''
+pinyin = "Nǐmen xiǎng bu xiǎng zài xiūxi yīhuǐ'er?"
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGIZQJ2'

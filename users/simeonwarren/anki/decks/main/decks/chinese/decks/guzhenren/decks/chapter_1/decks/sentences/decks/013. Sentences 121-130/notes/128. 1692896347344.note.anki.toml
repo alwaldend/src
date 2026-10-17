@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'But he clearly knew that this was definitely not a dream.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '但他却清楚的知道,这绝不是梦。'
+notes = ''
+pinyin = '<div>Dàn tā què qīngchǔ de zhīdào, zhè jué bùshì mèng.</div>'
+source = ''

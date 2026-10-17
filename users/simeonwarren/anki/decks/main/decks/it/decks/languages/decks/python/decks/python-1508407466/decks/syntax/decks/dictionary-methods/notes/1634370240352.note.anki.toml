@@ -1,0 +1,13 @@
+note_type = "note_types/python-basic-and-reversed.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<i>dict</i>.update(<i>iterable</i>)'
+example = ''
+question = "<b>Dictionary method</b>&nbsp;that adds a dictionary, or an iterable of key value pairs (usually tuples) to another dictionary (Does't return a new dict)."
+version = ''
+with-options = '<i>dict</i>.update({<i>key1</i>:&nbsp;<i>value1</i>,<i>&nbsp;keyN</i>:<i>&nbsp;valueN</i>})&nbsp;&nbsp;'

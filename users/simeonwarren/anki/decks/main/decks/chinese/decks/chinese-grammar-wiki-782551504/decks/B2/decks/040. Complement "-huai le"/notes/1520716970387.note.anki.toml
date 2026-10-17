@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Complement "-huai le"'
+english = "We've been at the meeting whole day today. Everyone is exhausted."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 坏了'
+hanzi = '今天一天都在开会，大家都累坏了了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGT0GYL'

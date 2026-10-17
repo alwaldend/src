@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "have to" with budebu'
+english = 'The situation is very important. We have to take it very seriously.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不得不 + Verb'
+hanzi = '这些情况很重要，我们不得不重视。'
+notes = ''
+pinyin = 'Zhèxiē qíngkuàng hěn zhòngyào wǒmen  bùdébù zhòngshì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG0C825'

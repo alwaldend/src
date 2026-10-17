@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'If this son has a first-class aptitude and is good at training, he may not be able to compete with Bai Ningbing.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '若是此子测出甲等资质,好生培养,也未必不能和白凝冰抗衡。'
+notes = ''
+pinyin = ''
+source = ''

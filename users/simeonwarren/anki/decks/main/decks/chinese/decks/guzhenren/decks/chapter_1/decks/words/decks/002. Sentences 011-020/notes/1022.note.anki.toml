@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'a moment;	a while;	in a moment;	now...now....'
+example-sentence = '只是站着一会儿,方源脚下已经积了一大滩的血水'
+example-type = ''
+grammar-construct = ''
+hanzi = '一会儿'
+notes = ''
+pinyin = '<span class="tone1">yī</span><span class="tone4">huì</span><span class="tone5">r</span>	 <!-- yi hui r -->'
+source = ''

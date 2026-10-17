@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'The elders were full of thoughts and dispersed one by one.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '家老们满怀心思,一一散去。'
+notes = ''
+pinyin = ''
+source = ''

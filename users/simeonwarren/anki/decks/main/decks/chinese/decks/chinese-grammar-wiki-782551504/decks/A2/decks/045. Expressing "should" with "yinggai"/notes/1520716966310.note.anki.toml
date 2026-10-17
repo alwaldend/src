@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Auxiliaryverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "should" with "yinggai"'
+english = "He's too tired. He should go home and rest."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 应该 + Verb + Obj.'
+hanzi = '他太累了，应该回家休息。'
+notes = ''
+pinyin = 'Tā tài lèi le, yīnggāi huíjiā xiūxi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGV01X9'

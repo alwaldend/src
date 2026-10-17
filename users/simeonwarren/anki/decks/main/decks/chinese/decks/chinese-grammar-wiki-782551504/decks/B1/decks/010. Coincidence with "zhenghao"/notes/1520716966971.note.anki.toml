@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Coincidence with "zhenghao"'
+english = 'His major is just this. Maybe he could help you.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '正好 + Verb'
+hanzi = '他正好是学这个专业的，也许可以帮你。'
+notes = ''
+pinyin = 'Tā zhènghǎo shì xué zhège zhuānyè de, yěxǔ kěyǐ bāng nǐ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGUD25J'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'In the future in general with "yihou"'
+english = 'In the future, stop seeing him.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 以后 + Verb + Obj.'
+hanzi = '你以后不要跟他见面了。'
+notes = ''
+pinyin = 'Nǐ yǐhòu bùyào gēn tā jiànmiàn le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPVFU1'

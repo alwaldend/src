@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Numbers", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Structure of times (basic)'
+english = "9 o'clock"
+example-sentence = ''
+example-type = ''
+grammar-construct = '(Date and/or time of day +) x 点'
+hanzi = '九点'
+notes = ''
+pinyin = 'jiǔ diǎn'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGN6BBU'

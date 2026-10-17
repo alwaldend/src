@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["AuxiliaryWords", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "stuff like that" with "zhileide"'
+english = "She's very suitable for jobs like marketing."
+example-sentence = ''
+example-type = ''
+grammar-construct = '⋯⋯ 之类的 + [Category]'
+hanzi = '她很适合做像市场推广之类的工作。'
+notes = ''
+pinyin = 'Tā hěn shìhé zuò xiàng shìchǎng tuīguǎng zhī lèi de gōngzuò.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPY23Z'

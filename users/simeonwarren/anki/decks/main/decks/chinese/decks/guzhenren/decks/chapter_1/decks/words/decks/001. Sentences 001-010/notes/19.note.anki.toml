@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = '(emphasizes that sth is precisely or exactly as stated);	precisely;	exactly;	even;	if;	just like;	in the same way as.'
+example-sentence = '   方老魔,你不要妄图反抗了,今日我们正道各大派联合起来,就是要踏破你的魔窟'
+example-type = ''
+grammar-construct = ''
+hanzi = '就是'
+notes = ''
+pinyin = '<span class="tone4">jiù</span><span class="tone4">shì</span>	 <!-- jiu shi -->'
+source = ''

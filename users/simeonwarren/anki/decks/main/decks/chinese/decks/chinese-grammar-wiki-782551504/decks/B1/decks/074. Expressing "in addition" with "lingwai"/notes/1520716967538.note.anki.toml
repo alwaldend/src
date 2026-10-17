@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "in addition" with "lingwai"'
+english = 'This is the VIP room. You will have to pay more in order to use it.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '另外 + [Verb Phrase]'
+hanzi = '这里是VIP室，要另外付费才能用。'
+notes = ''
+pinyin = 'Zhèlǐ shì VIP shì, yào lìngwài fùfèi cái néng yòng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG2KQZI'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["AuxiliaryWords", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Non-exhaustive lists with "dengdeng"'
+english = 'Oxford, Cambridge and so on are the most famous British Universities.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A1，A2⋯⋯等 + [Category]'
+hanzi = '牛津、剑桥等大学都是最有名的英国大学。'
+notes = ''
+pinyin = 'Niújīn, Jiànqiáo děng dàxué dōu shì zuì yǒumíng de Yīngguó dàxué.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGF763H'

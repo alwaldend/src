@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'vivid;	lively;	(of food ingredients) live or fresh.'
+example-sentence = ' 深埋在心底的许多记忆,在此刻鲜活起来,栩栩如生地在眼前回现着'
+example-type = ''
+grammar-construct = ''
+hanzi = '鲜活'
+notes = ''
+pinyin = '<span class="tone1">xiān</span><span class="tone2">huó</span>	 <!-- xian huo -->'
+source = ''

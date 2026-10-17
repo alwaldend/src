@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Auxiliaryverbs", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "yao" and "xiang"'
+english = 'How many kids do you want to have?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 想要 + Noun / Verb'
+hanzi = '你想要几个孩子？'
+notes = ''
+pinyin = 'Nǐ xiǎngyào jǐ gè háizi?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGD88UO'

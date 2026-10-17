@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing indifference with "jiu"'
+english = "If it's broken, leave it there. We can buy a new one."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 就 + Verb'
+hanzi = '坏了就坏了，再买新的。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGL4O5E'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'to put (a criminal) to death;	to punish.'
+example-sentence = '   魔头,300年前你侮辱了我,夺走了我的清白之身,杀光我全家,诛了我的九族'
+example-type = ''
+grammar-construct = ''
+hanzi = '诛'
+notes = ''
+pinyin = '<span class="tone1">zhū</span>	 <!-- zhu -->'
+source = ''

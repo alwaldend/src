@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "after" with "jingguo"'
+english = "After one week of investigation, the police believes that he's innocent."
+example-sentence = ''
+example-type = ''
+grammar-construct = '经过 + Event / Time ，⋯⋯'
+hanzi = '经过一个星期的调查，警察认为他没有罪。'
+notes = ''
+pinyin = 'Jīngguò yī gè xīngqī de diàochá, jǐngchá rènwéi tā méiyǒu zuì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG11DA8'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Sequencing with "xian" and "zai"'
+english = "Let's eat first, then we'll talk."
+example-sentence = ''
+example-type = ''
+grammar-construct = '先 + [Verb Phrase] + 再说'
+hanzi = '先吃饭再说。'
+notes = ''
+pinyin = 'Xiān chīfàn zàishuō.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGLJM55'

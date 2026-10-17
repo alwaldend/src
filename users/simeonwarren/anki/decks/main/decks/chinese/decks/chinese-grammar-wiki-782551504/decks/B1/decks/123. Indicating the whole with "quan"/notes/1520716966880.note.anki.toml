@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Indicating the whole with "quan"'
+english = "I don't like all Chinese food."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj.＋不 / 没＋全都＋Verb / Adj.'
+hanzi = '中国菜我不是全都喜欢。'
+notes = ''
+pinyin = 'Zhōngguó cài wǒ bù shì quán dōu xǐhuan.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCPDSR'

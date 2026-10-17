@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "dao" to mean "to go to"'
+english = "Tomorrow I'll go to Nanjing Road to buy clothes."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 到 + Place + Verb Phrase'
+hanzi = '明天我要到南京路买衣服。'
+notes = ''
+pinyin = 'Míngtiān wǒ yào dào Nánjīng Lù mǎi yīfu.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGLFX54'

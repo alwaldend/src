@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "difficult" with "nan"'
+english = 'This kind of flower smells bad.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + (很) 难 + [Sense Verb]'
+hanzi = '这种花很难闻。'
+notes = ''
+pinyin = 'Zhè zhǒng huā hěn nánwén.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG35T4H'

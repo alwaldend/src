@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = "to devote oneself to spiritual development (esp. Buddhism or Daoism);\tto devote oneself to perfecting one's art or craft."
+example-sentence = ' 此子的资质极端出色,短短两年功夫,就已经修行到三转蛊师'
+example-type = ''
+grammar-construct = ''
+hanzi = '修行'
+notes = ''
+pinyin = '<span class="tone1">xiū</span><span class="tone2">xíng</span>	 <!-- xiu xing -->'
+source = ''

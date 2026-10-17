@@ -1,0 +1,13 @@
+note_type = "note_types/python-basic-and-reversed.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<i>tuple</i>.index(<i>value</i>)'
+example = ''
+question = "<b>Tuple method</b>&nbsp;that searches the tuple for a specified value and returns the first position where it's found. Throws a ValueError if the value is not found."
+version = ''
+with-options = ''

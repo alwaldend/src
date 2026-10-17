@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "about to happen" with "le"'
+english = "I'm almost ready."
+example-sentence = ''
+example-type = ''
+grammar-construct = '快 + Adj. + 了'
+hanzi = '我快好了。'
+notes = ''
+pinyin = 'Wǒ kuài hǎo le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNGEU8'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "lai" and "qu" when "verbing around"'
+english = "He's been yakking a lot, but he still hasn't admitted that he's wrong."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 来 + Verb + 去'
+hanzi = '他说来说去还不承认自己错了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGYJQAG'

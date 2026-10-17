@@ -1,0 +1,13 @@
+note_type = "note_types/python-basic-and-reversed.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<b>Built in function:&nbsp;</b>round(<i>number</i>)'
+example = ''
+question = '<b>Built in function</b>&nbsp;that rounds a number.'
+version = ''
+with-options = 'round(<i>number</i>,&nbsp;<i>position=0</i>)'

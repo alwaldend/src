@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing good luck with "haihao"'
+english = "Luckily I didn't order that much food, otherwise it would be all wasted."
+example-sentence = ''
+example-type = ''
+grammar-construct = '还好 + [Lucky Incident] ，不然 + [Bad Outcome]'
+hanzi = '还好我没点那么多菜，不然都浪费了。'
+notes = ''
+pinyin = 'Háihǎo wǒ méi diǎn nàme duō cài, bùrán dōu làngfèi le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGOB1BF'

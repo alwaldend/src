@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "never" with "conglai"'
+english = 'She never drinks.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 从来 + 不 + [Verb Phrase]'
+hanzi = '她从来不喝酒。'
+notes = ''
+pinyin = 'Tā cónglái bù hējiǔ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8NM5E'

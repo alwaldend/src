@@ -1,0 +1,20 @@
+note_type = "note_types/basic.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[[cards]]
+ordinal = 1
+
+[fields]
+Back = """
+
+
+:cfdo w&nbsp;\
+"""
+Front = """
+
+
+Execute commands on every&nbsp;<b>file</b>&nbsp;in the quick fix list, e.g., write the buffers\
+"""

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "everything" with "shenme dou"'
+english = "The boss is very angry. He's doesn't want to see anybody."
+example-sentence = ''
+example-type = ''
+grammar-construct = '什么 + Noun + 都 / 也 + 没 (有) + Verb'
+hanzi = '老板现在很生气，什么人也不见。'
+notes = ''
+pinyin = 'Lǎobǎn xiànzài hěn shēngqì, shénme rén  yě bù jiàn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGAQV6C'

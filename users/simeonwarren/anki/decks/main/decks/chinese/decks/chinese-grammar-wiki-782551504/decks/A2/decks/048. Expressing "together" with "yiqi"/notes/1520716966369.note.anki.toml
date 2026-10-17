@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "leech", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "together" with "yiqi"'
+english = 'These two businesses made this product together.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 一起 + Verb + Obj.'
+hanzi = '这两个公司一起做这个产品。'
+notes = ''
+pinyin = 'Zhè liǎng gè gōngsī yīqǐ zuò zhège chǎnpǐn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNVE15'

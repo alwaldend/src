@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Result complement "xiaqu"'
+english = "You can't keep living like this."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 下去'
+hanzi = '你不能这样生活下去了。'
+notes = ''
+pinyin = 'Nǐ bù néng zhèyàng shēnghuó xiàqù le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG1PTJX'

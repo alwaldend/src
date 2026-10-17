@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Placement of question words'
+english = "Which restaurant are we going to?<br>We are going to your mom's restaurant."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 哪个 (+ Noun) ?'
+hanzi = 'A: 我们去哪个饭店？<br>B: 我们去你妈妈的饭店。'
+notes = ''
+pinyin = 'Wǒmen qù nǎge fàndiàn?<br>Wǒmen qù nǐ māma de fàndiàn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJQPSC'

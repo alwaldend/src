@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "multiples" with "bei"'
+english = 'His car is ten times more expensive than your car.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A + 比 + B + Adj. + Number + 倍'
+hanzi = '他的车比你的车贵十倍。'
+notes = ''
+pinyin = 'Tā de chē bǐ nǐ de chē guì shí bèi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG7D4EC'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "in addition" with "zaishuo"'
+english = 'You can stay with me. You can save some money. Besides, the kids can play together.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '⋯⋯ ，再说 ，⋯⋯'
+hanzi = '住我家吧，可以省点钱。再说，孩子们也可以一起玩。'
+notes = ''
+pinyin = 'Zhù wǒ jiā ba,  kěyǐ shěng diǎn qián. Zàishuō, háizi men yě kěyǐ yīqǐ wán.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGATDLX'

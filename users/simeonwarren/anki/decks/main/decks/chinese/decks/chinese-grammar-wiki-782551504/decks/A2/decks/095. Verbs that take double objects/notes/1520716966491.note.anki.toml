@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Verbs that take double objects'
+english = 'He gave his girlfriend lots of flowers.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + [Indirect Obj.] + [Direct Obj.]'
+hanzi = '他送了女朋友很多花。'
+notes = ''
+pinyin = 'Tā sòng le nǚpéngyou hěn duō huā.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGI2OAG'

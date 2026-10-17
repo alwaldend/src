@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'It has been three years since our Gu Yue clan had such a genius appear.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '我们古月一族已经有三年没有这样的天才出现了。'
+notes = ''
+pinyin = ''
+source = ''

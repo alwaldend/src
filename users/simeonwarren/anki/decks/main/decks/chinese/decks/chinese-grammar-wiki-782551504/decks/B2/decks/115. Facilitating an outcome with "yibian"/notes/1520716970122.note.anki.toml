@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Facilitating an outcome with "yibian"'
+english = 'My country advocates a garbage classification to help with reusing and recycling.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '[Action] +  以便 + [Outcome]'
+hanzi = '我国提倡垃圾分类，以便回收再利用。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGXU2H4'

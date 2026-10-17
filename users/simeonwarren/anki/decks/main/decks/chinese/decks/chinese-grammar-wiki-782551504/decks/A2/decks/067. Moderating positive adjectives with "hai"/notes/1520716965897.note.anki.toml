@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "AdverbswithAdjectives", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Moderating positive adjectives with "hai"'
+english = "My boyfriend's salary is OK."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 还 + 好 / 可以 / 行 / 不错'
+hanzi = '我男朋友的工资还可以。'
+notes = ''
+pinyin = 'Wǒ nánpéngyou de gōngzī hái kěyǐ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGAY164'

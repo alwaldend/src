@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "again" in the future with "zai"'
+english = "I'll come again tomorrow."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 再 + Verb Phrase'
+hanzi = '我明天再来。'
+notes = ''
+pinyin = 'Wǒ míngtiān zài lái.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGIZQJ2'

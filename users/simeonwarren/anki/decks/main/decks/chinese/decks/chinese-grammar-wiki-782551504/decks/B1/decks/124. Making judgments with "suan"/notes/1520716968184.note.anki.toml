@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Making judgments with "suan"'
+english = "I'm lucky actually."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 算 + (是) + Adj. + 的'
+hanzi = '我算是幸运的。'
+notes = ''
+pinyin = 'Wǒ suàn shì xìngyùn de.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWDWFN'

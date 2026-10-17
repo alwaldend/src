@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing comparable degree with "you"'
+english = 'Is your salary that high?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A + 有 (+ B) + 那么 + Adj. + 吗 ？'
+hanzi = '你的工资有那么高吗？'
+notes = ''
+pinyin = 'Nǐ de gōngzī yǒu nàme gāo ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5DG95'

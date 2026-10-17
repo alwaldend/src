@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Basic comparisons with "bu bi"'
+english = "It's as expensive to live in Shanghai as it is in New York ."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun 1 + 不比 + Noun 2 + Adj.'
+hanzi = '上海不比纽约便宜。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8DVSO'

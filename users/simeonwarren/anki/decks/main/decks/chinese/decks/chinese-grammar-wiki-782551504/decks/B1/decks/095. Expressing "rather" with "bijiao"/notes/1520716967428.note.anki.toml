@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["AdverbswithAdjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "rather" with "bijiao"'
+english = 'I hate it when men say dirty words.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 比较 + Adj. / Psychological Verb'
+hanzi = '我比较讨厌男人说脏话。'
+notes = ''
+pinyin = 'Wǒ bǐjiào tǎoyàn nánrén shuō zānghuà.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG72HKP'

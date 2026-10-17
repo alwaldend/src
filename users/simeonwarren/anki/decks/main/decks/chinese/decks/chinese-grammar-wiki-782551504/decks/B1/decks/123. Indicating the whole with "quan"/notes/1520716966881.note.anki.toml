@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Indicating the whole with "quan"'
+english = "This article is too long. I didn't finish reading it all."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj.＋不 / 没＋全都＋Verb / Adj.'
+hanzi = '这篇文章太长了，我没全都看完。'
+notes = ''
+pinyin = 'Zhè piān wénzhāng tài cháng le, wǒ méi  quán  dōu kàn wán.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCPDSR'

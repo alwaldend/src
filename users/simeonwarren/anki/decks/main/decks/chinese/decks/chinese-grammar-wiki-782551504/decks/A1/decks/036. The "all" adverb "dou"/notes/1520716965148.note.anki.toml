@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'The "all" adverb "dou"'
+english = 'Do you all use the wiki?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 都 + [Verb Phrase]'
+hanzi = '你们都用wiki吗？'
+notes = ''
+pinyin = 'Nǐmen dōu yòng wiki ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG9YK09'

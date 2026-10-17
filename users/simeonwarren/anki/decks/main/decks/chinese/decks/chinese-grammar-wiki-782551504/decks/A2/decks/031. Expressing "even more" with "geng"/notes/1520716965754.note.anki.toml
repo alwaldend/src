@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "even more" with "geng"'
+english = 'The houses in Beijing are even more expensive than those in Shanghai.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A 比 B + 更 + Adj.'
+hanzi = '北京的房子比上海更贵。'
+notes = ''
+pinyin = 'Běijīng de fángzi  bǐ Shànghǎi gèng guì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG4NIPB'

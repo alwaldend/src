@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "enough" with "gou"'
+english = "You've been playing games for three hours today. Are you not done yet?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 够 (+ 了)'
+hanzi = '你今天玩游戏已经玩了三个小时了，玩够了没有？！'
+notes = ''
+pinyin = 'Nǐ jīntiān wán yóuxì yǐjīng wǎn le sān gè xiǎoshí le, wán gòu le méiyǒu?!'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG49BE6'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Continuation with "hai"'
+english = 'I am still thinking about this piece of matter.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 还在 + [Verb Phrase]'
+hanzi = '这件事情我还在考虑。'
+notes = ''
+pinyin = 'Zhèjiàn shìqing wǒ hái zài kǎolǜ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGIRILI'

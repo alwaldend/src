@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "must" with "dei"'
+english = 'You have to listen to the teacher at school.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 得 + [Verb Phrase]'
+hanzi = '在学校就得听老师的话。'
+notes = ''
+pinyin = 'Zài xuéxiào jiù děi tīng lǎoshī de huà.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPXLP9'

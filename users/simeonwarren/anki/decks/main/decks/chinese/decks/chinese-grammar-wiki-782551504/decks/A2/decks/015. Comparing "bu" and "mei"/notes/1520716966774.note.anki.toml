@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "bu" and "mei"'
+english = "He doesn't have a girlfriend."
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = 'Subj. + 没有 + Obj.'
+hanzi = '他没有女朋友。'
+notes = ''
+pinyin = 'Tā méiyǒu nǚpéngyou.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGRJ1BI'

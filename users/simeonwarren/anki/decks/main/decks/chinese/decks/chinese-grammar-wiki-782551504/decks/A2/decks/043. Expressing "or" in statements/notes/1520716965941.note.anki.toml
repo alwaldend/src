@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "or" in statements'
+english = 'Tonight I would like to eat pizza or sushi.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Possibility 1 + 或者 + Possibility 2'
+hanzi = '今天晚上我想吃披萨或者寿司。'
+notes = ''
+pinyin = 'Jīntiān wǎnshang wǒ xiǎng chī pīsà huòzhě shòusī.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG6HYOU'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "either... or..." with "yaome"'
+english = "Either keeping looking for a job or start your own business. You can't just sit around doing nothing."
+example-sentence = ''
+example-type = ''
+grammar-construct = '要么 + Option A ，要么 + Option B'
+hanzi = '要么继续找工作，要么创业，不能什么都不做。'
+notes = ''
+pinyin = 'Yàome jìxù zhǎo gōngzuò, yàome chuàngyè, bù néng shénme dōu bù zuò.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG30A60'

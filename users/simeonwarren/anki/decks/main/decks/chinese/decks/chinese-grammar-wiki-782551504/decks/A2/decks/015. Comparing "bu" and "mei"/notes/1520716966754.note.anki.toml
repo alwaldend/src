@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "bu" and "mei"'
+english = 'Are you my teacher or not?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 不 + Verb + Obj.'
+hanzi = '你是不是我的老师？'
+notes = ''
+pinyin = 'Nǐ shì bu shì wǒ de lǎoshī?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGRJ1BI'

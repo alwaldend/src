@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Separable verb'
+english = ''
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = ''
+hanzi = '聊聊天'
+notes = ''
+pinyin = 'liáo liáo tiān'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG4GVRX'

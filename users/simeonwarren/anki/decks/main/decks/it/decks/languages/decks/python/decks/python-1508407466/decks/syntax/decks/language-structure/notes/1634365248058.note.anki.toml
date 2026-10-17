@@ -1,0 +1,13 @@
+note_type = "note_types/python-basic.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+'Additional Info' = ''
+'Back - Basic' = 'Creates an array from number x to but not including y with z steps in between each number. (z can be negative for s reversed list).'
+'Back - Code' = ''
+Example = ''
+Front = 'Explain the variables <i>x</i>,<i> y</i>, <i>z</i> range function: range(x, y, z).'
+Version = ''

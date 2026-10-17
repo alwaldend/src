@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'corridor;	aisle;	hallway;	passageway;	veranda.'
+example-sentence = ' 在走廊中,众家老默默地舒了一口气,气氛为之一松'
+example-type = ''
+grammar-construct = ''
+hanzi = '走廊'
+notes = ''
+pinyin = '<span class="tone3">zǒu</span><span class="tone2">láng</span>	 <!-- zou lang -->'
+source = ''

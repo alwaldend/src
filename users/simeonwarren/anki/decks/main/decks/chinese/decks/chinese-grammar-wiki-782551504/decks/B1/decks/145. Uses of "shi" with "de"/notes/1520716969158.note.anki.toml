@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Uses of "shi" with "de"'
+english = 'I came here to do an internship.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Thing + 是 + 用来 + Verb + 的'
+hanzi = '我是来实习的。'
+notes = ''
+pinyin = 'Wǒ shì lái shíxí de.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGE662E'

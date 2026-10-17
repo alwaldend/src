@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adjectives", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "a bit too"'
+english = 'This shirt is a little small. I need another one.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Adj. + 了（一）点儿'
+hanzi = '这件衬衫小了点儿，我想换一件。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGEHTV5'

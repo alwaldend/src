@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "TimeWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "yizhi" and "yixiang"'
+english = "This friend of mine is always very generous,so today he's definitely paying."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '我这个朋友一向都很大方，今天肯定是他请客。'
+notes = ''
+pinyin = '<div>Wǒ zhège péngyǒu yīxiàng dōu hěn dàfāng, jīntiān kěndìng shì tā qǐngkè.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGVEP8S'

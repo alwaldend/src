@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "leech", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'The opposite of "cha hen duo" is "chabuduo"'
+english = 'They are twin brothers, but there is a big difference in personality between them.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A + 跟 / 和 + B + 差很多'
+hanzi = '他们是双胞胎兄弟，但是两个人的性格差很多。'
+notes = ''
+pinyin = 'Tāmen shì shuāngbāotāi xiōngdì, dànshì liǎng gè rén de xìnggé chà hěn duō.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQAN74'

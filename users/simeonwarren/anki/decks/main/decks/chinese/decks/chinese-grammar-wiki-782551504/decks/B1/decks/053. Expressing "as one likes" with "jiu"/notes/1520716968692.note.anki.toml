@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "as one likes" with "jiu"'
+english = "Come if you want to. You don't need to make an appoinment."
+example-sentence = ''
+example-type = ''
+grammar-construct = '想 + Verb + 就 + Verb'
+hanzi = '想来就来，不用预约。'
+notes = ''
+pinyin = 'Xiǎng lái jiù lái, bùyòng yùyuē.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDUZ55'

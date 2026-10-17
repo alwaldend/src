@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Before a specific time with "yiqian"'
+english = 'They broke up a few months ago.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Time / Verb + 以前, ....'
+hanzi = '几个月以前，他们分手了。'
+notes = ''
+pinyin = 'Jǐ gè yuè  yǐqián,  tāmen fēnshǒu le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJ2OJC'

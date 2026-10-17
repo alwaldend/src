@@ -1,0 +1,17 @@
+note_type = "note_types/python-basic-and-reversed.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+additional-info = 'It also takes in an optional default value to be returned if the key is not found. If no default value is added, it will throw a ValueError if no key is found.'
+answer = '<i>dict</i>.pop(<i>key</i>)'
+example = ''
+question = '<b>Dictionary method</b>&nbsp;that&nbsp;removes the element with the specified key from the dictionary and returns it.'
+version = ''
+with-options = """
+
+
+<i>dict</i>.pop(<i>key</i>,&nbsp;<i>defaultvalue=None</i>)\
+"""

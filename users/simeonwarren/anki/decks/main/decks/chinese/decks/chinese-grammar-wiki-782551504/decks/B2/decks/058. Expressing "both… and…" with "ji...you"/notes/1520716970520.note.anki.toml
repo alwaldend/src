@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "both… and…" with "ji...you"'
+english = "When I make a mistake, my father doesn't hit me or scold me."
+example-sentence = ''
+example-type = ''
+grammar-construct = '既 + Verb / [Verb Phrase] + 也 + Verb / [Verb Phrase]'
+hanzi = '犯错的时候，爸爸既不打我也不骂我。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGZRPCK'

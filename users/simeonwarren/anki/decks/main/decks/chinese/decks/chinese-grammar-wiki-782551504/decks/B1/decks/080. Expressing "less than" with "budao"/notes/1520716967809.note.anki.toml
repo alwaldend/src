@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "less than" with "budao"'
+english = 'My daughter is less than three years old.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不到 + Number + [Measure Word] + Noun'
+hanzi = '我女儿不到三岁。'
+notes = ''
+pinyin = "Wǒ nǚ'ér bùdào sān suì."
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG10CAE'

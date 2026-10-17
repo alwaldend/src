@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'to contain;	to hold;	(of a person or style etc) reserved;	restrained;	(of words, writings) full of hidden meaning;	implicit;	veiled (criticism).'
+example-sentence = ' 族长这话说的含蓄,但大家都深晓其意'
+example-type = ''
+grammar-construct = ''
+hanzi = '含蓄'
+notes = ''
+pinyin = '<span class="tone2">hán</span><span class="tone4">xù</span>	 <!-- han xu -->'
+source = ''

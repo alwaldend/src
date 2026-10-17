@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "always" with "conglai"'
+english = 'He always works very hard.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 从来 + 都 + Predicate'
+hanzi = '他工作从来都很努力。'
+notes = ''
+pinyin = 'Tā gōngzuò cónglái dōu hěn nǔlì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8KUHG'

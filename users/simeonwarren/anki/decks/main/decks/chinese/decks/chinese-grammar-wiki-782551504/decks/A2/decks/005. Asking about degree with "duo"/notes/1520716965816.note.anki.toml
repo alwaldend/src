@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "AdverbswithAdjectives", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Asking about degree with "duo"'
+english = 'Do you know how fat we are now?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 多 + Adj. ?'
+hanzi = '你知道我们现在多胖吗？'
+notes = ''
+pinyin = 'Nǐ zhīdào wǒmen xiànzài duō pàng ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG9LLJU'

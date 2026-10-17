@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "and" with "he"'
+english = 'He and his girlfriend both like Chinese food.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun 1 + 和 + Noun 2'
+hanzi = '他和他女朋友都喜欢中国菜。'
+notes = ''
+pinyin = 'Tā  hé tā nǚpéngyou dōu xǐhuan Zhōngguó cài.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGP0KFF'

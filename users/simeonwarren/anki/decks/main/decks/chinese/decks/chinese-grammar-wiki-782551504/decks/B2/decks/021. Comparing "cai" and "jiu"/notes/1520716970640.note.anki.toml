@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "cai" and "jiu"'
+english = "It's going to take at least two months to complete this project."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Time Word + 才 + Verb'
+hanzi = '这个项目最少要花两个月才能做完。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGLOS9C'

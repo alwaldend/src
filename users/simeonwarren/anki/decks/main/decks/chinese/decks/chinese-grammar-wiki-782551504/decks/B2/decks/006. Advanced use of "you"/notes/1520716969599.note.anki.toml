@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Advanced use of "you"'
+english = "He smelled again and again, but he still didn't smell anything."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. ＋Verb + 了 + 又 + Verb，还是 / 就是 ……'
+hanzi = '他闻了又闻，还是什么都没闻到。'
+notes = ''
+pinyin = 'Tā wén le yòu wén, háishì shénme dōu méi wéndào.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGF08B6'

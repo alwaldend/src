@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Basic comparisons with "bi"'
+english = 'Your problem is even more troublesome than mine.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun 1 + 比 + Noun 2 + 更 + Adj.'
+hanzi = '你的问题比我的问题更麻烦。'
+notes = ''
+pinyin = 'Nǐ de wèntí bǐ wǒ de wèntí gèng máfan.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8SI2K'

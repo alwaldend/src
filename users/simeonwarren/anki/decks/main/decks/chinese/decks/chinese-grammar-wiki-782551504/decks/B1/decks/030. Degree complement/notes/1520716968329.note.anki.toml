@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Degree complement'
+english = 'You handwriting is beautiful.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 得 + [Degree Complement]'
+hanzi = '你写字写得很漂亮。'
+notes = ''
+pinyin = 'Nǐ xiě zì xiě de hěn piàoliang.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG79STE'

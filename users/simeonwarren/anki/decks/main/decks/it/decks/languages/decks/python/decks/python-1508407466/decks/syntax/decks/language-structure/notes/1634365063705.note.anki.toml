@@ -1,0 +1,13 @@
+note_type = "note_types/python-basic.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+'Additional Info' = ''
+'Back - Basic' = '0, 1, 2, 3&nbsp;<font color="#666666">#4 does not get included</font>'
+'Back - Code' = ''
+Example = ''
+Front = 'For the code range(4) what numbers does this code iterate through?'
+Version = ''

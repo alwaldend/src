@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "everything" with "shenme dou"'
+english = "You shouldn't tell him everything."
+example-sentence = ''
+example-type = ''
+grammar-construct = '什么 + Noun + 都 + Verb'
+hanzi = '你不应该什么话都跟他说。'
+notes = ''
+pinyin = 'Nǐ bù yīnggāi shénme huà dōu gēn tā shuō.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGAQV6C'

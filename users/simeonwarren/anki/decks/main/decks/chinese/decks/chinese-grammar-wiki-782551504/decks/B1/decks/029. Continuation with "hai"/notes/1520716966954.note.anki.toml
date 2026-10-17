@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Continuation with "hai"'
+english = "How come you're still using that old cell phone?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 还在 + [Verb Phrase]'
+hanzi = '你怎么还在用那个旧手机？'
+notes = ''
+pinyin = 'Nǐ zěnme hái zài yòng nàge jiù shǒujī?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGIRILI'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "if…, then…" with "ruguo…, jiu…"'
+english = 'If you really want to work with us, then we should schedule a day to discuss it.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '如果 ⋯⋯ ，那么 / 那 ⋯⋯'
+hanzi = '如果你们真的想合作，那么我们应该找时间好好谈谈。'
+notes = ''
+pinyin = 'Rúguǒ nǐmen zhēnde xiǎng hézuò, nàme wǒmen yīnggāi zhǎo shíjian hǎohǎo tántan.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGGIVT0'

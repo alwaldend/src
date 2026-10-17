@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "and also" with "hai"'
+english = 'They watched a movie tonight too.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + Obj. 1， 还 + Verb + Obj. 2'
+hanzi = '他们今天晚上也看了电影。'
+notes = ''
+pinyin = 'Tāmen jīntiān wǎnshang yě kàn le diànyǐng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJBZKC'

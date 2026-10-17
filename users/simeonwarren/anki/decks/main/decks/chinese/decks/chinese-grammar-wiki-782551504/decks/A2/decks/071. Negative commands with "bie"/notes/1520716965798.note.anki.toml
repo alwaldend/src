@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Negative commands with "bie"'
+english = "Don't speak English in class."
+example-sentence = ''
+example-type = ''
+grammar-construct = '别 + Verb (+ Obj.)'
+hanzi = '上课的时候别说英文。'
+notes = ''
+pinyin = 'Shàngkè de shíhou bié shuō Yīngwén.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG9W0UX'

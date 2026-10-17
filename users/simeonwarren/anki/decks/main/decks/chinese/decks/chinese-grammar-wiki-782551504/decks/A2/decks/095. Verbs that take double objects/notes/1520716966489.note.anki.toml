@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Verbs that take double objects'
+english = 'I want to tell you the good news.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + [Indirect Obj.] + [Direct Obj.]'
+hanzi = '我想告诉你一个好消息。'
+notes = ''
+pinyin = 'Wǒ xiǎng gàosu  nǐ yī gè hǎo xiāoxi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGI2OAG'

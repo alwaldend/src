@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Cause and effect with "yinwei" and "suoyi"'
+english = 'He learns fast because he is smart.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Result, 因为 + Reason'
+hanzi = '他学得很快，因为他很聪明。'
+notes = ''
+pinyin = 'Tā xué de hěn kuài, yīnwèi tā hěn cōngming.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTDUJO'

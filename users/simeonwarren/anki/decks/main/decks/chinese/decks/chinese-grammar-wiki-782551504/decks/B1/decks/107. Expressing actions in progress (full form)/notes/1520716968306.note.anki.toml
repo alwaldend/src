@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing actions in progress (full form)'
+english = 'All these sentences mean "I am drinking beer."'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 正在 + Verb + 着 + Obj. + 呢'
+hanzi = '我正喝着啤酒。'
+notes = ''
+pinyin = 'Wǒ zhèng hē zhe píjiǔ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGEYQ9O'

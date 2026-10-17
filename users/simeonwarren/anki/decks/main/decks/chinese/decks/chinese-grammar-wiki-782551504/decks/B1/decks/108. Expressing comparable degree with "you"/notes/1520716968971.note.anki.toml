@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing comparable degree with "you"'
+english = 'Is she that pretty? Really?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A + 有 (+ B) + 这么 / 那么 + Adj. + 吗 ？'
+hanzi = '她有那么漂亮吗？'
+notes = ''
+pinyin = 'Tā yǒu  nàme piàoliang ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5DG95'

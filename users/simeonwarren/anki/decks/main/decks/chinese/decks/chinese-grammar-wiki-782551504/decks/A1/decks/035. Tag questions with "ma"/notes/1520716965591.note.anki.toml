@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Tag questions with "ma"'
+english = "Let's all not drink alcohol today, OK?"
+example-sentence = ''
+example-type = ''
+grammar-construct = '⋯⋯， 好 / 对 / 是 / 可以 +  吗？'
+hanzi = '今天我们都不喝酒，好吗？'
+notes = ''
+pinyin = 'Jīntiān wǒmen dōu bù hējiǔ​, hǎo ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGSJYZ2'

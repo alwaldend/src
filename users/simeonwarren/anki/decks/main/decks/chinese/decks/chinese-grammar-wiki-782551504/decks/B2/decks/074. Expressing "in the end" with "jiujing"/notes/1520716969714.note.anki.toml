@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "in the end" with "jiujing"'
+english = 'How much longer do we still need to wait?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '究竟 + Question Word'
+hanzi = '我们究竟还要等多久？'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDK0BR'

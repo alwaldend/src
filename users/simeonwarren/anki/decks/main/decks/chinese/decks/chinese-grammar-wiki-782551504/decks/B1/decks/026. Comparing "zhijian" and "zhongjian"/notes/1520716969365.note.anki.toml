@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "Nouns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "zhijian" and "zhongjian"'
+english = 'Put the flowers in the middle of the table.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun + (的 +) 中间'
+hanzi = '把花放在桌子中间。'
+notes = ''
+pinyin = '<div>Bǎ huā fàng zài zhuōzǐ zhōngjiān.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGN6O6J'

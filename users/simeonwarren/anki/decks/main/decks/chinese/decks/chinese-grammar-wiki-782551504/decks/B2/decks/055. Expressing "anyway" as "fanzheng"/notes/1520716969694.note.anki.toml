@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "anyway" as "fanzheng"'
+english = "What they think doesn't matter. I made my decision anyway."
+example-sentence = ''
+example-type = ''
+grammar-construct = '[Disregarded Situation] ， 反正 ⋯⋯'
+hanzi = '他们怎么想不重要，反正我已经决定了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGZVM27'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Placement of question words'
+english = 'Who wants to drink coffee?<br>I want to drink coffee.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '谁 + Verb ?'
+hanzi = 'A: 谁想喝咖啡？<br>B: 我想喝咖啡。'
+notes = ''
+pinyin = 'Shéi xiǎng hē kāfēi?Wǒ xiǎng hē kāfēi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJQPSC'

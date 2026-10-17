@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Idiomatic phrases with "zai"'
+english = "He hasn't been at the company very long. As far as doing his work, he still needs you to help him."
+example-sentence = ''
+example-type = ''
+grammar-construct = '在 + Abstract Concept + 方面， Comment Sentence'
+hanzi = '他刚来公司不久，在工作方面，还需要你多帮帮他。'
+notes = ''
+pinyin = '<div>Tā gāng lái gōngsī bùjiǔ, zài gōngzuò fāngmiàn, hái xūyào nǐ duō bāng bāng tā.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGH13JY'

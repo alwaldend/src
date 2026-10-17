@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Indicating the whole with "quan"'
+english = 'Our entire family have been to Beijing.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '全 + Noun + 都 + Predicate'
+hanzi = '我们全家都去过北京。'
+notes = ''
+pinyin = 'Wǒmen quán jiā dōu qù guo Běijīng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCPDSR'

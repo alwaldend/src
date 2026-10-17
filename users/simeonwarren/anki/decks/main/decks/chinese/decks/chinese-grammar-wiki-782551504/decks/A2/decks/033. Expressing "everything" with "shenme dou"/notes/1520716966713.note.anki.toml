@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "everything" with "shenme dou"'
+english = "How  come you haven't done anything at home?"
+example-sentence = ''
+example-type = ''
+grammar-construct = '什么 + Noun + 都 / 也 + 没 (有) + Verb'
+hanzi = '你在家里怎么什么事都不做？'
+notes = ''
+pinyin = 'Nǐ  zài jiālǐ zěnme shénme shì dōu  bù  zuò?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGAQV6C'

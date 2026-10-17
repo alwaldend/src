@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Indicating purpose or intent using "shi...de"'
+english = 'This room is for our guest to live in.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '这个房间是给客人住的。'
+notes = ''
+pinyin = 'Zhège fángjiān shì gěi kèrén zhù de.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG0UFR4'

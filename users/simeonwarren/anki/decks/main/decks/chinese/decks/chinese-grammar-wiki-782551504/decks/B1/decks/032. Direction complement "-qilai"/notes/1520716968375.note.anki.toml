@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Direction complement "-qilai"'
+english = 'Raise your head.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 起来'
+hanzi = '头抬起来。'
+notes = ''
+pinyin = 'Tóu tái qǐlái.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGBPXOB'

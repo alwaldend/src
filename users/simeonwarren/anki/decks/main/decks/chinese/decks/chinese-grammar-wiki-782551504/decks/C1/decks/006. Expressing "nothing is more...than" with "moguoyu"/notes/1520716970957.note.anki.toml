@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["C1", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "nothing is more...than" with "moguoyu"'
+english = "For America's best college, nothing is better than Harvard."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Topics or questions + 莫过于 + answer'
+hanzi = '美国最好的大学莫过于哈佛大学。'
+notes = ''
+pinyin = '<div>Měiguó zuì hǎo de dàxué mò guòyú hāfó dàxué.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGGI66V'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Referring to "all" using "suoyou"'
+english = "He remembers everyone's birthday."
+example-sentence = ''
+example-type = ''
+grammar-construct = '所有的 + Noun + 都 + Verb / Adj.'
+hanzi = '他记得所有人的生日。'
+notes = ''
+pinyin = 'Tā jìde suǒyǒu rén de shēngrì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGOWBSL'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "along with…" with "suizhe"'
+english = 'Children started dancing with the music.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 随着 + Noun + Verb Phrase'
+hanzi = '孩子们随着音乐跳起了舞。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGHVFRA'

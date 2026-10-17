@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'smooth and steady.'
+example-sentence = '一种兴奋、紧张的氛围,笼罩着族人的心,自然有很多人睡不安稳'
+example-type = ''
+grammar-construct = ''
+hanzi = '安稳'
+notes = ''
+pinyin = '<span class="tone1">ān</span><span class="tone3">wěn</span>	 <!-- an wen -->'
+source = ''

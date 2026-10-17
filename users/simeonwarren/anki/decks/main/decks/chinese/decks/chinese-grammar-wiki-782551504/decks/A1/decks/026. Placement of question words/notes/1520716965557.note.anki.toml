@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Placement of question words'
+english = 'Who wants to go?<br>I want to go.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '谁 + Verb ?'
+hanzi = 'A: 谁想去？<br>B: 我想去。'
+notes = ''
+pinyin = 'Shéi xiǎng qù?<br>Wǒ xiǎng qù.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJQPSC'

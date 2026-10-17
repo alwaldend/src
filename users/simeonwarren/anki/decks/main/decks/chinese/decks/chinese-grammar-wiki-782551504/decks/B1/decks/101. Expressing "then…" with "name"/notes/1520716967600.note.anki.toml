@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "then…" with "name"'
+english = 'The meeting time has been set up. So please arrange it soon.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Situation ，那么 + Suggestion / Decision'
+hanzi = '会议时间已经确定了，那你快点去安排吧。'
+notes = ''
+pinyin = 'Huìyì shíjiān yǐjīng quèdìng le, nà nǐ kuài diǎn qù ānpái ba.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGX298Z'

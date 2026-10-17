@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Auxiliaryverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Wanting to do something with "yao"'
+english = 'He wants to study Chinese.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 要 + Verb + Obj.'
+hanzi = '他要学中文。'
+notes = ''
+pinyin = 'Tā yào xué Zhōngwén.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGXVEAR'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "although" with "suiran" and "danshi"'
+english = "Although it's cold outside, it's warm inside."
+example-sentence = ''
+example-type = ''
+grammar-construct = '虽然 ⋯⋯ ，但是 / 可是 ⋯⋯'
+hanzi = '虽然外面很冷，可是里面很暖和。'
+notes = ''
+pinyin = 'Suīrán wàimiàn hěn lěng, kěshì lǐmiàn hěn nuǎnhuo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGXI560'

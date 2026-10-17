@@ -1,0 +1,5 @@
+preset = "Default"
+
+[normal]
+description = "Please see the <a href='https://ankiweb.net/shared/info/1508407466'>shared deck page</a> for more info."
+extend_new = 40

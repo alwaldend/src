@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing purpose with "weile"'
+english = "He's willing to do anything for money."
+example-sentence = ''
+example-type = ''
+grammar-construct = '为了 ⋯⋯ ，Subj. ⋯⋯'
+hanzi = '为了钱，他什么都愿意做。'
+notes = ''
+pinyin = 'Wèile qián, tā shénme dōu yuànyì zuò.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQGJXT'

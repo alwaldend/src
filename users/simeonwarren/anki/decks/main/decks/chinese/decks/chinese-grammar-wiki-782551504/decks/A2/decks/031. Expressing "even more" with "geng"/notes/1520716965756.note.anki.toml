@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "even more" with "geng"'
+english = 'Chinese characters are even more difficult than tones.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A 比 B + 更 + Adj.'
+hanzi = '汉字比声调更难。'
+notes = ''
+pinyin = 'Hànzì  bǐ shēngdiào gèng nán.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG4NIPB'

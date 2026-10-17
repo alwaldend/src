@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Making "-ize" and "-ify" verbs with "hua"'
+english = 'soften'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun / Adj. + 化'
+hanzi = '软化'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGS6UKN'

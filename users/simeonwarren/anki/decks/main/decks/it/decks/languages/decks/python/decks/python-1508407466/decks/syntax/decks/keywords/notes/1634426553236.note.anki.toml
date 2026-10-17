@@ -1,0 +1,13 @@
+note_type = "note_types/python-basic-and-reversed.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+additional-info = 'It returns second of the two values.'
+answer = '<b>Keyword</b>&nbsp;used as a logical operator that evaluates to True if both statements evalutate to True, else False.'
+example = ''
+question = '<b>Keyword:</b> and'
+version = ''
+with-options = ''

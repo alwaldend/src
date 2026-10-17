@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "already" with "yijing"'
+english = 'Your girlfriend is already very beautiful!'
+example-sentence = ''
+example-type = ''
+grammar-construct = '已经 + (很 +) Adj. + 了'
+hanzi = '你女朋友已经很漂亮了！'
+notes = ''
+pinyin = 'Nǐ nǚpéngyou yǐjīng hěn piàoliang le!'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNXI27'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing duration with "le"'
+english = 'He did his homework all day yesterday.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + [Time Word] + Verb + 了 + Duration + Obj.'
+hanzi = '昨天他写了一天作业。'
+notes = ''
+pinyin = 'Zuótiān tā xiě le yī tiān zuòyè.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJ36VN'

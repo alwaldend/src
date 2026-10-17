@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'The "also" adverb "ye"'
+english = 'I like to read.<br>Me too. / So do I.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 也 (+ Adv.) + Adj.'
+hanzi = 'A: 我喜欢看书。<br>B: 我也喜欢。'
+notes = ''
+pinyin = 'Wǒ xǐhuan kàn shū.<br>Wǒ yě xǐhuan.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGG25MD'

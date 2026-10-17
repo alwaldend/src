@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "benlai" and "yuanlai"'
+english = 'My current boyfriend is a lot cuter than my ex.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '原来的 + Noun'
+hanzi = '我现在的男朋友比原来的男朋友帅多了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG56QKW'

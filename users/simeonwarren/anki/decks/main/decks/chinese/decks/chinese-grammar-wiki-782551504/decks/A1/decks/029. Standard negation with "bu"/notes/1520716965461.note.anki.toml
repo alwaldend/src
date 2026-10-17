@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Standard negation with "bu"'
+english = 'My older brother is not tall, but he is very handsome.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不 + Adj.'
+hanzi = '我哥哥不高，但是很帅。'
+notes = ''
+pinyin = 'Wǒ gēge bù gāo , dànshì hěn shuài.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGIPYFV'

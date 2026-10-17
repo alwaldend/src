@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "ye" and "dou" together'
+english = "This store's bread is  very delicious, the other snacks are also not bad."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 也都 + Verb / Adj.'
+hanzi = '这家店的面包很好吃，别的点心也都不错。'
+notes = ''
+pinyin = 'Zhè jiā diàn de miànbāo hěn hǎochī , bié de diǎnxīn yě dōu bùcuò.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8GSXY'

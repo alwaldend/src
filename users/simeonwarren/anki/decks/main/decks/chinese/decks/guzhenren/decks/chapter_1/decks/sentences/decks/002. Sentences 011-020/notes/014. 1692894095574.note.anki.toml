@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'The overall situation has been decided, and there is no doubt that he will die today.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '大局已定,今日必死无疑。'
+notes = ''
+pinyin = ''
+source = ''

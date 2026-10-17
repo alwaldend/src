@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "Conjunctions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "haishi" and "huozhe"'
+english = "I'm not sure if we should leave first, or wait for them and leave together."
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = 'Option 1 + 或者 + Option 2'
+hanzi = '我不清楚是我们先走还是等他们一起走。'
+notes = ''
+pinyin = 'Wǒ bù qīngchu shì wǒmen xiān zǒu háishì děng tāmen yīqǐ zǒu.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQJ5IC'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Result complement "-wan" for finishing'
+english = 'Tell me when you have finished watching.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 完 (+ 了) + Obj.'
+hanzi = '看完以后告诉我。'
+notes = ''
+pinyin = 'Kàn wán yǐhòu gàosu wǒ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNQUC1'

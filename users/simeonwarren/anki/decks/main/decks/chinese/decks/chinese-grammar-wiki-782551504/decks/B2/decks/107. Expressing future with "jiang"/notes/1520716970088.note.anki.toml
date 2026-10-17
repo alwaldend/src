@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Auxiliaryverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing future with "jiang"'
+english = 'I believe that you will soon become a successful entrepreneur.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '将 + [Imminent Event]'
+hanzi = '我相信你将会成为一个成功的企业家。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGIQPUJ'

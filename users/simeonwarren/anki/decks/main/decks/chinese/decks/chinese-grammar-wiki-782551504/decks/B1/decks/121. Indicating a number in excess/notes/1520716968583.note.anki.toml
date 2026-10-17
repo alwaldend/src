@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "NounPhrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Indicating a number in excess'
+english = 'China has a history of more than two thousand years.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Number + 多 + [Measure word] (+ Noun)'
+hanzi = '这个城市有两千多年的历史。'
+notes = ''
+pinyin = 'Zhège chéngshì yǒu liǎng qiān duō nián de lìshǐ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG004ZK'

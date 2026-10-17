@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Emphasizing quantity with "dou"'
+english = 'A lot of Americans like drinking coffee.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 都 + Verb + Obj.'
+hanzi = '很多美国人都喜欢喝咖啡。'
+notes = ''
+pinyin = 'Hěn duō  Měiguó rén dōu xǐhuan hē kāfēi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWNEYM'

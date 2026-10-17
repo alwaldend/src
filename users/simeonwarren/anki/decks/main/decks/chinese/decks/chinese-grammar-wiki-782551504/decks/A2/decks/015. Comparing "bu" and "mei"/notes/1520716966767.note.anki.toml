@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "bu" and "mei"'
+english = "They didn't pay after they finished eating."
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = 'Subj. + 没(有) + Verb + Obj.'
+hanzi = '他们吃完饭以后没付钱。'
+notes = ''
+pinyin = 'Tāmen chī wán fàn yǐhòu méi fù qián.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGRJ1BI'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "AdverbswithAdjectives", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Modifying nouns with phrase + "de"'
+english = 'the books that he wrote'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Phrase + 的 + Noun'
+hanzi = '他写的书'
+notes = ''
+pinyin = 'tā xiě  de shū'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGLQKD2'

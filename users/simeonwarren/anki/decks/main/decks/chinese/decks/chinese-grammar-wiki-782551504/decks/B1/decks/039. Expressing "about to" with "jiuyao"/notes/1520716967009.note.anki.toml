@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "about to" with "jiuyao"'
+english = 'In 10 more minutes I get off work.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '还有 + Time (+ Subj.) + 就 (要) + Verb + 了'
+hanzi = '还有十分钟我就下班了。'
+notes = ''
+pinyin = 'Háiyǒu shí fēnzhōng wǒ jiù xiàbān le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG9B210'

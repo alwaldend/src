@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'young.'
+example-sentence = '在年轻一辈中,可谓独领风骚'
+example-type = ''
+grammar-construct = ''
+hanzi = '年轻'
+notes = ''
+pinyin = '<span class="tone2">nián</span><span class="tone1">qīng</span>	 <!-- nian qing -->'
+source = ''

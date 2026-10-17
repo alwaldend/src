@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = "The pattern \"it's not…, it's…\""
+english = "We're not here to play, we're here to do our job."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不是 + [Verb Phrase 1] ， (而)是 + [Verb Phrase 2]'
+hanzi = '我们不是来玩的，是来工作的。'
+notes = ''
+pinyin = 'Wǒmen bù shì lái wán de, shì lái gōngzuò de.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGT9WYR'

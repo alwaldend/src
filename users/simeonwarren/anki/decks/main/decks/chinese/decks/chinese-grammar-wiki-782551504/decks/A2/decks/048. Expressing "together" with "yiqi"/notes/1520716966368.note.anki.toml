@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "together" with "yiqi"'
+english = "Let's go to the movies this weekend, shall we?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 一起 + Verb + Obj.'
+hanzi = '周末我们一起去看电影，好吗？'
+notes = ''
+pinyin = 'Zhōumò wǒmen yīqǐ qù  kàn diànyǐng, hǎo ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNVE15'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "when" with "dengdao"'
+english = 'It will be too late when you start feeling not well.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '等(到) + Time / Event ，Subj. + 再 / 就 + Predicate'
+hanzi = '等到你感觉不舒服就晚了。'
+notes = ''
+pinyin = 'Děngdào nǐ gǎnjué bù shūfu jiù wǎn le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG68F61'

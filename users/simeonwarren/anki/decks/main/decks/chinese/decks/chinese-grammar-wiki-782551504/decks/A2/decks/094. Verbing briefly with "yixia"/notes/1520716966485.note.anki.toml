@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Verbing briefly with "yixia"'
+english = 'Could you please come to my office?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 一下 + Obj.'
+hanzi = '你可以来一下我的办公室吗？'
+notes = 'Just come real quick.'
+pinyin = 'Nǐ kěyǐ lái yīxià wǒ de bàngōngshì ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWCESP'

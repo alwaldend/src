@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "NounPhrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Indicating a number in excess'
+english = 'His mother is already more than fifty years old.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Number + 多 + Measure word + (Noun)'
+hanzi = '他妈妈已经五十多岁了。'
+notes = ''
+pinyin = 'Tā māma yǐjīng wǔshí duō suì le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG004ZK'

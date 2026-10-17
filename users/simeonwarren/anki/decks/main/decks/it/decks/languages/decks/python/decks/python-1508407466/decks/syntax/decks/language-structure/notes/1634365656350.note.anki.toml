@@ -1,0 +1,13 @@
+note_type = "note_types/python-basic.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+'Additional Info' = ''
+'Back - Basic' = ''
+'Back - Code' = 'for key, value in my_dict.items():<br>&nbsp; &nbsp; print(key, value)'
+Example = ''
+Front = 'Loop through the dictionary my_dict and print each key and value.'
+Version = ''

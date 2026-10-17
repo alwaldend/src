@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Reduplication of adjectives'
+english = 'My little sister is thin and small.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A A + 的 (+ Noun)'
+hanzi = '我妹妹瘦瘦小小的。'
+notes = ''
+pinyin = 'Wǒ mèimei shòu shòu xiǎo xiǎo de.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDHE8S'

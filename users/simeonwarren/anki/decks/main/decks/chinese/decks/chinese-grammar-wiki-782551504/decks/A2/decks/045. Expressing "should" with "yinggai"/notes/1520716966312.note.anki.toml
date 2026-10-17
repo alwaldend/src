@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Auxiliaryverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "should" with "yinggai"'
+english = 'He should not hit people.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不 + 应该 + Verb + Obj.'
+hanzi = '他不应该打人。'
+notes = ''
+pinyin = 'Tā bù yīnggāi dǎ rén.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGV01X9'

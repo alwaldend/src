@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["AuxiliaryWords", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Non-exhaustive lists with "dengdeng"'
+english = 'China, India, Brazil and so on are all developing countries.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A1，A2 ⋯⋯ 等 + [Category] + Predicate'
+hanzi = '中国、印度、巴西等国家都是发展中国家。'
+notes = ''
+pinyin = 'Zhōngguó, Yìndù, Bāxī děng guójiā dōu shì fāzhǎn zhōng guójiā.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGF763H'

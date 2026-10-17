@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "through" with "tongguo"'
+english = "We've got a better understanding of your company through this short film."
+example-sentence = ''
+example-type = ''
+grammar-construct = '通过 + Agent / Method ，Subj. ⋯⋯'
+hanzi = '通过这个短片，我们更了解你们公司了。'
+notes = ''
+pinyin = 'Tōngguò zhège duǎnpiàn, wǒmen gèng liǎojiě nǐmen gōngsī le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG9B1E3'

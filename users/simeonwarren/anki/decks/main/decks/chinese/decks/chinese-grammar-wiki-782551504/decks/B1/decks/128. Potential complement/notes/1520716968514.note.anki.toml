@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Potential complement'
+english = "You can't eat this kind of street food in Shanghai."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 不 + Complement'
+hanzi = '你在上海吃不到这样的小吃。'
+notes = ''
+pinyin = '<div>Nǐ zài shànghǎi chī bù dào zhèyàng de xiǎochī.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCPJPQ'

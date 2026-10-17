@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Asking why with "zenme"'
+english = "How come you didn't tell me when you got married?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 怎么 + Verb + Obj. ?'
+hanzi = '你结婚的时候怎么不告诉我？'
+notes = ''
+pinyin = 'Nǐ jiéhūn de shíhou zěnme bù gàosu wǒ?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGD7NS3'

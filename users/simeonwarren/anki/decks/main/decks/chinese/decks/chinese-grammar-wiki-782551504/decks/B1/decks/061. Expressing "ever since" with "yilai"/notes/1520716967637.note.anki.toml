@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "ever since" with "yilai"'
+english = 'Tremendous changes have been taken place in China since the reform and opening up.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '自 / 从 / 自从 + Time / Event + 以来'
+hanzi = '自改革开放以来，中国社会发生了巨大的变化。'
+notes = ''
+pinyin = 'Zì gǎigé kāifàng yǐlái, Zhōngguó shèhuì fāshēng le jùdà de biànhuà.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNEMXP'

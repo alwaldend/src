@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'surname Fang;	square;	power or involution (math.);	upright;	honest;	fair and square;	direction;	side;	party (to a contract, dispute etc);	place;	method;	prescription (medicine);	just when;	only or just;	classifier for square things;	abbr. for square or cubic meter.'
+example-sentence = '   不错,方之一脉出现了一个天才少年'
+example-type = ''
+grammar-construct = ''
+hanzi = '方'
+notes = ''
+pinyin = '<span class="tone1">fāng</span>	 <!-- fang -->'
+source = ''

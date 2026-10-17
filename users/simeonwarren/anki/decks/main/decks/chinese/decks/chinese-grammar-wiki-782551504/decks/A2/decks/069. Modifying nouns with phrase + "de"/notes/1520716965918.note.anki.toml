@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "AdverbswithAdjectives", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Modifying nouns with phrase + "de"'
+english = 'the clothes that mom bought for me'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Phrase + 的 + Noun'
+hanzi = '妈妈给我买的衣服'
+notes = ''
+pinyin = 'māma gěi wǒ mǎi  de yīfu'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGLQKD2'

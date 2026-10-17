@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Auxiliaryverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Auxiliary verb "yao" and its multiple meanings'
+english = "I am going to go eat at 12 o'clock."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 要 + Verb'
+hanzi = '12点我要去吃饭。'
+notes = ''
+pinyin = "Shí'èr diǎn wǒ yào qù chīfàn."
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG95AL1'

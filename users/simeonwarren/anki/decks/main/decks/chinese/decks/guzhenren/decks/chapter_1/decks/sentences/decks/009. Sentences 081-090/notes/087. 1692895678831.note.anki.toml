@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'And Gu Yue Fang Yuan is the most outstanding and dazzling one among the juniors.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '而古月方源就是小辈当中,最为出色耀眼的一位。'
+notes = ''
+pinyin = ''
+source = ''

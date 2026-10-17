@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Tricky uses of "dao"'
+english = 'From him, I understood a lot of things regarding this girl.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '从他那里，我了解到了这个女人很多事。'
+notes = ''
+pinyin = 'Cóng tā nàlǐ, wǒ liǎojiědào le zhège nǚrén hěn duō shì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCUSIV'

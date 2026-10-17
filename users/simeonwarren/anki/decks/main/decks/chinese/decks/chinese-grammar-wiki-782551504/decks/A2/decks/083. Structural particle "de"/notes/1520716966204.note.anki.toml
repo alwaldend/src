@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Structural particle "de"'
+english = "Xiao Li's house"
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '小李的房子'
+notes = ''
+pinyin = 'Xiǎo Lǐ de fángzi'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5MOMM'

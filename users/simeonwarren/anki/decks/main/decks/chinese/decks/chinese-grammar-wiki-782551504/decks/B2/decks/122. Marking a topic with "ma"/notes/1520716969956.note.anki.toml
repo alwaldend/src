@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Marking a topic with "ma"'
+english = "Brandname. It can't be cheap."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Topic + 嘛 ，Statement'
+hanzi = '名牌嘛，一定不便宜。'
+notes = ''
+pinyin = 'Míngpái ma, yīdìng bù piányi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGB33AE'

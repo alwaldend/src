@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'might (happen);	possible;	probable;	possibility;	probability;	maybe;	perhaps.<br>Cl: 个'
+example-sentence = '不过他这样的早慧,乙等资质的可能性不大,极有可能就是甲等'
+example-type = ''
+grammar-construct = ''
+hanzi = '可能'
+notes = ''
+pinyin = '<span class="tone3">kě</span><span class="tone2">néng</span>	 <!-- ken eng -->'
+source = ''

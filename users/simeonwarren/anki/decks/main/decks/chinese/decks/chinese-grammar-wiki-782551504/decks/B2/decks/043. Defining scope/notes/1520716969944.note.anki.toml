@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Parts_of_Speech", "PrepositionalPhrase"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Defining scope'
+english = 'Children under the age of 10 do not need to buy tickets.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '级别 / 次序 / 数目 + 以上 / 以下'
+hanzi = '十岁以下的孩子不用买票。'
+notes = ''
+pinyin = 'Shí suì yǐxià de háizi bùyòng mǎi piào.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG7AE5C'

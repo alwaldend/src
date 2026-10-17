@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "about to happen" with "le"'
+english = "I can't drink another, I am almost drunk."
+example-sentence = ''
+example-type = ''
+grammar-construct = '快 + Adj. + 了'
+hanzi = '不能再喝了，我快醉了。'
+notes = ''
+pinyin = 'Bù néng zài hē le, wǒ kuài zuì le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNGEU8'

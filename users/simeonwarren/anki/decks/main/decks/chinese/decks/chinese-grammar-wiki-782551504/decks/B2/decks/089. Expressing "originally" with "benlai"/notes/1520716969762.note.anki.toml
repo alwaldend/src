@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "originally" with "benlai"'
+english = 'Well, of course Americans speak fluent English.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 本来 + 就 + 会 / 要 / 得 / 应该 + Verb'
+hanzi = '美国人本来就会说流利的英文。'
+notes = 'Literally, "Americans are supposed to speak fluent English."'
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG6F157'

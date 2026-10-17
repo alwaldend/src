@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Cause and effect with "yinwei" and "suoyi"'
+english = "Since he was sick, he didn't go to class."
+example-sentence = ''
+example-type = ''
+grammar-construct = '因为 + Cause, 所以 + Effect'
+hanzi = '因为他生病了，所以没去上课。'
+notes = ''
+pinyin = 'Yīnwèi tā shēngbìng le, suǒyǐ méi qù shàngkè.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTDUJO'

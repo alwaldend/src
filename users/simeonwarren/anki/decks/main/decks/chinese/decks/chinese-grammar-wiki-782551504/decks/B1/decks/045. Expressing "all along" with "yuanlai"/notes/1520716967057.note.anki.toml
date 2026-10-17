@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "all along" with "yuanlai"'
+english = 'The original price is 999 RMB.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '原来 + 的 + Noun<br>Subj. + 原来 + [Verb Phrase]'
+hanzi = '这件衣服原来的价格是999块。'
+notes = ''
+pinyin = 'Zhè jiàn yīfu yuánlái de jiàgé shì 999 kuài.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTKXFR'

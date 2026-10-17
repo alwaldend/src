@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "enough" with "gou"'
+english = "Stop complaining. You've been lucky enough."
+example-sentence = ''
+example-type = ''
+grammar-construct = '够 + Verb / Adj. + 了'
+hanzi = '别抱怨了，你够幸运了。'
+notes = ''
+pinyin = 'Bié bàoyuàn le, nǐ gòu xìngyùn le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG49BE6'

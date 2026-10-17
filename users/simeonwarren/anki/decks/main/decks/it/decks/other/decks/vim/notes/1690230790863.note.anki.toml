@@ -1,0 +1,15 @@
+note_type = "note_types/basic.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[[cards]]
+ordinal = 1
+
+[fields]
+Back = """
+
+:cdo COMMAND<b> | update</b>\
+"""
+Front = 'Execute command on every line referenced by the quick fix list <b>and write any changes to disk</b> (but do not write if no changes happened)'

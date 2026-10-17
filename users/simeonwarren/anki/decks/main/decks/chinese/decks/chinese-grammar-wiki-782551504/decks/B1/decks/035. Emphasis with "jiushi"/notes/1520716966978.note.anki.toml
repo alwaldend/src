@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Emphasis with "jiushi"'
+english = 'That guy is her new boyfriend.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '就是 + Noun'
+hanzi = '那个人就是她的新男朋友。'
+notes = ''
+pinyin = 'Nàge rén jiù shì tā de xīn nánpéngyou.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGY21RK'

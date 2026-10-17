@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Before a specific time with "yiqian"'
+english = 'Twenty years ago, this was a park.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Time / Verb + 以前, ....'
+hanzi = '二十年以前，这里是一个公园。'
+notes = ''
+pinyin = 'Èrshí nián yǐqián,   zhèlǐ shì yī gè gōngyuán.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJ2OJC'

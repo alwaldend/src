@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Making judgments with "suan"'
+english = 'Who do you think you are?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. (+ 不) + 算 + Noun'
+hanzi = '你算老几？'
+notes = ''
+pinyin = 'Nǐ suàn lǎojǐ?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWDWFN'

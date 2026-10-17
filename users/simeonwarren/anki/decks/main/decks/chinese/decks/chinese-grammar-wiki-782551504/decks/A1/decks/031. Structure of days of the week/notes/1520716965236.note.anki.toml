@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Numbers", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Structure of days of the week'
+english = "I'm not here in Shanghai on Wednesday."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '星期三我不在上海。'
+notes = ''
+pinyin = 'Xīngqīsān wǒ bù zài Shànghǎi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGVH4Q5'

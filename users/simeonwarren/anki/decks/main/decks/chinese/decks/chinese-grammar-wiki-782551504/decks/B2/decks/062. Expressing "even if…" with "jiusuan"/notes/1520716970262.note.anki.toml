@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "EvenIfStatements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "even if…" with "jiusuan"'
+english = "I'm full already. I don't want to eat anymore no matter how good the food taste."
+example-sentence = ''
+example-type = ''
+grammar-construct = '就算 + Subj. 1 + 再 ⋯⋯ ，Subj. 2 + 也 ⋯⋯'
+hanzi = '我已经吃饱了，就算再好吃，我也不想吃了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGLI513'

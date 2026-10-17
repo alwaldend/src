@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Result complements'
+english = 'Does everyone hear this clearly?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '没 + Verb + Adj.'
+hanzi = '大家都听清楚了吗？'
+notes = ''
+pinyin = 'Dàjiā dōu tīng qīngchu le ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNNMST'

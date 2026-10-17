@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "AdverbswithAdjectives", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Superlative "zui"'
+english = 'His student is the most serious.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '最 + Adj. (+ 了)'
+hanzi = '他的学生最认真了。'
+notes = 'This 了 is optional'
+pinyin = 'Tā de xuésheng zuì rènzhēn le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG3544U'

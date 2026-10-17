@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Measure words for verbs'
+english = 'Say it again.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + Number + Measure Word'
+hanzi = '再说一遍。'
+notes = ''
+pinyin = 'Zài shuō yī biàn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5AODR'

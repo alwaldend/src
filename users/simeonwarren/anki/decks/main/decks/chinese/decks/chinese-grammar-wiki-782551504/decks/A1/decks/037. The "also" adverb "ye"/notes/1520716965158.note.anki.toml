@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'The "also" adverb "ye"'
+english = 'Are they also French?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 也 + Verb / [Verb Phrase]'
+hanzi = '他们也是法国人吗？'
+notes = ''
+pinyin = 'Tāmen yě shì Fǎguó rén ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGG25MD'

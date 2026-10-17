@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Indicating the whole with "quan"'
+english = "The whole company doesn't like the new boss."
+example-sentence = ''
+example-type = ''
+grammar-construct = '全 + Noun + 都 + Predicate'
+hanzi = '全公司的人都不喜欢新老板。'
+notes = ''
+pinyin = 'Quán gōngsī de rén dōu bù xǐhuan xīn lǎobǎn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCPDSR'

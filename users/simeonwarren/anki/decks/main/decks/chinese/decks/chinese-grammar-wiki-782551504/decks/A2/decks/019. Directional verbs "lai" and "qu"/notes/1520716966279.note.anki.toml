@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Directional verbs "lai" and "qu"'
+english = 'Come to Nanjing Road now.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '来 / 去 + Place'
+hanzi = '你现在来南京路吧。'
+notes = ''
+pinyin = 'Nǐ xiànzài lái Nánjīng Lù ba.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGRBKSL'

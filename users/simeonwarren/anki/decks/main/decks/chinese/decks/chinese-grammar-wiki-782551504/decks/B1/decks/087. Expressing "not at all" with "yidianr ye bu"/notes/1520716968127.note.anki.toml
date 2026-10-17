@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "not at all" with "yidianr ye bu"'
+english = "My neighbor was too loud last night. I didn't even sleep a bit."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 一点 + 也 / 都 + 不 + Verb'
+hanzi = '邻居昨晚吵死了，我一点都没睡。'
+notes = ''
+pinyin = 'Línjū zuówǎn chǎo sǐ le, wǒ  yīdiǎn dōu méi shuì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGRURCZ'

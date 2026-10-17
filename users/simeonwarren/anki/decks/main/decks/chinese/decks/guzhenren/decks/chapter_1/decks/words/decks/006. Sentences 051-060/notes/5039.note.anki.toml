@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'cigarette;	smoke from burning incense.<br>Cl: 支, 条'
+example-sentence = '牌位两侧摆着赤铜香炉,香烟袅袅'
+example-type = ''
+grammar-construct = ''
+hanzi = '香烟'
+notes = ''
+pinyin = '<span class="tone1">xiāng</span><span class="tone1">yān</span>	 <!-- xiang yan -->'
+source = ''

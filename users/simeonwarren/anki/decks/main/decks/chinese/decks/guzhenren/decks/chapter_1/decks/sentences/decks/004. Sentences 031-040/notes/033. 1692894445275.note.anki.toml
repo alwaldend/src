@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'This kind of result, he has also foreseen.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '这种结果,他也早有预见。'
+notes = ''
+pinyin = ''
+source = ''

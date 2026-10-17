@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Grammatical_Structures", "NumbersandMeasureWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "every" with "mei"'
+english = 'Every dish is delicious.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '每 + Measure Word + Noun + 都'
+hanzi = '每个菜都好吃。'
+notes = ''
+pinyin = 'Měi gè cài dōu hěn hǎochī.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGB6L4M'

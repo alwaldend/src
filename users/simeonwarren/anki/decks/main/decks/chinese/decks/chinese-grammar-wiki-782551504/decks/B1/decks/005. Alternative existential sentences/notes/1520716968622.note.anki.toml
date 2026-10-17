@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Alternative existential sentences'
+english = 'My lunch is in the bag.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Place + 是 + [Noun Phrase]'
+hanzi = '袋子里是我的午饭。'
+notes = 'The only thing in the bag is my lunch.'
+pinyin = 'Dàizi lǐ shì wǒ de wǔfàn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGAC619'

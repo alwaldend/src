@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "TimeWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "gang" and "gangcai"'
+english = 'He just came.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '刚 + Verb'
+hanzi = '他刚来。'
+notes = 'This gives the impression that not only did he just get here, but he should still be here.'
+pinyin = 'Tā gāng lái.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJFFWG'

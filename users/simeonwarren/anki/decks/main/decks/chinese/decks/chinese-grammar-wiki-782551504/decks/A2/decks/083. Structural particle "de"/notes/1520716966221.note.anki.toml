@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Structural particle "de"'
+english = "You didn't do today's homework well because you didn't listen attentively in class."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Adj. + 地 +  Verb'
+hanzi = '今天的作业你做得不好，因为你没认真地听课。'
+notes = ''
+pinyin = 'Jīntiān de zuòyè nǐ zuò de bù hǎo, yīnwèi nǐ méi rènzhēn de tīngkè.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5MOMM'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adjectives", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Negative adjectives with "-si le"'
+english = "It's been so terribly busy these days!"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Adj. + 死了'
+hanzi = '这几天忙死了。'
+notes = 'Literally, "busy to death"'
+pinyin = 'Zhè jǐ tiān máng  sǐ le!'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGLEVUV'

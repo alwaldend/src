@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "compared with" with "gen"'
+english = 'Compared to Shanghai, prices in my hometown are a lot cheaper.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'B + 跟 + A + 比 ，  ~'
+hanzi = '跟上海比，我老家的物价便宜多了。'
+notes = ''
+pinyin = 'Gēn Shànghǎi bǐ, wǒ lǎojiā de wùjià piányi duō le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG920B7'

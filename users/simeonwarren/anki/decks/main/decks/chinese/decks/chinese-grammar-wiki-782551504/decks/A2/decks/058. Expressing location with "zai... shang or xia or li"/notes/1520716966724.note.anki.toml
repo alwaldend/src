@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing location with "zai... shang / xia / li"'
+english = 'in China'
+example-sentence = ''
+example-type = ''
+grammar-construct = '在 + Place'
+hanzi = '在中国'
+notes = ''
+pinyin = 'zài Zhōngguó'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGFBWZL'

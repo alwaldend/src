@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "AdverbswithAdjectives", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "a little too" with "you dian"'
+english = 'This dish is a little too spicy.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 有点(儿) + Adj.'
+hanzi = '这个菜有点辣。'
+notes = ''
+pinyin = 'Zhège cài yǒudiǎn là.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPM3MY'

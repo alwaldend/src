@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Verbs that take double objects'
+english = 'My dad is going to give me a very expensive birthday gift.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + [Indirect Obj.] + [Direct Obj.]'
+hanzi = '爸爸要送给我一个很贵的生日礼物。'
+notes = ''
+pinyin = 'Bàba yào sòng gěi wǒ yī gè hěn guì de  shēngrì lǐwù.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGI2OAG'

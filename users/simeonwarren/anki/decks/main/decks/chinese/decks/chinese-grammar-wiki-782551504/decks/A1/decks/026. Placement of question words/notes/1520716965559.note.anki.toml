@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Placement of question words'
+english = "When are you coming?<br>I'm coming tomorrow."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 什么时候 + Predicate ?'
+hanzi = 'A: 你什么时候来？<br>B: 我明天来。'
+notes = ''
+pinyin = 'Nǐ shénme shíhou lái?<br>Wǒ míngtiān lái.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJQPSC'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["AuxiliaryWords", "B1", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "hui" "neng" "keyi"'
+english = 'Is it possible for you to come al little earlier tomorrow?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '可以 / 能 + Verb'
+hanzi = '明天你能早点来吗？'
+notes = ''
+pinyin = 'Míngtiān nǐ néng zǎodiǎn lái ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGZL717'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Rhetorical questions with "nandao"'
+english = 'What are you, my mother or something?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '难道 + [Rhetorical Question]'
+hanzi = '难道你是我妈吗？'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMCP9V'

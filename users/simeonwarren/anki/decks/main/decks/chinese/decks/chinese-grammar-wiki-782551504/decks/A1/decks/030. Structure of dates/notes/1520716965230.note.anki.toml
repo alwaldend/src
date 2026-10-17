@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Numbers", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Structure of dates'
+english = 'I was born in July 1990.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'x 年 + y 月 + z 号'
+hanzi = '我1990年7月出生。'
+notes = ''
+pinyin = 'Wǒ Yī-jiǔ-jiǔ-líng nián Qīyuè chūshēng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGT3KF6'

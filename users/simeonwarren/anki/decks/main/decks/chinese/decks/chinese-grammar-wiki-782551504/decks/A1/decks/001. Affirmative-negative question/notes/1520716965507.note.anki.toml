@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Affirmative-negative question'
+english = 'Do you want rice?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 不 + Verb + Obj.'
+hanzi = '你们要不要米饭？'
+notes = ''
+pinyin = 'Nǐmen yào bu yào mǐfàn?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGZH7K3'

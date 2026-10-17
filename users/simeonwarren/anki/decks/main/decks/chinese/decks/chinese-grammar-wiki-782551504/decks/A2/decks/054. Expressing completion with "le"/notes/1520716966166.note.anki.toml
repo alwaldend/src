@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing completion with "le"'
+english = 'After you have found it, give me a call.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 了 + Obj.'
+hanzi = '你找到了以后，给我打电话。'
+notes = 'future action'
+pinyin = 'Nǐ zhǎodào​ le yǐhòu, gěi wǒ dǎ diànhuà.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGAGDCQ'

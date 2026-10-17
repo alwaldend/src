@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Grammatical_Structures", "Letalone"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "let alone" with "bie shuo"'
+english = "Don't even mention you, the teacher can't even know the answer to such a difficult question."
+example-sentence = ''
+example-type = ''
+grammar-construct = '别说 + A ， 连  / 就是+ B + 也 / 都 + Verb'
+hanzi = '这么难的问题，别说你，就是老师也不知道答案。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGR6Q2J'

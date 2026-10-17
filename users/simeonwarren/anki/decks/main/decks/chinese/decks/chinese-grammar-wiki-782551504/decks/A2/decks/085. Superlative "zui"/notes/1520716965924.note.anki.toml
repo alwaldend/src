@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "AdverbswithAdjectives", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Superlative "zui"'
+english = 'Who is the richest?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '最 + Adj.'
+hanzi = '谁最有钱？'
+notes = ''
+pinyin = 'Shéi zuì yǒuqián?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG3544U'

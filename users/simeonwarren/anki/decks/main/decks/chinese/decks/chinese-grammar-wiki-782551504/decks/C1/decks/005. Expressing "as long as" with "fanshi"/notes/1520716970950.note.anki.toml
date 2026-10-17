@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "C1"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "as long as" with "fanshi"'
+english = "As long as the food is made of egg, he wouldn't like."
+example-sentence = ''
+example-type = ''
+grammar-construct = '凡是 +  Noun / Noun Phrase＋都 / 就 / 一律 / 无不＋ Verb'
+hanzi = '凡是用鸡蛋做的菜，他都不喜欢。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG38F8A'

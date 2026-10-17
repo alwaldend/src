@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "duiyu" and "zhiyu"'
+english = "I'm not happy, but not to the point that I won't talk with you."
+example-sentence = ''
+example-type = ''
+grammar-construct = '（不）至于 +  Degree'
+hanzi = '我是不高兴，但不至于不跟你说话。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGC01S0'

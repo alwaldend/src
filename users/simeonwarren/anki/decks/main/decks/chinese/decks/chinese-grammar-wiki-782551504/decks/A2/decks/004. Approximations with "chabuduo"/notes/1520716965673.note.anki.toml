@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Approximations with "chabuduo"'
+english = 'About two weeks ago I met with him in Beijing.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '差不多 ＋ [Quantity Phrase] / [Time Phrase]'
+hanzi = '差不多两个星期以前，我在北京见过他。'
+notes = ''
+pinyin = 'Chàbuduō liǎng gè xīngqī yǐqián, wǒ zài Běijīng jiàn guo tā.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG1NAXO'

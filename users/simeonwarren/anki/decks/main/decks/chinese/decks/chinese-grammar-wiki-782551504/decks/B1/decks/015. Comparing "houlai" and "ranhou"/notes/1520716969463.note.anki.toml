@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "TimeWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "houlai" and "ranhou"'
+english = ''
+example-sentence = ''
+example-type = 'invalid'
+grammar-construct = 'Action 1，然后 + Action 2'
+hanzi = '我们想先去美国，后来去加拿大。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGA3RJD'

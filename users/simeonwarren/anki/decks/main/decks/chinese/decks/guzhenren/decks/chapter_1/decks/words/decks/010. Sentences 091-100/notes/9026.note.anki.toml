@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'to listen;	to hear;	to obey;	a can (loanword from English "tin");	classifier for canned beverages.<br>(literary pronunciation, still advocated in Taiwan) to rule;	to sentence;	to allow.<br>smile (archaic).<br>'
+example-sentence = '  家老们听了这话,都微微一怔'
+example-type = ''
+grammar-construct = ''
+hanzi = '听'
+notes = ''
+pinyin = '<span class="tone5">tīngtìngyǐn</span>	 <!-- ting ting yin -->'
+source = ''

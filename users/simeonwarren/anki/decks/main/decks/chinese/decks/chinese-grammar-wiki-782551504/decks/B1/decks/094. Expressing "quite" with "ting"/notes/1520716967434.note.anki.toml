@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["AdverbswithAdjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "quite" with "ting"'
+english = "Isn't his family is quite rich?"
+example-sentence = ''
+example-type = ''
+grammar-construct = '挺 + Adj. + 的'
+hanzi = '他家不是挺有钱的吗？'
+notes = ''
+pinyin = 'Tā jiā bù shì tǐng yǒuqián de ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDF1F7'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Giving perspective with "yaowoshuo"'
+english = "I think you guys should break up. He's not right for you."
+example-sentence = ''
+example-type = ''
+grammar-construct = '要我说， Opinion'
+hanzi = '要我说，你们还是分手吧，他不适合你。'
+notes = ''
+pinyin = 'Yào wǒ shuō, nǐmen háishì fēnshǒu ba, tā bù shìhé nǐ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGITYYM'

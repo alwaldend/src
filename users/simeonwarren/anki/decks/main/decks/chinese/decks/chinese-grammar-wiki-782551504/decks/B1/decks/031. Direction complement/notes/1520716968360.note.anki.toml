@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Direction complement'
+english = 'The boss is asking you to go over to his office right now.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '到 + Place + 来 / 去'
+hanzi = '老板让你马上到他办公室去。'
+notes = ''
+pinyin = 'Lǎobǎn ràng nǐ mǎshàng dào tā bàngōngshì qù.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8LWBJ'

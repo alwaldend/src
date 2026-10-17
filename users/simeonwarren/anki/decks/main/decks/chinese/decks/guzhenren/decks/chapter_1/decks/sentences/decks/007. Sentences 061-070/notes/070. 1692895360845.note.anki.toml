@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = "I don't know who it is, but when the name Bai Ningbing was mentioned, the faces of all the elders couldn't help showing a layer of worry."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '不知是谁,提及到白凝冰这个名字,众家老的脸上不由地浮现出一层忧色。'
+notes = ''
+pinyin = ''
+source = ''

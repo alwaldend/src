@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Numbers", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Age with "sui"'
+english = 'Is your grandpa eighty years old this year?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Number + 岁'
+hanzi = '你爷爷今年80岁吗？'
+notes = ''
+pinyin = 'Nǐ yéye jīnnián bāshí suì ma？'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQUKJF'

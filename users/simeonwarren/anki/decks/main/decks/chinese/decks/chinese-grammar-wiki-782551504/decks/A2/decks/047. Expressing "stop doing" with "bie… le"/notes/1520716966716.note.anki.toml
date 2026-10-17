@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "stop doing" with "bie… le"'
+english = 'Stop doing it. Do it tomorrow.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '别 + Verb / [Verb Phrase] + 了'
+hanzi = '别做了，明天再做吧。'
+notes = ''
+pinyin = 'Bié zuò le, míngtiān zài zuò ba.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGZ8OIF'

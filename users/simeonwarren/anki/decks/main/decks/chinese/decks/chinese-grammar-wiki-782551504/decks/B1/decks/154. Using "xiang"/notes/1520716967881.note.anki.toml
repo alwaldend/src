@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "xiang"'
+english = "He hasn't confessed to me yet."
+example-sentence = ''
+example-type = ''
+grammar-construct = '向 + Person + Verb'
+hanzi = '他还没向我表白。'
+notes = ''
+pinyin = 'Tā hiáméi xiàng wǒ biǎobái.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQXARS'

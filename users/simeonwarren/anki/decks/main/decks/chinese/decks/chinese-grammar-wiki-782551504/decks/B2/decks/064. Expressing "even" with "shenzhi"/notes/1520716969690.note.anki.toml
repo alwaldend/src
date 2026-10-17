@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "even" with "shenzhi"'
+english = "My boyfriend likes swimming a lot. He goes swimming even when it's winter."
+example-sentence = ''
+example-type = ''
+grammar-construct = '⋯⋯，甚至 ⋯⋯'
+hanzi = '我男朋友很喜欢游泳，甚至连冬天也游。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGKWV6F'

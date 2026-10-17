@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "EvenIfStatements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "even if…" with "jishi"'
+english = "Even if you don't want to listen, you still have to pretend to be interested."
+example-sentence = ''
+example-type = ''
+grammar-construct = '即使 + Hypothetical Statement + 也 + Action'
+hanzi = '你即使不想听，也应该假装感兴趣。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGBUXN7'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Indicating purpose or intent using "shi...de"'
+english = 'Are you here to help us? Really?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Person + 是 + 来 / 去 + Verb Phrase + 的'
+hanzi = '你真的是来帮我们的吗？'
+notes = ''
+pinyin = 'Nǐ zhēnde  shì lái bāng wǒmen de ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG0UFR4'

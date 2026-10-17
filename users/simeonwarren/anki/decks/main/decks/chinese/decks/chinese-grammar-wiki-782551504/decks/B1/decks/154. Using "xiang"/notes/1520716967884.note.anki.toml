@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "xiang"'
+english = "None of us have experience. We're here to get some experience from you."
+example-sentence = ''
+example-type = ''
+grammar-construct = '向 + Person + Verb'
+hanzi = '我们都没经验，是来向你取经的。'
+notes = ''
+pinyin = 'Wǒmen dōu méi jīngyàn, lái xiàng nǐ qǔjīng de.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQXARS'

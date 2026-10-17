@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "TimeWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "yihou" and "houlai"'
+english = 'We broke up last year, after that, I never saw her again.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Past Event 1 + 后来 + Past Event 2'
+hanzi = '去年我们分手了，后来再也没见过她。'
+notes = ''
+pinyin = 'Qùnián wǒmen fēnshǒu le, hòulái zài yě méi jiàn guo tā.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNPJ7T'

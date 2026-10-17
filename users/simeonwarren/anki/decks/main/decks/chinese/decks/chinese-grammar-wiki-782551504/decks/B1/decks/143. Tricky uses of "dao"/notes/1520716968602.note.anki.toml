@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Tricky uses of "dao"'
+english = 'Have you thought of any good methods yet?'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '你想到了什么好办法？'
+notes = ''
+pinyin = 'Nǐ xiǎngdào le shénme hǎo bànfǎ?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCUSIV'

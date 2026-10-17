@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Indicating the whole with "quan"'
+english = "You've finished all your homework?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 全都 + Predicate'
+hanzi = '作业全都做完了吗？'
+notes = ''
+pinyin = 'Zuòyè quán dōu zuò wán le ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCPDSR'

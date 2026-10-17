@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Degree complement'
+english = "You're doing a great job."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 得 + [Degree Complement]'
+hanzi = '你做得不错。'
+notes = ''
+pinyin = 'Nǐ zuò de bùcuò.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG79STE'

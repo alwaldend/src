@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'to be situated;	to be located (of a building).'
+example-sentence = ' 正是坐落在青茅山的古月山寨,给广袤幽静的山峦增添了一份浓郁的人烟气息'
+example-type = ''
+grammar-construct = ''
+hanzi = '坐落'
+notes = ''
+pinyin = '<span class="tone4">zuò</span><span class="tone4">luò</span>	 <!-- zuo luo -->'
+source = ''

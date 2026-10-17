@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Structural particle "de"'
+english = 'live very comfortably'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 得'
+hanzi = '住得很舒服'
+notes = ''
+pinyin = 'zhù de hěn shūfu'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5MOMM'

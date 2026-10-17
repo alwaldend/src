@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "on the basis of" with "ping"'
+english = "She's always been honest, how can you mistrust her?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 凭什么 + Verb Phrase'
+hanzi = '她一直很忠诚，你凭什么怀疑她？'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGGB3IV'

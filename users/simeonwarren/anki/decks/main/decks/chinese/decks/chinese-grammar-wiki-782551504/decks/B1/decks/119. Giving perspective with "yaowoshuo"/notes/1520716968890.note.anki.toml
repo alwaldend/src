@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Giving perspective with "yaowoshuo"'
+english = "The way I see it, this is something we shouldn't tell Mom and Dad."
+example-sentence = ''
+example-type = ''
+grammar-construct = '要我说， Opinion'
+hanzi = '要我说，这件事先不要告诉爸妈。'
+notes = ''
+pinyin = 'Yào wǒ shuō, zhè jiàn shì xiān bùyào gàosu bà mā.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGITYYM'

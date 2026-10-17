@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "li" and "cong"'
+english = 'He picked up one hundred RMB from the ground.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '从 + Place + 到 / 向 + Place'
+hanzi = '他从地上拿起来了一百块。'
+notes = ''
+pinyin = 'Tā cóng dìshàng ná qǐláile yībǎi kuài.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG59C66'

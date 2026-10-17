@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "AdverbswithAdjectives", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Intensifying with "duo"'
+english = 'How convenient it is to take the metro!'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 多 + Adj.'
+hanzi = '坐地铁多方便！'
+notes = ''
+pinyin = 'Zuò dìtiě duō fāngbiàn!'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGGH7RR'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "AdverbswithAdjectives", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Modifying nouns with phrase + "de"'
+english = "the foreigners that don't like Chinese food"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Phrase + 的 + Noun'
+hanzi = '不喜欢中国菜的老外'
+notes = ''
+pinyin = 'bù xǐhuan  Zhōngguó cài de lǎowài'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGLQKD2'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "together" with "yiqi"'
+english = 'In the morning, I go to work together with my husband.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 一起 + Verb + Obj.'
+hanzi = '早上我和老公一起去上班。'
+notes = ''
+pinyin = 'Zǎoshang wǒ hé lǎogōng yīqǐ qù shàngbān.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNVE15'

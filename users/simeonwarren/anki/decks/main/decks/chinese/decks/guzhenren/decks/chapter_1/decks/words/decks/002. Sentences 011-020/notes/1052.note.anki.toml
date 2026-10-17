@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'clique;	school;	group;	faction;	to dispatch;	to send;	to assign;	to appoint;	pi (Greek letter Ππ);	the circular ratio pi = 3.1415926;	(loanword) pie.'
+example-sentence = ' 围攻他的正道群雄,不是堂堂一派之长者尊贵,就是名动四方之少年英豪'
+example-type = ''
+grammar-construct = ''
+hanzi = '派'
+notes = ''
+pinyin = '<span class="tone4">pài</span>	 <!-- yi pai -->'
+source = ''

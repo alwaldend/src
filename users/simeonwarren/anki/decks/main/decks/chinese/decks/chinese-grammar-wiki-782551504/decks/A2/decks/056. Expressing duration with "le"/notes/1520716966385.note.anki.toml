@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing duration with "le"'
+english = 'Last weekend, my husband and I drove three hours to our hometown.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + [Time Word] + Verb + 了 + Duration + Obj.'
+hanzi = '上个周末我和老公开了三个小时车回老家。'
+notes = ''
+pinyin = 'Shàng gè zhōumò wǒ hé lǎogōng kāi le sān gè xiǎoshí chē huí lǎojiā.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJ36VN'

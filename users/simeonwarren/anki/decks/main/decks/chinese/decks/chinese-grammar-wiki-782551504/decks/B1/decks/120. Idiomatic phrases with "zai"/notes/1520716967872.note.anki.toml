@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Idiomatic phrases with "zai"'
+english = 'In emergencies, you can do that.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '在 ⋯⋯ 下 ，⋯⋯'
+hanzi = '在紧急情况下，你可以这样做。'
+notes = ''
+pinyin = 'Zài jǐnjí qíngkuàng xià, nǐ kěyǐ zhèyàng zuò.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGH13JY'

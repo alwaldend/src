@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "AdverbswithAdjectives", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Basic comparisons with "yiyang"'
+english = 'Are the meanings of this word and that word the same?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun 1 + 跟 / 和 + Noun 2 + 一样'
+hanzi = '这个词的意思和那个词一样吗？'
+notes = ''
+pinyin = 'Zhège cí de yìsi hé nàge cí yīyàng ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGC06N0'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Advanced use of "you"'
+english = "Mother washed this clothing again and again, and it's finally clean."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. ＋Verb + 了 + 又 + Verb，还是 / 就是 ……'
+hanzi = '这件衣服妈妈洗了又洗，终于洗干净了。'
+notes = ''
+pinyin = 'Zhè jiàn yīfu māma xǐ  le yòu xǐ, zhōngyú xǐ gānjìng le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGF08B6'

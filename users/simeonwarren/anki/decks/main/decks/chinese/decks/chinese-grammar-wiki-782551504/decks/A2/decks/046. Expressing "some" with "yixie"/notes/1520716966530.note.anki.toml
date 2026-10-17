@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Grammatical_Structures", "NounPhrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "some" with "yixie"'
+english = 'Give me some time, OK?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '一些 + Noun'
+hanzi = '给我一些时间，好吗？'
+notes = ''
+pinyin = 'Gěi wǒ yīxiē shíjiān, hǎo ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWVZ0T'

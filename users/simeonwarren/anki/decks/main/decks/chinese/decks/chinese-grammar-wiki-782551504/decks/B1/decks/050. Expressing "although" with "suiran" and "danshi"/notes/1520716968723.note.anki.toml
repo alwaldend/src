@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "although" with "suiran" and "danshi"'
+english = "Although we all prepared very well, we're still a little nervous."
+example-sentence = ''
+example-type = ''
+grammar-construct = '虽然 ⋯⋯ ，但是 / 可是 ⋯⋯'
+hanzi = '虽然我们准备得很好，但是还是有点紧张。'
+notes = ''
+pinyin = 'Suīrán wǒmen zhǔnbèi de hěn hǎo, dànshì háishì yǒudiǎn jǐnzhāng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGXI560'

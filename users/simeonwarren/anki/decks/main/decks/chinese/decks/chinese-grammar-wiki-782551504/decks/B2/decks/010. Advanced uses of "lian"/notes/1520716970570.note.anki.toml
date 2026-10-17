@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Advanced uses of "lian"'
+english = "You guys didn't even taste it at all and you say it's not tasty?"
+example-sentence = ''
+example-type = ''
+grammar-construct = '连 + Verb + 都 + 不 / 没 + Verb (，就 ⋯⋯)'
+hanzi = '你们连尝都没尝就说不好吃？'
+notes = ''
+pinyin = 'Nǐmen lián cháng dōu méi cháng jiù shuō bù hǎochī?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGF273F'

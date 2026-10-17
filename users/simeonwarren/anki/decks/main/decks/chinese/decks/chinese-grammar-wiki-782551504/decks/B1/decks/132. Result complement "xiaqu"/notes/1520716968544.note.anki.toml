@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Result complement "xiaqu"'
+english = "This food is disgusting, I can't keep eating it."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 不 + 下去'
+hanzi = '这个菜很难吃,我吃不下去。'
+notes = ''
+pinyin = 'Zhège cài hěn nán chī, wǒ chī bù xiàqù.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG1PTJX'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing purpose with "weile"'
+english = 'In order to reward everyone, the company will take you on a trip to Japan next year.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '为了 ⋯⋯ ，Subj. ⋯⋯'
+hanzi = '为了奖励大家，公司明年带你们去日本旅行。'
+notes = ''
+pinyin = 'Wèile jiǎnglì dàjiā, gōngsī míngnián dài nǐmen qù Rìběn lǚxíng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQGJXT'

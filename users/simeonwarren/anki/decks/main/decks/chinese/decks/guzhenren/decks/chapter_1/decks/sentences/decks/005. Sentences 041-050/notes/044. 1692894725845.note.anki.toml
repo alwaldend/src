@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'It was late at night, and the cool breeze was blowing the drizzle.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '夜已经深了,丝丝凉风吹拂着细雨。'
+notes = ''
+pinyin = ''
+source = ''

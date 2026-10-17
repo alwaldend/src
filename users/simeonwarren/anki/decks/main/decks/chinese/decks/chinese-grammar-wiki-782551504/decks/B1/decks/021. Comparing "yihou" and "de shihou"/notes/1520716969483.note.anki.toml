@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "TimeWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "yihou" and "de shihou"'
+english = "Company rules say that you can't chat on QQ when you're at work."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 以后／的时候， Comment'
+hanzi = '公司规定工作的时候不能用QQ聊天。'
+notes = ''
+pinyin = '<div>Gōngsī guīdìng gōngzuò de shíhòu bùnéng yòng QQ liáotiān.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGLNKZR'

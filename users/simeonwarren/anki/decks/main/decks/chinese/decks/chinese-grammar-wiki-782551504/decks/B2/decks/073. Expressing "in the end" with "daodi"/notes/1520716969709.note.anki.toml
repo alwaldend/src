@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "in the end" with "daodi"'
+english = 'He finally understood.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '到底＋Verb＋了'
+hanzi = '他到底想明白了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTVEHJ'

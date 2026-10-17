@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using the verb "qu"'
+english = "Let's go eat."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 去 + Verb'
+hanzi = '我们去吃饭吧。'
+notes = ''
+pinyin = 'Wǒmen qù chīfàn ba.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGFYNCL'

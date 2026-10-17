@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'to hear (sth said);	one hears (that);	hearsay;	listening and speaking.'
+example-sentence = '近些年他创作的 将敬酒 、 咏梅 ,还有 江城子 我也听说过,真是天才'
+example-type = ''
+grammar-construct = ''
+hanzi = '听说'
+notes = ''
+pinyin = '<span class="tone1">tīng</span><span class="tone1">shuō</span>	 <!-- ting shuo -->'
+source = ''

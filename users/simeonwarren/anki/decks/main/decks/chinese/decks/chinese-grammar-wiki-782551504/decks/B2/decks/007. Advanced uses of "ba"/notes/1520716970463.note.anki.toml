@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Advanced uses of "ba"'
+english = 'Kids treat small things in the house as toys.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '把 + Obj.+ 当成 / 看成 / 当作 / 看作 +⋯⋯'
+hanzi = '孩子可以把家里的很多小东西当作玩具。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQRS3P'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "always" with "conglai"'
+english = "He's always won when we play chess."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 从来 + 都 + Predicate'
+hanzi = '我们下棋，从来都是他赢。'
+notes = ''
+pinyin = 'Wǒmen xiàqí, cónglái dōu shì tā yíng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8KUHG'

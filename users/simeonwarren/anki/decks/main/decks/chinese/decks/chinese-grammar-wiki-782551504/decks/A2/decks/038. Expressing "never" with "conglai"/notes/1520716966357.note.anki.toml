@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "never" with "conglai"'
+english = 'My girlfriend never calls me.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 从来 + 不 + [Verb Phrase]'
+hanzi = '我女朋友从不给我打电话。'
+notes = '来 has been omitted here.'
+pinyin = 'Wǒ nǚpéngyou cóng bù gěi wǒ dǎ diànhuà.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8NM5E'

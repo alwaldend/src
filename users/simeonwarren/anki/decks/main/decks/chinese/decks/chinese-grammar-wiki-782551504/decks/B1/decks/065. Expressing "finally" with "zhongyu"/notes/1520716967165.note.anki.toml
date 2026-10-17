@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "finally" with "zhongyu"'
+english = "Dinner is finally ready. I'm starving."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 终于 + Verb Phrase + 了'
+hanzi = '饭终于做好了。我快饿死了。'
+notes = ''
+pinyin = 'Fàn zhōngyú zuò hǎo le. Wǒ kuài è sǐ le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG700A5'

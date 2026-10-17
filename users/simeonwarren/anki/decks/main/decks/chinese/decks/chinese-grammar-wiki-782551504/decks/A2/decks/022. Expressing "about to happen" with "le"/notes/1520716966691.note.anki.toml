@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "about to happen" with "le"'
+english = 'The food is about to be cold.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '快 + Adj. + 了'
+hanzi = '饭快凉了。'
+notes = ''
+pinyin = 'Fàn kuài liáng le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNGEU8'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Assessing situations with "kanlai"'
+english = "The way I see it, people who won't spend money aren't going to enjoy life."
+example-sentence = ''
+example-type = ''
+grammar-construct = '在 + Person + 看来 + Perspective'
+hanzi = '在我看来，不会花钱的人就不会享受生活。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJPQ0Q'

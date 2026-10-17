@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "in addition" with "zaishuo"'
+english = "That piece of clothing is too expensive. I didn't buy it. Besides, it's not so beautiful."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Clause 1，再说 + Clause 2'
+hanzi = '那件衣服太贵了，我没买。再说，也不是很好看。'
+notes = ''
+pinyin = 'Nà jiàn yīfu tài guì le, wǒ méi mǎi. Zàishuō, yě bù shì hěn hǎokàn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGATDLX'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "NumbersandMeasureWords", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "ji" to mean "several"'
+english = 'We sold a couple thousand books this month.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '几 + 百 / 千 / 万 + Measure Word + Noun'
+hanzi = '这个月我们卖了几千本书。'
+notes = ''
+pinyin = 'Zhège yuè wǒmen mài le jǐ qiān běn shū.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGHC9CA'

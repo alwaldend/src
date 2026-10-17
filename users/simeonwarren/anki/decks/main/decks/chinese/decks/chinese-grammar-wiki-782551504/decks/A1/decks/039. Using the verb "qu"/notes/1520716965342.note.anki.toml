@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using the verb "qu"'
+english = "In the afternoon, I'll go to the supermarket."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 去 + [Place]'
+hanzi = '下午我会去超市。'
+notes = ''
+pinyin = 'Xiàwǔ wǒ huì qù chāoshì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGFYNCL'

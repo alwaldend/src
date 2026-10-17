@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Parts_of_Speech", "PrepositionalPhrase"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Defining scope'
+english = 'This winter, the temperature has been less than 0 degrees.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '级别 / 次序 / 数目 + 以上 / 以下'
+hanzi = '这里的冬天气温都在零度以下。'
+notes = ''
+pinyin = 'Zhèlǐ de dōngtiān qìwēn dōu zài língdù yǐxià.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG7AE5C'

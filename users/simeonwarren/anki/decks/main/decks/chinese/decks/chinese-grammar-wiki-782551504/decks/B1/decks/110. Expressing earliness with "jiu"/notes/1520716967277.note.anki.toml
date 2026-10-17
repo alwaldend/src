@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing earliness with "jiu"'
+english = 'This shop closed a long time ago.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Time  Word + 就 + Verb + Obj. + 了'
+hanzi = '这家店早就关门了。'
+notes = ''
+pinyin = 'Zhè jiā diàn zǎo jiù guānmén le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGKITRZ'

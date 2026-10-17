@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Auxiliaryverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Auxiliary verb "yao" and its multiple meanings'
+english = 'What do you want?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 要 + Noun'
+hanzi = '你要什么？'
+notes = ''
+pinyin = 'Nǐ yào shénme?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG95AL1'

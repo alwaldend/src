@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Verbs that take double objects'
+english = 'Can you lend me 2000 kuai?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + [Indirect Obj.] + [Direct Obj.]'
+hanzi = '你可以借我两千块钱吗？'
+notes = ''
+pinyin = 'Nǐ kěyǐ jiè wǒ liǎng qiān kuài qián ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGI2OAG'

@@ -1,0 +1,13 @@
+note_type = "note_types/python-basic-and-reversed.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+additional-info = 'A frozenset is a set that can’t be updated.'
+answer = '<b>Built in function: </b>frozenset(<i>iterable</i>)'
+example = ''
+question = '<b>Built in function</b> that returns a frozenset object from an iterable.'
+version = ''
+with-options = ''

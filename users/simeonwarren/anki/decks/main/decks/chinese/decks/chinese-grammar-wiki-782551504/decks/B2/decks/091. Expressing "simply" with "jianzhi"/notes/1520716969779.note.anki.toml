@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "simply" with "jianzhi"'
+english = 'His test grades are simply fantastic!'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 简直 + Adj.'
+hanzi = '他的考试成绩简直好极了！'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8OLAE'

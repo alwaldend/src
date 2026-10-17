@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "much more" in comparisons'
+english = "You're even busier than the boss?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun 1 + 比 + Noun 2 + 更 / 还 + Adj.'
+hanzi = '你比老板还忙？'
+notes = ''
+pinyin = 'Nǐ bǐ lǎobǎn hái máng?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG6KUS5'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "about to" with "jiuyao"'
+english = 'In another month it will be Chinese New Year.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '还有 + Time (+ Subj.) + 就 (要) + Verb + 了'
+hanzi = '还有一个月就要过年了。'
+notes = ''
+pinyin = 'Háiyǒu yī gè yuè jiù yào guònián le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG9B210'

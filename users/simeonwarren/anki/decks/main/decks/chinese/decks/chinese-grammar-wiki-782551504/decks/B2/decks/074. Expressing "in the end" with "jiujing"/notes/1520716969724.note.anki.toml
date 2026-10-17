@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "in the end" with "jiujing"'
+english = 'Businessman is businessman after all. The most important thing to them is making money.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A＋究竟 + 是＋ A，……'
+hanzi = '生意人究竟是生意人，对他们来说，赚钱是最重要的。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDK0BR'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'How to do something with "zenme"'
+english = 'Do you know how to get to the Bund?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 怎么 + Verb + Obj.'
+hanzi = '你知道怎么去外滩吗？'
+notes = ''
+pinyin = 'Nǐ zhīdào zěnme qù​ Wàitān ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGH2MNO'

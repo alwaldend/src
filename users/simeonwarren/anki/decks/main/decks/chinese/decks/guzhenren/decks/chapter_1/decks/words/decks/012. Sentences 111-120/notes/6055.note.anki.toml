@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = '(stage) lighting;	light.'
+example-sentence = ' 眼中倒映着点点灯光,族长长叹一声'
+example-type = ''
+grammar-construct = ''
+hanzi = '灯光'
+notes = ''
+pinyin = '<span class="tone1">dēng</span><span class="tone1">guāng</span>	 <!-- deng guang -->'
+source = ''

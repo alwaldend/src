@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'as far as the eye can see.'
+example-sentence = ' 这是阁楼第三层,族长放眼望去,大半个古月山寨都一览无余'
+example-type = ''
+grammar-construct = ''
+hanzi = '放眼望去'
+notes = ''
+pinyin = '<span class="tone4">fàng</span><span class="tone3">yǎn</span><span class="tone4">wàng</span><span class="tone4">qù</span>	 <!-- fang yan wang qu -->'
+source = ''

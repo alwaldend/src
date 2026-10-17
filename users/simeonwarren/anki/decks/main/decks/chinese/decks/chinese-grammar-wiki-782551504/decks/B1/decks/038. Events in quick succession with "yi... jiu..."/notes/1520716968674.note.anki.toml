@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Events in quick succession with "yi... jiu..."'
+english = 'Every time she eats hotpot, she has diarrhea.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 一 + Situation / Reason，就 + Result'
+hanzi = '她一吃火锅就拉肚子。'
+notes = ''
+pinyin = 'Tā yī chī huǒguō jiù lādùzi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTFUD0'

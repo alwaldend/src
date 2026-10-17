@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing location with "zai... shang / xia / li"'
+english = 'Walmart is next to my house.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '在 + Location+ 上 / 下 / 里 / 旁边'
+hanzi = 'Walmart在我家旁边。'
+notes = ''
+pinyin = 'Walmart zài wǒ jiā pángbiān.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGFBWZL'

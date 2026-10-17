@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Indicating purpose or intent using "shi...de"'
+english = 'Money is for spending, not for saving.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Thing + 是 + 给 + Person + Verb + 的'
+hanzi = '钱是用来花的，不是用来省的。'
+notes = ''
+pinyin = 'Qián shì yònglái huā de, bù shì yònglái shěng de.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG0UFR4'

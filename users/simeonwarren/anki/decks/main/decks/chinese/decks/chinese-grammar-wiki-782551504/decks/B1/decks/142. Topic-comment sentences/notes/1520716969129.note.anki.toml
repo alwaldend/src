@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Topic-comment sentences'
+english = 'My younger brother broke my pen.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Topic ，Comment'
+hanzi = '我的笔，弟弟弄坏了。'
+notes = ''
+pinyin = 'Wǒ de bǐ, dìdi nòng huài le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5KNWW'

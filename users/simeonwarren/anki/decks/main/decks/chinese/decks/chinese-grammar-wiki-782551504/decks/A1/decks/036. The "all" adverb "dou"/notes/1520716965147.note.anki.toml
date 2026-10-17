@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'The "all" adverb "dou"'
+english = 'Tomorrow we all can go.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 都 + [Verb Phrase]'
+hanzi = '明天我们都可以去。'
+notes = ''
+pinyin = 'Míngtiān wǒmen dōu kěyǐ qù.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG9YK09'

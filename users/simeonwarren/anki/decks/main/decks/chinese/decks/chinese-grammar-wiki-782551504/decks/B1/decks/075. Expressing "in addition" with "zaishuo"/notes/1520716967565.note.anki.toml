@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "in addition" with "zaishuo"'
+english = "I don't want to get married yet because I'm still young. Besides, I haven't met the right one."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Clause 1，再说 + Clause 2'
+hanzi = '我还小，不想结婚。再说，也没遇到合适的人。'
+notes = ''
+pinyin = 'Wǒ hái xiǎo, bù xiǎng jiéhūn. Zàishuō, yě méi yùdào héshì de rén.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGATDLX'

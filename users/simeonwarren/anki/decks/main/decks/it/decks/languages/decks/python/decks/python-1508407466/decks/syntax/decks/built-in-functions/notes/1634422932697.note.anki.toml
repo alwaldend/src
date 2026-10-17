@@ -1,0 +1,13 @@
+note_type = "note_types/python-basic-and-reversed.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<b>Built in function:&nbsp;</b>exec(<i>object</i>)'
+example = ''
+question = '<b>Built in function</b>&nbsp;that executes the specified code or object.'
+version = ''
+with-options = ''

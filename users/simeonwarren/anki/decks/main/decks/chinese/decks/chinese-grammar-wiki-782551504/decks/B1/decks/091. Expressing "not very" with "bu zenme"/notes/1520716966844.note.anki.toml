@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "not very" with "bu zenme"'
+english = "This student isn't very hard-working."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不怎么 + Adj. / [Psychological Verb]'
+hanzi = '这个学生不怎么努力。'
+notes = ''
+pinyin = 'Zhège xuéshēng bù zěnme nǔlì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGVYIZT'

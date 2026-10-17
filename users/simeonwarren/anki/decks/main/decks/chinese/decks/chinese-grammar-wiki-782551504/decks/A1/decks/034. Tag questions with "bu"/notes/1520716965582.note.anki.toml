@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Tag questions with "bu"'
+english = "Let's go to a movie this weekend, OK?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 不 + Verb'
+hanzi = '周末去看电影，好不好？'
+notes = ''
+pinyin = 'Zhōumò qù kàn diànyǐng, hǎo bu hǎo?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG4D8XB'

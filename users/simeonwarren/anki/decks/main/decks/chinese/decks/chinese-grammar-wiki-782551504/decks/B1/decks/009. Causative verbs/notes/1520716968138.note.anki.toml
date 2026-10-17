@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Causative verbs'
+english = 'This movie really moves people.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + [Causative Verb] + Person + Predicate'
+hanzi = '这部电影让人很感动。'
+notes = ''
+pinyin = 'Zhè bù diànyǐng ràng rén hěn gǎndòng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5T7XC'

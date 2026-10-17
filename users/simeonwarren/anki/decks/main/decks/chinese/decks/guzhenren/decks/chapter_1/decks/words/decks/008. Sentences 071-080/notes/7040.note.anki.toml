@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'March;	third month (of the lunar year).'
+example-sentence = '三月能言,四月能走'
+example-type = ''
+grammar-construct = ''
+hanzi = '三月'
+notes = ''
+pinyin = '<span class="tone1">sān</span><span class="tone4">yuè</span>	 <!-- san yue -->'
+source = ''

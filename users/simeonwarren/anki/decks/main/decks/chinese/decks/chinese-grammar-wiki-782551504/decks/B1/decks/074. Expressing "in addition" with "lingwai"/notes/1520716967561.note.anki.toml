@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "in addition" with "lingwai"'
+english = "They can't accomplish this project. I suggest you find some other people to do it."
+example-sentence = ''
+example-type = ''
+grammar-construct = '另外 + [Verb Phrase]'
+hanzi = '这个项目他们做不好，我建议你们另外找人来做。'
+notes = ''
+pinyin = 'Zhège xiàngmù tāmen zuò bu hǎo, wǒ jiànyì nǐmen lìngwài zhǎo rén lái zuò.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG2KQZI'

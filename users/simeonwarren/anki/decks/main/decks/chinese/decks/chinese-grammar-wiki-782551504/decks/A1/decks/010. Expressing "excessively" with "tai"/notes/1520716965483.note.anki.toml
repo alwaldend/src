@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Basics", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "excessively" with "tai"'
+english = 'He is very handsome.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '太 + Adj. + 了'
+hanzi = '他太帅了。'
+notes = ''
+pinyin = 'Tā tài shuài le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8HVFN'

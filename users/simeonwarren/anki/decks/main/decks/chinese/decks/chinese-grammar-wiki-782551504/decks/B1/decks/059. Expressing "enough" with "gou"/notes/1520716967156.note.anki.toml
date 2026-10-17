@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "enough" with "gou"'
+english = "You order takeout every day. Haven't you gotten sick of eating it?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 够 (+ 了)'
+hanzi = '你天天都叫外卖，还没吃够吗？'
+notes = ''
+pinyin = 'Nǐ tiāntiān dū jiào wàimài, hái méi chī gòu ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG49BE6'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "everything" with "shenme dou"'
+english = "She didn't say anything at yesterday's meeting."
+example-sentence = ''
+example-type = ''
+grammar-construct = '什么 + Noun + 都 / 也 + 没 (有) + Verb'
+hanzi = '昨天开会的时候，她什么话也没说。'
+notes = ''
+pinyin = 'Zuótiān kāihuì de shíhou, tā shénme huà yě méi shuō.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGAQV6C'

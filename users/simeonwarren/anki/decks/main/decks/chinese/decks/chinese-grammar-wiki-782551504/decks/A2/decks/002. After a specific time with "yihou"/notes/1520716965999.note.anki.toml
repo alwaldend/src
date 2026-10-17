@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'After a specific time with "yihou"'
+english = 'After we get off work, would you like to go play ball with us?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Time / Verb + 以后, ....'
+hanzi = '下班以后你想跟我们一起去打球吗?'
+notes = ''
+pinyin = 'Xiàbān yǐhòu, nǐ xiǎng gēn wǒmen yīqǐ qù dǎqiú ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGRLQGY'

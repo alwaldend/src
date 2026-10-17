@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Grammatical_Structures", "NounPhrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "some" with "yixie"'
+english = 'After class, the students asked some questions.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '一些 + Noun'
+hanzi = '下课以后，学生们问了一些问题。'
+notes = ''
+pinyin = 'Xiàkè yǐhòu, xuéshengmen wèn le yīxiē wèntí.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWVZ0T'

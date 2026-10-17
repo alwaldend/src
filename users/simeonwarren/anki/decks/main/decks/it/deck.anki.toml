@@ -1,0 +1,4 @@
+preset = "Default"
+
+[normal]
+extend_new = 40

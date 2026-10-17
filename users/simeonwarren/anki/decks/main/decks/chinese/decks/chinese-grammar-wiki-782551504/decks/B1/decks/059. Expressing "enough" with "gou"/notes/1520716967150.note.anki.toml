@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "enough" with "gou"'
+english = "You bag is too small. This stuff definitely can't fit in it."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不够 + Verb'
+hanzi = '你的包太小了，这些东西肯定不够放。'
+notes = ''
+pinyin = 'Nǐ de bāo tài xiǎo le, zhème duō dōngxi kěndìng bùgòu fàng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG49BE6'

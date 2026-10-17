@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing not knowing how to do something using "hao"'
+english = "Mom doesn't know where to put these stuff."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不知道 + Verb Phrase + 好'
+hanzi = '这些东西妈妈不知道放在哪儿好。'
+notes = ''
+pinyin = 'Zhèxiē dōngxi māma bù zhīdào fàng zài nǎr hǎo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG0EQQJ'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "always" with "zongshi"'
+english = 'The children are always very happy.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '总是 + Adv. + Adj.'
+hanzi = '孩子们总是非常开心。'
+notes = ''
+pinyin = 'Háizi men zǒngshì fēicháng kāixīn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGXJPJS'

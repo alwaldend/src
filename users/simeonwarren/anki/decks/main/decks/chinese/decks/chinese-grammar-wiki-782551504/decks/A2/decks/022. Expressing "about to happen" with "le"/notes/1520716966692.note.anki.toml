@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Grammatical_Structures", "leech", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "about to happen" with "le"'
+english = 'These dirty clothes are about to smell bad.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '快 + Adj. + 了'
+hanzi = '这些脏衣服快臭了。'
+notes = ''
+pinyin = 'Zhèxiē zāng yīfu kuài chòu le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNGEU8'

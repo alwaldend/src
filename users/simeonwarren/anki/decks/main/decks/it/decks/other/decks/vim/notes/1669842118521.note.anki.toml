@@ -1,0 +1,12 @@
+note_type = "note_types/basic.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[[cards]]
+ordinal = 1
+
+[fields]
+Back = '^w N&nbsp;&nbsp; " to drop into normal mode, and then just move the cursor around; Use i to go back to insert mode. Uppercase N'
+Front = 'How do you scroll back in a vim <b>terminal</b> buffer?'

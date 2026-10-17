@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "Nouns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "zhijian" and "zhongjian"'
+english = 'Can anyone among you sing?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun + (的 +) 中间'
+hanzi = '你们中间有会唱歌的吗？'
+notes = ''
+pinyin = '<div>Nǐmen zhōngjiān yǒu huì chànggē de ma?</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGN6O6J'

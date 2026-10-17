@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = "Expressing \"don't need to\" with \"buyong\""
+english = "Kids don't need to buy tickets."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不用 + [Verb Phrase]'
+hanzi = '孩子不用买票。'
+notes = ''
+pinyin = 'Háizi bùyòng mǎi piào.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGECD0E'

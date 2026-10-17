@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'The patriarch said this implicitly, but everyone knew what it meant.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '族长这话说的含蓄,但大家都深晓其意。'
+notes = ''
+pinyin = ''
+source = ''

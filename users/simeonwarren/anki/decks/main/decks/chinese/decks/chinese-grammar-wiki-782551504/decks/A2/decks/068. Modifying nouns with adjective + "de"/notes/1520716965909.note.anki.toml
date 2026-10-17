@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "AdverbswithAdjectives", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Modifying nouns with adjective + "de"'
+english = 'Do you want to drink cold or hot water?<br>Cold.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Adj. + 的'
+hanzi = 'A: 你要喝冷水还是热水？<br>B: 冷的。'
+notes = ''
+pinyin = 'Nǐ yào hē lěngshuǐ háishì rè shuǐ ?<br>Lěng de.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGVUFKX'

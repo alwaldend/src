@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Placement of question words'
+english = "Who do you not like?<br>I don't like my boss."
+example-sentence = ''
+example-type = ''
+grammar-construct = '谁 + Verb ?'
+hanzi = 'A: 你不喜欢谁？<br>B: 我不喜欢我的老板。'
+notes = ''
+pinyin = 'Nǐ bù xǐhuan  shéi?<br>Wǒ bù xǐhuan wǒ de lǎobǎn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJQPSC'

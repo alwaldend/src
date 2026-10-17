@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "have to" with budebu'
+english = 'You are so good. I have to admit it.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不得不 + Verb'
+hanzi = '你真的太厉害了，我不得不承认。'
+notes = ''
+pinyin = 'Nǐ zhēnde tài lìhai le, wǒ bùdébù chéngrèn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG0C825'

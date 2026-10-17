@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "after all" with "bijing"'
+english = "Although you are divorced, there is, after all, a child. So don't start fighting when you're with the child."
+example-sentence = ''
+example-type = ''
+grammar-construct = '虽然 ⋯⋯ ， 但 + 毕竟 ⋯⋯ ， (As a Result)， ⋯⋯'
+hanzi = '虽然你们已经离婚了，但毕竟还有一个孩子，跟孩子在一起的时候别吵架。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG4V36Q'

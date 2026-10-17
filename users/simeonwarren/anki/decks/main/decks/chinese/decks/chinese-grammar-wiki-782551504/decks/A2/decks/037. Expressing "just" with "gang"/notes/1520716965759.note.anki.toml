@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "just" with "gang"'
+english = 'We just found out.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 刚刚 + Verb'
+hanzi = '我们刚知道。'
+notes = ''
+pinyin = 'Wǒmen gāng zhīdào.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQJJYO'

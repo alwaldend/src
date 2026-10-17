@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Emphasizing negation with "you"'
+english = "These food aren't bad. Why would you throw them away?"
+example-sentence = ''
+example-type = ''
+grammar-construct = '又 + 不 / 没 + Predicate'
+hanzi = '这些菜又没坏，为什么要扔？'
+notes = ''
+pinyin = 'Zhèxiē cài yòu méi huài, wèishénme yào rēng?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGD3C4S'

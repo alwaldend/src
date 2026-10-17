@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["AuxiliaryWords", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Ending a non-exhaustive list with "shenme de"'
+english = 'Which countries are in Europe? France, England, Germany, etc. Anyway, they are all small countries!'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'List + 什么的'
+hanzi = '欧洲有哪些国家？法国，英国，德国什么的。反正都是些小国家！'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDIDAC'

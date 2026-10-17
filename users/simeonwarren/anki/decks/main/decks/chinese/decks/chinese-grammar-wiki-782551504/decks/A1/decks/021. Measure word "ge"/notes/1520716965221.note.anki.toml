@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Numbers", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Measure word "ge"'
+english = 'She is a good teacher.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 个 + Noun'
+hanzi = '她是个好老师。'
+notes = ''
+pinyin = 'Tā shì gè hǎo lǎoshī.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGI0T9S'

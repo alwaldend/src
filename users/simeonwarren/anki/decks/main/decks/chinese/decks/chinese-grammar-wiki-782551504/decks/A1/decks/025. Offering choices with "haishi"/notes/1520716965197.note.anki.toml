@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Offering choices with "haishi"'
+english = 'Is this water or alcohol?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + Option A + 还是 + Option B ?'
+hanzi = '这是水还是酒？'
+notes = ''
+pinyin = 'Zhè shì shuǐ  háishì jiǔ?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGA8NIB'

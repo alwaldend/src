@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "lai" to connect two verb phrases'
+english = 'We need to improve our service quality through training.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '通过 / 用 + Agent + 来 + [Verb Phrase]'
+hanzi = '我们需要通过培训来提高服务质量。'
+notes = ''
+pinyin = 'Wǒmen xūyào tōngguò péixùn lái tígāo fúwù zhìliàng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGBZ578'

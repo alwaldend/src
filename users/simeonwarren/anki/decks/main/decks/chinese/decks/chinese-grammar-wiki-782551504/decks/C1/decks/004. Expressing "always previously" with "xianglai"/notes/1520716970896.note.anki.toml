@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "C1"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "always previously" with "xianglai"'
+english = 'I have always pushed myself, so every time I take a test, I always get full marks.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subject + 向来（都） + Verb/Verb Phrase'
+hanzi = '我向来努力，所以我每一次考试都得满分。'
+notes = ''
+pinyin = '<div class="kO6q6e" dir="ltr" jsname="jTaUub"><span jsname="toZopb">Wǒ xiànglái nǔlì, suǒyǐ wǒ měi yīcì kǎoshì dōu dé mǎnfēn.</span></div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDU0XL'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Opportune timing with "chen"'
+english = "When the boss isn't here, we can smoke for a little while."
+example-sentence = ''
+example-type = ''
+grammar-construct = '趁 + [Situation / Opportunity]'
+hanzi = '趁老板不在，我们抽一会儿烟吧。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGI9PNV'

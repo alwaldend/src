@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "C1"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Advanced usages of the contrary "dao"'
+english = 'Make a quick decision, please.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '你＋倒是＋Verb＋呀 / 啊'
+hanzi = '你倒是快做决定啊！'
+notes = ''
+pinyin = '<div>Nǐ dǎoshì kuài zuò juédìng a!</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGXXP6M'

@@ -1,12 +1,3 @@
-id = 1695465305541
-title = 'main'
-
-[notes]
-path = 'notes'
+preset = "Default"
 
 [normal]
-config_id = 1
-extend_new = 0
-extend_review = 0
-description = ''
-markdown_description = false

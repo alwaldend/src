@@ -1,0 +1,13 @@
+note_type = "note_types/python-basic-and-reversed.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+additional-info = '"In place" sorting is done on the original list and the return value of the method is None.'
+answer = '<i>list</i>.sort()'
+example = ''
+question = '<b>List method</b>&nbsp;that sorts a list in place.'
+version = ''
+with-options = ''

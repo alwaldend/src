@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Inability with "mei banfa"'
+english = "He didn't bring his phone, so he has no way to give me a call."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 没办法 + Verb + Obj.'
+hanzi = '他没带手机，没办法给我打电话。'
+notes = ''
+pinyin = 'Tā méi dài shǒujī, méi bànfǎ gěi wǒ dǎ diànhuà.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGI2KHC'

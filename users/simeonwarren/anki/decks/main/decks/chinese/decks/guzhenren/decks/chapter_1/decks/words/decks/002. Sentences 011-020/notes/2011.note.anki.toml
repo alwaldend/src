@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'they.'
+example-sentence = ' 他们没有动手,都忌惮着方源的临死反扑'
+example-type = ''
+grammar-construct = ''
+hanzi = '他们'
+notes = ''
+pinyin = '<span class="tone1">tā</span><span class="tone5">men</span>	 <!-- ta men -->'
+source = ''

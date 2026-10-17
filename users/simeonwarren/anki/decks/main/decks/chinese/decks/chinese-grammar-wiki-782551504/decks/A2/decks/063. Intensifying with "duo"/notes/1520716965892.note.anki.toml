@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "AdverbswithAdjectives", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Intensifying with "duo"'
+english = 'Your boyfriend is so handsome!'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 多 + Adj.'
+hanzi = '你男朋友多帅啊！'
+notes = ''
+pinyin = 'Nǐ nánpéngyou duō shuài a!'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGGH7RR'

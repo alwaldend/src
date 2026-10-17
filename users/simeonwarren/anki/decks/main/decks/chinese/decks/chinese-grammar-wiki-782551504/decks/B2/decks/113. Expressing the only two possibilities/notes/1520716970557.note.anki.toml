@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing the only two possibilities'
+english = "If the clothes that she wears aren't Louis Vuitton, then they're Gucci!"
+example-sentence = ''
+example-type = ''
+grammar-construct = '不是 + A，就是 + B'
+hanzi = '她穿的衣服不是LV就是Gucci！'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGEXR6R'

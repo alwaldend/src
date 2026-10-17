@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Verbs that take double objects'
+english = 'Everyone calls him "Uncle Weirdo."'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + [Indirect Obj.] + [Direct Obj.]'
+hanzi = '大家都叫他"怪叔叔"。'
+notes = ''
+pinyin = 'Dàjiā dōu jiào  tā "guài shūshu."'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGI2OAG'

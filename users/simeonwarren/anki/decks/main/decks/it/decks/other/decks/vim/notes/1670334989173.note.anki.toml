@@ -1,0 +1,12 @@
+note_type = "note_types/basic.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[[cards]]
+ordinal = 1
+
+[fields]
+Back = "w “ word<div>W “ word</div><div>s “ sentence</div><div>p “ paragraph&nbsp;</div><div>b “ block ()</div><div>B “ block {}</div><div>t “ tag HTML element</div><div>`'\" “ quote pairs</div><div>([{&lt; “ enclosures&nbsp;</div>"
+Front = 'What are the text objects in vim for i[nner] and a[round] actions?'

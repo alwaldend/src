@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Special verbs with "hen"'
+english = 'Foreigners really hate public toilets in China.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 很 + [Certain Verbs]'
+hanzi = '外国人很讨厌中国的公共厕所。'
+notes = ''
+pinyin = 'Wàiguó rén hěn tǎoyàn Zhōngguó de gōnggòng cèsuǒ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGID0E8'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Numbers", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Approximating with sequential numbers'
+english = "We've studied this word two or three times now."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Number + (Number + 1)'
+hanzi = '这个词我们学过两三次了。'
+notes = ''
+pinyin = 'Zhège cí wǒmen xué guo liǎng sān cì le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGOUD8U'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "not even one"'
+english = "I've never eaten this kind of food before."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Topic + Subj. + 一 + Measure Word + (Noun) + 也 / 都 + Verb'
+hanzi = '这样的菜我一次也没吃过。'
+notes = ''
+pinyin = 'Zhèyàng de cài  wǒ yī cì yě méi chī guo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGUQ861'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing duration of inaction'
+english = "It's been 20 years since I came to China last time."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 已经 + Duration + 没 + Verb + 了'
+hanzi = '我已经二十年没来中国了。'
+notes = ''
+pinyin = 'Wǒ yǐjīng èrshí nián méi lái Zhōngguó le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGSVF28'

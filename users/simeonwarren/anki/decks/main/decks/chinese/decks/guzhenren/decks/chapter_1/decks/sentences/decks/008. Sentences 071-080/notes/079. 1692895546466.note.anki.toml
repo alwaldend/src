@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'March can speak, April can walk.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '三月能言,四月能走。'
+notes = ''
+pinyin = ''
+source = ''

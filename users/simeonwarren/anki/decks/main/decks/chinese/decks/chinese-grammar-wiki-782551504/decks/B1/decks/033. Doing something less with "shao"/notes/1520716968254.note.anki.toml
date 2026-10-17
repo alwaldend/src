@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Doing something less with "shao"'
+english = "Meat is too expensive. Don't order too much."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 少 + Verb-Obj.'
+hanzi = '肉太贵了，少点一些。'
+notes = ''
+pinyin = 'Ròu tài guì le, shǎo diǎn yīxiē.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG9B0M8'

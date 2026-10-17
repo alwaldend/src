@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "AdverbswithAdjectives", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Modifying nouns with adjective + "de"'
+english = 'beautiful girl'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Adj. + 的 + Noun'
+hanzi = '漂亮的女孩儿'
+notes = ''
+pinyin = 'piàoliang de nǚháir'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGVUFKX'

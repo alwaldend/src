@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "towards" with "xiang"'
+english = "I don't like to borrow money to my friends."
+example-sentence = ''
+example-type = ''
+grammar-construct = '向 + Direction / Person + Verb'
+hanzi = '我不喜欢向朋友借钱。'
+notes = ''
+pinyin = 'Wǒ bù xǐhuan xiàng péngyou jiè qián.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQXARS'

@@ -1,0 +1,12 @@
+note_type = "note_types/basic.notetype.anki.toml"
+tags = ["VisualCommands"]
+
+[[cards]]
+ordinal = 0
+
+[[cards]]
+ordinal = 1
+
+[fields]
+Back = 'y&nbsp; &nbsp;" (visual mode)'
+Front = 'Copy visual selection to default register'

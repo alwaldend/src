@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "leech", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Reduplication of verbs'
+english = 'Do you want to taste the food that I cooked?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 一 + Verb'
+hanzi = '你想尝一尝我做的菜吗？'
+notes = ''
+pinyin = 'Nǐ xiǎng cháng yī cháng wǒ zuò de cài ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGYC77J'

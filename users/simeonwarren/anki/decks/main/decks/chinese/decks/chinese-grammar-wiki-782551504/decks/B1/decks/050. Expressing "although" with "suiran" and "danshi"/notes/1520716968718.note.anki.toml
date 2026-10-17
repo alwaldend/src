@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "although" with "suiran" and "danshi"'
+english = "Although he did something wrong, you can't blame him for all of it."
+example-sentence = ''
+example-type = ''
+grammar-construct = '虽然 ⋯⋯ ，但是 / 可是 ⋯⋯'
+hanzi = '他虽然有错，可是不能全怪他。'
+notes = ''
+pinyin = 'Tā suīrán yǒu cuò, kěshì bù néng quán guài tā.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGXI560'

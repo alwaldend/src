@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "TimeWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "yizhi" and "yixiang"'
+english = 'Keep walking ahead, you will see the subway station on your right.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '一直往前走，你会看到地铁站在你右边。'
+notes = ''
+pinyin = '<div>Yīzhí wǎng qián zǒu, nǐ huì kàn dào dìtiě zhàn zài nǐ yòubiān.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGVEP8S'

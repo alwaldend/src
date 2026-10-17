@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = "Expressing \"while you're at it\" with \"shunbian\""
+english = "By the way, the computer's been fixed."
+example-sentence = ''
+example-type = ''
+grammar-construct = '顺便说一下&lt;br /&gt;顺便问一下'
+hanzi = '顺便说一下，电脑已经修好了。'
+notes = ''
+pinyin = 'Shùnbiàn huō yīxià, diànnǎo yǐjīng xiū hǎo le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5334C'

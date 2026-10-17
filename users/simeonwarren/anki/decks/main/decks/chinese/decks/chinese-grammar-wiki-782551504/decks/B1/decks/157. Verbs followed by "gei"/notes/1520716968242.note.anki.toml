@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Verbs followed by "gei"'
+english = 'I lent him a book.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 把 + Obj. + Verb + 给 + Somebody'
+hanzi = '我把书借给了他。'
+notes = ''
+pinyin = 'Wǒ bǎ shū jiè gěi le tā.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMMHTQ'

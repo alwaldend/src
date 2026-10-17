@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "every" with question words'
+english = 'His dirty laundry is everywhere in his room.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '哪儿 / 哪里 (+ Verb) + 都 + Predicate'
+hanzi = '他的房间里哪儿都是脏衣服。'
+notes = ''
+pinyin = 'Tā de fángjiān lǐ nǎr dōu shì zāng yīfu.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG13ALM'

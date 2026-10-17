@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "ba" sentences'
+english = 'I pushed him out.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 把 + Obj. 1 + Verb + Preposition + Obj. 2'
+hanzi = '我把他推出去了。'
+notes = ''
+pinyin = 'Wǒ bǎ tā tuī chūqù le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG2UB2B'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "finally" with "zhongyu"'
+english = 'You finally arrived!'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 终于 + Verb Phrase + 了'
+hanzi = '你终于到了！'
+notes = ''
+pinyin = 'Nǐ zhōngyú dào le!'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG700A5'

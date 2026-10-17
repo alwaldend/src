@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing purpose with "weile"'
+english = 'In order to find inspiration, that writer moved to the countryside.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '为了 ⋯⋯ ，Subj. ⋯⋯'
+hanzi = '为了找灵感，那个作家搬到了农村。'
+notes = ''
+pinyin = 'Wèile zhǎo línggǎn, nàge zuòjiā bān dào le nóngcūn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQGJXT'

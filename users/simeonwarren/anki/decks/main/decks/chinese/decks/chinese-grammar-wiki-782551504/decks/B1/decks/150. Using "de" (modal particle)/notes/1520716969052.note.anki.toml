@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "de" (modal particle)'
+english = 'I believe it will become better and better.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Statement + 的'
+hanzi = '我相信会越来越好的。'
+notes = ''
+pinyin = 'Wǒ xiāngxìn huì yuèláiyuè hǎo de.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG19S1M'

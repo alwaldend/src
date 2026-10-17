@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["AdverbswithAdjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Continuation with "hai"'
+english = "I read several times, but I still can't remember it."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Situation, (但是 / 可是 +) Subj. + 还是 + [Verb Phrase]'
+hanzi = '我看了好几遍，还是记不住。'
+notes = ''
+pinyin = 'Wǒ kàn le hǎo jǐ biàn, háishì jì bu zhù.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGIRILI'

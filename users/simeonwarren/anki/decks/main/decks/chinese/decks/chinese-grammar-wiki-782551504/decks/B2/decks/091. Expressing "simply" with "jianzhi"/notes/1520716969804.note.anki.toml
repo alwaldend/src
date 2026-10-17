@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "simply" with "jianzhi"'
+english = "I justd don't know how I should teach such kind of students."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 简直 + Predicate'
+hanzi = '我简直不知道怎么教这样的学生！'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8OLAE'

@@ -1,0 +1,17 @@
+note_type = "note_types/python-basic-and-reversed.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<i>dict</i>.setdefault(<i>key</i>)'
+example = ''
+question = '<b>Dictionary method</b>&nbsp;that&nbsp;returns the value of the specified key. If the key does not exist, it inserts the key, with the specified value.'
+version = ''
+with-options = """
+
+
+<i>dict</i>.setdefault(<i>key</i>,&nbsp;<i>value=None</i>)\
+"""

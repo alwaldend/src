@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'inescapable net (idiom);	trap;	dragnet.'
+example-sentence = '这里早已经布下天罗地网,这次你必定身首异处'
+example-type = ''
+grammar-construct = ''
+hanzi = '天罗地网'
+notes = ''
+pinyin = '<span class="tone1">tiān</span><span class="tone2">luó</span><span class="tone4">dì</span><span class="tone3">wǎng</span>	 <!-- tian luo di wang -->'
+source = ''

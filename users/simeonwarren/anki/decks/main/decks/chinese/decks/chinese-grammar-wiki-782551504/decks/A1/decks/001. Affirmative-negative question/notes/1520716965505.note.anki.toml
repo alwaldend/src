@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Affirmative-negative question'
+english = 'Are you coming back home or not?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 不 + Verb + Obj.'
+hanzi = '你回不回家？'
+notes = ''
+pinyin = 'Nǐ  huí bu huíjiā?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGZH7K3'

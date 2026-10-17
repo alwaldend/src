@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "NounPhrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Indicating a number in excess'
+english = 'This book has more than ten thousand pages.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Number + 多 + [Measure word] (+ Noun)'
+hanzi = '这本书有一千多页。'
+notes = ''
+pinyin = 'Zhè běn shū yǒu yī qiān duō yè.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG004ZK'

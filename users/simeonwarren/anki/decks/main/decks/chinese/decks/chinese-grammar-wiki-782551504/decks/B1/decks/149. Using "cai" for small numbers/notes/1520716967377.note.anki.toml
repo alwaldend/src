@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "cai" for small numbers'
+english = "This meal only cost twenty kuai. It's too cheap!"
+example-sentence = ''
+example-type = ''
+grammar-construct = '才 + Number + [Measure Word] + Noun'
+hanzi = '这顿饭才二十块，太便宜了！'
+notes = ''
+pinyin = 'Zhè dùn fàn cái èrshí kuài. Tài piányi le!'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGYW5RS'

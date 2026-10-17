@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing comparable degree with "you"'
+english = 'This river is five hundred kilometers long.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A + 有 + B + 这么 / 那么 + 高 / 深 / 宽 / 长'
+hanzi = '这条河有五百多公里（长）。'
+notes = ''
+pinyin = 'Zhè tiáo hé yǒu wǔ bǎi duō gōnglǐ (cháng).'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5DG95'

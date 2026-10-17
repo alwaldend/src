@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Auxiliaryverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing a learned skill with "hui"'
+english = 'Can you cook food？'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 会 + Verb + Obj.'
+hanzi = '你会做饭吗？'
+notes = ''
+pinyin = 'Nǐ huì zuòfàn ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGRHM0E'

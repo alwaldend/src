@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "gang" and "gangcai"'
+english = 'We just arrived yesterday.'
+example-sentence = ''
+example-type = 'invalid'
+grammar-construct = ''
+hanzi = '我们昨天刚才到。'
+notes = '刚才 should be used for events a lot closer in time than 昨天.'
+pinyin = '<div>Wǒmen zuótiān gāngcái dào.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJFFWG'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "small quantity" with "jiu"'
+english = 'Do you think everyone is an idiot? That only you are smart?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '就 + Subj. + Predicate'
+hanzi = '你觉得别人都是傻子吗？就你聪明？'
+notes = ''
+pinyin = 'Nǐ juéde biérén dōu shì shǎzi ma? Jiù nǐ cōngming?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPW8PP'

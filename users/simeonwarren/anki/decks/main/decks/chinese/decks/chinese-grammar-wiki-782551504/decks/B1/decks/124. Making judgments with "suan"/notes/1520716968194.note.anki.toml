@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Making judgments with "suan"'
+english = 'Shenzhen can be considered as one of the most important cities in China.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. (+ 不) + 算 + Noun'
+hanzi = '深圳算中国最重要的城市之一。'
+notes = ''
+pinyin = 'Shēnzhèn suàn Zhōngguó zuì zhòngyào de chéngshì zhīyī.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWDWFN'

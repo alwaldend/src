@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Complement with "dao"'
+english = "He was playing computer games all day yesterday. He didn't stop until his mother came home."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb (+ 一直) + 到 + Time / Event'
+hanzi = '他昨天一天都在打游戏，一直打到他妈妈回家。'
+notes = ''
+pinyin = 'Tā zuótiān yī tiān dōu zài dǎ yóuxì, yīzhí dǎ dào tā māma huí jiā.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG1CCAP'

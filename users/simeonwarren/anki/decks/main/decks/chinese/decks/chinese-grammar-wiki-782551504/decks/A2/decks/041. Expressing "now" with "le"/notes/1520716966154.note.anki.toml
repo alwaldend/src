@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "now" with "le"'
+english = 'Class begins now!'
+example-sentence = ''
+example-type = ''
+grammar-construct = '[New Situation] + 了'
+hanzi = '上课了！'
+notes = ''
+pinyin = 'Shàngkè le!'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGE5Q4J'

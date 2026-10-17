@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Potential complement'
+english = 'Can you buy this brand of watch in Shanghai?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 得 + Complement'
+hanzi = '在上海买得到这个牌子的手表吗？'
+notes = ''
+pinyin = 'Zài Shànghǎi mǎi de dào zhè gè páizi de shǒubiǎo ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCPJPQ'

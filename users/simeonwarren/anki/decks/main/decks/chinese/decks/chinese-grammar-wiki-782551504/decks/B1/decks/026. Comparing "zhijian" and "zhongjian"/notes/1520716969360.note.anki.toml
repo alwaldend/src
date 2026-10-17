@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "Nouns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "zhijian" and "zhongjian"'
+english = 'Betwen March and July is a good time to travel.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Number 1 + 和 + Number 2 + 之间'
+hanzi = '3月到7月之间是旅游的好时间。'
+notes = ''
+pinyin = '<div>3 Yuè dào 7 yuè zhī jiān shì lǚyóu de hǎo shíjiān.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGN6O6J'

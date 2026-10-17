@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Negation of past actions with "meiyou"'
+english = "The baby didn't cry."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 没有 / 没 + Verb'
+hanzi = '宝宝没哭。'
+notes = '有 has been omitted here.'
+pinyin = 'Bǎobao méi kū.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGAUCXK'

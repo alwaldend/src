@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Occurring together with "shaobuliao"'
+english = "It's past 8 o'clock he still hasn't come back. He must be working overtime."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Situation / Result ，少不了 + 是 + Reason'
+hanzi = '八点多了还没回来，少不了是在加班。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG3IR71'

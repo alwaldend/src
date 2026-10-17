@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Combining verbs with "bing"'
+english = 'I need you to do as I say and also do it well.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb / [Verb Phrase 1] + 并(且) + Verb / [Verb Phrase 2]'
+hanzi = '你要按照我说的做并且要做好。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5C89R'

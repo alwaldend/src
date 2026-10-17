@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "TimeWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "gang" and "gangcai"'
+english = "I just said it, and I don't want to say it again."
+example-sentence = ''
+example-type = ''
+grammar-construct = '刚 + Verb'
+hanzi = '我刚说过，不想再说一遍。'
+notes = ''
+pinyin = 'Wǒ zuótiān gāng kàn dào tā.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJFFWG'

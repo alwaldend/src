@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "every" with question words'
+english = 'Anytime is fine.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '什么时候 (+ Verb) + 都 + Predicate'
+hanzi = '什么时候都可以。'
+notes = ''
+pinyin = 'Shénme shíhou dōu kěyǐ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG13ALM'

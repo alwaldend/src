@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "Conjunctions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "haishi" and "huozhe"'
+english = 'We can contact each other by phone or email.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Possibility 1 + 或者 + Possibility 2'
+hanzi = '我们可以电话或者邮件联系。'
+notes = ''
+pinyin = 'Wǒmen kěyǐ diànhuà huòzhě yóujiàn liánxì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQJ5IC'

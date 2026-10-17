@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Numbers", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Approximating with sequential numbers'
+english = 'Their child is about five or six years old.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Number + (Number + 1)'
+hanzi = '他们家的孩子五六岁了吧。'
+notes = ''
+pinyin = 'Tāmen jiā de háizi wǔ liù suì le ba.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGOUD8U'

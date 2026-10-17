@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "EvenIfStatements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "even if…" with "jiusuan"'
+english = "I can't do illegal things no matter how much you pay me."
+example-sentence = ''
+example-type = ''
+grammar-construct = '就算 + Subj. 1 + 再 ⋯⋯ ，Subj. 2 + 也 ⋯⋯'
+hanzi = '就算你给我再多钱，我也不能干违法的事情。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGLI513'

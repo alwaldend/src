@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "all along" with "yuanlai"'
+english = 'Your original hairstyle was also very cute.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 原来 + Predicate'
+hanzi = '你原来的发型也很可爱。'
+notes = ''
+pinyin = "Nǐ yuánlái de fàxíng yě hěn kě'ài."
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTKXFR'

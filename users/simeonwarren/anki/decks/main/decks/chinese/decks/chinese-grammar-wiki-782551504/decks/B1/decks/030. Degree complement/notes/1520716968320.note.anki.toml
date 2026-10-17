@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Degree complement'
+english = "I'm stuffed."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 得 + [Degree Complement]'
+hanzi = '我吃得太饱了。'
+notes = ''
+pinyin = 'Wǒ chī de tài bǎo le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG79STE'

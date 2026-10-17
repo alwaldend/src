@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "each other" with "huxiang"'
+english = 'Respect each other'
+example-sentence = ''
+example-type = ''
+grammar-construct = '互相 + Verb'
+hanzi = '互相尊重'
+notes = ''
+pinyin = 'hùxiāng zūnzhòng'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGF00B7'

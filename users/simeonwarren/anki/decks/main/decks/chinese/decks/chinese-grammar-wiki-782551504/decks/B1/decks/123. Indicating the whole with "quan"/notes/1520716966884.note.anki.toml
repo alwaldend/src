@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adjectives", "B1", "leech", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Indicating the whole with "quan"'
+english = "The place is too small. We can't invite all our friends."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj.＋不 / 没＋全都＋Verb / Adj.'
+hanzi = '地方太小，我们的朋友不能全都邀请。'
+notes = ''
+pinyin = 'Dìfang tài xiǎo, wǒmen de péngyou bù néng quán dōu yāoqǐng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCPDSR'

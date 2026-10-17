@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "even" with "lian" and "dou"'
+english = "You don't even believe in your best friend?"
+example-sentence = ''
+example-type = ''
+grammar-construct = '连 + Obj. + 都 (+ 不 / 没) + Verb'
+hanzi = '你连你最好的朋友都不相信？'
+notes = ''
+pinyin = 'Nǐ lián nǐ zuìhǎo de péngyou dōu bù xiāngxìn?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNP0WV'

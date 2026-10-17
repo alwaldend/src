@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = "Spring and Autumn Period (770-476 BC);\tSpring and Autumn Annals, chronicle of Lu State (722-481 BC);\tspring and autumn;\tfour seasons;\tyear;\ta person's age;\tannals (used in book titles)."
+example-sentence = '方源,乖乖地交出春秋蝉,我给你个痛快'
+example-type = ''
+grammar-construct = ''
+hanzi = '春秋'
+notes = ''
+pinyin = '<span class="tone1">chūn</span><span class="tone1">qiū</span>	 <!-- chun qiu -->'
+source = ''

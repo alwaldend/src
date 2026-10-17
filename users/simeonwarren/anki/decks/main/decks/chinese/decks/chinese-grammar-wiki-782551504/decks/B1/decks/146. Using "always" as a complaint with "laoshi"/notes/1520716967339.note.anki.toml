@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "always" as a complaint with "laoshi"'
+english = 'How are you always unhappy?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 老是 + Adv. + Adj.'
+hanzi = '你怎么老是不高兴？'
+notes = ''
+pinyin = 'Nǐ zěnme lǎoshì bù gāoxìng?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGII66E'

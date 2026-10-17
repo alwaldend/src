@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "always" with "zongshi"'
+english = 'Your boyfriend always uses foul language.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 总是 + Verb'
+hanzi = '你男朋友总是说脏话。'
+notes = ''
+pinyin = 'Nǐ nánpéngyou zǒngshì shuō zānghuà.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGXJPJS'

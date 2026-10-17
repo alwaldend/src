@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "leech", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "quite" with "ting"'
+english = "Doesn't he love to do sports? Why didn't he climb the mountain with us?"
+example-sentence = ''
+example-type = ''
+grammar-construct = '挺 + Verb + Obj. + 的'
+hanzi = '他不是挺爱运动的吗？怎么不跟我们一起去爬山？'
+notes = ''
+pinyin = 'Tā bùshì tǐng ài yùndòng de ma? Zěnme bù gēn wǒmen yīqǐ qù páshān?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDF1F7'

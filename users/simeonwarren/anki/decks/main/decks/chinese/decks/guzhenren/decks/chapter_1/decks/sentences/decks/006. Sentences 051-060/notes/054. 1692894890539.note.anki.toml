@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'Behind him, more than ten people were also kneeling.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '在他的身后,也同样跪着十余人。'
+notes = ''
+pinyin = ''
+source = ''

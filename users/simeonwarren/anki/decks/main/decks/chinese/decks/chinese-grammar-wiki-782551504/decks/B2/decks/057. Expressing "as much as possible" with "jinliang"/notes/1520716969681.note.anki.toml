@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "as much as possible" with "jinliang"'
+english = 'Parents should do as much as possible to be with the children.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '尽量 + Verb / Adj.'
+hanzi = '父母应该尽量多陪陪孩子。'
+notes = ''
+pinyin = 'Fùmǔ yīnggāi jǐnliàng duō péi péi háizi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGINBWJ'

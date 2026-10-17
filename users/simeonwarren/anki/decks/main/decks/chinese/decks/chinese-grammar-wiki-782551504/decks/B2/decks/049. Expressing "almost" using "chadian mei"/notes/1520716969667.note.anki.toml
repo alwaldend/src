@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "almost" using "chadian mei"'
+english = 'He barely passed the examination.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 差点 + 没 + Verb Phrase'
+hanzi = '他差点没通过考试。'
+notes = 'He did pass it.'
+pinyin = 'Tā chàdiǎn méi tōngguò kǎoshì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGGOUJB'

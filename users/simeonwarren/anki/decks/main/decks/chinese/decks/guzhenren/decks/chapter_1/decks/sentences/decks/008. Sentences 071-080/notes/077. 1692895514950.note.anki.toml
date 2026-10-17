@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'However, among the teenagers who participated in the Enlightenment Ceremony this year, it is not hopeless.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '不过今年参加开窍大典的少年里,也不是没有希望。'
+notes = ''
+pinyin = ''
+source = ''

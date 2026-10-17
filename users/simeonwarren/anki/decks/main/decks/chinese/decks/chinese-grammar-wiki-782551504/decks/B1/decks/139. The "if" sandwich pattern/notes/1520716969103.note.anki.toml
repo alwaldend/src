@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'The "if" sandwich pattern'
+english = 'Give me a call if you need anything.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '⋯⋯ (的话) ，就 ⋯⋯'
+hanzi = '有事给我打电话。'
+notes = ''
+pinyin = 'Yǒu shì gěi wǒ dǎ diànhuà.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGN4VUU'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Making judgments with "suan"'
+english = "It can't be considered too hot today."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不 + 算 (+ Adv.) + Adj.'
+hanzi = '今天不算太热。'
+notes = ''
+pinyin = 'Jīntiān bù suàn tài rè.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWDWFN'

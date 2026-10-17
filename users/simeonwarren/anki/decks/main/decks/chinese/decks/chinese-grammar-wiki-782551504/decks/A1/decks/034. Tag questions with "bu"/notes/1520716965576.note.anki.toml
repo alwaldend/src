@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Tag questions with "bu"'
+english = 'We are good friends, right?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 不 + Verb'
+hanzi = '我们是好朋友，对不对？'
+notes = ''
+pinyin = 'Wǒmen shì hǎo péngyou, duì bu duì?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG4D8XB'

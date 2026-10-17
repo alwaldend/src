@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Yes-no questions with "ma"'
+english = 'Does mom know how to cook?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '[Statement] + 吗 ？'
+hanzi = '妈妈会做饭吗？'
+notes = 'question'
+pinyin = 'Māma huì zuòfàn ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQ2AZA'

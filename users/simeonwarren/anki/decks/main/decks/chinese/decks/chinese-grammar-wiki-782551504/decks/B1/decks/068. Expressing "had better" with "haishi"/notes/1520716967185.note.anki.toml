@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "had better" with "haishi"'
+english = "It's too late. We'd better go home now."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 还是 + [Verb Phrase] + 吧'
+hanzi = '太晚了，还是先回家吧。'
+notes = ''
+pinyin = 'Tài wǎn le, háishì xiān huíjiā ba.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWAR65'

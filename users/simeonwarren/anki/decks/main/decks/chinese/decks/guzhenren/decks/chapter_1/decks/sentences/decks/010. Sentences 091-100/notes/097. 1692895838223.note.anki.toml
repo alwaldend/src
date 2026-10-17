@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'Every year, in order to compete for these talented juniors, the elders are fighting each other with red faces and bloody heads.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '每年为了争夺这些天才后辈,家老们彼此之间都是争的面红耳赤,头破血流。'
+notes = ''
+pinyin = ''
+source = ''

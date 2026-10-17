@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing good luck'
+english = 'Luckily, the problem is solved now. Otherwise the boss is definitely going to fire you.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '幸亏 / 幸好 + [Lucky Incident]（，+ 不然 ⋯⋯)'
+hanzi = '幸好现在问题解决了，不然老板肯定要炒你的鱿鱼。'
+notes = ''
+pinyin = 'Xìnghǎo xiànzài wèntí jiějué le, bùrán lǎobǎn kěndìng yào chǎo nǐ de yóuyú.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGOB1BF'

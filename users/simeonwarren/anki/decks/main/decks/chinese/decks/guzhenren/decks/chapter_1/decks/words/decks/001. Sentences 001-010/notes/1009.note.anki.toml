@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'a war flag;	an army banner.'
+example-sentence = ' 山风吹得血袍飘荡,如战旗般嚯嚯作响'
+example-type = ''
+grammar-construct = ''
+hanzi = '战旗'
+notes = ''
+pinyin = '<span class="tone4">zhàn</span><span class="tone2">qí</span>	 <!-- zhan qi -->'
+source = ''

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "de" (modal particle)'
+english = 'My little brother can eat a lot!'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Statement + 的'
+hanzi = '我弟弟很能吃的！'
+notes = ''
+pinyin = 'Wǒ dìdi hěn néng chī de!'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG19S1M'

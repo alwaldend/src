@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing not knowing how to do something using "hao"'
+english = "They are all beautiful. I'm not sure which one to buy."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不知道 + Verb Phrase + 好'
+hanzi = '都很漂亮，我不知道买哪件好。'
+notes = ''
+pinyin = 'Dōu hěn piàoliang, wǒ bù zhīdào mǎi nǎ jiàn hǎo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG0EQQJ'

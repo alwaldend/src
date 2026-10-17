@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'layer; stratum; laminated; floor (of a building); storey; classifier for layers; repeated; sheaf (math.).'
+example-sentence = ' 他面对着高高的黑漆台案,在台案有三层,供奉着先祖的牌位'
+example-type = ''
+grammar-construct = ''
+hanzi = '层'
+notes = ''
+pinyin = '<span class="tone2">céng</span>	 <!-- ceng -->'
+source = ''

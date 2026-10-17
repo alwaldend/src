@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "never" with "conglai"'
+english = 'Your parents never hit you?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 从来 + 不 + [Verb Phrase]'
+hanzi = '你父母从来不打你吗？'
+notes = 'hit can mean "spank"'
+pinyin = 'Nǐ fùmǔ cónglái bù dǎ nǐ ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8NM5E'

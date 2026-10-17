@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Auxiliaryverbs", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "yao" and "xiang"'
+english = 'Mom called me and said she misses me a lot.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 想 + Noun'
+hanzi = '妈妈打电话的时候跟我说，她很想我。'
+notes = ''
+pinyin = 'Māma dǎ diànhuà de shíhou gēn wǒ shuō, tā hěn xiǎng wǒ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGD88UO'

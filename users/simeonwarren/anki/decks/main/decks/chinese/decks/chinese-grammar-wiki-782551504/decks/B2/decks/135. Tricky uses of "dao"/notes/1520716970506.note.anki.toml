@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Tricky uses of "dao"'
+english = "You can't buy imported good here."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '这里买不到进口食品。'
+notes = ''
+pinyin = 'Zhèlǐ mǎi bu dào jìnkǒu shípǐn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCUSIV'

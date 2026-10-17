@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "AdverbswithAdjectives", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "both A and B" with "you"'
+english = 'Chinese food is both cheap and good-tasting.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 又 + Adj. 1 + 又 + Adj. 2'
+hanzi = '中国菜又便宜又好吃。'
+notes = ''
+pinyin = 'Zhōngguó cài yòu  piányi yòu hǎochī.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPFUM2'

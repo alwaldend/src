@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing duration with "le"'
+english = 'Mom watched TV all day.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 了 + Duration + Obj.'
+hanzi = '妈妈看了一天电视。'
+notes = ''
+pinyin = 'Māma kàn le yī tiān diànshì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJ36VN'

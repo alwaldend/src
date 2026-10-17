@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "zai" and "you"'
+english = 'Please say it one more time.'
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = 'Subj. + 再 + Verb + Obj.'
+hanzi = '请再说一次。'
+notes = ''
+pinyin = '<div>Qǐng zàishuō yīcì.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTBHBG'

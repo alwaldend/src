@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "leech", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "finally" with "zhongyu"'
+english = 'You finally made your decision.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 终于 + Verb Phrase + 了'
+hanzi = '你们终于决定了。'
+notes = ''
+pinyin = 'Nǐmen zhōngyú juédìng le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG700A5'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Inability with "mei banfa"'
+english = "There's no water. There's no way for us to wash clothes."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 没办法 + Verb + Obj.'
+hanzi = '没有水，我们没办法洗衣服。'
+notes = ''
+pinyin = 'Méiyǒu shuǐ,  wǒmen méi bànfǎ xǐ yīfu.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGI2KHC'

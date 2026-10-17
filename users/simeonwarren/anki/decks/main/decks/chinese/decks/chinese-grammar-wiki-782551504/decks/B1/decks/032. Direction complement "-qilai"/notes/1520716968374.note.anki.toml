@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Direction complement "-qilai"'
+english = 'Pick it up (from the floor).'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 起来'
+hanzi = '捡起来。'
+notes = ''
+pinyin = 'Jiǎn qǐlái.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGBPXOB'

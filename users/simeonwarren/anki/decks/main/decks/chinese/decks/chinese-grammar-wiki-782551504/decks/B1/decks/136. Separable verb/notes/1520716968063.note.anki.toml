@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Separable verb'
+english = ''
+example-sentence = ''
+example-type = 'invalid'
+grammar-construct = ''
+hanzi = '我想结婚她。'
+notes = ''
+pinyin = 'Wǒ xiǎng jiéhūn tā.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG4GVRX'

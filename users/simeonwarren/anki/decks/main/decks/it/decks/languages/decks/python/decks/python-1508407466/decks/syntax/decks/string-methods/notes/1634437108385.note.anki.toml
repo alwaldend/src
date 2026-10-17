@@ -1,0 +1,13 @@
+note_type = "note_types/python-basic-and-reversed.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+additional-info = '<strong>Note:</strong>&nbsp;All string methods returns new values. They do not change the original string.'
+answer = '<i>string</i>.isupper()'
+example = ''
+question = '<b>String method</b>&nbsp;that returns True if all characters in the string are upper case, else False.'
+version = ''
+with-options = ''

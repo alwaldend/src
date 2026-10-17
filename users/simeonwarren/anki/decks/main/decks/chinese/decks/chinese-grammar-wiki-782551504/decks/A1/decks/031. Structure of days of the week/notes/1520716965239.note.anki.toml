@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Numbers", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Structure of days of the week'
+english = 'I met him last Friday.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '上个星期五我跟他见面了。'
+notes = ''
+pinyin = 'Shàng gè Xīngqīwǔ wǒ gēn tā jiànmiàn le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGVH4Q5'

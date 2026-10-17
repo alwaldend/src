@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Reduplication of verbs'
+english = 'Take a little look.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + Verb'
+hanzi = '你看看。'
+notes = ''
+pinyin = 'Nǐ kànkan.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGYC77J'

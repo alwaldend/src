@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "and" with "he"'
+english = 'My grandpa and grandma are both 70 years old.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun 1 + 和 + Noun 2'
+hanzi = '我的爷爷和奶奶都70岁。'
+notes = ''
+pinyin = 'Wǒ de yéye hé  nǎinai dōu qīshí suì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGP0KFF'

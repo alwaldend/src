@@ -1,0 +1,13 @@
+note_type = "note_types/python-basic-and-reversed.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<i>list</i>.extend(<i>iterable</i>)'
+example = ''
+question = '<b>List method</b>&nbsp;that adds the elements of an iterable to the end of a list.'
+version = ''
+with-options = ''

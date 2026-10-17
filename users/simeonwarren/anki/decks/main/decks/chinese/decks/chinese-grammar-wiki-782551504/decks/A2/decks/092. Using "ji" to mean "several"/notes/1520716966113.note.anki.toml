@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "leech", "NumbersandMeasureWords", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "ji" to mean "several"'
+english = "This article has tens of thousands of characters. It's too long."
+example-sentence = ''
+example-type = ''
+grammar-construct = '几 + 百 / 千 / 万 + Measure Word + Noun'
+hanzi = '这篇文章有几万个字，太长了。'
+notes = ''
+pinyin = 'Zhè piān wénzhāng yǒu jǐ wàn gè zì, tài cháng le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGHC9CA'

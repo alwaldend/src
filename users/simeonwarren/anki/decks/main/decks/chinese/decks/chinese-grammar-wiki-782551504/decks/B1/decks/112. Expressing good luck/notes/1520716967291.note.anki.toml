@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing good luck'
+english = 'Luckily, we came by taxi, otherwise we could have been late.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '幸亏 / 幸好 + [Lucky Incident]（，+ 不然 ⋯⋯)'
+hanzi = '幸亏我们打车来的，不然就迟到了。'
+notes = ''
+pinyin = 'Xìngkuī wǒmen dǎchē lái de, bùrán jiù chídào le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGOB1BF'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "after" with "jingguo"'
+english = "I pass the People's Square every day on my way to work."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '我每天上班都会经过人民广场。'
+notes = ''
+pinyin = 'Wǒ měi tiān shàngbān dōu huì jīngguò Rénmín Guǎngchǎng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG11DA8'

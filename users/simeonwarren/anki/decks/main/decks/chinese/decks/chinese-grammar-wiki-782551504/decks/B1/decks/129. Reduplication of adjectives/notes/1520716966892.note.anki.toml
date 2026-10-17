@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Reduplication of adjectives'
+english = 'pretty'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A  A  B  B  + 的 (+ Noun)'
+hanzi = '漂亮→漂漂亮亮'
+notes = ''
+pinyin = 'piàoliang ￫ piào piào liāng liāng'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDHE8S'

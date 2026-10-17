@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "in addition" with "zaishuo"'
+english = "Let's go tomorrow. Besides, the supermarket is closed now."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Clause 1，再说 + Clause 2'
+hanzi = '明天去吧，我今天太累了。再说，现在超市已经关门了。'
+notes = ''
+pinyin = 'Míngtiān qù bā, wǒ jīntiān tài lèi le. Zàishuō, xiànzài chāoshì yǐjīng guānmén le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGATDLX'

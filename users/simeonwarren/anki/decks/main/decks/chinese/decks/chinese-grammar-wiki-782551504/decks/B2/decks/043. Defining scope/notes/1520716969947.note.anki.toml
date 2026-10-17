@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Parts_of_Speech", "PrepositionalPhrase"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Defining scope'
+english = 'In the following conversation, we will discuss how we should resolve this problem.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '级别 / 次序 / 数目 + 以上 / 以下'
+hanzi = '以下就谈谈这个问题应该怎么解决。'
+notes = ''
+pinyin = 'Yǐxià jiù tántán zhège wèntí yīnggāi zěnme jiějué.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG7AE5C'

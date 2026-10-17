@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Auxiliaryverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "should" with "yinggai"'
+english = "You should not take other people's stuff."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不 + 应该 + Verb + Obj.'
+hanzi = '你们不应该拿别人的东西。'
+notes = ''
+pinyin = 'Nǐmen bù yīnggāi ná biérén de dōngxi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGV01X9'

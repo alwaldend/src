@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Advanced use of "you"'
+english = "I looked at him again and again, but I still think I don't know him."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. ＋Verb + 了 + 又 + Verb，还是 / 就是 ……'
+hanzi = '这个人我看了又看，还是觉得我不认识他。'
+notes = ''
+pinyin = 'Zhège rén wǒ kàn le yòu  kàn, háishì juéde wǒ bù rènshi tā.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGF08B6'

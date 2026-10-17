@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Verbs that take double objects'
+english = 'I want to give you a book.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + [Indirect Obj.] + [Direct Obj.]'
+hanzi = '我想送给你一本书。'
+notes = ''
+pinyin = 'Wǒ xiǎng sòng gěi nǐ yī běn shū.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGI2OAG'

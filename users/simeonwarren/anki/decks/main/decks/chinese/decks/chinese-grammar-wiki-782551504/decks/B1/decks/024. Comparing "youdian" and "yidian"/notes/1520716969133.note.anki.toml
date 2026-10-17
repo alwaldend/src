@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "youdian" and "yidian"'
+english = "I'm a little tired today."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '我今天有点累。'
+notes = ''
+pinyin = '<div>Wǒ jīntiān yǒudiǎn lèi.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGV55Y4'

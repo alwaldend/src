@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "EvenIfStatements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "even if…" with "jishi"'
+english = "Even if you were very rich, you can't buy happiness."
+example-sentence = ''
+example-type = ''
+grammar-construct = '即使 ⋯⋯ ，也 ⋯⋯'
+hanzi = '即使你很有钱，也买不到幸福。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGBUXN7'

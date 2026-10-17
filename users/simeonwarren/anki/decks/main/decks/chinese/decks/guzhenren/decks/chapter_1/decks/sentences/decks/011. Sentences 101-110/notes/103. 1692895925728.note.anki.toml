@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'The struggle must be upright and upright, and conspiracy means must not be used to damage the unity of the family.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '争要堂堂正正的争,不可以动用阴谋手段,损害家族的团结。'
+notes = ''
+pinyin = ''
+source = ''

@@ -1,0 +1,13 @@
+note_type = "note_types/python-cloze.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[[cards]]
+ordinal = 1
+
+[fields]
+example = ''
+text = 'Symbols and meanings:<br><ol><li>{{c1::is equal}}: {{c2::==}}<br></li><li>{{c1::is not equal}}: {{c2::!=}}</li><li>{{c1::greater than}}: {{c2::&gt;}}</li><li>{{c1::greater than or equal too}}: {{c2::&gt;=}}</li><li>{{c1::less than}}: {{c2::&lt;}}</li><li>{{c1::less than or equal too}}: {{c2::&lt;=}}</li><li>{{c1::comment}}: {{c2::# }}</li></ol>'
+version = ''

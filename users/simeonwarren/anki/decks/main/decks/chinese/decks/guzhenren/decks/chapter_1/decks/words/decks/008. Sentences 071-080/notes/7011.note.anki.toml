@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'extreme.'
+example-sentence = ' 此子的资质极端出色,短短两年功夫,就已经修行到三转蛊师'
+example-type = ''
+grammar-construct = ''
+hanzi = '极端'
+notes = ''
+pinyin = '<span class="tone2">jí</span><span class="tone1">duān</span>	 <!-- ji duan -->'
+source = ''

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "to be worth" doing with "zhide"'
+english = 'The spirit of altruism merits some study.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '值得 + Verb / [Verb Phrase]'
+hanzi = '雷锋助人为乐的精神值得我们学习。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGGJA6A'

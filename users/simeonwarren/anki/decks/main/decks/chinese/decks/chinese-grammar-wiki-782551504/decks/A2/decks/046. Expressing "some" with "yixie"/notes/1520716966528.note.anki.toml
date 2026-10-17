@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Grammatical_Structures", "NounPhrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "some" with "yixie"'
+english = 'Are you hungry or not? There is some food here.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '一些 + Noun'
+hanzi = '你饿不饿？这里有一些吃的。'
+notes = ''
+pinyin = 'Nǐ è bu è? Zhèlǐ yǒu yīxiē chīde.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWVZ0T'

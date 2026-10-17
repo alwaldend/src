@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "all the way until" with "zhidao"'
+english = "It wasn't until I graduated from college that I started living independently."
+example-sentence = ''
+example-type = ''
+grammar-construct = '直到 + Time / Event ，Subj. + 才 ⋯⋯'
+hanzi = '我直到大学毕业才开始独立生活。'
+notes = ''
+pinyin = 'Wǒ zhídào dàxué bìyè cái kāishǐ dúlì shēnghuó.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGC6E1C'

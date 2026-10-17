@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "leech", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "even more" with "geng"'
+english = 'Between these two banks, which one is closer?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '更 + Adj.'
+hanzi = '这两个银行哪个更近？'
+notes = ''
+pinyin = 'Zhè liǎng gè yínháng nǎge gèng jìn?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG4NIPB'

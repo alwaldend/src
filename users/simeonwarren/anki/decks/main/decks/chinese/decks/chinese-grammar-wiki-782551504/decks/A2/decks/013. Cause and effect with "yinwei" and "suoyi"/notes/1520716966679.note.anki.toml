@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Cause and effect with "yinwei" and "suoyi"'
+english = 'Since I have a Chinese girlfriend, I need to study Chinese.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '因为 + Cause, 所以 + Effect'
+hanzi = '因为我有一个中国女朋友，所以我要学中文。'
+notes = ''
+pinyin = 'Yīnwèi wǒ yǒu yī gè Zhōngguó nǚpéngyou, suǒyǐ wǒ yào xué Zhōngwén.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTDUJO'

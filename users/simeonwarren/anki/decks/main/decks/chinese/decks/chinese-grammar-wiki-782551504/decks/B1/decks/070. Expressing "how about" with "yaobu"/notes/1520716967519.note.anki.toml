@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "how about" with "yaobu"'
+english = "Say sorry, otherwise she's going to be angry."
+example-sentence = ''
+example-type = ''
+grammar-construct = '要不 + Option B + 吧 ，Reason / Situation'
+hanzi = '快说对不起吧，要不然她要生气了。'
+notes = ''
+pinyin = 'Kuài shuō duìbuqǐ ba, yào bùrán tā yào shēngqì le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDFQP7'

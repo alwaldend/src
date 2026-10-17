@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Tag questions with "bu"'
+english = "You didn't come back home yesterday, right?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 不 + Verb'
+hanzi = '你昨天没回家，对不对？'
+notes = ''
+pinyin = 'Nǐ zuótiān méi huíjiā, duì bu duì?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG4D8XB'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Auxiliaryverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing future with "jiang"'
+english = 'He will become a successful entrepreneur.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 将 / 将要 / 将会 + [Verb Phrase]'
+hanzi = '他将会成为一个成功的企业家。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGIQPUJ'

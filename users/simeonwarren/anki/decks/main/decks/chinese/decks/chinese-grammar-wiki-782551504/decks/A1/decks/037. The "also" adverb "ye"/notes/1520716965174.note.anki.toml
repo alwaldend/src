@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'The "also" adverb "ye"'
+english = 'This kind of alcohol is also good.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 也 (+ Adv.) + Adj.'
+hanzi = '这种酒也很好喝。'
+notes = ''
+pinyin = 'Zhè zhǒng jiǔ yě hěn hǎohē.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGG25MD'

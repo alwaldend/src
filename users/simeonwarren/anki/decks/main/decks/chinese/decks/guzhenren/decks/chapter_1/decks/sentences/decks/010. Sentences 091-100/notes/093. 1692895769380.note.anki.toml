@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = "Immediately, he coughed and said to the elders: \"Everyone, it's getting late. For tomorrow's Enlightenment Hall, please take a good rest tonight and maintain your spirit."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '旋即,咳嗽一声,对诸位家老们道:“诸位,时候不早了,为了明日的开窍大殿,今晚请务必好好休息,保养精神。'
+notes = ''
+pinyin = ''
+source = ''

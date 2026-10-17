@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'These lights come from stilted towers. Although they are not called tens of thousands of lights, there are thousands of them.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '这些光来源于一座座高脚吊楼,虽称不上万家灯火,却也有数千的规模。'
+notes = ''
+pinyin = ''
+source = ''

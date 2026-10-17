@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'at that time;	originally.'
+example-sentence = '当初选择时,就有了心理准备'
+example-type = ''
+grammar-construct = ''
+hanzi = '当初'
+notes = ''
+pinyin = '<span class="tone1">dāng</span><span class="tone1">chū</span>	 <!-- dang chu -->'
+source = ''

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Topic-comment sentences'
+english = 'Fruit, I like strawberries best.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Topic ，Comment'
+hanzi = '水果，我最爱吃草莓。'
+notes = ''
+pinyin = 'Shuǐguǒ, wǒ zuì ài chī cǎoméi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5KNWW'

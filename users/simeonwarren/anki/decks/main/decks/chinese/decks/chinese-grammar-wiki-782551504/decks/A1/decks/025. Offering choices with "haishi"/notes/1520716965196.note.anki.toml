@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Offering choices with "haishi"'
+english = 'Shanghai or Beijing?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Option A + 还是 + Option B ?'
+hanzi = '上海还是北京？'
+notes = 'The eternal China expat question! Choose wisely...'
+pinyin = 'Shànghǎi háishì Běijīng?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGA8NIB'

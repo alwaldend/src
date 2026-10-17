@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "Conjunctions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "haishi" and "huozhe"'
+english = "I heard this movie wasn't good. We should watch another one."
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = 'Option 1 + 或者 + Option 2'
+hanzi = '我听说这部电影不好看，我们还是看其他的吧。'
+notes = ''
+pinyin = '<div>Wǒ tīng shuō zhè bù diànyǐng bù hǎokàn, wǒmen háishì kàn qítā de ba.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQJ5IC'

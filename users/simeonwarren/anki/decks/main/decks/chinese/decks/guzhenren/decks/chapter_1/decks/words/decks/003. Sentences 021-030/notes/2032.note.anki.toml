@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'a statue;	a Buddhist image;	sculpture;	to carve.'
+example-sentence = ' 一直静如雕塑的方源,慢慢转身'
+example-type = ''
+grammar-construct = ''
+hanzi = '雕塑'
+notes = ''
+pinyin = '<span class="tone1">diāo</span><span class="tone4">sù</span>	 <!-- diao su -->'
+source = ''

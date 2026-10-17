@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "before" in general with "yiqian"'
+english = 'My older sister had a very rich boyfriend before.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 以前 + Verb + Obj.'
+hanzi = '姐姐以前有一个很有钱的男朋友。'
+notes = ''
+pinyin = 'Jiějie yǐqián yǒu yī gè hěn yǒuqián de nánpéngyou.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGVCWLU'

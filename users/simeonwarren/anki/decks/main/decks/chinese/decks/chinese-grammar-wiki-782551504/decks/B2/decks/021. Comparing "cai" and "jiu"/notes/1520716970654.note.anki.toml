@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "cai" and "jiu"'
+english = 'Do you only sleep four hours every day?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 就 + (＋Verb) ＋ Measure Word ＋ Noun'
+hanzi = '你们每天就睡四个小时？'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGLOS9C'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "youdian" and "yidian"'
+english = 'The boss is a bit angry.'
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = ''
+hanzi = '老板有点生气。'
+notes = ''
+pinyin = '<div>Lǎobǎn yǒudiǎn shēngqì.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGV55Y4'

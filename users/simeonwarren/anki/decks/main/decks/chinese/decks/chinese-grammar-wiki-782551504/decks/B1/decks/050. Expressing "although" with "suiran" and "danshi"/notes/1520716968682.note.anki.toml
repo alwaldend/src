@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "although" with "suiran" and "danshi"'
+english = "Although you're well-educated, you don't have working experience."
+example-sentence = ''
+example-type = ''
+grammar-construct = '虽然 ⋯⋯ ，但是 / 可是 ⋯⋯'
+hanzi = '你虽然学历高，可是没有工作经验。'
+notes = ''
+pinyin = 'Nǐ suīrán xuélì gāo, kěshì méiyǒu gōngzuò jīngyàn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGXI560'

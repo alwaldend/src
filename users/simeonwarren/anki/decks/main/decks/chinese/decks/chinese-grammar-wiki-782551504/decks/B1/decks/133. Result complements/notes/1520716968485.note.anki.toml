@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Result complements'
+english = "I didn't eat enough."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 没 + Verb + Adj. (+ Obj.)'
+hanzi = '我没吃饱。'
+notes = ''
+pinyin = 'Wǒ méi chī bǎo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNNMST'

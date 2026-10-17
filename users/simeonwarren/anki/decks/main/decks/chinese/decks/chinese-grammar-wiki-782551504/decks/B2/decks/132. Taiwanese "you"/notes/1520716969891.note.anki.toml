@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Taiwanese "you"'
+english = 'You guys suddenly came running out screaming loudly. I was so scared!'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 有 + Adj. + 到'
+hanzi = '你们突然大叫着跑出来，我真的有吓到！'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGY2D79'

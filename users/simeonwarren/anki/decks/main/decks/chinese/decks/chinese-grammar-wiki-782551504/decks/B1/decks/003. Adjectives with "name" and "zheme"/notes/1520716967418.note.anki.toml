@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["AdverbswithAdjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Adjectives with "name" and "zheme"'
+english = "The boss is so busy. He definitely won't have time for this."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 那么 / 这么 + Adj.'
+hanzi = '老板那么忙，肯定没时间。'
+notes = ''
+pinyin = 'Lǎobǎn nàme máng, kěndìng méi shíjiān.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNKKP6'

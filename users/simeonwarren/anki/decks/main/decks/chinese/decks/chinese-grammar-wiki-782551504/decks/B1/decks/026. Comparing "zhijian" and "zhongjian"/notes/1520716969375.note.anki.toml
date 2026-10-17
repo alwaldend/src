@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "Nouns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "zhijian" and "zhongjian"'
+english = 'broker (lit. "middle business")'
+example-sentence = ''
+example-type = ''
+grammar-construct = '中间 + Noun'
+hanzi = '中间商'
+notes = ''
+pinyin = '<div>Zhōngjiān shāng</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGN6O6J'

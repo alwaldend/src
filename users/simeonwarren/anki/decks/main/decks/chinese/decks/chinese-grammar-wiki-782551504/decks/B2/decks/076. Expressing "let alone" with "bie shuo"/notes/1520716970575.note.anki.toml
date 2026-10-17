@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Grammatical_Structures", "Letalone"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "let alone" with "bie shuo"'
+english = "Don't even mention baijiu, I can't even stand the taste of beer."
+example-sentence = ''
+example-type = ''
+grammar-construct = '别说 + A ， 连  / 就是+ B + 也 / 都 + Verb'
+hanzi = '别说白酒，连啤酒的味道我都受不了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGR6Q2J'

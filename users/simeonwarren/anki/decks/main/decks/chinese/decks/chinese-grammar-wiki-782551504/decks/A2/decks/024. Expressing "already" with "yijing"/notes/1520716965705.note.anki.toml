@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "already" with "yijing"'
+english = 'I already have a boyfriend.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '已经 + [Verb Phrase] + 了'
+hanzi = '我已经有男朋友了。'
+notes = 'with a verb phrase'
+pinyin = 'Wǒ yǐjīng yǒu nánpéngyou le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNXI27'

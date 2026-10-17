@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing the self-evident with "ma"'
+english = 'Your sister is pretty.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Statement + 嘛'
+hanzi = '你的妹妹很漂亮嘛。'
+notes = ''
+pinyin = 'Nǐ de mèimei hěn piàoliang ma.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGVMC4B'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "after" with "jingguo"'
+english = 'After all of her hard work, she was admitted into Peking University.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '经过 + Event / Time，Subj. + Predicate'
+hanzi = '经过自己的努力，她考上了北京大学。'
+notes = ''
+pinyin = 'Jīngguò zìjǐ de nǔlì, tā kǎoshàng le Běijīng dàxué.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG11DA8'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "Nouns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "renjia" and "bieren"'
+english = 'Apologize to her now.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '你快给人家道歉。'
+notes = ''
+pinyin = 'Nǐ kuài gěi rénjia dàoqiàn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPINA4'

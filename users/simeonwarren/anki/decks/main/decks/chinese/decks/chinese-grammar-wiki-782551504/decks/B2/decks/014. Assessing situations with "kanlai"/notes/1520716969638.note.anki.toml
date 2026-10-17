@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Assessing situations with "kanlai"'
+english = "It seems he's not coming. It's already so late."
+example-sentence = ''
+example-type = ''
+grammar-construct = '看来 + Perspective'
+hanzi = '看来他不来了，都这么晚了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJPQ0Q'

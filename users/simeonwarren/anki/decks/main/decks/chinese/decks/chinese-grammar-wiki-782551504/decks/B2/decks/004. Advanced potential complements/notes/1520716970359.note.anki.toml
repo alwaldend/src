@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Advanced potential complements'
+english = "It's so heavy. Can he move it by himself?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 得 / 不 + 动'
+hanzi = '这么重，他一个人搬得动吗？'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG516F9'

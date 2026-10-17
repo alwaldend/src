@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "TimeWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "yizhi" and "yixiang"'
+english = "I've never liked really greasy things.How could you not know about this?"
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '我一向都不喜欢吃很油腻的东西，你怎么会不知道？'
+notes = ''
+pinyin = '<div>Wǒ yīxiàng dōu bù xǐhuān chī hěn yóunì de dōngxī, nǐ zěnme huì bù zhīdào?</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGVEP8S'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "NumbersandMeasureWords", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "ji" to mean "several"'
+english = 'He ate quite a few bowls of rice.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '好几 + Measure Word + Noun'
+hanzi = '他吃了好几碗米饭。'
+notes = ''
+pinyin = 'Tā chī le hǎojǐ wǎn mǐfàn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGHC9CA'

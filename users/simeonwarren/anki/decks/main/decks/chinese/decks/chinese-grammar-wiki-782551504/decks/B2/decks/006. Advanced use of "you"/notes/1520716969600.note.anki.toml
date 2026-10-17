@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Advanced use of "you"'
+english = 'This plan was changed again and again, and finally it passed.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. ＋Verb + 了 + 又 + Verb，还是 / 就是 ……'
+hanzi = '这个方案改了又改，终于通过了。'
+notes = ''
+pinyin = "Zhège fāng'àn gǎi le yòu gǎi, zhōngyú tōngguò le."
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGF08B6'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adjectives", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Adjectival complement "de hen"'
+english = "Stay away from me! I'm very upset now!"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Adj.+ 得很'
+hanzi = '离我远点儿！我现在烦得很！'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGG1ZBL'

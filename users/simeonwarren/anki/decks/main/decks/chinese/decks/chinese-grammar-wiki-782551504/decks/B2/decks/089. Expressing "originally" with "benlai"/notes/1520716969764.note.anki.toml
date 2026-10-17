@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "originally" with "benlai"'
+english = 'No one ever said life was easy.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 本来 + 就 + 会 / 要 / 得 / 应该 + Verb'
+hanzi = '生活本来就很不容易。'
+notes = 'Literally, "Life was never supposed to be easy."'
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG6F157'

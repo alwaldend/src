@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "now" with "le"'
+english = "He's coming over now. / He's on the way."
+example-sentence = ''
+example-type = ''
+grammar-construct = '[New Situation] + 了'
+hanzi = '他来了。'
+notes = "This can also mean \"He's here now.\" Be careful!"
+pinyin = 'Tā lái le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGE5Q4J'

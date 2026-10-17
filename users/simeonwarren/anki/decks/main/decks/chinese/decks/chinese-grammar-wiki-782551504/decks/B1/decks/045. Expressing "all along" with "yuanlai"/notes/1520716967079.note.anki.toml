@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "all along" with "yuanlai"'
+english = 'She was originally his Chinese teacher. She is now his wife.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 原来 + Predicate'
+hanzi = '原来她是他的中文老师，现在是他老婆。'
+notes = ''
+pinyin = 'Yuánlái tā shì tā de Zhōngwén lǎoshī, xiànzài shì tā lǎopo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTKXFR'

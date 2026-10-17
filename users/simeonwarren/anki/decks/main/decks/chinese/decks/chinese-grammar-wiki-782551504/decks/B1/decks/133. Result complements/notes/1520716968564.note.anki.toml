@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Result complements'
+english = "I didn't remember incorrectly."
+example-sentence = ''
+example-type = ''
+grammar-construct = '没 + Verb + Adj.'
+hanzi = '我没记错。'
+notes = ''
+pinyin = 'Wǒ méi jì cuò.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNNMST'

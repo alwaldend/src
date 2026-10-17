@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Result complements'
+english = 'Are you not full?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '没 + Verb + Adj.'
+hanzi = '你没吃饱吗？'
+notes = ''
+pinyin = 'Nǐ méi chī bǎo ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNNMST'

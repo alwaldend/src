@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["AuxiliaryWords", "B1", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "hui" "neng" "keyi"'
+english = 'Will you be mad at me?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '会 + Verb / Adj.'
+hanzi = '你会生我的气吗？'
+notes = ''
+pinyin = 'Nǐ huì shēng wǒ de qì ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGZL717'

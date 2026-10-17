@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Referring to "all" using "suoyou"'
+english = 'All the employees from our department can speak English.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '所有的 + Noun + 都 + Verb / Adj.'
+hanzi = '我们部门所有的员工都会说英文。'
+notes = ''
+pinyin = 'Wǒmen bùmén suǒyǒude yuángōng dōu huì shuō Yīngwén.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGOWBSL'

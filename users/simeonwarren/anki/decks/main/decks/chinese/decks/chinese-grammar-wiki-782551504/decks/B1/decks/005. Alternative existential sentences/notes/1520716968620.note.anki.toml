@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Alternative existential sentences'
+english = 'A few cars are parked downstairs.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Place + Verb + 着 + [Noun Phrase]'
+hanzi = '楼下停着几辆车。'
+notes = ''
+pinyin = 'Lóuxià tíng zhe jǐ liàng chē.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGAC619'

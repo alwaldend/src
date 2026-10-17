@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "guanyu" and "duiyu"'
+english = "About children's education, her opinion is very different from her husband's."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '关于孩子的教育，她跟丈夫的看法很不一样。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG1HNBU'

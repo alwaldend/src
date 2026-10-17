@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Auxiliaryverbs", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "yao" and "xiang"'
+english = 'Is your wife going back to work after she finishes giving birth to the baby?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 要 + Verb'
+hanzi = '生完孩子以后，你太太要回去工作吗？'
+notes = ''
+pinyin = 'Shēng wán háizi yǐhòu, nǐ tàitai yào huíqù gōngzuò ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGD88UO'

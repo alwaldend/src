@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Placement of question words'
+english = 'What is this?<br>This is my iPad.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 什么 + (Noun) ?'
+hanzi = 'A: 这是什么？<br>B: 这是我的iPad。'
+notes = ''
+pinyin = 'Zhè shì shénme?<br>Zhè shì wǒ de iPad.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJQPSC'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "had better" with "haishi"'
+english = "We're running late. Let's take a taxi."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 还是 + [Verb Phrase] + 吧'
+hanzi = '快迟到了，我们还是打车吧。'
+notes = ''
+pinyin = 'Kuài chídào le, wǒmen háishì dǎchē ba.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWAR65'

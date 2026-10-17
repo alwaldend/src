@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Events in quick succession with "yi... jiu..."'
+english = 'Every time we ask my younger brother to stop playing with iPad, he cries.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 一 + Situation / Reason，就 + Result'
+hanzi = '一不让弟弟玩iPad，他就哭。'
+notes = ''
+pinyin = 'Yī bù ràng dìdi wán iPad, tā jiù kū.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTFUD0'

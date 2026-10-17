@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Indicating the whole with "quan"'
+english = 'Are you going to be here the whole day tomorrow?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '全 + Noun + 都  + Verb'
+hanzi = '你明天全天都在吗？'
+notes = ''
+pinyin = 'Nǐ míngtiān quán tiān dōu zài ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCPDSR'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing indifference with "jiu"'
+english = "It's fine that you don't really understand. There's no point me telling you so much."
+example-sentence = ''
+example-type = ''
+grammar-construct = '不 / 没 + Adj. / Verb + 就 + 不 / 没 + Adj. / Verb'
+hanzi = '你们不懂就不懂，我说那么多也没用。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGL4O5E'

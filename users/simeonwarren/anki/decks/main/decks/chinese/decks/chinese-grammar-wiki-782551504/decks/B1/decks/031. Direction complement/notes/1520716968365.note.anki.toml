@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Direction complement'
+english = 'Waiter, please bring a few more bowls.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + [Compound Direction Complement]'
+hanzi = '服务员，请再拿几个碗来。'
+notes = ''
+pinyin = 'Fúwùyuán, qǐng zài ná jǐ gè wǎn lái.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8LWBJ'

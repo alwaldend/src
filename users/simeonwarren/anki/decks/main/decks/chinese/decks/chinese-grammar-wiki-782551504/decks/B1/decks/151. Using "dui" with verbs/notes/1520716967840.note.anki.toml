@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "dui" with verbs'
+english = 'The dog is barking at you.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '对 + Obj. + Verb'
+hanzi = '小狗在对你叫。'
+notes = ''
+pinyin = 'Xiǎo gǒu zài duì nǐ jiào.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8ICO9'

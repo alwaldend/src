@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Parts_of_Speech", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "thanks to" with "duokui"'
+english = 'Thanks to you taking her to the hospital, otherwise her condition can be really severe.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '多亏 (了) + [Lucky Incident] ，不然 + Subj. + [Bad Outcome]'
+hanzi = '多亏你送她去医院，不然情况会很严重。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG44TBS'

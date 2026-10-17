@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using the verb "qu"'
+english = 'Where are you going?<br>I am going to school.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 去 + [Place]'
+hanzi = 'A: 你去哪儿？<br>B: 我去学校。'
+notes = ''
+pinyin = 'Nǐ qù nǎr ?<br>Wǒ qù xuéxiào .'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGFYNCL'

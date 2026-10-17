@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Reduplication of adjectives'
+english = 'friendly'
+example-sentence = ''
+example-type = 'invalid'
+grammar-construct = 'A  A  B  B  + 的 (+ Noun)'
+hanzi = '友好→友友好好'
+notes = ''
+pinyin = 'yǒuhǎo ￫ yǒu yǒu hǎo hǎo'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDHE8S'

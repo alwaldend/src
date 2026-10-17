@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Conceding a point with "shi"'
+english = 'We had lots of fun, but we were also a little tired after that.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Adj. + 是 + Adj. ， 但是 / 就是 ⋯⋯'
+hanzi = '玩得开心是开心，但是有点累。'
+notes = ''
+pinyin = 'Wán de kāixīn shì kāixīn, dànshì yǒudiǎn lèi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGT9Y8P'

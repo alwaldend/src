@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Basic comparisons with "meiyou"'
+english = 'Taking the bus is not as convenient as taking the metro.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun 1 + 没有 + Noun 2 + Adj.'
+hanzi = '坐公交车没有坐地铁方便。'
+notes = ''
+pinyin = 'Zuò gōngjiāochē méiyǒu zuò dìtiě fāngbiàn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGEAH5M'

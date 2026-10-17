@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "NumbersandMeasureWords", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "ji" to mean "several"'
+english = 'He wrote a few dozen books. I like them all.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '几 + 十 + Measure Word + Noun'
+hanzi = '他写过几十本书，我都喜欢。'
+notes = ''
+pinyin = 'Tā xiě guo jǐ shí běn shū, wǒ dōu xǐhuan.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGHC9CA'

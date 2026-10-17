@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "when" with "shi"'
+english = 'There were only three people when this company was founded.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '(Subj. +) Verb / Adj. + 时⋯⋯'
+hanzi = '我们公司成立时只有三个人。'
+notes = ''
+pinyin = 'Wǒmen gōngsī chénglì shí zhǐyǒu sān gè rén.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGGL59D'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Grammatical_Structures", "IfStatements"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "if… then…" with "jiaru"'
+english = "If your girlfriend doesn't love you, then you should break up."
+example-sentence = ''
+example-type = ''
+grammar-construct = '假如 + Statement + 就 + Result'
+hanzi = '假如你的女朋友不爱你，你们就分手吧。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGHNDX4'

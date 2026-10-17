@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "EvenIfStatements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "even if…" with "jishi"'
+english = "Even if you don't have the appetite, you still need to eat something."
+example-sentence = ''
+example-type = ''
+grammar-construct = '即使 ⋯⋯ ，也 ⋯⋯'
+hanzi = '即使你没胃口，也要吃一点。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGBUXN7'

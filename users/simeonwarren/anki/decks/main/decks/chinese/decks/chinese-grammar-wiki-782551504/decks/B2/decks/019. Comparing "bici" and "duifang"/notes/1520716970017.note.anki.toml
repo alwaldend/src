@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Parts_of_Speech", "Pronouns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "bici" and "duifang"'
+english = 'We are from the same department. We should cooperate with each other at work.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '彼此 + Verb'
+hanzi = '我们是一个部门的，工作上要彼此配合。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG84D65'

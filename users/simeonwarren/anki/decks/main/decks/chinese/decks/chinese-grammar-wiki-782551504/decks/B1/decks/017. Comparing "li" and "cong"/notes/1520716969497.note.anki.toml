@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "li" and "cong"'
+english = 'I learned a lot from him.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '从 + Place + 上 / 里'
+hanzi = '我从他身上学到了很多东西。'
+notes = ''
+pinyin = 'Wǒ cóng tā shēnshang  xuédào le hěn duō dōngxi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG59C66'

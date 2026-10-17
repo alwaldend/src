@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Auxiliaryverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing future with "jiang"'
+english = 'Our company is about to release a new product.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '将 + [Imminent Event]'
+hanzi = '我们公司将要推出一个新产品。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGIQPUJ'

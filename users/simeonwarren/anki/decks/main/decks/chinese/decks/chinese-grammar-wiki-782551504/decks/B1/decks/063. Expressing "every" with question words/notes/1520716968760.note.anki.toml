@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "every" with question words'
+english = 'No one believes what he said.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '谁 + 都 + Predicate'
+hanzi = '谁都不相信他说的话。'
+notes = ''
+pinyin = 'Shéi dōu bù xiāngxìn tā shuō de huà.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG13ALM'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = "should;\tought to;\tprobably;\tmust be;\tto deserve;\tto owe;\tto be sb's turn to do sth;\tthat;\tthe above-mentioned."
+example-sentence = ' 是该好好的养精蓄锐,待到明天,争上那一番'
+example-type = ''
+grammar-construct = ''
+hanzi = '该'
+notes = ''
+pinyin = '<span class="tone1">gāi</span>	 <!-- gai -->'
+source = ''

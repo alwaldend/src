@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["AuxiliaryWords", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Ending a non-exhaustive list with "shenme de"'
+english = 'When you live alone, you need to do things all by yourself, doing laundry, cooking, and so on.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun 1, Noun 2 (+ Noun 3) + 什么的'
+hanzi = '一个人住，洗衣服、做饭什么的都要自己做。'
+notes = ''
+pinyin = 'Yīgèrén zhù, xǐ yīfu, zuòfàn shénme de dōu yào zìjǐ zuò.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDIDAC'

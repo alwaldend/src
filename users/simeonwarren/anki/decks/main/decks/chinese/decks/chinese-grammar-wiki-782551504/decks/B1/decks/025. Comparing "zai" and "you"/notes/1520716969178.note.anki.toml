@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "zai" and "you"'
+english = 'This old man came again.'
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = 'Subj. + 又 + Verb + 了'
+hanzi = '这个老男人又来了。'
+notes = ''
+pinyin = '<div>Zhège lǎo nánrén yòu láile.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTBHBG'

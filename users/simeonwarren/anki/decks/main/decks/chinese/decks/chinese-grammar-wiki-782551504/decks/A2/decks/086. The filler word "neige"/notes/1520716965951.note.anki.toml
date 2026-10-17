@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'The filler word "neige"'
+english = "Ummm... I'm not coming tomorrow."
+example-sentence = ''
+example-type = ''
+grammar-construct = '(那个⋯⋯) (那个⋯⋯) + [anything] + (那个⋯⋯)'
+hanzi = '那个⋯⋯我明天不来了。'
+notes = ''
+pinyin = 'Nèige... wǒ míngtiān bù lái le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8VJM8'

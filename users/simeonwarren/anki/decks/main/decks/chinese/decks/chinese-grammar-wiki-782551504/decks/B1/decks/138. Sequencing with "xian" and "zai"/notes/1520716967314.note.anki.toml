@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Sequencing with "xian" and "zai"'
+english = 'First you need to do your homework, and then you can watch.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '先 ⋯⋯ ，再 ⋯⋯'
+hanzi = '你要先做作业，再看电视。'
+notes = ''
+pinyin = 'Tā yào xiān zuò zuòyè, zài kàn diànshì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGLJM55'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "after all" with "bijing"'
+english = "After all, he's only a kid. Don't hit him."
+example-sentence = ''
+example-type = ''
+grammar-construct = '毕竟 + Reason / Characteristic'
+hanzi = '他毕竟是孩子，你就别打他了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG4V36Q'

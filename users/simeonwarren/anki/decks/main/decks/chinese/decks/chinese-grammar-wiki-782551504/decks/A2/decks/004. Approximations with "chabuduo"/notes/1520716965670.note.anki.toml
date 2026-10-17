@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Approximations with "chabuduo"'
+english = 'He has lived in Shanghai for about three months.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '差不多 ＋ [Quantity Phrase] / [Time Phrase]'
+hanzi = '他住在上海差不多三个月了。'
+notes = ''
+pinyin = 'Tā zhù zài Shànghǎi chàbuduō sān gè yuè le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG1NAXO'

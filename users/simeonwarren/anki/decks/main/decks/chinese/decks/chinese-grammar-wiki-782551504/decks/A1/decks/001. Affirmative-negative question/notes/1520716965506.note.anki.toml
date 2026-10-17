@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Affirmative-negative question'
+english = 'Does she eat fish?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 不 + Verb + Obj.'
+hanzi = '她吃不吃鱼？'
+notes = ''
+pinyin = 'Tā chī bu chī yú?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGZH7K3'

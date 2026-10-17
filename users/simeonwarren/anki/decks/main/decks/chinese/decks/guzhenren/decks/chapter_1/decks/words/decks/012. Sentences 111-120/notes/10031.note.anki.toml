@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = "household;\tdwelling;\tfamily;\tsb else's house;\thousehold business;\thouse of woman's husband-to-be.<br>other people;\tsb else;\the, she or they;\tI, me (referring to oneself as \"one\" or \"people\").<br><br>Cl: 户, 家"
+example-sentence = ' 此刻深夜,寨中大多数人家却还有着灯火,和平时大不相同'
+example-type = ''
+grammar-construct = ''
+hanzi = '人家'
+notes = ''
+pinyin = '<span class="tone2">rén</span><span class="tone5">jiārén</span><span class="tone5">jia</span>	 <!-- ren jia ren jia -->'
+source = ''

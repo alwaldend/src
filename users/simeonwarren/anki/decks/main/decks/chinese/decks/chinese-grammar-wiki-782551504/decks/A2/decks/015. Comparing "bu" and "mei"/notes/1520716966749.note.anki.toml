@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "bu" and "mei"'
+english = "We're not hungry."
+example-sentence = ''
+example-type = ''
+grammar-construct = '不 + Adj.'
+hanzi = '我们不饿。'
+notes = ''
+pinyin = 'Wǒmen bù è.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGRJ1BI'

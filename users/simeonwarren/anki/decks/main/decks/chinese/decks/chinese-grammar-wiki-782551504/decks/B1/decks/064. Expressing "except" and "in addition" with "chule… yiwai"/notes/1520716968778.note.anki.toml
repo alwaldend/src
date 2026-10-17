@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "except" and "in addition" with "chule… yiwai"'
+english = 'In addition to English, I can also speak French and Spanish.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '除了 ⋯⋯ (+ 以外) ，Subj. + 也 / 还 ⋯⋯'
+hanzi = '除了英语，我也会说法语和西班牙语。'
+notes = ''
+pinyin = 'Chúle Yīngyǔ, wǒ yě huì shuō Fǎyǔ hé Xībānyáyǔ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGHFPGG'

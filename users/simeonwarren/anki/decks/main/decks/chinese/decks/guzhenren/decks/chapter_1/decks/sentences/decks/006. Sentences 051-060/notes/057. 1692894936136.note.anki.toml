@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'His forehead hit the brown floor with a soft thud.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '额头碰在棕色的地板上,发出轻轻的砰砰声。'
+notes = ''
+pinyin = ''
+source = ''

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Coincidence with "zhenghao"'
+english = 'The size of these clothes is just right.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 正好 + [Verb Phrase]'
+hanzi = '这件衣服的大小正好。'
+notes = ''
+pinyin = 'Zhè jiàn yīfu de dàxiǎo zhènghǎo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGUD25J'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "ConditionalStatements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "once...then..." with "yidan...jiu..."'
+english = 'Computer science students are very confident. Once they graduate, they will be able to find good jobs.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '一旦 + Condition，Subj. + 就 + Consequence'
+hanzi = '学习计算机科学的学生很自信，他们一旦毕业，就会找到很好的工作。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGU3ZV1'

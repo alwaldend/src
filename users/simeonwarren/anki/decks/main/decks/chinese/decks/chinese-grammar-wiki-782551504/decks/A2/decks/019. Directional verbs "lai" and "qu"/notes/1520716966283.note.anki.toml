@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Directional verbs "lai" and "qu"'
+english = "I like to go to my friends' places on the weekends."
+example-sentence = ''
+example-type = ''
+grammar-construct = '来 / 去 + Place'
+hanzi = '周末我喜欢去朋友家。'
+notes = ''
+pinyin = 'Zhōumò wǒ xǐhuan qù péngyou jiā.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGRBKSL'

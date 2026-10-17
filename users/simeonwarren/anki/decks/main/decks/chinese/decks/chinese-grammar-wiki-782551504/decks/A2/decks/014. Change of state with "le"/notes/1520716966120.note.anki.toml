@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Change of state with "le"'
+english = "It's raining."
+example-sentence = ''
+example-type = ''
+grammar-construct = '[New Situation] + 了'
+hanzi = '下雨了。'
+notes = "It wasn't raining, but now it is."
+pinyin = 'Xià yǔ le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGT185D'

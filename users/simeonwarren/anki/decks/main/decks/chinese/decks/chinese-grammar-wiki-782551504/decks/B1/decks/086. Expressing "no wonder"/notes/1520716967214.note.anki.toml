@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "no wonder"'
+english = "Don't blame him. He's just a kid. He doesn't know better."
+example-sentence = ''
+example-type = ''
+grammar-construct = '这也 + 难怪 + [Specific Person / People]'
+hanzi = '这也难怪他，还是个孩子呢，什么都不懂。'
+notes = ''
+pinyin = 'Zhè yě nánguài tā, háishì gè háizi ne, shénme dōu bù dǒng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGFPV2C'

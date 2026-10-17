@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'If the freshly refined Spring Autumn Cicada is effective, you will still be a demon in the next life!'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '若是刚炼成的春秋蝉有效,来生还是要做邪魔！'
+notes = ''
+pinyin = ''
+source = ''

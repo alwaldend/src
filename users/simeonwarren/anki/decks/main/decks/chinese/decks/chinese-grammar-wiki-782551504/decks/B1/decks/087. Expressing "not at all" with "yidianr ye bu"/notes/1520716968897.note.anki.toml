@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "not at all" with "yidianr ye bu"'
+english = "She didn't prepare at all."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 一点 + 也 / 都 + 不 + [Verb Phrase]'
+hanzi = '她一点都没准备。'
+notes = ''
+pinyin = 'Tā yīdiǎn dōu méi zhǔnbèi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGRURCZ'

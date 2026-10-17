@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adjectives", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Saying "a lot" with "youdeshi"'
+english = "Don't worry. There are a lot of men in the world. You can find someone else after breakup."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun + Subj. + 有的是 。'
+hanzi = '别担心。世界上男人有的是，分手了还可以再找。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGVACYB'

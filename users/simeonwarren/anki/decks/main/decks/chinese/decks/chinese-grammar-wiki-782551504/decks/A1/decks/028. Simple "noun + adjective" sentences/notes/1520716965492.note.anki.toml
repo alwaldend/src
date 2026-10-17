@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Basics", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Simple "noun + adjective" sentences'
+english = "We're tired."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun + 很 + Adj.'
+hanzi = '我们很累。'
+notes = ''
+pinyin = 'Wǒmen hěn lèi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG17BLH'

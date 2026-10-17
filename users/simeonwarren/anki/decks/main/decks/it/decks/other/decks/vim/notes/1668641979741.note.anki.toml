@@ -1,0 +1,12 @@
+note_type = "note_types/basic.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[[cards]]
+ordinal = 1
+
+[fields]
+Back = '<pre><code>:%!jq .</code></pre><pre><span style="color: var(--field-fg); font-family: -apple-system-body; background: var(--field-bg);">or (but dangerous</span></pre><pre><span style="color: var(--field-fg); font-family: -apple-system-body; background: var(--field-bg);">due to non-ASCII issues)</span></pre><pre>:%!python -m json.tool<br></pre>'
+Front = 'Format JSON in vim (2 ways)'

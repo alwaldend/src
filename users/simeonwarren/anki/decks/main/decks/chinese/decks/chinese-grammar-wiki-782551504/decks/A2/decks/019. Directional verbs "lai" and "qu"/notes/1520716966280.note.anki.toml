@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Directional verbs "lai" and "qu"'
+english = 'Do you not want to come to work for our company?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '来 / 去 + Place'
+hanzi = '你不想来我们公司工作吗？'
+notes = ''
+pinyin = 'Nǐ bù xiǎng lái wǒmen gōngsī gōngzuò ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGRBKSL'

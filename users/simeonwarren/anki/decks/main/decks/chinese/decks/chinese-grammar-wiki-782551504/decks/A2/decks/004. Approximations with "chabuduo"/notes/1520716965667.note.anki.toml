@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Approximations with "chabuduo"'
+english = 'The movie is almost about to start.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '差不多 + Adj. / Verb'
+hanzi = '电影差不多要开始了。'
+notes = ''
+pinyin = 'Diànyǐng chàbuduō yào kāishǐ le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG1NAXO'

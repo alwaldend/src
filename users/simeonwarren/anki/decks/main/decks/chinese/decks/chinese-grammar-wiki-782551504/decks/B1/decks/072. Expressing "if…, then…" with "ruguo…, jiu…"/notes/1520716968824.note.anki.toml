@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "if…, then…" with "ruguo…, jiu…"'
+english = "If we can find the investment, we'll be able to get on it next month."
+example-sentence = ''
+example-type = ''
+grammar-construct = '如果 ⋯⋯ ，那么 / 那 ⋯⋯'
+hanzi = '如果能找到投资，那下个月就可以开始做了。'
+notes = ''
+pinyin = 'Rúguǒ néng zhǎodào tóuzī, nà xià gè yuè jiù kěyǐ kāishǐ zuò le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGGIVT0'

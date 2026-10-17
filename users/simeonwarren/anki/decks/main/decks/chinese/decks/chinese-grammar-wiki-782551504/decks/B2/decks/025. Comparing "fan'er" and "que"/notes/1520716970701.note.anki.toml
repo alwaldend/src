@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "Conjunctions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = "Comparing \"fan'er\" and \"que\""
+english = 'They all thought the Knicks were going to lose the last game, but they won.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '反而 + Sentence'
+hanzi = '他们都觉得Knicks会输掉最后一场比赛，结果他反而赢了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG0K25S'

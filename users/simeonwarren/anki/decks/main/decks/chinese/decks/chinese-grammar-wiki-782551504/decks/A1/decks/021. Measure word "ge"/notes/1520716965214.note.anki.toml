@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Numbers", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Measure word "ge"'
+english = 'three iPhones'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Number + 个 + Noun'
+hanzi = '三个苹果手机'
+notes = ''
+pinyin = 'sān gè Píngguǒ shǒujī'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGI0T9S'

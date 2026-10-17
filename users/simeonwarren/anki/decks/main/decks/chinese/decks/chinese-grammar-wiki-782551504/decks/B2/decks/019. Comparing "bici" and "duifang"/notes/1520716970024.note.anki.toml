@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Parts_of_Speech", "Pronouns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "bici" and "duifang"'
+english = 'He usually ignores their feelings when he talks to people.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '彼此 + 的＋Noun'
+hanzi = '他跟人说话的时候常常忽视对方的感受。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG84D65'

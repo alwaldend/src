@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "zhe" when "verbing away"'
+english = "As I was walking in one of Beijing's back roads, I got lost."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 着 + Verb + 着 + 就 + Comment + 了'
+hanzi = '我在北京的胡同里走着走着就走丢了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG7AUNJ'

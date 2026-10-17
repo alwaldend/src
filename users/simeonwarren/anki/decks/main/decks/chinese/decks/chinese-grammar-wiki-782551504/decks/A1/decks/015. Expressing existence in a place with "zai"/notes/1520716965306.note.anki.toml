@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing existence in a place with "zai"'
+english = 'Who is upstairs?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 在 + Place'
+hanzi = '谁在楼上？'
+notes = ''
+pinyin = 'Shéi zài lóushàng?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGLRWT8'

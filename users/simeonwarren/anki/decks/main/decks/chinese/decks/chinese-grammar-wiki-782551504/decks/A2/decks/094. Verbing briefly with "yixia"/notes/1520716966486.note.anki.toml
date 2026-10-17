@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "leech", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Verbing briefly with "yixia"'
+english = 'Could you introduce yourself briefly?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 一下 + Obj.'
+hanzi = '你能介绍一下自己吗？'
+notes = 'Not your life story, just a brief self-introduction.'
+pinyin = 'Nǐ néng jièshào yīxià zìjǐ ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWCESP'

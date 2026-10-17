@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Placement of question words'
+english = 'What kind of cell phone do you use?<br>I use an iPhone.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 什么 + (Noun) ?'
+hanzi = 'A: 你用什么手机？<br>B: 我用iPhone。'
+notes = ''
+pinyin = 'Nǐ yòng shénme shǒujī?<br>Wǒ yòng iPhone.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJQPSC'

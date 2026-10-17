@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Direction complement "-qilai"'
+english = "Grandpa's health is getting better."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb / Adj.+ 起来 +了'
+hanzi = '爷爷的身体好起来了。'
+notes = ''
+pinyin = 'Yéye de shēntǐ hǎo qǐlái le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGBPXOB'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "through" with "tongguo"'
+english = 'New York University went through my application.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '纽约大学通过了我的申请。'
+notes = ''
+pinyin = 'Niǔyuē dàxué tōngguò le wǒ de shēnqǐng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG9B1E3'

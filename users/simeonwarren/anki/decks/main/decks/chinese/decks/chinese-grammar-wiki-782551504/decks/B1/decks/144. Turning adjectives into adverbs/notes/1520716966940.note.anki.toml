@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adjectives", "B1", "leech", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Turning adjectives into adverbs'
+english = 'I hope that you grow up healthy.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Adj. + 地 + Verb'
+hanzi = '我希望你健健康康地长大。'
+notes = ''
+pinyin = 'Wǒ xīwàng nǐ jiàn jiàn kāng kāng de zhǎng dà.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMAFSX'

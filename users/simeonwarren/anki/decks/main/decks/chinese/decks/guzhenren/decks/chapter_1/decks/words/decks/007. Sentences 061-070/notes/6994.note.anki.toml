@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'correct;	right;	not bad;	pretty good.'
+example-sentence = '不错,白家寨、熊家寨这些年都有天才涌现'
+example-type = ''
+grammar-construct = ''
+hanzi = '不错'
+notes = ''
+pinyin = '<span class="tone4">bù</span><span class="tone4">cuò</span>	 <!-- bu cuo -->'
+source = ''

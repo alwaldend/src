@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "zai" and "you"'
+english = "First I'll buy a house, then I'll get married."
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = 'Subj. + (先) + Action 1 + 再 + Action 2'
+hanzi = '我先买房子再结婚。'
+notes = ''
+pinyin = '<div>Wǒ xiān mǎi fángzǐ zài jiéhūn.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTBHBG'

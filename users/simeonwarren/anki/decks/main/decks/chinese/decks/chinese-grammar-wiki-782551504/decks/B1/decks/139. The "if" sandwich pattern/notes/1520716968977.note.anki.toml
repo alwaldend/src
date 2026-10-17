@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'The "if" sandwich pattern'
+english = 'If you have time, we can go see a movie tomorrow night.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '如果你有空的话，我们可以明天晚上看电影。'
+notes = ''
+pinyin = '<div>Rúguǒ nǐ yǒu kòng dehuà, wǒmen kěyǐ míngtiān wǎnshàng kàn diànyǐng.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGN4VUU'

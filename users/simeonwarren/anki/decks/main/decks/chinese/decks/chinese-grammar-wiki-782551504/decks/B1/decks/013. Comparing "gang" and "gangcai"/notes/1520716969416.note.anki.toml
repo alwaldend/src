@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "TimeWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "gang" and "gangcai"'
+english = 'I just saw him yesterday.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '刚 + Verb'
+hanzi = '我昨天刚看到他。'
+notes = ''
+pinyin = 'Wǒ zuótiān gāng kàndào tā.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJFFWG'

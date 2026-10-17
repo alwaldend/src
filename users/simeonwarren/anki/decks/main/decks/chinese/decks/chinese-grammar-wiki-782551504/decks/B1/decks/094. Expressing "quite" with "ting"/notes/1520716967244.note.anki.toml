@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "quite" with "ting"'
+english = 'We always miss you.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '挺 + Verb + Obj. + 的'
+hanzi = '我们一直都挺想你的。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDF1F7'

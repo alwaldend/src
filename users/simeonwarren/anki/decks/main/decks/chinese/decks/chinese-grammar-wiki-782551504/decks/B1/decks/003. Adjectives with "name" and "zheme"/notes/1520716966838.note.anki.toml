@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Adjectives with "name" and "zheme"'
+english = 'How come this foreigner knows so much about Chinese history?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 那么 / 这么 + Adj.'
+hanzi = '这个老外怎么会了解那么多中国历史？'
+notes = ''
+pinyin = 'Zhège lǎowài zěnme huì  liǎojiě nàme duō Zhōngguó lìshǐ?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNKKP6'

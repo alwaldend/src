@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'dark green.'
+example-sentence = '方源一身残破的碧绿大袍,披头散发,浑身浴血,环顾四周'
+example-type = ''
+grammar-construct = ''
+hanzi = '碧绿'
+notes = ''
+pinyin = '<span class="tone4">bì</span><span class="tone4">lǜ</span>	 <!-- bi lü -->'
+source = ''

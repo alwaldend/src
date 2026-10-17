@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Referring to "all" using "suoyou"'
+english = "Money can't solve all the problems."
+example-sentence = ''
+example-type = ''
+grammar-construct = '所有的 + Noun + 都 + Verb / Adj.'
+hanzi = '钱不可能解决所有的问题。'
+notes = ''
+pinyin = 'Qián bù kěnéng jiějué suǒyǒude wèntí.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGOWBSL'

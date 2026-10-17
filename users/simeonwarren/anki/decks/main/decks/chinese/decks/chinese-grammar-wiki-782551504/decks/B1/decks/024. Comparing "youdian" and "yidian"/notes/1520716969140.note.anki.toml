@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "youdian" and "yidian"'
+english = "Kids kind of don't like this place."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '孩子们有点儿不喜欢这个地方。'
+notes = ''
+pinyin = 'Háizi men yǒudiǎnr bù xǐhuan zhège dìfang.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGV55Y4'

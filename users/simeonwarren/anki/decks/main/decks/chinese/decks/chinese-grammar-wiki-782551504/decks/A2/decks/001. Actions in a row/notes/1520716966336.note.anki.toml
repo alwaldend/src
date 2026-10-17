@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Actions in a row'
+english = 'I want to go home and eat.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + [Verb Phrase 1] + [Verb Phrase 2]'
+hanzi = '我要回家吃饭。'
+notes = ''
+pinyin = 'Wǒ yào huíjiā chīfàn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPRGAX'

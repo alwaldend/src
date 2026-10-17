@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Two words for "but"'
+english = "The boss gave him a call yesterday, but he didn't answer."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Statement， 可是 / 但是 + [Contrary Statement]'
+hanzi = '老板昨天给他打电话，可是他没接。'
+notes = ''
+pinyin = 'Lǎobǎn zuótiān gěi tā dǎ diànhuà, kěshì tā méi jiē.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGUD81S'

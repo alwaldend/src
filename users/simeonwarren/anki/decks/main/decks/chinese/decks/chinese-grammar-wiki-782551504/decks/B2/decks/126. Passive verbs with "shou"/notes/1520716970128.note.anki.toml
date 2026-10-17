@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Passive verbs with "shou"'
+english = 'Affected by the cold air, today Shanghai is especially cold.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '受 + ([Someone / Something]) + Verb'
+hanzi = '受冷空气的影响，今天上海特别冷。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG1DXUD'

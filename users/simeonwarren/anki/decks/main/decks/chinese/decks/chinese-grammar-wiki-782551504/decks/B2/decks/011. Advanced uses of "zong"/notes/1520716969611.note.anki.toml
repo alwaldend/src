@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Advanced uses of "zong"'
+english = 'We always have to come up with something to do.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '总 + 会 / 得 / 要 / 能 + Verb'
+hanzi = '咱们总得想个办法啊。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8QS6H'

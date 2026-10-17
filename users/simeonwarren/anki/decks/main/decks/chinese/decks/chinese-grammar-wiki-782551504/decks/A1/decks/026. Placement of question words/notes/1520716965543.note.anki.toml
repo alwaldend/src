@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Placement of question words'
+english = 'What kind of car does he drive?<br>He drives a BMW.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 什么 + (Noun) ?'
+hanzi = 'A: 他开什么车？<br>B: 他开宝马。'
+notes = ''
+pinyin = 'Tā kāi shénme chē?<br>Tā kāi Bǎomǎ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJQPSC'

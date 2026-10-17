@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "IfStatements"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "if…, then…" with "ruguo…, jiu…"'
+english = 'When you have time, you need to find me so we can hang out.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Statement + 的话，(就) Result'
+hanzi = '下次有时间的话，一定要找我玩儿。'
+notes = ''
+pinyin = 'Xià cì yǒu shíjiān de huà, yīdìng yào zhǎo wǒ wán er.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGGIVT0'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Softening speech with "ba"'
+english = "That place is too far away. I don't want to go."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Statement + 吧'
+hanzi = '那个地方太远了吧，我不想去。'
+notes = ''
+pinyin = 'Nàge dìfang tài yuǎn le ba，wǒ bù xiǎng qù.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDHC1H'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'two sides;	both sides.'
+example-sentence = '牌位两侧摆着赤铜香炉,香烟袅袅'
+example-type = ''
+grammar-construct = ''
+hanzi = '两侧'
+notes = ''
+pinyin = '<span class="tone3">liǎng</span><span class="tone4">cè</span>	 <!-- liang ce -->'
+source = ''

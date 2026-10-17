@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "in this way" with "zheyang"'
+english = 'You need to speak more. Only in this way can you be more and more fluent.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '⋯⋯ ，这样 + 会 / 才 ⋯⋯'
+hanzi = '你要多说，这样才能越来越流利。'
+notes = ''
+pinyin = 'Nǐ yào duō shuō, zhèyàng cái néng yuèláiyuè liúlì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG1F4D1'

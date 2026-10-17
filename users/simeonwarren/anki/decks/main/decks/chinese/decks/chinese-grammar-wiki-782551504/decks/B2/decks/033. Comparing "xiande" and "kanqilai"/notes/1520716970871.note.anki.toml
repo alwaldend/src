@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "xiande" and "kanqilai"'
+english = 'Doing it like this makes you seem stingy.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A + 显得 + B + Predicate'
+hanzi = '这么做会显得你很小气。'
+notes = ''
+pinyin = 'Zhème zuò huì xiǎnde nǐ hěn xiǎoqì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGKQEG9'

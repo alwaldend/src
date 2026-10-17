@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "bei" sentences'
+english = "You got caught for what you did (but I'm not saying who found it, probably because it's obvious)."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '你做的事被发现了。'
+notes = ''
+pinyin = '<div>Nǐ zuò de shì pī fà xiàn le.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGHF9F1'

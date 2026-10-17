@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'Qingmao Mountain is not dark, from the mountainside to the foot of the mountain, there are many shimmering lights, as if it is covered with a brilliant light belt.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '青茅山却不黑暗,从山腰至山脚,闪着许多莹莹的微光,好像是披着一条灿烂的光带。'
+notes = ''
+pinyin = ''
+source = ''

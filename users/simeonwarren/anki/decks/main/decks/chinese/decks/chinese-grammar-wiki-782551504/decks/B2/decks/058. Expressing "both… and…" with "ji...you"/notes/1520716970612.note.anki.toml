@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "both… and…" with "ji...you"'
+english = 'My father was really mad at me, but he neither hit me nor scold me.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '既 + [Verb Phrase] ，也 + [Verb Phrase]'
+hanzi = '爸爸很生气我的气，不过他既没打我，也没骂我。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGZRPCK'

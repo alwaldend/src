@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Indicating the whole with "quan"'
+english = 'None of them went.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 全都 + 不 / 没 + Predicate'
+hanzi = '他们全都没去。'
+notes = ''
+pinyin = 'Tāmen quán dōu méi qù.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCPDSR'

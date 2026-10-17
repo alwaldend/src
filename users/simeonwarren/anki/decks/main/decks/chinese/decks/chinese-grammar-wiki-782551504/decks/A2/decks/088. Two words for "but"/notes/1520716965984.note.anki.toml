@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Two words for "but"'
+english = 'I really want to go, but I am too busy.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Statement， 可是 / 但是 + [Contrary Statement]'
+hanzi = '我很想去，但是我太忙了。'
+notes = ''
+pinyin = 'Wǒ hěn xiǎng qù, dànshì wǒ tài máng le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGUD81S'

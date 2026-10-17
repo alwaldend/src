@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing close possession without "de"'
+english = 'Their company is in Bejing.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Pronoun + Noun'
+hanzi = '他们公司在北京。'
+notes = ''
+pinyin = 'Tāmen gōngsī zài Běijīng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCI0KG'

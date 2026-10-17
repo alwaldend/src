@@ -1,0 +1,13 @@
+note_type = "note_types/python-basic-and-reversed.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<i>tuple.</i>count(<i>value</i>)'
+example = ''
+question = '<b>Tuple method</b> that returns the number of times a specified value occurs in a tuple.'
+version = ''
+with-options = ''

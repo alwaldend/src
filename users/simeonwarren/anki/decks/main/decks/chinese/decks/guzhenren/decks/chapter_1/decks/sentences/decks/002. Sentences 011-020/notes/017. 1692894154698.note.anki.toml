@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'The righteous heroes who besieged him were either dignified elders and nobles, or young heroes who were famous all over the world.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '围攻他的正道群雄,不是堂堂一派之长者尊贵,就是名动四方之少年英豪。'
+notes = ''
+pinyin = ''
+source = ''

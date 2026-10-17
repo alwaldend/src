@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "ever since" with "zicong"'
+english = ''
+example-sentence = ''
+example-type = 'invalid'
+grammar-construct = '自从 + [Starting Point]'
+hanzi = '自从明天开始，我要认真看书。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGLI7GW'

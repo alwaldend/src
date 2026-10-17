@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Special verbs with "hen"'
+english = 'I fear staying home alone at night.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 很 + [Certain Verbs]'
+hanzi = '我很怕晚上一个人在家。'
+notes = ''
+pinyin = 'Wǒ hěn  pà wǎnshang yīgèrén zài jiā.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGID0E8'

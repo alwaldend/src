@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "turan" and "huran"'
+english = 'She got married.&lt;br /&gt;Oh, this news is really sudden.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. +  突然 + Modifier'
+hanzi = 'A:她结婚了。&lt;br /&gt;B:啊，这个消息太突然了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGHKZP4'

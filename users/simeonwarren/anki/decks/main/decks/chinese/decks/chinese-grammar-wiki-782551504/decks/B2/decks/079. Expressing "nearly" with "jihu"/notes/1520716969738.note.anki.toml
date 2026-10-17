@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "nearly" with "jihu"'
+english = "Almost all our family doesn't drink."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 几乎 + 不 / 没 + Predicate'
+hanzi = '我老板几乎不喝酒。'
+notes = ''
+pinyin = 'Wǒmen jiā rén jīhū dōu bù hējiǔ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGVA70K'

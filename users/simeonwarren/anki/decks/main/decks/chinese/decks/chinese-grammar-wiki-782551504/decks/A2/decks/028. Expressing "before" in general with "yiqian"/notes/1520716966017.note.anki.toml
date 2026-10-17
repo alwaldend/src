@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "before" in general with "yiqian"'
+english = 'Before, he was a waiter. Now, he is a boss.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 以前 + Verb + Obj.'
+hanzi = '以前他是一个服务员，现在是老板。'
+notes = ''
+pinyin = 'Yǐqián tā shì yī gè fúwùyuán, xiànzài shì lǎobǎn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGVCWLU'

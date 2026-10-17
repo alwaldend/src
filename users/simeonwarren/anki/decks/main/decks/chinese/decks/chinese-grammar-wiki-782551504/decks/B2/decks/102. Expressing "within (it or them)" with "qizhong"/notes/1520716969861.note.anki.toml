@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "within (it/them)" with "qizhong"'
+english = 'Mankind faces many challenges in the 21st century. Among them, the most serious is the problem of protecting the environment.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Category / Group / Context + 其中'
+hanzi = '人类21世纪面临许多问题，其中最严重的是环境问题。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGD1LNT'

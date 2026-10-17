@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Turning adjectives into adverbs'
+english = 'You must study seriously.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Adj. + 地 + Verb'
+hanzi = '你要认真地学习。'
+notes = ''
+pinyin = 'Nǐ yào rènzhēn de xuéxí.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMAFSX'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'The "all" adverb "dou"'
+english = 'The two of us both love you.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 都 + [Verb Phrase]'
+hanzi = '我们两个都爱你。'
+notes = ''
+pinyin = 'Wǒmen liǎng gè dōu ài nǐ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG9YK09'

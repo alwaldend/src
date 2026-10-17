@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'indeed;	truly;	(coll.) (used to express disapproval, annoyance etc about sth).'
+example-sentence = '尤其是白家的白凝冰,天资真是恐怖'
+example-type = ''
+grammar-construct = ''
+hanzi = '真是'
+notes = ''
+pinyin = '<span class="tone1">zhēn</span><span class="tone5">shi</span>	 <!-- zhen shi -->'
+source = ''

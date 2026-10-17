@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'le after an object'
+english = 'I‘m off work now.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 了 + Number + Measure Word + Obj.'
+hanzi = '我已经下班了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG4K5WH'

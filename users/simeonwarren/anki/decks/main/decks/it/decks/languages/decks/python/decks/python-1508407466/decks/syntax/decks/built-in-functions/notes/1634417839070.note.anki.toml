@@ -1,0 +1,13 @@
+note_type = "note_types/python-basic-and-reversed.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+additional-info = 'Also accepts optional parameters sort function&nbsp;<i>key</i>, and bool value&nbsp;<i>reverse.</i>'
+answer = '<b>Built in function:&nbsp;</b>sorted(<i>iterable</i>)'
+example = ''
+question = '<b>Built in function</b>&nbsp;that returns a sorted list from an iterable object. &nbsp;'
+version = ''
+with-options = 'sorted(<i>iterable</i>,&nbsp;<i>key=None, reverse=False</i>)'

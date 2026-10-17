@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "quite" with "ting"'
+english = "Don't you really like him? Why do you want to break up with him?"
+example-sentence = ''
+example-type = ''
+grammar-construct = '挺 + Verb + Obj. + 的'
+hanzi = '你不是挺喜欢他的吗？为什么要跟他分手？'
+notes = ''
+pinyin = 'Nǐ bùshì tǐng xǐhuān tā de ma? Wèishéme yào gēn tā fēnshǒu?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDF1F7'

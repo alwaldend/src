@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Numbers", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing fractions with "fenzhi"'
+english = 'My phone battery still has 30% left.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Denominator + 分之 + Numerator'
+hanzi = '我的手机电量还有百分之三十。'
+notes = ''
+pinyin = 'Wǒ de shǒujī diànliàng háiyǒu bǎifēnzhī sānshí.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG84RE9'

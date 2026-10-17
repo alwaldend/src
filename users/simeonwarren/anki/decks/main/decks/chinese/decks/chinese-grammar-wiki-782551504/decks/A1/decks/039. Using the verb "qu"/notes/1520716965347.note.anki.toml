@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using the verb "qu"'
+english = "I'm going to work."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 去 + Verb'
+hanzi = '我去工作。'
+notes = ''
+pinyin = 'Wǒ qù gōngzuò.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGFYNCL'

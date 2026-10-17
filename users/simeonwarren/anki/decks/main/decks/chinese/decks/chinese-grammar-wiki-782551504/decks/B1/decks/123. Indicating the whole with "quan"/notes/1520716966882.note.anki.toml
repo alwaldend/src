@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Indicating the whole with "quan"'
+english = "You can't believe everything he says."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj.＋不 / 没＋全都＋Verb / Adj.'
+hanzi = '他的话你不能全都相信。'
+notes = ''
+pinyin = 'Tā de huà nǐ bù néng  quán  dōu xiāngxìn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCPDSR'

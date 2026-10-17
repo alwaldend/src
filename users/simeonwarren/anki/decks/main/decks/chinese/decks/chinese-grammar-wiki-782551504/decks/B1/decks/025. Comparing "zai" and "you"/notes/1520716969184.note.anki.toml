@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "zai" and "you"'
+english = "You're going to resign again? Why?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 又 + 助动词 / 谓语动词 + Obj.'
+hanzi = '你又要辞职了？为什么？'
+notes = ''
+pinyin = '<div>Nǐ yòu yào cízhíle? Wèishéme?</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTBHBG'

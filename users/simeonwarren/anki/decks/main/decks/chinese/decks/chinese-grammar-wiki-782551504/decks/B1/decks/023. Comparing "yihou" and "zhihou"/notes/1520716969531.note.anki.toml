@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "TimeWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "yihou" and "zhihou"'
+english = 'After prices went up, more and more people started buying houses.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Event， 之后 + Action'
+hanzi = '房子涨价之后，越来越多的人开始买房。'
+notes = ''
+pinyin = 'Fángzi zhǎngjià zhīhòu, Yuè lái Yuè duō de rén kāishǐ mǎi Fáng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGC3SCN'

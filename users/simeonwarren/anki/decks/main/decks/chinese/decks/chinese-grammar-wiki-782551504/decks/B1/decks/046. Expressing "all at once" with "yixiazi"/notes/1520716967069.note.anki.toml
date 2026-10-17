@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "all at once" with "yixiazi"'
+english = "These problems can't be solved all at once."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 一下子 + Verb + 了'
+hanzi = '这些问题不可能一下都解决。'
+notes = ''
+pinyin = 'Zhè xiē wèntí bù kěnéng yīxià dōu jiějué.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG06EA8'

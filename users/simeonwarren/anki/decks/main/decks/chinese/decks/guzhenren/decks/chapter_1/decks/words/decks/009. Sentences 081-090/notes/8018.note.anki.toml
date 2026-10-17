@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'to be called;	to be known as.'
+example-sentence = ' 顿时就知道,家老们此时议论的是一位叫做古月方源的少年'
+example-type = ''
+grammar-construct = ''
+hanzi = '叫做'
+notes = ''
+pinyin = '<span class="tone4">jiào</span><span class="tone4">zuò</span>	 <!-- jiao zuo -->'
+source = ''

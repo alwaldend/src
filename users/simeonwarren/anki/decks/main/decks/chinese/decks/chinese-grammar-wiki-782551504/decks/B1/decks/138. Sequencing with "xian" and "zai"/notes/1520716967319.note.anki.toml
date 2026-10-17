@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Sequencing with "xian" and "zai"'
+english = "I'm going to ask the boss first."
+example-sentence = ''
+example-type = ''
+grammar-construct = '先 + [Verb Phrase] + 再说'
+hanzi = '我先问一下老板再说。'
+notes = ''
+pinyin = 'Wǒ xiān wèn yīxià lǎobǎn zàishuō.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGLJM55'

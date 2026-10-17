@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using the verb "jiao"'
+english = 'This place is called the Bund.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 叫 + [Name]'
+hanzi = '这个地方叫外滩。'
+notes = ''
+pinyin = 'Zhège dìfang jiào Wàitān.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGUGWVZ'

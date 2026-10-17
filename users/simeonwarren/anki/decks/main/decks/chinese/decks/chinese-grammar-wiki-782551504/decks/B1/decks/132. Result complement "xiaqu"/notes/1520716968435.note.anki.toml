@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Result complement "xiaqu"'
+english = "I can't keep living a life with him. I want a divorce."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 不 + 下去 + 了'
+hanzi = '我跟他过不下去了，我要离婚。'
+notes = ''
+pinyin = 'Wǒ gēn tā guò bu xiàqù le, wǒ yào líhūn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG1PTJX'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Auxiliaryverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "would like to" with "xiang"'
+english = 'He would like to buy a big apartment.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 想 + Verb (+ Obj.)'
+hanzi = '他想买一个大房子。'
+notes = ''
+pinyin = 'Tā xiǎng mǎi yī gè dà fángzi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGT97VF'

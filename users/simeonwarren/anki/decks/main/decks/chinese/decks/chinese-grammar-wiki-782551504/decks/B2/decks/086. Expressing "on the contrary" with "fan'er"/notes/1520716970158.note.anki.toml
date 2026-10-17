@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "ButStatements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = "Expressing \"on the contrary\" with \"fan'er\""
+english = "I helped her and she didn't thank me. On the contrary, she got very mad."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Sentence，Subj. 不但 + 不 / 没 ⋯⋯，反而 + ⋯⋯'
+hanzi = '我帮了她，她不但不谢我，反而生气了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGX5QTV'

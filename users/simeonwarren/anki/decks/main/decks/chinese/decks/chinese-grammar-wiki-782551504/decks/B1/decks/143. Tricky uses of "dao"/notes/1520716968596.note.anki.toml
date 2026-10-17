@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Tricky uses of "dao"'
+english = 'Today we learned "May you have a prosperous New Year!"<br>'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '我们今天学了"恭喜发财"。'
+notes = ''
+pinyin = 'Wǒmen jīntiān xué le "gōngxǐ fācái".'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCUSIV'

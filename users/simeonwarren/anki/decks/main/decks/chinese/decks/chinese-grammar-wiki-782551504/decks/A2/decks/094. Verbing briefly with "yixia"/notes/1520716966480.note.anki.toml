@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Verbing briefly with "yixia"'
+english = 'I want to think a little.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 一下 + Obj.'
+hanzi = '我要想一下。'
+notes = "You're supposed to believe that I won't need to think about it long."
+pinyin = 'Wǒ yào xiǎng yīxià.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWCESP'

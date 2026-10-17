@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'surname Ye;	also;	too;	(in Classical Chinese) final particle implying affirmation.'
+example-sentence = ' 这种结果,他也早有预见'
+example-type = ''
+grammar-construct = ''
+hanzi = '也'
+notes = ''
+pinyin = '<span class="tone3">yě</span>	 <!-- ye -->'
+source = ''

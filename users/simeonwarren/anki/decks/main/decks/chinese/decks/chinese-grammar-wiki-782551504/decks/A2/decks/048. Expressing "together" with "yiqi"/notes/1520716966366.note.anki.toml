@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "together" with "yiqi"'
+english = "Let's eat dinner together."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 一起 + Verb + Obj.'
+hanzi = '我们一起吃晚饭吧。'
+notes = ''
+pinyin = 'Wǒmen yīqǐ chī wǎnfàn ba.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNVE15'

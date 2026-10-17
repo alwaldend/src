@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "even" with "lian" and "dou"'
+english = 'He eats everything, even dog meat.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '连 + Obj. + 都 (+ 不 / 没) + Verb'
+hanzi = '他什么都吃，连狗肉都吃。'
+notes = ''
+pinyin = 'Tā shénme dōu chī, lián gǒu ròu dōu chī.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNP0WV'

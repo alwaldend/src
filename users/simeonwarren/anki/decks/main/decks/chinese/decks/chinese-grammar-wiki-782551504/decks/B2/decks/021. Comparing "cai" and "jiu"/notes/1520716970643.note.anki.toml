@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "cai" and "jiu"'
+english = "You just came and you're leaving now?"
+example-sentence = ''
+example-type = ''
+grammar-construct = '(现在) + 才 + Time'
+hanzi = '你才来就要走？也不多坐一会儿？'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGLOS9C'

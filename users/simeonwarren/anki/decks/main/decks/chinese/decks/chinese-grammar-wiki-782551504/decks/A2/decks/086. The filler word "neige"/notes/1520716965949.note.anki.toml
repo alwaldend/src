@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'The filler word "neige"'
+english = "So, ummm... I won't go with you guys, OK?"
+example-sentence = ''
+example-type = ''
+grammar-construct = '(那个⋯⋯) (那个⋯⋯) + [anything] + (那个⋯⋯)'
+hanzi = '那个⋯⋯我不跟你们一起去了，可以吗？'
+notes = ''
+pinyin = 'Nèige... wǒ bù   gēn nǐmen yīqǐ qù le, kěyǐ ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8VJM8'

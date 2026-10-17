@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "in the end" with "jiujing"'
+english = 'Who on earth is this guy?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '究竟 + Question Word'
+hanzi = '这个人究竟是谁？'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDK0BR'

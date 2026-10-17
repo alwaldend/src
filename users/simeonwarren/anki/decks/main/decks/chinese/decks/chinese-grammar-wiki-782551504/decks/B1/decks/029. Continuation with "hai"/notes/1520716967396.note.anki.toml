@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["AdverbswithAdjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Continuation with "hai"'
+english = "Why are you still playing online games? Isn't there gonna be a exam tomorrow?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 还在 + Verb'
+hanzi = '他怎么还在玩游戏？明天不是有考试吗？'
+notes = ''
+pinyin = 'Tā zěnme hái zài wán yóuxì? Míngtiān bù shì yǒu kǎoshì ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGIRILI'

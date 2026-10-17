@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "chao" "xiang" and "wang"'
+english = 'He laughed at me.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '向 / 朝 + 动作的对象 + 具体意义的动词'
+hanzi = '他向/朝我笑了笑。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGIHS2L'

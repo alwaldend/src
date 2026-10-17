@@ -1,0 +1,13 @@
+note_type = "note_types/python-basic-and-reversed.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<b>Keyword</b>&nbsp;to exit out of a loop without continuing.'
+example = ''
+question = '<b>Keyword: </b>break'
+version = ''
+with-options = ''

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'The filler word "neige"'
+english = "I'd like to take a look at your, ummm, you know... iPhone you bought."
+example-sentence = ''
+example-type = ''
+grammar-construct = '(那个⋯⋯) (那个⋯⋯) + [anything] + (那个⋯⋯)'
+hanzi = '我想看看你买的那个⋯⋯那个⋯⋯iPhone。'
+notes = ''
+pinyin = 'Wǒ xiǎng kànkan nǐ mǎi de nèige... nèige... iPhone.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8VJM8'

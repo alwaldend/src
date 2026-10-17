@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "Nouns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "zhijian" and "zhongjian"'
+english = 'Shanghai is between Jiangsu Province and Zhejiang Province.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun 1 + 和 + Noun 2 + 之间／中间'
+hanzi = '上海在江苏省和浙江省之间。'
+notes = ''
+pinyin = '<div>Shànghǎi zài jiāngsū shěng hé zhèjiāng shěng zhī jiān.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGN6O6J'

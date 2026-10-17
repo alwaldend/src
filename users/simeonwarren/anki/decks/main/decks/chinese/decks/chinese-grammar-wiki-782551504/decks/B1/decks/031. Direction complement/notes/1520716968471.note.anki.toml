@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Direction complement'
+english = 'Can I bring some friends?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + [Compound Direction Complement]'
+hanzi = '可以带一些朋友来吗？'
+notes = ''
+pinyin = 'Kěyǐ dài le yīxiē péngyou lái ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8LWBJ'

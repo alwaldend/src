@@ -1,0 +1,13 @@
+note_type = "note_types/python-basic-and-reversed.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<i>file</i>.close()'
+example = ''
+question = '<b>File method</b>&nbsp;used to close a file.'
+version = ''
+with-options = ''

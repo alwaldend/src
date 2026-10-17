@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Basics", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Simple "noun + adjective" sentences'
+english = 'Is your house also far away?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun + 很 + Adj.'
+hanzi = '你家也很远吗？'
+notes = ''
+pinyin = 'Nǐ jiā yě hěn yuǎn ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG17BLH'

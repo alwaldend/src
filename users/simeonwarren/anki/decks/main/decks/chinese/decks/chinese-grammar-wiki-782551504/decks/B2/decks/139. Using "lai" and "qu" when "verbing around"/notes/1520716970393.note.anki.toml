@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "lai" and "qu" when "verbing around"'
+english = 'The students are all nervous, they are all pacing back and forth outside of the exam room.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 来 + Verb + 去'
+hanzi = '学生们都很紧张，在考场外面走来走去。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGYJQAG'

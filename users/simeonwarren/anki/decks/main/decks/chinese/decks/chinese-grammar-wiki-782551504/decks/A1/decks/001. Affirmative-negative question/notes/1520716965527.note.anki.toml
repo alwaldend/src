@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Affirmative-negative question'
+english = 'Has grandma been on a plane?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 有 没有 + Obj.'
+hanzi = '奶奶有没有坐过飞机？'
+notes = ''
+pinyin = 'Nǎinai yǒu méiyǒu zuò guo fēijī?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGZH7K3'

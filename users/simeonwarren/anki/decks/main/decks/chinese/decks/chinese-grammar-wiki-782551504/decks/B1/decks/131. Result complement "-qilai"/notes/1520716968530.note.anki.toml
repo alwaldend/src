@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Result complement "-qilai"'
+english = 'Everyone started laughing.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb / Adj. + 起来 +了'
+hanzi = '大家笑起来了。'
+notes = ''
+pinyin = 'Dàjiā xiào qǐlái le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGBPXOB'

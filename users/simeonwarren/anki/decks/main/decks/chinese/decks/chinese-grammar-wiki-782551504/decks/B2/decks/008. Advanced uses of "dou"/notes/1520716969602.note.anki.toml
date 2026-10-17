@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Advanced uses of "dou"'
+english = 'I can even smell the aroma of bread.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 都 + Predicate'
+hanzi = '我都能闻见面包的香味。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQFW44'

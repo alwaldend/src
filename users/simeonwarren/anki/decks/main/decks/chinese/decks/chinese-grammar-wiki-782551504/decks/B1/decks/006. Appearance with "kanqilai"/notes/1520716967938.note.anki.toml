@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Appearance with "kanqilai"'
+english = 'He looks friendly.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 看起来 + Adj.'
+hanzi = '他看起来很友好。'
+notes = ''
+pinyin = 'Tā kàn qǐlái hěn yǒuhǎo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG9K0F8'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Grammatical_Structures", "IfStatements"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Marking a topic with "de hua"'
+english = "I can definitely go. As for him though, I don't know."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Topic + 的话， Comment'
+hanzi = '我肯定能去。他的话，我就不知道了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGB0MXK'

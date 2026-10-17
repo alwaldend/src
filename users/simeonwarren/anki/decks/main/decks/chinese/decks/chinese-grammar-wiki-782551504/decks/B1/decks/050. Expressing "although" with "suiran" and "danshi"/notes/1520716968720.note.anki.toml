@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "although" with "suiran" and "danshi"'
+english = 'Although grandma is in her eighties, she look very well.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '虽然 ⋯⋯ ，但是 / 可是 ⋯⋯'
+hanzi = '虽然奶奶已经八十多了，但是她精神很好。'
+notes = ''
+pinyin = 'Suīrán nǎinai yǐjīng bāshí duō le, dànshì tā jīngshén hěn hǎo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGXI560'

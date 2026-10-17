@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "in the end" with "jiujing"'
+english = 'Can you guys help me or not?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '究竟＋Verb＋没 / 不＋Verb'
+hanzi = '你们究竟能不能帮我？'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDK0BR'

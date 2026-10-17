@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "in addition" with "zaishuo"'
+english = "I'm very busy. I don't have time to go. Besides, he didn't invite me."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Clause 1，再说 + Clause 2'
+hanzi = '我很忙，没时间去。再说，他也没请我。'
+notes = ''
+pinyin = 'Wǒ hěn máng, méi shíjiān qù. Zàishuō, tā yě méi qǐng wǒ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGATDLX'

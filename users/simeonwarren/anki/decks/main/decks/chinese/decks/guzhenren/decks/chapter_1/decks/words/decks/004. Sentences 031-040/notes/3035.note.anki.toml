@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'in the end;	after all is said and done.'
+example-sentence = '  终究是失败了呀'
+example-type = ''
+grammar-construct = ''
+hanzi = '终究'
+notes = ''
+pinyin = '<span class="tone1">zhōng</span><span class="tone1">jiū</span>	 <!-- zhong jiu -->'
+source = ''

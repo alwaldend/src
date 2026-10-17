@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "NumbersandMeasureWords", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "ji" to mean "several"'
+english = "He's read quite a few times."
+example-sentence = ''
+example-type = ''
+grammar-construct = '好几 + Measure Word + Noun'
+hanzi = '他读了好几遍。'
+notes = ''
+pinyin = 'Tā dú le hǎojǐ biàn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGHC9CA'

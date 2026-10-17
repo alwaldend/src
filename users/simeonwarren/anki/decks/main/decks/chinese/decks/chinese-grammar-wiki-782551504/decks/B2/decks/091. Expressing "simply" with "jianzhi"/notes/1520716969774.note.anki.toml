@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "simply" with "jianzhi"'
+english = 'The Samsung smartphones are just a copy of the iPhone.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 简直 + Verb'
+hanzi = '三星的智能手机简直就是在模仿iPhone。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8OLAE'

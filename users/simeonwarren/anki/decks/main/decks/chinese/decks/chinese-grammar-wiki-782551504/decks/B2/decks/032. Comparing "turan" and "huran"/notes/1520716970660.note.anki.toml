@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "turan" and "huran"'
+english = 'He was talking and talking, and suddenly stopped.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '突然／忽然 + Verb'
+hanzi = '他说着说着突然不说了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGHKZP4'

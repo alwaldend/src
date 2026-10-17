@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Simultaneous tasks with "yibian"'
+english = "Don't talk on the phone while you drive."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 一边 + Verb (，) + 一边 + Verb'
+hanzi = '不要一边开车，一边打电话。'
+notes = ''
+pinyin = 'Bùyào yībiān kāichē, yībiān dǎ diànhuà.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG2ZC5S'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing location with "zai... shang / xia / li"'
+english = 'He is downstairs.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '在 + Location+ 上 / 下 / 里 / 旁边'
+hanzi = '他在楼下。'
+notes = ''
+pinyin = 'Tā zài lóuxià.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGFBWZL'

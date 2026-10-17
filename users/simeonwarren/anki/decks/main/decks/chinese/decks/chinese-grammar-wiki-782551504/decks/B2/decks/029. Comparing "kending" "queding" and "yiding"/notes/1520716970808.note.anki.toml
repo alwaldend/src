@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "SeparateFunctions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "kending" "queding" and "yiding"'
+english = 'You guys have to go listen to my music recital.'
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = '一定 + Adj. / Verb'
+hanzi = '你们一定要去听我的演唱会。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDPS0J'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "dui" with verbs'
+english = 'To foreigners, it is not easy to learn Chinese well.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '对 + Party + 来说 ，⋯⋯'
+hanzi = '学好中文对外国人来说不容易。'
+notes = ''
+pinyin = 'Xuéhǎo Zhōngwén duì wàiguórén lái shuō bù róngyì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8ICO9'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Complement with "dao"'
+english = "Yesterday's meeting lasted until 9 pm."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb (+ 一直) + 到 + Time / Event'
+hanzi = '昨天的会一直开到晚上九点。'
+notes = ''
+pinyin = 'Zuótiān de huì yīzhí kāi dào wǎnshang jiǔ diǎn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG1CCAP'

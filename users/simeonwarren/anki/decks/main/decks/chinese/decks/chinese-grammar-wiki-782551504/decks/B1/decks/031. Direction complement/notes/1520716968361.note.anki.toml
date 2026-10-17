@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Direction complement'
+english = 'Please stand up.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + [Compound Direction Complement]'
+hanzi = '请站起来。'
+notes = ''
+pinyin = 'Qǐng zhàn qǐlái.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8LWBJ'

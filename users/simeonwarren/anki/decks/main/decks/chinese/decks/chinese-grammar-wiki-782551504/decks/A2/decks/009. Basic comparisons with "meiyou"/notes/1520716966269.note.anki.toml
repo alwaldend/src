@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Basic comparisons with "meiyou"'
+english = "He's not as smart as his younger brother."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun 1 + 没有 + Noun 2 + Adj.'
+hanzi = '他没有他弟弟聪明。'
+notes = ''
+pinyin = 'Tā méiyǒu tā dìdi cōngming.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGEAH5M'

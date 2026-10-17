@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Degree complement'
+english = 'Having not found the child, the mother was extremely anxious.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 得 + [Degree Complement]'
+hanzi = '找不到孩子，妈妈急坏了。'
+notes = ''
+pinyin = 'Zhǎo bu dào háizi, māma jí huài le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG79STE'

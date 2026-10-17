@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "EvenIfStatements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "even if…" with "jiusuan"'
+english = "Even if what you say is true, we still don't have any way to prove it."
+example-sentence = ''
+example-type = ''
+grammar-construct = '就算 + [Hypothetical Statement] + 也 + [Action]'
+hanzi = '就算你说的都是真的，我们也没办法证明。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGLI513'

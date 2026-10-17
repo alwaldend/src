@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Negation of "you" with "mei"'
+english = 'Do you not have friends in Shanghai?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '没 + 有 (+ Obj.)'
+hanzi = '你们在上海没有朋友吗？'
+notes = ''
+pinyin = 'Nǐmen zài Shànghǎi méiyǒu péngyou ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPNV3Q'

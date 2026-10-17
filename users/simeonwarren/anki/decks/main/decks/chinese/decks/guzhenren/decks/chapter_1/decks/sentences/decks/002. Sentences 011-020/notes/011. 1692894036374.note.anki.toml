@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'Bright red blood poured out from hundreds of wounds on his body.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '鲜红的血液,从身上数百道伤口向外涌着。'
+notes = ''
+pinyin = ''
+source = ''

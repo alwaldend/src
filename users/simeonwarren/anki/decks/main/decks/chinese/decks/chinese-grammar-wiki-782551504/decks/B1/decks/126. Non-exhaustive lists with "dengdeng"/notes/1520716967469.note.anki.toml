@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["AuxiliaryWords", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Non-exhaustive lists with "dengdeng"'
+english = 'The Great Wall, the Forbidden City, etc. are all famous scenic spots in Beijing.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A1，A2⋯⋯等 + [Category]'
+hanzi = '长城、故宫等地方都是北京有名的景点。'
+notes = ''
+pinyin = 'Chángchéng, Gùgōng děng dìfang dōu shì Běijīng yǒumíng de jǐngdiǎn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGF763H'

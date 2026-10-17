@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Special cases of "zai" following verbs'
+english = 'I placed that book on the table.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + [Special Verb] + 在 + Location'
+hanzi = '那本书我放在桌子上了。'
+notes = ''
+pinyin = 'Nà běn shū wǒ fàng zài zhuōzi shàng  le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG90DXK'

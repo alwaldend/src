@@ -1,0 +1,13 @@
+note_type = "note_types/python-basic.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+'Additional Info' = ''
+'Back - Basic' = ".index() throws an IndexError if the element doesn't exist in the string but .find() returns -1."
+'Back - Code' = ''
+Example = ''
+Front = 'What is the difference between the string methods .index() and .find()?'
+Version = ''

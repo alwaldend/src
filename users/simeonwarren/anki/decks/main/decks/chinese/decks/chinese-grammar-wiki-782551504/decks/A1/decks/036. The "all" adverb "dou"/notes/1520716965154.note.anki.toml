@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'The "all" adverb "dou"'
+english = 'Neither she nor her husband has a job.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 都 + [Verb Phrase]'
+hanzi = '她和她老公都没有工作。'
+notes = ''
+pinyin = 'Tā hé tā lǎogōng dōu  méiyǒu gōngzuò.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG9YK09'

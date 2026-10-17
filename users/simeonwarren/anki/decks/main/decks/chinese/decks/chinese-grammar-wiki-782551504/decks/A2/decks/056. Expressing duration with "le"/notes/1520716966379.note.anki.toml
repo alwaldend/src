@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing duration with "le"'
+english = 'He worked as a manager at Google for eight years.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 了 + Duration + Obj.'
+hanzi = '他在Google做了八年经理。'
+notes = ''
+pinyin = 'Tā zài Google zuò le bā nián jīnglǐ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJ36VN'

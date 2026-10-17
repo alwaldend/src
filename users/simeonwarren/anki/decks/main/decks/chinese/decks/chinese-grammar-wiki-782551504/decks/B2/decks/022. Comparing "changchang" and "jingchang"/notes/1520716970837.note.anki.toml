@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "TimeWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "changchang" and "jingchang"'
+english = 'Once this project is done, then I can go with you more often.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '经常 + Verb'
+hanzi = '这个项目做完以后，我会经常陪你。'
+notes = ''
+pinyin = '<div>Zhège xiàngmù zuò wán yǐhòu, wǒ huì jīngcháng péi nǐ.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGE8FLP'

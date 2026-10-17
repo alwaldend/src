@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Approximations with "chabuduo"'
+english = 'My parents have been married for about twenty years.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '差不多 ＋ [Quantity Phrase] / [Time Phrase]'
+hanzi = '我父母结婚差不多二十年了。'
+notes = ''
+pinyin = 'Wǒ fùmǔ jiéhūn chàbuduō èrshí nián le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG1NAXO'

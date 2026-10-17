@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Auxiliaryverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "should" with "yinggai"'
+english = 'You should drink hot water when you have a cold.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 应该 + Verb + Obj.'
+hanzi = '感冒的时候应该喝热水。'
+notes = ''
+pinyin = 'Gǎnmào de shíhou yīnggāi hē rè shuǐ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGV01X9'

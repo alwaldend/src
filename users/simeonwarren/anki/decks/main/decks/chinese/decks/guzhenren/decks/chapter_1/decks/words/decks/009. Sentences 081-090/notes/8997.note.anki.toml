@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'granted that;	even if.'
+example-sentence = '就算是乙等资质,日后定也能独当一面,成为古月一族的一面旗帜'
+example-type = ''
+grammar-construct = ''
+hanzi = '就算'
+notes = ''
+pinyin = '<span class="tone4">jiù</span><span class="tone4">suàn</span>	 <!-- jiu suan -->'
+source = ''

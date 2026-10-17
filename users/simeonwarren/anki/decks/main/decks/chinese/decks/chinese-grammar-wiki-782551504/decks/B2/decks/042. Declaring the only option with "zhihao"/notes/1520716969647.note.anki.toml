@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Declaring the only option with "zhihao"'
+english = "He didn't have time for lunch, so he had to order food."
+example-sentence = ''
+example-type = ''
+grammar-construct = '……，（Subj.）＋只好 + Verb Phrase'
+hanzi = '他中午没时间去吃饭，只好叫外卖。'
+notes = ''
+pinyin = 'Tā zhōngwǔ méi shíjiān qù chīfàn,  zhǐhǎo jiào wàimài.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG767A2'

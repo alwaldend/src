@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "age difference" with "da and xiao"'
+english = 'My boss is very young. He is only three or four years older than me.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A + 比 + B + 大 / 小 + number + 岁'
+hanzi = '我老板很年轻，只比我大三四岁。'
+notes = ''
+pinyin = 'Wǒ lǎobǎn hěn niánqīng, zhī bǐ wǒ dà sān sì suì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGE8810'

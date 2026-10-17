@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "Nouns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "renjia" and "bieren"'
+english = 'There are very few residents here.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 人家'
+hanzi = '这里很少有人家。'
+notes = ''
+pinyin = '<div>Zhèlǐ hěn shǎo yǒu rénjiā.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPINA4'

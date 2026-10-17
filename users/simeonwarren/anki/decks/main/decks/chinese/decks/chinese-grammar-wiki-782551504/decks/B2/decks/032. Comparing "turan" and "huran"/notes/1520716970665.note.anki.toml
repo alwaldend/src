@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "turan" and "huran"'
+english = 'This rain fell so suddenly, everything got soaked.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. +  Verb + 得 + 突然'
+hanzi = '这场雨下得太突然，都淋湿了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGHKZP4'

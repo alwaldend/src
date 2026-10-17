@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Result complements'
+english = "We didn't hear it clearly. Please say it again."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 没 + Verb + Adj. (+ Obj.)'
+hanzi = '我们没听清楚，请再说一遍。'
+notes = ''
+pinyin = 'Wǒmen méi tīng qīngchu, qǐng zài shuō yī biàn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNNMST'

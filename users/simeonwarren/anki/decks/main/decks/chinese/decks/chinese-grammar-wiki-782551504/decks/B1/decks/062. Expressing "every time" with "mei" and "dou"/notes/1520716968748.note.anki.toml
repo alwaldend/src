@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "every time" with "mei" and "dou"'
+english = 'She brings flowers every time she visits me.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '每次 + Event 1 + 都 + Event 2'
+hanzi = '她每次来我家都带花。'
+notes = ''
+pinyin = 'Tā měi cì lái wǒ jiā dōu dài huā.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGXHQEF'

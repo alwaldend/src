@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Affirmative-negative question'
+english = 'Is that place fun?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '[First Character of Adj.] + 不 + Adj.'
+hanzi = '那个地方好玩不好玩？'
+notes = 'whole word repeated'
+pinyin = 'Nàge dìfang  hǎowán bu hǎowán?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGZH7K3'

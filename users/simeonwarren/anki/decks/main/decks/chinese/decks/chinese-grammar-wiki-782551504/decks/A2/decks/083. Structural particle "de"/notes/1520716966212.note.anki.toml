@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Structural particle "de"'
+english = 'speak too fast'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 得'
+hanzi = '说得太快'
+notes = ''
+pinyin = 'shuō de tài kuài'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5MOMM'

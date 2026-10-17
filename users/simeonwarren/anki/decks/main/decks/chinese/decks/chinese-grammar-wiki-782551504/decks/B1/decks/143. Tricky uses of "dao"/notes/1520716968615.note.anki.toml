@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Tricky uses of "dao"'
+english = 'Do you know how to get in contact with him?'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '你知道怎么能联系到他吗？'
+notes = ''
+pinyin = 'Nǐ zhīdào zěnme néng liánxìdào tā ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCUSIV'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "enough" with "gou"'
+english = "It's too small here. It's not big enough to sit."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不 + 够 + Adj. / Verb'
+hanzi = '这里太小了，不够坐。'
+notes = ''
+pinyin = 'Zhèlǐ tài xiǎo le, bùgòu zuò.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG49BE6'

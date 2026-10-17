@@ -1,0 +1,12 @@
+note_type = "note_types/basic.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[[cards]]
+ordinal = 1
+
+[fields]
+Back = '^p and then iterate with ^p'
+Front = 'Complete current word with existing keywords in buffer <b>after the cursor</b> that match the current prefix'

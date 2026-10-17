@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "in addition" with "lingwai"'
+english = 'She has two houses. She lives in one and rents out the other one.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '另外 + Noun Phrase'
+hanzi = '她有两套房子，一套自己住，另外一套租出去了。'
+notes = ''
+pinyin = 'Tā yǒu liǎng tào fángzi, yī tào zìjǐ zhù, lìngwài yī tào zū chūqù le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG2KQZI'

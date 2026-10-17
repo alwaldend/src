@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "anyway" as "fanzheng"'
+english = 'My house is big enough, you can all stay here tonight.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '反正＋condition，decision or resolution'
+hanzi = '反正我家够大，你们今晚都住这儿吧。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGZVM27'

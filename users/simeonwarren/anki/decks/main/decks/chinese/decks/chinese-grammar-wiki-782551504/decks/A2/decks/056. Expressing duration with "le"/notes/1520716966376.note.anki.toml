@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing duration with "le"'
+english = 'He studied Chinese for a year.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 了 + Duration + Obj.'
+hanzi = '他学了一年中文。'
+notes = ''
+pinyin = 'Tā xué le yī nián Zhōngwén.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJ36VN'

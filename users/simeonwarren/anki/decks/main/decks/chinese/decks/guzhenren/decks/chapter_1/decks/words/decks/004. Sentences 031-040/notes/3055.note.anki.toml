@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'fruit;	result;	resolute;	indeed;	if really.variant of 果;	fruit.'
+example-sentence = ' 所谓魔道,就是不修善果,杀人放火'
+example-type = ''
+grammar-construct = ''
+hanzi = '果'
+notes = ''
+pinyin = '<span class="tone5">guǒguǒ</span>	 <!-- guo guo -->'
+source = ''

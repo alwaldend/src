@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["AuxiliaryWords", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Listing things with "a"'
+english = 'We have all sorts of snacks: peanuts, roasted seeds, chips, go ahead and eat whatever you want.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A 啊， B 啊， C 啊⋯⋯'
+hanzi = '我们什么零食都有，花生啊，瓜子啊，薯片啊，你随便吃吧。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGGPG97'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "bu" and "mei"'
+english = ''
+example-sentence = ''
+example-type = 'invalid'
+grammar-construct = 'Subj. + Verb + 不 + Verb + Obj.'
+hanzi = '我们去吃饭，好没好？'
+notes = ''
+pinyin = 'Wǒmen qù chīfàn, hǎo méi hǎo?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGRJ1BI'

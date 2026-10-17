@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "ButStatements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "although" with "jinguan"'
+english = 'Even though the fire was big and it was very dangerous, the firefighters are still bravely running in.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '尽管 A，还是 / 仍然 B'
+hanzi = '尽管火很大，很危险，消防员仍然勇敢地冲了进去。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGW863F'

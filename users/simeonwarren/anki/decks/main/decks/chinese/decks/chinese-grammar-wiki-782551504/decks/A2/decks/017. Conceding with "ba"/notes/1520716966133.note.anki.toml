@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Conceding with "ba"'
+english = "Can I bring friends?<br>All right, but you can't bring girls."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Statement + 吧'
+hanzi = 'A: 可以带朋友吗？<br>B: 行吧，但是不能带女孩。'
+notes = ''
+pinyin = 'Kěyǐ dài péngyou ma ?<br>Xíng  ba, dànshì bù néng dài nǚhái.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJIP2E'

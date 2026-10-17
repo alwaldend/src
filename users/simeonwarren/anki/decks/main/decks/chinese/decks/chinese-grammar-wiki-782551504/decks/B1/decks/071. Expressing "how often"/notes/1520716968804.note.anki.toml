@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "how often"'
+english = 'Do you often work late?'
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = 'Subj. + [Length of Time]  + Verb + Times (+ Obj.)'
+hanzi = '你经常加班吗？'
+notes = ''
+pinyin = 'Nǐ jīngcháng jiābān ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCED31'

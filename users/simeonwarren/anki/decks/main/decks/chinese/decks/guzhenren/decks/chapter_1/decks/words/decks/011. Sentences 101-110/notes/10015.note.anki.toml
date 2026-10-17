@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'spring rain;	gift from above.'
+example-sentence = '春雨斜风透过窗户吹拂过来,族长轻轻举步,走到窗前'
+example-type = ''
+grammar-construct = ''
+hanzi = '春雨'
+notes = ''
+pinyin = '<span class="tone1">chūn</span><span class="tone3">yǔ</span>	 <!-- chun yu -->'
+source = ''

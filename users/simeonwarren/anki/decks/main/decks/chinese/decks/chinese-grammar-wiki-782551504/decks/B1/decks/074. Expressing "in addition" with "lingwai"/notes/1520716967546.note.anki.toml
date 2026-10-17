@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "in addition" with "lingwai"'
+english = 'The other two people who went with him already died.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '另外 + Noun Phrase'
+hanzi = '跟他一起去的另外两个人已经死了。'
+notes = ''
+pinyin = 'Gēn tā yīqǐ qù de lìngwài liǎng gè rén yǐjīng sǐ le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG2KQZI'

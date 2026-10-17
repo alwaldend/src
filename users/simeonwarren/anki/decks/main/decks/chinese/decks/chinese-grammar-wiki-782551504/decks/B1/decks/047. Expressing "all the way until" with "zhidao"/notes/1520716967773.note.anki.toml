@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "all the way until" with "zhidao"'
+english = 'It took me half a month to recover from the cold.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '直到 + Time / Event ，Subj. + 才 ⋯⋯'
+hanzi = '直到半个月以后，我的感冒才好。'
+notes = ''
+pinyin = 'Zhídào bàn gè yuè yǐhòu, wǒ de gǎnmào cái hǎo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGC6E1C'

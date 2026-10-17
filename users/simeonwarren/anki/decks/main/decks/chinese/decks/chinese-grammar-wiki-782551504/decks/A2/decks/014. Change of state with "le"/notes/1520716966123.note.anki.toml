@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Change of state with "le"'
+english = "We don't have any milk at home."
+example-sentence = ''
+example-type = ''
+grammar-construct = '[New Situation] + 了'
+hanzi = '家里没有牛奶了。'
+notes = 'We had milk before.'
+pinyin = 'Jiālǐ méiyǒu niúnǎi le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGT185D'

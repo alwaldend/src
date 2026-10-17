@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Emphasizing quantity with "dou"'
+english = 'My girlfriend goes on Taobao every day.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 都 + Verb + Obj.'
+hanzi = '我女朋友每天都上淘宝。'
+notes = "Taobao is China's biggest online shopping website."
+pinyin = 'Wǒ  nǚpéngyou měi tiān dōu shàng Táobǎo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWNEYM'

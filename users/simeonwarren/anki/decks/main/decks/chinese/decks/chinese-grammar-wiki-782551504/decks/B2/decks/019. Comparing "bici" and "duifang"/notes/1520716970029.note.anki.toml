@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Parts_of_Speech", "Pronouns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "bici" and "duifang"'
+english = 'We all expect the other side to apologize first when we have a fight with friends.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '对方 + Verb Phrase'
+hanzi = '跟朋友吵架的时候，我们都希望对方能先道歉。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG84D65'

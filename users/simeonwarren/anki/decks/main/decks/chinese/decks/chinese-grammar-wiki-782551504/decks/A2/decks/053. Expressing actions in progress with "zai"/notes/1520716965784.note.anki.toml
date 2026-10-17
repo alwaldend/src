@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing actions in progress with "zai"'
+english = "The boss is currently in a meeting. He doesn't have time to see you."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 正在 + Verb + Obj.'
+hanzi = '老板在开会，没有时间见你。'
+notes = ''
+pinyin = 'Lǎobǎn zài kāihuì, méiyǒu shíjiān jiàn nǐ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG846EA'

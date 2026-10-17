@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "about to happen" with "le"'
+english = "We're about to get off. Just wait a little while."
+example-sentence = ''
+example-type = ''
+grammar-construct = '快要 + Verb + 了'
+hanzi = '快下车了，你再等一会儿。'
+notes = ''
+pinyin = 'Kuài xiàchē le, nǐ zài děng yīhuìr.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNGEU8'

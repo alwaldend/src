@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Verbs that take double objects'
+english = 'Teacher, may I ask you a question?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + [Indirect Obj.] + [Direct Obj.]'
+hanzi = '老师，我可以问你一个问题吗？'
+notes = ''
+pinyin = 'Lǎoshī, wǒ  kěyǐ wèn nǐ yī gè wèntí ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGI2OAG'

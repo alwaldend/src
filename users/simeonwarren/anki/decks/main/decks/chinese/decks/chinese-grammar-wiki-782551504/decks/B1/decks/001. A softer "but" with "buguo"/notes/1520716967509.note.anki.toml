@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'A softer "but" with "buguo"'
+english = "We're considering, but we haven't decided yet."
+example-sentence = ''
+example-type = ''
+grammar-construct = '⋯⋯ ，不过 ⋯⋯'
+hanzi = '我们在考虑，不过还没决定。'
+notes = ''
+pinyin = 'Wǒmen zài kǎolǜ, bùguò hái méi juédìng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGA0S4T'

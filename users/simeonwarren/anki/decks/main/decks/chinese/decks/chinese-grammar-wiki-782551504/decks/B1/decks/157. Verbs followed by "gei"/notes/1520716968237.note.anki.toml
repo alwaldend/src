@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Verbs followed by "gei"'
+english = 'The owner rewarded his dog with a piece of meat.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 给 + [Recipient] + Obj.'
+hanzi = '主人赏给了小狗一块肉。'
+notes = ''
+pinyin = 'Zhǔrén shǎng gěi le xiǎo gǒu yīkuài ròu.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMMHTQ'

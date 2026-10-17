@@ -1,0 +1,12 @@
+note_type = "note_types/basic.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[[cards]]
+ordinal = 1
+
+[fields]
+Back = '<b>^n</b>&nbsp;then iterate with ^n'
+Front = 'Complete current word with existing keywords in buffer that match the current prefix, <i>starting from the beginning of buffer</i>'

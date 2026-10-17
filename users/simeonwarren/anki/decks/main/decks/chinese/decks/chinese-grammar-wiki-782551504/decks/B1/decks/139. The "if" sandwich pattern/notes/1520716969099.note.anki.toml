@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'The "if" sandwich pattern'
+english = 'What will you do if he disapprove?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '如果 ⋯⋯ 的话 ，(就) ⋯⋯'
+hanzi = '如果他不同意的话，你怎么办？'
+notes = ''
+pinyin = 'Rúguǒ tā bù tóngyì dehuà, nǐ zěnmebàn?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGN4VUU'

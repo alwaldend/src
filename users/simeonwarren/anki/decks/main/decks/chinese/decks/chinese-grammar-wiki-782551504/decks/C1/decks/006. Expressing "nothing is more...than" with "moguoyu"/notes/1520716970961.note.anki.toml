@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["C1", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "nothing is more...than" with "moguoyu"'
+english = 'To parents, nothing is more comforting than their kids being able to lead independent lives.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Topics or questions + 莫过于 + answer'
+hanzi = '对父母来说最大的安慰莫过于孩子能开始独立生活了。'
+notes = ''
+pinyin = '<div>Duì fùmǔ lái shuō zuìdà de ānwèi mò guòyú háizǐ néng kāishǐ dúlì shēnghuóle.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGGI66V'

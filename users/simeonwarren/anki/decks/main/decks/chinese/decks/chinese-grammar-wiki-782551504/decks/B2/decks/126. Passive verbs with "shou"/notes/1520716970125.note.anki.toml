@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Passive verbs with "shou"'
+english = "Teacher Zhang's lessons are welcomed by the students."
+example-sentence = ''
+example-type = ''
+grammar-construct = '受 + ([Someone / Something]) + Verb'
+hanzi = '张老师的课很受学生的欢迎。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG1DXUD'

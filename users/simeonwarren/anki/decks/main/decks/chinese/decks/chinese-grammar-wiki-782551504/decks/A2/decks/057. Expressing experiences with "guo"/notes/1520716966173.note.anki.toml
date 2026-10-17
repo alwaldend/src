@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing experiences with "guo"'
+english = 'Have you seen this movie?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 过 + Obj.'
+hanzi = '你看过这个电影吗？'
+notes = ''
+pinyin = 'Nǐ kàn guo zhège diànyǐng ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQGV3P'

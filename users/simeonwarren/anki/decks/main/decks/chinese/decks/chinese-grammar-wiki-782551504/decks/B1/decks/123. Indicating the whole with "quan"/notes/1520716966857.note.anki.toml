@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Indicating the whole with "quan"'
+english = "My grandma's hair all turned grey."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 全都 + Predicate'
+hanzi = '奶奶的头发全都白了。'
+notes = ''
+pinyin = 'Nǎinai de tóufa quán dōu bái le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCPDSR'

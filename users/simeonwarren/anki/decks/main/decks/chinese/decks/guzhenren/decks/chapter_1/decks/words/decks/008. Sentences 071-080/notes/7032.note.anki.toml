@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'strong'
+example-sentence = '至少也是独当一面的强者'
+example-type = ''
+grammar-construct = ''
+hanzi = '强者'
+notes = ''
+pinyin = '<span class="tone2">qiáng</span><span class="tone3">zhě</span>	 <!-- qiang zhe -->'
+source = ''

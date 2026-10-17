@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'hand in hand;	to join hands;	to collaborate.'
+example-sentence = '如果朋友们喜欢,那就请我们一起携手共进这场奇妙的冒险旅程'
+example-type = ''
+grammar-construct = ''
+hanzi = '携手'
+notes = ''
+pinyin = '<span class="tone2">xié</span><span class="tone3">shǒu</span>	 <!-- xie shou -->'
+source = ''

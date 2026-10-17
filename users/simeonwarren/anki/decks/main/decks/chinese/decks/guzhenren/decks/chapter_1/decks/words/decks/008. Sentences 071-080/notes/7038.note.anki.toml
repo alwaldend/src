@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'old variant of 脉.<br>arteries and veins;	vein (on a leaf, insect wing etc).<br>variant of 脉.<br>see 脉脉.<br>'
+example-sentence = '   不错,方之一脉出现了一个天才少年'
+example-type = ''
+grammar-construct = ''
+hanzi = '脉'
+notes = ''
+pinyin = '<span class="tone5">màimàimàimò</span>	 <!-- mai mai mai mo -->'
+source = ''

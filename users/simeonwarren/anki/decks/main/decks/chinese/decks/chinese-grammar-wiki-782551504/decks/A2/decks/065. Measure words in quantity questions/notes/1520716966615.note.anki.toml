@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Grammatical_Structures", "NumbersandMeasureWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Measure words in quantity questions'
+english = 'How many countries have you been to?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 多少 + Measure Word + Noun ？'
+hanzi = '你去过多少个国家？'
+notes = ''
+pinyin = 'Nǐ qù guo duōshao gè guójiā?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGL9KQM'

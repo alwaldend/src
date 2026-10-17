@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "ButStatements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'The "however" adverb "que"'
+english = ''
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = 'Sentence， Subj. + 却 + ⋯⋯'
+hanzi = '有些人博客里的文章不多，但是内容不错。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGEG2QB'

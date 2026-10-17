@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "TimeWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "yihou" "ranhou" "houlai"'
+english = 'I want to start up my own business in the future.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '我以后想开公司。'
+notes = ''
+pinyin = 'Wǒ yǐhòu xiǎng kāi gōngsī.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNPJ7T'

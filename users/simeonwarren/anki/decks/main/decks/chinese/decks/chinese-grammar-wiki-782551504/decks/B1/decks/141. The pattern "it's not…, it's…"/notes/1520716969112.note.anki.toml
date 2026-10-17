@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = "The pattern \"it's not…, it's…\""
+english = "I don't think it's trouble. I think it's an opportunity."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 是 ⋯⋯ ，不是 ⋯⋯'
+hanzi = '我觉得这不是麻烦，而是机会。'
+notes = ''
+pinyin = 'Wǒ juéde zhè bù shì máfan, ér shì jīhuì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGT9WYR'

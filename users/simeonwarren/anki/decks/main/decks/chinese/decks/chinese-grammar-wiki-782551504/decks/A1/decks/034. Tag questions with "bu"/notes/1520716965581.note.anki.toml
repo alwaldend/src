@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Tag questions with "bu"'
+english = "Let's go home, OK?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 不 + Verb'
+hanzi = '我们回家吧，好不好？'
+notes = ''
+pinyin = 'Wǒmen huíjiā ba, hǎo bu hǎo?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG4D8XB'

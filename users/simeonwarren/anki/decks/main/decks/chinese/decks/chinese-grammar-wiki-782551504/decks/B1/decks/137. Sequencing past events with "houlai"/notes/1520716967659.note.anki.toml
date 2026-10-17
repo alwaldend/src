@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Sequencing past events with "houlai"'
+english = 'They had a fight last week and they made up afterwards.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '[Past Event 1] ，后来 ，[Past Event 2]'
+hanzi = '他们上周吵架了，后来和好了。'
+notes = ''
+pinyin = 'Tāmen shàng zhōu chǎojià le, hòulái hé hǎo le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGY0UDC'

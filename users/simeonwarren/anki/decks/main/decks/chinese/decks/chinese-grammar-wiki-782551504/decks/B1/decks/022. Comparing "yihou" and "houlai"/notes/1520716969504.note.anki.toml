@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "TimeWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "yihou" and "houlai"'
+english = 'Later, I plan to go to China to look for work.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '以后， + Subj. + Verb + Obj.'
+hanzi = '以后，我打算去中国找工作。'
+notes = ''
+pinyin = 'Yǐhòu, wǒ dǎsuàn qù Zhōngguó zhǎo gōngzuò.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNPJ7T'

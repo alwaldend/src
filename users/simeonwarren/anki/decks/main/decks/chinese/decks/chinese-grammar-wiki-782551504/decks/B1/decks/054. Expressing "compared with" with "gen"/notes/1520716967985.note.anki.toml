@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "compared with" with "gen"'
+english = 'Compared to WeChat, WhatsApp is not as functional.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'B + 跟 + A + 比 ，  ~'
+hanzi = 'WhatsApp跟微信比，功能没那么多。'
+notes = ''
+pinyin = 'WhatsApp gēn Wēixìn bǐ, gōngnéng méi nàme duō.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG920B7'

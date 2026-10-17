@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = "It's time to recharge your batteries and wait until tomorrow to compete for that."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '是该好好的养精蓄锐,待到明天,争上那一番。'
+notes = ''
+pinyin = ''
+source = ''

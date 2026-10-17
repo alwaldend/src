@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'one of (sth);	one out of a multitude;	one (third, quarter, percent etc).'
+example-sentence = ' 在走廊中,众家老默默地舒了一口气,气氛为之一松'
+example-type = ''
+grammar-construct = ''
+hanzi = '之一'
+notes = ''
+pinyin = '<span class="tone1">zhī</span><span class="tone1">yī</span>	 <!-- zhi yi -->'
+source = ''

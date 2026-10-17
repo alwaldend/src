@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Measure words for verbs'
+english = "We've been there twice."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + Number + Measure Word'
+hanzi = '我们去过两次。'
+notes = ''
+pinyin = 'Wǒme qù guo liǎng cì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5AODR'

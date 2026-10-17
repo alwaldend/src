@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "NounPhrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "all" with "suoyou"'
+english = 'I like all the food my mom cooks.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '所有 (+ 的) + Noun'
+hanzi = '我喜欢所有我妈妈做的菜。'
+notes = ''
+pinyin = 'Wǒ xǐhuan suǒyǒu wǒ māma zuò de cài.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGOWBSL'

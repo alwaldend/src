@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "would rather" with "ningke"'
+english = 'I would be willing not to sleep for a few days just to finish this project.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '宁可 ……，也要 ……'
+hanzi = '我宁可几天不睡觉，也要完成这个项目。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGF3F2Y'

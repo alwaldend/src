@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "enough" with "gou"'
+english = "These dishes are not enough to eat. Let's order some more."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不 + 够 + Adj. / Verb'
+hanzi = '这些菜不够吃，再点几个菜。'
+notes = ''
+pinyin = 'Zhèxiē cài bù gòu chī, zài diǎn jǐ gè cài.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG49BE6'

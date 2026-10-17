@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "as a result" with "jieguo"'
+english = "I went to the airport to pick him up. I didn't find him there."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Situation ，结果 + [Unexpected Result]'
+hanzi = '我去机场接他，结果没接到他。'
+notes = ''
+pinyin = 'Wǒ qù jīchǎng jiē tā, jiéguǒ méi jiēdào tā.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG6B21A'

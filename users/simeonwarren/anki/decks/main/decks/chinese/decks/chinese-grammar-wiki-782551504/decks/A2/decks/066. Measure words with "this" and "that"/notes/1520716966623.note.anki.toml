@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Grammatical_Structures", "NumbersandMeasureWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Measure words with "this" and "that"'
+english = 'this bottle of beer'
+example-sentence = ''
+example-type = ''
+grammar-construct = '这 / 那 + Measure Word + Noun'
+hanzi = '这瓶啤酒'
+notes = ''
+pinyin = 'zhè píng píjiǔ'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGZC42B'

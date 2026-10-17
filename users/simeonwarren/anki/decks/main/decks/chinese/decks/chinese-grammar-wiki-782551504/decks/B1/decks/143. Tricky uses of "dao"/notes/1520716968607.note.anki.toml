@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Tricky uses of "dao"'
+english = 'How do you chase girls?'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '怎么追女孩子？'
+notes = ''
+pinyin = 'Zěnme zhuī nǚ háizi?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCUSIV'

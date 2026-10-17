@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "already" with "yijing"'
+english = "I don't need my parents' money anymore."
+example-sentence = ''
+example-type = ''
+grammar-construct = '已经 + 不 + Verb + 了'
+hanzi = '我已经不需要父母的钱了。'
+notes = ''
+pinyin = 'Wǒ yǐjīng bù xūyào fùmǔ de qián le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNXI27'

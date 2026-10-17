@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "zhao" as complement'
+english = 'Did you find your cell phone?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 着'
+hanzi = '你的手机找着了吗？'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGM5ZAB'

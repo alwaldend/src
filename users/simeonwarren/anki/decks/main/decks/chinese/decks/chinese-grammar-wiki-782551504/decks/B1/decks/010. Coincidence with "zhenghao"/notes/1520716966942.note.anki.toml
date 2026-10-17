@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Coincidence with "zhenghao"'
+english = 'You are here! I was just looking for you.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 正好 + [Verb Phrase]'
+hanzi = '你来了！我正好要找你。'
+notes = ''
+pinyin = 'Nǐ lái le! Wǒ zhènghǎo yào zhǎo nǐ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGUD25J'

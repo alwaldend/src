@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'mind;	thoughts;	inclination;	mood.'
+example-sentence = '  家老们满怀心思,一一散去'
+example-type = ''
+grammar-construct = ''
+hanzi = '心思'
+notes = ''
+pinyin = '<span class="tone1">xīn</span><span class="tone5">si</span>	 <!-- xin si -->'
+source = ''

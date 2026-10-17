@@ -1,0 +1,16 @@
+note_type = "note_types/python-basic-and-reversed.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+additional-info = """
+
+Doesn't modify the original object.\
+"""
+answer = '<b>Built in function:&nbsp;</b>bool(<i>object</i>)'
+example = ''
+question = '<b>Built in function</b>&nbsp;that returns the boolean value of the specified object.'
+version = ''
+with-options = ''

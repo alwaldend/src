@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "TimeWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "changchang" and "jingchang"'
+english = "You didn't often eat breakfast before?<br>Right, I often slept until noon."
+example-sentence = ''
+example-type = ''
+grammar-construct = '不 + 常'
+hanzi = 'A:你以前经常不吃早饭吗？<br>B:对，我常常睡到中午十二点。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGE8FLP'

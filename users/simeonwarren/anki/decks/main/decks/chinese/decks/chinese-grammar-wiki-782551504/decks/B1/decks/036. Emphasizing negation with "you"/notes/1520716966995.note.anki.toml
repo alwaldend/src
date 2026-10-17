@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Emphasizing negation with "you"'
+english = "Don't be mad.It really wasn't on purpose."
+example-sentence = ''
+example-type = ''
+grammar-construct = '又 + 不 / 没 + Predicate'
+hanzi = '不要生气，我又不是故意的。'
+notes = ''
+pinyin = 'Bùyào shēngqì, wǒ yòu bù shì gùyì de.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGD3C4S'

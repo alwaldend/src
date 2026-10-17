@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "C1"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "as long as" with "fanshi"'
+english = "As long as the kid doesn't behave well, he won't get any candy to eat."
+example-sentence = ''
+example-type = ''
+grammar-construct = '凡是 +  Noun / Noun Phrase＋都 / 就 / 一律 / 无不＋ Verb'
+hanzi = '凡是不听话的孩子都没有糖吃。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG38F8A'

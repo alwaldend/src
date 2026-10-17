@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'Using Spring and Autumn Cicada to be reborn, I went back to 500 years ago!'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '利用春秋蝉重生了,回到了500年前！'
+notes = ''
+pinyin = ''
+source = ''

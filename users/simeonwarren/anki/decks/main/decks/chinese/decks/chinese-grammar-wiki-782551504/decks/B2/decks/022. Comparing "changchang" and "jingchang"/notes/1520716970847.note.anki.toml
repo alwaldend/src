@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "TimeWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "changchang" and "jingchang"'
+english = "Not eating breakfast often isn't a good habit.<br>I know. I decided I'm going to eat breakfast often from now on."
+example-sentence = ''
+example-type = ''
+grammar-construct = '不 + 常'
+hanzi = 'A:不经常吃早饭不是个好习惯。<br>B:我知道。我决定以后经常吃早饭。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGE8FLP'

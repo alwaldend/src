@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Advanced potential complements'
+english = "This makeup is very expensive. I can't afford it."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 得 / 不 + 起 + Obj.'
+hanzi = '这些化妆品很贵，我用不起。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG516F9'

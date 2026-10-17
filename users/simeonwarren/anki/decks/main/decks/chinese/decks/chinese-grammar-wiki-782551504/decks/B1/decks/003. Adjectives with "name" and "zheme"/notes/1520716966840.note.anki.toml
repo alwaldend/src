@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adjectives", "B1", "leech", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Adjectives with "name" and "zheme"'
+english = 'Science and technology is so developed. Nothing is impossible.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 那么 / 这么 + Adj.'
+hanzi = '科技那么发达，什么都是有可能的。'
+notes = ''
+pinyin = 'Kējì nàme fādá, shénme dōu shì yǒu kěnéng de.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNKKP6'

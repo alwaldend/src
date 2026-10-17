@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["AdverbswithAdjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "quite" with "ting"'
+english = 'Your boyfriend is quite handsome.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '挺 + Adj. + 的'
+hanzi = '你男朋友挺帅的。'
+notes = ''
+pinyin = 'Nǐ nánpéngyou tǐng shuài de.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDF1F7'

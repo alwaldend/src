@@ -1,0 +1,13 @@
+note_type = "note_types/python-basic-and-reversed.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<b>Keyword</b> used to redeclare an already declared variables scope as non-local inside nested functions or other localized scope.'
+example = 'x = 0<br>def example_func():<br>&nbsp; &nbsp; nonlocal x = 1'
+question = '<b>Keyword:</b> nonlocal'
+version = ''
+with-options = ''

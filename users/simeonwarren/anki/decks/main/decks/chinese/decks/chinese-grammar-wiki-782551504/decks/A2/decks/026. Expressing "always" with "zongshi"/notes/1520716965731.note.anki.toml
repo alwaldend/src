@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "always" with "zongshi"'
+english = 'Your house is always very clean.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '总是 + Adv. + Adj.'
+hanzi = '你家总是很干净。'
+notes = ''
+pinyin = 'Nǐ jiā zǒngshì hěn gānjìng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGXJPJS'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "again" in the past with "you"'
+english = "I'm going to be late again."
+example-sentence = ''
+example-type = ''
+grammar-construct = '又 + 要 / 想 / 可以 / 能 + Verb Phrase (+ 了)'
+hanzi = '我又要迟到了。'
+notes = ''
+pinyin = 'Wǒ yòu yào chídào le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGN1JR5'

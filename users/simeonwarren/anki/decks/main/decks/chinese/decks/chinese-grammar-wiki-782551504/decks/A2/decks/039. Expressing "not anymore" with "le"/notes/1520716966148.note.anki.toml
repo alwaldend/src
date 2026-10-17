@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "not anymore" with "le"'
+english = "We all don't have any more money."
+example-sentence = ''
+example-type = ''
+grammar-construct = '已经 + 没(有) + [Noun Phrase] + 了'
+hanzi = '我们已经没钱了。'
+notes = ''
+pinyin = 'Wǒmen yǐjīng méi qián le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGFR96B'

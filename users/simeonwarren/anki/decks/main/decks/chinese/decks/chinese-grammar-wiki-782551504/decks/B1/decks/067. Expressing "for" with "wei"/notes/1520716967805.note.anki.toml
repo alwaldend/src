@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "for" with "wei"'
+english = "Aren't you worried about your child?"
+example-sentence = ''
+example-type = ''
+grammar-construct = '为 + Party + Verb / Adj.'
+hanzi = '你不为自己的孩子担心吗？'
+notes = ''
+pinyin = 'Nǐ bù wèi zìjǐ de háizi dānxīn ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG68RBX'

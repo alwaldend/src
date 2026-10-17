@@ -1,0 +1,9 @@
+[filtered]
+preview_again_secs = 60
+preview_hard_secs = 600
+reschedule = true
+
+[[filtered.search_terms]]
+limit = 100
+order = "INTERVALS_DESCENDING"
+search = "is:due deck:main::chinese::chinese-grammar-wiki-782551504"

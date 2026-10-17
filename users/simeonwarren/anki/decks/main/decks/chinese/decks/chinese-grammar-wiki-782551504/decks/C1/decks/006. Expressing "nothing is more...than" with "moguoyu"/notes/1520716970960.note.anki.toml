@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["C1", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "nothing is more...than" with "moguoyu"'
+english = 'The most romantic thing I can imagine is getting old together with you.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Topics or questions + 莫过于 + answer'
+hanzi = '我能想到最浪漫的事莫过于跟你一起白头到老。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGGI66V'

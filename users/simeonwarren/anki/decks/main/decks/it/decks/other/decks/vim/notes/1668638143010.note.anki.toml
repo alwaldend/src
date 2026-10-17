@@ -1,0 +1,12 @@
+note_type = "note_types/basic.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[[cards]]
+ordinal = 1
+
+[fields]
+Back = "i&lt; i( i[ i{ i\" i' i`&nbsp; &nbsp;\" i for&nbsp;<b>inner</b>"
+Front = "Select content inside surrounding &lt;&gt;, (), [], {}, \"\", '', or `` (visual mode or as motion)"

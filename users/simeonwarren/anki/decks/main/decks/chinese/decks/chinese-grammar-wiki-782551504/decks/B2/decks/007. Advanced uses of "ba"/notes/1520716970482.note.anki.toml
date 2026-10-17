@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Advanced uses of "ba"'
+english = 'Sorry, I wrote the morning interview down for this afternoon.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '把 + Obj. 1 + Perception Verbs'
+hanzi = '对不起，我把早上的面试记成了下午。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQRS3P'

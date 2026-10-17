@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "about" with "guanyu"'
+english = "As for Chinese history, I don't know a lot."
+example-sentence = ''
+example-type = ''
+grammar-construct = '关于 + Obj. ，⋯⋯'
+hanzi = '关于中国历史，我知道的不多。'
+notes = ''
+pinyin = 'Guānyú Zhōngguó lìshǐ, wǒ zhīdào de bù duō.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG49889'

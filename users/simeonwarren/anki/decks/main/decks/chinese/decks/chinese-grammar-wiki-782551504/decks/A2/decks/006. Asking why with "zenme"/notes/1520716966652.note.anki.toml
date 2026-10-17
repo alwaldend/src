@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Asking why with "zenme"'
+english = "Her kitten died. Why isn't she sad?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 怎么 (+ 不) + Adj.'
+hanzi = '她的小猫死了，她怎么不难过？'
+notes = ''
+pinyin = 'Tā de xiǎomāo sǐ le, tā zěnme bù nánguò?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGD7NS3'

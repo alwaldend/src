@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "youdian" and "yidian"'
+english = 'Please speak a little more slowly.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '请说慢一点。'
+notes = ''
+pinyin = 'Qǐng shuō màn yīdiǎn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGV55Y4'

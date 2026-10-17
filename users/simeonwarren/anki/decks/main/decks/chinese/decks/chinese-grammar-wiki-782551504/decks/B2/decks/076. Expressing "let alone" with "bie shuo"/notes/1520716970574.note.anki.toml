@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Grammatical_Structures", "Letalone"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "let alone" with "bie shuo"'
+english = "Don't think about one hundred, I won't even give you one kuai."
+example-sentence = ''
+example-type = ''
+grammar-construct = '别说 + A ， 连  / 就是+ B + 也 / 都 + Verb'
+hanzi = '别说一百，就是一块钱我也不给你。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGR6Q2J'

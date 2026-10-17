@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "except" and "in addition" with "chule… yiwai"'
+english = 'Except for political news, I read all the types of news.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '除了 ⋯⋯ (+ 以外) ，Subj. + 都 ⋯⋯'
+hanzi = '除了政治新闻以外，其他新闻我都看。'
+notes = ''
+pinyin = 'Chúle zhèngzhì xīnwén yǐwài, qítā xīnwén wǒ dōu kàn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGHFPGG'

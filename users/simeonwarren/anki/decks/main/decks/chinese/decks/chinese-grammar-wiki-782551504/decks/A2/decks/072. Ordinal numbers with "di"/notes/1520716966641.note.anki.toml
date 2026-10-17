@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Grammatical_Structures", "NumbersandMeasureWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Ordinal numbers with "di"'
+english = 'The boss needs to go on a business trip the first week of next month.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '第 + Number + Measure Word + Noun'
+hanzi = '下个月的第一周老板要出差。'
+notes = ''
+pinyin = 'Xià gè yuè de dì-yī zhōu , lǎobǎn yào chūchāi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGK904U'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Advanced uses of "hai"'
+english = 'This kid is brilliant!'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 还 + Predicate + 呢'
+hanzi = '这个小孩还真聪明！'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG4807F'

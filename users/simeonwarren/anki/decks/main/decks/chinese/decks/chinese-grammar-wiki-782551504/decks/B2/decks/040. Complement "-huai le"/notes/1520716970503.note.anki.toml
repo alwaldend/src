@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Complement "-huai le"'
+english = "I didn't eat anything for breakfast or lunch. I'm starved to death."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Adj. + 坏了'
+hanzi = '我早饭和中饭都没吃，饿坏了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGT0GYL'

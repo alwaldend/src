@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Result complement "-wan" for finishing'
+english = 'To finish your homework you will need two hours.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 完 (+ 了) + Obj.'
+hanzi = '做完这些作业需要两个小时。'
+notes = ''
+pinyin = 'Zuò wán zhèxiē zuòyè xūyào liǎng gè xiǎoshí.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNQUC1'

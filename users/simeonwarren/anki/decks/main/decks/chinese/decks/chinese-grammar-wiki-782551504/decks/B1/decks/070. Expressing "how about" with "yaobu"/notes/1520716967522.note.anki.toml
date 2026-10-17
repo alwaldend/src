@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "how about" with "yaobu"'
+english = "I'm pretty busy this week. How about we meet up next week?"
+example-sentence = ''
+example-type = ''
+grammar-construct = '要不 + Suggestion ，Reason / Situation'
+hanzi = '这个星期我比较忙，要不下个星期见？'
+notes = ''
+pinyin = 'Zhège xīngqī wǒ bǐjiào máng, yàobù xià gè xīngqī jiàn?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDFQP7'

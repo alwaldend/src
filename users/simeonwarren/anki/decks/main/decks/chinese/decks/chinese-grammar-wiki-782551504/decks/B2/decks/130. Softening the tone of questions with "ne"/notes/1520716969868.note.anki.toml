@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Softening the tone of questions with "ne"'
+english = 'Should I go to Myanmar or Thailand? I have to think a bit!'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Option 1 + 呢 + 还是 + Option 2 + 呢？'
+hanzi = '我去缅甸呢，还是泰国呢？我得想一想！'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGW7YXP'

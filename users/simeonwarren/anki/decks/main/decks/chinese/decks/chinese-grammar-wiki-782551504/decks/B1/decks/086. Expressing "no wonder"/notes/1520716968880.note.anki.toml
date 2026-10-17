@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "no wonder"'
+english = "He's late for work everyday. No wonder he got fired."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Reason ，怪不得 / 难怪 + [Observation]'
+hanzi = '天天迟到，怪不得他被炒鱿鱼。'
+notes = ''
+pinyin = 'Tiāntiān chídào, guàibude tā bèi chǎoyóuyú.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGFPV2C'

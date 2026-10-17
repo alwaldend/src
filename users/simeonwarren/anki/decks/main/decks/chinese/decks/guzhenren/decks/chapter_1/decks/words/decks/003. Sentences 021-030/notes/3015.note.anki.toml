@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = '(literary) student;	scholar.'
+example-sentence = ' 他本是地球上的华夏学子,机缘巧合穿越到这方世界'
+example-type = ''
+grammar-construct = ''
+hanzi = '学子'
+notes = ''
+pinyin = '<span class="tone2">xué</span><span class="tone3">zǐ</span>	 <!-- xue zi -->'
+source = ''

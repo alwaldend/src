@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Special verbs with "hen"'
+english = 'Both of my parents really hope that I can go to a good college.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 很 + [Certain Verbs]'
+hanzi = '父母都很希望我能上一个好大学。'
+notes = ''
+pinyin = 'Fùmǔ dōu hěn xīwàng wǒ néng shàng yī gè hǎo dàxué.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGID0E8'

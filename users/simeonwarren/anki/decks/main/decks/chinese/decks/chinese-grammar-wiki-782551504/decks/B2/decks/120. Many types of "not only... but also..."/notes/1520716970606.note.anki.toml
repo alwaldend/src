@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Grammatical_Structures", "Notonly…butalso…"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Many types of "not only... but also..."'
+english = 'This essay is not only written clearly, but is also well-developed.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不仅 / 不但 / 不只 + ⋯⋯，而且 / 还 / 也 + ⋯⋯'
+hanzi = '这篇文章不仅结构清楚，而且思想先进。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJ1VZQ'

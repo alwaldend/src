@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Tricky uses of "dao"'
+english = "I'm not sure when I'll be able to get my work visa."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '不知道什么时候能拿到我的工作签证。'
+notes = ''
+pinyin = 'Bù zhīdào shénme shíhou néng ná dào wǒ de gōngzuò qiānzhèng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCUSIV'

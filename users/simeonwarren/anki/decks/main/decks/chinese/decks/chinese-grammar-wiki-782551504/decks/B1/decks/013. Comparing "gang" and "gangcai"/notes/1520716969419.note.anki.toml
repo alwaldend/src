@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "TimeWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "gang" and "gangcai"'
+english = 'He came just now.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '刚才 + Verb'
+hanzi = '他刚才来过。'
+notes = "In this case, he's come and gone already. He's not here anymore."
+pinyin = 'Tā  gāngcái lái guo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJFFWG'

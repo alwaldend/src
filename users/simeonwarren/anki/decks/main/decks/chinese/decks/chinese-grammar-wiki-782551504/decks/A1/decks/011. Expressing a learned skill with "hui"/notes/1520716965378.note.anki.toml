@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Auxiliaryverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing a learned skill with "hui"'
+english = 'Dad can drive.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 会 + Verb + Obj.'
+hanzi = '爸爸会开车。'
+notes = ''
+pinyin = 'Bàba huì kāichē.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGRHM0E'

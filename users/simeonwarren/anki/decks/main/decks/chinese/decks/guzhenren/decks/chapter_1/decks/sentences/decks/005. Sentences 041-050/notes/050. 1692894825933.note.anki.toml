@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'Blessed by the ancestors, I hope that many young people with outstanding qualifications will emerge in this enlightenment ceremony, adding new blood and hope to the family!'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '列祖列宗保佑,希望此次开窍大典中能多多涌现出资质优秀的少年,为家族增添新血和希望！'
+notes = ''
+pinyin = ''
+source = ''

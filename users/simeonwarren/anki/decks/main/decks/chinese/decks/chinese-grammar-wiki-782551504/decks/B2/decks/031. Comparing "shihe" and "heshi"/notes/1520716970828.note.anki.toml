@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "SeparateFunctions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "shihe" and "heshi"'
+english = 'He is very suitable. He completely matches the advertised demands.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Adv. + 合适'
+hanzi = '他就是最合适的，他完全符合我们的招聘要求。'
+notes = ''
+pinyin = 'Tā jiùshì zuì héshì de, tā wánquán fúhé wǒmen de zhāopìn yāoqiú.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGVDOXL'

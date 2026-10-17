@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "toward" with "wang"'
+english = 'That thief ran east.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '往 + Direction / Place + Verb'
+hanzi = '那个小偷往东跑了。'
+notes = ''
+pinyin = 'Nàge xiǎotōu wǎng dōng pǎo le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGAD070'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "when" with "de shihou"'
+english = "Don't play with your phone while walking."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Time Word + 的 时候, ....'
+hanzi = '走路的时候不要玩手机。'
+notes = ''
+pinyin = 'Zǒulù de shíhou bùyào wán shǒujī.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWN185'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Idiomatic phrases with "zai"'
+english = 'In American history, who is the most important president?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '在 + Topic + 上 ，Subj. ⋯⋯'
+hanzi = '在美国历史上，谁是最重要的总统？'
+notes = ''
+pinyin = 'Zài Měiguó lìshǐ shàng, shéi shì zuì zhòngyào de zǒngtǒng ?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGH13JY'

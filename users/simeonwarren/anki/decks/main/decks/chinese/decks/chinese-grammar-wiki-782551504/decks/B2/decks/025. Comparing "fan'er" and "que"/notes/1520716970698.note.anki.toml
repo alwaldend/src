@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "Conjunctions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = "Comparing \"fan'er\" and \"que\""
+english = "It's raining outside, and I didn't bring an umbrella."
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = 'Subj. + 却'
+hanzi = '外面下雨，他却没带伞。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG0K25S'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "difficult" with "nan"'
+english = 'This sentence is hard to understand.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + (很) 难 + Verb'
+hanzi = '这句话很难懂。'
+notes = ''
+pinyin = 'Zhè jù huà hěn nán dǒng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG35T4H'

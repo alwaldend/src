@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "age difference" with "da and xiao"'
+english = 'Who is the elder one, your dad or your mom?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A + 比 + B + 大 / 小 + number + 岁'
+hanzi = '你爸爸和你妈妈谁大？'
+notes = ''
+pinyin = 'Nǐ bàba hé nǐ māma shéi dà?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGE8810'

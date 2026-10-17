@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Either…or", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "either... or..." with "yaome"'
+english = "Either buy it now, or don't buy it."
+example-sentence = ''
+example-type = ''
+grammar-construct = '要么 + Option A ，要么 + Option B'
+hanzi = '要么现在就买，要么就别买。'
+notes = ''
+pinyin = 'Yàome xiànzài jiù mǎi, yàome jiù bié mǎi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG30A60'

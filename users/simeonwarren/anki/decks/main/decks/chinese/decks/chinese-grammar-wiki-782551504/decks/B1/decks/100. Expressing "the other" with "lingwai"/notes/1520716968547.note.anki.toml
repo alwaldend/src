@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "NounPhrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "the other" with "lingwai"'
+english = 'She has two houses. She lives in one and rents the other one to other people.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '另外 + Number + [Measure Word] + Noun'
+hanzi = '她有两套房子，一套自己住，另一套租给别人了。'
+notes = ''
+pinyin = 'Tā yǒu liǎng tào fángzi, yī tào zìjǐ zhù, lìng yī tào zū gěi biérén le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGD3FE5'

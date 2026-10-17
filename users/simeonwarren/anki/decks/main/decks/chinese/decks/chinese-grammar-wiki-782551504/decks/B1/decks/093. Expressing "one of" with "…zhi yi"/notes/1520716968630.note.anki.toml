@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "NounPhrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "one of" with "…zhi yi"'
+english = 'Personalization is one of the major characteristics of our service.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '[Noun Phrase] + 之一'
+hanzi = '个性化是我们服务的主要特点之一。'
+notes = ''
+pinyin = 'Gèxìnghuà shì wǒmen fúwù de zhǔyào tèdiǎn zhī yī.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMT1M1'

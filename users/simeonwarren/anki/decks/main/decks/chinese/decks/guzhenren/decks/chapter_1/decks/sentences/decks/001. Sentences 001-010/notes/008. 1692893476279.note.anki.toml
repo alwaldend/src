@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'Today, I will make your life worse than death! !'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '今天,我要让你生不如死！！'
+notes = ''
+pinyin = '<div>Jīntiān, wǒ yào ràng nǐ shēng bùrú sǐ!!</div>'
+source = ''

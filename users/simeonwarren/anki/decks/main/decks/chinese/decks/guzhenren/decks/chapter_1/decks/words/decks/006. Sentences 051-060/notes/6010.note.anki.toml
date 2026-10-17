@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'to collide;	collision.'
+example-sentence = ' 一时间,宗族祠堂中尽是额头碰撞地板的轻响'
+example-type = ''
+grammar-construct = ''
+hanzi = '碰撞'
+notes = ''
+pinyin = '<span class="tone4">pèng</span><span class="tone4">zhuàng</span>	 <!-- peng zhuang -->'
+source = ''

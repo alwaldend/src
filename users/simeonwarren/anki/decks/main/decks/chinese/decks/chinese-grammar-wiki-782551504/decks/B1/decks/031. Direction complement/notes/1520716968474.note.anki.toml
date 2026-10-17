@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Direction complement'
+english = 'They brought some local goods back from hometown.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + [Compound Direction Complement]'
+hanzi = '他们从老家带了一些特产回来。'
+notes = ''
+pinyin = 'Tāmen cóng lǎojiā dài le yīxiē tèchǎn huílái.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8LWBJ'

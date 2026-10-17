@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "nearly" with "jihu"'
+english = 'Almost everyone believes what he said.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '几乎 + Subj. + 都 + Verb / Adj.'
+hanzi = '几乎所有人都相信他。'
+notes = ''
+pinyin = 'Jīhū suǒyǒu rén dōu xiāngxìn tā.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGVA70K'

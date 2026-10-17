@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "for" with "wei"'
+english = 'Lots of people are praying for those children.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '为 + Party + Verb / Adj.'
+hanzi = '很多人都在为那些孩子祈祷。'
+notes = ''
+pinyin = 'Hěn duō rén dōu zài wèi nàxiē háizi qídǎo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG68RBX'

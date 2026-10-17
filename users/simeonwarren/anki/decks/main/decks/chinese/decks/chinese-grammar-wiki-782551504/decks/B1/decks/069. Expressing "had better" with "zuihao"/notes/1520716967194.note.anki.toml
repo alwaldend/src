@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "had better" with "zuihao"'
+english = "It's pretty cold outside. You'd better wear some more layers."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 最好 + [Verb Phrase]'
+hanzi = '外面挺冷的，最好多穿点。'
+notes = ''
+pinyin = 'Wàimiàn tǐng lěng de, zuìhǎo duō chuān diǎn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG35CD7'

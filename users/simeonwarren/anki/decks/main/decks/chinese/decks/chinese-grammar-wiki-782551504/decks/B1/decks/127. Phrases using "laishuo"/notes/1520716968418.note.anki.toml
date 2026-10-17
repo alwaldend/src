@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Basic", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Phrases using "laishuo"'
+english = 'This event was a success in general.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '总的来说，这次活动很成功。'
+notes = ''
+pinyin = 'Zǒng de lái shuō, zhè cì huódòng hěn chénggōng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGD60A6'

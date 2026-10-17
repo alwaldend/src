@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Events in quick succession with "yi... jiu..."'
+english = "I'm starved. I will go to lunch as soon as the class is over."
+example-sentence = ''
+example-type = ''
+grammar-construct = '一 + Event 1，就 + Event 2'
+hanzi = '饿死了，我一下课就要去吃午饭。'
+notes = ''
+pinyin = 'È sǐ le, wǒ yī xiàkè jiù yào qù chī wǔfàn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTFUD0'

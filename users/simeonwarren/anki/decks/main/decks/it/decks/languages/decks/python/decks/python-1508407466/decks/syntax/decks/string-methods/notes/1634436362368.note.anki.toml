@@ -1,0 +1,13 @@
+note_type = "note_types/python-basic-and-reversed.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+additional-info = '<strong>Note:</strong>&nbsp;All string methods returns new values. They do not change the original string.'
+answer = '<i>string</i>.find(<i>value</i>)'
+example = ''
+question = "<b>String method</b> that searches a string for a specified value and returns the first position of where it was found, or -1. Doesn't throw a ValueError if value is not found.&nbsp;"
+version = ''
+with-options = ''

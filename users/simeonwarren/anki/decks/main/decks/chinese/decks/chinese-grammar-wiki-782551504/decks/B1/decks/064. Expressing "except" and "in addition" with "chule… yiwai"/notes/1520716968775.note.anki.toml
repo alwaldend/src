@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "except" and "in addition" with "chule… yiwai"'
+english = 'Except for weekends, the boss works overtime everyday.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '除了 ⋯⋯ (+ 以外) ，Subj. + 都 ⋯⋯'
+hanzi = '除了周末，老板每天都加班。'
+notes = ''
+pinyin = 'Chúle zhōumò, lǎobǎn měi tiān dōu jiābān.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGHFPGG'

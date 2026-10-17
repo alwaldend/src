@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "AdverbswithAdjectives", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Modifying nouns with adjective + "de"'
+english = 'What kind of boyfriend do you want to find?<br>A rich one.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Adj. + 的'
+hanzi = 'A: 你想找什么样的男朋友？<br>B: 有钱的。'
+notes = ''
+pinyin = 'Nǐ xiǎng zhǎo shénmeyàng de nánpéngyou?<br>Yǒuqián de.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGVUFKX'

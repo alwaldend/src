@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Placement of question words'
+english = 'What kind of book are you reading?<br>I am reading a novel.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 什么 + (Noun) ?'
+hanzi = 'A: 你在看什么书？<br>B: 我在看小说。'
+notes = ''
+pinyin = 'Nǐ zài kàn shénme shū?<br>Wǒ zài kàn xiǎoshuō.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJQPSC'

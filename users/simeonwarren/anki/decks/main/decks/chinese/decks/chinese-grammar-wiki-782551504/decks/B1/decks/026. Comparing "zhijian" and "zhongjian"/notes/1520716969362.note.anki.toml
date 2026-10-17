@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "Nouns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "zhijian" and "zhongjian"'
+english = 'There are between 170 and 200 extraterrestrials in Shanghai.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Number 1 + 和 + Number 2 + 之间'
+hanzi = '上海的外星人数量在170到200之间。'
+notes = ''
+pinyin = '<div>Shànghǎi de wài xīng rén shùliàng zài 170 dào 200 zhī jiān.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGN6O6J'

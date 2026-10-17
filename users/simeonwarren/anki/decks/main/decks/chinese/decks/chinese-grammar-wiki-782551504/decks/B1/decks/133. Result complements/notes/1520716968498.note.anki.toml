@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Result complements'
+english = 'The thief stole my wallet.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + [One-syllable Verb] +了 (+ Obj.)'
+hanzi = '小偷偷走了我的钱包。'
+notes = ''
+pinyin = 'Xiǎotōu tōuzǒu le wǒ de qiánbāo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNNMST'

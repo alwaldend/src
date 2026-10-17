@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "NumbersandMeasureWords", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "ji" to mean "several"'
+english = "We've been to Beijing quite a few times."
+example-sentence = ''
+example-type = ''
+grammar-construct = '好几 + Measure Word + Noun'
+hanzi = '我们去过好几次北京。'
+notes = ''
+pinyin = 'Wǒmen qù guo hǎojǐ cì Běijīng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGHC9CA'

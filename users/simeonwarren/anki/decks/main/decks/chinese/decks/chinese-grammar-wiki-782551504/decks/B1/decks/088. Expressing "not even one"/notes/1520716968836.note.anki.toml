@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "not even one"'
+english = "She didn't drink a bottle of wine."
+example-sentence = ''
+example-type = ''
+grammar-construct = '一 + Measure Word + (Noun) + 也 / 都 + 不 / 没 + Verb'
+hanzi = '她一瓶酒也没喝。'
+notes = ''
+pinyin = 'Tā yī píng jiǔ yě méi hē.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGUQ861'

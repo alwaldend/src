@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Tricky uses of "dao"'
+english = "I'm looking at some old photos."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '我在看一些老照片。'
+notes = ''
+pinyin = 'Wǒ zài kàn yīxiē lǎo zhàopiàn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCUSIV'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "some" with question words'
+english = 'You should find someone to take you inside.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '你找谁带你进去吧。'
+notes = ''
+pinyin = 'Nǐ zhǎo shéi dài nǐ jìnqù ba.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG7ED89'

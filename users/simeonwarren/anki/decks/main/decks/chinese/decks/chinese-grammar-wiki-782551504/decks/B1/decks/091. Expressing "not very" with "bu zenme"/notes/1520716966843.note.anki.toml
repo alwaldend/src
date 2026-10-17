@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "not very" with "bu zenme"'
+english = 'They seem not very happy.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不怎么 + Adj. / [Psychological Verb]'
+hanzi = '他们好像不怎么高兴。'
+notes = ''
+pinyin = 'Tāmen hǎoxiàng bù zěnme gāoxìng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGVYIZT'

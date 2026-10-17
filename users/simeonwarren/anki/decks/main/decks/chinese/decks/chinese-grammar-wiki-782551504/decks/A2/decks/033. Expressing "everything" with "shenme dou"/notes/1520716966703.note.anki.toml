@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "everything" with "shenme dou"'
+english = 'My  girlfriend thinks that all foreign things are good.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Topic (+ Subj.) + 什么 + 都 / 也 + Verb / Adj.'
+hanzi = '我女朋友觉得外国的东西什么都好。'
+notes = ''
+pinyin = 'Wǒ nǚpéngyou juéde wàiguó de dōngxi shénme dōu hǎo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGAQV6C'

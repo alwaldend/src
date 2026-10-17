@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "enough" with "gou"'
+english = "Your house is too small. I'm afraid it's not big enough to live in."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不够 + Verb'
+hanzi = '你家太小了，恐怕不够住。'
+notes = ''
+pinyin = 'Nǐ jiā tài xiǎo le, kǒngpà bùgòu zhù.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG49BE6'

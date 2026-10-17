@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "bu" and "mei"'
+english = 'Is your girlfriend not going with you?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不 + Verb'
+hanzi = '你女朋友不跟你一起去吗？'
+notes = ''
+pinyin = 'Nǐ nǚpéngyou bù gēn nǐ yīqǐ qù ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGRJ1BI'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "when" with "dengdao"'
+english = "He didn't realize how precious health is until he had cancer."
+example-sentence = ''
+example-type = ''
+grammar-construct = '等(到) + Time / Event ，Subj. + 才 + Predicate'
+hanzi = '等到他得了癌症，才意识到健康有多宝贵。'
+notes = ''
+pinyin = 'Děngdào tā de le áizhèng, cái yìshí dào jiànkāng yǒu duō bǎoguì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG68F61'

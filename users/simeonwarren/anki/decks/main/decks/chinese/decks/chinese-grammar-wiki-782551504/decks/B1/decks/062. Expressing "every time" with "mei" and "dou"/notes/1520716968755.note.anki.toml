@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "every time" with "mei" and "dou"'
+english = 'Every time he comes across a new word, he looks it up in the dictionary.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '每次 + Event 1 + 都 + Event 2'
+hanzi = '每次遇到生词他都要查字典。'
+notes = ''
+pinyin = 'Měi cì yùdào shēngcí tā dōu yào chá zìdiǎn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGXHQEF'

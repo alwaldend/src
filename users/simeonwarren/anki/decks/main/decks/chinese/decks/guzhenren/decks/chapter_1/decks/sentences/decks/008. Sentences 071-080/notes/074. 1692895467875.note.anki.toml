@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'In time, he must be the pillar of Baijiazhai.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '假以时日,他必然是白家寨的顶梁柱。'
+notes = ''
+pinyin = ''
+source = ''

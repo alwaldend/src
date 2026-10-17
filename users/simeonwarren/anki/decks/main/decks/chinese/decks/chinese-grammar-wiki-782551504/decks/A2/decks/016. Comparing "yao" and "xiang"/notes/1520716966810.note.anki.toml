@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Auxiliaryverbs", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "yao" and "xiang"'
+english = "Don't they want to go back home for Spring Festival?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 想 + Verb'
+hanzi = '他们春节不想回家吗？'
+notes = ''
+pinyin = 'Tāmen Chūnjié bù xiǎng huíjiā ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGD88UO'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Making judgments with "suan"'
+english = "We know each other, but we don't consider each other as friends."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. (+ 不) + 算 + Noun'
+hanzi = '我们认识，但是不算朋友。'
+notes = ''
+pinyin = 'Wǒmen rènshi, dànshì bù suàn péngyou.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWDWFN'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Conceding a point with "shi"'
+english = 'This environment is great, but the transportation is not very convenient.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Adj. + 是 + Adj. ， 但是 / 就是 ⋯⋯'
+hanzi = '这里的环境好是好，但是交通不太方便。'
+notes = ''
+pinyin = 'Zhèlǐ de huánjìng hǎo shì hǎo, dànshì jiāotōng bù tài fāngbiàn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGT9Y8P'

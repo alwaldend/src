@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "as a result" with "jieguo"'
+english = 'I went to have a drink with my friends yesterday. I got drunk in the end.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Situation ，结果 + Ending'
+hanzi = '我昨天跟朋友去喝酒，结果喝醉了。'
+notes = ''
+pinyin = 'Wǒ zuótiān gēn péngyou qù hējiǔ, jiéguǒ hē zuì le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG6B21A'

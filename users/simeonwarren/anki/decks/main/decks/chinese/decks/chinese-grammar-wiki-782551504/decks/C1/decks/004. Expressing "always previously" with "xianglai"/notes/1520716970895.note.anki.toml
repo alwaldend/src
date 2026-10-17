@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "C1"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "always previously" with "xianglai"'
+english = 'My parents have always disliked me going out to play with you guys.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subject + 向来（都） + Verb/Verb Phrase'
+hanzi = '我父母向来不喜欢我跟你们一起出去玩儿。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDU0XL'

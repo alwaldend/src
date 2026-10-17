@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Grammatical_Structures", "NumbersandMeasureWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Counting money'
+english = 'two kuai five mao (2.5)'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Number + 块 + Number + 毛'
+hanzi = '两块五毛'
+notes = ''
+pinyin = 'liǎng kuài wǔ máo'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGL6JOE'

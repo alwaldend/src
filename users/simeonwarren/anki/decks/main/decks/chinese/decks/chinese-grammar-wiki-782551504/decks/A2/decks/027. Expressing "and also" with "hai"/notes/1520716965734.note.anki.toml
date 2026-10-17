@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "and also" with "hai"'
+english = 'She has a younger brother and also has a younger sister.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + Obj. 1， 还 + Verb + Obj. 2'
+hanzi = '她有一个弟弟，还有一个妹妹。'
+notes = ''
+pinyin = 'Tā yǒu yī gè dìdi, hái yǒu yī gè mèimei.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJBZKC'

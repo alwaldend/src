@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adjectives", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Negative adjectives with "-si le"'
+english = "It's so terribly noisy!"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Adj. + 死了'
+hanzi = '吵死了！'
+notes = 'Literally, "noisy to death"'
+pinyin = 'Chǎo sǐ le!'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGLEVUV'

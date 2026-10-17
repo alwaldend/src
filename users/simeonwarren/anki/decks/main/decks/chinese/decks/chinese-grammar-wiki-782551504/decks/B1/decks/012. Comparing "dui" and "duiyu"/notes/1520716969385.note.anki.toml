@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "dui" and "duiyu"'
+english = 'I like to laugh at the mirror.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 对着／对上／对不上'
+hanzi = '我喜欢对着镜子笑。'
+notes = ''
+pinyin = 'Wǒ xǐhuān duìzhe jìngzǐ xiào.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG3JELV'

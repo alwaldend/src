@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'After a specific time with "yihou"'
+english = 'After he got married, dad stopped drinking.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Time / Verb + 以后, ....'
+hanzi = '结婚以后爸爸不喝酒了。'
+notes = ''
+pinyin = 'Jiéhūn yǐhòu bàba bù hējiǔ le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGRLQGY'

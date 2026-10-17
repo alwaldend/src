@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "ever since" with "zicong"'
+english = 'Ever since the economic crisis, the job market has been growing less and less.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '自从 + [Starting Point]'
+hanzi = '自从金融危机爆发，就业市场变得越来越不景气了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGLI7GW'

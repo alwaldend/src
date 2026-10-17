@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Idiomatic phrases with "zai"'
+english = 'In certain aspects, Chinese and Western culture have a lot in common.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '在 + Abstract Concept + 方面， Comment Sentence'
+hanzi = '中西方文化在某些方面是有很多共同点的。'
+notes = ''
+pinyin = '<div>Zhōng xīfāng wénhuà zài mǒu xiē fāngmiàn shì yǒu hěnduō gòngtóng diǎn de.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGH13JY'

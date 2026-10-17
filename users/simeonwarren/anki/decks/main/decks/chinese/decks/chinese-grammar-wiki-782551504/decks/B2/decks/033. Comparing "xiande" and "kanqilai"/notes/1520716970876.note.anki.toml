@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "xiande" and "kanqilai"'
+english = 'She seems a little angry.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 看起来 + Predicate'
+hanzi = '她看起来有点生气。'
+notes = ''
+pinyin = 'Tā kànqǐlái yǒu diǎn shēngqì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGKQEG9'

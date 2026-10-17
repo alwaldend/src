@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparisons with "buru"'
+english = "I don't type as fast as you do."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A + Verb-Obj. + 不如 + B+ (Verb + 得) + Adj.'
+hanzi = '我打字不如你打得快。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWH1D5'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "NounPhrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "all" with "suoyou"'
+english = 'All the teachers in our school can speak English.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '所有 (+ 的) + Noun + 都 + Predicate'
+hanzi = '我们学校所有的老师都会说英文。'
+notes = ''
+pinyin = 'Wǒmen xuéxiào suǒyǒu de lǎoshī dōu huì shuō Yīngwén.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGOWBSL'

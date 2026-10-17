@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "AdverbswithAdjectives", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Basic comparisons with "yiyang"'
+english = 'American culture and Chinese culture are not the same.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun 1 + 跟 / 和 + Noun 2 + 一样'
+hanzi = '美国文化跟中国文化不一样。'
+notes = ''
+pinyin = 'Měiguó wénhuà gēn Zhōngguó wénhuà bù yīyàng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGC06N0'

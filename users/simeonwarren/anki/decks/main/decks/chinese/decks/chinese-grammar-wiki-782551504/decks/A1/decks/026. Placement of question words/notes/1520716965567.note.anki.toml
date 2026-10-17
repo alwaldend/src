@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Placement of question words'
+english = 'Why were you not here this morning?<br>Because I went out to meet some friends.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 为什么 + Predicate ?'
+hanzi = 'A: 你早上为什么不在？<br>B: 因为我出去见朋友了。'
+notes = ''
+pinyin = 'Nǐ zǎoshang wèishénme bù zài?<br>Yīnwèi wǒ chūqù jiàn péngyou le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJQPSC'

@@ -1,0 +1,10 @@
+note_type = "note_types/python-cloze.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+example = ''
+text = 'Use unpacking to make a dict c equal to dicts a + b:<br>a = {<br>&nbsp; &nbsp; "u": 45,<br>&nbsp; &nbsp; "v": 11<br>}<br>b = {<br>&nbsp; &nbsp; "x": 33,<br>&nbsp; &nbsp; "y": 22<br>}<br>c = {{c1:: {**a, **b} }}'
+version = '3.10'

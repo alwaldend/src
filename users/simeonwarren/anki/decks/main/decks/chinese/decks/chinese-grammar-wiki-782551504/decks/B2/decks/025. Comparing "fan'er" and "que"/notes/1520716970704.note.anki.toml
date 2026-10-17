@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "Conjunctions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = "Comparing \"fan'er\" and \"que\""
+english = 'They all thought the Knicks would lose the last game, but they won.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '却 + Verb'
+hanzi = '他们都觉得Knicks会输掉最后一场比赛，他却赢了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG0K25S'

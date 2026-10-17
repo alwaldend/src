@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Appearance with "kanqilai"'
+english = 'You look really tired today.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 看起来 + Adj.'
+hanzi = '你今天看起来很累。'
+notes = ''
+pinyin = 'Nǐ jīntiān kàn qǐlái hěn lèi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG9K0F8'

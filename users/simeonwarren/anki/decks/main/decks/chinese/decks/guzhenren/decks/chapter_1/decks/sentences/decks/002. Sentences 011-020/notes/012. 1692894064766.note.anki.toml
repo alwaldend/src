@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = "Just standing there for a while, Fang Yuan's feet had already accumulated a large puddle of blood."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '只是站着一会儿,方源脚下已经积了一大滩的血水。'
+notes = ''
+pinyin = ''
+source = ''
