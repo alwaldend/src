@@ -18,11 +18,11 @@ export, planning and apply remain in
 ## State operations
 
 State commands accept an existing offline `.anki2` database or `.colpkg` archive
-through `--collection`. `App.WithCollection` starts the native process and collection
-backends, lends a prepared connection, then closes the collection before the process.
-Inside its callback, commands construct a namespaced store with `state.New` using
-that connection. Stores own no backend lifecycle or cleanup. The existing backend owns prepared connections and archive restore
-files; the app adds no collection wrapper or manual package handling.
+through `--collection`. The CLI calls App's typed state workflows. App borrows
+a prepared connection from `collection.Store`, which reserves the source and delegates
+native startup and cleanup to `backend.ManagerCollection`. Native collection
+cleanup finishes before transport cleanup and source reservation release.
+State stores borrow the prepared connection and own no backend lifetime or files.
 
 Databases are opened directly and committed writes persist in place, including
 when a later operation fails. Packages are restored into a temporary directory
@@ -87,35 +87,67 @@ id = "789"
 id = "1"
 ```
 
-The CLI owns flags, formats and streams. `app.Options.Collection` selects the
-input; `app.StateOptions.Key` selects the namespace. Each command calls WithCollection
-once and constructs its state store inside the callback. Batched imports share
-that one session. State callbacks return whether they changed bindings
-so unchanged archives need no publication. Mutation status is printed after successful
+The CLI owns flags, formats and streams. App owns configuration loading, state
+service access and publication decisions. Each workflow accepts the source path
+and namespace key explicitly and completes native cleanup before returning.
+Batched imports share one native scope. Mutation status is printed after successful
 persistence.
 
 ```go
-application := &app.App{
-    Options: app.Options{Collection: absoluteCollectionPath},
-    StateOptions: app.StateOptions{Key: key},
-}
-err := application.WithCollection(ctx, func(connection grpc.ClientConnInterface) (bool, error) {
-    store := state.New(connection, application.StateOptions.Key)
-    changed, err := store.Replace(ctx, replacement)
+application := &app.App{}
+value, err := application.ColStateDump(ctx, collectionPath, key)
+err = application.ColStateImport(ctx, collectionPath, configDirectory, key, bindings)
+err = application.ColStateUpdate(ctx, collectionPath, key, patch)
+err = application.ColStateReplace(ctx, collectionPath, key, replacement)
+```
+
+App exposes complete operations without raw connections, callbacks or flag options.
+Go callers needing several operations within one prepared scope use collection.Store
+below. Callers with an existing connection use state.New directly and retain
+backend ownership. Collection paths support absolute and current-user home paths;
+`--collection` replaces the unreleased `--input` spelling across the scaffold.
+
+## Collection Go API
+
+`internal/collection.Store` reserves existing sources and publishes changed archives.
+Its zero value is ready to use. `WithCollection` injects a prepared
+`grpc.ClientConnInterface` into its callback. Construct the services you need on
+that connection and reuse local instances for several operations.
+
+Set `BackendManager` before use to inject a `backend.Manager`. Nil selects the
+bundled server or PATH. `backend.ManagerCollection` owns preparation and cleanup,
+closing native storage before releasing its transport. Store retains only source
+reservations and delegates native lifetime to that manager.
+
+```go
+store := &collection.Store{}
+err := store.WithCollection(ctx, path, func(connection grpc.ClientConnInterface) (bool, error) {
+    resources := resource.New(connection)
+    states := state.New(connection, key)
+    exporter := export.New(resources, states)
+    if err := exporter.Export(ctx, directory); err != nil {
+        return false, fmt.Errorf("export configs: %w", err)
+    }
+    changed, err := states.Replace(ctx, replacement)
     if err != nil {
-        return false, fmt.Errorf("replace application state: %w", err)
+        return false, fmt.Errorf("replace bindings: %w", err)
     }
     return changed, nil
 })
 ```
 
-WithCollection returns after cleanup; callers need no separate App.Start/Stop.
-State stores only borrow the supplied connection; they do not open, publish or
-close a collection.
-Go callers with an existing prepared connection use state.New directly and retain
-their own collection/backend lifetime. The shared collection workflow normalizes
-absolute and current-user home paths; `--collection` replaces the unreleased
-`--input` spelling across the command scaffold.
+Callbacks finish all work sequentially before returning. Retained connections
+reject calls after cleanup. Resource/state stores and exporters borrow the
+connection; each operation reads fresh data. A Store or App must not be copied
+after use. Duplicate canonical paths and file aliases are rejected within one
+Store; callers coordinate access across different stores and external writers.
+
+A true result after successful callback completion publishes changes back to the
+source archive through Anki. False, errors and cancellation skip publication.
+Database writes persist immediately, including before later errors; the scope is
+not a transaction. To export another archive destination, use Anki's
+`ExportCollectionPackage` with the injected connection as the final operation and
+return false. Native export consumes the open collection; backend cleanup handles it.
 
 ## State Go API
 
@@ -335,17 +367,18 @@ bazel_agent bazel test //projects/anki_as_code/internal/app:app_test \
 
 Use absolute paths with `bazel run`, which may execute outside the checkout.
 
-| Package                  | Responsibility                                                     |
-| ------------------------ | ------------------------------------------------------------------ |
-| `api/collection`         | Generated resource, configuration, plan, and state contracts       |
-| `internal/config`        | Root-bound configuration Store for Load, Dump and Export           |
-| `internal/config/layout` | Fixed hierarchy, discovery, file I/O, and direct export            |
-| `internal/codec`         | Filesystem-independent protobuf/TOML/JSON conversion               |
-| `internal/state`         | Stored-state dump, batch import, update and replacement            |
-| `internal/export`        | Native-to-config projection, filenames and direct file output      |
-| `internal/model`         | Shared runtime snapshot models, without business logic             |
-| `internal/app`           | Per-operation native lifecycle and collection command placeholders |
-| `cmd/anki_as_code`       | Cobra flags, cancellation, output, and errors                      |
+| Package                  | Responsibility                                                |
+| ------------------------ | ------------------------------------------------------------- |
+| `api/collection`         | Generated resource, configuration, plan, and state contracts  |
+| `internal/config`        | Root-bound configuration Store for Load, Dump and Export      |
+| `internal/config/layout` | Fixed hierarchy, discovery, file I/O, and direct export       |
+| `internal/codec`         | Filesystem-independent protobuf/TOML/JSON conversion          |
+| `internal/state`         | Stored-state dump, batch import, update and replacement       |
+| `internal/export`        | Native-to-config projection, filenames and direct file output |
+| `internal/model`         | Shared runtime snapshot models, without business logic        |
+| `internal/collection`    | Source reservations and archive publication                   |
+| `internal/app`           | Command workflows delegating collection lifetime to Store     |
+| `cmd/anki_as_code`       | Executable composition and signal cancellation                |
 
 The loader produces protobuf config sets directly. Resource messages use `Config`,
 file wrappers retain source paths, and upstream messages keep their upstream names.
@@ -425,7 +458,7 @@ build requirement.
 This project uses a translation layer: application wiring obtains the managed
 connection from `projects/anki_grpc`, whose Rust server forwards operations to
 Anki's Rust API. The backend library implements server and collection lifecycle;
-the application calls its Start, Connection and Stop methods.
+the collection store delegates native lifetime to its backend managers.
 
 ![Anki backend integration approaches](/docs/projects/anki_as_code/assets/backend-approaches.svg)
 
@@ -448,7 +481,7 @@ recovery and native-object preservation, and emits TOML, JSON and a closed nativ
 database. General backend
 lifecycle and archive tests belong to their owning components.
 
-The application E2E exercises state CLI and Go operations on databases and
+The application E2E exercises state CLI and typed App operations on databases and
 packages, direct-write persistence after caller errors, rejected/no-op archive
 writes, batched imports, namespace isolation, cancellation and invalid packages.
 It verifies borrowed connections close, normal temporary restores are removed,
@@ -461,3 +494,9 @@ bound/discovered paths, native filename text conversion, filtered-card exclusion
 read-only state namespaces, untouched existing entries, cancellation and partial output
 after filesystem errors. It emits a complete text tree and a native `.colpkg` artifact.
 Run `bazel_agent bazel test //projects/anki_as_code/internal/export:export_test`.
+
+The collection-store E2E injects a real native transport manager and verifies that
+collection services use its backend. Callback errors, custom cancellation and
+panic unwinding release native access and source reservations while leaving
+transport shutdown with the injected manager. Existing cases verify locally reused
+services, namespace isolation, successful source publication and explicit exports.

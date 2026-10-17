@@ -6,12 +6,16 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"strings"
 	"testing"
+
+	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/collection"
 
 	collectionpb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/collection"
 	"google.golang.org/protobuf/proto"
 
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/state"
+	"github.com/ankitects/anki/proto/anki/import_export"
 	"google.golang.org/grpc"
 )
 
@@ -21,15 +25,14 @@ func TestDirectDatabaseWorkflow(t *testing.T) {
 	scratch := t.TempDir()
 	t.Setenv("TMPDIR", scratch)
 	ctx := context.Background()
-	application := &App{Options: Options{Collection: fixture.database}}
 	expected := &collectionpb.State{Version: 1, Resources: &collectionpb.Resources{Presets: map[string]*collectionpb.PresetState{"direct": {Id: 1}}}}
 	for _, fail := range []bool{false, true} {
 		if fail {
 			expected.Resources.Presets["committed"] = &collectionpb.PresetState{Id: 1}
 		}
 		failure := errors.New("operation failed after its native write")
-		err := application.WithCollection(ctx, func(connection grpc.ClientConnInterface) (bool, error) {
-			store := state.New(connection, application.StateOptions.Key)
+		err := runFixtureCollection(ctx, fixture.database, fixture.database, func(connection grpc.ClientConnInterface) (bool, error) {
+			store := state.New(connection, "")
 			changed, err := store.Replace(ctx, expected)
 			if err != nil {
 				return false, fmt.Errorf("replace direct state: %w", err)
@@ -87,7 +90,7 @@ func TestNativePublicationWorkflow(t *testing.T) {
 			}
 			called := false
 			failure := errors.New("operation failed after a native write")
-			err = runCollection(ctx, input, input, func(connection grpc.ClientConnInterface) (bool, error) {
+			err = runFixtureCollection(ctx, input, input, func(connection grpc.ClientConnInterface) (bool, error) {
 				called = true
 				expected := &collectionpb.State{Version: 1, Resources: &collectionpb.Resources{Presets: map[string]*collectionpb.PresetState{"discarded": {Id: 1}}}}
 				if _, err := state.New(connection, "").Replace(ctx, expected); err != nil {
@@ -118,7 +121,7 @@ func TestNativePublicationWorkflow(t *testing.T) {
 	}
 }
 
-// TestCollectionLifecycleWorkflow verifies native persistence and connection shutdown through the app.
+// TestCollectionLifecycleWorkflow verifies native persistence and connection shutdown through the collection store.
 func TestCollectionLifecycleWorkflow(t *testing.T) {
 	for _, format := range []string{"package", "database"} {
 		t.Run(format, func(t *testing.T) {
@@ -137,7 +140,7 @@ func TestCollectionLifecycleWorkflow(t *testing.T) {
 			ctx := context.Background()
 			expected := &collectionpb.State{Version: 1, Resources: &collectionpb.Resources{Presets: map[string]*collectionpb.PresetState{"lifecycle": {Id: 1}}}}
 			var borrowed grpc.ClientConnInterface
-			if err := runCollection(ctx, input, output, func(connection grpc.ClientConnInterface) (bool, error) {
+			if err := runFixtureCollection(ctx, input, output, func(connection grpc.ClientConnInterface) (bool, error) {
 				borrowed = connection
 				changed, err := state.New(connection, "").Replace(ctx, expected)
 				if err != nil {
@@ -174,4 +177,24 @@ func TestCollectionLifecycleWorkflow(t *testing.T) {
 			saveFixtureArtifact(t, output, "lifecycle-"+format+".colpkg")
 		})
 	}
+}
+
+// runFixtureCollection adapts native fixture operations to the public collection store.
+func runFixtureCollection(ctx context.Context, input, output string, operation func(grpc.ClientConnInterface) (bool, error)) error {
+	store := &collection.Store{}
+	if err := store.WithCollection(ctx, input, func(connection grpc.ClientConnInterface) (bool, error) {
+		changed, err := operation(connection)
+		if err != nil {
+			return false, fmt.Errorf("run native fixture operation: %w", err)
+		}
+		if changed && output != "" && !strings.EqualFold(filepath.Ext(input), ".anki2") {
+			if _, err := import_export.NewBackendImportExportServiceClient(connection).ExportCollectionPackage(ctx, &import_export.ExportCollectionPackageRequest{OutPath: output, IncludeMedia: true}); err != nil {
+				return false, fmt.Errorf("export fixture collection: %w", err)
+			}
+		}
+		return false, nil
+	}); err != nil {
+		return fmt.Errorf("run fixture collection: %w", err)
+	}
+	return nil
 }

@@ -10,11 +10,11 @@ import (
 	"github.com/spf13/cobra"
 
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/app"
-	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/state"
 )
 
 // newRootCommand assembles the Cobra command tree around the supplied application.
 func newRootCommand(application *app.App) *cobra.Command {
+	flags := &stateFlags{}
 	command := &cobra.Command{
 		Use:           "anki_as_code",
 		Short:         "Manage Anki collection state and inspect configs",
@@ -22,9 +22,9 @@ func newRootCommand(application *app.App) *cobra.Command {
 		SilenceUsage:  true,
 	}
 	command.CompletionOptions.DisableDefaultCmd = true
-	command.PersistentFlags().StringVar(&application.StateOptions.Key, "state-key", state.DefaultKey, "Collection state namespace key")
+	command.PersistentFlags().StringVar(&flags.key, "state-key", "", "Collection state namespace key (empty uses the default namespace)")
 	command.AddCommand(newConfigCommand(application), newExportCommand(application), newPlanCommand(application), newApplyCommand(application),
-		newBuildCommand(application), newStateCommand(application))
+		newBuildCommand(application), newStateCommand(application, flags))
 	return command
 }
 

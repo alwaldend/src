@@ -2,6 +2,7 @@ package app
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"os"
 	"os/exec"
@@ -214,6 +215,88 @@ func TestStateCLIWorkflow(t *testing.T) {
 			saveFixtureArtifact(t, file, "state-"+format+".toml")
 			saveFixtureArtifact(t, jsonFile, "state-"+format+".json")
 			saveFixtureArtifact(t, input, "state-"+format+filepath.Ext(input))
+		})
+	}
+}
+
+// TestApplicationStateWorkflows verifies typed application operations own native publication and preserve state isolation.
+func TestApplicationStateWorkflows(t *testing.T) {
+	for _, format := range []string{"package", "database"} {
+		t.Run(format, func(t *testing.T) {
+			fixture := newFixture(t)
+			input := fixture.base
+			if format == "database" {
+				input = fixture.database
+			}
+			application := &App{}
+			ctx := t.Context()
+			text := stateFixtureConfigs(t)
+			empty, err := application.ColStateDump(ctx, input, "")
+			if err != nil || empty.GetVersion() != 1 || len(empty.GetResources().GetNotes()) != 0 {
+				t.Fatalf("dump empty application state: value=%v error=%v", empty, err)
+			}
+			bindings := map[string]string{
+				"decks/grammar/deck.anki.toml":               "1",
+				"decks/grammar/notes/example.note.anki.toml": fmt.Sprint(fixture.noteID),
+				"note_types/Chinese.notetype.anki.toml":      fmt.Sprint(fixture.typeID),
+			}
+			if err := application.ColStateImport(ctx, input, text, "", bindings); err != nil {
+				t.Fatal(err)
+			}
+			stored, err := application.ColStateDump(ctx, input, state.DefaultKey)
+			if err != nil || stored.GetResources().GetNotes()["decks/grammar/notes/example.note.anki.toml"].GetId() != fixture.noteID || stored.GetResources().GetNoteTypes()["note_types/Chinese.notetype.anki.toml"].GetFields()["hanzi"] == nil {
+				t.Fatalf("application import did not persist native bindings: value=%v error=%v", stored, err)
+			}
+			patch := &collectionpb.State{Version: 1, Resources: &collectionpb.Resources{Presets: map[string]*collectionpb.PresetState{"added": {Id: 1}}}}
+			originalPatch := proto.Clone(patch)
+			if err := application.ColStateUpdate(ctx, input, "", patch); err != nil {
+				t.Fatal(err)
+			}
+			stored.Resources.Presets["added"] = &collectionpb.PresetState{Id: 1}
+			actual, err := application.ColStateDump(ctx, input, "")
+			if err != nil || !proto.Equal(stored, actual) || !proto.Equal(patch, originalPatch) {
+				t.Fatalf("application update lost bindings or changed its input: value=%v error=%v", actual, err)
+			}
+			key := "anki_as_code/state/application"
+			if err := application.ColStateReplace(ctx, input, key, patch); err != nil {
+				t.Fatal(err)
+			}
+			before, err := os.ReadFile(input)
+			if err != nil {
+				t.Fatal(err)
+			}
+			if err := application.ColStateUpdate(ctx, input, "", patch); err != nil {
+				t.Fatal(err)
+			}
+			if err := application.ColStateImport(ctx, input, text, "", map[string]string{"presets/new": "1", "presets/missing": "9223372036854775807"}); err == nil {
+				t.Fatal("application accepted a partially invalid import")
+			}
+			if err := application.ColStateReplace(ctx, input, "", &collectionpb.State{Version: 2}); err == nil {
+				t.Fatal("application accepted an unsupported state version")
+			}
+			cancelled, cancel := context.WithCancel(ctx)
+			cancel()
+			if err := application.ColStateReplace(cancelled, input, "", patch); !errors.Is(err, context.Canceled) {
+				t.Fatalf("application lost cancellation: %v", err)
+			}
+			after, err := os.ReadFile(input)
+			if err != nil || string(before) != string(after) {
+				t.Fatalf("no-op or rejected application operation modified the source: %v", err)
+			}
+			actual, err = application.ColStateDump(ctx, input, "")
+			if err != nil || !proto.Equal(stored, actual) {
+				t.Fatalf("rejected application operation wrote partial state or retained a reservation: value=%v error=%v", actual, err)
+			}
+			if err := application.ColStateReplace(ctx, input, "", patch); err != nil {
+				t.Fatal(err)
+			}
+			for _, namespace := range []string{"", key} {
+				actual, err := application.ColStateDump(ctx, input, namespace)
+				if err != nil || !proto.Equal(patch, actual) {
+					t.Fatalf("application replacement merged old state or crossed namespaces: value=%v error=%v", actual, err)
+				}
+			}
+			saveFixtureArtifact(t, input, "application-state-"+format+filepath.Ext(input))
 		})
 	}
 }
