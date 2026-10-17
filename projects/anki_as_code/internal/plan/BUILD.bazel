@@ -1,0 +1,59 @@
+load("@rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "plan",
+    srcs = [
+        "bindings.go",
+        "compile.go",
+        "doc.go",
+        "moves.go",
+        "names.go",
+        "notetypes.go",
+        "ownership.go",
+        "plan.go",
+        "resolve.go",
+        "snapshot.go",
+        "types.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/plan",
+    visibility = [
+        "//projects/anki_as_code/internal/reconcile:__pkg__",
+        "//projects/anki_as_code/pkg/ankiascode:__pkg__",
+    ],
+    deps = [
+        "//projects/anki_as_code/api/collection",
+        "//projects/anki_as_code/internal/resource",
+        "//third_party/com_github_ankitects_anki:decks",
+        "//third_party/com_github_ankitects_anki:generic",
+        "//third_party/com_github_ankitects_anki:notes",
+        "//third_party/com_github_ankitects_anki:notetypes",
+        "@org_golang_google_protobuf//proto",
+        "@org_golang_x_text//cases",
+    ],
+)
+
+go_test(
+    name = "plan_test",
+    srcs = [
+        "filtered_cloze_test.go",
+        "workflow_test.go",
+    ],
+    data = ["//projects/anki_grpc"],
+    deps = [
+        ":plan",
+        "//projects/anki_as_code/api/collection",
+        "//projects/anki_as_code/internal/codec",
+        "//projects/anki_as_code/internal/config",
+        "//projects/anki_as_code/internal/export",
+        "//projects/anki_as_code/internal/resource",
+        "//projects/anki_as_code/internal/state",
+        "//projects/anki_grpc/pkg/backend",
+        "//third_party/com_github_ankitects_anki:cards",
+        "//third_party/com_github_ankitects_anki:decks",
+        "//third_party/com_github_ankitects_anki:import_export",
+        "//third_party/com_github_ankitects_anki:notes",
+        "//third_party/com_github_ankitects_anki:notetypes",
+        "@org_golang_google_protobuf//proto",
+        "@rules_go//go/runfiles",
+    ],
+)

@@ -4,12 +4,16 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"os"
 	"path/filepath"
+	"strings"
 
 	collectionpb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/collection"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/collection"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/config"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/export"
+	planning "git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/plan"
+	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/reconcile"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/resource"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/state"
 	"google.golang.org/grpc"
@@ -93,22 +97,116 @@ func (application *App) ColExport(ctx context.Context, input, output, stateKey s
 	return nil
 }
 
-// ColPlan describes changes needed to reconcile a collection with its text.
-// The scaffold returns a not-implemented error without processing collections.
-func (application *App) ColPlan(ctx context.Context, input, text, stateKey string) (*collectionpb.CollectionChangePlan, error) {
-	return nil, errors.New("plan is not implemented")
+// ColPlan compares resolved declarations with an API snapshot without native writes.
+func (application *App) ColPlan(ctx context.Context, input, dir, stateKey string) (*collectionpb.CollectionChangePlan, error) {
+	dir, err := expandPath(dir)
+	if err != nil {
+		return nil, fmt.Errorf("resolve config path: %w", err)
+	}
+	desired, err := config.New(dir).Load()
+	if err != nil {
+		return nil, fmt.Errorf("load planned state: %w", err)
+	}
+	var plan *collectionpb.CollectionChangePlan
+	if err := application.collections.WithCollection(ctx, input, func(connection grpc.ClientConnInterface) (bool, error) {
+		compiled, err := capturePlan(ctx, resource.New(connection), state.New(connection, stateKey), desired)
+		if err != nil {
+			return false, fmt.Errorf("prepare collection plan: %w", err)
+		}
+		plan = compiled.Report
+		return false, nil
+	}); err != nil {
+		return nil, fmt.Errorf("plan collection: %w", err)
+	}
+	return plan, nil
 }
 
-// ColApply reconciles an offline collection with its text representation.
-// The scaffold returns a not-implemented error without processing collections.
-func (application *App) ColApply(ctx context.Context, input, text, stateKey string) error {
-	return errors.New("apply is not implemented")
+// ColBuild applies declarations to a temporary archive copy and atomically publishes it.
+// The source and an existing destination remain untouched if copy or apply fails.
+func (application *App) ColBuild(ctx context.Context, base, dir, output, stateKey string) (err error) {
+	if err := ctx.Err(); err != nil {
+		return fmt.Errorf("start build: %w", err)
+	}
+	source, err := expandPath(base)
+	if err != nil {
+		return fmt.Errorf("resolve build source: %w", err)
+	}
+	source, err = filepath.EvalSymlinks(source)
+	if err != nil {
+		return fmt.Errorf("resolve build source aliases: %w", err)
+	}
+	if !strings.EqualFold(filepath.Ext(source), ".colpkg") {
+		return fmt.Errorf("build requires a collection package")
+	}
+	output, err = expandPath(output)
+	if err != nil {
+		return fmt.Errorf("resolve build output: %w", err)
+	}
+	output, err = resolveExportOutputPath(output)
+	if err != nil {
+		return fmt.Errorf("resolve build destination: %w", err)
+	}
+	original, err := os.Stat(source)
+	if err != nil {
+		return fmt.Errorf("inspect build source: %w", err)
+	}
+	target, err := os.Stat(output)
+	if err != nil && !os.IsNotExist(err) {
+		return fmt.Errorf("inspect build destination: %w", err)
+	}
+	if source == output || target != nil && os.SameFile(original, target) {
+		return fmt.Errorf("output must differ from the base archive")
+	}
+	staging, err := os.MkdirTemp(filepath.Dir(output), ".anki-build-")
+	if err != nil {
+		return fmt.Errorf("create build staging directory: %w", err)
+	}
+	defer func() {
+		if cleanupErr := os.RemoveAll(staging); cleanupErr != nil {
+			err = errors.Join(err, fmt.Errorf("remove build staging directory: %w", cleanupErr))
+		}
+	}()
+	archive := filepath.Join(staging, "collection.colpkg")
+	if err := copyArchive(source, archive); err != nil {
+		return fmt.Errorf("copy build source: %w", err)
+	}
+	if err := application.ColApply(ctx, archive, dir, stateKey); err != nil {
+		return fmt.Errorf("apply staged build: %w", err)
+	}
+	if err := ctx.Err(); err != nil {
+		return fmt.Errorf("finish build: %w", err)
+	}
+	if err := os.Rename(archive, output); err != nil {
+		return fmt.Errorf("publish build: %w", err)
+	}
+	return nil
 }
 
-// ColBuild creates an archive from a base collection and desired text.
-// The scaffold returns a not-implemented error without processing collections.
-func (application *App) ColBuild(ctx context.Context, base, text, output, stateKey string) error {
-	return errors.New("build is not implemented")
+// ColApply reconciles an offline database or archive in place.
+func (application *App) ColApply(ctx context.Context, input, dir, stateKey string) error {
+	dir, err := expandPath(dir)
+	if err != nil {
+		return fmt.Errorf("resolve apply configs: %w", err)
+	}
+	desired, err := config.New(dir).Load()
+	if err != nil {
+		return fmt.Errorf("load apply state: %w", err)
+	}
+	if err := application.collections.WithCollection(ctx, input, func(connection grpc.ClientConnInterface) (bool, error) {
+		resources, states := resource.New(connection), state.New(connection, stateKey)
+		compiled, err := capturePlan(ctx, resources, states, desired)
+		if err != nil {
+			return false, fmt.Errorf("prepare apply plan: %w", err)
+		}
+		changed, err := reconcile.New(resources, states).Apply(ctx, compiled)
+		if err != nil {
+			return false, fmt.Errorf("apply desired state: %w", err)
+		}
+		return changed, nil
+	}); err != nil {
+		return fmt.Errorf("apply collection: %w", err)
+	}
+	return nil
 }
 
 // ColStateDump reads stored bindings and closes the selected collection without publication.
@@ -171,4 +269,21 @@ func (application *App) ColStateReplace(ctx context.Context, input, stateKey str
 		return fmt.Errorf("replace state: %w", err)
 	}
 	return nil
+}
+
+// capturePlan composes native capture with pure planning inside a collection scope.
+func capturePlan(ctx context.Context, resources *resource.Store, states *state.Store, configs *collectionpb.CollectionConfigSet) (*collectionpb.CollectionPlan, error) {
+	snapshot, err := resources.Snapshot(ctx)
+	if err != nil {
+		return nil, fmt.Errorf("capture resources: %w", err)
+	}
+	stored, err := states.Dump(ctx)
+	if err != nil {
+		return nil, fmt.Errorf("capture bindings: %w", err)
+	}
+	compiled, err := planning.Build(configs, snapshot, stored)
+	if err != nil {
+		return nil, fmt.Errorf("build execution plan: %w", err)
+	}
+	return compiled, nil
 }

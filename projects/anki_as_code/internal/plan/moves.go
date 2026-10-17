@@ -1,16 +1,19 @@
-package state
+package plan
 
 import (
 	"fmt"
+	"io/fs"
 	"strings"
 
 	collectionpb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/collection"
+	"google.golang.org/protobuf/proto"
 )
 
 // validMoveAddress validates the filesystem portion of a resource or member address.
 func validMoveAddress(address string) error {
-	if err := validAddress(resourceRoot(address)); err != nil {
-		return fmt.Errorf("move address %q: %w", address, err)
+	file := resourceRoot(address)
+	if file == "." || !fs.ValidPath(file) || strings.ContainsAny(file, "\\\x00") {
+		return fmt.Errorf("invalid collection-relative move address %q", address)
 	}
 	return nil
 }
@@ -26,7 +29,10 @@ func addressDescendant(address, prefix string) bool {
 
 // moveState applies independent explicit moves to a clone; retained moves are idempotent.
 func moveState(state *collectionpb.State, moves []*collectionpb.ResourceMove) (*collectionpb.State, error) {
-	result := cloneState(state)
+	result := proto.Clone(state).(*collectionpb.State)
+	if result.Resources == nil {
+		result.Resources = &collectionpb.Resources{}
+	}
 	for index, move := range moves {
 		for _, other := range moves[:index] {
 			endpoints := []string{other.From, other.To}
@@ -108,55 +114,41 @@ func moveBindings[T any](bindings map[string]T, move *collectionpb.ResourceMove,
 	return nil
 }
 
-// moveMember renames a field or template while retaining its native identity and ordinal.
+// moveMember renames a field or template within its original native note type.
 func moveMember(value *collectionpb.State, move *collectionpb.ResourceMove) error {
 	fromFile, fromCategory, fromName := memberAddress(move.From)
 	toFile, toCategory, toName := memberAddress(move.To)
-	if fromCategory == "" || fromCategory != toCategory {
-		return fmt.Errorf("member moves require matching field or template endpoints")
+	if fromFile != toFile || fromCategory == "" || fromCategory != toCategory {
+		return fmt.Errorf("member moves require matching field or template endpoints within the same note type")
 	}
-	from := value.Resources.NoteTypes[fromFile]
-	if from == nil {
+	binding := value.Resources.NoteTypes[fromFile]
+	if binding == nil {
 		return nil
 	}
-	to := value.Resources.NoteTypes[toFile]
 	if fromCategory == "fields" {
-		if from.Fields[fromName] == nil {
-			return nil
-		}
-		if to == nil {
-			return fmt.Errorf("member destination %q must be a bound note type", toFile)
-		}
-		if to.Fields == nil {
-			to.Fields = map[string]*collectionpb.FieldState{}
-		}
-		if err := moveNamedMember(from.Fields, to.Fields, fromName, toName); err != nil {
+		if err := renameMember(binding.Fields, fromName, toName); err != nil {
 			return fmt.Errorf("move field: %w", err)
 		}
 	} else {
-		if from.Templates[fromName] == nil {
-			return nil
-		}
-		if to == nil {
-			return fmt.Errorf("member destination %q must be a bound note type", toFile)
-		}
-		if to.Templates == nil {
-			to.Templates = map[string]*collectionpb.TemplateState{}
-		}
-		if err := moveNamedMember(from.Templates, to.Templates, fromName, toName); err != nil {
+		if err := renameMember(binding.Templates, fromName, toName); err != nil {
 			return fmt.Errorf("move template: %w", err)
 		}
 	}
 	return nil
 }
 
-// moveNamedMember transfers one typed member between note-type maps without overwriting a destination.
-func moveNamedMember[T any](source, destination map[string]T, from, to string) error {
-	if _, exists := destination[to]; exists {
+// renameMember changes one map key while preserving its typed identity and ordinal.
+// An absent source makes a retained move idempotent; existing destinations cannot be overwritten.
+func renameMember[T any](bindings map[string]T, from, to string) error {
+	value, exists := bindings[from]
+	if !exists {
+		return nil
+	}
+	if _, exists := bindings[to]; exists {
 		return fmt.Errorf("member destination %q is already bound", to)
 	}
-	destination[to] = source[from]
-	delete(source, from)
+	bindings[to] = value
+	delete(bindings, from)
 	return nil
 }
 

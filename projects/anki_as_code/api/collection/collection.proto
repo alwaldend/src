@@ -3,6 +3,7 @@ syntax = "proto3";
 package anki_as_code.collection;
 
 import "anki/decks.proto";
+import "anki/notes.proto";
 import "anki/notetypes.proto";
 
 option go_package = "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/collection;collectionpb";
@@ -120,11 +121,12 @@ message CollectionChangePlan {
   int64 notes_changed = 3;
   // NotesDeleted counts notes absent from desired state.
   int64 notes_deleted = 4;
-  // CardsAdded counts new managed cards.
+  // CardsAdded counts additions known before apply; Anki-generated additions are deferred.
   int64 cards_added = 5;
   // CardsChanged counts managed cards whose deck assignments change.
   int64 cards_changed = 6;
-  // CardsDeleted counts cards Anki removes with notes or note-type structure.
+  // CardsDeleted counts existing managed cards removed with their notes.
+  // Template-driven removals remain deferred to Anki.
   int64 cards_deleted = 7;
   // DecksAdded counts new decks.
   int64 decks_added = 8;
@@ -140,6 +142,10 @@ message CollectionChangePlan {
   int64 note_types_changed = 13;
   // NoteTypesDeleted counts note types absent from desired state.
   int64 note_types_deleted = 14;
+  // CardGenerationDeferred means Anki determines card generation and structural
+  // migrations during apply, including template-driven additions and removals.
+  // Plan reports current card assignments and note-deletion effects only.
+  bool card_generation_deferred = 15;
 }
 
 // ResourceMove declares an explicit identity-preserving address change.
@@ -190,7 +196,7 @@ message NoteTypeState {
 
 // FieldState retains a field identity within its owning note type.
 message FieldState {
-  // Id is the optional native field identity; zero uses ordinal matching.
+  // Id is the optional native field identity; zero uses the original stored member name.
   int64 id = 1;
   // Ordinal retains the native field position for structural migrations.
   uint32 ordinal = 2;
@@ -198,7 +204,7 @@ message FieldState {
 
 // TemplateState retains a template identity within its owning note type.
 message TemplateState {
-  // Id is the optional native template identity; zero uses ordinal matching.
+  // Id is the optional native template identity; zero uses the original stored member name.
   int64 id = 1;
   // Ordinal retains the native template position for structural migrations.
   uint32 ordinal = 2;
@@ -229,4 +235,80 @@ message State {
   int64 version = 1;
   // Resources contains the independently typed bindings owned by this namespace.
   Resources resources = 2;
+}
+
+// CollectionPlan contains prepared native work for one captured collection and state namespace.
+// Callers retain exclusive access and supply fresh inputs. Native IDs for new decks
+// and types remain zero until Anki creates them; prepared references use paths.
+message CollectionPlan {
+  // Report summarizes known changes and deferred native card effects.
+  CollectionChangePlan report = 1;
+  // ExpectedState contains the stored bindings required before execution.
+  State expected_state = 2;
+  // ProposedBindings contains desired paths; new objects have zero native IDs.
+  Resources proposed_bindings = 3;
+  // DeckRenames releases occupied deck names before applying deck values.
+  repeated anki.decks.RenameDeckRequest deck_renames = 4;
+  // NoteTypeRenames releases occupied note-type names before applying definitions.
+  repeated anki.notetypes.Notetype note_type_renames = 5;
+  // Decks contains ordered native deck additions and updates.
+  repeated PlannedDeck decks = 6;
+  // NoteTypes contains prepared field/template mappings and native type values.
+  repeated PlannedNoteType note_types = 7;
+  // Notes contains note additions and content updates after type migrations.
+  repeated PlannedNote notes = 8;
+  // RemovedNotes identifies tracked notes absent from desired configurations.
+  repeated int64 removed_notes = 9;
+  // RemovedNoteTypes identifies tracked types removed after their notes.
+  repeated int64 removed_note_types = 10;
+  // RemovedDecks identifies tracked decks removed after retained cards are assigned.
+  repeated int64 removed_decks = 11;
+  // CardAssignments applies declaring-deck defaults and explicit ordinal destinations.
+  repeated PlannedCardAssignments card_assignments = 12;
+  // FilteredDecks identifies resulting filtered decks, including untracked decks.
+  repeated int64 filtered_decks = 13;
+}
+
+// PlannedDeck carries one prepared deck addition or update.
+message PlannedDeck {
+  // Path locates its desired state binding.
+  string path = 1;
+  // Value contains native settings; a zero ID creates a deck.
+  anki.decks.Deck value = 2;
+}
+
+// PlannedNoteType carries one native type definition with resolved member mappings.
+message PlannedNoteType {
+  // Path locates its desired state and member bindings.
+  string path = 1;
+  // Value contains native settings and original ordinals; a zero ID creates a type.
+  anki.notetypes.Notetype value = 2;
+  // SortFieldIndex selects the final field after Anki performs structural migration.
+  uint32 sort_field_index = 3;
+  // TemplateDecks maps template names to declared target-deck paths.
+  // Native target IDs are populated only during execution.
+  map<string, string> template_decks = 4;
+}
+
+// PlannedNote carries ordered content for one note addition or update.
+message PlannedNote {
+  // Path locates its desired state binding.
+  string path = 1;
+  // Value contains content and the resolved type reference; a zero ID creates a note.
+  anki.notes.Note value = 2;
+  // Deck identifies the declaring deck for creation, or leaves selection to Anki.
+  string deck = 3;
+  // NoteType references the declared type path, including types created by this plan.
+  // Value.notetype_id remains zero until execution resolves this reference.
+  string note_type = 4;
+}
+
+// PlannedCardAssignments declares destinations for a retained or newly generated note's cards.
+message PlannedCardAssignments {
+  // Path locates the note's actual ID in desired bindings.
+  string path = 1;
+  // Deck supplies the declaring normal-deck path when no ordinal override exists.
+  string deck = 2;
+  // Cards contains explicit normal-card destinations; filtered cards remain unmanaged.
+  repeated CardConfig cards = 3;
 }

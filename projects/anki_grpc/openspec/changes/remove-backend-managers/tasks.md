@@ -6,5 +6,5 @@
 
 ## 2. Verify integration
 
-- [ ] 2.1 Run direct backend/collection E2E plus migrated application scopes and inspect native/process artifacts.
-- [ ] 2.2 Validate both owner changes and deliver together in the independent manager-removal PR.
+- [x] 2.1 Run direct backend/collection E2E plus migrated application scopes and inspect native/process artifacts.
+- [x] 2.2 Validate both owner changes and deliver together in the independent manager-removal PR.

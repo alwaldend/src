@@ -1,8 +1,16 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_site_svg", "mermaid_site_webp")
 
+# gazelle:resolve go github.com/ankitects/anki/proto/anki/cards //third_party/com_github_ankitects_anki:cards
+# gazelle:resolve go github.com/ankitects/anki/proto/anki/collection //third_party/com_github_ankitects_anki:collection
+# gazelle:resolve go github.com/ankitects/anki/proto/anki/deck_config //third_party/com_github_ankitects_anki:deck_config
 # gazelle:resolve go github.com/ankitects/anki/proto/anki/decks //third_party/com_github_ankitects_anki:decks
+# gazelle:resolve go github.com/ankitects/anki/proto/anki/generic //third_party/com_github_ankitects_anki:generic
+# gazelle:resolve go github.com/ankitects/anki/proto/anki/notes //third_party/com_github_ankitects_anki:notes
 # gazelle:resolve go github.com/ankitects/anki/proto/anki/notetypes //third_party/com_github_ankitects_anki:notetypes
+# gazelle:resolve go github.com/ankitects/anki/proto/anki/scheduler //third_party/com_github_ankitects_anki:scheduler
+# gazelle:resolve go github.com/ankitects/anki/proto/anki/search //third_party/com_github_ankitects_anki:search
+# gazelle:resolve go github.com/ankitects/anki/proto/anki/stats //third_party/com_github_ankitects_anki:stats
 
 package_group(
     name = "config_consumers",
@@ -10,6 +18,8 @@ package_group(
         "//projects/anki_as_code/cmd/anki_as_code",
         "//projects/anki_as_code/internal/collection",
         "//projects/anki_as_code/internal/export",
+        "//projects/anki_as_code/internal/plan",
+        "//projects/anki_as_code/internal/reconcile",
         "//projects/anki_as_code/internal/state",
         "//projects/anki_as_code/pkg/ankiascode",
     ],
