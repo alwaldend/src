@@ -498,6 +498,33 @@ compiled, err := plan.Build(configs, snapshot, stored)
 changed, err := reconcile.New(resources, states).Apply(ctx, compiled)
 ```
 
+## Archive build Go API
+
+`internal/rebuild` stages a separate collection archive using an injected apply operation:
+
+```go
+builder := rebuild.New(apply)
+err := builder.Build(ctx, baseArchive, outputArchive)
+```
+
+The non-nil callback receives a private `.colpkg` path and must finish all native
+work and close its session before returning. Builder knows nothing about configs,
+Anki clients or reconciliation. Callers own home-path expansion and exclusive
+source/destination access; the destination parent must already exist.
+
+Builder checks the regular source file and rejects source/destination aliases,
+copies into a private directory beside the destination, then publishes the
+completed archive with an atomic rename. Apply errors, cancellation observed
+before publication and publication failures leave the original and existing
+destination intact. Staging is removed on return, including panic unwinding;
+cleanup errors are retained. Cancellation preserves both the context error and
+its custom cause for `errors.Is`. Atomic publication does not guarantee power-loss
+durability. App/CLI build integration remains in #128.
+
+Run `bazel_agent bazel test //projects/anki_as_code/internal/rebuild:rebuild_test`.
+The native E2E changes real Anki state in the staged archive and emits original,
+changed and unchanged `.colpkg` files plus a decoded JSON state object.
+
 ## Native resource Go API
 
 `internal/resource` shares generated native clients and complete snapshots on a
