@@ -1,9 +1,16 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_site_svg", "mermaid_site_webp")
 
+mermaid_site_svg(
+    name = "architecture",
+    src = "architecture.mmd",
+    out = "rendered/architecture.svg",
+)
+
 docs_filegroup(
     name = "assets",
     srcs = [
+        ":architecture",
         ":config_operations",
         ":config_references",
         ":export",
@@ -12,6 +19,13 @@ docs_filegroup(
     ],
     prefix = "content/docs/projects/anki_as_code/assets",
     visibility = ["//projects/anki_as_code:__pkg__"],
+)
+
+mermaid_site_webp(
+    name = "architecture_preview",
+    src = "architecture.mmd",
+    out = "rendered/architecture.webp",
+    tags = ["manual"],
 )
 
 mermaid_site_svg(
@@ -45,22 +59,6 @@ mermaid_site_webp(
 )
 
 mermaid_site_svg(
-    name = "export",
-    src = "export.mmd",
-    out = "rendered/export.svg",
-)
-
-mermaid_site_webp(
-    name = "export_preview",
-    src = "export.mmd",
-    out = "rendered/export.webp",
-    aspect_ratio = [],
-    color_scheme = "dark",
-    scale = 2,
-    tags = ["manual"],
-)
-
-mermaid_site_svg(
     name = "state_store",
     src = "state-store.mmd",
     out = "rendered/state-store.svg",
@@ -70,6 +68,22 @@ mermaid_site_webp(
     name = "state_store_preview",
     src = "state-store.mmd",
     out = "rendered/state-store.webp",
+    aspect_ratio = [],
+    color_scheme = "dark",
+    scale = 2,
+    tags = ["manual"],
+)
+
+mermaid_site_svg(
+    name = "export",
+    src = "export.mmd",
+    out = "rendered/export.svg",
+)
+
+mermaid_site_webp(
+    name = "export_preview",
+    src = "export.mmd",
+    out = "rendered/export.webp",
     aspect_ratio = [],
     color_scheme = "dark",
     scale = 2,

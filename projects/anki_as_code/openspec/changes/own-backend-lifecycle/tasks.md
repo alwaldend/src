@@ -6,5 +6,5 @@
 
 ## 2. Verification and publication
 
-- [ ] 2.1 Validate the exact candidate with native store/application/backend E2E, repository quality, affected semantic lint and CLI/documentation builds; inspect emitted artifacts.
-- [ ] 2.2 Review and publish the independent master-based PR with both owning OpenSpec records and verified delivery receipts.
+- [x] 2.1 Validate the exact candidate with native store/application/backend E2E, repository quality, affected semantic lint and CLI/documentation builds; inspect emitted artifacts.
+- [x] 2.2 Review and publish the independent master-based PR with both owning OpenSpec records and verified delivery receipts.

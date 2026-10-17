@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"io/fs"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -13,6 +12,7 @@ import (
 	"testing"
 	"time"
 
+	collectionpb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/collection"
 	grpcbackend "git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/backend"
 	"github.com/BurntSushi/toml"
 	"github.com/ankitects/anki/proto/anki/cards"
@@ -323,6 +323,36 @@ func writeFixtureTOML(t *testing.T, path string, message proto.Message) {
 	}
 }
 
+// fixtureNotePath locates the representative note in the default export layout.
+func fixtureNotePath(root string) string {
+	return filepath.Join(root, "decks", "grammar", "notes", "你好.note.anki.toml")
+}
+
+// fixturePlan parses a native reconciliation plan and fails on workflow errors.
+func fixturePlan(t *testing.T, input, text string) *collectionpb.CollectionChangePlan {
+	t.Helper()
+	plan, err := planForFixture(context.Background(), input, text, "")
+	if err != nil {
+		t.Fatal(err)
+	}
+	return plan
+}
+
+// assertConverged verifies the original declarations describe the resulting collection.
+func assertConverged(t *testing.T, input, text string) {
+	t.Helper()
+	if plan := fixturePlan(t, input, text); len(plan.Changes) != 0 {
+		t.Fatalf("not converged: %v", plan.Changes)
+	}
+}
+
+// fixtureCardSchedule selects supported study values independently of mutable deck metadata.
+func fixtureCardSchedule(card *cards.Card) *cards.Card {
+	value := proto.Clone(card).(*cards.Card)
+	value.MtimeSecs, value.Usn, value.DeckId, value.TemplateIdx = 0, 0, 0, 0
+	return value
+}
+
 // runFixtureCLI executes the built command with bounded lifetime and separate streams.
 func runFixtureCLI(t *testing.T, arguments ...string) []byte {
 	t.Helper()
@@ -361,43 +391,6 @@ func saveFixtureArtifact(t *testing.T, input, name string) {
 	}
 }
 
-// fixtureSources records editable source bytes for independent read-only verification.
-func fixtureSources(t *testing.T, root string) map[string]string {
-	t.Helper()
-	files := map[string]string{}
-	if err := filepath.WalkDir(root, func(path string, entry fs.DirEntry, err error) error {
-		if err != nil {
-			return fmt.Errorf("walk sources: %w", err)
-		}
-		if entry.IsDir() {
-			return nil
-		}
-		data, err := os.ReadFile(path)
-		if err != nil {
-			return fmt.Errorf("read source: %w", err)
-		}
-		files[path] = string(data)
-		return nil
-	}); err != nil {
-		t.Fatal(err)
-	}
-	return files
-}
-
-// assertFixtureSources checks exact file sets and bytes after collection operations.
-func assertFixtureSources(t *testing.T, root string, before map[string]string) {
-	t.Helper()
-	after := fixtureSources(t, root)
-	if len(before) != len(after) {
-		t.Fatal("source file set changed")
-	}
-	for path, data := range before {
-		if after[path] != data {
-			t.Fatalf("source changed: %s", path)
-		}
-	}
-}
-
 // exportForFixture invokes the application workflow with the fixture namespace.
 func exportForFixture(ctx context.Context, input, output, key string) error {
 	application := &App{}
@@ -405,4 +398,32 @@ func exportForFixture(ctx context.Context, input, output, key string) error {
 		return fmt.Errorf("export fixture: %w", err)
 	}
 	return nil
+}
+
+// buildForFixture invokes the application workflow with the fixture namespace.
+func buildForFixture(ctx context.Context, base, dir, output, key string) error {
+	application := &App{}
+	if err := application.ColBuild(ctx, base, dir, output, key); err != nil {
+		return fmt.Errorf("build fixture: %w", err)
+	}
+	return nil
+}
+
+// applyForFixture invokes the application workflow with the fixture namespace.
+func applyForFixture(ctx context.Context, input, dir, key string) error {
+	application := &App{}
+	if err := application.ColApply(ctx, input, dir, key); err != nil {
+		return fmt.Errorf("apply fixture: %w", err)
+	}
+	return nil
+}
+
+// planForFixture invokes the application workflow with the fixture namespace.
+func planForFixture(ctx context.Context, input, dir, key string) (*collectionpb.CollectionChangePlan, error) {
+	application := &App{}
+	value, err := application.ColPlan(ctx, input, dir, key)
+	if err != nil {
+		return nil, fmt.Errorf("plan fixture: %w", err)
+	}
+	return value, nil
 }
