@@ -1,16 +1,13 @@
-package main
+package config_test
 
 import (
 	"bytes"
-	"context"
 	"encoding/json"
 	"fmt"
 	"io/fs"
 	"os"
-	"os/exec"
 	"path/filepath"
 	"testing"
-	"time"
 
 	collectionpb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/collection"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/config"
@@ -80,21 +77,7 @@ func writeConfigFixture(t *testing.T, path, data string) {
 	}
 }
 
-// configCommand runs the built CLI with an empty PATH, bounded lifetime, and separate streams.
-func configCommand(t *testing.T, args ...string) ([]byte, string, error) {
-	t.Helper()
-	ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
-	defer cancel()
-	binary := filepath.Join(os.Getenv("TEST_SRCDIR"), os.Getenv("TEST_WORKSPACE"), os.Getenv("ANKI_CLI"))
-	command := exec.CommandContext(ctx, binary, args...)
-	command.Env = append(os.Environ(), "PATH=")
-	var stdout, stderr bytes.Buffer
-	command.Stdout, command.Stderr = &stdout, &stderr
-	err := command.Run()
-	return stdout.Bytes(), stderr.String(), err
-}
-
-// configSources captures all source bytes so read-only commands can be verified independently.
+// configSources captures all source bytes so read-only operations can be verified independently.
 func configSources(t *testing.T, root string) map[string]string {
 	t.Helper()
 	files := map[string]string{}
@@ -135,9 +118,9 @@ func TestConfigPathWorkflow(t *testing.T) {
 	fixture := newConfigFixture(t)
 	before := configSources(t, fixture.root)
 	for _, format := range []string{"json", "toml"} {
-		data, stderr, err := configCommand(t, "config", "dump", "--text", fixture.config, "--format", format)
-		if err != nil || stderr != "" {
-			t.Fatalf("dump %s: %v: %s", format, err, stderr)
+		data, err := config.New(fixture.config).Dump(format)
+		if err != nil {
+			t.Fatalf("dump %s: %v", format, err)
 		}
 		actual := &collectionpb.CollectionConfigSet{}
 		if format == "json" {
@@ -241,8 +224,8 @@ func TestConfigFailureWorkflow(t *testing.T) {
 			f := newConfigFixture(t)
 			writeConfigFixture(t, f.config, input)
 			before := configSources(t, f.root)
-			data, stderr, err := configCommand(t, "config", "dump", "--text", f.root)
-			if err == nil || len(data) != 0 || stderr == "" {
+			data, err := config.New(f.root).Dump("json")
+			if err == nil || len(data) != 0 {
 				t.Fatalf("invalid source accepted: %v", err)
 			}
 			assertConfigSources(t, before, configSources(t, f.root))
@@ -253,7 +236,7 @@ func TestConfigFailureWorkflow(t *testing.T) {
 			f := newConfigFixture(t)
 			writeConfigFixture(t, f.note, field+"\n")
 			before := configSources(t, f.root)
-			data, _, err := configCommand(t, "config", "dump", "--text", f.root)
+			data, err := config.New(f.root).Dump("json")
 			if err == nil || len(data) != 0 {
 				t.Fatal("removed identity or datetime accepted")
 			}
@@ -261,10 +244,7 @@ func TestConfigFailureWorkflow(t *testing.T) {
 		})
 	}
 	f := newConfigFixture(t)
-	if _, _, err := configCommand(t, "config", "generate-guid", f.root); err == nil {
-		t.Fatal("removed generator remains callable")
-	}
-	if _, _, err := configCommand(t, "config", "dump", "--text", f.root, "--format", "yaml"); err == nil {
+	if _, err := config.New(f.root).Dump("yaml"); err == nil {
 		t.Fatal("unsupported output accepted")
 	}
 }
@@ -299,7 +279,7 @@ func TestConfigFilesystemWorkflow(t *testing.T) {
 				}
 				writeConfigFixture(t, filepath.Join(f.root, "notes"), "file")
 			}
-			if _, _, err := configCommand(t, "config", "dump", "--text", f.root); err == nil {
+			if _, err := config.New(f.root).Load(); err == nil {
 				t.Fatalf("unsafe layout accepted: %s", scenario)
 			}
 		})

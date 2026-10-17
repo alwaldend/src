@@ -1,4 +1,4 @@
-load("@rules_go//go:def.bzl", "go_library")
+load("@rules_go//go:def.bzl", "go_library", "go_test")
 
 go_library(
     name = "config",
@@ -18,4 +18,18 @@ go_library(
 package_group(
     name = "implementation_consumers",
     packages = ["//projects/anki_as_code/internal/config/..."],
+)
+
+go_test(
+    name = "store_test",
+    srcs = ["store_test.go"],
+    deps = [
+        "//projects/anki_as_code/api/collection",
+        "//projects/anki_as_code/internal/config",
+        "//third_party/com_github_ankitects_anki:decks",
+        "//third_party/com_github_ankitects_anki:notetypes",
+        "@com_github_burntsushi_toml//:toml",
+        "@org_golang_google_protobuf//encoding/protojson",
+        "@org_golang_google_protobuf//proto",
+    ],
 )

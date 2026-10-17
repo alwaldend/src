@@ -3,8 +3,7 @@ load("@rules_go//go:def.bzl", "go_library", "go_test")
 package_group(
     name = "consumers",
     packages = [
-        "//projects/anki_as_code/cmd/anki_as_code",
-        "//projects/anki_as_code/internal/app",
+        "//projects/anki_as_code/pkg/ankiascode",
     ],
 )
 

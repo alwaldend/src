@@ -1,34 +1,39 @@
 load("@rules_go//go:def.bzl", "go_library", "go_test")
 
 go_library(
-    name = "app",
+    name = "ankiascode",
     srcs = [
         "app.go",
         "doc.go",
+        "files.go",
     ],
-    importpath = "git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/app",
-    visibility = ["//projects/anki_as_code/cmd/anki_as_code:__pkg__"],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/anki_as_code/pkg/ankiascode",
+    visibility = ["//visibility:public"],
     deps = [
         "//projects/anki_as_code/api/collection",
         "//projects/anki_as_code/internal/collection",
         "//projects/anki_as_code/internal/config",
+        "//projects/anki_as_code/internal/export",
+        "//projects/anki_as_code/internal/resource",
         "//projects/anki_as_code/internal/state",
         "@org_golang_google_grpc//:grpc",
     ],
 )
 
 go_test(
-    name = "app_test",
+    name = "ankiascode_test",
     srcs = [
+        "export_workflow_test.go",
         "fixture_test.go",
         "state_test.go",
         "workflow_test.go",
     ],
     data = ["//projects/anki_as_code"],
-    embed = [":app"],
+    embed = [":ankiascode"],
     env = {"ANKI_CLI": "$(rootpath //projects/anki_as_code)"},
     deps = [
         "//projects/anki_as_code/api/collection",
+        "//projects/anki_as_code/internal/codec",
         "//projects/anki_as_code/internal/collection",
         "//projects/anki_as_code/internal/config",
         "//projects/anki_as_code/internal/state",
