@@ -110,6 +110,9 @@ func (backend *BackendCollection) Start(ctx context.Context) error {
 	backend.connection = &collectionConnection{owner: backend, ClientConnInterface: connection}
 	backend.lifecycle.Unlock()
 	if strings.EqualFold(filepath.Ext(source), ".colpkg") {
+		if err := os.MkdirAll(request.MediaFolderPath, 0o700); err != nil {
+			return fmt.Errorf("prepare Anki media directory: %w", err)
+		}
 		var trailers metadata.MD
 		backend.uncertain = true
 		_, err := import_export.NewBackendImportExportServiceClient(connection).ImportCollectionPackage(ctx, &import_export.ImportCollectionPackageRequest{

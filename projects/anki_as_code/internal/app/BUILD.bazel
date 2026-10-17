@@ -5,17 +5,15 @@ go_library(
     srcs = [
         "app.go",
         "doc.go",
-        "files.go",
-        "workflow.go",
     ],
     importpath = "git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/app",
     visibility = ["//projects/anki_as_code/cmd/anki_as_code:__pkg__"],
     deps = [
+        "//projects/anki_as_code/api/collection",
+        "//projects/anki_as_code/internal/collection",
         "//projects/anki_as_code/internal/config",
-        "//projects/anki_grpc/pkg/backend",
-        "//third_party/com_github_ankitects_anki:import_export",
+        "//projects/anki_as_code/internal/state",
         "@org_golang_google_grpc//:grpc",
-        "@rules_go//go/runfiles",
     ],
 )
 
@@ -31,6 +29,7 @@ go_test(
     env = {"ANKI_CLI": "$(rootpath //projects/anki_as_code)"},
     deps = [
         "//projects/anki_as_code/api/collection",
+        "//projects/anki_as_code/internal/collection",
         "//projects/anki_as_code/internal/config",
         "//projects/anki_as_code/internal/state",
         "//projects/anki_grpc/pkg/backend",

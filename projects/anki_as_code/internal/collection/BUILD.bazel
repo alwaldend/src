@@ -1,0 +1,48 @@
+load("@rules_go//go:def.bzl", "go_library", "go_test")
+
+package_group(
+    name = "consumers",
+    packages = [
+        "//projects/anki_as_code/cmd/anki_as_code",
+        "//projects/anki_as_code/internal/app",
+    ],
+)
+
+go_library(
+    name = "collection",
+    srcs = [
+        "doc.go",
+        "paths.go",
+        "store.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/collection",
+    visibility = [":consumers"],
+    deps = [
+        "//projects/anki_grpc/pkg/backend",
+        "//third_party/com_github_ankitects_anki:import_export",
+        "@org_golang_google_grpc//:grpc",
+        "@rules_go//go/runfiles",
+    ],
+)
+
+go_test(
+    name = "store_test",
+    srcs = ["workflow_test.go"],
+    data = ["//projects/anki_grpc"],
+    embed = [":collection"],
+    deps = [
+        "//projects/anki_as_code/api/collection",
+        "//projects/anki_as_code/internal/config",
+        "//projects/anki_as_code/internal/export",
+        "//projects/anki_as_code/internal/resource",
+        "//projects/anki_as_code/internal/state",
+        "//projects/anki_grpc/pkg/backend",
+        "//third_party/com_github_ankitects_anki:generic",
+        "//third_party/com_github_ankitects_anki:import_export",
+        "//third_party/com_github_ankitects_anki:notes",
+        "//third_party/com_github_ankitects_anki:notetypes",
+        "@org_golang_google_grpc//:grpc",
+        "@org_golang_google_protobuf//proto",
+        "@rules_go//go/runfiles",
+    ],
+)

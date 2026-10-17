@@ -1,4 +1,4 @@
-package app
+package collection
 
 import (
 	"fmt"
@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-// expandPath resolves collection/archive paths without depending on configuration internals.
+// expandPath resolves collection source paths independently of config files.
 func expandPath(input string) (string, error) {
 	if input == "~" || strings.HasPrefix(input, "~/") {
 		home, err := os.UserHomeDir()

@@ -33,3 +33,7 @@
 ## 8. Keep collection details behind the backend interface
 
 - [x] 8.1 Remove RestoreDirectory() from the collection backend. Verify default restore ownership through native media paths, keep an explicit destination in options for caller-owned cleanup, and update anki_as_code to own that destination without another backend method.
+
+## 9. Prepare empty package media directories
+
+- [x] 9.1 The collection-store native E2E cases reproduced failed re-export after restoring an archive with no media. Prepare the media directory before native restore so a later IncludeMedia export works even when Anki extracts no media files. Preserve native archive ownership; collection-store artifacts verify this path.
