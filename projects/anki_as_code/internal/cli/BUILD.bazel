@@ -13,7 +13,10 @@ go_library(
         "state.go",
     ],
     importpath = "git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/cli",
-    visibility = ["//projects/anki_as_code/cmd/anki_as_code:__pkg__"],
+    visibility = [
+        "//projects/anki_as_code/cmd/anki_as_code:__pkg__",
+        "//projects/anki_as_code/tools/generate_cli_docs:__pkg__",
+    ],
     deps = [
         "//projects/anki_as_code/api/ankiascodeapi",
         "//projects/anki_as_code/api/ankiascodepb",

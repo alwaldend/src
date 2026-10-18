@@ -1,0 +1,22 @@
+load("@rules_go//go:def.bzl", "go_binary", "go_test")
+
+go_binary(
+    name = "generate_cli_docs",
+    srcs = [
+        "doc.go",
+        "main.go",
+    ],
+    visibility = ["//projects/anki_as_code/docs:__pkg__"],
+    deps = [
+        "//projects/anki_as_code/api/ankiascodeapi",
+        "//projects/anki_as_code/internal/cli",
+        "@com_github_spf13_cobra//:cobra",
+    ],
+)
+
+go_test(
+    name = "workflow_test",
+    srcs = ["workflow_test.go"],
+    data = [":generate_cli_docs"],
+    env = {"CLI_DOCS_GENERATOR": "$(rootpath :generate_cli_docs)"},
+)

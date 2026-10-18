@@ -46,6 +46,7 @@ docs_filegroup(
     visibility = ["//projects:__pkg__"],
     deps = [
         ":docs_assets",
+        "//projects/anki_as_code/docs",
         "//projects/anki_as_code/docs:assets",
     ],
 )
