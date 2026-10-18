@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "NounPhrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "all" with "suoyou"'
+english = 'Not all Americans like drinking coffee.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '不是 + 所有 (+ 的) + Noun + 都 + Predicate'
+hanzi = '不是所有的美国人都爱喝咖啡。'
+notes = ''
+pinyin = 'Bù shì suǒyǒu de Měiguó rén dōu ài hē kāfēi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGOWBSL'

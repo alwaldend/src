@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "already" with just "le"'
+english = 'Are you going to tell him?<br>He (already) knows.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + [Verb Phrase] + 了'
+hanzi = 'A: 你要不要告诉他？<br>B: 他知道了。'
+notes = ''
+pinyin = 'Nǐ yào bu yào gàosu tā?<br>Tā zhīdào le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGM055L'

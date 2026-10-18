@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'Li (surname);	li, ancient measure of length, approx. 500 m;	neighborhood;	ancient administrative unit of 25 families;	(Tw) borough, administrative unit between the township 镇 and neighborhood 邻 levels.variant of 里.lining;	interior;	inside;	internal.<br>Also written: 里'
+example-sentence = '  不过今年参加开窍大典的少年里,也不是没有希望'
+example-type = ''
+grammar-construct = ''
+hanzi = '里'
+notes = ''
+pinyin = '<span class="tone5">lǐlǐlǐ</span>	 <!-- li li li -->'
+source = ''

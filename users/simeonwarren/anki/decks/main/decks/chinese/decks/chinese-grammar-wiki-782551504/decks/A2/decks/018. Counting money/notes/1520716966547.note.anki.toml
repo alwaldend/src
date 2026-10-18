@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Grammatical_Structures", "NumbersandMeasureWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Counting money'
+english = 'How much is our lunch?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 多少钱 ?'
+hanzi = '我们的午饭多少钱？'
+notes = ''
+pinyin = 'Wǒmen de wǔfàn duōshao qián?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGL6JOE'

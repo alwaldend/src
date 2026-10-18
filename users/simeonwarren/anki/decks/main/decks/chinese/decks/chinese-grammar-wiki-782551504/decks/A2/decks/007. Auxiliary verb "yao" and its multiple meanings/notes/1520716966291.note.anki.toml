@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Auxiliaryverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Auxiliary verb "yao" and its multiple meanings'
+english = 'What kind of wine do you want to drink?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 要 + Verb'
+hanzi = '你要喝什么酒？'
+notes = ''
+pinyin = 'Nǐ yào hē shénme jiǔ?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG95AL1'

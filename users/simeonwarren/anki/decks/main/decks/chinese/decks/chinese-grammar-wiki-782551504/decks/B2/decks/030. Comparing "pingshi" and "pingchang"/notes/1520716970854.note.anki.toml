@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "TimeWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "pingshi" and "pingchang"'
+english = "This is just common glass. It's not a diamond."
+example-sentence = ''
+example-type = ''
+grammar-construct = '平常的 + Noun'
+hanzi = '这是一种很平常的玻璃，不是什么钻石。'
+notes = ''
+pinyin = '<div>Zhè shì yī zhǒng hěn píngcháng de bōlí, bùshì shénme zuànshí.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJOGGG'

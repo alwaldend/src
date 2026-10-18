@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Affirmative-negative question'
+english = 'Is Chinese food good?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '[First Character of Adj.] + 不 + Adj.'
+hanzi = '中国菜好吃不好吃？'
+notes = 'whole word repeated'
+pinyin = 'Zhōngguó cài hǎochī bu hǎochī?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGZH7K3'

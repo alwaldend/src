@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "SeparateFunctions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = "Comparing \"fan'er\" and \"xiangfan\""
+english = 'Doing so will not only fail to help him, but will harm him instead.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A，反而 B'
+hanzi = '这样做不但帮不了他，反而会害了他。'
+notes = ''
+pinyin = "<div>Zhèyàng zuò bùdàn bāng bùliǎo tā, fǎn'ér huì hàile tā.</div>"
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGFNS52'

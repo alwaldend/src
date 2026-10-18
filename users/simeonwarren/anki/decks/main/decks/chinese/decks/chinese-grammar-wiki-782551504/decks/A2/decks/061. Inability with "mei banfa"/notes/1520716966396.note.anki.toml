@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Inability with "mei banfa"'
+english = "It's too busy today. There's no way to go out for lunch."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 没办法 + Verb + Obj.'
+hanzi = '今天太忙了，中午没办法出去吃饭。'
+notes = ''
+pinyin = 'Jīntiān tài máng le, zhōngwǔ méi bànfǎ chūqù chīfàn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGI2KHC'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "how often"'
+english = 'I charge my phone every two days.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + [Length of Time]  + Verb + Times (+ Obj.)'
+hanzi = '我的手机两天充一次电。'
+notes = ''
+pinyin = 'Wǒ de shǒujī liǎng tiān chōng yī cì diàn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCED31'

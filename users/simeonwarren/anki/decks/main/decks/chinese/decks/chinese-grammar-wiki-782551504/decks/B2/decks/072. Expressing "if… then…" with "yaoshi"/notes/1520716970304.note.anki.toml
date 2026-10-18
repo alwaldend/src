@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Grammatical_Structures", "IfStatements"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "if… then…" with "yaoshi"'
+english = "In my opinion, this man isn't trustworthy."
+example-sentence = ''
+example-type = ''
+grammar-construct = '要不是 ⋯⋯ ，⋯⋯'
+hanzi = '要我说，这个人不能信。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGN4S8O'

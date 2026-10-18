@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'child;	the younger generation.'
+example-sentence = ' 作为一族之长,对于那些优秀而突出的子弟自然会关注'
+example-type = ''
+grammar-construct = ''
+hanzi = '子弟'
+notes = ''
+pinyin = '<span class="tone3">zǐ</span><span class="tone4">dì</span>	 <!-- zi di -->'
+source = ''

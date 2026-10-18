@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'Fang Yuan was wearing a torn green robe, his hair was disheveled, his body was soaked in blood, and he looked around.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '方源一身残破的碧绿大袍,披头散发,浑身浴血,环顾四周。'
+notes = ''
+pinyin = ''
+source = ''

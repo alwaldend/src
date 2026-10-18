@@ -1,0 +1,12 @@
+note_type = "note_types/basic.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[[cards]]
+ordinal = 1
+
+[fields]
+Back = ':vim[grep] //g **/*<div><br></div><div>** tells vim to recurse directories</div><div>* selects any file in the directory&nbsp;</div>'
+Front = 'Perform <b>current</b> search again, against all files in directory'

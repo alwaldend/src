@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Grammatical_Structures", "NumbersandMeasureWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "every" with "mei"'
+english = 'Every weekend they go to the park.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '每 + Measure Word + Noun + 都'
+hanzi = '他们每个周末都去公园。'
+notes = ''
+pinyin = 'Tāmen měi gè zhōumò dōu qù gōngyuán.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGB6L4M'

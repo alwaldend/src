@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "on the basis of" with "ping"'
+english = "Watching Michael Jackson music videos isn't enough to study how to dance. You also have to push yourself."
+example-sentence = ''
+example-type = ''
+grammar-construct = '凭 + Verb Phrase / Subj.-Predicate'
+hanzi = '学好跳舞不能只凭看迈克尔·杰克逊的音乐录像带，还得凭自己的努力。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGGB3IV'

@@ -1,0 +1,13 @@
+note_type = "note_types/python-basic.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+'Additional Info' = ''
+'Back - Basic' = 'It allows you to pass in the desired number of key/value pair arguments/ named arguments. (usually denoted as **kwargs)'
+'Back - Code' = ''
+Example = 'def test_func(**kwargs):<br>&nbsp; &nbsp; for key, value in kwargs.items():<br>&nbsp; &nbsp; &nbsp; &nbsp; print(key, value)<br>test_func(x=1, y=2, z=3) #should print out x 1, y 2, z 3, each on a new line'
+Front = 'What does a ** at the beginning of a function argument mean?'
+Version = ''

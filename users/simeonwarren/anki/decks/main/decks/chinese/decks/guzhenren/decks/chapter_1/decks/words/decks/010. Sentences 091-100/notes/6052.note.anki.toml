@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'surname Shuang;	two;	double;	pair;	both;	even (number).'
+example-sentence = '而且他双亲已经亡故,是方之一脉仅剩下的双孤之一'
+example-type = ''
+grammar-construct = ''
+hanzi = '双'
+notes = ''
+pinyin = '<span class="tone1">shuāng</span>	 <!-- shuang -->'
+source = ''

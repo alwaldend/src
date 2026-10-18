@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "only" with "zhi"'
+english = 'I can only say two sentences in Chinese.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '只 + 会 / 能 + Verb'
+hanzi = '我只能说两句中文。'
+notes = ''
+pinyin = 'Wǒ zhǐ néng shuō liǎng jù Zhōngwén.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGN8C8R'

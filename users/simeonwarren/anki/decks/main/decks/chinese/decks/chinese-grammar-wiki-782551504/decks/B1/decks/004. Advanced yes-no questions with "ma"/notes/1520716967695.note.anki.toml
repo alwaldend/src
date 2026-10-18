@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Advanced yes-no questions with "ma"'
+english = 'Where did you buy this?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '[Question Word] + 吗 ？'
+hanzi = '这是在哪儿买的？'
+notes = ''
+pinyin = 'Zhè shì zài nǎr mǎi de?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGI9WXT'

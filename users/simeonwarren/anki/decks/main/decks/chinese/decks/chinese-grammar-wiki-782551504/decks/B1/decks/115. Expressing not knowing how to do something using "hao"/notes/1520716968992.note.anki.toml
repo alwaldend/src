@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing not knowing how to do something using "hao"'
+english = "I don't know where to take my kid to play on rainy days."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不知道 + [Verb Phrase] + 好'
+hanzi = '下雨天我不知道带孩子去哪儿玩好。'
+notes = ''
+pinyin = 'Xiàyǔ tiān wǒ bù zhīdào dài hāizi qù nǎr wán hǎo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG0EQQJ'

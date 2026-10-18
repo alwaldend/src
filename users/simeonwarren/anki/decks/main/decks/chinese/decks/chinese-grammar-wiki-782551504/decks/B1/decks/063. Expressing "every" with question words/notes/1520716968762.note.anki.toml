@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "every" with question words'
+english = "I'm too tired. I don't want to go anywhere."
+example-sentence = ''
+example-type = ''
+grammar-construct = '哪儿 / 哪里 (+ Verb) + 都 + Predicate'
+hanzi = '我太累了，哪儿都不想去。'
+notes = ''
+pinyin = 'Wǒ tài lèi le, nǎr dōu bù xiǎng qù.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG13ALM'

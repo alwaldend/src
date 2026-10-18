@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Placement of question words'
+english = "Why do you study Chinese?<br>Because I'm working in China."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 为什么 + Predicate ?'
+hanzi = 'A: 你为什么学中文？<br>B: 因为我在中国工作。'
+notes = ''
+pinyin = 'Nǐ wèishénme xué Zhōngwén?<br>Yīnwèi wǒ zài Zhōngguó gōngzuò.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJQPSC'

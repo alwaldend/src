@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "more and more" with "yuelaiyue"'
+english = 'The housing price in Shanghai is getting higher and higher.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 越来越 + Adj. + 了'
+hanzi = '上海的房价越来越高了。'
+notes = ''
+pinyin = 'Shànghǎi de fángjià yuèláiyuè gāo le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG7UE4H'

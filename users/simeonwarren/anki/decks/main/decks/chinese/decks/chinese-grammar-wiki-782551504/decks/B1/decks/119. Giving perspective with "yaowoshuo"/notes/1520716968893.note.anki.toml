@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Giving perspective with "yaowoshuo"'
+english = "In my opinion, bringing gifts or not isn't what matters, the important thing is that people go."
+example-sentence = ''
+example-type = ''
+grammar-construct = '要我说， Opinion'
+hanzi = '要我说，带不带礼物都没关系，重要的是人要去。'
+notes = ''
+pinyin = 'Yào wǒ shuō, dài bu dài lǐwù dōu méi guānxi, zhòngyào de shì rén yào qù.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGITYYM'

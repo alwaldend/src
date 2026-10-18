@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "leech", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "always" with "conglai"'
+english = "She's always been this selfish."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 从来 + 都 + Predicate'
+hanzi = '她从来都这么自私。'
+notes = ''
+pinyin = 'Tā cónglái dōu zhème zìsī.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8KUHG'

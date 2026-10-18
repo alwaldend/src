@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Actions in a row'
+english = 'Next week the boss will go to Beijing to have a meeting.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + [Verb Phrase 1] + [Verb Phrase 2]'
+hanzi = '老板下周去北京开会。'
+notes = ''
+pinyin = 'Lǎobǎn xià zhōu qù Běijīng kāi huì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPRGAX'

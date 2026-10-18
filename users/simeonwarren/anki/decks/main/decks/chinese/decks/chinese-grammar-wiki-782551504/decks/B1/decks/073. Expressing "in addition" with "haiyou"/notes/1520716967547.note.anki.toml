@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "in addition" with "haiyou"'
+english = "I want a big cup. Don't put ice. In addition, less sugar, please."
+example-sentence = ''
+example-type = ''
+grammar-construct = '⋯⋯ ，还有 ，⋯⋯'
+hanzi = '我要大杯，不要冰，还有，少放糖。'
+notes = ''
+pinyin = 'Wǒ yào dà bēi. Bùyào bīng. Háiyǒu, shǎo fàng táng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGHQRI1'

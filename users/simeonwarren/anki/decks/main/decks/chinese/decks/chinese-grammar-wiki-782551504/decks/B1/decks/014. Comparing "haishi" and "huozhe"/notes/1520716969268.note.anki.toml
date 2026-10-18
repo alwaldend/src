@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "Conjunctions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "haishi" and "huozhe"'
+english = "Either study Chinese or law, don't study anything else."
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = '或者 A，或者 B'
+hanzi = '你或者学汉语，或者学法律，别的就别学了。'
+notes = ''
+pinyin = '<div>Nǐ huòzhě xué hànyǔ, huòzhě xué fǎlǜ, bié de jiù bié xuéle.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQJ5IC'

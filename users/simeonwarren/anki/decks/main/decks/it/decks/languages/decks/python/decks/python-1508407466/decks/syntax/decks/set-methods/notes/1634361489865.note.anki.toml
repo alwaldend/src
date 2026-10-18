@@ -1,0 +1,13 @@
+note_type = "note_types/python-basic-and-reversed.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<i>set</i>.add(<i>item</i>)&nbsp;'
+example = ''
+question = '<b>Set method</b>&nbsp;to add a single item to a set.'
+version = ''
+with-options = ''

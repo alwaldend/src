@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Offering choices with "haishi"'
+english = 'One or two?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Option A + 还是 + Option B ?'
+hanzi = '一个还是两个？'
+notes = ''
+pinyin = 'Yī gè háishì liǎng gè?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGA8NIB'

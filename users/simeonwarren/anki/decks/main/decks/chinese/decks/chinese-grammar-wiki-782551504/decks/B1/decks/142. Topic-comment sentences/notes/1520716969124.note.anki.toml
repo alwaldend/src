@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Topic-comment sentences'
+english = 'Whoever watched that movie likes it.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Topic ，Comment'
+hanzi = '那部电影，看过的人都喜欢。'
+notes = ''
+pinyin = 'Nà bù diànyǐng, kàn guo de rén dōu xǐhuan.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5KNWW'

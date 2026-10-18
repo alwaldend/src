@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Direction complement'
+english = 'Did you take their presents there?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 把 + Obj. + Verb + [Direction Complement]'
+hanzi = '你把他们的礼物带过去了吗？'
+notes = ''
+pinyin = 'Nǐ bǎ tāmen de lǐwù dài guòqù le ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8LWBJ'

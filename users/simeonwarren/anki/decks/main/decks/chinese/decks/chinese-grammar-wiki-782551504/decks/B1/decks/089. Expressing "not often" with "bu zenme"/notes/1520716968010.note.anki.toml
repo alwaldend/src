@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "not often" with "bu zenme"'
+english = "I didn't feel well in the stomach yesterday, so I didn't eat much."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不怎么 + Verb'
+hanzi = '昨天我肚子不舒服，没怎么吃东西。'
+notes = ''
+pinyin = 'Zuótiān wǒ dùzi bù shūfu, méi zěnme chī dōngxi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5BOGP'

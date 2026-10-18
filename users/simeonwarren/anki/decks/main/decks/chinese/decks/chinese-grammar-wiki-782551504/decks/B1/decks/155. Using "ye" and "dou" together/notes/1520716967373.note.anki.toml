@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "ye" and "dou" together'
+english = 'Neither of his parents are very tall or fat.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 也都 + 不 / 没 + Verb &lt;br /&gt;Subj. + 也都 + 不 + Adj.'
+hanzi = '他的父母都不高，也都不胖。'
+notes = ''
+pinyin = 'Tā de fùmǔ dōu bù gāo,  yě dōu bù pàng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8GSXY'

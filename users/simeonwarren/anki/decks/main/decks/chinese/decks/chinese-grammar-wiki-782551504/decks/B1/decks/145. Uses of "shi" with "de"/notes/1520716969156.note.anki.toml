@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Uses of "shi" with "de"'
+english = "Where is it that you study Chinese?<br>It's in Shanghai that I study Chinese."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 是 + [Information to be Emphasized] + Verb + 的'
+hanzi = 'A:你是在哪里学的中文？<br>B:我是在上海学的中文。'
+notes = ''
+pinyin = 'Nǐ shì zài nǎlǐ xué de Zhōngwén?<br>Wǒ shì zài Shànghǎi xué de Zhōngwén.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGE662E'

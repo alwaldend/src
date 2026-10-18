@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Result complements'
+english = 'Did you finish doing your homework?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '没 + Verb + Adj.'
+hanzi = '作业做好了吗？'
+notes = ''
+pinyin = 'Zuòyè zuò hǎo le ma ?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNNMST'

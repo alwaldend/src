@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing duration with "le"'
+english = 'He drank alcohol all night.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + [Time Word] + Verb + 了 + Duration + Obj.'
+hanzi = '他今天喝了一个晚上酒。'
+notes = ''
+pinyin = 'Tā jīntiān hē le yī gè wǎnshang jiǔ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJ36VN'

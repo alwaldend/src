@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["AuxiliaryWords", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Ending a non-exhaustive list with "shenme de"'
+english = 'When we meet, we just eat and talk, and so on.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun 1, Noun 2 (+ Noun 3) + 什么的'
+hanzi = '我们见面一般就是吃饭、聊天什么的。'
+notes = ''
+pinyin = 'Wǒmen jiànmiàn yībān jiùshì chīfàn, liáotiān shénme de.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDIDAC'

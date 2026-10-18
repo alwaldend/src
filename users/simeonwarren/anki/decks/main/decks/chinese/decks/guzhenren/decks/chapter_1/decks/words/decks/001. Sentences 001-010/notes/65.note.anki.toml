@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'to yield;	to permit;	to let sb do sth;	to have sb do sth;	to make sb (feel sad etc);	by (indicates the agent in a passive clause, like 被).'
+example-sentence = '今天,我要让你生不如死'
+example-type = ''
+grammar-construct = ''
+hanzi = '让'
+notes = ''
+pinyin = '<span class="tone4">ràng</span>	 <!-- rang -->'
+source = ''

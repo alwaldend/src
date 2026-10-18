@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Change of state with "le"'
+english = 'The baby can speak.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '[New Situation] + 了'
+hanzi = '宝宝会说话了。'
+notes = "He couldn't before."
+pinyin = 'Bǎobao huì shuōhuà le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGT185D'

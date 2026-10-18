@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'especially;	particularly.'
+example-sentence = '尤其是白家的白凝冰,天资真是恐怖'
+example-type = ''
+grammar-construct = ''
+hanzi = '尤其'
+notes = ''
+pinyin = '<span class="tone2">yóu</span><span class="tone2">qí</span>	 <!-- you qi -->'
+source = ''

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Advanced uses of "hai"'
+english = "It's so hot today, yet you're going out now?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 还 + [Verb Phrase] + 吗 ?'
+hanzi = '今天这么热，你还出门吗？'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG4807F'

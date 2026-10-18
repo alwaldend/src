@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Potential complement'
+english = "I can't find my cellphone."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 得 + Complement'
+hanzi = '我找不到我的手机了。'
+notes = ''
+pinyin = 'Wǒ zhǎo bu dào wǒ de shǒujī le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCPJPQ'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "AdverbswithAdjectives", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Modifying nouns with adjective + "de"'
+english = 'I like fresh fruit juice.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Adj. + 的 + Noun'
+hanzi = '我喜欢新鲜的果汁。'
+notes = ''
+pinyin = 'Wǒ xǐhuan xīnxiān de guǒzhī.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGVUFKX'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "Conjunctions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "haishi" and "huozhe"'
+english = "I'm wondering if they are with me or against me."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Possibility 1 + 或者 + Possibility 2'
+hanzi = '我想知道他们是支持还是反对。'
+notes = ''
+pinyin = 'Wǒ xiǎng zhīdào tāmen shì zhīchí háishì fǎnduì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQJ5IC'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'ending;	coda;	to wind up.'
+example-sentence = ' 好了,新书终于和大家见面,就像在 御妖至尊 结尾和大家打的招呼,主角很邪恶,本书会饱受争议'
+example-type = ''
+grammar-construct = ''
+hanzi = '结尾'
+notes = ''
+pinyin = '<span class="tone2">jié</span><span class="tone3">wěi</span>	 <!-- jie wei -->'
+source = ''

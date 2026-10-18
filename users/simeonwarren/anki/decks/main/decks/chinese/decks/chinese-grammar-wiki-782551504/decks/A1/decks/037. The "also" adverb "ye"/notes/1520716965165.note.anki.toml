@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'The "also" adverb "ye"'
+english = 'I like it too.'
+example-sentence = ''
+example-type = 'invalid'
+grammar-construct = 'Subj. + 也 + Verb / [Verb Phrase]'
+hanzi = '我喜欢也。'
+notes = ''
+pinyin = 'Wǒ xǐhuan yě.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGG25MD'

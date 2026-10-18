@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Tricky uses of "dao"'
+english = 'None of us thought that he would be so mad.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '我们都没想到他这么生气。'
+notes = ''
+pinyin = 'Wǒmen dōu méi xiǎngdào tā zhème shēngqì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCUSIV'

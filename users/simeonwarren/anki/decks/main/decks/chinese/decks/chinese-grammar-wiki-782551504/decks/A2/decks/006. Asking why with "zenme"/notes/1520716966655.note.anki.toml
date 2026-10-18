@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Asking why with "zenme"'
+english = 'How could it be so cold yesterday?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 怎么 + 这么 / 那么 + Adj.'
+hanzi = '昨天怎么那么冷？'
+notes = ''
+pinyin = 'Zuótiān zěnme nàme lěng?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGD7NS3'

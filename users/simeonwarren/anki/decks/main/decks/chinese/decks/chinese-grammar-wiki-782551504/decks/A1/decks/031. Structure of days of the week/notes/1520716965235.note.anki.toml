@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Numbers", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Structure of days of the week'
+english = "Tomorrow is Friday. I'm so happy."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '明天星期五，太高兴了。'
+notes = 'Optional 是 omitted'
+pinyin = 'Míngtiān Xīngqīwǔ, tài gāoxìng le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGVH4Q5'

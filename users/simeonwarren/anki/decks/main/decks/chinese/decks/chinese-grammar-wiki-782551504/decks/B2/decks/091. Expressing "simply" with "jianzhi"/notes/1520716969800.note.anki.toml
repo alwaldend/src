@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "simply" with "jianzhi"'
+english = 'He is simply a monster!'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 简直 + Predicate'
+hanzi = '他简直是个魔鬼！'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8OLAE'

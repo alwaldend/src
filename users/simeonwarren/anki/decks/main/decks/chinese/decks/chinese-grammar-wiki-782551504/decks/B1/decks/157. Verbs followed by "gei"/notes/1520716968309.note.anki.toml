@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Verbs followed by "gei"'
+english = 'She threw a few coins towards the beggar.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 给 + Recipient + Obj.'
+hanzi = '她扔给那个乞丐几个硬币。'
+notes = ''
+pinyin = 'Tā rēng gěi nàge qǐgài jǐ gè yìngbì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMMHTQ'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "C1"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Advanced usages of the contrary "dao"'
+english = 'This little girl is quite brave.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 倒 +  Adj.'
+hanzi = '这个小女孩倒挺勇敢的。'
+notes = ''
+pinyin = '<div>Zhège xiǎo nǚhái dào tǐng yǒnggǎn de.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGXXP6M'

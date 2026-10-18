@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "in this way" with "zheyang"'
+english = "We'd better take the metro. It's more convenient this way."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Condition, 这样 + Result / Purpose'
+hanzi = '我们还是坐地铁吧，这样更方便。'
+notes = ''
+pinyin = 'Wǒmen háishì zuò dìtiě ba, zhèyàng gèng fāngbiàn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG1F4D1'

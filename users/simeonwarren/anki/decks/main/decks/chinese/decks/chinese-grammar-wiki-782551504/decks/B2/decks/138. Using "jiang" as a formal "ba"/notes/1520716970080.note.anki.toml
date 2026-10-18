@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Parts_of_Speech", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "jiang" as a formal "ba"'
+english = 'The Oscar jury gave the award for Best Actress to a very young actress.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 将 + Obj. + [Verb Phrase]'
+hanzi = 'Oscar将最佳女主角这个奖颁给了一个很年轻的演员。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG68DA5'

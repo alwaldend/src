@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Affirmative-negative question'
+english = 'Do you or do you not miss me?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 不 + Verb'
+hanzi = '你想不想我？'
+notes = ''
+pinyin = 'Nǐ xiǎng bu xiǎng wǒ?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGZH7K3'

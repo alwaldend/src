@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Grammatical_Structures", "IfStatements"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "if… then…" with "yaoshi"'
+english = "If you keep talking this way, I'll get mad. Seriously."
+example-sentence = ''
+example-type = ''
+grammar-construct = '要是 + Subj. ⋯⋯ ， 就 ⋯⋯'
+hanzi = '你要再说，我真生气了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGN4S8O'

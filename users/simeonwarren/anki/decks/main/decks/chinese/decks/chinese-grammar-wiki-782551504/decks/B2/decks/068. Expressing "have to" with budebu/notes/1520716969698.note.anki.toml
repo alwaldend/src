@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "have to" with budebu'
+english = "I'm sorry. We have very limited time. I have to interrupt you."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不得不 + Verb'
+hanzi = '不好意思，时间有限，我不得不打断你。'
+notes = ''
+pinyin = 'Bù hǎoyìsi, shíjiān yǒuxiàn, wǒ  bùdébù dǎduàn nǐ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG0C825'

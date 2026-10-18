@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "everything" with "shenme dou"'
+english = 'I think everything is delicious here.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Topic (+ Subj.) + 什么 + 都 / 也 + Verb / Adj.'
+hanzi = '我觉得这里的菜什么都好吃。'
+notes = ''
+pinyin = 'Wǒ juéde zhèlǐ de cài shénme dōu hǎochī.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGAQV6C'

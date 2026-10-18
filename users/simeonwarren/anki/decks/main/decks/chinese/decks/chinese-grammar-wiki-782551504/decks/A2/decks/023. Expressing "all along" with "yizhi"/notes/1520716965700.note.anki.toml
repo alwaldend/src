@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "all along" with "yizhi"'
+english = 'Since he was 18, he has always lived alone.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 一直 + Predicate'
+hanzi = '18岁以后，他一直一个人住。'
+notes = ''
+pinyin = 'Shíbā suì yǐhòu, tā yīzhí yīgèrén zhù.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGP000J'

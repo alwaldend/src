@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "age difference" with "da and xiao"'
+english = 'Who is the youngest among the five of you?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A + 比 + B + 大 / 小 + Number + 岁'
+hanzi = '你们五个人里谁最小？'
+notes = ''
+pinyin = 'Nǐmen wǔ gè rén lǐ shéi zuì xiǎo?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGE8810'

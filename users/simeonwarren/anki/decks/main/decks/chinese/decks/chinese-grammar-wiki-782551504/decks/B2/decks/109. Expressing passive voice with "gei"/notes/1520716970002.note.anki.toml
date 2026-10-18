@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing passive voice with "gei"'
+english = 'The kid is totally spoiled by you.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Receiver + 给 + The Doer + Verb Phrase'
+hanzi = '孩子都给你宠坏了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGEZ2HN'

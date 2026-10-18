@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'The function of Spring Autumn Cicada is to reverse time.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '春秋蝉的作用,就是逆转时光。'
+notes = ''
+pinyin = ''
+source = ''

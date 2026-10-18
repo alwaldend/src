@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "along with…" with "suizhe"'
+english = 'With the rise in gas prices, the price of cereals has also gone up a bit.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '随着 + Noun， Subj. + Predicate'
+hanzi = '随着石油价格的升高，粮食的价格涨了好几倍。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGHVFRA'

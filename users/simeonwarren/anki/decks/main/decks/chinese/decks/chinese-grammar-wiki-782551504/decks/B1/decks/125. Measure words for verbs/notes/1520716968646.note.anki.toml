@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "NumbersandMeasureWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Measure words for verbs'
+english = 'have said it many times.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + Number + Measure Word'
+hanzi = '说了很多次'
+notes = ''
+pinyin = 'shuō le hěn duō cì'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5AODR'

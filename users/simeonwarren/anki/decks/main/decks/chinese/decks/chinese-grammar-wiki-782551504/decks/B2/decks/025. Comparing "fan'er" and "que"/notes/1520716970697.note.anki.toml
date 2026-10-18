@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "Conjunctions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = "Comparing \"fan'er\" and \"que\""
+english = 'However you did it, the quality was no good.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '反而 + Subj.'
+hanzi = '你这么做，反而效果不好。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG0K25S'

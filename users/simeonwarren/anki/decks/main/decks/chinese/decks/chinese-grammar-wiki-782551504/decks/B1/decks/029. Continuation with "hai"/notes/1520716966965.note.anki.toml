@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Continuation with "hai"'
+english = "I treat you so well, but you're still not happy?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 还 + 不 / 没 + [Verb Phrase]'
+hanzi = '我对你这么好，你还不高兴？'
+notes = "implying the listener shouldn't be so glum"
+pinyin = 'Wǒ duì nǐ zhème hǎo, nǐ hái bù gāoxìng?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGIRILI'

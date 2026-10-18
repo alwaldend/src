@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Facilitating an outcome with "yibian"'
+english = 'Old Li bought a folding bike to make it easier to carry around.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '[Action] +  以便 + [Outcome]'
+hanzi = '老李买了一辆折叠式的自行车，以便携带。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGXU2H4'

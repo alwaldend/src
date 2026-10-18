@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing possession with "de"'
+english = "teacher's friend"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun 1 + 的 + Noun 2'
+hanzi = '老师的朋友'
+notes = ''
+pinyin = 'lǎoshī de péngyou'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGUHQD2'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Standard negation with "bu"'
+english = 'This is not expensive.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不 + Adj.'
+hanzi = '这个不贵。'
+notes = ''
+pinyin = 'Zhège bù guì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGIPYFV'

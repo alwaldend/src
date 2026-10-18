@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Questions with "ne"'
+english = "I'm at home. What about you?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Topic + 呢 ？'
+hanzi = '我在家，你呢？'
+notes = ''
+pinyin = 'Wǒ zài jiā. Nǐ ne?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMJHZO'

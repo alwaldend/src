@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing the self-evident with "ma"'
+english = "Don't be too modest."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Statement + 嘛'
+hanzi = '你别太谦虚嘛。'
+notes = ''
+pinyin = 'Nǐ bié tài qiānxū ma.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGVMC4B'

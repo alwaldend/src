@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "IfStatements"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "if…, then…" with "ruguo…, jiu…"'
+english = "If I can't find a job in Beijing, I'm going to go back to Kunming."
+example-sentence = ''
+example-type = ''
+grammar-construct = '如果 + Statement + 就 + Result'
+hanzi = '我如果在北京找不到工作，就会回昆明。'
+notes = ''
+pinyin = 'Wǒ rúguǒ zài Běijīng zhǎo bù dào gōngzuò, jiù huì huí Kūnmíng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGGIVT0'

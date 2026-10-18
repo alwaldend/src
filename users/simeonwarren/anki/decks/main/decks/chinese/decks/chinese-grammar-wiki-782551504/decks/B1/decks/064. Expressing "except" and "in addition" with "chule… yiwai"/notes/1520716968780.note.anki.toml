@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "except" and "in addition" with "chule… yiwai"'
+english = 'In addition to a cat and a dog, I also had a rabbit.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '除了 ⋯⋯ (+ 以外) ，Subj. + 也 / 还 ⋯⋯'
+hanzi = '除了猫和狗，我还养过兔子。'
+notes = ''
+pinyin = 'Chúle māo hé gǒu, wǒ xiǎoshíhou hái yǎng guo tùzi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGHFPGG'

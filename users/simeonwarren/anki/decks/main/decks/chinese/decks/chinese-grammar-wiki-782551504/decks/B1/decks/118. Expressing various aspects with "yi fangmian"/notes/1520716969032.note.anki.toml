@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing various aspects with "yi fangmian"'
+english = "On one hand, we don't want to do it this way; on the other hand, we must do it this way."
+example-sentence = ''
+example-type = ''
+grammar-construct = '一 方面 ⋯⋯ ， (另) 一 方面 ⋯⋯'
+hanzi = '我们一方面不想这样做，一方面必须这样做。'
+notes = ''
+pinyin = 'Wǒmen yī fāngmiàn bù xiǎng zhèyàng zuò, yī fāngmiàn bìxū zhèyàng zuò.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCWHNF'

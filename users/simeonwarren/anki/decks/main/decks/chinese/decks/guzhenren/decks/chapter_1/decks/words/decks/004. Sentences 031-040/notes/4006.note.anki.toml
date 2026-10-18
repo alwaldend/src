@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'unable to restrain emotions;	cannot help.'
+example-sentence = ' 这般想着,方源情不自禁放声大笑'
+example-type = ''
+grammar-construct = ''
+hanzi = '情不自禁'
+notes = ''
+pinyin = '<span class="tone2">qíng</span><span class="tone4">bù</span><span class="tone4">zì</span><span class="tone1">jīn</span>	 <!-- qing bu zi jin -->'
+source = ''

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "already" with "yijing"'
+english = 'The baby can already speak.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '已经 + [Verb Phrase] + 了'
+hanzi = '宝宝已经会说话了。'
+notes = 'with a verb phrase'
+pinyin = 'Bǎobao yǐjīng huì shuōhuà le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNXI27'

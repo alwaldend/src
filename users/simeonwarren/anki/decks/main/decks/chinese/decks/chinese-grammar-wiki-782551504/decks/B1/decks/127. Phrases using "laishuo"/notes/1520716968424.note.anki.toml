@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Basic", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Phrases using "laishuo"'
+english = 'Technically, he is an American born Chinese, not a Chinese.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '严格来说，他是华裔，不是中国人。'
+notes = ''
+pinyin = 'Yángé lái shuō, tā shì huáyì, bù shì Zhōngguó rén.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGD60A6'

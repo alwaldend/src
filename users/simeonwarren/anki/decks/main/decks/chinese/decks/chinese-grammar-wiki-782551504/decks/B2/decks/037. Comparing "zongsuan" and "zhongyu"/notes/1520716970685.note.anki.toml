@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["AuxiliaryWords", "B2", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "zongsuan" and "zhongyu"'
+english = 'You finally came!'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 总算 / 终于 + Verb'
+hanzi = '你总算来了！'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGT8AUA'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "small quantity" with "jiu"'
+english = 'I only had a piece of bread for breakfast.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 就 + [Verb Phrase]'
+hanzi = '我早饭就吃了一片面包。'
+notes = ''
+pinyin = 'Wǒ zǎofàn jiù chī le yī piān miànbāo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPW8PP'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'to return to.'
+example-sentence = '  利用春秋蝉重生了,回到了500年前'
+example-type = ''
+grammar-construct = ''
+hanzi = '回到'
+notes = ''
+pinyin = '<span class="tone2">huí</span><span class="tone4">dào</span>	 <!-- hui dao -->'
+source = ''

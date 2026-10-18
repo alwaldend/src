@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'The filler word "neige"'
+english = "Ummm, it's not good to do it this way?"
+example-sentence = ''
+example-type = ''
+grammar-construct = '(那个⋯⋯) (那个⋯⋯) + [anything] + (那个⋯⋯)'
+hanzi = '那个⋯⋯这样做不好吧？'
+notes = ''
+pinyin = 'Nèige... zhèyàng zuò bù hǎo ba?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8VJM8'

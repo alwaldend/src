@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'The "also" adverb "ye"'
+english = 'Hunan food is very spicy too.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 也 (+ Adv.) + Adj.'
+hanzi = '湖南菜也很辣。'
+notes = ''
+pinyin = 'Húnán cài yě hěn là.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGG25MD'

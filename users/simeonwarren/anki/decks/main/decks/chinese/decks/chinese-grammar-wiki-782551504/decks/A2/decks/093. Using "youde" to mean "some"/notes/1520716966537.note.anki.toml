@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Grammatical_Structures", "NounPhrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "youde" to mean "some"'
+english = "He has written a lot of books. Some sell well, but some don't."
+example-sentence = ''
+example-type = ''
+grammar-construct = '有的 + (Subj.) + Predicate， 有的 + (Subj.) + Predicate'
+hanzi = '他写了很多书，有的卖得很好，有的卖得不好。'
+notes = ''
+pinyin = 'Tā xiě le hěn duō shū,  yǒude mài de hěn hǎo, yǒude mài de bù hǎo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG4NDHB'

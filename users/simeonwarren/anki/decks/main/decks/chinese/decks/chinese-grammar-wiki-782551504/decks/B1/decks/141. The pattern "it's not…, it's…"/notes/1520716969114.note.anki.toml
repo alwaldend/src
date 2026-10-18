@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = "The pattern \"it's not…, it's…\""
+english = "I'm sorry. My son didn't mean to do that. It was an innocent mistake."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 是 ⋯⋯ ，不是 ⋯⋯'
+hanzi = '不好意思，我儿子不是故意的，是不小心。'
+notes = ''
+pinyin = 'Bù hǎoyìsi, wǒ érzi bù shì gùyì de, shì bù xiǎoxīn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGT9WYR'

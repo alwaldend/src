@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Grammatical_Structures", "Notonly…butalso…"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Many types of "not only... but also..."'
+english = 'He not only likes to eat Chinese food, but he can make some as well!'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不仅 / 不但 / 不只 + ⋯⋯，而且 / 还 / 也 + ⋯⋯'
+hanzi = '他不仅喜欢吃中国菜，而且也会做几个中国菜！'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJ1VZQ'

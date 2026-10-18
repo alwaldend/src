@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'After a specific time with "yihou"'
+english = 'In a few years, our company will be even bigger.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Time / Verb + 以后, ....'
+hanzi = '几年以后，我们公司会更大。'
+notes = ''
+pinyin = 'Jǐ nián  yǐhòu, wǒmen gōngsī huì gèng dà.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGRLQGY'

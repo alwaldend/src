@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Inability with "mei banfa"'
+english = 'There is no wifi here, so I have no way of going online.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 没办法 + Verb + Obj.'
+hanzi = '这里没有wifi，我没办法上网。'
+notes = ''
+pinyin = 'Zhèlǐ méiyǒu wifi，wǒ méi bànfǎ shàngwǎng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGI2KHC'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "just" with "gang"'
+english = 'My wife just finished giving birth to our baby.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 刚刚 + Verb'
+hanzi = '我老婆刚生完孩子。'
+notes = ''
+pinyin = 'Wǒ lǎopo gāng shēng wán háizi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQJJYO'

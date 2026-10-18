@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Potential complement'
+english = 'Nobody can understand this sentence.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 不 + Complement'
+hanzi = '大家都看不懂这句话。'
+notes = ''
+pinyin = 'Dàjiā dōu kàn bu dǒng zhè jù huà.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCPJPQ'

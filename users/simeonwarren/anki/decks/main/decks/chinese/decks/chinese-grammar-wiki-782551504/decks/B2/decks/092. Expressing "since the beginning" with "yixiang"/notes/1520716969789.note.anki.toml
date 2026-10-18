@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "since the beginning" with "yixiang"'
+english = ''
+example-sentence = ''
+example-type = 'invalid'
+grammar-construct = 'Subj. + 一向 + Habit / Attitude / etc.'
+hanzi = '他一向都在学汉语.'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGACMNQ'

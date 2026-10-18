@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "in addition" with "haiyou"'
+english = "My mother doesn't want me to go abroad. In addition, she doesn't like my foreign boyfriend."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Clause 1 ，还有 ， Clause 2'
+hanzi = '我妈不想让我出国。还有，她也不喜欢我的外国男朋友。'
+notes = ''
+pinyin = 'Wǒ mā bù xiǎng ràng wǒ chūguó. háiyǒu, tā yě bù xǐhuan wǒ de wàiguó nánpéngyou.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGHQRI1'

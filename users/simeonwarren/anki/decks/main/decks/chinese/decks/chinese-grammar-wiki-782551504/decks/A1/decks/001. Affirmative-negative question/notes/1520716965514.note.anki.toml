@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Affirmative-negative question'
+english = 'Is Chinese food spicy?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Adj. + 不 + Adj.'
+hanzi = '中国菜辣不辣？'
+notes = ''
+pinyin = 'Zhōngguó cài là bu là?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGZH7K3'

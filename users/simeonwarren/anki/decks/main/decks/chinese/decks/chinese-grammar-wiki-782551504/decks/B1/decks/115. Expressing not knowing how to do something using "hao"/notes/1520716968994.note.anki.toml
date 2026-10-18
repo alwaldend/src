@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing not knowing how to do something using "hao"'
+english = "I want to ask, but I'm not sure when to ask."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不知道 + [Verb Phrase] + 好'
+hanzi = '我想问，可是不知道什么时候问才好。'
+notes = ''
+pinyin = 'Wǒ xiǎng wèn, kěshì bù zhīdào shénme shíhou wèn cái hǎo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG0EQQJ'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Result complements'
+english = 'You wrote this character wrong.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 没 + Verb + Adj. (+ Obj.)'
+hanzi = '这个字写错了。'
+notes = ''
+pinyin = 'Zhège zì xiě cuò le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNNMST'

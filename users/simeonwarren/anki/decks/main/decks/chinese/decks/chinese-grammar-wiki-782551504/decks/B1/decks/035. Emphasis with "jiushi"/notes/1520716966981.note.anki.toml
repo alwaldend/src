@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Emphasis with "jiushi"'
+english = 'A moron is precisely what you are!'
+example-sentence = ''
+example-type = ''
+grammar-construct = '就是 + Noun'
+hanzi = '你就是个笨蛋！'
+notes = ''
+pinyin = 'Nǐ jiù shì gè bèndàn!'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGY21RK'

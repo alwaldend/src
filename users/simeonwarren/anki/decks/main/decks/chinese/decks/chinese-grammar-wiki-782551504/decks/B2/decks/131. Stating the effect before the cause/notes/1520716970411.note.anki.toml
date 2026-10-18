@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Cause/EffectStatements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Stating the effect before the cause'
+english = 'The reason she asked this much was because she cares about you guys.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '之所以 ⋯⋯ ，是 + 因为 / 为了 / 想 ⋯⋯'
+hanzi = '她之所以问这么多是因为她关心你们。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTPGXK'

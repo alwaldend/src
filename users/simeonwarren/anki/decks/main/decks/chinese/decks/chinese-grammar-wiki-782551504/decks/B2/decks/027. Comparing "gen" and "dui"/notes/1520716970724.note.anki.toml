@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "Conjunctions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "gen" and "dui"'
+english = 'Shanghai and New York are alike; they are both international cities.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A + 跟 + B + （不）一样'
+hanzi = '上海跟纽约一样，都是国际大都市。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGC5Y86'

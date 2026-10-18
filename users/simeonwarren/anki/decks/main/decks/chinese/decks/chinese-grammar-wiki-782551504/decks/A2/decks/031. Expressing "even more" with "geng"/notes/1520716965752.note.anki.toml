@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "even more" with "geng"'
+english = "Don't get too excited. We still have more work to do."
+example-sentence = ''
+example-type = ''
+grammar-construct = '更 + Adj.'
+hanzi = '不要太高兴，我们还有更多的工作要做。'
+notes = 'It is implied that a lot of work has already been done but there is still "even more" work left.'
+pinyin = 'Bùyào tài gāoxìng, wǒmen hái yǒu gèng duō de gōngzuò yào zuò.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG4NIPB'

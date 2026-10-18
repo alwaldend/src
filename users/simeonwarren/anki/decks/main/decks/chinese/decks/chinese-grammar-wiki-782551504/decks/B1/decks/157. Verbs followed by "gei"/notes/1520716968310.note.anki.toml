@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Verbs followed by "gei"'
+english = 'Our company donated two hundred thousand kuai in total to the school.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 给 + Recipient + Obj.'
+hanzi = '我们公司一共捐给这个学校二十万。'
+notes = ''
+pinyin = 'Wǒmen gōngsī yīgòng juān gěi zhège xuéxiào èrshí wàn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMMHTQ'

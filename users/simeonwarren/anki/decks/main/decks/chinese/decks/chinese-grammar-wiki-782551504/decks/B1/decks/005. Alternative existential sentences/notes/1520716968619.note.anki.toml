@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Alternative existential sentences'
+english = 'The basement is piled with lots of old stuff.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Place + Verb + 着 + [Noun Phrase]'
+hanzi = '地下室里堆着很多旧东西。'
+notes = ''
+pinyin = 'Dìxiàshì lǐ duī zhe hěn duō jiù dōngxi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGAC619'

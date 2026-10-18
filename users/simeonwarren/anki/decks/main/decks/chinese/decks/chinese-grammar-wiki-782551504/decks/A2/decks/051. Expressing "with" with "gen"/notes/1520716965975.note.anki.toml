@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "with" with "gen"'
+english = ''
+example-sentence = ''
+example-type = 'invalid'
+grammar-construct = 'Subj. + 跟 + Person + 一起 + Verb + Obj.'
+hanzi = '明天我要见面我男朋友的家人。'
+notes = ''
+pinyin = 'Míngtiān wǒ yào jiànmiàn wǒ nánpéngyou de jiārén.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGSZ0HP'

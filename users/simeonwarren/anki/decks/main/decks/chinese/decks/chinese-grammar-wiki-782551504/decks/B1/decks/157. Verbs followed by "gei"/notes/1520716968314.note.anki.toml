@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Verbs followed by "gei"'
+english = 'Please send all of those pictures to me.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 把 + Obj. + Verb + 给 + Recipient'
+hanzi = '请把那些照片都发给我。'
+notes = ''
+pinyin = 'Qǐng bǎ nàxiē zhàopiàn dōu fā gěi wǒ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMMHTQ'

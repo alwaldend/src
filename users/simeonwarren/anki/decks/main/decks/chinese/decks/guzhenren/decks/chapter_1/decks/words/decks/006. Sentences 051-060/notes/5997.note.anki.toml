@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'brown.'
+example-sentence = '额头碰在棕色的地板上,发出轻轻的砰砰声'
+example-type = ''
+grammar-construct = ''
+hanzi = '棕色'
+notes = ''
+pinyin = '<span class="tone1">zōng</span><span class="tone4">sè</span>	 <!-- zong se -->'
+source = ''

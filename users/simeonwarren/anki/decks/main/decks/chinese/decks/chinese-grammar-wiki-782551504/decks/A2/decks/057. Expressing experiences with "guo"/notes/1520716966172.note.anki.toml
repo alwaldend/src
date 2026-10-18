@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing experiences with "guo"'
+english = "I've also eaten Japanese food before."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 过 + Obj.'
+hanzi = '我也吃过日本菜。'
+notes = ''
+pinyin = 'Wǒ yě chī guo Rìběn cài.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQGV3P'

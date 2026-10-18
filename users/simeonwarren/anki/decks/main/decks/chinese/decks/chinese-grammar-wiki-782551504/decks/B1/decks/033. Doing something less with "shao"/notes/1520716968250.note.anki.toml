@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Doing something less with "shao"'
+english = 'My mother tells me to eat less spicy food.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 少 + Verb-Obj.'
+hanzi = '我妈让我少吃辣。'
+notes = ''
+pinyin = 'Wǒ mā ràng wǒ shǎo chī là.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG9B0M8'

@@ -1,0 +1,13 @@
+note_type = "note_types/python-basic-and-reversed.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<i>set</i>.copy()'
+example = ''
+question = '<b>Set method</b> that returns a shallow copy of the original set.'
+version = ''
+with-options = ''

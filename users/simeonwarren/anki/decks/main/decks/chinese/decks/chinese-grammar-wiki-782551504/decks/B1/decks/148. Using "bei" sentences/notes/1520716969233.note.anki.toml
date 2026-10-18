@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "bei" sentences'
+english = 'He was scolded by his parents.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 被 (+ Doer) + Verb + 了'
+hanzi = '他被父母骂了。'
+notes = ''
+pinyin = 'Tā bèi fùmǔ mà le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGHF9F1'

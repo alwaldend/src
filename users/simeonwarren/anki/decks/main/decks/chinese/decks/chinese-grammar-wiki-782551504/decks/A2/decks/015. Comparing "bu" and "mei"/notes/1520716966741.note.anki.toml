@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "bu" and "mei"'
+english = "The boss won't come tomorrow."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不 + Verb'
+hanzi = '老板明天不来。'
+notes = ''
+pinyin = 'Lǎobǎn míngtiān bù lái.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGRJ1BI'

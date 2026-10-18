@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = "to practice;\tto train;\tto drill;\tto perfect (one's skill);\texercise."
+example-sentence = '   方源你个该死的魔头,你为了练成春秋蝉,杀了千万人的性命'
+example-type = ''
+grammar-construct = ''
+hanzi = '练'
+notes = ''
+pinyin = '<span class="tone4">liàn</span>	 <!-- lian -->'
+source = ''

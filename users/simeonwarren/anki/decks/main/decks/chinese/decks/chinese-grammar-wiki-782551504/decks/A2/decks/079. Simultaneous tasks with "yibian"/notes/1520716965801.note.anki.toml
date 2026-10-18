@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Simultaneous tasks with "yibian"'
+english = 'Children like to play while eating.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 一边 + Verb (，) + 一边 + Verb'
+hanzi = '孩子喜欢一边吃饭，一边玩。'
+notes = ''
+pinyin = 'Háizi xǐhuan yībiān chīfàn, yībiān wán.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG2ZC5S'

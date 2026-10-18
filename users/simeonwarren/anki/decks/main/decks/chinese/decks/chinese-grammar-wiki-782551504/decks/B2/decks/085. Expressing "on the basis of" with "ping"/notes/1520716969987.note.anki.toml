@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "on the basis of" with "ping"'
+english = 'Using his intellect, he was able to overcome many challenges.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '凭着 + Noun / Noun Phrase'
+hanzi = '他凭着智慧战胜了很多的困难。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGGB3IV'

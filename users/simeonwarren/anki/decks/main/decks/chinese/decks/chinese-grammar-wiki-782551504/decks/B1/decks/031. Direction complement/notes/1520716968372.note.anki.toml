@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Direction complement'
+english = 'Please help me to move this suitcase over there.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 把 + Obj. + Verb + [Direction Complement]'
+hanzi = '帮我把这个箱子搬过去。'
+notes = ''
+pinyin = 'Bāng wǒ bǎ zhège xiāngzi bān guòqù.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8LWBJ'

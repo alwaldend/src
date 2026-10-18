@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'respected;	respectable;	honorable.'
+example-sentence = ' 围攻他的正道群雄,不是堂堂一派之长者尊贵,就是名动四方之少年英豪'
+example-type = ''
+grammar-construct = ''
+hanzi = '尊贵'
+notes = ''
+pinyin = '<span class="tone1">zūn</span><span class="tone4">guì</span>	 <!-- zung ui -->'
+source = ''

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "when" with "dengdao"'
+english = "She didn't start working until her children went to elementary school."
+example-sentence = ''
+example-type = ''
+grammar-construct = '等(到) + Time / Event ，Subj. + 才 + Predicate'
+hanzi = '等到孩子上了小学，她才开始工作。'
+notes = ''
+pinyin = 'Děngdào háizi shàng le xiǎoxué, tā cái kāishǐ gōngzuò.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG68F61'

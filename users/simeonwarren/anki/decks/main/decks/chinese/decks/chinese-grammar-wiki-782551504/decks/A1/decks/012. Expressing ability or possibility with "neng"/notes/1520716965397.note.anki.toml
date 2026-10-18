@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Auxiliaryverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing ability or possibility with "neng"'
+english = "In class, you can't speak English."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 能 + Verb + Obj.'
+hanzi = '上课的时候不能说英文。'
+notes = 'My teacher has forbidden me from speaking English.'
+pinyin = 'Shàngkè de shíhou bù néng shuō Yīngwén.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG9PQ40'

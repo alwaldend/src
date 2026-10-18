@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing comparable degree with "you"'
+english = 'Is Thailand as fun as Japan?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A + 有 (+ B) + 那么 + Adj. + 吗 ？'
+hanzi = '泰国有日本好玩吗？'
+notes = ''
+pinyin = 'Tàiguó yǒu Rìběn hǎowán ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5DG95'

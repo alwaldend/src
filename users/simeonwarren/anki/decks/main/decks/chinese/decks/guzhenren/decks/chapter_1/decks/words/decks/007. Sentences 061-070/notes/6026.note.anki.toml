@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'in a wink.'
+example-sentence = '  时间过的真是太快了,一眨眼,一年就都过去了'
+example-type = ''
+grammar-construct = ''
+hanzi = '一眨眼'
+notes = ''
+pinyin = '<span class="tone1">yī</span><span class="tone3">zhǎ</span><span class="tone3">yǎn</span>	 <!-- yi zha yan -->'
+source = ''

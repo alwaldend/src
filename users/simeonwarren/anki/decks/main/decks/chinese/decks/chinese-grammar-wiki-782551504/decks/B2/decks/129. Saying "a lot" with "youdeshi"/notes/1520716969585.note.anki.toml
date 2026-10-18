@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adjectives", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Saying "a lot" with "youdeshi"'
+english = "There are a lot of this kind of pens in my house. I'm going to give them to you."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun + Subj. + 有的是 。'
+hanzi = '这样的笔我家有的是，这些都送给你。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGVACYB'

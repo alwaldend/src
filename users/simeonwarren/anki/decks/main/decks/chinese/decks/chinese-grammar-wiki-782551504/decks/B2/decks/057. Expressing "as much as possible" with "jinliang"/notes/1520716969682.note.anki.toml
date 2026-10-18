@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "as much as possible" with "jinliang"'
+english = 'You are the big brother and you should try your best to take good care of you little sister.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '尽量 + Verb / Adj.'
+hanzi = '你是哥哥，要尽量照顾好妹妹。'
+notes = ''
+pinyin = 'Nǐ  shì gēge, yào jǐnliàng  zhàogù hǎo mèimei .'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGINBWJ'

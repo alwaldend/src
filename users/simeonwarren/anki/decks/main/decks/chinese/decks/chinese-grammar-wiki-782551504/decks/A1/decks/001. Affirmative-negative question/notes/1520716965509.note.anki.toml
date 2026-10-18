@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Affirmative-negative question'
+english = 'Is the boss coming to the office today?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 不 + Verb + Obj.'
+hanzi = '今天老板来不来办公室？'
+notes = ''
+pinyin = 'Jīntiān lǎobǎn lái bu lái bàngōngshì?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGZH7K3'

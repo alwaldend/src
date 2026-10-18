@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Degree complement'
+english = 'My son is incredibly naughty.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '我儿子淘气得要命。'
+notes = ''
+pinyin = 'Wǒ érzi táoqì de yàomìng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG79STE'

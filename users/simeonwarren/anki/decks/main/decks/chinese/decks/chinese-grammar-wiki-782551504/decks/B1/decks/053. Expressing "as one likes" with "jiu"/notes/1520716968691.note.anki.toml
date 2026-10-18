@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "as one likes" with "jiu"'
+english = "Go if you want to. Just don't come back too late."
+example-sentence = ''
+example-type = ''
+grammar-construct = '想 + Verb + 就 + Verb'
+hanzi = '想去就去吧，不过要早点回来。'
+notes = ''
+pinyin = 'Xiǎng qù jiù qù ba, bùguò yào zǎodiǎn huílái.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDUZ55'

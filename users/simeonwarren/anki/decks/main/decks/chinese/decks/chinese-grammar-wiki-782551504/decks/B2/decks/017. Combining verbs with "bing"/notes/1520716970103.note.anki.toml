@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Combining verbs with "bing"'
+english = 'Controlling your diet and also exercising more will give you a better and better figure.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb / [Verb Phrase 1] + 并(且) + Verb / [Verb Phrase 2]'
+hanzi = '控制饮食并且多运动，会让你的身材越来越好。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5C89R'

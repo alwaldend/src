@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Advanced potential complements'
+english = 'Can you carry all these thing?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 得 / 不 + 下'
+hanzi = '你一个人拿得下这么多东西吗？'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG516F9'

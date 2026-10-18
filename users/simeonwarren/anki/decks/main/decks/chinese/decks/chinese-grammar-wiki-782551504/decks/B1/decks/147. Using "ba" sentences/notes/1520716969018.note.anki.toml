@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "ba" sentences'
+english = ''
+example-sentence = ''
+example-type = 'invalid'
+grammar-construct = 'Subj. + 把 + Obj. + Verb Phrase'
+hanzi = '你放书在桌子上。'
+notes = ''
+pinyin = 'Nǐ fàng shū zài zhuōzi shàng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG2UB2B'

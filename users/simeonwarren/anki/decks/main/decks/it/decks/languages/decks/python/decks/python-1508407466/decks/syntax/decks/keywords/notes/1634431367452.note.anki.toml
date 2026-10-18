@@ -1,0 +1,13 @@
+note_type = "note_types/python-basic-and-reversed.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<b>Keyword</b> used to check if a value is present in an iterable object or to iterate through a for loop.'
+example = ''
+question = '<b>Keyword: </b>in'
+version = ''
+with-options = ''

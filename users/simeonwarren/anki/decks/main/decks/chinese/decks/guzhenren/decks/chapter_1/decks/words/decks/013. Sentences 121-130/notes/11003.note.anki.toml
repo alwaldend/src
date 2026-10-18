@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'to rank (number 1, or third last etc);	to be among (those who are in a particular group).'
+example-sentence = '在十大奇蛊排名中,能名列第七,自然非同小可'
+example-type = ''
+grammar-construct = ''
+hanzi = '名列'
+notes = ''
+pinyin = '<span class="tone2">míng</span><span class="tone4">liè</span>	 <!-- ming lie -->'
+source = ''

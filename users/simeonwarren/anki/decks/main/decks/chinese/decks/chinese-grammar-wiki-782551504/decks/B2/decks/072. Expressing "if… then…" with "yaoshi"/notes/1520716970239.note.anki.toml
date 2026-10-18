@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Grammatical_Structures", "IfStatements"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "if… then…" with "yaoshi"'
+english = 'If my mother knew about this, I would be so dead!'
+example-sentence = ''
+example-type = ''
+grammar-construct = '要是 ……， 就 ……'
+hanzi = '要是我妈知道这件事，我就死定了!'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGN4S8O'

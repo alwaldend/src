@@ -1,0 +1,13 @@
+note_type = "note_types/python-basic-and-reversed.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<b>Keyword</b> for the ! logical operator. Evaluates False to True, and True to False.'
+example = ''
+question = '<b>Keyword:</b> not'
+version = ''
+with-options = ''

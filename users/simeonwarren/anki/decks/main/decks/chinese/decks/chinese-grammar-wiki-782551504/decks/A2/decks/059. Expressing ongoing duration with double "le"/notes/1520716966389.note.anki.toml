@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing ongoing duration with double "le"'
+english = 'I have been waiting here for half an hour.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 了 + Duration + 了'
+hanzi = '我在这儿等了半个小时了。'
+notes = ''
+pinyin = 'Wǒ zài zhèr děng le bàn gè xiǎoshí le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG69RR8'

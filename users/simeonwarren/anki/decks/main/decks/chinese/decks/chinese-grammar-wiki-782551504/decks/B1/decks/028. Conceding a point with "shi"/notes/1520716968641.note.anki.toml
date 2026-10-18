@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Conceding a point with "shi"'
+english = "This thing is good, but it's too expensive."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Adj. + 是 + Adj. ， 但是 / 就是 ⋯⋯'
+hanzi = '这个东西好是好，就是太贵了。'
+notes = ''
+pinyin = 'Zhège dōngxi hǎo shì hǎo, jiùshì tài guì le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGT9Y8P'

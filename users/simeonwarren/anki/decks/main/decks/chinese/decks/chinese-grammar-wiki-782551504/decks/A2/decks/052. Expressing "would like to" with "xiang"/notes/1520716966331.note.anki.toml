@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Auxiliaryverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "would like to" with "xiang"'
+english = "They wouldn't like to go to the bar."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不 + 想 + Verb + Obj.'
+hanzi = '他们不想去酒吧。'
+notes = ''
+pinyin = 'Tāmen bù xiǎng qù jiǔbā.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGT97VF'

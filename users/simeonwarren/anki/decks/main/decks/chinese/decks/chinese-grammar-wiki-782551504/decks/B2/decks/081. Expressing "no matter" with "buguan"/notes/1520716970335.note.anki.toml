@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Grammatical_Structures", "NoMatterStatements"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "no matter" with "buguan"'
+english = 'No matter when you bought it, we can repair it for you for free.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '不管 + Question Word ，(Subj. +) 都 ⋯⋯'
+hanzi = '不管你是什么时候买的，我们都可以免费修。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG0NDS6'

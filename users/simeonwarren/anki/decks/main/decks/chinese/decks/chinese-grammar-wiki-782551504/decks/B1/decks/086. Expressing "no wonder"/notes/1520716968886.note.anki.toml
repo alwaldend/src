@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "no wonder"'
+english = 'No wonder you two look so happy. You are getting married.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '怪不得 / 难怪 + [Observation] ，原来 (+ 是) + Reason'
+hanzi = '怪不得你们这么高兴，原来是要结婚了。'
+notes = ''
+pinyin = 'Guàibude nǐmen zhème gāoxìng, yuánlái shì yào jiéhūn le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGFPV2C'

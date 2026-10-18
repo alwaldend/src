@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "ye" and "dou" together'
+english = "I'm good. So are my family."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 也都 + Predicate'
+hanzi = '我很好，我的家人也都很好。'
+notes = ''
+pinyin = 'Wǒ hěn hǎo, wǒ de jiārén yě dōu hěn hǎo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8GSXY'

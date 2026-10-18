@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "it depends" with "kan"'
+english = 'Product development depends on the needs of the clients.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '[Unknown Outcome] + 要看 / 得看 + [Unclear Situation]'
+hanzi = '产品开发要看客户的需求。'
+notes = ''
+pinyin = 'Chǎnpǐn kāifā yào kàn kèhù de xūqiú.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG765HD'

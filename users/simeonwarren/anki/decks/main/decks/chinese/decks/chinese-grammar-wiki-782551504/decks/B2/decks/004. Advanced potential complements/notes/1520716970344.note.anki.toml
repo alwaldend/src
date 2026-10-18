@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Advanced potential complements'
+english = "He doesn't have much experience. He is not able  deal with this kind of problem."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 得 / 不 + 了'
+hanzi = '他没什么经验，处理不了这样的问题。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG516F9'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "TimeWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "gang" and "gangcai"'
+english = "She didn't ask me this question just now."
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = '刚 + Adj.'
+hanzi = '她刚才没问我这个问题。'
+notes = "It's fine to use 刚才 with 没 in the past."
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJFFWG'

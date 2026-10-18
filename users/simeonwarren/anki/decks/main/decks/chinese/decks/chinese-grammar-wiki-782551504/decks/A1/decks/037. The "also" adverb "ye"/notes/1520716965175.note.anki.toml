@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'The "also" adverb "ye"'
+english = 'This place is also pretty.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 也 (+ Adv.) + Adj.'
+hanzi = '这个地方也很漂亮。'
+notes = ''
+pinyin = 'Zhège dìfang yě hěn piàoliang.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGG25MD'

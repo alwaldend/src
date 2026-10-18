@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Emphasizing negation with "you"'
+english = "You don't go to work tomorrow. Why get up so early?"
+example-sentence = ''
+example-type = ''
+grammar-construct = '又 + 不 / 没 + Predicate'
+hanzi = '明天又不上班，那么早起床干吗？'
+notes = ''
+pinyin = 'Míngtiān yòu bù shàngbān, nàme zǎo qǐchuáng gànmá?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGD3C4S'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "TimeWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "yihou" and "de shihou"'
+english = "When it stops raining, we'll go play in the park."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 以后／的时候， Comment'
+hanzi = '雨停了以后，我们就去公园玩。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGLNKZR'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Numbers", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Structure of dates'
+english = 'We got married on September 4th, 1980.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'x 年 + y 月 + z 号'
+hanzi = '1980年9月4号我们结婚了。'
+notes = ''
+pinyin = 'Yī-jiǔ-bā-líng nián Jiǔyuè sì hào wǒmen jiéhūn le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGT3KF6'

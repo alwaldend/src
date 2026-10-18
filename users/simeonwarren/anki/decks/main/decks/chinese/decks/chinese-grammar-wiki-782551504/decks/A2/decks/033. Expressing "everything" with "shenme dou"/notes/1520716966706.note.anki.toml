@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "everything" with "shenme dou"'
+english = 'All of the dishes mom makes are tasty.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '什么 + Noun + 都 + Verb'
+hanzi = '妈妈做的什么菜都好吃。'
+notes = ''
+pinyin = 'Māma zuò de shénme cài dōu hǎochī.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGAQV6C'

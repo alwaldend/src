@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Cause/EffectStatements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "since" with "jiran"'
+english = 'Since you guys are good friends, he will definitely help you.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '既然＋Fact, 那 / 就 / 那就＋Suggestion / Inference'
+hanzi = '既然你们是好朋友，那他肯定会帮你吧。'
+notes = 'an inference)'
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGG4BX9'

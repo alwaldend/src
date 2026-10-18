@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "turan" and "huran"'
+english = 'This was a sudden accident. None of us thought it could happen.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '突然 + (的) + Noun'
+hanzi = '这是一场突然事故，我们都没想到。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGHKZP4'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Referring to "all" using "suoyou"'
+english = 'I love eating all the Chinese food.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '所有的 + Noun + 都 + Verb / Adj.'
+hanzi = '我爱吃所有的中国菜。'
+notes = ''
+pinyin = 'Wǒ ài chī suǒyǒude Zhōngguó cài.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGOWBSL'

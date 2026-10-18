@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "in the end" with "daodi"'
+english = 'Our program finally succeed after we worked on this for over two years.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '到底＋Verb＋了'
+hanzi = '经过两年多的努力，我们的项目到底成功了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTVEHJ'

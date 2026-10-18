@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Basic comparisons with "bu bi"'
+english = 'This young teacher teaches as well as the old teacher does.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A + 不比 + B + Verb + 得 + Adj.'
+hanzi = '这个年轻的老师教得不比那个老老师差。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8DVSO'

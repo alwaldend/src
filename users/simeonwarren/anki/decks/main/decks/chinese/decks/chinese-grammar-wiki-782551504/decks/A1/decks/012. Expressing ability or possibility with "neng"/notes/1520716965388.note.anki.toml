@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Auxiliaryverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing ability or possibility with "neng"'
+english = 'Can a one year old baby talk?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 能 + Verb + Obj.'
+hanzi = '一岁的宝宝能说话吗？'
+notes = ''
+pinyin = 'Yī suì de bǎobao néng shuōhuà ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG9PQ40'

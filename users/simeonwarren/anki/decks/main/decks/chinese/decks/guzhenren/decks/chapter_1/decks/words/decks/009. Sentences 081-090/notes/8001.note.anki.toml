@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'his;	her;	its;	their;	that;	such;	it (refers to sth preceding it).'
+example-sentence = '可惜就是父母死的早,现在被其舅父舅母抚养着'
+example-type = ''
+grammar-construct = ''
+hanzi = '其'
+notes = ''
+pinyin = '<span class="tone2">qí</span>	 <!-- qi -->'
+source = ''

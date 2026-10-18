@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Basic comparisons with "bi"'
+english = 'Is Shanghai bigger than New York?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun 1 + 比 + Noun 2 + Adj.'
+hanzi = '上海比纽约大吗？'
+notes = ''
+pinyin = 'Shànghǎi bǐ Niǔyuē dà ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8SI2K'

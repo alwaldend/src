@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "de" (modal particle)'
+english = "I've told you this. Do you not remember?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Statement + 的'
+hanzi = '我跟你说过的，你不记得了？'
+notes = ''
+pinyin = 'Wǒ gēn nǐ shuō guo de, nǐ bù jìde le?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG19S1M'

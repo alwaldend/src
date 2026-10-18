@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'not long (after);	before too long;	soon;	soon after.'
+example-sentence = ' 不久,长长的走廊上就冷清下来'
+example-type = ''
+grammar-construct = ''
+hanzi = '不久'
+notes = ''
+pinyin = '<span class="tone4">bù</span><span class="tone3">jiǔ</span>	 <!-- bu jiu -->'
+source = ''

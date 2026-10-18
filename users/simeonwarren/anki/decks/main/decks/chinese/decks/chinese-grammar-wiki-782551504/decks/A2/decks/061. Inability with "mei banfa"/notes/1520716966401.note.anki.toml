@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Inability with "mei banfa"'
+english = "You can't speak Chinese, so there is no way for you to work for our company."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 没办法 + Verb + Obj.'
+hanzi = '你不会说中文，没办法在我们公司工作。'
+notes = ''
+pinyin = 'Nǐ bù huì shuō Zhōngwén, méi bànfǎ zài wǒmen gōngsī gōngzuò.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGI2KHC'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Emphasizing quantity with "dou"'
+english = "A lot of kids don't like to go to school."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 都 + Verb + Obj.'
+hanzi = '很多孩子都不喜欢上学。'
+notes = ''
+pinyin = 'Hěn duō háizi dōu bù xǐhuan shàngxué.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWNEYM'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "difficult" with "nan"'
+english = 'Mandarin is hard to learn.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + (很) 难 + Verb'
+hanzi = '汉语很难学。'
+notes = ''
+pinyin = 'Hànyǔ hěn nán xué.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG35T4H'

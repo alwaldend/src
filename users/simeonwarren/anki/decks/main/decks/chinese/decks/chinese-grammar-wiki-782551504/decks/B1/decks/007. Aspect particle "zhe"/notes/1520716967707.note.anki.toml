@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Aspect particle "zhe"'
+english = 'The door of the company is open but no one is in there.'
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = 'Verb 1 + 着 + Verb 2'
+hanzi = '公司的门开着，可是没人在。'
+notes = 'Being on is a state, so using 着 is natural.)'
+pinyin = 'Gōngsī de mén kāi zhe, kěshì méi rén zài.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGOIDEO'

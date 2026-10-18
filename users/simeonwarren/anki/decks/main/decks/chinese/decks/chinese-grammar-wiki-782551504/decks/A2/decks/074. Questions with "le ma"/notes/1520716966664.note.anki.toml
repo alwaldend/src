@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Questions with "le ma"'
+english = 'Did you eat dinner?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Topic (+ Subj.) + Verb + 了吗?'
+hanzi = '晚饭你吃了吗？'
+notes = ''
+pinyin = 'Wǎnfàn nǐ chī le ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGYKDNF'

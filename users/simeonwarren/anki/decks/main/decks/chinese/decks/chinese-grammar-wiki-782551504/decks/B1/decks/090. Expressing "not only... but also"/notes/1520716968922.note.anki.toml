@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "not only... but also"'
+english = 'Not only do children like this movie, but the adults like it.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '不但 + Subj. 1 ⋯⋯ ，而且 + Subj. 2 + 也 ⋯⋯'
+hanzi = '这个电影不但孩子们喜欢，大人也很喜欢。'
+notes = ''
+pinyin = 'Zhège diànyǐng bùdàn háizi men xǐhuan, dàren yě hěn xǐhuan.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTYJ3E'

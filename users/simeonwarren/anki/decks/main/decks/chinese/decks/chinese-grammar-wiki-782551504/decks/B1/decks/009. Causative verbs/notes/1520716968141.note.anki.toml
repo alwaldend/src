@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Causative verbs'
+english = 'He secretly asked other girls out. What are you expecting me to think?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + [Causative Verb] + Person + Predicate'
+hanzi = '他偷偷约别的女孩，你叫我怎么想？'
+notes = ''
+pinyin = 'Tā tōutōu yuē bié de nǚhái, nǐ jiào wǒ zěnme xiǎng?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5T7XC'

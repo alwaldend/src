@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Tag questions with "ma"'
+english = 'I want to go to the bathroom now. Is that OK?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '⋯⋯， 好 / 对 / 是 / 可以 +  吗？'
+hanzi = '我现在想去洗手间，可以吗？'
+notes = ''
+pinyin = 'Wǒ xiànzài xiǎng qù xǐshǒujiān, kěyǐ ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGSJYZ2'

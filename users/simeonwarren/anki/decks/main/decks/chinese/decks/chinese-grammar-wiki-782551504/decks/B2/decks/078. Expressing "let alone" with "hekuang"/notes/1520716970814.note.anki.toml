@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Grammatical_Structures", "Letalone"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "let alone" with "hekuang"'
+english = 'He can answer a question that hard, let alone answer one that easy.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 连 ⋯⋯ 都 + Verb ，何况 ⋯⋯ 呢 ？'
+hanzi = '他连那么难的题都会，何况一个这么简单的题呢？'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG3ZS9G'

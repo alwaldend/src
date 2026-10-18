@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "always" with "conglai"'
+english = "I have always lived alone; I'm used to it already."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 从来 + 都 + Predicate'
+hanzi = '我从来都一个人住，已经习惯了。'
+notes = ''
+pinyin = 'Wǒ cónglái dōu yīgèrén zhù, yǐjīng xíguàn le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8KUHG'

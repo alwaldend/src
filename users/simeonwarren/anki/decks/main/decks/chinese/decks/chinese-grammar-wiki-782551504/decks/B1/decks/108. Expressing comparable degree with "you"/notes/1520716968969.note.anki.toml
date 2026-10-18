@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing comparable degree with "you"'
+english = 'Can you speak as well as he does?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A + 有 + B + Verb + 得 + Adj. + 吗 ？'
+hanzi = '你有他说得好吗？'
+notes = ''
+pinyin = 'Nǐ yǒu tā shuō de hǎo ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5DG95'

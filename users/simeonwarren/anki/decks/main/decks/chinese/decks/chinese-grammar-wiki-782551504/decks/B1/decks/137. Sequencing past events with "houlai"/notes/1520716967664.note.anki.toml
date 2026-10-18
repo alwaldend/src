@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Sequencing past events with "houlai"'
+english = 'They had been together for about three years. But they broke up afterwards.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '[Past Event 1] ，后来 ，[Past Event 2]'
+hanzi = '他们在一起差不多三年，后来分手了。'
+notes = ''
+pinyin = 'Tāmen zài yīqǐ chàbuduō sān nián, hòulái fēnshǒu le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGY0UDC'

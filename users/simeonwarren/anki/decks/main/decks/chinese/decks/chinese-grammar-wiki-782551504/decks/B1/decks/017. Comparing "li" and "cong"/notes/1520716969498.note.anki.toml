@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "li" and "cong"'
+english = 'We can tell your work attitude from this.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '从 + Place + 上 / 里'
+hanzi = '从这件事可以看出你的工作态度。'
+notes = ''
+pinyin = 'Cóng zhè jiàn shì kěyǐ kànchū nǐ de gōngzuò tàidu.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG59C66'

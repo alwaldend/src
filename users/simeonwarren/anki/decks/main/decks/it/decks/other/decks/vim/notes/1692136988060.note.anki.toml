@@ -1,0 +1,12 @@
+note_type = "note_types/basic.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[[cards]]
+ordinal = 1
+
+[fields]
+Back = ']c &nbsp;“ and &nbsp; [c'
+Front = 'How do you move from one diff block to the next in vim[diff]?'

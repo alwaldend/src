@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "EvenIfStatements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "even if…" with "jiusuan"'
+english = 'Even if the staff would complaint about it, the company are still going to carry out the new policy.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '就算 + [Hypothetical Statement] + 也 + [Action]'
+hanzi = '就算员工会抱怨，公司也要实行这个新政策。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGLI513'

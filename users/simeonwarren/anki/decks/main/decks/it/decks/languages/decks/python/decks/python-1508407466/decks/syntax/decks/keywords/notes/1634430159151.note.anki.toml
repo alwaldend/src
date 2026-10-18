@@ -1,0 +1,13 @@
+note_type = "note_types/python-basic-and-reversed.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<b>Keyword</b> used with exceptions, a block of code that will be executed no matter if there is an exception or not.'
+example = ''
+question = '<b>Keyword: </b>finally&nbsp;'
+version = ''
+with-options = ''

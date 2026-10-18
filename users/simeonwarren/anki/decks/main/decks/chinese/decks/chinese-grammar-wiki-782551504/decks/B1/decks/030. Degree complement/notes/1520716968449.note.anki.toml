@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Degree complement'
+english = 'The metro is intenselt crowded!'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '地铁挤得要命！'
+notes = ''
+pinyin = 'Dìtiě jǐ de yàomìng!'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG79STE'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "AdverbswithAdjectives", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "a little too" with "you dian"'
+english = "Today, the teacher felt a little unwell, so she didn't come to class."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 有点(儿) + Adj.'
+hanzi = '老师今天有点不舒服，所以没来上课。'
+notes = ''
+pinyin = 'Lǎoshī jīntiān yǒudiǎn bù shūfu, suǒyǐ méi lái shàngkè.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPM3MY'

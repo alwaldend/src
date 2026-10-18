@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Placement of question words'
+english = 'Which dish do you like?<br>I like this dish.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 哪个 (+ Noun) ?'
+hanzi = 'A: 你喜欢哪个菜？<br>B: 我喜欢这个菜。'
+notes = ''
+pinyin = 'Nǐ xǐhuan nǎge cài?<br>Wǒ xǐhuan zhège cài.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJQPSC'

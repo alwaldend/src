@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "simply" with "jianzhi"'
+english = "He's just lying to you."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 简直 + Verb'
+hanzi = '他简直是在骗你。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8OLAE'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Advanced uses of "ba"'
+english = 'Many study abroad students treat their Chinese teachers as their friends.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '把 + Obj.+ 当成 / 看成 / 当作 / 看作 +⋯⋯'
+hanzi = '很多留学生都把自己的中文老师当作朋友。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQRS3P'

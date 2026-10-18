@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "C1"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "when the time comes" with "dao shihou"'
+english = "Let's see what we can do later."
+example-sentence = ''
+example-type = ''
+grammar-construct = '……，到时候 + ……'
+hanzi = '到时候看吧。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMDJTD'

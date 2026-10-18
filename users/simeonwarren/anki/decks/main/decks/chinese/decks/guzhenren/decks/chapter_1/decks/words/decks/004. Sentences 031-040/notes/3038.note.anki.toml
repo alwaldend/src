@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = "central point;\tin one's thoughts;\tin one's heart."
+example-sentence = ' 方源心中叹着,有些感慨,却并不后悔'
+example-type = ''
+grammar-construct = ''
+hanzi = '心中'
+notes = ''
+pinyin = '<span class="tone1">xīn</span><span class="tone1">zhōng</span>	 <!-- xin zhong -->'
+source = ''

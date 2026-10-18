@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["C1", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "nothing is more...than" with "moguoyu"'
+english = 'Nothing makes her sadder than you shouting at her.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Topics or questions + 莫过于 + answer'
+hanzi = '让她最难过的莫过于你对她大喊大叫。'
+notes = ''
+pinyin = '<div>Ràng tā zuì nánguò de mò guòyú nǐ duì tā dà hǎn dà jiào.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGGI66V'

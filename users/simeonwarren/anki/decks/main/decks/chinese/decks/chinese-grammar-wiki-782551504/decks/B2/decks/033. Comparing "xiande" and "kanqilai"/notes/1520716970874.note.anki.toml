@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "xiande" and "kanqilai"'
+english = 'You seem very happy today.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 看起来 + Predicate'
+hanzi = '你今天看起来很高兴。'
+notes = ''
+pinyin = 'Nǐ jīntiān kànqǐlái hěn gāoxìng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGKQEG9'

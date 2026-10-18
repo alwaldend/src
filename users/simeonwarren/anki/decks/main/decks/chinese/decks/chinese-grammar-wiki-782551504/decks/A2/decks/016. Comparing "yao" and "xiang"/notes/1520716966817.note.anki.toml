@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Auxiliaryverbs", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "yao" and "xiang"'
+english = 'My wife always wants the most expensive bags.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 想要 + Noun / Verb'
+hanzi = '我老婆总是想要最贵的包。'
+notes = ''
+pinyin = 'Wǒ lǎopo zǒngshì xiǎngyào zuì guì de bāo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGD88UO'

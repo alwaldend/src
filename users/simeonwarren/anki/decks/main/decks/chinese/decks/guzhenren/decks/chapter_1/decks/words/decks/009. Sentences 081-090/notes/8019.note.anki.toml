@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = "one's conduct;\tdeed;\tactivity;\taccomplishment;\tachievement;\tto act as;\tas (in the capacity of);\tqua;\tto view as;\tto look upon (sth as);\tto take sth to be."
+example-sentence = ' 作为一族之长,对于那些优秀而突出的子弟自然会关注'
+example-type = ''
+grammar-construct = ''
+hanzi = '作为'
+notes = ''
+pinyin = '<span class="tone4">zuò</span><span class="tone2">wéi</span>	 <!-- zuo wei -->'
+source = ''

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'rebirth.'
+example-sentence = ' 简而言之,就是重生'
+example-type = ''
+grammar-construct = ''
+hanzi = '重生'
+notes = ''
+pinyin = '<span class="tone2">chóng</span><span class="tone1">shēng</span>	 <!-- chong sheng -->'
+source = ''

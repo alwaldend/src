@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["C1", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "genben" and "daodi"'
+english = "The boss hasn't revealed how much bonus we can give out."
+example-sentence = ''
+example-type = 'invalid'
+grammar-construct = ''
+hanzi = '老板还没有透露我们根本能发多少奖金.'
+notes = '根本 should be used with negations'
+pinyin = 'Lǎobǎn hái méiyǒu tòulù wǒmen gēnběn néng fā duōshǎo jiǎngjīn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG9JK0B'

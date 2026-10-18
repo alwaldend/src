@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'scattered;	loose;	to come loose;	to fall apart;	leisurely;	powdered medicine.<br>to scatter;	to break up (a meeting etc);	to disperse;	to disseminate;	to dispel;	(coll.) to sack.<br>variant of 散.<br>'
+example-sentence = '  家老们满怀心思,一一散去'
+example-type = ''
+grammar-construct = ''
+hanzi = '散'
+notes = ''
+pinyin = '<span class="tone5">sǎnsànsàn</span>	 <!-- san san san -->'
+source = ''

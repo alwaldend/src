@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Auxiliaryverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Auxiliary verb "yao" and its multiple meanings'
+english = 'We need to work tomorrow.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 要 + Verb'
+hanzi = '我们明天要上班。'
+notes = "logically, most people don't really WANT to work"
+pinyin = 'Wǒmen míngtiān yào shàngbān.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG95AL1'

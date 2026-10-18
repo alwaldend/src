@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Complement "-huai le"'
+english = 'His whole family were so thrilled when he received the admission letter.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 坏了'
+hanzi = '收到录取通知书，他们全家都高兴坏了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGT0GYL'

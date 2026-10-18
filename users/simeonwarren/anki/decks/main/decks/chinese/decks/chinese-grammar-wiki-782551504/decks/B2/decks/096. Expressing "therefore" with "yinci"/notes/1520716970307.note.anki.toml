@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Cause/EffectStatements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "therefore" with "yinci"'
+english = 'The factory has been shut down for a long time, so it is unable to give its workers their wages.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Cause + 因此 + Effect'
+hanzi = '工厂已经停产很久了，因此无法给工人发工资。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGUEFAL'

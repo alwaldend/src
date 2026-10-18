@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Grammatical_Structures", "IfStatements"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "what if" with "wanyi"'
+english = 'Take more cash, just in case.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '万一 ⋯⋯ ，⋯⋯'
+hanzi = '多带点现金吧，以防万一。'
+notes = ''
+pinyin = 'Duō dài diǎn xiànjīn ba, yǐ fáng wànyī.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG25773'

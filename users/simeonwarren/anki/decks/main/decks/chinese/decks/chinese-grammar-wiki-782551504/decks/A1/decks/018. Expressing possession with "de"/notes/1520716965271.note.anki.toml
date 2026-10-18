@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing possession with "de"'
+english = 'your food'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun 1 + 的 + Noun 2'
+hanzi = '你们的菜'
+notes = ''
+pinyin = 'nǐmen de cài'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGUHQD2'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Degree complement'
+english = 'The weather here is so comfortable.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 得 + [Degree Complement]'
+hanzi = '这里的天气舒服极了。'
+notes = ''
+pinyin = 'Zhèlǐ de tiānqì shūfu jíle.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG79STE'

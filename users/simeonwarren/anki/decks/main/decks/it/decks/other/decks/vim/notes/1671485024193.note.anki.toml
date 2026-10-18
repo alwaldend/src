@@ -1,0 +1,12 @@
+note_type = "note_types/basic.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[[cards]]
+ordinal = 1
+
+[fields]
+Back = ':b[uffer] TAB " choose relevant buffer by unique name<br><br>:b# " where # is the buffer number you can see with :ls'
+Front = 'How do you efficiently switch to another buffer, especially if more than two are open?'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Saying "ever since" with "yilai"'
+english = "Since three months ago, we've traveled to a lot of places."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Time Interval + 来'
+hanzi = '三个月来，我们去了很多地方旅游。'
+notes = ''
+pinyin = 'Sān gè yuè lái, wǒmen qù le hěn duō dìfang lǚyóu.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNEMXP'

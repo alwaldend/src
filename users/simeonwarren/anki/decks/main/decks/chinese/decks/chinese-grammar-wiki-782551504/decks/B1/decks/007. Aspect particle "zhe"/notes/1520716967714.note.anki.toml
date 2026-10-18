@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Aspect particle "zhe"'
+english = "I don't understand English songs. I listen just for fun."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 是 + Verb + 着 + 玩 + 的'
+hanzi = '我听不懂英文歌，只是听着玩的。'
+notes = ''
+pinyin = 'Wǒ tīng bu dǒng Yīngwén gē, zhǐshì tīng zhe wán de.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGOIDEO'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "compared with" with "gen"'
+english = 'Compared to last year, your Chinese has improved a lot.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '跟 + Time 1 + 比 ， Subj. + Time 2 + ~'
+hanzi = '跟去年比，你的中文进步了很多。'
+notes = ''
+pinyin = 'Gēn qùnián bǐ, nǐ de Zhōngwén jìnbù le hěn duō.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG920B7'

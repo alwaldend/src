@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Sequencing past events with "houlai"'
+english = "I left very early yesterday evening, so I don't know what happened afterwards."
+example-sentence = ''
+example-type = ''
+grammar-construct = '[Past Event 1] ，后来 ，[Past Event 2]'
+hanzi = '我昨晚走得早，不知道后来发生了什么。'
+notes = ''
+pinyin = 'Wǒ zuówǎn zǒu de zǎo, bù zhīdào hòulái fāshēng le shénme.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGY0UDC'

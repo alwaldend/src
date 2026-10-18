@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "anyway" as "fanzheng"'
+english = "No matter he's going or not,  I'm going anyway."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Disregarded Situation， 反正⋯⋯'
+hanzi = '不管他去不去，反正我要去。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGZVM27'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Grammatical_Structures", "IfStatements"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "if… then…" with "yaoshi"'
+english = "If it weren't for the sake of kids, I would have divorced him sooner."
+example-sentence = ''
+example-type = ''
+grammar-construct = '要不是 ⋯⋯ ，⋯⋯'
+hanzi = '要不是因为孩子，我早就离婚了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGN4S8O'

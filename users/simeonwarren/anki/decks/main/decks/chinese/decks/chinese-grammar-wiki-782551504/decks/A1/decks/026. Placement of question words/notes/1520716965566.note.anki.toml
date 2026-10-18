@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Placement of question words'
+english = "Why isn't he coming?<br>Because he is busy."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 为什么 + Predicate ?'
+hanzi = 'A: 他为什么不来？<br>B: 因为他很忙。'
+notes = ''
+pinyin = 'Tā wèishénme bù lái?<br>Yīnwèi tā hěn máng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJQPSC'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Auxiliaryverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "will" with "hui"'
+english = 'After getting off work, I will give you a call.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 会 + Verb + Obj.'
+hanzi = '下班以后，我会给你打电话。'
+notes = ''
+pinyin = 'Xiàbān yǐhòu, wǒ huì gěi nǐ dǎ diànhuà.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGW9737'

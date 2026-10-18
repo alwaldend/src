@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'regarding;	as far as sth is concerned;	with regards to.'
+example-sentence = ' 作为一族之长,对于那些优秀而突出的子弟自然会关注'
+example-type = ''
+grammar-construct = ''
+hanzi = '对于'
+notes = ''
+pinyin = '<span class="tone4">duì</span><span class="tone2">yú</span>	 <!-- dui yu -->'
+source = ''

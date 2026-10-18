@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "guo" with "le"'
+english = "Don't forget to brush your teeth.<br>I have already brushed my teeth."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 过 + Obj. + 了'
+hanzi = 'A: 别忘记刷牙。<br>B: 我已经刷过牙了。'
+notes = ''
+pinyin = 'Bié wàngjì shuā yá.<br>Wǒ yǐjīng  shuā guo yá le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGP69JD'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Result complements "-dao" and "-jian"'
+english = 'Did you see that handsome guy?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 见 + Obj.'
+hanzi = '你看到那个帅哥了吗？'
+notes = ''
+pinyin = 'Nǐ kàndào nàge shuàigē le ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWNGEP'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = '(particle equivalent to 啊 after a vowel, expressing surprise or doubt).'
+example-sentence = '  终究是失败了呀'
+example-type = ''
+grammar-construct = ''
+hanzi = '呀'
+notes = ''
+pinyin = '<span class="tone5">ya</span>	 <!-- ya -->'
+source = ''

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "bu" and "mei"'
+english = "He doesn't like to speak."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不 + Verb + Obj.'
+hanzi = '他不喜欢说话。'
+notes = ''
+pinyin = 'Tā bù xǐhuan shuōhuà.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGRJ1BI'

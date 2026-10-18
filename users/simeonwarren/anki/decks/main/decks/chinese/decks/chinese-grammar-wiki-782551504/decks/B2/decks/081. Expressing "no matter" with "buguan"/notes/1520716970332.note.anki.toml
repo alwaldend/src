@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Grammatical_Structures", "NoMatterStatements"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "no matter" with "buguan"'
+english = 'We must prepare well no matter what.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '不管 + Question Word ，(Subj. +) 都 ⋯⋯'
+hanzi = '不管怎么样，我们都要好好准备。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG0NDS6'

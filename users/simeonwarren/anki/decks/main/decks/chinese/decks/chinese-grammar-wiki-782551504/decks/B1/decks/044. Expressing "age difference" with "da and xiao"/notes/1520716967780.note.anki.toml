@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "age difference" with "da and xiao"'
+english = 'My sister is two years older than me.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A + 比 + B + 大 / 小 + number + 岁'
+hanzi = '我姐姐比我大两岁。'
+notes = ''
+pinyin = 'Wǒ jiějie bǐ wǒ dà liǎng suì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGE8810'

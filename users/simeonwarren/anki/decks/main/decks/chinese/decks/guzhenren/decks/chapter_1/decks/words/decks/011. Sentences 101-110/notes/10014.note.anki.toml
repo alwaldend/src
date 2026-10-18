@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'to come down;	(after verb of motion, indicates motion down and towards us, also fig.);	(indicates continuation from the past towards us);	to be harvested (of crops);	to be over (of a period of time);	to go among the masses (said of leaders).'
+example-sentence = ' 不久,长长的走廊上就冷清下来'
+example-type = ''
+grammar-construct = ''
+hanzi = '下来'
+notes = ''
+pinyin = '<span class="tone4">xià</span><span class="tone5">lai</span>	 <!-- xia lai -->'
+source = ''

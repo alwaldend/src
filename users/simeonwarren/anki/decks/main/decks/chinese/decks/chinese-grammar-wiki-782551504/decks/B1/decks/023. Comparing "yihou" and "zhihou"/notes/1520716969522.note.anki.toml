@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "TimeWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "yihou" and "zhihou"'
+english = 'After it rains, the air will be a lot better.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Special Time + 以后／之后 + Action'
+hanzi = '下过雨以后/之后空气会好很多。'
+notes = ''
+pinyin = 'Xià guo yǔ yǐhòu / zhīhòu kōngqì huì hǎo hěn duō.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGC3SCN'

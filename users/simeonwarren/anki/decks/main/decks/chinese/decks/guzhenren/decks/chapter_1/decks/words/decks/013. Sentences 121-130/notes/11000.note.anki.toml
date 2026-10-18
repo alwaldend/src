@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'odd (number).<br>strange;	odd;	weird;	wonderful;	surprisingly;	unusually.<br>'
+example-sentence = '在十大奇蛊排名中,能名列第七,自然非同小可'
+example-type = ''
+grammar-construct = ''
+hanzi = '奇'
+notes = ''
+pinyin = '<span class="tone5">jīqí</span>	 <!-- ji qi -->'
+source = ''

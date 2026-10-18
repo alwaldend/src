@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Idiomatic phrases with "zai"'
+english = 'As far as teaching methods, Chinese and American universities have big differences.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '在 + Abstract Concepts + 上，  Comment Sentence'
+hanzi = '中国和美国的大学在教学方法上有很大的不同。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGH13JY'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Special cases of "zai" following verbs'
+english = "I don't want to stay at home on weekends."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + [Special Verb] + 在 + Location'
+hanzi = '周末我不想待在家里。'
+notes = ''
+pinyin = 'Zhōumò wǒ bù xiǎng dāi zài jiā  lǐ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG90DXK'

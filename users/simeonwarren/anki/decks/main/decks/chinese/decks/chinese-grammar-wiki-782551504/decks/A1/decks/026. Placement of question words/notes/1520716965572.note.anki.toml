@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Placement of question words'
+english = 'How are you guys going to get home?<br>I‘m driving home.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 怎么 + Verb (+ Obj.) ?'
+hanzi = 'A: 你们怎么回家？<br>B: 我开车回家。'
+notes = ''
+pinyin = 'Nǐmen zěnme huíjiā?<br>Wǒ kāichē huíjiā.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJQPSC'

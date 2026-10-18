@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Basic comparisons with "bi"'
+english = 'She is prettier than her mother.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun 1 + 比 + Noun 2 + Adj.'
+hanzi = '她比她妈妈漂亮。'
+notes = ''
+pinyin = 'Tā bǐ tā māma  piàoliang .'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8SI2K'

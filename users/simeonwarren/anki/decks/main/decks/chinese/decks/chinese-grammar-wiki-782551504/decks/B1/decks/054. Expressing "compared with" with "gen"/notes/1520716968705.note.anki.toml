@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "compared with" with "gen"'
+english = 'Compared to the old version, the new version has a few more features.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'B + 跟 + A + 比 (起来) ，⋯⋯'
+hanzi = '新版本跟旧版本比起来，多了一些功能。'
+notes = ''
+pinyin = 'Xīn bǎnběn gēn jiù bǎnběn bǐ qǐlái, duō le yīxiē gōngnéng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG920B7'

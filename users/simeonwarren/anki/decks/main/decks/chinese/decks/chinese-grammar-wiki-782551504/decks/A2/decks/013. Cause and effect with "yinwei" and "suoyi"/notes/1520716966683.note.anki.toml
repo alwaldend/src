@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Cause and effect with "yinwei" and "suoyi"'
+english = 'We were too busy, so none of us had time to eat lunch.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '因为 + Cause, 所以 + Effect'
+hanzi = '因为太忙，所以我们没有时间吃中饭。'
+notes = ''
+pinyin = 'Yīnwèi tài máng, suǒyǐ wǒmen méiyǒu shíjiān chī zhōngfàn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTDUJO'

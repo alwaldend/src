@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = "Expressing \"don't need to\" with \"buyong\""
+english = "Buy it. You don't need to worry about its price."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不用 + [Verb Phrase]'
+hanzi = '买吧，不用考虑价钱。'
+notes = ''
+pinyin = 'Mǎi ba, bùyòng kǎolǜ jiàqian.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGECD0E'

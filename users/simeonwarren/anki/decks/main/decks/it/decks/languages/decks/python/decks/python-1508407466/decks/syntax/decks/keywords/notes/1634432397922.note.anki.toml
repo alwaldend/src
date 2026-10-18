@@ -1,0 +1,13 @@
+note_type = "note_types/python-basic-and-reversed.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<b>Keyword</b> used to simplify exception handling for opening a file.'
+example = 'with open("file_name") as file:<div>&nbsp; &nbsp; #do some stuff here</div>'
+question = '<b>Keyword: </b>with'
+version = ''
+with-options = ''

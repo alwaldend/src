@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Numbers", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Big numbers in Chinese'
+english = '1,326,800,000'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '十三亿两千六百八十万'
+notes = ''
+pinyin = 'shísān yì liǎngqiān liùbǎi bāshí wàn'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGIM3AX'

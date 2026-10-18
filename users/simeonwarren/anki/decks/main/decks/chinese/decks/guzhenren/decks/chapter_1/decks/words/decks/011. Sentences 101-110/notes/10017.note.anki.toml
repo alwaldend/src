@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'window.<br>Cl: 个, 扇'
+example-sentence = '春雨斜风透过窗户吹拂过来,族长轻轻举步,走到窗前'
+example-type = ''
+grammar-construct = ''
+hanzi = '窗户'
+notes = ''
+pinyin = '<span class="tone1">chuāng</span><span class="tone5">hu</span>	 <!-- chuang hu -->'
+source = ''

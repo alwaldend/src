@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "not only... but also"'
+english = 'She is not only smart, but also very hard-working.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不但 + Adj. / Verb， 而且 + Adj. / Verb'
+hanzi = '她不但聪明，而且很努力。'
+notes = ''
+pinyin = 'Tā bùdàn cōngming, érqiě hěn nǔlì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTYJ3E'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Verbs preceded by "gei"'
+english = 'He said he would write letters to me.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 给 + Target + [Verb Phrase]'
+hanzi = '他说他会给我写信的。'
+notes = ''
+pinyin = 'Tā shuō tā huì gěi wǒ xiě xìn de.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG3ORNN'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Grammatical_Structures", "NumbersandMeasureWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "half" with "ban"'
+english = 'four and a half pieces of chocolate'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Number + Measure Word + 半 + Noun'
+hanzi = '四块半巧克力'
+notes = ''
+pinyin = 'sì  kuài bàn qiǎokèlì'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGAC1P9'

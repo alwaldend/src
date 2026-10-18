@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Cause/EffectStatements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "therefore" with "yinci"'
+english = "Hanhan's writing is very good, therefore the novels that he writes are always welcomed."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Cause + 因此 + Effect'
+hanzi = '韩寒的文笔好，因此他写的小说很受欢迎。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGUEFAL'

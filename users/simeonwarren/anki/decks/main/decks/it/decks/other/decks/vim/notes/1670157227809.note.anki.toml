@@ -1,0 +1,12 @@
+note_type = "note_types/basic.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[[cards]]
+ordinal = 1
+
+[fields]
+Back = ":e ~/.vimrc&nbsp;<div>mV</div><div>“ in a later vim session, to open vimrc:</div><div>'V</div>"
+Front = 'Set and goto global mark in .vimrc&nbsp;'

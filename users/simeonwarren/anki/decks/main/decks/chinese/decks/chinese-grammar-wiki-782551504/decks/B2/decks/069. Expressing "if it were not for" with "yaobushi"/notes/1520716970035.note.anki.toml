@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Parts_of_Speech", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "if it were not for" with "yaobushi"'
+english = "We couldn't have found this place without her help."
+example-sentence = ''
+example-type = ''
+grammar-construct = '要不是 ⋯⋯（的话），⋯⋯'
+hanzi = '要不是她帮忙，我们不可能这么快找到这个地方。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8F7D4'

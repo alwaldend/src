@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Advanced yes-no questions with "ma"'
+english = 'What do we want?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '[Question Word] + 吗 ？'
+hanzi = '我们想要什么？'
+notes = ''
+pinyin = 'Wǒmen xiǎng yào shénme?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGI9WXT'

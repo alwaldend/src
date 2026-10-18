@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "not often" with "bu zenme"'
+english = "It seems that you don't drink very often."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不怎么 + Verb ( + Obj. )'
+hanzi = '你好像不怎么喝酒。'
+notes = ''
+pinyin = 'Nǐ hǎoxiàng bù zěnme hējiǔ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5BOGP'

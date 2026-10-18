@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing passive voice with "gei"'
+english = "You've wasted such a great opportunity."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Receiver + 给 + The Doer + Verb Phrase'
+hanzi = '这么好的机会给你浪费了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGEZ2HN'

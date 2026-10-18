@@ -1,0 +1,12 @@
+note_type = "note_types/basic.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[[cards]]
+ordinal = 1
+
+[fields]
+Back = 'A buffer is the in-memory text of a file.<br>A window is a viewport on a buffer.<br>A tab is a collection of windows - aka. a <b>layout</b>.'
+Front = 'What are tabs, windows, and buffers?'

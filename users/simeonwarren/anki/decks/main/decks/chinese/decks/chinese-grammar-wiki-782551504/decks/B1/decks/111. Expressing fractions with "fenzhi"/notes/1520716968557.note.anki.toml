@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "NounPhrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing fractions with "fenzhi"'
+english = 'One third of our company are foreigners.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A + 是 / 占 + B + 的 + Denominator + 分之 + Numerator'
+hanzi = '我们公司的外国员工占三分之一。'
+notes = ''
+pinyin = 'Wǒmen gōngsī de wàiguó yuángōng zhàn sān fēn zhī yī.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG84RE9'

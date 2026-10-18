@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'ancestral hall;	memorial hall.'
+example-sentence = ' 一时间,宗族祠堂中尽是额头碰撞地板的轻响'
+example-type = ''
+grammar-construct = ''
+hanzi = '祠堂'
+notes = ''
+pinyin = '<span class="tone2">cí</span><span class="tone2">táng</span>	 <!-- ci tang -->'
+source = ''

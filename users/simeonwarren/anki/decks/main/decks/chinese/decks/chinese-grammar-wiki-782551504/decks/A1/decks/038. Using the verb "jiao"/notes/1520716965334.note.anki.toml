@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using the verb "jiao"'
+english = 'Our boss is named John.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 叫 + [Name]'
+hanzi = '我们的老板叫John。'
+notes = ''
+pinyin = 'Wǒmen de lǎobǎn jiào John.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGUGWVZ'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'The last Enlightenment Ceremony is still vivid in my memory as if it happened yesterday.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '上一届的开窍大典就像是昨天发生的一样,依旧历历在目呢。'
+notes = ''
+pinyin = ''
+source = ''

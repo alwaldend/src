@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["AuxiliaryWords", "B1", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "hui" "neng" "keyi"'
+english = 'Chinese people really can eat.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '很 + 会／能 + Verb'
+hanzi = '中国人真会吃!'
+notes = 'The subject has great knowledge about food and its culture, a true connoisseur.'
+pinyin = 'Zhōngguó rén zhēn huì chī!'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGZL717'

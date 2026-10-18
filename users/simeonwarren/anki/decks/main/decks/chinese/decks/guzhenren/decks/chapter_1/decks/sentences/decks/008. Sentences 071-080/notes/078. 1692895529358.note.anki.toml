@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = "That's right, a young genius appeared in Fang's vein."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '不错,方之一脉出现了一个天才少年。'
+notes = ''
+pinyin = ''
+source = ''

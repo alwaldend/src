@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Advanced uses of "ba"'
+english = 'I forgot about this thing.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 把 + Obj. + 给 + Verb Phrase'
+hanzi = '我把这事儿给忘了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQRS3P'

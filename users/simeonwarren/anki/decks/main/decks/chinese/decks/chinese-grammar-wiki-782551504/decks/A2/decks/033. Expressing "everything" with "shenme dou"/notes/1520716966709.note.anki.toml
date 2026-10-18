@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "everything" with "shenme dou"'
+english = "After dad got sick, he can't drink any kind of alcohol."
+example-sentence = ''
+example-type = ''
+grammar-construct = '什么 + Noun + 都 / 也 + 没 (有) + Verb'
+hanzi = '生病以后，爸爸什么酒都不能喝了。'
+notes = ''
+pinyin = 'Shēngbìng yǐhòu, bàba shénme jiǔ dōu bù néng hē le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGAQV6C'

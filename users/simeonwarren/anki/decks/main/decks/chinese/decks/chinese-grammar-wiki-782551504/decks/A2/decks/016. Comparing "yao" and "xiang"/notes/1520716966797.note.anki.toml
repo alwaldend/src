@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Auxiliaryverbs", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "yao" and "xiang"'
+english = 'I miss you.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 想 + Noun'
+hanzi = '我想你。'
+notes = ''
+pinyin = 'Wǒ xiǎng nǐ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGD88UO'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Simultaneous tasks with "yibian"'
+english = 'She often looks after the baby while cooking food.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 一边 + Verb (，) + 一边 + Verb'
+hanzi = '她常常一边做饭，一边带孩子。'
+notes = ''
+pinyin = 'Tā chángcháng yībiān zuòfàn, yībiān dài háizi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG2ZC5S'

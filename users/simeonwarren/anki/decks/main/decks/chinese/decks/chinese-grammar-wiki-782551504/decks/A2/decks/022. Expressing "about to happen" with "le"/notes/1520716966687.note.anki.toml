@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "about to happen" with "le"'
+english = 'My girlfriend is about to have her birthday.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '快要 + Verb + 了'
+hanzi = '我女朋友快要过生日了。'
+notes = ''
+pinyin = 'Wǒ nǚpéngyou kuài yào guò shēngrì le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNGEU8'

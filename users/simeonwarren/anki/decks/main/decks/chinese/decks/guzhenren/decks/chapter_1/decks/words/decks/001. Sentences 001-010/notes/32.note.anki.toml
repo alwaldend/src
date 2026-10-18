@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'Damn it!;	damned;	wretched.'
+example-sentence = '   方源你个该死的魔头,你为了练成春秋蝉,杀了千万人的性命'
+example-type = ''
+grammar-construct = ''
+hanzi = '该死'
+notes = ''
+pinyin = '<span class="tone1">gāi</span><span class="tone3">sǐ</span>	 <!-- gai si -->'
+source = ''

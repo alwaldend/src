@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Continuation with "hai"'
+english = "You're in your forties, and you still don't want to get married?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 还 + 不 / 没 + [Verb Phrase]'
+hanzi = '你已经四十多了，还不想结婚？'
+notes = 'implying the listener should get married now'
+pinyin = 'Nǐ yǐjīng sìshí duō le, hái bù xiǎng jiéhūn?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGIRILI'

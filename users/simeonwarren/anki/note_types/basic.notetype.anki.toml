@@ -1,105 +1,30 @@
-id = 1520550989354
-name = 'basic'
-css = """
-:root {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-}
+name = "basic"
 
-.card {
-    font-size: 1em;
-    font-family: monospace;
-    color: black;
-    max-width: 35rem;
-    width: 100%;
-}
+[config]
+css = ":root {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    width: 100%;\n    height: 100%;\n}\n\n.card {\n    font-size: 1em;\n    font-family: monospace;\n    color: black;\n    max-width: 35rem;\n    width: 100%;\n}\n\ntable {\n    background-color: white;\n    padding: 0.5rem 0.5rem 0.5rem 0;\n}\n\n.nightMode table {\n    background-color: transparent;\n}\n\ntable,\n.value {\n    border: groove;\n    border-radius: 1rem;\n    width: 100%;\n}\n\n.type {\n    font-weight: bold;\n    text-transform: uppercase;\n    text-align: center;\n    writing-mode: vertical-lr;\n    rotate: 180deg;\n    padding: 0.5rem 0 0.5rem 0;\n    max-width: 1rem;\n    min-width: 1rem;\n}\n\n.value {\n    text-align: left;\n    padding: 0.5rem 0.5rem 0.5rem 0.5rem;\n    visibility: hidden;\n}\n\n.value.show-front,\n.back .value {\n    visibility: visible;\n}\n\n.nightMode a {\n    color: white;\n}\n\n.font_big {\n    font-size: 3rem;\n}"
+latex_post = "\\end{document}"
+latex_pre = "\\documentclass[12pt]{article}\n\\special{papersize=3in,5in}\n\\usepackage[utf8]{inputenc}\n\\usepackage{amssymb,amsmath}\n\\pagestyle{empty}\n\\setlength{\\parindent}{0in}\n\\begin{document}\n"
 
-table {
-    background-color: white;
-    padding: 0.5rem 0.5rem 0.5rem 0;
-}
+[[fields]]
+name = "Front"
+[fields.config]
+font_name = "Arial"
+font_size = 20
 
-.nightMode table {
-    background-color: transparent;
-}
-
-table,
-.value {
-    border: groove;
-    border-radius: 1rem;
-    width: 100%;
-}
-
-.type {
-    font-weight: bold;
-    text-transform: uppercase;
-    text-align: center;
-    writing-mode: vertical-lr;
-    rotate: 180deg;
-    padding: 0.5rem 0 0.5rem 0;
-    max-width: 1rem;
-    min-width: 1rem;
-}
-
-.value {
-    text-align: left;
-    padding: 0.5rem 0.5rem 0.5rem 0.5rem;
-    visibility: hidden;
-}
-
-.value.show-front,
-.back .value {
-    visibility: visible;
-}
-
-.nightMode a {
-    color: white;
-}
-
-.font_big {
-    font-size: 3rem;
-}\
-"""
+[[fields]]
+name = "Back"
+[fields.config]
+font_name = "Arial"
+font_size = 20
 
 [[templates]]
-ordinal = 0
-name = 'Card 1'
-front = """
-<h2>Question</h2>
-
-{{ Front }}\
-"""
-back = """
-{{ FrontSide }}
-
-<h2>Answer</h2>
-
-{{ Back }}\
-"""
-browser_front = ''
-browser_back = ''
-browser_font = ''
-browser_font_size = 0
+name = "Card 1"
+[templates.config]
+a_format = "{{ FrontSide }}\n\n<h2>Answer</h2>\n\n{{ Back }}"
+q_format = "<h2>Question</h2>\n\n{{ Front }}"
 
 [[templates]]
-ordinal = 1
-name = 'Card 2'
-front = """
-<h2>Question</h2>
-
-{{ Back }}\
-"""
-back = """
-{{ FrontSide }}
-
-<h2>Answer</h2>
-
-{{ Front }}\
-"""
-browser_front = ''
-browser_back = ''
-browser_font = ''
-browser_font_size = 0
+name = "Card 2"
+[templates.config]
+a_format = "{{ FrontSide }}\n\n<h2>Answer</h2>\n\n{{ Front }}"
+q_format = "<h2>Question</h2>\n\n{{ Back }}"

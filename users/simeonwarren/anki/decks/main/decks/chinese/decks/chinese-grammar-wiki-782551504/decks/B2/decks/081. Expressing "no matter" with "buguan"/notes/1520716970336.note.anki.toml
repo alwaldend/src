@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Grammatical_Structures", "NoMatterStatements"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "no matter" with "buguan"'
+english = "Whether you're Chinese or foreigners, you must abide by the law."
+example-sentence = ''
+example-type = ''
+grammar-construct = '不管 + Verb /  Adj. + 不 + Verb /  Adj. ，Subj. + 都 ⋯⋯'
+hanzi = '不管你是中国人还是外国人，都必须遵守中国的法律。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG0NDS6'

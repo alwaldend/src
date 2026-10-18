@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Affirmative-negative question'
+english = 'Are they going to come or not?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 不 + Verb'
+hanzi = '他们来不来？'
+notes = ''
+pinyin = 'Tāmen lái bu lái?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGZH7K3'

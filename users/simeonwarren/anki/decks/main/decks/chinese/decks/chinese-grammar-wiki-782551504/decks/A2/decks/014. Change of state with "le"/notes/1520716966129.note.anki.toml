@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "leech", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Change of state with "le"'
+english = 'Is your wife pregnant?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '[New Situation] + 了'
+hanzi = '你老婆怀孕了吗？'
+notes = 'I know you guys have been trying...'
+pinyin = 'Nǐ lǎopo huáiyùn le ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGT185D'

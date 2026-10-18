@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'The "also" adverb "ye"'
+english = 'I am too. / Me too.'
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = 'Subj. + 也 (+ Adv.) + Adj.'
+hanzi = '我也是。'
+notes = 'The 是 fills in for whatever was just said.'
+pinyin = 'Wǒ yě shì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGG25MD'

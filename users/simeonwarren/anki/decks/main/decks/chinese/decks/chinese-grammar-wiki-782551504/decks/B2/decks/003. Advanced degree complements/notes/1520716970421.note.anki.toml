@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Advanced degree complements'
+english = "My wife's job is extremely easy and relaxed."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '我老婆的工作轻松得很。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG9E5BB'

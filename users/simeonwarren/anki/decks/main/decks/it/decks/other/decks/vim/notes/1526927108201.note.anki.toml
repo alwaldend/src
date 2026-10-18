@@ -1,0 +1,12 @@
+note_type = "note_types/basic.notetype.anki.toml"
+tags = ["Exiting"]
+
+[[cards]]
+ordinal = 0
+
+[[cards]]
+ordinal = 1
+
+[fields]
+Back = ':wq or :x or ZZ'
+Front = 'Write buffer to its file and close the window, exiting vim if the last window'

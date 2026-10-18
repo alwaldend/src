@@ -1,0 +1,12 @@
+note_type = "note_types/basic.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[[cards]]
+ordinal = 1
+
+[fields]
+Back = ':set list?'
+Front = 'How do you inspect how invisible characters like tabs, spaces, and newlines will be displayed?'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["AdverbswithAdjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "rather" with "bijiao"'
+english = 'I think this price is rather reasonable.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 比较 + Adj. / Psychological Verb'
+hanzi = '我觉得这个价格比较合理。'
+notes = ''
+pinyin = 'Wǒ juéde zhège jiàgé bǐjiào hélǐ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG72HKP'

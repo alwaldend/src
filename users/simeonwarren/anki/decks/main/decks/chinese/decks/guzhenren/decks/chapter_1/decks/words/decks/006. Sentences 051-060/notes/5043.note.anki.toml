@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'attire;	clothes;	dress.'
+example-sentence = '他们穿着宽大的白色祭服,都是家族中的家老、话事人,执掌着各方面的权柄'
+example-type = ''
+grammar-construct = ''
+hanzi = '穿着'
+notes = ''
+pinyin = '<span class="tone1">chuān</span><span class="tone2">zhuó</span>	 <!-- chuan zhuo -->'
+source = ''

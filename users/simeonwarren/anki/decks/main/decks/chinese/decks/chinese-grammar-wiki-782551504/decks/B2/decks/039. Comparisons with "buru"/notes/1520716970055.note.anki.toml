@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparisons with "buru"'
+english = "I'm afraid that I can't explain as clearly as you do."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A + Verb-Obj. + 不如 + B+ (Verb + 得) + Adj.'
+hanzi = '我担心我解释得不如你清楚。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWH1D5'

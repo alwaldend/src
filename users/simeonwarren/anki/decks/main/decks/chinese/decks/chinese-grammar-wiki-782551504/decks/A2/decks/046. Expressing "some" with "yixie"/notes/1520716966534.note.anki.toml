@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Grammatical_Structures", "NounPhrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "some" with "yixie"'
+english = 'When I was in China, I went to some beautiful places.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '一些 + Noun'
+hanzi = '我在中国的时候，去过一些很漂亮的地方。'
+notes = ''
+pinyin = 'Wǒ zài Zhōngguó de shíhou, qù guo yīxiē hěn piàoliang de dìfang.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWVZ0T'

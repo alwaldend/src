@@ -1,0 +1,13 @@
+note_type = "note_types/python-basic-and-reversed.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<i>list</i>.remove(<i>value</i>)'
+example = ''
+question = '<b>List method</b>&nbsp;that deletes the first item with the specified value from a list (returns None). Raises a ValueError if the item is not found.'
+version = ''
+with-options = ''

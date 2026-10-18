@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "Conjunctions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "haishi" and "huozhe"'
+english = "I'd like to stay at home reading or watching some movies."
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = 'Option 1 + 或者 + Option 2'
+hanzi = '周末我想在家看书或者看电影。'
+notes = ''
+pinyin = 'Zhōumò wǒ xiǎng zài jiā kànshū huòzhě kàn diànyǐng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQJ5IC'

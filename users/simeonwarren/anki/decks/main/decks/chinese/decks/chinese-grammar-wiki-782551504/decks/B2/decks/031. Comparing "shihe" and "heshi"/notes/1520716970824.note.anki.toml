@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "SeparateFunctions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "shihe" and "heshi"'
+english = 'Your Chinese name suits you well.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 适合 + Obj.'
+hanzi = '你的中文名字真适合你！'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGVDOXL'

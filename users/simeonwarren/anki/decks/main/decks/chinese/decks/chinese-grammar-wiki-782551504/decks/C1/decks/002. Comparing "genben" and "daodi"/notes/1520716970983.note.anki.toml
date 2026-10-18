@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["C1", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "genben" and "daodi"'
+english = "So why don't you drink at all?"
+example-sentence = ''
+example-type = 'invalid'
+grammar-construct = ''
+hanzi = '那么，你们根本为什么不喝酒呢？'
+notes = '根本 should be used to emphasize the negation, not the question.'
+pinyin = 'Nàme, nǐmen gēnběn wèishéme bù hējiǔ ne'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG9JK0B'

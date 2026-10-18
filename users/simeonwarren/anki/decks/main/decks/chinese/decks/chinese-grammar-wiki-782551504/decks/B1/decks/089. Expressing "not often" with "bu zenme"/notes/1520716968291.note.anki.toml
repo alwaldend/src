@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "not often" with "bu zenme"'
+english = "We don't watch a lot of television."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不怎么 + Verb ( + Obj. )'
+hanzi = '我们不怎么看电视。'
+notes = ''
+pinyin = 'Wǒmen bù zěnme kàn diànshì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5BOGP'

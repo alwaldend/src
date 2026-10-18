@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Standard negation with "bu"'
+english = 'They are not bad kids.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不 + Verb + Obj.'
+hanzi = '他们不是坏孩子。'
+notes = ''
+pinyin = 'Tāmen bù shì  huài háizi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGIPYFV'

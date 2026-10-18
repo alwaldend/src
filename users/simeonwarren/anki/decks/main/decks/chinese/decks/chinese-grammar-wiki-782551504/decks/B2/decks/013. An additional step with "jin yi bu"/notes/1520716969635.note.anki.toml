@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'An additional step with "jin yi bu"'
+english = "We first tested our education reform in one school, and then we further extended it to the rest of the city's middle schools."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 进一步 + Verb'
+hanzi = '我们先在一所学校进行教学改革的试点，并进一步推广到全市的中学。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGET76G'

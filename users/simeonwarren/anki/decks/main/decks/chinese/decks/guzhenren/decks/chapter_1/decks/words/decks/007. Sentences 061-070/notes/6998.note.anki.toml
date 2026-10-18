@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'surname Bai;	white;	snowy;	pure;	bright;	empty;	blank;	plain;	clear;	to make clear;	in vain;	gratuitous;	free of charge;	reactionary;	anti-communist;	funeral;	to stare coldly;	to write wrong character;	to state;	to explain;	vernacular;	spoken lines in opera.'
+example-sentence = '尤其是白家的白凝冰,天资真是恐怖'
+example-type = ''
+grammar-construct = ''
+hanzi = '白'
+notes = ''
+pinyin = '<span class="tone2">bái</span>	 <!-- bai -->'
+source = ''

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "gang" and "gangcai"'
+english = 'I saw it just now.'
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = ''
+hanzi = '我刚才看到了。'
+notes = '了 is needed here as 刚才 always refers to the past.'
+pinyin = 'Wǒ gāngcái kàndào le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJFFWG'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'evil spirit.'
+example-sentence = '若是刚炼成的春秋蝉有效,来生还是要做邪魔'
+example-type = ''
+grammar-construct = ''
+hanzi = '邪魔'
+notes = ''
+pinyin = '<span class="tone2">xié</span><span class="tone2">mó</span>	 <!-- xie mo -->'
+source = ''

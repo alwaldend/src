@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'surname Lian;	to link;	to join;	to connect;	continuously;	in succession;	including;	(used with 也, 都 etc) even;	company (military).'
+example-sentence = '甚至就连老一辈们都感觉到了这位后起之秀的压力'
+example-type = ''
+grammar-construct = ''
+hanzi = '连'
+notes = ''
+pinyin = '<span class="tone2">lián</span>	 <!-- lian -->'
+source = ''

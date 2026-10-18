@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Actions in a row'
+english = 'Can you use the Internet to buy airplane tickets?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + [Verb Phrase 1] + [Verb Phrase 2]'
+hanzi = '你们可以上网买机票吗？'
+notes = ''
+pinyin = 'Nǐmen kěyǐ shàng wǎng mǎi jīpiào ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPRGAX'

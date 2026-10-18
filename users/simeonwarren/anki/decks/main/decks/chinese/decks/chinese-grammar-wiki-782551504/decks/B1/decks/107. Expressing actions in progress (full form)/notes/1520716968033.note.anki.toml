@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing actions in progress (full form)'
+english = "He's using the bathroom now."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + Obj. + 呢'
+hanzi = '他上厕所呢。'
+notes = ''
+pinyin = 'Tā shàng cèsuǒ ne.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGEYQ9O'

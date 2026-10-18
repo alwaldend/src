@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing difficulty with "hao (bu) rongyi"'
+english = 'With great difficulty, they finally climbed to the top of the mountain.As a result,it started raining heavily.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 好容易 / 好不容易 + 才 + Verb，[Result Sentence]'
+hanzi = '我好不容易才打通了银行的服务热线。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG81QV3'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "never" with "conglai"'
+english = 'He never cares about other people.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 从来 + 不 + [Verb Phrase]'
+hanzi = '他从不关心别人。'
+notes = '来 has been omitted here.'
+pinyin = 'Tā cóng bù guānxīn biérén.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8NM5E'

@@ -1,0 +1,13 @@
+note_type = "note_types/python-basic-and-reversed.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<b>Built in function:&nbsp;</b>dir(<i>object</i>)'
+example = ''
+question = "<b>Built in function</b> that returns a list of the specified object's properties and methods."
+version = ''
+with-options = ''

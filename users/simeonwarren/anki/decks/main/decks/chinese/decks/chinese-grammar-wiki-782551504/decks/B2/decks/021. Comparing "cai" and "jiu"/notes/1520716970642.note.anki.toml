@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "cai" and "jiu"'
+english = 'I bought so many things，'
+example-sentence = ''
+example-type = ''
+grammar-construct = '才 ( + Verb) + Measure Word + Noun'
+hanzi = '我买了这么多东西，才花了五百块。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGLOS9C'

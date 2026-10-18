@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = "posthumous;\tone's social background;\tbehind the body."
+example-sentence = ' 在他的身后,也同样跪着十余人'
+example-type = ''
+grammar-construct = ''
+hanzi = '身后'
+notes = ''
+pinyin = '<span class="tone1">shēn</span><span class="tone4">hòu</span>	 <!-- shen hou -->'
+source = ''

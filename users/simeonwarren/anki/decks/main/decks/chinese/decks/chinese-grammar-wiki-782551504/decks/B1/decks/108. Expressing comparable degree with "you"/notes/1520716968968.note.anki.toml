@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing comparable degree with "you"'
+english = 'Is the population of New York city as big as that of Shanghai?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A + 有 + B + Adj. + 吗 ？'
+hanzi = '纽约人口有上海人口多吗？'
+notes = ''
+pinyin = 'Niǔyuē rénkǒu yǒu Shànghǎi rénkǒu duō ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5DG95'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "NounPhrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Indicating a number in excess'
+english = ''
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = 'Number + 多 + [Measure word] (+ Noun)'
+hanzi = '九十多块钱'
+notes = ''
+pinyin = '<div>Jiǔshí duō kuài qián</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG004ZK'

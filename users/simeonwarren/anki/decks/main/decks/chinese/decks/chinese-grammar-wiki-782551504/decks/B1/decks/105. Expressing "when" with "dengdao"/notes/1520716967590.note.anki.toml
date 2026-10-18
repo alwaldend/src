@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "when" with "dengdao"'
+english = 'It was not until he went to Beijing that he began to understand that life in a big city is not easy.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '直到 + Time Word / [Verb Phrase] ，Subj. + 都  + 不 / 没 + Predicate'
+hanzi = '直到去了北京，他才知道大城市的生活多么不容易。'
+notes = ''
+pinyin = 'Zhídào qù le Běijīng, tā cái zhīdào dàchéngshì de shēnghuó duōme bù róngyì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG68F61'

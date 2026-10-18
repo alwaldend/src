@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "and" with "he" (advanced)'
+english = ''
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = 'Adj. 1 + 和 + Adj. 2'
+hanzi = '你需要购买和安装杀毒软件。'
+notes = 'They still share the same object, but now the monosyllabic verbs have been converted to disyllabic verbs. Problem solved!)'
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGXN52R'

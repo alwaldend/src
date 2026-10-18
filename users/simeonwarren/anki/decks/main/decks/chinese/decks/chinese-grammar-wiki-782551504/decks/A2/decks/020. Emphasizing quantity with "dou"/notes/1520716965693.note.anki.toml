@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Emphasizing quantity with "dou"'
+english = 'My students all like to ask questions.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 都 + Verb + Obj.'
+hanzi = '我的学生都喜欢问问题。'
+notes = ''
+pinyin = 'Wǒ de xuéshēng dōu xǐhuan wèn wèntí.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWNEYM'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'surname Xue;	snow;	snowfall;	to have the appearance of snow;	to wipe away, off or out;	to clean.'
+example-sentence = '当真是朝如青丝暮成雪,是非成败转头空'
+example-type = ''
+grammar-construct = ''
+hanzi = '雪'
+notes = ''
+pinyin = '<span class="tone3">xuě</span>	 <!-- xue -->'
+source = ''

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "have to" with budebu'
+english = "The boss doesn't like to business socializing, but she has to go."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不得不 + Verb'
+hanzi = '老板很讨厌应酬，可是她不得不去。'
+notes = ''
+pinyin = 'Lǎobǎn hěn tǎoyàn yìngchou, kěshì tā bùdébù qù.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG0C825'

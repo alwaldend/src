@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "for" with "gei"'
+english = "I don't have the key. Could you please open the door for me?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 给 + Recipient + [Verb Phrase]'
+hanzi = '我没带钥匙，你能给我开一下门吗？'
+notes = ''
+pinyin = 'Wǒ méi dài yàoshi, nǐ néng gěi wǒ kāi yīxià mén ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGLHAV3'

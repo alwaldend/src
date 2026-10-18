@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "it depends" with "kan"'
+english = 'When to give you the promotion depends on your performance.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '[Unknown Outcome] + 要看 / 得看 + [Unclear Situation]'
+hanzi = '什么时候给你升职得看你的业绩。'
+notes = ''
+pinyin = 'Shénme shíhou gěi nǐ shēngzhí děi kàn nǐ de yèjì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG765HD'

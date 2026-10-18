@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Coincidence with "zhenghao"'
+english = 'Are you all coming? Great! So you can help me to move.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '正好 + Verb'
+hanzi = '你们都要来？太好了！正好帮我搬家。'
+notes = ''
+pinyin = 'Nǐmen dōu yào lái? Tài hǎo le! Zhènghǎo bāng wǒ bānjiā.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGUD25J'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "SeparateFunctions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "shihe" and "heshi"'
+english = 'This job really suits me.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 适合 + Obj.'
+hanzi = '这个工作很适合我。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGVDOXL'

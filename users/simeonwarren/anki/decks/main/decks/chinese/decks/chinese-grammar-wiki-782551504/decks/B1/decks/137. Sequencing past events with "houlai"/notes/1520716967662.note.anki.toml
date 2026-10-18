@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Sequencing past events with "houlai"'
+english = 'My parents disapproved in the beginning, but they approved later.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '[Past Event 1] ，后来 ，[Past Event 2]'
+hanzi = '开始我父母不同意，后来他们同意了。'
+notes = ''
+pinyin = 'Kāishǐ wǒ fùmǔ bù tóngyì, hòulái tāmen tóngyì le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGY0UDC'

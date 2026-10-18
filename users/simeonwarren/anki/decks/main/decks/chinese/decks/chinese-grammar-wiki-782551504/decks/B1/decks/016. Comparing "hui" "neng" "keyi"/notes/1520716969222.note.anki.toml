@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["AuxiliaryWords", "B1", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "hui" "neng" "keyi"'
+english = "I didn't expect you to be a person who can handle so many burdens."
+example-sentence = ''
+example-type = ''
+grammar-construct = '很 + 会／能 + Verb'
+hanzi = '没想到你这么能吃苦。'
+notes = ''
+pinyin = 'Méixiǎngdào nǐ  zhème  néng chīkǔ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGZL717'

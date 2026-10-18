@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Auxiliaryverbs", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "yao" and "xiang"'
+english = 'Are you going to live together with your parents after you get married?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 要 + Verb'
+hanzi = '结婚以后，你要跟父母住在一起吗？'
+notes = ''
+pinyin = 'Jiéhūn yǐhòu, nǐ yào  gēn nǐ fùmǔ zhù zài yīqǐ ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGD88UO'

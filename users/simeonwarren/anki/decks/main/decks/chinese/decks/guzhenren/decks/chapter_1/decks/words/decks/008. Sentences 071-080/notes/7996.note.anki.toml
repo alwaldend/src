@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'brimming over with talent (esp. literary);	brilliant.'
+example-sentence = '五岁时就能作诗诵词,聪慧异常,才华横溢'
+example-type = ''
+grammar-construct = ''
+hanzi = '才华横溢'
+notes = ''
+pinyin = '<span class="tone2">cái</span><span class="tone2">huá</span><span class="tone2">héng</span><span class="tone4">yì</span>	 <!-- cai hua heng yi -->'
+source = ''

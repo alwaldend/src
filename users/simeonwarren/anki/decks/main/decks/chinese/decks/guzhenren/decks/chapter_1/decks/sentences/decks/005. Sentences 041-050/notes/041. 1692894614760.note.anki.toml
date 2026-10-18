@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'Hand over Spring Autumn Cicada quickly!!'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '快快交出春秋蝉！！'
+notes = ''
+pinyin = ''
+source = ''

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "not very" with "bu zenme"'
+english = "I'm not very into coffee."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不怎么 + Adj. / [Psychological Verb]'
+hanzi = '我不怎么喜欢咖啡。'
+notes = ''
+pinyin = 'Wǒ bù zěnme xǐhuan kāfēi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGVYIZT'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "along with…" with "suizhe"'
+english = 'The branch swayed as the wind blew ceaselessly.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 随着 + Noun + Verb Phrase'
+hanzi = '树枝随着风不停地摇动。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGHVFRA'

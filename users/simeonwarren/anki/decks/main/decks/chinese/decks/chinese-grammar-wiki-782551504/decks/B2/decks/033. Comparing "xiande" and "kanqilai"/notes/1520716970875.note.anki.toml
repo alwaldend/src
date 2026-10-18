@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "xiande" and "kanqilai"'
+english = "This restaurant doesn't seem too bad, let's try it out."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 看起来 + Predicate'
+hanzi = '这个餐厅看起来不错，我们可以试试。'
+notes = ''
+pinyin = 'Zhège cāntīng kànqǐlái bùcuò, wǒmen kěyǐ shìshi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGKQEG9'

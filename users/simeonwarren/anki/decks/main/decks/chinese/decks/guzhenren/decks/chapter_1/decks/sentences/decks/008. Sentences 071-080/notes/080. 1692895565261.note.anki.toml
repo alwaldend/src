@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'At the age of five, he was able to compose poems and recite words. He was extremely intelligent and talented.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '五岁时就能作诗诵词,聪慧异常,才华横溢。'
+notes = ''
+pinyin = ''
+source = ''

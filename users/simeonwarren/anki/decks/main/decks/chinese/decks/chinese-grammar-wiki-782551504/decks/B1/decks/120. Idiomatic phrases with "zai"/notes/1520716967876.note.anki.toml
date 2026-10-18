@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Idiomatic phrases with "zai"'
+english = 'On the topic of management, you have more experience than I do.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '在 + Topic + 方面 ，Subj. ⋯⋯'
+hanzi = '在管理方面，你比我有经验。'
+notes = ''
+pinyin = 'Zài guǎnlǐ fāngmiàn, nǐ bǐ wǒ yǒu jīngyàn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGH13JY'

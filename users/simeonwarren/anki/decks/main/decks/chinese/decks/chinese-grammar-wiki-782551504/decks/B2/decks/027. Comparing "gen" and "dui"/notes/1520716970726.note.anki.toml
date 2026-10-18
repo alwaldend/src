@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "Conjunctions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "gen" and "dui"'
+english = 'You like to buy clothes just like your mother.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A + 跟 + B + （不）一样 + Adj.'
+hanzi = '你跟你妈一样喜欢买衣服。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGC5Y86'

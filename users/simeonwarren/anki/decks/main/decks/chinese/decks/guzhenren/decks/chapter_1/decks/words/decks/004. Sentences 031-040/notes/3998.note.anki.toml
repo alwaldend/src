@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'hard;	firm;	strong;	just;	barely;	exactly.'
+example-sentence = '若是刚炼成的春秋蝉有效,来生还是要做邪魔'
+example-type = ''
+grammar-construct = ''
+hanzi = '刚'
+notes = ''
+pinyin = '<span class="tone1">gāng</span>	 <!-- gang -->'
+source = ''

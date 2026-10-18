@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing actions in progress with "zai"'
+english = 'Who is taking a shower in there?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 正在 + Verb + Obj.'
+hanzi = '谁在里面洗澡？'
+notes = ''
+pinyin = 'Shéi zài lǐmiàn xǐzǎo?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG846EA'

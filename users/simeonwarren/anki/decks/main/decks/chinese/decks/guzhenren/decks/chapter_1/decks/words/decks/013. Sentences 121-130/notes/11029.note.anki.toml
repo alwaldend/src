@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'in no way;	not in the least;	absolutely not.'
+example-sentence = '  但他却清楚的知道,这绝不是梦'
+example-type = ''
+grammar-construct = ''
+hanzi = '绝不'
+notes = ''
+pinyin = '<span class="tone2">jué</span><span class="tone4">bù</span>	 <!-- jue bu -->'
+source = ''

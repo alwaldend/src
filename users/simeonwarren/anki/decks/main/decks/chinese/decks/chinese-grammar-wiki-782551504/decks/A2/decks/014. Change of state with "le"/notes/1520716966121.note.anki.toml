@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Change of state with "le"'
+english = 'Mom is old.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '[New Situation] + 了'
+hanzi = '妈妈老了。'
+notes = "We aren't used to thinking of her as old, but she is now."
+pinyin = 'Māma lǎo le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGT185D'

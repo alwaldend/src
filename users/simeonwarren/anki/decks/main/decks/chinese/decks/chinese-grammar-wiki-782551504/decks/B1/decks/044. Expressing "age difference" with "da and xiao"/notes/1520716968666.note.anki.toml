@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "age difference" with "da and xiao"'
+english = 'Old man, how old are you?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A + 和 / 跟 + B + 一样 / 差不多 + 大'
+hanzi = '爷爷，您多大岁数了？'
+notes = ''
+pinyin = 'Yéye, nín duō dà suìshu le?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGE8810'

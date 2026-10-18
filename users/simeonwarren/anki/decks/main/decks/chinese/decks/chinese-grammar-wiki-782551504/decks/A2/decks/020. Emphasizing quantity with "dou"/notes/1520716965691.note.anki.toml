@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Emphasizing quantity with "dou"'
+english = 'Sichuanese people all like eating spicy food.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 都 + Verb + Obj.'
+hanzi = '四川人都喜欢吃辣。'
+notes = ''
+pinyin = 'Sìchuān rén dōu xǐhuan chī là.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWNEYM'

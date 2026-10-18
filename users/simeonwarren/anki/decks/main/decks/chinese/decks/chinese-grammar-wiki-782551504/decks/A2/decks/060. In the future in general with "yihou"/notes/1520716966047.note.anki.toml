@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'In the future in general with "yihou"'
+english = 'In the future, what does your son want to do?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 以后 + Verb + Obj.'
+hanzi = '你儿子以后想做什么？'
+notes = ''
+pinyin = 'Nǐ érzi yǐhòu xiǎng zuò shénme?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPVFU1'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Basics", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "excessively" with "tai"'
+english = 'This restroom is too dirty.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '太 + Adj. + 了'
+hanzi = '这个厕所太脏了。'
+notes = ''
+pinyin = 'Zhège cèsuǒ tài zāng le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8HVFN'

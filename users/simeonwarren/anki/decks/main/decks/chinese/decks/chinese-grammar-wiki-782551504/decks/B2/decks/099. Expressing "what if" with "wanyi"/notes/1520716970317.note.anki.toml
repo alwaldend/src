@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Grammatical_Structures", "IfStatements"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "what if" with "wanyi"'
+english = 'In the unlikely event that this happens, call the police immediately.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '万一 ⋯⋯ ，⋯⋯'
+hanzi = '万一发生这种情况，马上报警。'
+notes = ''
+pinyin = 'Wànyī fāshēng zhè zhǒng qíngkuàng, mǎshàng bàojǐng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG25773'

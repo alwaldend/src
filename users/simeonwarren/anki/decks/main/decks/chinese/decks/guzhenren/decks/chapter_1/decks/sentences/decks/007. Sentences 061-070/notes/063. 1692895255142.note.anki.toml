@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'Time flies so fast, in the blink of an eye, a year has passed.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '时间过的真是太快了,一眨眼,一年就都过去了。'
+notes = ''
+pinyin = ''
+source = ''

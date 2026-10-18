@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Grammatical_Structures", "IfStatements"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "what if" with "wanyi"'
+english = 'What if we get caught?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '万一 ⋯⋯ 呢 ？'
+hanzi = '万一被发现了怎么办？'
+notes = ''
+pinyin = 'Wànyī bèi fāxiàn le zěnme bàn?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG25773'

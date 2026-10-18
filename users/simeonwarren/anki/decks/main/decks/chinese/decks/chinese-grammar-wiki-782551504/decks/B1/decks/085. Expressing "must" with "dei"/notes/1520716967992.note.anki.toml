@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "must" with "dei"'
+english = "It's getting late. I have to go home."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 得 + [Verb Phrase]'
+hanzi = '时间不早了，我得回家了。'
+notes = ''
+pinyin = 'Shíjiān bù zǎo le, wǒ děi huíjiā le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPXLP9'

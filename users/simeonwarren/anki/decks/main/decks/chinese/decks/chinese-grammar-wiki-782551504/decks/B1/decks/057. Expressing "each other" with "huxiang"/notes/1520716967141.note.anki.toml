@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "each other" with "huxiang"'
+english = 'glanced at each other'
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = '互相 + Verb'
+hanzi = '互相看了一眼'
+notes = ''
+pinyin = 'hùxiāng kàn le yī yǎn'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGF00B7'

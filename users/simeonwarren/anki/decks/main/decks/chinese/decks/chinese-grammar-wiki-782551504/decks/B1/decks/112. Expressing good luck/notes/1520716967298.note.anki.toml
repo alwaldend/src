@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "leech", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing good luck'
+english = "Luckily I didn't buy a lot, otherwise it would be all wasted."
+example-sentence = ''
+example-type = ''
+grammar-construct = '还好 + [Lucky Incident]， 不然……'
+hanzi = '还好我买得少，不然都浪费了。'
+notes = ''
+pinyin = 'Hái hǎo mǎi de shǎo, bùrán dōu làngfèi le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGOB1BF'

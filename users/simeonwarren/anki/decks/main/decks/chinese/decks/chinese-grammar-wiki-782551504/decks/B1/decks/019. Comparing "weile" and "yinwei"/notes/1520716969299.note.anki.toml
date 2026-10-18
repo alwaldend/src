@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "Conjunctions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "weile" and "yinwei"'
+english = 'Because he wants to study Chinese well, he came to China.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '因为 + Reason，所以 + result'
+hanzi = '因为他想学好中文，所以他来到了中国。'
+notes = ''
+pinyin = '<div>Yīnwèi tā xiǎng xuéhǎo zhōngwén, suǒyǐ tā lái dàole zhōngguó.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMEC1P'

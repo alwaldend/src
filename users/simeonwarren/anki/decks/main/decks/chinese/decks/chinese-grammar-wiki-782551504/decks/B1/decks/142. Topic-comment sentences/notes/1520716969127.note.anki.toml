@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Topic-comment sentences'
+english = "I don't want to be so much involved in his business."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Topic ，Comment'
+hanzi = '他的事，我不想管那么多。'
+notes = ''
+pinyin = 'Tā de shì, wǒ bù xiǎng guǎn nàme duō.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5KNWW'

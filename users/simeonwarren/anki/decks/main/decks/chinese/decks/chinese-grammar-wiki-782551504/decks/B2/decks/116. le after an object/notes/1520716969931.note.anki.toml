@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'le after an object'
+english = 'The teacher asked five questions.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 了 + Number + Measure Word + Obj.'
+hanzi = '老师问了五个问题。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG4K5WH'

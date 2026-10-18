@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "Nouns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "zhijian" and "zhongjian"'
+english = 'intermediary (lit. "middle person")'
+example-sentence = ''
+example-type = ''
+grammar-construct = '中间 + Noun'
+hanzi = '中间人'
+notes = ''
+pinyin = '<div>Zhōngjiānrén</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGN6O6J'

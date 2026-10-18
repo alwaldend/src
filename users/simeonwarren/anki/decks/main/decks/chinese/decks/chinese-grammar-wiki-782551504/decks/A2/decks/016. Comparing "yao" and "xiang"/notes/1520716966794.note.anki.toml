@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Auxiliaryverbs", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "yao" and "xiang"'
+english = 'Does everyone want rice?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 要 + Noun'
+hanzi = '大家要不要米饭？'
+notes = 'ordering in a restaurant'
+pinyin = 'Dàjiā yào bù yào mǐfàn?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGD88UO'

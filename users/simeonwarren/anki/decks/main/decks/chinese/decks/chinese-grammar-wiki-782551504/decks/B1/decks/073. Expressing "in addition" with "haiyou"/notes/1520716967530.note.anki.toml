@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "in addition" with "haiyou"'
+english = "Don't talk while you eat. In addition, don't eat so fast. It's bad for your stomach."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Clause 1 ，还有 ， Clause 2'
+hanzi = '不要一边吃饭一边说话。还有，不要吃那么快，对胃不好。'
+notes = ''
+pinyin = 'Bùyào yībiān chīfàn yībiān shuōhuà. Háiyǒu, bùyào chī nàme kuài, duì wèi bù hǎo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGHQRI1'

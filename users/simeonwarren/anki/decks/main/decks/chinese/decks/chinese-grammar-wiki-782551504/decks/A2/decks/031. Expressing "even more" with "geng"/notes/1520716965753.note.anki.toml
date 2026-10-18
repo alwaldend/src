@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "even more" with "geng"'
+english = "She's become more beautiful after she got married."
+example-sentence = ''
+example-type = ''
+grammar-construct = '更 + Adj.'
+hanzi = '结婚以后，她变得更漂亮了。'
+notes = ''
+pinyin = 'Jiéhūn yǐhòu, tā biàn de gèng piàoliang le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG4NIPB'

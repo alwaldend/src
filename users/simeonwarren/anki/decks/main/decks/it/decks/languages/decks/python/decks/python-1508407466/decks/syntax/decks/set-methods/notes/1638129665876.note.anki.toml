@@ -1,0 +1,13 @@
+note_type = "note_types/python-basic-and-reversed.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<i>set</i>.symmetric_difference(<i>set</i>)'
+example = ''
+question = '<table><tbody><tr><td><b>Set method</b>&nbsp;that returns a new set with all the elements that exist in the called on set, or argument set, but not both (xor).</td></tr><tr></tr></tbody></table>'
+version = ''
+with-options = ''

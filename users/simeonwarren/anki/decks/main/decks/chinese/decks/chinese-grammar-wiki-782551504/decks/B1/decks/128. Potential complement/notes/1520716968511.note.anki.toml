@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Potential complement'
+english = "I can't hear what you said."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 不 + Complement'
+hanzi = '你说的话我听不见。'
+notes = ''
+pinyin = '<div class="kO6q6e" dir="ltr" jsname="jTaUub"><span jsname="toZopb">Nǐ shuō dehuà wǒ tīng bùjiàn.</span></div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCPJPQ'

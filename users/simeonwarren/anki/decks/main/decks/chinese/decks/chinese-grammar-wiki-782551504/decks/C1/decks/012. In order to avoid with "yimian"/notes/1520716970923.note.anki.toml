@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["C1", "Conjunctions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'In order to avoid with "yimian"'
+english = ''
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = '以免 + Verb Phrase'
+hanzi = '快抓住那个坏人，以免跑了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG0A67E'

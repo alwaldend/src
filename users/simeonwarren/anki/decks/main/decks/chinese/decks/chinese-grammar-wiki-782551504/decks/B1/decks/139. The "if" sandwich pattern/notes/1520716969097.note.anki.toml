@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'The "if" sandwich pattern'
+english = "If someone had helped him, he would't have had this accident."
+example-sentence = ''
+example-type = ''
+grammar-construct = '如果 ⋯⋯ 的话 ，(就) ⋯⋯'
+hanzi = '如果有人帮他的话，他就不会出事了。'
+notes = ''
+pinyin = 'Rúguǒ yǒu rén bāng tā dehuà, tā jiù bù huì chūshì le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGN4VUU'

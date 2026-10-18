@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "TimeWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "yizhi" and "yixiang"'
+english = "He kept talking while I was reading.It's so annoying."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '我看书的时候，他一直在说话，很烦。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGVEP8S'

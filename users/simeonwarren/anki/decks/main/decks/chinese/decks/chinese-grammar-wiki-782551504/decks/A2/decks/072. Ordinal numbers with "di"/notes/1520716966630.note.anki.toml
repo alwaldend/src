@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Grammatical_Structures", "NumbersandMeasureWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Ordinal numbers with "di"'
+english = 'He needs to take the first train in the morning to go to work.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '第 + Number + Measure Word + Noun'
+hanzi = '他要坐早上第一班地铁去上班。'
+notes = ''
+pinyin = 'Tā yào zuò zǎoshang dì-yī  bān dìtiě qù shàngbān.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGK904U'

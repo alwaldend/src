@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing wasted efforts with "bai"'
+english = "Sorry to make you work this whole morning for nothing. Our boss just said that he couldn't come today."
+example-sentence = ''
+example-type = ''
+grammar-construct = '白 + Verb + 了'
+hanzi = '不好意思，让你白忙了一个早上，我们老板今天来不了了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTIMTS'

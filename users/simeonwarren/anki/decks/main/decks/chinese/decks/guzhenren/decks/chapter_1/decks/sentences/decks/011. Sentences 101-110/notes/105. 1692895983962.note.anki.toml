@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'The patriarch took care of him in a serious tone.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '族长语气严肃地关照道。'
+notes = ''
+pinyin = ''
+source = ''

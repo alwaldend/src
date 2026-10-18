@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "gang" and "gangcai"'
+english = 'The baby just woke up.'
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = ''
+hanzi = '宝宝刚醒。'
+notes = 'The verb 醒 includes a clear enough indication of result.'
+pinyin = 'Bǎobao gāng xǐng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJFFWG'

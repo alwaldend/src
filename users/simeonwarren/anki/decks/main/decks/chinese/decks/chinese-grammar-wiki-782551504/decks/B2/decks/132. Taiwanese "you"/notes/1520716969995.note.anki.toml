@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Taiwanese "you"'
+english = 'Are you doing a part time job?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 有 + 在 + Verb'
+hanzi = '你有在做兼职吗？'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGY2D79'

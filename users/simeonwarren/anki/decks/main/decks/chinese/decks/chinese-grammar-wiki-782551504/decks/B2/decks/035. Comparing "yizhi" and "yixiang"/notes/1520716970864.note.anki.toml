@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "TimeWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "yizhi" and "yixiang"'
+english = "He never comes late, how is it that he hasn't come yet today"
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '他一向不迟到，怎么今天还没到？'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGVEP8S'

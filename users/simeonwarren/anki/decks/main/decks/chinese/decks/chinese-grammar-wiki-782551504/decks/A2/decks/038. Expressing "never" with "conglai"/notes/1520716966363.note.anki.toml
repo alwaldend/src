@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "never" with "conglai"'
+english = 'I have never before studied this word.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 从来 + 没(有) + Verb + 过'
+hanzi = '我从没学过这个词。'
+notes = '来 has been omitted here.'
+pinyin = 'Wǒ cóngméi xué guo zhège cí.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8NM5E'

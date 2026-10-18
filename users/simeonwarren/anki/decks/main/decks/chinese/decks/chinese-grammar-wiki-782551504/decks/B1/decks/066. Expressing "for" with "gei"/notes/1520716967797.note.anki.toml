@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "for" with "gei"'
+english = 'Are you asking me to clean your room for you?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 给 + Recipient + [Verb Phrase]'
+hanzi = '你想让我给你打扫吗？'
+notes = ''
+pinyin = 'Nǐ xiǎng ràng wǒ gěi nǐ dǎsǎo ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGLHAV3'

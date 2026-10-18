@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Emphasizing negation with "you"'
+english = "It's not any of your business. Why ask so much?"
+example-sentence = ''
+example-type = ''
+grammar-construct = '又 + 不 / 没 + Predicate'
+hanzi = '又不关你的事，问那么多干吗？'
+notes = ''
+pinyin = 'Yòu bù guān nǐ de shì, wèn nàme duō gànmá?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGD3C4S'

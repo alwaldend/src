@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Result complements'
+english = "I read it, but I didn't really understand it."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + [One-syllable Verb] +了 (+ Obj.)'
+hanzi = '我看了，但是没看懂。'
+notes = ''
+pinyin = 'Wǒ kàn le, dànshì méi kàndǒng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNNMST'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Suggestions with "ba"'
+english = "Let's get married."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Command + 吧'
+hanzi = '我们结婚吧。'
+notes = 'This is a also suggestion, believe it or not!'
+pinyin = 'Wǒmen jiéhūn ba.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMPZ6D'

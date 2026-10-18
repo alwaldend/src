@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'old variant of 词.word;	statement;	speech;	lyrics;	a form of lyric poetry, flourishing in the Song dynasty 宋朝.<br>Cl: 首'
+example-sentence = '五岁时就能作诗诵词,聪慧异常,才华横溢'
+example-type = ''
+grammar-construct = ''
+hanzi = '词'
+notes = ''
+pinyin = '<span class="tone5">cící</span>	 <!-- ci ci -->'
+source = ''

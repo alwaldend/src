@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Reduplication of adjectives'
+english = "I'd like to take a walk outside. Spend some alone time."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + AB + 一下'
+hanzi = '我想去外面走走，安静一下。'
+notes = ''
+pinyin = 'Wǒ xiǎng qù wàimiàn zǒuzou, ānjìng yīxià.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDHE8S'

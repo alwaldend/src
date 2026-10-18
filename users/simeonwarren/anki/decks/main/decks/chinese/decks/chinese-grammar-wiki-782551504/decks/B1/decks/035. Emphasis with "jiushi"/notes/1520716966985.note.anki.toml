@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "leech", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Emphasis with "jiushi"'
+english = 'He said this only because he envies me.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '就是 + Noun'
+hanzi = '他这样说就是嫉妒我。'
+notes = ''
+pinyin = 'Tā zhèyàng shuō jiùshì jídù wǒ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGY21RK'

@@ -1,0 +1,12 @@
+note_type = "note_types/basic.notetype.anki.toml"
+tags = ["Files", "Multiple", "Search"]
+
+[[cards]]
+ordinal = 0
+
+[[cards]]
+ordinal = 1
+
+[fields]
+Back = ':cn[ext]'
+Front = 'Jump to the next match in the quickfix list [after a vimgrep (across files)]'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "ye" and "dou" together'
+english = 'Have you all been to America too?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 也都 + 不 / 没 + Verb &lt;br /&gt;Subj. + 也都 + 不 + Adj.'
+hanzi = '你们也都没去过美国吗？'
+notes = ''
+pinyin = 'Nǐmen yě dōu méi qù guo Měiguó?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8GSXY'

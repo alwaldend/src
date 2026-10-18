@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Indicating the whole with "quan"'
+english = "The food was too much. We didn't finish eating them all."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj.+ 不 / 没 + 全都 + Predicate'
+hanzi = '菜太多了，我们没全都吃完。'
+notes = ''
+pinyin = 'Cài tài duō le, wǒmen méi quán dōu chī wán.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCPDSR'

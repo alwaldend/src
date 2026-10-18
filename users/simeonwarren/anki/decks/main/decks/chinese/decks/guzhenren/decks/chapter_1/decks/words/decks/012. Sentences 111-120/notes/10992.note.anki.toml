@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'to act on;	to affect;	action;	function;	activity;	impact;	result;	effect;	purpose;	intent;	to play a role;	corresponds to English -ity, -ism, -ization.<br>Cl: 个'
+example-sentence = '春秋蝉果真起作用了   方源眼神幽幽,站在窗户旁,任凭风雨打在身上'
+example-type = ''
+grammar-construct = ''
+hanzi = '作用'
+notes = ''
+pinyin = '<span class="tone4">zuò</span><span class="tone4">yòng</span>	 <!-- zuo yong -->'
+source = ''

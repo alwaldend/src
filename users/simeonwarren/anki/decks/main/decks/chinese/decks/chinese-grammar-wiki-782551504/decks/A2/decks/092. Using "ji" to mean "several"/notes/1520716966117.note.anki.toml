@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "NumbersandMeasureWords", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "ji" to mean "several"'
+english = 'My grandma has quite a few children.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '好几 + Measure Word + Noun'
+hanzi = '我奶奶有好几个孩子。'
+notes = ''
+pinyin = 'Wǒ nǎinai yǒu hǎojǐ gè háizi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGHC9CA'

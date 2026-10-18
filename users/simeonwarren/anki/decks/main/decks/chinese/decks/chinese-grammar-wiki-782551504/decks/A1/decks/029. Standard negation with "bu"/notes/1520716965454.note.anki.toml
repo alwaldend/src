@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Standard negation with "bu"'
+english = "Why don't you like to drink coffee?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不 + Verb + Obj.'
+hanzi = '为什么你不喜欢喝咖啡？'
+notes = ''
+pinyin = 'Wèishénme nǐ bù xǐhuan hē  kāfēi?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGIPYFV'

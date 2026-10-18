@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "about to happen" with "le"'
+english = "It's almost Chinese New Year. When are you going back to your hometown?"
+example-sentence = ''
+example-type = ''
+grammar-construct = '快要 + Verb + 了'
+hanzi = '快要过年了，你什么时候回家？'
+notes = ''
+pinyin = 'Kuài yào guònián le, nǐ shénme shíhou huíjiā?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNGEU8'

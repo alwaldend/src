@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "AdverbswithAdjectives", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Modifying nouns with phrase + "de"'
+english = 'the train that goes to Beijing'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Phrase + 的 + Noun'
+hanzi = '去北京的火车'
+notes = ''
+pinyin = 'qù Běijīng  de huǒchē'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGLQKD2'

@@ -1,0 +1,13 @@
+note_type = "note_types/python-cloze.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[[cards]]
+ordinal = 1
+
+[fields]
+example = ''
+text = "Bitwise operators and their meanings:<br><ol><li>{{c1::shift left}}: {{c2::&lt;&lt;}}</li><li>{{c1::shift right}}: {{c2::&gt;&gt;}}</li><li>{{c1::and}}: {{c2::&amp;}}</li><li>{{c1::or}}: {{c2::|}}</li><li>{{c1::not (switch 1's and 0's)}}: {{c2::~}}</li><li>{{c1::exclusive or (xor)}}: {{c2::^}}</li></ol>"
+version = ''

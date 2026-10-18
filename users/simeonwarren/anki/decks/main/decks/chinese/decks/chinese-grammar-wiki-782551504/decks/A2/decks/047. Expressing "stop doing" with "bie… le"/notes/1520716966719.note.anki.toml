@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "stop doing" with "bie… le"'
+english = 'Stop laughing. Other people are looking at you.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '别 + Verb / [Verb Phrase] + 了'
+hanzi = '别笑了，别人都在看你。'
+notes = ''
+pinyin = 'Bié xiào le, biérén dōu zài kàn nǐ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGZ8OIF'

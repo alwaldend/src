@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Advanced potential complements'
+english = "Many people don't get pregnant twice not because they don't want to. It's because the cost is too high, they can't afford to raise more kids."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 得 / 不 + 起 + Obj.'
+hanzi = '很多人不生二胎不是因为不想要，是因为成本太高，养不起。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG516F9'

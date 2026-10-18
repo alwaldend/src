@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "EvenIfStatements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "even if…" with "jiusuan"'
+english = "Even if he said it's his treat, I'm the one who's going to pay."
+example-sentence = ''
+example-type = ''
+grammar-construct = '就算 ⋯⋯ ，也 ⋯⋯'
+hanzi = '就算他说他请客，我也要买单。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGLI513'

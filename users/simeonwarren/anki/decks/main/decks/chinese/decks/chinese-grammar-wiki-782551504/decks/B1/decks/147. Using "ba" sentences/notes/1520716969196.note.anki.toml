@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "ba" sentences'
+english = 'Where did you put my cell phone?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 把 + Obj. 1 + Verb + 给 + Obj. 2'
+hanzi = '你把我手机放在哪儿了？'
+notes = ''
+pinyin = 'Nǐ bǎ wǒ shǒujī fàng zài nǎr le?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG2UB2B'

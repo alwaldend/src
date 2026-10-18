@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Cause and effect with "yinwei" and "suoyi"'
+english = 'She is beautiful, so a lot of boys like her.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Reason, 所以 + Result'
+hanzi = '她很漂亮，所以很多男孩喜欢她。'
+notes = ''
+pinyin = 'Tā hěn piàoliang, suǒyǐ hěn duō nánhái xǐhuan tā.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTDUJO'

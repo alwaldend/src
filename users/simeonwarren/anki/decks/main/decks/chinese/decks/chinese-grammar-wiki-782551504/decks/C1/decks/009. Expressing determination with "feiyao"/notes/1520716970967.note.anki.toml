@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Auxiliaryverbs", "C1"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing determination with "feiyao"'
+english = "I didn't want to tell, but she made me tell."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 非要 + Verb + (不可)'
+hanzi = '我不想说，可是她非要让我说不可。'
+notes = ''
+pinyin = 'Wǒ bùxiǎng shuō, kěshì tā fēi yào ràng wǒ shuō bu kě.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQV7TL'

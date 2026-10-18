@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Before a specific time with "yiqian"'
+english = 'I need to find a job before graduation.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Time / Verb + 以前, ....'
+hanzi = '毕业以前，我要找到工作。'
+notes = ''
+pinyin = 'Bìyè yǐqián,  wǒ yào zhǎodào gōngzuò.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJ2OJC'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "SeparateFunctions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "kending" "queding" and "yiding"'
+english = "The boss approved our team's work."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + (敢)肯定 + Sentences'
+hanzi = '老板肯定了我们团队的工作。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDPS0J'

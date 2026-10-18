@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "all along" with "yuanlai"'
+english = 'You have been tricking me, how could I be so stupid?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '原来 + [New Information]'
+hanzi = '原来你在骗我！我怎么那么傻？'
+notes = ''
+pinyin = 'Yuánlái nǐ zài piàn wǒ! Wǒ zěnme nàme shǎ?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTKXFR'

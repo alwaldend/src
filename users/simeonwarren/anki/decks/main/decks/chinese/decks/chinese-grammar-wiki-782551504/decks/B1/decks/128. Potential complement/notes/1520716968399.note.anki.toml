@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Potential complement'
+english = "You didn't wear glasses. Can you see things clearly?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 得 + Complement'
+hanzi = '你没戴眼镜，看得清楚吗？'
+notes = ''
+pinyin = 'Nǐ méi dài yǎnjìng, kàn de qīngchu ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCPJPQ'

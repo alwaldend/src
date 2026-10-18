@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'The pale face due to excessive blood loss was suddenly illuminated by the sunset glow.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '因为失血过多而显得苍白的脸,被晚霞映照着,忽然增添了一份嫣然之光彩。'
+notes = ''
+pinyin = ''
+source = ''

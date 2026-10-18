@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = "Expressing \"while you're at it\" with \"shunbian\""
+english = 'By the way, when are you coming back next weekend?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '顺便说一下&lt;br /&gt;顺便问一下'
+hanzi = '顺便问一下，你下周什么时候回来？'
+notes = ''
+pinyin = 'Shùnbiàn wèn yīxià, nǐ xià zhōu shénme shíhou huílái?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5334C'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Placement of question words'
+english = "Which room are you in?<br>I'm in your room."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 哪个 (+ Noun) ?'
+hanzi = 'A: 你在哪个房间？<br>B: 我在你的房间。'
+notes = ''
+pinyin = 'Nǐ zài nǎge fángjiān?<br>Wǒ zài  nǐ de fángjiān.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJQPSC'

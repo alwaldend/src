@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Tricky uses of "dao"'
+english = 'I always wanted get in contact with you, but I never could get a hold of you.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '我一直想跟你联系，但是一直没联系到你。'
+notes = ''
+pinyin = 'Wǒ yīzhí xiǎng gēn nǐ liánxì, dànshì yīzhí méi liánxìdào nǐ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCUSIV'

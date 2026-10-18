@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Negative commands with "buyao"'
+english = "Don't go to bed too late."
+example-sentence = ''
+example-type = ''
+grammar-construct = '不要 + Verb'
+hanzi = '不要很晚睡觉！'
+notes = ''
+pinyin = 'Bùyào hěn wǎn shuìjiào.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGIVZJU'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Making judgments with "suan"'
+english = "I'm fairly young in our company."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 算 + (是) + Adj. + 的'
+hanzi = '在我们公司，我算年轻的。'
+notes = ''
+pinyin = 'Zài wǒmen gōngsī, wǒ suàn niánqīng de.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWDWFN'

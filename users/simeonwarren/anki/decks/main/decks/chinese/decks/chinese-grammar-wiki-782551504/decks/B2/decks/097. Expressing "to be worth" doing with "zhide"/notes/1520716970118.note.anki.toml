@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "to be worth" doing with "zhide"'
+english = "This little thing isn't worth your time."
+example-sentence = ''
+example-type = ''
+grammar-construct = '值得 + Verb / [Verb Phrase]'
+hanzi = '这件小事不值得你担心。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGGJA6A'

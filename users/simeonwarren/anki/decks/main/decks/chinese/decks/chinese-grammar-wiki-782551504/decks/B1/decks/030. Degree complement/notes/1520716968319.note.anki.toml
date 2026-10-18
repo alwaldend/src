@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Degree complement'
+english = 'The kids are learning fast.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 得 + [Degree Complement]'
+hanzi = '孩子们学得挺快的。'
+notes = ''
+pinyin = 'Háizi men xué de de tǐng kuài de.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG79STE'

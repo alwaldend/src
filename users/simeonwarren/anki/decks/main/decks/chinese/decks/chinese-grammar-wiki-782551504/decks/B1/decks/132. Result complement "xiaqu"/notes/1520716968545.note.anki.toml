@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Result complement "xiaqu"'
+english = "This scene in the movie is too cruel, I can't keep watching it."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 不 + 下去'
+hanzi = '这个电影画面太残忍了，我看不下去了！'
+notes = ''
+pinyin = 'Zhège diànyǐng huàmiàn tài cánrěn le, wǒ kàn bù xiàqù le!'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG1PTJX'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'that;	those;	then (in that case).<br>(archaic) many;	beautiful;	how.<br>'
+example-sentence = '从那刻起,我恨不得吃你肉,喝你的血'
+example-type = ''
+grammar-construct = ''
+hanzi = '那'
+notes = ''
+pinyin = '<span class="tone5">nà nuó</span>	 <!-- nan an an uo -->'
+source = ''

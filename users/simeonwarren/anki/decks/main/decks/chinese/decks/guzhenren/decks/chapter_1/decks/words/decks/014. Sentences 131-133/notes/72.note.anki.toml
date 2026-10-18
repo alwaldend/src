@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'to conceal;	to hide away;	to harbor;	to store;	to collect.<br>Tibet;	storehouse;	depository;	Buddhist or Taoist scripture.<br>'
+example-sentence = '新书伊始,朋友们的收该藏、推荐票以及评论,是最好的鼓励'
+example-type = ''
+grammar-construct = ''
+hanzi = '藏'
+notes = ''
+pinyin = '<span class="tone5">cángzàng</span>	 <!-- cang zang -->'
+source = ''

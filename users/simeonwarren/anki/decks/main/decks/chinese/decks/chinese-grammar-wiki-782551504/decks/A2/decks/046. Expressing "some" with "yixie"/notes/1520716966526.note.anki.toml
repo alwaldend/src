@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Grammatical_Structures", "NounPhrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "some" with "yixie"'
+english = 'He bought some clothes last weekend.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '一些 + Noun'
+hanzi = '上个周末他买了一些衣服。'
+notes = ''
+pinyin = 'Shàng gè zhōumò tā mǎi le yīxiē yīfu.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWVZ0T'

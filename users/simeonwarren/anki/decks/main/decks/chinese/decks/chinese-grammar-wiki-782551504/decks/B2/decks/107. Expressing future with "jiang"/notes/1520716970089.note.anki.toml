@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Auxiliaryverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing future with "jiang"'
+english = 'He is about to go to China to study.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '将 + [Imminent Event]'
+hanzi = '他将去中国学习。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGIQPUJ'

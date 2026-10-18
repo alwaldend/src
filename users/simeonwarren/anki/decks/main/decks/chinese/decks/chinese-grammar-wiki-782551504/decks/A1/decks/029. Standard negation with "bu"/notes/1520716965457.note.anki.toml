@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Standard negation with "bu"'
+english = "I'm not hungry."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不 + Adj.'
+hanzi = '我不饿。'
+notes = ''
+pinyin = 'Wǒ bù è.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGIPYFV'

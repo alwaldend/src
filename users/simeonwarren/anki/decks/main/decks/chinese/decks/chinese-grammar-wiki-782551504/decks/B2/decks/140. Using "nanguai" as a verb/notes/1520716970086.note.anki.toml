@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "nanguai" as a verb'
+english = "No one can blame you, the first time I came here, I didn't understand the customs."
+example-sentence = ''
+example-type = ''
+grammar-construct = '难怪 + [Specific Person / People]'
+hanzi = '这也难怪你，第一次到这个地方还不了解这里的风俗。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGYKH5G'

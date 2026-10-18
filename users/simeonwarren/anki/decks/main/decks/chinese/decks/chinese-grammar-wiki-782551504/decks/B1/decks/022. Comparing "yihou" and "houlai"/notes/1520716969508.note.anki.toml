@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "TimeWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "yihou" and "houlai"'
+english = 'The boss will come back in an hour.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Time + 以后， Subj. + Verb + Obj.'
+hanzi = '老板一个小时以后回来。'
+notes = ''
+pinyin = 'Lǎobǎn yī gè xiǎoshí yǐhòu huílái. The boss will come back in an hour.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNPJ7T'

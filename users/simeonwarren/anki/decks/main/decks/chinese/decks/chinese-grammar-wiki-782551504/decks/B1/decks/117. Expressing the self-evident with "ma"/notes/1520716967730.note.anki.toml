@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing the self-evident with "ma"'
+english = 'This foreigner know a lot about Chinese culture.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Statement + 嘛'
+hanzi = '这个老外很了解中国文化嘛。'
+notes = ''
+pinyin = 'Zhège lǎowài hěn liǎojiě Zhōngguó wénhuà ma.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGVMC4B'

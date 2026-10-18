@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'Among the younger generation, he can be said to be the leader.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '在年轻一辈中,可谓独领风骚。'
+notes = ''
+pinyin = ''
+source = ''

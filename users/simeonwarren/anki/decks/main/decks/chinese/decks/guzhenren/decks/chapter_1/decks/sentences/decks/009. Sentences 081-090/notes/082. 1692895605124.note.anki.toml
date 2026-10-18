@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = "Well, it's precocious and has big ambitions."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '嗯,这是有早智的,而且有大志向。'
+notes = ''
+pinyin = ''
+source = ''

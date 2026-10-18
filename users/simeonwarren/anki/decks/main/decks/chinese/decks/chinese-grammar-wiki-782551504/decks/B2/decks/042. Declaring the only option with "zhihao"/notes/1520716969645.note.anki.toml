@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Declaring the only option with "zhihao"'
+english = "Other restaurants are all closed. We didn't have a choice but go to KFC to eat."
+example-sentence = ''
+example-type = ''
+grammar-construct = '……，（Subj.）＋只好 + Verb Phrase'
+hanzi = '别的餐厅都关门了，我们只好去吃KFC。'
+notes = ''
+pinyin = 'Biéde cāntīng dōu guānmén le, wǒmen  zhǐhǎo qù chī KFC.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG767A2'

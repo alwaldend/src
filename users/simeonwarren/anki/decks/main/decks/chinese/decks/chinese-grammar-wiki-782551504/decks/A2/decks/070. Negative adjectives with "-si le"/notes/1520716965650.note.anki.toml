@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adjectives", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Negative adjectives with "-si le"'
+english = 'This kid is so freaking annoying!'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Adj. + 死了'
+hanzi = '这个孩子烦死了。'
+notes = 'Literally, "annoying to death"'
+pinyin = 'Zhège háizi fán sǐ le!'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGLEVUV'

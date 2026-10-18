@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "ye" and "dou" together'
+english = "These are not expensive. Those aren't expensive, either."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 也都 + 不 / 没 + Predicate'
+hanzi = '这些不贵，那些也都不贵。'
+notes = ''
+pinyin = 'Zhèxiē bù guì, nàxiē yě dōu bù guì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8GSXY'

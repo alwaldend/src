@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "not only... but also"'
+english = 'Not only did he finish, but he also did it extremely well.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不但 + Adj. / Verb， 而且 + Adj. / Verb'
+hanzi = '他不但做完了，而且做得非常好。'
+notes = ''
+pinyin = 'Tā bùdàn zuò wán le, érqiě zuò de fēicháng hǎo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTYJ3E'

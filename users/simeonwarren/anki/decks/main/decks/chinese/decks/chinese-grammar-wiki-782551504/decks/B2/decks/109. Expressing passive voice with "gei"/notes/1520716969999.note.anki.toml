@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing passive voice with "gei"'
+english = 'I got scammed by him.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Receiver + 给 + The Doer + Verb Phrase'
+hanzi = '我给他骗了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGEZ2HN'

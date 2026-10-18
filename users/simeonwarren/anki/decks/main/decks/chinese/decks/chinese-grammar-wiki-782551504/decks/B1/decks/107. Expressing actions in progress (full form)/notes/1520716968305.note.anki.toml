@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing actions in progress (full form)'
+english = 'All these sentences mean "She is reading the newspaper."'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 正在 + Verb + 着 + Obj. + 呢'
+hanzi = '她正看着报纸呢。'
+notes = ''
+pinyin = 'Tā zhèng kàn zhe bàozhǐ ne.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGEYQ9O'

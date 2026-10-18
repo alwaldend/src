@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "leech", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "all at once" with "yixiazi"'
+english = 'She lost ten jin the first last month at all once.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 一下(子) + Predicate + 了'
+hanzi = '她上个月一下瘦了十斤。'
+notes = 'One "jin" = 500g'
+pinyin = 'Tā shàng gè yuè yīxià shòu le shí jīn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG06EA8'

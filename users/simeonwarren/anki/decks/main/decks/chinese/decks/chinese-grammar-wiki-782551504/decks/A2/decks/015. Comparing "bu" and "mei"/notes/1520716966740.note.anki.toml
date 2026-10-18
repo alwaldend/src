@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "bu" and "mei"'
+english = 'Dad is not coming back to eat dinner.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不 + Verb'
+hanzi = '爸爸不回来吃晚饭。'
+notes = ''
+pinyin = 'Bàba bù huílái chī wǎnfàn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGRJ1BI'

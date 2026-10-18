@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "how often"'
+english = 'You rarely eat avocado, right?'
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = 'Subj. + [Length of Time]  + Verb + Times (+ Obj.)'
+hanzi = '你很少吃牛油果吧？'
+notes = ''
+pinyin = 'Nǐ hěnshǎo chī niúyóuguǒ ba?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCED31'

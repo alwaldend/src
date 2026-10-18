@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "ConditionalStatements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "unless" with "chufei"'
+english = "I won't go unless you go."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Condition, (要) 不然 + Result'
+hanzi = '你也去，要不然我不去。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMD0YY'

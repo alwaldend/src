@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "TimeWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "yihou" "ranhou" "houlai"'
+english = 'Please stop coming in the future.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '请你以后别来了。'
+notes = ''
+pinyin = 'Qǐng nǐ yǐhòu bié lái le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNPJ7T'

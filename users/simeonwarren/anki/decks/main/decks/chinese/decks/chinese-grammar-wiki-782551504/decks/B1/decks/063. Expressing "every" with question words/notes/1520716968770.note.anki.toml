@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "every" with question words'
+english = 'Is it OK if I do however I want?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '怎么 + Verb + 都 + Predicate'
+hanzi = '怎么做都可以吗？'
+notes = ''
+pinyin = 'Zěnme zuò dōu kěyǐ ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG13ALM'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Result complements'
+english = "You're stepping on my foot."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + [One-syllable Verb] +了 (+ Obj.)'
+hanzi = '你踩到了我的脚。'
+notes = ''
+pinyin = 'Nǐ cǎidào le wǒ de jiǎo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNNMST'

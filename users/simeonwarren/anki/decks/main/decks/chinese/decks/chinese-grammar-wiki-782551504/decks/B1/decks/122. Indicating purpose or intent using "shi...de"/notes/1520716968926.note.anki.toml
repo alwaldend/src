@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Indicating purpose or intent using "shi...de"'
+english = 'We are all here doing business.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Person + 是 + 来 / 去 + Verb Phrase + 的'
+hanzi = '我们都是来做生意的。'
+notes = ''
+pinyin = 'Wǒmen dōu shì lái zuò shēngyi de.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG0UFR4'

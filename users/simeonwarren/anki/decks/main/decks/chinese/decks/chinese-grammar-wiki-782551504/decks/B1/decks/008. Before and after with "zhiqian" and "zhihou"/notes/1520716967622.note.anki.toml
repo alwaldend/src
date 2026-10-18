@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "leech", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Before and after with "zhiqian" and "zhihou"'
+english = "I'm going to eat now. After that I will go to meet a potential client."
+example-sentence = ''
+example-type = ''
+grammar-construct = '⋯⋯ ，之前 / 之后 ⋯⋯'
+hanzi = '我现在去吃饭，之后去见潜在客户。'
+notes = ''
+pinyin = 'Wǒ xiànzài qù chīfàn, zhīhòu qù qián​zài kèhù.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTD3L3'

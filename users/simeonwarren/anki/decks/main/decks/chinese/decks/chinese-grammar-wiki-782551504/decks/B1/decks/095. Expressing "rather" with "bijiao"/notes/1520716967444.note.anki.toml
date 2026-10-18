@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["AdverbswithAdjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "rather" with "bijiao"'
+english = 'The public comparatively support the new employment policy.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 比较 + [Verb Phrase]'
+hanzi = '民众比较支持新的就业政策。'
+notes = ''
+pinyin = 'Mínzhòng bǐjiào zhīchí xīn de jiùyè zhèngcè.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG72HKP'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "AdverbswithAdjectives", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Basic comparisons with "yiyang"'
+english = 'Your house is just as big as mine.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun 1 + 跟 / 和 + Noun 2 + 一样 + Adj.'
+hanzi = '你家跟我家一样大。'
+notes = ''
+pinyin = 'Nǐ jiā gēn  wǒ jiā yīyàng dà.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGC06N0'

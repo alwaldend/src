@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'Qingxin county in Qingyuan 清远, Guangdong;	fresh and clean.'
+example-sentence = ' 顿时,满口都是清新湿润的山间空气,沁人心脾'
+example-type = ''
+grammar-construct = ''
+hanzi = '清新'
+notes = ''
+pinyin = '<span class="tone1">qīng</span><span class="tone1">xīn</span>	 <!-- qing xin -->'
+source = ''

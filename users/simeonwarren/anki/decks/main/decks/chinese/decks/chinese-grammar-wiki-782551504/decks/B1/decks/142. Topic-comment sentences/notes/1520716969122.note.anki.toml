@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Topic-comment sentences'
+english = 'Hello. Are there any tickets left?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Topic ，Comment'
+hanzi = '你好，票，还有吗？'
+notes = ''
+pinyin = 'Nǐhǎo, piào, háiyǒu ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5KNWW'

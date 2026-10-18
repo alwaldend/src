@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Advanced use of "you"'
+english = "We asked again and again, but she wouldn't say it."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. ＋Verb + 了 + 又 + Verb，还是 / 就是 ……'
+hanzi = '我们问了又问，她就是不说。'
+notes = ''
+pinyin = 'Wǒmen wèn le yòu wèn, tā jiùshì bù shuō.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGF08B6'

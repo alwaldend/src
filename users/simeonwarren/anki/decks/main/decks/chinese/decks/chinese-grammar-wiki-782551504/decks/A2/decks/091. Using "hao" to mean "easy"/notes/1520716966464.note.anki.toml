@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "hao" to mean "easy"'
+english = 'iPhones are easy to buy now.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + (很) 好 + Verb'
+hanzi = '苹果手机现在很好买。'
+notes = ''
+pinyin = 'Píngguǒ shǒujī xiànzài hěn hǎo mǎi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJQU93'

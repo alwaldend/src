@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "TimeWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "gang" and "gangcai"'
+english = "I'll buy it tomorrow."
+example-sentence = ''
+example-type = ''
+grammar-construct = '刚 + Adj.'
+hanzi = '我明天买。'
+notes = ''
+pinyin = '<div>Wǒ míngtiān mǎi.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJFFWG'

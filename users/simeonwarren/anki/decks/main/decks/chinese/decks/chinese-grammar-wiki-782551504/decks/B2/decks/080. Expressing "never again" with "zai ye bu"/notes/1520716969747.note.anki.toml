@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "never again" with "zai ye bu"'
+english = "They haven't seen each other ever since they broke up."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 再也 + 没 + Verb + 过 + Obj.'
+hanzi = '分手以后，他们再也没见过。'
+notes = ''
+pinyin = 'Fēnshǒu yǐhòu, tāmen zài yě méi jiàn guo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG7R8US'

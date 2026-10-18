@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "before" in general with "yiqian"'
+english = "They didn't have much money before, but they were happy."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 以前 + Verb + Obj.'
+hanzi = '他们以前没有钱，可是很快乐。'
+notes = ''
+pinyin = 'Tāmen yǐqián méiyǒu qián, kěshì hěn kuàilè.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGVCWLU'

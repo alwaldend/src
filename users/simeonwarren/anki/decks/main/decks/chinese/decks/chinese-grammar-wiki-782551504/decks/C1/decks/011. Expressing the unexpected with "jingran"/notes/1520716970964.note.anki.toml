@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "C1"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing the unexpected with "jingran"'
+english = "He is so hardworking, but, surprisingly, he didn't pass the exam."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 竟然 ⋯⋯'
+hanzi = '他那么努力，竟然没考及格！'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG0D90L'

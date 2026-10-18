@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = "Expressing \"don't need to\" with \"buyong\""
+english = "Guys, you don't need to buy me presents."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不用 + [Verb Phrase]'
+hanzi = '大家不用给我买礼物。'
+notes = ''
+pinyin = 'Dàjiā bùyòng gěi wǒ mǎi lǐwù.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGECD0E'

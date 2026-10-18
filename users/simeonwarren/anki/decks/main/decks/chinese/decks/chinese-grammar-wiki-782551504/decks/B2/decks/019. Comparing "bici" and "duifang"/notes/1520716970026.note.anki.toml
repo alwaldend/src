@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Parts_of_Speech", "Pronouns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "bici" and "duifang"'
+english = "I apologized to him, but he didn't accepted it."
+example-sentence = ''
+example-type = ''
+grammar-construct = '对方 + Verb Phrase'
+hanzi = '我道歉了，但是对方不接受。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG84D65'

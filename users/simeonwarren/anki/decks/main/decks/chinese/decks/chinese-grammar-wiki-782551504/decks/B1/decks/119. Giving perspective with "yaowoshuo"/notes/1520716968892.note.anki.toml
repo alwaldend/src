@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Giving perspective with "yaowoshuo"'
+english = "I think he shouldn't divorce his wife."
+example-sentence = ''
+example-type = ''
+grammar-construct = '要我说， Opinion'
+hanzi = '要我说，他就不应该跟老婆离婚。'
+notes = ''
+pinyin = 'Yào wǒ shuō, tā jiù bù yīnggāi gēn lǎopo líhūn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGITYYM'

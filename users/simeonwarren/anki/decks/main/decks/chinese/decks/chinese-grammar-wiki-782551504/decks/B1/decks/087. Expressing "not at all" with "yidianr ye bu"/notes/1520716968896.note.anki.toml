@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "not at all" with "yidianr ye bu"'
+english = "My son doesn't like playing video games at all."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 一点 + 也 / 都 + 不 + [Verb Phrase]'
+hanzi = '我儿子一点都不爱玩游戏。'
+notes = ''
+pinyin = 'Wǒ érzi yīdiǎn dōu bù ài wán yóuxì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGRURCZ'

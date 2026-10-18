@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "again" in the future with "zai"'
+english = 'Give me fifty more kuai.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 再 + Verb-Obj.'
+hanzi = '你再给我五十块。'
+notes = ''
+pinyin = 'Nǐ zài gěi wǒ wǔshí kuài.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGIZQJ2'

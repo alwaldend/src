@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Placement of question words'
+english = "Which district do you live in?<br>I live in Jing'an District."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 哪个 (+ Noun) ?'
+hanzi = 'A: 你住在哪个区？<br>B: 我住在静安区。'
+notes = ''
+pinyin = "Nǐ zhù zài nǎge qū?<br>Wǒ zhù zài  Jìng'ān Qū ."
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJQPSC'

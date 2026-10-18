@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Tricky uses of "dao"'
+english = "If he can't get a green card, I will break up with him."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '如果他拿不到绿卡，我就跟他分手。'
+notes = ''
+pinyin = 'Rúguǒ tā ná bu dào lǜkǎ, wǒ jiù gēn tā fēnshǒu.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCUSIV'

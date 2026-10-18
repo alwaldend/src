@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing comparable degree with "you"'
+english = 'Is he as tall as YaoMing?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A + 有 (+ B) + 这么 / 那么 + Adj. + 吗 ？'
+hanzi = '他有姚明那么高吗？'
+notes = ''
+pinyin = 'Tā yǒu Yáo Míng nàme gāo ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5DG95'

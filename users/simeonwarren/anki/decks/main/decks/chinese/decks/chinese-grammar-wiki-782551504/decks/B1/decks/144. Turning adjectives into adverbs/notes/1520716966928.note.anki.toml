@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adjectives", "B1", "leech", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Turning adjectives into adverbs'
+english = 'Wish you pass the exam successfully.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Adj. + 地 + Verb'
+hanzi = '祝你顺利地通过考试。'
+notes = ''
+pinyin = 'Zhù nǐ shùnlì de tōngguò kǎoshì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMAFSX'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "ye" and "dou" together'
+english = 'My boss is American. Lots of our clients are also Americans.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 也都 + Predicate'
+hanzi = '我老板是美国人，很多客户也都是美国人。'
+notes = ''
+pinyin = 'Wǒ lǎobǎn shì Měiguó rén, hěn duō kèhù yě dōu shì Měiguó rén.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8GSXY'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Turning adjectives into adverbs'
+english = 'Grandpa walks slowly.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Adj. + 地 + Verb'
+hanzi = '爷爷慢慢地走路。'
+notes = ''
+pinyin = 'Yéyé màn man de zǒulù.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMAFSX'

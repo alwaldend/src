@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "enough" with "gou"'
+english = "We eat take-away every day. We're sick of eating it."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不 + 够 + Adj. / Verb'
+hanzi = '天天吃外卖，我们都吃够了。'
+notes = ''
+pinyin = 'Tiāntiān chī wàimài, wǒmen dōu chī gòu le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG49BE6'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["AuxiliaryWords", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Non-exhaustive lists with "dengdeng"'
+english = 'My boyfriend can speak many foreign languages: English, French, Spanish, etc.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A1，A2⋯⋯等 / 等等'
+hanzi = '我的男朋友会说很多外语，英语、法语、西班牙语等等。'
+notes = ''
+pinyin = 'Wǒ de nánpéngyou huì shuō hěn duō wàiyǔ, Yīngyǔ, Fǎyǔ, Xībānyáyǔ děngděng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGF763H'

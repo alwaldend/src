@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Doing something less with "shao"'
+english = "Don't buy too much. It will go bad if we can't finish eating all."
+example-sentence = ''
+example-type = ''
+grammar-construct = '少 + Verb'
+hanzi = '少买点，吃不完会坏的。'
+notes = ''
+pinyin = 'Shǎo mǎi diǎn, chī bu wán huì huài de.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG9B0M8'

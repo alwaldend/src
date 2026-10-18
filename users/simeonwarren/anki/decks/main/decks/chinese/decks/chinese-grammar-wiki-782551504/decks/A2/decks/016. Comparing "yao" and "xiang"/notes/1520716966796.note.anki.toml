@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Auxiliaryverbs", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "yao" and "xiang"'
+english = "Thank you. I don't need anything."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 要 + Noun'
+hanzi = '谢谢，我什么都不要。'
+notes = 'ordering in a restaurant'
+pinyin = 'Xièxiè, wǒ shénme dōu bù yào.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGD88UO'

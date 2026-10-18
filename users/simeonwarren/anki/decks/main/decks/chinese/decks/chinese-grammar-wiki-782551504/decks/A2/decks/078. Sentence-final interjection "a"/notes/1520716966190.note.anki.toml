@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Sentence-final interjection "a"'
+english = 'Are you eating or not?'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '你吃不吃啊？'
+notes = ''
+pinyin = 'Nǐ  chī bu chī a?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGW66JM'

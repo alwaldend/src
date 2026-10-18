@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "enough" with "gou"'
+english = 'We bought a lot of food. It must be good enough to eat.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 够 + Verb (+ 了)'
+hanzi = '我们买了很多菜，肯定够吃。'
+notes = ''
+pinyin = 'Wǒmen mǎi le hěnduō cài, kěndìng gòu chī.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG49BE6'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "EvenIfStatements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "even if…" with "jishi"'
+english = "Even if it's raining tomorrow, we're still going to go out hiking."
+example-sentence = ''
+example-type = ''
+grammar-construct = '即使 + Hypothetical Statement + 也 + Action'
+hanzi = '即使明天下雨，我也要出去爬山。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGBUXN7'

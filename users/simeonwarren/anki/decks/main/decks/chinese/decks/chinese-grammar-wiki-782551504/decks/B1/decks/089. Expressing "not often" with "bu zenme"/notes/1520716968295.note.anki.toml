@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "not often" with "bu zenme"'
+english = "He didn't say much."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不怎么 + Verb ( + Obj. )'
+hanzi = '他没怎么说话。'
+notes = ''
+pinyin = 'Tā méi zěnme shuōhuà.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5BOGP'

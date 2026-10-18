@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "AdverbswithAdjectives", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "both A and B" with "you"'
+english = 'Winter here in Shanghai is both cold and humid.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 又 + Adj. 1 + 又 + Adj. 2'
+hanzi = '上海的冬天又冷又湿。'
+notes = ''
+pinyin = 'Shànghǎi de dōngtiān yòu lěng yòu shī.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPFUM2'

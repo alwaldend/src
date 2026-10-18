@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "AdverbswithAdjectives", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Modifying nouns with adjective + "de"'
+english = 'Which foods do you not like to eat?<br>Spicy ones.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Adj. + 的'
+hanzi = 'A: 你不喜欢吃什么菜？<br>B: 辣的。'
+notes = ''
+pinyin = 'Nǐ bù xǐhuan chī shénme cài?<br>Là de.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGVUFKX'

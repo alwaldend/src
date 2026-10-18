@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Advanced potential complements'
+english = 'You are only 50 kilograms. I can carry you.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 得 / 不 + 动'
+hanzi = '你才一百斤，我背得动你。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG516F9'

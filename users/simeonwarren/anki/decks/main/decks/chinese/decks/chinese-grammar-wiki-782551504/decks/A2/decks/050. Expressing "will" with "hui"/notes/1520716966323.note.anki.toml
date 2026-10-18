@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Auxiliaryverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "will" with "hui"'
+english = "We won't tell you."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不 + 会 + Verb + Obj.'
+hanzi = '我们不会告诉你。'
+notes = ''
+pinyin = 'Wǒmen bù huì gàosu nǐ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGW9737'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "Conjunctions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "haishi" and "huozhe"'
+english = "The boss isn't sure if he's going on business trips this weekend or next weekend."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Possibility 1 + 或者 + Possibility 2'
+hanzi = '老板不确定是这个周末出差还是下个周末出差。'
+notes = ''
+pinyin = 'Lǎobǎn bù quèdìng shì zhège zhōumò chūchāi háishì xià gè zhōumò chūchāi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQJ5IC'

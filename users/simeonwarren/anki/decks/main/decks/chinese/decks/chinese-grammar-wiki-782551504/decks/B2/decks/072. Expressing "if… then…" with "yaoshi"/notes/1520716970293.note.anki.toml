@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Grammatical_Structures", "IfStatements"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "if… then…" with "yaoshi"'
+english = 'If you do miss me, then give me a call.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '要是 + Subj. ⋯⋯ ， 就 ⋯⋯'
+hanzi = '你要是真想我，就给我打电话。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGN4S8O'

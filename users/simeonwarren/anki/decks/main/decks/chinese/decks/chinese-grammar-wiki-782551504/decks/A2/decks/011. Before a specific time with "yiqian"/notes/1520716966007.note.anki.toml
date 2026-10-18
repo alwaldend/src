@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Before a specific time with "yiqian"'
+english = 'Before you went to college, did you ever come to Shanghai?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Time / Verb + 以前, ....'
+hanzi = '上大学以前，你来过上海吗？'
+notes = ''
+pinyin = 'Shàng dàxué  yǐqián, nǐ lái guo shànghǎi ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJ2OJC'

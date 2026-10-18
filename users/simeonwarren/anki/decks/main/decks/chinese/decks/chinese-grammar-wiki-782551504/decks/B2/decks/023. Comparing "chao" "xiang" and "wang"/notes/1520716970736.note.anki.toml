@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "chao" "xiang" and "wang"'
+english = 'This train is heading towards Shenyang.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 向 / 往 + 具体方向'
+hanzi = '这趟火车开往沈阳。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGIHS2L'

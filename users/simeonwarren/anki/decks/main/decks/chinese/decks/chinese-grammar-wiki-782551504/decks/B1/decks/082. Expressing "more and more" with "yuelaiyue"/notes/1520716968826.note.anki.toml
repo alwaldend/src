@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "more and more" with "yuelaiyue"'
+english = 'You speak better and better.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 越来越 + Adj. + 了'
+hanzi = '你说得越来越好了。'
+notes = ''
+pinyin = 'Nǐ shuō de yuèláiyuè hǎo le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG7UE4H'

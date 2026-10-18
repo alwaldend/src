@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Alternative existential sentences'
+english = 'There are more than two hundred students sitting in the classroom.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Place + Verb + 着 + [Noun Phrase]'
+hanzi = '教室里坐着两百多个学生。'
+notes = ''
+pinyin = 'Jiàoshì lǐ zuò zhe liǎng bǎi duō gè xuéshēng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGAC619'

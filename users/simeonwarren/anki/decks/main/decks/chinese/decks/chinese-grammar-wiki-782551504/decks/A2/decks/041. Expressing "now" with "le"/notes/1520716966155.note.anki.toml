@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "now" with "le"'
+english = "I'm going to bed now."
+example-sentence = ''
+example-type = ''
+grammar-construct = '[New Situation] + 了'
+hanzi = '我去睡觉了。'
+notes = ''
+pinyin = 'Wǒ qù shuìjiào le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGE5Q4J'

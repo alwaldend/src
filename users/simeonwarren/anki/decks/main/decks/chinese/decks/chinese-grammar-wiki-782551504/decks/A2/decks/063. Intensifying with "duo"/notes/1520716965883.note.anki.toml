@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "AdverbswithAdjectives", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Intensifying with "duo"'
+english = "It's so nice being alone!"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 多 + Adj.'
+hanzi = '一个人多好！'
+notes = ''
+pinyin = 'Yīgèrén duō hǎo!'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGGH7RR'

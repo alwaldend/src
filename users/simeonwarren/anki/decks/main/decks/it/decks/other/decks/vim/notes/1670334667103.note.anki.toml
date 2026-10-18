@@ -1,0 +1,12 @@
+note_type = "note_types/basic.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[[cards]]
+ordinal = 1
+
+[fields]
+Back = 'd “ delete<div>y “ yank</div><div>c “ change/cut</div><div>v “ visual (range selection)</div><div>= “ format</div><div>&gt; “ indent</div><div>&lt; “ outdent&nbsp;</div><div>gu gU g~ “ go lowercase, uppercase, switch</div><div>gw gq “ reflow text (hold cursor, move to end of text)</div>'
+Front = 'What are the vim operators that take motions (as in {operator}{count}{motion})?'

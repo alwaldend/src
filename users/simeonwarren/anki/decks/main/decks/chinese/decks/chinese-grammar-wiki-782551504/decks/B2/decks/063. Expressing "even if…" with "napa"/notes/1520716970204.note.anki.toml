@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "EvenIfStatements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "even if…" with "napa"'
+english = 'I would still say it clearly even if it made you guys unhappy.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '哪怕 + [Hypothetical Statement] + 也 + [Action]'
+hanzi = '哪怕你们会不高兴，我也要把话说清楚。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGXX3NY'

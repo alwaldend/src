@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Separable verb'
+english = 'All of us can help you with this.'
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = ''
+hanzi = '我们都可以帮忙。'
+notes = ''
+pinyin = 'Wǒmen dōu kěyǐ bāngmáng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG4GVRX'

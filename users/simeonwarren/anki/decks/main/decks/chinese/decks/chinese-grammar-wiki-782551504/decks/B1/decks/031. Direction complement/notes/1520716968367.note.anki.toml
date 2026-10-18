@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Direction complement'
+english = 'Shifu, please deliver two buckets of water.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + [Compound Direction Complement]'
+hanzi = '师傅，送两桶水来。'
+notes = ''
+pinyin = 'Shīfu, sòng liǎng tǒng shuǐ lái.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8LWBJ'

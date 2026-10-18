@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "it depends" with "kan"'
+english = 'It depends on what the child thinks.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '这 / 那 + 要看 / 得看 + [Unclear Situation]'
+hanzi = '那要看孩子怎么想。'
+notes = ''
+pinyin = 'Nà yào kàn háizi zěnme xiǎng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG765HD'

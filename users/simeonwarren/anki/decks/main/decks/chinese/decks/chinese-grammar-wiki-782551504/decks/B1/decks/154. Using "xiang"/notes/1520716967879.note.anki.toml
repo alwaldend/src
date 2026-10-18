@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "xiang"'
+english = 'You need to apologize to him.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '向 + Person + Verb'
+hanzi = '你需要向他道歉。'
+notes = ''
+pinyin = 'Nǐ xūyào xiàng tā dàoqiàn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQXARS'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "enough" with "gou"'
+english = "I've been good enough to you."
+example-sentence = ''
+example-type = ''
+grammar-construct = '够 + Verb / Adj. + 了'
+hanzi = '我对你够好了。'
+notes = ''
+pinyin = 'Wǒ duì nǐ gòu hǎo le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG49BE6'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Verbs preceded by "gei"'
+english = 'I sent you a letter.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 给 + Target + Verb + Obj.'
+hanzi = '我给你发了一封邮件。'
+notes = ''
+pinyin = 'Wǒ gěi nǐ fā le yī fēng yóujiàn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG3ORNN'

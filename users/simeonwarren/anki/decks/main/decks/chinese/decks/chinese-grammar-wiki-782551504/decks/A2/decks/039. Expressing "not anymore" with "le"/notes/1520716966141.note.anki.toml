@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "not anymore" with "le"'
+english = "You don't like me anymore?"
+example-sentence = ''
+example-type = ''
+grammar-construct = '不 + [Verb Phrase] + 了'
+hanzi = '你不喜欢我了吗？'
+notes = ''
+pinyin = 'Nǐ bù xǐhuan wǒ le ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGFR96B'

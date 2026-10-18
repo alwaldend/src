@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "dui" with verbs'
+english = 'To me, the most difficult Chinese grammar is Ba sentence.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '对 + Person + 来说'
+hanzi = '对我来说，中文最难的语法是把字句。'
+notes = ''
+pinyin = 'Duì wǒ lái shuō, Zhōngwén zuì nán de yǔfǎ shì bǎ zì jù.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8ICO9'

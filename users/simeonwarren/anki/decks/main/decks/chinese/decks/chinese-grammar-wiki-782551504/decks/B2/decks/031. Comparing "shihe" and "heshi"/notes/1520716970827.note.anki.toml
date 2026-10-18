@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "SeparateFunctions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "shihe" and "heshi"'
+english = 'Inside the office, smoking is not suitable.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Adv. + 合适'
+hanzi = '在办公室里抽烟有点不合适吧。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGVDOXL'

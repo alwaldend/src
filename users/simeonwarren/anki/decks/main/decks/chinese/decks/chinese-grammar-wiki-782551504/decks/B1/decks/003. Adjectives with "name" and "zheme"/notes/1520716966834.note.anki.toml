@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Adjectives with "name" and "zheme"'
+english = 'You are so rich. Why are you still working?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 那么 / 这么 + Adj.'
+hanzi = '你那么有钱，为什么还要工作？'
+notes = ''
+pinyin = 'Nǐ nàme yǒuqián, wèishénme hái yào gōngzuò.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNKKP6'

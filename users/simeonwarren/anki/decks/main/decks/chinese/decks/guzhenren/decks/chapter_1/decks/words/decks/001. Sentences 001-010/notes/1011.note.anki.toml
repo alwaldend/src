@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = '(onom.) expressing admiration or surprise;	sound of a laugh.'
+example-sentence = ' 山风吹得血袍飘荡,如战旗般嚯嚯作响'
+example-type = ''
+grammar-construct = ''
+hanzi = '嚯'
+notes = ''
+pinyin = '<span class="tone4">huò</span>	 <!-- huo -->'
+source = ''

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["C1", "leech", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "nothing is more...than" with "moguoyu"'
+english = 'Nothing is sadder in life than losing a loved one.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Topics or questions + 莫过于 + answer'
+hanzi = '人生中最悲伤的事情莫过于失去你爱的人。'
+notes = ''
+pinyin = '<div>Rénshēng zhōng zuì bēishāng de shìqíng mò guòyú shīqù nǐ ài de rén.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGGI66V'

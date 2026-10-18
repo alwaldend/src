@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "and also" with "hai"'
+english = 'I want to eat ice cream and I also want to eat a hamburger.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + Obj. 1， 还 + Verb + Obj. 2'
+hanzi = '我想吃冰淇淋，还想吃汉堡。'
+notes = ''
+pinyin = 'Wǒ xiǎng chī bīngqílín, hái xiǎng chī hànbǎo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJBZKC'

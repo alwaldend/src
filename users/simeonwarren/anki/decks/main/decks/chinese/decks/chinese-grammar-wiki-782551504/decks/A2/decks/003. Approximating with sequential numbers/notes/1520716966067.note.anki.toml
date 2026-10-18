@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Numbers", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Approximating with sequential numbers'
+english = 'I waited for you for three or four hours.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Number + (Number + 1)'
+hanzi = '我等了你三四个小时。'
+notes = ''
+pinyin = 'Wǒ děng le nǐ sān sì gè xiǎoshí.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGOUD8U'

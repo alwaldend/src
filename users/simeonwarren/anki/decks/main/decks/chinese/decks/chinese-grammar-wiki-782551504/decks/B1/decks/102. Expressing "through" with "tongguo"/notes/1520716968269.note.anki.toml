@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "through" with "tongguo"'
+english = "He didn't pass yesterday's job interview."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '他没通过昨天的面试。'
+notes = ''
+pinyin = 'Tā méi tōngguò zuótiān de miànshì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG9B1E3'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "originally" with "benlai"'
+english = 'Moving is always a pain.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 本来 + 就 + 会 / 要 / 得 / 应该 + Verb'
+hanzi = '搬家本来就很麻烦。'
+notes = 'Literally, "Moving is supposed to be troublesome."'
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG6F157'

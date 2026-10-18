@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "Nouns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "zhijian" and "zhongjian"'
+english = 'You need to come between 8:00 and 10:00.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Number 1 + 和 + Number 2 + 之间'
+hanzi = '你需要在八点到十点之间来。'
+notes = ''
+pinyin = '<div>Nǐ xūyào zài bā diǎn dào shí diǎn zhī jiān lái.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGN6O6J'

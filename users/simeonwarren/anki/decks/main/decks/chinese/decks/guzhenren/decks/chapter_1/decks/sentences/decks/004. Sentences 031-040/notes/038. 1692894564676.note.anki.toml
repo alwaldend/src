@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = "Thinking like this, Fang Yuan couldn't help laughing out loud."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '这般想着,方源情不自禁放声大笑。'
+notes = ''
+pinyin = ''
+source = ''

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "dui" and "duiyu"'
+english = "As for this kind of thing, what's your perspective?"
+example-sentence = ''
+example-type = ''
+grammar-construct = '对／对于 + 动作对象 + Verb'
+hanzi = '对这种事情，你有什么看法？'
+notes = ''
+pinyin = '<div>Duì zhè zhǒng shìqíng, nǐ yǒu shé me kànfǎ?</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG3JELV'

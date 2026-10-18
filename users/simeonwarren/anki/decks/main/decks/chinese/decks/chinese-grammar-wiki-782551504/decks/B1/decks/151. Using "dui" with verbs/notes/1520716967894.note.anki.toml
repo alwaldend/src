@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "dui" with verbs'
+english = "You shouldn't talk to your parents this way."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 对 + Person + Verb'
+hanzi = '你不应该这样对父母说话。'
+notes = ''
+pinyin = 'Nǐ bù yīnggāi zhèyang duì fùmǔ shuōhuà.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8ICO9'

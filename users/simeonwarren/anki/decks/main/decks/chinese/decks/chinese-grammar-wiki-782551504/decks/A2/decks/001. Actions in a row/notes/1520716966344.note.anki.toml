@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Actions in a row'
+english = 'I like to buy food to cook for myself on the weekend.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + [Verb Phrase 1] + [Verb Phrase 2]'
+hanzi = '周末我喜欢自己买菜做饭。'
+notes = ''
+pinyin = 'Zhōumò wǒ xǐhuan zìjǐ mǎi cài zuòfàn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPRGAX'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'If you like it, please join us in this wonderful adventure.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '如果朋友们喜欢,那就请我们一起携手共进这场奇妙的冒险旅程。'
+notes = ''
+pinyin = ''
+source = ''

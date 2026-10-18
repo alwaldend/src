@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "zhao" as complement'
+english = "I wasn't able to find my cell phone."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 得 / 不 + 着'
+hanzi = '我的手机找不着了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGM5ZAB'

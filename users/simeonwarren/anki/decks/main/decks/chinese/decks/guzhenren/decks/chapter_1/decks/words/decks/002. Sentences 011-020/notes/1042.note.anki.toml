@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'flat;	dull;	ordinary;	nothing special.'
+example-sentence = ' 方源对局势洞若观火,不过即便死亡将临,他仍旧是面不改色,神情平淡'
+example-type = ''
+grammar-construct = ''
+hanzi = '平淡'
+notes = ''
+pinyin = '<span class="tone2">píng</span><span class="tone4">dàn</span>	 <!-- ping dan -->'
+source = ''

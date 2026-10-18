@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "including" with "baokuo"'
+english = 'Including taxes, two airplane tickets all together are $5,000.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '包括 + Obj. (+ 在内)，一共 ⋯⋯'
+hanzi = '包括税，两张机票一共是五千。'
+notes = ''
+pinyin = 'Bāokuò shuì, liǎng zhāng jīpiào yīgòng shì wǔ qiān.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG50341'

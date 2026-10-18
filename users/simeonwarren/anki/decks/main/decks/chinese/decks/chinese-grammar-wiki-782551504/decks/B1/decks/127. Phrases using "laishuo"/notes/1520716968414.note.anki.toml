@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Basic", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Phrases using "laishuo"'
+english = "Generally speaking, I don't work on weekend."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '一般来说，我周末不会加班。'
+notes = ''
+pinyin = 'Yībān lái shuō, wǒ zhōumò bù huì jiābān.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGD60A6'

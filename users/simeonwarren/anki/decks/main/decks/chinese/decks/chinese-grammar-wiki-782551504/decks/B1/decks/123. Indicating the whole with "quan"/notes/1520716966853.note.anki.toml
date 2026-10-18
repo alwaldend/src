@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Indicating the whole with "quan"'
+english = 'My whole body sweat after finishing exercising.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '全 + Noun + 都 + Predicate'
+hanzi = '运动完以后我全身都是汗。'
+notes = ''
+pinyin = 'Yùndòng wán yǐhòu wǒ quán shēn dōu shì hàn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCPDSR'

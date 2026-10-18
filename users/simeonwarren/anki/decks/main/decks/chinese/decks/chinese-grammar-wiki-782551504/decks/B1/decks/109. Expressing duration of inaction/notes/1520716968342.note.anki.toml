@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing duration of inaction'
+english = "I haven't eaten anything in several hours."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Duration + 没 + Verb + Obj. + 了'
+hanzi = '我已经好几个小时没吃东西了。'
+notes = ''
+pinyin = 'Wǒ yǐjīng hǎo jǐ gè xiǎoshí méi chī dōngxi le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGSVF28'

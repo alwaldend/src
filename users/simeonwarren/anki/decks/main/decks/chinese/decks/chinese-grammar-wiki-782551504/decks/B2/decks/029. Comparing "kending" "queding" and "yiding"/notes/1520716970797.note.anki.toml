@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "SeparateFunctions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "kending" "queding" and "yiding"'
+english = 'Three people have already been decided, one more is needed.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '确定 +  Phrase / Sentence'
+hanzi = '已经确定了三个人，还差一个。'
+notes = ''
+pinyin = '<div>Yǐjīng quèdìngle sān gèrén, hái chà yīgè.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDPS0J'

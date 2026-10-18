@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'to set about (a task);	to hit;	to punch;	to touch.'
+example-sentence = ' 他们没有动手,都忌惮着方源的临死反扑'
+example-type = ''
+grammar-construct = ''
+hanzi = '动手'
+notes = ''
+pinyin = '<span class="tone4">dòng</span><span class="tone3">shǒu</span>	 <!-- dong shou -->'
+source = ''

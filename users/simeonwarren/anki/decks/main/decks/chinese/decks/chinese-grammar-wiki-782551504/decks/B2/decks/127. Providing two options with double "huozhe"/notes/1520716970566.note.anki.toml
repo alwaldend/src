@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Either…or", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Providing two options with double "huozhe"'
+english = "Let's either go hiking or go to the hot springs."
+example-sentence = ''
+example-type = ''
+grammar-construct = '或者 A，或者 B'
+hanzi = '咱们或者去爬山或者泡温泉。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGYXI5X'

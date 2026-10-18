@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "AdverbswithAdjectives", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Asking about degree with "duo"'
+english = 'Do you know how cold it is here in winter?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 多 + Adj. ?'
+hanzi = '你知道这里的冬天多冷吗？'
+notes = ''
+pinyin = 'Nǐ zhīdào zhèlǐ de dōngtiān duō lěng ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG9LLJU'

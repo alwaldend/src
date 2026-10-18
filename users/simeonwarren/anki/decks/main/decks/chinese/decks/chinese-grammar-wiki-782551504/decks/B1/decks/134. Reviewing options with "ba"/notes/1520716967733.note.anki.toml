@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Reviewing options with "ba"'
+english = "Going early, we'll have to wait; Going later, there will be too much traffic."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Option 1 + 吧 ，⋯⋯ ；Option 2 + 吧 ，⋯⋯'
+hanzi = '早点去吧，要等；晚点去吧，会堵车。'
+notes = ''
+pinyin = 'Zǎo diǎn qù ba, yào děng; wǎn diǎn qù ba, yòu dǔchē.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGELOTT'

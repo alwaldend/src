@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing existence with "you"'
+english = 'Is there milk in your house?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Place + 有 + Obj.'
+hanzi = '你家有牛奶吗？'
+notes = ''
+pinyin = 'Nǐ jiā yǒu niúnǎi ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG04ZCI'

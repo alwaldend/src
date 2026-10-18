@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Conditions with "yao" and "jiu"'
+english = "If you want to eat, go ahead and eat. You don't need to be so polite."
+example-sentence = ''
+example-type = ''
+grammar-construct = '要 + Verb + 就 + Verb'
+hanzi = '要吃就自己拿，不要客气。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGXGADL'

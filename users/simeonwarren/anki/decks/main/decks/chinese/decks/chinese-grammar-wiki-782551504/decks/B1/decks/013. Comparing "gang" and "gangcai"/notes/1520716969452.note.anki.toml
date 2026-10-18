@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "TimeWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "gang" and "gangcai"'
+english = "Then you don't know what happened just now?<br>Did some people have an argument?"
+example-sentence = ''
+example-type = ''
+grammar-construct = '刚 + Adj.'
+hanzi = 'A:那你不知道刚才的事情吧？<br>B:是不是有人吵架了？'
+notes = ''
+pinyin = '<div>A: Nà nǐ bù zhīdào gāngcái de shìqíng ba?</div><div>B: Shì bùshì yǒurén chǎojiàle?</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJFFWG'

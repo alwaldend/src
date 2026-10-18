@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "NumbersandMeasureWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Measure words for verbs'
+english = 'Hit three times.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + Number + Measure Word'
+hanzi = '打了三下'
+notes = ''
+pinyin = 'dǎ le sān xià'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5AODR'

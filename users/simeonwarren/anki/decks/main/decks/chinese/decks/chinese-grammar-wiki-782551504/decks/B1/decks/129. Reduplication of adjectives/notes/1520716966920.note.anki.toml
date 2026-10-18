@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Reduplication of adjectives'
+english = "I'm going to go get a massage and unwind."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + A B A B'
+hanzi = '我想去做个按摩，放松放松。'
+notes = ''
+pinyin = 'Wǒ xiǎng qù zuò gè ànmó, fāngsōng fāngsōng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDHE8S'

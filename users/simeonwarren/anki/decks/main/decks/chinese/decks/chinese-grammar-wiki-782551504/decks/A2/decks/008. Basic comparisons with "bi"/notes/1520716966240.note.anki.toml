@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Basic comparisons with "bi"'
+english = 'He is smarter than the teacher.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun 1 + 比 + Noun 2 + Adj.'
+hanzi = '他比老师聪明。'
+notes = ''
+pinyin = 'Tā bǐ lǎoshī cōngming.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8SI2K'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Occurring together with "shaobuliao"'
+english = 'Studying Chinese always involves studying pinyin and Chinese characters.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 少不了 + 要 + [Verb Phrase]'
+hanzi = '学中文少不了要学拼音和汉字。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG3IR71'

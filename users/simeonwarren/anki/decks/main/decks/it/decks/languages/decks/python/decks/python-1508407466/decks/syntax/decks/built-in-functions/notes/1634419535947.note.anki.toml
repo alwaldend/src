@@ -1,0 +1,13 @@
+note_type = "note_types/python-basic-and-reversed.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+additional-info = "Doesn't modify the original object."
+answer = '<b>Built in function:&nbsp;</b>iter(<i>iterable</i>)'
+example = ''
+question = '<b>Built in function</b>&nbsp;that returns an iterator object from an iterable.'
+version = ''
+with-options = ''

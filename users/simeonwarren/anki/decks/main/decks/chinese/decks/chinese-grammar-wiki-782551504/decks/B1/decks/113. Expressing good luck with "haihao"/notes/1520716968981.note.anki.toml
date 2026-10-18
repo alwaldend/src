@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing good luck with "haihao"'
+english = "It's a good thing that my mother didn't see it, otherwise she would definitely be mad."
+example-sentence = ''
+example-type = ''
+grammar-construct = '还好 + [Lucky Incident] ，不然 + [Bad Outcome]'
+hanzi = '还好我妈没看到，不然她肯定要生气。'
+notes = ''
+pinyin = 'Háihǎo wǒ mā méi kàndào, bùrán tā kěndìng yào shēngqì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGOB1BF'

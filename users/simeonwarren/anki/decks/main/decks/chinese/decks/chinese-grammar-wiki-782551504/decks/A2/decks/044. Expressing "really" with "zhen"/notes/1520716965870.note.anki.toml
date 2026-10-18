@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "AdverbswithAdjectives", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "really" with "zhen"'
+english = 'You are so good with words!'
+example-sentence = ''
+example-type = ''
+grammar-construct = '真 + Verb'
+hanzi = '你真会说话！'
+notes = ''
+pinyin = 'Nǐ zhēn huì shuōhuà!'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGC885D'

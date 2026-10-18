@@ -1,0 +1,12 @@
+note_type = "note_types/basic.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[[cards]]
+ordinal = 1
+
+[fields]
+Back = '<ol><li>. " any char except newline matches</li><li>* " zero or more matches</li><li>\ " escape other regex commands</li><li>[] " set of character</li><li>^ " start of line or negation of set</li><li>$ " end of line</li><li>&amp; " back-reference to the entire pattern match in string</li></ol>'
+Front = 'What are pattern operators that do not need to be escaped (without "very" magic)?'

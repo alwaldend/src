@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "never again" with "zai ye bu"'
+english = "I'm not going to leave you ever again."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 再也 + 不 + Verb-Obj. + 了'
+hanzi = '我再也不要离开你了。'
+notes = ''
+pinyin = 'Wǒ zàiyě bù yào líkāi nǐ le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG7R8US'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "xiande" and "kanqilai"'
+english = 'Eating like that makes you look not very polite.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A + 显得 + B + Predicate'
+hanzi = '那样吃显得你很没礼貌。'
+notes = ''
+pinyin = 'Nàyàng chī xiǎnde nǐ hěn méi lǐmào.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGKQEG9'

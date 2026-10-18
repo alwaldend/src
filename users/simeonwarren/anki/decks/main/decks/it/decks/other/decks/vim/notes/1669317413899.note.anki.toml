@@ -1,0 +1,12 @@
+note_type = "note_types/basic.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[[cards]]
+ordinal = 1
+
+[fields]
+Back = ':term[inal] &nbsp; “ as opposed to :shell&nbsp;'
+Front = 'How to open a shell in its own window in vim?'

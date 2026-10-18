@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'this (person).'
+example-sentence = '甚至就连老一辈们都感觉到了这位后起之秀的压力'
+example-type = ''
+grammar-construct = ''
+hanzi = '这位'
+notes = ''
+pinyin = '<span class="tone4">zhè</span><span class="tone4">wèi</span>	 <!-- zhe wei -->'
+source = ''

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Result complements'
+english = "The clothes aren't clean."
+example-sentence = ''
+example-type = ''
+grammar-construct = '没 + Verb + Adj.'
+hanzi = '衣服没洗干净。'
+notes = ''
+pinyin = 'Yīfu méi gānjìng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNNMST'

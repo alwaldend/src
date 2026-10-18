@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["AdverbswithAdjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "quite" with "ting"'
+english = "We've all been quite busy lately."
+example-sentence = ''
+example-type = ''
+grammar-construct = '挺 + Adj. + 的'
+hanzi = '最近大家都挺忙的。'
+notes = ''
+pinyin = 'Zuìjìn dàjiā dōu tǐng máng de.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDF1F7'

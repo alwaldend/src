@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = "Fang Yuan sighed in his heart, feeling a little emotional, but he didn't regret it."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '方源心中叹着,有些感慨,却并不后悔。'
+notes = ''
+pinyin = ''
+source = ''

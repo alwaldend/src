@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Placement of question words'
+english = "When are you guys leaving?<br>We're leaving next month."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 什么时候 + Predicate ?'
+hanzi = 'A: 你们什么时候走？<br>B: 我们下个月走。'
+notes = ''
+pinyin = 'Nǐmen shénme shíhou zǒu?<br>Wǒmen xià gè yuè  zǒu.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJQPSC'

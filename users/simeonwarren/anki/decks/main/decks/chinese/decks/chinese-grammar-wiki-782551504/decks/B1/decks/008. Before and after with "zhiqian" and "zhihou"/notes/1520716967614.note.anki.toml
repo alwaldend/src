@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Before and after with "zhiqian" and "zhihou"'
+english = 'Give me a call after you get off work.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Event + 之前 / 之后 ，⋯⋯'
+hanzi = '下班之后给我打个电话。'
+notes = ''
+pinyin = 'Xiàbān zhīhòu gěi wǒ dǎ gè diànhuà.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTD3L3'

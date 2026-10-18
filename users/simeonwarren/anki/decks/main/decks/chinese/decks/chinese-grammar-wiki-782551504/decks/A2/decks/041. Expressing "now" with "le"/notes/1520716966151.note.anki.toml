@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "now" with "le"'
+english = 'Time to eat!'
+example-sentence = ''
+example-type = ''
+grammar-construct = '[New Situation] + 了'
+hanzi = '吃饭了！'
+notes = ''
+pinyin = 'Chīfàn le!'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGE5Q4J'

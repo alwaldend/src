@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "about to happen" with "le"'
+english = "I'm going to get angry!"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 要 + Verb / Adj. + 了'
+hanzi = '我要生气了！'
+notes = ''
+pinyin = 'Wǒ yào shēngqì le!'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNGEU8'

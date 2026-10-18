@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "ConditionalStatements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "once...then..." with "yidan...jiu..."'
+english = "Once I find a good job, then I'll be able to relax."
+example-sentence = ''
+example-type = ''
+grammar-construct = '一旦 + Condition，Subj. + 就 + Consequence'
+hanzi = '一旦我找好的工作，我就会安心。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGU3ZV1'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "Conjunctions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "gen" and "dui"'
+english = "I told her, but she didn't believe me."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Person A + 跟 / 对 + Person B 说'
+hanzi = '我对她说了，但是她不信。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGC5Y86'

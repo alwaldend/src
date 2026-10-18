@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Conceding a point with "shi"'
+english = "It is tasty, but it's not very healthy."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Adj. + 是 + Adj. ， 但是 / 就是 ⋯⋯'
+hanzi = '好吃是好吃，就是不太健康。'
+notes = ''
+pinyin = 'Hǎochī shì hǎochī, jiùshì bù tài jiànkāng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGT9Y8P'

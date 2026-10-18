@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["AdverbswithAdjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "rather" with "bijiao"'
+english = "It's rather convenient for me to take the metro to work."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 比较 + Adj. / Psychological Verb'
+hanzi = '我上班坐地铁比较方便。'
+notes = ''
+pinyin = 'Wǒ shàngbān zuò dìtiě bǐjiào fāngbiàn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG72HKP'

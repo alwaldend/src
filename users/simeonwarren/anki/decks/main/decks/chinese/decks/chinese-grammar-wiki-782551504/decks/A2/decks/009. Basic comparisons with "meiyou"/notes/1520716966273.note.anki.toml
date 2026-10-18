@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Basic comparisons with "meiyou"'
+english = 'Pinyin is not as difficult as Chinese characters.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun 1 + 没有 + Noun 2 + Adj.'
+hanzi = '拼音没有汉字难。'
+notes = ''
+pinyin = 'Pīnyīn méiyǒu Hànzì nán.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGEAH5M'

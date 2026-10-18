@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Passive verbs with "shou"'
+english = 'The first year I was in the USA, I "received" a lot of help from many friends.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '受 + (到/过) + ([Something / Someone]) + Noun / Verb'
+hanzi = '我在美国的第一年，受到了很多朋友的帮助。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG1DXUD'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["AdverbswithAdjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "rather" with "bijiao"'
+english = 'My place is rather close to downtown.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 比较 + Adj. / Psychological Verb'
+hanzi = '我家离市中心比较近。'
+notes = ''
+pinyin = 'Wǒ jiā lí shìzhōngxīn bǐjiào jìn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG72HKP'

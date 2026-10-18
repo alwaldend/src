@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "TimeWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "yihou" and "houlai"'
+english = ''
+example-sentence = ''
+example-type = 'invalid'
+grammar-construct = 'Past Event 1 + 后来 + Past Event 2'
+hanzi = '两个星期后来，我们回美国。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNPJ7T'

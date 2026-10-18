@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Cause/EffectStatements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "due to…" with "youyu"'
+english = 'Due to the rapid growth of population, social problems in big cities are getting more and more serious.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '由于 + Cause，Effect'
+hanzi = '由于人口的快速增加，大城市的社会问题越来越严重。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGL90MR'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Doing something less with "shao"'
+english = 'Can you smoke less?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '少 + Verb'
+hanzi = '你能不能少抽点烟？'
+notes = ''
+pinyin = 'Nǐ néng bu néng shǎo chōu diǎn yān?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG9B0M8'

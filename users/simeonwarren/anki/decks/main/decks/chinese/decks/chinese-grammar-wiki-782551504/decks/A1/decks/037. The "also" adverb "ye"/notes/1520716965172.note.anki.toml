@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'The "also" adverb "ye"'
+english = 'My dad is also handsome.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 也 (+ Adv.) + Adj.'
+hanzi = '我爸爸也很帅。'
+notes = ''
+pinyin = 'Wǒ bàba yě hěn  shuài.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGG25MD'

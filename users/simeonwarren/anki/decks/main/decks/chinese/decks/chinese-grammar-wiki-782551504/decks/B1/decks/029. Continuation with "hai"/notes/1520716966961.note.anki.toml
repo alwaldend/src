@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Continuation with "hai"'
+english = "We've been waiting for half an hour, but the teacher hasn't arrived."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 还 + 不 / 没 + [Verb Phrase]'
+hanzi = '我们等了半个小时了，老师还没到。'
+notes = ''
+pinyin = 'Wǒmen děng le bàn gè xiǎoshí le. Lǎoshī hái méi dào.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGIRILI'

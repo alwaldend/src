@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = "Fang Yuan, hand over Spring Autumn Cicada obediently, and I'll give you a treat!"
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '方源,乖乖地交出春秋蝉,我给你个痛快！'
+notes = ''
+pinyin = 'Fāng yuán, guāiguāi de jiāo chū chūnqiū chán, wǒ gěi nǐ gè tòngkuài!'
+source = ''

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Parts_of_Speech", "PrepositionalPhrase"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Defining scope'
+english = 'Must be completed in two days or less.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '时间 / 处所 / 数量 / 范围 + 以内 / 以外'
+hanzi = '两天以内必须完成。'
+notes = ''
+pinyin = 'Liǎng tiān yǐnèi bìxū wánchéng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG7AE5C'

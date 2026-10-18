@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Basic", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Phrases using "laishuo"'
+english = 'Relatively, I support Hillary more.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '相对来说，我更支持Hillary。'
+notes = ''
+pinyin = '<div>Xiāngduì lái shuō, wǒ gèng zhīchí Hillary.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGD60A6'

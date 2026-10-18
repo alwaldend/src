@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "hao" to mean "easy"'
+english = 'good to listen to, pleasant to listen to, good-sounding'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + (很) 好 + Verb'
+hanzi = '好听'
+notes = ''
+pinyin = 'hǎotīng'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJQU93'

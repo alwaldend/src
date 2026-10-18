@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "in addition" with "haiyou"'
+english = "Don't talk when you take a test. Beside, put your cell phone on the desk."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Clause 1 ，还有 ， Clause 2'
+hanzi = '考试的时候不要说话。还有，手机放在桌子上。'
+notes = ''
+pinyin = 'Kǎoshì de shíhou bù yào shuōhuà. Háiyǒu, shǒujī fàng zài zhuōzi shàng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGHQRI1'

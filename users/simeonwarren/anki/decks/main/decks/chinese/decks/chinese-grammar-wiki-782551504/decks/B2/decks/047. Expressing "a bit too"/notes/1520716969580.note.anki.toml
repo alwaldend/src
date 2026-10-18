@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adjectives", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "a bit too"'
+english = 'This question is a bit complicated for a five-year-old kid.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Adj. + 了（一）点儿'
+hanzi = '对五岁的孩子来说，这个问题复杂了一点儿。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGEHTV5'

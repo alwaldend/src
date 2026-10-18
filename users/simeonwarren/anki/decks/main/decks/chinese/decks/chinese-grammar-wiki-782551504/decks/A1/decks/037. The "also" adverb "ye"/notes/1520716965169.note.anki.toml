@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'The "also" adverb "ye"'
+english = "You don't want to come to my house either?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 也 + Verb / [Verb Phrase]'
+hanzi = '你也不想来我家吗？'
+notes = ''
+pinyin = 'Nǐ yě bù xiǎng lái wǒ jiā ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGG25MD'

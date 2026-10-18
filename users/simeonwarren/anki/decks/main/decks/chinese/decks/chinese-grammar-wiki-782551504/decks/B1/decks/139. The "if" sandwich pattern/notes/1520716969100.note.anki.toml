@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'The "if" sandwich pattern'
+english = "Don't go if you don't feel like going."
+example-sentence = ''
+example-type = ''
+grammar-construct = '⋯⋯ (的话) ，就 ⋯⋯'
+hanzi = '不想去的话就别去了。'
+notes = ''
+pinyin = 'Bù xiǎng qù dehuà jiù bié qù le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGN4VUU'

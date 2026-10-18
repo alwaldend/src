@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "one by one" with "yi"'
+english = "I explained it to him over and over again, but he still won't listen."
+example-sentence = ''
+example-type = ''
+grammar-construct = '一 + Measure Word（+ 又）+ 一 + Measure Word'
+hanzi = '我一遍一遍地跟他解释，他还是不听。'
+notes = ''
+pinyin = 'Wǒ yī biàn yī biàn de gēn tā jiěshì, tā háishì bù tīng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGBC7A0'

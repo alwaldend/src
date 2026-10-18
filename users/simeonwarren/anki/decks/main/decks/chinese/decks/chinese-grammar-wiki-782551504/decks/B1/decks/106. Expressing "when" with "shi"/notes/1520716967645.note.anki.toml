@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "when" with "shi"'
+english = 'He was very surprised when his wife asked for a divorce.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb-Obj. + 时 ，Subj. ⋯⋯'
+hanzi = '他太太提出离婚时，他很惊讶。'
+notes = ''
+pinyin = 'Tā tàitai tíchū líhūn shí, tā hěn jīngyà.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGGL59D'

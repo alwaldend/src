@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing completion with "le"'
+english = 'After you have eaten your food, you can go out.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 了 + Obj.'
+hanzi = '你们吃了饭以后，可以出去。'
+notes = 'future action'
+pinyin = 'Nǐmen chī le fàn yǐhòu, kěyǐ chūqù.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGAGDCQ'

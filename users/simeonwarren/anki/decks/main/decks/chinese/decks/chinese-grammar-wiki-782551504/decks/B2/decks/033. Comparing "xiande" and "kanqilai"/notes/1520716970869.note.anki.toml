@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "leech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "xiande" and "kanqilai"'
+english = 'Dressing like this makes me look more mature.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A + 显得 + B + Predicate'
+hanzi = '这样穿显得我比较成熟。'
+notes = ''
+pinyin = 'Zhèyàng chuān xiǎnde wǒ bǐjiào chéngshú.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGKQEG9'

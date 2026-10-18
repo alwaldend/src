@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "not even one"'
+english = "Why aren't there any people here?"
+example-sentence = ''
+example-type = ''
+grammar-construct = '一 + Measure Word + (Noun) + 也 / 都 + 不 / 没 + Verb'
+hanzi = '为什么这里一个人都没有？'
+notes = ''
+pinyin = 'Wèishénme zhèlǐ yī gè rén dōu méiyǒu?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGUQ861'

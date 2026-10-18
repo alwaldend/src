@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Auxiliaryverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "should" with "yinggai"'
+english = 'In China, you should drink baijiu.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 应该 + Verb + Obj.'
+hanzi = '在中国，你应该喝白酒。'
+notes = ''
+pinyin = 'Zài Zhōngguó, nǐ yīnggāi hē báijiǔ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGV01X9'

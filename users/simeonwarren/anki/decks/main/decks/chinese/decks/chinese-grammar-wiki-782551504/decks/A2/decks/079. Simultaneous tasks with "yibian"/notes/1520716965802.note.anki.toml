@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "leech", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Simultaneous tasks with "yibian"'
+english = 'Do you like to listen to music while doing homework?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 一边 + Verb (，) + 一边 + Verb'
+hanzi = '你喜欢一边听音乐，一边做作业吗？'
+notes = ''
+pinyin = 'Nǐ xǐhuan yībiān tīng yīnyuè, yībiān zuò zuòyè ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG2ZC5S'

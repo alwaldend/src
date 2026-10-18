@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Adjectives with "name" and "zheme"'
+english = 'You speak so fast. How could I understand you?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 那么 / 这么 + Adj.'
+hanzi = '你说得这么快，我怎么能听懂？'
+notes = ''
+pinyin = 'Nǐ shuōde zhème kuài, wǒ zěnme néng tīngdǒng ?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNKKP6'

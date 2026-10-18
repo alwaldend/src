@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'to glitter;	brilliant;	splendid.'
+example-sentence = ' 青茅山却不黑暗,从山腰至山脚,闪着许多莹莹的微光,好像是披着一条灿烂的光带'
+example-type = ''
+grammar-construct = ''
+hanzi = '灿烂'
+notes = ''
+pinyin = '<span class="tone4">càn</span><span class="tone4">làn</span>	 <!-- can lan -->'
+source = ''

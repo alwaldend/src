@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Taiwanese "you"'
+english = "I have bought the chocolate here, it's not good."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 有 + Verb + 过 + Obj.'
+hanzi = '我有买过这里的巧克力，不好吃。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGY2D79'

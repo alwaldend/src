@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "TimeWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "changchang" and "jingchang"'
+english = 'Later, you are going to exercise often.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '经常 + Verb'
+hanzi = '你以后要经常做运动。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGE8FLP'

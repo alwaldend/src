@@ -1,0 +1,12 @@
+note_type = "note_types/basic.notetype.anki.toml"
+tags = ["Files", "Multiple", "Search"]
+
+[[cards]]
+ordinal = 0
+
+[[cards]]
+ordinal = 1
+
+[fields]
+Back = ':copen'
+Front = 'Open a window containing the list of matches&nbsp;in the quickfix list [after a vimgrep (across files)]'

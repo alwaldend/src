@@ -1,0 +1,5 @@
+preset = "Default"
+
+[normal]
+extend_new = 20
+extend_review = 50

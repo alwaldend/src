@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "bei" sentences'
+english = 'That man got hit and killed by a car.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 被 (+ Doer) + Verb + 了'
+hanzi = '那个人被车撞死了。'
+notes = ''
+pinyin = 'Nàge rén bèi chē zhuàng sǐ le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGHF9F1'

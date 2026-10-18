@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'The "if" sandwich pattern'
+english = "If you don't come, you'll definitely regret it."
+example-sentence = ''
+example-type = ''
+grammar-construct = '如果 ⋯⋯ 的话 ，(就) ⋯⋯'
+hanzi = '如果你们不来的话，一定会后悔的。'
+notes = ''
+pinyin = 'Rúguǒ nǐmen bù lái dehuà, yīdìng huì hòuhuǐ de .'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGN4VUU'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "TimeWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "yihou" and "zhihou"'
+english = 'Yesterday, when my friends and I were done eating, we went to the bar.'
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = 'Subj. + Event， 之后 + Action'
+hanzi = '昨天我跟朋友吃完饭以后去了酒吧。'
+notes = ''
+pinyin = 'Zuótiān wǒ gēn péngyou chī wán fàn yǐhòu qù le jiǔbā.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGC3SCN'

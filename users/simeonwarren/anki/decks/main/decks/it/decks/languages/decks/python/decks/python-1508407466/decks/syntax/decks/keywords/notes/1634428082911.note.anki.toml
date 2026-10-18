@@ -1,0 +1,13 @@
+note_type = "note_types/python-basic-and-reversed.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+additional-info = 'Can also be used as "else if".'
+answer = '<b>Keyword</b> used for conditional else statements.'
+example = ''
+question = '<b>Keyword: </b>elif'
+version = ''
+with-options = ''

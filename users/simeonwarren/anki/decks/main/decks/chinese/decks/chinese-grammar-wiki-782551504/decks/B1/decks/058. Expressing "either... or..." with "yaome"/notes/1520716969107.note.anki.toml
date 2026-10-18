@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Either…or", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "either... or..." with "yaome"'
+english = "I'm pretty busy this week. How about we meet up next week?"
+example-sentence = ''
+example-type = ''
+grammar-construct = '要么 + Option ，Reason / Situation'
+hanzi = '这个星期我比较忙，要么下个星期见？'
+notes = ''
+pinyin = 'Zhège xīngqī wǒ bǐjiào máng, yàome xià gè xīngqī jiàn?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG30A60'

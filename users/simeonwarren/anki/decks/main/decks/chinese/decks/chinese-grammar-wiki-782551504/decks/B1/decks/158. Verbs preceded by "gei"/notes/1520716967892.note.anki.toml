@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Verbs preceded by "gei"'
+english = 'When I was young, every day my mother would tell me stories.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 给 + Target + Verb + Obj.'
+hanzi = '小时候，妈妈每天都给我讲故事。'
+notes = ''
+pinyin = 'Xiǎo shíhou, māma měitiān dōu gěi wǒ jiǎng gùshi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG3ORNN'

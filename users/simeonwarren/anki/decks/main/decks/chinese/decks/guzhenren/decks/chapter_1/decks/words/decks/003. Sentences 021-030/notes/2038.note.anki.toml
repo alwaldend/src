@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = '(name of states and dynasties at several different periods);	surname Qi;	neat;	even;	level with;	identical;	simultaneous;	all together;	to even sth out.'
+example-sentence = ' 群雄顿时一阵骚动,齐齐后退一大步'
+example-type = ''
+grammar-construct = ''
+hanzi = '齐'
+notes = ''
+pinyin = '<span class="tone2">qí</span>	 <!-- qi -->'
+source = ''

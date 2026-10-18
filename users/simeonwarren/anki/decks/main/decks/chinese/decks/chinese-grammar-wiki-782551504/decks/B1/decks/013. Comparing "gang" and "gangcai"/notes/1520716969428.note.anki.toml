@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "TimeWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "gang" and "gangcai"'
+english = 'I just bought it.'
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = '刚 + Adj.'
+hanzi = '我刚买了。'
+notes = 'Adding 了 after the verb also gives a clear indication of result.'
+pinyin = '<div>Wǒ gāng mǎile.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJFFWG'

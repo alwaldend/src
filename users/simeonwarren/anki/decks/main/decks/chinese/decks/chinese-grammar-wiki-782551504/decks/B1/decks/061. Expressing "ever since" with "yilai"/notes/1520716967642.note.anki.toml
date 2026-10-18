@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "ever since" with "yilai"'
+english = "He hasn't visited his child ever since he got divorced a few years ago."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Time Interval + 来 ，⋯⋯'
+hanzi = '离婚这几年来，他从没去看过孩子。'
+notes = ''
+pinyin = 'Líhūn zhè jǐ nián lái, tā cóng méi qù kàn guo háizi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNEMXP'

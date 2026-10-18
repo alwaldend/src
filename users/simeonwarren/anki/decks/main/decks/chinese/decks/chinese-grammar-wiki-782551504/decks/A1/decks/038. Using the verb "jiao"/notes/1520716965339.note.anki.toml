@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using the verb "jiao"'
+english = "What's your name?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 叫 + [Name]'
+hanzi = '你叫什么名字？'
+notes = ''
+pinyin = 'Nǐ jiào shénme míngzi?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGUGWVZ'

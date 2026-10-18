@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Topic-comment sentences'
+english = "The price of this television isn't too expensive."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '这台电视，价格不太贵。'
+notes = 'this television the topic that is emphasized.'
+pinyin = '<div>Zhè tái diànshì, jiàgé bù tài guì.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5KNWW'

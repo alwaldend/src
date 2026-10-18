@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Measure words for verbs'
+english = "I've heard her tell this story more than one hundred times."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + Number + Measure Word'
+hanzi = '这个故事我听她说过一百多遍了。'
+notes = ''
+pinyin = 'Zhège gùshi wǒ tīng tā shuō guo yī bǎi duō biàn le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5AODR'

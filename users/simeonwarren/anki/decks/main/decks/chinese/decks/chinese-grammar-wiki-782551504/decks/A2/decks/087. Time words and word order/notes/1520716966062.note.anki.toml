@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Time words and word order'
+english = 'Can you come to my office now?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Time + Verb + Obj.'
+hanzi = '你现在能来我办公室吗？'
+notes = ''
+pinyin = 'Nǐ xiànzài néng lái wǒ bàngōngshì ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5RWKO'

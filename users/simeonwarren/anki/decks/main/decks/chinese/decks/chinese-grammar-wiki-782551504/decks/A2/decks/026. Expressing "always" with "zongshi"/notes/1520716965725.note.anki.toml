@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "always" with "zongshi"'
+english = 'I always forget this word.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 总是 + Verb'
+hanzi = '我总是忘记这个词。'
+notes = ''
+pinyin = 'Wǒ zǒngshì wàngjì zhège cí.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGXJPJS'

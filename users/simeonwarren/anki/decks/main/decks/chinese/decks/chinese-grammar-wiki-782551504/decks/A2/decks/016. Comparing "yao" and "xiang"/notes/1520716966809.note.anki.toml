@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Auxiliaryverbs", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "yao" and "xiang"'
+english = "I'd like to treat you to dinner."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 想 + Verb'
+hanzi = '我想请你吃饭。'
+notes = ''
+pinyin = 'Wǒ xiǎng qǐng nǐ chīfàn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGD88UO'

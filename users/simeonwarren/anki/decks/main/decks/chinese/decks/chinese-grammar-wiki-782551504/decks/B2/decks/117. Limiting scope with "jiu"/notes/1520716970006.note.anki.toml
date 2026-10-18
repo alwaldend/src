@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Limiting scope with "jiu"'
+english = "In regards to these sorts of things, he didn't do anything wrong."
+example-sentence = ''
+example-type = ''
+grammar-construct = '就 + Topic + (来说 / 而言) + Comment'
+hanzi = '就这些事情来说，他没有错。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8RW47'

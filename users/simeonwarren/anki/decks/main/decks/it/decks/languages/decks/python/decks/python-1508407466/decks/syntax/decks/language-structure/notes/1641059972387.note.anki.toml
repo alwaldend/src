@@ -1,0 +1,13 @@
+note_type = "note_types/python-basic.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+'Additional Info' = ''
+'Back - Basic' = '<i>new_list</i> = [i for i in <i>iterable</i>]<br>-or-<br><i>new_set</i> = {i for i in&nbsp;<i>iterable</i>}'
+'Back - Code' = ''
+Example = ''
+Front = 'What is the basic syntax for the list (or set) comprehension of an iterable.'
+Version = ''

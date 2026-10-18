@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "AdverbswithAdjectives", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Intensifying with "duo"'
+english = "Today's weather is so nice!"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 多 + Adj.'
+hanzi = '今天天气多舒服！'
+notes = ''
+pinyin = 'Jīntiān tiānqì duō shūfu!'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGGH7RR'

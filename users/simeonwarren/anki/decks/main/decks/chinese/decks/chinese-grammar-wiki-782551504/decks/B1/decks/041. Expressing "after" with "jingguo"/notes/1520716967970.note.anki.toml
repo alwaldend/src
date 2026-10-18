@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "after" with "jingguo"'
+english = 'No one knows the actual course of events.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '经过 + Event / Time，Subj. + Predicate'
+hanzi = '事情的真实经过谁都不知道。'
+notes = ''
+pinyin = 'Shìqing de zhēnshí jīngguò shéi dōu bù zhīdào.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG11DA8'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = "old variant of 时.surname Shi;\to'clock;\ttime;\twhen;\thour;\tseason;\tperiod."
+example-sentence = '当初选择时,就有了心理准备'
+example-type = ''
+grammar-construct = ''
+hanzi = '时'
+notes = ''
+pinyin = '<span class="tone5">shíshí</span>	 <!-- shi shi -->'
+source = ''

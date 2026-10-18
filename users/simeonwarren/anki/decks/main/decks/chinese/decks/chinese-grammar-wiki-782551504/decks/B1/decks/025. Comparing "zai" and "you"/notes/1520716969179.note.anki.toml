@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "zai" and "you"'
+english = "He didn't come to class again. The teacher is probably going to punish him."
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = 'Subj. + 又 + Verb + 了'
+hanzi = '他又不来上课了，老师可能罚他。'
+notes = ''
+pinyin = '<div>Tā yòu bù lái shàngkèle, lǎoshī kěnéng fá tā.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTBHBG'

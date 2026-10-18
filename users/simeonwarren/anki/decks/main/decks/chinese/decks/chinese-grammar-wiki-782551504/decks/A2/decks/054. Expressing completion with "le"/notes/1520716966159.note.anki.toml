@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing completion with "le"'
+english = 'What did you eat this morning?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 了 + Obj.'
+hanzi = '你今天早上吃了什么？'
+notes = ''
+pinyin = 'Nǐ jīntiān zǎoshang chī le shénme?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGAGDCQ'

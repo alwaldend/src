@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "duiyu" and "zhiyu"'
+english = "I don't understand anything about computers."
+example-sentence = ''
+example-type = ''
+grammar-construct = '对于 + Modifier， Subj. + Predicate'
+hanzi = '对于电脑，我什么都不懂。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGC01S0'

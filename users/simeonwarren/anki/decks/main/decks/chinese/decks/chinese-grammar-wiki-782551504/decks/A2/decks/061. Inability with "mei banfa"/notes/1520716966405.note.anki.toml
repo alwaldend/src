@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Inability with "mei banfa"'
+english = "He's really dumb. There is no way I can work with him."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 没办法 + Verb + Obj.'
+hanzi = '他很笨，我没办法跟他一起工作。'
+notes = ''
+pinyin = 'Tā hěn bèn, wǒ méi bànfǎ gēn tā yīqǐ gōngzuò.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGI2KHC'

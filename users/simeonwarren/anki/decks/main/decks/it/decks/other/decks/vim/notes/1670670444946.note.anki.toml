@@ -1,0 +1,12 @@
+note_type = "note_types/basic.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[[cards]]
+ordinal = 1
+
+[fields]
+Back = "` `<div>Or:</div><div>' ' “ to that line only</div>"
+Front = 'Move to last location before jump (e.g., after gg)'

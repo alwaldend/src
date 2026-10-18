@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = "delighted;\tto one's heart's content;\tstraightforward."
+example-sentence = '方源,乖乖地交出春秋蝉,我给你个痛快'
+example-type = ''
+grammar-construct = ''
+hanzi = '痛快'
+notes = ''
+pinyin = '<span class="tone4">tòng</span><span class="tone4">kuài</span>	 <!-- tong kuai -->'
+source = ''

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "about" with "guanyu"'
+english = 'There are lots of idioms about diet in Chinese.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '关于 ⋯⋯ 的 + Noun'
+hanzi = '汉语有很多关于饮食的成语。'
+notes = ''
+pinyin = 'Hànyǔ yǒu hěn duō guānyú yǐnshí de chéngyǔ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG49889'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'at least;	(to say the) least.'
+example-sentence = '至少也是独当一面的强者'
+example-type = ''
+grammar-construct = ''
+hanzi = '至少'
+notes = ''
+pinyin = '<span class="tone4">zhì</span><span class="tone3">shǎo</span>	 <!-- zhi shao -->'
+source = ''

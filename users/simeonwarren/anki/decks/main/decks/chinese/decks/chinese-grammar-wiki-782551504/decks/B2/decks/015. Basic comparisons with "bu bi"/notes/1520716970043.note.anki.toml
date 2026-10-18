@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Basic comparisons with "bu bi"'
+english = 'You sing as well as a singer does.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A + 不比 + B + Verb + 得 + Adj.'
+hanzi = '你唱得不比歌手差。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8DVSO'

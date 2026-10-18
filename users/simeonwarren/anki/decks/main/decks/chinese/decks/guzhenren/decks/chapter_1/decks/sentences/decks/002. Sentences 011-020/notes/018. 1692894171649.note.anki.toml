@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'At this time, Fang Yuan was tightly surrounded, some were roaring, some were sneering, some were narrowing their eyes with vigilant light, some were holding their wounds and watching in fear.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '此时牢牢包围着方源,有的在咆哮,有的在冷笑,有的双眼眯起闪着警惕的光,有的捂着伤口恐惧地望着。'
+notes = ''
+pinyin = ''
+source = ''

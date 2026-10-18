@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Indicating location with "zai" before verbs'
+english = 'Many people eat breakfast on the subway.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 在 + Place + Verb + Obj.'
+hanzi = '很多人在地铁上吃早饭。'
+notes = 'In addition to "在" you need a "上" to indicate the location "in the subway."'
+pinyin = 'Hěn duō rén zài dìtiě shàng chī zǎofàn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGX0Z0N'

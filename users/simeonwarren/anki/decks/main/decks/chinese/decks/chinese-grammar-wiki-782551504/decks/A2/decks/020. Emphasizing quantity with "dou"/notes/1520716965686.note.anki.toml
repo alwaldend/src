@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Emphasizing quantity with "dou"'
+english = 'Every day, she does not eat breakfast.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 都 + Verb + Obj.'
+hanzi = '她每天都不吃早饭。'
+notes = ''
+pinyin = 'Tā měi tiān dōu bù chī zǎofàn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWNEYM'

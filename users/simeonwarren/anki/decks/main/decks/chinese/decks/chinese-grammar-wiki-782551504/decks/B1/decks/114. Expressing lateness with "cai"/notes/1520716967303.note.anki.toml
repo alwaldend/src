@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing lateness with "cai"'
+english = "She didn't get married until she was forty."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Time + 才 + Verb'
+hanzi = '她四十岁才结婚。'
+notes = ''
+pinyin = 'Tā sìshí suì cái jiéhūn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG3WTCJ'

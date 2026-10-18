@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'The filler word "neige"'
+english = 'Like... could you be my girlfriend?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '(那个⋯⋯) (那个⋯⋯) + [anything] + (那个⋯⋯)'
+hanzi = '那个⋯⋯你可以做我的女朋友吗？'
+notes = ''
+pinyin = 'Nèige... nǐ kěyǐ zuò wǒ de nǚpéngyou ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8VJM8'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Comparisons", "Numbers"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "er" and "liang"'
+english = '#2; the second (of the month)'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '二号'
+notes = ''
+pinyin = 'èr hào'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJ46H1'

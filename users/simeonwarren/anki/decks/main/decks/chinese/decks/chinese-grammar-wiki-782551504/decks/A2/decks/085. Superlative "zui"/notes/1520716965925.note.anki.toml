@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "AdverbswithAdjectives", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Superlative "zui"'
+english = 'The Chinese language is the most difficult.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '最 + Adj.'
+hanzi = '汉语最难。'
+notes = ''
+pinyin = 'Hànyǔ zuì nán.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG3544U'

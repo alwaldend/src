@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Grammatical_Structures", "NumbersandMeasureWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Measure words with "this" and "that"'
+english = 'this piece of clothing'
+example-sentence = ''
+example-type = ''
+grammar-construct = '这 / 那 + Measure Word + Noun'
+hanzi = '这件衣服'
+notes = ''
+pinyin = 'zhè jiàn yīfu'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGZC42B'

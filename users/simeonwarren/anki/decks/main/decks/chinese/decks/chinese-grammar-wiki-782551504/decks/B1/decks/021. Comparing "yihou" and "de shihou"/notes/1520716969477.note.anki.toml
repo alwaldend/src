@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "TimeWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "yihou" and "de shihou"'
+english = 'After having a child, he has even less time to come out and have fun.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 以后／的时候， Comment'
+hanzi = '有了孩子以后他更没时间出来玩了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGLNKZR'

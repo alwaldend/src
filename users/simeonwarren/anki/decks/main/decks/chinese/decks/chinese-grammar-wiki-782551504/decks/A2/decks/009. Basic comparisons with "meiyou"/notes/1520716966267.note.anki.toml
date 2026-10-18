@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Basic comparisons with "meiyou"'
+english = 'This place is not as fun as Shanghai.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun 1 + 没有 + Noun 2 + Adj.'
+hanzi = '这个地方没有上海好玩。'
+notes = ''
+pinyin = 'Zhège dìfang méiyǒu Shànghǎi hǎowán.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGEAH5M'

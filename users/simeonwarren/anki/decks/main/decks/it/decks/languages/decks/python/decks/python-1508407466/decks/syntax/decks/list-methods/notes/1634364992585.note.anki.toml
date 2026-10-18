@@ -1,0 +1,13 @@
+note_type = "note_types/python-basic-and-reversed.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+additional-info = 'Will throw IndexError if the index value is out of range.'
+answer = '<i>list</i>.pop()'
+example = ''
+question = '<b>List method</b> that removes an item at an index from list and returns it. If given a negative number it will start from the end.'
+version = ''
+with-options = 'list.pop(<i>index=-1</i>)'

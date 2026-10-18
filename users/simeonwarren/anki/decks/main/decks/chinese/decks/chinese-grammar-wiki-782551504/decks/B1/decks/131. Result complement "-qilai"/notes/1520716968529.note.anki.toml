@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Result complement "-qilai"'
+english = "Why didn't you keep the old man upright?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 起来'
+hanzi = '你怎么不把老人扶起来？'
+notes = ''
+pinyin = 'Nǐ zěnme bù bǎ lǎorén fú qǐlái?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGBPXOB'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'cannot;	must not;	should not.'
+example-sentence = '若是此子测出甲等资质,好生培养,也未必不能和白凝冰抗衡'
+example-type = ''
+grammar-construct = ''
+hanzi = '不能'
+notes = ''
+pinyin = '<span class="tone4">bù</span><span class="tone2">néng</span>	 <!-- bun eng -->'
+source = ''

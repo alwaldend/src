@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Offering choices with "haishi"'
+english = 'Do you want to eat Chinese food or French food?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + Option A + 还是 + Option B ?'
+hanzi = '你们想吃中国菜还是法国菜？'
+notes = ''
+pinyin = 'Nǐmen xiǎng chī Zhōngguó cài  háishì Fǎguó cài?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGA8NIB'

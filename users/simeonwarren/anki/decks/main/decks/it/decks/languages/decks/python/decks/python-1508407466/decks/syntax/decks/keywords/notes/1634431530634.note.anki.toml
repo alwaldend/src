@@ -1,0 +1,13 @@
+note_type = "note_types/python-basic-and-reversed.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<b>Keyword</b> used to create an anonymous one line function.'
+example = 'lambda x: x *2 <font color="#555753">#doubles x</font>'
+question = '<b>Keyword:</b> lambda'
+version = ''
+with-options = ''

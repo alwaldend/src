@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Separable verb'
+english = "We've met yesterday."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '我们昨天见了面。'
+notes = 'separated, 了 inserted'
+pinyin = 'Wǒmen zuótiān jiàn le miàn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG4GVRX'

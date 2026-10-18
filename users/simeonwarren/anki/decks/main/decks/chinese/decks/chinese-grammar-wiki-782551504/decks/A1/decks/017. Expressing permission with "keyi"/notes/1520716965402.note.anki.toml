@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Auxiliaryverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing permission with "keyi"'
+english = 'Can we eat in the office?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 可以 + Verb + Obj.'
+hanzi = '我们可以在办公室吃饭吗？'
+notes = ''
+pinyin = 'Wǒmen kěyǐ zài bàngōngshì chīfàn ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG6SPYK'

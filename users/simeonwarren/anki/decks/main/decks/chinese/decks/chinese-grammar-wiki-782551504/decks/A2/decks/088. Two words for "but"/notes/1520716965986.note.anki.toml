@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Conjunctions", "leech", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Two words for "but"'
+english = 'I like this shirt, but it is too expensive.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Statement， 可是 / 但是 + [Contrary Statement]'
+hanzi = '我喜欢这件衬衫，可是太贵了。'
+notes = ''
+pinyin = 'Wǒ xǐhuan zhè jiàn chènshān, kěshì tài guì le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGUD81S'

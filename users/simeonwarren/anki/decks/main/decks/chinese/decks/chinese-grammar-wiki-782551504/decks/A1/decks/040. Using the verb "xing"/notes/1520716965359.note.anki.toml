@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using the verb "xing"'
+english = "My Chinese teacher's surname is Chen."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 姓 + [Surname]'
+hanzi = '我的中文老师姓陈。'
+notes = ''
+pinyin = 'Wǒ de Zhōngwén lǎoshī xìng Chén.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPS9NY'

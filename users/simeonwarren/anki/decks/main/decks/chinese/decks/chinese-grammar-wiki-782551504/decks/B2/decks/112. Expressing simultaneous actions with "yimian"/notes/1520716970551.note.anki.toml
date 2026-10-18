@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing simultaneous actions with "yimian"'
+english = ''
+example-sentence = ''
+example-type = 'invalid'
+grammar-construct = '一面 + Verb +  一面 + Verb'
+hanzi = '我面工作面学习。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG1QB4K'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "guanyu" and "duiyu"'
+english = 'A Notification regarding New Year vacations.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '关于新年放假的通知'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG1HNBU'

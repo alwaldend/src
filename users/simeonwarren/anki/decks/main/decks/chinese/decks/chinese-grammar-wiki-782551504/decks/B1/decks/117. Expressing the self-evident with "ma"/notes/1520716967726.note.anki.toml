@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing the self-evident with "ma"'
+english = 'Guys, you should say whatever you want to say.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Statement + 嘛'
+hanzi = '大家有话就说嘛。'
+notes = ''
+pinyin = 'Dàjiā yǒu huà jiù shuō ma.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGVMC4B'

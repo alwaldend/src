@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "already" with "yijing"'
+english = "They don't live in China anymore."
+example-sentence = ''
+example-type = ''
+grammar-construct = '已经 + 不 + Verb + 了'
+hanzi = '他们已经不住在中国了。'
+notes = ''
+pinyin = 'Tāmen yǐjīng bù zhù zài Zhōngguó le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNXI27'

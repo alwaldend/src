@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Events in quick succession with "yi... jiu..."'
+english = 'Every time she gets angry, her face turns red.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '一 + Reason，就 + Result'
+hanzi = '她一生气就脸红。'
+notes = ''
+pinyin = 'Tā yī shēngqì jiù liǎn hóng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTFUD0'

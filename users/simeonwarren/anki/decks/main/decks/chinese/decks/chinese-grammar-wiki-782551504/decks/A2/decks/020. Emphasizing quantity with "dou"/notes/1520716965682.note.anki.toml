@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Emphasizing quantity with "dou"'
+english = 'Everyone forgot his name.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 都 + Verb + Obj.'
+hanzi = '大家都忘了他的名字。'
+notes = ''
+pinyin = 'Dàjiā dōu wàng le tā de míngzi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWNEYM'

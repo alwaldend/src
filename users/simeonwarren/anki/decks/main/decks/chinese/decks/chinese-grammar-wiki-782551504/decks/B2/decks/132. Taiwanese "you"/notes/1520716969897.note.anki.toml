@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Taiwanese "you"'
+english = 'We were all scared when you shout at us.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 有 + Adj.'
+hanzi = '你那么大声说话，我们都有害怕。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGY2D79'

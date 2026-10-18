@@ -1,0 +1,13 @@
+note_type = "note_types/python-basic.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+'Additional Info' = ''
+'Back - Basic' = '<b>Capital</b>: bool values True and False use capital letters as well as None.'
+'Back - Code' = ''
+Example = ''
+Front = 'Do boolean types use capital or lowercase letters?&nbsp;'
+Version = ''

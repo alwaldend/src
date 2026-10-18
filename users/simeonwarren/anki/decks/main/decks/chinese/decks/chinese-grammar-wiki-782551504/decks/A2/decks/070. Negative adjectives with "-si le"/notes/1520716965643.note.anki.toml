@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adjectives", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Negative adjectives with "-si le"'
+english = "It's ridiculously hot!"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Adj. + 死了'
+hanzi = '热死了！'
+notes = 'Literally, "hot to death"'
+pinyin = 'Rè  sǐ le!'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGLEVUV'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Topic-comment sentences'
+english = 'There is no way that you can solve this problem all by yourself.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Topic ，Comment'
+hanzi = '这个问题，你一个人没办法解决。'
+notes = ''
+pinyin = 'Zhège wèntí, nǐ yīgèrén méi bànfǎ jiějué.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5KNWW'

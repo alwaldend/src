@@ -1,0 +1,13 @@
+note_type = "note_types/python-basic.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+'Additional Info' = ''
+'Back - Basic' = ''
+'Back - Code' = 'except Exception as e:'
+Example = ''
+Front = 'Create an exception handler with the default exception type and the variable <b><i>e</i> </b>as the exception error.'
+Version = ''

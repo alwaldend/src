@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "and also" with "hai"'
+english = 'You did your homework at home tonight, and what else did you do?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + Obj. 1， 还 + Verb + Obj. 2'
+hanzi = '你晚上在家做了作业，还做了什么？'
+notes = ''
+pinyin = 'Nǐ wǎnshang zài jiā zuò le zuòyè, hái zuò le shénme?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJBZKC'

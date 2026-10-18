@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'if (coming after a conditional clause).'
+example-sentence = '该说的话,我都在序里面说了'
+example-type = ''
+grammar-construct = ''
+hanzi = '的话'
+notes = ''
+pinyin = '<span class="tone5">de</span><span class="tone4">huà</span>	 <!-- de hua -->'
+source = ''

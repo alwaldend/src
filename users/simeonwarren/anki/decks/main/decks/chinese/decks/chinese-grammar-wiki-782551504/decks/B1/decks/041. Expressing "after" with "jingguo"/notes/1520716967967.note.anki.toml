@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "after" with "jingguo"'
+english = 'After the last few years of development, my hometown has changed a lot.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '经过 + Event / Time，Subj. + Predicate'
+hanzi = '经过这几年的发展，我老家发生了很大变化。'
+notes = ''
+pinyin = 'jīngguò zhè jǐ nián de fāzhǎn, wǒ lǎojiā fāshēng le hěn dà biànhuà.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG11DA8'

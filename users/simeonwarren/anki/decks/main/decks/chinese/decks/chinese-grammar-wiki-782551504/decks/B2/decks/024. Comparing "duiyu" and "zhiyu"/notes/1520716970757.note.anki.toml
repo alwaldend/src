@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "duiyu" and "zhiyu"'
+english = "As for this problem, I don't have any ideas."
+example-sentence = ''
+example-type = ''
+grammar-construct = '对于 + Modifier， Subj. + Predicate'
+hanzi = '对于这个问题，我没有意见。'
+notes = ''
+pinyin = 'Duìyú zhège wèntí, wǒ méiyǒu yìjiàn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGC01S0'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Basic comparisons with "bu bi"'
+english = 'Adults are not smarter than children.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A + 不比 + B + Verb + 得 + Adj.'
+hanzi = '大人不比孩子聪明。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8DVSO'

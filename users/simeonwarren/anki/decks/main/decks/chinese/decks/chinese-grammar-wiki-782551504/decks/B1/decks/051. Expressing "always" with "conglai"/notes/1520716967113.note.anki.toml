@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "always" with "conglai"'
+english = 'My students are always so confident.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 从来 + 都 + Predicate'
+hanzi = '我的学生从来都这么有自信。'
+notes = ''
+pinyin = 'Wǒ de xuéshēng cónglái dōu zhème yǒu zìxìn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8KUHG'

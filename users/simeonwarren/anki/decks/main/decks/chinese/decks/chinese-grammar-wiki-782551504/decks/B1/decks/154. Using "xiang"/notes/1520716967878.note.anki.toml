@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "xiang"'
+english = "Don't shoot at me ."
+example-sentence = ''
+example-type = ''
+grammar-construct = '向 + Person + Verb'
+hanzi = '不要向我开枪！'
+notes = ''
+pinyin = 'Bùyào xiàng wǒ kāiqiāng!'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQXARS'

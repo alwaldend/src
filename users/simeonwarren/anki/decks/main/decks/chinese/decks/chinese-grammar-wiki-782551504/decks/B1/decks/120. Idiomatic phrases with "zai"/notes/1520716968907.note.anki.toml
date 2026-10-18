@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Idiomatic phrases with "zai"'
+english = 'With the encouragement of the teacher, I have decided to go participate in this interview.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '在 + Abstract Concept + 下， Result／Comment Sentence'
+hanzi = '在老师的鼓励下，我决定去参加这个面试。'
+notes = ''
+pinyin = '<div>Zài lǎoshī de gǔlì xià, wǒ juédìng qù cānjiā zhège miànshì.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGH13JY'

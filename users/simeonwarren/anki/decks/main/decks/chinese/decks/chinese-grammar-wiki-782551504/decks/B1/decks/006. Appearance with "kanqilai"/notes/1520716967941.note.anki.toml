@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Appearance with "kanqilai"'
+english = 'This restaurant looks good.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 看起来 + Adj.'
+hanzi = '这家餐厅看起来不错。'
+notes = ''
+pinyin = 'Zhè jiā cāntīng kàn qǐlái bùcuò.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG9K0F8'

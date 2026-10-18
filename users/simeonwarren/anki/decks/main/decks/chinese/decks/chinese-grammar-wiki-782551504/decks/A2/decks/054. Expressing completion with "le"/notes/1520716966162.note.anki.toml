@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing completion with "le"'
+english = 'I studied Chinese for two years.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 了 + Obj.'
+hanzi = '我学了两年中文。'
+notes = ''
+pinyin = 'Wǒ xué le liǎng nián Zhōngwén.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGAGDCQ'

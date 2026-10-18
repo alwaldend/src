@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "and" with "he"'
+english = 'Cell phones and computers are both expensive.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun 1 + 和 + Noun 2'
+hanzi = '手机和电脑都很贵。'
+notes = ''
+pinyin = 'Shǒujī hé diànnǎo dōu hěn guì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGP0KFF'

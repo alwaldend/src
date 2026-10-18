@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'le after an object'
+english = "He's helped a few dozen kids from the rural area."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 了 + Number + Measure Word + Obj.'
+hanzi = '他帮了几十个农村的孩子了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG4K5WH'

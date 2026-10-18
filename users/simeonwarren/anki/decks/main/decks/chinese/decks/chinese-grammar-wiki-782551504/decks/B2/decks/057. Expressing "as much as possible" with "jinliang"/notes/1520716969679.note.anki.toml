@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "as much as possible" with "jinliang"'
+english = 'I will try my best to figure out something to help you.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '尽量 + Verb / Adj.'
+hanzi = '我会尽量想办法帮你的。'
+notes = ''
+pinyin = 'Wǒ huì jǐnliàng xiǎng bànfǎ bāng nǐ de.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGINBWJ'

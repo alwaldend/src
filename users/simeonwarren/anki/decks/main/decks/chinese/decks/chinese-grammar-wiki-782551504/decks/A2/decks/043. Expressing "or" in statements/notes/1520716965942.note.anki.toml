@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "or" in statements'
+english = 'During the weekend, I like to cook or watch movies at home.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Possibility 1 + 或者 + Possibility 2'
+hanzi = '周末的时候，我喜欢在家做饭或者看电影。'
+notes = ''
+pinyin = 'Zhōumò de shíhou, wǒ xǐhuan zài jiā zuòfàn huòzhě kàn diànyǐng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG6HYOU'

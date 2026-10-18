@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["AdverbswithAdjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Continuation with "hai"'
+english = 'The teacher still made it to the class although she got sick.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Situation, (但是 / 可是 +) Subj. + 还是 + [Verb Phrase]'
+hanzi = '老师虽然生病了，但还是来上课了。'
+notes = ''
+pinyin = 'Lǎoshī suīrán shēngbìng le, dàn háishì lái shàngkè le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGIRILI'

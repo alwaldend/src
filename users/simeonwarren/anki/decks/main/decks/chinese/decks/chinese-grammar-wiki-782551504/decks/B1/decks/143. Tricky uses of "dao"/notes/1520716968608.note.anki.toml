@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Tricky uses of "dao"'
+english = 'That girl, did you catch her yet?'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '那个女孩子，你追到了吗？'
+notes = ''
+pinyin = 'Nàge nǚháizi, nǐ zhuīdào le ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCUSIV'

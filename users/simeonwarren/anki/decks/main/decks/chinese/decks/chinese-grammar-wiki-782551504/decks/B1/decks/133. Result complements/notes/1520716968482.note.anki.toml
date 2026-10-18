@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Result complements'
+english = 'Sorry, I remember the time wrong.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 没 + Verb + Adj. (+ Obj.)'
+hanzi = '对不起，我记错了时间。'
+notes = ''
+pinyin = 'Duìbuqǐ, wǒ jì cuò le shíjiān.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNNMST'

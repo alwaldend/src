@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "and also" with "hai"'
+english = 'She did her laundry too.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + Obj. 1， 还 + Verb + Obj. 2'
+hanzi = '她也洗了衣服。'
+notes = ''
+pinyin = 'Tā  yě xǐ le yīfu.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJBZKC'

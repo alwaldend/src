@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "compared with" with "gen"'
+english = "Compared to past weeks, this week's weather has been much more comfortable."
+example-sentence = ''
+example-type = ''
+grammar-construct = '跟 + Time 1 + 比 ， Subj. + Time 2 + ~'
+hanzi = '跟前几周比，这周的天气舒服多了。'
+notes = ''
+pinyin = 'Gēn qián jǐ zhōu bǐ, zhè zhōu de tiānqì shūfu duō le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG920B7'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "then…" with "name"'
+english = "Everybody is here, so let's begin."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Situation ，那么 + Suggestion / Decision'
+hanzi = '大家都到了，那么我们开始吧。'
+notes = ''
+pinyin = 'Dàjiā dōu dào le, nàme wǒmen kāishǐ ba.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGX298Z'

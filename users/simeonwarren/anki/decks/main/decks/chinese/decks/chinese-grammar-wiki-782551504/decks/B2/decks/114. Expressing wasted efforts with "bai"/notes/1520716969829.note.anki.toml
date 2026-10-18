@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing wasted efforts with "bai"'
+english = "He's not coming back to eat？！I made all this food for nothing."
+example-sentence = ''
+example-type = ''
+grammar-construct = '白 + Verb + 了'
+hanzi = '他不回来吃饭了？！我这些菜白做了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTIMTS'

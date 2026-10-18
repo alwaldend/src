@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Numbers", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Big numbers in Chinese'
+english = '7,890,298'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '七百八十九万零二百九十八'
+notes = ''
+pinyin = 'qībǎi bāshí-jiǔ wàn líng èrbǎi jiǔshí-bā'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGIM3AX'

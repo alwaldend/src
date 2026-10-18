@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "ye" and "dou" together'
+english = "I don't like Trump. My friends don't like him, either."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 也都 + 不 / 没 + Predicate'
+hanzi = '我不喜欢Trump，我的朋友也都不喜欢他。'
+notes = ''
+pinyin = 'Wǒ bù xǐhuan Trump, wǒ de péngyou yě dōu bù xǐhuan tā.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8GSXY'

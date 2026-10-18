@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Direction complement'
+english = "Please wait a moment on the upper floor. I'm coming up to you in a few seconds."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 来 / 去'
+hanzi = '你在楼上等我一下。我一会儿就上去找你。'
+notes = ''
+pinyin = "Nǐ zài lóushàng děng wǒ yīxià. Wǒ yīhuǐ'er jiù shàngqù zhǎo nǐ."
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8LWBJ'

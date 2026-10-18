@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Facilitating an outcome with "yibian"'
+english = 'The teacher slowed down her talking speed so that the students could understand her.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '[Action] +  以便 + [Outcome]'
+hanzi = '老师减慢了语速，以便学生能听懂。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGXU2H4'

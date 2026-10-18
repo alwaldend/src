@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "just now" with "gangcai"'
+english = 'I just went to the restroom.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '刚才 + Verb'
+hanzi = '刚才我去洗手间了。'
+notes = ''
+pinyin = 'Gāngcái wǒ qù xǐshǒujiān le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQ1KOY'

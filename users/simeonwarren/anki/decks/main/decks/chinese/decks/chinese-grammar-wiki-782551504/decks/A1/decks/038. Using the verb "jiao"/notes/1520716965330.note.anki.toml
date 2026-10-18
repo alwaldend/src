@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using the verb "jiao"'
+english = 'His name is Li Xiaolong.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 叫 + [Name]'
+hanzi = '他叫李小龙。'
+notes = 'Note: this is the real name of Bruce Lee'
+pinyin = 'Tā jiào Lǐ Xiǎolóng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGUGWVZ'

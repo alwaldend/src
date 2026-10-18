@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Doing something more with "duo"'
+english = 'I want to spend more time with my family.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '多 + Verb'
+hanzi = '我想多陪陪家人。'
+notes = ''
+pinyin = 'Wǒ xiǎng duō péipei jiārén.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGLKGZP'

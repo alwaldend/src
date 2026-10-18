@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "SeparateFunctions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "shihe" and "heshi"'
+english = 'Although iPads are fun to use, I think the price is not suitable.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Adv. + 合适'
+hanzi = 'iPad虽然好用，但是对我来说价格不太合适！'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGVDOXL'

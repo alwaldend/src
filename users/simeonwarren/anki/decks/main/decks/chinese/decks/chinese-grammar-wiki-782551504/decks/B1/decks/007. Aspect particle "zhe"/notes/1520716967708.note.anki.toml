@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Aspect particle "zhe"'
+english = ''
+example-sentence = ''
+example-type = 'invalid'
+grammar-construct = 'Verb 1 + 着 + Verb 2'
+hanzi = '公司的门在开，可是没人在。'
+notes = "Being open is not an action, so don't use 在.)"
+pinyin = 'Gōngsī de mén zài kāi, kěshì méi rén zài.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGOIDEO'

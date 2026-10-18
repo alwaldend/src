@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Auxiliaryverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "will" with "hui"'
+english = 'Will the boss agree?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 会 + Verb + Obj.'
+hanzi = '老板会同意吗？'
+notes = ''
+pinyin = 'Lǎobǎn huì  tóngyì ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGW9737'

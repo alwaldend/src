@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "bu" and "mei"'
+english = ''
+example-sentence = ''
+example-type = 'invalid'
+grammar-construct = 'Noun 1 + 没有 + Noun 2 + Adj.'
+hanzi = '我们都不有老板忙。'
+notes = ''
+pinyin = 'Wǒmen dōu bù yǒu lǎobǎn máng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGRJ1BI'

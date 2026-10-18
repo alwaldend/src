@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Emphasis with "jiushi"'
+english = 'I just want to go!'
+example-sentence = ''
+example-type = ''
+grammar-construct = '就(是) + (不) + Verb'
+hanzi = '我就要去！'
+notes = ''
+pinyin = 'Wǒ jiù yào qù!'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGY21RK'

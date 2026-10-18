@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["AuxiliaryWords", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Non-exhaustive lists with "dengdeng"'
+english = 'Our company has marketing department, design department, technology department, etc.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A1，A2 ⋯⋯ 等 / 等等'
+hanzi = '我们公司有市场部、设计部、技术部，等等。'
+notes = ''
+pinyin = 'Wǒmen gōngsī yǒu shìchǎng bù, shèjì bù, jìshù bù, děngděng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGF763H'

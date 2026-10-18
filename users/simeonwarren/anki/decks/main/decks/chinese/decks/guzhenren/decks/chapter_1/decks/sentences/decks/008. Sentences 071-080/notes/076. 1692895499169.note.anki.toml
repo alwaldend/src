@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'No one ever doubted this.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '没有人怀疑过这一点。'
+notes = ''
+pinyin = ''
+source = ''

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "together" with "yiqi"'
+english = 'He wants to study Chinese together with his wife.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 一起 + Verb + Obj.'
+hanzi = '他想和他太太一起学中文。'
+notes = ''
+pinyin = 'Tā xiǎng hé tā tàitai yīqǐ xué Zhōngwén.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNVE15'

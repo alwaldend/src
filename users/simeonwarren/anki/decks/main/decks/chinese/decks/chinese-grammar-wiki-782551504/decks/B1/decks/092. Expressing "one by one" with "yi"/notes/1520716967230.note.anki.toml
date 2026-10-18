@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "leech", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "one by one" with "yi"'
+english = "Don't worry, do it little by little."
+example-sentence = ''
+example-type = ''
+grammar-construct = '一 + Measure Word （+ 一）+ Measure Word + Noun'
+hanzi = '别着急，一点一点做。'
+notes = ''
+pinyin = 'Bié zháojí, yī diǎn yī diǎn zuò.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGBC7A0'

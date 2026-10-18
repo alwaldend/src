@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'old name for China;	Cathay.'
+example-sentence = ' 他本是地球上的华夏学子,机缘巧合穿越到这方世界'
+example-type = ''
+grammar-construct = ''
+hanzi = '华夏'
+notes = ''
+pinyin = '<span class="tone2">huá</span><span class="tone4">xià</span>	 <!-- hua xia -->'
+source = ''

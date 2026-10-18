@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "Conjunctions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "haishi" and "huozhe"'
+english = 'Does you like him or me?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Option A + 还是 + Option B ?'
+hanzi = '你喜欢他还是我？'
+notes = ''
+pinyin = 'Nǐ xǐhuan tā háishì wǒ?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQJ5IC'

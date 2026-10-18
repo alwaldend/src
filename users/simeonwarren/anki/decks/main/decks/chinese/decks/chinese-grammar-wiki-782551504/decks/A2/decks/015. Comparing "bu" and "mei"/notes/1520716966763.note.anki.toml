@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "bu" and "mei"'
+english = 'He did not give me a call.'
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = 'Subj. + 没(有) + Verb + Obj.'
+hanzi = '他没有打电话给我。'
+notes = ''
+pinyin = 'Tā méiyǒu dǎ diànhuà gěi wǒ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGRJ1BI'

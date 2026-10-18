@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'Patriarch Gu Yue was the last to walk out of the ancestral ancestral hall and slowly closed the door, only to hear the voices of the elders discussing in the corridor.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '古月族长最后一个走出宗祖祠堂,慢慢地关上门,便听到走廊中家老们的议论声音。'
+notes = ''
+pinyin = ''
+source = ''

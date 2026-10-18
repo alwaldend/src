@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "bu" and "mei"'
+english = "I know it's not going to rain this weekend."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不 + Verb'
+hanzi = '我知道这个周末不下雨。'
+notes = ''
+pinyin = 'Wǒ zhīdào zhège zhōumò bù xiàyǔ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGRJ1BI'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'ambition;	goal;	ideal;	aspiration.'
+example-sentence = '   嗯,这是有早智的,而且有大志向'
+example-type = ''
+grammar-construct = ''
+hanzi = '志向'
+notes = ''
+pinyin = '<span class="tone4">zhì</span><span class="tone4">xiàng</span>	 <!-- zhi xiang -->'
+source = ''

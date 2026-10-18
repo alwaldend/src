@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'most outstanding;	par excellence.'
+example-sentence = '在年轻一辈中,可谓独领风骚'
+example-type = ''
+grammar-construct = ''
+hanzi = '独领风骚'
+notes = ''
+pinyin = '<span class="tone2">dú</span><span class="tone3">lǐng</span><span class="tone1">fēng</span><span class="tone1">sāo</span>	 <!-- du ling feng sao -->'
+source = ''

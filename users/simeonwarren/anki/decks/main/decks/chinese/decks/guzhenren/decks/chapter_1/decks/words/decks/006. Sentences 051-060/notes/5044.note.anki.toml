@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'spacious;	wide;	lenient.'
+example-sentence = '他们穿着宽大的白色祭服,都是家族中的家老、话事人,执掌着各方面的权柄'
+example-type = ''
+grammar-construct = ''
+hanzi = '宽大'
+notes = ''
+pinyin = '<span class="tone1">kuān</span><span class="tone4">dà</span>	 <!-- kuan da -->'
+source = ''

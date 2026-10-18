@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adjectives", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Saying "a lot" with "youdeshi"'
+english = 'There are lots of cafes of this kind of style.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun + Subj. + 有的是 。'
+hanzi = '这种风格的咖啡店上海有的是。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGVACYB'

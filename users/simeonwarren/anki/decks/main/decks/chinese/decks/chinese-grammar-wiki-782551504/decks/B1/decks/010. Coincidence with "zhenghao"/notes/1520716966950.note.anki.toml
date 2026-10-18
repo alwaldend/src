@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Coincidence with "zhenghao"'
+english = 'The temperature of the water is perfect, not too cold, not too hot.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 正好 + [Verb Phrase]'
+hanzi = '水温正好，不冷也不热。'
+notes = ''
+pinyin = 'Shuǐwēn zhènghǎo, bù lěng yě bù rè.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGUD25J'

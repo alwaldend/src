@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing purpose with "weile"'
+english = 'Why I did all this is to help you.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '⋯⋯ 是 + 为了 / 因为 ⋯⋯'
+hanzi = '我这么做是为了帮你。'
+notes = ''
+pinyin = 'Wǒ zhème zuò shì wèile bāng nǐ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQGJXT'

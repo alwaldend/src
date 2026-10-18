@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "TimeWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "yihou" "ranhou" "houlai"'
+english = 'We do some reviewing first and the started the new lesson.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '我们先复习一下，然后上新课。'
+notes = ''
+pinyin = 'Wǒmen xiān fùxí yīxià, ránhòu shàng xīn kè.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNPJ7T'

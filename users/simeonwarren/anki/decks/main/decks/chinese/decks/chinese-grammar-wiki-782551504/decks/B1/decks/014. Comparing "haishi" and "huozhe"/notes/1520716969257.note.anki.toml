@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "Conjunctions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "haishi" and "huozhe"'
+english = "I don't know if this book is his or mine."
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = 'Option 1 + 或者 + Option 2'
+hanzi = '我不知道这本书是他的还是我的。'
+notes = ''
+pinyin = 'Wǒ bù zhīdào zhè běn shū shì tā de háishì wǒ de.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQJ5IC'

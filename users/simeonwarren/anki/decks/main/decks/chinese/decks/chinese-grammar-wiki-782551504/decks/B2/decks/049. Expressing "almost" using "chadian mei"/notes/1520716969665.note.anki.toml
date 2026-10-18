@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "almost" using "chadian mei"'
+english = 'I almost forgot it.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 差点 + 没 + Verb Phrase'
+hanzi = '我差点儿没想起来。'
+notes = 'I did remember it.'
+pinyin = 'Wǒ chàdiǎnr méi xiǎng qǐlái.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGGOUJB'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "nanguai" as a verb'
+english = "Don't blame anyone, he just got here, forget it."
+example-sentence = ''
+example-type = ''
+grammar-construct = '难怪 + [Specific Person / People]'
+hanzi = '这也难怪，他刚来嘛，算了算了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGYKH5G'

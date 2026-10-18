@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "as a result" with "jieguo"'
+english = 'He drove too fast. As a result, he hit someone.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Situation ，结果 + Ending'
+hanzi = '他开得太快了，结果撞到了一个人。'
+notes = ''
+pinyin = 'Tā kāi de tài kuài le, jiéguǒ zhuàngdào le yī gè rén.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG6B21A'

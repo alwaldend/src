@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["AuxiliaryWords", "C1"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing that something has already happened with "laizhe"'
+english = 'I told you so! He is not really into you!'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Sentence + 来着'
+hanzi = '我说什么来着！他不是真的喜欢你！'
+notes = ''
+pinyin = 'Wǒ shuō shénme láizhe! Tā bù shì zhēn de xǐhuan nǐ!'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPV5Z2'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = "The pattern \"it's not…, it's…\""
+english = "I'm not gossiping. I'm concerned about you."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 是 ⋯⋯ ，不是 ⋯⋯'
+hanzi = '我不是八卦，是关心你。'
+notes = ''
+pinyin = 'Wǒ bù shì bāguà, shì guānxīn nǐ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGT9WYR'

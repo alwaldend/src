@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "ButStatements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'The "however" adverb "que"'
+english = "He's the boss, but nobody would listen to him."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Sentence ，(但是 +) Subj. + 却 ⋯⋯'
+hanzi = '他是老板，却没有人听他的。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGEG2QB'

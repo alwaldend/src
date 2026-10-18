@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing completion with "le"'
+english = 'I went to Taiwan with my boyfriend this summer.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 了 + Obj.'
+hanzi = '今年夏天我跟我男朋友去了台湾。'
+notes = ''
+pinyin = 'Jīnnián xiàtiān wǒ gēn wǒ nánpéngyou qù le Táiwān.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGAGDCQ'

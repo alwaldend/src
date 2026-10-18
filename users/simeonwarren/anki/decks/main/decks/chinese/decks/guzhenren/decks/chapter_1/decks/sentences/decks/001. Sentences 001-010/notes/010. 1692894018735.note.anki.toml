@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'The mountain wind made the bloody robe flutter, roaring like a battle flag.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '山风吹得血袍飘荡,如战旗般嚯嚯作响。'
+notes = ''
+pinyin = '<div>Shān fēng chuī dé xuè páo piāodàng, rú zhàn qí bān huò huò zuò xiǎng.</div>'
+source = ''

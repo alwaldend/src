@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "C1"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "as long as" with "fanshi"'
+english = 'As long as people worked in this industry, they would know that the market competition is very bad.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '凡是 +  Noun / Noun Phrase＋都 / 就 / 一律 / 无不＋ Verb'
+hanzi = '凡是在这个行业工作过的人都知道市场竞争很厉害。'
+notes = ''
+pinyin = '<div>Fánshì zài zhège hángyè gōngzuòguò de rén dōu zhīdào shìchǎng jìngzhēng hěn lìhài.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG38F8A'

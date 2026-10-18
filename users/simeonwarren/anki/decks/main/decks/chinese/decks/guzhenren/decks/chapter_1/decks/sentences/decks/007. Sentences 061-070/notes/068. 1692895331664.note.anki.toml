@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = "That's right, Baijiazhai and Xiongjiazhai have geniuses emerging over the years."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '不错,白家寨、熊家寨这些年都有天才涌现。'
+notes = ''
+pinyin = ''
+source = ''

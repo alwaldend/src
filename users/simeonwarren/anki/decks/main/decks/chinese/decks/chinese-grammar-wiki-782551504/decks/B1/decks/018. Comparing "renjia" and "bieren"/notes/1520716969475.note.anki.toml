@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "Nouns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "renjia" and "bieren"'
+english = 'There are only ten households left in this village.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '村子里现在只剩十户人家了。'
+notes = ''
+pinyin = 'Cūnzi lǐ xiànzài zhī shèng shí hù rénjiā le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPINA4'

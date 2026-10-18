@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'When I first chose, I was mentally prepared.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '当初选择时,就有了心理准备。'
+notes = ''
+pinyin = ''
+source = ''

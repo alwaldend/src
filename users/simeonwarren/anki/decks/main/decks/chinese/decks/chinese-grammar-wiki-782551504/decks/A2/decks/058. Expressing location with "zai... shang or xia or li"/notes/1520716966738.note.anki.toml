@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing location with "zai... shang / xia / li"'
+english = 'at the wedding'
+example-sentence = ''
+example-type = ''
+grammar-construct = '在 + Occassion + 上'
+hanzi = '在婚礼上'
+notes = ''
+pinyin = 'zài hūnlǐ shàng'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGFBWZL'

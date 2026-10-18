@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Degree complement'
+english = "It's awfully hot today."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '今天热得不行。'
+notes = ''
+pinyin = 'Jīntiān rè de bù xíng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG79STE'

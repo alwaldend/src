@@ -1,0 +1,13 @@
+note_type = "note_types/python-basic-and-reversed.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<b>Keyword</b>&nbsp;to skip to next iteration in a loop.'
+example = ''
+question = '<b>Keyword: </b>continue'
+version = ''
+with-options = ''

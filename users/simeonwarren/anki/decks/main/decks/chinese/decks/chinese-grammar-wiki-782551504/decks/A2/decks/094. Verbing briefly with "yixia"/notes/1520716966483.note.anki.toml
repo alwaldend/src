@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Verbing briefly with "yixia"'
+english = "Don't be mad, laugh!"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 一下 + Obj.'
+hanzi = '不要生气了，笑一下！'
+notes = 'Just one quick laugh!'
+pinyin = 'Bùyào shēngqì le, xiào yīxià!'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWCESP'

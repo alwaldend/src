@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Idiomatic phrases with "zai"'
+english = 'On the topic of raising children, Chinese parents still have a lot of problems.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '在 + Abstract Concept + 方面， Comment Sentence'
+hanzi = '很多中国父母在家庭教育方面还有很多问题。'
+notes = ''
+pinyin = '<div>Hěnduō zhōngguó fùmǔ zài jiātíng jiàoyù fāngmiàn hái yǒu hěnduō wèntí.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGH13JY'

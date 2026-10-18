@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["AuxiliaryWords", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Ending a non-exhaustive list with "shenme de"'
+english = 'Swimming and such is good for the body.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'List + 什么的'
+hanzi = '游泳啊什么的对身体有好处。'
+notes = ''
+pinyin = '<div>Yóuyǒng a shénme de duì shēntǐ yǒu hǎochù.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDIDAC'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Basics", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Connecting nouns with "shi"'
+english = 'You have two kids, yeah?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun 1 + 是 + Noun 2'
+hanzi = '你有两个孩子，是吗？'
+notes = ''
+pinyin = 'Nǐ yǒu liǎng gè háizi, shì ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGUN7RX'

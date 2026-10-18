@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "cai" and "jiu"'
+english = 'She got married when she was 19.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 就 + (＋Verb) ＋ Measure Word ＋ Noun'
+hanzi = '那时候中国人都生四五个孩子，他们家就生一个？'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGLOS9C'

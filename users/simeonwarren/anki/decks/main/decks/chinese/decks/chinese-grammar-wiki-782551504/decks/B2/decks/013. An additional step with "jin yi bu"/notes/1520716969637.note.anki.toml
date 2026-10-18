@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'An additional step with "jin yi bu"'
+english = "After you've figured out this problem, go a bit further and research the other problems as well."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 进一步 + Verb'
+hanzi = '弄懂这个问题之后，才能进一步研究其他问题。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGET76G'

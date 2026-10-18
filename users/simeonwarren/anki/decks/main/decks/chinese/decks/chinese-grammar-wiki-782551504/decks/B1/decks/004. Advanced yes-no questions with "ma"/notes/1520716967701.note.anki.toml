@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Advanced yes-no questions with "ma"'
+english = 'How did he learn Chinese?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '[Question-word Question] + 吗 ？'
+hanzi = '他是怎么学中文？'
+notes = ''
+pinyin = 'Tā shì zěnme xué Zhōngwén de?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGI9WXT'

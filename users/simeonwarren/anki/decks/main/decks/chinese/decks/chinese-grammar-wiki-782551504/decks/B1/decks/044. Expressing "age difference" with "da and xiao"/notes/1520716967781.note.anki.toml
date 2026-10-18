@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "age difference" with "da and xiao"'
+english = 'How much younger are you than your elder brother?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A + 比 + B + 大 / 小 + number + 岁'
+hanzi = '你比你哥哥小几岁？'
+notes = ''
+pinyin = 'Nǐ bǐ nǐ gēge xiǎo jǐ suì?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGE8810'

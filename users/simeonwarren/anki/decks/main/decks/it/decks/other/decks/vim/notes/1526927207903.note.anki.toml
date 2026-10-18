@@ -1,0 +1,12 @@
+note_type = "note_types/basic.notetype.anki.toml"
+tags = ["SearchandReplace"]
+
+[[cards]]
+ordinal = 0
+
+[[cards]]
+ordinal = 1
+
+[fields]
+Back = '/<b>\v</b>pattern'
+Front = 'Use regex symbols in search: non-alphanumeric characters are interpreted as special regex symbols'

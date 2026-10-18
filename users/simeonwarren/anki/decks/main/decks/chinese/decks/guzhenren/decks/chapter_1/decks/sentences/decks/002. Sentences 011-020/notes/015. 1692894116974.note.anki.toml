@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'Fang Yuan has a clear understanding of the situation, but even if death is approaching, he still does not change his face, his expression is flat.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '方源对局势洞若观火,不过即便死亡将临,他仍旧是面不改色,神情平淡。'
+notes = ''
+pinyin = ''
+source = ''

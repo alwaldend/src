@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Separable verb'
+english = 'Have you had the meeting yet?'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '你们开过会了吗？'
+notes = ''
+pinyin = 'Nǐmen kāi guo huì le ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG4GVRX'

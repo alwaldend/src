@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Result complements'
+english = "It‘s too hot. Let's take off our jackets."
+example-sentence = ''
+example-type = ''
+grammar-construct = '没 + Verb + Adj.'
+hanzi = '太热了，外套脱掉吧。'
+notes = ''
+pinyin = 'Tài rè le, wàitào tuō diào bā.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNNMST'

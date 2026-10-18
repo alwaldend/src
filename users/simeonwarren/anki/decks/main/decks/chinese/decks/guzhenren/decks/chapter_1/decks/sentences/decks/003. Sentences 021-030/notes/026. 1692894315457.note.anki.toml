@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'It really is like blue silk in the morning and snow in the evening, right and wrong, success or failure, turning your head empty.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '当真是朝如青丝暮成雪,是非成败转头空。'
+notes = ''
+pinyin = ''
+source = ''

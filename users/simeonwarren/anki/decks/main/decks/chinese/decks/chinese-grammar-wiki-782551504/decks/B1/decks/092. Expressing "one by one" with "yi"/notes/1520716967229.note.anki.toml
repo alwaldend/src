@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "leech", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "one by one" with "yi"'
+english = 'Please inspect room by room.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '一 + Measure Word （+ 一）+ Measure Word + Noun'
+hanzi = '请一个房间一个房间检查。'
+notes = ''
+pinyin = 'Qǐng yī gè fángjiān yī gè fángjiān jiǎnchá.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGBC7A0'

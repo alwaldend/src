@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Advanced use of "you"'
+english = 'He thought it over again and again, and he still disagree.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. ＋Verb + 了 + 又 + Verb，还是 / 就是 ……'
+hanzi = '他想了又想，还是不同意。'
+notes = ''
+pinyin = 'Tā xiǎng le yòu xiǎng, háishì bù tóngyì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGF08B6'

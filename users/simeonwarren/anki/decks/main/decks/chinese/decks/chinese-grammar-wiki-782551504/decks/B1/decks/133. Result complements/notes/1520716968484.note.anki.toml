@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Result complements'
+english = "He broke his older brother's toy."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 没 + Verb + Adj. (+ Obj.)'
+hanzi = '他玩坏了哥哥的玩具。'
+notes = ''
+pinyin = 'Tā wán huài le gēge de wánjù.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNNMST'

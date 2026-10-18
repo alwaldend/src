@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Degree complement'
+english = 'He was terribly proud after he won the competition.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '赢了比赛以后，他骄傲得不得了。'
+notes = ''
+pinyin = "Yíng le bǐsài yǐhòu, tā jiāo'ào de bùdéliǎo."
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG79STE'

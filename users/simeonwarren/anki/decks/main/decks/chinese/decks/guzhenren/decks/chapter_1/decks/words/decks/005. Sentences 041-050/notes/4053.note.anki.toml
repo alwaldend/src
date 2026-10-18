@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'most;	the most;	-est (superlative suffix).variant of 最.old variant of 最.'
+example-sentence = ' 古月山寨的最中央,是一座大气辉煌的楼阁'
+example-type = ''
+grammar-construct = ''
+hanzi = '最'
+notes = ''
+pinyin = '<span class="tone5">zuìzuìzuì</span>	 <!-- zui zui zui -->'
+source = ''

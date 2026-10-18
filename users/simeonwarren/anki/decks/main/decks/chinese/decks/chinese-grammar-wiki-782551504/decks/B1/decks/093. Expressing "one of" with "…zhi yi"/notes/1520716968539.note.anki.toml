@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "NounPhrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "one of" with "…zhi yi"'
+english = 'Mid-autumn Day is one of the important traditional festivals in China.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '[Noun Phrase] + 之一 + 是 ⋯⋯'
+hanzi = '中秋节是中国重要的传统节日之一。'
+notes = ''
+pinyin = 'Zhōngqiūjié shì Zhōngguó zhòngyào de chuántǒng jiérì zhī yī.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMT1M1'

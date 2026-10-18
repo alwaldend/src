@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing duration of inaction'
+english = 'He has already gone three days without showering.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Duration + 没 + Verb + Obj. + 了'
+hanzi = '他已经三天没洗澡了。'
+notes = ''
+pinyin = 'Tā yǐjīng sān tiān méi xǐzǎo le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGSVF28'

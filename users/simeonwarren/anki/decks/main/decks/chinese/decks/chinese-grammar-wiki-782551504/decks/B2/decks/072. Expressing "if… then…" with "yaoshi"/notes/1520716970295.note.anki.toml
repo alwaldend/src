@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Grammatical_Structures", "IfStatements"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "if… then…" with "yaoshi"'
+english = "If he doesn't listen, there's nothing I can do about it."
+example-sentence = ''
+example-type = ''
+grammar-construct = '要是 + Subj. ⋯⋯ ， 就 ⋯⋯'
+hanzi = '他要不听，我也没办法。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGN4S8O'

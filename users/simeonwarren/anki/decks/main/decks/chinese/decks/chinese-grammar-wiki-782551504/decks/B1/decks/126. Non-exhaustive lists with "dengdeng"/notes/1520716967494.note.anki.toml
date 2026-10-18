@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["AuxiliaryWords", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Non-exhaustive lists with "dengdeng"'
+english = 'My father likes exercising very much, for example, running, swimming, playing badminton, etc.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A1，A2 ⋯⋯ 等 / 等等'
+hanzi = '我爸爸很喜欢运动，比如跑步、游泳、打羽毛球，等等。'
+notes = ''
+pinyin = '<div>Wǒ bàba hěn xǐhuān yùndòng, bǐrú pǎobù, yóuyǒng, dǎ yǔmáoqiú, děng děng.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGF763H'

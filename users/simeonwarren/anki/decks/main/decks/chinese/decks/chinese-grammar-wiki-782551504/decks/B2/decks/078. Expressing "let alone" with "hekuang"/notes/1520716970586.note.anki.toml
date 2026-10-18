@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Grammatical_Structures", "Letalone"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "let alone" with "hekuang"'
+english = "I have 10000 yuan, and you're saying I don't even have 1000?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 连 + A + 都 + (不 / 没) + Verb， 何况 + B + 呢？'
+hanzi = '我连一万块钱都有，何况一千呢？'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG3ZS9G'

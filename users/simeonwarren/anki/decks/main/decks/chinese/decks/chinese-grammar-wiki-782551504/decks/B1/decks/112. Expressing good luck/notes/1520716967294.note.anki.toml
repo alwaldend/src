@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "leech", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing good luck'
+english = "It's a good thing I brought the umbrella. Otherwise, I would have gotten soaked."
+example-sentence = ''
+example-type = ''
+grammar-construct = '幸亏 / 幸好 + [Lucky Incident]（，+ 不然 ⋯⋯)'
+hanzi = '幸好带伞了，不然要淋湿了。'
+notes = ''
+pinyin = 'Xìnghǎo dài sǎn le, bùrán yào línshī le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGOB1BF'

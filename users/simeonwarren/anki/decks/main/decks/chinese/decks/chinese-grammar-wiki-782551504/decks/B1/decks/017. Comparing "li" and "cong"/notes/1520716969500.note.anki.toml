@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "li" and "cong"'
+english = 'My home is far from my school.'
+example-sentence = ''
+example-type = 'invalid'
+grammar-construct = 'Place 1 + 离 + Place 2 + 远 / 近'
+hanzi = '我家从学校很远。'
+notes = ''
+pinyin = 'Wǒ jiā cóng xuéxiào hěn yuǎn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG59C66'

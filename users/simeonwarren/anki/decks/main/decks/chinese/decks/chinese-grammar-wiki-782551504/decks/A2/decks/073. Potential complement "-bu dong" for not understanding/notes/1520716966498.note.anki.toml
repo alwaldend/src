@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Potential complement "-bu dong" for not understanding'
+english = "Kids don't understand the characters that you wrote."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. +  Verb + 不懂'
+hanzi = '孩子们看不懂你写的汉字。'
+notes = 'Literally, "read-not-understand"'
+pinyin = 'Háizi men kàn bu dǒng nǐ xiě de Hànzì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8R2V8'

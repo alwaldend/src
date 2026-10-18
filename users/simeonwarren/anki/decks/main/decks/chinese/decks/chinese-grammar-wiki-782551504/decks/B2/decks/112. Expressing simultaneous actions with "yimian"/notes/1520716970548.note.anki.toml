@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing simultaneous actions with "yimian"'
+english = "I told you so many times, don't eat while laying on the bed. The \"clean\" bed now has crumbs all over it!"
+example-sentence = ''
+example-type = ''
+grammar-construct = '一面 + Verb +  一面 + Verb'
+hanzi = '我告诉你多少次了，别一面躺在床上一面吃零食！弄得床上都是碎屑!'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG1QB4K'

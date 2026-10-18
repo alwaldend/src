@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Direction complement "-qilai"'
+english = 'This matter sounds a little bit complex.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 起来 + Adv. + Adj.'
+hanzi = '这件事情听起来有点复杂。'
+notes = ''
+pinyin = 'Zhè jiàn shìqing  tīng qǐlái yǒudiǎn fùzá.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGBPXOB'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Emphasizing quantity with "dou"'
+english = 'All five of us are going.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 都 + Verb + Obj.'
+hanzi = '我们五个人都去。'
+notes = ''
+pinyin = 'Wǒmen wǔ gè rén dōu qù.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWNEYM'

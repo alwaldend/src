@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "SeparateFunctions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "kending" "queding" and "yiding"'
+english = 'You guys are definitely going to come tomorrow.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '一定 + Adj. / Verb'
+hanzi = '明天你们一定要来。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDPS0J'

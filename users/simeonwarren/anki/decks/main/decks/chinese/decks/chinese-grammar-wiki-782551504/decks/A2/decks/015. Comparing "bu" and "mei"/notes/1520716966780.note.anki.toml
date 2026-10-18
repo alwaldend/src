@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "bu" and "mei"'
+english = "My cell phone isn't as expensive as his."
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = 'Noun 1 + 没有 + Noun 2 + Adj.'
+hanzi = '我的手机没有他的手机贵。'
+notes = ''
+pinyin = 'Wǒ de shǒujī méiyǒu tā de shǒujī guì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGRJ1BI'

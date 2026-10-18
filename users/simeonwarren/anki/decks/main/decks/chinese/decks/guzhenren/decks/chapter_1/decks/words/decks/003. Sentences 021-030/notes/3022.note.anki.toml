@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'lit. warp and weft in weaving; vertically and horizontal;	length and breadth;	criss-crossed;	able to move unhindered;	abbr. for 合纵连横, School of Diplomacy during the Warring States Period (475-221 BC).'
+example-sentence = '辗转颠簸300年,纵横世间200余年,500多年光阴悠悠,却是晃眼即逝'
+example-type = ''
+grammar-construct = ''
+hanzi = '纵横'
+notes = ''
+pinyin = '<span class="tone4">zòng</span><span class="tone2">héng</span>	 <!-- zong heng -->'
+source = ''

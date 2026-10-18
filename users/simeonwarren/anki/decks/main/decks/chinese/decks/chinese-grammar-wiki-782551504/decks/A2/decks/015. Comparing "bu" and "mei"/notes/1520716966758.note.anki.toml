@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "bu" and "mei"'
+english = 'Do your foreign friends like to eat Chinese food?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 不 + Verb + Obj.'
+hanzi = '你的外国朋友们喜不喜欢吃中国菜？'
+notes = ''
+pinyin = 'Nǐ de wàiguó péngyoumen xǐ bu xǐhuan chī Zhōngguó cài?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGRJ1BI'

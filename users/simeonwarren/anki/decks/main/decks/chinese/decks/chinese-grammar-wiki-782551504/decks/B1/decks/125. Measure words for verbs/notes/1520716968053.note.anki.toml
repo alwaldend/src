@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Measure words for verbs'
+english = 'That red-haired boy hit me three times.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + Number + Measure Word'
+hanzi = '那个红头发的男孩打了我三下。'
+notes = ''
+pinyin = 'Nàge hóng tóufa de nánhái dǎ le wǒ sān xià.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5AODR'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Idiomatic phrases with "zai"'
+english = 'On the topic of online games, he is an expert.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '在 + Abstract Concept + 方面， Comment Sentence'
+hanzi = '在网游方面，他是专家。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGH13JY'

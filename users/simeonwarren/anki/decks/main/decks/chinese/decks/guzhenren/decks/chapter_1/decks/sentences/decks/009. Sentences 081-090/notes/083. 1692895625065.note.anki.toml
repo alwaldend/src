@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'In recent years, I have also heard of his creations "Toasting Wine", "Song of Plum Blossom", and "Jiangchengzi". They are really geniuses!'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '近些年他创作的《将敬酒》、《咏梅》,还有《江城子》我也听说过,真是天才！'
+notes = ''
+pinyin = ''
+source = ''

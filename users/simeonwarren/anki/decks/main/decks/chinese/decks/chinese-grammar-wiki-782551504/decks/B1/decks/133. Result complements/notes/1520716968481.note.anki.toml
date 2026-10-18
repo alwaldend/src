@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Result complements'
+english = 'Are you done eating?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 没 + Verb + Adj. (+ Obj.)'
+hanzi = '你吃好了吗？'
+notes = ''
+pinyin = 'Nǐ chī hǎo le ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNNMST'

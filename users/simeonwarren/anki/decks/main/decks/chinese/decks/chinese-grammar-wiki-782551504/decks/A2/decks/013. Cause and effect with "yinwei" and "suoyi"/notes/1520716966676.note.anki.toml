@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Cause and effect with "yinwei" and "suoyi"'
+english = "He found a job so he's happy."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Reason, 所以 + Result'
+hanzi = '他找到工作了，所以很高兴。'
+notes = ''
+pinyin = 'Tā zhǎodào gōngzuò le, suǒyǐ hěn gāoxìng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTDUJO'

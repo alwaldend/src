@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'to unite;	unity;	solidarity;	united.'
+example-sentence = '争要堂堂正正的争,不可以动用阴谋手段,损害家族的团结'
+example-type = ''
+grammar-construct = ''
+hanzi = '团结'
+notes = ''
+pinyin = '<span class="tone2">tuán</span><span class="tone2">jié</span>	 <!-- tuan jie -->'
+source = ''

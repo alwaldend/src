@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Events in quick succession with "yi... jiu..."'
+english = 'As soon as the teacher came , everyone stopped talking.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '一 + Event 1，就 + Event 2'
+hanzi = '老师一来大家就不说话了。'
+notes = ''
+pinyin = 'Lǎoshī yī lái dàjiā jiù bù shuōhuà le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTFUD0'

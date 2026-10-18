@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Separable verb'
+english = 'Good night! I hope you can have some good sleep.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '晚安！睡个好觉。'
+notes = ''
+pinyin = "Wǎn'ān! Shuì gè hǎo jiào."
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG4GVRX'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing the self-evident with "ma"'
+english = "It's more environmental not to use plastic bags."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Statement + 嘛'
+hanzi = '不用塑料袋更环保嘛。'
+notes = ''
+pinyin = 'Bùyòng sùliàodài gèng huánbǎo ma.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGVMC4B'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "including" with "baokuo"'
+english = 'He said "us". That certainly includes you.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 包括 + Obj.1 ( , + Obj.2, Obj.3 ... )'
+hanzi = '他说"咱们"，当然包括你。'
+notes = ''
+pinyin = 'Tā shuō"zánmen", dāngrán bāokuò nǐ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG50341'

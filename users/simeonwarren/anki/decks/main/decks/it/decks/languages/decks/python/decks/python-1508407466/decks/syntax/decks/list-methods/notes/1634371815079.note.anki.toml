@@ -1,0 +1,13 @@
+note_type = "note_types/python-basic-and-reversed.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<i>list</i>.index(<i>value</i>)'
+example = ''
+question = '<b>List method</b>&nbsp;that returns the index of the first element with the specified value from a list. Returns a ValueError if the value is not found.'
+version = ''
+with-options = ''

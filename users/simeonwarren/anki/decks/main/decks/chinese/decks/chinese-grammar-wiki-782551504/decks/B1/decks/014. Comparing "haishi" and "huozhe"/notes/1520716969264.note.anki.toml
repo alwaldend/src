@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "Conjunctions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "haishi" and "huozhe"'
+english = "Today's homework is especially hard. We had better ask the teacher."
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = 'Option 1 + 或者 + Option 2'
+hanzi = '今天的作业特别难，我们还是问老师吧。'
+notes = ''
+pinyin = '<div>Jīntiān de zuòyè tèbié nán, wǒmen háishì wèn lǎoshī ba.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQJ5IC'

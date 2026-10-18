@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "after" with "jingguo"'
+english = 'She thinks about him when she walks past this cafe.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '她经过这个咖啡店的时候会想到他。'
+notes = ''
+pinyin = 'Tā jīngguò zhège kāfēidiàn de de shíhou huì xiǎngdào tā.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG11DA8'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Grammatical_Structures", "NumbersandMeasureWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Measure words in quantity questions'
+english = 'How many rooms are there in your house?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 几 + Measure Word + Noun？'
+hanzi = '你家有几个房间？'
+notes = ''
+pinyin = 'Nǐ jiā yǒu jǐ gè fángjiān?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGL9KQM'

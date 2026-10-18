@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing duration of inaction'
+english = 'How long has it been since the last time you went back home to visit your parents？'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Duration + 没 + Verb + Obj. + 了'
+hanzi = '你们多长时间没回家看爸妈了？'
+notes = ''
+pinyin = 'Nǐmen  duō cháng shíjiān méi huíjiā kàn bàmā le?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGSVF28'

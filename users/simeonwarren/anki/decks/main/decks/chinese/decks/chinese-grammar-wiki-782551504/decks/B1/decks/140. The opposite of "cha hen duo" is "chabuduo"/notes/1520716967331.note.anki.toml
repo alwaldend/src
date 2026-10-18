@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'The opposite of "cha hen duo" is "chabuduo"'
+english = 'The meanings of these two words are basically the same, but their usages are very different.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A + 跟 / 和 + B + 差很多'
+hanzi = '这两个词的意思差不多，但是用法差很多。'
+notes = ''
+pinyin = 'Zhè liǎng gè cí de yìsi chàbùduō, dànshì yòngfǎ chà hěn duō.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQAN74'

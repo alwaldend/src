@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Two words for "but"'
+english = "You can read books here, but you can't talk."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Statement， 可是 / 但是 + [Contrary Statement]'
+hanzi = '你们可以在这里看书，可是不可以说话。'
+notes = ''
+pinyin = 'Nǐ kěyǐ zài zhèlǐ kàn shū, kěshì bù kěyǐ shuōhuà.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGUD81S'

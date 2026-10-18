@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["C1", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "genju" and "ju"'
+english = 'It is said that he went to Shanghai.'
+example-sentence = ''
+example-type = 'invalid'
+grammar-construct = ''
+hanzi = '根据说他去上海了。'
+notes = ''
+pinyin = 'Gēnjù shuō tā qù shànghǎile.<br>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGXJYJD'

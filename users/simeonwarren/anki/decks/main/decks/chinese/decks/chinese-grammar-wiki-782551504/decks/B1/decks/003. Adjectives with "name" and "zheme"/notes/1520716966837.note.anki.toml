@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Adjectives with "name" and "zheme"'
+english = 'How come you have so many questions to ask?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 那么 / 这么 + Adj.'
+hanzi = '你怎么有这么多问题要问？'
+notes = ''
+pinyin = 'Nǐ zěnme yǒu zhème duō wèntí yào wèn?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNKKP6'

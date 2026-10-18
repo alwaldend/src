@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparisons with "buru"'
+english = "Watching the movie isn't as good as reading the book."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A + 不如 + B'
+hanzi = '看电影不如看原著。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWH1D5'

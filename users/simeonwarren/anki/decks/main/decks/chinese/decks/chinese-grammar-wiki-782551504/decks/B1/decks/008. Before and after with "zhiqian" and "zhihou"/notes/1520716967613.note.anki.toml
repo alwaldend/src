@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Before and after with "zhiqian" and "zhihou"'
+english = 'Before I came to China, my Chinese was so so.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Event + 之前 / 之后 ，⋯⋯'
+hanzi = '来中国之前，我的汉语很一般。'
+notes = ''
+pinyin = 'Lái Zhōngguó zhīqián, wǒ de Hànyǔ yībān.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTD3L3'

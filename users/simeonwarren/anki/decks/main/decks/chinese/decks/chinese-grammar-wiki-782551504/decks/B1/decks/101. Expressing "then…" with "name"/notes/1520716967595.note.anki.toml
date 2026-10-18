@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "then…" with "name"'
+english = 'You said this idea is not going to work. So any other good idea?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Situation ，那么 + Suggestion / Decision'
+hanzi = '你说这个办法不行，那你有别的办法吗？'
+notes = ''
+pinyin = 'Nǐ shuō zhège bànfǎ bù xíng, nà nǐ yǒu bié de bànfǎ ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGX298Z'

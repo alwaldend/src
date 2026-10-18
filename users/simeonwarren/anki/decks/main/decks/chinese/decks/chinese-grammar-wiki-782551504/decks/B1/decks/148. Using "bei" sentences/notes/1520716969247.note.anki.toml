@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "bei" sentences'
+english = 'The man was kicked out by the policeman.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 被 (+ Doer) + Verb + 了'
+hanzi = '那个男人被警察赶出去了。'
+notes = ''
+pinyin = 'Nàge nánrén bèi jǐngchá gǎn chūqù le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGHF9F1'

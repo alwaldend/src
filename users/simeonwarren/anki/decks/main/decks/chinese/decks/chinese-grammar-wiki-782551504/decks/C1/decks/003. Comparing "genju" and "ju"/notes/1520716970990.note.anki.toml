@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["C1", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "genju" and "ju"'
+english = 'It is rumoured that the Prime Minister is about to resign.'
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = ''
+hanzi = '据传首相将要辞职。'
+notes = ''
+pinyin = 'Jù zhuàn shǒuxiàng jiāngyào cízhí.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGXJYJD'

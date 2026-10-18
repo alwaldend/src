@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Sequencing past events with "houlai"'
+english = 'I fixed the air conditioner last week, but it was broken again after that.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '[Past Event 1] ，后来 ，[Past Event 2]'
+hanzi = '空调我上个月修好了，后来又坏了。'
+notes = ''
+pinyin = 'Kōngtiáo wǒ shàng gè yuè xiū hǎo le, hòulái yòu huài le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGY0UDC'

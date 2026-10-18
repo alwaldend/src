@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Auxiliaryverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing a learned skill with "hui"'
+english = "My grandmother can't use a computer."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不 + 会 + Verb + Obj.'
+hanzi = '我奶奶不会用电脑。'
+notes = ''
+pinyin = 'Wǒ nǎinai bù huì yòng diànnǎo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGRHM0E'

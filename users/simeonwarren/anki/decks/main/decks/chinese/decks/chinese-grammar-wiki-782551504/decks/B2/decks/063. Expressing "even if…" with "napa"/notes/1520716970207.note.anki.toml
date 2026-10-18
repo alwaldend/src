@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "EvenIfStatements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "even if…" with "napa"'
+english = 'The manager is not going to give you a pay raise no matter how hard you work.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '哪怕 + [Subj. 1] + 再 + Adj. [Subj. 2] + 也 + [Verb Phrase]'
+hanzi = '哪怕你工作再努力，经理也不可能给你加薪。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGXX3NY'

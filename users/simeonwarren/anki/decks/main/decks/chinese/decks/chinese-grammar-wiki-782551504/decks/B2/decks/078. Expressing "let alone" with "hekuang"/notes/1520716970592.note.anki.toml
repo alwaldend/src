@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Grammatical_Structures", "Letalone"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "let alone" with "hekuang"'
+english = 'Natives get lost all the time, so imagine the foreigners!'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + (都) + A， 何况 + B！'
+hanzi = '本地人都经常会迷路的，何况外地人！'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG3ZS9G'

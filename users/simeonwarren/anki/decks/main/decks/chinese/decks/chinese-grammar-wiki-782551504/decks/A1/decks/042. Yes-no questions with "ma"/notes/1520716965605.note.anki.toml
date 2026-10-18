@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Yes-no questions with "ma"'
+english = 'Does dad like drinking tea?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '[Statement] + 吗 ？'
+hanzi = '爸爸喜欢喝茶吗？'
+notes = 'question'
+pinyin = 'Bàba xǐhuan hē chá ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQ2AZA'

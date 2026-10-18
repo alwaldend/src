@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Comparisons", "Numbers"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "er" and "liang"'
+english = "2 o'clock"
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '两点'
+notes = ''
+pinyin = 'liǎng diǎn'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJ46H1'

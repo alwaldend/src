@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "before" in general with "yiqian"'
+english = 'Before, dad really liked smoking.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 以前 + Verb + Obj.'
+hanzi = '爸爸以前很喜欢抽烟。'
+notes = ''
+pinyin = 'Bàba yǐqián hěn xǐhuan chōuyān.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGVCWLU'

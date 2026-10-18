@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Idiomatic phrases with "zai"'
+english = 'Do you know what the differences are between northern and southern people as far as living habits?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '在 + Abstract Concepts + 上，  Comment Sentence'
+hanzi = '你知道南方人和北方人在生活习惯上有什么不同吗？'
+notes = ''
+pinyin = '<div>Nǐ zhīdào nánfāng rén hé běifāng rén zài shēnghuó xíguàn shàng yǒu shé me bùtóng ma?</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGH13JY'

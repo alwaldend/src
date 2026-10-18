@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing lateness with "cai"'
+english = "I didn't arrived at home until eleven o'clock last night."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Time + 才 + Verb'
+hanzi = '我昨天晚上十一点才到家。'
+notes = ''
+pinyin = 'Wǒ zuótiān wǎnshang shíyī diǎn cái dào jiā.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG3WTCJ'

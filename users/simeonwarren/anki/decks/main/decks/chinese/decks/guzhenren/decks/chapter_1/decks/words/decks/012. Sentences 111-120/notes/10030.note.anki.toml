@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = '(great) majority.'
+example-sentence = ' 此刻深夜,寨中大多数人家却还有着灯火,和平时大不相同'
+example-type = ''
+grammar-construct = ''
+hanzi = '大多数'
+notes = ''
+pinyin = '<span class="tone4">dà</span><span class="tone1">duō</span><span class="tone4">shù</span>	 <!-- da duo shu -->'
+source = ''

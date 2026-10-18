@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "not at all" with "yidianr ye bu"'
+english = "She doesn't know even a little about this."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 一点 + 也 / 都 + 不 + Verb'
+hanzi = '她一点都不知道这件事。'
+notes = ''
+pinyin = 'Tā yīdiǎn dōu bù zhīdào zhè jiàn shì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGRURCZ'

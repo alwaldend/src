@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adjectives", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Adjectival complement "de hen"'
+english = "He's really selfish. He never thought about other people."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Adj.+ 得很'
+hanzi = '他这个人自私得很，从来不为别人考虑。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGG1ZBL'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Emphasizing the doer of an action with "you"'
+english = 'I am responsible for this.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Topic + 由 + Person + Verb'
+hanzi = '这件事由我负责。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGGNXVR'

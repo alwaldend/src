@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Grammatical_Structures", "Notonly…butalso…"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "not only… but also" with "bujin"'
+english = 'This dish is not only tasty, but also nutritious.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun + 不仅 + A，而且 + B'
+hanzi = '这道菜不仅好吃而且很有营养。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGEM2VR'

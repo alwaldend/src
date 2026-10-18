@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Grammatical_Structures", "IfStatements"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "what if" with "wanyi"'
+english = 'Take an umbrella. What if it rains?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '万一 ⋯⋯ 呢 ？'
+hanzi = '带着伞吧，万一下雨呢？'
+notes = ''
+pinyin = 'Dài zhe sǎn ba, wàn yī xiàyǔ ne?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG25773'

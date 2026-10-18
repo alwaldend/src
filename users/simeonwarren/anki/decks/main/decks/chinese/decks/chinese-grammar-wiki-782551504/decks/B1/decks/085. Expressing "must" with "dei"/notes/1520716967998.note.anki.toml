@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "must" with "dei"'
+english = "He doesn't have experience. You must teach him."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 得 + [Verb Phrase]'
+hanzi = '他没有经验，你得教教他。'
+notes = ''
+pinyin = 'Tā méiyǒu jīngyàn, nǐ děi jiāojiao tā.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPXLP9'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = "Fang Yuan's eyes were gloomy, he stood by the window, letting the wind and rain hit him."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '方源眼神幽幽,站在窗户旁,任凭风雨打在身上。'
+notes = ''
+pinyin = '<div>Fāng yuán yǎnshén yōuyōu, zhàn zài chuānghù páng, rènpíng fēngyǔ dǎ zài shēnshang.</div>'
+source = ''

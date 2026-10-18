@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Result complements'
+english = 'You came late.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '没 + Verb + Adj.'
+hanzi = '你们来晚了。'
+notes = ''
+pinyin = 'Nǐmen lái wǎn le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNNMST'

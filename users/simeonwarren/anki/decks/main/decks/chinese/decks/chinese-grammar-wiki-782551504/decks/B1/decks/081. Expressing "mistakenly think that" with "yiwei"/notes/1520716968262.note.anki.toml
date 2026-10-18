@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "mistakenly think that" with "yiwei"'
+english = "She's your grandma? I thought she's your mother."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 以为 ⋯⋯'
+hanzi = '她是你外婆？我以为是你妈妈。'
+notes = ''
+pinyin = 'Tā shì nǐ wàipó? Wǒ yǐwéi shì nǐ māma.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGRBC43'

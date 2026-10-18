@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'The "if" sandwich pattern'
+english = "If it rains tomorrow, we won't go."
+example-sentence = ''
+example-type = ''
+grammar-construct = '如果 ⋯⋯ 的话 ，(就) ⋯⋯'
+hanzi = '如果明天下雨的话，我们就不去了。'
+notes = ''
+pinyin = 'Rúguǒ míngtiān xiàyǔ dehuà, wǒmen jiù bù qù le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGN4VUU'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Questions with "ne"'
+english = 'I know you can speak Chinese. What about your husband?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Topic + 呢 ？'
+hanzi = '我知道你会说中文。你老公呢？'
+notes = ''
+pinyin = 'Wǒ zhīdào nǐ huì shuō Zhōngwén. Nǐ lǎogōng ne?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMJHZO'

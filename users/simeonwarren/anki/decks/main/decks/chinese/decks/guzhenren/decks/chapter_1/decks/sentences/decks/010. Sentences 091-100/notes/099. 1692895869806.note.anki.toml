@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'Especially that Gu Yue Fang Yuan, the possibility of first-class qualification is very high.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '尤其是那个古月方源,甲等资质的可能性非常的大。'
+notes = ''
+pinyin = ''
+source = ''

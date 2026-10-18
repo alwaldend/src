@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'The "also" adverb "ye"'
+english = 'She also has a son.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 也 + Verb / [Verb Phrase]'
+hanzi = '她也有一个儿子。'
+notes = ''
+pinyin = 'Tā yě yǒu yī gè érzi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGG25MD'

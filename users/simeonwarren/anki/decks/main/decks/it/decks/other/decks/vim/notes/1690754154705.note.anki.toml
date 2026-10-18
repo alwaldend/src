@@ -1,0 +1,12 @@
+note_type = "note_types/basic.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[[cards]]
+ordinal = 1
+
+[fields]
+Back = 'Update only saves the file and updates its timestamp if the file has any changes. Write always touches the file and changes the timestamp.'
+Front = 'What is the difference between :write and :update?'

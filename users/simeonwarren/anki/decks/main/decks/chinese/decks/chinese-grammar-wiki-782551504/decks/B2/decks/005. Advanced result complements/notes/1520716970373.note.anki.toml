@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Advanced result complements'
+english = 'You should look on the bright side. Life still goes on.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '看开一点，生活还是要继续的。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG4OM4T'

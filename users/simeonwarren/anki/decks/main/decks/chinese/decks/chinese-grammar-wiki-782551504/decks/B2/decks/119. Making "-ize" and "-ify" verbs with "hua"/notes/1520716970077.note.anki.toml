@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Making "-ize" and "-ify" verbs with "hua"'
+english = 'You should allow the butter to soften, then eat it with bread.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun / Adj. + 化'
+hanzi = '你应该让黄油软化，然后跟面包一起吃。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGS6UKN'

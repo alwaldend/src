@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Causative verbs'
+english = "He wouldn't listen to me. What are you expecting me to do?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + [Causative Verb] + Person + Predicate'
+hanzi = '他不听话，你叫我怎么办？'
+notes = ''
+pinyin = 'Tā bù tīnghuà, nǐ jiào wǒ zěnmebàn?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5T7XC'

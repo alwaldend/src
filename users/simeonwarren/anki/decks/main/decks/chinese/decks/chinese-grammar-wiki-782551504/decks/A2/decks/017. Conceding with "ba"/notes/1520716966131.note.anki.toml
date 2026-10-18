@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Conceding with "ba"'
+english = "This afternoon I won't be home. Can you come by this evening?<br>All right."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Statement + 吧'
+hanzi = 'A: 下午我不在家，你可以晚上来吗？<br><br>B: 行吧。'
+notes = ''
+pinyin = 'Xiàwǔ wǒ bù zài jiā, nǐ kěyǐ wǎnshang lái ma?<br><br>Xíng ba.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJIP2E'

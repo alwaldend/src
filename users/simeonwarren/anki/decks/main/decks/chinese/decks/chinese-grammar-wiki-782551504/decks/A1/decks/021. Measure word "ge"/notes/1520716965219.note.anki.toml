@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Numbers", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Measure word "ge"'
+english = 'He is a foreigner.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 个 + Noun'
+hanzi = '他是个老外。'
+notes = ''
+pinyin = 'Tā shì gè lǎowài.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGI0T9S'

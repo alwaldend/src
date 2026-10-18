@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "in addition" with "haiyou"'
+english = "Sir, you can'r smoke in here. Besides, lower your voice, please."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Clause 1 ，还有 ， Clause 2'
+hanzi = '先生，这里不能抽烟。还有，麻烦你们声音小一点。'
+notes = ''
+pinyin = 'Xiānsheng, zhèlǐ bù néng chōuyān. Háiyǒu, máfan nǐmen shēngyīn xiǎo yīdiǎn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGHQRI1'

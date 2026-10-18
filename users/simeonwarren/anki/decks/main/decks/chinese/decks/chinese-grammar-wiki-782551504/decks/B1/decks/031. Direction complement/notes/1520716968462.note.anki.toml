@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Direction complement'
+english = 'Come here and let me take a look.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 来 / 去'
+hanzi = '你过来让我看一下。'
+notes = ''
+pinyin = 'Nǐ guòlái ràng wǒ kàn yīxià.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8LWBJ'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Advanced uses of "dou"'
+english = 'I understand you completely. I can even know what your next move is.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 都 + Predicate'
+hanzi = '我对你太了解了，我都能知道你下一步要做什么。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQFW44'

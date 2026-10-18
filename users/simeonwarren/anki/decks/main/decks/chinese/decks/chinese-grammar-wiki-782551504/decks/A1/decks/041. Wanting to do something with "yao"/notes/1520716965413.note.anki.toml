@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Auxiliaryverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Wanting to do something with "yao"'
+english = 'This weekend what do you want to do?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 要 + Verb + Obj.'
+hanzi = '这个周末你们要做什么？'
+notes = ''
+pinyin = 'Zhège zhōumò nǐmen yào zuò shénme?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGXVEAR'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing the self-evident with "ma"'
+english = "Men. They're always going to drink and smoke."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Topic + 嘛， + Statement'
+hanzi = '男人嘛，总是要喝点酒，抽点烟。'
+notes = ''
+pinyin = 'Nánrén ma, zǒng shì yào hē diǎn jiǔ, chōu diǎn yān.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGVMC4B'

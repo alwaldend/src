@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Asking why with "zenme"'
+english = "He kissed you. How come you're not happy?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 怎么 (+ 不) + Adj.'
+hanzi = '他亲了你，你怎么不高兴？'
+notes = ''
+pinyin = 'Tā qīn le nǐ, nǐ zěnme bù gāoxìng?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGD7NS3'

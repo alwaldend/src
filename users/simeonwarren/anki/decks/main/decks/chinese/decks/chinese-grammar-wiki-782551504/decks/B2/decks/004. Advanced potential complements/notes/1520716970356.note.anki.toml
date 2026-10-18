@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Advanced potential complements'
+english = "Wait for me. I can't keep running."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 得 / 不 + 动'
+hanzi = '等等我，我跑不动了！'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG516F9'

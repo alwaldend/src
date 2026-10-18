@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'from;	through;	via;	to follow;	to obey;	to engage in (an activity);	never (in negative sentence);	retainer;	assistant;	auxiliary;	subordinate;	related by common paternal grandfather or earlier ancestor.'
+example-sentence = '从那刻起,我恨不得吃你肉,喝你的血'
+example-type = ''
+grammar-construct = ''
+hanzi = '从'
+notes = ''
+pinyin = '<span class="tone2">cóng</span>	 <!-- cong -->'
+source = ''

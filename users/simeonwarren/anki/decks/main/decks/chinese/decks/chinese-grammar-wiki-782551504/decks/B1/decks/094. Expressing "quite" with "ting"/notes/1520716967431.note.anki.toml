@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["AdverbswithAdjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "quite" with "ting"'
+english = 'This teacher is quite young.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '挺 + Adj. + 的'
+hanzi = '这个老师挺年轻的。'
+notes = ''
+pinyin = 'Zhège lǎoshī tǐng niánqīng de.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDF1F7'

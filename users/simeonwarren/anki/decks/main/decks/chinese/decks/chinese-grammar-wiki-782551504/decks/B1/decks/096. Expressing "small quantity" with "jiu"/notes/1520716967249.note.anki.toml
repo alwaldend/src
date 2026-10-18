@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "small quantity" with "jiu"'
+english = 'We all forgot. Only he still remembers it.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '就 + Subj. + Predicate'
+hanzi = '我们都忘了，就他还记得。'
+notes = ''
+pinyin = 'Wǒmen dōu wàng le, jiù tā hái jìde.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPW8PP'

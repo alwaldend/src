@@ -1,0 +1,12 @@
+note_type = "note_types/basic.notetype.anki.toml"
+tags = ["Files", "Multiple", "Search"]
+
+[[cards]]
+ordinal = 0
+
+[[cards]]
+ordinal = 1
+
+[fields]
+Back = ':vim[grep] <b>/</b>pattern<b>/</b> files... &nbsp;“ populates the quickfix list; **/* to search all files recursively'
+Front = 'Search for pattern in all files in CWD recursively'

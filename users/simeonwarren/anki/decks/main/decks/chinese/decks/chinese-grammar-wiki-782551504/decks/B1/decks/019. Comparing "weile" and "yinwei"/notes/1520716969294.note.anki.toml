@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "Conjunctions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "weile" and "yinwei"'
+english = 'For a good future for ourselves, we should really study well.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 为了 + 目的 (+ 而) + Predicate'
+hanzi = '为了自己的将来，我们应该好好学习。'
+notes = ''
+pinyin = '<div>Wèile zìjǐ de jiānglái, wǒmen yīnggāi hǎo hào xuéxí.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMEC1P'

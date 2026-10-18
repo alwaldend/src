@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Numbers", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Measure word "ge"'
+english = 'Teacher, I have a question.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 个 + Noun'
+hanzi = '老师，我有个问题。'
+notes = ''
+pinyin = 'Lǎoshī, wǒ yǒu gè wèntí.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGI0T9S'

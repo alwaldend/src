@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Advanced uses of "ba"'
+english = 'On weekends, I wash the dirty clothes.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 把 + Obj. + 给 + Verb Phrase'
+hanzi = '周末我把脏衣服给洗了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQRS3P'

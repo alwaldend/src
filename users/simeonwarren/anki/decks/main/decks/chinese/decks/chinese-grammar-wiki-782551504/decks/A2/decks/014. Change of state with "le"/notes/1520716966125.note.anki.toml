@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Change of state with "le"'
+english = 'The cell phone ran out of power.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '[New Situation] + 了'
+hanzi = '手机没电了。'
+notes = 'It was working fine until now.'
+pinyin = 'Shǒujī méi diàn le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGT185D'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Uses of "shi" with "de"'
+english = 'This apple is bad.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 是 + [Distinguishing Words] + 的'
+hanzi = '这个苹果是坏的。'
+notes = ''
+pinyin = 'Zhège píngguǒ shì huài de.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGE662E'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adjectives", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Challenging an adjective with "shenme"'
+english = "What are you looking at? Haven't you seen a pretty girl before?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Adj.／Verb + 什么 + (Adj.／Verb)？'
+hanzi = '你看什么看，没见过美女啊？'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNV2TZ'

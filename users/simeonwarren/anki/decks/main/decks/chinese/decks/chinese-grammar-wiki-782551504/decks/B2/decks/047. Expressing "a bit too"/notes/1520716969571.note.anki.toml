@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adjectives", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "a bit too"'
+english = 'This jeans seems a little short for me.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Adj. + 了（一）点儿'
+hanzi = '这条牛仔裤好像短了点儿。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGEHTV5'

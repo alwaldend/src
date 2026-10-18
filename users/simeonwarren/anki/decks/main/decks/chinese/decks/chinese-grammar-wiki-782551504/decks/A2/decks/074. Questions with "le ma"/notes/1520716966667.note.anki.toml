@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Questions with "le ma"'
+english = 'Have you seen this movie?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Topic (+ Subj.) + Verb + 了吗?'
+hanzi = '这个电影你看了吗？'
+notes = ''
+pinyin = 'Zhège diànyǐng nǐ kàn le ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGYKDNF'

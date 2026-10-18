@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Result complement "-qilai"'
+english = 'His illness is starting to get better.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb / Adj. + 起来 +了'
+hanzi = '他的病好起来了。'
+notes = ''
+pinyin = 'Tā de bìng hǎo qǐlái le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGBPXOB'

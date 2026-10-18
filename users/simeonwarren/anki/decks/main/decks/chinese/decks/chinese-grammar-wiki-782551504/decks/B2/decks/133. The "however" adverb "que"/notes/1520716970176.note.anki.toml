@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "ButStatements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'The "however" adverb "que"'
+english = "He's only sixteen, but his perspectives are more mature than people in their twenties."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Sentence， Subj. + 却 + ⋯⋯'
+hanzi = '他只有16岁，想法却比20几岁的人还成熟。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGEG2QB'

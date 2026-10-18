@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Measure words for verbs'
+english = 'Did you not hear the door? I knocked quite a few times.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + Number + Measure Word'
+hanzi = '你没听见吗？我敲了好几下。'
+notes = ''
+pinyin = 'Nǐ méi tīngjiàn ma? Wǒ qiāo le hǎo jǐ xià.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5AODR'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'A softer "but" with "buguo"'
+english = 'You can participate, but I have a condition.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Clause 1，不过 + Clause 2'
+hanzi = '你可以参加，不过我有个条件。'
+notes = ''
+pinyin = 'Nǐ kěyǐ cānjiā, bùguò wǒ yǒu gè tiáojiàn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGA0S4T'

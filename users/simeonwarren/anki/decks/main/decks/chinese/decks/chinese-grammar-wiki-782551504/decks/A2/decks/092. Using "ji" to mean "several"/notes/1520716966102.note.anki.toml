@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "NumbersandMeasureWords", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "ji" to mean "several"'
+english = 'Flying from Shanghai to Tokyo only takes a few hours.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '几 + Measure Word + Noun'
+hanzi = '从上海到东京坐飞机只要几个小时。'
+notes = ''
+pinyin = 'Cóng Shànghǎi dào Dōngjīng zuò fēijī zhǐ yào jǐ gè xiǎoshí.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGHC9CA'

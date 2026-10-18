@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "SeparateFunctions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = "Comparing \"fan'er\" and \"xiangfan\""
+english = 'The views of today are different from what they were in the past.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 相反 A 和 / 跟 B ＋ 是 ＋ 相反的'
+hanzi = '现在的观念和以前的相反。'
+notes = ''
+pinyin = '<div>Xiànzài de guānniàn hé yǐqián de xiāngfǎn.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGFNS52'

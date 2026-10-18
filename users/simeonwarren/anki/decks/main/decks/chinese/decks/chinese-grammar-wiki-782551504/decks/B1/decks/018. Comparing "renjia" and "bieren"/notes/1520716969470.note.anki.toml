@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "Nouns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "renjia" and "bieren"'
+english = 'Because I like you!'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '因为人家喜欢你啊。'
+notes = ''
+pinyin = 'Yīnwèi rénjia xǐhuan nǐ a.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPINA4'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["C1", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "genben" and "daodi"'
+english = "I just don't know how to manage effectively."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '我根本不知道如何有效地管理。'
+notes = ''
+pinyin = 'Wǒ gēnběn bù zhīdào rúhé yǒuxiào de guǎnlǐ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG9JK0B'

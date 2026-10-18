@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Cause and effect with "yinwei" and "suoyi"'
+english = "I'm very tired, so I want to rest."
+example-sentence = ''
+example-type = ''
+grammar-construct = '因为 + Cause, 所以 + Effect'
+hanzi = '因为我很累，所以要休息。'
+notes = ''
+pinyin = 'Yīnwèi wǒ hěn lèi, suǒyǐ yào xiūxi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTDUJO'

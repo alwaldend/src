@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["AuxiliaryWords", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Listing things with "a"'
+english = "Developing Chinese and \"The Practical Chinese Reader,\" we've studied both of them, they won't help."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A 啊， B 啊， C 啊⋯⋯'
+hanzi = '《发展汉语》啊，《实用汉语课本》啊，我都学过，没用！'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGGPG97'

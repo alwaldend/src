@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Name-calling with "zhege"'
+english = 'Shanghai, this city. Its summers are too hot, and its winters are too cold.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 这个 + [Category]'
+hanzi = '上海这个城市，夏天太热，冬天太冷。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNPO4V'

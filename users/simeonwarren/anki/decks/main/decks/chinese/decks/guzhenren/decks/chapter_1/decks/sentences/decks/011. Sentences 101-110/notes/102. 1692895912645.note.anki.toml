@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = "However, let's put the ugly words first."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '不过,丑话先说在前头。'
+notes = ''
+pinyin = ''
+source = ''

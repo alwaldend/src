@@ -1,0 +1,12 @@
+note_type = "note_types/basic.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[[cards]]
+ordinal = 1
+
+[fields]
+Back = 'gq• &nbsp;“ • is any motion, like ab or i{'
+Front = 'Reflow text or code if too long and move cursor to end of text being reflowed'

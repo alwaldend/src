@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Parts_of_Speech", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "if it were not for" with "yaobushi"'
+english = "He wouldn't be mad if it were not for something wrong you just said."
+example-sentence = ''
+example-type = ''
+grammar-construct = '要不是 ⋯⋯（的话），⋯⋯'
+hanzi = '要不是你刚才说错话，他是不会生气的。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8F7D4'

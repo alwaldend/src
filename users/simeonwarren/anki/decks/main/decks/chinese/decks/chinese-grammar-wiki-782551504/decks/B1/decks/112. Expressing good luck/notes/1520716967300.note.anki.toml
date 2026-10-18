@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "leech", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing good luck'
+english = 'Luckily, you reminded me, otherwise I would have definitely forgotten.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '还好 + [Lucky Incident]， 不然……'
+hanzi = '还好你提醒我，不然我肯定忘了。'
+notes = ''
+pinyin = 'Hái hǎo nǐ tíxǐng wǒ, bùrán wǒ kěndìng wàng le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGOB1BF'

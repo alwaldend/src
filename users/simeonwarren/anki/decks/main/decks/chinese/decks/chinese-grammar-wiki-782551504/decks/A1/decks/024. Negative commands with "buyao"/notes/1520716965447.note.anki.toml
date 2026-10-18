@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Negative commands with "buyao"'
+english = "Don't drink coffee at night."
+example-sentence = ''
+example-type = ''
+grammar-construct = '不要 + Verb'
+hanzi = '晚上不要喝咖啡。'
+notes = ''
+pinyin = 'Wǎnshang bùyào hē kāfēi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGIVZJU'

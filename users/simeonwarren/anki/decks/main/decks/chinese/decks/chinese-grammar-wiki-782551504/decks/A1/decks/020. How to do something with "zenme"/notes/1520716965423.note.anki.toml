@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'How to do something with "zenme"'
+english = 'How do you eat mangos?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Topic + 怎么 + Verb'
+hanzi = '芒果怎么吃？'
+notes = ''
+pinyin = 'Mángguǒ  zěnme chī?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGH2MNO'

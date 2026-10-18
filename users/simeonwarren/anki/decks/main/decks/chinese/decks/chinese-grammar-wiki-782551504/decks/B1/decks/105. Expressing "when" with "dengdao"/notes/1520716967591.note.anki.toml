@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "when" with "dengdao"'
+english = "I didn't realize how great it is to be at home until I left it."
+example-sentence = ''
+example-type = ''
+grammar-construct = '直到 + Time Word / [Verb Phrase] ，Subj. + 都  + 不 / 没 + Predicate'
+hanzi = '直到离开家，我才知道家有多好。'
+notes = ''
+pinyin = 'Zhídào wǒ líkāi jiā de shíhou, wǒ cái zhīdào jiā yǒu duō hǎo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG68F61'

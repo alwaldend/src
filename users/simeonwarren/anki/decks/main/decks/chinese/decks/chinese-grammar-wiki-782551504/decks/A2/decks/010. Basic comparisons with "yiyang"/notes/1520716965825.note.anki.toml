@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "AdverbswithAdjectives", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Basic comparisons with "yiyang"'
+english = 'She and her older brother are equally tall.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun 1 + 跟 / 和 + Noun 2 + 一样 + Adj.'
+hanzi = '她和她哥哥一样高。'
+notes = ''
+pinyin = 'Tā hé tā gēge yīyàng gāo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGC06N0'

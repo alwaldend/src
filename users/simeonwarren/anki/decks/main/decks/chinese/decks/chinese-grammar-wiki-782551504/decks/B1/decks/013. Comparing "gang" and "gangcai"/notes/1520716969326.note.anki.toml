@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "gang" and "gangcai"'
+english = 'He just arrived.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '他刚到。'
+notes = 'This gives the impression that not only did he just get here, but he should still be here.'
+pinyin = 'Tā gāng dào.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJFFWG'

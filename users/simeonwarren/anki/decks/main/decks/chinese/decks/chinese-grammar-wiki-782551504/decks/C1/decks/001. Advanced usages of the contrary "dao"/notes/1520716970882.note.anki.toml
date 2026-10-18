@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "C1"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Advanced usages of the contrary "dao"'
+english = 'You want to get paid without doing your job? You must be talking when you sleep.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 得 + 倒 + Adj.'
+hanzi = '不工作还想拿工资？你想得倒美！'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGXXP6M'

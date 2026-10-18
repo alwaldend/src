@@ -1,0 +1,13 @@
+note_type = "note_types/python-basic-and-reversed.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+additional-info = '<div>The method works off of the str class as a static method or some <i>string</i> as an instance method.&nbsp;</div><a href="https://www.programiz.com/python-programming/methods/string/maketrans">https://www.programiz.com/python-programming/methods/string/maketrans</a>'
+answer = 'str.maketrans()'
+example = ''
+question = '<b>String method</b> that returns a translation table to be used in translations.'
+version = ''
+with-options = ''

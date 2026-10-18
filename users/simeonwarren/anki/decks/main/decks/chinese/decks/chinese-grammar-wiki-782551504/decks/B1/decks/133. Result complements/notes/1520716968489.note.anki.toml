@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Result complements'
+english = 'The cup is broken.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 没 + Verb + Adj. (+ Obj.)'
+hanzi = '杯子摔坏了。'
+notes = ''
+pinyin = 'Bēizi shuāi huài le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNNMST'

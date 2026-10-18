@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Doing something more with "duo"'
+english = 'Drink more water when you have a cold.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '多 + Verb'
+hanzi = '感冒的时候要多喝水。'
+notes = ''
+pinyin = 'Gǎnmào de shíhou yào duō hē shuǐ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGLKGZP'

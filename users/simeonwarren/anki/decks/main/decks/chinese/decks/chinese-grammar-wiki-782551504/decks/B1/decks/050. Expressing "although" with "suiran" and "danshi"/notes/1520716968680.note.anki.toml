@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "although" with "suiran" and "danshi"'
+english = 'Although my little sister is fat, she is flexible.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '虽然 ⋯⋯ ，但是 / 可是 ⋯⋯'
+hanzi = '我妹妹虽然很胖，可是很灵活。'
+notes = ''
+pinyin = 'Wǒ mèimei suīrán hěn pàng, kěshì hěn línghuó.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGXI560'

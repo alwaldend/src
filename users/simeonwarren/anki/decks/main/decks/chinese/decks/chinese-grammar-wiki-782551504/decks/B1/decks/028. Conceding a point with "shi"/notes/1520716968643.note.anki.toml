@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Conceding a point with "shi"'
+english = 'His girlfriend is pretty, but she is a little short.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Adj. + 是 + Adj. ， 但是 / 就是 ⋯⋯'
+hanzi = '他女朋友漂亮是漂亮，就是有点矮。'
+notes = ''
+pinyin = 'Tā nǚpéngyou  piàoliang shì piàoliang, jiùshì yǒudiǎn ǎi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGT9Y8P'

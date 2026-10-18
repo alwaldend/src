@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Basics", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Connecting nouns with "shi"'
+english = 'This is my boyfriend.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun 1 + 是 + Noun 2'
+hanzi = '这是我男朋友。'
+notes = ''
+pinyin = 'Zhè shì wǒ nánpéngyou.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGUN7RX'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing possession with "de"'
+english = "Beijing's air"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun 1 + 的 + Noun 2'
+hanzi = '北京的空气'
+notes = ''
+pinyin = 'Běijīng de kōngqì'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGUHQD2'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "Nouns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "renjia" and "bieren"'
+english = 'There is a house in front, let’s go and take a look.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 人家'
+hanzi = '前面有一户人家，我们去看看吧。'
+notes = ''
+pinyin = '<div>Qiánmiàn yǒuyī hù rénjiā, wǒmen qù kàn kàn ba.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPINA4'

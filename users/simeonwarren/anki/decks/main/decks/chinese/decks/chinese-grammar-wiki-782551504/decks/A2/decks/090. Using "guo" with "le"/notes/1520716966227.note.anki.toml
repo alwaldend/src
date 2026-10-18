@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "guo" with "le"'
+english = 'Have you eaten (already)?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 过 + Obj. + 了'
+hanzi = '你吃过饭了吗？'
+notes = ''
+pinyin = 'Nǐ chī guo fàn  le ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGP69JD'

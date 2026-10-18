@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Numbers", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Structure of times (basic)'
+english = 'Sunday at 10:30 a.m.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'x 点 + 半'
+hanzi = '星期天上午十点半'
+notes = ''
+pinyin = 'Xīngqītiān shàngwǔ shí diǎn bàn'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGN6BBU'

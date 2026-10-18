@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Numbers", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Structure of dates'
+english = 'August 9, 1910'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'x 年 + y 月 + z 号'
+hanzi = '1910年8月9号'
+notes = ''
+pinyin = 'Yī-jiǔ-yī-líng nián Bāyuè jiǔ hào'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGT3KF6'

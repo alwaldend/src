@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Comparisons", "Numbers"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "er" and "liang"'
+english = 'two days'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '两天'
+notes = ''
+pinyin = 'liǎng tiān'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJ46H1'

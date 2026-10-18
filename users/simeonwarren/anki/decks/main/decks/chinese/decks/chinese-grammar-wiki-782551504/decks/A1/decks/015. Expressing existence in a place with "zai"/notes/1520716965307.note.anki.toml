@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing existence in a place with "zai"'
+english = "I'm with a friend at a bar."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 在 + Place'
+hanzi = '我和朋友在酒吧。'
+notes = ''
+pinyin = 'Wǒ hé péngyou zài jiǔbā.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGLRWT8'

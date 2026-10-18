@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing various aspects with "yi fangmian"'
+english = 'On one hand, their service is very professional; on the other hand, their price is reasonable.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '一 方面 ⋯⋯ ， (另) 一 方面 ⋯⋯'
+hanzi = '一方面他们的服务很专业，另一方面他们的价格也很合理。'
+notes = ''
+pinyin = 'Yī fāngmiàn tāmen de fúwù hěn zhuānyè, lìng yī fāngmiàn tāmen de jiàgé yě hěn hélǐ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCWHNF'

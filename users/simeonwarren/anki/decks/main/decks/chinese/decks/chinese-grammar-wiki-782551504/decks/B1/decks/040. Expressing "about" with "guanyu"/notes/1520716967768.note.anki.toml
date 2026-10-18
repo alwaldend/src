@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "about" with "guanyu"'
+english = 'There are lots of comments about this matter online.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '关于 ⋯⋯ 的 + Noun'
+hanzi = '网上有很多关于这件事情的评论。'
+notes = ''
+pinyin = 'Wǎngshang you hěn duō guānyú zhè jiàn shìqing de pínglùn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG49889'

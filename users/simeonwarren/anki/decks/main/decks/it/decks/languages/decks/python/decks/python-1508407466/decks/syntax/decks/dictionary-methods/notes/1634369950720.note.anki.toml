@@ -1,0 +1,13 @@
+note_type = "note_types/python-basic-and-reversed.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<i>dict</i>.popitem()'
+example = ''
+question = '<b>Dictionary method</b>&nbsp;that&nbsp;removes the last inserted key-value pair and returns it.'
+version = ''
+with-options = ''

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'After the ceremony, everyone slowly stood up from the floor and quietly walked out of the solemn ancestral hall.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '大典完毕,众人慢慢地从地板上站起身来,静静地走出庄严的祠堂。'
+notes = ''
+pinyin = ''
+source = ''

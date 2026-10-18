@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "chao" "xiang" and "wang"'
+english = "Why are you mad at me? I told him but he didn't listen&lt;br /&gt;I'm sorry. I should apologize to you."
+example-sentence = ''
+example-type = ''
+grammar-construct = '向 +  Direction + Abstract Verb'
+hanzi = 'A:你朝我发什么火？我说了他不听。&lt;br /&gt;B:不好意思，我应该向你道歉。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGIHS2L'

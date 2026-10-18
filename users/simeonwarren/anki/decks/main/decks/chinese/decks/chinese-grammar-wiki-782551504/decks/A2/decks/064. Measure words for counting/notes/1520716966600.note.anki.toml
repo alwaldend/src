@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Grammatical_Structures", "NumbersandMeasureWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Measure words for counting'
+english = 'ten beautiful women'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Number + Measure Word + Noun'
+hanzi = '十个美女'
+notes = ''
+pinyin = 'shí gè měinǚ'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG64BTE'

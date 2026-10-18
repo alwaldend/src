@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "more and more" with "yuelaiyue"'
+english = 'I understand my parents more and more.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 越来越 + Verb + 了'
+hanzi = '我越来越理解我的父母了。'
+notes = ''
+pinyin = 'Wǒ yuèláiyuè lǐjiě wǒ de fùmǔ le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG7UE4H'

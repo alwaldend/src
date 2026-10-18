@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'usually;	in many cases;	more often than not.'
+example-sentence = ' 而经验表明,往往从小就过目不忘,或者力气大如成人等等天赋异禀的人,都有优秀的修行资质'
+example-type = ''
+grammar-construct = ''
+hanzi = '往往'
+notes = ''
+pinyin = '<span class="tone3">wǎng</span><span class="tone3">wǎng</span>	 <!-- wang wang -->'
+source = ''

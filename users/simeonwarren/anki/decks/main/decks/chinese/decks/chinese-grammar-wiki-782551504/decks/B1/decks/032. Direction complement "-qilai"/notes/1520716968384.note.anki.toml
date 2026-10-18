@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Direction complement "-qilai"'
+english = "Let's start cooking."
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = 'Verb / Adj.+ 起来 +了'
+hanzi = '我们开始做饭吧。'
+notes = ''
+pinyin = 'Wǒmen kāishǐ zuòfàn ba.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGBPXOB'

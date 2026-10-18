@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = "Moreover, his parents have passed away, and he is one of the only remaining orphans in Fang's line."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '而且他双亲已经亡故,是方之一脉仅剩下的双孤之一。'
+notes = ''
+pinyin = ''
+source = ''

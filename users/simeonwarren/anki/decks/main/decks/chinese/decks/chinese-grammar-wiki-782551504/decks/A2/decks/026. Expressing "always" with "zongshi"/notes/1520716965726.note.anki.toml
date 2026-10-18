@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "always" with "zongshi"'
+english = 'He always eats alone.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 总是 + Verb'
+hanzi = '他总是一个人吃饭。'
+notes = ''
+pinyin = 'Tā zǒngshì yīgèrén chīfàn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGXJPJS'

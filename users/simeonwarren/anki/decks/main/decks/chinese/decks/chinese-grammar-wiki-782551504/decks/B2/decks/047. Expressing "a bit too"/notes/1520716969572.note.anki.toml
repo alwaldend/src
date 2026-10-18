@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adjectives", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "a bit too"'
+english = 'That place is a little too far away from my place.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Adj. + 了（一）点儿'
+hanzi = '那个地方离我家远了一点儿。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGEHTV5'

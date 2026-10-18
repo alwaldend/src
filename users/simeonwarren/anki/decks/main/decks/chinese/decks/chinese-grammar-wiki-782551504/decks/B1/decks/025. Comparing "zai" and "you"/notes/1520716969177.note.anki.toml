@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "zai" and "you"'
+english = "You keep calling me, what's the matter?"
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = 'Subj. + 又 + Verb + 了'
+hanzi = '你怎么又给我打电话，什么事？'
+notes = ''
+pinyin = '<div>Nǐ zěnme yòu gěi wǒ dǎ diànhuà, shénme shì?</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTBHBG'

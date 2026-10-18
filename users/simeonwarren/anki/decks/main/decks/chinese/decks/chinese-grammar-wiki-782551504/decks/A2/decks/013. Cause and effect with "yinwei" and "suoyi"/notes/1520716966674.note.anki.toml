@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Cause and effect with "yinwei" and "suoyi"'
+english = "Chinese characters are too hard, so I don't want to study them."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Reason, 所以 + Result'
+hanzi = '汉字太难了，所以我不想学。'
+notes = ''
+pinyin = 'Hànzì tài nán le, suǒyǐ wǒ bù xiǎng xué.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTDUJO'

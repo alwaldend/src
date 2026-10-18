@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'central;	middle;	center;	central authorities (of a state).'
+example-sentence = ' 古月山寨的最中央,是一座大气辉煌的楼阁'
+example-type = ''
+grammar-construct = ''
+hanzi = '中央'
+notes = ''
+pinyin = '<span class="tone1">zhōng</span><span class="tone1">yāng</span>	 <!-- zhong yang -->'
+source = ''

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "bu" and "mei"'
+english = ''
+example-sentence = ''
+example-type = 'invalid'
+grammar-construct = 'Noun 1 + 没有 + Noun 2 + Adj.'
+hanzi = '他小时候没认识她。'
+notes = ''
+pinyin = 'Tā xiǎo shíhou méi rènshi tā.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGRJ1BI'

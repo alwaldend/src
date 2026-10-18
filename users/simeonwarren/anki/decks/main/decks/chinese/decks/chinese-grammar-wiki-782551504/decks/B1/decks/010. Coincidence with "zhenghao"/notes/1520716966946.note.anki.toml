@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Coincidence with "zhenghao"'
+english = "I'm going to meet with him tomorrow. I can ask him about this piece of matter by the way."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 正好 + [Verb Phrase]'
+hanzi = '我明天见他，正好可以问问他这件事。'
+notes = ''
+pinyin = 'Wǒ míngtiān jiàn tā, zhènghǎo kěyǐ wènwen tā zhè jiàn shì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGUD25J'

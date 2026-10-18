@@ -1,0 +1,12 @@
+note_type = "note_types/basic.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[[cards]]
+ordinal = 1
+
+[fields]
+Back = ':%norm Astuff&nbsp; &nbsp;" %: for all lines, norm: apply the following normal mode command, A: append to end of line, stuff: the string to append<div><br></div><div>:%s/$/stuff</div>'
+Front = 'Append "stuff" on every line of buffer'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "only" with "zhi"'
+english = 'I only have one older brother.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '只 + 会 / 能 + Verb'
+hanzi = '我只有一个哥哥。'
+notes = ''
+pinyin = 'Wǒ zhǐ yǒu yī gè gēge.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGN8C8R'

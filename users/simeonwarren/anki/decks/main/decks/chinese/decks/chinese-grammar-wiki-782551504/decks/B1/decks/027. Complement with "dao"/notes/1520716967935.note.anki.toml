@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Complement with "dao"'
+english = "My daughter didn't finish her homework until 12:30 last night."
+example-sentence = ''
+example-type = ''
+grammar-construct = '[Verb Phrase] (+ 一直) + Verb + 到 + Time / Event'
+hanzi = '我女儿昨天晚上写作业写到十二点半。'
+notes = ''
+pinyin = "Wǒ nǚ'ér zuótiān wǎnshang xiě xiě zuòyè dào shí'èr diǎn bàn."
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG1CCAP'

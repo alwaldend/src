@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Grammatical_Structures", "IfStatements"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "if… then…" with "jiaru"'
+english = 'If I were you, I would give up smoking.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '假如 + Statement + 就 + Result'
+hanzi = '假如我是你，我就戒烟。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGHNDX4'

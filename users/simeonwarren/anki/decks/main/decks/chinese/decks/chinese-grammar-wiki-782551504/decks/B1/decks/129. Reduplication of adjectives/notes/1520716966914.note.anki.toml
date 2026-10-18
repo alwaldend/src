@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Reduplication of adjectives'
+english = 'stingy'
+example-sentence = ''
+example-type = 'invalid'
+grammar-construct = 'A  A  B  B  + 的 (+ Noun)'
+hanzi = '小气→小小气气'
+notes = ''
+pinyin = 'xiǎoqì ￫ xiǎo xiǎo qì qì'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDHE8S'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "if…, then…" with "ruguo…, jiu…"'
+english = "If he keeps showing up, we'll call the police."
+example-sentence = ''
+example-type = ''
+grammar-construct = '如果 ⋯⋯ ，就 ⋯⋯'
+hanzi = '如果他再来，我们就报警。'
+notes = ''
+pinyin = 'Rúguǒ tā zài lái, wǒmen jiù bàojǐng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGGIVT0'

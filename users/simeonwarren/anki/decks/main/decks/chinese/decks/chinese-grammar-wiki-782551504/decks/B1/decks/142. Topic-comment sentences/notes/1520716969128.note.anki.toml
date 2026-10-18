@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Topic-comment sentences'
+english = "You have a meeting tomorrow afternoon. You remember that, don't you?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Topic ，Comment'
+hanzi = '明天下午要开会，你记得吧？'
+notes = ''
+pinyin = 'Míngtiān xiàwǔ yào kāi huì, nǐ jìde ba?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5KNWW'

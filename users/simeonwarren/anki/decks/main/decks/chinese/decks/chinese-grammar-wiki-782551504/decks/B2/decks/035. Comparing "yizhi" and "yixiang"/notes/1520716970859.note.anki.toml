@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "TimeWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "yizhi" and "yixiang"'
+english = 'I will always be with you.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '我会一直陪着你。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGVEP8S'

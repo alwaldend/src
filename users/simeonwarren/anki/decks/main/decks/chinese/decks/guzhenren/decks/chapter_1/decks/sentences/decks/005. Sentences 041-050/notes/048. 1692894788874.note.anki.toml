@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = "At the very center of Gu Yue's cottage is a majestic and splendid pavilion."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '古月山寨的最中央,是一座大气辉煌的楼阁。'
+notes = ''
+pinyin = ''
+source = ''

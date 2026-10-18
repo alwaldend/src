@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Result complement "xiaqu"'
+english = "It's very meaningful to do this. You should keep doing it."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 下去'
+hanzi = '这样做很有意义，你应该做下去。'
+notes = ''
+pinyin = 'Zhèyàng zuò hěn yǒu yìyì, nǐ yīnggāi zuò xiàqù.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG1PTJX'

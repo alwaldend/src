@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "simply" with "jianzhi"'
+english = 'He simply speaks Mandarin more correctly than Chinese people!'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + (Obj.) + Verb + 得 + 简直 + Adj.'
+hanzi = '他普通话说得简直比中国人还标准！'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8OLAE'

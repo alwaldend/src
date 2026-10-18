@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Separable verb'
+english = 'Can you do me a favor?'
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = ''
+hanzi = '你可以帮我一个忙吗？'
+notes = ''
+pinyin = 'Nǐ kěyǐ bāng wǒ yī gè máng ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG4GVRX'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Negation of past actions with "meiyou"'
+english = "I didn't do it."
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = 'Subj. + 没有 / 没 + Verb'
+hanzi = '我没有做。'
+notes = ''
+pinyin = 'Wǒ méiyǒu zuò.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGAUCXK'

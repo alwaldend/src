@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Adjectives with "name" and "zheme"'
+english = "It's so cold today. How come you wear so little?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 那么 / 这么 + Adj.'
+hanzi = '今天这么冷，你怎么穿那么少？'
+notes = ''
+pinyin = 'Jīntiān zhème lěng, nǐ zěnme chuān nàme shǎo?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNKKP6'

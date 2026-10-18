@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "Nouns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "renjia" and "bieren"'
+english = 'You meanie, always making fun of me.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '人家 + [Rest of Sentence]'
+hanzi = '讨厌，老是拿人家开玩笑。'
+notes = ''
+pinyin = '<div>Tǎoyàn, lǎo shì ná rénjiā kāiwánxiào.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPINA4'

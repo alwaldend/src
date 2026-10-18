@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "C1"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing the unexpected with "jingran"'
+english = "Surprisingly, the president didn't get mad at the person who threw a shoe at him."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subject + 竟  ⋯⋯'
+hanzi = '总统竟没有对朝他扔鞋子的人生气。'
+notes = ''
+pinyin = '<div>Zǒngtǒng jìng méiyǒu duì cháo tā rēng xiézǐ de rén shēngqì.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG0D90L'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "de" (modal particle)'
+english = "He's not going to apologize."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Statement + 的'
+hanzi = '他不会道歉的。'
+notes = ''
+pinyin = 'Tā bù huì dàoqiàn de.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG19S1M'

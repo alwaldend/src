@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "leech", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "only" with "zhi"'
+english = "The baby can only walk. He can't run."
+example-sentence = ''
+example-type = ''
+grammar-construct = '只 + 会 / 能 + Verb'
+hanzi = '宝宝只会走，不会跑。'
+notes = ''
+pinyin = 'Bǎobao zhǐ huì zǒu, bù huì pǎo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGN8C8R'

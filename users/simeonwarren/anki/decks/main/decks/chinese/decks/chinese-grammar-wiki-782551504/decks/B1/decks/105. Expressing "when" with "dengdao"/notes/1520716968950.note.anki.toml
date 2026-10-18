@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "when" with "dengdao"'
+english = 'I will take a vacation when I complete doing this project.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '等(到) + Time / Event ，Subj. + 再 / 就 + Predicate'
+hanzi = '等做完这个项目，我就休假。'
+notes = ''
+pinyin = 'Děng zuò wán zhège xiàngmù, wǒ jiù xiūjià.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG68F61'

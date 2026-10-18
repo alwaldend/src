@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Taiwanese "you"'
+english = 'I have done work like this before.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 有 + Verb + 过 + Obj.'
+hanzi = '我有做过这样的工作。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGY2D79'

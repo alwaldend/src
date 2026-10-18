@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "all along" with "yuanlai"'
+english = "So you've known each other this whole time!"
+example-sentence = ''
+example-type = ''
+grammar-construct = '原来 + [New Information]'
+hanzi = '原来你们认识！'
+notes = ''
+pinyin = 'Yuánlái nǐmen rènshi!'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTKXFR'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "AdverbswithAdjectives", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Basic comparisons with "yiyang"'
+english = 'He has the same personality as his mom.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun 1 + 跟 / 和 + Noun 2 + 一样'
+hanzi = '他的性格跟他妈妈一样。'
+notes = ''
+pinyin = 'Tā de xìnggé gēn tā māma yīyàng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGC06N0'

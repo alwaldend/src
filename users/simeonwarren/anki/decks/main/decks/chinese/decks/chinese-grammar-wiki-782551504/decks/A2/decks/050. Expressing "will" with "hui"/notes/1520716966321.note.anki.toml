@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Auxiliaryverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "will" with "hui"'
+english = 'Your daughter will listen to you.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 会 + Verb + Obj.'
+hanzi = '你女儿会听你的话。'
+notes = ''
+pinyin = 'Nǐ nǚér huì tīng nǐ de huà.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGW9737'

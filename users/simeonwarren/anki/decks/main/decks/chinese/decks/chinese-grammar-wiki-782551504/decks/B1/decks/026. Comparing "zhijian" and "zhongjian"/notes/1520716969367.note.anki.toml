@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "Nouns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "zhijian" and "zhongjian"'
+english = 'The relationships between our company and its employees are quite complex.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun 1 + 和 + Noun 2 + 之间'
+hanzi = '我们公司，同事之间的关系很复杂。'
+notes = ''
+pinyin = '<div>Wǒmen gōngsī, tóngshì zhī jiān de guānxì hěn fùzá.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGN6O6J'

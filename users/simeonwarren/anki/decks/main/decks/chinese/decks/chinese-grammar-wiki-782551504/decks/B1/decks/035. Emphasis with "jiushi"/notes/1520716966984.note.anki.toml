@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Emphasis with "jiushi"'
+english = "You're not entering the competition just because you're afraid of failure?"
+example-sentence = ''
+example-type = ''
+grammar-construct = '就是 + Noun'
+hanzi = '你不参加比赛就是怕输吗？'
+notes = ''
+pinyin = 'Nǐ bù cānjiā bǐsài jiùshì pà shū ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGY21RK'

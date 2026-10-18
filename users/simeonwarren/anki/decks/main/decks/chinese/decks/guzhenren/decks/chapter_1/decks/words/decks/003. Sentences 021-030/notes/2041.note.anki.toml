@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'colored;	ash-colored.'
+example-sentence = ' 此刻,方源脚下的灰白山石,早已经被鲜血染成了暗红'
+example-type = ''
+grammar-construct = ''
+hanzi = '灰白'
+notes = ''
+pinyin = '<span class="tone1">huī</span><span class="tone2">bái</span>	 <!-- hui bai -->'
+source = ''

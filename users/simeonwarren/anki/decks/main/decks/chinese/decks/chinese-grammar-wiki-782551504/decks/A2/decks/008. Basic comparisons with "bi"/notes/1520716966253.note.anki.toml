@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Basic comparisons with "bi"'
+english = 'Chinese grammar is even more fun than Chinese characters.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun 1 + 比 + Noun 2 + 更 + Adj.'
+hanzi = '中文语法比汉字更好玩。'
+notes = ''
+pinyin = 'Zhōngwén yǔfǎ  bǐ Hànzì gèng hǎowán.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8SI2K'

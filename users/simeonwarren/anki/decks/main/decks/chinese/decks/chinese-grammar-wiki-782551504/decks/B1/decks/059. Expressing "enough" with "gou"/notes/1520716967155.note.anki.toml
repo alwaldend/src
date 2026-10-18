@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "enough" with "gou"'
+english = "I had enough of him. I'm definitely going to divorce him."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 够 (+ 了)'
+hanzi = '我受够了！我一定要跟他离婚！'
+notes = ''
+pinyin = 'Wǒ shòu gòu le! Wǒ yīdìng yào gēn tā líhūn!'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG49BE6'

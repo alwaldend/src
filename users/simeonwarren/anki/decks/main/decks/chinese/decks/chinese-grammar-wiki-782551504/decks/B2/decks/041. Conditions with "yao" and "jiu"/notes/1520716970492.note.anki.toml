@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Conditions with "yao" and "jiu"'
+english = "If you're going to buy it, buy it now. We don't have much time left."
+example-sentence = ''
+example-type = ''
+grammar-construct = '要 + Verb + 就 + Verb'
+hanzi = '要买就快买，我们来不及了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGXGADL'

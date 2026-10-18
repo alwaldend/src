@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["AdverbswithAdjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Continuation with "hai"'
+english = "He hasn't arrived yet."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 还 + 不 / 没 + Verb + Obj.'
+hanzi = '他还没到。'
+notes = ''
+pinyin = 'Tā hái méi dào.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGIRILI'

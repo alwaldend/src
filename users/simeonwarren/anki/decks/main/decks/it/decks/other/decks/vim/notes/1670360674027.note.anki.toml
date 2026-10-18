@@ -1,0 +1,12 @@
+note_type = "note_types/basic.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[[cards]]
+ordinal = 1
+
+[fields]
+Back = '<b>\&lt;</b>pattern<b>\&gt;</b>'
+Front = 'Match pattern if at the beginning or end of word'

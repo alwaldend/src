@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'The group of heroes rushed over, just at this moment, with a bang, Fang Yuan blew himself up brazenly.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '群雄逼迫而来,恰在这时,轰的一声,方源悍然自爆。'
+notes = ''
+pinyin = ''
+source = ''

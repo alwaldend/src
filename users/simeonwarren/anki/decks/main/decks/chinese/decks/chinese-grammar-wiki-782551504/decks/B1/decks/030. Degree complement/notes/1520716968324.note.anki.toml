@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Degree complement'
+english = 'You speak Chinese well. (lit. You Chinese speak well.)'
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = 'Verb + 得 + [Degree Complement]'
+hanzi = '你的中文说得很好。'
+notes = ''
+pinyin = 'Nǐ de Zhōngwén shuō de hěn hǎo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG79STE'

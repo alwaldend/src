@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Asking why with "zenme"'
+english = "He helped you. How come you didn't say thank you?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 怎么 + Verb + Obj. ?'
+hanzi = '他帮了你，你怎么不说"谢谢"？'
+notes = ''
+pinyin = 'Tā bāng le nǐ, nǐ zěnme bù shuō "xièxie"?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGD7NS3'

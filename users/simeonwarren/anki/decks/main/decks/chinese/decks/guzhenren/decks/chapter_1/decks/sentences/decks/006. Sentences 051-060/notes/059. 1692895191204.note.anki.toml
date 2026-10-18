@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'For a moment, the clan ancestral hall was filled with the soft sound of forehead hitting the floor.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '一时间,宗族祠堂中尽是额头碰撞地板的轻响。'
+notes = ''
+pinyin = ''
+source = ''

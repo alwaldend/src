@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "AdverbswithAdjectives", "leech", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Modifying nouns with adjective + "de"'
+english = 'What food do children like to eat?<br>Sweet food.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Adj. + 的'
+hanzi = 'A: 孩子喜欢吃什么东西？<br>B: 甜的。'
+notes = ''
+pinyin = 'Háizi xǐhuan chī shénme dōngxi?<br>Tián de.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGVUFKX'

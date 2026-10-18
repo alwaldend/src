@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Grammatical_Structures", "NumbersandMeasureWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Ordinal numbers with "di"'
+english = 'I found a job the second month I was in the USA.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '第 + Number + Measure Word + Noun'
+hanzi = '到美国的第二个月，我找到了工作。'
+notes = ''
+pinyin = 'Dào Měiguó de dì-èr gè  yuè, wǒ  zhǎodào le gōngzuò .'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGK904U'

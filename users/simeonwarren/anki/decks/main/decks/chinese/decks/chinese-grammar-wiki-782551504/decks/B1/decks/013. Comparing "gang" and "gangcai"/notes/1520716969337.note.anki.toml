@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "gang" and "gangcai"'
+english = 'I just now saw him.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '我刚才看到他了。'
+notes = "Sounds like he's not here anymore; I just saw him, but don't see him now."
+pinyin = 'Wǒ gāngcái kàndào tā le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJFFWG'

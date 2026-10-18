@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'It was a failure after all.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '终究是失败了呀。'
+notes = ''
+pinyin = ''
+source = ''

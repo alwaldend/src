@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'deep;	depth;	deeply;	(of a color) dark;	deep;	rich.old variant of 深.'
+example-sentence = ' 夜已经深了,丝丝凉风吹拂着细雨'
+example-type = ''
+grammar-construct = ''
+hanzi = '深'
+notes = ''
+pinyin = '<span class="tone5">shēnshēn</span>	 <!-- shen shen -->'
+source = ''

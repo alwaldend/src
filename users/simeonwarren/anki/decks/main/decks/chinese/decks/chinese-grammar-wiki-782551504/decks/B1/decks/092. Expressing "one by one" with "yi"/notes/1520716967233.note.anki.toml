@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "one by one" with "yi"'
+english = "I asked him again and again, but he still wouldn't say anything."
+example-sentence = ''
+example-type = ''
+grammar-construct = '一 + Measure Word（+ 又）+ 一 + Measure Word'
+hanzi = '我一次一次问，他就是什么都不说。'
+notes = ''
+pinyin = 'Wǒ yī cì 一 cì wèn, tā jiùshì shénme dōu bù shuō.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGBC7A0'

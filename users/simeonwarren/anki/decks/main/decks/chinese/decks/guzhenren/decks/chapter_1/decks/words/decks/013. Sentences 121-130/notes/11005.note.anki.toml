@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'extremely important;	no small matter.'
+example-sentence = '在十大奇蛊排名中,能名列第七,自然非同小可'
+example-type = ''
+grammar-construct = ''
+hanzi = '非同小可'
+notes = ''
+pinyin = '<span class="tone1">fēi</span><span class="tone2">tóng</span><span class="tone3">xiǎo</span><span class="tone3">kě</span>	 <!-- fei tong xiao ke -->'
+source = ''

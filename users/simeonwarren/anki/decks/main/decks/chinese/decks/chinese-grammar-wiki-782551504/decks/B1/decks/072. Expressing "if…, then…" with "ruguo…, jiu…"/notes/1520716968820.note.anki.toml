@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "if…, then…" with "ruguo…, jiu…"'
+english = 'If you no longer love each other, break up then.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '如果 ⋯⋯ ，就 ⋯⋯'
+hanzi = '如果你们已经不相爱了，就分手吧。'
+notes = ''
+pinyin = 'Rúguǒ nǐmen yǐjīng bù xiāngài le, jiù fēnshǒu ba.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGGIVT0'

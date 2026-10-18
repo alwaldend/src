@@ -1,0 +1,12 @@
+note_type = "note_types/basic.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[[cards]]
+ordinal = 1
+
+[fields]
+Back = 'iw iW is ip&nbsp; &nbsp;" i for&nbsp;<b>inner</b> word, ...'
+Front = 'Select whole word, WORD, sentence, or paragraph <b>without</b> whitespace (visual mode)'

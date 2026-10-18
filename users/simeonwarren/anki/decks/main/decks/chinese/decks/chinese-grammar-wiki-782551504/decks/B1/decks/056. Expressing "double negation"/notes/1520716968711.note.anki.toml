@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "double negation"'
+english = "There is no way she doesn't know about this."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不 + 会 / 能 / 可能 + 不 / 没 + Predicate'
+hanzi = '她不可能不知道。'
+notes = ''
+pinyin = 'Tā bù kěnéng bù zhīdào.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGEEA2D'

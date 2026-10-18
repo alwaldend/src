@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "xiang"'
+english = 'You must report this to the boss!'
+example-sentence = ''
+example-type = ''
+grammar-construct = '向 + Person + Verb'
+hanzi = '这件事你必须向老板汇报一下！'
+notes = ''
+pinyin = 'Zhè jiàn shì nǐ bìxū xiàng lǎobǎn huìbào yīxià!'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQXARS'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'like this;	this way.'
+example-sentence = ' 这般想着,方源情不自禁放声大笑'
+example-type = ''
+grammar-construct = ''
+hanzi = '这般'
+notes = ''
+pinyin = '<span class="tone4">zhè</span><span class="tone1">bān</span>	 <!-- zhe ban -->'
+source = ''

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Advanced uses of "hai"'
+english = "The milk is expired, yet you're going to drink it?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 还 + [Verb Phrase] + 吗 ?'
+hanzi = '过期的牛奶你还喝吗？'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG4807F'

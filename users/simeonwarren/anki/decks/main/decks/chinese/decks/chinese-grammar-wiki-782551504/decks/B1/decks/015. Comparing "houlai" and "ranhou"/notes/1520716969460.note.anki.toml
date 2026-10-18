@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "TimeWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "houlai" and "ranhou"'
+english = "In 1977, he went to college. He didn't come back to his hometown after that."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Part A，后来， Part B'
+hanzi = '1977年他考上了大学，后来就没回过老家。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGA3RJD'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "mistakenly think that" with "yiwei"'
+english = 'The teacher thought students all understood.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 以为 ⋯⋯'
+hanzi = '老师以为学生都听懂了。'
+notes = ''
+pinyin = 'Lǎoshī yǐwéi xuéshēng dōu tīngdǒng le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGRBC43'

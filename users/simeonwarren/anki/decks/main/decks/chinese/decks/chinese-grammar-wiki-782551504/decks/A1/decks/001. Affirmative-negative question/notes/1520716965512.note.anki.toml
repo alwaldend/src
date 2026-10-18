@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Affirmative-negative question'
+english = 'Is he handsome?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Adj. + 不 + Adj.'
+hanzi = '他帅不帅？'
+notes = ''
+pinyin = 'Tā  shuài bu shuài?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGZH7K3'

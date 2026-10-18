@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'already;	to stop;	then;	afterwards.'
+example-sentence = ' 大局已定,今日必死无疑'
+example-type = ''
+grammar-construct = ''
+hanzi = '已'
+notes = ''
+pinyin = '<span class="tone3">yǐ</span>	 <!-- yi -->'
+source = ''

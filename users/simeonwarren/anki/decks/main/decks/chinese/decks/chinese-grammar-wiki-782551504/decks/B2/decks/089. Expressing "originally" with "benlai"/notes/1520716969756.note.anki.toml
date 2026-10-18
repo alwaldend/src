@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "originally" with "benlai"'
+english = 'What he says has always been wrong, so why do you still want me to listen to him?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 本来 + 就...'
+hanzi = '他讲得本来就不对，为什么还要我听他的？'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG6F157'

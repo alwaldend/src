@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "AdverbswithAdjectives", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Asking about degree with "duo"'
+english = 'How far is your house away from here?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 多 + Adj. ?'
+hanzi = '你家离这儿多远？'
+notes = ''
+pinyin = 'Nǐ jiā lí zhèr duō yuǎn?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG9LLJU'

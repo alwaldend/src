@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["AdverbswithAdjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Continuation with "hai"'
+english = "He lived in China for 10 years while he still doesn't know much about China."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Situation, (但是 / 可是 +) Subj. + 还是 + [Verb Phrase]'
+hanzi = '他在中国住了两年多，还是不太了解中国。'
+notes = ''
+pinyin = 'Tā zài Zhōngguó zhù le liǎng nián duō, háishì bù tài liǎojiě Zhōngguó.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGIRILI'

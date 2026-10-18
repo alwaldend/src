@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "AdverbswithAdjectives", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Superlative "zui"'
+english = 'What is your favorite color?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '最 + [Psychological Verb] + Obj. (+ 了)'
+hanzi = '你最喜欢什么颜色？'
+notes = ''
+pinyin = 'Nǐ zuì xǐhuan shénme yánsè?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG3544U'

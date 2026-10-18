@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Result complement "-qilai"'
+english = 'Quickly pick up the books on the floor.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 起来'
+hanzi = '快把地上的书捡起来。'
+notes = ''
+pinyin = 'Kuài bǎ dìshàng de shū jiǎn qǐlái.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGBPXOB'

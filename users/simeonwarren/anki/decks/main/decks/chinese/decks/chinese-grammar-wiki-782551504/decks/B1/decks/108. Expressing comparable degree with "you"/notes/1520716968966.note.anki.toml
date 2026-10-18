@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing comparable degree with "you"'
+english = 'Are you as busy as the boss?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A + 有 + B + Adj. + 吗 ？'
+hanzi = '你有老板忙吗？'
+notes = ''
+pinyin = 'Nǐ yǒu lǎobǎn máng ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5DG95'

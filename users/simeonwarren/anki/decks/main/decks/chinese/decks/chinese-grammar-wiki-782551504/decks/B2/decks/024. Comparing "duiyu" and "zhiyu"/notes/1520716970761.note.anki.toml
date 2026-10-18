@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "duiyu" and "zhiyu"'
+english = "We're going to start this project, but we still haven't decided when."
+example-sentence = ''
+example-type = ''
+grammar-construct = '至于 + Topic，Subj. + Verb Phrase'
+hanzi = '我们要开始这个项目了，至于什么时候开始，还没定。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGC01S0'

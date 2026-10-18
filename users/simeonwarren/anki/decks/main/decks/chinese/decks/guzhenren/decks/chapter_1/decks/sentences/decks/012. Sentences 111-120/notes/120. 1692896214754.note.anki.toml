@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'Spring and Autumn Cicada really worked'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '春秋蝉果真起作用了'
+notes = ''
+pinyin = '<div>Chūnqiū chán guǒzhēn qǐ zuòyòngle</div>'
+source = ''

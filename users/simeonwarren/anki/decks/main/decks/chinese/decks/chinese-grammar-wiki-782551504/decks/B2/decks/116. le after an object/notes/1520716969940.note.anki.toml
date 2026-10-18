@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'le after an object'
+english = 'He helped me move last week.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 了 + Number + Measure Word + Obj.'
+hanzi = '他上周帮我搬了家。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG4K5WH'

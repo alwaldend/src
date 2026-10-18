@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Negative commands with "bie"'
+english = "When eating, don't play with your cell phone."
+example-sentence = ''
+example-type = ''
+grammar-construct = '别 + Verb (+ Obj.)'
+hanzi = '吃饭的时候别玩手机。'
+notes = ''
+pinyin = 'Chīfàn de shíhou bié wán shǒujī.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG9W0UX'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "from… to…" with "cong… dao…"'
+english = 'From Shanghai to Beijing it takes a few hours.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '从 + Place 1 + 到 + Place 2'
+hanzi = '从上海到北京要几个小时。'
+notes = ''
+pinyin = 'Cóng Shànghǎi dào Běijīng yào jǐ gè xiǎoshí.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGGGIW8'

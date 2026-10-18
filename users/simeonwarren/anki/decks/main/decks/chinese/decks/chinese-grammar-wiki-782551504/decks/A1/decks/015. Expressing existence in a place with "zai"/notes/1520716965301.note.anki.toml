@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing existence in a place with "zai"'
+english = 'The boss  is outside.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 在 + Place'
+hanzi = '老板在外面。'
+notes = ''
+pinyin = 'Lǎobǎn zài wàimiàn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGLRWT8'

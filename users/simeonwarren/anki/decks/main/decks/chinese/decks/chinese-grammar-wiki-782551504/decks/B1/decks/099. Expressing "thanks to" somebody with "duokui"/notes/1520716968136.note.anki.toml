@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "thanks to" somebody with "duokui"'
+english = 'Thanks for your help, I can finish doing it so soon.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '多亏（了）……，Subj. 才 ……'
+hanzi = '多亏你帮我，我才能这么快做完。'
+notes = ''
+pinyin = 'Duō kuī nǐ bāng wǒ, wǒ cái néng zhème kuài zuò wán.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG44TBS'

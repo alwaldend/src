@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "everything" with "shenme dou"'
+english = "Today I don't feel well, so I didn't eat anything."
+example-sentence = ''
+example-type = ''
+grammar-construct = '什么 + Noun + 都 / 也 + 没 (有) + Verb'
+hanzi = '今天我不舒服，什么东西都没吃。'
+notes = ''
+pinyin = 'Jīntiān wǒ bù shūfu, shénme dōngxi dōu méi chī.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGAQV6C'

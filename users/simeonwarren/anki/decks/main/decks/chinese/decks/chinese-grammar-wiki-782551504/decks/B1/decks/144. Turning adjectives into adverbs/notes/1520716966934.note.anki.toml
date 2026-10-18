@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Turning adjectives into adverbs'
+english = 'Everybody is reading quietly in the classroom.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Adj. + 地 + Verb'
+hanzi = '大家都在教室里安安静静地看书。'
+notes = ''
+pinyin = 'Dàjiā dōu zài jiàoshì lǐ ān ān jìng jìng de kàn shū.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMAFSX'

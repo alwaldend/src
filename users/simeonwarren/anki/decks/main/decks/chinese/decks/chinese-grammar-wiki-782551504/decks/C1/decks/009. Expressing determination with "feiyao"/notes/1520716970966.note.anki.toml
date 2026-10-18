@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Auxiliaryverbs", "C1"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing determination with "feiyao"'
+english = "I don't want him to drink so much, but he had to."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 非要 + Verb + (不可)'
+hanzi = '我不让他喝那么多，他非要喝。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQV7TL'

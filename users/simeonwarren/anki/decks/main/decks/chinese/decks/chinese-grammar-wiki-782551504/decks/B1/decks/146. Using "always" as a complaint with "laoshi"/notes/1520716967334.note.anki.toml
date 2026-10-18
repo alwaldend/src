@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "always" as a complaint with "laoshi"'
+english = 'There is always something wrong with this machine.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '老是 + Verb'
+hanzi = '这个机器老出问题。'
+notes = ''
+pinyin = 'Zhège jīqì lǎo chū wèntí.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGII66E'

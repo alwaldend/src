@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Advanced uses of "zong"'
+english = 'This is his home. He will always come back.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '总 + 会 / 得 / 要 / 能 + Verb'
+hanzi = '这里是他家，他总会回来的。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8QS6H'

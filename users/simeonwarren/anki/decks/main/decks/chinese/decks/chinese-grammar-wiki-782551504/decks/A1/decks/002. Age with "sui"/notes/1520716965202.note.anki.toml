@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Numbers", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Age with "sui"'
+english = 'I am 20 years old.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Number + 岁'
+hanzi = '我20岁。'
+notes = ''
+pinyin = 'Wǒ èrshí suì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQUKJF'

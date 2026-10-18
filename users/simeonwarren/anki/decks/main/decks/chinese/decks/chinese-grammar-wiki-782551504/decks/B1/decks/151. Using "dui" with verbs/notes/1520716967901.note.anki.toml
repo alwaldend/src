@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "dui" with verbs'
+english = 'You should be responsible for your job.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '对 + Party + 来说 ，⋯⋯'
+hanzi = '你应该对自己的工作负责。'
+notes = ''
+pinyin = 'Nǐ yīnggāi duì zìjǐ de gōngzuò fùzé .'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8ICO9'

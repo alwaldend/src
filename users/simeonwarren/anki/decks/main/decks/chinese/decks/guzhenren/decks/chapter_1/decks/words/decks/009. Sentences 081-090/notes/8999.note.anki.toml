@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'class;	rank;	grade;	equal to;	same as;	to wait for;	to await;	et cetera;	and so on;	et al. (and other authors);	after;	as soon as;	once.'
+example-sentence = '就算是乙等资质,日后定也能独当一面,成为古月一族的一面旗帜'
+example-type = ''
+grammar-construct = ''
+hanzi = '等'
+notes = ''
+pinyin = '<span class="tone3">děng</span>	 <!-- deng -->'
+source = ''

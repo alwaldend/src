@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Negation of "you" with "mei"'
+english = "I don't have a job. My husband doesn't have a job either."
+example-sentence = ''
+example-type = ''
+grammar-construct = '没 + 有 (+ Obj.)'
+hanzi = '我没工作，我老公也没工作。'
+notes = ''
+pinyin = 'Wǒ méi gōngzuò, wǒ lǎogōng yě méi gōngzuò.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPNV3Q'

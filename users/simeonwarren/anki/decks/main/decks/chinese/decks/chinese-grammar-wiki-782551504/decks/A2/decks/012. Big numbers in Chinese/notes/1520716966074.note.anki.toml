@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Numbers", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Big numbers in Chinese'
+english = '1.4 billion'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '十四亿'
+notes = 'this just happens to be the population of China'
+pinyin = 'shísì yì'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGIM3AX'

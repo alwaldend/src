@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "since the beginning" with "yixiang"'
+english = "Yunnan's rainy season always comes suddenly."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 一向 + Habit / Attitude / etc.'
+hanzi = '云南的雨季一向来得很突然。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGACMNQ'

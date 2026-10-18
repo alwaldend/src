@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Grammatical_Structures", "NounPhrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "youde" to mean "some"'
+english = "Some Chinese foods are tasty, while some aren't."
+example-sentence = ''
+example-type = ''
+grammar-construct = '有的 + (Subj.) + Predicate， 有的 + (Subj.) + Predicate'
+hanzi = '中国菜有的好吃，有的不好吃。'
+notes = ''
+pinyin = 'Zhōngguó cài yǒude hāochī, yǒude bù hāochī.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG4NDHB'

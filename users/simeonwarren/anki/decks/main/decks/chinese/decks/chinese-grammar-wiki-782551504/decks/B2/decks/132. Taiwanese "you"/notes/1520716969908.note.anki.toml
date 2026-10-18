@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Taiwanese "you"'
+english = 'Have you ever studied Chinese?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 有 + Verb + 过 + Obj.'
+hanzi = '你有学过中文？'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGY2D79'

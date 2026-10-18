@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "dui" with verbs'
+english = 'For kids, this question is too complicated.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '对 + Party + 来说 ，⋯⋯'
+hanzi = '对孩子来说，这个问题太复杂了。'
+notes = ''
+pinyin = 'Duì háizi lái shuō, zhège wèntí  tài fùzá le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8ICO9'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing not knowing how to do something using "hao"'
+english = "There are too much delicious food. He doesn't know which one to start with."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不知道 + Verb Phrase + 好'
+hanzi = '好吃的太多了，他不知道先吃哪个好。'
+notes = ''
+pinyin = 'Hǎochī de tài duō le, tā bù zhīdào xiān chī nǎge hǎo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG0EQQJ'

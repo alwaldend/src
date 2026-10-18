@@ -1,0 +1,12 @@
+note_type = "note_types/basic.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[[cards]]
+ordinal = 1
+
+[fields]
+Back = 'g^a (visual mode)'
+Front = 'Increment the first number on each line of a <b>visual</b> block by one more than the number on the line before'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Events in quick succession with "yi... jiu..."'
+english = 'Every time we talk about physics, it gives me headache.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '一 + Reason，就 + Result'
+hanzi = '一说到物理，我就头疼。'
+notes = ''
+pinyin = 'Yī shuōdào wùlì, wǒ jiù tóuténg.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTFUD0'

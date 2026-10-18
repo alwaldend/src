@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Advanced uses of "zong"'
+english = "He'e so old. We can't let him go there all alone. What do you think?"
+example-sentence = ''
+example-type = ''
+grammar-construct = '总 + 不 / 没 + Verb'
+hanzi = '他这么大年纪了，我们总不能让他一个人去吧？'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8QS6H'

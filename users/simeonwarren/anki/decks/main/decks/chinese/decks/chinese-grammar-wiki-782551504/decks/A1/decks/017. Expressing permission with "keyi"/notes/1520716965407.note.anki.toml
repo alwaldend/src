@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Auxiliaryverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing permission with "keyi"'
+english = 'None of us may go.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不 + 可以 + Verb + Obj.'
+hanzi = '我们都不可以去。'
+notes = ''
+pinyin = 'Wǒmen dōu bù kěyǐ qù.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG6SPYK'

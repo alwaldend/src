@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "about" with "guanyu"'
+english = "Let's talk about your new job."
+example-sentence = ''
+example-type = ''
+grammar-construct = '关于 ⋯⋯ 的 + Noun'
+hanzi = '我们聊聊你的新工作吧。'
+notes = ''
+pinyin = 'Wǒmen liáoliao nǐ de xīn gōngzuò ba.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG49889'

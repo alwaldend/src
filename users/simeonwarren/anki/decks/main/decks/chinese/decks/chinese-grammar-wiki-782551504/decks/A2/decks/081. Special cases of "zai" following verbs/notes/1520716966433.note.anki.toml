@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Special cases of "zai" following verbs'
+english = "You can't put your clothes here."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + [Special Verb] + 在 + Location'
+hanzi = '你的衣服不可以放在这里。'
+notes = ''
+pinyin = 'Nǐ de yīfu bù kěyǐ fàng zài zhèlǐ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG90DXK'

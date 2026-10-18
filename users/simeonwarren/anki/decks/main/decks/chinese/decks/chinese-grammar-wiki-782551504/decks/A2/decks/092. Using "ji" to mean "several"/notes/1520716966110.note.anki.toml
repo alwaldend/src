@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "NumbersandMeasureWords", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "ji" to mean "several"'
+english = 'Mom gives me a couple hundred dollars every month.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '几 + 百 / 千 / 万 + Measure Word + Noun'
+hanzi = '妈妈每个月都给我几百块钱。'
+notes = ''
+pinyin = 'Māma měi gè yuè dōu gěi wǒ jǐ bǎi kuài qián.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGHC9CA'

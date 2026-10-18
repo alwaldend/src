@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing purpose with "hao"'
+english = 'She often drinks milk before bedtime to help her fall asleep.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Action ，好 + Purpose'
+hanzi = '她睡前常常喝牛奶，好入睡。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG18JOA'

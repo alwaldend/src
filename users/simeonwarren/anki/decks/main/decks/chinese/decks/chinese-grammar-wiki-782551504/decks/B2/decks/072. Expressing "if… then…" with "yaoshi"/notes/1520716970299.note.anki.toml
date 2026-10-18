@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Grammatical_Structures", "IfStatements"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "if… then…" with "yaoshi"'
+english = "If I hadn't seen it for myself, I wouldn't believe it."
+example-sentence = ''
+example-type = ''
+grammar-construct = '要不是 ⋯⋯ ，⋯⋯'
+hanzi = '要不是亲眼看到，我也不相信。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGN4S8O'

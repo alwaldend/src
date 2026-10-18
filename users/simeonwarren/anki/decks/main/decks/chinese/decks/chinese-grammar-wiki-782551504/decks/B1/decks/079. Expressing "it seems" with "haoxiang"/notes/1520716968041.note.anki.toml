@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "it seems" with "haoxiang"'
+english = "It seems like it's going to rain."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 好像 + [Observation]'
+hanzi = '好像要下雨了。'
+notes = ''
+pinyin = 'Hǎoxiàng yào xiàyǔ le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG3ROPY'

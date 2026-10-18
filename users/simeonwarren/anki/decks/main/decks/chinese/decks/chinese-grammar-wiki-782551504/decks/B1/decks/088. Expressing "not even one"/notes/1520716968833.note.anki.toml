@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "not even one"'
+english = "I didn't take a single bite."
+example-sentence = ''
+example-type = ''
+grammar-construct = '一 + Measure Word + (Noun) + 也 / 都 + 不 / 没 + Verb'
+hanzi = '我一口都没吃。'
+notes = ''
+pinyin = 'Wǒ yī kǒu dōu méi chī.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGUQ861'

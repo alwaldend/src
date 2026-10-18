@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "already" with "yijing"'
+english = "You don't work at Google anymore?"
+example-sentence = ''
+example-type = ''
+grammar-construct = '已经 + 不 + Verb + 了'
+hanzi = '你已经不在Google工作了吗？'
+notes = ''
+pinyin = 'Nǐ yǐjīng bù zài Google gōngzuò le ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNXI27'

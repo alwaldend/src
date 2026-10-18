@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Result complements'
+english = 'You knocked over my bike.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + [One-syllable Verb] +了 (+ Obj.)'
+hanzi = '你撞倒了我的自行车。'
+notes = ''
+pinyin = 'Nǐ zhuàngdǎo le wǒ de zìxíngchē.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNNMST'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'With lights reflected in his eyes, the patriarch let out a long sigh.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '眼中倒映着点点灯光,族长长叹一声。'
+notes = ''
+pinyin = ''
+source = ''

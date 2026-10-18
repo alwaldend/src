@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "Conjunctions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = "Comparing \"fan'er\" and \"que\""
+english = "The Chicago Bulls didn't win their last game, but the Knicks did."
+example-sentence = ''
+example-type = ''
+grammar-construct = '反而 + Sentence'
+hanzi = 'ChicagoBulls没赢最后一场比赛，反而是Knicks。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG0K25S'

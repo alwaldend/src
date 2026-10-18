@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "TimeWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "pingshi" and "pingchang"'
+english = "Most of the time, we don't eat in the house. We go out to eat."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 平时 + Verb'
+hanzi = '我们平时都不在家吃饭，我们在外面吃。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJOGGG'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "about to happen" with "le"'
+english = 'Their child is about to be born.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 要 + Verb / Adj. + 了'
+hanzi = '他们的孩子要出生了。'
+notes = ''
+pinyin = 'Tāmen de háizi yào chūshēng le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNGEU8'

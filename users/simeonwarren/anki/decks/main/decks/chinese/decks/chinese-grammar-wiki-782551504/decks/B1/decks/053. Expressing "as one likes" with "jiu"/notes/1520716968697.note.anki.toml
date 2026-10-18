@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "as one likes" with "jiu"'
+english = 'You can invite whoever you like to invite.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '想 + [Question Word] + 就 + [Question Word]'
+hanzi = '想请谁就请谁。'
+notes = ''
+pinyin = 'Xiǎng qǐng shéi jiù qǐng shéi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDUZ55'

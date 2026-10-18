@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Taiwanese "you"'
+english = "I have eaten, but I didn't eat much."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 有 + [Verb Phrase]'
+hanzi = '我有吃，但是不太饿。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGY2D79'

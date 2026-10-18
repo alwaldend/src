@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "just" with "gang"'
+english = 'The boss just arrived at the office.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 刚刚 + Verb'
+hanzi = '老板刚刚到办公室。'
+notes = ''
+pinyin = 'Lǎobǎn gānggāng dào bàngōngshì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQJJYO'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Grammatical_Structures", "NounPhrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "youde" to mean "some"'
+english = 'He has a lot of houses, some of them are within the country and some are abroad.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '有的 + (Subj.) + Predicate， 有的 + (Subj.) + Predicate'
+hanzi = '他有很多房子，有的在国内，有的在国外。'
+notes = ''
+pinyin = 'Tā yǒu hěn duō fángzi, yǒude zài guónèi, yǒude zài guówài.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG4NDHB'

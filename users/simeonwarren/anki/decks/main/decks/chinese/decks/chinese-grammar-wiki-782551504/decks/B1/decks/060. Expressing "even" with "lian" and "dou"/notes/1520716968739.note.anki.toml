@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "even" with "lian" and "dou"'
+english = "This Chinese character is so difficult that even my Chinese teacher doesn't know it."
+example-sentence = ''
+example-type = ''
+grammar-construct = '连 + Subj. + 都 (+ 不 / 没) + Verb'
+hanzi = '这个汉字太难了，连我的中文老师都不认识。'
+notes = ''
+pinyin = 'Zhège Hànzì tài nán le, lián wǒ de Zhōngwén lǎoshī dōu bù rènshi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNP0WV'

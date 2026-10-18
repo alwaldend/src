@@ -1,0 +1,13 @@
+note_type = "note_types/python-basic-and-reversed.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<i>dict</i>.items()'
+example = ''
+question = '<b>Dictionary method</b>&nbsp;that&nbsp;returns a list containing a tuple for each key value pair.'
+version = ''
+with-options = ''

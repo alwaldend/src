@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["AdverbswithAdjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Continuation with "hai"'
+english = 'Are you still mad?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 还在 + Verb'
+hanzi = '你还在生气吗？'
+notes = ''
+pinyin = 'Nǐ háizài shēngqì ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGIRILI'

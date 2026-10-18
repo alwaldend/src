@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Potential complement'
+english = "Her leg is injured. She can't stand."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 不 + Complement'
+hanzi = '她的腿受伤了，站不起来了。'
+notes = ''
+pinyin = 'Tā de tuǐ shòushāng le, zhàn bu qǐlái  le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCPJPQ'

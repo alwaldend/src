@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["AdverbswithAdjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "much more" in comparisons'
+english = 'The younger brother is even more naughty than the elder brother.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun 1 + 比 + Noun 2 + 还 + Adj.'
+hanzi = '弟弟比哥哥还调皮。'
+notes = ''
+pinyin = 'Dìdi bǐ gēge hái tiáopí.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG6KUS5'

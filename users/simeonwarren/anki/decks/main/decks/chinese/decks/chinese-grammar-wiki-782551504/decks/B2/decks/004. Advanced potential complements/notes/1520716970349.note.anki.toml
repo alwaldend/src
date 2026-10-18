@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Advanced potential complements'
+english = "I'm full. I don't feel like eating more."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 得 / 不 + 下'
+hanzi = '我吃饱了，真的吃不下了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG516F9'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "together" with "yiqi"'
+english = 'Tonight the boss is going to to work overtime together with us.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 一起 + Verb + Obj.'
+hanzi = '今天晚上老板要和我们一起加班。'
+notes = ''
+pinyin = 'Jīntiān wǎnshang, lǎobǎn yào hé wǒmen yīqǐ jiābān.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNVE15'

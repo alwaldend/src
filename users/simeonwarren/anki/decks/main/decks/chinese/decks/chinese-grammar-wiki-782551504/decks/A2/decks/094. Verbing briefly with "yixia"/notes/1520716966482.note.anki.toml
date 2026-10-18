@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Verbing briefly with "yixia"'
+english = 'Please say why.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 一下 + Obj.'
+hanzi = '请你说一下为什么。'
+notes = 'I feel it should be a quick explanation.'
+pinyin = 'Qǐng nǐ shuō yīxià wèishénme.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWCESP'

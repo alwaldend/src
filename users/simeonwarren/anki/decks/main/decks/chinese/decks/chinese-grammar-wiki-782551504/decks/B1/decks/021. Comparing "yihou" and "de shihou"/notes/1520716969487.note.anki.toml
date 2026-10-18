@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "TimeWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "yihou" and "de shihou"'
+english = 'When you get off work, call me.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 以后／的时候， Comment'
+hanzi = '下班的时候我给你打电话。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGLNKZR'

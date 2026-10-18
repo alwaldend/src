@@ -1,0 +1,12 @@
+note_type = "note_types/basic.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[[cards]]
+ordinal = 1
+
+[fields]
+Back = 'gw leaves the cursor where it was before the formatting, gq moves the cursor to the end of the text being formatted'
+Front = 'What is the difference between gw• and gq• (where • is some motion)?'

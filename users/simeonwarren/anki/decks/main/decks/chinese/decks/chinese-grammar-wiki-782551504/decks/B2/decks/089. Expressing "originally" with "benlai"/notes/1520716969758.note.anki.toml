@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "originally" with "benlai"'
+english = 'She never liked you in the first place, so stop pursuing her.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 本来 + 就...'
+hanzi = '她本来就不喜欢你，你别再追她了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG6F157'

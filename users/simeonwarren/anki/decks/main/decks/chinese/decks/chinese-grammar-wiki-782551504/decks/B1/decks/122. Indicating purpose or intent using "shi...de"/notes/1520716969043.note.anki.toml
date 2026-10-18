@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Indicating purpose or intent using "shi...de"'
+english = 'These presents are prepared for the clients.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Thing + 是 + 给 + Person + Verb + 的'
+hanzi = '这些礼物是给客户准备的。'
+notes = ''
+pinyin = 'Zhèxiē lǐwù shì gěi kèhù zhǔnbèi de.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG0UFR4'

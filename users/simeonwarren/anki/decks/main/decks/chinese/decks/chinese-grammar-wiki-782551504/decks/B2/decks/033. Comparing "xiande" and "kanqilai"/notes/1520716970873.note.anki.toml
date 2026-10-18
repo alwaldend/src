@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "xiande" and "kanqilai"'
+english = "This color of clothing doesn't go well with your complexion."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A + 显得 + B + Predicate'
+hanzi = '这种颜色的衣服显得你的脸色不好看。'
+notes = ''
+pinyin = 'Zhè zhǒng yánsè de yīfu xiǎnde nǐ de liǎnsè bù hǎokàn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGKQEG9'

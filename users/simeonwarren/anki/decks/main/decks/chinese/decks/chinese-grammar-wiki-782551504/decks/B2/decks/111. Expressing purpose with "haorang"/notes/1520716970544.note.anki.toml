@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing purpose with "haorang"'
+english = 'Mother always makes her drink milk in the evening to help her fall asleep.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. 1 + Action， 好让 + Purpose'
+hanzi = '妈妈晚上总是让她喝牛奶，好让她容易入睡。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG18JOA'

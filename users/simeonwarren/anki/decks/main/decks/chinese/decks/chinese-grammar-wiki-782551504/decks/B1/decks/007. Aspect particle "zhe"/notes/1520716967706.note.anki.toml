@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Aspect particle "zhe"'
+english = "I'll go out for a second, and you watch the luggage for me."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 着'
+hanzi = '我出去一下，你帮我看着行李。'
+notes = ''
+pinyin = 'Wǒ chūqù yīxià, nǐ bāng wǒ kān zhe xíngli.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGOIDEO'

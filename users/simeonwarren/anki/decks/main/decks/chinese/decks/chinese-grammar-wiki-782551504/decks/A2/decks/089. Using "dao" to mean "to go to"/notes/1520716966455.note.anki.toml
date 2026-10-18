@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "dao" to mean "to go to"'
+english = "First we'll arrive in Beijing, then in Hong Kong."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 到 + Place'
+hanzi = '我们先到北京，然后到香港。'
+notes = ''
+pinyin = 'Wǒmen xiān dào Běijīng, ránhòu dào Xiānggǎng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGLFX54'

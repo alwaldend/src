@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "dui" and "duiyu"'
+english = 'He treats his work very seriously.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A + 对 + B + Adj.'
+hanzi = '他对工作很认真。'
+notes = ''
+pinyin = '<div>Tā duì gōngzuò hěn rènzhēn.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG3JELV'

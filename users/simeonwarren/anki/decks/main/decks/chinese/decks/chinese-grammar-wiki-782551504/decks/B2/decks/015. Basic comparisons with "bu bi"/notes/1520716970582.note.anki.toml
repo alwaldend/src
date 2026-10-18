@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Basic comparisons with "bu bi"'
+english = 'His calculation is as fast as the computer.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A + 不比 + B + Verb + 得 + Adj.'
+hanzi = '他算得不比计算机慢。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8DVSO'

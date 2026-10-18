@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Grammatical_Structures", "IfStatements"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Marking a topic with "de hua"'
+english = 'As for Beijing, autumn is the best time to go.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Topic + 的话 ，Comment'
+hanzi = '北京的话，秋天去最好。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGB0MXK'

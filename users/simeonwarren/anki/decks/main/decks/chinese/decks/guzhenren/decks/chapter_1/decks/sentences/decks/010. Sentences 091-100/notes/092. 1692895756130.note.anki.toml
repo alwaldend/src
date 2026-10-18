@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = "With this thought, the corners of Gu Yue's patriarch's mouth involuntarily raised slightly, revealing a smile."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '这一念生出,古月族长的嘴角不由地微微翘起,浮现出一抹微笑。'
+notes = ''
+pinyin = ''
+source = ''

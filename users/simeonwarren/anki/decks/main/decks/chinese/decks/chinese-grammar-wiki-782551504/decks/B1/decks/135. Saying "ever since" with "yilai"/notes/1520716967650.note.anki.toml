@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Saying "ever since" with "yilai"'
+english = 'Ever since she was in hospital, her friends have constantly come and visited her.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Time or Event + 以来'
+hanzi = '住院以来，常常有朋友来医院看望她。'
+notes = ''
+pinyin = 'Zhùyuàn yǐlái, chángcháng yǒu péngyou lái yīyuàn kànwàng tā.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNEMXP'

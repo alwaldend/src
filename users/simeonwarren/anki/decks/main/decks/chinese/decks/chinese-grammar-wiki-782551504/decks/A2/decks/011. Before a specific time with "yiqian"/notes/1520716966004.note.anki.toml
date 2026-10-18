@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Before a specific time with "yiqian"'
+english = "Don't eat anything before you go to sleep."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Time / Verb + 以前, ....'
+hanzi = '睡觉以前，不要吃东西。'
+notes = ''
+pinyin = 'Shuìjiào yǐqián, bùyào chī dōngxi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJ2OJC'

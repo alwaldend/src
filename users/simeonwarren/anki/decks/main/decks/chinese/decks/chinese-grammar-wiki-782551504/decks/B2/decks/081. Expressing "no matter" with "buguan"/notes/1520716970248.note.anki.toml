@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Grammatical_Structures", "NoMatterStatements"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "no matter" with "buguan"'
+english = '.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '不管 + Verb /  Adj. + 不 + Verb /  Adj. ，Subj. + 都 ⋯⋯'
+hanzi = '不管是国际幼儿园还是本地幼儿园，学费都很贵。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG0NDS6'

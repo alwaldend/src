@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Verbs that take double objects'
+english = 'This person cheated me out of a lot of money.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + [Indirect Obj.] + [Direct Obj.]'
+hanzi = '这个人骗了我很多钱。'
+notes = ''
+pinyin = 'Zhège rén piàn le wǒ hěn duō qián.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGI2OAG'

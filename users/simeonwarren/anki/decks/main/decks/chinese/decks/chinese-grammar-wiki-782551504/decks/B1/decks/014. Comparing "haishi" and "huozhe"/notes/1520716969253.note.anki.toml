@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "Conjunctions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "haishi" and "huozhe"'
+english = ''
+example-sentence = ''
+example-type = 'invalid'
+grammar-construct = 'Subj. + Verb + Option A + 还是 + Option B'
+hanzi = '你的中文老师姓王或者姓李?'
+notes = 'Since it is a question, it should use "还是"'
+pinyin = '<div>Nǐ de zhōngwén lǎoshī xìng wáng huòzhě xìng lǐ?</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQJ5IC'

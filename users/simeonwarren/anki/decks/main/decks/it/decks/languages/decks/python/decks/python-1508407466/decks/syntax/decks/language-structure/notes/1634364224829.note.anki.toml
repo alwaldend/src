@@ -1,0 +1,13 @@
+note_type = "note_types/python-basic.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+'Additional Info' = ''
+'Back - Basic' = ''
+'Back - Code' = 'def new_func(x=3) -&gt; int:<br>&nbsp; &nbsp; pass'
+Example = ''
+Front = 'Create a function named new_func with a argument x. x should have a default value of 3, and the function should specify a return value of int. the function body should be empty.'
+Version = ''

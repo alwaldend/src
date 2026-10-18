@@ -1,0 +1,12 @@
+note_type = "note_types/basic.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[[cards]]
+ordinal = 1
+
+[fields]
+Back = '"<b>A</b>{operator}{motion} " NB: using upper-case A instead of lower-case'
+Front = 'Append to a named register (instead of replacing its content)'

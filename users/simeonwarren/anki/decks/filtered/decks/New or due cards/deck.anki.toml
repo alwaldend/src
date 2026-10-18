@@ -1,0 +1,14 @@
+[filtered]
+preview_again_secs = 60
+preview_hard_secs = 600
+reschedule = true
+
+[[filtered.search_terms]]
+limit = 99999
+order = "RETRIEVABILITY_DESCENDING"
+search = "is:due"
+
+[[filtered.search_terms]]
+limit = 50
+order = "ADDED"
+search = "is:new"

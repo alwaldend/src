@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'There are red copper incense burners on both sides of the tablet, and the cigarettes are curling up.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '牌位两侧摆着赤铜香炉,香烟袅袅。'
+notes = ''
+pinyin = ''
+source = ''

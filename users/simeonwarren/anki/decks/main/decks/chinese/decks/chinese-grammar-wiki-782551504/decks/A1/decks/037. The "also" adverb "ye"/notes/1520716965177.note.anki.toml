@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'The "also" adverb "ye"'
+english = "He got angry? I'm also angry!"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 也 (+ Adv.) + Adj.'
+hanzi = '他生气了？我也很生气！'
+notes = ''
+pinyin = 'Tā shēngqì le?  Wǒ yě hěn shēngqì!'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGG25MD'

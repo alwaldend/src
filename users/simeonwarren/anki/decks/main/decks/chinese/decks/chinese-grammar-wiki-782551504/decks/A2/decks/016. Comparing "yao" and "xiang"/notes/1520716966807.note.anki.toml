@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Auxiliaryverbs", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "yao" and "xiang"'
+english = "I wouldn't like to see her."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 想 + Verb'
+hanzi = '我不想见她。'
+notes = ''
+pinyin = 'Wǒ bù xiǎng jiàn tā.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGD88UO'

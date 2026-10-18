@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Potential complement'
+english = "The door is too small. My car can't go through it."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 不 + Complement'
+hanzi = '门太小了，我的车进不去。'
+notes = ''
+pinyin = 'Mén tài xiǎo le, wǒ de chē jìn bu qù.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCPJPQ'

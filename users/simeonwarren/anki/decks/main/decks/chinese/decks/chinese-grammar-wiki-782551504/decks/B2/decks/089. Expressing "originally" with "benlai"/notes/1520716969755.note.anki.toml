@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "originally" with "benlai"'
+english = 'You are already so thin and you still want to lose weight?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 本来 + 就...'
+hanzi = '你本来就够瘦了，还要减肥吗？'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG6F157'

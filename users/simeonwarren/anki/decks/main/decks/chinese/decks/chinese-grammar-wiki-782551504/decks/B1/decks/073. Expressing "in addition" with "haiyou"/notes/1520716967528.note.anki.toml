@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "in addition" with "haiyou"'
+english = "You need to pay the deposit first to rent this apartment. In addition, it's not allowed to have pets here."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Clause 1 ，还有 ， Clause 2'
+hanzi = '租这个房子要先付押金。还有，不能养宠物。'
+notes = ''
+pinyin = 'Zū zhège fángzi yào xiān fù yājīn. Háiyǒu, bù néng yǎng chǒngwù.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGHQRI1'

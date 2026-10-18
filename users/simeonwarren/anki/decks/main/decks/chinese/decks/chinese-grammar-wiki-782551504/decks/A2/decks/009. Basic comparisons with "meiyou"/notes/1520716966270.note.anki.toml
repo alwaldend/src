@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Basic comparisons with "meiyou"'
+english = 'Clinton is not as handsome as Obama.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun 1 + 没有 + Noun 2 + Adj.'
+hanzi = 'Clinton没有Obama帅。'
+notes = ''
+pinyin = 'Clinton méiyǒu Obama shuài.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGEAH5M'

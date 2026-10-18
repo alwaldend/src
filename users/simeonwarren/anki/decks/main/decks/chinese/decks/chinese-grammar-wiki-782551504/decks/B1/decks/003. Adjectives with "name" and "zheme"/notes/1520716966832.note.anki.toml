@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Adjectives with "name" and "zheme"'
+english = 'How come you are so busy?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 那么 / 这么 + Adj.'
+hanzi = '你怎么那么忙？'
+notes = ''
+pinyin = 'Nǐ zěnme nàme máng?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNKKP6'

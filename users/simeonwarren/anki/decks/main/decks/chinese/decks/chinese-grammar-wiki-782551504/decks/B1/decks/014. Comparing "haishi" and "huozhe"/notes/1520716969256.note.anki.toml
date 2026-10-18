@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "Conjunctions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "haishi" and "huozhe"'
+english = ''
+example-sentence = ''
+example-type = 'invalid'
+grammar-construct = 'Option 1 + 或者 + Option 2'
+hanzi = '我喜欢走路还是骑自行车上班。'
+notes = "Since it's declarative, it uses \"或者\""
+pinyin = '<div>Wǒ xǐhuān zǒulù háishì qí zìxíngchē shàngbān.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQJ5IC'

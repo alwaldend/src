@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Time words and word order'
+english = 'Next week he is going back to his country.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Time + Verb + Obj.'
+hanzi = '下个星期他要回国。'
+notes = ''
+pinyin = 'Xià gè xīngqī tā yào huí guó.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5RWKO'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'garret;	loft;	attic.'
+example-sentence = ' 这是阁楼第三层,族长放眼望去,大半个古月山寨都一览无余'
+example-type = ''
+grammar-construct = ''
+hanzi = '阁楼'
+notes = ''
+pinyin = '<span class="tone2">gé</span><span class="tone2">lóu</span>	 <!-- ge lou -->'
+source = ''

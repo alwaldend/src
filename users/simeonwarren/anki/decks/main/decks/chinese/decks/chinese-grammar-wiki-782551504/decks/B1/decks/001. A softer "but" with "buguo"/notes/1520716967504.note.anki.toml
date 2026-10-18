@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'A softer "but" with "buguo"'
+english = "He's from Northeast, but he doesn't have the accent."
+example-sentence = ''
+example-type = ''
+grammar-construct = '⋯⋯ ，不过 ⋯⋯'
+hanzi = '他是东北人，不过他没有口音。'
+notes = ''
+pinyin = 'Tā shì Dōngběi rén, bùguò tā méiyǒu kǒuyīn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGA0S4T'

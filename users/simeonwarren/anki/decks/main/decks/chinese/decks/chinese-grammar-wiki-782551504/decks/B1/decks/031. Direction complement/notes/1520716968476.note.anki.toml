@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Direction complement'
+english = 'Would you like to take some food there?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + [Compound Direction Complement]'
+hanzi = '你要不要拿一点吃的过去？'
+notes = ''
+pinyin = 'Nǐ yào bù yào ná yīdiǎn chīde guòqù?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8LWBJ'

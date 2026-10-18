@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "since the beginning" with "yixiang"'
+english = "He's always been a good student, why would he possibly cheat?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 一向 + Habit / Attitude / etc.'
+hanzi = '他一向是个好学生，怎么可能会作弊呢？'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGACMNQ'

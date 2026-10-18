@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "zai" and "you"'
+english = "It's almost summer, and we can eat ice cream again!"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 又 + 助动词 / 谓语动词 + Obj.'
+hanzi = '夏天快到了，又可以吃冰淇淋了！'
+notes = ''
+pinyin = '<div>Xiàtiān kuài dàole, yòu kěyǐ chī bīngqílínle!</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTBHBG'

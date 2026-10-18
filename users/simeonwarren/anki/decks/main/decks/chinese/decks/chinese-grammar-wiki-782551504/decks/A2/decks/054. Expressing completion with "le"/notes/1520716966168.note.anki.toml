@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing completion with "le"'
+english = 'After class is over, I need to ask the teacher a few questions.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 了 + Obj.'
+hanzi = '下了课以后，我要问老师一些问题。'
+notes = 'future action'
+pinyin = 'Xià le kè yǐhòu, wǒ yào wèn lǎoshī yīxiē wèntí.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGAGDCQ'

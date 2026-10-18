@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "ConditionalStatements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "unless" with "chufei"'
+english = "You won't get promoted so soon unless you perform very well."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Result / Fact ，除非 + Condition'
+hanzi = '你不会这么快升职，除非你表现很好。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMD0YY'

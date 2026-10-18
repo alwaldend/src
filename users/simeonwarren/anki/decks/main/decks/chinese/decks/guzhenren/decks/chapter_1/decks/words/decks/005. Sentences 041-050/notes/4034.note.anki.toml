@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = "to drape over one's shoulders;\tto open;\tto unroll;\tto split open;\tto spread out."
+example-sentence = ' 青茅山却不黑暗,从山腰至山脚,闪着许多莹莹的微光,好像是披着一条灿烂的光带'
+example-type = ''
+grammar-construct = ''
+hanzi = '披'
+notes = ''
+pinyin = '<span class="tone1">pī</span>	 <!-- pi -->'
+source = ''

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Auxiliaryverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing ability or possibility with "neng"'
+english = 'Could you tell me her cell phone number?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 能 + Verb + Obj.'
+hanzi = '你能告诉我她的手机号码吗？'
+notes = ''
+pinyin = 'Nǐ néng gàosu wǒ tā de shǒujī hàomǎ ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG9PQ40'

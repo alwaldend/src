@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["AdverbswithAdjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "much more" in comparisons'
+english = 'He is even taller than Yao Ming.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun 1 + 比 + Noun 2 + 还 + Adj.'
+hanzi = '他比姚明还高。'
+notes = ''
+pinyin = 'Tā bǐ YáoMíng hái gāo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG6KUS5'

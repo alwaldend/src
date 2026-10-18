@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "anyway" as "fanzheng"'
+english = "I've already given her the present. It's her business to take it or not."
+example-sentence = ''
+example-type = ''
+grammar-construct = '反正＋condition，decision or resolution'
+hanzi = '反正我已经送了礼物，要不要是她的事。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGZVM27'

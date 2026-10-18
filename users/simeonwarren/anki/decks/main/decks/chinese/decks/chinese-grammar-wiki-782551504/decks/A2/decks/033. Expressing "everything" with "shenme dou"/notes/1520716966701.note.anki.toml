@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "everything" with "shenme dou"'
+english = 'My husband tells me everything about work stuff.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Topic (+ Subj.) + 什么 + 都 / 也 + Verb / Adj.'
+hanzi = '工作的事情老公什么都跟我说。'
+notes = ''
+pinyin = 'Gōngzuò de shìqing lǎogōng shénme dōu gēn wǒ shuō.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGAQV6C'

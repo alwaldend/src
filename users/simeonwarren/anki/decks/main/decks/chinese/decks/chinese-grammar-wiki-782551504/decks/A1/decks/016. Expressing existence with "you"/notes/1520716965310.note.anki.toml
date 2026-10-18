@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing existence with "you"'
+english = 'There are a lot of cute guys in our school.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Place + 有 + Obj.'
+hanzi = '我们学校有很多帅哥。'
+notes = ''
+pinyin = 'Wǒmen xuéxiào yǒu hěn duō shuàigē.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG04ZCI'

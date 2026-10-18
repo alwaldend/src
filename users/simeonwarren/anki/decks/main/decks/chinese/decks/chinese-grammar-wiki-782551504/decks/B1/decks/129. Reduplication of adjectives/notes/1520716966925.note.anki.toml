@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Reduplication of adjectives'
+english = 'Take a shower and get comfortable.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + A B + 一下'
+hanzi = '洗个澡吧，舒服一下。'
+notes = ''
+pinyin = 'Xǐ gè zǎo ba, shūfu yīxià.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDHE8S'

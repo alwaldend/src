@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "or" in statements'
+english = 'After dinner I chat with or watch TV with my family.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Possibility 1 + 或者 + Possibility 2'
+hanzi = '晚饭以后我和家人聊天或者看电视。'
+notes = ''
+pinyin = 'Wǎnfàn yǐhòu wǒ hé jiārén liáotiān huòzhě kàn diànshì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG6HYOU'

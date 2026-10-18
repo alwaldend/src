@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "Nouns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "renjia" and "bieren"'
+english = 'Look at him! How smart he is!'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '你看人家多聪明！'
+notes = ''
+pinyin = 'Nǐ kàn rénjia duō cōngming!'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPINA4'

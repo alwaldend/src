@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "youdian" and "yidian"'
+english = 'The dish is a little salty.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '这个菜有点咸。'
+notes = ''
+pinyin = 'Zhège cài yǒudiǎn xián.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGV55Y4'

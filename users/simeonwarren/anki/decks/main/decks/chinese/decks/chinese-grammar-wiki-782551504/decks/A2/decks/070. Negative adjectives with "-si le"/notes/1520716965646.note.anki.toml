@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adjectives", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Negative adjectives with "-si le"'
+english = 'Your room is absolutely filthy!'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Adj. + 死了'
+hanzi = '你的房间脏死了。'
+notes = 'Literally, "dirty to death"'
+pinyin = 'Nǐ de fángjiān zāng sǐ le!'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGLEVUV'

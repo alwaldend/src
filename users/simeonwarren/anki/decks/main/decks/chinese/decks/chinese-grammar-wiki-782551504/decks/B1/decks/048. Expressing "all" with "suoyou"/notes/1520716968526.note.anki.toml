@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "NounPhrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "all" with "suoyou"'
+english = 'Not all of his friends are willing to help him.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '不是 + 所有 (+ 的) + Noun + 都 + Predicate'
+hanzi = '不是所有朋友都愿意帮他。'
+notes = ''
+pinyin = 'Bù shì suǒyǒu péngyou dōu yuànyì bāng tā.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGOWBSL'

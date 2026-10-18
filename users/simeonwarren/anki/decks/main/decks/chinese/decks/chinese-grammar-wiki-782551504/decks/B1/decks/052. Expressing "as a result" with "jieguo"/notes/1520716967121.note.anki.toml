@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "as a result" with "jieguo"'
+english = "I didn't take an umbrella. As a result, I got all wet."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Situation ，结果 + Ending'
+hanzi = '我没带伞，结果全身都湿了。'
+notes = ''
+pinyin = 'Wǒ méi dài sǎn, jiéguǒ quánshēn dōu shī le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG6B21A'

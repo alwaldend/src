@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing existence with "you"'
+english = 'There are a lot of puppies in my home.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Place + 有 + Obj.'
+hanzi = '我家有很多小狗。'
+notes = ''
+pinyin = 'Wǒ jiā yǒu hěn duō xiǎo gǒu.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG04ZCI'

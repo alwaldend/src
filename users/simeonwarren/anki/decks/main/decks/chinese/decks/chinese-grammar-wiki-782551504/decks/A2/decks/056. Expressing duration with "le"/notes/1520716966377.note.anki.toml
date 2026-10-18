@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing duration with "le"'
+english = 'I read books all evening.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 了 + Duration + Obj.'
+hanzi = '我看了一个晚上书。'
+notes = ''
+pinyin = 'Wǒ  kàn le  yī gè wǎnshang  shū.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJ36VN'

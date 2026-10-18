@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "SeparateFunctions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "kending" "queding" and "yiding"'
+english = "Please give me a definite response. Don't always be so vague."
+example-sentence = ''
+example-type = ''
+grammar-construct = '一定 + （的 +） Noun'
+hanzi = '请给我一个确定的回答，不要总是这么模糊。'
+notes = ''
+pinyin = '<div>Qǐng gěi wǒ yīgè quèdìng de huídá, bùyào zǒng shì zhème móhú.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDPS0J'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "EvenIfStatements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "even if…" with "jiushi"'
+english = "Even if this computer's price is over 10,000 yuan, I'm still going to buy it."
+example-sentence = ''
+example-type = ''
+grammar-construct = '就是 + Hypothetical Statement + 也 + Action'
+hanzi = '就是这台电脑价格上万，我也会买。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGF1TQ2'

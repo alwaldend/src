@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "it seems" with "haoxiang"'
+english = 'It seems that she has a crush on you.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 好像 + [Observation]'
+hanzi = '她好像有点喜欢你。'
+notes = ''
+pinyin = 'Tā hǎoxiàng yǒudiǎn xǐhuan nǐ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG3ROPY'

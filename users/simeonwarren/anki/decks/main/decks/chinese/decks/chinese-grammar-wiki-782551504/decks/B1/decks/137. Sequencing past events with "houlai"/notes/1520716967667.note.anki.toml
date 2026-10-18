@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Sequencing past events with "houlai"'
+english = 'Beijing used to be called Beiping and got changed into Beijing afterwards.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '[Past Event 1] ，后来 ，[Past Event 2]'
+hanzi = '北京以前叫北平，后来改成了北京。'
+notes = ''
+pinyin = 'Běijīng yǐqián jiào Běipíng, hòulái gǎi chéng le Běijīng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGY0UDC'

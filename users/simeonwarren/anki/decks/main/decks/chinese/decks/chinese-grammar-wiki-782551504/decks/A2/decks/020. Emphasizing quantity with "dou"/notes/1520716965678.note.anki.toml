@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Emphasizing quantity with "dou"'
+english = 'A lot of young people want to go to work in big cities.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 都 + Verb + Obj.'
+hanzi = '很多年轻人都想在大城市工作。'
+notes = ''
+pinyin = 'Hěn duō niánqīng rén dōu xiǎng zài dà chéngshì gōngzuò.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWNEYM'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Softening speech with "ba"'
+english = "Please hurry, we're going to be late."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Statement + 吧'
+hanzi = '快点吧，要迟到了。'
+notes = ''
+pinyin = 'Kuài diǎn ba, yào chídào le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDHC1H'

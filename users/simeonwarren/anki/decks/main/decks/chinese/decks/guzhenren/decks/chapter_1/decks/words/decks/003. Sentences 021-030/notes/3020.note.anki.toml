@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'to shake;	to jolt;	to bump.'
+example-sentence = '辗转颠簸300年,纵横世间200余年,500多年光阴悠悠,却是晃眼即逝'
+example-type = ''
+grammar-construct = ''
+hanzi = '颠簸'
+notes = ''
+pinyin = '<span class="tone1">diān</span><span class="tone3">bǒ</span>	 <!-- dian bo -->'
+source = ''

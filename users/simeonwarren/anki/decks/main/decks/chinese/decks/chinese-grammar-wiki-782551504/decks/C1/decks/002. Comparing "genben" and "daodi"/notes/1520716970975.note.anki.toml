@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["C1", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "genben" and "daodi"'
+english = 'Your bag is so heavy! How much stuff are you even carrying?'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '你的包这么重！你到底带了多少东西？'
+notes = ''
+pinyin = 'Nǐ de bāo zhème zhòng! Nǐ dàodǐ dàile duō shào dōngxī?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG9JK0B'

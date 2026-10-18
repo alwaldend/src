@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Uses of "shi" with "de"'
+english = 'Are you also a college student? What do you major in?<br>I major in Chinese.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = 'A:你也是大学生？你是什么专业的？<br>B:我是中文专业的。'
+notes = ''
+pinyin = 'Nǐ yě shì dàxuéshēng? Nǐ shì shénme zhuānyè de?<br>Wǒ shì Zhōngwén zhuānyè de.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGE662E'

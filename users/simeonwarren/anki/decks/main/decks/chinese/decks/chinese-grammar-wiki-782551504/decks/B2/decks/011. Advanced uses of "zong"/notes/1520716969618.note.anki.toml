@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Advanced uses of "zong"'
+english = 'Do you think this is an inside job?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '总 + 不 / 没 + Verb'
+hanzi = '这件事总不会是内部的人做的吧？'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8QS6H'

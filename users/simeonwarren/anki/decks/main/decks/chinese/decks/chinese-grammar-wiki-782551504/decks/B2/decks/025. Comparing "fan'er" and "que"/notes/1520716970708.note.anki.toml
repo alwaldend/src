@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "Conjunctions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = "Comparing \"fan'er\" and \"que\""
+english = "She likes to eat sweet things, but she doesn't eat chocolate."
+example-sentence = ''
+example-type = ''
+grammar-construct = '⋯⋯， 但（是）却⋯⋯'
+hanzi = '她喜欢吃甜食，但是却从不吃巧克力。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG0K25S'

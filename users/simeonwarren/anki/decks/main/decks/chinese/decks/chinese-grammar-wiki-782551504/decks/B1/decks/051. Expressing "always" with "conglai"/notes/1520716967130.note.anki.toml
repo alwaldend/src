@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "always" with "conglai"'
+english = 'Students at our school can only wear uniforms.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 从来 + 都 + Predicate'
+hanzi = '我们学校的学生从来都只能穿校服。'
+notes = ''
+pinyin = 'Wǒmen xuéxiào de xuéshēng cónglái dōu zhǐ néng chuān xiàofú.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8KUHG'

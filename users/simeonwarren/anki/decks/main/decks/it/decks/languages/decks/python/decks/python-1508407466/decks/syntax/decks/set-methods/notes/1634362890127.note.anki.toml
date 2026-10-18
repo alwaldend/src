@@ -1,0 +1,13 @@
+note_type = "note_types/python-basic-and-reversed.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<i>set</i>.difference(<i>set</i>)<br>'
+example = ''
+question = "<b>Set method</b> that returns a new set with all the items from the first set (called on set) that didn't exist in the second set (argument set).&nbsp;"
+version = ''
+with-options = ''

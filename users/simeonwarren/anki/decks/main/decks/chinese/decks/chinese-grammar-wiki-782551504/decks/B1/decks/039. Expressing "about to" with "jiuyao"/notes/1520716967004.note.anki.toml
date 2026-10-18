@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "about to" with "jiuyao"'
+english = "It's about to rain!"
+example-sentence = ''
+example-type = ''
+grammar-construct = '(Subj. +) 就要 + Verb + 了'
+hanzi = '就要下雨了！'
+notes = ''
+pinyin = 'Jiù yào xiàyǔ le!'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG9B210'

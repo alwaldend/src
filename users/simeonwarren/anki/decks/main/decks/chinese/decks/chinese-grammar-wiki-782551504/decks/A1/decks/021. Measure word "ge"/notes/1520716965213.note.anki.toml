@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Numbers", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Measure word "ge"'
+english = 'four friends'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Number + 个 + Noun'
+hanzi = '四个朋友'
+notes = ''
+pinyin = 'sì gè péngyou'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGI0T9S'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "among" with "dangzhong"'
+english = 'Among these one hundred participants, my performance was the most outstanding.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Group + 当中&lt;br /&gt;Process + 当中'
+hanzi = '在这一百个选手当中我表现得最出色。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGS4DBY'

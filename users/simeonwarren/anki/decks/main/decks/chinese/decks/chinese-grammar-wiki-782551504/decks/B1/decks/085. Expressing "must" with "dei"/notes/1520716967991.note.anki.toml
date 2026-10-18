@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "must" with "dei"'
+english = 'We have to leave.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 得 + [Verb Phrase]'
+hanzi = '我们得走了。'
+notes = ''
+pinyin = 'Wǒmen děi zǒu le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPXLP9'

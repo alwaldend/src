@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "leech", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Special cases of "zai" following verbs'
+english = "Don't walk on the grass."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + [Special Verb] + 在 + Location'
+hanzi = '不要走在草地上。'
+notes = ''
+pinyin = 'Búyào zǒu zài cǎodì shàng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG90DXK'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'tomorrow.'
+example-sentence = ' 是该好好的养精蓄锐,待到明天,争上那一番'
+example-type = ''
+grammar-construct = ''
+hanzi = '明天'
+notes = ''
+pinyin = '<span class="tone2">míng</span><span class="tone1">tiān</span>	 <!-- ming tian -->'
+source = ''

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "all along" with "yizhi"'
+english = 'Have you always worked in this company?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 一直 + Predicate'
+hanzi = '你一直在这家公司工作吗？'
+notes = ''
+pinyin = 'Nǐ yīzhí zài zhè jiā gōngsī gōngzuò ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGP000J'

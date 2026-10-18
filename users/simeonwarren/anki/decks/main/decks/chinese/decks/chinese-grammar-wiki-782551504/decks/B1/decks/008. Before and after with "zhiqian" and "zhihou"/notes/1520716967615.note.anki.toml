@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Before and after with "zhiqian" and "zhihou"'
+english = 'What about going to the movie after we finish dinner?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Event + 之前 / 之后 ，⋯⋯'
+hanzi = '吃完饭之后去看电影吧？'
+notes = ''
+pinyin = 'Chī wán fàn zhīhòu qù  diànyǐng ba?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTD3L3'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Indicating the whole with "quan"'
+english = 'He drank up all the coffee.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 全 + 都 + Verb  / Adj.'
+hanzi = '他把咖啡全都喝了。'
+notes = ''
+pinyin = 'Tā bǎ kāfēi quán dōu hē le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCPDSR'

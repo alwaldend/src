@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "always" as a complaint with "laoshi"'
+english = 'He complains about his life all the time.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '老是 + Verb'
+hanzi = '他老是抱怨自己的生活。'
+notes = ''
+pinyin = 'Tā lǎoshì bàoyuàn zǐjǐ de shēnghuó.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGII66E'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Idiomatic phrases with "zai"'
+english = 'On the topic of career, my boss is very successful.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '在 + Topic + 方面 ，Subj. ⋯⋯'
+hanzi = '在事业方面，我老板很成功。'
+notes = ''
+pinyin = 'Zài shìyè fāngmiàn, wǒ lǎobǎn hěn chénggōng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGH13JY'

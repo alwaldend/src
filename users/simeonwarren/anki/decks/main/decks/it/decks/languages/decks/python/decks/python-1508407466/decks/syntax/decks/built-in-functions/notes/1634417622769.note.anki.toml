@@ -1,0 +1,13 @@
+note_type = "note_types/python-basic-and-reversed.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<b>Built in function:&nbsp;</b>sum(<i>iterable</i>)'
+example = ''
+question = '<b>Built in function</b>&nbsp;that returns the sum of the items of an iterable.'
+version = ''
+with-options = ''

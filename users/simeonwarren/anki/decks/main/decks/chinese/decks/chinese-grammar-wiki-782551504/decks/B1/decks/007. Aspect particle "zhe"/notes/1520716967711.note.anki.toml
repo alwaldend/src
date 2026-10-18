@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Aspect particle "zhe"'
+english = 'It makes me most comfortable just lying there.'
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = 'Verb 1 + 着 + Verb 2'
+hanzi = '躺着最舒服。'
+notes = 'Lying here is a state, so using 着 is natural.)'
+pinyin = 'Tǎng zhe zuì shūfu.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGOIDEO'

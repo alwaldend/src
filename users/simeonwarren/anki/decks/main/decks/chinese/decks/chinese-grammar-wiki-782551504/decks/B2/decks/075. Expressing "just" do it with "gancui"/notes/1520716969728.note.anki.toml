@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "just" do it with "gancui"'
+english = 'This ratty computer broke again. Might as well not fix it and just buy a new one.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 干脆 + Verb'
+hanzi = '这台破电脑又坏了，干脆别修了，买台新的吧。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGZ8MJM'

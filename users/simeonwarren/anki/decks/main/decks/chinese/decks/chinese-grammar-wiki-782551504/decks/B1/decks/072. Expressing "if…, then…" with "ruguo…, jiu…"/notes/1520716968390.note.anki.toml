@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "IfStatements"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "if…, then…" with "ruguo…, jiu…"'
+english = "If you don't review well, you won't be able to pass tomorrow's test."
+example-sentence = ''
+example-type = ''
+grammar-construct = '如果 + Statement + 就 + Result'
+hanzi = '如果不好好复习，你就无法通过明天的考试。'
+notes = ''
+pinyin = 'Rúguǒ bù hǎohǎo fùxí, nǐ jiù wúfǎ tōngguò míngtiān de kǎoshì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGGIVT0'

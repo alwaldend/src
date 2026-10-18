@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'The elders were slightly taken aback when they heard this.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '家老们听了这话,都微微一怔。'
+notes = ''
+pinyin = ''
+source = ''

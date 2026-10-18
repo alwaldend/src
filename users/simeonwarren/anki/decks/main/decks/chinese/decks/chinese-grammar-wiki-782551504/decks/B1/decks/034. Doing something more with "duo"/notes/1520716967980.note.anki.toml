@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Doing something more with "duo"'
+english = 'If you want to improve your speaking Chinese, you need to practice more.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '多 + Verb'
+hanzi = '想提高汉语口语，就要多练习。'
+notes = ''
+pinyin = 'Xiǎng tígāo Hànyǔ kǒuyǔ, jiùyào duō liànxí.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGLKGZP'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "when" with "de shihou"'
+english = "Do you talk on the phone when you're driving?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Time Word + 的 时候, ....'
+hanzi = '你开车的时候会打电话吗？'
+notes = ''
+pinyin = 'Nǐ kāichē de shíhou huì dǎ diànhuà ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWN185'

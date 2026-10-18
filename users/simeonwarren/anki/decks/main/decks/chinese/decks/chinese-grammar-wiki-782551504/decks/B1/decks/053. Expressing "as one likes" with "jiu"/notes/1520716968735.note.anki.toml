@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "as one likes" with "jiu"'
+english = 'If you want to come, come.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '想 + Verb (+ Obj.) + 就 + Verb (+ Obj.)'
+hanzi = '你想来就来。'
+notes = ''
+pinyin = 'Nǐ xiǎng lái jiù lái.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDUZ55'

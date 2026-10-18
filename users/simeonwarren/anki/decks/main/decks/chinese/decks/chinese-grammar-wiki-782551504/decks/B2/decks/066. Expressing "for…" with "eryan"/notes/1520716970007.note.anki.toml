@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "for…" with "eryan"'
+english = 'For a people group, staying together can defeat everything else.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '对 + Party + 而言 ，⋯⋯'
+hanzi = '对一个民族而言，团结可以战胜一切。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGD2A08'

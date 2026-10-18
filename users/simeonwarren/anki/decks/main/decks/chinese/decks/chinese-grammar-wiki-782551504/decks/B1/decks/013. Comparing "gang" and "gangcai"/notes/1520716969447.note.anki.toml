@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "TimeWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "gang" and "gangcai"'
+english = 'I also just heard this news.'
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = '刚 + Adj.'
+hanzi = '我也是刚听说这个消息。'
+notes = 'The verb 听说 includes a clear enough indication of result.'
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJFFWG'

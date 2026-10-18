@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'However, with his precocity, it is very unlikely that he has a second-class qualification, and it is very likely that he is a first-class qualification.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '不过他这样的早慧,乙等资质的可能性不大,极有可能就是甲等。'
+notes = ''
+pinyin = ''
+source = ''

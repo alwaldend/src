@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing comparable degree with "you"'
+english = 'Is the effect of this medicine that great? Really?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A + 有 (+ B) + 这么 / 那么 + Adj. + 吗 ？'
+hanzi = '这个药的效果有这么好吗？'
+notes = ''
+pinyin = 'Zhège yào de xiàoguǒ yǒu zhème hǎo ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5DG95'

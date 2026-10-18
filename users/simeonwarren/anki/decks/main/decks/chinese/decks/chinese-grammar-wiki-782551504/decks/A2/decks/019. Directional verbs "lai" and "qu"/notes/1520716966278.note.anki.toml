@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Directional verbs "lai" and "qu"'
+english = 'Is the boss coming into the office today?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '来 / 去 + Place'
+hanzi = '老板今天来公司吗？'
+notes = ''
+pinyin = 'Lǎobǎn jīntiān lái gōngsī ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGRBKSL'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Sequencing with "xian" and "zai"'
+english = "You guys discuss a little first, then we'll talk."
+example-sentence = ''
+example-type = ''
+grammar-construct = '先 + [Verb Phrase] + 再说'
+hanzi = '你们先讨论一下再说。'
+notes = ''
+pinyin = 'Nǐmen xiān tǎolùn yīxià zàishuō.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGLJM55'

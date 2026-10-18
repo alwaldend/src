@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Turning adjectives into adverbs'
+english = 'We comfortably laid down here.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Adj. + 地 + Verb'
+hanzi = '我们舒服地躺在那里。'
+notes = ''
+pinyin = 'Wǒmen shūfu de tǎng zài nàlǐ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMAFSX'

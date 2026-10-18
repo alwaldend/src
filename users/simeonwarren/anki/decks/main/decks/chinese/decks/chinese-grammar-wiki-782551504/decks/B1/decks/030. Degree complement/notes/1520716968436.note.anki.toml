@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Degree complement'
+english = 'She is unattractive.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '她长得不好看。'
+notes = ''
+pinyin = 'Tā zhǎng de bù hǎokàn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG79STE'

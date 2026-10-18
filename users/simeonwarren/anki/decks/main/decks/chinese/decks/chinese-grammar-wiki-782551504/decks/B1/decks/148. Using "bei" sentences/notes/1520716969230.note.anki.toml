@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "bei" sentences'
+english = 'My house got stolen.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '我家被偷了。'
+notes = ''
+pinyin = 'Wǒ jiā bèi tōu le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGHF9F1'

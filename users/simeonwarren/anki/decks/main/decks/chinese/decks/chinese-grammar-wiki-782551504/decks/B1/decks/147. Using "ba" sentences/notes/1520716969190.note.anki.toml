@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "ba" sentences'
+english = 'He put his dirty laundry under his bed.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 把 + Obj. + [Verb Phrase]'
+hanzi = '他把脏衣服放在床下面了。'
+notes = ''
+pinyin = 'Tā bǎ zāng yīfu fàng zài chuáng xiàmiàn le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG2UB2B'

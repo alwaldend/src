@@ -1,0 +1,13 @@
+note_type = "note_types/python-basic-and-reversed.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+additional-info = '<span style="background-color: rgb(255, 255, 255);"><strong>Note:</strong>&nbsp;All string methods returns new values. They do not change the original string.</span>'
+answer = '<i>string</i>.capitalize()'
+example = ''
+question = '<b>String method</b> that converts the first character of a string to upper case.'
+version = ''
+with-options = ''

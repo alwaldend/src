@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Grammatical_Structures", "IfStatements"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "what if" with "wanyi"'
+english = 'I need to write it down. In case I forget, I can look it up.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '万一 ⋯⋯ ，⋯⋯'
+hanzi = '我要记下来，万一忘了，可以查。'
+notes = ''
+pinyin = 'Wǒ yào jì xiàlái, wànyī wàng le, kěyǐ chá.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG25773'

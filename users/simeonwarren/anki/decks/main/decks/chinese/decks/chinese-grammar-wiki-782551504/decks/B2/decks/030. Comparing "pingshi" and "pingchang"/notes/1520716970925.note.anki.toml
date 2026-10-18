@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "TimeWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "pingshi" and "pingchang"'
+english = "I usually don't eat snacks."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 平常 + Verb'
+hanzi = '我平常不吃零食。'
+notes = ''
+pinyin = '<div>Wǒ píngcháng bù chī língshí.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJOGGG'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Potential complement'
+english = "It's too dim here. I can't see clearly."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 不 + Complement'
+hanzi = '这里太暗了，我看不清楚。'
+notes = ''
+pinyin = 'Zhèlǐ tài àn le, wǒ kàn bu qīngchu.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCPJPQ'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Auxiliaryverbs", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "yao" and "xiang"'
+english = 'He wants to help you find a better job.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 想要 + Noun / Verb'
+hanzi = '他想要帮你找一个更好的工作。'
+notes = ''
+pinyin = 'Tā xiǎngyào bāng nǐ zhǎo yī gè gèng hǎo de gōngzuò.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGD88UO'

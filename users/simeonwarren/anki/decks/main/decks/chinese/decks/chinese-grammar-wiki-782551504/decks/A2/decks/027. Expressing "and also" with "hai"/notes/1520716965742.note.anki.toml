@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "and also" with "hai"'
+english = 'To go to the USA, you need to take money and a passport. What else do you need to take with you?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + Obj. 1， 还 + Verb + Obj. 2'
+hanzi = '去美国要带钱、护照，还要带什么？'
+notes = ''
+pinyin = 'Qù Měiguó yào dài qián, hùzhào, hái yào dài shénme?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJBZKC'

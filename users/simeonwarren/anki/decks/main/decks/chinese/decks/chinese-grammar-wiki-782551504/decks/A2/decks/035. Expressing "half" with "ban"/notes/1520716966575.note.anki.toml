@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Grammatical_Structures", "NumbersandMeasureWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "half" with "ban"'
+english = 'half a bowl of rice'
+example-sentence = ''
+example-type = ''
+grammar-construct = '半 + Measure Word + Noun'
+hanzi = '半碗米饭'
+notes = ''
+pinyin = 'bàn wǎn mǐfàn'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGAC1P9'

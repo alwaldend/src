@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'now;	this moment.'
+example-sentence = '此时牢牢包围着方源,有的在咆哮,有的在冷笑,有的双眼眯起闪着警惕的光,有的捂着伤口恐惧地望着'
+example-type = ''
+grammar-construct = ''
+hanzi = '此时'
+notes = ''
+pinyin = '<span class="tone3">cǐ</span><span class="tone2">shí</span>	 <!-- ci shi -->'
+source = ''

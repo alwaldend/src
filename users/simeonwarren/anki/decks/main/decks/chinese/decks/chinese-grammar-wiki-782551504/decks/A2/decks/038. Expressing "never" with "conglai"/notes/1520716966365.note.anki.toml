@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "never" with "conglai"'
+english = 'A lot of Chinese people have never been abroad.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 从来 + 没(有) + Verb + 过'
+hanzi = '很多中国人从来没出过国。'
+notes = ''
+pinyin = 'Hěn duō Zhōngguó rén cónglái méi chū  guo guó.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8NM5E'

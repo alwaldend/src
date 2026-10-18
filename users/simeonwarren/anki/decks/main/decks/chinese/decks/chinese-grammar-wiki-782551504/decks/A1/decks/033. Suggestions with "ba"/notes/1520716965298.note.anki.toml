@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Suggestions with "ba"'
+english = 'Boss, can you make it cheaper?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Command + 吧'
+hanzi = '老板，便宜一点吧。'
+notes = 'This is more of a request, made to a shopkeeper.'
+pinyin = 'Lǎobǎn, piányi yīdiǎn ba.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMPZ6D'

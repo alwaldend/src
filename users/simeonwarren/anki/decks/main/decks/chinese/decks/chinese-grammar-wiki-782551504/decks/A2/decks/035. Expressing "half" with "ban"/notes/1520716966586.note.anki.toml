@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Grammatical_Structures", "NumbersandMeasureWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "half" with "ban"'
+english = 'half a day'
+example-sentence = ''
+example-type = 'invalid'
+grammar-construct = '半 + 天 / 年'
+hanzi = '半个天'
+notes = ''
+pinyin = 'bàn gè tiān'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGAC1P9'

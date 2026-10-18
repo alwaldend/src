@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Grammatical_Structures", "NumbersandMeasureWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "half" with "ban"'
+english = 'one and a half bottles of wine'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Number + Measure Word + 半 + Noun'
+hanzi = '一瓶半白酒'
+notes = ''
+pinyin = 'yī píng bàn báijiǔ'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGAC1P9'

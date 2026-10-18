@@ -1,0 +1,13 @@
+note_type = "note_types/python-basic-and-reversed.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+additional-info = 'Reversed object must be converted from type&nbsp;<i>reverse.</i>'
+answer = '<b>Built in function: </b>reversed(<i>iterable</i>)'
+example = ''
+question = '<b>Built in function</b>&nbsp;that returns a reversed object from an iterable.'
+version = ''
+with-options = ''

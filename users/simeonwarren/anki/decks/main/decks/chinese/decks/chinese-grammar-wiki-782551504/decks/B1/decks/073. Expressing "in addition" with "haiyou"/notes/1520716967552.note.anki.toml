@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "in addition" with "haiyou"'
+english = 'You need to finish this report today. In addition, print three copies before the meeting tomorrow.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '⋯⋯ ，还有 ，⋯⋯'
+hanzi = '今天要做完这个报告。还有，明天开会前打印三份。'
+notes = ''
+pinyin = 'Jīntiān yào zuò wán zhège bàogào. Háiyǒu, míngtiān kāihuì qián dǎyìn sān fèn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGHQRI1'

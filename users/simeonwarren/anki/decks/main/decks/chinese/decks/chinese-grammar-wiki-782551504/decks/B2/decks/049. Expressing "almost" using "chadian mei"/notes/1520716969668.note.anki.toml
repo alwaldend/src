@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "almost" using "chadian mei"'
+english = "The waiting line is too long. I almost didn't get it."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 差点 + 没 + Verb Phrase'
+hanzi = '排队的人太多了，差点儿没买到。'
+notes = 'I did get it.'
+pinyin = 'Páiduì de rén tài duō le, chàdiǎnr méi mǎidào.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGGOUJB'

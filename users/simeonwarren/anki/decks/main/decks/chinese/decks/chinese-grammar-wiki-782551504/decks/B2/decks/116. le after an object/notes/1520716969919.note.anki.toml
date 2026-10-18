@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'le after an object'
+english = 'Mom found a new job.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 了 + Obj.'
+hanzi = '妈妈找到了新工作。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG4K5WH'

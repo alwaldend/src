@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "dui" with verbs'
+english = 'He always lies to his teachers.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 对 + Person + Verb'
+hanzi = '他总是对老师撒谎。'
+notes = ''
+pinyin = 'Tā zǒngshì duì lǎoshī sāhuǎng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8ICO9'

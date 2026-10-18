@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "originally" with "benlai"'
+english = "He has always liked joking around, so don't take it personally."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 本来 + 就...'
+hanzi = '他本来就很喜欢开玩笑，你别介意。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG6F157'

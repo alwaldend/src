@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "small quantity" with "jiu"'
+english = "I'm the only person that knows about this."
+example-sentence = ''
+example-type = ''
+grammar-construct = '就 + Subj. + Predicate'
+hanzi = '这件事就我知道。'
+notes = ''
+pinyin = 'Zhè jiàn shì jiù wǒ zhīdào.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPW8PP'

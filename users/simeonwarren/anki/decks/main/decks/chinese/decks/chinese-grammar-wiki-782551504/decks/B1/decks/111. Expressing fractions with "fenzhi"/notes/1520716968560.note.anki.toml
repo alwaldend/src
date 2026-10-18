@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "NounPhrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing fractions with "fenzhi"'
+english = 'The grade of the final exam is 30% of total score.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A + 是 / 占 + B + 的 + Denominator + 分之 + Numerator'
+hanzi = '期末考试成绩占总成绩的百分之三十。'
+notes = ''
+pinyin = 'Qīmò kǎoshì chéngjì zhàn zǒng chéngjì de bǎi fēn zhī sānshí.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG84RE9'

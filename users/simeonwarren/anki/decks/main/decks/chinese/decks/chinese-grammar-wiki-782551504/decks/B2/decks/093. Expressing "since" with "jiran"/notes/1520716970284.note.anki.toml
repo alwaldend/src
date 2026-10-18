@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Cause/EffectStatements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "since" with "jiran"'
+english = 'Since you like it so much, buy it then.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '既然＋Fact, 那 / 就 / 那就＋Suggestion / Inference'
+hanzi = '既然你那么喜欢，那就买吧。'
+notes = 'a suggestion)'
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGG4BX9'

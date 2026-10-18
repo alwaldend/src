@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "not very" with "bu zenme"'
+english = "He and his parents don't look very much alike."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不怎么 + Adj. / [Psychological Verb]'
+hanzi = '他跟他父母长得不怎么像。'
+notes = ''
+pinyin = 'Tā gēn tā fùmǔ zhǎng de bù zěnme xiàng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGVYIZT'

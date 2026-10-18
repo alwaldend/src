@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "bu" and "mei"'
+english = "I don't have a way."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 没有 + Obj.'
+hanzi = '我没有办法。'
+notes = ''
+pinyin = 'Wǒ méiyǒu bànfǎ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGRJ1BI'

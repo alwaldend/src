@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Indicating the whole with "quan"'
+english = 'None of us will be home this weekend.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 全都 + 不 / 没 + Predicate'
+hanzi = '这个周末我们全都不在家。'
+notes = ''
+pinyin = 'Zhège zhōumò wǒmen quán dōu bù zài jiā.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCPDSR'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'here.'
+example-sentence = '这里早已经布下天罗地网,这次你必定身首异处'
+example-type = ''
+grammar-construct = ''
+hanzi = '这里'
+notes = ''
+pinyin = '<span class="tone4">zhè</span><span class="tone5">lǐzhè</span><span class="tone3">lǐ</span>	 <!-- zhe li zhe li -->'
+source = ''

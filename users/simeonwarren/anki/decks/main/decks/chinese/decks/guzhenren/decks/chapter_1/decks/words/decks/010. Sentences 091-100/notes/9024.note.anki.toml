@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = "to take good care of (or conserve) one's health;\tto keep in good repair;\tto maintain;\tmaintenance."
+example-sentence = ' 旋即,咳嗽一声,对诸位家老们道: 诸位,时候不早了,为了明日的开窍大殿,今晚请务必好好休息,保养精神'
+example-type = ''
+grammar-construct = ''
+hanzi = '保养'
+notes = ''
+pinyin = '<span class="tone3">bǎo</span><span class="tone3">yǎng</span>	 <!-- bao yang -->'
+source = ''

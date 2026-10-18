@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Potential complement'
+english = "This shirt is too dirty, I can't clean it."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 不 + Complement'
+hanzi = '这件衬衫太脏了，我洗不干净。'
+notes = ''
+pinyin = 'Zhè jiàn chènshān tài zāng le, wǒ xǐ bu gānjìng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCPJPQ'

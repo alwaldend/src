@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "SeparateFunctions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = "Comparing \"fan'er\" and \"xiangfan\""
+english = "The boss didn't get angry, but praised me instead."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Expectation，反而 + The Opposite of Expectation'
+hanzi = '老板没有生气，反而表扬了我。'
+notes = ''
+pinyin = "<div>Lǎobǎn méiyǒu shēngqì, fǎn'ér biǎoyángle wǒ.</div>"
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGFNS52'

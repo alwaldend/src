@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'After a specific time with "yihou"'
+english = 'We are going to have a meeting after we finish lunch.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Time / Verb + 以后, ....'
+hanzi = '吃完午饭以后，我们要开会。'
+notes = ''
+pinyin = 'Chī wán wǔfàn  yǐhòu, wǒmen yào kāihuì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGRLQGY'

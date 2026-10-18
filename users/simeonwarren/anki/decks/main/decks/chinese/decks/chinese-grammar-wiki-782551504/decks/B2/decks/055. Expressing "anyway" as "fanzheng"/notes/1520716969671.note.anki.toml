@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "anyway" as "fanzheng"'
+english = "Go wherever you want. I don't really care anyway."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Disregarded Situation， 反正⋯⋯'
+hanzi = '你想去哪儿就去哪儿吧，反正我无所谓。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGZVM27'

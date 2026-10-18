@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Softening the tone of questions with "ne"'
+english = 'Should we play computer games or go to the bar? I can do either!'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Option 1 + 呢 + 还是 + Option 2 + 呢？'
+hanzi = '咱们打游戏呢，还是泡吧呢，我都可以！'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGW7YXP'

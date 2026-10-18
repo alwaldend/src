@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "TimeWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "yihou" "ranhou" "houlai"'
+english = 'will come back in an hour.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '我一个小时以后回来。'
+notes = ''
+pinyin = 'Wǒ yī gè xiǎoshí yǐhòu huílái.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNPJ7T'

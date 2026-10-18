@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adjectives", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Saying "a lot" with "youdeshi"'
+english = "I have a lot of spare change, you don't need to give me change."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun + Subj. + 有的是 。'
+hanzi = '他爸是大老板，有的是钱。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGVACYB'

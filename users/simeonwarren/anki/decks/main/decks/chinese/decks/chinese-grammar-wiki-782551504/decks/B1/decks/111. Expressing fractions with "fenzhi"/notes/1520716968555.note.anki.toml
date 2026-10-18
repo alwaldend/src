@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "NounPhrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing fractions with "fenzhi"'
+english = 'Three fifths of this article is a copy from other people.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Denominator + 分之 + Numerator'
+hanzi = '这篇文章有五分之三是抄别人的。'
+notes = ''
+pinyin = 'Zhè piān wénzhāng yǒu wǔ fēn zhī sān shì chāo biérén de.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG84RE9'

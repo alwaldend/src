@@ -1,0 +1,13 @@
+note_type = "note_types/python-basic-and-reversed.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<i>set</i>.difference_update(<i>set</i>)'
+example = ''
+question = '<b>Set method</b> that removes the items in the called on set that are also in the argument set.'
+version = ''
+with-options = ''

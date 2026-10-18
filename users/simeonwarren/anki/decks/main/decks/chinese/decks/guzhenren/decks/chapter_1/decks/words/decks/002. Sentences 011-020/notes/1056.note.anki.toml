@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'early youth;	youngster;	(literary) youth;	young man.'
+example-sentence = ' 围攻他的正道群雄,不是堂堂一派之长者尊贵,就是名动四方之少年英豪'
+example-type = ''
+grammar-construct = ''
+hanzi = '少年'
+notes = ''
+pinyin = '<span class="tone4">shào</span><span class="tone2">nián</span>	 <!-- shao nian -->'
+source = ''

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "all the way until" with "zhidao"'
+english = "It wasn't until he went to Beijing that he understood how hard it is to be alone in a big city."
+example-sentence = ''
+example-type = ''
+grammar-construct = '直到 + Time / Event ，Subj. + 才 ⋯⋯'
+hanzi = '直到去了北京，他才知道一个人在大城市多辛苦。'
+notes = ''
+pinyin = 'Zhídào qù le Běijīng, tā cái zhīdào yīgèrén zài dà chéngshì duō xīnkǔ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGC6E1C'

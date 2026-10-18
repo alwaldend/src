@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "SeparateFunctions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "kending" "queding" and "yiding"'
+english = "We still haven't decided when to start."
+example-sentence = ''
+example-type = ''
+grammar-construct = '确定 +  Phrase / Sentence'
+hanzi = '我们还没有确定什么时候开始。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDPS0J'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Direction complement'
+english = "It's too cold here in winter. I need you to bring me some thick clothes."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + [Compound Direction Complement]'
+hanzi = '这儿的冬天太冷了，我需要你带一些厚衣服过来。'
+notes = ''
+pinyin = 'Zhèr de dōngtiān tài lěng le, wǒ xūyào nǐ dài yīxiē hòu yīfu guòlái.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8LWBJ'

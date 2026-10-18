@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Basics", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Simple "noun + adjective" sentences'
+english = 'He is happy.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun + 很 + Adj.'
+hanzi = '他很高兴。'
+notes = ''
+pinyin = 'Tā hěn gāoxìng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG17BLH'

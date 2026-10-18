@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "TimeWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "yihou" and "de shihou"'
+english = "After work, we're going to go eat together."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 以后／的时候， Comment'
+hanzi = '下班以后我们一起去吃饭。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGLNKZR'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Parts_of_Speech", "Pronouns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "bici" and "duifang"'
+english = 'It would make them very uncomfortable for you to speak like that.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '对方 + Verb Phrase'
+hanzi = '你那样说会让对方很不舒服的。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG84D65'

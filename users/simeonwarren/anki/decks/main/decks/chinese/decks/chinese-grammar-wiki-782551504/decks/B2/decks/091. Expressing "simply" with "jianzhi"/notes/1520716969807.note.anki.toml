@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "simply" with "jianzhi"'
+english = 'They are basically stealing our creativity.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 简直 + 是(在) + Predicate'
+hanzi = '他们简直就是在抄我们的创意。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8OLAE'

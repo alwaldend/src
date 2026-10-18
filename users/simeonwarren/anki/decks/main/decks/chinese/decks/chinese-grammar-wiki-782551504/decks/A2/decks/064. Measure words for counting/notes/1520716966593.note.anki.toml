@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Grammatical_Structures", "NumbersandMeasureWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Measure words for counting'
+english = 'three fish'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Number + Measure Word + Noun'
+hanzi = '三条鱼'
+notes = ''
+pinyin = 'sān tiáo yú'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG64BTE'

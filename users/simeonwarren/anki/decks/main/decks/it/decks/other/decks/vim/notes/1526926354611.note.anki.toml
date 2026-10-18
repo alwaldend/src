@@ -1,0 +1,12 @@
+note_type = "note_types/basic.notetype.anki.toml"
+tags = ["Editing"]
+
+[[cards]]
+ordinal = 0
+
+[[cards]]
+ordinal = 1
+
+[fields]
+Back = 'gwip &nbsp; “ go wrap in paragraph'
+Front = 'Reflow Paragraph, especially code comments, and keep cursor in the same location&nbsp;'

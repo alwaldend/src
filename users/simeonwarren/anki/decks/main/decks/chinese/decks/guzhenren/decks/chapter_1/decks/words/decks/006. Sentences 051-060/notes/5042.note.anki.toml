@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'same;	equal;	equivalent.'
+example-sentence = ' 在他的身后,也同样跪着十余人'
+example-type = ''
+grammar-construct = ''
+hanzi = '同样'
+notes = ''
+pinyin = '<span class="tone2">tóng</span><span class="tone4">yàng</span>	 <!-- tong yang -->'
+source = ''

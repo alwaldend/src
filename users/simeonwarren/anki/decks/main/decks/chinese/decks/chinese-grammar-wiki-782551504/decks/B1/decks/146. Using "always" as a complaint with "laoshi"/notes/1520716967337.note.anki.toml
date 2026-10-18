@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "always" as a complaint with "laoshi"'
+english = 'This teacher is always very serious.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 老是 + Adv. + Adj.'
+hanzi = '这个老师老是很严肃。'
+notes = ''
+pinyin = 'Zhège lǎoshī lǎoshì hěn yánsù.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGII66E'

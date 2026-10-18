@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'surname Guo;	to cross;	to go over;	to pass (time);	to celebrate (a holiday);	to live;	to get along;	excessively;	too-.<br>(experienced action marker).<br>'
+example-sentence = '  时间过的真是太快了,一眨眼,一年就都过去了'
+example-type = ''
+grammar-construct = ''
+hanzi = '过'
+notes = ''
+pinyin = '<span class="tone5">guòguo</span>	 <!-- guo guo -->'
+source = ''

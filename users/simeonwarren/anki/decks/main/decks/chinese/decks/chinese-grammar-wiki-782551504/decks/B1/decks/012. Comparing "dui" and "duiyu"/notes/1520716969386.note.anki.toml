@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "dui" and "duiyu"'
+english = "These two accounts don't match up."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 对着／对上／对不上'
+hanzi = '这两本账对不上。'
+notes = ''
+pinyin = '<div>Zhè liǎng běn zhàng duì bù shàng.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG3JELV'

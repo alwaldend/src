@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "TimeWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "pingshi" and "pingchang"'
+english = 'Do you usually work out?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 平常 + Verb'
+hanzi = '你平常会健身吗？'
+notes = ''
+pinyin = '<div>Nǐ píngcháng huì jiànshēn ma?</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJOGGG'

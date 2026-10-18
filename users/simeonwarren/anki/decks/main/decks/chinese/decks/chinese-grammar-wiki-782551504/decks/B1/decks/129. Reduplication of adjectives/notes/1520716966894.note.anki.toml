@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Reduplication of adjectives'
+english = 'peaceful'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A  A  B  B  + 的 (+ Noun)'
+hanzi = '安静→安安静静'
+notes = ''
+pinyin = 'ānjìng ￫ ān ān jìng jìng'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDHE8S'

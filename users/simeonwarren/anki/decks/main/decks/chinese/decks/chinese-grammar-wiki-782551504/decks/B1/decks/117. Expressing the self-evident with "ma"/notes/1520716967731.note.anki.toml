@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing the self-evident with "ma"'
+english = "Don't worry. You can learn while you work."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Statement + 嘛'
+hanzi = '别担心，一边工作一边学嘛。'
+notes = ''
+pinyin = 'Bié dānxīn, yībiān gōngzuò yībiān xué ma.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGVMC4B'

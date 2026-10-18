@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Standard negation with "bu"'
+english = "I don't want to work today."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不 + Verb + Obj.'
+hanzi = '我今天不想工作。'
+notes = ''
+pinyin = 'Wǒ jīntiān bù xiǎng gōngzuò.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGIPYFV'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "Conjunctions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "weile" and "yinwei"'
+english = ''
+example-sentence = ''
+example-type = 'invalid'
+grammar-construct = '因为 + Reason，所以 + result'
+hanzi = '因为让妹妹上学，他出去打工。'
+notes = ''
+pinyin = '<div>Yīnwèi ràng mèimei shàngxué, tā chūqù dǎgōng.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMEC1P'

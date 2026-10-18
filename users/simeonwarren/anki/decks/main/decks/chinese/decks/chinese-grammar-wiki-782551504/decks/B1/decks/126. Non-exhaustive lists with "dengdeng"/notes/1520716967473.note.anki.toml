@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["AuxiliaryWords", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Non-exhaustive lists with "dengdeng"'
+english = 'WTO, WHO and so on are all international organizations.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A1，A2⋯⋯等 + [Category]'
+hanzi = 'WTO,WHO等组织都是国际组织。'
+notes = ''
+pinyin = 'WTO, WHO děng zǔzhī dōu shì guójì zǔzhī.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGF763H'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "only" with "zhi"'
+english = 'Do you only like eating meat?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '只 + 会 / 能 + Verb'
+hanzi = '你只爱吃肉吗？'
+notes = ''
+pinyin = 'Nǐ zhǐ ài chī ròu ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGN8C8R'

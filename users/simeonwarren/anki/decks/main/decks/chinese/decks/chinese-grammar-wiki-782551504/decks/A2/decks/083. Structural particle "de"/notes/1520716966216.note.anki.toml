@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Structural particle "de"'
+english = 'angrily say'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Adj. + 地 +  Verb'
+hanzi = '生气地说'
+notes = ''
+pinyin = 'shēngqì de shuō'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5MOMM'

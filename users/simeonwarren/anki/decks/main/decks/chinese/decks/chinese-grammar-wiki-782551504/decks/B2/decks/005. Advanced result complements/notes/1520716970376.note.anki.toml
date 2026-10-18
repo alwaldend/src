@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Advanced result complements'
+english = 'What good ideas can you come up with?'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '你能想出什么好办法？'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG4OM4T'

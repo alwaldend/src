@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Potential complement'
+english = 'Can you finish eating this big bowl of noodles?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 不 + Complement'
+hanzi = '这一大碗面你吃得完吗？'
+notes = ''
+pinyin = '<div>Zhè yī dà wǎn miàn nǐ chī dé wán ma?</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCPJPQ'

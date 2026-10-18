@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "including" with "baokuo"'
+english = 'He finds many topics of conversation interesting, including politics.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 包括 + Obj.1 ( , + Obj.2, Obj.3 ... )'
+hanzi = '他对很多话题都很感兴趣，包括政治。'
+notes = ''
+pinyin = 'Tā duì hěn duō huàtí dōu hěn gǎn xìngqù, bāokuò zhèngzhì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG50341'

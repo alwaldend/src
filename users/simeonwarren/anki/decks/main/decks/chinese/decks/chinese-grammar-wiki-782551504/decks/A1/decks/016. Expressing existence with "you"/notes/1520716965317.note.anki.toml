@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing existence with "you"'
+english = 'Your number is in my cell phone.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Place + 有 + Obj.'
+hanzi = '我的手机里有你的号码。'
+notes = ''
+pinyin = 'Wǒ de shǒujī lǐ yǒu nǐ de hàomǎ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG04ZCI'

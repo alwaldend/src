@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "toward" with "wang"'
+english = 'Stop calling my house!'
+example-sentence = ''
+example-type = ''
+grammar-construct = '往 + Direction / Place + Verb'
+hanzi = '不要往我家打电话了！'
+notes = ''
+pinyin = 'Bùyào wǎng wǒ jiā dǎ diànhuà le!'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGAD070'

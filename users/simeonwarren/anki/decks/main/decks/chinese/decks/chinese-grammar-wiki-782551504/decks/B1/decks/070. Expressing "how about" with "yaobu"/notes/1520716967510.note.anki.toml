@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "how about" with "yaobu"'
+english = "How about we go together? It's no fun to go by myself."
+example-sentence = ''
+example-type = ''
+grammar-construct = '要不 + Option B + 吧 ，Reason / Situation'
+hanzi = '要不我们一起去吧，一个人去没意思。'
+notes = ''
+pinyin = 'Yàobù wǒmen yīqǐ qù ba, yīgèrén qù méi yìsi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDFQP7'

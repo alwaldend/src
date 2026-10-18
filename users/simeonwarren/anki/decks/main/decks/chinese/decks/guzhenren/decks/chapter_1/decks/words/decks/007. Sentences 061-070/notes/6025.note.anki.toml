@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'rapid;	quick;	speed;	rate;	soon;	almost;	to make haste;	clever;	sharp (of knives or wits);	forthright;	plainspoken;	gratified;	pleased;	pleasant.'
+example-sentence = '  时间过的真是太快了,一眨眼,一年就都过去了'
+example-type = ''
+grammar-construct = ''
+hanzi = '快'
+notes = ''
+pinyin = '<span class="tone4">kuài</span>	 <!-- kuai -->'
+source = ''

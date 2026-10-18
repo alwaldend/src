@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Degree complement'
+english = 'Discovering that his son was fighting with his classmate again incensed father.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '发现儿子又跟同学打架，爸爸气坏了。'
+notes = ''
+pinyin = 'Fāxiàn érzi yòu gēn tóngxué dǎjià, bàba qì  huài le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG79STE'

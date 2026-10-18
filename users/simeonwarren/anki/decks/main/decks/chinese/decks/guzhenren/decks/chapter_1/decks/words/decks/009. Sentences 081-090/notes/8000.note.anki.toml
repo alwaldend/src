@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'now;	at present;	at the moment;	modern;	current;	nowadays.'
+example-sentence = '可惜就是父母死的早,现在被其舅父舅母抚养着'
+example-type = ''
+grammar-construct = ''
+hanzi = '现在'
+notes = ''
+pinyin = '<span class="tone4">xiàn</span><span class="tone4">zài</span>	 <!-- xian zai -->'
+source = ''

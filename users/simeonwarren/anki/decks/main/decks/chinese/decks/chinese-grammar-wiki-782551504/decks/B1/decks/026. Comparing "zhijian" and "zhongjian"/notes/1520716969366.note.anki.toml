@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "Nouns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "zhijian" and "zhongjian"'
+english = 'There should be plenty of communication between parents and children.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun 1 + 和 + Noun 2 + 之间'
+hanzi = '父母和孩子之间应该多交流。'
+notes = ''
+pinyin = '<div>Fùmǔ hé háizǐ zhī jiān yīnggāi duō jiāoliú.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGN6O6J'

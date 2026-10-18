@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Directional verbs "lai" and "qu"'
+english = 'Dad will go to Beijing on a business trip tomorrow.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '来 / 去 + Place'
+hanzi = '爸爸明天去北京出差。'
+notes = ''
+pinyin = 'Bàba míngtiān qù Běijīng chūchāi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGRBKSL'

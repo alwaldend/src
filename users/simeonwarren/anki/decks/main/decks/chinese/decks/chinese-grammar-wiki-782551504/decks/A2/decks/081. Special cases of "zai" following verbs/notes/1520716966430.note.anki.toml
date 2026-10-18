@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Special cases of "zai" following verbs'
+english = 'He sits next to the boss.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + [Special Verb] + 在 + Location'
+hanzi = '他坐在老板的旁边。'
+notes = ''
+pinyin = 'Tā zuò zài  lǎobǎn de pángbiān.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG90DXK'

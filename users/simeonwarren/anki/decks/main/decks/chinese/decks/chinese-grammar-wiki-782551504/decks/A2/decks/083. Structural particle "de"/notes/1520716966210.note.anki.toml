@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Structural particle "de"'
+english = "my girlfriend's company"
+example-sentence = ''
+example-type = ''
+grammar-construct = '的 + Noun'
+hanzi = '我女朋友的公司'
+notes = ''
+pinyin = 'wǒ nǚpéngyou de gōngsī'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5MOMM'

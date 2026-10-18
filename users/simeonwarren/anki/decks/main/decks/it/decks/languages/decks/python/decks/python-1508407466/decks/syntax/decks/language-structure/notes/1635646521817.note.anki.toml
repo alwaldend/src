@@ -1,0 +1,13 @@
+note_type = "note_types/python-basic.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+'Additional Info' = ''
+'Back - Basic' = ''
+'Back - Code' = 'x += y'
+Example = ''
+Front = 'How would you add list&nbsp;<i>y</i>&nbsp;to list <i>x&nbsp;</i>using mathematical operators?'
+Version = ''

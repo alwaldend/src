@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Basics", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Simple "noun + adjective" sentences'
+english = 'Chinese is difficult.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun + 很 + Adj.'
+hanzi = '中文很难。'
+notes = ''
+pinyin = 'Zhōngwén hěn nán.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG17BLH'

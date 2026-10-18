@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'guilt;	crime;	fault;	blame.'
+example-sentence = '你已经犯下了滔天的罪孽,罪无可恕,罄竹难书'
+example-type = ''
+grammar-construct = ''
+hanzi = '罪'
+notes = ''
+pinyin = '<span class="tone5">zuì</span>	 <!-- zui zui -->'
+source = ''

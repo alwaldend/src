@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Negation of "you" with "mei"'
+english = 'Does your dad not have a cell phone?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '没 + 有 (+ Obj.)'
+hanzi = '你爸爸没有手机吗？'
+notes = ''
+pinyin = 'Nǐ bàba méiyǒu shǒujī ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPNV3Q'

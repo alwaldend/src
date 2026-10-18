@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'to dare; daring; (polite) may I venture.'
+example-sentence = '  不敢'
+example-type = ''
+grammar-construct = ''
+hanzi = '敢'
+notes = ''
+pinyin = '<span class="tone3">gǎn</span>	 <!-- gan -->'
+source = ''

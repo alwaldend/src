@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "TimeWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "pingshi" and "pingchang"'
+english = 'The street cleaners are ordinary, but they are also very important.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '平常 + 的 + Noun'
+hanzi = '清洁工的工作很平常，但是也很重要。'
+notes = ''
+pinyin = '<div>Qīngjié gōng de gōngzuò hěn píngcháng, dànshì yě hěn zhòngyào.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJOGGG'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Placement of question words'
+english = 'what'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '什么'
+notes = ''
+pinyin = 'shénme'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJQPSC'

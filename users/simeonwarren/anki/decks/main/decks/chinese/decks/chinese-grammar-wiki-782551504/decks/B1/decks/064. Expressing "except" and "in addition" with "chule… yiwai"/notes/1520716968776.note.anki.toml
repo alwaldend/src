@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "except" and "in addition" with "chule… yiwai"'
+english = "Except for the price, we're satisfied with everything else."
+example-sentence = ''
+example-type = ''
+grammar-construct = '除了 ⋯⋯ (+ 以外) ，Subj. + 都 ⋯⋯'
+hanzi = '除了价格以外，其他方面我们都很满意。'
+notes = ''
+pinyin = 'Chúle jiàgé  yǐwài, qítā fāngmiàn wǒmen dōu hěn mǎnyì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGHFPGG'

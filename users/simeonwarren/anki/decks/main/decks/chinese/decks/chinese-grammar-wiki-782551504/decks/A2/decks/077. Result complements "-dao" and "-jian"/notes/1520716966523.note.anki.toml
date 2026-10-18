@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Result complements "-dao" and "-jian"'
+english = "I didn't see it."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 没 + Verb + 到 / 见 + Obj.'
+hanzi = '我没有看见。'
+notes = "We didn't say what \"I\" didn't see; you have to infer it from the context."
+pinyin = 'Wǒ méiyǒu kànjiàn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWNGEP'

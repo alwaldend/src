@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "dao" to mean "to go to"'
+english = 'I often go to Karaoke to sing songs with friends.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 到 + Place + Verb Phrase'
+hanzi = '我跟朋友经常到KTV唱歌。'
+notes = ''
+pinyin = 'Wǒ gēn péngyou jīngcháng dào KTV chànggē.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGLFX54'

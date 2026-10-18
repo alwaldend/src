@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "together" with "yiqi"'
+english = "Next month I'll go on a trip together with mom."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 一起 + Verb + Obj.'
+hanzi = '下个月我和妈妈一起去旅行。'
+notes = ''
+pinyin = 'Xià gè yuè wǒ hé māma  yīqǐ qù lǚxíng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNVE15'

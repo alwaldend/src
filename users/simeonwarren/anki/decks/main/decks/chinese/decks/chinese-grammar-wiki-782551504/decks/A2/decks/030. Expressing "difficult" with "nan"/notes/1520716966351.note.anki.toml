@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "difficult" with "nan"'
+english = 'The dishes you cook taste bad.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + (很) 难 + [Sense Verb]'
+hanzi = '你做的菜很难吃。'
+notes = ''
+pinyin = 'Nǐ zuò de cài hěn nánchī.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG35T4H'

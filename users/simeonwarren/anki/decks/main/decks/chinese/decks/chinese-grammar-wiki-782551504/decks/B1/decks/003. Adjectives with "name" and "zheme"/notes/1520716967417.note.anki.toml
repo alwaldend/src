@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["AdverbswithAdjectives", "B1", "leech", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Adjectives with "name" and "zheme"'
+english = "You're so smart. You can guess."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 那么 / 这么 + Adj.'
+hanzi = '你那么聪明，一定能猜到。'
+notes = ''
+pinyin = 'Nǐ nàme cōngming, yīdìng néng cāi dào.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNKKP6'

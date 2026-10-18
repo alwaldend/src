@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Advanced uses of "ba"'
+english = 'He saw 太 as 大.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '把 + Obj. 1 + Perception Verbs'
+hanzi = '他把"太"看成了"大"。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQRS3P'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "when" with "de shihou"'
+english = "Don't eat when you are in class."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Time Word + 的 时候, ....'
+hanzi = '上课的时候不要吃东西。'
+notes = ''
+pinyin = 'Shàngkè de shíhou bùyào chī dōngxi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWN185'

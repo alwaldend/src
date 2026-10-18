@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "except" and "in addition" with "chule… yiwai"'
+english = 'In addition to sports, what other hobbies do you have?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '除了 ⋯⋯ (+ 以外) ，Subj. + 也 / 还 ⋯⋯'
+hanzi = '除了运动以外，你还有什么爱好？'
+notes = ''
+pinyin = 'Chúle yùndòng yǐwài, nǐ hái yǒu shénme àihào?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGHFPGG'

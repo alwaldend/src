@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Actions in a row'
+english = "He doesn't want to go to the library and read."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + [Verb Phrase 1] + [Verb Phrase 2]'
+hanzi = '他不想去图书馆看书。'
+notes = ''
+pinyin = 'Tā bù xiǎng qù túshūguǎn kàn shū.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPRGAX'

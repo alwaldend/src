@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "some" with question words'
+english = 'You should come to my new house to hangout sometime.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '什么时候来我新家玩吧。'
+notes = ''
+pinyin = 'Shénme shíhou lái wǒ xīn jiā wán ba.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG7ED89'

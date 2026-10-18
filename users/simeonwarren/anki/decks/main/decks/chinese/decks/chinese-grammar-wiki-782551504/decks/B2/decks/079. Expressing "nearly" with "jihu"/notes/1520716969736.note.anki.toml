@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "nearly" with "jihu"'
+english = 'They spent almost all the money on this trip.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 几乎 + 不 / 没 + Predicate'
+hanzi = '这次旅行，他们几乎花了所有的钱。'
+notes = ''
+pinyin = 'Zhè cì lǚxíng tāmen jīhū huā le suǒyǒu de qián.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGVA70K'

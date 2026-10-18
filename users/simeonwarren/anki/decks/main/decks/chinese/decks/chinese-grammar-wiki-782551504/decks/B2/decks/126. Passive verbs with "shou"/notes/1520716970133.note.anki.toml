@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Passive verbs with "shou"'
+english = "He received the teacher's criticism because he didn't do well in the final exam."
+example-sentence = ''
+example-type = ''
+grammar-construct = '受 + (到/过) + ([Something / Someone]) + Noun / Verb'
+hanzi = '因为期末考试没考好，他受到了老师的批评。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG1DXUD'

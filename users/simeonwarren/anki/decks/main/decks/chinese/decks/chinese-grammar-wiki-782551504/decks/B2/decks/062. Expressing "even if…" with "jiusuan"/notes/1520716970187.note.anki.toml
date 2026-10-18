@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "EvenIfStatements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "even if…" with "jiusuan"'
+english = "I can't help you to do illegal things even if you gave me one million dollars."
+example-sentence = ''
+example-type = ''
+grammar-construct = '就算 + [Hypothetical Statement] + 也 + [Action]'
+hanzi = '就算你给我一百万，我也不能帮你做违法的事情。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGLI513'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "when" with "dengdao"'
+english = 'We never met till his death.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '直到 + Time Word / [Verb Phrase] ，Subj. + 都  + 不 / 没 + Predicate'
+hanzi = '直到他死，我们都没见过。'
+notes = ''
+pinyin = 'Zhídào tā sǐ, wǒmen dōu méi jiàn guo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG68F61'

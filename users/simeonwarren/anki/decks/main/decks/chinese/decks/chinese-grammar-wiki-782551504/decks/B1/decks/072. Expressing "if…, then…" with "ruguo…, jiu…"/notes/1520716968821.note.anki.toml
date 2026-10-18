@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "if…, then…" with "ruguo…, jiu…"'
+english = 'If he knew, he would definitely tell me.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '如果 ⋯⋯ ，那么 / 那 ⋯⋯'
+hanzi = '如果他知道，那他一定会告诉我。'
+notes = ''
+pinyin = 'Rúguǒ tā zhīdào, nà tā yīdìng huì gàosu wǒ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGGIVT0'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Advanced degree complements'
+english = 'Having heard his son was fighting with his classmate again, the father was incensed.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '听说儿子又跟同学打架了，爸爸气得不得了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG9E5BB'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing purpose with "weile"'
+english = 'The reason why he does a part time job is to make a little more money.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '⋯⋯ 是 + 为了 / 因为 ⋯⋯'
+hanzi = '他做兼职是为了多赚点钱。'
+notes = ''
+pinyin = 'Tā zuò jiānzhí shì wèile duō zhuàn diǎn qián.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQGJXT'

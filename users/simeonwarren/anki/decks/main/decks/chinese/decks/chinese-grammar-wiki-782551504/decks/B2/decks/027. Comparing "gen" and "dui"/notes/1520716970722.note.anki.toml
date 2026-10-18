@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "Conjunctions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "gen" and "dui"'
+english = 'Do you want to go with me?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 跟 / 对 + Obj.'
+hanzi = '你想跟我去吗？'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGC5Y86'

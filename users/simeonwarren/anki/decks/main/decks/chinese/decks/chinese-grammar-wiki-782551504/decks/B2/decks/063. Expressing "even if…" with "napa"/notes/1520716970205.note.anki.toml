@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "EvenIfStatements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "even if…" with "napa"'
+english = "Even if you dressed up like a movie star, he still wouldn't pay you the slightest attention!"
+example-sentence = ''
+example-type = ''
+grammar-construct = '哪怕 + [Hypothetical Statement] + 也 + [Action]'
+hanzi = '哪怕你打扮得像电影明星一样，他也不会看你一眼！'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGXX3NY'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Reduplication of verbs'
+english = 'Can I use your computer for a little bit?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 一 + Verb'
+hanzi = '我可以用一用你的电脑吗？'
+notes = ''
+pinyin = 'Wǒ kěyǐ yòng yī yòng nǐ de diànnǎo ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGYC77J'

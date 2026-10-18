@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'You have committed heinous crimes, unforgivable crimes, too numerous to write down!'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '你已经犯下了滔天的罪孽,罪无可恕,罄竹难书！'
+notes = ''
+pinyin = '<div>Nǐ yǐjīng fàn xiàle tāotiān de zuìniè, zuì wú kě shù, qìngzhúnánshū!</div>'
+source = ''

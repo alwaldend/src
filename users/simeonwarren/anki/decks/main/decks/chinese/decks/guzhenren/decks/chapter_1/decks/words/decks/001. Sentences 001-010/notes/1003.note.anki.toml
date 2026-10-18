@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = "with dishevelled hair (idiom);\twith one's hair down."
+example-sentence = '方源一身残破的碧绿大袍,披头散发,浑身浴血,环顾四周'
+example-type = ''
+grammar-construct = ''
+hanzi = '披头散发'
+notes = ''
+pinyin = '<span class="tone1">pī</span><span class="tone2">tóu</span><span class="tone4">sàn</span><span class="tone4">fà</span>	 <!-- pi tou san fa -->'
+source = ''

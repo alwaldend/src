@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'to freeze.'
+example-sentence = '尤其是白家的白凝冰,天资真是恐怖'
+example-type = ''
+grammar-construct = ''
+hanzi = '凝冰'
+notes = ''
+pinyin = '<span class="tone2">níng</span><span class="tone1">bīng</span>	 <!-- ning bing -->'
+source = ''

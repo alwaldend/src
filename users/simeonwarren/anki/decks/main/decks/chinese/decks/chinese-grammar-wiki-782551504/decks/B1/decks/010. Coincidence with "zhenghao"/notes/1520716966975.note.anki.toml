@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "leech", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Coincidence with "zhenghao"'
+english = 'The amount of salt you put was just right, not too salty and not too bland.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 得 + 正好'
+hanzi = '盐放得正好，不咸也不淡。'
+notes = ''
+pinyin = 'Yán fàng de zhènghǎo, bù xián yě bù dàn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGUD25J'

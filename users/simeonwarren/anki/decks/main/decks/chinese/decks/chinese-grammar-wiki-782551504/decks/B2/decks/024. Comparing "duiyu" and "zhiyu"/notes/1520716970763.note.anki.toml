@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "duiyu" and "zhiyu"'
+english = 'With such a small thing, why are you so angry?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '（不）至于 +  Degree'
+hanzi = '这点小事情，至于这么生气吗？'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGC01S0'

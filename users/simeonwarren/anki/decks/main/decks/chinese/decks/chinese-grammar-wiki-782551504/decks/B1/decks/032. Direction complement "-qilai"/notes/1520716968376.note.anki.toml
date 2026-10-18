@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Direction complement "-qilai"'
+english = "Don't move! Put your hands up."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 起来'
+hanzi = '别动！把手举起来。'
+notes = ''
+pinyin = 'Bié dòng! Bǎ shǒu jǔ qǐlái.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGBPXOB'

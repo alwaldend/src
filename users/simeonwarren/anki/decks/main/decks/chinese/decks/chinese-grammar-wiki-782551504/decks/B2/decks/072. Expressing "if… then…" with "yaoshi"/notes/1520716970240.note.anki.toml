@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Grammatical_Structures", "IfStatements"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "if… then…" with "yaoshi"'
+english = "If the boss doesn't agree,  we can't sign the contract with the client."
+example-sentence = ''
+example-type = ''
+grammar-construct = '要是 ……， 就 ……'
+hanzi = '要是老板不同意，我们就不能跟客户签合同。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGN4S8O'

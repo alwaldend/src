@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "xiande" and "kanqilai"'
+english = 'Talking like that makes her look stupid.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A + 显得 + B + Predicate'
+hanzi = '那样说显得她很笨。'
+notes = ''
+pinyin = 'Nàyàng shuō xiǎnde tā hěn bèn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGKQEG9'

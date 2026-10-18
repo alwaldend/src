@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "already" with "yijing"'
+english = "He doesn't love his cat anymore."
+example-sentence = ''
+example-type = ''
+grammar-construct = '已经 + 不 + Verb + 了'
+hanzi = '他已经不爱他的猫了。'
+notes = ''
+pinyin = 'Tā yǐjīng bù ài tā de māo le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNXI27'

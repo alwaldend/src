@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing comparable degree with "you"'
+english = 'Have you been to as many places as I have?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A + 有 (+ B) + 那么 + Adj. + 吗 ？'
+hanzi = '你去过的地方有我多吗？'
+notes = ''
+pinyin = 'Nǐ qù guo de dìfang yǒu wǒ duō ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5DG95'

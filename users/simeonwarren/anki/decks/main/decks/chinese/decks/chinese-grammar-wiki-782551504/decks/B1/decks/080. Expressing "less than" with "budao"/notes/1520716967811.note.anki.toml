@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "less than" with "budao"'
+english = 'This piece of clothing costs less than 100 RMB.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不到 + Number + [Measure Word] + Noun'
+hanzi = '这件衣服花了不到一百块。'
+notes = ''
+pinyin = 'Zhè jiàn yīfu huā le bùdào yī bǎi kuài.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG10CAE'

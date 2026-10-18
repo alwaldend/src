@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'Immediately, the mouth is full of fresh and moist mountain air, refreshing.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '顿时,满口都是清新湿润的山间空气,沁人心脾。'
+notes = ''
+pinyin = ''
+source = ''

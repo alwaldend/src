@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparisons with "buru"'
+english = "My elder brother's ."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A + 不如 + B'
+hanzi = '我哥的成绩不如我。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWH1D5'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Separable verb'
+english = 'I only slept two hours last night.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '昨晚我只睡了两个小时觉。'
+notes = ''
+pinyin = 'Zuówǎn wǒ zhǐ shuì le liǎng gè xiǎoshí jiào.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG4GVRX'

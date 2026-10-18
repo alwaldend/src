@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "would rather" with "ningke"'
+english = "They would spend all my money to cure their daughter's disease."
+example-sentence = ''
+example-type = ''
+grammar-construct = '宁可 ……，也要 ……'
+hanzi = '他们宁可花光所有钱，也要治好女儿的病。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGF3F2Y'

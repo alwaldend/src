@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "already" with just "le"'
+english = 'Where is the boss?<br>He (already) left.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + [Verb Phrase] + 了'
+hanzi = 'A: 老板呢？<br>B: 他走了。'
+notes = ''
+pinyin = 'Lǎobǎn ne?<br>Tā zǒu le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGM055L'

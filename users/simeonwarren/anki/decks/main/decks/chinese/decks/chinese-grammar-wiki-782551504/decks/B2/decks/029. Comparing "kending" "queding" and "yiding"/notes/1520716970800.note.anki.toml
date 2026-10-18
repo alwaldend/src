@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "SeparateFunctions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "kending" "queding" and "yiding"'
+english = "We'll have to decide on a design before we can start working."
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = '确定 +  Phrase / Sentence'
+hanzi = '我们要先确定一个形式才能开始做。'
+notes = ''
+pinyin = '<div>Wǒmen yào xiān quèdìng yīgè xíngshì cáinéng kāishǐ zuò.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDPS0J'

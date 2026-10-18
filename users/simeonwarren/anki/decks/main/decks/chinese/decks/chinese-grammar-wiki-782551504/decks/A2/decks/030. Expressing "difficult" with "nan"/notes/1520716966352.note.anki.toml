@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "difficult" with "nan"'
+english = 'The coffee here tastes bad.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + (很) 难 + [Sense Verb]'
+hanzi = '这里的咖啡很难喝。'
+notes = ''
+pinyin = 'Zhè lǐ de kāfēi hěn nánhē.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG35T4H'

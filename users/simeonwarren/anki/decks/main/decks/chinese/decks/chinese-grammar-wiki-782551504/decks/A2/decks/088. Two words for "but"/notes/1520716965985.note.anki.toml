@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Two words for "but"'
+english = 'Chinese is very interesting, but it is also very hard.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Statement， 可是 / 但是 + [Contrary Statement]'
+hanzi = '中文很有意思，但是也很难。'
+notes = ''
+pinyin = 'Zhōngwén hěn yǒuyìsi, dànshì yě hěn nán.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGUD81S'

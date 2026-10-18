@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "again" in the past with "you"'
+english = "You don't want to pay? Again?"
+example-sentence = ''
+example-type = ''
+grammar-construct = '(Subj. +) 又 + 不 / 没 + Verb'
+hanzi = '你们又不想给钱？'
+notes = ''
+pinyin = 'Nǐmen yòu bù xiǎng gěi qián?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGN1JR5'

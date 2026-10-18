@@ -1,0 +1,12 @@
+note_type = "note_types/basic.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[[cards]]
+ordinal = 1
+
+[fields]
+Back = ':diffget LOCAL|BASE|REMOTE'
+Front = 'When using vimdiff as mergetool, how do you pull the changes from the top windows into the bottom merge area?'

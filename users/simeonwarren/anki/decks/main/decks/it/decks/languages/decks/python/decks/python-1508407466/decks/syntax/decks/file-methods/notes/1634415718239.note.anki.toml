@@ -1,0 +1,13 @@
+note_type = "note_types/python-basic-and-reversed.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<i>file</i>.writelines(<i>list</i>)'
+example = ''
+question = '<b>File method</b>&nbsp;that writes a list of strings to the file, with each item in the list being separated by a newline.'
+version = ''
+with-options = ''

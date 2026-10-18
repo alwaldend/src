@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Reduplication of adjectives'
+english = 'bothersome'
+example-sentence = ''
+example-type = 'invalid'
+grammar-construct = 'A  A  B  B  + 的 (+ Noun)'
+hanzi = '麻烦→麻麻烦烦'
+notes = ''
+pinyin = 'máfan ￫ má má fán fán'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDHE8S'

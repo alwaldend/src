@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Combining verbs with "bing"'
+english = 'My dad criticized me and and also told me that I cannot lie again.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb / [Verb Phrase 1] + 并(且) + Verb / [Verb Phrase 2]'
+hanzi = '爸爸批评了我并且告诉我以后不能说谎。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5C89R'

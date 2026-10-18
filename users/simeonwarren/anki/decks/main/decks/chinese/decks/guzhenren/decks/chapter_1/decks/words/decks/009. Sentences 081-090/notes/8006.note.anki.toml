@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = '(not only ...) but also;	moreover;	in addition;	furthermore.'
+example-sentence = '   嗯,这是有早智的,而且有大志向'
+example-type = ''
+grammar-construct = ''
+hanzi = '而且'
+notes = ''
+pinyin = '<span class="tone2">ér</span><span class="tone3">qiě</span>	 <!-- er qie -->'
+source = ''

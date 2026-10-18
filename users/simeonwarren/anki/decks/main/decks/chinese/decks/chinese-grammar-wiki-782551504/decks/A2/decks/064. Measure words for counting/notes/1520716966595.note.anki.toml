@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Grammatical_Structures", "NumbersandMeasureWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Measure words for counting'
+english = 'five bottles of water'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Number + Measure Word + Noun'
+hanzi = '五瓶水'
+notes = ''
+pinyin = 'wǔ píng shuǐ'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG64BTE'

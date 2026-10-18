@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["AuxiliaryWords", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "stuff like that" with "zhileide"'
+english = 'Young people love using electronic methods of payment like Alipay.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '⋯⋯ 之类的 + [Category]'
+hanzi = '年轻人很喜欢用像支付宝之类的电子支付方式。'
+notes = ''
+pinyin = 'Niánqīng rén hěn xǐhuan yòng xiàng Zhīfùbǎo zhī lèi de diànzǐ zhīfù fāngshì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPY23Z'

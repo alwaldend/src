@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "some" with question words'
+english = 'Ask somebody to help me with this.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '你让谁来帮我一下。'
+notes = ''
+pinyin = 'Nǐ ràng shéi lái bāng wǒ yīxià.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG7ED89'

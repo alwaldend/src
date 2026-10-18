@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing not knowing how to do something using "hao"'
+english = "The manager doesn't know who to send there."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不知道 + Verb Phrase + 好'
+hanzi = '经理不知道让谁去好。'
+notes = ''
+pinyin = 'Jīnglǐ bù zhīdào ràng shéi qù hǎo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG0EQQJ'

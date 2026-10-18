@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "C1"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing the unexpected with "jingran"'
+english = 'This is something that makes people sad, but you are actually laughing?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 竟然 ⋯⋯'
+hanzi = '这是一件让人难过的事情，你竟然还笑？'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG0D90L'

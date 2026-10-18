@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Result complement "-wan" for finishing'
+english = 'After you finish doing it, you can get off work.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 完 (+ 了) + Obj.'
+hanzi = '你做完以后，就可以下班了。'
+notes = ''
+pinyin = 'Nǐ zuò wán  yǐhòu, jiù kěyǐ xiàbān le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNQUC1'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "always" as a complaint with "laoshi"'
+english = 'You always make excuses.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '老是 + Verb'
+hanzi = '你老是找借口。'
+notes = ''
+pinyin = 'Nǐ lǎoshì zhǎo jièkǒu.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGII66E'

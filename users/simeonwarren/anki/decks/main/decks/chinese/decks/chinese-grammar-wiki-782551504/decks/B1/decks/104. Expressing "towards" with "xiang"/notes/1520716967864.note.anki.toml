@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "towards" with "xiang"'
+english = 'Would you ask strangers for help?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '向 + Direction / Person + Verb'
+hanzi = '你会向陌生人求助吗？'
+notes = ''
+pinyin = 'Nǐ huì xiàng mòshēngrén qiúzhù ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQXARS'

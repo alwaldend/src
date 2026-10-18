@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Grammatical_Structures", "Letalone"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "let alone" with "geng buyong shuo"'
+english = "He's never traveled very far, let alone out of the country."
+example-sentence = ''
+example-type = ''
+grammar-construct = '连 + A + 都 / 也 + Verb， 更不用说 + B + 了'
+hanzi = '他从来没有出过远门，更不用说出国了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGHOI8S'

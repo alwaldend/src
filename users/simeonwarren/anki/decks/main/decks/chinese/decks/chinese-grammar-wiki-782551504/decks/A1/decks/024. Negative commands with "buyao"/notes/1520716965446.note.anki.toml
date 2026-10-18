@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Negative commands with "buyao"'
+english = "Don't speak English."
+example-sentence = ''
+example-type = ''
+grammar-construct = '不要 + Verb'
+hanzi = '不要说英文。'
+notes = ''
+pinyin = 'Bùyào shuō Yīngwén.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGIVZJU'

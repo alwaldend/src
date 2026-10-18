@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Turning adjectives into adverbs'
+english = 'I like you. He said to me seriously.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Adj. + 地 + Verb'
+hanzi = '他认真地对我说："我喜欢你。"'
+notes = ''
+pinyin = 'Tā rènzhēn de duì wǒ shuō: "wǒ xǐhuan nǐ."'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMAFSX'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing concern with "kongpa"'
+english = "There's too much work. I'm afraid I can't finish it all today."
+example-sentence = ''
+example-type = ''
+grammar-construct = '(Reason / Situation, ) 恐怕 + Fact / Conclusion'
+hanzi = '工作太多了，恐怕今天做不完。'
+notes = ''
+pinyin = 'Gōngzuò tài duō le, kǒngpà  jīntiān zuò bù wán.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGD4BA3'

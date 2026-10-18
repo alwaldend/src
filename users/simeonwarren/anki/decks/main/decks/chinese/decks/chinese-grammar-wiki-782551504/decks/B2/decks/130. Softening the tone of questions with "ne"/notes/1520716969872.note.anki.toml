@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Softening the tone of questions with "ne"'
+english = 'How could that be?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '⋯⋯Interrogative Pronoun⋯⋯ + 呢？'
+hanzi = '怎么会呢？'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGW7YXP'

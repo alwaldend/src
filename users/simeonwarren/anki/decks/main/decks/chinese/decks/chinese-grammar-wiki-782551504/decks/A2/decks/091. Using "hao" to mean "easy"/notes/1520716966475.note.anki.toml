@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "hao" to mean "easy"'
+english = 'The food mom makes is delicious.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + (很) 好 + Verb'
+hanzi = '妈妈做的菜很好吃。'
+notes = ''
+pinyin = 'Māma zuò de cài hěn hǎochī.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJQU93'

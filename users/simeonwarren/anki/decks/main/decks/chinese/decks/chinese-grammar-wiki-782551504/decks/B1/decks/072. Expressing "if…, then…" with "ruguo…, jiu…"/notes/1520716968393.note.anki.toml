@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "IfStatements"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "if…, then…" with "ruguo…, jiu…"'
+english = 'If you go, tell her I say hello.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '如果 + Statement + 的话，(就) Result'
+hanzi = '如果你去的话，帮我跟她问好。'
+notes = ''
+pinyin = 'Rúguǒ nǐ qù de huà, bāng wǒ gēn tā wènhǎo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGGIVT0'

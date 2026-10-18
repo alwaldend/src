@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "TimeWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "yihou" and "de shihou"'
+english = 'Come to find me when the shop is closed.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 以后／的时候， Comment'
+hanzi = '商店关门了以后，你再来找我。'
+notes = ''
+pinyin = '<div>Shāngdiàn guānménle yǐhòu, nǐ zàilái zhǎo wǒ.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGLNKZR'

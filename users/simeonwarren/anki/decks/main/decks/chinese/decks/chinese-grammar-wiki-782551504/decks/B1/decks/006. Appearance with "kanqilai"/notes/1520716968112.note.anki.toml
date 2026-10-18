@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Appearance with "kanqilai"'
+english = 'That drunk guy seems like your husband.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 看起来 + 像 ⋯⋯'
+hanzi = '那个喝醉的男人看起来像你老公。'
+notes = ''
+pinyin = 'Nà gè hēzuì de nánrén kànqǐlái xiàng nǐ lǎogōng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG9K0F8'

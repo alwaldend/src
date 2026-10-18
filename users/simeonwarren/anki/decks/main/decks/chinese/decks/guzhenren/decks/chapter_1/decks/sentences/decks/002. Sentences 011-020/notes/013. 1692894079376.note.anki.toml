@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'Surrounded by groups of enemies, there is already no way out.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '群敌环伺,早已经没有了生路。'
+notes = ''
+pinyin = ''
+source = ''

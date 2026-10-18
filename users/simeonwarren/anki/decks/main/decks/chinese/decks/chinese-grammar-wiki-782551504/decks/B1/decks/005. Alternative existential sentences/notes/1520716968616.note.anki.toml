@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Alternative existential sentences'
+english = 'There is a book on the desk.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Place + Verb + 着 + [Noun Phrase]'
+hanzi = '桌子上放着一本书。'
+notes = ''
+pinyin = 'Zhuōzi shàng fàng zhe yī běn shū .'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGAC619'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Advanced uses of "ba"'
+english = 'Just now you read 政府 as 丈夫.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '把 + Obj. 1 + Perception Verbs'
+hanzi = '我常常把"自己"的"己"写成"已经"的"已"。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQRS3P'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "when" with "de shihou"'
+english = "When you are not here, I'll miss you."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Time Word + 的 时候, ....'
+hanzi = '你不在的时候，我会想你。'
+notes = ''
+pinyin = 'Nǐ  bù zài de shíhou, wǒ huì xiǎng nǐ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWN185'

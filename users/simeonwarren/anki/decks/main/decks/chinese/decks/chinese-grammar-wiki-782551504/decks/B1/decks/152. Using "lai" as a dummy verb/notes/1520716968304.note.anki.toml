@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "lai" as a dummy verb'
+english = 'Let me help.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '(让 +) Subj. + 来'
+hanzi = 'B:我来吧。'
+notes = ''
+pinyin = 'B: Wǒ lái ba.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG98FZK'

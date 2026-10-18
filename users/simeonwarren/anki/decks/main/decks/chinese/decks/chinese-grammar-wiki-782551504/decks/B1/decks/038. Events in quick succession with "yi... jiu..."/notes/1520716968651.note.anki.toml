@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Events in quick succession with "yi... jiu..."'
+english = 'Can you go to pick up the kid as soon as you get off work?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '一 + Event 1，就 + Event 2'
+hanzi = '你能不能一下班就去接孩子？'
+notes = ''
+pinyin = 'Nǐ néng bu néng yī xiàbān jiù qù jiē háizi?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTFUD0'

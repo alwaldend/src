@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "ba" sentences'
+english = 'Who did he lend the money to?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 把 + Obj. 1 + Verb + 给 + Obj. 2'
+hanzi = '他把钱借给谁了？'
+notes = ''
+pinyin = 'Tā bǎ qián jiè gěi shéi le?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG2UB2B'

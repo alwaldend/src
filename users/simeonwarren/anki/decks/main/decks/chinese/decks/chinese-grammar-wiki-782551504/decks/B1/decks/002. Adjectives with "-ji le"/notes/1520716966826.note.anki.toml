@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Adjectives with "-ji le"'
+english = "Yesterday's party was so boring!"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Adj. + 极了'
+hanzi = '昨天的派对无聊极了!'
+notes = ''
+pinyin = 'Zuótiān de pàiduì wúliáo jíle!'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGVME5V'

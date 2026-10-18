@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Basics", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Simple "noun + adjective" sentences'
+english = 'He is tall.'
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = 'Noun + 很 + Adj.'
+hanzi = '他很高。'
+notes = ''
+pinyin = 'Tā hěn gāo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG17BLH'

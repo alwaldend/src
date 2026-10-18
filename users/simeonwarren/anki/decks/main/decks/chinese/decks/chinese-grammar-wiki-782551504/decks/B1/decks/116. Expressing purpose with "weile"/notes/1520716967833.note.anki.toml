@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing purpose with "weile"'
+english = 'In order to have a good future, I have to study hard.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '为了+ [Purpose]，Subject + Predicate'
+hanzi = '为了有一个好的未来，我必须好好学习。'
+notes = 'having a good future is the purpose'
+pinyin = 'Wèile yǒu yī gè hǎo de wèilái, wǒ bìxū hǎo hào xuéxí.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQGJXT'

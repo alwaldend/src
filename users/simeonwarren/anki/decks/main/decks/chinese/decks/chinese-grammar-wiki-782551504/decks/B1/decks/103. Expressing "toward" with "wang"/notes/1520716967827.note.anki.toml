@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "toward" with "wang"'
+english = 'The cargos that are shipped overseas.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '往 + Direction / Place + Verb'
+hanzi = '运往国外的货物'
+notes = ''
+pinyin = 'Yùn wǎng guówài de huòwù'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGAD070'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "not very" with "bu zenme"'
+english = "He's been in America for more than one year, but he's not very homesick."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不怎么 + Adj. / [Psychological Verb]'
+hanzi = '他去美国一年多了，不过不怎么想家。'
+notes = ''
+pinyin = 'Tā qù Měiguó yī nián duō le, bùguò bù zěnme xiǎngjiā.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGVYIZT'

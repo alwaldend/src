@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'An additional step with "jin yi bu"'
+english = 'We are prepared to further expand the Chinese market.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 进一步 + Verb'
+hanzi = '我们准备进一步扩大中国市场。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGET76G'

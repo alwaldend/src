@@ -1,0 +1,17 @@
+note_type = "note_types/python-basic-and-reversed.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+additional-info = 'The default&nbsp;<i>hint</i>&nbsp;is all lines'
+answer = '<i>file</i>.readlines()'
+example = ''
+question = '<b>File method</b>&nbsp;that returns a list of lines from a file.'
+version = ''
+with-options = """
+
+
+<i>file</i>.readlines(<i>hint=-1</i>)&nbsp;\
+"""

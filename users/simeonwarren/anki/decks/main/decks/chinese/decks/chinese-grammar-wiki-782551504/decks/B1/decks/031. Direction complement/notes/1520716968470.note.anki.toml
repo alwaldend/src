@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Direction complement'
+english = "We'd like to walk down from here by ourselves."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + [Compound Direction Complement]'
+hanzi = '我们想自己走下去。'
+notes = ''
+pinyin = 'Wǒmen xiǎng zìjǐ zǒu xiàqù.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8LWBJ'

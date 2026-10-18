@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing the only two possibilities'
+english = "The clothes that I bought are either too big or too small, I can't wear any of them."
+example-sentence = ''
+example-type = ''
+grammar-construct = '不是 + A，就是 + B'
+hanzi = '我买的衣服不是大就是小，都不能穿。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGEXR6R'

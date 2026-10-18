@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "TimeWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "gang" and "gangcai"'
+english = 'Mom just saw it.'
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = '刚 + Adj.'
+hanzi = '妈妈刚看到。'
+notes = 'Adding 到 to the verb gives a clear indication of result.'
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJFFWG'

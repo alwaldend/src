@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "about" with "guanyu"'
+english = 'I saw a documentary about animal protection yesterday.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '关于 ⋯⋯ 的 + Noun'
+hanzi = '我昨天看了一部关于动物保护的纪录片。'
+notes = ''
+pinyin = 'Wǒ zuótiān kàn le yī bù guānyú dòngwù bǎohù de jìlùpiàn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG49889'

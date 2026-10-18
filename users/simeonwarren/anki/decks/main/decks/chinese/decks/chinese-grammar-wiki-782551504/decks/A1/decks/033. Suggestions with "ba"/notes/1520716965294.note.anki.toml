@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Suggestions with "ba"'
+english = "Let's go to Hong Kong."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Command + 吧'
+hanzi = '我们去香港吧。'
+notes = 'This is a great suggestion!'
+pinyin = 'Wǒmen qù Xiānggǎng ba.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMPZ6D'

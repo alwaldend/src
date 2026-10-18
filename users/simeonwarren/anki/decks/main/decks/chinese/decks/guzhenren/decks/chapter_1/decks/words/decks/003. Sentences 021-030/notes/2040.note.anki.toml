@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'this moment;	now;	at present.'
+example-sentence = ' 此刻,方源脚下的灰白山石,早已经被鲜血染成了暗红'
+example-type = ''
+grammar-construct = ''
+hanzi = '此刻'
+notes = ''
+pinyin = '<span class="tone3">cǐ</span><span class="tone4">kè</span>	 <!-- ci ke -->'
+source = ''

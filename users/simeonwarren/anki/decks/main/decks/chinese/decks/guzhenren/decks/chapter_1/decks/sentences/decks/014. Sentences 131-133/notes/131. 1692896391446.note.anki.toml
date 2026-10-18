@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'What should be said, I have said in the preface.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '该说的话,我都在序里面说了。'
+notes = ''
+pinyin = '<div>Gāi shuō dehuà, wǒ dū zài xù lǐmiàn shuōle.</div>'
+source = ''

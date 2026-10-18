@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "not even one"'
+english = "He can't speak one sentence of Chinese."
+example-sentence = ''
+example-type = ''
+grammar-construct = '一 + Measure Word + (Noun) + 也 / 都 + 不 / 没 + Verb'
+hanzi = '他一句中文都不会说。'
+notes = ''
+pinyin = 'Tā yī jù Zhōngwén dōu bù huì shuō.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGUQ861'

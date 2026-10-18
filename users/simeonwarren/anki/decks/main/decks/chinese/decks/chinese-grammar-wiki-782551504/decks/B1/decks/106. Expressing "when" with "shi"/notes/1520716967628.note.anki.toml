@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "when" with "shi"'
+english = 'When they graduated, they broke up.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '(Subj. +) Verb / Adj. + 时⋯⋯'
+hanzi = '大学毕业时，他们分手了。'
+notes = ''
+pinyin = 'Dàxué bìyè shí, tāmen fēnshǒu le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGGL59D'

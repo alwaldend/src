@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Grammatical_Structures", "NumbersandMeasureWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "every" with "mei"'
+english = 'Every morning he skips breakfast.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '每 + Measure Word + Noun + 都'
+hanzi = '他每天都不吃早饭。'
+notes = ''
+pinyin = 'Tā měi tiān dōu bù chī zǎofàn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGB6L4M'

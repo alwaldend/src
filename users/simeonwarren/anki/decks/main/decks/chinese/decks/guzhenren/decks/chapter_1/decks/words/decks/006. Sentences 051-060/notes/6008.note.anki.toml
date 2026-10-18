@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'clan;	clansman.'
+example-sentence = ' 一时间,宗族祠堂中尽是额头碰撞地板的轻响'
+example-type = ''
+grammar-construct = ''
+hanzi = '宗族'
+notes = ''
+pinyin = '<span class="tone1">zōng</span><span class="tone2">zú</span>	 <!-- zong zu -->'
+source = ''

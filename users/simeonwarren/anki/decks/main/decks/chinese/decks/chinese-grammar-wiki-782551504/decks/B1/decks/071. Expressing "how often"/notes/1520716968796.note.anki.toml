@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "how often"'
+english = 'I cut my hair every two months.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + [Length of Time]  + Verb + Times (+ Obj.)'
+hanzi = '我两个月剪一次头发。'
+notes = ''
+pinyin = 'Wǒ liǎng gè yuè Jiǎn yī cì tóufa.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCED31'

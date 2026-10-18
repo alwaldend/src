@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "ButStatements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'The "however" adverb "que"'
+english = 'This piece of clothing is brandname, but the quality is not so good.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Sentence ，(但是 +) Subj. + 却 ⋯⋯'
+hanzi = '这件衣服虽然是名牌，但是质量却不怎么样。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGEG2QB'

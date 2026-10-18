@@ -1,0 +1,13 @@
+note_type = "note_types/python-basic-and-reversed.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<i>set</i>.update(<i>*iterables</i>)'
+example = '<i>set</i>.update({x, y, z}, [q, r, s])&nbsp;'
+question = '<b>Set method</b>&nbsp;to add the values of an iterable or group of iterables to a set (returns None).'
+version = ''
+with-options = ''

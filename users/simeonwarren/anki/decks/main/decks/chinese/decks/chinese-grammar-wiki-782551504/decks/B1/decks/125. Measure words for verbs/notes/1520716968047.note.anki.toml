@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Measure words for verbs'
+english = 'Could you please read it again?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + Number + Measure Word'
+hanzi = '你能再读一遍吗？'
+notes = ''
+pinyin = 'Nǐ néng zài dú yī biàn ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5AODR'

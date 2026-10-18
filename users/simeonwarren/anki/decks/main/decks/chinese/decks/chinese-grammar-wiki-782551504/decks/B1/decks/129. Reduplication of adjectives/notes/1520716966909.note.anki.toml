@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adjectives", "B1", "leech", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Reduplication of adjectives'
+english = 'healthy'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A  A  B  B  + 的 (+ Noun)'
+hanzi = '健康→健健康康'
+notes = ''
+pinyin = 'jiànkāng ￫ jiàn jiàn kāng kāng'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDHE8S'

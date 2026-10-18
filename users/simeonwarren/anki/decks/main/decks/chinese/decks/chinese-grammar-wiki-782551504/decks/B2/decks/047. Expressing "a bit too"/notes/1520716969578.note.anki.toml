@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adjectives", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "a bit too"'
+english = "You are so tall. Isn't your boyfriend a little short for you?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Adj. + 了（一）点儿'
+hanzi = '你这么高，你这个男朋友是不是矮了点儿？'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGEHTV5'

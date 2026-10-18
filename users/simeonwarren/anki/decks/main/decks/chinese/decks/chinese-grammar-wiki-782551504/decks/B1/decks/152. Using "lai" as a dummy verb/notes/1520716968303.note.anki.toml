@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "lai" as a dummy verb'
+english = 'This box is so heavy!'
+example-sentence = ''
+example-type = ''
+grammar-construct = '(让 +) Subj. + 来'
+hanzi = 'A:这个箱子真重！'
+notes = ''
+pinyin = 'A: Zhège xiāngzi zhēn zhòng!'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG98FZK'

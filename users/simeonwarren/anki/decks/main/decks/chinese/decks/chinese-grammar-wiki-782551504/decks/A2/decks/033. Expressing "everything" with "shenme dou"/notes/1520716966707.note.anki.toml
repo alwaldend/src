@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "everything" with "shenme dou"'
+english = 'My boyfriend likes all kinds of sports.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '什么 + Noun + 都 + Verb'
+hanzi = '我男朋友什么运动都喜欢。'
+notes = ''
+pinyin = 'Wǒ nánpéngyou shénme yùndòng dōu xǐhuan.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGAQV6C'

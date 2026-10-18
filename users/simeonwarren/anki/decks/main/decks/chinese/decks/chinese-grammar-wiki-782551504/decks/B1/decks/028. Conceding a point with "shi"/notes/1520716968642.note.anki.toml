@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Conceding a point with "shi"'
+english = "This student may be smart, but he's not very hardworking."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Adj. + 是 + Adj. ， 但是 / 就是 ⋯⋯'
+hanzi = '这个学生聪明是聪明，就是不太努力。'
+notes = ''
+pinyin = 'Zhège xuéshēng  cōngming shì cōngming, jiùshì bù tài nǔlì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGT9Y8P'

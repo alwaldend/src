@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "when" with "dengdao"'
+english = 'When the rain stops, then I will go outside.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '等(到) + Time / Event ，Subj. + 再 / 就 + Predicate'
+hanzi = '等雨停了我再出门。'
+notes = ''
+pinyin = 'Děng yǔ tíng le wǒ zài chūmén.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG68F61'

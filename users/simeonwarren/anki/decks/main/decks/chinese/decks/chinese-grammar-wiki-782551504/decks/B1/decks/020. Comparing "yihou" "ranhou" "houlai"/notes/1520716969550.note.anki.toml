@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "TimeWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "yihou" "ranhou" "houlai"'
+english = "First I'll go to your house, then we can go together to see her.<br>Sure. Have you seen each other since she went abroad?<br>She left the country two years ago. Since then, I haven't seen her."
+example-sentence = ''
+example-type = ''
+grammar-construct = '[Past Event 1] ，后来 + [Past Event 2]'
+hanzi = 'A:我先去你家，然后我们一起去见她？<br>B:好的。她出国以后你们见过面吗？<br>A:见过一次。后来再也没见过。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNPJ7T'

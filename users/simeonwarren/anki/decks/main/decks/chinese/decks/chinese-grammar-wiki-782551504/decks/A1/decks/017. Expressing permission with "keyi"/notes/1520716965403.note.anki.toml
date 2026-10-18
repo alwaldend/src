@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Auxiliaryverbs", "leech", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing permission with "keyi"'
+english = 'Can I park here?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 可以 + Verb + Obj.'
+hanzi = '我可以在这里停车吗？'
+notes = ''
+pinyin = 'Wǒ kěyǐ zài zhèlǐ tíngchē ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG6SPYK'

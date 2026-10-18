@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Tricky uses of "dao"'
+english = "If you can really catch her, I'll treat you to a drink."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '如果你追到她了，我就请你喝酒。'
+notes = ''
+pinyin = 'Rúguǒ nǐ zhuīdào tā le, wǒ jiù qǐng nǐ hējiǔ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCUSIV'

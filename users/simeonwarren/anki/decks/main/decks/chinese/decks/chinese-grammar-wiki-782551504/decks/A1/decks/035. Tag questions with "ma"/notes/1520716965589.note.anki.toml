@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Tag questions with "ma"'
+english = "Let's go to your place, OK?"
+example-sentence = ''
+example-type = ''
+grammar-construct = '⋯⋯， 好 / 对 / 是 / 可以 +  吗？'
+hanzi = '我们去你家，好吗？'
+notes = ''
+pinyin = 'Wǒmen qù nǐ jiā, hǎo ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGSJYZ2'

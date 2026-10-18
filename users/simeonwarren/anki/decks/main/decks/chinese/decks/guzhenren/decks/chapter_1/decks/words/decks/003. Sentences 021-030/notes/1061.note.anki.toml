@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'quietly;	softly;	neutral tone;	light stress.'
+example-sentence = ' 看着这青山落日,方源轻声一笑: 青山落日,秋月春风'
+example-type = ''
+grammar-construct = ''
+hanzi = '轻声'
+notes = ''
+pinyin = '<span class="tone1">qīng</span><span class="tone1">shēng</span>	 <!-- qing sheng -->'
+source = ''

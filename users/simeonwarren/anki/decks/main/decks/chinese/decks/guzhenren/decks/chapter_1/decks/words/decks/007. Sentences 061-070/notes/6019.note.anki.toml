@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'atmosphere;	mood.'
+example-sentence = ' 在走廊中,众家老默默地舒了一口气,气氛为之一松'
+example-type = ''
+grammar-construct = ''
+hanzi = '气氛'
+notes = ''
+pinyin = '<span class="tone4">qì</span><span class="tone1">fēn</span>	 <!-- qi fen -->'
+source = ''

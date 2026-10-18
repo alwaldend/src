@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Declaring the only option with "zhihao"'
+english = "It rained last weekend. We didn't have a choice but stay at home."
+example-sentence = ''
+example-type = ''
+grammar-construct = '……，（Subj.）＋只好 + Verb Phrase'
+hanzi = '上个周末下雨了，我们只好待在家。'
+notes = ''
+pinyin = 'Shàng gè zhōumò xiàyǔ le, wǒmen  zhǐhǎo dāi zài jiā.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG767A2'

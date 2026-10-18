@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Special verbs with "hen"'
+english = 'You should be very careful.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 很 + [Certain Verbs]'
+hanzi = '你应该很小心。'
+notes = ''
+pinyin = 'Nǐ yīnggāi hěn xiǎoxīn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGID0E8'

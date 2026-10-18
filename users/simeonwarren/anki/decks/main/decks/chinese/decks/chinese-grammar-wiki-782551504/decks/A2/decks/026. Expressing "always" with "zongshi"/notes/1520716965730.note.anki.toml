@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "always" with "zongshi"'
+english = 'Why are you always very busy?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '总是 + Adv. + Adj.'
+hanzi = '你为什么总是很忙？'
+notes = ''
+pinyin = 'Nǐ wèishénme zǒngshì hěn máng?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGXJPJS'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Placement of question words'
+english = 'Which one do you want?<br>I want this one.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 哪个 (+ Noun) ?'
+hanzi = 'A: 你要哪个?<br>B: 我要这个。'
+notes = ''
+pinyin = 'Nǐ yào nǎge?<br>Wǒ yào zhège.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJQPSC'

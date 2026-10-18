@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using the verb "qu"'
+english = "We're going to the park now."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 去 + [Place]'
+hanzi = '我们现在去公园。'
+notes = ''
+pinyin = 'Wǒmen xiànzài qù gōngyuán.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGFYNCL'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'all over;	from head to foot.'
+example-sentence = '方源一身残破的碧绿大袍,披头散发,浑身浴血,环顾四周'
+example-type = ''
+grammar-construct = ''
+hanzi = '浑身'
+notes = ''
+pinyin = '<span class="tone2">hún</span><span class="tone1">shēn</span>	 <!-- hun shen -->'
+source = ''

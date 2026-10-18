@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'next in sequence; second; the second (day, time etc); secondary; vice-; sub-; infra-; inferior quality; substandard; order; sequence; hypo- (chemistry); classifier for enumerated events: time.'
+example-sentence = '这里早已经布下天罗地网,这次你必定身首异处'
+example-type = ''
+grammar-construct = ''
+hanzi = '次'
+notes = ''
+pinyin = '<span class="tone4">cì</span>	 <!-- ci -->'
+source = ''

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "not at all" with "yidianr ye bu"'
+english = "I don't like cheese even a little bit."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 一点 + 也 / 都 + 不 + Verb'
+hanzi = '我一点也不喜欢奶酪。'
+notes = ''
+pinyin = 'Wǒ yīdiǎn yě bù xǐhuan nǎilào.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGRURCZ'

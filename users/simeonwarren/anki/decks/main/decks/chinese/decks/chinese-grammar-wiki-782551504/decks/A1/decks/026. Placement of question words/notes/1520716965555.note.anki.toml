@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Placement of question words'
+english = 'Who is she?<br>She‘s my teacher.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '谁 + Verb ?'
+hanzi = 'A: 她是谁？<br>B: 她是我的老师。'
+notes = ''
+pinyin = 'Tā shì shéi?<br>Tā shì wǒ de lǎoshī.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJQPSC'

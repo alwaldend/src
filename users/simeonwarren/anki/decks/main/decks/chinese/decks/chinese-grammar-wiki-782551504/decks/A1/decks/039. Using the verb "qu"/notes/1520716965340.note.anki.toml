@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using the verb "qu"'
+english = "I'm going to the office."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 去 + [Place]'
+hanzi = '我去公司。'
+notes = '公司 literally means "company" but is often used to mean "office."'
+pinyin = 'Wǒ qù gōngsī.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGFYNCL'

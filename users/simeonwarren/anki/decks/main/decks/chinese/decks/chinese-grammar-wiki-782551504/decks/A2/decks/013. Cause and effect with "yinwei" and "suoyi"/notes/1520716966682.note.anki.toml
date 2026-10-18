@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Cause and effect with "yinwei" and "suoyi"'
+english = "Since it's too far, I don't want to go."
+example-sentence = ''
+example-type = ''
+grammar-construct = '因为 + Cause, 所以 + Effect'
+hanzi = '因为太远了，所以我不想去。'
+notes = ''
+pinyin = 'Yīnwèi tài yuǎn le, suǒyǐ wǒ bù xiǎng qù.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTDUJO'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "even more" with "geng"'
+english = 'Spring Festival is even more boisterous than Mid-autumn Festival.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A 比 B + 更 + Adj.'
+hanzi = '春节比中秋节更热闹。'
+notes = ''
+pinyin = 'Chūnjié  bǐ Zhōngqiūjié gèng  rènao.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG4NIPB'

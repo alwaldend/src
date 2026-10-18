@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'time;	period.<br>Cl: 段'
+example-sentence = '  时间过的真是太快了,一眨眼,一年就都过去了'
+example-type = ''
+grammar-construct = ''
+hanzi = '时间'
+notes = ''
+pinyin = '<span class="tone2">shí</span><span class="tone1">jiān</span>	 <!-- shi jian -->'
+source = ''

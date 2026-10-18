@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Grammatical_Structures", "NumbersandMeasureWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Measure words in quantity questions'
+english = 'How many kids does he have?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 几 + Measure Word + Noun？'
+hanzi = '他有几个孩子？'
+notes = ''
+pinyin = 'Tā yǒu jǐ gè háizi?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGL9KQM'

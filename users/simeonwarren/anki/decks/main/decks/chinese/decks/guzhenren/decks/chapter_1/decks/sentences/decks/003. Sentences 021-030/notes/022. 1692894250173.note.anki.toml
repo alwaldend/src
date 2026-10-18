@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'There was a sudden commotion among the heroes, and they all took a big step back.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '群雄顿时一阵骚动,齐齐后退一大步。'
+notes = ''
+pinyin = ''
+source = ''

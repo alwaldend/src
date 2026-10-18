@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Direction complement'
+english = 'Raise your hands.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 把 + Obj. + Verb + [Direction Complement]'
+hanzi = '把手举起来。'
+notes = ''
+pinyin = 'Bǎ shǒu jǔ qǐlái.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8LWBJ'

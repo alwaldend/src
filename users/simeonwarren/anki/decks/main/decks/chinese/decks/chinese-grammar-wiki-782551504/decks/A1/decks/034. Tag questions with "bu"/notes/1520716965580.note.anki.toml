@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Tag questions with "bu"'
+english = 'Your last name is Wang, is it not?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 不 + Verb'
+hanzi = '你姓王，是不是？'
+notes = ''
+pinyin = 'Nǐ xìng Wáng, shì bu shì?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG4D8XB'

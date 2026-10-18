@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "EvenIfStatements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "even if…" with "jishi"'
+english = "Even if they want to make compensation, we're still going to make this public."
+example-sentence = ''
+example-type = ''
+grammar-construct = '即使 ⋯⋯ ，也 ⋯⋯'
+hanzi = '即使他们要赔偿我们，我们也要把事情公开。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGBUXN7'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Coincidence with "zhenghao"'
+english = 'Two people is perfect. One to speak and one to act.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 正好'
+hanzi = '两个人正好，一个说，一个演。'
+notes = ''
+pinyin = 'Liǎng gè rén zhènghǎo, yīgè shuō , yīgè  yǎn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGUD25J'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'Among the top ten strange Gu rankings, being able to rank seventh is naturally no small matter.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '在十大奇蛊排名中,能名列第七,自然非同小可。'
+notes = ''
+pinyin = ''
+source = ''

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "about to" with "jiuyao"'
+english = "I'm about to starve to death."
+example-sentence = ''
+example-type = ''
+grammar-construct = '(Subj. +) 就要 + Verb Phrase + 了'
+hanzi = '我就要饿死了。'
+notes = ''
+pinyin = 'Wǒ jiù yào è sǐ le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG9B210'

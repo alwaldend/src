@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "benlai" and "yuanlai"'
+english = 'This is my old house.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '原来的 + Noun'
+hanzi = '这是我原来的家。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG56QKW'

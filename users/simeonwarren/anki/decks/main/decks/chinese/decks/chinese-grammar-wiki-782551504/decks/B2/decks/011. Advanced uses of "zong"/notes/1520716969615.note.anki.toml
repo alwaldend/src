@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Advanced uses of "zong"'
+english = "You talk to each other so little. It seems that you're barely family."
+example-sentence = ''
+example-type = ''
+grammar-construct = '总 + 不 / 没 + Verb'
+hanzi = '你们之间的联系这么少，看起来总不像是一家人。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8QS6H'

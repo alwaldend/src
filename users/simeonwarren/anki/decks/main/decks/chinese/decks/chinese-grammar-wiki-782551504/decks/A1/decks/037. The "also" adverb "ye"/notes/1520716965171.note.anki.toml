@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'The "also" adverb "ye"'
+english = 'He is also fat.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 也 (+ Adv.) + Adj.'
+hanzi = '他也很胖。'
+notes = ''
+pinyin = 'Tā yě hěn  pàng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGG25MD'

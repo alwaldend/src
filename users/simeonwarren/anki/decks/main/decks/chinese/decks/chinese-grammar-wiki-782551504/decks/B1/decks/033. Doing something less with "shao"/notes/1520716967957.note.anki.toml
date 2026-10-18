@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Doing something less with "shao"'
+english = 'Eat less meat and more vegetables.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '少 + Verb'
+hanzi = '少吃点肉，多吃点蔬菜。'
+notes = ''
+pinyin = 'Shǎo chī diǎn ròu, duō chī diǎn shūcài.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG9B0M8'

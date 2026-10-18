@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'building;	pavilion.'
+example-sentence = ' 古月山寨的最中央,是一座大气辉煌的楼阁'
+example-type = ''
+grammar-construct = ''
+hanzi = '楼阁'
+notes = ''
+pinyin = '<span class="tone2">lóu</span><span class="tone2">gé</span>	 <!-- lou ge -->'
+source = ''

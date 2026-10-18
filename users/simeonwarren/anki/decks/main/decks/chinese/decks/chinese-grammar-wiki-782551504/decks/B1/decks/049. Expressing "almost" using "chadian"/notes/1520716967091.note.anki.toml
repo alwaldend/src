@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "almost" using "chadian"'
+english = 'I almost laughed.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 差点(儿) + [Verb Phrase]'
+hanzi = '我差点笑出来。'
+notes = "I didn't laugh."
+pinyin = 'Wǒ chàdiǎn xiào chūlái.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG6ESWW'

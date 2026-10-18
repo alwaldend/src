@@ -1,0 +1,13 @@
+note_type = "note_types/python-basic-and-reversed.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+additional-info = "<div>Doesn't change the original item.</div>"
+answer = '<b>Built in function </b>that returns a dictionary from an object.'
+example = ''
+question = '<b>Built in function:</b> dict(<i>object</i>)'
+version = ''
+with-options = ''

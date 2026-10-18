@@ -1,0 +1,13 @@
+note_type = "note_types/python-basic-and-reversed.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<b>Built in function: </b>staticmethod(<i>method</i>)'
+example = ''
+question = '<b>Built in function</b>&nbsp;that converts a method into a static method.'
+version = ''
+with-options = ''

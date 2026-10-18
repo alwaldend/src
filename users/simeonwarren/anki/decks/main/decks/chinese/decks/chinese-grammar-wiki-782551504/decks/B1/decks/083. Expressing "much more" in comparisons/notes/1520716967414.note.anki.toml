@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["AdverbswithAdjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "much more" in comparisons'
+english = "You're even lazier than me."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun 1 + 比 + Noun 2 + 还 + Adj.'
+hanzi = '你比我还懒。'
+notes = ''
+pinyin = 'Nǐ bǐ wǒ hái lǎn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG6KUS5'

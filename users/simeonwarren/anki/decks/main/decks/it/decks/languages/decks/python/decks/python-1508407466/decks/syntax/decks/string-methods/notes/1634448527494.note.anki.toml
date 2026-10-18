@@ -1,0 +1,13 @@
+note_type = "note_types/python-basic-and-reversed.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+additional-info = '<strong>Note:</strong>&nbsp;All string methods returns new values. They do not change the original string.'
+answer = '<i>string</i>.title()'
+example = ''
+question = '<b>String method</b> that returns a string with the first character of each word converted to upper case.'
+version = ''
+with-options = ''

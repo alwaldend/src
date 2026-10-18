@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Numbers", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Measure word "ge"'
+english = 'two wives'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Number + 个 + Noun'
+hanzi = '两个老婆'
+notes = ''
+pinyin = 'liǎng gè  lǎopo'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGI0T9S'

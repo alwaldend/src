@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Complement with "dao"'
+english = 'When will you be done playing?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb (+ 一直) + 到 + Time / Event'
+hanzi = '你们要玩到几点？'
+notes = ''
+pinyin = 'Nǐmen yào wán dào jǐ diǎn?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG1CCAP'

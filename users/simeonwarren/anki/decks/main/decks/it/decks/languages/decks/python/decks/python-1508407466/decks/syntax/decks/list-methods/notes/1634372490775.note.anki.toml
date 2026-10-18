@@ -1,0 +1,13 @@
+note_type = "note_types/python-basic-and-reversed.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<i>list</i>.reverse()'
+example = ''
+question = '<b>List method</b>&nbsp;that reverses the order of the list in place (returns None).'
+version = ''
+with-options = ''

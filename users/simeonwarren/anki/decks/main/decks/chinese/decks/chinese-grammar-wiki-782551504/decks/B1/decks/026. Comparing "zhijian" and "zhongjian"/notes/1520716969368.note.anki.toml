@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "Nouns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "zhijian" and "zhongjian"'
+english = 'There are a lot of issues between China and the USA which need to be resolved.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun 1 + 和 + Noun 2 + 之间'
+hanzi = '中美之间还有很多问题需要解决。'
+notes = ''
+pinyin = '<div>Zhōng měi zhī jiān hái yǒu hěnduō wèntí xūyào jiějué.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGN6O6J'

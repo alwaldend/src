@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "along with…" with "suizhe"'
+english = 'The pollutants entered the body through normal breathing.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 随着 + Noun + Verb Phrase'
+hanzi = '污染物随着人的呼吸进入了人体内部。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGHVFRA'

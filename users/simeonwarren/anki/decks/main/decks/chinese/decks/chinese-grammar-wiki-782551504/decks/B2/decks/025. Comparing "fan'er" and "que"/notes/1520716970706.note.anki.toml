@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "Conjunctions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = "Comparing \"fan'er\" and \"que\""
+english = "I helped him, but he wasn't happy."
+example-sentence = ''
+example-type = ''
+grammar-construct = '却 + Verb'
+hanzi = '我帮了他，他却不高兴了。'
+notes = 'This is a normal turn of events.'
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG0K25S'

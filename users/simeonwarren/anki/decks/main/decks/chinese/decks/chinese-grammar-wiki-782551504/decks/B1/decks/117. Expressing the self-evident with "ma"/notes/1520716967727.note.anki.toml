@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing the self-evident with "ma"'
+english = 'You two know each other well.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Statement + 嘛'
+hanzi = '你跟他很熟嘛。'
+notes = ''
+pinyin = 'Nǐ gēn tā hěn shóu ma.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGVMC4B'

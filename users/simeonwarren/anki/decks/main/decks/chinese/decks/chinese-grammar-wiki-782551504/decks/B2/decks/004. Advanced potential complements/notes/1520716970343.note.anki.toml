@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Advanced potential complements'
+english = "You're the only one who is able to help me with this."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 得 / 不 + 了'
+hanzi = '这件事情只有你帮得了我。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG516F9'

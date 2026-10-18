@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'the most.'
+example-sentence = '而古月方源就是小辈当中,最为出色耀眼的一位'
+example-type = ''
+grammar-construct = ''
+hanzi = '最为'
+notes = ''
+pinyin = '<span class="tone4">zuì</span><span class="tone2">wéi</span>	 <!-- zui wei -->'
+source = ''

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "zai" and "you"'
+english = 'I am going to watch another movie.'
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = 'Subj. + 再 + Verb + Obj.'
+hanzi = '我要再看一部电影。'
+notes = ''
+pinyin = '<div>Wǒ yào zài kàn yī bù diànyǐng.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTBHBG'

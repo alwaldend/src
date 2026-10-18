@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Approximations with "chabuduo"'
+english = 'These places are all pretty much the same.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 差不多'
+hanzi = '这几个地方都差不多。'
+notes = ''
+pinyin = 'Zhè jǐ gè dìfang dōu chàbuduō.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG1NAXO'

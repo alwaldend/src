@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Actions in a row'
+english = 'Chinese people all go back home for Chinese New Year.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + [Verb Phrase 1] + [Verb Phrase 2]'
+hanzi = '中国人都要回家过年。'
+notes = ''
+pinyin = 'Zhōngguó rén dōu yào huíjiā guònián.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPRGAX'

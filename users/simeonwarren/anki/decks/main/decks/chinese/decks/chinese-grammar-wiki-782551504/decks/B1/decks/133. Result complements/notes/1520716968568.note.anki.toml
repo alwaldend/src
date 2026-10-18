@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Result complements'
+english = 'How did the baby hit his head?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '没 + Verb + Adj.'
+hanzi = '宝宝的头是怎么撞破的？'
+notes = ''
+pinyin = 'Bǎobǎo de tóu shì zěnme zhuàng pò de?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNNMST'

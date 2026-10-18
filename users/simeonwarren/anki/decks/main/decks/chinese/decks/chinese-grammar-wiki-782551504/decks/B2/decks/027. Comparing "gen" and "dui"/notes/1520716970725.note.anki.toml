@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "Conjunctions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "gen" and "dui"'
+english = "Now I'm as tall as my dad."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A + 跟 + B + （不）一样 + Adj.'
+hanzi = '我现在跟我爸一样高。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGC5Y86'

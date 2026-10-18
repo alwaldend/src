@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "AdverbswithAdjectives", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Asking about degree with "duo"'
+english = 'How tall is she?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 多 + Adj. ?'
+hanzi = '她多高？'
+notes = ''
+pinyin = 'Tā duō gāo?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG9LLJU'

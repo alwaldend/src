@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "bu" and "mei"'
+english = 'I did not drink alcohol yesterday.'
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = 'Subj. + 没(有) + Verb + Obj.'
+hanzi = '我昨天没喝酒。'
+notes = ''
+pinyin = 'Wǒ zuótiān méi hējiǔ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGRJ1BI'

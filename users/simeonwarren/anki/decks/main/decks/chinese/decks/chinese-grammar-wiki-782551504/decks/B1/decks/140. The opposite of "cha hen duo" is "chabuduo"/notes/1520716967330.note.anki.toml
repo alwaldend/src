@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'The opposite of "cha hen duo" is "chabuduo"'
+english = 'They are both great teachers, but their teaching styles are very different.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A + 跟 / 和 + B + 差很多'
+hanzi = '两个老师都很好，不过教学风格差很多。'
+notes = ''
+pinyin = 'Liǎng gè lǎoshī dōu hěn hǎo, bùguò jiàoxué fēnggé  chà hěn duō.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQAN74'

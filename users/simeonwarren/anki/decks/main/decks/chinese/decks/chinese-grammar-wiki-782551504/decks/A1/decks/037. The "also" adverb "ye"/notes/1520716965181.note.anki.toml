@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'The "also" adverb "ye"'
+english = ''
+example-sentence = ''
+example-type = 'invalid'
+grammar-construct = 'Subj. + 也 (+ Adv.) + Adj.'
+hanzi = '我也。'
+notes = 'Always put something after 也! It never ends a sentence.'
+pinyin = 'Wǒ yě.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGG25MD'

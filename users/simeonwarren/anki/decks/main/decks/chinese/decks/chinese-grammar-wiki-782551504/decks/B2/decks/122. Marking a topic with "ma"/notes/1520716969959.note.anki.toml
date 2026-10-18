@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Marking a topic with "ma"'
+english = 'The boss is buying. Of course I need to be generous.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Topic + 嘛 ，Statement'
+hanzi = '老板请客嘛，当然要大方。'
+notes = ''
+pinyin = 'Lǎobǎn qǐngkè ma, dāngrán yào dàfang.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGB33AE'

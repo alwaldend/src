@@ -1,0 +1,13 @@
+note_type = "note_types/python-basic-and-reversed.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<i>set</i>.intersection(<i>set</i>)'
+example = 'x = { 2, 3, 4}<br>y = { 1, 4, 5}<br>z = x.intersection(y)&nbsp;<span style="color: rgb(102, 102, 102);"># x and y are interchangable</span><br>print(z)&nbsp;<font color="#555753"># { 4 }</font>'
+question = '<b>Set method</b> to return a new set (example <i>z</i>) that contains only the elements that exist in both sets. (example <i>x</i> and <i>y</i>)'
+version = ''
+with-options = ''

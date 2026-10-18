@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Emphasis with "jiushi"'
+english = "The student just wouldn't listen to his teacher."
+example-sentence = ''
+example-type = ''
+grammar-construct = '就(是) + (不) + Verb'
+hanzi = '这个学生就是不听老师的话。'
+notes = ''
+pinyin = 'Zhège xuéshēng jiù bù tīng lǎoshī de huà.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGY21RK'

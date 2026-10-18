@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adjectives", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Saying "a lot" with "youdeshi"'
+english = "I'm a big man. I've got plenty of strength."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun + Subj. + 有的是 。'
+hanzi = '我一个大男人，有的是力气。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGVACYB'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Degree complement'
+english = 'She is all right looking.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 得 + [Degree Complement]'
+hanzi = '她长得还可以。'
+notes = ''
+pinyin = 'Tā zhǎng de hái kěyǐ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG79STE'

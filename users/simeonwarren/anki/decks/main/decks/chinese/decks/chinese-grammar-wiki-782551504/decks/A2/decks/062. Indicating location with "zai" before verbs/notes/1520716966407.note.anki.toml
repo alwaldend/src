@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Indicating location with "zai" before verbs'
+english = 'On the weekend, I want to sleep at home.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 在 + Place + Verb + Obj.'
+hanzi = '我周末想在家睡觉。'
+notes = ''
+pinyin = 'Wǒ zhōumò xiǎng zài jiā shuìjiào.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGX0Z0N'

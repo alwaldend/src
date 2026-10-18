@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "anyway" as "fanzheng"'
+english = 'Everybody knows about it now. So what are you still afraid of?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '反正＋condition，decision or resolution'
+hanzi = '反正大家都知道了，你还怕什么？'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGZVM27'

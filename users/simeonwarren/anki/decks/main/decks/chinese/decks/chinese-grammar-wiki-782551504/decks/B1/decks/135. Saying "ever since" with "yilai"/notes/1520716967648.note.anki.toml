@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Saying "ever since" with "yilai"'
+english = "Since I was in college, I haven't skipped a class."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Time or Event + 以来'
+hanzi = '上大学以来，我一直没逃过课。'
+notes = ''
+pinyin = 'Shàng dàxué yǐlái, wǒ yīzhí méi táo guò kè.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNEMXP'

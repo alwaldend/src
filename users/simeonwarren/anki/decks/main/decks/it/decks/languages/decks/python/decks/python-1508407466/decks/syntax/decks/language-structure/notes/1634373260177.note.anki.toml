@@ -1,0 +1,13 @@
+note_type = "note_types/python-basic.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+'Additional Info' = ''
+'Back - Basic' = 'It allows you to pass the desired number of arguments to the function (usually denoted *args). Function arguments denoted with a * in front of them are like an array, and must go at the end of the argument list, aka after all already defined varaibles.'
+'Back - Code' = ''
+Example = 'def test_func(*args):<br>&nbsp; &nbsp; for x in args:<br>&nbsp; &nbsp; &nbsp; &nbsp; print(x)<br>test_func(1, 2, 3) #should print out 1 2 3 each on a new line'
+Front = 'What does a * at the beginning of a function argument mean?'
+Version = ''

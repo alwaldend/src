@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'At least it is also a strong one on its own.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '至少也是独当一面的强者。'
+notes = ''
+pinyin = ''
+source = ''

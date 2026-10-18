@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Coincidence with "zhenghao"'
+english = 'You arrived at just the right time, not too early and not too late.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 得 + 正好'
+hanzi = '你来得正好，不早也不晚。'
+notes = ''
+pinyin = 'Nǐ láidé zhènghǎo, bù zǎo yě bù wǎn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGUD25J'

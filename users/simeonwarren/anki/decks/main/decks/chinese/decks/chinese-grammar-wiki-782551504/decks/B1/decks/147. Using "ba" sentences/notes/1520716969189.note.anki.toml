@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "ba" sentences'
+english = 'She put my phone in her bag.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 把 + Obj. + [Verb Phrase]'
+hanzi = '她把我的手机放在她的包里了。'
+notes = ''
+pinyin = 'Tā bǎ wǒ de shǒujī fàng zài tā de bāo lǐ le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG2UB2B'

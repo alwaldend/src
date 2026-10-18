@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Topic-comment sentences'
+english = "You haven't returned the money you borrowed from me, have you?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Topic ，Comment'
+hanzi = '你借我的钱，还没还吧？'
+notes = ''
+pinyin = 'Nǐ jiè wǒ de qián, hái méi&nbsp;huán&nbsp;ba?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5KNWW'

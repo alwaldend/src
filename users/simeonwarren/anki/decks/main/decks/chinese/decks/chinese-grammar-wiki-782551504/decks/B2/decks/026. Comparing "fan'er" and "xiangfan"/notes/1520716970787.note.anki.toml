@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "SeparateFunctions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = "Comparing \"fan'er\" and \"xiangfan\""
+english = 'These are two completely opposite results.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '相反 + 的 + Noun'
+hanzi = '这是两个完全相反的结果。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGFNS52'

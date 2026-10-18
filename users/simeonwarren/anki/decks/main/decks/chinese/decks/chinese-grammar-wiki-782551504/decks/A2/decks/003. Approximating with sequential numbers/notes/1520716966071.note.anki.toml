@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Numbers", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Approximating with sequential numbers'
+english = 'This clothing only costs seventy to eighty kuai.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Number + (Number + 1)'
+hanzi = '这件衣服只要七八十块钱。'
+notes = ''
+pinyin = 'Zhè jiàn yīfu zhǐ yào qī bā shí kuài qián.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGOUD8U'

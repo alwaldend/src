@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "youdian" and "yidian"'
+english = 'Sir, a little cheaper please. (directed to the owner of a shop)'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '老板，便宜一点儿吧。'
+notes = ''
+pinyin = 'Lǎobǎn, piányi yīdiǎnr ba.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGV55Y4'

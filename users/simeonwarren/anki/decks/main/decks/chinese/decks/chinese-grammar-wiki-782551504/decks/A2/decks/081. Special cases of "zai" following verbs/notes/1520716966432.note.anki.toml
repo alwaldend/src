@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Special cases of "zai" following verbs'
+english = "Don't sit on my bed."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + [Special Verb] + 在 + Location'
+hanzi = '不要坐在我的床上。'
+notes = ''
+pinyin = 'Bùyào zuò zài wǒ de chuáng shàng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG90DXK'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "guo" with "le"'
+english = 'Has the client read the contract (already)?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 过 + Obj. + 了'
+hanzi = '客户看过合同了吗？'
+notes = ''
+pinyin = 'Kèhù kàn guo  hétong  le ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGP69JD'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Softening speech with "ba"'
+english = "It's too expensive. I'm not buying it."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Statement + 吧'
+hanzi = '太贵了吧，我不买了。'
+notes = ''
+pinyin = 'Tài guì le ba, wǒ bù mǎi le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDHC1H'

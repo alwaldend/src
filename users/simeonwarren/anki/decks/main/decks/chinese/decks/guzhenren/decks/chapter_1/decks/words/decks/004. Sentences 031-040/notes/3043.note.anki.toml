@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'and;	furthermore;	also;	together with;	(not) at all;	simultaneously;	to combine;	to join;	to merge.to combine;	to amalgamate.variant of 并.'
+example-sentence = ' 方源心中叹着,有些感慨,却并不后悔'
+example-type = ''
+grammar-construct = ''
+hanzi = '并'
+notes = ''
+pinyin = '<span class="tone5">bìngbìngbìng</span>	 <!-- bing bing bing -->'
+source = ''

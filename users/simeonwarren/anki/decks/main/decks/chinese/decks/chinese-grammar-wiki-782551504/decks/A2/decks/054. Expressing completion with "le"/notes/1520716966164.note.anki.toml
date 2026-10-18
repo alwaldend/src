@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing completion with "le"'
+english = 'When you have arrived, tell me.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 了 + Obj.'
+hanzi = '你到了告诉我。'
+notes = 'future action'
+pinyin = 'Nǐ dào le gàosu wǒ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGAGDCQ'

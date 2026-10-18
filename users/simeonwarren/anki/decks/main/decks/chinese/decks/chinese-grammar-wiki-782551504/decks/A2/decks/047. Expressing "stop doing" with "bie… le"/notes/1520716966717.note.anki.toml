@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "stop doing" with "bie… le"'
+english = 'Stop watching. Go to sleep!'
+example-sentence = ''
+example-type = ''
+grammar-construct = '别 + Verb / [Verb Phrase] + 了'
+hanzi = '别看了，睡觉！'
+notes = ''
+pinyin = 'Bié kàn le, shuìjiào!'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGZ8OIF'

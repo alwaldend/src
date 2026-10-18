@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "Conjunctions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "haishi" and "huozhe"'
+english = ''
+example-sentence = ''
+example-type = 'invalid'
+grammar-construct = '或者 A，或者 B'
+hanzi = '咱们还是去爬山还是泡温泉。'
+notes = "It's declarative, so it uses \"或者\""
+pinyin = '<div>Zánmen háishì qù páshān háishì pào wēnquán.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQJ5IC'

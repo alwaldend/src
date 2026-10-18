@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Causative verbs'
+english = 'I want to ask you to do me a favor.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + [Causative Verb] + Person + Predicate'
+hanzi = '我想请你帮我一个忙。'
+notes = ''
+pinyin = 'Wǒ xiǎng qǐng nǐ bāng wǒ yī gè máng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5T7XC'

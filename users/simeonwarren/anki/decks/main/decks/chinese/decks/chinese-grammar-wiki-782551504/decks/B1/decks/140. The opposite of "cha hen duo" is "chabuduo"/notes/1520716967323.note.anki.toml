@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'The opposite of "cha hen duo" is "chabuduo"'
+english = 'There are huge differences in the company requirements for new employees and the old ones.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A + 跟 / 和 + B + 差很多'
+hanzi = '公司对新老员工的要求差很多。'
+notes = ''
+pinyin = 'Gōngsī duì xīn lǎo yuángōng de yāoqiú chà hěn duō.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQAN74'

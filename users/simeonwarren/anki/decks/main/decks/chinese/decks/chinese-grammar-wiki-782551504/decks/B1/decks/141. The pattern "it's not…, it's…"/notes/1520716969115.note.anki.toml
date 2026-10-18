@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = "The pattern \"it's not…, it's…\""
+english = 'You were hurting him by doing this, not helping him.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 是 ⋯⋯ ，不是 ⋯⋯'
+hanzi = '你这样做是害他，不是帮他。'
+notes = ''
+pinyin = 'Nǐ zhèyàng zuò shì hài tā, bù shì bāng tā.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGT9WYR'

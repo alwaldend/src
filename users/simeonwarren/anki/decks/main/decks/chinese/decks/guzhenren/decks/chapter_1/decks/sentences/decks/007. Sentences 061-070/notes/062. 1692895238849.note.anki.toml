@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'Discussions gradually picked up.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '议论声渐渐地起来。'
+notes = ''
+pinyin = ''
+source = ''

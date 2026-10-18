@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Negation of "you" with "mei"'
+english = 'Do they all not have computers?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '没 + 有 (+ Obj.)'
+hanzi = '他们都没有电脑吗？'
+notes = ''
+pinyin = 'Tāmen dōu méiyǒu diànnǎo ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPNV3Q'

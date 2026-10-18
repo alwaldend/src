@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Grammatical_Structures", "Notonly…butalso…"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "not only… but also" with "bujin"'
+english = 'He is not only handsome, but also intelligent.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun + 不仅 + A，而且 + B'
+hanzi = '他不仅很帅，而且很聪明。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGEM2VR'

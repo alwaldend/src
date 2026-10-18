@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "about to happen" with "le"'
+english = 'My best friend is about to get married!'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 要 + Verb / Adj. + 了'
+hanzi = '我最好的朋友要结婚了！'
+notes = ''
+pinyin = 'Wǒ zuìhǎo de péngyou yào jiéhūn le!'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNGEU8'

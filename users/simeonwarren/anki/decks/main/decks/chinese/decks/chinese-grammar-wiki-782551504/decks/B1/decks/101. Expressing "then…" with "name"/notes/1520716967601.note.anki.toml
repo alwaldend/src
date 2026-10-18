@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "then…" with "name"'
+english = "They did't let us know in advance. Then they should be responsible for this."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Situation ，那么 + Suggestion / Decision'
+hanzi = '他们没有提前通知我们，那么这是他们的责任。'
+notes = ''
+pinyin = 'Tāmen méiyǒu tíqián tōngzhī wǒmen, nàme zhè shì tāmen de zérèn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGX298Z'

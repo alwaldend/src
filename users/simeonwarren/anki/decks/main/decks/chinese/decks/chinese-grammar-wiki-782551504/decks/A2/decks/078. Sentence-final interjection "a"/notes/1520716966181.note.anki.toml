@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Sentence-final interjection "a"'
+english = 'Your house is so big.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '你家真大啊！'
+notes = ''
+pinyin = 'Nǐ jiā zhēn dà a!'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGW66JM'

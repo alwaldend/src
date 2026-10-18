@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "less than" with "budao"'
+english = 'It is less than 500 meters from my house to the company.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不到 + Number + [Measure Word] + Noun'
+hanzi = '我家到公司不到五百米。'
+notes = ''
+pinyin = 'Wǒ jiā dào gōngsī bùdào wǔ bǎi mǐ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG10CAE'

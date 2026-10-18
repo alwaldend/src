@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "and also" with "hai"'
+english = 'When he got married, he invited his co-workers. Who else did he invite?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + Obj. 1， 还 + Verb + Obj. 2'
+hanzi = '他结婚的时候，请了同事，还请了谁？'
+notes = ''
+pinyin = 'Tā jiéhūn de shíhou, qǐng le tóngshì, hái  qǐng le shéi?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJBZKC'

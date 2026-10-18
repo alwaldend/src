@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "either... or..." with "yaome"'
+english = 'Last summer  I either went to the gym or the library every day. It was so boring.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '要么 + Option A ，要么 + Option B'
+hanzi = '去年夏天，我每天要么去健身，要么去图书馆，特别无聊。'
+notes = ''
+pinyin = 'Qùnián xiàtiān, wǒ měi tiān yàome qù jiànshēn, yàome qù túshūguǎn, tèbié wúliáo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG30A60'

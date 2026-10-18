@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Auxiliaryverbs", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "yao" and "xiang"'
+english = 'She wants to find a rich boyfriend.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 想要 + Noun / Verb'
+hanzi = '她想要找一个有钱的男朋友。'
+notes = ''
+pinyin = 'Tā xiǎngyào zhǎo yī gè yǒuqián de nánpéngyou.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGD88UO'

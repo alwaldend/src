@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'to take seriously;	serious;	No joking, really!.'
+example-sentence = '当真是朝如青丝暮成雪,是非成败转头空'
+example-type = ''
+grammar-construct = ''
+hanzi = '当真'
+notes = ''
+pinyin = '<span class="tone4">dàng</span><span class="tone1">zhēn</span>	 <!-- dang zhen -->'
+source = ''

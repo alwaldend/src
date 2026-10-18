@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "AdverbswithAdjectives", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Modifying nouns with adjective + "de"'
+english = 'He often buys cheap stuff.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Adj. + 的 + Noun'
+hanzi = '他常常买便宜的东西。'
+notes = ''
+pinyin = 'Tā chángcháng mǎi piányi de dōngxi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGVUFKX'

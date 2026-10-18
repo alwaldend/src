@@ -1,0 +1,13 @@
+note_type = "note_types/python-basic-and-reversed.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<i>file</i>.writable()'
+example = ''
+question = '<b>File method</b>&nbsp;that returns True if the file can be written to, else False.'
+version = ''
+with-options = ''

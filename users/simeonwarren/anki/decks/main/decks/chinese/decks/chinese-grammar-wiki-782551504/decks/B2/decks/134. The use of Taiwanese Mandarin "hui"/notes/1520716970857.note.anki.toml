@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["auxiliaryverb", "B2", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'The use of Taiwanese Mandarin "hui"'
+english = 'Are you cold?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 会 + Predicate + 吗 ？'
+hanzi = '你会冷吗？'
+notes = 'means 你 冷 不 冷 ？'
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG22117'

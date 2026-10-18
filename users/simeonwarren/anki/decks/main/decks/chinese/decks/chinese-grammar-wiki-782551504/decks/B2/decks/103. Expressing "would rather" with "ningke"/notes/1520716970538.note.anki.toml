@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "would rather" with "ningke"'
+english = "I'd rather work late in the office than take my work home."
+example-sentence = ''
+example-type = ''
+grammar-construct = '宁可……，也不……'
+hanzi = '我宁可在公司加班，也不想把工作带回家。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGF3F2Y'

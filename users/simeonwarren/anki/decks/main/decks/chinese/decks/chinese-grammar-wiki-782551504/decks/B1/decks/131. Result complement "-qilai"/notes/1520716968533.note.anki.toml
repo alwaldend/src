@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Result complement "-qilai"'
+english = 'These clothes feel very comfortable.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 起来 + Adj.'
+hanzi = '这件衣服摸起来很舒服。'
+notes = ''
+pinyin = 'Zhè jiàn yīfu mō qǐlái hěn shūfu.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGBPXOB'

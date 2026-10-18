@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "with" with "gen"'
+english = 'Do you want live together with your parents after you get married?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 跟 + Person + 一起 + Verb + Obj.'
+hanzi = '结婚以后，你想跟父母一起住吗？'
+notes = ''
+pinyin = 'Jiéhūn yǐhòu, nǐ xiǎng gēn fùmǔ yīqǐ zhù ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGSZ0HP'

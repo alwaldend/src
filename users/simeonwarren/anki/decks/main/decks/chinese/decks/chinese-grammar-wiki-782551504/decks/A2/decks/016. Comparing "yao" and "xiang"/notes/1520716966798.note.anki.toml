@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Auxiliaryverbs", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "yao" and "xiang"'
+english = 'I sort of miss my family.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 想 + Noun'
+hanzi = '我有点想我的家人。'
+notes = ''
+pinyin = 'Wǒ yǒudiǎn  xiǎng wǒ de jiārén.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGD88UO'

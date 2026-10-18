@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "ever since" with "zicong"'
+english = "Ever since he broke up with me, he hasn't contacted me."
+example-sentence = ''
+example-type = ''
+grammar-construct = '自从 + [Starting Point]'
+hanzi = '自从他跟我分手后，他就没有联系过我。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGLI7GW'

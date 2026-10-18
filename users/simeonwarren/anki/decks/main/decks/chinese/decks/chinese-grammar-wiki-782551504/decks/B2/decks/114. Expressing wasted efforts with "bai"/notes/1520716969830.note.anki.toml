@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing wasted efforts with "bai"'
+english = "You can't speak even one sentence in Chinese, wasting all of that time studying."
+example-sentence = ''
+example-type = ''
+grammar-construct = '白 + Verb + 了'
+hanzi = '你一句汉语都不会说，白学了这么长时间。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTIMTS'

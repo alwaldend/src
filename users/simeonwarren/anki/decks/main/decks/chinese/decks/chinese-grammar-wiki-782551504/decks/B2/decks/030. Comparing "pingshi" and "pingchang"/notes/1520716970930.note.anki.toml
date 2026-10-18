@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "TimeWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "pingshi" and "pingchang"'
+english = 'To China, the year 2008 is not an ordinary year.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '平常 + 的 + Noun'
+hanzi = '对中国来说，2008年是很不平常的一年。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJOGGG'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'today;	at the present;	now.'
+example-sentence = '今天,我要让你生不如死'
+example-type = ''
+grammar-construct = ''
+hanzi = '今天'
+notes = ''
+pinyin = '<span class="tone1">jīn</span><span class="tone1">tiān</span>	 <!-- jin tian -->'
+source = ''

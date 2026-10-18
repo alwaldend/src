@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "cai" and "jiu"'
+english = 'Your younger sister started college when she was only fifteen?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Time + 就 + Verb + Obj.＋了'
+hanzi = '你妹妹十五岁就上大学了？'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGLOS9C'

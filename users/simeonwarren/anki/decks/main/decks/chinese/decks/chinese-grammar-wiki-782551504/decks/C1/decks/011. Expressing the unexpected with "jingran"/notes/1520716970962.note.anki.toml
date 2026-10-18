@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "C1"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing the unexpected with "jingran"'
+english = "When we were ready to set out, he suddenly said he wasn't going."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 竟然 ⋯⋯'
+hanzi = '我们要出发的时候，他竟然说不去了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG0D90L'

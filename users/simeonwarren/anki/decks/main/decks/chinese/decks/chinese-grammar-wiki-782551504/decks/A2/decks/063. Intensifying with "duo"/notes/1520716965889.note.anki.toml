@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "AdverbswithAdjectives", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Intensifying with "duo"'
+english = 'Look at this puppy! It is so cute!'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 多 + Adj.'
+hanzi = '你看这个小狗，多可爱！'
+notes = ''
+pinyin = "Nǐ kàn zhège xiǎogǒu, duō kě'ài!"
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGGH7RR'

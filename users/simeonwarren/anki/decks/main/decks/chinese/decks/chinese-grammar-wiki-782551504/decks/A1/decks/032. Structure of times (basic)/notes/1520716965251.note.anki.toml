@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Numbers", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Structure of times (basic)'
+english = '5:30'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'x 点 + 半'
+hanzi = '五点半'
+notes = ''
+pinyin = 'wǔ diǎn bàn'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGN6BBU'

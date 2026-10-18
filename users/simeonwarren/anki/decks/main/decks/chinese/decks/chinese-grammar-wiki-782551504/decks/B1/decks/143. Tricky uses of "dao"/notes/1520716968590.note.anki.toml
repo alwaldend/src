@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Tricky uses of "dao"'
+english = 'I can do it next week.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '我下个星期可以做。'
+notes = ''
+pinyin = 'Wǒ xià gè xīngqī kěyǐ zuò.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCUSIV'

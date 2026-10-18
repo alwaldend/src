@@ -3,37 +3,73 @@ title: Anki collection
 description: Editable collection notes, decks, and settings
 ---
 
-Editable TOML exported from `collection-20261007190123.colpkg`. The base archive
-SHA-256 is recorded in `collection.anki.toml`. The export contains 7,218 notes and
-7,485 cards. All 445 titled Chinese grammar lessons live under their proficiency
-levels in `decks/main/chinese/chinese-grammar-wiki-782551504/`.
+Current CLI version-1 TOML exported from `collection-20261017235526.colpkg`.
+The export contains 7,218 notes, 7,485 existing cards, five note types and 513
+decks: 485 source decks plus 28 Guzhenren grouping decks. Native identities are
+saved in `state.anki.toml`; note files contain editable fields, tags, note-type
+references and card assignments. Deck titles derive from literal directory
+names, with a `decks/` directory between hierarchy levels.
 
-Use the Anki as code CLI from [PR #128](https://github.com/alwaldend/src/pull/128) to export, plan,
-apply, assign fresh note identities, or rebuild an archive. The root config
-references deck, note, and note-type locations through tables with a `path` key. Each `deck.anki.toml` declares its exact
-Anki `title` and `notes.path`; note files use `<name>.note.anki.toml`. Deck strings follow the same quoting policy as note fields. The initial
-hierarchy is convenient for browsing, but directory names do not define deck
-titles. Notes use single-quoted literal values when safe and triple-double-quoted multiline values,
-avoiding escapes in HTML. They retain compact named fields, stable identities, tags, and explicit
-card declarations. Each card defaults to the title of its declaring deck marker,
-unless it has an explicit override.
+The source archive SHA-256 is
+`1fc03bb25a00418a19b927adbb3c18f85a93e58724932cd836152df60f83d3a5`.
+The original archive, media and review history remain local and are not
+committed. The original archive remains byte-identical. Note fields and tags,
+native note/card identities, templates, presets, due dates, intervals and review
+history were verified against a rebuilt archive. Anki recalculates FSRS memory
+estimates when moving cards between decks; this build changes 336 FSRS payloads
+while leaving due dates, intervals, review counts, queues and other card data
+unchanged.
 
-The root `note_types.path` reference points to `note_types/`. Each
-`*.notetype.anki.toml` contains one note type's CSS and `[[templates]]` entries.
-There are five note types and six card templates. Styles, front/back HTML,
-browser formats, and browser fonts are editable. Collection settings and
-scheduling presets are neither exported nor reconciled; they remain preserved
-in the archive. The archive and review history are not stored here. Rebuilt
-archives retain media, card styles/templates, deck settings, existing card
-scheduling, and review records unchanged.
-Keep the original archive locally as the base for rebuilding:
+Grammar lessons live under
+`decks/main/decks/chinese/decks/chinese-grammar-wiki-782551504/decks/`.
+All 449 lesson decks use `001. `, `002. ` and subsequent three-digit prefixes,
+alphabetically within each proficiency level. Four source lesson decks are
+empty, so 445 are populated. B2 contains 142 lessons and 1,342 notes; C1 contains
+12 lessons and 96 notes. Their directories are `B2/decks/` and `C1/decks/` under
+the grammar level directory. Two lesson titles replace `/` with `or` for valid
+literal filenames; article-title fields are unchanged. The filtered decks use
+the readable titles `Due cards` and `New or due cards`; their search queries
+are unchanged. The source's removed,
+empty `B1_unsorted` deck is absent.
+
+Guzhenren lives under `decks/main/decks/chinese/decks/guzhenren/`.
+Chapter 1 has 133 sentence notes and 714 vocabulary notes. Its `sentences` and
+`words` parents each have 14 matching numbered groups, from
+`001. Sentences 001-010` through `014. Sentences 131-133`. Sentence files have
+global reading-order prefixes, such as `001. 1692893034664.note.anki.toml`.
+The sequence includes the chapter heading, narrative and author's closing note.
+Vocabulary follows its example passages; two incomplete examples use the
+associations recorded in the [verification](openspec/changes/refresh-collection-20261017/tasks.md).
+
+The state file is the current CLI's unmodified export snapshot: it binds all
+485 source decks, 7,218 notes, five note types with their fields/templates, and
+one referenced scheduling preset (`Default`). Both native presets remain in the
+archive. `[[moved]]` entries in `collection.anki.toml` connect
+those exported addresses to the organized paths. Grouping decks are created by
+native reconciliation. Keep the state and moves together to retain identities.
+
+State update writes its collection argument in place. Import state into a copy
+of the original archive, inspect the plan, then build a separate organized
+archive with the current CLI:
 
 ```sh
-bazel_agent bazel run //projects/anki_as_code -- build \
-  --base /absolute/path/collection-20261007190123.colpkg \
-  --text "$PWD/users/simeonwarren/anki/collection.anki.toml" \
-  --output "$PWD/out/anki-as-code/collection-organized.colpkg"
+mkdir -p "$PWD/out/anki-refresh"
+cp /absolute/path/collection-20261017235526.colpkg \
+  "$PWD/out/anki-refresh/collection-state-bound.colpkg"
+bazel_agent bazel run //projects/anki_as_code -- col state update \
+  --collection "$PWD/out/anki-refresh/collection-state-bound.colpkg" \
+  "$PWD/users/simeonwarren/anki/state.anki.toml"
+bazel_agent bazel run //projects/anki_as_code -- col plan \
+  --collection "$PWD/out/anki-refresh/collection-state-bound.colpkg" \
+  --text "$PWD/users/simeonwarren/anki"
+bazel_agent bazel run //projects/anki_as_code -- col build \
+  --base "$PWD/out/anki-refresh/collection-state-bound.colpkg" \
+  --text "$PWD/users/simeonwarren/anki" \
+  --output "$PWD/out/anki-refresh/collection-organized.colpkg"
 ```
 
-The initial adoption and its verification are tracked in
-[export-organized-collection](openspec/changes/export-organized-collection/).
+The native build succeeds, and planning the rebuilt package against this tree
+returns an empty plan. All 254 media filenames and decoded contents are
+preserved. The text uses the current CLI format; no legacy CLI is required.
+Verification is tracked in
+[refresh-collection-20261017](openspec/changes/refresh-collection-20261017/).

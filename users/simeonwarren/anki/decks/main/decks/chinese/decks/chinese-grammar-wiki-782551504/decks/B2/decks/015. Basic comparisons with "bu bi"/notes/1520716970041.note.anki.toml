@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Basic comparisons with "bu bi"'
+english = 'His son is not shorter than he is.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A + 不比 + B + Verb + 得 + Adj.'
+hanzi = '他儿子不比他矮。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8DVSO'

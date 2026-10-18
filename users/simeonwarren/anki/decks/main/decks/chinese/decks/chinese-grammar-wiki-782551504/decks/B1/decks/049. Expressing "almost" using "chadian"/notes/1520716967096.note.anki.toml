@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "almost" using "chadian"'
+english = 'The dish was almost burned'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 差点(儿) + (就) + [Verb Phrase] / Adj. + 了'
+hanzi = '菜差点就糊了。'
+notes = "It wasn't burned."
+pinyin = 'Cài chàdiǎn jiù húle'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG6ESWW'

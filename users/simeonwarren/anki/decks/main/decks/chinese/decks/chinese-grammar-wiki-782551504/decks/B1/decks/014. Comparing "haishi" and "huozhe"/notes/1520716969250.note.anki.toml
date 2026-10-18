@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "Conjunctions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "haishi" and "huozhe"'
+english = 'Do you drink tea or coffee?'
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = 'Subj. + Verb + Option A + 还是 + Option B'
+hanzi = '你喝茶还是喝咖啡？'
+notes = ''
+pinyin = 'Nǐ hē chá háishì hē kāfēi?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQJ5IC'

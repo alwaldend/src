@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Declaring the only option with "zhihao"'
+english = "It's too late. I had to take a taxi back home."
+example-sentence = ''
+example-type = ''
+grammar-construct = '……，（Subj.）＋只好 + Verb Phrase'
+hanzi = '太晚了，我只好打车回去。'
+notes = ''
+pinyin = 'Tài wǎn le, wǒ  zhǐhǎo dǎchē huíqù.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG767A2'

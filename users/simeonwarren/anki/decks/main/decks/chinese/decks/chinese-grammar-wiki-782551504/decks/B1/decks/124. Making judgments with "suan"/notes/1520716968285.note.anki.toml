@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Making judgments with "suan"'
+english = 'Can American Chinese food be considered as Chinese food?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. (+ 不) + 算 + Noun'
+hanzi = '美国的中国菜算中国菜吗？'
+notes = ''
+pinyin = 'Měiguó de Zhōngguó cài suàn Zhōngguó cài ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWDWFN'

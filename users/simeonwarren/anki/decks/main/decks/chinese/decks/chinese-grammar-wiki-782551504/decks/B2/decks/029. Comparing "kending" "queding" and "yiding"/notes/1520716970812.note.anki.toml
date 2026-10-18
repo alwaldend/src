@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "SeparateFunctions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "kending" "queding" and "yiding"'
+english = "He has a certain connection with this, it can't completely surprise you."
+example-sentence = ''
+example-type = ''
+grammar-construct = '一定 + （的 +） Noun'
+hanzi = '这件事和他有一定的关系，不能都怪你。'
+notes = ''
+pinyin = '<div>Zhè jiàn shì hé tā yǒu yīdìng de guānxì, bùnéng dōu guài nǐ.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDPS0J'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'A softer "but" with "buguo"'
+english = "His speaking Chinese is pretty good, but he doesn't know any characters."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Clause 1，不过 + Clause 2'
+hanzi = '他的汉语口语不错，不过不认识汉字。'
+notes = ''
+pinyin = 'Tā de Hànyǔ kǒuyǔ bùcuò, bùguò bù rènshi hànzì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGA0S4T'

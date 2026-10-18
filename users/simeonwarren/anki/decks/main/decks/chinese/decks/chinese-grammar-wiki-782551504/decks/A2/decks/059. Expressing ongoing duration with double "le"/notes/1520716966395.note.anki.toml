@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing ongoing duration with double "le"'
+english = 'Mom has been watching TV all evening.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + Obj. + Verb + 了 + Duration + 了'
+hanzi = '妈妈看电视看了一晚上了。'
+notes = ''
+pinyin = 'Māma kàn diànshì kàn le yī wǎnshang le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG69RR8'

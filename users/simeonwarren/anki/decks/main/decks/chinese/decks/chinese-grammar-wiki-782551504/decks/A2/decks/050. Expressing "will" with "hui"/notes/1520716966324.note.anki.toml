@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Auxiliaryverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "will" with "hui"'
+english = "He won't marry you."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不 + 会 + Verb + Obj.'
+hanzi = '他不会跟你结婚。'
+notes = ''
+pinyin = 'Tā bù huì gēn nǐ jiéhūn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGW9737'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "some" with question words'
+english = "I've heard someone say this before."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '这件事我听谁说过。'
+notes = ''
+pinyin = 'Zhè jiàn shì wǒ tīng shéi shuō guo.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG7ED89'

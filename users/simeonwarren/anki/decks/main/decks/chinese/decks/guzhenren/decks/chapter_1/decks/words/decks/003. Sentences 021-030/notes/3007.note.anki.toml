@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'surname Hu;	to neglect;	to overlook;	to ignore;	suddenly.'
+example-sentence = '  说这话的时候,眼前忽的就浮现出前世地球上的种种'
+example-type = ''
+grammar-construct = ''
+hanzi = '忽'
+notes = ''
+pinyin = '<span class="tone1">hū</span>	 <!-- hu -->'
+source = ''

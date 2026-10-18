@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "ButStatements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "although" with "jinguan"'
+english = "Even though it's not that easy to realize this goal, we can't just give up on it."
+example-sentence = ''
+example-type = ''
+grammar-construct = '尽管 A，还是 / 仍然 B'
+hanzi = '尽管实现这个目标不太容易，但是我们不能这么快就放弃。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGW863F'

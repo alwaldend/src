@@ -1,0 +1,13 @@
+note_type = "note_types/python-basic-and-reversed.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+additional-info = '<div>A string is considered a valid identifier if it only contains alphanumeric letters (a-z) and (0-9), or underscores (_). A valid identifier cannot start with a number, or contain any spaces.<strong><br></strong></div><div><br></div><strong>Note:</strong>&nbsp;All string methods returns new values. They do not change the original string.'
+answer = '<i>string</i>.isidentifier()'
+example = ''
+question = '<b>String method</b>&nbsp;that returns True if the string is an identifier, else False.'
+version = ''
+with-options = ''

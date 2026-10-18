@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Making judgments with "suan"'
+english = "It's no big deal."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. (+ 不) + 算 + Noun'
+hanzi = '这不算什么。'
+notes = ''
+pinyin = 'Zhè bù suàn shénme.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWDWFN'

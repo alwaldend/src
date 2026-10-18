@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Numbers", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Structure of times (basic)'
+english = '7:30 yesterday evening'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'x 点 + 半'
+hanzi = '昨天晚上七点半'
+notes = ''
+pinyin = 'zuótiān wǎnshang qī diǎn bàn'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGN6BBU'

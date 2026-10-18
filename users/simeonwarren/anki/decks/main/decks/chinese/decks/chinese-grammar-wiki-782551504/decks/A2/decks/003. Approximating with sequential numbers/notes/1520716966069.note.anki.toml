@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Numbers", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Approximating with sequential numbers'
+english = 'To complete this work, you need one to two months.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Number + (Number + 1)'
+hanzi = '要做完这个工作需要一两个月。'
+notes = ''
+pinyin = 'Yào zuò wán zhège gōngzuò xūyào yī liǎng gè yuè.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGOUD8U'

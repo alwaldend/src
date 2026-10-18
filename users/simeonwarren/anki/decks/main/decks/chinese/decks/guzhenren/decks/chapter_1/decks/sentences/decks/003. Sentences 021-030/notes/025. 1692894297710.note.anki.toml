@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'Looking at the setting sun on the green hills, Fang Yuan smiled softly: "The setting sun on the green hills, the autumn moon and the spring breeze.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '看着这青山落日,方源轻声一笑:“青山落日,秋月春风。'
+notes = ''
+pinyin = ''
+source = ''

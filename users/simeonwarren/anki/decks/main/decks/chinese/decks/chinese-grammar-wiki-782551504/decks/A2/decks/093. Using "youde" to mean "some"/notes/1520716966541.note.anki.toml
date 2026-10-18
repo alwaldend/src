@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Grammatical_Structures", "NounPhrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "youde" to mean "some"'
+english = "After six o'clock some people are off work, while some are still working."
+example-sentence = ''
+example-type = ''
+grammar-construct = '有的 + (Subj.) + Predicate， 有的 + (Subj.) + Predicate'
+hanzi = '晚上六点以后，有的人下班了，有的人在加班。'
+notes = ''
+pinyin = 'Wǎnshang liùdiǎn yǐhòu, yǒude rén xiàbān le, yǒude rén zài jiābān.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG4NDHB'

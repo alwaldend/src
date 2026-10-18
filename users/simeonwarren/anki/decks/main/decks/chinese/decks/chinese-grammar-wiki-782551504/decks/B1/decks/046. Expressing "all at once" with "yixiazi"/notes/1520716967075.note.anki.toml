@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "leech", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "all at once" with "yixiazi"'
+english = 'The teacher gave me a little hint. I recalled it right away.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 一下子 + 就 + Verb + 了'
+hanzi = '老师给了我一点提示，我一下子就想起来了。'
+notes = ''
+pinyin = 'Lǎoshī gěi le wǒ yīdiǎn tíshì, wǒ yīxiàzi jiù xiǎng qǐlai le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG06EA8'

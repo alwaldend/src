@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using the verb "qu"'
+english = "Tonight we're going to the bar. Are you going?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 去 + [Place]'
+hanzi = '晚上我们去酒吧。你去吗？'
+notes = ''
+pinyin = 'Wǎnshang wǒmen qù jiǔbā. Nǐ qù ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGFYNCL'

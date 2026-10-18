@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Occurring together with "shaobuliao"'
+english = "We're neighbors, so we'll definitely have to trouble you."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 少不了 + 要 + [Verb Phrase]'
+hanzi = '大家都是邻居，以后少不了要麻烦您。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG3IR71'

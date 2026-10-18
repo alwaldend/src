@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Reduplication of verbs'
+english = 'Talk a little bit about your ideas.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + Verb'
+hanzi = '说说你的想法。'
+notes = ''
+pinyin = 'Shuōshuo nǐ de xiǎngfǎ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGYC77J'

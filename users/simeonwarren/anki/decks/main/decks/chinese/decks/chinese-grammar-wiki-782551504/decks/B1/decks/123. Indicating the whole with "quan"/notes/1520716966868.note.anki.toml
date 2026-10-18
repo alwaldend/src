@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Indicating the whole with "quan"'
+english = "I had too much homework yesterday. I didn't finish doing them all."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj.+ 不 / 没 + 全都 + Predicate'
+hanzi = '昨天作业太多了，我没全都做完。'
+notes = ''
+pinyin = 'Zuótiān zuòyè tài duō le, wǒ méi quán dōu zuò wán.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCPDSR'

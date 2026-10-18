@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Negation of past actions with "meiyou"'
+english = "I didn't drink your beer."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 没有 / 没 + Verb'
+hanzi = '我没有喝你的啤酒。'
+notes = ''
+pinyin = 'Wǒ méiyǒu hē nǐ de píjiǔ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGAUCXK'

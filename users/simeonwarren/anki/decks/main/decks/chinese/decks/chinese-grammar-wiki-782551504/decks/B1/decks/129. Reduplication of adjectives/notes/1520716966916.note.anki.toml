@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Reduplication of adjectives'
+english = 'Upon hearing the news, she happily left.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A A B B + 地 + Verb'
+hanzi = '听到这个消息，她高高兴兴地走了。'
+notes = ''
+pinyin = 'Tīngdào zhège xiāoxī, tā gāo gāo xìng xìng de  zǒu le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDHE8S'

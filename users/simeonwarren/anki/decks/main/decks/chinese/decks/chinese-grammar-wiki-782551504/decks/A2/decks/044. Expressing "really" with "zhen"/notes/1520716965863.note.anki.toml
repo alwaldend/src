@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "AdverbswithAdjectives", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "really" with "zhen"'
+english = 'Your girlfriend is really pretty!'
+example-sentence = ''
+example-type = ''
+grammar-construct = '真 + Adj.'
+hanzi = '你女朋友真漂亮！'
+notes = ''
+pinyin = 'Nǐ nǚpéngyou zhēn piàoliang!'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGC885D'

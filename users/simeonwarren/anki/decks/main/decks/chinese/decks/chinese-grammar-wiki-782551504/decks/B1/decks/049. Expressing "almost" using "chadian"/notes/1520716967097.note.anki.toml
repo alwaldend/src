@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "almost" using "chadian"'
+english = 'Our team almost lost.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 差点(儿) + (就) + [Verb Phrase] / Adj. + 了'
+hanzi = '我们队差点儿就输了。'
+notes = "the team didn't lose"
+pinyin = 'Wǒmen duì chàdiǎnr jiù shū le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG6ESWW'

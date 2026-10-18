@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Two words for "but"'
+english = "I like him, but he doesn't like me."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Statement， 可是 / 但是 + [Contrary Statement]'
+hanzi = '我喜欢他，可是他不喜欢我。'
+notes = ''
+pinyin = 'Wǒ xǐhuan tā, kěshì tā bù xǐhuan wǒ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGUD81S'

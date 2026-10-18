@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using the "shi... de" construction'
+english = 'Who did you go with?'
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = ''
+hanzi = '你是跟谁去的？'
+notes = ''
+pinyin = 'Nǐ shì gēn shéi qù de?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8YTSF'

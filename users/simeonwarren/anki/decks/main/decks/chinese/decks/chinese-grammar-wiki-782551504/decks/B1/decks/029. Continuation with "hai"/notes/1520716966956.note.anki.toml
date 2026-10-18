@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Continuation with "hai"'
+english = 'I asked him not to buy it, but he still bought it.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '⋯⋯ ，(但是 / 可是 +) Subj. + 还是 + [Verb Phrase]'
+hanzi = '我让他不要买，他还是买了。'
+notes = ''
+pinyin = 'Wǒ ràng tā bùyào mǎi, tā háishì mǎi le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGIRILI'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Questions with "ne"'
+english = "You don't have time tonight? What about tomorrow evening?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Topic + 呢 ？'
+hanzi = '今天晚上没空？明天晚上呢？'
+notes = ''
+pinyin = 'Jīntiān wǎnshang méi kòng? Míngtiān wǎnshang ne?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMJHZO'

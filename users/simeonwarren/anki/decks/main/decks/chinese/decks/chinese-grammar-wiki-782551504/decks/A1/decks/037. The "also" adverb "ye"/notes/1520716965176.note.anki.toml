@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'The "also" adverb "ye"'
+english = 'Yesterday was cold, and today is also cold.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 也 (+ Adv.) + Adj.'
+hanzi = '昨天很冷，今天也很冷。'
+notes = ''
+pinyin = 'Zuótiān hěn lěng, jīntiān yě hěn lěng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGG25MD'

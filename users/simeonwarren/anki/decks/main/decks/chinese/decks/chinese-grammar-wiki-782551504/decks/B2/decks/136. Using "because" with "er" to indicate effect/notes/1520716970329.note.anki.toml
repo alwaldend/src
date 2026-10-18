@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Cause/EffectStatements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "because" with "er" to indicate effect'
+english = 'Because the prime minister accepted bribes, he fell from power.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 因(为) + Cause + 而 + Result'
+hanzi = '首相因为受贿丑闻而下了台。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGL1V0A'

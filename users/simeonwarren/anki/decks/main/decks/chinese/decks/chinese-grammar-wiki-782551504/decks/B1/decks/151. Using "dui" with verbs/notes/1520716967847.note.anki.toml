@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "dui" with verbs'
+english = "To us, it's too luxurious to wear this kind of clothes."
+example-sentence = ''
+example-type = ''
+grammar-construct = '对 + Person + 来说'
+hanzi = '穿这种衣服对我们来说太奢侈了。'
+notes = ''
+pinyin = 'Chuān zhè zhǒng yīfu duì wǒmen lái shuō tài shēchǐ le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8ICO9'

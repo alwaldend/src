@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "in this way" with "zheyang"'
+english = 'You need to speak more. You can improve your spoken Chinese this way.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Condition, 这样 + Result / Purpose'
+hanzi = '你要多说，这样才能提高汉语口语。'
+notes = ''
+pinyin = 'Nǐ yào duō shuō, zhèyàng cáinéng tígāo hànyǔ kǒuyǔ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG1F4D1'

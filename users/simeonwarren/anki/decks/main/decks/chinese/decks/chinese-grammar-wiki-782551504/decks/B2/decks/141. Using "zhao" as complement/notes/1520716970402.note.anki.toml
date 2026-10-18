@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "zhao" as complement'
+english = "It's so late already, can you buy it?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 得 / 不 + 着'
+hanzi = '这么晚了，买得着吗？'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGM5ZAB'

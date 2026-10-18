@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'Many memories buried deep in my heart are alive at this moment, vividly echoing before my eyes.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '深埋在心底的许多记忆,在此刻鲜活起来,栩栩如生地在眼前回现着。'
+notes = ''
+pinyin = ''
+source = ''

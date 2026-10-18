@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "again" in the past with "you"'
+english = 'I wrote it wrong again.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '又 + Verb + 了'
+hanzi = '我又写错了。'
+notes = ''
+pinyin = 'Wǒ yòu xiě cuò le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGN1JR5'

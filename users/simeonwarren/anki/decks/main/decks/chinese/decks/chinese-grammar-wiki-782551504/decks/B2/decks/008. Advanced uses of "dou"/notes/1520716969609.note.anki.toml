@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Advanced uses of "dou"'
+english = 'I blame you for not making the reservation earlier in the day.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '都 + 怨 / 是 / 怪 + Somebody'
+hanzi = '都怨你，不提前订好座位。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQFW44'

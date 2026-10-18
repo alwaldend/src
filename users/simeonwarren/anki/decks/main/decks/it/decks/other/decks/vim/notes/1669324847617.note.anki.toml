@@ -1,0 +1,12 @@
+note_type = "note_types/basic.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[[cards]]
+ordinal = 1
+
+[fields]
+Back = ':set foldmethod=syntax&nbsp; &nbsp;" default foldmethod'
+Front = 'Set code folding based on syntax'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Doing something less with "shao"'
+english = 'The doctor told me to stay up less and take more rest.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 少 + Verb-Obj.'
+hanzi = '医生让我少熬夜，多休息。'
+notes = ''
+pinyin = 'Yīshēng ràng wǒ shǎo áoyè, duō xiūxi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG9B0M8'

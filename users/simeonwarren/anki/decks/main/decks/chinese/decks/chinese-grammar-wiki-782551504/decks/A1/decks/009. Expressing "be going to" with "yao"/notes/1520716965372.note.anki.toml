@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Auxiliaryverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "be going to" with "yao"'
+english = 'Is the boss going to meet them tomorrow?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Time + Subj. + 要 + Verb'
+hanzi = '老板明天要见他们吗？'
+notes = ''
+pinyin = 'Lǎobǎn míngtiān yào jiàn tāmen ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGVT2KN'

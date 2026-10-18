@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "double negation"'
+english = "There is not one person who doesn't dislike him."
+example-sentence = ''
+example-type = ''
+grammar-construct = '没有 +  Single Noun + 不 / 没 + Adj. / [Verb Phrase]'
+hanzi = '没有一个人不讨厌他。'
+notes = ''
+pinyin = 'Méiyǒu yī gè rén bù tǎoyàn tā.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGEEA2D'

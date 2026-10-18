@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "no wonder"'
+english = "A: He's late."
+example-sentence = ''
+example-type = ''
+grammar-construct = '这也 + 难怪 + [Specific Person / People]'
+hanzi = 'A: 他迟到了。'
+notes = ''
+pinyin = 'A: Tā chídào le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGFPV2C'

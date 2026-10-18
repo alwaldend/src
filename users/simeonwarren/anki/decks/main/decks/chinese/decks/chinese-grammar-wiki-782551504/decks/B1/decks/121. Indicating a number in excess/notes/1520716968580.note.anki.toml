@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "NounPhrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Indicating a number in excess'
+english = 'He has been living abroad for more than twenty years.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Number + 多 + [Measure word] (+ Noun)'
+hanzi = '他在国外住了二十多年了。'
+notes = ''
+pinyin = 'Tā zài guówài zhù le èrshí duō nián le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG004ZK'

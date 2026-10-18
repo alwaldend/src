@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "about to" with "jiuyao"'
+english = 'The class is almost over. Are there any other questions?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '(Subj. +) 就要 + Verb + 了'
+hanzi = '就要下课了，还有别的问题吗？'
+notes = ''
+pinyin = 'Jiù yào xiàkè le, háiyǒu bié de wèntí ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG9B210'

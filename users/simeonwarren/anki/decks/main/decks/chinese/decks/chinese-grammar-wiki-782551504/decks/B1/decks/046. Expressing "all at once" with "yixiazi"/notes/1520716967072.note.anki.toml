@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "all at once" with "yixiazi"'
+english = 'He is the tallest. I spotted him right away.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 一下子 + 就 + Verb + 了'
+hanzi = '他是最高的，我一下就看到他了。'
+notes = ''
+pinyin = 'Tā shì zuì gāo de, wǒ yīxià jiù kàndào tā le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG06EA8'

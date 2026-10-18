@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "simply" with "jianzhi"'
+english = "China's elevated railroad was simply built really fast!"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + (Obj.) + Verb + 得 + 简直 + Adj.'
+hanzi = '中国的高速铁路修建得简直太快了!'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8OLAE'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "TimeWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "pingshi" and "pingchang"'
+english = "Could you tell me about this piece of jade?<br>It's a common piece of jade."
+example-sentence = ''
+example-type = ''
+grammar-construct = '平常的 + Noun'
+hanzi = 'A:你帮我看一下这块玉怎么样？<br>B:是一块很平常的玉。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJOGGG'

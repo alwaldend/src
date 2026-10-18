@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "must" with "dei"'
+english = "You must wear something more formal for tomorrow's job interview."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 得 + [Verb Phrase]'
+hanzi = '明天去面试，你得穿得正式一点。'
+notes = ''
+pinyin = 'Míngtiān qù miànshì, nǐ děi chuān de zhèngshì yīdiǎn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPXLP9'

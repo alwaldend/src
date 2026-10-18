@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "ButStatements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = "Expressing \"on the contrary\" with \"fan'er\""
+english = "He didn't give up; on the contrary, he worked even harder."
+example-sentence = ''
+example-type = ''
+grammar-construct = '⋯⋯ ，Subj. + 反而 + [Unexpected Outcome]'
+hanzi = '他没有放弃，反而更努力了！'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGX5QTV'

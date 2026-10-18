@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "lai" and "qu" when "verbing around"'
+english = "I've thought and thought about it, but I can't understand, how could you treat me like that?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 来 + Verb + 去'
+hanzi = '我想来想去都想不明白，他怎么能那样对我？'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGYJQAG'

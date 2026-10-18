@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "C1"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "as long as" with "fanshi"'
+english = 'As long as the athletes have taken stimulants, they will be punished very seriously.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '凡是 +  Noun / Noun Phrase＋都 / 就 / 一律 / 无不＋ Verb'
+hanzi = '凡是使用过兴奋剂的运动员一律会受到严重的惩罚。'
+notes = ''
+pinyin = '<div>Fánshì shǐyòngguò xīngfèn jì de yùndòngyuán yīlǜ huì shòudào yánzhòng de chéngfá.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG38F8A'

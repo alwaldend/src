@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "AdverbswithAdjectives", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing distance with "li"'
+english = 'Stay away from me.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Place 1 + 离 + Place 2 (+ 有) + 多远？'
+hanzi = '你离我远点儿！'
+notes = ''
+pinyin = 'Nǐ lí wǒ yuǎn diǎnr!'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGI96BQ'

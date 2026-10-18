@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "must" with "dei"'
+english = "This way doesn't work. You need to find another way."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 得 + Verb + Obj.'
+hanzi = '这个方法不行，你得换个方法。'
+notes = ''
+pinyin = 'Zhège fāngfǎ bùxíng, nǐ děi huàn gè fāngfǎ .'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPXLP9'

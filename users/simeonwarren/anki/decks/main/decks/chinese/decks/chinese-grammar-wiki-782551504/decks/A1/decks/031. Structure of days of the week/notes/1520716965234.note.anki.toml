@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Numbers", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Structure of days of the week'
+english = 'Is today Monday?'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '今天是星期一吗？'
+notes = '是 is optional'
+pinyin = 'Jīntiān shì Xīngqīyī ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGVH4Q5'

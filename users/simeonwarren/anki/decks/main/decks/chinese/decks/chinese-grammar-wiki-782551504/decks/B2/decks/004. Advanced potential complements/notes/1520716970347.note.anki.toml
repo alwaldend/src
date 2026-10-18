@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Advanced potential complements'
+english = "I'm sure my suitcase is big enough for these clothes."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 得 / 不 + 下'
+hanzi = '我的箱子这么大，肯定装得下这些衣服。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG516F9'

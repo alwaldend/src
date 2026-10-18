@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Result complements'
+english = "You came too late. We're closed already."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 没 + Verb + Adj. (+ Obj.)'
+hanzi = '你来晚了，我们已经关门了。'
+notes = ''
+pinyin = 'Nǐ lái wǎn le, wǒmen yǐjīng guānmén 了 le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNNMST'

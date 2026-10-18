@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'The "also" adverb "ye"'
+english = 'I also want to study Chinese.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 也 + Verb / [Verb Phrase]'
+hanzi = '我也想学中文。'
+notes = ''
+pinyin = 'Wǒ yě xiǎng xué Zhōngwén.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGG25MD'

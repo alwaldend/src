@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'enemy;	to be a match for;	to rival;	to resist;	to withstand.'
+example-sentence = '天地不容,举世皆敌,还要纵情纵横'
+example-type = ''
+grammar-construct = ''
+hanzi = '敌'
+notes = ''
+pinyin = '<span class="tone2">dí</span>	 <!-- di -->'
+source = ''

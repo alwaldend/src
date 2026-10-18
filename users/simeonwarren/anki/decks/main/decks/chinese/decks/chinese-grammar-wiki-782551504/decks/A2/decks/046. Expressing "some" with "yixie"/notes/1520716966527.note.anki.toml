@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Grammatical_Structures", "NounPhrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "some" with "yixie"'
+english = "We're going to meet some new co-workers very soon."
+example-sentence = ''
+example-type = ''
+grammar-construct = '一些 + Noun'
+hanzi = '我们很快会见到一些新同事。'
+notes = ''
+pinyin = 'Wǒmen hěn kuài huì jiàndào yīxiē xīn tóngshì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWVZ0T'

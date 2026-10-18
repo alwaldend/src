@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing actions in progress with "zai"'
+english = 'When you called me, I was playing video games with friends.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 正在 + Verb + Obj.'
+hanzi = '你给我打电话的时候，我正在跟朋友打游戏。'
+notes = ''
+pinyin = 'Nǐ gěi wǒ dǎ diànhuà de shíhou, wǒ zhèngzài gēn péngyou dǎ yóuxì.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG846EA'

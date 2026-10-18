@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'one breath;	in one breath;	at a stretch.'
+example-sentence = ' 在走廊中,众家老默默地舒了一口气,气氛为之一松'
+example-type = ''
+grammar-construct = ''
+hanzi = '一口气'
+notes = ''
+pinyin = '<span class="tone1">yī</span><span class="tone3">kǒu</span><span class="tone4">qì</span>	 <!-- yi kou qi -->'
+source = ''

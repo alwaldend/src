@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = "Expressing \"don't need to\" with \"buyong\""
+english = "We are only going for two days. You don't need to take this much clothing."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不用 + [Verb Phrase]'
+hanzi = '我们只去两天，你不用带这么多衣服。'
+notes = ''
+pinyin = 'Wǒmen zhǐ qù liǎng tiān, nǐ bùyòng dài zhème duō yīfu.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGECD0E'

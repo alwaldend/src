@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Auxiliaryverbs", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "yao" and "xiang"'
+english = 'Are you going out partying this weekend?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 要 + Verb'
+hanzi = '这个周末你们要出去玩吗？'
+notes = ''
+pinyin = 'Zhège zhōumò nǐmen yào  chūqù wán ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGD88UO'

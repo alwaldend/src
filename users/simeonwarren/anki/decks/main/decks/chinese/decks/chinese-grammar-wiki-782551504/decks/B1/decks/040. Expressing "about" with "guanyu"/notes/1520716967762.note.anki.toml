@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "about" with "guanyu"'
+english = "As for this problem, you'd better ask him."
+example-sentence = ''
+example-type = ''
+grammar-construct = '关于 + Obj. ，⋯⋯'
+hanzi = '关于这个问题，你们还是问他吧。'
+notes = ''
+pinyin = 'Guānyú zhège wèntí, nǐmen háishì wèn tā bā.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG49889'

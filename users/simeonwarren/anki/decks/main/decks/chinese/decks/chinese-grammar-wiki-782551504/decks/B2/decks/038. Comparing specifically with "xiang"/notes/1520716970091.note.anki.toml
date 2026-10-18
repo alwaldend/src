@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing specifically with "xiang"'
+english = "She's as naive as a young kid is sometimes."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Noun 1 + 像 + Noun 2 + 一样 + Adj. / Verb'
+hanzi = '她有时候像小孩一样天真。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG1MD4N'

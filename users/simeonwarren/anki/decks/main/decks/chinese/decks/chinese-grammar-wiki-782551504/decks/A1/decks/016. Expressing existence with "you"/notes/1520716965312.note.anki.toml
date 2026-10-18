@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing existence with "you"'
+english = 'There are a lot of pretty girls in this bar.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Place + 有 + Obj.'
+hanzi = '这个酒吧有很多美女。'
+notes = ''
+pinyin = 'Zhège jiǔbā yǒu hěn duō měinǚ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG04ZCI'

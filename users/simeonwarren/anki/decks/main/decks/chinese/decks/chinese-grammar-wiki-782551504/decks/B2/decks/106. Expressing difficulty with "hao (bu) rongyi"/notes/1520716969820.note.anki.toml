@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing difficulty with "hao (bu) rongyi"'
+english = 'Finishing this big project will not be an easy task.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb / [Verb Phrase] + 好容易 / 好不容易'
+hanzi = '要完成这个大项目好不容易啊。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG81QV3'

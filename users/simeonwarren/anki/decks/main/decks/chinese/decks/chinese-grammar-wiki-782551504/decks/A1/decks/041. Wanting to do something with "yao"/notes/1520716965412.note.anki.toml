@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Auxiliaryverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Wanting to do something with "yao"'
+english = "Today I'm very tired. I want to rest."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 要 + Verb + Obj.'
+hanzi = '今天很累，我要休息。'
+notes = ''
+pinyin = 'Jīntiān hěn lèi, wǒ yào xiūxi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGXVEAR'

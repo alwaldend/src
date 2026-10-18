@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "EvenIfStatements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "even if…" with "napa"'
+english = "Even if he didn't told me, I'd still find out."
+example-sentence = ''
+example-type = ''
+grammar-construct = '哪怕 ⋯⋯ ，也 ⋯⋯'
+hanzi = '哪怕他不说，我也会知道。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGXX3NY'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using the verb "xing"'
+english = "His girlfriend's last name is Qian."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 姓 + [Surname]'
+hanzi = '他女朋友姓钱。'
+notes = ''
+pinyin = 'Tā nǚpéngyou xìng Qián.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPS9NY'

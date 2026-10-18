@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "difficult" with "nan"'
+english = 'This thing is really difficult to purchase now.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + (很) 难 + Verb'
+hanzi = '这个东西现在很难买。'
+notes = ''
+pinyin = 'Zhège dōngxi xiànzài hěn nán mǎi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG35T4H'

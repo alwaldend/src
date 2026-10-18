@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "bu" and "mei"'
+english = 'He did not know her when he was young.'
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = 'Noun 1 + 没有 + Noun 2 + Adj.'
+hanzi = '他小时候不认识她。'
+notes = ''
+pinyin = 'Tā xiǎo shíhou bù rènshi tā.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGRJ1BI'

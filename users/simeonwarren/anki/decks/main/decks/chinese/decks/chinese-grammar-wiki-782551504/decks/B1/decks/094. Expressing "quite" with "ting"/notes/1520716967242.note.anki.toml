@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "quite" with "ting"'
+english = 'College graduates who are looking for jobs are under quite a lot of pressure.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '挺 + Adj. + 的'
+hanzi = '大学生毕业找工作的压力挺大的。'
+notes = ''
+pinyin = 'Dàxuéshēng bìyè zhǎo gōngzuò de yālì  tǐng dà  de.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDF1F7'

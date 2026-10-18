@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Structural particle "de"'
+english = 'sadly cry'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Adj. + 地 +  Verb'
+hanzi = '伤心地哭'
+notes = ''
+pinyin = 'shāngxīn de kū'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5MOMM'

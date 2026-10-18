@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'in a nutshell;	to put it briefly.'
+example-sentence = ' 简而言之,就是重生'
+example-type = ''
+grammar-construct = ''
+hanzi = '简而言之'
+notes = ''
+pinyin = '<span class="tone3">jiǎn</span><span class="tone2">ér</span><span class="tone2">yán</span><span class="tone1">zhī</span>	 <!-- jian er yan zhi -->'
+source = ''

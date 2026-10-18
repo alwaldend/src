@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "in addition" with "lingwai"'
+english = "I hope you won't be late again. In addition, you should also dress a little more formally."
+example-sentence = ''
+example-type = ''
+grammar-construct = '⋯⋯， 另外 ，⋯⋯'
+hanzi = '希望你不要再迟到了。另外，你应该穿得正式一点。'
+notes = ''
+pinyin = 'Xīwàng nǐ bùyào zài chídào le. Lìngwài, nǐ yīnggāi chuān de zhèngshì yīdiǎn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG2KQZI'

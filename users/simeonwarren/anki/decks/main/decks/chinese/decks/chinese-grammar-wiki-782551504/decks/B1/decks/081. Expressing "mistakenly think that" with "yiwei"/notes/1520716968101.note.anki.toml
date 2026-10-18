@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "mistakenly think that" with "yiwei"'
+english = 'You think the whole world is as rich as you are?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 以为 ⋯⋯'
+hanzi = '你以为全世界都跟你一样有钱？'
+notes = ''
+pinyin = 'Nǐ yǐwéi quán shìjiè dōu gēn nǐ yīyàng yǒuqián?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGRBC43'

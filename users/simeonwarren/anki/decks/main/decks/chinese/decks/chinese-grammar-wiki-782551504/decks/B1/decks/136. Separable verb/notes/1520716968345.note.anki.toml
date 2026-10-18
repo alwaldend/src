@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Separable verb'
+english = ''
+example-sentence = ''
+example-type = 'invalid'
+grammar-construct = ''
+hanzi = '我们都可以帮忙你。'
+notes = '你 is an extra object; 忙, which means "a favor", is already the object'
+pinyin = 'Wǒmen dōu kěyǐ bāngmáng nǐ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG4GVRX'

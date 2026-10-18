@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "about" with "guanyu"'
+english = 'He wrote many articles about gender equality.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '关于 ⋯⋯ 的 + Noun'
+hanzi = '他写过很多关于男女平等的文章。'
+notes = ''
+pinyin = 'Tā xiě guo hěn duō guānyú nánnǚ píngděng de wénzhāng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG49889'

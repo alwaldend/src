@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Reduplication of adjectives'
+english = 'Your face is red.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A A + 的 (+ Noun)'
+hanzi = '你的脸红红的。'
+notes = ''
+pinyin = 'Nǐ de liǎn hóng hóng de.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDHE8S'

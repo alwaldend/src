@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "NumbersandMeasureWords", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "ji" to mean "several"'
+english = 'There are a few books on the table.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '几 + Measure Word + Noun'
+hanzi = '桌子上有几本书。'
+notes = ''
+pinyin = 'Zhuōzi shàng yǒu jǐ běn shū.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGHC9CA'

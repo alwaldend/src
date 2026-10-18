@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "chao" "xiang" and "wang"'
+english = 'Walk forward for ten minutes.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '向 / 朝 / 往 + 具体方向 + Verb'
+hanzi = '往前走十分钟。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGIHS2L'

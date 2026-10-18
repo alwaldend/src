@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Advanced result complements'
+english = 'Can you tell how old I am?'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '你能看出来我多大吗？'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG4OM4T'

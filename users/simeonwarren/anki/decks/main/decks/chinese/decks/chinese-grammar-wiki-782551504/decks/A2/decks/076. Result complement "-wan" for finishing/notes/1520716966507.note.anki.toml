@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Result complement "-wan" for finishing'
+english = 'I am finished talking.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 完 (+ 了) + Obj.'
+hanzi = '我说完了。'
+notes = ''
+pinyin = 'Wǒ shuō wán le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNQUC1'

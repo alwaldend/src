@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing comparable degree with "you"'
+english = 'My house is 130 square meters.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A + 有 + B + 这么 / 那么 + 高 / 深 / 宽 / 长'
+hanzi = '我家有一百三十平。'
+notes = ''
+pinyin = 'Wǒ jiā yǒu yī bǎi sānshí píng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5DG95'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Two words for "but"'
+english = "He said he would come to see me at five, but he didn't."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Statement， 可是 / 但是 + [Contrary Statement]'
+hanzi = '他说五点来见我，但是他没来。'
+notes = ''
+pinyin = 'Tā shuō wǔ diǎn lái jiàn wǒ, dànshì tā méi lái.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGUD81S'

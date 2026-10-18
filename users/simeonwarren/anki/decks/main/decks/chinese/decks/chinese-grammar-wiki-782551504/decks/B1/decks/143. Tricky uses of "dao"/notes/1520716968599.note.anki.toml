@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Tricky uses of "dao"'
+english = "Today I'm going to pick up the wedding dress, not sure if I'll be able to get it or not."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '今天去拿婚纱，不知道能不能拿到。'
+notes = ''
+pinyin = 'Jīntiān qù ná hūnshā, bù zhīdào néng bu néng nádào.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCUSIV'

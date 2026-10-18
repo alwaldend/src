@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "as one likes" with "jiu"'
+english = "Isn't it too easy that you just leave when you want to run away?"
+example-sentence = ''
+example-type = ''
+grammar-construct = '想 + Verb (+ Obj.) + 就 + Verb (+ Obj.)'
+hanzi = '想跑就跑，哪有那么容易？'
+notes = ''
+pinyin = 'Xiǎng pǎo jiù pǎo, nǎ yǒu nàme róngyì?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDUZ55'

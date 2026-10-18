@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "EvenIfStatements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "even if…" with "jishi"'
+english = "Even if the boss doesn't come, we will still have the meeting as usual."
+example-sentence = ''
+example-type = ''
+grammar-construct = '即使 + Hypothetical Statement + 也 + Action'
+hanzi = '即使领导不来，我们也要照样开会。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGBUXN7'

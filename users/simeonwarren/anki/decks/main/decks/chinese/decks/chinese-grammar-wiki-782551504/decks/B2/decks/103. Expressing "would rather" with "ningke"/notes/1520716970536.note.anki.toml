@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "would rather" with "ningke"'
+english = "I'd rather have no boyfriend than find a random one."
+example-sentence = ''
+example-type = ''
+grammar-construct = '宁可……，也不……'
+hanzi = '我宁可没有男朋友，也不要随便找一个男朋友。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGF3F2Y'

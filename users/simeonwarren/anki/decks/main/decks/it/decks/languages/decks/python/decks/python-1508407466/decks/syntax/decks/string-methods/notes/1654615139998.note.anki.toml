@@ -1,0 +1,17 @@
+note_type = "note_types/python-basic-and-reversed.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+additional-info = """
+
+
+<strong>Note:</strong>&nbsp;All string methods returns new values. They do not change the original string.\
+"""
+answer = '<b>String</b> <b>method</b>&nbsp;that&nbsp;decodes the string using the codec registered for the&nbsp;<i>encoding </i>argument.'
+example = ''
+question = '<i>string</i>.decode()'
+version = ''
+with-options = '<i>string</i>.decode(<span style="color: var(--field-fg); background: var(--field-bg);"><i>encoding</i>=“UTF-8”,&nbsp;<i>errors</i>=“strict”)&nbsp;</span><br>'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "it depends" with "kan"'
+english = 'Who will be the president depends on the result of the election.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '[Unknown Outcome] + 要看 / 得看 + [Unclear Situation]'
+hanzi = '谁当总统得看大选的结果。'
+notes = ''
+pinyin = 'Shéi dāng zǒngtǒng děi kàn dàxuǎn de jiéguǒ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG765HD'

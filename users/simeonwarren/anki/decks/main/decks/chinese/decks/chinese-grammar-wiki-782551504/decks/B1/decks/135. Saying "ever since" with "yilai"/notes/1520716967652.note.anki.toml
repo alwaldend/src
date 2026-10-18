@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Saying "ever since" with "yilai"'
+english = "He hasn't  returned home since last summer."
+example-sentence = ''
+example-type = ''
+grammar-construct = '自 / 从 / 自从 + Time or Event + 以来'
+hanzi = '自从去年夏天以来，他一直没有回过家。'
+notes = ''
+pinyin = 'Zìcóng qùnián xiàtiān yǐlái, tā yīzhí méiyǒu huíguò jiā.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNEMXP'

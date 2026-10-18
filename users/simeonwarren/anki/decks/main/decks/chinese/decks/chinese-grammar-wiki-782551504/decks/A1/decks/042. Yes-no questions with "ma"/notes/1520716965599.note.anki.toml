@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Yes-no questions with "ma"'
+english = 'Is he the boss?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '[Statement] + 吗 ？'
+hanzi = '他是老板吗？'
+notes = 'question'
+pinyin = 'Tā shì lǎobǎn ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQ2AZA'

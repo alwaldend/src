@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'to exploit;	to make use of;	to use;	to take advantage of;	to utilize.'
+example-sentence = '  利用春秋蝉重生了,回到了500年前'
+example-type = ''
+grammar-construct = ''
+hanzi = '利用'
+notes = ''
+pinyin = '<span class="tone4">lì</span><span class="tone4">yòng</span>	 <!-- li yong -->'
+source = ''

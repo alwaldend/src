@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "de" (modal particle)'
+english = "I won't lie to you."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Statement + 的'
+hanzi = '我不会骗你的。'
+notes = ''
+pinyin = 'Wǒ bù huì piàn nǐ de.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG19S1M'

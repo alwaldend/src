@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "not often" with "bu zenme"'
+english = "My colleagues don't go to the gym."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不怎么 + Verb ( + Obj. )'
+hanzi = '我同事不怎么去健身。'
+notes = ''
+pinyin = 'Wǒ tóngshì bù zěnme qù jiànshēn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5BOGP'

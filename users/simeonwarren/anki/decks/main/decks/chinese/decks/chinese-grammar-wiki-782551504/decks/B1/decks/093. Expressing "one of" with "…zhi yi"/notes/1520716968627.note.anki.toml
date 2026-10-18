@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "NounPhrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "one of" with "…zhi yi"'
+english = 'I think Pepsi is one of the best tasting drinks.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '[Noun Phrase] + 之一'
+hanzi = '我觉得百事可乐是最好喝的饮料之一。'
+notes = ''
+pinyin = 'Wǒ juéde Bǎishì kělè shì zuì hǎohē de yǐnliào zhī yī.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMT1M1'

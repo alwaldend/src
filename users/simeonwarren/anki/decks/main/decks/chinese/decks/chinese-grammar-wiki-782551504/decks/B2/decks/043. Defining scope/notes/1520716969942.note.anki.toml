@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Parts_of_Speech", "PrepositionalPhrase"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Defining scope'
+english = 'The air in my hometown is good. PM 2.5 is generally under 50.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '级别 / 次序 / 数目 + 以上 / 以下'
+hanzi = '我老家空气还不错，PM2.5一般在五十以下。'
+notes = ''
+pinyin = 'Wǒ lǎojiā kōngqì hái bùcuò, PM2.5 yībān zài wǔshí yǐxià.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG7AE5C'

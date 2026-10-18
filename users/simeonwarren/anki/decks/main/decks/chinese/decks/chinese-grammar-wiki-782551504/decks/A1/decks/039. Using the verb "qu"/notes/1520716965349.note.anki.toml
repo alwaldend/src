@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using the verb "qu"'
+english = 'Would you like to go travel?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 去 + Verb'
+hanzi = '你想去旅行吗？'
+notes = ''
+pinyin = 'Nǐ xiǎng qù lǚxíng ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGFYNCL'

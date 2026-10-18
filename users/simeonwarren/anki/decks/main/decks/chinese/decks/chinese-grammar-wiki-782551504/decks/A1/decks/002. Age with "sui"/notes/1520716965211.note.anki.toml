@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Numbers", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Age with "sui"'
+english = 'My son is one and a half years old.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Number + 岁 + 半'
+hanzi = '我儿子一岁半。'
+notes = ''
+pinyin = 'Wǒ érzi yī suì bàn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQUKJF'

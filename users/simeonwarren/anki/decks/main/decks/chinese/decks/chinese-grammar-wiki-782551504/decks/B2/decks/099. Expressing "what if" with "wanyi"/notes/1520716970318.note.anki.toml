@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Grammatical_Structures", "IfStatements"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "what if" with "wanyi"'
+english = "It's especially cold now in Beijing. You should bring a few more pieces of clothing, just in case."
+example-sentence = ''
+example-type = ''
+grammar-construct = '万一 ⋯⋯ ，⋯⋯'
+hanzi = '北京现在特别冷，多带几件衣服，以防万一。'
+notes = ''
+pinyin = 'Běijīng xiànzài tèbié lěng, duō dài jǐ jiàn yīfu, yǐ fáng wànyī.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG25773'

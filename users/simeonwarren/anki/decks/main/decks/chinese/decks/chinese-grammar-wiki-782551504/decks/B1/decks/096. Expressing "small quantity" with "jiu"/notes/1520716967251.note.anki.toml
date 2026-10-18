@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "small quantity" with "jiu"'
+english = 'All the food is delicious. Just these two dishes are a little salty.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '就 + Subj. + Predicate'
+hanzi = '所有的菜都很好吃，就这两个菜有点咸。'
+notes = ''
+pinyin = 'Suǒyǒu de cài dōu hěn hǎochī, jiù zhè liǎng gè cài yǒudiǎn xián.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPW8PP'

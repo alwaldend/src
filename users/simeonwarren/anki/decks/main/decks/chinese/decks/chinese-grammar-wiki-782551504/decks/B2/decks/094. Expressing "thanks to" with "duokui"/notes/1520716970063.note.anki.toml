@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Parts_of_Speech", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "thanks to" with "duokui"'
+english = "I'm not late. Thanks to your ride."
+example-sentence = ''
+example-type = ''
+grammar-construct = '[Good Outcome] ，多亏 (了) + [Lucky Incident]'
+hanzi = '我没迟到，多亏了你开车送我。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG44TBS'

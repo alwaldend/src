@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "together" with "yiqi"'
+english = "After work, why don't you all come to my home together?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 一起 + Verb + Obj.'
+hanzi = '下班以后，你们一起来我家吧。'
+notes = ''
+pinyin = 'Xiàbān yǐhòu, nǐmen yīqǐ lái wǒ jiā ba.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNVE15'

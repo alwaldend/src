@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing wasted efforts with "bai"'
+english = "He wasn't home when I got there, so I wasted all of that time going over there."
+example-sentence = ''
+example-type = ''
+grammar-construct = '白 + Verb + 了'
+hanzi = '我去的时候他不在家，所以我白跑了一趟。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTIMTS'

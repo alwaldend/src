@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing comparable degree with "you"'
+english = "This door is only my shoulder's wide."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A + 有 + B + 这么 / 那么 + 高 / 深 / 宽 / 长'
+hanzi = '这个门只有我的肩膀这么宽。'
+notes = ''
+pinyin = 'Zhè gè mén zhī yǒu wǒ de jiānbǎng zhème kuān.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5DG95'

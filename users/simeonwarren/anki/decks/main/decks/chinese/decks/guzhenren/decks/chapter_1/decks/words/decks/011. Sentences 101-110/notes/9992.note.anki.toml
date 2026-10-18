@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'in front;	at the head;	ahead;	above.'
+example-sentence = '不过,丑话先说在前头'
+example-type = ''
+grammar-construct = ''
+hanzi = '前头'
+notes = ''
+pinyin = '<span class="tone2">qián</span><span class="tone5">tou</span>	 <!-- qian tou -->'
+source = ''

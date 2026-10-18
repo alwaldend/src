@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Verbs followed by "gei"'
+english = 'We dedicated a song to the teacher.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 给 + [Recipient] + Obj.'
+hanzi = '我们献给了老师一首歌。'
+notes = ''
+pinyin = 'Wǒmen xiàn gěi le lǎoshī yī shǒu gē.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMMHTQ'

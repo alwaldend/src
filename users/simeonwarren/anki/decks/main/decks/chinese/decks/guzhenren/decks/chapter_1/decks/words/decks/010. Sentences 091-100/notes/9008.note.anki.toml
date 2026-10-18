@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'to give birth;	to grow (whiskers etc);	to generate;	to produce.'
+example-sentence = ' 这一念生出,古月族长的嘴角不由地微微翘起,浮现出一抹微笑'
+example-type = ''
+grammar-construct = ''
+hanzi = '生出'
+notes = ''
+pinyin = '<span class="tone1">shēng</span><span class="tone1">chū</span>	 <!-- sheng chu -->'
+source = ''

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "youdian" and "yidian"'
+english = "We didn't understand much."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '我们有点没听懂。'
+notes = ''
+pinyin = 'Wǒmen yǒudiǎn méi tīngdǒng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGV55Y4'

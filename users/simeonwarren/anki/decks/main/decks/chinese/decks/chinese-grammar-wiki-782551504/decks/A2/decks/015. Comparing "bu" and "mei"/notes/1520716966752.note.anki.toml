@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "bu" and "mei"'
+english = "Today it isn't cold."
+example-sentence = ''
+example-type = ''
+grammar-construct = '不 + Adj.'
+hanzi = '今天不冷。'
+notes = ''
+pinyin = 'Jīntiān bù lěng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGRJ1BI'

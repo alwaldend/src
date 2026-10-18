@@ -1,0 +1,12 @@
+note_type = "note_types/basic.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[[cards]]
+ordinal = 1
+
+[fields]
+Back = ':tabnew {file}&nbsp; " open a new tab ... after current tab<br>:+tabnew {file}&nbsp; &nbsp;" ... after next tab&nbsp;<br>:-tabnew&nbsp;{file}&nbsp; &nbsp;" ... before current tab&nbsp;<br>:0tabnew&nbsp;{file}&nbsp; &nbsp;" ... before first tab&nbsp;<br>:$tabnew&nbsp;{file}&nbsp; &nbsp;" ... after last tab&nbsp;'
+Front = 'Open a new tab page before/after current/first/last tab [with a file]'

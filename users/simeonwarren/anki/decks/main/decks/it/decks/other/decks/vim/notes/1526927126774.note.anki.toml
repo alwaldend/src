@@ -1,0 +1,12 @@
+note_type = "note_types/basic.notetype.anki.toml"
+tags = ["Exiting"]
+
+[[cards]]
+ordinal = 0
+
+[[cards]]
+ordinal = 1
+
+[fields]
+Back = ':q[uit] &nbsp; “ or ^w q'
+Front = 'Quit window (<b>fails if there are unsaved changes</b>) and exit vim if last window'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "not anymore" with "le"'
+english = "I don't live here anymore."
+example-sentence = ''
+example-type = ''
+grammar-construct = '已经 + 没(有) + [Noun Phrase] + 了'
+hanzi = '我已经不住这里了。'
+notes = ''
+pinyin = 'Wǒ yǐjīng bù zhù zhèlǐ le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGFR96B'

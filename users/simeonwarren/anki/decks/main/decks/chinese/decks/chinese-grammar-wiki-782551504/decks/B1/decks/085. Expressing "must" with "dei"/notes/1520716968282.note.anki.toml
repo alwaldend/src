@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "must" with "dei"'
+english = 'I forgot my keys. You need to come back to help me open the door.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 得 + Verb + Obj.'
+hanzi = '我没带钥匙，你得回来帮我开门。'
+notes = ''
+pinyin = 'Wǒ méi dài yàoshi, nǐ děi huílái bāng wǒ kāimén.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPXLP9'

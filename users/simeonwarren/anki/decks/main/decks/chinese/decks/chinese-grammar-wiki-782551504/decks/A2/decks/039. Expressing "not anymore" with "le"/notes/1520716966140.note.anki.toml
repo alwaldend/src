@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "not anymore" with "le"'
+english = "I don't want to eat anymore."
+example-sentence = ''
+example-type = ''
+grammar-construct = '不 + [Verb Phrase] + 了'
+hanzi = '我不想吃了。'
+notes = ''
+pinyin = 'Wǒ bù xiǎng chī le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGFR96B'

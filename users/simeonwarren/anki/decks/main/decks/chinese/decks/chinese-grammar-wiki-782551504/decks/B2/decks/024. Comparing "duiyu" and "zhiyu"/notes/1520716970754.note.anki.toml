@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "duiyu" and "zhiyu"'
+english = 'As for this kind of person, you are not supposed to reason with them.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '对于 + Modifier， Subj. + Predicate'
+hanzi = '对于这种人，就不该跟他们讲道理。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGC01S0'

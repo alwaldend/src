@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Adjectives with "name" and "zheme"'
+english = "I didn't expect this exam is so difficult."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 那么 / 这么 + Adj.'
+hanzi = '我没想到这个考试这么难。'
+notes = ''
+pinyin = 'Wǒ méi xiǎng dào zhège kǎoshì zhème nán.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNKKP6'

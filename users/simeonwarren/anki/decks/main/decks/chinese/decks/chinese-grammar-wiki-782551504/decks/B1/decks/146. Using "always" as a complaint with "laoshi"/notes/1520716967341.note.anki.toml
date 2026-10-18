@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "always" as a complaint with "laoshi"'
+english = "How come there's always something broken in your house?"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 老是 + Adv. + Adj.'
+hanzi = '你家的东西怎么老是坏？'
+notes = ''
+pinyin = 'Nǐ jiā de dōngxi zěnme lǎoshì huài?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGII66E'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "with" with "gen"'
+english = 'Read with me.'
+example-sentence = ''
+example-type = 'valid'
+grammar-construct = 'Subj. + 跟 + Person + 一起 + Verb + Obj.'
+hanzi = '跟我一起读。'
+notes = ''
+pinyin = 'Gēn wǒ yīqǐ dú.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGSZ0HP'

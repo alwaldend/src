@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "bei" sentences'
+english = 'The boy ate the hot dog.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '男孩吃了热狗。'
+notes = ''
+pinyin = '<div>Nánhái chīle règǒu.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGHF9F1'

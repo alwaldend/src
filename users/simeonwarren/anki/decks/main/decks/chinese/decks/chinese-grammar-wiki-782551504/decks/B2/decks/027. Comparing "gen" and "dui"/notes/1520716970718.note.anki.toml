@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "Conjunctions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "gen" and "dui"'
+english = 'What did you just tell him?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Person A + 跟 / 对 + Person B 说'
+hanzi = '刚才你对他说什么了？'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGC5Y86'

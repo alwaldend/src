@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'to stay.<br>to wait;	to treat;	to deal with;	to need;	going to (do sth);	about to;	intending to.<br>'
+example-sentence = ' 是该好好的养精蓄锐,待到明天,争上那一番'
+example-type = ''
+grammar-construct = ''
+hanzi = '待'
+notes = ''
+pinyin = '<span class="tone5">dāidài</span>	 <!-- dai dai -->'
+source = ''

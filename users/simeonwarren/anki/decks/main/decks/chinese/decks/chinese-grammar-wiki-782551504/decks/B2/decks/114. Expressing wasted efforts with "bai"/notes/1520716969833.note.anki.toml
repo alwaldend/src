@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing wasted efforts with "bai"'
+english = "There's not a Chinese test tomorrow. Little Wang studied the whole day in vain."
+example-sentence = ''
+example-type = ''
+grammar-construct = '白 + Verb + 了'
+hanzi = '明天不考中文，小王白白准备了一天。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGTIMTS'

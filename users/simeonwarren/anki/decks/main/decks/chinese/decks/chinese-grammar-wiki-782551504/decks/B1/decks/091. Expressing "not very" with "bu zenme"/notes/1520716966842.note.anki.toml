@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "not very" with "bu zenme"'
+english = "It's not very cold here in winter."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不怎么 + Adj. / [Psychological Verb]'
+hanzi = '这里的冬天不怎么冷。'
+notes = ''
+pinyin = 'Zhèlǐ de dōngtiān bù zěnme lěng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGVYIZT'

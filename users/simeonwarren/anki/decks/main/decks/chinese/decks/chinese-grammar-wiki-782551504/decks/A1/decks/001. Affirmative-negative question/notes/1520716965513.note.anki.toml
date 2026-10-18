@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Grammatical_Structures", "QuestionForms"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Affirmative-negative question'
+english = 'Is the coffee expensive here?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Adj. + 不 + Adj.'
+hanzi = '这里的咖啡贵不贵？'
+notes = ''
+pinyin = 'Zhèlǐ de kāfēi gùi bu gùi?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGZH7K3'

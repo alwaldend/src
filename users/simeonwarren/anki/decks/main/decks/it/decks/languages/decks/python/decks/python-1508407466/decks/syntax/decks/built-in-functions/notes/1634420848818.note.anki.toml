@@ -1,0 +1,13 @@
+note_type = "note_types/python-basic-and-reversed.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+additional-info = 'It can take in multiple iterables or numbers but requires at least 1 iterable or 2 numbers.'
+answer = '<b>Built in function:&nbsp;</b><div>min(*<i>iterable</i>)&nbsp;</div><div>-or-&nbsp;</div><div>min(<i>num1</i>, <i>*numN</i>)</div>'
+example = ''
+question = '<b>Built in function</b>&nbsp;that returns the smallest item in an iterable (or group of iterables) or group of numbers.&nbsp;'
+version = ''
+with-options = ''

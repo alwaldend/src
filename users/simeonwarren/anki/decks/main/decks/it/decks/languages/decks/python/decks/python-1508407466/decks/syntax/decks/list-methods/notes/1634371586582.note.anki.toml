@@ -1,0 +1,13 @@
+note_type = "note_types/python-basic-and-reversed.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<i>list</i>.clear()'
+example = ''
+question = '<b>List method</b>&nbsp;that removes all the elements from the list.'
+version = ''
+with-options = ''

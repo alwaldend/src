@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "not very" with "bu zenme"'
+english = 'Did you not sleep very well last night?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不怎么 + Adj. / [Psychological Verb]'
+hanzi = '你是不是昨天睡得不怎么好？'
+notes = ''
+pinyin = 'Nǐ shì bu shì zuótiān shuì de bù zěnme hǎo?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGVYIZT'

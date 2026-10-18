@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Topic-comment sentences'
+english = "I've heard that it rains every day and is very humid in the summer in Shanghai."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '上海的夏天，我听说每天下雨，也很潮湿。'
+notes = 'the summer in Shanghai is emphasized.'
+pinyin = '<div>Shànghǎi de xiàtiān, wǒ tīng shuō měitiān xià yǔ, yě hěn cháoshī.</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5KNWW'

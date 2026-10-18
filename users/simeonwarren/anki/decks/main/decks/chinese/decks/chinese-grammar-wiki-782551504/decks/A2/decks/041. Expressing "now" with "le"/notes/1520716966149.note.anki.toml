@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Particles", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "now" with "le"'
+english = 'Got it. / I see.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '[New Situation] + 了'
+hanzi = '知道了。'
+notes = "This is something I didn't know before now"
+pinyin = 'Zhīdào le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGE5Q4J'

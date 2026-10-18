@@ -1,0 +1,13 @@
+note_type = "note_types/python-basic-and-reversed.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<i>file</i>.detach()'
+example = ''
+question = '<b>File method</b>&nbsp;that returns the separated raw stream from the buffer.'
+version = ''
+with-options = ''

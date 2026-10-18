@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "Nouns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "renjia" and "bieren"'
+english = "That's other people's business. Why would you care so much?"
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '那是人家的事，你管那么多干嘛？'
+notes = ''
+pinyin = 'Nà shì rénjia de shì, nǐ guǎn nàme duō gàn ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPINA4'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'At this moment in the middle of the night, most of the houses in the village are still lit, which is very different from usual.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '此刻深夜,寨中大多数人家却还有着灯火,和平时大不相同。'
+notes = ''
+pinyin = '<div>Cǐkè shēnyè, zhài zhōng dà duōshù rénjiā què hái yǒuzhe dēnghuǒ, hé píngshí dà bù xiāngtóng.</div>'
+source = ''

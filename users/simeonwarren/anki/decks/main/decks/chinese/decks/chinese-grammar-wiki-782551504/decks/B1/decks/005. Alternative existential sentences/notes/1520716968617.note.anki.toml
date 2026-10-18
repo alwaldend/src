@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Alternative existential sentences'
+english = 'There are several policemen standing in the hall.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Place + Verb + 着 + [Noun Phrase]'
+hanzi = '大厅里站着一些警察。'
+notes = ''
+pinyin = 'Dàtīng lǐ zhàn zhe yīxiē jǐngchá.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGAC619'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "xiande" and "kanqilai"'
+english = 'Your girlfriend seems like my Chinese teacher.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 看起来 + Predicate'
+hanzi = '你女朋友看起来像我的中文老师。'
+notes = ''
+pinyin = 'Nǐ nǚpéngyou kànqǐlái xiàng wǒ de Zhōngwén lǎoshī.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGKQEG9'

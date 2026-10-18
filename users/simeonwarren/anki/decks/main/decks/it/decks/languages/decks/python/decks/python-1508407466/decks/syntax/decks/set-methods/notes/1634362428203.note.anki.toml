@@ -1,0 +1,13 @@
+note_type = "note_types/python-basic-and-reversed.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+additional-info = ''
+answer = '<i>set</i>.remove(<i>value</i>)'
+example = ''
+question = "<b>Set method </b>that deletes an element from a set (returns None). Throws a ValueError if the element doesn't exist."
+version = ''
+with-options = ''

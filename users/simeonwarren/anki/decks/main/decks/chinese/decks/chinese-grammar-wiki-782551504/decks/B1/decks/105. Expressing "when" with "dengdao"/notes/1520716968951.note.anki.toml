@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "when" with "dengdao"'
+english = 'I will make arrangements when the boss signs the paper.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '等(到) + Time / Event ，Subj. + 再 / 就 + Predicate'
+hanzi = '等到老板签了字，我再做安排。'
+notes = ''
+pinyin = 'Děngdào lǎobǎn qiān le zì, wǒ zài zuò ānpái.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG68F61'

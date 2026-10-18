@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Grammatical_Structures", "NumbersandMeasureWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Ordinal numbers with "di"'
+english = 'On the first day, we will be in the hotel.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '第 + Number + Measure Word + Noun'
+hanzi = '第一天，我们在宾馆里。'
+notes = ''
+pinyin = 'Dì-yī tiān, wǒmen zài bīnguǎn lǐ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGK904U'

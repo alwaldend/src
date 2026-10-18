@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Numbers", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Approximating with sequential numbers'
+english = 'one or two days'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Number + (Number + 1)'
+hanzi = '一两天'
+notes = ''
+pinyin = 'yī liǎng tiān'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGOUD8U'

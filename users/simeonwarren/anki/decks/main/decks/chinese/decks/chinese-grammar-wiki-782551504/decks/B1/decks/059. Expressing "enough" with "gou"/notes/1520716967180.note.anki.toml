@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "enough" with "gou"'
+english = 'Are you done playing or not?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不 + 够 + Adj. / Verb'
+hanzi = '你玩够了没有？'
+notes = ''
+pinyin = 'Nǐ wán gòu le méiyǒu?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG49BE6'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "when" with "de shihou"'
+english = "Please don't laugh when I'm angry."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Time Word + 的 时候, ....'
+hanzi = '我生气的时候，请你不要笑。'
+notes = ''
+pinyin = 'Wǒ  shēngqì de shíhou, qǐng nǐ bùyào xiào.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWN185'

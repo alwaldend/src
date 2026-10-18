@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'contend against.'
+example-sentence = '若是此子测出甲等资质,好生培养,也未必不能和白凝冰抗衡'
+example-type = ''
+grammar-construct = ''
+hanzi = '抗衡'
+notes = ''
+pinyin = '<span class="tone4">kàng</span><span class="tone2">héng</span>	 <!-- kang heng -->'
+source = ''

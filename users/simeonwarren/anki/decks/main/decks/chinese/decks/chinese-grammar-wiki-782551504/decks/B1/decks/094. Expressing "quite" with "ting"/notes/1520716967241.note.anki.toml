@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "quite" with "ting"'
+english = "Their family is quite rich, but he doesn't like like a rich person."
+example-sentence = ''
+example-type = ''
+grammar-construct = '挺 + Adj. + 的'
+hanzi = '他们家挺有钱的，但是他不像有钱人。'
+notes = ''
+pinyin = 'Tāmen jiā  tǐng yǒuqián  de, dànshì tā bù xiàng yǒuqiánrén.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDF1F7'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "almost" using "chadian"'
+english = 'She almost went crazy.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 差点 (+就) + Predicate + 了'
+hanzi = '她差点疯了。'
+notes = "She didn't go crazy."
+pinyin = 'Tā chàdiǎn fēng le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG6ESWW'

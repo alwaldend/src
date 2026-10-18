@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "hard to avoid" with "nanmian"'
+english = "There's no way for the interns at this firm to avoid doing odds and ends."
+example-sentence = ''
+example-type = ''
+grammar-construct = '(Subj.) + 难免 + Verb'
+hanzi = '这家公司的实习生难免要做一些打杂的事。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGYDKT3'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = "Expressing \"don't need to\" with \"buyong\""
+english = "Tell him that he doesn't need to come tomorrow."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 不用 + [Verb Phrase]'
+hanzi = '告诉他明天不用来了。'
+notes = ''
+pinyin = 'Gàosu tā míngtiān bùyòng lái le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGECD0E'

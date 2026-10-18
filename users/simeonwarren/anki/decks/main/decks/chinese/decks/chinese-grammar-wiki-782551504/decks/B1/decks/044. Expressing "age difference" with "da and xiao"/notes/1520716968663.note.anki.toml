@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "age difference" with "da and xiao"'
+english = 'My dad is about the same age with my mom.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A + 和 / 跟 + B + 一样 / 差不多 + 大'
+hanzi = '我爸爸和妈妈差不多大。'
+notes = ''
+pinyin = 'Wǒ bàba hé māma chàbuduō dà.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGE8810'

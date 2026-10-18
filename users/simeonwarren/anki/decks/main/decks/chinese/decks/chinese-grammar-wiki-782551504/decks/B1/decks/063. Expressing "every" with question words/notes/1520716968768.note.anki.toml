@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "every" with question words'
+english = 'These are all free. We can take as much as we want.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Verb + 多少 + 都 + Predicate'
+hanzi = '这些是免费的，我们拿多少都没问题。'
+notes = ''
+pinyin = 'Zhèxiē shì miǎnfèi de, wǒmen ná duōshao dōu méi wèntí.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG13ALM'

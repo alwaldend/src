@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'to penetrate deeply into the heart (idiom);	to gladden the heart;	to refresh the mind.'
+example-sentence = ' 顿时,满口都是清新湿润的山间空气,沁人心脾'
+example-type = ''
+grammar-construct = ''
+hanzi = '沁人心脾'
+notes = ''
+pinyin = '<span class="tone4">qìn</span><span class="tone2">rén</span><span class="tone1">xīn</span><span class="tone2">pí</span>	 <!-- qin ren xin pi -->'
+source = ''

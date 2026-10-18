@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Conjunctions", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "in addition" with "lingwai"'
+english = "I don't have time to attend this activity. Besides, I'm not really interested."
+example-sentence = ''
+example-type = ''
+grammar-construct = '⋯⋯ ，另外 ，⋯⋯'
+hanzi = '我没时间参加这个活动。另外，我也不太感兴趣。'
+notes = ''
+pinyin = 'Wǒ méi shíjiān cānjiā zhège huódòng. Lìngwài, wǒ yě bù tài gǎn xìngqù.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG2KQZI'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "NumbersandMeasureWords", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "ji" to mean "several"'
+english = 'Every day I have to drink a couple cups of coffee.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '几 + Measure Word + Noun'
+hanzi = '我每天都要喝几杯咖啡。'
+notes = ''
+pinyin = 'Wǒ měi tiān dōu yào hē jǐ bēi kāfēi.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGHC9CA'

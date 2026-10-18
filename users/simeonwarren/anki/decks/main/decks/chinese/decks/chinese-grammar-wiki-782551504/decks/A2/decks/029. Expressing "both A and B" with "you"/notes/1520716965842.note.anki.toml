@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "AdverbswithAdjectives", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "both A and B" with "you"'
+english = "Mom's hair is both black and shiny."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 又 + Adj. 1 + 又 + Adj. 2'
+hanzi = '妈妈的头发又黑又亮。'
+notes = ''
+pinyin = 'Māma de tóufa yòu hēi yòu liàng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPFUM2'

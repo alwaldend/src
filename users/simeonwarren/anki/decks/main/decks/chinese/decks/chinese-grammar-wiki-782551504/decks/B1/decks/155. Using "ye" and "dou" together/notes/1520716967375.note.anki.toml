@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "leech", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Using "ye" and "dou" together'
+english = "I'm not very interested in yoga. Neither are my friends."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 也都 + 不 / 没 + Verb &lt;br /&gt;Subj. + 也都 + 不 + Adj.'
+hanzi = '我对瑜伽不感兴趣，我的朋友们也都不太感兴趣。'
+notes = ''
+pinyin = 'Wǒ duì yújiā bù gǎn xìngqù, wǒ de péngyou men yě dōu bù tài gǎn xìngqù.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG8GSXY'

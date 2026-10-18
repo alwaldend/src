@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Turning adjectives into adverbs'
+english = 'The children started to sing happily.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Adj. + 地 + Verb'
+hanzi = '孩子们开心地唱了起来。'
+notes = ''
+pinyin = 'Háizi men kāixīn de chàng le qǐlai.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGMAFSX'

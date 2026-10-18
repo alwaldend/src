@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Tricky uses of "dao"'
+english = 'Today we learned many new words.'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '我们今天学了很多生词。'
+notes = ''
+pinyin = 'Wǒmen jīntiān xué le hěn duō shēngcí.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGCUSIV'

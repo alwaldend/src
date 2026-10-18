@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adjectives", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Reduplication of adjectives'
+english = 'exciting'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A  A  B  B  + 的 (+ Noun)'
+hanzi = '热闹→热热闹闹'
+notes = ''
+pinyin = 'rènao ￫ rè rè nāo nāo'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGDHE8S'

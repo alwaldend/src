@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Nouns", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "ever since" with "yilai"'
+english = "Out company's income has been increasing during the past few years."
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Time Interval + 来 ，⋯⋯'
+hanzi = '几年来，我们公司的收入一直在增加。'
+notes = ''
+pinyin = 'Jǐ nián lái, wǒmen gōngsī de shōurù yīzhí zài zēngjiā.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGNEMXP'

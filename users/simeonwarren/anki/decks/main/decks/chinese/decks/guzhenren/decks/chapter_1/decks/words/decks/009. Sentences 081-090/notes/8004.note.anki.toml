@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'to foster;	to bring up;	to raise.'
+example-sentence = '可惜就是父母死的早,现在被其舅父舅母抚养着'
+example-type = ''
+grammar-construct = ''
+hanzi = '抚养'
+notes = ''
+pinyin = '<span class="tone3">fǔ</span><span class="tone3">yǎng</span>	 <!-- fu yang -->'
+source = ''

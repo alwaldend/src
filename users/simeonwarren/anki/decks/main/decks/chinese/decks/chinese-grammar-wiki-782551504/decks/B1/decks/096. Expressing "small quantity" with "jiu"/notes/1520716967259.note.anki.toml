@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "small quantity" with "jiu"'
+english = 'Does your family only have one child?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 就 + Number + [Measure Word] + Noun'
+hanzi = '你们家就一个孩子吗？'
+notes = ''
+pinyin = 'Nǐmen jiā jiù yī gè háizi ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGPW8PP'

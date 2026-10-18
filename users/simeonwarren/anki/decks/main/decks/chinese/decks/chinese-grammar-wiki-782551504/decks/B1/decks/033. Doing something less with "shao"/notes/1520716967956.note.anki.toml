@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Doing something less with "shao"'
+english = 'Watch TV less. Read more.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '少 + Verb'
+hanzi = '少看点电视，多看书。'
+notes = ''
+pinyin = 'Shǎo kàn diǎn diànshì, duō kànshū.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG9B0M8'

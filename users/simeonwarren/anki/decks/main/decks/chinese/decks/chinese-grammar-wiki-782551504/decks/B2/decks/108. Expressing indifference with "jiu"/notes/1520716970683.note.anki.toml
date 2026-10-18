@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing indifference with "jiu"'
+english = "Don't help if you don't want. You're not the only friend that I've got."
+example-sentence = ''
+example-type = ''
+grammar-construct = '不 / 没 + Adj. / Verb + 就 + 不 / 没 + Adj. / Verb'
+hanzi = '不帮就不帮，我又不是只有你一个朋友！'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGL4O5E'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Numbers", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Big numbers in Chinese'
+english = '1 million'
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '一百万'
+notes = 'frequently a useful number to know'
+pinyin = 'yībǎi wàn'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGIM3AX'

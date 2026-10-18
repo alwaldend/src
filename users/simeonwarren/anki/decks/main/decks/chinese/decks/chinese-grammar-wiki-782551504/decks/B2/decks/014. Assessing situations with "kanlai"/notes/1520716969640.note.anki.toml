@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Assessing situations with "kanlai"'
+english = "Now it looks like things aren't that bad."
+example-sentence = ''
+example-type = ''
+grammar-construct = '看来 + Perspective'
+hanzi = '现在看来，事情没那么糟。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGJPQ0Q'

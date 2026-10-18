@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Approximations with "chabuduo"'
+english = 'Your son should be about 5 years old, right?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '差不多 ＋ [Quantity Phrase] / [Time Phrase]'
+hanzi = '你儿子差不多五岁了吧？'
+notes = ''
+pinyin = 'Nǐ érzi chàbuduō wǔ suì le ba?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG1NAXO'

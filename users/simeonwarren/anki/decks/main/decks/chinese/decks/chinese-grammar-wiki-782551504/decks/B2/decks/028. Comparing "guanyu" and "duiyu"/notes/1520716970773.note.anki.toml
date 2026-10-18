@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Comparisons", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "guanyu" and "duiyu"'
+english = "He doesn't really have any opinion about this matter."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '对于这件事情他没什么看法。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG1HNBU'

@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing existence with "you"'
+english = 'There is a problem here.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Place + 有 + Obj.'
+hanzi = '这里有一个问题。'
+notes = ''
+pinyin = 'Zhèlǐ yǒu yī gè wèntí.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG04ZCI'

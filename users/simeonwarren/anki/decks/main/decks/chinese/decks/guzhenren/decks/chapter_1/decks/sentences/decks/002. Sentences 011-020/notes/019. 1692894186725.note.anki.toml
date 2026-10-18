@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = []
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = "They didn't do anything, they were all afraid of Fang Yuan's dying counterattack."
+example-sentence = ''
+example-type = ''
+grammar-construct = ''
+hanzi = '他们没有动手,都忌惮着方源的临死反扑。'
+notes = ''
+pinyin = ''
+source = ''

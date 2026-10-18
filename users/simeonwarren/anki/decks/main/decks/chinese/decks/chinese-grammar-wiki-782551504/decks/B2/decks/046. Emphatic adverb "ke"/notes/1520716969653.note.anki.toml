@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B2", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Emphatic adverb "ke"'
+english = 'These dogs are so naughty!'
+example-sentence = ''
+example-type = ''
+grammar-construct = '可 + Adj.'
+hanzi = '这只小狗可淘气了！'
+notes = 'The speaker never expected dogs to be this naughty'
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGSPAKW'

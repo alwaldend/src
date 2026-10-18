@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["AuxiliaryWords", "B1", "Comparisons"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "hui" "neng" "keyi"'
+english = 'Can I smoke here?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '可以 / 能 + Verb'
+hanzi = 'A:我能在这里抽烟吗？'
+notes = ''
+pinyin = 'A: Wǒ néng zài zhèlǐ chōuyān ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGZL717'

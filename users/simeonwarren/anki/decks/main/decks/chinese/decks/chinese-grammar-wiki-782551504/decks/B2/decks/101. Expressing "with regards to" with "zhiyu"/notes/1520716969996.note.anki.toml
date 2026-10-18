@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Parts_of_Speech", "Prepositions"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "with regards to" with "zhiyu"'
+english = "I've already tried my best. With regards to the results, it's all a matter of luck."
+example-sentence = ''
+example-type = ''
+grammar-construct = '至于 + Topic， Comment'
+hanzi = '我已经尽力了，至于结果只能看运气了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGZRKTG'

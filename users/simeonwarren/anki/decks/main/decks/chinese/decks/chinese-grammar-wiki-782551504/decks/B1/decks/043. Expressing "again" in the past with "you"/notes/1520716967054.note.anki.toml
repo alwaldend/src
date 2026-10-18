@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "again" in the past with "you"'
+english = 'Sorry, I forgot to bring the book again.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '(Subj. +) 又 + 不 / 没 + Verb'
+hanzi = '对不起，我又没带书。'
+notes = ''
+pinyin = 'Duìbuqǐ, wǒ yòu méi dài shū.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGN1JR5'

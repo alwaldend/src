@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Making judgments with "suan"'
+english = 'Who can be considered as the boss in your family?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. (+ 不) + 算 + Noun'
+hanzi = '你家谁算老大？'
+notes = ''
+pinyin = 'Nǐ jiā shéi suàn lǎodà?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWDWFN'

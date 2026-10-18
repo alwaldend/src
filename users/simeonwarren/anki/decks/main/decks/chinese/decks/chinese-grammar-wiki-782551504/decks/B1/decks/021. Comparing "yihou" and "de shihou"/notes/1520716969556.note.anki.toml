@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Comparisons", "TimeWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Comparing "yihou" and "de shihou"'
+english = 'Do you want to keep working after you get married?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 以后／的时候，⋯⋯'
+hanzi = '结婚以后你想继续工作吗？'
+notes = ''
+pinyin = '<div>Jiéhūn yǐhòu nǐ xiǎng jìxù gōngzuò ma?</div>'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGLNKZR'

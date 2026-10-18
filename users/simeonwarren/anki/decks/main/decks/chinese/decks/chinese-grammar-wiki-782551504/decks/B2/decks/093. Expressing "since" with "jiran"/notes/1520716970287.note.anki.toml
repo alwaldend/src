@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Cause/EffectStatements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "since" with "jiran"'
+english = "Since nobody is interested, let's change the topic."
+example-sentence = ''
+example-type = ''
+grammar-construct = '既然＋Fact, 那 / 就 / 那就＋Suggestion / Inference'
+hanzi = '既然大家都不感兴趣，就换个话题吧。'
+notes = 'a suggestion)'
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGG4BX9'

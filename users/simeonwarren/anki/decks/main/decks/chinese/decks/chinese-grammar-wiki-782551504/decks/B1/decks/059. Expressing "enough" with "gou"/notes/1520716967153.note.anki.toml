@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "B1", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "enough" with "gou"'
+english = "Stop talking! I've heard enough of it!"
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 够 (+ 了)'
+hanzi = '别说了！这些话我已经听够了！'
+notes = ''
+pinyin = 'Bié shuō le, zhèxiē huà wǒ yǐjīng tīng gòu le.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG49BE6'

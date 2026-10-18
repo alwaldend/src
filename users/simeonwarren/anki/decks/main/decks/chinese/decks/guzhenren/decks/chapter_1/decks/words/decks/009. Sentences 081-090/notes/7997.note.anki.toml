@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["leech", "Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'it is a pity;	what a pity;	unfortunately.'
+example-sentence = '可惜就是父母死的早,现在被其舅父舅母抚养着'
+example-type = ''
+grammar-construct = ''
+hanzi = '可惜'
+notes = ''
+pinyin = '<span class="tone3">kě</span><span class="tone1">xī</span>	 <!-- ke xi -->'
+source = ''

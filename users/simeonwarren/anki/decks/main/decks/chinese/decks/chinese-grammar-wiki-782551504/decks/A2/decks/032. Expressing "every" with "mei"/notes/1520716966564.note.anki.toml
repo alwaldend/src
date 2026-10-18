@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Grammatical_Structures", "NumbersandMeasureWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "every" with "mei"'
+english = 'Do you know every person?'
+example-sentence = ''
+example-type = ''
+grammar-construct = '每 + Measure Word + Noun + 都'
+hanzi = '你每个人都认识吗？'
+notes = ''
+pinyin = 'Nǐ měi gè rén dōu rènshi ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGB6L4M'

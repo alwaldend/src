@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Reverend_Insanity"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = ''
+english = 'fine rain;	drizzle;	poem by Tang poet Li Shangyin 李商隱|李商隐.'
+example-sentence = ' 夜已经深了,丝丝凉风吹拂着细雨'
+example-type = ''
+grammar-construct = ''
+hanzi = '细雨'
+notes = ''
+pinyin = '<span class="tone4">xì</span><span class="tone3">yǔ</span>	 <!-- xi yu -->'
+source = ''

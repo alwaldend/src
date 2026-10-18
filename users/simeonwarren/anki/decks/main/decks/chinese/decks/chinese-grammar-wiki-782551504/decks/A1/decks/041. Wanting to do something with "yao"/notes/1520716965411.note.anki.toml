@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A1", "Auxiliaryverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Wanting to do something with "yao"'
+english = 'For breakfast I want to eat meat.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 要 + Verb + Obj.'
+hanzi = '早饭我要吃肉。'
+notes = ''
+pinyin = 'Zǎofàn wǒ yào chī ròu.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGXVEAR'

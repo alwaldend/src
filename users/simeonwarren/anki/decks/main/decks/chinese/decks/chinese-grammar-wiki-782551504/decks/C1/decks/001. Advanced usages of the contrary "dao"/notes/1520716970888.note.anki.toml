@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["Adverbs", "C1"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Advanced usages of the contrary "dao"'
+english = "A lot of people think that he married her because of her money, but I don't think so."
+example-sentence = ''
+example-type = ''
+grammar-construct = '我 倒 不 觉得;<br>我 倒 不 这么＋看 / 想 / 认为'
+hanzi = '别人都说他跟她结婚是为了钱，我倒不这么想。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGXXP6M'

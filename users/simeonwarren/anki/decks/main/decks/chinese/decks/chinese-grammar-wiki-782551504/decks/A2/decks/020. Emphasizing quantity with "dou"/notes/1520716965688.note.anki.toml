@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Emphasizing quantity with "dou"'
+english = 'Mom cooks dinner for us every day.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 都 + Verb + Obj.'
+hanzi = '妈妈每天都给我们做晚饭。'
+notes = ''
+pinyin = 'Māma měi tiān dōu gěi wǒmen zuò wǎnfàn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGWNEYM'

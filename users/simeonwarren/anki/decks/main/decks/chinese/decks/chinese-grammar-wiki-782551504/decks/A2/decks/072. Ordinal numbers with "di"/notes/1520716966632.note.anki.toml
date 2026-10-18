@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Grammatical_Structures", "NumbersandMeasureWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Ordinal numbers with "di"'
+english = 'My first Chinese teacher was American.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '第 + Number + Measure Word + Noun'
+hanzi = '我的第一个中文老师是美国人。'
+notes = ''
+pinyin = 'Wǒ de dì-yī gè Zhōngwén lǎoshī shì Měiguó rén.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGK904U'

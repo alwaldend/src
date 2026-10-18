@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Parts_of_Speech", "Verbphrases"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Reduplication of verbs'
+english = 'I want to go out and walk for a bit.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + Verb'
+hanzi = '我想出去走走。'
+notes = ''
+pinyin = 'Wǒ xiǎng chūqù zǒuzou.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGYC77J'

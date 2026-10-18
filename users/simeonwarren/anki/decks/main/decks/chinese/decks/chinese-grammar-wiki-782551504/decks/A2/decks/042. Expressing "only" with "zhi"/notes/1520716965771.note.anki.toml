@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "only" with "zhi"'
+english = 'Our company only has two employees.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '只 + 会 / 能 + Verb'
+hanzi = '我们公司只有两个员工。'
+notes = ''
+pinyin = 'Wǒmen gōngsī zhǐ yǒu liǎng gè yuángōng.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGN8C8R'

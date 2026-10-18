@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Parts_of_Speech", "PrepositionalPhrase"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Defining scope'
+english = 'When we go on business trips, we stay at hotels with at least a 3-star rating.'
+example-sentence = ''
+example-type = ''
+grammar-construct = '级别 / 次序 / 数目 + 以上 / 以下'
+hanzi = '我们出差都住三星级以上的酒店。'
+notes = ''
+pinyin = 'Wǒmen chūchāi dōu zhù sān xīngjí yǐshàng de jiǔdiàn.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG7AE5C'

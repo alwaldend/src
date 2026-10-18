@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Grammatical_Structures", "NumbersandMeasureWords"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Measure words in quantity questions'
+english = 'How many foreign companies are there in Shanghai?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + Verb + 多少 + Measure Word + Noun ？'
+hanzi = '上海有多少个外国公司？'
+notes = ''
+pinyin = 'Shànghǎi yǒu duōshao gè wàiguó gōngsī?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGL9KQM'

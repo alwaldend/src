@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Parts_of_Speech", "Verbs"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "mistakenly think that" with "yiwei"'
+english = 'You guys broke up? I thought you are still together.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 以为 ⋯⋯'
+hanzi = '你们分手了？我以为你们还在一起。'
+notes = ''
+pinyin = 'Nǐmen fēnshǒu le? Wǒ yǐwéi nǐmen hái zài yīqǐ.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGRBC43'

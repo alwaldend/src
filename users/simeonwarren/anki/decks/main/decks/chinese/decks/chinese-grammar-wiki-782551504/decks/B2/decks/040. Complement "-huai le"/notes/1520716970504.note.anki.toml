@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B2", "Complements", "Grammatical_Structures"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Complement "-huai le"'
+english = 'Discovering the father went gambling again, the mother was incensed.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Adj. + 坏了'
+hanzi = '发现爸爸又去赌钱了，妈妈气坏了。'
+notes = ''
+pinyin = ''
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGT0GYL'

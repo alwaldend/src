@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["A2", "Adverbs", "Parts_of_Speech"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing "just" with "gang"'
+english = 'I just met her ten days ago.'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'Subj. + 刚 + Verb (+ Obj.)  + Duration'
+hanzi = '我刚认识她十天。'
+notes = ''
+pinyin = 'Wǒ gāng rènshi tā shí tiān.'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASGQJJYO'

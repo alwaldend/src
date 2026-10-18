@@ -1,0 +1,16 @@
+note_type = "note_types/chinese.notetype.anki.toml"
+tags = ["B1", "Grammatical_Structures", "SentencePatterns"]
+
+[[cards]]
+ordinal = 0
+
+[fields]
+article-title = 'Expressing comparable degree with "you"'
+english = 'Are you as rich as Bill Gates?'
+example-sentence = ''
+example-type = ''
+grammar-construct = 'A + 有 (+ B) + 这么 / 那么 + Adj. + 吗 ？'
+hanzi = '你有BillGates那么有钱吗？'
+notes = ''
+pinyin = 'Nǐ yǒu Bill  Gates nàme yǒuqián ma?'
+source = 'https://resources.allsetlearning.com/chinese/grammar/ASG5DG95'
