@@ -14,6 +14,7 @@ docs_filegroup(
         ":config_operations",
         ":config_references",
         ":export",
+        ":package_dependencies",
         ":planning",
         ":state_store",
     ],
@@ -25,7 +26,16 @@ mermaid_site_webp(
     name = "architecture_preview",
     src = "architecture.mmd",
     out = "rendered/architecture.webp",
+    aspect_ratio = [],
+    color_scheme = "dark",
+    scale = 2,
     tags = ["manual"],
+)
+
+mermaid_site_svg(
+    name = "package_dependencies",
+    src = "package-dependencies.mmd",
+    out = "rendered/package-dependencies.svg",
 )
 
 mermaid_site_svg(
