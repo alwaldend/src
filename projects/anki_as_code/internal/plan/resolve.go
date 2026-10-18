@@ -5,7 +5,7 @@ import (
 	"math"
 	"strings"
 
-	collectionpb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/collection"
+	ankiascodepb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodepb"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/resource"
 	"github.com/ankitects/anki/proto/anki/decks"
 	"github.com/ankitects/anki/proto/anki/notes"
@@ -14,20 +14,20 @@ import (
 )
 
 // resolveDesired prepares owned protobuf payloads and indexes declarations in dependency order.
-func resolveDesired(configs *collectionpb.CollectionConfigSet, current snapshot, bindings *collectionpb.Resources) (desiredState, error) {
+func resolveDesired(configs *ankiascodepb.CollectionConfigSet, current snapshot, bindings *ankiascodepb.Resources) (desiredState, error) {
 	configs = proto.CloneOf(configs)
 	desired := desiredState{
 		bindings:    bindings,
-		decksByPath: map[string]*collectionpb.PlannedDeck{},
-		decksByID:   map[int64]*collectionpb.PlannedDeck{},
-		noteTypes:   map[string]*collectionpb.PlannedNoteType{},
-		typesByID:   map[int64]*collectionpb.PlannedNoteType{},
-		notes:       map[string]*collectionpb.PlannedNote{},
-		notesByID:   map[int64]*collectionpb.PlannedNote{},
-		cards:       map[string]*collectionpb.PlannedCardAssignments{},
+		decksByPath: map[string]*ankiascodepb.PlannedDeck{},
+		decksByID:   map[int64]*ankiascodepb.PlannedDeck{},
+		noteTypes:   map[string]*ankiascodepb.PlannedNoteType{},
+		typesByID:   map[int64]*ankiascodepb.PlannedNoteType{},
+		notes:       map[string]*ankiascodepb.PlannedNote{},
+		notesByID:   map[int64]*ankiascodepb.PlannedNote{},
+		cards:       map[string]*ankiascodepb.PlannedCardAssignments{},
 	}
 	if bindings.Presets == nil {
-		bindings.Presets = map[string]*collectionpb.PresetState{}
+		bindings.Presets = map[string]*ankiascodepb.PresetState{}
 	}
 	paths := map[string]bool{}
 	if err := resolveDecks(&desired, configs.Decks, current, paths); err != nil {
@@ -48,7 +48,7 @@ func resolveDesired(configs *collectionpb.CollectionConfigSet, current snapshot,
 }
 
 // resolveDecks binds paths, resolves presets and prepares native decks with shared indexes.
-func resolveDecks(desired *desiredState, groups []*collectionpb.DeckConfigSet, current snapshot, paths map[string]bool) error {
+func resolveDecks(desired *desiredState, groups []*ankiascodepb.DeckConfigSet, current snapshot, paths map[string]bool) error {
 	names := map[string]bool{}
 	for _, group := range groups {
 		if desired.bindings.Notes[group.Path] != nil || desired.bindings.NoteTypes[group.Path] != nil {
@@ -92,7 +92,7 @@ func resolveDecks(desired *desiredState, groups []*collectionpb.DeckConfigSet, c
 		if old := current.decks[id]; old != nil && (old.GetFiltered() != nil) != (value.GetFiltered() != nil) && current.occupiedDecks[id] {
 			return fmt.Errorf("empty occupied deck in Anki before changing its kind")
 		}
-		operation := &collectionpb.PlannedDeck{Path: group.Path, Value: value}
+		operation := &ankiascodepb.PlannedDeck{Path: group.Path, Value: value}
 		desired.decksByPath[group.Path] = operation
 		if id != 0 {
 			desired.decksByID[id] = operation
@@ -110,7 +110,7 @@ func resolveDecks(desired *desiredState, groups []*collectionpb.DeckConfigSet, c
 }
 
 // resolvePreset maps a readable alias to an existing unmanaged scheduling preset.
-func resolvePreset(alias string, presets map[int64]string, bindings map[string]*collectionpb.PresetState) (int64, error) {
+func resolvePreset(alias string, presets map[int64]string, bindings map[string]*ankiascodepb.PresetState) (int64, error) {
 	id := int64(1)
 	if alias != "" {
 		id = bindings[alias].GetId()
@@ -126,7 +126,7 @@ func resolvePreset(alias string, presets map[int64]string, bindings map[string]*
 			if id == 0 {
 				return 0, fmt.Errorf("unknown existing preset %q", alias)
 			}
-			bindings[alias] = &collectionpb.PresetState{Id: id}
+			bindings[alias] = &ankiascodepb.PresetState{Id: id}
 		}
 	}
 	if _, exists := presets[id]; !exists {
@@ -136,7 +136,7 @@ func resolvePreset(alias string, presets map[int64]string, bindings map[string]*
 }
 
 // resolveNoteTypes binds paths and prepares member mappings and unresolved deck references once.
-func resolveNoteTypes(desired *desiredState, files []*collectionpb.NoteTypeConfigFile, current snapshot, paths map[string]bool) error {
+func resolveNoteTypes(desired *desiredState, files []*ankiascodepb.NoteTypeConfigFile, current snapshot, paths map[string]bool) error {
 	typeNames := map[string]bool{}
 	for _, file := range files {
 		if desired.bindings.Decks[file.Path] != nil || desired.bindings.Notes[file.Path] != nil {
@@ -164,7 +164,7 @@ func resolveNoteTypes(desired *desiredState, files []*collectionpb.NoteTypeConfi
 		if err != nil {
 			return fmt.Errorf("prepare note type %q: %w", file.Path, err)
 		}
-		operation := &collectionpb.PlannedNoteType{Path: file.Path, Value: value, SortFieldIndex: file.Config.Config.SortFieldIdx}
+		operation := &ankiascodepb.PlannedNoteType{Path: file.Path, Value: value, SortFieldIndex: file.Config.Config.SortFieldIdx}
 		for _, template := range file.Config.Templates {
 			if template.TargetDeck != "" {
 				if operation.TemplateDecks == nil {
@@ -182,7 +182,7 @@ func resolveNoteTypes(desired *desiredState, files []*collectionpb.NoteTypeConfi
 }
 
 // resolveNotes orders named content and prepares native notes and destination assignments.
-func resolveNotes(desired *desiredState, files []*collectionpb.NoteConfigFile, home string, current snapshot, paths map[string]bool) error {
+func resolveNotes(desired *desiredState, files []*ankiascodepb.NoteConfigFile, home string, current snapshot, paths map[string]bool) error {
 	for _, file := range files {
 		if paths[file.Path] {
 			return fmt.Errorf("duplicate resource path %q", file.Path)
@@ -197,7 +197,7 @@ func resolveNotes(desired *desiredState, files []*collectionpb.NoteConfigFile, h
 			return fmt.Errorf("note %q: %w", file.Path, err)
 		}
 		desired.notes[file.Path] = note
-		desired.cards[file.Path] = &collectionpb.PlannedCardAssignments{Path: file.Path, Deck: home, Cards: file.Config.Cards}
+		desired.cards[file.Path] = &ankiascodepb.PlannedCardAssignments{Path: file.Path, Deck: home, Cards: file.Config.Cards}
 		if note.Value.Id != 0 {
 			desired.notesByID[note.Value.Id] = note
 		}
@@ -206,7 +206,7 @@ func resolveNotes(desired *desiredState, files []*collectionpb.NoteConfigFile, h
 }
 
 // prepareNote resolves type and deck paths and translates named fields into native order.
-func prepareNote(file *collectionpb.NoteConfigFile, home string, desired desiredState, previous *notes.Note) (*collectionpb.PlannedNote, error) {
+func prepareNote(file *ankiascodepb.NoteConfigFile, home string, desired desiredState, previous *notes.Note) (*ankiascodepb.PlannedNote, error) {
 	config := file.Config
 	if config == nil {
 		return nil, fmt.Errorf("note configuration is required")
@@ -250,11 +250,11 @@ func prepareNote(file *collectionpb.NoteConfigFile, home string, desired desired
 			return nil, fmt.Errorf("default deck must be normal")
 		}
 	}
-	return &collectionpb.PlannedNote{Path: file.Path, Value: value, NoteType: config.NoteType, Deck: home}, nil
+	return &ankiascodepb.PlannedNote{Path: file.Path, Value: value, NoteType: config.NoteType, Deck: home}, nil
 }
 
 // resolveTypeReferences converts readable references into native settings for comparison.
-func resolveTypeReferences(definition *collectionpb.NoteTypeConfig, declared map[string]*collectionpb.PlannedDeck) error {
+func resolveTypeReferences(definition *ankiascodepb.NoteTypeConfig, declared map[string]*ankiascodepb.PlannedDeck) error {
 	if definition.Config.OriginalId != nil || definition.Config.TargetDeckIdUnused != 0 || definition.Config.SortFieldIdx != 0 || len(definition.Config.Reqs) != 0 || len(definition.Config.Other) != 0 {
 		return fmt.Errorf("native identity, provenance, and derived type fields are not editable")
 	}
@@ -291,7 +291,7 @@ func resolveTypeReferences(definition *collectionpb.NoteTypeConfig, declared map
 }
 
 // resolve binds desired declarations to a supplied native snapshot and state.
-func resolve(configs *collectionpb.CollectionConfigSet, native *resource.Snapshot, stored *collectionpb.State) (desiredState, snapshot, error) {
+func resolve(configs *ankiascodepb.CollectionConfigSet, native *resource.Snapshot, stored *ankiascodepb.State) (desiredState, snapshot, error) {
 	if configs == nil || configs.GetConfig().GetVersion() != 1 {
 		return desiredState{}, snapshot{}, fmt.Errorf("configs must have version 1")
 	}

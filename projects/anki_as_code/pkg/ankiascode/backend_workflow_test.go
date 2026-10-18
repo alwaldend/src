@@ -6,7 +6,7 @@ import (
 	"path/filepath"
 	"testing"
 
-	collectionpb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/collection"
+	ankiascodepb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodepb"
 	"github.com/ankitects/anki/proto/anki/cards"
 	"github.com/ankitects/anki/proto/anki/decks"
 	"github.com/ankitects/anki/proto/anki/notetypes"
@@ -58,7 +58,7 @@ func TestFilteredCardProtection(t *testing.T) {
 		t.Fatal(err)
 	}
 	marker := filepath.Join(text, "decks", "Filtered", "deck.anki.toml")
-	declaration := &collectionpb.DeckConfig{}
+	declaration := &ankiascodepb.DeckConfig{}
 	readFixtureTOML(t, marker, declaration)
 	declaration.Filtered.Reschedule = true
 	writeFixtureTOML(t, marker, declaration)
@@ -81,9 +81,9 @@ func TestFilteredCardProtection(t *testing.T) {
 	}
 	// A filtered card's original deck is occupied even without resident normal cards.
 	homeMarker := filepath.Join(text, "decks", "Home", "deck.anki.toml")
-	originalHome := &collectionpb.DeckConfig{}
+	originalHome := &ankiascodepb.DeckConfig{}
 	readFixtureTOML(t, homeMarker, originalHome)
-	writeFixtureTOML(t, homeMarker, &collectionpb.DeckConfig{Filtered: &decks.Deck_Filtered{}})
+	writeFixtureTOML(t, homeMarker, &ankiascodepb.DeckConfig{Filtered: &decks.Deck_Filtered{}})
 	originalPackage, err := os.ReadFile(result)
 	if err != nil {
 		t.Fatal(err)
@@ -101,13 +101,13 @@ func TestFilteredCardProtection(t *testing.T) {
 	writeFixtureTOML(t, homeMarker, originalHome)
 
 	notePath := fixtureNotePath(text)
-	note := &collectionpb.NoteConfig{}
+	note := &ankiascodepb.NoteConfig{}
 	readFixtureTOML(t, notePath, note)
 	if len(note.Cards) != 1 || note.Cards[0].Ordinal == int64(resident.TemplateIdx) {
 		t.Fatal("filtered card exported as managed")
 	}
 	settingsPath := filepath.Join(text, "note_types", "Chinese.notetype.anki.toml")
-	settings := &collectionpb.NoteTypeConfig{}
+	settings := &ankiascodepb.NoteTypeConfig{}
 	readFixtureTOML(t, settingsPath, settings)
 	settings.Templates[0], settings.Templates[1] = settings.Templates[1], settings.Templates[0]
 	writeFixtureTOML(t, settingsPath, settings)
@@ -127,7 +127,7 @@ func TestFilteredCardProtection(t *testing.T) {
 	}
 	settings.Templates[0], settings.Templates[1] = settings.Templates[1], settings.Templates[0]
 	writeFixtureTOML(t, settingsPath, settings)
-	note.Cards = append(note.Cards, &collectionpb.CardConfig{Ordinal: int64(resident.TemplateIdx), Deck: proto.String("decks/grammar/deck.anki.toml")})
+	note.Cards = append(note.Cards, &ankiascodepb.CardConfig{Ordinal: int64(resident.TemplateIdx), Deck: proto.String("decks/grammar/deck.anki.toml")})
 	writeFixtureTOML(t, notePath, note)
 	before, err := os.ReadFile(result)
 	if err != nil {

@@ -5,14 +5,14 @@ import (
 	"os"
 	"path/filepath"
 
-	collectionpb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/collection"
+	ankiascodepb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodepb"
 	"google.golang.org/protobuf/proto"
 )
 
 // Export writes supplied configurations as TOML files in the fixed hierarchy.
 // Callers own validation and unique, representable paths. Declared files are
 // overwritten; other files are untouched. Failures may leave partial output.
-func Export(configs *collectionpb.CollectionConfigSet, output string) error {
+func Export(configs *ankiascodepb.CollectionConfigSet, output string) error {
 	if err := exportFile(filepath.Join(output, collectionMarker), configs.GetConfig()); err != nil {
 		return fmt.Errorf("export collection config: %w", err)
 	}
@@ -36,7 +36,7 @@ func Export(configs *collectionpb.CollectionConfigSet, output string) error {
 }
 
 // exportNotes writes each supplied note at its collection-relative path.
-func exportNotes(root string, notes []*collectionpb.NoteConfigFile) error {
+func exportNotes(root string, notes []*ankiascodepb.NoteConfigFile) error {
 	for _, note := range notes {
 		if err := exportFile(filepath.Join(root, filepath.FromSlash(note.Path)), note.Config); err != nil {
 			return fmt.Errorf("export note %q: %w", note.Path, err)

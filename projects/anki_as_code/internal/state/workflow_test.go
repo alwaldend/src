@@ -13,7 +13,7 @@ import (
 	"testing"
 	"time"
 
-	collectionpb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/collection"
+	ankiascodepb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodepb"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/codec"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/config"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/state"
@@ -85,7 +85,7 @@ func TestStateWorkflow(t *testing.T) {
 	}
 	store := state.New(connection, "")
 	empty, err := store.Dump(ctx)
-	if err != nil || !proto.Equal(empty, &collectionpb.State{Version: 1}) {
+	if err != nil || !proto.Equal(empty, &ankiascodepb.State{Version: 1}) {
 		t.Fatalf("empty state: %v %v", empty, err)
 	}
 	bindings := map[string]string{"decks/Default/deck.anki.toml": "1", "notes/example.note.anki.toml": fmt.Sprint(added.NoteId), "note_types/Basic.notetype.anki.toml": fmt.Sprint(typeID.Ntid)}
@@ -108,23 +108,23 @@ func TestStateWorkflow(t *testing.T) {
 			t.Fatal("invalid batch accepted")
 		}
 	}
-	patch := &collectionpb.State{Version: 1, Resources: &collectionpb.Resources{Presets: map[string]*collectionpb.PresetState{"added": {Id: 1}}}}
-	patch.Resources.NoteTypes = map[string]*collectionpb.NoteTypeState{
+	patch := &ankiascodepb.State{Version: 1, Resources: &ankiascodepb.Resources{Presets: map[string]*ankiascodepb.PresetState{"added": {Id: 1}}}}
+	patch.Resources.NoteTypes = map[string]*ankiascodepb.NoteTypeState{
 		"note_types/Basic.notetype.anki.toml": {
 			Id:     typeID.Ntid,
-			Fields: map[string]*collectionpb.FieldState{"Front": proto.Clone(stored.Resources.NoteTypes["note_types/Basic.notetype.anki.toml"].Fields["Front"]).(*collectionpb.FieldState)},
+			Fields: map[string]*ankiascodepb.FieldState{"Front": proto.Clone(stored.Resources.NoteTypes["note_types/Basic.notetype.anki.toml"].Fields["Front"]).(*ankiascodepb.FieldState)},
 		},
 	}
 	originalPatch := proto.Clone(patch)
 	if changed, err := store.Update(ctx, patch); err != nil || !changed || !proto.Equal(patch, originalPatch) {
 		t.Fatalf("update or input ownership: %v %v", changed, err)
 	}
-	stored.Resources.Presets["added"] = &collectionpb.PresetState{Id: 1}
-	stored.Resources.NoteTypes["note_types/Basic.notetype.anki.toml"] = proto.Clone(patch.Resources.NoteTypes["note_types/Basic.notetype.anki.toml"]).(*collectionpb.NoteTypeState)
+	stored.Resources.Presets["added"] = &ankiascodepb.PresetState{Id: 1}
+	stored.Resources.NoteTypes["note_types/Basic.notetype.anki.toml"] = proto.Clone(patch.Resources.NoteTypes["note_types/Basic.notetype.anki.toml"]).(*ankiascodepb.NoteTypeState)
 	if changed, err := store.Update(ctx, patch); err != nil || changed {
 		t.Fatalf("identical update: %v %v", changed, err)
 	}
-	conflict := &collectionpb.State{Version: 1, Resources: &collectionpb.Resources{Notes: map[string]*collectionpb.NoteState{"notes/other.note.anki.toml": {Id: added.NoteId}}}}
+	conflict := &ankiascodepb.State{Version: 1, Resources: &ankiascodepb.Resources{Notes: map[string]*ankiascodepb.NoteState{"notes/other.note.anki.toml": {Id: added.NoteId}}}}
 	if changed, err := store.Update(ctx, conflict); err == nil || changed {
 		t.Fatal("merged identity conflict accepted")
 	}
@@ -134,7 +134,7 @@ func TestStateWorkflow(t *testing.T) {
 	}
 	for _, format := range []codec.Format{codec.TOML, codec.JSON} {
 		dumped := runStateCLI(t, connection, open, "", true, nil, "dump", "--format", string(format))
-		value := &collectionpb.State{}
+		value := &ankiascodepb.State{}
 		if err := codec.Decode(dumped, format, value); err != nil || !proto.Equal(value, stored) {
 			t.Fatalf("CLI dump %s: %v", format, err)
 		}
@@ -151,7 +151,7 @@ func TestStateWorkflow(t *testing.T) {
 		}
 	}
 	runStateCLI(t, connection, open, "", true, nil, "import", "--text", root, "presets/cli=1", "decks/Default/deck.anki.toml=1")
-	stored.Resources.Presets["cli"] = &collectionpb.PresetState{Id: 1}
+	stored.Resources.Presets["cli"] = &ankiascodepb.PresetState{Id: 1}
 	message := runStateCLI(t, connection, open, "", false, nil, "import", "--text", root, "notes/missing.note.anki.toml=opaque")
 	if !strings.Contains(string(message), "is not declared") {
 		t.Fatal("identifier parsed before resolving resource")
@@ -160,7 +160,7 @@ func TestStateWorkflow(t *testing.T) {
 	runStateCLI(t, connection, open, "", false, []byte("version = ["), "replace", "-")
 	runStateCLI(t, connection, open, "", false, nil, "dump", "--format", "yaml")
 	runStateCLI(t, connection, open, "anki_as_code/state/independent", true, []byte("version = '1'\n"), "replace", "-")
-	if value, err := independent.Dump(ctx); err != nil || !proto.Equal(value, &collectionpb.State{Version: 1}) {
+	if value, err := independent.Dump(ctx); err != nil || !proto.Equal(value, &ankiascodepb.State{Version: 1}) {
 		t.Fatal("replace retained omitted bindings")
 	}
 	checkStateRecovery(t, ctx, connection, open)
@@ -180,7 +180,7 @@ func TestStateWorkflow(t *testing.T) {
 	if _, err := store.Dump(ctx); err == nil {
 		t.Fatal("dump accepted an unprepared collection")
 	}
-	if changed, err := store.Replace(ctx, &collectionpb.State{Version: 1}); err == nil || changed {
+	if changed, err := store.Replace(ctx, &ankiascodepb.State{Version: 1}); err == nil || changed {
 		t.Fatal("replacement accepted an unprepared collection")
 	}
 	if _, err := collections.OpenCollection(ctx, open); err != nil {
@@ -211,7 +211,7 @@ func checkStateRecovery(t *testing.T, ctx context.Context, connection grpc.Clien
 	const key = "anki_as_code/state/recovery"
 	configs := ankiconfig.NewConfigServiceClient(connection)
 	store := state.New(connection, key)
-	replacement := &collectionpb.State{Version: 1}
+	replacement := &ankiascodepb.State{Version: 1}
 	for _, saved := range []string{
 		`{"version":"1","resources":{"notes":{"notes/broken.note.anki.toml":{"id":"0"}}}}`,
 		`{"version":"99"}`,
@@ -228,7 +228,7 @@ func checkStateRecovery(t *testing.T, ctx context.Context, connection grpc.Clien
 		if err != nil {
 			t.Fatal(err)
 		}
-		if changed, err := store.Replace(ctx, &collectionpb.State{Version: 2}); err == nil || changed {
+		if changed, err := store.Replace(ctx, &ankiascodepb.State{Version: 2}); err == nil || changed {
 			t.Fatal("invalid replacement accepted")
 		}
 		after, err := configs.GetAllConfig(ctx, &generic.Empty{})

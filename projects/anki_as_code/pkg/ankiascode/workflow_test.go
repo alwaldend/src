@@ -10,7 +10,9 @@ import (
 	"testing"
 	"time"
 
-	collectionpb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/collection"
+	ankiascodeapi "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodeapi"
+
+	ankiascodepb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodepb"
 	"google.golang.org/protobuf/proto"
 
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/state"
@@ -73,10 +75,10 @@ func TestDirectDatabaseWorkflow(t *testing.T) {
 	scratch := t.TempDir()
 	t.Setenv("TMPDIR", scratch)
 	ctx := context.Background()
-	expected := &collectionpb.State{Version: 1, Resources: &collectionpb.Resources{Presets: map[string]*collectionpb.PresetState{"direct": {Id: 1}}}}
+	expected := &ankiascodepb.State{Version: 1, Resources: &ankiascodepb.Resources{Presets: map[string]*ankiascodepb.PresetState{"direct": {Id: 1}}}}
 	for _, fail := range []bool{false, true} {
 		if fail {
-			expected.Resources.Presets["committed"] = &collectionpb.PresetState{Id: 1}
+			expected.Resources.Presets["committed"] = &ankiascodepb.PresetState{Id: 1}
 		}
 		failure := errors.New("operation failed after its native write")
 		err := runFixtureCollection(ctx, fixture.database, fixture.database, func(connection grpc.ClientConnInterface) (bool, error) {
@@ -140,7 +142,7 @@ func TestNativePublicationWorkflow(t *testing.T) {
 			failure := errors.New("operation failed after a native write")
 			err = runFixtureCollection(ctx, input, input, func(connection grpc.ClientConnInterface) (bool, error) {
 				called = true
-				expected := &collectionpb.State{Version: 1, Resources: &collectionpb.Resources{Presets: map[string]*collectionpb.PresetState{"discarded": {Id: 1}}}}
+				expected := &ankiascodepb.State{Version: 1, Resources: &ankiascodepb.Resources{Presets: map[string]*ankiascodepb.PresetState{"discarded": {Id: 1}}}}
 				if _, err := state.New(connection, "").Replace(ctx, expected); err != nil {
 					return false, fmt.Errorf("write restored collection: %w", err)
 				}
@@ -186,7 +188,7 @@ func TestCollectionLifecycleWorkflow(t *testing.T) {
 			scratch := t.TempDir()
 			t.Setenv("TMPDIR", scratch)
 			ctx := context.Background()
-			expected := &collectionpb.State{Version: 1, Resources: &collectionpb.Resources{Presets: map[string]*collectionpb.PresetState{"lifecycle": {Id: 1}}}}
+			expected := &ankiascodepb.State{Version: 1, Resources: &ankiascodepb.Resources{Presets: map[string]*ankiascodepb.PresetState{"lifecycle": {Id: 1}}}}
 			var borrowed grpc.ClientConnInterface
 			if err := runFixtureCollection(ctx, input, output, func(connection grpc.ClientConnInterface) (bool, error) {
 				borrowed = connection
@@ -236,7 +238,7 @@ func TestStateInputFailures(t *testing.T) {
 	}
 	for _, input := range []string{filepath.Join(root, "missing.anki2"), root, archive} {
 		ctx, cancel := context.WithTimeout(t.Context(), 5*time.Second)
-		value, err := fixtureApplication().ColStateDump(ctx, input, "")
+		value, err := fixtureApplication().ColStateDump(ctx, ankiascodeapi.CollectionPath(input), "")
 		cancel()
 		if err == nil || value != nil {
 			t.Fatalf("invalid collection input %q: error=%v state=%v", input, err, value)

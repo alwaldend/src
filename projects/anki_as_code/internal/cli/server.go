@@ -3,11 +3,12 @@ package cli
 import (
 	"fmt"
 
+	ankiascodeapi "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodeapi"
 	"github.com/spf13/cobra"
 )
 
 // newServerCommand defines presentation and forwards opaque native arguments to App operations.
-func newServerCommand(application application) *cobra.Command {
+func newServerCommand(application ankiascodeapi.App) *cobra.Command {
 	command := &cobra.Command{
 		Use:   "server",
 		Short: "Manage the native Anki server",

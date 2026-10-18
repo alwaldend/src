@@ -29,7 +29,7 @@ go_test(
     data = ["//projects/anki_grpc"],
     embed = [":collection"],
     deps = [
-        "//projects/anki_as_code/api/collection",
+        "//projects/anki_as_code/api/ankiascodepb",
         "//projects/anki_as_code/internal/config",
         "//projects/anki_as_code/internal/export",
         "//projects/anki_as_code/internal/resource",

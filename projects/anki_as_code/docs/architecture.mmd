@@ -1,11 +1,17 @@
 flowchart LR
     entry[cmd/anki_as_code: composition] --> cli[internal/cli: syntax and streams]
     entry --> app[pkg/ankiascode.App]
-    cli -->|Config, Col, ColState, Server| app
-    entry -. Inject native adapter .-> host[ankiserver.Run]
-    app -->|ServerRun / ServerServe| host
+    cli -. App .-> app
+    entry --> api[ankiascodeapi: App and sources]
+    cli --> api
+    app --> api
+    api --> schema
+    cli --> schema[ankiascodepb: protobuf contracts]
+    app --> schema
+    entry -->|Inject native adapter| host[ankiserver.Run]
+    app -. ServerRun / ServerServe .-> host
     host --> server[Linked Anki gRPC server]
-    app --> collections[collection.Store]
+    app -->|path source| collections[collection.Store]
     app --> export[Export: write configs]
     app --> planning[Plan: prepare operations]
     app --> reconcile[Reconcile: execute plan]

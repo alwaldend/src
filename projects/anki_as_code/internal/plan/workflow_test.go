@@ -12,7 +12,7 @@ import (
 	"testing"
 	"time"
 
-	collectionpb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/collection"
+	ankiascodepb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodepb"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/codec"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/config"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/export"
@@ -230,11 +230,11 @@ func TestPlanningWorkflow(t *testing.T) {
 		t.Fatal(err)
 	}
 	clozeConfigs, clozeSnapshot, clozeState := captureFilteredCloze(t, resources, state.New(connection, "filtered-cloze-plan"), filtered.Id)
-	emptyStates := map[string]*collectionpb.State{}
+	emptyStates := map[string]*ankiascodepb.State{}
 	for _, name := range []string{"absent", "empty"} {
 		store := state.New(connection, "empty-planning-"+name)
 		if name == "empty" {
-			if _, err := store.Replace(ctx, &collectionpb.State{Version: 1, Resources: &collectionpb.Resources{}}); err != nil {
+			if _, err := store.Replace(ctx, &ankiascodepb.State{Version: 1, Resources: &ankiascodepb.Resources{}}); err != nil {
 				t.Fatal(err)
 			}
 		}
@@ -273,62 +273,62 @@ func TestPlanningWorkflow(t *testing.T) {
 		// name describes the intended collection change.
 		name string
 		// edit changes only detached desired configs.
-		edit func(*collectionpb.CollectionConfigSet)
+		edit func(*ankiascodepb.CollectionConfigSet)
 		// check verifies externally visible plan behavior.
-		check func(*testing.T, *collectionpb.CollectionChangePlan)
+		check func(*testing.T, *ankiascodepb.CollectionChangePlan)
 	}{
-		{name: "converged", check: func(t *testing.T, plan *collectionpb.CollectionChangePlan) {
+		{name: "converged", check: func(t *testing.T, plan *ankiascodepb.CollectionChangePlan) {
 			if len(plan.Changes) != 0 || plan.StateChanged || plan.CardGenerationDeferred {
 				t.Fatalf("nonempty converged plan: %v", plan)
 			}
 		}},
-		{name: "content", edit: func(value *collectionpb.CollectionConfigSet) {
+		{name: "content", edit: func(value *ankiascodepb.CollectionConfigSet) {
 			value.Decks[0].Notes[0].Config.Fields["Front"] = "Changed"
 			value.Decks[0].Notes[0].Config.Tags = []string{"lesson"}
-		}, check: func(t *testing.T, plan *collectionpb.CollectionChangePlan) {
+		}, check: func(t *testing.T, plan *ankiascodepb.CollectionChangePlan) {
 			if plan.NotesChanged != 1 || !plan.CardGenerationDeferred || plan.StateChanged {
 				t.Fatalf("content plan: %v", plan)
 			}
 		}},
-		{name: "creation", edit: func(value *collectionpb.CollectionConfigSet) {
-			file := proto.Clone(value.Decks[0].Notes[0]).(*collectionpb.NoteConfigFile)
+		{name: "creation", edit: func(value *ankiascodepb.CollectionConfigSet) {
+			file := proto.Clone(value.Decks[0].Notes[0]).(*ankiascodepb.NoteConfigFile)
 			file.Path = "decks/Default/notes/new.note.anki.toml"
 			value.Decks[0].Notes = append(value.Decks[0].Notes, file)
-		}, check: func(t *testing.T, plan *collectionpb.CollectionChangePlan) {
+		}, check: func(t *testing.T, plan *ankiascodepb.CollectionChangePlan) {
 			if plan.NotesAdded != 1 || plan.CardsAdded != 0 || !plan.CardGenerationDeferred || !plan.StateChanged {
 				t.Fatalf("creation plan: %v", plan)
 			}
 		}},
-		{name: "filtered kind projection", edit: func(value *collectionpb.CollectionConfigSet) {
+		{name: "filtered kind projection", edit: func(value *ankiascodepb.CollectionConfigSet) {
 			for _, group := range value.Decks {
 				if group.Title == "Spare" {
-					group.Deck = &collectionpb.DeckConfig{Filtered: &decks.Deck_Filtered{}}
+					group.Deck = &ankiascodepb.DeckConfig{Filtered: &decks.Deck_Filtered{}}
 				}
 			}
-			file := proto.Clone(value.Decks[0].Notes[0]).(*collectionpb.NoteConfigFile)
+			file := proto.Clone(value.Decks[0].Notes[0]).(*ankiascodepb.NoteConfigFile)
 			file.Path = "decks/Default/notes/generated.note.anki.toml"
 			value.Decks[0].Notes = append(value.Decks[0].Notes, file)
-		}, check: func(t *testing.T, plan *collectionpb.CollectionChangePlan) {
+		}, check: func(t *testing.T, plan *ankiascodepb.CollectionChangePlan) {
 			if plan.DecksChanged != 1 || plan.NotesAdded != 1 || !plan.CardGenerationDeferred {
 				t.Fatalf("filtered kind projection: %v", plan)
 			}
 		}},
-		{name: "deletion", edit: func(value *collectionpb.CollectionConfigSet) { value.Decks[0].Notes = nil }, check: func(t *testing.T, plan *collectionpb.CollectionChangePlan) {
+		{name: "deletion", edit: func(value *ankiascodepb.CollectionConfigSet) { value.Decks[0].Notes = nil }, check: func(t *testing.T, plan *ankiascodepb.CollectionChangePlan) {
 			if plan.NotesDeleted != 1 || plan.CardsDeleted != 1 || !plan.StateChanged {
 				t.Fatalf("managed deletion plan: %v", plan)
 			}
 		}},
-		{name: "move", edit: func(value *collectionpb.CollectionConfigSet) {
+		{name: "move", edit: func(value *ankiascodepb.CollectionConfigSet) {
 			destination := "decks/Default/notes/renamed.note.anki.toml"
-			value.Config.Moved = []*collectionpb.ResourceMove{{From: notePath, To: destination}}
+			value.Config.Moved = []*ankiascodepb.ResourceMove{{From: notePath, To: destination}}
 			value.Decks[0].Notes[0].Path = destination
-		}, check: func(t *testing.T, plan *collectionpb.CollectionChangePlan) {
+		}, check: func(t *testing.T, plan *ankiascodepb.CollectionChangePlan) {
 			if plan.NotesAdded != 0 || plan.NotesDeleted != 0 || plan.NotesChanged != 0 || !plan.StateChanged || len(plan.Changes) != 1 || plan.Changes[0].Action != "move" || plan.Changes[0].From != notePath {
 				t.Fatalf("identity-preserving move: %v", plan)
 			}
 		}},
-		{name: "independent directory moves", edit: func(value *collectionpb.CollectionConfigSet) {
-			value.Config.Moved = []*collectionpb.ResourceMove{
+		{name: "independent directory moves", edit: func(value *ankiascodepb.CollectionConfigSet) {
+			value.Config.Moved = []*ankiascodepb.ResourceMove{
 				{From: "decks/Default", To: "decks/Renamed"},
 				{From: "decks/Spare", To: "decks/Relocated"},
 			}
@@ -347,7 +347,7 @@ func TestPlanningWorkflow(t *testing.T) {
 					}
 				}
 			}
-		}, check: func(t *testing.T, plan *collectionpb.CollectionChangePlan) {
+		}, check: func(t *testing.T, plan *ankiascodepb.CollectionChangePlan) {
 			if len(plan.Changes) != 3 || !plan.StateChanged || plan.CardGenerationDeferred {
 				t.Fatalf("directory moves did not retain native resources: %v", plan)
 			}
@@ -357,37 +357,37 @@ func TestPlanningWorkflow(t *testing.T) {
 				}
 			}
 		}},
-		{name: "native deck normalization", edit: func(value *collectionpb.CollectionConfigSet) {
+		{name: "native deck normalization", edit: func(value *ankiascodepb.CollectionConfigSet) {
 			value.Decks[0].Title = " Default "
-		}, check: func(t *testing.T, plan *collectionpb.CollectionChangePlan) {
+		}, check: func(t *testing.T, plan *ankiascodepb.CollectionChangePlan) {
 			if plan.DecksChanged != 1 {
 				t.Fatalf("native deck normalization was validated locally: %v", plan)
 			}
 		}},
-		{name: "mixed-case hierarchy", edit: func(value *collectionpb.CollectionConfigSet) {
+		{name: "mixed-case hierarchy", edit: func(value *ankiascodepb.CollectionConfigSet) {
 			value.Decks = append(value.Decks,
-				&collectionpb.DeckConfigSet{Path: "decks/a/decks/child/deck.anki.toml", Title: "A::child", Deck: &collectionpb.DeckConfig{Normal: &decks.Deck_Normal{}}},
-				&collectionpb.DeckConfigSet{Path: "decks/a/deck.anki.toml", Title: "a", Deck: &collectionpb.DeckConfig{Normal: &decks.Deck_Normal{}}},
+				&ankiascodepb.DeckConfigSet{Path: "decks/a/decks/child/deck.anki.toml", Title: "A::child", Deck: &ankiascodepb.DeckConfig{Normal: &decks.Deck_Normal{}}},
+				&ankiascodepb.DeckConfigSet{Path: "decks/a/deck.anki.toml", Title: "a", Deck: &ankiascodepb.DeckConfig{Normal: &decks.Deck_Normal{}}},
 			)
-		}, check: func(t *testing.T, plan *collectionpb.CollectionChangePlan) {
+		}, check: func(t *testing.T, plan *ankiascodepb.CollectionChangePlan) {
 			if plan.DecksAdded != 2 {
 				t.Fatalf("mixed-case hierarchy plan: %v", plan)
 			}
 		}},
-		{name: "presentation", edit: func(value *collectionpb.CollectionConfigSet) {
+		{name: "presentation", edit: func(value *ankiascodepb.CollectionConfigSet) {
 			for _, file := range value.NoteTypes {
 				if file.Config.Name == "Planning" {
 					file.Config.Config.Css = ".card { color: red; }"
 				}
 			}
-		}, check: func(t *testing.T, plan *collectionpb.CollectionChangePlan) {
+		}, check: func(t *testing.T, plan *ankiascodepb.CollectionChangePlan) {
 			if plan.NoteTypesChanged != 1 || !plan.CardGenerationDeferred {
 				t.Fatalf("presentation plan: %v", plan)
 			}
 		}},
 	} {
 		t.Run(test.name, func(t *testing.T) {
-			desired := proto.Clone(configs).(*collectionpb.CollectionConfigSet)
+			desired := proto.Clone(configs).(*ankiascodepb.CollectionConfigSet)
 			if test.edit != nil {
 				test.edit(desired)
 			}
@@ -416,7 +416,7 @@ func TestPlanningWorkflow(t *testing.T) {
 			if test.name == "filtered kind projection" && !slices.Contains(plan.FilteredDecks, stored.Resources.Decks["decks/Spare/deck.anki.toml"].Id) {
 				t.Fatal("card execution did not use the resulting filtered kind")
 			}
-			permuted := proto.Clone(desired).(*collectionpb.CollectionConfigSet)
+			permuted := proto.Clone(desired).(*ankiascodepb.CollectionConfigSet)
 			slices.Reverse(permuted.Decks)
 			slices.Reverse(permuted.NoteTypes)
 			slices.Reverse(permuted.Notes)
@@ -449,12 +449,12 @@ func TestPlanningWorkflow(t *testing.T) {
 	for name, value := range emptyStates {
 		t.Run("empty namespace "+name, func(t *testing.T) {
 			original := proto.Clone(value)
-			empty := &collectionpb.CollectionConfigSet{Config: &collectionpb.CollectionConfig{Version: 1}}
+			empty := &ankiascodepb.CollectionConfigSet{Config: &ankiascodepb.CollectionConfig{Version: 1}}
 			prepared, err := planning.Build(empty, snapshot, value)
 			if err != nil {
 				t.Fatal(err)
 			}
-			if !proto.Equal(prepared.Report, &collectionpb.CollectionChangePlan{}) {
+			if !proto.Equal(prepared.Report, &ankiascodepb.CollectionChangePlan{}) {
 				t.Fatalf("empty namespace produced changes: %v", prepared.Report)
 			}
 			if !proto.Equal(value, original) {
@@ -466,9 +466,9 @@ func TestPlanningWorkflow(t *testing.T) {
 		})
 	}
 	t.Run("replace tracked deck", func(t *testing.T) {
-		desired := proto.Clone(configs).(*collectionpb.CollectionConfigSet)
+		desired := proto.Clone(configs).(*ankiascodepb.CollectionConfigSet)
 		previous, replacement := "decks/Spare/deck.anki.toml", "decks/Replacement/deck.anki.toml"
-		var declaration *collectionpb.DeckConfigSet
+		var declaration *ankiascodepb.DeckConfigSet
 		for _, group := range desired.Decks {
 			if group.Path == previous {
 				group.Path, declaration = replacement, group
@@ -487,7 +487,7 @@ func TestPlanningWorkflow(t *testing.T) {
 		if prepared.ProposedBindings.Decks[previous] != nil || (prepared.ProposedBindings.Decks[replacement] == nil || prepared.ProposedBindings.Decks[replacement].GetId() != 0) {
 			t.Fatal("replacement retained the deleted deck binding")
 		}
-		unbound := &collectionpb.CollectionConfigSet{Config: &collectionpb.CollectionConfig{Version: 1}, Decks: []*collectionpb.DeckConfigSet{declaration}}
+		unbound := &ankiascodepb.CollectionConfigSet{Config: &ankiascodepb.CollectionConfig{Version: 1}, Decks: []*ankiascodepb.DeckConfigSet{declaration}}
 		if _, err := planning.Build(unbound, snapshot, emptyStates["absent"]); err == nil {
 			t.Fatal("deck replacement claimed an untracked native name")
 		}
@@ -496,7 +496,7 @@ func TestPlanningWorkflow(t *testing.T) {
 		}
 	})
 	t.Run("replace tracked note type", func(t *testing.T) {
-		desired := proto.Clone(configs).(*collectionpb.CollectionConfigSet)
+		desired := proto.Clone(configs).(*ankiascodepb.CollectionConfigSet)
 		path := "note_types/Replacement.notetype.anki.toml"
 		var previous string
 		for _, file := range desired.NoteTypes {
@@ -529,7 +529,7 @@ func TestPlanningWorkflow(t *testing.T) {
 	checkNewReferences(t, configs, snapshot, stored, output)
 	checkFilteredCloze(t, clozeConfigs, clozeSnapshot, clozeState, output)
 	t.Run("destination only", func(t *testing.T) {
-		desired := proto.Clone(configs).(*collectionpb.CollectionConfigSet)
+		desired := proto.Clone(configs).(*ankiascodepb.CollectionConfigSet)
 		desired.Decks[0].Notes[0].Config.Cards[0].Deck = proto.String("decks/Home/deck.anki.toml")
 		prepared, err := planning.Build(desired, snapshot, stored)
 		if err != nil {
@@ -540,7 +540,7 @@ func TestPlanningWorkflow(t *testing.T) {
 		}
 	})
 	t.Run("root note without destination", func(t *testing.T) {
-		desired := proto.Clone(configs).(*collectionpb.CollectionConfigSet)
+		desired := proto.Clone(configs).(*ankiascodepb.CollectionConfigSet)
 		desired.Notes, desired.Decks[0].Notes = desired.Decks[0].Notes, nil
 		desired.Notes[0].Config.Cards = nil
 		desired.Notes[0].Config.Fields["Front"] = "Root content"
@@ -555,7 +555,7 @@ func TestPlanningWorkflow(t *testing.T) {
 	// No cards occupy Target: only the untracked template retains this deck.
 	for _, action := range []string{"remove", "convert"} {
 		t.Run("untracked template deck "+action, func(t *testing.T) {
-			desired := proto.Clone(configs).(*collectionpb.CollectionConfigSet)
+			desired := proto.Clone(configs).(*ankiascodepb.CollectionConfigSet)
 			for index, group := range desired.Decks {
 				if group.Title != "Target" {
 					continue
@@ -563,7 +563,7 @@ func TestPlanningWorkflow(t *testing.T) {
 				if action == "remove" {
 					desired.Decks = append(desired.Decks[:index], desired.Decks[index+1:]...)
 				} else {
-					group.Deck = &collectionpb.DeckConfig{Filtered: &decks.Deck_Filtered{}}
+					group.Deck = &ankiascodepb.DeckConfig{Filtered: &decks.Deck_Filtered{}}
 				}
 				break
 			}
@@ -576,38 +576,38 @@ func TestPlanningWorkflow(t *testing.T) {
 		// name identifies an invalid request.
 		name string
 		// edit constructs the invalid detached request.
-		edit func(*collectionpb.CollectionConfigSet)
+		edit func(*ankiascodepb.CollectionConfigSet)
 	}{
-		{name: "filtered home deck conversion", edit: func(value *collectionpb.CollectionConfigSet) {
+		{name: "filtered home deck conversion", edit: func(value *ankiascodepb.CollectionConfigSet) {
 			for _, group := range value.Decks {
 				if group.Title == "Home" {
-					group.Deck = &collectionpb.DeckConfig{Filtered: &decks.Deck_Filtered{}}
+					group.Deck = &ankiascodepb.DeckConfig{Filtered: &decks.Deck_Filtered{}}
 				}
 			}
 		}},
-		{name: "unknown type", edit: func(value *collectionpb.CollectionConfigSet) {
+		{name: "unknown type", edit: func(value *ankiascodepb.CollectionConfigSet) {
 			value.Decks[0].Notes[0].Config.NoteType = "note_types/missing.notetype.anki.toml"
 		}},
-		{name: "missing field", edit: func(value *collectionpb.CollectionConfigSet) { delete(value.Decks[0].Notes[0].Config.Fields, "Back") }},
-		{name: "untracked reference", edit: func(value *collectionpb.CollectionConfigSet) {
+		{name: "missing field", edit: func(value *ankiascodepb.CollectionConfigSet) { delete(value.Decks[0].Notes[0].Config.Fields, "Back") }},
+		{name: "untracked reference", edit: func(value *ankiascodepb.CollectionConfigSet) {
 			value.Notes = value.Decks[0].Notes
 			value.Decks = nil
 			value.Notes[0].Config.Cards = nil
 		}},
-		{name: "cross-resource move collision", edit: func(value *collectionpb.CollectionConfigSet) {
-			value.Config.Moved = []*collectionpb.ResourceMove{{From: notePath, To: "decks/Spare/deck.anki.toml"}}
+		{name: "cross-resource move collision", edit: func(value *ankiascodepb.CollectionConfigSet) {
+			value.Config.Moved = []*ankiascodepb.ResourceMove{{From: notePath, To: "decks/Spare/deck.anki.toml"}}
 			value.Decks[0].Notes = nil
 		}},
-		{name: "occupied move destination", edit: func(value *collectionpb.CollectionConfigSet) {
-			value.Config.Moved = []*collectionpb.ResourceMove{{From: "decks/Default", To: "decks/Spare"}}
-			value.Decks = slices.DeleteFunc(value.Decks, func(group *collectionpb.DeckConfigSet) bool { return group.Title == "Default" })
+		{name: "occupied move destination", edit: func(value *ankiascodepb.CollectionConfigSet) {
+			value.Config.Moved = []*ankiascodepb.ResourceMove{{From: "decks/Default", To: "decks/Spare"}}
+			value.Decks = slices.DeleteFunc(value.Decks, func(group *ankiascodepb.DeckConfigSet) bool { return group.Title == "Default" })
 		}},
-		{name: "overlapping moves", edit: func(value *collectionpb.CollectionConfigSet) {
-			value.Config.Moved = []*collectionpb.ResourceMove{{From: "notes/old", To: "notes/new"}, {From: "notes/new", To: "notes/third"}}
+		{name: "overlapping moves", edit: func(value *ankiascodepb.CollectionConfigSet) {
+			value.Config.Moved = []*ankiascodepb.ResourceMove{{From: "notes/old", To: "notes/new"}, {From: "notes/new", To: "notes/third"}}
 		}},
 	} {
 		t.Run(test.name, func(t *testing.T) {
-			desired := proto.Clone(configs).(*collectionpb.CollectionConfigSet)
+			desired := proto.Clone(configs).(*ankiascodepb.CollectionConfigSet)
 			test.edit(desired)
 			if plan, err := planning.Build(desired, snapshot, stored); err == nil || plan != nil {
 				t.Fatal("invalid request returned a plan")
@@ -617,7 +617,7 @@ func TestPlanningWorkflow(t *testing.T) {
 	// State member addresses cannot distinguish duplicate declared names.
 	for _, kind := range []string{"field", "template"} {
 		t.Run("duplicate "+kind+" reference", func(t *testing.T) {
-			desired := proto.Clone(configs).(*collectionpb.CollectionConfigSet)
+			desired := proto.Clone(configs).(*ankiascodepb.CollectionConfigSet)
 			for _, file := range desired.NoteTypes {
 				if file.Config.Name != "Planning" {
 					continue
@@ -625,7 +625,7 @@ func TestPlanningWorkflow(t *testing.T) {
 				if kind == "field" {
 					file.Config.Fields[1].Name = file.Config.Fields[0].Name
 				} else {
-					file.Config.Templates = append(file.Config.Templates, proto.Clone(file.Config.Templates[0]).(*collectionpb.TemplateConfig))
+					file.Config.Templates = append(file.Config.Templates, proto.Clone(file.Config.Templates[0]).(*ankiascodepb.TemplateConfig))
 				}
 			}
 			if plan, err := planning.Build(desired, initial, stored); err == nil || plan != nil {
@@ -665,12 +665,12 @@ func TestPlanningWorkflow(t *testing.T) {
 }
 
 // checkPresetBindings preserves existing aliases and discovers referenced native preset names.
-func checkPresetBindings(t *testing.T, configs *collectionpb.CollectionConfigSet, snapshot *resource.Snapshot, stored *collectionpb.State, output string) {
+func checkPresetBindings(t *testing.T, configs *ankiascodepb.CollectionConfigSet, snapshot *resource.Snapshot, stored *ankiascodepb.State, output string) {
 	t.Helper()
 	t.Run("preset binding ownership", func(t *testing.T) {
-		desired := proto.Clone(configs).(*collectionpb.CollectionConfigSet)
-		bindings := proto.Clone(stored).(*collectionpb.State)
-		bindings.Resources.Presets = map[string]*collectionpb.PresetState{"Saved alias": {Id: 1}, "Unused alias": {Id: 1}}
+		desired := proto.Clone(configs).(*ankiascodepb.CollectionConfigSet)
+		bindings := proto.Clone(stored).(*ankiascodepb.State)
+		bindings.Resources.Presets = map[string]*ankiascodepb.PresetState{"Saved alias": {Id: 1}, "Unused alias": {Id: 1}}
 		for _, group := range desired.Decks {
 			if group.Deck.Normal != nil {
 				group.Deck.Preset = snapshot.Presets[1]
@@ -700,10 +700,10 @@ func checkPresetBindings(t *testing.T, configs *collectionpb.CollectionConfigSet
 }
 
 // checkPayloadOwnership edits returned payloads without changing caller-owned inputs.
-func checkPayloadOwnership(t *testing.T, configs *collectionpb.CollectionConfigSet, snapshot *resource.Snapshot, stored *collectionpb.State, output string) {
+func checkPayloadOwnership(t *testing.T, configs *ankiascodepb.CollectionConfigSet, snapshot *resource.Snapshot, stored *ankiascodepb.State, output string) {
 	t.Helper()
 	t.Run("returned payload ownership", func(t *testing.T) {
-		desired := proto.Clone(configs).(*collectionpb.CollectionConfigSet)
+		desired := proto.Clone(configs).(*ankiascodepb.CollectionConfigSet)
 		desired.Decks[0].Title += " Renamed"
 		desired.Decks[0].Notes[0].Config.Fields["Front"] = "Owned content"
 		for _, file := range desired.NoteTypes {
@@ -760,23 +760,23 @@ func checkPayloadOwnership(t *testing.T, configs *collectionpb.CollectionConfigS
 }
 
 // checkNewReferences verifies typed path references without provisional Anki identities.
-func checkNewReferences(t *testing.T, configs *collectionpb.CollectionConfigSet, snapshot *resource.Snapshot, stored *collectionpb.State, output string) {
+func checkNewReferences(t *testing.T, configs *ankiascodepb.CollectionConfigSet, snapshot *resource.Snapshot, stored *ankiascodepb.State, output string) {
 	t.Helper()
 	t.Run("new object path references", func(t *testing.T) {
-		desired := proto.Clone(configs).(*collectionpb.CollectionConfigSet)
+		desired := proto.Clone(configs).(*ankiascodepb.CollectionConfigSet)
 		deckPath, typePath, notePath := "decks/New/deck.anki.toml", "note_types/New.notetype.anki.toml", "decks/New/notes/New.note.anki.toml"
-		var definition *collectionpb.NoteTypeConfig
+		var definition *ankiascodepb.NoteTypeConfig
 		for _, file := range desired.NoteTypes {
 			if file.Config.Name == "Planning" {
-				definition = proto.Clone(file.Config).(*collectionpb.NoteTypeConfig)
+				definition = proto.Clone(file.Config).(*ankiascodepb.NoteTypeConfig)
 			}
 		}
 		if definition == nil {
 			t.Fatal("native note type fixture missing")
 		}
 		definition.Name, definition.Templates[0].TargetDeck = "New", deckPath
-		desired.NoteTypes = append(desired.NoteTypes, &collectionpb.NoteTypeConfigFile{Path: typePath, Config: definition})
-		desired.Decks = append(desired.Decks, &collectionpb.DeckConfigSet{Path: deckPath, Title: "New", Deck: &collectionpb.DeckConfig{Normal: &decks.Deck_Normal{}}, Notes: []*collectionpb.NoteConfigFile{{Path: notePath, Config: &collectionpb.NoteConfig{NoteType: typePath, Fields: map[string]string{"Front": "New", "Back": "Answer"}}}}})
+		desired.NoteTypes = append(desired.NoteTypes, &ankiascodepb.NoteTypeConfigFile{Path: typePath, Config: definition})
+		desired.Decks = append(desired.Decks, &ankiascodepb.DeckConfigSet{Path: deckPath, Title: "New", Deck: &ankiascodepb.DeckConfig{Normal: &decks.Deck_Normal{}}, Notes: []*ankiascodepb.NoteConfigFile{{Path: notePath, Config: &ankiascodepb.NoteConfig{NoteType: typePath, Fields: map[string]string{"Front": "New", "Back": "Answer"}}}}})
 		prepared, err := planning.Build(desired, snapshot, stored)
 		if err != nil {
 			t.Fatal(err)
@@ -794,7 +794,7 @@ func checkNewReferences(t *testing.T, configs *collectionpb.CollectionConfigSet,
 		if err != nil {
 			t.Fatal(err)
 		}
-		decoded := &collectionpb.CollectionPlan{}
+		decoded := &ankiascodepb.CollectionPlan{}
 		if err := codec.Decode(data, codec.JSON, decoded); err != nil || !proto.Equal(prepared, decoded) {
 			t.Fatalf("path-based plan did not round-trip: %v", err)
 		}
@@ -805,15 +805,15 @@ func checkNewReferences(t *testing.T, configs *collectionpb.CollectionConfigSet,
 }
 
 // checkMemberDrift verifies native member mappings after independent Anki edits.
-func checkMemberDrift(t *testing.T, configs *collectionpb.CollectionConfigSet, snapshot *resource.Snapshot, stored *collectionpb.State, output string) {
+func checkMemberDrift(t *testing.T, configs *ankiascodepb.CollectionConfigSet, snapshot *resource.Snapshot, stored *ankiascodepb.State, output string) {
 	t.Helper()
 	for _, rename := range []bool{false, true} {
 		t.Run(fmt.Sprintf("native member drift rename=%t", rename), func(t *testing.T) {
-			desired := proto.Clone(configs).(*collectionpb.CollectionConfigSet)
+			desired := proto.Clone(configs).(*ankiascodepb.CollectionConfigSet)
 			if rename {
 				for _, file := range desired.NoteTypes {
 					if file.Config.Name == "Reordered" {
-						desired.Config.Moved = []*collectionpb.ResourceMove{
+						desired.Config.Moved = []*ankiascodepb.ResourceMove{
 							{From: file.Path + "#fields/Front", To: file.Path + "#fields/Question"},
 							{From: file.Path + "#templates/Forward", To: file.Path + "#templates/Prompt"},
 						}
@@ -855,12 +855,12 @@ func checkMemberDrift(t *testing.T, configs *collectionpb.CollectionConfigSet, s
 }
 
 // checkMemberMoveOwnership rejects identity transfers between native note types.
-func checkMemberMoveOwnership(t *testing.T, configs *collectionpb.CollectionConfigSet, snapshot *resource.Snapshot, stored *collectionpb.State) {
+func checkMemberMoveOwnership(t *testing.T, configs *ankiascodepb.CollectionConfigSet, snapshot *resource.Snapshot, stored *ankiascodepb.State) {
 	t.Helper()
 	for _, kind := range []string{"fields", "templates"} {
 		t.Run("cross-note-type "+kind+" move", func(t *testing.T) {
-			desired := proto.Clone(configs).(*collectionpb.CollectionConfigSet)
-			var source, destination *collectionpb.NoteTypeConfigFile
+			desired := proto.Clone(configs).(*ankiascodepb.CollectionConfigSet)
+			var source, destination *ankiascodepb.NoteTypeConfigFile
 			for _, file := range desired.NoteTypes {
 				if file.Config.Name == "Basic" {
 					destination = file
@@ -894,7 +894,7 @@ func checkMemberMoveOwnership(t *testing.T, configs *collectionpb.CollectionConf
 				template.Name = "Transferred"
 				destination.Config.Templates = append(destination.Config.Templates, template)
 			}
-			desired.Config.Moved = []*collectionpb.ResourceMove{{From: source.Path + "#" + kind + "/" + name, To: destination.Path + "#" + kind + "/Transferred"}}
+			desired.Config.Moved = []*ankiascodepb.ResourceMove{{From: source.Path + "#" + kind + "/" + name, To: destination.Path + "#" + kind + "/Transferred"}}
 			if plan, err := planning.Build(desired, snapshot, stored); err == nil || plan != nil {
 				t.Fatal("member identity transferred between unrelated native note types")
 			}

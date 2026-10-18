@@ -11,7 +11,7 @@ import (
 	"testing"
 	"time"
 
-	collectionpb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/collection"
+	ankiascodepb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodepb"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/codec"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/config"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/resource"
@@ -108,7 +108,7 @@ func TestExportWorkflow(t *testing.T) {
 	if err != nil || len(history.GetEntries()) == 0 {
 		t.Fatalf("review history: %v", err)
 	}
-	other := &collectionpb.State{Version: 1, Resources: &collectionpb.Resources{Notes: map[string]*collectionpb.NoteState{"notes/unrelated.note.anki.toml": {Id: added.NoteId}}}}
+	other := &ankiascodepb.State{Version: 1, Resources: &ankiascodepb.Resources{Notes: map[string]*ankiascodepb.NoteState{"notes/unrelated.note.anki.toml": {Id: added.NoteId}}}}
 	if _, err := otherStore.Replace(ctx, other); err != nil {
 		t.Fatal(err)
 	}
@@ -131,12 +131,12 @@ func TestExportWorkflow(t *testing.T) {
 			t.Fatal(err)
 		}
 	}
-	note := &collectionpb.NoteConfig{}
+	note := &ankiascodepb.NoteConfig{}
 	readExportConfig(t, filepath.Join(output, address), note)
 	if note.Fields["Front"] != fields[0] || note.Fields["Back"] != fields[1] || note.NoteType != "note_types/Readable.notetype.anki.toml" {
 		t.Fatalf("note content: %v", note)
 	}
-	settings := &collectionpb.NoteTypeConfig{}
+	settings := &ankiascodepb.NoteTypeConfig{}
 	readExportConfig(t, filepath.Join(output, note.NoteType), settings)
 	if settings.SortField != "Back" || settings.Config.Css != definition.Config.Css || settings.Config.SortFieldIdx != 0 || settings.Fields[0].Config.Id != nil || settings.Templates[0].Config.Id != nil || settings.Templates[0].Config.QFormat != "{{Front}}" {
 		t.Fatalf("editable type: %v", settings)
@@ -236,13 +236,13 @@ func TestExportWorkflow(t *testing.T) {
 		t.Fatal(err)
 	}
 	for name, title := range map[string]string{"Readable": "Renamed", "Readable-2": "Readable"} {
-		definition := &collectionpb.NoteTypeConfig{}
+		definition := &ankiascodepb.NoteTypeConfig{}
 		readExportConfig(t, filepath.Join(output, "note_types", name+".notetype.anki.toml"), definition)
 		if definition.Name != title {
 			t.Fatal("tracked/discovered filenames collided")
 		}
 	}
-	duplicate := &collectionpb.NoteConfig{}
+	duplicate := &ankiascodepb.NoteConfig{}
 	readExportConfig(t, filepath.Join(output, "decks/Language/decks/Lesson/notes/Hello-世界-2.note.anki.toml"), duplicate)
 	if duplicate.NoteType != "note_types/Readable-2.notetype.anki.toml" {
 		t.Fatal("discovered note references wrong type")
@@ -272,12 +272,12 @@ func TestExportWorkflow(t *testing.T) {
 	if err != nil || string(content) != "keep" {
 		t.Fatal("unrelated bytes changed")
 	}
-	filteredConfig := &collectionpb.DeckConfig{}
+	filteredConfig := &ankiascodepb.DeckConfig{}
 	readExportConfig(t, filepath.Join(output, "decks/Filtered/deck.anki.toml"), filteredConfig)
 	if filteredConfig.Filtered == nil || !filteredConfig.Filtered.Reschedule {
 		t.Fatal("filtered config missing")
 	}
-	residentConfig := &collectionpb.NoteConfig{}
+	residentConfig := &ankiascodepb.NoteConfig{}
 	readExportConfig(t, filepath.Join(output, "notes/Resident.note.anki.toml"), residentConfig)
 	if len(residentConfig.Cards) != 0 {
 		t.Fatal("resident filtered card exported as managed")
@@ -352,7 +352,7 @@ func TestExportWorkflow(t *testing.T) {
 			t.Fatal(err)
 		}
 		for name, field := range cases {
-			value := &collectionpb.NoteConfig{}
+			value := &ankiascodepb.NoteConfig{}
 			readExportConfig(t, filepath.Join(nativeOutput, "decks/Language/decks/Lesson/notes", name+".note.anki.toml"), value)
 			if value.Fields["Back"] != field {
 				t.Fatalf("filename conversion changed sort field %q", name)

@@ -10,7 +10,7 @@ go_library(
     importpath = "git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/reconcile",
     visibility = ["//projects/anki_as_code/pkg/ankiascode:__pkg__"],
     deps = [
-        "//projects/anki_as_code/api/collection",
+        "//projects/anki_as_code/api/ankiascodepb",
         "//projects/anki_as_code/internal/resource",
         "//projects/anki_as_code/internal/state",
         "//third_party/com_github_ankitects_anki:cards",
@@ -28,7 +28,7 @@ go_test(
     data = ["//projects/anki_grpc"],
     deps = [
         ":reconcile",
-        "//projects/anki_as_code/api/collection",
+        "//projects/anki_as_code/api/ankiascodepb",
         "//projects/anki_as_code/internal/codec",
         "//projects/anki_as_code/internal/config",
         "//projects/anki_as_code/internal/export",

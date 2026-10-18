@@ -6,14 +6,14 @@ import (
 	"maps"
 	"slices"
 
-	collectionpb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/collection"
+	ankiascodepb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodepb"
 	"github.com/ankitects/anki/proto/anki/decks"
 	"google.golang.org/protobuf/proto"
 )
 
 // compile prepares each resource delta once, producing native operations and report entries together.
-func compile(desired desiredState, before snapshot) *collectionpb.CollectionPlan {
-	result := &collectionpb.CollectionPlan{Report: &collectionpb.CollectionChangePlan{}, ExpectedState: proto.CloneOf(before.bindings), ProposedBindings: bindingInputs(desired)}
+func compile(desired desiredState, before snapshot) *ankiascodepb.CollectionPlan {
+	result := &ankiascodepb.CollectionPlan{Report: &ankiascodepb.CollectionChangePlan{}, ExpectedState: proto.CloneOf(before.bindings), ProposedBindings: bindingInputs(desired)}
 	compileDecks(result, desired, before)
 	compileNoteTypes(result, desired, before)
 	compileNotes(result, desired, before)
@@ -34,7 +34,7 @@ func temporaryName(kind string, id int64, reserved map[string]bool) string {
 }
 
 // compileDecks compares prepared decks and emits collision-free name releases.
-func compileDecks(result *collectionpb.CollectionPlan, desired desiredState, before snapshot) {
+func compileDecks(result *ankiascodepb.CollectionPlan, desired desiredState, before snapshot) {
 	reserved := map[string]bool{}
 	for name := range before.deckNames {
 		reserved[name] = true
@@ -76,7 +76,7 @@ func compileDecks(result *collectionpb.CollectionPlan, desired desiredState, bef
 			result.Decks = append(result.Decks, deck)
 		}
 	}
-	slices.SortFunc(result.Decks, func(a, b *collectionpb.PlannedDeck) int {
+	slices.SortFunc(result.Decks, func(a, b *ankiascodepb.PlannedDeck) int {
 		return cmp.Compare(folded(a.Value.Name), folded(b.Value.Name))
 	})
 	slices.Sort(result.RemovedDecks)
@@ -84,7 +84,7 @@ func compileDecks(result *collectionpb.CollectionPlan, desired desiredState, bef
 }
 
 // compileNoteTypes compares prepared definitions and releases tracked native names.
-func compileNoteTypes(result *collectionpb.CollectionPlan, desired desiredState, before snapshot) {
+func compileNoteTypes(result *ankiascodepb.CollectionPlan, desired desiredState, before snapshot) {
 	reserved := map[string]bool{}
 	for name := range before.typeNames {
 		reserved[name] = true
@@ -131,11 +131,11 @@ func compileNoteTypes(result *collectionpb.CollectionPlan, desired desiredState,
 		}
 		result.NoteTypes = append(result.NoteTypes, operation)
 	}
-	slices.SortFunc(result.NoteTypes, func(a, b *collectionpb.PlannedNoteType) int { return cmp.Compare(a.Path, b.Path) })
+	slices.SortFunc(result.NoteTypes, func(a, b *ankiascodepb.PlannedNoteType) int { return cmp.Compare(a.Path, b.Path) })
 }
 
 // compileNotes compares prepared content and emits writes required after native migrations.
-func compileNotes(result *collectionpb.CollectionPlan, desired desiredState, before snapshot) {
+func compileNotes(result *ankiascodepb.CollectionPlan, desired desiredState, before snapshot) {
 	for _, note := range desired.notes {
 		previous := before.notes[note.Value.Id]
 		changed := previous == nil || !slices.Equal(previous.Fields, note.Value.Fields) || !slices.Equal(previous.Tags, note.Value.Tags)
@@ -162,11 +162,11 @@ func compileNotes(result *collectionpb.CollectionPlan, desired desiredState, bef
 		}
 	}
 	slices.Sort(result.RemovedNotes)
-	slices.SortFunc(result.Notes, func(a, b *collectionpb.PlannedNote) int { return cmp.Compare(a.Path, b.Path) })
+	slices.SortFunc(result.Notes, func(a, b *ankiascodepb.PlannedNote) int { return cmp.Compare(a.Path, b.Path) })
 }
 
 // compileCards reports known destinations and schedules only assignments that may need native work.
-func compileCards(result *collectionpb.CollectionPlan, desired desiredState, before snapshot) {
+func compileCards(result *ankiascodepb.CollectionPlan, desired desiredState, before snapshot) {
 	needed, changedTypes := map[string]bool{}, map[string]bool{}
 	for _, operation := range result.Notes {
 		needed[operation.Path] = true
@@ -205,7 +205,7 @@ func compileCards(result *collectionpb.CollectionPlan, desired desiredState, bef
 			result.CardAssignments = append(result.CardAssignments, assignments)
 		}
 	}
-	slices.SortFunc(result.CardAssignments, func(a, b *collectionpb.PlannedCardAssignments) int { return cmp.Compare(a.Path, b.Path) })
+	slices.SortFunc(result.CardAssignments, func(a, b *ankiascodepb.PlannedCardAssignments) int { return cmp.Compare(a.Path, b.Path) })
 	if len(result.CardAssignments) > 0 {
 		for id, deck := range before.decks {
 			if wanted := desired.decksByID[id]; wanted != nil {

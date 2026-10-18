@@ -5,13 +5,14 @@ import (
 	"io"
 	"os"
 
-	collectionpb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/collection"
+	ankiascodeapi "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodeapi"
+	ankiascodepb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodepb"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/codec"
 	"github.com/spf13/cobra"
 )
 
 // newConfigCommand groups operations on text configuration independently of Anki collections.
-func newConfigCommand(application application) *cobra.Command {
+func newConfigCommand(application ankiascodeapi.App) *cobra.Command {
 	command := &cobra.Command{
 		Use:     "config",
 		Aliases: []string{"conf"},
@@ -26,7 +27,7 @@ func newConfigCommand(application application) *cobra.Command {
 }
 
 // newConfigExportCommand writes a serialized configuration set as a TOML directory tree.
-func newConfigExportCommand(application application) *cobra.Command {
+func newConfigExportCommand(application ankiascodeapi.App) *cobra.Command {
 	var output, format string
 	command := &cobra.Command{
 		Use:   "export [FILE]",
@@ -43,7 +44,7 @@ func newConfigExportCommand(application application) *cobra.Command {
 			if err != nil {
 				return fmt.Errorf("read configuration set: %w", err)
 			}
-			configs := &collectionpb.CollectionConfigSet{}
+			configs := &ankiascodepb.CollectionConfigSet{}
 			if err := codec.Decode(data, codec.Format(format), configs); err != nil {
 				return fmt.Errorf("decode configuration set: %w", err)
 			}
@@ -62,7 +63,7 @@ func newConfigExportCommand(application application) *cobra.Command {
 }
 
 // newConfigDumpCommand defines a read-only configuration dump with selectable output format.
-func newConfigDumpCommand(application application) *cobra.Command {
+func newConfigDumpCommand(application ankiascodeapi.App) *cobra.Command {
 	var text, format string
 	command := &cobra.Command{
 		Use:   "dump",

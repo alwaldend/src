@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	collectionpb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/collection"
+	ankiascodepb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodepb"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/resource"
 	"github.com/ankitects/anki/proto/anki/cards"
 	ankicol "github.com/ankitects/anki/proto/anki/collection"
@@ -19,9 +19,9 @@ type applier struct {
 	// resources supplies borrowed native clients without state or lifecycle ownership.
 	resources *resource.Store
 	// plan contains caller-owned prepared operations and is never modified.
-	plan *collectionpb.CollectionPlan
+	plan *ankiascodepb.CollectionPlan
 	// bindings records actual native identities independently of the input plan.
-	bindings *collectionpb.Resources
+	bindings *ankiascodepb.Resources
 	// changed retains Anki's native mutation flags.
 	changed bool
 }

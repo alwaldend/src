@@ -7,13 +7,15 @@ import (
 	"os"
 	"strings"
 
-	collectionpb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/collection"
+	ankiascodeapi "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodeapi"
+
+	ankiascodepb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodepb"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/codec"
 	"github.com/spf13/cobra"
 )
 
 // newStateCommand groups state operations using application-managed collection access.
-func newStateCommand(application application) *cobra.Command {
+func newStateCommand(application ankiascodeapi.App) *cobra.Command {
 	var input string
 	command := &cobra.Command{
 		Use:   "state",
@@ -34,12 +36,12 @@ func newStateCommand(application application) *cobra.Command {
 }
 
 // newStateDumpCommand prints stored bindings through application-managed access.
-func newStateDumpCommand(application application, input *string) *cobra.Command {
+func newStateDumpCommand(application ankiascodeapi.App, input *string) *cobra.Command {
 	var format string
 	command := &cobra.Command{
 		Use: "dump", Short: "Dump the stored state object", Args: cobra.NoArgs,
 		RunE: func(command *cobra.Command, _ []string) error {
-			value, err := application.ColStateDump(command.Context(), *input, commandStateKey(command))
+			value, err := application.ColStateDump(command.Context(), ankiascodeapi.CollectionPath(*input), commandStateKey(command))
 			if err != nil {
 				return fmt.Errorf("state dump: %w", err)
 			}
@@ -58,7 +60,7 @@ func newStateDumpCommand(application application, input *string) *cobra.Command 
 }
 
 // newStateImportCommand passes a complete PATH=ID batch to one managed state operation.
-func newStateImportCommand(application application, input *string) *cobra.Command {
+func newStateImportCommand(application ankiascodeapi.App, input *string) *cobra.Command {
 	var text string
 	command := &cobra.Command{
 		Use: "import PATH=ID [PATH=ID...]", Short: "Bind external objects to configuration paths", Args: cobra.MinimumNArgs(1),
@@ -75,7 +77,7 @@ func newStateImportCommand(application application, input *string) *cobra.Comman
 				}
 				bindings[address] = argument[separator+1:]
 			}
-			if err := application.ColStateImport(command.Context(), *input, text, commandStateKey(command), bindings); err != nil {
+			if err := application.ColStateImport(command.Context(), ankiascodeapi.CollectionPath(*input), text, commandStateKey(command), bindings); err != nil {
 				return fmt.Errorf("state import: %w", err)
 			}
 			if _, err := fmt.Fprintln(command.ErrOrStderr(), "Imported collection bindings:", len(bindings)); err != nil {
@@ -89,7 +91,7 @@ func newStateImportCommand(application application, input *string) *cobra.Comman
 }
 
 // newStateWriteCommand decodes an external object and invokes its selected state operation.
-func newStateWriteCommand(input *string, name, summary string, write func(context.Context, string, string, *collectionpb.State) error) *cobra.Command {
+func newStateWriteCommand(input *string, name, summary string, write func(context.Context, ankiascodeapi.CollectionSource, string, *ankiascodepb.State) error) *cobra.Command {
 	var format string
 	command := &cobra.Command{
 		Use: name + " [FILE]", Short: summary, Args: cobra.MaximumNArgs(1),
@@ -104,11 +106,11 @@ func newStateWriteCommand(input *string, name, summary string, write func(contex
 			if err != nil {
 				return fmt.Errorf("read state for %s: %w", name, err)
 			}
-			value := &collectionpb.State{}
+			value := &ankiascodepb.State{}
 			if err := codec.Decode(data, codec.Format(format), value); err != nil {
 				return fmt.Errorf("decode state for %s: %w", name, err)
 			}
-			if err := write(command.Context(), *input, commandStateKey(command), value); err != nil {
+			if err := write(command.Context(), ankiascodeapi.CollectionPath(*input), commandStateKey(command), value); err != nil {
 				return fmt.Errorf("state %s: %w", name, err)
 			}
 			if _, err := fmt.Fprintf(command.ErrOrStderr(), "Collection state %s completed\n", name); err != nil {

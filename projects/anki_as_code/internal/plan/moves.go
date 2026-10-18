@@ -5,7 +5,7 @@ import (
 	"io/fs"
 	"strings"
 
-	collectionpb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/collection"
+	ankiascodepb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodepb"
 	"google.golang.org/protobuf/proto"
 )
 
@@ -28,10 +28,10 @@ func addressDescendant(address, prefix string) bool {
 }
 
 // moveResources applies independent explicit moves to owned bindings; retained moves are idempotent.
-func moveResources(bindings *collectionpb.Resources, moves []*collectionpb.ResourceMove) (*collectionpb.Resources, error) {
+func moveResources(bindings *ankiascodepb.Resources, moves []*ankiascodepb.ResourceMove) (*ankiascodepb.Resources, error) {
 	result := proto.CloneOf(bindings)
 	if result == nil {
-		result = &collectionpb.Resources{}
+		result = &ankiascodepb.Resources{}
 	}
 	for index, move := range moves {
 		for _, other := range moves[:index] {
@@ -82,7 +82,7 @@ func memberAddress(address string) (string, string, string) {
 }
 
 // moveBindings renames disjoint keys and checks destinations against the typed resource maps.
-func moveBindings[T any](bindings map[string]T, move *collectionpb.ResourceMove, resources *collectionpb.Resources) error {
+func moveBindings[T any](bindings map[string]T, move *ankiascodepb.ResourceMove, resources *ankiascodepb.Resources) error {
 	for address, binding := range bindings {
 		if addressDescendant(address, move.From) {
 			destination := move.To + strings.TrimPrefix(address, move.From)
@@ -101,7 +101,7 @@ func moveBindings[T any](bindings map[string]T, move *collectionpb.ResourceMove,
 }
 
 // moveMember renames a field or template within its original native note type.
-func moveMember(value *collectionpb.Resources, move *collectionpb.ResourceMove) error {
+func moveMember(value *ankiascodepb.Resources, move *ankiascodepb.ResourceMove) error {
 	fromFile, fromCategory, fromName := memberAddress(move.From)
 	toFile, toCategory, toName := memberAddress(move.To)
 	if fromFile != toFile || fromCategory == "" || fromCategory != toCategory {
@@ -145,7 +145,7 @@ func resourceRoot(address string) string {
 }
 
 // validateMoveSources prevents retained moves from claiming a path that is also newly declared.
-func validateMoveSources(configs *collectionpb.CollectionConfigSet) error {
+func validateMoveSources(configs *ankiascodepb.CollectionConfigSet) error {
 	addresses := []string{}
 	for _, deck := range configs.Decks {
 		addresses = append(addresses, deck.Path)

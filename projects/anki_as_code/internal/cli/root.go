@@ -1,9 +1,12 @@
 package cli
 
-import "github.com/spf13/cobra"
+import (
+	ankiascodeapi "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodeapi"
+	"github.com/spf13/cobra"
+)
 
 // New assembles commands around their workflow dependency.
-func New(application application) *cobra.Command {
+func New(application ankiascodeapi.App) *cobra.Command {
 	command := &cobra.Command{
 		Use:           "anki_as_code",
 		Short:         "Export and reconcile Anki collections as TOML",

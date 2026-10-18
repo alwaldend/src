@@ -12,7 +12,9 @@ import (
 	"testing"
 	"time"
 
-	collectionpb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/collection"
+	ankiascodeapi "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodeapi"
+
+	ankiascodepb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodepb"
 	"git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/ankiclient"
 	"github.com/BurntSushi/toml"
 	"github.com/ankitects/anki/proto/anki/cards"
@@ -334,7 +336,7 @@ func fixtureNotePath(root string) string {
 }
 
 // fixturePlan parses a native reconciliation plan and fails on workflow errors.
-func fixturePlan(t *testing.T, input, text string) *collectionpb.CollectionChangePlan {
+func fixturePlan(t *testing.T, input, text string) *ankiascodepb.CollectionChangePlan {
 	t.Helper()
 	plan, err := planForFixture(context.Background(), input, text, "")
 	if err != nil {
@@ -399,7 +401,7 @@ func saveFixtureArtifact(t *testing.T, input, name string) {
 // exportForFixture invokes the application workflow with the fixture namespace.
 func exportForFixture(ctx context.Context, input, output, key string) error {
 	application := fixtureApplication()
-	if err := application.ColExport(ctx, input, output, "", key); err != nil {
+	if err := application.ColExport(ctx, ankiascodeapi.CollectionPath(input), output, "", key); err != nil {
 		return fmt.Errorf("export fixture: %w", err)
 	}
 	return nil
@@ -417,16 +419,16 @@ func buildForFixture(ctx context.Context, base, dir, output, key string) error {
 // applyForFixture invokes the application workflow with the fixture namespace.
 func applyForFixture(ctx context.Context, input, dir, key string) error {
 	application := fixtureApplication()
-	if err := application.ColApply(ctx, input, dir, key); err != nil {
+	if err := application.ColApply(ctx, ankiascodeapi.CollectionPath(input), dir, key); err != nil {
 		return fmt.Errorf("apply fixture: %w", err)
 	}
 	return nil
 }
 
 // planForFixture invokes the application workflow with the fixture namespace.
-func planForFixture(ctx context.Context, input, dir, key string) (*collectionpb.CollectionChangePlan, error) {
+func planForFixture(ctx context.Context, input, dir, key string) (*ankiascodepb.CollectionChangePlan, error) {
 	application := fixtureApplication()
-	value, err := application.ColPlan(ctx, input, dir, key)
+	value, err := application.ColPlan(ctx, ankiascodeapi.CollectionPath(input), dir, key)
 	if err != nil {
 		return nil, fmt.Errorf("plan fixture: %w", err)
 	}

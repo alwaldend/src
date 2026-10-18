@@ -8,7 +8,7 @@ import (
 	"strings"
 	"testing"
 
-	collectionpb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/collection"
+	ankiascodepb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodepb"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/config"
 	"github.com/ankitects/anki/proto/anki/decks"
 	"github.com/ankitects/anki/proto/anki/notes"
@@ -30,9 +30,9 @@ func TestConfigDrivenCollectionWorkflow(t *testing.T) {
 	}
 	assertConverged(t, fixture.base, alternate)
 	marker := filepath.Join(text, "decks", "grammar", "decks", "Lesson", "deck.anki.toml")
-	writeFixtureTOML(t, marker, &collectionpb.DeckConfig{Normal: &decks.Deck_Normal{}})
+	writeFixtureTOML(t, marker, &ankiascodepb.DeckConfig{Normal: &decks.Deck_Normal{}})
 	old := fixtureNotePath(text)
-	note := &collectionpb.NoteConfig{}
+	note := &ankiascodepb.NoteConfig{}
 	readFixtureTOML(t, old, note)
 	note.Cards = nil
 	target := filepath.Join(filepath.Dir(marker), "notes", "renamed.note.anki.toml")
@@ -40,7 +40,7 @@ func TestConfigDrivenCollectionWorkflow(t *testing.T) {
 	if err := os.Remove(old); err != nil {
 		t.Fatal(err)
 	}
-	writeFixtureTOML(t, alternate, &collectionpb.CollectionConfig{Version: 1, Moved: []*collectionpb.ResourceMove{{From: "decks/grammar/notes/你好.note.anki.toml", To: "decks/grammar/decks/Lesson/notes/renamed.note.anki.toml"}}})
+	writeFixtureTOML(t, alternate, &ankiascodepb.CollectionConfig{Version: 1, Moved: []*ankiascodepb.ResourceMove{{From: "decks/grammar/notes/你好.note.anki.toml", To: "decks/grammar/decks/Lesson/notes/renamed.note.anki.toml"}}})
 	before := fixtureSources(t, text)
 	plan := fixturePlan(t, fixture.base, alternate)
 	if plan.NotesAdded != 0 || plan.NotesDeleted != 0 || plan.CardsChanged != 2 || plan.DecksAdded != 1 {
@@ -169,14 +169,14 @@ func TestNoteTypeExportNamesWorkflow(t *testing.T) {
 			}
 			newPath := "note_types/" + filename
 			for address, name := range map[string]string{trackedPath: "Renamed", newPath: test.nativeName} {
-				value := &collectionpb.NoteTypeConfig{}
+				value := &ankiascodepb.NoteTypeConfig{}
 				readFixtureTOML(t, filepath.Join(text, address), value)
 				if value.Name != name {
 					t.Fatalf("type filename %q contains %q, want %q", address, value.Name, name)
 				}
 			}
 			notePath := "decks/grammar/notes/Discovered.note.anki.toml"
-			note := &collectionpb.NoteConfig{}
+			note := &ankiascodepb.NoteConfig{}
 			readFixtureTOML(t, filepath.Join(text, notePath), note)
 			if note.NoteType != newPath || note.Fields["Front"] != "Discovered" {
 				t.Fatal("discovered note lost its content or allocated type reference")
@@ -238,10 +238,10 @@ func TestReconciledExportWritesWorkflow(t *testing.T) {
 	}
 	staleDeck := filepath.Join(text, "decks", "Removed")
 	marker := filepath.Join(staleDeck, "decks", "Child", "deck.anki.toml")
-	writeFixtureTOML(t, marker, &collectionpb.DeckConfig{Normal: &decks.Deck_Normal{}})
-	writeFixtureTOML(t, filepath.Join(filepath.Dir(marker), "notes", "old.note.anki.toml"), &collectionpb.NoteConfig{})
+	writeFixtureTOML(t, marker, &ankiascodepb.DeckConfig{Normal: &decks.Deck_Normal{}})
+	writeFixtureTOML(t, filepath.Join(filepath.Dir(marker), "notes", "old.note.anki.toml"), &ankiascodepb.NoteConfig{})
 	staleType := filepath.Join(text, "note_types", "Removed.notetype.anki.toml")
-	writeFixtureTOML(t, staleType, &collectionpb.NoteTypeConfig{Name: "Removed"})
+	writeFixtureTOML(t, staleType, &ankiascodepb.NoteTypeConfig{Name: "Removed"})
 	if err := exportForFixture(context.Background(), fixture.base, "~/text", ""); err != nil {
 		t.Fatal(err)
 	}
@@ -354,9 +354,9 @@ func TestReadableNoteNamesWorkflow(t *testing.T) {
 	}
 	packageFixture(t, fixture.database, fixture.base)
 	text := filepath.Join(t.TempDir(), "text")
-	writeFixtureTOML(t, filepath.Join(text, "collection.anki.toml"), &collectionpb.CollectionConfig{Version: 1})
-	writeFixtureTOML(t, filepath.Join(text, "decks", "grammar", "deck.anki.toml"), &collectionpb.DeckConfig{Normal: &decks.Deck_Normal{}})
-	writeFixtureTOML(t, filepath.Join(text, "decks", "grammar", "notes", "Hello-世界.note.anki.toml"), &collectionpb.NoteConfig{})
+	writeFixtureTOML(t, filepath.Join(text, "collection.anki.toml"), &ankiascodepb.CollectionConfig{Version: 1})
+	writeFixtureTOML(t, filepath.Join(text, "decks", "grammar", "deck.anki.toml"), &ankiascodepb.DeckConfig{Normal: &decks.Deck_Normal{}})
+	writeFixtureTOML(t, filepath.Join(text, "decks", "grammar", "notes", "Hello-世界.note.anki.toml"), &ankiascodepb.NoteConfig{})
 	runFixtureCLI(t, "col", "state", "import", "--collection", fixture.base, "--text", text,
 		"decks/grammar/notes/Hello-世界.note.anki.toml="+fmt.Sprint(importedID))
 	if err := prepareFixtureConfigs(t, context.Background(), fixture.base, text); err != nil {
@@ -377,7 +377,7 @@ func TestReadableNoteNamesWorkflow(t *testing.T) {
 		t.Fatalf("exported note count: %d, want %d: %v", len(files), len(want), err)
 	}
 	for name, label := range want {
-		value := &collectionpb.NoteConfig{}
+		value := &ankiascodepb.NoteConfig{}
 		readFixtureTOML(t, filepath.Join(noteDirectory, name), value)
 		if value.Fields["article-title"] != label {
 			t.Fatalf("filename %q changed sort-field content: %q", name, value.Fields["article-title"])
@@ -398,7 +398,7 @@ func TestReadableNoteNamesWorkflow(t *testing.T) {
 		t.Fatal("repeated export changed source collection")
 	}
 	editedPath := filepath.Join(noteDirectory, "Hello-世界-2.note.anki.toml")
-	edited := &collectionpb.NoteConfig{}
+	edited := &ankiascodepb.NoteConfig{}
 	readFixtureTOML(t, editedPath, edited)
 	edited.Fields["article-title"] = "Different title"
 	writeFixtureTOML(t, editedPath, edited)
@@ -434,7 +434,7 @@ func TestReadableNoteNamesWorkflow(t *testing.T) {
 			t.Fatalf("new native note changed an existing config: %s", path)
 		}
 	}
-	added := &collectionpb.NoteConfig{}
+	added := &ankiascodepb.NoteConfig{}
 	readFixtureTOML(t, filepath.Join(noteDirectory, "Hello-世界-5.note.anki.toml"), added)
 	if added.Fields["article-title"] != "Hello 世界" {
 		t.Fatal("new native note did not receive an unoccupied content-derived name")

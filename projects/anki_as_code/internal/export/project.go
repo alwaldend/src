@@ -10,7 +10,7 @@ import (
 	"unicode"
 	"unicode/utf8"
 
-	collectionpb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/collection"
+	ankiascodepb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodepb"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/config"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/resource"
 	"github.com/ankitects/anki/proto/anki/card_rendering"
@@ -30,13 +30,13 @@ type configProjection struct {
 	// current contains the native snapshot projected by this export.
 	current *resource.Snapshot
 	// stored supplies stable filenames and scheduling preset aliases.
-	stored *collectionpb.State
+	stored *ankiascodepb.State
 	// configs collects the editable configuration files.
-	configs *collectionpb.CollectionConfigSet
+	configs *ankiascodepb.CollectionConfigSet
 	// identities records native IDs at the actual projected config paths.
 	identities map[string]int64
 	// decks resolves native deck IDs to their projected destinations.
-	decks map[int64]*collectionpb.DeckConfigSet
+	decks map[int64]*ankiascodepb.DeckConfigSet
 	// typePaths resolves native note-type IDs to their projected filenames.
 	typePaths map[int64]string
 }
@@ -45,14 +45,14 @@ type configProjection struct {
 func exportConfigs(
 	ctx context.Context,
 	current *resource.Snapshot,
-	stored *collectionpb.State,
+	stored *ankiascodepb.State,
 	rendering card_rendering.CardRenderingServiceClient,
-) (*collectionpb.CollectionConfigSet, map[string]int64, error) {
+) (*ankiascodepb.CollectionConfigSet, map[string]int64, error) {
 	projection := configProjection{
 		current:    current,
 		stored:     stored,
-		configs:    &collectionpb.CollectionConfigSet{Config: &collectionpb.CollectionConfig{Version: config.Version}},
-		decks:      map[int64]*collectionpb.DeckConfigSet{},
+		configs:    &ankiascodepb.CollectionConfigSet{Config: &ankiascodepb.CollectionConfig{Version: config.Version}},
+		decks:      map[int64]*ankiascodepb.DeckConfigSet{},
 		typePaths:  map[int64]string{},
 		identities: map[string]int64{},
 	}
@@ -91,7 +91,7 @@ func (projection *configProjection) projectDecks() error {
 			}
 			directory = path.Join(directory, "decks", part)
 		}
-		value := proto.Clone(&collectionpb.DeckConfig{Normal: deck.GetNormal(), Filtered: deck.GetFiltered()}).(*collectionpb.DeckConfig)
+		value := proto.Clone(&ankiascodepb.DeckConfig{Normal: deck.GetNormal(), Filtered: deck.GetFiltered()}).(*ankiascodepb.DeckConfig)
 		if value.Normal != nil {
 			presetID := value.Normal.ConfigId
 			value.Preset = presetAliases[presetID]
@@ -107,7 +107,7 @@ func (projection *configProjection) projectDecks() error {
 			presetIDs[value.Preset] = presetID
 			value.Normal.ConfigId = 0
 		}
-		group := &collectionpb.DeckConfigSet{Title: deck.Name, Path: path.Join(directory, "deck.anki.toml"), Deck: value}
+		group := &ankiascodepb.DeckConfigSet{Title: deck.Name, Path: path.Join(directory, "deck.anki.toml"), Deck: value}
 		if deckPaths[group.Path] {
 			return fmt.Errorf("export deck path %q represents multiple objects", group.Path)
 		}
@@ -159,7 +159,7 @@ func (projection *configProjection) projectNoteTypes() error {
 		typePathsUsed[address] = true
 		projection.identities[address] = definition.Id
 		copy := proto.Clone(definition).(*notetypes.Notetype)
-		value := &collectionpb.NoteTypeConfig{Name: copy.Name, Config: copy.Config, Fields: copy.Fields}
+		value := &ankiascodepb.NoteTypeConfig{Name: copy.Name, Config: copy.Config, Fields: copy.Fields}
 		if int(value.Config.SortFieldIdx) >= len(value.Fields) {
 			return fmt.Errorf("invalid sort field for type %q", value.Name)
 		}
@@ -177,7 +177,7 @@ func (projection *configProjection) projectNoteTypes() error {
 			field.Config.Other = nil
 		}
 		for _, template := range copy.Templates {
-			entry := &collectionpb.TemplateConfig{Name: template.Name, Config: template.Config}
+			entry := &ankiascodepb.TemplateConfig{Name: template.Name, Config: template.Config}
 			if id := entry.Config.TargetDeckId; id != 0 {
 				destination := projection.decks[id]
 				if destination == nil || destination.Deck.Normal == nil {
@@ -190,9 +190,9 @@ func (projection *configProjection) projectNoteTypes() error {
 			entry.Config.Other = nil
 			value.Templates = append(value.Templates, entry)
 		}
-		projection.configs.NoteTypes = append(projection.configs.NoteTypes, &collectionpb.NoteTypeConfigFile{Path: address, Config: value})
+		projection.configs.NoteTypes = append(projection.configs.NoteTypes, &ankiascodepb.NoteTypeConfigFile{Path: address, Config: value})
 	}
-	slices.SortFunc(projection.configs.NoteTypes, func(a, b *collectionpb.NoteTypeConfigFile) int { return strings.Compare(a.Path, b.Path) })
+	slices.SortFunc(projection.configs.NoteTypes, func(a, b *ankiascodepb.NoteTypeConfigFile) int { return strings.Compare(a.Path, b.Path) })
 	return nil
 }
 
@@ -247,7 +247,7 @@ func (projection *configProjection) projectNotes(ctx context.Context, rendering 
 		if definition == nil || len(definition.Fields) != len(note.Fields) {
 			return fmt.Errorf("note %d has an unavailable field layout", note.Id)
 		}
-		value := &collectionpb.NoteConfig{NoteType: projection.typePaths[note.NotetypeId], Tags: note.Tags, Fields: map[string]string{}}
+		value := &ankiascodepb.NoteConfig{NoteType: projection.typePaths[note.NotetypeId], Tags: note.Tags, Fields: map[string]string{}}
 		for index, field := range definition.Fields {
 			value.Fields[field.Name] = note.Fields[index]
 		}
@@ -284,14 +284,14 @@ func (projection *configProjection) projectNotes(ctx context.Context, rendering 
 			}
 		}
 		for _, card := range noteCards[note.Id] {
-			assignment := &collectionpb.CardConfig{Ordinal: int64(card.TemplateIdx)}
+			assignment := &ankiascodepb.CardConfig{Ordinal: int64(card.TemplateIdx)}
 			destination := projection.decks[card.DeckId]
 			if home == nil || destination.Path != home.Path {
 				assignment.Deck = proto.String(destination.Path)
 			}
 			value.Cards = append(value.Cards, assignment)
 		}
-		file := &collectionpb.NoteConfigFile{Path: address, Config: value}
+		file := &ankiascodepb.NoteConfigFile{Path: address, Config: value}
 		projection.identities[address] = note.Id
 		if home == nil {
 			projection.configs.Notes = append(projection.configs.Notes, file)
@@ -303,7 +303,7 @@ func (projection *configProjection) projectNotes(ctx context.Context, rendering 
 }
 
 // exportNoteHome selects the first regular card's destination from ordinal-sorted cards.
-func exportNoteHome(cards []*cards.Card, decks map[int64]*collectionpb.DeckConfigSet) *collectionpb.DeckConfigSet {
+func exportNoteHome(cards []*cards.Card, decks map[int64]*ankiascodepb.DeckConfigSet) *ankiascodepb.DeckConfigSet {
 	if len(cards) == 0 {
 		return nil
 	}
@@ -311,7 +311,7 @@ func exportNoteHome(cards []*cards.Card, decks map[int64]*collectionpb.DeckConfi
 }
 
 // exportNoteDirectory places cardless notes at the root and others in their first card's deck.
-func exportNoteDirectory(home *collectionpb.DeckConfigSet) string {
+func exportNoteDirectory(home *ankiascodepb.DeckConfigSet) string {
 	if home == nil {
 		return "notes"
 	}

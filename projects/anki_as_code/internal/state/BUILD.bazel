@@ -10,7 +10,7 @@ go_library(
     importpath = "git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/state",
     visibility = ["//projects/anki_as_code:__subpackages__"],
     deps = [
-        "//projects/anki_as_code/api/collection",
+        "//projects/anki_as_code/api/ankiascodepb",
         "//projects/anki_as_code/internal/resource",
         "//third_party/com_github_ankitects_anki:config",
         "//third_party/com_github_ankitects_anki:deck_config",
@@ -34,7 +34,7 @@ go_test(
     env = {"ANKI_CLI": "$(rootpath //projects/anki_as_code)"},
     deps = [
         ":state",
-        "//projects/anki_as_code/api/collection",
+        "//projects/anki_as_code/api/ankiascodepb",
         "//projects/anki_as_code/internal/codec",
         "//projects/anki_as_code/internal/config",
         "//projects/anki_grpc/pkg/ankiclient",

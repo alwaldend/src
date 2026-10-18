@@ -9,7 +9,7 @@ import (
 	"strconv"
 	"strings"
 
-	collectionpb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/collection"
+	ankiascodepb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodepb"
 	ankiconfig "github.com/ankitects/anki/proto/anki/config"
 	"github.com/ankitects/anki/proto/anki/deck_config"
 	"github.com/ankitects/anki/proto/anki/decks"
@@ -67,12 +67,12 @@ func (store *Store) read(ctx context.Context) (json.RawMessage, error) {
 }
 
 // Dump returns the stored protobuf object without writes; absent state is empty version 1.
-func (store *Store) Dump(ctx context.Context) (*collectionpb.State, error) {
+func (store *Store) Dump(ctx context.Context) (*ankiascodepb.State, error) {
 	data, err := store.read(ctx)
 	if err != nil {
 		return nil, fmt.Errorf("read collection state: %w", err)
 	}
-	value := &collectionpb.State{Version: 1}
+	value := &ankiascodepb.State{Version: 1}
 	if len(data) != 0 {
 		if err := protojson.Unmarshal(data, value); err != nil {
 			return nil, fmt.Errorf("decode collection state: %w", err)
@@ -87,7 +87,7 @@ func (store *Store) Dump(ctx context.Context) (*collectionpb.State, error) {
 // Replace replaces the complete stored object, including removal of omitted bindings.
 // It validates state metadata, leaves native objects untouched, and reports actual changes.
 // Invalid saved state can be replaced; native read errors still fail the operation.
-func (store *Store) Replace(ctx context.Context, value *collectionpb.State) (bool, error) {
+func (store *Store) Replace(ctx context.Context, value *ankiascodepb.State) (bool, error) {
 	if err := validateState(value, false); err != nil {
 		return false, fmt.Errorf("replacement state: %w", err)
 	}
@@ -95,7 +95,7 @@ func (store *Store) Replace(ctx context.Context, value *collectionpb.State) (boo
 	if err != nil {
 		return false, fmt.Errorf("read state before replacement: %w", err)
 	}
-	before := &collectionpb.State{Version: 1}
+	before := &ankiascodepb.State{Version: 1}
 	if len(data) != 0 {
 		if err := protojson.Unmarshal(data, before); err != nil {
 			// An undecodable discarded value must force a write, not block recovery.
@@ -112,7 +112,7 @@ func (store *Store) Replace(ctx context.Context, value *collectionpb.State) (boo
 // Update merges external state without removing omitted map entries or changing native objects.
 // Supplied map keys replace complete typed entries, including note-type members.
 // It validates the merged ownership before one write and leaves its input unchanged.
-func (store *Store) Update(ctx context.Context, value *collectionpb.State) (bool, error) {
+func (store *Store) Update(ctx context.Context, value *ankiascodepb.State) (bool, error) {
 	if err := validateState(value, false); err != nil {
 		return false, fmt.Errorf("update state: %w", err)
 	}
@@ -123,7 +123,7 @@ func (store *Store) Update(ctx context.Context, value *collectionpb.State) (bool
 	if err != nil {
 		return false, fmt.Errorf("read state before update: %w", err)
 	}
-	merged := proto.Clone(before).(*collectionpb.State)
+	merged := proto.Clone(before).(*ankiascodepb.State)
 	proto.Merge(merged, value)
 	if err := validateState(merged, false); err != nil {
 		return false, fmt.Errorf("merged state: %w", err)
@@ -138,7 +138,7 @@ func (store *Store) Update(ctx context.Context, value *collectionpb.State) (bool
 // Import binds declared paths to existing native IDs and saves once after the whole batch succeeds.
 // Identifiers are interpreted after resolving declarations. Native note-type members
 // are bound automatically; unrelated bindings and native objects remain unchanged.
-func (store *Store) Import(ctx context.Context, configs *collectionpb.CollectionConfigSet, bindings map[string]string) (bool, error) {
+func (store *Store) Import(ctx context.Context, configs *ankiascodepb.CollectionConfigSet, bindings map[string]string) (bool, error) {
 	if configs == nil {
 		return false, fmt.Errorf("import requires configurations")
 	}
@@ -149,7 +149,7 @@ func (store *Store) Import(ctx context.Context, configs *collectionpb.Collection
 	if err != nil {
 		return false, fmt.Errorf("read imported state: %w", err)
 	}
-	declaredDecks := map[string]*collectionpb.DeckConfig{}
+	declaredDecks := map[string]*ankiascodepb.DeckConfig{}
 	declaredNotes, declaredTypes := map[string]bool{}, map[string]bool{}
 	for _, value := range configs.NoteTypes {
 		declaredTypes[value.Path] = true
@@ -204,7 +204,7 @@ func (store *Store) Import(ctx context.Context, configs *collectionpb.Collection
 }
 
 // importDeck verifies an existing deck and binds its declared preset alias when names match.
-func (store *Store) importDeck(ctx context.Context, value *collectionpb.State, address string, id int64, alias string) error {
+func (store *Store) importDeck(ctx context.Context, value *ankiascodepb.State, address string, id int64, alias string) error {
 	if previous := value.Resources.Decks[address].GetId(); previous != 0 && previous != id {
 		return fmt.Errorf("deck path is already bound")
 	}
@@ -221,15 +221,15 @@ func (store *Store) importDeck(ctx context.Context, value *collectionpb.State, a
 			return fmt.Errorf("read imported deck preset: %w", err)
 		}
 		if preset.Name == alias {
-			value.Resources.Presets[alias] = &collectionpb.PresetState{Id: normal.ConfigId}
+			value.Resources.Presets[alias] = &ankiascodepb.PresetState{Id: normal.ConfigId}
 		}
 	}
-	value.Resources.Decks[address] = &collectionpb.DeckState{Id: id}
+	value.Resources.Decks[address] = &ankiascodepb.DeckState{Id: id}
 	return nil
 }
 
 // importNote verifies an existing note without reading unrelated notes or cards.
-func (store *Store) importNote(ctx context.Context, value *collectionpb.State, address string, id int64) error {
+func (store *Store) importNote(ctx context.Context, value *ankiascodepb.State, address string, id int64) error {
 	if previous := value.Resources.Notes[address].GetId(); previous != 0 && previous != id {
 		return fmt.Errorf("note path is already bound")
 	}
@@ -240,12 +240,12 @@ func (store *Store) importNote(ctx context.Context, value *collectionpb.State, a
 	if note.Id != id {
 		return fmt.Errorf("note identity %d does not exist", id)
 	}
-	value.Resources.Notes[address] = &collectionpb.NoteState{Id: id}
+	value.Resources.Notes[address] = &ankiascodepb.NoteState{Id: id}
 	return nil
 }
 
 // importNoteType verifies a native definition and records its nested field and template identities.
-func (store *Store) importNoteType(ctx context.Context, value *collectionpb.State, address string, id int64) error {
+func (store *Store) importNoteType(ctx context.Context, value *ankiascodepb.State, address string, id int64) error {
 	if previous := value.Resources.NoteTypes[address].GetId(); previous != 0 && previous != id {
 		return fmt.Errorf("note-type path is already bound")
 	}
@@ -265,7 +265,7 @@ func (store *Store) importNoteType(ctx context.Context, value *collectionpb.Stat
 }
 
 // importPreset verifies an external scheduling preset and records its alias without editing its settings.
-func (store *Store) importPreset(ctx context.Context, value *collectionpb.State, alias string, id int64) error {
+func (store *Store) importPreset(ctx context.Context, value *ankiascodepb.State, alias string, id int64) error {
 	if previous := value.Resources.Presets[alias].GetId(); previous != 0 && previous != id {
 		return fmt.Errorf("preset alias %q is already bound", alias)
 	}
@@ -276,12 +276,12 @@ func (store *Store) importPreset(ctx context.Context, value *collectionpb.State,
 	if preset.Id != id {
 		return fmt.Errorf("preset identity %d does not exist", id)
 	}
-	value.Resources.Presets[alias] = &collectionpb.PresetState{Id: id}
+	value.Resources.Presets[alias] = &ankiascodepb.PresetState{Id: id}
 	return nil
 }
 
 // write persists a changed object once, retaining a byte-preserving no-op signal for callers.
-func (store *Store) write(ctx context.Context, before, value *collectionpb.State) (bool, error) {
+func (store *Store) write(ctx context.Context, before, value *ankiascodepb.State) (bool, error) {
 	if proto.Equal(before, value) {
 		return false, nil
 	}

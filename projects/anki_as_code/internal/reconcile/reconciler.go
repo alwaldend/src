@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	collectionpb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/collection"
+	ankiascodepb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodepb"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/resource"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/state"
 	"google.golang.org/protobuf/proto"
@@ -28,7 +28,7 @@ func New(resources *resource.Store, states *state.Store) *Reconciler {
 // It rejects stale stored state before writes and leaves the supplied plan unchanged.
 // Callers own snapshot freshness and exclusive offline access. Database writes may
 // persist after a later failure; archive publication belongs to the collection owner.
-func (reconciler *Reconciler) Apply(ctx context.Context, planned *collectionpb.CollectionPlan) (bool, error) {
+func (reconciler *Reconciler) Apply(ctx context.Context, planned *ankiascodepb.CollectionPlan) (bool, error) {
 	if planned == nil || planned.ExpectedState == nil || planned.ProposedBindings == nil {
 		return false, fmt.Errorf("prepared collection plan is required")
 	}
@@ -43,8 +43,8 @@ func (reconciler *Reconciler) Apply(ctx context.Context, planned *collectionpb.C
 	if err := run.execute(ctx); err != nil {
 		return false, fmt.Errorf("execute collection plan: %w", err)
 	}
-	recorded := &collectionpb.State{Version: stored.Version, Resources: run.bindings}
-	if stored.Resources == nil && proto.Equal(recorded.Resources, &collectionpb.Resources{}) {
+	recorded := &ankiascodepb.State{Version: stored.Version, Resources: run.bindings}
+	if stored.Resources == nil && proto.Equal(recorded.Resources, &ankiascodepb.Resources{}) {
 		recorded.Resources = nil
 	}
 	stateChanged := !proto.Equal(stored, recorded)

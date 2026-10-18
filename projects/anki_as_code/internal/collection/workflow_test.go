@@ -12,7 +12,7 @@ import (
 	"testing"
 	"time"
 
-	collectionpb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/collection"
+	ankiascodepb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodepb"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/config"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/export"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/resource"
@@ -253,8 +253,8 @@ func nativeSource(t *testing.T) (string, string) {
 }
 
 // readState observes persisted state through a native collection scope.
-func readState(ctx context.Context, store *Store, path, key string) (*collectionpb.State, error) {
-	var value *collectionpb.State
+func readState(ctx context.Context, store *Store, path, key string) (*ankiascodepb.State, error) {
+	var value *ankiascodepb.State
 	if err := store.WithCollection(ctx, path, func(connection grpc.ClientConnInterface) (bool, error) {
 		var err error
 		value, err = state.New(connection, key).Dump(ctx)
@@ -302,7 +302,7 @@ func TestStoreServices(t *testing.T) {
 			store := nativeStore(t)
 			ctx := t.Context()
 			key := "scoped-state"
-			expected := &collectionpb.State{Version: 1, Resources: &collectionpb.Resources{Presets: map[string]*collectionpb.PresetState{"first": {Id: 1}}}}
+			expected := &ankiascodepb.State{Version: 1, Resources: &ankiascodepb.Resources{Presets: map[string]*ankiascodepb.PresetState{"first": {Id: 1}}}}
 			var retained grpc.ClientConnInterface
 			if err := store.WithCollection(ctx, input, func(connection grpc.ClientConnInterface) (bool, error) {
 				retained = connection
@@ -312,7 +312,7 @@ func TestStoreServices(t *testing.T) {
 				if err != nil {
 					return false, fmt.Errorf("replace scoped state: %w", err)
 				}
-				update := &collectionpb.State{Version: 1, Resources: &collectionpb.Resources{Presets: map[string]*collectionpb.PresetState{"second": {Id: 1}}}}
+				update := &ankiascodepb.State{Version: 1, Resources: &ankiascodepb.Resources{Presets: map[string]*ankiascodepb.PresetState{"second": {Id: 1}}}}
 				updated, err := states.Update(ctx, update)
 				if err != nil {
 					return false, fmt.Errorf("update shared state: %w", err)
@@ -320,7 +320,7 @@ func TestStoreServices(t *testing.T) {
 				if err := exporter.Export(ctx, output, ""); err != nil {
 					return false, fmt.Errorf("export collection services: %w", err)
 				}
-				expected.Resources.Presets["second"] = &collectionpb.PresetState{Id: 1}
+				expected.Resources.Presets["second"] = &ankiascodepb.PresetState{Id: 1}
 				actual, err := states.Dump(ctx)
 				if err != nil {
 					return false, fmt.Errorf("read shared changes: %w", err)
@@ -407,7 +407,7 @@ func TestStoreFailurePublication(t *testing.T) {
 		ctx, cancel := context.WithCancel(t.Context())
 		failure := errors.New("scope failed after native mutation")
 		err = store.WithCollection(ctx, archive, func(connection grpc.ClientConnInterface) (bool, error) {
-			value := &collectionpb.State{Version: 1, Resources: &collectionpb.Resources{Presets: map[string]*collectionpb.PresetState{"discarded": {Id: 1}}}}
+			value := &ankiascodepb.State{Version: 1, Resources: &ankiascodepb.Resources{Presets: map[string]*ankiascodepb.PresetState{"discarded": {Id: 1}}}}
 			changed, err := state.New(connection, "").Replace(ctx, value)
 			if err != nil {
 				return false, fmt.Errorf("mutate restored collection: %w", err)
@@ -447,7 +447,7 @@ func TestStoreExplicitExport(t *testing.T) {
 		t.Fatal(err)
 	}
 	if err := store.WithCollection(ctx, archive, func(connection grpc.ClientConnInterface) (bool, error) {
-		value := &collectionpb.State{Version: 1, Resources: &collectionpb.Resources{Presets: map[string]*collectionpb.PresetState{"output": {Id: 1}}}}
+		value := &ankiascodepb.State{Version: 1, Resources: &ankiascodepb.Resources{Presets: map[string]*ankiascodepb.PresetState{"output": {Id: 1}}}}
 		if _, err := state.New(connection, "").Replace(ctx, value); err != nil {
 			return false, fmt.Errorf("write explicit output state: %w", err)
 		}

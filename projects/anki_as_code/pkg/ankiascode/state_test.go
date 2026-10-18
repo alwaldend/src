@@ -12,7 +12,9 @@ import (
 	"testing"
 	"time"
 
-	collectionpb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/collection"
+	ankiascodeapi "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodeapi"
+
+	ankiascodepb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodepb"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/codec"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/config"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/resource"
@@ -31,29 +33,29 @@ import (
 func stateFixtureConfigs(t *testing.T) string {
 	t.Helper()
 	root := t.TempDir()
-	writeFixtureTOML(t, filepath.Join(root, "collection.anki.toml"), &collectionpb.CollectionConfig{Version: 1})
-	writeFixtureTOML(t, filepath.Join(root, "decks", "grammar", "deck.anki.toml"), &collectionpb.DeckConfig{Preset: "Default", Normal: &decks.Deck_Normal{}})
-	writeFixtureTOML(t, filepath.Join(root, "note_types", "Chinese.notetype.anki.toml"), &collectionpb.NoteTypeConfig{Name: "Chinese"})
+	writeFixtureTOML(t, filepath.Join(root, "collection.anki.toml"), &ankiascodepb.CollectionConfig{Version: 1})
+	writeFixtureTOML(t, filepath.Join(root, "decks", "grammar", "deck.anki.toml"), &ankiascodepb.DeckConfig{Preset: "Default", Normal: &decks.Deck_Normal{}})
+	writeFixtureTOML(t, filepath.Join(root, "note_types", "Chinese.notetype.anki.toml"), &ankiascodepb.NoteTypeConfig{Name: "Chinese"})
 	for _, name := range []string{"example", "other"} {
-		writeFixtureTOML(t, filepath.Join(root, "decks", "grammar", "notes", name+".note.anki.toml"), &collectionpb.NoteConfig{NoteType: "note_types/Chinese.notetype.anki.toml"})
+		writeFixtureTOML(t, filepath.Join(root, "decks", "grammar", "notes", name+".note.anki.toml"), &ankiascodepb.NoteConfig{NoteType: "note_types/Chinese.notetype.anki.toml"})
 	}
 	return root
 }
 
 // stateFixtureDump decodes default TOML output independently and keeps status off stdout.
-func stateFixtureDump(t *testing.T, input string) *collectionpb.State {
+func stateFixtureDump(t *testing.T, input string) *ankiascodepb.State {
 	t.Helper()
 	return stateFixtureDumpKey(t, input, "")
 }
 
 // stateFixtureDumpKey reads one selected namespace through the built CLI and an independent TOML parser.
-func stateFixtureDumpKey(t *testing.T, input, key string) *collectionpb.State {
+func stateFixtureDumpKey(t *testing.T, input, key string) *ankiascodepb.State {
 	t.Helper()
 	file := filepath.Join(t.TempDir(), "state.anki.toml")
 	if err := os.WriteFile(file, runFixtureCLI(t, "col", "state", "dump", "--state-key", key, "--collection", input), 0o600); err != nil {
 		t.Fatal(err)
 	}
-	value := &collectionpb.State{}
+	value := &ankiascodepb.State{}
 	readFixtureTOML(t, file, value)
 	return value
 }
@@ -107,11 +109,11 @@ func TestStateCLIWorkflow(t *testing.T) {
 			if stored.GetResources().GetNotes()["decks/grammar/notes/example.note.anki.toml"].GetId() != fixture.noteID || stored.GetResources().GetNoteTypes()["note_types/Chinese.notetype.anki.toml"].GetFields()["hanzi"] == nil {
 				t.Fatal("batch did not bind roots and native members")
 			}
-			patch := &collectionpb.State{Version: 1, Resources: &collectionpb.Resources{Presets: map[string]*collectionpb.PresetState{"updated": {Id: 1}}}}
+			patch := &ankiascodepb.State{Version: 1, Resources: &ankiascodepb.Resources{Presets: map[string]*ankiascodepb.PresetState{"updated": {Id: 1}}}}
 			patchFile := filepath.Join(t.TempDir(), "update.anki.toml")
 			writeFixtureTOML(t, patchFile, patch)
 			runFixtureCLI(t, "col", "state", "update", "--collection", input, patchFile)
-			stored.GetResources().Presets["updated"] = &collectionpb.PresetState{Id: 1}
+			stored.GetResources().Presets["updated"] = &ankiascodepb.PresetState{Id: 1}
 			if !proto.Equal(stored, stateFixtureDump(t, input)) {
 				t.Fatal("CLI update dropped omitted bindings")
 			}
@@ -129,7 +131,7 @@ func TestStateCLIWorkflow(t *testing.T) {
 			}
 			runFixtureCLI(t, "col", "state", "update", "--collection", input, patchFile)
 			runFixtureCLI(t, "col", "state", "update", "--format", "json", "--collection", input, patchJSONFile)
-			invalidPatch := &collectionpb.State{Version: 1, Resources: &collectionpb.Resources{Notes: map[string]*collectionpb.NoteState{"decks/grammar/deck.anki.toml": {Id: 999}}}}
+			invalidPatch := &ankiascodepb.State{Version: 1, Resources: &ankiascodepb.Resources{Notes: map[string]*ankiascodepb.NoteState{"decks/grammar/deck.anki.toml": {Id: 999}}}}
 			writeFixtureTOML(t, patchFile, invalidPatch)
 			rejectStateCLI(t, "col", "state", "update", "--collection", input, patchFile)
 			afterUpdate, err := os.ReadFile(input)
@@ -137,12 +139,12 @@ func TestStateCLIWorkflow(t *testing.T) {
 				t.Fatal("no-op or rejected CLI update changed source bytes")
 			}
 			customKey := "anki_as_code/state/alternate"
-			custom := &collectionpb.State{Version: 1, Resources: &collectionpb.Resources{Presets: map[string]*collectionpb.PresetState{"alternate": {Id: 1}}}}
+			custom := &ankiascodepb.State{Version: 1, Resources: &ankiascodepb.Resources{Presets: map[string]*ankiascodepb.PresetState{"alternate": {Id: 1}}}}
 			customFile := filepath.Join(t.TempDir(), "alternate.anki.toml")
 			writeFixtureTOML(t, customFile, custom)
 			runFixtureCLI(t, "col", "state", "replace", "--state-key", customKey, "--collection", input, customFile)
 			runFixtureCLI(t, "col", "state", "import", "--state-key", customKey, "--collection", input, "--text", text, "presets/second=1")
-			custom.GetResources().GetPresets()["second"] = &collectionpb.PresetState{Id: 1}
+			custom.GetResources().GetPresets()["second"] = &ankiascodepb.PresetState{Id: 1}
 			if !proto.Equal(custom, stateFixtureDumpKey(t, input, customKey)) || !proto.Equal(stored, stateFixtureDump(t, input)) {
 				t.Fatal("CLI state namespaces interfered")
 			}
@@ -168,7 +170,7 @@ func TestStateCLIWorkflow(t *testing.T) {
 				t.Fatal("partial batch was published")
 			}
 			file := filepath.Join(t.TempDir(), "state.anki.toml")
-			replacement := &collectionpb.State{Version: 1, Resources: &collectionpb.Resources{Presets: map[string]*collectionpb.PresetState{"only": {Id: 1}}}}
+			replacement := &ankiascodepb.State{Version: 1, Resources: &ankiascodepb.Resources{Presets: map[string]*ankiascodepb.PresetState{"only": {Id: 1}}}}
 			writeFixtureTOML(t, file, replacement)
 			runFixtureCLI(t, "col", "state", "replace", "--collection", input, file)
 			if !proto.Equal(replacement, stateFixtureDump(t, input)) {
@@ -184,7 +186,7 @@ func TestStateCLIWorkflow(t *testing.T) {
 				t.Fatal("identical replacement changed collection bytes")
 			}
 			jsonData := runFixtureCLI(t, "col", "state", "dump", "--format", "json", "--collection", input)
-			jsonState := &collectionpb.State{}
+			jsonState := &ankiascodepb.State{}
 			if err := protojson.Unmarshal(jsonData, jsonState); err != nil || !proto.Equal(replacement, jsonState) {
 				t.Fatalf("JSON dump differs from TOML: %v", err)
 			}
@@ -236,7 +238,7 @@ func TestApplicationStateWorkflows(t *testing.T) {
 			application := fixtureApplication()
 			ctx := t.Context()
 			text := stateFixtureConfigs(t)
-			empty, err := application.ColStateDump(ctx, input, "")
+			empty, err := application.ColStateDump(ctx, ankiascodeapi.CollectionPath(input), "")
 			if err != nil || empty.GetVersion() != 1 || len(empty.GetResources().GetNotes()) != 0 {
 				t.Fatalf("dump empty application state: value=%v error=%v", empty, err)
 			}
@@ -245,58 +247,58 @@ func TestApplicationStateWorkflows(t *testing.T) {
 				"decks/grammar/notes/example.note.anki.toml": fmt.Sprint(fixture.noteID),
 				"note_types/Chinese.notetype.anki.toml":      fmt.Sprint(fixture.typeID),
 			}
-			if err := application.ColStateImport(ctx, input, text, "", bindings); err != nil {
+			if err := application.ColStateImport(ctx, ankiascodeapi.CollectionPath(input), text, "", bindings); err != nil {
 				t.Fatal(err)
 			}
-			stored, err := application.ColStateDump(ctx, input, state.DefaultKey)
+			stored, err := application.ColStateDump(ctx, ankiascodeapi.CollectionPath(input), state.DefaultKey)
 			if err != nil || stored.GetResources().GetNotes()["decks/grammar/notes/example.note.anki.toml"].GetId() != fixture.noteID || stored.GetResources().GetNoteTypes()["note_types/Chinese.notetype.anki.toml"].GetFields()["hanzi"] == nil {
 				t.Fatalf("application import did not persist native bindings: value=%v error=%v", stored, err)
 			}
-			patch := &collectionpb.State{Version: 1, Resources: &collectionpb.Resources{Presets: map[string]*collectionpb.PresetState{"added": {Id: 1}}}}
+			patch := &ankiascodepb.State{Version: 1, Resources: &ankiascodepb.Resources{Presets: map[string]*ankiascodepb.PresetState{"added": {Id: 1}}}}
 			originalPatch := proto.Clone(patch)
-			if err := application.ColStateUpdate(ctx, input, "", patch); err != nil {
+			if err := application.ColStateUpdate(ctx, ankiascodeapi.CollectionPath(input), "", patch); err != nil {
 				t.Fatal(err)
 			}
-			stored.Resources.Presets["added"] = &collectionpb.PresetState{Id: 1}
-			actual, err := application.ColStateDump(ctx, input, "")
+			stored.Resources.Presets["added"] = &ankiascodepb.PresetState{Id: 1}
+			actual, err := application.ColStateDump(ctx, ankiascodeapi.CollectionPath(input), "")
 			if err != nil || !proto.Equal(stored, actual) || !proto.Equal(patch, originalPatch) {
 				t.Fatalf("application update lost bindings or changed its input: value=%v error=%v", actual, err)
 			}
 			key := "anki_as_code/state/application"
-			if err := application.ColStateReplace(ctx, input, key, patch); err != nil {
+			if err := application.ColStateReplace(ctx, ankiascodeapi.CollectionPath(input), key, patch); err != nil {
 				t.Fatal(err)
 			}
 			before, err := os.ReadFile(input)
 			if err != nil {
 				t.Fatal(err)
 			}
-			if err := application.ColStateUpdate(ctx, input, "", patch); err != nil {
+			if err := application.ColStateUpdate(ctx, ankiascodeapi.CollectionPath(input), "", patch); err != nil {
 				t.Fatal(err)
 			}
-			if err := application.ColStateImport(ctx, input, text, "", map[string]string{"presets/new": "1", "presets/missing": "9223372036854775807"}); err == nil {
+			if err := application.ColStateImport(ctx, ankiascodeapi.CollectionPath(input), text, "", map[string]string{"presets/new": "1", "presets/missing": "9223372036854775807"}); err == nil {
 				t.Fatal("application accepted a partially invalid import")
 			}
-			if err := application.ColStateReplace(ctx, input, "", &collectionpb.State{Version: 2}); err == nil {
+			if err := application.ColStateReplace(ctx, ankiascodeapi.CollectionPath(input), "", &ankiascodepb.State{Version: 2}); err == nil {
 				t.Fatal("application accepted an unsupported state version")
 			}
 			cancelled, cancel := context.WithCancel(ctx)
 			cancel()
-			if err := application.ColStateReplace(cancelled, input, "", patch); !errors.Is(err, context.Canceled) {
+			if err := application.ColStateReplace(cancelled, ankiascodeapi.CollectionPath(input), "", patch); !errors.Is(err, context.Canceled) {
 				t.Fatalf("application lost cancellation: %v", err)
 			}
 			after, err := os.ReadFile(input)
 			if err != nil || string(before) != string(after) {
 				t.Fatalf("no-op or rejected application operation modified the source: %v", err)
 			}
-			actual, err = application.ColStateDump(ctx, input, "")
+			actual, err = application.ColStateDump(ctx, ankiascodeapi.CollectionPath(input), "")
 			if err != nil || !proto.Equal(stored, actual) {
 				t.Fatalf("rejected application operation wrote partial state or retained a reservation: value=%v error=%v", actual, err)
 			}
-			if err := application.ColStateReplace(ctx, input, "", patch); err != nil {
+			if err := application.ColStateReplace(ctx, ankiascodeapi.CollectionPath(input), "", patch); err != nil {
 				t.Fatal(err)
 			}
 			for _, namespace := range []string{"", key} {
-				actual, err := application.ColStateDump(ctx, input, namespace)
+				actual, err := application.ColStateDump(ctx, ankiascodeapi.CollectionPath(input), namespace)
 				if err != nil || !proto.Equal(patch, actual) {
 					t.Fatalf("application replacement merged old state or crossed namespaces: value=%v error=%v", actual, err)
 				}
@@ -344,7 +346,7 @@ func TestStateAPIWorkflow(t *testing.T) {
 	if changed, err := store.Import(ctx, configs, nil); err != nil || changed {
 		t.Fatalf("empty import: %v %v", changed, err)
 	}
-	if changed, err := store.Update(ctx, &collectionpb.State{Version: 1}); err != nil || changed {
+	if changed, err := store.Update(ctx, &ankiascodepb.State{Version: 1}); err != nil || changed {
 		t.Fatalf("empty update: %v %v", changed, err)
 	}
 	if changed, err := store.Import(ctx, configs, bindings); err != nil || !changed {
@@ -358,36 +360,36 @@ func TestStateAPIWorkflow(t *testing.T) {
 	if err != nil || !proto.Equal(stored, namedDefault) {
 		t.Fatal("empty API key did not select the versioned default")
 	}
-	for _, invalid := range []*collectionpb.State{
-		{Version: 1, Resources: &collectionpb.Resources{Decks: map[string]*collectionpb.DeckState{"same": {Id: 1}}, Notes: map[string]*collectionpb.NoteState{"same": {Id: fixture.noteID}}}},
-		{Version: 1, Resources: &collectionpb.Resources{Presets: map[string]*collectionpb.PresetState{"invalid": {}}}},
+	for _, invalid := range []*ankiascodepb.State{
+		{Version: 1, Resources: &ankiascodepb.Resources{Decks: map[string]*ankiascodepb.DeckState{"same": {Id: 1}}, Notes: map[string]*ankiascodepb.NoteState{"same": {Id: fixture.noteID}}}},
+		{Version: 1, Resources: &ankiascodepb.Resources{Presets: map[string]*ankiascodepb.PresetState{"invalid": {}}}},
 	} {
 		if changed, err := store.Replace(ctx, invalid); err == nil || changed {
 			t.Fatal("invalid typed state accepted")
 		}
 	}
 	customKey := "anki_as_code/state/independent"
-	custom := &collectionpb.State{Version: 1, Resources: &collectionpb.Resources{Presets: map[string]*collectionpb.PresetState{"another": {Id: 1}}, NoteTypes: map[string]*collectionpb.NoteTypeState{
+	custom := &ankiascodepb.State{Version: 1, Resources: &ankiascodepb.Resources{Presets: map[string]*ankiascodepb.PresetState{"another": {Id: 1}}, NoteTypes: map[string]*ankiascodepb.NoteTypeState{
 		"note_types/Chinese.notetype.anki.toml": {
 			Id:        fixture.typeID,
-			Fields:    map[string]*collectionpb.FieldState{"name/#/日本語": {Id: -7, Ordinal: 9}},
-			Templates: map[string]*collectionpb.TemplateState{"Card/#/1": {Ordinal: 3}},
+			Fields:    map[string]*ankiascodepb.FieldState{"name/#/日本語": {Id: -7, Ordinal: 9}},
+			Templates: map[string]*ankiascodepb.TemplateState{"Card/#/1": {Ordinal: 3}},
 		},
 	}}}
 	if changed, err := state.New(connection, customKey).Replace(ctx, custom); err != nil || !changed {
 		t.Fatalf("replace independent API namespace: %v %v", changed, err)
 	}
-	patch := &collectionpb.State{Version: 1, Resources: &collectionpb.Resources{
-		Presets:   map[string]*collectionpb.PresetState{"added": {Id: 1}},
-		NoteTypes: map[string]*collectionpb.NoteTypeState{"note_types/Chinese.notetype.anki.toml": {Id: fixture.typeID, Fields: map[string]*collectionpb.FieldState{"replacement/#/日本語": {Id: -9, Ordinal: 2}}}},
+	patch := &ankiascodepb.State{Version: 1, Resources: &ankiascodepb.Resources{
+		Presets:   map[string]*ankiascodepb.PresetState{"added": {Id: 1}},
+		NoteTypes: map[string]*ankiascodepb.NoteTypeState{"note_types/Chinese.notetype.anki.toml": {Id: fixture.typeID, Fields: map[string]*ankiascodepb.FieldState{"replacement/#/日本語": {Id: -9, Ordinal: 2}}}},
 	}}
 	originalPatch := proto.Clone(patch)
 	independentStore := state.New(connection, customKey)
 	if changed, err := independentStore.Update(ctx, patch); err != nil || !changed {
 		t.Fatalf("update independent namespace: %v %v", changed, err)
 	}
-	custom.GetResources().Presets["added"] = &collectionpb.PresetState{Id: 1}
-	custom.GetResources().NoteTypes["note_types/Chinese.notetype.anki.toml"] = proto.Clone(patch.Resources.NoteTypes["note_types/Chinese.notetype.anki.toml"]).(*collectionpb.NoteTypeState)
+	custom.GetResources().Presets["added"] = &ankiascodepb.PresetState{Id: 1}
+	custom.GetResources().NoteTypes["note_types/Chinese.notetype.anki.toml"] = proto.Clone(patch.Resources.NoteTypes["note_types/Chinese.notetype.anki.toml"]).(*ankiascodepb.NoteTypeState)
 	updated, err := independentStore.Dump(ctx)
 	if err != nil || !proto.Equal(updated, custom) || !proto.Equal(patch, originalPatch) {
 		t.Fatal("update merge semantics or input ownership changed")
@@ -395,11 +397,11 @@ func TestStateAPIWorkflow(t *testing.T) {
 	if changed, err := independentStore.Update(ctx, patch); err != nil || changed {
 		t.Fatalf("no-op update: %v %v", changed, err)
 	}
-	conflict := &collectionpb.State{Version: 1, Resources: &collectionpb.Resources{Notes: map[string]*collectionpb.NoteState{"notes/duplicate.note.anki.toml": {Id: fixture.noteID}}}}
+	conflict := &ankiascodepb.State{Version: 1, Resources: &ankiascodepb.Resources{Notes: map[string]*ankiascodepb.NoteState{"notes/duplicate.note.anki.toml": {Id: fixture.noteID}}}}
 	if changed, err := store.Update(ctx, conflict); err == nil || changed {
 		t.Fatal("update accepted duplicate native ownership")
 	}
-	if changed, err := store.Update(ctx, &collectionpb.State{Version: 2}); err == nil || changed {
+	if changed, err := store.Update(ctx, &ankiascodepb.State{Version: 2}); err == nil || changed {
 		t.Fatal("update accepted unsupported version")
 	}
 	if changed, err := store.Import(ctx, configs, bindings); err != nil || changed {
@@ -415,17 +417,17 @@ func TestStateAPIWorkflow(t *testing.T) {
 	if err != nil || !proto.Equal(stored, actual) {
 		t.Fatal("failed API import wrote state")
 	}
-	replacement := &collectionpb.State{Version: 1, Resources: &collectionpb.Resources{Presets: map[string]*collectionpb.PresetState{"only": {Id: 1}}}}
+	replacement := &ankiascodepb.State{Version: 1, Resources: &ankiascodepb.Resources{Presets: map[string]*ankiascodepb.PresetState{"only": {Id: 1}}}}
 	if changed, err := store.Replace(ctx, replacement); err != nil || !changed {
 		t.Fatalf("replace: %v %v", changed, err)
 	}
 	if changed, err := store.Replace(ctx, replacement); err != nil || changed {
 		t.Fatalf("no-op replace: %v %v", changed, err)
 	}
-	if changed, err := store.Replace(ctx, &collectionpb.State{Version: 2}); err == nil || changed {
+	if changed, err := store.Replace(ctx, &ankiascodepb.State{Version: 2}); err == nil || changed {
 		t.Fatal("unsupported replacement accepted")
 	}
-	if changed, err := store.Replace(ctx, &collectionpb.State{Version: 1}); err != nil || !changed {
+	if changed, err := store.Replace(ctx, &ankiascodepb.State{Version: 1}); err != nil || !changed {
 		t.Fatalf("clear state: %v %v", changed, err)
 	}
 	actual, err = store.Dump(ctx)
@@ -507,9 +509,9 @@ func bindFixtureConfigs(ctx context.Context, input, root, key string) error {
 		if err != nil {
 			return false, fmt.Errorf("read fixture resources: %w", err)
 		}
-		resources := &collectionpb.Resources{
-			Decks: map[string]*collectionpb.DeckState{}, Notes: map[string]*collectionpb.NoteState{},
-			NoteTypes: map[string]*collectionpb.NoteTypeState{}, Presets: map[string]*collectionpb.PresetState{},
+		resources := &ankiascodepb.Resources{
+			Decks: map[string]*ankiascodepb.DeckState{}, Notes: map[string]*ankiascodepb.NoteState{},
+			NoteTypes: map[string]*ankiascodepb.NoteTypeState{}, Presets: map[string]*ankiascodepb.PresetState{},
 		}
 		decksByName := map[string]*decks.Deck{}
 		for _, native := range snapshot.Decks {
@@ -518,26 +520,26 @@ func bindFixtureConfigs(ctx context.Context, input, root, key string) error {
 		files := slices.Clone(configs.Notes)
 		for _, group := range configs.Decks {
 			native := decksByName[group.Title]
-			resources.Decks[group.Path] = &collectionpb.DeckState{Id: native.Id}
+			resources.Decks[group.Path] = &ankiascodepb.DeckState{Id: native.Id}
 			files = append(files, group.Notes...)
 			if group.Deck.Preset != "" {
-				resources.Presets[group.Deck.Preset] = &collectionpb.PresetState{Id: native.GetNormal().GetConfigId()}
+				resources.Presets[group.Deck.Preset] = &ankiascodepb.PresetState{Id: native.GetNormal().GetConfigId()}
 			}
 		}
 		typesByName := map[string]*notetypes.Notetype{}
 		for _, native := range snapshot.NoteTypes {
 			typesByName[native.Name] = native
 		}
-		definitions := map[string]*collectionpb.NoteTypeConfig{}
+		definitions := map[string]*ankiascodepb.NoteTypeConfig{}
 		for _, file := range configs.NoteTypes {
 			definitions[file.Path] = file.Config
 			native := typesByName[file.Config.Name]
-			binding := &collectionpb.NoteTypeState{Id: native.Id, Fields: map[string]*collectionpb.FieldState{}, Templates: map[string]*collectionpb.TemplateState{}}
+			binding := &ankiascodepb.NoteTypeState{Id: native.Id, Fields: map[string]*ankiascodepb.FieldState{}, Templates: map[string]*ankiascodepb.TemplateState{}}
 			for index, field := range native.Fields {
-				binding.Fields[field.Name] = &collectionpb.FieldState{Id: field.Config.GetId(), Ordinal: uint32(index)}
+				binding.Fields[field.Name] = &ankiascodepb.FieldState{Id: field.Config.GetId(), Ordinal: uint32(index)}
 			}
 			for index, template := range native.Templates {
-				binding.Templates[template.Name] = &collectionpb.TemplateState{Id: template.Config.GetId(), Ordinal: uint32(index)}
+				binding.Templates[template.Name] = &ankiascodepb.TemplateState{Id: template.Config.GetId(), Ordinal: uint32(index)}
 			}
 			resources.NoteTypes[file.Path] = binding
 		}
@@ -556,10 +558,10 @@ func bindFixtureConfigs(ctx context.Context, input, root, key string) error {
 			if len(matches) == 0 {
 				return false, fmt.Errorf("no native fixture note matches %q", file.Path)
 			}
-			resources.Notes[file.Path] = &collectionpb.NoteState{Id: matches[0]}
+			resources.Notes[file.Path] = &ankiascodepb.NoteState{Id: matches[0]}
 			candidates[identity] = matches[1:]
 		}
-		changed, err := state.New(connection, key).Replace(ctx, &collectionpb.State{Version: 1, Resources: resources})
+		changed, err := state.New(connection, key).Replace(ctx, &ankiascodepb.State{Version: 1, Resources: resources})
 		if err != nil {
 			return false, fmt.Errorf("install fixture bindings: %w", err)
 		}
@@ -617,7 +619,7 @@ func TestReconciledExportWorkflow(t *testing.T) {
 			}
 			for _, format := range []string{"toml", "json"} {
 				data := runFixtureCLI(t, "col", "state", "dump", "--format", format, "--collection", input)
-				value := &collectionpb.State{}
+				value := &ankiascodepb.State{}
 				if err := codec.Decode(data, codec.Format(format), value); err != nil || !proto.Equal(value, stored) {
 					t.Fatalf("separate %s state dump: %v", format, err)
 				}
@@ -646,8 +648,8 @@ func TestNamespacedCollectionWorkflow(t *testing.T) {
 	if err := os.Rename(filepath.Join(text, oldPath), filepath.Join(text, newPath)); err != nil {
 		t.Fatal(err)
 	}
-	writeFixtureTOML(t, filepath.Join(text, "collection.anki.toml"), &collectionpb.CollectionConfig{Version: 1, Moved: []*collectionpb.ResourceMove{{From: oldPath, To: newPath}}})
-	plan := &collectionpb.CollectionChangePlan{}
+	writeFixtureTOML(t, filepath.Join(text, "collection.anki.toml"), &ankiascodepb.CollectionConfig{Version: 1, Moved: []*ankiascodepb.ResourceMove{{From: oldPath, To: newPath}}})
+	plan := &ankiascodepb.CollectionChangePlan{}
 	if err := protojson.Unmarshal(runFixtureCLI(t, "col", "plan", "--state-key", key, "--collection", fixture.base, "--text", text), plan); err != nil {
 		t.Fatal(err)
 	}

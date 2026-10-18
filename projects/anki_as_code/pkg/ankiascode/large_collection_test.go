@@ -7,7 +7,7 @@ import (
 	"strings"
 	"testing"
 
-	collectionpb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/collection"
+	ankiascodepb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodepb"
 	"github.com/ankitects/anki/proto/anki/generic"
 	"github.com/ankitects/anki/proto/anki/media"
 	"github.com/ankitects/anki/proto/anki/notes"
@@ -22,7 +22,7 @@ func TestLargeNoteFieldWorkflow(t *testing.T) {
 		t.Fatal(err)
 	}
 	path := fixtureNotePath(text)
-	note := &collectionpb.NoteConfig{}
+	note := &ankiascodepb.NoteConfig{}
 	readFixtureTOML(t, path, note)
 	note.Fields["hanzi"] = strings.Repeat("x", 17<<20)
 	writeFixtureTOML(t, path, note)

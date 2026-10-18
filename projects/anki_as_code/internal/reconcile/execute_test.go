@@ -10,7 +10,7 @@ import (
 	"testing"
 	"time"
 
-	collectionpb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/collection"
+	ankiascodepb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodepb"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/codec"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/config"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/export"
@@ -92,7 +92,7 @@ func TestSavedPlanWorkflow(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	emptyPlan, err := plan.Build(&collectionpb.CollectionConfigSet{Config: &collectionpb.CollectionConfig{Version: 1}}, initial, emptyState)
+	emptyPlan, err := plan.Build(&ankiascodepb.CollectionConfigSet{Config: &ankiascodepb.CollectionConfig{Version: 1}}, initial, emptyState)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -148,7 +148,7 @@ func TestSavedPlanWorkflow(t *testing.T) {
 			bindings[file.Path] = fmt.Sprint(added.NoteId)
 		}
 	}
-	var definition *collectionpb.NoteTypeConfig
+	var definition *ankiascodepb.NoteTypeConfig
 	for _, file := range configs.NoteTypes {
 		for _, native := range initial.NoteTypes {
 			if native.Name == file.Config.Name {
@@ -156,7 +156,7 @@ func TestSavedPlanWorkflow(t *testing.T) {
 			}
 		}
 		if file.Config.Name == "Basic" {
-			definition = proto.Clone(file.Config).(*collectionpb.NoteTypeConfig)
+			definition = proto.Clone(file.Config).(*ankiascodepb.NoteTypeConfig)
 		}
 	}
 	if _, err := states.Import(ctx, configs, bindings); err != nil {
@@ -189,10 +189,10 @@ func TestSavedPlanWorkflow(t *testing.T) {
 	deckPath, typePath, notePath := "decks/Created/deck.anki.toml", "note_types/Created.notetype.anki.toml", "decks/Created/notes/Added.note.anki.toml"
 	definition.Name = "Created"
 	definition.Templates[0].TargetDeck = deckPath
-	configs.NoteTypes = append(configs.NoteTypes, &collectionpb.NoteTypeConfigFile{Path: typePath, Config: definition})
-	configs.Decks = append(configs.Decks, &collectionpb.DeckConfigSet{
-		Path: deckPath, Title: "Created", Deck: &collectionpb.DeckConfig{Normal: &decks.Deck_Normal{}},
-		Notes: []*collectionpb.NoteConfigFile{{Path: notePath, Config: &collectionpb.NoteConfig{NoteType: typePath, Fields: map[string]string{"Front": "Added", "Back": "Answer"}}}},
+	configs.NoteTypes = append(configs.NoteTypes, &ankiascodepb.NoteTypeConfigFile{Path: typePath, Config: definition})
+	configs.Decks = append(configs.Decks, &ankiascodepb.DeckConfigSet{
+		Path: deckPath, Title: "Created", Deck: &ankiascodepb.DeckConfig{Normal: &decks.Deck_Normal{}},
+		Notes: []*ankiascodepb.NoteConfigFile{{Path: notePath, Config: &ankiascodepb.NoteConfig{NoteType: typePath, Fields: map[string]string{"Front": "Added", "Back": "Answer"}}}},
 	})
 	source := proto.Clone(configs)
 	compiled, err := plan.Build(configs, initial, stored)
@@ -206,7 +206,7 @@ func TestSavedPlanWorkflow(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	detached := &collectionpb.CollectionPlan{}
+	detached := &ankiascodepb.CollectionPlan{}
 	if err := codec.Decode(saved, codec.JSON, detached); err != nil {
 		t.Fatal(err)
 	}
@@ -347,29 +347,29 @@ func checkFailedPlans(t *testing.T, resources *resource.Store, connection grpc.C
 			source := "decks/" + stage.name + "/deck.anki.toml"
 			target := "decks/" + stage.name + "Target/deck.anki.toml"
 			definition := "note_types/" + stage.name + ".notetype.anki.toml"
-			configs := &collectionpb.CollectionConfigSet{
-				Config: &collectionpb.CollectionConfig{Version: 1},
-				Decks: []*collectionpb.DeckConfigSet{
+			configs := &ankiascodepb.CollectionConfigSet{
+				Config: &ankiascodepb.CollectionConfig{Version: 1},
+				Decks: []*ankiascodepb.DeckConfigSet{
 					{
 						Path: source, Title: stage.name,
-						Deck: &collectionpb.DeckConfig{Normal: &decks.Deck_Normal{}},
-						Notes: []*collectionpb.NoteConfigFile{{
+						Deck: &ankiascodepb.DeckConfig{Normal: &decks.Deck_Normal{}},
+						Notes: []*ankiascodepb.NoteConfigFile{{
 							Path: "decks/" + stage.name + "/notes/example.note.anki.toml",
-							Config: &collectionpb.NoteConfig{
+							Config: &ankiascodepb.NoteConfig{
 								NoteType: definition,
 								Fields:   map[string]string{"Front": stage.name, "Back": "Answer"},
-								Cards:    []*collectionpb.CardConfig{{Ordinal: 0, Deck: proto.String(target)}},
+								Cards:    []*ankiascodepb.CardConfig{{Ordinal: 0, Deck: proto.String(target)}},
 							},
 						}},
 					},
-					{Path: target, Title: stage.name + "Target", Deck: &collectionpb.DeckConfig{Normal: &decks.Deck_Normal{}}},
+					{Path: target, Title: stage.name + "Target", Deck: &ankiascodepb.DeckConfig{Normal: &decks.Deck_Normal{}}},
 				},
-				NoteTypes: []*collectionpb.NoteTypeConfigFile{{
+				NoteTypes: []*ankiascodepb.NoteTypeConfigFile{{
 					Path: definition,
-					Config: &collectionpb.NoteTypeConfig{
+					Config: &ankiascodepb.NoteTypeConfig{
 						Name:   stage.name,
 						Fields: []*notetypes.Notetype_Field{{Name: "Front"}, {Name: "Back"}},
-						Templates: []*collectionpb.TemplateConfig{{
+						Templates: []*ankiascodepb.TemplateConfig{{
 							Name: "Card", TargetDeck: source,
 							Config: &notetypes.Notetype_Template_Config{QFormat: "{{Front}}", AFormat: "{{Back}}"},
 						}},
@@ -423,11 +423,11 @@ func checkMixedCaseHierarchy(t *testing.T, resources *resource.Store, connection
 		if err != nil {
 			t.Fatal(err)
 		}
-		configs := &collectionpb.CollectionConfigSet{
-			Config: &collectionpb.CollectionConfig{Version: 1},
-			Decks: []*collectionpb.DeckConfigSet{
-				{Path: "decks/a/decks/child/deck.anki.toml", Title: "A::child", Deck: &collectionpb.DeckConfig{Normal: &decks.Deck_Normal{}}},
-				{Path: "decks/a/deck.anki.toml", Title: "a", Deck: &collectionpb.DeckConfig{Normal: &decks.Deck_Normal{}}},
+		configs := &ankiascodepb.CollectionConfigSet{
+			Config: &ankiascodepb.CollectionConfig{Version: 1},
+			Decks: []*ankiascodepb.DeckConfigSet{
+				{Path: "decks/a/decks/child/deck.anki.toml", Title: "A::child", Deck: &ankiascodepb.DeckConfig{Normal: &decks.Deck_Normal{}}},
+				{Path: "decks/a/deck.anki.toml", Title: "a", Deck: &ankiascodepb.DeckConfig{Normal: &decks.Deck_Normal{}}},
 			},
 		}
 		prepared, err := plan.Build(configs, snapshot, stored)
@@ -464,11 +464,11 @@ func checkMixedCaseHierarchy(t *testing.T, resources *resource.Store, connection
 }
 
 // checkRootNoteCreation verifies native deck selection and explicit moves after re-export.
-func checkRootNoteCreation(t *testing.T, resources *resource.Store, states *state.Store, connection grpc.ClientConnInterface, configs *collectionpb.CollectionConfigSet) {
+func checkRootNoteCreation(t *testing.T, resources *resource.Store, states *state.Store, connection grpc.ClientConnInterface, configs *ankiascodepb.CollectionConfigSet) {
 	t.Helper()
 	t.Run("root note creation", func(t *testing.T) {
 		ctx := t.Context()
-		desired := proto.Clone(configs).(*collectionpb.CollectionConfigSet)
+		desired := proto.Clone(configs).(*ankiascodepb.CollectionConfigSet)
 		rootPath := "notes/root.note.anki.toml"
 		var typePath string
 		for _, file := range desired.NoteTypes {
@@ -479,7 +479,7 @@ func checkRootNoteCreation(t *testing.T, resources *resource.Store, states *stat
 		if typePath == "" {
 			t.Fatal("native Basic type is missing")
 		}
-		desired.Notes = append(desired.Notes, &collectionpb.NoteConfigFile{Path: rootPath, Config: &collectionpb.NoteConfig{NoteType: typePath, Fields: map[string]string{"Front": "Root", "Back": "Answer"}}})
+		desired.Notes = append(desired.Notes, &ankiascodepb.NoteConfigFile{Path: rootPath, Config: &ankiascodepb.NoteConfig{NoteType: typePath, Fields: map[string]string{"Front": "Root", "Back": "Answer"}}})
 		stored, err := states.Dump(ctx)
 		if err != nil {
 			t.Fatal(err)
@@ -524,7 +524,7 @@ func checkRootNoteCreation(t *testing.T, resources *resource.Store, states *stat
 		if _, err := os.Stat(filepath.Join(output, filepath.FromSlash(exportedPath))); err != nil {
 			t.Fatalf("Anki did not choose its default deck: %v", err)
 		}
-		exported.Config.Moved = []*collectionpb.ResourceMove{
+		exported.Config.Moved = []*ankiascodepb.ResourceMove{
 			{From: rootPath, To: exportedPath},
 			{From: "decks/Replacement", To: "decks/Spare"},
 		}
