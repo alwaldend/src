@@ -1,37 +1,34 @@
+%%{init: {"flowchart": {"nodeSpacing": 64}}}%%
 flowchart LR
-    entry[cmd/anki_as_code: composition] --> cli[internal/cli: syntax and streams]
-    entry --> app[pkg/ankiascode.App]
-    cli -. App .-> app
-    entry --> api[ankiascodeapi: App and sources]
-    cli --> api
-    app --> api
-    api --> schema
-    cli --> schema[ankiascodepb: protobuf contracts]
-    app --> schema
-    entry -->|Inject native adapter| host[ankiserver.Run]
-    app -. ServerRun / ServerServe .-> host
-    host --> server[Linked Anki gRPC server]
-    app -->|path source| collections[collection.Store]
-    app --> export[Export: write configs]
-    app --> planning[Plan: prepare operations]
-    app --> reconcile[Reconcile: execute plan]
-    app --> builder[rebuild.Builder: stage and publish archive]
-    planning --> resource
-    app --> config[config.Store: Load, Dump, Export]
-    app --> state[State: persisted bindings]
-    cli --> codec[Codec: TOML and JSON]
-    app --> resource[Resource: native clients and snapshots]
-    export --> resource
-    resource --> services[Generated Anki clients]
-    export --> state
-    export --> config
-    config --> layout[Config layout]
-    config --> codec
-    layout --> codec
-    reconcile --> state
-    reconcile --> resource
-    state --> services
-    collections --> backend[Anki gRPC backends]
-    backend -->|Launch same executable: server serve| server
-    services -->|gRPC| server
-    server --> native[Anki Rust library]
+    configs["Configs"]
+    subgraph executable["anki_as_code"]
+        cli["CLI"]
+        app["ankiascode.App"]
+        subgraph linked["anki_grpc<br/>Linked Rust library"]
+            server["Server"]
+            api["Anki API"]
+        end
+    end
+    external["anki_grpc<br/>External server"]
+    subgraph storage["Anki storage"]
+        resources["Resources"]
+        state["State"]
+    end
+
+    cli --> app
+    app ---->|Read/Write| configs
+    app -->|"Run (C ABI)"| linked
+    %% Route the self-launch return outside the executable.
+    launch@{ shape: anchor }
+    app spawn@---|Run server subprocess| launch
+    launch return@--> executable
+    %% Both segments meet with a horizontal tangent for a rounded turn.
+    spawn@{ curve: bumpX }
+    return@{ curve: bumpX }
+    app -->|gRPC| server
+    app -->|gRPC| external
+    server --> api
+    api --> storage
+    external --> storage
+    %% Keep the external server beyond Configs so its edge stays clear.
+    configs ~~~ external

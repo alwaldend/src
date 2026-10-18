@@ -624,10 +624,27 @@ Collection relationship validation and native operations remain outside them.
 
 ## Architecture
 
+![Anki as code runtime architecture](assets/architecture.svg)
+
+The outer box shows the executable's components: the CLI, App, and the linked Rust
+server library. The CLI invokes App, which reads and writes text Configs. `Run (C ABI)` invokes the library
+through the injected server runner. Path-based workflows launch another instance
+of `anki_as_code` as a server subprocess and use gRPC over stdio to communicate
+with its Server. The Server delegates storage operations to the Anki API. Both
+server variants access Anki storage, which holds native resources and the
+application's persisted state.
+
+The external-server gRPC edge denotes planned built-in server selection in a
+separate PR. Callers can already prepare external connections through
+`ankiclient.BackendGRPC` and pass them to App through
+`ankiascodeapi.CollectionConnection`.
+
+### Package dependencies
+
 The project keeps one Go module with focused packages. Configs and state are
 protobuf contracts. Runtime resolution models stay private to `internal/plan`; packages expose only operations used by their consumers.
 
-![Anki CLI package dependencies](assets/architecture.svg)
+![Anki CLI package dependencies](assets/package-dependencies.svg)
 
 Each package's `doc.go` describes its responsibilities and boundaries; this
 diagram shows how the packages compose.
