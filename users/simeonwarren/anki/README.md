@@ -23,8 +23,11 @@ unchanged.
 Grammar lessons live under
 `decks/main/decks/chinese/decks/chinese-grammar-wiki-782551504/decks/`.
 All 449 lesson decks use `001. `, `002. ` and subsequent three-digit prefixes,
-alphabetically within each proficiency level. Four source lesson decks are
-empty, so 445 are populated. B2 contains 142 lessons and 1,342 notes; C1 contains
+by the earliest contained note creation ID within each proficiency level.
+Imported deck timestamps can reflect alphabetical recreation, so only the four
+empty source lessons fall back to their deck creation IDs. Existing note files
+within each lesson sort by their original note creation IDs. There are 445
+populated lessons. B2 contains 142 lessons and 1,342 notes; C1 contains
 12 lessons and 96 notes. Their directories are `B2/decks/` and `C1/decks/` under
 the grammar level directory. Two lesson titles replace `/` with `or` for valid
 literal filenames; article-title fields are unchanged. The filtered decks use
@@ -38,7 +41,11 @@ Chapter 1 has 133 sentence notes and 714 vocabulary notes. Its `sentences` and
 `001. Sentences 001-010` through `014. Sentences 131-133`. Sentence files have
 global reading-order prefixes, such as `001. 1692893034664.note.anki.toml`.
 The sequence includes the chapter heading, narrative and author's closing note.
-Vocabulary follows its example passages; two incomplete examples use the
+Vocabulary follows its example passages and uses global `001. ` through `714. `
+filename prefixes, preserving numeric note-ID order within each passage group.
+Most vocabulary IDs are imported sequence numbers rather than recoverable
+wall-clock timestamps. Shared import/edit modification times do not determine
+the order. Two incomplete examples use the
 associations recorded in the [verification](openspec/changes/refresh-collection-20261017/tasks.md).
 
 The state file is the current CLI's unmodified export snapshot: it binds all
