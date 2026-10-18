@@ -405,7 +405,7 @@ func saveFixtureArtifact(t *testing.T, input, name string) {
 // exportForFixture invokes the application workflow with the fixture namespace.
 func exportForFixture(ctx context.Context, input, output, key string) error {
 	application := fixtureApplication()
-	if err := application.ColExport(ctx, ankiascodeapi.CollectionPath(input), output, "", key); err != nil {
+	if err := application.ColExport(ctx, ankiascodeapi.CollectionOptions{StateKey: key, Path: input}, output, ""); err != nil {
 		return fmt.Errorf("export fixture: %w", err)
 	}
 	return nil
@@ -414,7 +414,7 @@ func exportForFixture(ctx context.Context, input, output, key string) error {
 // buildForFixture invokes the application workflow with the fixture namespace.
 func buildForFixture(ctx context.Context, base, dir, output, key string) error {
 	application := fixtureApplication()
-	if err := application.ColBuild(ctx, base, dir, output, key); err != nil {
+	if err := application.ColBuild(ctx, ankiascodeapi.CollectionOptions{StateKey: key, Path: base}, dir, output); err != nil {
 		return fmt.Errorf("build fixture: %w", err)
 	}
 	return nil
@@ -423,7 +423,7 @@ func buildForFixture(ctx context.Context, base, dir, output, key string) error {
 // applyForFixture invokes the application workflow with the fixture namespace.
 func applyForFixture(ctx context.Context, input, dir, key string) error {
 	application := fixtureApplication()
-	if err := application.ColApply(ctx, ankiascodeapi.CollectionPath(input), dir, key); err != nil {
+	if err := application.ColApply(ctx, ankiascodeapi.CollectionOptions{StateKey: key, Path: input}, dir); err != nil {
 		return fmt.Errorf("apply fixture: %w", err)
 	}
 	return nil
@@ -432,7 +432,7 @@ func applyForFixture(ctx context.Context, input, dir, key string) error {
 // planForFixture invokes the application workflow with the fixture namespace.
 func planForFixture(ctx context.Context, input, dir, key string) (*ankiascodepb.CollectionChangePlan, error) {
 	application := fixtureApplication()
-	value, err := application.ColPlan(ctx, ankiascodeapi.CollectionPath(input), dir, key)
+	value, err := application.ColPlan(ctx, ankiascodeapi.CollectionOptions{StateKey: key, Path: input}, dir)
 	if err != nil {
 		return nil, fmt.Errorf("plan fixture: %w", err)
 	}

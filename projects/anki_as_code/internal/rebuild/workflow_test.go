@@ -43,7 +43,7 @@ func TestArchiveBuild(t *testing.T) {
 		if filepath.Dir(path) == root || path == base {
 			return fmt.Errorf("apply did not receive a private archive")
 		}
-		if err := application.ColStateReplace(ctx, ankiascodeapi.CollectionPath(path), key, wanted); err != nil {
+		if err := application.ColStateReplace(ctx, ankiascodeapi.CollectionOptions{StateKey: key, Path: path}, wanted); err != nil {
 			return fmt.Errorf("update staged native state: %w", err)
 		}
 		return nil
@@ -52,11 +52,11 @@ func TestArchiveBuild(t *testing.T) {
 	if err := rebuild.New(apply).Build(t.Context(), base, output); err != nil {
 		t.Fatal(err)
 	}
-	stored, err := application.ColStateDump(t.Context(), ankiascodeapi.CollectionPath(output), key)
+	stored, err := application.ColStateDump(t.Context(), ankiascodeapi.CollectionOptions{StateKey: key, Path: output})
 	if err != nil || !proto.Equal(stored, wanted) {
 		t.Fatalf("published archive lost native state: %v %v", stored, err)
 	}
-	initial, err := application.ColStateDump(t.Context(), ankiascodeapi.CollectionPath(base), key)
+	initial, err := application.ColStateDump(t.Context(), ankiascodeapi.CollectionOptions{StateKey: key, Path: base})
 	if err != nil || len(initial.GetResources().GetDecks()) != 0 {
 		t.Fatalf("build changed source state: %v %v", initial, err)
 	}
@@ -64,14 +64,14 @@ func TestArchiveBuild(t *testing.T) {
 	assertRemoved(t, filepath.Dir(staged))
 	unchanged := filepath.Join(root, "unchanged.colpkg")
 	if err := rebuild.New(func(ctx context.Context, path string) error {
-		if _, err := application.ColStateDump(ctx, ankiascodeapi.CollectionPath(path), key); err != nil {
+		if _, err := application.ColStateDump(ctx, ankiascodeapi.CollectionOptions{StateKey: key, Path: path}); err != nil {
 			return fmt.Errorf("inspect unchanged stage: %w", err)
 		}
 		return nil
 	}).Build(t.Context(), base, unchanged); err != nil {
 		t.Fatal(err)
 	}
-	unchangedState, err := application.ColStateDump(t.Context(), ankiascodeapi.CollectionPath(unchanged), key)
+	unchangedState, err := application.ColStateDump(t.Context(), ankiascodeapi.CollectionOptions{StateKey: key, Path: unchanged})
 	if err != nil || !proto.Equal(initial, unchangedState) {
 		t.Fatalf("no-op build changed native state: %v", err)
 	}

@@ -10,7 +10,7 @@ import (
 	"google.golang.org/protobuf/encoding/protojson"
 )
 
-// newCollectionCommand groups native collection workflows and their shared namespace flag.
+// newCollectionCommand groups workflows with shared namespace and backend address flags.
 func newCollectionCommand(application ankiascodeapi.App) *cobra.Command {
 	command := &cobra.Command{
 		Use:     "col",
@@ -22,6 +22,7 @@ func newCollectionCommand(application ankiascodeapi.App) *cobra.Command {
 		},
 	}
 	command.PersistentFlags().String(stateKeyFlag.name, state.DefaultKey, stateKeyFlag.usage)
+	command.PersistentFlags().String(addressFlag.name, "", addressFlag.usage)
 	command.AddCommand(newExportCommand(application), newPlanCommand(application), newApplyCommand(application), newBuildCommand(application), newStateCommand(application))
 	return command
 }
@@ -34,7 +35,7 @@ func newExportCommand(application ankiascodeapi.App) *cobra.Command {
 		Short: "Export a collection to editable TOML",
 		Args:  cobra.NoArgs,
 		RunE: func(command *cobra.Command, _ []string) error {
-			if err := application.ColExport(command.Context(), ankiascodeapi.CollectionPath(input), output, stateOutput, commandStateKey(command)); err != nil {
+			if err := application.ColExport(command.Context(), commandCollectionOptions(command, input), output, stateOutput); err != nil {
 				return fmt.Errorf("export: %w", err)
 			}
 			if _, err := fmt.Fprintln(command.ErrOrStderr(), "Exported collection text to", output); err != nil {
@@ -57,7 +58,7 @@ func newPlanCommand(application ankiascodeapi.App) *cobra.Command {
 		Short: "Inspect desired collection changes",
 		Args:  cobra.NoArgs,
 		RunE: func(command *cobra.Command, _ []string) error {
-			plan, err := application.ColPlan(command.Context(), ankiascodeapi.CollectionPath(input), text, commandStateKey(command))
+			plan, err := application.ColPlan(command.Context(), commandCollectionOptions(command, input), text)
 			if err != nil {
 				return fmt.Errorf("plan: %w", err)
 			}
@@ -84,7 +85,7 @@ func newApplyCommand(application ankiascodeapi.App) *cobra.Command {
 		Short: "Reconcile an offline collection in place",
 		Args:  cobra.NoArgs,
 		RunE: func(command *cobra.Command, _ []string) error {
-			if err := application.ColApply(command.Context(), ankiascodeapi.CollectionPath(input), text, commandStateKey(command)); err != nil {
+			if err := application.ColApply(command.Context(), commandCollectionOptions(command, input), text); err != nil {
 				return fmt.Errorf("apply: %w", err)
 			}
 			if _, err := fmt.Fprintln(command.ErrOrStderr(), "Reconciled collection", input); err != nil {
@@ -106,7 +107,7 @@ func newBuildCommand(application ankiascodeapi.App) *cobra.Command {
 		Short: "Build a new archive from the original and desired text",
 		Args:  cobra.NoArgs,
 		RunE: func(command *cobra.Command, _ []string) error {
-			if err := application.ColBuild(command.Context(), base, text, output, commandStateKey(command)); err != nil {
+			if err := application.ColBuild(command.Context(), commandCollectionOptions(command, base), text, output); err != nil {
 				return fmt.Errorf("build: %w", err)
 			}
 			if _, err := fmt.Fprintln(command.ErrOrStderr(), "Built collection archive", output); err != nil {

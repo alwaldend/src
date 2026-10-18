@@ -105,7 +105,7 @@ func TestExportStateDestinationWorkflow(t *testing.T) {
 	text := filepath.Join(root, "configs")
 	application := fixtureApplication()
 	for _, destination := range []string{fixture.base, filepath.Join(text, "collection.anki.toml"), filepath.Join(text, "collection.anki.toml", "state.toml"), filepath.Join(text, "decks"), filepath.Join(text, "note_types", "Chinese.notetype.anki.toml")} {
-		if err := application.ColExport(t.Context(), ankiascodeapi.CollectionPath(fixture.base), text, destination, ""); err == nil {
+		if err := application.ColExport(t.Context(), ankiascodeapi.CollectionOptions{Path: fixture.base}, text, destination); err == nil {
 			t.Fatalf("accepted unsafe state destination %q", destination)
 		}
 		if _, err := os.Stat(text); !os.IsNotExist(err) {
@@ -121,7 +121,7 @@ func TestExportStateDestinationWorkflow(t *testing.T) {
 		if err := link(fixture.base, alias); err != nil {
 			t.Fatal(err)
 		}
-		if err := application.ColExport(t.Context(), ankiascodeapi.CollectionPath(fixture.base), text, alias, ""); err == nil {
+		if err := application.ColExport(t.Context(), ankiascodeapi.CollectionOptions{Path: fixture.base}, text, alias); err == nil {
 			t.Fatal("accepted source alias", linkKind)
 		}
 	}
@@ -142,7 +142,7 @@ func TestExportStateDestinationWorkflow(t *testing.T) {
 			if err := os.Symlink(target, linkPath); err != nil {
 				t.Fatal(err)
 			}
-			if err := application.ColExport(t.Context(), ankiascodeapi.CollectionPath(fixture.base), text, stateFile, ""); err == nil {
+			if err := application.ColExport(t.Context(), ankiascodeapi.CollectionOptions{Path: fixture.base}, text, stateFile); err == nil {
 				t.Fatal("accepted dangling config alias to state output")
 			}
 			if _, err := os.Stat(stateFile); !os.IsNotExist(err) {
@@ -163,7 +163,7 @@ func TestExportStateDestinationWorkflow(t *testing.T) {
 	if err := os.WriteFile(text, []byte("blocks config directory"), 0o600); err != nil {
 		t.Fatal(err)
 	}
-	if err := application.ColExport(t.Context(), ankiascodeapi.CollectionPath(fixture.base), text, stateFile, ""); err == nil {
+	if err := application.ColExport(t.Context(), ankiascodeapi.CollectionOptions{Path: fixture.base}, text, stateFile); err == nil {
 		t.Fatal("accepted blocked config output")
 	}
 	if data, err := os.ReadFile(stateFile); err != nil || string(data) != "previous state" {

@@ -8,7 +8,8 @@
 // This package does not parse CLI flags, manage process-global signals, link
 // Rust/cgo or duplicate native transport/storage logic. The executable supplies
 // native adapters. Collection operations select an owned path or borrowed
-// connection per call; only path sources require explicit worker configuration.
+// connection per call; only path sources require explicit backend configuration.
+// Path operations select an external address per call or use an owned stdio worker.
 // Raw API calls also accept explicit server addresses; App owns those connections.
 // Borrowed connections retain caller-owned lifetime and package publication.
 package ankiascode

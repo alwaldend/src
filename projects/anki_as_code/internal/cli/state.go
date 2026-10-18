@@ -41,7 +41,7 @@ func newStateDumpCommand(application ankiascodeapi.App, input *string) *cobra.Co
 	command := &cobra.Command{
 		Use: "dump", Short: "Dump the stored state object", Args: cobra.NoArgs,
 		RunE: func(command *cobra.Command, _ []string) error {
-			value, err := application.ColStateDump(command.Context(), ankiascodeapi.CollectionPath(*input), commandStateKey(command))
+			value, err := application.ColStateDump(command.Context(), commandCollectionOptions(command, *input))
 			if err != nil {
 				return fmt.Errorf("state dump: %w", err)
 			}
@@ -77,7 +77,7 @@ func newStateImportCommand(application ankiascodeapi.App, input *string) *cobra.
 				}
 				bindings[address] = argument[separator+1:]
 			}
-			if err := application.ColStateImport(command.Context(), ankiascodeapi.CollectionPath(*input), text, commandStateKey(command), bindings); err != nil {
+			if err := application.ColStateImport(command.Context(), commandCollectionOptions(command, *input), text, bindings); err != nil {
 				return fmt.Errorf("state import: %w", err)
 			}
 			if _, err := fmt.Fprintln(command.ErrOrStderr(), "Imported collection bindings:", len(bindings)); err != nil {
@@ -91,7 +91,7 @@ func newStateImportCommand(application ankiascodeapi.App, input *string) *cobra.
 }
 
 // newStateWriteCommand decodes an external object and invokes its selected state operation.
-func newStateWriteCommand(input *string, name, summary string, write func(context.Context, ankiascodeapi.CollectionSource, string, *ankiascodepb.State) error) *cobra.Command {
+func newStateWriteCommand(input *string, name, summary string, write func(context.Context, ankiascodeapi.CollectionOptions, *ankiascodepb.State) error) *cobra.Command {
 	var format string
 	command := &cobra.Command{
 		Use: name + " [FILE]", Short: summary, Args: cobra.MaximumNArgs(1),
@@ -110,7 +110,7 @@ func newStateWriteCommand(input *string, name, summary string, write func(contex
 			if err := codec.Decode(data, codec.Format(format), value); err != nil {
 				return fmt.Errorf("decode state for %s: %w", name, err)
 			}
-			if err := write(command.Context(), ankiascodeapi.CollectionPath(*input), commandStateKey(command), value); err != nil {
+			if err := write(command.Context(), commandCollectionOptions(command, *input), value); err != nil {
 				return fmt.Errorf("state %s: %w", name, err)
 			}
 			if _, err := fmt.Fprintf(command.ErrOrStderr(), "Collection state %s completed\n", name); err != nil {

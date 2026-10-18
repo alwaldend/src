@@ -27,7 +27,7 @@ func TestCollectionScopeBuild(t *testing.T) {
 		t.Fatal(err)
 	}
 	if err := application.collections.WithCollection(ctx, collection.CollectionOptions{Path: fixture.base, WriteBack: true}, func(connection grpc.ClientConnInterface) (bool, error) {
-		if err := application.ColBuild(ctx, fixture.base, configs, output, ""); err != nil {
+		if err := application.ColBuild(ctx, ankiascodeapi.CollectionOptions{Path: fixture.base}, configs, output); err != nil {
 			return false, fmt.Errorf("build shared collection: %w", err)
 		}
 		if _, err := os.Stat(output); err != nil {
@@ -50,11 +50,11 @@ func TestCollectionScopeBuild(t *testing.T) {
 	if err != nil || string(actual) == string(original) {
 		t.Fatalf("later source changes were not published to their own archive: %v", err)
 	}
-	stored, err := application.ColStateDump(ctx, ankiascodeapi.CollectionPath(output), "")
+	stored, err := application.ColStateDump(ctx, ankiascodeapi.CollectionOptions{Path: output})
 	if err != nil || stored.GetResources().GetPresets()["after-build"] != nil {
 		t.Fatalf("independent build included later source changes: value=%v error=%v", stored, err)
 	}
-	stored, err = application.ColStateDump(ctx, ankiascodeapi.CollectionPath(fixture.base), "")
+	stored, err = application.ColStateDump(ctx, ankiascodeapi.CollectionOptions{Path: fixture.base})
 	if err != nil || stored.GetResources().GetPresets()["after-build"].GetId() != 1 {
 		t.Fatalf("source scope lost its later changes: value=%v error=%v", stored, err)
 	}
@@ -77,7 +77,7 @@ func TestBuildFailureDestination(t *testing.T) {
 				t.Fatal(err)
 			}
 		}
-		if err := application.ColBuild(t.Context(), fixture.base, filepath.Join(t.TempDir(), "missing"), output, ""); err == nil {
+		if err := application.ColBuild(t.Context(), ankiascodeapi.CollectionOptions{Path: fixture.base}, filepath.Join(t.TempDir(), "missing"), output); err == nil {
 			t.Fatal("build accepted missing configurations")
 		}
 		if existing {

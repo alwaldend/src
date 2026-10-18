@@ -36,8 +36,8 @@ with the documentation; generated Markdown is not checked in. Build it with
 
 ## Native server
 
-The Linux x86_64 application links the Rust server into its executable. Collection
-operations launch the same executable with `server serve` and communicate over stdio.
+The Linux x86_64 application links the Rust server into its executable. By default,
+collection operations launch the same executable with `server serve` and communicate over stdio.
 The installed CLI needs no companion worker, PATH lookup, or executable extraction.
 `bazel_agent bazel build -c opt //projects/anki_as_code` produces an optimized
 executable with final symbol and debug information stripping. It uses the host
@@ -59,6 +59,29 @@ Stdio is the default and reserves stdout for gRPC. TCP and Unix listeners use
 plaintext gRPC and require an explicit address. The child process keeps native
 failures and shutdown separate from the application workflow.
 
+Collection commands accept optional `--address ADDRESS` to use an already running
+Anki gRPC server. Omit it or use an empty value to keep the embedded default.
+The flag belongs to `col` (alias `collection`) and is inherited by export, plan,
+apply, build and every state command:
+
+```sh
+anki_as_code col plan --address 127.0.0.1:50051 --collection /shared/collection.colpkg --text ./text
+anki_as_code col apply --address tcp://127.0.0.1:50051 --collection /shared/collection.colpkg --text ./text
+anki_as_code col state dump --address unix:///shared/anki.sock --collection /shared/collection.anki2
+```
+
+Addresses accept `host:port`, `tcp://host:port`, `unix://PATH` or an absolute
+Unix socket path. Connections use plaintext gRPC. An explicit address never
+falls back to the embedded worker; interrupt the command to cancel connection
+startup if the server is unavailable.
+
+The CLI opens and closes the collection for each command and closes its client
+connection afterward. It leaves the external server process running. Reserve
+the server exclusively for the command, with no collection already open.
+The CLI and server must access the same absolute filesystem paths, including
+collection/media files, CLI `TMPDIR` for package restores, and build output
+directories for staged archives. Files are not transferred over gRPC.
+
 ## Upstream API commands
 
 `api <service> <method>` constructs its command tree from the compiled Go
@@ -74,12 +97,13 @@ no proto files or server discovery are needed.
 anki_as_code api tags all-tags --collection ./collection.colpkg
 anki_as_code api notes get-note --collection ./collection.anki2 \
   --input request.toml --input-format toml --output-format json
-anki_as_code api notes get-note --backend unix:///path/to/anki.sock \
+anki_as_code api notes get-note --address unix:///path/to/anki.sock \
   --input request.json
 ```
 
-Exactly one of `--collection` and `--backend` is required. Offline access starts
-the same executable with `server serve` and owns the collection lifetime. `--backend` accepts a TCP
+Exactly one nonempty `--collection` or `--address` is required. An omitted or
+empty address retains embedded access with the supplied collection. Offline access starts
+the same executable with `server serve` and owns the collection lifetime. `--address` accepts a TCP
 host:port, `tcp://host:port`, `unix:///absolute/path` or an absolute Unix socket
 path. It uses the server's current collection and closes only the client
 connection. Explicit open/close/import RPCs require connected access.
@@ -260,29 +284,35 @@ id = "1"
 `api/ankiascodeapi` provides `ankiascodeapi.App`, the shared interface for
 configuration, collection, state and server workflows. `pkg/ankiascode` provides
 the concrete `ankiascode.App`. Its zero value supports configuration operations
-and borrowed connections. Path sources require explicit worker configuration;
+and borrowed connections. Path access requires a configured worker or an external address;
 hosting the server requires an injected `ServerRunner`.
 `ankiascode.New(ankiascode.Options{BackendBinary: path, BackendArguments: args})`
-configures an explicit worker executable and arguments. The CLI supplies its own
-executable and `[]string{"server", "serve"}`. Operations follow the CLI namespaces: `ConfigDump`, `ConfigExport`,
-`ColExport`,
-`ColPlan`, `ColApply`, `ColBuild`, and `ColStateDump`, `ColStateImport`,
-`ColStateUpdate`, `ColStateReplace`, `ServerRun` and `ServerServe`. Each collection
-operation accepts an `ankiascodeapi.CollectionSource` from `api/ankiascodeapi`:
-a path described by `CollectionPath(path)` or an already-open connection
-described by `CollectionConnection(connection)`. Exactly one alternative must
-be present. Constructors perform no I/O. `ColBuild` continues accepting a base
-archive path because it stages and opens an independent copy.
+configures an explicit worker executable and arguments.
+Collection workflows accept one `ankiascodeapi.CollectionOptions` value:
+`Path` selects a managed database/archive and optional `Address` selects an
+external server for it. Empty addresses use the configured embedded worker.
+Alternatively, `Connection` borrows an already-open collection; it cannot be
+combined with a path or address. `StateKey` selects the namespace, with an empty
+value selecting the default. App validates these combinations before opening
+resources and retains no endpoint between calls.
+
+The CLI supplies its own executable and `[]string{"server", "serve"}` for the
+embedded default. Operations follow the CLI namespaces: `ConfigDump`, `ConfigExport`,
+`ColExport`, `ColPlan`, `ColApply`, `ColBuild`, `ColStateDump`, `ColStateImport`,
+`ColStateUpdate`, `ColStateReplace`, `APICall`, `ServerRun` and `ServerServe`.
+Creating an options value performs no I/O. `ColBuild` requires a base archive in
+`options.Path` and forwards a copy of those options with its staged path to apply.
 
 `internal/cli` owns the complete Cobra tree, flags, binding syntax, formats and
 streams. Every operation, including `server run` and `server serve`, goes through
-`ankiascodeapi.App`. The interface uses shared source types, strings, protobuf
+`ankiascodeapi.App`. The interface uses shared options values, strings, protobuf
 messages and standard-library types. Commands wrap collection path flags
 without opening resources. App owns server delegation and composes
 collection/configuration workflows; the lower-level packages retain their domain
-and lifecycle responsibilities. CLI does not host native code or construct App.
+and lifecycle responsibilities. CLI passes parsed operation options into the
+injected App; the executable owns concrete construction and native adapters.
 
-`cmd/anki_as_code` constructs App and passes it to `cli.New`. It injects the linked
+`cmd/anki_as_code` constructs one App and passes it to `cli.New`. It injects the linked
 `ankiserver.Run` adapter through `Options.ServerRunner` and supplies process signal
 handling. App.ServerRun checks startup cancellation, builds the native argument
 vector and invokes that adapter. Native serving owns the process until return or
@@ -293,12 +323,12 @@ Commands pass namespaces explicitly, and App retains no command configuration.
 
 ```go
 var application ankiascodeapi.App = ankiascode.New(ankiascode.Options{BackendBinary: serverPath, BackendArguments: []string{"serve"}})
-source := ankiascodeapi.CollectionPath(absoluteCollectionPath)
+options := ankiascodeapi.CollectionOptions{Path: absoluteCollectionPath, StateKey: key}
 // ConfigDump(ctx, path, format) works without a native backend.
-value, err := application.ColStateDump(ctx, source, key)
-err = application.ColStateImport(ctx, source, absoluteConfigPath, key, bindings)
-err = application.ColStateUpdate(ctx, source, key, external)
-err = application.ColStateReplace(ctx, source, key, replacement)
+value, err := application.ColStateDump(ctx, options)
+err = application.ColStateImport(ctx, options, absoluteConfigPath, bindings)
+err = application.ColStateUpdate(ctx, options, external)
+err = application.ColStateReplace(ctx, options, replacement)
 ```
 
 App's path-based operations return after cleanup. Borrowed connections remain
@@ -309,11 +339,11 @@ database writes persist immediately and multiple calls are not a transaction.
 One App can alternate between several open collections:
 
 ```go
-first := ankiascodeapi.CollectionConnection(firstConnection)
-second := ankiascodeapi.CollectionConnection(secondConnection)
-err := application.ColStateUpdate(ctx, first, key, external)
-report, err := application.ColPlan(ctx, first, absoluteConfigPath, key)
-other, err := application.ColStateDump(ctx, second, key)
+first := ankiascodeapi.CollectionOptions{Connection: firstConnection, StateKey: key}
+second := ankiascodeapi.CollectionOptions{Connection: secondConnection, StateKey: key}
+err := application.ColStateUpdate(ctx, first, external)
+report, err := application.ColPlan(ctx, first, absoluteConfigPath)
+other, err := application.ColStateDump(ctx, second)
 ```
 
 The protobuf contract lives in `api/ankiascodepb`, with Go package
@@ -335,7 +365,7 @@ that connection and reuse local instances for several operations.
 `collection.New(collection.Options{Backend: ankiclient.BackendSTDOptions{Binary: path, Arguments: args}})`
 configures the worker. No executable or server arguments are discovered by default;
 missing configuration fails before opening a collection. Callers supply their
-server executable and runtime inputs. Each scope constructs a fresh stdin/stdout worker and collection backend. It closes native
+server executable and runtime inputs. Each scope constructs a fresh client and collection backend. Empty operation addresses use a stdin/stdout worker; nonempty addresses select the existing network server. It closes native
 storage before stopping the worker. Collection publication and close have a ten-minute default budget, configurable
 with Options.CollectionCloseTimeout; transport cleanup has a separate five-second budget
 independent of callback cancellation; source reservations outlive cleanup.
@@ -363,7 +393,7 @@ connection; each operation reads fresh data. A Store or App must not be copied
 after use. Duplicate canonical paths and file aliases are rejected within one
 Store; callers coordinate access across different stores and external writers.
 
-CollectionOptions selects the source path and WriteBack policy. Enabled write-back
+The internal `collection.CollectionOptions` projects the source path, address and WriteBack policy for managed scopes. Enabled write-back
 publishes the source archive during cleanup independently of callback results, errors
 and cancellation. Application workflows explicitly enable it; API flags select it.
 Database writes persist immediately, including before later errors; the scope is
@@ -374,9 +404,10 @@ open collection; backend cleanup handles it.
 
 `App.APICall(ctx, ankiascodeapi.APIRequest{...})` exposes the same generic operation
 without per-method wrappers. Supply a fully qualified gRPC Method, Input bytes and
-JSON/TOML encodings. Collection accepts the shared path or borrowed-connection
-source; Backend selects an app-owned connection to a running server. Exactly one
-is required. WriteBack defaults to false for Go callers; the CLI explicitly
+JSON/TOML encodings. `Collection` is the shared `CollectionOptions` value: exactly
+one of `Collection.Path`, `Collection.Address`, or `Collection.Connection` is
+required for raw API calls. An address selects an app-owned connection to the
+server's current collection. WriteBack defaults to false for Go callers; the CLI explicitly
 selects true. Borrowed native connections retain caller-owned cleanup and
 publication. Request validation precedes native startup.
 
@@ -693,10 +724,10 @@ with its Server. The Server delegates storage operations to the Anki API. Both
 server variants access Anki storage, which holds native resources and the
 application's persisted state.
 
-The external-server gRPC edge is used by `api --backend` with an explicit TCP or
+The external-server gRPC edge is used by `api --address` with an explicit TCP or
 Unix address. App owns only its client connection. Go callers can also prepare
 external connections through `ankiclient.BackendGRPC` and pass them to App
-through `ankiascodeapi.CollectionConnection`.
+through `ankiascodeapi.CollectionOptions.Connection`.
 
 ### Package dependencies
 

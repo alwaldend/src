@@ -39,8 +39,17 @@ go_test(
     srcs = [
         "api_workflow_test.go",
         "cli_workflow_test.go",
+        "external_server_test.go",
         "linked_server_test.go",
     ],
     data = [":anki_as_code"],
     env = {"ANKI_CLI": "$(rootpath :anki_as_code)"},
+    deps = [
+        "//projects/anki_as_code/api/ankiascodeapi",
+        "//projects/anki_as_code/api/ankiascodepb",
+        "//projects/anki_as_code/pkg/ankiascode",
+        "//projects/anki_grpc/pkg/ankiclient",
+        "//third_party/com_github_ankitects_anki:import_export",
+        "@org_golang_google_protobuf//encoding/protojson",
+    ],
 )

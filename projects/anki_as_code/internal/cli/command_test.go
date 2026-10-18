@@ -48,33 +48,33 @@ func (application *recordingApplication) record(ctx context.Context, operation s
 }
 
 // ColExport records collection-to-directory dispatch and optional state output.
-func (application *recordingApplication) ColExport(ctx context.Context, input ankiascodeapi.CollectionSource, output, stateOutput, key string) error {
-	application.key = key
-	application.collection = input.Path()
+func (application *recordingApplication) ColExport(ctx context.Context, options ankiascodeapi.CollectionOptions, output, stateOutput string) error {
+	application.key = options.StateKey
+	application.collection = options.Path
 	application.record(ctx, "export", output)
 	return application.failure
 }
 
 // ColPlan supplies a typed empty plan without native access.
-func (application *recordingApplication) ColPlan(ctx context.Context, input ankiascodeapi.CollectionSource, text, key string) (*ankiascodepb.CollectionChangePlan, error) {
-	application.key = key
-	application.collection = input.Path()
+func (application *recordingApplication) ColPlan(ctx context.Context, options ankiascodeapi.CollectionOptions, text string) (*ankiascodepb.CollectionChangePlan, error) {
+	application.key = options.StateKey
+	application.collection = options.Path
 	application.record(ctx, "plan", text)
 	return &ankiascodepb.CollectionChangePlan{}, application.failure
 }
 
 // ColApply records in-place reconciliation dispatch.
-func (application *recordingApplication) ColApply(ctx context.Context, input ankiascodeapi.CollectionSource, text, key string) error {
-	application.key = key
-	application.collection = input.Path()
+func (application *recordingApplication) ColApply(ctx context.Context, options ankiascodeapi.CollectionOptions, text string) error {
+	application.key = options.StateKey
+	application.collection = options.Path
 	application.record(ctx, "apply", text)
 	return application.failure
 }
 
 // ColBuild records archive creation dispatch.
-func (application *recordingApplication) ColBuild(ctx context.Context, base string, text, output, key string) error {
-	application.key = key
-	application.collection = base
+func (application *recordingApplication) ColBuild(ctx context.Context, options ankiascodeapi.CollectionOptions, text, output string) error {
+	application.key = options.StateKey
+	application.collection = options.Path
 	application.record(ctx, "build", text, output)
 	return application.failure
 }
@@ -93,35 +93,35 @@ func (application *recordingApplication) ConfigExport(ctx context.Context, outpu
 }
 
 // ColStateDump supplies stored state for command-side encoding.
-func (application *recordingApplication) ColStateDump(ctx context.Context, input ankiascodeapi.CollectionSource, key string) (*ankiascodepb.State, error) {
-	application.key = key
-	application.collection = input.Path()
+func (application *recordingApplication) ColStateDump(ctx context.Context, options ankiascodeapi.CollectionOptions) (*ankiascodepb.State, error) {
+	application.key = options.StateKey
+	application.collection = options.Path
 	application.record(ctx, "state dump")
 	return &ankiascodepb.State{Version: 1}, application.failure
 }
 
 // ColStateImport records the whole binding batch and config path without reading files.
-func (application *recordingApplication) ColStateImport(ctx context.Context, input ankiascodeapi.CollectionSource, text, key string, bindings map[string]string) error {
-	application.key = key
-	application.collection = input.Path()
+func (application *recordingApplication) ColStateImport(ctx context.Context, options ankiascodeapi.CollectionOptions, text string, bindings map[string]string) error {
+	application.key = options.StateKey
+	application.collection = options.Path
 	application.bindings = bindings
 	application.record(ctx, "state import", text)
 	return application.failure
 }
 
 // ColStateUpdate records the decoded external state.
-func (application *recordingApplication) ColStateUpdate(ctx context.Context, input ankiascodeapi.CollectionSource, key string, value *ankiascodepb.State) error {
-	application.key = key
-	application.collection = input.Path()
+func (application *recordingApplication) ColStateUpdate(ctx context.Context, options ankiascodeapi.CollectionOptions, value *ankiascodepb.State) error {
+	application.key = options.StateKey
+	application.collection = options.Path
 	application.state = value
 	application.record(ctx, "state update")
 	return application.failure
 }
 
 // ColStateReplace records the decoded complete replacement.
-func (application *recordingApplication) ColStateReplace(ctx context.Context, input ankiascodeapi.CollectionSource, key string, value *ankiascodepb.State) error {
-	application.key = key
-	application.collection = input.Path()
+func (application *recordingApplication) ColStateReplace(ctx context.Context, options ankiascodeapi.CollectionOptions, value *ankiascodepb.State) error {
+	application.key = options.StateKey
+	application.collection = options.Path
 	application.state = value
 	application.record(ctx, "state replace")
 	return application.failure
