@@ -23,10 +23,14 @@ type BackendCollectionOptions struct {
 	// RestoreDirectory overrides a package's restore destination. It must be empty and is retained.
 	// An empty value creates an owned temporary restore; database inputs reject this option.
 	RestoreDirectory string
+	// WriteBack enables automatic package publication; its zero value leaves source archives unchanged.
+	// Database writes always commit in place.
+	WriteBack bool
 }
 
 // BackendCollection implements Backend for collection lifetime on a borrowed server.
-// Start opens storage and Stop closes it; neither starts nor stops options.Backend.
+// Start opens storage; Stop writes packages back when explicitly enabled and closes storage.
+// Neither starts nor stops options.Backend.
 // Database writes commit in place. Callers stop this owner before its borrowed backend.
 // Use NewCollection; a BackendCollection must not be copied after use.
 type BackendCollection struct {
@@ -52,6 +56,12 @@ type BackendCollection struct {
 	temporary bool
 	// opened records successful native open until close or package export consumes it.
 	opened bool
+	// prepared records successful startup even after a client close or export consumes storage.
+	prepared bool
+	// source is the absolute archive publication path selected during startup.
+	source string
+	// openRequest retains native paths so consumed package storage can be reopened for publication.
+	openRequest *collection.OpenCollectionRequest
 	// uncertain records any unconfirmed native call; successful later calls cannot clear it.
 	uncertain bool
 	// connection gates generated calls while retaining the underlying transport.
@@ -106,13 +116,14 @@ func (backend *BackendCollection) Start(ctx context.Context) error {
 	if err != nil {
 		return fmt.Errorf("prepare Anki collection files: %w", err)
 	}
+	backend.source, backend.openRequest = source, request
 	backend.lifecycle.Lock()
 	backend.connection = &collectionConnection{owner: backend, ClientConnInterface: connection}
 	backend.lifecycle.Unlock()
+	if err := os.MkdirAll(request.MediaFolderPath, 0o700); err != nil {
+		return fmt.Errorf("prepare Anki media directory: %w", err)
+	}
 	if strings.EqualFold(filepath.Ext(source), ".colpkg") {
-		if err := os.MkdirAll(request.MediaFolderPath, 0o700); err != nil {
-			return fmt.Errorf("prepare Anki media directory: %w", err)
-		}
 		var trailers metadata.MD
 		backend.uncertain = true
 		_, err := import_export.NewBackendImportExportServiceClient(connection).ImportCollectionPackage(ctx, &import_export.ImportCollectionPackageRequest{
@@ -132,6 +143,7 @@ func (backend *BackendCollection) Start(ctx context.Context) error {
 		return fmt.Errorf("open Anki collection: %w", err)
 	}
 	backend.opened = true
+	backend.prepared = true
 	backend.lifecycle.Lock()
 	defer backend.lifecycle.Unlock()
 	if backend.stopped {
@@ -204,7 +216,7 @@ func (backend *BackendCollection) Connection() (grpc.ClientConnInterface, error)
 	return connection, nil
 }
 
-// Stop invalidates collection access, closes native storage and removes a completed temporary restore.
+// Stop invalidates access, writes enabled packages back and removes completed temporary restores.
 // It never stops the borrowed backend. Failed/cancelled native work retains restore
 // files until the caller has stopped that backend and can safely remove them.
 // Stop is terminal and idempotent, including before Start and after failed startup.
@@ -230,6 +242,22 @@ func (backend *BackendCollection) Stop(ctx context.Context) error {
 		if backend.uncertain {
 			backend.stopError = fmt.Errorf("native collection completion is unconfirmed; stop the borrowed backend before cleanup")
 			return
+		}
+		if backend.prepared && backend.options.WriteBack && strings.EqualFold(filepath.Ext(backend.source), ".colpkg") {
+			connection := backend.connection.ClientConnInterface
+			if !backend.opened {
+				if _, err := collection.NewBackendCollectionServiceClient(connection).OpenCollection(ctx, backend.openRequest); err != nil {
+					backend.stopError = fmt.Errorf("reopen Anki collection for write-back: %w", err)
+					return
+				}
+				backend.opened = true
+			}
+			_, err := import_export.NewBackendImportExportServiceClient(connection).ExportCollectionPackage(ctx, &import_export.ExportCollectionPackageRequest{OutPath: backend.source, IncludeMedia: true})
+			if err != nil {
+				backend.stopError = fmt.Errorf("write back Anki collection package %q: %w", backend.source, err)
+				return
+			}
+			backend.opened = false
 		}
 		if backend.opened {
 			_, err := collection.NewBackendCollectionServiceClient(backend.connection.ClientConnInterface).CloseCollection(ctx, &collection.CloseCollectionRequest{})

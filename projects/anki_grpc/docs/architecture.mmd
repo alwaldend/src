@@ -1,7 +1,9 @@
 flowchart LR
     actor[Actor]
     subgraph anki_grpc_library["anki_grpc library (Go)"]
-        backend[Backend]
+        backend[BackendSTD]
+        connection[BackendGRPC]
+        collection[BackendCollection: open and write back]
     end
     subgraph anki_grpc_server["anki_grpc server (Rust binary)"]
         server[gRPC server] --> library[Anki library]
@@ -9,5 +11,9 @@ flowchart LR
     storage[("Anki storage")]
     actor -->|gRPC| server
     actor -->|Get gRPC connection| backend
+    actor -->|Get gRPC connection| connection
+    actor -->|Manage collection| collection
+    collection -->|Borrow connection| backend
+    connection -->|Connect| server
     backend -->|Manage| anki_grpc_server
     library --> storage
