@@ -8,7 +8,7 @@ import (
 	"slices"
 	"testing"
 
-	collectionpb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/collection"
+	ankiascodepb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodepb"
 	"github.com/ankitects/anki/proto/anki/cards"
 	"github.com/ankitects/anki/proto/anki/deck_config"
 	"github.com/ankitects/anki/proto/anki/decks"
@@ -27,7 +27,7 @@ func TestReadOnlyPlanWorkflow(t *testing.T) {
 		t.Fatal(err)
 	}
 	path := fixtureNotePath(text)
-	note := &collectionpb.NoteConfig{}
+	note := &ankiascodepb.NoteConfig{}
 	readFixtureTOML(t, path, note)
 	note.Fields["hanzi"] = "planned content"
 	writeFixtureTOML(t, path, note)
@@ -101,13 +101,13 @@ func TestCollectionWorkflow(t *testing.T) {
 		t.Fatal(err)
 	}
 	notePath := fixtureNotePath(text)
-	note := &collectionpb.NoteConfig{}
+	note := &ankiascodepb.NoteConfig{}
 	readFixtureTOML(t, notePath, note)
 	note.Fields["hanzi"] = "<strong>你好，世界</strong>\nSecond\x00\x1f line"
 	note.Tags = []string{" edited ", "edited"}
 	writeFixtureTOML(t, notePath, note)
 	marker := filepath.Join(text, "decks", "lesson", "deck.anki.toml")
-	writeFixtureTOML(t, marker, &collectionpb.DeckConfig{Normal: &decks.Deck_Normal{}})
+	writeFixtureTOML(t, marker, &ankiascodepb.DeckConfig{Normal: &decks.Deck_Normal{}})
 	target := filepath.Join(filepath.Dir(marker), "notes", "greeting.note.anki.toml")
 	if err := os.MkdirAll(filepath.Dir(target), 0o755); err != nil {
 		t.Fatal(err)
@@ -117,7 +117,7 @@ func TestCollectionWorkflow(t *testing.T) {
 	}
 	note.Cards = nil
 	writeFixtureTOML(t, target, note)
-	writeFixtureTOML(t, filepath.Join(text, "collection.anki.toml"), &collectionpb.CollectionConfig{Version: 1, Moved: []*collectionpb.ResourceMove{{From: "decks/grammar/notes/你好.note.anki.toml", To: "decks/lesson/notes/greeting.note.anki.toml"}}})
+	writeFixtureTOML(t, filepath.Join(text, "collection.anki.toml"), &ankiascodepb.CollectionConfig{Version: 1, Moved: []*ankiascodepb.ResourceMove{{From: "decks/grammar/notes/你好.note.anki.toml", To: "decks/lesson/notes/greeting.note.anki.toml"}}})
 	plan := fixturePlan(t, fixture.base, text)
 	if plan.NotesChanged != 1 || plan.CardsChanged != 2 || plan.DecksAdded != 1 {
 		t.Fatalf("unexpected edits: %v", plan)
@@ -132,7 +132,7 @@ func TestCollectionWorkflow(t *testing.T) {
 	if err != nil || changed.GetFields()[0] != "<strong>你好，世界</strong>\nSecond line" || !slices.Equal(changed.Tags, []string{"edited"}) {
 		t.Fatalf("note edit: %v", err)
 	}
-	recorded := &collectionpb.NoteConfig{}
+	recorded := &ankiascodepb.NoteConfig{}
 	readFixtureTOML(t, target, recorded)
 	if recorded.Fields["hanzi"] != note.Fields["hanzi"] || !slices.Equal(recorded.Tags, note.Tags) {
 		t.Fatal("reconciliation rewrote source note content")
@@ -182,12 +182,12 @@ func TestRejectedWorkflow(t *testing.T) {
 				}
 			case "template":
 				settingsPath := filepath.Join(text, "note_types", "Chinese.notetype.anki.toml")
-				settings := &collectionpb.NoteTypeConfig{}
+				settings := &ankiascodepb.NoteTypeConfig{}
 				readFixtureTOML(t, settingsPath, settings)
 				settings.Templates[0].Config.QFormat = "{{UnknownField}}"
 				writeFixtureTOML(t, settingsPath, settings)
 			case "missing-type":
-				note := &collectionpb.NoteConfig{}
+				note := &ankiascodepb.NoteConfig{}
 				readFixtureTOML(t, path, note)
 				note.NoteType = "note_types/missing.notetype.anki.toml"
 				writeFixtureTOML(t, path, note)
@@ -201,7 +201,7 @@ func TestRejectedWorkflow(t *testing.T) {
 				}
 
 			case "missing-field":
-				note := &collectionpb.NoteConfig{}
+				note := &ankiascodepb.NoteConfig{}
 				readFixtureTOML(t, path, note)
 				delete(note.Fields, "hanzi")
 				writeFixtureTOML(t, path, note)
@@ -263,7 +263,7 @@ func TestRetainedNoteDeckRemovalWorkflow(t *testing.T) {
 				t.Fatal(err)
 			}
 			source := filepath.Join(text, "decks", "Temporary", "notes", "你好.note.anki.toml")
-			note := &collectionpb.NoteConfig{}
+			note := &ankiascodepb.NoteConfig{}
 			readFixtureTOML(t, source, note)
 			note.Cards = nil
 			destination := filepath.Join(text, "notes", "retained.note.anki.toml")
@@ -271,7 +271,7 @@ func TestRetainedNoteDeckRemovalWorkflow(t *testing.T) {
 			if err := os.RemoveAll(filepath.Join(text, "decks", "Temporary")); err != nil {
 				t.Fatal(err)
 			}
-			writeFixtureTOML(t, filepath.Join(text, "collection.anki.toml"), &collectionpb.CollectionConfig{Version: 1, Moved: []*collectionpb.ResourceMove{
+			writeFixtureTOML(t, filepath.Join(text, "collection.anki.toml"), &ankiascodepb.CollectionConfig{Version: 1, Moved: []*ankiascodepb.ResourceMove{
 				{From: "decks/Temporary/notes/你好.note.anki.toml", To: "notes/retained.note.anki.toml"},
 			}})
 			before, err := os.ReadFile(input)
@@ -288,7 +288,7 @@ func TestRetainedNoteDeckRemovalWorkflow(t *testing.T) {
 			if err != nil || string(before) != string(after) {
 				t.Fatal("unsafe deck deletion changed collection bytes")
 			}
-			note.Cards = []*collectionpb.CardConfig{
+			note.Cards = []*ankiascodepb.CardConfig{
 				{Ordinal: 0, Deck: proto.String("decks/grammar/deck.anki.toml")},
 				{Ordinal: 1, Deck: proto.String("decks/grammar/deck.anki.toml")},
 			}
@@ -357,9 +357,9 @@ func TestCreatedNoteBatchWorkflow(t *testing.T) {
 	if err := prepareFixtureConfigs(t, ctx, fixture.base, text); err != nil {
 		t.Fatal(err)
 	}
-	original := &collectionpb.NoteConfig{}
+	original := &ankiascodepb.NoteConfig{}
 	readFixtureTOML(t, fixtureNotePath(text), original)
-	writeFixtureTOML(t, filepath.Join(text, "decks", "batch", "deck.anki.toml"), &collectionpb.DeckConfig{Normal: &decks.Deck_Normal{}})
+	writeFixtureTOML(t, filepath.Join(text, "decks", "batch", "deck.anki.toml"), &ankiascodepb.DeckConfig{Normal: &decks.Deck_Normal{}})
 	labels, homes := map[string]string{}, map[string]string{}
 	for index := range 32 {
 		home := "grammar"
@@ -367,7 +367,7 @@ func TestCreatedNoteBatchWorkflow(t *testing.T) {
 			home = "batch"
 		}
 		address := fmt.Sprintf("decks/%s/notes/created-%02d.note.anki.toml", home, index)
-		note := proto.Clone(original).(*collectionpb.NoteConfig)
+		note := proto.Clone(original).(*ankiascodepb.NoteConfig)
 		label := fmt.Sprintf("Batch note %02d", index)
 		note.Fields["hanzi"] = label
 		note.Cards = nil
@@ -446,7 +446,7 @@ func TestDeckKindConversionWorkflow(t *testing.T) {
 				t.Fatal(err)
 			}
 			source := filepath.Join(text, "decks", "Convertible", "notes", "你好.note.anki.toml")
-			note := &collectionpb.NoteConfig{}
+			note := &ankiascodepb.NoteConfig{}
 			readFixtureTOML(t, source, note)
 			note.Cards = nil
 			destination := filepath.Join(text, "notes", "retained.note.anki.toml")
@@ -454,11 +454,11 @@ func TestDeckKindConversionWorkflow(t *testing.T) {
 			if err := os.Remove(source); err != nil {
 				t.Fatal(err)
 			}
-			writeFixtureTOML(t, filepath.Join(text, "collection.anki.toml"), &collectionpb.CollectionConfig{Version: 1, Moved: []*collectionpb.ResourceMove{
+			writeFixtureTOML(t, filepath.Join(text, "collection.anki.toml"), &ankiascodepb.CollectionConfig{Version: 1, Moved: []*ankiascodepb.ResourceMove{
 				{From: "decks/Convertible/notes/你好.note.anki.toml", To: "notes/retained.note.anki.toml"},
 			}})
 			marker := filepath.Join(text, "decks", "Convertible", "deck.anki.toml")
-			writeFixtureTOML(t, marker, &collectionpb.DeckConfig{Filtered: &decks.Deck_Filtered{}})
+			writeFixtureTOML(t, marker, &ankiascodepb.DeckConfig{Filtered: &decks.Deck_Filtered{}})
 			before, err := os.ReadFile(input)
 			if err != nil {
 				t.Fatal(err)
@@ -473,8 +473,8 @@ func TestDeckKindConversionWorkflow(t *testing.T) {
 			if err != nil || string(before) != string(after) {
 				t.Fatal("unsafe conversion changed collection bytes")
 			}
-			writeFixtureTOML(t, marker, &collectionpb.DeckConfig{Normal: &decks.Deck_Normal{}})
-			note.Cards = []*collectionpb.CardConfig{
+			writeFixtureTOML(t, marker, &ankiascodepb.DeckConfig{Normal: &decks.Deck_Normal{}})
+			note.Cards = []*ankiascodepb.CardConfig{
 				{Ordinal: 0, Deck: proto.String("decks/grammar/deck.anki.toml")},
 				{Ordinal: 1, Deck: proto.String("decks/grammar/deck.anki.toml")},
 			}
@@ -482,7 +482,7 @@ func TestDeckKindConversionWorkflow(t *testing.T) {
 			if err := applyForFixture(ctx, input, text, ""); err != nil {
 				t.Fatal(err)
 			}
-			writeFixtureTOML(t, marker, &collectionpb.DeckConfig{Filtered: &decks.Deck_Filtered{}})
+			writeFixtureTOML(t, marker, &ankiascodepb.DeckConfig{Filtered: &decks.Deck_Filtered{}})
 			if err := applyForFixture(ctx, input, text, ""); err != nil {
 				t.Fatal(err)
 			}
@@ -509,9 +509,9 @@ func TestDeckKindConversionWorkflow(t *testing.T) {
 			if err := client.close(); err != nil {
 				t.Fatal(err)
 			}
-			writeFixtureTOML(t, marker, &collectionpb.DeckConfig{Normal: &decks.Deck_Normal{}})
-			addition := proto.Clone(note).(*collectionpb.NoteConfig)
-			addition.Cards = []*collectionpb.CardConfig{
+			writeFixtureTOML(t, marker, &ankiascodepb.DeckConfig{Normal: &decks.Deck_Normal{}})
+			addition := proto.Clone(note).(*ankiascodepb.NoteConfig)
+			addition.Cards = []*ankiascodepb.CardConfig{
 				{Ordinal: 0, Deck: proto.String("decks/grammar/deck.anki.toml")},
 				{Ordinal: 1},
 			}

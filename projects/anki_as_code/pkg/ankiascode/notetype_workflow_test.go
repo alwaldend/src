@@ -5,7 +5,7 @@ import (
 	"path/filepath"
 	"testing"
 
-	collectionpb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/collection"
+	ankiascodepb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodepb"
 	"github.com/ankitects/anki/proto/anki/cards"
 	"github.com/ankitects/anki/proto/anki/notes"
 	"github.com/ankitects/anki/proto/anki/notetypes"
@@ -33,7 +33,7 @@ func TestNoteTypeStructureWorkflow(t *testing.T) {
 		t.Fatal(err)
 	}
 	path := filepath.Join(text, "note_types", "Chinese.notetype.anki.toml")
-	settings := &collectionpb.NoteTypeConfig{}
+	settings := &ankiascodepb.NoteTypeConfig{}
 	readFixtureTOML(t, path, settings)
 	settings.Fields[0].Name = "Character"
 	settings.Config.Css = ".card { color: blue; }"
@@ -41,10 +41,10 @@ func TestNoteTypeStructureWorkflow(t *testing.T) {
 	settings.Templates[1].Config.AFormat = "{{Character}}"
 	settings.Fields[0], settings.Fields[2] = settings.Fields[2], settings.Fields[0]
 	settings.Templates[0], settings.Templates[1] = settings.Templates[1], settings.Templates[0]
-	writeFixtureTOML(t, filepath.Join(text, "collection.anki.toml"), &collectionpb.CollectionConfig{Version: 1, Moved: []*collectionpb.ResourceMove{{From: "note_types/Chinese.notetype.anki.toml#fields/hanzi", To: "note_types/Chinese.notetype.anki.toml#fields/Character"}}})
+	writeFixtureTOML(t, filepath.Join(text, "collection.anki.toml"), &ankiascodepb.CollectionConfig{Version: 1, Moved: []*ankiascodepb.ResourceMove{{From: "note_types/Chinese.notetype.anki.toml#fields/hanzi", To: "note_types/Chinese.notetype.anki.toml#fields/Character"}}})
 	writeFixtureTOML(t, path, settings)
 	notePath := fixtureNotePath(text)
-	note := &collectionpb.NoteConfig{}
+	note := &ankiascodepb.NoteConfig{}
 	readFixtureTOML(t, notePath, note)
 	note.Fields["Character"] = note.Fields["hanzi"]
 	delete(note.Fields, "hanzi")

@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"slices"
 
-	collectionpb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/collection"
+	ankiascodepb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodepb"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/resource"
 	"github.com/ankitects/anki/proto/anki/notetypes"
 	"google.golang.org/protobuf/proto"
@@ -15,7 +15,7 @@ import (
 // It performs no I/O and changes no inputs. Callers own freshness and exclusive
 // access to the same collection and state namespace until execution. Anki owns
 // native validation, normalization and generated-card migrations during apply.
-func Build(configs *collectionpb.CollectionConfigSet, native *resource.Snapshot, stored *collectionpb.State) (*collectionpb.CollectionPlan, error) {
+func Build(configs *ankiascodepb.CollectionConfigSet, native *resource.Snapshot, stored *ankiascodepb.State) (*ankiascodepb.CollectionPlan, error) {
 	desired, before, err := resolve(configs, native, stored)
 	if err != nil {
 		return nil, fmt.Errorf("resolve collection plan: %w", err)
@@ -23,13 +23,13 @@ func Build(configs *collectionpb.CollectionConfigSet, native *resource.Snapshot,
 	result := compile(desired, before)
 	previous := stored.GetResources()
 	if previous == nil {
-		previous = &collectionpb.Resources{}
+		previous = &ankiascodepb.Resources{}
 	}
 	result.Report.StateChanged = !proto.Equal(result.ProposedBindings, previous)
 	if result.Report.StateChanged && len(result.Report.Changes) == 0 {
 		addChange(result.Report, "state", "collection.anki.toml", "update")
 	}
-	slices.SortFunc(result.Report.Changes, func(a, b *collectionpb.CollectionChange) int {
+	slices.SortFunc(result.Report.Changes, func(a, b *ankiascodepb.CollectionChange) int {
 		return cmp.Or(
 			cmp.Compare(a.Resource, b.Resource),
 			cmp.Compare(a.Path, b.Path),
@@ -41,7 +41,7 @@ func Build(configs *collectionpb.CollectionConfigSet, native *resource.Snapshot,
 }
 
 // cardDestination resolves an explicit ordinal override or the note's declaring deck.
-func cardDestination(assignments *collectionpb.PlannedCardAssignments, ordinal int64) string {
+func cardDestination(assignments *ankiascodepb.PlannedCardAssignments, ordinal int64) string {
 	for _, assignment := range assignments.Cards {
 		if assignment.Ordinal == ordinal {
 			return assignment.GetDeck()
@@ -51,14 +51,14 @@ func cardDestination(assignments *collectionpb.PlannedCardAssignments, ordinal i
 }
 
 // addChange appends one path-addressed resource action.
-func addChange(plan *collectionpb.CollectionChangePlan, resource, path, action string) {
-	plan.Changes = append(plan.Changes, &collectionpb.CollectionChange{Resource: resource, Path: path, Action: action})
+func addChange(plan *ankiascodepb.CollectionChangePlan, resource, path, action string) {
+	plan.Changes = append(plan.Changes, &ankiascodepb.CollectionChange{Resource: resource, Path: path, Action: action})
 }
 
 // addMove reports a retained resource whose bound configuration path changed.
-func addMove(plan *collectionpb.CollectionChangePlan, resource, before, after string) {
+func addMove(plan *ankiascodepb.CollectionChangePlan, resource, before, after string) {
 	if before != after {
-		plan.Changes = append(plan.Changes, &collectionpb.CollectionChange{Resource: resource, Path: after, From: before, Action: "move"})
+		plan.Changes = append(plan.Changes, &ankiascodepb.CollectionChange{Resource: resource, Path: after, From: before, Action: "move"})
 	}
 }
 

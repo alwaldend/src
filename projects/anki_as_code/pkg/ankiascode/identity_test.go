@@ -10,7 +10,7 @@ import (
 	"strings"
 	"testing"
 
-	collectionpb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/collection"
+	ankiascodepb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodepb"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/config"
 	"github.com/ankitects/anki/proto/anki/cards"
 	ankicol "github.com/ankitects/anki/proto/anki/collection"
@@ -95,7 +95,7 @@ func TestUntrackedObjectsWorkflow(t *testing.T) {
 	if err := os.Rename(filepath.Join(text, "decks", "grammar"), filepath.Join(text, "decks", "Language")); err != nil {
 		t.Fatal(err)
 	}
-	writeFixtureTOML(t, filepath.Join(text, "collection.anki.toml"), &collectionpb.CollectionConfig{Version: 1, Moved: []*collectionpb.ResourceMove{{From: "decks/grammar", To: "decks/Language"}}})
+	writeFixtureTOML(t, filepath.Join(text, "collection.anki.toml"), &ankiascodepb.CollectionConfig{Version: 1, Moved: []*ankiascodepb.ResourceMove{{From: "decks/grammar", To: "decks/Language"}}})
 	if err := applyForFixture(ctx, fixture.base, text, ""); err == nil {
 		t.Fatal("renaming parent of untracked deck was accepted")
 	}
@@ -200,7 +200,7 @@ func TestPathStateWorkflow(t *testing.T) {
 		}
 	}
 	assertConverged(t, fixture.base, text)
-	note := &collectionpb.NoteConfig{}
+	note := &ankiascodepb.NoteConfig{}
 	readFixtureTOML(t, notePath, note)
 	note.Fields["hanzi"] = "Updated content"
 	writeFixtureTOML(t, notePath, note)
@@ -272,8 +272,8 @@ func TestPathStateWorkflow(t *testing.T) {
 	if err != nil || string(before) != string(after) {
 		t.Fatal("rejected move changed collection")
 	}
-	writeFixtureTOML(t, filepath.Join(text, "decks", "grammar", "deck.anki.toml"), &collectionpb.DeckConfig{Normal: &decks.Deck_Normal{}})
-	writeFixtureTOML(t, root, &collectionpb.CollectionConfig{Version: 1, Moved: []*collectionpb.ResourceMove{{From: "decks/grammar", To: "decks/Language"}}})
+	writeFixtureTOML(t, filepath.Join(text, "decks", "grammar", "deck.anki.toml"), &ankiascodepb.DeckConfig{Normal: &decks.Deck_Normal{}})
+	writeFixtureTOML(t, root, &ankiascodepb.CollectionConfig{Version: 1, Moved: []*ankiascodepb.ResourceMove{{From: "decks/grammar", To: "decks/Language"}}})
 	if err := applyForFixture(context.Background(), result, text, ""); err == nil {
 		t.Fatal("a move source still declared in configs was accepted")
 	}
@@ -286,7 +286,7 @@ func TestPathStateWorkflow(t *testing.T) {
 }
 
 // fixtureBindings reads persisted identity bindings independently through Anki.
-func fixtureBindings(t *testing.T, client *fixtureClient) *collectionpb.State {
+func fixtureBindings(t *testing.T, client *fixtureClient) *ankiascodepb.State {
 	t.Helper()
 	connection, err := client.worker.Connection()
 	if err != nil {
@@ -300,7 +300,7 @@ func fixtureBindings(t *testing.T, client *fixtureClient) *collectionpb.State {
 	if err := json.Unmarshal(values.Json, &entries); err != nil {
 		t.Fatal(err)
 	}
-	state := &collectionpb.State{}
+	state := &ankiascodepb.State{}
 	if err := protojson.Unmarshal(entries["anki_as_code/state/v1"], state); err != nil {
 		t.Fatal(err)
 	}
@@ -355,14 +355,14 @@ func TestPresetAliasExportWorkflow(t *testing.T) {
 	if err := exportForFixture(ctx, fixture.base, text, ""); err == nil {
 		t.Fatal("ambiguous native preset names accepted without aliases")
 	}
-	writeFixtureTOML(t, filepath.Join(text, "collection.anki.toml"), &collectionpb.CollectionConfig{Version: 1})
+	writeFixtureTOML(t, filepath.Join(text, "collection.anki.toml"), &ankiascodepb.CollectionConfig{Version: 1})
 	runFixtureCLI(t, "col", "state", "import", "--collection", fixture.base, "--text", text, "presets/primary="+fmt.Sprint(presetID))
 	runFixtureCLI(t, "col", "state", "import", "--collection", fixture.base, "--text", text, "presets/secondary=1")
 	if err := prepareFixtureConfigs(t, context.Background(), fixture.base, text); err != nil {
 		t.Fatal(err)
 	}
 	for title, alias := range map[string]string{"grammar": "primary", "other": "secondary"} {
-		value := &collectionpb.DeckConfig{}
+		value := &ankiascodepb.DeckConfig{}
 		readFixtureTOML(t, filepath.Join(text, "decks", title, "deck.anki.toml"), value)
 		if value.Preset != alias {
 			t.Fatalf("deck %q preset reference: %q, want %q", title, value.Preset, alias)
@@ -428,7 +428,7 @@ func TestLiteralNoteTypePathWorkflow(t *testing.T) {
 	if err := os.Rename(filepath.Join(text, other), filepath.Join(text, literal)); err != nil {
 		t.Fatal(err)
 	}
-	writeFixtureTOML(t, filepath.Join(text, "collection.anki.toml"), &collectionpb.CollectionConfig{Version: 1, Moved: []*collectionpb.ResourceMove{{From: other, To: literal}}})
+	writeFixtureTOML(t, filepath.Join(text, "collection.anki.toml"), &ankiascodepb.CollectionConfig{Version: 1, Moved: []*ankiascodepb.ResourceMove{{From: other, To: literal}}})
 	runFixtureCLI(t, "col", "apply", "--collection", fixture.base, "--text", text)
 	bound := stateFixtureDump(t, fixture.base).GetResources().GetNoteTypes()[literal].GetId()
 	renamed := "note_types/Renamed.notetype.anki.toml"
@@ -443,7 +443,7 @@ func TestLiteralNoteTypePathWorkflow(t *testing.T) {
 			}
 		}
 	}
-	writeFixtureTOML(t, filepath.Join(text, "collection.anki.toml"), &collectionpb.CollectionConfig{Version: 1, Moved: []*collectionpb.ResourceMove{{From: original, To: renamed}}})
+	writeFixtureTOML(t, filepath.Join(text, "collection.anki.toml"), &ankiascodepb.CollectionConfig{Version: 1, Moved: []*ankiascodepb.ResourceMove{{From: original, To: renamed}}})
 	runFixtureCLI(t, "col", "apply", "--collection", fixture.base, "--text", text)
 	actual := stateFixtureDump(t, fixture.base)
 	if actual.GetResources().GetNoteTypes()[literal].GetId() != bound || actual.GetResources().GetNoteTypes()[renamed].GetId() != fixture.typeID {

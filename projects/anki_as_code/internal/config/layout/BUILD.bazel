@@ -13,7 +13,7 @@ go_library(
     importpath = "git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/config/layout",
     visibility = ["//projects/anki_as_code/internal/config:implementation_consumers"],
     deps = [
-        "//projects/anki_as_code/api/collection",
+        "//projects/anki_as_code/api/ankiascodepb",
         "//projects/anki_as_code/internal/codec",
         "@org_golang_google_protobuf//proto",
     ],

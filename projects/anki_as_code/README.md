@@ -209,20 +209,28 @@ id = "789"
 id = "1"
 ```
 
-`pkg/ankiascode` provides the concrete `ankiascode.App`. Its zero value supports
-configuration-only operations. Native collection operations require explicit worker
-configuration, and hosting the server requires an injected `ServerRunner`.
+`api/ankiascodeapi` provides `ankiascodeapi.App`, the shared interface for
+configuration, collection, state and server workflows. `pkg/ankiascode` provides
+the concrete `ankiascode.App`. Its zero value supports configuration operations
+and borrowed connections. Path sources require explicit worker configuration;
+hosting the server requires an injected `ServerRunner`.
 `ankiascode.New(ankiascode.Options{BackendBinary: path, BackendArguments: args})`
 configures an explicit worker executable and arguments. The CLI supplies its own
 executable and `[]string{"server", "serve"}`. Operations follow the CLI namespaces: `ConfigDump`, `ConfigExport`,
 `ColExport`,
 `ColPlan`, `ColApply`, `ColBuild`, and `ColStateDump`, `ColStateImport`,
-`ColStateUpdate`, `ColStateReplace`, `ServerRun` and `ServerServe`. Collection inputs are ordinary file paths;
-there are no collection reference objects, lookup IDs or selector messages.
+`ColStateUpdate`, `ColStateReplace`, `ServerRun` and `ServerServe`. Each collection
+operation accepts an `ankiascodeapi.CollectionSource` from `api/ankiascodeapi`:
+a path described by `CollectionPath(path)` or an already-open connection
+described by `CollectionConnection(connection)`. Exactly one alternative must
+be present. Constructors perform no I/O. `ColBuild` continues accepting a base
+archive path because it stages and opens an independent copy.
 
 `internal/cli` owns the complete Cobra tree, flags, binding syntax, formats and
 streams. Every operation, including `server run` and `server serve`, goes through
-its private `application` interface. App owns server delegation and composes
+`ankiascodeapi.App`. The interface uses shared source types, strings, protobuf
+messages and standard-library types. Commands wrap collection path flags
+without opening resources. App owns server delegation and composes
 collection/configuration workflows; the lower-level packages retain their domain
 and lifecycle responsibilities. CLI does not host native code or construct App.
 
@@ -236,19 +244,40 @@ Isolated command tests supply one fake without constructing App or starting Anki
 Commands pass namespaces explicitly, and App retains no command configuration.
 
 ```go
-application := ankiascode.New(ankiascode.Options{BackendBinary: serverPath, BackendArguments: []string{"serve"}})
+var application ankiascodeapi.App = ankiascode.New(ankiascode.Options{BackendBinary: serverPath, BackendArguments: []string{"serve"}})
+source := ankiascodeapi.CollectionPath(absoluteCollectionPath)
 // ConfigDump(ctx, path, format) works without a native backend.
-value, err := application.ColStateDump(ctx, absoluteCollectionPath, key)
-err = application.ColStateImport(ctx, absoluteCollectionPath, absoluteConfigPath, key, bindings)
-err = application.ColStateUpdate(ctx, absoluteCollectionPath, key, external)
-err = application.ColStateReplace(ctx, absoluteCollectionPath, key, replacement)
+value, err := application.ColStateDump(ctx, source, key)
+err = application.ColStateImport(ctx, source, absoluteConfigPath, key, bindings)
+err = application.ColStateUpdate(ctx, source, key, external)
+err = application.ColStateReplace(ctx, source, key, replacement)
 ```
 
-App's path-based operations return after cleanup. Internal callers needing
-several operations in one scope can use collection.Store directly.
+App's path-based operations return after cleanup. Borrowed connections remain
+owned by their caller, including after failure or cancellation. Operations read
+fresh collection data and neither close the borrowed connection nor publish a
+package. Callers coordinate access and decide when to save and close; direct
+database writes persist immediately and multiple calls are not a transaction.
+One App can alternate between several open collections:
+
+```go
+first := ankiascodeapi.CollectionConnection(firstConnection)
+second := ankiascodeapi.CollectionConnection(secondConnection)
+err := application.ColStateUpdate(ctx, first, key, external)
+report, err := application.ColPlan(ctx, first, absoluteConfigPath, key)
+other, err := application.ColStateDump(ctx, second, key)
+```
+
+The protobuf contract lives in `api/ankiascodepb`, with Go package
+`ankiascodepb` and protobuf namespace `anki_as_code`. Message names and fields
+retain the existing config and state formats; Go imports and protobuf fully
+qualified type names use the renamed API.
 
 `ColExport(ctx, source, output, stateOutput, stateKey)` accepts an empty
 `stateOutput` for config-only export or a TOML file path for snapshot bindings.
+For a borrowed connection, its owner must keep both outputs distinct from
+native collection files: a connection source carries no filename for alias
+checks. Config/state output conflict checks still apply.
 
 `internal/collection.Store` reserves existing sources and publishes changed archives.
 Construct it with explicit process options before collection access. `WithCollection` injects a prepared
@@ -309,8 +338,8 @@ changed, err = store.Update(ctx, external)
 changed, err = store.Replace(ctx, replacement)
 ```
 
-Dump, Update and Replace exchange `*collectionpb.State`. Import accepts a parsed
-`*collectionpb.CollectionConfigSet` and path/ID strings. Multiple calls reuse the
+Dump, Update and Replace exchange `*ankiascodepb.State`. Import accepts a parsed
+`*ankiascodepb.CollectionConfigSet` and path/ID strings. Multiple calls reuse the
 same prepared connection. The changed flag reports whether state was written.
 `State.Resources` groups typed deck, note, note-type and preset maps; note types
 own field/template maps.
@@ -323,7 +352,7 @@ calls and installs no state. Collection export owns config paths and file output
 
 ## Collection lifecycle
 
-App delegates native access to `collection.Store.WithCollection`. The store
+For path sources, App delegates native access to `collection.Store.WithCollection`. The store
 reserves the source and constructs `BackendSTD` and `BackendCollection`, using
 only the explicitly configured executable and arguments.
 BackendCollection restores packages into temporary
@@ -563,9 +592,9 @@ ProtoJSON directly to TOML, preserving optional presence and exact text values.
 accessing the filesystem. Use a directory for writing; reads also accept a root
 config file. The store exposes:
 
-- `Load() (*collectionpb.CollectionConfigSet, error)` parses the hierarchy.
+- `Load() (*ankiascodepb.CollectionConfigSet, error)` parses the hierarchy.
 - `Dump(format string) ([]byte, error)` loads and encodes JSON or TOML.
-- `Export(configs *collectionpb.CollectionConfigSet) error` writes the root
+- `Export(configs *ankiascodepb.CollectionConfigSet) error` writes the root
   marker and supplied path/config pairs as TOML files beneath its directory.
 
 ```go
@@ -603,16 +632,17 @@ protobuf contracts. Runtime resolution models stay private to `internal/plan`; p
 Each package's `doc.go` describes its responsibilities and boundaries; this
 diagram shows how the packages compose.
 
-The dotted edge shows calls through the CLI-owned application interface. Solid
+Dotted edges show calls through injected contracts. Solid
 edges show component dependencies.
 
 | Package                  | Responsibility                                                 |
 | ------------------------ | -------------------------------------------------------------- |
 | `cmd/anki_as_code`       | App construction, CLI invocation and process signals           |
-| `internal/cli`           | Cobra commands, private application interface and streams      |
+| `internal/cli`           | Cobra commands, application dispatch and streams               |
 | `internal/collection`    | Source reservations and archive publication                    |
-| `api/collection`         | Generated config, plan, and persisted-state contracts          |
-| `pkg/ankiascode`         | Command routing and shared backend composition                 |
+| `api/ankiascodepb`       | Generated config, plan, and persisted-state contracts          |
+| `api/ankiascodeapi`      | Shared application interface and collection source contracts   |
+| `pkg/ankiascode`         | Application workflows and service composition                  |
 | `internal/export`        | Native-to-config projection and direct file output             |
 | `internal/plan`          | Pure resolution, comparison, ownership and prepared operations |
 | `internal/reconcile`     | Execute protobuf plans, bind native IDs and persist state      |
@@ -623,9 +653,12 @@ edges show component dependencies.
 | `internal/codec`         | Filesystem-independent protobuf/TOML/JSON conversion           |
 | `internal/state`         | Stored-state dump, import, update, and replacement             |
 
-The command entry point injects App into internal/cli. Commands invoke its private
-application interface without importing the implementation. App borrows a prepared
-connection through collection.Store and constructs its services locally. `export.New(resources, states)` constructs an
+The command entry point injects App into internal/cli through
+`ankiascodeapi.App`, checking compatibility during compilation. Commands
+use the shared interface without importing the implementation. Shared API types
+do not depend on native backend ownership. App obtains a prepared connection from
+the supplied source and constructs its services locally. Path sources use
+collection.Store; borrowed sources retain caller-owned lifetime. `export.New(resources, states)` constructs an
 `Exporter` using caller-provided resource and state stores. Its
 `Export(ctx, output)` method owns native-to-config projection,
 filenames and direct config output. State operations remain separate.

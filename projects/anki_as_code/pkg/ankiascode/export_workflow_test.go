@@ -7,7 +7,9 @@ import (
 	"path/filepath"
 	"testing"
 
-	collectionpb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/collection"
+	ankiascodeapi "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodeapi"
+
+	ankiascodepb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodepb"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/codec"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/config"
 	"github.com/ankitects/anki/proto/anki/decks"
@@ -38,7 +40,7 @@ func TestExportStateOnboardingWorkflow(t *testing.T) {
 			if err != nil {
 				t.Fatal(err)
 			}
-			generated := &collectionpb.State{}
+			generated := &ankiascodepb.State{}
 			if err := codec.Decode(data, codec.TOML, generated); err != nil {
 				t.Fatal(err)
 			}
@@ -68,12 +70,12 @@ func TestExportStateOnboardingWorkflow(t *testing.T) {
 			}
 			// A second export discovers new bindings while preserving a custom namespace's names.
 			key := "export-state/custom"
-			custom := proto.Clone(generated).(*collectionpb.State)
+			custom := proto.Clone(generated).(*ankiascodepb.State)
 			customPath := "decks/grammar/notes/custom.note.anki.toml"
 			custom.Resources.Notes[customPath] = custom.Resources.Notes[notePath]
 			delete(custom.Resources.Notes, notePath)
 			for _, preset := range custom.Resources.Presets {
-				custom.Resources.Presets = map[string]*collectionpb.PresetState{"study": preset}
+				custom.Resources.Presets = map[string]*ankiascodepb.PresetState{"study": preset}
 				break
 			}
 			writeFixtureTOML(t, stateFile, custom)
@@ -85,7 +87,7 @@ func TestExportStateOnboardingWorkflow(t *testing.T) {
 			if err != nil {
 				t.Fatal(err)
 			}
-			selectedBindings := &collectionpb.State{}
+			selectedBindings := &ankiascodepb.State{}
 			if err := codec.Decode(selectedData, codec.TOML, selectedBindings); err != nil || !proto.Equal(custom, selectedBindings) {
 				t.Fatalf("selected bindings differ from generated paths: %v\n%s", err, selectedData)
 			}
@@ -106,7 +108,7 @@ func TestExportStateDestinationWorkflow(t *testing.T) {
 	text := filepath.Join(root, "configs")
 	application := fixtureApplication()
 	for _, destination := range []string{fixture.base, filepath.Join(text, "collection.anki.toml"), filepath.Join(text, "collection.anki.toml", "state.toml"), filepath.Join(text, "decks"), filepath.Join(text, "note_types", "Chinese.notetype.anki.toml")} {
-		if err := application.ColExport(t.Context(), fixture.base, text, destination, ""); err == nil {
+		if err := application.ColExport(t.Context(), ankiascodeapi.CollectionPath(fixture.base), text, destination, ""); err == nil {
 			t.Fatalf("accepted unsafe state destination %q", destination)
 		}
 		if _, err := os.Stat(text); !os.IsNotExist(err) {
@@ -122,7 +124,7 @@ func TestExportStateDestinationWorkflow(t *testing.T) {
 		if err := link(fixture.base, alias); err != nil {
 			t.Fatal(err)
 		}
-		if err := application.ColExport(t.Context(), fixture.base, text, alias, ""); err == nil {
+		if err := application.ColExport(t.Context(), ankiascodeapi.CollectionPath(fixture.base), text, alias, ""); err == nil {
 			t.Fatal("accepted source alias", linkKind)
 		}
 	}
@@ -143,7 +145,7 @@ func TestExportStateDestinationWorkflow(t *testing.T) {
 			if err := os.Symlink(target, linkPath); err != nil {
 				t.Fatal(err)
 			}
-			if err := application.ColExport(t.Context(), fixture.base, text, stateFile, ""); err == nil {
+			if err := application.ColExport(t.Context(), ankiascodeapi.CollectionPath(fixture.base), text, stateFile, ""); err == nil {
 				t.Fatal("accepted dangling config alias to state output")
 			}
 			if _, err := os.Stat(stateFile); !os.IsNotExist(err) {
@@ -164,7 +166,7 @@ func TestExportStateDestinationWorkflow(t *testing.T) {
 	if err := os.WriteFile(text, []byte("blocks config directory"), 0o600); err != nil {
 		t.Fatal(err)
 	}
-	if err := application.ColExport(t.Context(), fixture.base, text, stateFile, ""); err == nil {
+	if err := application.ColExport(t.Context(), ankiascodeapi.CollectionPath(fixture.base), text, stateFile, ""); err == nil {
 		t.Fatal("accepted blocked config output")
 	}
 	if data, err := os.ReadFile(stateFile); err != nil || string(data) != "previous state" {
@@ -220,7 +222,7 @@ func TestExportConfigOnlyWorkflow(t *testing.T) {
 			}
 			for _, format := range []string{"toml", "json"} {
 				data := runFixtureCLI(t, "col", "state", "dump", "--format", format, "--collection", input)
-				value := &collectionpb.State{}
+				value := &ankiascodepb.State{}
 				if err := codec.Decode(data, codec.Format(format), value); err != nil || !proto.Equal(value, stored) {
 					t.Fatalf("separate %s state dump: %v", format, err)
 				}
@@ -231,7 +233,7 @@ func TestExportConfigOnlyWorkflow(t *testing.T) {
 				saveFixtureArtifact(t, file, "dumped-state-"+inputFormat+"."+format)
 			}
 			key := "export-fixture/custom"
-			custom := proto.Clone(stored).(*collectionpb.State)
+			custom := proto.Clone(stored).(*ankiascodepb.State)
 			path := "decks/grammar/notes/custom.note.anki.toml"
 			custom.Resources.Notes[path] = custom.Resources.Notes["decks/grammar/notes/你好.note.anki.toml"]
 			delete(custom.Resources.Notes, "decks/grammar/notes/你好.note.anki.toml")
@@ -300,10 +302,10 @@ func TestExportWritesWorkflow(t *testing.T) {
 	}
 	staleDeck := filepath.Join(text, "decks", "Removed")
 	marker := filepath.Join(staleDeck, "decks", "Child", "deck.anki.toml")
-	writeFixtureTOML(t, marker, &collectionpb.DeckConfig{Normal: &decks.Deck_Normal{}})
-	writeFixtureTOML(t, filepath.Join(filepath.Dir(marker), "notes", "old.note.anki.toml"), &collectionpb.NoteConfig{})
+	writeFixtureTOML(t, marker, &ankiascodepb.DeckConfig{Normal: &decks.Deck_Normal{}})
+	writeFixtureTOML(t, filepath.Join(filepath.Dir(marker), "notes", "old.note.anki.toml"), &ankiascodepb.NoteConfig{})
 	staleType := filepath.Join(text, "note_types", "Removed.notetype.anki.toml")
-	writeFixtureTOML(t, staleType, &collectionpb.NoteTypeConfig{Name: "Removed"})
+	writeFixtureTOML(t, staleType, &ankiascodepb.NoteTypeConfig{Name: "Removed"})
 	if err := exportForFixture(context.Background(), fixture.base, "~/text", ""); err != nil {
 		t.Fatal(err)
 	}

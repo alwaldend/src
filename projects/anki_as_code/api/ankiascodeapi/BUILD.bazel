@@ -1,0 +1,16 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "ankiascodeapi",
+    srcs = [
+        "app.go",
+        "doc.go",
+        "source.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodeapi",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//projects/anki_as_code/api/ankiascodepb",
+        "@org_golang_google_grpc//:grpc",
+    ],
+)

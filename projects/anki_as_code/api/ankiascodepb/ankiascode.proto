@@ -1,12 +1,12 @@
 syntax = "proto3";
 
-package anki_as_code.collection;
+package anki_as_code;
 
 import "anki/decks.proto";
 import "anki/notes.proto";
 import "anki/notetypes.proto";
 
-option go_package = "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/collection;collectionpb";
+option go_package = "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodepb;ankiascodepb";
 
 // These messages define the editable TOML and plan JSON contracts. Anki
 // API configuration uses the existing generated upstream Anki schemas.

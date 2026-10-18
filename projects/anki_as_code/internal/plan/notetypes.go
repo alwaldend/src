@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"math"
 
-	collectionpb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/collection"
+	ankiascodepb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodepb"
 	"github.com/ankitects/anki/proto/anki/generic"
 	"github.com/ankitects/anki/proto/anki/notetypes"
 	"google.golang.org/protobuf/proto"
@@ -83,7 +83,7 @@ func matchMember(reference memberReference, members []nativeMember) (int, error)
 }
 
 // prepareNativeType maps members on owned configs and retains detached native metadata.
-func prepareNativeType(wanted *collectionpb.NoteTypeConfig, previous *notetypes.Notetype, moved, original *collectionpb.NoteTypeState) (*notetypes.Notetype, error) {
+func prepareNativeType(wanted *ankiascodepb.NoteTypeConfig, previous *notetypes.Notetype, moved, original *ankiascodepb.NoteTypeState) (*notetypes.Notetype, error) {
 	previous = proto.CloneOf(previous)
 	value := &notetypes.Notetype{Id: previous.GetId(), Name: wanted.Name, Config: proto.CloneOf(wanted.Config)}
 	fields, templates := []nativeMember{}, []nativeMember{}
@@ -148,7 +148,7 @@ func prepareNativeType(wanted *collectionpb.NoteTypeConfig, previous *notetypes.
 }
 
 // unchangedNoteType compares editable native values and the already prepared member mappings.
-func unchangedNoteType(old *notetypes.Notetype, wanted *collectionpb.PlannedNoteType) bool {
+func unchangedNoteType(old *notetypes.Notetype, wanted *ankiascodepb.PlannedNoteType) bool {
 	editable := editableType(wanted.Value)
 	editable.Config.SortFieldIdx = wanted.SortFieldIndex
 	if !proto.Equal(editableType(old), editable) {
@@ -201,7 +201,7 @@ func validateFilteredTemplate(typeID int64, ordinal int, desired desiredState, c
 // prepareNoteType supplies protobuf defaults used by reference resolution.
 // Member names must identify unambiguous state addresses; Anki validates their
 // syntax, structural constraints and template bodies during apply.
-func prepareNoteType(definition *collectionpb.NoteTypeConfig) error {
+func prepareNoteType(definition *ankiascodepb.NoteTypeConfig) error {
 	if definition == nil {
 		return fmt.Errorf("note-type configuration is required")
 	}

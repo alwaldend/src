@@ -3,7 +3,7 @@ package config
 import (
 	"fmt"
 
-	collectionpb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/collection"
+	ankiascodepb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodepb"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/codec"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/config/layout"
 )
@@ -28,7 +28,7 @@ func New(root string) *Store {
 // Load parses the selected root file or directory into grouped protobuf configs.
 // Syntax, schema types, versions, and filesystem layout are checked; callers
 // validate semantics. Each call reads fresh values without changing source files.
-func (store *Store) Load() (*collectionpb.CollectionConfigSet, error) {
+func (store *Store) Load() (*ankiascodepb.CollectionConfigSet, error) {
 	configs, err := layout.Load(store.root)
 	if err != nil {
 		return nil, fmt.Errorf("load configuration layout: %w", err)
@@ -59,7 +59,7 @@ func (store *Store) Dump(format string) ([]byte, error) {
 // Export writes supplied configurations as TOML files beneath the selected directory.
 // Callers own validation and unique, representable paths. Declared files are
 // overwritten; other files are untouched. Failures may leave partial output.
-func (store *Store) Export(configs *collectionpb.CollectionConfigSet) error {
+func (store *Store) Export(configs *ankiascodepb.CollectionConfigSet) error {
 	if err := layout.Export(configs, store.root); err != nil {
 		return fmt.Errorf("export configuration layout: %w", err)
 	}

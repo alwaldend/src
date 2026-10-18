@@ -10,7 +10,9 @@ import (
 	"strings"
 	"testing"
 
-	collectionpb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/collection"
+	ankiascodeapi "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodeapi"
+
+	ankiascodepb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodepb"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/codec"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/state"
 	"google.golang.org/protobuf/proto"
@@ -33,9 +35,9 @@ type recordingApplication struct {
 	// bindings records opaque path-to-ID input without native interpretation.
 	bindings map[string]string
 	// state records decoded update or replacement input.
-	state *collectionpb.State
+	state *ankiascodepb.State
 	// configs records the decoded configuration set supplied for file export.
-	configs *collectionpb.CollectionConfigSet
+	configs *ankiascodepb.CollectionConfigSet
 	// failure supplies a workflow error whose identity must survive command wrapping.
 	failure error
 }
@@ -47,25 +49,25 @@ func (application *recordingApplication) record(ctx context.Context, operation s
 }
 
 // ColExport records collection-to-directory dispatch and optional state output.
-func (application *recordingApplication) ColExport(ctx context.Context, input string, output, stateOutput, key string) error {
+func (application *recordingApplication) ColExport(ctx context.Context, input ankiascodeapi.CollectionSource, output, stateOutput, key string) error {
 	application.key = key
-	application.collection = input
+	application.collection = input.Path()
 	application.record(ctx, "export", output)
 	return application.failure
 }
 
 // ColPlan supplies a typed empty plan without native access.
-func (application *recordingApplication) ColPlan(ctx context.Context, input string, text, key string) (*collectionpb.CollectionChangePlan, error) {
+func (application *recordingApplication) ColPlan(ctx context.Context, input ankiascodeapi.CollectionSource, text, key string) (*ankiascodepb.CollectionChangePlan, error) {
 	application.key = key
-	application.collection = input
+	application.collection = input.Path()
 	application.record(ctx, "plan", text)
-	return &collectionpb.CollectionChangePlan{}, application.failure
+	return &ankiascodepb.CollectionChangePlan{}, application.failure
 }
 
 // ColApply records in-place reconciliation dispatch.
-func (application *recordingApplication) ColApply(ctx context.Context, input string, text, key string) error {
+func (application *recordingApplication) ColApply(ctx context.Context, input ankiascodeapi.CollectionSource, text, key string) error {
 	application.key = key
-	application.collection = input
+	application.collection = input.Path()
 	application.record(ctx, "apply", text)
 	return application.failure
 }
@@ -85,42 +87,42 @@ func (application *recordingApplication) ConfigDump(ctx context.Context, text, f
 }
 
 // ConfigExport records a decoded configuration set without writing files.
-func (application *recordingApplication) ConfigExport(ctx context.Context, output string, configs *collectionpb.CollectionConfigSet) error {
+func (application *recordingApplication) ConfigExport(ctx context.Context, output string, configs *ankiascodepb.CollectionConfigSet) error {
 	application.configs = configs
 	application.record(ctx, "config export", output)
 	return application.failure
 }
 
 // ColStateDump supplies stored state for command-side encoding.
-func (application *recordingApplication) ColStateDump(ctx context.Context, input string, key string) (*collectionpb.State, error) {
+func (application *recordingApplication) ColStateDump(ctx context.Context, input ankiascodeapi.CollectionSource, key string) (*ankiascodepb.State, error) {
 	application.key = key
-	application.collection = input
+	application.collection = input.Path()
 	application.record(ctx, "state dump")
-	return &collectionpb.State{Version: 1}, application.failure
+	return &ankiascodepb.State{Version: 1}, application.failure
 }
 
 // ColStateImport records the whole binding batch and config path without reading files.
-func (application *recordingApplication) ColStateImport(ctx context.Context, input string, text, key string, bindings map[string]string) error {
+func (application *recordingApplication) ColStateImport(ctx context.Context, input ankiascodeapi.CollectionSource, text, key string, bindings map[string]string) error {
 	application.key = key
-	application.collection = input
+	application.collection = input.Path()
 	application.bindings = bindings
 	application.record(ctx, "state import", text)
 	return application.failure
 }
 
 // ColStateUpdate records the decoded external state.
-func (application *recordingApplication) ColStateUpdate(ctx context.Context, input string, key string, value *collectionpb.State) error {
+func (application *recordingApplication) ColStateUpdate(ctx context.Context, input ankiascodeapi.CollectionSource, key string, value *ankiascodepb.State) error {
 	application.key = key
-	application.collection = input
+	application.collection = input.Path()
 	application.state = value
 	application.record(ctx, "state update")
 	return application.failure
 }
 
 // ColStateReplace records the decoded complete replacement.
-func (application *recordingApplication) ColStateReplace(ctx context.Context, input string, key string, value *collectionpb.State) error {
+func (application *recordingApplication) ColStateReplace(ctx context.Context, input ankiascodeapi.CollectionSource, key string, value *ankiascodepb.State) error {
 	application.key = key
-	application.collection = input
+	application.collection = input.Path()
 	application.state = value
 	application.record(ctx, "state replace")
 	return application.failure
@@ -254,19 +256,19 @@ func TestCommandDispatch(t *testing.T) {
 				if scenario.stdout != (stdout.Len() != 0) || scenario.stdout == (stderr.Len() != 0) {
 					t.Fatalf("incorrect command streams: %q %q", stdout.String(), stderr.String())
 				}
-				if scenario.operation == "config export" && !proto.Equal(fake.configs, &collectionpb.CollectionConfigSet{Config: &collectionpb.CollectionConfig{Version: 1}}) {
+				if scenario.operation == "config export" && !proto.Equal(fake.configs, &ankiascodepb.CollectionConfigSet{Config: &ankiascodepb.CollectionConfig{Version: 1}}) {
 					t.Fatalf("config input lost in command decoding: %v", fake.configs)
 				}
 				if scenario.operation == "state import" && !reflect.DeepEqual(fake.bindings, map[string]string{"notes/a=b.note.anki.toml": "opaque-id", "decks/New/deck.anki.toml": ""}) {
 					t.Fatalf("import altered the binding batch: %v", fake.bindings)
 				}
 				if scenario.operation == "state update" || scenario.operation == "state replace" {
-					if !proto.Equal(fake.state, &collectionpb.State{Version: 1}) {
+					if !proto.Equal(fake.state, &ankiascodepb.State{Version: 1}) {
 						t.Fatalf("state input lost in command decoding: %v", fake.state)
 					}
 				}
 				if scenario.operation == "state dump" {
-					value := &collectionpb.State{}
+					value := &ankiascodepb.State{}
 					if err := codec.Decode(stdout.Bytes(), codec.TOML, value); err != nil || value.Version != 1 {
 						t.Fatalf("state output is not TOML: %q %v", stdout.String(), err)
 					}
@@ -338,7 +340,7 @@ func TestStateCommandJSON(t *testing.T) {
 			t.Fatalf("command namespace: got %q, want %q", fake.key, expectedKey)
 		}
 		if args[2] == "dump" {
-			value := &collectionpb.State{}
+			value := &ankiascodepb.State{}
 			if err := codec.Decode(stdout.Bytes(), codec.JSON, value); err != nil || !proto.Equal(value, fake.state) {
 				t.Fatalf("JSON state round trip: %q %v", stdout.String(), err)
 			}

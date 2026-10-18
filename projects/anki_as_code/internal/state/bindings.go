@@ -5,7 +5,7 @@ import (
 	"path"
 	"strings"
 
-	collectionpb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/collection"
+	ankiascodepb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodepb"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/resource"
 	"github.com/ankitects/anki/proto/anki/decks"
 	"github.com/ankitects/anki/proto/anki/notetypes"
@@ -21,11 +21,11 @@ const invalidAddressCharacters = "\\\x00"
 // Export generates complete version-1 bindings for projected configs from one native snapshot.
 // identities supplies the native ID assigned to each config path by its exporter.
 // This operation reads only its inputs; it neither reads nor installs stored state.
-func Export(configs *collectionpb.CollectionConfigSet, snapshot *resource.Snapshot, identities map[string]int64) (*collectionpb.State, error) {
+func Export(configs *ankiascodepb.CollectionConfigSet, snapshot *resource.Snapshot, identities map[string]int64) (*ankiascodepb.State, error) {
 	if configs == nil || snapshot == nil {
 		return nil, fmt.Errorf("state export requires configs and a native snapshot")
 	}
-	value := cloneState(&collectionpb.State{Version: 1})
+	value := cloneState(&ankiascodepb.State{Version: 1})
 	nativeDecks := map[int64]*decks.Deck{}
 	for _, deck := range snapshot.Decks {
 		nativeDecks[deck.Id] = deck
@@ -44,7 +44,7 @@ func Export(configs *collectionpb.CollectionConfigSet, snapshot *resource.Snapsh
 		if native == nil {
 			return nil, fmt.Errorf("exported deck %q has no native identity", deck.Path)
 		}
-		value.Resources.Decks[deck.Path] = &collectionpb.DeckState{Id: id}
+		value.Resources.Decks[deck.Path] = &ankiascodepb.DeckState{Id: id}
 		if normal := native.GetNormal(); normal != nil {
 			alias := deck.GetDeck().GetPreset()
 			if alias == "" || snapshot.Presets[normal.ConfigId] == "" {
@@ -53,7 +53,7 @@ func Export(configs *collectionpb.CollectionConfigSet, snapshot *resource.Snapsh
 			if previous := value.Resources.Presets[alias]; previous != nil && previous.Id != normal.ConfigId {
 				return nil, fmt.Errorf("exported preset alias %q identifies multiple presets", alias)
 			}
-			value.Resources.Presets[alias] = &collectionpb.PresetState{Id: normal.ConfigId}
+			value.Resources.Presets[alias] = &ankiascodepb.PresetState{Id: normal.ConfigId}
 		}
 		if err := bindExportedNotes(value, deck.Notes, identities, nativeNotes); err != nil {
 			return nil, fmt.Errorf("bind exported deck notes: %w", err)
@@ -77,34 +77,34 @@ func Export(configs *collectionpb.CollectionConfigSet, snapshot *resource.Snapsh
 }
 
 // bindExportedNotes resolves declared note paths against identities in the export snapshot.
-func bindExportedNotes(value *collectionpb.State, notes []*collectionpb.NoteConfigFile, identities map[string]int64, nativeNotes map[int64]bool) error {
+func bindExportedNotes(value *ankiascodepb.State, notes []*ankiascodepb.NoteConfigFile, identities map[string]int64, nativeNotes map[int64]bool) error {
 	for _, note := range notes {
 		id := identities[note.Path]
 		if !nativeNotes[id] {
 			return fmt.Errorf("exported note %q has no native identity", note.Path)
 		}
-		value.Resources.Notes[note.Path] = &collectionpb.NoteState{Id: id}
+		value.Resources.Notes[note.Path] = &ankiascodepb.NoteState{Id: id}
 	}
 	return nil
 }
 
 // cloneState preserves bindings and initializes typed maps for import.
-func cloneState(value *collectionpb.State) *collectionpb.State {
-	result := proto.Clone(value).(*collectionpb.State)
+func cloneState(value *ankiascodepb.State) *ankiascodepb.State {
+	result := proto.Clone(value).(*ankiascodepb.State)
 	if result.Resources == nil {
-		result.Resources = &collectionpb.Resources{}
+		result.Resources = &ankiascodepb.Resources{}
 	}
 	if result.Resources.Decks == nil {
-		result.Resources.Decks = map[string]*collectionpb.DeckState{}
+		result.Resources.Decks = map[string]*ankiascodepb.DeckState{}
 	}
 	if result.Resources.Notes == nil {
-		result.Resources.Notes = map[string]*collectionpb.NoteState{}
+		result.Resources.Notes = map[string]*ankiascodepb.NoteState{}
 	}
 	if result.Resources.NoteTypes == nil {
-		result.Resources.NoteTypes = map[string]*collectionpb.NoteTypeState{}
+		result.Resources.NoteTypes = map[string]*ankiascodepb.NoteTypeState{}
 	}
 	if result.Resources.Presets == nil {
-		result.Resources.Presets = map[string]*collectionpb.PresetState{}
+		result.Resources.Presets = map[string]*ankiascodepb.PresetState{}
 	}
 	return result
 }
@@ -139,7 +139,7 @@ func claimBinding(address string, id int64, paths map[string]bool, identities ma
 }
 
 // validateState checks only the application's metadata schema and identity ownership.
-func validateState(value *collectionpb.State, allowUnresolved bool) error {
+func validateState(value *ankiascodepb.State, allowUnresolved bool) error {
 	if value == nil || value.Version != 1 {
 		return fmt.Errorf("state must have version 1")
 	}
@@ -190,26 +190,26 @@ func validateState(value *collectionpb.State, allowUnresolved bool) error {
 }
 
 // bindType projects native member identities and ordinals for state import and export.
-func bindType(definition *notetypes.Notetype) (*collectionpb.NoteTypeState, error) {
+func bindType(definition *notetypes.Notetype) (*ankiascodepb.NoteTypeState, error) {
 	if definition == nil {
 		return nil, fmt.Errorf("nil native note type")
 	}
-	binding := &collectionpb.NoteTypeState{
+	binding := &ankiascodepb.NoteTypeState{
 		Id:        definition.Id,
-		Fields:    map[string]*collectionpb.FieldState{},
-		Templates: map[string]*collectionpb.TemplateState{},
+		Fields:    map[string]*ankiascodepb.FieldState{},
+		Templates: map[string]*ankiascodepb.TemplateState{},
 	}
 	for ordinal, field := range definition.Fields {
 		if field == nil {
 			return nil, fmt.Errorf("nil native field at ordinal %d", ordinal)
 		}
-		binding.Fields[field.Name] = &collectionpb.FieldState{Id: field.Config.GetId(), Ordinal: uint32(ordinal)}
+		binding.Fields[field.Name] = &ankiascodepb.FieldState{Id: field.Config.GetId(), Ordinal: uint32(ordinal)}
 	}
 	for ordinal, template := range definition.Templates {
 		if template == nil {
 			return nil, fmt.Errorf("nil native template at ordinal %d", ordinal)
 		}
-		binding.Templates[template.Name] = &collectionpb.TemplateState{Id: template.Config.GetId(), Ordinal: uint32(ordinal)}
+		binding.Templates[template.Name] = &ankiascodepb.TemplateState{Id: template.Config.GetId(), Ordinal: uint32(ordinal)}
 	}
 	return binding, nil
 }

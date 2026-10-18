@@ -3,7 +3,7 @@ package plan
 import (
 	"fmt"
 
-	collectionpb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/collection"
+	ankiascodepb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodepb"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/resource"
 	"github.com/ankitects/anki/proto/anki/cards"
 	"github.com/ankitects/anki/proto/anki/decks"
@@ -14,7 +14,7 @@ import (
 // snapshot indexes native messages without converting them to editable configs.
 type snapshot struct {
 	// bindings contains the expected stored state before declared moves.
-	bindings *collectionpb.State
+	bindings *ankiascodepb.State
 	// presets indexes existing unmanaged scheduling presets by native ID.
 	presets map[int64]string
 	// notes indexes captured native notes by ID.
@@ -42,7 +42,7 @@ type snapshot struct {
 }
 
 // readSnapshot indexes supplied native values and bindings without mutating either input.
-func readSnapshot(native *resource.Snapshot, bindings *collectionpb.State) (snapshot, error) {
+func readSnapshot(native *resource.Snapshot, bindings *ankiascodepb.State) (snapshot, error) {
 	current := snapshot{
 		bindings:      bindings,
 		presets:       native.Presets,

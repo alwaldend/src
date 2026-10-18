@@ -6,7 +6,9 @@ import (
 	"path/filepath"
 	"testing"
 
-	collectionpb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/collection"
+	ankiascodeapi "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodeapi"
+
+	ankiascodepb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodepb"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/state"
 	"google.golang.org/grpc"
 )
@@ -17,7 +19,7 @@ func TestCollectionScopeBuild(t *testing.T) {
 	application := fixtureApplication()
 	ctx := t.Context()
 	configs, output := t.TempDir(), filepath.Join(t.TempDir(), "built.colpkg")
-	writeFixtureTOML(t, filepath.Join(configs, "collection.anki.toml"), &collectionpb.CollectionConfig{Version: 1})
+	writeFixtureTOML(t, filepath.Join(configs, "collection.anki.toml"), &ankiascodepb.CollectionConfig{Version: 1})
 	original, err := os.ReadFile(fixture.base)
 	if err != nil {
 		t.Fatal(err)
@@ -29,7 +31,7 @@ func TestCollectionScopeBuild(t *testing.T) {
 		if _, err := os.Stat(output); err != nil {
 			return false, fmt.Errorf("build did not publish its independent output: %w", err)
 		}
-		value := &collectionpb.State{Version: 1, Resources: &collectionpb.Resources{Presets: map[string]*collectionpb.PresetState{"after-build": {Id: 1}}}}
+		value := &ankiascodepb.State{Version: 1, Resources: &ankiascodepb.Resources{Presets: map[string]*ankiascodepb.PresetState{"after-build": {Id: 1}}}}
 		states := state.New(connection, "")
 		changed, err := states.Replace(ctx, value)
 		if err != nil {
@@ -46,11 +48,11 @@ func TestCollectionScopeBuild(t *testing.T) {
 	if err != nil || string(actual) == string(original) {
 		t.Fatalf("later source changes were not published to their own archive: %v", err)
 	}
-	stored, err := application.ColStateDump(ctx, output, "")
+	stored, err := application.ColStateDump(ctx, ankiascodeapi.CollectionPath(output), "")
 	if err != nil || stored.GetResources().GetPresets()["after-build"] != nil {
 		t.Fatalf("independent build included later source changes: value=%v error=%v", stored, err)
 	}
-	stored, err = application.ColStateDump(ctx, fixture.base, "")
+	stored, err = application.ColStateDump(ctx, ankiascodeapi.CollectionPath(fixture.base), "")
 	if err != nil || stored.GetResources().GetPresets()["after-build"].GetId() != 1 {
 		t.Fatalf("source scope lost its later changes: value=%v error=%v", stored, err)
 	}

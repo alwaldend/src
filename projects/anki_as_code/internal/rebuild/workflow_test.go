@@ -11,7 +11,9 @@ import (
 	"testing"
 	"time"
 
-	collectionpb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/collection"
+	ankiascodeapi "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodeapi"
+
+	ankiascodepb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodepb"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/rebuild"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/pkg/ankiascode"
 	"git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/ankiclient"
@@ -32,8 +34,8 @@ func TestArchiveBuild(t *testing.T) {
 		t.Fatal(err)
 	}
 	application := ankiascode.New(ankiascode.Options{BackendBinary: binary, BackendArguments: []string{"serve"}})
-	wanted := &collectionpb.State{Version: 1, Resources: &collectionpb.Resources{
-		Decks: map[string]*collectionpb.DeckState{"decks/Default/deck.anki.toml": {Id: 1}},
+	wanted := &ankiascodepb.State{Version: 1, Resources: &ankiascodepb.Resources{
+		Decks: map[string]*ankiascodepb.DeckState{"decks/Default/deck.anki.toml": {Id: 1}},
 	}}
 	const key = "archive-build-test"
 	var staged string
@@ -42,7 +44,7 @@ func TestArchiveBuild(t *testing.T) {
 		if filepath.Dir(path) == root || path == base {
 			return fmt.Errorf("apply did not receive a private archive")
 		}
-		if err := application.ColStateReplace(ctx, path, key, wanted); err != nil {
+		if err := application.ColStateReplace(ctx, ankiascodeapi.CollectionPath(path), key, wanted); err != nil {
 			return fmt.Errorf("update staged native state: %w", err)
 		}
 		return nil
@@ -51,18 +53,18 @@ func TestArchiveBuild(t *testing.T) {
 	if err := rebuild.New(apply).Build(t.Context(), base, output); err != nil {
 		t.Fatal(err)
 	}
-	stored, err := application.ColStateDump(t.Context(), output, key)
+	stored, err := application.ColStateDump(t.Context(), ankiascodeapi.CollectionPath(output), key)
 	if err != nil || !proto.Equal(stored, wanted) {
 		t.Fatalf("published archive lost native state: %v %v", stored, err)
 	}
-	initial, err := application.ColStateDump(t.Context(), base, key)
+	initial, err := application.ColStateDump(t.Context(), ankiascodeapi.CollectionPath(base), key)
 	if err != nil || len(initial.GetResources().GetDecks()) != 0 {
 		t.Fatalf("build changed source state: %v %v", initial, err)
 	}
 	assertRemoved(t, filepath.Dir(staged))
 	unchanged := filepath.Join(root, "unchanged.colpkg")
 	if err := rebuild.New(func(ctx context.Context, path string) error {
-		if _, err := application.ColStateDump(ctx, path, key); err != nil {
+		if _, err := application.ColStateDump(ctx, ankiascodeapi.CollectionPath(path), key); err != nil {
 			return fmt.Errorf("inspect unchanged stage: %w", err)
 		}
 		return nil

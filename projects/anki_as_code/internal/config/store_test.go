@@ -9,7 +9,7 @@ import (
 	"path/filepath"
 	"testing"
 
-	collectionpb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/collection"
+	ankiascodepb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodepb"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/config"
 	"github.com/BurntSushi/toml"
 	"github.com/ankitects/anki/proto/anki/decks"
@@ -34,11 +34,11 @@ func newConfigFixture(t *testing.T) configFixture {
 	root := t.TempDir()
 	f := configFixture{root: root, config: filepath.Join(root, "collection.anki.toml"), note: filepath.Join(root, "decks", "Lesson", "notes", "greeting.note.anki.toml")}
 	files := map[string]proto.Message{
-		f.config: &collectionpb.CollectionConfig{Version: 1, Moved: []*collectionpb.ResourceMove{{From: "decks/Old", To: "decks/Lesson"}}},
-		filepath.Join(root, "decks", "Lesson", "deck.anki.toml"):      &collectionpb.DeckConfig{Preset: "Default", Normal: &decks.Deck_Normal{NewLimit: proto.Uint32(0), DesiredRetention: proto.Float32(0.91)}},
-		filepath.Join(root, "note_types", "Basic.notetype.anki.toml"): &collectionpb.NoteTypeConfig{Name: "Basic", Config: &notetypes.Notetype_Config{Css: ".card { color: blue; }"}, Fields: []*notetypes.Notetype_Field{{Name: "Front", Config: &notetypes.Notetype_Field_Config{FontSize: 24}}}, Templates: []*collectionpb.TemplateConfig{{Name: "Forward", Config: &notetypes.Notetype_Template_Config{QFormat: "{{UnknownField}}", AFormat: "{{Front}}"}}}},
-		f.note: &collectionpb.NoteConfig{NoteType: "note_types/Basic.notetype.anki.toml", Tags: []string{" spaced "}, Cards: []*collectionpb.CardConfig{{}}, Fields: map[string]string{"Front": "<div class=\"example\">你好</div>\nSecond line"}},
-		filepath.Join(root, "notes", "root.note.anki.toml"): &collectionpb.NoteConfig{NoteType: "note_types/Basic.notetype.anki.toml", Cards: []*collectionpb.CardConfig{{}}, Fields: map[string]string{"Front": ""}},
+		f.config: &ankiascodepb.CollectionConfig{Version: 1, Moved: []*ankiascodepb.ResourceMove{{From: "decks/Old", To: "decks/Lesson"}}},
+		filepath.Join(root, "decks", "Lesson", "deck.anki.toml"):      &ankiascodepb.DeckConfig{Preset: "Default", Normal: &decks.Deck_Normal{NewLimit: proto.Uint32(0), DesiredRetention: proto.Float32(0.91)}},
+		filepath.Join(root, "note_types", "Basic.notetype.anki.toml"): &ankiascodepb.NoteTypeConfig{Name: "Basic", Config: &notetypes.Notetype_Config{Css: ".card { color: blue; }"}, Fields: []*notetypes.Notetype_Field{{Name: "Front", Config: &notetypes.Notetype_Field_Config{FontSize: 24}}}, Templates: []*ankiascodepb.TemplateConfig{{Name: "Forward", Config: &notetypes.Notetype_Template_Config{QFormat: "{{UnknownField}}", AFormat: "{{Front}}"}}}},
+		f.note: &ankiascodepb.NoteConfig{NoteType: "note_types/Basic.notetype.anki.toml", Tags: []string{" spaced "}, Cards: []*ankiascodepb.CardConfig{{}}, Fields: map[string]string{"Front": "<div class=\"example\">你好</div>\nSecond line"}},
+		filepath.Join(root, "notes", "root.note.anki.toml"): &ankiascodepb.NoteConfig{NoteType: "note_types/Basic.notetype.anki.toml", Cards: []*ankiascodepb.CardConfig{{}}, Fields: map[string]string{"Front": ""}},
 	}
 	for path, message := range files {
 		writeConfigMessage(t, path, message)
@@ -122,7 +122,7 @@ func TestConfigPathWorkflow(t *testing.T) {
 		if err != nil {
 			t.Fatalf("dump %s: %v", format, err)
 		}
-		actual := &collectionpb.CollectionConfigSet{}
+		actual := &ankiascodepb.CollectionConfigSet{}
 		if format == "json" {
 			if err := protojson.Unmarshal(data, actual); err != nil {
 				t.Fatal(err)
@@ -183,7 +183,7 @@ func TestConfigExportWorkflow(t *testing.T) {
 	if err != nil || string(data) != "unrelated\n" {
 		t.Fatal("unrelated file changed")
 	}
-	unchecked := proto.Clone(configs).(*collectionpb.CollectionConfigSet)
+	unchecked := proto.Clone(configs).(*ankiascodepb.CollectionConfigSet)
 	unchecked.Config.Version = 9007199254740993
 	unchecked.Notes[0].Config.NoteType = ""
 	uncheckedOutput := filepath.Join(t.TempDir(), "unchecked")

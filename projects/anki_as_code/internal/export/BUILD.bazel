@@ -15,7 +15,7 @@ go_library(
         "//projects/anki_as_code/internal/reconcile:__pkg__",
     ],
     deps = [
-        "//projects/anki_as_code/api/collection",
+        "//projects/anki_as_code/api/ankiascodepb",
         "//projects/anki_as_code/internal/codec",
         "//projects/anki_as_code/internal/config",
         "//projects/anki_as_code/internal/resource",
@@ -33,7 +33,7 @@ go_test(
     data = ["//projects/anki_grpc"],
     embed = [":export"],
     deps = [
-        "//projects/anki_as_code/api/collection",
+        "//projects/anki_as_code/api/ankiascodepb",
         "//projects/anki_as_code/internal/codec",
         "//projects/anki_as_code/internal/config",
         "//projects/anki_as_code/internal/resource",

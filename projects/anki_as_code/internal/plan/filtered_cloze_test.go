@@ -5,7 +5,7 @@ import (
 	"path/filepath"
 	"testing"
 
-	collectionpb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/collection"
+	ankiascodepb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodepb"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/config"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/export"
 	planning "git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/plan"
@@ -18,7 +18,7 @@ import (
 )
 
 // captureFilteredCloze records real resident cloze cards and canonical exported configs.
-func captureFilteredCloze(t *testing.T, resources *resource.Store, states *state.Store, filteredID int64) (*collectionpb.CollectionConfigSet, *resource.Snapshot, *collectionpb.State) {
+func captureFilteredCloze(t *testing.T, resources *resource.Store, states *state.Store, filteredID int64) (*ankiascodepb.CollectionConfigSet, *resource.Snapshot, *ankiascodepb.State) {
 	t.Helper()
 	ctx := t.Context()
 	created, err := resources.NoteTypes.AddNotetype(ctx, &notetypes.Notetype{
@@ -60,7 +60,7 @@ func captureFilteredCloze(t *testing.T, resources *resource.Store, states *state
 	if err != nil {
 		t.Fatal(err)
 	}
-	configs := &collectionpb.CollectionConfigSet{Config: all.Config}
+	configs := &ankiascodepb.CollectionConfigSet{Config: all.Config}
 	for _, file := range all.NoteTypes {
 		if file.Config.Name == "Filtered cloze" {
 			configs.NoteTypes = append(configs.NoteTypes, file)
@@ -69,7 +69,7 @@ func captureFilteredCloze(t *testing.T, resources *resource.Store, states *state
 	if len(configs.NoteTypes) != 1 {
 		t.Fatal("export omitted the native cloze type")
 	}
-	files := append([]*collectionpb.NoteConfigFile{}, all.Notes...)
+	files := append([]*ankiascodepb.NoteConfigFile{}, all.Notes...)
 	for _, group := range all.Decks {
 		files = append(files, group.Notes...)
 	}
@@ -97,17 +97,17 @@ func captureFilteredCloze(t *testing.T, resources *resource.Store, states *state
 }
 
 // checkFilteredCloze protects the shared template identity across all cloze card ordinals.
-func checkFilteredCloze(t *testing.T, configs *collectionpb.CollectionConfigSet, snapshot *resource.Snapshot, stored *collectionpb.State, output string) {
+func checkFilteredCloze(t *testing.T, configs *ankiascodepb.CollectionConfigSet, snapshot *resource.Snapshot, stored *ankiascodepb.State, output string) {
 	t.Helper()
 	for _, action := range []string{"unchanged", "replace", "remove", "move"} {
 		t.Run("filtered cloze template "+action, func(t *testing.T) {
-			desired := proto.Clone(configs).(*collectionpb.CollectionConfigSet)
+			desired := proto.Clone(configs).(*ankiascodepb.CollectionConfigSet)
 			file := desired.NoteTypes[0]
 			if action == "replace" || action == "move" {
 				name := file.Config.Templates[0].Name
 				file.Config.Templates[0].Name = "Renamed"
 				if action == "move" {
-					desired.Config.Moved = []*collectionpb.ResourceMove{{From: file.Path + "#templates/" + name, To: file.Path + "#templates/Renamed"}}
+					desired.Config.Moved = []*ankiascodepb.ResourceMove{{From: file.Path + "#templates/" + name, To: file.Path + "#templates/Renamed"}}
 				}
 			} else if action == "remove" {
 				file.Config.Templates = nil

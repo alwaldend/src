@@ -4,13 +4,13 @@ import (
 	"fmt"
 	"path/filepath"
 
-	collectionpb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/collection"
+	ankiascodepb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodepb"
 	"google.golang.org/protobuf/proto"
 )
 
 // readNote reads a protobuf-defined note declaration from its source file.
-func readNote(path string) (*collectionpb.NoteConfig, error) {
-	note := &collectionpb.NoteConfig{}
+func readNote(path string) (*ankiascodepb.NoteConfig, error) {
+	note := &ankiascodepb.NoteConfig{}
 	if err := readTOML(path, note); err != nil {
 		return nil, fmt.Errorf("read note %q: %w", path, err)
 	}
@@ -18,12 +18,12 @@ func readNote(path string) (*collectionpb.NoteConfig, error) {
 }
 
 // readNotes loads direct note files and applies only the declaring deck's nonempty default.
-func readNotes(root, home, collectionRoot string) ([]*collectionpb.NoteConfigFile, error) {
+func readNotes(root, home, collectionRoot string) ([]*ankiascodepb.NoteConfigFile, error) {
 	files, err := discoverFiles(root, noteSuffix)
 	if err != nil {
 		return nil, fmt.Errorf("discover notes: %w", err)
 	}
-	notes := make([]*collectionpb.NoteConfigFile, 0, len(files))
+	notes := make([]*ankiascodepb.NoteConfigFile, 0, len(files))
 	for _, file := range files {
 		note, err := readNote(file)
 		if err != nil {
@@ -38,18 +38,18 @@ func readNotes(root, home, collectionRoot string) ([]*collectionpb.NoteConfigFil
 		if err != nil {
 			return nil, fmt.Errorf("identify note path: %w", err)
 		}
-		notes = append(notes, &collectionpb.NoteConfigFile{Path: filepath.ToSlash(relative), Config: note})
+		notes = append(notes, &ankiascodepb.NoteConfigFile{Path: filepath.ToSlash(relative), Config: note})
 	}
 	return notes, nil
 }
 
 // readDecks reads each deck's configuration and notes, deriving titles from the directory hierarchy.
-func readDecks(root, parent, collectionRoot string) ([]*collectionpb.DeckConfigSet, error) {
+func readDecks(root, parent, collectionRoot string) ([]*ankiascodepb.DeckConfigSet, error) {
 	entries, err := directoryEntries(root)
 	if err != nil {
 		return nil, fmt.Errorf("discover decks: %w", err)
 	}
-	var decks []*collectionpb.DeckConfigSet
+	var decks []*ankiascodepb.DeckConfigSet
 	for _, entry := range entries {
 		if !entry.IsDir() {
 			continue
@@ -59,7 +59,7 @@ func readDecks(root, parent, collectionRoot string) ([]*collectionpb.DeckConfigS
 		if err := regularPath(marker); err != nil {
 			return nil, fmt.Errorf("inspect deck marker: %w", err)
 		}
-		deck := &collectionpb.DeckConfig{}
+		deck := &ankiascodepb.DeckConfig{}
 		if err := readTOML(marker, deck); err != nil {
 			return nil, fmt.Errorf("load deck marker: %w", err)
 		}
@@ -76,7 +76,7 @@ func readDecks(root, parent, collectionRoot string) ([]*collectionpb.DeckConfigS
 		if err != nil {
 			return nil, fmt.Errorf("load deck %q notes: %w", title, err)
 		}
-		decks = append(decks, &collectionpb.DeckConfigSet{Title: title, Path: markerPath, Deck: deck, Notes: notes})
+		decks = append(decks, &ankiascodepb.DeckConfigSet{Title: title, Path: markerPath, Deck: deck, Notes: notes})
 		children, err := readDecks(filepath.Join(directory, "decks"), title, collectionRoot)
 		if err != nil {
 			return nil, fmt.Errorf("load child decks of %q: %w", title, err)
@@ -89,8 +89,8 @@ func readDecks(root, parent, collectionRoot string) ([]*collectionpb.DeckConfigS
 // Load parses a root config file or its directory into the grouped protobuf configuration set.
 // Syntax, schema types, and filesystem layout are checked; callers validate semantics.
 // Source files remain unchanged, and no Anki collection is opened.
-func Load(input string) (*collectionpb.CollectionConfigSet, error) {
-	configs := &collectionpb.CollectionConfigSet{Config: &collectionpb.CollectionConfig{}}
+func Load(input string) (*ankiascodepb.CollectionConfigSet, error) {
+	configs := &ankiascodepb.CollectionConfigSet{Config: &ankiascodepb.CollectionConfig{}}
 	config, err := collectionConfig(input)
 	if err != nil {
 		return nil, fmt.Errorf("resolve collection config: %w", err)

@@ -6,6 +6,7 @@ import (
 	"os"
 	"os/signal"
 
+	ankiascodeapi "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodeapi"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/cli"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/pkg/ankiascode"
 	"git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/ankiserver"
@@ -17,7 +18,7 @@ func run(ctx context.Context, args []string) error {
 	if err != nil {
 		return fmt.Errorf("resolve application executable: %w", err)
 	}
-	application := ankiascode.New(ankiascode.Options{
+	var application ankiascodeapi.App = ankiascode.New(ankiascode.Options{
 		BackendBinary: binary, BackendArguments: []string{"server", "serve"}, ServerRunner: runNativeServer,
 	})
 	command := cli.New(application)

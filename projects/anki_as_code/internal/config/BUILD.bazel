@@ -9,7 +9,7 @@ go_library(
     importpath = "git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/config",
     visibility = ["//projects/anki_as_code:config_consumers"],
     deps = [
-        "//projects/anki_as_code/api/collection",
+        "//projects/anki_as_code/api/ankiascodepb",
         "//projects/anki_as_code/internal/codec",
         "//projects/anki_as_code/internal/config/layout",
     ],
@@ -24,7 +24,7 @@ go_test(
     name = "store_test",
     srcs = ["store_test.go"],
     deps = [
-        "//projects/anki_as_code/api/collection",
+        "//projects/anki_as_code/api/ankiascodepb",
         "//projects/anki_as_code/internal/config",
         "//third_party/com_github_ankitects_anki:decks",
         "//third_party/com_github_ankitects_anki:notetypes",
