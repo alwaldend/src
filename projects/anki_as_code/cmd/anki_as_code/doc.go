@@ -1,3 +1,4 @@
 // Command anki_as_code constructs App and runs the CLI with signal cancellation.
-// The internal CLI package owns commands and its substitutable application contract.
+// Its server run command invokes the linked Rust CLI with native signal handling.
+// The internal CLI package owns workflow commands and its application contract.
 package main

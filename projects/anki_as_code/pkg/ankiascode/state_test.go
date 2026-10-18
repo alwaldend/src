@@ -233,7 +233,7 @@ func TestApplicationStateWorkflows(t *testing.T) {
 			if format == "database" {
 				input = fixture.database
 			}
-			application := &App{}
+			application := fixtureApplication()
 			ctx := t.Context()
 			text := stateFixtureConfigs(t)
 			empty, err := application.ColStateDump(ctx, input, "")

@@ -5,15 +5,13 @@ import (
 	"errors"
 	"fmt"
 	"os"
-	"os/exec"
 	"path/filepath"
 	"strings"
 	"sync"
 	"time"
 
-	"git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/backend"
+	"git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/ankiclient"
 	"github.com/ankitects/anki/proto/anki/import_export"
-	"github.com/bazelbuild/rules_go/go/runfiles"
 	"google.golang.org/grpc"
 )
 
@@ -21,14 +19,21 @@ import (
 const backendCleanupTimeout = 5 * time.Second
 
 // Store reserves collection sources and publishes changed archives within managed native scopes.
-// Its zero value is ready to use. It must not be copied after use.
+// Construct it with New before collection access; it must not be copied after use.
 type Store struct {
-	// backendOptions configures each owned worker; an empty Binary uses bundled-server/PATH discovery.
-	backendOptions backend.BackendSTDOptions
+	// backendOptions explicitly configures the executable and arguments for each owned worker.
+	backendOptions ankiclient.BackendSTDOptions
 	// mutex protects source reservations, never native work.
 	mutex sync.Mutex
 	// entries retains sources from reservation through native cleanup.
 	entries map[string]os.FileInfo
+}
+
+// New constructs a collection store with explicit worker process options.
+// It copies process arguments and starts no worker; do not copy it after collection access.
+func New(options ankiclient.BackendSTDOptions) Store {
+	options.Arguments = append([]string(nil), options.Arguments...)
+	return Store{backendOptions: options}
 }
 
 // WithCollection reserves a source and lends its managed native connection.
@@ -50,12 +55,9 @@ func (store *Store) WithCollection(ctx context.Context, path string, operation f
 		delete(store.entries, source)
 		store.mutex.Unlock()
 	}()
-	worker, err := store.newBackend()
-	if err != nil {
-		return fmt.Errorf("configure collection worker: %w", err)
-	}
+	worker := ankiclient.New(store.backendOptions)
 	if err := withBackend(ctx, worker, func() error {
-		prepared := backend.NewCollection(backend.BackendCollectionOptions{Backend: worker, Path: source})
+		prepared := ankiclient.NewCollection(ankiclient.BackendCollectionOptions{Backend: worker, Path: source})
 		if err := withBackend(ctx, prepared, func() error {
 			connection, err := prepared.Connection()
 			if err != nil {
@@ -86,25 +88,9 @@ func (store *Store) WithCollection(ctx context.Context, path string, operation f
 	return nil
 }
 
-// newBackend configures a fresh worker using explicit options or bundled-server/PATH discovery.
-func (store *Store) newBackend() (*backend.BackendSTD, error) {
-	options := store.backendOptions
-	if options.Binary == "" {
-		binary, err := runfiles.Rlocation("_main/projects/anki_grpc/cmd/anki_grpc/anki_grpc")
-		if err != nil {
-			binary, err = exec.LookPath("anki_grpc")
-		}
-		if err != nil {
-			return nil, fmt.Errorf("locate Anki server: %w", err)
-		}
-		options.Binary = binary
-	}
-	return backend.New(options), nil
-}
-
 // withBackend starts one owned backend and stops it after every startup attempt or callback exit.
 // Cleanup is bounded independently of cancellation; callback and cleanup errors remain discoverable.
-func withBackend(ctx context.Context, owned backend.Backend, operation func() error) (err error) {
+func withBackend(ctx context.Context, owned ankiclient.Backend, operation func() error) (err error) {
 	if err := ctx.Err(); err != nil {
 		return fmt.Errorf("start backend scope: %w", errors.Join(err, context.Cause(ctx)))
 	}

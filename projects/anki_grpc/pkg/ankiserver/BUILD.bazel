@@ -1,0 +1,84 @@
+load("@rules_go//go:def.bzl", "go_library")
+load("@rules_rust//cargo:defs.bzl", "cargo_build_script")
+load("@rules_rust//rust:defs.bzl", "rust_clippy", "rust_library", "rust_static_library")
+
+cargo_build_script(
+    name = "command_ids",
+    srcs = ["build.rs"],
+    build_script_env = {
+        "DESCRIPTORS_BIN": "$(execpath //third_party/com_github_ankitects_anki:descriptors)/anki_descriptors.bin",
+    },
+    crate_root = "build.rs",
+    data = ["//third_party/com_github_ankitects_anki:descriptors"],
+    edition = "2021",
+    use_cc_toolchain = False,
+    deps = [
+        "//third_party/com_github_ankitects_anki:prost_reflect",
+        "//third_party/com_github_ankitects_anki:proto_gen",
+    ],
+)
+
+rust_library(
+    name = "server_rust",
+    srcs = [
+        "cli.rs",
+        "lib.rs",
+    ],
+    crate_name = "anki_grpc_server",
+    crate_root = "lib.rs",
+    edition = "2021",
+    rustc_flags = ["-Cpanic=abort"],
+    target_compatible_with = [
+        "@platforms//os:linux",
+        "@platforms//cpu:x86_64",
+    ],
+    visibility = ["//projects/anki_grpc/cmd/anki_grpc:__pkg__"],
+    deps = [
+        ":command_ids",
+        "//third_party/com_github_ankitects_anki:native",
+        "@com_github_ankitects_anki_crates//:bytes",
+        "@com_github_ankitects_anki_crates//:hyper",
+        "@com_github_ankitects_anki_crates//:hyper-util",
+        "@com_github_ankitects_anki_crates//:tokio",
+        "@com_github_ankitects_anki_crates//:tonic",
+    ],
+)
+
+rust_static_library(
+    name = "server_ffi",
+    srcs = ["ffi.rs"],
+    crate_root = "ffi.rs",
+    edition = "2021",
+    rustc_flags = ["-Cpanic=abort"],
+    target_compatible_with = [
+        "@platforms//os:linux",
+        "@platforms//cpu:x86_64",
+    ],
+    deps = [":server_rust"],
+)
+
+go_library(
+    name = "ankiserver",
+    srcs = [
+        "doc.go",
+        "server.go",
+    ],
+    cdeps = [":server_ffi"],
+    cgo = True,
+    importpath = "git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/ankiserver",
+    target_compatible_with = [
+        "@platforms//os:linux",
+        "@platforms//cpu:x86_64",
+    ],
+    visibility = ["//projects/anki_as_code/cmd/anki_as_code:__pkg__"],
+)
+
+rust_clippy(
+    name = "clippy",
+    visibility = ["//projects/anki_grpc/cmd/anki_grpc:__pkg__"],
+    deps = [
+        ":command_ids_",
+        ":server_ffi",
+        ":server_rust",
+    ],
+)

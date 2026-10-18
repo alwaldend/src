@@ -15,14 +15,29 @@ import (
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/reconcile"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/resource"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/state"
+	"git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/ankiclient"
 	"google.golang.org/grpc"
 )
 
 // App coordinates configuration and native collection workflows through their services.
-// Its zero value is ready to use and must not be copied after collection access.
+// Its zero value supports configuration operations. Use New to configure a native
+// worker before collection access; it must not be copied after collection access.
 type App struct {
 	// collections reserves sources and publishes successful changed archive scopes.
 	collections collection.Store
+}
+
+// Options configures an application's native worker without starting it.
+type Options struct {
+	// BackendBinary supplies the executable required for collection scopes; no default is discovered.
+	BackendBinary string
+	// BackendArguments supplies its server-mode arguments.
+	BackendArguments []string
+}
+
+// New constructs an application with explicit native worker configuration.
+func New(options Options) *App {
+	return &App{collections: collection.New(ankiclient.BackendSTDOptions{Binary: options.BackendBinary, Arguments: options.BackendArguments})}
 }
 
 // ConfigDump loads and encodes config files without opening Anki.

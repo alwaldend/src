@@ -1,4 +1,4 @@
-package backend
+package ankiclient
 
 import (
 	"errors"

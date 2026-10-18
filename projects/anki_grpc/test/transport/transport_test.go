@@ -49,7 +49,13 @@ func TestCLI(t *testing.T) {
 	path := workerPath(t)
 	ctx, cancel := context.WithTimeout(t.Context(), 10*time.Second)
 	defer cancel()
-	output, err := exec.CommandContext(ctx, path, "--help").CombinedOutput()
+	for _, arguments := range [][]string{nil, {"--help"}} {
+		output, err := exec.CommandContext(ctx, path, arguments...).CombinedOutput()
+		if err != nil || !strings.Contains(string(output), "Usage: anki_grpc <COMMAND>") || !strings.Contains(string(output), "serve") {
+			t.Fatalf("native root help %v: %v; %q", arguments, err, output)
+		}
+	}
+	output, err := exec.CommandContext(ctx, path, "serve", "--help").CombinedOutput()
 	if err != nil {
 		t.Fatalf("server help: %v; %s", err, output)
 	}
@@ -59,14 +65,17 @@ func TestCLI(t *testing.T) {
 		}
 	}
 	for _, args := range [][]string{
-		{"--unknown"},
-		{"--transport"},
-		{"--transport", "invalid"},
-		{"--transport", "tcp"},
-		{"--transport", "unix"},
-		{"--listen", "127.0.0.1:0"},
-		{"--transport", "tcp", "--listen"},
-		{"--transport", "tcp", "--listen", "invalid-address"},
+		{"unknown"},
+		{"--transport", "stdio"},
+		{"serve", "unknown"},
+		{"serve", "--unknown"},
+		{"serve", "--transport"},
+		{"serve", "--transport", "invalid"},
+		{"serve", "--transport", "tcp"},
+		{"serve", "--transport", "unix"},
+		{"serve", "--listen", "127.0.0.1:0"},
+		{"serve", "--transport", "tcp", "--listen"},
+		{"serve", "--transport", "tcp", "--listen", "invalid-address"},
 	} {
 		t.Run(strings.Join(args, "_"), func(t *testing.T) {
 			var output, diagnostics bytes.Buffer
@@ -101,7 +110,7 @@ func TestNetworkCollection(t *testing.T) {
 			}
 			ctx, cancel := context.WithTimeout(t.Context(), 20*time.Second)
 			defer cancel()
-			command := exec.CommandContext(ctx, executable, "--transport", transport, "--listen", listen)
+			command := exec.CommandContext(ctx, executable, "serve", "--transport", transport, "--listen", listen)
 			command.Dir = dir
 			command.Stdout = io.Discard
 			stderr, err := command.StderrPipe()

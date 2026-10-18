@@ -14,7 +14,7 @@ import (
 	collectionpb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/collection"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/rebuild"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/pkg/ankiascode"
-	"git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/backend"
+	"git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/ankiclient"
 	"github.com/ankitects/anki/proto/anki/import_export"
 	"github.com/bazelbuild/rules_go/go/runfiles"
 	"google.golang.org/protobuf/encoding/protojson"
@@ -27,7 +27,11 @@ func TestArchiveBuild(t *testing.T) {
 	base := filepath.Join(root, "base.colpkg")
 	createArchive(t, base)
 	original := readArchive(t, base)
-	application := &ankiascode.App{}
+	binary, err := runfiles.Rlocation("_main/projects/anki_grpc/cmd/anki_grpc/anki_grpc")
+	if err != nil {
+		t.Fatal(err)
+	}
+	application := ankiascode.New(ankiascode.Options{BackendBinary: binary, BackendArguments: []string{"serve"}})
 	wanted := &collectionpb.State{Version: 1, Resources: &collectionpb.Resources{
 		Decks: map[string]*collectionpb.DeckState{"decks/Default/deck.anki.toml": {Id: 1}},
 	}}
@@ -188,7 +192,7 @@ func createArchive(t *testing.T, path string) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	worker := backend.New(backend.BackendSTDOptions{Binary: binary})
+	worker := ankiclient.New(ankiclient.BackendSTDOptions{Binary: binary, Arguments: []string{"serve"}})
 	t.Cleanup(func() {
 		ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 		defer cancel()
@@ -203,7 +207,7 @@ func createArchive(t *testing.T, path string) {
 	if err := os.Mkdir(filepath.Join(directory, "collection.media"), 0o700); err != nil {
 		t.Fatal(err)
 	}
-	collection := backend.NewCollection(backend.BackendCollectionOptions{
+	collection := ankiclient.NewCollection(ankiclient.BackendCollectionOptions{
 		Backend: worker, Path: filepath.Join(directory, "collection.anki2"),
 	})
 	t.Cleanup(func() {

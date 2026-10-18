@@ -25,7 +25,7 @@ package_group(
         "//projects/anki_as_code/internal/resource",
         "//projects/anki_as_code/internal/state",
         "//projects/anki_as_code/pkg/ankiascode",
-        "//projects/anki_grpc/pkg/backend",
+        "//projects/anki_grpc/pkg/ankiclient",
         "//projects/anki_grpc/releases",
         "//projects/anki_grpc/test/transport",
     ],

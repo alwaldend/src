@@ -1,4 +1,4 @@
-package backend_test
+package ankiclient_test
 
 import (
 	"bytes"
@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 	"testing"
 
-	"git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/backend"
+	"git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/ankiclient"
 	"github.com/ankitects/anki/proto/anki/decks"
 	"github.com/ankitects/anki/proto/anki/generic"
 	"github.com/ankitects/anki/proto/anki/import_export"
@@ -16,7 +16,7 @@ import (
 
 // TestCollectionWriteBack verifies opt-in persistence after RPC failures and default source preservation.
 func TestCollectionWriteBack(t *testing.T) {
-	worker := backend.New(backend.BackendSTDOptions{Binary: workerPath(t)})
+	worker := ankiclient.New(ankiclient.BackendSTDOptions{Binary: workerPath(t), Arguments: []string{"serve"}})
 	if err := worker.Start(t.Context()); err != nil {
 		t.Fatal(err)
 	}
@@ -27,7 +27,7 @@ func TestCollectionWriteBack(t *testing.T) {
 	})
 	root := t.TempDir()
 	archive := filepath.Join(root, "source.colpkg")
-	managed := backend.NewCollection(backend.BackendCollectionOptions{Backend: worker, Path: filepath.Join(root, "source.anki2")})
+	managed := ankiclient.NewCollection(ankiclient.BackendCollectionOptions{Backend: worker, Path: filepath.Join(root, "source.anki2")})
 	if err := managed.Start(t.Context()); err != nil {
 		t.Fatal(err)
 	}
@@ -47,11 +47,11 @@ func TestCollectionWriteBack(t *testing.T) {
 		if err != nil {
 			t.Fatal(err)
 		}
-		options := backend.BackendCollectionOptions{Backend: worker, Path: archive}
+		options := ankiclient.BackendCollectionOptions{Backend: worker, Path: archive}
 		if policy != "default" {
 			options.WriteBack = !disabled
 		}
-		managed = backend.NewCollection(options)
+		managed = ankiclient.NewCollection(options)
 		if err := managed.Start(t.Context()); err != nil {
 			t.Fatal(err)
 		}
@@ -80,7 +80,7 @@ func TestCollectionWriteBack(t *testing.T) {
 				t.Fatalf("disabled write-back changed source: %v", err)
 			}
 		}
-		inspection := backend.NewCollection(backend.BackendCollectionOptions{Backend: worker, Path: archive})
+		inspection := ankiclient.NewCollection(ankiclient.BackendCollectionOptions{Backend: worker, Path: archive})
 		if err := inspection.Start(t.Context()); err != nil {
 			t.Fatal(err)
 		}
@@ -96,7 +96,7 @@ func TestCollectionWriteBack(t *testing.T) {
 			t.Fatal(err)
 		}
 	}
-	managed = backend.NewCollection(backend.BackendCollectionOptions{Backend: worker, Path: archive, WriteBack: true})
+	managed = ankiclient.NewCollection(ankiclient.BackendCollectionOptions{Backend: worker, Path: archive, WriteBack: true})
 	if err := managed.Start(t.Context()); err != nil {
 		t.Fatal(err)
 	}

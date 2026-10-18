@@ -16,14 +16,14 @@ docs_filegroup(
 
 package_group(
     name = "native_build_consumers",
-    packages = ["//projects/anki_grpc/cmd/anki_grpc"],
+    packages = ["//projects/anki_grpc/pkg/ankiserver"],
 )
 
 package_group(
     name = "descriptor_consumers",
     packages = [
         "//projects/anki_as_code/internal/rpc",
-        "//projects/anki_grpc/cmd/anki_grpc",
+        "//projects/anki_grpc/pkg/ankiserver",
     ],
 )
 
@@ -31,7 +31,7 @@ package_group(
     name = "schema_consumers",
     packages = [
         "//projects/anki_as_code/...",
-        "//projects/anki_grpc/pkg/backend",
+        "//projects/anki_grpc/pkg/ankiclient",
         "//projects/anki_grpc/test/transport",
     ],
 )

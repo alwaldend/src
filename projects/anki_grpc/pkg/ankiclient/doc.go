@@ -1,4 +1,4 @@
-// Package backend supplies a managed gRPC connection for clients generated from
+// Package ankiclient supplies a managed gRPC connection for clients generated from
 // Anki's upstream services, carried over stdio, TCP or Unix sockets. Go owns process
 // startup, shutdown, and crash reporting; Anki owns collection semantics.
 // New accepts BackendSTDOptions without launching a process; Backend exposes Start,
@@ -16,4 +16,4 @@
 // belong to consumers. BackendGRPC owns only a remote client connection.
 // RPC cancellation
 // stops waiting without guaranteeing rollback. Failed requests are not replayed.
-package backend
+package ankiclient

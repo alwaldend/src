@@ -27,6 +27,30 @@ Collection operations live under `col` (alias `collection`): `col export`,
 `conf`), such as `conf dump`. Collection source flags remain specific to each
 operation: `--collection` for existing collections and `--base` for builds.
 
+## Native server
+
+The Linux x86_64 application links the Rust server into its executable. Collection
+operations launch the same executable with `server serve` and communicate over stdio.
+The installed CLI needs no companion worker, PATH lookup, or executable extraction.
+`bazel_agent bazel build -c opt //projects/anki_as_code` produces an optimized
+executable with final symbol and debug information stripping. It uses the host
+Linux runtime libraries, including OpenSSL 3.
+
+`server` shows the available server operations. `server run` forwards arguments
+to the linked Rust CLI, which owns native subcommands and their help.
+`server serve` is a shortcut for `server run serve`:
+
+```sh
+anki_as_code server run --help
+anki_as_code server serve --help
+anki_as_code server serve --transport tcp --listen 127.0.0.1:50051
+anki_as_code server serve --transport unix --listen ./anki.sock
+```
+
+Stdio is the default and reserves stdout for gRPC. TCP and Unix listeners use
+plaintext gRPC and require an explicit address. The child process keeps native
+failures and shutdown separate from the application workflow.
+
 ## Onboarding an existing collection
 
 Export a full `.colpkg` from Anki, then close Anki and other collection writers.
@@ -86,8 +110,8 @@ one filesystem transaction.
 Use absolute paths with `bazel run`, which can start outside the checkout.
 Current-user `~` and `~/...` paths are supported. `--text` accepts a collection
 root file or its directory. `config dump` defaults to JSON; `--format toml` is
-also available. The CLI locates the repository-built `anki_grpc` server through
-runfiles, with a PATH fallback for installed deployments. No Python is required.
+also available. The CLI starts its linked server through its own executable path.
+No Python is required.
 
 ## Configuration-set export
 
@@ -184,8 +208,11 @@ id = "789"
 id = "1"
 ```
 
-`pkg/ankiascode` provides the concrete `ankiascode.App`. Its zero value is
-ready to use. Operations follow the CLI namespaces: `ConfigDump`, `ConfigExport`,
+`pkg/ankiascode` provides the concrete `ankiascode.App`. Its zero value supports
+configuration-only operations. Native collection operations require explicit worker configuration.
+`ankiascode.New(ankiascode.Options{BackendBinary: path, BackendArguments: args})`
+configures an explicit worker executable and arguments. The CLI supplies its own
+executable and `[]string{"server", "serve"}`. Operations follow the CLI namespaces: `ConfigDump`, `ConfigExport`,
 `ColExport`,
 `ColPlan`, `ColApply`, `ColBuild`, and `ColStateDump`, `ColStateImport`,
 `ColStateUpdate`, `ColStateReplace`. Collection inputs are ordinary file paths;
@@ -195,12 +222,14 @@ there are no collection reference objects, lookup IDs or selector messages.
 Its root constructor receives one implementation of its private `application`
 interface. The interface uses strings, protobuf messages and standard-library
 types. This package does not import App or the native backend. `cmd/anki_as_code`
-constructs `ankiascode.App`, passes it to `cli.New` and handles process signals.
+constructs `ankiascode.App`, passes it to `cli.New`, adds the `server` group with its generic `run` passthrough and delegating `serve`
+shortcut, and handles process signals. The run command retains native signal
+handling so an interrupt terminates its blocking native runtime.
 Isolated command tests supply one fake without constructing App or starting Anki.
 Commands pass namespaces explicitly, and App retains no command configuration.
 
 ```go
-application := &ankiascode.App{}
+application := ankiascode.New(ankiascode.Options{BackendBinary: serverPath, BackendArguments: []string{"serve"}})
 // ConfigDump(ctx, path, format) works without a native backend.
 value, err := application.ColStateDump(ctx, absoluteCollectionPath, key)
 err = application.ColStateImport(ctx, absoluteCollectionPath, absoluteConfigPath, key, bindings)
@@ -215,17 +244,19 @@ several operations in one scope can use collection.Store directly.
 `stateOutput` for config-only export or a TOML file path for snapshot bindings.
 
 `internal/collection.Store` reserves existing sources and publishes changed archives.
-Its zero value is ready to use. `WithCollection` injects a prepared
+Construct it with explicit process options before collection access. `WithCollection` injects a prepared
 `grpc.ClientConnInterface` into its callback. Construct the services you need on
 that connection and reuse local instances for several operations.
 
-Store locates the bundled server or falls back to PATH and constructs a fresh
-stdin/stdout worker and collection backend for each scope. It closes native
+`collection.New(ankiclient.BackendSTDOptions{Binary: path, Arguments: args})`
+configures the worker. No executable or server arguments are discovered by default;
+missing configuration fails before opening a collection. Callers supply their
+server executable and runtime inputs. Each scope constructs a fresh stdin/stdout worker and collection backend. It closes native
 storage before stopping the worker. Each cleanup has a five-second bound
 independent of callback cancellation; source reservations outlive cleanup.
 
 ```go
-store := &collection.Store{}
+store := collection.New(ankiclient.BackendSTDOptions{Binary: serverPath, Arguments: []string{"serve"}})
 err := store.WithCollection(ctx, path, func(connection grpc.ClientConnInterface) (bool, error) {
     resources := resource.New(connection)
     states := state.New(connection, key)
@@ -287,7 +318,8 @@ calls and installs no state. Collection export owns config paths and file output
 
 App delegates native access to `collection.Store.WithCollection`. The store
 reserves the source and constructs `BackendSTD` and `BackendCollection`, using
-the bundled server or PATH. BackendCollection restores packages into temporary
+only the explicitly configured executable and arguments.
+BackendCollection restores packages into temporary
 storage or opens databases directly. Callbacks receive the prepared connection
 and construct their own services. Store closes the collection before stopping
 the worker, including after callback errors, cancellation and panic unwinding.
@@ -741,7 +773,7 @@ native snapshots; their projection and policy remain separate.
 ## Anki backend API
 
 The reusable Go backend and Rust server belong to
-[projects/anki_grpc](../anki_grpc/README.md#go-backend). The Go package owns the
+[projects/anki_grpc](../anki_grpc/README.md#go-client). The Go package owns the
 server process and exposes a managed gRPC connection. Callers use Anki's generated
 service clients for typed methods. Anki owns collection validation, note updates,
 card generation, and persistence; this CLI owns TOML and reconciliation.

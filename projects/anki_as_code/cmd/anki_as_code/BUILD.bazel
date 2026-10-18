@@ -11,18 +11,35 @@ go_library(
     deps = [
         "//projects/anki_as_code/internal/cli",
         "//projects/anki_as_code/pkg/ankiascode",
+        "//projects/anki_grpc/pkg/ankiserver",
+        "@com_github_spf13_cobra//:cobra",
     ],
+)
+
+config_setting(
+    name = "optimized",
+    values = {"compilation_mode": "opt"},
 )
 
 go_binary(
     name = "anki_as_code",
     embed = [":anki_as_code_lib"],
+    gc_linkopts = select({
+        ":optimized": [
+            "-s",
+            "-w",
+        ],
+        "//conditions:default": [],
+    }),
     visibility = ["//projects/anki_as_code:__pkg__"],
 )
 
 go_test(
     name = "cli_workflow_test",
-    srcs = ["cli_workflow_test.go"],
+    srcs = [
+        "cli_workflow_test.go",
+        "linked_server_test.go",
+    ],
     data = [":anki_as_code"],
     env = {"ANKI_CLI": "$(rootpath :anki_as_code)"},
 )

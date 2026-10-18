@@ -19,7 +19,7 @@ import (
 	planning "git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/plan"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/resource"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/state"
-	"git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/backend"
+	"git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/ankiclient"
 	"github.com/ankitects/anki/proto/anki/cards"
 	"github.com/ankitects/anki/proto/anki/decks"
 	"github.com/ankitects/anki/proto/anki/import_export"
@@ -29,7 +29,7 @@ import (
 	"google.golang.org/protobuf/proto"
 )
 
-// TestPlanningWorkflow plans exported native data after stopping the backend.
+// TestPlanningWorkflow plans exported native data after stopping the ankiclient.
 // It verifies resource ownership, moves, errors, determinism and unchanged inputs.
 func TestPlanningWorkflow(t *testing.T) {
 	ctx := t.Context()
@@ -38,8 +38,8 @@ func TestPlanningWorkflow(t *testing.T) {
 		t.Fatal(err)
 	}
 	database := filepath.Join(t.TempDir(), "collection.anki2")
-	worker := backend.New(backend.BackendSTDOptions{Binary: binary})
-	collection := backend.NewCollection(backend.BackendCollectionOptions{Backend: worker, Path: database})
+	worker := ankiclient.New(ankiclient.BackendSTDOptions{Binary: binary, Arguments: []string{"serve"}})
+	collection := ankiclient.NewCollection(ankiclient.BackendCollectionOptions{Backend: worker, Path: database})
 	t.Cleanup(func() {
 		cleanup, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 		defer cancel()
