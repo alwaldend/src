@@ -1,5 +1,19 @@
+load("@aspect_bazel_lib//lib:run_binary.bzl", "run_binary")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_site_svg", "mermaid_site_webp")
+
+run_binary(
+    name = "cli_reference",
+    args = ["--output=$@"],
+    out_dirs = ["cli"],
+    tool = "//projects/anki_as_code/tools/generate_cli_docs",
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = [":cli_reference"],
+    visibility = ["//projects/anki_as_code:__pkg__"],
+)
 
 mermaid_site_svg(
     name = "architecture",

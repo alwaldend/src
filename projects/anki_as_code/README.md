@@ -27,6 +27,13 @@ Collection operations live under `col` (alias `collection`): `col export`,
 `conf`), such as `conf dump`. Collection source flags remain specific to each
 operation: `--collection` for existing collections and `--base` for builds.
 
+The [CLI reference](/docs/projects/anki_as_code/docs/cli/) has a short index and
+one child page per root subcommand, each containing its complete nested help,
+including the generated Anki API tree. Bazel generates these pages from the
+Cobra definitions with `tools/generate_cli_docs` and packages the hierarchy
+with the documentation; generated Markdown is not checked in. Build it with
+`bazel_agent bazel build //projects/anki_as_code/docs:cli_reference`.
+
 ## Native server
 
 The Linux x86_64 application links the Rust server into its executable. Collection
