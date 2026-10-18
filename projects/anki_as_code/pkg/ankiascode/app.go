@@ -7,6 +7,7 @@ import (
 	"os"
 	"path/filepath"
 	"reflect"
+	"time"
 
 	ankiascodeapi "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodeapi"
 	ankiascodepb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodepb"
@@ -17,6 +18,7 @@ import (
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/rebuild"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/reconcile"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/resource"
+	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/rpc"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/state"
 	"git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/ankiclient"
 	"google.golang.org/grpc"
@@ -26,7 +28,7 @@ import (
 // Its zero value supports configuration operations and borrowed connections. Use
 // New to configure a native worker for path sources; do not copy App after use.
 type App struct {
-	// collections reserves sources and publishes successful changed archive scopes.
+	// collections reserves sources and owns managed archive publication.
 	collections collection.Store
 	// serverRunner hosts the native CLI through the adapter supplied by the executable.
 	serverRunner func([]string) error
@@ -41,12 +43,14 @@ type Options struct {
 	BackendBinary string
 	// BackendArguments supplies its server-mode arguments.
 	BackendArguments []string
+	// CollectionCloseTimeout bounds publication and close independently of request cancellation; nonpositive values select ten minutes.
+	CollectionCloseTimeout time.Duration
 }
 
 // New constructs an application from explicit worker and native hosting dependencies.
 func New(options Options) *App {
 	return &App{
-		collections:  collection.New(ankiclient.BackendSTDOptions{Binary: options.BackendBinary, Arguments: options.BackendArguments}),
+		collections:  collection.New(collection.Options{Backend: ankiclient.BackendSTDOptions{Binary: options.BackendBinary, Arguments: options.BackendArguments}, CloseTimeout: options.CollectionCloseTimeout}),
 		serverRunner: options.ServerRunner,
 	}
 }
@@ -72,6 +76,87 @@ func (application *App) ServerServe(ctx context.Context, program string, argumen
 		return fmt.Errorf("serve Anki: %w", err)
 	}
 	return nil
+}
+
+// APICall validates and invokes one upstream method before returning its encoded response.
+// Native cleanup and enabled managed-archive publication finish before success;
+// borrowed connections and remote collection lifetime remain with their owners.
+func (application *App) APICall(ctx context.Context, request ankiascodeapi.APIRequest) (output []byte, err error) {
+	if err := ctx.Err(); err != nil {
+		return nil, fmt.Errorf("start Anki API call: %w", errors.Join(err, context.Cause(ctx)))
+	}
+	hasCollection := !isNilCollectionValue(request.Collection)
+	if hasCollection == (request.Backend != "") {
+		return nil, fmt.Errorf("API access requires exactly one collection source or backend address")
+	}
+	var path string
+	var connection grpc.ClientConnInterface
+	if hasCollection {
+		path, connection, err = resolveCollectionSource(request.Collection)
+		if err != nil {
+			return nil, fmt.Errorf("select API collection: %w", err)
+		}
+	}
+	method, err := rpc.Resolve(request.Method)
+	if err != nil {
+		return nil, fmt.Errorf("resolve API method: %w", err)
+	}
+	if path != "" {
+		switch method.Descriptor.Name() {
+		case "OpenCollection", "CloseCollection", "ImportCollectionPackage":
+			return nil, fmt.Errorf("%s requires connected access because managed paths own collection lifetime", method.Path)
+		}
+	}
+	if request.InputFormat == "" {
+		request.InputFormat = "json"
+	}
+	if request.OutputFormat == "" {
+		request.OutputFormat = "json"
+	}
+	operation, err := rpc.Prepare(method, request.Input, request.InputFormat, request.OutputFormat)
+	if err != nil {
+		return nil, fmt.Errorf("prepare Anki API request: %w", err)
+	}
+	run := func(connection grpc.ClientConnInterface) error {
+		var err error
+		output, err = operation(ctx, connection)
+		if err != nil {
+			return fmt.Errorf("call prepared Anki API: %w", errors.Join(err, ctx.Err(), context.Cause(ctx)))
+		}
+		if err := ctx.Err(); err != nil {
+			return fmt.Errorf("finish Anki API call: %w", errors.Join(err, context.Cause(ctx)))
+		}
+		return nil
+	}
+	if request.Backend != "" {
+		remote := ankiclient.NewGRPC(ankiclient.BackendGRPCOptions{Address: request.Backend})
+		defer func() {
+			if stopErr := remote.Stop(context.WithoutCancel(ctx)); stopErr != nil {
+				output = nil
+				err = errors.Join(err, fmt.Errorf("close remote Anki connection: %w", stopErr))
+			}
+		}()
+		if err := remote.Start(ctx); err != nil {
+			return nil, fmt.Errorf("start remote Anki connection: %w", err)
+		}
+		connection, err = remote.Connection()
+		if err != nil {
+			return nil, fmt.Errorf("get remote Anki connection: %w", err)
+		}
+	}
+	if connection != nil {
+		if err := run(connection); err != nil {
+			return nil, fmt.Errorf("call connected Anki API: %w", err)
+		}
+	} else if err := application.collections.WithCollection(ctx, collection.CollectionOptions{Path: path, WriteBack: request.WriteBack}, func(connection grpc.ClientConnInterface) (bool, error) {
+		if err := run(connection); err != nil {
+			return false, fmt.Errorf("call offline Anki API: %w", err)
+		}
+		return false, nil
+	}); err != nil {
+		return nil, fmt.Errorf("call offline Anki API: %w", err)
+	}
+	return output, nil
 }
 
 // ConfigDump loads and encodes config files without opening Anki.
@@ -226,7 +311,7 @@ func (application *App) ColApply(ctx context.Context, input ankiascodeapi.Collec
 	return nil
 }
 
-// ColStateDump reads stored bindings; path sources close without publication.
+// ColStateDump reads stored bindings; path sources can repackage unchanged content.
 func (application *App) ColStateDump(ctx context.Context, input ankiascodeapi.CollectionSource, stateKey string) (*ankiascodepb.State, error) {
 	var value *ankiascodepb.State
 	if err := application.withCollection(ctx, input, func(connection grpc.ClientConnInterface) (bool, error) {
@@ -260,7 +345,7 @@ func (application *App) ColStateImport(ctx context.Context, input ankiascodeapi.
 	return nil
 }
 
-// ColStateUpdate merges bindings; path sources publish changed archives after scope success.
+// ColStateUpdate merges bindings; enabled archive publication is independent of operation results.
 func (application *App) ColStateUpdate(ctx context.Context, input ankiascodeapi.CollectionSource, stateKey string, value *ankiascodepb.State) error {
 	if err := application.withCollection(ctx, input, func(connection grpc.ClientConnInterface) (bool, error) {
 		changed, err := state.New(connection, stateKey).Update(ctx, value)
@@ -274,7 +359,7 @@ func (application *App) ColStateUpdate(ctx context.Context, input ankiascodeapi.
 	return nil
 }
 
-// ColStateReplace installs bindings; path sources publish changed archives after scope success.
+// ColStateReplace installs bindings; enabled archive publication is independent of operation results.
 func (application *App) ColStateReplace(ctx context.Context, input ankiascodeapi.CollectionSource, stateKey string, value *ankiascodepb.State) error {
 	if err := application.withCollection(ctx, input, func(connection grpc.ClientConnInterface) (bool, error) {
 		changed, err := state.New(connection, stateKey).Replace(ctx, value)
@@ -289,7 +374,7 @@ func (application *App) ColStateReplace(ctx context.Context, input ankiascodeapi
 }
 
 // withPlan loads configs before borrowing one collection and prepares a plan for its operation.
-// The callback shares the captured resource/state clients and controls archive publication.
+// The callback shares the captured resource/state clients while the collection backend owns publication.
 func (application *App) withPlan(ctx context.Context, input ankiascodeapi.CollectionSource, dir, stateKey string, operation func(*reconcile.Reconciler, *ankiascodepb.CollectionPlan) (bool, error)) error {
 	configs, err := config.New(dir).Load()
 	if err != nil {
@@ -330,7 +415,7 @@ func (application *App) withCollection(ctx context.Context, source ankiascodeapi
 		return fmt.Errorf("select collection: %w", err)
 	}
 	if connection == nil {
-		if err := application.collections.WithCollection(ctx, path, operation); err != nil {
+		if err := application.collections.WithCollection(ctx, collection.CollectionOptions{Path: path, WriteBack: true}, operation); err != nil {
 			return fmt.Errorf("run managed collection: %w", err)
 		}
 		return nil

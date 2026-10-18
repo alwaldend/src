@@ -18,7 +18,6 @@ go_library(
     visibility = [":consumers"],
     deps = [
         "//projects/anki_grpc/pkg/ankiclient",
-        "//third_party/com_github_ankitects_anki:import_export",
         "@org_golang_google_grpc//:grpc",
     ],
 )

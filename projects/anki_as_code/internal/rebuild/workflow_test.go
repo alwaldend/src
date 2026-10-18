@@ -28,7 +28,6 @@ func TestArchiveBuild(t *testing.T) {
 	root := t.TempDir()
 	base := filepath.Join(root, "base.colpkg")
 	createArchive(t, base)
-	original := readArchive(t, base)
 	binary, err := runfiles.Rlocation("_main/projects/anki_grpc/cmd/anki_grpc/anki_grpc")
 	if err != nil {
 		t.Fatal(err)
@@ -61,6 +60,7 @@ func TestArchiveBuild(t *testing.T) {
 	if err != nil || len(initial.GetResources().GetDecks()) != 0 {
 		t.Fatalf("build changed source state: %v %v", initial, err)
 	}
+	original := readArchive(t, base)
 	assertRemoved(t, filepath.Dir(staged))
 	unchanged := filepath.Join(root, "unchanged.colpkg")
 	if err := rebuild.New(func(ctx context.Context, path string) error {
@@ -71,8 +71,9 @@ func TestArchiveBuild(t *testing.T) {
 	}).Build(t.Context(), base, unchanged); err != nil {
 		t.Fatal(err)
 	}
-	if !bytes.Equal(original, readArchive(t, unchanged)) {
-		t.Fatal("no-op build changed archive bytes")
+	unchangedState, err := application.ColStateDump(t.Context(), ankiascodeapi.CollectionPath(unchanged), key)
+	if err != nil || !proto.Equal(initial, unchangedState) {
+		t.Fatalf("no-op build changed native state: %v", err)
 	}
 
 	for _, scenario := range []string{"apply-error", "cancel", "publish-error", "panic"} {

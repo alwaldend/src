@@ -15,6 +15,9 @@ import (
 	ankiascodeapi "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodeapi"
 
 	ankiascodepb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodepb"
+	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/collection"
+	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/resource"
+	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/state"
 	"git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/ankiclient"
 	"github.com/BurntSushi/toml"
 	"github.com/ankitects/anki/proto/anki/cards"
@@ -29,6 +32,7 @@ import (
 	"github.com/ankitects/anki/proto/anki/scheduler"
 	"github.com/ankitects/anki/proto/anki/search"
 	"github.com/ankitects/anki/proto/anki/stats"
+	"google.golang.org/grpc"
 	"google.golang.org/protobuf/encoding/protojson"
 	"google.golang.org/protobuf/proto"
 )
@@ -433,4 +437,30 @@ func planForFixture(ctx context.Context, input, dir, key string) (*ankiascodepb.
 		return nil, fmt.Errorf("plan fixture: %w", err)
 	}
 	return value, nil
+}
+
+// fixtureContent compares native resource values and stored bindings independently of archive encoding.
+// Its inspection scope explicitly disables publication so assertions preserve source bytes.
+func fixtureContent(t *testing.T, input string) ([]byte, error) {
+	t.Helper()
+	application := fixtureApplication()
+	var data []byte
+	if err := application.collections.WithCollection(t.Context(), collection.CollectionOptions{Path: input}, func(connection grpc.ClientConnInterface) (bool, error) {
+		snapshot, err := resource.New(connection).Snapshot(t.Context())
+		if err != nil {
+			return false, fmt.Errorf("inspect native resources: %w", err)
+		}
+		bindings, err := state.New(connection, "").Dump(t.Context())
+		if err != nil {
+			return false, fmt.Errorf("inspect stored bindings: %w", err)
+		}
+		data, err = json.Marshal(map[string]any{"resources": snapshot, "state": bindings})
+		if err != nil {
+			return false, fmt.Errorf("encode native content inspection: %w", err)
+		}
+		return false, nil
+	}); err != nil {
+		return nil, fmt.Errorf("inspect fixture collection: %w", err)
+	}
+	return data, nil
 }

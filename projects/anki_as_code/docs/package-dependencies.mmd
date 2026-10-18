@@ -20,6 +20,10 @@ flowchart LR
     app --> config[config.Store: Load, Dump, Export]
     app --> state[State: persisted bindings]
     cli --> codec[Codec: TOML and JSON]
+    cli --> rpc[RPC: compiled Anki service catalog]
+    rpc --> codec
+    app -->|Prepare and invoke| rpc
+    rpc -->|gRPC| server
     app --> resource[Resource: native clients and snapshots]
     export --> resource
     resource --> services[Generated Anki clients]

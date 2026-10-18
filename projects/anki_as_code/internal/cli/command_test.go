@@ -11,7 +11,6 @@ import (
 	"testing"
 
 	ankiascodeapi "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodeapi"
-
 	ankiascodepb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodepb"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/codec"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/state"
@@ -386,4 +385,10 @@ func TestCommandOutputFailure(t *testing.T) {
 			t.Fatalf("command lost output error: %v, calls=%d", err, fake.calls)
 		}
 	}
+}
+
+// APICall records raw RPC dispatch without starting native resources.
+func (application *recordingApplication) APICall(ctx context.Context, request ankiascodeapi.APIRequest) ([]byte, error) {
+	application.record(ctx, "api")
+	return []byte("{}"), nil
 }

@@ -86,7 +86,7 @@ func TestStateCLIWorkflow(t *testing.T) {
 			}
 			text := stateFixtureConfigs(t)
 			sources := fixtureSources(t, text)
-			before, err := os.ReadFile(input)
+			before, err := fixtureContent(t, input)
 			if err != nil {
 				t.Fatal(err)
 			}
@@ -94,9 +94,9 @@ func TestStateCLIWorkflow(t *testing.T) {
 			if empty.Version != 1 || (len(empty.GetResources().GetDecks())+len(empty.GetResources().GetNotes())+len(empty.GetResources().GetNoteTypes())) != 0 {
 				t.Fatal("dump initialized state")
 			}
-			after, err := os.ReadFile(input)
+			after, err := fixtureContent(t, input)
 			if err != nil || string(before) != string(after) {
-				t.Fatal("dump modified collection bytes")
+				t.Fatal("dump modified collection content")
 			}
 			arguments := []string{
 				"col", "state", "import", "--collection", input, "--text", text,
@@ -125,18 +125,15 @@ func TestStateCLIWorkflow(t *testing.T) {
 			if err := os.WriteFile(patchJSONFile, patchJSON, 0o600); err != nil {
 				t.Fatal(err)
 			}
-			beforeUpdate, err := os.ReadFile(input)
-			if err != nil {
-				t.Fatal(err)
-			}
+			beforeUpdate := stateFixtureDump(t, input)
 			runFixtureCLI(t, "col", "state", "update", "--collection", input, patchFile)
 			runFixtureCLI(t, "col", "state", "update", "--format", "json", "--collection", input, patchJSONFile)
 			invalidPatch := &ankiascodepb.State{Version: 1, Resources: &ankiascodepb.Resources{Notes: map[string]*ankiascodepb.NoteState{"decks/grammar/deck.anki.toml": {Id: 999}}}}
 			writeFixtureTOML(t, patchFile, invalidPatch)
 			rejectStateCLI(t, "col", "state", "update", "--collection", input, patchFile)
-			afterUpdate, err := os.ReadFile(input)
-			if err != nil || string(beforeUpdate) != string(afterUpdate) {
-				t.Fatal("no-op or rejected CLI update changed source bytes")
+			afterUpdate := stateFixtureDump(t, input)
+			if !proto.Equal(beforeUpdate, afterUpdate) {
+				t.Fatal("no-op or rejected CLI update changed stored state")
 			}
 			customKey := "anki_as_code/state/alternate"
 			custom := &ankiascodepb.State{Version: 1, Resources: &ankiascodepb.Resources{Presets: map[string]*ankiascodepb.PresetState{"alternate": {Id: 1}}}}
@@ -148,7 +145,7 @@ func TestStateCLIWorkflow(t *testing.T) {
 			if !proto.Equal(custom, stateFixtureDumpKey(t, input, customKey)) || !proto.Equal(stored, stateFixtureDump(t, input)) {
 				t.Fatal("CLI state namespaces interfered")
 			}
-			before, err = os.ReadFile(input)
+			before, err = fixtureContent(t, input)
 			if err != nil {
 				t.Fatal(err)
 			}
@@ -162,7 +159,7 @@ func TestStateCLIWorkflow(t *testing.T) {
 			}
 			rejectStateCLI(t, "col", "state", "import", "--collection", input, "--text", text, "presets/new=1", "presets/missing=9223372036854775807")
 			rejectStateCLI(t, "col", "state", "import", "--collection", input, "--text", text, "presets/new=1", fmt.Sprintf("decks/grammar/notes/other.note.anki.toml=%d", fixture.noteID))
-			after, err = os.ReadFile(input)
+			after, err = fixtureContent(t, input)
 			if err != nil || string(before) != string(after) {
 				t.Fatal("no-op or rejected batch changed collection")
 			}
@@ -176,14 +173,14 @@ func TestStateCLIWorkflow(t *testing.T) {
 			if !proto.Equal(replacement, stateFixtureDump(t, input)) {
 				t.Fatal("replace merged rather than replaced state")
 			}
-			before, err = os.ReadFile(input)
+			before, err = fixtureContent(t, input)
 			if err != nil {
 				t.Fatal(err)
 			}
 			runFixtureCLI(t, "col", "state", "replace", "--collection", input, file)
-			after, err = os.ReadFile(input)
+			after, err = fixtureContent(t, input)
 			if err != nil || string(before) != string(after) {
-				t.Fatal("identical replacement changed collection bytes")
+				t.Fatal("identical replacement changed collection content")
 			}
 			jsonData := runFixtureCLI(t, "col", "state", "dump", "--format", "json", "--collection", input)
 			jsonState := &ankiascodepb.State{}
@@ -211,9 +208,9 @@ func TestStateCLIWorkflow(t *testing.T) {
 			rejectStateCLI(t, "col", "state", "replace", "--collection", input, invalid)
 			rejectStateCLI(t, "col", "state", "replace", "--format", "yaml", "--collection", input, file)
 			rejectStateCLI(t, "col", "state", "dump", "--format", "yaml", "--collection", input)
-			after, err = os.ReadFile(input)
+			after, err = fixtureContent(t, input)
 			if err != nil || string(before) != string(after) {
-				t.Fatal("encoding round trips or invalid state input changed collection bytes")
+				t.Fatal("encoding round trips or invalid state input changed collection content")
 			}
 			if !proto.Equal(custom, stateFixtureDumpKey(t, input, customKey)) {
 				t.Fatal("default state replacement changed the other namespace")
@@ -268,7 +265,7 @@ func TestApplicationStateWorkflows(t *testing.T) {
 			if err := application.ColStateReplace(ctx, ankiascodeapi.CollectionPath(input), key, patch); err != nil {
 				t.Fatal(err)
 			}
-			before, err := os.ReadFile(input)
+			before, err := fixtureContent(t, input)
 			if err != nil {
 				t.Fatal(err)
 			}
@@ -286,7 +283,7 @@ func TestApplicationStateWorkflows(t *testing.T) {
 			if err := application.ColStateReplace(cancelled, ankiascodeapi.CollectionPath(input), "", patch); !errors.Is(err, context.Canceled) {
 				t.Fatalf("application lost cancellation: %v", err)
 			}
-			after, err := os.ReadFile(input)
+			after, err := fixtureContent(t, input)
 			if err != nil || string(before) != string(after) {
 				t.Fatalf("no-op or rejected application operation modified the source: %v", err)
 			}
@@ -581,15 +578,15 @@ func TestReconciledExportWorkflow(t *testing.T) {
 			if inputFormat == "database" {
 				input = fixture.database
 			}
-			before, err := os.ReadFile(input)
+			before, err := fixtureContent(t, input)
 			if err != nil {
 				t.Fatal(err)
 			}
 			text := filepath.Join(t.TempDir(), "text")
 			runFixtureCLI(t, "col", "export", "--collection", input, "--output", text)
-			after, err := os.ReadFile(input)
+			after, err := fixtureContent(t, input)
 			if err != nil || string(before) != string(after) {
-				t.Fatal("export modified source collection bytes")
+				t.Fatal("export modified source collection content")
 			}
 			initial := stateFixtureDump(t, input)
 			if len(initial.GetResources().GetDecks())+len(initial.GetResources().GetNotes())+len(initial.GetResources().GetNoteTypes()) != 0 {

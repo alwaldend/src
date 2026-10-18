@@ -206,7 +206,7 @@ func TestRejectedWorkflow(t *testing.T) {
 				delete(note.Fields, "hanzi")
 				writeFixtureTOML(t, path, note)
 			}
-			before, err := os.ReadFile(fixture.base)
+			before, err := fixtureContent(t, fixture.base)
 			if err != nil {
 				t.Fatal(err)
 			}
@@ -219,7 +219,7 @@ func TestRejectedWorkflow(t *testing.T) {
 			if err := buildForFixture(context.Background(), fixture.base, text, filepath.Join(text, "rejected.colpkg"), ""); err == nil {
 				t.Fatal("invalid build accepted")
 			}
-			after, err := os.ReadFile(fixture.base)
+			after, err := fixtureContent(t, fixture.base)
 			if err != nil || string(before) != string(after) {
 				t.Fatal("rejected operation changed the archive")
 			}
@@ -274,7 +274,7 @@ func TestRetainedNoteDeckRemovalWorkflow(t *testing.T) {
 			writeFixtureTOML(t, filepath.Join(text, "collection.anki.toml"), &ankiascodepb.CollectionConfig{Version: 1, Moved: []*ankiascodepb.ResourceMove{
 				{From: "decks/Temporary/notes/你好.note.anki.toml", To: "notes/retained.note.anki.toml"},
 			}})
-			before, err := os.ReadFile(input)
+			before, err := fixtureContent(t, input)
 			if err != nil {
 				t.Fatal(err)
 			}
@@ -284,9 +284,9 @@ func TestRetainedNoteDeckRemovalWorkflow(t *testing.T) {
 			if err := applyForFixture(ctx, input, text, ""); err == nil {
 				t.Error("apply accepted removing a retained card's deck without a destination")
 			}
-			after, err := os.ReadFile(input)
+			after, err := fixtureContent(t, input)
 			if err != nil || string(before) != string(after) {
-				t.Fatal("unsafe deck deletion changed collection bytes")
+				t.Fatal("unsafe deck deletion changed collection content")
 			}
 			note.Cards = []*ankiascodepb.CardConfig{
 				{Ordinal: 0, Deck: proto.String("decks/grammar/deck.anki.toml")},
@@ -459,7 +459,7 @@ func TestDeckKindConversionWorkflow(t *testing.T) {
 			}})
 			marker := filepath.Join(text, "decks", "Convertible", "deck.anki.toml")
 			writeFixtureTOML(t, marker, &ankiascodepb.DeckConfig{Filtered: &decks.Deck_Filtered{}})
-			before, err := os.ReadFile(input)
+			before, err := fixtureContent(t, input)
 			if err != nil {
 				t.Fatal(err)
 			}
@@ -469,9 +469,9 @@ func TestDeckKindConversionWorkflow(t *testing.T) {
 			if err := applyForFixture(ctx, input, text, ""); err == nil {
 				t.Error("apply accepted converting an occupied normal deck to filtered")
 			}
-			after, err := os.ReadFile(input)
+			after, err := fixtureContent(t, input)
 			if err != nil || string(before) != string(after) {
-				t.Fatal("unsafe conversion changed collection bytes")
+				t.Fatal("unsafe conversion changed collection content")
 			}
 			writeFixtureTOML(t, marker, &ankiascodepb.DeckConfig{Normal: &decks.Deck_Normal{}})
 			note.Cards = []*ankiascodepb.CardConfig{

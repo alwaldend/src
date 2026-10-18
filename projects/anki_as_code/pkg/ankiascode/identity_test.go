@@ -24,7 +24,7 @@ import (
 	"google.golang.org/protobuf/proto"
 )
 
-// fixtureSources records editable source bytes for independent read-only verification.
+// fixtureSources records editable source content for independent read-only verification.
 func fixtureSources(t *testing.T, root string) map[string]string {
 	t.Helper()
 	files := map[string]string{}
@@ -88,7 +88,7 @@ func TestUntrackedObjectsWorkflow(t *testing.T) {
 	if err := client.close(); err != nil {
 		t.Fatal(err)
 	}
-	before, err := os.ReadFile(fixture.base)
+	before, err := fixtureContent(t, fixture.base)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -99,7 +99,7 @@ func TestUntrackedObjectsWorkflow(t *testing.T) {
 	if err := applyForFixture(ctx, fixture.base, text, ""); err == nil {
 		t.Fatal("renaming parent of untracked deck was accepted")
 	}
-	after, err := os.ReadFile(fixture.base)
+	after, err := fixtureContent(t, fixture.base)
 	if err != nil || string(after) != string(before) {
 		t.Fatal("rejected operation changed input")
 	}
@@ -258,7 +258,7 @@ func TestPathStateWorkflow(t *testing.T) {
 	}
 	assertFixtureSources(t, text, sources)
 	assertConverged(t, result, text)
-	before, err := os.ReadFile(result)
+	before, err := fixtureContent(t, result)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -268,7 +268,7 @@ func TestPathStateWorkflow(t *testing.T) {
 	if err := applyForFixture(context.Background(), result, text, ""); err == nil {
 		t.Fatal("conflicting move accepted")
 	}
-	after, err := os.ReadFile(result)
+	after, err := fixtureContent(t, result)
 	if err != nil || string(before) != string(after) {
 		t.Fatal("rejected move changed collection")
 	}
@@ -277,7 +277,7 @@ func TestPathStateWorkflow(t *testing.T) {
 	if err := applyForFixture(context.Background(), result, text, ""); err == nil {
 		t.Fatal("a move source still declared in configs was accepted")
 	}
-	after, err = os.ReadFile(result)
+	after, err = fixtureContent(t, result)
 	if err != nil || string(before) != string(after) {
 		t.Fatal("declared move source changed collection")
 	}
@@ -384,7 +384,7 @@ func TestPresetAliasExportWorkflow(t *testing.T) {
 	if err := client.close(); err != nil {
 		t.Fatal(err)
 	}
-	before, err := os.ReadFile(fixture.base)
+	before, err := fixtureContent(t, fixture.base)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -393,9 +393,9 @@ func TestPresetAliasExportWorkflow(t *testing.T) {
 		t.Fatal(err)
 	}
 	assertFixtureSources(t, text, sources)
-	after, err := os.ReadFile(fixture.base)
+	after, err := fixtureContent(t, fixture.base)
 	if err != nil || string(before) != string(after) {
-		t.Fatal("repeated aliased export changed collection bytes")
+		t.Fatal("repeated aliased export changed collection content")
 	}
 	assertConverged(t, fixture.base, text)
 	saveFixtureArtifact(t, fixture.base, "preset-aliases.colpkg")

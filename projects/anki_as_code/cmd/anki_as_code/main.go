@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"os/signal"
+	"syscall"
 
 	ankiascodeapi "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodeapi"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/cli"
@@ -29,9 +30,10 @@ func run(ctx context.Context, args []string) error {
 	return nil
 }
 
-// runNativeServer adapts process signal handling to the injected linked native CLI.
+// runNativeServer adapts interrupt and broken-pipe signals for the linked native CLI.
 func runNativeServer(arguments []string) error {
 	signal.Reset(os.Interrupt)
+	signal.Ignore(syscall.SIGPIPE)
 	if err := ankiserver.Run(arguments); err != nil {
 		return fmt.Errorf("host linked native CLI: %w", err)
 	}

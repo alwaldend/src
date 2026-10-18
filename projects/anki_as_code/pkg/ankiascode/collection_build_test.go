@@ -6,6 +6,8 @@ import (
 	"path/filepath"
 	"testing"
 
+	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/collection"
+
 	ankiascodeapi "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodeapi"
 
 	ankiascodepb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodepb"
@@ -24,7 +26,7 @@ func TestCollectionScopeBuild(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if err := application.collections.WithCollection(ctx, fixture.base, func(connection grpc.ClientConnInterface) (bool, error) {
+	if err := application.collections.WithCollection(ctx, collection.CollectionOptions{Path: fixture.base, WriteBack: true}, func(connection grpc.ClientConnInterface) (bool, error) {
 		if err := application.ColBuild(ctx, fixture.base, configs, output, ""); err != nil {
 			return false, fmt.Errorf("build shared collection: %w", err)
 		}

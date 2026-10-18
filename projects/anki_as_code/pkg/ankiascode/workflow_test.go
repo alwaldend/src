@@ -10,6 +10,8 @@ import (
 	"testing"
 	"time"
 
+	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/collection"
+
 	ankiascodeapi "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodeapi"
 
 	ankiascodepb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodepb"
@@ -115,7 +117,7 @@ func TestDirectDatabaseWorkflow(t *testing.T) {
 	saveFixtureArtifact(t, fixture.database, "direct.anki2")
 }
 
-// TestNativePublicationWorkflow verifies that failed operations leave source archives unchanged.
+// TestNativePublicationWorkflow verifies completed writes survive operation failures and startup failures preserve sources.
 func TestNativePublicationWorkflow(t *testing.T) {
 	for _, scenario := range []string{"operation error", "cancelled operation", "cancelled open", "invalid package"} {
 		t.Run(scenario, func(t *testing.T) {
@@ -158,9 +160,13 @@ func TestNativePublicationWorkflow(t *testing.T) {
 			if called != (scenario == "operation error" || scenario == "cancelled operation") {
 				t.Fatal("collection preparation did not gate the operation")
 			}
-			actual, err := os.ReadFile(input)
-			if err != nil || string(actual) != string(original) {
-				t.Fatalf("failed operation changed the source archive: %v", err)
+			if called {
+				actual := stateFixtureDump(t, input)
+				if actual.GetResources().GetPresets()["discarded"].GetId() != 1 {
+					t.Fatal("request failure suppressed committed archive writes")
+				}
+			} else if actual, err := os.ReadFile(input); err != nil || string(actual) != string(original) {
+				t.Fatalf("failed startup changed the source archive: %v", err)
 			}
 			files, err := os.ReadDir(scratch)
 			if err != nil || len(files) != 0 {
@@ -180,10 +186,6 @@ func TestCollectionLifecycleWorkflow(t *testing.T) {
 			output := filepath.Join(t.TempDir(), "lifecycle.colpkg")
 			if format == "database" {
 				input, output = fixture.database, fixture.database
-			}
-			original, err := os.ReadFile(input)
-			if err != nil {
-				t.Fatal(err)
 			}
 			scratch := t.TempDir()
 			t.Setenv("TMPDIR", scratch)
@@ -211,9 +213,8 @@ func TestCollectionLifecycleWorkflow(t *testing.T) {
 				t.Fatal("native state did not survive collection shutdown")
 			}
 			if format == "package" {
-				actual, err := os.ReadFile(input)
-				if err != nil || string(actual) != string(original) {
-					t.Fatal("writing a distinct native package changed its input")
+				if !proto.Equal(expected, stateFixtureDump(t, input)) {
+					t.Fatal("source write-back lost native changes")
 				}
 			} else {
 				output = filepath.Join(t.TempDir(), "lifecycle.colpkg")
@@ -252,7 +253,7 @@ func TestStateInputFailures(t *testing.T) {
 // runFixtureCollection exercises native callbacks through collection.Store.
 func runFixtureCollection(ctx context.Context, input, output string, operation func(grpc.ClientConnInterface) (bool, error)) error {
 	application := fixtureApplication()
-	if err := application.collections.WithCollection(ctx, input, func(connection grpc.ClientConnInterface) (bool, error) {
+	if err := application.collections.WithCollection(ctx, collection.CollectionOptions{Path: input, WriteBack: true}, func(connection grpc.ClientConnInterface) (bool, error) {
 		changed, err := operation(connection)
 		if err != nil {
 			return false, fmt.Errorf("run native fixture operation: %w", err)
