@@ -27,6 +27,10 @@ From the repository root:
 bazel_agent bazel build //projects/anki_grpc:anki_grpc //projects/anki_grpc:clippy
 ```
 
+Build an optimized worker with `bazel_agent bazel build -c opt //projects/anki_grpc`.
+Optimized builds strip the final Rust executable's debugging information and static
+symbols; development builds retain them.
+
 [The third-party Anki package](../../third_party/com_github_ankitects_anki/README.md)
 owns and builds the upstream native library, source pins, schemas, and single
 Cargo dependency lock. Its native build consumes no project implementation
@@ -105,8 +109,10 @@ five seconds; Start rejects negative timeouts. `Start`
 launches the server and creates its gRPC connection, waiting for readiness. Its
 context controls startup only: cancelling it after successful startup leaves the
 worker running. The child inherits the parent
-environment and stderr. The Bazel library includes the server executable as
-runtime data. Failed startup releases its resources and reaps the child.
+environment and stderr. The caller supplies the exact server executable. For compatibility
+with existing application consumers, the Bazel Go library also includes the default
+worker as transitive runtime data. Other executable paths require their own runtime
+inputs. Failed startup releases its resources and reaps the child.
 The backend owns a separate lifetime context for the command.
 
 The backend exposes `grpc.ClientConnInterface` through `Connection`. Construct
@@ -165,6 +171,16 @@ startup/shutdown, after Stop, or after worker exit. Construct service clients af
 Start succeeds. Retained clients reject calls
 once Stop begins. The backend owns the connection: shut it down through Stop.
 
+### Existing gRPC server
+
+`backend.NewGRPC(backend.BackendGRPCOptions{Address: endpoint})` implements the
+same Start, Connection and Stop interface for a running server. Endpoints accept
+TCP host:port, `tcp://host:port`, `unix:///absolute/path` and absolute socket paths.
+Unix URI paths may also be relative to the client's working directory.
+Start waits for readiness within its context. Stop closes only the client;
+it does not stop the remote server or close its collection. Retained clients
+reject calls after Stop. Native error trailers are decoded as for stdio.
+
 ### Collection backend
 
 `BackendCollection` implements the same interface for collection lifetime. It
@@ -193,12 +209,16 @@ writes commit in place and Stop does not roll them back.
 Packages restore through Anki into an owned temporary directory by default.
 Set `RestoreDirectory` to use an empty persistent destination instead; it can be
 created when missing and is retained on Stop. `RestoreDirectory` is invalid for a
-database input. The source package is not modified. The backend API remains
-Start, Connection and Stop; restore paths are supplied through options.
+database input. Source packages remain unchanged by default. Set `WriteBack: true`
+in constructor options to publish the source package with media on Stop, regardless
+of earlier request outcomes. This does not block mutating RPCs or roll
+back direct database writes. The backend API remains Start, Connection and Stop.
 
 After work, call `collectionBackend.Stop(cleanupContext)` and then
 `worker.Stop(cleanupContext)`, preserving both errors. A clean collection Stop
-closes native storage and deletes only its owned temporary restore. Call Stop
+publishes writable packages or closes native database storage, then deletes only
+its owned temporary restore. Publication failures retain the restored data and
+report its path for recovery. Call Stop
 even after Start fails. Startup leaves cleanup to the caller and adds no separate
 shutdown timeout. The borrowed backend stays available for another collection.
 Retained generated Anki clients reject after Stop. Start permits one attempt;
@@ -208,7 +228,8 @@ exclusive collection ownership. Anki exposes unary RPCs; a small connection adap
 tracks active calls and observes CloseCollection and ExportCollectionPackage
 while forwarding generated client calls over the borrowed connection. These operations close the collection
 without closing the transport. Export also consumes it on a native failure, so
-confirmed completion lets Stop clean up without attempting a second close.
+confirmed completion lets Stop avoid a second close. When writable package
+storage was consumed, Stop reopens its restored database before source publication.
 Transport failures or cancellation without a native response retain the files.
 
 Cancellation can stop waiting while native work continues. If native completion
@@ -236,11 +257,11 @@ Use bounded cleanup contexts independent of operation cancellation and preserve
 both operation and cleanup errors.
 
 The [Anki as code collection store](../anki_as_code/README.md#collection-lifecycle)
-owns its callback scope, source reservations and archive publication. The backend
-library supplies the explicit native owners and their existing readiness,
-shutdown and restore-retention contracts.
+owns its callback scope and source reservations. The backend library owns archive
+write-back, readiness, shutdown and restore retention. Operation errors do not
+suppress enabled write-back; callers preserve operation and cleanup errors together.
 
-Public backend names are `BackendSTD` and `BackendCollection`. The Go package
+Public backend names are `BackendSTD`, `BackendGRPC` and `BackendCollection`. The Go package
 is `backend`; `anki_grpc` is the project and server name.
 
 ## Verification

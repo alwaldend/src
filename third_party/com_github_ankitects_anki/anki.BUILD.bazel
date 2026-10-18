@@ -1,4 +1,5 @@
 load("@@//third_party/com_github_ankitects_anki:native.bzl", "anki_crate")
+load("@@//third_party/com_github_ankitects_anki:schemas.bzl", "ANKI_SCHEMAS")
 load("@protobuf//bazel:proto_library.bzl", "proto_library")
 load("@rules_go//proto:def.bzl", "go_proto_library")
 
@@ -12,26 +13,6 @@ proto_library(
     strip_import_prefix = "proto",
 )
 
-# Compile the unmodified upstream schemas and their complete import closure.
-_SCHEMAS = {
-    "generic": [],
-    "sync": ["generic"],
-    "collection": ["generic", "sync"],
-    "decks": ["generic", "collection"],
-    "notetypes": ["generic", "collection"],
-    "card_rendering": ["generic", "notes", "notetypes"],
-    "cards": ["collection"],
-    "notes": ["notetypes", "collection", "decks", "cards"],
-    "links": ["generic"],
-    "backend": ["links"],
-    "config": ["generic", "collection"],
-    "deck_config": ["generic", "collection", "decks"],
-    "scheduler": ["generic", "cards", "decks", "collection", "config", "deck_config"],
-    "search": ["generic", "collection"],
-    "stats": ["generic", "cards"],
-    "import_export": ["cards", "collection", "notes", "generic"],
-    "media": ["generic", "notetypes"],
-}
 
 [
     proto_library(
@@ -40,7 +21,7 @@ _SCHEMAS = {
         strip_import_prefix = "proto",
         deps = [":" + dependency + "_proto" for dependency in dependencies],
     )
-    for name, dependencies in _SCHEMAS.items()
+    for name, dependencies in ANKI_SCHEMAS.items()
 ]
 
 [
@@ -54,7 +35,7 @@ _SCHEMAS = {
         proto = ":" + name + "_proto",
         deps = [":" + dependency for dependency in dependencies],
     )
-    for name, dependencies in _SCHEMAS.items()
+    for name, dependencies in ANKI_SCHEMAS.items()
 ]
 
 # Cargo supplies external dependencies; Bazel wires the workspace members.

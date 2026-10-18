@@ -230,6 +230,11 @@ func (backend *BackendSTD) intercept(ctx context.Context, method string, input, 
 	}
 	var trailers metadata.MD
 	err := invoke(ctx, method, input, output, connection, append(options, grpc.Trailer(&trailers))...)
+	return decodeCallError(ctx, method, err, trailers)
+}
+
+// decodeCallError preserves gRPC status and native BackendError details for every transport.
+func decodeCallError(ctx context.Context, method string, err error, trailers metadata.MD) error {
 	if err == nil {
 		return nil
 	}

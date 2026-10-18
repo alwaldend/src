@@ -16,6 +16,7 @@ alias(
 package_group(
     name = "server_consumers",
     packages = [
+        "//projects/anki_as_code/cmd/anki_as_code",
         "//projects/anki_as_code/internal/collection",
         "//projects/anki_as_code/internal/export",
         "//projects/anki_as_code/internal/plan",
@@ -23,6 +24,7 @@ package_group(
         "//projects/anki_as_code/internal/reconcile",
         "//projects/anki_as_code/internal/resource",
         "//projects/anki_as_code/internal/state",
+        "//projects/anki_as_code/pkg/ankiascode",
         "//projects/anki_grpc/pkg/backend",
         "//projects/anki_grpc/releases",
         "//projects/anki_grpc/test/transport",

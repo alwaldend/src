@@ -8,6 +8,7 @@ go_library(
         "collection_connection.go",
         "connection.go",
         "doc.go",
+        "network.go",
     ],
     data = ["//projects/anki_grpc"],
     importpath = "git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/backend",
@@ -33,6 +34,7 @@ go_test(
     srcs = [
         "api_test.go",
         "collection_test.go",
+        "writeback_test.go",
     ],
     args = ["-worker=$(rlocationpath //projects/anki_grpc:anki_grpc)"],
     data = ["//projects/anki_grpc"],
@@ -44,6 +46,7 @@ go_test(
         ":backend",
         "//third_party/com_github_ankitects_anki:backend",
         "//third_party/com_github_ankitects_anki:collection",
+        "//third_party/com_github_ankitects_anki:decks",
         "//third_party/com_github_ankitects_anki:generic",
         "//third_party/com_github_ankitects_anki:import_export",
         "//third_party/com_github_ankitects_anki:media",

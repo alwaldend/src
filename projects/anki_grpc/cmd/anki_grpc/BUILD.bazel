@@ -1,6 +1,11 @@
 load("@rules_rust//cargo:defs.bzl", "cargo_build_script")
 load("@rules_rust//rust:defs.bzl", "rust_binary", "rust_clippy")
 
+config_setting(
+    name = "optimized",
+    values = {"compilation_mode": "opt"},
+)
+
 cargo_build_script(
     name = "command_ids",
     srcs = ["build.rs"],
@@ -25,7 +30,10 @@ rust_binary(
     ],
     crate_root = "main.rs",
     edition = "2021",
-    rustc_flags = ["-Cpanic=abort"],
+    rustc_flags = ["-Cpanic=abort"] + select({
+        ":optimized": ["-Cstrip=symbols"],
+        "//conditions:default": [],
+    }),
     target_compatible_with = [
         "@platforms//os:linux",
         "@platforms//cpu:x86_64",
