@@ -65,7 +65,7 @@ func TestAPIWorkflow(t *testing.T) {
 	}
 	for _, arguments := range [][]string{
 		{"api", "tags", "all-tags"},
-		{"api", "tags", "all-tags", "--collection", database, "--backend", "unix:///unused"},
+		{"api", "tags", "all-tags", "--collection", database, "--address", "unix:///unused"},
 		{"api", "tags", "all-tags", "--collection", database, "--input-format", "yaml"},
 		{"api", "backend-collection", "open-collection", "--collection", database},
 	} {
@@ -75,7 +75,7 @@ func TestAPIWorkflow(t *testing.T) {
 	if info, err := os.Stat(database); err != nil || info.Size() != 0 {
 		t.Fatalf("invalid requests opened collection: %v %v", info, err)
 	}
-	apiCLI(t, binary, "{}", true, "api", "backend-tags", "all-tags", "--collection", database)
+	apiCLI(t, binary, "{}", true, "api", "backend-tags", "all-tags", "--collection", database, "--address=")
 	deck := apiCLI(t, binary, "{}", true, "api", "decks", "new-deck", "--collection", database)
 	var request map[string]any
 	if err := json.Unmarshal(deck, &request); err != nil {
@@ -202,15 +202,23 @@ func TestAPINetworkWorkflow(t *testing.T) {
 			}
 			request := fmt.Sprintf(`{"collection_path":%q,"media_folder_path":%q,"media_db_path":%q}`, filepath.Join(root, "remote.anki2"), filepath.Join(root, "remote.media"), filepath.Join(root, "remote.media.db2"))
 			t.Setenv("TMPDIR", filepath.Join(root, "unavailable"))
-			apiCLI(t, binary, request, true, "api", "backend-collection", "open-collection", "--backend", endpoint)
+			apiCLI(t, binary, request, true, "api", "backend-collection", "open-collection", "--address", endpoint)
 			for range 2 {
-				apiCLI(t, binary, "{}", true, "api", "tags", "all-tags", "--backend", endpoint)
+				apiCLI(t, binary, "{}", true, "api", "tags", "all-tags", "--address", endpoint)
 			}
-			formatted := apiCLI(t, binary, `{"seconds":65,"context":"PRECISE"}`, true, "api", "i18n", "format-timespan", "--backend", endpoint)
+			formatted := apiCLI(t, binary, `{"seconds":65,"context":"PRECISE"}`, true, "api", "i18n", "format-timespan", "--address", endpoint)
 			if !strings.Contains(string(formatted), "val") {
 				t.Fatalf("i18n response is empty: %s", formatted)
 			}
-			apiCLI(t, binary, "{}", true, "api", "backend-collection", "close-collection", "--backend", endpoint)
+			response := apiCLI(t, binary, "{}", true, "api", "backend-collection", "close-collection", "--address", endpoint)
+			if destination := os.Getenv("TEST_UNDECLARED_OUTPUTS_DIR"); destination != "" {
+				if err := os.WriteFile(filepath.Join(destination, "api-"+transport+"-response.json"), formatted, 0o600); err != nil {
+					t.Fatal(err)
+				}
+				if err := os.WriteFile(filepath.Join(destination, "api-"+transport+"-close.json"), response, 0o600); err != nil {
+					t.Fatal(err)
+				}
+			}
 		})
 	}
 }

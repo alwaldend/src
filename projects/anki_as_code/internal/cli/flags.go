@@ -3,6 +3,8 @@ package cli
 import (
 	"fmt"
 
+	ankiascodeapi "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodeapi"
+
 	"github.com/spf13/cobra"
 )
 
@@ -15,6 +17,11 @@ type stringFlag struct {
 }
 
 var (
+	// addressFlag selects an external server for managed workflows or connected RPCs.
+	addressFlag = stringFlag{
+		name:  "address",
+		usage: "External Anki gRPC server (host:port, tcp:// or unix://); empty uses the embedded server",
+	}
 	// stateKeyFlag selects the namespace used by collection operations.
 	stateKeyFlag = stringFlag{
 		name:  "state-key",
@@ -56,8 +63,11 @@ func (flag stringFlag) bindRequired(command *cobra.Command, value *string) {
 	}
 }
 
-// commandStateKey reads the collection group's namespace flag after Cobra parsing.
-// newCollectionCommand owns this flag for every native collection workflow.
-func commandStateKey(command *cobra.Command) string {
-	return command.Flag(stateKeyFlag.name).Value.String()
+// commandCollectionOptions combines the workflow path with parsed transport and namespace flags.
+func commandCollectionOptions(command *cobra.Command, path string) ankiascodeapi.CollectionOptions {
+	return ankiascodeapi.CollectionOptions{
+		Path:     path,
+		Address:  command.Flag(addressFlag.name).Value.String(),
+		StateKey: command.Flag(stateKeyFlag.name).Value.String(),
+	}
 }

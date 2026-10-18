@@ -239,7 +239,7 @@ func TestStateInputFailures(t *testing.T) {
 	}
 	for _, input := range []string{filepath.Join(root, "missing.anki2"), root, archive} {
 		ctx, cancel := context.WithTimeout(t.Context(), 5*time.Second)
-		value, err := fixtureApplication().ColStateDump(ctx, ankiascodeapi.CollectionPath(input), "")
+		value, err := fixtureApplication().ColStateDump(ctx, ankiascodeapi.CollectionOptions{Path: input})
 		cancel()
 		if err == nil || value != nil {
 			t.Fatalf("invalid collection input %q: error=%v state=%v", input, err, value)

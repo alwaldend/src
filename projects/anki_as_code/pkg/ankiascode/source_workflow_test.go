@@ -2,6 +2,7 @@ package ankiascode
 
 import (
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"os"
@@ -21,6 +22,7 @@ import (
 
 // TestBorrowedCollectionWorkflow verifies reuse, independent sources and caller-owned publication.
 func TestBorrowedCollectionWorkflow(t *testing.T) {
+	const key = "borrowed/primary"
 	fixture := newFixture(t)
 	first, second := inspectFixture(t, fixture.base), inspectFixture(t, fixture.base)
 	firstConnection, err := first.worker.Connection()
@@ -31,23 +33,22 @@ func TestBorrowedCollectionWorkflow(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	firstSource := ankiascodeapi.CollectionConnection(firstConnection)
-	secondSource := ankiascodeapi.CollectionConnection(secondConnection)
+	firstOptions := ankiascodeapi.CollectionOptions{Connection: firstConnection, StateKey: key}
+	secondOptions := ankiascodeapi.CollectionOptions{Connection: secondConnection, StateKey: key}
 	application := &App{}
 	ctx := t.Context()
-	const key = "borrowed/primary"
 	root := t.TempDir()
 	text, stateOutput := filepath.Join(root, "text"), filepath.Join(root, "state.anki.toml")
 	original, err := os.ReadFile(fixture.base)
 	if err != nil {
 		t.Fatal(err)
 	}
-	if err := application.ColExport(ctx, firstSource, text, stateOutput, key); err != nil {
+	if err := application.ColExport(ctx, firstOptions, text, stateOutput); err != nil {
 		t.Fatal(err)
 	}
 	exported := &ankiascodepb.State{}
 	readFixtureTOML(t, stateOutput, exported)
-	if err := application.ColStateUpdate(ctx, firstSource, key, exported); err != nil {
+	if err := application.ColStateUpdate(ctx, firstOptions, exported); err != nil {
 		t.Fatal(err)
 	}
 	notePath := fixtureNotePath(text)
@@ -55,41 +56,41 @@ func TestBorrowedCollectionWorkflow(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if err := application.ColStateImport(ctx, firstSource, text, key, map[string]string{filepath.ToSlash(address): strconv.FormatInt(fixture.noteID, 10)}); err != nil {
+	if err := application.ColStateImport(ctx, firstOptions, text, map[string]string{filepath.ToSlash(address): strconv.FormatInt(fixture.noteID, 10)}); err != nil {
 		t.Fatal(err)
 	}
 	note := &ankiascodepb.NoteConfig{}
 	readFixtureTOML(t, notePath, note)
 	note.Tags = append(note.Tags, "borrowed-workflow")
 	writeFixtureTOML(t, notePath, note)
-	report, err := application.ColPlan(ctx, firstSource, text, key)
+	report, err := application.ColPlan(ctx, firstOptions, text)
 	if err != nil || len(report.GetChanges()) == 0 {
 		t.Fatalf("borrowed plan did not find the edited note: %v %v", report, err)
 	}
-	if err := application.ColApply(ctx, firstSource, text, key); err != nil {
+	if err := application.ColApply(ctx, firstOptions, text); err != nil {
 		t.Fatal(err)
 	}
-	report, err = application.ColPlan(ctx, firstSource, text, key)
+	report, err = application.ColPlan(ctx, firstOptions, text)
 	if err != nil || len(report.GetChanges()) != 0 {
 		t.Fatalf("borrowed apply did not converge: %v %v", report, err)
 	}
-	if err := application.ColStateReplace(ctx, secondSource, key, &ankiascodepb.State{Version: 1}); err != nil {
+	if err := application.ColStateReplace(ctx, secondOptions, &ankiascodepb.State{Version: 1}); err != nil {
 		t.Fatal(err)
 	}
-	other, err := application.ColStateDump(ctx, secondSource, key)
+	other, err := application.ColStateDump(ctx, secondOptions)
 	if err != nil || len(other.GetResources().GetNotes()) != 0 {
 		t.Fatalf("second source inherited the first collection state: %v %v", other, err)
 	}
-	if err := application.ColStateReplace(ctx, firstSource, key, &ankiascodepb.State{Version: 2}); err == nil {
+	if err := application.ColStateReplace(ctx, firstOptions, &ankiascodepb.State{Version: 2}); err == nil {
 		t.Fatal("invalid borrowed state replacement succeeded")
 	}
 	cause := errors.New("borrowed operation cancelled")
 	cancelled, cancel := context.WithCancelCause(ctx)
 	cancel(cause)
-	if _, err := application.ColStateDump(cancelled, firstSource, key); !errors.Is(err, context.Canceled) || !errors.Is(err, cause) {
+	if _, err := application.ColStateDump(cancelled, firstOptions); !errors.Is(err, context.Canceled) || !errors.Is(err, cause) {
 		t.Fatalf("borrowed cancellation lost its cause: %v", err)
 	}
-	actual, err := application.ColStateDump(ctx, firstSource, key)
+	actual, err := application.ColStateDump(ctx, firstOptions)
 	if err != nil || !proto.Equal(actual, exported) {
 		t.Fatalf("borrowed source changed or closed after another source, failure or cancellation: %v %v", actual, err)
 	}
@@ -113,47 +114,59 @@ func TestBorrowedCollectionWorkflow(t *testing.T) {
 	saveFixtureArtifact(t, stateOutput, "borrowed-state.anki.toml")
 }
 
-// TestCollectionSourceFailures rejects empty and ambiguous sources before opening or native reads.
-func TestCollectionSourceFailures(t *testing.T) {
-	client := connectFixture(t, filepath.Join(t.TempDir(), "collection.anki2"))
+// TestCollectionOptionsFailures rejects conflicting access fields before native access.
+func TestCollectionOptionsFailures(t *testing.T) {
+	root := t.TempDir()
+	client := connectFixture(t, filepath.Join(root, "collection.anki2"))
 	connection, err := client.worker.Connection()
 	if err != nil {
 		t.Fatal(err)
 	}
-	application := &App{}
+	application := fixtureApplication()
+	unopened := filepath.Join(root, "unopened.anki2")
+	if err := os.WriteFile(unopened, nil, 0o600); err != nil {
+		t.Fatal(err)
+	}
 	var nilConnection *grpc.ClientConn
-	var nilSource *conflictingCollectionSource
-	for _, source := range []ankiascodeapi.CollectionSource{
-		nil,
-		ankiascodeapi.CollectionPath(""),
-		ankiascodeapi.CollectionConnection(nil),
-		ankiascodeapi.CollectionConnection(nilConnection),
-		nilSource,
-		conflictingCollectionSource{path: "unused.anki2", connection: connection},
+	failures := map[string]string{}
+	for name, options := range map[string]ankiascodeapi.CollectionOptions{
+		"empty":                  {},
+		"typed-nil":              {Connection: nilConnection},
+		"path-and-connection":    {Path: unopened, Connection: connection},
+		"address-and-connection": {Address: "unix:///unused", Connection: connection},
+		"all-access-fields":      {Path: unopened, Address: "unix:///unused", Connection: connection},
+		"address-without-path":   {Address: "unix:///unused"},
 	} {
-		if value, err := application.ColStateDump(t.Context(), source, ""); err == nil || !strings.Contains(err.Error(), "exactly one") || value != nil {
-			t.Fatalf("invalid source reached native access: state=%v error=%v", value, err)
+		value, err := application.ColStateDump(t.Context(), options)
+		if err == nil || !strings.Contains(err.Error(), "exactly one") || value != nil {
+			t.Fatalf("%s reached native access: state=%v error=%v", name, value, err)
+		}
+		failures[name] = err.Error()
+	}
+	output := filepath.Join(root, "unpublished.colpkg")
+	if err := application.ColBuild(t.Context(), ankiascodeapi.CollectionOptions{Connection: connection}, "unused", output); err == nil || !strings.Contains(err.Error(), "path") {
+		t.Fatalf("build accepted a borrowed connection: %v", err)
+	} else {
+		failures["build-borrowed-connection"] = err.Error()
+	}
+	if _, err := os.Stat(output); !os.IsNotExist(err) {
+		t.Fatalf("rejected build published output: %v", err)
+	}
+	if info, err := os.Stat(unopened); err != nil || info.Size() != 0 {
+		t.Fatalf("invalid options opened the collection: %v %v", info, err)
+	}
+	if _, err := application.ColStateDump(t.Context(), ankiascodeapi.CollectionOptions{Connection: connection}); err != nil {
+		t.Fatalf("option validation changed caller-owned access: %v", err)
+	}
+	if destination := os.Getenv("TEST_UNDECLARED_OUTPUTS_DIR"); destination != "" {
+		data, err := json.MarshalIndent(failures, "", "  ")
+		if err != nil {
+			t.Fatal(err)
+		}
+		if err := os.WriteFile(filepath.Join(destination, "collection-options-validation.json"), data, 0o600); err != nil {
+			t.Fatal(err)
 		}
 	}
-	if _, err := application.ColStateDump(t.Context(), ankiascodeapi.CollectionConnection(connection), ""); err != nil {
-		t.Fatalf("source validation affected caller-owned access: %v", err)
-	}
-}
-
-// conflictingCollectionSource supplies both alternatives to exercise boundary validation.
-type conflictingCollectionSource struct {
-	// path names the invalid additional path alternative.
-	path string
-	// connection identifies an already-open caller-owned collection.
-	connection grpc.ClientConnInterface
-}
-
-// Path returns the conflicting path alternative.
-func (source conflictingCollectionSource) Path() string { return source.path }
-
-// Connection returns the conflicting borrowed connection alternative.
-func (source conflictingCollectionSource) Connection() grpc.ClientConnInterface {
-	return source.connection
 }
 
 // TestBorrowedAPIWorkflow invokes the generic application operation against caller-owned native resources.
@@ -170,7 +183,7 @@ func TestBorrowedAPIWorkflow(t *testing.T) {
 	}
 	application := &App{}
 	request := ankiascodeapi.APIRequest{
-		Collection: ankiascodeapi.CollectionConnection(connection), WriteBack: true,
+		Collection: ankiascodeapi.CollectionOptions{Connection: connection}, WriteBack: true,
 		Method: "/anki.notes.NotesService/GetNote", Input: []byte(fmt.Sprintf(`{"nid":"%d"}`, fixture.noteID)), InputFormat: "json", OutputFormat: "json",
 	}
 	output, err := application.APICall(t.Context(), request)
@@ -185,9 +198,10 @@ func TestBorrowedAPIWorkflow(t *testing.T) {
 	if _, err := application.APICall(t.Context(), request); err == nil {
 		t.Fatal("invalid raw input accepted")
 	}
-	request.Backend = "unix:///unused"
-	if _, err := application.APICall(t.Context(), request); err == nil {
-		t.Fatal("ambiguous raw API source accepted")
+	request.Input = []byte(fmt.Sprintf(`{"nid":"%d"}`, fixture.noteID))
+	request.Collection.Address = "unix:///unused"
+	if _, err := application.APICall(t.Context(), request); err == nil || !strings.Contains(err.Error(), "exactly one") {
+		t.Fatalf("ambiguous raw API options accepted: %v", err)
 	}
 	if _, err := client.notes.GetNote(t.Context(), &notes.NoteId{Nid: fixture.noteID}); err != nil {
 		t.Fatalf("raw API closed caller connection: %v", err)
@@ -200,7 +214,7 @@ func TestBorrowedAPIWorkflow(t *testing.T) {
 	if err := os.WriteFile(database, nil, 0o600); err != nil {
 		t.Fatal(err)
 	}
-	request = ankiascodeapi.APIRequest{Collection: ankiascodeapi.CollectionPath(database), Method: "/anki.collection.BackendCollectionService/OpenCollection", Input: []byte("{}"), InputFormat: "json", OutputFormat: "json"}
+	request = ankiascodeapi.APIRequest{Collection: ankiascodeapi.CollectionOptions{Path: database}, Method: "/anki.collection.BackendCollectionService/OpenCollection", Input: []byte("{}"), InputFormat: "json", OutputFormat: "json"}
 	if _, err := application.APICall(t.Context(), request); err == nil || !strings.Contains(err.Error(), "collection lifetime") {
 		t.Fatalf("managed lifetime bypass: %v", err)
 	}

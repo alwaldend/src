@@ -4,6 +4,7 @@ import (
 	"context"
 
 	ankiascodepb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodepb"
+	"google.golang.org/grpc"
 )
 
 // App defines configuration, collection, state, API and server workflows for callers
@@ -24,30 +25,47 @@ type App interface {
 	// ConfigExport writes a parsed configuration set as a TOML tree.
 	ConfigExport(ctx context.Context, output string, configs *ankiascodepb.CollectionConfigSet) error
 	// ColExport writes editable configs and optional snapshot bindings.
-	ColExport(ctx context.Context, collection CollectionSource, output, stateOutput, stateKey string) error
+	ColExport(ctx context.Context, options CollectionOptions, output, stateOutput string) error
 	// ColPlan describes proposed collection changes.
-	ColPlan(ctx context.Context, collection CollectionSource, text, stateKey string) (*ankiascodepb.CollectionChangePlan, error)
+	ColPlan(ctx context.Context, options CollectionOptions, text string) (*ankiascodepb.CollectionChangePlan, error)
 	// ColApply reconciles the supplied collection in place.
-	ColApply(ctx context.Context, collection CollectionSource, text, stateKey string) error
+	ColApply(ctx context.Context, options CollectionOptions, text string) error
 	// ColBuild stages a base archive path and writes an independent reconciled archive.
-	ColBuild(ctx context.Context, base, text, output, stateKey string) error
+	ColBuild(ctx context.Context, options CollectionOptions, text, output string) error
 	// ColStateDump reads stored collection bindings.
-	ColStateDump(ctx context.Context, collection CollectionSource, stateKey string) (*ankiascodepb.State, error)
+	ColStateDump(ctx context.Context, options CollectionOptions) (*ankiascodepb.State, error)
 	// ColStateImport binds existing objects to configuration paths.
-	ColStateImport(ctx context.Context, collection CollectionSource, text, stateKey string, bindings map[string]string) error
+	ColStateImport(ctx context.Context, options CollectionOptions, text string, bindings map[string]string) error
 	// ColStateUpdate merges external bindings into stored state.
-	ColStateUpdate(ctx context.Context, collection CollectionSource, stateKey string, value *ankiascodepb.State) error
+	ColStateUpdate(ctx context.Context, options CollectionOptions, value *ankiascodepb.State) error
 	// ColStateReplace installs the complete supplied state object.
-	ColStateReplace(ctx context.Context, collection CollectionSource, stateKey string, value *ankiascodepb.State) error
+	ColStateReplace(ctx context.Context, options CollectionOptions, value *ankiascodepb.State) error
+}
+
+// CollectionOptions selects collection access and the namespace for one application operation.
+// Col workflows require Path or Connection. An empty Address uses the configured
+// embedded worker for a path, and an empty StateKey selects the default namespace.
+// Raw API calls also accept Address alone to use the server's current collection.
+type CollectionOptions struct {
+	// Path identifies a managed database or archive; App owns preparation and cleanup.
+	Path string
+	// Address selects an existing plaintext TCP or Unix gRPC server.
+	// Managed paths require shared source/temporary paths and exclusive server access.
+	// The external process remains caller-owned. It cannot accompany Connection.
+	Address string
+	// Connection borrows an already-open collection with caller-owned lifetime and publication.
+	// It cannot accompany Path or Address; raw RPCs retain their requested native effects.
+	Connection grpc.ClientConnInterface
+	// StateKey selects the namespace for Col workflows; empty selects the default namespace.
+	// Raw API request payloads control native semantics and do not use this field.
+	StateKey string
 }
 
 // APIRequest selects an upstream method, protobuf payload and collection access mode.
-// Exactly one Collection or Backend is required; borrowed connections retain caller ownership.
+// Collection requires exactly one path, external address or open connection.
 type APIRequest struct {
-	// Collection describes an application-owned path or caller-owned open connection.
-	Collection CollectionSource
-	// Backend selects an existing TCP or Unix server; App owns only its client connection.
-	Backend string
+	// Collection selects managed path access, a server address, or a borrowed open connection.
+	Collection CollectionOptions
 	// WriteBack enables publication of managed source archives, including after request errors.
 	// It defaults to false and has no effect on borrowed connections or remote servers.
 	WriteBack bool

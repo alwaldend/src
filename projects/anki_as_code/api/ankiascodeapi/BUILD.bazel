@@ -5,7 +5,6 @@ go_library(
     srcs = [
         "app.go",
         "doc.go",
-        "source.go",
     ],
     importpath = "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodeapi",
     visibility = ["//visibility:public"],

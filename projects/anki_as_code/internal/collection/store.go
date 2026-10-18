@@ -27,6 +27,8 @@ type Options struct {
 
 // CollectionOptions selects the source and publication policy for one offline scope.
 type CollectionOptions struct {
+	// Address selects an existing plaintext TCP or Unix server; empty uses the configured worker.
+	Address string
 	// Path identifies an existing collection database or package archive.
 	Path string
 	// WriteBack enables archive publication during cleanup; its zero value leaves source archives unchanged.
@@ -64,7 +66,7 @@ func New(options Options) Store {
 // Callers construct services on the connection and finish all work before returning.
 // Store starts and stops both native owners; retained connections reject later calls.
 func (store *Store) WithCollection(ctx context.Context, options CollectionOptions, operation func(grpc.ClientConnInterface) (bool, error)) error {
-	if store.backendOptions.Binary == "" {
+	if options.Address == "" && store.backendOptions.Binary == "" {
 		return fmt.Errorf("collection access requires an explicit backend executable")
 	}
 	if operation == nil {
@@ -79,7 +81,12 @@ func (store *Store) WithCollection(ctx context.Context, options CollectionOption
 		delete(store.entries, source)
 		store.mutex.Unlock()
 	}()
-	worker := ankiclient.New(store.backendOptions)
+	var worker ankiclient.Backend
+	if options.Address == "" {
+		worker = ankiclient.New(store.backendOptions)
+	} else {
+		worker = ankiclient.NewGRPC(ankiclient.BackendGRPCOptions{Address: options.Address})
+	}
 	if err := withBackend(ctx, worker, backendCleanupTimeout, func() error {
 		prepared := ankiclient.NewCollection(ankiclient.BackendCollectionOptions{Backend: worker, Path: source, WriteBack: options.WriteBack})
 		if err := withBackend(ctx, prepared, store.closeTimeout, func() error {

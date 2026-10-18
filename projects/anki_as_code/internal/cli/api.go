@@ -122,7 +122,7 @@ func newAPIMethodCommand(application ankiascodeapi.App, method rpc.Method) *cobr
 		Use: method.Name, Short: method.Path, Long: methodHelp(method), Args: cobra.NoArgs,
 		RunE: func(command *cobra.Command, _ []string) error {
 			if (source == "") == (address == "") {
-				return fmt.Errorf("API calls require exactly one of --collection and --backend")
+				return fmt.Errorf("API calls require exactly one of --collection and --address")
 			}
 			ctx, cancel := context.WithTimeout(command.Context(), timeout)
 			defer cancel()
@@ -130,12 +130,8 @@ func newAPIMethodCommand(application ankiascodeapi.App, method rpc.Method) *cobr
 			if err != nil {
 				return fmt.Errorf("read API request: %w", err)
 			}
-			var collection ankiascodeapi.CollectionSource
-			if source != "" {
-				collection = ankiascodeapi.CollectionPath(source)
-			}
 			response, err := application.APICall(ctx, ankiascodeapi.APIRequest{
-				Collection: collection, Backend: address, WriteBack: writeBack, Method: method.Path,
+				Collection: ankiascodeapi.CollectionOptions{Path: source, Address: address}, WriteBack: writeBack, Method: method.Path,
 				Input: data, InputFormat: inputFormat, OutputFormat: outputFormat,
 			})
 			if err != nil {
@@ -148,8 +144,7 @@ func newAPIMethodCommand(application ankiascodeapi.App, method rpc.Method) *cobr
 		},
 	}
 	command.Flags().StringVar(&source, "collection", "", "Offline .anki2 database or .colpkg archive")
-	command.Flags().StringVar(&address, "backend", "", "Existing backend TCP endpoint or Unix socket path")
-	command.MarkFlagsMutuallyExclusive("collection", "backend")
+	addressFlag.bind(command, &address)
 	command.Flags().StringVar(&input, "input", "-", "Request file, or - for stdin")
 	command.Flags().StringVar(&inputFormat, "input-format", "json", "Request encoding: json or toml")
 	command.Flags().StringVar(&outputFormat, "output-format", "json", "Response encoding: json or toml")
