@@ -1,7 +1,8 @@
 // Package layout reads and writes the fixed Anki configuration hierarchy.
-//
-// It owns discovery, path-derived deck titles, note deck defaults, supported
-// versions, and file I/O. Codecs own syntax/schema conversion. Loading leaves
-// sources unchanged; exporting writes supplied objects directly without semantic
-// validation, cleanup, staging, or publication. No Anki collection is opened.
+// It owns filesystem discovery, regular-file checks, supported versions,
+// path-derived deck titles, note deck defaults and config file I/O. Codec owns
+// syntax/schema conversion. Loading leaves source files unchanged; exporting
+// writes supplied objects directly and may leave partial output on failure.
+// Callers own collection semantics, native identities, synchronization, cleanup,
+// staging and publication. This package does not open Anki or manage native work.
 package layout

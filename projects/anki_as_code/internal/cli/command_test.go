@@ -126,6 +126,60 @@ func (application *recordingApplication) ColStateReplace(ctx context.Context, in
 	return application.failure
 }
 
+// ServerRun records native CLI dispatch without hosting a server.
+func (application *recordingApplication) ServerRun(ctx context.Context, program string, arguments []string) error {
+	application.record(ctx, "server run", append([]string{program}, arguments...)...)
+	return application.failure
+}
+
+// ServerServe records server hosting without implementing native serve delegation.
+func (application *recordingApplication) ServerServe(ctx context.Context, program string, arguments []string) error {
+	application.record(ctx, "server serve", append([]string{program}, arguments...)...)
+	return application.failure
+}
+
+// TestServerDispatch verifies server commands use the application boundary and preserve opaque native arguments.
+func TestServerDispatch(t *testing.T) {
+	for _, mode := range []string{"run", "serve"} {
+		for _, fail := range []bool{false, true} {
+			fake := &recordingApplication{}
+			failure := errors.New("server application unavailable")
+			if fail {
+				fake.failure = failure
+			}
+			arguments := []string{"--help", "--transport", "unix", "--listen", "a socket", "--future-native-option"}
+			command := New(fake)
+			command.SetArgs(append([]string{"server", mode}, arguments...))
+			var output bytes.Buffer
+			command.SetOut(&output)
+			command.SetErr(&output)
+			ctx, cancel := context.WithCancel(t.Context())
+			cancel()
+			err := command.ExecuteContext(ctx)
+			if fail && !errors.Is(err, failure) || !fail && err != nil {
+				t.Fatalf("server %s failed=%t: %v", mode, fail, err)
+			}
+			expected := append([]string{"anki_as_code server run"}, arguments...)
+			if fake.calls != 1 || fake.operation != "server "+mode || fake.ctx != ctx || !reflect.DeepEqual(fake.paths, expected) || output.Len() != 0 {
+				t.Fatalf("server command bypassed or changed application dispatch: %+v output=%q", fake, output.String())
+			}
+		}
+	}
+	for _, arguments := range [][]string{{"server"}, {"server", "--help"}, {"server", "unknown"}} {
+		fake := &recordingApplication{}
+		command := New(fake)
+		command.SetArgs(arguments)
+		var output bytes.Buffer
+		command.SetOut(&output)
+		command.SetErr(&output)
+		err := command.ExecuteContext(t.Context())
+		invalid := arguments[len(arguments)-1] == "unknown"
+		if fake.calls != 0 || invalid && err == nil || !invalid && (err != nil || !strings.Contains(output.String(), "serve")) {
+			t.Fatalf("server group dispatched a workflow or mishandled syntax: args=%v error=%v calls=%d output=%q", arguments, err, fake.calls, output.String())
+		}
+	}
+}
+
 // TestCommandDispatch runs the complete command tree against an isolated application.
 func TestCommandDispatch(t *testing.T) {
 	for _, scenario := range []struct {

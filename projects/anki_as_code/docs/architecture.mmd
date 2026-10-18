@@ -1,7 +1,10 @@
 flowchart LR
-    entry[cmd/anki_as_code] --> cli[internal/cli]
+    entry[cmd/anki_as_code: composition] --> cli[internal/cli: syntax and streams]
     entry --> app[pkg/ankiascode.App]
-    cli -. application interface .-> app
+    cli -->|Config, Col, ColState, Server| app
+    entry -. Inject native adapter .-> host[ankiserver.Run]
+    app -->|ServerRun / ServerServe| host
+    host --> server[Linked Anki gRPC server]
     app --> collections[collection.Store]
     app --> export[Export: write configs]
     app --> planning[Plan: prepare operations]
@@ -23,6 +26,6 @@ flowchart LR
     reconcile --> resource
     state --> services
     collections --> backend[Anki gRPC backends]
-    backend -->|Launch same executable: server serve| server[Linked Anki gRPC server]
+    backend -->|Launch same executable: server serve| server
     services -->|gRPC| server
     server --> native[Anki Rust library]

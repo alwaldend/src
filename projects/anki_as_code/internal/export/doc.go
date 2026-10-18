@@ -1,10 +1,11 @@
-// Package export writes a prepared native collection as editable configs.
-// Exporter borrows resource and state stores, reads native snapshots and existing
-// bindings for stable filenames, projects native values and paths, and delegates
-// binding generation to state.Export and config file output to config.Store.
-// It overwrites declared configs in place and leaves other entries alone,
-// including state files other than the explicit state destination. Callers own
-// cleanup, synchronization, state operations and native lifetime; filesystem
-// errors may leave partial config output. Export optionally publishes snapshot
-// bindings as TOML after writing configs; it never installs state.
+// Package export projects prepared native collections into editable config files.
+// Exporter borrows resource/state stores, reads snapshots and bindings for stable
+// filenames, derives editable values and paths, and delegates binding generation
+// to state.Export and config file output to config.Store. Optional snapshot
+// bindings are published as TOML after config output; stored state is never installed.
+// Declared configs are overwritten and other entries are retained. Filesystem
+// failures may leave partial configs; state output uses atomic replacement.
+// Callers own collection/source exclusion checks, native lifetime, synchronization
+// and workflow policy. This package does not start workers, open collections,
+// reconcile resources or own the supplied resource/state stores.
 package export

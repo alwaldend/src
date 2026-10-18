@@ -11,6 +11,6 @@ func New(application application) *cobra.Command {
 		SilenceUsage:  true,
 	}
 	command.CompletionOptions.DisableDefaultCmd = true
-	command.AddCommand(newConfigCommand(application), newCollectionCommand(application))
+	command.AddCommand(newConfigCommand(application), newCollectionCommand(application), newServerCommand(application))
 	return command
 }

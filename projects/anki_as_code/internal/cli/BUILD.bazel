@@ -9,6 +9,7 @@ go_library(
         "doc.go",
         "flags.go",
         "root.go",
+        "server.go",
         "state.go",
     ],
     importpath = "git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/cli",

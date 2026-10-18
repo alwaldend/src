@@ -98,3 +98,42 @@
         package documentation. Document every top-level declaration and struct field,
         including unexported and embedded fields, with a name-led comment that
         describes its purpose or behavior. Keep module-wide architecture in the README.
+- description: Respects documented application and command responsibilities
+  vars:
+    request: >-
+      cmd/catalog/doc.go says the executable only composes dependencies and
+      installs process signal handling. internal/cli/doc.go owns Cobra syntax,
+      formats and streams, and pkg/app/doc.go owns all user operations. A new
+      server command in main.go directly invokes a native host. Review and fix
+      the boundary without forcing native linkage into every App consumer.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Reads the affected doc.go descriptions and source/callers, identifies the
+        direct native invocation from a command handler as misplaced operation
+        logic, puts command construction in cli and the operation behind App,
+        and injects the native adapter through executable composition. Keeps
+        signal handling at the process boundary and lower-level hosting with
+        its owner. Does not broaden main or cli documentation to excuse the
+        bypass, duplicate server parsing, or add a dependency.
+- description: Checks documentation against implementation instead of treating stale text as authority
+  vars:
+    request: >-
+      Review two Go packages. Package plan claims no I/O in doc.go but its new
+      Build opens the collection database. Package resource owns fresh native
+      snapshots through a borrowed connection and does not manage its lifetime.
+      Its doc.go is missing those exclusions. Correct responsibilities and
+      boundaries while preserving the existing application and storage owners.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Checks imports, effects, public APIs and consumers against package
+        documentation, moves database acquisition to the existing application
+        or collection owner and keeps plan pure. Documents snapshot and borrowed
+        connection ownership accurately in resource/doc.go without assigning it
+        process lifetime or application policy. Does not merely rewrite plan's
+        comment to authorize the misplaced I/O or move lower-level domain
+        algorithms wholesale into App. Keeps each doc.go descriptive, with implementation/review instructions in the
+        Go skill, and respects scope for material changes.
