@@ -9,6 +9,12 @@
 
 - [x] 2.1 Validate the owner change and representative output, and select exact-candidate quality, lint and packaging gates. The repo-delivery receipt owns commit, push and pull-request completion.
 
+## 3. Timestamp-order correction
+
+- [x] 3.1 Renumber lessons by earliest source note creation ID, with deck IDs only for empty lessons; number Guzhenren vocabulary by original note ID within passage groups and verify sentence creation order.
+- [x] 3.2 Build the corrected collection and independently verify source identities, note content, media, study history, chronology and an empty native plan.
+- [x] 3.3 Select exact-candidate validation and publication gates for the corrected prerelease. Delivery and release receipts own publication completion.
+
 ## Source and organization
 
 Source: `collection-20261017235526.colpkg`, SHA-256
@@ -19,9 +25,14 @@ lesson decks. Guzhenren contains 133 sentences and 714 words (847 notes).
 
 Grammar has 449 lesson decks: A1 42, A2 95, B1 158, B2 142, C1 12. Four are
 empty source decks, so 445 are populated. Use consecutive `001. ` prefixes
-alphabetically within each level. Guzhenren uses 14 aligned passage groups of
+by ascending earliest contained note creation ID within each level, with source
+deck creation IDs only for the four empty lessons. Guzhenren uses 14 aligned passage groups of
 ten sentences, except the final three-sentence group. Number sentence files
-consecutively from 001 through 133 in chapter reading order.
+consecutively from 001 through 133 in chapter reading order. Vocabulary filenames
+use consecutive global prefixes from 001 through 714, preserving source note-ID
+order within each passage group. The 713 small imported vocabulary IDs preserve
+sequence, not reliable wall-clock timestamps; shared modification times are not
+used as creation times.
 
 Vocabulary association exceptions: note 5023 (`跪`) lacks an example and occurs
 in sentences 051/054, both in group 006. Note 10003 (`敢`) has the unmatched
@@ -80,3 +91,12 @@ Existing note-field quoting was retained to keep Git comparisons readable. The
 current CLI decodes the repository text to exactly the same complete config set
 as the native build input, including card ordinal defaults; a canonical config
 digest records this equivalence. The repository post-build plan remains empty.
+
+The timestamp correction renumbers 434 of the 449 grammar lessons and prefixes
+all 714 Guzhenren vocabulary files. Independent verification of the actual
+filesystem checks each lesson against its earliest source note ID, all grammar
+note filenames against numeric creation order, and the 133 sentence and 714
+vocabulary positions. All 7,737 note, deck, note-type and exported-state TOML
+blobs are byte-identical to the previous candidate, under their corrected paths.
+A native build of the corrected tree retains the verified source membership,
+content, media and study history and again produces an empty post-build plan.
