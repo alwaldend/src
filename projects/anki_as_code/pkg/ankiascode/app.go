@@ -2,6 +2,7 @@ package ankiascode
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -19,25 +20,56 @@ import (
 	"google.golang.org/grpc"
 )
 
-// App coordinates configuration and native collection workflows through their services.
+// App coordinates configuration, collection and server operations through their owners.
 // Its zero value supports configuration operations. Use New to configure a native
 // worker before collection access; it must not be copied after collection access.
 type App struct {
 	// collections reserves sources and publishes successful changed archive scopes.
 	collections collection.Store
+	// serverRunner hosts the native CLI through the adapter supplied by the executable.
+	serverRunner func([]string) error
 }
 
-// Options configures an application's native worker without starting it.
+// Options supplies explicit worker settings and an optional native hosting adapter.
 type Options struct {
+	// ServerRunner hosts a full native argument vector, including its program name.
+	// It owns serving until return or process termination; collection operations do not use it.
+	ServerRunner func([]string) error
 	// BackendBinary supplies the executable required for collection scopes; no default is discovered.
 	BackendBinary string
 	// BackendArguments supplies its server-mode arguments.
 	BackendArguments []string
 }
 
-// New constructs an application with explicit native worker configuration.
+// New constructs an application from explicit worker and native hosting dependencies.
 func New(options Options) *App {
-	return &App{collections: collection.New(ankiclient.BackendSTDOptions{Binary: options.BackendBinary, Arguments: options.BackendArguments})}
+	return &App{
+		collections:  collection.New(ankiclient.BackendSTDOptions{Binary: options.BackendBinary, Arguments: options.BackendArguments}),
+		serverRunner: options.ServerRunner,
+	}
+}
+
+// ServerRun invokes the configured native CLI with a display name and unchanged arguments.
+// ctx controls entry only; the injected runner owns hosting and its process until it returns.
+func (application *App) ServerRun(ctx context.Context, program string, arguments []string) error {
+	if err := ctx.Err(); err != nil {
+		return fmt.Errorf("start native CLI: %w", errors.Join(err, context.Cause(ctx)))
+	}
+	if application.serverRunner == nil {
+		return fmt.Errorf("native CLI runner is not configured")
+	}
+	if err := application.serverRunner(append([]string{program}, arguments...)); err != nil {
+		return fmt.Errorf("run native CLI: %w", err)
+	}
+	return nil
+}
+
+// ServerServe delegates to ServerRun with the native serve subcommand prepended.
+func (application *App) ServerServe(ctx context.Context, program string, arguments []string) error {
+	if err := application.ServerRun(ctx, program, append([]string{"serve"}, arguments...)); err != nil {
+		return fmt.Errorf("serve Anki: %w", err)
+	}
+	return nil
 }
 
 // ConfigDump loads and encodes config files without opening Anki.

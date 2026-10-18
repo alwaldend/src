@@ -1,11 +1,10 @@
 // Package config provides a root-bound Store for Anki configuration files.
-//
-// Store.Load reads the fixed hierarchy through protobuf schemas and checks syntax,
-// schema types, and filesystem constraints. Store.Dump encodes the parsed configs.
-// Store.Export writes supplied path/config objects directly, without validation,
-// normalization, staging, or publication. Callers own collection semantics,
-// state-dependent checks, and Anki operations.
-// The layout child package owns discovery/file I/O; codec owns serialization
-// without a filesystem dependency. Stores select a root without opening Anki
-// or retaining parsed messages; each read returns fresh caller-owned values.
+// It composes layout discovery/file I/O and codec serialization to Load, Dump
+// and Export protobuf configuration sets. Reads return fresh caller-owned values.
+// Layout owns fixed filenames, supported versions and path-derived defaults;
+// codec owns syntax and schema types. Export overwrites declared files directly
+// and retains other entries; failures can leave partial output.
+// Callers own semantic validation, state-dependent checks, normalization,
+// staging, publication and native lifetime. This package does not open Anki,
+// invoke native services or retain parsed messages between operations.
 package config

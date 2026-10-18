@@ -8,7 +8,7 @@ description: >-
 
 # Work with Go in this repository
 
-Read the owning README and BUILD.bazel before editing. Keep the package's
+Read the owning README, affected packages' doc.go and BUILD.bazel before editing or reviewing. Keep the package's
 existing style and use project-layout for new source locations; a focused
 change does not authorize moving unrelated legacy packages.
 
@@ -37,8 +37,19 @@ Every first-party Go package must have one package documentation comment in
 `doc.go`, immediately before its package declaration. Start with `Package <name>` and describe the package purpose, responsibilities, and important
 boundaries or guarantees. Include command packages and handwritten wrappers
 for generated code; do not edit generated files or upstream dependencies.
-Keep the comment accurate when behavior changes and include `doc.go` in the
-owning Bazel target. Module-wide architecture belongs in the owning README.
+Use package comments to describe responsibilities, side effects, managed or
+borrowed lifetimes, dependency direction and responsibilities owned elsewhere.
+Keep implementation and review instructions in this skill, not in package comments.
+Before implementation or review, compare that documentation with imports, effects,
+public APIs and actual call paths. Keep code within the intended package boundaries:
+commands adapt input/output, applications coordinate operations, and lower-level
+packages retain their domain and lifecycle duties. Do not bypass an operation's
+owner from a CLI handler or move all domain algorithms into App.
+If documentation and behavior disagree, use the approved design, consumers and
+owning README to identify the intended owner. Correct inaccurate descriptions or
+misplaced code within authorized scope; do not broaden comments to excuse a bypass.
+Keep comments descriptive and current and include `doc.go` in the owning Bazel
+target. Module-wide architecture belongs in the owning README.
 
 Document every top-level declaration, including exported and unexported types,
 functions, methods, constants, and package variables. Document every struct

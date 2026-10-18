@@ -1,7 +1,10 @@
-// Package ankiascode provides configuration and native collection application workflows.
-// App exposes path-based Config, Col and ColState operations over the owning
-// services. Native operations require worker configuration through New.
-// collection.Store lends connections, reserves sources and publishes archives;
-// exporters, resource/state stores and the reconciler retain their business rules.
-// rebuild.Builder owns copied-package staging, publication and cleanup.
+// Package ankiascode coordinates all Anki as code application operations.
+// App owns Config, Col, ColState and Server workflows, validates workflow paths,
+// composes lower-level services and delegates native hosting through an injected
+// runner. ServerServe delegates to ServerRun; its context controls startup only.
+// Collection scopes own source reservations and archive publication; export,
+// state, resource, plan, reconcile and rebuild retain their domain responsibilities.
+// This package does not parse CLI flags, manage process-global signals, link
+// Rust/cgo or duplicate native transport/storage logic. The executable supplies
+// native adapters; collection operations require explicit worker configuration.
 package ankiascode

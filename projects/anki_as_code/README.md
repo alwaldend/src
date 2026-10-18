@@ -38,7 +38,8 @@ Linux runtime libraries, including OpenSSL 3.
 
 `server` shows the available server operations. `server run` forwards arguments
 to the linked Rust CLI, which owns native subcommands and their help.
-`server serve` is a shortcut for `server run serve`:
+`server serve` invokes App.ServerServe, which delegates to App.ServerRun with
+`serve` prepended. Cobra forwards arguments without interpreting native flags:
 
 ```sh
 anki_as_code server run --help
@@ -209,22 +210,28 @@ id = "1"
 ```
 
 `pkg/ankiascode` provides the concrete `ankiascode.App`. Its zero value supports
-configuration-only operations. Native collection operations require explicit worker configuration.
+configuration-only operations. Native collection operations require explicit worker
+configuration, and hosting the server requires an injected `ServerRunner`.
 `ankiascode.New(ankiascode.Options{BackendBinary: path, BackendArguments: args})`
 configures an explicit worker executable and arguments. The CLI supplies its own
 executable and `[]string{"server", "serve"}`. Operations follow the CLI namespaces: `ConfigDump`, `ConfigExport`,
 `ColExport`,
 `ColPlan`, `ColApply`, `ColBuild`, and `ColStateDump`, `ColStateImport`,
-`ColStateUpdate`, `ColStateReplace`. Collection inputs are ordinary file paths;
+`ColStateUpdate`, `ColStateReplace`, `ServerRun` and `ServerServe`. Collection inputs are ordinary file paths;
 there are no collection reference objects, lookup IDs or selector messages.
 
-`internal/cli` owns Cobra commands, flags, binding syntax, formats and streams.
-Its root constructor receives one implementation of its private `application`
-interface. The interface uses strings, protobuf messages and standard-library
-types. This package does not import App or the native backend. `cmd/anki_as_code`
-constructs `ankiascode.App`, passes it to `cli.New`, adds the `server` group with its generic `run` passthrough and delegating `serve`
-shortcut, and handles process signals. The run command retains native signal
-handling so an interrupt terminates its blocking native runtime.
+`internal/cli` owns the complete Cobra tree, flags, binding syntax, formats and
+streams. Every operation, including `server run` and `server serve`, goes through
+its private `application` interface. App owns server delegation and composes
+collection/configuration workflows; the lower-level packages retain their domain
+and lifecycle responsibilities. CLI does not host native code or construct App.
+
+`cmd/anki_as_code` constructs App and passes it to `cli.New`. It injects the linked
+`ankiserver.Run` adapter through `Options.ServerRunner` and supplies process signal
+handling. App.ServerRun checks startup cancellation, builds the native argument
+vector and invokes that adapter. Native serving owns the process until return or
+termination; its context controls entry only. App does not link Rust/cgo or change
+process-global signals. Missing runner configuration fails before native hosting.
 Isolated command tests supply one fake without constructing App or starting Anki.
 Commands pass namespaces explicitly, and App retains no command configuration.
 
@@ -592,6 +599,9 @@ The project keeps one Go module with focused packages. Configs and state are
 protobuf contracts. Runtime resolution models stay private to `internal/plan`; packages expose only operations used by their consumers.
 
 ![Anki CLI package dependencies](assets/architecture.svg)
+
+Each package's `doc.go` describes its responsibilities and boundaries; this
+diagram shows how the packages compose.
 
 The dotted edge shows calls through the CLI-owned application interface. Solid
 edges show component dependencies.

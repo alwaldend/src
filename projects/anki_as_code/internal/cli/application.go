@@ -9,6 +9,10 @@ import (
 // application describes the workflows consumed by the complete command tree.
 // Tests substitute these operations without constructing the concrete App.
 type application interface {
+	// ServerRun hosts the native CLI with caller-supplied arguments.
+	ServerRun(ctx context.Context, program string, arguments []string) error
+	// ServerServe hosts the native serve operation through application delegation.
+	ServerServe(ctx context.Context, program string, arguments []string) error
 	// ConfigDump returns encoded collection configurations.
 	ConfigDump(ctx context.Context, text, format string) ([]byte, error)
 	// ConfigExport writes a parsed configuration set as a TOML tree.

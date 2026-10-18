@@ -18,6 +18,55 @@ import (
 	"google.golang.org/grpc"
 )
 
+// TestApplicationServerBoundary verifies native delegation, startup cancellation and failure causes at the application boundary.
+func TestApplicationServerBoundary(t *testing.T) {
+	for _, serve := range []bool{false, true} {
+		for _, fail := range []bool{false, true} {
+			var captured []string
+			failure := errors.New("native runner failed")
+			application := New(Options{ServerRunner: func(arguments []string) error {
+				captured = arguments
+				if fail {
+					return failure
+				}
+				return nil
+			}})
+			operation := application.ServerRun
+			expected := []string{"application server run"}
+			if serve {
+				operation = application.ServerServe
+				expected = append(expected, "serve")
+			}
+			arguments := []string{"--listen", "socket with spaces", "--future-native-option"}
+			err := operation(t.Context(), expected[0], arguments)
+			expected = append(expected, arguments...)
+			if fail && !errors.Is(err, failure) || !fail && err != nil || strings.Join(captured, "\x00") != strings.Join(expected, "\x00") {
+				t.Fatalf("native delegation serve=%t fail=%t: args=%v error=%v", serve, fail, captured, err)
+			}
+			if strings.Join(arguments, "\x00") != "--listen\x00socket with spaces\x00--future-native-option" {
+				t.Fatal("application changed caller arguments")
+			}
+		}
+	}
+	application := New(Options{ServerRunner: func([]string) error {
+		t.Fatal("cancelled startup invoked the native runner")
+		return nil
+	}})
+	ctx, cancel := context.WithCancel(t.Context())
+	cancel()
+	for _, operation := range []func(context.Context, string, []string) error{application.ServerRun, application.ServerServe} {
+		if err := operation(ctx, "application", nil); !errors.Is(err, context.Canceled) {
+			t.Fatalf("server startup lost cancellation: %v", err)
+		}
+	}
+	application = &App{}
+	for _, operation := range []func(context.Context, string, []string) error{application.ServerRun, application.ServerServe} {
+		if err := operation(t.Context(), "application", nil); err == nil {
+			t.Fatal("unconfigured application accepted native hosting")
+		}
+	}
+}
+
 // TestDirectDatabaseWorkflow verifies native writes persist without a staging copy, including before a caller error.
 func TestDirectDatabaseWorkflow(t *testing.T) {
 	fixture := newFixture(t)
