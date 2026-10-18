@@ -19,6 +19,7 @@ go_library(
         "//projects/anki_as_code/internal/rebuild",
         "//projects/anki_as_code/internal/reconcile",
         "//projects/anki_as_code/internal/resource",
+        "//projects/anki_as_code/internal/rpc",
         "//projects/anki_as_code/internal/state",
         "//projects/anki_grpc/pkg/ankiclient",
         "@org_golang_google_grpc//:grpc",

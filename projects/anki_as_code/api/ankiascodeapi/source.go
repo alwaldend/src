@@ -14,14 +14,15 @@ type CollectionSource interface {
 }
 
 // CollectionPath describes an existing source for application-owned preparation,
-// successful changed-archive publication and cleanup. It performs no filesystem work.
+// enabled archive publication and cleanup. It performs no filesystem work.
 func CollectionPath(path string) CollectionSource {
 	return collectionSource{path: path}
 }
 
 // CollectionConnection borrows an already-open collection without taking ownership.
-// Application operations never open, close or publish this collection. Its owner
-// keeps it available through each call and decides when to publish package changes.
+// Managed collection workflows never open, close or publish this collection.
+// Raw API requests retain their requested native side effects. The owner keeps
+// the connection available through each call and coordinates native lifecycle and publication.
 func CollectionConnection(connection grpc.ClientConnInterface) CollectionSource {
 	return collectionSource{connection: connection}
 }

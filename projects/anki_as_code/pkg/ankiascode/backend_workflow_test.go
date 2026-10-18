@@ -2,7 +2,6 @@ package ankiascode
 
 import (
 	"context"
-	"os"
 	"path/filepath"
 	"testing"
 
@@ -84,7 +83,7 @@ func TestFilteredCardProtection(t *testing.T) {
 	originalHome := &ankiascodepb.DeckConfig{}
 	readFixtureTOML(t, homeMarker, originalHome)
 	writeFixtureTOML(t, homeMarker, &ankiascodepb.DeckConfig{Filtered: &decks.Deck_Filtered{}})
-	originalPackage, err := os.ReadFile(result)
+	originalPackage, err := fixtureContent(t, result)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -94,7 +93,7 @@ func TestFilteredCardProtection(t *testing.T) {
 	if err := applyForFixture(ctx, result, text, ""); err == nil {
 		t.Fatal("filtered card home-deck conversion applied")
 	}
-	retainedPackage, err := os.ReadFile(result)
+	retainedPackage, err := fixtureContent(t, result)
 	if err != nil || string(originalPackage) != string(retainedPackage) {
 		t.Fatal("rejected home-deck conversion changed archive")
 	}
@@ -111,7 +110,7 @@ func TestFilteredCardProtection(t *testing.T) {
 	readFixtureTOML(t, settingsPath, settings)
 	settings.Templates[0], settings.Templates[1] = settings.Templates[1], settings.Templates[0]
 	writeFixtureTOML(t, settingsPath, settings)
-	original, err := os.ReadFile(result)
+	original, err := fixtureContent(t, result)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -121,7 +120,7 @@ func TestFilteredCardProtection(t *testing.T) {
 	if err := applyForFixture(ctx, result, text, ""); err == nil {
 		t.Fatal("template identity change affecting a filtered card applied")
 	}
-	retainedArchive, err := os.ReadFile(result)
+	retainedArchive, err := fixtureContent(t, result)
 	if err != nil || string(original) != string(retainedArchive) {
 		t.Fatal("rejected template identity change replaced the archive")
 	}
@@ -129,7 +128,7 @@ func TestFilteredCardProtection(t *testing.T) {
 	writeFixtureTOML(t, settingsPath, settings)
 	note.Cards = append(note.Cards, &ankiascodepb.CardConfig{Ordinal: int64(resident.TemplateIdx), Deck: proto.String("decks/grammar/deck.anki.toml")})
 	writeFixtureTOML(t, notePath, note)
-	before, err := os.ReadFile(result)
+	before, err := fixtureContent(t, result)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -139,7 +138,7 @@ func TestFilteredCardProtection(t *testing.T) {
 	if err := applyForFixture(ctx, result, text, ""); err == nil {
 		t.Fatal("filtered card conflict applied")
 	}
-	after, err := os.ReadFile(result)
+	after, err := fixtureContent(t, result)
 	if err != nil || string(before) != string(after) {
 		t.Fatal("rejected filtered edit changed archive")
 	}

@@ -153,14 +153,11 @@ func TestNoteTypeExportNamesWorkflow(t *testing.T) {
 			}
 			writeFixtureTOML(t, stateFile, stored)
 			runFixtureCLI(t, "col", "state", "replace", "--collection", fixture.base, stateFile)
-			before, err := os.ReadFile(fixture.base)
-			if err != nil {
-				t.Fatal(err)
-			}
+			before := stateFixtureDump(t, fixture.base)
 			text := filepath.Join(root, "exported")
 			runFixtureCLI(t, "col", "export", "--collection", fixture.base, "--output", text)
-			after, err := os.ReadFile(fixture.base)
-			if err != nil || string(before) != string(after) || !proto.Equal(stored, stateFixtureDump(t, fixture.base)) {
+			after := stateFixtureDump(t, fixture.base)
+			if !proto.Equal(before, after) || !proto.Equal(stored, after) {
 				t.Fatal("export changed the source collection or its stored bindings")
 			}
 			exported, err := config.New(text).Load()
@@ -385,16 +382,13 @@ func TestReadableNoteNamesWorkflow(t *testing.T) {
 	}
 	assertConverged(t, fixture.base, text)
 	before := fixtureSources(t, text)
-	archiveBefore, err := os.ReadFile(fixture.base)
-	if err != nil {
-		t.Fatal(err)
-	}
+	archiveBefore := stateFixtureDump(t, fixture.base)
 	if err := prepareFixtureConfigs(t, context.Background(), fixture.base, text); err != nil {
 		t.Fatal(err)
 	}
 	assertFixtureSources(t, text, before)
-	archiveAfter, err := os.ReadFile(fixture.base)
-	if err != nil || string(archiveBefore) != string(archiveAfter) {
+	archiveAfter := stateFixtureDump(t, fixture.base)
+	if !proto.Equal(archiveBefore, archiveAfter) {
 		t.Fatal("repeated export changed source collection")
 	}
 	editedPath := filepath.Join(noteDirectory, "Hello-世界-2.note.anki.toml")

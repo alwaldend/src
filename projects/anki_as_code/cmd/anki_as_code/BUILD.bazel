@@ -37,6 +37,7 @@ go_binary(
 go_test(
     name = "cli_workflow_test",
     srcs = [
+        "api_workflow_test.go",
         "cli_workflow_test.go",
         "linked_server_test.go",
     ],

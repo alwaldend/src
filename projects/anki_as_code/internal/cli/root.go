@@ -14,6 +14,6 @@ func New(application ankiascodeapi.App) *cobra.Command {
 		SilenceUsage:  true,
 	}
 	command.CompletionOptions.DisableDefaultCmd = true
-	command.AddCommand(newConfigCommand(application), newCollectionCommand(application), newServerCommand(application))
+	command.AddCommand(newConfigCommand(application), newCollectionCommand(application), newServerCommand(application), newAPICommand(application))
 	return command
 }

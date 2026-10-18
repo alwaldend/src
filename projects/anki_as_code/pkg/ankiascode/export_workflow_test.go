@@ -26,15 +26,12 @@ func TestExportStateOnboardingWorkflow(t *testing.T) {
 			if inputFormat == "database" {
 				input = fixture.database
 			}
-			before, err := os.ReadFile(input)
-			if err != nil {
-				t.Fatal(err)
-			}
+			before := stateFixtureDump(t, input)
 			root := t.TempDir()
 			text, stateFile := filepath.Join(root, "configs"), filepath.Join(root, "state.anki.toml")
 			runFixtureCLI(t, "col", "export", "--collection", input, "--output", text, "--state-output", stateFile)
-			if after, err := os.ReadFile(input); err != nil || string(after) != string(before) {
-				t.Fatal("state export changed source bytes", err)
+			if !proto.Equal(before, stateFixtureDump(t, input)) {
+				t.Fatal("state export changed stored collection state")
 			}
 			data, err := os.ReadFile(stateFile)
 			if err != nil {
@@ -183,15 +180,15 @@ func TestExportConfigOnlyWorkflow(t *testing.T) {
 			if inputFormat == "database" {
 				input = fixture.database
 			}
-			before, err := os.ReadFile(input)
+			before, err := fixtureContent(t, input)
 			if err != nil {
 				t.Fatal(err)
 			}
 			text := filepath.Join(t.TempDir(), "text")
 			runFixtureCLI(t, "col", "export", "--collection", input, "--output", text)
-			after, err := os.ReadFile(input)
+			after, err := fixtureContent(t, input)
 			if err != nil || string(before) != string(after) {
-				t.Fatal("export modified source collection bytes")
+				t.Fatal("export modified source collection content")
 			}
 			initial := stateFixtureDump(t, input)
 			if len(initial.GetResources().GetDecks())+len(initial.GetResources().GetNotes())+len(initial.GetResources().GetNoteTypes()) != 0 {

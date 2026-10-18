@@ -3,6 +3,7 @@ package ankiascode
 import (
 	"context"
 	"errors"
+	"fmt"
 	"os"
 	"path/filepath"
 	"slices"
@@ -14,6 +15,7 @@ import (
 	ankiascodepb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodepb"
 	"github.com/ankitects/anki/proto/anki/notes"
 	"google.golang.org/grpc"
+	"google.golang.org/protobuf/encoding/protojson"
 	"google.golang.org/protobuf/proto"
 )
 
@@ -152,4 +154,62 @@ func (source conflictingCollectionSource) Path() string { return source.path }
 // Connection returns the conflicting borrowed connection alternative.
 func (source conflictingCollectionSource) Connection() grpc.ClientConnInterface {
 	return source.connection
+}
+
+// TestBorrowedAPIWorkflow invokes the generic application operation against caller-owned native resources.
+func TestBorrowedAPIWorkflow(t *testing.T) {
+	fixture := newFixture(t)
+	client := inspectFixture(t, fixture.base)
+	connection, err := client.worker.Connection()
+	if err != nil {
+		t.Fatal(err)
+	}
+	original, err := os.ReadFile(fixture.base)
+	if err != nil {
+		t.Fatal(err)
+	}
+	application := &App{}
+	request := ankiascodeapi.APIRequest{
+		Collection: ankiascodeapi.CollectionConnection(connection), WriteBack: true,
+		Method: "/anki.notes.NotesService/GetNote", Input: []byte(fmt.Sprintf(`{"nid":"%d"}`, fixture.noteID)), InputFormat: "json", OutputFormat: "json",
+	}
+	output, err := application.APICall(t.Context(), request)
+	if err != nil {
+		t.Fatal(err)
+	}
+	note := &notes.Note{}
+	if err := protojson.Unmarshal(output, note); err != nil || note.GetId() != fixture.noteID {
+		t.Fatalf("raw native response: %s %v", output, err)
+	}
+	request.Input = []byte(`{"unknown":true}`)
+	if _, err := application.APICall(t.Context(), request); err == nil {
+		t.Fatal("invalid raw input accepted")
+	}
+	request.Backend = "unix:///unused"
+	if _, err := application.APICall(t.Context(), request); err == nil {
+		t.Fatal("ambiguous raw API source accepted")
+	}
+	if _, err := client.notes.GetNote(t.Context(), &notes.NoteId{Nid: fixture.noteID}); err != nil {
+		t.Fatalf("raw API closed caller connection: %v", err)
+	}
+	current, err := os.ReadFile(fixture.base)
+	if err != nil || string(current) != string(original) {
+		t.Fatalf("raw API published borrowed archive: %v", err)
+	}
+	database := filepath.Join(t.TempDir(), "unopened.anki2")
+	if err := os.WriteFile(database, nil, 0o600); err != nil {
+		t.Fatal(err)
+	}
+	request = ankiascodeapi.APIRequest{Collection: ankiascodeapi.CollectionPath(database), Method: "/anki.collection.BackendCollectionService/OpenCollection", Input: []byte("{}"), InputFormat: "json", OutputFormat: "json"}
+	if _, err := application.APICall(t.Context(), request); err == nil || !strings.Contains(err.Error(), "collection lifetime") {
+		t.Fatalf("managed lifetime bypass: %v", err)
+	}
+	if info, err := os.Stat(database); err != nil || info.Size() != 0 {
+		t.Fatalf("rejected lifecycle call opened collection: %v %v", info, err)
+	}
+	if destination := os.Getenv("TEST_UNDECLARED_OUTPUTS_DIR"); destination != "" {
+		if err := os.WriteFile(filepath.Join(destination, "borrowed-api-note.json"), output, 0o600); err != nil {
+			t.Fatal(err)
+		}
+	}
 }

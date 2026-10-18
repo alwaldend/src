@@ -1,0 +1,34 @@
+load("@aspect_bazel_lib//lib:run_binary.bzl", "run_binary")
+load("@rules_go//go:def.bzl", "go_library")
+load("//third_party/com_github_ankitects_anki:schemas.bzl", "ANKI_SCHEMAS")
+
+run_binary(
+    name = "schema_imports",
+    srcs = ["//third_party/com_github_ankitects_anki:descriptors"],
+    outs = ["schemas_generated.go"],
+    args = [
+        "--descriptors=$(location //third_party/com_github_ankitects_anki:descriptors)/anki_descriptors.bin",
+        "--output=$(location schemas_generated.go)",
+    ],
+    tool = "//projects/anki_as_code/tools/generate_anki_schemas",
+)
+
+go_library(
+    name = "rpc",
+    srcs = [
+        "catalog.go",
+        "doc.go",
+        ":schema_imports",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/rpc",
+    visibility = [
+        "//projects/anki_as_code/internal/cli:__pkg__",
+        "//projects/anki_as_code/pkg/ankiascode:__pkg__",
+    ],
+    deps = [
+        "//projects/anki_as_code/internal/codec",
+        "@org_golang_google_grpc//:grpc",
+        "@org_golang_google_protobuf//reflect/protoreflect",
+        "@org_golang_google_protobuf//reflect/protoregistry",
+    ] + ["//third_party/com_github_ankitects_anki:" + name for name in sorted(ANKI_SCHEMAS)],
+)

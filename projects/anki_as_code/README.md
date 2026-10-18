@@ -52,6 +52,47 @@ Stdio is the default and reserves stdout for gRPC. TCP and Unix listeners use
 plaintext gRPC and require an explicit address. The child process keeps native
 failures and shutdown separate from the application workflow.
 
+## Upstream API commands
+
+`api <service> <method>` constructs its command tree from the compiled Go
+protobuf descriptors for all 25 pinned Anki schemas. Bazel automatically generates
+the registration imports into `internal/rpc` from the pinned descriptor set using
+the project-local `tools/generate_anki_schemas` generator;
+no separate generation step or runtime schema files are needed. Service/method names use
+kebab-case, omit the `Service` suffix and retain `backend-` prefixes. Implicit
+backend methods are included. Help lists request fields and message types;
+no proto files or server discovery are needed.
+
+```sh
+anki_as_code api tags all-tags --collection ./collection.colpkg
+anki_as_code api notes get-note --collection ./collection.anki2 \
+  --input request.toml --input-format toml --output-format json
+anki_as_code api notes get-note --backend unix:///path/to/anki.sock \
+  --input request.json
+```
+
+Exactly one of `--collection` and `--backend` is required. Offline access starts
+the same executable with `server serve` and owns the collection lifetime. `--backend` accepts a TCP
+host:port, `tcp://host:port`, `unix:///absolute/path` or an absolute Unix socket
+path. It uses the server's current collection and closes only the client
+connection. Explicit open/close/import RPCs require connected access.
+Unix URI paths can be relative, such as `unix://anki.sock`.
+App resolves methods, validates payloads and owns remote client connections directly; `collection.Store` manages only
+offline collection scopes.
+
+Input defaults to stdin (`--input -`); JSON is the default input and output
+encoding. An empty request body is accepted for empty request messages.
+`--timeout` bounds input reading, startup and the request, defaulting to 30 seconds. Responses
+use stdout after cleanup succeeds; request, publication and cleanup errors use
+stderr and a nonzero exit status. Native error details are preserved.
+
+Offline archive write-back is enabled by default. `--write-back` enables it
+and `--no-write-back` disables it; the last occurrence wins. Explicit boolean
+values such as `--write-back=false` are also accepted. Disabling write-back
+skips automatic `.colpkg` publication; native RPCs keep their normal effects.
+`.anki2` mutations always commit directly. Requests are not
+transactions: earlier committed changes can persist even when a later RPC fails.
+
 ## Onboarding an existing collection
 
 Export a full `.colpkg` from Anki, then close Anki and other collection writers.
@@ -77,7 +118,7 @@ bazel_agent bazel run //projects/anki_as_code -- col build \
   --output /absolute/path/rebuilt.colpkg
 ```
 
-The export leaves the source collection and its stored state unchanged. The
+The export leaves collection content and its stored state unchanged; source archives may be repackaged. The
 optional state file contains version-1 TOML bindings for every exported deck,
 note and note type, including field/template identities and referenced
 scheduling preset aliases. It uses the exact generated filenames, including
@@ -149,10 +190,10 @@ release. State stores borrow the connection and own no native lifetime or files.
 
 Databases are opened directly and committed writes persist in place, including
 when a later operation fails. Packages are restored into a temporary directory
-and changed results are exported through Anki's atomic package API including media.
-Dump and unchanged writes retain the source archive bytes. Failures before export
-discard restored changes. Normal cleanup removes restored files; uncertain native
-completion follows the backend library's retention/error contract.
+and written back during cleanup through Anki's atomic package API, including media.
+Publication runs independently of request outcomes and may repackage unchanged
+content. Normal cleanup removes restored files; publication failures or uncertain
+native completion follow the backend library's retention/error contract.
 
 Missing files and non-regular inputs fail before startup. Anki validates package
 contents during restore. Cleanup uses a bounded context independent of command
@@ -279,21 +320,22 @@ For a borrowed connection, its owner must keep both outputs distinct from
 native collection files: a connection source carries no filename for alias
 checks. Config/state output conflict checks still apply.
 
-`internal/collection.Store` reserves existing sources and publishes changed archives.
+`internal/collection.Store` reserves existing sources and owns enabled archive publication.
 Construct it with explicit process options before collection access. `WithCollection` injects a prepared
 `grpc.ClientConnInterface` into its callback. Construct the services you need on
 that connection and reuse local instances for several operations.
 
-`collection.New(ankiclient.BackendSTDOptions{Binary: path, Arguments: args})`
+`collection.New(collection.Options{Backend: ankiclient.BackendSTDOptions{Binary: path, Arguments: args}})`
 configures the worker. No executable or server arguments are discovered by default;
 missing configuration fails before opening a collection. Callers supply their
 server executable and runtime inputs. Each scope constructs a fresh stdin/stdout worker and collection backend. It closes native
-storage before stopping the worker. Each cleanup has a five-second bound
+storage before stopping the worker. Collection publication and close have a ten-minute default budget, configurable
+with Options.CollectionCloseTimeout; transport cleanup has a separate five-second budget
 independent of callback cancellation; source reservations outlive cleanup.
 
 ```go
-store := collection.New(ankiclient.BackendSTDOptions{Binary: serverPath, Arguments: []string{"serve"}})
-err := store.WithCollection(ctx, path, func(connection grpc.ClientConnInterface) (bool, error) {
+store := collection.New(collection.Options{Backend: ankiclient.BackendSTDOptions{Binary: serverPath, Arguments: []string{"serve"}}})
+err := store.WithCollection(ctx, collection.CollectionOptions{Path: path, WriteBack: true}, func(connection grpc.ClientConnInterface) (bool, error) {
     resources := resource.New(connection)
     states := state.New(connection, key)
     exporter := export.New(resources, states)
@@ -314,12 +356,22 @@ connection; each operation reads fresh data. A Store or App must not be copied
 after use. Duplicate canonical paths and file aliases are rejected within one
 Store; callers coordinate access across different stores and external writers.
 
-A true result after successful callback completion publishes changes back to the
-source archive through Anki. False, errors and cancellation skip publication.
+CollectionOptions selects the source path and WriteBack policy. Enabled write-back
+publishes the source archive during cleanup independently of callback results, errors
+and cancellation. Application workflows explicitly enable it; API flags select it.
 Database writes persist immediately, including before later errors; the scope is
 not a transaction. To export another archive destination, use Anki's
 `ExportCollectionPackage` with the injected connection as the final operation and
-return false. Native export consumes the open collection; backend cleanup handles it.
+disable WriteBack when source publication is unwanted. Native export consumes the
+open collection; backend cleanup handles it.
+
+`App.APICall(ctx, ankiascodeapi.APIRequest{...})` exposes the same generic operation
+without per-method wrappers. Supply a fully qualified gRPC Method, Input bytes and
+JSON/TOML encodings. Collection accepts the shared path or borrowed-connection
+source; Backend selects an app-owned connection to a running server. Exactly one
+is required. WriteBack defaults to false for Go callers; the CLI explicitly
+selects true. Borrowed native connections retain caller-owned cleanup and
+publication. Request validation precedes native startup.
 
 ## State Go API
 
@@ -365,9 +417,9 @@ Its failure contract can retain restore files when native completion is uncertai
 reporting their path. The CLI and App add no restore owner or lifecycle state machine.
 
 Store reserves each source before startup and retains that reservation through
-cleanup. A successful callback returning true publishes only its own source
-archive through Anki's `ExportCollectionPackage`; false, errors and cancellation
-skip publication. Anki writes and atomically replaces that archive. Database
+cleanup. When WriteBack is enabled, BackendCollection publishes its source archive
+through Anki independently of callback outcomes. Anki writes and atomically replaces
+that archive. Database
 operations persist in place. Build separately copies its base to a temporary
 directory beside the destination, applies to that copy and atomically replaces
 the destination after success. Failed builds remove staging and leave the
@@ -469,8 +521,8 @@ accepted values are never written back into TOML.
 
 Database apply updates the supplied collection directly. Anki commits each native
 operation, so later errors can leave earlier operations committed. Archive apply
-uses Anki's atomic package export; complete no-ops retain original bytes by skipping
-that call. Failures before export leave the source package unchanged. Build requires
+uses Anki's atomic package export during cleanup. Earlier committed changes can
+persist after later request failures; read operations may repackage unchanged content. Build requires
 a distinct archive output and stages its copy before Apply, publishing the completed
 archive atomically after success. Keep other writers closed while using a collection;
 the CLI does not detect concurrent archive replacement.
@@ -634,10 +686,10 @@ with its Server. The Server delegates storage operations to the Anki API. Both
 server variants access Anki storage, which holds native resources and the
 application's persisted state.
 
-The external-server gRPC edge denotes planned built-in server selection in a
-separate PR. Callers can already prepare external connections through
-`ankiclient.BackendGRPC` and pass them to App through
-`ankiascodeapi.CollectionConnection`.
+The external-server gRPC edge is used by `api --backend` with an explicit TCP or
+Unix address. App owns only its client connection. Go callers can also prepare
+external connections through `ankiclient.BackendGRPC` and pass them to App
+through `ankiascodeapi.CollectionConnection`.
 
 ### Package dependencies
 
@@ -652,23 +704,24 @@ diagram shows how the packages compose.
 Dotted edges show calls through injected contracts. Solid
 edges show component dependencies.
 
-| Package                  | Responsibility                                                 |
-| ------------------------ | -------------------------------------------------------------- |
-| `cmd/anki_as_code`       | App construction, CLI invocation and process signals           |
-| `internal/cli`           | Cobra commands, application dispatch and streams               |
-| `internal/collection`    | Source reservations and archive publication                    |
-| `api/ankiascodepb`       | Generated config, plan, and persisted-state contracts          |
-| `api/ankiascodeapi`      | Shared application interface and collection source contracts   |
-| `pkg/ankiascode`         | Application workflows and service composition                  |
-| `internal/export`        | Native-to-config projection and direct file output             |
-| `internal/plan`          | Pure resolution, comparison, ownership and prepared operations |
-| `internal/reconcile`     | Execute protobuf plans, bind native IDs and persist state      |
-| `internal/rebuild`       | Apply to a staged archive copy and publish it atomically       |
-| `internal/resource`      | Native generated clients and fresh resource snapshots          |
-| `internal/config`        | Root-bound configuration Store for Load, Dump, and Export      |
-| `internal/config/layout` | Fixed hierarchy, discovery, file I/O, and direct export        |
-| `internal/codec`         | Filesystem-independent protobuf/TOML/JSON conversion           |
-| `internal/state`         | Stored-state dump, import, update, and replacement             |
+| Package                  | Responsibility                                                  |
+| ------------------------ | --------------------------------------------------------------- |
+| `cmd/anki_as_code`       | App construction, CLI invocation and process signals            |
+| `internal/cli`           | Cobra commands, application dispatch and streams                |
+| `internal/collection`    | Source reservations and archive publication                     |
+| `api/ankiascodepb`       | Generated config, plan, and persisted-state contracts           |
+| `api/ankiascodeapi`      | Shared application interface and collection source contracts    |
+| `pkg/ankiascode`         | Application workflows and service composition                   |
+| `internal/export`        | Native-to-config projection and direct file output              |
+| `internal/plan`          | Pure resolution, comparison, ownership and prepared operations  |
+| `internal/reconcile`     | Execute protobuf plans, bind native IDs and persist state       |
+| `internal/rebuild`       | Apply to a staged archive copy and publish it atomically        |
+| `internal/resource`      | Native generated clients and fresh resource snapshots           |
+| `internal/config`        | Root-bound configuration Store for Load, Dump, and Export       |
+| `internal/config/layout` | Fixed hierarchy, discovery, file I/O, and direct export         |
+| `internal/rpc`           | Compiled upstream descriptor catalog and protobuf RPC execution |
+| `internal/codec`         | Filesystem-independent protobuf/TOML/JSON conversion            |
+| `internal/state`         | Stored-state dump, import, update, and replacement              |
 
 The command entry point injects App into internal/cli through
 `ankiascodeapi.App`, checking compatibility during compilation. Commands
