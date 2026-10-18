@@ -37,7 +37,7 @@ go_test(
         "//projects/anki_as_code/api/collection",
         "//projects/anki_as_code/internal/codec",
         "//projects/anki_as_code/internal/config",
-        "//projects/anki_grpc/pkg/backend",
+        "//projects/anki_grpc/pkg/ankiclient",
         "//third_party/com_github_ankitects_anki:cards",
         "//third_party/com_github_ankitects_anki:collection",
         "//third_party/com_github_ankitects_anki:config",

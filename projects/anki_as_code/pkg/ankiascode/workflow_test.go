@@ -10,8 +10,6 @@ import (
 	"testing"
 	"time"
 
-	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/collection"
-
 	collectionpb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/collection"
 	"google.golang.org/protobuf/proto"
 
@@ -189,7 +187,7 @@ func TestStateInputFailures(t *testing.T) {
 	}
 	for _, input := range []string{filepath.Join(root, "missing.anki2"), root, archive} {
 		ctx, cancel := context.WithTimeout(t.Context(), 5*time.Second)
-		value, err := (&App{}).ColStateDump(ctx, input, "")
+		value, err := fixtureApplication().ColStateDump(ctx, input, "")
 		cancel()
 		if err == nil || value != nil {
 			t.Fatalf("invalid collection input %q: error=%v state=%v", input, err, value)
@@ -202,8 +200,8 @@ func TestStateInputFailures(t *testing.T) {
 
 // runFixtureCollection exercises native callbacks through collection.Store.
 func runFixtureCollection(ctx context.Context, input, output string, operation func(grpc.ClientConnInterface) (bool, error)) error {
-	store := &collection.Store{}
-	if err := store.WithCollection(ctx, input, func(connection grpc.ClientConnInterface) (bool, error) {
+	application := fixtureApplication()
+	if err := application.collections.WithCollection(ctx, input, func(connection grpc.ClientConnInterface) (bool, error) {
 		changed, err := operation(connection)
 		if err != nil {
 			return false, fmt.Errorf("run native fixture operation: %w", err)

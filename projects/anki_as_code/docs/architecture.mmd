@@ -23,6 +23,6 @@ flowchart LR
     reconcile --> resource
     state --> services
     collections --> backend[Anki gRPC backends]
-    backend --> server[Anki gRPC server]
+    backend -->|Launch same executable: server serve| server[Linked Anki gRPC server]
     services -->|gRPC| server
     server --> native[Anki Rust library]

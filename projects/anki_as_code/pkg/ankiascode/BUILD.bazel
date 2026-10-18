@@ -19,6 +19,7 @@ go_library(
         "//projects/anki_as_code/internal/reconcile",
         "//projects/anki_as_code/internal/resource",
         "//projects/anki_as_code/internal/state",
+        "//projects/anki_grpc/pkg/ankiclient",
         "@org_golang_google_grpc//:grpc",
     ],
 )
@@ -48,7 +49,7 @@ go_test(
         "//projects/anki_as_code/internal/config",
         "//projects/anki_as_code/internal/resource",
         "//projects/anki_as_code/internal/state",
-        "//projects/anki_grpc/pkg/backend",
+        "//projects/anki_grpc/pkg/ankiclient",
         "//third_party/com_github_ankitects_anki:cards",
         "//third_party/com_github_ankitects_anki:collection",
         "//third_party/com_github_ankitects_anki:config",
@@ -66,6 +67,5 @@ go_test(
         "@org_golang_google_grpc//:grpc",
         "@org_golang_google_protobuf//encoding/protojson",
         "@org_golang_google_protobuf//proto",
-        "@rules_go//go/runfiles",
     ],
 )

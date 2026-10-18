@@ -2,9 +2,19 @@
 
 use std::path::PathBuf;
 
-/// HELP describes the supported transports and their listener parameters.
-pub(crate) const HELP: &str =
-    "Usage: anki_grpc [--transport stdio|tcp|unix] [--listen ADDRESS_OR_PATH]
+/// HELP lists native CLI commands without starting a server.
+pub(crate) const HELP: &str = "Usage: anki_grpc <COMMAND>
+
+Commands:
+  serve  Run the Anki gRPC server.
+
+Options:
+  -h, --help  Show this help and exit.
+";
+
+/// SERVE_HELP describes the serve command's transports and listener parameters.
+pub(crate) const SERVE_HELP: &str =
+    "Usage: anki_grpc serve [--transport stdio|tcp|unix] [--listen ADDRESS_OR_PATH]
 
 Transports:
   stdio  One gRPC connection over stdin/stdout (default); no --listen.
@@ -16,6 +26,31 @@ Options:
   --listen ADDRESS_OR_PATH  Required for tcp and unix.
   -h, --help  Show this help and exit.
 ";
+
+/// Command selects native CLI behavior before runtime initialization.
+pub(crate) enum Command {
+    /// Help displays available native commands.
+    Help,
+    /// ServeHelp displays transport options without starting the server.
+    ServeHelp,
+    /// Serve runs the server on the selected transport.
+    Serve(Transport),
+}
+
+impl Command {
+    /// parse validates the native subcommand and delegates its transport arguments.
+    pub(crate) fn parse(args: impl IntoIterator<Item = String>) -> Result<Self, String> {
+        let mut args = args.into_iter();
+        match args.next().as_deref() {
+            None | Some("-h" | "--help") => Ok(Self::Help),
+            Some("serve") => match Transport::parse(args)? {
+                Some(transport) => Ok(Self::Serve(transport)),
+                None => Ok(Self::ServeHelp),
+            },
+            Some(command) => Err(format!("unknown command: {command}")),
+        }
+    }
+}
 
 /// Transport identifies the stream source and its explicit listener endpoint.
 pub(crate) enum Transport {

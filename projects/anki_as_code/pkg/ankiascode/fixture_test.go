@@ -13,7 +13,7 @@ import (
 	"time"
 
 	collectionpb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/collection"
-	grpcbackend "git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/backend"
+	"git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/ankiclient"
 	"github.com/BurntSushi/toml"
 	"github.com/ankitects/anki/proto/anki/cards"
 	ankicol "github.com/ankitects/anki/proto/anki/collection"
@@ -27,7 +27,6 @@ import (
 	"github.com/ankitects/anki/proto/anki/scheduler"
 	"github.com/ankitects/anki/proto/anki/search"
 	"github.com/ankitects/anki/proto/anki/stats"
-	"github.com/bazelbuild/rules_go/go/runfiles"
 	"google.golang.org/protobuf/encoding/protojson"
 	"google.golang.org/protobuf/proto"
 )
@@ -37,7 +36,7 @@ type fixtureClient struct {
 	// opened records whether cleanup must close a collection; native package export closes it itself.
 	opened bool
 	// worker owns the fixture server and its connection.
-	worker grpcbackend.Backend
+	worker ankiclient.Backend
 	// collections controls the open collection lifetime.
 	collections ankicol.BackendCollectionServiceClient
 	// decks exposes native deck operations.
@@ -81,14 +80,20 @@ func (client *fixtureClient) close() error {
 	return errors.Join(collectionErr, workerErr)
 }
 
+// fixtureCLIPath locates the explicitly declared application executable for native fixtures.
+func fixtureCLIPath() string {
+	return filepath.Join(os.Getenv("TEST_SRCDIR"), os.Getenv("TEST_WORKSPACE"), os.Getenv("ANKI_CLI"))
+}
+
+// fixtureApplication configures application workflows with the linked CLI's server command.
+func fixtureApplication() *App {
+	return New(Options{BackendBinary: fixtureCLIPath(), BackendArguments: []string{"server", "serve"}})
+}
+
 // connectFixture opens an existing or new private collection with generated clients.
 func connectFixture(t *testing.T, database string) *fixtureClient {
 	t.Helper()
-	binary, err := runfiles.Rlocation("_main/projects/anki_grpc/cmd/anki_grpc/anki_grpc")
-	if err != nil {
-		t.Fatal(err)
-	}
-	worker := grpcbackend.New(grpcbackend.BackendSTDOptions{Binary: binary})
+	worker := ankiclient.New(ankiclient.BackendSTDOptions{Binary: fixtureCLIPath(), Arguments: []string{"server", "serve"}})
 	if err := worker.Start(context.Background()); err != nil {
 		t.Fatal(err)
 	}
@@ -356,7 +361,7 @@ func fixtureCardSchedule(card *cards.Card) *cards.Card {
 // runFixtureCLI executes the built command with bounded lifetime and separate streams.
 func runFixtureCLI(t *testing.T, arguments ...string) []byte {
 	t.Helper()
-	binary := filepath.Join(os.Getenv("TEST_SRCDIR"), os.Getenv("TEST_WORKSPACE"), os.Getenv("ANKI_CLI"))
+	binary := fixtureCLIPath()
 	ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
 	defer cancel()
 	command := exec.CommandContext(ctx, binary, arguments...)
@@ -393,7 +398,7 @@ func saveFixtureArtifact(t *testing.T, input, name string) {
 
 // exportForFixture invokes the application workflow with the fixture namespace.
 func exportForFixture(ctx context.Context, input, output, key string) error {
-	application := &App{}
+	application := fixtureApplication()
 	if err := application.ColExport(ctx, input, output, "", key); err != nil {
 		return fmt.Errorf("export fixture: %w", err)
 	}
@@ -402,7 +407,7 @@ func exportForFixture(ctx context.Context, input, output, key string) error {
 
 // buildForFixture invokes the application workflow with the fixture namespace.
 func buildForFixture(ctx context.Context, base, dir, output, key string) error {
-	application := &App{}
+	application := fixtureApplication()
 	if err := application.ColBuild(ctx, base, dir, output, key); err != nil {
 		return fmt.Errorf("build fixture: %w", err)
 	}
@@ -411,7 +416,7 @@ func buildForFixture(ctx context.Context, base, dir, output, key string) error {
 
 // applyForFixture invokes the application workflow with the fixture namespace.
 func applyForFixture(ctx context.Context, input, dir, key string) error {
-	application := &App{}
+	application := fixtureApplication()
 	if err := application.ColApply(ctx, input, dir, key); err != nil {
 		return fmt.Errorf("apply fixture: %w", err)
 	}
@@ -420,7 +425,7 @@ func applyForFixture(ctx context.Context, input, dir, key string) error {
 
 // planForFixture invokes the application workflow with the fixture namespace.
 func planForFixture(ctx context.Context, input, dir, key string) (*collectionpb.CollectionChangePlan, error) {
-	application := &App{}
+	application := fixtureApplication()
 	value, err := application.ColPlan(ctx, input, dir, key)
 	if err != nil {
 		return nil, fmt.Errorf("plan fixture: %w", err)

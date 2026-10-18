@@ -48,7 +48,7 @@ go_test(
         "//projects/anki_as_code/internal/export",
         "//projects/anki_as_code/internal/resource",
         "//projects/anki_as_code/internal/state",
-        "//projects/anki_grpc/pkg/backend",
+        "//projects/anki_grpc/pkg/ankiclient",
         "//third_party/com_github_ankitects_anki:cards",
         "//third_party/com_github_ankitects_anki:decks",
         "//third_party/com_github_ankitects_anki:import_export",

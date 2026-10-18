@@ -9,7 +9,7 @@ import (
 	"testing"
 	"time"
 
-	"git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/backend"
+	"git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/ankiclient"
 	"github.com/ankitects/anki/proto/anki/cards"
 	"github.com/ankitects/anki/proto/anki/decks"
 	"github.com/ankitects/anki/proto/anki/import_export"
@@ -28,8 +28,8 @@ func TestResourceWorkflow(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	worker := backend.New(backend.BackendSTDOptions{Binary: binary})
-	collection := backend.NewCollection(backend.BackendCollectionOptions{Backend: worker, Path: filepath.Join(t.TempDir(), "collection.anki2")})
+	worker := ankiclient.New(ankiclient.BackendSTDOptions{Binary: binary, Arguments: []string{"serve"}})
+	collection := ankiclient.NewCollection(ankiclient.BackendCollectionOptions{Backend: worker, Path: filepath.Join(t.TempDir(), "collection.anki2")})
 	t.Cleanup(func() {
 		cleanup, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 		defer cancel()

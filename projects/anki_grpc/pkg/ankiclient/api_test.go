@@ -1,4 +1,4 @@
-package backend_test
+package ankiclient_test
 
 import (
 	"context"
@@ -18,7 +18,7 @@ import (
 
 	"github.com/bazelbuild/rules_go/go/runfiles"
 
-	"git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/backend"
+	"git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/ankiclient"
 	ankibackend "github.com/ankitects/anki/proto/anki/backend"
 	"github.com/ankitects/anki/proto/anki/collection"
 	"github.com/ankitects/anki/proto/anki/generic"
@@ -47,8 +47,8 @@ func workerPath(t *testing.T) string {
 // TestNativeCollection verifies native persistence, card generation, and transport failures.
 func TestNativeCollection(t *testing.T) {
 	ctx := t.Context()
-	arguments := []string{"--transport", "stdio"}
-	var worker backend.Backend = backend.New(backend.BackendSTDOptions{
+	arguments := []string{"serve", "--transport", "stdio"}
+	var worker ankiclient.Backend = ankiclient.New(ankiclient.BackendSTDOptions{
 		Binary:    workerPath(t),
 		Arguments: arguments,
 	})
@@ -221,7 +221,7 @@ func TestWorkerFailure(t *testing.T) {
 			t.Fatal(err)
 		}
 		executable := workerPath(t)
-		if err := syscall.Exec(executable, []string{executable}, os.Environ()); err != nil {
+		if err := syscall.Exec(executable, []string{executable, "serve"}, os.Environ()); err != nil {
 			t.Fatal(err)
 		}
 		return
@@ -269,7 +269,7 @@ func TestWorkerStartupDeadline(t *testing.T) {
 	t.Setenv("ANKI_E2E_UNRESPONSIVE_WORKER", "1")
 	marker := filepath.Join(t.TempDir(), "startup-marker")
 	t.Setenv("ANKI_E2E_STARTUP_MARKER", marker)
-	worker := backend.New(backend.BackendSTDOptions{
+	worker := ankiclient.New(ankiclient.BackendSTDOptions{
 		Binary:    os.Args[0],
 		Arguments: []string{"-test.run=^TestWorkerStartupDeadline$"},
 	})
@@ -304,14 +304,14 @@ func TestWorkerStartupDeadline(t *testing.T) {
 
 // TestBackendLifecycle verifies no-op stop, invalid commands, and startup context isolation.
 func TestBackendLifecycle(t *testing.T) {
-	var unstarted backend.Backend = backend.New(backend.BackendSTDOptions{Binary: workerPath(t)})
+	var unstarted ankiclient.Backend = ankiclient.New(ankiclient.BackendSTDOptions{Binary: workerPath(t), Arguments: []string{"serve"}})
 	if err := unstarted.Stop(t.Context()); err != nil {
 		t.Fatal(err)
 	}
 	if err := unstarted.Start(t.Context()); err == nil {
 		t.Fatal("stopped configuration started a worker")
 	}
-	missing := backend.New(backend.BackendSTDOptions{Binary: filepath.Join(t.TempDir(), "missing-worker")})
+	missing := ankiclient.New(ankiclient.BackendSTDOptions{Binary: filepath.Join(t.TempDir(), "missing-worker")})
 	if err := missing.Start(t.Context()); err == nil {
 		t.Fatal("missing executable accepted")
 	}
@@ -320,7 +320,7 @@ func TestBackendLifecycle(t *testing.T) {
 	}
 	ctx, cancel := context.WithTimeout(t.Context(), 10*time.Second)
 	defer cancel()
-	negative := backend.New(backend.BackendSTDOptions{
+	negative := ankiclient.New(ankiclient.BackendSTDOptions{
 		Binary:          workerPath(t),
 		ShutdownTimeout: -time.Second,
 	})
@@ -332,7 +332,7 @@ func TestBackendLifecycle(t *testing.T) {
 	if err := negative.Start(ctx); err == nil {
 		t.Fatal("negative shutdown timeout accepted")
 	}
-	invalid := backend.New(backend.BackendSTDOptions{
+	invalid := ankiclient.New(ankiclient.BackendSTDOptions{
 		Binary:    workerPath(t),
 		Arguments: []string{"--invalid-argument"},
 	})
@@ -366,7 +366,7 @@ func TestBackendLifecycle(t *testing.T) {
 // TestWorkerStopDeadline verifies forced shutdown after deadline, cancellation, and grace expiry.
 func TestWorkerStopDeadline(t *testing.T) {
 	if os.Getenv("ANKI_E2E_SLOW_STOP") == "1" {
-		command := exec.CommandContext(t.Context(), workerPath(t))
+		command := exec.CommandContext(t.Context(), workerPath(t), "serve")
 		command.Stdin, command.Stdout, command.Stderr = os.Stdin, os.Stdout, os.Stderr
 		if err := command.Run(); err != nil {
 			t.Fatal(err)
@@ -382,14 +382,14 @@ func TestWorkerStopDeadline(t *testing.T) {
 		t.Run(scenario, func(t *testing.T) {
 			marker := filepath.Join(t.TempDir(), "inner-reaped")
 			t.Setenv("ANKI_E2E_INNER_REAPED", marker)
-			options := backend.BackendSTDOptions{
+			options := ankiclient.BackendSTDOptions{
 				Binary:    os.Args[0],
 				Arguments: []string{"-test.run=^TestWorkerStopDeadline$", "-worker=" + *workerBinary},
 			}
 			if scenario == "configured" {
 				options.ShutdownTimeout = 500 * time.Millisecond
 			}
-			worker := backend.New(options)
+			worker := ankiclient.New(options)
 			if err := worker.Start(t.Context()); err != nil {
 				t.Fatal(err)
 			}
@@ -464,12 +464,12 @@ func TestWorkerStopDeadline(t *testing.T) {
 }
 
 // startRecordedWorker runs Anki through an exec replacement that records its PID.
-func startRecordedWorker(t *testing.T, ctx context.Context) (backend.Backend, int) {
+func startRecordedWorker(t *testing.T, ctx context.Context) (ankiclient.Backend, int) {
 	t.Helper()
 	pidFile := filepath.Join(t.TempDir(), "worker.pid")
 	t.Setenv("ANKI_E2E_RECORD_PID", "1")
 	t.Setenv("ANKI_E2E_PID_FILE", pidFile)
-	var worker backend.Backend = backend.New(backend.BackendSTDOptions{
+	var worker ankiclient.Backend = ankiclient.New(ankiclient.BackendSTDOptions{
 		Binary:    os.Args[0],
 		Arguments: []string{"-test.run=^TestWorkerFailure$", "-worker=" + *workerBinary},
 	})

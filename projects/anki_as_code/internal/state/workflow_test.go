@@ -17,7 +17,7 @@ import (
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/codec"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/config"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/state"
-	"git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/backend"
+	"git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/ankiclient"
 	"github.com/ankitects/anki/proto/anki/cards"
 	"github.com/ankitects/anki/proto/anki/collection"
 	ankiconfig "github.com/ankitects/anki/proto/anki/config"
@@ -273,7 +273,7 @@ func startBackend(t *testing.T, ctx context.Context) grpc.ClientConnInterface {
 	if err != nil {
 		t.Fatal(err)
 	}
-	worker := backend.New(backend.BackendSTDOptions{Binary: binary})
+	worker := ankiclient.New(ankiclient.BackendSTDOptions{Binary: binary, Arguments: []string{"serve"}})
 	t.Cleanup(func() {
 		cleanup, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 		defer cancel()

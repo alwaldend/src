@@ -1,7 +1,7 @@
 load("@rules_go//go:def.bzl", "go_library", "go_test")
 
 go_library(
-    name = "backend",
+    name = "ankiclient",
     srcs = [
         "api.go",
         "collection.go",
@@ -10,8 +10,7 @@ go_library(
         "doc.go",
         "network.go",
     ],
-    data = ["//projects/anki_grpc"],
-    importpath = "git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/backend",
+    importpath = "git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/ankiclient",
     target_compatible_with = [
         "@platforms//os:linux",
         "@platforms//cpu:x86_64",
@@ -30,7 +29,7 @@ go_library(
 )
 
 go_test(
-    name = "backend_test",
+    name = "ankiclient_test",
     srcs = [
         "api_test.go",
         "collection_test.go",
@@ -43,7 +42,7 @@ go_test(
         "@platforms//cpu:x86_64",
     ],
     deps = [
-        ":backend",
+        ":ankiclient",
         "//third_party/com_github_ankitects_anki:backend",
         "//third_party/com_github_ankitects_anki:collection",
         "//third_party/com_github_ankitects_anki:decks",

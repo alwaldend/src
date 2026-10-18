@@ -41,14 +41,15 @@ builds target Linux x86_64.
 
 ## Usage
 
-The built executable accepts:
+The built executable lists commands when invoked without arguments or with
+`--help`. The serve subcommand starts the server:
 
 ```sh
 anki_grpc --help
-anki_grpc
-anki_grpc --transport stdio
-anki_grpc --transport tcp --listen 127.0.0.1:50051
-anki_grpc --transport unix --listen ./anki.sock
+anki_grpc serve
+anki_grpc serve --transport stdio
+anki_grpc serve --transport tcp --listen 127.0.0.1:50051
+anki_grpc serve --transport unix --listen ./anki.sock
 ```
 
 Stdio serves one gRPC HTTP/2 connection on the process pipes, reserving stdout
@@ -64,13 +65,31 @@ backend and its open collection. Close a collection through Anki before
 reopening it or shutting down the process. Disconnecting a network client
 leaves the backend available to later clients.
 
+## Linked server
+
+`pkg/ankiserver` exposes the same Rust entry point to Go through cgo and one C ABI
+argument-vector function. `ankiserver.Run(arguments)` takes a full argument vector,
+including the program name, executes the native CLI and reports native failures.
+The serve subcommand blocks until shutdown and owns the process's protocol streams. There are no per-RPC FFI
+bindings: clients continue to use ordinary gRPC and generated Anki messages.
+
+The generic `anki_as_code server run` command forwards arguments to this library.
+`anki_as_code server serve` delegates to `server run serve`, selecting the Rust
+serve subcommand. Its collection workflows
+launch that command in a child process, retaining independent termination and
+crash isolation without extracting or finding another executable. The standalone
+`anki_grpc` executable remains a thin adapter over the shared Rust library.
+Both builds currently target Linux x86_64 and require the repository's native
+Rust/C toolchains; linking introduces no new external dependencies.
+
 ## Project layout
 
-- `cmd/anki_grpc/main.rs`: Transport listeners, opaque protobuf codec, and Anki dispatch.
-- `cmd/anki_grpc/cli.rs`: CLI help and transport argument validation.
-- `cmd/anki_grpc/build.rs`: Command lookup generated from Anki's own descriptors.
-- `cmd/anki_grpc/BUILD.bazel`: Executable, descriptor generator, and Clippy targets.
-- `pkg/backend/`: Reusable Go owner of the server process and gRPC connection.
+- `cmd/anki_grpc/main.rs`: Standalone executable adapter.
+- `pkg/ankiserver/lib.rs`: Transport listeners, opaque protobuf codec, and Anki dispatch.
+- `pkg/ankiserver/cli.rs`: Shared CLI help and transport argument validation.
+- `pkg/ankiserver/build.rs`: Command lookup generated from Anki's own descriptors.
+- `pkg/ankiserver/ffi.rs` and `server.go`: C ABI entry point and Go wrapper.
+- `pkg/ankiclient/`: Reusable Go owner of the server process and gRPC connection.
 - `docs/architecture.mmd`: Client, server, and storage diagram source.
 - `test/transport/`: CLI and network transport E2E using official Anki messages.
 - `rustfmt.toml`: Rust 2021 formatting settings for the project.
@@ -97,12 +116,12 @@ and backend-prefixed paths for existing callers, using Anki's own method indices
 Methods declared in both services must have matching request and response schemas.
 TCP and Unix clients can use normal gRPC connections with the same generated clients.
 
-## Go backend
+## Go client
 
-Import `git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/backend`.
+Import `git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/ankiclient`.
 `Backend` exposes `Start(context.Context) error`,
 `Connection() (grpc.ClientConnInterface, error)`, and `Stop(context.Context) error`.
-`BackendSTD` implements it using the server's stdin/stdout. `backend.New` accepts
+`BackendSTD` implements it using the server's stdin/stdout. `ankiclient.New` accepts
 one `BackendSTDOptions` value with `Binary`, `Arguments`, and `ShutdownTimeout`.
 It copies the arguments without starting a process. A zero shutdown timeout uses
 five seconds; Start rejects negative timeouts. `Start`
@@ -120,9 +139,9 @@ Anki's generated service clients with it; each method accepts a typed request an
 returns a typed response. There are no handwritten per-operation wrappers.
 
 ```go
-var worker backend.Backend = backend.New(backend.BackendSTDOptions{
+var worker ankiclient.Backend = ankiclient.New(ankiclient.BackendSTDOptions{
     Binary:          workerPath,
-    Arguments:       []string{"--transport", "stdio"},
+    Arguments:       []string{"serve", "--transport", "stdio"},
     ShutdownTimeout: 5 * time.Second,
 })
 if err := worker.Start(ctx); err != nil {
@@ -171,9 +190,12 @@ startup/shutdown, after Stop, or after worker exit. Construct service clients af
 Start succeeds. Retained clients reject calls
 once Stop begins. The backend owns the connection: shut it down through Stop.
 
+The client library supplies no server executable or implicit runtime dependency.
+Callers package their configured executable; native tests declare their own fixtures.
+
 ### Existing gRPC server
 
-`backend.NewGRPC(backend.BackendGRPCOptions{Address: endpoint})` implements the
+`ankiclient.NewGRPC(ankiclient.BackendGRPCOptions{Address: endpoint})` implements the
 same Start, Connection and Stop interface for a running server. Endpoints accept
 TCP host:port, `tcp://host:port`, `unix:///absolute/path` and absolute socket paths.
 Unix URI paths may also be relative to the client's working directory.
@@ -187,7 +209,7 @@ reject calls after Stop. Native error trailers are decoded as for stdio.
 borrows an already-started backend and never starts or stops that backend:
 
 ```go
-collectionBackend := backend.NewCollection(backend.BackendCollectionOptions{
+collectionBackend := ankiclient.NewCollection(ankiclient.BackendCollectionOptions{
     Backend: worker, // already started; no collection open
     Path:    "/path/to/collection.colpkg", // or collection.anki2
 })
@@ -262,13 +284,13 @@ write-back, readiness, shutdown and restore retention. Operation errors do not
 suppress enabled write-back; callers preserve operation and cleanup errors together.
 
 Public backend names are `BackendSTD`, `BackendGRPC` and `BackendCollection`. The Go package
-is `backend`; `anki_grpc` is the project and server name.
+is `ankiclient`; `anki_grpc` is the project and server name.
 
 ## Verification
 
 ```sh
 bazel_agent bazel test //projects/anki_grpc/test/transport:transport_test
-bazel_agent bazel test //projects/anki_grpc/pkg/backend:backend_test
+bazel_agent bazel test //projects/anki_grpc/pkg/ankiclient:ankiclient_test
 ```
 
 The server E2E checks CLI help, invalid arguments, startup initialization,

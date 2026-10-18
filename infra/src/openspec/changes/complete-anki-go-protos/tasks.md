@@ -10,3 +10,7 @@
 ## 3. Schema library consumers
 
 - [x] 3.1 Allow the CLI to consume all existing Go bindings and the pinned descriptor set while keeping native build dependencies restricted; document consumer-owned registration.
+
+## 4. Linked server consumer
+
+- [x] 4.1 Retarget native/descriptor build visibility to ankiserver and schema visibility to ankiclient without changing pins, bindings or locks; verify both standalone and linked consumers.

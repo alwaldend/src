@@ -104,7 +104,7 @@ func TestExportStateDestinationWorkflow(t *testing.T) {
 	fixture := newFixture(t)
 	root := t.TempDir()
 	text := filepath.Join(root, "configs")
-	application := &App{}
+	application := fixtureApplication()
 	for _, destination := range []string{fixture.base, filepath.Join(text, "collection.anki.toml"), filepath.Join(text, "collection.anki.toml", "state.toml"), filepath.Join(text, "decks"), filepath.Join(text, "note_types", "Chinese.notetype.anki.toml")} {
 		if err := application.ColExport(t.Context(), fixture.base, text, destination, ""); err == nil {
 			t.Fatalf("accepted unsafe state destination %q", destination)

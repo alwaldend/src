@@ -14,7 +14,7 @@ import (
 // TestCollectionScopeBuild verifies copy-and-apply publishes independently of an open source scope.
 func TestCollectionScopeBuild(t *testing.T) {
 	fixture := newFixture(t)
-	application := &App{}
+	application := fixtureApplication()
 	ctx := t.Context()
 	configs, output := t.TempDir(), filepath.Join(t.TempDir(), "built.colpkg")
 	writeFixtureTOML(t, filepath.Join(configs, "collection.anki.toml"), &collectionpb.CollectionConfig{Version: 1})
@@ -61,7 +61,7 @@ func TestCollectionScopeBuild(t *testing.T) {
 func TestBuildFailureDestination(t *testing.T) {
 	for _, existing := range []bool{false, true} {
 		fixture := newFixture(t)
-		application := &App{}
+		application := fixtureApplication()
 		directory := t.TempDir()
 		output := filepath.Join(directory, "result.colpkg")
 		original, err := os.ReadFile(fixture.base)

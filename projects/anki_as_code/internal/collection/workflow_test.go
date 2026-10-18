@@ -17,7 +17,7 @@ import (
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/export"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/resource"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/state"
-	"git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/backend"
+	"git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/ankiclient"
 	"github.com/ankitects/anki/proto/anki/import_export"
 	"github.com/ankitects/anki/proto/anki/notes"
 	"github.com/ankitects/anki/proto/anki/notetypes"
@@ -25,6 +25,51 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/protobuf/proto"
 )
+
+// TestStoreRequiresExplicitWorker verifies missing configuration cannot discover a server or open a collection.
+func TestStoreRequiresExplicitWorker(t *testing.T) {
+	database, _ := nativeSource(t)
+	binary, err := runfiles.Rlocation("_main/projects/anki_grpc/cmd/anki_grpc/anki_grpc")
+	if err != nil {
+		t.Fatal(err)
+	}
+	t.Setenv("PATH", filepath.Dir(binary))
+	original, err := os.ReadFile(database)
+	if err != nil {
+		t.Fatal(err)
+	}
+	store := &Store{}
+	called := false
+	ctx, cancel := context.WithTimeout(t.Context(), 10*time.Second)
+	defer cancel()
+	err = store.WithCollection(ctx, database, func(grpc.ClientConnInterface) (bool, error) {
+		called = true
+		return false, nil
+	})
+	if err == nil || called {
+		t.Fatalf("unconfigured store discovered a worker: error=%v callback=%t", err, called)
+	}
+	actual, err := os.ReadFile(database)
+	if err != nil || string(actual) != string(original) {
+		t.Fatalf("missing worker configuration changed the collection: %v", err)
+	}
+	store.backendOptions = ankiclient.BackendSTDOptions{Binary: binary, Arguments: []string{"serve"}}
+	if _, err := readState(ctx, store, database, ""); err != nil {
+		t.Fatalf("explicit worker could not reuse the source after failed startup: %v", err)
+	}
+	emitArtifact(t, database, "explicit-worker.anki2")
+}
+
+// nativeStore configures a collection store with the explicitly declared standalone server fixture.
+func nativeStore(t *testing.T) *Store {
+	t.Helper()
+	binary, err := runfiles.Rlocation("_main/projects/anki_grpc/cmd/anki_grpc/anki_grpc")
+	if err != nil {
+		t.Fatal(err)
+	}
+	store := New(ankiclient.BackendSTDOptions{Binary: binary, Arguments: []string{"serve"}})
+	return &store
+}
 
 // TestStoreBackendLifecycle verifies native process ownership and source release on every scope exit.
 func TestStoreBackendLifecycle(t *testing.T) {
@@ -36,7 +81,7 @@ func TestStoreBackendLifecycle(t *testing.T) {
 		if err != nil {
 			t.Fatal(err)
 		}
-		if err := syscall.Exec(binary, []string{binary}, os.Environ()); err != nil {
+		if err := syscall.Exec(binary, []string{binary, "serve"}, os.Environ()); err != nil {
 			t.Fatal(err)
 		}
 		return
@@ -46,7 +91,7 @@ func TestStoreBackendLifecycle(t *testing.T) {
 	t.Setenv("TMPDIR", t.TempDir())
 	t.Setenv("ANKI_STORE_RECORD_WORKER", "1")
 	t.Setenv("ANKI_STORE_PID_FILE", pidFile)
-	store := &Store{backendOptions: backend.BackendSTDOptions{
+	store := &Store{backendOptions: ankiclient.BackendSTDOptions{
 		Binary: os.Args[0], Arguments: []string{"-test.run=^TestStoreBackendLifecycle$"},
 	}}
 	for _, scenario := range []string{"success", "error", "cancel", "panic", "crash"} {
@@ -121,7 +166,7 @@ func TestStoreBackendLifecycle(t *testing.T) {
 		t.Fatalf("startup failure retained its source reservation: %v", err)
 	}
 	assertWorkerReaped(t, recordedWorkerPID(t, pidFile))
-	emitArtifact(t, archive, "direct-backend.colpkg")
+	emitArtifact(t, archive, "direct-ankiclient.colpkg")
 }
 
 // recordedWorkerPID reads the subprocess fixture's native worker identity after readiness.
@@ -162,8 +207,8 @@ func nativeSource(t *testing.T) (string, string) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	worker := backend.New(backend.BackendSTDOptions{Binary: binary})
-	prepared := backend.NewCollection(backend.BackendCollectionOptions{Backend: worker, Path: database})
+	worker := ankiclient.New(ankiclient.BackendSTDOptions{Binary: binary, Arguments: []string{"serve"}})
+	prepared := ankiclient.NewCollection(ankiclient.BackendCollectionOptions{Backend: worker, Path: database})
 	defer func() {
 		cleanup, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 		defer cancel()
@@ -254,7 +299,7 @@ func TestStoreServices(t *testing.T) {
 			}
 			scratch, output := t.TempDir(), t.TempDir()
 			t.Setenv("TMPDIR", scratch)
-			store := &Store{}
+			store := nativeStore(t)
 			ctx := t.Context()
 			key := "scoped-state"
 			expected := &collectionpb.State{Version: 1, Resources: &collectionpb.Resources{Presets: map[string]*collectionpb.PresetState{"first": {Id: 1}}}}
@@ -326,7 +371,7 @@ func TestStoreServices(t *testing.T) {
 // TestStoreReservations verifies duplicate source aliases fail and completed scopes release reservations.
 func TestStoreReservations(t *testing.T) {
 	_, archive := nativeSource(t)
-	store := &Store{}
+	store := nativeStore(t)
 	ctx := t.Context()
 	symlink, hardlink := archive+".symlink.colpkg", archive+".hardlink.colpkg"
 	if err := os.Symlink(archive, symlink); err != nil {
@@ -358,7 +403,7 @@ func TestStoreFailurePublication(t *testing.T) {
 		if err != nil {
 			t.Fatal(err)
 		}
-		store := &Store{}
+		store := nativeStore(t)
 		ctx, cancel := context.WithCancel(t.Context())
 		failure := errors.New("scope failed after native mutation")
 		err = store.WithCollection(ctx, archive, func(connection grpc.ClientConnInterface) (bool, error) {
@@ -394,7 +439,7 @@ func TestStoreFailurePublication(t *testing.T) {
 // TestStoreExplicitExport verifies callers can export elsewhere without modifying the source package.
 func TestStoreExplicitExport(t *testing.T) {
 	_, archive := nativeSource(t)
-	store := &Store{}
+	store := nativeStore(t)
 	ctx := t.Context()
 	output := filepath.Join(t.TempDir(), "result.colpkg")
 	original, err := os.ReadFile(archive)

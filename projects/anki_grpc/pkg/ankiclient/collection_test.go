@@ -1,4 +1,4 @@
-package backend_test
+package ankiclient_test
 
 import (
 	"context"
@@ -11,7 +11,7 @@ import (
 	"testing"
 	"time"
 
-	"git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/backend"
+	"git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/ankiclient"
 	"github.com/ankitects/anki/proto/anki/collection"
 	"github.com/ankitects/anki/proto/anki/generic"
 	"github.com/ankitects/anki/proto/anki/import_export"
@@ -42,10 +42,10 @@ func (ctx *startupBarrierContext) Err() error {
 	return ctx.Context.Err()
 }
 
-// TestCollectionBackend verifies native persistence, package ownership and a reusable borrowed backend.
+// TestCollectionBackend verifies native persistence, package ownership and a reusable borrowed ankiclient.
 func TestCollectionBackend(t *testing.T) {
 	ctx := t.Context()
-	worker := backend.New(backend.BackendSTDOptions{Binary: workerPath(t)})
+	worker := ankiclient.New(ankiclient.BackendSTDOptions{Binary: workerPath(t), Arguments: []string{"serve"}})
 	if err := worker.Start(ctx); err != nil {
 		t.Fatal(err)
 	}
@@ -56,9 +56,9 @@ func TestCollectionBackend(t *testing.T) {
 	})
 	root := t.TempDir()
 	database := filepath.Join(root, "collection.anki2")
-	options := backend.BackendCollectionOptions{Backend: worker, Path: database}
-	managed := backend.NewCollection(options)
-	var instance backend.Backend = managed
+	options := ankiclient.BackendCollectionOptions{Backend: worker, Path: database}
+	managed := ankiclient.NewCollection(options)
+	var instance ankiclient.Backend = managed
 	options.Path = filepath.Join(root, "must-not-be-used.anki2")
 	if _, err := instance.Connection(); err == nil {
 		t.Fatal("unprepared collection exposed a connection")
@@ -107,7 +107,7 @@ func TestCollectionBackend(t *testing.T) {
 		t.Fatalf("standard media layout: %v", err)
 	}
 	packagePath := filepath.Join(root, "collection.colpkg")
-	managed = backend.NewCollection(backend.BackendCollectionOptions{Backend: worker, Path: database})
+	managed = ankiclient.NewCollection(ankiclient.BackendCollectionOptions{Backend: worker, Path: database})
 	if err := managed.Start(ctx); err != nil {
 		t.Fatal(err)
 	}
@@ -133,7 +133,7 @@ func TestCollectionBackend(t *testing.T) {
 		if persistent {
 			directory = filepath.Join(t.TempDir(), "restore")
 		}
-		managed = backend.NewCollection(backend.BackendCollectionOptions{Backend: worker, Path: packagePath, RestoreDirectory: directory})
+		managed = ankiclient.NewCollection(ankiclient.BackendCollectionOptions{Backend: worker, Path: packagePath, RestoreDirectory: directory})
 		if err := managed.Start(ctx); err != nil {
 			t.Fatal(err)
 		}
@@ -168,7 +168,7 @@ func TestCollectionBackend(t *testing.T) {
 			t.Fatal("restore cleanup stopped the borrowed backend")
 		}
 	}
-	managed = backend.NewCollection(backend.BackendCollectionOptions{Backend: worker, Path: packagePath})
+	managed = ankiclient.NewCollection(ankiclient.BackendCollectionOptions{Backend: worker, Path: packagePath})
 	if err := managed.Start(ctx); err != nil {
 		t.Fatal(err)
 	}
@@ -188,7 +188,7 @@ func TestCollectionBackend(t *testing.T) {
 	}
 	startup := &startupBarrierContext{Context: ctx, entered: make(chan struct{}), release: make(chan struct{})}
 	raceDirectory := filepath.Join(root, "stopped-before-restore")
-	managed = backend.NewCollection(backend.BackendCollectionOptions{Backend: worker, Path: packagePath, RestoreDirectory: raceDirectory})
+	managed = ankiclient.NewCollection(ankiclient.BackendCollectionOptions{Backend: worker, Path: packagePath, RestoreDirectory: raceDirectory})
 	started := make(chan error, 1)
 	go func() { started <- managed.Start(startup) }()
 	<-startup.entered
@@ -208,7 +208,7 @@ func TestCollectionBackend(t *testing.T) {
 		}
 		t.Fatal("startup prepared restore files after Stop had completed")
 	}
-	managed = backend.NewCollection(backend.BackendCollectionOptions{Backend: worker, Path: database})
+	managed = ankiclient.NewCollection(ankiclient.BackendCollectionOptions{Backend: worker, Path: database})
 	if err := managed.Start(ctx); err != nil {
 		t.Fatalf("overlapping lifecycle leaked an open collection: %v", err)
 	}
@@ -230,7 +230,7 @@ func TestCollectionBackend(t *testing.T) {
 			}
 		}
 	}
-	writeReport(t, "collection-backend.json", map[string]any{"note_id": added.NoteId, "temporary_restore_removed": true, "persistent_restore_retained": true, "borrowed_backend_retained": true})
+	writeReport(t, "collection-ankiclient.json", map[string]any{"note_id": added.NoteId, "temporary_restore_removed": true, "persistent_restore_retained": true, "borrowed_backend_retained": true})
 
 	for _, cancelCall := range []bool{false, true} {
 		scenario := "active-call"
@@ -255,11 +255,11 @@ func collectionRestoreDirectory(t *testing.T, connection grpc.ClientConnInterfac
 func testCollectionCallCleanup(t *testing.T, packagePath string, cancelCall bool) {
 	t.Helper()
 	ctx := t.Context()
-	worker := backend.New(backend.BackendSTDOptions{Binary: workerPath(t)})
+	worker := ankiclient.New(ankiclient.BackendSTDOptions{Binary: workerPath(t), Arguments: []string{"serve"}})
 	if err := worker.Start(ctx); err != nil {
 		t.Fatal(err)
 	}
-	managed := backend.NewCollection(backend.BackendCollectionOptions{Backend: worker, Path: packagePath})
+	managed := ankiclient.NewCollection(ankiclient.BackendCollectionOptions{Backend: worker, Path: packagePath})
 	var restored string
 	t.Cleanup(func() {
 		if err := worker.Stop(context.Background()); err != nil && !errors.Is(err, context.Canceled) {
@@ -356,10 +356,10 @@ func testCollectionCallCleanup(t *testing.T, packagePath string, cancelCall bool
 // TestCollectionBackendFailures verifies preparation and shutdown errors never take over a borrowed process.
 func TestCollectionBackendFailures(t *testing.T) {
 	ctx := t.Context()
-	worker := backend.New(backend.BackendSTDOptions{Binary: workerPath(t)})
+	worker := ankiclient.New(ankiclient.BackendSTDOptions{Binary: workerPath(t), Arguments: []string{"serve"}})
 	root := t.TempDir()
 	path := filepath.Join(root, "collection.anki2")
-	unprepared := backend.NewCollection(backend.BackendCollectionOptions{Backend: worker, Path: path})
+	unprepared := ankiclient.NewCollection(ankiclient.BackendCollectionOptions{Backend: worker, Path: path})
 	if err := unprepared.Start(ctx); err == nil {
 		t.Fatal("collection started an unprepared backend")
 	}
@@ -379,7 +379,7 @@ func TestCollectionBackendFailures(t *testing.T) {
 	})
 	for _, scenario := range []string{"nil backend", "cancelled start", "stop before start", "nonempty restore", "invalid package"} {
 		t.Run(scenario, func(t *testing.T) {
-			options := backend.BackendCollectionOptions{Backend: worker, Path: path}
+			options := ankiclient.BackendCollectionOptions{Backend: worker, Path: path}
 			startup, cancel := context.WithCancel(ctx)
 			defer cancel()
 			if scenario == "nil backend" {
@@ -400,7 +400,7 @@ func TestCollectionBackendFailures(t *testing.T) {
 					t.Fatal(err)
 				}
 			}
-			managed := backend.NewCollection(options)
+			managed := ankiclient.NewCollection(options)
 			if scenario == "stop before start" {
 				if err := managed.Stop(ctx); err != nil {
 					t.Fatal(err)
@@ -425,7 +425,7 @@ func TestCollectionBackendFailures(t *testing.T) {
 			}
 		})
 	}
-	managed := backend.NewCollection(backend.BackendCollectionOptions{Backend: worker, Path: path})
+	managed := ankiclient.NewCollection(ankiclient.BackendCollectionOptions{Backend: worker, Path: path})
 	if err := managed.Start(ctx); err != nil {
 		t.Fatal(err)
 	}
