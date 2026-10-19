@@ -52,6 +52,14 @@ mermaid_site_svg(
     out = "rendered/package-dependencies.svg",
 )
 
+mermaid_site_webp(
+    name = "package_dependencies_preview",
+    src = "package-dependencies.mmd",
+    out = "rendered/package-dependencies.webp",
+    aspect_ratio = [],
+    tags = ["manual"],
+)
+
 mermaid_site_svg(
     name = "config_operations",
     src = "config-operations.mmd",

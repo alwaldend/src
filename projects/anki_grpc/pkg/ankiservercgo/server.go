@@ -1,4 +1,4 @@
-package ankiserver
+package ankiservercgo
 
 /*
 #include <stdlib.h>

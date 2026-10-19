@@ -30,13 +30,13 @@ import (
 type App struct {
 	// collections reserves sources and owns managed archive publication.
 	collections collection.Store
-	// serverRunner hosts the native CLI through the adapter supplied by the executable.
+	// serverRunner hosts the server CLI through the adapter supplied by the executable.
 	serverRunner func([]string) error
 }
 
-// Options supplies backend settings and an optional native hosting adapter.
+// Options supplies backend settings and an optional server hosting adapter.
 type Options struct {
-	// ServerRunner hosts a full native argument vector, including its program name.
+	// ServerRunner hosts a full server argument vector, including its program name.
 	// It owns serving until return or process termination; collection operations do not use it.
 	ServerRunner func([]string) error
 	// BackendBinary supplies the default worker executable; no default is discovered.
@@ -47,7 +47,7 @@ type Options struct {
 	CollectionCloseTimeout time.Duration
 }
 
-// New constructs an application from explicit backend and native hosting dependencies.
+// New constructs an application from explicit backend and server hosting dependencies.
 func New(options Options) *App {
 	return &App{
 		collections:  collection.New(collection.Options{Backend: ankiclient.BackendSTDOptions{Binary: options.BackendBinary, Arguments: options.BackendArguments}, CloseTimeout: options.CollectionCloseTimeout}),
@@ -55,22 +55,22 @@ func New(options Options) *App {
 	}
 }
 
-// ServerRun invokes the configured native CLI with a display name and unchanged arguments.
+// ServerRun invokes the configured server CLI with a display name and unchanged arguments.
 // ctx controls entry only; the injected runner owns hosting and its process until it returns.
 func (application *App) ServerRun(ctx context.Context, program string, arguments []string) error {
 	if err := ctx.Err(); err != nil {
-		return fmt.Errorf("start native CLI: %w", errors.Join(err, context.Cause(ctx)))
+		return fmt.Errorf("start server CLI: %w", errors.Join(err, context.Cause(ctx)))
 	}
 	if application.serverRunner == nil {
-		return fmt.Errorf("native CLI runner is not configured")
+		return fmt.Errorf("server CLI runner is not configured")
 	}
 	if err := application.serverRunner(append([]string{program}, arguments...)); err != nil {
-		return fmt.Errorf("run native CLI: %w", err)
+		return fmt.Errorf("run server CLI: %w", err)
 	}
 	return nil
 }
 
-// ServerServe delegates to ServerRun with the native serve subcommand prepended.
+// ServerServe delegates to ServerRun with the server serve subcommand prepended.
 func (application *App) ServerServe(ctx context.Context, program string, arguments []string) error {
 	if err := application.ServerRun(ctx, program, append([]string{"serve"}, arguments...)); err != nil {
 		return fmt.Errorf("serve Anki: %w", err)

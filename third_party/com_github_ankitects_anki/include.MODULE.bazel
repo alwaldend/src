@@ -27,7 +27,10 @@ anki_crates.from_cargo(
     cargo_lockfile = "//third_party/com_github_ankitects_anki:Cargo.lock",
     isolated = False,
     manifests = ["@com_github_ankitects_anki//:Cargo.toml"],
-    supported_platform_triples = ["x86_64-unknown-linux-gnu"],
+    supported_platform_triples = [
+        "wasm32-wasip1",
+        "x86_64-unknown-linux-gnu",
+    ],
 )
 
 # Approved server dependencies join the upstream workspace during Cargo resolution.

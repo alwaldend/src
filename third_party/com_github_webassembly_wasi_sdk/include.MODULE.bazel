@@ -1,0 +1,16 @@
+http_archive = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
+http_archive(
+    name = "com_github_webassembly_wasi_sdk",
+    build_file_content = """
+package(default_visibility = ["//visibility:public"])
+
+filegroup(
+    name = "sysroot",
+    srcs = glob(["**"]),
+)
+""",
+    integrity = "sha256-nYE1RO7r44t7jyJE7Vkd5GttuBLG3Rolf/nw0qkFor4=",
+    strip_prefix = "wasi-sysroot-34.0",
+    urls = ["https://github.com/WebAssembly/wasi-sdk/releases/download/wasi-sdk-34/wasi-sysroot-34.0.tar.gz"],
+)

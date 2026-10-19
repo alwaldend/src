@@ -1,7 +1,7 @@
 //! Shared Anki server implementation for standalone and linked CLI entry points.
 //! Process lifetime and failure recovery belong to the caller.
 
-mod cli;
+use anki_grpc_cli as cli;
 
 use std::{convert::Infallible, future::Future, pin::Pin};
 

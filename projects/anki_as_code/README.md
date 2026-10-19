@@ -82,6 +82,11 @@ The CLI and server must access the same absolute filesystem paths, including
 collection/media files, CLI `TMPDIR` for package restores, and build output
 directories for staged archives. Files are not transferred over gRPC.
 
+The command's `server_native.go` binds `ankiservercgo.Run`; `main.go` owns
+shared application composition, signals and worker configuration. The public
+Bazel command target selects the explicitly named native implementation and
+keeps the `anki_as_code` executable name.
+
 ## Upstream API commands
 
 `api <service> <method>` constructs its command tree from the compiled Go
@@ -313,7 +318,7 @@ and lifecycle responsibilities. CLI passes parsed operation options into the
 injected App; the executable owns concrete construction and native adapters.
 
 `cmd/anki_as_code` constructs one App and passes it to `cli.New`. It injects the linked
-`ankiserver.Run` adapter through `Options.ServerRunner` and supplies process signal
+`ankiservercgo.Run` adapter through `Options.ServerRunner` and supplies process signal
 handling. App.ServerRun checks startup cancellation, builds the native argument
 vector and invokes that adapter. Native serving owns the process until return or
 termination; its context controls entry only. App does not link Rust/cgo or change

@@ -67,8 +67,8 @@ leaves the backend available to later clients.
 
 ## Linked server
 
-`pkg/ankiserver` exposes the same Rust entry point to Go through cgo and one C ABI
-argument-vector function. `ankiserver.Run(arguments)` takes a full argument vector,
+`pkg/ankiservercgo` exposes the same Rust entry point to Go through cgo and one C ABI
+argument-vector function. `ankiservercgo.Run(arguments)` takes a full argument vector,
 including the program name, executes the native CLI and reports native failures.
 The serve subcommand blocks until shutdown and owns the process's protocol streams. There are no per-RPC FFI
 bindings: clients continue to use ordinary gRPC and generated Anki messages.
@@ -82,13 +82,34 @@ crash isolation without extracting or finding another executable. The standalone
 Both builds currently target Linux x86_64 and require the repository's native
 Rust/C toolchains; linking introduces no new external dependencies.
 
+## Backend build preparation
+
+The public command targets retain their executable names and currently select
+explicit native implementation targets. `//projects/anki_grpc:backend` accepts
+`cgo`, its default. The application command binds `ankiservercgo.Run` separately
+from shared application composition.
+
+The repository also pins wazero v1.12.0 and the WASI SDK 34.0 sysroot for
+storage build validation. The Rust WASI probe uses the built-in `platform` attribute, preserving the
+native consumer platform. Run the standalone
+SQLite acceptance fixture with:
+
+```sh
+bazel_agent bazel test //projects/anki_grpc/test/wasm:sqlite_test
+```
+
+It writes an 11 MiB payload, verifies rollback and invalid destinations, and
+reopens the database through both native and WASI SQLite. Its repeatable test
+outputs include `wasi-sqlite.anki2` and `sqlite-verification.txt`. This build
+preparation includes no WASM Anki server or guest port.
+
 ## Project layout
 
 - `cmd/anki_grpc/main.rs`: Standalone executable adapter.
 - `pkg/ankiserver/lib.rs`: Transport listeners, opaque protobuf codec, and Anki dispatch.
-- `pkg/ankiserver/cli.rs`: Shared CLI help and transport argument validation.
+- `pkg/ankiserver/cli.rs`: Platform-independent `server_cli` library for help and transport validation.
 - `pkg/ankiserver/build.rs`: Command lookup generated from Anki's own descriptors.
-- `pkg/ankiserver/ffi.rs` and `server.go`: C ABI entry point and Go wrapper.
+- `pkg/ankiservercgo/ffi.rs` and `server.go`: C ABI entry point and Go wrapper.
 - `pkg/ankiclient/`: Reusable Go owner of the server process and gRPC connection.
 - `docs/architecture.mmd`: Client, server, and storage diagram source.
 - `test/transport/`: CLI and network transport E2E using official Anki messages.
