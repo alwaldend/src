@@ -1,0 +1,50 @@
+diff --git a/src/offset/local/mod.rs b/src/offset/local/mod.rs
+--- a/src/offset/local/mod.rs
++++ b/src/offset/local/mod.rs
+@@ -31,6 +31,7 @@
+ #[cfg(all(
+     not(unix),
+     not(windows),
++    not(target_os = "wasi"),
+     not(all(
+         target_arch = "wasm32",
+         feature = "wasmbind",
+@@ -50,5 +51,38 @@
+         _local_time: &NaiveDateTime,
+     ) -> MappedLocalTime<FixedOffset> {
+         MappedLocalTime::Single(FixedOffset::east_opt(0).unwrap())
++    }
++}
++
++#[cfg(target_os = "wasi")]
++mod inner {
++    use crate::{FixedOffset, MappedLocalTime, NaiveDateTime};
++
++    #[link(wasm_import_module = "anki_timezone")]
++    extern "C" {
++        fn offset_for_utc(seconds: i64) -> i32;
++        fn offsets_for_local(seconds: i64) -> u64;
++    }
++
++    pub(super) fn offset_from_utc_datetime(utc: &NaiveDateTime) -> MappedLocalTime<FixedOffset> {
++        // The host resolves its local timezone at this instant, including DST.
++        match FixedOffset::east_opt(unsafe { offset_for_utc(utc.and_utc().timestamp()) }) {
++            Some(offset) => MappedLocalTime::Single(offset),
++            None => MappedLocalTime::None,
++        }
++    }
++
++    pub(super) fn offset_from_local_datetime(local: &NaiveDateTime) -> MappedLocalTime<FixedOffset> {
++        // The packed offsets describe the earliest/latest UTC interpretations.
++        // An invalid FixedOffset in either half denotes a nonexistent local time.
++        let offsets = unsafe { offsets_for_local(local.and_utc().timestamp()) };
++        match (
++            FixedOffset::east_opt((offsets >> 32) as i32),
++            FixedOffset::east_opt(offsets as i32),
++        ) {
++            (Some(first), Some(last)) if first == last => MappedLocalTime::Single(first),
++            (Some(first), Some(last)) => MappedLocalTime::Ambiguous(first, last),
++            _ => MappedLocalTime::None,
++        }
+     }
+ }

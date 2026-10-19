@@ -5,7 +5,7 @@ description: Pinned upstream Anki Cargo workspace, native library, and protobuf 
 
 This package imports Anki [26.09.3](https://github.com/ankitects/anki/releases/tag/26.09.3),
 commit `29bb700b951e3f0c0cb69b77c0180fc1fe33e6ba`, with its pinned submodules.
-The upstream source, Cargo workspace, and member manifests are unmodified.
+The imported source receives the maintained `wasi.patch` for offline WASI builds.
 `Cargo.lock` fixes the approved workspace and server dependency versions and
 registry checksums. Anki is licensed under GNU AGPL version 3 or later; the
 acquired source retains its notices.
@@ -26,7 +26,7 @@ The generated `all_crate_deps`, `aliases`, and `crate_edition` helpers supply
 external dependencies and metadata to standard `rules_rust` targets.
 `anki.BUILD.bazel` declares the required workspace-member edges; `native.bzl`
 shares the ordinary library/build-script declarations and derives Cargo
-environment variables from the unmodified manifests, including inherited
+environment variables from the imported manifests, including inherited
 workspace fields.
 
 The native target builds `anki`, `anki_io`, `anki_i18n`, `anki_proto`, and
@@ -51,6 +51,24 @@ cache, or `CARGO_HOME` when supplied. Compilation uses the pinned Bazel Rust,
 C/C++, and protoc toolchains in offline sandboxes. Native builds currently
 support Linux x86_64. A cold build acquires the pinned Anki Git workspace,
 submodules, and required registry crates.
+
+Dependency metadata also includes `wasm32-wasip1` for the SQLite acceptance
+fixtures and offline Anki guest in `projects/anki_grpc`. The patch keeps native
+network dependencies behind Cargo target conditions and retains the shared sync
+metadata used by local storage. Anki's descriptor generator emits explicit
+unsupported handlers for the guest's network services. Its HTTP sync-server
+entry points fail before acquiring filesystem or network resources.
+
+The guest reuses the existing URL parser through Ammonia for local media URLs,
+uses the host-supplied temporary directory, and performs backups and compression
+synchronously without guest threads. `fsrs_wasi.patch` makes FSRS evaluation
+submit work synchronously on WASI so its result channel cannot wait for absent
+Rayon worker threads. Native implementations remain behind their existing
+platform paths. `chrono_wasi.patch` replaces pinned Chrono's WASI UTC fallback
+with host timezone callbacks, preserving historical/DST mappings for collection
+scheduling, timestamps and backups. Versions and native implementations are
+unchanged. These patches are applied to their pinned upstream sources during
+Bazel acquisition; external cache directories are not edited.
 
 This package exposes the upstream library, descriptors, descriptor helpers,
 and Go schemas. Its native source and build dependencies contain no project

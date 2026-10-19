@@ -1,0 +1,24 @@
+diff --git a/src/inference.rs b/src/inference.rs
+--- a/src/inference.rs
++++ b/src/inference.rs
+@@ -794,7 +794,7 @@
+         for (index, split) in splits.into_iter().enumerate() {
+             let tx = tx.clone();
+             let progress = split_progresses[index].clone();
+-            rayon::spawn(move || {
++            let evaluate = move || {
+                 let result = evaluate_time_series_split(
+                     split,
+                     enable_short_term,
+@@ -803,6 +803,10 @@
+                     Some(progress),
+                 );
+                 let _ = tx.send((index, result));
+-            });
++            };
++            #[cfg(not(target_os = "wasi"))]
++            rayon::spawn(evaluate);
++            #[cfg(target_os = "wasi")]
++            evaluate();
+         }
+         drop(tx);

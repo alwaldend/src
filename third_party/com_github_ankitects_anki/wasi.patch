@@ -1,0 +1,905 @@
+diff --git a/rslib/Cargo.toml b/rslib/Cargo.toml
+--- a/rslib/Cargo.toml
++++ b/rslib/Cargo.toml
+@@ -48,11 +48,7 @@
+ anki_i18n.workspace = true
+ anki_io.workspace = true
+ anki_proto.workspace = true
+-async-compression.workspace = true
+ async-trait.workspace = true
+-axum.workspace = true
+-axum-client-ip.workspace = true
+-axum-extra.workspace = true
+ bitflags.workspace = true
+ blake3.workspace = true
+ bytes.workspace = true
+@@ -63,7 +59,6 @@
+ data-encoding.workspace = true
+ difflib.workspace = true
+ dirs.workspace = true
+-envy.workspace = true
+ flate2.workspace = true
+ fluent.workspace = true
+ fluent-bundle.workspace = true
+@@ -72,7 +67,6 @@
+ futures.workspace = true
+ hex.workspace = true
+ htmlescape.workspace = true
+-hyper.workspace = true
+ id_tree.workspace = true
+ itertools.workspace = true
+ nom.workspace = true
+@@ -89,9 +83,7 @@
+ rand.workspace = true
+ rayon.workspace = true
+ regex.workspace = true
+-reqwest.workspace = true
+ rusqlite.workspace = true
+-rustls-pemfile.workspace = true
+ same-file.workspace = true
+ scopeguard.workspace = true
+ serde.workspace = true
+@@ -104,9 +96,6 @@
+ snafu.workspace = true
+ strum.workspace = true
+ tempfile.workspace = true
+-tokio.workspace = true
+-tokio-util.workspace = true
+-tower-http.workspace = true
+ tracing.workspace = true
+ tracing-appender.workspace = true
+ tracing-subscriber.workspace = true
+@@ -118,3 +107,16 @@
+ 
+ [target.'cfg(windows)'.dependencies]
+ windows.workspace = true
++
++[target.'cfg(not(target_os = "wasi"))'.dependencies]
++async-compression.workspace = true
++axum.workspace = true
++axum-client-ip.workspace = true
++axum-extra.workspace = true
++envy.workspace = true
++hyper.workspace = true
++reqwest.workspace = true
++rustls-pemfile.workspace = true
++tokio.workspace = true
++tokio-util.workspace = true
++tower-http.workspace = true
+diff --git a/rslib/io/src/lib.rs b/rslib/io/src/lib.rs
+--- a/rslib/io/src/lib.rs
++++ b/rslib/io/src/lib.rs
+@@ -226,7 +226,10 @@
+ 
+ pub fn new_tempfile() -> Result<NamedTempFile> {
+     NamedTempFile::new().context(FileIoSnafu {
++        #[cfg(not(target_os = "wasi"))]
+         path: std::env::temp_dir(),
++        #[cfg(target_os = "wasi")]
++        path: tempfile::env::temp_dir(),
+         op: FileOp::Create,
+     })
+ }
+diff --git a/rslib/rust_interface.rs b/rslib/rust_interface.rs
+--- a/rslib/rust_interface.rs
++++ b/rslib/rust_interface.rs
+@@ -60,6 +60,13 @@
+ fn render_backend_services(backend_services: &[BackendService], buf: &mut String) -> Result<()> {
+     for service in backend_services {
+         render_backend_trait(service, buf);
++        if matches!(service.name.as_str(), "BackendSyncService" | "BackendAnkiHubService" | "BackendAnkiwebService" | "BackendGithubService") {
++            writeln!(buf, "#[cfg(target_os = \"wasi\")] impl {} for crate::backend::Backend {{", service.name).unwrap();
++            for method in &service.trait_methods {
++                writeln!(buf, "#[allow(unused_variables)] fn {}(&self, {}) -> Result<{}> {{ crate::invalid_input!(\"unsupported in offline WASM backend: {}.{}\") }}", method.name, method.get_input_arg_with_label(), method.get_output_type(), service.name, method.name).unwrap();
++            }
++            buf.push('}');
++        }
+         render_delegating_backend_methods(service, buf);
+         render_individual_service_run_method_for_backend(buf, service);
+     }
+diff --git a/rslib/src/backend/media.rs b/rslib/src/backend/media.rs
+--- a/rslib/src/backend/media.rs
++++ b/rslib/src/backend/media.rs
+@@ -13,6 +13,11 @@
+         &self,
+         input: AddMediaFromUrlRequest,
+     ) -> error::Result<AddMediaFromUrlResponse> {
++        #[cfg(target_os = "wasi")]
++        if !input.url.to_ascii_lowercase().starts_with("file://") {
++            crate::invalid_input!("unsupported in offline WASM backend: remote media URL");
++        }
++        #[cfg(not(target_os = "wasi"))]
+         let rt = self.runtime_handle();
+         let mut guard = self.col.lock().unwrap();
+         let col = guard.as_mut().unwrap();
+@@ -35,6 +40,9 @@
+             };
+             Ok(response)
+         };
+-        rt.block_on(fut)
++        #[cfg(not(target_os = "wasi"))]
++        return rt.block_on(fut);
++        #[cfg(target_os = "wasi")]
++        return futures::executor::block_on(fut);
+     }
+ }
+diff --git a/rslib/src/backend/mod.rs b/rslib/src/backend/mod.rs
+--- a/rslib/src/backend/mod.rs
++++ b/rslib/src/backend/mod.rs
+@@ -3,34 +3,45 @@
+ 
+ mod adding;
+ mod ankidroid;
++#[cfg(not(target_os = "wasi"))]
+ mod ankihub;
++#[cfg(not(target_os = "wasi"))]
+ mod ankiweb;
+ mod card_rendering;
+ mod collection;
+ mod config;
+ pub(crate) mod dbproxy;
+ mod error;
++#[cfg(not(target_os = "wasi"))]
+ mod github;
+ mod i18n;
+ mod import_export;
+ mod media;
+ mod ops;
++#[cfg(not(target_os = "wasi"))]
+ mod sync;
+ 
+ use std::ops::Deref;
+ use std::result;
+ use std::sync::Arc;
+ use std::sync::Mutex;
++#[cfg(not(target_os = "wasi"))]
+ use std::sync::OnceLock;
++#[cfg(not(target_os = "wasi"))]
+ use std::thread::JoinHandle;
+ 
++#[cfg(not(target_os = "wasi"))]
+ use futures::future::AbortHandle;
+ use prost::Message;
++#[cfg(not(target_os = "wasi"))]
+ use reqwest::Client;
++#[cfg(not(target_os = "wasi"))]
+ use tokio::runtime;
++#[cfg(not(target_os = "wasi"))]
+ use tokio::runtime::Runtime;
+ 
+ use crate::backend::dbproxy::db_command_bytes;
++#[cfg(not(target_os = "wasi"))]
+ use crate::backend::sync::SyncState;
+ use crate::prelude::*;
+ use crate::progress::Progress;
+@@ -53,21 +64,32 @@
+     col: Mutex<Option<Collection>>,
+     pub(crate) tr: I18n,
+     server: bool,
++    #[cfg(not(target_os = "wasi"))]
+     sync_abort: Mutex<Option<AbortHandle>>,
+     progress_state: Arc<Mutex<ProgressState>>,
++    #[cfg(not(target_os = "wasi"))]
+     runtime: OnceLock<Runtime>,
++    #[cfg(not(target_os = "wasi"))]
+     state: Mutex<BackendState>,
+-    backup_task: Mutex<Option<JoinHandle<Result<()>>>>,
++    backup_task: Mutex<Option<crate::collection::backup::BackupTask>>,
++    #[cfg(not(target_os = "wasi"))]
+     media_sync_task: Mutex<Option<JoinHandle<Result<()>>>>,
++    #[cfg(not(target_os = "wasi"))]
+     web_client: Mutex<Option<Client>>,
+ }
+ 
++#[cfg(not(target_os = "wasi"))]
+ #[derive(Default)]
+ struct BackendState {
+     sync: SyncState,
+ }
+ 
+ pub fn init_backend(init_msg: &[u8]) -> result::Result<Backend, String> {
++    #[cfg(target_os = "wasi")]
++    {
++        let directory = std::path::PathBuf::from(std::env::var_os("TMPDIR").ok_or("WASI guest requires TMPDIR")?);
++        tempfile::env::override_temp_dir(&directory).map_err(|_| "WASI temporary directory already configured")?;
++    }
+     let input: anki_proto::backend::BackendInit =
+         match anki_proto::backend::BackendInit::decode(init_msg) {
+             Ok(req) => req,
+@@ -85,15 +107,20 @@
+             col: Mutex::new(None),
+             tr,
+             server,
++            #[cfg(not(target_os = "wasi"))]
+             sync_abort: Mutex::new(None),
+             progress_state: Arc::new(Mutex::new(ProgressState {
+                 want_abort: false,
+                 last_progress: None,
+             })),
++            #[cfg(not(target_os = "wasi"))]
+             runtime: OnceLock::new(),
++            #[cfg(not(target_os = "wasi"))]
+             state: Mutex::new(BackendState::default()),
+             backup_task: Mutex::new(None),
++            #[cfg(not(target_os = "wasi"))]
+             media_sync_task: Mutex::new(None),
++            #[cfg(not(target_os = "wasi"))]
+             web_client: Mutex::new(None),
+         }))
+     }
+@@ -127,6 +154,7 @@
+         )
+     }
+ 
++    #[cfg(not(target_os = "wasi"))]
+     fn runtime_handle(&self) -> runtime::Handle {
+         self.runtime
+             .get_or_init(|| {
+@@ -141,6 +169,7 @@
+     }
+ 
+     #[cfg(feature = "rustls")]
++    #[cfg(not(target_os = "wasi"))]
+     fn set_custom_certificate_inner(&self, cert_str: String) -> Result<()> {
+         use std::io::Cursor;
+         use std::io::Read;
+@@ -173,6 +202,7 @@
+         Err(AnkiError::InvalidCertificateFormat)
+     }
+ 
++    #[cfg(not(target_os = "wasi"))]
+     fn web_client(&self) -> Client {
+         // currently limited to http1, as nginx doesn't support http2 proxies
+         let mut web_client = self.web_client.lock().unwrap();
+@@ -195,3 +225,8 @@
+         ThrottlingProgressHandler::new(self.progress_state.clone())
+     }
+ }
++
++#[cfg(target_os = "wasi")]
++impl Backend {
++    fn abort_media_sync_and_wait(&self) {}
++}
+diff --git a/rslib/src/collection/backup.rs b/rslib/src/collection/backup.rs
+--- a/rslib/src/collection/backup.rs
++++ b/rslib/src/collection/backup.rs
+@@ -8,6 +8,7 @@
+ use std::path::Path;
+ use std::path::PathBuf;
+ use std::thread;
++#[cfg(not(target_os = "wasi"))]
+ use std::thread::JoinHandle;
+ use std::time::SystemTime;
+ 
+@@ -19,6 +20,20 @@
+ 
+ use crate::import_export::package::export_colpkg_from_data;
+ use crate::prelude::*;
++
++#[cfg(not(target_os = "wasi"))]
++pub type BackupTask = JoinHandle<Result<()>>;
++
++/// WASI completes backups synchronously because the guest has no worker threads.
++#[cfg(target_os = "wasi")]
++pub struct BackupTask(Result<()>);
++
++#[cfg(target_os = "wasi")]
++impl BackupTask {
++    pub fn join(self) -> thread::Result<Result<()>> {
++        Ok(self.0)
++    }
++}
+ 
+ const BACKUP_FORMAT_STRING: &str = "backup-%Y-%m-%d-%H.%M.%S.colpkg";
+ 
+@@ -29,7 +44,7 @@
+         &mut self,
+         backup_folder: impl AsRef<Path> + Send + 'static,
+         force: bool,
+-    ) -> Result<Option<JoinHandle<Result<()>>>> {
++    ) -> Result<Option<BackupTask>> {
+         if !self.changed_since_last_backup()? {
+             return Ok(None);
+         }
+@@ -41,9 +56,12 @@
+             self.storage.checkpoint()?;
+             let col_data = read_locked_db_file(&self.col_path)?;
+             self.update_last_backup_timestamp()?;
+-            Ok(Some(thread::spawn(move || {
++            #[cfg(not(target_os = "wasi"))]
++            return Ok(Some(thread::spawn(move || {
+                 backup_inner(&col_data, &backup_folder, limits, &tr)
+-            })))
++            })));
++            #[cfg(target_os = "wasi")]
++            return Ok(Some(BackupTask(backup_inner(&col_data, &backup_folder, limits, &tr))));
+         }
+     }
+ }
+diff --git a/rslib/src/editor.rs b/rslib/src/editor.rs
+--- a/rslib/src/editor.rs
++++ b/rslib/src/editor.rs
+@@ -2,10 +2,13 @@
+ // License: GNU AGPL, version 3 or later; http://www.gnu.org/licenses/agpl.html
+ 
+ use std::path::Path;
++#[cfg(not(target_os = "wasi"))]
+ use std::time::Duration;
+ 
+ use percent_encoding_iri::percent_decode_str;
++#[cfg(not(target_os = "wasi"))]
+ use reqwest::Client;
++#[cfg(not(target_os = "wasi"))]
+ use reqwest::Url;
+ 
+ use crate::error::AnkiError;
+@@ -76,6 +79,7 @@
+     Ok((file_contents, None))
+ }
+ 
++#[cfg(not(target_os = "wasi"))]
+ async fn download_remote_file(url: &str) -> Result<(Vec<u8>, Option<String>)> {
+     let client = Client::builder()
+         .timeout(Duration::from_secs(30))
+@@ -115,3 +119,11 @@
+ 
+     filename.to_string() + extension
+ }
++
++#[cfg(target_os = "wasi")]
++use ammonia::url::Url;
++
++#[cfg(target_os = "wasi")]
++async fn download_remote_file(_url: &str) -> Result<(Vec<u8>, Option<String>)> {
++    invalid_input!("unsupported in offline WASM backend: remote media URL")
++}
+diff --git a/rslib/src/error/network.rs b/rslib/src/error/network.rs
+--- a/rslib/src/error/network.rs
++++ b/rslib/src/error/network.rs
+@@ -2,11 +2,13 @@
+ // License: GNU AGPL, version 3 or later; http://www.gnu.org/licenses/agpl.html
+ 
+ use anki_i18n::I18n;
++#[cfg(not(target_os = "wasi"))]
+ use reqwest::StatusCode;
+ use snafu::Snafu;
+ 
+ use super::AnkiError;
+ use crate::sync::collection::sanity::SanityCheckCounts;
++#[cfg(not(target_os = "wasi"))]
+ use crate::sync::error::HttpError;
+ 
+ #[derive(Debug, PartialEq, Eq, Snafu)]
+@@ -65,6 +67,7 @@
+     }
+ }
+ 
++#[cfg(not(target_os = "wasi"))]
+ impl From<&reqwest::Error> for AnkiError {
+     fn from(err: &reqwest::Error) -> Self {
+         let url = err.url().map(|url| url.as_str()).unwrap_or("");
+@@ -87,12 +90,14 @@
+     }
+ }
+ 
++#[cfg(not(target_os = "wasi"))]
+ impl From<reqwest::Error> for AnkiError {
+     fn from(err: reqwest::Error) -> Self {
+         (&err).into()
+     }
+ }
+ 
++#[cfg(not(target_os = "wasi"))]
+ fn error_for_status_code(info: String, code: StatusCode) -> AnkiError {
+     use reqwest::StatusCode as S;
+     match code {
+@@ -143,6 +148,7 @@
+     }
+ }
+ 
++#[cfg(not(target_os = "wasi"))]
+ fn guess_reqwest_error(mut info: String) -> AnkiError {
+     if info.contains("dns error: cancelled") {
+         return AnkiError::Interrupted;
+@@ -215,6 +221,7 @@
+ 
+ // This needs rethinking; we should be attaching error context as errors are
+ // encountered instead of trying to determine the problem later.
++#[cfg(not(target_os = "wasi"))]
+ impl From<HttpError> for AnkiError {
+     fn from(err: HttpError) -> Self {
+         if let Some(reqwest_error) = err
+diff --git a/rslib/src/import_export/package/colpkg/export.rs b/rslib/src/import_export/package/colpkg/export.rs
+--- a/rslib/src/import_export/package/colpkg/export.rs
++++ b/rslib/src/import_export/package/colpkg/export.rs
+@@ -207,6 +207,7 @@
+ /// Copy contents of reader into writer, compressing as we copy.
+ fn zstd_copy(reader: &mut impl Read, writer: &mut impl Write, size: usize) -> Result<()> {
+     let mut encoder = Encoder::new(writer, 0)?;
++    #[cfg(not(target_os = "wasi"))]
+     if size > MULTITHREAD_MIN_BYTES {
+         encoder.multithread(num_cpus::get() as u32)?;
+     }
+diff --git a/rslib/src/lib.rs b/rslib/src/lib.rs
+--- a/rslib/src/lib.rs
++++ b/rslib/src/lib.rs
+@@ -5,6 +5,7 @@
+ 
+ pub mod adding;
+ pub(crate) mod ankidroid;
++#[cfg(not(target_os = "wasi"))]
+ pub mod ankihub;
+ pub mod backend;
+ pub mod browser_table;
+diff --git a/rslib/src/media/mod.rs b/rslib/src/media/mod.rs
+--- a/rslib/src/media/mod.rs
++++ b/rslib/src/media/mod.rs
+@@ -10,6 +10,7 @@
+ use std::path::PathBuf;
+ 
+ use anki_io::create_dir_all;
++#[cfg(not(target_os = "wasi"))]
+ use reqwest::Client;
+ 
+ use crate::media::files::add_data_to_folder_uniquely;
+@@ -18,13 +19,17 @@
+ use crate::media::files::sha1_of_data;
+ use crate::prelude::*;
+ use crate::progress::ThrottlingProgressHandler;
++#[cfg(not(target_os = "wasi"))]
+ use crate::sync::http_client::HttpSyncClient;
++#[cfg(not(target_os = "wasi"))]
+ use crate::sync::login::SyncAuth;
+ use crate::sync::media::database::client::changetracker::ChangeTracker;
+ pub use crate::sync::media::database::client::Checksums;
+ use crate::sync::media::database::client::MediaDatabase;
+ use crate::sync::media::database::client::MediaEntry;
++#[cfg(not(target_os = "wasi"))]
+ use crate::sync::media::progress::MediaSyncProgress;
++#[cfg(not(target_os = "wasi"))]
+ use crate::sync::media::syncer::MediaSyncer;
+ 
+ pub type Sha1Hash = [u8; 20];
+@@ -142,6 +147,7 @@
+     }
+ 
+     /// Sync media.
++    #[cfg(not(target_os = "wasi"))]
+     pub async fn sync_media(
+         self,
+         progress: ThrottlingProgressHandler<MediaSyncProgress>,
+diff --git a/rslib/src/scheduler/fsrs/params.rs b/rslib/src/scheduler/fsrs/params.rs
+--- a/rslib/src/scheduler/fsrs/params.rs
++++ b/rslib/src/scheduler/fsrs/params.rs
+@@ -108,6 +108,7 @@
+         }
+         // adapt the progress handler to our built-in progress handling
+ 
++        #[cfg(not(target_os = "wasi"))]
+         let create_progress_thread = || -> Result<_> {
+             let mut anki_progress = self.new_progress_handler::<ComputeParamsProgress>();
+             anki_progress.update(false, |p| {
+@@ -135,7 +136,10 @@
+             Ok((progress2, progress_thread))
+         };
+ 
++        #[cfg(not(target_os = "wasi"))]
+         let (progress, progress_thread) = create_progress_thread()?;
++        #[cfg(target_os = "wasi")]
++        let progress = CombinedProgressState::new_shared();
+         let input = ComputeParametersInput {
+             train_set: items.clone(),
+             card_ids: Some(card_ids),
+@@ -148,6 +152,7 @@
+             }),
+         };
+         let mut params = fsrs::compute_parameters(input.clone())?;
++        #[cfg(not(target_os = "wasi"))]
+         progress_thread.join().ok();
+         if let Ok(current_fsrs) = FSRS::new(current_params) {
+             let current_log_loss = current_fsrs.evaluate(items.clone(), |_| true)?.log_loss;
+diff --git a/rslib/src/sync/collection/graves.rs b/rslib/src/sync/collection/graves.rs
+--- a/rslib/src/sync/collection/graves.rs
++++ b/rslib/src/sync/collection/graves.rs
+@@ -5,10 +5,13 @@
+ use serde::Serialize;
+ 
+ use crate::prelude::*;
++#[cfg(not(target_os = "wasi"))]
+ use crate::sync::collection::chunks::CHUNK_SIZE;
++#[cfg(not(target_os = "wasi"))]
+ use crate::sync::collection::start::ServerSyncState;
+ 
+ #[derive(Serialize, Deserialize, Debug, Default, Clone)]
++#[cfg(not(target_os = "wasi"))]
+ pub struct ApplyGravesRequest {
+     pub chunk: Graves,
+ }
+@@ -20,6 +23,7 @@
+     pub(crate) notes: Vec<NoteId>,
+ }
+ 
++#[cfg(not(target_os = "wasi"))]
+ impl Graves {
+     pub(in crate::sync) fn take_chunk(&mut self) -> Option<Graves> {
+         let mut limit = CHUNK_SIZE;
+@@ -62,6 +66,7 @@
+     }
+ }
+ 
++#[cfg(not(target_os = "wasi"))]
+ pub fn server_apply_graves(
+     req: ApplyGravesRequest,
+     col: &mut Collection,
+diff --git a/rslib/src/sync/collection/mod.rs b/rslib/src/sync/collection/mod.rs
+--- a/rslib/src/sync/collection/mod.rs
++++ b/rslib/src/sync/collection/mod.rs
+@@ -1,17 +1,27 @@
+ // Copyright: Ankitects Pty Ltd and contributors
+ // License: GNU AGPL, version 3 or later; http://www.gnu.org/licenses/agpl.html
+ 
++#[cfg(not(target_os = "wasi"))]
+ pub mod changes;
++#[cfg(not(target_os = "wasi"))]
+ pub mod chunks;
++#[cfg(not(target_os = "wasi"))]
+ pub mod download;
++#[cfg(not(target_os = "wasi"))]
+ pub mod finish;
+ pub mod graves;
++#[cfg(not(target_os = "wasi"))]
+ pub mod meta;
+ pub mod normal;
+ pub mod progress;
++#[cfg(not(target_os = "wasi"))]
+ pub mod protocol;
+ pub mod sanity;
++#[cfg(not(target_os = "wasi"))]
+ pub mod start;
++#[cfg(not(target_os = "wasi"))]
+ pub mod status;
++#[cfg(not(target_os = "wasi"))]
+ pub mod tests;
++#[cfg(not(target_os = "wasi"))]
+ pub mod upload;
+diff --git a/rslib/src/sync/collection/normal.rs b/rslib/src/sync/collection/normal.rs
+--- a/rslib/src/sync/collection/normal.rs
++++ b/rslib/src/sync/collection/normal.rs
+@@ -1,24 +1,40 @@
+ // Copyright: Ankitects Pty Ltd and contributors
+ // License: GNU AGPL, version 3 or later; http://www.gnu.org/licenses/agpl.html
+ 
++#[cfg(not(target_os = "wasi"))]
+ use reqwest::Client;
++#[cfg(not(target_os = "wasi"))]
+ use tracing::debug;
+ 
++#[cfg(not(target_os = "wasi"))]
+ use crate::collection::Collection;
++#[cfg(not(target_os = "wasi"))]
+ use crate::error;
++#[cfg(not(target_os = "wasi"))]
+ use crate::error::AnkiError;
++#[cfg(not(target_os = "wasi"))]
+ use crate::error::SyncError;
++#[cfg(not(target_os = "wasi"))]
+ use crate::error::SyncErrorKind;
++#[cfg(not(target_os = "wasi"))]
+ use crate::prelude::Usn;
++#[cfg(not(target_os = "wasi"))]
+ use crate::progress::ThrottlingProgressHandler;
+ use crate::sync::collection::progress::SyncStage;
++#[cfg(not(target_os = "wasi"))]
+ use crate::sync::collection::protocol::EmptyInput;
++#[cfg(not(target_os = "wasi"))]
+ use crate::sync::collection::protocol::SyncProtocol;
++#[cfg(not(target_os = "wasi"))]
+ use crate::sync::collection::status::online_sync_status_check;
++#[cfg(not(target_os = "wasi"))]
+ use crate::sync::http_client::HttpSyncClient;
++#[cfg(not(target_os = "wasi"))]
+ use crate::sync::login::SyncAuth;
++#[cfg(not(target_os = "wasi"))]
+ use crate::sync::request::MAXIMUM_SYNC_PAYLOAD_BYTES_UNCOMPRESSED;
+ 
++#[cfg(not(target_os = "wasi"))]
+ pub struct NormalSyncer<'a> {
+     pub(in crate::sync) col: &'a mut Collection,
+     pub(in crate::sync) server: HttpSyncClient,
+@@ -35,6 +51,7 @@
+ }
+ 
+ #[derive(PartialEq, Eq, Debug, Clone, Copy)]
++#[cfg(not(target_os = "wasi"))]
+ pub enum SyncActionRequired {
+     NoChanges,
+     FullSyncRequired { upload_ok: bool, download_ok: bool },
+@@ -42,6 +59,7 @@
+ }
+ 
+ #[derive(Debug)]
++#[cfg(not(target_os = "wasi"))]
+ pub struct ClientSyncState {
+     pub required: SyncActionRequired,
+     pub server_message: String,
+@@ -57,6 +75,7 @@
+     pub(in crate::sync) server_media_usn: Usn,
+ }
+ 
++#[cfg(not(target_os = "wasi"))]
+ impl NormalSyncer<'_> {
+     pub fn new(col: &mut Collection, server: HttpSyncClient) -> NormalSyncer<'_> {
+         NormalSyncer {
+@@ -144,6 +163,7 @@
+ }
+ 
+ #[derive(Debug)]
++#[cfg(not(target_os = "wasi"))]
+ pub struct SyncOutput {
+     pub required: SyncActionRequired,
+     pub server_message: String,
+@@ -153,6 +173,7 @@
+     pub(crate) server_media_usn: Usn,
+ }
+ 
++#[cfg(not(target_os = "wasi"))]
+ impl From<ClientSyncState> for SyncOutput {
+     fn from(s: ClientSyncState) -> Self {
+         SyncOutput {
+@@ -165,6 +186,7 @@
+     }
+ }
+ 
++#[cfg(not(target_os = "wasi"))]
+ impl Collection {
+     pub async fn normal_sync(
+         &mut self,
+diff --git a/rslib/src/sync/collection/progress.rs b/rslib/src/sync/collection/progress.rs
+--- a/rslib/src/sync/collection/progress.rs
++++ b/rslib/src/sync/collection/progress.rs
+@@ -1,12 +1,18 @@
+ // Copyright: Ankitects Pty Ltd and contributors
+ // License: GNU AGPL, version 3 or later; http://www.gnu.org/licenses/agpl.html
+ 
++#[cfg(not(target_os = "wasi"))]
+ use reqwest::Client;
+ 
++#[cfg(not(target_os = "wasi"))]
+ use crate::error;
++#[cfg(not(target_os = "wasi"))]
+ use crate::sync::collection::protocol::EmptyInput;
++#[cfg(not(target_os = "wasi"))]
+ use crate::sync::collection::protocol::SyncProtocol;
++#[cfg(not(target_os = "wasi"))]
+ use crate::sync::http_client::HttpSyncClient;
++#[cfg(not(target_os = "wasi"))]
+ use crate::sync::login::SyncAuth;
+ 
+ #[derive(Debug, Clone, Copy, PartialEq, Eq, Default)]
+@@ -23,6 +29,7 @@
+     pub total_bytes: usize,
+ }
+ 
++#[cfg(not(target_os = "wasi"))]
+ pub async fn sync_abort(auth: SyncAuth, client: Client) -> error::Result<()> {
+     HttpSyncClient::new(auth, client)
+         .abort(EmptyInput::request())
+diff --git a/rslib/src/sync/collection/sanity.rs b/rslib/src/sync/collection/sanity.rs
+--- a/rslib/src/sync/collection/sanity.rs
++++ b/rslib/src/sync/collection/sanity.rs
+@@ -4,17 +4,26 @@
+ use serde::Deserialize;
+ use serde::Serialize;
+ use serde_tuple::Serialize_tuple;
++#[cfg(not(target_os = "wasi"))]
+ use tracing::debug;
++#[cfg(not(target_os = "wasi"))]
+ use tracing::info;
+ 
++#[cfg(not(target_os = "wasi"))]
+ use crate::error::SyncErrorKind;
++#[cfg(not(target_os = "wasi"))]
+ use crate::prelude::*;
++#[cfg(not(target_os = "wasi"))]
+ use crate::serde::default_on_invalid;
++#[cfg(not(target_os = "wasi"))]
+ use crate::sync::collection::normal::NormalSyncer;
++#[cfg(not(target_os = "wasi"))]
+ use crate::sync::collection::protocol::SyncProtocol;
++#[cfg(not(target_os = "wasi"))]
+ use crate::sync::request::IntoSyncRequest;
+ 
+ #[derive(Serialize, Deserialize, Debug)]
++#[cfg(not(target_os = "wasi"))]
+ pub struct SanityCheckResponse {
+     pub status: SanityCheckStatus,
+     #[serde(rename = "c", default, deserialize_with = "default_on_invalid")]
+@@ -25,6 +34,7 @@
+ 
+ #[derive(Serialize, Deserialize, Debug, PartialEq, Eq)]
+ #[serde(rename_all = "lowercase")]
++#[cfg(not(target_os = "wasi"))]
+ pub enum SanityCheckStatus {
+     Ok,
+     Bad,
+@@ -50,6 +60,7 @@
+     pub review: u32,
+ }
+ 
++#[cfg(not(target_os = "wasi"))]
+ impl NormalSyncer<'_> {
+     /// Caller should force full sync after rolling back.
+     pub(in crate::sync) async fn sanity_check(&mut self) -> Result<()> {
+@@ -82,6 +93,7 @@
+     }
+ }
+ 
++#[cfg(not(target_os = "wasi"))]
+ pub fn server_sanity_check(
+     SanityCheckRequest { mut client }: SanityCheckRequest,
+     col: &mut Collection,
+@@ -117,6 +129,7 @@
+ }
+ 
+ #[derive(Serialize, Deserialize, Debug)]
++#[cfg(not(target_os = "wasi"))]
+ pub struct SanityCheckRequest {
+     pub client: SanityCheckCounts,
+ }
+diff --git a/rslib/src/sync/http_server/wasm.rs b/rslib/src/sync/http_server/wasm.rs
+new file mode 100644
+--- /dev/null
++++ b/rslib/src/sync/http_server/wasm.rs
+@@ -0,0 +1,20 @@
++//! Explicit unsupported entry points for the offline guest's HTTP sync server.
++
++use std::path::Path;
++use snafu::Whatever;
++
++pub struct SimpleServer;
++
++impl SimpleServer {
++    pub fn is_running() -> bool {
++        false
++    }
++
++    pub fn new(_base_folder: &Path) -> Result<Self, Whatever> {
++        snafu::whatever!("unsupported in offline WASM backend: HTTP sync server")
++    }
++
++    pub async fn run() -> Result<(), Whatever> {
++        snafu::whatever!("unsupported in offline WASM backend: HTTP sync server")
++    }
++}
+diff --git a/rslib/src/sync/media/database/mod.rs b/rslib/src/sync/media/database/mod.rs
+--- a/rslib/src/sync/media/database/mod.rs
++++ b/rslib/src/sync/media/database/mod.rs
+@@ -2,4 +2,5 @@
+ // License: GNU AGPL, version 3 or later; http://www.gnu.org/licenses/agpl.html
+ 
+ pub mod client;
++#[cfg(not(target_os = "wasi"))]
+ pub mod server;
+diff --git a/rslib/src/sync/media/mod.rs b/rslib/src/sync/media/mod.rs
+--- a/rslib/src/sync/media/mod.rs
++++ b/rslib/src/sync/media/mod.rs
+@@ -1,16 +1,24 @@
+ // Copyright: Ankitects Pty Ltd and contributors
+ // License: GNU AGPL, version 3 or later; http://www.gnu.org/licenses/agpl.html
+ 
++#[cfg(not(target_os = "wasi"))]
+ pub mod begin;
++#[cfg(not(target_os = "wasi"))]
+ pub mod changes;
+ pub mod database;
++#[cfg(not(target_os = "wasi"))]
+ pub mod download;
+ pub mod progress;
++#[cfg(not(target_os = "wasi"))]
+ pub mod protocol;
++#[cfg(not(target_os = "wasi"))]
+ pub mod sanity;
++#[cfg(not(target_os = "wasi"))]
+ pub mod syncer;
+ mod tests;
++#[cfg(not(target_os = "wasi"))]
+ pub mod upload;
++#[cfg(not(target_os = "wasi"))]
+ pub mod zip;
+ 
+ /// The maximum length we allow a filename to be. When combined
+diff --git a/rslib/src/sync/mod.rs b/rslib/src/sync/mod.rs
+--- a/rslib/src/sync/mod.rs
++++ b/rslib/src/sync/mod.rs
+@@ -2,11 +2,18 @@
+ // License: GNU AGPL, version 3 or later; http://www.gnu.org/licenses/agpl.html
+ 
+ pub mod collection;
++#[cfg(not(target_os = "wasi"))]
+ pub mod error;
++#[cfg(not(target_os = "wasi"))]
+ pub mod http_client;
++#[cfg_attr(target_os = "wasi", path = "http_server/wasm.rs")]
+ pub mod http_server;
++#[cfg(not(target_os = "wasi"))]
+ pub mod login;
+ pub mod media;
++#[cfg(not(target_os = "wasi"))]
+ pub mod request;
++#[cfg(not(target_os = "wasi"))]
+ pub mod response;
++#[cfg(not(target_os = "wasi"))]
+ pub mod version;
+diff --git a/rslib/src/updates.rs b/rslib/src/updates.rs
+--- a/rslib/src/updates.rs
++++ b/rslib/src/updates.rs
+@@ -1,20 +1,33 @@
+ // Copyright: Ankitects Pty Ltd and contributors
+ // License: GNU AGPL, version 3 or later; http://www.gnu.org/licenses/agpl.html
+ 
++#[cfg(not(target_os = "wasi"))]
+ use std::path::PathBuf;
+ 
++#[cfg(not(target_os = "wasi"))]
+ use anki_io::create_dir_all;
++#[cfg(not(target_os = "wasi"))]
+ use anki_io::remove_file;
++#[cfg(not(target_os = "wasi"))]
+ use futures::StreamExt;
++#[cfg(not(target_os = "wasi"))]
+ use sha2::Digest;
++#[cfg(not(target_os = "wasi"))]
+ use tokio::io::AsyncWriteExt;
+ 
++#[cfg(not(target_os = "wasi"))]
+ use crate::error::AnkiError;
++#[cfg(not(target_os = "wasi"))]
+ use crate::error::NetworkError;
++#[cfg(not(target_os = "wasi"))]
+ use crate::error::NetworkErrorKind;
++#[cfg(not(target_os = "wasi"))]
+ use crate::error::OrInvalid;
++#[cfg(not(target_os = "wasi"))]
+ use crate::error::Result;
++#[cfg(not(target_os = "wasi"))]
+ use crate::progress::ThrottlingProgressHandler;
++#[cfg(not(target_os = "wasi"))]
+ use crate::version::version;
+ 
+ #[derive(Debug, Copy, Clone, Default)]
+@@ -23,6 +36,7 @@
+     pub total_bytes: usize,
+ }
+ 
++#[cfg(not(target_os = "wasi"))]
+ pub fn updates_dir() -> Result<PathBuf> {
+     let dir = dirs::data_local_dir()
+         .or_invalid("Unable to determine data_dir")?
+@@ -35,16 +49,19 @@
+     Ok(dir)
+ }
+ 
++#[cfg(not(target_os = "wasi"))]
+ pub fn release_path(filename: &str) -> Result<PathBuf> {
+     let dir = updates_dir()?;
+ 
+     Ok(dir.join(filename))
+ }
+ 
++#[cfg(not(target_os = "wasi"))]
+ pub fn user_agent() -> String {
+     format!("Anki {}", version())
+ }
+ 
++#[cfg(not(target_os = "wasi"))]
+ pub fn reqwest_error_to_anki_error(err: reqwest::Error) -> AnkiError {
+     let info = err.to_string();
+     if err.is_timeout() {
+@@ -64,6 +81,7 @@
+     }
+ }
+ 
++#[cfg(not(target_os = "wasi"))]
+ pub async fn download_file(
+     client: &reqwest::Client,
+     progress: &mut ThrottlingProgressHandler<DownloadUpdateProgress>,

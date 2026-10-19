@@ -4,8 +4,11 @@ load(":schemas.bzl", "ANKI_SCHEMAS")
 exports_files([
     "Cargo.lock",
     "anki.BUILD.bazel",
+    "chrono_wasi.patch",
+    "fsrs_wasi.patch",
     "native.bzl",
     "schemas.bzl",
+    "wasi.patch",
 ])
 
 docs_filegroup(
