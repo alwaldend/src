@@ -5,59 +5,129 @@ config_setting(
     values = {"compilation_mode": "opt"},
 )
 
-go_binary(
-    name = "native",
-    srcs = [
-        "doc.go",
-        "main.go",
-    ] + select({
-        "//projects/anki_grpc:with_cgo": ["server_native.go"],
-        "//conditions:default": ["server_none.go"],
-    }),
-    basename = "anki_as_code",
-    gc_linkopts = select({
-        ":optimized": [
-            "-s",
-            "-w",
+[
+    go_binary(
+        name = name,
+        srcs = [
+            "doc.go",
+            "main.go",
+            "server_native.go",
+            "server_none.go",
+            "server_wasi.go",
+            "server_wasm_disabled.go",
         ],
-        "//conditions:default": [],
-    }),
-    visibility = ["//projects/anki_as_code:__subpackages__"],
-    deps = [
-        "//projects/anki_as_code/internal/cli",
-        "//projects/anki_as_code/pkg/ankiascode",
-        "//projects/anki_grpc/pkg/ankiclient",
-        "//projects/anki_grpc/pkg/ankigrpc",
-    ] + select({
-        "//projects/anki_grpc:with_cgo": ["//projects/anki_grpc/pkg/ankigrpc/native"],
-        "//conditions:default": [],
-    }),
-)
+        basename = "anki_as_code",
+        gc_linkopts = select({
+            ":optimized": [
+                "-s",
+                "-w",
+            ],
+            "//conditions:default": [],
+        }),
+        gotags = gotags,
+        pure = pure,
+        visibility = ["//projects/anki_as_code:__subpackages__"],
+        deps = [
+            "//projects/anki_as_code/internal/cli",
+            "//projects/anki_as_code/pkg/ankiascode",
+            "//projects/anki_grpc/pkg/ankiclient",
+            "//projects/anki_grpc/pkg/ankigrpc",
+            "@com_github_spf13_cobra//:cobra",
+        ] + engines,
+    )
+    for name, gotags, engines, pure in [
+        (
+            "configured",
+            select({
+                "//projects/anki_grpc:with_cgo": ["anki_cgo"],
+                "//conditions:default": [],
+            }) + select({
+                "//projects/anki_grpc:with_wasm": ["anki_wasm"],
+                "//conditions:default": [],
+            }),
+            select({
+                "//projects/anki_grpc:with_cgo": ["//projects/anki_grpc/pkg/ankigrpc/native"],
+                "//conditions:default": [],
+            }) + select({
+                "//projects/anki_grpc:with_wasm": ["//projects/anki_grpc/pkg/ankigrpc/wasm"],
+                "//conditions:default": [],
+            }),
+            select({
+                "//projects/anki_grpc:with_cgo": "auto",
+                "//conditions:default": "on",
+            }),
+        ),
+        (
+            "native",
+            ["anki_cgo"],
+            ["//projects/anki_grpc/pkg/ankigrpc/native"],
+            "auto",
+        ),
+        ("no_engine", [], [], "on"),
+        (
+            "wasm",
+            ["anki_wasm"],
+            ["//projects/anki_grpc/pkg/ankigrpc/wasm"],
+            "on",
+        ),
+        (
+            "cgo_wasm",
+            [
+                "anki_cgo",
+                "anki_wasm",
+            ],
+            [
+                "//projects/anki_grpc/pkg/ankigrpc/native",
+                "//projects/anki_grpc/pkg/ankigrpc/wasm",
+            ],
+            "auto",
+        ),
+    ]
+]
 
 alias(
     name = "anki_as_code",
-    actual = ":native",
+    actual = ":configured",
     visibility = ["//projects/anki_as_code:__pkg__"],
 )
 
-go_test(
-    name = "cli_workflow_test",
-    srcs = [
-        "api_workflow_test.go",
-        "cli_workflow_test.go",
-        "external_server_test.go",
-        "linked_server_test.go",
-    ],
-    data = [":native"],
-    env = {"ANKI_CLI": "$(rootpath :native)"},
-    deps = [
-        "//projects/anki_as_code/api/ankiascodeapi",
-        "//projects/anki_as_code/api/ankiascodepb",
-        "//projects/anki_as_code/pkg/ankiascode",
-        "//projects/anki_grpc/pkg/ankiclient",
-        "//projects/anki_grpc/pkg/ankigrpc",
-        "//projects/anki_grpc/pkg/ankigrpc/native",
-        "//third_party/com_github_ankitects_anki:import_export",
-        "@org_golang_google_protobuf//encoding/protojson",
-    ],
-)
+[
+    go_test(
+        name = name,
+        srcs = [
+            "api_workflow_test.go",
+            "cli_workflow_test.go",
+            "external_server_test.go",
+            "linked_server_test.go",
+            "main_test.go",
+        ],
+        data = [
+            cli,
+            ":no_engine",
+            "//projects/anki_grpc",
+        ],
+        env = {
+            "ANKI_CLI": "$(rootpath {})".format(cli),
+            "ANKI_NO_ENGINE_CLI": "$(rootpath :no_engine)",
+            "ANKI_STANDALONE_CLI": "$(rootpath //projects/anki_grpc)",
+            "ANKI_TEST_CGO": "true" if cgo else "false",
+            "ANKI_TEST_WASM": "true" if wasm else "false",
+        },
+        deps = [
+            "//projects/anki_as_code/api/ankiascodeapi",
+            "//projects/anki_as_code/api/ankiascodepb",
+            "//projects/anki_as_code/pkg/ankiascode",
+            "//projects/anki_as_code/test/wasmcache",
+            "//projects/anki_grpc/pkg/ankiclient",
+            "//projects/anki_grpc/pkg/ankigrpc",
+            "//projects/anki_grpc/pkg/ankigrpc/native",
+            "//third_party/com_github_ankitects_anki:import_export",
+            "@org_golang_google_protobuf//encoding/protojson",
+        ],
+    )
+    for name, cli, cgo, wasm in [
+        ("cli_workflow_test", ":native", True, False),
+        ("wasm_cli_workflow_test", ":wasm", False, True),
+        ("composed_cli_workflow_test", ":cgo_wasm", True, True),
+    ]
+]

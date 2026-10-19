@@ -8,9 +8,11 @@ import (
 	"testing"
 
 	ankiascodepb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodepb"
+	"github.com/ankitects/anki/proto/anki/cards"
 	"github.com/ankitects/anki/proto/anki/generic"
 	"github.com/ankitects/anki/proto/anki/media"
 	"github.com/ankitects/anki/proto/anki/notes"
+	"google.golang.org/protobuf/proto"
 )
 
 // TestLargeNoteFieldWorkflow verifies a large native protobuf response and clean command streams.
@@ -33,6 +35,35 @@ func TestLargeNoteFieldWorkflow(t *testing.T) {
 	if err != nil || len(actual.GetFields()[0]) != 17<<20 {
 		t.Fatalf("large field truncated: %v", err)
 	}
+	if native := os.Getenv("NATIVE_ANKI_CLI"); native != "" {
+		binary := filepath.Join(os.Getenv("TEST_SRCDIR"), os.Getenv("TEST_WORKSPACE"), native)
+		verified := inspectFixtureWithBinary(t, result, binary)
+		assertFixtureMedia(t, verified)
+		note, err := verified.notes.GetNote(t.Context(), &notes.NoteId{Nid: fixture.noteID})
+		if err != nil || len(note.GetFields()[0]) != 17<<20 {
+			t.Fatalf("native Anki rejected WASM package payload/identity: %v", err)
+		}
+		for _, id := range fixture.cardIDs {
+			request := &cards.CardId{Cid: id}
+			before, err := client.cards.GetCard(t.Context(), request)
+			if err != nil {
+				t.Fatalf("read WASM card %d: %v", id, err)
+			}
+			after, err := verified.cards.GetCard(t.Context(), request)
+			if err != nil || !proto.Equal(before, after) {
+				t.Fatalf("native reopen changed card %d scheduling or identity: %v", id, err)
+			}
+			history, err := client.stats.GetReviewLogs(t.Context(), request)
+			if err != nil {
+				t.Fatalf("read WASM review history for card %d: %v", id, err)
+			}
+			reopened, err := verified.stats.GetReviewLogs(t.Context(), request)
+			if err != nil || !proto.Equal(history, reopened) {
+				t.Fatalf("native reopen changed card %d review history: %v", id, err)
+			}
+		}
+	}
+	saveFixtureArtifact(t, result, "large-field-roundtrip.colpkg")
 	assertConverged(t, result, text)
 	output := runFixtureCLI(t, "col", "plan", "--collection", result, "--text", text)
 	if artifacts := os.Getenv("TEST_UNDECLARED_OUTPUTS_DIR"); artifacts != "" {

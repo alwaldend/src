@@ -54,6 +54,7 @@ func linkedCommand(t *testing.T, binary string, success bool, arguments ...strin
 // TestLinkedWorker verifies one installed executable works without PATH or temporary storage.
 func TestLinkedWorker(t *testing.T) {
 	binary, root := installedLinkedCLI(t)
+	t.Setenv("ANKI_WASM_CACHE_DIR", "")
 	t.Setenv("PATH", "")
 	t.Setenv("TMPDIR", filepath.Join(root, "unavailable"))
 	for _, arguments := range [][]string{{"server"}, {"server", "--help"}} {

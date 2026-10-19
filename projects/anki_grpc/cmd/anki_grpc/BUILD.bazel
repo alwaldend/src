@@ -1,3 +1,4 @@
+load("@rules_go//go:def.bzl", "go_binary")
 load("@rules_rust//rust:defs.bzl", "rust_binary", "rust_clippy")
 
 config_setting(
@@ -36,14 +37,30 @@ filegroup(
     name = "clippy",
     srcs = [
         ":command_clippy",
+        "//projects/anki_grpc/internal/backend:clippy",
         "//projects/anki_grpc/pkg/ankigrpc/native:clippy",
         "//projects/anki_grpc/pkg/ankiserver:clippy",
     ],
     visibility = ["//projects/anki_grpc:__pkg__"],
 )
 
+go_binary(
+    name = "wasm",
+    srcs = [
+        "doc.go",
+        "main.go",
+    ],
+    basename = "anki_grpc",
+    pure = "on",
+    visibility = ["//projects/anki_grpc:__subpackages__"],
+    deps = ["//projects/anki_grpc/pkg/ankigrpc/wasm"],
+)
+
 alias(
     name = "anki_grpc",
-    actual = ":native",
+    actual = select({
+        "//projects/anki_grpc:with_wasm": ":wasm",
+        "//conditions:default": ":native",
+    }),
     visibility = ["//projects/anki_grpc:__pkg__"],
 )

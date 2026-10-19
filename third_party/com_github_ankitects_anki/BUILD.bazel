@@ -19,14 +19,17 @@ docs_filegroup(
 
 package_group(
     name = "native_build_consumers",
-    packages = ["//projects/anki_grpc/pkg/ankiserver"],
+    packages = [
+        "//projects/anki_grpc/internal/backend",
+        "//projects/anki_grpc/test/wasm",
+    ],
 )
 
 package_group(
     name = "descriptor_consumers",
     packages = [
         "//projects/anki_as_code/internal/rpc",
-        "//projects/anki_grpc/pkg/ankiserver",
+        "//projects/anki_grpc/internal/backend",
     ],
 )
 
@@ -36,6 +39,7 @@ package_group(
         "//projects/anki_as_code/...",
         "//projects/anki_grpc/pkg/ankiclient",
         "//projects/anki_grpc/test/transport",
+        "//projects/anki_grpc/test/wasm",
     ],
 )
 

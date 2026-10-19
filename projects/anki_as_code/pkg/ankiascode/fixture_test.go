@@ -104,7 +104,13 @@ func fixtureApplication() *App {
 // connectFixture opens an existing or new private collection with generated clients.
 func connectFixture(t *testing.T, database string) *fixtureClient {
 	t.Helper()
-	worker := ankiclient.NewSTD(ankiclient.ClientSTDOptions{Binary: fixtureCLIPath(), Arguments: []string{"server", "serve"}})
+	return connectFixtureWithBinary(t, database, fixtureCLIPath())
+}
+
+// connectFixtureWithBinary opens storage through the explicitly selected worker.
+func connectFixtureWithBinary(t *testing.T, database, binary string) *fixtureClient {
+	t.Helper()
+	worker := ankiclient.NewSTD(ankiclient.ClientSTDOptions{Binary: binary, Arguments: []string{"server", "serve"}})
 	if err := worker.Start(context.Background()); err != nil {
 		t.Fatal(err)
 	}
@@ -146,8 +152,14 @@ func connectFixture(t *testing.T, database string) *fixtureClient {
 // inspectFixture restores through Anki so observing a package cannot change it.
 func inspectFixture(t *testing.T, input string) *fixtureClient {
 	t.Helper()
+	return inspectFixtureWithBinary(t, input, fixtureCLIPath())
+}
+
+// inspectFixtureWithBinary restores a package through the selected Anki executable.
+func inspectFixtureWithBinary(t *testing.T, input, binary string) *fixtureClient {
+	t.Helper()
 	database := filepath.Join(t.TempDir(), "collection.anki2")
-	client := connectFixture(t, database)
+	client := connectFixtureWithBinary(t, database, binary)
 	if _, err := client.collections.CloseCollection(context.Background(), &ankicol.CloseCollectionRequest{}); err != nil {
 		t.Fatal(err)
 	}

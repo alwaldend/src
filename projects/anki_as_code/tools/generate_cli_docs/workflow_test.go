@@ -94,7 +94,7 @@ func TestCLIReferenceWorkflow(t *testing.T) {
 				"## anki_as_code api notes get-note\n", "## anki_as_code api tags all-tags\n",
 				"--input-format", "--output-format", "--timeout", "--write-back", "Request fields:", "Response:",
 			},
-			"server.md": {"## anki_as_code server run\n", "## anki_as_code server serve\n", "anki_as_code server serve --help"},
+			"server.md": {"## anki_as_code server run\n", "## anki_as_code server serve\n", "anki_as_code server serve --help", "--server-engine"},
 			"help.md":   {"## anki_as_code help\n"},
 		} {
 			for _, content := range expected {

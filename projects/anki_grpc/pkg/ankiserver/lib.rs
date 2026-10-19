@@ -1,19 +1,54 @@
-//! Shared Anki server implementation for standalone and linked CLI entry points.
-//! Process lifetime and failure recovery belong to the caller.
+//! Shared Rust CLI, opaque protobuf gRPC server and Anki backend dispatch.
+//! Platform I/O stays below this server; callers own worker process lifetime.
 
-use anki_grpc_cli as cli;
-
-use std::{convert::Infallible, future::Future, pin::Pin};
-
+mod cli;
 use anki_backend_dispatch::{command, init_backend, Backend, CommandError};
 use bytes::{Buf, BufMut, Bytes};
-use hyper::{body::Incoming, server::conn::http2, service::service_fn};
-use hyper_util::rt::{TokioExecutor, TokioIo};
-use tokio::{
-    io::{AsyncRead, AsyncWrite},
-    net::{TcpListener, UnixListener},
-};
+use hyper::{body::Incoming, rt::Executor as _, server::conn::http2, service::service_fn};
+use hyper_util::rt::TokioIo;
+use std::{convert::Infallible, future::Future, pin::Pin, sync::Arc};
+use tokio::io::{AsyncRead, AsyncWrite};
 use tonic::{codec, server::UnaryService, Request, Response, Status};
+
+#[cfg(not(target_os = "wasi"))]
+use hyper_util::rt::TokioExecutor as Executor;
+#[cfg(not(target_os = "wasi"))]
+use tokio::net::{TcpListener, UnixListener};
+#[cfg(target_os = "wasi")]
+mod wasi;
+#[cfg(target_os = "wasi")]
+use wasi::Executor;
+
+/// Dispatcher supplies opaque protobuf calls to the shared CLI server.
+pub trait Dispatcher: Send + Sync {
+    /// dispatch executes one method and preserves its gRPC status and trailers.
+    fn dispatch(&self, path: &str, request: &[u8]) -> Result<Vec<u8>, Status>;
+}
+
+/// BackendInitializer constructs the one dispatcher shared by the server's clients.
+type BackendInitializer = fn() -> Result<Arc<dyn Dispatcher>, Box<dyn std::error::Error>>;
+
+/// AnkiDispatcher owns the single upstream backend shared by all connections.
+struct AnkiDispatcher {
+    /// backend owns Anki collection state for this server process.
+    backend: Backend,
+}
+
+impl Dispatcher for AnkiDispatcher {
+    fn dispatch(&self, path: &str, request: &[u8]) -> Result<Vec<u8>, Status> {
+        command(&self.backend, path, request).map_err(|error| match error {
+            CommandError::Unknown => Status::unimplemented(format!("unknown Anki command: {path}")),
+            CommandError::Native(details) => {
+                let mut metadata = tonic::metadata::MetadataMap::new();
+                metadata.insert_bin(
+                    "anki-error-bin",
+                    tonic::metadata::MetadataValue::from_bytes(&details),
+                );
+                Status::with_metadata(tonic::Code::Unknown, "Anki command failed", metadata)
+            }
+        })
+    }
+}
 
 /// ProtobufCodec forwards upstream message bytes without another schema binding.
 #[derive(Default)]
@@ -24,7 +59,6 @@ impl codec::Codec for ProtobufCodec {
     type Decode = Bytes;
     type Encoder = Self;
     type Decoder = Self;
-
     fn encoder(&mut self) -> Self {
         Self
     }
@@ -36,7 +70,6 @@ impl codec::Codec for ProtobufCodec {
 impl codec::Encoder for ProtobufCodec {
     type Item = Bytes;
     type Error = Status;
-
     fn encode(&mut self, item: Bytes, buffer: &mut codec::EncodeBuf<'_>) -> Result<(), Status> {
         buffer.put(item);
         Ok(())
@@ -46,101 +79,67 @@ impl codec::Encoder for ProtobufCodec {
 impl codec::Decoder for ProtobufCodec {
     type Item = Bytes;
     type Error = Status;
-
     fn decode(&mut self, buffer: &mut codec::DecodeBuf<'_>) -> Result<Option<Bytes>, Status> {
         Ok(Some(buffer.copy_to_bytes(buffer.remaining())))
     }
 }
 
-/// Command dispatches one upstream call against the process-owned backend.
+/// Command dispatches one request against the process-owned backend.
 struct Command {
-    /// backend shares Anki's synchronized state with all client connections.
-    backend: Backend,
-    /// path is the gRPC service and method selected by Hyper.
+    /// backend shares collection state between clients and RPCs.
+    backend: Arc<dyn Dispatcher>,
+    /// path identifies the upstream service and method.
     path: String,
 }
 
 impl UnaryService<Bytes> for Command {
     type Response = Bytes;
     type Future = Pin<Box<dyn Future<Output = Result<Response<Bytes>, Status>> + Send>>;
-
     fn call(&mut self, request: Request<Bytes>) -> Self::Future {
         let backend = self.backend.clone();
         let path = self.path.clone();
         Box::pin(async move {
-            tokio::task::spawn_blocking(move || {
-                let result =
-                    command(&backend, &path, &request.into_inner()).map_err(
-                        |error| match error {
-                            CommandError::Unknown => {
-                                Status::unimplemented(format!("unknown Anki command: {path}"))
-                            }
-                            CommandError::Native(details) => {
-                                let mut metadata = tonic::metadata::MetadataMap::new();
-                                metadata.insert_bin(
-                                    "anki-error-bin",
-                                    tonic::metadata::MetadataValue::from_bytes(&details),
-                                );
-                                Status::with_metadata(
-                                    tonic::Code::Unknown,
-                                    "Anki command failed",
-                                    metadata,
-                                )
-                            }
-                        },
-                    )?;
-                Ok(Response::new(Bytes::from(result)))
-            })
-            .await
-            .expect("Anki command task")
+            #[cfg(not(target_os = "wasi"))]
+            let result =
+                tokio::task::spawn_blocking(move || backend.dispatch(&path, &request.into_inner()))
+                    .await
+                    .expect("Anki command task");
+            #[cfg(target_os = "wasi")]
+            let result = backend.dispatch(&path, &request.into_inner());
+            result.map(|bytes| Response::new(Bytes::from(bytes)))
         })
     }
 }
 
-/// run executes the native CLI using a complete argument vector and returns its exit status.
+/// run executes the complete CLI using Anki's default backend initialization.
 pub fn run(arguments: Vec<String>) -> i32 {
-    let mut arguments = arguments.into_iter();
-    let program = arguments.next().unwrap_or_else(|| "anki_grpc".into());
-    let program = std::path::Path::new(&program)
-        .file_name()
-        .and_then(|name| name.to_str())
-        .unwrap_or("anki_grpc");
-    let transport = match cli::Command::parse(arguments) {
-        Ok(cli::Command::Serve(transport)) => transport,
-        Ok(cli::Command::Help) => {
-            print!("{}", cli::HELP.replacen("anki_grpc", program, 1));
-            return 0;
-        }
-        Ok(cli::Command::ServeHelp) => {
-            print!("{}", cli::SERVE_HELP.replacen("anki_grpc", program, 1));
-            return 0;
-        }
-        Err(error) => {
-            eprintln!("{error}\nSee --help for usage.");
-            return 2;
-        }
-    };
-    match serve(transport) {
-        Ok(()) => 0,
-        Err(error) => {
-            eprintln!("Error: {error:?}");
-            1
-        }
-    }
+    run_with_backend(arguments, || {
+        let backend = init_backend(&[]).map_err(std::io::Error::other)?;
+        Ok(Arc::new(AnkiDispatcher { backend }))
+    })
 }
 
-/// serve owns the native backend and Tokio runtime for the selected transport.
+/// run_with_backend serves a caller-supplied dispatcher through the same CLI and transports.
+/// Initialization occurs only after argument validation; every connection shares its result.
+pub fn run_with_backend(arguments: Vec<String>, initialize: BackendInitializer) -> i32 {
+    cli::run(arguments, |transport| serve(transport, initialize))
+}
+
+/// serve owns native runtime initialization and transport serving.
+#[cfg(not(target_os = "wasi"))]
 #[tokio::main]
-async fn serve(transport: cli::Transport) -> Result<(), Box<dyn std::error::Error>> {
-    // An empty BackendInit uses Anki's default initialization options.
-    let backend = init_backend(&[]).map_err(std::io::Error::other)?;
+async fn serve(
+    transport: cli::Transport,
+    initialize: BackendInitializer,
+) -> Result<(), Box<dyn std::error::Error>> {
+    let backend = initialize()?;
     match transport {
         cli::Transport::Stdio => {
             serve_connection(
                 tokio::io::join(tokio::io::stdin(), tokio::io::stdout()),
                 backend,
             )
-            .await?;
+            .await?
         }
         cli::Transport::Tcp(address) => {
             let listener = TcpListener::bind(&address).await?;
@@ -162,22 +161,31 @@ async fn serve(transport: cli::Transport) -> Result<(), Box<dyn std::error::Erro
     Ok(())
 }
 
-/// spawn_connection serves a client against the backend and reports transport failures.
+/// serve executes the same server on WASI's single-thread event loop.
+#[cfg(target_os = "wasi")]
+fn serve(
+    transport: cli::Transport,
+    initialize: BackendInitializer,
+) -> Result<(), Box<dyn std::error::Error>> {
+    wasi::serve(transport, initialize()?)
+}
+
+/// spawn_connection serves one client and reports its transport failure.
 fn spawn_connection(
     stream: impl AsyncRead + AsyncWrite + Unpin + Send + 'static,
-    backend: Backend,
+    backend: Arc<dyn Dispatcher>,
 ) {
-    tokio::spawn(async move {
+    Executor::new().execute(async move {
         if let Err(error) = serve_connection(stream, backend).await {
             eprintln!("gRPC connection failed: {error}");
         }
     });
 }
 
-/// serve_connection dispatches a client's RPCs against the initialized backend.
+/// serve_connection shares gRPC framing and dispatch between native and WASI builds.
 async fn serve_connection(
     stream: impl AsyncRead + AsyncWrite + Unpin + Send + 'static,
-    backend: Backend,
+    backend: Arc<dyn Dispatcher>,
 ) -> Result<(), hyper::Error> {
     let service = service_fn(move |request: hyper::Request<Incoming>| {
         let command = Command {
@@ -193,7 +201,7 @@ async fn serve_connection(
             Ok::<_, Infallible>(response)
         }
     });
-    http2::Builder::new(TokioExecutor::new())
+    http2::Builder::new(Executor::new())
         .serve_connection(TokioIo::new(stream), service)
         .await
 }

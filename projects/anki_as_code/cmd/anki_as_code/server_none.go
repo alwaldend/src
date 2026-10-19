@@ -1,11 +1,6 @@
+//go:build !anki_cgo
+
 package main
 
-import "fmt"
-
-// runServer reports that this executable was built without a local engine.
-func runServer([]string) error {
-	return fmt.Errorf("run Anki server: no local engines are compiled")
-}
-
-// subprocessSchemes permits explicitly supplied external worker executables.
-var subprocessSchemes = []string{"subprocess"}
+// nativeServerRunner records that this executable has no linked native engine.
+var nativeServerRunner func([]string) error

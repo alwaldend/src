@@ -329,14 +329,23 @@ func TestApplicationBackendSelection(t *testing.T) {
 // TestExternalServerWorkflow exercises every collection command against reusable TCP and Unix listeners.
 // It retains archive, state and plan artifacts for independent inspection.
 func TestExternalServerWorkflow(t *testing.T) {
-	for _, transport := range []string{"tcp", "unix", "inprocess", "subprocess"} {
+	transports := []string{"tcp", "unix", "subprocess"}
+	if os.Getenv("ANKI_TEST_WASM") == "true" {
+		transports = append(transports, "inprocess+wasm")
+	}
+	if os.Getenv("ANKI_TEST_CGO") == "true" {
+		transports = append(transports, "inprocess")
+	}
+	for _, transport := range transports {
 		t.Run(transport, func(t *testing.T) {
 			binary, root := installedLinkedCLI(t)
 			t.Chdir(root)
 			t.Setenv("PATH", "")
 			t.Setenv("TMPDIR", root)
 			address := "inprocess://workflow"
-			if transport == "subprocess" {
+			if transport == "inprocess+wasm" {
+				address = "inprocess+wasm://workflow"
+			} else if transport == "subprocess" {
 				address = ankigrpc.SubprocessAddress(binary, "server", "serve")
 			} else if transport != "inprocess" {
 				address = externalServer(t, binary, root, transport, "")
@@ -376,7 +385,11 @@ func TestExternalServerWorkflow(t *testing.T) {
 			}
 			linkedCommand(t, binary, true, append(append([]string{}, stateArguments...), "update", stateFile)...)
 			archive, rebuilt := filepath.Join(root, "base.colpkg"), filepath.Join(root, "rebuilt.colpkg")
-			externalArchive(t, address, database, archive)
+			fixtureAddress := address
+			if transport == "inprocess+wasm" {
+				fixtureAddress = "inprocess://native-interoperability"
+			}
+			externalArchive(t, fixtureAddress, database, archive)
 			original, err := os.ReadFile(archive)
 			if err != nil {
 				t.Fatal(err)
@@ -485,7 +498,7 @@ func TestExternalAddressFailures(t *testing.T) {
 	if err := command.Process.Signal(os.Interrupt); err != nil {
 		t.Fatal(err)
 	}
-	if err := command.Wait(); err == nil || ctx.Err() != nil || stdout.Len() != 0 || !strings.Contains(stderr.String(), "network readiness") {
+	if err := command.Wait(); err == nil || ctx.Err() != nil || stdout.Len() != 0 || !strings.Contains(stderr.String(), "gRPC readiness") {
 		t.Fatalf("unavailable endpoint did not cancel cleanly: %v stdout=%q stderr=%q", err, stdout.String(), stderr.String())
 	}
 	if data, err := os.ReadFile(database); err != nil || len(data) != 0 {

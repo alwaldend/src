@@ -20,6 +20,18 @@ config_setting(
     visibility = ["//:__subpackages__"],
 )
 
+bool_flag(
+    name = "wasm",
+    build_setting_default = False,
+    visibility = ["//:__subpackages__"],
+)
+
+config_setting(
+    name = "with_wasm",
+    flag_values = {":wasm": "true"},
+    visibility = ["//:__subpackages__"],
+)
+
 alias(
     name = "clippy",
     actual = "//projects/anki_grpc/cmd/anki_grpc:clippy",
