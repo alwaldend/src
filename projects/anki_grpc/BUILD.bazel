@@ -1,3 +1,4 @@
+load("@bazel_skylib//rules:common_settings.bzl", "string_flag")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_site_svg", "mermaid_site_webp")
 
@@ -5,6 +6,23 @@ alias(
     name = "anki_grpc",
     actual = "//projects/anki_grpc/cmd/anki_grpc",
     visibility = [":server_consumers"],
+)
+
+string_flag(
+    name = "backend",
+    build_setting_default = "cgo",
+    values = [
+        "cgo",
+    ],
+    visibility = [":backend_consumers"],
+)
+
+package_group(
+    name = "backend_consumers",
+    packages = [
+        "//projects/anki_as_code/cmd/anki_as_code",
+        "//projects/anki_grpc/cmd/anki_grpc",
+    ],
 )
 
 alias(

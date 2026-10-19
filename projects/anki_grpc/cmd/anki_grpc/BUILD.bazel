@@ -6,8 +6,10 @@ config_setting(
 )
 
 rust_binary(
-    name = "anki_grpc",
+    name = "native",
     srcs = ["main.rs"],
+    binary_name = "anki_grpc",
+    crate_name = "anki_grpc",
     crate_root = "main.rs",
     edition = "2021",
     rustc_flags = ["-Cpanic=abort"] + select({
@@ -18,7 +20,7 @@ rust_binary(
         "@platforms//os:linux",
         "@platforms//cpu:x86_64",
     ],
-    visibility = ["//projects/anki_grpc:__pkg__"],
+    visibility = ["//projects/anki_grpc:__subpackages__"],
     deps = ["//projects/anki_grpc/pkg/ankiserver:server_rust"],
 )
 
@@ -26,7 +28,7 @@ rust_clippy(
     name = "command_clippy",
     visibility = ["//projects/anki_grpc:__pkg__"],
     deps = [
-        ":anki_grpc",
+        ":native",
     ],
 )
 
@@ -35,6 +37,13 @@ filegroup(
     srcs = [
         ":command_clippy",
         "//projects/anki_grpc/pkg/ankiserver:clippy",
+        "//projects/anki_grpc/pkg/ankiservercgo:clippy",
     ],
+    visibility = ["//projects/anki_grpc:__pkg__"],
+)
+
+alias(
+    name = "anki_grpc",
+    actual = ":native",
     visibility = ["//projects/anki_grpc:__pkg__"],
 )

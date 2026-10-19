@@ -31,6 +31,7 @@ include("//third_party/com_github_stackexchange_dnscontrol:include.MODULE.bazel"
 include("//third_party/com_github_tamasfe_taplo:include.MODULE.bazel")
 include("//third_party/com_github_trufflesecurity_trufflehog:include.MODULE.bazel")
 include("//third_party/com_github_vatesfr_xen_orchestra_oidc:include.MODULE.bazel")
+include("//third_party/com_github_webassembly_wasi_sdk:include.MODULE.bazel")
 include("//third_party/com_github_xdevplatform_xurl:include.MODULE.bazel")
 include("//third_party/com_github_yandex_practicum_mlops_course:include.MODULE.bazel")
 include("//third_party/com_github_yandex_practicum_mlops_freetrack:include.MODULE.bazel")

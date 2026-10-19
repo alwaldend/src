@@ -1,0 +1,43 @@
+load("@rules_go//go:def.bzl", "go_test")
+load("@rules_rust//rust:defs.bzl", "rust_binary")
+
+[
+    rust_binary(
+        name = name,
+        srcs = ["sqlite_probe.rs"],
+        edition = "2021",
+        platform = platform,
+        rustc_flags = ["-Cpanic=abort"],
+        deps = ["@com_github_ankitects_anki_crates//:rusqlite"],
+    )
+    for name, platform in [
+        ("sqlite_probe", None),
+        ("sqlite_probe_wasi", "@rules_rust//rust/platform:wasip1"),
+    ]
+]
+
+go_test(
+    name = "sqlite_test",
+    srcs = [
+        "doc.go",
+        "sqlite_test.go",
+    ],
+    args = [
+        "-sqlite-wasm=$(rlocationpath :sqlite_probe_wasi)",
+        "-sqlite-native=$(rlocationpath :sqlite_probe)",
+    ],
+    data = [
+        ":sqlite_probe",
+        ":sqlite_probe_wasi",
+    ],
+    pure = "on",
+    target_compatible_with = [
+        "@platforms//os:linux",
+        "@platforms//cpu:x86_64",
+    ],
+    deps = [
+        "@com_github_tetratelabs_wazero//:wazero",
+        "@com_github_tetratelabs_wazero//imports/wasi_snapshot_preview1",
+        "@rules_go//go/runfiles",
+    ],
+)

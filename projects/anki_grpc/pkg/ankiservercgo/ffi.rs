@@ -1,4 +1,4 @@
-//! C ABI adapter for starting the shared Anki server from another language.
+//! C ABI adapter for starting the shared Anki server from Go through cgo.
 
 use std::ffi::{c_char, c_int, CStr};
 

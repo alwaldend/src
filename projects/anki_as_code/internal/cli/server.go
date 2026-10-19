@@ -7,11 +7,11 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// newServerCommand defines presentation and forwards opaque native arguments to App operations.
+// newServerCommand defines presentation and forwards opaque server arguments to App operations.
 func newServerCommand(application ankiascodeapi.App) *cobra.Command {
 	command := &cobra.Command{
 		Use:   "server",
-		Short: "Manage the native Anki server",
+		Short: "Manage the Anki server",
 		Args:  cobra.NoArgs,
 		RunE: func(command *cobra.Command, _ []string) error {
 			if err := command.Help(); err != nil {
@@ -22,7 +22,7 @@ func newServerCommand(application ankiascodeapi.App) *cobra.Command {
 	}
 	run := &cobra.Command{
 		Use:                "run",
-		Short:              "Run the linked native Anki CLI",
+		Short:              "Run the linked Anki server CLI",
 		DisableFlagParsing: true,
 		RunE: func(command *cobra.Command, arguments []string) error {
 			if err := application.ServerRun(command.Context(), command.CommandPath(), arguments); err != nil {
@@ -33,7 +33,7 @@ func newServerCommand(application ankiascodeapi.App) *cobra.Command {
 	}
 	command.AddCommand(run, &cobra.Command{
 		Use:                "serve",
-		Short:              "Run the native Anki gRPC server",
+		Short:              "Run the Anki gRPC server",
 		DisableFlagParsing: true,
 		RunE: func(command *cobra.Command, arguments []string) error {
 			if err := application.ServerServe(command.Context(), run.CommandPath(), arguments); err != nil {

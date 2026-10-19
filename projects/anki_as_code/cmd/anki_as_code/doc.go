@@ -1,7 +1,6 @@
-// Package main composes the anki_as_code executable and its process adapters.
-// It constructs App, supplies the current executable and linked native runner,
-// installs process signal handling, executes the CLI and reports exit failures.
-// internal/cli owns all Cobra commands; App owns the operations they invoke.
-// This package does not implement server dispatch, collection workflows,
-// configuration policy, planning or reconciliation.
+// Package main composes the anki_as_code executable with its native cgo server
+// adapter. It owns signals, constructs App with a same-executable worker, and
+// runs the CLI. internal/cli owns Cobra commands; App owns their operations.
+// The server adapter owns native CLI execution; this package implements no
+// collection workflows.
 package main

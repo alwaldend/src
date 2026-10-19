@@ -31,6 +31,11 @@ llvm.toolchain(
     name = "llvm_toolchain",
     llvm_versions = VERSIONS,
 )
+llvm.sysroot(
+    name = "llvm_toolchain",
+    label = "@com_github_webassembly_wasi_sdk//:sysroot",
+    targets = ["wasip1-wasm32"],
+)
 llvm.toolchain(
     name = "llvm_toolchain_with_sysroot",
     # The chromium sysroots use the Debian libstdc++ header/library layout.

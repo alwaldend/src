@@ -8,7 +8,7 @@ flowchart LR
     api --> schema
     cli --> schema[ankiascodepb: protobuf contracts]
     app --> schema
-    entry -->|Inject native adapter| host[ankiserver.Run]
+    entry -->|Inject native adapter| host[ankiservercgo.Run]
     app -. ServerRun / ServerServe .-> host
     host --> server[Linked Anki gRPC server]
     app -->|path source| collections[collection.Store]

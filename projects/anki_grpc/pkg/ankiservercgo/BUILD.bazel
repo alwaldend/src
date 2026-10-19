@@ -1,0 +1,37 @@
+load("@rules_go//go:def.bzl", "go_library")
+load("@rules_rust//rust:defs.bzl", "rust_clippy", "rust_static_library")
+
+rust_static_library(
+    name = "server_ffi",
+    srcs = ["ffi.rs"],
+    crate_root = "ffi.rs",
+    edition = "2021",
+    rustc_flags = ["-Cpanic=abort"],
+    target_compatible_with = [
+        "@platforms//os:linux",
+        "@platforms//cpu:x86_64",
+    ],
+    deps = ["//projects/anki_grpc/pkg/ankiserver:server_rust"],
+)
+
+go_library(
+    name = "ankiservercgo",
+    srcs = [
+        "doc.go",
+        "server.go",
+    ],
+    cdeps = [":server_ffi"],
+    cgo = True,
+    importpath = "git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/ankiservercgo",
+    target_compatible_with = [
+        "@platforms//os:linux",
+        "@platforms//cpu:x86_64",
+    ],
+    visibility = ["//projects/anki_as_code/cmd/anki_as_code:__pkg__"],
+)
+
+rust_clippy(
+    name = "clippy",
+    visibility = ["//projects/anki_grpc/cmd/anki_grpc:__pkg__"],
+    deps = [":server_ffi"],
+)
