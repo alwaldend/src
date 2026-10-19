@@ -55,6 +55,7 @@ go_test(
         "//projects/anki_as_code/internal/state",
         "//projects/anki_grpc/pkg/ankiclient",
         "//projects/anki_grpc/pkg/ankigrpc",
+        "//projects/anki_grpc/pkg/ankigrpc/native",
         "//third_party/com_github_ankitects_anki:cards",
         "//third_party/com_github_ankitects_anki:collection",
         "//third_party/com_github_ankitects_anki:config",

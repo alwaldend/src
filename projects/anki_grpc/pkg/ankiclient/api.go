@@ -12,25 +12,36 @@ import (
 	"sync/atomic"
 	"time"
 
-	ankibackend "github.com/ankitects/anki/proto/anki/backend"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/connectivity"
 	"google.golang.org/grpc/credentials/insecure"
 	"google.golang.org/grpc/metadata"
-	"google.golang.org/protobuf/proto"
 )
 
-// ankiErrorTrailer carries Anki's serialized BackendError on failed native calls.
-const ankiErrorTrailer = "anki-error-bin"
-
-// Client manages Anki resource readiness and its connection for generated service clients.
+// Client manages readiness and a borrowed connection for generated Anki clients.
+// Each instance accepts one Start attempt. Call Stop after any startup attempt;
+// Stop is also safe before Start and is terminal and safe to repeat. Constructors
+// perform no startup I/O. Retained connections reject calls after shutdown begins.
 type Client interface {
-	// Start prepares owned resources; ctx bounds startup only.
+	// Start prepares resources; ctx controls startup, not subsequent lifetime.
+	// Native initialization can be synchronous and non-interruptible.
 	Start(ctx context.Context) error
 	// Connection returns the managed connection, or an error when unavailable.
 	Connection() (grpc.ClientConnInterface, error)
-	// Stop uses ctx to bound graceful cleanup; ClientSTD always completes process reaping.
+	// Stop rejects new calls and uses ctx to bound graceful cleanup. ClientSTD
+	// always completes process reaping. AsyncClient may continue cleanup after
+	// an error return; Done observes final completion before resources are reused.
 	Stop(ctx context.Context) error
+}
+
+// AsyncClient reports final cleanup when Stop can return before resources are released.
+// Its stable Done channel closes only after terminal cleanup, including startup
+// and native work whose callers stopped waiting. Other clients finish their cleanup
+// attempt before Stop returns. Cancelling a request does not establish completion.
+type AsyncClient interface {
+	Client
+	// Done closes after all owned resources and active native work are released.
+	Done() <-chan struct{}
 }
 
 // ClientSTDOptions configures the process and shutdown policy used by NewSTD.
@@ -230,26 +241,7 @@ func (backend *ClientSTD) intercept(ctx context.Context, method string, input, o
 	}
 	var trailers metadata.MD
 	err := invoke(ctx, method, input, output, connection, append(options, grpc.Trailer(&trailers))...)
-	return decodeCallError(ctx, method, err, trailers)
-}
-
-// decodeCallError preserves gRPC status and native BackendError details for every transport.
-func decodeCallError(ctx context.Context, method string, err error, trailers metadata.MD) error {
-	if err == nil {
-		return nil
-	}
-	if ctx.Err() != nil {
-		return fmt.Errorf("call Anki %s: %w", method, ctx.Err())
-	}
-	data := trailers.Get(ankiErrorTrailer)
-	if len(data) != 1 {
-		return fmt.Errorf("call Anki %s: %w", method, err)
-	}
-	var failure ankibackend.BackendError
-	if decodeError := proto.Unmarshal([]byte(data[0]), &failure); decodeError != nil {
-		return fmt.Errorf("decode Anki %s failure: %w", method, errors.Join(err, decodeError))
-	}
-	return fmt.Errorf("call Anki %s: %s: %s: %w", method, failure.Kind, failure.Message, err)
+	return DecodeCallError(ctx, method, err, trailers)
 }
 
 // Stop rejects calls, closes transport, and reaps the child. When ctx expires or

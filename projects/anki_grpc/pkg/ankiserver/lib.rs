@@ -5,7 +5,7 @@ use anki_grpc_cli as cli;
 
 use std::{convert::Infallible, future::Future, pin::Pin};
 
-use anki::backend::{init_backend, Backend};
+use anki_backend_dispatch::{command, init_backend, Backend, CommandError};
 use bytes::{Buf, BufMut, Bytes};
 use hyper::{body::Incoming, server::conn::http2, service::service_fn};
 use hyper_util::rt::{TokioExecutor, TokioIo};
@@ -14,8 +14,6 @@ use tokio::{
     net::{TcpListener, UnixListener},
 };
 use tonic::{codec, server::UnaryService, Request, Response, Status};
-
-include!(concat!(env!("OUT_DIR"), "/commands.rs"));
 
 /// ProtobufCodec forwards upstream message bytes without another schema binding.
 #[derive(Default)]
@@ -71,19 +69,26 @@ impl UnaryService<Bytes> for Command {
         let path = self.path.clone();
         Box::pin(async move {
             tokio::task::spawn_blocking(move || {
-                let (service, method) = command_ids(&path).ok_or_else(|| {
-                    Status::unimplemented(format!("unknown Anki command: {path}"))
-                })?;
-                let result = backend
-                    .run_service_method(service, method, &request.into_inner())
-                    .map_err(|details| {
-                        let mut metadata = tonic::metadata::MetadataMap::new();
-                        metadata.insert_bin(
-                            "anki-error-bin",
-                            tonic::metadata::MetadataValue::from_bytes(&details),
-                        );
-                        Status::with_metadata(tonic::Code::Unknown, "Anki command failed", metadata)
-                    })?;
+                let result =
+                    command(&backend, &path, &request.into_inner()).map_err(
+                        |error| match error {
+                            CommandError::Unknown => {
+                                Status::unimplemented(format!("unknown Anki command: {path}"))
+                            }
+                            CommandError::Native(details) => {
+                                let mut metadata = tonic::metadata::MetadataMap::new();
+                                metadata.insert_bin(
+                                    "anki-error-bin",
+                                    tonic::metadata::MetadataValue::from_bytes(&details),
+                                );
+                                Status::with_metadata(
+                                    tonic::Code::Unknown,
+                                    "Anki command failed",
+                                    metadata,
+                                )
+                            }
+                        },
+                    )?;
                 Ok(Response::new(Bytes::from(result)))
             })
             .await

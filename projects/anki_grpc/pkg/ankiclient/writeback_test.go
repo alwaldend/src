@@ -1,3 +1,5 @@
+//go:build cgo && linux && amd64
+
 package ankiclient_test
 
 import (

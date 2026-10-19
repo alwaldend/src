@@ -16,6 +16,7 @@ go_library(
         "collection_connection.go",
         "connection.go",
         "doc.go",
+        "errors.go",
         "network.go",
     ],
     importpath = "git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/ankiclient",
@@ -37,6 +38,7 @@ go_test(
     srcs = [
         "api_test.go",
         "collection_test.go",
+        "native_test.go",
         "writeback_test.go",
     ],
     args = ["-worker=$(rlocationpath //projects/anki_grpc/cmd/anki_grpc:native)"],

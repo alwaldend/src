@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"math"
 	"net"
+	"net/url"
 	"path/filepath"
 	"strings"
 	"sync"
@@ -16,17 +17,13 @@ import (
 	"google.golang.org/grpc/metadata"
 )
 
-// ClientGRPCOptions selects a running server without acquiring its process or collection lifetime.
-type ClientGRPCOptions struct {
-	// Address is a TCP host:port, tcp:// endpoint, unix:// endpoint or absolute Unix socket path.
-	Address string
-}
-
 // ClientGRPC owns only a gRPC client connection to an explicitly selected Anki server.
 // Each instance allows one Start attempt; Stop leaves remote storage and processes running.
 type ClientGRPC struct {
-	// options are copied constructor settings.
-	options ClientGRPCOptions
+	// transport is the validated TCP or Unix network used for dialing.
+	transport string
+	// address is a decoded endpoint; Start never parses it again.
+	address string
 	// mutex protects connection readiness and terminal shutdown.
 	mutex sync.Mutex
 	// connection is the owned network client.
@@ -39,9 +36,62 @@ type ClientGRPC struct {
 	stopped bool
 }
 
-// NewGRPC configures a network backend without contacting the server.
-func NewGRPC(options ClientGRPCOptions) *ClientGRPC {
-	return &ClientGRPC{options: options}
+// NewGRPC validates an endpoint and configures a client without contacting its server.
+func NewGRPC(address string) (*ClientGRPC, error) {
+	transport, endpoint, err := parseNetworkAddress(address)
+	if err != nil {
+		return nil, fmt.Errorf("configure Anki network client: %w", err)
+	}
+	return &ClientGRPC{transport: transport, address: endpoint}, nil
+}
+
+// parseNetworkAddress decodes endpoint syntax once before any client startup.
+// Unix URL suffixes are paths, including relative paths containing spaces.
+func parseNetworkAddress(address string) (string, string, error) {
+	if filepath.IsAbs(address) {
+		return "unix", address, nil
+	}
+	if len(address) >= len("unix://") && strings.EqualFold(address[:len("unix://")], "unix://") {
+		path := address[len("unix://"):]
+		if path == "" || strings.ContainsAny(path, "?#") || strings.Contains(strings.SplitN(path, "/", 2)[0], "@") {
+			return "", "", fmt.Errorf("Unix address requires a socket path without credentials, parameters or a fragment")
+		}
+		decoded, err := url.PathUnescape(path)
+		if err != nil {
+			return "", "", fmt.Errorf("decode Unix socket path: %w", err)
+		}
+		return "unix", decoded, nil
+	}
+	explicit := len(address) >= len("tcp://") && strings.EqualFold(address[:len("tcp://")], "tcp://")
+	endpoint := address
+	if explicit {
+		endpoint = address[len("tcp://"):]
+	}
+	host, port, err := net.SplitHostPort(endpoint)
+	if err != nil {
+		return "", "", fmt.Errorf("parse TCP endpoint: %w", err)
+	}
+	if strings.ContainsAny(port, "/?#") || !strings.HasPrefix(endpoint, "[") && strings.ContainsAny(host, "/?#@") {
+		return "", "", fmt.Errorf("TCP address requires an endpoint without credentials, a path, parameters or a fragment")
+	}
+	if explicit {
+		if !strings.HasPrefix(endpoint, "[") || !strings.Contains(host, "%") {
+			if _, err := url.Parse(address); err != nil {
+				return "", "", fmt.Errorf("validate TCP URL: %w", err)
+			}
+		}
+		if zone := strings.IndexByte(host, '%'); zone >= 0 && strings.HasPrefix(host[zone:], "%25") {
+			// Accept legacy raw zones and decode escaped URL zones exactly once.
+			// Mask escapes for URI syntax validation without net/url rejecting
+			// reserved characters in a bracketed Linux interface zone.
+			if _, err := url.Parse(strings.ReplaceAll(address, "%", "%25")); err == nil {
+				if decoded, err := url.PathUnescape(host); err == nil {
+					host = decoded
+				}
+			}
+		}
+	}
+	return "tcp", net.JoinHostPort(host, port), nil
 }
 
 // Start creates the client and waits for readiness within ctx; ctx owns startup only.
@@ -52,25 +102,7 @@ func (backend *ClientGRPC) Start(ctx context.Context) error {
 		return fmt.Errorf("start Anki gRPC backend: already started or stopped")
 	}
 	backend.started = true
-	address := backend.options.Address
-	transport := "tcp"
-	if filepath.IsAbs(address) {
-		address = "unix://" + address
-	}
-	if strings.HasPrefix(address, "unix://") {
-		transport = "unix"
-		address = strings.TrimPrefix(address, "unix://")
-		if address == "" {
-			backend.mutex.Unlock()
-			return fmt.Errorf("parse Anki backend address: Unix socket path is empty")
-		}
-	} else {
-		address = strings.TrimPrefix(address, "tcp://")
-		if _, _, err := net.SplitHostPort(address); err != nil {
-			backend.mutex.Unlock()
-			return fmt.Errorf("parse Anki backend address: %w", err)
-		}
-	}
+	transport, address := backend.transport, backend.address
 	connection, err := grpc.NewClient("passthrough:///anki-network",
 		grpc.WithTransportCredentials(insecure.NewCredentials()),
 		grpc.WithContextDialer(func(ctx context.Context, _ string) (net.Conn, error) {
@@ -125,7 +157,7 @@ func (backend *ClientGRPC) intercept(ctx context.Context, method string, input, 
 	}
 	var trailers metadata.MD
 	err := invoke(ctx, method, input, output, connection, append(options, grpc.Trailer(&trailers))...)
-	return decodeCallError(ctx, method, err, trailers)
+	return DecodeCallError(ctx, method, err, trailers)
 }
 
 // Stop closes the client connection without invoking any server RPC.

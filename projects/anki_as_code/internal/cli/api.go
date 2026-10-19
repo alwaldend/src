@@ -121,8 +121,8 @@ func newAPIMethodCommand(application ankiascodeapi.App, method rpc.Method) *cobr
 	command := &cobra.Command{
 		Use: method.Name, Short: method.Path, Long: methodHelp(method), Args: cobra.NoArgs,
 		RunE: func(command *cobra.Command, _ []string) error {
-			if (source == "") == (address == "") {
-				return fmt.Errorf("API calls require exactly one of --collection and --address")
+			if source == "" && address == "" {
+				return fmt.Errorf("API calls require --collection or --address")
 			}
 			ctx, cancel := context.WithTimeout(command.Context(), timeout)
 			defer cancel()

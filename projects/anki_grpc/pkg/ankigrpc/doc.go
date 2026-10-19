@@ -1,6 +1,9 @@
 // Package ankigrpc constructs managed Anki clients from connection strings.
 // The generic package is pure Go regardless of enabled native build settings.
-// NewClient connects to TCP/Unix endpoints or selects explicitly registered schemes. Client owns readiness and cleanup; RPC access uses the existing
+// NewClient constructs TCP/Unix clients or selects explicitly registered schemes.
+// NewFactory adds a private registry and an explicit default without changing other
+// callers. Constructors parse original addresses and perform no startup I/O.
+// Client owns readiness and cleanup; RPC access uses the existing
 // grpc.ClientConnInterface. Optional engines register scheme factories through
 // explicit subpackage imports. Executables register worker constructors for their
 // owned entrypoints. The registry retains constructors, never clients.

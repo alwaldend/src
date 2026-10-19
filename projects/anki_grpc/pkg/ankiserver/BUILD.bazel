@@ -27,6 +27,20 @@ rust_library(
 )
 
 rust_library(
+    name = "backend_rust",
+    srcs = ["dispatch.rs"],
+    crate_name = "anki_backend_dispatch",
+    crate_root = "dispatch.rs",
+    edition = "2021",
+    rustc_flags = ["-Cpanic=abort"],
+    visibility = ["//projects/anki_grpc/pkg/ankigrpc/native:__pkg__"],
+    deps = [
+        ":command_ids",
+        "//third_party/com_github_ankitects_anki:native",
+    ],
+)
+
+rust_library(
     name = "server_rust",
     srcs = ["lib.rs"],
     crate_name = "anki_grpc_server",
@@ -42,9 +56,8 @@ rust_library(
         "//projects/anki_grpc/pkg/ankigrpc/native:__pkg__",
     ],
     deps = [
-        ":command_ids",
+        ":backend_rust",
         ":server_cli",
-        "//third_party/com_github_ankitects_anki:native",
         "@com_github_ankitects_anki_crates//:bytes",
         "@com_github_ankitects_anki_crates//:hyper",
         "@com_github_ankitects_anki_crates//:hyper-util",
@@ -57,6 +70,7 @@ rust_clippy(
     name = "clippy",
     visibility = ["//projects/anki_grpc/cmd/anki_grpc:__pkg__"],
     deps = [
+        ":backend_rust",
         ":command_ids_",
         ":server_cli",
         ":server_rust",

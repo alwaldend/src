@@ -5,6 +5,7 @@ go_library(
     srcs = [
         "client.go",
         "doc.go",
+        "factory.go",
     ],
     importpath = "git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/ankigrpc",
     visibility = ["//projects/anki_grpc/pkg/ankiclient:consumers"],

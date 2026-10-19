@@ -16,7 +16,7 @@ import (
 
 // ClientCollectionOptions configures a collection on an already-started Client.
 type ClientCollectionOptions struct {
-	// Backend lends its prepared connection; the caller retains process lifetime.
+	// Backend lends its prepared connection; the caller retains backend lifetime.
 	Backend Client
 	// Path names an .anki2 database or .colpkg package. Anki may create a missing database.
 	Path string
@@ -28,7 +28,7 @@ type ClientCollectionOptions struct {
 	WriteBack bool
 }
 
-// ClientCollection implements Client for collection lifetime on a borrowed server.
+// ClientCollection implements Client for collection lifetime on a borrowed backend.
 // Start opens storage; Stop writes packages back when explicitly enabled and closes storage.
 // Neither starts nor stops options.Backend.
 // Database writes commit in place. Callers stop this owner before its borrowed backend.
@@ -130,7 +130,7 @@ func (backend *ClientCollection) Start(ctx context.Context) error {
 			BackupPath: source, ColPath: request.CollectionPath,
 			MediaFolder: request.MediaFolderPath, MediaDb: request.MediaDbPath,
 		}, grpc.Trailer(&trailers))
-		backend.uncertain = err != nil && len(trailers.Get(ankiErrorTrailer)) != 1
+		backend.uncertain = err != nil && len(trailers.Get(ErrorTrailer)) != 1
 		if err != nil {
 			return fmt.Errorf("restore Anki collection package: %w", err)
 		}
@@ -138,7 +138,7 @@ func (backend *ClientCollection) Start(ctx context.Context) error {
 	var trailers metadata.MD
 	backend.uncertain = true
 	_, err = collection.NewBackendCollectionServiceClient(connection).OpenCollection(ctx, request, grpc.Trailer(&trailers))
-	backend.uncertain = err != nil && len(trailers.Get(ankiErrorTrailer)) != 1
+	backend.uncertain = err != nil && len(trailers.Get(ErrorTrailer)) != 1
 	if err != nil {
 		return fmt.Errorf("open Anki collection: %w", err)
 	}

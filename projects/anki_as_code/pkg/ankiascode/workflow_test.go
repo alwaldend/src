@@ -253,17 +253,17 @@ func TestStateInputFailures(t *testing.T) {
 // runFixtureCollection exercises native callbacks through collection.Store.
 func runFixtureCollection(ctx context.Context, input, output string, operation func(grpc.ClientConnInterface) (bool, error)) error {
 	application := fixtureApplication()
-	if err := application.collections.WithCollection(ctx, collection.CollectionOptions{Path: input, WriteBack: true}, func(connection grpc.ClientConnInterface) (bool, error) {
+	if err := application.collections.WithCollection(ctx, collection.CollectionOptions{Path: input, WriteBack: true}, func(connection grpc.ClientConnInterface) error {
 		changed, err := operation(connection)
 		if err != nil {
-			return false, fmt.Errorf("run native fixture operation: %w", err)
+			return fmt.Errorf("run native fixture operation: %w", err)
 		}
 		if changed && output != "" && !strings.EqualFold(filepath.Ext(input), ".anki2") {
 			if _, err := import_export.NewBackendImportExportServiceClient(connection).ExportCollectionPackage(ctx, &import_export.ExportCollectionPackageRequest{OutPath: output, IncludeMedia: true}); err != nil {
-				return false, fmt.Errorf("export fixture collection: %w", err)
+				return fmt.Errorf("export fixture collection: %w", err)
 			}
 		}
-		return false, nil
+		return nil
 	}); err != nil {
 		return fmt.Errorf("run fixture collection: %w", err)
 	}

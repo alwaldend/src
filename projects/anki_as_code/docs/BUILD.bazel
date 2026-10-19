@@ -25,6 +25,7 @@ docs_filegroup(
     name = "assets",
     srcs = [
         ":architecture",
+        ":backend_selection",
         ":config_operations",
         ":config_references",
         ":export",
@@ -40,6 +41,22 @@ mermaid_site_webp(
     name = "architecture_preview",
     src = "architecture.mmd",
     out = "rendered/architecture.webp",
+    aspect_ratio = [],
+    color_scheme = "dark",
+    scale = 2,
+    tags = ["manual"],
+)
+
+mermaid_site_svg(
+    name = "backend_selection",
+    src = "backend-selection.mmd",
+    out = "rendered/backend-selection.svg",
+)
+
+mermaid_site_webp(
+    name = "backend_selection_preview",
+    src = "backend-selection.mmd",
+    out = "rendered/backend-selection.webp",
     aspect_ratio = [],
     color_scheme = "dark",
     scale = 2,

@@ -11,14 +11,21 @@ rust_static_library(
         "@platforms//os:linux",
         "@platforms//cpu:x86_64",
     ],
-    deps = ["//projects/anki_grpc/pkg/ankiserver:server_rust"],
+    deps = [
+        "//projects/anki_grpc/pkg/ankiserver:backend_rust",
+        "//projects/anki_grpc/pkg/ankiserver:server_rust",
+    ],
 )
 
 go_library(
     name = "native",
     srcs = [
         "cli.go",
+        "client.go",
+        "connection.go",
         "doc.go",
+        "native.go",
+        "server.go",
     ],
     cdeps = [":server_ffi"],
     cgo = True,
@@ -28,6 +35,15 @@ go_library(
         "@platforms//cpu:x86_64",
     ],
     visibility = ["//projects/anki_grpc/pkg/ankiclient:consumers"],
+    deps = [
+        "//projects/anki_grpc/pkg/ankiclient",
+        "//projects/anki_grpc/pkg/ankigrpc",
+        "@org_golang_google_grpc//:grpc",
+        "@org_golang_google_grpc//codes",
+        "@org_golang_google_grpc//metadata",
+        "@org_golang_google_grpc//status",
+        "@org_golang_google_protobuf//proto",
+    ],
 )
 
 rust_clippy(
