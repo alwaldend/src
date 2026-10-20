@@ -48,7 +48,7 @@ func (connection *collectionConnection) Invoke(ctx context.Context, method strin
 	connection.owner.lifecycle.Unlock()
 	var trailers metadata.MD
 	err := connection.ClientConnInterface.Invoke(ctx, method, input, output, append(options, grpc.Trailer(&trailers))...)
-	completed := err == nil || len(trailers.Get(ankiErrorTrailer)) == 1
+	completed := err == nil || len(trailers.Get(ErrorTrailer)) == 1
 	connection.owner.lifecycle.Lock()
 	connection.owner.uncertain = connection.owner.uncertain || !completed
 	if connection.owner.uncertain {

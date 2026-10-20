@@ -45,14 +45,15 @@ type App interface {
 // CollectionOptions selects collection access and the namespace for one application operation.
 // Col workflows require Path or Connection. An empty Address uses the configured
 // factory default for a path, and an empty StateKey selects the default namespace.
-// Raw API calls also accept Address alone to use the server's current collection.
+// Any client address can accompany a path. Address-only raw API calls use a fresh
+// owned backend for local strategies or the current collection on a remote server.
 type CollectionOptions struct {
 	// Path identifies a managed database or archive; App owns preparation and cleanup.
 	Path string
-	// Address selects a client using subprocess:// or a plaintext TCP/Unix endpoint.
-	// Managed paths require shared source/temporary paths and exclusive server access.
-	// External server processes remain caller-owned; subprocess clients own their worker.
-	// Address cannot accompany Connection.
+	// Address selects subprocess://NAME, inprocess://NAME or a plaintext TCP/Unix server.
+	// Empty uses the configured default. In-process labels identify fresh instances without pooling.
+	// Remote paths must be shared with an exclusively reserved caller-owned server.
+	// An address cannot accompany Connection.
 	Address string
 	// Connection borrows an already-open collection with caller-owned lifetime and publication.
 	// It cannot accompany Path or Address; raw RPCs retain their requested native effects.
@@ -63,12 +64,13 @@ type CollectionOptions struct {
 }
 
 // APIRequest selects an upstream method, protobuf payload and collection access mode.
-// Collection requires exactly one path, client address or open connection.
+// Collection selects a managed path with an optional client address,
+// an address alone, or a borrowed open connection.
 type APIRequest struct {
 	// Collection selects managed path access, a client address, or a borrowed open connection.
 	Collection CollectionOptions
 	// WriteBack enables publication of managed source archives, including after request errors.
-	// It defaults to false and has no effect on borrowed connections or remote servers.
+	// It defaults to false and has no effect on borrowed connections or address-only access.
 	WriteBack bool
 	// Method is the fully qualified gRPC route, including its leading slash.
 	Method string

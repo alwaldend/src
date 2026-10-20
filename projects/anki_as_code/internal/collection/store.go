@@ -76,12 +76,11 @@ func (store *Store) createClient(address string) (ankiclient.Client, error) {
 }
 
 // WithCollection reserves a source and lends its managed native connection.
-// The callback's change result is retained for existing workflow composition but
-// does not govern persistence. ClientCollection publishes archives during cleanup
-// when WriteBack is enabled, independently of callback results. Database writes persist in place.
+// ClientCollection publishes archives during cleanup when WriteBack is enabled,
+// independently of callback results. Database writes persist in place.
 // Callers construct services on the connection and finish all work before returning.
 // Store starts and stops both native owners; retained connections reject later calls.
-func (store *Store) WithCollection(ctx context.Context, options CollectionOptions, operation func(grpc.ClientConnInterface) (bool, error)) error {
+func (store *Store) WithCollection(ctx context.Context, options CollectionOptions, operation func(grpc.ClientConnInterface) error) error {
 	if operation == nil {
 		return fmt.Errorf("collection access requires an operation")
 	}
@@ -89,15 +88,31 @@ func (store *Store) WithCollection(ctx context.Context, options CollectionOption
 	if err != nil {
 		return fmt.Errorf("reserve collection: %w", err)
 	}
-	defer func() {
-		store.mutex.Lock()
-		delete(store.entries, source)
-		store.mutex.Unlock()
-	}()
 	worker, err := store.createClient(options.Address)
 	if err != nil {
+		store.releaseSource(source)
 		return fmt.Errorf("select collection client: %w", err)
 	}
+	defer func() {
+		if asynchronous, ok := worker.(ankiclient.AsyncClient); ok {
+			stopped, cancel := context.WithCancel(context.Background())
+			cancel()
+			// Ensure terminal cleanup even if the scope's context rejected startup.
+			// The scope already reports cleanup errors; Done observes completion.
+			_ = worker.Stop(stopped)
+			done := asynchronous.Done()
+			select {
+			case <-done:
+			default:
+				go func() {
+					<-done
+					store.releaseSource(source)
+				}()
+				return
+			}
+		}
+		store.releaseSource(source)
+	}()
 	if err := withBackend(ctx, worker, backendCleanupTimeout, func() error {
 		prepared := ankiclient.NewCollection(ankiclient.ClientCollectionOptions{Backend: worker, Path: source, WriteBack: options.WriteBack})
 		if err := withBackend(ctx, prepared, store.closeTimeout, func() error {
@@ -105,11 +120,8 @@ func (store *Store) WithCollection(ctx context.Context, options CollectionOption
 			if err != nil {
 				return fmt.Errorf("get prepared collection connection: %w", err)
 			}
-			if _, err := operation(connection); err != nil {
+			if err := operation(connection); err != nil {
 				return fmt.Errorf("run collection callback: %w", err)
-			}
-			if err := ctx.Err(); err != nil {
-				return fmt.Errorf("finish collection scope: %w", errors.Join(err, context.Cause(ctx)))
 			}
 			return nil
 		}); err != nil {
@@ -120,6 +132,13 @@ func (store *Store) WithCollection(ctx context.Context, options CollectionOption
 		return fmt.Errorf("run collection scope: %w", err)
 	}
 	return nil
+}
+
+// releaseSource removes a reservation only after its owned backend has finished cleanup.
+func (store *Store) releaseSource(source string) {
+	store.mutex.Lock()
+	defer store.mutex.Unlock()
+	delete(store.entries, source)
 }
 
 // withBackend starts one owned backend and stops it after every startup attempt or callback exit.

@@ -33,20 +33,9 @@ func TestArchiveBuild(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	application := ankiascode.New(ankiascode.Options{NewClient: ankigrpc.ClientFactoryFunc[ankiclient.Client](func(address string) (ankiclient.Client, error) {
-		if address == "" {
-			client, err := ankigrpc.NewSubprocessClient(ankigrpc.SubprocessAddress(binary, "serve"))
-			if err != nil {
-				return nil, fmt.Errorf("construct default fixture worker: %w", err)
-			}
-			return client, nil
-		}
-		client, err := ankigrpc.NewClient(address)
-		if err != nil {
-			return nil, fmt.Errorf("construct fixture client: %w", err)
-		}
-		return client, nil
-	})})
+	factory := ankigrpc.NewFactory(ankigrpc.SubprocessAddress(binary, "serve"))
+	factory.RegisterClientFactory("subprocess", ankigrpc.ClientFactoryFunc[*ankiclient.ClientSTD](ankigrpc.NewSubprocessClient))
+	application := ankiascode.New(ankiascode.Options{NewClient: factory})
 	wanted := &ankiascodepb.State{Version: 1, Resources: &ankiascodepb.Resources{
 		Decks: map[string]*ankiascodepb.DeckState{"decks/Default/deck.anki.toml": {Id: 1}},
 	}}

@@ -12,6 +12,8 @@ import (
 	"testing"
 	"time"
 
+	_ "git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/ankigrpc/native"
+
 	ankiascodeapi "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodeapi"
 
 	ankiascodepb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodepb"
@@ -94,20 +96,9 @@ func fixtureCLIPath() string {
 
 // fixtureApplication configures application workflows with the linked CLI's server command.
 func fixtureApplication() *App {
-	return New(Options{NewClient: ankigrpc.ClientFactoryFunc[ankiclient.Client](func(address string) (ankiclient.Client, error) {
-		if address == "" {
-			client, err := ankigrpc.NewSubprocessClient(ankigrpc.SubprocessAddress(fixtureCLIPath(), "server", "serve"))
-			if err != nil {
-				return nil, fmt.Errorf("construct default fixture worker: %w", err)
-			}
-			return client, nil
-		}
-		client, err := ankigrpc.NewClient(address)
-		if err != nil {
-			return nil, fmt.Errorf("construct fixture client: %w", err)
-		}
-		return client, nil
-	})})
+	factory := ankigrpc.NewFactory(ankigrpc.SubprocessAddress(fixtureCLIPath(), "server", "serve"))
+	factory.RegisterClientFactory("subprocess", ankigrpc.ClientFactoryFunc[*ankiclient.ClientSTD](ankigrpc.NewSubprocessClient))
+	return New(Options{NewClient: factory})
 }
 
 // connectFixture opens an existing or new private collection with generated clients.
@@ -459,20 +450,20 @@ func fixtureContent(t *testing.T, input string) ([]byte, error) {
 	t.Helper()
 	application := fixtureApplication()
 	var data []byte
-	if err := application.collections.WithCollection(t.Context(), collection.CollectionOptions{Path: input}, func(connection grpc.ClientConnInterface) (bool, error) {
+	if err := application.collections.WithCollection(t.Context(), collection.CollectionOptions{Path: input}, func(connection grpc.ClientConnInterface) error {
 		snapshot, err := resource.New(connection).Snapshot(t.Context())
 		if err != nil {
-			return false, fmt.Errorf("inspect native resources: %w", err)
+			return fmt.Errorf("inspect native resources: %w", err)
 		}
 		bindings, err := state.New(connection, "").Dump(t.Context())
 		if err != nil {
-			return false, fmt.Errorf("inspect stored bindings: %w", err)
+			return fmt.Errorf("inspect stored bindings: %w", err)
 		}
 		data, err = json.Marshal(map[string]any{"resources": snapshot, "state": bindings})
 		if err != nil {
-			return false, fmt.Errorf("encode native content inspection: %w", err)
+			return fmt.Errorf("encode native content inspection: %w", err)
 		}
-		return false, nil
+		return nil
 	}); err != nil {
 		return nil, fmt.Errorf("inspect fixture collection: %w", err)
 	}

@@ -1,0 +1,26 @@
+---
+title: Backend selection
+config:
+  flowchart:
+    nodeSpacing: 64
+    rankSpacing: 80
+---
+flowchart LR
+    cli["CLI"]
+    ankigrpc["ankigrpc"]
+    app["App"]
+    factory["ankigrpc.Factory"]
+    client["ankiclient.Client"]
+    server["Server"]
+
+    cli -->|"Register<br/>subprocess+cgo://"| factory
+    cli -->|"Register by import<br/>inprocess+cgo://"| factory
+    %% Keep ankigrpc on the right while registration points toward its factory.
+    factory ~~~ ankigrpc
+    ankigrpc -->|"Register<br/>tcp://"| factory
+    ankigrpc -->|"Register<br/>unix://"| factory
+    cli -->|"Connection string"| app
+    app -->|"Get Client<br/>by connection string"| factory
+    app -->|"Start/Stop"| client
+    app -->|"Get gRPC connection"| client
+    app -->|"gRPC"| server

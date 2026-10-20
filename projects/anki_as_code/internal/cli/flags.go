@@ -17,10 +17,10 @@ type stringFlag struct {
 }
 
 var (
-	// addressFlag selects an external server for managed workflows or connected RPCs.
+	// addressFlag selects an owned native strategy or an external server.
 	addressFlag = stringFlag{
 		name:  "address",
-		usage: "External Anki gRPC server (host:port, tcp:// or unix://); empty uses the embedded server",
+		usage: "Anki backend (subprocess[+ENGINE]://NAME, inprocess[+ENGINE]://NAME, host:port, tcp:// or unix://); empty uses subprocess",
 	}
 	// stateKeyFlag selects the namespace used by collection operations.
 	stateKeyFlag = stringFlag{

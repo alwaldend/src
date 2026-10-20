@@ -26,23 +26,22 @@ func TestCollectionScopeBuild(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if err := application.collections.WithCollection(ctx, collection.CollectionOptions{Path: fixture.base, WriteBack: true}, func(connection grpc.ClientConnInterface) (bool, error) {
+	if err := application.collections.WithCollection(ctx, collection.CollectionOptions{Path: fixture.base, WriteBack: true}, func(connection grpc.ClientConnInterface) error {
 		if err := application.ColBuild(ctx, ankiascodeapi.CollectionOptions{Path: fixture.base}, configs, output); err != nil {
-			return false, fmt.Errorf("build shared collection: %w", err)
+			return fmt.Errorf("build shared collection: %w", err)
 		}
 		if _, err := os.Stat(output); err != nil {
-			return false, fmt.Errorf("build did not publish its independent output: %w", err)
+			return fmt.Errorf("build did not publish its independent output: %w", err)
 		}
 		value := &ankiascodepb.State{Version: 1, Resources: &ankiascodepb.Resources{Presets: map[string]*ankiascodepb.PresetState{"after-build": {Id: 1}}}}
 		states := state.New(connection, "")
-		changed, err := states.Replace(ctx, value)
-		if err != nil {
-			return false, fmt.Errorf("update state after build: %w", err)
+		if _, err := states.Replace(ctx, value); err != nil {
+			return fmt.Errorf("update state after build: %w", err)
 		}
 		if _, err := states.Dump(ctx); err != nil {
-			return false, fmt.Errorf("read collection after build: %w", err)
+			return fmt.Errorf("read collection after build: %w", err)
 		}
-		return changed, nil
+		return nil
 	}); err != nil {
 		t.Fatal(err)
 	}

@@ -10,8 +10,14 @@ import (
 	"os/exec"
 	"path/filepath"
 	"strings"
+	"sync"
 	"testing"
 	"time"
+
+	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodeapi"
+	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/pkg/ankiascode"
+	"git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/ankiclient"
+	"git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/ankigrpc"
 )
 
 // apiCLI runs the installed application and retains its separated response and diagnostics.
@@ -47,6 +53,90 @@ func installedAPI(t *testing.T) string {
 	return binary
 }
 
+// registerLocalAPIClient registers the native fixture once across repeated test runs.
+var registerLocalAPIClient sync.Once
+
+// TestLocalAPIAddresses verifies local strategy selection for managed and backend-only calls.
+func TestLocalAPIAddresses(t *testing.T) {
+	binary := installedAPI(t)
+	root := t.TempDir()
+	t.Setenv("TMPDIR", root)
+	database := filepath.Join(root, "inprocess.anki2")
+	if err := os.WriteFile(database, nil, 0o600); err != nil {
+		t.Fatal(err)
+	}
+	subprocess := ankigrpc.SubprocessAddress(binary, "server", "serve")
+	for _, address := range []string{"inprocess://local", "inprocess://any-other-name", subprocess, "inprocess+cgo://local", strings.Replace(subprocess, "subprocess://", "subprocess+cgo://", 1)} {
+		apiCLI(t, binary, "{}", true, "api", "tags", "all-tags", "--collection", database, "--address", address)
+		formatted := apiCLI(t, binary, "{\"seconds\":65,\"context\":\"PRECISE\"}", true, "api", "i18n", "format-timespan", "--address", address)
+		if !strings.Contains(string(formatted), "minute") {
+			t.Fatalf("direct backend formatting failed: %s", formatted)
+		}
+		apiCLI(t, binary, "{}", false, "api", "backend-collection", "close-collection", "--collection", database, "--address", address)
+		apiCLI(t, binary, "{}", false, "api", "tags", "all-tags", "--address", address)
+	}
+	for _, address := range []string{"inprocess+wasm://unavailable", "subprocess+wasm://unavailable", "inprocess+://invalid"} {
+		command := exec.CommandContext(t.Context(), binary, "api", "i18n", "format-timespan", "--address", address)
+		command.Stdin = strings.NewReader("{}")
+		output, err := command.CombinedOutput()
+		if err == nil {
+			t.Fatal("unavailable engine was accepted")
+		}
+		if !strings.Contains(string(output), "unavailable") {
+			t.Fatalf("unavailable client scheme error is unclear: %s", output)
+		}
+	}
+	registerLocalAPIClient.Do(func() {
+		ankigrpc.RegisterClientFactory("native-api-fixture", ankigrpc.ClientFactoryFunc[ankiclient.Client](func(string) (ankiclient.Client, error) {
+			client, err := ankigrpc.NewClient("inprocess://registered-api")
+			if err != nil {
+				return nil, fmt.Errorf("construct registered API fixture: %w", err)
+			}
+			return client, nil
+		}))
+	})
+	registered, err := ankiascode.New(ankiascode.Options{}).APICall(t.Context(), ankiascodeapi.APIRequest{
+		Collection: ankiascodeapi.CollectionOptions{Path: database, Address: "native-api-fixture://managed"},
+		Method:     "/anki.tags.TagsService/AllTags", Input: []byte("{}"),
+	})
+	if err != nil || !json.Valid(registered) {
+		t.Fatalf("registered native scheme could not prepare an API collection: %s %v", registered, err)
+	}
+	for _, address := range []string{"private-api-fixture://managed", "tcp://injected-owned-backend"} {
+		calls := 0
+		application := ankiascode.New(ankiascode.Options{NewClient: ankigrpc.ClientFactoryFunc[ankiclient.Client](func(input string) (ankiclient.Client, error) {
+			calls++
+			if input != address {
+				return nil, fmt.Errorf("injected API address changed: %q", input)
+			}
+			client, err := ankigrpc.NewClient("inprocess://injected-api")
+			if err != nil {
+				return nil, fmt.Errorf("construct injected API fixture: %w", err)
+			}
+			return client, nil
+		})})
+		output, err := application.APICall(t.Context(), ankiascodeapi.APIRequest{
+			Collection: ankiascodeapi.CollectionOptions{Path: database, Address: address},
+			Method:     "/anki.tags.TagsService/AllTags", Input: []byte("{}"),
+		})
+		if err != nil || !json.Valid(output) || calls != 1 {
+			t.Errorf("injected managed API bypassed its factory: address=%s calls=%d output=%s error=%v", address, calls, output, err)
+		}
+	}
+	if destination := os.Getenv("TEST_UNDECLARED_OUTPUTS_DIR"); destination != "" {
+		data, err := os.ReadFile(database)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if err := os.WriteFile(filepath.Join(destination, "registered-local-api.json"), registered, 0o600); err != nil {
+			t.Fatal(err)
+		}
+		if err := os.WriteFile(filepath.Join(destination, "inprocess-api.anki2"), data, 0o600); err != nil {
+			t.Fatal(err)
+		}
+	}
+}
+
 // TestAPIWorkflow exercises schema discovery, installed startup, formats and archive publication.
 func TestAPIWorkflow(t *testing.T) {
 	binary := installedAPI(t)
@@ -65,7 +155,6 @@ func TestAPIWorkflow(t *testing.T) {
 	}
 	for _, arguments := range [][]string{
 		{"api", "tags", "all-tags"},
-		{"api", "tags", "all-tags", "--collection", database, "--address", "unix:///unused"},
 		{"api", "tags", "all-tags", "--collection", database, "--input-format", "yaml"},
 		{"api", "backend-collection", "open-collection", "--collection", database},
 	} {
@@ -148,7 +237,8 @@ func TestAPIWorkflow(t *testing.T) {
 	}
 }
 
-// TestAPINetworkWorkflow verifies client disconnection preserves remote process and collection lifetime.
+// TestAPINetworkWorkflow verifies raw access borrows collection lifetime while
+// managed paths close storage and preserve the remote server and committed data.
 func TestAPINetworkWorkflow(t *testing.T) {
 	binary := installedAPI(t)
 	for _, transport := range []string{"tcp", "unix"} {
@@ -211,7 +301,43 @@ func TestAPINetworkWorkflow(t *testing.T) {
 				t.Fatalf("i18n response is empty: %s", formatted)
 			}
 			response := apiCLI(t, binary, "{}", true, "api", "backend-collection", "close-collection", "--address", endpoint)
+			managed := filepath.Join(root, "managed.anki2")
+			if err := os.WriteFile(managed, nil, 0o600); err != nil {
+				t.Fatal(err)
+			}
+			deck := apiCLI(t, binary, "{}", true, "api", "decks", "new-deck", "--collection", managed, "--address", endpoint)
+			var managedRequest map[string]any
+			if err := json.Unmarshal(deck, &managedRequest); err != nil {
+				t.Fatal(err)
+			}
+			managedRequest["name"] = "Managed " + transport
+			encoded, err := json.Marshal(managedRequest)
+			if err != nil {
+				t.Fatal(err)
+			}
+			apiCLI(t, binary, string(encoded), true, "api", "decks", "add-deck", "--collection", managed, "--address", endpoint)
+			lookup := fmt.Sprintf(`{"val":%q}`, managedRequest["name"])
+			managedResponse := apiCLI(t, binary, lookup, true, "api", "decks", "get-deck-id-by-name", "--collection", managed, "--address", endpoint)
+			apiCLI(t, binary, "{}", false, "api", "tags", "all-tags", "--address", endpoint)
+			apiCLI(t, binary, `{"seconds":65,"context":"PRECISE"}`, true, "api", "i18n", "format-timespan", "--address", endpoint)
+			request = fmt.Sprintf(`{"collection_path":%q,"media_folder_path":%q,"media_db_path":%q}`, managed, filepath.Join(root, "managed.media"), filepath.Join(root, "managed.media.db2"))
+			apiCLI(t, binary, request, true, "api", "backend-collection", "open-collection", "--address", endpoint)
+			persisted := apiCLI(t, binary, lookup, true, "api", "decks", "get-deck-id-by-name", "--address", endpoint)
+			if !bytes.Equal(persisted, managedResponse) {
+				t.Fatalf("managed network write did not persist: %s != %s", persisted, managedResponse)
+			}
+			apiCLI(t, binary, "{}", true, "api", "backend-collection", "close-collection", "--address", endpoint)
 			if destination := os.Getenv("TEST_UNDECLARED_OUTPUTS_DIR"); destination != "" {
+				if err := os.WriteFile(filepath.Join(destination, "api-"+transport+"-managed.json"), managedResponse, 0o600); err != nil {
+					t.Fatal(err)
+				}
+				data, err := os.ReadFile(managed)
+				if err != nil {
+					t.Fatal(err)
+				}
+				if err := os.WriteFile(filepath.Join(destination, "api-"+transport+"-managed.anki2"), data, 0o600); err != nil {
+					t.Fatal(err)
+				}
 				if err := os.WriteFile(filepath.Join(destination, "api-"+transport+"-response.json"), formatted, 0o600); err != nil {
 					t.Fatal(err)
 				}

@@ -39,6 +39,22 @@ with the documentation; generated Markdown is not checked in. Build it with
 The native Linux x86_64 application build links the Rust server into its executable. By default,
 collection operations launch the same executable with `server serve` and communicate over stdio.
 The installed CLI needs no companion worker, PATH lookup, or executable extraction.
+
+The CLI also accepts `--address inprocess://collection` or
+`--address inprocess+cgo://collection` for collection workflows and API calls.
+Each operation gets fresh native state without launching a worker. A managed API
+path can accompany any client address. A network address selects the server where
+the collection is opened and closed; address-only access leaves collection lifetime
+with the caller. Native work can outlive cancellation, so source reservations remain
+held until native cleanup finishes. Configured subprocess execution remains the default.
+
+Reusable application libraries stay pure Go. Callers that want direct execution
+import the optional `anki_grpc/pkg/ankigrpc/native` subpackage for registration.
+App and Store use the shared `ankigrpc.NewClient` constructor; they keep no native
+engine map or concrete adapter constructor. Subprocess connection strings encode their exact
+executable and arguments with `ankigrpc.SubprocessAddress`; local in-process labels
+remain opaque and never identify shared state.
+
 `bazel_agent bazel build -c opt //projects/anki_as_code` produces an optimized
 executable with final symbol and debug information stripping. It uses the host
 Linux runtime libraries, including OpenSSL 3.
@@ -297,7 +313,8 @@ hosting the server requires an injected `ServerRunner`.
 `ankiascode.New(ankiascode.Options{NewClient: factory})` injects an
 `ankigrpc.ClientFactory`. The factory receives each operation's address unchanged
 and selects its configured default for an empty address. Supply a factory object
-with `NewClient(address)` or adapt a function with `ankigrpc.ClientFactoryFunc[T]`.
+with `NewClient(address)`, adapt a function with `ankigrpc.ClientFactoryFunc[T]`,
+or configure defaults and private registrations with `ankigrpc.NewFactory(defaultAddress)`.
 Without a configured factory, explicit addresses use `ankigrpc.NewClient`.
 The executable registers its subprocess schemes and imports direct native adapters; App delegates raw
 client startup and bounded cleanup to `ankigrpc.WithClient`; the collection store
@@ -308,7 +325,9 @@ used to prepare it. Empty per-operation addresses let the injected factory selec
 Alternatively, `Connection` borrows an already-open collection; it cannot be
 combined with a path or address. `StateKey` selects the namespace, with an empty
 value selecting the default. App validates these combinations before opening
-resources and retains no endpoint between calls.
+resources and retains no endpoint between calls. Path selects managed collection
+lifetime, Address selects the client, and Connection borrows an already-open collection.
+Managed API calls use the same source semantics as other collection operations.
 
 The CLI registers its worker schemes and supplies its own executable and
 `[]string{"server", "serve"}` through the injected factory for its default. Operations follow the CLI namespaces: `ConfigDump`, `ConfigExport`,
@@ -336,20 +355,8 @@ Isolated command tests supply one fake without constructing App or starting Anki
 Commands pass namespaces explicitly, and App retains no command configuration.
 
 ```go
-factory := ankigrpc.ClientFactoryFunc[ankiclient.Client](func(address string) (ankiclient.Client, error) {
-    if address == "" {
-        client, err := ankigrpc.NewSubprocessClient(ankigrpc.SubprocessAddress(serverPath, "serve"))
-        if err != nil {
-            return nil, fmt.Errorf("construct default worker: %w", err)
-        }
-        return client, nil
-    }
-    client, err := ankigrpc.NewClient(address)
-    if err != nil {
-        return nil, fmt.Errorf("construct application client: %w", err)
-    }
-    return client, nil
-})
+factory := ankigrpc.NewFactory(ankigrpc.SubprocessAddress(serverPath, "serve"))
+factory.RegisterClientFactory("subprocess", ankigrpc.ClientFactoryFunc[*ankiclient.ClientSTD](ankigrpc.NewSubprocessClient))
 var application ankiascodeapi.App = ankiascode.New(ankiascode.Options{NewClient: factory})
 options := ankiascodeapi.CollectionOptions{Path: absoluteCollectionPath, StateKey: key}
 // ConfigDump(ctx, path, format) works without a native backend.
@@ -403,22 +410,23 @@ independent of callback cancellation; source reservations outlive cleanup.
 
 ```go
 store := collection.New(collection.Options{NewClient: factory})
-err := store.WithCollection(ctx, collection.CollectionOptions{Path: path, WriteBack: true}, func(connection grpc.ClientConnInterface) (bool, error) {
+err := store.WithCollection(ctx, collection.CollectionOptions{Path: path, WriteBack: true}, func(connection grpc.ClientConnInterface) error {
     resources := resource.New(connection)
     states := state.New(connection, key)
     exporter := export.New(resources, states)
     if err := exporter.Export(ctx, directory, ""); err != nil {
-        return false, fmt.Errorf("export configs: %w", err)
+        return fmt.Errorf("export configs: %w", err)
     }
-    changed, err := states.Replace(ctx, replacement)
-    if err != nil {
-        return false, fmt.Errorf("replace bindings: %w", err)
+    if _, err := states.Replace(ctx, replacement); err != nil {
+        return fmt.Errorf("replace bindings: %w", err)
     }
-    return changed, nil
+    return nil
 })
 ```
 
-Callbacks finish all work sequentially before returning. Retained connections
+Callbacks return only an error and finish all work sequentially before returning.
+WriteBack alone controls archive publication; domain change results do not affect
+collection cleanup. Retained connections
 reject calls after cleanup. Resource/state stores and exporters borrow the
 connection; each operation reads fresh data. A Store or App must not be copied
 after use. Duplicate canonical paths and file aliases are rejected within one
@@ -951,6 +959,10 @@ collection preparation and shutdown.
 
 Export and reconciliation share `resource.Store` for generated clients and fresh
 native snapshots; their projection and policy remain separate.
+
+## Backend selection
+
+![Backend selection](/docs/projects/anki_as_code/assets/backend-selection.svg)
 
 ## Anki backend API
 

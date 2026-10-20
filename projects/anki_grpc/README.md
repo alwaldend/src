@@ -70,8 +70,8 @@ leaves the backend available to later clients.
 `pkg/ankigrpc/native` exposes the same Rust entry point to Go through cgo and one C ABI
 argument-vector function. `native.RunServer(arguments)` takes a full argument vector,
 including the program name, executes the native CLI and reports native failures.
-The serve subcommand blocks until shutdown and owns the process's protocol streams. There are no per-RPC FFI
-bindings: clients continue to use ordinary gRPC and generated Anki messages.
+The serve subcommand blocks until shutdown and owns the process's protocol streams. The optional direct client also exposes unary commands through
+owned C ABI handles and buffers, while retaining generated Anki messages.
 
 The generic `anki_as_code server run` command forwards arguments to this library.
 `anki_as_code server serve` delegates to `server run serve`, selecting the Rust
@@ -148,18 +148,21 @@ Import `git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/ankigrpc` for
 endpoints are built in; other schemes require explicit registration. Empty library
 addresses are rejected because the library owns no default worker entrypoint.
 
-The executable registers its worker schemes through the common API:
+The executable creates a configured factory and registers its worker schemes:
 
 ```go
-factory := ankigrpc.ClientFactoryFunc[*ankiclient.ClientSTD](ankigrpc.NewSubprocessClient)
-ankigrpc.RegisterClientFactory("subprocess", factory)
+factory := ankigrpc.NewFactory(ankigrpc.SubprocessAddress(workerPath, "serve"))
+factory.RegisterClientFactory("subprocess", ankigrpc.ClientFactoryFunc[*ankiclient.ClientSTD](ankigrpc.NewSubprocessClient))
 ```
 
 `NewSubprocessClient` returns the concrete stdio client and requires an executable
 in the URL. Use `ankigrpc.SubprocessAddress(binary, arguments...)` to preserve
 literal paths and argv. Arguments are passed exactly, including zero arguments.
 The executable owns supported worker schemes, entrypoints, server arguments and
-any empty-operation default supplied by its injected factory. Importing the
+its configured default. NewFactory snapshots built-in and opt-in package registrations;
+later registrations remain private to that factory. Explicit addresses override the
+default for one construction only. Package-level registration remains available for
+opt-in adapters, and package-level NewClient retains no default. Importing the
 native package does not register subprocess workers.
 
 `ClientFactory` exposes `NewClient(address string) (ankiclient.Client, error)`.
@@ -174,6 +177,24 @@ factory (or `NewClient` when nil), starts the client, lends its ready connection
 and stops it with a five-second budget independent of request cancellation. It
 opens and reserves no collection. Collection publication and reservations remain
 with the application's collection store.
+
+Import the optional `ankigrpc/native` package for direct client registration and
+native CLI hosting. It registers only `inprocess` and `inprocess+cgo`; each label
+creates fresh state. Start initializes Anki synchronously. Cancellation stops
+waiting without interrupting Rust, and Stop rejects new calls while draining
+active work. Its deadline bounds waiting; the shared `ankiclient.AsyncClient` capability exposes
+Done for final cleanup. Native
+crashes affect the hosting process, and streaming and unsupported call options
+fail explicitly. Native errors retain the transport's error-decoding contract.
+
+Core and application imports remain pure Go. Managed collection paths use the
+selected client regardless of transport. Client implementations manage their own
+resource lifetimes; callers do not query backend ownership. Private schemes and
+custom factory objects work without global registration.
+
+Routing identifies only the scheme and passes the selected address unchanged.
+The transport constructor parses it once. Network clients retain decoded endpoints,
+including raw and escaped IPv6 zones and relative Unix socket paths containing spaces.
 
 `pkg/ankiclient` supplies the shared lifecycle implementations and collection scopes.
 `Client` describes ownership and cleanup; RPC access remains the existing gRPC
@@ -196,7 +217,7 @@ Anki's generated service clients with it; each method accepts a typed request an
 returns a typed response. There are no handwritten per-operation wrappers.
 
 ```go
-worker, err := ankigrpc.NewClient(ankigrpc.SubprocessAddress(workerPath, "serve", "--transport", "stdio"))
+worker, err := factory.NewClient("")
 if err != nil {
     return fmt.Errorf("construct Anki client: %w", err)
 }
@@ -251,7 +272,8 @@ Callers package their configured executable; native tests declare their own fixt
 
 ### Existing gRPC server
 
-`ankiclient.NewGRPC(ankiclient.ClientGRPCOptions{Address: endpoint})` implements the
+`ankiclient.NewGRPC(endpoint)` validates the
+endpoint and returns `(*ClientGRPC, error)` without contacting the server. It implements the
 same Start, Connection and Stop interface for a running server. Endpoints accept
 TCP host:port, `tcp://host:port`, `unix:///absolute/path` and absolute socket paths.
 Unix URI paths may also be relative to the client's working directory.

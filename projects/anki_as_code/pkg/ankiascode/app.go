@@ -92,9 +92,10 @@ func (application *App) APICall(ctx context.Context, request ankiascodeapi.APIRe
 	var path string
 	var connection grpc.ClientConnInterface
 	if options.Address != "" {
-		if options.Path != "" || !isNilConnection(options.Connection) {
+		if !isNilConnection(options.Connection) {
 			return nil, fmt.Errorf("API access requires exactly one path, server address or open connection")
 		}
+		path = options.Path
 	} else {
 		path, connection, err = resolveCollectionOptions(options)
 		if err != nil {
@@ -132,7 +133,7 @@ func (application *App) APICall(ctx context.Context, request ankiascodeapi.APIRe
 		}
 		return nil
 	}
-	if options.Address != "" {
+	if options.Address != "" && path == "" {
 		if err := ankigrpc.WithClient(ctx, application.clientFactory, options.Address, run); err != nil {
 			return nil, fmt.Errorf("call addressed Anki API: %w", err)
 		}
@@ -140,12 +141,7 @@ func (application *App) APICall(ctx context.Context, request ankiascodeapi.APIRe
 		if err := run(connection); err != nil {
 			return nil, fmt.Errorf("call connected Anki API: %w", err)
 		}
-	} else if err := application.collections.WithCollection(ctx, collection.CollectionOptions{Path: path, WriteBack: request.WriteBack}, func(connection grpc.ClientConnInterface) (bool, error) {
-		if err := run(connection); err != nil {
-			return false, fmt.Errorf("call offline Anki API: %w", err)
-		}
-		return false, nil
-	}); err != nil {
+	} else if err := application.collections.WithCollection(ctx, collection.CollectionOptions{Path: path, Address: options.Address, WriteBack: request.WriteBack}, run); err != nil {
 		return nil, fmt.Errorf("call offline Anki API: %w", err)
 	}
 	return output, nil
@@ -244,12 +240,12 @@ func (application *App) ColExport(ctx context.Context, options ankiascodeapi.Col
 			return fmt.Errorf("inspect state output: %w", err)
 		}
 	}
-	if err := application.withCollection(ctx, options, func(connection grpc.ClientConnInterface) (bool, error) {
+	if err := application.withCollection(ctx, options, func(connection grpc.ClientConnInterface) error {
 		exporter := export.New(resource.New(connection), state.New(connection, options.StateKey))
 		if err := exporter.Export(ctx, output, stateOutput); err != nil {
-			return false, fmt.Errorf("export prepared collection: %w", err)
+			return fmt.Errorf("export prepared collection: %w", err)
 		}
-		return false, nil
+		return nil
 	}); err != nil {
 		return fmt.Errorf("export collection: %w", err)
 	}
@@ -259,9 +255,9 @@ func (application *App) ColExport(ctx context.Context, options ankiascodeapi.Col
 // ColPlan compares declarations with an API snapshot without native writes.
 func (application *App) ColPlan(ctx context.Context, options ankiascodeapi.CollectionOptions, dir string) (*ankiascodepb.CollectionChangePlan, error) {
 	var report *ankiascodepb.CollectionChangePlan
-	if err := application.withPlan(ctx, options, dir, func(_ *reconcile.Reconciler, planned *ankiascodepb.CollectionPlan) (bool, error) {
+	if err := application.withPlan(ctx, options, dir, func(_ *reconcile.Reconciler, planned *ankiascodepb.CollectionPlan) error {
 		report = planned.Report
-		return false, nil
+		return nil
 	}); err != nil {
 		return nil, fmt.Errorf("plan collection: %w", err)
 	}
@@ -301,12 +297,11 @@ func (application *App) ColBuild(ctx context.Context, options ankiascodeapi.Coll
 
 // ColApply reconciles an offline database or archive in place.
 func (application *App) ColApply(ctx context.Context, options ankiascodeapi.CollectionOptions, dir string) error {
-	if err := application.withPlan(ctx, options, dir, func(reconciler *reconcile.Reconciler, planned *ankiascodepb.CollectionPlan) (bool, error) {
-		changed, err := reconciler.Apply(ctx, planned)
-		if err != nil {
-			return false, fmt.Errorf("apply desired state: %w", err)
+	if err := application.withPlan(ctx, options, dir, func(reconciler *reconcile.Reconciler, planned *ankiascodepb.CollectionPlan) error {
+		if _, err := reconciler.Apply(ctx, planned); err != nil {
+			return fmt.Errorf("apply desired state: %w", err)
 		}
-		return changed, nil
+		return nil
 	}); err != nil {
 		return fmt.Errorf("apply collection: %w", err)
 	}
@@ -316,13 +311,13 @@ func (application *App) ColApply(ctx context.Context, options ankiascodeapi.Coll
 // ColStateDump reads stored bindings; path sources can repackage unchanged content.
 func (application *App) ColStateDump(ctx context.Context, options ankiascodeapi.CollectionOptions) (*ankiascodepb.State, error) {
 	var value *ankiascodepb.State
-	if err := application.withCollection(ctx, options, func(connection grpc.ClientConnInterface) (bool, error) {
+	if err := application.withCollection(ctx, options, func(connection grpc.ClientConnInterface) error {
 		var err error
 		value, err = state.New(connection, options.StateKey).Dump(ctx)
 		if err != nil {
-			return false, fmt.Errorf("read collection state: %w", err)
+			return fmt.Errorf("read collection state: %w", err)
 		}
-		return false, nil
+		return nil
 	}); err != nil {
 		return nil, fmt.Errorf("dump state: %w", err)
 	}
@@ -335,12 +330,11 @@ func (application *App) ColStateImport(ctx context.Context, options ankiascodeap
 	if err != nil {
 		return fmt.Errorf("load import configs: %w", err)
 	}
-	if err := application.withCollection(ctx, options, func(connection grpc.ClientConnInterface) (bool, error) {
-		changed, err := state.New(connection, options.StateKey).Import(ctx, configs, bindings)
-		if err != nil {
-			return false, fmt.Errorf("bind collection objects: %w", err)
+	if err := application.withCollection(ctx, options, func(connection grpc.ClientConnInterface) error {
+		if _, err := state.New(connection, options.StateKey).Import(ctx, configs, bindings); err != nil {
+			return fmt.Errorf("bind collection objects: %w", err)
 		}
-		return changed, nil
+		return nil
 	}); err != nil {
 		return fmt.Errorf("import state: %w", err)
 	}
@@ -349,12 +343,11 @@ func (application *App) ColStateImport(ctx context.Context, options ankiascodeap
 
 // ColStateUpdate merges bindings; enabled archive publication is independent of operation results.
 func (application *App) ColStateUpdate(ctx context.Context, options ankiascodeapi.CollectionOptions, value *ankiascodepb.State) error {
-	if err := application.withCollection(ctx, options, func(connection grpc.ClientConnInterface) (bool, error) {
-		changed, err := state.New(connection, options.StateKey).Update(ctx, value)
-		if err != nil {
-			return false, fmt.Errorf("merge collection state: %w", err)
+	if err := application.withCollection(ctx, options, func(connection grpc.ClientConnInterface) error {
+		if _, err := state.New(connection, options.StateKey).Update(ctx, value); err != nil {
+			return fmt.Errorf("merge collection state: %w", err)
 		}
-		return changed, nil
+		return nil
 	}); err != nil {
 		return fmt.Errorf("update state: %w", err)
 	}
@@ -363,12 +356,11 @@ func (application *App) ColStateUpdate(ctx context.Context, options ankiascodeap
 
 // ColStateReplace installs bindings; enabled archive publication is independent of operation results.
 func (application *App) ColStateReplace(ctx context.Context, options ankiascodeapi.CollectionOptions, value *ankiascodepb.State) error {
-	if err := application.withCollection(ctx, options, func(connection grpc.ClientConnInterface) (bool, error) {
-		changed, err := state.New(connection, options.StateKey).Replace(ctx, value)
-		if err != nil {
-			return false, fmt.Errorf("replace collection state: %w", err)
+	if err := application.withCollection(ctx, options, func(connection grpc.ClientConnInterface) error {
+		if _, err := state.New(connection, options.StateKey).Replace(ctx, value); err != nil {
+			return fmt.Errorf("replace collection state: %w", err)
 		}
-		return changed, nil
+		return nil
 	}); err != nil {
 		return fmt.Errorf("replace state: %w", err)
 	}
@@ -377,30 +369,29 @@ func (application *App) ColStateReplace(ctx context.Context, options ankiascodea
 
 // withPlan loads configs before borrowing one collection and prepares a plan for its operation.
 // The callback shares the captured resource/state clients while the collection backend owns publication.
-func (application *App) withPlan(ctx context.Context, options ankiascodeapi.CollectionOptions, dir string, operation func(*reconcile.Reconciler, *ankiascodepb.CollectionPlan) (bool, error)) error {
+func (application *App) withPlan(ctx context.Context, options ankiascodeapi.CollectionOptions, dir string, operation func(*reconcile.Reconciler, *ankiascodepb.CollectionPlan) error) error {
 	configs, err := config.New(dir).Load()
 	if err != nil {
 		return fmt.Errorf("load desired configs: %w", err)
 	}
-	if err := application.withCollection(ctx, options, func(connection grpc.ClientConnInterface) (bool, error) {
+	if err := application.withCollection(ctx, options, func(connection grpc.ClientConnInterface) error {
 		resources, states := resource.New(connection), state.New(connection, options.StateKey)
 		snapshot, err := resources.Snapshot(ctx)
 		if err != nil {
-			return false, fmt.Errorf("capture resources: %w", err)
+			return fmt.Errorf("capture resources: %w", err)
 		}
 		stored, err := states.Dump(ctx)
 		if err != nil {
-			return false, fmt.Errorf("capture bindings: %w", err)
+			return fmt.Errorf("capture bindings: %w", err)
 		}
 		planned, err := planning.Build(configs, snapshot, stored)
 		if err != nil {
-			return false, fmt.Errorf("build execution plan: %w", err)
+			return fmt.Errorf("build execution plan: %w", err)
 		}
-		changed, err := operation(reconcile.New(resources, states), planned)
-		if err != nil {
-			return false, fmt.Errorf("run planned operation: %w", err)
+		if err := operation(reconcile.New(resources, states), planned); err != nil {
+			return fmt.Errorf("run planned operation: %w", err)
 		}
-		return changed, nil
+		return nil
 	}); err != nil {
 		return fmt.Errorf("prepare collection plan: %w", err)
 	}
@@ -408,7 +399,7 @@ func (application *App) withPlan(ctx context.Context, options ankiascodeapi.Coll
 }
 
 // withCollection manages path sources and borrows open connections without changing their lifetime.
-func (application *App) withCollection(ctx context.Context, options ankiascodeapi.CollectionOptions, operation func(grpc.ClientConnInterface) (bool, error)) error {
+func (application *App) withCollection(ctx context.Context, options ankiascodeapi.CollectionOptions, operation func(grpc.ClientConnInterface) error) error {
 	if err := ctx.Err(); err != nil {
 		return fmt.Errorf("start collection operation: %w", errors.Join(err, context.Cause(ctx)))
 	}
@@ -422,7 +413,7 @@ func (application *App) withCollection(ctx context.Context, options ankiascodeap
 		}
 		return nil
 	}
-	if _, err := operation(connection); err != nil {
+	if err := operation(connection); err != nil {
 		return fmt.Errorf("run borrowed collection: %w", errors.Join(err, ctx.Err(), context.Cause(ctx)))
 	}
 	if err := ctx.Err(); err != nil {

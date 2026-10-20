@@ -18,6 +18,8 @@ import (
 	"testing"
 	"time"
 
+	_ "git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/ankigrpc/native"
+
 	"google.golang.org/protobuf/encoding/protojson"
 
 	ankiascodeapi "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodeapi"
@@ -25,7 +27,6 @@ import (
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/pkg/ankiascode"
 	"git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/ankiclient"
 	"git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/ankigrpc"
-	_ "git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/ankigrpc/native"
 	"github.com/ankitects/anki/proto/anki/import_export"
 )
 
@@ -105,7 +106,10 @@ func externalArchive(t *testing.T, address, database, archive string) {
 	t.Helper()
 	ctx, cancel := context.WithTimeout(t.Context(), 15*time.Second)
 	defer cancel()
-	backend := ankiclient.NewGRPC(ankiclient.ClientGRPCOptions{Address: address})
+	backend, err := ankigrpc.NewClient(address)
+	if err != nil {
+		t.Fatal(err)
+	}
 	defer func() {
 		if err := backend.Stop(context.Background()); err != nil {
 			t.Errorf("close archive transport: %v", err)
@@ -135,8 +139,8 @@ func externalArchive(t *testing.T, address, database, archive string) {
 
 // applicationClientFactory records selected addresses while constructing real clients.
 type applicationClientFactory struct {
-	// defaultAddress selects the fixture worker only when an operation supplies no address.
-	defaultAddress string
+	// configured supplies private registrations and the explicit worker default.
+	configured *ankigrpc.Factory
 	// addresses retains each operation's constructor input for the workflow artifact.
 	addresses []string
 }
@@ -144,10 +148,7 @@ type applicationClientFactory struct {
 // NewClient records the selection and delegates client ownership to the library.
 func (factory *applicationClientFactory) NewClient(address string) (ankiclient.Client, error) {
 	factory.addresses = append(factory.addresses, address)
-	if address == "" {
-		address = factory.defaultAddress
-	}
-	client, err := ankigrpc.NewClient(address)
+	client, err := factory.configured.NewClient(address)
 	if err != nil {
 		return nil, fmt.Errorf("construct application fixture client: %w", err)
 	}
@@ -172,7 +173,7 @@ func TestApplicationBackendSelection(t *testing.T) {
 	binary, root := installedLinkedCLI(t)
 	t.Chdir(root)
 	t.Setenv("TMPDIR", root)
-	factory := &applicationClientFactory{defaultAddress: ankigrpc.SubprocessAddress(binary, "server", "serve")}
+	factory := &applicationClientFactory{configured: ankigrpc.NewFactory(ankigrpc.SubprocessAddress(binary, "server", "serve"))}
 	application := ankiascode.New(ankiascode.Options{NewClient: factory})
 	database := filepath.Join(root, "application.anki2")
 	if err := os.WriteFile(database, nil, 0o600); err != nil {
@@ -181,10 +182,12 @@ func TestApplicationBackendSelection(t *testing.T) {
 	wanted := &ankiascodepb.State{Version: 1, Resources: &ankiascodepb.Resources{
 		Decks: map[string]*ankiascodepb.DeckState{"decks/Default/deck.anki.toml": {Id: 1}},
 	}}
-	for _, transport := range []string{"tcp", "tcp-scoped", "tcp-scoped-plus", "tcp-scoped-uri", "tcp-scoped-uri-escaped", "tcp-scoped-query", "tcp-scoped-fragment", "tcp-scoped-uri-query", "tcp-scoped-uri-fragment", "tcp-scoped-uri-escaped-query", "tcp-scoped-uri-escaped-fragment", "tcp-bare", "unix", "unix-path", "subprocess", "subprocess+cgo", "embedded"} {
+	for _, transport := range []string{"tcp", "tcp-scoped", "tcp-scoped-plus", "tcp-scoped-uri", "tcp-scoped-uri-escaped", "tcp-scoped-query", "tcp-scoped-fragment", "tcp-scoped-uri-query", "tcp-scoped-uri-fragment", "tcp-scoped-uri-escaped-query", "tcp-scoped-uri-escaped-fragment", "tcp-bare", "unix", "unix-path", "unix-relative-space", "unix-relative-escaped", "inprocess", "subprocess", "subprocess+cgo", "embedded"} {
 		t.Run(transport, func(t *testing.T) {
 			options := ankiascodeapi.CollectionOptions{Path: database, StateKey: "application/" + transport}
-			if transport == "subprocess" || transport == "subprocess+cgo" {
+			if transport == "inprocess" {
+				options.Address = "inprocess://application"
+			} else if transport == "subprocess" || transport == "subprocess+cgo" {
 				options.Address = ankigrpc.SubprocessAddress(binary, "server", "serve")
 				if transport == "subprocess+cgo" {
 					address, err := url.Parse(options.Address)
@@ -224,6 +227,11 @@ func TestApplicationBackendSelection(t *testing.T) {
 					options.Address = (&url.URL{Scheme: "tcp", Host: options.Address}).String()
 				} else if strings.HasPrefix(transport, "tcp-scoped-uri") {
 					options.Address = "tcp://" + options.Address
+				}
+			} else if strings.HasPrefix(transport, "unix-relative") {
+				options.Address = externalServer(t, binary, root, "unix", "worker socket "+transport+".sock")
+				if transport == "unix-relative-escaped" {
+					options.Address = "unix://" + url.PathEscape(strings.TrimPrefix(options.Address, "unix://"))
 				}
 			} else if transport == "tcp-bare" || transport == "unix-path" {
 				kind := "tcp"
@@ -321,13 +329,18 @@ func TestApplicationBackendSelection(t *testing.T) {
 // TestExternalServerWorkflow exercises every collection command against reusable TCP and Unix listeners.
 // It retains archive, state and plan artifacts for independent inspection.
 func TestExternalServerWorkflow(t *testing.T) {
-	for _, transport := range []string{"tcp", "unix"} {
+	for _, transport := range []string{"tcp", "unix", "inprocess", "subprocess"} {
 		t.Run(transport, func(t *testing.T) {
 			binary, root := installedLinkedCLI(t)
 			t.Chdir(root)
 			t.Setenv("PATH", "")
 			t.Setenv("TMPDIR", root)
-			address := externalServer(t, binary, root, transport, "")
+			address := "inprocess://workflow"
+			if transport == "subprocess" {
+				address = ankigrpc.SubprocessAddress(binary, "server", "serve")
+			} else if transport != "inprocess" {
+				address = externalServer(t, binary, root, transport, "")
+			}
 			database := filepath.Join(root, "external.anki2")
 			if err := os.WriteFile(database, nil, 0o600); err != nil {
 				t.Fatal(err)
@@ -401,7 +414,7 @@ func TestExternalServerWorkflow(t *testing.T) {
 			}
 			if transport == "tcp" {
 				linkedCommand(t, binary, true, "collection", "state", "dump", "--address", strings.TrimPrefix(address, "tcp://"), "--collection", database)
-			} else {
+			} else if transport == "unix" {
 				// The Linux cwd alias keeps absolute addresses within sockaddr limits under long test roots.
 				absolute := "/proc/self/cwd/external.sock"
 				for _, endpoint := range []string{absolute, "unix://" + absolute} {

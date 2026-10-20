@@ -1,3 +1,5 @@
+//go:build cgo && linux && amd64
+
 package ankiclient_test
 
 import (
@@ -65,6 +67,49 @@ func registerWorkerFactories(t *testing.T) {
 	})
 }
 
+// TestConfiguredFactories exercises private registration and defaults through real worker RPCs.
+func TestConfiguredFactories(t *testing.T) {
+	binary := workerPath(t)
+	first := ankigrpc.NewFactory("private-worker://configured")
+	second := ankigrpc.NewFactory("private-worker://configured")
+	calls := []int{0, 0}
+	for index, factory := range []*ankigrpc.Factory{first, second} {
+		factory.RegisterClientFactory("private-worker", ankigrpc.ClientFactoryFunc[*ankiclient.ClientSTD](func(address string) (*ankiclient.ClientSTD, error) {
+			if address != "private-worker://configured" {
+				return nil, fmt.Errorf("private constructor received unexpected address %q", address)
+			}
+			calls[index]++
+			client, err := ankigrpc.NewSubprocessClient(ankigrpc.SubprocessAddress(binary, "serve"))
+			if err != nil {
+				return nil, fmt.Errorf("configure private worker: %w", err)
+			}
+			return client, nil
+		}))
+	}
+	for _, factory := range []*ankigrpc.Factory{first, second, first} {
+		for _, address := range []string{"", "inprocess://explicit", ""} {
+			if err := ankigrpc.WithClient(t.Context(), factory, address, func(connection grpc.ClientConnInterface) error {
+				if _, err := collection.NewBackendCollectionServiceClient(connection).LatestProgress(t.Context(), &generic.Empty{}); err != nil {
+					return fmt.Errorf("call configured factory worker: %w", err)
+				}
+				return nil
+			}); err != nil {
+				t.Fatal(err)
+			}
+		}
+	}
+	if calls[0] != 4 || calls[1] != 2 {
+		t.Fatalf("factory defaults or registrations crossed scopes: %v", calls)
+	}
+	if _, err := ankigrpc.NewClient("private-worker://configured"); err == nil {
+		t.Fatal("private registration changed the global factory")
+	}
+	if _, err := ankigrpc.NewFactory("").NewClient("private-worker://configured"); err == nil {
+		t.Fatal("private registration changed a later factory")
+	}
+	writeReport(t, "configured-factories.json", map[string]any{"worker_calls": calls, "independent_registrations": true, "explicit_override": true, "default_restored": true})
+}
+
 // TestSubprocessArguments verifies owner registration, explicit executable selection and exact argv.
 func TestSubprocessArguments(t *testing.T) {
 	registerWorkerFactories(t)
@@ -124,6 +169,13 @@ func TestSubprocessArguments(t *testing.T) {
 // TestNativeCollection verifies native persistence, card generation, and transport failures.
 func TestNativeCollection(t *testing.T) {
 	registerWorkerFactories(t)
+	for _, transport := range []string{"stdio", "inprocess", "inprocess+cgo", "subprocess+cgo"} {
+		t.Run(transport, func(t *testing.T) { nativeCollection(t, transport) })
+	}
+}
+
+// nativeCollection exercises the same generated-client contract through each owned backend.
+func nativeCollection(t *testing.T, transport string) {
 	ctx := t.Context()
 	empty, err := ankigrpc.NewClient(ankigrpc.SubprocessAddress(workerPath(t)))
 	if err != nil {
@@ -144,12 +196,18 @@ func TestNativeCollection(t *testing.T) {
 		t.Fatal(err)
 	}
 	arguments := []string{"serve", "--transport", "stdio"}
-	worker, err := ankigrpc.NewClient(ankigrpc.SubprocessAddress(binary, arguments...))
+	address := ankigrpc.SubprocessAddress(binary, arguments...)
+	if strings.HasPrefix(transport, "inprocess") {
+		address = transport + "://native-e2e"
+	} else if transport == "subprocess+cgo" {
+		address = strings.Replace(address, "subprocess://", "subprocess+cgo://", 1)
+	}
+	worker, err := ankigrpc.NewClient(address)
 	if err != nil {
 		t.Fatal(err)
 	}
 	arguments[1] = "invalid"
-	for _, address := range []string{"subprocess+missing://worker", "inprocess+cgo://worker", "subprocess://?shutdown_timeout=invalid", "subprocess://?unknown=value", "subprocess:///%zz", "subprocess+cgo:///%zz"} {
+	for _, address := range []string{"subprocess+missing://worker", "subprocess://?shutdown_timeout=invalid", "subprocess://?unknown=value", "subprocess:///%zz", "subprocess+cgo:///%zz"} {
 		if _, err := ankigrpc.NewClient(address); err == nil {
 			t.Fatalf("unsupported or malformed address accepted: %s", address)
 		}
@@ -287,6 +345,10 @@ func TestNativeCollection(t *testing.T) {
 	if output == "" {
 		output = t.TempDir()
 	}
+	output = filepath.Join(output, transport)
+	if err := os.MkdirAll(output, 0o700); err != nil {
+		t.Fatal(err)
+	}
 	database, err := os.ReadFile(path)
 	if err != nil {
 		t.Fatal(err)
@@ -298,12 +360,12 @@ func TestNativeCollection(t *testing.T) {
 		"note_id":   added.NoteId,
 		"card_ids":  generated.Cids,
 		"fields":    stored.Fields,
-		"transport": "grpc-http2-stdio",
+		"transport": transport,
 		"checks": []string{
 			"persisted-note", "generated-card", "native-error",
-			"unknown-command", "cancelled-context", "closed-process", "stdio-grpc", "concurrent-reads",
+			"unknown-command", "cancelled-context", "closed-backend", "concurrent-reads",
 			"generated-service-clients", "original-service-paths", "overlapping-service-method", "caller-error-trailer",
-			"backend-interface", "explicit-start-stop", "copied-command-arguments", "repeated-start-rejected",
+			"backend-interface", "explicit-start-stop", "repeated-start-rejected",
 		},
 	}, "", "  ")
 	if err != nil {

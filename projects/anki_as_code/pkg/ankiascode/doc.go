@@ -11,5 +11,8 @@
 // connection per call; only path sources require explicit backend configuration.
 // Path operations select an address per call or delegate defaults to the injected factory.
 // Raw API calls also accept explicit server addresses; ankigrpc owns their client scopes.
+// An opt-in address-only constructor enables local in-process execution without
+// importing native code here. Any client address can accompany a managed API path;
+// network servers must share paths and be reserved for the managed collection scope.
 // Borrowed connections retain caller-owned lifetime and package publication.
 package ankiascode

@@ -32,21 +32,12 @@ func run(ctx context.Context, arguments []string) error {
 		return nil
 	}
 	workerFactory := ankigrpc.ClientFactoryFunc[*ankiclient.ClientSTD](ankigrpc.NewSubprocessClient)
+	factory := ankigrpc.NewFactory(ankigrpc.SubprocessAddress(binary, "server", "serve"))
 	for _, scheme := range subprocessSchemes {
-		ankigrpc.RegisterClientFactory(scheme, workerFactory)
+		factory.RegisterClientFactory(scheme, workerFactory)
 	}
-	defaultAddress := ankigrpc.SubprocessAddress(binary, "server", "serve")
 	application := ankiascode.New(ankiascode.Options{
-		NewClient: ankigrpc.ClientFactoryFunc[ankiclient.Client](func(address string) (ankiclient.Client, error) {
-			if address == "" {
-				address = defaultAddress
-			}
-			client, err := ankigrpc.NewClient(address)
-			if err != nil {
-				return nil, fmt.Errorf("construct CLI client: %w", err)
-			}
-			return client, nil
-		}),
+		NewClient:    factory,
 		ServerRunner: hostedRunner,
 	})
 	command := cli.New(application)
