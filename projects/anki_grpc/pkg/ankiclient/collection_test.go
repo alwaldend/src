@@ -45,7 +45,7 @@ func (ctx *startupBarrierContext) Err() error {
 // TestCollectionBackend verifies native persistence, package ownership and a reusable borrowed ankiclient.
 func TestCollectionBackend(t *testing.T) {
 	ctx := t.Context()
-	worker := ankiclient.New(ankiclient.BackendSTDOptions{Binary: workerPath(t), Arguments: []string{"serve"}})
+	worker := ankiclient.NewSTD(ankiclient.ClientSTDOptions{Binary: workerPath(t), Arguments: []string{"serve"}})
 	if err := worker.Start(ctx); err != nil {
 		t.Fatal(err)
 	}
@@ -56,9 +56,9 @@ func TestCollectionBackend(t *testing.T) {
 	})
 	root := t.TempDir()
 	database := filepath.Join(root, "collection.anki2")
-	options := ankiclient.BackendCollectionOptions{Backend: worker, Path: database}
+	options := ankiclient.ClientCollectionOptions{Backend: worker, Path: database}
 	managed := ankiclient.NewCollection(options)
-	var instance ankiclient.Backend = managed
+	var instance ankiclient.Client = managed
 	options.Path = filepath.Join(root, "must-not-be-used.anki2")
 	if _, err := instance.Connection(); err == nil {
 		t.Fatal("unprepared collection exposed a connection")
@@ -107,7 +107,7 @@ func TestCollectionBackend(t *testing.T) {
 		t.Fatalf("standard media layout: %v", err)
 	}
 	packagePath := filepath.Join(root, "collection.colpkg")
-	managed = ankiclient.NewCollection(ankiclient.BackendCollectionOptions{Backend: worker, Path: database})
+	managed = ankiclient.NewCollection(ankiclient.ClientCollectionOptions{Backend: worker, Path: database})
 	if err := managed.Start(ctx); err != nil {
 		t.Fatal(err)
 	}
@@ -133,7 +133,7 @@ func TestCollectionBackend(t *testing.T) {
 		if persistent {
 			directory = filepath.Join(t.TempDir(), "restore")
 		}
-		managed = ankiclient.NewCollection(ankiclient.BackendCollectionOptions{Backend: worker, Path: packagePath, RestoreDirectory: directory})
+		managed = ankiclient.NewCollection(ankiclient.ClientCollectionOptions{Backend: worker, Path: packagePath, RestoreDirectory: directory})
 		if err := managed.Start(ctx); err != nil {
 			t.Fatal(err)
 		}
@@ -168,7 +168,7 @@ func TestCollectionBackend(t *testing.T) {
 			t.Fatal("restore cleanup stopped the borrowed backend")
 		}
 	}
-	managed = ankiclient.NewCollection(ankiclient.BackendCollectionOptions{Backend: worker, Path: packagePath})
+	managed = ankiclient.NewCollection(ankiclient.ClientCollectionOptions{Backend: worker, Path: packagePath})
 	if err := managed.Start(ctx); err != nil {
 		t.Fatal(err)
 	}
@@ -188,7 +188,7 @@ func TestCollectionBackend(t *testing.T) {
 	}
 	startup := &startupBarrierContext{Context: ctx, entered: make(chan struct{}), release: make(chan struct{})}
 	raceDirectory := filepath.Join(root, "stopped-before-restore")
-	managed = ankiclient.NewCollection(ankiclient.BackendCollectionOptions{Backend: worker, Path: packagePath, RestoreDirectory: raceDirectory})
+	managed = ankiclient.NewCollection(ankiclient.ClientCollectionOptions{Backend: worker, Path: packagePath, RestoreDirectory: raceDirectory})
 	started := make(chan error, 1)
 	go func() { started <- managed.Start(startup) }()
 	<-startup.entered
@@ -208,7 +208,7 @@ func TestCollectionBackend(t *testing.T) {
 		}
 		t.Fatal("startup prepared restore files after Stop had completed")
 	}
-	managed = ankiclient.NewCollection(ankiclient.BackendCollectionOptions{Backend: worker, Path: database})
+	managed = ankiclient.NewCollection(ankiclient.ClientCollectionOptions{Backend: worker, Path: database})
 	if err := managed.Start(ctx); err != nil {
 		t.Fatalf("overlapping lifecycle leaked an open collection: %v", err)
 	}
@@ -255,11 +255,11 @@ func collectionRestoreDirectory(t *testing.T, connection grpc.ClientConnInterfac
 func testCollectionCallCleanup(t *testing.T, packagePath string, cancelCall bool) {
 	t.Helper()
 	ctx := t.Context()
-	worker := ankiclient.New(ankiclient.BackendSTDOptions{Binary: workerPath(t), Arguments: []string{"serve"}})
+	worker := ankiclient.NewSTD(ankiclient.ClientSTDOptions{Binary: workerPath(t), Arguments: []string{"serve"}})
 	if err := worker.Start(ctx); err != nil {
 		t.Fatal(err)
 	}
-	managed := ankiclient.NewCollection(ankiclient.BackendCollectionOptions{Backend: worker, Path: packagePath})
+	managed := ankiclient.NewCollection(ankiclient.ClientCollectionOptions{Backend: worker, Path: packagePath})
 	var restored string
 	t.Cleanup(func() {
 		if err := worker.Stop(context.Background()); err != nil && !errors.Is(err, context.Canceled) {
@@ -356,10 +356,10 @@ func testCollectionCallCleanup(t *testing.T, packagePath string, cancelCall bool
 // TestCollectionBackendFailures verifies preparation and shutdown errors never take over a borrowed process.
 func TestCollectionBackendFailures(t *testing.T) {
 	ctx := t.Context()
-	worker := ankiclient.New(ankiclient.BackendSTDOptions{Binary: workerPath(t), Arguments: []string{"serve"}})
+	worker := ankiclient.NewSTD(ankiclient.ClientSTDOptions{Binary: workerPath(t), Arguments: []string{"serve"}})
 	root := t.TempDir()
 	path := filepath.Join(root, "collection.anki2")
-	unprepared := ankiclient.NewCollection(ankiclient.BackendCollectionOptions{Backend: worker, Path: path})
+	unprepared := ankiclient.NewCollection(ankiclient.ClientCollectionOptions{Backend: worker, Path: path})
 	if err := unprepared.Start(ctx); err == nil {
 		t.Fatal("collection started an unprepared backend")
 	}
@@ -379,7 +379,7 @@ func TestCollectionBackendFailures(t *testing.T) {
 	})
 	for _, scenario := range []string{"nil backend", "cancelled start", "stop before start", "nonempty restore", "invalid package"} {
 		t.Run(scenario, func(t *testing.T) {
-			options := ankiclient.BackendCollectionOptions{Backend: worker, Path: path}
+			options := ankiclient.ClientCollectionOptions{Backend: worker, Path: path}
 			startup, cancel := context.WithCancel(ctx)
 			defer cancel()
 			if scenario == "nil backend" {
@@ -425,7 +425,7 @@ func TestCollectionBackendFailures(t *testing.T) {
 			}
 		})
 	}
-	managed := ankiclient.NewCollection(ankiclient.BackendCollectionOptions{Backend: worker, Path: path})
+	managed := ankiclient.NewCollection(ankiclient.ClientCollectionOptions{Backend: worker, Path: path})
 	if err := managed.Start(ctx); err != nil {
 		t.Fatal(err)
 	}

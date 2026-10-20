@@ -36,7 +36,7 @@ with the documentation; generated Markdown is not checked in. Build it with
 
 ## Native server
 
-The Linux x86_64 application links the Rust server into its executable. By default,
+The native Linux x86_64 application build links the Rust server into its executable. By default,
 collection operations launch the same executable with `server serve` and communicate over stdio.
 The installed CLI needs no companion worker, PATH lookup, or executable extraction.
 `bazel_agent bazel build -c opt //projects/anki_as_code` produces an optimized
@@ -70,8 +70,10 @@ anki_as_code col apply --address tcp://127.0.0.1:50051 --collection /shared/coll
 anki_as_code col state dump --address unix:///shared/anki.sock --collection /shared/collection.anki2
 ```
 
-Addresses accept `host:port`, `tcp://host:port`, `unix://PATH` or an absolute
-Unix socket path. Connections use plaintext gRPC. An explicit address never
+External addresses accept `host:port`, `tcp://host:port`, `unix://PATH` or an
+absolute Unix socket path. Local addresses accept `subprocess://` and, when the
+optional native package is imported, `subprocess+cgo://`. Go resolves the qualified scheme and passes
+the encoded worker arguments unchanged. External connections use plaintext gRPC. An explicit address never
 falls back to the embedded worker; interrupt the command to cancel connection
 startup if the server is unavailable.
 
@@ -82,10 +84,11 @@ The CLI and server must access the same absolute filesystem paths, including
 collection/media files, CLI `TMPDIR` for package restores, and build output
 directories for staged archives. Files are not transferred over gRPC.
 
-The command's `server_native.go` binds `ankiservercgo.Run`; `main.go` owns
-shared application composition, signals and worker configuration. The public
-Bazel command target selects the explicitly named native implementation and
-keeps the `anki_as_code` executable name.
+Build-selected command source files import `ankigrpc/native` for native hosting
+and client scheme registration; `main.go` owns signals and worker configuration.
+The reusable application library imports only pure Go packages, including when
+`//projects/anki_grpc:cgo` is enabled. Set that independent boolean to false to
+build the command without a linked engine. The executable name stays `anki_as_code`.
 
 ## Upstream API commands
 
@@ -289,20 +292,26 @@ id = "1"
 `api/ankiascodeapi` provides `ankiascodeapi.App`, the shared interface for
 configuration, collection, state and server workflows. `pkg/ankiascode` provides
 the concrete `ankiascode.App`. Its zero value supports configuration operations
-and borrowed connections. Path access requires a configured worker or an external address;
+and borrowed connections. Path access requires a configured factory or an explicit address;
 hosting the server requires an injected `ServerRunner`.
-`ankiascode.New(ankiascode.Options{BackendBinary: path, BackendArguments: args})`
-configures an explicit worker executable and arguments.
+`ankiascode.New(ankiascode.Options{NewClient: factory})` injects an
+`ankigrpc.ClientFactory`. The factory receives each operation's address unchanged
+and selects its configured default for an empty address. Supply a factory object
+with `NewClient(address)` or adapt a function with `ankigrpc.ClientFactoryFunc[T]`.
+Without a configured factory, explicit addresses use `ankigrpc.NewClient`.
+The executable registers its subprocess schemes and imports direct native adapters; App delegates raw
+client startup and bounded cleanup to `ankigrpc.WithClient`; the collection store
+owns managed collection scopes.
 Collection workflows accept one `ankiascodeapi.CollectionOptions` value:
-`Path` selects a managed database/archive and optional `Address` selects an
-external server for it. Empty addresses use the configured embedded worker.
+`Path` selects a managed database/archive and optional `Address` selects the client
+used to prepare it. Empty per-operation addresses let the injected factory select its default.
 Alternatively, `Connection` borrows an already-open collection; it cannot be
 combined with a path or address. `StateKey` selects the namespace, with an empty
 value selecting the default. App validates these combinations before opening
 resources and retains no endpoint between calls.
 
-The CLI supplies its own executable and `[]string{"server", "serve"}` for the
-embedded default. Operations follow the CLI namespaces: `ConfigDump`, `ConfigExport`,
+The CLI registers its worker schemes and supplies its own executable and
+`[]string{"server", "serve"}` through the injected factory for its default. Operations follow the CLI namespaces: `ConfigDump`, `ConfigExport`,
 `ColExport`, `ColPlan`, `ColApply`, `ColBuild`, `ColStateDump`, `ColStateImport`,
 `ColStateUpdate`, `ColStateReplace`, `APICall`, `ServerRun` and `ServerServe`.
 Creating an options value performs no I/O. `ColBuild` requires a base archive in
@@ -318,7 +327,7 @@ and lifecycle responsibilities. CLI passes parsed operation options into the
 injected App; the executable owns concrete construction and native adapters.
 
 `cmd/anki_as_code` constructs one App and passes it to `cli.New`. It injects the linked
-`ankiservercgo.Run` adapter through `Options.ServerRunner` and supplies process signal
+`native.RunServer` adapter through `Options.ServerRunner` and supplies process signal
 handling. App.ServerRun checks startup cancellation, builds the native argument
 vector and invokes that adapter. Native serving owns the process until return or
 termination; its context controls entry only. App does not link Rust/cgo or change
@@ -327,7 +336,21 @@ Isolated command tests supply one fake without constructing App or starting Anki
 Commands pass namespaces explicitly, and App retains no command configuration.
 
 ```go
-var application ankiascodeapi.App = ankiascode.New(ankiascode.Options{BackendBinary: serverPath, BackendArguments: []string{"serve"}})
+factory := ankigrpc.ClientFactoryFunc[ankiclient.Client](func(address string) (ankiclient.Client, error) {
+    if address == "" {
+        client, err := ankigrpc.NewSubprocessClient(ankigrpc.SubprocessAddress(serverPath, "serve"))
+        if err != nil {
+            return nil, fmt.Errorf("construct default worker: %w", err)
+        }
+        return client, nil
+    }
+    client, err := ankigrpc.NewClient(address)
+    if err != nil {
+        return nil, fmt.Errorf("construct application client: %w", err)
+    }
+    return client, nil
+})
+var application ankiascodeapi.App = ankiascode.New(ankiascode.Options{NewClient: factory})
 options := ankiascodeapi.CollectionOptions{Path: absoluteCollectionPath, StateKey: key}
 // ConfigDump(ctx, path, format) works without a native backend.
 value, err := application.ColStateDump(ctx, options)
@@ -363,20 +386,23 @@ native collection files: a connection source carries no filename for alias
 checks. Config/state output conflict checks still apply.
 
 `internal/collection.Store` reserves existing sources and owns enabled archive publication.
-Construct it with explicit process options before collection access. `WithCollection` injects a prepared
+Configure its default client or pass a per-operation address before collection access. `WithCollection` injects a prepared
 `grpc.ClientConnInterface` into its callback. Construct the services you need on
 that connection and reuse local instances for several operations.
 
-`collection.New(collection.Options{Backend: ankiclient.BackendSTDOptions{Binary: path, Arguments: args}})`
-configures the worker. No executable or server arguments are discovered by default;
-missing configuration fails before opening a collection. Callers supply their
-server executable and runtime inputs. Each scope constructs a fresh client and collection backend. Empty operation addresses use a stdin/stdout worker; nonempty addresses select the existing network server. It closes native
+`collection.New(collection.Options{NewClient: factory})` configures client
+construction and default selection. No executable or server arguments are
+discovered by the application or store. Without a configured factory, path-only
+access fails before client startup; explicit addresses remain usable. Each scope
+constructs a fresh client and collection backend. `ankigrpc.WithClient` uses the same
+factory and bounded transport cleanup for raw addressed API access without
+entering the store or reserving a collection. Managed scopes close native
 storage before stopping the worker. Collection publication and close have a ten-minute default budget, configurable
 with Options.CollectionCloseTimeout; transport cleanup has a separate five-second budget
 independent of callback cancellation; source reservations outlive cleanup.
 
 ```go
-store := collection.New(collection.Options{Backend: ankiclient.BackendSTDOptions{Binary: serverPath, Arguments: []string{"serve"}}})
+store := collection.New(collection.Options{NewClient: factory})
 err := store.WithCollection(ctx, collection.CollectionOptions{Path: path, WriteBack: true}, func(connection grpc.ClientConnInterface) (bool, error) {
     resources := resource.New(connection)
     states := state.New(connection, key)
@@ -448,19 +474,19 @@ calls and installs no state. Collection export owns config paths and file output
 ## Collection lifecycle
 
 For path sources, App delegates native access to `collection.Store.WithCollection`. The store
-reserves the source and constructs `BackendSTD` and `BackendCollection`, using
+reserves the source and delegates address-selected client construction and composes `ClientCollection`, using
 only the explicitly configured executable and arguments.
-BackendCollection restores packages into temporary
+ClientCollection restores packages into temporary
 storage or opens databases directly. Callbacks receive the prepared connection
 and construct their own services. Store closes the collection before stopping
 the worker, including after callback errors, cancellation and panic unwinding.
 
-BackendCollection owns readiness, native import/open/close and restore cleanup.
+ClientCollection owns readiness, native import/open/close and restore cleanup.
 Its failure contract can retain restore files when native completion is uncertain,
 reporting their path. The CLI and App add no restore owner or lifecycle state machine.
 
 Store reserves each source before startup and retains that reservation through
-cleanup. When WriteBack is enabled, BackendCollection publishes its source archive
+cleanup. When WriteBack is enabled, ClientCollection publishes its source archive
 through Anki independently of callback outcomes. Anki writes and atomically replaces
 that archive. Database
 operations persist in place. Build separately copies its base to a temporary
@@ -731,7 +757,7 @@ application's persisted state.
 
 The external-server gRPC edge is used by `api --address` with an explicit TCP or
 Unix address. App owns only its client connection. Go callers can also prepare
-external connections through `ankiclient.BackendGRPC` and pass them to App
+external connections through `ankiclient.ClientGRPC` and pass them to App
 through `ankiascodeapi.CollectionOptions.Connection`.
 
 ### Package dependencies

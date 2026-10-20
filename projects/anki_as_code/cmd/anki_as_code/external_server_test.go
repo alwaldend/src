@@ -8,10 +8,12 @@ import (
 	"errors"
 	"fmt"
 	"net"
+	"net/url"
 	"os"
 	"os/exec"
 	"path/filepath"
 	"strings"
+	"sync"
 	"syscall"
 	"testing"
 	"time"
@@ -22,15 +24,19 @@ import (
 	ankiascodepb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodepb"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/pkg/ankiascode"
 	"git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/ankiclient"
+	"git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/ankigrpc"
+	_ "git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/ankigrpc/native"
 	"github.com/ankitects/anki/proto/anki/import_export"
 )
 
 // externalServer starts a real linked listener and retains process ownership in the test.
-func externalServer(t *testing.T, binary, directory, transport string) string {
+func externalServer(t *testing.T, binary, directory, transport, listen string) string {
 	t.Helper()
-	listen := "127.0.0.1:0"
-	if transport == "unix" {
-		listen = "external.sock"
+	if listen == "" {
+		listen = "127.0.0.1:0"
+		if transport == "unix" {
+			listen = "external.sock"
+		}
 	}
 	ctx, cancel := context.WithTimeout(context.WithoutCancel(t.Context()), 2*time.Minute)
 	command := exec.CommandContext(ctx, binary, "server", "serve", "--transport", transport, "--listen", listen)
@@ -99,7 +105,7 @@ func externalArchive(t *testing.T, address, database, archive string) {
 	t.Helper()
 	ctx, cancel := context.WithTimeout(t.Context(), 15*time.Second)
 	defer cancel()
-	backend := ankiclient.NewGRPC(ankiclient.BackendGRPCOptions{Address: address})
+	backend := ankiclient.NewGRPC(ankiclient.ClientGRPCOptions{Address: address})
 	defer func() {
 		if err := backend.Stop(context.Background()); err != nil {
 			t.Errorf("close archive transport: %v", err)
@@ -108,7 +114,7 @@ func externalArchive(t *testing.T, address, database, archive string) {
 	if err := backend.Start(ctx); err != nil {
 		t.Fatal(err)
 	}
-	prepared := ankiclient.NewCollection(ankiclient.BackendCollectionOptions{Backend: backend, Path: database})
+	prepared := ankiclient.NewCollection(ankiclient.ClientCollectionOptions{Backend: backend, Path: database})
 	defer func() {
 		if err := prepared.Stop(context.Background()); err != nil {
 			t.Errorf("close archive collection: %v", err)
@@ -127,13 +133,47 @@ func externalArchive(t *testing.T, address, database, archive string) {
 	}
 }
 
+// applicationClientFactory records selected addresses while constructing real clients.
+type applicationClientFactory struct {
+	// defaultAddress selects the fixture worker only when an operation supplies no address.
+	defaultAddress string
+	// addresses retains each operation's constructor input for the workflow artifact.
+	addresses []string
+}
+
+// NewClient records the selection and delegates client ownership to the library.
+func (factory *applicationClientFactory) NewClient(address string) (ankiclient.Client, error) {
+	factory.addresses = append(factory.addresses, address)
+	if address == "" {
+		address = factory.defaultAddress
+	}
+	client, err := ankigrpc.NewClient(address)
+	if err != nil {
+		return nil, fmt.Errorf("construct application fixture client: %w", err)
+	}
+	return client, nil
+}
+
+// applicationWorkerFactories installs only this executable's packaged worker schemes.
+var applicationWorkerFactories sync.Once
+
 // TestApplicationBackendSelection reuses one App across external endpoints and embedded defaults.
 // Each external listener stops before the next operation so a retained address cannot succeed.
 func TestApplicationBackendSelection(t *testing.T) {
+	applicationWorkerFactories.Do(func() {
+		factory := ankigrpc.ClientFactoryFunc[*ankiclient.ClientSTD](ankigrpc.NewSubprocessClient)
+		for _, scheme := range []string{"subprocess", "subprocess+cgo"} {
+			if _, err := ankigrpc.NewClient(scheme + "://unconfigured-worker"); err == nil {
+				t.Fatalf("library import registered an unowned worker: %s", scheme)
+			}
+			ankigrpc.RegisterClientFactory(scheme, factory)
+		}
+	})
 	binary, root := installedLinkedCLI(t)
 	t.Chdir(root)
 	t.Setenv("TMPDIR", root)
-	application := ankiascode.New(ankiascode.Options{BackendBinary: binary, BackendArguments: []string{"server", "serve"}})
+	factory := &applicationClientFactory{defaultAddress: ankigrpc.SubprocessAddress(binary, "server", "serve")}
+	application := ankiascode.New(ankiascode.Options{NewClient: factory})
 	database := filepath.Join(root, "application.anki2")
 	if err := os.WriteFile(database, nil, 0o600); err != nil {
 		t.Fatal(err)
@@ -141,11 +181,70 @@ func TestApplicationBackendSelection(t *testing.T) {
 	wanted := &ankiascodepb.State{Version: 1, Resources: &ankiascodepb.Resources{
 		Decks: map[string]*ankiascodepb.DeckState{"decks/Default/deck.anki.toml": {Id: 1}},
 	}}
-	for _, transport := range []string{"tcp", "unix", "embedded"} {
+	for _, transport := range []string{"tcp", "tcp-scoped", "tcp-scoped-plus", "tcp-scoped-uri", "tcp-scoped-uri-escaped", "tcp-scoped-query", "tcp-scoped-fragment", "tcp-scoped-uri-query", "tcp-scoped-uri-fragment", "tcp-scoped-uri-escaped-query", "tcp-scoped-uri-escaped-fragment", "tcp-bare", "unix", "unix-path", "subprocess", "subprocess+cgo", "embedded"} {
 		t.Run(transport, func(t *testing.T) {
 			options := ankiascodeapi.CollectionOptions{Path: database, StateKey: "application/" + transport}
-			if transport != "embedded" {
-				options.Address = externalServer(t, binary, root, transport)
+			if transport == "subprocess" || transport == "subprocess+cgo" {
+				options.Address = ankigrpc.SubprocessAddress(binary, "server", "serve")
+				if transport == "subprocess+cgo" {
+					address, err := url.Parse(options.Address)
+					if err != nil {
+						t.Fatal(err)
+					}
+					address.Scheme = transport
+					options.Address = address.String()
+				}
+			} else if strings.HasPrefix(transport, "tcp-scoped") {
+				probe, err := net.Listen("tcp6", "[::1]:0")
+				if err != nil {
+					t.Skipf("IPv6 loopback is unavailable: %v", err)
+				}
+				if err := probe.Close(); err != nil {
+					t.Fatal(err)
+				}
+				endpoint, err := url.Parse(externalServer(t, binary, root, "tcp", "[::1]:0"))
+				if err != nil {
+					t.Fatal(err)
+				}
+				host, port, err := net.SplitHostPort(endpoint.Host)
+				if err != nil {
+					t.Fatal(err)
+				}
+				zone := "lo"
+				switch {
+				case strings.HasSuffix(transport, "-plus"):
+					zone += "+fixture"
+				case strings.HasSuffix(transport, "-query"):
+					zone += "?fixture"
+				case strings.HasSuffix(transport, "-fragment"):
+					zone += "#fixture"
+				}
+				options.Address = net.JoinHostPort(host+"%"+zone, port)
+				if strings.HasPrefix(transport, "tcp-scoped-uri-escaped") {
+					options.Address = (&url.URL{Scheme: "tcp", Host: options.Address}).String()
+				} else if strings.HasPrefix(transport, "tcp-scoped-uri") {
+					options.Address = "tcp://" + options.Address
+				}
+			} else if transport == "tcp-bare" || transport == "unix-path" {
+				kind := "tcp"
+				listen := ""
+				if transport == "unix-path" {
+					kind = "unix"
+					listen = "./external socket.sock"
+				}
+				address, err := url.Parse(externalServer(t, binary, root, kind, listen))
+				if err != nil {
+					t.Fatal(err)
+				}
+				options.Address = address.Host
+				if kind == "unix" {
+					options.Address = address.Host + address.Path
+					if !filepath.IsAbs(options.Address) {
+						options.Address = filepath.Join("/proc/self/cwd", options.Address)
+					}
+				}
+			} else if transport != "embedded" {
+				options.Address = externalServer(t, binary, root, transport, "")
 			}
 			if err := application.ColStateReplace(t.Context(), options, wanted); err != nil {
 				t.Fatal(err)
@@ -153,6 +252,19 @@ func TestApplicationBackendSelection(t *testing.T) {
 			stored, err := application.ColStateDump(t.Context(), options)
 			if err != nil || stored.GetResources().GetDecks()["decks/Default/deck.anki.toml"].GetId() != 1 {
 				t.Fatalf("selected backend lost namespace bindings: %v %v", stored, err)
+			}
+			if options.Address != "" {
+				previousCalls := len(factory.addresses)
+				formatted, err := application.APICall(t.Context(), ankiascodeapi.APIRequest{
+					Collection: ankiascodeapi.CollectionOptions{Address: options.Address},
+					Method:     "/anki.i18n.I18nService/FormatTimespan", Input: []byte(`{"seconds":65,"context":"PRECISE"}`),
+				})
+				if err != nil || !bytes.Contains(formatted, []byte("minute")) {
+					t.Fatalf("addressed API lost selected factory or formatting: %s %v", formatted, err)
+				}
+				if len(factory.addresses) != previousCalls+1 || factory.addresses[len(factory.addresses)-1] != options.Address {
+					t.Fatalf("addressed API bypassed the configured factory: %v", factory.addresses[previousCalls:])
+				}
 			}
 			if options.Address != "" {
 				remoteOnly := ankiascode.New(ankiascode.Options{})
@@ -167,8 +279,19 @@ func TestApplicationBackendSelection(t *testing.T) {
 	if err != nil || stored.GetVersion() != 1 || len(stored.GetResources().GetDecks()) != 0 {
 		t.Fatalf("zero options retained a previous endpoint or namespace: %v %v", stored, err)
 	}
+	if len(factory.addresses) == 0 || factory.addresses[len(factory.addresses)-1] != "" {
+		t.Fatalf("default collection selection bypassed the configured client factory: %v", factory.addresses)
+	}
 	if _, err := application.ColStateDump(t.Context(), ankiascodeapi.CollectionOptions{Path: database, Address: "invalid"}); err == nil || !strings.Contains(err.Error(), "address") {
 		t.Fatalf("invalid operation address fell back to embedded: %v", err)
+	}
+	for _, address := range []string{"tcp://[::1%lo]:50051?parameter=value", "tcp://[::1%lo]:50051#fragment", "[::1%lo]:50051?parameter=value", "[::1%lo]:50051#fragment"} {
+		if _, err := ankigrpc.NewClient(address); err == nil {
+			t.Fatalf("accepted a query or fragment outside the IPv6 endpoint: %s", address)
+		}
+	}
+	if len(factory.addresses) == 0 {
+		t.Fatal("application bypassed the configured client factory")
 	}
 	if destination := os.Getenv("TEST_UNDECLARED_OUTPUTS_DIR"); destination != "" {
 		data, err := os.ReadFile(database)
@@ -176,6 +299,13 @@ func TestApplicationBackendSelection(t *testing.T) {
 			t.Fatal(err)
 		}
 		if err := os.WriteFile(filepath.Join(destination, "application-backends.anki2"), data, 0o600); err != nil {
+			t.Fatal(err)
+		}
+		data, err = json.MarshalIndent(factory.addresses, "", "  ")
+		if err != nil {
+			t.Fatal(err)
+		}
+		if err := os.WriteFile(filepath.Join(destination, "application-client-addresses.json"), data, 0o600); err != nil {
 			t.Fatal(err)
 		}
 		data, err = json.MarshalIndent(stored, "", "  ")
@@ -197,7 +327,7 @@ func TestExternalServerWorkflow(t *testing.T) {
 			t.Chdir(root)
 			t.Setenv("PATH", "")
 			t.Setenv("TMPDIR", root)
-			address := externalServer(t, binary, root, transport)
+			address := externalServer(t, binary, root, transport, "")
 			database := filepath.Join(root, "external.anki2")
 			if err := os.WriteFile(database, nil, 0o600); err != nil {
 				t.Fatal(err)

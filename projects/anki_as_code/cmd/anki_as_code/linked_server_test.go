@@ -74,7 +74,7 @@ func TestLinkedWorker(t *testing.T) {
 			t.Fatalf("serve did not delegate native help: %s", help)
 		}
 	}
-	for _, arguments := range [][]string{{"server", "unknown"}, {"server", "--transport", "stdio"}, {"server", "run", "unknown"}, {"server", "run", "--transport", "stdio"}} {
+	for _, arguments := range [][]string{{"server", "unknown"}, {"server", "--transport", "stdio"}, {"server", "run", "unknown"}, {"server", "run", "--transport", "stdio"}, {"server", "run", "--engine=cgo", "--help"}, {"server", "serve", "--engine=cgo", "--help"}} {
 		if output := linkedCommand(t, binary, false, arguments...); len(output) != 0 {
 			t.Fatalf("invalid command arguments wrote %d protocol bytes", len(output))
 		}

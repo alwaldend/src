@@ -1,8 +1,9 @@
-//go:build !anki_wasm
-
 package main
 
-import "git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/ankiservercgo"
+import "git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/ankigrpc/native"
 
-// runServer selects the server adapter invoked by the worker command.
-var runServer = ankiservercgo.Run
+// runServer hosts the native CLI owned by this executable.
+var runServer = native.RunServer
+
+// subprocessSchemes names the worker strategies packaged by this executable.
+var subprocessSchemes = []string{"subprocess", "subprocess+cgo"}

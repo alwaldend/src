@@ -14,10 +14,10 @@ import (
 	"google.golang.org/grpc/metadata"
 )
 
-// BackendCollectionOptions configures a collection on an already-started Backend.
-type BackendCollectionOptions struct {
+// ClientCollectionOptions configures a collection on an already-started Client.
+type ClientCollectionOptions struct {
 	// Backend lends its prepared connection; the caller retains process lifetime.
-	Backend Backend
+	Backend Client
 	// Path names an .anki2 database or .colpkg package. Anki may create a missing database.
 	Path string
 	// RestoreDirectory overrides a package's restore destination. It must be empty and is retained.
@@ -28,14 +28,14 @@ type BackendCollectionOptions struct {
 	WriteBack bool
 }
 
-// BackendCollection implements Backend for collection lifetime on a borrowed server.
+// ClientCollection implements Client for collection lifetime on a borrowed server.
 // Start opens storage; Stop writes packages back when explicitly enabled and closes storage.
 // Neither starts nor stops options.Backend.
 // Database writes commit in place. Callers stop this owner before its borrowed backend.
-// Use NewCollection; a BackendCollection must not be copied after use.
-type BackendCollection struct {
+// Use NewCollection; a ClientCollection must not be copied after use.
+type ClientCollection struct {
 	// options are copied constructor settings; Backend remains borrowed.
-	options BackendCollectionOptions
+	options ClientCollectionOptions
 	// lifecycle protects client registration, readiness and restore-directory access.
 	lifecycle sync.Mutex
 	// operation serializes startup, shutdown and native consuming calls.
@@ -73,14 +73,14 @@ type BackendCollection struct {
 }
 
 // NewCollection configures a collection owner without touching its backend or files.
-func NewCollection(options BackendCollectionOptions) *BackendCollection {
-	return &BackendCollection{options: options, operation: make(chan struct{}, 1), drained: make(chan struct{})}
+func NewCollection(options ClientCollectionOptions) *ClientCollection {
+	return &ClientCollection{options: options, operation: make(chan struct{}, 1), drained: make(chan struct{})}
 }
 
 // Start borrows a prepared backend and opens the configured native collection once.
 // Failed startup exposes no connection. Call Stop even after startup failure,
 // then stop the borrowed backend; Start does not run a separate cleanup lifecycle.
-func (backend *BackendCollection) Start(ctx context.Context) error {
+func (backend *ClientCollection) Start(ctx context.Context) error {
 	backend.lifecycle.Lock()
 	if backend.started || backend.stopped {
 		backend.lifecycle.Unlock()
@@ -154,7 +154,7 @@ func (backend *BackendCollection) Start(ctx context.Context) error {
 }
 
 // prepare selects direct database paths or an empty native package restore destination.
-func (backend *BackendCollection) prepare(source string) (*collection.OpenCollectionRequest, error) {
+func (backend *ClientCollection) prepare(source string) (*collection.OpenCollectionRequest, error) {
 	database := source
 	switch strings.ToLower(filepath.Ext(source)) {
 	case ".anki2":
@@ -203,7 +203,7 @@ func (backend *BackendCollection) prepare(source string) (*collection.OpenCollec
 
 // Connection lends the gated connection only while the native collection is prepared.
 // Retained generated clients reject after Stop, consuming calls or an unconfirmed response.
-func (backend *BackendCollection) Connection() (grpc.ClientConnInterface, error) {
+func (backend *ClientCollection) Connection() (grpc.ClientConnInterface, error) {
 	backend.lifecycle.Lock()
 	ready, connection := backend.ready && !backend.stopped, backend.connection
 	backend.lifecycle.Unlock()
@@ -220,7 +220,7 @@ func (backend *BackendCollection) Connection() (grpc.ClientConnInterface, error)
 // It never stops the borrowed backend. Failed/cancelled native work retains restore
 // files until the caller has stopped that backend and can safely remove them.
 // Stop is terminal and idempotent, including before Start and after failed startup.
-func (backend *BackendCollection) Stop(ctx context.Context) error {
+func (backend *ClientCollection) Stop(ctx context.Context) error {
 	backend.stopOnce.Do(func() {
 		backend.lifecycle.Lock()
 		backend.stopped, backend.ready = true, false
@@ -286,7 +286,7 @@ func (backend *BackendCollection) Stop(ctx context.Context) error {
 }
 
 // acquire serializes native lifecycle operations while respecting cancellation.
-func (backend *BackendCollection) acquire(ctx context.Context) error {
+func (backend *ClientCollection) acquire(ctx context.Context) error {
 	if err := ctx.Err(); err != nil {
 		return fmt.Errorf("check collection operation context: %w", err)
 	}
@@ -299,6 +299,6 @@ func (backend *BackendCollection) acquire(ctx context.Context) error {
 }
 
 // release finishes a serialized native lifecycle operation.
-func (backend *BackendCollection) release() {
+func (backend *ClientCollection) release() {
 	<-backend.operation
 }

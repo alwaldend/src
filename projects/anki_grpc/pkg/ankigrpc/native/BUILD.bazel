@@ -15,19 +15,19 @@ rust_static_library(
 )
 
 go_library(
-    name = "ankiservercgo",
+    name = "native",
     srcs = [
+        "cli.go",
         "doc.go",
-        "server.go",
     ],
     cdeps = [":server_ffi"],
     cgo = True,
-    importpath = "git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/ankiservercgo",
+    importpath = "git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/ankigrpc/native",
     target_compatible_with = [
         "@platforms//os:linux",
         "@platforms//cpu:x86_64",
     ],
-    visibility = ["//projects/anki_as_code/cmd/anki_as_code:__pkg__"],
+    visibility = ["//projects/anki_grpc/pkg/ankiclient:consumers"],
 )
 
 rust_clippy(

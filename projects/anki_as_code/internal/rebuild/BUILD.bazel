@@ -20,6 +20,7 @@ go_test(
         "//projects/anki_as_code/api/ankiascodepb",
         "//projects/anki_as_code/pkg/ankiascode",
         "//projects/anki_grpc/pkg/ankiclient",
+        "//projects/anki_grpc/pkg/ankigrpc",
         "//third_party/com_github_ankitects_anki:import_export",
         "@org_golang_google_protobuf//encoding/protojson",
         "@org_golang_google_protobuf//proto",

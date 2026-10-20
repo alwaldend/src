@@ -76,6 +76,8 @@ func TestCLI(t *testing.T) {
 		{"serve", "--listen", "127.0.0.1:0"},
 		{"serve", "--transport", "tcp", "--listen"},
 		{"serve", "--transport", "tcp", "--listen", "invalid-address"},
+		{"--engine=cgo", "--help"},
+		{"serve", "--engine=cgo", "--help"},
 	} {
 		t.Run(strings.Join(args, "_"), func(t *testing.T) {
 			var output, diagnostics bytes.Buffer

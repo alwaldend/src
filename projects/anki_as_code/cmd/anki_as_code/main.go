@@ -9,6 +9,8 @@ import (
 
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/cli"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/pkg/ankiascode"
+	"git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/ankiclient"
+	"git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/ankigrpc"
 )
 
 // run composes the CLI with one server adapter and a same-executable worker.
@@ -29,8 +31,23 @@ func run(ctx context.Context, arguments []string) error {
 		}
 		return nil
 	}
+	workerFactory := ankigrpc.ClientFactoryFunc[*ankiclient.ClientSTD](ankigrpc.NewSubprocessClient)
+	for _, scheme := range subprocessSchemes {
+		ankigrpc.RegisterClientFactory(scheme, workerFactory)
+	}
+	defaultAddress := ankigrpc.SubprocessAddress(binary, "server", "serve")
 	application := ankiascode.New(ankiascode.Options{
-		BackendBinary: binary, BackendArguments: []string{"server", "serve"}, ServerRunner: hostedRunner,
+		NewClient: ankigrpc.ClientFactoryFunc[ankiclient.Client](func(address string) (ankiclient.Client, error) {
+			if address == "" {
+				address = defaultAddress
+			}
+			client, err := ankigrpc.NewClient(address)
+			if err != nil {
+				return nil, fmt.Errorf("construct CLI client: %w", err)
+			}
+			return client, nil
+		}),
+		ServerRunner: hostedRunner,
 	})
 	command := cli.New(application)
 	command.SetArgs(arguments)

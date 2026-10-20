@@ -44,14 +44,15 @@ type App interface {
 
 // CollectionOptions selects collection access and the namespace for one application operation.
 // Col workflows require Path or Connection. An empty Address uses the configured
-// embedded worker for a path, and an empty StateKey selects the default namespace.
+// factory default for a path, and an empty StateKey selects the default namespace.
 // Raw API calls also accept Address alone to use the server's current collection.
 type CollectionOptions struct {
 	// Path identifies a managed database or archive; App owns preparation and cleanup.
 	Path string
-	// Address selects an existing plaintext TCP or Unix gRPC server.
+	// Address selects a client using subprocess:// or a plaintext TCP/Unix endpoint.
 	// Managed paths require shared source/temporary paths and exclusive server access.
-	// The external process remains caller-owned. It cannot accompany Connection.
+	// External server processes remain caller-owned; subprocess clients own their worker.
+	// Address cannot accompany Connection.
 	Address string
 	// Connection borrows an already-open collection with caller-owned lifetime and publication.
 	// It cannot accompany Path or Address; raw RPCs retain their requested native effects.
@@ -62,9 +63,9 @@ type CollectionOptions struct {
 }
 
 // APIRequest selects an upstream method, protobuf payload and collection access mode.
-// Collection requires exactly one path, external address or open connection.
+// Collection requires exactly one path, client address or open connection.
 type APIRequest struct {
-	// Collection selects managed path access, a server address, or a borrowed open connection.
+	// Collection selects managed path access, a client address, or a borrowed open connection.
 	Collection CollectionOptions
 	// WriteBack enables publication of managed source archives, including after request errors.
 	// It defaults to false and has no effect on borrowed connections or remote servers.

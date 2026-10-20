@@ -10,8 +10,10 @@ go_binary(
     srcs = [
         "doc.go",
         "main.go",
-        "server_native.go",
-    ],
+    ] + select({
+        "//projects/anki_grpc:with_cgo": ["server_native.go"],
+        "//conditions:default": ["server_none.go"],
+    }),
     basename = "anki_as_code",
     gc_linkopts = select({
         ":optimized": [
@@ -24,8 +26,12 @@ go_binary(
     deps = [
         "//projects/anki_as_code/internal/cli",
         "//projects/anki_as_code/pkg/ankiascode",
-        "//projects/anki_grpc/pkg/ankiservercgo",
-    ],
+        "//projects/anki_grpc/pkg/ankiclient",
+        "//projects/anki_grpc/pkg/ankigrpc",
+    ] + select({
+        "//projects/anki_grpc:with_cgo": ["//projects/anki_grpc/pkg/ankigrpc/native"],
+        "//conditions:default": [],
+    }),
 )
 
 alias(
@@ -49,6 +55,8 @@ go_test(
         "//projects/anki_as_code/api/ankiascodepb",
         "//projects/anki_as_code/pkg/ankiascode",
         "//projects/anki_grpc/pkg/ankiclient",
+        "//projects/anki_grpc/pkg/ankigrpc",
+        "//projects/anki_grpc/pkg/ankigrpc/native",
         "//third_party/com_github_ankitects_anki:import_export",
         "@org_golang_google_protobuf//encoding/protojson",
     ],

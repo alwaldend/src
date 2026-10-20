@@ -38,8 +38,8 @@ func TestPlanningWorkflow(t *testing.T) {
 		t.Fatal(err)
 	}
 	database := filepath.Join(t.TempDir(), "collection.anki2")
-	worker := ankiclient.New(ankiclient.BackendSTDOptions{Binary: binary, Arguments: []string{"serve"}})
-	collection := ankiclient.NewCollection(ankiclient.BackendCollectionOptions{Backend: worker, Path: database})
+	worker := ankiclient.NewSTD(ankiclient.ClientSTDOptions{Binary: binary, Arguments: []string{"serve"}})
+	collection := ankiclient.NewCollection(ankiclient.ClientCollectionOptions{Backend: worker, Path: database})
 	t.Cleanup(func() {
 		cleanup, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 		defer cancel()

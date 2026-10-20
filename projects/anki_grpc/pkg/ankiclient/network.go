@@ -16,17 +16,17 @@ import (
 	"google.golang.org/grpc/metadata"
 )
 
-// BackendGRPCOptions selects a running server without acquiring its process or collection lifetime.
-type BackendGRPCOptions struct {
+// ClientGRPCOptions selects a running server without acquiring its process or collection lifetime.
+type ClientGRPCOptions struct {
 	// Address is a TCP host:port, tcp:// endpoint, unix:// endpoint or absolute Unix socket path.
 	Address string
 }
 
-// BackendGRPC owns only a gRPC client connection to an explicitly selected Anki server.
+// ClientGRPC owns only a gRPC client connection to an explicitly selected Anki server.
 // Each instance allows one Start attempt; Stop leaves remote storage and processes running.
-type BackendGRPC struct {
+type ClientGRPC struct {
 	// options are copied constructor settings.
-	options BackendGRPCOptions
+	options ClientGRPCOptions
 	// mutex protects connection readiness and terminal shutdown.
 	mutex sync.Mutex
 	// connection is the owned network client.
@@ -40,12 +40,12 @@ type BackendGRPC struct {
 }
 
 // NewGRPC configures a network backend without contacting the server.
-func NewGRPC(options BackendGRPCOptions) *BackendGRPC {
-	return &BackendGRPC{options: options}
+func NewGRPC(options ClientGRPCOptions) *ClientGRPC {
+	return &ClientGRPC{options: options}
 }
 
 // Start creates the client and waits for readiness within ctx; ctx owns startup only.
-func (backend *BackendGRPC) Start(ctx context.Context) error {
+func (backend *ClientGRPC) Start(ctx context.Context) error {
 	backend.mutex.Lock()
 	if backend.started || backend.stopped {
 		backend.mutex.Unlock()
@@ -109,7 +109,7 @@ func (backend *BackendGRPC) Start(ctx context.Context) error {
 }
 
 // Connection lends the client after successful startup and before shutdown.
-func (backend *BackendGRPC) Connection() (grpc.ClientConnInterface, error) {
+func (backend *ClientGRPC) Connection() (grpc.ClientConnInterface, error) {
 	backend.mutex.Lock()
 	defer backend.mutex.Unlock()
 	if !backend.ready || backend.stopped {
@@ -119,7 +119,7 @@ func (backend *BackendGRPC) Connection() (grpc.ClientConnInterface, error) {
 }
 
 // intercept preserves native error details and rejects retained clients after Stop.
-func (backend *BackendGRPC) intercept(ctx context.Context, method string, input, output any, connection *grpc.ClientConn, invoke grpc.UnaryInvoker, options ...grpc.CallOption) error {
+func (backend *ClientGRPC) intercept(ctx context.Context, method string, input, output any, connection *grpc.ClientConn, invoke grpc.UnaryInvoker, options ...grpc.CallOption) error {
 	if _, err := backend.Connection(); err != nil {
 		return fmt.Errorf("call Anki %s: %w", method, err)
 	}
@@ -129,7 +129,7 @@ func (backend *BackendGRPC) intercept(ctx context.Context, method string, input,
 }
 
 // Stop closes the client connection without invoking any server RPC.
-func (backend *BackendGRPC) Stop(context.Context) error {
+func (backend *ClientGRPC) Stop(context.Context) error {
 	backend.mutex.Lock()
 	defer backend.mutex.Unlock()
 	if backend.stopped {

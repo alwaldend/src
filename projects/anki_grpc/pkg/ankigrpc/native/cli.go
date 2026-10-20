@@ -1,4 +1,4 @@
-package ankiservercgo
+package native
 
 /*
 #include <stdlib.h>
@@ -12,10 +12,10 @@ import (
 	"unsafe"
 )
 
-// Run invokes the native CLI with a full argument vector including its program name.
-// Its serve subcommand blocks until the server exits; Run reports nonzero native exit statuses.
+// RunServer invokes the native CLI with a full argument vector including its program name.
+// Its serve subcommand blocks until the server exits; RunServer reports nonzero native exit statuses.
 // Arguments are copied into native-owned strings and retained only for this call.
-func Run(arguments []string) error {
+func RunServer(arguments []string) error {
 	if len(arguments) == 0 || len(arguments) > 1<<31-1 {
 		return fmt.Errorf("Anki CLI requires a supported argument count including its program name")
 	}

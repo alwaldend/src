@@ -39,7 +39,7 @@ rust_library(
     ],
     visibility = [
         "//projects/anki_grpc/cmd/anki_grpc:__pkg__",
-        "//projects/anki_grpc/pkg/ankiservercgo:__pkg__",
+        "//projects/anki_grpc/pkg/ankigrpc/native:__pkg__",
     ],
     deps = [
         ":command_ids",

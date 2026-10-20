@@ -19,6 +19,7 @@ import (
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/resource"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/state"
 	"git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/ankiclient"
+	"git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/ankigrpc"
 	"github.com/BurntSushi/toml"
 	"github.com/ankitects/anki/proto/anki/cards"
 	ankicol "github.com/ankitects/anki/proto/anki/collection"
@@ -42,7 +43,7 @@ type fixtureClient struct {
 	// opened records whether cleanup must close a collection; native package export closes it itself.
 	opened bool
 	// worker owns the fixture server and its connection.
-	worker ankiclient.Backend
+	worker ankiclient.Client
 	// collections controls the open collection lifetime.
 	collections ankicol.BackendCollectionServiceClient
 	// decks exposes native deck operations.
@@ -93,13 +94,26 @@ func fixtureCLIPath() string {
 
 // fixtureApplication configures application workflows with the linked CLI's server command.
 func fixtureApplication() *App {
-	return New(Options{BackendBinary: fixtureCLIPath(), BackendArguments: []string{"server", "serve"}})
+	return New(Options{NewClient: ankigrpc.ClientFactoryFunc[ankiclient.Client](func(address string) (ankiclient.Client, error) {
+		if address == "" {
+			client, err := ankigrpc.NewSubprocessClient(ankigrpc.SubprocessAddress(fixtureCLIPath(), "server", "serve"))
+			if err != nil {
+				return nil, fmt.Errorf("construct default fixture worker: %w", err)
+			}
+			return client, nil
+		}
+		client, err := ankigrpc.NewClient(address)
+		if err != nil {
+			return nil, fmt.Errorf("construct fixture client: %w", err)
+		}
+		return client, nil
+	})})
 }
 
 // connectFixture opens an existing or new private collection with generated clients.
 func connectFixture(t *testing.T, database string) *fixtureClient {
 	t.Helper()
-	worker := ankiclient.New(ankiclient.BackendSTDOptions{Binary: fixtureCLIPath(), Arguments: []string{"server", "serve"}})
+	worker := ankiclient.NewSTD(ankiclient.ClientSTDOptions{Binary: fixtureCLIPath(), Arguments: []string{"server", "serve"}})
 	if err := worker.Start(context.Background()); err != nil {
 		t.Fatal(err)
 	}

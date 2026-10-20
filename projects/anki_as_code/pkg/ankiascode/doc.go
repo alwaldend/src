@@ -9,7 +9,7 @@
 // Rust/cgo or duplicate native transport/storage logic. The executable supplies
 // native adapters. Collection operations select an owned path or borrowed
 // connection per call; only path sources require explicit backend configuration.
-// Path operations select an external address per call or use an owned stdio worker.
-// Raw API calls also accept explicit server addresses; App owns those connections.
+// Path operations select an address per call or delegate defaults to the injected factory.
+// Raw API calls also accept explicit server addresses; ankigrpc owns their client scopes.
 // Borrowed connections retain caller-owned lifetime and package publication.
 package ankiascode

@@ -1,5 +1,13 @@
 load("@rules_go//go:def.bzl", "go_library", "go_test")
 
+package_group(
+    name = "consumers",
+    packages = [
+        "//projects/anki_as_code/...",
+        "//projects/anki_grpc/...",
+    ],
+)
+
 go_library(
     name = "ankiclient",
     srcs = [
@@ -11,11 +19,7 @@ go_library(
         "network.go",
     ],
     importpath = "git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/ankiclient",
-    target_compatible_with = [
-        "@platforms//os:linux",
-        "@platforms//cpu:x86_64",
-    ],
-    visibility = ["//projects/anki_as_code:__subpackages__"],
+    visibility = [":consumers"],
     deps = [
         "//third_party/com_github_ankitects_anki:backend",
         "//third_party/com_github_ankitects_anki:collection",
@@ -43,6 +47,8 @@ go_test(
     ],
     deps = [
         ":ankiclient",
+        "//projects/anki_grpc/pkg/ankigrpc",
+        "//projects/anki_grpc/pkg/ankigrpc/native",
         "//third_party/com_github_ankitects_anki:backend",
         "//third_party/com_github_ankitects_anki:collection",
         "//third_party/com_github_ankitects_anki:decks",

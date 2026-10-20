@@ -16,7 +16,7 @@ type collectionConnection struct {
 	// ClientConnInterface delegates the unchanged borrowed transport interface.
 	grpc.ClientConnInterface
 	// owner supplies readiness and serialized consuming-call lifetime.
-	owner *BackendCollection
+	owner *ClientCollection
 }
 
 // Invoke registers native calls with the owner and retains uncertainty after an

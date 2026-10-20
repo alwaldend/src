@@ -67,8 +67,8 @@ leaves the backend available to later clients.
 
 ## Linked server
 
-`pkg/ankiservercgo` exposes the same Rust entry point to Go through cgo and one C ABI
-argument-vector function. `ankiservercgo.Run(arguments)` takes a full argument vector,
+`pkg/ankigrpc/native` exposes the same Rust entry point to Go through cgo and one C ABI
+argument-vector function. `native.RunServer(arguments)` takes a full argument vector,
 including the program name, executes the native CLI and reports native failures.
 The serve subcommand blocks until shutdown and owns the process's protocol streams. There are no per-RPC FFI
 bindings: clients continue to use ordinary gRPC and generated Anki messages.
@@ -84,10 +84,13 @@ Rust/C toolchains; linking introduces no new external dependencies.
 
 ## Backend build preparation
 
-The public command targets retain their executable names and currently select
-explicit native implementation targets. `//projects/anki_grpc:backend` accepts
-`cgo`, its default. The application command binds `ankiservercgo.Run` separately
-from shared application composition.
+The public command targets retain their executable names. Build-selected command
+source files opt into `pkg/ankigrpc/native` for native hosting and scheme registration. The independent boolean
+`//projects/anki_grpc:cgo` defaults to true; set it to false to build the application
+command without a linked engine. Core client and application libraries stay pure Go
+even when cgo support is enabled for the executable. Optional native support lives
+in `pkg/ankigrpc/native`; importing the generic parent never links it. WASM runtime
+support remains deferred.
 
 The repository also pins wazero v1.12.0 and the WASI SDK 34.0 sysroot for
 storage build validation. The Rust WASI probe uses the built-in `platform` attribute, preserving the
@@ -109,7 +112,8 @@ preparation includes no WASM Anki server or guest port.
 - `pkg/ankiserver/lib.rs`: Transport listeners, opaque protobuf codec, and Anki dispatch.
 - `pkg/ankiserver/cli.rs`: Platform-independent `server_cli` library for help and transport validation.
 - `pkg/ankiserver/build.rs`: Command lookup generated from Anki's own descriptors.
-- `pkg/ankiservercgo/ffi.rs` and `server.go`: C ABI entry point and Go wrapper.
+- `pkg/ankigrpc/native/`: Optional native C ABI bridge, CLI hosting and client registration.
+- `pkg/ankigrpc/`: Pure Go connection-string routing and client construction.
 - `pkg/ankiclient/`: Reusable Go owner of the server process and gRPC connection.
 - `docs/architecture.mmd`: Client, server, and storage diagram source.
 - `test/transport/`: CLI and network transport E2E using official Anki messages.
@@ -139,32 +143,63 @@ TCP and Unix clients can use normal gRPC connections with the same generated cli
 
 ## Go client
 
-Import `git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/ankiclient`.
-`Backend` exposes `Start(context.Context) error`,
+Import `git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/ankigrpc` for
+`NewClient(address)`. It constructs an unstarted lifecycle owner. TCP and Unix
+endpoints are built in; other schemes require explicit registration. Empty library
+addresses are rejected because the library owns no default worker entrypoint.
+
+The executable registers its worker schemes through the common API:
+
+```go
+factory := ankigrpc.ClientFactoryFunc[*ankiclient.ClientSTD](ankigrpc.NewSubprocessClient)
+ankigrpc.RegisterClientFactory("subprocess", factory)
+```
+
+`NewSubprocessClient` returns the concrete stdio client and requires an executable
+in the URL. Use `ankigrpc.SubprocessAddress(binary, arguments...)` to preserve
+literal paths and argv. Arguments are passed exactly, including zero arguments.
+The executable owns supported worker schemes, entrypoints, server arguments and
+any empty-operation default supplied by its injected factory. Importing the
+native package does not register subprocess workers.
+
+`ClientFactory` exposes `NewClient(address string) (ankiclient.Client, error)`.
+`ClientFactoryFunc[T]` adapts a constructor returning any concrete client T to that
+runtime interface. Fixed constructors retain concrete results; scheme dispatch
+and consumer injection use the shared lifecycle contract. Registrations retain
+constructors, never clients, and reject duplicate or invalid schemes. Unavailable
+schemes fail without fallback. Native workers receive no injected platform flags.
+
+`WithClient(ctx, factory, address, operation)` constructs through the supplied
+factory (or `NewClient` when nil), starts the client, lends its ready connection
+and stops it with a five-second budget independent of request cancellation. It
+opens and reserves no collection. Collection publication and reservations remain
+with the application's collection store.
+
+`pkg/ankiclient` supplies the shared lifecycle implementations and collection scopes.
+`Client` describes ownership and cleanup; RPC access remains the existing gRPC
+connection interface, which can be shared by generated service clients.
+`Client` exposes `Start(context.Context) error`,
 `Connection() (grpc.ClientConnInterface, error)`, and `Stop(context.Context) error`.
-`BackendSTD` implements it using the server's stdin/stdout. `ankiclient.New` accepts
-one `BackendSTDOptions` value with `Binary`, `Arguments`, and `ShutdownTimeout`.
+`ClientSTD` implements it using the server's stdin/stdout. `ankiclient.NewSTD` accepts
+one `ClientSTDOptions` value with `Binary`, `Arguments`, and `ShutdownTimeout`.
 It copies the arguments without starting a process. A zero shutdown timeout uses
 five seconds; Start rejects negative timeouts. `Start`
 launches the server and creates its gRPC connection, waiting for readiness. Its
 context controls startup only: cancelling it after successful startup leaves the
 worker running. The child inherits the parent
-environment and stderr. The caller supplies the exact server executable. For compatibility
-with existing application consumers, the Bazel Go library also includes the default
-worker as transitive runtime data. Other executable paths require their own runtime
-inputs. Failed startup releases its resources and reaps the child.
-The backend owns a separate lifetime context for the command.
+environment and stderr. The caller supplies the exact server executable. Callers declare the executable as a runtime input. Failed startup releases its
+resources and reaps the child.
+The process client owns a separate lifetime context for the command.
 
-The backend exposes `grpc.ClientConnInterface` through `Connection`. Construct
+The client exposes `grpc.ClientConnInterface` through `Connection`. Construct
 Anki's generated service clients with it; each method accepts a typed request and
 returns a typed response. There are no handwritten per-operation wrappers.
 
 ```go
-var worker ankiclient.Backend = ankiclient.New(ankiclient.BackendSTDOptions{
-    Binary:          workerPath,
-    Arguments:       []string{"serve", "--transport", "stdio"},
-    ShutdownTimeout: 5 * time.Second,
-})
+worker, err := ankigrpc.NewClient(ankigrpc.SubprocessAddress(workerPath, "serve", "--transport", "stdio"))
+if err != nil {
+    return fmt.Errorf("construct Anki client: %w", err)
+}
 if err := worker.Start(ctx); err != nil {
     return fmt.Errorf("start Anki: %w", err)
 }
@@ -216,7 +251,7 @@ Callers package their configured executable; native tests declare their own fixt
 
 ### Existing gRPC server
 
-`ankiclient.NewGRPC(ankiclient.BackendGRPCOptions{Address: endpoint})` implements the
+`ankiclient.NewGRPC(ankiclient.ClientGRPCOptions{Address: endpoint})` implements the
 same Start, Connection and Stop interface for a running server. Endpoints accept
 TCP host:port, `tcp://host:port`, `unix:///absolute/path` and absolute socket paths.
 Unix URI paths may also be relative to the client's working directory.
@@ -226,11 +261,11 @@ reject calls after Stop. Native error trailers are decoded as for stdio.
 
 ### Collection backend
 
-`BackendCollection` implements the same interface for collection lifetime. It
+`ClientCollection` implements the same interface for collection lifetime. It
 borrows an already-started backend and never starts or stops that backend:
 
 ```go
-collectionBackend := ankiclient.NewCollection(ankiclient.BackendCollectionOptions{
+collectionBackend := ankiclient.NewCollection(ankiclient.ClientCollectionOptions{
     Backend: worker, // already started; no collection open
     Path:    "/path/to/collection.colpkg", // or collection.anki2
 })
@@ -304,7 +339,7 @@ owns its callback scope and source reservations. The backend library owns archiv
 write-back, readiness, shutdown and restore retention. Operation errors do not
 suppress enabled write-back; callers preserve operation and cleanup errors together.
 
-Public backend names are `BackendSTD`, `BackendGRPC` and `BackendCollection`. The Go package
+Public client implementation names are `ClientSTD`, `ClientGRPC` and `ClientCollection`. The Go package
 is `ankiclient`; `anki_grpc` is the project and server name.
 
 ## Verification
