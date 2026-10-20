@@ -17,6 +17,7 @@ import (
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/rebuild"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/pkg/ankiascode"
 	"git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/ankiclient"
+	"git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/ankigrpc"
 	"github.com/ankitects/anki/proto/anki/import_export"
 	"github.com/bazelbuild/rules_go/go/runfiles"
 	"google.golang.org/protobuf/encoding/protojson"
@@ -32,7 +33,20 @@ func TestArchiveBuild(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	application := ankiascode.New(ankiascode.Options{BackendBinary: binary, BackendArguments: []string{"serve"}})
+	application := ankiascode.New(ankiascode.Options{NewClient: ankigrpc.ClientFactoryFunc[ankiclient.Client](func(address string) (ankiclient.Client, error) {
+		if address == "" {
+			client, err := ankigrpc.NewSubprocessClient(ankigrpc.SubprocessAddress(binary, "serve"))
+			if err != nil {
+				return nil, fmt.Errorf("construct default fixture worker: %w", err)
+			}
+			return client, nil
+		}
+		client, err := ankigrpc.NewClient(address)
+		if err != nil {
+			return nil, fmt.Errorf("construct fixture client: %w", err)
+		}
+		return client, nil
+	})})
 	wanted := &ankiascodepb.State{Version: 1, Resources: &ankiascodepb.Resources{
 		Decks: map[string]*ankiascodepb.DeckState{"decks/Default/deck.anki.toml": {Id: 1}},
 	}}
@@ -195,7 +209,7 @@ func createArchive(t *testing.T, path string) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	worker := ankiclient.New(ankiclient.BackendSTDOptions{Binary: binary, Arguments: []string{"serve"}})
+	worker := ankiclient.NewSTD(ankiclient.ClientSTDOptions{Binary: binary, Arguments: []string{"serve"}})
 	t.Cleanup(func() {
 		ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 		defer cancel()
@@ -210,7 +224,7 @@ func createArchive(t *testing.T, path string) {
 	if err := os.Mkdir(filepath.Join(directory, "collection.media"), 0o700); err != nil {
 		t.Fatal(err)
 	}
-	collection := ankiclient.NewCollection(ankiclient.BackendCollectionOptions{
+	collection := ankiclient.NewCollection(ankiclient.ClientCollectionOptions{
 		Backend: worker, Path: filepath.Join(directory, "collection.anki2"),
 	})
 	t.Cleanup(func() {

@@ -36,8 +36,8 @@ filegroup(
     name = "clippy",
     srcs = [
         ":command_clippy",
+        "//projects/anki_grpc/pkg/ankigrpc/native:clippy",
         "//projects/anki_grpc/pkg/ankiserver:clippy",
-        "//projects/anki_grpc/pkg/ankiservercgo:clippy",
     ],
     visibility = ["//projects/anki_grpc:__pkg__"],
 )

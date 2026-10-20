@@ -20,7 +20,7 @@ import (
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/resource"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/rpc"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/state"
-	"git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/ankiclient"
+	"git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/ankigrpc"
 	"google.golang.org/grpc"
 )
 
@@ -28,21 +28,21 @@ import (
 // Its zero value supports configuration operations and borrowed connections. Use
 // New to configure a native backend for path sources; do not copy App after use.
 type App struct {
+	// clientFactory supplies the same address-selected constructors to API and collection scopes.
+	clientFactory ankigrpc.ClientFactory
 	// collections reserves sources and owns managed archive publication.
 	collections collection.Store
 	// serverRunner hosts the server CLI through the adapter supplied by the executable.
 	serverRunner func([]string) error
 }
 
-// Options supplies backend settings and an optional server hosting adapter.
+// Options supplies client construction, cleanup policy and an optional server hosting adapter.
 type Options struct {
+	// NewClient constructs clients and selects its default when an operation address is empty.
+	NewClient ankigrpc.ClientFactory
 	// ServerRunner hosts a full server argument vector, including its program name.
 	// It owns serving until return or process termination; collection operations do not use it.
 	ServerRunner func([]string) error
-	// BackendBinary supplies the default worker executable; no default is discovered.
-	BackendBinary string
-	// BackendArguments supplies its server-mode arguments.
-	BackendArguments []string
 	// CollectionCloseTimeout bounds publication and close independently of request cancellation; nonpositive values select ten minutes.
 	CollectionCloseTimeout time.Duration
 }
@@ -50,7 +50,10 @@ type Options struct {
 // New constructs an application from explicit backend and server hosting dependencies.
 func New(options Options) *App {
 	return &App{
-		collections:  collection.New(collection.Options{Backend: ankiclient.BackendSTDOptions{Binary: options.BackendBinary, Arguments: options.BackendArguments}, CloseTimeout: options.CollectionCloseTimeout}),
+		clientFactory: options.NewClient,
+		collections: collection.New(collection.Options{
+			NewClient: options.NewClient, CloseTimeout: options.CollectionCloseTimeout,
+		}),
 		serverRunner: options.ServerRunner,
 	}
 }
@@ -130,22 +133,10 @@ func (application *App) APICall(ctx context.Context, request ankiascodeapi.APIRe
 		return nil
 	}
 	if options.Address != "" {
-		remote := ankiclient.NewGRPC(ankiclient.BackendGRPCOptions{Address: options.Address})
-		defer func() {
-			if stopErr := remote.Stop(context.WithoutCancel(ctx)); stopErr != nil {
-				output = nil
-				err = errors.Join(err, fmt.Errorf("close remote Anki connection: %w", stopErr))
-			}
-		}()
-		if err := remote.Start(ctx); err != nil {
-			return nil, fmt.Errorf("start remote Anki connection: %w", err)
+		if err := ankigrpc.WithClient(ctx, application.clientFactory, options.Address, run); err != nil {
+			return nil, fmt.Errorf("call addressed Anki API: %w", err)
 		}
-		connection, err = remote.Connection()
-		if err != nil {
-			return nil, fmt.Errorf("get remote Anki connection: %w", err)
-		}
-	}
-	if connection != nil {
+	} else if connection != nil {
 		if err := run(connection); err != nil {
 			return nil, fmt.Errorf("call connected Anki API: %w", err)
 		}

@@ -273,7 +273,7 @@ func startBackend(t *testing.T, ctx context.Context) grpc.ClientConnInterface {
 	if err != nil {
 		t.Fatal(err)
 	}
-	worker := ankiclient.New(ankiclient.BackendSTDOptions{Binary: binary, Arguments: []string{"serve"}})
+	worker := ankiclient.NewSTD(ankiclient.ClientSTDOptions{Binary: binary, Arguments: []string{"serve"}})
 	t.Cleanup(func() {
 		cleanup, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 		defer cancel()

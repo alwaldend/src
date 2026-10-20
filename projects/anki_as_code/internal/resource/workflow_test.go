@@ -28,8 +28,8 @@ func TestResourceWorkflow(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	worker := ankiclient.New(ankiclient.BackendSTDOptions{Binary: binary, Arguments: []string{"serve"}})
-	collection := ankiclient.NewCollection(ankiclient.BackendCollectionOptions{Backend: worker, Path: filepath.Join(t.TempDir(), "collection.anki2")})
+	worker := ankiclient.NewSTD(ankiclient.ClientSTDOptions{Binary: binary, Arguments: []string{"serve"}})
+	collection := ankiclient.NewCollection(ankiclient.ClientCollectionOptions{Backend: worker, Path: filepath.Join(t.TempDir(), "collection.anki2")})
 	t.Cleanup(func() {
 		cleanup, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 		defer cancel()

@@ -10,6 +10,7 @@ import (
 	"time"
 
 	"git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/ankiclient"
+	"git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/ankigrpc"
 	"google.golang.org/grpc"
 )
 
@@ -18,8 +19,8 @@ const backendCleanupTimeout = 5 * time.Second
 
 // Options configures managed native scopes and their collection publication budget.
 type Options struct {
-	// Backend supplies the exact server executable and process policy.
-	Backend ankiclient.BackendSTDOptions
+	// NewClient constructs clients and selects its default when an operation address is empty.
+	NewClient ankigrpc.ClientFactory
 	// CloseTimeout bounds collection publication and close, independently of request cancellation.
 	// Nonpositive values select ten minutes; transport shutdown has a separate five-second budget.
 	CloseTimeout time.Duration
@@ -27,7 +28,7 @@ type Options struct {
 
 // CollectionOptions selects the source and publication policy for one offline scope.
 type CollectionOptions struct {
-	// Address selects an existing plaintext TCP or Unix server; empty uses the configured worker.
+	// Address selects a client; an empty address delegates default selection to the factory.
 	Address string
 	// Path identifies an existing collection database or package archive.
 	Path string
@@ -39,8 +40,8 @@ type CollectionOptions struct {
 // Store reserves collection sources within explicitly configured native scopes.
 // Use New for native access. Store must not be copied after use.
 type Store struct {
-	// backendOptions supplies the exact executable and process policy chosen by the caller.
-	backendOptions ankiclient.BackendSTDOptions
+	// newClient delegates address interpretation to the client library.
+	newClient ankigrpc.ClientFactory
 	// closeTimeout allows native archive publication to outlive transport shutdown's short budget.
 	closeTimeout time.Duration
 	// mutex protects source reservations, never native work.
@@ -49,26 +50,38 @@ type Store struct {
 	entries map[string]os.FileInfo
 }
 
-// New configures native scopes with explicit worker options; it starts no process.
+// New configures managed collection scopes; it starts no client or process.
 func New(options Options) Store {
 	closeTimeout := options.CloseTimeout
 	if closeTimeout <= 0 {
 		closeTimeout = 10 * time.Minute
 	}
-	options.Backend.Arguments = append([]string(nil), options.Backend.Arguments...)
-	return Store{backendOptions: options.Backend, closeTimeout: closeTimeout}
+	return Store{newClient: options.NewClient, closeTimeout: closeTimeout}
+}
+
+// createClient delegates connection-string interpretation and construction to anki_grpc.
+func (store *Store) createClient(address string) (ankiclient.Client, error) {
+	constructor := store.newClient
+	if constructor == nil {
+		if address == "" {
+			return nil, fmt.Errorf("collection access requires a configured client factory or per-operation client address")
+		}
+		constructor = ankigrpc.ClientFactoryFunc[ankiclient.Client](ankigrpc.NewClient)
+	}
+	client, err := constructor.NewClient(address)
+	if err != nil {
+		return nil, fmt.Errorf("construct Anki client: %w", err)
+	}
+	return client, nil
 }
 
 // WithCollection reserves a source and lends its managed native connection.
 // The callback's change result is retained for existing workflow composition but
-// does not govern persistence. BackendCollection publishes archives during cleanup
+// does not govern persistence. ClientCollection publishes archives during cleanup
 // when WriteBack is enabled, independently of callback results. Database writes persist in place.
 // Callers construct services on the connection and finish all work before returning.
 // Store starts and stops both native owners; retained connections reject later calls.
 func (store *Store) WithCollection(ctx context.Context, options CollectionOptions, operation func(grpc.ClientConnInterface) (bool, error)) error {
-	if options.Address == "" && store.backendOptions.Binary == "" {
-		return fmt.Errorf("collection access requires an explicit backend executable")
-	}
 	if operation == nil {
 		return fmt.Errorf("collection access requires an operation")
 	}
@@ -81,14 +94,12 @@ func (store *Store) WithCollection(ctx context.Context, options CollectionOption
 		delete(store.entries, source)
 		store.mutex.Unlock()
 	}()
-	var worker ankiclient.Backend
-	if options.Address == "" {
-		worker = ankiclient.New(store.backendOptions)
-	} else {
-		worker = ankiclient.NewGRPC(ankiclient.BackendGRPCOptions{Address: options.Address})
+	worker, err := store.createClient(options.Address)
+	if err != nil {
+		return fmt.Errorf("select collection client: %w", err)
 	}
 	if err := withBackend(ctx, worker, backendCleanupTimeout, func() error {
-		prepared := ankiclient.NewCollection(ankiclient.BackendCollectionOptions{Backend: worker, Path: source, WriteBack: options.WriteBack})
+		prepared := ankiclient.NewCollection(ankiclient.ClientCollectionOptions{Backend: worker, Path: source, WriteBack: options.WriteBack})
 		if err := withBackend(ctx, prepared, store.closeTimeout, func() error {
 			connection, err := prepared.Connection()
 			if err != nil {
@@ -113,7 +124,7 @@ func (store *Store) WithCollection(ctx context.Context, options CollectionOption
 
 // withBackend starts one owned backend and stops it after every startup attempt or callback exit.
 // Cleanup is bounded independently of cancellation; callback and cleanup errors remain discoverable.
-func withBackend(ctx context.Context, owned ankiclient.Backend, closeTimeout time.Duration, operation func() error) (err error) {
+func withBackend(ctx context.Context, owned ankiclient.Client, closeTimeout time.Duration, operation func() error) (err error) {
 	if err := ctx.Err(); err != nil {
 		return fmt.Errorf("start backend scope: %w", errors.Join(err, context.Cause(ctx)))
 	}

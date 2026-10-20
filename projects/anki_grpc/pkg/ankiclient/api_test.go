@@ -6,12 +6,14 @@ import (
 	"errors"
 	"flag"
 	"fmt"
+	"net/url"
 	"os"
 	"os/exec"
 	"path/filepath"
 	"reflect"
 	"strconv"
 	"strings"
+	"sync"
 	"syscall"
 	"testing"
 	"time"
@@ -19,6 +21,8 @@ import (
 	"github.com/bazelbuild/rules_go/go/runfiles"
 
 	"git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/ankiclient"
+	"git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/ankigrpc"
+	_ "git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/ankigrpc/native"
 	ankibackend "github.com/ankitects/anki/proto/anki/backend"
 	"github.com/ankitects/anki/proto/anki/collection"
 	"github.com/ankitects/anki/proto/anki/generic"
@@ -44,15 +48,112 @@ func workerPath(t *testing.T) string {
 	return path
 }
 
+// workerFactoriesOnce installs worker schemes for this test executable's owned fixture.
+var workerFactoriesOnce sync.Once
+
+// registerWorkerFactories explicitly registers workers packaged by this E2E executable.
+func registerWorkerFactories(t *testing.T) {
+	t.Helper()
+	workerFactoriesOnce.Do(func() {
+		factory := ankigrpc.ClientFactoryFunc[*ankiclient.ClientSTD](ankigrpc.NewSubprocessClient)
+		for _, scheme := range []string{"subprocess", "subprocess+cgo"} {
+			if _, err := ankigrpc.NewClient(scheme + "://unconfigured-worker"); err == nil {
+				t.Fatalf("library import registered an unowned worker: %s", scheme)
+			}
+			ankigrpc.RegisterClientFactory(scheme, factory)
+		}
+	})
+}
+
+// TestSubprocessArguments verifies owner registration, explicit executable selection and exact argv.
+func TestSubprocessArguments(t *testing.T) {
+	registerWorkerFactories(t)
+	binary := workerPath(t)
+	root := t.TempDir()
+	if err := os.Symlink(binary, filepath.Join(root, "anki_grpc")); err != nil {
+		t.Fatal(err)
+	}
+	t.Setenv("PATH", root)
+	query := url.Values{"binary": {binary}}
+	for _, scheme := range []string{"subprocess", "subprocess+cgo"} {
+		t.Run(scheme+"-zero-arguments", func(t *testing.T) {
+			worker, err := ankigrpc.NewClient(scheme + "://?" + query.Encode())
+			if err != nil {
+				t.Fatal(err)
+			}
+			startupError := worker.Start(t.Context())
+			if err := worker.Stop(context.Background()); err != nil {
+				var exit *exec.ExitError
+				if !errors.As(err, &exit) {
+					t.Error(err)
+				}
+			}
+			if startupError == nil {
+				t.Fatal("zero URL arguments were replaced with a server command")
+			}
+		})
+	}
+	if _, err := ankigrpc.NewClient(""); err == nil {
+		t.Fatal("empty library address selected an unconfigured worker")
+	}
+	if _, err := ankigrpc.NewSubprocessClient("subprocess://?arg=serve"); err == nil {
+		t.Fatal("subprocess constructor guessed an executable")
+	}
+	worker, err := ankigrpc.NewClient(ankigrpc.SubprocessAddress(binary, "serve"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	t.Cleanup(func() {
+		if err := worker.Stop(context.Background()); err != nil {
+			t.Error(err)
+		}
+	})
+	if err := worker.Start(t.Context()); err != nil {
+		t.Fatalf("explicit worker did not start its server command: %v", err)
+	}
+	connection, err := worker.Connection()
+	if err != nil {
+		t.Fatal(err)
+	}
+	if _, err := collection.NewBackendCollectionServiceClient(connection).LatestProgress(t.Context(), &generic.Empty{}); err != nil {
+		t.Fatalf("explicit server command did not accept generated calls: %v", err)
+	}
+	writeReport(t, "subprocess-arguments.json", map[string]any{"zero_url_arguments": true, "qualified_zero_url_arguments": true, "explicit_worker_command": true, "owner_registration_required": true, "empty_library_address_rejected": true})
+}
+
 // TestNativeCollection verifies native persistence, card generation, and transport failures.
 func TestNativeCollection(t *testing.T) {
+	registerWorkerFactories(t)
 	ctx := t.Context()
+	empty, err := ankigrpc.NewClient(ankigrpc.SubprocessAddress(workerPath(t)))
+	if err != nil {
+		t.Fatal(err)
+	}
+	startupError := empty.Start(ctx)
+	if err := empty.Stop(context.Background()); err != nil {
+		var exit *exec.ExitError
+		if !errors.As(err, &exit) {
+			t.Error(err)
+		}
+	}
+	if startupError == nil {
+		t.Fatal("an explicit empty argv was replaced with the serve default")
+	}
+	binary := filepath.Join(t.TempDir(), "worker # literal? name")
+	if err := os.Symlink(workerPath(t), binary); err != nil {
+		t.Fatal(err)
+	}
 	arguments := []string{"serve", "--transport", "stdio"}
-	var worker ankiclient.Backend = ankiclient.New(ankiclient.BackendSTDOptions{
-		Binary:    workerPath(t),
-		Arguments: arguments,
-	})
+	worker, err := ankigrpc.NewClient(ankigrpc.SubprocessAddress(binary, arguments...))
+	if err != nil {
+		t.Fatal(err)
+	}
 	arguments[1] = "invalid"
+	for _, address := range []string{"subprocess+missing://worker", "inprocess+cgo://worker", "subprocess://?shutdown_timeout=invalid", "subprocess://?unknown=value", "subprocess:///%zz", "subprocess+cgo:///%zz"} {
+		if _, err := ankigrpc.NewClient(address); err == nil {
+			t.Fatalf("unsupported or malformed address accepted: %s", address)
+		}
+	}
 	if connection, err := worker.Connection(); err == nil || connection != nil {
 		t.Fatal("constructor exposed a connection without an availability error")
 	}
@@ -269,7 +370,7 @@ func TestWorkerStartupDeadline(t *testing.T) {
 	t.Setenv("ANKI_E2E_UNRESPONSIVE_WORKER", "1")
 	marker := filepath.Join(t.TempDir(), "startup-marker")
 	t.Setenv("ANKI_E2E_STARTUP_MARKER", marker)
-	worker := ankiclient.New(ankiclient.BackendSTDOptions{
+	worker := ankiclient.NewSTD(ankiclient.ClientSTDOptions{
 		Binary:    os.Args[0],
 		Arguments: []string{"-test.run=^TestWorkerStartupDeadline$"},
 	})
@@ -304,14 +405,14 @@ func TestWorkerStartupDeadline(t *testing.T) {
 
 // TestBackendLifecycle verifies no-op stop, invalid commands, and startup context isolation.
 func TestBackendLifecycle(t *testing.T) {
-	var unstarted ankiclient.Backend = ankiclient.New(ankiclient.BackendSTDOptions{Binary: workerPath(t), Arguments: []string{"serve"}})
+	var unstarted ankiclient.Client = ankiclient.NewSTD(ankiclient.ClientSTDOptions{Binary: workerPath(t), Arguments: []string{"serve"}})
 	if err := unstarted.Stop(t.Context()); err != nil {
 		t.Fatal(err)
 	}
 	if err := unstarted.Start(t.Context()); err == nil {
 		t.Fatal("stopped configuration started a worker")
 	}
-	missing := ankiclient.New(ankiclient.BackendSTDOptions{Binary: filepath.Join(t.TempDir(), "missing-worker")})
+	missing := ankiclient.NewSTD(ankiclient.ClientSTDOptions{Binary: filepath.Join(t.TempDir(), "missing-worker")})
 	if err := missing.Start(t.Context()); err == nil {
 		t.Fatal("missing executable accepted")
 	}
@@ -320,7 +421,7 @@ func TestBackendLifecycle(t *testing.T) {
 	}
 	ctx, cancel := context.WithTimeout(t.Context(), 10*time.Second)
 	defer cancel()
-	negative := ankiclient.New(ankiclient.BackendSTDOptions{
+	negative := ankiclient.NewSTD(ankiclient.ClientSTDOptions{
 		Binary:          workerPath(t),
 		ShutdownTimeout: -time.Second,
 	})
@@ -332,7 +433,7 @@ func TestBackendLifecycle(t *testing.T) {
 	if err := negative.Start(ctx); err == nil {
 		t.Fatal("negative shutdown timeout accepted")
 	}
-	invalid := ankiclient.New(ankiclient.BackendSTDOptions{
+	invalid := ankiclient.NewSTD(ankiclient.ClientSTDOptions{
 		Binary:    workerPath(t),
 		Arguments: []string{"--invalid-argument"},
 	})
@@ -382,14 +483,14 @@ func TestWorkerStopDeadline(t *testing.T) {
 		t.Run(scenario, func(t *testing.T) {
 			marker := filepath.Join(t.TempDir(), "inner-reaped")
 			t.Setenv("ANKI_E2E_INNER_REAPED", marker)
-			options := ankiclient.BackendSTDOptions{
+			options := ankiclient.ClientSTDOptions{
 				Binary:    os.Args[0],
 				Arguments: []string{"-test.run=^TestWorkerStopDeadline$", "-worker=" + *workerBinary},
 			}
 			if scenario == "configured" {
 				options.ShutdownTimeout = 500 * time.Millisecond
 			}
-			worker := ankiclient.New(options)
+			worker := ankiclient.NewSTD(options)
 			if err := worker.Start(t.Context()); err != nil {
 				t.Fatal(err)
 			}
@@ -464,12 +565,12 @@ func TestWorkerStopDeadline(t *testing.T) {
 }
 
 // startRecordedWorker runs Anki through an exec replacement that records its PID.
-func startRecordedWorker(t *testing.T, ctx context.Context) (ankiclient.Backend, int) {
+func startRecordedWorker(t *testing.T, ctx context.Context) (*ankiclient.ClientSTD, int) {
 	t.Helper()
 	pidFile := filepath.Join(t.TempDir(), "worker.pid")
 	t.Setenv("ANKI_E2E_RECORD_PID", "1")
 	t.Setenv("ANKI_E2E_PID_FILE", pidFile)
-	var worker ankiclient.Backend = ankiclient.New(ankiclient.BackendSTDOptions{
+	worker := ankiclient.NewSTD(ankiclient.ClientSTDOptions{
 		Binary:    os.Args[0],
 		Arguments: []string{"-test.run=^TestWorkerFailure$", "-worker=" + *workerBinary},
 	})

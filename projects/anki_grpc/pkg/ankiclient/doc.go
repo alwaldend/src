@@ -1,9 +1,9 @@
 // Package ankiclient supplies managed gRPC connections for generated Anki clients.
-// BackendSTD owns explicitly configured process startup, shutdown, crash reporting
+// ClientSTD owns explicitly configured process startup, shutdown, crash reporting
 // and reaping. Its Start context controls startup; Stop bounds graceful shutdown
 // and forces termination through a backend-owned process context when needed.
-// BackendGRPC owns only its remote client connection and never stops the server.
-// BackendCollection borrows an already-started backend, opens databases or restores
+// ClientGRPC owns only its remote client connection and never stops the server.
+// ClientCollection borrows an already-started backend, opens databases or restores
 // packages, gates collection clients and closes native storage without stopping
 // the backend. Callers compose these lifetimes and stop collections before workers.
 // Package sources remain unchanged unless WriteBack is explicitly enabled;

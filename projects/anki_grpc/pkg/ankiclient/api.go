@@ -23,21 +23,21 @@ import (
 // ankiErrorTrailer carries Anki's serialized BackendError on failed native calls.
 const ankiErrorTrailer = "anki-error-bin"
 
-// Backend manages Anki resource readiness and its connection for generated service clients.
-type Backend interface {
+// Client manages Anki resource readiness and its connection for generated service clients.
+type Client interface {
 	// Start prepares owned resources; ctx bounds startup only.
 	Start(ctx context.Context) error
 	// Connection returns the managed connection, or an error when unavailable.
 	Connection() (grpc.ClientConnInterface, error)
-	// Stop uses ctx to bound graceful cleanup; BackendSTD always completes process reaping.
+	// Stop uses ctx to bound graceful cleanup; ClientSTD always completes process reaping.
 	Stop(ctx context.Context) error
 }
 
-// BackendSTDOptions configures the process and shutdown policy used by New.
-type BackendSTDOptions struct {
+// ClientSTDOptions configures the process and shutdown policy used by NewSTD.
+type ClientSTDOptions struct {
 	// Binary is the server executable path or a name resolved through PATH.
 	Binary string
-	// Arguments are the server's CLI arguments; New copies them for the backend.
+	// Arguments are the server's CLI arguments; NewSTD copies them for the backend.
 	Arguments []string
 	// ShutdownTimeout bounds graceful shutdown before forced termination.
 	// Zero uses five seconds; Start rejects negative values.
@@ -45,11 +45,11 @@ type BackendSTDOptions struct {
 	ShutdownTimeout time.Duration
 }
 
-// BackendSTD owns one Anki server process communicating over stdin/stdout.
-// Use New to configure it; BackendSTD must not be copied after use.
-type BackendSTD struct {
+// ClientSTD owns one Anki server process communicating over stdin/stdout.
+// Use NewSTD to configure it; ClientSTD must not be copied after use.
+type ClientSTD struct {
 	// options are owned process settings with a resolved default shutdown timeout.
-	options BackendSTDOptions
+	options ClientSTDOptions
 	// lifecycle serializes process configuration with shutdown and connection access.
 	lifecycle sync.Mutex
 	// started records the single startup attempt permitted for this instance.
@@ -76,20 +76,20 @@ type BackendSTD struct {
 	stopError error
 }
 
-// New configures a stdin/stdout backend without starting its server.
+// NewSTD configures a stdin/stdout backend without starting its server.
 // It copies options.Arguments; the child inherits the parent environment and stderr.
-func New(options BackendSTDOptions) *BackendSTD {
+func NewSTD(options ClientSTDOptions) *ClientSTD {
 	options.Arguments = append([]string(nil), options.Arguments...)
 	if options.ShutdownTimeout == 0 {
 		options.ShutdownTimeout = 5 * time.Second
 	}
-	return &BackendSTD{options: options}
+	return &ClientSTD{options: options}
 }
 
 // Start launches the configured server and waits for gRPC readiness.
 // ctx controls startup only. Each instance accepts one attempt;
 // failed startup releases its resources and reaps any child it started.
-func (backend *BackendSTD) Start(ctx context.Context) error {
+func (backend *ClientSTD) Start(ctx context.Context) error {
 	backend.lifecycle.Lock()
 	if backend.started || backend.stopped.Load() {
 		backend.lifecycle.Unlock()
@@ -117,7 +117,7 @@ func (backend *BackendSTD) Start(ctx context.Context) error {
 }
 
 // startProcess creates the pipes and launches the child while lifecycle is locked.
-func (backend *BackendSTD) startProcess(ctx context.Context) error {
+func (backend *ClientSTD) startProcess(ctx context.Context) error {
 	if err := ctx.Err(); err != nil {
 		return fmt.Errorf("check Anki startup context: %w", err)
 	}
@@ -152,7 +152,7 @@ func (backend *BackendSTD) startProcess(ctx context.Context) error {
 }
 
 // connect creates a single-use gRPC connection while lifecycle is locked.
-func (backend *BackendSTD) connect() error {
+func (backend *ClientSTD) connect() error {
 	var dialed atomic.Bool
 	connection, err := grpc.NewClient("passthrough:///anki-worker",
 		grpc.WithTransportCredentials(insecure.NewCredentials()),
@@ -174,7 +174,7 @@ func (backend *BackendSTD) connect() error {
 }
 
 // waitForReady bounds the HTTP/2 handshake by cancellation and worker exit.
-func (backend *BackendSTD) waitForReady(ctx context.Context) error {
+func (backend *ClientSTD) waitForReady(ctx context.Context) error {
 	startup, cancel := context.WithCancelCause(ctx)
 	defer cancel(nil)
 	go func() {
@@ -198,7 +198,7 @@ func (backend *BackendSTD) waitForReady(ctx context.Context) error {
 
 // Connection supplies the managed connection to generated Anki service clients.
 // It returns an error until startup succeeds, while stopping, or after worker exit.
-func (backend *BackendSTD) Connection() (grpc.ClientConnInterface, error) {
+func (backend *ClientSTD) Connection() (grpc.ClientConnInterface, error) {
 	backend.lifecycle.Lock()
 	defer backend.lifecycle.Unlock()
 	if backend.stopped.Load() {
@@ -221,7 +221,7 @@ func (backend *BackendSTD) Connection() (grpc.ClientConnInterface, error) {
 // intercept adds lifecycle checks and native error details to generated calls.
 // Cancellation stops waiting; it cannot roll back a mutation already in Anki.
 // Failed calls are never replayed or sent to a replacement worker.
-func (backend *BackendSTD) intercept(ctx context.Context, method string, input, output any, connection *grpc.ClientConn, invoke grpc.UnaryInvoker, options ...grpc.CallOption) error {
+func (backend *ClientSTD) intercept(ctx context.Context, method string, input, output any, connection *grpc.ClientConn, invoke grpc.UnaryInvoker, options ...grpc.CallOption) error {
 	if err := ctx.Err(); err != nil {
 		return fmt.Errorf("call Anki %s: %w", method, err)
 	}
@@ -257,7 +257,7 @@ func decodeCallError(ctx context.Context, method string, err error, trailers met
 // It reaps the child even after cancellation.
 // Close an open collection through Anki first.
 // Stop is safe before Start; repeated calls preserve unexpected exit errors.
-func (backend *BackendSTD) Stop(ctx context.Context) error {
+func (backend *ClientSTD) Stop(ctx context.Context) error {
 	backend.stopOnce.Do(func() {
 		backend.lifecycle.Lock()
 		backend.stopped.Store(true)

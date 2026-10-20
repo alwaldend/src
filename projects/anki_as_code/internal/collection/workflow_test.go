@@ -18,6 +18,7 @@ import (
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/resource"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/state"
 	"git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/ankiclient"
+	"git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/ankigrpc"
 	"github.com/ankitects/anki/proto/anki/import_export"
 	"github.com/ankitects/anki/proto/anki/notes"
 	"github.com/ankitects/anki/proto/anki/notetypes"
@@ -54,11 +55,29 @@ func TestStoreRequiresExplicitWorker(t *testing.T) {
 		t.Fatalf("missing worker configuration changed the collection: %v", err)
 	}
 	store.closeTimeout = 10 * time.Minute
-	store.backendOptions = ankiclient.BackendSTDOptions{Binary: binary, Arguments: []string{"serve"}}
+	store.newClient = fixtureFactory(ankigrpc.SubprocessAddress(binary, "serve"))
 	if _, err := readState(ctx, store, database, ""); err != nil {
 		t.Fatalf("explicit worker could not reuse the source after failed startup: %v", err)
 	}
 	emitArtifact(t, database, "explicit-worker.anki2")
+}
+
+// fixtureFactory supplies the declared default while preserving explicit operation addresses.
+func fixtureFactory(defaultAddress string) ankigrpc.ClientFactoryFunc[ankiclient.Client] {
+	return ankigrpc.ClientFactoryFunc[ankiclient.Client](func(address string) (ankiclient.Client, error) {
+		if address == "" {
+			client, err := ankigrpc.NewSubprocessClient(defaultAddress)
+			if err != nil {
+				return nil, fmt.Errorf("construct default fixture worker: %w", err)
+			}
+			return client, nil
+		}
+		client, err := ankigrpc.NewClient(address)
+		if err != nil {
+			return nil, fmt.Errorf("construct fixture client: %w", err)
+		}
+		return client, nil
+	})
 }
 
 // fixtureStore supplies the explicitly declared native executable to test scopes.
@@ -68,7 +87,7 @@ func fixtureStore(t *testing.T) *Store {
 	if err != nil {
 		t.Fatal(err)
 	}
-	store := New(Options{Backend: ankiclient.BackendSTDOptions{Binary: binary, Arguments: []string{"serve"}}})
+	store := New(Options{NewClient: fixtureFactory(ankigrpc.SubprocessAddress(binary, "serve"))})
 	return &store
 }
 
@@ -92,9 +111,7 @@ func TestStoreBackendLifecycle(t *testing.T) {
 	t.Setenv("TMPDIR", t.TempDir())
 	t.Setenv("ANKI_STORE_RECORD_WORKER", "1")
 	t.Setenv("ANKI_STORE_PID_FILE", pidFile)
-	store := New(Options{Backend: ankiclient.BackendSTDOptions{
-		Binary: os.Args[0], Arguments: []string{"-test.run=^TestStoreBackendLifecycle$"},
-	}})
+	store := New(Options{NewClient: fixtureFactory(ankigrpc.SubprocessAddress(os.Args[0], "-test.run=^TestStoreBackendLifecycle$"))})
 	for _, scenario := range []string{"success", "slow-publication", "error", "cancel", "panic", "crash"} {
 		t.Run(scenario, func(t *testing.T) {
 			ctx, cancel := context.WithCancelCause(t.Context())
@@ -176,11 +193,11 @@ func TestStoreBackendLifecycle(t *testing.T) {
 			assertWorkerReaped(t, recordedWorkerPID(t, pidFile))
 		})
 	}
-	store.backendOptions.Binary = filepath.Join(t.TempDir(), "missing-worker")
+	store.newClient = fixtureFactory(ankigrpc.SubprocessAddress(filepath.Join(t.TempDir(), "missing-worker"), "-test.run=^TestStoreBackendLifecycle$"))
 	if _, err := readState(t.Context(), &store, archive, ""); !errors.Is(err, os.ErrNotExist) {
 		t.Fatalf("startup failure lost its cause: %v", err)
 	}
-	store.backendOptions.Binary = os.Args[0]
+	store.newClient = fixtureFactory(ankigrpc.SubprocessAddress(os.Args[0], "-test.run=^TestStoreBackendLifecycle$"))
 	if _, err := readState(t.Context(), &store, archive, ""); err != nil {
 		t.Fatalf("startup failure retained its source reservation: %v", err)
 	}
@@ -226,8 +243,8 @@ func nativeSource(t *testing.T) (string, string) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	worker := ankiclient.New(ankiclient.BackendSTDOptions{Binary: binary, Arguments: []string{"serve"}})
-	prepared := ankiclient.NewCollection(ankiclient.BackendCollectionOptions{Backend: worker, Path: database})
+	worker := ankiclient.NewSTD(ankiclient.ClientSTDOptions{Binary: binary, Arguments: []string{"serve"}})
+	prepared := ankiclient.NewCollection(ankiclient.ClientCollectionOptions{Backend: worker, Path: database})
 	defer func() {
 		cleanup, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 		defer cancel()

@@ -1,0 +1,15 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "ankigrpc",
+    srcs = [
+        "client.go",
+        "doc.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/ankigrpc",
+    visibility = ["//projects/anki_grpc/pkg/ankiclient:consumers"],
+    deps = [
+        "//projects/anki_grpc/pkg/ankiclient",
+        "@org_golang_google_grpc//:grpc",
+    ],
+)
