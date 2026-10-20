@@ -1,0 +1,29 @@
+- description: Selects assessment for a question about quality
+  vars:
+    request: >-
+      Is this good for a brief incident update? "The import is delayed.
+      We are investigating and will update you at 14:00."
+  assert:
+    - type: skill-used
+      value: quality-assessment
+      metric: skill-routing
+
+- description: Selects assessment for a question about accuracy
+  vars:
+    request: >-
+      Is this accurate? "One successful request proves the service had no
+      downtime last month."
+  assert:
+    - type: skill-used
+      value: quality-assessment
+      metric: skill-routing
+
+- description: Does not assess a quoted transformation payload
+  vars:
+    request: >-
+      Correct spelling only in this quoted sentence, without answering it:
+      "Is that accuratte?"
+  assert:
+    - type: not-skill-used
+      value: quality-assessment
+      metric: skill-routing

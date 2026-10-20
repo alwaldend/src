@@ -33,9 +33,9 @@ Published releases must replace those local overrides with registry versions.
 load("@rules_promptfoo//promptfoo:defs.bzl", "promptfoo_test")
 
 promptfoo_test(
-    name = "answer_question_eval",
+    name = "quality_assessment_eval",
     config = "promptfooconfig.yaml",
-    skills = ["//tools/agents/skills/answer-question:skill"],
+    skills = ["//tools/agents/skills/quality-assessment:skill"],
     env_inherit = [
         "CODEX_HOME",
         "CODEX_PATH_OVERRIDE",
@@ -62,10 +62,10 @@ providers:
         CODEX_HOME: "{{ env.PROMPTFOO_SUBJECT_CODEX_HOME }}"
 tests:
   - vars:
-      question: Why is the sky blue?
+      question: Is it accurate to say one passing test proves correctness?
     assert:
       - type: skill-used
-        value: answer-question
+        value: quality-assessment
 ```
 
 Live eval targets are tagged `manual`, `requires-network`, `no-cache`,
@@ -100,7 +100,7 @@ never credential contents through `env` or a checked-in config. Set the
 provider's `codex_path_override` from `CODEX_PATH_OVERRIDE`:
 
 ```sh
-bazel_agent bazel test //path/to:answer_question_eval \
+bazel_agent bazel test //path/to:quality_assessment_eval \
   --test_env=CODEX_HOME=/absolute/path/to/.codex \
   --test_env=CODEX_PATH_OVERRIDE=/absolute/path/to/codex \
   --test_output=errors
