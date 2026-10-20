@@ -28,7 +28,6 @@ skills_write(
     symlinks = [
         "//projects/alwaldend.com/skills/alwaldend-blog:skill",
         "//projects/x_article_uploader/skills/x-article-upload:skill",
-        "//tools/agents/skills/answer-question:skill",
         "//tools/agents/skills/agent-ergonomics-review:skill",
         "//tools/agents/skills/ast-grep:skill",
         "//tools/android/skills/android:skill",
@@ -42,6 +41,7 @@ skills_write(
         "//tools/agents/skills/git-rebase-remote:skill",
         "//tools/mermaid/skills/mermaid-diagrams:skill",
         "//tools/agents/skills/project-layout:skill",
+        "//tools/agents/skills/quality-assessment:skill",
         "//tools/agents/skills/repo-bazel:skill",
         "//tools/agents/skills/repo-blender:skill",
         "//tools/agents/skills/repo-ci:skill",

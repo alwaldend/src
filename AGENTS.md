@@ -55,7 +55,7 @@ This table owns routing; each skill owns its procedure.
 | When                                                                     | Load                                         |
 | ------------------------------------------------------------------------ | -------------------------------------------- |
 | Before the first mutation or task-scratch write                          | `repo-workspace`                             |
-| Substantive question, including a mixed question-and-action request      | `answer-question`                            |
+| Assessing quality or accuracy, including "is this good/accurate?"        | `quality-assessment`                         |
 | Material, consequential, or repeatedly failing choice                    | `decision-review`                            |
 | Creating or moving source, or choosing a directory layout                | `project-layout`                             |
 | Any Bazel invocation, BUILD or `.bzl` mechanics, or validation scope     | `bazel-agent`, `repo-bazel`                  |

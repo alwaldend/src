@@ -12,8 +12,13 @@ seeking disconfirming evidence, comparing credible alternatives, issuing an
 explicit verdict, preserving authorization boundaries, reopening a repeatedly
 failing strategy, and avoiding ceremony for routine reversible choices.
 
+Both skills are staged because decision-review reads the sibling
+quality-assessment skill. The separate `eval_routing_config_test` validates a
+composition case that requires both skill-use signals; `eval_routing` runs it.
+These routing assertions are separate from the behavioral rubrics.
+
 The manual `//tools/agents/skills/decision-review:eval` target exercises the
-self-contained retention-window case with the staged skill and a model judge.
+behavioral cases with the staged skills and a model judge.
 The subject runs in the staged skill workspace, while the judge runs in a
 separate empty workspace. The runner links only `auth.json` from an explicitly
 supplied Codex home into separate otherwise-empty subject and judge homes, so
@@ -23,6 +28,7 @@ credentialed evaluation is intended:
 
 ```sh
 bazel_agent bazel test //tools/agents/skills/decision-review:eval \
+  //tools/agents/skills/decision-review:eval_routing \
   --test_env=CODEX_HOME=/absolute/path/to/.codex \
   --test_env=CODEX_PATH_OVERRIDE=/absolute/path/to/codex
 ```

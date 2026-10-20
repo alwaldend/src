@@ -1,0 +1,4 @@
+interface:
+  display_name: "Quality Assessment"
+  short_description: "Assess quality and accuracy with evidence"
+  default_prompt: "Use $quality-assessment to assess this work and its accuracy."

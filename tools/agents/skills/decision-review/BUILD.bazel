@@ -33,7 +33,10 @@ promptfoo_test(
         "NO_PROXY",
     ],
     reuse_codex_login = True,
-    skills = [":skill"],
+    skills = [
+        ":skill",
+        "//tools/agents/skills/quality-assessment:skill",
+    ],
 )
 
 promptfoo_validate_test(
@@ -43,5 +46,39 @@ promptfoo_validate_test(
         "evals/README.md",
         "evals/cases.yaml",
     ],
-    skills = [":skill"],
+    skills = [
+        ":skill",
+        "//tools/agents/skills/quality-assessment:skill",
+    ],
+)
+
+promptfoo_test(
+    name = "eval_routing",
+    size = "enormous",
+    timeout = "eternal",
+    config = "evals/promptfooconfig.routing.yaml",
+    data = ["evals/routing.yaml"],
+    env_inherit = [
+        "ALL_PROXY",
+        "CODEX_HOME",
+        "CODEX_PATH_OVERRIDE",
+        "HTTPS_PROXY",
+        "HTTP_PROXY",
+        "NO_PROXY",
+    ],
+    reuse_codex_login = True,
+    skills = [
+        ":skill",
+        "//tools/agents/skills/quality-assessment:skill",
+    ],
+)
+
+promptfoo_validate_test(
+    name = "eval_routing_config_test",
+    config = "evals/promptfooconfig.routing.yaml",
+    data = ["evals/routing.yaml"],
+    skills = [
+        ":skill",
+        "//tools/agents/skills/quality-assessment:skill",
+    ],
 )

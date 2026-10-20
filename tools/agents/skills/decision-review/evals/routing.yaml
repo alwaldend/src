@@ -1,0 +1,14 @@
+- description: Loads shared assessment when explicitly reviewing a decision
+  vars:
+    request: >-
+      Use $decision-review to assess this consequential design. We will retry
+      payment requests for seven days with one idempotency key, but the
+      provider only retains keys for 24 hours. We need recovery without
+      duplicate charges. Should we commit to that design?
+  assert:
+    - type: skill-used
+      value: decision-review
+      metric: skill-routing
+    - type: skill-used
+      value: quality-assessment
+      metric: skill-composition

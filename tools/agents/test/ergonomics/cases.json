@@ -13,7 +13,7 @@
                 "health": "unknown",
                 "runningDesiredRevision": null
             },
-            "expectedSkillReads": ["answer-question"],
+            "expectedSkillReads": ["quality-assessment"],
             "humanCheck": "The reason distinguishes the historical snapshot and desired state from current observed health and running revision."
         },
         {
