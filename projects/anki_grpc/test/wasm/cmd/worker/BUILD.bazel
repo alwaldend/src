@@ -1,0 +1,29 @@
+load("@rules_go//go:def.bzl", "go_binary")
+load("@rules_rust//rust:defs.bzl", "rust_binary")
+
+rust_binary(
+    name = "fixture",
+    srcs = ["fixture.rs"],
+    crate_root = "fixture.rs",
+    edition = "2021",
+    platform = "@rules_rust//rust/platform:wasip1",
+    rustc_flags = ["-Cpanic=abort"],
+    visibility = ["//projects/anki_grpc/internal/wasmhost:__pkg__"],
+    deps = [
+        "//projects/anki_grpc/pkg/ankiserver:server_rust",
+        "@com_github_ankitects_anki_crates//:chrono",
+        "@com_github_ankitects_anki_crates//:tonic",
+    ],
+)
+
+go_binary(
+    name = "worker",
+    srcs = [
+        "doc.go",
+        "main.go",
+    ],
+    embedsrcs = [":fixture"],
+    pure = "on",
+    visibility = ["//projects/anki_grpc/test/wasm:__pkg__"],
+    deps = ["//projects/anki_grpc/internal/wasmhost"],
+)

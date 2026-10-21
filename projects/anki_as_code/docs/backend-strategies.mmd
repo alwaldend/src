@@ -1,0 +1,57 @@
+%%{init: {"flowchart": {"diagramPadding": 96}}}%%
+flowchart TB
+    subgraph wasm["--//projects/anki_grpc:wasm=true"]
+        direction TB
+        subgraph wasm_subprocess["subprocess+wasm://"]
+            direction LR
+            wasm_app[App]
+            subgraph wasm_worker[Subprocess]
+                wasm_worker_app[App] -->|Run|wasm_runtime["WASM runtime<br/>wazero"]
+                wasm_runtime -->wasm_server[Server]
+            end
+            wasm_app -->|Spawn|wasm_worker
+            wasm_app ---|gRPC| wasm_stdio(( ))
+            wasm_stdio -->|Stdio|wasm_server
+        end
+        subgraph wasm_inprocess["inprocess+wasm://"]
+            direction LR
+            wasm_direct_app[App] -->|Run|wasm_direct_runtime["WASM runtime<br/>wazero"]
+            wasm_direct_runtime -->wasm_direct_server[Server]
+            wasm_direct_app ---|gRPC|wasm_direct(( ))
+            wasm_direct -->|In-memory stdio|wasm_direct_server
+        end
+        wasm_subprocess ~~~ wasm_inprocess
+    end
+
+    subgraph cgo["--//projects/anki_grpc:cgo=true"]
+        direction TB
+        subgraph cgo_subprocess["subprocess+cgo://"]
+            direction LR
+            cgo_app[App]
+            subgraph cgo_worker[Subprocess]
+                cgo_worker_app[App] -->|C ABI|cgo_server[Server]
+            end
+            cgo_app -->|Spawn|cgo_worker
+            cgo_app ---|gRPC| cgo_stdio(( ))
+            cgo_stdio -->|Stdio|cgo_server
+        end
+        subgraph inprocess["inprocess+cgo://"]
+            direction LR
+            direct_app[App] ---|gRPC interface|direct(( ))
+            direct -->|C ABI|direct_server[Server]
+        end
+        cgo_subprocess ~~~ inprocess
+    end
+
+    subgraph defaults["Always available"]
+        direction TB
+        subgraph external["tcp:// or unix://"]
+            direction LR
+            external_app[App] ---|gRPC| socket(( ))
+            socket -->|TCP|external_server[Server]
+            socket -->|Unix socket|external_server
+        end
+    end
+
+    wasm ~~~ cgo
+    cgo ~~~ defaults

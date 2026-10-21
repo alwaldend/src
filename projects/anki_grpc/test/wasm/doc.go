@@ -1,3 +1,2 @@
-// Package wasm verifies the WASI SQLite build with native cross-runtime reopen.
-// It executes storage probes without hosting an Anki server.
+// Package wasm verifies the cgo-disabled worker process using an executed Rust guest.
 package wasm

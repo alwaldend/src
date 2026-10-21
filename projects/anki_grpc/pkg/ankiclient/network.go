@@ -17,16 +17,14 @@ import (
 	"google.golang.org/grpc/metadata"
 )
 
-// ClientGRPC owns only a gRPC client connection to an explicitly selected Anki server.
-// Each instance allows one Start attempt; Stop leaves remote storage and processes running.
+// ClientGRPC owns a gRPC connection to an explicitly selected Anki server.
+// Each instance allows one Start attempt; the caller owns the server lifetime.
 type ClientGRPC struct {
-	// transport is the validated TCP or Unix network used for dialing.
-	transport string
-	// address is a decoded endpoint; Start never parses it again.
-	address string
+	// dial opens a stream to the server within the connection's context.
+	dial func(context.Context) (net.Conn, error)
 	// mutex protects connection readiness and terminal shutdown.
 	mutex sync.Mutex
-	// connection is the owned network client.
+	// connection is the owned gRPC client.
 	connection *grpc.ClientConn
 	// started prevents repeated startup attempts.
 	started bool
@@ -34,6 +32,8 @@ type ClientGRPC struct {
 	ready bool
 	// stopped makes shutdown terminal, including before Start.
 	stopped bool
+	// stopError retains connection cleanup failures across repeated Stop calls.
+	stopError error
 }
 
 // NewGRPC validates an endpoint and configures a client without contacting its server.
@@ -42,7 +42,21 @@ func NewGRPC(address string) (*ClientGRPC, error) {
 	if err != nil {
 		return nil, fmt.Errorf("configure Anki network client: %w", err)
 	}
-	return &ClientGRPC{transport: transport, address: endpoint}, nil
+	return NewGRPCWithDialer(func(ctx context.Context) (net.Conn, error) {
+		connection, err := (&net.Dialer{}).DialContext(ctx, transport, endpoint)
+		if err != nil {
+			return nil, fmt.Errorf("dial Anki %s backend %q: %w", transport, endpoint, err)
+		}
+		return connection, nil
+	}), nil
+}
+
+// NewGRPCWithDialer configures the shared gRPC client for a caller-supplied stream.
+// The WASM adapter uses it for in-memory stdio. The client owns each returned
+// connection, while the caller owns the server. A dialer may be called again;
+// a transport that cannot reconnect must reject subsequent attempts.
+func NewGRPCWithDialer(dial func(context.Context) (net.Conn, error)) *ClientGRPC {
+	return &ClientGRPC{dial: dial}
 }
 
 // parseNetworkAddress decodes endpoint syntax once before any client startup.
@@ -102,13 +116,17 @@ func (backend *ClientGRPC) Start(ctx context.Context) error {
 		return fmt.Errorf("start Anki gRPC backend: already started or stopped")
 	}
 	backend.started = true
-	transport, address := backend.transport, backend.address
-	connection, err := grpc.NewClient("passthrough:///anki-network",
+	dial := backend.dial
+	if dial == nil {
+		backend.mutex.Unlock()
+		return fmt.Errorf("start Anki gRPC backend: no connection dialer")
+	}
+	connection, err := grpc.NewClient("passthrough:///anki",
 		grpc.WithTransportCredentials(insecure.NewCredentials()),
 		grpc.WithContextDialer(func(ctx context.Context, _ string) (net.Conn, error) {
-			connection, err := (&net.Dialer{}).DialContext(ctx, transport, address)
+			connection, err := dial(ctx)
 			if err != nil {
-				return nil, fmt.Errorf("dial Anki %s backend %q: %w", transport, address, err)
+				return nil, fmt.Errorf("dial Anki gRPC connection: %w", err)
 			}
 			return connection, nil
 		}),
@@ -119,7 +137,7 @@ func (backend *ClientGRPC) Start(ctx context.Context) error {
 	backend.connection = connection
 	backend.mutex.Unlock()
 	if err != nil {
-		return fmt.Errorf("create Anki network client: %w", err)
+		return fmt.Errorf("create Anki gRPC client: %w", err)
 	}
 	connection.Connect()
 	for state := connection.GetState(); state != connectivity.Ready; state = connection.GetState() {
@@ -128,13 +146,13 @@ func (backend *ClientGRPC) Start(ctx context.Context) error {
 			if cause == nil {
 				cause = fmt.Errorf("client closed before readiness")
 			}
-			return fmt.Errorf("wait for Anki network readiness: %w", errors.Join(cause, backend.Stop(context.WithoutCancel(ctx))))
+			return fmt.Errorf("wait for Anki gRPC readiness: %w", errors.Join(cause, backend.Stop(context.WithoutCancel(ctx))))
 		}
 	}
 	backend.mutex.Lock()
 	defer backend.mutex.Unlock()
 	if backend.stopped {
-		return fmt.Errorf("start Anki network backend: stopped during startup")
+		return fmt.Errorf("start Anki gRPC backend: stopped during startup")
 	}
 	backend.ready = true
 	return nil
@@ -145,7 +163,7 @@ func (backend *ClientGRPC) Connection() (grpc.ClientConnInterface, error) {
 	backend.mutex.Lock()
 	defer backend.mutex.Unlock()
 	if !backend.ready || backend.stopped {
-		return nil, fmt.Errorf("get Anki network connection: backend is not ready")
+		return nil, fmt.Errorf("get Anki gRPC connection: backend is not ready")
 	}
 	return backend.connection, nil
 }
@@ -165,13 +183,13 @@ func (backend *ClientGRPC) Stop(context.Context) error {
 	backend.mutex.Lock()
 	defer backend.mutex.Unlock()
 	if backend.stopped {
-		return nil
+		return backend.stopError
 	}
 	backend.stopped, backend.ready = true, false
 	if backend.connection != nil {
 		if err := backend.connection.Close(); err != nil {
-			return fmt.Errorf("close Anki network client: %w", err)
+			backend.stopError = fmt.Errorf("close Anki gRPC client: %w", err)
 		}
 	}
-	return nil
+	return backend.stopError
 }

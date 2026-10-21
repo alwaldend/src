@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"bytes"
 	"context"
+	"debug/elf"
 	"encoding/json"
 	"fmt"
 	"os"
@@ -66,7 +67,27 @@ func TestLocalAPIAddresses(t *testing.T) {
 		t.Fatal(err)
 	}
 	subprocess := ankigrpc.SubprocessAddress(binary, "server", "serve")
-	for _, address := range []string{"inprocess://local", "inprocess://any-other-name", subprocess, "inprocess+cgo://local", strings.Replace(subprocess, "subprocess://", "subprocess+cgo://", 1)} {
+	addresses := []string{subprocess}
+	unavailable := []string{"inprocess+://invalid"}
+	if os.Getenv("ANKI_TEST_WASM") == "true" {
+		addresses = append(addresses, "inprocess+wasm://local", "inprocess+wasm://another-instance")
+		addresses = append(addresses, strings.Replace(subprocess, "subprocess://", "subprocess+wasm://", 1))
+	} else {
+		unavailable = append(unavailable, "inprocess+wasm://unavailable")
+		unavailable = append(unavailable, "subprocess+wasm://unavailable")
+	}
+	if os.Getenv("ANKI_TEST_CGO") == "true" {
+		addresses = append(addresses, "inprocess://local", "inprocess://any-other-name", "inprocess+cgo://local")
+		addresses = append(addresses, strings.Replace(subprocess, "subprocess://", "subprocess+cgo://", 1))
+	} else {
+		unavailable = append(unavailable, "inprocess+cgo://unavailable", "subprocess+cgo://unavailable")
+		if os.Getenv("ANKI_TEST_WASM") == "true" {
+			addresses = append(addresses, "inprocess://local")
+		} else {
+			unavailable = append(unavailable, "inprocess://unavailable")
+		}
+	}
+	for _, address := range addresses {
 		apiCLI(t, binary, "{}", true, "api", "tags", "all-tags", "--collection", database, "--address", address)
 		formatted := apiCLI(t, binary, "{\"seconds\":65,\"context\":\"PRECISE\"}", true, "api", "i18n", "format-timespan", "--address", address)
 		if !strings.Contains(string(formatted), "minute") {
@@ -74,15 +95,24 @@ func TestLocalAPIAddresses(t *testing.T) {
 		}
 		apiCLI(t, binary, "{}", false, "api", "backend-collection", "close-collection", "--collection", database, "--address", address)
 		apiCLI(t, binary, "{}", false, "api", "tags", "all-tags", "--address", address)
+		usesWASM := strings.HasPrefix(address, "subprocess+wasm://") || strings.HasPrefix(address, "inprocess+wasm://") || os.Getenv("ANKI_TEST_CGO") != "true" && strings.HasPrefix(address, "subprocess://")
+		if os.Getenv("ANKI_TEST_WASM") == "true" && usesWASM {
+			command := exec.CommandContext(t.Context(), binary, "api", "backend-sync", "sync-collection", "--address", address)
+			command.Stdin = strings.NewReader("{}")
+			output, err := command.CombinedOutput()
+			if err == nil || !strings.Contains(string(output), "unsupported") {
+				t.Fatalf("configured worker did not use offline WASM: %v; %s", err, output)
+			}
+		}
 	}
-	for _, address := range []string{"inprocess+wasm://unavailable", "subprocess+wasm://unavailable", "inprocess+://invalid"} {
+	for _, address := range unavailable {
 		command := exec.CommandContext(t.Context(), binary, "api", "i18n", "format-timespan", "--address", address)
 		command.Stdin = strings.NewReader("{}")
 		output, err := command.CombinedOutput()
 		if err == nil {
 			t.Fatal("unavailable engine was accepted")
 		}
-		if !strings.Contains(string(output), "unavailable") {
+		if !strings.Contains(string(output), "Anki client scheme") || !strings.Contains(string(output), "unavailable") {
 			t.Fatalf("unavailable client scheme error is unclear: %s", output)
 		}
 	}
@@ -133,6 +163,111 @@ func TestLocalAPIAddresses(t *testing.T) {
 		}
 		if err := os.WriteFile(filepath.Join(destination, "inprocess-api.anki2"), data, 0o600); err != nil {
 			t.Fatal(err)
+		}
+	}
+}
+
+// TestExplicitWorkerEngines verifies qualified schemes select the named compiled engine.
+// An invalid WASM cache distinguishes a real cgo worker from an accidental WASM fallback.
+func TestExplicitWorkerEngines(t *testing.T) {
+	binary := installedAPI(t)
+	blocked := filepath.Join(t.TempDir(), "not-a-directory")
+	if err := os.WriteFile(blocked, nil, 0o600); err != nil {
+		t.Fatal(err)
+	}
+	t.Setenv("ANKI_WASM_CACHE_DIR", blocked)
+	var report strings.Builder
+	alias := filepath.Join(t.TempDir(), "application-worker")
+	if err := os.Symlink(binary, alias); err != nil {
+		t.Fatal(err)
+	}
+	for _, engine := range []string{"cgo", "wasm"} {
+		enabled := os.Getenv("ANKI_TEST_"+strings.ToUpper(engine)) == "true"
+		for _, executable := range []string{binary, os.Getenv("ANKI_NO_ENGINE_CLI")} {
+			if executable != binary {
+				executable = filepath.Join(os.Getenv("TEST_SRCDIR"), os.Getenv("TEST_WORKSPACE"), executable)
+			}
+			available := enabled && executable == binary
+			help := linkedCommand(t, executable, available, "--server-engine="+engine, "server", "run", "--help")
+			if available && !strings.Contains(string(help), "serve") {
+				t.Fatalf("selected %s engine did not expose Rust CLI help: %s", engine, help)
+			}
+		}
+		address := strings.Replace(ankigrpc.SubprocessAddress(binary, "server", "serve"), "subprocess://", "subprocess+"+engine+"://", 1)
+		command := exec.CommandContext(t.Context(), binary, "api", "i18n", "format-timespan", "--address", address)
+		command.Stdin = strings.NewReader(`{"seconds":65,"context":"PRECISE"}`)
+		output, err := command.CombinedOutput()
+		switch {
+		case !enabled:
+			if err == nil || !strings.Contains(string(output), "scheme") || !strings.Contains(string(output), "unavailable") {
+				t.Fatalf("unavailable %s engine was not rejected: %v; %s", engine, err, output)
+			}
+		case engine == "cgo":
+			if err != nil || !strings.Contains(string(output), "minute") {
+				t.Fatalf("explicit cgo worker used WASM or failed: %v; %s", err, output)
+			}
+		default:
+			if err == nil || !strings.Contains(string(output), "compilation cache") {
+				t.Fatalf("explicit WASM worker bypassed WASM cache failure: %v; %s", err, output)
+			}
+		}
+		fmt.Fprintf(&report, "%s: enabled=%t; selected engine verified with unusable WASM cache\n", engine, enabled)
+		if enabled {
+			t.Run("standalone/"+engine, func(t *testing.T) {
+				t.Setenv("ANKI_WASM_CACHE_DIR", "")
+				standalone := filepath.Join(os.Getenv("TEST_SRCDIR"), os.Getenv("TEST_WORKSPACE"), os.Getenv("ANKI_STANDALONE_CLI"))
+				address := strings.Replace(ankigrpc.SubprocessAddress(standalone, "serve"), "subprocess://", "subprocess+"+engine+"://", 1)
+				output := apiCLI(t, binary, `{"seconds":65,"context":"PRECISE"}`, true, "api", "i18n", "format-timespan", "--address", address)
+				if !strings.Contains(string(output), "minute") {
+					t.Fatalf("standalone worker arguments were not preserved: %s", output)
+				}
+			})
+			fmt.Fprintf(&report, "%s: standalone worker served with its original arguments\n", engine)
+			aliasAddress := strings.Replace(ankigrpc.SubprocessAddress(alias, "server", "serve"), "subprocess://", "subprocess+"+engine+"://", 1)
+			command := exec.CommandContext(t.Context(), binary, "api", "i18n", "format-timespan", "--address", aliasAddress)
+			command.Stdin = strings.NewReader(`{"seconds":65,"context":"PRECISE"}`)
+			output, err := command.CombinedOutput()
+			if engine == "cgo" {
+				if err != nil || !strings.Contains(string(output), "minute") {
+					t.Fatalf("aliased cgo worker failed: %v; %s", err, output)
+				}
+			} else if err == nil || !strings.Contains(string(output), "compilation cache") {
+				t.Fatalf("aliased WASM worker bypassed engine selection: %v; %s", err, output)
+			}
+			conflict := strings.Replace(ankigrpc.SubprocessAddress(binary, "--server-engine="+engine, "server", "serve"), "subprocess://", "subprocess+"+engine+"://", 1)
+			command = exec.CommandContext(t.Context(), binary, "api", "i18n", "format-timespan", "--address", conflict)
+			command.Stdin = strings.NewReader("{}")
+			output, err = command.CombinedOutput()
+			if err == nil || !strings.Contains(string(output), "scheme owns engine selection") {
+				t.Fatalf("qualified %s scheme accepted a second engine selector: %v; %s", engine, err, output)
+			}
+		}
+	}
+	database := filepath.Join(t.TempDir(), "preferred.anki2")
+	if err := os.WriteFile(database, nil, 0o600); err != nil {
+		t.Fatal(err)
+	}
+	for _, address := range []string{"", ankigrpc.SubprocessAddress(binary, "server", "serve"), "inprocess://preferred"} {
+		arguments := []string{"api", "i18n", "format-timespan", "--address", address}
+		if address == "" {
+			arguments = append(arguments, "--collection", database)
+		}
+		command := exec.CommandContext(t.Context(), binary, arguments...)
+		command.Stdin = strings.NewReader(`{"seconds":65,"context":"PRECISE"}`)
+		output, err := command.CombinedOutput()
+		if os.Getenv("ANKI_TEST_CGO") == "true" {
+			if err != nil || !strings.Contains(string(output), "minute") {
+				t.Fatalf("generic strategy %q did not prefer cgo: %v; %s", address, err, output)
+			}
+		} else if err == nil || !strings.Contains(string(output), "compilation cache") {
+			t.Fatalf("generic strategy %q did not fall back to WASM: %v; %s", address, err, output)
+		}
+	}
+	fmt.Fprintln(&report, "generic subprocess and in-process strategies prefer cgo, otherwise WASM")
+	linkedCommand(t, binary, false, "--server-engine=unknown", "server", "run", "--help")
+	if directory := os.Getenv("TEST_UNDECLARED_OUTPUTS_DIR"); directory != "" {
+		if err := os.WriteFile(filepath.Join(directory, "worker-engine-selection.txt"), []byte(report.String()), 0o600); err != nil {
+			t.Fatalf("retain worker selection verification: %v", err)
 		}
 	}
 }
@@ -404,5 +539,47 @@ func TestAPIInputCancellation(t *testing.T) {
 				}
 			}
 		})
+	}
+}
+
+// TestExternalOnlyExecutable verifies pure-Go external access with both engines absent.
+func TestExternalOnlyExecutable(t *testing.T) {
+	binary := filepath.Join(os.Getenv("TEST_SRCDIR"), os.Getenv("TEST_WORKSPACE"), os.Getenv("ANKI_NO_ENGINE_CLI"))
+	image, err := elf.Open(binary)
+	if err != nil {
+		t.Fatal(err)
+	}
+	libraries, libraryErr := image.ImportedLibraries()
+	closeErr := image.Close()
+	if libraryErr != nil || closeErr != nil || len(libraries) != 0 {
+		t.Fatalf("external-only command links native code: %v; %v; %v", libraries, libraryErr, closeErr)
+	}
+	root := t.TempDir()
+	address := externalServer(t, installedAPI(t), root, "tcp", "")
+	response := apiCLI(t, binary, `{ "seconds":65, "context":"PRECISE" }`, true, "api", "i18n", "format-timespan", "--address", address)
+	if !strings.Contains(string(response), "minute") {
+		t.Fatalf("external-only command lost external clients: %s", response)
+	}
+	database := filepath.Join(root, "external-only.anki2")
+	if err := os.WriteFile(database, nil, 0o600); err != nil {
+		t.Fatal(err)
+	}
+	apiCLI(t, binary, "{}", true, "api", "tags", "all-tags", "--collection", database, "--address", address)
+	for _, arguments := range [][]string{
+		{"server", "serve"},
+		{"api", "i18n", "format-timespan", "--address", "inprocess://unavailable"},
+		{"api", "i18n", "format-timespan", "--address", "inprocess+cgo://unavailable"},
+	} {
+		command := exec.CommandContext(t.Context(), binary, arguments...)
+		command.Stdin = strings.NewReader("{}")
+		output, err := command.CombinedOutput()
+		if err == nil || !strings.Contains(string(output), "unavailable") && !strings.Contains(string(output), "no local engines") {
+			t.Fatalf("external-only local hosting did not fail clearly: %v; %s", err, output)
+		}
+	}
+	if destination := os.Getenv("TEST_UNDECLARED_OUTPUTS_DIR"); destination != "" {
+		if err := os.WriteFile(filepath.Join(destination, "external-only-response.json"), response, 0o600); err != nil {
+			t.Fatal(err)
+		}
 	}
 }

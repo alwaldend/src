@@ -1,6 +1,117 @@
 load("@rules_go//go:def.bzl", "go_test")
 load("@rules_rust//rust:defs.bzl", "rust_binary")
 
+rust_binary(
+    name = "http_server_probe_wasi",
+    srcs = ["http_server_probe.rs"],
+    edition = "2021",
+    platform = "@rules_rust//rust/platform:wasip1",
+    deps = [
+        "//third_party/com_github_ankitects_anki:native",
+        "@com_github_ankitects_anki_crates//:futures",
+    ],
+)
+
+go_test(
+    name = "http_server_test",
+    srcs = [
+        "doc.go",
+        "http_server_test.go",
+    ],
+    args = ["-http-server-probe=$(rlocationpath :http_server_probe_wasi)"],
+    data = [":http_server_probe_wasi"],
+    pure = "on",
+    deps = [
+        "@com_github_tetratelabs_wazero//:wazero",
+        "@com_github_tetratelabs_wazero//imports/wasi_snapshot_preview1",
+        "@rules_go//go/runfiles",
+    ],
+)
+
+go_test(
+    name = "offline_test",
+    srcs = [
+        "doc.go",
+        "offline_test.go",
+    ],
+    args = ["-anki-worker=$(rlocationpath //projects/anki_grpc/cmd/anki_grpc:wasm)"],
+    data = ["//projects/anki_grpc/cmd/anki_grpc:wasm"],
+    pure = "on",
+    deps = [
+        "//projects/anki_grpc/pkg/ankiclient",
+        "//projects/anki_grpc/pkg/ankigrpc/wasm",
+        "//third_party/com_github_ankitects_anki:collection",
+        "//third_party/com_github_ankitects_anki:config",
+        "//third_party/com_github_ankitects_anki:generic",
+        "//third_party/com_github_ankitects_anki:media",
+        "//third_party/com_github_ankitects_anki:scheduler",
+        "@rules_go//go/runfiles",
+    ],
+)
+
+go_test(
+    name = "inprocess_test",
+    size = "large",
+    srcs = [
+        "doc.go",
+        "inprocess_test.go",
+        "offline_test.go",
+    ],
+    env = {
+        "ANKI_INPROCESS_WASM": "true",
+        "TZ": "America/New_York",
+    },
+    pure = "on",
+    deps = [
+        "//projects/anki_grpc/pkg/ankiclient",
+        "//projects/anki_grpc/pkg/ankigrpc/wasm",
+        "//third_party/com_github_ankitects_anki:collection",
+        "//third_party/com_github_ankitects_anki:config",
+        "//third_party/com_github_ankitects_anki:generic",
+        "//third_party/com_github_ankitects_anki:media",
+        "//third_party/com_github_ankitects_anki:scheduler",
+        "@org_golang_google_grpc//:grpc",
+        "@org_golang_google_grpc//codes",
+        "@org_golang_google_grpc//metadata",
+        "@org_golang_google_grpc//status",
+        "@rules_go//go/runfiles",
+    ],
+)
+
+go_test(
+    name = "worker_test",
+    srcs = [
+        "doc.go",
+        "timezone_test.go",
+        "worker_test.go",
+    ],
+    args = [
+        "-worker=$(rlocationpath //projects/anki_grpc/test/wasm/cmd/worker)",
+        "-native-worker=$(rlocationpath //projects/anki_grpc/cmd/anki_grpc:native)",
+    ],
+    data = [
+        "//projects/anki_grpc/cmd/anki_grpc:native",
+        "//projects/anki_grpc/test/wasm/cmd/worker",
+    ],
+    pure = "on",
+    target_compatible_with = [
+        "@platforms//os:linux",
+        "@platforms//cpu:x86_64",
+    ],
+    deps = [
+        "//projects/anki_grpc/pkg/ankiclient",
+        "//third_party/com_github_ankitects_anki:backend",
+        "//third_party/com_github_ankitects_anki:generic",
+        "@org_golang_google_grpc//:grpc",
+        "@org_golang_google_grpc//codes",
+        "@org_golang_google_grpc//credentials/insecure",
+        "@org_golang_google_grpc//metadata",
+        "@org_golang_google_grpc//status",
+        "@org_golang_google_protobuf//proto",
+        "@rules_go//go/runfiles",
+    ],
+)
+
 [
     rust_binary(
         name = name,

@@ -1,63 +1,24 @@
-load("@rules_rust//cargo:defs.bzl", "cargo_build_script")
 load("@rules_rust//rust:defs.bzl", "rust_clippy", "rust_library")
-
-cargo_build_script(
-    name = "command_ids",
-    srcs = ["build.rs"],
-    build_script_env = {
-        "DESCRIPTORS_BIN": "$(execpath //third_party/com_github_ankitects_anki:descriptors)/anki_descriptors.bin",
-    },
-    crate_root = "build.rs",
-    data = ["//third_party/com_github_ankitects_anki:descriptors"],
-    edition = "2021",
-    use_cc_toolchain = False,
-    deps = [
-        "//third_party/com_github_ankitects_anki:prost_reflect",
-        "//third_party/com_github_ankitects_anki:proto_gen",
-    ],
-)
-
-rust_library(
-    name = "server_cli",
-    srcs = ["cli.rs"],
-    crate_name = "anki_grpc_cli",
-    crate_root = "cli.rs",
-    edition = "2021",
-    visibility = ["//projects/anki_grpc:__subpackages__"],
-)
-
-rust_library(
-    name = "backend_rust",
-    srcs = ["dispatch.rs"],
-    crate_name = "anki_backend_dispatch",
-    crate_root = "dispatch.rs",
-    edition = "2021",
-    rustc_flags = ["-Cpanic=abort"],
-    visibility = ["//projects/anki_grpc/pkg/ankigrpc/native:__pkg__"],
-    deps = [
-        ":command_ids",
-        "//third_party/com_github_ankitects_anki:native",
-    ],
-)
 
 rust_library(
     name = "server_rust",
-    srcs = ["lib.rs"],
+    srcs = [
+        "cli.rs",
+        "lib.rs",
+        "wasi.rs",
+    ],
     crate_name = "anki_grpc_server",
     crate_root = "lib.rs",
     edition = "2021",
     rustc_flags = ["-Cpanic=abort"],
-    target_compatible_with = [
-        "@platforms//os:linux",
-        "@platforms//cpu:x86_64",
-    ],
     visibility = [
         "//projects/anki_grpc/cmd/anki_grpc:__pkg__",
         "//projects/anki_grpc/pkg/ankigrpc/native:__pkg__",
+        "//projects/anki_grpc/pkg/ankigrpc/wasm:__pkg__",
+        "//projects/anki_grpc/test/wasm/cmd/worker:__pkg__",
     ],
     deps = [
-        ":backend_rust",
-        ":server_cli",
+        "//projects/anki_grpc/internal/backend:backend_rust",
         "@com_github_ankitects_anki_crates//:bytes",
         "@com_github_ankitects_anki_crates//:hyper",
         "@com_github_ankitects_anki_crates//:hyper-util",
@@ -70,9 +31,6 @@ rust_clippy(
     name = "clippy",
     visibility = ["//projects/anki_grpc/cmd/anki_grpc:__pkg__"],
     deps = [
-        ":backend_rust",
-        ":command_ids_",
-        ":server_cli",
         ":server_rust",
     ],
 )

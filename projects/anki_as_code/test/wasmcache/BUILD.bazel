@@ -1,0 +1,14 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "wasmcache",
+    srcs = [
+        "doc.go",
+        "main.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/anki_as_code/test/wasmcache",
+    visibility = [
+        "//projects/anki_as_code/cmd/anki_as_code:__pkg__",
+        "//projects/anki_as_code/pkg/ankiascode:__pkg__",
+    ],
+)

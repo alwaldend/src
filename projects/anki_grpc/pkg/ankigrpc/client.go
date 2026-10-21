@@ -82,20 +82,30 @@ func WithClient(ctx context.Context, factory ClientFactory, address string, oper
 // The executable owner registers this constructor for its supported worker schemes.
 // The URL must identify an executable; arguments are passed exactly, including zero values.
 func NewSubprocessClient(address string) (*ankiclient.ClientSTD, error) {
+	options, err := ParseSubprocessAddress(address)
+	if err != nil {
+		return nil, fmt.Errorf("parse subprocess client options: %w", err)
+	}
+	return ankiclient.NewSTD(options), nil
+}
+
+// ParseSubprocessAddress validates and decodes an explicit worker URL without starting it.
+// Executable owners may adapt the returned options before constructing their client.
+func ParseSubprocessAddress(address string) (ankiclient.ClientSTDOptions, error) {
 	parsed, err := url.Parse(address)
 	if err != nil {
-		return nil, fmt.Errorf("parse subprocess address: %w", err)
+		return ankiclient.ClientSTDOptions{}, fmt.Errorf("parse subprocess address: %w", err)
 	}
 	if parsed.User != nil || parsed.Fragment != "" || parsed.Opaque != "" || parsed.Host != "" && parsed.Path != "" {
-		return nil, fmt.Errorf("subprocess address requires one executable path without credentials or a fragment")
+		return ankiclient.ClientSTDOptions{}, fmt.Errorf("subprocess address requires one executable path without credentials or a fragment")
 	}
 	query, err := url.ParseQuery(parsed.RawQuery)
 	if err != nil {
-		return nil, fmt.Errorf("parse subprocess parameters: %w", err)
+		return ankiclient.ClientSTDOptions{}, fmt.Errorf("parse subprocess parameters: %w", err)
 	}
 	for key := range query {
 		if key != "binary" && key != "arg" && key != "shutdown_timeout" {
-			return nil, fmt.Errorf("unknown subprocess parameter %q", key)
+			return ankiclient.ClientSTDOptions{}, fmt.Errorf("unknown subprocess parameter %q", key)
 		}
 	}
 	binary := parsed.Path
@@ -104,28 +114,28 @@ func NewSubprocessClient(address string) (*ankiclient.ClientSTD, error) {
 	}
 	if values, exists := query["binary"]; exists {
 		if len(values) != 1 || binary != "" || values[0] == "" {
-			return nil, fmt.Errorf("subprocess binary must specify one nonempty executable")
+			return ankiclient.ClientSTDOptions{}, fmt.Errorf("subprocess binary must specify one nonempty executable")
 		}
 		binary = values[0]
 	}
 	if binary == "" {
-		return nil, fmt.Errorf("subprocess address requires an explicit executable")
+		return ankiclient.ClientSTDOptions{}, fmt.Errorf("subprocess address requires an explicit executable")
 	}
 	arguments := query["arg"]
 	var shutdown time.Duration
 	if values, exists := query["shutdown_timeout"]; exists {
 		if len(values) != 1 {
-			return nil, fmt.Errorf("subprocess shutdown_timeout must appear once")
+			return ankiclient.ClientSTDOptions{}, fmt.Errorf("subprocess shutdown_timeout must appear once")
 		}
 		shutdown, err = time.ParseDuration(values[0])
 		if err != nil {
-			return nil, fmt.Errorf("parse subprocess shutdown_timeout: %w", err)
+			return ankiclient.ClientSTDOptions{}, fmt.Errorf("parse subprocess shutdown_timeout: %w", err)
 		}
 		if shutdown < 0 {
-			return nil, fmt.Errorf("subprocess shutdown_timeout must be nonnegative")
+			return ankiclient.ClientSTDOptions{}, fmt.Errorf("subprocess shutdown_timeout must be nonnegative")
 		}
 	}
-	return ankiclient.NewSTD(ankiclient.ClientSTDOptions{Binary: binary, Arguments: arguments, ShutdownTimeout: shutdown}), nil
+	return ankiclient.ClientSTDOptions{Binary: binary, Arguments: arguments, ShutdownTimeout: shutdown}, nil
 }
 
 // SubprocessAddress encodes an executable and argument vector without a shell.

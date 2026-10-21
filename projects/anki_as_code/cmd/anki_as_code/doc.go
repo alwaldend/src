@@ -1,6 +1,9 @@
-// Package main composes the anki_as_code executable with opt-in compiled server
-// adapters. It owns signals, constructs App with a same-executable worker, and
-// runs the CLI. internal/cli owns Cobra commands; App owns their operations.
-// The server adapter owns native CLI execution; this package implements no
-// collection workflows.
+// Package main composes the executable with optional cgo and WASM engines.
+// It owns signals, worker entrypoints and a scoped client factory. Generic
+// subprocess and in-process clients prefer cgo and otherwise use WASM.
+// Qualified subprocess schemes select either compiled engine for same-executable
+// workers through the host's --server-engine flag. Independent workers retain
+// their caller-supplied arguments.
+// With neither engine, explicit external clients remain available. Application
+// libraries own collection workflows and remain independent of engine imports.
 package main

@@ -34,7 +34,47 @@ Cobra definitions with `tools/generate_cli_docs` and packages the hierarchy
 with the documentation; generated Markdown is not checked in. Build it with
 `bazel_agent bazel build //projects/anki_as_code/docs:cli_reference`.
 
-## Native server
+## Optional server engines
+
+The independent booleans `//projects/anki_grpc:cgo` (default true) and
+`//projects/anki_grpc:wasm` (default false) compose available engines in the
+public command. Build a pure-Go WASM executable with:
+
+```sh
+bazel_agent bazel build -c opt //projects/anki_as_code --//projects/anki_grpc:cgo=false --//projects/anki_grpc:wasm=true
+```
+
+The default worker uses cgo when available and otherwise runs the complete Rust
+CLI/server through WASM in the same executable. Both generic subprocess and
+in-process strategies prefer cgo. With neither engine, the command supports explicit external
+clients and reports that local engines are unavailable. The executable owns
+its scoped client factory, worker arguments and supported subprocess schemes.
+`subprocess+wasm://` and `subprocess+cgo://` select their named compiled engine
+for an explicitly encoded application worker, including when both are enabled.
+Their factories supply `--server-engine=wasm` or `--server-engine=cgo` before
+the worker arguments when the encoded executable resolves to this application,
+including filesystem aliases. An independently supplied executable retains its
+exact arguments; its caller owns engine selection. For example, a standalone
+`anki_grpc` worker still receives just `serve`. The generic subprocess scheme
+also preserves its argument vector.
+For direct server hosting, use `anki_as_code --server-engine=cgo server run serve`
+or select `wasm` the same way; omit the selector for the preferred compiled engine.
+
+Use `--address inprocess+wasm://collection` to execute the same Rust server in
+the application process over in-memory gRPC streams. Generic `inprocess://`
+prefers cgo when available and otherwise uses WASM; qualified schemes select
+their engine explicitly. Each client owns fresh state and closes its runtime
+after the operation. The default remains the supervised subprocess.
+
+The WASM adapter owns building and embedding its guest and exposes `Run(arguments)`;
+application code handles no module bytes. Only the guest targets WASI. Guest
+and host follow normal Bazel compilation modes; `-c opt` optimizes both. Offline
+collection, package and local media operations are supported. Network-dependent
+Anki services return explicit unsupported errors. Keep exclusive access to
+collection and media paths: the WASI SQLite VFS does not coordinate process locks.
+`ANKI_WASM_CACHE_DIR` optionally selects a caller-protected compiled-code cache.
+
+### Native server
 
 The native Linux x86_64 application build links the Rust server into its executable. By default,
 collection operations launch the same executable with `server serve` and communicate over stdio.
@@ -88,8 +128,10 @@ anki_as_code col state dump --address unix:///shared/anki.sock --collection /sha
 
 External addresses accept `host:port`, `tcp://host:port`, `unix://PATH` or an
 absolute Unix socket path. Local addresses accept `subprocess://` and, when the
-optional native package is imported, `subprocess+cgo://`. Go resolves the qualified scheme and passes
-the encoded worker arguments unchanged. External connections use plaintext gRPC. An explicit address never
+native engine is compiled, `subprocess+cgo://`; WASM-enabled commands also accept
+`subprocess+wasm://`. Qualified application-worker schemes select that engine
+for same-executable workers before forwarding the encoded server arguments;
+independent executables retain their arguments. External connections use plaintext gRPC. An explicit address never
 falls back to the embedded worker; interrupt the command to cancel connection
 startup if the server is unavailable.
 
@@ -104,7 +146,7 @@ Build-selected command source files import `ankigrpc/native` for native hosting
 and client scheme registration; `main.go` owns signals and worker configuration.
 The reusable application library imports only pure Go packages, including when
 `//projects/anki_grpc:cgo` is enabled. Set that independent boolean to false to
-build the command without a linked engine. The executable name stays `anki_as_code`.
+exclude native linkage; local hosting remains available when WASM is enabled. The executable name stays `anki_as_code`.
 
 ## Upstream API commands
 
@@ -345,11 +387,13 @@ collection/configuration workflows; the lower-level packages retain their domain
 and lifecycle responsibilities. CLI passes parsed operation options into the
 injected App; the executable owns concrete construction and native adapters.
 
-`cmd/anki_as_code` constructs one App and passes it to `cli.New`. It injects the linked
-`native.RunServer` adapter through `Options.ServerRunner` and supplies process signal
-handling. App.ServerRun checks startup cancellation, builds the native argument
-vector and invokes that adapter. Native serving owns the process until return or
-termination; its context controls entry only. App does not link Rust/cgo or change
+`cmd/anki_as_code` constructs App and the CLI, owns its scoped client factory,
+and injects the configured server runner through `Options.ServerRunner`. The
+default worker prefers cgo and otherwise uses WASM; qualified schemes select
+their compiled engine explicitly.
+The executable also owns process signal handling. App.ServerRun checks startup
+cancellation, builds the argument vector and invokes that runner. Serving owns
+the worker process until return or termination; its context controls entry only. App does not link Rust/cgo or change
 process-global signals. Missing runner configuration fails before native hosting.
 Isolated command tests supply one fake without constructing App or starting Anki.
 Commands pass namespaces explicitly, and App retains no command configuration.
@@ -962,7 +1006,29 @@ native snapshots; their projection and policy remain separate.
 
 ## Backend selection
 
-![Backend selection](/docs/projects/anki_as_code/assets/backend-selection.svg)
+This diagram groups explicit strategies by dependency. External TCP/Unix clients
+require no optional local engine. Every enabled engine supplies its subprocess
+and in-process strategy, including in combined builds. Cgo defaults to enabled;
+WASM defaults to disabled. Generic `subprocess://` and `inprocess://` both prefer
+cgo and fall back to WASM when cgo is unavailable.
+
+![Backend strategies grouped by engine dependency](/docs/projects/anki_as_code/assets/backend-strategies.svg)
+
+Explicit TCP and Unix addresses connect to an external server without starting
+or linking a local engine.
+
+With `--//projects/anki_grpc:wasm=true`, `subprocess+wasm://` selects a worker
+hosting the Rust server through wazero, including in combined builds.
+`inprocess+wasm://` hosts the same
+server inside the application process through wazero and in-memory gRPC streams.
+Disable cgo as well for a pure-Go executable.
+
+With `--//projects/anki_grpc:cgo=true`, native in-process clients and the
+`subprocess+cgo://` worker remain available, including in combined builds.
+In-process calls use the Go gRPC interface
+and cross the C ABI directly, without a network transport or child process.
+Generic `inprocess://` uses this native client when cgo is available and falls
+back to WASM when only WASM is available. With neither engine it is unavailable.
 
 ## Anki backend API
 

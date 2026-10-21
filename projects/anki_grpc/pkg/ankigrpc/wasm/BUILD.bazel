@@ -1,0 +1,32 @@
+load("@rules_go//go:def.bzl", "go_library")
+load("@rules_rust//rust:defs.bzl", "rust_binary")
+
+rust_binary(
+    name = "guest",
+    srcs = ["guest.rs"],
+    crate_root = "guest.rs",
+    edition = "2021",
+    platform = "@rules_rust//rust/platform:wasip1",
+    rustc_flags = ["-Cpanic=abort"],
+    deps = ["//projects/anki_grpc/pkg/ankiserver:server_rust"],
+)
+
+go_library(
+    name = "wasm",
+    srcs = [
+        "client.go",
+        "doc.go",
+        "server.go",
+    ],
+    embedsrcs = [":guest"],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/ankigrpc/wasm",
+    visibility = [
+        "//projects/anki_as_code/cmd/anki_as_code:__pkg__",
+        "//projects/anki_grpc:__subpackages__",
+    ],
+    deps = [
+        "//projects/anki_grpc/internal/wasmhost",
+        "//projects/anki_grpc/pkg/ankiclient",
+        "@org_golang_google_grpc//:grpc",
+    ],
+)

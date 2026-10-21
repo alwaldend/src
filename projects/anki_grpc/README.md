@@ -82,38 +82,150 @@ crash isolation without extracting or finding another executable. The standalone
 Both builds currently target Linux x86_64 and require the repository's native
 Rust/C toolchains; linking introduces no new external dependencies.
 
-## Backend build preparation
+## Offline WASI server
 
-The public command targets retain their executable names. Build-selected command
-source files opt into `pkg/ankigrpc/native` for native hosting and scheme registration. The independent boolean
-`//projects/anki_grpc:cgo` defaults to true; set it to false to build the application
-command without a linked engine. Core client and application libraries stay pure Go
-even when cgo support is enabled for the executable. Optional native support lives
-in `pkg/ankigrpc/native`; importing the generic parent never links it. WASM runtime
-support remains deferred.
+This mode embeds the Rust CLI in a native Go executable so applications can
+avoid cgo and native Rust linkage. The Go executable still targets the host
+OS and CPU; only its embedded Rust backend targets WebAssembly. Browser
+execution is outside this mode's scope.
 
-The repository also pins wazero v1.12.0 and the WASI SDK 34.0 sysroot for
-storage build validation. The Rust WASI probe uses the built-in `platform` attribute, preserving the
-native consumer platform. Run the standalone
-SQLite acceptance fixture with:
+The independent boolean `//projects/anki_grpc:wasm` defaults to false and
+selects the standalone WASM worker when enabled. Application builds also honor
+trunk's `//projects/anki_grpc:cgo` boolean, which defaults to true. Build a
+pure-Go application or worker with:
 
 ```sh
-bazel_agent bazel test //projects/anki_grpc/test/wasm:sqlite_test
+bazel_agent bazel build -c opt //projects/anki_grpc //projects/anki_as_code --//projects/anki_grpc:cgo=false --//projects/anki_grpc:wasm=true
 ```
 
-It writes an 11 MiB payload, verifies rollback and invalid destinations, and
-reopens the database through both native and WASI SQLite. Its repeatable test
-outputs include `wasi-sqlite.anki2` and `sqlite-verification.txt`. This build
-preparation includes no WASM Anki server or guest port.
+For the application, generic subprocess and in-process selection both prefer
+cgo and otherwise use WASM. With neither engine, explicit external
+clients remain available and local hosting fails clearly. The command owns a
+scoped factory and registers each compiled engine's qualified subprocess
+scheme. Those factories select the named engine in the application worker;
+independent executables retain their exact arguments and caller-selected engine.
+The generic subprocess keeps the preferred default. Generic client and
+application libraries remain pure Go.
+
+Guest and host follow the selected Bazel compilation mode. `-c opt` optimizes
+both; omitting it retains the normal debug build. The Rust targets use
+rules_rust's built-in WASI platform attribute and embed their outputs directly.
+
+`pkg/ankigrpc/wasm` is a separate pure-Go host using wazero v1.12.0. It owns building
+and embedding the production guest and exposes `Run(arguments)`, matching the
+cgo adapter. Commands handle no guest bytes. `internal/wasmhost` accepts guest
+bytes internally for production and integration fixtures and serves the same
+opaque protobuf gRPC protocol. The default application strategy supervises a
+child process through `ankiclient`. Explicit `inprocess+wasm://` instead runs
+the same guest inside the application's process.
+The complete Rust CLI owns gRPC framing and Anki dispatch in one guest.
+Cancelling command execution closes that instance without replay or replacement. The guest receives filesystem access for the existing
+absolute-path protocol. This is process isolation, with the worker's filesystem
+authority, rather than a restricted filesystem sandbox.
+
+`wasm.New()` constructs an unstarted managed client. Start executes the embedded
+Rust server in a goroutine and supplies a `net.Pipe` dialer to the shared
+`ankiclient.ClientGRPC`. Its in-memory stdio carries the existing gRPC protocol;
+no process, listening socket or cgo is needed. Startup context controls readiness
+only. Each client owns separate backend state. Close collections before Stop;
+Stop cancels the guest and releases its streams/runtime, while Done observes
+final cleanup if the caller's Stop deadline expires. A failed instance never
+reconnects or replays requests. This strategy retains protobuf and HTTP/2 framing.
+Executable composition registers `inprocess+wasm://` whenever WASM is enabled;
+generic `inprocess://` prefers cgo when available and otherwise selects WASM.
+
+Both backends execute the same Rust CLI and gRPC server. The WASI guest runs
+on one execution thread, using an executor to schedule async futures; native
+builds retain Tokio. WebAssembly supports multithreading, but this integration
+does not. The guest targets [`wasm32-wasip1`](https://doc.rust-lang.org/rustc/platform-support/wasm32-wasip1.html),
+where Rust thread spawning is unsupported. The [threaded Rust target](https://doc.rust-lang.org/rustc/platform-support/wasm32-wasip1-threads.html)
+requires host support for WASI thread spawning. Wazero v1.12.0 provides
+experimental shared-memory and atomic instructions, but no built-in WASI
+thread-spawn implementation; its [threading example](https://github.com/wazero/wazero/blob/v1.12.0/experimental/features_example_test.go)
+creates execution instances from Go. Our host neither enables that experimental
+feature nor implements thread spawning. Changing the Rust target alone would
+therefore be insufficient.
+
+The Go host performs blocking I/O in goroutines and supplies
+checked byte-stream imports for stdio, TCP and Unix sockets, using bounded I/O
+queues and blocking readiness notifications. The command owns stream progress
+and closure; pumps send results through channels, and guest tasks share the
+host's readiness notification. It implements no command parser, gRPC server,
+protobuf dispatcher or Anki allocation/free API. One guest retains
+the backend across all client connections. Help and invalid arguments run before
+backend initialization; they do not require collection or cache access.
+
+The guest supports offline collection, package, and local media operations.
+Network sync, media sync, remote media URLs, AnkiHub, AnkiWeb, GitHub downloads,
+and Anki's HTTP sync-server entry points return explicit unsupported errors.
+The host's gRPC stdio/TCP/Unix transports remain available. The cgo backend
+retains its full API. Callers must keep exclusive offline access to collection
+and media paths; the WASI SQLite VFS does not coordinate locks with other
+processes. The guest uses the host-supplied `TMPDIR`; backups and package
+compression run synchronously without guest threads.
+Chrono local-time lookups use the Go host timezone at the requested timestamp,
+including historical offsets, DST gaps and overlaps. The host uses `TZ` or its
+system timezone and includes standard Go timezone data for named-zone fallback.
+
+Set `ANKI_WASM_CACHE_DIR` to a caller-owned directory to reuse wazero's compiled
+code across worker processes. Fresh directories are created with private
+permissions; protect an existing cache from changes by other users. The cache
+is optional and contains no required runtime inputs. Without it, each worker
+compiles its embedded guest at startup.
+
+The application target `//projects/anki_as_code` with the same backend setting uses the same
+worker model inside one installed executable. Its shared entry point hosts either
+compiled adapter; generic strategies prefer cgo, while qualified schemes select
+their engine explicitly. Both command names stay unchanged. The Go executable
+retains the host OS/CPU platform; only the embedded Rust guest targets WASI. The following checks exercise the actual Anki guest,
+its unsupported HTTP sync-server entry points, command failures, process
+transports, and the pinned SQLite build:
+
+```sh
+bazel_agent bazel test //projects/anki_grpc/internal/wasmhost:backend_test \
+  //projects/anki_grpc/test/wasm:inprocess_test \
+  //projects/anki_grpc/test/wasm:offline_test \
+  //projects/anki_grpc/test/wasm:http_server_test \
+  //projects/anki_grpc/test/wasm:worker_test \
+  //projects/anki_grpc/test/wasm:sqlite_test
+```
+
+The worker check copies its executable alone and verifies stdio/TCP/Unix gRPC,
+error trailers, and shutdown. The SQLite check retains `wasi-sqlite.anki2` with
+an 11 MiB payload and `sqlite-verification.txt` in its test outputs; native and
+WASI SQLite independently reopen it. The application `wasm_workflow_test`
+retains `large-field-roundtrip.colpkg` with a 17 MiB note field and checks its
+identity, scheduling, review history and media through native Anki after export.
+
+### Runtime comparison
+
+This snapshot was checked on 21 October 2026. Approximate GitHub star counts
+refer to the runtime repository, not its smaller Go wrapper. The cgo column
+describes the standard in-process Go binding linked in that row.
+
+| Runtime (stars)                                                          | Guest multithreading and Go integration                                                                                                                                                                                                                                                                                                                                               | Uses cgo?                                                                                                |
+| ------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
+| [Wasmer](https://github.com/wasmerio/wasmer) (~21.2k)                    | Modern Wasmer supports [WASI/WASIX threading](https://docs.wasmer.io/runtime/wasix/). The published Go wrapper still depends on [Wasmer 2.0](https://github.com/wasmerio/wasmer-go/blob/master/Cargo.toml) and does not expose the modern engine's full feature set.                                                                                                                  | [Yes](https://github.com/wasmerio/wasmer-go#supported-platforms)                                         |
+| [Wasmtime](https://github.com/bytecodealliance/wasmtime) (~18.7k)        | The engine implements [WASI thread spawning](https://docs.rs/wasmtime-wasi-threads/latest/wasmtime_wasi_threads/). The Go binding exposes [thread instructions](https://github.com/bytecodealliance/wasmtime-go/blob/main/config_feat_threads.go); running Rust-created WASI threads requires additional host integration.                                                            | [Yes](https://github.com/bytecodealliance/wasmtime-go#installation)                                      |
+| [WasmEdge](https://github.com/WasmEdge/WasmEdge) (~10.8k)                | Core threads are supported; the [example uses host-created workers](https://github.com/WasmEdge/WasmEdge/blob/master/examples/capi/mandelbrot-set-in-threads/README.md) sharing guest memory. The [Go SDK exposes the threads feature](https://github.com/second-state/WasmEdge-go/blob/master/wasmedge/configure.go); a ready-made Rust/WASI thread-spawn path is not verified here. | [Yes](https://github.com/second-state/WasmEdge-go/blob/master/wasmedge/cgo.go)                           |
+| [Wasm3](https://github.com/wasm3/wasm3) (~8.1k)                          | No guest multithreading; the [feature list](https://github.com/wasm3/wasm3#features) includes atomics only. Its linked [community Go wrapper](https://github.com/matiasinsaurralde/go-wasm3) is marked work in progress.                                                                                                                                                              | [Yes](https://github.com/matiasinsaurralde/go-wasm3/blob/master/wasm3.go)                                |
+| [wazero](https://github.com/wazero/wazero) (~6.4k; our pinned v1.12.0)   | Experimental shared memory and atomics, without built-in WASI thread spawning. Its [example creates workers from Go](https://github.com/wazero/wazero/blob/v1.12.0/experimental/features_example_test.go); guest multithreading requires custom host support.                                                                                                                         | [No](https://github.com/wazero/wazero/blob/v1.12.0/README.md)                                            |
+| [WAMR](https://github.com/wasm-micro-runtime/wasm-micro-runtime) (~6.2k) | Supports [pthread and WASI thread spawning](https://github.com/wasm-micro-runtime/wasm-micro-runtime/blob/main/doc/pthread_impls.md). Build the native library with `WAMR_BUILD_LIB_WASI_THREADS=1` for the WASI threads ABI.                                                                                                                                                         | [Yes](https://github.com/wasm-micro-runtime/wasm-micro-runtime/blob/main/language-bindings/go/README.md) |
+
+Core thread instructions, guest thread spawning and Go API support are separate
+capabilities. This comparison checks upstream source and documentation; it is
+not an Anki compatibility test.
 
 ## Project layout
 
 - `cmd/anki_grpc/main.rs`: Standalone executable adapter.
 - `pkg/ankiserver/lib.rs`: Transport listeners, opaque protobuf codec, and Anki dispatch.
-- `pkg/ankiserver/cli.rs`: Platform-independent `server_cli` library for help and transport validation.
-- `pkg/ankiserver/build.rs`: Command lookup generated from Anki's own descriptors.
+- `pkg/ankiserver/cli.rs`: Shared Rust CLI, help and transport validation.
+- `internal/backend/`: Shared Rust backend dispatch and descriptor-generated command lookup.
 - `pkg/ankigrpc/native/`: Optional native C ABI bridge, CLI hosting and client registration.
 - `pkg/ankigrpc/`: Pure Go connection-string routing and client construction.
+- `pkg/ankigrpc/wasm/`: Production WASI command build, embedding and argument-vector API.
+- `internal/wasmhost/`: Pure-Go WASI execution, native byte streams and timezone callbacks.
 - `pkg/ankiclient/`: Reusable Go owner of the server process and gRPC connection.
 - `docs/architecture.mmd`: Client, server, and storage diagram source.
 - `test/transport/`: CLI and network transport E2E using official Anki messages.
@@ -131,8 +243,9 @@ server and requires no RPC. Operation failures include Anki's serialized
 `BackendError` in the binary `anki-error-bin` trailer. The transport uses stable
 Tonic 0.14.6.
 
-Dispatch runs on blocking threads because Anki owns its own runtime and
-operation synchronization. Worker panics terminate the process. A cancelled
+Native dispatch runs on blocking threads because Anki owns its own runtime and
+operation synchronization. WASI serializes dispatch inside its single-thread
+command. Worker panics terminate the process; WASM traps fail that command. A cancelled
 RPC does not promise rollback of a mutation already running in Anki.
 
 Anki implicitly forwards collection-service methods through its backend services.
@@ -280,6 +393,11 @@ Unix URI paths may also be relative to the client's working directory.
 Start waits for readiness within its context. Stop closes only the client;
 it does not stop the remote server or close its collection. Retained clients
 reject calls after Stop. Native error trailers are decoded as for stdio.
+
+`ankiclient.NewGRPCWithDialer(dial)` provides the same lifecycle and RPC handling
+for a caller-supplied `net.Conn`. The WASM adapter supplies a single-use memory
+stream and retains ownership of guest execution. Other dialers may reconnect;
+neither client replays failed RPCs.
 
 ### Collection backend
 

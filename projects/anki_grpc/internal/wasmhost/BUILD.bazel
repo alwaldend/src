@@ -1,0 +1,41 @@
+load("@rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "wasmhost",
+    srcs = [
+        "doc.go",
+        "io.go",
+        "runtime.go",
+        "stdio_other.go",
+        "stdio_unix.go",
+        "timezone.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/anki_grpc/internal/wasmhost",
+    visibility = [
+        "//projects/anki_grpc/pkg/ankigrpc/wasm:__pkg__",
+        "//projects/anki_grpc/test/wasm/cmd/worker:__pkg__",
+    ],
+    deps = [
+        "@com_github_tetratelabs_wazero//:wazero",
+        "@com_github_tetratelabs_wazero//api",
+        "@com_github_tetratelabs_wazero//imports/wasi_snapshot_preview1",
+    ],
+)
+
+go_test(
+    name = "backend_test",
+    srcs = ["backend_test.go"],
+    args = ["-guest=$(rlocationpath //projects/anki_grpc/test/wasm/cmd/worker:fixture)"],
+    data = ["//projects/anki_grpc/test/wasm/cmd/worker:fixture"],
+    embed = [":wasmhost"],
+    pure = "on",
+    deps = [
+        "@com_github_tetratelabs_wazero//:wazero",
+        "@com_github_tetratelabs_wazero//api",
+        "@com_github_tetratelabs_wazero//imports/wasi_snapshot_preview1",
+        "@org_golang_google_grpc//:grpc",
+        "@org_golang_google_grpc//credentials/insecure",
+        "@org_golang_google_protobuf//types/known/wrapperspb",
+        "@rules_go//go/runfiles",
+    ],
+)

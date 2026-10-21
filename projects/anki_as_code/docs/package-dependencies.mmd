@@ -8,9 +8,12 @@ flowchart LR
     api --> schema
     cli --> schema[ankiascodepb: protobuf contracts]
     app --> schema
-    entry -->|Inject native adapter| host[ankigrpc/native.RunServer]
-    app -. ServerRun / ServerServe .-> host
-    host --> server[Linked Anki gRPC server]
+    entry -->|cgo enabled| nativeHost[ankigrpc/native.RunServer]
+    entry -->|WASM enabled| wasmHost[ankigrpc/wasm.Run]
+    app -. ServerRun / ServerServe .-> nativeHost
+    app -. ServerRun / ServerServe .-> wasmHost
+    nativeHost --> server[Child worker gRPC transport]
+    wasmHost --> server
     app -->|path source| collections[collection.Store]
     app --> export[Export: write configs]
     app --> planning[Plan: prepare operations]
@@ -38,4 +41,4 @@ flowchart LR
     collections --> backend[Anki gRPC backends]
     backend -->|Launch same executable: server serve| server
     services -->|gRPC| server
-    server --> native[Anki Rust library]
+    server --> native[Anki Rust backend: native or WASI]

@@ -3,7 +3,7 @@
 use std::path::PathBuf;
 
 /// HELP lists server CLI commands without starting a server.
-pub const HELP: &str = "Usage: anki_grpc <COMMAND>
+pub(crate) const HELP: &str = "Usage: anki_grpc <COMMAND>
 
 Commands:
   serve  Run the Anki gRPC server.
@@ -13,7 +13,7 @@ Options:
 ";
 
 /// SERVE_HELP describes the serve command's transports and listener parameters.
-pub const SERVE_HELP: &str =
+pub(crate) const SERVE_HELP: &str =
     "Usage: anki_grpc serve [--transport stdio|tcp|unix] [--listen ADDRESS_OR_PATH]
 
 Transports:
@@ -28,7 +28,7 @@ Options:
 ";
 
 /// Command selects server CLI behavior before runtime initialization.
-pub enum Command {
+pub(crate) enum Command {
     /// Help displays available server commands.
     Help,
     /// ServeHelp displays transport options without starting the server.
@@ -39,7 +39,7 @@ pub enum Command {
 
 impl Command {
     /// parse validates the server subcommand and delegates its transport arguments.
-    pub fn parse(args: impl IntoIterator<Item = String>) -> Result<Self, String> {
+    pub(crate) fn parse(args: impl IntoIterator<Item = String>) -> Result<Self, String> {
         let mut args = args.into_iter();
         match args.next().as_deref() {
             None | Some("-h" | "--help") => Ok(Self::Help),
@@ -53,7 +53,7 @@ impl Command {
 }
 
 /// Transport identifies the stream source and its explicit listener endpoint.
-pub enum Transport {
+pub(crate) enum Transport {
     /// Stdio serves a single connection on the process pipes.
     Stdio,
     /// Tcp accepts connections at the specified host and port.
@@ -64,7 +64,7 @@ pub enum Transport {
 
 impl Transport {
     /// parse validates arguments, returning None when help was requested.
-    pub fn parse(args: impl IntoIterator<Item = String>) -> Result<Option<Self>, String> {
+    pub(crate) fn parse(args: impl IntoIterator<Item = String>) -> Result<Option<Self>, String> {
         let mut args = args.into_iter();
         let mut transport = None;
         let mut listen = None;
@@ -107,4 +107,39 @@ fn value(args: &mut impl Iterator<Item = String>, option: &str) -> Result<String
     args.next()
         .filter(|value| !value.is_empty() && !value.starts_with('-'))
         .ok_or_else(|| format!("{option} requires a value"))
+}
+
+/// run executes the server CLI using a complete argument vector and returns its exit status.
+pub(crate) fn run(
+    arguments: Vec<String>,
+    serve: impl FnOnce(Transport) -> Result<(), Box<dyn std::error::Error>>,
+) -> i32 {
+    let mut arguments = arguments.into_iter();
+    let program = arguments.next().unwrap_or_else(|| "anki_grpc".into());
+    let program = std::path::Path::new(&program)
+        .file_name()
+        .and_then(|name| name.to_str())
+        .unwrap_or("anki_grpc");
+    let transport = match Command::parse(arguments) {
+        Ok(Command::Serve(transport)) => transport,
+        Ok(Command::Help) => {
+            print!("{}", HELP.replacen("anki_grpc", program, 1));
+            return 0;
+        }
+        Ok(Command::ServeHelp) => {
+            print!("{}", SERVE_HELP.replacen("anki_grpc", program, 1));
+            return 0;
+        }
+        Err(error) => {
+            eprintln!("{error}\nSee --help for usage.");
+            return 2;
+        }
+    };
+    match serve(transport) {
+        Ok(()) => 0,
+        Err(error) => {
+            eprintln!("Error: {error:?}");
+            1
+        }
+    }
 }
