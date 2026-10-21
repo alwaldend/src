@@ -18,6 +18,46 @@
       changed_when: true
       listen: Reload firewalld
   tasks:
+    - name: Configure power profile
+      tags:
+        - power_profile
+      environment:
+        LC_ALL: C
+      block:
+        - name: Enable Tuned
+          ansible.builtin.systemd_service:
+            name: tuned
+            enabled: true
+            state: started
+        - name: Read active Tuned profile
+          ansible.builtin.command:
+            argv:
+              - tuned-adm
+              - active
+          register: host_bot_tuned_active
+          changed_when: false
+          failed_when: >-
+            host_bot_tuned_active.rc != 0 and
+            (host_bot_tuned_active.rc != 1 or
+             host_bot_tuned_active.stdout != 'No current active profile.')
+        - name: Read Tuned profile selection mode
+          ansible.builtin.command:
+            argv:
+              - tuned-adm
+              - profile_mode
+          register: host_bot_tuned_mode
+          changed_when: false
+        - name: Select declared Tuned profile
+          ansible.builtin.command:
+            argv:
+              - tuned-adm
+              - profile
+              - "{{ host_bot_tuned_profile }}"
+          changed_when: true
+          when: >-
+            ('Current active profile: ' ~ host_bot_tuned_profile)
+            not in host_bot_tuned_active.stdout_lines or
+            host_bot_tuned_mode.stdout != 'Profile selection mode: manual'
     - name: Enable firewalld
       ansible.builtin.systemd_service:
         name: firewalld
