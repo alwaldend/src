@@ -1,0 +1,77 @@
+## MODIFIED Requirements
+
+### Requirement: Derive discovery links from canonical source skills
+
+`skills_write` SHALL derive its expected entry set from supplied `SkillInfo`
+targets, installing `symlinks` labels as direct relative links to canonical
+source roots and `archives` labels as regular files copied from their declared
+sources. It SHALL require source `SKILL.md` files for symlink entries and
+reject duplicate names across both inputs.
+
+#### Scenario: A symlink declaration references a generated skill instruction file
+
+- **WHEN** a supplied symlink skill provider identifies a generated or external `SKILL.md`
+- **THEN** analysis rejects it instead of generating a source-tree link.
+
+#### Scenario: An archive skill is materialized
+
+- **WHEN** an `archives` provider identifies a skill packaged from an external archive
+- **THEN** the updater writes its declared files as regular files in the discovery directory.
+
+### Requirement: Check the exact discovery directory state
+
+The generated local discovery test SHALL require exactly the declared entry
+names and kinds, rejecting missing, extra, stale, absolute, or indirect
+entries, and SHALL reject a written entry whose bytes differ from its declared
+source. The updater SHALL hold a sibling lock directory while reconciling
+entries, and SHALL locate the workspace from a declared `workspace_marker`
+source file.
+
+#### Scenario: An undeclared skill entry remains in the discovery directory
+
+- **WHEN** the generated discovery test observes a name absent from the BUILD declaration
+- **THEN** the test fails until the directory is reconciled.
+
+#### Scenario: A materialized file is edited by hand
+
+- **WHEN** a written entry's file no longer matches the archive source that produced it
+- **THEN** the test fails until the updater reconciles the file.
+
+### Requirement: Package one named skill with explicit logical paths
+
+`skill_library` SHALL require a non-root Bazel package and exactly one
+`SKILL.md`. Its `SkillInfo` SHALL derive the skill name from the package's final
+segment and map files by paths relative to that package. Sources outside the
+owning package and duplicate logical paths SHALL be rejected during analysis.
+`skill_archive` SHALL provide the same `SkillInfo` shape for a skill
+directory owned by another repository, deriving the name from its target and
+logical paths relative to the declared root.
+
+#### Scenario: A source is owned by another package
+
+- **WHEN** a skill library includes a file whose Bazel owner is outside the skill's package
+- **THEN** analysis rejects the file as outside the skill root.
+
+#### Scenario: An archive root lacks SKILL.md
+
+- **WHEN** an archive skill root contains no SKILL.md
+- **THEN** analysis fails naming the root and the paths it did find.
+
+### Requirement: Validate instruction and optional OpenAI metadata
+
+The validation aspect SHALL run its declared executable on `SkillInfo` files
+and emit the `skill_validation` output group. Validation SHALL check required
+instruction frontmatter, agreement between the instruction name and the
+provider's logical skill name, nonempty instructions, and optional
+`agents/openai.yaml` metadata. Local libraries derive their name from the
+package; archive skills derive it from their target.
+
+#### Scenario: The frontmatter name differs from the package name
+
+- **WHEN** the validation output group is built for a local skill library whose declared name does not match its package's final segment
+- **THEN** validation fails with a name diagnostic.
+
+#### Scenario: An archive skill uses its declared logical name
+
+- **WHEN** an archive skill's frontmatter name matches its provider's logical name
+- **THEN** validation accepts that name even when the containing Bazel package has another name.

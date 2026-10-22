@@ -1,0 +1,79 @@
+# collection-export Specification
+
+## Purpose
+
+Export prepared Anki collections as editable configurations while leaving native resources and stored bindings unchanged.
+
+## Requirements
+
+### Requirement: Borrow a prepared connection
+
+Exporter SHALL borrow existing resource and state stores for the same prepared collection and own no native lifecycle. Export SHALL take context, a config output directory and an optional state output path. Export SHALL read native snapshots through the shared resource store without depending on reconciliation models.
+
+#### Scenario: Reuse the caller's collection
+
+- **WHEN** export completes or fails
+- **THEN** the caller can continue using and close the same collection and backend
+
+### Requirement: Read-only identity-free export
+
+Export SHALL write exact note fields, tags, normal/filtered deck configs, and editable note-type fields/templates/CSS into the fixed configuration layout. It SHALL NOT install state. Optional snapshot state output SHALL follow export-state-file; omitting its destination SHALL write configs only. It SHALL leave native objects, scheduling presets and review history unchanged. Native identity/provenance and derived fields SHALL be omitted from configs. Resident filtered cards SHALL remain unmanaged.
+
+#### Scenario: Export a reviewed collection
+
+- **WHEN** a collection containing notes, native presentation settings and review history is exported
+- **THEN** config loading preserves editable values and stored bindings remain unchanged; no state file is generated unless requested
+
+### Requirement: Stable readable paths
+
+Export SHALL reserve tracked note/type filenames before allocating case-insensitive collision suffixes for new native objects. Initial note names SHALL derive from bounded safe sort-field text. Deck hierarchy SHALL map literal Anki title components into nested decks directories. Existing preset aliases SHALL be retained without editing presets.
+
+Tracked types retain filenames regardless of native ID order. New filenames account for case-insensitive collisions, occupied numeric suffixes and fallback names.
+
+Reserve bound filenames before naming new notes; use fallback names for empty or media-only sort-field text.
+
+#### Scenario: A native type reuses a bound filename
+
+- **WHEN** a bound type is renamed and an unbound type uses its former name
+- **THEN** the bound filename is preserved and the new type receives an unused filename referenced by its notes
+
+#### Scenario: Derive a new note filename from rich content
+
+- **WHEN** an unbound note's sort field contains inline markup, line breaks, entities or audio/media references
+- **THEN** export uses Anki's HtmlToTextLine result, then applies bounded Unicode-preserving filesystem sanitization without modifying the field
+- **AND** bound filenames remain independent of native text conversion
+
+#### Scenario: Repeat export after importing allocated type paths
+
+- **WHEN** exported type bindings are explicitly imported after a tracked type was renamed and an untracked type reused its former name
+- **THEN** subsequent export repeats the allocated paths and each note references its allocated type path
+
+#### Scenario: Re-export edited and duplicate notes
+
+- **WHEN** a bound note's content or sort field changes and new notes have matching sort-field text
+- **THEN** the bound note retains its filename whenever its current deck destinations allow it, and each new note receives a distinct readable filename
+- **AND** naming does not modify native fields or use content as identity
+
+### Requirement: Write files directly
+
+Export SHALL delegate config-file output to config.Store.Export. It SHALL overwrite
+declared configs in place and leave other files and directories untouched,
+including stale declarations and state files not selected as the explicit state destination. Config output SHALL NOT stage,
+clean, copy, replace or roll back the output tree. Filesystem errors SHALL be
+returned and may leave partial output. Callers SHALL own directory cleanup,
+synchronization and separate state installation. The optional state file SHALL use the publication contract in export-state-file.
+
+#### Scenario: Export into an existing directory
+
+- **WHEN** the destination contains old configs, state files and unrelated files/directories
+- **THEN** export writes the requested config and optional state paths and leaves all other entries unchanged
+
+#### Scenario: A config write fails after earlier files were written
+
+- **WHEN** a later config file cannot be written after earlier successful writes
+- **THEN** export returns the filesystem error and retains the earlier written configs without rollback
+
+#### Scenario: Refresh an export containing private unrelated entries
+
+- **WHEN** an existing export contains an unrelated 0700 directory and 0600 file
+- **THEN** direct config writes leave their contents and modes unchanged

@@ -46,7 +46,7 @@ filename prefixes, preserving numeric note-ID order within each passage group.
 Most vocabulary IDs are imported sequence numbers rather than recoverable
 wall-clock timestamps. Shared import/edit modification times do not determine
 the order. Two incomplete examples use the
-associations recorded in the [verification](openspec/changes/refresh-collection-20261017/tasks.md).
+associations recorded in the [verification](openspec/changes/archive/2026-10-22-refresh-collection-20261017/tasks.md).
 
 The state file is the current CLI's unmodified export snapshot: it binds all
 485 source decks, 7,218 notes, five note types with their fields/templates, and
@@ -79,4 +79,4 @@ The native build succeeds, and planning the rebuilt package against this tree
 returns an empty plan. All 254 media filenames and decoded contents are
 preserved. The text uses the current CLI format; no legacy CLI is required.
 Verification is tracked in
-[refresh-collection-20261017](openspec/changes/refresh-collection-20261017/).
+[refresh-collection-20261017](openspec/changes/archive/2026-10-22-refresh-collection-20261017/).

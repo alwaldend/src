@@ -223,7 +223,7 @@ flow:
 
 No credential value is recorded in source, and the values are never printed.
 The identity, policy, and credential path are owned by
-`infra/vault/openspec/changes/add-x-article-uploader-credentials`. The credential
+`infra/vault/openspec/changes/archive/2026-10-22-add-x-article-uploader-credentials`. The credential
 sits inside the identity's own AppRole subtree, the same shape every other
 component uses, and `al.lua` names its path directly, as every other component's
 injected reference does; the shared AppRole module's own-subtree policy grants

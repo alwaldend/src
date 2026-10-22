@@ -75,7 +75,7 @@ also prevent the configured certificate issuance. This DNS operation changes
 neither VMs nor ingress configuration; those earlier readiness observations
 are not resolved by successful DNS queries.
 
-The active [service deployment change](../../add-openhands-deployment/design.md)
+The active [service deployment change](../2026-10-22-add-openhands-deployment/design.md)
 retains service acceptance and its TLS, issuance, and authentication limitations.
 DNS verification also does not resolve the separately recorded
 [PVE host/API reachability failure](../../../../../../projects/alwaldend.com/openspec/changes/archive/2026-09-13-adopt-dns-records/design.md#earlier-blocked-attempt).

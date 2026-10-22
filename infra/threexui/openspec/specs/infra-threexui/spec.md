@@ -53,7 +53,7 @@ for ports 40000 through 40149 and TCP inbound routes for ports 40150 through
 
 ### Requirement: Declare explicit node and outbound routing relationships
 
-Terraform SHALL configure the `njalla1` and `yc1` nodes through the shared node
+Terraform SHALL configure the `njalla1`, `yc1`, and `work1` nodes through the shared node
 module. The node routing declaration SHALL block the advertising category and
 private IP destinations before routing the freedom inbound directly and each
 `mullvad_min` or `http_proxy` inbound through its named WireGuard outbound.

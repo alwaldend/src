@@ -16,5 +16,5 @@ published content. Packages can be caller-managed with
 `nginx_manage_packages: false`.
 
 The download component owns its routes, storage permissions, SELinux labels,
-and the Traefik TLS frontend. The [role validation record](../../openspec/changes/add-nginx-role/tasks.md)
+and the Traefik TLS frontend. The [role validation record](../../openspec/changes/archive/2026-10-22-add-nginx-role/tasks.md)
 links the consumer fixture and lifecycle results.

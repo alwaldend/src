@@ -58,5 +58,5 @@ owns preparation and reconciliation.
 Keep it enabled to retain the managed records. Unchanged declarations and
 provider records produce a no-change DNS plan. Successful DNS checks do not
 establish VM, OpenHands service, or TLS readiness; the separate
-[service deployment change](../openspec/changes/add-openhands-deployment/design.md)
+[service deployment change](../openspec/changes/archive/2026-10-22-add-openhands-deployment/design.md)
 retains that acceptance work.

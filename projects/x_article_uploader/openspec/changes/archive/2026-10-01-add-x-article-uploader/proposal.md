@@ -67,7 +67,7 @@ Related owner changes carry the cross-owner requirements this change depends on:
   raster-image rule for a syndicated post and the authoring guidance.
 - `tools/mermaid/openspec/changes/add-raster-diagram-renders` owns the raster
   render rule and its appearance and hermeticity requirements.
-- `infra/vault/openspec/changes/add-x-article-uploader-credentials` owns the
+- `infra/vault/openspec/changes/archive/2026-10-22-add-x-article-uploader-credentials` owns the
   component identity, the least-privilege policy for the X credential, and the
   injected reference.
 
@@ -88,7 +88,7 @@ Related owner changes carry the cross-owner requirements this change depends on:
   `_WORKSPACE_SOURCES`, following the documented step for a new owner workspace.
 - `infra/vault/**`: the uploader's component identity and its least-privilege
   credential policy, tracked by
-  `infra/vault/openspec/changes/add-x-article-uploader-credentials`.
+  `infra/vault/openspec/changes/archive/2026-10-22-add-x-article-uploader-credentials`.
 - The uploader's own `al.lua`, its `al_config` target, and plugin data and
   labels: the non-secret half of the injection path the Vault change describes.
 - Root dependency declarations: `github.com/yuin/goldmark` and its transitive
