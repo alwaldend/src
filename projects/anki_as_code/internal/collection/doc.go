@@ -1,5 +1,7 @@
 // Package collection manages reserved offline collection scopes and publication.
 // Store owns managed collection startup, cleanup and source alias reservations.
+// Source inspection uses its injected Afero filesystem. Backend libraries and
+// servers retain their own storage contracts and must be able to access those paths.
 // It delegates address-selected client creation
 // to the backend library and composes collection clients, lending a prepared gRPC
 // connection to each callback. Optional engines are injected through a constructor;

@@ -16,6 +16,7 @@ import (
 	ankiascodepb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodepb"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/codec"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/config"
+	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/filesystem"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/state"
 	"git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/ankiclient"
 	"github.com/ankitects/anki/proto/anki/cards"
@@ -79,7 +80,7 @@ func TestStateWorkflow(t *testing.T) {
 		t.Fatal(err)
 	}
 	root := writeConfigs(t)
-	configs, err := config.New(root).Load()
+	configs, err := config.New(root, filesystem.FS{}).Load()
 	if err != nil {
 		t.Fatal(err)
 	}

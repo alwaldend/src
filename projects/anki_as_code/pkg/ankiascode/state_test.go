@@ -17,6 +17,7 @@ import (
 	ankiascodepb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodepb"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/codec"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/config"
+	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/filesystem"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/resource"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/state"
 	"github.com/ankitects/anki/proto/anki/cards"
@@ -319,7 +320,7 @@ func TestStateAPIWorkflow(t *testing.T) {
 	if err != nil || before.Version != 1 || (len(before.GetResources().GetDecks())+len(before.GetResources().GetNotes())+len(before.GetResources().GetNoteTypes())) != 0 {
 		t.Fatalf("empty state: %v %v", before, err)
 	}
-	configs, err := config.New(stateFixtureConfigs(t)).Load()
+	configs, err := config.New(stateFixtureConfigs(t), filesystem.FS{}).Load()
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -485,7 +486,7 @@ func prepareFixtureConfigs(t *testing.T, ctx context.Context, input, output stri
 	if err := exportForFixture(ctx, input, output, ""); err != nil {
 		return fmt.Errorf("export fixture configs: %w", err)
 	}
-	root, err := expandPath(output)
+	root, err := fixtureApplication().filesystem.ExpandPath(output)
 	if err != nil {
 		return fmt.Errorf("resolve fixture export: %w", err)
 	}
@@ -497,7 +498,7 @@ func prepareFixtureConfigs(t *testing.T, ctx context.Context, input, output stri
 
 // bindFixtureConfigs prepares state independently by matching exact native fixture values.
 func bindFixtureConfigs(ctx context.Context, input, root, key string) error {
-	configs, err := config.New(root).Load()
+	configs, err := config.New(root, filesystem.FS{}).Load()
 	if err != nil {
 		return fmt.Errorf("load fixture configs: %w", err)
 	}

@@ -8,6 +8,7 @@ import (
 	ankiascodepb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodepb"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/config"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/export"
+	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/filesystem"
 	planning "git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/plan"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/resource"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/state"
@@ -53,10 +54,10 @@ func captureFilteredCloze(t *testing.T, resources *resource.Store, states *state
 		}
 	}
 	root := filepath.Join(t.TempDir(), "cloze")
-	if err := export.New(resources, states).Export(ctx, root, ""); err != nil {
+	if err := export.New(resources, states, filesystem.FS{}).Export(ctx, root, ""); err != nil {
 		t.Fatal(err)
 	}
-	all, err := config.New(root).Load()
+	all, err := config.New(root, filesystem.FS{}).Load()
 	if err != nil {
 		t.Fatal(err)
 	}

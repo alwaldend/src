@@ -15,6 +15,7 @@ go_library(
     deps = [
         "//projects/anki_as_code/api/ankiascodepb",
         "//projects/anki_as_code/internal/codec",
+        "//projects/anki_as_code/internal/filesystem",
         "@org_golang_google_protobuf//proto",
     ],
 )

@@ -14,11 +14,147 @@ import (
 
 	ankiascodeapi "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodeapi"
 	ankiascodepb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodepb"
+	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/codec"
 	"github.com/ankitects/anki/proto/anki/notes"
+	"github.com/spf13/afero"
 	"google.golang.org/grpc"
 	"google.golang.org/protobuf/encoding/protojson"
 	"google.golang.org/protobuf/proto"
 )
+
+// TestBasePathCollectionExport publishes configuration and state through rooted directory and dangling aliases.
+func TestBasePathCollectionExport(t *testing.T) {
+	fixture := newFixture(t)
+	client := inspectFixture(t, fixture.base)
+	connection, err := client.worker.Connection()
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, namespace := range []string{"rooted-absolute", "rooted-relative", "nested-absolute", "nested-relative"} {
+		t.Run(namespace, func(t *testing.T) {
+			storage := afero.NewBasePathFs(afero.NewOsFs(), t.TempDir())
+			if strings.HasPrefix(namespace, "nested-") {
+				storage = afero.NewBasePathFs(storage, "scope")
+			}
+			if err := storage.MkdirAll("target", 0o755); err != nil {
+				t.Fatal(err)
+			}
+			linker := storage.(afero.Linker)
+			if err := linker.SymlinkIfPossible("target", "alias"); err != nil {
+				t.Fatal(err)
+			}
+			if err := linker.SymlinkIfPossible("target/state.toml", "state-link.toml"); err != nil {
+				t.Fatal(err)
+			}
+			prefix := ""
+			if strings.HasSuffix(namespace, "-absolute") {
+				prefix = string(filepath.Separator)
+			}
+			application := New(Options{FS: storage})
+			if err := application.ColExport(t.Context(), ankiascodeapi.CollectionOptions{Connection: connection}, prefix+"alias/config", prefix+"state-link.toml"); err != nil {
+				t.Fatal(err)
+			}
+			if _, err := application.ConfigDump(t.Context(), prefix+"target/config", "json"); err != nil {
+				t.Fatal(err)
+			}
+			if _, err := application.ConfigDump(t.Context(), prefix+"alias/config", "json"); err == nil {
+				t.Fatal("config loading accepted a symlink ancestor")
+			}
+			data, err := afero.ReadFile(storage, "target/state.toml")
+			if err != nil {
+				t.Fatal(err)
+			}
+			bindings := &ankiascodepb.State{}
+			if err := codec.Decode(data, codec.TOML, bindings); err != nil || len(bindings.GetResources().GetNotes()) == 0 {
+				t.Fatalf("rooted state output lost bindings: %v", err)
+			}
+			if info, _, err := storage.(afero.Lstater).LstatIfPossible("state-link.toml"); err != nil || info.Mode()&os.ModeSymlink == 0 {
+				t.Fatalf("dangling output alias was replaced: %v", err)
+			}
+			entries, err := afero.ReadDir(storage, "target")
+			if err != nil || len(entries) != 2 || entries[0].Name() != "config" || entries[1].Name() != "state.toml" {
+				t.Fatalf("state publication left temporary output: %v %v", entries, err)
+			}
+			if artifacts := os.Getenv("TEST_UNDECLARED_OUTPUTS_DIR"); artifacts != "" {
+				if err := os.WriteFile(filepath.Join(artifacts, "basepath-export-state-"+namespace+".toml"), data, 0o600); err != nil {
+					t.Fatal(err)
+				}
+			}
+		})
+	}
+}
+
+// TestInjectedCollectionConfiguration keeps every config and state-output operation in memory.
+func TestInjectedCollectionConfiguration(t *testing.T) {
+	fixture := newFixture(t)
+	client := inspectFixture(t, fixture.base)
+	connection, err := client.worker.Connection()
+	if err != nil {
+		t.Fatal(err)
+	}
+	storage := afero.NewMemMapFs()
+	application := New(Options{FS: storage})
+	options := ankiascodeapi.CollectionOptions{Connection: connection, StateKey: "injected-storage"}
+	root := filepath.Join(t.TempDir(), "memory-only")
+	text, statePath := filepath.Join(root, "text"), filepath.Join(root, "state.toml")
+	if err := application.ColExport(t.Context(), options, text, statePath); err != nil {
+		t.Fatal(err)
+	}
+	data, err := afero.ReadFile(storage, statePath)
+	if err != nil {
+		t.Fatal(err)
+	}
+	bindings := &ankiascodepb.State{}
+	if err := codec.Decode(data, codec.TOML, bindings); err != nil {
+		t.Fatal(err)
+	}
+	if err := application.ColStateUpdate(t.Context(), options, bindings); err != nil {
+		t.Fatal(err)
+	}
+	path := fixtureNotePath(text)
+	data, err = afero.ReadFile(storage, path)
+	if err != nil {
+		t.Fatal(err)
+	}
+	note := &ankiascodepb.NoteConfig{}
+	if err := codec.Decode(data, codec.TOML, note); err != nil {
+		t.Fatal(err)
+	}
+	note.Tags = append(note.Tags, "injected-storage")
+	data, err = codec.Encode(note, codec.TOML)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err := afero.WriteFile(storage, path, data, 0o600); err != nil {
+		t.Fatal(err)
+	}
+	address, err := filepath.Rel(text, path)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err := application.ColStateImport(t.Context(), options, text, map[string]string{filepath.ToSlash(address): strconv.FormatInt(fixture.noteID, 10)}); err != nil {
+		t.Fatal(err)
+	}
+	plan, err := application.ColPlan(t.Context(), options, text)
+	if err != nil || len(plan.GetChanges()) == 0 {
+		t.Fatalf("memory plan: %v %v", plan, err)
+	}
+	if err := application.ColApply(t.Context(), options, text); err != nil {
+		t.Fatal(err)
+	}
+	plan, err = application.ColPlan(t.Context(), options, text)
+	if err != nil || len(plan.GetChanges()) != 0 {
+		t.Fatalf("memory apply did not converge: %v %v", plan, err)
+	}
+	if _, err := os.Stat(root); !errors.Is(err, os.ErrNotExist) {
+		t.Fatalf("collection configuration escaped to disk: %v", err)
+	}
+	if artifacts := os.Getenv("TEST_UNDECLARED_OUTPUTS_DIR"); artifacts != "" {
+		if err := os.WriteFile(filepath.Join(artifacts, "memory-applied.note.anki.toml"), data, 0o600); err != nil {
+			t.Fatal(err)
+		}
+	}
+}
 
 // TestBorrowedCollectionWorkflow verifies reuse, independent sources and caller-owned publication.
 func TestBorrowedCollectionWorkflow(t *testing.T) {

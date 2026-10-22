@@ -1,6 +1,9 @@
 // Package ankiascode coordinates all Anki as code application operations.
 // App implements ankiascodeapi.App and owns Config, Col, ColState, API and Server
-// workflows, validates workflow paths,
+// workflows. All application-owned file access uses the construction-time Afero
+// filesystem, defaulting to OS storage; custom paths retain their filesystem's namespace.
+// Server and backend-library storage contracts remain independently owned. App
+// validates workflow paths,
 // composes lower-level services and delegates native hosting through an injected
 // runner. ServerServe delegates to ServerRun; its context controls startup only.
 // Collection scopes own source reservations and enabled archive publication; export,

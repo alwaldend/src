@@ -14,6 +14,7 @@ import (
 	ankiascodepb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodepb"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/codec"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/config"
+	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/filesystem"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/resource"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/state"
 	"git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/ankiclient"
@@ -28,6 +29,7 @@ import (
 	"github.com/ankitects/anki/proto/anki/search"
 	"github.com/ankitects/anki/proto/anki/stats"
 	"github.com/bazelbuild/rules_go/go/runfiles"
+	"github.com/spf13/afero"
 	"google.golang.org/protobuf/proto"
 )
 
@@ -65,7 +67,7 @@ func TestExportWorkflow(t *testing.T) {
 	deckClient := decks.NewDecksServiceClient(connection)
 	store := state.New(connection, "export-test")
 	otherStore := state.New(connection, "unrelated-test")
-	exporter := New(resource.New(connection), store)
+	exporter := New(resource.New(connection), store, filesystem.FS{})
 	definition := &notetypes.Notetype{
 		Name: "Readable", Config: &notetypes.Notetype_Config{Css: ".card { color: red; }", SortFieldIdx: 1},
 		Fields: []*notetypes.Notetype_Field{
@@ -116,11 +118,40 @@ func TestExportWorkflow(t *testing.T) {
 	if err := exporter.Export(ctx, output, ""); err != nil {
 		t.Fatal(err)
 	}
-	configs, err := config.New(output).Load()
+	configs, err := config.New(output, filesystem.FS{}).Load()
 	if err != nil {
 		t.Fatal(err)
 	}
 	address := "decks/Language/decks/Lesson/notes/Hello-世界.note.anki.toml"
+	for _, absoluteOutput := range []bool{false, true} {
+		t.Run("rooted-output-"+fmt.Sprint(absoluteOutput), func(t *testing.T) {
+			storage := filesystem.New(afero.NewBasePathFs(afero.NewMemMapFs(), "/scope"))
+			root, stateOutput := "configs", "/state.toml"
+			if absoluteOutput {
+				root, stateOutput = "/configs", "state.toml"
+			}
+			if err := New(resource.New(connection), store, storage).Export(ctx, root, stateOutput); err != nil {
+				t.Fatal(err)
+			}
+			actual, err := config.New(root, storage).Load()
+			if err != nil || !proto.Equal(actual, configs) {
+				t.Fatalf("independent rooted export changed declarations: %v %v", actual, err)
+			}
+			data, err := storage.ReadFile(stateOutput)
+			if err != nil {
+				t.Fatal(err)
+			}
+			bindings := &ankiascodepb.State{}
+			if err := codec.Decode(data, codec.TOML, bindings); err != nil || bindings.GetResources().GetNotes()[address].GetId() != added.NoteId {
+				t.Fatalf("independent rooted export lost note bindings: %v %v", bindings, err)
+			}
+			if artifact := os.Getenv("TEST_UNDECLARED_OUTPUTS_DIR"); artifact != "" {
+				if err := os.WriteFile(filepath.Join(artifact, "independent-rooted-state-"+fmt.Sprint(absoluteOutput)+".toml"), data, 0o600); err != nil {
+					t.Fatal(err)
+				}
+			}
+		})
+	}
 	for _, name := range []string{"state.anki.toml", "state.anki.json"} {
 		if _, err := os.Stat(filepath.Join(output, name)); !os.IsNotExist(err) {
 			t.Fatalf("export generated %s: %v", name, err)
@@ -247,7 +278,7 @@ func TestExportWorkflow(t *testing.T) {
 	if duplicate.NoteType != "note_types/Readable-2.notetype.anki.toml" {
 		t.Fatal("discovered note references wrong type")
 	}
-	if _, err := config.New(output).Load(); err != nil {
+	if _, err := config.New(output, filesystem.FS{}).Load(); err != nil {
 		t.Fatal(err)
 	}
 	for _, name := range []string{"state.anki.toml", "state.anki.json"} {
@@ -293,7 +324,7 @@ func TestExportWorkflow(t *testing.T) {
 			t.Fatal("cancelled export changed output")
 		}
 	})
-	configs, err = config.New(output).Load()
+	configs, err = config.New(output, filesystem.FS{}).Load()
 	if err != nil {
 		t.Fatal(err)
 	}

@@ -14,6 +14,7 @@ import (
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/collection"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/config"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/export"
+	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/filesystem"
 	planning "git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/plan"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/rebuild"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/reconcile"
@@ -21,6 +22,7 @@ import (
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/rpc"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/state"
 	"git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/ankigrpc"
+	"github.com/spf13/afero"
 	"google.golang.org/grpc"
 )
 
@@ -28,6 +30,8 @@ import (
 // Its zero value supports configuration operations and borrowed connections. Use
 // New to configure a native backend for path sources; do not copy App after use.
 type App struct {
+	// filesystem supplies every application-owned filesystem operation; its zero value selects OS storage.
+	filesystem filesystem.FS
 	// clientFactory supplies the same address-selected constructors to API and collection scopes.
 	clientFactory ankigrpc.ClientFactory
 	// collections reserves sources and owns managed archive publication.
@@ -36,8 +40,11 @@ type App struct {
 	serverRunner func([]string) error
 }
 
-// Options supplies client construction, cleanup policy and an optional server hosting adapter.
+// Options supplies application storage, client construction, cleanup policy and server hosting.
 type Options struct {
+	// FS supplies application storage. Nil selects the OS filesystem.
+	// Servers and backend libraries retain their own storage contracts.
+	FS afero.Fs
 	// NewClient constructs clients and selects its default when an operation address is empty.
 	NewClient ankigrpc.ClientFactory
 	// ServerRunner hosts a full server argument vector, including its program name.
@@ -47,12 +54,14 @@ type Options struct {
 	CollectionCloseTimeout time.Duration
 }
 
-// New constructs an application from explicit backend and server hosting dependencies.
+// New constructs an application from explicit filesystem, backend and server hosting dependencies.
 func New(options Options) *App {
+	storage := filesystem.New(options.FS)
 	return &App{
+		filesystem:    storage,
 		clientFactory: options.NewClient,
 		collections: collection.New(collection.Options{
-			NewClient: options.NewClient, CloseTimeout: options.CollectionCloseTimeout,
+			NewClient: options.NewClient, CloseTimeout: options.CollectionCloseTimeout, FS: storage,
 		}),
 		serverRunner: options.ServerRunner,
 	}
@@ -152,7 +161,7 @@ func (application *App) ConfigDump(ctx context.Context, input, format string) ([
 	if err := ctx.Err(); err != nil {
 		return nil, fmt.Errorf("dump configuration: %w", err)
 	}
-	data, err := config.New(input).Dump(format)
+	data, err := config.New(input, application.filesystem).Dump(format)
 	if err != nil {
 		return nil, fmt.Errorf("dump configuration: %w", err)
 	}
@@ -168,11 +177,11 @@ func (application *App) ConfigExport(ctx context.Context, output string, configs
 	if err := ctx.Err(); err != nil {
 		return fmt.Errorf("export configuration: %w", err)
 	}
-	output, err := expandPath(output)
+	output, err := application.filesystem.ExpandPath(output)
 	if err != nil {
 		return fmt.Errorf("resolve configuration output: %w", err)
 	}
-	if err := config.New(output).Export(configs); err != nil {
+	if err := config.New(output, application.filesystem).Export(configs); err != nil {
 		return fmt.Errorf("export configuration: %w", err)
 	}
 	if err := ctx.Err(); err != nil {
@@ -190,21 +199,21 @@ func (application *App) ColExport(ctx context.Context, options ankiascodeapi.Col
 	if err != nil {
 		return fmt.Errorf("resolve export source: %w", err)
 	}
-	output, err = expandPath(output)
+	output, err = application.filesystem.ExpandPath(output)
 	if err != nil {
 		return fmt.Errorf("resolve output path: %w", err)
 	}
-	output, err = export.ResolveOutputPath(output)
+	output, err = application.filesystem.ResolvePath(output, true)
 	if err != nil {
 		return fmt.Errorf("resolve export destination: %w", err)
 	}
 	var source string
 	if path != "" {
-		source, err = expandPath(path)
+		source, err = application.filesystem.ExpandPath(path)
 		if err != nil {
 			return fmt.Errorf("resolve source collection: %w", err)
 		}
-		source, err = filepath.EvalSymlinks(source)
+		source, err = application.filesystem.ResolvePath(source, false)
 		if err != nil {
 			return fmt.Errorf("resolve export source aliases: %w", err)
 		}
@@ -217,31 +226,31 @@ func (application *App) ColExport(ctx context.Context, options ankiascodeapi.Col
 		}
 	}
 	if stateOutput != "" {
-		stateOutput, err = expandPath(stateOutput)
+		stateOutput, err = application.filesystem.ExpandPath(stateOutput)
 		if err != nil {
 			return fmt.Errorf("resolve state output: %w", err)
 		}
-		stateOutput, err = export.ResolveOutputPath(stateOutput)
+		stateOutput, err = application.filesystem.ResolvePath(stateOutput, true)
 		if err != nil {
 			return fmt.Errorf("resolve state output aliases: %w", err)
 		}
 		var sourceInfo os.FileInfo
 		if source != "" {
-			sourceInfo, err = os.Stat(source)
+			sourceInfo, err = application.filesystem.Stat(source)
 			if err != nil {
 				return fmt.Errorf("inspect source collection: %w", err)
 			}
 		}
-		if info, err := os.Stat(stateOutput); err == nil {
-			if !info.Mode().IsRegular() || sourceInfo != nil && os.SameFile(sourceInfo, info) {
+		if info, err := application.filesystem.Stat(stateOutput); err == nil {
+			if !info.Mode().IsRegular() || stateOutput == source || sourceInfo != nil && os.SameFile(sourceInfo, info) {
 				return fmt.Errorf("state output must be a regular file distinct from the source collection")
 			}
-		} else if !os.IsNotExist(err) {
+		} else if !errors.Is(err, os.ErrNotExist) {
 			return fmt.Errorf("inspect state output: %w", err)
 		}
 	}
 	if err := application.withCollection(ctx, options, func(connection grpc.ClientConnInterface) error {
-		exporter := export.New(resource.New(connection), state.New(connection, options.StateKey))
+		exporter := export.New(resource.New(connection), state.New(connection, options.StateKey), application.filesystem)
 		if err := exporter.Export(ctx, output, stateOutput); err != nil {
 			return fmt.Errorf("export prepared collection: %w", err)
 		}
@@ -273,11 +282,11 @@ func (application *App) ColBuild(ctx context.Context, options ankiascodeapi.Coll
 	if connection != nil {
 		return fmt.Errorf("build requires a collection path")
 	}
-	source, err := expandPath(path)
+	source, err := application.filesystem.ExpandPath(path)
 	if err != nil {
 		return fmt.Errorf("resolve build source: %w", err)
 	}
-	output, err = expandPath(output)
+	output, err = application.filesystem.ExpandPath(output)
 	if err != nil {
 		return fmt.Errorf("resolve build output: %w", err)
 	}
@@ -288,7 +297,7 @@ func (application *App) ColBuild(ctx context.Context, options ankiascodeapi.Coll
 			return fmt.Errorf("apply build configs: %w", err)
 		}
 		return nil
-	})
+	}, application.filesystem)
 	if err := builder.Build(ctx, source, output); err != nil {
 		return fmt.Errorf("build collection: %w", err)
 	}
@@ -326,7 +335,7 @@ func (application *App) ColStateDump(ctx context.Context, options ankiascodeapi.
 
 // ColStateImport loads configs and binds a complete batch using the selected collection.
 func (application *App) ColStateImport(ctx context.Context, options ankiascodeapi.CollectionOptions, text string, bindings map[string]string) error {
-	configs, err := config.New(text).Load()
+	configs, err := config.New(text, application.filesystem).Load()
 	if err != nil {
 		return fmt.Errorf("load import configs: %w", err)
 	}
@@ -370,7 +379,7 @@ func (application *App) ColStateReplace(ctx context.Context, options ankiascodea
 // withPlan loads configs before borrowing one collection and prepares a plan for its operation.
 // The callback shares the captured resource/state clients while the collection backend owns publication.
 func (application *App) withPlan(ctx context.Context, options ankiascodeapi.CollectionOptions, dir string, operation func(*reconcile.Reconciler, *ankiascodepb.CollectionPlan) error) error {
-	configs, err := config.New(dir).Load()
+	configs, err := config.New(dir, application.filesystem).Load()
 	if err != nil {
 		return fmt.Errorf("load desired configs: %w", err)
 	}

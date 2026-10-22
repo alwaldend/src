@@ -11,12 +11,12 @@ go_library(
     name = "collection",
     srcs = [
         "doc.go",
-        "paths.go",
         "store.go",
     ],
     importpath = "git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/collection",
     visibility = [":consumers"],
     deps = [
+        "//projects/anki_as_code/internal/filesystem",
         "//projects/anki_grpc/pkg/ankiclient",
         "//projects/anki_grpc/pkg/ankigrpc",
         "@org_golang_google_grpc//:grpc",
@@ -32,6 +32,7 @@ go_test(
         "//projects/anki_as_code/api/ankiascodepb",
         "//projects/anki_as_code/internal/config",
         "//projects/anki_as_code/internal/export",
+        "//projects/anki_as_code/internal/filesystem",
         "//projects/anki_as_code/internal/resource",
         "//projects/anki_as_code/internal/state",
         "//projects/anki_grpc/pkg/ankiclient",

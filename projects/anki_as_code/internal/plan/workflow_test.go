@@ -16,6 +16,7 @@ import (
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/codec"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/config"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/export"
+	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/filesystem"
 	planning "git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/plan"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/resource"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/state"
@@ -126,10 +127,10 @@ func TestPlanningWorkflow(t *testing.T) {
 	if _, err := resources.Decks.AddDeck(ctx, &decks.Deck{Name: "Spare", Kind: &decks.Deck_Normal_{Normal: &decks.Deck_Normal{ConfigId: 1}}}); err != nil {
 		t.Fatal(err)
 	}
-	if err := export.New(resources, states).Export(ctx, root, ""); err != nil {
+	if err := export.New(resources, states, filesystem.FS{}).Export(ctx, root, ""); err != nil {
 		t.Fatal(err)
 	}
-	configs, err := config.New(root).Load()
+	configs, err := config.New(root, filesystem.FS{}).Load()
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -439,7 +440,7 @@ func TestPlanningWorkflow(t *testing.T) {
 				writePlanningArtifact(t, filepath.Join(output, test.name+".json"), plan.Report)
 				writePlanningArtifact(t, filepath.Join(output, test.name+"-execution.json"), plan)
 				if test.name == "content" {
-					if err := config.New(filepath.Join(output, "desired")).Export(desired); err != nil {
+					if err := config.New(filepath.Join(output, "desired"), filesystem.FS{}).Export(desired); err != nil {
 						t.Fatal(err)
 					}
 				}

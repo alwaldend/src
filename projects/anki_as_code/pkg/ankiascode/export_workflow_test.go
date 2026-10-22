@@ -12,6 +12,7 @@ import (
 	ankiascodepb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodepb"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/codec"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/config"
+	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/filesystem"
 	"github.com/ankitects/anki/proto/anki/decks"
 	"google.golang.org/protobuf/proto"
 )
@@ -88,7 +89,7 @@ func TestExportStateOnboardingWorkflow(t *testing.T) {
 			if err := codec.Decode(selectedData, codec.TOML, selectedBindings); err != nil || !proto.Equal(custom, selectedBindings) {
 				t.Fatalf("selected bindings differ from generated paths: %v\n%s", err, selectedData)
 			}
-			if _, err := config.New(selected).Load(); err != nil {
+			if _, err := config.New(selected, filesystem.FS{}).Load(); err != nil {
 				t.Fatal("state output broke config loading", err)
 			}
 			saveFixtureArtifact(t, selectedState, "onboarding-state-"+inputFormat+".toml")
@@ -248,7 +249,7 @@ func TestExportConfigOnlyWorkflow(t *testing.T) {
 			if !proto.Equal(custom, stateFixtureDumpKey(t, input, key)) || !proto.Equal(stored, stateFixtureDump(t, input)) {
 				t.Fatal("export changed stored bindings")
 			}
-			configs, err := config.New(selected).Load()
+			configs, err := config.New(selected, filesystem.FS{}).Load()
 			if err != nil || len(configs.GetDecks()) == 0 || len(configs.GetNoteTypes()) == 0 {
 				t.Fatalf("exported hierarchy is not loadable: %v", err)
 			}
@@ -348,7 +349,7 @@ func TestExportWritesWorkflow(t *testing.T) {
 	if err := exportForFixture(context.Background(), fixture.base, fresh, ""); err != nil {
 		t.Fatal(err)
 	}
-	if _, err := config.New(fresh).Load(); err != nil {
+	if _, err := config.New(fresh, filesystem.FS{}).Load(); err != nil {
 		t.Fatal(err)
 	}
 	original, err := os.ReadFile(fixture.database)

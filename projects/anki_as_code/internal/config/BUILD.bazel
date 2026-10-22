@@ -12,6 +12,7 @@ go_library(
         "//projects/anki_as_code/api/ankiascodepb",
         "//projects/anki_as_code/internal/codec",
         "//projects/anki_as_code/internal/config/layout",
+        "//projects/anki_as_code/internal/filesystem",
     ],
 )
 
@@ -26,6 +27,7 @@ go_test(
     deps = [
         "//projects/anki_as_code/api/ankiascodepb",
         "//projects/anki_as_code/internal/config",
+        "//projects/anki_as_code/internal/filesystem",
         "//third_party/com_github_ankitects_anki:decks",
         "//third_party/com_github_ankitects_anki:notetypes",
         "@com_github_burntsushi_toml//:toml",
