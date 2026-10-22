@@ -30,7 +30,7 @@ It is relative to the enclosing repository root, and OpenSpec reads and writes
 that owner's source artifacts directly. Standalone nested projects use the
 same root invocation, for example `OPENSPEC_PROJECT=tools/rules_skills`.
 
-Run upstream validation for all 51 owner workspaces in sandboxed tests against
+Run upstream validation for the declared owner workspaces in sandboxed tests against
 declared source inputs:
 
 ```sh
@@ -38,8 +38,8 @@ bazel_agent bazel test //infra/src/openspec/validation:validate_test //infra/src
 ```
 
 `validate_test` aggregates one strict test per owner for current specs and
-active change deltas. `archive_test` covers the repository, agent-system, and
-MCP workspaces and checks that archived changes have completed task
+active change deltas. `archive_test` covers the declared archive workspaces
+and checks that archived changes have completed task
 checkboxes; upstream does not reapply historical deltas during that check.
 Both are structural checks. Requirement scenarios still need evidence from
 their owning implementation and validation workflow.

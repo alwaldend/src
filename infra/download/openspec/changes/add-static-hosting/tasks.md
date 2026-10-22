@@ -3,7 +3,7 @@
 - [ ] 1.1 Inspect current provider inventory, VM images, DNS ownership, and role packaging; record selected non-secret environment inputs and verify they resolve unambiguously.
 - [x] 1.2 Write the end-to-end scenario/failure matrix before implementation, covering upload, listings, site activation, reselection, disk exhaustion, reboot, and split-horizon TLS; verify every new requirement has an observable check.
 - [x] 1.3 Add the component README and build/OpenSpec packaging through the owning workflows; verify discovery and strict owner validation include the new workspace.
-- [ ] 1.4 Complete the linked Nginx-role and Vault-identity plans; verify their owner-scoped checks and record their exact candidate revisions.
+- [x] 1.4 Complete the linked Nginx-role and Vault-identity plans; verify their owner-scoped checks and record their exact candidate revisions.
 
 ## 2. Provisioning, identity, and DNS
 
@@ -33,16 +33,47 @@
 - [ ] 5.3 Apply reviewed split-horizon DNS through its owning stages; verify public answers reach Yandex and local answers reach XCP-ng for both hostnames, including obsolete A/AAAA handling.
 - [ ] 5.4 Verify authorized reboot persistence and certificate renewal, document the no-backup/manual-retention policy, and retain sanitized operational evidence before marking rollout complete.
 
-## Current source scope
+## Recorded implementation scope
 
 This implementation pass delivers IaC and the architecture diagram. The user
 confirmed protecting the XCP-ng VM and handling replacement in a later change.
 See [evidence.md](evidence.md) for completed source and fixture checks.
 
-Tasks 1.1 and 3.1 include live inventory/disk/host verification that has not been
-run. Task 1.4 retains the linked owner-plan verification; the Vault owner records
-the identity deployment in #107. The linked browser work and rollout remain open; no
-live infrastructure operation is authorized by this source delivery.
+The initial source pass left live inventory/disk/host verification in tasks 1.1
+and 3.1. Later progress is reconciled below; neither these historical records
+nor this task-state review authorizes a new infrastructure operation.
+
+### Progress reconciliation (2026-10-22)
+
+Task 1.4 is complete. [PR #104](https://github.com/alwaldend/src/pull/104)
+merged the Nginx role at `14e51b750cd342a2fcd3178ebd3b9dd4c6fd05b7`, with
+recorded lifecycle/HTTP fixtures. [PR #105](https://github.com/alwaldend/src/pull/105)
+merged the Vault identity at `5ee276f1bdaa6435fb6b905664f545ee98faa4ee`;
+[PR #107](https://github.com/alwaldend/src/pull/107), candidate
+`1758ada2b212bd45273a440550fd8cc6d5746cd2`, records its authorized bootstrap,
+capability checks and no-change follow-up plans.
+
+The remaining checkboxes retain these specific gaps:
+
+- 1.1 and 3.1: both-environment inventory resolution and mounted-host/storage
+  acceptance remain unproven by the retained source and fixture evidence.
+- 4.2 and 4.3: the Downloads UI and browser acceptance are absent. The SSH/HTTP,
+  reselection and failure portions already passed 44 isolated scenarios in
+  [PR #113](https://github.com/alwaldend/src/pull/113), candidate
+  `b216b45686ac2aef98feef77b118a39c5f895767`; they need not be rediscovered.
+- 5.1 and 5.2: retain the recorded Vault authority and the later explicitly
+  authorized XCP-ng publication scope in the website design. Vault bootstrap
+  and local-deployment history exist, but complete two-environment concrete-site
+  HTTP/HTTPS/redirect acceptance and public/Yandex authority are not established.
+- 5.3: [PR #114](https://github.com/alwaldend/src/pull/114), candidate
+  `a60c613ca17f5f72ebd8651d3b9893d9770312b4`, records the observed local AAAA
+  fallback and a dc1-only correction plan during an XCP-ng deployment. It does
+  not establish successful public/Yandex cutover or full two-view acceptance.
+- 5.4: the no-backup/manual-retention policy is documented; reboot persistence
+  and certificate-renewal acceptance remain unevidenced.
+
+These are historical source and publication observations, not a fresh claim
+about live service health. The initial evidence file retains its original scope.
 
 ## 6. Content deduplication
 

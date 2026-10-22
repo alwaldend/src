@@ -312,7 +312,7 @@ access to its own path, none of which exist for a new project. The uploader
 therefore gets an `al.lua` and its `al_config` target that name the injected
 reference and select the injector plugin, and the identity, policy, and
 reference are carried by their owner in
-`infra/vault/openspec/changes/add-x-article-uploader-credentials`. The credential is held at
+`infra/vault/openspec/changes/archive/2026-10-22-add-x-article-uploader-credentials`. The credential is held at
 `alwaldend.com/vault1/approles/src_projects_x_article_uploader/oauth1` -- its
 path is one checked-in value that both the identity's checks and the injected
 reference read, so the two cannot drift -- inside the identity's own AppRole

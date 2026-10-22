@@ -34,7 +34,7 @@ site deployed through the release tool to the download hosts.
 Affected areas include Hugo navigation, content, assets, shared release
 rendering, release packaging, and production deployment wiring. Nginx and
 storage remain in the [hosting plan](../../../../../infra/download/openspec/changes/add-static-hosting/proposal.md);
-the SSH protocol and lifecycle remain in the [release-tool plan](../../../../../tools/release/openspec/changes/add-ssh-deployment/proposal.md).
+the SSH protocol and lifecycle remain in the [release-tool plan](../../../../../tools/release/openspec/changes/archive/2026-10-22-add-ssh-deployment/proposal.md).
 
 The existing apex DNS records stay owned by `infra/dns`. Website builds must
 remain independent of the live download server and infrastructure targets.

@@ -9,7 +9,7 @@ therefore a configuration addition plus a second build of the same source, not
 new machinery.
 
 Related change:
-`projects/alwaldend.com/openspec/changes/consolidate-project-landings-into-apex/`
+`projects/alwaldend.com/openspec/changes/archive/2026-10-22-consolidate-project-landings-into-apex/`
 owns the landing migration and the retirement of per-project publication.
 Its task 7.9 is blocked pending this verification.
 

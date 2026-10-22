@@ -12,9 +12,21 @@
 
 ## 3. Package and deploy the website through SSH
 
-- [ ] 3.1 Package the complete release-mode Hugo output with root `index.html`, required assets, and project landing pages; verify archive contents and representative page/asset/landing requests after fixture extraction.
-- [ ] 3.2 Wire the archive to the release tool's SSH site deployment and explicit environment selection; verify a concrete generated release can be uploaded and selected on the isolated host.
+- [x] 3.1 Package the complete release-mode Hugo output with root `index.html`, required assets, and project landing pages; verify the generated archive contents.
+- [x] 3.2 Wire the archive to the release tool's SSH site deployment and explicit environment selection; verify the configured targets and documented invocation use the generated bundle.
 - [ ] 3.3 Update the production deployment entry point and documentation while preserving preview and unrelated staging; verify build/preview do not publish and staging inputs remain valid.
+- [ ] 3.4 Extract the actual generated website archive into the fixture and verify representative page, asset, and project-landing requests.
+- [ ] 3.5 Upload and select a concrete generated website release on the isolated host; verify the served bytes match the bundle.
+
+Progress reconciled on 2026-10-22: commit
+`04ddc88e90434568d66e480967587bc6630b1d86` records the stamped website-bundle
+build and archive inspection. The release-only archive is declared in
+`BUILD.bazel`, and the owner README documents `infra/download:publish.local`
+and explicit Yandex selection. Tasks 3.4 and 3.5 preserve the uncompleted
+acceptance portions of the original compound tasks; generic release-tool
+fixtures do not prove acceptance of this concrete website bundle. The browser
+and public cutover remain unfinished. No new build or publication ran during
+this task-state reconciliation.
 
 ## 4. Verify and coordinate cutover
 

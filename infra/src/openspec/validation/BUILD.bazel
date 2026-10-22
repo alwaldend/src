@@ -32,10 +32,13 @@ _WORKSPACE_SOURCES = {
     "tools_mermaid": "//tools/mermaid/openspec:source",
     "tools_release": "//tools/release/openspec:source",
     "tools_agents": "//tools/agents/openspec:source",
+    "tools_repo_delivery": "//tools/repo_delivery/openspec:source",
     "projects_al": "//projects/al/openspec:source",
     "projects_alwaldend_com": "//projects/alwaldend.com/openspec:source",
     "projects_activitywatch_ingester_android": "//projects/activitywatch_ingester_android/openspec:source",
     "projects_android_launcher": "//projects/android_launcher/openspec:source",
+    "projects_anki_as_code": "//projects/anki_as_code/openspec:source",
+    "projects_anki_grpc": "//projects/anki_grpc/openspec:source",
     "projects_ansible_collection": "//projects/ansible_collection/openspec:source",
     "projects_autoscroll": "//projects/autoscroll/openspec:source",
     "projects_bazel_agent": "//projects/bazel_agent/openspec:source",
@@ -66,6 +69,8 @@ _WORKSPACE_SOURCES = {
     "projects_useless_qt_gui": "//projects/useless_qt_gui/openspec:source",
     "projects_x_article_uploader": "//projects/x_article_uploader/openspec:source",
     "tools_rules_terraform": "@rules_terraform//openspec:source",
+    "users_simeonwarren_anki": "//users/simeonwarren/anki/openspec:source",
+    "users_simeonwarren_host_bot": "//users/simeonwarren/host_bot/openspec:source",
 }
 
 [
@@ -77,13 +82,28 @@ _WORKSPACE_SOURCES = {
 ]
 
 _ARCHIVE_WORKSPACES = [
+    "infra_openhands",
     "infra_repos",
+    "infra_threexui",
+    "infra_vault",
     "repository",
     "tools_agents",
+    "tools_mermaid",
+    "tools_release",
+    "tools_repo_delivery",
+    "projects_alwaldend_com",
+    "projects_anki_as_code",
+    "projects_anki_grpc",
+    "projects_ansible_collection",
+    "projects_leetcode_downloader",
     "projects_mlops_2026",
     "projects_icon_generator",
     "projects_mcp_cordis",
+    "projects_rules_skills",
+    "projects_x_article_uploader",
     "tools_rules_terraform",
+    "users_simeonwarren_anki",
+    "users_simeonwarren_host_bot",
 ]
 
 [

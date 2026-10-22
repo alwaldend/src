@@ -35,7 +35,7 @@ theme, and configuration.
 - **WHEN** the same diagram source is rendered to SVG and to the raster format
 - **THEN** both renders apply the same selected theme and post-processing policy
 - **AND** neither render introduces an appearance of its own
-- **AND** the raster canvas reproduces the SVG render's geometry at the rule's scale
+- **AND** the raster content reproduces the SVG render's geometry at the rule's scale, with selected canvas padding
 
 #### Scenario: Render a native site diagram
 
@@ -46,8 +46,8 @@ theme, and configuration.
 
 #### Scenario: Reproduce the natural canvas
 
-- **WHEN** a diagram's natural canvas differs from the browser's default
-  replaced-element size
+- **WHEN** a consumer explicitly selects natural raster proportions
+- **AND** the diagram's natural canvas differs from the browser's default replaced-element size
 - **THEN** the raster is captured at the SVG's own `viewBox` geometry rather than
   the default size
 - **AND** its canvas equals the SVG render's geometry at the rule's scale
@@ -84,3 +84,43 @@ can be regenerated and compared against a fresh render.
 - **WHEN** a diagram source changes
 - **THEN** its raster render changes when regenerated from the new source
 - **AND** the source remains the artifact an author edits
+
+### Requirement: Default raster canvas ratio
+
+WebP rendering SHALL default to a 5:2 width-to-height canvas through the Bazel
+rule, CLI, and encoder. Padding SHALL center the scaled diagram on the smallest
+exact-ratio canvas that contains it without cropping or stretching its content.
+Explicit positive-integer ratios SHALL remain supported. An explicit natural
+canvas selection SHALL omit ratio padding. SVG geometry SHALL remain unchanged.
+
+#### Scenario: Omit the raster ratio
+
+- **WHEN** a raster consumer omits its aspect ratio
+- **THEN** the WebP canvas has exact 5:2 proportions
+- **AND** content scale, labels, and theme colors are preserved
+
+#### Scenario: Select natural geometry
+
+- **WHEN** a rule or encoder selects an empty ratio list, or the CLI selects `natural`
+- **THEN** the raster canvas follows the scaled natural SVG dimensions
+
+#### Scenario: Override the ratio
+
+- **WHEN** a consumer selects another positive-integer width and height ratio
+- **THEN** the renderer pads to that exact ratio instead of 5:2
+
+### Requirement: Natural-size raster default
+
+WebP rendering SHALL default to scale 1, using the ceiling of each natural SVG canvas dimension before optional aspect-ratio padding. Explicit positive integer scales SHALL remain supported and multiply those dimensions before padding.
+
+#### Scenario: Omit raster scale
+
+- **WHEN** a WebP render omits its scale
+- **THEN** the diagram is rasterized at its natural size
+- **AND** optional aspect-ratio padding retains the existing centering and exact-ratio behavior
+
+#### Scenario: Request a higher raster scale
+
+- **WHEN** a WebP render explicitly selects scale 2 or 3
+- **THEN** the diagram's pixel dimensions are multiplied by that scale
+- **AND** its selected appearance and aspect-ratio padding are preserved

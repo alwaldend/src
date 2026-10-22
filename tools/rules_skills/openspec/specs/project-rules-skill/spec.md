@@ -21,23 +21,38 @@ Sources: [project description](../../../README.md),
 `SKILL.md`. Its `SkillInfo` SHALL derive the skill name from the package's final
 segment and map files by paths relative to that package. Sources outside the
 owning package and duplicate logical paths SHALL be rejected during analysis.
+`skill_archive` SHALL provide the same `SkillInfo` shape for a skill
+directory owned by another repository, deriving the name from its target and
+logical paths relative to the declared root.
 
 #### Scenario: A source is owned by another package
 
 - **WHEN** a skill library includes a file whose Bazel owner is outside the skill's package
 - **THEN** analysis rejects the file as outside the skill root.
 
+#### Scenario: An archive root lacks SKILL.md
+
+- **WHEN** an archive skill root contains no SKILL.md
+- **THEN** analysis fails naming the root and the paths it did find.
+
 ### Requirement: Validate instruction and optional OpenAI metadata
 
 The validation aspect SHALL run its declared executable on `SkillInfo` files
 and emit the `skill_validation` output group. Validation SHALL check required
-instruction frontmatter, agreement between the skill name and package name,
-nonempty instructions, and optional `agents/openai.yaml` metadata.
+instruction frontmatter, agreement between the instruction name and the
+provider's logical skill name, nonempty instructions, and optional
+`agents/openai.yaml` metadata. Local libraries derive their name from the
+package; archive skills derive it from their target.
 
 #### Scenario: The frontmatter name differs from the package name
 
-- **WHEN** the validation output group is built for a skill whose declared name does not match its package's final segment
+- **WHEN** the validation output group is built for a local skill library whose declared name does not match its package's final segment
 - **THEN** validation fails with a name diagnostic.
+
+#### Scenario: An archive skill uses its declared logical name
+
+- **WHEN** an archive skill's frontmatter name matches its provider's logical name
+- **THEN** validation accepts that name even when the containing Bazel package has another name.
 
 ### Requirement: Derive discovery links from canonical source skills
 

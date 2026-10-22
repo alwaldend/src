@@ -8,7 +8,7 @@ script publishes the generated site to a GitHub Pages branch.
 
 This change is the only active replacement of `Separate preview and
 publication`. The sibling
-[landing consolidation plan](../consolidate-project-landings-into-apex/proposal.md)
+[landing consolidation plan](../archive/2026-10-22-consolidate-project-landings-into-apex/proposal.md)
 retains its build delta and the shared-publication requirement in its added
 `project-landing-pages` capability, but no longer replaces the publication
 requirement with the former Pages workflow. Either archive order therefore

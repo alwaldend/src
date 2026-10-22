@@ -13,7 +13,9 @@ runtime health or deployed infrastructure.
 Sources: [repository map](../../../../../README.md), [agent policy](../../../../../AGENTS.md),
 [root build](../../../../../BUILD.bazel), [project boundary](../../../../../projects/README.md),
 [infrastructure boundary](../../../../README.md),
-[tool boundary](../../../../../tools/README.md), and [OpenSpec workflow](../../README.md).
+[tool boundary](../../../../../tools/README.md), [OpenSpec workflow](../../README.md),
+[workspace procedure](../../../../../tools/agents/skills/repo-workspace/SKILL.md),
+and [goal migration record](../../migration.md).
 
 ## Requirements
 
@@ -67,9 +69,15 @@ workspace boundary. Each nested workspace MUST build and test standalone.
 ### Requirement: Isolated implementation and evidence
 
 Repository modifications MUST use a dedicated feature branch and linked
-worktree. Task scratch MUST remain under ignored `out/<task>/` in the
-applicable workspace. Acceptance SHALL identify the candidate and relevant
-checks and representative output before delivery.
+worktree. The repository SHALL own that procedure in a `repo-workspace` skill
+that runs before the first mutation or task-scratch write, so isolation and
+scratch placement are established before `repo-delivery` is loaded. Task
+scratch MUST remain under ignored `out/<task>/` in the applicable workspace,
+and configurable temporary and cache locations SHALL point there. Delivery
+SHALL exclude disposable build outputs and include required
+generator-maintained files updated through their owning workflow. Acceptance
+SHALL identify the candidate and relevant checks and representative output
+before delivery.
 
 #### Scenario: Finish a repository change
 
@@ -77,6 +85,21 @@ checks and representative output before delivery.
 - **THEN** task-owned changes pass applicable formatting, quality and semantic
   checks and are committed and published through the repository procedure
 - **AND** unrelated edits, scratch and protected data are excluded
+
+#### Scenario: Begin a task that writes
+
+- **WHEN** a task will modify repository files or write task-owned scratch
+- **THEN** the agent verifies the feature worktree and branch before the first
+  write
+- **AND** task-owned scratch and configurable temporary locations stay under
+  the ignored `out/<task>/` directory
+
+#### Scenario: Prepare the delivery candidate
+
+- **WHEN** the delivery procedure stages the candidate
+- **THEN** disposable build outputs are excluded
+- **AND** required generator-maintained files are included after their owning
+  workflow regenerates them
 
 ### Requirement: Declarative infrastructure authority
 
@@ -145,19 +168,27 @@ requirement deltas. Existing task authority MUST survive workflow transitions.
 - **THEN** no new OpenSpec change is required for that review
 - **AND** the review itself does not authorize implementation or publication
 
-### Requirement: Legacy goal migration and deprecation
+### Requirement: Removed legacy goal record
 
-The migration SHALL preserve all tracked maintained goal history and its
-recorded acceptance and execution states with source-to-change mappings and
-checksums. The goal skill MUST be disabled for discovery and the goal tool
-MUST identify itself as deprecated compatibility functionality.
+The repository MUST NOT carry a goal tool, goal store, or goal skill, and MUST
+NOT reintroduce a goal record format as a maintained work channel. Maintained
+work SHALL use the owning component's OpenSpec workspace. The change SHALL
+identify the removed component.
 
-#### Scenario: Inspect a migrated historical record
+#### Scenario: An agent selects durable-work tooling
 
-- **WHEN** a reader follows a legacy goal's migration entry
-- **THEN** its OpenSpec change exposes the original history and status
-- **AND** historical completion does not establish acceptance for a different
-  candidate or automatically apply old specification deltas
+- **WHEN** an agent needs durable intent, tasks, or continuation state
+- **THEN** it uses the owning component's `openspec/` workspace through the
+  pinned CLI
+- **AND** no goal command, skill, or store is available or documented as an
+  active channel
+
+#### Scenario: A reader needs the removed implementation
+
+- **WHEN** a reader needs a file from the removed goal component
+- **THEN** the change and migration record name the removed tree
+- **AND** the reader retrieves the file from git history at the removal
+  commit's parent
 
 ### Requirement: Rule scripts and generated documentation
 
@@ -273,3 +304,48 @@ files. Runner infrastructure acceptance probes SHALL NOT be part of normal CI.
 - **WHEN** one workspace's build phase fails
 - **THEN** its test phase and the remaining workspaces are still attempted
 - **AND** the entry point reports failure
+
+### Requirement: Compose repository policy with skill routing
+
+The root `AGENTS.md` SHALL keep repository-wide constraints visible: fact
+ownership, infrastructure and approval authority, mandatory delivery,
+worktree isolation, protection of unrelated work, confidentiality, and naming
+and communication standards. Execution detail SHALL live with the skill that
+owns it, and the root document SHALL route to that skill through one compact
+"When to load a skill" table ordered by task phase. Each routing entry SHALL
+name the trigger and the skill without restating the skill's procedure.
+
+Initial reads SHALL depend on the task: applicable policy and the owning
+README first, and BUILD or MODULE declarations only when implementation or
+validation depends on them.
+
+#### Scenario: An agent starts an unfamiliar task
+
+- **WHEN** an agent begins work in a subtree
+- **THEN** it reads the applicable `AGENTS.md` chain and the owning `README.md`
+- **AND** it inspects BUILD or MODULE declarations only when the task depends
+  on them
+- **AND** it loads the skill whose routing trigger matches the current phase
+
+#### Scenario: A procedure needs to change
+
+- **WHEN** a repository-wide procedure changes
+- **THEN** the change belongs with the skill that owns it, not in the root
+  policy
+- **AND** the root document retains only the routing entry and any
+  repository-wide constraint
+
+### Requirement: One authoritative source per fact
+
+Each fact SHALL have one authoritative source. Independently maintained
+duplicates SHALL be treated as defects even when the original is hard to
+reach; the owner SHALL be extended or parameterized instead of copied.
+Generated projections, fixtures, and concise summaries that identify their
+source are projections rather than duplicates.
+
+#### Scenario: A generated file restates an owned fact
+
+- **WHEN** a checked-in generated file, fixture, or summary restates a fact
+  owned elsewhere
+- **THEN** it identifies its source and regeneration workflow
+- **AND** it is not treated as an independently maintained duplicate
