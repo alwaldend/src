@@ -1,0 +1,55 @@
+load("@aspect_rules_js//js:defs.bzl", "js_test")
+load("@rules_go//go:def.bzl", "go_binary")
+
+go_binary(
+    name = "extract",
+    testonly = True,
+    srcs = [
+        "doc.go",
+        "extract.go",
+    ],
+    deps = ["@com_github_spf13_cobra//:cobra"],
+)
+
+js_test(
+    name = "browser_test",
+    size = "medium",
+    args = [
+        "$(rootpath //projects/anki_as_code/pkg/browser:browser)",
+        "$(rootpath @com_google_chrome_headless_shell//:chrome_headless_shell_binary)",
+        "$(rootpath :extract)",
+        "$(rootpath //projects/anki_as_code/test/browser/fixture)",
+    ],
+    data = [
+        ":extract",
+        "//projects/anki_as_code/pkg/browser",
+        "//projects/anki_as_code/test/browser/fixture",
+        "//tools:node_modules/puppeteer",
+        "@com_google_chrome_headless_shell//:chrome_headless_shell_binary",
+    ],
+    entry_point = "browser_test.mjs",
+)
+
+js_test(
+    name = "site_test",
+    size = "medium",
+    args = [
+        "$(rootpath //projects/alwaldend.com:site)",
+        "$(rootpath @com_google_chrome_headless_shell//:chrome_headless_shell_binary)",
+        "$(rootpath //projects/anki_as_code/test/browser/fixture)",
+    ],
+    data = [
+        "//projects/alwaldend.com:site",
+        "//projects/anki_as_code/test/browser/fixture",
+        "//tools:node_modules/puppeteer",
+        "@com_google_chrome_headless_shell//:chrome_headless_shell_binary",
+    ],
+    entry_point = "site_test.mjs",
+    env_inherit = [
+        "HTTPS_PROXY",
+        "https_proxy",
+    ],
+    # The existing Docsy shell loads SRI-pinned jQuery and Lunr from CDNs.
+    # This test allowlists only those script URLs from the generated pages.
+    tags = ["requires-network"],
+)

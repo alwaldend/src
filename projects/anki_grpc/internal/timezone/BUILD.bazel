@@ -1,0 +1,11 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "timezone",
+    srcs = [
+        "doc.go",
+        "timezone.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/anki_grpc/internal/timezone",
+    visibility = ["//projects/anki_grpc:__subpackages__"],
+)

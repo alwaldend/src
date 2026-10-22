@@ -1,7 +1,7 @@
 // Package collection manages reserved offline collection scopes and publication.
 // Store owns source alias reservations and session-context cancellation.
-// Source inspection uses its injected Afero filesystem. Backend libraries and
-// servers retain their own storage contracts and must be able to access those paths.
+// Source inspection and collection-directory operations share its injected Afero
+// filesystem. Servers must independently access that same storage and paths.
 // It delegates address-selected transport creation to the backend library.
 // Open starts an ankiclient.StartableClient and prepares one collection.
 // It returns ankiclient.Client with Connection and Stop. WithCollection bounds

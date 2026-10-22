@@ -10,9 +10,11 @@ import (
 	"sync"
 	"time"
 
+	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/filesystem"
 	"git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/ankiclient"
 	ankicol "github.com/ankitects/anki/proto/anki/collection"
 	"github.com/ankitects/anki/proto/anki/import_export"
+	"github.com/spf13/afero"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/metadata"
 )
@@ -27,6 +29,8 @@ type nativeCompletion interface {
 type scope struct {
 	// rawClient owns the selected transport independently of collection storage.
 	rawClient ankiclient.StartableClient
+	// filesystem shares collection-directory operations with the application's storage.
+	filesystem filesystem.FS
 	// source is the reserved database or archive path.
 	source string
 	// writeBack enables publication to source for archive inputs.
@@ -62,12 +66,12 @@ type scope struct {
 }
 
 // newScope allocates a single-use collection owner without starting native work.
-func newScope(client ankiclient.StartableClient, source string, writeBack bool, closeTimeout time.Duration) *scope {
+func newScope(client ankiclient.StartableClient, storage filesystem.FS, source string, writeBack bool, closeTimeout time.Duration) *scope {
 	if closeTimeout <= 0 {
 		closeTimeout = 10 * time.Minute
 	}
 	return &scope{
-		rawClient: client, source: source, writeBack: writeBack, closeTimeout: closeTimeout,
+		rawClient: client, filesystem: storage, source: source, writeBack: writeBack, closeTimeout: closeTimeout,
 		drained: make(chan struct{}), stopped: make(chan struct{}), done: make(chan struct{}),
 	}
 }
@@ -78,7 +82,14 @@ func (owner *scope) open(ctx context.Context) error {
 	switch strings.ToLower(filepath.Ext(owner.source)) {
 	case ".anki2":
 	case ".colpkg":
-		directory, err := os.MkdirTemp("", "anki-collection-")
+		parent := os.TempDir()
+		if _, host := owner.filesystem.Afero().(*afero.OsFs); !host {
+			parent = "/tmp"
+			if err := owner.filesystem.MkdirAll(parent, 0o700); err != nil {
+				return fmt.Errorf("create virtual temporary directory %q: %w", parent, err)
+			}
+		}
+		directory, err := owner.filesystem.TempDir(parent, "anki-collection-")
 		if err != nil {
 			return fmt.Errorf("create temporary restore directory: %w", err)
 		}
@@ -89,7 +100,7 @@ func (owner *scope) open(ctx context.Context) error {
 	}
 	media := strings.TrimSuffix(database, filepath.Ext(database)) + ".media"
 	request := &ankicol.OpenCollectionRequest{CollectionPath: database, MediaFolderPath: media, MediaDbPath: media + ".db2"}
-	if err := os.MkdirAll(media, 0o700); err != nil {
+	if err := owner.filesystem.MkdirAll(media, 0o700); err != nil {
 		return fmt.Errorf("prepare Anki media directory: %w", err)
 	}
 	if err := owner.rawClient.Start(ctx); err != nil {
@@ -231,7 +242,7 @@ func (owner *scope) closeStorage(ctx context.Context) (bool, error) {
 		}
 	}
 	if owner.directory != "" {
-		if err := os.RemoveAll(owner.directory); err != nil {
+		if err := owner.filesystem.RemoveAll(owner.directory); err != nil {
 			return true, fmt.Errorf("remove temporary Anki restore: %w", err)
 		}
 	}

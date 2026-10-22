@@ -1,0 +1,32 @@
+load("@rules_go//go:def.bzl", "go_binary", "go_cross_binary")
+
+go_binary(
+    name = "application",
+    srcs = [
+        "doc.go",
+        "main_js.go",
+    ],
+    basename = "app.wasm",
+    pure = "on",
+    target_compatible_with = [
+        "@rules_go//go/toolchain:js",
+        "@rules_go//go/toolchain:wasm",
+    ],
+    deps = [
+        "//projects/anki_as_code/api/ankiascodeapi",
+        "//projects/anki_as_code/api/ankiascodepb",
+        "//projects/anki_as_code/internal/codec",
+        "//projects/anki_as_code/internal/filesystem",
+        "//projects/anki_as_code/pkg/ankiascode",
+        "//projects/anki_grpc/pkg/ankigrpc",
+        "//projects/anki_grpc/pkg/ankigrpc/browser",
+        "@com_github_spf13_afero//:afero",
+    ],
+)
+
+go_cross_binary(
+    name = "anki_as_code_browser",
+    platform = "@rules_go//go/toolchain:js_wasm",
+    target = ":application",
+    visibility = ["//projects/anki_as_code:__subpackages__"],
+)

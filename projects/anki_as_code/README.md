@@ -34,6 +34,155 @@ Cobra definitions with `tools/generate_cli_docs` and packages the hierarchy
 with the documentation; generated Markdown is not checked in. Build it with
 `bazel_agent bazel build //projects/anki_as_code/docs:cli_reference`.
 
+## Browser application
+
+![Browser application components and connections](assets/browser-app.svg)
+
+The project's **Try it now** button opens the configuration workspace at
+[/projects/anki_as_code/app/](/projects/anki_as_code/app/). It uses the main
+site's layout, navigation, Bootstrap controls and color modes. The example
+opens directly in a TOML editor. Switch files freely, check the configuration,
+or download it as JSON; each action includes your latest edits without a
+separate editor save step. Open JSON restores a downloaded configuration,
+rejects files outside the configuration directory, including `/tmp`, and preserves
+any open collection unchanged. Open collection imports an Anki `.colpkg`
+package, including its media, for planning
+and applying edits. Save locally stores the current workspace in this browser;
+the next visit restores that completed save. Downloads remain portable backups.
+
+Preview the integrated page with
+`bazel_agent bazel run //projects/alwaldend.com:site_serve`, then open
+`http://127.0.0.1:1313/projects/anki_as_code/`. Project content packages the
+runtime files beside the app page through the existing site registry. The
+site owns its HTML and styles; the standalone SDK example below is packaged
+separately.
+
+The browser build runs configuration and collection workflows in a dedicated
+Web Worker. Each instance contains one Go application and an Afero memory
+filesystem. JavaScript calls the existing App methods through a promise-based
+module API. Collection operations lazily load a callable Rust WASI reactor and
+invoke Anki's existing dispatcher through its JavaScript command API. WASI imports
+expose the same Afero files to Rust. Configuration-only operations do not load the
+backend, and both configuration and collection workflows run without JSPI.
+Loading and backend creation remain asynchronous. Each Rust command runs
+synchronously in the worker, so cancellation cannot interrupt it before it
+returns; the main page remains responsive.
+
+```sh
+bazel_agent bazel build -c opt //projects/anki_as_code:browser
+bazel_agent bazel run //projects/anki_as_code:browser_serve
+```
+
+The server opens on `http://127.0.0.1:8080`; its example page exports JSON to
+virtual TOML files and dumps them again. The archive is
+`bazel-bin/projects/anki_as_code/pkg/browser/browser.tar`. Serve its contents
+together over HTTP(S), including the application, server and filesystem runtime
+assets. The Go runtime comes from the same
+pinned SDK as the module. Worker and WebAssembly URLs default to files next to
+`index.js`; optional `workerURL`, `wasmURL` and `serverWasmURL` overrides resolve
+relative to that module. The callable Rust backend is packaged as `server.wasm`.
+WebAssembly loading also works without an `application/wasm` MIME type.
+
+```javascript
+import { createAnkiApp } from "./index.js";
+
+const { app, workspace, dispose } = await createAnkiApp();
+try {
+  await app.configExport({
+    output: "/workspace",
+    configs: { config: { version: "1" } },
+  });
+  const json = await app.configDump({ text: "/workspace", format: "json" });
+  const files = await workspace.listFiles("/workspace");
+  const bytes = await workspace.readFile(files[0]);
+
+  // Import or replace a file, including bytes obtained from File.arrayBuffer().
+  await workspace.writeFile("/import/collection.anki.toml", bytes);
+  const imported = await app.configDump({ text: "/import", format: "toml" });
+  console.log(json, imported);
+} finally {
+  await dispose();
+}
+```
+
+`configExport` accepts a `CollectionConfigSet` protobuf JSON object, including
+string values for int64 fields. It overwrites declared files, preserves unrelated
+files and can leave partial output on a filesystem error. Schema decoding happens
+before writes; loading retains the existing version and layout validation.
+`configDump` returns text and defaults to JSON. Configuration errors reject the
+request while leaving the application available for subsequent calls.
+
+Workspace paths are absolute virtual paths, with no host or home-directory
+lookup. `writeFile` accepts `Uint8Array`, copies its bytes without detaching the
+input, creates parents and replaces existing contents. `readFile` returns an
+independent byte copy. Writes to directories or beneath regular files reject
+without changing existing entries. `listFiles` recursively returns all sorted absolute file paths,
+including temporary files when listing `/`;
+`rename` atomically moves a file within the workspace, including replacing an
+existing regular file. Directory sources/destinations and missing destination
+parents are rejected. `remove` recursively removes a path and is harmless for an absent path. `/tmp`
+is reserved for backend working files and excluded from workspace persistence. App and
+workspace operations execute in request order. Separate instances have separate
+filesystems. Exported paths can address the entire instance's virtual namespace.
+
+Creation resolves after Go signals readiness and rejects on startup failure or a
+30-second startup timeout. `dispose` immediately terminates the worker, discards
+its files and rejects pending and future calls; repeated disposal is safe.
+Unsaved changes are lost on disposal or reload; disposal does not save implicitly.
+
+`collectionPlan` and `collectionApply` accept `{collection, text, stateKey?}`;
+`collectionExport` accepts `{collection, output, stateOutput?, stateKey?}`.
+`collectionBuild({base, text, output, stateKey?})` stages a separate package and
+publishes it only after a successful apply. Sources are `.colpkg` files in the
+workspace. These methods delegate to the existing App and collection manager,
+which import, open, export and close each collection before completing. Direct
+`collectionApply` retains the native method's partial-failure semantics; use
+`collectionBuild` to preserve the original package if application fails.
+`collectionStateUpdate({collection, state, stateKey?})` imports bindings from
+the supplied TOML state path after exporting an existing collection.
+
+The returned session exposes `save(key, expectedRevision = 0)` and `restore(key)` for local IndexedDB
+snapshots. Save includes editable files and completed collection packages in one
+transaction after queued operations finish; it excludes runtime temporary files.
+Restore replaces the memory workspace only after validating the complete saved
+snapshot, rejecting conflicting file/directory paths without changing current
+files, and returns save metadata or null when the key is absent. Config-only
+workspaces can also be saved. Pass the revision returned by the last save or
+restore; zero creates a new key. The caller retains that revision across worker
+replacements, and a stale revision rejects conflicting writes from another instance.
+Transaction or quota failures retain the previous snapshot and current edits.
+Browser storage remains subject to the user's site-data settings and storage
+quota; downloaded packages and configs are independent backups.
+Opening local JSON or collection packages does not require IndexedDB. The site
+uses a fresh staged workspace for imports and retains its save revision until
+the visitor explicitly saves or restores.
+
+```javascript
+const instance = await createAnkiApp();
+let saved = await instance.session.restore("my-workspace");
+// Edit the workspace, then explicitly persist the completed work.
+saved = await instance.session.save("my-workspace", saved?.revision ?? 0);
+await instance.dispose();
+```
+
+The repeatable browser workflow uses the repository-pinned Puppeteer and Chromium:
+
+```sh
+bazel_agent bazel test //projects/anki_as_code/test/browser:browser_test
+bazel_agent bazel test //projects/anki_as_code/test/browser:site_test
+```
+
+The SDK test serves the built distribution on an ephemeral loopback port inside the test
+sandbox and produces a configuration tree, JSON dump, collection package and structured result report
+in the test's undeclared outputs. Native Anki verifies the saved/reloaded package's
+note and card identities, scheduling, review history and binary media. It needs
+no external service or network access.
+The rendered-site test exercises landing navigation, editing, downloads,
+light/dark modes and narrow screens, emitting screenshots and a JSON report.
+It uses the site's existing SRI-pinned jQuery and Lunr CDN scripts, allowing
+only those external requests and honoring `HTTPS_PROXY`/`https_proxy`, as the
+site's existing browser test does. The application itself runs locally.
+
 ## Optional server engines
 
 ### WebAssembly CLI
@@ -474,7 +623,8 @@ and borrowed connections. Path access requires a configured factory or an explic
 hosting the server requires an injected `ServerRunner`.
 Supply `ankiascode.Options{FS: storage}` to use an `afero.Fs` for every
 application-owned filesystem operation, including config discovery/read/write,
-collection source inspection, export/state output and build staging/publication.
+collection source inspection and restore-directory lifecycle, export/state output
+and build staging/publication.
 For example:
 
 ```go
@@ -493,12 +643,13 @@ zero-value App. Callers retain ownership of the filesystem and coordinate access
 nested bases. Equivalent absolute and relative virtual names use one canonical
 relative spelling. Parent traversal and symlink targets outside that base are
 rejected during reads and writes, including configuration export.
-`internal/filesystem.FS` keeps the Afero backend private and owns shared path
+`internal/filesystem.FS` owns shared path
 handling, file/directory I/O and temporary names. App constructs this wrapper once
 and supplies it to every internal filesystem owner. `afero.Fs` in the public
 options is an interface that callers can implement with their own storage.
-Server and backend-library filesystem implementations remain separate: injecting
-storage does not transfer files to a backend or make its native paths accessible.
+Its `Afero()` accessor lends that storage to the collection client. The server
+must independently access the same paths: injecting storage does not transfer
+files to an external backend or make virtual files visible to native OS calls.
 Managed collection operations still require the backend to access the selected
 collection and staging paths. CLI input files and standard streams belong to the
 CLI adapter, outside App.

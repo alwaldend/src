@@ -1,0 +1,55 @@
+load("@go_host_compatible_sdk_label//:defs.bzl", "HOST_COMPATIBLE_SDK")
+load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
+load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
+load("//tools/http_server/main/bzl:al_http_server_binary.bzl", "al_http_server_binary")
+
+pkg_files(
+    name = "runtime_files",
+    srcs = [
+        "index.d.ts",
+        "index.js",
+        "storage.js",
+        "worker.js",
+        "//projects/anki_as_code/cmd/anki_as_code_browser",
+        "//projects/anki_grpc/pkg/ankigrpc/browser:guest",
+        "//projects/anki_grpc/pkg/ankigrpc/browser:server",
+        "//projects/anki_grpc/pkg/ankigrpc/browser:wasi",
+        HOST_COMPATIBLE_SDK.same_package_label("lib/wasm/wasm_exec.js"),
+    ],
+    renames = {
+        "//projects/anki_as_code/cmd/anki_as_code_browser": "app.wasm",
+        "//projects/anki_grpc/pkg/ankigrpc/browser:guest": "server.wasm",
+        HOST_COMPATIBLE_SDK.same_package_label("lib/wasm/wasm_exec.js"): "wasm_exec.js",
+    },
+    visibility = ["//projects/anki_as_code/assets/browser:__pkg__"],
+)
+
+pkg_files(
+    name = "example_files",
+    srcs = ["//projects/anki_as_code/assets/browser:index.html"],
+)
+
+pkg_filegroup(
+    name = "distribution",
+    srcs = [
+        ":example_files",
+        ":runtime_files",
+    ],
+)
+
+pkg_tar(
+    name = "browser",
+    srcs = [":distribution"],
+    visibility = ["//projects/anki_as_code:__subpackages__"],
+)
+
+al_http_server_binary(
+    name = "serve",
+    srcs = [":distribution"],
+    arguments = [
+        "--bind",
+        "127.0.0.1",
+        "8080",
+    ],
+    visibility = ["//projects/anki_as_code:__subpackages__"],
+)
