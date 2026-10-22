@@ -4,6 +4,13 @@ go_sdk.nogo(nogo = "//tools/nogo")
 
 go_deps_mod = use_extension("@gazelle//:extensions.bzl", "go_deps")
 go_deps_mod.from_file(go_mod = "//:go.mod")
+
+# Gazelle omits wasip1 from its platform list; repair the generated syscall deps.
+go_deps_mod.module_override(
+    patch_strip = 1,
+    patches = ["//third_party/org_golang_google_grpc:wasip1.patch"],
+    path = "google.golang.org/grpc",
+)
 use_repo(
     go_deps_mod,
     "com_github_burntsushi_toml",

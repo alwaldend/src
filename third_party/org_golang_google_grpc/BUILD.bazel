@@ -1,0 +1,4 @@
+exports_files(
+    ["wasip1.patch"],
+    visibility = ["//:__pkg__"],
+)

@@ -18,13 +18,18 @@ import (
 
 // run composes optional server adapters and same-executable workers.
 func run(ctx context.Context, arguments []string) error {
-	binary, err := os.Executable()
-	if err != nil {
-		return fmt.Errorf("resolve application executable: %w", err)
-	}
 	runServer := nativeServerRunner
 	if runServer == nil {
 		runServer = wasmServerRunner
+	}
+	var binary, defaultAddress string
+	if runServer != nil {
+		var err error
+		binary, err = os.Executable()
+		if err != nil {
+			return fmt.Errorf("resolve application executable: %w", err)
+		}
+		defaultAddress = ankigrpc.SubprocessAddress(binary, "server", "serve")
 	}
 	engines := map[string]func([]string) error{"cgo": nativeServerRunner, "wasm": wasmServerRunner}
 	var command *cobra.Command
@@ -55,7 +60,7 @@ func run(ctx context.Context, arguments []string) error {
 		return nil
 	}
 	workerFactory := ankigrpc.ClientFactoryFunc[*ankiclient.ClientSTD](ankigrpc.NewSubprocessClient)
-	factory := ankigrpc.NewFactory(ankigrpc.SubprocessAddress(binary, "server", "serve"))
+	factory := ankigrpc.NewFactory(defaultAddress)
 	factory.RegisterClientFactory("subprocess", workerFactory)
 	for engine, runner := range engines {
 		if runner != nil {

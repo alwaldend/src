@@ -1,4 +1,4 @@
-load("@rules_go//go:def.bzl", "go_binary", "go_test")
+load("@rules_go//go:def.bzl", "go_binary", "go_cross_binary", "go_test")
 
 config_setting(
     name = "optimized",
@@ -84,6 +84,13 @@ config_setting(
         ),
     ]
 ]
+
+go_cross_binary(
+    name = "wasi",
+    platform = "@rules_go//go/toolchain:wasip1_wasm",
+    target = ":no_engine",
+    visibility = ["//projects/anki_as_code:__pkg__"],
+)
 
 alias(
     name = "anki_as_code",

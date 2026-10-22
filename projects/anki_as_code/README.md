@@ -36,9 +36,40 @@ with the documentation; generated Markdown is not checked in. Build it with
 
 ## Optional server engines
 
+### WebAssembly CLI
+
+Build the Go CLI itself for WASI Preview 1 with both bundled servers disabled:
+
+```sh
+bazel_agent bazel build -c opt --//projects/anki_as_code:wasm=true //projects/anki_as_code
+```
+
+This produces a `wasip1/wasm` module. The public alias uses `select()` to choose
+a `go_cross_binary` target that cross-compiles the existing server-free command.
+Other targets in the same invocation keep their normal platform and server-engine settings. This
+selection excludes both bundled servers regardless of the `anki_grpc` engine flags.
+Find the module path with
+`bazel_agent bazel cquery -c opt --//projects/anki_as_code:wasm=true //projects/anki_as_code --output=files`.
+Run it with a WASI Preview 1 runtime and grant access to the configuration
+directory. For example, with the repository-pinned wazero CLI:
+
+```sh
+bazel_agent bazel run @com_github_tetratelabs_wazero//cmd/wazero -- run \
+  -mount "$PWD/configs:/configs:ro" /absolute/path/to/wasi \
+  config dump --text /configs
+```
+
+Help and file-only `config export`/`config dump` commands work without Anki.
+No native server, embedded Rust WASM server, or self-spawned default worker is
+included. Standard Go WASI cannot spawn subprocesses or dial TCP/Unix sockets,
+so collection and API operations require additional host integration. This is
+a WASI command, without browser JavaScript bindings.
+
+### Bundled server selection
+
 The independent booleans `//projects/anki_grpc:cgo` (default true) and
 `//projects/anki_grpc:wasm` (default false) compose available engines in the
-public command. Build a pure-Go WASM executable with:
+public command. Build a pure-Go host executable with the bundled WASM server:
 
 ```sh
 bazel_agent bazel build -c opt //projects/anki_as_code --//projects/anki_grpc:cgo=false --//projects/anki_grpc:wasm=true
