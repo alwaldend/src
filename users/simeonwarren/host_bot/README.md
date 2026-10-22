@@ -11,6 +11,12 @@ Host Bot runs Traefik with mTLS in front of T3 Code. The host firewall blocks
 direct external access to T3 Code and accepts new connections only on SSH,
 HTTP, and HTTPS ports.
 
+Ansible declares Tuned's `balanced` power profile through
+`host_bot_tuned_profile`, enables the existing Tuned service, and reconciles
+the selected profile in manual mode. The `power_profile` tag scopes those
+tasks. The live setting was applied directly at the user's explicit request;
+no Ansible deployment was run for that initial change.
+
 The [DNS Terraform package](tf/README.md) uses the dedicated
 `src_users_simeonwarren_host_bot` AppRole through `dns_al`. Ansible retains
 its existing `al` configuration and `user_simeonwarren` authentication.
