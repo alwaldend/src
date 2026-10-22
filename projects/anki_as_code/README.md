@@ -383,6 +383,37 @@ configuration, collection, state and server workflows. `pkg/ankiascode` provides
 the concrete `ankiascode.App`. Its zero value supports configuration operations
 and borrowed connections. Path access requires a configured factory or an explicit address;
 hosting the server requires an injected `ServerRunner`.
+Supply `ankiascode.Options{FS: storage}` to use an `afero.Fs` for every
+application-owned filesystem operation, including config discovery/read/write,
+collection source inspection, export/state output and build staging/publication.
+For example:
+
+```go
+storage := afero.NewMemMapFs()
+application := ankiascode.New(ankiascode.Options{FS: storage})
+err := application.ConfigExport(ctx, "/configs", configs)
+data, err := application.ConfigDump(ctx, "/configs", "json")
+```
+
+Configuration operations run entirely in that storage and need no Anki server.
+Custom filesystem paths retain their own namespace, including relative paths
+and literal `~`; they do not use the host home or working directory. Nil selects
+`afero.NewOsFs()` and preserves existing OS path expansion, including for a
+zero-value App. Callers retain ownership of the filesystem and coordinate access.
+`BasePathFs` aliases resolve within its virtual namespace, including directly
+nested bases. Equivalent absolute and relative virtual names use one canonical
+relative spelling. Parent traversal and symlink targets outside that base are
+rejected during reads and writes, including configuration export.
+`internal/filesystem.FS` keeps the Afero backend private and owns shared path
+handling, file/directory I/O and temporary names. App constructs this wrapper once
+and supplies it to every internal filesystem owner. `afero.Fs` in the public
+options is an interface that callers can implement with their own storage.
+Server and backend-library filesystem implementations remain separate: injecting
+storage does not transfer files to a backend or make its native paths accessible.
+Managed collection operations still require the backend to access the selected
+collection and staging paths. CLI input files and standard streams belong to the
+CLI adapter, outside App.
+
 `ankiascode.New(ankiascode.Options{NewClient: factory})` injects an
 `ankigrpc.ClientFactory`. The factory receives each operation's address unchanged
 and selects its configured default for an empty address. Supply a factory object
@@ -488,7 +519,7 @@ store := collection.New(collection.Options{NewClient: factory})
 err := store.WithCollection(ctx, collection.CollectionOptions{Path: path, WriteBack: true}, func(connection grpc.ClientConnInterface) error {
     resources := resource.New(connection)
     states := state.New(connection, key)
-    exporter := export.New(resources, states)
+    exporter := export.New(resources, states, filesystem.FS{})
     if err := exporter.Export(ctx, directory, ""); err != nil {
         return fmt.Errorf("export configs: %w", err)
     }
@@ -792,7 +823,8 @@ than silently becoming strings; quote dates used as note text. Output converts
 ProtoJSON directly to TOML, preserving optional presence and exact text values.
 64-bit values use quoted decimal strings, including `version = "1"`.
 
-`config.New(root)` returns a `*config.Store` bound to a configuration path without
+`config.New(root, storage)` returns a `*config.Store` bound to a configuration path and
+a `filesystem.FS` without
 accessing the filesystem. Use a directory for writing; reads also accept a root
 config file. The store exposes:
 
@@ -802,12 +834,15 @@ config file. The store exposes:
   marker and supplied path/config pairs as TOML files beneath its directory.
 
 ```go
-store := config.New(absoluteDirectory)
+store := config.New(absoluteDirectory, storage)
 configs, err := store.Load()
 data, err := store.Dump("json")
 err = store.Export(configs)
 ```
 
+Pass `filesystem.FS{}` for OS storage or `filesystem.New(storage)` for an Afero
+backend. Discovery, regular-file and alias checks, directory
+creation, reads and writes use the selected filesystem throughout.
 Stores retain no parsed messages or open files. Each Load reads fresh values;
 callers own filesystem coordination and the returned messages. `config.Version`
 supplies the supported schema version to collection exporters.
@@ -871,6 +906,7 @@ edges show component dependencies.
 | `internal/resource`      | Native generated clients and fresh resource snapshots           |
 | `internal/config`        | Root-bound configuration Store for Load, Dump, and Export       |
 | `internal/config/layout` | Fixed hierarchy, discovery, file I/O, and direct export         |
+| `internal/filesystem`    | Injected storage, path expansion and filesystem-local aliases   |
 | `internal/rpc`           | Compiled upstream descriptor catalog and protobuf RPC execution |
 | `internal/codec`         | Filesystem-independent protobuf/TOML/JSON conversion            |
 | `internal/state`         | Stored-state dump, import, update, and replacement              |
@@ -880,7 +916,7 @@ The command entry point injects App into internal/cli through
 use the shared interface without importing the implementation. Shared API types
 do not depend on native backend ownership. App obtains a prepared connection from
 the supplied source and constructs its services locally. Path sources use
-collection.Store; borrowed sources retain caller-owned lifetime. `export.New(resources, states)` constructs an
+collection.Store; borrowed sources retain caller-owned lifetime. `export.New(resources, states, filesystem.FS{})` constructs an
 `Exporter` using caller-provided resource and state stores. Its
 `Export(ctx, output)` method owns native-to-config projection,
 filenames and direct config output. State operations remain separate.
@@ -957,7 +993,7 @@ changed, err := reconcile.New(resources, states).Apply(ctx, compiled)
 `internal/rebuild` stages a separate collection archive using an injected apply operation:
 
 ```go
-builder := rebuild.New(apply)
+builder := rebuild.New(apply, filesystem.FS{})
 err := builder.Build(ctx, baseArchive, outputArchive)
 ```
 
@@ -1010,7 +1046,7 @@ No SQL or duplicate storage logic is involved.
 ```go
 resources := resource.New(connection)
 states := state.New(connection, key)
-exporter := export.New(resources, states)
+exporter := export.New(resources, states, filesystem.FS{})
 err := exporter.Export(ctx, absoluteOutputDirectory, absoluteStateFile)
 ```
 

@@ -32,6 +32,7 @@ go_test(
         "//projects/anki_as_code/internal/codec",
         "//projects/anki_as_code/internal/config",
         "//projects/anki_as_code/internal/export",
+        "//projects/anki_as_code/internal/filesystem",
         "//projects/anki_as_code/internal/plan",
         "//projects/anki_as_code/internal/resource",
         "//projects/anki_as_code/internal/state",

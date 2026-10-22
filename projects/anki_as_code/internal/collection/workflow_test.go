@@ -21,6 +21,7 @@ import (
 	ankiascodepb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodepb"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/config"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/export"
+	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/filesystem"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/resource"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/state"
 	"git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/ankiclient"
@@ -416,7 +417,7 @@ func TestStoreServices(t *testing.T) {
 			if err := store.WithCollection(ctx, CollectionOptions{Path: input, WriteBack: true}, func(connection grpc.ClientConnInterface) error {
 				retained = connection
 				resources, states := resource.New(connection), state.New(connection, key)
-				exporter := export.New(resources, states)
+				exporter := export.New(resources, states, filesystem.FS{})
 				if _, err := states.Replace(ctx, expected); err != nil {
 					return fmt.Errorf("replace scoped state: %w", err)
 				}
@@ -462,7 +463,7 @@ func TestStoreServices(t *testing.T) {
 			if err != nil || !proto.Equal(actual, expected) {
 				t.Fatalf("state did not survive scope cleanup: value=%v error=%v", actual, err)
 			}
-			if _, err := config.New(output).Load(); err != nil {
+			if _, err := config.New(output, filesystem.FS{}).Load(); err != nil {
 				t.Fatalf("exporter produced invalid configs: %v", err)
 			}
 			files, err := os.ReadDir(scratch)

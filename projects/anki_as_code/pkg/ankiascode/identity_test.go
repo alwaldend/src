@@ -12,6 +12,7 @@ import (
 
 	ankiascodepb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodepb"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/config"
+	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/filesystem"
 	"github.com/ankitects/anki/proto/anki/cards"
 	ankicol "github.com/ankitects/anki/proto/anki/collection"
 	ankiconfig "github.com/ankitects/anki/proto/anki/config"
@@ -409,7 +410,7 @@ func TestLiteralNoteTypePathWorkflow(t *testing.T) {
 	if err := prepareFixtureConfigs(t, context.Background(), fixture.base, text); err != nil {
 		t.Fatal(err)
 	}
-	configs, err := config.New(text).Load()
+	configs, err := config.New(text, filesystem.FS{}).Load()
 	if err != nil {
 		t.Fatal(err)
 	}

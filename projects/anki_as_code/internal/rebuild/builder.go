@@ -8,17 +8,22 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+
+	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/filesystem"
 )
 
 // Builder publishes a copied package only after its injected apply operation succeeds.
 type Builder struct {
+	// filesystem owns source inspection, staging, copying, publication and cleanup.
+	filesystem filesystem.FS
 	// apply updates the private archive and returns after closing its native collection.
 	apply func(context.Context, string) error
 }
 
 // New uses the supplied non-nil apply operation without owning its native services.
-func New(apply func(context.Context, string) error) *Builder {
-	return &Builder{apply: apply}
+// storage supplies staging and publication; its zero value selects the OS filesystem.
+func New(apply func(context.Context, string) error, storage filesystem.FS) *Builder {
+	return &Builder{apply: apply, filesystem: storage}
 }
 
 // Build applies changes to a private copy and atomically replaces the destination.
@@ -29,42 +34,42 @@ func (builder *Builder) Build(ctx context.Context, base, output string) (err err
 	if err := ctx.Err(); err != nil {
 		return fmt.Errorf("start build: %w", errors.Join(err, context.Cause(ctx)))
 	}
-	source, err := filepath.EvalSymlinks(base)
+	source, err := builder.filesystem.ResolvePath(base, false)
 	if err != nil {
 		return fmt.Errorf("resolve build source aliases: %w", err)
 	}
 	if !strings.EqualFold(filepath.Ext(source), ".colpkg") {
 		return fmt.Errorf("build requires a collection package")
 	}
-	output, err = resolveDestination(output)
+	output, err = resolveDestination(builder.filesystem, output)
 	if err != nil {
 		return fmt.Errorf("resolve build destination: %w", err)
 	}
-	original, err := os.Stat(source)
+	original, err := builder.filesystem.Stat(source)
 	if err != nil {
 		return fmt.Errorf("inspect build source: %w", err)
 	}
 	if !original.Mode().IsRegular() {
 		return fmt.Errorf("build source must be a regular collection package")
 	}
-	target, err := os.Stat(output)
-	if err != nil && !os.IsNotExist(err) {
+	target, err := builder.filesystem.Stat(output)
+	if err != nil && !errors.Is(err, os.ErrNotExist) {
 		return fmt.Errorf("inspect build destination: %w", err)
 	}
 	if source == output || target != nil && os.SameFile(original, target) {
 		return fmt.Errorf("output must differ from the base archive")
 	}
-	staging, err := os.MkdirTemp(filepath.Dir(output), ".anki-build-")
+	staging, err := builder.filesystem.TempDir(filepath.Dir(output), ".anki-build-")
 	if err != nil {
 		return fmt.Errorf("create build staging directory: %w", err)
 	}
 	defer func() {
-		if cleanupErr := os.RemoveAll(staging); cleanupErr != nil {
+		if cleanupErr := builder.filesystem.RemoveAll(staging); cleanupErr != nil {
 			err = errors.Join(err, fmt.Errorf("remove build staging directory: %w", cleanupErr))
 		}
 	}()
 	archive := filepath.Join(staging, "collection.colpkg")
-	if err := copyArchive(source, archive); err != nil {
+	if err := copyArchive(builder.filesystem, source, archive); err != nil {
 		return fmt.Errorf("copy build source: %w", err)
 	}
 	if err := builder.apply(ctx, archive); err != nil {
@@ -73,22 +78,22 @@ func (builder *Builder) Build(ctx context.Context, base, output string) (err err
 	if err := ctx.Err(); err != nil {
 		return fmt.Errorf("finish build: %w", errors.Join(err, context.Cause(ctx)))
 	}
-	if err := os.Rename(archive, output); err != nil {
+	if err := builder.filesystem.Rename(archive, output); err != nil {
 		return fmt.Errorf("publish build: %w", err)
 	}
 	return nil
 }
 
 // resolveDestination follows an existing output or resolves its required parent directory.
-func resolveDestination(output string) (string, error) {
-	resolved, err := filepath.EvalSymlinks(output)
+func resolveDestination(storage filesystem.FS, output string) (string, error) {
+	resolved, err := storage.ResolvePath(output, false)
 	if err == nil {
 		return resolved, nil
 	}
-	if !os.IsNotExist(err) {
+	if !errors.Is(err, os.ErrNotExist) {
 		return "", fmt.Errorf("resolve output aliases: %w", err)
 	}
-	parent, err := filepath.EvalSymlinks(filepath.Dir(output))
+	parent, err := storage.ResolvePath(filepath.Dir(output), false)
 	if err != nil {
 		return "", fmt.Errorf("resolve output parent: %w", err)
 	}
@@ -96,8 +101,8 @@ func resolveDestination(output string) (string, error) {
 }
 
 // copyArchive streams a source package into a new staging file and reports close errors.
-func copyArchive(source, destination string) (err error) {
-	input, err := os.Open(source)
+func copyArchive(storage filesystem.FS, source, destination string) (err error) {
+	input, err := storage.Open(source)
 	if err != nil {
 		return fmt.Errorf("open source archive: %w", err)
 	}
@@ -106,7 +111,7 @@ func copyArchive(source, destination string) (err error) {
 			err = errors.Join(err, fmt.Errorf("close source archive: %w", closeErr))
 		}
 	}()
-	output, err := os.OpenFile(destination, os.O_WRONLY|os.O_CREATE|os.O_EXCL, 0o600)
+	output, err := storage.OpenFile(destination, os.O_WRONLY|os.O_CREATE|os.O_EXCL, 0o600)
 	if err != nil {
 		return fmt.Errorf("create staging archive: %w", err)
 	}

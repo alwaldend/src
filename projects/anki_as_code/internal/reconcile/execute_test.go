@@ -14,6 +14,7 @@ import (
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/codec"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/config"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/export"
+	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/filesystem"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/plan"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/reconcile"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/resource"
@@ -126,10 +127,10 @@ func TestSavedPlanWorkflow(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if err := export.New(resources, states).Export(ctx, root, ""); err != nil {
+	if err := export.New(resources, states, filesystem.FS{}).Export(ctx, root, ""); err != nil {
 		t.Fatal(err)
 	}
-	configs, err := config.New(root).Load()
+	configs, err := config.New(root, filesystem.FS{}).Load()
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -513,10 +514,10 @@ func checkRootNoteCreation(t *testing.T, resources *resource.Store, states *stat
 			t.Fatalf("converged root note changed: %v %v", changed, err)
 		}
 		output := filepath.Join(t.TempDir(), "export")
-		if err := export.New(resources, states).Export(ctx, output, ""); err != nil {
+		if err := export.New(resources, states, filesystem.FS{}).Export(ctx, output, ""); err != nil {
 			t.Fatal(err)
 		}
-		exported, err := config.New(output).Load()
+		exported, err := config.New(output, filesystem.FS{}).Load()
 		if err != nil {
 			t.Fatal(err)
 		}

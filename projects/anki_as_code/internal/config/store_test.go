@@ -11,6 +11,7 @@ import (
 
 	ankiascodepb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodepb"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/config"
+	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/filesystem"
 	"github.com/BurntSushi/toml"
 	"github.com/ankitects/anki/proto/anki/decks"
 	"github.com/ankitects/anki/proto/anki/notetypes"
@@ -118,7 +119,7 @@ func TestConfigPathWorkflow(t *testing.T) {
 	fixture := newConfigFixture(t)
 	before := configSources(t, fixture.root)
 	for _, format := range []string{"json", "toml"} {
-		data, err := config.New(fixture.config).Dump(format)
+		data, err := config.New(fixture.config, filesystem.FS{}).Dump(format)
 		if err != nil {
 			t.Fatalf("dump %s: %v", format, err)
 		}
@@ -163,7 +164,7 @@ func TestConfigPathWorkflow(t *testing.T) {
 // TestConfigExportWorkflow verifies supplied path objects are written directly without normalization or validation.
 func TestConfigExportWorkflow(t *testing.T) {
 	fixture := newConfigFixture(t)
-	configs, err := config.New(fixture.root).Load()
+	configs, err := config.New(fixture.root, filesystem.FS{}).Load()
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -171,7 +172,7 @@ func TestConfigExportWorkflow(t *testing.T) {
 	output := filepath.Join(t.TempDir(), "exported")
 	other := filepath.Join(output, "README.txt")
 	writeConfigFixture(t, other, "unrelated\n")
-	store := config.New(output)
+	store := config.New(output, filesystem.FS{})
 	if err := store.Export(configs); err != nil {
 		t.Fatal(err)
 	}
@@ -187,7 +188,7 @@ func TestConfigExportWorkflow(t *testing.T) {
 	unchecked.Config.Version = 9007199254740993
 	unchecked.Notes[0].Config.NoteType = ""
 	uncheckedOutput := filepath.Join(t.TempDir(), "unchecked")
-	if err := config.New(uncheckedOutput).Export(unchecked); err != nil {
+	if err := config.New(uncheckedOutput, filesystem.FS{}).Export(unchecked); err != nil {
 		t.Fatalf("writer validated input: %v", err)
 	}
 	var root map[string]any
@@ -199,11 +200,11 @@ func TestConfigExportWorkflow(t *testing.T) {
 	}
 	blocked := filepath.Join(t.TempDir(), "blocked")
 	writeConfigFixture(t, blocked, "file\n")
-	if err := config.New(blocked).Export(configs); err == nil {
+	if err := config.New(blocked, filesystem.FS{}).Export(configs); err == nil {
 		t.Fatal("filesystem error ignored")
 	}
 	if artifacts := os.Getenv("TEST_UNDECLARED_OUTPUTS_DIR"); artifacts != "" {
-		if err := config.New(filepath.Join(artifacts, "exported-configuration")).Export(configs); err != nil {
+		if err := config.New(filepath.Join(artifacts, "exported-configuration"), filesystem.FS{}).Export(configs); err != nil {
 			t.Fatal(err)
 		}
 	}
@@ -224,7 +225,7 @@ func TestConfigFailureWorkflow(t *testing.T) {
 			f := newConfigFixture(t)
 			writeConfigFixture(t, f.config, input)
 			before := configSources(t, f.root)
-			data, err := config.New(f.root).Dump("json")
+			data, err := config.New(f.root, filesystem.FS{}).Dump("json")
 			if err == nil || len(data) != 0 {
 				t.Fatalf("invalid source accepted: %v", err)
 			}
@@ -236,7 +237,7 @@ func TestConfigFailureWorkflow(t *testing.T) {
 			f := newConfigFixture(t)
 			writeConfigFixture(t, f.note, field+"\n")
 			before := configSources(t, f.root)
-			data, err := config.New(f.root).Dump("json")
+			data, err := config.New(f.root, filesystem.FS{}).Dump("json")
 			if err == nil || len(data) != 0 {
 				t.Fatal("removed identity or datetime accepted")
 			}
@@ -244,7 +245,7 @@ func TestConfigFailureWorkflow(t *testing.T) {
 		})
 	}
 	f := newConfigFixture(t)
-	if _, err := config.New(f.root).Dump("yaml"); err == nil {
+	if _, err := config.New(f.root, filesystem.FS{}).Dump("yaml"); err == nil {
 		t.Fatal("unsupported output accepted")
 	}
 }
@@ -279,7 +280,7 @@ func TestConfigFilesystemWorkflow(t *testing.T) {
 				}
 				writeConfigFixture(t, filepath.Join(f.root, "notes"), "file")
 			}
-			if _, err := config.New(f.root).Load(); err == nil {
+			if _, err := config.New(f.root, filesystem.FS{}).Load(); err == nil {
 				t.Fatalf("unsafe layout accepted: %s", scenario)
 			}
 		})
@@ -289,13 +290,13 @@ func TestConfigFilesystemWorkflow(t *testing.T) {
 	writeConfigFixture(t, filepath.Join(child, "deck.anki.toml"), "[normal]\n")
 	writeConfigFixture(t, filepath.Join(child, "notes", "child.note.anki.toml"), "[fields]\nFront=''\n")
 	writeConfigFixture(t, filepath.Join(child, "notes", "nested", "ignored.note.anki.toml"), "invalid=[")
-	configs, err := config.New(f.root).Load()
+	configs, err := config.New(f.root, filesystem.FS{}).Load()
 	if err != nil || len(configs.Decks) != 2 || configs.Decks[1].Title != "Lesson::Child" || len(configs.Decks[1].Notes) != 1 {
 		t.Fatalf("nested ownership lost: %v", err)
 	}
 	empty := t.TempDir()
 	writeConfigFixture(t, filepath.Join(empty, "collection.anki.toml"), "version=1\n")
-	if cfg, err := config.New(empty).Load(); err != nil || len(cfg.Decks)+len(cfg.Notes)+len(cfg.NoteTypes) != 0 {
+	if cfg, err := config.New(empty, filesystem.FS{}).Load(); err != nil || len(cfg.Decks)+len(cfg.Notes)+len(cfg.NoteTypes) != 0 {
 		t.Fatalf("empty layout rejected: %v", err)
 	}
 }

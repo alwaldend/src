@@ -10,6 +10,7 @@ import (
 
 	ankiascodepb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodepb"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/config"
+	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/filesystem"
 	"github.com/ankitects/anki/proto/anki/decks"
 	"github.com/ankitects/anki/proto/anki/notes"
 	"github.com/ankitects/anki/proto/anki/notetypes"
@@ -160,7 +161,7 @@ func TestNoteTypeExportNamesWorkflow(t *testing.T) {
 			if !proto.Equal(before, after) || !proto.Equal(stored, after) {
 				t.Fatal("export changed the source collection or its stored bindings")
 			}
-			exported, err := config.New(text).Load()
+			exported, err := config.New(text, filesystem.FS{}).Load()
 			if err != nil || len(exported.GetNoteTypes()) != nativeCount {
 				t.Fatalf("exported type count: %v", err)
 			}

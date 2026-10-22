@@ -5,7 +5,6 @@ go_library(
     srcs = [
         "app.go",
         "doc.go",
-        "files.go",
     ],
     importpath = "git.alwaldend.com/alwaldend/src/projects/anki_as_code/pkg/ankiascode",
     visibility = ["//visibility:public"],
@@ -15,6 +14,7 @@ go_library(
         "//projects/anki_as_code/internal/collection",
         "//projects/anki_as_code/internal/config",
         "//projects/anki_as_code/internal/export",
+        "//projects/anki_as_code/internal/filesystem",
         "//projects/anki_as_code/internal/plan",
         "//projects/anki_as_code/internal/rebuild",
         "//projects/anki_as_code/internal/reconcile",
@@ -22,6 +22,7 @@ go_library(
         "//projects/anki_as_code/internal/rpc",
         "//projects/anki_as_code/internal/state",
         "//projects/anki_grpc/pkg/ankigrpc",
+        "@com_github_spf13_afero//:afero",
         "@org_golang_google_grpc//:grpc",
     ],
 )
@@ -36,6 +37,7 @@ go_library(
             "collection_test.go",
             "discovery_test.go",
             "export_workflow_test.go",
+            "filesystem_workflow_test.go",
             "fixture_test.go",
             "identity_test.go",
             "large_collection_test.go",
@@ -57,6 +59,7 @@ go_library(
             "//projects/anki_as_code/internal/codec",
             "//projects/anki_as_code/internal/collection",
             "//projects/anki_as_code/internal/config",
+            "//projects/anki_as_code/internal/filesystem",
             "//projects/anki_as_code/internal/resource",
             "//projects/anki_as_code/internal/state",
             "//projects/anki_as_code/test/wasmcache",
@@ -77,6 +80,7 @@ go_library(
             "//third_party/com_github_ankitects_anki:search",
             "//third_party/com_github_ankitects_anki:stats",
             "@com_github_burntsushi_toml//:toml",
+            "@com_github_spf13_afero//:afero",
             "@org_golang_google_grpc//:grpc",
             "@org_golang_google_protobuf//encoding/protojson",
             "@org_golang_google_protobuf//proto",
@@ -87,3 +91,17 @@ go_library(
         ("wasm_workflow_test", "//projects/anki_as_code/cmd/anki_as_code:wasm"),
     ]
 ]
+
+go_test(
+    name = "filesystem_test",
+    srcs = ["filesystem_workflow_test.go"],
+    embed = [":ankiascode"],
+    deps = [
+        "//projects/anki_as_code/api/ankiascodeapi",
+        "//projects/anki_as_code/api/ankiascodepb",
+        "//projects/anki_as_code/internal/codec",
+        "//third_party/com_github_ankitects_anki:decks",
+        "@com_github_spf13_afero//:afero",
+        "@org_golang_google_protobuf//proto",
+    ],
+)

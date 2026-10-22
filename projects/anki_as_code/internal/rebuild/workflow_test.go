@@ -3,10 +3,12 @@ package rebuild_test
 import (
 	"bytes"
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"os"
 	"path/filepath"
+	"strings"
 	"syscall"
 	"testing"
 	"time"
@@ -14,15 +16,238 @@ import (
 	ankiascodeapi "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodeapi"
 
 	ankiascodepb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodepb"
+	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/filesystem"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/rebuild"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/pkg/ankiascode"
 	"git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/ankiclient"
 	"git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/ankigrpc"
 	"github.com/ankitects/anki/proto/anki/import_export"
 	"github.com/bazelbuild/rules_go/go/runfiles"
+	"github.com/spf13/afero"
 	"google.golang.org/protobuf/encoding/protojson"
 	"google.golang.org/protobuf/proto"
 )
+
+// TestRootedBuildSourceConflict rejects two virtual spellings of the same memory archive.
+func TestRootedBuildSourceConflict(t *testing.T) {
+	for _, source := range []string{"base.colpkg", "/base.colpkg"} {
+		t.Run(source, func(t *testing.T) {
+			storage := afero.NewBasePathFs(afero.NewMemMapFs(), "/scope")
+			if err := storage.MkdirAll(".", 0o755); err != nil {
+				t.Fatal(err)
+			}
+			if err := afero.WriteFile(storage, source, []byte("original"), 0o600); err != nil {
+				t.Fatal(err)
+			}
+			called := false
+			builder := rebuild.New(func(_ context.Context, path string) error {
+				called = true
+				if err := afero.WriteFile(storage, path, []byte("updated"), 0o600); err != nil {
+					return fmt.Errorf("edit stage: %w", err)
+				}
+				return nil
+			}, filesystem.New(storage))
+			output := "/base.colpkg"
+			if source == output {
+				output = "base.colpkg"
+			}
+			err := builder.Build(t.Context(), source, output)
+			if err == nil || !strings.Contains(err.Error(), "output must differ") || called {
+				t.Errorf("source alias was not rejected before staging: called=%t error=%v", called, err)
+			}
+			if data, err := afero.ReadFile(storage, source); err != nil || string(data) != "original" {
+				t.Errorf("source alias changed original archive: %q %v", data, err)
+			}
+			if entries, err := afero.ReadDir(storage, "."); err != nil || len(entries) != 1 {
+				t.Errorf("source alias left staging files: %v %v", entries, err)
+			}
+		})
+	}
+}
+
+// TestBuildSymlinkParentTraversal follows intermediate links before their parent components.
+func TestBuildSymlinkParentTraversal(t *testing.T) {
+	for _, sourceKind := range []string{"link", "input"} {
+		for _, rooted := range []bool{false, true} {
+			t.Run(fmt.Sprintf("%s-%t", sourceKind, rooted), func(t *testing.T) {
+				root := t.TempDir()
+				if err := os.MkdirAll(filepath.Join(root, "other", "deep"), 0o755); err != nil {
+					t.Fatal(err)
+				}
+				for path, data := range map[string]string{"base.colpkg": "wrong", "other/base.colpkg": "original"} {
+					if err := os.WriteFile(filepath.Join(root, path), []byte(data), 0o600); err != nil {
+						t.Fatal(err)
+					}
+				}
+				if err := os.Symlink("other/deep", filepath.Join(root, "redirect")); err != nil {
+					t.Fatal(err)
+				}
+				if err := os.Symlink("redirect/../base.colpkg", filepath.Join(root, "source.colpkg")); err != nil {
+					t.Fatal(err)
+				}
+				var storage afero.Fs = afero.NewOsFs()
+				source, output := filepath.Join(root, "source.colpkg"), filepath.Join(root, "built.colpkg")
+				if rooted {
+					storage = afero.NewBasePathFs(storage, root)
+					source, output = "source.colpkg", "built.colpkg"
+				}
+				if sourceKind == "input" {
+					source = root + string(filepath.Separator) + "redirect/../base.colpkg"
+					if rooted {
+						source = "redirect/../base.colpkg"
+					}
+				}
+				builder := rebuild.New(func(_ context.Context, path string) error {
+					data, err := afero.ReadFile(storage, path)
+					if err != nil {
+						return fmt.Errorf("read stage: %w", err)
+					}
+					if string(data) != "original" {
+						return fmt.Errorf("resolved the wrong source archive: %q", data)
+					}
+					return nil
+				}, filesystem.New(storage))
+				if err := builder.Build(t.Context(), source, output); err != nil {
+					t.Fatal(err)
+				}
+				if data, err := afero.ReadFile(storage, output); err != nil || string(data) != "original" {
+					t.Fatalf("published wrong archive: %q %v", data, err)
+				}
+			})
+		}
+	}
+}
+
+// TestBasePathArchiveBuild verifies source and destination aliases through rooted filesystem adapters.
+func TestBasePathArchiveBuild(t *testing.T) {
+	for _, namespace := range []string{"absolute", "relative", "nested", "relative-link"} {
+		t.Run(namespace, func(t *testing.T) {
+			root := t.TempDir()
+			storage := afero.NewBasePathFs(afero.NewOsFs(), root)
+			if namespace == "nested" {
+				storage = afero.NewBasePathFs(storage, "scope")
+			}
+			for _, directory := range []string{"archives", "results"} {
+				if err := storage.MkdirAll(directory, 0o755); err != nil {
+					t.Fatal(err)
+				}
+			}
+			if err := afero.WriteFile(storage, "archives/base.colpkg", []byte("original"), 0o600); err != nil {
+				t.Fatal(err)
+			}
+			if namespace == "relative-link" {
+				if err := os.Symlink("archives/base.colpkg", filepath.Join(root, "source.colpkg")); err != nil {
+					t.Fatal(err)
+				}
+				if err := os.Symlink("results", filepath.Join(root, "destination")); err != nil {
+					t.Fatal(err)
+				}
+			} else {
+				linker := storage.(afero.Linker)
+				if err := linker.SymlinkIfPossible("archives/base.colpkg", "source.colpkg"); err != nil {
+					t.Fatal(err)
+				}
+				if err := linker.SymlinkIfPossible("results", "destination"); err != nil {
+					t.Fatal(err)
+				}
+			}
+			source, output := "source.colpkg", "destination/built.colpkg"
+			if namespace != "relative" {
+				source, output = "/"+source, "/"+output
+			}
+			var staging string
+			builder := rebuild.New(func(_ context.Context, path string) error {
+				staging = filepath.Dir(path)
+				data, err := afero.ReadFile(storage, path)
+				if err != nil {
+					return fmt.Errorf("read rooted stage: %w", err)
+				}
+				if string(data) != "original" {
+					return fmt.Errorf("rooted stage lost source bytes")
+				}
+				if err := afero.WriteFile(storage, path, []byte("updated"), 0o600); err != nil {
+					return fmt.Errorf("edit rooted stage: %w", err)
+				}
+				return nil
+			}, filesystem.New(storage))
+			if err := builder.Build(t.Context(), source, output); err != nil {
+				t.Fatal(err)
+			}
+			for path, wanted := range map[string]string{"archives/base.colpkg": "original", "results/built.colpkg": "updated"} {
+				if data, err := afero.ReadFile(storage, path); err != nil || string(data) != wanted {
+					t.Fatalf("rooted archive %s: %q %v", path, data, err)
+				}
+			}
+			if _, err := storage.Stat(staging); !errors.Is(err, os.ErrNotExist) {
+				t.Fatalf("rooted staging retained: %v", err)
+			}
+			if info, _, err := storage.(afero.Lstater).LstatIfPossible("destination"); err != nil || info.Mode()&os.ModeSymlink == 0 {
+				t.Fatalf("destination alias was replaced: %v", err)
+			}
+			if artifacts := os.Getenv("TEST_UNDECLARED_OUTPUTS_DIR"); artifacts != "" {
+				data, err := json.MarshalIndent(map[string]string{"namespace": namespace, "source": "original", "output": "updated"}, "", "  ")
+				if err != nil {
+					t.Fatal(err)
+				}
+				if err := os.WriteFile(filepath.Join(artifacts, "basepath-build-"+namespace+".json"), data, 0o600); err != nil {
+					t.Fatal(err)
+				}
+			}
+		})
+	}
+}
+
+// TestMemoryArchiveBuild verifies staging, failure preservation and cleanup entirely in injected storage.
+func TestMemoryArchiveBuild(t *testing.T) {
+	for _, outcome := range []string{"success", "apply-error", "cancel"} {
+		t.Run(outcome, func(t *testing.T) {
+			storage := afero.NewMemMapFs()
+			if err := storage.MkdirAll("/archives", 0o755); err != nil {
+				t.Fatal(err)
+			}
+			base, output := "/archives/base.colpkg", "/archives/output.colpkg"
+			for _, path := range []string{base, output} {
+				if err := afero.WriteFile(storage, path, []byte("original"), 0o600); err != nil {
+					t.Fatal(err)
+				}
+			}
+			ctx, cancel := context.WithCancelCause(t.Context())
+			defer cancel(nil)
+			failure := errors.New("memory apply failed")
+			var staged string
+			builder := rebuild.New(func(_ context.Context, path string) error {
+				staged = filepath.Dir(path)
+				if err := afero.WriteFile(storage, path, []byte("updated"), 0o600); err != nil {
+					return fmt.Errorf("edit memory stage: %w", err)
+				}
+				switch outcome {
+				case "apply-error":
+					return failure
+				case "cancel":
+					cancel(failure)
+				}
+				return nil
+			}, filesystem.New(storage))
+			err := builder.Build(ctx, base, output)
+			if outcome == "success" && err != nil || outcome != "success" && !errors.Is(err, failure) {
+				t.Fatalf("%s: %v", outcome, err)
+			}
+			want := "original"
+			if outcome == "success" {
+				want = "updated"
+			}
+			if data, err := afero.ReadFile(storage, output); err != nil || string(data) != want {
+				t.Fatalf("published memory output: %q %v", data, err)
+			}
+			if data, err := afero.ReadFile(storage, base); err != nil || string(data) != "original" {
+				t.Fatalf("source changed: %q %v", data, err)
+			}
+			if _, err := storage.Stat(staged); !errors.Is(err, os.ErrNotExist) {
+				t.Fatalf("memory staging retained: %v", err)
+			}
+		})
+	}
+}
 
 // TestArchiveBuild verifies staged publication using real Anki archives and native state writes.
 func TestArchiveBuild(t *testing.T) {
@@ -52,7 +277,7 @@ func TestArchiveBuild(t *testing.T) {
 		return nil
 	}
 	output := filepath.Join(root, "built.colpkg")
-	if err := rebuild.New(apply).Build(t.Context(), base, output); err != nil {
+	if err := rebuild.New(apply, filesystem.FS{}).Build(t.Context(), base, output); err != nil {
 		t.Fatal(err)
 	}
 	stored, err := application.ColStateDump(t.Context(), ankiascodeapi.CollectionOptions{StateKey: key, Path: output})
@@ -71,7 +296,7 @@ func TestArchiveBuild(t *testing.T) {
 			return fmt.Errorf("inspect unchanged stage: %w", err)
 		}
 		return nil
-	}).Build(t.Context(), base, unchanged); err != nil {
+	}, filesystem.FS{}).Build(t.Context(), base, unchanged); err != nil {
 		t.Fatal(err)
 	}
 	unchangedState, err := application.ColStateDump(t.Context(), ankiascodeapi.CollectionOptions{StateKey: key, Path: unchanged})
@@ -102,7 +327,7 @@ func TestArchiveBuild(t *testing.T) {
 					panic(failure)
 				}
 				return nil
-			})
+			}, filesystem.FS{})
 			var recovered any
 			func() {
 				defer func() { recovered = recover() }()
@@ -136,7 +361,7 @@ func TestArchiveBuild(t *testing.T) {
 			return fmt.Errorf("update unpublished stage: %w", err)
 		}
 		return context.Canceled
-	}).Build(t.Context(), base, missing); !errors.Is(err, context.Canceled) {
+	}, filesystem.FS{}).Build(t.Context(), base, missing); !errors.Is(err, context.Canceled) {
 		t.Fatalf("absent-output failure lost its cause: %v", err)
 	}
 	assertRemoved(t, missing)
@@ -158,7 +383,7 @@ func TestArchiveBuild(t *testing.T) {
 	reject := rebuild.New(func(context.Context, string) error {
 		called = true
 		return nil
-	})
+	}, filesystem.FS{})
 	canceled, cancel := context.WithCancelCause(t.Context())
 	cause := errors.New("canceled before starting archive build")
 	cancel(cause)

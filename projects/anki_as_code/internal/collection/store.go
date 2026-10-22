@@ -5,10 +5,10 @@ import (
 	"errors"
 	"fmt"
 	"os"
-	"path/filepath"
 	"sync"
 	"time"
 
+	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/filesystem"
 	"git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/ankiclient"
 	"git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/ankigrpc"
 	"google.golang.org/grpc"
@@ -19,6 +19,8 @@ const backendCleanupTimeout = 5 * time.Second
 
 // Options configures managed native scopes and their collection publication budget.
 type Options struct {
+	// FS supplies source inspection; backend storage remains independently owned.
+	FS filesystem.FS
 	// NewClient constructs clients and selects its default when an operation address is empty.
 	NewClient ankigrpc.ClientFactory
 	// CloseTimeout bounds collection publication and close, independently of request cancellation.
@@ -40,6 +42,8 @@ type CollectionOptions struct {
 // Store reserves collection sources within explicitly configured native scopes.
 // Use New for native access. Store must not be copied after use.
 type Store struct {
+	// filesystem supplies source path inspection and alias resolution.
+	filesystem filesystem.FS
 	// newClient delegates address interpretation to the client library.
 	newClient ankigrpc.ClientFactory
 	// closeTimeout allows native archive publication to outlive transport shutdown's short budget.
@@ -56,7 +60,7 @@ func New(options Options) Store {
 	if closeTimeout <= 0 {
 		closeTimeout = 10 * time.Minute
 	}
-	return Store{newClient: options.NewClient, closeTimeout: closeTimeout}
+	return Store{filesystem: options.FS, newClient: options.NewClient, closeTimeout: closeTimeout}
 }
 
 // createClient delegates connection-string interpretation and construction to anki_grpc.
@@ -171,7 +175,7 @@ func (store *Store) reserve(ctx context.Context, path string) (string, error) {
 	if err := ctx.Err(); err != nil {
 		return "", fmt.Errorf("reserve cancelled collection: %w", errors.Join(err, context.Cause(ctx)))
 	}
-	source, info, err := resolveCollectionSource(path)
+	source, info, err := resolveCollectionSource(store.filesystem, path)
 	if err != nil {
 		return "", fmt.Errorf("resolve collection source: %w", err)
 	}
@@ -190,16 +194,16 @@ func (store *Store) reserve(ctx context.Context, path string) (string, error) {
 }
 
 // resolveCollectionSource resolves aliases and requires an existing regular source file.
-func resolveCollectionSource(path string) (string, os.FileInfo, error) {
-	expanded, err := expandPath(path)
+func resolveCollectionSource(storage filesystem.FS, path string) (string, os.FileInfo, error) {
+	expanded, err := storage.ExpandPath(path)
 	if err != nil {
 		return "", nil, fmt.Errorf("expand source path: %w", err)
 	}
-	source, err := filepath.EvalSymlinks(expanded)
+	source, err := storage.ResolvePath(expanded, false)
 	if err != nil {
 		return "", nil, fmt.Errorf("resolve source aliases: %w", err)
 	}
-	info, err := os.Stat(source)
+	info, err := storage.Stat(source)
 	if err != nil {
 		return "", nil, fmt.Errorf("inspect source: %w", err)
 	}
