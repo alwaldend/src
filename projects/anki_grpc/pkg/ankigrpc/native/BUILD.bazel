@@ -3,7 +3,10 @@ load("@rules_rust//rust:defs.bzl", "rust_clippy", "rust_static_library")
 
 rust_static_library(
     name = "server_ffi",
-    srcs = ["ffi.rs"],
+    srcs = [
+        "ffi.rs",
+        "//projects/anki_grpc/internal/backend:ffi.rs",
+    ],
     crate_root = "ffi.rs",
     edition = "2021",
     rustc_flags = ["-Cpanic=abort"],
@@ -22,7 +25,6 @@ go_library(
     srcs = [
         "cli.go",
         "client.go",
-        "connection.go",
         "doc.go",
         "native.go",
         "server.go",
@@ -36,13 +38,9 @@ go_library(
     ],
     visibility = ["//projects/anki_grpc/pkg/ankiclient:consumers"],
     deps = [
-        "//projects/anki_grpc/pkg/ankiclient",
+        "//projects/anki_grpc/internal/directclient",
         "//projects/anki_grpc/pkg/ankigrpc",
         "@org_golang_google_grpc//:grpc",
-        "@org_golang_google_grpc//codes",
-        "@org_golang_google_grpc//metadata",
-        "@org_golang_google_grpc//status",
-        "@org_golang_google_protobuf//proto",
     ],
 )
 

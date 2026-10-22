@@ -14,6 +14,8 @@ tags:
 Keep notes, decks, and settings in text files. Edit them with your usual tools,
 review a plan of the changes, and reconcile your Anki collection with the result.
 
+<a class="btn btn-outline-primary" href="app/">Try it now</a>
+
 ## How it works
 
 1. Export an existing collection to TOML. Each note keeps its named fields and

@@ -1,0 +1,20 @@
+flowchart LR
+    subgraph browser["Browser"]
+        direction LR
+        page["Browser UI"]
+
+        subgraph worker["Web Worker"]
+            direction LR
+            app["Go app<br/>Wasm"]
+            server["Rust Anki server<br/>Wasm"]
+            memory[("Afero<br/>Working files")]
+        end
+
+        saved[("IndexedDB<br/>Saved work")]
+    end
+
+    page <-->|Requests| app
+    app <-->|"Commands<br/>JavaScript API"| server
+    app <-->|File I/O| memory
+    server <-->|WASI adapter| memory
+    memory <-->|"Save / restore<br/>Worker snapshots"| saved

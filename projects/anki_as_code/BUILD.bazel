@@ -47,6 +47,18 @@ config_setting(
 )
 
 alias(
+    name = "browser",
+    actual = "//projects/anki_as_code/pkg/browser:browser",
+    visibility = ["//:__subpackages__"],
+)
+
+alias(
+    name = "browser_serve",
+    actual = "//projects/anki_as_code/pkg/browser:serve",
+    visibility = ["//:__subpackages__"],
+)
+
+alias(
     name = "anki_as_code",
     actual = select({
         ":with_wasm": "//projects/anki_as_code/cmd/anki_as_code:wasi",

@@ -14,23 +14,12 @@ void anki_backend_free(AnkiBackend *backend);
 import "C"
 
 import (
-	"errors"
 	"fmt"
 	"math"
 	"unsafe"
+
+	"git.alwaldend.com/alwaldend/src/projects/anki_grpc/internal/directclient"
 )
-
-// errUnknownCommand indicates a route absent from Anki's generated dispatch table.
-var errUnknownCommand = errors.New("unknown Anki command")
-
-// nativeError preserves Anki's serialized BackendError for the caller's decoder.
-type nativeError struct {
-	// details contains the unchanged upstream protobuf error bytes.
-	details []byte
-}
-
-// Error identifies an unsuccessful native command without interpreting its payload.
-func (failure *nativeError) Error() string { return "Anki command failed" }
 
 // server owns a native handle; callers must finish all command calls before close.
 // The value must not be copied after initialization.
@@ -67,11 +56,11 @@ func (backend *server) command(method string, input []byte) ([]byte, error) {
 			return nil, fmt.Errorf("read Anki command response: %w", err)
 		}
 		if code == 1 {
-			return nil, &nativeError{details: data}
+			return nil, &directclient.NativeError{Details: data}
 		}
 		return data, nil
 	case 2:
-		return nil, fmt.Errorf("dispatch Anki %s: %w", method, errUnknownCommand)
+		return nil, fmt.Errorf("dispatch Anki %s: %w", method, directclient.ErrUnknownCommand)
 	default:
 		return nil, fmt.Errorf("dispatch Anki %s: invalid native arguments", method)
 	}
