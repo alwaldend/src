@@ -1,0 +1,69 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: shared-pillow-cover-052
+  resourceVersion: "3"
+  generation: 2
+  creationTimestamp: "2026-09-05T10:16:55.137396556Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 16
+  criteriaRevision: 4
+  criteriaDigest: sha256:f5fe4b5c4efc12d5b82ad42cf0d41fd7274f48b421abf42e9db1ce5ae316d8a3
+  goalStateDigest: sha256:7b73d233b6abcba9f3c012a8d8d514342c8954e08db6fc5e4aadaf0f25640239
+  planID: shared-pillow-cover-v46
+  workType: change
+  stableDefect: rigid-head-cover-assembly
+  hypothesis: A shared broad pillow front and continuous cover resolve separate dome and rounded-lobe construction while preserving front landmarks
+  subject: collar_050_candidate.blend
+  priorAttemptID: flatter-free-panels-051
+  nextAction: Start surface-relative bowed pillow successor; preserve050 and do not execute052
+status:
+  state: closed
+  closedAt: "2026-09-05T11:50:05.106336118Z"
+  artifacts:
+    planDigest: sha256:650c3d43a3e77e95f1b6fc3accb353233991261c0b1159093247b620cca914e0
+    resultDigest: sha256:cf69e353ff66268965836e73ac41da56b7ba1e26a69ef6acd3906565e9ecc27e
+    evidence:
+    - path: evidence/head_052_review_basis.md
+      digest: sha256:5eee285412cb72f4235b55e27d36fb52f4bb196b26430701a2e79f28227afb95
+    - path: evidence/head_052_support_preflight.md
+      digest: sha256:16f3816ce472402da63ecc79f325775a7da6e7335cd13673ae2b372408af501c
+  review:
+    decision: reset
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-002
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-004
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-005
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-006
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-007
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-09-05T11:50:05.106336118Z"

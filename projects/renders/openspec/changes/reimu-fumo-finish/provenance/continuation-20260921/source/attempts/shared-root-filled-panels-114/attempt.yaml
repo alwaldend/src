@@ -1,0 +1,62 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: shared-root-filled-panels-114
+  resourceVersion: "2"
+  generation: 2
+  creationTimestamp: "2026-09-06T10:47:16.504316688Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 16
+  criteriaRevision: 4
+  criteriaDigest: sha256:f5fe4b5c4efc12d5b82ad42cf0d41fd7274f48b421abf42e9db1ce5ae316d8a3
+  goalStateDigest: sha256:d3dd99930bf18292653455d315de740e68d0a10d03186a30fad1ab2e06501ad6
+  workType: change
+  subject: unchanged109head;shared-root-fabric-panel-lofts;macro-only
+  priorAttemptID: shared-boundary-hair-113
+  nextAction: "115 independent original macro parts: fresh quad/sculptable hair, independently rebuilt seated skirt, root-owned flat face layout; no114hair retention."
+status:
+  state: closed
+  closedAt: "2026-09-06T11:07:14.789092926Z"
+  artifacts:
+    planDigest: sha256:3562f0ab7c06672ca9de354959d2cb0bfa3ff99e88459e226a4817024c57e4da
+    resultDigest: sha256:4675d4af6367aea5384c3708ecb03ce0b4bfae5fbc6b45343eabd51b3f4e0698
+    evidence: []
+  review:
+    decision: reset
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-002
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-004
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-005
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-006
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-007
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-09-06T11:07:14.789092926Z"

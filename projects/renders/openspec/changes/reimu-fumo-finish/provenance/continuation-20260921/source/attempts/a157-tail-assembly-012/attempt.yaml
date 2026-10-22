@@ -1,0 +1,59 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: a157-tail-assembly-012
+  resourceVersion: "2"
+  generation: 1
+  creationTimestamp: "2026-09-04T10:51:22.071486137Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 14
+  criteriaRevision: 4
+  criteriaDigest: sha256:f5fe4b5c4efc12d5b82ad42cf0d41fd7274f48b421abf42e9db1ce5ae316d8a3
+  goalStateDigest: sha256:e442360c82d27227c129dd32ac363bd2461b90ca8c38876d31d157ce2f9a5853
+  planID: a157-tail-assembly-v10
+  workType: candidate
+  stableDefect: A157 lower-tail bow envelope is compressed and tip-only Grab separates shape and picking from its ruffle assembly
+  hypothesis: "Mesh-space outer-band selection plus one connected native proportional transform on each red-tail and ruffle pair will reach 2.038 Wh +/- 0.05 Wh while preserving broad panel shape, roots, thickness, and registration"
+  subject: A157 SHA-256 433d08ad36be488bb16e4221a85f831d4390660c258a43ea0b08775811574b73; paired lower-tail red meshes and white ruffles only
+  affectedCriteria:
+  - criterion-001
+  - criterion-002
+  - criterion-003
+  regressionRefs:
+  - a157-five-view-baseline
+  - bow-span-failure-011
+  - review-contract-v4
+  priorAttemptID: a157-bow-span-011
+  measurableDelta: "Each selected outer band translates 0.0267 +/- 0.001 m while root movement remains <=0.001 Wh and the complete centered 512 px envelope reaches about 503 +/- 12 px without construction regressions"
+  nextAction: Copy untouched A157 and execute one numeric native connected proportional translation per two-object tail assembly before pinned front and side rendering
+status:
+  state: closed
+  closedAt: "2026-09-04T10:54:26.568342607Z"
+  artifacts:
+    planDigest: sha256:d57b29764ab256a13821927b88f3524c1d593848191c6e0e6772a0650fdc0e18
+    resultDigest: sha256:42a0edbdc0e64dc2703e0929cfb7d23680e5364fd81d865c0821e30ef464c4f7
+    evidence:
+    - path: evidence/evidence.md
+      digest: sha256:5c21a6a40d78895802f0ccf959ff0ffe734044e9533cbe4a910c1c6b0f84ee64
+  review:
+    decision: reset
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 3
+      verdict: fail
+      evidenceRefs:
+      - evidence/evidence.md
+    - criterionID: criterion-002
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs:
+      - evidence/evidence.md
+    - criterionID: criterion-003
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - evidence/evidence.md
+  observedAt: "2026-09-04T10:54:26.568342607Z"

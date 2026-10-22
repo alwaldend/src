@@ -1,0 +1,78 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: flatter-free-panels-051
+  resourceVersion: "2"
+  generation: 1
+  creationTimestamp: "2026-09-05T09:54:51.155810255Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 16
+  criteriaRevision: 4
+  criteriaDigest: sha256:f5fe4b5c4efc12d5b82ad42cf0d41fd7274f48b421abf42e9db1ce5ae316d8a3
+  goalStateDigest: sha256:31e9229f6699a4a3158df7d09d7819ca461ed2d138e5cda49e67b5a0c9e0bc16
+  planID: flatter-free-panels-v45
+  workType: change
+  stableDefect: inflated-lower-shell-arcs
+  hypothesis: Flatter unsupported cross-sections and shallow asymmetric hems remove padded tongue appearance while fitted roots preserve coverage
+  subject: collar_050_candidate.blend
+  priorAttemptID: surface-fitted-collar-050
+  nextAction: Apply inspected051 helper, require bounded receiver clearance, save unique candidate and review fixed views
+status:
+  state: closed
+  closedAt: "2026-09-05T09:59:03.540940468Z"
+  artifacts:
+    planDigest: sha256:6cf486fbc51e7ae721bee16783086a682c3ea9d91760a0a5ee5e321fc0207cbf
+    resultDigest: sha256:69c2e206c738bd1d2aa9e37934585a7766c08c211fdcb8d364a570c98d3029e0
+    evidence:
+    - path: evidence/collar_050_result.md
+      digest: sha256:fb02bd16077a19c514e626ffd1371ff3d0abea8e37e370e13099f3619885ad3f
+    - path: evidence/hair_051_preparation.md
+      digest: sha256:18124d6375ebc15036d0b5dfaa61a3ca4bb29052f071cce1143e2251bdb69516
+    - path: evidence/hair_051_result.md
+      digest: sha256:69c2e206c738bd1d2aa9e37934585a7766c08c211fdcb8d364a570c98d3029e0
+    - path: evidence/session_050_process_notes.md
+      digest: sha256:c489b7bf78d66f233fe58dd9d553f877a40770396fba2ca3928f803c0bfc8805
+  review:
+    decision: reset
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 3
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-002
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-004
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-005
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-006
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-007
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-09-05T09:59:03.540940468Z"

@@ -1,0 +1,43 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: flatten-dose-response-018
+  resourceVersion: "2"
+  generation: 1
+  creationTimestamp: "2026-09-04T12:35:32.986981458Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 14
+  criteriaRevision: 4
+  criteriaDigest: sha256:f5fe4b5c4efc12d5b82ad42cf0d41fd7274f48b421abf42e9db1ce5ae316d8a3
+  goalStateDigest: sha256:94f9eafc3ab4ee4423a0e2a2bffb1581efd54bad104b1031a00a33ec1404b3a6
+  planID: flatten-dose-response-v16
+  workType: investigation
+  stableDefect: Three isolated native Flatten strokes produce only 4.8236 percent plane-variance reduction against the frozen 35 percent capability gate
+  hypothesis: The attempt-017 operation is correctly isolated but underdosed; cumulative identical Flatten blocks can reach 35 percent plane-variance reduction within 27 total strokes and 0.20 maximum displacement without leakage or metric reversal
+  subject: Exact disposable attempt-017 baseline and partial coupon bytes only; no Reimu model bytes
+  regressionRefs:
+  - localized-sculpt-coupon-017
+  - native-manual-head-015
+  priorAttemptID: localized-sculpt-coupon-017
+  measurableDelta: Plane variance falls at least 35 percent with at most 27 cumulative identical strokes, then one fixed root block increases contact at least 25 percent and reduces discontinuity at least 30 percent, one fixed tip block reaches width ratio at most 0.55 and reduces roughness at least 25 percent, all with control displacement at or below 1e-6 and exact undo
+  nextAction: Named sole writer adds fixed three-stroke Flatten blocks to the exact partial state until pass or a preregistered stop, conditionally runs one root and tip block, freezes one final state, and hands exact bytes and receipts to the coordinator for pinned audit and rendering
+status:
+  state: closed
+  closedAt: "2026-09-04T12:58:04.376507391Z"
+  artifacts:
+    planDigest: sha256:26921b2597c1836a953ec5b848bcb9bff5881ef260b2afd75a35c57f1d1b5480
+    resultDigest: sha256:686fac0462003a203494dfa7e16719dcbcef23a354ffeb2c981ac1bd1acd4412
+    evidence:
+    - path: evidence/pinned_failure_evidence.md
+      digest: sha256:a98b2600f1feb534f4a1ab23ef11e7263bbb766975ce9085fd6124571d07b2b5
+    - path: evidence/session_ergonomics_review.md
+      digest: sha256:7edd22cbd6788af5dd1c2cca772f409996688b4e780f4526ece36ca178cda73d
+    - path: evidence/writer_result.md
+      digest: sha256:a299a04ddf641882c4a1502c5a32ca375eb6effd7e2fa114d402a96de15804cb
+  review:
+    decision: reset
+    criteria: []
+  observedAt: "2026-09-04T12:58:04.376507391Z"

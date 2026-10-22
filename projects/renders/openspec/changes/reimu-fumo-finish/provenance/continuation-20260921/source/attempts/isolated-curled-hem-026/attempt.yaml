@@ -1,0 +1,71 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: isolated-curled-hem-026
+  resourceVersion: "2"
+  generation: 1
+  creationTimestamp: "2026-09-04T22:26:06.332775836Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 16
+  criteriaRevision: 4
+  criteriaDigest: sha256:f5fe4b5c4efc12d5b82ad42cf0d41fd7274f48b421abf42e9db1ce5ae316d8a3
+  goalStateDigest: sha256:c0ada18340cf40973bb7936df5f8e1997cf3aff6ced6aa0220e7b1c1ce02abcd
+  workType: candidate
+  stableDefect: flat-hem-black-pod-feet
+  hypothesis: Isolating the curved hem while preserving023 feet retains folded-cloth improvement without cylindrical leg regression.
+  subject: 023 white hem only
+  priorAttemptID: curled-lower-cloth-025
+  nextAction: Build hem-only026, freeze, and independently check pixels and original-foot contacts.
+status:
+  state: closed
+  closedAt: "2026-09-04T22:29:40.473443896Z"
+  artifacts:
+    planDigest: sha256:6d1687bded6bf188d265a75b2776b0eb108c0872e30457d6060a090ee57fb027
+    resultDigest: sha256:32a3ef4463a4afeaf8585df6398c95fdfc98600bffd70f5ab092ab40a266166a
+    evidence:
+    - path: evidence/hem_026_sources.md
+      digest: sha256:28ecb67a3b7452495e9ff2531c07a7dca9a7cfc82b6a7f7dd39527290eab055f
+    - path: evidence/lower_025_result.md
+      digest: sha256:075fc59b5ee089e0606defe598d2a7c27d45dd54401489193cf2e3e4cd1643f5
+  review:
+    decision: accept
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 3
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-002
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-004
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-005
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-006
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-007
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-09-04T22:29:40.473443896Z"

@@ -1,0 +1,66 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: native-drape-folded-bow-062
+  resourceVersion: "3"
+  generation: 3
+  creationTimestamp: "2026-09-05T17:12:57.081767083Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 16
+  criteriaRevision: 4
+  criteriaDigest: sha256:f5fe4b5c4efc12d5b82ad42cf0d41fd7274f48b421abf42e9db1ce5ae316d8a3
+  goalStateDigest: sha256:4e15c172985a064113e374c0f6a5681e2a7ea5e81937681b04c656ace5b109a9
+  planID: native-drape-folded-bow-v56
+  workType: change
+  subject: No062 candidate; construction log ba357153fc7b6fd98c782d4d2f353c52037e79869c0cfd506c26bc6b2b356238
+  nextAction: Keep cloth failure closed; isolate still-untested bow fold in063 without changing hair or face construction.
+status:
+  state: closed
+  closedAt: "2026-09-05T17:23:47.17658801Z"
+  artifacts:
+    planDigest: sha256:3595c46787bc7b756beabfd49a650f9014c7bf9e7b6e0d0872ca032f25dfca62
+    resultDigest: sha256:b294fe178c987c5c2d93c2edaf6b6bd465e6e56f335263df60c0c9d4ff7743c4
+    evidence:
+    - path: evidence/macro_062_runtime_repair.md
+      digest: sha256:1afb8034000bee5e5ccfdb2779a749703b0a3c35cd21535fe036198bac5e4702
+    - path: evidence/side_062_reference_diagnosis.md
+      digest: sha256:e10d0eb96b59b5c7f4ade99516162bbc65df43d1de93dcc667c55ab4a700a812
+  review:
+    decision: reset
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-002
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-004
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-005
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-006
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-007
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-09-05T17:23:47.17658801Z"

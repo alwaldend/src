@@ -1,0 +1,81 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: proximal-cream-leg-031
+  resourceVersion: "2"
+  generation: 1
+  creationTimestamp: "2026-09-05T00:18:40.948292764Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 16
+  criteriaRevision: 4
+  criteriaDigest: sha256:f5fe4b5c4efc12d5b82ad42cf0d41fd7274f48b421abf42e9db1ce5ae316d8a3
+  goalStateDigest: sha256:27ad61066ba40adb87d8640e6cbc0cbe147c209b16b58030482d78b93bad91c1
+  workType: candidate
+  stableDefect: concealed-proximal-cream-leg
+  hypothesis: The retained rounded cream roots can emerge inward upward and seatward without replacing black toes or repeating rejected cylindrical legs.
+  subject: Frozen030b two cream short hidden leg roots; all black pods and Hem026 exact controls
+  priorAttemptID: upper-loop-proportions-030
+  nextAction: Review two-root helper and no-save contact evidence, then sole-writer save031 and gate five fixed views.
+status:
+  state: closed
+  closedAt: "2026-09-05T00:29:45.999617259Z"
+  artifacts:
+    planDigest: sha256:dd34c53cefa796fd94d54c03548d5a7531a520d7acd57869ee0469b8a1f0c13d
+    resultDigest: sha256:66a316fa87a9909cd279e2f4490c2b97e9bc4c3ce1d810711c4d4b8329792707
+    evidence:
+    - path: evidence/leg_031_blind.md
+      digest: sha256:135125166245a355d7abea87228edd33613410fb2eec3d273e87c92bf5af7616
+    - path: evidence/leg_031_machine_evidence.md
+      digest: sha256:a94a4dc095af3863916d84c88d480a50923b1ba61a86f4b1671fe19a31cdb7d7
+    - path: evidence/leg_031_preflight.md
+      digest: sha256:d225b0f0c76b2824083e0dbf3aa43a01d260ca0caa2582d9f3bf4543bef47519
+    - path: evidence/leg_031_sources.md
+      digest: sha256:57d846ea5fe3b14697d5f101ea852ee47f8141cef9f41b66d96f1f49306085cb
+    - path: evidence/leg_031_technical_audit.md
+      digest: sha256:d88c96bb0a6c300bacbc36fd4a73524d6f2cb539275114f001b3acc16be160b2
+    - path: evidence/winding_inventory_030b.md
+      digest: sha256:2df9d3e1ff4f41c7709c666fe1bdedd106904aa541b622f09f222e1a766afabc
+    - path: evidence/winding_inventory_030b_evidence.md
+      digest: sha256:cce3852653c1631dbab7d9ea3c0d4c6327a0b01490321a642eed395d93a08cf9
+  review:
+    decision: reset
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 3
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-002
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-004
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-005
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-006
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-007
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-09-05T00:29:45.999617259Z"

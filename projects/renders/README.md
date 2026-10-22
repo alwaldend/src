@@ -13,7 +13,8 @@ The Reimu Fumo work lives under [assets/reimu_fumo/](https://github.com/alwalden
 reusable asset target will be added only after a candidate passes the visual,
 structural, animation, and exact-byte delivery gates in
 [Reimu Fumo change](openspec/changes/reimu-fumo-finish/). That change
-preserves the open outcome, blocked execution and original goal history.
+preserves the original blocked history and records the currently authorized
+active continuation, with no accepted model.
 
 Working candidates and intermediate renders belong under the repository-root
 `out/reimu_fumo_finish/` directory. They are not accepted or durable merely

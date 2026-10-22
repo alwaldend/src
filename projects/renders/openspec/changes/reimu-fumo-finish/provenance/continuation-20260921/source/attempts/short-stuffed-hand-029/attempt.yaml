@@ -1,0 +1,87 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: short-stuffed-hand-029
+  resourceVersion: "2"
+  generation: 1
+  creationTimestamp: "2026-09-04T23:38:17.565053056Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 16
+  criteriaRevision: 4
+  criteriaDigest: sha256:f5fe4b5c4efc12d5b82ad42cf0d41fd7274f48b421abf42e9db1ce5ae316d8a3
+  goalStateDigest: sha256:7d2aea46751ae78a2bb983e32c907ca9cdd5f7433bd6cb6eefaab4f814ae4850
+  workType: candidate
+  stableDefect: hollow-sleeve-recessed-hand
+  hypothesis: Extending only the recessed stuffed inserts to a short exposed cap restores the hand cue without altering canonical arm pose or sleeve construction.
+  subject: Frozen028 two stuffed arm inserts inside existing cuffs
+  priorAttemptID: continuous-upper-crown-028
+  nextAction: Author two-target distal emergence, save029 and gate side/three-quarter cuff and skirt contact.
+status:
+  state: closed
+  closedAt: "2026-09-04T23:59:09.474172922Z"
+  artifacts:
+    planDigest: sha256:1bd59438ca3af794748b923fd87910a4687644312f6c6c2f7a643795ae5fdd2c
+    resultDigest: sha256:7e667499de6774173d567392e7df99393bef2be6a11332264c9262440cd8eb76
+    evidence:
+    - path: evidence/hand_029_blind.md
+      digest: sha256:512e53f66fb145aaf0a1180795715dc078dcc164a54ceb707193c81b4501f4bd
+    - path: evidence/hand_029_evidence.md
+      digest: sha256:0ccc38d83f0742bb01eba2f053fad21974988bcccd41adfe786df454cc2a4021
+    - path: evidence/hand_029_machine_evidence.md
+      digest: sha256:cf56a730f64b5bdc516bbb23d28c346aceef8ce6faa776e95da09616dcbd39d7
+    - path: evidence/hand_029_sources.md
+      digest: sha256:eb366c9e9252e7954c9756663e0038532014b3dc33b0eb875a3024f5586b7da3
+    - path: evidence/hand_029_technical_audit.md
+      digest: sha256:7913bd08564f9a0eb825601ccce910a4f3bfdd4bbff6b1b04a38fb42124a74a4
+    - path: evidence/hand_029_winding_correction.md
+      digest: sha256:bac875ef1bc391be456e30a80146ba0640d1524d68f191318af945e8271dd9e4
+    - path: evidence/hand_029b_blind.md
+      digest: sha256:3bef368243f7d3f121b58cada74f1f997be360e6d03faca574a237cbb7838ee1
+    - path: evidence/hand_029b_sources.md
+      digest: sha256:be714f725886220150eab9907957a26ca7ff6098102ae969587b7f8d1743229f
+    - path: evidence/hand_029b_technical_audit.md
+      digest: sha256:39a2ca182f8166084e64c0e4f924e23e5d329f0adb38de61cb18f8cc093e9919
+    - path: evidence/sleeve_029_preflight.md
+      digest: sha256:934bcf13e416819af6d9ab5b0a3a46023a0a4d0624f78b53937d405ffda05372
+  review:
+    decision: accept
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 3
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-002
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-004
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-005
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-006
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-007
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-09-04T23:59:09.474172922Z"
