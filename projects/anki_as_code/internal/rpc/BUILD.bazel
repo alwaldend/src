@@ -1,16 +1,11 @@
-load("@aspect_bazel_lib//lib:run_binary.bzl", "run_binary")
 load("@rules_go//go:def.bzl", "go_library")
+load("//projects/anki_as_code/tools/generate_anki_schemas:defs.bzl", "anki_schema_imports")
 load("//third_party/com_github_ankitects_anki:schemas.bzl", "ANKI_SCHEMAS")
 
-run_binary(
+anki_schema_imports(
     name = "schema_imports",
-    srcs = ["//third_party/com_github_ankitects_anki:descriptors"],
-    outs = ["schemas_generated.go"],
-    args = [
-        "--descriptors=$(location //third_party/com_github_ankitects_anki:descriptors)/anki_descriptors.bin",
-        "--output=$(location schemas_generated.go)",
-    ],
-    tool = "//projects/anki_as_code/tools/generate_anki_schemas",
+    out = "schemas_generated.go",
+    descriptors = "//third_party/com_github_ankitects_anki:descriptors",
 )
 
 go_library(

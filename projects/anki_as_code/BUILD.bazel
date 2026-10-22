@@ -1,3 +1,4 @@
+load("@bazel_skylib//rules:common_settings.bzl", "bool_flag")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_site_svg", "mermaid_site_webp")
 
@@ -34,9 +35,23 @@ package_group(
     ],
 )
 
+bool_flag(
+    name = "wasm",
+    build_setting_default = False,
+    visibility = ["//projects/anki_as_code:__subpackages__"],
+)
+
+config_setting(
+    name = "with_wasm",
+    flag_values = {":wasm": "true"},
+)
+
 alias(
     name = "anki_as_code",
-    actual = "//projects/anki_as_code/cmd/anki_as_code",
+    actual = select({
+        ":with_wasm": "//projects/anki_as_code/cmd/anki_as_code:wasi",
+        "//conditions:default": "//projects/anki_as_code/cmd/anki_as_code",
+    }),
     visibility = ["//:__subpackages__"],
 )
 

@@ -1,0 +1,13 @@
+diff --git a/internal/syscall/BUILD.bazel b/internal/syscall/BUILD.bazel
+--- a/internal/syscall/BUILD.bazel
++++ b/internal/syscall/BUILD.bazel
+@@ -76,6 +76,8 @@ go_library(
+         "@io_bazel_rules_go//go/platform:windows": [
+             "//grpclog",
+         ],
+-        "//conditions:default": [],
++        "//conditions:default": [
++            "//grpclog",
++        ],
+     }),
+ )
