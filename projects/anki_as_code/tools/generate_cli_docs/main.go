@@ -44,7 +44,7 @@ func main() {
 // generate writes a short index and one complete help page per root subcommand
 // into a Bazel-owned directory without calling application workflow handlers.
 func generate(output string) error {
-	root := cli.New(documentationApplication{})
+	root := cli.New(documentationApplication{}, nil)
 	root.InitDefaultHelpCmd()
 	if err := os.MkdirAll(output, 0o755); err != nil {
 		return fmt.Errorf("create reference directory %q: %w", output, err)

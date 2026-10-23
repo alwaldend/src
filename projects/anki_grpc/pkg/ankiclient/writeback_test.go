@@ -5,6 +5,7 @@ package ankiclient_test
 import (
 	"bytes"
 	"context"
+	"errors"
 	"os"
 	"path/filepath"
 	"testing"
@@ -18,29 +19,41 @@ import (
 
 // TestCollectionWriteBack verifies opt-in persistence after RPC failures and default source preservation.
 func TestCollectionWriteBack(t *testing.T) {
-	worker := ankiclient.NewSTD(ankiclient.ClientSTDOptions{Binary: workerPath(t), Arguments: []string{"serve"}})
+	transport := ankiclient.NewSTD(ankiclient.ClientSTDOptions{Binary: workerPath(t), Arguments: []string{"serve"}})
+	worker := ankiclient.NewClient(transport)
 	if err := worker.Start(t.Context()); err != nil {
 		t.Fatal(err)
 	}
+	root := t.TempDir()
+	var closeCause error
+	var restore string
 	t.Cleanup(func() {
-		if err := worker.Stop(context.Background()); err != nil {
-			t.Error(err)
+		err := worker.Stop(context.Background())
+		if closeCause == nil && err != nil || closeCause != nil && !errors.Is(err, closeCause) {
+			t.Errorf("terminal cleanup lost its publication result: %v", err)
+		}
+		<-worker.Done()
+		if err := transport.Stop(context.Background()); err != nil {
+			t.Errorf("transport cleanup: %v", err)
+		}
+		if restore != "" {
+			if err := os.RemoveAll(restore); err != nil {
+				t.Error(err)
+			}
 		}
 	})
-	root := t.TempDir()
 	archive := filepath.Join(root, "source.colpkg")
-	managed := ankiclient.NewCollection(ankiclient.ClientCollectionOptions{Backend: worker, Path: filepath.Join(root, "source.anki2")})
-	if err := managed.Start(t.Context()); err != nil {
+	if err := worker.OpenCollection(t.Context(), ankiclient.CollectionOptions{Path: filepath.Join(root, "source.anki2")}); err != nil {
 		t.Fatal(err)
 	}
-	connection, err := managed.Connection()
+	connection, err := worker.Connection()
 	if err != nil {
 		t.Fatal(err)
 	}
 	if _, err := import_export.NewBackendImportExportServiceClient(connection).ExportCollectionPackage(t.Context(), &import_export.ExportCollectionPackageRequest{OutPath: archive, IncludeMedia: true}); err != nil {
 		t.Fatal(err)
 	}
-	if err := managed.Stop(t.Context()); err != nil {
+	if err := worker.CloseCollection(t.Context()); err != nil {
 		t.Fatal(err)
 	}
 	for _, policy := range []string{"default", "disabled", "enabled"} {
@@ -49,15 +62,14 @@ func TestCollectionWriteBack(t *testing.T) {
 		if err != nil {
 			t.Fatal(err)
 		}
-		options := ankiclient.ClientCollectionOptions{Backend: worker, Path: archive}
+		options := ankiclient.CollectionOptions{Path: archive}
 		if policy != "default" {
 			options.WriteBack = !disabled
 		}
-		managed = ankiclient.NewCollection(options)
-		if err := managed.Start(t.Context()); err != nil {
+		if err := worker.OpenCollection(t.Context(), options); err != nil {
 			t.Fatal(err)
 		}
-		connection, err := managed.Connection()
+		connection, err := worker.Connection()
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -73,7 +85,7 @@ func TestCollectionWriteBack(t *testing.T) {
 		if _, err := notes.NewNotesServiceClient(connection).GetNote(t.Context(), &notes.NoteId{Nid: -1}); err == nil {
 			t.Fatal("invalid note unexpectedly exists")
 		}
-		if err := managed.Stop(t.Context()); err != nil {
+		if err := worker.CloseCollection(t.Context()); err != nil {
 			t.Fatal(err)
 		}
 		if disabled {
@@ -82,11 +94,10 @@ func TestCollectionWriteBack(t *testing.T) {
 				t.Fatalf("disabled write-back changed source: %v", err)
 			}
 		}
-		inspection := ankiclient.NewCollection(ankiclient.ClientCollectionOptions{Backend: worker, Path: archive})
-		if err := inspection.Start(t.Context()); err != nil {
+		if err := worker.OpenCollection(t.Context(), ankiclient.CollectionOptions{Path: archive}); err != nil {
 			t.Fatal(err)
 		}
-		connection, err = inspection.Connection()
+		connection, err = worker.Connection()
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -94,30 +105,40 @@ func TestCollectionWriteBack(t *testing.T) {
 		if disabled && lookupErr == nil || !disabled && lookupErr != nil {
 			t.Fatalf("write-back disabled=%v, lookup=%v", disabled, lookupErr)
 		}
-		if err := inspection.Stop(t.Context()); err != nil {
+		if err := worker.CloseCollection(t.Context()); err != nil {
 			t.Fatal(err)
 		}
 	}
-	managed = ankiclient.NewCollection(ankiclient.ClientCollectionOptions{Backend: worker, Path: archive, WriteBack: true})
-	if err := managed.Start(t.Context()); err != nil {
+	if err := worker.OpenCollection(t.Context(), ankiclient.CollectionOptions{Path: archive, WriteBack: true}); err != nil {
 		t.Fatal(err)
 	}
-	connection, err = managed.Connection()
+	connection, err = worker.Connection()
 	if err != nil {
 		t.Fatal(err)
 	}
-	restore := collectionRestoreDirectory(t, connection)
+	restore = collectionRestoreDirectory(t, connection)
 	if err := os.Rename(archive, archive+".original"); err != nil {
 		t.Fatal(err)
 	}
 	if err := os.Mkdir(archive, 0o700); err != nil {
 		t.Fatal(err)
 	}
-	if err := managed.Stop(t.Context()); err == nil {
+	closeCause = worker.CloseCollection(t.Context())
+	if closeCause == nil {
 		t.Fatal("write-back to a directory unexpectedly succeeded")
+	}
+	for errors.Unwrap(closeCause) != nil {
+		closeCause = errors.Unwrap(closeCause)
 	}
 	if _, err := os.Stat(filepath.Join(restore, "collection.anki2")); err != nil {
 		t.Fatalf("failed publication discarded recoverable storage: %v", err)
 	}
-	writeReport(t, "collection-write-back.json", map[string]any{"default_enabled": false, "explicit_enable_persists": true, "request_failure_preserves_writes": true, "disabled_preserves_archive": true, "failed_publication_retains_restore": true})
+	if err := worker.Stop(t.Context()); !errors.Is(err, closeCause) {
+		t.Fatalf("terminal cleanup lost the publication failure: %v", err)
+	}
+	<-worker.Done()
+	if _, err := os.Stat(filepath.Join(restore, "collection.anki2")); err != nil {
+		t.Fatalf("terminal cleanup discarded recoverable storage: %v", err)
+	}
+	writeReport(t, "collection-write-back.json", map[string]any{"default_enabled": false, "explicit_enable_persists": true, "request_failure_preserves_writes": true, "disabled_preserves_archive": true, "failed_publication_retains_restore": true, "native_completion_after_publication_failure": true})
 }

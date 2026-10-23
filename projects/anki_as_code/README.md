@@ -179,6 +179,88 @@ The reusable application library imports only pure Go packages, including when
 `//projects/anki_grpc:cgo` is enabled. Set that independent boolean to false to
 exclude native linkage; local hosting remains available when WASM is enabled. The executable name stays `anki_as_code`.
 
+## MCP server
+
+`anki_as_code mcp serve` exposes workflow tools and an individual tool for every
+declared native Anki RPC over stdio. The pinned catalog contains 281 tools:
+269 declared RPCs, ten workflows and two collection-session controls. Forwarded
+aliases are omitted; methods declared on Backend services remain available.
+An MCP client launches the executable; stdout contains protocol messages and
+stderr contains command diagnostics. Discovery needs no running Anki instance,
+collection, or optional server engine.
+
+![MCP discovery, collection handles and cleanup](assets/mcp.svg)
+
+A client configuration can launch an installed executable like this:
+
+```json
+{
+  "mcpServers": {
+    "anki_as_code": {
+      "command": "/absolute/path/to/anki_as_code",
+      "args": ["mcp", "serve"]
+    }
+  }
+}
+```
+
+Workflow tools are `config_dump`, `config_export`, `col_export`, `col_plan`,
+`col_apply`, `col_build`, `col_state_dump`, `col_state_import`,
+`col_state_update`, and `col_state_replace`. Inputs use server-side paths:
+`collection`, `text`, `output`, and `base` have the same meanings as their CLI
+flags. `state_key` selects the binding namespace. Config export takes a structured
+`configs` object; state update/replace take a structured `state` object; state
+import takes a `bindings` object mapping config paths to native ID strings.
+
+Use `col_open` with `collection` and an optional `address` to open a
+collection once. It returns an opaque `handle`, which native tools and the
+collection/state workflows accept instead of `collection` and `address`:
+
+```json
+{ "handle": "collection-1", "request": { "did": "1" } }
+```
+
+Pass the handle to `col_close` when finished. Its worker and connection
+remain open between calls, and enabled archives are published on close.
+Disconnect closes all remaining handles. `write_back` defaults to true on
+`col_open`; set it to false there to disable archive publication.
+Database writes remain immediate. Handle calls cannot include `collection`,
+`address`, or `write_back`; `col_build` continues to require an independent base
+archive path. Configuration-only tools do not use a handle.
+
+Native tool names are `api_<service>_<method>`, replacing CLI hyphens with
+underscores and retaining `backend_` for methods declared on those services.
+Canonical names remain unchanged when forwarded aliases are omitted. For example,
+`api_notes_get_note` accepts:
+
+```json
+{
+  "collection": "/absolute/path/to/collection.anki2",
+  "request": { "nid": "1234567890123" }
+}
+```
+
+Native calls require a `handle`, `collection` or `address`; the latter two can select a managed source
+and its backend. `address` alone uses that backend's current collection.
+Requests and responses use protobuf field names and ProtoJSON values, including
+string-encoded 64-bit integers and base64 bytes. The compiled descriptors supply
+each tool's nested request and response schema. Responses include structured
+JSON and a text JSON fallback; operations without a return value produce `{}`.
+The SDK's stdio reader limits individual request frames to 16 MiB; clients can
+apply separate limits to responses.
+
+Keep Anki and other collection writers closed. Path-based access retains
+per-call collection lifetime and publication. Explicit handles reserve their
+source until close, serialize operations on that collection, and reuse the
+prepared connection through the existing App methods. The shared App rejects
+other managed access to the same source until native cleanup finishes.
+Existing backend capability and path-based explicit open/close restrictions
+apply. Native `write_back` defaults to true and controls archive publication;
+false does not undo database writes. Workflow archive reads can repackage their
+source during cleanup. Errors and cancellation do not imply rollback, and the
+server does not automatically retry mutations. Cancellation and disconnect allow
+existing bounded native cleanup before shutdown.
+
 ## Upstream API commands
 
 `api <service> <method>` constructs its command tree from the compiled Go
@@ -587,27 +669,35 @@ calls and installs no state. Collection export owns config paths and file output
 
 ## Collection lifecycle
 
-For path sources, App delegates native access to `collection.Store.WithCollection`. The store
-reserves the source and delegates address-selected client construction and composes `ClientCollection`, using
-only the explicitly configured executable and arguments.
-ClientCollection restores packages into temporary
-storage or opens databases directly. Callbacks receive the prepared connection
-and construct their own services. Store closes the collection before stopping
-the worker, including after callback errors, cancellation and panic unwinding.
+For path sources, App delegates native access to `collection.Store.WithCollection`.
+`App.ColOpen(ctx, ColOpenOptions{Path, Address, WriteBack})` delegates to
+`Store.Open`, which starts one factory-created `ankiclient.Client` and opens its
+collection. The returned client lends native access through `Connection()`.
+`Stop(ctx)` publishes enabled archives, closes storage and stops the transport.
+`WithCollection` uses the same client and defers Stop around its callback,
+including after errors, cancellation and panic unwinding.
 
-ClientCollection owns readiness, native import/open/close and restore cleanup.
-Its failure contract can retain restore files when native completion is uncertain,
-reporting their path. The CLI and App add no restore owner or lifecycle state machine.
+The client owns optional private collection state. Its `OpenCollection` and
+`CloseCollection` methods can reuse one transport across collection phases;
+`Stop` ends the whole client. A Stop caller can stop waiting without cancelling
+owned cleanup. The store reserves the session's source until `Client.Done`
+confirms final native completion and initiates Stop on session cancellation.
+It records the reservation without wrapping the client.
 
-Store reserves each source before startup and retains that reservation through
-cleanup. When WriteBack is enabled, ClientCollection publishes its source archive
-through Anki independently of callback outcomes. Anki writes and atomically replaces
-that archive. Database
-operations persist in place. Build separately copies its base to a temporary
-directory beside the destination, applies to that copy and atomically replaces
-the destination after success. Failed builds remove staging and leave the
-destination untouched. Callers own exclusive access to the base and destination.
-State, export and reconciliation borrow prepared services without owning lifetime.
+The backend library owns readiness, native import/open/close, archive publication
+and restore cleanup. Packages restore into temporary storage; databases open
+directly. Failed publication or uncertain native completion retains restore
+files and reports their path. The CLI and App add no restore owner or native
+lifecycle state machine. State, export and reconciliation borrow prepared
+services without owning lifetime.
+
+When WriteBack is enabled, the client publishes its source archive through Anki
+independently of callback outcomes. Anki writes and atomically replaces that
+archive. Database operations persist in place. Build separately copies its base
+to a temporary directory beside the destination, applies to that copy and
+atomically replaces the destination after success. Failed builds remove staging
+and leave the destination untouched. Callers own exclusive access to the base
+and destination.
 
 ## Export and explicit moves
 
@@ -865,18 +955,15 @@ Collection relationship validation and native operations remain outside them.
 
 ![Anki as code runtime architecture](assets/architecture.svg)
 
-The outer box shows the executable's components: the CLI, App, and the linked Rust
-server library. The CLI invokes App, which reads and writes text Configs. `Run (C ABI)` invokes the library
-through the injected server runner. Path-based workflows launch another instance
-of `anki_as_code` as a server subprocess and use gRPC over stdio to communicate
-with its Server. The Server delegates storage operations to the Anki API. Both
-server variants access Anki storage, which holds native resources and the
-application's persisted state.
+The executable contains CLI, MCP and App. Ordinary CLI commands call App;
+`mcp serve` starts MCP, whose tools call the same App while an agent communicates
+over stdio. App reads and writes Configs and uses gRPC to access Server, which
+owns Anki storage, including native resources and persisted application state.
 
-The external-server gRPC edge is used by `api --address` with an explicit TCP or
-Unix address. App owns only its client connection. Go callers can also prepare
-external connections through `ankiclient.ClientGRPC` and pass them to App
-through `ankiascodeapi.CollectionOptions.Connection`.
+Server abstracts the in-process, subprocess and external-server variants. Its
+position here expresses the application boundary; the
+[backend selection diagram](#backend-selection) shows where each variant runs
+and how it connects.
 
 ### Package dependencies
 
@@ -891,30 +978,32 @@ diagram shows how the packages compose.
 Dotted edges show calls through injected contracts. Solid
 edges show component dependencies.
 
-| Package                  | Responsibility                                                  |
-| ------------------------ | --------------------------------------------------------------- |
-| `cmd/anki_as_code`       | App construction, CLI invocation and process signals            |
-| `internal/cli`           | Cobra commands, application dispatch and streams                |
-| `internal/collection`    | Source reservations and archive publication                     |
-| `api/ankiascodepb`       | Generated config, plan, and persisted-state contracts           |
-| `api/ankiascodeapi`      | Shared application interface and collection source contracts    |
-| `pkg/ankiascode`         | Application workflows and service composition                   |
-| `internal/export`        | Native-to-config projection and direct file output              |
-| `internal/plan`          | Pure resolution, comparison, ownership and prepared operations  |
-| `internal/reconcile`     | Execute protobuf plans, bind native IDs and persist state       |
-| `internal/rebuild`       | Apply to a staged archive copy and publish it atomically        |
-| `internal/resource`      | Native generated clients and fresh resource snapshots           |
-| `internal/config`        | Root-bound configuration Store for Load, Dump, and Export       |
-| `internal/config/layout` | Fixed hierarchy, discovery, file I/O, and direct export         |
-| `internal/filesystem`    | Injected storage, path expansion and filesystem-local aliases   |
-| `internal/rpc`           | Compiled upstream descriptor catalog and protobuf RPC execution |
-| `internal/codec`         | Filesystem-independent protobuf/TOML/JSON conversion            |
-| `internal/state`         | Stored-state dump, import, update, and replacement              |
+| Package                  | Responsibility                                                     |
+| ------------------------ | ------------------------------------------------------------------ |
+| `cmd/anki_as_code`       | App construction, CLI invocation and process signals               |
+| `internal/cli`           | Cobra commands, application dispatch and streams                   |
+| `internal/mcp`           | Stdio MCP tools, protocol envelopes and descriptor-derived schemas |
+| `internal/collection`    | Source reservations and archive publication                        |
+| `api/ankiascodepb`       | Generated config, plan, and persisted-state contracts              |
+| `api/ankiascodeapi`      | Shared application interface and collection source contracts       |
+| `pkg/ankiascode`         | Application workflows and service composition                      |
+| `internal/export`        | Native-to-config projection and direct file output                 |
+| `internal/plan`          | Pure resolution, comparison, ownership and prepared operations     |
+| `internal/reconcile`     | Execute protobuf plans, bind native IDs and persist state          |
+| `internal/rebuild`       | Apply to a staged archive copy and publish it atomically           |
+| `internal/resource`      | Native generated clients and fresh resource snapshots              |
+| `internal/config`        | Root-bound configuration Store for Load, Dump, and Export          |
+| `internal/config/layout` | Fixed hierarchy, discovery, file I/O, and direct export            |
+| `internal/filesystem`    | Injected storage, path expansion and filesystem-local aliases      |
+| `internal/rpc`           | Compiled upstream descriptor catalog and protobuf RPC execution    |
+| `internal/codec`         | Filesystem-independent protobuf/TOML/JSON conversion               |
+| `internal/state`         | Stored-state dump, import, update, and replacement                 |
 
-The command entry point injects App into internal/cli through
-`ankiascodeapi.App`, checking compatibility during compilation. Commands
-use the shared interface without importing the implementation. Shared API types
-do not depend on native backend ownership. App obtains a prepared connection from
+The command entry point constructs App and `internal/mcp.Server`, passing App to
+the MCP constructor. It injects both into `internal/cli` through the separate
+`ankiascodeapi.App` and `ankiascodeapi.MCP` interfaces. The MCP command calls its
+injected server's `Serve`; protocol tools call App. App has no MCP dependency.
+App obtains a prepared connection from
 the supplied source and constructs its services locally. Path sources use
 collection.Store; borrowed sources retain caller-owned lifetime. `export.New(resources, states, filesystem.FS{})` constructs an
 `Exporter` using caller-provided resource and state stores. Its
@@ -1127,13 +1216,26 @@ The maintained [Mermaid source](backend-approaches.mmd) is rendered by the
 ## Verification
 
 ```sh
-bazel_agent bazel build //projects/anki_as_code
-bazel_agent bazel test //projects/anki_as_code/pkg/ankiascode:ankiascode_test \
-  //projects/anki_as_code/internal/export:export_test \
-  //projects/anki_as_code/internal/config:store_test \
-  //projects/anki_as_code/internal/cli:command_test \
-  //projects/anki_as_code/cmd/anki_as_code:cli_workflow_test
+bazel_agent bazel build -c opt //projects/anki_as_code
+bazel_agent bazel test -c opt //projects/anki_as_code/...
 ```
+
+E2E targets use Bazel's default shard count. Opt into parallel Go E2E execution
+with a count appropriate for the host, for example:
+
+```sh
+bazel_agent bazel test -c opt --test_sharding_strategy=forced=4 \
+  //projects/anki_as_code/pkg/ankiascode:ankiascode_test \
+  //projects/anki_as_code/pkg/ankiascode:wasm_workflow_test \
+  //projects/anki_as_code/cmd/anki_as_code:cli_workflow_test \
+  //projects/anki_as_code/cmd/anki_as_code:wasm_cli_workflow_test \
+  //projects/anki_as_code/cmd/anki_as_code:composed_cli_workflow_test
+```
+
+Use `-c opt` for these suites: the default fastbuild mode compiles Rust and its
+embedded WASM guest without optimization. Each shard shares a private WASM
+compilation cache among its workers. Bazel's job and resource settings bound
+the number of shards running concurrently.
 
 Synthetic native E2E verifies reviewed-card/history/preset/media retention, filtered
 cards, field/template migrations, copied notes, config-only export and independent state operations,

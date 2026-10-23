@@ -467,7 +467,7 @@ func TestWorkerStartupDeadline(t *testing.T) {
 
 // TestBackendLifecycle verifies no-op stop, invalid commands, and startup context isolation.
 func TestBackendLifecycle(t *testing.T) {
-	var unstarted ankiclient.Client = ankiclient.NewSTD(ankiclient.ClientSTDOptions{Binary: workerPath(t), Arguments: []string{"serve"}})
+	var unstarted ankiclient.Transport = ankiclient.NewSTD(ankiclient.ClientSTDOptions{Binary: workerPath(t), Arguments: []string{"serve"}})
 	if err := unstarted.Stop(t.Context()); err != nil {
 		t.Fatal(err)
 	}
@@ -629,6 +629,10 @@ func TestWorkerStopDeadline(t *testing.T) {
 // startRecordedWorker runs Anki through an exec replacement that records its PID.
 func startRecordedWorker(t *testing.T, ctx context.Context) (*ankiclient.ClientSTD, int) {
 	t.Helper()
+	// The named child worker fixture must run independently of its parent's test shard.
+	t.Setenv("TEST_TOTAL_SHARDS", "1")
+	t.Setenv("TEST_SHARD_INDEX", "0")
+	t.Setenv("TEST_SHARD_STATUS_FILE", "")
 	pidFile := filepath.Join(t.TempDir(), "worker.pid")
 	t.Setenv("ANKI_E2E_RECORD_PID", "1")
 	t.Setenv("ANKI_E2E_PID_FILE", pidFile)

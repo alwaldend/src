@@ -8,6 +8,7 @@ go_library(
         "config.go",
         "doc.go",
         "flags.go",
+        "mcp.go",
         "root.go",
         "server.go",
         "state.go",
@@ -38,6 +39,7 @@ go_test(
         "//projects/anki_as_code/api/ankiascodepb",
         "//projects/anki_as_code/internal/codec",
         "//projects/anki_as_code/internal/state",
+        "//projects/anki_grpc/pkg/ankiclient",
         "@org_golang_google_protobuf//proto",
     ],
 )

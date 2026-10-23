@@ -21,6 +21,7 @@ import (
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/resource"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/rpc"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/state"
+	"git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/ankiclient"
 	"git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/ankigrpc"
 	"github.com/spf13/afero"
 	"google.golang.org/grpc"
@@ -88,6 +89,18 @@ func (application *App) ServerServe(ctx context.Context, program string, argumen
 		return fmt.Errorf("serve Anki: %w", err)
 	}
 	return nil
+}
+
+// ColOpen opens one factory-created client using its source and publication options.
+func (application *App) ColOpen(ctx context.Context, options ankiascodeapi.ColOpenOptions) (ankiclient.Client, error) {
+	if options.Path == "" {
+		return nil, fmt.Errorf("open collection requires a managed path")
+	}
+	client, err := application.collections.Open(ctx, options)
+	if err != nil {
+		return nil, fmt.Errorf("open collection: %w", err)
+	}
+	return client, nil
 }
 
 // APICall validates and invokes one upstream method before returning its encoded response.

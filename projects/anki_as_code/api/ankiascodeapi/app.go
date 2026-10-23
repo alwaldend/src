@@ -4,6 +4,7 @@ import (
 	"context"
 
 	ankiascodepb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodepb"
+	"git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/ankiclient"
 	"google.golang.org/grpc"
 )
 
@@ -12,6 +13,11 @@ import (
 // native worker. Collection operations select their source per call; borrowed
 // connections retain caller-owned lifetime and package publication.
 type App interface {
+	// ColOpen returns a started client owning its collection and backend; do not call Start again.
+	// Connection lends native access. Stop or ctx cancellation publishes enabled archives and releases resources.
+	// Stop's context bounds waiting, not native cleanup. Database writes remain immediate.
+	ColOpen(ctx context.Context, options ColOpenOptions) (ankiclient.Client, error)
+
 	// APICall validates and invokes one upstream RPC, returning its encoded response after owned cleanup.
 	APICall(ctx context.Context, request APIRequest) ([]byte, error)
 
@@ -40,6 +46,22 @@ type App interface {
 	ColStateUpdate(ctx context.Context, options CollectionOptions, value *ankiascodepb.State) error
 	// ColStateReplace installs the complete supplied state object.
 	ColStateReplace(ctx context.Context, options CollectionOptions, value *ankiascodepb.State) error
+}
+
+// MCP hosts protocol access to an application without making hosting an App operation.
+type MCP interface {
+	// Serve hosts protocol requests until disconnect or cancellation.
+	Serve(ctx context.Context) error
+}
+
+// ColOpenOptions configures one owned collection lifetime.
+type ColOpenOptions struct {
+	// Path identifies an existing managed database or archive.
+	Path string
+	// Address selects the transport; empty uses the configured factory default.
+	Address string
+	// WriteBack enables archive publication on Stop; database writes remain immediate.
+	WriteBack bool
 }
 
 // CollectionOptions selects collection access and the namespace for one application operation.

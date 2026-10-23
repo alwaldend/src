@@ -18,4 +18,7 @@
 // importing native code here. Any client address can accompany a managed API path;
 // network servers must share paths and be reserved for the managed collection scope.
 // Borrowed connections retain caller-owned lifetime and package publication.
+// ColOpen delegates explicit managed sessions to Store.Open;
+// callers borrow the returned client's Connection and call Stop to publish and release it.
+// Protocol adapters consume App; this package does not import or host MCP.
 package ankiascode

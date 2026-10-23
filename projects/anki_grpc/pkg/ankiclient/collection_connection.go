@@ -16,7 +16,7 @@ type collectionConnection struct {
 	// ClientConnInterface delegates the unchanged borrowed transport interface.
 	grpc.ClientConnInterface
 	// owner supplies readiness and serialized consuming-call lifetime.
-	owner *ClientCollection
+	owner *collectionState
 }
 
 // Invoke registers native calls with the owner and retains uncertainty after an
@@ -33,7 +33,7 @@ func (connection *collectionConnection) Invoke(ctx context.Context, method strin
 		}
 		defer connection.owner.release()
 	}
-	if _, err := connection.owner.Connection(); err != nil {
+	if _, err := connection.owner.connection(); err != nil {
 		return fmt.Errorf("call Anki collection %s: %w", method, err)
 	}
 	connection.owner.lifecycle.Lock()

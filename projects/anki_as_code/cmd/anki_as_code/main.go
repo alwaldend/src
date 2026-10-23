@@ -10,6 +10,7 @@ import (
 	"syscall"
 
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/cli"
+	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/mcp"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/pkg/ankiascode"
 	"git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/ankiclient"
 	"git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/ankigrpc"
@@ -77,7 +78,7 @@ func run(ctx context.Context, arguments []string) error {
 		NewClient:    factory,
 		ServerRunner: hostedRunner,
 	})
-	command = cli.New(application)
+	command = cli.New(application, mcp.New(application))
 	command.SetArgs(arguments)
 	if err := command.ExecuteContext(ctx); err != nil {
 		return fmt.Errorf("execute command: %w", err)

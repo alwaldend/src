@@ -18,7 +18,7 @@ type ClientFactory interface {
 }
 
 // ClientFactoryFunc adapts a constructor with concrete result T to ClientFactory.
-type ClientFactoryFunc[T ankiclient.Client] func(string) (T, error)
+type ClientFactoryFunc[T ankiclient.Transport] func(string) (T, error)
 
 // NewClient invokes the adapted constructor without starting its client.
 func (factory ClientFactoryFunc[T]) NewClient(address string) (ankiclient.Client, error) {
@@ -29,7 +29,7 @@ func (factory ClientFactoryFunc[T]) NewClient(address string) (ankiclient.Client
 	if err != nil {
 		return nil, fmt.Errorf("construct Anki client with factory function: %w", err)
 	}
-	return client, nil
+	return ankiclient.NewClient(client), nil
 }
 
 // isNil reports an absent constructor across all generic adapter instantiations.

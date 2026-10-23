@@ -29,6 +29,7 @@ docs_filegroup(
         ":config_operations",
         ":config_references",
         ":export",
+        ":mcp",
         ":package_dependencies",
         ":planning",
         ":state_store",
@@ -41,6 +42,22 @@ mermaid_site_webp(
     name = "architecture_preview",
     src = "architecture.mmd",
     out = "rendered/architecture.webp",
+    aspect_ratio = [],
+    color_scheme = "dark",
+    scale = 2,
+    tags = ["manual"],
+)
+
+mermaid_site_svg(
+    name = "mcp",
+    src = "mcp.mmd",
+    out = "rendered/mcp.svg",
+)
+
+mermaid_site_webp(
+    name = "mcp_preview",
+    src = "mcp.mmd",
+    out = "rendered/mcp.webp",
     aspect_ratio = [],
     color_scheme = "dark",
     scale = 2,
