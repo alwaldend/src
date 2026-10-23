@@ -1,0 +1,13 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+
+alias(
+    name = "yt-dlp",
+    actual = "@com_github_yt_dlp_yt_dlp//:yt_dlp_binary",
+    visibility = ["//:__subpackages__"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//third_party:__pkg__"],
+)
