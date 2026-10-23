@@ -1,19 +1,20 @@
 flowchart LR
     actor[Actor]
     subgraph anki_grpc_library["ankiclient (Go)"]
-        backend[ClientSTD]
-        connection[ClientGRPC]
-        collection[ClientCollection: open and write back]
+        client[Client: connection and lifecycle]
+        collection[Private collection state]
+        process[ClientSTD transport]
+        connection[ClientGRPC transport]
+        client -->|Open, publish and close| collection
+        client -->|Start and stop| process
+        client -->|Start and stop| connection
     end
     subgraph anki_grpc_server["Anki server process"]
         server[Shared Rust gRPC server] --> library[Anki library]
     end
     storage[("Anki storage")]
+    actor -->|Generated RPCs and collection methods| client
     actor -->|gRPC| server
-    actor -->|Get gRPC connection| backend
-    actor -->|Get gRPC connection| connection
-    actor -->|Manage collection| collection
-    collection -->|Borrow connection| backend
     connection -->|Connect| server
-    backend -->|Manage| anki_grpc_server
+    process -->|Manage| anki_grpc_server
     library --> storage

@@ -39,12 +39,11 @@ func TestPlanningWorkflow(t *testing.T) {
 		t.Fatal(err)
 	}
 	database := filepath.Join(t.TempDir(), "collection.anki2")
-	worker := ankiclient.NewSTD(ankiclient.ClientSTDOptions{Binary: binary, Arguments: []string{"serve"}})
-	collection := ankiclient.NewCollection(ankiclient.ClientCollectionOptions{Backend: worker, Path: database})
+	worker := ankiclient.NewClient(ankiclient.NewSTD(ankiclient.ClientSTDOptions{Binary: binary, Arguments: []string{"serve"}}))
 	t.Cleanup(func() {
 		cleanup, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 		defer cancel()
-		if err := collection.Stop(cleanup); err != nil {
+		if err := worker.CloseCollection(cleanup); err != nil {
 			t.Error(err)
 		}
 		if err := worker.Stop(cleanup); err != nil {
@@ -54,10 +53,10 @@ func TestPlanningWorkflow(t *testing.T) {
 	if err := worker.Start(ctx); err != nil {
 		t.Fatal(err)
 	}
-	if err := collection.Start(ctx); err != nil {
+	if err := worker.OpenCollection(ctx, ankiclient.CollectionOptions{Path: database}); err != nil {
 		t.Fatal(err)
 	}
-	connection, err := collection.Connection()
+	connection, err := worker.Connection()
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -254,7 +253,7 @@ func TestPlanningWorkflow(t *testing.T) {
 			t.Fatal(err)
 		}
 	}
-	if err := collection.Stop(ctx); err != nil {
+	if err := worker.CloseCollection(ctx); err != nil {
 		t.Fatal(err)
 	}
 	if err := worker.Stop(ctx); err != nil {

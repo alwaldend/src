@@ -35,6 +35,60 @@ import (
 	"google.golang.org/protobuf/proto"
 )
 
+// TestStoreOpen verifies direct sessions publish and release their source after close or cancellation.
+func TestStoreOpen(t *testing.T) {
+	for _, cancelled := range []bool{false, true} {
+		t.Run(strconv.FormatBool(cancelled), func(t *testing.T) {
+			_, archive := nativeSource(t)
+			store := fixtureStore(t)
+			ctx, cancel := context.WithCancel(t.Context())
+			defer cancel()
+			client, err := store.Open(ctx, CollectionOptions{Path: archive, WriteBack: true})
+			if err != nil {
+				t.Fatal(err)
+			}
+			defer func() {
+				if err := client.Stop(t.Context()); err != nil {
+					t.Error(err)
+				}
+			}()
+			connection, err := client.Connection()
+			if err != nil {
+				t.Fatal(err)
+			}
+			value := &ankiascodepb.State{Version: 1, Resources: &ankiascodepb.Resources{Presets: map[string]*ankiascodepb.PresetState{"opened": {Id: 1}}}}
+			if _, err := state.New(connection, "").Update(ctx, value); err != nil {
+				t.Fatal(err)
+			}
+			if cancelled {
+				cancel()
+				deadline := time.After(5 * time.Second)
+				for {
+					if _, err := state.New(connection, "").Dump(t.Context()); err != nil {
+						break
+					}
+					select {
+					case <-deadline:
+						t.Fatal("session cancellation did not initiate cleanup")
+					case <-time.After(10 * time.Millisecond):
+					}
+				}
+			}
+			if err := client.Stop(t.Context()); err != nil {
+				t.Fatal(err)
+			}
+			if _, err := state.New(connection, "").Dump(t.Context()); err == nil {
+				t.Fatal("closed session retained a usable connection")
+			}
+			actual, err := readState(t.Context(), store, archive, "")
+			if err != nil || actual.GetResources().GetPresets()["opened"].GetId() != 1 {
+				t.Fatalf("session did not publish or release its source: %v %v", actual, err)
+			}
+			emitArtifact(t, archive, "open-session.colpkg")
+		})
+	}
+}
+
 // TestDirectStoreReservation retains source ownership while cancelled native work drains.
 func TestDirectStoreReservation(t *testing.T) {
 	ctx, cancel := context.WithTimeout(t.Context(), 20*time.Second)
@@ -317,12 +371,11 @@ func nativeSource(t *testing.T) (string, string) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	worker := ankiclient.NewSTD(ankiclient.ClientSTDOptions{Binary: binary, Arguments: []string{"serve"}})
-	prepared := ankiclient.NewCollection(ankiclient.ClientCollectionOptions{Backend: worker, Path: database})
+	worker := ankiclient.NewClient(ankiclient.NewSTD(ankiclient.ClientSTDOptions{Binary: binary, Arguments: []string{"serve"}}))
 	defer func() {
 		cleanup, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 		defer cancel()
-		if err := prepared.Stop(cleanup); err != nil {
+		if err := worker.CloseCollection(cleanup); err != nil {
 			t.Error(err)
 		}
 		if err := worker.Stop(cleanup); err != nil {
@@ -333,10 +386,10 @@ func nativeSource(t *testing.T) (string, string) {
 	if err := worker.Start(ctx); err != nil {
 		t.Fatal(err)
 	}
-	if err := prepared.Start(ctx); err != nil {
+	if err := worker.OpenCollection(ctx, ankiclient.CollectionOptions{Path: database}); err != nil {
 		t.Fatal(err)
 	}
-	connection, err := prepared.Connection()
+	connection, err := worker.Connection()
 	if err != nil {
 		t.Fatal(err)
 	}

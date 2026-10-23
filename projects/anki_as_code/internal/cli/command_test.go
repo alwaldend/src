@@ -14,6 +14,7 @@ import (
 	ankiascodepb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodepb"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/codec"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/state"
+	"git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/ankiclient"
 	"google.golang.org/protobuf/proto"
 )
 
@@ -149,7 +150,7 @@ func TestServerDispatch(t *testing.T) {
 				fake.failure = failure
 			}
 			arguments := []string{"--help", "--transport", "unix", "--listen", "a socket", "--future-native-option"}
-			command := New(fake)
+			command := New(fake, fake)
 			command.SetArgs(append([]string{"server", mode}, arguments...))
 			var output bytes.Buffer
 			command.SetOut(&output)
@@ -168,7 +169,7 @@ func TestServerDispatch(t *testing.T) {
 	}
 	for _, arguments := range [][]string{{"server"}, {"server", "--help"}, {"server", "unknown"}} {
 		fake := &recordingApplication{}
-		command := New(fake)
+		command := New(fake, fake)
 		command.SetArgs(arguments)
 		var output bytes.Buffer
 		command.SetOut(&output)
@@ -214,7 +215,7 @@ func TestCommandDispatch(t *testing.T) {
 				if fail {
 					fake.failure = failure
 				}
-				command := New(fake)
+				command := New(fake, fake)
 				arguments := scenario.args
 				if arguments[0] == "col" || arguments[0] == "collection" {
 					arguments = append([]string{arguments[0], "--state-key", "isolated"}, arguments[1:]...)
@@ -300,7 +301,7 @@ func TestCommandRejections(t *testing.T) {
 		{"col", "state", "replace", "--collection", "unused", "--format", "invalid"},
 	} {
 		fake := &recordingApplication{}
-		command := New(fake)
+		command := New(fake, fake)
 		command.SetArgs(args)
 		command.SetIn(strings.NewReader("invalid state input"))
 		var output bytes.Buffer
@@ -323,7 +324,7 @@ func TestStateCommandJSON(t *testing.T) {
 		{"col", "state", "replace", "--collection", "unused", "--format", "json", "--state-key", "custom", path},
 		{"col", "state", "dump", "--collection", "unused", "--format", "json"},
 	} {
-		command := New(fake)
+		command := New(fake, fake)
 		command.SetArgs(args)
 		var stdout, stderr bytes.Buffer
 		command.SetOut(&stdout)
@@ -376,7 +377,7 @@ func TestCommandOutputFailure(t *testing.T) {
 		{"col", "state", "update", "--collection", "unused"},
 	} {
 		fake := &recordingApplication{}
-		command := New(fake)
+		command := New(fake, fake)
 		command.SetArgs(args)
 		command.SetIn(strings.NewReader("version = '1'\n"))
 		command.SetOut(failingWriter{failure})
@@ -387,8 +388,19 @@ func TestCommandOutputFailure(t *testing.T) {
 	}
 }
 
+// ColOpen keeps unused native session hosting explicit in this command fixture.
+func (application *recordingApplication) ColOpen(context.Context, ankiascodeapi.ColOpenOptions) (ankiclient.Client, error) {
+	return nil, errors.New("native sessions are unavailable in the command fixture")
+}
+
 // APICall records raw RPC dispatch without starting native resources.
 func (application *recordingApplication) APICall(ctx context.Context, request ankiascodeapi.APIRequest) ([]byte, error) {
 	application.record(ctx, "api")
 	return []byte("{}"), nil
+}
+
+// Serve records protocol hosting without starting a server in command fixtures.
+func (application *recordingApplication) Serve(ctx context.Context) error {
+	application.record(ctx, "mcp serve")
+	return application.failure
 }

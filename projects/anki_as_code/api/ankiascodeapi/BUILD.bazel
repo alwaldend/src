@@ -10,6 +10,7 @@ go_library(
     visibility = ["//visibility:public"],
     deps = [
         "//projects/anki_as_code/api/ankiascodepb",
+        "//projects/anki_grpc/pkg/ankiclient",
         "@org_golang_google_grpc//:grpc",
     ],
 )

@@ -5,8 +5,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// New assembles commands around their workflow dependency.
-func New(application ankiascodeapi.App) *cobra.Command {
+// New assembles workflow commands and independently injected MCP hosting.
+func New(application ankiascodeapi.App, protocol ankiascodeapi.MCP) *cobra.Command {
 	command := &cobra.Command{
 		Use:           "anki_as_code",
 		Short:         "Export and reconcile Anki collections as TOML",
@@ -17,6 +17,6 @@ func New(application ankiascodeapi.App) *cobra.Command {
 	}
 	command.PersistentFlags().String("server-engine", "", "Engine used by server commands: cgo or wasm (default: cgo, then wasm)")
 	command.CompletionOptions.DisableDefaultCmd = true
-	command.AddCommand(newConfigCommand(application), newCollectionCommand(application), newServerCommand(application), newAPICommand(application))
+	command.AddCommand(newConfigCommand(application), newCollectionCommand(application), newServerCommand(application), newAPICommand(application), newMCPCommand(protocol))
 	return command
 }

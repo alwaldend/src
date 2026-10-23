@@ -12,6 +12,7 @@ go_library(
     name = "ankiclient",
     srcs = [
         "api.go",
+        "client.go",
         "collection.go",
         "collection_connection.go",
         "connection.go",

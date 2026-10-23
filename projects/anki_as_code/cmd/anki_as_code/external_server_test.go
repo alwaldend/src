@@ -106,7 +106,11 @@ func externalArchive(t *testing.T, address, database, archive string) {
 	t.Helper()
 	ctx, cancel := context.WithTimeout(t.Context(), 15*time.Second)
 	defer cancel()
-	backend, err := ankigrpc.NewClient(address)
+	var factory ankigrpc.ClientFactory = ankigrpc.ClientFactoryFunc[ankiclient.Client](ankigrpc.NewClient)
+	if strings.HasPrefix(address, "subprocess://") {
+		factory = ankigrpc.ClientFactoryFunc[*ankiclient.ClientSTD](ankigrpc.NewSubprocessClient)
+	}
+	backend, err := factory.NewClient(address)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -118,16 +122,15 @@ func externalArchive(t *testing.T, address, database, archive string) {
 	if err := backend.Start(ctx); err != nil {
 		t.Fatal(err)
 	}
-	prepared := ankiclient.NewCollection(ankiclient.ClientCollectionOptions{Backend: backend, Path: database})
 	defer func() {
-		if err := prepared.Stop(context.Background()); err != nil {
+		if err := backend.CloseCollection(context.Background()); err != nil {
 			t.Errorf("close archive collection: %v", err)
 		}
 	}()
-	if err := prepared.Start(ctx); err != nil {
+	if err := backend.OpenCollection(ctx, ankiclient.CollectionOptions{Path: database}); err != nil {
 		t.Fatal(err)
 	}
-	connection, err := prepared.Connection()
+	connection, err := backend.Connection()
 	if err != nil {
 		t.Fatal(err)
 	}

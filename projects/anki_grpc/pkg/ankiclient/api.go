@@ -18,28 +18,39 @@ import (
 	"google.golang.org/grpc/metadata"
 )
 
-// Client manages readiness and a borrowed connection for generated Anki clients.
-// Each instance accepts one Start attempt. Call Stop after any startup attempt;
-// Stop is also safe before Start and is terminal and safe to repeat. Constructors
-// perform no startup I/O. Retained connections reject calls after shutdown begins.
-type Client interface {
-	// Start prepares resources; ctx controls startup, not subsequent lifetime.
-	// Native initialization can be synchronous and non-interruptible.
+// Transport supplies startup, RPC access and shutdown for one server connection.
+// Implementations own process, network or in-process resources, not collection storage.
+type Transport interface {
+	// Start prepares the transport; ctx controls startup only.
 	Start(ctx context.Context) error
-	// Connection returns the managed connection, or an error when unavailable.
+	// Connection lends the ready RPC transport.
 	Connection() (grpc.ClientConnInterface, error)
-	// Stop rejects new calls and uses ctx to bound graceful cleanup. ClientSTD
-	// always completes process reaping. AsyncClient may continue cleanup after
-	// an error return; Done observes final completion before resources are reused.
+	// Stop rejects access and bounds graceful transport shutdown with ctx.
 	Stop(ctx context.Context) error
 }
 
-// AsyncClient reports final cleanup when Stop can return before resources are released.
-// Its stable Done channel closes only after terminal cleanup, including startup
-// and native work whose callers stopped waiting. Other clients finish their cleanup
-// attempt before Stop returns. Cancelling a request does not establish completion.
+// Client owns a transport and optional native collection state through one lifecycle.
+// Factories return clients before Start. Collection operations reuse that client;
+// CloseCollection keeps its transport running, while Stop releases both resources.
+type Client interface {
+	// Start prepares the transport once; ctx controls startup only.
+	Start(ctx context.Context) error
+	// Connection lends collection access when one is open, or raw transport access otherwise.
+	Connection() (grpc.ClientConnInterface, error)
+	// OpenCollection opens storage on the ready transport using a copied options value.
+	OpenCollection(ctx context.Context, options CollectionOptions) error
+	// CloseCollection publishes enabled archives and closes storage without stopping the transport.
+	CloseCollection(ctx context.Context) error
+	// Stop initiates bounded cleanup once; ctx bounds this caller's wait.
+	Stop(ctx context.Context) error
+	// Done closes after terminal transport cleanup and outstanding native work finish.
+	Done() <-chan struct{}
+}
+
+// AsyncClient observes final completion of transports whose Stop can return early.
+// Callers retain source reservations until Done closes, including after an error.
 type AsyncClient interface {
-	Client
+	Transport
 	// Done closes after all owned resources and active native work are released.
 	Done() <-chan struct{}
 }

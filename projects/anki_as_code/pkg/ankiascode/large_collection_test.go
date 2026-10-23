@@ -7,7 +7,9 @@ import (
 	"strings"
 	"testing"
 
+	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodeapi"
 	ankiascodepb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodepb"
+	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/codec"
 	"github.com/ankitects/anki/proto/anki/cards"
 	"github.com/ankitects/anki/proto/anki/generic"
 	"github.com/ankitects/anki/proto/anki/media"
@@ -64,8 +66,14 @@ func TestLargeNoteFieldWorkflow(t *testing.T) {
 		}
 	}
 	saveFixtureArtifact(t, result, "large-field-roundtrip.colpkg")
-	assertConverged(t, result, text)
 	output := runFixtureCLI(t, "col", "plan", "--collection", result, "--text", text)
+	plan := &ankiascodepb.CollectionChangePlan{}
+	if err := codec.Decode(output, codec.JSON, plan); err != nil {
+		t.Fatal(err)
+	}
+	if len(plan.Changes) != 0 {
+		t.Fatalf("large-field CLI plan did not converge: %v", plan.Changes)
+	}
 	if artifacts := os.Getenv("TEST_UNDECLARED_OUTPUTS_DIR"); artifacts != "" {
 		if err := os.WriteFile(filepath.Join(artifacts, "large-api-plan.json"), output, 0o600); err != nil {
 			t.Fatal(err)
@@ -88,21 +96,29 @@ func TestLargeCollectionWorkflow(t *testing.T) {
 	if err := os.Truncate(largeMedia, 513<<20); err != nil {
 		t.Fatal(err)
 	}
-	base := filepath.Join(root, "large.colpkg")
-	packageFixture(t, fixture.database, base)
 	text := filepath.Join(root, "text")
-	if err := prepareFixtureConfigs(t, context.Background(), base, text); err != nil {
+	// Prepare bindings on the database so setup does not repeatedly publish large media.
+	if err := prepareFixtureConfigs(t, context.Background(), fixture.database, text); err != nil {
 		t.Fatal(err)
 	}
+	base := filepath.Join(root, "large.colpkg")
+	packageFixture(t, fixture.database, base)
 	result := filepath.Join(root, "large-rebuilt.colpkg")
 	if err := buildForFixture(context.Background(), base, text, result, ""); err != nil {
 		t.Fatal(err)
 	}
-	assertConverged(t, result, text)
 	client := inspectFixture(t, result)
 	conn, err := client.worker.Connection()
 	if err != nil {
 		t.Fatal(err)
+	}
+	// Borrow the restored connection so observing convergence cannot repackage the archive.
+	plan, err := fixtureApplication().ColPlan(t.Context(), ankiascodeapi.CollectionOptions{Connection: conn}, text)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(plan.Changes) != 0 {
+		t.Fatalf("large-media build did not converge: %v", plan.Changes)
 	}
 	path, err := media.NewMediaServiceClient(conn).GetAbsoluteMediaPath(context.Background(), &generic.String{Val: "large.bin"})
 	if err != nil {

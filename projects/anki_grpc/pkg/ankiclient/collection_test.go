@@ -14,6 +14,7 @@ import (
 	"time"
 
 	"git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/ankiclient"
+	"git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/ankigrpc"
 	"github.com/ankitects/anki/proto/anki/collection"
 	"github.com/ankitects/anki/proto/anki/generic"
 	"github.com/ankitects/anki/proto/anki/import_export"
@@ -29,7 +30,7 @@ type startupBarrierContext struct {
 	context.Context
 	// entered reports that startup reached the controlled scheduling point.
 	entered chan struct{}
-	// release resumes startup after the competing Stop has finished.
+	// release resumes startup after the competing CloseCollection has finished.
 	release chan struct{}
 	// once pauses only the first check, allowing later gRPC context use.
 	once sync.Once
@@ -44,10 +45,133 @@ func (ctx *startupBarrierContext) Err() error {
 	return ctx.Context.Err()
 }
 
-// TestCollectionBackend verifies native persistence, package ownership and a reusable borrowed ankiclient.
+// TestUnifiedClientCollections verifies collection changes retain one transport and invalidate old connections.
+func TestUnifiedClientCollections(t *testing.T) {
+	registerWorkerFactories(t)
+	client, err := ankigrpc.NewClient(ankigrpc.SubprocessAddress(workerPath(t), "serve"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err := client.Start(t.Context()); err != nil {
+		t.Fatal(err)
+	}
+	defer func() {
+		if err := client.Stop(context.Background()); err != nil {
+			t.Error(err)
+		}
+	}()
+	for _, name := range []string{"first", "second"} {
+		if err := client.OpenCollection(t.Context(), ankiclient.CollectionOptions{Path: filepath.Join(t.TempDir(), name+".anki2")}); err != nil {
+			t.Fatal(err)
+		}
+		connection, err := client.Connection()
+		if err != nil {
+			t.Fatal(err)
+		}
+		if _, err := notetypes.NewNotetypesServiceClient(connection).GetNotetypeIdByName(t.Context(), &generic.String{Val: "Basic"}); err != nil {
+			t.Fatal(err)
+		}
+		if err := client.CloseCollection(t.Context()); err != nil {
+			t.Fatal(err)
+		}
+		if _, err := notetypes.NewNotetypesServiceClient(connection).GetNotetypeIdByName(t.Context(), &generic.String{Val: "Basic"}); err == nil {
+			t.Fatal("closed collection retained a usable connection")
+		}
+		connection, err = client.Connection()
+		if err != nil {
+			t.Fatal(err)
+		}
+		if _, err := collection.NewBackendCollectionServiceClient(connection).LatestProgress(t.Context(), &generic.Empty{}); err != nil {
+			t.Fatalf("closing collection stopped its transport: %v", err)
+		}
+	}
+	if err := client.Stop(t.Context()); err != nil {
+		t.Fatal(err)
+	}
+	<-client.Done()
+	writeReport(t, "unified-client.json", map[string]any{"collections": 2, "transport_reused": true, "native_completion": true})
+}
+
+// TestOwnedCollection verifies worker ownership, native access, failed preparation and terminal cleanup.
+func TestOwnedCollection(t *testing.T) {
+	for _, scenario := range []string{"success", "invalid-source", "stop-before-start"} {
+		t.Run(scenario, func(t *testing.T) {
+			worker := ankiclient.NewSTD(ankiclient.ClientSTDOptions{Binary: workerPath(t), Arguments: []string{"serve"}})
+			database := filepath.Join(t.TempDir(), "owned.anki2")
+			if scenario == "invalid-source" {
+				database += ".invalid"
+			}
+			client := ankiclient.NewClient(worker)
+			defer func() {
+				if err := client.Stop(context.Background()); err != nil {
+					t.Error(err)
+				}
+			}()
+			if _, err := client.Connection(); err == nil {
+				t.Fatal("unstarted owner exposed a connection")
+			}
+			if scenario == "stop-before-start" {
+				if err := client.Stop(t.Context()); err != nil {
+					t.Fatal(err)
+				}
+			}
+			startup, cancelStartup := context.WithCancel(t.Context())
+			err := client.Start(startup)
+			cancelStartup()
+			if scenario != "stop-before-start" {
+				if err != nil {
+					t.Fatal(err)
+				}
+				err = client.OpenCollection(t.Context(), ankiclient.CollectionOptions{Path: database, CloseTimeout: 10 * time.Second})
+			}
+			if scenario == "success" {
+				if err != nil {
+					t.Fatal(err)
+				}
+				connection, err := client.Connection()
+				if err != nil {
+					t.Fatal(err)
+				}
+				if _, err := collection.NewBackendCollectionServiceClient(connection).CloseCollection(t.Context(), &collection.CloseCollectionRequest{}); err != nil {
+					t.Fatal(err)
+				}
+			} else if err == nil {
+				t.Fatal("invalid lifecycle operation succeeded")
+			}
+			if err := client.Stop(t.Context()); err != nil {
+				t.Fatal(err)
+			}
+			select {
+			case <-client.Done():
+			default:
+				t.Fatal("successful Stop returned before native completion")
+			}
+			if _, err := worker.Connection(); err == nil {
+				t.Fatal("owning client left its worker available")
+			}
+			if _, err := client.Connection(); err == nil {
+				t.Fatal("stopped owner exposed a connection")
+			}
+			if scenario == "success" {
+				data, err := os.ReadFile(database)
+				if err != nil {
+					t.Fatal(err)
+				}
+				if output := os.Getenv("TEST_UNDECLARED_OUTPUTS_DIR"); output != "" {
+					if err := os.WriteFile(filepath.Join(output, "owned-client.anki2"), data, 0o600); err != nil {
+						t.Fatal(err)
+					}
+				}
+			}
+			writeReport(t, "owned-client-"+scenario+".json", map[string]any{"scenario": scenario, "worker_stopped": true, "native_completion": true})
+		})
+	}
+}
+
+// TestCollectionBackend verifies native persistence and package ownership while reusing one client.
 func TestCollectionBackend(t *testing.T) {
 	ctx := t.Context()
-	worker := ankiclient.NewSTD(ankiclient.ClientSTDOptions{Binary: workerPath(t), Arguments: []string{"serve"}})
+	worker := ankiclient.NewClient(ankiclient.NewSTD(ankiclient.ClientSTDOptions{Binary: workerPath(t), Arguments: []string{"serve"}}))
 	if err := worker.Start(ctx); err != nil {
 		t.Fatal(err)
 	}
@@ -58,20 +182,15 @@ func TestCollectionBackend(t *testing.T) {
 	})
 	root := t.TempDir()
 	database := filepath.Join(root, "collection.anki2")
-	options := ankiclient.ClientCollectionOptions{Backend: worker, Path: database}
-	managed := ankiclient.NewCollection(options)
-	var instance ankiclient.Client = managed
-	options.Path = filepath.Join(root, "must-not-be-used.anki2")
-	if _, err := instance.Connection(); err == nil {
-		t.Fatal("unprepared collection exposed a connection")
-	}
-	if err := instance.Start(ctx); err != nil {
+	options := ankiclient.CollectionOptions{Path: database}
+	if err := worker.OpenCollection(ctx, options); err != nil {
 		t.Fatal(err)
 	}
-	if err := instance.Start(ctx); err == nil {
-		t.Fatal("collection accepted another start")
+	options.Path = filepath.Join(root, "must-not-be-used.anki2")
+	if err := worker.OpenCollection(ctx, options); err == nil {
+		t.Fatal("client accepted another collection before closing the current one")
 	}
-	connection, err := instance.Connection()
+	connection, err := worker.Connection()
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -90,40 +209,36 @@ func TestCollectionBackend(t *testing.T) {
 	if _, err := media.NewMediaServiceClient(connection).AddMediaFile(ctx, &media.AddMediaFileRequest{DesiredName: "example.txt", Data: []byte("collection media")}); err != nil {
 		t.Fatal(err)
 	}
-	if err := instance.Stop(ctx); err != nil {
+	if err := worker.CloseCollection(ctx); err != nil {
 		t.Fatal(err)
 	}
-	if err := instance.Stop(ctx); err != nil {
+	if err := worker.CloseCollection(ctx); err != nil {
 		t.Fatal(err)
-	}
-	if _, err := instance.Connection(); err == nil {
-		t.Fatal("stopped collection exposed a connection")
 	}
 	if _, err := items.GetNote(ctx, &notes.NoteId{Nid: added.NoteId}); err == nil {
-		t.Fatal("retained collection client survived Stop")
+		t.Fatal("retained collection connection survived CloseCollection")
 	}
 	if _, err := worker.Connection(); err != nil {
-		t.Fatalf("collection stopped its borrowed backend: %v", err)
+		t.Fatalf("collection close stopped its transport: %v", err)
 	}
 	if _, err := os.Stat(filepath.Join(root, "collection.media", "example.txt")); err != nil {
 		t.Fatalf("standard media layout: %v", err)
 	}
 	packagePath := filepath.Join(root, "collection.colpkg")
-	managed = ankiclient.NewCollection(ankiclient.ClientCollectionOptions{Backend: worker, Path: database})
-	if err := managed.Start(ctx); err != nil {
+	if err := worker.OpenCollection(ctx, ankiclient.CollectionOptions{Path: database}); err != nil {
 		t.Fatal(err)
 	}
-	connection, err = managed.Connection()
+	connection, err = worker.Connection()
 	if err != nil {
 		t.Fatal(err)
 	}
 	if _, err := import_export.NewBackendImportExportServiceClient(connection).ExportCollectionPackage(ctx, &import_export.ExportCollectionPackageRequest{OutPath: packagePath, IncludeMedia: true}); err != nil {
 		t.Fatal(err)
 	}
-	if _, err := managed.Connection(); err == nil {
+	if _, err := worker.Connection(); err == nil {
 		t.Fatal("consuming export left collection access prepared")
 	}
-	if err := managed.Stop(ctx); err != nil {
+	if err := worker.CloseCollection(ctx); err != nil {
 		t.Fatalf("consumed collection was closed twice: %v", err)
 	}
 	original, err := os.ReadFile(packagePath)
@@ -135,11 +250,10 @@ func TestCollectionBackend(t *testing.T) {
 		if persistent {
 			directory = filepath.Join(t.TempDir(), "restore")
 		}
-		managed = ankiclient.NewCollection(ankiclient.ClientCollectionOptions{Backend: worker, Path: packagePath, RestoreDirectory: directory})
-		if err := managed.Start(ctx); err != nil {
+		if err := worker.OpenCollection(ctx, ankiclient.CollectionOptions{Path: packagePath, RestoreDirectory: directory}); err != nil {
 			t.Fatal(err)
 		}
-		connection, err := managed.Connection()
+		connection, err := worker.Connection()
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -159,7 +273,7 @@ func TestCollectionBackend(t *testing.T) {
 		if restored == "" || persistent && restored != directory {
 			t.Fatal("native media path did not use the selected restore destination")
 		}
-		if err := managed.Stop(ctx); err != nil {
+		if err := worker.CloseCollection(ctx); err != nil {
 			t.Fatal(err)
 		}
 		_, err = os.Stat(restored)
@@ -167,14 +281,13 @@ func TestCollectionBackend(t *testing.T) {
 			t.Fatalf("restore directory ownership: %v", err)
 		}
 		if _, err := worker.Connection(); err != nil {
-			t.Fatal("restore cleanup stopped the borrowed backend")
+			t.Fatal("restore cleanup stopped the transport")
 		}
 	}
-	managed = ankiclient.NewCollection(ankiclient.ClientCollectionOptions{Backend: worker, Path: packagePath})
-	if err := managed.Start(ctx); err != nil {
+	if err := worker.OpenCollection(ctx, ankiclient.CollectionOptions{Path: packagePath}); err != nil {
 		t.Fatal(err)
 	}
-	connection, err = managed.Connection()
+	connection, err = worker.Connection()
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -182,7 +295,7 @@ func TestCollectionBackend(t *testing.T) {
 	if _, err := import_export.NewBackendImportExportServiceClient(connection).ExportCollectionPackage(ctx, &import_export.ExportCollectionPackageRequest{OutPath: filepath.Join(root, "missing", "failed.colpkg")}); err == nil {
 		t.Fatal("export to a missing directory succeeded")
 	}
-	if err := managed.Stop(ctx); err != nil {
+	if err := worker.CloseCollection(ctx); err != nil {
 		t.Fatalf("completed failed export prevented collection cleanup: %v", err)
 	}
 	if _, err := os.Stat(restored); !os.IsNotExist(err) {
@@ -190,11 +303,12 @@ func TestCollectionBackend(t *testing.T) {
 	}
 	startup := &startupBarrierContext{Context: ctx, entered: make(chan struct{}), release: make(chan struct{})}
 	raceDirectory := filepath.Join(root, "stopped-before-restore")
-	managed = ankiclient.NewCollection(ankiclient.ClientCollectionOptions{Backend: worker, Path: packagePath, RestoreDirectory: raceDirectory})
 	started := make(chan error, 1)
-	go func() { started <- managed.Start(startup) }()
+	go func() {
+		started <- worker.OpenCollection(startup, ankiclient.CollectionOptions{Path: packagePath, RestoreDirectory: raceDirectory})
+	}()
 	<-startup.entered
-	stopError := managed.Stop(ctx)
+	stopError := worker.CloseCollection(ctx)
 	close(startup.release)
 	startError := <-started
 	if stopError != nil || startError == nil {
@@ -208,13 +322,12 @@ func TestCollectionBackend(t *testing.T) {
 		if err := os.RemoveAll(raceDirectory); err != nil {
 			t.Fatal(err)
 		}
-		t.Fatal("startup prepared restore files after Stop had completed")
+		t.Fatal("startup prepared restore files after CloseCollection had completed")
 	}
-	managed = ankiclient.NewCollection(ankiclient.ClientCollectionOptions{Backend: worker, Path: database})
-	if err := managed.Start(ctx); err != nil {
+	if err := worker.OpenCollection(ctx, ankiclient.CollectionOptions{Path: database}); err != nil {
 		t.Fatalf("overlapping lifecycle leaked an open collection: %v", err)
 	}
-	if err := managed.Stop(ctx); err != nil {
+	if err := worker.CloseCollection(ctx); err != nil {
 		t.Fatal(err)
 	}
 	after, err := os.ReadFile(packagePath)
@@ -232,14 +345,10 @@ func TestCollectionBackend(t *testing.T) {
 			}
 		}
 	}
-	writeReport(t, "collection-ankiclient.json", map[string]any{"note_id": added.NoteId, "temporary_restore_removed": true, "persistent_restore_retained": true, "borrowed_backend_retained": true})
+	writeReport(t, "collection-ankiclient.json", map[string]any{"note_id": added.NoteId, "temporary_restore_removed": true, "persistent_restore_retained": true, "transport_retained": true})
 
-	for _, cancelCall := range []bool{false, true} {
-		scenario := "active-call"
-		if cancelCall {
-			scenario = "cancelled-call"
-		}
-		t.Run(scenario, func(t *testing.T) { testCollectionCallCleanup(t, packagePath, cancelCall) })
+	for _, scenario := range []string{"active-call", "cancelled-call", "concurrent-close"} {
+		t.Run(scenario, func(t *testing.T) { testCollectionCallCleanup(t, packagePath, scenario) })
 	}
 }
 
@@ -254,27 +363,33 @@ func collectionRestoreDirectory(t *testing.T, connection grpc.ClientConnInterfac
 }
 
 // testCollectionCallCleanup verifies active or unconfirmed native calls retain restore files.
-func testCollectionCallCleanup(t *testing.T, packagePath string, cancelCall bool) {
+func testCollectionCallCleanup(t *testing.T, packagePath, scenario string) {
 	t.Helper()
 	ctx := t.Context()
-	worker := ankiclient.NewSTD(ankiclient.ClientSTDOptions{Binary: workerPath(t), Arguments: []string{"serve"}})
+	cancelCall := scenario == "cancelled-call"
+	transport := ankiclient.NewSTD(ankiclient.ClientSTDOptions{Binary: workerPath(t), Arguments: []string{"serve"}})
+	worker := ankiclient.NewClient(transport)
 	if err := worker.Start(ctx); err != nil {
 		t.Fatal(err)
 	}
-	managed := ankiclient.NewCollection(ankiclient.ClientCollectionOptions{Backend: worker, Path: packagePath})
 	var restored string
+	var closeCause error
 	t.Cleanup(func() {
-		if err := worker.Stop(context.Background()); err != nil && !errors.Is(err, context.Canceled) {
+		if err := worker.Stop(context.Background()); closeCause == nil && err != nil || closeCause != nil && !errors.Is(err, closeCause) {
 			t.Error(err)
+		}
+		<-worker.Done()
+		if err := transport.Stop(context.Background()); err != nil {
+			t.Errorf("transport cleanup: %v", err)
 		}
 		if err := os.RemoveAll(restored); err != nil {
 			t.Error(err)
 		}
 	})
-	if err := managed.Start(ctx); err != nil {
+	if err := worker.OpenCollection(ctx, ankiclient.CollectionOptions{Path: packagePath, CloseTimeout: 100 * time.Millisecond}); err != nil {
 		t.Fatal(err)
 	}
-	connection, err := managed.Connection()
+	connection, err := worker.Connection()
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -310,19 +425,82 @@ func testCollectionCallCleanup(t *testing.T, packagePath string, cancelCall bool
 	if _, err := collection.NewBackendCollectionServiceClient(connection).LatestProgress(progress, &generic.Empty{}); err != nil {
 		t.Fatalf("ordinary calls prevented concurrent progress access: %v", err)
 	}
+	if scenario == "concurrent-close" {
+		closing := make(chan error, 1)
+		go func() { closing <- worker.CloseCollection(context.Background()) }()
+		waitForRejection := func(connection func() (grpc.ClientConnInterface, error), failure string) {
+			t.Helper()
+			deadline := time.NewTimer(2 * time.Second)
+			defer deadline.Stop()
+			poll := time.NewTicker(time.Millisecond)
+			defer poll.Stop()
+			for {
+				if _, err := connection(); err != nil {
+					return
+				}
+				select {
+				case <-poll.C:
+				case <-deadline.C:
+					t.Fatal(failure)
+				}
+			}
+		}
+		waitForRejection(worker.Connection, "first collection close did not invalidate access")
+		stopped := make(chan error, 1)
+		go func() { stopped <- worker.Stop(context.Background()) }()
+		waitForRejection(transport.Connection, "terminal cleanup waited beyond its collection budget before stopping the transport")
+		releaseOnce.Do(func() { close(release) })
+		completion, cancelCompletion := context.WithTimeout(ctx, 5*time.Second)
+		defer cancelCompletion()
+		select {
+		case closeCause = <-stopped:
+			for errors.Unwrap(closeCause) != nil {
+				closeCause = errors.Unwrap(closeCause)
+			}
+			if !errors.Is(closeCause, context.DeadlineExceeded) {
+				t.Fatalf("terminal cleanup lost its collection deadline: %v", closeCause)
+			}
+		case <-completion.Done():
+			t.Fatal("terminal cleanup did not finish after native work was released")
+		}
+		select {
+		case <-worker.Done():
+		case <-completion.Done():
+			t.Fatal("terminal cleanup did not observe final native completion")
+		}
+		select {
+		case <-closing:
+		case <-completion.Done():
+			t.Fatal("first collection close did not finish after transport shutdown")
+		}
+		select {
+		case <-downloaded:
+		case <-completion.Done():
+			t.Fatal("native media caller did not finish after transport shutdown")
+		}
+		if _, err := os.Stat(restored); err != nil {
+			t.Fatalf("concurrent cleanup discarded an unconfirmed restore: %v", err)
+		}
+		writeReport(t, "concurrent-close.json", map[string]any{"collection_deadline_preserved": true, "transport_shutdown_before_native_release": true, "native_completion": true, "restore_retained": true})
+		return
+	}
 	if cancelCall {
 		cancelDownload()
 		if err := <-downloaded; !errors.Is(err, context.Canceled) {
 			t.Fatalf("cancelled native download: %v", err)
 		}
-		if _, err := managed.Connection(); err == nil {
+		if _, err := worker.Connection(); err == nil {
 			t.Fatal("unconfirmed native call left collection access prepared")
 		}
 		releaseOnce.Do(func() { close(release) })
 	}
 	shutdown, cancelShutdown := context.WithTimeout(ctx, 100*time.Millisecond)
 	defer cancelShutdown()
-	err = managed.Stop(shutdown)
+	err = worker.CloseCollection(shutdown)
+	closeCause = err
+	for errors.Unwrap(closeCause) != nil {
+		closeCause = errors.Unwrap(closeCause)
+	}
 	if cancelCall {
 		if err == nil || errors.Is(err, context.DeadlineExceeded) {
 			t.Fatalf("unconfirmed native call was treated as completed: %v", err)
@@ -342,8 +520,12 @@ func testCollectionCallCleanup(t *testing.T, packagePath string, cancelCall bool
 	}
 	termination, cancelTermination := context.WithCancel(ctx)
 	cancelTermination()
-	if err := worker.Stop(termination); !errors.Is(err, context.Canceled) {
-		t.Fatalf("reap backend after unconfirmed work: %v", err)
+	if err := worker.Stop(termination); !errors.Is(err, context.Canceled) && !errors.Is(err, closeCause) {
+		t.Fatalf("stop client after unconfirmed work: %v", err)
+	}
+	<-worker.Done()
+	if _, err := transport.Connection(); err == nil {
+		t.Fatal("native completion left the transport available")
 	}
 	if err := os.RemoveAll(restored); err != nil {
 		t.Fatal(err)
@@ -355,43 +537,55 @@ func testCollectionCallCleanup(t *testing.T, packagePath string, cancelCall bool
 	writeReport(t, report, map[string]any{"active_restore_retained": true, "cleanup_after_reaping": true})
 }
 
-// TestCollectionBackendFailures verifies preparation and shutdown errors never take over a borrowed process.
+// TestCollectionBackendFailures verifies preparation failures retain a reusable transport and terminal cleanup.
 func TestCollectionBackendFailures(t *testing.T) {
 	ctx := t.Context()
-	worker := ankiclient.NewSTD(ankiclient.ClientSTDOptions{Binary: workerPath(t), Arguments: []string{"serve"}})
 	root := t.TempDir()
 	path := filepath.Join(root, "collection.anki2")
-	unprepared := ankiclient.NewCollection(ankiclient.ClientCollectionOptions{Backend: worker, Path: path})
-	if err := unprepared.Start(ctx); err == nil {
-		t.Fatal("collection started an unprepared backend")
+	transport := ankiclient.NewSTD(ankiclient.ClientSTDOptions{Binary: workerPath(t), Arguments: []string{"serve"}})
+	worker := ankiclient.NewClient(transport)
+	if err := worker.OpenCollection(ctx, ankiclient.CollectionOptions{Path: path}); err == nil {
+		t.Fatal("unstarted client prepared a collection")
 	}
-	if _, err := worker.Connection(); err == nil {
-		t.Fatal("failed collection preparation launched its backend")
+	if _, err := transport.Connection(); err == nil {
+		t.Fatal("failed collection preparation launched its transport")
 	}
-	if err := unprepared.Stop(ctx); err != nil {
+	if err := worker.CloseCollection(ctx); err != nil {
 		t.Fatal(err)
 	}
-	if err := worker.Start(ctx); err != nil {
+	if err := worker.Stop(ctx); err != nil {
 		t.Fatal(err)
 	}
-	t.Cleanup(func() {
-		if err := worker.Stop(context.Background()); err != nil {
-			t.Error(err)
-		}
-	})
-	for _, scenario := range []string{"nil backend", "cancelled start", "stop before start", "nonempty restore", "invalid package"} {
+	if err := worker.Start(ctx); err == nil {
+		t.Fatal("stopped client accepted startup")
+	}
+	withoutTransport := ankiclient.NewClient(nil)
+	if err := withoutTransport.Start(ctx); err == nil {
+		t.Fatal("client without a transport started")
+	}
+	if err := withoutTransport.Stop(ctx); err != nil {
+		t.Fatal(err)
+	}
+	for _, scenario := range []string{"cancelled open", "nonempty restore", "invalid package"} {
 		t.Run(scenario, func(t *testing.T) {
-			options := ankiclient.ClientCollectionOptions{Backend: worker, Path: path}
-			startup, cancel := context.WithCancel(ctx)
-			defer cancel()
-			if scenario == "nil backend" {
-				options.Backend = nil
+			worker := ankiclient.NewClient(ankiclient.NewSTD(ankiclient.ClientSTDOptions{Binary: workerPath(t), Arguments: []string{"serve"}}))
+			if err := worker.Start(t.Context()); err != nil {
+				t.Fatal(err)
 			}
-			if scenario == "cancelled start" {
+			t.Cleanup(func() {
+				if err := worker.Stop(context.Background()); err != nil {
+					t.Error(err)
+				}
+				<-worker.Done()
+			})
+			options := ankiclient.CollectionOptions{Path: filepath.Join(t.TempDir(), "collection.anki2")}
+			startup, cancel := context.WithCancel(t.Context())
+			defer cancel()
+			if scenario == "cancelled open" {
 				cancel()
 			}
 			if scenario == "nonempty restore" || scenario == "invalid package" {
-				options.Path = filepath.Join(root, "invalid.colpkg")
+				options.Path = filepath.Join(t.TempDir(), "invalid.colpkg")
 				if err := os.WriteFile(options.Path, []byte("not an Anki package"), 0o600); err != nil {
 					t.Fatal(err)
 				}
@@ -402,23 +596,21 @@ func TestCollectionBackendFailures(t *testing.T) {
 					t.Fatal(err)
 				}
 			}
-			managed := ankiclient.NewCollection(options)
-			if scenario == "stop before start" {
-				if err := managed.Stop(ctx); err != nil {
-					t.Fatal(err)
-				}
+			if err := worker.OpenCollection(startup, options); err == nil {
+				t.Fatal("invalid collection preparation succeeded")
 			}
-			if err := managed.Start(startup); err == nil {
-				t.Fatal("invalid collection start succeeded")
-			}
-			if _, err := managed.Connection(); err == nil {
+			if _, err := worker.Connection(); err == nil {
 				t.Fatal("failed collection exposed a connection")
 			}
-			if err := managed.Stop(ctx); err != nil {
+			if err := worker.CloseCollection(t.Context()); err != nil {
 				t.Fatal(err)
 			}
-			if _, err := worker.Connection(); err != nil {
-				t.Fatal("failed collection stopped its borrowed backend")
+			connection, err := worker.Connection()
+			if err != nil {
+				t.Fatal(err)
+			}
+			if _, err := collection.NewBackendCollectionServiceClient(connection).LatestProgress(t.Context(), &generic.Empty{}); err != nil {
+				t.Fatalf("failed collection preparation stopped its transport: %v", err)
 			}
 			if options.RestoreDirectory != "" {
 				if _, err := os.Stat(filepath.Join(options.RestoreDirectory, "keep.txt")); err != nil {
@@ -427,21 +619,48 @@ func TestCollectionBackendFailures(t *testing.T) {
 			}
 		})
 	}
-	managed := ankiclient.NewCollection(ankiclient.ClientCollectionOptions{Backend: worker, Path: path})
-	if err := managed.Start(ctx); err != nil {
+	transport = ankiclient.NewSTD(ankiclient.ClientSTDOptions{Binary: workerPath(t), Arguments: []string{"serve"}})
+	worker = ankiclient.NewClient(transport)
+	if err := worker.Start(ctx); err != nil {
+		t.Fatal(err)
+	}
+	var closeCause error
+	t.Cleanup(func() {
+		if err := worker.Stop(context.Background()); closeCause == nil && err != nil || closeCause != nil && !errors.Is(err, closeCause) {
+			t.Error(err)
+		}
+		<-worker.Done()
+		if err := transport.Stop(context.Background()); err != nil {
+			t.Errorf("transport cleanup: %v", err)
+		}
+	})
+	if err := worker.OpenCollection(ctx, ankiclient.CollectionOptions{Path: path}); err != nil {
 		t.Fatal(err)
 	}
 	cancelled, cancel := context.WithCancel(ctx)
 	cancel()
-	if err := managed.Stop(cancelled); !errors.Is(err, context.Canceled) {
-		t.Fatalf("cancelled collection stop: %v", err)
+	closeCause = worker.CloseCollection(cancelled)
+	for errors.Unwrap(closeCause) != nil {
+		closeCause = errors.Unwrap(closeCause)
 	}
-	if _, err := managed.Connection(); err == nil {
-		t.Fatal("cancelled stop exposed the collection")
+	if !errors.Is(closeCause, context.Canceled) {
+		t.Fatalf("cancelled collection close: %v", closeCause)
+	}
+	if _, err := worker.Connection(); err == nil {
+		t.Fatal("cancelled close exposed the collection")
 	}
 	shutdown, finish := context.WithTimeout(context.Background(), 5*time.Second)
 	defer finish()
-	if err := worker.Stop(shutdown); err != nil {
-		t.Fatal(err)
+	if err := worker.Stop(shutdown); !errors.Is(err, context.Canceled) {
+		t.Fatalf("terminal cleanup lost the collection close error: %v", err)
 	}
+	select {
+	case <-worker.Done():
+	case <-shutdown.Done():
+		t.Fatal("terminal cleanup did not finish its native transport")
+	}
+	if _, err := transport.Connection(); err == nil {
+		t.Fatal("terminal cleanup retained the native transport")
+	}
+	writeReport(t, "collection-failures.json", map[string]any{"failed_preparation_retains_transport": true, "caller_files_retained": true, "cancelled_close_preserved": true, "native_completion": true})
 }

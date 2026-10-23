@@ -110,7 +110,7 @@ func connectFixture(t *testing.T, database string) *fixtureClient {
 // connectFixtureWithBinary opens storage through the explicitly selected worker.
 func connectFixtureWithBinary(t *testing.T, database, binary string) *fixtureClient {
 	t.Helper()
-	worker := ankiclient.NewSTD(ankiclient.ClientSTDOptions{Binary: binary, Arguments: []string{"server", "serve"}})
+	worker := ankiclient.NewClient(ankiclient.NewSTD(ankiclient.ClientSTDOptions{Binary: binary, Arguments: []string{"server", "serve"}}))
 	if err := worker.Start(context.Background()); err != nil {
 		t.Fatal(err)
 	}

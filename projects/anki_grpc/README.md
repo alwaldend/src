@@ -279,17 +279,19 @@ opt-in adapters, and package-level NewClient retains no default. Importing the
 native package does not register subprocess workers.
 
 `ClientFactory` exposes `NewClient(address string) (ankiclient.Client, error)`.
-`ClientFactoryFunc[T]` adapts a constructor returning any concrete client T to that
-runtime interface. Fixed constructors retain concrete results; scheme dispatch
-and consumer injection use the shared lifecycle contract. Registrations retain
+`ClientFactoryFunc[T]` adapts a constructor returning a `Transport` to that
+runtime interface. The factory returns one client owning that transport and its
+optional collection state. Transport constructors retain concrete results; scheme
+dispatch and consumer injection use the shared client contract. Registrations retain
 constructors, never clients, and reject duplicate or invalid schemes. Unavailable
 schemes fail without fallback. Native workers receive no injected platform flags.
 
 `WithClient(ctx, factory, address, operation)` constructs through the supplied
 factory (or `NewClient` when nil), starts the client, lends its ready connection
 and stops it with a five-second budget independent of request cancellation. It
-opens and reserves no collection. Collection publication and reservations remain
-with the application's collection store.
+opens and reserves no collection. Applications select collection options and
+reserve sources; the client owns collection storage and publication when opened
+through its lifecycle methods.
 
 Import the optional `ankigrpc/native` package for direct client registration and
 native CLI hosting. It registers only `inprocess` and `inprocess+cgo`; each label
@@ -309,12 +311,29 @@ Routing identifies only the scheme and passes the selected address unchanged.
 The transport constructor parses it once. Network clients retain decoded endpoints,
 including raw and escaped IPv6 zones and relative Unix socket paths containing spaces.
 
-`pkg/ankiclient` supplies the shared lifecycle implementations and collection scopes.
-`Client` describes ownership and cleanup; RPC access remains the existing gRPC
-connection interface, which can be shared by generated service clients.
-`Client` exposes `Start(context.Context) error`,
-`Connection() (grpc.ClientConnInterface, error)`, and `Stop(context.Context) error`.
-`ClientSTD` implements it using the server's stdin/stdout. `ankiclient.NewSTD` accepts
+`pkg/ankiclient` supplies one `Client` lifecycle for a transport and optional
+collection storage. Factories return that client before startup. `Start` prepares
+the transport; `OpenCollection(ctx, CollectionOptions)` opens a collection on it.
+`Connection()` lends the ready gRPC connection to generated service clients.
+`CloseCollection` publishes and closes storage while retaining the transport for
+another collection. `Stop` closes storage and stops the transport; `Done` observes
+final native completion, including after Stop reports an error or cancelled wait.
+Collection state is private and does not implement a separate client interface.
+
+`Stop` gives collection cleanup ten minutes by default, configurable with
+`CollectionOptions.CloseTimeout`, then gives transport shutdown a separate
+five-second budget. Its caller's context bounds waiting without cancelling the
+owned cleanup. Joining an already-running collection close also respects the
+terminal cleanup budget before transport shutdown proceeds. `CloseCollection`
+uses its caller's context directly. Start's
+context controls startup only.
+
+`Transport` is the Start/Connection/Stop contract implemented by concrete process,
+network and in-process adapters. `ankiclient.NewClient(transport)` supplies the
+unified lifecycle when constructing one directly. An existing Client is returned
+unchanged. Constructors perform no startup I/O.
+
+`ClientSTD` implements Transport using the server's stdin/stdout. `ankiclient.NewSTD` accepts
 one `ClientSTDOptions` value with `Binary`, `Arguments`, and `ShutdownTimeout`.
 It copies the arguments without starting a process. A zero shutdown timeout uses
 five seconds; Start rejects negative timeouts. `Start`
@@ -366,19 +385,18 @@ trailers, preserving gRPC status, context causes, and caller call options. Faile
 calls are never automatically replayed or sent to a replacement process.
 Cancellation stops waiting without guaranteeing rollback of a native mutation.
 
-Close an open collection through `collections.CloseCollection` before calling
-`worker.Stop(ctx)`. Stop signals EOF on stdin while draining stdout, waits for exit,
-and cancels the command's lifetime context when its shutdown context expires or
-after the configured shutdown timeout. `exec.CommandContext` handles forced
-termination; an earlier Stop context deadline takes precedence.
-It completes reaping even after cancellation, returning the context cause and
-process exit errors. It also reaps crashes;
-unexpected exits remain errors on repeated Stop calls. Stop is safe before Start
-and after startup failure. Each instance permits one Start attempt; use a new
-instance for a new process. Connection returns an error before readiness, during
-startup/shutdown, after Stop, or after worker exit. Construct service clients after
-Start succeeds. Retained clients reject calls
-once Stop begins. The backend owns the connection: shut it down through Stop.
+When using raw native OpenCollection as above, close that storage through
+`collections.CloseCollection` before calling `worker.Stop(ctx)`. For automatic
+storage cleanup and archive publication, use the client lifecycle methods below.
+The process transport signals EOF while draining stdout, waits for exit and
+forces termination when its own shutdown budget expires. It completes reaping
+and retains unexpected process-exit errors on repeated Stop calls.
+
+Stop is safe before Start and after startup failure. Each client permits one
+Start attempt; use a new instance for a new transport. Connection rejects access
+before readiness, while stopping and after transport exit. Retained generated
+clients reject calls once their transport stops. Shut down the owning client
+through Stop, and use Done when final completion matters after a cleanup error.
 
 The client library supplies no server executable or implicit runtime dependency.
 Callers package their configured executable; native tests declare their own fixtures.
@@ -399,88 +417,74 @@ for a caller-supplied `net.Conn`. The WASM adapter supplies a single-use memory
 stream and retains ownership of guest execution. Other dialers may reconnect;
 neither client replays failed RPCs.
 
-### Collection backend
+### Collection lifecycle
 
-`ClientCollection` implements the same interface for collection lifetime. It
-borrows an already-started backend and never starts or stops that backend:
+Open storage on a started client:
 
 ```go
-collectionBackend := ankiclient.NewCollection(ankiclient.ClientCollectionOptions{
-    Backend: worker, // already started; no collection open
-    Path:    "/path/to/collection.colpkg", // or collection.anki2
-})
-if err := collectionBackend.Start(ctx); err != nil {
+if err := worker.OpenCollection(ctx, ankiclient.CollectionOptions{
+    Path:      "/path/to/collection.colpkg", // or collection.anki2
+    WriteBack: true,
+}); err != nil {
     return fmt.Errorf("prepare collection: %w", err)
 }
-connection, err := collectionBackend.Connection()
+connection, err := worker.Connection()
 if err != nil {
     return fmt.Errorf("get collection connection: %w", err)
 }
 items := notes.NewNotesServiceClient(connection)
 ```
 
-The options object is copied. `Path` accepts `.anki2` and `.colpkg` extensions,
+The options value is copied. `Path` accepts `.anki2` and `.colpkg` extensions,
 case-insensitively. Databases open directly; Anki can create a missing database.
 Media uses the database stem plus `.media`, with a `.media.db2` index. Database
-writes commit in place and Stop does not roll them back.
+writes commit in place and collection cleanup does not roll them back.
 
 Packages restore through Anki into an owned temporary directory by default.
 Set `RestoreDirectory` to use an empty persistent destination instead; it can be
-created when missing and is retained on Stop. `RestoreDirectory` is invalid for a
-database input. Source packages remain unchanged by default. Set `WriteBack: true`
-in constructor options to publish the source package with media on Stop, regardless
-of earlier request outcomes. This does not block mutating RPCs or roll
-back direct database writes. The backend API remains Start, Connection and Stop.
+created when missing and is retained after cleanup. That option is invalid for
+a database input. Source packages remain unchanged unless `WriteBack` is true.
+Enabled publication includes media and runs during `CloseCollection` or `Stop`,
+regardless of earlier request outcomes. Disabling it does not block mutating RPCs
+or roll back database writes.
 
-After work, call `collectionBackend.Stop(cleanupContext)` and then
-`worker.Stop(cleanupContext)`, preserving both errors. A clean collection Stop
-publishes writable packages or closes native database storage, then deletes only
-its owned temporary restore. Publication failures retain the restored data and
-report its path for recovery. Call Stop
-even after Start fails. Startup leaves cleanup to the caller and adds no separate
-shutdown timeout. The borrowed backend stays available for another collection.
-Retained generated Anki clients reject after Stop. Start permits one attempt;
-Stop is terminal and idempotent, including before Start and after failed preparation. Lifecycle-changing native
-calls must use the collection connection, and callers must give the wrapper
-exclusive collection ownership. Anki exposes unary RPCs; a small connection adapter
-tracks active calls and observes CloseCollection and ExportCollectionPackage
-while forwarding generated client calls over the borrowed connection. These operations close the collection
-without closing the transport. Export also consumes it on a native failure, so
-confirmed completion lets Stop avoid a second close. When writable package
-storage was consumed, Stop reopens its restored database before source publication.
-Transport failures or cancellation without a native response retain the files.
+Call `CloseCollection(cleanupContext)` to publish and close the current storage,
+delete its owned temporary restore and reuse the same transport. Retained
+collection connections reject further calls; `Connection()` then returns raw
+transport access. A subsequent `OpenCollection` prepares another collection.
+Call `Stop(cleanupContext)` when finished with the client. It also attempts
+collection cleanup after failed opening and preserves both collection and
+transport errors. Source reservations belong to applications and must remain
+held until `Done` closes.
 
-Cancellation can stop waiting while native work continues. If native completion
-cannot be established, Stop reports failure and retains restore files instead
-of deleting files potentially still in use. Stop the borrowed backend first;
-after it is reaped, retained restore files can be removed using the location
-reported in the cleanup error. For programmatic cleanup, pass a caller-owned
-`RestoreDirectory` through options and remove it only after backend shutdown.
-Explicit destinations always remain caller-owned. Callers retain
-backend shutdown responsibility even when collection startup fails.
+Generated native clients remain the RPC interface. While a collection is open,
+use its gated `Connection` for all calls and give the client exclusive collection
+ownership. Native close and full-package export consume storage without closing
+the transport. A completed native export error also consumes it. Cleanup avoids
+a second native close; writable package cleanup reopens consumed restored storage
+before publication. After a consuming native call, call `CloseCollection` before
+opening the next collection.
 
-Ordinary calls remain concurrent. Stop waits for registered Go calls within its
-context before closing storage. Any unconfirmed native response invalidates
-collection access and keeps cleanup uncertain, including after later calls succeed.
-Anki's collection mutex protects running native work; it cannot acknowledge a
-cancelled call still queued in Rust. Stop therefore retains the restore and reports
-failure in that case; stop the borrowed backend before cleaning its temporary files.
+Ordinary calls remain concurrent. Close waits for registered unary callers within
+its context. Any unconfirmed response invalidates collection access and keeps
+cleanup uncertain, even after later calls succeed. Failed publication or uncertain
+native completion retains restore files and reports their location. A failed
+close remains attached for terminal cleanup and does not permit opening another
+collection. Stop the client and wait for `Done` before removing retained files;
+for programmatic cleanup, choose a caller-owned `RestoreDirectory` in advance.
+A clean close removes only its owned temporary restore; explicit destinations
+always remain caller-owned.
 
 ### Application scopes
 
-Applications compose the process and collection owners. Start the worker before
-the collection, close the collection before stopping the worker, and attempt
-cleanup after failed startup, callback errors, cancellation or panic unwinding.
-Use bounded cleanup contexts independent of operation cancellation and preserve
-both operation and cleanup errors.
+Applications select collection options, reserve sources and coordinate callers.
+They start a client, open its collection and defer Stop, preserving operation and
+cleanup errors. The [Anki as code collection store](../anki_as_code/README.md#collection-lifecycle)
+provides that callback scope and explicit sessions. Native storage and transport
+lifetime remain in the same client.
 
-The [Anki as code collection store](../anki_as_code/README.md#collection-lifecycle)
-owns its callback scope and source reservations. The backend library owns archive
-write-back, readiness, shutdown and restore retention. Operation errors do not
-suppress enabled write-back; callers preserve operation and cleanup errors together.
-
-Public client implementation names are `ClientSTD`, `ClientGRPC` and `ClientCollection`. The Go package
-is `ankiclient`; `anki_grpc` is the project and server name.
+The Go package is `ankiclient`; `anki_grpc` is the project and server name.
+Concrete transport types include `ClientSTD` and `ClientGRPC`.
 
 ## Verification
 
@@ -505,9 +509,9 @@ timeout rejection and native failure details. The forwarding fixture reaps its
 inner Anki process before testing forced shutdown of the outer worker. It emits `collection.anki2`
 and JSON verification reports.
 
-The collection-backend E2E verifies prepared-backend borrowing, direct database
+The collection-lifecycle E2E verifies one client reusing its transport, direct database
 persistence and media layout, native package exports/restores, temporary cleanup,
-persistent destinations, retained-client rejection, backend reuse and failed or
+persistent destinations, retained-connection rejection, raw access between collections and failed or
 cancelled lifecycle calls. It emits a native database/package and verification report.
 It also blocks a real native media download, cancels the client, and verifies
 that shutdown waits for active callers and retains unconfirmed restores until

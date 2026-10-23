@@ -1,34 +1,22 @@
 %%{init: {"flowchart": {"nodeSpacing": 64}}}%%
 flowchart LR
+    agent["Agent / MCP client"]
     configs["Configs"]
     subgraph executable["anki_as_code"]
         cli["CLI"]
+        mcp["MCP server"]
         app["ankiascode.App"]
-        subgraph linked["anki_grpc<br/>Linked Rust library"]
-            server["Server"]
-            api["Anki API"]
-        end
     end
-    external["anki_grpc<br/>External server"]
+    server["Server"]
     subgraph storage["Anki storage"]
         resources["Resources"]
         state["State"]
     end
 
-    cli --> app
-    app ---->|Read/Write| configs
-    app -->|"Run (C ABI)"| linked
-    %% Route the self-launch return outside the executable.
-    launch@{ shape: anchor }
-    app spawn@---|Run server subprocess| launch
-    launch return@--> executable
-    %% Both segments meet with a horizontal tangent for a rounded turn.
-    spawn@{ curve: bumpX }
-    return@{ curve: bumpX }
+    cli -->|Commands| app
+    cli -->|mcp serve| mcp
+    agent <-->|stdio| mcp
+    mcp -->|Tools| app
+    app -->|Read/Write| configs
     app -->|gRPC| server
-    app -->|gRPC| external
-    server --> api
-    api --> storage
-    external --> storage
-    %% Keep the external server beyond Configs so its edge stays clear.
-    configs ~~~ external
+    server --> storage

@@ -18,6 +18,7 @@ go_library(
     importpath = "git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/rpc",
     visibility = [
         "//projects/anki_as_code/internal/cli:__pkg__",
+        "//projects/anki_as_code/internal/mcp:__pkg__",
         "//projects/anki_as_code/pkg/ankiascode:__pkg__",
     ],
     deps = [

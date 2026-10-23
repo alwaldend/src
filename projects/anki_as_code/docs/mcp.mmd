@@ -1,0 +1,31 @@
+%%{init: {"sequence": {"mirrorActors": false}}}%%
+sequenceDiagram
+    actor agent as Agent / MCP client
+    participant mcp as MCP server
+    participant app as App
+    participant client as ankiclient.Client
+
+    agent->>mcp: tools/list
+    mcp-->>agent: Tools and RPC schemas
+    Note right of mcp: No worker started
+
+    agent->>mcp: col_open(collection)
+    mcp->>app: ColOpen(options)
+    app->>client: Start + OpenCollection
+    Note over app,client: Keep collection and connection open
+    app-->>mcp: Prepared client
+    mcp-->>agent: Collection handle
+
+    loop Calls using the same handle
+        agent->>mcp: Workflow or API tool(handle)
+        mcp->>client: Connection()
+        mcp->>app: Existing method(connection)
+        app->>client: Native RPCs
+        app-->>mcp: Result
+        mcp-->>agent: JSON result
+    end
+
+    agent->>mcp: col_close(handle) or disconnect
+    mcp->>client: Stop()
+    Note over mcp,client: Publish enabled archive, close storage and stop owned worker
+    Note over app,client: Database writes are immediate.<br/>Path calls open and close<br/>a collection per operation.

@@ -27,13 +27,13 @@ var ankiWorkerRunfile = flag.String("anki-worker", "", "offline Anki WASM worker
 func offlineClient(t *testing.T) ankiclient.Client {
 	t.Helper()
 	if os.Getenv("ANKI_INPROCESS_WASM") == "true" {
-		return wasmadapter.New()
+		return ankiclient.NewClient(wasmadapter.New())
 	}
 	path, err := runfiles.Rlocation(*ankiWorkerRunfile)
 	if err != nil {
 		t.Fatalf("resolve offline Anki worker: %v", err)
 	}
-	return ankiclient.NewSTD(ankiclient.ClientSTDOptions{Binary: path, Arguments: []string{"serve"}})
+	return ankiclient.NewClient(ankiclient.NewSTD(ankiclient.ClientSTDOptions{Binary: path, Arguments: []string{"serve"}}))
 }
 
 // TestOfflineAnki rejects network operations without damaging local collection access.

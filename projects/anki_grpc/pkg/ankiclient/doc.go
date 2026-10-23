@@ -4,12 +4,14 @@
 // and forces termination through a backend-owned process context when needed.
 // ClientGRPC connects to a validated network endpoint or caller-supplied stream
 // dialer. It owns the connection; its caller owns the server lifetime.
-// AsyncClient supplies Done when
-// Stop can return before final cleanup;
-// callers keep source reservations until that channel closes.
-// ClientCollection borrows an already-started backend, opens databases or restores
-// packages, gates collection clients and closes native storage without stopping
-// the backend. Callers compose these lifetimes and stop collections before workers.
+// NewClient gives a transport one Client lifecycle with optional private collection state.
+// Start prepares its transport; OpenCollection opens a database or restores a package.
+// Connection lends generated-client access, gated by the current collection's readiness.
+// CloseCollection publishes and closes storage while retaining the transport for reuse.
+// Stop closes storage before stopping the transport, with independent bounded budgets.
+// Its context bounds waiting; Done observes final native completion. AsyncClient is
+// the optional completion capability of a transport whose Stop can return early.
+// Source reservations and other application policy remain with callers.
 // Package sources remain unchanged unless WriteBack is explicitly enabled;
 // request outcomes do not suppress enabled publication. Failed publication or
 // uncertain native completion retains restored data for recovery.

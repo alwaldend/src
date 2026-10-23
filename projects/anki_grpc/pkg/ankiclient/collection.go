@@ -7,6 +7,7 @@ import (
 	"path/filepath"
 	"strings"
 	"sync"
+	"time"
 
 	"github.com/ankitects/anki/proto/anki/collection"
 	"github.com/ankitects/anki/proto/anki/import_export"
@@ -14,10 +15,8 @@ import (
 	"google.golang.org/grpc/metadata"
 )
 
-// ClientCollectionOptions configures a collection on an already-started Client.
-type ClientCollectionOptions struct {
-	// Backend lends its prepared connection; the caller retains backend lifetime.
-	Backend Client
+// CollectionOptions configures one collection on a client-owned transport.
+type CollectionOptions struct {
 	// Path names an .anki2 database or .colpkg package. Anki may create a missing database.
 	Path string
 	// RestoreDirectory overrides a package's restore destination. It must be empty and is retained.
@@ -26,16 +25,17 @@ type ClientCollectionOptions struct {
 	// WriteBack enables automatic package publication; its zero value leaves source archives unchanged.
 	// Database writes always commit in place.
 	WriteBack bool
+	// CloseTimeout bounds publication during Client.Stop; nonpositive values select ten minutes.
+	CloseTimeout time.Duration
 }
 
-// ClientCollection implements Client for collection lifetime on a borrowed backend.
-// Start opens storage; Stop writes packages back when explicitly enabled and closes storage.
-// Neither starts nor stops options.Backend.
-// Database writes commit in place. Callers stop this owner before its borrowed backend.
-// Use NewCollection; a ClientCollection must not be copied after use.
-type ClientCollection struct {
-	// options are copied constructor settings; Backend remains borrowed.
-	options ClientCollectionOptions
+// collectionState tracks storage preparation, publication and native call completion.
+// It is private state of one Client and does not implement a client lifecycle.
+type collectionState struct {
+	// options are copied storage and publication settings.
+	options CollectionOptions
+	// transport supplies native RPC access owned by the surrounding client.
+	transport Transport
 	// lifecycle protects client registration, readiness and restore-directory access.
 	lifecycle sync.Mutex
 	// operation serializes startup, shutdown and native consuming calls.
@@ -44,8 +44,6 @@ type ClientCollection struct {
 	active int
 	// drained closes once shutdown has begun and all registered unary callers have returned.
 	drained chan struct{}
-	// started limits the owner to one preparation attempt.
-	started bool
 	// ready permits generated-client calls only after successful native open.
 	ready bool
 	// stopped invalidates access as soon as shutdown begins.
@@ -64,30 +62,23 @@ type ClientCollection struct {
 	openRequest *collection.OpenCollectionRequest
 	// uncertain records any unconfirmed native call; successful later calls cannot clear it.
 	uncertain bool
-	// connection gates generated calls while retaining the underlying transport.
-	connection *collectionConnection
+	// rpc gates generated calls while retaining the underlying transport.
+	rpc *collectionConnection
 	// stopOnce retains one terminal shutdown result for repeated callers.
 	stopOnce sync.Once
+	// closed publishes the close result without blocking other callers past their deadlines.
+	closed chan struct{}
 	// stopError preserves native close and file cleanup errors.
 	stopError error
 }
 
-// NewCollection configures a collection owner without touching its backend or files.
-func NewCollection(options ClientCollectionOptions) *ClientCollection {
-	return &ClientCollection{options: options, operation: make(chan struct{}, 1), drained: make(chan struct{})}
+// newCollectionState allocates one storage phase without touching its transport or files.
+func newCollectionState(transport Transport, options CollectionOptions) *collectionState {
+	return &collectionState{transport: transport, options: options, operation: make(chan struct{}, 1), drained: make(chan struct{}), closed: make(chan struct{})}
 }
 
-// Start borrows a prepared backend and opens the configured native collection once.
-// Failed startup exposes no connection. Call Stop even after startup failure,
-// then stop the borrowed backend; Start does not run a separate cleanup lifecycle.
-func (backend *ClientCollection) Start(ctx context.Context) error {
-	backend.lifecycle.Lock()
-	if backend.started || backend.stopped {
-		backend.lifecycle.Unlock()
-		return fmt.Errorf("start Anki collection: already started or stopped")
-	}
-	backend.started = true
-	backend.lifecycle.Unlock()
+// open prepares collection storage on the surrounding client's ready transport.
+func (backend *collectionState) open(ctx context.Context) error {
 	if err := backend.acquire(ctx); err != nil {
 		return fmt.Errorf("prepare Anki collection: %w", err)
 	}
@@ -98,10 +89,10 @@ func (backend *ClientCollection) Start(ctx context.Context) error {
 	if stopped {
 		return fmt.Errorf("start Anki collection: stopped before preparation")
 	}
-	if backend.options.Backend == nil {
-		return fmt.Errorf("start Anki collection: a prepared backend is required")
+	if backend.transport == nil {
+		return fmt.Errorf("open Anki collection: a prepared transport is required")
 	}
-	connection, err := backend.options.Backend.Connection()
+	connection, err := backend.transport.Connection()
 	if err != nil {
 		return fmt.Errorf("borrow prepared Anki backend: %w", err)
 	}
@@ -118,7 +109,7 @@ func (backend *ClientCollection) Start(ctx context.Context) error {
 	}
 	backend.source, backend.openRequest = source, request
 	backend.lifecycle.Lock()
-	backend.connection = &collectionConnection{owner: backend, ClientConnInterface: connection}
+	backend.rpc = &collectionConnection{owner: backend, ClientConnInterface: connection}
 	backend.lifecycle.Unlock()
 	if err := os.MkdirAll(request.MediaFolderPath, 0o700); err != nil {
 		return fmt.Errorf("prepare Anki media directory: %w", err)
@@ -154,7 +145,7 @@ func (backend *ClientCollection) Start(ctx context.Context) error {
 }
 
 // prepare selects direct database paths or an empty native package restore destination.
-func (backend *ClientCollection) prepare(source string) (*collection.OpenCollectionRequest, error) {
+func (backend *collectionState) prepare(source string) (*collection.OpenCollectionRequest, error) {
 	database := source
 	switch strings.ToLower(filepath.Ext(source)) {
 	case ".anki2":
@@ -201,92 +192,107 @@ func (backend *ClientCollection) prepare(source string) (*collection.OpenCollect
 	}, nil
 }
 
-// Connection lends the gated connection only while the native collection is prepared.
-// Retained generated clients reject after Stop, consuming calls or an unconfirmed response.
-func (backend *ClientCollection) Connection() (grpc.ClientConnInterface, error) {
+// connection lends native access only while this storage phase is prepared.
+// Retained generated clients reject after close, consuming calls or an unconfirmed response.
+func (backend *collectionState) connection() (grpc.ClientConnInterface, error) {
 	backend.lifecycle.Lock()
-	ready, connection := backend.ready && !backend.stopped, backend.connection
+	ready, connection := backend.ready && !backend.stopped, backend.rpc
 	backend.lifecycle.Unlock()
 	if !ready {
 		return nil, fmt.Errorf("get Anki collection connection: collection is not prepared")
 	}
-	if _, err := backend.options.Backend.Connection(); err != nil {
+	if _, err := backend.transport.Connection(); err != nil {
 		return nil, fmt.Errorf("get Anki collection backend: %w", err)
 	}
 	return connection, nil
 }
 
-// Stop invalidates access, writes enabled packages back and removes completed temporary restores.
-// It never stops the borrowed backend. Failed/cancelled native work retains restore
-// files until the caller has stopped that backend and can safely remove them.
-// Stop is terminal and idempotent, including before Start and after failed startup.
-func (backend *ClientCollection) Stop(ctx context.Context) error {
+// close invalidates access, writes enabled packages back and removes completed temporary restores.
+// It leaves the transport running. Failed or cancelled native work retains restore
+// files until Client.Done confirms that transport cleanup has completed.
+// Each storage phase retains one close result, including after failed preparation.
+func (backend *collectionState) close(ctx context.Context) error {
+	performClose := false
 	backend.stopOnce.Do(func() {
+		performClose = true
 		backend.lifecycle.Lock()
 		backend.stopped, backend.ready = true, false
 		if backend.active == 0 {
 			close(backend.drained)
 		}
 		backend.lifecycle.Unlock()
-		if err := backend.acquire(ctx); err != nil {
-			backend.stopError = fmt.Errorf("stop Anki collection: %w", err)
-			return
-		}
-		defer backend.release()
-		select {
-		case <-backend.drained:
-		case <-ctx.Done():
-			backend.stopError = fmt.Errorf("wait for active Anki collection calls: %w", ctx.Err())
-			return
-		}
-		if backend.uncertain {
-			backend.stopError = fmt.Errorf("native collection completion is unconfirmed; stop the borrowed backend before cleanup")
-			return
-		}
-		if backend.prepared && backend.options.WriteBack && strings.EqualFold(filepath.Ext(backend.source), ".colpkg") {
-			connection := backend.connection.ClientConnInterface
-			if !backend.opened {
-				if _, err := collection.NewBackendCollectionServiceClient(connection).OpenCollection(ctx, backend.openRequest); err != nil {
-					backend.stopError = fmt.Errorf("reopen Anki collection for write-back: %w", err)
-					return
-				}
-				backend.opened = true
-			}
-			_, err := import_export.NewBackendImportExportServiceClient(connection).ExportCollectionPackage(ctx, &import_export.ExportCollectionPackageRequest{OutPath: backend.source, IncludeMedia: true})
-			if err != nil {
-				backend.stopError = fmt.Errorf("write back Anki collection package %q: %w", backend.source, err)
-				return
-			}
-			backend.opened = false
-		}
-		if backend.opened {
-			_, err := collection.NewBackendCollectionServiceClient(backend.connection.ClientConnInterface).CloseCollection(ctx, &collection.CloseCollectionRequest{})
-			if err != nil {
-				backend.stopError = fmt.Errorf("close Anki collection: %w", err)
-				return
-			}
-			backend.opened = false
-		}
-		if backend.temporary {
-			if err := os.RemoveAll(backend.directory); err != nil {
-				backend.stopError = fmt.Errorf("remove temporary Anki restore: %w", err)
-			}
-		}
 	})
-	if backend.stopError != nil {
+	var closeErr error
+	if performClose {
+		defer close(backend.closed)
+		backend.stopError = backend.closeStorage(ctx)
+	} else {
+		select {
+		case <-backend.closed:
+		case <-ctx.Done():
+			closeErr = fmt.Errorf("wait for collection close: %w", ctx.Err())
+		}
+	}
+	if closeErr == nil {
+		closeErr = backend.stopError
+	}
+	if closeErr != nil {
 		backend.lifecycle.Lock()
 		directory := backend.directory
 		backend.lifecycle.Unlock()
 		if directory != "" {
-			return fmt.Errorf("stop collection backend (restore %q retained): %w", directory, backend.stopError)
+			return fmt.Errorf("stop collection backend (restore %q retained): %w", directory, closeErr)
 		}
-		return fmt.Errorf("stop collection backend: %w", backend.stopError)
+		return fmt.Errorf("stop collection backend: %w", closeErr)
+	}
+	return nil
+}
+
+// closeStorage drains registered calls, publishes archives and releases confirmed storage.
+func (backend *collectionState) closeStorage(ctx context.Context) error {
+	if err := backend.acquire(ctx); err != nil {
+		return fmt.Errorf("stop Anki collection: %w", err)
+	}
+	defer backend.release()
+	select {
+	case <-backend.drained:
+	case <-ctx.Done():
+		return fmt.Errorf("wait for active Anki collection calls: %w", ctx.Err())
+	}
+	if backend.uncertain {
+		return fmt.Errorf("native collection completion is unconfirmed; stop the client before cleanup")
+	}
+	if backend.prepared && backend.options.WriteBack && strings.EqualFold(filepath.Ext(backend.source), ".colpkg") {
+		connection := backend.rpc.ClientConnInterface
+		if !backend.opened {
+			if _, err := collection.NewBackendCollectionServiceClient(connection).OpenCollection(ctx, backend.openRequest); err != nil {
+				return fmt.Errorf("reopen Anki collection for write-back: %w", err)
+			}
+			backend.opened = true
+		}
+		_, err := import_export.NewBackendImportExportServiceClient(connection).ExportCollectionPackage(ctx, &import_export.ExportCollectionPackageRequest{OutPath: backend.source, IncludeMedia: true})
+		if err != nil {
+			return fmt.Errorf("write back Anki collection package %q: %w", backend.source, err)
+		}
+		backend.opened = false
+	}
+	if backend.opened {
+		_, err := collection.NewBackendCollectionServiceClient(backend.rpc.ClientConnInterface).CloseCollection(ctx, &collection.CloseCollectionRequest{})
+		if err != nil {
+			return fmt.Errorf("close Anki collection: %w", err)
+		}
+		backend.opened = false
+	}
+	if backend.temporary {
+		if err := os.RemoveAll(backend.directory); err != nil {
+			return fmt.Errorf("remove temporary Anki restore: %w", err)
+		}
 	}
 	return nil
 }
 
 // acquire serializes native lifecycle operations while respecting cancellation.
-func (backend *ClientCollection) acquire(ctx context.Context) error {
+func (backend *collectionState) acquire(ctx context.Context) error {
 	if err := ctx.Err(); err != nil {
 		return fmt.Errorf("check collection operation context: %w", err)
 	}
@@ -299,6 +305,6 @@ func (backend *ClientCollection) acquire(ctx context.Context) error {
 }
 
 // release finishes a serialized native lifecycle operation.
-func (backend *ClientCollection) release() {
+func (backend *collectionState) release() {
 	<-backend.operation
 }

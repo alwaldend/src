@@ -423,7 +423,7 @@ func createArchive(t *testing.T, path string) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	worker := ankiclient.NewSTD(ankiclient.ClientSTDOptions{Binary: binary, Arguments: []string{"serve"}})
+	worker := ankiclient.NewClient(ankiclient.NewSTD(ankiclient.ClientSTDOptions{Binary: binary, Arguments: []string{"serve"}}))
 	t.Cleanup(func() {
 		ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 		defer cancel()
@@ -438,20 +438,17 @@ func createArchive(t *testing.T, path string) {
 	if err := os.Mkdir(filepath.Join(directory, "collection.media"), 0o700); err != nil {
 		t.Fatal(err)
 	}
-	collection := ankiclient.NewCollection(ankiclient.ClientCollectionOptions{
-		Backend: worker, Path: filepath.Join(directory, "collection.anki2"),
-	})
 	t.Cleanup(func() {
 		ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 		defer cancel()
-		if err := collection.Stop(ctx); err != nil {
+		if err := worker.CloseCollection(ctx); err != nil {
 			t.Error(err)
 		}
 	})
-	if err := collection.Start(t.Context()); err != nil {
+	if err := worker.OpenCollection(t.Context(), ankiclient.CollectionOptions{Path: filepath.Join(directory, "collection.anki2")}); err != nil {
 		t.Fatal(err)
 	}
-	connection, err := collection.Connection()
+	connection, err := worker.Connection()
 	if err != nil {
 		t.Fatal(err)
 	}
