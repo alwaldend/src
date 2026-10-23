@@ -1,0 +1,37 @@
+{
+    "toolchains": [
+        {
+            "name": "yt_dlp",
+            "version": "2026.10.21"
+        }
+    ],
+    "archives": [
+        {
+            "toolchain_name": "yt_dlp",
+            "toolchain_version": "2026.10.21",
+            "archive_name": "linux_x86_64",
+            "binaries": [
+                {
+                    "name": "yt_dlp",
+                    "path": "out/yt-dlp"
+                }
+            ],
+            "actions": [
+                {
+                    "download": {
+                        "url": "https://github.com/yt-dlp/yt-dlp/releases/download/2026.10.21/yt-dlp_linux",
+                        "output": "out/yt-dlp",
+                        "executable": true,
+                        "integrity": "sha256-2L0z/KnVsjvVuZUrP8o221xGMxkz/an1mKPaFM4sJD8="
+                    }
+                }
+            ],
+            "toolchain": {
+                "exec_compatible_with": [
+                    "@platforms//os:linux",
+                    "@platforms//cpu:x86_64"
+                ]
+            }
+        }
+    ]
+}
