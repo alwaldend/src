@@ -45,7 +45,7 @@ func newStateDumpCommand(application ankiascodeapi.App, input *string) *cobra.Co
 			if err != nil {
 				return fmt.Errorf("state dump: %w", err)
 			}
-			data, err := codec.Encode(value, codec.Format(format))
+			data, err := codec.Encode(value, format)
 			if err != nil {
 				return fmt.Errorf("encode dumped state: %w", err)
 			}
@@ -55,7 +55,7 @@ func newStateDumpCommand(application ankiascodeapi.App, input *string) *cobra.Co
 			return nil
 		},
 	}
-	command.Flags().StringVar(&format, "format", string(codec.TOML), "State format: toml or json")
+	command.Flags().StringVar(&format, "format", codec.TOML, "State format: toml or json")
 	return command
 }
 
@@ -107,7 +107,7 @@ func newStateWriteCommand(input *string, name, summary string, write func(contex
 				return fmt.Errorf("read state for %s: %w", name, err)
 			}
 			value := &ankiascodepb.State{}
-			if err := codec.Decode(data, codec.Format(format), value); err != nil {
+			if err := codec.Decode(data, format, value); err != nil {
 				return fmt.Errorf("decode state for %s: %w", name, err)
 			}
 			if err := write(command.Context(), commandCollectionOptions(command, *input), value); err != nil {
@@ -119,6 +119,6 @@ func newStateWriteCommand(input *string, name, summary string, write func(contex
 			return nil
 		},
 	}
-	command.Flags().StringVar(&format, "format", string(codec.TOML), "State format: toml or json")
+	command.Flags().StringVar(&format, "format", codec.TOML, "State format: toml or json")
 	return command
 }

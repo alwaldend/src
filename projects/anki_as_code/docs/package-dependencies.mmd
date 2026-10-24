@@ -5,7 +5,7 @@ flowchart LR
     entry --> mcp[internal/mcp: tools and ProtoJSON schemas]
     cli -. MCP .-> mcp
     mcp -. App .-> app
-    entry --> api[ankiascodeapi: App, MCP and sources]
+    entry --> api[ankiascodeapi: App and sources]
     cli --> api
     mcp --> api
     app --> api
@@ -18,8 +18,8 @@ flowchart LR
     app --> schema
     entry -->|cgo enabled| nativeHost[ankigrpc/native.RunServer]
     entry -->|WASM enabled| wasmHost[ankigrpc/wasm.Run]
-    app -. ServerRun / ServerServe .-> nativeHost
-    app -. ServerRun / ServerServe .-> wasmHost
+    app -. ServerRun .-> nativeHost
+    app -. ServerRun .-> wasmHost
     nativeHost --> server[Child worker gRPC transport]
     wasmHost --> server
     app -->|path source| collections[collection.Store]

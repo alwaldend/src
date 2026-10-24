@@ -60,7 +60,7 @@ func run(ctx context.Context, arguments []string) error {
 		}
 		return nil
 	}
-	workerFactory := ankigrpc.ClientFactoryFunc[*ankiclient.ClientSTD](ankigrpc.NewSubprocessClient)
+	workerFactory := ankigrpc.ToClientFactory(ankigrpc.NewSubprocessClient)
 	factory := ankigrpc.NewFactory(defaultAddress)
 	factory.RegisterClientFactory("subprocess", workerFactory)
 	for engine, runner := range engines {
@@ -75,7 +75,7 @@ func run(ctx context.Context, arguments []string) error {
 		}
 	}
 	application := ankiascode.New(ankiascode.Options{
-		NewClient:    factory,
+		NewClient:    factory.NewClient,
 		ServerRunner: hostedRunner,
 	})
 	command = cli.New(application, mcp.New(application))
@@ -89,7 +89,7 @@ func run(ctx context.Context, arguments []string) error {
 // engineWorkerFactory selects a compiled engine for same-executable workers.
 // Independently supplied executables retain their exact argument vectors.
 func engineWorkerFactory(engine, binary string) ankigrpc.ClientFactory {
-	return ankigrpc.ClientFactoryFunc[*ankiclient.ClientSTD](func(address string) (*ankiclient.ClientSTD, error) {
+	return ankigrpc.ToClientFactory(func(address string) (*ankiclient.ClientSTD, error) {
 		options, err := ankigrpc.ParseSubprocessAddress(address)
 		if err != nil {
 			return nil, fmt.Errorf("parse %s worker address: %w", engine, err)

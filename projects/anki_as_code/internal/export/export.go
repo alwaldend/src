@@ -34,7 +34,7 @@ func New(resources *resource.Store, states *state.Store, storage filesystem.FS) 
 }
 
 // Export writes configs and optionally publishes their version-1 TOML bindings.
-// Paths use the injected filesystem's namespace and must not alias the source collection. State publication
+// Callers own output destinations in the injected filesystem's namespace. State publication
 // follows successful config output; failures may leave partial configs, but no partial state file.
 // Existing stored bindings supply names only; the generated state describes exported objects.
 // An empty stateOutput selects config-only export; state installation remains separate.

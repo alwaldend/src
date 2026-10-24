@@ -38,7 +38,7 @@ func TestDirectBackendOwnership(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	for index, backend := range []ankiclient.Client{first, second} {
+	for index, backend := range []ankiclient.StartableClient{first, second} {
 		if err := backend.Start(t.Context()); err != nil {
 			t.Fatal(err)
 		}

@@ -29,7 +29,7 @@ type collectionSessions struct {
 
 // collectionHandle serializes complete borrowed operations on one open collection.
 type collectionHandle struct {
-	// client owns native access and cleanup through the existing Anki client contract.
+	// client owns prepared collection access and cleanup through the application contract.
 	client ankiclient.Client
 	// cancel ends the independent session context after native cleanup finishes.
 	cancel context.CancelFunc

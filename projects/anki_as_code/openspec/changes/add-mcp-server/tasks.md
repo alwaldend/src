@@ -41,3 +41,23 @@
 - [x] 4.16 Remove MCP handle and registry shutdown flags already covered by Client.Stop/Connection and the SDK's drained-handler guarantee. Preserve serialized calls, cancellation, archive publication and disconnect cleanup through existing E2E scenarios.
 - [x] 4.17 Add MCP to the simplified CLI architecture and document MCP discovery, explicit handles, calls and cleanup in a dedicated diagram. Render and inspect maintained dark WebP outputs and publish the diagram sources through the existing docs build.
 - [x] 4.18 Collapse backend variants in the simplified CLI diagram into one Server reached through gRPC. Keep connectivity details in the existing backend-strategies diagram, align the overview prose, and inspect the updated dark WebP.
+
+- [x] 4.19 Return an already-open application handle with Connection
+      and Stop, superseding tasks 4.10–4.11's unified transport/storage API.
+      Keep storage ownership in the application and verify session publication,
+      cancellation, source reservations and MCP behavior with the simpler client.
+
+- [x] 4.20 Use the shared ankiclient.Client capability for prepared handles,
+      with StartableClient reserved for startup ownership; remove the separate
+      Collection interface and verify existing MCP session behavior.
+
+- [x] 4.21 Replace the public MCP hosting interface with an injected
+      func(context.Context) error using mcp.New(app).Serve; retain App as the
+      multi-operation tool contract and verify existing CLI/MCP workflows.
+      This supersedes the single-method hosting interface introduced in 4.12.
+      The function-hosting contract is historical and is superseded by 4.22.
+
+- [x] 4.22 Define the private mcpServer interface with Serve(context.Context)
+      error in internal/cli and pass concrete mcp.New(app) as its command-group
+      dependency. Keep this consumer-only interface out of ankiascodeapi and
+      preserve context, nil-configuration and error behavior through existing checks.

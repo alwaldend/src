@@ -18,6 +18,7 @@ import (
 
 	_ "git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/ankigrpc/native"
 
+	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodeapi"
 	ankiascodepb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodepb"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/config"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/export"
@@ -26,6 +27,7 @@ import (
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/state"
 	"git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/ankiclient"
 	"git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/ankigrpc"
+	ankicol "github.com/ankitects/anki/proto/anki/collection"
 	"github.com/ankitects/anki/proto/anki/import_export"
 	"github.com/ankitects/anki/proto/anki/media"
 	"github.com/ankitects/anki/proto/anki/notes"
@@ -43,7 +45,7 @@ func TestStoreOpen(t *testing.T) {
 			store := fixtureStore(t)
 			ctx, cancel := context.WithCancel(t.Context())
 			defer cancel()
-			client, err := store.Open(ctx, CollectionOptions{Path: archive, WriteBack: true})
+			client, err := store.Open(ctx, ankiascodeapi.ColOpenOptions{Path: archive, WriteBack: true})
 			if err != nil {
 				t.Fatal(err)
 			}
@@ -96,7 +98,7 @@ func TestDirectStoreReservation(t *testing.T) {
 	_, archive := nativeSource(t)
 	t.Setenv("TMPDIR", t.TempDir())
 	store := New(Options{CloseTimeout: 25 * time.Millisecond})
-	options := CollectionOptions{Path: archive, Address: "inprocess://reservation"}
+	options := ankiascodeapi.ColOpenOptions{Path: archive, Address: "inprocess://reservation"}
 	entered, release := make(chan struct{}), make(chan struct{})
 	var releaseOnce sync.Once
 	server := httptest.NewServer(http.HandlerFunc(func(response http.ResponseWriter, _ *http.Request) {
@@ -178,7 +180,7 @@ func TestStoreRequiresExplicitWorker(t *testing.T) {
 	called := false
 	ctx, cancel := context.WithTimeout(t.Context(), 10*time.Second)
 	defer cancel()
-	err = store.WithCollection(ctx, CollectionOptions{Path: database}, func(grpc.ClientConnInterface) error {
+	err = store.WithCollection(ctx, ankiascodeapi.ColOpenOptions{Path: database}, func(grpc.ClientConnInterface) error {
 		called = true
 		return nil
 	})
@@ -190,11 +192,11 @@ func TestStoreRequiresExplicitWorker(t *testing.T) {
 		t.Fatalf("missing worker configuration changed the collection: %v", err)
 	}
 	store.closeTimeout = 10 * time.Minute
-	store.newClient = fixtureFactory(ankigrpc.SubprocessAddress(binary, "serve") + "&shutdown_timeout=-1s")
+	store.newClient = fixtureFactory(ankigrpc.SubprocessAddress(binary, "serve") + "&shutdown_timeout=-1s").NewClient
 	if _, err := readState(ctx, store, database, ""); err == nil {
 		t.Fatalf("explicit shutdown policy was ignored: %v", err)
 	}
-	store.newClient = fixtureFactory(ankigrpc.SubprocessAddress(binary, "serve"))
+	store.newClient = fixtureFactory(ankigrpc.SubprocessAddress(binary, "serve")).NewClient
 	if _, err := readState(ctx, store, database, ""); err != nil {
 		t.Fatalf("explicit worker could not reuse the source after failed startup: %v", err)
 	}
@@ -204,7 +206,7 @@ func TestStoreRequiresExplicitWorker(t *testing.T) {
 // fixtureFactory supplies the declared default while preserving explicit operation addresses.
 func fixtureFactory(defaultAddress string) *ankigrpc.Factory {
 	factory := ankigrpc.NewFactory(defaultAddress)
-	factory.RegisterClientFactory("subprocess", ankigrpc.ClientFactoryFunc[*ankiclient.ClientSTD](ankigrpc.NewSubprocessClient))
+	factory.RegisterClientFactory("subprocess", ankigrpc.ToClientFactory(ankigrpc.NewSubprocessClient))
 	return factory
 }
 
@@ -215,7 +217,7 @@ func fixtureStore(t *testing.T) *Store {
 	if err != nil {
 		t.Fatal(err)
 	}
-	store := New(Options{NewClient: fixtureFactory(ankigrpc.SubprocessAddress(binary, "serve"))})
+	store := New(Options{NewClient: fixtureFactory(ankigrpc.SubprocessAddress(binary, "serve")).NewClient})
 	return &store
 }
 
@@ -239,7 +241,7 @@ func TestStoreBackendLifecycle(t *testing.T) {
 	t.Setenv("TMPDIR", t.TempDir())
 	t.Setenv("ANKI_STORE_RECORD_WORKER", "1")
 	t.Setenv("ANKI_STORE_PID_FILE", pidFile)
-	store := New(Options{NewClient: fixtureFactory(ankigrpc.SubprocessAddress(os.Args[0], "-test.run=^TestStoreBackendLifecycle$"))})
+	store := New(Options{NewClient: fixtureFactory(ankigrpc.SubprocessAddress(os.Args[0], "-test.run=^TestStoreBackendLifecycle$")).NewClient})
 	for _, scenario := range []string{"success", "slow-publication", "error", "cancel", "panic", "crash"} {
 		t.Run(scenario, func(t *testing.T) {
 			ctx, cancel := context.WithCancelCause(t.Context())
@@ -251,7 +253,7 @@ func TestStoreBackendLifecycle(t *testing.T) {
 			var pid int
 			func() {
 				defer func() { recovered = recover() }()
-				scopeError = store.WithCollection(ctx, CollectionOptions{Path: archive, WriteBack: true}, func(connection grpc.ClientConnInterface) error {
+				scopeError = store.WithCollection(ctx, ankiascodeapi.ColOpenOptions{Path: archive, WriteBack: true}, func(connection grpc.ClientConnInterface) error {
 					retained = connection
 					pid = recordedWorkerPID(t, pidFile)
 					if _, err := state.New(connection, "").Dump(ctx); err != nil {
@@ -321,11 +323,11 @@ func TestStoreBackendLifecycle(t *testing.T) {
 			assertWorkerReaped(t, recordedWorkerPID(t, pidFile))
 		})
 	}
-	store.newClient = fixtureFactory(ankigrpc.SubprocessAddress(filepath.Join(t.TempDir(), "missing-worker"), "-test.run=^TestStoreBackendLifecycle$"))
+	store.newClient = fixtureFactory(ankigrpc.SubprocessAddress(filepath.Join(t.TempDir(), "missing-worker"), "-test.run=^TestStoreBackendLifecycle$")).NewClient
 	if _, err := readState(t.Context(), &store, archive, ""); !errors.Is(err, os.ErrNotExist) {
 		t.Fatalf("startup failure lost its cause: %v", err)
 	}
-	store.newClient = fixtureFactory(ankigrpc.SubprocessAddress(os.Args[0], "-test.run=^TestStoreBackendLifecycle$"))
+	store.newClient = fixtureFactory(ankigrpc.SubprocessAddress(os.Args[0], "-test.run=^TestStoreBackendLifecycle$")).NewClient
 	if _, err := readState(t.Context(), &store, archive, ""); err != nil {
 		t.Fatalf("startup failure retained its source reservation: %v", err)
 	}
@@ -371,12 +373,18 @@ func nativeSource(t *testing.T) (string, string) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	worker := ankiclient.NewClient(ankiclient.NewSTD(ankiclient.ClientSTDOptions{Binary: binary, Arguments: []string{"serve"}}))
+	worker := ankiclient.NewSTD(ankiclient.ClientSTDOptions{Binary: binary, Arguments: []string{"serve"}})
+	opened := false
 	defer func() {
 		cleanup, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 		defer cancel()
-		if err := worker.CloseCollection(cleanup); err != nil {
-			t.Error(err)
+		if opened {
+			connection, err := worker.Connection()
+			if err != nil {
+				t.Error(err)
+			} else if _, err := ankicol.NewBackendCollectionServiceClient(connection).CloseCollection(cleanup, &ankicol.CloseCollectionRequest{}); err != nil {
+				t.Error(err)
+			}
 		}
 		if err := worker.Stop(cleanup); err != nil {
 			t.Error(err)
@@ -386,13 +394,16 @@ func nativeSource(t *testing.T) (string, string) {
 	if err := worker.Start(ctx); err != nil {
 		t.Fatal(err)
 	}
-	if err := worker.OpenCollection(ctx, ankiclient.CollectionOptions{Path: database}); err != nil {
-		t.Fatal(err)
-	}
 	connection, err := worker.Connection()
 	if err != nil {
 		t.Fatal(err)
 	}
+	if _, err := ankicol.NewBackendCollectionServiceClient(connection).OpenCollection(ctx, &ankicol.OpenCollectionRequest{
+		CollectionPath: database, MediaFolderPath: filepath.Join(filepath.Dir(database), "collection.media"), MediaDbPath: filepath.Join(filepath.Dir(database), "collection.media.db2"),
+	}); err != nil {
+		t.Fatal(err)
+	}
+	opened = true
 	definition, err := notetypes.NewNotetypesServiceClient(connection).AddNotetype(ctx, &notetypes.Notetype{
 		Name: "Example", Config: &notetypes.Notetype_Config{},
 		Fields: []*notetypes.Notetype_Field{
@@ -412,13 +423,14 @@ func nativeSource(t *testing.T) (string, string) {
 	if _, err := import_export.NewBackendImportExportServiceClient(connection).ExportCollectionPackage(ctx, &import_export.ExportCollectionPackageRequest{OutPath: archive, IncludeMedia: true}); err != nil {
 		t.Fatal(err)
 	}
+	opened = false
 	return database, archive
 }
 
 // readState observes persisted state through a native collection scope.
 func readState(ctx context.Context, store *Store, path, key string) (*ankiascodepb.State, error) {
 	var value *ankiascodepb.State
-	if err := store.WithCollection(ctx, CollectionOptions{Path: path, WriteBack: true}, func(connection grpc.ClientConnInterface) error {
+	if err := store.WithCollection(ctx, ankiascodeapi.ColOpenOptions{Path: path, WriteBack: true}, func(connection grpc.ClientConnInterface) error {
 		var err error
 		value, err = state.New(connection, key).Dump(ctx)
 		if err != nil {
@@ -467,7 +479,7 @@ func TestStoreServices(t *testing.T) {
 			key := "scoped-state"
 			expected := &ankiascodepb.State{Version: 1, Resources: &ankiascodepb.Resources{Presets: map[string]*ankiascodepb.PresetState{"first": {Id: 1}}}}
 			var retained grpc.ClientConnInterface
-			if err := store.WithCollection(ctx, CollectionOptions{Path: input, WriteBack: true}, func(connection grpc.ClientConnInterface) error {
+			if err := store.WithCollection(ctx, ankiascodeapi.ColOpenOptions{Path: input, WriteBack: true}, func(connection grpc.ClientConnInterface) error {
 				retained = connection
 				resources, states := resource.New(connection), state.New(connection, key)
 				exporter := export.New(resources, states, filesystem.FS{})
@@ -541,7 +553,7 @@ func TestStoreReservations(t *testing.T) {
 	if err := os.Link(archive, hardlink); err != nil {
 		t.Fatal(err)
 	}
-	if err := store.WithCollection(ctx, CollectionOptions{Path: archive, WriteBack: true}, func(connection grpc.ClientConnInterface) error {
+	if err := store.WithCollection(ctx, ankiascodeapi.ColOpenOptions{Path: archive, WriteBack: true}, func(connection grpc.ClientConnInterface) error {
 		for _, path := range []string{archive, symlink, hardlink} {
 			if _, err := readState(ctx, store, path, ""); err == nil {
 				return fmt.Errorf("reserved source alias %q was reopened", path)
@@ -563,7 +575,7 @@ func TestStoreFailurePublication(t *testing.T) {
 		store := fixtureStore(t)
 		ctx, cancel := context.WithCancel(t.Context())
 		failure := errors.New("scope failed after native mutation")
-		err := store.WithCollection(ctx, CollectionOptions{Path: archive, WriteBack: true}, func(connection grpc.ClientConnInterface) error {
+		err := store.WithCollection(ctx, ankiascodeapi.ColOpenOptions{Path: archive, WriteBack: true}, func(connection grpc.ClientConnInterface) error {
 			value := &ankiascodepb.State{Version: 1, Resources: &ankiascodepb.Resources{Presets: map[string]*ankiascodepb.PresetState{"discarded": {Id: 1}}}}
 			if _, err := state.New(connection, "").Replace(ctx, value); err != nil {
 				return fmt.Errorf("mutate restored collection: %w", err)
@@ -595,7 +607,7 @@ func TestStoreExplicitExport(t *testing.T) {
 	store := fixtureStore(t)
 	ctx := t.Context()
 	output := filepath.Join(t.TempDir(), "result.colpkg")
-	if err := store.WithCollection(ctx, CollectionOptions{Path: archive, WriteBack: true}, func(connection grpc.ClientConnInterface) error {
+	if err := store.WithCollection(ctx, ankiascodeapi.ColOpenOptions{Path: archive, WriteBack: true}, func(connection grpc.ClientConnInterface) error {
 		value := &ankiascodepb.State{Version: 1, Resources: &ankiascodepb.Resources{Presets: map[string]*ankiascodepb.PresetState{"output": {Id: 1}}}}
 		if _, err := state.New(connection, "").Replace(ctx, value); err != nil {
 			return fmt.Errorf("write explicit output state: %w", err)

@@ -24,16 +24,16 @@ import (
 var ankiWorkerRunfile = flag.String("anki-worker", "", "offline Anki WASM worker runfile")
 
 // offlineClient selects the production guest's process or in-memory transport.
-func offlineClient(t *testing.T) ankiclient.Client {
+func offlineClient(t *testing.T) ankiclient.StartableClient {
 	t.Helper()
 	if os.Getenv("ANKI_INPROCESS_WASM") == "true" {
-		return ankiclient.NewClient(wasmadapter.New())
+		return wasmadapter.New()
 	}
 	path, err := runfiles.Rlocation(*ankiWorkerRunfile)
 	if err != nil {
 		t.Fatalf("resolve offline Anki worker: %v", err)
 	}
-	return ankiclient.NewClient(ankiclient.NewSTD(ankiclient.ClientSTDOptions{Binary: path, Arguments: []string{"serve"}}))
+	return ankiclient.NewSTD(ankiclient.ClientSTDOptions{Binary: path, Arguments: []string{"serve"}})
 }
 
 // TestOfflineAnki rejects network operations without damaging local collection access.

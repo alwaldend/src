@@ -10,5 +10,7 @@
 // Rooted paths use a canonical relative spelling, and link targets resolve each
 // component before applying parent traversal. Temporary files retain virtual names
 // independently of their backing file handles.
+// Configuration callers can use the same component traversal while rejecting links,
+// including links followed by parent components that would disappear under lexical cleanup.
 // Callers own file contents, synchronization, native storage and publication policy.
 package filesystem

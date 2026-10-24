@@ -26,8 +26,8 @@ type Factory struct {
 
 // defaultFactory supplies built-in network constructors and opt-in package registrations.
 var defaultFactory = &Factory{constructors: map[string]ClientFactory{
-	"tcp":  ClientFactoryFunc[*ankiclient.ClientGRPC](ankiclient.NewGRPC),
-	"unix": ClientFactoryFunc[*ankiclient.ClientGRPC](ankiclient.NewGRPC),
+	"tcp":  ToClientFactory(ankiclient.NewGRPC),
+	"unix": ToClientFactory(ankiclient.NewGRPC),
 }}
 
 // NewFactory snapshots built-in and opt-in package registrations. Subsequent
@@ -50,8 +50,7 @@ func RegisterClientFactory(scheme string, factory ClientFactory) {
 // other factories. Invalid schemes, nil functions and duplicates panic.
 func (factory *Factory) RegisterClientFactory(scheme string, constructor ClientFactory) {
 	parsed, err := url.Parse(scheme + ":")
-	function, isFunction := constructor.(interface{ isNil() bool })
-	if constructor == nil || isFunction && function.isNil() || err != nil || scheme == "" || parsed.Scheme != scheme {
+	if constructor == nil || err != nil || scheme == "" || parsed.Scheme != scheme {
 		panic(fmt.Sprintf("register Anki client factory: invalid scheme or factory %q", scheme))
 	}
 	factory.mutex.Lock()
@@ -65,7 +64,7 @@ func (factory *Factory) RegisterClientFactory(scheme string, constructor ClientF
 // NewClient constructs an unstarted client through the package default factory.
 // Empty addresses fail because the library owns no default worker entrypoint.
 // The caller owns startup and cleanup of the returned client.
-func NewClient(address string) (ankiclient.Client, error) {
+func NewClient(address string) (ankiclient.StartableClient, error) {
 	client, err := defaultFactory.NewClient(address)
 	if err != nil {
 		return nil, fmt.Errorf("construct default Anki client: %w", err)
@@ -76,7 +75,7 @@ func NewClient(address string) (ankiclient.Client, error) {
 // NewClient selects a constructor, substituting this factory's configured default
 // only for empty input. Constructors receive the selected address unchanged.
 // No client is started by routing.
-func (factory *Factory) NewClient(address string) (ankiclient.Client, error) {
+func (factory *Factory) NewClient(address string) (ankiclient.StartableClient, error) {
 	if address == "" {
 		address = factory.defaultAddress
 	}
@@ -90,7 +89,7 @@ func (factory *Factory) NewClient(address string) (ankiclient.Client, error) {
 	if constructor == nil {
 		return nil, fmt.Errorf("Anki client scheme %q is unavailable; its owner must register a client factory", scheme)
 	}
-	client, err := constructor.NewClient(address)
+	client, err := constructor(address)
 	if err != nil {
 		return nil, fmt.Errorf("construct Anki client for scheme %q: %w", scheme, err)
 	}

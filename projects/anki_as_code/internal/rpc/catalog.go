@@ -132,17 +132,17 @@ func Prepare(method Method, input []byte, inputFormat, outputFormat string) (fun
 			input = []byte("{}")
 		}
 	}
-	if err := codec.Decode(input, codec.Format(inputFormat), request); err != nil {
+	if err := codec.Decode(input, inputFormat, request); err != nil {
 		return nil, fmt.Errorf("decode %s request: %w", method.Path, err)
 	}
-	if _, err := codec.Encode(response, codec.Format(outputFormat)); err != nil {
+	if _, err := codec.Encode(response, outputFormat); err != nil {
 		return nil, fmt.Errorf("validate %s response format: %w", method.Path, err)
 	}
 	return func(ctx context.Context, connection grpc.ClientConnInterface) ([]byte, error) {
 		if err := connection.Invoke(ctx, method.Path, request, response); err != nil {
 			return nil, fmt.Errorf("invoke Anki %s: %w", method.Path, err)
 		}
-		output, err := codec.Encode(response, codec.Format(outputFormat))
+		output, err := codec.Encode(response, outputFormat)
 		if err != nil {
 			return nil, fmt.Errorf("encode %s response: %w", method.Path, err)
 		}

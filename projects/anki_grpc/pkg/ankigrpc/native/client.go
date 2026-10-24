@@ -9,7 +9,7 @@ import (
 
 // init registers direct native constructors without initializing backend state.
 func init() {
-	factory := ankigrpc.ClientFactoryFunc[*Client](newInprocessClient)
+	factory := ankigrpc.ToClientFactory(newInprocessClient)
 	ankigrpc.RegisterClientFactory("inprocess", factory)
 	ankigrpc.RegisterClientFactory("inprocess+cgo", factory)
 }

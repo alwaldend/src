@@ -1,14 +1,20 @@
 package cli
 
 import (
+	"context"
 	"fmt"
 
-	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodeapi"
 	"github.com/spf13/cobra"
 )
 
-// newMCPCommand delegates protocol hosting to the injected MCP interface.
-func newMCPCommand(protocol ankiascodeapi.MCP) *cobra.Command {
+// mcpServer supplies the protocol operations used by MCP commands.
+type mcpServer interface {
+	// Serve hosts protocol requests until disconnect or cancellation.
+	Serve(ctx context.Context) error
+}
+
+// newMCPCommand delegates protocol hosting to the supplied server.
+func newMCPCommand(protocol mcpServer) *cobra.Command {
 	command := &cobra.Command{
 		Use: "mcp", Short: "Expose workflows and native Anki API tools over MCP", Args: cobra.NoArgs,
 		RunE: func(*cobra.Command, []string) error { return fmt.Errorf("mcp requires the serve subcommand") },

@@ -4,7 +4,6 @@ import (
 	"errors"
 	"os"
 	"path/filepath"
-	"strings"
 	"testing"
 
 	ankiascodeapi "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodeapi"
@@ -14,6 +13,52 @@ import (
 	"github.com/spf13/afero"
 	"google.golang.org/protobuf/proto"
 )
+
+// TestConfigurationParentTraversal preserves export traversal and rejects linked config inputs.
+func TestConfigurationParentTraversal(t *testing.T) {
+	for _, namespace := range []string{"host", "rooted"} {
+		t.Run(namespace, func(t *testing.T) {
+			root := t.TempDir()
+			if err := os.MkdirAll(filepath.Join(root, "other", "deep"), 0o755); err != nil {
+				t.Fatal(err)
+			}
+			if err := os.Symlink("other/deep", filepath.Join(root, "redirect")); err != nil {
+				t.Fatal(err)
+			}
+			storage := afero.Fs(afero.NewOsFs())
+			prefix := root + string(filepath.Separator)
+			if namespace == "rooted" {
+				storage = afero.NewBasePathFs(storage, root)
+				prefix = ""
+			}
+			application := New(Options{FS: storage})
+			configs := &ankiascodepb.CollectionConfigSet{Config: &ankiascodepb.CollectionConfig{Version: 1}}
+			// Concatenation preserves the unresolved parent component in the public input.
+			if err := application.ConfigExport(t.Context(), prefix+"redirect/../export", configs); err != nil {
+				t.Fatal(err)
+			}
+			intended := filepath.Join(root, "other", "export", "collection.anki.toml")
+			data, err := os.ReadFile(intended)
+			if err != nil {
+				t.Fatalf("configuration export selected the wrong directory: %v", err)
+			}
+			if _, err := os.Stat(filepath.Join(root, "export")); !errors.Is(err, os.ErrNotExist) {
+				t.Fatalf("configuration export wrote the lexical destination: %v", err)
+			}
+			if err := application.ConfigExport(t.Context(), prefix+"export", configs); err != nil {
+				t.Fatal(err)
+			}
+			if _, err := application.ConfigDump(t.Context(), prefix+"redirect/../export", "json"); err == nil {
+				t.Fatal("configuration loading silently discarded a symlink-parent traversal")
+			}
+			if artifacts := os.Getenv("TEST_UNDECLARED_OUTPUTS_DIR"); artifacts != "" {
+				if err := os.WriteFile(filepath.Join(artifacts, "parent-traversal-"+namespace+".toml"), data, 0o600); err != nil {
+					t.Fatal(err)
+				}
+			}
+		})
+	}
+}
 
 // TestBasePathConfigurationBoundary keeps config roots and declared files inside injected storage.
 func TestBasePathConfigurationBoundary(t *testing.T) {
@@ -139,33 +184,6 @@ func TestBasePathExportBoundary(t *testing.T) {
 	}
 }
 
-// TestInjectedExportSourceConflict rejects state output aliasing a source before backend startup.
-func TestInjectedExportSourceConflict(t *testing.T) {
-	for _, source := range []string{"/collection.anki2", "collection.anki2"} {
-		t.Run(source, func(t *testing.T) {
-			storage := afero.NewMemMapFs()
-			original := []byte("collection source must remain unchanged")
-			if err := afero.WriteFile(storage, source, original, 0o600); err != nil {
-				t.Fatal(err)
-			}
-			application := New(Options{FS: storage})
-			output := filepath.Join(filepath.Dir(source), "configuration")
-			stateOutput := filepath.Join(filepath.Dir(source), "unused", "..", filepath.Base(source))
-			err := application.ColExport(t.Context(), ankiascodeapi.CollectionOptions{Path: source}, output, stateOutput)
-			if err == nil || !strings.Contains(err.Error(), "state output must be a regular file distinct from the source collection") {
-				t.Fatalf("source conflict reached backend startup: %v", err)
-			}
-			data, err := afero.ReadFile(storage, source)
-			if err != nil || string(data) != string(original) {
-				t.Fatalf("source conflict changed collection: %q %v", data, err)
-			}
-			if _, err := storage.Stat(output); !errors.Is(err, os.ErrNotExist) {
-				t.Fatalf("source conflict wrote config output: %v", err)
-			}
-		})
-	}
-}
-
 // TestInjectedOverlayConfiguration merges base and overlay files while retaining base contents.
 func TestInjectedOverlayConfiguration(t *testing.T) {
 	base, layer := afero.NewMemMapFs(), afero.NewMemMapFs()
@@ -267,7 +285,7 @@ func TestInjectedConfigurationWorkflow(t *testing.T) {
 						t.Fatal(err)
 					}
 					actual := &ankiascodepb.CollectionConfigSet{}
-					if err := codec.Decode(data, codec.Format(format), actual); err != nil || !proto.Equal(actual, expected) {
+					if err := codec.Decode(data, format, actual); err != nil || !proto.Equal(actual, expected) {
 						t.Fatalf("%s dump differs: %v\n%v", format, err, actual)
 					}
 					if artifacts := os.Getenv("TEST_UNDECLARED_OUTPUTS_DIR"); artifacts != "" {

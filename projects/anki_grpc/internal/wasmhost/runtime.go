@@ -59,7 +59,7 @@ func RunCommand(ctx context.Context, arguments []string, guest []byte, stdin io.
 	}()
 	host := newHostIO(ctx, stdin, stdout, stderr, cacheError)
 	defer func() {
-		if closeErr := host.Close(); closeErr != nil {
+		if closeErr := host.closeAll(); closeErr != nil {
 			err = errors.Join(err, fmt.Errorf("close Anki host streams: %w", closeErr))
 		}
 	}()

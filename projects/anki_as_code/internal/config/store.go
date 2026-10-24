@@ -44,16 +44,16 @@ func (store *Store) Load() (*ankiascodepb.CollectionConfigSet, error) {
 // JSON is the default; TOML is also supported.
 func (store *Store) Dump(format string) ([]byte, error) {
 	if format == "" {
-		format = string(codec.JSON)
+		format = codec.JSON
 	}
-	if codec.Format(format) != codec.JSON && codec.Format(format) != codec.TOML {
+	if format != codec.JSON && format != codec.TOML {
 		return nil, fmt.Errorf("unsupported configuration format %q; use json or toml", format)
 	}
 	configs, err := store.Load()
 	if err != nil {
 		return nil, fmt.Errorf("load configuration set: %w", err)
 	}
-	data, err := codec.Encode(configs, codec.Format(format))
+	data, err := codec.Encode(configs, format)
 	if err != nil {
 		return nil, fmt.Errorf("encode configuration set: %w", err)
 	}

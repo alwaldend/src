@@ -133,20 +133,20 @@ func TestStateWorkflow(t *testing.T) {
 	if changed, err := independent.Replace(ctx, patch); err != nil || !changed {
 		t.Fatalf("independent namespace: %v %v", changed, err)
 	}
-	for _, format := range []codec.Format{codec.TOML, codec.JSON} {
-		dumped := runStateCLI(t, connection, open, "", true, nil, "dump", "--format", string(format))
+	for _, format := range []string{codec.TOML, codec.JSON} {
+		dumped := runStateCLI(t, connection, open, "", true, nil, "dump", "--format", format)
 		value := &ankiascodepb.State{}
 		if err := codec.Decode(dumped, format, value); err != nil || !proto.Equal(value, stored) {
 			t.Fatalf("CLI dump %s: %v", format, err)
 		}
-		runStateCLI(t, connection, open, "", true, dumped, "replace", "--format", string(format), "-")
-		file := filepath.Join(t.TempDir(), "state.anki."+string(format))
+		runStateCLI(t, connection, open, "", true, dumped, "replace", "--format", format, "-")
+		file := filepath.Join(t.TempDir(), "state.anki."+format)
 		if err := os.WriteFile(file, dumped, 0o600); err != nil {
 			t.Fatal(err)
 		}
-		runStateCLI(t, connection, open, "", true, nil, "update", "--format", string(format), file)
+		runStateCLI(t, connection, open, "", true, nil, "update", "--format", format, file)
 		if output := os.Getenv("TEST_UNDECLARED_OUTPUTS_DIR"); output != "" {
-			if err := os.WriteFile(filepath.Join(output, "state.anki."+string(format)), dumped, 0o600); err != nil {
+			if err := os.WriteFile(filepath.Join(output, "state.anki."+format), dumped, 0o600); err != nil {
 				t.Fatal(err)
 			}
 		}

@@ -44,7 +44,7 @@ func regularPath(storage filesystem.FS, path string) error {
 
 // collectionConfig resolves a root config file from a file or directory input.
 func collectionConfig(storage filesystem.FS, input string) (string, error) {
-	path, err := storage.ExpandPath(input)
+	path, err := storage.ResolvePathWithoutLinks(input, true)
 	if err != nil {
 		return "", fmt.Errorf("resolve collection path: %w", err)
 	}

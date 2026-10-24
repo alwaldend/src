@@ -222,8 +222,8 @@ func (host *hostIO) close(handle uint32) {
 	}
 }
 
-// Close releases every retained socket and interrupts blocked host stream pumps.
-func (host *hostIO) Close() error {
+// closeAll releases every retained socket and interrupts blocked host stream pumps.
+func (host *hostIO) closeAll() error {
 	for handle := range host.handles {
 		host.close(handle)
 	}

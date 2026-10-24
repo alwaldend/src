@@ -10,8 +10,12 @@ with schema-backed discovery and the existing collection persistence guarantees.
 The executable SHALL provide `mcp serve` over stdin/stdout. Protocol discovery
 SHALL work without an Anki backend or collection. Stdout SHALL contain only MCP
 messages; command errors SHALL use stderr and a nonzero exit status. CLI SHALL
-receive independent App and MCP interfaces. The MCP server SHALL receive App for
-its tools, and App SHALL NOT depend on MCP hosting.
+receive App and a concrete MCP server supplied by mcp.New(app). CLI SHALL define
+its private mcpServer interface with Serve(context.Context) error for the existing
+command group; it SHALL NOT export that interface or add it to ankiascodeapi.
+CLI SHALL forward command context, reject an unconfigured MCP
+dependency and preserve hosting error causes. The MCP server SHALL receive App
+for its tools, and App SHALL NOT depend on MCP hosting.
 
 #### Scenario: Discover an installed server
 

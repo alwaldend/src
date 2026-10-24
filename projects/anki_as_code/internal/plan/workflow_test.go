@@ -22,6 +22,7 @@ import (
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/state"
 	"git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/ankiclient"
 	"github.com/ankitects/anki/proto/anki/cards"
+	"github.com/ankitects/anki/proto/anki/collection"
 	"github.com/ankitects/anki/proto/anki/decks"
 	"github.com/ankitects/anki/proto/anki/import_export"
 	"github.com/ankitects/anki/proto/anki/notes"
@@ -39,12 +40,16 @@ func TestPlanningWorkflow(t *testing.T) {
 		t.Fatal(err)
 	}
 	database := filepath.Join(t.TempDir(), "collection.anki2")
-	worker := ankiclient.NewClient(ankiclient.NewSTD(ankiclient.ClientSTDOptions{Binary: binary, Arguments: []string{"serve"}}))
+	worker := ankiclient.NewSTD(ankiclient.ClientSTDOptions{Binary: binary, Arguments: []string{"serve"}})
+	var collections collection.BackendCollectionServiceClient
+	opened := false
 	t.Cleanup(func() {
 		cleanup, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 		defer cancel()
-		if err := worker.CloseCollection(cleanup); err != nil {
-			t.Error(err)
+		if opened {
+			if _, err := collections.CloseCollection(cleanup, &collection.CloseCollectionRequest{}); err != nil {
+				t.Error(err)
+			}
 		}
 		if err := worker.Stop(cleanup); err != nil {
 			t.Error(err)
@@ -53,13 +58,21 @@ func TestPlanningWorkflow(t *testing.T) {
 	if err := worker.Start(ctx); err != nil {
 		t.Fatal(err)
 	}
-	if err := worker.OpenCollection(ctx, ankiclient.CollectionOptions{Path: database}); err != nil {
-		t.Fatal(err)
-	}
 	connection, err := worker.Connection()
 	if err != nil {
 		t.Fatal(err)
 	}
+	collections = collection.NewBackendCollectionServiceClient(connection)
+	mediaDirectory := filepath.Join(filepath.Dir(database), "collection.media")
+	if err := os.MkdirAll(mediaDirectory, 0o700); err != nil {
+		t.Fatal(err)
+	}
+	if _, err := collections.OpenCollection(ctx, &collection.OpenCollectionRequest{
+		CollectionPath: database, MediaFolderPath: mediaDirectory, MediaDbPath: mediaDirectory + ".db2",
+	}); err != nil {
+		t.Fatal(err)
+	}
+	opened = true
 	resources := resource.New(connection)
 	states := state.New(connection, "planning-test")
 	created, err := resources.NoteTypes.AddNotetype(ctx, &notetypes.Notetype{
@@ -252,9 +265,14 @@ func TestPlanningWorkflow(t *testing.T) {
 		if _, err := import_export.NewBackendImportExportServiceClient(connection).ExportCollectionPackage(ctx, &import_export.ExportCollectionPackageRequest{OutPath: filepath.Join(output, "planning.colpkg")}); err != nil {
 			t.Fatal(err)
 		}
+		opened = false
 	}
-	if err := worker.CloseCollection(ctx); err != nil {
-		t.Fatal(err)
+	if opened {
+		_, err := collections.CloseCollection(ctx, &collection.CloseCollectionRequest{})
+		opened = false
+		if err != nil {
+			t.Fatal(err)
+		}
 	}
 	if err := worker.Stop(ctx); err != nil {
 		t.Fatal(err)

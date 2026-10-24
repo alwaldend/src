@@ -11,6 +11,7 @@ import (
 
 	"git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/ankiclient"
 	"github.com/ankitects/anki/proto/anki/cards"
+	"github.com/ankitects/anki/proto/anki/collection"
 	"github.com/ankitects/anki/proto/anki/decks"
 	"github.com/ankitects/anki/proto/anki/import_export"
 	"github.com/ankitects/anki/proto/anki/notes"
@@ -28,12 +29,17 @@ func TestResourceWorkflow(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	worker := ankiclient.NewClient(ankiclient.NewSTD(ankiclient.ClientSTDOptions{Binary: binary, Arguments: []string{"serve"}}))
+	directory := t.TempDir()
+	worker := ankiclient.NewSTD(ankiclient.ClientSTDOptions{Binary: binary, Arguments: []string{"serve"}})
+	var collections collection.BackendCollectionServiceClient
+	opened := false
 	t.Cleanup(func() {
 		cleanup, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 		defer cancel()
-		if err := worker.CloseCollection(cleanup); err != nil {
-			t.Error(err)
+		if opened {
+			if _, err := collections.CloseCollection(cleanup, &collection.CloseCollectionRequest{}); err != nil {
+				t.Error(err)
+			}
 		}
 		if err := worker.Stop(cleanup); err != nil {
 			t.Error(err)
@@ -42,13 +48,19 @@ func TestResourceWorkflow(t *testing.T) {
 	if err := worker.Start(ctx); err != nil {
 		t.Fatal(err)
 	}
-	if err := worker.OpenCollection(ctx, ankiclient.CollectionOptions{Path: filepath.Join(t.TempDir(), "collection.anki2")}); err != nil {
-		t.Fatal(err)
-	}
 	connection, err := worker.Connection()
 	if err != nil {
 		t.Fatal(err)
 	}
+	collections = collection.NewBackendCollectionServiceClient(connection)
+	if _, err := collections.OpenCollection(ctx, &collection.OpenCollectionRequest{
+		CollectionPath:  filepath.Join(directory, "collection.anki2"),
+		MediaFolderPath: filepath.Join(directory, "collection.media"),
+		MediaDbPath:     filepath.Join(directory, "collection.media.db2"),
+	}); err != nil {
+		t.Fatal(err)
+	}
+	opened = true
 	store := New(connection)
 	created, err := store.NoteTypes.AddNotetype(ctx, &notetypes.Notetype{
 		Name: "Shared", Config: &notetypes.Notetype_Config{Css: ".card { color: blue; }"},
@@ -66,7 +78,7 @@ func TestResourceWorkflow(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	ids, err := store.Search.SearchCards(ctx, &search.SearchRequest{})
+	ids, err := store.search.SearchCards(ctx, &search.SearchRequest{})
 	if err != nil || len(ids.GetIds()) != 1 {
 		t.Fatalf("native card generation: %v", err)
 	}
@@ -128,5 +140,6 @@ func TestResourceWorkflow(t *testing.T) {
 		if _, err := import_export.NewBackendImportExportServiceClient(connection).ExportCollectionPackage(ctx, &import_export.ExportCollectionPackageRequest{OutPath: filepath.Join(output, "resources.colpkg")}); err != nil {
 			t.Fatal(err)
 		}
+		opened = false
 	}
 }

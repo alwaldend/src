@@ -32,20 +32,6 @@ func (storage FS) backend() afero.Fs {
 	return storage.storage
 }
 
-// ExpandPath expands host notation only for OS storage and canonicalizes rooted virtual names.
-// BasePathFs treats leading separators as virtual roots, so those paths share one relative form.
-func (storage FS) ExpandPath(input string) (string, error) {
-	path, err := storage.expandPath(input)
-	if err != nil {
-		return "", fmt.Errorf("expand path %q: %w", input, err)
-	}
-	path = filepath.Clean(path)
-	if _, rooted := storage.backend().(*afero.BasePathFs); rooted && !filepath.IsLocal(path) {
-		return "", fmt.Errorf("path %q leaves the filesystem base: %w", input, os.ErrPermission)
-	}
-	return path, nil
-}
-
 // expandPath translates host notation and rooted names without cleaning unresolved components.
 func (storage FS) expandPath(input string) (string, error) {
 	if _, rooted := storage.backend().(*afero.BasePathFs); rooted {
@@ -106,6 +92,25 @@ func (storage FS) lstat(path string) (os.FileInfo, error) {
 // ResolvePath follows aliases in supplied storage, optionally retaining nonexistent components.
 // Link targets are processed component by component: a parent component applies after preceding links.
 func (storage FS) ResolvePath(input string, allowMissing bool) (string, error) {
+	path, err := storage.resolvePath(input, allowMissing, false)
+	if err != nil {
+		return "", fmt.Errorf("resolve filesystem path %q: %w", input, err)
+	}
+	return path, nil
+}
+
+// ResolvePathWithoutLinks resolves components in order while rejecting every encountered symbolic link.
+// Missing components may be retained for virtual parent normalization before callers inspect the result.
+func (storage FS) ResolvePathWithoutLinks(input string, allowMissing bool) (string, error) {
+	path, err := storage.resolvePath(input, allowMissing, true)
+	if err != nil {
+		return "", fmt.Errorf("resolve unlinked filesystem path %q: %w", input, err)
+	}
+	return path, nil
+}
+
+// resolvePath shares component traversal for alias-following and link-rejecting callers.
+func (storage FS) resolvePath(input string, allowMissing, rejectLinks bool) (string, error) {
 	path, err := storage.expandPath(input)
 	if err != nil {
 		return "", fmt.Errorf("expand filesystem path: %w", err)
@@ -131,6 +136,9 @@ func (storage FS) ResolvePath(input string, allowMissing bool) (string, error) {
 			return "", fmt.Errorf("resolve filesystem path %q: %w", path, err)
 		}
 		if info.Mode()&os.ModeSymlink != 0 {
+			if rejectLinks {
+				return "", fmt.Errorf("symlink in filesystem path %q", path)
+			}
 			links++
 			if links > 255 {
 				return "", fmt.Errorf("too many symlinks resolving filesystem path %q", input)

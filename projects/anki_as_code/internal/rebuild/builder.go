@@ -93,11 +93,13 @@ func resolveDestination(storage filesystem.FS, output string) (string, error) {
 	if !errors.Is(err, os.ErrNotExist) {
 		return "", fmt.Errorf("resolve output aliases: %w", err)
 	}
-	parent, err := storage.ResolvePath(filepath.Dir(output), false)
+	// Split retains unresolved parent components and the final dangling-link entry.
+	directory, name := filepath.Split(output)
+	parent, err := storage.ResolvePath(directory, false)
 	if err != nil {
 		return "", fmt.Errorf("resolve output parent: %w", err)
 	}
-	return filepath.Join(parent, filepath.Base(output)), nil
+	return filepath.Join(parent, name), nil
 }
 
 // copyArchive streams a source package into a new staging file and reports close errors.

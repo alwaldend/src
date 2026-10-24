@@ -14,7 +14,7 @@ import (
 // Callers own validation and unique, representable paths. Declared files are
 // overwritten; other files are untouched. Failures may leave partial output.
 func Export(storage filesystem.FS, configs *ankiascodepb.CollectionConfigSet, output string) error {
-	output, err := storage.ExpandPath(output)
+	output, err := storage.ResolvePath(output, true)
 	if err != nil {
 		return fmt.Errorf("resolve configuration output: %w", err)
 	}

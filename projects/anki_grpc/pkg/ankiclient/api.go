@@ -18,41 +18,19 @@ import (
 	"google.golang.org/grpc/metadata"
 )
 
-// Transport supplies startup, RPC access and shutdown for one server connection.
-// Implementations own process, network or in-process resources, not collection storage.
-type Transport interface {
+// Client supplies RPC access and shutdown for resources owned by its implementation.
+type Client interface {
+	// Connection lends ready RPC access.
+	Connection() (grpc.ClientConnInterface, error)
+	// Stop requests shutdown of resources owned by the client.
+	Stop(ctx context.Context) error
+}
+
+// StartableClient adds explicit transport startup to Client.
+type StartableClient interface {
+	Client
 	// Start prepares the transport; ctx controls startup only.
 	Start(ctx context.Context) error
-	// Connection lends the ready RPC transport.
-	Connection() (grpc.ClientConnInterface, error)
-	// Stop rejects access and bounds graceful transport shutdown with ctx.
-	Stop(ctx context.Context) error
-}
-
-// Client owns a transport and optional native collection state through one lifecycle.
-// Factories return clients before Start. Collection operations reuse that client;
-// CloseCollection keeps its transport running, while Stop releases both resources.
-type Client interface {
-	// Start prepares the transport once; ctx controls startup only.
-	Start(ctx context.Context) error
-	// Connection lends collection access when one is open, or raw transport access otherwise.
-	Connection() (grpc.ClientConnInterface, error)
-	// OpenCollection opens storage on the ready transport using a copied options value.
-	OpenCollection(ctx context.Context, options CollectionOptions) error
-	// CloseCollection publishes enabled archives and closes storage without stopping the transport.
-	CloseCollection(ctx context.Context) error
-	// Stop initiates bounded cleanup once; ctx bounds this caller's wait.
-	Stop(ctx context.Context) error
-	// Done closes after terminal transport cleanup and outstanding native work finish.
-	Done() <-chan struct{}
-}
-
-// AsyncClient observes final completion of transports whose Stop can return early.
-// Callers retain source reservations until Done closes, including after an error.
-type AsyncClient interface {
-	Transport
-	// Done closes after all owned resources and active native work are released.
-	Done() <-chan struct{}
 }
 
 // ClientSTDOptions configures the process and shutdown policy used by NewSTD.
@@ -88,6 +66,8 @@ type ClientSTD struct {
 	pipes *pipeConn
 	// done closes after Wait stores the child's exit result.
 	done chan struct{}
+	// cleanupDone closes after Stop releases transport resources and reaps any child.
+	cleanupDone chan struct{}
 	// exitError is read only after done closes.
 	exitError error
 	// stopped rejects calls once shutdown begins, including before Start.
@@ -105,7 +85,7 @@ func NewSTD(options ClientSTDOptions) *ClientSTD {
 	if options.ShutdownTimeout == 0 {
 		options.ShutdownTimeout = 5 * time.Second
 	}
-	return &ClientSTD{options: options}
+	return &ClientSTD{options: options, cleanupDone: make(chan struct{})}
 }
 
 // Start launches the configured server and waits for gRPC readiness.
@@ -264,7 +244,11 @@ func (backend *ClientSTD) Stop(ctx context.Context) error {
 	backend.stopOnce.Do(func() {
 		backend.lifecycle.Lock()
 		backend.stopped.Store(true)
+		if backend.cleanupDone == nil {
+			backend.cleanupDone = make(chan struct{})
+		}
 		backend.lifecycle.Unlock()
+		defer close(backend.cleanupDone)
 		if backend.command == nil {
 			return
 		}
@@ -284,4 +268,15 @@ func (backend *ClientSTD) Stop(ctx context.Context) error {
 		}
 	})
 	return backend.stopError
+}
+
+// Done observes complete process and transport cleanup, including failed or unattempted startup.
+// It returns the same channel before Start and after Stop so clients can retain ownership evidence.
+func (backend *ClientSTD) Done() <-chan struct{} {
+	backend.lifecycle.Lock()
+	defer backend.lifecycle.Unlock()
+	if backend.cleanupDone == nil {
+		backend.cleanupDone = make(chan struct{})
+	}
+	return backend.cleanupDone
 }

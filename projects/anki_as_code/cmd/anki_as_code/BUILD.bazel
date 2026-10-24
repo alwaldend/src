@@ -123,6 +123,8 @@ alias(
             "ANKI_TEST_CGO": "true" if cgo else "false",
             "ANKI_TEST_WASM": "true" if wasm else "false",
         },
+        # Keep the complete WASM CLI workflow within each shard's normal timeout.
+        shard_count = 2 if wasm and not cgo else 0,
         deps = [
             "//projects/anki_as_code/api/ankiascodeapi",
             "//projects/anki_as_code/api/ankiascodepb",
@@ -132,6 +134,7 @@ alias(
             "//projects/anki_grpc/pkg/ankiclient",
             "//projects/anki_grpc/pkg/ankigrpc",
             "//projects/anki_grpc/pkg/ankigrpc/native",
+            "//third_party/com_github_ankitects_anki:collection",
             "//third_party/com_github_ankitects_anki:import_export",
             "@com_github_modelcontextprotocol_go_sdk//mcp",
             "@org_golang_google_grpc//:grpc",

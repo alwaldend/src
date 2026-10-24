@@ -17,8 +17,8 @@ features from the separate deferred change.
 ## Decisions
 
 - Add private `internal/mcp` and a Cobra `mcp serve` command. The entry point
-  constructs an MCP Server with App, then injects separate ankiascodeapi.App and
-  ankiascodeapi.MCP dependencies into CLI. The command calls MCP.Serve; protocol
+  constructs an MCP Server with App, then passes App and that concrete server
+  into CLI. CLI owns a private mcpServer interface and calls Serve; protocol
   tools call App. App has no dependency on the protocol host. The SDK owns stdio
   transport and the command supplies cancellation. One App is shared by tools
   so existing source reservations continue to apply.
@@ -30,8 +30,8 @@ features from the separate deferred change.
   total tools. Detect collisions before accepting input.
 - Following the user's explicit review decision, col_open returns a
   handle and col_close publishes its archive and stops its worker.
-  App.ColOpen delegates to Store.Open, which returns a started ankiclient.Client.
-  MCP retains that client, borrows its Connection and calls Stop; native/workflow
+  App.ColOpen delegates to Store.Open, which returns an already-open
+  ankiclient.Client handle. MCP borrows its Connection and calls Stop; native/workflow
   methods use their existing Connection option.
   There is no worker cache or client lease abstraction. The protocol registry
   only maps handles, serializes each collection's operations, and closes all
@@ -105,26 +105,28 @@ existing config, state or collection formats.
 ## Simplification decision
 
 App.ColOpen accepts ColOpenOptions containing Path, Address and WriteBack, and
-returns the same started ankiclient.Client created by its configured factory.
-MCP retains that value, borrows Connection and calls Stop. The linked anki_grpc
-own-collection-client-lifetime change gives the client OpenCollection and
-CloseCollection with private storage state; terminal Stop closes storage and its
-transport under independent budgets. There is no separate returned closer,
-collection client or reservation-client wrapper.
+returns an already-open ankiclient.Client with Connection and Stop. This shared
+capability replaces the separate application Collection interface. The application
+owns one private, single-use collection scope; its raw gRPC transport implements
+StartableClient, embedding Client and adding Start. Factories return concrete clients
+directly. Collection preparation, archive publication and temporary restores
+remain with the application's collection package.
 
-Store owns a plain source-reservation record and session-context cancellation.
-It observes Client.Done before releasing the reservation and reaps completed
-records during the next open, so immediate source reuse is independent of
-observer scheduling. WithCollection uses Open, Connection and deferred Stop.
-Native/workflow handlers resolve their source once before calling App directly.
+Store owns source reservations and session-context cancellation, observing
+private scope completion before releasing a source. Completed reservations are
+reaped during the next open so immediate reuse is independent of observer
+scheduling. WithCollection uses Open, Connection and deferred Stop.
 
-MCP does not mirror client shutdown state: serialized handle calls obtain their
-connection from Client, which rejects access after Stop begins. Disconnect
-cleanup runs once after SDK Run has drained request handlers, so it needs no
-separate registry-closed flag or shutdown-only map synchronization. Independent
-handles still close concurrently under the client's bounded cleanup policy.
+MCP does not mirror collection shutdown state: serialized handle calls obtain
+their connection from the application handle, which rejects access after Stop
+begins. Disconnect cleanup runs once after SDK Run drains request handlers.
+Independent handles close concurrently under the scope's bounded cleanup policy.
 
-CLI receives an MCP interface beside App. The MCP implementation receives App,
-matching the command adapter's dependency direction. Hosting is not an App
-operation. Retain path and handle modes, source exclusion, independent bounded
+CLI receives the concrete mcp.New(app) value beside App through its private
+mcpServer interface, declared in internal/cli/mcp.go with only
+Serve(context.Context) error. This consumer-owned contract groups MCP commands
+behind one CLI dependency without exporting an interface or placing it in
+ankiascodeapi. The concrete server receives App, matching the command adapter's
+dependency direction. Hosting is
+not an App operation. Retain path and handle modes, source exclusion, independent bounded
 cleanup, per-handle serialization and lossless ProtoJSON validation.

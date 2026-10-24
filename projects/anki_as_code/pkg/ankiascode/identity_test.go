@@ -48,6 +48,78 @@ func fixtureSources(t *testing.T, root string) map[string]string {
 	return files
 }
 
+// TestRequiredDeckRemovalWorkflow refuses deletion by native identity before applying any writes.
+func TestRequiredDeckRemovalWorkflow(t *testing.T) {
+	for _, format := range []string{"database", "package"} {
+		t.Run(format, func(t *testing.T) {
+			ctx := t.Context()
+			root := t.TempDir()
+			database := filepath.Join(root, "collection.anki2")
+			client := connectFixture(t, database)
+			deck, err := client.decks.GetDeck(ctx, &decks.DeckId{Did: 1})
+			if err != nil {
+				t.Fatal(err)
+			}
+			deck.Name = "Required"
+			if _, err := client.decks.UpdateDeck(ctx, deck); err != nil {
+				t.Fatal(err)
+			}
+			if err := client.close(); err != nil {
+				t.Fatal(err)
+			}
+			input := database
+			if format == "package" {
+				input = filepath.Join(root, "collection.colpkg")
+				packageFixture(t, database, input)
+			}
+			text := filepath.Join(root, "text")
+			if err := prepareFixtureConfigs(t, ctx, input, text); err != nil {
+				t.Fatal(err)
+			}
+			before, err := fixtureContent(t, input)
+			if err != nil {
+				t.Fatal(err)
+			}
+			marker := filepath.Join(text, "decks", "Required", "deck.anki.toml")
+			original, err := os.ReadFile(marker)
+			if err != nil {
+				t.Fatal(err)
+			}
+			if err := os.RemoveAll(filepath.Dir(marker)); err != nil {
+				t.Fatal(err)
+			}
+			additional := filepath.Join(text, "decks", "Additional", "deck.anki.toml")
+			writeFixtureTOML(t, additional, &ankiascodepb.DeckConfig{Normal: &decks.Deck_Normal{}})
+			sources := fixtureSources(t, text)
+			if _, err := planForFixture(ctx, input, text, ""); err == nil {
+				t.Error("plan accepted removing the renamed required default deck")
+			}
+			if err := applyForFixture(ctx, input, text, ""); err == nil {
+				t.Error("apply accepted removing the renamed required default deck")
+			}
+			assertFixtureSources(t, text, sources)
+			after, err := fixtureContent(t, input)
+			if err != nil || string(before) != string(after) {
+				t.Fatal("required-deck refusal changed native resources or stored bindings")
+			}
+			if id := stateFixtureDump(t, input).GetResources().GetDecks()["decks/Required/deck.anki.toml"].GetId(); id != 1 {
+				t.Fatalf("required deck lost its stored identity: %d", id)
+			}
+			if err := os.RemoveAll(filepath.Dir(additional)); err != nil {
+				t.Fatal(err)
+			}
+			if err := os.MkdirAll(filepath.Dir(marker), 0o755); err != nil {
+				t.Fatal(err)
+			}
+			if err := os.WriteFile(marker, original, 0o600); err != nil {
+				t.Fatal(err)
+			}
+			assertConverged(t, input, text)
+			saveFixtureArtifact(t, input, "required-deck-preserved"+filepath.Ext(input))
+		})
+	}
+}
+
 // TestUntrackedObjectsWorkflow preserves objects added in Anki after export and rejects destructive shared edits.
 func TestUntrackedObjectsWorkflow(t *testing.T) {
 	fixture := newFixture(t)

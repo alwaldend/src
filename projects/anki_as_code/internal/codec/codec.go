@@ -11,19 +11,16 @@ import (
 	"google.golang.org/protobuf/proto"
 )
 
-// Format selects a supported protobuf text encoding for configuration and state.
-type Format string
-
 const (
 	// TOML encodes configuration and state as schema-backed TOML.
-	TOML Format = "toml"
+	TOML = "toml"
 	// JSON encodes configuration and state using ProtoJSON.
-	JSON Format = "json"
+	JSON = "json"
 )
 
 // Encode serializes a protobuf message as TOML or JSON for config and state callers.
 // An empty format selects TOML; JSON uses readable ProtoJSON with a final newline.
-func Encode(message proto.Message, format Format) ([]byte, error) {
+func Encode(message proto.Message, format string) ([]byte, error) {
 	var data []byte
 	var err error
 	switch format {
@@ -42,7 +39,7 @@ func Encode(message proto.Message, format Format) ([]byte, error) {
 
 // Decode parses TOML or JSON into the supplied protobuf message, checking its schema.
 // An empty format selects TOML. Resource and state semantics remain caller-owned.
-func Decode(data []byte, format Format, message proto.Message) error {
+func Decode(data []byte, format string, message proto.Message) error {
 	if message == nil || !message.ProtoReflect().IsValid() {
 		return fmt.Errorf("nil protobuf input message")
 	}

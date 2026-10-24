@@ -10,8 +10,6 @@ import (
 	"testing"
 	"time"
 
-	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/collection"
-
 	ankiascodeapi "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodeapi"
 
 	ankiascodepb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodepb"
@@ -24,32 +22,24 @@ import (
 
 // TestApplicationServerBoundary verifies native delegation, startup cancellation and failure causes at the application boundary.
 func TestApplicationServerBoundary(t *testing.T) {
-	for _, serve := range []bool{false, true} {
-		for _, fail := range []bool{false, true} {
-			var captured []string
-			failure := errors.New("native runner failed")
-			application := New(Options{ServerRunner: func(arguments []string) error {
-				captured = arguments
-				if fail {
-					return failure
-				}
-				return nil
-			}})
-			operation := application.ServerRun
-			expected := []string{"application server run"}
-			if serve {
-				operation = application.ServerServe
-				expected = append(expected, "serve")
+	for _, fail := range []bool{false, true} {
+		var captured []string
+		failure := errors.New("native runner failed")
+		application := New(Options{ServerRunner: func(arguments []string) error {
+			captured = arguments
+			if fail {
+				return failure
 			}
-			arguments := []string{"--listen", "socket with spaces", "--future-native-option"}
-			err := operation(t.Context(), expected[0], arguments)
-			expected = append(expected, arguments...)
-			if fail && !errors.Is(err, failure) || !fail && err != nil || strings.Join(captured, "\x00") != strings.Join(expected, "\x00") {
-				t.Fatalf("native delegation serve=%t fail=%t: args=%v error=%v", serve, fail, captured, err)
-			}
-			if strings.Join(arguments, "\x00") != "--listen\x00socket with spaces\x00--future-native-option" {
-				t.Fatal("application changed caller arguments")
-			}
+			return nil
+		}})
+		arguments := []string{"--listen", "socket with spaces", "--future-native-option"}
+		err := application.ServerRun(t.Context(), "application server run", arguments)
+		expected := append([]string{"application server run"}, arguments...)
+		if fail && !errors.Is(err, failure) || !fail && err != nil || strings.Join(captured, "\x00") != strings.Join(expected, "\x00") {
+			t.Fatalf("native delegation fail=%t: args=%v error=%v", fail, captured, err)
+		}
+		if strings.Join(arguments, "\x00") != "--listen\x00socket with spaces\x00--future-native-option" {
+			t.Fatal("application changed caller arguments")
 		}
 	}
 	application := New(Options{ServerRunner: func([]string) error {
@@ -58,16 +48,12 @@ func TestApplicationServerBoundary(t *testing.T) {
 	}})
 	ctx, cancel := context.WithCancel(t.Context())
 	cancel()
-	for _, operation := range []func(context.Context, string, []string) error{application.ServerRun, application.ServerServe} {
-		if err := operation(ctx, "application", nil); !errors.Is(err, context.Canceled) {
-			t.Fatalf("server startup lost cancellation: %v", err)
-		}
+	if err := application.ServerRun(ctx, "application", nil); !errors.Is(err, context.Canceled) {
+		t.Fatalf("server startup lost cancellation: %v", err)
 	}
 	application = &App{}
-	for _, operation := range []func(context.Context, string, []string) error{application.ServerRun, application.ServerServe} {
-		if err := operation(t.Context(), "application", nil); err == nil {
-			t.Fatal("unconfigured application accepted native hosting")
-		}
+	if err := application.ServerRun(t.Context(), "application", nil); err == nil {
+		t.Fatal("unconfigured application accepted native hosting")
 	}
 }
 
@@ -253,7 +239,7 @@ func TestStateInputFailures(t *testing.T) {
 // runFixtureCollection exercises native callbacks through collection.Store.
 func runFixtureCollection(ctx context.Context, input, output string, operation func(grpc.ClientConnInterface) (bool, error)) error {
 	application := fixtureApplication()
-	if err := application.collections.WithCollection(ctx, collection.CollectionOptions{Path: input, WriteBack: true}, func(connection grpc.ClientConnInterface) error {
+	if err := application.collections.WithCollection(ctx, ankiascodeapi.ColOpenOptions{Path: input, WriteBack: true}, func(connection grpc.ClientConnInterface) error {
 		changed, err := operation(connection)
 		if err != nil {
 			return fmt.Errorf("run native fixture operation: %w", err)

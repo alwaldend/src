@@ -11,30 +11,24 @@ import (
 	"google.golang.org/grpc"
 )
 
-// ClientFactory constructs unstarted managed clients from connection strings.
-type ClientFactory interface {
-	// NewClient creates a client whose startup and cleanup belong to the caller.
-	NewClient(address string) (ankiclient.Client, error)
-}
+// ClientFactory constructs unstarted clients from connection strings.
+// The caller owns startup and cleanup of each returned client.
+type ClientFactory func(address string) (ankiclient.StartableClient, error)
 
-// ClientFactoryFunc adapts a constructor with concrete result T to ClientFactory.
-type ClientFactoryFunc[T ankiclient.Transport] func(string) (T, error)
-
-// NewClient invokes the adapted constructor without starting its client.
-func (factory ClientFactoryFunc[T]) NewClient(address string) (ankiclient.Client, error) {
-	if factory == nil {
-		return nil, fmt.Errorf("Anki client factory requires a constructor function")
+// ToClientFactory converts a concrete-returning constructor into a ClientFactory.
+// It does not start the client.
+// A nil constructor produces a nil factory.
+func ToClientFactory[T ankiclient.StartableClient](constructor func(string) (T, error)) ClientFactory {
+	if constructor == nil {
+		return nil
 	}
-	client, err := factory(address)
-	if err != nil {
-		return nil, fmt.Errorf("construct Anki client with factory function: %w", err)
+	return func(address string) (ankiclient.StartableClient, error) {
+		client, err := constructor(address)
+		if err != nil {
+			return nil, fmt.Errorf("construct Anki client with factory function: %w", err)
+		}
+		return client, nil
 	}
-	return ankiclient.NewClient(client), nil
-}
-
-// isNil reports an absent constructor across all generic adapter instantiations.
-func (factory ClientFactoryFunc[T]) isNil() bool {
-	return factory == nil
 }
 
 // WithClient constructs a client through factory, starts it and lends its ready connection.
@@ -49,9 +43,9 @@ func WithClient(ctx context.Context, factory ClientFactory, address string, oper
 		return fmt.Errorf("Anki client scope requires an operation")
 	}
 	if factory == nil {
-		factory = defaultFactory
+		factory = defaultFactory.NewClient
 	}
-	client, err := factory.NewClient(address)
+	client, err := factory(address)
 	if err != nil {
 		return fmt.Errorf("construct scoped Anki client: %w", err)
 	}

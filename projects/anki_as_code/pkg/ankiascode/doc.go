@@ -5,7 +5,7 @@
 // Server and backend-library storage contracts remain independently owned. App
 // validates workflow paths,
 // composes lower-level services and delegates native hosting through an injected
-// runner. ServerServe delegates to ServerRun; its context controls startup only.
+// runner. ServerRun's context controls startup only; CLI owns subcommand argument prefixes.
 // Collection scopes own source reservations and enabled archive publication; export,
 // state, resource, plan, reconcile and rebuild retain their domain responsibilities.
 // This package does not parse CLI flags, manage process-global signals, link

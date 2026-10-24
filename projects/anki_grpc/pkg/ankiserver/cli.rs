@@ -3,7 +3,7 @@
 use std::path::PathBuf;
 
 /// HELP lists server CLI commands without starting a server.
-pub(crate) const HELP: &str = "Usage: anki_grpc <COMMAND>
+const HELP: &str = "Usage: anki_grpc <COMMAND>
 
 Commands:
   serve  Run the Anki gRPC server.
@@ -13,7 +13,7 @@ Options:
 ";
 
 /// SERVE_HELP describes the serve command's transports and listener parameters.
-pub(crate) const SERVE_HELP: &str =
+const SERVE_HELP: &str =
     "Usage: anki_grpc serve [--transport stdio|tcp|unix] [--listen ADDRESS_OR_PATH]
 
 Transports:
@@ -28,7 +28,7 @@ Options:
 ";
 
 /// Command selects server CLI behavior before runtime initialization.
-pub(crate) enum Command {
+enum Command {
     /// Help displays available server commands.
     Help,
     /// ServeHelp displays transport options without starting the server.
@@ -39,7 +39,7 @@ pub(crate) enum Command {
 
 impl Command {
     /// parse validates the server subcommand and delegates its transport arguments.
-    pub(crate) fn parse(args: impl IntoIterator<Item = String>) -> Result<Self, String> {
+    fn parse(args: impl IntoIterator<Item = String>) -> Result<Self, String> {
         let mut args = args.into_iter();
         match args.next().as_deref() {
             None | Some("-h" | "--help") => Ok(Self::Help),
@@ -64,7 +64,7 @@ pub(crate) enum Transport {
 
 impl Transport {
     /// parse validates arguments, returning None when help was requested.
-    pub(crate) fn parse(args: impl IntoIterator<Item = String>) -> Result<Option<Self>, String> {
+    fn parse(args: impl IntoIterator<Item = String>) -> Result<Option<Self>, String> {
         let mut args = args.into_iter();
         let mut transport = None;
         let mut listen = None;

@@ -125,14 +125,29 @@ pub fn run_with_backend(arguments: Vec<String>, initialize: BackendInitializer) 
     cli::run(arguments, |transport| serve(transport, initialize))
 }
 
-/// serve owns native runtime initialization and transport serving.
+/// serve retains synchronous backend ownership until its serving runtime has stopped.
 #[cfg(not(target_os = "wasi"))]
-#[tokio::main]
-async fn serve(
+fn serve(
     transport: cli::Transport,
     initialize: BackendInitializer,
 ) -> Result<(), Box<dyn std::error::Error>> {
-    let backend = initialize()?;
+    let runtime = tokio::runtime::Builder::new_multi_thread()
+        .enable_all()
+        .build()?;
+    let backend = runtime.block_on(async { initialize() })?;
+    let result = runtime.block_on(serve_native(transport, backend.clone()));
+    // Finish every serving task before releasing a backend that can own its own runtime.
+    drop(runtime);
+    drop(backend);
+    result
+}
+
+/// serve_native serves all native transports while its caller retains the backend.
+#[cfg(not(target_os = "wasi"))]
+async fn serve_native(
+    transport: cli::Transport,
+    backend: Arc<dyn Dispatcher>,
+) -> Result<(), Box<dyn std::error::Error>> {
     match transport {
         cli::Transport::Stdio => {
             serve_connection(

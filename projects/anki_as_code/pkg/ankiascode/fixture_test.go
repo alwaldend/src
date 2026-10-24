@@ -17,7 +17,6 @@ import (
 	ankiascodeapi "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodeapi"
 
 	ankiascodepb "git.alwaldend.com/alwaldend/src/projects/anki_as_code/api/ankiascodepb"
-	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/collection"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/resource"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/state"
 	"git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/ankiclient"
@@ -97,8 +96,8 @@ func fixtureCLIPath() string {
 // fixtureApplication configures application workflows with the linked CLI's server command.
 func fixtureApplication() *App {
 	factory := ankigrpc.NewFactory(ankigrpc.SubprocessAddress(fixtureCLIPath(), "server", "serve"))
-	factory.RegisterClientFactory("subprocess", ankigrpc.ClientFactoryFunc[*ankiclient.ClientSTD](ankigrpc.NewSubprocessClient))
-	return New(Options{NewClient: factory})
+	factory.RegisterClientFactory("subprocess", ankigrpc.ToClientFactory(ankigrpc.NewSubprocessClient))
+	return New(Options{NewClient: factory.NewClient})
 }
 
 // connectFixture opens an existing or new private collection with generated clients.
@@ -110,7 +109,7 @@ func connectFixture(t *testing.T, database string) *fixtureClient {
 // connectFixtureWithBinary opens storage through the explicitly selected worker.
 func connectFixtureWithBinary(t *testing.T, database, binary string) *fixtureClient {
 	t.Helper()
-	worker := ankiclient.NewClient(ankiclient.NewSTD(ankiclient.ClientSTDOptions{Binary: binary, Arguments: []string{"server", "serve"}}))
+	worker := ankiclient.NewSTD(ankiclient.ClientSTDOptions{Binary: binary, Arguments: []string{"server", "serve"}})
 	if err := worker.Start(context.Background()); err != nil {
 		t.Fatal(err)
 	}
@@ -462,7 +461,7 @@ func fixtureContent(t *testing.T, input string) ([]byte, error) {
 	t.Helper()
 	application := fixtureApplication()
 	var data []byte
-	if err := application.collections.WithCollection(t.Context(), collection.CollectionOptions{Path: input}, func(connection grpc.ClientConnInterface) error {
+	if err := application.collections.WithCollection(t.Context(), ankiascodeapi.ColOpenOptions{Path: input}, func(connection grpc.ClientConnInterface) error {
 		snapshot, err := resource.New(connection).Snapshot(t.Context())
 		if err != nil {
 			return fmt.Errorf("inspect native resources: %w", err)
