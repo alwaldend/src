@@ -16,6 +16,7 @@ go_library(
         "//projects/anki_grpc/test/wasm/cmd/worker:__pkg__",
     ],
     deps = [
+        "//projects/anki_grpc/internal/timezone",
         "@com_github_tetratelabs_wazero//:wazero",
         "@com_github_tetratelabs_wazero//api",
         "@com_github_tetratelabs_wazero//imports/wasi_snapshot_preview1",
