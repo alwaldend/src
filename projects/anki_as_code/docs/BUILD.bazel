@@ -26,6 +26,7 @@ docs_filegroup(
     srcs = [
         ":architecture",
         ":backend_strategies",
+        ":browser_app",
         ":config_operations",
         ":config_references",
         ":export",
@@ -58,6 +59,22 @@ mermaid_site_webp(
     name = "mcp_preview",
     src = "mcp.mmd",
     out = "rendered/mcp.webp",
+    aspect_ratio = [],
+    color_scheme = "dark",
+    scale = 2,
+    tags = ["manual"],
+)
+
+mermaid_site_svg(
+    name = "browser_app",
+    src = "browser-app.mmd",
+    out = "rendered/browser-app.svg",
+)
+
+mermaid_site_webp(
+    name = "browser_app_preview",
+    src = "browser-app.mmd",
+    out = "rendered/browser-app.webp",
     aspect_ratio = [],
     color_scheme = "dark",
     scale = 2,

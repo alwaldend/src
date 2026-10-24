@@ -24,6 +24,7 @@ go_library(
         "//projects/anki_grpc/pkg/ankigrpc",
         "//third_party/com_github_ankitects_anki:collection",
         "//third_party/com_github_ankitects_anki:import_export",
+        "@com_github_spf13_afero//:afero",
         "@org_golang_google_grpc//:grpc",
         "@org_golang_google_grpc//metadata",
     ],

@@ -1,0 +1,21 @@
+load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
+
+exports_files(
+    ["index.html"],
+    visibility = ["//projects/anki_as_code:__subpackages__"],
+)
+
+pkg_files(
+    name = "page_controller",
+    srcs = ["app.js"],
+)
+
+pkg_filegroup(
+    name = "site_files",
+    srcs = [
+        ":page_controller",
+        "//projects/anki_as_code/pkg/browser:runtime_files",
+    ],
+    prefix = "content/projects/anki_as_code/app",
+    visibility = ["//projects/anki_as_code/site/content:__pkg__"],
+)

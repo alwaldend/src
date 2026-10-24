@@ -1,6 +1,7 @@
 // Package filesystem owns application file operations over an injected Afero filesystem.
-// FS keeps that backend private and supplies shared path checks, file/directory I/O,
-// staging and cleanup. Its zero value defaults to OS storage, preserving host home
+// FS supplies shared path checks, file/directory I/O, staging and cleanup, and lends
+// its Afero backend to collection owners sharing its namespace.
+// Its zero value defaults to OS storage, preserving host home
 // and working-directory expansion only for that adapter. Other filesystems retain
 // their own path namespace.
 // Alias resolution and inspection use only the supplied filesystem's capabilities;

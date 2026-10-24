@@ -13,7 +13,7 @@ import (
 )
 
 // FS owns application path handling and I/O over caller-supplied storage.
-// Its zero value selects OS storage. The backing filesystem is never exposed.
+// Its zero value selects OS storage. Afero lends its backend for storage composition.
 type FS struct {
 	// storage supplies every underlying file operation and optional link capability.
 	storage afero.Fs
@@ -22,6 +22,12 @@ type FS struct {
 // New selects the supplied filesystem or OS storage when it is nil.
 func New(storage afero.Fs) FS {
 	return FS{storage: storage}
+}
+
+// Afero lends the underlying storage to backend owners that share its path namespace.
+// Callers retain responsibility for backend access and use FS methods for application paths.
+func (storage FS) Afero() afero.Fs {
+	return storage.backend()
 }
 
 // backend returns the supplied storage or the zero-value OS default.

@@ -8,6 +8,7 @@ rust_binary(
     edition = "2021",
     platform = "@rules_rust//rust/platform:wasip1",
     rustc_flags = ["-Cpanic=abort"],
+    visibility = ["//projects/anki_grpc/pkg/ankiclient:consumers"],
     deps = ["//projects/anki_grpc/pkg/ankiserver:server_rust"],
 )
 
