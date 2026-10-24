@@ -1,0 +1,22 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "directclient",
+    srcs = [
+        "client.go",
+        "doc.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/anki_grpc/internal/directclient",
+    visibility = [
+        "//projects/anki_grpc/pkg/ankigrpc/browser:__pkg__",
+        "//projects/anki_grpc/pkg/ankigrpc/native:__pkg__",
+    ],
+    deps = [
+        "//projects/anki_grpc/pkg/ankiclient",
+        "@org_golang_google_grpc//:grpc",
+        "@org_golang_google_grpc//codes",
+        "@org_golang_google_grpc//metadata",
+        "@org_golang_google_grpc//status",
+        "@org_golang_google_protobuf//proto",
+    ],
+)

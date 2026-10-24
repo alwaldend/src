@@ -295,8 +295,9 @@ archive publication and source reservations.
 
 Import the optional `ankigrpc/native` package for direct client registration and
 native CLI hosting. It registers only `inprocess` and `inprocess+cgo`; each label
-creates fresh state. Start initializes Anki synchronously. Cancellation stops
-waiting without interrupting Rust, and Stop rejects new calls while draining
+creates fresh state. Start initializes Anki synchronously, checking its context
+before and after; cancellation waits for initialization and failure cleanup.
+Command cancellation stops waiting without interrupting Rust, and Stop rejects new calls while draining
 active work. Its deadline bounds waiting; the concrete client's Done method
 observes final cleanup. Native
 crashes affect the hosting process, and streaming and unsupported call options

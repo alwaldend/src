@@ -179,8 +179,121 @@ func TestDirectBackendCancellation(t *testing.T) {
 	writeReport(t, "direct-cancellation.json", map[string]any{"cancelled_caller": true, "active_native_work_drained": true, "repeatable_stop": true})
 }
 
+// startupInitializationContext holds the readiness check after native initialization.
+type startupInitializationContext struct {
+	// Context supplies cancellation while native initialization finishes.
+	context.Context
+	// mutex protects the number of concurrent context checks.
+	mutex sync.Mutex
+	// checks identifies the post-initialization context check.
+	checks int
+	// entered signals that native initialization reached its final context check.
+	entered chan struct{}
+	// release allows startup to observe cancellation and clean up native state.
+	release chan struct{}
+}
+
+// Err pauses the second check so cancellation overlaps an initialized, unpublished backend.
+func (ctx *startupInitializationContext) Err() error {
+	ctx.mutex.Lock()
+	ctx.checks++
+	pause := ctx.checks == 2
+	ctx.mutex.Unlock()
+	if pause {
+		close(ctx.entered)
+		<-ctx.release
+	}
+	return ctx.Context.Err()
+}
+
 // TestDirectBackendStartup verifies terminal shutdown and cancelled startup with native ownership.
 func TestDirectBackendStartup(t *testing.T) {
+	for _, stopDuringStartup := range []bool{false, true} {
+		name := "cancel-during-initialization"
+		if stopDuringStartup {
+			name = "cancel-and-stop-during-initialization"
+		}
+		t.Run(name, func(t *testing.T) {
+			ctx, cancel := context.WithTimeout(t.Context(), 5*time.Second)
+			defer cancel()
+			startup, cancelStartup := context.WithCancel(ctx)
+			defer cancelStartup()
+			barrier := &startupInitializationContext{Context: startup, entered: make(chan struct{}), release: make(chan struct{})}
+			var releaseOnce sync.Once
+			release := func() { releaseOnce.Do(func() { close(barrier.release) }) }
+			backend := native.New()
+			done := backend.Done()
+			defer func() {
+				release()
+				if err := backend.Stop(ctx); err != nil {
+					t.Errorf("join cancelled startup cleanup: %v", err)
+				}
+			}()
+			started := make(chan error, 1)
+			go func() { started <- backend.Start(barrier) }()
+			select {
+			case <-barrier.entered:
+			case <-ctx.Done():
+				t.Fatal("native startup did not reach its final context check")
+			}
+			cancelStartup()
+			select {
+			case err := <-started:
+				t.Fatalf("Start returned before initialization completed: %v", err)
+			case <-time.After(50 * time.Millisecond):
+			}
+			if stopDuringStartup {
+				shutdown, cancelShutdown := context.WithTimeout(ctx, 25*time.Millisecond)
+				defer cancelShutdown()
+				stopped := make(chan error, 1)
+				go func() { stopped <- backend.Stop(shutdown) }()
+				select {
+				case err := <-stopped:
+					if !errors.Is(err, context.DeadlineExceeded) {
+						t.Fatalf("Stop lost its initialization deadline: %v", err)
+					}
+				case <-ctx.Done():
+					t.Fatal("Stop blocked behind initialization")
+				}
+			}
+			if _, err := backend.Connection(); err == nil {
+				t.Fatal("cancelled startup exposed an unfinished connection")
+			}
+			select {
+			case <-done:
+				t.Fatal("Done closed before initialization drained")
+			default:
+			}
+			release()
+			select {
+			case err := <-started:
+				if !errors.Is(err, context.Canceled) {
+					t.Fatalf("Start did not preserve cancellation after initialization: %v", err)
+				}
+			case <-ctx.Done():
+				t.Fatal("Start did not finish cancelled initialization")
+			}
+			if _, err := backend.Connection(); err == nil {
+				t.Fatal("cancelled startup published a connection")
+			}
+			if !stopDuringStartup {
+				select {
+				case <-done:
+					t.Fatal("Done closed before explicit Stop")
+				default:
+				}
+			}
+			if err := backend.Stop(ctx); err != nil {
+				t.Fatalf("join startup cleanup: %v", err)
+			}
+			select {
+			case <-done:
+			default:
+				t.Fatal("Done did not observe startup cleanup")
+			}
+			writeReport(t, "direct-startup-"+name+".json", map[string]any{"startup_waited_for_initialization": true, "late_connection_rejected": true, "initialization_drained": true, "concurrent_stop": stopDuringStartup})
+		})
+	}
 	t.Run("stop-during-startup", func(t *testing.T) {
 		ctx, cancel := context.WithTimeout(t.Context(), 5*time.Second)
 		defer cancel()
