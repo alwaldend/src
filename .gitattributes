@@ -108,6 +108,8 @@
 # rewritten by general-purpose formatters.
 data/** rules-lint-ignored=true
 third_party/** rules-lint-ignored=true
+# Preserve the imported code-review exercise exactly as upstream supplied it.
+projects/mlops_2026/code_review/** rules-lint-ignored=true linguist-vendored=true
 # Migrated provenance retains frozen source bytes and SHA-256 inventories.
 # Generic formatting must not rewrite preserved history or its evidence.
 projects/*/openspec/changes/**/provenance/** rules-lint-ignored=true
