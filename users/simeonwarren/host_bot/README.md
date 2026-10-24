@@ -88,6 +88,15 @@ different reliability requirements belongs on a separate volume.
 The managed Codex configuration allows up to 20 concurrent subagents per
 session. The root agent is accounted for separately.
 
+Ansible installs Codex and Grok CLI as the managed user through the official
+`https://chatgpt.com/codex/install.sh` and `https://x.ai/cli/install.sh`
+installers. Both commands are placed in `~/.local/bin`. The `codex_install`
+and `grok_install` tags select only their respective installation tasks;
+`codex` and `grok` also include them. An existing command skips its installer,
+so deployment provisions missing CLIs without upgrading installed versions.
+First installation follows the upstream installer's current release, and
+Grok's installer also provisions its shell integration and completions.
+
 Node.js and npm are provisioned through the development VM role's mutable or
 OSTree package backend. OpenSpec 1.14.2 (`@fission-ai/openspec`) is installed
 without npm lifecycle scripts under the managed user's `~/.local` prefix,
