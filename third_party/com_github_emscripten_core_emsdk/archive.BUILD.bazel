@@ -1,0 +1,15 @@
+package(default_visibility = ["@//third_party/com_github_emscripten_core_emsdk:__pkg__"])
+
+exports_files(
+    ["emscripten/emcc.py"],
+    visibility = ["@//third_party/com_github_emscripten_core_emsdk:__pkg__"],
+)
+
+filegroup(
+    name = "sdk",
+    srcs = glob([
+        "bin/**",
+        "lib/**",
+        "emscripten/**",
+    ]),
+)

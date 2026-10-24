@@ -1,0 +1,12 @@
+http_archive = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
+# Emscripten 6.0.13, verified against the release's bazel/revisions.bzl.
+http_archive(
+    name = "com_github_emscripten_core_emsdk",
+    build_file = "//third_party/com_github_emscripten_core_emsdk:archive.BUILD.bazel",
+    integrity = "sha256-zaaAEBL/MxmlOREYJu0CqavX7/E1wu8mHIlByvWjdj4=",
+    strip_prefix = "install",
+    urls = ["https://storage.googleapis.com/webassembly/emscripten-releases-builds/linux/eb132757325583b787fe9414b09afea9442b72ad/wasm-binaries.tar.xz"],
+)
+
+register_toolchains("//third_party/com_github_emscripten_core_emsdk:linux_x86_64_toolchain")

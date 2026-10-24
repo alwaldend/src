@@ -1,0 +1,10 @@
+load("@aspect_rules_js//js:defs.bzl", "js_test")
+
+js_test(
+    name = "emscripten_memfs_test",
+    size = "small",
+    args = ["$(rootpath //projects/anki_grpc/pkg/ankigrpc/browser:emscripten_memfs_files)"],
+    data = ["//projects/anki_grpc/pkg/ankigrpc/browser:emscripten_memfs_files"],
+    entry_point = "memfs_test.mjs",
+    node_options = ["--experimental-vm-modules"],
+)
