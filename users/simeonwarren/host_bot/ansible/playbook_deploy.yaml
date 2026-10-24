@@ -131,6 +131,33 @@
       ansible.builtin.import_role:
         name: alwaldend.main.dev_vm
         tasks_from: bazel
+    - name: Install Codex CLI
+      become: false
+      ansible.builtin.shell:
+        cmd: |
+          set -o pipefail
+          curl -fsSL https://chatgpt.com/codex/install.sh | sh
+        executable: /bin/bash
+        creates: "{{ dev_vm_bazel_home }}/.local/bin/codex"
+      environment:
+        CODEX_INSTALL_DIR: "{{ dev_vm_bazel_home }}/.local/bin"
+        CODEX_NON_INTERACTIVE: "1"
+      tags:
+        - codex
+        - codex_install
+    - name: Install Grok CLI
+      become: false
+      ansible.builtin.shell:
+        cmd: |
+          set -o pipefail
+          curl -fsSL https://x.ai/cli/install.sh | bash
+        executable: /bin/bash
+        creates: "{{ dev_vm_bazel_home }}/.local/bin/grok"
+      environment:
+        GROK_BIN_DIR: "{{ dev_vm_bazel_home }}/.local/bin"
+      tags:
+        - grok
+        - grok_install
     - name: Install Node.js CLI dependencies
       ansible.builtin.import_role:
         name: alwaldend.main.dev_vm
