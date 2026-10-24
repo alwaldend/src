@@ -17,7 +17,8 @@ import (
 
 // Options configures managed native scopes and their collection publication budget.
 type Options struct {
-	// FS supplies source inspection; backend storage remains independently owned.
+	// FS supplies source inspection and collection-directory operations.
+	// The server must independently access the same storage and paths.
 	FS filesystem.FS
 	// NewClient constructs clients and selects its default when an operation address is empty.
 	NewClient ankigrpc.ClientFactory
@@ -37,7 +38,7 @@ type sourceReservation struct {
 // Store reserves collection sources within explicitly configured native scopes.
 // Use New for native access. Store must not be copied after use.
 type Store struct {
-	// filesystem supplies source path inspection and alias resolution.
+	// filesystem supplies source inspection, alias resolution and collection-directory storage.
 	filesystem filesystem.FS
 	// newClient delegates address interpretation to the client library.
 	newClient ankigrpc.ClientFactory
@@ -82,7 +83,7 @@ func (store *Store) Open(ctx context.Context, options ankiascodeapi.ColOpenOptio
 		store.releaseSource(source, reservation)
 		return nil, fmt.Errorf("select collection client: %w", err)
 	}
-	owner := newScope(client, source, options.WriteBack, store.closeTimeout)
+	owner := newScope(client, store.filesystem, source, options.WriteBack, store.closeTimeout)
 	store.mutex.Lock()
 	reservation.scope = owner
 	store.mutex.Unlock()

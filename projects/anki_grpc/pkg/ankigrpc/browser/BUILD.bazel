@@ -1,0 +1,64 @@
+load("@aspect_rules_js//js:defs.bzl", "js_library")
+load("@rules_go//go:def.bzl", "go_library")
+load("@rules_rust//rust:defs.bzl", "rust_shared_library")
+load(":reactor.bzl", "wasi_reactor_crt")
+
+# Rust 1.98 omits the reactor startup object for cdylib. Remove this explicit
+# linkage once the pinned compiler supplies it (rust-lang/rust#161421).
+wasi_reactor_crt(
+    name = "reactor_crt",
+    target_compatible_with = [
+        "@platforms//cpu:wasm32",
+        "@platforms//os:wasi",
+    ],
+)
+
+rust_shared_library(
+    name = "guest",
+    srcs = [
+        "guest.rs",
+        "//projects/anki_grpc/internal/backend:ffi.rs",
+    ],
+    compile_data = [":reactor_crt"],
+    crate_name = "anki_browser_backend",
+    crate_root = "guest.rs",
+    edition = "2021",
+    platform = "@rules_rust//rust/platform:wasip1",
+    rustc_flags = [
+        "-Cpanic=abort",
+        "-Clink-arg=$(execpath :reactor_crt)",
+        "-Clink-arg=--export=_initialize",
+    ],
+    visibility = ["//projects/anki_grpc/pkg/ankiclient:consumers"],
+    deps = ["//projects/anki_grpc/internal/backend:backend_rust"],
+)
+
+js_library(
+    name = "server",
+    srcs = ["server.js"],
+    visibility = ["//projects/anki_grpc/pkg/ankiclient:consumers"],
+)
+
+js_library(
+    name = "wasi",
+    srcs = ["wasi.js"],
+    visibility = ["//projects/anki_grpc/pkg/ankiclient:consumers"],
+    deps = [":server"],
+)
+
+go_library(
+    name = "browser",
+    srcs = [
+        "client_js.go",
+        "doc.go",
+        "filesystem_js.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/ankigrpc/browser",
+    visibility = ["//projects/anki_grpc/pkg/ankiclient:consumers"],
+    deps = [
+        "//projects/anki_grpc/internal/directclient",
+        "//projects/anki_grpc/internal/timezone",
+        "@com_github_spf13_afero//:afero",
+        "@org_golang_google_grpc//:grpc",
+    ],
+)

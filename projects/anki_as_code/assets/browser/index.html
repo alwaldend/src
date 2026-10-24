@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Anki as code browser example</title>
+    <style>
+      body {
+        font-family: system-ui, sans-serif;
+        max-width: 56rem;
+        margin: 3rem auto;
+        padding: 0 1rem;
+      }
+      textarea {
+        box-sizing: border-box;
+        display: block;
+        width: 100%;
+        min-height: 12rem;
+        margin: 0.5rem 0 1rem;
+      }
+      pre {
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Anki as code in the browser</h1>
+    <p>
+      Export a configuration into virtual files, then load those files through
+      the application. Files stay in this browser session until the page
+      closes.
+    </p>
+    <label for="config">Collection configuration (protobuf JSON)</label>
+    <textarea id="config" spellcheck="false">
+{
+  "config": {
+    "version": "1"
+  }
+}</textarea
+    >
+    <button id="run" disabled>Export and dump configuration</button>
+    <p id="status" role="status">Loading application…</p>
+    <h2>Workspace files</h2>
+    <pre id="files"></pre>
+    <h2>Loaded configuration</h2>
+    <pre id="output"></pre>
+    <script type="module">
+      import { createAnkiApp } from "./index.js";
+
+      const run = document.querySelector("#run");
+      const status = document.querySelector("#status");
+      try {
+        const instance = await createAnkiApp();
+        status.textContent = "Ready";
+        run.disabled = false;
+        run.addEventListener("click", async () => {
+          run.disabled = true;
+          try {
+            const configs = JSON.parse(
+              document.querySelector("#config").value,
+            );
+            await instance.app.configExport({ output: "/workspace", configs });
+            document.querySelector("#files").textContent = (
+              await instance.workspace.listFiles("/workspace")
+            ).join("\n");
+            document.querySelector("#output").textContent =
+              await instance.app.configDump({ text: "/workspace" });
+            status.textContent = "Configuration exported and loaded";
+          } catch (error) {
+            status.textContent = error.message;
+          } finally {
+            run.disabled = false;
+          }
+        });
+        window.addEventListener("pagehide", (event) => {
+          if (!event.persisted) void instance.dispose();
+        });
+      } catch (error) {
+        status.textContent = error.message;
+      }
+    </script>
+  </body>
+</html>

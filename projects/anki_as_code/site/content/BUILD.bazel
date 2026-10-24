@@ -2,7 +2,12 @@ load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 
 docs_filegroup(
     name = "docs",
-    srcs = ["_index.md"],
+    srcs = [
+        "_index.md",
+        "app/index.md",
+    ],
     prefix = "content/projects/anki_as_code",
+    preserve_paths = True,
     visibility = ["//projects/alwaldend.com/content/projects:__pkg__"],
+    deps = ["//projects/anki_as_code/assets/browser:site_files"],
 )

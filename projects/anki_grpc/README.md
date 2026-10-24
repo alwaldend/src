@@ -82,6 +82,82 @@ crash isolation without extracting or finding another executable. The standalone
 Both builds currently target Linux x86_64 and require the repository's native
 Rust/C toolchains; linking introduces no new external dependencies.
 
+## Browser command backend
+
+`pkg/ankigrpc/browser` connects a Go `js/wasm` application to the callable Rust
+WASI reactor built by `//projects/anki_grpc/pkg/ankigrpc/browser:guest`. Generated
+protobuf clients use the same direct-command adapter as native hosting for
+serialization, call options, error decoding and lifetime. Rust invokes the
+existing Anki dispatcher. The browser backend operates without a pipe, HTTP/2
+transport or JSPI.
+
+`browser.NewClient(storage, factory)` borrows an Afero filesystem and a
+JavaScript factory. The factory receives its filesystem endpoint and resolves
+with synchronous `command(method, Uint8Array)` and `close()` methods. Given a
+compiled browser guest module, the application's factory can be:
+
+```js
+import { createBrowserServer } from "./wasi.js";
+
+globalThis.createAnkiBackend = (filesystem) =>
+  createBrowserServer(serverModule, filesystem);
+```
+
+Pass `js.Global().Get("createAnkiBackend")` to `browser.NewClient`. The module
+may be fetched and compiled lazily inside that factory. `createBrowserServer`
+instantiates the reactor with WASI and timezone imports, binds its memory and
+initializes its command state. `server.js` adapts the Rust handle and buffer
+exports to `{command, close}`. A command returns `{code, data}`, where code 0
+means success, 1 carries an encoded Anki backend error, and 2 identifies an
+unknown route. JavaScript copies request and response bytes between the
+modules' separate memories and releases each temporary Rust buffer.
+
+Start the Go client before obtaining its `Connection()` for generated Anki
+clients. Startup supports asynchronous factories, so run Start and command waits
+outside a synchronous JavaScript callback's event stack. Each client permits
+one startup attempt and owns one backend. Call Stop after every attempt;
+`Done()` closes only after active initialization and commands finish and backend
+resources, filesystem descriptors and callbacks are released. A Stop deadline
+bounds waiting while cleanup continues, including a backend created after
+startup was cancelled.
+
+Rust commands run synchronously. In a dedicated worker they leave the page
+responsive, but cancellation cannot interrupt an executing command before it
+returns. Ordinary Anki errors and unknown routes leave the backend usable.
+A trapped or invalid host response terminates it and rejects retained clients;
+the trapped Rust instance is discarded without invoking its destructors again.
+Close any open collection through Anki before normal shutdown. The application
+owns worker disposal and must keep Go alive until managed cleanup completes.
+
+```sh
+bazel_agent bazel test //projects/anki_grpc/test/browser_backend:browser_backend_test
+```
+
+The backend E2E checks the actual reactor and generated clients without JSPI.
+Its `browser-backend.json` records artifact hashes, imports and exports, Unicode
+and empty responses, large transfers, native errors, asynchronous startup and
+terminal cleanup. The shared native adapter is covered by
+`//projects/anki_grpc/pkg/ankiclient:ankiclient_test`.
+
+The browser host mounts the application's Afero namespace at `/` and supplies
+`TMPDIR=/tmp`. File access, directory operations, random access and package
+publication use that same storage. The host reports unsupported capabilities,
+including links, as WASI errors. The browser's named timezone selects the same
+Go timezone calculations used by native WASI hosting. Memory-filesystem sync
+does not promise browser persistence. The application owns saving completed
+collection packages and editable files after its collection scopes finish.
+
+The application's collection scope uses its injected filesystem for directory
+operations, defaulting to native OS storage. Injected virtual filesystems use
+absolute paths and reserved `/tmp` for temporary package restores. The Rust host
+must independently expose the same filesystem. Collection import, write-back,
+uncertain-error handling and close remain with the application collection owner.
+
+The browser application E2E in `projects/anki_as_code/test/browser` exercises
+the actual host and shared filesystem, saves and reloads IndexedDB snapshots,
+and verifies the produced package through native Anki, including scheduling,
+review history and media.
+
 ## Offline WASI server
 
 This mode embeds the Rust CLI in a native Go executable so applications can
@@ -225,6 +301,7 @@ not an Anki compatibility test.
 - `pkg/ankigrpc/native/`: Optional native C ABI bridge, CLI hosting and client registration.
 - `pkg/ankigrpc/`: Pure Go connection-string routing and client construction.
 - `pkg/ankigrpc/wasm/`: Production WASI command build, embedding and argument-vector API.
+- `pkg/ankigrpc/browser/`: Callable Rust WASI backend, JavaScript command API and shared-filesystem host.
 - `internal/wasmhost/`: Pure-Go WASI execution, native byte streams and timezone callbacks.
 - `pkg/ankiclient/`: Reusable Go owner of the server process and gRPC connection.
 - `docs/architecture.mmd`: Client, server, and storage diagram source.
@@ -295,8 +372,8 @@ archive publication and source reservations.
 
 Import the optional `ankigrpc/native` package for direct client registration and
 native CLI hosting. It registers only `inprocess` and `inprocess+cgo`; each label
-creates fresh state. Start initializes Anki synchronously. Cancellation stops
-waiting without interrupting Rust, and Stop rejects new calls while draining
+creates fresh state. Start waits for Anki initialization within its context.
+Cancellation stops waiting without interrupting Rust, and Stop rejects new calls while draining
 active work. Its deadline bounds waiting; the concrete client's Done method
 observes final cleanup. Native
 crashes affect the hosting process, and streaming and unsupported call options
