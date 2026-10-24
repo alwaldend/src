@@ -25,6 +25,7 @@ go_test(
         "//projects/anki_as_code/pkg/ankiascode",
         "//projects/anki_grpc/pkg/ankiclient",
         "//projects/anki_grpc/pkg/ankigrpc",
+        "//third_party/com_github_ankitects_anki:collection",
         "//third_party/com_github_ankitects_anki:import_export",
         "@com_github_spf13_afero//:afero",
         "@org_golang_google_protobuf//encoding/protojson",

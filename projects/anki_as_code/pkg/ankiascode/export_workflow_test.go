@@ -17,6 +17,42 @@ import (
 	"google.golang.org/protobuf/proto"
 )
 
+// TestExportCallerDirectoryWorkflow writes declared files beside a caller-owned collection.
+func TestExportCallerDirectoryWorkflow(t *testing.T) {
+	fixture := newFixture(t)
+	before, err := fixtureContent(t, fixture.database)
+	if err != nil {
+		t.Fatal(err)
+	}
+	output := filepath.Dir(fixture.database)
+	marker := filepath.Join(output, "collection.anki.toml")
+	if err := os.WriteFile(marker, []byte("previous configuration"), 0o600); err != nil {
+		t.Fatal(err)
+	}
+	unrelated := filepath.Join(output, "README.txt")
+	if err := os.WriteFile(unrelated, []byte("caller-owned file"), 0o600); err != nil {
+		t.Fatal(err)
+	}
+	stateFile := filepath.Join(output, "state.anki.toml")
+	if err := fixtureApplication().ColExport(t.Context(), ankiascodeapi.CollectionOptions{Path: fixture.database}, output, stateFile); err != nil {
+		t.Fatal(err)
+	}
+	configs, err := config.New(output, filesystem.FS{}).Load()
+	if err != nil || configs.GetConfig().GetVersion() != 1 || len(configs.GetDecks()) == 0 || len(configs.GetNoteTypes()) == 0 {
+		t.Fatalf("export did not replace the declared configuration with a readable hierarchy: %v", err)
+	}
+	if data, err := os.ReadFile(unrelated); err != nil || string(data) != "caller-owned file" {
+		t.Fatalf("export changed an unrelated caller-owned file: %q %v", data, err)
+	}
+	after, err := fixtureContent(t, fixture.database)
+	if err != nil || string(after) != string(before) {
+		t.Fatalf("export beside the source changed its native contents: %v", err)
+	}
+	saveFixtureArtifact(t, marker, "caller-directory-export.toml")
+	saveFixtureArtifact(t, stateFile, "caller-directory-state.toml")
+	saveFixtureArtifact(t, fixture.database, "caller-directory-source.anki2")
+}
+
 // TestExportStateOnboardingWorkflow exercises whole-collection binding through the native CLI.
 // Export must preserve source data, use selected paths, and converge after state installation.
 func TestExportStateOnboardingWorkflow(t *testing.T) {
@@ -99,31 +135,18 @@ func TestExportStateOnboardingWorkflow(t *testing.T) {
 	}
 }
 
-// TestExportStateDestinationWorkflow rejects destructive destinations and retains prior state on failure.
+// TestExportStateDestinationWorkflow rejects conflicting output paths and retains prior state on failure.
 func TestExportStateDestinationWorkflow(t *testing.T) {
 	fixture := newFixture(t)
 	root := t.TempDir()
 	text := filepath.Join(root, "configs")
 	application := fixtureApplication()
-	for _, destination := range []string{fixture.base, filepath.Join(text, "collection.anki.toml"), filepath.Join(text, "collection.anki.toml", "state.toml"), filepath.Join(text, "decks"), filepath.Join(text, "note_types", "Chinese.notetype.anki.toml")} {
+	for _, destination := range []string{filepath.Join(text, "collection.anki.toml"), filepath.Join(text, "collection.anki.toml", "state.toml"), filepath.Join(text, "decks"), filepath.Join(text, "note_types", "Chinese.notetype.anki.toml")} {
 		if err := application.ColExport(t.Context(), ankiascodeapi.CollectionOptions{Path: fixture.base}, text, destination); err == nil {
 			t.Fatalf("accepted unsafe state destination %q", destination)
 		}
 		if _, err := os.Stat(text); !os.IsNotExist(err) {
 			t.Fatal("rejected destination wrote config output", err)
-		}
-	}
-	for _, linkKind := range []string{"symlink", "hardlink"} {
-		alias := filepath.Join(root, linkKind)
-		link := os.Link
-		if linkKind == "symlink" {
-			link = os.Symlink
-		}
-		if err := link(fixture.base, alias); err != nil {
-			t.Fatal(err)
-		}
-		if err := application.ColExport(t.Context(), ankiascodeapi.CollectionOptions{Path: fixture.base}, text, alias); err == nil {
-			t.Fatal("accepted source alias", linkKind)
 		}
 	}
 	for _, scenario := range []string{"dangling file", "dangling directory"} {
@@ -221,7 +244,7 @@ func TestExportConfigOnlyWorkflow(t *testing.T) {
 			for _, format := range []string{"toml", "json"} {
 				data := runFixtureCLI(t, "col", "state", "dump", "--format", format, "--collection", input)
 				value := &ankiascodepb.State{}
-				if err := codec.Decode(data, codec.Format(format), value); err != nil || !proto.Equal(value, stored) {
+				if err := codec.Decode(data, format, value); err != nil || !proto.Equal(value, stored) {
 					t.Fatalf("separate %s state dump: %v", format, err)
 				}
 				file := filepath.Join(t.TempDir(), "state.anki."+format)
@@ -352,17 +375,11 @@ func TestExportWritesWorkflow(t *testing.T) {
 	if _, err := config.New(fresh, filesystem.FS{}).Load(); err != nil {
 		t.Fatal(err)
 	}
-	original, err := os.ReadFile(fixture.database)
+	original, err := fixtureContent(t, fixture.database)
 	if err != nil {
 		t.Fatal(err)
 	}
-	if err := exportForFixture(context.Background(), fixture.database, filepath.Dir(fixture.database), ""); err == nil {
-		t.Fatal("export accepted a destination containing its source")
-	}
-	if after, err := os.ReadFile(fixture.database); err != nil || string(after) != string(original) {
-		t.Fatal("rejected export changed its source database")
-	}
-	for _, scenario := range []string{"source symlink", "destination symlink"} {
+	for _, scenario := range []string{"source-symlink", "destination-symlink"} {
 		t.Run(scenario, func(t *testing.T) {
 			sourceDirectory := filepath.Dir(fixture.database)
 			link := filepath.Join(t.TempDir(), "alias")
@@ -370,16 +387,22 @@ func TestExportWritesWorkflow(t *testing.T) {
 				t.Fatal(err)
 			}
 			input, output := fixture.database, sourceDirectory
-			if scenario == "source symlink" {
+			if scenario == "source-symlink" {
 				input = filepath.Join(link, filepath.Base(fixture.database))
 			} else {
 				output = link
 			}
-			before := fixtureSources(t, sourceDirectory)
-			if err := exportForFixture(context.Background(), input, output, ""); err == nil {
-				t.Fatal("export accepted a destination physically containing its source")
+			if err := exportForFixture(context.Background(), input, output, ""); err != nil {
+				t.Fatal(err)
 			}
-			assertFixtureSources(t, sourceDirectory, before)
+			configs, err := config.New(sourceDirectory, filesystem.FS{}).Load()
+			if err != nil || configs.GetConfig().GetVersion() != 1 || len(configs.GetDecks()) == 0 || len(configs.GetNoteTypes()) == 0 {
+				t.Fatalf("export through a filesystem alias did not produce a readable hierarchy: %v", err)
+			}
+			if after, err := fixtureContent(t, fixture.database); err != nil || string(after) != string(original) {
+				t.Fatalf("export through a filesystem alias changed source contents: %v", err)
+			}
+			saveFixtureArtifact(t, filepath.Join(output, "collection.anki.toml"), scenario+"-export.anki.toml")
 		})
 	}
 

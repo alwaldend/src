@@ -7,7 +7,8 @@ compiled protobuf catalog while retaining their current storage ownership.
 ## What Changes
 
 - Add `anki_as_code mcp serve`, using the official Go MCP SDK over stdio.
-  CLI receives independent App and MCP interfaces; the MCP server receives App.
+  CLI receives App and a concrete MCP server through its own private interface;
+  the MCP server receives App.
 - Expose config export/dump, collection export/plan/apply/build, and all four
   state operations as individual tools with structured inputs and outputs.
 - Register an individual tool for every declared native RPC, including declared
@@ -35,7 +36,7 @@ compiled protobuf catalog while retaining their current storage ownership.
 ### Modified Capabilities
 
 - `collection-source-api`: Add explicit App collection sessions using
-  ColOpenOptions and one factory-created client, lending prepared connections
+  ColOpenOptions and a prepared ankiclient.Client handle, lending connections
   through existing borrowed-operation contracts.
 
 ## Impact

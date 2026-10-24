@@ -20,27 +20,27 @@ import (
 	"unsafe"
 )
 
-// ErrUnknownCommand indicates a route absent from Anki's generated dispatch table.
-var ErrUnknownCommand = errors.New("unknown Anki command")
+// errUnknownCommand indicates a route absent from Anki's generated dispatch table.
+var errUnknownCommand = errors.New("unknown Anki command")
 
-// NativeError preserves Anki's serialized BackendError for the caller's decoder.
-type NativeError struct {
-	// Details contains the unchanged upstream protobuf error bytes.
-	Details []byte
+// nativeError preserves Anki's serialized BackendError for the caller's decoder.
+type nativeError struct {
+	// details contains the unchanged upstream protobuf error bytes.
+	details []byte
 }
 
 // Error identifies an unsuccessful native command without interpreting its payload.
-func (failure *NativeError) Error() string { return "Anki command failed" }
+func (failure *nativeError) Error() string { return "Anki command failed" }
 
-// Server owns a native handle; callers must finish all Command calls before Close.
+// server owns a native handle; callers must finish all command calls before close.
 // The value must not be copied after initialization.
-type Server struct {
+type server struct {
 	// handle points to Rust-owned synchronized backend state.
 	handle *C.AnkiBackend
 }
 
-// NewServer initializes Anki with upstream defaults and transfers handle ownership to Go.
-func NewServer() (*Server, error) {
+// newServer initializes Anki with upstream defaults and transfers handle ownership to Go.
+func newServer() (*server, error) {
 	var failure C.AnkiBuffer
 	handle := C.anki_backend_new(&failure)
 	if handle == nil {
@@ -50,11 +50,11 @@ func NewServer() (*Server, error) {
 		}
 		return nil, fmt.Errorf("initialize Anki backend: %s", message)
 	}
-	return &Server{handle: handle}, nil
+	return &server{handle: handle}, nil
 }
 
-// Command borrows request bytes only for its synchronous native call and copies the owned response.
-func (backend *Server) Command(method string, input []byte) ([]byte, error) {
+// command borrows request bytes only for its synchronous native call and copies the owned response.
+func (backend *server) command(method string, input []byte) ([]byte, error) {
 	path := []byte(method)
 	var output C.AnkiBuffer
 	code := C.anki_backend_command(backend.handle,
@@ -67,18 +67,18 @@ func (backend *Server) Command(method string, input []byte) ([]byte, error) {
 			return nil, fmt.Errorf("read Anki command response: %w", err)
 		}
 		if code == 1 {
-			return nil, &NativeError{Details: data}
+			return nil, &nativeError{details: data}
 		}
 		return data, nil
 	case 2:
-		return nil, fmt.Errorf("dispatch Anki %s: %w", method, ErrUnknownCommand)
+		return nil, fmt.Errorf("dispatch Anki %s: %w", method, errUnknownCommand)
 	default:
 		return nil, fmt.Errorf("dispatch Anki %s: invalid native arguments", method)
 	}
 }
 
-// Close releases native state after the caller has drained every Command.
-func (backend *Server) Close() {
+// close releases native state after the caller has drained every command.
+func (backend *server) close() {
 	C.anki_backend_free(backend.handle)
 	backend.handle = nil
 }

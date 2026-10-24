@@ -132,8 +132,8 @@ Linux runtime libraries, including OpenSSL 3.
 
 `server` shows the available server operations. `server run` forwards arguments
 to the linked Rust CLI, which owns native subcommands and their help.
-`server serve` invokes App.ServerServe, which delegates to App.ServerRun with
-`serve` prepended. Cobra forwards arguments without interpreting native flags:
+For `server serve`, CLI prepends `serve` before calling App.ServerRun.
+Cobra forwards arguments without interpreting native flags:
 
 ```sh
 anki_as_code server run --help
@@ -328,9 +328,12 @@ bazel_agent bazel run //projects/anki_as_code -- col build \
   --output /absolute/path/rebuilt.colpkg
 ```
 
-The export leaves collection content and its stored state unchanged; source archives may be repackaged. The
-optional state file contains version-1 TOML bindings for every exported deck,
-note and note type, including field/template identities and referenced
+Export reads collection resources and stored state through Anki's API; managed
+source archives may be repackaged. Callers choose the output locations and own
+their existing contents. Declared config files are overwritten in place, while
+unrelated entries remain untouched. The optional state file contains version-1
+TOML bindings for every exported deck, note and note type, including
+field/template identities and referenced
 scheduling preset aliases. It uses the exact generated filenames, including
 collision suffixes and names retained from the selected state namespace.
 `col state update` installs those bindings into the same collection before you
@@ -352,8 +355,8 @@ before installing it, especially if paths have changed.
 
 `--state-output` names a TOML file, regardless of its extension. Current-user
 `~` paths are supported. The file may live outside the text directory or inside
-it under an unrelated name such as `state.anki.toml`. Export rejects source
-aliases, config declaration filenames and directories needed by exported
+it under an unrelated name such as `state.anki.toml`. Export rejects state paths
+that conflict with config declaration filenames or directories needed by exported
 configs. State output is atomically replaced after config export succeeds.
 Filesystem failures may leave partial configs; a failed config export retains
 the previous state output. The config tree and state file are not published as
@@ -364,6 +367,10 @@ Current-user `~` and `~/...` paths are supported. `--text` accepts a collection
 root file or its directory. `config dump` defaults to JSON; `--format toml` is
 also available. The CLI starts its linked server through its own executable path.
 No Python is required.
+
+Collection and output paths resolve symbolic links before subsequent `..`
+components. Configuration loading rejects symbolic links, including before `..`,
+instead of silently selecting a lexically normalized configuration directory.
 
 ## Configuration-set export
 
@@ -496,11 +503,11 @@ Managed collection operations still require the backend to access the selected
 collection and staging paths. CLI input files and standard streams belong to the
 CLI adapter, outside App.
 
-`ankiascode.New(ankiascode.Options{NewClient: factory})` injects an
-`ankigrpc.ClientFactory`. The factory receives each operation's address unchanged
-and selects its configured default for an empty address. Supply a factory object
-with `NewClient(address)`, adapt a function with `ankigrpc.ClientFactoryFunc[T]`,
-or configure defaults and private registrations with `ankigrpc.NewFactory(defaultAddress)`.
+`ankiascode.New(ankiascode.Options{NewClient: factory.NewClient})` injects an
+`ankigrpc.ClientFactory` constructor function. It receives each operation's address
+unchanged. A concrete Factory's method value preserves its configured default
+and private registrations. Use `ankigrpc.ToClientFactory` for a constructor
+returning a concrete client, or pass a function returning StartableClient directly.
 Without a configured factory, explicit addresses use `ankigrpc.NewClient`.
 The executable registers its subprocess schemes and imports direct native adapters; App delegates raw
 client startup and bounded cleanup to `ankigrpc.WithClient`; the collection store
@@ -518,13 +525,14 @@ Managed API calls use the same source semantics as other collection operations.
 The CLI registers its worker schemes and supplies its own executable and
 `[]string{"server", "serve"}` through the injected factory for its default. Operations follow the CLI namespaces: `ConfigDump`, `ConfigExport`,
 `ColExport`, `ColPlan`, `ColApply`, `ColBuild`, `ColStateDump`, `ColStateImport`,
-`ColStateUpdate`, `ColStateReplace`, `APICall`, `ServerRun` and `ServerServe`.
+`ColStateUpdate`, `ColStateReplace`, `APICall` and `ServerRun`.
 Creating an options value performs no I/O. `ColBuild` requires a base archive in
 `options.Path` and forwards a copy of those options with its staged path to apply.
 
 `internal/cli` owns the complete Cobra tree, flags, binding syntax, formats and
-streams. Every operation, including `server run` and `server serve`, goes through
-`ankiascodeapi.App`. The interface uses shared options values, strings, protobuf
+streams. Configuration, collection, API and server commands call
+`ankiascodeapi.App`; MCP commands use a private interface owned by CLI.
+The App interface uses shared options values, strings, protobuf
 messages and standard-library types. Commands wrap collection path flags
 without opening resources. App owns server delegation and composes
 collection/configuration workflows; the lower-level packages retain their domain
@@ -544,8 +552,8 @@ Commands pass namespaces explicitly, and App retains no command configuration.
 
 ```go
 factory := ankigrpc.NewFactory(ankigrpc.SubprocessAddress(serverPath, "serve"))
-factory.RegisterClientFactory("subprocess", ankigrpc.ClientFactoryFunc[*ankiclient.ClientSTD](ankigrpc.NewSubprocessClient))
-var application ankiascodeapi.App = ankiascode.New(ankiascode.Options{NewClient: factory})
+factory.RegisterClientFactory("subprocess", ankigrpc.ToClientFactory(ankigrpc.NewSubprocessClient))
+var application ankiascodeapi.App = ankiascode.New(ankiascode.Options{NewClient: factory.NewClient})
 options := ankiascodeapi.CollectionOptions{Path: absoluteCollectionPath, StateKey: key}
 // ConfigDump(ctx, path, format) works without a native backend.
 value, err := application.ColStateDump(ctx, options)
@@ -574,22 +582,21 @@ The protobuf contract lives in `api/ankiascodepb`, with Go package
 retain the existing config and state formats; Go imports and protobuf fully
 qualified type names use the renamed API.
 
-`ColExport(ctx, source, output, stateOutput, stateKey)` accepts an empty
+`ColExport(ctx, options, output, stateOutput)` accepts an empty
 `stateOutput` for config-only export or a TOML file path for snapshot bindings.
-For a borrowed connection, its owner must keep both outputs distinct from
-native collection files: a connection source carries no filename for alias
-checks. Config/state output conflict checks still apply.
+Callers own both output locations and their existing contents for managed paths
+and borrowed connections. Config/state output conflict checks still apply.
 
 `internal/collection.Store` reserves existing sources and owns enabled archive publication.
 Configure its default client or pass a per-operation address before collection access. `WithCollection` injects a prepared
 `grpc.ClientConnInterface` into its callback. Construct the services you need on
 that connection and reuse local instances for several operations.
 
-`collection.New(collection.Options{NewClient: factory})` configures client
+`collection.New(collection.Options{NewClient: factory.NewClient})` configures client
 construction and default selection. No executable or server arguments are
 discovered by the application or store. Without a configured factory, path-only
 access fails before client startup; explicit addresses remain usable. Each scope
-constructs a fresh client and collection backend. `ankigrpc.WithClient` uses the same
+constructs a fresh transport client and a single-use application collection scope. `ankigrpc.WithClient` uses the same
 factory and bounded transport cleanup for raw addressed API access without
 entering the store or reserving a collection. Managed scopes close native
 storage before stopping the worker. Collection publication and close have a ten-minute default budget, configurable
@@ -597,8 +604,8 @@ with Options.CollectionCloseTimeout; transport cleanup has a separate five-secon
 independent of callback cancellation; source reservations outlive cleanup.
 
 ```go
-store := collection.New(collection.Options{NewClient: factory})
-err := store.WithCollection(ctx, collection.CollectionOptions{Path: path, WriteBack: true}, func(connection grpc.ClientConnInterface) error {
+store := collection.New(collection.Options{NewClient: factory.NewClient})
+err := store.WithCollection(ctx, ankiascodeapi.ColOpenOptions{Path: path, WriteBack: true}, func(connection grpc.ClientConnInterface) error {
     resources := resource.New(connection)
     states := state.New(connection, key)
     exporter := export.New(resources, states, filesystem.FS{})
@@ -620,14 +627,15 @@ connection; each operation reads fresh data. A Store or App must not be copied
 after use. Duplicate canonical paths and file aliases are rejected within one
 Store; callers coordinate access across different stores and external writers.
 
-The internal `collection.CollectionOptions` projects the source path, address and WriteBack policy for managed scopes. Enabled write-back
+Store.Open and WithCollection use `ankiascodeapi.ColOpenOptions` for the source
+path, address and WriteBack policy. Enabled write-back
 publishes the source archive during cleanup independently of callback results, errors
 and cancellation. Application workflows explicitly enable it; API flags select it.
 Database writes persist immediately, including before later errors; the scope is
 not a transaction. To export another archive destination, use Anki's
 `ExportCollectionPackage` with the injected connection as the final operation and
 disable WriteBack when source publication is unwanted. Native export consumes the
-open collection; backend cleanup handles it.
+open collection; application scope cleanup handles it.
 
 `App.APICall(ctx, ankiascodeapi.APIRequest{...})` exposes the same generic operation
 without per-method wrappers. Supply a fully qualified gRPC Method, Input bytes and
@@ -671,37 +679,36 @@ calls and installs no state. Collection export owns config paths and file output
 
 For path sources, App delegates native access to `collection.Store.WithCollection`.
 `App.ColOpen(ctx, ColOpenOptions{Path, Address, WriteBack})` delegates to
-`Store.Open`, which starts one factory-created `ankiclient.Client` and opens its
-collection. The returned client lends native access through `Connection()`.
-`Stop(ctx)` publishes enabled archives, closes storage and stops the transport.
-`WithCollection` uses the same client and defers Stop around its callback,
-including after errors, cancellation and panic unwinding.
+`Store.Open` and returns an already-open `ankiclient.Client` handle with
+`Connection` and `Stop`. Its private scope owns one source and one transport.
+`WithCollection` defers Stop around its callback, including error and panic paths.
+`ankiclient.StartableClient` embeds Client and adds Start for transport owners.
+Collection publication and cleanup remain application guarantees of ColOpen.
 
-The client owns optional private collection state. Its `OpenCollection` and
-`CloseCollection` methods can reuse one transport across collection phases;
-`Stop` ends the whole client. A Stop caller can stop waiting without cancelling
-owned cleanup. The store reserves the session's source until `Client.Done`
-confirms final native completion and initiates Stop on session cancellation.
-It records the reservation without wrapping the client.
+The application scope opens databases directly or restores packages through
+Anki into temporary storage. Stop publishes enabled archives, closes storage and
+stops the transport under independent cleanup budgets. Its caller can stop waiting
+without cancelling owned cleanup. Session cancellation also initiates cleanup.
+The Store keeps source reservations until private native-completion tracking
+confirms release; no public restart, collection-phase or Done method is exposed.
 
-The backend library owns readiness, native import/open/close, archive publication
-and restore cleanup. Packages restore into temporary storage; databases open
-directly. Failed publication or uncertain native completion retains restore
-files and reports their path. The CLI and App add no restore owner or native
-lifecycle state machine. State, export and reconciliation borrow prepared
-services without owning lifetime.
+Generated services borrow the prepared connection. Active calls remain concurrent;
+cleanup drains registered callers, tracks consuming native close/export calls and
+retains uncertain restores with a diagnostic. Owned transports can establish final
+completion through concrete Done methods, observed by a private interface in the
+collection package. Closing an external
+network connection cannot establish completion of uncertain native work; recovery
+requires external server cleanup before restoring application access.
 
-When WriteBack is enabled, the client publishes its source archive through Anki
-independently of callback outcomes. Anki writes and atomically replaces that
-archive. Database operations persist in place. Build separately copies its base
-to a temporary directory beside the destination, applies to that copy and
-atomically replaces the destination after success. Failed builds remove staging
-and leave the destination untouched. Callers own exclusive access to the base
-and destination.
+Enabled archive publication runs independently of callback outcomes. Anki writes
+and atomically replaces that archive. Database operations persist in place. Build
+separately stages its base, applies to the copy and atomically replaces its output
+after success. Failed builds preserve the destination. Callers coordinate access
+across different applications and external writers.
 
 ## Export and explicit moves
 
-Export writes configuration TOML without changing the source collection.
+Export reads the collection and writes configuration TOML to caller-owned paths.
 `--state-output` optionally writes matching snapshot bindings for onboarding.
 Existing stored bindings retain note and note-type filenames on re-export.
 New note types receive unused filenames with numeric
@@ -729,8 +736,8 @@ bazel_agent bazel run //projects/anki_as_code -- col state dump \
 
 Export writes declared files directly through `config.Store.Export` and does not reload
 generated files. Other entries remain untouched, including old configs and state
-files other than an explicit `--state-output` destination. The destination must
-not contain the source collection. Filesystem errors may leave partial output.
+files other than an explicit `--state-output` destination. Callers own output
+locations and their existing contents. Filesystem errors may leave partial output.
 
 Use a fresh destination for a clean snapshot. For directory cleanup or
 synchronization, export to a temporary directory and use rsync or another
@@ -756,6 +763,8 @@ longer be declared. Remove a completed move before reusing its old path.
   Titles derive from the fixed hierarchy. A deck must be empty in Anki before
   conversion between normal and filtered kinds. Native APIs must support the requested
   removal; required native objects cannot silently become untracked.
+  Planning rejects removal of the tracked native default deck (ID `1`), even
+  when renamed; retain its declaration or use an explicit move.
 - **Note types:** create, rename, remove, and edit ordered fields, templates,
   CSS, browser fonts, and upstream presentation settings. Explicit member moves
   preserve field/template identities. Edit affected named note fields together.
@@ -807,7 +816,8 @@ a temporary directory and synchronize it externally when required.
 Converged database apply leaves source bytes unchanged. Note-type comparison
 ignores runtime ordinal hints and unmanaged metadata while retaining explicit
 field/template identity changes. New notes use Anki's batch creation API.
-Export neither writes source state nor produces a state file.
+Export reads stored bindings and optionally writes a separate state file; it does
+not install bindings through Anki's API.
 Failed native reads or projection leave existing output unchanged.
 
 ## Fixed hierarchy
@@ -938,9 +948,10 @@ callers own filesystem coordination and the returned messages. `config.Version`
 supplies the supported schema version to collection exporters.
 
 Export writes directly, preserves input messages, overwrites declared files, and
-leaves unrelated/stale files alone. Callers own valid, unique paths, layout,
-validation, staging, cleanup, and publication. Export does not load or normalize
-its output; failures may leave partial files. Consumers use the store;
+leaves unrelated/stale files alone. Callers own output locations and existing
+contents, valid and unique paths, layout, validation, staging, cleanup, and
+publication. Export does not load or normalize its output; failures may leave
+partial files. Consumers use the store;
 the layout package remains an implementation API with restricted Bazel visibility.
 
 `config/layout` owns the fixed hierarchy, discovery, file I/O, and direct file
@@ -999,16 +1010,19 @@ edges show component dependencies.
 | `internal/codec`         | Filesystem-independent protobuf/TOML/JSON conversion               |
 | `internal/state`         | Stored-state dump, import, update, and replacement                 |
 
-The command entry point constructs App and `internal/mcp.Server`, passing App to
-the MCP constructor. It injects both into `internal/cli` through the separate
-`ankiascodeapi.App` and `ankiascodeapi.MCP` interfaces. The MCP command calls its
-injected server's `Serve`; protocol tools call App. App has no MCP dependency.
+The command entry point constructs App and passes it to `internal/mcp.New`.
+It passes App and the resulting concrete server into `internal/cli`. CLI owns
+the private `mcpServer` interface with `Serve(context.Context) error` for its
+MCP command group; protocol tools call App. This interface is local to CLI
+and is not part of `ankiascodeapi`.
+App has no MCP dependency or MCP hosting method.
 App obtains a prepared connection from
 the supplied source and constructs its services locally. Path sources use
 collection.Store; borrowed sources retain caller-owned lifetime. `export.New(resources, states, filesystem.FS{})` constructs an
 `Exporter` using caller-provided resource and state stores. Its
-`Export(ctx, output)` method owns native-to-config projection,
-filenames and direct config output. State operations remain separate.
+`Export(ctx, output, stateOutput)` method owns native-to-config projection,
+filenames and direct config output, with optional snapshot bindings written as
+TOML. State installation remains separate.
 Export has no dependency on reconciliation.
 
 `plan.Build(configs, snapshot, stored)` constructs prepared protobuf operations
@@ -1115,9 +1129,11 @@ snapshot, err := resources.Snapshot(ctx)
 note, err := resources.Notes.GetNote(ctx, &notes.NoteId{Nid: noteID})
 ```
 
-Store exposes the generated deck, note-type, note, card, search, preset and rendering clients
-without forwarding wrappers. Snapshot returns upstream protobuf objects,
-including unmanaged resources and resident filtered cards, plus preset names.
+Store exposes the generated deck, note-type, note, card and rendering clients
+without forwarding wrappers. Search and preset clients remain private snapshot
+dependencies. Snapshot returns upstream protobuf objects, including unmanaged
+resources and resident filtered cards; Snapshot.Presets retains the public map of
+preset identities to names.
 Decks are ordered by title; note types, notes and cards by native ID. Each call
 reads fresh values and returns caller-owned results. There is no cache or atomic
 snapshot guarantee; callers provide exclusive offline access.
@@ -1143,7 +1159,7 @@ Stored bindings retain filenames and preset aliases.
 `Export(ctx, directory, stateFile)` writes configs and optional bindings from
 the same snapshot as TOML. An empty state destination selects config-only
 behavior. Export never installs state; state operations remain separate.
-The destination must not contain the source collection.
+Callers own output locations and their existing contents.
 
 New note filenames use Anki's `HtmlToTextLine` result for the configured sort
 field. Go only sanitizes that text into a bounded Unicode filename. Bound names
@@ -1151,7 +1167,8 @@ are reused from state; filename conversion never changes stored note fields.
 
 Export owns config projection and readable filenames and delegates file output
 to `config.Store.Export`. It overwrites declared configs in place and leaves other
-entries untouched, including stale configs and caller-owned state files.
+entries untouched, including stale configs and state files other than the
+explicit state destination.
 Filesystem errors may leave partial output. For cleanup or publication policies,
 export to a temporary directory and synchronize it externally, for example with
 rsync. The caller also owns exclusive offline access, backend startup,

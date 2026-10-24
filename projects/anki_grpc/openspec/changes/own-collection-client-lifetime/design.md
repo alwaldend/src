@@ -1,64 +1,71 @@
 ## Context
 
-The client factory already chooses transport by address. Collection storage and
-source reservations previously added further Client implementations around that
-transport. The user selected one client with collection methods and opening options.
-The linked Anki as Code change consumes the same client from ColOpen.
+Concrete process, network, native and WASM clients already implement startup,
+connection access and shutdown. The generic client wrapper added a second
+lifecycle solely to manage reusable collection phases. Production collection
+lifecycle usage is confined to Anki as Code's Store; MCP never reopens collection
+phases on the same transport.
 
 ## Goals / Non-Goals
 
-Keep one lifecycle owner for transport and optional storage while retaining
-native persistence, safe cleanup and reuse between collections. Application
-source reservations and session-context policy remain outside the library.
-No native protocol, archive format or dependency changes are needed.
+Expose connection access and shutdown through Client; StartableClient embeds
+Client and adds Start for callers that own startup. Keep collection storage
+policy with the application and retain actual transport termination
+handling. Do not introduce a replacement generic wrapper, dependency, protocol
+or archive format.
 
 ## Decisions
 
-Factory adapters return an ankiclient.Client owning one Transport. Transport is
-the existing Start/Connection/Stop capability of process, network and in-process
-adapters. Client adds OpenCollection, CloseCollection and Done. Collection state
-is private data, not another Client. An already-owned Client returned by a custom
-factory passes through unchanged.
+Use Client for Connection and Stop and StartableClient for all three lifecycle
+methods. Factories return StartableClient directly. Keeping the expanded wrapper
+would retain duplicate lifecycle state; restoring the old
+nested collection-client implementation would retain two client owners. Neither
+is needed by the observed callers.
 
-Start prepares the transport once. OpenCollection records a storage phase before
-preparing it so concurrent cleanup can see failed or interrupted opening. Its
-CollectionOptions value owns Path, RestoreDirectory, WriteBack and CloseTimeout.
-Connection returns gated collection access while a phase exists and raw access
-between phases. A successful CloseCollection removes the phase, invalidates its
-retained connections and keeps the transport available for another collection.
-A failed close retains its diagnostic and storage state for terminal cleanup.
-Keep private state and lifecycle methods limited to those needed for readiness,
-active native calls, publication and one bounded cleanup attempt; remove redundant
-client-era guards and indirection without changing those guarantees.
+ClientFactory is a constructor function returning StartableClient. The concrete
+Factory retains registration and default-address behavior; consumers inject its
+NewClient method value. ToClientFactory adapts typed constructors with
+contextual error wrapping and maps a nil constructor to nil. WithClient retains
+default selection for a nil factory; registration rejects nil factories.
 
-Stop initiates cleanup once. It closes the collection under CloseTimeout (default
-ten minutes), then stops the transport under a separate five-second budget.
-A caller's context bounds waiting, not owned cleanup. Joining an existing close
-attempt must honor that joiner's context so an unbounded concurrent close cannot
-prevent terminal Stop from proceeding to transport shutdown. Done observes final native
-transport completion even after a cleanup error or cancelled wait. Explicit
-CloseCollection uses the supplied context directly. Start's context controls
-startup only.
+Concrete owned transports retain Done for native completion and process-reaping
+evidence. The application collection package observes it through a private
+Done-only capability. No public AsyncClient interface is needed. Raw network
+clients close their connection; server and collection lifetime remain caller-owned.
 
-The consuming Store starts the factory-created client, opens its collection and
-returns it unchanged. A plain source-reservation record observes Done and calls
-Stop on session cancellation. Reservation deletion compares the record identity;
-new opens reap completed records so immediate source reuse does not depend on
-observer scheduling. MCP retains that client for each explicit handle.
+Anki as Code returns an already-open Client with Connection and Stop, sharing
+the generic capability interface instead of declaring a separate Collection
+interface.
+Its private single-use scope owns the native open, temporary restore, optional
+publication, active-call drain and one terminal cleanup attempt. Preparation
+finishes before the handle is exposed. Remove reusable phases, a second startup
+state, generic transport wrapping and unused restore-directory configuration.
+Keep completion private to source reservations rather than expanding the public
+handle. Native consuming RPCs remain observable where application cleanup needs
+to avoid closing consumed storage or reopen it for enabled write-back.
+
+The native Rust server retains synchronous backend ownership until its serving
+runtime has finished. This independent shutdown correction remains necessary
+for successful media operations followed by normal stdio exit.
+
+The public-surface audit covers every handwritten exported symbol, not only Go
+interface declarations. Native C bridge types, functions, fields and errors
+used only inside their Go package remain private. Rust CLI parsing and help
+declarations used only inside their module remain private as well. Preserve
+exports required by actual consumers, the C ABI or framework integration.
+Visibility reductions do not change native execution or the wire protocol.
 
 ## Risks / Trade-offs
 
-Cancellation does not establish native completion. Keep restored files and source
-exclusion until completion can be established, and preserve cleanup errors.
-Collection operations must remain exclusive with lifecycle changes while ordinary
-RPCs retain concurrency. Existing E2E fixtures cover consuming native calls,
-publication failures and uncertain work; the preimplementation unified-client
-case verifies transport reuse, old-connection rejection and final completion.
+Cancellation does not establish native completion. The application must retain
+its owned restores and source reservations when completion cannot be established.
+This responsibility does not belong to a raw network client's Stop method.
+Transport fixtures now use generated native open/close RPCs explicitly; package
+export consumes native storage, so cleanup must not blindly close it again.
 
 ## Migration Plan
 
-Migrate all repository callers of separate collection constructors to methods on
-their existing client. Keep raw transport fixtures on Transport where they test
-transport-specific behavior. Update application opening options and remove its
-reservation-client wrapper. Validate real native, WASM and MCP workflows before
-publication. No storage migration or live deployment is required.
+Adapt existing real-worker cases before production edits. Return factory results
+directly, migrate application API/MCP handles and fixture helpers, and place
+managed archive acceptance tests with the application scope. Validate the store,
+transport, native/WASM application and MCP workflows with retained artifacts.

@@ -134,12 +134,6 @@ func (application *recordingApplication) ServerRun(ctx context.Context, program 
 	return application.failure
 }
 
-// ServerServe records server hosting without implementing native serve delegation.
-func (application *recordingApplication) ServerServe(ctx context.Context, program string, arguments []string) error {
-	application.record(ctx, "server serve", append([]string{program}, arguments...)...)
-	return application.failure
-}
-
 // TestServerDispatch verifies server commands use the application boundary and preserve opaque native arguments.
 func TestServerDispatch(t *testing.T) {
 	for _, mode := range []string{"run", "serve"} {
@@ -161,8 +155,12 @@ func TestServerDispatch(t *testing.T) {
 			if fail && !errors.Is(err, failure) || !fail && err != nil {
 				t.Fatalf("server %s failed=%t: %v", mode, fail, err)
 			}
-			expected := append([]string{"anki_as_code server run"}, arguments...)
-			if fake.calls != 1 || fake.operation != "server "+mode || fake.ctx != ctx || !reflect.DeepEqual(fake.paths, expected) || output.Len() != 0 {
+			expected := []string{"anki_as_code server run"}
+			if mode == "serve" {
+				expected = append(expected, "serve")
+			}
+			expected = append(expected, arguments...)
+			if fake.calls != 1 || fake.operation != "server run" || fake.ctx != ctx || !reflect.DeepEqual(fake.paths, expected) || output.Len() != 0 {
 				t.Fatalf("server command bypassed or changed application dispatch: %+v output=%q", fake, output.String())
 			}
 		}

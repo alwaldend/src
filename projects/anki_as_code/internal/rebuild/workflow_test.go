@@ -21,6 +21,7 @@ import (
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/pkg/ankiascode"
 	"git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/ankiclient"
 	"git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/ankigrpc"
+	"github.com/ankitects/anki/proto/anki/collection"
 	"github.com/ankitects/anki/proto/anki/import_export"
 	"github.com/bazelbuild/rules_go/go/runfiles"
 	"github.com/spf13/afero"
@@ -259,8 +260,8 @@ func TestArchiveBuild(t *testing.T) {
 		t.Fatal(err)
 	}
 	factory := ankigrpc.NewFactory(ankigrpc.SubprocessAddress(binary, "serve"))
-	factory.RegisterClientFactory("subprocess", ankigrpc.ClientFactoryFunc[*ankiclient.ClientSTD](ankigrpc.NewSubprocessClient))
-	application := ankiascode.New(ankiascode.Options{NewClient: factory})
+	factory.RegisterClientFactory("subprocess", ankigrpc.ToClientFactory(ankigrpc.NewSubprocessClient))
+	application := ankiascode.New(ankiascode.Options{NewClient: factory.NewClient})
 	wanted := &ankiascodepb.State{Version: 1, Resources: &ankiascodepb.Resources{
 		Decks: map[string]*ankiascodepb.DeckState{"decks/Default/deck.anki.toml": {Id: 1}},
 	}}
@@ -416,17 +417,25 @@ func TestArchiveBuild(t *testing.T) {
 	writeArtifact(t, "built-state.json", stateJSON)
 }
 
-// createArchive creates a native collection package through the managed backend APIs.
+// createArchive creates a native collection package through explicit collection RPCs.
 func createArchive(t *testing.T, path string) {
 	t.Helper()
 	binary, err := runfiles.Rlocation("_main/projects/anki_grpc/cmd/anki_grpc/anki_grpc")
 	if err != nil {
 		t.Fatal(err)
 	}
-	worker := ankiclient.NewClient(ankiclient.NewSTD(ankiclient.ClientSTDOptions{Binary: binary, Arguments: []string{"serve"}}))
+	directory := t.TempDir()
+	worker := ankiclient.NewSTD(ankiclient.ClientSTDOptions{Binary: binary, Arguments: []string{"serve"}})
+	var collections collection.BackendCollectionServiceClient
+	opened := false
 	t.Cleanup(func() {
 		ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 		defer cancel()
+		if opened {
+			if _, err := collections.CloseCollection(ctx, &collection.CloseCollectionRequest{}); err != nil {
+				t.Error(err)
+			}
+		}
 		if err := worker.Stop(ctx); err != nil {
 			t.Error(err)
 		}
@@ -434,29 +443,27 @@ func createArchive(t *testing.T, path string) {
 	if err := worker.Start(t.Context()); err != nil {
 		t.Fatal(err)
 	}
-	directory := t.TempDir()
-	if err := os.Mkdir(filepath.Join(directory, "collection.media"), 0o700); err != nil {
-		t.Fatal(err)
-	}
-	t.Cleanup(func() {
-		ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
-		defer cancel()
-		if err := worker.CloseCollection(ctx); err != nil {
-			t.Error(err)
-		}
-	})
-	if err := worker.OpenCollection(t.Context(), ankiclient.CollectionOptions{Path: filepath.Join(directory, "collection.anki2")}); err != nil {
+	mediaDirectory := filepath.Join(directory, "collection.media")
+	if err := os.Mkdir(mediaDirectory, 0o700); err != nil {
 		t.Fatal(err)
 	}
 	connection, err := worker.Connection()
 	if err != nil {
 		t.Fatal(err)
 	}
+	collections = collection.NewBackendCollectionServiceClient(connection)
+	if _, err := collections.OpenCollection(t.Context(), &collection.OpenCollectionRequest{
+		CollectionPath: filepath.Join(directory, "collection.anki2"), MediaFolderPath: mediaDirectory, MediaDbPath: mediaDirectory + ".db2",
+	}); err != nil {
+		t.Fatal(err)
+	}
+	opened = true
 	if _, err := import_export.NewBackendImportExportServiceClient(connection).ExportCollectionPackage(t.Context(), &import_export.ExportCollectionPackageRequest{
 		OutPath: path, IncludeMedia: true,
 	}); err != nil {
 		t.Fatal(err)
 	}
+	opened = false
 }
 
 // readArchive reads fixture bytes for source and destination preservation checks.

@@ -13,7 +13,7 @@ import (
 // native worker. Collection operations select their source per call; borrowed
 // connections retain caller-owned lifetime and package publication.
 type App interface {
-	// ColOpen returns a started client owning its collection and backend; do not call Start again.
+	// ColOpen returns an already-open application-owned collection scope.
 	// Connection lends native access. Stop or ctx cancellation publishes enabled archives and releases resources.
 	// Stop's context bounds waiting, not native cleanup. Database writes remain immediate.
 	ColOpen(ctx context.Context, options ColOpenOptions) (ankiclient.Client, error)
@@ -24,8 +24,6 @@ type App interface {
 	// ServerRun hosts opaque native CLI arguments through the configured adapter.
 	// The context controls startup only; the adapter owns hosting until return.
 	ServerRun(ctx context.Context, program string, arguments []string) error
-	// ServerServe delegates to ServerRun with the native serve subcommand prepended.
-	ServerServe(ctx context.Context, program string, arguments []string) error
 	// ConfigDump returns encoded collection configurations.
 	ConfigDump(ctx context.Context, text, format string) ([]byte, error)
 	// ConfigExport writes a parsed configuration set as a TOML tree.
@@ -46,12 +44,6 @@ type App interface {
 	ColStateUpdate(ctx context.Context, options CollectionOptions, value *ankiascodepb.State) error
 	// ColStateReplace installs the complete supplied state object.
 	ColStateReplace(ctx context.Context, options CollectionOptions, value *ankiascodepb.State) error
-}
-
-// MCP hosts protocol access to an application without making hosting an App operation.
-type MCP interface {
-	// Serve hosts protocol requests until disconnect or cancellation.
-	Serve(ctx context.Context) error
 }
 
 // ColOpenOptions configures one owned collection lifetime.

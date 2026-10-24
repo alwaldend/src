@@ -1,54 +1,47 @@
 ## Purpose
 
-Provide one reusable client owning transport and optional native collection
-storage, with explicit RPC access and observable final completion.
+Provide transport startup, RPC access and shutdown without owning application
+collection storage.
 
 ## ADDED Requirements
 
-### Requirement: Own transport and optional storage through one Client
+### Requirement: Expose the transport client lifecycle
 
-Factories SHALL return one Client exposing Start, Connection, OpenCollection,
-CloseCollection, Stop and Done. Start SHALL prepare its transport once;
-OpenCollection SHALL attach private collection state to that same client using
-a copied CollectionOptions value. Connection SHALL reject access before startup
-and after terminal shutdown begins. Stop SHALL close storage before stopping
-the transport, including after failed collection preparation. Collection state
-SHALL NOT implement another Client lifecycle.
+Client SHALL expose only Connection and Stop. StartableClient SHALL embed Client
+and add Start for callers that own startup. Factory adapters SHALL return their
+constructed StartableClient directly without another lifecycle wrapper.
+Concrete clients SHALL own readiness and cleanup of their transport resources.
+Collection open, close, archive publication and source reservations SHALL remain
+outside the generic client contract.
 
-#### Scenario: Stop a client with an open collection
+#### Scenario: Reuse a transport with explicit native collection calls
 
-- **WHEN** a caller starts a client, opens storage, uses its connection and stops it
-- **THEN** native collection storage closes before transport shutdown
-- **AND** retained connection access fails and repeated Stop remains safe
+- **WHEN** a caller starts a client, opens and closes collections using generated
+  native RPCs, and then stops the client
+- **THEN** transport lifetime follows Start, Connection and Stop without managed
+  collection phases or an additional client wrapper
 
-#### Scenario: Fail collection opening after starting the transport
+### Requirement: Observe optional native completion
 
-- **WHEN** collection preparation fails on a started client
-- **THEN** OpenCollection reports the failure without exposing prepared access
-- **AND** CloseCollection or Stop can clean up its recorded storage state
+Concrete owned transports MAY expose final native completion through Done when
+Stop can return before owned work finishes. That capability SHALL remain optional
+and SHALL NOT expand Client or StartableClient or require a public AsyncClient interface.
+Closing a raw network connection SHALL NOT claim to
+terminate its caller-owned server or collection.
 
-### Requirement: Preserve publication and bounded cleanup
+#### Scenario: Stop waiting for native cleanup
 
-CollectionOptions SHALL contain archive WriteBack and terminal CloseTimeout
-settings. Stop SHALL publish enabled archives independently of its caller's wait
-context, under the configured publication budget (default ten minutes) and a
-separate five-second transport budget. A cancelled wait SHALL NOT cancel owned
-cleanup. Joining collection cleanup already running in another caller SHALL honor
-the terminal cleanup budget and SHALL NOT prevent transport shutdown after that
-budget expires. Done SHALL close only after terminal native transport cleanup finishes.
-Start's context SHALL control startup only. Hosting applications SHALL retain
-source-reservation and session-context policy without another returned client.
+- **WHEN** native cleanup continues after a Stop caller's context expires
+- **THEN** a caller needing final completion can observe the concrete Done method
+  while ordinary transport consumers retain the three-method StartableClient contract
 
-#### Scenario: Cancel waiting for cleanup
+### Requirement: Destroy owned native resources outside asynchronous serving
 
-- **WHEN** a caller stops with an expired wait context
-- **THEN** Stop reports cancellation while cleanup continues within its owned budgets
-- **AND** Done permits callers to observe final native completion
+The native server SHALL retain synchronous ownership of its initialized backend
+until asynchronous serving and its runtime have finished. Backend resources that
+own runtimes SHALL be destroyed outside an asynchronous execution context.
 
-#### Scenario: Stop while another caller is closing storage
+#### Scenario: Successful media operation followed by normal stdio shutdown
 
-- **WHEN** CloseCollection is already waiting for active native work with an
-  unbounded context and terminal Stop reaches its collection cleanup deadline
-- **THEN** Stop proceeds to transport shutdown within its separate transport budget
-- **AND** its cleanup diagnostic preserves the collection deadline and Done still
-  observes final native completion
+- **WHEN** a stdio client successfully adds media, closes its collection and stops
+- **THEN** the worker exits successfully without a runtime-destruction panic

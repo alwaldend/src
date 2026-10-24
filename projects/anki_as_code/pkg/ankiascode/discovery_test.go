@@ -286,26 +286,6 @@ func TestReconciledExportWritesWorkflow(t *testing.T) {
 		t.Fatal(err)
 	}
 	assertConverged(t, fixture.base, fresh)
-	for _, scenario := range []string{"source symlink", "destination symlink"} {
-		t.Run(scenario, func(t *testing.T) {
-			sourceDirectory := filepath.Dir(fixture.database)
-			link := filepath.Join(t.TempDir(), "alias")
-			if err := os.Symlink(sourceDirectory, link); err != nil {
-				t.Fatal(err)
-			}
-			input, output := fixture.database, sourceDirectory
-			if scenario == "source symlink" {
-				input = filepath.Join(link, filepath.Base(fixture.database))
-			} else {
-				output = link
-			}
-			before := fixtureSources(t, sourceDirectory)
-			if err := exportForFixture(context.Background(), input, output, ""); err == nil {
-				t.Fatal("export accepted a destination physically containing its source")
-			}
-			assertFixtureSources(t, sourceDirectory, before)
-		})
-	}
 
 	saveFixtureArtifact(t, config, "exported.anki.toml")
 }

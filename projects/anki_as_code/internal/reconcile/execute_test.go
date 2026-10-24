@@ -20,6 +20,7 @@ import (
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/resource"
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/state"
 	"git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/ankiclient"
+	"github.com/ankitects/anki/proto/anki/collection"
 	"github.com/ankitects/anki/proto/anki/decks"
 	"github.com/ankitects/anki/proto/anki/generic"
 	"github.com/ankitects/anki/proto/anki/import_export"
@@ -62,12 +63,17 @@ func TestSavedPlanWorkflow(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	worker := ankiclient.NewClient(ankiclient.NewSTD(ankiclient.ClientSTDOptions{Binary: binary, Arguments: []string{"serve"}}))
+	directory := t.TempDir()
+	worker := ankiclient.NewSTD(ankiclient.ClientSTDOptions{Binary: binary, Arguments: []string{"serve"}})
+	var collections collection.BackendCollectionServiceClient
+	opened := false
 	t.Cleanup(func() {
 		cleanup, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 		defer cancel()
-		if err := worker.CloseCollection(cleanup); err != nil {
-			t.Error(err)
+		if opened {
+			if _, err := collections.CloseCollection(cleanup, &collection.CloseCollectionRequest{}); err != nil {
+				t.Error(err)
+			}
 		}
 		if err := worker.Stop(cleanup); err != nil {
 			t.Error(err)
@@ -76,13 +82,19 @@ func TestSavedPlanWorkflow(t *testing.T) {
 	if err := worker.Start(ctx); err != nil {
 		t.Fatal(err)
 	}
-	if err := worker.OpenCollection(ctx, ankiclient.CollectionOptions{Path: filepath.Join(t.TempDir(), "collection.anki2")}); err != nil {
-		t.Fatal(err)
-	}
 	connection, err := worker.Connection()
 	if err != nil {
 		t.Fatal(err)
 	}
+	collections = collection.NewBackendCollectionServiceClient(connection)
+	if _, err := collections.OpenCollection(ctx, &collection.OpenCollectionRequest{
+		CollectionPath:  filepath.Join(directory, "collection.anki2"),
+		MediaFolderPath: filepath.Join(directory, "collection.media"),
+		MediaDbPath:     filepath.Join(directory, "collection.media.db2"),
+	}); err != nil {
+		t.Fatal(err)
+	}
+	opened = true
 	resources, states := resource.New(connection), state.New(connection, "saved-plan")
 	initial, err := resources.Snapshot(ctx)
 	if err != nil {
@@ -317,6 +329,7 @@ func TestSavedPlanWorkflow(t *testing.T) {
 		if _, err := import_export.NewBackendImportExportServiceClient(connection).ExportCollectionPackage(ctx, &import_export.ExportCollectionPackageRequest{OutPath: filepath.Join(output, "executed-plan.colpkg")}); err != nil {
 			t.Fatal(err)
 		}
+		opened = false
 	}
 }
 

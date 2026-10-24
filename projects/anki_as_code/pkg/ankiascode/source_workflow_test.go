@@ -22,6 +22,56 @@ import (
 	"google.golang.org/protobuf/proto"
 )
 
+// TestCollectionParentTraversalWorkflow updates the physically selected source through public commands.
+func TestCollectionParentTraversalWorkflow(t *testing.T) {
+	for _, format := range []string{"database", "package"} {
+		t.Run(format, func(t *testing.T) {
+			wrong, intended := newFixture(t), newFixture(t)
+			wrongSource, intendedSource, filename := wrong.database, intended.database, "collection.anki2"
+			if format == "package" {
+				wrongSource, intendedSource, filename = wrong.base, intended.base, "collection.colpkg"
+			}
+			root := t.TempDir()
+			if err := os.MkdirAll(filepath.Join(root, "other", "deep"), 0o755); err != nil {
+				t.Fatal(err)
+			}
+			for path, target := range map[string]string{
+				filepath.Join(root, "redirect"):        "other/deep",
+				filepath.Join(root, filename):          wrongSource,
+				filepath.Join(root, "other", filename): intendedSource,
+			} {
+				if err := os.Symlink(target, path); err != nil {
+					t.Fatal(err)
+				}
+			}
+			before := stateFixtureDump(t, wrongSource)
+			bindings := &ankiascodepb.State{Version: 1, Resources: &ankiascodepb.Resources{
+				Decks: map[string]*ankiascodepb.DeckState{"decks/selected/deck.anki.toml": {Id: 1}},
+			}}
+			stateFile := filepath.Join(root, "bindings.toml")
+			writeFixtureTOML(t, stateFile, bindings)
+			source := root + "/redirect/../" + filename
+			runFixtureCLI(t, "col", "state", "replace", "--collection", source, stateFile)
+			if actual := stateFixtureDump(t, intendedSource); !proto.Equal(actual, bindings) {
+				t.Fatalf("parent traversal did not update the intended collection: %v", actual)
+			}
+			if actual := stateFixtureDump(t, wrongSource); !proto.Equal(actual, before) {
+				t.Fatalf("parent traversal updated the lexical collection: %v", actual)
+			}
+			output := root + "/redirect/../export"
+			runFixtureCLI(t, "col", "export", "--collection", source, "--output", output)
+			if _, err := os.Stat(filepath.Join(root, "other", "export", "decks", "grammar", "deck.anki.toml")); err != nil {
+				t.Fatalf("collection export lost source or destination traversal: %v", err)
+			}
+			if _, err := os.Stat(filepath.Join(root, "export")); !errors.Is(err, os.ErrNotExist) {
+				t.Fatalf("collection export wrote the lexical output: %v", err)
+			}
+			saveFixtureArtifact(t, intendedSource, "parent-traversal-selected-"+format+".source")
+			saveFixtureArtifact(t, wrongSource, "parent-traversal-unchanged-"+format+".source")
+		})
+	}
+}
+
 // TestBasePathCollectionExport publishes configuration and state through rooted directory and dangling aliases.
 func TestBasePathCollectionExport(t *testing.T) {
 	fixture := newFixture(t)

@@ -1,4 +1,36 @@
-# Unified client validation
+# Client capability validation
+
+The shared-capability follow-up defines Client as Connection and Stop and
+StartableClient as Client plus Start. Prepared application handles use Client;
+factories and raw transport owners use StartableClient. Constructors are function
+values; the concrete Factory supplies registry/default behavior through NewClient.
+Concrete transports retain Done, and the application observes completion through
+a private capability. These contract changes retain native storage, archive
+publication and shutdown behavior.
+Existing lifecycle and application workflows provide the behavioral checks;
+the tasks and delivery receipts record validation of the current candidate.
+
+The earlier shared-capability follow-up passed 34 existing native, WASM CLI/MCP,
+transport and repository test targets, plus semantic lint. Source review found
+no regressions; retained lifecycle artifacts confirm cleanup and source reuse.
+The constructor/completion simplification passed the existing transport, collection,
+CLI, rebuild, native application, WASM CLI/MCP and combined-engine workflows.
+Independent source review found no remaining issues. Retained JSON artifacts
+confirm private factory isolation, owned source release and uncertain external
+completion reservations. Exact-candidate delivery receipts own lint and quality
+results; earlier candidate counts are historical.
+
+The broader public-symbol audit made the raw native bridge, Rust CLI parsing
+and WASM host cleanup helpers private. Existing transport tests passed after
+the native and Rust changes; final candidate checks cover the host helper rename.
+The application visibility/alias cleanup passed nine existing application,
+collection, resource/config, rebuild and native/WASM/combined CLI test targets.
+Independent review found no introduced regressions.
+
+## Historical unified-client evidence
+
+The observations below describe the earlier unified-storage implementation,
+which the current transport/application split supersedes.
 
 The reusable client owns its transport and optional private storage state.
 Existing native E2E cases are migrated to OpenCollection and CloseCollection on

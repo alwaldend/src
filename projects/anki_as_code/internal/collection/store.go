@@ -26,15 +26,12 @@ type Options struct {
 	CloseTimeout time.Duration
 }
 
-// CollectionOptions uses the application contract for source and publication settings.
-type CollectionOptions = ankiascodeapi.ColOpenOptions
-
-// sourceReservation retains physical identity until its client finishes native cleanup.
+// sourceReservation retains physical identity until its scope finishes native cleanup.
 type sourceReservation struct {
 	// identity identifies filesystem aliases of the reserved source.
 	identity os.FileInfo
-	// client observes native completion after construction; nil reserves startup selection.
-	client ankiclient.Client
+	// scope observes native completion after construction; nil reserves startup selection.
+	scope *scope
 }
 
 // Store reserves collection sources within explicitly configured native scopes.
@@ -58,24 +55,24 @@ func New(options Options) Store {
 }
 
 // createClient delegates connection-string interpretation and construction to anki_grpc.
-func (store *Store) createClient(address string) (ankiclient.Client, error) {
+func (store *Store) createClient(address string) (ankiclient.StartableClient, error) {
 	constructor := store.newClient
 	if constructor == nil {
 		if address == "" {
 			return nil, fmt.Errorf("collection access requires a configured client factory or per-operation client address")
 		}
-		constructor = ankigrpc.ClientFactoryFunc[ankiclient.Client](ankigrpc.NewClient)
+		constructor = ankigrpc.NewClient
 	}
-	client, err := constructor.NewClient(address)
+	client, err := constructor(address)
 	if err != nil {
 		return nil, fmt.Errorf("construct Anki client: %w", err)
 	}
 	return client, nil
 }
 
-// Open reserves a source and starts one client with its optional collection state.
+// Open reserves a source and returns one already-open application collection.
 // Cancellation requests cleanup; source reservations remain until native completion.
-func (store *Store) Open(ctx context.Context, options CollectionOptions) (_ ankiclient.Client, err error) {
+func (store *Store) Open(ctx context.Context, options ankiascodeapi.ColOpenOptions) (_ ankiclient.Client, err error) {
 	source, reservation, err := store.reserve(ctx, options.Path)
 	if err != nil {
 		return nil, fmt.Errorf("reserve collection: %w", err)
@@ -85,29 +82,27 @@ func (store *Store) Open(ctx context.Context, options CollectionOptions) (_ anki
 		store.releaseSource(source, reservation)
 		return nil, fmt.Errorf("select collection client: %w", err)
 	}
+	owner := newScope(client, source, options.WriteBack, store.closeTimeout)
 	store.mutex.Lock()
-	reservation.client = client
+	reservation.scope = owner
 	store.mutex.Unlock()
 	opened := false
 	defer func() {
 		if !opened {
-			err = errors.Join(err, client.Stop(context.WithoutCancel(ctx)))
+			err = errors.Join(err, owner.Stop(context.WithoutCancel(ctx)))
 		}
 		store.observe(ctx, source, reservation)
 	}()
-	if err := client.Start(ctx); err != nil {
-		return nil, fmt.Errorf("start collection client: %w", err)
-	}
-	if err := client.OpenCollection(ctx, ankiclient.CollectionOptions{Path: source, WriteBack: options.WriteBack, CloseTimeout: store.closeTimeout}); err != nil {
+	if err := owner.open(ctx); err != nil {
 		return nil, fmt.Errorf("open managed collection: %w", err)
 	}
 	opened = true
-	return client, nil
+	return owner, nil
 }
 
 // WithCollection lends an open connection and waits for cleanup after callback completion or panic.
 // Operation errors and cancellation retain enabled archive publication and cleanup diagnostics.
-func (store *Store) WithCollection(ctx context.Context, options CollectionOptions, operation func(grpc.ClientConnInterface) error) (err error) {
+func (store *Store) WithCollection(ctx context.Context, options ankiascodeapi.ColOpenOptions, operation func(grpc.ClientConnInterface) error) (err error) {
 	if operation == nil {
 		return fmt.Errorf("collection access requires an operation")
 	}
@@ -137,10 +132,10 @@ func (store *Store) WithCollection(ctx context.Context, options CollectionOption
 func (store *Store) observe(ctx context.Context, source string, reservation *sourceReservation) {
 	go func() {
 		select {
-		case <-reservation.client.Done():
+		case <-reservation.scope.done:
 		case <-ctx.Done():
-			_ = reservation.client.Stop(context.Background())
-			<-reservation.client.Done()
+			_ = reservation.scope.Stop(context.Background())
+			<-reservation.scope.done
 		}
 		store.releaseSource(source, reservation)
 	}()
@@ -167,9 +162,9 @@ func (store *Store) reserve(ctx context.Context, path string) (string, *sourceRe
 	store.mutex.Lock()
 	defer store.mutex.Unlock()
 	for reserved, reservation := range store.entries {
-		if reservation.client != nil {
+		if reservation.scope != nil {
 			select {
-			case <-reservation.client.Done():
+			case <-reservation.scope.done:
 				delete(store.entries, reserved)
 				continue
 			default:
@@ -190,11 +185,7 @@ func (store *Store) reserve(ctx context.Context, path string) (string, *sourceRe
 
 // resolveCollectionSource resolves aliases and requires an existing regular source file.
 func resolveCollectionSource(storage filesystem.FS, path string) (string, os.FileInfo, error) {
-	expanded, err := storage.ExpandPath(path)
-	if err != nil {
-		return "", nil, fmt.Errorf("expand source path: %w", err)
-	}
-	source, err := storage.ResolvePath(expanded, false)
+	source, err := storage.ResolvePath(path, false)
 	if err != nil {
 		return "", nil, fmt.Errorf("resolve source aliases: %w", err)
 	}

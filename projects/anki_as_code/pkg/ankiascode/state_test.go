@@ -486,7 +486,7 @@ func prepareFixtureConfigs(t *testing.T, ctx context.Context, input, output stri
 	if err := exportForFixture(ctx, input, output, ""); err != nil {
 		return fmt.Errorf("export fixture configs: %w", err)
 	}
-	root, err := fixtureApplication().filesystem.ExpandPath(output)
+	root, err := fixtureApplication().filesystem.ResolvePath(output, false)
 	if err != nil {
 		return fmt.Errorf("resolve fixture export: %w", err)
 	}
@@ -618,7 +618,7 @@ func TestReconciledExportWorkflow(t *testing.T) {
 			for _, format := range []string{"toml", "json"} {
 				data := runFixtureCLI(t, "col", "state", "dump", "--format", format, "--collection", input)
 				value := &ankiascodepb.State{}
-				if err := codec.Decode(data, codec.Format(format), value); err != nil || !proto.Equal(value, stored) {
+				if err := codec.Decode(data, format, value); err != nil || !proto.Equal(value, stored) {
 					t.Fatalf("separate %s state dump: %v", format, err)
 				}
 				file := filepath.Join(t.TempDir(), "state.anki."+format)

@@ -117,7 +117,7 @@ func TestLocalAPIAddresses(t *testing.T) {
 		}
 	}
 	registerLocalAPIClient.Do(func() {
-		ankigrpc.RegisterClientFactory("native-api-fixture", ankigrpc.ClientFactoryFunc[ankiclient.Client](func(string) (ankiclient.Client, error) {
+		ankigrpc.RegisterClientFactory("native-api-fixture", ankigrpc.ToClientFactory(func(string) (ankiclient.StartableClient, error) {
 			client, err := ankigrpc.NewClient("inprocess://registered-api")
 			if err != nil {
 				return nil, fmt.Errorf("construct registered API fixture: %w", err)
@@ -134,7 +134,7 @@ func TestLocalAPIAddresses(t *testing.T) {
 	}
 	for _, address := range []string{"private-api-fixture://managed", "tcp://injected-owned-backend"} {
 		calls := 0
-		application := ankiascode.New(ankiascode.Options{NewClient: ankigrpc.ClientFactoryFunc[ankiclient.Client](func(input string) (ankiclient.Client, error) {
+		application := ankiascode.New(ankiascode.Options{NewClient: ankigrpc.ToClientFactory(func(input string) (ankiclient.StartableClient, error) {
 			calls++
 			if input != address {
 				return nil, fmt.Errorf("injected API address changed: %q", input)

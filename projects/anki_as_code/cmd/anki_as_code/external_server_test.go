@@ -27,6 +27,7 @@ import (
 	"git.alwaldend.com/alwaldend/src/projects/anki_as_code/pkg/ankiascode"
 	"git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/ankiclient"
 	"git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/ankigrpc"
+	"github.com/ankitects/anki/proto/anki/collection"
 	"github.com/ankitects/anki/proto/anki/import_export"
 )
 
@@ -106,11 +107,11 @@ func externalArchive(t *testing.T, address, database, archive string) {
 	t.Helper()
 	ctx, cancel := context.WithTimeout(t.Context(), 15*time.Second)
 	defer cancel()
-	var factory ankigrpc.ClientFactory = ankigrpc.ClientFactoryFunc[ankiclient.Client](ankigrpc.NewClient)
+	var factory ankigrpc.ClientFactory = ankigrpc.NewClient
 	if strings.HasPrefix(address, "subprocess://") {
-		factory = ankigrpc.ClientFactoryFunc[*ankiclient.ClientSTD](ankigrpc.NewSubprocessClient)
+		factory = ankigrpc.ToClientFactory(ankigrpc.NewSubprocessClient)
 	}
-	backend, err := factory.NewClient(address)
+	backend, err := factory(address)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -122,22 +123,33 @@ func externalArchive(t *testing.T, address, database, archive string) {
 	if err := backend.Start(ctx); err != nil {
 		t.Fatal(err)
 	}
-	defer func() {
-		if err := backend.CloseCollection(context.Background()); err != nil {
-			t.Errorf("close archive collection: %v", err)
-		}
-	}()
-	if err := backend.OpenCollection(ctx, ankiclient.CollectionOptions{Path: database}); err != nil {
-		t.Fatal(err)
-	}
 	connection, err := backend.Connection()
 	if err != nil {
 		t.Fatal(err)
 	}
+	collections := collection.NewBackendCollectionServiceClient(connection)
+	mediaDirectory := strings.TrimSuffix(database, filepath.Ext(database)) + ".media"
+	if err := os.MkdirAll(mediaDirectory, 0o700); err != nil {
+		t.Fatal(err)
+	}
+	if _, err := collections.OpenCollection(ctx, &collection.OpenCollectionRequest{
+		CollectionPath: database, MediaFolderPath: mediaDirectory, MediaDbPath: mediaDirectory + ".db2",
+	}); err != nil {
+		t.Fatal(err)
+	}
+	opened := true
+	defer func() {
+		if opened {
+			if _, err := collections.CloseCollection(context.Background(), &collection.CloseCollectionRequest{}); err != nil {
+				t.Errorf("close archive collection: %v", err)
+			}
+		}
+	}()
 	if _, err := import_export.NewBackendImportExportServiceClient(connection).ExportCollectionPackage(ctx,
 		&import_export.ExportCollectionPackageRequest{OutPath: archive, IncludeMedia: true}); err != nil {
 		t.Fatal(err)
 	}
+	opened = false
 }
 
 // applicationClientFactory records selected addresses while constructing real clients.
@@ -149,7 +161,7 @@ type applicationClientFactory struct {
 }
 
 // NewClient records the selection and delegates client ownership to the library.
-func (factory *applicationClientFactory) NewClient(address string) (ankiclient.Client, error) {
+func (factory *applicationClientFactory) NewClient(address string) (ankiclient.StartableClient, error) {
 	factory.addresses = append(factory.addresses, address)
 	client, err := factory.configured.NewClient(address)
 	if err != nil {
@@ -165,7 +177,7 @@ var applicationWorkerFactories sync.Once
 // Each external listener stops before the next operation so a retained address cannot succeed.
 func TestApplicationBackendSelection(t *testing.T) {
 	applicationWorkerFactories.Do(func() {
-		factory := ankigrpc.ClientFactoryFunc[*ankiclient.ClientSTD](ankigrpc.NewSubprocessClient)
+		factory := ankigrpc.ToClientFactory(ankigrpc.NewSubprocessClient)
 		for _, scheme := range []string{"subprocess", "subprocess+cgo"} {
 			if _, err := ankigrpc.NewClient(scheme + "://unconfigured-worker"); err == nil {
 				t.Fatalf("library import registered an unowned worker: %s", scheme)
@@ -177,7 +189,7 @@ func TestApplicationBackendSelection(t *testing.T) {
 	t.Chdir(root)
 	t.Setenv("TMPDIR", root)
 	factory := &applicationClientFactory{configured: ankigrpc.NewFactory(ankigrpc.SubprocessAddress(binary, "server", "serve"))}
-	application := ankiascode.New(ankiascode.Options{NewClient: factory})
+	application := ankiascode.New(ankiascode.Options{NewClient: factory.NewClient})
 	database := filepath.Join(root, "application.anki2")
 	if err := os.WriteFile(database, nil, 0o600); err != nil {
 		t.Fatal(err)

@@ -11,6 +11,6 @@ import (
 var wasmServerRunner = wasm.Run
 
 // wasmClientFactory constructs independent in-process WASM instances without startup I/O.
-var wasmClientFactory ankigrpc.ClientFactory = ankigrpc.ClientFactoryFunc[*wasm.Client](func(string) (*wasm.Client, error) {
+var wasmClientFactory ankigrpc.ClientFactory = ankigrpc.ToClientFactory(func(string) (*wasm.Client, error) {
 	return wasm.New(), nil
 })

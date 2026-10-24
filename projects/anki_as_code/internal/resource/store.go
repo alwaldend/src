@@ -29,10 +29,10 @@ type Store struct {
 	Notes notes.NotesServiceClient
 	// Cards exposes generated-card reads and native updates.
 	Cards cards.CardsServiceClient
-	// Search enumerates native identities and supports caller queries.
-	Search search.SearchServiceClient
-	// Presets reads existing scheduling references; consumers own managed scope.
-	Presets deck_config.DeckConfigServiceClient
+	// search enumerates native identities for snapshots.
+	search search.SearchServiceClient
+	// presets reads existing scheduling references for snapshots.
+	presets deck_config.DeckConfigServiceClient
 	// Rendering exposes Anki's text conversion and card rendering operations.
 	Rendering card_rendering.CardRenderingServiceClient
 }
@@ -44,8 +44,8 @@ func New(connection grpc.ClientConnInterface) *Store {
 		NoteTypes: notetypes.NewNotetypesServiceClient(connection),
 		Notes:     notes.NewNotesServiceClient(connection),
 		Cards:     cards.NewCardsServiceClient(connection),
-		Search:    search.NewSearchServiceClient(connection),
-		Presets:   deck_config.NewDeckConfigServiceClient(connection),
+		search:    search.NewSearchServiceClient(connection),
+		presets:   deck_config.NewDeckConfigServiceClient(connection),
 		Rendering: card_rendering.NewCardRenderingServiceClient(connection),
 	}
 }
@@ -83,7 +83,7 @@ func (store *Store) Snapshot(ctx context.Context) (*Snapshot, error) {
 		if deck.GetNormal() == nil {
 			continue
 		}
-		values, err := store.Presets.GetDeckConfigsForUpdate(ctx, &decks.DeckId{Did: deck.Id})
+		values, err := store.presets.GetDeckConfigsForUpdate(ctx, &decks.DeckId{Did: deck.Id})
 		if err != nil {
 			return nil, fmt.Errorf("read scheduling preset references for deck %d: %w", deck.Id, err)
 		}
@@ -92,7 +92,7 @@ func (store *Store) Snapshot(ctx context.Context) (*Snapshot, error) {
 		}
 		break
 	}
-	noteIDs, err := store.Search.SearchNotes(ctx, &search.SearchRequest{})
+	noteIDs, err := store.search.SearchNotes(ctx, &search.SearchRequest{})
 	if err != nil {
 		return nil, fmt.Errorf("search notes: %w", err)
 	}
@@ -104,7 +104,7 @@ func (store *Store) Snapshot(ctx context.Context) (*Snapshot, error) {
 		}
 		result.Notes = append(result.Notes, value)
 	}
-	cardIDs, err := store.Search.SearchCards(ctx, &search.SearchRequest{})
+	cardIDs, err := store.search.SearchCards(ctx, &search.SearchRequest{})
 	if err != nil {
 		return nil, fmt.Errorf("search cards: %w", err)
 	}

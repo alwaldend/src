@@ -23,7 +23,7 @@ type connection struct {
 	// mutex serializes lifecycle transitions and native-call registration.
 	mutex sync.Mutex
 	// native owns Rust state while the backend is ready or draining.
-	native *Server
+	native *server
 	// started records the one permitted startup attempt.
 	started bool
 	// stopped prevents native-call registration after shutdown starts.
@@ -49,18 +49,18 @@ func (backend *connection) start(ctx context.Context) error {
 	if err := ctx.Err(); err != nil {
 		return fmt.Errorf("start direct Anki backend: %w", err)
 	}
-	native, err := NewServer()
+	native, err := newServer()
 	if err != nil {
 		return fmt.Errorf("start direct Anki backend: %w", err)
 	}
 	if err := ctx.Err(); err != nil {
-		native.Close()
+		native.close()
 		return fmt.Errorf("finish direct Anki startup: %w", err)
 	}
 	backend.mutex.Lock()
 	if backend.stopped {
 		backend.mutex.Unlock()
-		native.Close()
+		native.close()
 		return fmt.Errorf("finish direct Anki startup: client stopped during initialization")
 	}
 	backend.native = native
@@ -82,7 +82,7 @@ func (backend *connection) stop(ctx context.Context) error {
 		go func() {
 			backend.active.Wait()
 			if native != nil {
-				native.Close()
+				native.close()
 			}
 			close(backend.done)
 		}()
@@ -139,14 +139,14 @@ func (backend *connection) Invoke(ctx context.Context, method string, input, out
 	completed := make(chan directResult, 1)
 	go func() {
 		defer backend.active.Done()
-		response, err := native.Command(method, data)
+		response, err := native.command(method, data)
 		result := directResult{data: response, err: err}
-		var failure *NativeError
+		var failure *nativeError
 		switch {
 		case errors.As(err, &failure):
-			result.trailers = metadata.Pairs(ankiclient.ErrorTrailer, string(failure.Details))
+			result.trailers = metadata.Pairs(ankiclient.ErrorTrailer, string(failure.details))
 			result.err = status.Error(codes.Unknown, "Anki command failed")
-		case errors.Is(err, ErrUnknownCommand):
+		case errors.Is(err, errUnknownCommand):
 			result.err = status.Errorf(codes.Unimplemented, "unknown Anki command: %s", method)
 		}
 		completed <- result

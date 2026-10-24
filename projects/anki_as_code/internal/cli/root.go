@@ -6,7 +6,7 @@ import (
 )
 
 // New assembles workflow commands and independently injected MCP hosting.
-func New(application ankiascodeapi.App, protocol ankiascodeapi.MCP) *cobra.Command {
+func New(application ankiascodeapi.App, protocol mcpServer) *cobra.Command {
 	command := &cobra.Command{
 		Use:           "anki_as_code",
 		Short:         "Export and reconcile Anki collections as TOML",

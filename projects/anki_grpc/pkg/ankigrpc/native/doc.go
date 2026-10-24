@@ -3,7 +3,7 @@
 // transports and storage semantics. The executable owner registers its worker
 // schemes and supplies their entrypoint and arguments.
 // Importing this package registers inprocess and inprocess+cgo. Client owns its connection and
-// drains active calls before releasing Server state. Cancellation stops waiting
+// drains active calls before releasing native state. Cancellation stops waiting
 // for commands and shutdown, without interrupting Rust; Start initializes native
 // state synchronously. Done signals final cleanup. Equal labels never share state.
 // Importing this package links the native dependency but initializes no backend.

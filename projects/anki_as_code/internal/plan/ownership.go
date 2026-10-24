@@ -25,7 +25,7 @@ func validateDesired(desired desiredState, current snapshot) error {
 	return nil
 }
 
-// validateDeckOwnership protects untracked descendants and template targets, returning removed decks.
+// validateDeckOwnership protects required decks, untracked descendants and template targets, returning removed decks.
 func validateDeckOwnership(desired desiredState, current snapshot) (map[int64]string, error) {
 	removedDecks := map[int64]string{}
 	for _, old := range current.decks {
@@ -35,6 +35,9 @@ func validateDeckOwnership(desired desiredState, current snapshot) (map[int64]st
 		}
 		next := desired.decksByID[old.Id]
 		if next == nil {
+			if old.Id == 1 {
+				return nil, fmt.Errorf("required default deck %q (native ID 1) cannot be removed; retain its declaration or move it explicitly", path)
+			}
 			removedDecks[old.Id] = path
 		}
 		if next == nil || next.Value.Name != old.Name {

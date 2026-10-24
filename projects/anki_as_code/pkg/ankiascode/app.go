@@ -4,8 +4,6 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"os"
-	"path/filepath"
 	"reflect"
 	"time"
 
@@ -83,24 +81,16 @@ func (application *App) ServerRun(ctx context.Context, program string, arguments
 	return nil
 }
 
-// ServerServe delegates to ServerRun with the server serve subcommand prepended.
-func (application *App) ServerServe(ctx context.Context, program string, arguments []string) error {
-	if err := application.ServerRun(ctx, program, append([]string{"serve"}, arguments...)); err != nil {
-		return fmt.Errorf("serve Anki: %w", err)
-	}
-	return nil
-}
-
-// ColOpen opens one factory-created client using its source and publication options.
+// ColOpen returns an already-open application collection handle with caller-selected publication.
 func (application *App) ColOpen(ctx context.Context, options ankiascodeapi.ColOpenOptions) (ankiclient.Client, error) {
 	if options.Path == "" {
 		return nil, fmt.Errorf("open collection requires a managed path")
 	}
-	client, err := application.collections.Open(ctx, options)
+	handle, err := application.collections.Open(ctx, options)
 	if err != nil {
 		return nil, fmt.Errorf("open collection: %w", err)
 	}
-	return client, nil
+	return handle, nil
 }
 
 // APICall validates and invokes one upstream method before returning its encoded response.
@@ -163,7 +153,7 @@ func (application *App) APICall(ctx context.Context, request ankiascodeapi.APIRe
 		if err := run(connection); err != nil {
 			return nil, fmt.Errorf("call connected Anki API: %w", err)
 		}
-	} else if err := application.collections.WithCollection(ctx, collection.CollectionOptions{Path: path, Address: options.Address, WriteBack: request.WriteBack}, run); err != nil {
+	} else if err := application.collections.WithCollection(ctx, ankiascodeapi.ColOpenOptions{Path: path, Address: options.Address, WriteBack: request.WriteBack}, run); err != nil {
 		return nil, fmt.Errorf("call offline Anki API: %w", err)
 	}
 	return output, nil
@@ -190,10 +180,6 @@ func (application *App) ConfigExport(ctx context.Context, output string, configs
 	if err := ctx.Err(); err != nil {
 		return fmt.Errorf("export configuration: %w", err)
 	}
-	output, err := application.filesystem.ExpandPath(output)
-	if err != nil {
-		return fmt.Errorf("resolve configuration output: %w", err)
-	}
 	if err := config.New(output, application.filesystem).Export(configs); err != nil {
 		return fmt.Errorf("export configuration: %w", err)
 	}
@@ -203,63 +189,19 @@ func (application *App) ConfigExport(ctx context.Context, output string, configs
 	return nil
 }
 
-// ColExport optionally writes snapshot bindings as TOML after exporting configs.
-// Collection resources and stored state remain unchanged; managed archives may be repackaged.
+// ColExport writes configs and optional snapshot bindings as TOML.
+// Callers own output locations and existing contents; declared files are overwritten in place.
+// Collection reads use Anki's API; managed archives may be repackaged.
 // stateOutput may be empty.
-// Borrowed connection owners must keep outputs distinct from native collection files.
 func (application *App) ColExport(ctx context.Context, options ankiascodeapi.CollectionOptions, output, stateOutput string) error {
-	path, _, err := resolveCollectionOptions(options)
-	if err != nil {
-		return fmt.Errorf("resolve export source: %w", err)
-	}
-	output, err = application.filesystem.ExpandPath(output)
-	if err != nil {
-		return fmt.Errorf("resolve output path: %w", err)
-	}
-	output, err = application.filesystem.ResolvePath(output, true)
+	output, err := application.filesystem.ResolvePath(output, true)
 	if err != nil {
 		return fmt.Errorf("resolve export destination: %w", err)
 	}
-	var source string
-	if path != "" {
-		source, err = application.filesystem.ExpandPath(path)
-		if err != nil {
-			return fmt.Errorf("resolve source collection: %w", err)
-		}
-		source, err = application.filesystem.ResolvePath(source, false)
-		if err != nil {
-			return fmt.Errorf("resolve export source aliases: %w", err)
-		}
-		relative, err := filepath.Rel(output, source)
-		if err != nil {
-			return fmt.Errorf("compare export and collection paths: %w", err)
-		}
-		if filepath.IsLocal(relative) {
-			return fmt.Errorf("export destination must not contain the source collection")
-		}
-	}
 	if stateOutput != "" {
-		stateOutput, err = application.filesystem.ExpandPath(stateOutput)
-		if err != nil {
-			return fmt.Errorf("resolve state output: %w", err)
-		}
 		stateOutput, err = application.filesystem.ResolvePath(stateOutput, true)
 		if err != nil {
-			return fmt.Errorf("resolve state output aliases: %w", err)
-		}
-		var sourceInfo os.FileInfo
-		if source != "" {
-			sourceInfo, err = application.filesystem.Stat(source)
-			if err != nil {
-				return fmt.Errorf("inspect source collection: %w", err)
-			}
-		}
-		if info, err := application.filesystem.Stat(stateOutput); err == nil {
-			if !info.Mode().IsRegular() || stateOutput == source || sourceInfo != nil && os.SameFile(sourceInfo, info) {
-				return fmt.Errorf("state output must be a regular file distinct from the source collection")
-			}
-		} else if !errors.Is(err, os.ErrNotExist) {
-			return fmt.Errorf("inspect state output: %w", err)
+			return fmt.Errorf("resolve state output: %w", err)
 		}
 	}
 	if err := application.withCollection(ctx, options, func(connection grpc.ClientConnInterface) error {
@@ -295,14 +237,6 @@ func (application *App) ColBuild(ctx context.Context, options ankiascodeapi.Coll
 	if connection != nil {
 		return fmt.Errorf("build requires a collection path")
 	}
-	source, err := application.filesystem.ExpandPath(path)
-	if err != nil {
-		return fmt.Errorf("resolve build source: %w", err)
-	}
-	output, err = application.filesystem.ExpandPath(output)
-	if err != nil {
-		return fmt.Errorf("resolve build output: %w", err)
-	}
 	builder := rebuild.New(func(ctx context.Context, archive string) error {
 		staged := options
 		staged.Path = archive
@@ -311,7 +245,7 @@ func (application *App) ColBuild(ctx context.Context, options ankiascodeapi.Coll
 		}
 		return nil
 	}, application.filesystem)
-	if err := builder.Build(ctx, source, output); err != nil {
+	if err := builder.Build(ctx, path, output); err != nil {
 		return fmt.Errorf("build collection: %w", err)
 	}
 	return nil
@@ -430,7 +364,7 @@ func (application *App) withCollection(ctx context.Context, options ankiascodeap
 		return fmt.Errorf("select collection: %w", err)
 	}
 	if connection == nil {
-		if err := application.collections.WithCollection(ctx, collection.CollectionOptions{Path: path, Address: options.Address, WriteBack: true}, operation); err != nil {
+		if err := application.collections.WithCollection(ctx, ankiascodeapi.ColOpenOptions{Path: path, Address: options.Address, WriteBack: true}, operation); err != nil {
 			return fmt.Errorf("run managed collection: %w", err)
 		}
 		return nil

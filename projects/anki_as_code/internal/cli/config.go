@@ -45,7 +45,7 @@ func newConfigExportCommand(application ankiascodeapi.App) *cobra.Command {
 				return fmt.Errorf("read configuration set: %w", err)
 			}
 			configs := &ankiascodepb.CollectionConfigSet{}
-			if err := codec.Decode(data, codec.Format(format), configs); err != nil {
+			if err := codec.Decode(data, format, configs); err != nil {
 				return fmt.Errorf("decode configuration set: %w", err)
 			}
 			if err := application.ConfigExport(command.Context(), output, configs); err != nil {
@@ -58,7 +58,7 @@ func newConfigExportCommand(application ankiascodeapi.App) *cobra.Command {
 		},
 	}
 	outputFlag.bindRequired(command, &output)
-	command.Flags().StringVar(&format, "format", string(codec.JSON), "Input format: json or toml")
+	command.Flags().StringVar(&format, "format", codec.JSON, "Input format: json or toml")
 	return command
 }
 

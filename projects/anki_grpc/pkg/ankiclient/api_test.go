@@ -57,7 +57,7 @@ var workerFactoriesOnce sync.Once
 func registerWorkerFactories(t *testing.T) {
 	t.Helper()
 	workerFactoriesOnce.Do(func() {
-		factory := ankigrpc.ClientFactoryFunc[*ankiclient.ClientSTD](ankigrpc.NewSubprocessClient)
+		factory := ankigrpc.ToClientFactory(ankigrpc.NewSubprocessClient)
 		for _, scheme := range []string{"subprocess", "subprocess+cgo"} {
 			if _, err := ankigrpc.NewClient(scheme + "://unconfigured-worker"); err == nil {
 				t.Fatalf("library import registered an unowned worker: %s", scheme)
@@ -74,7 +74,7 @@ func TestConfiguredFactories(t *testing.T) {
 	second := ankigrpc.NewFactory("private-worker://configured")
 	calls := []int{0, 0}
 	for index, factory := range []*ankigrpc.Factory{first, second} {
-		factory.RegisterClientFactory("private-worker", ankigrpc.ClientFactoryFunc[*ankiclient.ClientSTD](func(address string) (*ankiclient.ClientSTD, error) {
+		factory.RegisterClientFactory("private-worker", ankigrpc.ToClientFactory(func(address string) (*ankiclient.ClientSTD, error) {
 			if address != "private-worker://configured" {
 				return nil, fmt.Errorf("private constructor received unexpected address %q", address)
 			}
@@ -88,7 +88,7 @@ func TestConfiguredFactories(t *testing.T) {
 	}
 	for _, factory := range []*ankigrpc.Factory{first, second, first} {
 		for _, address := range []string{"", "inprocess://explicit", ""} {
-			if err := ankigrpc.WithClient(t.Context(), factory, address, func(connection grpc.ClientConnInterface) error {
+			if err := ankigrpc.WithClient(t.Context(), factory.NewClient, address, func(connection grpc.ClientConnInterface) error {
 				if _, err := collection.NewBackendCollectionServiceClient(connection).LatestProgress(t.Context(), &generic.Empty{}); err != nil {
 					return fmt.Errorf("call configured factory worker: %w", err)
 				}
@@ -467,7 +467,7 @@ func TestWorkerStartupDeadline(t *testing.T) {
 
 // TestBackendLifecycle verifies no-op stop, invalid commands, and startup context isolation.
 func TestBackendLifecycle(t *testing.T) {
-	var unstarted ankiclient.Transport = ankiclient.NewSTD(ankiclient.ClientSTDOptions{Binary: workerPath(t), Arguments: []string{"serve"}})
+	var unstarted ankiclient.StartableClient = ankiclient.NewSTD(ankiclient.ClientSTDOptions{Binary: workerPath(t), Arguments: []string{"serve"}})
 	if err := unstarted.Stop(t.Context()); err != nil {
 		t.Fatal(err)
 	}

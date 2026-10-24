@@ -8,10 +8,10 @@ reduced catalog and workflows. Earlier 507-tool observations below are baseline
 evidence. Publication identity and exact-candidate validation belong to the
 delivery receipt rather than this coverage report.
 
-Following PR feedback, targets leave shard selection to Bazel's default.
-Parallel execution is opt-in with `--test_sharding_strategy=forced=N` as shown
-in the README. Earlier timing observations below used explicit shard counts;
-they do not describe the current target defaults. The SDK's `StdioTransport`
+The complete WASM application and WASM-only CLI workflows use two isolated
+Bazel shards. Other targets retain default sharding. Earlier timing observations
+below used explicit shard counts and do not describe current target defaults.
+The SDK's `StdioTransport`
 now owns protocol streams directly, replacing the custom output wrapper.
 
 Explicit session E2E covers the user-selected open/close handle model. Several
@@ -24,13 +24,28 @@ publishes enabled archives and stops their workers. Disabling write_back on
 open leaves the archive unchanged. `mcp-worker-lifetimes.log` records process
 starts and graceful exits as repeatable public fixture evidence.
 
-App.ColOpen returns the existing ankiclient.Client, already started. MCP
-retains it, borrows Connection for existing App methods, and calls Stop to
-publish and release it. The factory-created client owns native storage and
-transport cleanup. Store retains source exclusion until Client.Done without
-wrapping that client. No cached
-client factory, worker lease, separate closer, or application-specific resource
-interface is introduced. Explicit handles publish on close or disconnect.
+App.ColOpen returns the shared ankiclient.Client capability, already prepared.
+MCP borrows Connection for existing App methods and calls Stop to publish and
+release it. The application's private scope owns native storage and cleanup;
+its factory-created transport implements StartableClient. Store retains source
+exclusion through private completion tracking. Client exposes only Connection
+and Stop, while StartableClient embeds Client and adds Start. Explicit handles
+publish on close or disconnect without an application-specific public interface.
+
+CLI groups protocol commands behind its private mcpServer interface, receiving
+the concrete mcp.New(app) value. Its only method is Serve(context.Context) error;
+no MCP interface is exported or added to ankiascodeapi. Task 4.22 and exact-candidate
+delivery receipts own validation of this consumer-owned contract. The existing
+CLI dispatch and native, WASM and combined-engine CLI/MCP workflows passed.
+Retained tool, state and plan artifacts confirm discovery and convergence.
+
+## Historical function-hosting evidence
+
+The superseded hosting-function follow-up passed existing native, WASM and combined-engine
+CLI/MCP workflows and focused command dispatch checks. It injected the concrete
+MCP server's Serve method into CLI beside App. Task 4.22 replaces that function
+dependency with a private CLI interface; these earlier results do not validate
+the private-interface candidate.
 
 ## Behavioral evidence
 
@@ -149,7 +164,10 @@ remains an environment workaround, with the owning dependency pins unchanged.
 Future runs can resume from the OpenSpec tasks, this bounded report and the
 delivery receipt; no shared skill or host-policy changes are needed.
 
-## Unified-client and hosting follow-up
+## Historical unified-client and hosting follow-up
+
+This evidence describes the earlier unified-storage implementation, superseded
+by the current application scope and shared client capabilities.
 
 CLI receives separate App and MCP dependencies. The concrete MCP Server receives
 App at construction and tools call its application methods. App no longer imports

@@ -36,7 +36,7 @@ func newServerCommand(application ankiascodeapi.App) *cobra.Command {
 		Short:              "Run the Anki gRPC server",
 		DisableFlagParsing: true,
 		RunE: func(command *cobra.Command, arguments []string) error {
-			if err := application.ServerServe(command.Context(), run.CommandPath(), arguments); err != nil {
+			if err := application.ServerRun(command.Context(), run.CommandPath(), append([]string{"serve"}, arguments...)); err != nil {
 				return fmt.Errorf("execute server serve: %w", err)
 			}
 			return nil
