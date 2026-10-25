@@ -38,7 +38,15 @@ and an explicit administration ACL on the existing Forgejo VM; it does not
 use the shared infrastructure administrator token. These bindings must be
 applied by `infra/xcp_ng/tf` before Forgejo's setup Terraform runs.
 
-The canonical service URL is `https://git.alwaldend.com`. The previous
+The local canonical service URL is `https://git.alwaldend.com`. Public DNS
+instead points that name at the Yandex download server, whose Traefik redirects
+ordinary web requests to `https://github.com` with the path and query preserved.
+Go discovery requests with `go-get=1` receive metadata from the download
+server for `git.alwaldend.com/alwaldend/src` and its descendants, pointing to
+`https://github.com/alwaldend/src.git`. Unknown discovery prefixes return 404. The
+dc1 A record continues to select this Forgejo VM. The public CNAME remains
+owned by this component's `dnsconfig.json` and DNS-only Terraform targets.
+The previous
 `forgejo.alwaldend.com` name remains available for existing clients.
 The VM retains `192.168.10.40` and `host1.forgejo.alwaldend.com`. Its boot, Forgejo,
 and Traefik disks are 20, 40, and 5 GiB respectively.

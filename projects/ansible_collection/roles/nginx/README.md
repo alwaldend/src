@@ -18,3 +18,8 @@ published content. Packages can be caller-managed with
 The download component owns its routes, storage permissions, SELinux labels,
 and the Traefik TLS frontend. The [role validation record](../../openspec/changes/archive/2026-10-22-add-nginx-role/tasks.md)
 links the consumer fixture and lifecycle results.
+
+`nginx_requires_mounts_for` defaults to an empty list. When configured, the role
+writes a systemd `RequiresMountsFor` override and reloads unit definitions.
+Content services therefore wait for their required mounts and cannot start
+against an unmounted directory. Keep these paths administrator-owned.

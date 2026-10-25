@@ -1,0 +1,10 @@
+automatic_updates_backends:
+  dnf5:
+    package: dnf5-plugin-automatic
+    timer: dnf5-automatic.timer
+  dnf:
+    package: dnf-automatic
+    timer: dnf-automatic.timer
+  apt:
+    package: unattended-upgrades
+    timer: apt-daily-upgrade.timer

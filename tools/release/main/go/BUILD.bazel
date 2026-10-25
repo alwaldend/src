@@ -9,6 +9,7 @@ go_library(
         "bundle.go",
         "cmd.go",
         "deployer.go",
+        "doc.go",
         "generator.go",
         "git_bundle.go",
         "main.go",

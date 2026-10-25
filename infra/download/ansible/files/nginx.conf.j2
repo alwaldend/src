@@ -39,6 +39,19 @@ http {
         location / { return 404; }
     }
 
+{% if download_git_redirect_enabled %}
+    server {
+        listen 127.0.0.1:{{ download_nginx_port }};
+        server_name git.alwaldend.com;
+        location ~ ^/alwaldend/src(?:/|$) {
+            default_type text/html;
+            return 200 '<!doctype html><html><head><meta name="go-import" content="git.alwaldend.com/alwaldend/src git https://github.com/alwaldend/src.git"></head></html>';
+        }
+        location / { return 404; }
+    }
+{% endif %}
+
+{% if download_site_enabled %}
     server {
         listen 127.0.0.1:{{ download_nginx_port }};
         server_name alwaldend.com;
@@ -51,4 +64,5 @@ http {
             limit_except GET { deny all; }
         }
     }
+{% endif %}
 }

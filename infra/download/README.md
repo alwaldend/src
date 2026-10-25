@@ -8,7 +8,8 @@ description: Public static files and websites on XCP-ng and Yandex Cloud
 One VM per environment runs the shared Traefik service in front of native
 Nginx. Clients connect directly on ports 80/443; Nginx listens only on
 `127.0.0.1:8008`. Public DNS selects Yandex and dc1 DNS selects XCP-ng.
-These are independent stores with no replication, failover, or backups.
+These are independent stores with explicit local-to-public content sync;
+there is no automatic replication, failover, or backup.
 The diagrams describe checked-in configuration and operator procedures;
 they do not establish current deployment or service health.
 
@@ -30,14 +31,24 @@ extracted website. `www.alwaldend.com` redirects permanently to the apex,
 preserving the path and query. Staging and service state have no public route.
 Directory listings never use a release's `index.html` as an index page.
 
+The public host redirects ordinary HTTPS requests from `git.alwaldend.com`
+to `github.com` in Traefik, preserving the path and query string. Requests
+with `go-get=1` instead reach Nginx and receive static Go discovery metadata
+for `git.alwaldend.com/alwaldend/src` and its descendants, identifying the Git
+repository `https://github.com/alwaldend/src.git`. Unknown discovery paths
+return 404. The metadata keeps Go vanity module paths usable through this
+public hostname.
+Yandex obtains its certificate through the existing Let's Encrypt resolver.
+The redirect is disabled locally, where the Forgejo-owned DNS record continues
+to select Forgejo. Its public CNAME also remains owned by `infra/forgejo`.
+
 The `download` account owns content and staging; Ansible does not configure
 its `authorized_keys`. Administrators use existing SSH access and sudo to run
 publication as this account. The host role installs rsync. Nginx reads content
-and cannot write it. Ansible never publishes or selects a release.
+and cannot write it. The host-configuration playbook never publishes or selects a release.
 
-The release tool and component publishing targets are delivered in
-[PR #113](https://github.com/alwaldend/src/pull/113), independently against
-`master`. Their commands and transfer behavior belong
+The release tool and component publishing targets are available in this tree.
+Their commands and transfer behavior belong
 to the [release tool documentation](../../tools/release/README.md). The
 [website browser change](../../projects/alwaldend.com/openspec/changes/add-download-browser-and-ssh-hosting/proposal.md)
 also remains separate implementation work.
@@ -63,6 +74,29 @@ and download responses remain their logical sizes. The declared filesystem
 setup does not force formatting over an existing filesystem.
 
 ## Operations
+
+The content disk is optional for OS boot (`nofail`, ten-second device timeout),
+while Nginx and deduplication require it. SSH and Traefik remain on the system
+disk. Deployment installs the declared TCP 22 management rule before deleting
+the inherited `SSH`/`mDNS` rules listed in `firewall_delete_rules`, including
+multicast destinations. Other rules remain. Retiring an allow requires an
+explicit deletion entry; removing its declaration alone does not revoke it.
+
+Shared role behavior and the isolated security-fix evidence are recorded in
+[deployment hardening](../../projects/ansible_collection/openspec/changes/harden-download-deployment/evidence.md).
+The package-update role detects Fedora reboot requirements through DNF; set
+`update_all_packages_reboot_enabled: false` to defer a reboot during an approved
+maintenance run.
+The [2026-10-26 local rollout](openspec/changes/add-static-hosting/evidence.md#authorized-local-deployment-2026-10-26)
+records the complete playbook, reboot persistence, serving checks, and an
+unchanged firewall/Nginx/Traefik rerun. The
+[Yandex rollout](openspec/changes/add-static-hosting/evidence.md#yandex-zone-change-2026-10-26)
+records the completed download-only deployment after moving to `ru-central1-a`,
+trusted public HTTPS, and firewall/service persistence across reboot. The
+[website rollout](openspec/changes/add-static-hosting/evidence.md#versioned-site-publication-and-mirror-2026-10-26)
+records publication and mirroring of version 2026.44.0. Public apex/www routing
+is enabled; the [DNS owner](../dns/openspec/changes/activate-public-download-site/evidence.md)
+records the completed cutover and trusted HTTPS checks.
 
 ![Publication, maintenance, and recovery operations](assets/operations.svg)
 
@@ -90,9 +124,54 @@ access. The target supplies authentication, not authority to change a host.
 
 Publication explicitly selects `publish.local` or `publish.yandex`. Upload,
 extract, and link are separate ordered steps; only link selects the website.
-Reselect a retained release with `--steps link`. Completed ordinary uploads
-can remain public after a later transfer failure. The release tool owns the
+Both publication targets inject the same temporary SSH credentials and host
+trust as the SSH and sync targets. Normal publication rejects an existing
+release version and stages new uploads before making them public. Linking
+removes older extracted website versions while retaining downloadable archives.
+Restore a previous archive with `--steps extract,link` for rollback. Public sync
+overwrites from local and propagates the extracted-site cleanup.
+The release tool owns the
 [commands and failure behavior](../../tools/release/README.md#choose-publication-steps).
+
+Publish and inspect locally, then mirror that published content to Yandex:
+
+```sh
+bazel_agent bazel run //infra/download:sync.yandex -- --check
+bazel_agent bazel run //infra/download:sync.yandex
+```
+
+**Local is the source of truth:** differing public content is replaced and
+public-only files, releases, and site selections are removed. The target runs
+`ansible/playbook_sync.yaml` with the existing inventory and temporary Vault
+SSH credentials. Host trust remains strict and both content mounts are required.
+Check mode reports changes and deletions without changing published content.
+
+The playbook captures only `projects/` and `sites/` on the controller and
+validates paths, current links, and site indexes before destination writes.
+Credentials stay on the controller. Source and destination publishers must
+remain idle throughout capture and selection. Each run needs controller space
+for all source content; the private capture is removed afterward.
+
+Native `ansible.posix.synchronize` stages changed trees privately, checksums
+content, normalizes directories to 0755 and files to 0644, and reuses identical
+destination files through rsync hardlinks. A transfer failure leaves public
+content unchanged. The native `mv --exchange --no-copy -T` command atomically
+replaces each complete project under a synchronization lock. It requires
+support from the destination's GNU coreutils. Projects change independently;
+a failure during selection may leave some updated and others unchanged.
+Rerunning converges. The `always` cleanup removes only this run's capture and
+staging; interruption or an unreachable host can prevent cleanup.
+
+Configuration, certificates, private state, and DNS are excluded. Copying the
+site does not enable disabled ingress routes. The playbook does not build
+releases or run host configuration. It preserves the locally selected website
+and all locally retained release archives. This is a mirror, not a backup.
+
+The manual `//infra/download/test/sync:sync_test` target runs the packaged
+playbook and release CLI against isolated directories through real OpenSSH
+and rsync. It checks trust and layout refusals, authoritative replacements and
+deletions, failed staging, repeated execution, and archive-preserving local
+cleanup. Its `sync-receipt.json` contains repeatable hashes, modes, and links.
 
 On the selected host, inspect `systemctl status nginx traefik`,
 `systemctl list-timers download-deduplicate.timer`, and
@@ -100,8 +179,8 @@ On the selected host, inspect `systemctl status nginx traefik`,
 `findmnt /srv/download`, free space with `btrfs filesystem usage /srv/download`,
 and sharing with `btrfs filesystem du` on the published trees. Verify DNS,
 certificate trust, website assets, JSON listings, downloads, and `www` redirects
-from each DNS view. Retention cleanup is manual; deduplication never frees
-space by deleting releases. Retained disks and earlier releases provide no
+from each DNS view. Extracted-site cleanup runs after release selection; archives remain retained.
+Deduplication never deletes releases. Retained disks and earlier releases provide no
 backup against disk loss.
 
 ## Infrastructure ownership
@@ -127,8 +206,9 @@ root reads another root's complete Terraform state.
 - `dns` owns only this component's Cloudflare/RouterOS aliases and
   delegation. Each stage has its own Vault HTTP state key.
 - `infra/dns` retains apex, mail, and `www` ownership. Its public apex follows
-  `download.alwaldend.com`; that stable service name follows the component's
-  Yandex host. Its local apex A record is the canonical VM address consumed by
+  `download.alwaldend.com`. The public
+  `download.alwaldend.com` name follows the component's Yandex host.
+  Its local apex A record is the canonical VM address consumed by
   Terraform. The unique local host CNAME and download alias follow that local
   apex. Endpoint changes therefore have one maintained input per environment.
   Ansible connects by inventory FQDN, without parsing DNS source.
@@ -137,9 +217,8 @@ root reads another root's complete Terraform state.
 - `ansible` mounts storage, configures SSH and service access, labels static
   content for SELinux, and deploys the shared Traefik and Nginx roles.
 
-The local address `192.168.10.66` is unclaimed in checked-in DNS declarations;
-confirm its availability and the named XCP-ng template/resource-set inventory
-before deployment. The cloud image defaults to the immutable Fedora 43 image
+The local address `192.168.10.66` comes from the apex DNS declaration and is
+assigned to the managed XCP-ng VM. The cloud image defaults to the immutable Fedora 43 image
 already used by `infra/threexui`; local provisioning uses Fedora 44.
 
 ## Credentials and bootstrap
@@ -168,7 +247,13 @@ alias or address override is needed.
 
 ## Deployment sequence
 
-![Deployment order and operational prerequisites](assets/deployment.svg)
+![Public Yandex Cloud and local XCP-ng serving paths](assets/deployment.svg)
+
+[Download the dark WebP](assets/deployment.dark.webp). Publisher denotes the
+controller-side release or synchronization workflow; administrators use SSH
+to run it as the content account. The site path abbreviates the selected
+release under `sites/alwaldend.com/current`. The GitHub edge represents a
+browser redirect, not a proxy connection.
 
 The following are operator entry points, not evidence of a deployed service.
 Confirm the local address, named XO inventory, template disk/interface

@@ -57,9 +57,18 @@ func newSSHPublisher(opts *DeployerOpts, release *contracts.Release, original *c
 		return nil, fmt.Errorf("configure SSH publication: %w", err)
 	}
 	args := []string{"-o", "BatchMode=yes", "-o", "StrictHostKeyChecking=yes", "-o", "ConnectTimeout=15", "-o", "ServerAliveInterval=15", "-o", "ServerAliveCountMax=3", "-o", "ForwardAgent=no", "-o", "ClearAllForwardings=yes", "-T"}
-	for _, option := range []struct{ flag, value string }{{"-F", opts.SSHConfig}, {"-i", opts.SSHIdentity}, {"-l", target.User}} {
+	for _, option := range []struct{ flag, value string }{{"-F", opts.SSHConfig}, {"-l", target.User}} {
 		if option.value != "" {
 			args = append(args, option.flag, option.value)
+		}
+	}
+	if opts.SSHIdentity != "" {
+		if strings.Contains(opts.SSHIdentity, "${") {
+			// OpenSSH expands injected environment references in IdentityFile;
+			// its -i argument checks the literal path before that expansion.
+			args = append(args, "-o", "IdentityFile="+opts.SSHIdentity)
+		} else {
+			args = append(args, "-i", opts.SSHIdentity)
 		}
 	}
 	if opts.SSHPort != 0 {
@@ -67,6 +76,12 @@ func newSSHPublisher(opts *DeployerOpts, release *contracts.Release, original *c
 	}
 	if opts.SSHKnownHosts != "" {
 		args = append(args, "-o", "UserKnownHostsFile="+opts.SSHKnownHosts, "-o", "GlobalKnownHostsFile=/dev/null")
+	}
+	if opts.SSHCertificate != "" {
+		if opts.SSHIdentity == "" {
+			return nil, fmt.Errorf("SSH certificate requires an explicit identity")
+		}
+		args = append(args, "-o", "CertificateFile="+opts.SSHCertificate, "-o", "IdentityAgent=none", "-o", "IdentitiesOnly=yes")
 	}
 	siteRoot := path.Join(target.Root, "sites", target.Project)
 	return &sshPublisher{

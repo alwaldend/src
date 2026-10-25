@@ -11,6 +11,11 @@ through the reusable [Terraform DNS module](../../projects/tf_modules/dns_record
 from its designated `tf_setup` or `tf` root. This component's
 [dnsconfig.json](dnsconfig.json) owns shared apex and mail records.
 
+The public apex follows `download.alwaldend.com` to the Yandex download host.
+The dc1 apex continues to use the local download VM. The
+[activation record](openspec/changes/activate-public-download-site/evidence.md)
+documents the authorized cutover and HTTPS acceptance.
+
 ## Architecture
 
 This diagram describes the maintained architecture source, not live inventory or service health.

@@ -1,0 +1,9 @@
+- name: Validate SSH daemon configuration and keys before activation
+  ansible.builtin.command:
+    argv: ["{{ sshd_path | default('/usr/sbin/sshd') }}", -t]
+  changed_when: false
+
+- name: Activate renewed SSH host certificates
+  ansible.builtin.systemd_service:
+    name: "{{ sshd_service_name | default('ssh' if ansible_facts.os_family == 'Debian' else 'sshd') }}"
+    state: reloaded

@@ -6,7 +6,7 @@ baseline has XCP-ng provisioning in `infra/openhands/tf_setup`, Yandex VMs in
 The download component did not exist before this change. Existing source
 describes patterns, not verified live infrastructure.
 
-The main website currently publishes to GitHub Pages. Its linked change owns
+The main website initially published to GitHub Pages. Its linked change owns
 the new downloads UI and production SSH deployment. This plan owns the two
 hosts and their integration, not copies of those shared behaviors.
 
@@ -23,13 +23,25 @@ the repository-owned server CA for the component's host namespace; strict
 hostname verification stays enabled. Environment-specific targets select the
 same destinations as publication. AL owns credential cleanup after command
 exit; no persistent client or server SSH configuration is modified.
+The Ansible wrapper reuses that same host-CA declaration in a temporary
+known-hosts file. It excludes inherited client configuration and agent keys
+and keeps strict host checking enabled, so deployment does not require
+preparing a persistent trust entry on each operator's workstation.
 
 **Non-Goals:** Containers, object storage, databases, upload APIs, browser
-uploads, automatic replication, automatic failover, backups, garbage collection,
-or a rollback command. A website can be redeployed by selecting an existing
-release. Routine source work does not authorize live provisioning or cutover.
+uploads, automatic replication, automatic failover, backups, archive pruning,
+or a rollback command. Restore a website by extracting its retained archive and
+selecting it. Routine source work does not authorize live provisioning or cutover.
 
 ## Decisions
+
+### Explicit content promotion
+
+`sync.yandex` invokes this component's `ansible/playbook_sync.yaml` with its
+local and Yandex inventory. It reuses the `ansible=1` credential and host-trust
+injection lifecycle and requires both content roots to be mounted. Local is
+authoritative: differing public content is replaced and public-only content
+is removed. This operator command does not deploy hosts or change public DNS.
 
 ### Topology and state
 
@@ -50,12 +62,22 @@ component variables where they are identical. Provider inventory, VM image
 IDs, addresses, and CPU/memory sizing are deployment inputs, resolved from
 existing infrastructure during implementation.
 
-The component's [architecture diagram](../../../docs/architecture.mmd)
-projects these declarations. Its [deployment](../../../docs/deployment.mmd)
-and [operations](../../../docs/operations.mmd) views show ordering, publication,
-routine maintenance, and recovery boundaries. All three are rendered from
-their maintained Mermaid sources; they describe configured behavior rather
-than establishing live deployment or acceptance.
+The [architecture diagram](../../../docs/architecture.mmd) projects these
+declarations. One [deployment source](../../../docs/deployment.mmd) contains
+separate XCP-ng and Yandex subgraphs in the threexui style. Each preserves the
+host-level Traefik, loopback Nginx, and Btrfs path and names its own certificate
+issuer: Vault locally and Let's Encrypt on Yandex. Operations stay in their
+[separate view](../../../docs/operations.mmd), and the deployment sequence stays
+in the README. The deployment diagram omits operations, DNS, and GitHub Pages.
+All views describe configured behavior rather than establishing live deployment
+or acceptance. The [Yandex rollout record](evidence.md#yandex-zone-change-2026-10-26)
+records the completed download-only deployment and its current limits.
+The earlier [public apex restoration](../../../../dns/openspec/changes/restore-public-apex-pages/evidence.md)
+was superseded by the authorized
+[site activation](../../../../dns/openspec/changes/activate-public-download-site/evidence.md).
+`download_site_enabled` now enables Nginx and Traefik apex/www routing in both
+environments. During a new deployment, activate the public Traefik routers
+only after DNS reaches the host so HTTP-01 requests reach the correct server.
 
 Traefik binds ports 80 and 443, redirects HTTP to HTTPS, and routes by host.
 Nginx binds `127.0.0.1:8008`, a Fedora SELinux HTTP port. Both public names are
@@ -169,12 +191,22 @@ component and contains no download-specific frontend or hostnames.
 
 ## Risks / Trade-offs
 
+The public Git redirect uses a Yandex-only Traefik Host router, permanent
+RedirectRegex middleware, and `noop@internal`. The existing public ACME resolver
+owns its certificate. Paths and query strings are preserved for browser
+requests; the higher-priority discovery router handles go-get=1 through
+Nginx as described below. The Forgejo owner
+updates its public CNAME; the local DNS A record and local download routers
+remain independent. DNS propagation and ACME issuance create a bounded
+bootstrap interval, which live acceptance must observe before handoff.
+
 - Single VM or data-disk failure per environment -> downtime or permanent
   data loss is possible; no backups or failover are requested.
-- Independent environments -> publish deliberately to each; a local release
-  can differ from the public release until it is deployed to Yandex.
+- Independent environments -> publish locally, then explicitly mirror to Yandex;
+  local content can differ from public content until synchronization succeeds.
 - Archives plus extracted content share 100 GB -> report insufficient space
-  before activation and leave the selected site intact; cleanup is manual.
+  before activation and leave the selected site intact; successful selection
+  removes older extracted sites while downloadable archives remain retained.
 - HTTP-01 needs routed DNS before issuance -> coordinate the certificate
   bootstrap interval; Vault must use the dc1 DNS view for local validation.
 - A symlink change is atomic, but browser asset requests span time -> site
@@ -187,8 +219,8 @@ component and contains no download-specific frontend or hostnames.
    changes; keep the current public site reachable while preparing candidates.
 2. With separately authorized live scope, bootstrap Vault and provider
    assignments, provision both VMs, and apply the shared Ansible deployment.
-3. Deploy a website archive to each explicit SSH target and verify HTTP
-   content using address overrides before DNS changes.
+3. Publish a website archive locally, verify it, mirror through Ansible to
+   Yandex, and verify public content using address overrides before DNS changes.
 4. Apply reviewed split-horizon records through their owners. Once the issuers
    can reach their respective hosts on port 80, exercise public staging and
    production issuance and local Vault issuance, then verify both trust chains,
@@ -209,3 +241,45 @@ Before live rollout, run the integrated SSH-to-HTTP/browser fixture. Retain
 commands, candidate identity, request results, artifact checksums, and browser
 evidence. Live inventory, SELinux enforcement, DNS, certificate renewal, and
 reboot checks require authorized environments and separate evidence.
+
+## Infrastructure synchronization ownership
+
+The later user decision moves store synchronization from the release tool to
+infra/download/ansible. Native ansible.posix.synchronize owns rsync transfer;
+file, stat, find, assert, tempfile, and command tasks own validation and
+lifecycle. Reuse the component's existing Vault-backed Ansible credentials and
+inventory. Capture source content on the controller, so no SSH key is copied
+to either VM. Check mode captures and validates locally and previews remote
+changes without changing published content. Require both content mounts in
+production. Source and destination publishers must remain idle.
+
+Stage changed trees privately, reuse matching public files with link_dest,
+and exchange each completed project directory atomically with the existing
+GNU mv --exchange --no-copy -T operation under flock. Remove public-only
+projects by moving them to staging, then clean staging with native file tasks.
+The project root remains administrator-owned. Preserve ordinary permissions,
+strict host trust, layout validation, and excluded private state. Retain the
+real SSH fixture under infra/download/test/sync; it verifies the playbook and
+release publication together. Delete the old Go sync command, implementation,
+and obsolete build/test wiring. The release tool continues to own upload,
+extraction, selection, and archive-preserving extracted-site retention.
+
+### Public Go discovery before browser redirection
+
+Go module discovery cannot use GitHub's redirected go-import metadata because
+it names github.com/alwaldend/src instead of the requested vanity prefix.
+An explicit higher-priority Traefik Host/Query router sends go-get=1 requests
+to the existing loopback Nginx service. The browser Host router keeps its
+permanent GitHub redirect. Nginx returns a fixed text/html document only for
+/alwaldend/src and slash-delimited descendants; other paths return 404.
+The same prefix is returned for nested requests and the root recheck.
+Both routers remain Yandex-only and share the existing certificate resolver.
+
+Failure cases to exercise before implementation: root and nested Go requests
+must not redirect; /alwaldend/src-other and unknown repositories must not
+receive metadata; ordinary and go-get=0 requests must preserve GitHub paths
+and queries; extra query parameters must not bypass discovery; unknown Hosts
+must fail; the local inventory must not expose either public Git router.
+Use the existing local Nginx acceptance image, pinned Traefik binary, and
+pinned Go client with isolated Git URL rewriting and proxy routing. No host
+DNS, live service, or persistent controller configuration is changed.

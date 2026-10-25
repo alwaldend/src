@@ -63,3 +63,9 @@ The collection packages the role automatically through its existing role
 aggregation. Domain-specific serving templates stay with the deployment.
 
 [Default configuration](defaults/)
+
+The content mount uses `nofail` and a ten-second device timeout, so an absent
+content disk does not make it mandatory for OS boot. Nginx and deduplication
+explicitly require the mount; SSH and Traefik remain on the system disk for
+recovery. Missing storage still fails an attempted role deployment. This does
+not provide content replication, backup, or automatic recovery of a lost disk.

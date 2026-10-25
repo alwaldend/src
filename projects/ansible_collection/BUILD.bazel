@@ -25,6 +25,7 @@ pkg_filegroup(
     srcs = [
         ":galaxy",
         "//projects/ansible_collection/playbooks",
+        "//projects/ansible_collection/plugins",
         "//projects/ansible_collection/roles",
     ],
     prefix = "alwaldend/main",

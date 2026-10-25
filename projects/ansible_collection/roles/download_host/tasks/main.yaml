@@ -36,6 +36,8 @@
 - name: Configure Nginx
   ansible.builtin.import_role:
     name: alwaldend.main.nginx
+  vars:
+    nginx_requires_mounts_for: ["{{ download_root }}"]
 
 - name: Configure Traefik
   ansible.builtin.import_role:

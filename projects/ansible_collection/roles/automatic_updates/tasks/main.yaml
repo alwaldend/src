@@ -1,0 +1,80 @@
+- name: Configure native automatic security updates
+  tags:
+    - automatic_updates
+  block:
+    - name: Inspect immutable host marker
+      ansible.builtin.stat:
+        path: /run/ostree-booted
+      register: automatic_updates_ostree
+
+    - name: Report unsupported automatic-update backend
+      ansible.builtin.debug:
+        msg: Automatic updates skipped for immutable OSTree or unsupported package manager {{ ansible_facts.pkg_mgr }}.
+      when: automatic_updates_ostree.stat.exists or ansible_facts.pkg_mgr not in automatic_updates_backends
+
+    - name: Configure supported mutable host
+      when:
+        - not automatic_updates_ostree.stat.exists
+        - ansible_facts.pkg_mgr in automatic_updates_backends
+      block:
+        - name: Install native automatic-update package
+          ansible.builtin.package:
+            name: "{{ automatic_updates_backends[ansible_facts.pkg_mgr].package }}"
+            state: present
+          when: automatic_updates_enabled | bool
+
+        - name: Inspect installed packages before disabling updates
+          ansible.builtin.package_facts:
+          when: not automatic_updates_enabled | bool
+
+        - name: Configure installed automatic updater
+          when: >-
+            automatic_updates_enabled | bool or
+            automatic_updates_backends[ansible_facts.pkg_mgr].package in ansible_facts.packages | default({})
+          block:
+            - name: Configure DNF security updates without automatic reboot
+              community.general.ini_file:
+                path: /etc/dnf/automatic.conf
+                section: commands
+                option: "{{ item.option }}"
+                value: "{{ item.value }}"
+                owner: root
+                group: root
+                mode: "0644"
+              loop:
+                - option: apply_updates
+                  value: "{{ automatic_updates_enabled | bool | ternary('yes', 'no') }}"
+                - option: upgrade_type
+                  value: security
+                - option: reboot
+                  value: never
+              when: ansible_facts.pkg_mgr in ['dnf', 'dnf5']
+
+            - name: Configure APT periodic updates without automatic reboot
+              ansible.builtin.copy:
+                dest: /etc/apt/apt.conf.d/99automatic-updates
+                owner: root
+                group: root
+                mode: "0644"
+                content: |
+                  // Managed by alwaldend.main.automatic_updates.
+                  APT::Periodic::Enable "1";
+                  APT::Periodic::Update-Package-Lists "1";
+                  APT::Periodic::Unattended-Upgrade "{{ automatic_updates_enabled | bool | ternary('1', '0') }}";
+                  Unattended-Upgrade::Automatic-Reboot "false";
+              when: ansible_facts.pkg_mgr == 'apt'
+
+            - name: Enable native APT package metadata refresh
+              ansible.builtin.systemd_service:
+                name: apt-daily.timer
+                enabled: true
+                state: started
+              when:
+                - ansible_facts.pkg_mgr == 'apt'
+                - automatic_updates_enabled | bool
+
+            - name: Set native automatic-installation timer state
+              ansible.builtin.systemd_service:
+                name: "{{ automatic_updates_backends[ansible_facts.pkg_mgr].timer }}"
+                enabled: "{{ automatic_updates_enabled | bool }}"
+                state: "{{ automatic_updates_enabled | bool | ternary('started', 'stopped') }}"

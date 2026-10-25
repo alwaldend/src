@@ -7,9 +7,26 @@
       ansible.builtin.package:
         name: ufw
         state: present
-    - name: Enable ufw
-      community.general.ufw:
-        state: "{{ firewall_state }}"
+    - name: Check if firewalld exists
+      register: firewall_firewalld_stat
+      ansible.builtin.stat:
+        path: "/lib/systemd/system/firewalld.service"
+    - name: Disable firewalld
+      when: firewall_firewalld_stat.stat.exists
+      ansible.builtin.systemd_service:
+        name: "firewalld"
+        enabled: false
+        state: stopped
+    - name: Prevent later package installation from activating firewalld
+      ansible.builtin.systemd_service:
+        name: firewalld
+        masked: true
+    - name: Enable UFW startup and restore its existing policy before updates
+      when: firewall_state == 'enabled'
+      ansible.builtin.systemd_service:
+        name: ufw
+        enabled: true
+        state: started
     - name: Enable ufw logging
       community.general.ufw:
         logging: low
@@ -21,30 +38,14 @@
       community.general.ufw:
         default: allow
         direction: outgoing
-    - name: Allow port
-      loop: "{{ firewall_allow_port_from | list }}"
+    - name: Install desired access and delete explicitly retired rules
+      ansible.builtin.import_tasks: rules.yaml
+    - name: Enable ufw with the configured policy
       community.general.ufw:
-        rule: allow
-        direction: in
-        proto: "{{ item.proto | default('any') }}"
-        port: "{{ item.port | mandatory }}"
-        src: "{{ item.src | mandatory }}"
-        comment: "{{ item.comment | mandatory }} # Ansible"
-    - name: Allow forward
-      loop: "{{ firewall_allow_forward | list }}"
-      community.general.ufw:
-        rule: allow
-        route: true
-        src: "{{ item.src | default('any') }}"
-        dest: "{{ item.dest | default('any') }}"
-        comment: "{{ item.comment | mandatory }} # Ansible"
-    - name: Check if firewalld exists
-      register: firewall_firewalld_stat
-      ansible.builtin.stat:
-        path: "/lib/systemd/system/firewalld.service"
-    - name: Disable firewalld
-      when: firewall_firewalld_stat.stat.exists
+        state: "{{ firewall_state }}"
+    - name: Disable UFW startup when its policy is disabled
+      when: firewall_state == 'disabled'
       ansible.builtin.systemd_service:
-        name: "firewalld"
+        name: ufw
         enabled: false
         state: stopped
