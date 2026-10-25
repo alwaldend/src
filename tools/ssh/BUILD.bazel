@@ -1,0 +1,18 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load(":defs.bzl", "ssh_binary")
+
+exports_files(
+    ["defs.bzl"],
+    visibility = ["//:__subpackages__"],
+)
+
+ssh_binary(
+    name = "ssh",
+    visibility = ["//:__subpackages__"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//tools:__pkg__"],
+)
