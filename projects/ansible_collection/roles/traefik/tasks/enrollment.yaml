@@ -1,0 +1,71 @@
+- name: Inspect the private ACME enrollment cache
+  ansible.builtin.stat:
+    path: "{{ traefik_eab_cache_path }}"
+  register: traefik_eab_cache
+
+- name: Read existing ACME enrollment
+  when: traefik_eab_cache.stat.exists
+  no_log: true
+  ansible.builtin.slurp:
+    src: "{{ traefik_eab_cache_path }}"
+  register: traefik_eab_cached
+
+- name: Decode existing ACME enrollment
+  no_log: true
+  ansible.builtin.set_fact:
+    traefik_eab_previous: "{{ (traefik_eab_cached.content | b64decode | from_json) if traefik_eab_cache.stat.exists else {} }}"
+
+- name: Record the enrollment decision before changing cached values
+  ansible.builtin.set_fact:
+    traefik_eab_enrollment_required: "{{ traefik_rotate_eab or traefik_eab_previous.get('path') != traefik_acme_path }}"
+
+- name: Generate enrollment when missing or explicitly rotated
+  when: traefik_eab_enrollment_required
+  no_log: true
+  block:
+    - name: Request scoped ACME enrollment
+      connection: local
+      ansible.builtin.command:
+        argv:
+          - "{{ traefik_vault_bin_local_path }}"
+          - write
+          - -format=json
+          - --force
+          - "{{ traefik_acme_path }}/new-eab"
+      environment:
+        VAULT_ADDR: "{{ lookup('ansible.builtin.env', 'VAULT_ADDR') }}"
+        VAULT_CACERT: "{{ lookup('ansible.builtin.env', 'VAULT_CACERT') }}"
+        VAULT_TOKEN: "{{ lookup('ansible.builtin.env', 'VAULT_TOKEN') }}"
+        VAULT_CLIENT_KEY: "{{ lookup('ansible.builtin.env', 'VAULT_CLIENT_KEY') }}"
+        VAULT_CLIENT_CERT: "{{ lookup('ansible.builtin.env', 'VAULT_CLIENT_CERT') }}"
+        VAULT_SKIP_VERIFY: "{{ lookup('ansible.builtin.env', 'VAULT_SKIP_VERIFY') }}"
+      register: traefik_eab_result
+      changed_when: true
+
+    - name: Record new enrollment
+      ansible.builtin.set_fact:
+        traefik_eab_previous:
+          path: "{{ traefik_acme_path }}"
+          data: "{{ (traefik_eab_result.stdout | from_json).data }}"
+
+    - name: Store administrator-owned enrollment
+      ansible.builtin.copy:
+        content: "{{ traefik_eab_previous | to_json }}"
+        dest: "{{ traefik_eab_cache_path }}"
+        owner: "{{ traefik_owner }}"
+        group: "{{ traefik_owner }}"
+        mode: "0600"
+
+- name: Enforce private enrollment cache permissions
+  ansible.builtin.file:
+    path: "{{ traefik_eab_cache_path }}"
+    owner: "{{ traefik_owner }}"
+    group: "{{ traefik_owner }}"
+    mode: "0600"
+
+- name: Select enrollment values for the configuration template
+  no_log: true
+  ansible.builtin.set_fact:
+    traefik_acme_kid: "{{ traefik_eab_previous.data.id }}"
+    traefik_acme_hmac: "{{ traefik_eab_previous.data.key }}"
+    traefik_acme_hmac_encoded: "{{ traefik_eab_previous.data.key | b64encode }}"

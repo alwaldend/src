@@ -1,0 +1,15 @@
+load("@rules_go//go:def.bzl", "go_test")
+
+go_test(
+    name = "sync_test",
+    size = "large",
+    srcs = [
+        "doc.go",
+        "sync_test.go",
+    ],
+    data = [
+        "//infra/download/ansible:ansible_bin",
+        "//tools/release/cmd/release",
+    ],
+    tags = ["manual"],
+)

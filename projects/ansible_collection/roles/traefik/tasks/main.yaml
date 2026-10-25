@@ -1,7 +1,24 @@
-- tags:
-    - traefik
+- name: Configure Traefik
+  tags: [traefik]
   block:
-    - name: Create traefik user
+    - name: Require separate configuration and runtime write paths
+      ansible.builtin.assert:
+        that:
+          - traefik_owner != traefik_user
+          - traefik_data_dir != traefik_dir
+          - traefik_log_dir != traefik_dir
+          - not item.startswith(traefik_data_dir.rstrip('/') + '/')
+          - not item.startswith(traefik_log_dir.rstrip('/') + '/')
+          - item not in [traefik_data_dir, traefik_log_dir]
+      loop:
+        - "{{ traefik_config_dir }}"
+        - "{{ traefik_config_path }}"
+        - "{{ traefik_dynamic_config_path }}"
+        - "{{ traefik_tls_dir }}"
+        - "{{ traefik_bin_path }}"
+        - "{{ traefik_eab_cache_path }}"
+
+    - name: Create Traefik user
       when: not traefik_no_user
       ansible.builtin.user:
         name: "{{ traefik_user }}"
@@ -9,117 +26,115 @@
         shell: /sbin/nologin
         home: "{{ traefik_dir }}/home"
         system: true
-    - name: Create filesystem on the traefik disk
+
+    - name: Create filesystem on the Traefik disk
       when: traefik_disk is truthy
       community.general.filesystem:
         fstype: ext4
         dev: "{{ traefik_disk }}"
-    - name: Mount traefik disk
+
+    - name: Mount Traefik disk
       when: traefik_disk is truthy
       ansible.posix.mount:
         path: "{{ traefik_dir }}"
         src: "{{ traefik_disk }}"
         fstype: ext4
         state: mounted
-    - name: Create traefik dirs
+
+    - name: Protect configuration directories and their common parent
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: directory
+        owner: "{{ traefik_owner }}"
+        group: "{{ traefik_user }}"
+        mode: "0750"
       loop:
         - "{{ traefik_dir }}"
-        - "{{ traefik_tls_dir }}"
-        - "{{ traefik_data_dir }}"
         - "{{ traefik_config_dir }}"
-        - "{{ traefik_log_dir }}"
+        - "{{ traefik_tls_dir }}"
+
+    - name: Create service-writable runtime directories
       ansible.builtin.file:
+        path: "{{ item }}"
         state: directory
         owner: "{{ traefik_user }}"
         group: "{{ traefik_user }}"
         mode: "0700"
-        path: "{{ item }}"
-    - name: Copy the traefik binary
-      register: traefik_bin_var
-      ansible.builtin.copy:
-        src: "{{ traefik_bin_local_path }}"
-        dest: "{{ traefik_bin_path }}"
-        owner: "{{ traefik_owner }}"
-        group: "{{ traefik_user }}"
-        mode: "0755"
-    - name: Generate the eab
-      no_log: true
-      connection: local
+      loop:
+        - "{{ traefik_data_dir }}"
+        - "{{ traefik_log_dir }}"
+
+    - name: Prepare persistent ACME enrollment
       when: not traefik_disable_eab
-      register: traefik_eab_result
-      environment:
-        VAULT_ADDR: "{{ lookup('ansible.builtin.env', 'VAULT_ADDR') }}"
-        VAULT_CACERT: "{{ lookup('ansible.builtin.env', 'VAULT_CACERT') }}"
-        VAULT_CLIENT_KEY: "{{ lookup('ansible.builtin.env', 'VAULT_CLIENT_KEY') }}"
-        VAULT_CLIENT_CERT: "{{ lookup('ansible.builtin.env', 'VAULT_CLIENT_CERT') }}"
-        VAULT_TOKEN: "{{ lookup('ansible.builtin.env', 'VAULT_TOKEN') }}"
-        VAULT_SKIP_VERIFY: "{{ lookup('ansible.builtin.env', 'VAULT_SKIP_VERIFY') }}"
-      ansible.builtin.command:
-        argv:
-          - "{{ traefik_vault_bin_local_path }}"
-          - write
-          - -format=json
-          - --force
-          - "{{ traefik_acme_path }}/new-eab"
-    - name: Parse eab
+      ansible.builtin.include_tasks: enrollment.yaml
+
+    - name: Render and validate both candidate configurations
       no_log: true
-      when: not traefik_disable_eab
-      vars:
-        traefik_acme_data: "{{ (traefik_eab_result.stdout | from_json).data }}"
       ansible.builtin.set_fact:
-        traefik_acme_kid: "{{ traefik_acme_data.id }}"
-        traefik_acme_hmac: "{{ traefik_acme_data.key }}"
-        traefik_acme_hmac_encoded: "{{ traefik_acme_data.key | b64encode }}"
-    - name: Write the config
-      no_log: "{{ not traefik_disable_eab }}"
-      register: traefik_config_var
-      ansible.builtin.template:
-        src: "{{ traefik_config_local_path }}"
-        dest: "{{ traefik_config_path }}"
-        owner: "{{ traefik_owner }}"
-        group: "{{ traefik_user }}"
-        mode: "0650"
-    - name: Write the dynamic config
-      ansible.builtin.template:
-        src: "{{ traefik_dynamic_config_local_path }}"
-        dest: "{{ traefik_dynamic_config_path }}"
-        owner: "{{ traefik_owner }}"
-        group: "{{ traefik_user }}"
-        mode: "0650"
-    - name: Write the mtls cert
-      ansible.builtin.copy:
-        src: "{{ traefik_mtls_ca_local_path }}"
-        dest: "{{ traefik_mtls_ca_path }}"
-        owner: "{{ traefik_owner }}"
-        group: "{{ traefik_user }}"
-        mode: "0740"
-    - name: Write the service
-      register: traefik_service_var
-      ansible.builtin.template:
-        src: systemd_service.conf
-        dest: "{{ traefik_service_path }}"
-        owner: "{{ traefik_owner }}"
-        group: "{{ traefik_user }}"
-        mode: "0644"
-    - name: Ensure the daemon is reloaded
-      when: traefik_service_var.changed
-      ansible.builtin.systemd_service:
-        daemon_reload: true
-    - name: Start the service and enable
-      ansible.builtin.systemd_service:
-        name: "{{ traefik_service_path | basename }}"
-        enabled: true
-        state: started
-        scope: "{{ traefik_service_scope }}"
-    - name: Restart the service
-      when: traefik_config_var.changed
-      ansible.builtin.systemd_service:
-        name: "{{ traefik_service_path | basename }}"
-        state: restarted
-        scope: "{{ traefik_service_scope }}"
-    - name: Reload the service
-      when: not traefik_config_var.changed
-      ansible.builtin.systemd_service:
-        name: "{{ traefik_service_path | basename }}"
-        state: reloaded
-        scope: "{{ traefik_service_scope }}"
+        traefik_rendered_config: >-
+          {{ lookup('ansible.builtin.template', traefik_config_local_path) |
+             alwaldend.main.validate_traefik_config(traefik_config_path) }}
+        traefik_rendered_dynamic_config: >-
+          {{ lookup('ansible.builtin.template', traefik_dynamic_config_local_path) |
+             alwaldend.main.validate_traefik_config(traefik_dynamic_config_path) }}
+
+    - name: Record whether an existing proxy needs recovery on failure
+      ansible.builtin.command:
+        argv: "{{ ['systemctl'] + (['--user'] if traefik_service_scope == 'user' else []) + ['is-active', traefik_service_path | basename] }}"
+      register: traefik_previous_service
+      changed_when: false
+      failed_when: false
+
+    - name: Initialize this activation's recovery records
+      ansible.builtin.set_fact:
+        traefik_bin_var: {}
+        traefik_config_var: {}
+        traefik_dynamic_config_var: {}
+        traefik_ca_var: {}
+        traefik_service_var: {}
+
+    - name: Install and activate a recoverable candidate
+      block:
+        - name: Install candidate files and activate changed startup inputs
+          ansible.builtin.include_tasks: install.yaml
+      rescue:
+        - name: Restore available previous deployment files
+          no_log: true
+          ansible.builtin.copy:
+            src: "{{ item.backup_file }}"
+            dest: "{{ item.dest }}"
+            remote_src: true
+            owner: "{{ traefik_owner }}"
+            group: "{{ traefik_user }}"
+            mode: preserve
+          when: item.backup_file is defined
+          loop:
+            - "{{ traefik_config_var }}"
+            - "{{ traefik_dynamic_config_var }}"
+            - "{{ traefik_ca_var }}"
+            - "{{ traefik_bin_var }}"
+            - "{{ traefik_service_var }}"
+
+        - name: Clear startup rate limits before recovery
+          when: traefik_previous_service.rc == 0
+          ansible.builtin.command:
+            argv: "{{ ['systemctl'] + (['--user'] if traefik_service_scope == 'user' else []) + ['reset-failed', traefik_service_path | basename] }}"
+          changed_when: false
+
+        - name: Recover the previously running proxy
+          when: traefik_previous_service.rc == 0
+          ansible.builtin.systemd_service:
+            name: "{{ traefik_service_path | basename }}"
+            daemon_reload: true
+            state: restarted
+            scope: "{{ traefik_service_scope }}"
+
+        - name: Remove recovery copies only after successful restoration
+          ansible.builtin.include_tasks: cleanup_backups.yaml
+
+        - name: Report rejected activation
+          ansible.builtin.fail:
+            msg: "Traefik activation failed. Available prior files were restored; a previously running service was restarted. Inspect the service journal before retrying."
+
+    - name: Remove completed configuration backups
+      ansible.builtin.include_tasks: cleanup_backups.yaml

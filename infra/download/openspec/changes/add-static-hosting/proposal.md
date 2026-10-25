@@ -21,8 +21,12 @@ and activate archived websites through a selected-release symlink.
   deployment, and themed downloads browser in the existing website.
 - Provide explicit operator SSH targets with temporary Vault-signed client
   credentials and strict repository-CA host verification.
+- Provide explicit source-authoritative local-to-Yandex content synchronization
+  using the release tool and existing component SSH injection.
 - Provide no backups, automatic replication, failover, or rollback command.
   Redeploying an existing website release changes its selected symlink.
+
+- Preserve Go vanity import discovery through local metadata before the public GitHub browser redirect.
 
 ## Capabilities
 

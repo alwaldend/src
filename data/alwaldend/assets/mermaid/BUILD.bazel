@@ -23,7 +23,7 @@ template_run_binary(
 mermaid_theme(
     name = "theme",
     config = ":config",
-    palette = ":palette",
     font = "//data/alwaldend:diagram_font",
     font_license = "//data/alwaldend:diagram_font_license",
+    palette = ":palette",
 )

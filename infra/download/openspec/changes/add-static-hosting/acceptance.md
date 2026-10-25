@@ -53,3 +53,14 @@ coverage should exercise these observable cases:
 Retain the actual maintenance unit, command/version, allocation comparison,
 checksums, and copy-on-write result. Live filesystem creation and scheduling
 remain deployment checks; an isolated Btrfs fixture is not live deployment.
+
+## Public Go discovery
+
+Before changing routing, reproduce go-get=1 redirection. With rendered public
+configuration, check repository-root and nested-module metadata, trailing
+slashes, extra query parameters, unknown prefixes, browser redirects, unknown
+Hosts, and normal file/site serving. Render local configuration to confirm no
+public Git router or metadata virtual host, and disable apex-site routing to
+confirm discovery remains independent. Exercise a real Go module lookup so
+both discovery of the nested path and its repository-prefix recheck succeed.
+The isolated receipt and reproduction are linked from the deployment evidence.

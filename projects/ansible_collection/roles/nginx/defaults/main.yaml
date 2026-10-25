@@ -6,3 +6,5 @@ nginx_manage_packages: true
 nginx_packages:
   - nginx
 nginx_service_name: nginx
+# Mounts required before starting the content service.
+nginx_requires_mounts_for: []

@@ -21,3 +21,6 @@ traefik_service_scope: system
 traefik_bin_local_path: "{{ role_path }}/files/traefik"
 traefik_bin_path: /usr/bin/traefik
 traefik_vault_bin_local_path: "{{ role_path }}/files/vault"
+traefik_eab_cache_path: "{{ traefik_config_dir }}/eab.json"
+# Rotate explicitly after losing an ACME account or its enrollment state.
+traefik_rotate_eab: false

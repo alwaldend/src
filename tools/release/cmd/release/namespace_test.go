@@ -179,6 +179,9 @@ func transportFixture(args []string) error {
 	if !ok {
 		return fmt.Errorf("fixture destination must identify a host")
 	}
+	if err := os.MkdirAll(destination, 0o755); err != nil {
+		return fmt.Errorf("create fixture transfer destination: %w", err)
+	}
 	input, err := io.ReadAll(os.Stdin)
 	if err != nil {
 		return fmt.Errorf("read fixture transfer list: %w", err)
@@ -238,6 +241,23 @@ func TestPublicationNamespaceCLI(t *testing.T) {
 			body, err := os.ReadFile(filepath.Join(remote, namespace, "com_x_api", "releases", "2.173-4377d1791c01", "openapi.json"))
 			if err != nil || string(body) != "schema fixture\n" {
 				t.Fatalf("published bytes: %q, error=%v", body, err)
+			}
+			writeBundleFixture(t, filepath.Join(bundle, "files", "openapi.json"), "replacement fixture\n")
+			cmd = releaseBundleCommand(args...)
+			cmd.Env = append(os.Environ(), "RELEASE_TRANSPORT_HELPER=1")
+			output, replaceErr := cmd.CombinedOutput()
+			want := "schema fixture\n"
+			if namespace == "third_party" {
+				if replaceErr != nil {
+					t.Fatalf("replace third-party bytes: %v\n%s", replaceErr, output)
+				}
+				want = "replacement fixture\n"
+			} else if replaceErr == nil || !bytes.Contains(output, []byte("already exists")) {
+				t.Fatalf("project collision was not refused: %v\n%s", replaceErr, output)
+			}
+			body, err = os.ReadFile(filepath.Join(remote, namespace, "com_x_api", "releases", "2.173-4377d1791c01", "openapi.json"))
+			if err != nil || string(body) != want {
+				t.Fatalf("replacement bytes: %q, error=%v", body, err)
 			}
 			for _, invalid := range []string{"../outside", "sites", "staging", "third_party/other"} {
 				cmd = releaseBundleCommand(append(args, "--namespace", invalid)...)

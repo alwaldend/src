@@ -1,0 +1,45 @@
+- name: Require an absolute non-root content path
+  ansible.builtin.assert:
+    that:
+      - download_sync_endpoint.root is match('^/.+')
+      - download_sync_endpoint.root is not search('[\x00-\x1f\x7f]')
+    quiet: true
+
+- name: Resolve the real content root
+  ansible.builtin.command:
+    argv: [realpath, -e, --, "{{ download_sync_endpoint.root }}"]
+  delegate_to: "{{ download_sync_endpoint.host }}"
+  register: download_sync_real_root
+  changed_when: false
+  check_mode: false
+
+- name: Reject aliases or noncanonical roots
+  ansible.builtin.assert:
+    that: download_sync_real_root.stdout == download_sync_endpoint.root
+    quiet: true
+
+- name: Inspect the required publication directories
+  ansible.builtin.stat:
+    path: "{{ download_sync_endpoint.root }}{{ item }}"
+    follow: false
+  delegate_to: "{{ download_sync_endpoint.host }}"
+  loop: ["", /projects, /sites, /staging]
+  register: download_sync_directories
+
+- name: Require real publication directories
+  ansible.builtin.assert:
+    that:
+      - item.stat.isdir | default(false)
+      - not item.stat.islnk | default(false)
+    quiet: true
+  loop: "{{ download_sync_directories.results }}"
+  loop_control:
+    label: "{{ item.item }}"
+
+- name: Require the content filesystem mount
+  ansible.builtin.command:
+    argv: [mountpoint, -q, --, "{{ download_sync_endpoint.root }}"]
+  delegate_to: "{{ download_sync_endpoint.host }}"
+  changed_when: false
+  check_mode: false
+  when: download_sync_require_mount | default(true) | bool

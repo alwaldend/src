@@ -1,0 +1,78 @@
+- name: Install the Traefik executable
+  ansible.builtin.copy:
+    src: "{{ traefik_bin_local_path }}"
+    dest: "{{ traefik_bin_path }}"
+    owner: "{{ traefik_owner }}"
+    group: "{{ traefik_user }}"
+    mode: "0755"
+    backup: true
+  register: traefik_bin_var
+
+- name: Install validated startup configuration
+  no_log: true
+  ansible.builtin.copy:
+    content: "{{ traefik_rendered_config }}"
+    dest: "{{ traefik_config_path }}"
+    owner: "{{ traefik_owner }}"
+    group: "{{ traefik_user }}"
+    mode: "0640"
+    backup: true
+  register: traefik_config_var
+
+- name: Install validated watched routing configuration
+  no_log: true
+  ansible.builtin.copy:
+    content: "{{ traefik_rendered_dynamic_config }}"
+    dest: "{{ traefik_dynamic_config_path }}"
+    owner: "{{ traefik_owner }}"
+    group: "{{ traefik_user }}"
+    mode: "0640"
+    backup: true
+  register: traefik_dynamic_config_var
+
+- name: Install the client trust certificate
+  ansible.builtin.copy:
+    src: "{{ traefik_mtls_ca_local_path }}"
+    dest: "{{ traefik_mtls_ca_path }}"
+    owner: "{{ traefik_owner }}"
+    group: "{{ traefik_user }}"
+    mode: "0640"
+    backup: true
+  register: traefik_ca_var
+
+- name: Install the service unit
+  ansible.builtin.template:
+    src: systemd_service.conf
+    dest: "{{ traefik_service_path }}"
+    owner: "{{ traefik_owner }}"
+    group: "{{ traefik_user }}"
+    mode: "0644"
+    backup: true
+  register: traefik_service_var
+
+- name: Enable the service with its current unit definition
+  ansible.builtin.systemd_service:
+    name: "{{ traefik_service_path | basename }}"
+    enabled: true
+    daemon_reload: "{{ traefik_service_var.changed }}"
+    scope: "{{ traefik_service_scope }}"
+
+- name: Clear a previous startup rate limit before activating changed inputs
+  when: traefik_bin_var.changed or traefik_config_var.changed or traefik_ca_var.changed or traefik_service_var.changed
+  ansible.builtin.command:
+    argv: "{{ ['systemctl'] + (['--user'] if traefik_service_scope == 'user' else []) + ['reset-failed', traefik_service_path | basename] }}"
+  changed_when: false
+
+- name: Activate changed startup inputs
+  when: traefik_bin_var.changed or traefik_config_var.changed or traefik_ca_var.changed or traefik_service_var.changed
+  ansible.builtin.systemd_service:
+    name: "{{ traefik_service_path | basename }}"
+    state: restarted
+    daemon_reload: true
+    scope: "{{ traefik_service_scope }}"
+
+- name: Ensure the proxy is running
+  ansible.builtin.systemd_service:
+    name: "{{ traefik_service_path | basename }}"
+    state: started
+    scope: "{{ traefik_service_scope }}"

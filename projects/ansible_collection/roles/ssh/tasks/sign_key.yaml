@@ -37,4 +37,5 @@
         mode: "0644"
         owner: root
         group: root
+      notify: Reload signed SSH host certificates
 

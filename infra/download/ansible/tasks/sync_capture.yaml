@@ -1,0 +1,100 @@
+- name: Inventory captured entries without following links
+  ansible.builtin.find:
+    paths: "{{ download_sync_capture.path }}"
+    recurse: true
+    hidden: true
+    follow: false
+    file_type: any
+  delegate_to: localhost
+  become: false
+  register: download_sync_entries
+
+- name: Check captured file and directory boundaries
+  vars:
+    capture_prefix: "{{ '^' + (download_sync_capture.path | regex_escape) + '/' }}"
+    file_paths: "{{ download_sync_entries.files | selectattr('isreg') | map(attribute='path') | map('regex_replace', capture_prefix, '') | list }}"
+    directory_paths: "{{ download_sync_entries.files | selectattr('isdir') | map(attribute='path') | map('regex_replace', capture_prefix, '') | list }}"
+    link_paths: "{{ download_sync_entries.files | selectattr('islnk') | map(attribute='path') | map('regex_replace', capture_prefix, '') | list }}"
+  ansible.builtin.assert:
+    that:
+      - download_sync_entries.files | map(attribute='path') | select('search', '[\x00-\x1f\x7f]') | list | length == 0
+      - file_paths | reject('match', '^(projects/[^/]+/releases/[^/]+/[^/]+|sites/[^/]+/releases/[^/]+/.+)$') | list | length == 0
+      - directory_paths | reject('match', '^(projects(/[^/]+(/releases(/[^/]+)?)?)?|sites(/[^/]+(/releases(/[^/]+(/.+)?)?)?)?)$') | list | length == 0
+      - link_paths | reject('match', '^sites/[^/]+/current$') | list | length == 0
+    quiet: true
+
+- name: Inspect each captured project's release directory
+  ansible.builtin.stat:
+    path: "{{ item }}/releases"
+    follow: false
+  delegate_to: localhost
+  become: false
+  loop: "{{ download_sync_entries.files | selectattr('isdir') | map(attribute='path') | select('match', '^' + (download_sync_capture.path | regex_escape) + '/(projects|sites)/[^/]+$') | list }}"
+  register: download_sync_project_releases
+
+- name: Require a real release directory for every captured project
+  ansible.builtin.assert:
+    that:
+      - item.stat.isdir | default(false)
+      - not item.stat.islnk | default(false)
+    quiet: true
+  loop: "{{ download_sync_project_releases.results }}"
+  loop_control:
+    label: "{{ item.item }}"
+
+- name: Inspect captured website indexes
+  ansible.builtin.stat:
+    path: "{{ item }}/index.html"
+    follow: false
+  delegate_to: localhost
+  become: false
+  loop: "{{ download_sync_entries.files | selectattr('isdir') | map(attribute='path') | select('match', '^' + (download_sync_capture.path | regex_escape) + '/sites/[^/]+/releases/[^/]+$') | list }}"
+  register: download_sync_indexes
+
+- name: Require ordinary website indexes
+  ansible.builtin.assert:
+    that: item.stat.isreg | default(false)
+    quiet: true
+  loop: "{{ download_sync_indexes.results }}"
+  loop_control:
+    label: "{{ item.item }}"
+
+- name: Inspect captured selections
+  ansible.builtin.stat:
+    path: "{{ item.path }}"
+    follow: false
+  delegate_to: localhost
+  become: false
+  loop: "{{ download_sync_entries.files | selectattr('islnk') | list }}"
+  loop_control:
+    label: "{{ item.path }}"
+  register: download_sync_selections
+
+- name: Require relative version selections without traversal
+  ansible.builtin.assert:
+    that:
+      - item.stat.lnk_target is match('^releases/(?!\.{1,2}$)[^/]+$')
+      - item.stat.lnk_target is not search('[\x00-\x1f\x7f]')
+    quiet: true
+  loop: "{{ download_sync_selections.results }}"
+  loop_control:
+    label: "{{ item.item.path }}"
+
+- name: Inspect selected captured website indexes
+  ansible.builtin.stat:
+    path: "{{ item.stat.path | dirname }}/{{ item.stat.lnk_target }}/index.html"
+    follow: false
+  delegate_to: localhost
+  become: false
+  loop: "{{ download_sync_selections.results }}"
+  loop_control:
+    label: "{{ item.item.path }}"
+  register: download_sync_selected_indexes
+
+- name: Require every current selection to exist
+  ansible.builtin.assert:
+    that: item.stat.isreg | default(false)
+    quiet: true
+  loop: "{{ download_sync_selected_indexes.results }}"
+  loop_control:
+    label: "{{ item.item.item.path }}"

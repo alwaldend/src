@@ -35,6 +35,18 @@ project executable payloads or generated release records.
 - `preview-snapshot-timeout`: the collaborative browser failed twice at the
   same snapshot step. The existing pinned browser workflow verified scoped
   navigation and produced a mobile screenshot and machine-readable receipt.
+- `ssh-identity-environment`: OpenSSH -i checked an injected reference as a
+  literal path. IdentityFile expansion and a real SSH fixture resolved it;
+  authenticated local duplicate publication then refused as intended.
 - `gazelle-unrelated-import`: full generation encountered an existing unresolved
   python.runfiles.runfiles import in repo_quality. Scoped Mermaid generation
   and the owning Python manifest generator completed; no unrelated owner edits.
+
+## Rebase validation, 2026-11-01
+
+The repository's dedicated Buildifier gate found three formatting differences
+in the merged shared-theme and Qwen metadata BUILD files. Apply the owning
+`//tools/buildifier:workspace` formatter and retain its complete format-only
+output, as required by repository policy. Inspect the diff to preserve all
+attributes, dependency labels and model pins. Final validation receipts for
+the download deployment reconciliation remain under `out/rebase-review/`.
