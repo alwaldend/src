@@ -167,11 +167,13 @@ build consumers, artifact publication, and secrets distinct, and treat tree
 
 Use precise, professional vocabulary for every name you choose, including
 files, scripts, directories, functions, variables, classes, commits, and
-branches, and name the purpose or behavior accurately for a technical
-specification. Avoid slang, casual shorthand, chat-culture terms, jokes, and
-cute wordplay, and prefer established domain terminology and standard
-abbreviations. Name a dashboard-deploying script `deploy_dashboards.sh`,
-never `push_dashboards.sh`.
+branches, and anything else you name. Choose words a 1972 IBM engineer would
+write in a technical specification, and describe the purpose or behavior
+accurately. Avoid slang, casual shorthand, chat-culture terms, jokes, and cute
+or clever names; prefer established domain terminology and standard
+abbreviations. This principle applies universally. For example, name a script
+that deploys dashboards `deploy_dashboards.sh`, never `push_dashboards.sh`.
+That example is one illustration of the principle, not the extent of it.
 
 When the main agent loads a skill, say which one and why it applies. Follow
 `.editorconfig`, `pyproject.toml`, configured formatters, and nearby files,
