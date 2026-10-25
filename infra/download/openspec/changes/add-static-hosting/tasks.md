@@ -123,3 +123,42 @@ revision under the manual refresh workflow.
       independent [PR #113](https://github.com/alwaldend/src/pull/113) against
       `master`, preserving the host account
       and rsync prerequisites here; validate and retain evidence for both branches.
+
+## 8. Deployment and operations documentation
+
+- [x] 8.1 Review the checked-in serving, provisioning, publication, and maintenance paths; distinguish declared behavior from outstanding live acceptance.
+- [x] 8.2 Extend the maintained diagrams with deployment order and operations, including issuer reachability, release reselection, deduplication, health checks, and storage recovery limits.
+- [x] 8.3 Render and visually inspect all views, verify documentation/build integration, and prepare the documentation for guarded delivery without executing live operations.
+
+This documentation pass follows the 2026-10-25 request to review `infra/download`
+and show its deployment and operations. It preserves the incomplete rollout
+tasks above and adds no infrastructure behavior or deployment authority.
+
+Review covered the three Terraform roots, stage-scoped AL wiring, Ansible
+inventory/templates, the shared `download_host` role, and release-tool
+publication contracts at baseline `77f046644`. No new configuration defect
+was established by this source review. Recovery limits are intentional;
+tasks 1.1, 3.1, and 5.2–5.4 still require their own live evidence. The diagrams
+and Ansible package built successfully, and the rendered views were visually
+inspected. Exact-candidate validation and publication receipts are retained
+under ignored `out/download-diagram/`; generated SVGs remain build outputs.
+
+## 9. Injected SSH access and local inspection
+
+- [x] 9.1 Add explicit local and Yandex SSH targets through `tools/ssh/defs.bzl`, with temporary Vault-signed client credentials and strict repository-CA host verification.
+- [x] 9.2 Build both targets and exercise the local target with read-only service and storage checks; retain a sanitized observation and confirm temporary credential cleanup.
+- [x] 9.3 Document the targets and reconcile the observed local deployment with the remaining acceptance work; validate and prepare the updated candidate for delivery.
+
+Before implementation, cover these failure cases: the wrong environment is
+selected; the injector label or runtime dependency is missing; SSH receives
+literal environment placeholders or omits the signed client certificate; an
+untrusted host is accepted; inherited agent identities are used; temporary
+credential files remain after exit. Use packaged target inspection, the
+existing AL lifecycle check, and the authorized local SSH read-only run.
+This request authorizes credential injection and local inspection, not a
+host deployment, service restart, storage change, or Yandex connection.
+
+The [local SSH observation](evidence.md#local-ssh-inspection-2026-10-25)
+establishes current local service, storage, and timer health. It does not
+complete the two-environment, reboot, configuration-rerun, or concrete-bundle
+comparison criteria retained above.

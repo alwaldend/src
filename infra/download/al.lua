@@ -28,7 +28,49 @@ infra.yc_auth({
 
 infra.dns({ labels = { tf = "dns" }, dc1 = true })
 
+local ssh_signing = { backend = "ssh/clients/sign/admins", ttl = 60 * 60 * 2 }
+
 infra.ansible_keys({
     labels = { ansible = "1" },
-    vault_ssh = { backend = "ssh/clients/sign/admins", ttl = 60 * 60 * 2 },
+    vault_ssh = ssh_signing,
+})
+
+-- Build-time input: the public host CA remains owned by infra/vault.
+local server_ca_file =
+    assert(io.open("infra/vault/tf/output/ssh_ca_servers.crt"))
+local server_ca = assert(server_ca_file:read("*a")):gsub("%s+$", "")
+assert(server_ca_file:close())
+
+lib.plugin_call({
+    name = "ssh",
+    plugin = "injector",
+    labels = { ssh = "1" },
+    data = {
+        res = {
+            { name = "ssh_key", vault_ssh = ssh_signing },
+            {
+                name = "DOWNLOAD_SSH_PRIVATE_KEY",
+                deps = { "ssh_key" },
+                env = { value = "{{ .Last.Data.private_key }}" },
+            },
+            {
+                name = "DOWNLOAD_SSH_CERTIFICATE",
+                deps = { "ssh_key" },
+                env = { value = "{{ .Last.Data.public_key_signed }}" },
+            },
+            {
+                name = "ssh_known_hosts",
+                file = {
+                    value = "@cert-authority *.download.alwaldend.com "
+                        .. server_ca
+                        .. "\n",
+                },
+            },
+            {
+                name = "DOWNLOAD_SSH_KNOWN_HOSTS",
+                deps = { "ssh_known_hosts" },
+                env = { value = "{{ index .Last.Files 0 }}" },
+            },
+        },
+    },
 })

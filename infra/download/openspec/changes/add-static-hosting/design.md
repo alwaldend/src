@@ -16,6 +16,14 @@ hosts and their integration, not copies of those shared behaviors.
 source for each configuration and requirement; make either environment an
 explicit deployment target.
 
+Operator SSH entry points reuse `tools/ssh:defs.bzl` and the component AppRole.
+The injector generates a temporary client key and obtains its certificate
+from the same signing role used by Ansible. A temporary known-hosts file trusts
+the repository-owned server CA for the component's host namespace; strict
+hostname verification stays enabled. Environment-specific targets select the
+same destinations as publication. AL owns credential cleanup after command
+exit; no persistent client or server SSH configuration is modified.
+
 **Non-Goals:** Containers, object storage, databases, upload APIs, browser
 uploads, automatic replication, automatic failover, backups, garbage collection,
 or a rollback command. A website can be redeployed by selecting an existing
@@ -42,11 +50,12 @@ component variables where they are identical. Provider inventory, VM image
 IDs, addresses, and CPU/memory sizing are deployment inputs, resolved from
 existing infrastructure during implementation.
 
-```text
-public DNS ----> Yandex VM: Traefik ----> Nginx ----> /srv/download
-local DNS ----> XCP-ng VM: Traefik ----> Nginx ----> /srv/download
-publisher ----> chosen VM over SSH ----> release files and selected site
-```
+The component's [architecture diagram](../../../docs/architecture.mmd)
+projects these declarations. Its [deployment](../../../docs/deployment.mmd)
+and [operations](../../../docs/operations.mmd) views show ordering, publication,
+routine maintenance, and recovery boundaries. All three are rendered from
+their maintained Mermaid sources; they describe configured behavior rather
+than establishing live deployment or acceptance.
 
 Traefik binds ports 80 and 443, redirects HTTP to HTTPS, and routes by host.
 Nginx binds `127.0.0.1:8008`, a Fedora SELinux HTTP port. Both public names are

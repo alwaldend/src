@@ -1,0 +1,14 @@
+flowchart TB
+    prerequisites[1 · Confirm inventory, image, address, SSH trust<br/>Vault AppRole and provider assignments<br/>XO first login before resource-set reconciliation]
+    auth[AL injects stage credentials and Vault HTTP backend<br/>Independent state keys: local / yandex / dns]
+    prerequisites --> auth
+    auth --> local[2a · local:tf.plan → tf.apply<br/>XCP-ng VM + boot and content disks<br/>prevent_destroy protects the whole VM]
+    auth --> cloud[2b · yandex:tf.plan → tf.apply<br/>VM, retained disk, reserved IP, network/firewall<br/>Yandex zone + host A record]
+    local --> dns[3 · Prepare dc1 apex through infra/dns/tf<br/>Keep public Pages records during local preparation<br/>download/dns:tf.plan → tf.apply for aliases/delegation]
+    cloud --> dns
+    dns --> hosts[4 · Verify inventory FQDNs and SSH trust<br/>ansible:ansible.local OR ansible:ansible.yandex<br/>Mount Btrfs; configure services, permissions, timer]
+    hosts --> publish[5 · Publish a concrete site to each selected environment<br/>publish.local OR publish.yandex<br/>Check routing and content with address overrides]
+    publish --> cutover[6 · Public apex cutover through infra/dns/tf<br/>Phase 1: remove old public apex A/AAAA<br/>Verify removal before phase 2: create apex CNAME]
+    cutover --> certificates[7 · DNS and port 80 reach each issuer's target<br/>Yandex: Let's Encrypt staging → production<br/>Local: Vault HTTP-01 + EAB using dc1 DNS]
+    certificates --> acceptance[8 · Verify HTTPS chains, www redirects, downloads<br/>Verify renewal, reboot, and retained content<br/>Keep prior deployment for reviewed recovery]
+    certificates -.-> interval[Public cutover has a DNS and certificate bootstrap interval<br/>Keep staging and production ACME storage separate]

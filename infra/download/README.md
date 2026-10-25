@@ -9,6 +9,8 @@ One VM per environment runs the shared Traefik service in front of native
 Nginx. Clients connect directly on ports 80/443; Nginx listens only on
 `127.0.0.1:8008`. Public DNS selects Yandex and dc1 DNS selects XCP-ng.
 These are independent stores with no replication, failover, or backups.
+The diagrams describe checked-in configuration and operator procedures;
+they do not establish current deployment or service health.
 
 ## Content and publication
 
@@ -59,6 +61,48 @@ The job never deletes or activates releases. Its result is available through
 `btrfs filesystem du` reports shared/exclusive allocation; ordinary file sizes
 and download responses remain their logical sizes. The declared filesystem
 setup does not force formatting over an existing filesystem.
+
+## Operations
+
+![Publication, maintenance, and recovery operations](assets/operations.svg)
+
+Use `ssh.local` or `ssh.yandex` for operator access through the shared
+[`ssh_binary`](../../tools/ssh/README.md) rule. Each invocation authenticates
+with the component AppRole, injects a temporary Vault-signed client key, and
+connects as `ansible` to the selected inventory FQDN. It verifies the host
+certificate against the repository-owned SSH server CA, scoped to
+`*.download.alwaldend.com`, with strict checking enabled. Client configuration
+and SSH-agent identities are excluded; no persistent SSH configuration or
+known-hosts file is changed. AL removes temporary keys and trust files on exit.
+
+For example, inspect the local services without changing the host:
+
+```sh
+bazel_agent bazel run //infra/download:ssh.local -- \
+  systemctl is-active nginx traefik download-deduplicate.timer
+bazel_agent bazel run //infra/download:ssh.local -- \
+  findmnt /srv/download
+```
+
+Invocation arguments follow the fixed SSH destination and form the remote
+command. Omitting them opens a shell. Select `ssh.yandex` explicitly for cloud
+access. The target supplies authentication, not authority to change a host.
+
+Publication explicitly selects `publish.local` or `publish.yandex`. Upload,
+extract, and link are separate ordered steps; only link selects the website.
+Reselect a retained release with `--steps link`. Completed ordinary uploads
+can remain public after a later transfer failure. The release tool owns the
+[commands and failure behavior](../../tools/release/README.md#choose-publication-steps).
+
+On the selected host, inspect `systemctl status nginx traefik`,
+`systemctl list-timers download-deduplicate.timer`, and
+`journalctl -u download-deduplicate.service`. Check the mount with
+`findmnt /srv/download`, free space with `btrfs filesystem usage /srv/download`,
+and sharing with `btrfs filesystem du` on the published trees. Verify DNS,
+certificate trust, website assets, JSON listings, downloads, and `www` redirects
+from each DNS view. Retention cleanup is manual; deduplication never frees
+space by deleting releases. Retained disks and earlier releases provide no
+backup against disk loss.
 
 ## Infrastructure ownership
 
@@ -123,6 +167,8 @@ shared SSH role includes `inventory_hostname` when signing keys; no host-key
 alias or address override is needed.
 
 ## Deployment sequence
+
+![Deployment order and operational prerequisites](assets/deployment.svg)
 
 The following are operator entry points, not evidence of a deployed service.
 Confirm the local address, named XO inventory, template disk/interface

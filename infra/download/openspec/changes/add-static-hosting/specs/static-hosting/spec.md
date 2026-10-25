@@ -175,3 +175,19 @@ install rsync and provision storage without uploading or selecting releases.
 - **THEN** the content account and rsync are available for publication
 - **AND** no separate publisher key or authorization entry is required
 - **AND** existing release content and website selection remain unchanged
+
+### Requirement: Injected operator SSH access
+
+The component SHALL expose explicit local and Yandex SSH targets using the
+shared SSH rule and its own Vault AppRole. Each invocation SHALL inject a
+temporary signed client key, verify the destination hostname against the
+repository-owned SSH server CA, and clean up temporary material on normal
+exit. It SHALL NOT modify persistent SSH configuration or accept an unknown
+host key interactively.
+
+#### Scenario: Inspect the local deployment
+
+- **WHEN** an authorized operator invokes the local SSH target with read-only service and storage commands
+- **THEN** the command connects as the configured administrator to the local inventory hostname using injected credentials
+- **AND** the Yandex host remains untouched
+- **AND** the invocation removes its temporary credential and trust files after the command exits

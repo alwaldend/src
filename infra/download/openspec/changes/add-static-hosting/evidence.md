@@ -237,3 +237,37 @@ The split preserves host implementation from aggregate candidate
 `e2d4f59aee637445f996aac6e05c87704b8fa636`. Split validation receipts and
 source-preservation evidence are retained under
 `out/infra-download-split/publication-extraction/`. No live operation is run.
+
+## Local SSH inspection (2026-10-25)
+
+At 18:58:19 UTC, the new `//infra/download:ssh.local` target connected to
+`host1.dc1.download.alwaldend.com` as `ansible`, using the component AppRole,
+an injected Vault-signed client key, and strict host verification against the
+repository SSH server CA. Both environment targets built; only local ran.
+The user explicitly authorized injected SSH access and this inspection.
+
+Read-only `systemctl show`, `findmnt`, `df`, `btrfs filesystem usage`,
+`readlink`, `stat`, `ss`, `getenforce`, and `uptime` observations established:
+
+- Nginx and Traefik were active/running, with successful main-process status.
+- `/dev/xvdb` was mounted at `/srv/download` as 100 GiB Btrfs with
+  `nodev,nosuid,noexec`; approximately 1.3 GiB was used and 97 GiB available.
+- The deduplication timer was active/waiting. Its last run at 00:20 UTC on
+  October 25 exited successfully; the next run was scheduled for October 26.
+- `sites/alwaldend.com/current` selected `releases/0.0.0-dev`. Publication
+  roots belonged to `download`; staging remained mode `0700`.
+- Nginx listened on `127.0.0.1:8008`; ports 80/443 were listening. SELinux
+  was enforcing. The host had been up since September 26.
+- No injected SSH key directories or temporary known-hosts files remained in
+  the invocation's task-private temporary directory after successful exit.
+
+The repeatable remote command input is `out/download-ssh/inspect-local.sh`,
+executed with `bazel_agent bazel run //infra/download:ssh.local -- bash -s`.
+Its SHA-256 is
+`135e385c41ecf751409ae027f1085c0d1f7fc9edfe8f3adf44de22944e73edba`.
+The sanitized `out/download-ssh/local-observation.log` has SHA-256
+`1078f85db50a57e99cb2390862e74e45a98806dae008dad6cba2a32832630c21`.
+`TMPDIR`, `TMP`, and `TEMP` pointed to ignored task-private scratch. These
+observations establish local health at that time, not Yandex acceptance,
+reboot persistence, an Ansible rerun, or a comparison against a newly built
+website bundle. No service, storage, or persistent host configuration changed.

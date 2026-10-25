@@ -19,6 +19,8 @@ and activate archived websites through a selected-release symlink.
   `current` symlink.
 - Integrate the linked Nginx role, component Vault identity, SSH release-tool
   deployment, and themed downloads browser in the existing website.
+- Provide explicit operator SSH targets with temporary Vault-signed client
+  credentials and strict repository-CA host verification.
 - Provide no backups, automatic replication, failover, or rollback command.
   Redeploying an existing website release changes its selected symlink.
 
