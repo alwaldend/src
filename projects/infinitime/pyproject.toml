@@ -1,12 +1,16 @@
 [project]
 name = "com-alwaldend-src-infinitime-tools"
 version = "0.0.0"
-requires-python = ">=3.10, <4"
+requires-python = ">=3.11, <4"
 dependencies = [
-  "Pillow",
+  "Pillow>=13.0.0",
   "adafruit-nrfutil",
-  "cryptography>=2.6",
+  "cryptography>=50.0.2",
   "intelhex",
   "click",
   "cbor>=1.0.0",
 ]
+
+[tool.uv]
+# DFU packaging does not use adafruit-nrfutil's optional key-signing support.
+exclude-dependencies = ["ecdsa"]

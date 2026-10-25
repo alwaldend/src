@@ -1,7 +1,7 @@
 [project]
 name = "com_alwaldend_src"
 version = "0.0.0"
-requires-python = ">=3.10, <4"
+requires-python = ">=3.11, <4"
 dependencies = [
   "pydantic",
   "fastapi>=0.115.12",
@@ -10,7 +10,7 @@ dependencies = [
   "pandas>=2.2.3",
   "numpy>=2.2.5",
   "joblib>=1.4.2",
-  "black",
+  "black>=26.10.1",
   "mypy",
   "isort",
   "pre-commit",
@@ -18,10 +18,17 @@ dependencies = [
   "flake8-pyproject",
   "git-filter-repo",
   "twine",
-  "filelock",
+  "filelock>=4.2.4",
   "click>=8.3.3",
-  "cryptography>=48.0.1",
+  "cryptography>=50.0.2",
   "idna>=3.15",
   "jaraco-context>=6.1.0",
-  "urllib3>=2.7.0",
+  "urllib3>=2.8.0",
+]
+
+[tool.uv]
+constraint-dependencies = [
+  "certifi>=2026.10.23",
+  "opentelemetry-api>=1.45.1",
+  "virtualenv>=21.14.13",
 ]

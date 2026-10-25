@@ -181,3 +181,7 @@ The runtime directly uses `@deepseek-ai/cordis`, its official Loader, Include,
 HMR, and Timer plugins, and the Model Context Protocol TypeScript SDK. Their
 license texts are retained in the resolved package artifacts by the pinned
 pnpm/Bazel dependency graph.
+
+The Include plugin's entry-list schema is patched to use js-yaml 5's scalar
+tag API. Its dependency override selects the same js-yaml release as the
+runtime, so parsing, configuration writes, and reloads share the `!!js` dialect.
