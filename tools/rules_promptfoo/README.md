@@ -183,7 +183,7 @@ host credentials.
 ## Dependency boundary
 
 The module pins Promptfoo and the Codex SDK with a dedicated pnpm lock. npm
-lifecycle hooks and optional dependencies are disabled. The Codex executable
+lifecycle hooks, automatic peer installation, and optional dependencies are disabled. The Codex executable
 and Promptfoo's libSQL binding are promoted to explicit Linux x86-64
 dependencies. AJV is also promoted because `ajv-formats` declares its runtime
 peer as optional, which would otherwise be removed by `no_optional`. The
@@ -195,7 +195,12 @@ promoted explicitly before use.
 
 The pinned Promptfoo distribution is patched so
 `PROMPTFOO_DISABLE_TELEMETRY=1` also suppresses its best-effort request to
-`r.promptfoo.app`. The upstream 0.122.2 telemetry implementation otherwise
+`r.promptfoo.app`. The upstream 0.125.1 telemetry implementation otherwise
 records a "telemetry disabled" event through that separate endpoint. The same
 patch makes Promptfoo's otherwise hard-coded prompt-suggestion concurrency
 honor the runner's serialization setting.
+
+Security overrides select patched MSAL and basic-ftp versions where transitive
+ranges retain vulnerable releases. OpenTelemetry API stays at 1.9.0 to satisfy
+the tracing SDK's `<1.10.0` peer contract. Optional provider peers are installed
+only when explicitly declared by this runner.

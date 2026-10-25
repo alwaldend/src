@@ -60,6 +60,59 @@ export default {
 `;
 }
 
+test("entry-list expressions survive configuration writes and restart", async (t) => {
+    const root = await workspace("yaml_expression_roundtrip");
+    const project = join(root, "projects", "mcp_cordis");
+    await writeFile(
+        join(project, "plugins", "configured.mjs"),
+        `export default {
+  apply(ctx, config) {
+    ctx.tool({ name: "read_config", inputSchema: { type: "object" } },
+      () => ({ answer: config.answer, label: config.label, enabled: config.enabled }));
+  }
+};\n`,
+    );
+    await writeFile(
+        join(project, "cordis.yaml"),
+        `- id: configured
+  name: ./plugins/configured.mjs
+  config:
+    answer: !!js 6 * 7
+    label: "true"
+    enabled: false
+`,
+    );
+    const runtime = new CordisRuntime({ workspaceRoot: root });
+    t.after(() => runtime.shutdown());
+    assert.deepEqual((await runtime.initialize()).errors, []);
+    const request = {
+        scope: "project",
+        packageName: "configured",
+        tool: "read_config",
+        arguments: {},
+    };
+    const expected = { answer: 42, label: "true", enabled: false };
+    assert.deepEqual((await runtime.invoke(request)).value, expected);
+    await runtime.define({
+        scope: "project",
+        name: "additional",
+        source: plugin("additional"),
+    });
+    const persisted = await readFile(join(project, "cordis.yaml"), "utf8");
+    assert.match(persisted, /!!js/u);
+    assert.match(persisted, /6 \* 7/u);
+    await runtime.shutdown();
+    const restarted = new CordisRuntime({ workspaceRoot: root });
+    t.after(() => restarted.shutdown());
+    assert.deepEqual((await restarted.initialize()).errors, []);
+    const result = (await restarted.invoke(request)).value;
+    assert.deepEqual(result, expected);
+    await writeFile(
+        join(process.env.TEST_UNDECLARED_OUTPUTS_DIR, "yaml_roundtrip.json"),
+        `${JSON.stringify({ persisted, result }, null, 2)}\n`,
+    );
+});
+
 function slowEvaluationPlugin(generation, markerPath, releasePath) {
     return plugin(generation).replace(
         "export default {",

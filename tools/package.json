@@ -3,10 +3,16 @@
         "@fission-ai/openspec": "1.11.0",
         "@mermaid-js/mermaid-cli": "11.16.0",
         "@prettier/plugin-xml": "3.4.2",
-        "autoprefixer": "^10.4.21",
+        "autoprefixer": "^10.6.1",
         "postcss-cli": "^11.0.1",
-        "prettier": "^3.6.2",
+        "prettier": "^3.9.10",
         "prettier-plugin-sql": "0.20.0",
-        "puppeteer": "25.2.1"
+        "puppeteer": "25.2.1",
+        "postcss": "8.5.31"
+    },
+    "pnpm": {
+        "overrides": {
+            "katex@<0.18.2": "0.19.1"
+        }
     }
 }

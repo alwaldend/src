@@ -14,7 +14,7 @@ const switches = new Set(["plain", "native", "raster"]);
 
 const parseFlags = (argv) => {
     const flags = {};
-    for (let index = 0; index < argv.length; ) {
+    for (let index = 0; index < argv.length;) {
         const name = argv[index];
         if (!name.startsWith("--"))
             throw new Error(`Unexpected argument: ${name}`);

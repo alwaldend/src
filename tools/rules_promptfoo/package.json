@@ -3,18 +3,23 @@
     "private": true,
     "packageManager": "pnpm@10.22.0",
     "dependencies": {
-        "@libsql/client": "0.17.4",
+        "@libsql/client": "0.18.0",
         "@libsql/linux-x64-gnu": "0.5.29",
         "@openai/codex": "0.144.0",
         "@openai/codex-linux-x64": "npm:@openai/codex@0.144.0-linux-x64",
         "@openai/codex-sdk": "0.144.0",
         "ajv": "8.20.0",
-        "promptfoo": "0.122.2"
+        "promptfoo": "0.125.1"
     },
     "pnpm": {
         "onlyBuiltDependencies": [],
         "patchedDependencies": {
-            "promptfoo@0.122.2": "patches/promptfoo@0.122.2.patch"
+            "promptfoo@0.125.1": "patches/promptfoo@0.125.1.patch"
+        },
+        "overrides": {
+            "@azure/msal-node@<7.1.0": "7.1.1",
+            "@opentelemetry/api": "1.9.0",
+            "basic-ftp@<6.2.1": "6.2.1"
         }
     }
 }

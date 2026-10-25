@@ -33,7 +33,7 @@ npm = use_extension("@aspect_rules_js//npm:extensions.bzl", "npm")
 npm.npm_translate_lock(
     name = "rules_promptfoo_npm",
     data = [
-        "//:patches/promptfoo@0.122.2.patch",
+        "//:patches/promptfoo@0.125.1.patch",
         "//:pnpm-workspace.yaml",
     ],
     no_optional = True,

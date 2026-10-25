@@ -1,0 +1,92 @@
+diff --git a/dist/src/evaluator-BxCmvGtv.js b/dist/src/evaluator-BxCmvGtv.js
+--- a/dist/src/evaluator-BxCmvGtv.js
++++ b/dist/src/evaluator-BxCmvGtv.js
+@@ -6721,7 +6721,7 @@
+ };
+ //#endregion
+ //#region src/suggestions.ts
+-const SUGGESTIONS_CONCURRENCY = 4;
++const SUGGESTIONS_CONCURRENCY = Number(process.env.PROMPTFOO_SUGGESTIONS_MAX_CONCURRENCY) || 4;
+ async function generatePrompts(prompt, num, abortSignal) {
+ 	abortSignal?.throwIfAborted();
+ 	if (!abortSignal) return generatePromptsWithProvider(prompt, num);
+diff --git a/dist/src/index.cjs b/dist/src/index.cjs
+--- a/dist/src/index.cjs
++++ b/dist/src/index.cjs
+@@ -22299,7 +22299,7 @@
+ };
+ //#endregion
+ //#region src/suggestions.ts
+-const SUGGESTIONS_CONCURRENCY = 4;
++const SUGGESTIONS_CONCURRENCY = Number(process.env.PROMPTFOO_SUGGESTIONS_MAX_CONCURRENCY) || 4;
+ async function generatePrompts(prompt, num, abortSignal) {
+ 	abortSignal?.throwIfAborted();
+ 	if (!abortSignal) return generatePromptsWithProvider(prompt, num);
+diff --git a/dist/src/index.js b/dist/src/index.js
+--- a/dist/src/index.js
++++ b/dist/src/index.js
+@@ -22274,7 +22274,7 @@
+ };
+ //#endregion
+ //#region src/suggestions.ts
+-const SUGGESTIONS_CONCURRENCY = 4;
++const SUGGESTIONS_CONCURRENCY = Number(process.env.PROMPTFOO_SUGGESTIONS_MAX_CONCURRENCY) || 4;
+ async function generatePrompts(prompt, num, abortSignal) {
+ 	abortSignal?.throwIfAborted();
+ 	if (!abortSignal) return generatePromptsWithProvider(prompt, num);
+diff --git a/dist/src/server/index.js b/dist/src/server/index.js
+--- a/dist/src/server/index.js
++++ b/dist/src/server/index.js
+@@ -54896,7 +54896,7 @@
+ };
+ //#endregion
+ //#region src/suggestions.ts
+-const SUGGESTIONS_CONCURRENCY = 4;
++const SUGGESTIONS_CONCURRENCY = Number(process.env.PROMPTFOO_SUGGESTIONS_MAX_CONCURRENCY) || 4;
+ async function generatePrompts(prompt, num, abortSignal) {
+ 	abortSignal?.throwIfAborted();
+ 	if (!abortSignal) return generatePromptsWithProvider(prompt, num);
+diff --git a/dist/src/telemetry-C04d25BM.cjs b/dist/src/telemetry-C04d25BM.cjs
+--- a/dist/src/telemetry-C04d25BM.cjs
++++ b/dist/src/telemetry-C04d25BM.cjs
+@@ -117,6 +117,7 @@
+ 		else this.sendEvent(eventName, properties);
+ 	}
+ 	sendEvent(eventName, properties) {
++		if (this.disabled || require_logger.getEnvBool("IS_TESTING")) return;
+ 		const ciFlag = require_logger.isCI();
+ 		const personProperties = this.getPersonProperties(ciFlag);
+ 		const propertiesWithMetadata = {
+diff --git a/dist/src/telemetry-CIqy4fSC.js b/dist/src/telemetry-CIqy4fSC.js
+--- a/dist/src/telemetry-CIqy4fSC.js
++++ b/dist/src/telemetry-CIqy4fSC.js
+@@ -113,6 +113,7 @@
+ 		else this.sendEvent(eventName, properties);
+ 	}
+ 	sendEvent(eventName, properties) {
++		if (this.disabled || getEnvBool("IS_TESTING")) return;
+ 		const ciFlag = isCI();
+ 		const personProperties = this.getPersonProperties(ciFlag);
+ 		const propertiesWithMetadata = {
+diff --git a/dist/src/telemetry-CXozp_6C.js b/dist/src/telemetry-CXozp_6C.js
+--- a/dist/src/telemetry-CXozp_6C.js
++++ b/dist/src/telemetry-CXozp_6C.js
+@@ -117,6 +117,7 @@
+ 		else this.sendEvent(eventName, properties);
+ 	}
+ 	sendEvent(eventName, properties) {
++		if (this.disabled || getEnvBool("IS_TESTING")) return;
+ 		const ciFlag = isCI();
+ 		const personProperties = this.getPersonProperties(ciFlag);
+ 		const propertiesWithMetadata = {
+diff --git a/dist/src/telemetry-g7PkBxmY.js b/dist/src/telemetry-g7PkBxmY.js
+--- a/dist/src/telemetry-g7PkBxmY.js
++++ b/dist/src/telemetry-g7PkBxmY.js
+@@ -117,6 +117,7 @@
+ 		else this.sendEvent(eventName, properties);
+ 	}
+ 	sendEvent(eventName, properties) {
++		if (this.disabled || getEnvBool("IS_TESTING")) return;
+ 		const ciFlag = isCI();
+ 		const personProperties = this.getPersonProperties(ciFlag);
+ 		const propertiesWithMetadata = {

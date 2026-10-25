@@ -47,6 +47,13 @@ checked-in native lock without running resolution.
 
 Validate the firmware with `bazel test //projects/infinitime:build_test`.
 
+The Python environment excludes `ecdsa`, whose optional key-signing support in
+`adafruit-nrfutil` is unused by this project's unsigned `dfu genpkg` commands.
+This removes [CVE-2024-23342](https://github.com/advisories/GHSA-wj6h-64fc-37mp)
+from the dependency graph. The helper does not support key generation or signed
+DFU packages in this environment. Firmware image and DFU packaging continue
+through the existing build workflow.
+
 - Install [Gadgetbridge](https://gadgetbridge.org/)
 - Download the firmware:
   ```sh

@@ -1,0 +1,54 @@
+diff --git a/src/index.ts b/src/index.ts
+--- a/src/index.ts
++++ b/src/index.ts
+@@ -6,11 +6,9 @@
+ import { fileURLToPath, pathToFileURL } from 'node:url'
+ import * as yaml from 'js-yaml'
+ 
+-const JsExpr = new yaml.Type('tag:yaml.org,2002:js', {
+-  kind: 'scalar',
+-  resolve: (data) => typeof data === 'string',
+-  construct: (data) => ({ __jsExpr: data }),
+-  predicate: isJsExpr,
++const JsExpr = yaml.defineScalarTag('tag:yaml.org,2002:js', {
++  resolve: (data, explicit) => explicit ? { __jsExpr: data } : yaml.NOT_RESOLVED,
++  identify: isJsExpr,
+   represent: (data) => data['__jsExpr'],
+ })
+ 
+@@ -20,7 +18,7 @@
+  * (`dsh --dump-config`) parses and prints exactly the dialect this include
+  * mounts.
+  */
+-export const entryListSchema = yaml.JSON_SCHEMA.extend(JsExpr)
++export const entryListSchema = yaml.JSON_SCHEMA.withTags(JsExpr)
+ 
+ const schema = entryListSchema
+ 
+diff --git a/lib/index.js b/lib/index.js
+--- a/lib/index.js
++++ b/lib/index.js
+@@ -12,11 +12,9 @@
+ 	});
+ 	return path;
+ };
+-const JsExpr = new yaml.Type("tag:yaml.org,2002:js", {
+-	kind: "scalar",
+-	resolve: (data) => typeof data === "string",
+-	construct: (data) => ({ __jsExpr: data }),
+-	predicate: isJsExpr,
++const JsExpr = yaml.defineScalarTag("tag:yaml.org,2002:js", {
++	resolve: (data, explicit) => explicit ? { __jsExpr: data } : yaml.NOT_RESOLVED,
++	identify: isJsExpr,
+ 	represent: (data) => data["__jsExpr"]
+ });
+ /**
+@@ -25,7 +23,7 @@
+ * (`dsh --dump-config`) parses and prints exactly the dialect this include
+ * mounts.
+ */
+-const entryListSchema = yaml.JSON_SCHEMA.extend(JsExpr);
++const entryListSchema = yaml.JSON_SCHEMA.withTags(JsExpr);
+ const schema = entryListSchema;
+ const writable = {
+ 	".json": "application/json",
