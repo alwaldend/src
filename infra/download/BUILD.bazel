@@ -2,7 +2,13 @@ load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("//projects/al/rules/al:al_config.bzl", "al_config")
 load("//tools/release/main/bzl:al_release_binary.bzl", "al_release_binary")
 load("//tools/release/main/bzl:al_release_deployment.bzl", "al_release_deployment")
+load("//tools/ssh:defs.bzl", "ssh_binary")
 load("//tools/vault:defs.bzl", "vault_binary_map")
+
+_HOSTS = {
+    "local": "host1.dc1.download.alwaldend.com",
+    "yandex": "host1.yc.download.alwaldend.com",
+}
 
 [
     al_release_deployment(
@@ -13,10 +19,44 @@ load("//tools/vault:defs.bzl", "vault_binary_map")
         ssh_publish_user = "download",
         ssh_user = "ansible",
     )
-    for environment, host in {
-        "local": "host1.dc1.download.alwaldend.com",
-        "yandex": "host1.yc.download.alwaldend.com",
-    }.items()
+    for environment, host in _HOSTS.items()
+]
+
+[
+    ssh_binary(
+        name = "ssh." + environment,
+        args = [
+            "-F",
+            "/dev/null",
+            "-o",
+            "BatchMode=yes",
+            "-o",
+            "ConnectTimeout=10",
+            "-o",
+            "IdentityAgent=none",
+            "-o",
+            "IdentitiesOnly=yes",
+            "-o",
+            "IdentityFile=$${DOWNLOAD_SSH_PRIVATE_KEY}",
+            "-o",
+            "CertificateFile=$${DOWNLOAD_SSH_CERTIFICATE}",
+            "-o",
+            "UserKnownHostsFile=$${DOWNLOAD_SSH_KNOWN_HOSTS}",
+            "-o",
+            "GlobalKnownHostsFile=/dev/null",
+            "-o",
+            "StrictHostKeyChecking=yes",
+            "ansible@" + host,
+        ],
+        configs = [":al"],
+        data = ["//tools/vault/injector"],
+        run_args = [
+            "--plugin_label",
+            "ssh=1",
+        ],
+        visibility = ["//infra:__subpackages__"],
+    )
+    for environment, host in _HOSTS.items()
 ]
 
 [
@@ -38,6 +78,7 @@ load("//tools/vault:defs.bzl", "vault_binary_map")
 al_config(
     name = "al",
     srcs = ["al.lua"],
+    data = ["//infra/vault/tf/output:ssh_ca_servers"],
     visibility = ["//infra/download:__subpackages__"],
     deps = ["//infra:al"],
 )

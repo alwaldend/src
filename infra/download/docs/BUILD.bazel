@@ -1,15 +1,26 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("//tools/mermaid:defs.bzl", "mermaid_svg")
+load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_site_svg")
 
-mermaid_svg(
-    name = "architecture",
-    src = "architecture.mmd",
-    out = "rendered/architecture.svg",
-)
+[
+    mermaid_site_svg(
+        name = diagram,
+        src = diagram + ".mmd",
+        out = "rendered/" + diagram + ".svg",
+    )
+    for diagram in [
+        "architecture",
+        "deployment",
+        "operations",
+    ]
+]
 
 docs_filegroup(
     name = "docs",
-    srcs = [":architecture"],
+    srcs = [
+        ":architecture",
+        ":deployment",
+        ":operations",
+    ],
     prefix = "content/docs/infra/download/assets",
     visibility = ["//infra/download:__pkg__"],
 )

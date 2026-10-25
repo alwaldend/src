@@ -1,23 +1,20 @@
 flowchart LR
-    public[Public visitors] --> global[Public DNS]
-    local[Local visitors] --> dc1[dc1 DNS]
-    publisher[SSH publisher]
+    public[Public visitors] --> global[Public DNS<br/>apex → download → Yandex host]
+    local[Local visitors<br/>Repository CA trusted] --> dc1[dc1 DNS<br/>download → apex → local address]
 
-    subgraph cloud[Yandex Cloud VM]
-        ct[Traefik<br/>Let's Encrypt HTTP-01] --> cn[Nginx<br/>Loopback only]
-        cn --> cd[(100 GiB Btrfs<br/>Files and sites<br/>Daily deduplication)]
-        cs[SSH] --> cd
+    subgraph cloud[Yandex Cloud]
+        ct[Traefik · TCP 80/443<br/>Let's Encrypt HTTP-01] --> cn[Nginx · read only<br/>127.0.0.1:8008]
+        cn --> cd[(100 GiB Btrfs<br/>/srv/download<br/>Retained across VM replacement)]
+        ct --- ca[System disk · /opt/traefik<br/>Private ACME state]
     end
-    subgraph onprem[XCP-ng VM]
-        lt[Traefik<br/>Vault ACME HTTP-01] --> ln[Nginx<br/>Loopback only]
-        ln --> ld[(100 GiB Btrfs<br/>Files and sites<br/>Daily deduplication)]
-        ls[SSH] --> ld
+    subgraph onprem[XCP-ng]
+        lt[Traefik · TCP 80/443<br/>Vault ACME HTTP-01 + EAB] --> ln[Nginx · read only<br/>127.0.0.1:8008]
+        ln --> ld[(100 GiB Btrfs<br/>/srv/download<br/>VM replacement blocked)]
+        lt --- la[System disk · /opt/traefik<br/>Private ACME state]
     end
 
     global --> ct
     dc1 --> lt
-    publisher -->|Upload| cs
-    publisher -->|Upload| ls
-    vault[Vault AppRole<br/>Provider and DNS credentials] -.-> config[Terraform and Ansible<br/>Explicit environment selection]
-    config -.-> ct
-    config -.-> lt
+    publisher[Operator · choose local or yandex<br/>SSH administrator → sudo as download]
+    publisher -->|rsync + release selection| cd
+    publisher -->|rsync + release selection| ld

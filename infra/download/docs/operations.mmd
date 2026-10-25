@@ -1,0 +1,27 @@
+flowchart TB
+    subgraph publication[Publication · explicit environment]
+        direction LR
+        upload[publish.local OR publish.yandex<br/>--steps upload<br/>rsync via SSH, sudo as download]
+        files[(projects/PROJECT/releases/VERSION<br/>Completed files are immediately public)]
+        extract[--steps extract --site_archive NAME<br/>Validate/extract on operator machine<br/>Stage and promote completed site]
+        link[--steps link<br/>Atomically select sites/PROJECT/current<br/>Reselect a retained version for recovery]
+        upload --> files --> extract --> link
+    end
+    subgraph automatic[Automatic · each VM]
+        direction LR
+        timer[Daily timer + missed-run catch-up<br/>download-deduplicate.timer]
+        dedup[duperemove · projects/ + sites/<br/>Private incremental hash database<br/>50% CPU · 512 MiB · 6h deadline]
+        extents[Share identical Btrfs extents<br/>Preserve bytes and current selection<br/>No release deletion]
+        timer --> dedup --> extents
+        proxy[Traefik ACME renewal<br/>Private state on system disk]
+        issuer[Let's Encrypt for Yandex<br/>Vault + EAB for XCP-ng<br/>Issuer DNS + port 80 must reach the VM]
+        proxy --> issuer
+    end
+    subgraph operator[Operator checks and recovery]
+        direction LR
+        health[ssh.local OR ssh.yandex<br/>Check services, timer, mount, free space<br/>Check DNS views, TLS, URLs, redirects]
+        recover[Site issue: select a retained release<br/>Config issue: reviewed IaC redeployment<br/>Capacity: reviewed manual retention cleanup]
+        boundary[No backups, replication, or failover<br/>Lost content needs an external retained copy<br/>XCP-ng replacement needs a new storage workflow]
+        health --> recover --> boundary
+    end
+    publication ~~~ automatic ~~~ operator
