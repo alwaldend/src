@@ -66,3 +66,7 @@ networked tests and must not be included in ordinary wildcard test runs; they
 may be omitted when representative coverage requires tool calls or external
 state that cannot be provided safely and reproducibly, with the gap documented
 beside the eval configuration.
+
+## External references
+
+- Anthropic: [Towards understanding sycophancy in language models](https://www.anthropic.com/research/towards-understanding-sycophancy-in-language-models).
