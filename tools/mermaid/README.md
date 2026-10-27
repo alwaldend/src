@@ -9,6 +9,13 @@ and Chrome-for-Testing browser used by Puppeteer. Rendering runs as a Bazel
 target or action; it does not use a host browser, download one during an npm
 lifecycle hook, or fetch scripts or fonts from a CDN.
 
+Native site diagrams embed a FontTools subset of their pinned font. The first
+render supplies actual Unicode text, including decoded entities and generated
+labels; delivered variants are rendered again through Mermaid's CSS input.
+Glyph outlines and metrics are retained, and each SVG remains self-contained.
+The pinned Python dependency belongs to `tools/py`; historical themed output
+retains its existing embedding behavior.
+
 [`theme.json`](theme.json) owns the diagram appearance. It applies a
 documentation palette, typography, layout, and the `handDrawn` look to every
 diagram, so rendered work shares one visual contract instead of Mermaid's

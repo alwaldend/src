@@ -50,6 +50,8 @@ if (flags.native && (plain || !flags.palette))
     throw new Error("Native rendering requires a palette and cannot be plain");
 if (!flags.native && flags.palette)
     throw new Error("A palette requires native rendering");
+if (flags.native && !flags["font-subsetter"])
+    throw new Error("Native rendering requires --font-subsetter");
 const colorScheme = flags["color-scheme"] ?? "light";
 if (!["light", "dark"].includes(colorScheme))
     throw new Error("Color scheme must be light or dark");
@@ -123,6 +125,7 @@ try {
                 palette: path.resolve(flags.palette),
                 config: mermaidConfig,
                 font: embedFontFile,
+                fontSubsetter: path.resolve(flags["font-subsetter"]),
                 puppeteerConfig,
             });
         } else {
@@ -171,6 +174,7 @@ try {
             palette: path.resolve(flags.palette),
             config: mermaidConfig,
             font: embedFontFile,
+            fontSubsetter: path.resolve(flags["font-subsetter"]),
             puppeteerConfig,
         });
     } else {

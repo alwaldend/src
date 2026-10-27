@@ -1,4 +1,5 @@
 import fs from "node:fs/promises";
+import { execFileSync } from "node:child_process";
 import puppeteer from "puppeteer";
 import { renderMermaid } from "@mermaid-js/mermaid-cli";
 import { fontFace } from "./embed_font.mjs";
@@ -13,6 +14,7 @@ export async function renderNative({
     palette,
     config,
     font,
+    fontSubsetter,
     puppeteerConfig,
 }) {
     const browser = await puppeteer.launch(puppeteerConfig);
@@ -22,7 +24,8 @@ export async function renderNative({
             content: await fs.readFile(palette, "utf8"),
         });
         const definition = await fs.readFile(input, "utf8");
-        const myCSS = fontFace(await fs.readFile(font));
+        let myCSS = fontFace(await fs.readFile(font));
+        let subsetted = false;
         const variants =
             darkOutput === undefined
                 ? [[colorScheme, output]]
@@ -53,7 +56,7 @@ export async function renderNative({
             const properties = Object.entries(themeVariables)
                 .map(([name, value]) => `--mermaid-${name}:${value}`)
                 .join(";");
-            const { data } = await renderMermaid(browser, definition, "svg", {
+            const options = {
                 mermaidConfig: {
                     ...config,
                     themeCSS: `.root{${properties}}${config.themeCSS ?? ""}`,
@@ -65,7 +68,30 @@ export async function renderNative({
                 },
                 backgroundColor: themeVariables.background,
                 myCSS,
-            });
+            };
+            let { data } = await renderMermaid(
+                browser,
+                definition,
+                "svg",
+                options,
+            );
+            if (!subsetted) {
+                // Use actual rendered text, including decoded/generated labels.
+                // Re-render with the subset through Mermaid's supported CSS input;
+                // delivered SVG geometry is never rewritten.
+                myCSS = fontFace(
+                    execFileSync(fontSubsetter, [font], {
+                        input: data,
+                        maxBuffer: 8 * 1024 * 1024,
+                        timeout: 60000,
+                    }),
+                );
+                subsetted = true;
+                ({ data } = await renderMermaid(browser, definition, "svg", {
+                    ...options,
+                    myCSS,
+                }));
+            }
             await fs.writeFile(destination, data);
         }
     } finally {

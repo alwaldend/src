@@ -30,6 +30,7 @@ def _mermaid_svg_impl(ctx):
         args.add("--config", theme.path)
         if ctx.attr.native:
             args.add("--native")
+            args.add("--font-subsetter", ctx.executable._font_subsetter.path)
             args.add("--palette", ctx.file.palette.path)
             args.add("--dark-output", ctx.outputs.dark_out.path)
             outputs.append(ctx.outputs.dark_out)
@@ -72,7 +73,7 @@ def _mermaid_svg_impl(ctx):
         tools = [
             ctx.attr._browser[DefaultInfo].files_to_run,
             ctx.attr._render[DefaultInfo].files_to_run,
-        ],
+        ] + ([ctx.attr._font_subsetter[DefaultInfo].files_to_run] if ctx.attr.native else []),
     )
 
     return [DefaultInfo(files = depset(outputs))]
@@ -142,6 +143,11 @@ mermaid_svg = rule(
             default = "//tools/mermaid/cmd/render",
             executable = True,
         ),
+        "_font_subsetter": attr.label(
+            cfg = "exec",
+            default = "//tools/mermaid/cmd/subset_font",
+            executable = True,
+        ),
     },
 )
 
@@ -181,6 +187,7 @@ def _mermaid_webp_impl(ctx):
     args.add("--font", label_font.path)
     if ctx.attr.native:
         args.add("--native")
+        args.add("--font-subsetter", ctx.executable._font_subsetter.path)
         args.add("--palette", ctx.file.palette.path)
         args.add("--color-scheme", ctx.attr.color_scheme)
 
@@ -214,7 +221,7 @@ def _mermaid_webp_impl(ctx):
         tools = [
             ctx.attr._browser[DefaultInfo].files_to_run,
             ctx.attr._render[DefaultInfo].files_to_run,
-        ],
+        ] + ([ctx.attr._font_subsetter[DefaultInfo].files_to_run] if ctx.attr.native else []),
     )
 
     return [DefaultInfo(files = depset([output]))]
@@ -225,6 +232,11 @@ mermaid_webp = rule(
           "upload endpoint accepts, reusing the maintained SVG render " +
           "contract and encoding the raster through the pinned browser.",
     attrs = {
+        "_font_subsetter": attr.label(
+            cfg = "exec",
+            default = "//tools/mermaid/cmd/subset_font",
+            executable = True,
+        ),
         "src": attr.label(
             allow_single_file = [".mmd"],
             mandatory = True,

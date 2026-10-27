@@ -6,8 +6,8 @@
 ---
 manifest:
   modules_mapping:
-    30fcd23745efe32ce681__mypyc: black
     7ae574991b77ef47acad__mypyc: mypy
+    85cae5375ceb5d1ca6c6__mypyc: black
     annotated_doc: annotated_doc
     annotated_types: annotated_types
     anyio: anyio
@@ -15,7 +15,6 @@ manifest:
     black: black
     blackd: black
     blib2to3: black
-    c787785866c7b801238d__mypyc: tomli
     certifi: certifi
     cffi: cffi
     cfgv: cfgv
@@ -28,12 +27,12 @@ manifest:
     distlib: distlib
     docutils: docutils
     dotenv: python_dotenv
-    exceptiongroup: exceptiongroup
     fastapi: fastapi
     fd7dcdb10166ebd4db98__mypyc: pytokens
     filelock: filelock
     flake8: flake8
     flake8p: flake8_pyproject
+    fontTools: fonttools
     git_filter_repo: git_filter_repo
     h11: h11
     httptools: httptools
@@ -83,8 +82,8 @@ manifest:
     pydantic_core: pydantic_core
     pyflakes: pyflakes
     pygments: pygments
+    python_discovery: python_discovery
     pytokens: pytokens
-    pytz: pytz
     readme_renderer: readme_renderer
     requests: requests
     requests_toolbelt: requests_toolbelt
@@ -96,7 +95,6 @@ manifest:
     sklearn: scikit_learn
     starlette: starlette
     threadpoolctl: threadpoolctl
-    tomli: tomli
     twine: twine
     typing_extensions: typing_extensions
     typing_inspection: typing_inspection
@@ -112,4 +110,4 @@ manifest:
     zipp: zipp
   pip_repository:
     name: com_alwaldend_src_pip
-integrity: 65d5e2ebb3eedf14f2fed7ca4f4c28be491dc83af20b0844dfeefafd5c33f27f
+integrity: d88bea130886a0716bb070c028d5948171864ba49e6ae3f2a7e7ad7d3539e452

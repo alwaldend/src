@@ -11,8 +11,8 @@ use_repo(
     al_hugo_extension,
     "com_alwalded_src_hugo_toolchain_os_linux_cpu_x86_64",
     "com_alwaldend_src_hugo",
+    "com_alwaldend_src_hugo_github_com_docsy_docsy",
     "com_alwaldend_src_hugo_github_com_fortawesome_font_awesome",
-    "com_alwaldend_src_hugo_github_com_google_docsy",
     "com_alwaldend_src_hugo_github_com_twbs_bootstrap",
 )
 

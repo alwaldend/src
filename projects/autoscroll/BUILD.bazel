@@ -28,7 +28,6 @@ docs_filegroup(
         "//projects:__pkg__",
     ],
     deps = [
-        "//projects/autoscroll/releases:docs",
     ],
 )
 

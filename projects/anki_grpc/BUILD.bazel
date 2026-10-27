@@ -62,7 +62,6 @@ docs_filegroup(
     visibility = ["//projects:__pkg__"],
     deps = [
         ":docs_assets",
-        "//projects/anki_grpc/releases:docs",
     ],
 )
 

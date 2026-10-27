@@ -1,6 +1,23 @@
 load("@aspect_rules_js//js:defs.bzl", "js_test")
 load("@rules_go//go:def.bzl", "go_test")
+load("@rules_python//python:defs.bzl", "py_test")
 load("//tools/mermaid:defs.bzl", "mermaid_svg", "mermaid_webp")
+
+py_test(
+    name = "native_font_test",
+    srcs = ["native_font_test.py"],
+    args = [
+        "$(rootpath @com_alwaldend_src_tools_drawio_fonts//:LiberationSans-Regular.ttf)",
+        "$(rootpath :edge-labels-native.svg)",
+        "$(rootpath :edge-labels-native.dark.svg)",
+    ],
+    data = [
+        ":edge-labels-native.dark.svg",
+        ":edge-labels-native.svg",
+        "@com_alwaldend_src_tools_drawio_fonts//:LiberationSans-Regular.ttf",
+    ],
+    deps = ["@com_alwaldend_src_pip//fonttools"],
+)
 
 # The nested-container source is shared with the mmdc test, which asserts that
 # an interactive render applies the same paint order as a build action.

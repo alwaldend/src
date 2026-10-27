@@ -1,0 +1,2 @@
+{{- $documents := resources.Get "json/offline-search-index.json" | resources.ExecuteAsTemplate "search-documents.json" . -}}
+{{- $documents.Content | safeJS -}}

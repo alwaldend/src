@@ -27,6 +27,5 @@ docs_filegroup(
         "//projects:__pkg__",
     ],
     deps = [
-        "//projects/infinitime/releases:docs",
     ],
 )
