@@ -92,6 +92,7 @@ al_hugo_site = rule(
         "tools": attr.label_list(
             doc = "Tools that should be available for the build",
             default = [],
+            cfg = "exec",
         ),
         "env": attr.string_dict(
             default = {},

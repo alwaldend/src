@@ -13,6 +13,7 @@ PROJECTS = [
     "ansible_collection",
     "autoscroll",
     "bazel_agent",
+    "bazel_deps_analyzer",
     "ci_platform",
     "dotfiles",
     "icon_generator",

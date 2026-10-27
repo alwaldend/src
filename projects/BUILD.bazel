@@ -25,6 +25,7 @@ al_release_binary(
                 "ansible_collection",
                 "bazel_registry",
                 "bazel_agent",
+                "bazel_deps_analyzer",
                 "goal",
                 "icon_generator",
                 "useless_qt_gui",

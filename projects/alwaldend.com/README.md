@@ -85,6 +85,23 @@ bazel_agent bazel run //projects/alwaldend.com:site_serve
 ```
 
 The preview serves the local build at http://127.0.0.1:1313.
+
+Build the site's dependency diagram with
+`bazel_agent bazel build //projects/alwaldend.com:deps_dark_webp` for a dark
+WebP, or `:deps_webp` for light. The companion
+`:deps_mermaid` and `:deps_svg` targets expose Mermaid and light/dark SVG
+outputs. This overview analyzes `:site` at depth eight, reaching content
+packages and repository documentation owners. It omits files, external
+targets, tool dependencies, and visibility metadata; it is not the complete
+transitive graph. See the
+[analyzer documentation](../bazel_deps_analyzer/README.md) for options and
+the build-cycle reason these artifacts remain outside the site's own inputs.
+
+Use `:deps_mindmap`, `:deps_mindmap_svg`, or `:deps_mindmap_dark_webp` for an
+ownership inventory of the same depth-eight targets, grouped by package.
+Its branches describe ownership; use the flowchart to trace dependency edges.
+The mindmap reuses the existing JSON capture and shared site appearance.
+
 The Mermaid browser check writes screenshots and a JSON report to its Bazel
 test outputs. It exercises the theme menu, saved and system preferences,
 mobile layout, documentation print output, and blog header and body images.

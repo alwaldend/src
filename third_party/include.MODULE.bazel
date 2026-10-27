@@ -29,6 +29,8 @@ bazel_dep(name = "rules_nodejs", version = "6.7.3")
 bazel_dep(name = "aspect_rules_js", version = "2.8.3")
 
 # Java
+# Select the existing transitive shader's Bazel 9-compatible release.
+bazel_dep(name = "bazel_jar_jar", version = "0.1.15")
 bazel_dep(name = "rules_java", version = "9.5.0")
 bazel_dep(name = "rules_jvm_external", version = "6.10")
 bazel_dep(name = "grpc-java", version = "1.78.0")

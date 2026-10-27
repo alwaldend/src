@@ -1,0 +1,8 @@
+{"type":"RULE","rule":{"name":"//app:root","ruleClass":"filegroup","ruleInput":["//app:left","//lib:shared","@@ext_one+//client:shared","@@ext_one+//:shared","@ext_two//client:shared","@@ext_one+//client:api.proto"]}}
+{"type":"RULE","rule":{"name":"//app:left","ruleClass":"filegroup","ruleInput":["//lib:shared"]}}
+{"type":"RULE","rule":{"name":"//lib:shared","ruleClass":"filegroup"}}
+{"type":"RULE","rule":{"name":"@@ext_one+//client:shared","ruleClass":"proto_library","ruleInput":["//lib:shared","@@ext_one+//internal:hidden"]}}
+{"type":"RULE","rule":{"name":"@@ext_one+//:shared","ruleClass":"filegroup"}}
+{"type":"RULE","rule":{"name":"@ext_two//client:shared","ruleClass":"filegroup"}}
+{"type":"SOURCE_FILE","sourceFile":{"name":"@@ext_one+//client:api.proto"}}
+{"type":"RULE","rule":{"name":"@@ext_one+//internal:hidden","ruleClass":"filegroup"}}

@@ -1,0 +1,7 @@
+schema: spec-driven
+
+context: |
+  This workspace owns projects/bazel_deps_analyzer.
+  Follow the project README and repository policy.
+  Use native genquery and existing Mermaid rendering rules.
+  No new external dependencies or live deployment are authorized.

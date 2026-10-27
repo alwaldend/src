@@ -69,6 +69,12 @@ review its diff. Build `//projects/autoscroll:uv_lock` to generate it
 without source writes.
 The sandboxed resolution action requires network access to PyPI.
 
+The uv configuration resolves macOS and non-macOS environments separately.
+Their union covers every platform, while the resulting package resolution
+markers let Bazel's native importer retain PyObjC for the macOS backend and
+omit it on Linux and Windows. Keep both complementary environments when
+updating the lock.
+
 #### Command line options
 
 ```bash
