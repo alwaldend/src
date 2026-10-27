@@ -8,7 +8,6 @@ docs_filegroup(
     ],
     deps = [
         "//projects/al/docs",
-        "//projects/al/releases:docs",
         "//projects/al/rules:docs",
     ],
 )

@@ -4,11 +4,12 @@
         "@mermaid-js/mermaid-cli": "11.16.0",
         "@prettier/plugin-xml": "3.4.2",
         "autoprefixer": "^10.6.1",
+        "lunr": "2.3.9",
+        "postcss": "8.5.31",
         "postcss-cli": "^11.0.1",
         "prettier": "^3.9.10",
         "prettier-plugin-sql": "0.20.0",
-        "puppeteer": "25.2.1",
-        "postcss": "8.5.31"
+        "puppeteer": "25.2.1"
     },
     "pnpm": {
         "overrides": {

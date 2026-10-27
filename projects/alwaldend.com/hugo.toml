@@ -1,13 +1,14 @@
 title = "Alwaldend"
-theme = ["github.com/google/docsy"]
+theme = ["github.com/docsy/docsy"]
 baseURL = "http://127.0.0.1:1313"
+renderSegments = ["site"]
 # refLinksErrorLevel = "WARNING"
 
 enableRobotsTXT = true
 
 [outputs]
 section = ["html", "rss", "print"]
-home = ["html"]
+home = ["html", "searchdocuments"]
 page = ["html", "rss"]
 
 [frontmatter]
@@ -18,7 +19,8 @@ changefreq = "daily"
 priority = 0.5
 
 [params]
-offlineSearch = true
+# Local search uses a prebuilt index in a worker instead of Docsy eager indexing.
+offlineSearch = false
 github_repo = "https://github.com/alwaldend/src"
 github_branch = "master"
 version_menu = "Versions"
@@ -43,6 +45,17 @@ showLightDarkModeMenu = true
 sidebar_menu_compact = true
 sidebar_menu_foldable = true
 sidebar_menu_truncate = 200
+sidebar_root_enabled = true
+# Render active state per page: a scoped root's link points to its parent.
+sidebar_cache_limit = 1000000
+
+# Keep each documentation owner's tree out of unrelated owners' pages.
+[[cascade]]
+[cascade.params]
+sidebar_root_for = "self"
+[cascade.target]
+path = "/docs/*/*"
+kind = "section"
 
 [params.drawio]
 enable = true
@@ -100,6 +113,9 @@ min = "0.160.1"
 
 [module]
 [[module.mounts]]
+source = "static"
+target = "static"
+[[module.mounts]]
 source = "assets"
 target = "assets"
 [[module.mounts]]
@@ -117,3 +133,19 @@ target = "assets/vendor/Font-Awesome/scss"
 [[module.mounts]]
 source = "themes/github.com/FortAwesome/Font-Awesome/webfonts"
 target = "static/webfonts"
+
+# Export documents with the full page graph, then render only public formats.
+# Use includes: Hugo 0.165 misaligns page output indexes when exclusions skip
+# earlier formats in the render loop.
+[outputFormats.searchdocuments]
+mediaType = "application/json"
+baseName = "search-documents"
+isPlainText = true
+notAlternative = true
+
+[[segments.search.includes]]
+kind = "home"
+output = "searchdocuments"
+
+[[segments.site.includes]]
+output = "! searchdocuments"

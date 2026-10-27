@@ -25,6 +25,7 @@ const server = http.createServer(async (request, response) => {
             ".html": "text/html",
             ".css": "text/css",
             ".js": "text/javascript",
+            ".json": "application/json",
             ".svg": "image/svg+xml",
             ".webp": "image/webp",
         };
@@ -39,40 +40,17 @@ const server = http.createServer(async (request, response) => {
 });
 await new Promise((resolve) => server.listen(0, "127.0.0.1", resolve));
 const base = `http://127.0.0.1:${server.address().port}`;
-// Chromium does not read the proxy environment itself. Keep its default
-// loopback bypass so the local site is direct and only allowlisted CDNs use it.
-const proxy = process.env.HTTPS_PROXY || process.env.https_proxy;
 const browser = await puppeteer.launch({
     executablePath: path.resolve(process.argv[3]),
     headless: "shell",
-    args: proxy ? [`--proxy-server=${proxy}`] : [],
 });
 const report = [];
 try {
     const page = await browser.newPage();
     await page.setRequestInterception(true);
-    // Read exact CDN pins from the built page, whose locked Docsy theme owns
-    // them. Only declared scripts carrying SRI may leave the local server.
-    const html = await fs.readFile(
-        path.join(root, "docs/users/simeonwarren/host_bot/index.html"),
-        "utf8",
-    );
-    const scripts = new Set(
-        [...html.matchAll(/<script\b[^>]*>/g)]
-            .map(
-                ([tag]) =>
-                    tag.includes('integrity="') &&
-                    tag.match(/src="(https:\/\/[^"]+)"/)?.[1],
-            )
-            .filter(Boolean),
-    );
     page.on("request", (request) => {
         const url = request.url();
-        if (
-            url.startsWith(`${base}/`) ||
-            url.startsWith("data:") ||
-            scripts.has(url)
-        )
+        if (url.startsWith(`${base}/`) || url.startsWith("data:"))
             request.continue();
         else request.abort();
     });
@@ -118,6 +96,11 @@ try {
         "Documentation diagram is accessible by its alternative text",
     );
     await image.scrollIntoView();
+    await page.waitForFunction(
+        (element) => element.complete && element.naturalWidth > 0,
+        {},
+        image,
+    );
     await image.evaluate((element) => element.decode());
     const initialBox = await image.boundingBox();
 

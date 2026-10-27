@@ -9,7 +9,6 @@ docs_filegroup(
         "//projects:__pkg__",
     ],
     deps = [
-        "//projects/android_launcher/releases:docs",
     ],
 )
 

@@ -29,7 +29,7 @@ The [Mermaid source](docs/legacy-www.mmd) is authoritative; Bazel renders its li
 ## Features
 
 - [Hugo](https://gohugo.io) site
-- [Docsy](https://github.com/google/docsy), [Bootstrap](https://getbootstrap.com)
+- [Docsy](https://github.com/docsy/docsy), [Bootstrap](https://getbootstrap.com)
 
 The homepage, blog, documentation, and project pages share a flat monochrome
 theme with white and charcoal color modes, subtle borders, and system fonts.
@@ -44,6 +44,12 @@ indented; chevrons expand branches independently of the row's page link. Heading
 search fields, code blocks, tables, and callouts follow the same typography
 and surface styles. Syntax highlighting
 uses CSS classes so code colors follow the active theme.
+Docsy's `sidebar_root_enabled` scopes `/docs/<category>/<owner>` sections to
+their owner's subtree. One Hugo cascade applies `sidebar_root_for: self`;
+the sidebar root links up to the parent section. Full navigation remains on
+the Docs overview. Compact/foldable settings control visibility, while scoped
+roots also reduce the HTML sent to readers. All tags remain available.
+
 Documentation Mermaid images use the same light/dark palette and follow the
 theme menu, including system preference. They use clean, rounded nodes and
 containers, smooth connectors, embedded sans-serif lettering, and Mermaid's
@@ -73,7 +79,8 @@ Run from the repository root:
 ```sh
 bazel_agent bazel build //projects/alwaldend.com:site
 bazel_agent bazel test //projects/alwaldend.com:site_test
-bazel_agent bazel test //projects/alwaldend.com/test/mermaid:mermaid_test
+bazel_agent bazel test //projects/alwaldend.com/test/mermaid:mermaid_test \
+  //projects/alwaldend.com/test/search:search_test
 bazel_agent bazel run //projects/alwaldend.com:site_serve
 ```
 
@@ -81,11 +88,23 @@ The preview serves the local build at http://127.0.0.1:1313.
 The Mermaid browser check writes screenshots and a JSON report to its Bazel
 test outputs. It exercises the theme menu, saved and system preferences,
 mobile layout, documentation print output, and blog header and body images.
-This browser test requires network access for Docsy's existing, SRI-pinned
-jQuery and Lunr CDN scripts; its request allowlist permits only those two
-external URLs. Rendering and loading Mermaid diagrams needs no network.
-The check honors `HTTPS_PROXY` (or `https_proxy`) for those CDN requests;
-Chromium's loopback bypass keeps the test site local.
+The search browser check verifies loading, retry, stale-query handling, result
+safety, owner navigation, the complete tag catalogue, and mobile navigation.
+Both browser checks serve their assets locally and need no external network.
+
+## Search
+
+The build exports Docsy's complete searchable document corpus, precomputes its
+Lunr index, then renders the site with fingerprinted search assets. Preview,
+release, and staging use the same content flags for the index and rendered pages;
+draft posts remain absent from release and staging search results.
+
+Search starts when its field receives focus. A Web Worker loads the index and
+runs queries, keeping that work off the browser's UI thread. Results retain
+Docsy's fields, ranking, excerpts, exclusions, and configured result limit.
+Loading and download failures are visible, and Enter retries a failed request.
+No search service or CDN is required. The build compiler and worker both use
+Lunr 2.3.9 from the same lockfile; its license ships at `/licenses/lunr.txt`.
 
 ## Blog
 
@@ -181,7 +200,8 @@ The output directory `bazel-bin/projects/alwaldend.com/release` contains
 `release.json` and `files/website.tar.gz`. The manifest uses `STABLE_VERSION`
 from the versioning tool, including `0.0.0-dev` for development builds.
 The archive contains the complete site with `index.html` at its root and
-excludes drafts. The release target requires release configuration. Building
+excludes drafts, generated project release documentation, and project binary
+payloads. The release target requires release configuration. Building
 it does not connect to a host or publish anything.
 
 With administrator SSH access configured, publish the bundle to XCP-ng:

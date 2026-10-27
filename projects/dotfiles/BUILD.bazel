@@ -18,7 +18,6 @@ docs_filegroup(
         "//projects:__pkg__",
     ],
     deps = [
-        "//projects/dotfiles/releases:docs",
     ],
 )
 

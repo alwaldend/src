@@ -5,13 +5,12 @@ load("@bazel_skylib//rules:write_file.bzl", "write_file")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_go//go:def.bzl", "go_library")
 load("@rules_hugo//pkg/bzl:al_hugo_binary.bzl", "al_hugo_binary")
-load("@rules_hugo//pkg/bzl:al_hugo_site.bzl", "al_hugo_site")
-load("@rules_hugo//pkg/bzl:al_hugo_worker.bzl", "al_hugo_worker")
 load("@rules_pkg//pkg:mappings.bzl", "REMOVE_BASE_DIRECTORY", "pkg_filegroup", "pkg_files")
 load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
 load("@rules_shell//shell:sh_binary.bzl", "sh_binary")
 load("//projects/al/rules/al:al_config.bzl", "al_config")
 load("//projects/alwaldend.com/internal/content:prepare.bzl", "prepare_content")
+load("//projects/alwaldend.com/internal/search:defs.bzl", "indexed_hugo_site")
 load("//tools/http_server/main/bzl:al_http_server_binary.bzl", "al_http_server_binary")
 load("//tools/pkg/main/bzl:al_pkg_rename_files.bzl", "al_pkg_rename_files")
 load("//tools/release/main/bzl:al_release_bundle.bzl", "al_release_bundle")
@@ -74,7 +73,6 @@ docs_filegroup(
     ],
     deps = [
         "//projects/alwaldend.com/docs",
-        "//projects/alwaldend.com/releases:docs",
         "//projects/alwaldend.com/tf:docs",
     ],
 )
@@ -89,42 +87,32 @@ filegroup(
     ],
 )
 
-al_hugo_site(
-    name = "site_site",
-    postcss = "//tools/postcss",
-    site = ":site_source_archive",
-    tools = [
-        "//third_party/com_github_sass_dart_sass:dart-sass",
-    ],
-)
-
 al_hugo_binary(
     name = "site_hugo",
     site = ":site_site",
 )
 
-al_hugo_worker(
+indexed_hugo_site(
     name = "site",
     arguments = select({
         "//tools/bazel_configs:release": _BUILD_FLAGS + [
+            "--minify",
             "--baseURL",
             "https://alwaldend.com",
         ],
         "//conditions:default": _BUILD_FLAGS + _PREVIEW_FLAGS,
     }),
-    out_dir = "site.destination",
-    site = ":site_site",
+    source = ":site_source_archive",
     visibility = ["//:__subpackages__"],
 )
 
-al_hugo_worker(
+indexed_hugo_site(
     name = "site_staging",
     arguments = _BUILD_FLAGS + [
         "--baseURL",
         "https://www-staging.alwaldend.com",
     ],
-    out_dir = "site_staging.destination",
-    site = ":site_site",
+    source = ":site_source_archive",
     visibility = ["//:__subpackages__"],
 )
 

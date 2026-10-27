@@ -1,0 +1,16 @@
+load("@rules_python//python:defs.bzl", "py_binary", "py_library")
+
+py_binary(
+    name = "subset_font",
+    srcs = ["main.py"],
+    main = "main.py",
+    visibility = ["//tools/mermaid:__pkg__"],
+    deps = ["@com_alwaldend_src_pip//fonttools"],
+)
+
+py_library(
+    name = "subset_font_lib",
+    srcs = ["main.py"],
+    visibility = ["//:__subpackages__"],
+    deps = ["@com_alwaldend_src_pip//fonttools"],
+)

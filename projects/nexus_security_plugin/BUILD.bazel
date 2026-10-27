@@ -9,7 +9,6 @@ docs_filegroup(
     ],
     deps = [
         ":docs_pages",
-        "//projects/nexus_security_plugin/releases:docs",
     ],
 )
 

@@ -40,6 +40,5 @@ docs_filegroup(
         "//projects:__pkg__",
     ],
     deps = [
-        "//projects/activitywatch_ingester_android/releases:docs",
     ],
 )

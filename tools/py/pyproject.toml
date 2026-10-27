@@ -3,6 +3,7 @@ name = "com_alwaldend_src"
 version = "0.0.0"
 requires-python = ">=3.11, <4"
 dependencies = [
+  "fonttools==4.67.0",
   "pydantic",
   "fastapi>=0.115.12",
   "uvicorn[standard]>=0.34.2",
