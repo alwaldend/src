@@ -11,6 +11,8 @@ load("@rules_shell//shell:sh_binary.bzl", "sh_binary")
 load("//projects/al/rules/al:al_config.bzl", "al_config")
 load("//projects/alwaldend.com/internal/content:prepare.bzl", "prepare_content")
 load("//projects/alwaldend.com/internal/search:defs.bzl", "indexed_hugo_site")
+load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_site_svg", "mermaid_site_webp")
+load("//projects/bazel_deps_analyzer:defs.bzl", "bazel_deps_mermaid", "bazel_deps_mermaid_from_json")
 load("//tools/http_server/main/bzl:al_http_server_binary.bzl", "al_http_server_binary")
 load("//tools/pkg/main/bzl:al_pkg_rename_files.bzl", "al_pkg_rename_files")
 load("//tools/release/main/bzl:al_release_bundle.bzl", "al_release_bundle")
@@ -44,6 +46,61 @@ build_test(
     targets = [
         ":site",
     ],
+)
+
+# Keep these artifacts outside :site's inputs to avoid a genquery scope cycle.
+bazel_deps_mermaid(
+    name = "deps_mermaid",
+    out = "dependencies.mmd",
+    depth = 8,
+    target = ":site",
+)
+
+mermaid_site_svg(
+    name = "deps_svg",
+    src = ":deps_mermaid",
+    out = "dependencies.svg",
+)
+
+mermaid_site_webp(
+    name = "deps_webp",
+    src = ":deps_mermaid",
+    out = "dependencies.webp",
+    aspect_ratio = [],
+    scale = 2,
+)
+
+mermaid_site_webp(
+    name = "deps_dark_webp",
+    src = ":deps_mermaid",
+    out = "dependencies.dark.webp",
+    aspect_ratio = [],
+    color_scheme = "dark",
+    scale = 2,
+)
+
+bazel_deps_mermaid_from_json(
+    name = "deps_mindmap",
+    src = ":deps_mermaid.query.ndjson",
+    out = "dependencies.mindmap.mmd",
+    depth = 8,
+    diagram_type = "mindmap",
+    group_by_package = True,
+    root = "//projects/alwaldend.com:site",
+)
+
+mermaid_site_svg(
+    name = "deps_mindmap_svg",
+    src = ":deps_mindmap",
+    out = "dependencies.mindmap.svg",
+)
+
+mermaid_site_webp(
+    name = "deps_mindmap_dark_webp",
+    src = ":deps_mindmap",
+    out = "dependencies.mindmap.dark.webp",
+    aspect_ratio = [],
+    color_scheme = "dark",
 )
 
 _BUILD_FLAGS = [

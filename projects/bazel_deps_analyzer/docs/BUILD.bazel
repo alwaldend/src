@@ -1,0 +1,22 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_site_svg")
+load("//projects/bazel_deps_analyzer:defs.bzl", "bazel_deps_mermaid")
+
+bazel_deps_mermaid(
+    name = "converter_graph",
+    depth = 2,
+    target = "//projects/bazel_deps_analyzer/cmd/bazel_deps_analyzer",
+)
+
+mermaid_site_svg(
+    name = "converter_svg",
+    src = ":converter_graph",
+    out = "converter.svg",
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = [":converter_svg"],
+    prefix = "content/docs/projects/bazel_deps_analyzer/docs/assets",
+    visibility = ["//projects/bazel_deps_analyzer:__pkg__"],
+)

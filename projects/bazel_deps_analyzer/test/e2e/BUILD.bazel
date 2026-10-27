@@ -1,0 +1,200 @@
+load("@rules_go//go:def.bzl", "go_test")
+load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_site_webp")
+load("//projects/bazel_deps_analyzer:defs.bzl", "bazel_deps_mermaid", "bazel_deps_mermaid_from_json")
+load("//tools/mermaid:defs.bzl", "mermaid_webp")
+load(":inputs_fixture.bzl", "inputs_fixture")
+
+package_group(
+    name = "fixture_visibility",
+    packages = ["//projects/bazel_deps_analyzer/test/e2e"],
+)
+
+filegroup(
+    name = "explicit_input",
+    srcs = ["escaped.ndjson"],
+)
+
+filegroup(
+    name = "implicit_input",
+    srcs = ["escaped.ndjson"],
+)
+
+filegroup(
+    name = "tool_input",
+    srcs = ["escaped.ndjson"],
+)
+
+inputs_fixture(
+    name = "build_inputs",
+    srcs = [":explicit_input"],
+    tools = [":tool_input"],
+    visibility = [":fixture_visibility"],
+)
+
+bazel_deps_mermaid(
+    name = "build_inputs_diagram",
+    testonly = True,
+    external_leaves = True,
+    target = ":build_inputs",
+)
+
+filegroup(name = "shared")
+
+filegroup(
+    name = "left",
+    srcs = [":shared"],
+)
+
+filegroup(
+    name = "right",
+    srcs = [":shared"],
+)
+
+filegroup(
+    name = "root",
+    srcs = [
+        ":left",
+        ":right",
+    ],
+)
+
+bazel_deps_mermaid(
+    name = "fixture",
+    testonly = True,
+    target = ":root",
+)
+
+mermaid_webp(
+    name = "fixture_webp",
+    testonly = True,
+    src = ":fixture",
+    out = "fixture.webp",
+    aspect_ratio = [],
+)
+
+bazel_deps_mermaid_from_json(
+    name = "escaped",
+    testonly = True,
+    src = "escaped.ndjson",
+    root = "//fixture:quote\"<b>&#35;[x]%%{init}",
+)
+
+bazel_deps_mermaid_from_json(
+    name = "grouped",
+    testonly = True,
+    src = "grouped.ndjson",
+    external_leaves = True,
+    group_by_package = True,
+    include_files = True,
+    root = "//app:root",
+)
+
+mermaid_site_webp(
+    name = "grouped_webp",
+    testonly = True,
+    src = ":grouped",
+    out = "grouped.dark.webp",
+    aspect_ratio = [],
+    color_scheme = "dark",
+)
+
+bazel_deps_mermaid(
+    name = "mindmap_fixture",
+    testonly = True,
+    diagram_type = "mindmap",
+    group_by_package = True,
+    target = ":root",
+)
+
+mermaid_site_webp(
+    name = "mindmap_fixture_webp",
+    testonly = True,
+    src = ":mindmap_fixture",
+    out = "mindmap.dark.webp",
+    aspect_ratio = [],
+    color_scheme = "dark",
+)
+
+bazel_deps_mermaid_from_json(
+    name = "mindmap_grouped",
+    testonly = True,
+    src = "grouped.ndjson",
+    diagram_type = "mindmap",
+    external_leaves = True,
+    group_by_package = True,
+    include_files = True,
+    root = "//app:root",
+)
+
+mermaid_site_webp(
+    name = "mindmap_grouped_webp",
+    testonly = True,
+    src = ":mindmap_grouped",
+    out = "mindmap-grouped.dark.webp",
+    aspect_ratio = [],
+    color_scheme = "dark",
+)
+
+bazel_deps_mermaid_from_json(
+    name = "mindmap_escaped",
+    testonly = True,
+    src = "escaped.ndjson",
+    diagram_type = "mindmap",
+    group_by_package = True,
+    root = "//fixture:quote\"<b>&#35;[x]%%{init}",
+)
+
+mermaid_site_webp(
+    name = "mindmap_escaped_webp",
+    testonly = True,
+    src = ":mindmap_escaped",
+    out = "mindmap-escaped.dark.webp",
+    aspect_ratio = [],
+    color_scheme = "dark",
+)
+
+mermaid_webp(
+    name = "escaped_webp",
+    testonly = True,
+    src = ":escaped",
+    out = "escaped.webp",
+    aspect_ratio = [],
+)
+
+go_test(
+    name = "e2e_test",
+    size = "medium",
+    srcs = [
+        "doc.go",
+        "e2e_test.go",
+    ],
+    args = [
+        "-converter=$(rlocationpath //projects/bazel_deps_analyzer)",
+        "-diagram=$(rlocationpath :fixture)",
+        "-raster=$(rlocationpath :fixture_webp)",
+        "-build-inputs=$(rlocationpath :build_inputs_diagram)",
+        "-grouped-input=$(rlocationpath :grouped.ndjson)",
+        "-grouped-diagram=$(rlocationpath :grouped)",
+        "-grouped-raster=$(rlocationpath :grouped_webp)",
+        "-mindmap-diagram=$(rlocationpath :mindmap_fixture)",
+        "-mindmap-raster=$(rlocationpath :mindmap_fixture_webp)",
+        "-mindmap-grouped=$(rlocationpath :mindmap_grouped)",
+        "-mindmap-grouped-raster=$(rlocationpath :mindmap_grouped_webp)",
+    ],
+    data = [
+        "grouped.ndjson",
+        ":build_inputs_diagram",
+        ":escaped_webp",
+        ":fixture",
+        ":fixture_webp",
+        ":grouped",
+        ":grouped_webp",
+        ":mindmap_escaped_webp",
+        ":mindmap_fixture",
+        ":mindmap_fixture_webp",
+        ":mindmap_grouped",
+        ":mindmap_grouped_webp",
+        "//projects/bazel_deps_analyzer",
+    ],
+    deps = ["@rules_go//go/runfiles"],
+)

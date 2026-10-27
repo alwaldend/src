@@ -1,11 +1,12 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 
-docs_filegroup(
-    name = "docs",
-    visibility = ["//third_party:__pkg__"],
-)
-
 exports_files(
     ["wasip1.patch"],
     visibility = ["//:__pkg__"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//third_party:__pkg__"],
 )

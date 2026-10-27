@@ -3,3 +3,8 @@ name = "autoscroll"
 version = "0.0.0"
 requires-python = ">=3.9, <3.16"
 dependencies = ["pynput", "pyside6"]
+
+[tool.uv]
+# Separate Darwin-only packages for Bazel's native package-marker importer.
+# These complementary environments retain support for every platform.
+environments = ["sys_platform == 'darwin'", "sys_platform != 'darwin'"]

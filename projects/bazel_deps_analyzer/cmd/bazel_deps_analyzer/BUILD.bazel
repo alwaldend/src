@@ -1,0 +1,21 @@
+load("@rules_go//go:def.bzl", "go_binary", "go_library")
+
+go_library(
+    name = "bazel_deps_analyzer_lib",
+    srcs = [
+        "doc.go",
+        "main.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/bazel_deps_analyzer/cmd/bazel_deps_analyzer",
+    visibility = ["//visibility:private"],
+    deps = [
+        "//projects/bazel_deps_analyzer/internal/graph",
+        "@com_github_spf13_cobra//:cobra",
+    ],
+)
+
+go_binary(
+    name = "bazel_deps_analyzer",
+    embed = [":bazel_deps_analyzer_lib"],
+    visibility = ["//projects/bazel_deps_analyzer:__subpackages__"],
+)

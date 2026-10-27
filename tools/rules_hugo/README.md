@@ -15,6 +15,9 @@ site archive in the target configuration and the Hugo binary in the execution
 configuration so site sources are not rebuilt for the execution platform.
 
 `al_hugo_site` wraps a site source archive and its PostCSS tooling.
+PostCSS and entries in `tools` use the execution configuration; site source
+archives remain in the target configuration. Queries with `--notool_deps`
+exclude these tools from the site's input graph.
 `al_hugo_run_binary` builds the site with the registered Hugo toolchain and
 `al_hugo_binary` exposes a runnable Hugo command for a site. The optional
 `al_hugo_worker` rule runs the build through a persistent worker.
