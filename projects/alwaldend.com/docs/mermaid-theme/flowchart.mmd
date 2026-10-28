@@ -1,0 +1,12 @@
+flowchart LR
+    author([Author]) -->|Submit| gateway[Gateway]
+    subgraph processing[Document processing]
+        gateway -->|Validate| valid{Valid?}
+        valid -->|Yes| queue[Work queue]
+        queue --> worker[Worker]
+        worker -->|Write| index[(Search index)]
+    end
+    valid -.->|Revise| author
+    worker -.->|Retry| queue
+    reader([Reader]) -->|Search| index
+    worker -->|Record| audit[(Audit log)]

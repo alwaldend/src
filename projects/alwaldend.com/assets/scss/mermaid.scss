@@ -1,7 +1,7 @@
 // Build input for Mermaid's native themeVariables, derived from site tokens.
 @use "shared_accent" as theme;
 
-@mixin palette($canvas, $ink, $border, $secondary, $tertiary) {
+@mixin palette($canvas, $ink, $border, $secondary, $tertiary, $guide) {
     --mermaid-background: #{$canvas};
     --mermaid-primaryColor: #{$canvas};
     --mermaid-primaryTextColor: #{$ink};
@@ -14,6 +14,7 @@
     --mermaid-nodeBorder: #{$ink};
     --mermaid-nodeTextColor: #{$ink};
     --mermaid-lineColor: #{$ink};
+    --mermaid-actorLineColor: #{$guide};
     --mermaid-textColor: #{$ink};
     --mermaid-titleColor: #{$ink};
     --mermaid-clusterBkg: #{$canvas};
@@ -30,7 +31,8 @@
         theme.$body-color,
         theme.$border-color,
         theme.$gray-100,
-        theme.$gray-200
+        theme.$gray-200,
+        theme.$gray-600
     );
 }
 
@@ -41,7 +43,8 @@
             theme.$body-color-dark,
             theme.$border-color-dark,
             theme.$body-secondary-bg-dark,
-            theme.$body-tertiary-bg-dark
+            theme.$body-tertiary-bg-dark,
+            theme.$gray-500
         );
     }
 }

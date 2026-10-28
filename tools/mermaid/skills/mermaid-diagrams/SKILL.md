@@ -37,8 +37,8 @@ docs_filegroup(
 
 For diagrams published in the main site's documentation, use
 `mermaid_site_svg` from `//projects/alwaldend.com/pkg/mermaid:defs.bzl`.
-It renders light/dark SVG siblings with native Mermaid layout and sans-serif
-labels. Package both outputs; reference the light `.svg` in Markdown or the SVG
+It renders light/dark SVG siblings with native Mermaid layout and the site's
+embedded typography. Package both outputs; reference the light `.svg` in Markdown or the SVG
 shortcode, and the site selects its `.dark.svg` sibling for dark mode.
 It uses no SVG post-processing or custom actor decoration.
 Keep historical blog assets on their existing `mermaid_svg` render targets;
@@ -81,7 +81,7 @@ mermaid_webp(
 By default the rule encodes the historical shared theme with its pinned browser,
 fonts, and paint-order pass. For a site-themed blog or social image, use
 `mermaid_site_webp` from `//projects/alwaldend.com/pkg/mermaid:defs.bzl`; it selects
-native rendering with the site's palette and sans-serif labels. Select
+native rendering with the site's palette and embedded typography. Select
 `color_scheme = "dark"` for the site's dark appearance; `"light"` is the default.
 The raster has that fixed appearance in page embeds and social previews. Other
 native consumers set `native = True` with the SVG target's `palette`, `theme`,

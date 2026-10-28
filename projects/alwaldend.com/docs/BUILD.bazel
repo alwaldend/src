@@ -11,7 +11,10 @@ docs_filegroup(
     name = "docs",
     srcs = glob(["*.mmd"]),
     visibility = ["//projects/alwaldend.com:__pkg__"],
-    deps = [":docs_assets"],
+    deps = [
+        ":docs_assets",
+        "//projects/alwaldend.com/docs/mermaid-theme:docs",
+    ],
 )
 
 docs_filegroup(

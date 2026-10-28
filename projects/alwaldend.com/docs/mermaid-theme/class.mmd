@@ -1,0 +1,26 @@
+classDiagram
+    direction LR
+    class Repository {
+        <<interface>>
+        +save(Document)
+        +find(id) Document
+    }
+    class SearchRepository {
+        +save(Document)
+        +find(id) Document
+    }
+    class Document {
+        +String id
+        +String title
+    }
+    class Revision {
+        +Integer number
+        +String text
+    }
+    class Indexer {
+        +index(Document)
+    }
+    Repository <|.. SearchRepository : implements
+    Indexer ..> Repository : uses
+    Repository --> Document : stores
+    Document "1" *-- "1..*" Revision : contains

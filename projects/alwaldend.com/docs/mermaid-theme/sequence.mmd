@@ -1,0 +1,21 @@
+sequenceDiagram
+    participant C as Client
+    participant A as API
+    participant Q as Queue
+    participant W as Worker
+    C->>A: Submit document
+    activate A
+    A->>Q: Enqueue job
+    Q-->>A: Job identifier
+    A-->>C: Accepted
+    deactivate A
+    loop Until acknowledged
+        Q->>W: Deliver job
+        alt Valid document
+            W->>W: Build search entry
+            W-->>Q: Acknowledge
+        else Invalid document
+            W-->>Q: Reject with reason
+        end
+    end
+    Note over Q,W: Delivery may be repeated

@@ -59,7 +59,7 @@ try {
             };
         });
         const svg = await fs.readFile(svgPath, "utf8");
-        assert.ok(svg.includes("font-family:'Liberation Sans'"));
+        assert.ok(svg.includes("font-family:'Liberation Mono'"));
         assert.ok(svg.includes("src:url(data:font/ttf;base64,"));
         assert.ok(!svg.includes("Architects Daughter"));
         assert.ok(!svg.includes('data-look="handDrawn"'));
@@ -82,7 +82,7 @@ try {
                 color: getComputedStyle(label).color,
             };
         });
-        assert.ok(reference.font.includes("Liberation Sans"));
+        assert.ok(reference.font.includes("Liberation Mono"));
         assert.equal(reference.color, `rgb(${palette.ink.join(", ")})`);
         await page.setViewport({
             width: Math.ceil(reference.width),
