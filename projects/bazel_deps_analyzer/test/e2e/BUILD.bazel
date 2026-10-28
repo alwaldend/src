@@ -1,8 +1,8 @@
 load("@rules_go//go:def.bzl", "go_test")
 load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_site_webp")
-load("//projects/bazel_deps_analyzer:defs.bzl", "bazel_deps_mermaid", "bazel_deps_mermaid_from_json")
+load("//projects/bazel_deps_analyzer:defs.bzl", "bazel_deps_mermaid", "bazel_deps_mermaid_from_json", "bazel_deps_packages_from_json")
 load("//tools/mermaid:defs.bzl", "mermaid_webp")
-load(":inputs_fixture.bzl", "inputs_fixture")
+load(":inputs_fixture.bzl", "filter_inputs_fixture", "inputs_fixture", "string_inputs_fixture")
 
 package_group(
     name = "fixture_visibility",
@@ -39,6 +39,64 @@ bazel_deps_mermaid(
 )
 
 filegroup(name = "shared")
+
+config_setting(
+    name = "filter_condition",
+    values = {"compilation_mode": "opt"},
+)
+
+filter_inputs_fixture(
+    name = "filter_inputs",
+    srcs = select({
+        ":filter_condition": [":explicit_input"],
+        "//conditions:default": [":shared"],
+    }),
+    data = [
+        ":explicit_input",
+        ":right",
+    ],
+    tools = [":tool_input"],
+    visibility = [":fixture_visibility"],
+)
+
+bazel_deps_mermaid(
+    name = "filter_native",
+    testonly = True,
+    build_deps_only = True,
+    target = ":filter_inputs",
+)
+
+string_inputs_fixture(
+    name = "filter_string_inputs",
+    srcs = select({
+        ":filter_condition": "//projects/bazel_deps_analyzer/test/e2e:explicit_input",
+        "//conditions:default": None,
+    }),
+)
+
+bazel_deps_mermaid(
+    name = "filter_string_native",
+    testonly = True,
+    build_deps_only = True,
+    target = ":filter_string_inputs",
+)
+
+bazel_deps_mermaid_from_json(
+    name = "filter_target",
+    testonly = True,
+    src = "build_deps.ndjson",
+    build_deps_only = True,
+    include_files = True,
+    root = "//app:root",
+)
+
+bazel_deps_packages_from_json(
+    name = "filter_packages",
+    testonly = True,
+    src = "build_deps.ndjson",
+    build_deps_only = True,
+    format = "json",
+)
 
 filegroup(
     name = "left",
@@ -161,14 +219,44 @@ mermaid_webp(
     aspect_ratio = [],
 )
 
+bazel_deps_packages_from_json(
+    name = "packages",
+    testonly = True,
+    src = "packages.ndjson",
+)
+
+mermaid_site_webp(
+    name = "packages_webp",
+    testonly = True,
+    src = ":packages",
+    out = "packages.dark.webp",
+    aspect_ratio = [],
+    color_scheme = "dark",
+)
+
+bazel_deps_packages_from_json(
+    name = "packages_json",
+    testonly = True,
+    src = "packages.ndjson",
+    format = "json",
+)
+
 go_test(
     name = "e2e_test",
     size = "medium",
     srcs = [
+        "build_deps_test.go",
         "doc.go",
         "e2e_test.go",
+        "packages_test.go",
     ],
     args = [
+        "-build-deps-input=$(rlocationpath :build_deps.ndjson)",
+        "-build-deps-diagram=$(rlocationpath :filter_target)",
+        "-build-deps-json=$(rlocationpath :filter_packages)",
+        "-build-deps-native=$(rlocationpath :filter_native)",
+        "-build-deps-capture=$(rlocationpath :filter_native.query.ndjson)",
+        "-build-deps-string-capture=$(rlocationpath :filter_string_native.query.ndjson)",
         "-converter=$(rlocationpath //projects/bazel_deps_analyzer)",
         "-diagram=$(rlocationpath :fixture)",
         "-raster=$(rlocationpath :fixture_webp)",
@@ -180,11 +268,23 @@ go_test(
         "-mindmap-raster=$(rlocationpath :mindmap_fixture_webp)",
         "-mindmap-grouped=$(rlocationpath :mindmap_grouped)",
         "-mindmap-grouped-raster=$(rlocationpath :mindmap_grouped_webp)",
+        "-packages-input=$(rlocationpath :packages.ndjson)",
+        "-packages-diagram=$(rlocationpath :packages)",
+        "-packages-raster=$(rlocationpath :packages_webp)",
+        "-packages-json=$(rlocationpath :packages_json)",
     ],
     data = [
+        "build_deps.ndjson",
         "grouped.ndjson",
+        "packages.ndjson",
         ":build_inputs_diagram",
         ":escaped_webp",
+        ":filter_native",
+        ":filter_native.query.ndjson",
+        ":filter_packages",
+        ":filter_string_native",
+        ":filter_string_native.query.ndjson",
+        ":filter_target",
         ":fixture",
         ":fixture_webp",
         ":grouped",
@@ -194,6 +294,9 @@ go_test(
         ":mindmap_fixture_webp",
         ":mindmap_grouped",
         ":mindmap_grouped_webp",
+        ":packages",
+        ":packages_json",
+        ":packages_webp",
         "//projects/bazel_deps_analyzer",
     ],
     deps = ["@rules_go//go/runfiles"],

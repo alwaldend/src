@@ -16,3 +16,22 @@ inputs_fixture = rule(
         ),
     },
 )
+
+filter_inputs_fixture = rule(
+    implementation = _inputs_fixture_impl,
+    attrs = {
+        "srcs": attr.label_list(allow_files = True),
+        "deps": attr.label_list(default = [Label(":implicit_input")]),
+        "data": attr.label_list(allow_files = True),
+        "tools": attr.label_list(cfg = "exec"),
+        "_implicit_input": attr.label(default = Label(":implicit_input")),
+    },
+)
+
+def _string_inputs_fixture_impl(_ctx):
+    return [DefaultInfo(files = depset())]
+
+string_inputs_fixture = rule(
+    implementation = _string_inputs_fixture_impl,
+    attrs = {"srcs": attr.string()},
+)

@@ -1,6 +1,7 @@
 package graph
 
 import (
+	"crypto/sha256"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -12,6 +13,8 @@ import (
 
 // Options defines graph selection, ownership grouping, and the output view.
 type Options struct {
+	// BuildDepsOnly selects explicit deps/srcs inputs before target traversal.
+	BuildDepsOnly bool
 	// Root is the complete label of the target whose dependencies are selected.
 	Root string
 	// Depth is the maximum dependency distance, or -1 for the full closure.
@@ -68,7 +71,7 @@ type environmentGroupRecord struct {
 	Environment []string `json:"environment"`
 }
 
-// ruleRecord decodes rule identity and dependency edges without attribute data.
+// ruleRecord decodes rule identity, query-filtered inputs, and optional metadata.
 type ruleRecord struct {
 	// Name is the complete Bazel rule label.
 	Name string `json:"name"`
@@ -76,6 +79,8 @@ type ruleRecord struct {
 	RuleClass string `json:"ruleClass"`
 	// RuleInput contains target labels on which this rule depends.
 	RuleInput []string `json:"ruleInput"`
+	// Attribute preserves raw metadata until the opt-in capture contract requires it.
+	Attribute json.RawMessage `json:"attribute"`
 }
 
 // generatedRecord decodes a generated file and its producer dependency.
@@ -96,6 +101,8 @@ type node struct {
 	inputs []string
 	// file identifies source and generated file targets for display filtering.
 	file bool
+	// captureSignature detects conflicts hidden by opt-in dependency filtering.
+	captureSignature [32]byte
 }
 
 // Convert reads a stream of Bazel Target JSON messages and returns a complete
@@ -118,7 +125,7 @@ func Convert(input io.Reader, options Options) ([]byte, error) {
 	default:
 		return nil, fmt.Errorf("unsupported direction %q", options.Direction)
 	}
-	nodes, err := readGraph(input)
+	nodes, err := readGraph(input, options.BuildDepsOnly)
 	if err != nil {
 		return nil, fmt.Errorf("read target graph: %w", err)
 	}
@@ -140,6 +147,7 @@ func Convert(input io.Reader, options Options) ([]byte, error) {
 		output.WriteString("%% Bazel dependency graph; arrows point to dependencies.\n")
 	}
 	fmt.Fprintf(&output, "%%%% depth=%d include_files=%t include_external=%t\n", options.Depth, options.IncludeFiles, options.IncludeExternal || options.ExternalLeaves)
+	writeBuildDepsComment(&output, options.BuildDepsOnly)
 	if options.ExternalLeaves {
 		output.WriteString("%% external_leaves=true\n")
 	}
@@ -156,7 +164,7 @@ func Convert(input io.Reader, options Options) ([]byte, error) {
 		return []byte(output.String()), nil
 	}
 	if options.GroupByPackage {
-		output.WriteString("%%{init: {\"layout\": \"elk\", \"elk\": {\"nodePlacementStrategy\": \"NETWORK_SIMPLEX\", \"mergeEdges\": true}}}%%\n")
+		output.WriteString(packageLayoutDirective)
 	}
 	fmt.Fprintf(&output, "flowchart %s\n", options.Direction)
 	if options.GroupByPackage {
@@ -268,7 +276,7 @@ func writeGroupedNodes(output *strings.Builder, nodes map[string]node, labels []
 }
 
 // readGraph decodes the entire stream before any output can be returned.
-func readGraph(input io.Reader) (map[string]node, error) {
+func readGraph(input io.Reader, buildDepsOnly bool) (map[string]node, error) {
 	decoder := json.NewDecoder(input)
 	nodes := map[string]node{}
 	for index := 1; ; index++ {
@@ -279,11 +287,11 @@ func readGraph(input io.Reader) (map[string]node, error) {
 			}
 			return nil, fmt.Errorf("decode target %d at byte %d: %w", index, decoder.InputOffset(), err)
 		}
-		item, err := targetNode(target)
+		item, err := targetNode(target, buildDepsOnly)
 		if err != nil {
 			return nil, fmt.Errorf("target %d: %w", index, err)
 		}
-		if previous, exists := nodes[item.label]; exists && (previous.kind != item.kind || previous.file != item.file || !slices.Equal(previous.inputs, item.inputs)) {
+		if previous, exists := nodes[item.label]; exists && (previous.kind != item.kind || previous.file != item.file || previous.captureSignature != item.captureSignature || !slices.Equal(previous.inputs, item.inputs)) {
 			return nil, fmt.Errorf("conflicting records for target %q", item.label)
 		}
 		nodes[item.label] = item
@@ -295,7 +303,7 @@ func readGraph(input io.Reader) (map[string]node, error) {
 }
 
 // targetNode validates a target's discriminant and normalizes its graph fields.
-func targetNode(target record) (node, error) {
+func targetNode(target record, buildDepsOnly bool) (node, error) {
 	var item node
 	switch {
 	case target.Type == "RULE" && target.Rule != nil:
@@ -323,6 +331,26 @@ func targetNode(target record) (node, error) {
 	}
 	slices.Sort(item.inputs)
 	item.inputs = slices.Compact(item.inputs)
+	if buildDepsOnly {
+		if len(item.inputs) == 0 {
+			item.inputs = nil
+		}
+		original, err := json.Marshal(item.inputs)
+		if err != nil {
+			return node{}, fmt.Errorf("encode captured inputs for %q: %w", item.label, err)
+		}
+		metadata := ""
+		switch target.Type {
+		case "RULE":
+			item.inputs, metadata, err = buildInputs(target.Rule)
+			if err != nil {
+				return node{}, fmt.Errorf("filter rule %q: %w", item.label, err)
+			}
+		case "PACKAGE_GROUP", "ENVIRONMENT_GROUP":
+			item.inputs = nil
+		}
+		item.captureSignature = sha256.Sum256(append(original, metadata...))
+	}
 	return item, nil
 }
 

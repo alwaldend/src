@@ -3,10 +3,12 @@ load("@rules_go//go:def.bzl", "go_library")
 go_library(
     name = "graph",
     srcs = [
+        "attributes.go",
         "doc.go",
         "graph.go",
         "grouping.go",
         "mindmap.go",
+        "packages.go",
     ],
     importpath = "git.alwaldend.com/alwaldend/src/projects/bazel_deps_analyzer/internal/graph",
     visibility = ["//projects/bazel_deps_analyzer:__subpackages__"],
