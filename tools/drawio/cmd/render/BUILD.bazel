@@ -1,6 +1,8 @@
 load("@aspect_rules_js//js:defs.bzl", "js_binary", "js_test")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 
+package(transitive_visibility = "//tools:transitive_consumers")
+
 js_binary(
     name = "render",
     data = [

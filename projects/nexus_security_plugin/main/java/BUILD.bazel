@@ -1,5 +1,7 @@
 load("@rules_java//java:java_library.bzl", "java_library")
 
+package(transitive_visibility = "//projects:transitive_consumers")
+
 # gazelle:exclude **/*
 
 exports_files(["model/README.md"])

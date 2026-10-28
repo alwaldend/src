@@ -3,6 +3,8 @@ load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
 load("//tools/make_install/main/bzl:al_make_install_filegroup.bzl", "al_make_install_filegroup")
 load("//tools/sh/main/bzl:al_sh_library.bzl", "al_sh_library")
 
+package(transitive_visibility = "//projects:transitive_consumers")
+
 _SCRIPTS = [script.removesuffix(".sh") for script in glob(["*.sh"])]
 
 al_make_install_filegroup(

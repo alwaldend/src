@@ -1,6 +1,8 @@
 load("@rules_shell//shell:sh_binary.bzl", "sh_binary")
 load("//tools/sh/main/bzl:al_sh_library.bzl", "al_sh_library")
 
+package(transitive_visibility = "//tools:transitive_consumers")
+
 _SCRIPTS = [script.removesuffix(".sh") for script in glob(["*.sh"])]
 
 [

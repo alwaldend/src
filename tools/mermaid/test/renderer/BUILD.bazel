@@ -3,6 +3,8 @@ load("@rules_go//go:def.bzl", "go_test")
 load("@rules_python//python:defs.bzl", "py_test")
 load("//tools/mermaid:defs.bzl", "mermaid_svg", "mermaid_webp")
 
+package(transitive_visibility = "//tools:transitive_consumers")
+
 py_test(
     name = "native_font_test",
     srcs = ["native_font_test.py"],

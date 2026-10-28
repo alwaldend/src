@@ -1,6 +1,8 @@
 load("@rules_rust//cargo:defs.bzl", "cargo_build_script")
 load("@rules_rust//rust:defs.bzl", "rust_clippy", "rust_library")
 
+package(transitive_visibility = "//projects:transitive_consumers")
+
 exports_files(
     ["ffi.rs"],
     visibility = [

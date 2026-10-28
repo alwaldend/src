@@ -1,6 +1,8 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load(":schemas.bzl", "ANKI_SCHEMAS")
 
+package(transitive_visibility = "//third_party:transitive_consumers")
+
 exports_files([
     "Cargo.lock",
     "anki.BUILD.bazel",

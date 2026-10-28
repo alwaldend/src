@@ -1,5 +1,6 @@
 projects/ci_platform/main/js
 projects/mcp_cordis/node_modules
+projects/bazel_gazelle_enforce_transitive_visibility
 tools/rules_template
 tools/rules_terraform
 tools/rules_binary_toolchain

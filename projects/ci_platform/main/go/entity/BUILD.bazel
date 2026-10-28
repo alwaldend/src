@@ -1,5 +1,7 @@
 load("@rules_go//go:def.bzl", "go_library")
 
+package(transitive_visibility = "//projects:transitive_consumers")
+
 go_library(
     name = "entity",
     srcs = [

@@ -1,6 +1,8 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("//tools/ansible/main/bzl:al_ansible_role.bzl", "al_ansible_role")
 
+package(transitive_visibility = "//projects:transitive_consumers")
+
 al_ansible_role(
     name = "role",
     srcs = glob(["**"]),

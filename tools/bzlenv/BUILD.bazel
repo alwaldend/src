@@ -2,15 +2,11 @@ load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("//tools/ansible/main/bzl:al_ansible_scripts.bzl", "AL_ANSIBLE_SCRIPTS")
 load("//tools/bzlenv/main/bzl:al_bzlenv_binary.bzl", "al_bzlenv_binary")
 
+package(transitive_visibility = "//tools:transitive_consumers")
+
 _ROOT_TOOLS = [
-    "blender",
     "pkgsite",
-    "oras",
     # "trufflehog",
-    "minisign",
-    "taplo",
-    "buf",
-    "shellcheck",
     "cloc",
     "shfmt",
     "helm",
@@ -18,7 +14,6 @@ _ROOT_TOOLS = [
     "replace_section",
     "isort",
     "mypy",
-    "hugo",
     "twine",
     "file_installer",
     "pnpm",
@@ -31,7 +26,6 @@ _ROOT_TOOLS = [
     "git_filter_repo",
     "tomlv",
     "stylua",
-    "dnscontrol",
     "buildifier",
     "release",
 ]
@@ -51,6 +45,14 @@ al_bzlenv_binary(
         "gopackagesdriver": "//tools/sh/main/sh:gopackagesdriver",
         "bazel": "//tools/sh/main/sh:bazel",
         "al": "//projects/al/cmd/al",
+        "blender": "//third_party/org_blender_blender:blender",
+        "buf": "//third_party/build_buf_buf:buf",
+        "dnscontrol": "//third_party/com_github_stackexchange_dnscontrol:dnscontrol",
+        "hugo": "//third_party/io_gohugo_hugo:hugo",
+        "minisign": "//third_party/com_github_jedisct1_minisign:minisign",
+        "oras": "//third_party/land_oras_oras:oras",
+        "shellcheck": "//third_party/com_github_koalaman_shellcheck:shellcheck",
+        "taplo": "//third_party/com_github_tamasfe_taplo:taplo",
     } | {
         tool: "//tools/{}".format(tool)
         for tool in _ROOT_TOOLS

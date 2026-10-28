@@ -1,5 +1,7 @@
 load("//tools/maven_install_gradle_converter:defs.bzl", "al_gradle_lock")
 
+package(transitive_visibility = "//projects:transitive_consumers")
+
 exports_files(
     [
         "libs.versions.toml",

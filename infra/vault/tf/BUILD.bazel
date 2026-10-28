@@ -2,6 +2,8 @@ load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_terraform//terraform:defs.bzl", "terraform_binary_map", "terraform_test_map")
 load("//projects/al/rules/al:al_binary.bzl", "al_binary_run", "al_binary_run_test")
 
+package(transitive_visibility = "//infra:transitive_consumers")
+
 docs_filegroup(
     name = "docs",
     srcs = glob(["*.md"]),
@@ -43,7 +45,6 @@ _DATA = glob([
     "//projects/tf_modules/vault_oidc_provider",
     "//projects/tf_modules/vault_ssh_server_role",
     "//projects/tf_modules/vault_transit_key",
-    "//infra/vault/tf/output",
     "//tools/vault/tf_backend",
     "//tools/vault/injector",
 ]

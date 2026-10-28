@@ -1,6 +1,8 @@
 load("@rules_go//go:def.bzl", "go_binary")
 load("@rules_rust//rust:defs.bzl", "rust_binary")
 
+package(transitive_visibility = "//projects:transitive_consumers")
+
 rust_binary(
     name = "fixture",
     srcs = ["fixture.rs"],

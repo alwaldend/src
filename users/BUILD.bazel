@@ -1,5 +1,21 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 
+package(transitive_visibility = "//users:transitive_consumers")
+
+package_group(
+    name = "transitive_consumers",
+    packages = [
+        "//",
+        "//.agents/...",
+        "//infra/...",
+        "//third_party/...",
+        "//tools/...",
+        "//users/...",
+        # Website documentation and explicit documentation update commands.
+        "//projects/alwaldend.com/...",
+    ],
+)
+
 filegroup(
     name = "dnsconfig",
     srcs = ["//users/simeonwarren:dnsconfig"],

@@ -2,6 +2,8 @@ load("@bazel_skylib//rules:common_settings.bzl", "bool_flag")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_site_svg", "mermaid_site_webp")
 
+package(transitive_visibility = "//projects:transitive_consumers")
+
 alias(
     name = "anki_grpc",
     actual = "//projects/anki_grpc/cmd/anki_grpc",

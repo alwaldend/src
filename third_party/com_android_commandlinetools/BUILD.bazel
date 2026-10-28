@@ -1,6 +1,8 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_pkg//pkg:mappings.bzl", "pkg_attributes", "pkg_files", "strip_prefix")
 
+package(transitive_visibility = "//third_party:transitive_consumers")
+
 [
     alias(
         name = name,

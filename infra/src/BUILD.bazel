@@ -1,6 +1,9 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 
-package(default_visibility = ["//visibility:private"])
+package(
+    default_visibility = ["//visibility:private"],
+    transitive_visibility = "//infra:transitive_consumers",
+)
 
 docs_filegroup(
     name = "docs",

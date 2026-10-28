@@ -30,6 +30,19 @@ they do not establish deployed state or authorize infrastructure operations.
 - Public checked-in documentation MAY be included in the repository
   documentation site, including non-secret, non-personal operational facts.
 
+## Transitive dependency enforcement
+
+`//infra:transitive_consumers` allows internal infrastructure and developer
+trees, website documentation, and the explicitly listed developer consumers.
+The inherited Gazelle directive generates the package declarations. Ordinary
+project packages, including `projects/ansible_collection/roles/traefik`, cannot
+depend directly on infrastructure artifacts. Bazel 9.3.1 has an observed
+[indirect enforcement limitation](../projects/bazel_gazelle_enforce_transitive_visibility/README.md#enforcement-limitation-in-bazel-931)
+when an intermediary declares its own policy; do not treat this as a complete
+transitive audit.
+An exception grants access to every target in the consuming package; targets
+sharing a package cannot have different transitive policies.
+
 ## Shared AL helpers
 
 `infra.al_lib.xo_login({ labels = ..., oidc_provider = ... })` registers the

@@ -1,3 +1,5 @@
+package(transitive_visibility = "//projects:transitive_consumers")
+
 filegroup(
     name = "dc1",
     srcs = ["main.tf"],

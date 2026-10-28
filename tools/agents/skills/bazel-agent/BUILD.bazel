@@ -2,6 +2,8 @@ load("@rules_go//go:def.bzl", "go_test")
 load("@rules_promptfoo//promptfoo:defs.bzl", "promptfoo_validate_test")
 load("@rules_skills//skill:defs.bzl", "skill_library")
 
+package(transitive_visibility = "//tools:transitive_consumers")
+
 go_test(
     name = "contract_test",
     size = "small",

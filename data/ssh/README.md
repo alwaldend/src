@@ -12,17 +12,21 @@ description: Ssh keys
 
 CA for SSH clients
 
-Source: [../../infra/vault/tf/output](../../infra/vault/tf/output/README.md)
+Source: [ca_clients.pub](ca_clients.pub), a checked-in public-key snapshot.
 
-Update: automatically
+Refresh: the independent Terraform root in [tf/](tf/README.md) reads Vault's
+`ssh/clients/config/ca` public-key endpoint using the existing Vault provider.
 
 ## ca_servers
 
 CA for SSH servers
 
-Source: [../../infra/vault/tf/output](../../infra/vault/tf/output/README.md)
+Source: [ca_servers.pub](ca_servers.pub), a checked-in public-key snapshot.
 
-Update: automatically
+Refresh: [tf/](tf/README.md) reads Vault's `ssh/servers/config/ca`
+endpoint. Project builds use these local files without contacting Vault or
+depending on infrastructure targets. Infrastructure Terraform manages the
+issuers but does not update these snapshots.
 
 ## simeonwarren
 

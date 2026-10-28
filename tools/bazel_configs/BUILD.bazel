@@ -1,6 +1,8 @@
 load("@bazel_skylib//rules:common_settings.bzl", "bool_flag")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 
+package(transitive_visibility = "//tools:build_api_consumers")
+
 docs_filegroup(
     name = "docs",
     srcs = glob(["*.md"]),

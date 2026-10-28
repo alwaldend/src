@@ -1,6 +1,8 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_license//rules:license.bzl", "license")
 
+package(transitive_visibility = "//data:transitive_consumers")
+
 docs_filegroup(
     name = "docs",
     srcs = glob(["*.md"]) + ["LICENSE.txt"],

@@ -1,6 +1,61 @@
 load("@com_alwaldend_src_npm//:defs.bzl", "npm_link_all_packages")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 
+package(transitive_visibility = "//tools:transitive_consumers")
+
+# Public toolchain types and shared build configuration have no tool artifact
+# boundary. Their declaring packages select this group explicitly.
+package_group(
+    name = "build_api_consumers",
+    packages = ["public"],
+)
+
+package_group(
+    name = "transitive_consumers",
+    packages = [
+        "//",
+        "//.agents/...",
+        "//data/...",
+        "//infra/...",
+        "//third_party/...",
+        "//tools/...",
+        "//users/...",
+        # Repository documentation and developer commands.
+        "//projects/alwaldend.com/...",
+        "//projects/x_article_uploader",
+        # Tests and source generation share some packages with product targets.
+        "//projects/activitywatch_ingester_android/gradle",
+        "//projects/al/cmd/al",
+        "//projects/al/rules/al",
+        "//projects/android_launcher/gradle",
+        "//projects/anki_as_code",
+        "//projects/anki_as_code/docs",
+        "//projects/anki_grpc",
+        "//projects/bazel_deps_analyzer/docs",
+        "//projects/bazel_deps_analyzer/test/...",
+        "//projects/dotfiles/bin",
+        "//projects/dotfiles/home",
+        "//projects/dotfiles/nvim",
+        "//projects/mlops_2026",
+        "//projects/x_article_uploader/test/...",
+        # Explicit release commands, including the aggregate launcher.
+        "//projects",
+        "//projects/activitywatch_ingester_android/releases",
+        "//projects/al/releases",
+        "//projects/android_launcher/releases",
+        "//projects/anki_grpc/releases",
+        "//projects/autoscroll/releases",
+        "//projects/ci_platform/releases",
+        "//projects/dotfiles/releases",
+        "//projects/infinitime/releases",
+        "//projects/kustomization/releases",
+        "//projects/leetcode_downloader/releases",
+        "//projects/nexus_security_plugin/releases",
+        "//projects/sri/releases",
+        "//projects/tf_modules/releases",
+    ],
+)
+
 docs_filegroup(
     name = "docs",
     srcs = glob(["*.md"]),

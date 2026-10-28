@@ -2,6 +2,8 @@ load("@bazel_skylib//rules:build_test.bzl", "build_test")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_python//python/uv:lock.bzl", "lock")
 
+package(transitive_visibility = "//projects:transitive_consumers")
+
 exports_files(
     ["uv.lock"],
     visibility = ["//:__pkg__"],

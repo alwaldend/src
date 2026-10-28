@@ -3,6 +3,14 @@ load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("//projects/al/rules/al:al_binary.bzl", "al_binary_run_map")
 load("//projects/al/rules/al:al_config.bzl", "al_config")
 
+package(transitive_visibility = "//third_party:transitive_consumers")
+
+# External toolchains and reusable build APIs also consume this tree.
+package_group(
+    name = "transitive_consumers",
+    packages = ["public"],
+)
+
 al_config(
     name = "al",
     srcs = ["al.lua"],

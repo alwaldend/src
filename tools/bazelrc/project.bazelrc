@@ -1,5 +1,7 @@
 # Force bazel to load system certificates, required for custom CA to work
 startup --host_jvm_args=-Djavax.net.ssl.trustStore=/usr/lib/jvm/java-latest-openjdk/lib/security/cacerts
+# Enforce generated package policies for direct and transitive dependencies.
+build --experimental_enforce_transitive_visibility=true
 # Setup registries
 common --registry=https://bcr.bazel.build
 # Fix autoload from the preset

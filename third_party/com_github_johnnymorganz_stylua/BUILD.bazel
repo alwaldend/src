@@ -1,5 +1,7 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 
+package(transitive_visibility = "//third_party:transitive_consumers")
+
 alias(
     name = "stylua",
     actual = "@com_github_johnnymorganz_stylua//:stylua_binary",

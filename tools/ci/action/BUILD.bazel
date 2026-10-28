@@ -1,5 +1,7 @@
 load("@aspect_rules_js//js:defs.bzl", "js_test")
 
+package(transitive_visibility = "//tools:transitive_consumers")
+
 filegroup(
     name = "action",
     srcs = [

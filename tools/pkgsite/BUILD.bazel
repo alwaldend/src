@@ -7,6 +7,8 @@ load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 # gazelle:resolve go github.com/google/licensecheck @tools_com_github_google_licensecheck//:go_default_library
 # gazelle:resolve go rsc.io/markdown @tools_io_rsc_markdown//:go_default_library
 
+package(transitive_visibility = "//tools:transitive_consumers")
+
 alias(
     name = "pkgsite",
     actual = "@tools_org_golang_x_pkgsite//cmd/pkgsite",

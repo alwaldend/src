@@ -1,5 +1,7 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 
+package(transitive_visibility = "//data:transitive_consumers")
+
 docs_filegroup(
     name = "docs",
     srcs = glob(["*.md"]) + [":alwaldend.com"],
@@ -24,13 +26,13 @@ filegroup(
 
 filegroup(
     name = "ica_clients",
-    srcs = ["//infra/vault/tf/output:pki_ca_clients"],
+    srcs = ["pki_ca_clients.crt"],
     visibility = ["//:__subpackages__"],
 )
 
 filegroup(
     name = "ica_servers",
-    srcs = ["//infra/vault/tf/output:pki_ca_servers"],
+    srcs = ["pki_ca_servers.crt"],
     visibility = ["//:__subpackages__"],
 )
 

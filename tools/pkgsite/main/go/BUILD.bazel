@@ -1,5 +1,7 @@
 load("@rules_go//go:def.bzl", "go_binary", "go_library")
 
+package(transitive_visibility = "//tools:transitive_consumers")
+
 go_library(
     name = "go_lib",
     srcs = ["tools.go"],

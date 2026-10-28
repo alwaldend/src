@@ -1,0 +1,11 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+
+package(transitive_visibility = "//tools:transitive_consumers")
+
+exports_files(["transitive_visibility.toml"])
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//tools:__pkg__"],
+)

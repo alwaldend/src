@@ -5,6 +5,8 @@ load("//tools/release/main/bzl:al_release_deployment.bzl", "al_release_deploymen
 load("//tools/ssh:defs.bzl", "ssh_binary")
 load("//tools/vault:defs.bzl", "vault_binary_map")
 
+package(transitive_visibility = "//infra:transitive_consumers")
+
 _HOSTS = {
     "local": "host1.dc1.download.alwaldend.com",
     "yandex": "host1.yc.download.alwaldend.com",
@@ -78,7 +80,7 @@ _HOSTS = {
 al_config(
     name = "al",
     srcs = ["al.lua"],
-    data = ["//infra/vault/tf/output:ssh_ca_servers"],
+    data = ["//data/ssh:ca_servers"],
     visibility = ["//infra/download:__subpackages__"],
     deps = ["//infra:al"],
 )

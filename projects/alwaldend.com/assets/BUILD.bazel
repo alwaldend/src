@@ -2,6 +2,8 @@ load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files", "strip_prefix")
 load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_palette")
 
+package(transitive_visibility = "//projects:transitive_consumers")
+
 mermaid_palette(
     name = "mermaid_palette",
     src = "scss/mermaid.scss",

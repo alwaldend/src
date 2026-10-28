@@ -159,7 +159,7 @@ temporary `known_hosts` entry from the repository-owned public SSH CA:
 vault_recovery_dir="${PWD}/out/vault-certificate-recovery"
 mkdir -p "${vault_recovery_dir}"
 printf '@cert-authority host1.vault.alwaldend.com,host1.vault.dc1.alwaldend.com %s\n' \
-  "$(cat infra/vault/tf/output/ssh_ca_servers.crt)" \
+  "$(cat data/ssh/ca_servers.pub)" \
   >"${vault_recovery_dir}/ssh_known_hosts"
 ```
 

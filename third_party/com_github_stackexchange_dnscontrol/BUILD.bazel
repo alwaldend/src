@@ -1,6 +1,8 @@
 load("@com_github_stackexchange_dnscontrol//:defs.bzl", "dnscontrol_binary")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 
+package(transitive_visibility = "//third_party:transitive_consumers")
+
 dnscontrol_binary(
     name = "dnscontrol",
     visibility = ["//:__subpackages__"],

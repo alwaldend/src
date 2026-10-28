@@ -3,6 +3,8 @@ load("//projects/al/rules/al:al_toolchain.bzl", "al_toolchain")
 load("//projects/al/rules/al:al_toolchain_resolved.bzl", "al_toolchain_resolved")
 load("//tools/bzl/main/bzl:al_bzl_library_map.bzl", "al_bzl_library_map")
 
+package(transitive_visibility = "//projects:transitive_consumers")
+
 docs_filegroup(
     name = "docs",
     srcs = glob(["*.md"]),

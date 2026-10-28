@@ -22,7 +22,7 @@ bazel_dep(name = "rules_rust", version = "0.74.0")
 
 # Golang
 bazel_dep(name = "rules_go", version = "0.60.0")
-bazel_dep(name = "gazelle", version = "0.53.0")
+bazel_dep(name = "gazelle", version = "0.54.0")
 
 # Javascript
 bazel_dep(name = "rules_nodejs", version = "6.7.3")
@@ -72,6 +72,12 @@ bazel_dep(name = "rules_oci", version = "2.3.0")
 bazel_dep(name = "rules_distroless", version = "0.6.2")
 
 # Local
+
+bazel_dep(name = "bazel_gazelle_enforce_transitive_visibility", dev_dependency = True)
+local_path_override(
+    module_name = "bazel_gazelle_enforce_transitive_visibility",
+    path = "projects/bazel_gazelle_enforce_transitive_visibility",
+)
 
 bazel_dep(name = "rules_template")
 local_path_override(

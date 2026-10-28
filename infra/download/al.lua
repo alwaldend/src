@@ -35,9 +35,8 @@ infra.ansible_keys({
     vault_ssh = ssh_signing,
 })
 
--- Build-time input: the public host CA remains owned by infra/vault.
-local server_ca_file =
-    assert(io.open("infra/vault/tf/output/ssh_ca_servers.crt"))
+-- Build-time input: the public host CA snapshot is owned by data/ssh.
+local server_ca_file = assert(io.open("data/ssh/ca_servers.pub"))
 local server_ca = assert(server_ca_file:read("*a")):gsub("%s+$", "")
 assert(server_ca_file:close())
 

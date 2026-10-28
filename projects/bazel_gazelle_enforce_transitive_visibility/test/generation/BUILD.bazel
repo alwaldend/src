@@ -1,0 +1,21 @@
+load("@rules_go//go:def.bzl", "go_test")
+
+package(transitive_visibility = "//:transitive_consumers")
+
+go_test(
+    name = "generation_test",
+    size = "small",
+    srcs = [
+        "doc.go",
+        "generation_test.go",
+    ],
+    args = [
+        "-gazelle=$(rlocationpath //cmd/gazelle)",
+        "-go-gazelle=$(rlocationpath //cmd/gazelle:gazelle_go)",
+    ],
+    data = [
+        "//cmd/gazelle",
+        "//cmd/gazelle:gazelle_go",
+    ],
+    deps = ["@rules_go//go/runfiles"],
+)

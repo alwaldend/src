@@ -1,6 +1,8 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_foreign_cc//foreign_cc:configure.bzl", "configure_make")
 
+package(transitive_visibility = "//third_party:transitive_consumers")
+
 docs_filegroup(
     name = "docs",
     srcs = glob(["*.md"]),

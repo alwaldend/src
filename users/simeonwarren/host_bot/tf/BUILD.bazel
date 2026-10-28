@@ -2,6 +2,8 @@ load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_terraform//terraform:defs.bzl", "terraform_binary_map", "terraform_test_map")
 load("//projects/al/rules/al:al_binary.bzl", "al_binary_run")
 
+package(transitive_visibility = "//users:transitive_consumers")
+
 _PROVIDERS = [
     "@terraform_provider_cloudflare_cloudflare//:provider",
     "@terraform_provider_terraform_routeros_routeros//:provider",

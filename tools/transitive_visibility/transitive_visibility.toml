@@ -1,0 +1,16 @@
+# Paths include descendants; the most specific directory mapping wins.
+# Package groups remain defined in the BUILD files of their owning trees.
+[paths]
+"." = "//:transitive_consumers"
+"data" = "//data:transitive_consumers"
+"infra" = "//infra:transitive_consumers"
+"projects" = "//projects:transitive_consumers"
+"third_party" = "//third_party:transitive_consumers"
+"tools" = "//tools:transitive_consumers"
+"tools/bazel_configs" = "//tools:build_api_consumers"
+"tools/drawio/main/bzl" = "//tools:build_api_consumers"
+"tools/git/main/bzl" = "//tools:build_api_consumers"
+"tools/helm/main/bzl" = "//tools:build_api_consumers"
+"tools/kt" = "//tools:build_api_consumers"
+"tools/nogo" = "//tools:build_api_consumers"
+"users" = "//users:transitive_consumers"

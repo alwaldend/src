@@ -4,8 +4,11 @@ load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_python_gazelle_plugin//manifest:defs.bzl", "gazelle_python_manifest")
 load("@rules_python_gazelle_plugin//modules_mapping:def.bzl", "modules_mapping")
 
+package(transitive_visibility = "//tools:transitive_consumers")
+
 gazelle(
     name = "gazelle",
+    args = ["-transitive_visibility_config=tools/transitive_visibility/transitive_visibility.toml"],
     command = "fix",
     gazelle = ":gazelle_bin",
     visibility = ["//:__subpackages__"],
@@ -19,6 +22,7 @@ gazelle_binary(
         "@rules_promptfoo_gazelle//gazelle",
         "@rules_python_gazelle_plugin//python:python",
         "@rules_skill_gazelle//gazelle",
+        "@bazel_gazelle_enforce_transitive_visibility//pkg/gazelle",
     ],
     visibility = ["//:__subpackages__"],
 )

@@ -13,6 +13,8 @@ Rules to create a bazel environment which functions similar to venv
 ## Features
 
 - Adds bazel-built tools to `${PATH}`
+- Exposes each executable under its configured `tools` dictionary key,
+  independently of the underlying binary's filename, and retains its runfiles
 - Exports .env
 
 ## Usage

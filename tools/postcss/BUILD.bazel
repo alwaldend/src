@@ -1,6 +1,8 @@
 load("@com_alwaldend_src_npm//tools:postcss-cli/package_json.bzl", postcss = "bin")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 
+package(transitive_visibility = "//tools:transitive_consumers")
+
 postcss.postcss_binary(
     name = "postcss",
     data = [

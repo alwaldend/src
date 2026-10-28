@@ -2,6 +2,8 @@ load("@aspect_bazel_lib//lib:run_binary.bzl", "run_binary")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_site_svg", "mermaid_site_webp")
 
+package(transitive_visibility = "//projects:transitive_consumers")
+
 run_binary(
     name = "cli_reference",
     args = ["--output=$@"],

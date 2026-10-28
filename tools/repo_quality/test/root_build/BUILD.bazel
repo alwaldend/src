@@ -1,5 +1,7 @@
 load("@rules_go//go:def.bzl", "go_test")
 
+package(transitive_visibility = "//tools:transitive_consumers")
+
 # gazelle:resolve go github.com/bazelbuild/buildtools/build @tools_com_github_bazelbuild_buildtools//build:go_default_library
 
 go_test(

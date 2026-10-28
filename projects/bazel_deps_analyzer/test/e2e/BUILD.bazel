@@ -4,6 +4,8 @@ load("//projects/bazel_deps_analyzer:defs.bzl", "bazel_deps_mermaid", "bazel_dep
 load("//tools/mermaid:defs.bzl", "mermaid_webp")
 load(":inputs_fixture.bzl", "filter_inputs_fixture", "inputs_fixture", "string_inputs_fixture")
 
+package(transitive_visibility = "//projects:transitive_consumers")
+
 package_group(
     name = "fixture_visibility",
     packages = ["//projects/bazel_deps_analyzer/test/e2e"],

@@ -1,5 +1,7 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 
+package(transitive_visibility = "//data:transitive_consumers")
+
 docs_filegroup(
     name = "docs",
     srcs = glob(["*.md"]) + [":ssh"],
@@ -19,15 +21,15 @@ filegroup(
     ],
 )
 
-alias(
+filegroup(
     name = "ca_clients",
-    actual = "//infra/vault/tf/output:ssh_ca_clients",
+    srcs = ["ca_clients.pub"],
     visibility = ["//:__subpackages__"],
 )
 
-alias(
+filegroup(
     name = "ca_servers",
-    actual = "//infra/vault/tf/output:ssh_ca_servers",
+    srcs = ["ca_servers.pub"],
     visibility = ["//:__subpackages__"],
 )
 

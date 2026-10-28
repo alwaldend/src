@@ -1,6 +1,8 @@
 load("@org_rclone_rclone//:defs.bzl", "rclone_binary")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 
+package(transitive_visibility = "//third_party:transitive_consumers")
+
 docs_filegroup(
     name = "docs",
     srcs = glob(["*.md"]),

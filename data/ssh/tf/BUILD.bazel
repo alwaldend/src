@@ -1,0 +1,47 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("@rules_terraform//terraform:defs.bzl", "terraform_binary_map", "terraform_test", "terraform_test_map")
+load("//projects/al/rules/al:al_binary.bzl", "al_binary_run")
+
+package(transitive_visibility = "//data:transitive_consumers")
+
+_PROVIDERS = [
+    "@terraform_provider_hashicorp_local//:provider",
+    "@terraform_provider_hashicorp_vault//:provider",
+]
+
+terraform_binary_map(
+    name = "tf",
+    srcs = ["main.tf"],
+    data = ["//tools/vault/injector"],
+    providers = _PROVIDERS,
+    wrapper = al_binary_run,
+    wrapper_kwargs = {
+        "configs": ["//tools/al:config"],
+        "run_args": [
+            "--plugin_label",
+            "vault_env=default_default",
+        ],
+    },
+)
+
+terraform_test_map(
+    name = "tf_tests",
+    srcs = ["main.tf"],
+    providers = _PROVIDERS,
+)
+
+terraform_test(
+    name = "validate_test",
+    srcs = ["main.tf"],
+    arguments = [
+        "validate",
+        "-no-color",
+    ],
+    providers = _PROVIDERS,
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//data/ssh:__pkg__"],
+)

@@ -17,3 +17,8 @@ facts remain public even when they describe generated or live state.
 - Bazel targets MUST use repository-internal visibility.
 - User artifacts MUST NOT be published.
 - User targets MUST NOT be dependencies of production build targets.
+
+`//users:transitive_consumers` enforces the tree boundary through the inherited
+Gazelle directive. Its website exception preserves repository documentation
+and documentation update commands. As with all transitive package policies,
+the exception covers every target in the allowed consumer package.

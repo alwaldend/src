@@ -1,5 +1,7 @@
 load("@aspect_rules_js//js:defs.bzl", "js_binary")
 
+package(transitive_visibility = "//projects:transitive_consumers")
+
 js_binary(
     name = "search_index",
     data = ["//tools:node_modules/lunr"],

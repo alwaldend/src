@@ -1,6 +1,8 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("//projects/leetcode_downloader/main/bzl:al_leetcode_submissions.bzl", "al_leetcode_submissions")
 
+package(transitive_visibility = "//users:transitive_consumers")
+
 docs_filegroup(
     name = "docs",
     srcs = glob(["*.md"]),
