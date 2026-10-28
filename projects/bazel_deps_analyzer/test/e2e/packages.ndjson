@@ -1,0 +1,12 @@
+{"type":"RULE","rule":{"name":"//tools/a/deep:main","ruleClass":"filegroup","ruleInput":["//tools/b:make","//projects/app:main","//:source","//:generated","@one//:lib","//missing:shared","//missing:shared"]}}
+{"type":"RULE","rule":{"name":"//tools/b:make","ruleClass":"write_file","ruleInput":["//tools/a/deep:main","//projects/app:main","//missing:shared"]}}
+{"type":"RULE","rule":{"name":"//projects/app:main","ruleClass":"filegroup","ruleInput":["//tools/a/deep:main","//external:bridge","//projects/app:main"]}}
+{"type":"SOURCE_FILE","sourceFile":{"name":"//:source"}}
+{"type":"GENERATED_FILE","generatedFile":{"name":"//:generated","generatingRule":"//tools/b:make"}}
+{"type":"RULE","rule":{"name":"@one//:lib","ruleClass":"filegroup","ruleInput":["@@two+//nested:lib","//projects/app:main","@absent//:lib"]}}
+{"type":"RULE","rule":{"name":"@@two+//nested:lib","ruleClass":"filegroup"}}
+{"type":"RULE","rule":{"name":"//external:bridge","ruleClass":"filegroup","ruleInput":["@@two+//nested:lib"]}}
+{"type":"RULE","rule":{"name":"//isolated:alone","ruleClass":"filegroup"}}
+{"type":"RULE","rule":{"name":"@@//root:local","ruleClass":"filegroup"}}
+{"type":"RULE","rule":{"name":"@//External:local","ruleClass":"filegroup"}}
+{"type":"RULE","rule":{"name":"//tools/b:make","ruleClass":"write_file","ruleInput":["//missing:shared","//projects/app:main","//tools/a/deep:main","//projects/app:main"]}}

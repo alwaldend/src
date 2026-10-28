@@ -5,6 +5,9 @@ import (
 	"slices"
 )
 
+// packageLayoutDirective selects the shared automatic grouped-graph layout.
+const packageLayoutDirective = "%%{init: {\"layout\": \"elk\", \"elk\": {\"nodePlacementStrategy\": \"NETWORK_SIMPLEX\", \"mergeEdges\": true}}}%%\n"
+
 // packageTree organizes selected target identities for either diagram serializer.
 type packageTree struct {
 	// parts holds each target's parsed repository, package, and short name.

@@ -80,6 +80,16 @@ func command(t *testing.T, input string, args ...string) ([]byte, error) {
 	return stdout.Bytes(), nil
 }
 
+// targetCommand executes the target converter with the public subcommand.
+func targetCommand(t *testing.T, input string, args ...string) ([]byte, error) {
+	t.Helper()
+	output, err := command(t, input, append([]string{"analyze", "target"}, args...)...)
+	if err != nil {
+		return output, fmt.Errorf("analyze target command: %w", err)
+	}
+	return output, nil
+}
+
 // graph checks semantic labels and edges without depending on identifier order.
 func graph(t *testing.T, output []byte, labels []string, edges [][2]string) {
 	t.Helper()
@@ -124,7 +134,7 @@ func TestCommand(t *testing.T) {
 	}
 	input := strings.Join(records, "\n")
 	args := []string{"--root=//fixture:root"}
-	output, err := command(t, input, args...)
+	output, err := targetCommand(t, input, args...)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -136,12 +146,12 @@ func TestCommand(t *testing.T) {
 		{"//fixture:shared", "//fixture:root"},
 	})
 	slices.Reverse(records)
-	reordered, err := command(t, strings.Join(records, "\n"), args...)
+	reordered, err := targetCommand(t, strings.Join(records, "\n"), args...)
 	if err != nil || !bytes.Equal(output, reordered) {
 		t.Fatalf("record ordering changed output: %v", err)
 	}
 	for _, direction := range []string{"LR", "RL", "TB", "BT"} {
-		limited, err := command(t, input, "--root=@@//fixture:root", "--depth=0", "--direction="+direction)
+		limited, err := targetCommand(t, input, "--root=@@//fixture:root", "--depth=0", "--direction="+direction)
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -150,21 +160,21 @@ func TestCommand(t *testing.T) {
 			t.Fatalf("direction %s missing: %s", direction, limited)
 		}
 	}
-	limited, err := command(t, input, "--root=//fixture:root", "--depth=1")
+	limited, err := targetCommand(t, input, "--root=//fixture:root", "--depth=1")
 	if err != nil {
 		t.Fatal(err)
 	}
 	graph(t, limited, []string{"//fixture:root", "//fixture:a", "//fixture:b"}, [][2]string{
 		{"//fixture:root", "//fixture:a"}, {"//fixture:root", "//fixture:b"},
 	})
-	complete, err := command(t, input, "--root=//fixture:root", "--include-files", "--include-external")
+	complete, err := targetCommand(t, input, "--root=//fixture:root", "--include-files", "--include-external")
 	if err != nil {
 		t.Fatal(err)
 	}
 	if !bytes.Contains(complete, []byte("@ext//:lib")) || !bytes.Contains(complete, []byte("//fixture:output")) || strings.Count(string(complete), " --> ") != 9 {
 		t.Fatalf("file/external edges missing: %s", complete)
 	}
-	generated, err := command(t, input, "--root=//fixture:output", "--include-files")
+	generated, err := targetCommand(t, input, "--root=//fixture:output", "--include-files")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -174,32 +184,32 @@ func TestCommand(t *testing.T) {
 {"type":"ENVIRONMENT_GROUP","environmentGroup":{"name":"//fixture:environments","environment":["//fixture:environment"]}}
 {"type":"RULE","rule":{"name":"//fixture:environment","ruleClass":"environment"}}`
 	for _, pair := range [][2]string{{"//fixture:group", "//fixture:included"}, {"//fixture:environments", "//fixture:environment"}} {
-		group, err := command(t, groups, "--root="+pair[0])
+		group, err := targetCommand(t, groups, "--root="+pair[0])
 		if err != nil {
 			t.Fatal(err)
 		}
 		graph(t, group, []string{pair[0], pair[1]}, [][2]string{pair})
 	}
 	for _, invalid := range []string{"", `{`, `[]`, `{}`, `null`, `{"type":"RULE","rule":{}}`, input + ` {`, input + ` {"type":"RULE","rule":{"name":"//fixture:root","ruleClass":"other"}}`} {
-		result, err := command(t, invalid, args...)
+		result, err := targetCommand(t, invalid, args...)
 		if err == nil || len(result) != 0 {
 			t.Fatalf("invalid input succeeded or wrote partial output: %q: %v %s", invalid, err, result)
 		}
 	}
 	for _, invalidArgs := range [][]string{{"--root=//missing:root"}, {"--root=//fixture:root", "--depth=-2"}, {"--root=//fixture:root", "--direction=invalid"}, {}} {
-		if result, err := command(t, input, invalidArgs...); err == nil || len(result) != 0 {
+		if result, err := targetCommand(t, input, invalidArgs...); err == nil || len(result) != 0 {
 			t.Fatalf("invalid arguments succeeded: %v: %v %s", invalidArgs, err, result)
 		}
 	}
 	resultPath := filepath.Join(t.TempDir(), "output.mmd")
-	if _, err := command(t, `{`, "--root=//fixture:root", "--output="+resultPath); err == nil {
+	if _, err := targetCommand(t, `{`, "--root=//fixture:root", "--output="+resultPath); err == nil {
 		t.Fatal("malformed input accepted")
 	}
 	if _, err := os.Stat(resultPath); !os.IsNotExist(err) {
 		t.Fatalf("partial output created: %v", err)
 	}
 	label := `//fixture:quote"<b>&#35;[x]%%{init}`
-	escaped, err := command(t, `{"type":"RULE","rule":{"name":"//fixture:quote\"<b>&#35;[x]%%{init}","ruleClass":"filegroup"}}`, "--root="+label)
+	escaped, err := targetCommand(t, `{"type":"RULE","rule":{"name":"//fixture:quote\"<b>&#35;[x]%%{init}","ruleClass":"filegroup"}}`, "--root="+label)
 	if err != nil || bytes.Contains(escaped, []byte(`<b>`)) || bytes.Contains(escaped, []byte(`%%{init}`)) || !bytes.Contains(escaped, []byte(`#34;`)) || !bytes.Contains(escaped, []byte(`#38;#35;`)) {
 		t.Fatalf("unsafe label output: %v: %s", err, escaped)
 	}
@@ -214,7 +224,7 @@ func TestExternalLeaves(t *testing.T) {
 {"type":"RULE","rule":{"name":"@@ext+//:transitive","ruleClass":"filegroup"}}
 {"type":"RULE","rule":{"name":"//fixture:external_only","ruleClass":"filegroup"}}
 {"type":"RULE","rule":{"name":"//fixture:shared","ruleClass":"filegroup"}}`
-	leaves, err := command(t, input, "--root=//fixture:root", "--external-leaves")
+	leaves, err := targetCommand(t, input, "--root=//fixture:root", "--external-leaves")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -228,22 +238,22 @@ func TestExternalLeaves(t *testing.T) {
 	}
 	graph(t, leaves, labels, edges)
 	externalContainer(t, leaves)
-	combined, err := command(t, input, "--root=//fixture:root", "--include-external", "--external-leaves")
+	combined, err := targetCommand(t, input, "--root=//fixture:root", "--include-external", "--external-leaves")
 	if err != nil || !bytes.Equal(leaves, combined) {
 		t.Fatalf("explicit inclusion changed external-leaf behavior: %v", err)
 	}
-	limited, err := command(t, input, "--root=//fixture:root", "--external-leaves", "--depth=1")
+	limited, err := targetCommand(t, input, "--root=//fixture:root", "--external-leaves", "--depth=1")
 	if err != nil {
 		t.Fatal(err)
 	}
 	graph(t, limited, []string{"//fixture:root", "//fixture:local", "@@ext+//:first", "@other//:first"}, edges[:4])
-	root, err := command(t, input, "--root=@@ext+//:first", "--external-leaves")
+	root, err := targetCommand(t, input, "--root=@@ext+//:first", "--external-leaves")
 	if err != nil {
 		t.Fatal(err)
 	}
 	graph(t, root, []string{"@@ext+//:first"}, nil)
 	externalContainer(t, root)
-	defaults, err := command(t, input, "--root=//fixture:root")
+	defaults, err := targetCommand(t, input, "--root=//fixture:root")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -253,7 +263,7 @@ func TestExternalLeaves(t *testing.T) {
 	if bytes.Contains(defaults, []byte(`subgraph x0["External"]`)) {
 		t.Fatal("hidden external targets left an empty container")
 	}
-	expanded, err := command(t, input, "--root=//fixture:root", "--include-external")
+	expanded, err := targetCommand(t, input, "--root=//fixture:root", "--include-external")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -364,29 +374,29 @@ func TestPackageGrouping(t *testing.T) {
 		t.Fatal(err)
 	}
 	args := []string{"--root=//app:root", "--external-leaves", "--include-files", "--group-by-package"}
-	output, err := command(t, string(input), args...)
+	output, err := targetCommand(t, string(input), args...)
 	if err != nil {
 		t.Fatal(err)
 	}
 	groupedGraph(t, output)
 	records := strings.Split(strings.TrimSpace(string(input)), "\n")
 	slices.Reverse(records)
-	reordered, err := command(t, strings.Join(records, "\n"), args...)
+	reordered, err := targetCommand(t, strings.Join(records, "\n"), args...)
 	if err != nil || !bytes.Equal(output, reordered) {
 		t.Fatalf("group ordering changed: %v", err)
 	}
 	flatArgs := args[:len(args)-1]
-	flat, err := command(t, string(input), flatArgs...)
+	flat, err := targetCommand(t, string(input), flatArgs...)
 	if err != nil || bytes.Contains(flat, []byte("subgraph p")) || bytes.Contains(flat, []byte("subgraph r")) || !bytes.Contains(flat, []byte("//app:root<br/>")) {
 		t.Fatalf("flat default changed: %v: %s", err, flat)
 	}
 	externalContainer(t, flat)
-	explicitFlat, err := command(t, string(input), append(flatArgs, "--group-by-package=false")...)
+	explicitFlat, err := targetCommand(t, string(input), append(flatArgs, "--group-by-package=false")...)
 	if err != nil || !bytes.Equal(flat, explicitFlat) {
 		t.Fatalf("explicit flat output differs: %v", err)
 	}
 	hostile := `{"type":"RULE","rule":{"name":"//quote\"<b>[pkg]:end","ruleClass":"filegroup"}}`
-	escaped, err := command(t, hostile, `--root=//quote"<b>[pkg]:end`, "--group-by-package")
+	escaped, err := targetCommand(t, hostile, `--root=//quote"<b>[pkg]:end`, "--group-by-package")
 	if err != nil || bytes.Contains(escaped, []byte("<b>")) || !bytes.Contains(escaped, []byte(`#34;#60;b#62;#91;pkg#93;`)) {
 		t.Fatalf("unsafe package caption: %v: %s", err, escaped)
 	}
@@ -457,11 +467,11 @@ func TestMindmap(t *testing.T) {
 		t.Fatal(err)
 	}
 	args := []string{"--root=//app:root", "--external-leaves", "--include-files"}
-	defaults, err := command(t, string(input), args...)
+	defaults, err := targetCommand(t, string(input), args...)
 	if err != nil {
 		t.Fatal(err)
 	}
-	explicit, err := command(t, string(input), append(slices.Clone(args), "--diagram-type=flowchart")...)
+	explicit, err := targetCommand(t, string(input), append(slices.Clone(args), "--diagram-type=flowchart")...)
 	if err != nil || !bytes.Equal(defaults, explicit) {
 		t.Fatalf("explicit flowchart differs from default: %v", err)
 	}
@@ -469,14 +479,14 @@ func TestMindmap(t *testing.T) {
 	labels := []string{"//app:root", "//app:left", "//lib:shared", "@@ext_one+//client:shared", "@@ext_one+//:shared", "@ext_two//client:shared", "@@ext_one+//client:api.proto"}
 	for _, grouped := range []bool{false, true} {
 		modeArgs := append(slices.Clone(args), fmt.Sprintf("--group-by-package=%t", grouped))
-		output, err := command(t, string(input), modeArgs...)
+		output, err := targetCommand(t, string(input), modeArgs...)
 		if err != nil {
 			t.Fatal(err)
 		}
 		mindmap(t, output, grouped, labels)
 		records := strings.Split(strings.TrimSpace(string(input)), "\n")
 		slices.Reverse(records)
-		reordered, err := command(t, strings.Join(records, "\n"), modeArgs...)
+		reordered, err := targetCommand(t, strings.Join(records, "\n"), modeArgs...)
 		if err != nil || !bytes.Equal(output, reordered) {
 			t.Fatalf("mindmap changed with record order: %v", err)
 		}
@@ -493,7 +503,7 @@ func TestMindmap(t *testing.T) {
 		{[]string{"--root=//app:root", "--include-files", "--include-external"}, append(slices.Clone(labels), "@@ext_one+//internal:hidden")},
 		{[]string{"--root=@@ext_one+//client:shared", "--external-leaves"}, []string{"@@ext_one+//client:shared"}},
 	} {
-		output, err := command(t, string(input), append(selection.args, "--diagram-type=mindmap", "--group-by-package")...)
+		output, err := targetCommand(t, string(input), append(selection.args, "--diagram-type=mindmap", "--group-by-package")...)
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -501,19 +511,19 @@ func TestMindmap(t *testing.T) {
 	}
 	cycle := `{"type":"RULE","rule":{"name":"//cycle:a","ruleClass":"filegroup","ruleInput":["//cycle:b","//cycle:b"]}}
 {"type":"RULE","rule":{"name":"//cycle:b","ruleClass":"filegroup","ruleInput":["//cycle:a"]}}`
-	output, err := command(t, cycle, "--root=//cycle:a", "--diagram-type=mindmap")
+	output, err := targetCommand(t, cycle, "--root=//cycle:a", "--diagram-type=mindmap")
 	if err != nil {
 		t.Fatal(err)
 	}
 	mindmap(t, output, false, []string{"//cycle:a", "//cycle:b"})
 	hostile := `{"type":"RULE","rule":{"name":"//quote\"<b>[pkg]:end","ruleClass":"filegroup"}}`
-	escaped, err := command(t, hostile, `--root=//quote"<b>[pkg]:end`, "--diagram-type=mindmap", "--group-by-package")
+	escaped, err := targetCommand(t, hostile, `--root=//quote"<b>[pkg]:end`, "--diagram-type=mindmap", "--group-by-package")
 	if err != nil || bytes.Contains(escaped, []byte("<b>")) || !bytes.Contains(escaped, []byte(`#34;#60;b#62;#91;pkg#93;`)) {
 		t.Fatalf("unsafe mindmap caption: %v: %s", err, escaped)
 	}
 	outputPath := filepath.Join(t.TempDir(), "invalid.mmd")
 	invalidArgs := []string{"--root=//app:root", "--diagram-type=invalid", "--output=" + outputPath}
-	if result, err := command(t, string(input), invalidArgs...); err == nil || len(result) != 0 {
+	if result, err := targetCommand(t, string(input), invalidArgs...); err == nil || len(result) != 0 {
 		t.Fatalf("unknown diagram type succeeded: %v", err)
 	}
 	if _, err := os.Stat(outputPath); !os.IsNotExist(err) {
@@ -522,7 +532,7 @@ func TestMindmap(t *testing.T) {
 	if err := os.WriteFile(outputPath, []byte("existing diagram"), 0o644); err != nil {
 		t.Fatal(err)
 	}
-	if _, err := command(t, string(input), invalidArgs...); err == nil {
+	if _, err := targetCommand(t, string(input), invalidArgs...); err == nil {
 		t.Fatal("unknown diagram type accepted")
 	}
 	unchanged, err := os.ReadFile(outputPath)

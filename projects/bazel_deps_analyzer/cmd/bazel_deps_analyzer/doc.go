@@ -1,3 +1,4 @@
-// Package main exposes the Bazel JSON-to-Mermaid converter as a command. It owns
-// flags and input/output files; the graph package owns conversion semantics.
+// Package main exposes target and package analysis under the analyze command.
+// It owns flags and input/output files; the graph package owns construction
+// and Mermaid/JSON conversion semantics.
 package main
