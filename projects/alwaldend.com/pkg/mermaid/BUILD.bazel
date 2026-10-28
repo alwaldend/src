@@ -1,4 +1,7 @@
 exports_files(
-    ["theme.json"],
+    [
+        "color-schemes.json",
+        "theme.json",
+    ],
     visibility = ["//:__subpackages__"],
 )

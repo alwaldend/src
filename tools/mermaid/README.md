@@ -225,7 +225,7 @@ pipeline; a diagram's own look still comes from `theme.json`.
 The main site's `mermaid_site_svg` macro lives in
 [`projects/alwaldend.com/pkg/mermaid/defs.bzl`](../../projects/alwaldend.com/pkg/mermaid/defs.bzl).
 It selects `mermaid_svg(native = True)` with the site's own configuration,
-compiled palette, and pinned Liberation Sans font. It does not inherit the
+compiled palette, and pinned site font. It does not inherit the
 historical theme or actor decoration. Its own preset restores rounded caption
 plates using Mermaid's `themeCSS` and flowchart settings. The site's compact
 preset uses basis curves and `flowchart.edgeSpacing`; the
@@ -316,7 +316,7 @@ a WebP fixture and asserts the raster reproduces the SVG canvas at the rule's
 scale, so a raster that stopped following the maintained document fails there.
 `test/renderer/native_raster_test.mjs` compares light and dark native WebPs with
 their separately built SVGs, checks each selected site palette, visible label
-pixels, and the embedded sans-serif font, and verifies unchanged scaled canvas
+pixels, and the embedded site font, and verifies unchanged scaled canvas
 geometry. The test saves each reference and actual image and a JSON measurement
 report in its undeclared outputs for repeatable inspection.
 `test/renderer/aspect_ratio_test.mjs` checks horizontal and vertical padding,

@@ -4,7 +4,7 @@ load("//tools/mermaid:defs.bzl", "mermaid_svg", "mermaid_webp")
 
 _SITE_THEME = "//projects/alwaldend.com/pkg/mermaid:theme.json"
 _SITE_PALETTE = "//projects/alwaldend.com/assets:mermaid_palette"
-_SITE_FONT = "@com_alwaldend_src_tools_drawio_fonts//:LiberationSans-Regular.ttf"
+_SITE_FONT = "@com_alwaldend_src_tools_drawio_fonts//:LiberationMono-Regular.ttf"
 
 def _mermaid_palette_impl(ctx):
     ctx.actions.run(

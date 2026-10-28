@@ -1,0 +1,24 @@
+erDiagram
+    direction LR
+    AUTHOR ||--o{ DOCUMENT : submits
+    DOCUMENT ||--|{ REVISION : contains
+    DOCUMENT ||..o{ INDEX_ENTRY : produces
+    AUTHOR {
+        string id PK
+        string name
+    }
+    DOCUMENT {
+        string id PK
+        string author_id FK
+        string title
+    }
+    REVISION {
+        string document_id PK, FK
+        int number PK
+        string text
+    }
+    INDEX_ENTRY {
+        string id PK
+        string document_id FK
+        string terms
+    }

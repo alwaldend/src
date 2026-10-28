@@ -354,10 +354,11 @@ try {
                 y: parseFloat(getComputedStyle(element).ry),
             })),
         }));
-        // The previous 2120 × 790 diagram crowded nested titles. Require a
-        // smaller canvas and enough separation for two-line title plates.
+        // The previous 2120 × 790 diagram crowded nested titles. Monospace
+        // labels widen this fixture; retain a compact canvas while checking
+        // separated titles and contained children directly below.
         assert.ok(
-            details.geometry.width < 1700 && details.geometry.height < 790,
+            details.geometry.width < 1800 && details.geometry.height < 790,
             JSON.stringify(details.geometry),
         );
         assert.ok(
@@ -370,7 +371,7 @@ try {
             details.geometry.curvedEdges > 0,
             "Connectors have smooth bends",
         );
-        assert.ok(details.font.includes("Liberation Sans"));
+        assert.ok(details.font.includes("Liberation Mono"));
         const palette = report.find((entry) => entry.mode === diagram.mode);
         const ink = `rgb(${palette.foreground.join(", ")})`;
         assert.equal(

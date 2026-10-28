@@ -1,0 +1,54 @@
+{
+    "cobalt": {
+        "font": "Sans",
+        "fontSize": 16,
+        "captionSize": 14,
+        "titleSize": 13,
+        "nodeRadius": 2,
+        "containerRadius": 0,
+        "captionRadius": 0,
+        "curve": "linear",
+        "linecap": "butt",
+        "canvasNodes": false,
+        "colorScheme": "cobalt"
+    },
+    "editorial": {
+        "font": "Serif",
+        "fontSize": 17,
+        "captionSize": 15,
+        "titleSize": 14,
+        "nodeRadius": 0,
+        "containerRadius": 0,
+        "captionRadius": 2,
+        "curve": "basis",
+        "linecap": "round",
+        "canvasNodes": true,
+        "colorScheme": "editorial"
+    },
+    "teal": {
+        "font": "Sans",
+        "fontSize": 16,
+        "captionSize": 14,
+        "titleSize": 13,
+        "nodeRadius": 6,
+        "containerRadius": 8,
+        "captionRadius": 2,
+        "curve": "basis",
+        "linecap": "round",
+        "canvasNodes": false,
+        "colorScheme": "teal"
+    },
+    "violet": {
+        "font": "Mono",
+        "fontSize": 15,
+        "captionSize": 14,
+        "titleSize": 13,
+        "nodeRadius": 2,
+        "containerRadius": 0,
+        "captionRadius": 0,
+        "curve": "linear",
+        "linecap": "butt",
+        "canvasNodes": false,
+        "colorScheme": "violet"
+    }
+}

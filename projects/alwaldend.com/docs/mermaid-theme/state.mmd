@@ -1,0 +1,15 @@
+stateDiagram-v2
+    direction LR
+    [*] --> Queued
+    Queued --> Processing: claim
+    state Processing {
+        [*] --> Validate
+        Validate --> Index: valid
+        Index --> [*]
+    }
+    Processing --> Complete: stored
+    Processing --> Failed: invalid
+    Failed --> Queued: retry
+    Queued --> Cancelled: withdraw
+    Complete --> [*]
+    Cancelled --> [*]

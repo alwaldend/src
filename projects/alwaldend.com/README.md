@@ -52,9 +52,12 @@ roots also reduce the HTML sent to readers. All tags remain available.
 
 Documentation Mermaid images use the same light/dark palette and follow the
 theme menu, including system preference. They use clean, rounded nodes and
-containers, smooth connectors, embedded sans-serif lettering, and Mermaid's
-native Dagre layout, with bordered caption plates for edge labels and container
-titles. The `mermaid_site_svg` macro in `pkg/mermaid/defs.bzl`
+containers, smooth connectors, embedded Liberation Mono lettering, and Mermaid's
+native Dagre layout. Normal graph connectors are 2.25px, while thick, dashed,
+invisible, and semantic marker distinctions remain native. Caption plates use
+muted borders; sequence lifelines are thinner and grayer than messages.
+Mindmaps use the site's surfaces, text, and connector colors in both modes.
+The `mermaid_site_svg` macro in `pkg/mermaid/defs.bzl`
 derives light/dark configurations from the shared Sass palette and renders both
 SVGs through the native Mermaid API without post-processing. The preset supplies
 caption styling through `themeCSS` and places titles on container borders with
@@ -64,13 +67,24 @@ outputs and reference the light `.svg`; Markdown and the SVG shortcode recognize
 its `.dark.svg` sibling. The site theme selects the visible image, and print
 always uses light. Historical blog diagrams retain their original files and
 presentation. New raster diagrams can use `mermaid_site_webp` from the same
-macro file to encode the native diagram with the site's palette and sans-serif
+macro file to encode the native diagram with the site's palette and monospace
 font for syndication and social previews. Set `color_scheme = "dark"` to select
 the dark palette; the default remains light.
 The homepage panel links to GitHub, GitLab, Blog, Docs, and the project index,
 followed by permanently visible, indented project links in title order.
 Each row shows its destination alongside its title; narrow screens place the
 destination below the title. The panel has space below the fixed header.
+
+The [Mermaid theme gallery](docs/mermaid-theme/README.md) shows flowchart,
+sequence, state, class, entity-relationship, and mindmap examples in the current
+site theme. Each source builds light and dark SVGs for visual comparison.
+
+`pkg/mermaid/color-schemes.json` saves the Cobalt drafting, Warm editorial,
+Teal surfaces, and Violet technical color schemes in both modes. Each has
+named canvas, surface, ink, outline, accent, and muted-border colors. This is
+an inactive palette catalog; the render macro still selects the neutral
+palette from `assets/scss/mermaid.scss`. Typography and geometry stay in the
+theme preset, independently of these saved colors.
 
 ## Local preview and validation
 
@@ -80,6 +94,7 @@ Run from the repository root:
 bazel_agent bazel build //projects/alwaldend.com:site
 bazel_agent bazel test //projects/alwaldend.com:site_test
 bazel_agent bazel test //projects/alwaldend.com/test/mermaid:mermaid_test \
+  //projects/alwaldend.com/test/mermaid:readability_test \
   //projects/alwaldend.com/test/search:search_test
 bazel_agent bazel run //projects/alwaldend.com:site_serve
 ```
@@ -105,9 +120,11 @@ The mindmap reuses the existing JSON capture and shared site appearance.
 The Mermaid browser check writes screenshots and a JSON report to its Bazel
 test outputs. It exercises the theme menu, saved and system preferences,
 mobile layout, documentation print output, and blog header and body images.
+The readability check measures the six gallery types and semantic edge cases
+at article and mobile widths, retaining screenshots and contrast measurements.
 The search browser check verifies loading, retry, stale-query handling, result
 safety, owner navigation, the complete tag catalogue, and mobile navigation.
-Both browser checks serve their assets locally and need no external network.
+These browser checks need no external network.
 
 ## Search
 

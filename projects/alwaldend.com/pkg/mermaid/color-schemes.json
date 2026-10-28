@@ -1,0 +1,78 @@
+{
+    "cobalt": {
+        "title": "Cobalt drafting",
+        "light": {
+            "canvas": "#F6F8FC",
+            "surface": "#FFFFFF",
+            "ink": "#1A2C46",
+            "outline": "#577292",
+            "accent": "#245CD4",
+            "mutedBorder": "#CBD5E3"
+        },
+        "dark": {
+            "canvas": "#111A28",
+            "surface": "#1B2A3E",
+            "ink": "#E7EFFA",
+            "outline": "#829ABA",
+            "accent": "#95B7FF",
+            "mutedBorder": "#384B65"
+        }
+    },
+    "editorial": {
+        "title": "Warm editorial",
+        "light": {
+            "canvas": "#FAF7F0",
+            "surface": "#F0E8DB",
+            "ink": "#302A24",
+            "outline": "#8E7864",
+            "accent": "#9F4932",
+            "mutedBorder": "#D8CCBC"
+        },
+        "dark": {
+            "canvas": "#211D19",
+            "surface": "#302923",
+            "ink": "#F2E8DA",
+            "outline": "#A7937C",
+            "accent": "#E5A188",
+            "mutedBorder": "#514539"
+        }
+    },
+    "teal": {
+        "title": "Teal surfaces",
+        "light": {
+            "canvas": "#FFFFFF",
+            "surface": "#E9F3F0",
+            "ink": "#193C34",
+            "outline": "#58796F",
+            "accent": "#176E59",
+            "mutedBorder": "#CBD9D3"
+        },
+        "dark": {
+            "canvas": "#212121",
+            "surface": "#263A35",
+            "ink": "#E4F2EB",
+            "outline": "#8BAD9F",
+            "accent": "#83D4B5",
+            "mutedBorder": "#42584F"
+        }
+    },
+    "violet": {
+        "title": "Violet technical",
+        "light": {
+            "canvas": "#FAF9FC",
+            "surface": "#EFEAF6",
+            "ink": "#292137",
+            "outline": "#7D6B91",
+            "accent": "#684B92",
+            "mutedBorder": "#D8D0E1"
+        },
+        "dark": {
+            "canvas": "#19151F",
+            "surface": "#2B2235",
+            "ink": "#EDE5F6",
+            "outline": "#AA96BE",
+            "accent": "#C5A4F0",
+            "mutedBorder": "#51435E"
+        }
+    }
+}
