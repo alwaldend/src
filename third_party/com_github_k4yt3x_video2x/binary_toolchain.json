@@ -1,0 +1,37 @@
+{
+    "toolchains": [
+        {
+            "name": "video2x",
+            "version": "6.4.0"
+        }
+    ],
+    "archives": [
+        {
+            "toolchain_name": "video2x",
+            "toolchain_version": "6.4.0",
+            "archive_name": "linux_x86_64",
+            "binaries": [
+                {
+                    "name": "video2x",
+                    "path": "out/Video2X-x86_64.AppImage"
+                }
+            ],
+            "actions": [
+                {
+                    "download": {
+                        "url": "https://github.com/k4yt3x/video2x/releases/download/6.4.0/Video2X-x86_64.AppImage",
+                        "output": "out/Video2X-x86_64.AppImage",
+                        "executable": true,
+                        "integrity": "sha256-gjj8ODJRB/CgihQNBpuu49uAxax0cLClFsxoMYP1+S0="
+                    }
+                }
+            ],
+            "toolchain": {
+                "exec_compatible_with": [
+                    "@platforms//os:linux",
+                    "@platforms//cpu:x86_64"
+                ]
+            }
+        }
+    ]
+}
