@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <title>Alwaldend S8 graduated square monogram</title>
+  <style>
+    :root { color: #212121; }
+    @media (prefers-color-scheme: dark) {
+      :root { color: #ededed; }
+    }
+  </style>
+  <g transform="translate(2.5 0)">
+    <path d="M36 15H42V45.5H36ZM9 12H39V18H9ZM6 15H12V43H6ZM9 40.5H31V45.5H9ZM29 23H33V43H29ZM17 21.25H31V24.75H17ZM15.5 23H18.5V35H15.5ZM17 33.75H25V36.25H17ZM24 29H26V35H24ZM36 12H42V18H36ZM6 12H12V18H6ZM6 40.5H12V45.5H6ZM29 40.5H33V45.5H29ZM29 21.25H33V24.75H29ZM15.5 21.25H18.5V24.75H15.5ZM15.5 33.75H18.5V36.25H15.5ZM24 33.75H26V36.25H24Z" fill="currentColor"/>
+    <path d="M46 12L52 8V45.5H46Z M6 50H53L50 56H6Z" fill="currentColor"/>
+  </g>
+</svg>

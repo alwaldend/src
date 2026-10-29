@@ -3,10 +3,10 @@ title: Assets
 description: Hugo assets
 ---
 
-`icons/favicon.svg` is the site's monochrome "Al" monogram. Its letter
-outlines come from the repository's pinned
-[Architects Daughter](../../../third_party/com_github_google_fonts_architects_daughter/README.md)
-font by Kimberly Geswein (SIL Open Font License 1.1). The SVG uses paths so
-browser tabs render the requested lettering without loading a font.
-The shared favicon partial fingerprints the asset to refresh cached tab icons
-when the artwork changes.
+The assets package maps `//data/alwaldend:monogram` to `icons/favicon.svg`
+in the Hugo source archive. The [identity asset](../../../data/alwaldend/README.md)
+owns the S8 square monogram, its centered geometry, and adaptive light/dark
+colors. The site consumes that SVG directly without a separate artwork copy.
+
+The shared favicon partial fingerprints the resource to refresh cached tab
+icons when the canonical SVG changes.

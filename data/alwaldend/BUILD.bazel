@@ -1,0 +1,15 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+
+package(transitive_visibility = "//data:transitive_consumers")
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//data:__pkg__"],
+)
+
+filegroup(
+    name = "monogram",
+    srcs = ["assets/monogram_s8.svg"],
+    visibility = ["//:__subpackages__"],
+)
