@@ -32,7 +32,8 @@ pkg_files(
             "README.md",
             "BUILD.bazel",
         ],
-    ),
+    ) + ["//data/alwaldend:monogram"],
+    renames = {"//data/alwaldend:monogram": "icons/favicon.svg"},
     strip_prefix = strip_prefix.from_pkg(),
 )
 

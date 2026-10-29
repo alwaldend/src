@@ -34,7 +34,8 @@ The [Mermaid source](docs/legacy-www.mmd) is authoritative; Bazel renders its li
 The homepage, blog, documentation, and project pages share a flat monochrome
 theme with white and charcoal color modes, subtle borders, and system fonts.
 The navigation's theme menu supports light, dark, and system preferences.
-Every page uses an "Al" SVG favicon outlined in Architects Daughter.
+Every page uses the centered S8 square monogram SVG favicon from
+`//data/alwaldend:monogram`, with adaptive light/dark colors.
 Prose links are underlined, and keyboard focus uses a visible outline.
 Scrollbars are thin and muted; taxonomy links use small rounded labels shared
 with the project index. Documentation sidebars use plain action rows,
