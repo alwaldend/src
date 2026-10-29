@@ -3,6 +3,8 @@ load("//projects/al/rules/al:al_binary.bzl", "al_binary_run")
 load("//projects/al/rules/al:al_config.bzl", "al_config")
 load("//tools/vault:defs.bzl", "vault_binary_map")
 
+package(transitive_visibility = "//projects:transitive_consumers")
+
 al_config(
     name = "al",
     srcs = ["al.lua"],

@@ -4,6 +4,8 @@ load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_kotlin//kotlin:android.bzl", "kt_android_library")
 load("@rules_kotlin//kotlin:core.bzl", "kt_compiler_plugin")
 
+package(transitive_visibility = "//projects:transitive_consumers")
+
 _PACKAGE = "com.alwaldend.src.projects.android_launcher"
 
 filegroup(

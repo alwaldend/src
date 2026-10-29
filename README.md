@@ -67,7 +67,7 @@ unrelated language dependency generators.
 `//tools/repo_quality/test/root_build:root_build_test`, included in
 `//:repo_quality_test`, enforces the absence of `load()` statements.
 
-Existing commands such as `//:gazelle`, `//:buildifier`, `//:requirements.update`,
+Existing commands such as `//:gazelle`, `//:buildifier`, `//:uv_lock.update`,
 `//:vault`, and `//:tf.plan` remain available. Shared AL configuration is owned
 by `//tools/al:config`; repository documentation is assembled by
 `//projects/alwaldend.com:repo_docs`.

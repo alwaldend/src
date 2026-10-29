@@ -161,7 +161,7 @@ GSSAPIAuthentication no
 ## Update certificates on Fedora
 
 ```sh
-sudo cp infra/vault/tf/output/pki_ca_servers.crt /etc/pki/ca-trust/source/anchors/
+sudo cp data/ssl/alwaldend.com/pki_ca_servers.crt /etc/pki/ca-trust/source/anchors/
 sudo update-ca-trust
 ```
 

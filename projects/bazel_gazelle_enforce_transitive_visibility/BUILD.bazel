@@ -1,0 +1,15 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+
+package(transitive_visibility = "//:transitive_consumers")
+
+package_group(
+    name = "transitive_consumers",
+    packages = ["public"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    prefix = "content/docs/projects/bazel_gazelle_enforce_transitive_visibility",
+    visibility = ["//visibility:public"],
+)

@@ -1,6 +1,8 @@
 load("@rules_go//go:def.bzl", "go_binary")
 load("@rules_rust//rust:defs.bzl", "rust_binary", "rust_clippy")
 
+package(transitive_visibility = "//projects:transitive_consumers")
+
 config_setting(
     name = "optimized",
     values = {"compilation_mode": "opt"},

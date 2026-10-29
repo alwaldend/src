@@ -2,6 +2,8 @@ load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_pkg//pkg:mappings.bzl", "pkg_files")
 load("//tools/vial/main/bzl:al_vial_configs.bzl", "al_vial_configs")
 
+package(transitive_visibility = "//projects:transitive_consumers")
+
 pkg_files(
     name = "vial",
     srcs = glob(["*.json"]),

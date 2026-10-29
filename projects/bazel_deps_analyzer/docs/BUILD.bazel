@@ -2,6 +2,8 @@ load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_site_svg")
 load("//projects/bazel_deps_analyzer:defs.bzl", "bazel_deps_mermaid")
 
+package(transitive_visibility = "//projects:transitive_consumers")
+
 bazel_deps_mermaid(
     name = "converter_graph",
     depth = 2,

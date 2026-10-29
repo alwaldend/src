@@ -1,5 +1,7 @@
 load("@rules_rust//rust:defs.bzl", "rust_clippy", "rust_library")
 
+package(transitive_visibility = "//projects:transitive_consumers")
+
 rust_library(
     name = "server_rust",
     srcs = [

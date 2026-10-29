@@ -21,7 +21,7 @@ lib.vault_conn({
         address = "https://vault.alwaldend.com:8200",
     },
     tls = {
-        ca_cert = "infra/vault/tf/output/pki_ca_servers.crt",
+        ca_cert = "data/ssl/alwaldend.com/pki_ca_servers.crt",
         -- client_cert = "${HOME}/.al/client_cert/host.crt",
         -- client_key = "${HOME}/.al/client_cert/host.key",
     },

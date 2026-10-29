@@ -1,6 +1,9 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 
-package(default_visibility = ["//:__subpackages__"])
+package(
+    default_visibility = ["//:__subpackages__"],
+    transitive_visibility = "//tools:transitive_consumers",
+)
 
 exports_files([
     "theme.json",

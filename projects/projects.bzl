@@ -14,6 +14,7 @@ PROJECTS = [
     "autoscroll",
     "bazel_agent",
     "bazel_deps_analyzer",
+    "bazel_gazelle_enforce_transitive_visibility",
     "ci_platform",
     "dotfiles",
     "icon_generator",
@@ -28,3 +29,8 @@ PROJECTS = [
     "useless_qt_gui",
     "x_article_uploader",
 ]
+
+# Standalone modules expose their landing content through their Bzlmod name.
+PROJECT_MODULES = {
+    "bazel_gazelle_enforce_transitive_visibility": "bazel_gazelle_enforce_transitive_visibility",
+}

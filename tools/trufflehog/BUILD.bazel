@@ -1,6 +1,8 @@
 load("@com_github_trufflesecurity_trufflehog//:defs.bzl", "trufflehog_test")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 
+package(transitive_visibility = "//tools:transitive_consumers")
+
 alias(
     name = "trufflehog",
     actual = "//third_party/com_github_trufflesecurity_trufflehog:trufflehog",

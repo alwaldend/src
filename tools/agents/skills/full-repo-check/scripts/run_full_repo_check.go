@@ -23,6 +23,10 @@ type workspace struct {
 var repositoryWorkspaces = []workspace{
 	{name: "root", path: "."},
 	{
+		name: "projects/bazel_gazelle_enforce_transitive_visibility",
+		path: "projects/bazel_gazelle_enforce_transitive_visibility",
+	},
+	{
 		name: "tools/rules_binary_toolchain",
 		path: "tools/rules_binary_toolchain",
 	},

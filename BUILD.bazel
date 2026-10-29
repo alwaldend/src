@@ -1,5 +1,12 @@
+package(transitive_visibility = "//:transitive_consumers")
+
 # Keep this package free of load() statements. Common configuration labels
 # must not evaluate language dependency generators or repository tools.
+
+package_group(
+    name = "transitive_consumers",
+    packages = ["public"],
+)
 
 exports_files(
     [
@@ -98,11 +105,6 @@ alias(
     name = "modules_map",
     actual = "//tools/gazelle:modules_map",
     visibility = ["//:__subpackages__"],
-)
-
-alias(
-    name = "requirements",
-    actual = "//tools/py:requirements",
 )
 
 alias(

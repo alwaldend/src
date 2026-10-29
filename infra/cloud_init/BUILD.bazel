@@ -1,7 +1,10 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_template//main/bzl:template_run_binary.bzl", "template_run_binary")
 
-package(default_visibility = ["//:__subpackages__"])
+package(
+    default_visibility = ["//:__subpackages__"],
+    transitive_visibility = "//infra:transitive_consumers",
+)
 
 docs_filegroup(
     name = "docs",

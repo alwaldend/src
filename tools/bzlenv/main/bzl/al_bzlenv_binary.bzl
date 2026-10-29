@@ -14,21 +14,21 @@ echo "${{PWD}}/bin/activate"
 def _impl(ctx):
     exec = ctx.actions.declare_file("{}.script.sh".format(ctx.label.name))
     runfiles = ctx.runfiles(files = [ctx.file.activate])
-    tools = []
+    tool_directory = paths.join(ctx.label.package, "{}.bin".format(ctx.label.name))
+    tool_links = {}
     for tool_name, tool in ctx.attr.tools.items():
         runfiles = runfiles.merge(tool[DefaultInfo].default_runfiles)
-        tools.append(tool[DefaultInfo].files_to_run.executable)
+        executable = tool[DefaultInfo].files_to_run.executable
+        if executable == None:
+            fail("Tool {} ({}) must be executable".format(tool_name, tool.label))
+        tool_links[paths.join(tool_directory, tool_name)] = executable
+    runfiles = runfiles.merge(ctx.runfiles(symlinks = tool_links))
     ctx.actions.write(
         output = exec,
         is_executable = True,
         content = _SCRIPT.format(
             activate = ctx.file.activate.short_path,
-            path = ":".join(
-                [
-                    "${{0}}.runfiles/{}/{}".format(ctx.workspace_name, paths.dirname(tool.short_path))
-                    for tool in tools
-                ],
-            ),
+            path = "${{0}}.runfiles/{}/{}".format(ctx.workspace_name, tool_directory),
         ),
     )
 

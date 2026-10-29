@@ -1,5 +1,7 @@
 load("@rules_go//go:def.bzl", "go_library", "go_test")
 
+package(transitive_visibility = "//projects:transitive_consumers")
+
 package_group(
     name = "consumers",
     packages = [

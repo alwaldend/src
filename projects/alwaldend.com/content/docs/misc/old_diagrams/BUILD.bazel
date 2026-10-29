@@ -1,6 +1,8 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("//tools/drawio/main/bzl:al_drawio_run_binary.bzl", "al_drawio_run_binary")
 
+package(transitive_visibility = "//projects:transitive_consumers")
+
 _DIAGRAMS = [diagram.replace(".drawio", "") for diagram in glob(["*.drawio"])]
 
 docs_filegroup(

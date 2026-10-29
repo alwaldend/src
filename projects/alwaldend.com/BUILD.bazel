@@ -19,6 +19,8 @@ load("//tools/release/main/bzl:al_release_bundle.bzl", "al_release_bundle")
 load("//tools/toml/main/bzl:al_toml_data.bzl", "al_toml_data")
 load("//tools/vault:defs.bzl", "vault_binary_map")
 
+package(transitive_visibility = "//projects:transitive_consumers")
+
 vault_binary_map(
     name = "vault",
     configs = [":al"],

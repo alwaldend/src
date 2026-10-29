@@ -1,5 +1,7 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 
+package(transitive_visibility = "//tools:transitive_consumers")
+
 alias(
     name = "tomlv",
     actual = "@com_github_burntsushi_toml//cmd/tomlv:tomlv",

@@ -1,5 +1,7 @@
 load("@rules_go//go:def.bzl", "go_binary", "go_cross_binary", "go_test")
 
+package(transitive_visibility = "//projects:transitive_consumers")
+
 config_setting(
     name = "optimized",
     values = {"compilation_mode": "opt"},

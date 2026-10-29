@@ -24,12 +24,16 @@ Update: manually
 
 ## Client certificate CA
 
-Source: [../../../infra/vault/tf/output](../../../infra/vault/tf/output/README.md)
+Source: [pki_ca_clients.crt](pki_ca_clients.crt), a checked-in public certificate.
 
-Update: automatically
+Refresh: the independent Terraform root in [tf/](tf/README.md) reads Vault's
+`pki/ica_clients/cert/ca` endpoint using the existing Vault provider.
 
 ## Server certificate CA
 
-Source: [../../../infra/vault/tf/output](../../../infra/vault/tf/output/README.md)
+Source: [pki_ca_servers.crt](pki_ca_servers.crt), a checked-in public certificate.
 
-Update: automatically
+Refresh: [tf/](tf/README.md) reads Vault's public `pki/ica_servers/cert/ca`
+endpoint. Project builds use these local files without contacting Vault or
+depending on infrastructure targets. Infrastructure Terraform manages the
+issuers but does not update these snapshots.

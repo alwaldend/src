@@ -1,6 +1,8 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_openspec//main/bzl:workspace.bzl", "openspec_workspace")
 
+package(transitive_visibility = "//tools:transitive_consumers")
+
 openspec_workspace(
     name = "source",
     srcs = ["config.yaml"] + glob(

@@ -1,5 +1,7 @@
 load("@rules_go//go:def.bzl", "go_test")
 
+package(transitive_visibility = "//projects:transitive_consumers")
+
 # The content tree is declared as data so the checks discover the real posts
 # from the build graph rather than from a hand-maintained list.
 go_test(

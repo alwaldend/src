@@ -2,6 +2,8 @@ load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_go//go:def.bzl", "go_binary", "go_library")
 load(":analysis_test.bzl", "ops_action_test")
 
+package(transitive_visibility = "//projects:transitive_consumers")
+
 genrule(
     name = "ops",
     srcs = [":server"],

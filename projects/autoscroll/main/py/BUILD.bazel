@@ -1,2 +1,4 @@
+package(transitive_visibility = "//projects:transitive_consumers")
+
 # Autoscroll's installed package is imported from this existing source root.
 # gazelle:python_root

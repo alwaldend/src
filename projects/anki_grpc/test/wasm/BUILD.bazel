@@ -1,6 +1,8 @@
 load("@rules_go//go:def.bzl", "go_test")
 load("@rules_rust//rust:defs.bzl", "rust_binary")
 
+package(transitive_visibility = "//projects:transitive_consumers")
+
 rust_binary(
     name = "http_server_probe_wasi",
     srcs = ["http_server_probe.rs"],

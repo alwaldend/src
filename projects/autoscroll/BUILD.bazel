@@ -5,6 +5,8 @@ load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_python//python:packaging.bzl", "py_wheel")
 load("@rules_python//python/uv:lock.bzl", "lock")
 
+package(transitive_visibility = "//projects:transitive_consumers")
+
 build_test(
     name = "autoscroll_test",
     targets = [

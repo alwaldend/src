@@ -3,6 +3,8 @@ load("@rules_terraform//terraform:defs.bzl", "terraform_binary_map")
 load("//projects/al/rules/al:al_binary.bzl", "al_binary_run")
 load("//projects/al/rules/al:al_config.bzl", "al_config")
 
+package(transitive_visibility = "//tools:transitive_consumers")
+
 al_config(
     name = "config",
     srcs = ["//:al.lua"],

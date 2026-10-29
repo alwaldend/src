@@ -1,6 +1,8 @@
 load("@aspect_rules_js//js:defs.bzl", "js_test")
 load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_site_svg")
 
+package(transitive_visibility = "//projects:transitive_consumers")
+
 mermaid_site_svg(
     name = "edge_semantics",
     testonly = True,

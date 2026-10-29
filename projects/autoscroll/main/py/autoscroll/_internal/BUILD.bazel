@@ -3,6 +3,8 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_python//python:defs.bzl", "py_library")
 
+package(transitive_visibility = "//projects:transitive_consumers")
+
 py_library(
     name = "_internal",
     srcs = [

@@ -1,6 +1,8 @@
 load("@rules_go//go:def.bzl", "go_library")
 load("@rules_rust//rust:defs.bzl", "rust_clippy", "rust_static_library")
 
+package(transitive_visibility = "//projects:transitive_consumers")
+
 rust_static_library(
     name = "server_ffi",
     srcs = [

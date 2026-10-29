@@ -1,6 +1,9 @@
 load("@rules_openspec//main/bzl:openspec.bzl", "openspec_validation")
 
-package(default_visibility = ["//visibility:private"])
+package(
+    default_visibility = ["//visibility:private"],
+    transitive_visibility = "//infra:transitive_consumers",
+)
 
 package_group(
     name = "validation",

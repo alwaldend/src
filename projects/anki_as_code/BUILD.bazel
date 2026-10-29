@@ -2,6 +2,8 @@ load("@bazel_skylib//rules:common_settings.bzl", "bool_flag")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_site_svg", "mermaid_site_webp")
 
+package(transitive_visibility = "//projects:transitive_consumers")
+
 # gazelle:resolve go github.com/ankitects/anki/proto/anki/cards //third_party/com_github_ankitects_anki:cards
 # gazelle:resolve go github.com/ankitects/anki/proto/anki/card_rendering //third_party/com_github_ankitects_anki:card_rendering
 # gazelle:resolve go github.com/ankitects/anki/proto/anki/collection //third_party/com_github_ankitects_anki:collection

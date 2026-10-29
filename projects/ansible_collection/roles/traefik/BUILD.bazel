@@ -2,6 +2,8 @@ load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup")
 load("//tools/ansible/main/bzl:al_ansible_role.bzl", "al_ansible_role")
 
+package(transitive_visibility = "//projects:transitive_consumers")
+
 docs_filegroup(
     name = "docs",
     srcs = glob(["*.md"]),
@@ -15,14 +17,14 @@ docs_filegroup(
 al_ansible_role(
     name = "role",
     srcs = glob(["**"]) + [
-        "//infra/vault/tf/output:pki_ca_clients",
+        "//data/ssl/alwaldend.com:ica_clients",
         "@com_hashicorp_vault_linux_x86_64//:vault_filegroup",
         "@io_traefik_traefik_linux_x86_64//:traefik_filegroup",
     ],
     renames = {
         "@io_traefik_traefik_linux_x86_64//:traefik_filegroup": "files/traefik",
         "@com_hashicorp_vault_linux_x86_64//:vault_filegroup": "files/vault",
-        "//infra/vault/tf/output:pki_ca_clients": "files/traefik_mtls_ca.crt",
+        "//data/ssl/alwaldend.com:ica_clients": "files/traefik_mtls_ca.crt",
     },
     visibility = ["//:__subpackages__"],
 )

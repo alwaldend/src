@@ -1,6 +1,8 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_site_svg")
 
+package(transitive_visibility = "//infra:transitive_consumers")
+
 [
     mermaid_site_svg(
         name = diagram,

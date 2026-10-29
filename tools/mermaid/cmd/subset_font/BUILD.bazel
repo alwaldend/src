@@ -1,5 +1,7 @@
 load("@rules_python//python:defs.bzl", "py_binary", "py_library")
 
+package(transitive_visibility = "//tools:transitive_consumers")
+
 py_binary(
     name = "subset_font",
     srcs = ["main.py"],

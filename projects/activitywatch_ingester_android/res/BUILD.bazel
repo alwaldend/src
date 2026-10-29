@@ -1,5 +1,7 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 
+package(transitive_visibility = "//projects:transitive_consumers")
+
 filegroup(
     name = "res",
     srcs = glob(

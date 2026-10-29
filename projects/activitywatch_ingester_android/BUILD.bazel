@@ -2,6 +2,8 @@
 
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 
+package(transitive_visibility = "//projects:transitive_consumers")
+
 exports_files(
     ["maven_lock.json"],
     visibility = ["//projects/activitywatch_ingester_android:__subpackages__"],

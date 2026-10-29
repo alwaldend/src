@@ -6,6 +6,8 @@ load("@rules_go//proto:def.bzl", "go_proto_library")
 load("@rules_java//java:defs.bzl", "java_library")
 load("//tools/proto/main/bzl:al_proto_docs.bzl", "al_proto_docs")
 
+package(transitive_visibility = "//tools:transitive_consumers")
+
 al_proto_docs(
     name = "contracts_docs",
     src = "contracts.proto",

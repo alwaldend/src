@@ -1,5 +1,7 @@
 load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
 
+package(transitive_visibility = "//projects:transitive_consumers")
+
 exports_files(
     [
         "cmake_toolchain.patch",

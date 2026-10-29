@@ -1,6 +1,13 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("//tools/release/main/bzl:al_release_binary.bzl", "al_release_binary")
 
+package(transitive_visibility = "//projects:transitive_consumers")
+
+package_group(
+    name = "transitive_consumers",
+    packages = ["public"],
+)
+
 docs_filegroup(
     name = "docs",
     srcs = glob(["*.md"]),
@@ -8,7 +15,8 @@ docs_filegroup(
     deps = subpackages(
         include = ["*"],
         allow_empty = True,
-    ),
+        exclude = ["bazel_gazelle_enforce_transitive_visibility"],
+    ) + ["@bazel_gazelle_enforce_transitive_visibility//:docs"],
 )
 
 al_release_binary(
@@ -26,6 +34,7 @@ al_release_binary(
                 "bazel_registry",
                 "bazel_agent",
                 "bazel_deps_analyzer",
+                "bazel_gazelle_enforce_transitive_visibility",
                 "goal",
                 "icon_generator",
                 "useless_qt_gui",

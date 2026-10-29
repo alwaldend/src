@@ -1,6 +1,10 @@
 load("@rules_python//python:defs.bzl", "py_binary")
 
 # gazelle:ignore
+
+# This package is hand-maintained, including the inherited tree policy.
+package(transitive_visibility = "//projects:transitive_consumers")
+
 py_binary(
     name = "build_model",
     srcs = ["build_model.py"],

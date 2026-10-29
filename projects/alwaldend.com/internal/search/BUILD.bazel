@@ -1,3 +1,5 @@
+package(transitive_visibility = "//projects:transitive_consumers")
+
 exports_files(
     ["defs.bzl"],
     visibility = ["//projects/alwaldend.com:__pkg__"],

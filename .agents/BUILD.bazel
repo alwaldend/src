@@ -1,6 +1,9 @@
 load("@rules_skills//skill:defs.bzl", "skills_write")
 
-package(default_visibility = ["//visibility:private"])
+package(
+    default_visibility = ["//visibility:private"],
+    transitive_visibility = "//:transitive_consumers",
+)
 
 package_group(
     name = "skill_discovery",

@@ -5,6 +5,17 @@ tags:
   - terraform
 ---
 
+## Public certificate snapshots
+
+This root manages Vault's PKI and SSH issuers. Public snapshots are owned and
+refreshed independently by [data/ssl/alwaldend.com/tf](../../../../data/ssl/alwaldend.com/tf/README.md)
+and [data/ssh/tf](../../../../data/ssh/tf/README.md); this root does not write them.
+
+The `removed` blocks in `outputs.tf` retire the four former `local_file`
+exports with `destroy = false`. A later authorized apply forgets those state
+entries without deleting their files. No state migration or Vault operation is
+performed merely by moving the checked-in snapshots.
+
 ## DNS identities
 
 [Missing DNS-owner AppRoles](approles_dns.tf) compose the existing reusable

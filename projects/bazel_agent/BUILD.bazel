@@ -1,6 +1,8 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_shell//shell:sh_binary.bzl", "sh_binary")
 
+package(transitive_visibility = "//projects:transitive_consumers")
+
 alias(
     name = "bazel_agent",
     actual = "//projects/bazel_agent/cmd/bazel_agent",

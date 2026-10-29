@@ -1,0 +1,19 @@
+load("@gazelle//:def.bzl", "gazelle_binary")
+
+package(transitive_visibility = "//:transitive_consumers")
+
+gazelle_binary(
+    name = "gazelle",
+    languages = ["//pkg/gazelle"],
+    visibility = ["//visibility:public"],
+)
+
+gazelle_binary(
+    name = "gazelle_go",
+    testonly = True,
+    languages = [
+        "@gazelle//language/go",
+        "//pkg/gazelle",
+    ],
+    visibility = ["//test/generation:__pkg__"],
+)

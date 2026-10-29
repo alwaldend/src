@@ -2,6 +2,8 @@ load("@org_blender_blender//:defs.bzl", "blender_test")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_go//go:def.bzl", "go_test")
 
+package(transitive_visibility = "//projects:transitive_consumers")
+
 go_test(
     name = "reimu_fumo_migration_integrity_test",
     size = "small",

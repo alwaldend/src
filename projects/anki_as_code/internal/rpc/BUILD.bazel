@@ -2,6 +2,8 @@ load("@rules_go//go:def.bzl", "go_library")
 load("//projects/anki_as_code/tools/generate_anki_schemas:defs.bzl", "anki_schema_imports")
 load("//third_party/com_github_ankitects_anki:schemas.bzl", "ANKI_SCHEMAS")
 
+package(transitive_visibility = "//projects:transitive_consumers")
+
 anki_schema_imports(
     name = "schema_imports",
     out = "schemas_generated.go",

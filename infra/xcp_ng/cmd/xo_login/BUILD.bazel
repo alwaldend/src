@@ -2,6 +2,8 @@ load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_go//go:def.bzl", "go_binary", "go_library", "go_test")
 load("//projects/al/rules/al:al_binary.bzl", "al_binary_run")
 
+package(transitive_visibility = "//infra:transitive_consumers")
+
 al_binary_run(
     name = "bootstrap",
     args = [

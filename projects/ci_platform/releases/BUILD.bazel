@@ -3,6 +3,8 @@ load("//tools/release/main/bzl:al_release.bzl", "al_release")
 load("//tools/release/main/bzl:al_release_binary.bzl", "al_release_binary")
 load("//tools/release/main/bzl:al_release_files.bzl", "al_release_files")
 
+package(transitive_visibility = "//projects:transitive_consumers")
+
 docs_filegroup(
     name = "docs",
     srcs = glob(["*.md"]),

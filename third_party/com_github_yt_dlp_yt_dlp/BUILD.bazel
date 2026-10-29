@@ -1,5 +1,7 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 
+package(transitive_visibility = "//third_party:transitive_consumers")
+
 alias(
     name = "yt-dlp",
     actual = "@com_github_yt_dlp_yt_dlp//:yt_dlp_binary",

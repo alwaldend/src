@@ -2,6 +2,8 @@ load("@aspect_bazel_lib//lib:write_source_files.bzl", "write_source_files")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("//tools/mermaid:defs.bzl", "mermaid_svg", "mermaid_webp")
 
+package(transitive_visibility = "//projects:transitive_consumers")
+
 # A blog post is content, so its images are source beside index.md rather than
 # build outputs published from another package. Each image below is still
 # rendered hermetically from the .mmd that owns it, and checked in through

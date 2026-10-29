@@ -2,7 +2,7 @@
 module(
     name = "com_alwaldend_src",
     version = "0.0.0",
-    bazel_compatibility = [">=8.5.1"],
+    bazel_compatibility = [">=9.3.1"],
 )
 
 include("//third_party:include.MODULE.bazel")
@@ -48,7 +48,6 @@ include("//third_party/com_truenas_scale:include.MODULE.bazel")
 include("//third_party/dev_sanaei_3xui:include.MODULE.bazel")
 include("//third_party/io_cert_manager_cmctl:include.MODULE.bazel")
 include("//third_party/io_controlplane_flux_operator:include.MODULE.bazel")
-include("//third_party/io_docker_library_alpine:include.MODULE.bazel")
 include("//third_party/io_fluxcd_flux:include.MODULE.bazel")
 include("//third_party/io_getsops_sops:include.MODULE.bazel")
 include("//third_party/io_goharbor_harbor_cli:include.MODULE.bazel")
