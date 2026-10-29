@@ -1,0 +1,62 @@
+load("@aspect_rules_js//js:defs.bzl", "js_test")
+load("//projects/mermaid_3d:defs.bzl", "mermaid_3d_snapshot")
+
+package(transitive_visibility = "//projects:transitive_consumers")
+
+# Exercise both encoders, camera directions, appearances, and aspect ratios.
+_CASES = [
+    ("flowchart", "light", "isometric", "png", 960, 720),
+    ("flowchart", "dark", "isometric", "png", 960, 720),
+    ("flowchart", "light", "front", "png", 960, 720),
+    ("flowchart", "light", "front", "webp", 960, 720),
+    ("sequence", "dark", "front", "png", 480, 960),
+    ("sequence", "light", "isometric", "webp", 1280, 640),
+]
+
+[
+    mermaid_3d_snapshot(
+        name = "_".join([
+            diagram,
+            scheme,
+            camera,
+            extension,
+        ]),
+        testonly = True,
+        src = "//projects/mermaid_3d/samples:" + diagram,
+        out = "-".join([
+            diagram,
+            scheme,
+            camera,
+        ]) + "." + extension,
+        camera = camera,
+        color_scheme = scheme,
+        height = height,
+        width = width,
+    )
+    for diagram, scheme, camera, extension, width, height in _CASES
+]
+
+_IMAGES = [
+    ":" + "_".join([
+        diagram,
+        scheme,
+        camera,
+        extension,
+    ])
+    for diagram, scheme, camera, extension, _, _ in _CASES
+]
+
+_INPUTS = [
+    "@com_google_chrome_headless_shell//:chrome_headless_shell_binary",
+    "//projects/mermaid_3d/cmd/snapshot",
+    "//projects/mermaid_3d/samples:flowchart",
+    "//projects/mermaid_3d/samples:sequence",
+] + _IMAGES
+
+js_test(
+    name = "snapshot_test",
+    size = "large",
+    args = ["$(rootpath {})".format(label) for label in _INPUTS],
+    data = _INPUTS + ["//tools:node_modules/puppeteer"],
+    entry_point = "snapshot_test.mjs",
+)

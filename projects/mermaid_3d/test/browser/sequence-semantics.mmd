@@ -1,0 +1,19 @@
+sequenceDiagram
+    participant 10 as First
+    participant 2 as Second
+    participant T as Observer
+    10->2: Plain line
+    2-->10: Dashed line
+    loop Work
+        Note over 10,2: In outer loop
+        10->>2: Request
+        opt Nested work
+            Note right of 2: In nested block
+            2->>2: Inspect
+        end
+        2-->>10: Response
+    end
+    loop Annotation only
+        Note over 10,2: Note without a message
+    end
+    2->>T: Notify observer

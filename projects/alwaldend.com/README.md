@@ -65,7 +65,8 @@ caption styling through `themeCSS` and places titles on container borders with
 Mermaid's `subGraphTitleMargin` setting. Compact node/rank spacing and the
 pinned renderer's `edgeSpacing` option separate nested title plates. Package both
 outputs and reference the light `.svg`; Markdown and the SVG shortcode recognize
-its `.dark.svg` sibling. The site theme selects the visible image, and print
+its `.dark.svg` sibling. PNG and WebP snapshot embeds likewise select
+matching `.dark.png` and `.dark.webp` siblings. The site theme selects the visible image, and print
 always uses light. Historical blog diagrams retain their original files and
 presentation. New raster diagrams can use `mermaid_site_webp` from the same
 macro file to encode the native diagram with the site's palette and monospace

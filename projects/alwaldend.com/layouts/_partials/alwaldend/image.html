@@ -3,9 +3,10 @@
 {{- $src := partial "alwaldend/resolve-destination.html" (dict "Page" .Page "Destination" .Destination) -}}
 {{- $url := urls.Parse $src -}}
 {{- $dark := "" -}}
-{{- if and (ne .Page.Section "blog") (not $url.IsAbs) (eq (path.Ext $url.Path) ".svg") -}}
-  {{- $darkPath := printf "%s.dark.svg" (strings.TrimSuffix ".svg" $url.Path) -}}
-  {{- $darkSource := printf "%s.dark.svg" (strings.TrimSuffix ".svg" (urls.Parse .Destination).Path) -}}
+{{- $extension := path.Ext $url.Path -}}
+{{- if and (ne .Page.Section "blog") (not $url.IsAbs) (in (slice ".svg" ".png" ".webp") $extension) -}}
+  {{- $darkPath := printf "%s.dark%s" (strings.TrimSuffix $extension $url.Path) $extension -}}
+  {{- $darkSource := printf "%s.dark%s" (strings.TrimSuffix $extension (urls.Parse .Destination).Path) $extension -}}
   {{- with or (.Page.Resources.Get $darkSource) (resources.Get $darkSource) -}}
     {{- $dark = .RelPermalink -}}
   {{- else -}}
