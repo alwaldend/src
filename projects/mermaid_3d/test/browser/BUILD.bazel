@@ -1,0 +1,74 @@
+load("@aspect_rules_js//js:defs.bzl", "js_test")
+load("@aspect_rules_ts//ts:defs.bzl", "ts_project")
+load("//projects/mermaid_3d:defs.bzl", "mermaid_3d")
+
+package(transitive_visibility = "//projects:transitive_consumers")
+
+_FIXTURES = [
+    "class-text",
+    "graph-semantics",
+    "graph-boundaries",
+    "group-title",
+    "diamond-ports",
+    "large-flowchart",
+]
+
+_INPUTS = [
+    "//projects/mermaid_3d/samples:class",
+    "//projects/mermaid_3d/samples:entity-relationship",
+    "//projects/mermaid_3d/samples:flowchart",
+    "//projects/mermaid_3d/samples:mindmap",
+    "//projects/mermaid_3d/samples:state",
+    "//projects/mermaid_3d/docs:architecture_3d",
+] + [":" + name.replace("-", "_") for name in _FIXTURES]
+
+[
+    mermaid_3d(
+        name = name.replace("-", "_"),
+        testonly = True,
+        src = name + ".mmd",
+        out = name + ".3d.html",
+        model = name + ".3d.json",
+        theme = "//data/alwaldend:mermaid_theme",
+    )
+    for name in _FIXTURES
+]
+
+ts_project(
+    name = "driver",
+    testonly = True,
+    srcs = [
+        "browser_test.ts",
+        "//projects/mermaid_3d:module_metadata",
+    ],
+    data = ["//projects/mermaid_3d:module_metadata"],
+    extends = "//projects/mermaid_3d:compiler_config",
+    supports_workers = 0,
+    transpiler = "tsc",
+    tsconfig = {"compilerOptions": {
+        "lib": [
+            "ES2024",
+            "DOM",
+            "DOM.Iterable",
+        ],
+        "types": ["node"],
+    }},
+    deps = [
+        "//projects/mermaid_3d/internal:model",
+        "//tools:node_modules/@types/node",
+        "//tools:node_modules/puppeteer",
+    ],
+)
+
+js_test(
+    name = "browser_test",
+    size = "large",
+    args = [
+        "$(rootpath @com_google_chrome_headless_shell//:chrome_headless_shell_binary)",
+    ] + ["$(rootpath {})".format(label) for label in _INPUTS],
+    data = _INPUTS + [
+        ":driver",
+        "@com_google_chrome_headless_shell//:chrome_headless_shell_binary",
+    ],
+    entry_point = "browser_test.js",
+)

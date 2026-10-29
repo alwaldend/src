@@ -1,0 +1,20 @@
+{
+    "compilerOptions": {
+        "strict": true,
+        "noEmitOnError": true,
+        "target": "ES2024",
+        "module": "NodeNext",
+        "paths": {
+            "diagram/text": ["./internal/text.js"],
+            "diagram/scene": ["./internal/viewer/scene.js"],
+            "diagram/labels": ["./internal/viewer/labels.js"],
+            "three": ["../../tools/node_modules/@types/three/index.d.ts"],
+            "three/addons/*": [
+                "../../tools/node_modules/@types/three/examples/jsm/*"
+            ],
+            "puppeteer": ["../../tools/node_modules/puppeteer/lib/types.d.ts"],
+            "mermaid/*": ["../../tools/node_modules/mermaid/*"]
+        },
+        "typeRoots": ["../../tools/node_modules/@types"]
+    }
+}

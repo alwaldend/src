@@ -1,0 +1,29 @@
+flowchart TB
+    subgraph Chrome["Headless Chrome"]
+        Setup["Load font + Mermaid<br/>Initialize + register hook"]
+        subgraph Mermaid["Mermaid"]
+            Parse["Parse source<br/>Extract graph data"]
+        end
+        Normalize["Project typed graph data<br/>Normalize label text"]
+        Measure["Measure normal + bold text<br/>Canvas 2D"]
+
+        Setup -->|"mermaid.render()"| Parse
+        Parse -->|"layout hook"| Normalize
+        Normalize --> Measure
+    end
+
+    subgraph CLI["mermaid_3d"]
+        Read["Read source + theme<br/>Font + license"]
+        Layout["Size nodes + groups<br/>Place graph recursively"]
+        Route["Route curved connections<br/>Avoid unrelated nodes"]
+        Package["Assemble scene payload<br/>Package HTML assets"]
+
+        Read ~~~ Layout
+        Layout --> Route
+        Route --> Package
+    end
+
+    Read -->|"Puppeteer calls"| Setup
+    Measure -->|"graph + font metrics"| Layout
+    Package --> HTML[/"HTML<br/>Viewer + embedded assets"/]
+    Package -. optional .-> JSON[/"JSON<br/>Scene + metadata"/]

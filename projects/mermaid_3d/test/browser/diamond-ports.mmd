@@ -1,0 +1,14 @@
+flowchart LR
+    first[First input] --> decision{Decision}
+    second[Second input] --> decision
+    decision -->|Accept| accepted[Accepted]
+    decision -->|Reject| rejected[Rejected]
+    decision -->|Retry| decision
+
+    subgraph vertical[Vertical routing]
+        direction TB
+        upperA[First source] --> check{Check}
+        upperB[Second source] --> check
+        check --> lowerA[First result]
+        check --> lowerB[Second result]
+    end

@@ -1,0 +1,58 @@
+load("@aspect_bazel_lib//lib:copy_to_bin.bzl", "copy_to_bin")
+load("@aspect_rules_ts//ts:defs.bzl", "ts_project")
+
+package(transitive_visibility = "//projects:transitive_consumers")
+
+ts_project(
+    name = "document",
+    srcs = [
+        "document.ts",
+        "//projects/mermaid_3d:module_metadata",
+    ],
+    data = ["//projects/mermaid_3d:module_metadata"],
+    declaration = True,
+    extends = "//projects/mermaid_3d:compiler_config",
+    supports_workers = 0,
+    transpiler = "tsc",
+    tsconfig = {"compilerOptions": {
+        "lib": ["ES2024"],
+        "types": [],
+    }},
+    visibility = ["//projects/mermaid_3d:internal_consumers"],
+    deps = ["//projects/mermaid_3d/internal:model"],
+)
+
+ts_project(
+    name = "viewer",
+    srcs = [
+        "labels.ts",
+        "main.ts",
+        "scene.ts",
+        "//projects/mermaid_3d:module_metadata",
+    ],
+    data = [
+        ":styles",
+        "//projects/mermaid_3d:module_metadata",
+    ],
+    extends = "//projects/mermaid_3d:compiler_config",
+    supports_workers = 0,
+    transpiler = "tsc",
+    tsconfig = {"compilerOptions": {
+        "lib": [
+            "ES2024",
+            "DOM",
+            "DOM.Iterable",
+        ],
+        "types": [],
+    }},
+    visibility = ["//projects/mermaid_3d:internal_consumers"],
+    deps = [
+        "//projects/mermaid_3d/internal:model",
+        "//tools:node_modules/@types/three",
+    ],
+)
+
+copy_to_bin(
+    name = "styles",
+    srcs = ["viewer.css"],
+)

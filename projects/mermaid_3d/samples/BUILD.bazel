@@ -1,0 +1,29 @@
+load("//projects/mermaid_3d:defs.bzl", "mermaid_3d")
+
+package(transitive_visibility = "//projects:transitive_consumers")
+
+_SAMPLES = [
+    "class",
+    "entity-relationship",
+    "flowchart",
+    "mindmap",
+    "state",
+]
+
+[
+    mermaid_3d(
+        name = sample,
+        src = "//projects/alwaldend.com/docs/mermaid-theme:" + sample + ".mmd",
+        out = sample + ".3d.html",
+        model = sample + ".3d.json",
+        theme = "//data/alwaldend:mermaid_theme",
+        visibility = ["//projects/mermaid_3d:__subpackages__"],
+    )
+    for sample in _SAMPLES
+]
+
+filegroup(
+    name = "html",
+    srcs = [":" + sample for sample in _SAMPLES],
+    visibility = ["//projects/alwaldend.com/docs/mermaid-theme:__pkg__"],
+)

@@ -1,0 +1,9 @@
+classDiagram
+    class Box~T~ {
+        +List~T~ items
+        +get() T
+    }
+    class Repository {
+        +save(Box~T~ value)
+    }
+    Repository --> Box : stores

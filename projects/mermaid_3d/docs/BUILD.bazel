@@ -1,0 +1,49 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//projects/mermaid_3d:defs.bzl", "mermaid_3d")
+load("//tools/mermaid:defs.bzl", "mermaid_svg")
+
+package(transitive_visibility = "//projects:transitive_consumers")
+
+mermaid_svg(
+    name = "architecture",
+    src = "architecture.mmd",
+    out = "rendered/architecture.svg",
+    dark_out = "rendered/architecture.dark.svg",
+    native = True,
+    theme = "//data/alwaldend:mermaid_theme",
+)
+
+mermaid_3d(
+    name = "architecture_3d",
+    src = "architecture.mmd",
+    out = "architecture.3d.html",
+    model = "architecture.3d.json",
+    theme = "//data/alwaldend:mermaid_theme",
+    view = "front-left",
+    visibility = ["//projects/mermaid_3d/test/browser:__pkg__"],
+)
+
+docs_filegroup(
+    name = "assets",
+    srcs = [
+        ":architecture",
+    ],
+    prefix = "content/docs/projects/mermaid_3d/docs/assets",
+)
+
+docs_filegroup(
+    name = "spatial_assets",
+    srcs = [":architecture_3d"],
+    prefix = "static/docs/projects/mermaid_3d/docs/assets",
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["architecture.mmd"],
+    prefix = "content/docs/projects/mermaid_3d/docs",
+    visibility = ["//projects/mermaid_3d:__pkg__"],
+    deps = [
+        ":assets",
+        ":spatial_assets",
+    ],
+)
