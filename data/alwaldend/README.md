@@ -4,11 +4,17 @@ description: Selected monogram artwork
 ---
 
 `assets/monogram_s8.svg` is the canonical S8 graduated square monogram.
-It preserves the approved 64 by 64 geometry, angled `l` cap, and full
-clipped underline. The spiral and `l` meet at y=45.5; the underline begins
-at y=50. The transparent SVG uses charcoal in light mode and off-white in
-dark mode. A 2.5-unit horizontal translation centers the complete mark,
-leaving equal 8.5-unit side margins and equal 8-unit vertical margins.
+It preserves the selected square winding, angled `l` cap, and full clipped
+underline in a 64 by 64 canvas. The refined spiral has a minimum stroke of
+3 units, four-unit channels between its outer and middle turns, and a
+3.5-unit clearance above the inner terminal. Its outer vertical strokes
+are 5 units wide; the top remains 6 units. These proportions improve
+small-size separation while retaining the graduated weight.
+
+The spiral and `l` bottoms align at y=45.5; the underline begins at y=50.
+The transparent SVG uses charcoal in light mode and off-white in dark mode.
+A 2.5-unit horizontal translation centers the complete mark, leaving equal
+8.5-unit side margins and equal 8-unit vertical margins.
 
 The SVG is available as `//data/alwaldend:monogram` for internal repository
 consumers. The `projects/alwaldend.com` assets package consumes it directly

@@ -6,8 +6,10 @@ the repository's data tree and a generated dark WebP preview.
 ## What Changes
 
 - Save the approved S8 geometry as an SVG under `data/alwaldend/assets/`.
-- Center the complete mark within its square canvas without altering its
-  internal geometry or spacing.
+- Keep the complete mark centered within its square canvas, with equal
+  opposing margins.
+- Refine the inner spiral for clearer rendering at favicon sizes while
+  preserving S8's square winding, graduated weight, upright, and full underline.
 - Generate a 512 by 512 lossless WebP preview with off-white ink on charcoal
   under ignored output. The SVG is the sole source artwork.
 - Document the source, palette, and rendering procedure.
