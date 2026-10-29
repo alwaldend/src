@@ -1,0 +1,244 @@
+- name: Validate explicit Lynis audit inputs
+  ansible.builtin.assert:
+    that:
+      - not ansible_check_mode
+      - lynis_audit_archive is defined
+      - lynis_audit_archive is string
+      - lynis_audit_archive | length > 0
+      - lynis_audit_report_directory is defined
+      - lynis_audit_report_directory is string
+      - lynis_audit_report_directory is match('^/.+')
+      - lynis_audit_timeout_seconds | int > 0
+      - lynis_audit_timeout_seconds | int <= 3600
+    fail_msg: Supply a packaged Lynis archive and an absolute private report directory; check mode is unsupported.
+
+- name: Identify the controller report owner
+  ansible.builtin.command:
+    argv: [id, -u]
+  delegate_to: localhost
+  become: false
+  changed_when: false
+  register: lynis_audit_controller_user
+
+- name: Inspect the controller report directory
+  ansible.builtin.stat:
+    path: "{{ lynis_audit_report_directory }}"
+    follow: false
+    get_checksum: false
+    get_attributes: false
+  delegate_to: localhost
+  become: false
+  register: lynis_audit_controller_directory
+
+- name: Require an existing private controller report directory
+  ansible.builtin.assert:
+    that:
+      - lynis_audit_controller_directory.stat.exists
+      - lynis_audit_controller_directory.stat.isdir | default(false)
+      - not (lynis_audit_controller_directory.stat.islnk | default(false))
+      - lynis_audit_controller_directory.stat.mode | default('') == '0700'
+      - lynis_audit_controller_directory.stat.uid | default(-1) == lynis_audit_controller_user.stdout | int
+    fail_msg: The report directory must exist, have mode 0700, and belong to the controller user.
+
+- name: Allocate a unique controller result directory
+  ansible.builtin.tempfile:
+    state: directory
+    path: "{{ lynis_audit_report_directory }}"
+    prefix: "{{ inventory_hostname | regex_replace('[^A-Za-z0-9_.-]', '_') }}-lynis-"
+  delegate_to: localhost
+  become: false
+  register: lynis_audit_controller_result
+
+- name: Record the audit evidence destination
+  ansible.builtin.set_fact:
+    lynis_audit_result_directory: "{{ lynis_audit_controller_result.path }}"
+    lynis_audit_exit_code: null
+    lynis_audit_complete: false
+    lynis_audit_command: {}
+    lynis_audit_setup_error: {}
+    lynis_audit_remote_directory: {}
+    lynis_audit_evidence_retained: false
+    lynis_audit_evidence: {}
+    lynis_audit_fetch: {}
+
+- name: Save an initial incomplete audit receipt
+  ansible.builtin.template:
+    src: result.json.j2
+    dest: "{{ lynis_audit_result_directory }}/result.json"
+    mode: "0600"
+  delegate_to: localhost
+  become: false
+  no_log: true
+
+- name: Prepare private controller evidence files
+  ansible.builtin.copy:
+    content: ""
+    dest: "{{ lynis_audit_result_directory }}/{{ item }}"
+    force: false
+    mode: "0600"
+  loop: [console.log, lynis.log, lynis-report.dat]
+  delegate_to: localhost
+  become: false
+
+- name: Run the on-demand root audit
+  become: true
+  become_user: root
+  no_log: true
+  block:
+    - name: Allocate private remote audit scratch
+      ansible.builtin.tempfile:
+        state: directory
+        prefix: lynis-audit.
+      register: lynis_audit_remote_directory
+
+    - name: Save the recovery receipt before preparing the scanner
+      ansible.builtin.template:
+        src: result.json.j2
+        dest: "{{ lynis_audit_result_directory }}/result.json"
+        mode: "0600"
+      delegate_to: localhost
+      become: false
+
+    - name: Extract the pinned scanner
+      ansible.builtin.unarchive:
+        src: "{{ lynis_audit_archive }}"
+        dest: "{{ lynis_audit_remote_directory.path }}"
+        owner: root
+        group: root
+        mode: "u=rwX,go="
+
+    - name: Copy the on-demand audit profile
+      ansible.builtin.copy:
+        src: audit.prf
+        dest: "{{ lynis_audit_remote_directory.path }}/lynis/audit.prf"
+        owner: root
+        group: root
+        mode: "0600"
+
+    - name: Create private remote evidence files
+      ansible.builtin.copy:
+        content: ""
+        dest: "{{ lynis_audit_remote_directory.path }}/{{ item }}"
+        owner: root
+        group: root
+        mode: "0600"
+      loop: [console.log, lynis.log, lynis-report.dat]
+
+    - name: Execute the bounded Lynis audit
+      ansible.builtin.shell: >-
+        umask 077;
+        exec timeout --signal=TERM --kill-after=15s
+        {{ (lynis_audit_timeout_seconds | int | string + 's') | quote }}
+        ./lynis audit system --no-colors --no-plugins --usecwd --cronjob
+        --profile ./audit.prf
+        --logfile {{ (lynis_audit_remote_directory.path + '/lynis.log') | quote }}
+        --report-file {{ (lynis_audit_remote_directory.path + '/lynis-report.dat') | quote }}
+        > {{ (lynis_audit_remote_directory.path + '/console.log') | quote }} 2>&1
+      args:
+        chdir: "{{ lynis_audit_remote_directory.path }}/lynis"
+      environment:
+        TMPDIR: "{{ lynis_audit_remote_directory.path }}"
+      vars:
+        ansible_async_dir: "{{ lynis_audit_remote_directory.path }}/async"
+      async: "{{ lynis_audit_timeout_seconds | int + 60 }}"
+      poll: 15
+      register: lynis_audit_command
+      changed_when: true
+      failed_when: false
+      ignore_unreachable: true
+
+  rescue:
+    - name: Retain the private setup failure
+      ansible.builtin.set_fact:
+        lynis_audit_setup_error: "{{ ansible_failed_result }}"
+
+  always:
+    - name: Read scanner status from the finished native async result
+      ansible.builtin.set_fact:
+        lynis_audit_exit_code: >-
+          {{ lynis_audit_command.rc
+             if lynis_audit_command.finished | default(false) | bool
+                and not (lynis_audit_command.unreachable | default(false))
+                and lynis_audit_command.rc | default(none) is integer
+                and 0 <= lynis_audit_command.rc <= 255
+             else none }}
+
+    - name: Save private execution diagnostics before collecting reports
+      ansible.builtin.template:
+        src: result.json.j2
+        dest: "{{ lynis_audit_result_directory }}/result.json"
+        mode: "0600"
+      delegate_to: localhost
+      become: false
+
+    - name: Retain evidence before remote cleanup
+      when: lynis_audit_remote_directory.path is defined
+      block:
+        - name: Inspect available remote evidence
+          ansible.builtin.stat:
+            path: "{{ lynis_audit_remote_directory.path }}/{{ item }}"
+            get_checksum: false
+            get_attributes: false
+          loop: [console.log, lynis.log, lynis-report.dat]
+          register: lynis_audit_evidence
+          ignore_errors: true
+          ignore_unreachable: true
+
+        - name: Fetch available audit evidence
+          ansible.builtin.fetch:
+            src: "{{ item.stat.path }}"
+            dest: "{{ lynis_audit_result_directory }}/{{ item.item }}"
+            flat: true
+          loop: "{{ lynis_audit_evidence.results }}"
+          when: item.stat.exists | default(false)
+          register: lynis_audit_fetch
+          ignore_errors: true
+          ignore_unreachable: true
+
+        - name: Determine whether all existing evidence was retained
+          ansible.builtin.set_fact:
+            lynis_audit_evidence_retained: >-
+              {{ lynis_audit_evidence is succeeded
+                 and not (lynis_audit_evidence.unreachable | default(false))
+                 and lynis_audit_fetch is succeeded
+                 and not (lynis_audit_fetch.unreachable | default(false)) }}
+
+        - name: Require a finished retained report for scan completion
+          ansible.builtin.set_fact:
+            lynis_audit_complete: >-
+              {{ lynis_audit_evidence_retained
+                 and lynis_audit_setup_error == {}
+                 and not (lynis_audit_command.unreachable | default(false))
+                 and lynis_audit_exit_code in [0, 78]
+                 and 'finish=true' in lynis_audit_report.splitlines()
+                 and lynis_audit_test_counts | length == 1
+                 and lynis_audit_test_counts | first | default('0') | int > 0 }}
+          vars:
+            lynis_audit_report: "{{ lookup('ansible.builtin.file', lynis_audit_result_directory + '/lynis-report.dat', rstrip=false) }}"
+            lynis_audit_test_counts: "{{ lynis_audit_report | regex_findall('(?m)^lynis_tests_done=([0-9]+)$') }}"
+
+        - name: Save the evidence retention and completion receipt
+          ansible.builtin.template:
+            src: result.json.j2
+            dest: "{{ lynis_audit_result_directory }}/result.json"
+            mode: "0600"
+          delegate_to: localhost
+          become: false
+
+        - name: Remove only the role's remote audit directory
+          ansible.builtin.file:
+            path: "{{ lynis_audit_remote_directory.path }}"
+            state: absent
+          when:
+            - lynis_audit_evidence_retained
+            - lynis_audit_exit_code is not none
+
+- name: Report the audit result location and status
+  ansible.builtin.debug:
+    msg: "Lynis exit code {{ lynis_audit_exit_code }}; evidence: {{ lynis_audit_result_directory }}"
+
+- name: Require a completed audit after retaining evidence
+  ansible.builtin.assert:
+    that:
+      - lynis_audit_complete
+    fail_msg: "Lynis audit or evidence collection did not complete; see private receipt and recovery path: {{ lynis_audit_result_directory }}/result.json"

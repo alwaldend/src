@@ -1,0 +1,18 @@
+# Existing controller clamd Unix socket; its owner manages signatures/lifecycle.
+clamav_scan_socket: "{{ undefined() }}"
+# Controller path to //third_party/com_github_cisco_talos_clamav:payload_tar.
+clamav_scan_archive: "{{ undefined() }}"
+# Existing absolute controller-owned directory with mode 0700.
+clamav_scan_report_directory: "{{ undefined() }}"
+# GNU timeout deadline, then 15-second kill grace and Ansible supervisor slack.
+clamav_scan_timeout_seconds: 86400
+# Background scheduling preserves capacity for application workloads.
+clamav_scan_background: true
+# Native session mode permits concurrent engine processing of uploaded files.
+clamav_scan_multiscan: false
+# Controller MaxFileSize; client and server stream limits use one extra byte.
+clamav_scan_max_file_bytes: 104857600
+# Visit all regular files under these roots, subject to recorded omissions.
+clamav_scan_roots: [/]
+# Explicit subtrees to omit; exclusions are recorded as coverage limitations.
+clamav_scan_exclude_paths: []

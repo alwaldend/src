@@ -10,6 +10,7 @@ al_config(
     srcs = ["al.lua"],
     visibility = [
         "//infra/forgejo:__subpackages__",
+        "//infra/security/appliances:__pkg__",
         "//infra/xcp_ng:__subpackages__",
     ],
     deps = ["//infra:al"],

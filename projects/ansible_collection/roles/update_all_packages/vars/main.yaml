@@ -1,0 +1,35 @@
+update_all_packages_dnf_installation_timers:
+  - dnf-automatic.timer
+  - dnf-automatic-install.timer
+  - dnf5-automatic.timer
+
+update_all_packages_automatic_backends:
+  dnf5:
+    package: dnf5-plugin-automatic
+    timer: dnf5-automatic.timer
+    services:
+      - dnf5-automatic.service
+      - dnf-automatic.service
+      - dnf-automatic-install.service
+      - dnf-automatic-download.service
+      - dnf-automatic-notifyonly.service
+  dnf:
+    package: dnf-automatic
+    timer: dnf-automatic.timer
+    services:
+      - dnf-automatic.service
+      - dnf-automatic-install.service
+      - dnf-automatic-download.service
+      - dnf-automatic-notifyonly.service
+      - dnf5-automatic.service
+  apt:
+    package: unattended-upgrades
+    timer: apt-daily-upgrade.timer
+    services:
+      - apt-daily.service
+      - apt-daily-upgrade.service
+      - unattended-upgrades.service
+  rpm_ostree:
+    timer: rpm-ostreed-automatic.timer
+    services:
+      - rpm-ostreed-automatic.service

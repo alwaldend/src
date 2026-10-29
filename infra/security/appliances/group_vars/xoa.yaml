@@ -1,0 +1,8 @@
+ansible_user: xoa
+ansible_password: "{{ lookup('ansible.builtin.env', 'XOA_SSH_PASSWORD', default=undef()) }}"
+ansible_become_password: "{{ ansible_password }}"
+ansible_become: true
+# The owner's XOA deployment also uses multiplexing. Reuse one authenticated
+# connection for module transfers, with a socket private to this audit run.
+appliance_ssh_multiplexing: -o ControlMaster=auto -o ControlPersist=60s
+ansible_control_path_dir: "{{ (appliance_ssh_directory | default({'path': '/tmp'})).path }}"

@@ -1,0 +1,6 @@
+- name: Scan selected appliances without maintenance or remediation
+  ansible.builtin.import_playbook: clamav_workflow.yaml
+  vars:
+    clamav_hosts: "{{ appliance_clamav_hosts | default('xoa') }}"
+    # The scan role owns its dedicated private master.
+    appliance_ssh_multiplexing: -o ControlMaster=no -o ControlPath=none

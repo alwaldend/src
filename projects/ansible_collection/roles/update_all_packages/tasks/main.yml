@@ -1,15 +1,74 @@
-- tags:
+- name: Select the host package backend
+  ansible.builtin.import_tasks: backend.yaml
+  tags: [update_all_packages, automatic_updates]
+
+- name: Configure native automatic updates
+  ansible.builtin.import_tasks: automatic_updates.yaml
+  tags:
+    - update_all_packages
+    - automatic_updates
+
+- name: Update packages and report required maintenance
+  when: update_all_packages_upgrade_enabled | bool
+  tags:
     - update_all_packages
   block:
-    - name: Update all packages
-      ansible.builtin.package:
+    - name: Update all DNF4 packages with refreshed metadata
+      ansible.builtin.dnf:
         name: "*"
         state: latest
-    - name: Check if a reboot is required.
-      register: update_all_packages_required_file_result
-      ansible.builtin.stat:
-        path: /var/run/reboot-required
-        get_checksum: no
+        update_cache: true
+        lock_timeout: 600
+      when: update_all_packages_backend == 'dnf'
+
+    - name: Update all DNF5 packages with refreshed metadata
+      ansible.builtin.dnf5:
+        name: "*"
+        state: latest
+        update_cache: true
+        auto_install_module_deps: false
+      when: update_all_packages_backend == 'dnf5'
+
+    - name: Update all APT packages with refreshed metadata
+      ansible.builtin.apt:
+        name: "*"
+        state: latest
+        update_cache: true
+        fail_on_autoremove: true
+        auto_install_module_deps: false
+        lock_timeout: 600
+      when: update_all_packages_backend == 'apt'
+
+    - name: Wait for native OSTree staging before requesting another transaction
+      ansible.builtin.command:
+        argv: [rpm-ostree, status, --json]
+      register: update_all_packages_ostree_transaction
+      changed_when: false
+      check_mode: false
+      no_log: true
+      until: >-
+        (update_all_packages_ostree_transaction.stdout | from_json).transaction
+        | default(none) is none
+      retries: 180
+      delay: 10
+      when: update_all_packages_backend == 'rpm_ostree'
+
+    - name: Prepare an updated OSTree deployment without reboot or live apply
+      ansible.posix.rpm_ostree_upgrade:
+      when: update_all_packages_backend == 'rpm_ostree'
+
+    - name: Determine the reboot requirement for this package manager
+      ansible.builtin.import_tasks: reboot_required.yaml
+
+    - name: Report required reboot and explicit policy
+      ansible.builtin.debug:
+        msg:
+          backend: "{{ update_all_packages_backend }}"
+          reboot_required: "{{ update_all_packages_reboot_required }}"
+          reboot_enabled: "{{ update_all_packages_reboot_enabled | bool }}"
+
     - name: Reboot the server
       ansible.builtin.reboot:
-      when: update_all_packages_required_file_result.stat.exists
+      when:
+        - update_all_packages_reboot_enabled | bool
+        - update_all_packages_reboot_required | bool

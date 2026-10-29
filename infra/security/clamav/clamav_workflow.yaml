@@ -1,0 +1,65 @@
+- name: Prepare the private ClamAV controller
+  hosts: localhost
+  connection: local
+  become: false
+  gather_facts: false
+  any_errors_fatal: true
+  vars:
+    ansible_python_interpreter: "{{ ansible_playbook_python }}"
+  tasks:
+    - name: Prepare signatures and the native controller socket
+      ansible.builtin.import_tasks: tasks/controller_start.yaml
+
+- name: Scan selected hosts without maintenance or remediation
+  hosts: "{{ clamav_hosts }}"
+  become: true
+  gather_facts: false
+  serial: "{{ clamav_serial | default(2) }}"
+  tasks:
+    - name: Require controller preparation before endpoint work
+      ansible.builtin.assert:
+        that: hostvars['localhost'].clamav_controller.socket is defined
+        fail_msg: Include localhost in --limit so controller preparation and cleanup run.
+
+    - name: Scan this host and preserve failures for the final aggregate
+      block:
+        - name: Run the shared native streaming scan role
+          ansible.builtin.include_role:
+            name: alwaldend.main.clamav_scan
+          vars:
+            clamav_scan_socket: "{{ hostvars['localhost'].clamav_controller.socket }}"
+            clamav_scan_archive: "{{ playbook_dir }}/files/clamav.tar.gz"
+      rescue:
+        - name: Retain this host failure while allowing later serial batches
+          ansible.builtin.set_fact:
+            clamav_workflow_scan_failed: true
+
+        - name: Report incomplete host scanning without stopping other hosts
+          ansible.builtin.debug:
+            msg: "ClamAV scan failed for {{ inventory_hostname }}; retain its role evidence. Continuing other selected hosts."
+
+- name: Stop the invocation-owned ClamAV controller and report scan failures
+  hosts: localhost
+  connection: local
+  become: false
+  gather_facts: false
+  vars:
+    ansible_python_interpreter: "{{ ansible_playbook_python }}"
+  tasks:
+    - name: Stop the controller before reporting accumulated host failures
+      block:
+        - name: Confirm controller shutdown and preserve evidence
+          ansible.builtin.import_tasks: tasks/controller_stop.yaml
+      always:
+        - name: Collect host failures after controller cleanup
+          ansible.builtin.set_fact:
+            clamav_workflow_failed_hosts: >-
+              {{ hostvars | dict2items
+                 | selectattr('value.clamav_workflow_scan_failed', 'defined')
+                 | selectattr('value.clamav_workflow_scan_failed', 'equalto', true)
+                 | map(attribute='key') | list }}
+
+        - name: Report unsuccessful host scans after all selected batches
+          ansible.builtin.assert:
+            that: clamav_workflow_failed_hosts | length == 0
+            fail_msg: 'ClamAV execution failed for: {{ clamav_workflow_failed_hosts | join(", ") }}. Inspect each private role receipt; successful execution alone does not imply complete coverage.'

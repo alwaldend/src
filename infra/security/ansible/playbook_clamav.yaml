@@ -1,0 +1,6 @@
+- name: Scan selected managed hosts without maintenance or remediation
+  ansible.builtin.import_playbook: clamav_workflow.yaml
+  vars:
+    clamav_hosts: "{{ security_hosts | default('all:!localhost:!vm:!xcpng:!xoa') }}"
+    ansible_user: ansible
+    ansible_ssh_common_args: "-o HostKeyAlias={{ inventory_hostname }}"

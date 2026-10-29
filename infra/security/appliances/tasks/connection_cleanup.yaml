@@ -1,0 +1,10 @@
+- name: Close the invocation's multiplexed SSH connection
+  ansible.builtin.meta: reset_connection
+
+- name: Remove the invocation's private controller socket directory
+  ansible.builtin.file:
+    path: "{{ appliance_ssh_directory.path }}"
+    state: absent
+  delegate_to: localhost
+  become: false
+  when: appliance_ssh_directory.path is defined

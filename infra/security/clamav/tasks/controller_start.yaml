@@ -1,0 +1,357 @@
+- name: Require explicit private controller paths and bounded execution
+  ansible.builtin.assert:
+    that:
+      - not ansible_check_mode
+      - clamav_scan_report_directory is defined
+      - clamav_database_directory is defined
+      - clamav_scan_report_directory is match('^/[A-Za-z0-9_./-]+$')
+      - clamav_database_directory is match('^/[A-Za-z0-9_./-]+$')
+      - clamav_controller_timeout_seconds | default(172800) | int > 0
+      - clamav_controller_startup_timeout_seconds | default(1800) | int > 0
+      - clamav_daily_max_age_seconds | default(259200) | int > 0
+      - (clamav_controller_threads | default(2) | string) is match('^[0-9]+\Z')
+      - 1 <= (clamav_controller_threads | default(2) | int) <= 32
+      - (clamav_controller_memory_gib | default(6) | string) is match('^[0-9]+\Z')
+      - 1 <= (clamav_controller_memory_gib | default(6) | int) <= 64
+      - (clamav_scan_background | default(true)) is boolean
+    fail_msg: Supply existing absolute mode 0700 report/cache paths, positive time bounds, integer controller threads (1–32), integer memory GiB (1–64), and a boolean background setting; check mode cannot scan.
+
+- name: Identify the unprivileged controller operator
+  ansible.builtin.setup:
+    gather_subset: ["!all", "!min", user]
+
+- name: Inspect existing controller directories without following symlinks
+  ansible.builtin.stat:
+    path: "{{ item }}"
+    follow: false
+  loop:
+    - "{{ clamav_scan_report_directory }}"
+    - "{{ clamav_database_directory }}"
+    - "{{ lookup('ansible.builtin.env', 'XDG_RUNTIME_DIR', default=undef()) }}"
+  register: clamav_controller_directories
+
+- name: Require private writable operator-owned directories
+  ansible.builtin.assert:
+    that:
+      - ansible_facts.user_uid | int != 0
+      - item.stat.isdir | default(false)
+      - not item.stat.islnk | default(false)
+      - item.stat.uid == ansible_facts.user_uid
+      - item.stat.mode == '0700'
+      - item.stat.writeable
+  loop: "{{ clamav_controller_directories.results }}"
+  loop_control:
+    label: "{{ item.item }}"
+
+- name: Read available controller memory
+  ansible.builtin.slurp:
+    src: /proc/meminfo
+  register: clamav_controller_memory
+
+- name: Require at least four GiB available RAM
+  ansible.builtin.assert:
+    that:
+      - (clamav_controller_memory.content | b64decode | regex_findall('(?m)^MemAvailable:\s+(\d+) kB$') | first | int) >= 4194304
+
+- name: Inspect free disk space on both controller paths
+  ansible.builtin.command:
+    argv: [df, -Pk, --, "{{ item }}"]
+  loop:
+    ["{{ clamav_scan_report_directory }}", "{{ clamav_database_directory }}"]
+  register: clamav_controller_disk
+  changed_when: false
+
+- name: Require at least five GiB free disk space
+  ansible.builtin.assert:
+    that: item.stdout_lines[-1].split()[3] | int >= 5242880
+  loop: "{{ clamav_controller_disk.results }}"
+  loop_control:
+    label: "{{ item.item }}"
+
+- name: Create invocation-owned private controller scratch
+  ansible.builtin.tempfile:
+    path: "{{ clamav_scan_report_directory }}"
+    prefix: clamav-
+    state: directory
+  register: clamav_controller_directory
+
+- name: Name this invocation and its unique transient unit
+  ansible.builtin.set_fact:
+    clamav_controller:
+      run_directory: "{{ clamav_controller_directory.path }}"
+      prefix: "{{ clamav_controller_directory.path }}/prefix"
+      unit: "{{ clamav_controller_directory.path | basename }}.service"
+      runtime_directory: "{{ lookup('ansible.builtin.env', 'XDG_RUNTIME_DIR', default=undef()) }}/{{ clamav_controller_directory.path | basename }}"
+      socket: "{{ lookup('ansible.builtin.env', 'XDG_RUNTIME_DIR', default=undef()) }}/{{ clamav_controller_directory.path | basename }}/clam.sock"
+      threads: "{{ clamav_controller_threads | default(2) | int }}"
+      max_queue: "{{ (clamav_controller_threads | default(2) | int) * 4 }}"
+      memory_gib: "{{ clamav_controller_memory_gib | default(6) | int }}"
+      background: "{{ clamav_scan_background | default(true) }}"
+      nice: "{{ (clamav_scan_background | default(true)) | ternary(19, 0) }}"
+      io_scheduling_class: "{{ (clamav_scan_background | default(true)) | ternary('idle', 'best-effort') }}"
+    clamav_controller_unit_attempted: false
+    clamav_signature_metadata: {}
+
+- name: Record incomplete lifecycle before engine execution
+  ansible.builtin.copy:
+    dest: "{{ clamav_controller.run_directory }}/lifecycle.json"
+    mode: "0600"
+    content: '{{ {"state": "incomplete", "controller": clamav_controller, "database_directory": clamav_database_directory, "runtime_max_seconds": clamav_controller_timeout_seconds | default(172800) | int} | to_nice_json }}'
+
+- name: Prepare and start the native controller with failure cleanup
+  block:
+    - name: Create private extraction and engine temporary directories
+      ansible.builtin.file:
+        path: "{{ clamav_controller.run_directory }}/{{ item }}"
+        state: directory
+        mode: "0700"
+      loop: [prefix, tmp]
+
+    - name: Extract the pinned official payload without installing a package
+      ansible.builtin.unarchive:
+        src: "{{ playbook_dir }}/files/clamav.tar.gz"
+        dest: "{{ clamav_controller.prefix }}"
+        remote_src: true
+        extra_opts: [--no-same-owner]
+
+    - name: Set explicit relocated library, certificate, and temporary paths
+      ansible.builtin.set_fact:
+        clamav_controller_environment:
+          LD_LIBRARY_PATH: "{{ clamav_controller.prefix }}/usr/local/lib"
+          CVD_CERTS_DIR: "{{ clamav_controller.prefix }}/usr/local/etc/certs"
+          TMPDIR: "{{ clamav_controller.run_directory }}/tmp"
+          LC_ALL: C
+          TZ: UTC
+
+    - name: Render native private controller configuration
+      ansible.builtin.template:
+        src: "{{ playbook_dir }}/templates/{{ item }}.conf.j2"
+        dest: "{{ clamav_controller.run_directory }}/{{ item }}.conf"
+        mode: "0600"
+      loop: [freshclam, clamd]
+
+    - name: Create private native engine logs
+      ansible.builtin.copy:
+        dest: "{{ clamav_controller.run_directory }}/{{ item }}.log"
+        content: ""
+        force: false
+        mode: "0600"
+      loop: [freshclam, clamd]
+
+    - name: Inspect the reusable update lock
+      ansible.builtin.stat:
+        path: "{{ clamav_database_directory }}/freshclam.lock"
+        follow: false
+      register: clamav_database_lock
+
+    - name: Reject an unsafe pre-existing update lock
+      ansible.builtin.assert:
+        that:
+          - clamav_database_lock.stat.isreg | default(false)
+          - clamav_database_lock.stat.uid == ansible_facts.user_uid
+          - clamav_database_lock.stat.mode == '0600'
+      when: clamav_database_lock.stat.exists
+
+    - name: Create the private update lock if absent
+      ansible.builtin.copy:
+        dest: "{{ clamav_database_directory }}/freshclam.lock"
+        content: ""
+        force: false
+        mode: "0600"
+
+    - name: Update signatures once while preserving cached cooldown state
+      ansible.builtin.command:
+        argv:
+          - flock
+          - --exclusive
+          - --nonblock
+          - "{{ clamav_database_directory }}/freshclam.lock"
+          - timeout
+          - --kill-after=15
+          - "{{ clamav_controller_startup_timeout_seconds | default(1800) | string }}"
+          - "{{ clamav_controller.prefix }}/usr/local/bin/freshclam"
+          - --config-file
+          - "{{ clamav_controller.run_directory }}/freshclam.conf"
+      environment: "{{ clamav_controller_environment }}"
+      register: clamav_freshclam
+      changed_when: true
+      failed_when: false
+
+    - name: Retain the update command outcome separately from its native log
+      ansible.builtin.copy:
+        dest: "{{ clamav_controller.run_directory }}/freshclam.json"
+        content: "{{ clamav_freshclam | to_nice_json }}"
+        mode: "0600"
+
+    - name: Find the resulting official databases
+      ansible.builtin.find:
+        paths: "{{ clamav_database_directory }}"
+        patterns: "^(daily|main|bytecode)[.](cvd|cld)$"
+        use_regex: true
+        file_type: file
+      register: clamav_database_files
+
+    - name: Require one container for each official database
+      ansible.builtin.assert:
+        that: clamav_database_files.files | selectattr('path', 'search', '/' + item + '[.](cvd|cld)$') | list | length == 1
+      loop: [daily, main, bytecode]
+
+    - name: Verify actual database containers with native sigtool
+      ansible.builtin.command:
+        argv:
+          [
+            "{{ clamav_controller.prefix }}/usr/local/bin/sigtool",
+            --cvdcertsdir,
+            "{{ clamav_controller.prefix }}/usr/local/etc/certs",
+            --info,
+            "{{ item.path }}",
+          ]
+      environment: "{{ clamav_controller_environment }}"
+      loop: "{{ clamav_database_files.files }}"
+      loop_control:
+        label: "{{ item.path | basename }}"
+      register: clamav_signature_info
+      changed_when: false
+      failed_when: false
+
+    - name: Retain native signature verification evidence
+      ansible.builtin.copy:
+        dest: "{{ clamav_controller.run_directory }}/{{ item.item.path | basename }}.info.log"
+        content: '{{ item.stdout }}{{ "\n" }}{{ item.stderr }}{{ "\n" }}'
+        mode: "0600"
+      loop: "{{ clamav_signature_info.results }}"
+      loop_control:
+        label: "{{ item.item.path | basename }}"
+
+    - name: Require successful verification and complete native metadata
+      ansible.builtin.assert:
+        that:
+          - item.rc == 0
+          - "'Verification OK.' in item.stdout"
+          - item.stdout | regex_findall('(?m)^Version:\s+(\d+)$') | length == 1
+          - item.stdout | regex_findall('(?m)^Signatures:\s+(\d+)$') | length == 1
+          - item.stdout | regex_findall('(?m)^Build time:\s+(.+)$') | length == 1
+      loop: "{{ clamav_signature_info.results }}"
+      loop_control:
+        label: "{{ item.item.path | basename }}"
+
+    - name: Observe UTC time for signature freshness
+      ansible.builtin.command:
+        argv: [date, --utc, "+%Y-%m-%dT%H:%M:%S%z"]
+      register: clamav_observed_time
+      changed_when: false
+
+    - name: Record versions and ages from native sigtool metadata
+      ansible.builtin.set_fact:
+        clamav_signature_metadata: >-
+          {{ clamav_signature_metadata | combine({(item.item.path | basename | split('.') | first): {
+            'path': item.item.path,
+            'version': item.stdout | regex_findall('(?m)^Version:\s+(\d+)$') | first | int,
+            'signatures': item.stdout | regex_findall('(?m)^Signatures:\s+(\d+)$') | first | int,
+            'build_time': item.stdout | regex_findall('(?m)^Build time:\s+(.+)$') | first,
+            'age_seconds': ((clamav_observed_time.stdout | to_datetime('%Y-%m-%dT%H:%M:%S%z')) -
+              (item.stdout | regex_findall('(?m)^Build time:\s+(.+)$') | first | to_datetime('%d %b %Y %H:%M %z'))).total_seconds() | int
+          }}) }}
+      loop: "{{ clamav_signature_info.results }}"
+      loop_control:
+        label: "{{ item.item.path | basename }}"
+
+    - name: Retain the actual signature metadata
+      ansible.builtin.copy:
+        dest: "{{ clamav_controller.run_directory }}/signatures.json"
+        content: '{{ {"observed_at": clamav_observed_time.stdout, "databases": clamav_signature_metadata} | to_nice_json }}'
+        mode: "0600"
+
+    - name: Reject failed updates or stale and future-dated signatures
+      ansible.builtin.assert:
+        that:
+          - clamav_freshclam.rc == 0
+          - clamav_signature_metadata.daily.age_seconds <= clamav_daily_max_age_seconds | default(259200) | int
+          - item.value.age_seconds >= -300
+          - item.value.version > 0
+          - item.value.signatures > 0
+      loop: "{{ clamav_signature_metadata | dict2items }}"
+      loop_control:
+        label: "{{ item.key }}"
+
+    - name: Mark that cleanup must account for the unique unit
+      ansible.builtin.set_fact:
+        clamav_controller_unit_attempted: true
+
+    - name: Start foreground clamd as a bounded transient user service
+      ansible.builtin.command:
+        argv:
+          - systemd-run
+          - --user
+          - "--unit={{ clamav_controller.unit }}"
+          - --collect
+          - --service-type=exec
+          - "--property=RuntimeMaxSec={{ clamav_controller_timeout_seconds | default(172800) | int }}"
+          - --property=TimeoutStopSec=15
+          - --property=KillMode=control-group
+          - --property=UMask=0077
+          - --property=Restart=no
+          - "--property=RuntimeDirectory={{ clamav_controller.run_directory | basename }}"
+          - --property=RuntimeDirectoryMode=0700
+          - "--property=Nice={{ clamav_controller.nice }}"
+          - "--property=IOSchedulingClass={{ clamav_controller.io_scheduling_class }}"
+          - "--property=MemoryMax={{ clamav_controller.memory_gib }}G"
+          - "--property=WorkingDirectory={{ clamav_controller.run_directory }}"
+          - "--property=StandardOutput=append:{{ clamav_controller.run_directory }}/clamd.log"
+          - --property=StandardError=inherit
+          - "--setenv=LD_LIBRARY_PATH={{ clamav_controller_environment.LD_LIBRARY_PATH }}"
+          - "--setenv=CVD_CERTS_DIR={{ clamav_controller_environment.CVD_CERTS_DIR }}"
+          - "--setenv=TMPDIR={{ clamav_controller_environment.TMPDIR }}"
+          - "{{ clamav_controller.prefix }}/usr/local/sbin/clamd"
+          - --config-file
+          - "{{ clamav_controller.run_directory }}/clamd.conf"
+      register: clamav_unit_start
+      changed_when: true
+
+    - name: Wait for a daemon VERSION response with the verified daily database
+      ansible.builtin.command:
+        argv:
+          - timeout
+          - --kill-after=15
+          - "{{ clamav_controller_startup_timeout_seconds | default(1800) | int | string }}"
+          - sh
+          - -c
+          - |
+            while :; do
+              version=$("$1" --config-file="$2" --version) || exit "$?"
+              case "$version" in
+                "ClamAV "[0-9]*"/$3/"?*) printf '%s\n' "$version"; exit 0 ;;
+              esac
+              sleep 1
+            done
+          - clamav-version
+          - "{{ clamav_controller.prefix }}/usr/local/bin/clamdscan"
+          - "{{ clamav_controller.run_directory }}/clamd.conf"
+          - "{{ clamav_signature_metadata.daily.version | string }}"
+        expand_argument_vars: false
+        chdir: "{{ clamav_controller.run_directory }}"
+      environment: "{{ clamav_controller_environment }}"
+      register: clamav_server_version
+      changed_when: false
+
+    - name: Record the actual ready daemon version
+      ansible.builtin.set_fact:
+        clamav_controller: '{{ clamav_controller | combine({"version": clamav_server_version.stdout | trim}) }}'
+
+    - name: Retain ready controller evidence
+      ansible.builtin.copy:
+        dest: "{{ clamav_controller.run_directory }}/lifecycle.json"
+        content: '{{ {"state": "ready", "controller": clamav_controller, "runtime_max_seconds": clamav_controller_timeout_seconds | default(172800) | int} | to_nice_json }}'
+        mode: "0600"
+
+  rescue:
+    - name: Retain the startup failure before cleanup
+      ansible.builtin.set_fact:
+        clamav_controller_startup_failure: '{{ ansible_failed_task.name }}: {{ ansible_failed_result.msg | default("command failed") }}'
+
+    - name: Stop only the invocation-owned transient unit after startup failure
+      ansible.builtin.import_tasks: controller_stop.yaml
+
+    - name: Fail before any endpoint scanning
+      ansible.builtin.fail:
+        msg: "Controller preparation failed; inspect {{ clamav_controller.run_directory }}. {{ clamav_controller_startup_failure }}"

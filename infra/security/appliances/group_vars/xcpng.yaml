@@ -1,0 +1,2 @@
+ansible_user: root
+ansible_password: "{{ lookup('ansible.builtin.env', 'XCPNG_PASSWORD', default=undef()) }}"

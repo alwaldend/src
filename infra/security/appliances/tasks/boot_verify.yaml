@@ -1,0 +1,27 @@
+- name: Read the final boot identity
+  ansible.builtin.raw: cat /proc/sys/kernel/random/boot_id
+  changed_when: false
+  register: appliance_boot_after
+
+- name: Retain boot identities and the connection recovery path
+  ansible.builtin.copy:
+    content: "{{ item.content | trim }}\n"
+    dest: "{{ appliance_result_directory.path }}/{{ item.file }}"
+    mode: "0600"
+  loop:
+    - file: boot-before.txt
+      content: "{{ appliance_boot_before.stdout }}"
+    - file: boot-after.txt
+      content: "{{ appliance_boot_after.stdout }}"
+    - file: ssh-control-directory.txt
+      content: "{{ appliance_ssh_directory.path | default('') }}"
+  when: item.file != 'ssh-control-directory.txt' or appliance_ssh_directory.path is defined
+  delegate_to: localhost
+  become: false
+
+- name: Require the host to have remained on the original boot
+  ansible.builtin.assert:
+    that:
+      - appliance_boot_before.stdout | trim is match('^[0-9a-f-]{36}$')
+      - appliance_boot_after.stdout | trim == appliance_boot_before.stdout | trim
+    fail_msg: Host boot identity changed; stop maintenance and inspect the retained evidence.

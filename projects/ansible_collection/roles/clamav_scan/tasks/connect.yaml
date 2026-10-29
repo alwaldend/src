@@ -1,0 +1,62 @@
+- name: Inspect the controller's native private runtime directory
+  ansible.builtin.stat:
+    path: "{{ lookup('ansible.builtin.env', 'XDG_RUNTIME_DIR', default=undef()) }}"
+    follow: false
+  delegate_to: localhost
+  become: false
+  register: clamav_scan_controller_runtime
+
+- name: Require operator-owned private IPC storage
+  ansible.builtin.assert:
+    that:
+      - clamav_scan_controller_runtime.stat.isdir | default(false)
+      - not (clamav_scan_controller_runtime.stat.islnk | default(false))
+      - clamav_scan_controller_runtime.stat.uid == clamav_scan_controller_user.stdout | int
+      - clamav_scan_controller_runtime.stat.mode == '0700'
+
+- name: Allocate the invocation's short private SSH control directory
+  ansible.builtin.tempfile:
+    state: directory
+    path: "{{ clamav_scan_controller_runtime.stat.path }}"
+    prefix: cs.
+  delegate_to: localhost
+  become: false
+  register: clamav_scan_control_directory
+
+- name: Save the control path before opening the connection
+  ansible.builtin.template:
+    src: receipt.json.j2
+    dest: "{{ clamav_scan_result_directory }}/receipt.json"
+    mode: "0600"
+  delegate_to: localhost
+  become: false
+
+- name: Select the invocation's absolute SSH control socket
+  ansible.builtin.set_fact:
+    clamav_scan_control_path: "{{ clamav_scan_control_directory.path }}/s"
+
+- name: Require a safe short native control path
+  ansible.builtin.assert:
+    that:
+      - clamav_scan_control_path is match('^/[A-Za-z0-9_./-]+$')
+      - clamav_scan_control_path | length < 91
+
+- name: Select a dedicated persistent master while preserving injected SSH options
+  ansible.builtin.set_fact:
+    ansible_ssh_args: >-
+      -o ControlMaster=auto
+      -o ControlPersist={{ clamav_scan_timeout_seconds | int + 300 }}s
+      -o ControlPath={{ clamav_scan_control_path }}
+      {{ clamav_scan_original_ssh_args }}
+    clamav_scan_tunnel_configured: true
+
+- name: Establish the dedicated master through the caller's authentication
+  ansible.builtin.command:
+    argv: ["true"]
+  changed_when: false
+  register: clamav_scan_master_start
+
+- name: Require the authenticated master session
+  ansible.builtin.assert:
+    that:
+      - clamav_scan_master_start.rc | default(-1) == 0

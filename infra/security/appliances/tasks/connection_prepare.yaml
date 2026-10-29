@@ -1,0 +1,9 @@
+- name: Allocate a private short path for XOA's SSH control socket
+  ansible.builtin.tempfile:
+    state: directory
+    path: /tmp
+    prefix: appliance-ssh.
+  delegate_to: localhost
+  become: false
+  register: appliance_ssh_directory
+  when: "'xoa' in group_names"

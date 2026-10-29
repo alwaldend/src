@@ -19,6 +19,12 @@ service hostname as TLS SNI. Local Traefik uses the Vault certificate resolver
 and forwards to `127.0.0.1:8188`. Ansible declares the route; the server must
 be started separately using the [ComfyUI launcher](../../../tools/comfyui/README.md).
 
+The canonical package updater keeps automatic OSTree staging enabled without
+automatic reboot. The `automatic_updates` tag reconciles this policy. The
+shared `infra/security` playbook performs on-demand audits and stages immediate
+system updates; activating a staged deployment requires a separately authorized
+reboot.
+
 Ansible declares Tuned's `balanced` power profile through
 `host_bot_tuned_profile`, enables the existing Tuned service, and reconciles
 the selected profile in manual mode. The `power_profile` tag scopes those

@@ -1,0 +1,34 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files", "strip_prefix")
+
+package(transitive_visibility = "//infra:transitive_consumers")
+
+pkg_files(
+    name = "files",
+    srcs = ["clamav_workflow.yaml"] + glob([
+        "tasks/*.yaml",
+        "templates/*.j2",
+    ]),
+    strip_prefix = strip_prefix.from_pkg(),
+)
+
+pkg_files(
+    name = "payload",
+    srcs = ["//third_party/com_github_cisco_talos_clamav:payload_tar"],
+    renames = {"//third_party/com_github_cisco_talos_clamav:payload_tar": "files/clamav.tar.gz"},
+)
+
+pkg_filegroup(
+    name = "runtime",
+    srcs = [
+        ":files",
+        ":payload",
+    ],
+    visibility = ["//infra/security:__subpackages__"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//infra/security:__pkg__"],
+)

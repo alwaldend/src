@@ -1,0 +1,178 @@
+- name: Stage reviewed XCP-ng vendor packages without reboot
+  hosts: xcpng
+  gather_facts: false
+  serial: 1
+  tasks:
+    - name: Reject unverified automatic updates and check mode
+      ansible.builtin.assert:
+        that:
+          - not (appliance_automatic_updates | default(false) | bool)
+          - not ansible_check_mode
+        fail_msg: >-
+          Native XCP-ng unattended updates
+          with pool coordination and no reboot have not been verified; this
+          workflow does not install yum-cron or schedule yum. Check mode is unsupported.
+
+    - name: Prepare private controller evidence
+      ansible.builtin.import_tasks: tasks/evidence.yaml
+
+    - name: Verify XCP-ng maintenance prerequisites without changing pool state
+      ansible.builtin.raw: |
+        (
+        export XCPNG_USE_ORIGIN_MIRROR={{ appliance_xcpng_use_origin_mirror | default(false) | bool | ternary('yes', 'no') }}
+        {{ lookup('ansible.builtin.file', playbook_dir + '/files/xcpng_update_preflight.sh') }}
+        )
+        preflight_status=$?
+        printf '\nPREFLIGHT_EXIT_CODE=%s\n' "$preflight_status"
+        exit 0
+      register: appliance_update_preflight
+      changed_when: false
+      failed_when: false
+      ignore_unreachable: true
+      no_log: true
+
+    - name: Retain the preflight result
+      ansible.builtin.copy:
+        content: "{{ appliance_update_preflight | to_nice_json }}"
+        dest: "{{ appliance_result_directory.path }}/update-preflight.json"
+        mode: "0600"
+      delegate_to: localhost
+      become: false
+      no_log: true
+
+    - name: Require all pool and package-manager prerequisites
+      ansible.builtin.assert:
+        that:
+          - appliance_update_preflight.rc | default(1) == 0
+          - appliance_update_preflight.stdout | default('') is search('(?m)^PREFLIGHT_EXIT_CODE=0\r?$')
+        fail_msg: >-
+          XCP-ng update blocked. The host must be a single-host pool
+          coordinator, HA disabled, no active XAPI tasks, no XOSTOR, no
+          attached CD media, and no unreviewed yum-cron. Inspect
+          update-preflight.json for the exact prerequisite. The transaction
+          enforces signature and TLS verification on XCP-ng 8.3 vendor sources.
+
+    - name: Retain the verified host identity and original enabled state
+      ansible.builtin.set_fact:
+        appliance_xcpng_host_uuid: "{{ appliance_update_preflight.stdout | regex_findall('HOST_UUID=([0-9a-f-]{36})') | first }}"
+        appliance_xcpng_was_enabled: "{{ 'HOST_ENABLED=true' in appliance_update_preflight.stdout_lines }}"
+
+    - name: Apply the vendor control-plane update sequence
+      block:
+        - name: Temporarily disable new VM placement on the pool coordinator
+          ansible.builtin.raw: "timeout 60s xe host-disable uuid={{ appliance_xcpng_host_uuid | quote }} || exit 100"
+          when: appliance_xcpng_was_enabled | bool
+          changed_when: true
+
+        - name: Confirm that XAPI has no pending work immediately before the transaction
+          ansible.builtin.raw: |
+            pending=$(timeout 30s xe task-list status=pending --minimal) || exit 100
+            cancelling=$(timeout 30s xe task-list status=cancelling --minimal) || exit 100
+            test -z "$pending" && test -z "$cancelling" || exit 100
+          changed_when: false
+
+        - name: Install updates from only the two stable vendor repositories
+          ansible.builtin.raw: |
+            set -- /usr/bin/yum --disablerepo='*' --enablerepo=xcp-ng-base --enablerepo=xcp-ng-updates --setopt=timeout=30 --setopt=retries=2
+            set -- "$@" --setopt=gpgcheck=1 --setopt=sslverify=1 --setopt='*.gpgcheck=1' --setopt='*.sslverify=1'
+            if {{ appliance_xcpng_use_origin_mirror | default(false) | bool | ternary('true', 'false') }}; then
+              set -- "$@" --setopt=xcp-ng-base.baseurl=https://updates.xcp-ng.org/8/8.3/base/x86_64/ --setopt=xcp-ng-updates.baseurl=https://updates.xcp-ng.org/8/8.3/updates/x86_64/
+            fi
+            "$@" -y update
+            package_status=$?
+            printf '\nPACKAGE_UPDATE_EXIT_CODE=%s\n' "$package_status"
+            exit 0
+          register: appliance_update_result
+          changed_when: true
+          failed_when: false
+          ignore_unreachable: true
+          no_log: true
+
+        - name: Retain the package transaction result
+          ansible.builtin.copy:
+            content: "{{ appliance_update_result | to_nice_json }}"
+            dest: "{{ appliance_result_directory.path }}/package-update.json"
+            mode: "0600"
+          delegate_to: localhost
+          become: false
+          no_log: true
+
+        - name: Require a successful package transaction before restarting XAPI
+          ansible.builtin.assert:
+            that:
+              - appliance_update_result.rc | default(1) == 0
+              - appliance_update_result.stdout | default('') is search('(?m)^PACKAGE_UPDATE_EXIT_CODE=0\r?$')
+            fail_msg: Package transaction failed; inspect the retained receipt. The original host enabled state will be restored if XAPI remains responsive.
+
+        - name: Restart only the vendor control plane without rebooting the host or guests
+          ansible.builtin.raw: |
+            timeout --signal=TERM --kill-after=15s 300s /opt/xensource/bin/xe-toolstack-restart
+            toolstack_status=$?
+            printf '\nTOOLSTACK_EXIT_CODE=%s\n' "$toolstack_status"
+            exit 0
+          register: appliance_toolstack_result
+          changed_when: true
+          failed_when: false
+          ignore_unreachable: true
+          no_log: true
+
+        - name: Retain the control-plane restart result
+          ansible.builtin.copy:
+            content: "{{ appliance_toolstack_result | to_nice_json }}"
+            dest: "{{ appliance_result_directory.path }}/toolstack-restart.json"
+            mode: "0600"
+          delegate_to: localhost
+          become: false
+          no_log: true
+
+        - name: Require the control-plane restart to complete
+          ansible.builtin.assert:
+            that:
+              - appliance_toolstack_result.rc | default(1) == 0
+              - appliance_toolstack_result.stdout | default('') is search('(?m)^TOOLSTACK_EXIT_CODE=0\r?$')
+            fail_msg: Control-plane restart failed; inspect the retained receipt and XAPI readiness.
+
+      always:
+        - name: Restore host state and verify that no reboot occurred
+          block:
+            - name: Wait for the same host's XAPI to respond
+              ansible.builtin.raw: "timeout 10s xe host-list uuid={{ appliance_xcpng_host_uuid | quote }} --minimal || exit 100"
+              register: appliance_xapi_ready
+              changed_when: false
+              retries: 30
+              delay: 5
+              until:
+                - appliance_xapi_ready.rc == 0
+                - appliance_xapi_ready.stdout | trim == appliance_xcpng_host_uuid
+
+            - name: Restore the original enabled state
+              ansible.builtin.raw: >-
+                timeout 60s xe
+                {{ appliance_xcpng_was_enabled | bool | ternary('host-enable', 'host-disable') }}
+                uuid={{ appliance_xcpng_host_uuid | quote }} || exit 100
+              register: appliance_xcpng_restore_result
+              changed_when: true
+              retries: 30
+              delay: 5
+              until: appliance_xcpng_restore_result.rc == 0
+
+            - name: Read the restored enabled state
+              ansible.builtin.raw: "timeout 30s xe host-param-get uuid={{ appliance_xcpng_host_uuid | quote }} param-name=enabled || exit 100"
+              register: appliance_xcpng_restored
+              changed_when: false
+
+            - name: Verify that host placement policy was restored
+              ansible.builtin.assert:
+                that: appliance_xcpng_restored.stdout | trim == (appliance_xcpng_was_enabled | bool | ternary('true', 'false'))
+
+          always:
+            - name: Verify the original boot remains active
+              ansible.builtin.import_tasks: tasks/boot_verify.yaml
+
+    - name: Report deferred vendor maintenance
+      ansible.builtin.debug:
+        msg: >-
+          Vendor packages were installed and the control plane restarted.
+          Original host placement policy and boot identity were preserved.
+          Kernel or hypervisor fixes may still require a separately authorized
+          host reboot. Native unattended appliance updates remain unverified.

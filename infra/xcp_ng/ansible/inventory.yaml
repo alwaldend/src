@@ -5,3 +5,4 @@ xoa:
 xcpng:
   hosts:
     host1.xcp-ng.alwaldend.com:
+      ansible_python_interpreter: /opt/ansible-python/3.14.4/bin/python3.14

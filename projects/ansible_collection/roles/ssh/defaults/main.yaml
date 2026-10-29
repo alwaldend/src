@@ -1,4 +1,11 @@
 ssh_hardening_enabled: true
+# Set to [] to omit the shared Match User default.
+ssh_hardening_match_user:
+  - user: ansible
+    rules:
+      - AllowTcpForwarding remote
+      - PermitListen none
+      - AllowStreamLocalForwarding remote
 ssh_vault_mount: ssh/servers
 ssh_vault_role: "{{ undefined }}"
 ssh_sign_ignore_errors: false
