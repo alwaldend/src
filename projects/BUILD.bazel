@@ -28,6 +28,7 @@ al_release_binary(
             exclude = [
                 "anki_as_code",
                 "mcp_cordis",
+                "mermaid_3d",
                 "mlops_2026",
                 "alwaldend.com",
                 "ansible_collection",

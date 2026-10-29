@@ -10,3 +10,9 @@ colors. The site consumes that SVG directly without a separate artwork copy.
 
 The shared favicon partial fingerprints the resource to refresh cached tab
 icons when the canonical SVG changes.
+
+`scss/_shared_accent.scss.tmpl` maps the authoritative identity data from
+`//data/alwaldend:assets/theme.json` to Bootstrap/Docsy variables. The build
+packages its generated `_shared_accent.scss` at the usual theme import path.
+Component rules stay in this assets tree; shared color values are edited in
+the identity data rather than in generated Sass.

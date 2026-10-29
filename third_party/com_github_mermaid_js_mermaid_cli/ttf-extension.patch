@@ -1,0 +1,11 @@
+--- a/src/puppeteerIntercept.js
++++ b/src/puppeteerIntercept.js
+@@ -29,7 +29,7 @@
+       return "font/woff2";
+     case ".woff":
+       return "font/woff";
+-    case ".tff":
++    case ".ttf":
+       return "font/ttf";
+     case ".txt":
+     case "": // no extension

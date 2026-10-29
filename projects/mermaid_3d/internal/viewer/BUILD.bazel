@@ -1,0 +1,15 @@
+load("@aspect_rules_js//js:defs.bzl", "js_library")
+
+package(transitive_visibility = "//projects:transitive_consumers")
+
+js_library(
+    name = "viewer",
+    srcs = [
+        "document.mjs",
+        "labels.mjs",
+        "main.mjs",
+        "scene.mjs",
+        "viewer.css",
+    ],
+    visibility = ["//projects/mermaid_3d:internal_consumers"],
+)

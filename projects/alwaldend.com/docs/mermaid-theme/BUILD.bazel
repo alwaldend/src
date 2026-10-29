@@ -12,6 +12,11 @@ _SAMPLES = [
     "state",
 ]
 
+exports_files(
+    [sample + ".mmd" for sample in _SAMPLES],
+    visibility = ["//projects/mermaid_3d/samples:__pkg__"],
+)
+
 [
     mermaid_site_svg(
         name = sample,
@@ -29,7 +34,10 @@ filegroup(
 
 docs_filegroup(
     name = "docs_assets",
-    srcs = [":samples"],
+    srcs = [
+        ":samples",
+        "//projects/mermaid_3d/samples:snapshots",
+    ],
     prefix = "content/docs/projects/alwaldend.com/docs/mermaid-theme/assets",
 )
 
@@ -40,5 +48,14 @@ docs_filegroup(
         "*.mmd",
     ]),
     visibility = ["//projects/alwaldend.com/docs:__pkg__"],
-    deps = [":docs_assets"],
+    deps = [
+        ":docs_assets",
+        ":spatial_assets",
+    ],
+)
+
+docs_filegroup(
+    name = "spatial_assets",
+    srcs = ["//projects/mermaid_3d/samples:html"],
+    prefix = "static/docs/projects/alwaldend.com/docs/mermaid-theme/assets",
 )

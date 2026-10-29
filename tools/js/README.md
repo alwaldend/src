@@ -14,5 +14,5 @@ when updating the lockfile.
 
 A security override selects patched KaTeX where Mermaid's upstream range
 retains a vulnerable release. PostCSS is pinned explicitly to supply a secure
-version to its CLI and plugins' peers. The Mermaid pin and rendering patch
-remain unchanged.
+version to its CLI and plugins' peers. Mermaid and Three.js are exact pins;
+the Dagre spacing patch is maintained with each Mermaid upgrade.

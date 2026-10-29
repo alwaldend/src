@@ -1,0 +1,49 @@
+load("@aspect_rules_js//js:defs.bzl", "js_test")
+load("//projects/mermaid_3d:defs.bzl", "mermaid_3d")
+
+package(transitive_visibility = "//projects:transitive_consumers")
+
+_FIXTURES = [
+    "sequence-semantics",
+    "sequence-text",
+    "class-text",
+    "graph-semantics",
+    "sequence-activations",
+    "graph-boundaries",
+    "group-title",
+    "sequence-identifiers",
+]
+
+_INPUTS = [
+    "//projects/mermaid_3d/samples:class",
+    "//projects/mermaid_3d/samples:entity-relationship",
+    "//projects/mermaid_3d/samples:flowchart",
+    "//projects/mermaid_3d/samples:mindmap",
+    "//projects/mermaid_3d/samples:sequence",
+    "//projects/mermaid_3d/samples:state",
+] + [":" + name.replace("-", "_") for name in _FIXTURES]
+
+[
+    mermaid_3d(
+        name = name.replace("-", "_"),
+        testonly = True,
+        src = name + ".mmd",
+        out = name + ".3d.html",
+        model = name + ".3d.json",
+        theme = "//data/alwaldend:mermaid_theme",
+    )
+    for name in _FIXTURES
+]
+
+js_test(
+    name = "browser_test",
+    size = "large",
+    args = [
+        "$(rootpath @com_google_chrome_headless_shell//:chrome_headless_shell_binary)",
+    ] + ["$(rootpath {})".format(label) for label in _INPUTS],
+    data = _INPUTS + [
+        "//tools:node_modules/puppeteer",
+        "@com_google_chrome_headless_shell//:chrome_headless_shell_binary",
+    ],
+    entry_point = "browser_test.mjs",
+)

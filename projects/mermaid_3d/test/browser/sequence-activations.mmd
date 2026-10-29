@@ -1,0 +1,15 @@
+sequenceDiagram
+    participant A as Client
+    participant B as Service
+    activate A
+    A->>+B: Request
+    B->>+B: Nested request
+    B-->>-B: Nested response
+    B-->>-A: Response
+    deactivate A
+    A->>B: Explicit request
+    activate B
+    Note right of B: Processing<br/>Several steps
+    B-->>A: Explicit response
+    deactivate B
+    A->>A: After completion

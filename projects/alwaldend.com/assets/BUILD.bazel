@@ -1,20 +1,18 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files", "strip_prefix")
-load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_palette")
+load("@rules_template//main/bzl:template_run_binary.bzl", "template_run_binary")
 
 package(transitive_visibility = "//projects:transitive_consumers")
 
-mermaid_palette(
-    name = "mermaid_palette",
-    src = "scss/mermaid.scss",
-    out = "mermaid-palette.css",
-    visibility = ["//:__subpackages__"],
-    deps = ["scss/_shared_accent.scss"],
+template_run_binary(
+    name = "shared_theme_variables",
+    srcs = ["scss/_shared_accent.scss.tmpl"],
+    outs = ["_shared_accent.scss"],
+    data = ["//data/alwaldend:assets/theme.json"],
 )
 
-# The shared Docsy canvas and accent live in this site's own assets tree now
-# that the reusable landing project is retired, so both the home page and the
-# project landings render one palette from one implementation.
+# Site-specific Docsy styling maps shared identity data to the home page
+# and project landings through one generated Sass projection.
 pkg_filegroup(
     name = "assets",
     srcs = [
@@ -31,9 +29,16 @@ pkg_files(
         exclude = [
             "README.md",
             "BUILD.bazel",
+            "**/*.tmpl",
         ],
-    ) + ["//data/alwaldend:monogram"],
-    renames = {"//data/alwaldend:monogram": "icons/favicon.svg"},
+    ) + [
+        ":shared_theme_variables",
+        "//data/alwaldend:monogram",
+    ],
+    renames = {
+        ":shared_theme_variables": "scss/_shared_accent.scss",
+        "//data/alwaldend:monogram": "icons/favicon.svg",
+    },
     strip_prefix = strip_prefix.from_pkg(),
 )
 
