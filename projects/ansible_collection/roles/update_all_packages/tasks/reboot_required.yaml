@@ -1,0 +1,52 @@
+- name: Check the Debian reboot marker
+  when: update_all_packages_backend == 'apt'
+  register: update_all_packages_required_file_result
+  ansible.builtin.stat:
+    path: /var/run/reboot-required
+    get_checksum: false
+
+- name: Require the native DNF reboot-hint command before interpreting exit codes
+  when: update_all_packages_backend in ['dnf', 'dnf5']
+  ansible.builtin.command:
+    argv: ["{{ update_all_packages_backend }}", needs-restarting, --help]
+  check_mode: false
+  changed_when: false
+
+- name: Check whether DNF updates require reboot
+  when: update_all_packages_backend in ['dnf', 'dnf5']
+  ansible.builtin.command:
+    argv: >-
+      {{ [update_all_packages_backend, 'needs-restarting'] +
+         (['-r'] if update_all_packages_backend == 'dnf' else []) }}
+  register: update_all_packages_dnf_reboot
+  check_mode: false
+  changed_when: false
+  failed_when: update_all_packages_dnf_reboot.rc not in [0, 1]
+
+- name: Inspect the pending OSTree deployment
+  when: update_all_packages_backend == 'rpm_ostree'
+  ansible.builtin.command:
+    argv: [rpm-ostree, status, --json]
+  register: update_all_packages_ostree_status
+  check_mode: false
+  changed_when: false
+
+- name: Validate OSTree deployment information
+  when: update_all_packages_backend == 'rpm_ostree'
+  ansible.builtin.assert:
+    that:
+      - (update_all_packages_ostree_status.stdout | from_json).deployments | length > 0
+      - >-
+        (update_all_packages_ostree_status.stdout | from_json).deployments
+        | selectattr('booted', 'equalto', true) | list | length == 1
+    fail_msg: Cannot determine the booted OSTree deployment.
+
+- name: Record whether a reboot is required
+  ansible.builtin.set_fact:
+    update_all_packages_reboot_required: >-
+      {{ (update_all_packages_backend in ['dnf', 'dnf5'] and
+          update_all_packages_dnf_reboot.rc | default(0) == 1) or
+         (update_all_packages_backend == 'apt' and
+          update_all_packages_required_file_result.stat.exists | default(false)) or
+         (update_all_packages_backend == 'rpm_ostree' and
+          not (update_all_packages_ostree_status.stdout | from_json).deployments[0].booted) }}

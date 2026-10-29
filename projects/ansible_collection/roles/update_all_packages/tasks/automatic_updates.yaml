@@ -1,0 +1,124 @@
+- name: Validate existing automatic-update hooks before changing installation policy
+  ansible.builtin.import_tasks: automatic_safety.yaml
+
+- name: Configure native automatic security updates on mutable hosts
+  when: update_all_packages_backend != 'rpm_ostree'
+  block:
+    - name: Inspect installed packages before disabling updates
+      ansible.builtin.package_facts:
+      when: not update_all_packages_automatic_enabled | bool
+
+    - name: Configure an installed or explicitly requested automatic updater
+      when: >-
+        update_all_packages_automatic_enabled | bool or
+        update_all_packages_automatic_backends[update_all_packages_backend].package
+        in ansible_facts.packages | default({})
+      block:
+        - name: Configure DNF security updates without automatic reboot
+          community.general.ini_file:
+            path: /etc/dnf/automatic.conf
+            section: commands
+            option: "{{ item.option }}"
+            value: "{{ item.value }}"
+            owner: root
+            group: root
+            mode: "0644"
+          loop:
+            - option: reboot
+              value: never
+            - option: upgrade_type
+              value: security
+            - option: apply_updates
+              value: "{{ update_all_packages_automatic_enabled | bool | ternary('yes', 'no') }}"
+          when: update_all_packages_backend in ['dnf', 'dnf5']
+
+        - name: Configure APT periodic updates without automatic reboot
+          ansible.builtin.copy:
+            dest: /etc/apt/apt.conf.d/99automatic-updates
+            owner: root
+            group: root
+            mode: "0644"
+            content: |
+              // Managed by alwaldend.main.update_all_packages.
+              APT::Periodic::Enable "1";
+              APT::Periodic::Update-Package-Lists "1";
+              APT::Periodic::Unattended-Upgrade "{{ update_all_packages_automatic_enabled | bool | ternary('1', '0') }}";
+              Unattended-Upgrade::Automatic-Reboot "false";
+          when: update_all_packages_backend == 'apt'
+
+        - name: Install the existing approved native updater with reboot policy in place
+          when: update_all_packages_automatic_enabled | bool
+          block:
+            - name: Install the native DNF4 automatic updater
+              ansible.builtin.dnf:
+                name: "{{ update_all_packages_automatic_backends.dnf.package }}"
+                state: present
+                lock_timeout: 600
+              when: update_all_packages_backend == 'dnf'
+
+            - name: Install the native DNF5 automatic updater
+              ansible.builtin.dnf5:
+                name: "{{ update_all_packages_automatic_backends.dnf5.package }}"
+                state: present
+                auto_install_module_deps: false
+              when: update_all_packages_backend == 'dnf5'
+
+            - name: Install the native APT automatic updater
+              ansible.builtin.apt:
+                name: "{{ update_all_packages_automatic_backends.apt.package }}"
+                state: present
+                update_cache: true
+                auto_install_module_deps: false
+                lock_timeout: 600
+              when: update_all_packages_backend == 'apt'
+
+        - name: Read the effective APT automatic-reboot policy
+          ansible.builtin.command:
+            argv:
+              - apt-config
+              - shell
+              - automatic_reboot
+              - Unattended-Upgrade::Automatic-Reboot
+          register: update_all_packages_apt_reboot_policy
+          check_mode: false
+          changed_when: false
+          when:
+            - update_all_packages_backend == 'apt'
+            - not ansible_check_mode
+
+        - name: Reject an APT override that enables automatic reboot
+          ansible.builtin.assert:
+            that:
+              - update_all_packages_apt_reboot_policy.stdout == "automatic_reboot='false'"
+            fail_msg: >-
+              APT configuration overrides the managed no-reboot policy.
+              Inspect later apt.conf.d fragments before enabling updates.
+          when:
+            - update_all_packages_backend == 'apt'
+            - not ansible_check_mode
+
+        - name: Reconcile the native automatic-update timers
+          ansible.builtin.import_tasks: automatic_timers.yaml
+
+- name: Configure native automatic OSTree staging
+  when: update_all_packages_backend == 'rpm_ostree'
+  block:
+    - name: Configure staging without automatic application or reboot
+      community.general.ini_file:
+        path: /etc/rpm-ostreed.conf
+        section: Daemon
+        option: AutomaticUpdatePolicy
+        value: "{{ update_all_packages_automatic_enabled | bool | ternary('stage', 'none') }}"
+        owner: root
+        group: root
+        mode: "0644"
+      register: update_all_packages_ostree_policy
+
+    - name: Reload the changed rpm-ostreed policy before timer activation
+      ansible.builtin.command:
+        argv: [rpm-ostree, reload]
+      when: update_all_packages_ostree_policy is changed
+      changed_when: true
+
+    - name: Reconcile the native automatic-update timers
+      ansible.builtin.import_tasks: automatic_timers.yaml

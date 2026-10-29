@@ -1,0 +1,174 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files", "strip_prefix")
+load("//projects/al/rules/al:al_binary.bzl", "al_binary_run", "al_binary_run_map")
+load("//tools/ansible/main/bzl:al_ansible_binary.bzl", "al_ansible_binary")
+
+package(transitive_visibility = "//infra:transitive_consumers")
+
+al_binary_run_map(
+    name = "ansible",
+    args = {
+        "": [
+            "$(rootpath :ansible_bin)",
+            "--inventory",
+            "inventory.yaml",
+            "playbook_audit.yaml",
+        ],
+        "status": [
+            "$(rootpath :ansible_bin)",
+            "--inventory",
+            "inventory.yaml",
+            "playbook_status.yaml",
+        ],
+        "update_xcpng": [
+            "$(rootpath :ansible_bin)",
+            "--inventory",
+            "inventory.yaml",
+            "playbook_update_xcpng.yaml",
+        ],
+        "update_xoa": [
+            "$(rootpath :ansible_bin)",
+            "--inventory",
+            "inventory.yaml",
+            "playbook_update_xoa.yaml",
+        ],
+    },
+    configs = ["//infra/xcp_ng:al"],
+    data = [
+        ":ansible_bin",
+        "//tools/vault/injector",
+    ],
+    run_args = [
+        "--plugin_label",
+        "xcp_ng_ansible=1",
+        "--plugin_label",
+        "xcpng_host=1",
+    ],
+)
+
+al_ansible_binary(
+    name = "ansible_bin",
+    data = [
+        ":srcs",
+        "//infra:ansible_cfg",
+        "//projects/ansible_collection:collections",
+    ],
+    process_name = "ansible_playbook",
+)
+
+al_binary_run(
+    name = "clamav",
+    args = [
+        "$(rootpath :clamav_bin)",
+        "--inventory",
+        "inventory.yaml",
+        "playbook_clamav.yaml",
+    ],
+    configs = ["//infra/xcp_ng:al"],
+    data = [
+        ":clamav_bin",
+        "//tools/vault/injector",
+    ],
+    run_args = [
+        "--plugin_label",
+        "xcp_ng_ansible=1",
+    ],
+)
+
+al_ansible_binary(
+    name = "clamav_bin",
+    data = [
+        ":clamav_srcs",
+        "//infra:ansible_cfg",
+        "//projects/ansible_collection:collections",
+    ],
+    process_name = "ansible_playbook",
+)
+
+al_ansible_binary(
+    name = "clamav_syntax",
+    arguments = [
+        "--syntax-check",
+        "--inventory",
+        "inventory.yaml",
+        "playbook_clamav.yaml",
+    ],
+    data = [
+        ":clamav_srcs",
+        "//infra:ansible_cfg",
+        "//projects/ansible_collection:collections",
+    ],
+    process_name = "ansible_playbook",
+)
+
+pkg_files(
+    name = "clamav_files",
+    srcs = ["playbook_clamav.yaml"] + glob(["group_vars/*.yaml"]),
+    strip_prefix = strip_prefix.from_pkg(),
+)
+
+pkg_filegroup(
+    name = "clamav_srcs",
+    srcs = [
+        ":clamav_files",
+        ":inventory",
+        "//infra/security/clamav:runtime",
+    ],
+)
+
+al_ansible_binary(
+    name = "syntax",
+    arguments = [
+        "--syntax-check",
+        "--inventory",
+        "inventory.yaml",
+        "playbook_audit.yaml",
+        "playbook_status.yaml",
+        "playbook_update_xcpng.yaml",
+        "playbook_update_xoa.yaml",
+    ],
+    data = [
+        ":srcs",
+        "//infra:ansible_cfg",
+        "//projects/ansible_collection:collections",
+    ],
+    process_name = "ansible_playbook",
+)
+
+pkg_files(
+    name = "inventory",
+    srcs = ["//infra/xcp_ng/ansible:inventory"],
+    renames = {"//infra/xcp_ng/ansible:inventory": "inventory.yaml"},
+)
+
+pkg_files(
+    name = "lynis_archive",
+    srcs = ["//third_party/com_github_cisofy_lynis:archive"],
+    renames = {"//third_party/com_github_cisofy_lynis:archive": "files/lynis.tar.gz"},
+)
+
+pkg_files(
+    name = "files",
+    srcs = glob([
+        "files/*.sh",
+        "group_vars/*.yaml",
+        "playbook_*.yaml",
+        "tasks/*.yaml",
+    ]),
+    strip_prefix = strip_prefix.from_pkg(),
+)
+
+pkg_filegroup(
+    name = "srcs",
+    srcs = [
+        ":files",
+        ":inventory",
+        ":lynis_archive",
+    ],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//infra/security:__pkg__"],
+)

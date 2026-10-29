@@ -1,0 +1,20 @@
+flowchart LR
+    subgraph controller["Controller"]
+        ansible["Ansible"]
+        engine["ClamAV engine<br/>Fresh signatures"]
+    end
+
+    subgraph target["Target host"]
+        lynis["Lynis audit"]
+        client["ClamAV client"]
+        lynis_report["Lynis report"]
+        clamav_report["ClamAV report"]
+    end
+
+    ansible -->|Run| lynis
+    ansible -->|Run| client
+    ansible -->|copy| lynis_report
+    ansible -->|copy| clamav_report
+    lynis -->|Produces| lynis_report
+    client -->|Produces| clamav_report
+    engine <-->|File stream over SSH<br/>Scan result| client

@@ -1,0 +1,34 @@
+- name: Audit appliances without package installation or reboot
+  hosts: xcpng:xoa
+  gather_facts: false
+  serial: 1
+  tasks:
+    - name: Prepare invocation-owned appliance transport
+      ansible.builtin.import_tasks: tasks/connection_prepare.yaml
+
+    - name: Audit and always compare boot identities
+      block:
+        - name: Read the original boot identity
+          ansible.builtin.raw: cat /proc/sys/kernel/random/boot_id
+          changed_when: false
+          register: appliance_boot_before
+
+        - name: Run Lynis through the shared role
+          ansible.builtin.include_role:
+            name: alwaldend.main.lynis_audit
+          vars:
+            lynis_audit_archive: "{{ playbook_dir }}/files/lynis.tar.gz"
+            lynis_audit_report_directory: "{{ appliance_report_directory }}"
+
+      always:
+        - name: Retain boot evidence and release the appliance connection
+          block:
+            - name: Verify the original boot in the shared audit result directory
+              ansible.builtin.import_tasks: tasks/boot_verify.yaml
+              vars:
+                appliance_result_directory:
+                  path: "{{ lynis_audit_result_directory }}"
+              when: lynis_audit_result_directory is defined
+          always:
+            - name: Close and remove invocation-owned SSH transport
+              ansible.builtin.import_tasks: tasks/connection_cleanup.yaml

@@ -81,10 +81,29 @@
         src: gitconfig
         dest: "~/.gitconfig"
         mode: "0600"
+    - name: Preserve approved appliance SSH host keys
+      become: false
+      tags: [ssh_known_hosts]
+      block:
+        - name: Ensure the operator SSH directory is private
+          ansible.builtin.file:
+            path: "{{ dev_vm_bazel_home }}/.ssh"
+            state: directory
+            mode: "0700"
+        - name: Reconcile approved appliance host keys
+          ansible.builtin.known_hosts:
+            path: "{{ dev_vm_bazel_home }}/.ssh/known_hosts"
+            name: "{{ item.split()[0].split(',')[0] }}"
+            key: "{{ item }}"
+            state: present
+          loop: "{{ lookup('ansible.builtin.file', 'maintenance_known_hosts').splitlines() }}"
     - name: Configure development packages
       ansible.builtin.import_role:
         name: alwaldend.main.dev_vm
         tasks_from: packages
+    - name: Configure package maintenance
+      ansible.builtin.import_role:
+        name: alwaldend.main.update_all_packages
     - name: Configure SELinux for Android emulation
       ansible.builtin.import_role:
         name: alwaldend.main.dev_vm

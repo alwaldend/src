@@ -1,0 +1,12 @@
+{{ {
+  'host': inventory_hostname,
+  'exit_code': lynis_audit_exit_code,
+  'timeout_seconds': lynis_audit_timeout_seconds | int,
+  'complete': lynis_audit_complete,
+  'evidence_retained': lynis_audit_evidence_retained,
+  'remote_directory': lynis_audit_remote_directory.path | default(none),
+  'execution': lynis_audit_command,
+  'setup_error': lynis_audit_setup_error,
+  'inspection': lynis_audit_evidence,
+  'collection': lynis_audit_fetch
+} | to_nice_json }}

@@ -1,0 +1,261 @@
+- name: Validate explicit ClamAV scan inputs
+  ansible.builtin.assert:
+    that:
+      - not ansible_check_mode
+      - clamav_scan_archive is string
+      - clamav_scan_archive | length > 0
+      - ansible_connection | default('ssh') in ['ssh', 'ansible.builtin.ssh', 'local', 'ansible.builtin.local']
+      - clamav_scan_socket is string
+      - clamav_scan_socket is match('^/[A-Za-z0-9_./-]+$')
+      - clamav_scan_socket | length < 104
+      - clamav_scan_report_directory is string
+      - clamav_scan_report_directory is match('^/.+')
+      - "'#' not in clamav_scan_report_directory"
+      - clamav_scan_timeout_seconds | int > 0
+      - clamav_scan_timeout_seconds | int <= 604800
+      - clamav_scan_background is boolean
+      - clamav_scan_multiscan is boolean
+      - clamav_scan_max_file_bytes | int == 104857600
+      - clamav_scan_roots is sequence and clamav_scan_roots is not string
+      - clamav_scan_roots is not mapping
+      - clamav_scan_roots | length > 0
+      - clamav_scan_exclude_paths is sequence and clamav_scan_exclude_paths is not string
+      - clamav_scan_exclude_paths is not mapping
+    fail_msg: Supply the pinned native payload and private socket/report directory; use server StreamMaxLength 104857601 and MaxFileSize 104857600 with HeuristicAlerts and AlertExceedsMax enabled.
+
+- name: Validate scan paths
+  ansible.builtin.assert:
+    that:
+      - item is string
+      - item is match('^/')
+      - "'\n' not in item"
+      - "'\r' not in item"
+      - "'#' not in item"
+  loop: "{{ clamav_scan_roots + clamav_scan_exclude_paths }}"
+  no_log: true
+
+- name: Identify the controller report owner
+  ansible.builtin.command:
+    argv: [id, -u]
+  delegate_to: localhost
+  become: false
+  changed_when: false
+  register: clamav_scan_controller_user
+
+- name: Inspect the existing controller report directory
+  ansible.builtin.stat:
+    path: "{{ clamav_scan_report_directory }}"
+    follow: false
+    get_checksum: false
+    get_attributes: false
+  delegate_to: localhost
+  become: false
+  register: clamav_scan_controller_directory
+
+- name: Require private controller evidence storage
+  ansible.builtin.assert:
+    that:
+      - clamav_scan_controller_directory.stat.isdir | default(false)
+      - not (clamav_scan_controller_directory.stat.islnk | default(false))
+      - clamav_scan_controller_directory.stat.mode | default('') == '0700'
+      - clamav_scan_controller_directory.stat.uid | default(-1) == clamav_scan_controller_user.stdout | int
+    fail_msg: The existing report directory must belong to the controller user with mode 0700.
+
+- name: Allocate a private controller result directory
+  ansible.builtin.tempfile:
+    state: directory
+    path: "{{ clamav_scan_report_directory }}"
+    prefix: "{{ inventory_hostname | regex_replace('[^A-Za-z0-9_.-]', '_') }}-clamav-"
+  delegate_to: localhost
+  become: false
+  register: clamav_scan_controller_result
+
+- name: Initialize invocation state and preserve caller SSH arguments
+  ansible.builtin.set_fact:
+    clamav_scan_result_directory: "{{ clamav_scan_controller_result.path }}"
+    clamav_scan_original_ssh_args: >-
+      {{ ansible_ssh_args if ansible_ssh_args is defined and ansible_ssh_args is not none
+         else lookup('ansible.builtin.config', 'ssh_args', plugin_type='connection', plugin_name='ssh') }}
+    clamav_scan_transport_directory: {}
+    clamav_scan_control_directory: {}
+    clamav_scan_remote_directory: {}
+    clamav_scan_command: {}
+    clamav_scan_setup_error: {}
+    clamav_scan_boot_before: {}
+    clamav_scan_boot_after: {}
+    clamav_scan_master_start: {}
+    clamav_scan_tunnel_configured: false
+    clamav_scan_forward: {}
+    clamav_scan_transport_cleanup: {}
+    clamav_scan_control_cleanup: {}
+    clamav_scan_remote_cleanup: {}
+    clamav_scan_extraction: {}
+    clamav_scan_runtime: {}
+    clamav_scan_devices: {}
+    clamav_scan_device_paths: []
+    clamav_scan_retained_artifacts: []
+    clamav_scan_collection_errors: []
+    clamav_scan_diagnostic_check: {}
+    clamav_scan_console_tail: {}
+    clamav_scan_forward_cancel: {}
+    clamav_scan_master_exit: {}
+    clamav_scan_restore: {}
+    clamav_scan_validation: {failed: true}
+  no_log: true
+
+- name: Save an incomplete receipt before endpoint operations
+  ansible.builtin.template:
+    src: receipt.json.j2
+    dest: "{{ clamav_scan_result_directory }}/receipt.json"
+    mode: "0600"
+  delegate_to: localhost
+  become: false
+  no_log: true
+
+- name: Prepare and scan the endpoint with guaranteed evidence handling
+  become: true
+  become_user: root
+  no_log: true
+  ignore_unreachable: true
+  block:
+    - name: Establish the dedicated SSH master before endpoint bootstrap
+      ansible.builtin.include_tasks: connect.yaml
+      when: not clamav_scan_local
+
+    - name: Read the endpoint boot identity before mutation
+      ansible.builtin.command:
+        argv: [cat, /proc/sys/kernel/random/boot_id]
+      changed_when: false
+      failed_when: false
+      register: clamav_scan_boot_before
+
+    - name: Save the boot result before validating it or allocating endpoint scratch
+      ansible.builtin.template:
+        src: receipt.json.j2
+        dest: "{{ clamav_scan_result_directory }}/receipt.json"
+        mode: "0600"
+      delegate_to: localhost
+      become: false
+
+    - name: Require a valid initial boot identity
+      ansible.builtin.assert:
+        that:
+          - clamav_scan_boot_before.rc | default(-1) == 0
+          - clamav_scan_boot_before.stdout | default('') is match('^[0-9a-f-]{36}$')
+
+    - name: Allocate private root scan scratch
+      ansible.builtin.tempfile:
+        state: directory
+        path: /var/tmp
+        prefix: clamav-scan.
+      register: clamav_scan_remote_directory
+
+    - name: Require allocated scan scratch
+      ansible.builtin.assert:
+        that:
+          - clamav_scan_remote_directory.path is defined
+
+    - name: Save the root scratch recovery path immediately
+      ansible.builtin.template:
+        src: receipt.json.j2
+        dest: "{{ clamav_scan_result_directory }}/receipt.json"
+        mode: "0600"
+      delegate_to: localhost
+      become: false
+
+    - name: Prepare the scanner and transport
+      ansible.builtin.include_tasks: prepare.yaml
+
+    - name: Execute the bounded native scan through Ansible async
+      ansible.builtin.shell: >-
+        umask 077;
+        exec timeout --signal=TERM --kill-after=15s {{ (clamav_scan_timeout_seconds | int | string + 's') | quote }}
+        nice -n {{ 19 if clamav_scan_background else 0 }}
+        ionice {{ '-c 3' if clamav_scan_background else '-c 2 -n 4' }}
+        {{ clamav_scan_executable | quote }}
+        --stream --stdout {{ '--multiscan' if clamav_scan_multiscan else '' }}
+        --log={{ (clamav_scan_remote_directory.path + '/clamav.log') | quote }}
+        --config-file={{ (clamav_scan_remote_directory.path + '/client.conf') | quote }}
+        -- {% for root in clamav_scan_roots %} {{ root | quote }} {% endfor %}
+        > {{ (clamav_scan_remote_directory.path + '/console.log') | quote }} 2>&1
+      environment:
+        TMPDIR: "{{ clamav_scan_remote_directory.path }}"
+        LD_LIBRARY_PATH: "{{ clamav_scan_remote_directory.path }}/payload/usr/local/lib"
+        CVD_CERTS_DIR: "{{ clamav_scan_remote_directory.path }}/payload/usr/local/etc/certs"
+        LC_ALL: C
+      vars:
+        ansible_async_dir: "{{ clamav_scan_remote_directory.path }}/async"
+      async: "{{ clamav_scan_timeout_seconds | int + 60 }}"
+      poll: 15
+      changed_when: true
+      failed_when: false
+      register: clamav_scan_command
+
+  rescue:
+    - name: Retain private setup or execution failure details
+      ansible.builtin.set_fact:
+        clamav_scan_setup_error: "{{ ansible_failed_result }}"
+
+  always:
+    - name: Collect evidence through the existing authenticated session
+      block:
+        - name: Cancel only the role's reverse forward while keeping its master
+          ansible.builtin.command:
+            argv:
+              - ssh
+              - -F
+              - /dev/null
+              - -S
+              - "{{ clamav_scan_control_path }}"
+              - -O
+              - cancel
+              - -R
+              - "{{ clamav_scan_endpoint_socket }}:{{ clamav_scan_socket }}"
+              - --
+              - "{{ ansible_host | default(inventory_hostname) }}"
+          delegate_to: localhost
+          become: false
+          changed_when: true
+          failed_when: false
+          ignore_errors: true
+          register: clamav_scan_forward_cancel
+          when: clamav_scan_forward.rc | default(-1) == 0
+
+        - name: Retain endpoint evidence and release verified scratch
+          ansible.builtin.include_tasks: collect.yaml
+
+      always:
+        - name: Close only the dedicated master without authentication fallback
+          ansible.builtin.command:
+            argv:
+              - ssh
+              - -F
+              - /dev/null
+              - -S
+              - "{{ clamav_scan_control_path }}"
+              - -O
+              - exit
+              - --
+              - "{{ ansible_host | default(inventory_hostname) }}"
+          delegate_to: localhost
+          become: false
+          changed_when: true
+          failed_when: false
+          ignore_errors: true
+          register: clamav_scan_master_exit
+          when: clamav_scan_tunnel_configured
+
+        - name: Restore caller transport and always finalize evidence
+          block:
+            - name: Restore caller SSH arguments after endpoint recovery
+              ansible.builtin.set_fact:
+                ansible_ssh_args: "{{ clamav_scan_original_ssh_args }}"
+              register: clamav_scan_restore
+              when: clamav_scan_tunnel_configured
+          always:
+            - name: Finalize controller evidence after closing transport
+              ansible.builtin.include_tasks: finalize.yaml
+
+- name: Report native execution and evidence status
+  ansible.builtin.debug:
+    msg: "ClamAV exit {{ clamav_scan_exit_code }}; execution finished {{ clamav_scan_execution_finished }}; private evidence: {{ clamav_scan_result_directory }}"

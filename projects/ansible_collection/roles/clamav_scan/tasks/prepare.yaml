@@ -1,0 +1,174 @@
+- name: Allocate a short private transport directory as the connection user
+  ansible.builtin.tempfile:
+    state: directory
+    path: /tmp
+    prefix: cs.
+  become: false
+  vars:
+    ansible_become: false
+  register: clamav_scan_transport_directory
+  when: not clamav_scan_local
+
+- name: Require the allocated transport directory
+  ansible.builtin.assert:
+    that:
+      - clamav_scan_transport_directory.path is defined
+      - clamav_scan_transport_directory.path is match('^/tmp/cs\.[A-Za-z0-9_]+$')
+      - clamav_scan_transport_directory.path | length < 90
+  when: not clamav_scan_local
+
+- name: Record transport and scan recovery paths
+  ansible.builtin.template:
+    src: receipt.json.j2
+    dest: "{{ clamav_scan_result_directory }}/receipt.json"
+    mode: "0600"
+  delegate_to: localhost
+  become: false
+
+- name: Create a private native payload prefix
+  ansible.builtin.file:
+    path: "{{ clamav_scan_remote_directory.path }}/payload"
+    state: directory
+    owner: root
+    group: root
+    mode: "0700"
+
+- name: Unpack the pinned native payload without package installation
+  ansible.builtin.unarchive:
+    src: "{{ clamav_scan_archive }}"
+    dest: "{{ clamav_scan_remote_directory.path }}/payload"
+    owner: root
+    group: root
+  register: clamav_scan_extraction
+
+- name: Require successful native payload extraction before execution
+  ansible.builtin.assert:
+    that:
+      - clamav_scan_extraction is succeeded
+      - not (clamav_scan_extraction.unreachable | default(false))
+    fail_msg: Native payload extraction did not complete; consult the private receipt.
+
+- name: Select the native executable and endpoint socket
+  ansible.builtin.set_fact:
+    clamav_scan_executable: "{{ clamav_scan_remote_directory.path }}/payload/usr/local/bin/clamdscan"
+    clamav_scan_endpoint_socket: >-
+      {{ clamav_scan_socket if clamav_scan_local else clamav_scan_transport_directory.path + '/s' }}
+
+- name: Check native client execution
+  ansible.builtin.shell: >-
+    timeout --signal=TERM --kill-after=5s 15s {{ clamav_scan_executable | quote }} --help;
+    clamav_runtime_exit=$?;
+    printf 'CLAMAV_RUNTIME_EXIT_CODE=%s\n' "$clamav_runtime_exit"
+  environment:
+    LD_LIBRARY_PATH: "{{ clamav_scan_remote_directory.path }}/payload/usr/local/lib"
+    CVD_CERTS_DIR: "{{ clamav_scan_remote_directory.path }}/payload/usr/local/etc/certs"
+    LC_ALL: C
+  changed_when: false
+  failed_when: false
+  register: clamav_scan_runtime
+
+- name: Require a compatible native client runtime
+  ansible.builtin.assert:
+    that:
+      - clamav_scan_runtime.rc | default(-1) == 0
+      - "'Clam AntiVirus: Daemon Client' in (clamav_scan_runtime.stdout | default(''))"
+      - clamav_scan_runtime.stdout | default('') is search('CLAMAV_RUNTIME_EXIT_CODE=0$')
+    fail_msg: The pinned native client preflight failed; consult the private runtime diagnostic. No compatibility fallback is installed.
+
+- name: Inspect kernel device metadata without opening device contents
+  ansible.builtin.find:
+    paths: /dev
+    file_type: any
+    recurse: true
+    hidden: true
+    follow: false
+    get_checksum: false
+  register: clamav_scan_devices
+
+- name: Select actual block and character device exclusions
+  ansible.builtin.set_fact:
+    clamav_scan_device_paths: >-
+      {{ ((clamav_scan_devices.files | default([])
+           | selectattr('ischr') | map(attribute='path') | list)
+          + (clamav_scan_devices.files | default([])
+             | selectattr('isblk') | map(attribute='path') | list)) | sort }}
+
+- name: Require complete device inspection and safe native exclusion paths
+  ansible.builtin.assert:
+    that:
+      - clamav_scan_devices is succeeded
+      - not (clamav_scan_devices.unreachable | default(false))
+      - clamav_scan_devices.skipped_paths | default({}) | length == 0
+      - clamav_scan_device_paths | select('search', '[\r\n#]') | list | length == 0
+    fail_msg: Kernel device inspection was incomplete or produced an unsafe exclusion; scanning has not started.
+
+- name: Render the native client configuration
+  ansible.builtin.copy:
+    content: |
+      LocalSocket {{ clamav_scan_endpoint_socket }}
+      FollowDirectorySymlinks no
+      FollowFileSymlinks no
+      MaxDirectoryRecursion 1000
+      StreamMaxLength {{ clamav_scan_max_file_bytes | int + 1 }}
+      {% for path in ['/proc', '/sys', clamav_scan_remote_directory.path]
+          + clamav_scan_device_paths + clamav_scan_exclude_paths
+          + ([clamav_scan_transport_directory.path] if not clamav_scan_local else [clamav_scan_report_directory]) %}
+      ExcludePath ^{{ path | regex_replace('/+$', '') | regex_escape }}(/|$)
+      {% endfor %}
+    dest: "{{ clamav_scan_remote_directory.path }}/client.conf"
+    owner: root
+    group: root
+    mode: "0600"
+
+- name: Initialize private native evidence logs
+  ansible.builtin.copy:
+    content: ""
+    dest: "{{ clamav_scan_remote_directory.path }}/{{ item }}"
+    force: false
+    owner: root
+    group: root
+    mode: "0600"
+  loop: "{{ clamav_scan_artifacts }}"
+
+- name: Attach the private reverse Unix forward once without authentication fallback
+  ansible.builtin.command:
+    argv:
+      - ssh
+      - -F
+      - /dev/null
+      - -S
+      - "{{ clamav_scan_control_path }}"
+      - -O
+      - forward
+      - -o
+      - ExitOnForwardFailure=yes
+      - -R
+      - "{{ clamav_scan_endpoint_socket }}:{{ clamav_scan_socket }}"
+      - --
+      - "{{ ansible_host | default(inventory_hostname) }}"
+  delegate_to: localhost
+  become: false
+  changed_when: true
+  register: clamav_scan_forward
+  when: not clamav_scan_local
+
+- name: Run the bounded native socket connectivity preflight
+  ansible.builtin.shell: >-
+    timeout --signal=TERM --kill-after=5s 15s {{ clamav_scan_executable | quote }}
+    --stdout --ping=1:1 --config-file={{ (clamav_scan_remote_directory.path + '/client.conf') | quote }};
+    clamav_ping_exit=$?;
+    printf 'CLAMAV_PING_EXIT_CODE=%s\n' "$clamav_ping_exit"
+  environment:
+    LD_LIBRARY_PATH: "{{ clamav_scan_remote_directory.path }}/payload/usr/local/lib"
+    CVD_CERTS_DIR: "{{ clamav_scan_remote_directory.path }}/payload/usr/local/etc/certs"
+    LC_ALL: C
+  changed_when: false
+  failed_when: false
+  register: clamav_scan_ping
+
+- name: Require the native client's successful connectivity result
+  ansible.builtin.assert:
+    that:
+      - clamav_scan_ping.rc | default(-1) == 0
+      - clamav_scan_ping.stdout | default('') == 'PONG\nCLAMAV_PING_EXIT_CODE=0'
+    fail_msg: The native client could not connect through the private ClamAV socket.

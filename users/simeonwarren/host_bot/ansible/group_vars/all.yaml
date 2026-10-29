@@ -1,4 +1,5 @@
 ansible_user: simeonwarrenbot
+update_all_packages_upgrade_enabled: false
 host_bot_tuned_profile: balanced
 openspec_version: "1.14.2"
 openspec_npm_prefix: "{{ dev_vm_bazel_home }}/.local"

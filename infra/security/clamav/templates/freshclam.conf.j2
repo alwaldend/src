@@ -1,0 +1,13 @@
+DatabaseDirectory {{ clamav_database_directory }}
+DatabaseOwner {{ ansible_facts.user_id }}
+CVDCertsDirectory {{ clamav_controller.prefix }}/usr/local/etc/certs
+DatabaseMirror database.clamav.net
+TestDatabases yes
+Bytecode yes
+Foreground yes
+MaxAttempts 1
+ConnectTimeout 30
+ReceiveTimeout 60
+UpdateLogFile {{ clamav_controller.run_directory }}/freshclam.log
+LogTime yes
+LogFileMaxSize 0

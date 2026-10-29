@@ -1,0 +1,59 @@
+- name: Audit and update managed Linux hosts without rebooting
+  hosts: "{{ security_hosts | default('all:!vm:!xcpng:!xoa') }}"
+  become: true
+  gather_facts: false
+  serial: "{{ security_serial | default(1) }}"
+  vars:
+    ansible_user: ansible
+    ansible_ssh_common_args: "-o HostKeyAlias={{ inventory_hostname }}"
+    update_all_packages_reboot_enabled: false
+    update_all_packages_automatic_enabled: true
+    lynis_audit_archive: "{{ playbook_dir }}/files/lynis.tar.gz"
+  pre_tasks:
+    - name: Require the no-reboot and automatic-update policy
+      ansible.builtin.assert:
+        that:
+          - not update_all_packages_reboot_enabled | bool
+          - update_all_packages_automatic_enabled | bool
+      tags: [always]
+    - name: Record the boot identity and verify authenticated access
+      ansible.builtin.command: cat /proc/sys/kernel/random/boot_id
+      register: security_boot_before
+      changed_when: false
+      ignore_unreachable: true
+      tags: [always]
+    - name: Report hosts that could not be inspected
+      ansible.builtin.debug:
+        msg: Host access failed; this host is not classified as inactive or secure and will not be updated.
+      when: security_boot_before.unreachable | default(false)
+      tags: [always]
+    - name: Exclude inaccessible hosts from this execution
+      ansible.builtin.meta: end_host
+      when: security_boot_before.unreachable | default(false)
+      tags: [always]
+    - name: Gather supported host facts
+      ansible.builtin.setup:
+      tags: [always]
+  tasks:
+    - name: Perform security maintenance and verify the running boot
+      block:
+        - name: Run the pinned Lynis audit and preserve its reports
+          ansible.builtin.import_role:
+            name: alwaldend.main.lynis_audit
+          tags: [security_audit]
+        - name: Update packages and ensure automatic updates remain enabled
+          ansible.builtin.import_role:
+            name: alwaldend.main.update_all_packages
+          tags: [update_all_packages]
+      always:
+        - name: Read the boot identity after security maintenance
+          ansible.builtin.command: cat /proc/sys/kernel/random/boot_id
+          changed_when: false
+          register: security_boot_after
+          tags: [always]
+        - name: Verify the running boot was preserved
+          ansible.builtin.assert:
+            that:
+              - security_boot_before.stdout | trim == security_boot_after.stdout | trim
+            fail_msg: The host boot identity changed during security maintenance.
+          tags: [always]

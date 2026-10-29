@@ -1,0 +1,75 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//projects/al/rules/al:al_binary.bzl", "al_binary_run")
+load("//projects/al/rules/al:al_config.bzl", "al_config")
+load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_site_svg", "mermaid_site_webp")
+
+package(transitive_visibility = "//infra:transitive_consumers")
+
+package_group(
+    name = "fleet_inventory_consumers",
+    packages = ["//infra/security/ansible"],
+)
+
+al_binary_run(
+    name = "ssh",
+    args = [
+        "sh",
+        "-c",
+        "'exec ssh -F \"$${HOST_MAINTENANCE_SSH_CONFIG:?}\" \"$$@\"'",
+        "ssh",
+    ],
+    configs = [":al"],
+    data = ["//tools/vault/injector"],
+    run_args = [
+        "--plugin_label",
+        "maintenance=1",
+    ],
+)
+
+al_config(
+    name = "al",
+    srcs = ["al.lua"],
+    data = ["//data/ssh:ca_servers"],
+    visibility = ["//infra/security:__subpackages__"],
+    deps = ["//infra:al"],
+)
+
+mermaid_site_svg(
+    name = "security_scans",
+    src = "docs/security-scans.mmd",
+    out = "rendered/security-scans.svg",
+)
+
+mermaid_site_webp(
+    name = "security_scans_preview",
+    src = "docs/security-scans.mmd",
+    out = "rendered/security-scans.webp",
+    aspect_ratio = [],
+)
+
+mermaid_site_webp(
+    name = "security_scans_preview_dark",
+    src = "docs/security-scans.mmd",
+    out = "rendered/security-scans.dark.webp",
+    aspect_ratio = [],
+    color_scheme = "dark",
+)
+
+docs_filegroup(
+    name = "docs_assets",
+    srcs = [":security_scans"],
+    prefix = "content/docs/infra/security/assets",
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = [
+        "README.md",
+        "docs/security-scans.mmd",
+    ],
+    visibility = ["//infra:__pkg__"],
+    deps = [":docs_assets"] + subpackages(
+        include = ["*"],
+        allow_empty = True,
+    ),
+)

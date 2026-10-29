@@ -1,0 +1,6 @@
+# Controller path to the packaged //third_party/com_github_cisofy_lynis:archive.
+lynis_audit_archive: "{{ undefined() }}"
+# Existing absolute controller directory, owned by its user with mode 0700.
+lynis_audit_report_directory: "{{ undefined() }}"
+# GNU timeout terminates the process group, with a further 15-second kill grace.
+lynis_audit_timeout_seconds: 900
