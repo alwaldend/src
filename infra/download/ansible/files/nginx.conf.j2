@@ -1,3 +1,4 @@
+{% set publication_namespaces = ["projects", "third_party"] %}
 user nginx;
 worker_processes auto;
 pid /run/nginx.pid;
@@ -24,8 +25,15 @@ http {
         listen 127.0.0.1:{{ download_nginx_port }};
         server_name download.alwaldend.com;
         root {{ download_root }};
-        location = / { return 302 /projects/; }
-        location /projects/ {
+        location = / {
+            default_type application/json;
+            add_header Access-Control-Allow-Origin "*" always;
+            add_header Cache-Control "no-cache" always;
+            if ($request_method !~ ^(GET|HEAD)$) { return 405; }
+            return 200 '[{% for namespace in publication_namespaces %}{"name":"{{ namespace }}","type":"directory"}{% if not loop.last %},{% endif %}{% endfor %}]';
+        }
+{% for namespace in publication_namespaces %}
+        location /{{ namespace }}/ {
             # A directory is always data, even if it contains index.html.
             index __download_listing_has_no_index__;
             autoindex on;
@@ -36,6 +44,7 @@ http {
             add_header Cache-Control "no-cache" always;
             limit_except GET { deny all; }
         }
+{% endfor %}
         location / { return 404; }
     }
 

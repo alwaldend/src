@@ -5,10 +5,18 @@ load("//tools/vault:defs.bzl", "vault_binary_map")
 
 package(transitive_visibility = "//projects:transitive_consumers")
 
+package_group(
+    name = "x_api_credential_consumers",
+    packages = [
+        "//projects/x_article_uploader/...",
+        "//third_party/com_x_api_openapi",
+    ],
+)
+
 al_config(
     name = "al",
     srcs = ["al.lua"],
-    visibility = ["//projects/x_article_uploader:__subpackages__"],
+    visibility = [":x_api_credential_consumers"],
     deps = ["//infra:al"],
 )
 

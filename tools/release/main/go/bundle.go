@@ -60,7 +60,7 @@ func (self *Generator) writeBundle(opts *GenerateOpts, release *contracts.Releas
 	if err := pathComponent(release.Name); err != nil {
 		return fmt.Errorf("release version: %w", err)
 	}
-	if err := pathComponent(strings.TrimPrefix(release.GetProject().GetSubdir(), "projects/")); err != nil {
+	if _, _, err := publicationIdentity(release.GetProject().GetSubdir(), "", ""); err != nil {
 		return fmt.Errorf("release project: %w", err)
 	}
 	if len(release.Items) == 0 {

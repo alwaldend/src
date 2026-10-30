@@ -30,11 +30,6 @@ infra.dns({ labels = { tf = "dns" }, dc1 = true })
 
 local ssh_signing = { backend = "ssh/clients/sign/admins", ttl = 60 * 60 * 2 }
 
-infra.ansible_keys({
-    labels = { ansible = "1" },
-    vault_ssh = ssh_signing,
-})
-
 -- Build-time input: the public host CA snapshot is owned by data/ssh.
 local server_ca_file = assert(io.open("data/ssh/ca_servers.pub"))
 local server_ca = assert(server_ca_file:read("*a")):gsub("%s+$", "")

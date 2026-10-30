@@ -437,10 +437,11 @@ func roundFloat(val float64, precision uint) float64 {
 	return math.Round(val*ratio) / ratio
 }
 
+// sshArtifactURL projects the validated publication identity into a public URL.
 func sshArtifactURL(release *contracts.Release, file *contracts.ReleaseFile, deployment *contracts.ReleaseDeploymentSsh) (string, error) {
-	project := deployment.Project
-	if project == "" {
-		project = strings.TrimPrefix(release.GetProject().GetSubdir(), "projects/")
+	namespace, project, err := publicationIdentity(release.GetProject().GetSubdir(), deployment.Namespace, deployment.Project)
+	if err != nil {
+		return "", fmt.Errorf("public artifact identity: %w", err)
 	}
 	for _, component := range []string{project, release.Name, file.Name} {
 		if err := pathComponent(component); err != nil {
@@ -454,5 +455,5 @@ func sshArtifactURL(release *contracts.Release, file *contracts.ReleaseFile, dep
 	if (origin.Scheme != "https" && origin.Scheme != "http") || origin.Host == "" || origin.User != nil || origin.RawQuery != "" || origin.Fragment != "" {
 		return "", fmt.Errorf("invalid public download URL")
 	}
-	return strings.TrimRight(deployment.PublicUrl, "/") + "/projects/" + url.PathEscape(project) + "/releases/" + url.PathEscape(release.Name) + "/" + url.PathEscape(file.Name), nil
+	return strings.TrimRight(deployment.PublicUrl, "/") + "/" + namespace + "/" + url.PathEscape(project) + "/releases/" + url.PathEscape(release.Name) + "/" + url.PathEscape(file.Name), nil
 }

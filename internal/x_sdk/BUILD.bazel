@@ -1,0 +1,30 @@
+load("@aspect_bazel_lib//lib:copy_to_directory.bzl", "copy_to_directory")
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//tools/openapi_generator:defs.bzl", "openapi_generate")
+
+package(transitive_visibility = "//internal:transitive_consumers")
+
+openapi_generate(
+    name = "generated_client",
+    args = [
+        "--global-property",
+        "apis,models,apiTests=false,modelTests=false,apiDocs=false,modelDocs=false,supportingFiles=client.go:configuration.go:response.go:utils.go",
+    ],
+    config = "generator.json",
+    schema = "//third_party/com_x_api_openapi:schema",
+)
+
+copy_to_directory(
+    name = "generate",
+    srcs = [":generated_client"],
+    include_srcs_patterns = ["*.go"],
+    root_paths = ["internal/x_sdk/generated_client.srcs"],
+    visibility = ["//internal/x_sdk/pkg/client:__pkg__"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//internal:__pkg__"],
+    deps = ["//internal/x_sdk/openspec:docs"],
+)

@@ -1,0 +1,13 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+package(transitive_visibility = "//internal:transitive_consumers")
+
+go_library(
+    name = "oauth1",
+    srcs = [
+        "doc.go",
+        "oauth1.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/internal/x_sdk/pkg/oauth1",
+    visibility = ["//:__subpackages__"],
+)

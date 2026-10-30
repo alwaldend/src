@@ -1,0 +1,7 @@
+{
+    "nilness": {
+        "exclude_files": {
+            "(^|/)internal/x_sdk/generate/client\\.go$": "OpenAPI Generator 7.26.0 emits a redundant nil check for its named body buffer result; preserve generated code and analyze handwritten SDK files normally."
+        }
+    }
+}

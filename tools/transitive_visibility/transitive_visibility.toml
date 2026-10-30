@@ -4,6 +4,7 @@
 "." = "//:transitive_consumers"
 "data" = "//data:transitive_consumers"
 "infra" = "//infra:transitive_consumers"
+"internal" = "//internal:transitive_consumers"
 "projects" = "//projects:transitive_consumers"
 "third_party" = "//third_party:transitive_consumers"
 "tools" = "//tools:transitive_consumers"

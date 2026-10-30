@@ -73,13 +73,21 @@ Host trust and authentication use normal OpenSSH configuration, with strict
 host-key checks and noninteractive authentication. `--ssh_config`,
 `--ssh_identity`, `--ssh_known_hosts`, `--ssh_port`, and `--ssh_user` allow
 explicit local overrides. Credentials are not written into manifests.
+An explicit identity can select a key held by the operator's SSH agent.
+`--ssh_disable_agent` disables agent authentication and restricts authentication
+to configured identities; the download-host wrappers select this option for
+their injected temporary keys.
 `--ssh_path` and `--rsync_path` select installed executables. The default
 deployment deadline is 30 minutes; `--timeout` overrides it.
 
 The public project defaults to the manifest project after removing a leading
 `projects/`; `--project` overrides it. The tool validates each path component
 and uses the remote layout
-`<root>/projects/<project>/releases/<version>/<filename>`.
+`<root>/<namespace>/<project>/releases/<version>/<filename>`. The namespace
+defaults to `projects`; `--namespace third_party` selects the parallel upstream
+artifact tree. A manifest project beginning with `third_party/` selects it by
+default. Only these two namespaces are accepted. `third_party` supports upload
+only; website extraction and selection remain project-only.
 Rsync updates matching filenames using checksums, normalizes directories to
 `0755` and files to `0644`, and never deletes other files. A failed multi-file
 transfer can leave completed files published; rsync's error and itemized
@@ -135,3 +143,10 @@ with `--steps link`. There is no separate rollback command or automatic deletion
 variant. `ssh_public_url` supplies generated artifact URLs with the public
 project/version layout. `al_release_binary` can package a fixed SSH destination
 with `oras = None`, while taking `--release_dir` at runtime.
+
+The deployment rule exposes `ssh_namespace` and the serialized SSH metadata
+contains `namespace`. Generated artifact URLs use that namespace too. Portable
+bundles accept both `projects/<name>` and `third_party/<name>` project identities.
+The download-host publication targets inject short-lived SSH credentials and
+scoped host-CA trust; direct generic CLI usage still accepts explicit SSH options,
+including `--ssh_certificate`.

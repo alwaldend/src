@@ -17,7 +17,7 @@ to resolve to a block device. The role creates the filesystem without forcing
 an overwrite and mounts it before enabling the services. The shared roles
 manage the service units. Traefik keeps its configuration and ACME data on the
 system disk at `/opt/traefik` and has no content-mount dependency. The role creates
-publication roots; publishers create individual project/site directories and
+publication roots, including third_party/; publishers create individual artifact/site directories and
 select releases. It never uploads or selects releases.
 
 `nginx_config_template` supplies the complete configuration to the reusable
@@ -46,3 +46,9 @@ The play forces notified handlers after later task failures. Successfully
 installed configuration therefore still triggers its pending handlers if a
 later task fails. Unreachable hosts can still prevent handler execution.
 Nginx configuration validation before installation is unchanged. See [Ansible's handler failure behavior](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_error_handling.html#handlers-and-failure).
+
+The Ansible wrapper reuses the component SSH injector for the private key,
+certificate and scoped host CA. It disables agent and user-configuration identity
+selection and keeps strict host verification enabled. `download_publication`
+selects only publication directories, labels, maintenance units and Nginx;
+`nginx` selects only routing deployment.

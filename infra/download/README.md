@@ -18,13 +18,15 @@ Each VM has a 100 GiB Btrfs content disk mounted at `/srv/download`:
 
 ```text
 projects/<project>/releases/<version>/<uploaded files>
+third_party/<name>/releases/<version>/<uploaded files>
 sites/alwaldend.com/releases/<version>/<extracted website>
 sites/alwaldend.com/current -> releases/<version>
 staging/
 state/
 ```
 
-`download.alwaldend.com/projects/` returns JSON directory listings and serves
+`download.alwaldend.com/` returns a JSON index of `projects/` and `third_party/`
+without redirecting. Both namespaces provide JSON directory listings and serve
 file bytes, including website archives. `alwaldend.com` serves the selected
 extracted website. `www.alwaldend.com` redirects permanently to the apex,
 preserving the path and query. Staging and service state have no public route.
@@ -44,7 +46,7 @@ also remains separate implementation work.
 
 ## Deduplication
 
-A daily `download-deduplicate.timer` runs `duperemove` over `projects/` and
+A daily `download-deduplicate.timer` runs `duperemove` over `projects/`, `third_party/` and
 `sites/` on each VM. It shares identical extents while retaining independent
 files, paths, permissions, and copy-on-write behavior. Repeated website assets
 can share storage; separately compressed archives may have fewer identical
@@ -88,7 +90,10 @@ Invocation arguments follow the fixed SSH destination and form the remote
 command. Omitting them opens a shell. Select `ssh.yandex` explicitly for cloud
 access. The target supplies authentication, not authority to change a host.
 
-Publication explicitly selects `publish.local` or `publish.yandex`. Upload,
+Publication explicitly selects `publish.local` or `publish.yandex`. These
+wrappers inject the same temporary key, signed certificate and scoped host CA
+as the SSH targets. `--namespace third_party` selects versioned upstream
+artifacts; project publication remains the default. Upload,
 extract, and link are separate ordered steps; only link selects the website.
 Reselect a retained release with `--steps link`. Completed ordinary uploads
 can remain public after a later transfer failure. The release tool owns the
@@ -218,3 +223,11 @@ is required. See the [acceptance matrix](openspec/changes/add-static-hosting/acc
 for isolated checks and the remaining live acceptance cases.
 [Provisioning evidence](openspec/changes/add-static-hosting/terraform-evidence.md)
 retains the Terraform validation and review history.
+
+## Third-party namespace deployment
+
+`//infra/download/ansible:ansible.local` and `:ansible.yandex` accept
+`-- --tags download_publication` for mounted-storage checks, publication roots,
+SELinux labels, deduplication units and Nginx. `--tags nginx` restricts a routing
+update to the shared Nginx role. Both paths retain strict host-CA verification
+with the component injector. Deployment requires explicit host scope.

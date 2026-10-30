@@ -12,6 +12,7 @@ package_group(
 
 _WORKSPACE_SOURCES = {
     "repository": "//infra/src/openspec:source",
+    "internal_x_sdk": "//internal/x_sdk/openspec:source",
     "infra_ceph": "//infra/ceph/openspec:source",
     "infra_cloud_init": "//infra/cloud_init/openspec:source",
     "infra_download": "//infra/download/openspec:source",
@@ -33,7 +34,10 @@ _WORKSPACE_SOURCES = {
     "infra_xcp_ng": "//infra/xcp_ng/openspec:source",
     "infra_yandex_cloud": "//infra/yandex_cloud/openspec:source",
     "tools_mermaid": "//tools/mermaid/openspec:source",
+    "tools_openapi_generator": "//tools/openapi_generator/openspec:source",
     "tools_release": "//tools/release/openspec:source",
+    "tools_vault": "//tools/vault/openspec:source",
+    "tools_x_api_schema": "//tools/x_api_schema/openspec:source",
     "tools_agents": "//tools/agents/openspec:source",
     "tools_repo_delivery": "//tools/repo_delivery/openspec:source",
     "projects_al": "//projects/al/openspec:source",

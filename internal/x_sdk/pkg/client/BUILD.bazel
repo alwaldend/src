@@ -1,0 +1,19 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+package(transitive_visibility = "//internal:transitive_consumers")
+
+# gazelle:ignore
+go_library(
+    name = "client",
+    srcs = [
+        "doc.go",
+        "media.go",
+        "//internal/x_sdk:generate",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/internal/x_sdk/pkg/client",
+    visibility = ["//:__subpackages__"],
+    deps = [
+        "@in_gopkg_validator_v2//:validator_v2",
+        "@org_golang_x_oauth2//:oauth2",
+    ],
+)

@@ -1,4 +1,13 @@
 ansible_user: ansible
+ansible_private_key_file: "{{ lookup('ansible.builtin.env', 'DOWNLOAD_SSH_PRIVATE_KEY', default=undef()) }}"
+ansible_ssh_common_args: >-
+  -F /dev/null
+  -o IdentityAgent=none
+  -o IdentitiesOnly=yes
+  -o CertificateFile=${DOWNLOAD_SSH_CERTIFICATE}
+  -o UserKnownHostsFile=${DOWNLOAD_SSH_KNOWN_HOSTS}
+  -o GlobalKnownHostsFile=/dev/null
+  -o StrictHostKeyChecking=yes
 download_nginx_port: 8008
 download_acme_email: src_infra_download@alwaldend.com
 ssh_vault_role: src_infra_download_ssh

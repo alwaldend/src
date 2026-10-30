@@ -1,0 +1,24 @@
+load("@rules_go//go:def.bzl", "go_binary", "go_test")
+
+package(transitive_visibility = "//tools:transitive_consumers")
+
+go_binary(
+    name = "fetch_schema",
+    srcs = [
+        "doc.go",
+        "main.go",
+    ],
+    visibility = ["//third_party/com_x_api_openapi:__pkg__"],
+    deps = [
+        "//internal/x_sdk/pkg/oauth1",
+        "@com_github_spf13_cobra//:cobra",
+    ],
+)
+
+go_test(
+    name = "fetch_schema_test",
+    srcs = ["main_test.go"],
+    data = [":fetch_schema"],
+    env = {"FETCH_SCHEMA_BINARY": "$(rlocationpath :fetch_schema)"},
+    deps = ["@rules_go//go/runfiles"],
+)

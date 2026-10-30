@@ -9,6 +9,7 @@ go_library(
         "bundle.go",
         "cmd.go",
         "deployer.go",
+        "doc.go",
         "generator.go",
         "git_bundle.go",
         "main.go",
@@ -37,6 +38,7 @@ go_test(
     srcs = [
         "bundle_test.go",
         "git_bundle_test.go",
+        "namespace_test.go",
     ],
     data = [":go"],
     embed = [":go_lib"],
@@ -47,6 +49,8 @@ go_test(
         "@com_github_go_git_go_git_v5//plumbing/format/packfile",
         "@com_github_go_git_go_git_v5//plumbing/object",
         "@com_github_go_git_go_git_v5//storage/memory",
+        "@org_golang_x_crypto//ssh",
+        "@org_golang_x_crypto//ssh/agent",
     ],
 )
 

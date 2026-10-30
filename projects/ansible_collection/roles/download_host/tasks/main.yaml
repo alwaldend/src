@@ -34,6 +34,7 @@
   ansible.builtin.import_tasks: filesystem.yaml
 
 - name: Configure Nginx
+  tags: [download_publication]
   ansible.builtin.import_role:
     name: alwaldend.main.nginx
 

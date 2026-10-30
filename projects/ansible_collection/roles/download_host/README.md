@@ -9,12 +9,12 @@ is a block device before configuring the host, creates Btrfs without
 forcing replacement of an existing filesystem, and mounts by UUID. This role
 is intended for the Fedora hosts used by `infra/download`.
 
-The role creates only the publication roots: `projects/`, `sites/`, and private
+The role creates only the publication roots: `projects/`, `third_party/`, `sites/`, and private
 `staging/`, owned by the `download` publisher account. Publishers create individual projects,
 sites, and releases. The mount root and service state remain root-owned;
 privileged ownership changes never traverse per-site directories. Shared Nginx
 and Traefik roles own their service units. Traefik uses its standard system-disk
-location. A daily systemd timer runs incremental duperemove over projects
+location. A daily systemd timer runs incremental duperemove over projects, third_party
 and sites with resource limits and private hash state. Uploading files,
 extracting sites, and switching the current-release symlink are separate
 publisher operations. Administrators authenticate with existing SSH access and
@@ -63,3 +63,7 @@ The collection packages the role automatically through its existing role
 aggregation. Domain-specific serving templates stay with the deployment.
 
 [Default configuration](defaults/)
+
+The `download_publication` tag updates publication roots, read-only SELinux
+labels, deduplication units and Nginx without provisioning storage or changing
+other host services. It first requires the content root to be a mounted filesystem.
