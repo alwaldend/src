@@ -30,6 +30,24 @@ is identical across normal and lint configurations to preserve the analysis
 cache when switching modes. `--config=lint` enables the linter aspects and
 requests only lint reports and skill validation, not ordinary target outputs.
 
+## Repository caching and protobuf
+
+Bazel 9 enables the local repository contents cache by default under
+`{--repository_cache}/contents`. It reuses eligible fetched repositories across
+workspaces; the shared configuration preserves this default location.
+
+The shared startup configuration also enables
+`--experimental_remote_repo_contents_cache`. It uses configured remote or disk
+cache backends for reproducible repository rules. It does not provision a cache
+service or configure an endpoint. Existing cache upload policy still applies.
+Because the option is a startup flag, changing it restarts the Bazel server.
+
+The root workspace enables
+`--@protobuf//bazel/toolchains:prefer_prebuilt_protoc` to use the pinned protobuf
+module's prebuilt compiler where supported, with source compilation as the
+fallback. The setting is root-only because standalone nested modules can use
+different protobuf versions. User overrides remain last.
+
 ## Links
 
 - Rules: https://github.com/bazel-contrib/bazelrc-preset.bzl/
