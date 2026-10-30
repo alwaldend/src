@@ -2,6 +2,8 @@
 import %workspace%/tools/bazelrc/preset.bazelrc
 # Project-specific flags
 import %workspace%/tools/bazelrc/project.bazelrc
+# Prefer the pinned protobuf module's prebuilt compiler on supported platforms.
+build --@protobuf//bazel/toolchains:prefer_prebuilt_protoc
 # This build setting belongs only to the root workspace.
 common:ci --//tools/bazel_configs:ci_flag
 # Validate skill_library targets whenever they are built.
