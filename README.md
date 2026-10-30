@@ -24,6 +24,8 @@ description: Projects, infrastructure, and development tools
 ## Repository shape
 
 - [`projects/`](projects/README.md): products and reusable project code.
+- [`internal/`](internal/README.md): shared first-party runtime libraries for
+  repository-only use.
 - [`tools/`](tools/README.md): repository-wide rules, toolchains, and
   repository-internal automation.
 - [`infra/`](infra/README.md): infrastructure definitions and operations.

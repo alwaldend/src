@@ -1,0 +1,8 @@
+http_file = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_file")
+
+http_file(
+    name = "com_x_api_openapi",
+    downloaded_file_path = "openapi.json",
+    integrity = "sha256-Q3fReRwBYyyc8oYPyDOkzsdu/3T4nSMv1zVedl578Kk=",
+    urls = ["https://download.alwaldend.com/third_party/com_x_api_openapi/releases/2.173-4377d1791c01/openapi.json"],
+)

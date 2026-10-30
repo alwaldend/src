@@ -350,6 +350,7 @@ docs_filegroup(
     deps = [
         "//data:docs",
         "//infra:docs",
+        "//internal:docs",
         "//projects:docs",
         "//third_party:docs",
         "//tools:docs",

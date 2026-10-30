@@ -1,0 +1,7 @@
+http_jar = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_jar")
+
+http_jar(
+    name = "org_openapitools_openapi_generator",
+    integrity = "sha256-F2AFAJSZe5zHkMwTUL4JXxXajAiplrGE0+rcTM2l414=",
+    urls = ["https://repo.maven.apache.org/maven2/org/openapitools/openapi-generator-cli/7.26.0/openapi-generator-cli-7.26.0.jar"],
+)

@@ -37,7 +37,14 @@
     mode: "0755"
     follow: false
 
+- name: Require mounted publication storage
+  tags: [download_publication]
+  ansible.builtin.command:
+    argv: [mountpoint, -q, "{{ download_root }}"]
+  changed_when: false
+
 - name: Create persistent publication directories
+  tags: [download_publication]
   ansible.builtin.file:
     path: "{{ download_root }}/{{ item }}"
     state: directory
@@ -47,6 +54,7 @@
     follow: false
   loop:
     - projects
+    - third_party
     - sites
 
 - name: Create private publisher staging
@@ -68,13 +76,15 @@
     follow: false
 
 - name: Declare read-only SELinux content labels
+  tags: [download_publication]
   when: ansible_facts.selinux.status == 'enabled'
   community.general.sefcontext:
-    target: "{{ download_root | regex_escape }}(/(projects|sites|staging)(/.*)?)?"
+    target: "{{ download_root | regex_escape }}(/(projects|third_party|sites|staging)(/.*)?)?"
     setype: httpd_sys_content_t
     state: present
 
 - name: Restore content SELinux labels
+  tags: [download_publication]
   when: ansible_facts.selinux.status == 'enabled'
   ansible.builtin.command:
     argv:
@@ -82,6 +92,7 @@
         restorecon,
         -Rv,
         "{{ download_root }}/projects",
+        "{{ download_root }}/third_party",
         "{{ download_root }}/sites",
         "{{ download_root }}/staging",
       ]
@@ -89,6 +100,7 @@
   changed_when: download_restorecon.stdout | length > 0
 
 - name: Restore the mounted filesystem root SELinux label
+  tags: [download_publication]
   when: ansible_facts.selinux.status == 'enabled'
   ansible.builtin.command:
     argv: [restorecon, -v, "{{ download_root }}"]
@@ -104,6 +116,7 @@
     mode: "0700"
 
 - name: Install content deduplication units
+  tags: [download_publication]
   ansible.builtin.template:
     src: "{{ item }}.j2"
     dest: "/etc/systemd/system/{{ item }}"
@@ -116,11 +129,13 @@
   register: download_deduplication_units
 
 - name: Reload changed deduplication units
+  tags: [download_publication]
   when: download_deduplication_units.changed
   ansible.builtin.systemd_service:
     daemon_reload: true
 
 - name: Enable daily content deduplication
+  tags: [download_publication]
   ansible.builtin.systemd_service:
     name: download-deduplicate.timer
     enabled: true

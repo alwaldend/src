@@ -27,7 +27,7 @@ al_binary_run_map(
         "--plugin_label",
         "vault_env=default_default",
         "--plugin_label",
-        "ansible=1",
+        "ssh=1",
     ],
 )
 

@@ -1,0 +1,13 @@
+{
+    "packageName": "client",
+    "withGoMod": false,
+    "hideGenerationTimestamp": true,
+    "disallowAdditionalPropertiesIfNotPresent": false,
+    "enumClassPrefix": true,
+    "useOneOfDiscriminatorLookup": true,
+    "schemaMappings": {
+        "AppendMediaUploadRequest_media": "AppendMediaUploadRequestMedia",
+        "ChatMediaUploadAppendRequest_media": "ChatMediaUploadAppendRequestMedia",
+        "MediaUploadRequest_media": "MediaUploadRequestMedia"
+    }
+}

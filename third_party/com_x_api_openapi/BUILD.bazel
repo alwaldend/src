@@ -1,0 +1,30 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//projects/al/rules/al:al_binary.bzl", "al_binary_run")
+
+package(transitive_visibility = "//third_party:transitive_consumers")
+
+al_binary_run(
+    name = "fetch_schema",
+    args = ["$(rootpath //tools/x_api_schema/cmd/fetch_schema)"],
+    configs = ["//projects/x_article_uploader:al"],
+    data = [
+        "//tools/vault/injector",
+        "//tools/x_api_schema/cmd/fetch_schema",
+    ],
+    run_args = [
+        "--plugin_label",
+        "x_api=1",
+    ],
+)
+
+alias(
+    name = "schema",
+    actual = "@com_x_api_openapi//file",
+    visibility = ["//:__subpackages__"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//third_party:__pkg__"],
+)

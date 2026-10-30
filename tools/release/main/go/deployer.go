@@ -26,17 +26,23 @@ type DeployerOpts struct {
 	SSHRoot       string
 	PublishUser   string
 	Project       string
-	SiteArchive   string
-	SSHSteps      []string
-	SSHPath       string
-	SSHConfig     string
-	SSHIdentity   string
-	SSHKnownHosts string
-	RsyncPath     string
-	SSHPort       int
-	Timeout       time.Duration
-	Stdout        io.Writer
-	Stderr        io.Writer
+	// Namespace selects the public artifact tree; empty retains manifest defaults.
+	Namespace   string
+	SiteArchive string
+	SSHSteps    []string
+	SSHPath     string
+	SSHConfig   string
+	SSHIdentity string
+	// SSHDisableAgent restricts authentication to configured identity files.
+	SSHDisableAgent bool
+	// SSHCertificate supplies the certificate paired with the SSH identity.
+	SSHCertificate string
+	SSHKnownHosts  string
+	RsyncPath      string
+	SSHPort        int
+	Timeout        time.Duration
+	Stdout         io.Writer
+	Stderr         io.Writer
 }
 
 func NewDeployer() *Deployer {

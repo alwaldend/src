@@ -29,11 +29,14 @@ on the main repository site. They do not own separate landing sites.
 - Tool targets MAY be used in tests and explicit source-generation/update
   targets.
 
-An explicit source-generation/update target is a developer workflow, not part
-of the production build graph. It may depend on a tool from this tree and use
-`write_source_file` to update a checked-in source artifact. Normal production
-and documentation targets must consume that checked-in artifact directly;
-they must not depend on the generator, its tool, or an action-generated copy.
+Build rules may run tools from this tree in the execution configuration to
+generate source artifacts owned by their consuming component. Generated code
+may be compiled by that component's normal language rules; the tool itself
+does not become a runtime dependency.
+
+An explicit source-update target is a developer workflow. It may use
+`write_source_file` to update a checked-in artifact. Consumers of that
+checked-in artifact read it directly rather than running its update target.
 
 ## Transitive dependency enforcement
 

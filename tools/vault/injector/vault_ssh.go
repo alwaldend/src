@@ -61,7 +61,7 @@ func (self *VaultSshFetcher) Get(ctx context.Context, r *injector_proto.Resource
 	privateKey := filepath.Join(dir, "private_key")
 	passphrase := uuid.New().String()
 	publicKey := fmt.Sprintf("%s.pub", privateKey)
-	publicKeySigned := fmt.Sprintf("%s.pub", privateKey)
+	publicKeySigned := fmt.Sprintf("%s-cert.pub", privateKey)
 	passphraseScript := fmt.Sprintf("%s.sh", privateKey)
 	if err := os.WriteFile(passphraseScript, []byte(fmt.Sprintf("#!/usr/bin/env sh\necho '%s'", passphrase)), 0o700); err != nil {
 		return nil, fmt.Errorf("could not write the passphrase script: %w", al.SanitizeVaultError(err))

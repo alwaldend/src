@@ -13,6 +13,7 @@ docs_filegroup(
 
 nogo(
     name = "nogo",
+    config = "config.json",
     visibility = ["//visibility:public"],  # must have public visibility
     deps = TOOLS_NOGO,
 )

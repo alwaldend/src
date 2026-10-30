@@ -20,6 +20,8 @@ package_group(
         "//third_party/...",
         "//tools/...",
         "//users/...",
+        # The SDK uses the generator and logging config as execution inputs.
+        "//internal/x_sdk",
         # Repository documentation and developer commands.
         "//projects/alwaldend.com/...",
         "//projects/x_article_uploader",

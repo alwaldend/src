@@ -74,6 +74,8 @@ message ReleaseDeploymentSsh {
   string site_archive = 6;
   string publish_user = 7;
   string public_url = 8;
+  // Public artifact namespace: projects (default) or third_party.
+  string namespace = 9;
 }
 
 message Release {

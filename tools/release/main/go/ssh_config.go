@@ -23,6 +23,7 @@ type sshPublisher struct {
 	siteDir   string
 }
 
+// pathComponent rejects traversal and separators in one publication path element.
 func pathComponent(value string) error {
 	if value == "" || value == "." || value == ".." || strings.ContainsAny(value, "/\\") || strings.IndexFunc(value, unicode.IsControl) >= 0 {
 		return fmt.Errorf("unsafe path component %q", value)
@@ -30,6 +31,7 @@ func pathComponent(value string) error {
 	return nil
 }
 
+// newSSHPublisher resolves validated manifest identity, overrides and SSH options.
 func newSSHPublisher(opts *DeployerOpts, release *contracts.Release, original *contracts.ReleaseDeploymentSsh) (*sshPublisher, error) {
 	target := proto.Clone(original).(*contracts.ReleaseDeploymentSsh)
 	for _, pair := range []struct {
@@ -41,6 +43,7 @@ func newSSHPublisher(opts *DeployerOpts, release *contracts.Release, original *c
 		{opts.SSHRoot, &target.Root},
 		{opts.PublishUser, &target.PublishUser},
 		{opts.Project, &target.Project},
+		{opts.Namespace, &target.Namespace},
 		{opts.SiteArchive, &target.SiteArchive},
 	} {
 		if pair.value != "" {
@@ -50,9 +53,11 @@ func newSSHPublisher(opts *DeployerOpts, release *contracts.Release, original *c
 	if target.Root == "" {
 		target.Root = "/srv/download"
 	}
-	if target.Project == "" {
-		target.Project = strings.TrimPrefix(release.GetProject().GetSubdir(), "projects/")
+	namespace, project, err := publicationIdentity(release.GetProject().GetSubdir(), target.Namespace, target.Project)
+	if err != nil {
+		return nil, fmt.Errorf("configure public artifact identity: %w", err)
 	}
+	target.Namespace, target.Project = namespace, project
 	if err := validateSSHTarget(opts, target, release.Name); err != nil {
 		return nil, fmt.Errorf("configure SSH publication: %w", err)
 	}
@@ -68,14 +73,21 @@ func newSSHPublisher(opts *DeployerOpts, release *contracts.Release, original *c
 	if opts.SSHKnownHosts != "" {
 		args = append(args, "-o", "UserKnownHostsFile="+opts.SSHKnownHosts, "-o", "GlobalKnownHostsFile=/dev/null")
 	}
+	if opts.SSHCertificate != "" {
+		args = append(args, "-o", "CertificateFile="+opts.SSHCertificate)
+	}
+	if opts.SSHDisableAgent {
+		args = append(args, "-o", "IdentityAgent=none", "-o", "IdentitiesOnly=yes")
+	}
 	siteRoot := path.Join(target.Root, "sites", target.Project)
 	return &sshPublisher{
 		ctx: opts.Ctx, opts: opts, target: target, args: args, version: release.Name,
-		publicDir: path.Join(target.Root, "projects", target.Project, "releases", release.Name),
+		publicDir: path.Join(target.Root, target.Namespace, target.Project, "releases", release.Name),
 		siteRoot:  siteRoot, siteDir: path.Join(siteRoot, "releases", release.Name),
 	}, nil
 }
 
+// validateSSHTarget checks the selected destination and namespace-specific steps.
 func validateSSHTarget(opts *DeployerOpts, target *contracts.ReleaseDeploymentSsh, version string) error {
 	if opts.Environment == "" || (target.Environment != "" && target.Environment != opts.Environment) {
 		return fmt.Errorf("select the configured SSH environment explicitly")
@@ -100,6 +112,9 @@ func validateSSHTarget(opts *DeployerOpts, target *contracts.ReleaseDeploymentSs
 	}
 	previous := 0
 	for _, step := range opts.SSHSteps {
+		if target.Namespace == "third_party" && step != "upload" {
+			return fmt.Errorf("third_party publication supports upload only")
+		}
 		order := map[string]int{"upload": 1, "extract": 2, "link": 3}[step]
 		if order <= previous {
 			return fmt.Errorf("steps must be a nonempty ordered subset of upload,extract,link: %q", step)
@@ -115,4 +130,24 @@ func validateSSHTarget(opts *DeployerOpts, target *contracts.ReleaseDeploymentSs
 		}
 	}
 	return nil
+}
+
+// publicationIdentity resolves and validates the public namespace and artifact name.
+func publicationIdentity(subdir, namespace, name string) (string, string, error) {
+	if namespace == "" {
+		namespace = "projects"
+		if strings.HasPrefix(subdir, "third_party/") {
+			namespace = "third_party"
+		}
+	}
+	if namespace != "projects" && namespace != "third_party" {
+		return "", "", fmt.Errorf("namespace must be projects or third_party")
+	}
+	if name == "" {
+		name = strings.TrimPrefix(subdir, namespace+"/")
+	}
+	if err := pathComponent(name); err != nil {
+		return "", "", fmt.Errorf("artifact name: %w", err)
+	}
+	return namespace, name, nil
 }

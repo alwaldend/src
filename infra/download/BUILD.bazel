@@ -1,4 +1,5 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//projects/al/rules/al:al_binary.bzl", "al_binary_run")
 load("//projects/al/rules/al:al_config.bzl", "al_config")
 load("//tools/release/main/bzl:al_release_binary.bzl", "al_release_binary")
 load("//tools/release/main/bzl:al_release_deployment.bzl", "al_release_deployment")
@@ -63,13 +64,42 @@ _HOSTS = {
 
 [
     al_release_binary(
-        name = "publish." + environment,
+        name = "publish." + environment + ".command",
         arguments = [
             "--environment",
             environment,
+            "--ssh_config",
+            "/dev/null",
+            "--ssh_identity",
+            "$${DOWNLOAD_SSH_PRIVATE_KEY}",
+            "--ssh_disable_agent",
+            "--ssh_certificate",
+            "$${DOWNLOAD_SSH_CERTIFICATE}",
+            "--ssh_known_hosts",
+            "$${DOWNLOAD_SSH_KNOWN_HOSTS}",
         ],
         oras = None,
         ssh_deployment = ":publication." + environment,
+    )
+    for environment in [
+        "local",
+        "yandex",
+    ]
+]
+
+[
+    al_binary_run(
+        name = "publish." + environment,
+        args = ["$(rootpath :publish." + environment + ".command)"],
+        configs = [":al"],
+        data = [
+            ":publish." + environment + ".command",
+            "//tools/vault/injector",
+        ],
+        run_args = [
+            "--plugin_label",
+            "ssh=1",
+        ],
     )
     for environment in [
         "local",

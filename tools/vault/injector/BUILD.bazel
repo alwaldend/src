@@ -25,6 +25,7 @@ go_library(
     name = "injector_lib",
     srcs = [
         "cleaner.go",
+        "doc.go",
         "env.go",
         "file.go",
         "main.go",
