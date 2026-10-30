@@ -1,7 +1,16 @@
 ---
 title: Alwaldend identity assets
-description: Selected monogram artwork
+description: Shared identity artwork, colors, and diagram typography
 ---
+
+`assets/theme.json` owns the neutral colors, light/dark semantic roles, and
+diagram typography. The website generates its Sass variables from this data.
+The `assets/mermaid` templates generate the neutral diagram preset and resolved
+light/dark palette; they contain mappings rather than another color definition.
+`//data/alwaldend:mermaid_theme` bundles those generated files with the pinned
+diagram font and license for SVG and 3D consumers. Generic rendering and theme
+rules remain in their tool/project owners. The hand-drawn Mermaid default is
+a separate preset.
 
 `assets/monogram_s8.svg` is the canonical S8 graduated square monogram.
 It preserves the selected square winding, angled `l` cap, and full clipped

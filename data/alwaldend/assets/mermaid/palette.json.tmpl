@@ -1,0 +1,31 @@
+{{- $theme := (index .DataFiles 0).Data -}}
+{
+{{- $separator := "" -}}
+{{- range $mode, $roles := $theme.modes -}}
+{{$separator}}
+  "{{$mode}}": {
+    "background": {{to_json (index $theme.colors $roles.canvas)}},
+    "primaryColor": {{to_json (index $theme.colors $roles.canvas)}},
+    "primaryTextColor": {{to_json (index $theme.colors $roles.ink)}},
+    "primaryBorderColor": {{to_json (index $theme.colors $roles.ink)}},
+    "secondaryColor": {{to_json (index $theme.colors $roles.surface)}},
+    "secondaryTextColor": {{to_json (index $theme.colors $roles.ink)}},
+    "tertiaryColor": {{to_json (index $theme.colors $roles.raisedSurface)}},
+    "tertiaryTextColor": {{to_json (index $theme.colors $roles.ink)}},
+    "mainBkg": {{to_json (index $theme.colors $roles.canvas)}},
+    "nodeBorder": {{to_json (index $theme.colors $roles.ink)}},
+    "nodeTextColor": {{to_json (index $theme.colors $roles.ink)}},
+    "lineColor": {{to_json (index $theme.colors $roles.ink)}},
+    "actorLineColor": {{to_json (index $theme.colors $roles.guide)}},
+    "textColor": {{to_json (index $theme.colors $roles.ink)}},
+    "titleColor": {{to_json (index $theme.colors $roles.ink)}},
+    "clusterBkg": {{to_json (index $theme.colors $roles.canvas)}},
+    "clusterBorder": {{to_json (index $theme.colors $roles.border)}},
+    "edgeLabelBackground": {{to_json (index $theme.colors $roles.canvas)}},
+    "noteBkgColor": {{to_json (index $theme.colors $roles.surface)}},
+    "noteTextColor": {{to_json (index $theme.colors $roles.ink)}},
+    "noteBorderColor": {{to_json (index $theme.colors $roles.border)}}
+  }
+{{- $separator = "," -}}
+{{- end}}
+}

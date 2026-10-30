@@ -1,0 +1,29 @@
+load("@rules_template//main/bzl:template_run_binary.bzl", "template_run_binary")
+load("//tools/mermaid:theme.bzl", "mermaid_theme")
+
+package(
+    default_visibility = ["//:__subpackages__"],
+    transitive_visibility = "//data:transitive_consumers",
+)
+
+template_run_binary(
+    name = "config",
+    srcs = ["config.json.tmpl"],
+    outs = ["config.json"],
+    data = ["//data/alwaldend:assets/theme.json"],
+)
+
+template_run_binary(
+    name = "palette",
+    srcs = ["palette.json.tmpl"],
+    outs = ["palette.json"],
+    data = ["//data/alwaldend:assets/theme.json"],
+)
+
+mermaid_theme(
+    name = "theme",
+    config = ":config",
+    palette = ":palette",
+    font = "//data/alwaldend:diagram_font",
+    font_license = "//data/alwaldend:diagram_font_license",
+)

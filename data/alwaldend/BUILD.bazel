@@ -2,6 +2,26 @@ load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 
 package(transitive_visibility = "//data:transitive_consumers")
 
+exports_files(["assets/theme.json"], visibility = ["//:__subpackages__"])
+
+alias(
+    name = "mermaid_theme",
+    actual = "//data/alwaldend/assets/mermaid:theme",
+    visibility = ["//:__subpackages__"],
+)
+
+alias(
+    name = "diagram_font",
+    actual = "@com_alwaldend_src_tools_drawio_fonts//:LiberationMono-Regular.ttf",
+    visibility = ["//:__subpackages__"],
+)
+
+alias(
+    name = "diagram_font_license",
+    actual = "@com_alwaldend_src_tools_drawio_fonts//:LICENSE",
+    visibility = ["//:__subpackages__"],
+)
+
 docs_filegroup(
     name = "docs",
     srcs = ["README.md"],

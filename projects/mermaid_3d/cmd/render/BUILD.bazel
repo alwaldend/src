@@ -1,0 +1,21 @@
+load("@aspect_rules_js//js:defs.bzl", "js_binary")
+
+package(transitive_visibility = "//projects:transitive_consumers")
+
+js_binary(
+    name = "render",
+    args = [
+        "--browser",
+        "$(rootpath @com_google_chrome_headless_shell//:chrome_headless_shell_binary)",
+    ],
+    data = [
+        "//projects/mermaid_3d/internal:model",
+        "//projects/mermaid_3d/internal/viewer",
+        "//tools:node_modules/mermaid",
+        "//tools:node_modules/puppeteer",
+        "//tools:node_modules/three",
+        "@com_google_chrome_headless_shell//:chrome_headless_shell_binary",
+    ],
+    entry_point = "main.mjs",
+    visibility = ["//projects/mermaid_3d:__subpackages__"],
+)

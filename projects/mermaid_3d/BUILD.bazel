@@ -1,0 +1,15 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+
+package(transitive_visibility = "//projects:transitive_consumers")
+
+package_group(
+    name = "internal_consumers",
+    packages = ["//projects/mermaid_3d/..."],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//projects:__pkg__"],
+    deps = ["//projects/mermaid_3d/docs"],
+)

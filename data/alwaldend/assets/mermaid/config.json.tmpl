@@ -1,16 +1,19 @@
+{{- $theme := (index .DataFiles 0).Data -}}
 {
     "theme": "base",
     "look": "classic",
     "layout": "dagre",
     "themeVariables": {
-        "fontFamily": "Liberation Mono, monospace",
-        "fontSize": "16px"
+        "fontFamily": {{to_json $theme.typography.diagram.family}},
+        "fontSize": {{to_json $theme.typography.diagram.size}}
     },
     "flowchart": {
         "curve": "basis",
         "nodeSpacing": 32,
         "rankSpacing": 40,
         "padding": 12,
+        "wrappingWidth": 200,
+        "minNodeWidth": 0,
         "subGraphTitleMargin": {
             "top": -10.5,
             "bottom": 0
@@ -18,5 +21,5 @@
         "edgeSpacing": 44
     },
     "themeCSS": ".node rect,.cluster rect{rx:12px;ry:12px;}.edgeLabel p{background:var(--mermaid-background);border:1px solid var(--mermaid-clusterBorder);border-radius:4px;padding:2px 6px;margin:3px;display:inline-block;}.edgeLabel .labelBkg{background:transparent;}.cluster-label span p{background:var(--mermaid-background);border:1px solid var(--mermaid-clusterBorder);border-radius:6px;padding:0 6px;margin:3px;line-height:1;display:inline-block;font-size:13px;text-align:center;}.flowchart-link{stroke-linecap:round;stroke-linejoin:round;}.flowchart-link.edge-thickness-normal:not(.edge-thickness-thick):not(.edge-thickness-invisible),.transition.edge-thickness-normal:not(.edge-thickness-thick):not(.edge-thickness-invisible),.relation.edge-thickness-normal:not(.edge-thickness-thick):not(.edge-thickness-invisible),.relationshipLine.edge-thickness-normal:not(.edge-thickness-thick):not(.edge-thickness-invisible){stroke-width:2.25px;}.actor-line{stroke-width:1px;}.mindmap-node rect,.mindmap-node circle,.mindmap-node polygon,.mindmap-node path{fill:var(--mermaid-secondaryColor);stroke:var(--mermaid-nodeBorder);stroke-width:1px;}.mindmap-node .nodeLabel,.mindmap-node text,.mindmap-node span{color:var(--mermaid-textColor);fill:var(--mermaid-textColor);}.edge[class*=\"section-edge-\"]{stroke:var(--mermaid-lineColor);stroke-width:1.75px;}.sequenceNumber{font-family:inherit;}",
-    "fontFamily": "Liberation Mono, monospace"
+    "fontFamily": {{to_json $theme.typography.diagram.family}}
 }

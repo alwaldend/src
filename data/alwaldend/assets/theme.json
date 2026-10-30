@@ -1,0 +1,46 @@
+{
+    "colors": {
+        "white": "#fff",
+        "black": "#000",
+        "gray100": "#f7f7f7",
+        "gray200": "#ededed",
+        "gray300": "#dedede",
+        "gray400": "#c4c4c4",
+        "gray500": "#999",
+        "gray600": "#666",
+        "gray700": "#444",
+        "gray800": "#303030",
+        "gray850": "#292929",
+        "gray900": "#212121"
+    },
+    "modes": {
+        "light": {
+            "canvas": "white",
+            "ink": "gray900",
+            "border": "gray300",
+            "surface": "gray100",
+            "raisedSurface": "gray200",
+            "guide": "gray600",
+            "linkHover": "black",
+            "code": "gray700",
+            "mark": "gray200"
+        },
+        "dark": {
+            "canvas": "gray900",
+            "ink": "gray200",
+            "border": "gray700",
+            "surface": "gray800",
+            "raisedSurface": "gray850",
+            "guide": "gray500",
+            "linkHover": "white",
+            "code": "gray300",
+            "mark": "gray700"
+        }
+    },
+    "typography": {
+        "diagram": {
+            "family": "Liberation Mono, monospace",
+            "size": "16px"
+        }
+    }
+}

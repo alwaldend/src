@@ -1,0 +1,24 @@
+flowchart TB
+    source["Mermaid source<br/>Six diagram types"]
+    theme["Shared identity data<br/>Colors and font"]
+
+    subgraph build["Bazel build"]
+        parser["Mermaid parser<br/>Semantic databases"]
+        measure["Pinned browser<br/>Measure text"]
+        adapter["Diagram adapter<br/>Graph or sequence<br/>3D layout and routes"]
+        html["Self-contained HTML<br/>Scene, Three.js, font"]
+
+        parser -->|labels| measure
+        parser -->|diagram data| adapter
+        measure -->|text sizes| adapter
+        adapter -->|scene model| html
+    end
+
+    viewer["Three.js viewer<br/>Meshes and controls"]
+    snapshot["Static snapshot<br/>PNG or WebP"]
+
+    source --> parser
+    theme --> measure
+    theme -->|appearance| html
+    html -->|open offline| viewer
+    viewer -->|prepare and encode canvas| snapshot

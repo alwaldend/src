@@ -1,0 +1,13 @@
+load("@aspect_rules_js//js:defs.bzl", "js_binary")
+
+package(transitive_visibility = "//projects:transitive_consumers")
+
+js_binary(
+    name = "snapshot",
+    data = [
+        "//tools:node_modules/puppeteer",
+        "@com_google_chrome_headless_shell//:chrome_headless_shell_binary",
+    ],
+    entry_point = "main.mjs",
+    visibility = ["//projects/mermaid_3d:internal_consumers"],
+)

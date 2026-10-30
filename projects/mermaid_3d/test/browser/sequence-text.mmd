@@ -1,0 +1,10 @@
+sequenceDiagram
+    participant A as First<br/>Second<br/>Third<br/>Fourth
+    participant B as Document processing service
+    loop Work
+        Note over A,B: One<br/>Two<br/>Three<br/>Four<br/>Five<br/>Six
+        A->>B: Continue
+        B->>B: Inspect
+        Note right of B: Ready
+        B-->>A: Complete
+    end

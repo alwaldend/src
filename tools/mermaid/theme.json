@@ -90,6 +90,8 @@
         "nodeSpacing": 74,
         "rankSpacing": 92,
         "padding": 18,
+        "wrappingWidth": 200,
+        "minNodeWidth": 0,
         "useMaxWidth": true,
         "subGraphTitleMargin": {
             "top": -16,

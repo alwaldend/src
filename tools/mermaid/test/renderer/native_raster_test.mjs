@@ -18,6 +18,7 @@ const [
 const output = process.env.TEST_UNDECLARED_OUTPUTS_DIR;
 assert.ok(output, "Bazel must provide an artifact directory");
 const puppeteerConfig = { executablePath, headless: "shell" };
+const appearances = JSON.parse(await fs.readFile(palettePath, "utf8"));
 const reports = {};
 
 const browser = await puppeteer.launch(puppeteerConfig);
@@ -36,20 +37,15 @@ try {
             path.join(output, `native-${colorScheme}-actual.webp`),
         );
         const page = await browser.newPage();
-        await page.emulateMediaFeatures([
-            { name: "prefers-color-scheme", value: colorScheme },
-        ]);
-        await page.addStyleTag({
-            content: await fs.readFile(palettePath, "utf8"),
-        });
-        const palette = await page.evaluate(() => {
-            const style = getComputedStyle(document.documentElement);
+        // Read expected colors from the palette independently of either
+        // renderer, then compare them with the SVG and decoded WebP pixels.
+        const palette = await page.evaluate((colors) => {
             const color = (name) => {
+                if (!CSS.supports("color", colors[name]))
+                    throw new Error(`Invalid palette color: ${name}`);
                 const canvas = document.createElement("canvas");
                 const context = canvas.getContext("2d");
-                context.fillStyle = style.getPropertyValue(
-                    `--mermaid-${name}`,
-                );
+                context.fillStyle = colors[name];
                 context.fillRect(0, 0, 1, 1);
                 return [...context.getImageData(0, 0, 1, 1).data].slice(0, 3);
             };
@@ -57,10 +53,10 @@ try {
                 background: color("background"),
                 ink: color("textColor"),
             };
-        });
+        }, appearances[colorScheme]);
         const svg = await fs.readFile(svgPath, "utf8");
-        assert.ok(svg.includes("font-family:'Liberation Mono'"));
-        assert.ok(svg.includes("src:url(data:font/ttf;base64,"));
+        assert.match(svg, /font-family:\s*["']Liberation Mono["']/);
+        assert.match(svg, /src:\s*url\(["']?data:font\/ttf;base64,/);
         assert.ok(!svg.includes("Architects Daughter"));
         assert.ok(!svg.includes('data-look="handDrawn"'));
         await page.setContent(svg);

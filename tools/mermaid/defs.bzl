@@ -1,20 +1,48 @@
 """Build actions for rendering Mermaid source diagrams."""
 
+load(":theme.bzl", "MermaidThemeInfo")
+
+def _theme_inputs(ctx):
+    if MermaidThemeInfo in ctx.attr.theme:
+        theme = ctx.attr.theme[MermaidThemeInfo]
+        if not ctx.attr.native:
+            fail("a bundled theme requires native rendering")
+        for name, explicit, bundled in [
+            ("palette", ctx.file.palette, theme.palette),
+            ("label_font", ctx.file.label_font, theme.font),
+            ("label_font_license", ctx.file.label_font_license, theme.font_license),
+        ]:
+            if explicit and explicit != bundled:
+                fail("{} conflicts with the bundled theme".format(name))
+        return theme
+
+    files = ctx.attr.theme[DefaultInfo].files.to_list()
+    if len(files) != 1 or not files[0].basename.endswith(".json"):
+        fail("theme must provide MermaidThemeInfo or one JSON configuration file")
+    return struct(
+        config = files[0],
+        palette = ctx.file.palette,
+        font = ctx.file.label_font or ctx.file._label_font,
+        font_license = ctx.file.label_font_license,
+    )
+
 def _mermaid_svg_impl(ctx):
     source = ctx.file.src
-    theme = ctx.file.theme
+    theme = _theme_inputs(ctx)
     output = ctx.outputs.out
 
     if not output.basename.endswith(".svg"):
         fail("out must name an .svg file, got: {}".format(output.basename))
 
     outputs = [output]
-    if ctx.attr.native and (ctx.attr.plain or not ctx.file.palette or not ctx.outputs.dark_out):
+    if ctx.attr.native and (ctx.attr.plain or not theme.palette or not ctx.outputs.dark_out):
         fail("native rendering requires a palette and dark_out, and cannot be plain")
-    if not ctx.attr.native and (ctx.file.palette or ctx.outputs.dark_out):
+    if not ctx.attr.native and (theme.palette or ctx.outputs.dark_out):
         fail("palette and dark_out require native rendering")
     plain = ctx.attr.plain
-    label_font = ctx.file.label_font or ctx.file._label_font
+    if ctx.attr.native and not theme.font_license:
+        fail("native rendering requires label_font_license for CLI font embedding")
+    label_font = theme.font
 
     args = ctx.actions.args()
     args.add("--input", source.path)
@@ -27,11 +55,12 @@ def _mermaid_svg_impl(ctx):
         # theme and the pinned fonts are deliberately not inputs.
         args.add("--plain")
     else:
-        args.add("--config", theme.path)
+        args.add("--config", theme.config.path)
         if ctx.attr.native:
             args.add("--native")
             args.add("--font-subsetter", ctx.executable._font_subsetter.path)
-            args.add("--palette", ctx.file.palette.path)
+            args.add("--font-license", theme.font_license.path)
+            args.add("--palette", theme.palette.path)
             args.add("--dark-output", ctx.outputs.dark_out.path)
             outputs.append(ctx.outputs.dark_out)
 
@@ -53,10 +82,13 @@ def _mermaid_svg_impl(ctx):
 
     inputs = [source]
     if not plain:
-        inputs.append(theme)
-        if ctx.file.palette:
-            inputs.append(ctx.file.palette)
+        inputs.append(theme.config)
+        if theme.palette:
+            inputs.append(theme.palette)
         inputs = inputs + ctx.files._body_fonts + ctx.files._label_fonts + [label_font]
+
+    if ctx.attr.native:
+        inputs.append(theme.font_license)
 
     ctx.actions.run(
         arguments = [args],
@@ -99,25 +131,29 @@ mermaid_svg = rule(
                   "for comparing against the upstream appearance.",
         ),
         "theme": attr.label(
-            allow_single_file = [".json"],
+            allow_files = [".json"],
             default = "//tools/mermaid:theme.json",
-            doc = "Mermaid configuration applied by default; a diagram's own " +
-                  "Mermaid directives still override it.",
+            doc = "Bundled MermaidThemeInfo for native rendering, or one JSON " +
+                  "configuration file. Diagram directives still override the configuration.",
         ),
         "native": attr.bool(
             default = False,
             doc = "Render light/dark variants using native Mermaid APIs without SVG post-processing.",
         ),
         "palette": attr.label(
-            allow_single_file = [".css"],
-            doc = "Stylesheet exposing --mermaid-* theme variables in light and dark media.",
+            allow_single_file = [".json"],
+            doc = "Light/dark theme-variable colors for a standalone JSON theme; requires native rendering.",
         ),
         "dark_out": attr.output(
             doc = "Dark SVG output for native rendering.",
         ),
+        "label_font_license": attr.label(
+            allow_single_file = True,
+            doc = "License belonging to label_font; required for native rendering with a standalone JSON theme.",
+        ),
         "label_font": attr.label(
             allow_single_file = [".ttf"],
-            doc = "Optional embedded font override matching the selected theme.",
+            doc = "Optional embedded font for a standalone JSON theme; must match a bundled theme if provided.",
         ),
         "_label_font": attr.label(
             allow_single_file = [".ttf"],
@@ -153,14 +189,14 @@ mermaid_svg = rule(
 
 def _mermaid_webp_impl(ctx):
     source = ctx.file.src
-    theme = ctx.file.theme
+    theme = _theme_inputs(ctx)
     output = ctx.outputs.out
 
     if not output.basename.endswith(".webp"):
         fail("out must name a .webp file, got: {}".format(output.basename))
-    if ctx.attr.native and not ctx.file.palette:
+    if ctx.attr.native and not theme.palette:
         fail("native rendering requires a palette")
-    if not ctx.attr.native and ctx.file.palette:
+    if not ctx.attr.native and theme.palette:
         fail("palette requires native rendering")
     if not ctx.attr.native and ctx.attr.color_scheme != "light":
         fail("a dark color_scheme requires native rendering")
@@ -169,7 +205,9 @@ def _mermaid_webp_impl(ctx):
     if ctx.attr.aspect_ratio and (len(ctx.attr.aspect_ratio) != 2 or min(ctx.attr.aspect_ratio) <= 0):
         fail("aspect_ratio must contain two positive integers")
 
-    label_font = ctx.file.label_font or ctx.file._label_font
+    if ctx.attr.native and not theme.font_license:
+        fail("native rendering requires label_font_license for CLI font embedding")
+    label_font = theme.font
 
     args = ctx.actions.args()
     args.add("--input", source.path)
@@ -183,12 +221,13 @@ def _mermaid_webp_impl(ctx):
             args.add("--aspect-ratio", str(term))
     else:
         args.add("--aspect-ratio", "natural")
-    args.add("--config", theme.path)
+    args.add("--config", theme.config.path)
     args.add("--font", label_font.path)
     if ctx.attr.native:
         args.add("--native")
         args.add("--font-subsetter", ctx.executable._font_subsetter.path)
-        args.add("--palette", ctx.file.palette.path)
+        args.add("--font-license", theme.font_license.path)
+        args.add("--palette", theme.palette.path)
         args.add("--color-scheme", ctx.attr.color_scheme)
 
     # The render exposes exactly these directories to Chrome through
@@ -202,9 +241,12 @@ def _mermaid_webp_impl(ctx):
     for directory in font_directories:
         args.add("--font-directory", directory)
 
-    inputs = [source, theme] + ctx.files._body_fonts + ctx.files._label_fonts + [label_font]
-    if ctx.file.palette:
-        inputs.append(ctx.file.palette)
+    inputs = [source, theme.config] + ctx.files._body_fonts + ctx.files._label_fonts + [label_font]
+    if theme.palette:
+        inputs.append(theme.palette)
+
+    if ctx.attr.native:
+        inputs.append(theme.font_license)
 
     ctx.actions.run(
         arguments = [args],
@@ -268,18 +310,22 @@ mermaid_webp = rule(
             doc = "Color scheme selected from the native palette; dark requires native rendering.",
         ),
         "palette": attr.label(
-            allow_single_file = [".css"],
-            doc = "Stylesheet exposing --mermaid-* theme variables; requires native rendering.",
+            allow_single_file = [".json"],
+            doc = "Light/dark theme-variable colors for a standalone JSON theme; requires native rendering.",
         ),
         "theme": attr.label(
-            allow_single_file = [".json"],
+            allow_files = [".json"],
             default = "//tools/mermaid:theme.json",
-            doc = "Mermaid configuration applied by default; a diagram's own " +
-                  "Mermaid directives still override it.",
+            doc = "Bundled MermaidThemeInfo for native rendering, or one JSON " +
+                  "configuration file. Diagram directives still override the configuration.",
+        ),
+        "label_font_license": attr.label(
+            allow_single_file = True,
+            doc = "License belonging to label_font; required for native rendering with a standalone JSON theme.",
         ),
         "label_font": attr.label(
             allow_single_file = [".ttf"],
-            doc = "Optional embedded font override matching the selected theme.",
+            doc = "Optional embedded font for a standalone JSON theme; must match a bundled theme if provided.",
         ),
         "_label_font": attr.label(
             allow_single_file = [".ttf"],

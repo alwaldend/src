@@ -59,13 +59,14 @@ invisible, and semantic marker distinctions remain native. Caption plates use
 muted borders; sequence lifelines are thinner and grayer than messages.
 Mindmaps use the site's surfaces, text, and connector colors in both modes.
 The `mermaid_site_svg` macro in `pkg/mermaid/defs.bzl`
-derives light/dark configurations from the shared Sass palette and renders both
+selects the shared `//data/alwaldend:mermaid_theme` target and renders both
 SVGs through the native Mermaid API without post-processing. The preset supplies
 caption styling through `themeCSS` and places titles on container borders with
 Mermaid's `subGraphTitleMargin` setting. Compact node/rank spacing and the
 pinned renderer's `edgeSpacing` option separate nested title plates. Package both
 outputs and reference the light `.svg`; Markdown and the SVG shortcode recognize
-its `.dark.svg` sibling. The site theme selects the visible image, and print
+its `.dark.svg` sibling. PNG and WebP snapshot embeds likewise select
+matching `.dark.png` and `.dark.webp` siblings. The site theme selects the visible image, and print
 always uses light. Historical blog diagrams retain their original files and
 presentation. New raster diagrams can use `mermaid_site_webp` from the same
 macro file to encode the native diagram with the site's palette and monospace
@@ -84,8 +85,9 @@ site theme. Each source builds light and dark SVGs for visual comparison.
 Teal surfaces, and Violet technical color schemes in both modes. Each has
 named canvas, surface, ink, outline, accent, and muted-border colors. This is
 an inactive palette catalog; the render macro still selects the neutral
-palette from `assets/scss/mermaid.scss`. Typography and geometry stay in the
-theme preset, independently of these saved colors.
+palette and diagram typography from `data/alwaldend/assets/theme.json`.
+Mermaid geometry and color-role mappings remain in its preset templates,
+independently of these saved colors.
 
 ## Local preview and validation
 
