@@ -1,0 +1,7 @@
+schema: spec-driven
+
+context: |
+  This workspace owns the pinned upstream ClamAV controller payload.
+  Dependency definitions belong to third_party/com_github_cisco_talos_clamav.
+  Follow AGENTS.md and the repo-external-dependency and repo-bazel skills.
+  Consumer configuration, signature updates, scans, and deployment belong to consumers.

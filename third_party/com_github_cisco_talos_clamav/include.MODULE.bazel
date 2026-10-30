@@ -1,0 +1,22 @@
+http_archive = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
+http_file = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_file")
+
+CLAMAV_URL = "https://github.com/Cisco-Talos/clamav/releases/download/clamav-1.5.4/clamav-1.5.4.linux.x86_64.deb"
+
+CLAMAV_INTEGRITY = "sha256-KNbvxbRCPngww1WTOVUutThwqerFGsTvs31gUw0ymIY="
+
+http_file(
+    name = "com_github_cisco_talos_clamav_archive",
+    downloaded_file_path = "clamav-1.5.4.linux.x86_64.deb",
+    integrity = CLAMAV_INTEGRITY,
+    urls = [CLAMAV_URL],
+)
+
+http_archive(
+    name = "com_github_cisco_talos_clamav",
+    build_file = "//third_party/com_github_cisco_talos_clamav:clamav.BUILD.bazel",
+    integrity = CLAMAV_INTEGRITY,
+    type = "deb",
+    urls = [CLAMAV_URL],
+)
