@@ -1,0 +1,39 @@
+%%{init: {"state": {"nodeSpacing": 20, "rankSpacing": 35}}}%%
+stateDiagram-v2
+    direction TB
+    state "Review plan + exclusions" as Review
+    state "Apply / Resume" as Execute
+    state "Stopped; progress saved" as Stopped
+    state "Complete" as Complete
+
+    [*] --> Review: Read-only plan
+    Review --> Execute: Confirm selection
+
+    state Execute {
+        [*] --> Validate
+        state "Validate plan + account" as Validate
+        state "Independent post and repost workers" as Applying
+        Validate --> Applying: Valid
+        state Applying {
+            [*] --> Pending
+            state "Next pending action" as Pending
+            state "Await endpoint quota" as Quota
+            state "Delete post or undo repost" as Request
+            Pending --> Quota: Action available
+            Quota --> Request: Quota available
+            Request --> Pending: Success or 404<br/>Record completion
+            Pending --> [*]: Queue empty
+        }
+        Applying --> [*]: Both queues finished
+    }
+
+    Execute --> Complete: Finished
+    Complete --> [*]
+    Execute --> Stopped: Error / cancel
+    Stopped --> Execute: Resume pending
+
+    %% The worker loop is shown once; posts and reposts run it independently.
+    %% Failure cancels both workers. Unconfirmed requests remain pending.
+    %% Resume uses the original selection without rerunning Lua or fetching a timeline.
+    %% Progress survives browser reload only within the same serve process.
+    %% Each endpoint retains plan order; actions sharing a target also retain order.

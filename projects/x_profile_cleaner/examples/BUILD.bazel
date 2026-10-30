@@ -1,0 +1,3 @@
+package(transitive_visibility = "//projects:transitive_consumers")
+
+exports_files(["policy.lua"])

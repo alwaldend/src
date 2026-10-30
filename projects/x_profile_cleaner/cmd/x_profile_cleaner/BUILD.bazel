@@ -1,0 +1,26 @@
+load("@rules_go//go:def.bzl", "go_binary", "go_library")
+
+package(transitive_visibility = "//projects:transitive_consumers")
+
+go_library(
+    name = "x_profile_cleaner_lib",
+    srcs = [
+        "doc.go",
+        "main.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/x_profile_cleaner/cmd/x_profile_cleaner",
+    visibility = ["//visibility:private"],
+    deps = [
+        "//internal/x_sdk/pkg/oauth1",
+        "//projects/x_profile_cleaner/internal/app",
+        "//projects/x_profile_cleaner/internal/model",
+        "//projects/x_profile_cleaner/internal/web",
+        "@com_github_spf13_cobra//:cobra",
+    ],
+)
+
+go_binary(
+    name = "x_profile_cleaner",
+    embed = [":x_profile_cleaner_lib"],
+    visibility = ["//projects/x_profile_cleaner:__subpackages__"],
+)

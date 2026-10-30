@@ -1,0 +1,51 @@
+// Bootstrap outline variants compile fixed colors. Follow the active palette
+// so release attribute dropdowns remain legible on both canvases.
+.btn-outline-primary {
+    --bs-btn-color: var(--bs-body-color);
+    --bs-btn-border-color: var(--bs-secondary-color);
+    --bs-btn-hover-color: var(--bs-body-bg);
+    --bs-btn-hover-bg: var(--bs-body-color);
+    --bs-btn-hover-border-color: var(--bs-body-color);
+    --bs-btn-active-color: var(--bs-body-bg);
+    --bs-btn-active-bg: var(--bs-body-color);
+    --bs-btn-active-border-color: var(--bs-body-color);
+    --bs-btn-disabled-color: var(--bs-secondary-color);
+    --bs-btn-disabled-border-color: var(--bs-border-color);
+}
+
+// Filled controls follow the active palette, including the dark canvas.
+.btn-primary {
+    --bs-btn-color: var(--bs-body-bg);
+    --bs-btn-bg: var(--bs-emphasis-color);
+    --bs-btn-border-color: var(--bs-emphasis-color);
+    --bs-btn-hover-color: var(--bs-body-bg);
+    --bs-btn-hover-bg: var(--bs-body-color);
+    --bs-btn-hover-border-color: var(--bs-body-color);
+    --bs-btn-active-color: var(--bs-body-bg);
+    --bs-btn-active-bg: var(--bs-body-color);
+    --bs-btn-active-border-color: var(--bs-body-color);
+    --bs-btn-disabled-color: var(--bs-secondary-color);
+    --bs-btn-disabled-bg: var(--bs-tertiary-bg);
+    --bs-btn-disabled-border-color: var(--bs-border-color);
+}
+
+.form-check-input {
+    border-color: var(--bs-secondary-color);
+
+    &[type="checkbox"]:checked {
+        background-color: var(--bs-emphasis-color);
+        border-color: var(--bs-emphasis-color);
+    }
+
+    &:focus-visible {
+        outline: 2px solid var(--bs-emphasis-color);
+        outline-offset: 3px;
+        box-shadow: none;
+    }
+}
+
+[data-bs-theme="dark"] .form-check-input:checked[type="checkbox"] {
+    --bs-form-check-bg-image: #{escape-svg(
+            url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'><path fill='none' stroke='#{$body-bg-dark}' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='m6 10 3 3 6-6'/></svg>")
+        )};
+}

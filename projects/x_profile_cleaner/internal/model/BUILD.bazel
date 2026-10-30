@@ -1,0 +1,13 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+package(transitive_visibility = "//projects:transitive_consumers")
+
+go_library(
+    name = "model",
+    srcs = [
+        "doc.go",
+        "model.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/x_profile_cleaner/internal/model",
+    visibility = ["//projects/x_profile_cleaner:__subpackages__"],
+)

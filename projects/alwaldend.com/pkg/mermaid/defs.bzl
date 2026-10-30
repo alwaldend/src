@@ -1,35 +1,14 @@
 """Native Mermaid diagrams using the site's shared color palette."""
 
+load("//projects/alwaldend.com/assets:defs.bzl", "site_stylesheet")
 load("//tools/mermaid:defs.bzl", "mermaid_svg", "mermaid_webp")
 
 _SITE_THEME = "//projects/alwaldend.com/pkg/mermaid:theme.json"
 _SITE_PALETTE = "//projects/alwaldend.com/assets:mermaid_palette"
 _SITE_FONT = "@com_alwaldend_src_tools_drawio_fonts//:LiberationMono-Regular.ttf"
 
-def _mermaid_palette_impl(ctx):
-    ctx.actions.run(
-        executable = ctx.executable._sass,
-        arguments = ["--no-source-map", "--style=compressed", ctx.file.src.path, ctx.outputs.out.path],
-        inputs = [ctx.file.src] + ctx.files.deps,
-        outputs = [ctx.outputs.out],
-        tools = [ctx.attr._sass[DefaultInfo].files_to_run],
-        mnemonic = "MermaidPalette",
-    )
-    return [DefaultInfo(files = depset([ctx.outputs.out]))]
-
-mermaid_palette = rule(
-    implementation = _mermaid_palette_impl,
-    attrs = {
-        "src": attr.label(allow_single_file = [".scss"], mandatory = True),
-        "deps": attr.label_list(allow_files = [".scss"]),
-        "out": attr.output(mandatory = True),
-        "_sass": attr.label(
-            default = "@com_github_sass_dart_sass//:sass_binary",
-            executable = True,
-            cfg = "exec",
-        ),
-    },
-)
+# Keep the existing diagram API while sharing the Sass compiler action.
+mermaid_palette = site_stylesheet
 
 def mermaid_site_svg(name, src, out, **kwargs):
     """Render a native SVG and its .dark.svg sibling for site image embeds."""

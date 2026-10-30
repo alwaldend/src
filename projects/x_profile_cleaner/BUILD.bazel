@@ -1,0 +1,68 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//projects/al/rules/al:al_binary.bzl", "al_binary_run")
+load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_site_svg", "mermaid_site_webp")
+
+package(transitive_visibility = "//projects:transitive_consumers")
+
+# Only the operator runner package consumes shared credential infrastructure.
+package_group(
+    name = "credential_consumers",
+    packages = ["//projects/x_profile_cleaner"],
+)
+
+al_binary_run(
+    name = "x_profile_cleaner",
+    args = ["$(rootpath //projects/x_profile_cleaner/cmd/x_profile_cleaner)"],
+    configs = ["//projects/x_article_uploader:al"],
+    data = [
+        "//projects/x_profile_cleaner/cmd/x_profile_cleaner",
+        "//tools/vault/injector",
+    ],
+    run_args = [
+        "--plugin_label",
+        "x_api=1",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+test_suite(
+    name = "test",
+    tests = [
+        "//projects/x_profile_cleaner/test/browser:serve_test",
+        "//projects/x_profile_cleaner/test/e2e:e2e_test",
+    ],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//projects:__pkg__"],
+    deps = [
+        ":docs_assets",
+        "//projects/x_profile_cleaner/openspec:docs",
+    ],
+)
+
+mermaid_site_svg(
+    name = "apply_state",
+    src = "docs/apply-state.mmd",
+    out = "rendered/apply-state.svg",
+)
+
+mermaid_site_webp(
+    name = "apply_state_webp",
+    src = "docs/apply-state.mmd",
+    out = "rendered/apply-state.dark.webp",
+    aspect_ratio = [],
+    color_scheme = "dark",
+    scale = 2,
+)
+
+docs_filegroup(
+    name = "docs_assets",
+    srcs = [
+        ":apply_state",
+        ":apply_state_webp",
+    ],
+    prefix = "content/docs/projects/x_profile_cleaner/assets",
+)

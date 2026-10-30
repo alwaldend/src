@@ -40,6 +40,7 @@ al_release_binary(
                 "useless_qt_gui",
                 "renders",
                 "x_article_uploader",
+                "x_profile_cleaner",
             ],
         )
     ] + [],

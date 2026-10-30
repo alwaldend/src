@@ -6,6 +6,7 @@ package(transitive_visibility = "//infra:transitive_consumers")
 
 package_group(
     name = "transitive_consumers",
+    includes = ["//projects/x_profile_cleaner:credential_consumers"],
     packages = [
         "//",
         "//.agents/...",

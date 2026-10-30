@@ -4,6 +4,18 @@ load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_palette")
 
 package(transitive_visibility = "//projects:transitive_consumers")
 
+exports_files(["scss/application.scss"])
+
+filegroup(
+    name = "application_theme_sources",
+    srcs = [
+        "scss/_shared_accent.scss",
+        "scss/_shared_controls.scss",
+        "scss/_shared_palette.scss",
+    ],
+    visibility = ["//projects:__subpackages__"],
+)
+
 mermaid_palette(
     name = "mermaid_palette",
     src = "scss/mermaid.scss",
@@ -31,6 +43,7 @@ pkg_files(
         exclude = [
             "README.md",
             "BUILD.bazel",
+            "defs.bzl",
         ],
     ) + ["//data/alwaldend:monogram"],
     renames = {"//data/alwaldend:monogram": "icons/favicon.svg"},

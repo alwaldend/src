@@ -1,85 +1,5 @@
 // Shared presentation for the homepage, blog, documentation, and project pages.
-//
-// Docsy imports `_styles_project.scss` after Bootstrap, so both the light
-// palette variables and the `*-dark` palette variables are in scope. The
-// overrides are CSS custom properties because that is what Bootstrap
-// components and Docsy surfaces read at runtime.
-
-// Restate Bootstrap's palette on each mode selector so every shared surface
-// follows the neutral tokens from `_shared_accent.scss`.
-@mixin alwaldend-light-palette {
-    color-scheme: light;
-
-    --bs-body-bg: #{$body-bg};
-    --bs-body-bg-rgb: #{to-rgb($body-bg)};
-    --bs-body-color: #{$body-color};
-    --bs-body-color-rgb: #{to-rgb($body-color)};
-    --bs-emphasis-color: #{$body-emphasis-color};
-    --bs-emphasis-color-rgb: #{to-rgb($body-emphasis-color)};
-    --bs-secondary-color: #{$body-secondary-color};
-    --bs-secondary-color-rgb: #{to-rgb($body-secondary-color)};
-    --bs-tertiary-color: #{$body-tertiary-color};
-    --bs-tertiary-color-rgb: #{to-rgb($body-tertiary-color)};
-
-    --bs-secondary-bg: #{$body-secondary-bg};
-    --bs-secondary-bg-rgb: #{to-rgb($body-secondary-bg)};
-    --bs-tertiary-bg: #{$body-tertiary-bg};
-    --bs-tertiary-bg-rgb: #{to-rgb($body-tertiary-bg)};
-
-    --bs-heading-color: #{$headings-color};
-    --bs-border-color: #{$border-color};
-    --bs-border-color-translucent: #{$border-color-translucent};
-    --bs-link-color: #{$link-color};
-    --bs-link-color-rgb: #{to-rgb($link-color)};
-    --bs-link-hover-color: #{$link-hover-color};
-    --bs-link-hover-color-rgb: #{to-rgb($link-hover-color)};
-    --bs-code-color: #{$code-color};
-    --bs-highlight-color: #{$mark-color};
-    --bs-highlight-bg: #{$mark-bg};
-}
-
-@mixin alwaldend-dark-palette {
-    color-scheme: dark;
-
-    --bs-body-bg: #{$body-bg-dark};
-    --bs-body-bg-rgb: #{to-rgb($body-bg-dark)};
-    --bs-body-color: #{$body-color-dark};
-    --bs-body-color-rgb: #{to-rgb($body-color-dark)};
-    --bs-emphasis-color: #{$body-emphasis-color-dark};
-    --bs-emphasis-color-rgb: #{to-rgb($body-emphasis-color-dark)};
-    --bs-secondary-color: #{$body-secondary-color-dark};
-    --bs-secondary-color-rgb: #{to-rgb($body-secondary-color-dark)};
-    --bs-tertiary-color: #{$body-tertiary-color-dark};
-    --bs-tertiary-color-rgb: #{to-rgb($body-tertiary-color-dark)};
-
-    --bs-secondary-bg: #{$body-secondary-bg-dark};
-    --bs-secondary-bg-rgb: #{to-rgb($body-secondary-bg-dark)};
-    --bs-tertiary-bg: #{$body-tertiary-bg-dark};
-    --bs-tertiary-bg-rgb: #{to-rgb($body-tertiary-bg-dark)};
-
-    --bs-heading-color: #{$headings-color-dark};
-    --bs-border-color: #{$border-color-dark};
-    --bs-border-color-translucent: #{$border-color-translucent-dark};
-    --bs-link-color: #{$link-color-dark};
-    --bs-link-color-rgb: #{to-rgb($link-color-dark)};
-    --bs-link-hover-color: #{$link-hover-color-dark};
-    --bs-link-hover-color-rgb: #{to-rgb($link-hover-color-dark)};
-    --bs-code-color: #{$code-color-dark};
-    --bs-highlight-color: #{$mark-color-dark};
-    --bs-highlight-bg: #{$mark-bg-dark};
-}
-
-// `:root` keeps the light canvas for a page rendered without a color-mode
-// attribute. Docsy sets the attribute before the stylesheet loads, so an
-// explicit mode selector always wins over this default.
-:root,
-[data-bs-theme="light"] {
-    @include alwaldend-light-palette;
-}
-
-[data-bs-theme="dark"] {
-    @include alwaldend-dark-palette;
-}
+@import "shared_palette";
 
 // Docsy paints a canvas with system colors before the stylesheet loads; that
 // color is visible while the page loads and during overscroll. Reading the
@@ -407,20 +327,7 @@ body {
     --bs-accordion-btn-focus-box-shadow: none;
 }
 
-// Bootstrap outline variants compile fixed colors. Follow the active palette
-// so release attribute dropdowns remain legible on both canvases.
-.btn-outline-primary {
-    --bs-btn-color: var(--bs-body-color);
-    --bs-btn-border-color: var(--bs-secondary-color);
-    --bs-btn-hover-color: var(--bs-body-bg);
-    --bs-btn-hover-bg: var(--bs-body-color);
-    --bs-btn-hover-border-color: var(--bs-body-color);
-    --bs-btn-active-color: var(--bs-body-bg);
-    --bs-btn-active-bg: var(--bs-body-color);
-    --bs-btn-active-border-color: var(--bs-body-color);
-    --bs-btn-disabled-color: var(--bs-secondary-color);
-    --bs-btn-disabled-border-color: var(--bs-border-color);
-}
+@import "shared_controls";
 
 .taxonomy-term,
 .td-content a.taxonomy-term {
