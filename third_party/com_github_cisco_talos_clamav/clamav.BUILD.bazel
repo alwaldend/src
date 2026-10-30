@@ -1,0 +1,5 @@
+filegroup(
+    name = "payload_tar",
+    srcs = ["data.tar.gz"],
+    visibility = ["@//third_party/com_github_cisco_talos_clamav:__pkg__"],
+)

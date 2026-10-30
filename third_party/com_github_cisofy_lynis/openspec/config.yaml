@@ -1,0 +1,7 @@
+schema: spec-driven
+
+context: |
+  This workspace owns the pinned upstream CISOfy Lynis source archive.
+  Dependency definitions belong to third_party/com_github_cisofy_lynis.
+  Follow AGENTS.md and the repo-external-dependency and repo-bazel skills.
+  Consumer packaging, audit execution, and deployment belong to consumers.

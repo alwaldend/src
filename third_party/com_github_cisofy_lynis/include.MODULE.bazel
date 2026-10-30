@@ -1,0 +1,8 @@
+http_file = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_file")
+
+http_file(
+    name = "com_github_cisofy_lynis",
+    downloaded_file_path = "lynis-3.1.7.tar.gz",
+    integrity = "sha256-tTFKB/2F+j/8faV7UI8BCOwygNhOSvgj+AXZXLvCQow=",
+    urls = ["https://downloads.cisofy.com/lynis/lynis-3.1.7.tar.gz"],
+)
