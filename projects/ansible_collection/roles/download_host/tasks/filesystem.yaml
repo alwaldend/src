@@ -25,7 +25,7 @@
         selectattr('devices', 'contains', download_content_stat.stat.path) |
         first).uuid }}
     fstype: btrfs
-    opts: defaults,nodev,nosuid,noexec
+    opts: defaults,nodev,nosuid,noexec,nofail,x-systemd.device-timeout=10s
     state: mounted
 
 - name: Keep the content mount root owned by root

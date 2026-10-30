@@ -1,6 +1,6 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//projects/al/rules/al:al_binary.bzl", "al_binary_run")
 load("//projects/al/rules/al:al_config.bzl", "al_config")
-load("//tools/release/main/bzl:al_release_binary.bzl", "al_release_binary")
 load("//tools/release/main/bzl:al_release_deployment.bzl", "al_release_deployment")
 load("//tools/ssh:defs.bzl", "ssh_binary")
 load("//tools/vault:defs.bzl", "vault_binary_map")
@@ -62,14 +62,34 @@ _HOSTS = {
 ]
 
 [
-    al_release_binary(
+    al_binary_run(
         name = "publish." + environment,
-        arguments = [
+        args = [
+            "$(rootpath //tools/release)",
+            "deploy",
+            "--ssh_deployment",
+            "$(rootpath :publication." + environment + ")",
             "--environment",
             environment,
+            "--ssh_config",
+            "/dev/null",
+            "--ssh_identity",
+            "$${DOWNLOAD_SSH_PRIVATE_KEY}",
+            "--ssh_certificate",
+            "$${DOWNLOAD_SSH_CERTIFICATE}",
+            "--ssh_known_hosts",
+            "$${DOWNLOAD_SSH_KNOWN_HOSTS}",
         ],
-        oras = None,
-        ssh_deployment = ":publication." + environment,
+        configs = [":al"],
+        data = [
+            ":publication." + environment,
+            "//tools/release",
+            "//tools/vault/injector",
+        ],
+        run_args = [
+            "--plugin_label",
+            "ssh=1",
+        ],
     )
     for environment in [
         "local",
@@ -91,6 +111,26 @@ filegroup(
     visibility = ["//infra:__subpackages__"],
 )
 
+al_binary_run(
+    name = "sync.yandex",
+    args = [
+        "$(rootpath //infra/download/ansible:ansible_bin)",
+        "--inventory",
+        "inventory.yaml",
+        "playbook_sync.yaml",
+    ],
+    configs = [":al"],
+    data = [
+        "//infra/download/ansible:ansible_bin",
+        "//tools/vault/injector",
+    ],
+    run_args = [
+        "--plugin_label",
+        "ansible=1",
+    ],
+    visibility = ["//infra:__subpackages__"],
+)
+
 vault_binary_map(
     name = "vault",
     configs = [":al"],
@@ -103,5 +143,6 @@ docs_filegroup(
     deps = subpackages(
         include = ["*"],
         allow_empty = True,
+        exclude = ["test/**"],
     ),
 )

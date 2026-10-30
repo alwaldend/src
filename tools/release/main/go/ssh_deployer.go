@@ -69,24 +69,44 @@ func (p *sshPublisher) uploadRelease(releaseDir string, items []*contracts.Relea
 		files = append(files, name)
 	}
 	staging := path.Join(p.target.Root, "staging")
-	if _, err := p.remote("test -d " + shellQuote(staging) + "; " + shellJoin([]string{"mkdir", "-p", "--", p.publicDir})); err != nil {
-		return fmt.Errorf("prepare release directory %q: %w", p.publicDir, err)
+	if _, err := p.remote(p.requireAbsent(p.publicDir) + "; " + p.requireAbsent(p.siteDir)); err != nil {
+		return fmt.Errorf("check new release %q: %w", p.publicDir, err)
 	}
+	remote, err := p.remote(shellJoin([]string{"mktemp", "-d", staging + "/publish.XXXXXXXX"}))
+	if err != nil {
+		return fmt.Errorf("prepare upload staging: %w", err)
+	}
+	attempt := strings.TrimSpace(string(remote))
+	if path.Dir(attempt) != staging || !strings.HasPrefix(path.Base(attempt), "publish.") || pathComponent(path.Base(attempt)) != nil {
+		return fmt.Errorf("invalid upload staging directory")
+	}
+	defer p.cleanup(attempt)
 	input := strings.NewReader(strings.Join(files, "\x00") + "\x00")
-	extra := []string{"--copy-links", "--from0", "--files-from=-", "--temp-dir=" + staging}
-	if err := p.rsync(filesDir+string(filepath.Separator), p.remotePath(p.publicDir)+"/", extra, input); err != nil {
-		return fmt.Errorf("copy release files; earlier completed files may already be public: %w", err)
+	extra := []string{"--copy-links", "--from0", "--files-from=-", "--temp-dir=" + attempt}
+	if err := p.rsync(filesDir+string(filepath.Separator), p.remotePath(attempt+"/release")+"/", extra, input); err != nil {
+		return fmt.Errorf("stage release files: %w", err)
+	}
+	script := p.requireAbsent(p.publicDir) + "; " + p.requireAbsent(p.siteDir) + "; "
+	// --files-from omits the transfer root's attributes; sudo's umask can
+	// otherwise leave the promoted archive directory unreadable by the server.
+	script += shellJoin([]string{"chmod", "0755", "--", attempt + "/release"}) + "; "
+	script += shellJoin([]string{"mkdir", "-p", "--", path.Dir(p.publicDir)}) + "; "
+	script += shellJoin([]string{"mv", "-T", "--", attempt + "/release", p.publicDir})
+	if err := p.locked(script); err != nil {
+		return fmt.Errorf("publish complete release %q: %w", p.publicDir, err)
 	}
 	return nil
 }
 
+// requireAbsent rejects both existing content and dangling symlinks.
+func (p *sshPublisher) requireAbsent(directory string) string {
+	quoted := shellQuote(directory)
+	return "if test -e " + quoted + " || test -L " + quoted + "; then printf '%s\\n' " + shellQuote("release version already exists: "+directory) + " >&2; exit 1; fi"
+}
+
 func (p *sshPublisher) extractSite() error {
-	retained, err := p.remote("if test -d " + shellQuote(p.siteDir) + " && test ! -L " + shellQuote(p.siteDir) + "; then test -f " + shellQuote(p.siteDir+"/index.html") + "; printf retained; fi")
-	if err != nil {
+	if _, err := p.remote(p.requireAbsent(p.siteDir)); err != nil {
 		return fmt.Errorf("inspect site directory %q: %w", p.siteDir, err)
-	}
-	if string(retained) == "retained" {
-		return nil
 	}
 	local, err := publicationTemp()
 	if err != nil {
@@ -118,8 +138,8 @@ func (p *sshPublisher) extractSite() error {
 	if err := p.rsync(extracted+string(filepath.Separator), p.remotePath(attempt+"/site")+"/", []string{"--temp-dir=" + attempt}, nil); err != nil {
 		return fmt.Errorf("copy extracted site to %q: %w", attempt, err)
 	}
-	script := shellJoin([]string{"mkdir", "-p", "--", p.siteRoot + "/releases"}) + "; "
-	script += "if test ! -e " + shellQuote(p.siteDir) + "; then " + shellJoin([]string{"mv", "-T", "--", attempt + "/site", p.siteDir}) + "; fi; " + p.checkSite()
+	script := p.requireAbsent(p.siteDir) + "; " + shellJoin([]string{"mkdir", "-p", "--", p.siteRoot + "/releases"}) + "; "
+	script += shellJoin([]string{"mv", "-T", "--", attempt + "/site", p.siteDir}) + "; " + p.checkSite()
 	if err := p.locked(script); err != nil {
 		return fmt.Errorf("retain extracted site %q: %w", p.siteDir, err)
 	}
@@ -128,11 +148,35 @@ func (p *sshPublisher) extractSite() error {
 
 func (p *sshPublisher) linkSite() error {
 	current := shellQuote(p.siteRoot + "/current")
-	script := p.checkSite() + "; if test -e " + current + "; then test -L " + current + "; fi; "
+	// Check each managed ancestor before allowing recursive site cleanup.
+	script := ""
+	for _, directory := range []string{p.target.Root, path.Join(p.target.Root, "sites"), p.siteRoot, p.siteRoot + "/releases"} {
+		quoted := shellQuote(directory)
+		script += "test -d " + quoted + "; test ! -L " + quoted + "; "
+	}
+	// A repeat selection also repairs a release created with a restrictive
+	// transfer umask. Keep archive bytes and absent artifact trees untouched.
+	publicDirectory := shellQuote(p.publicDir)
+	script += "if test -e " + publicDirectory + " || test -L " + publicDirectory + "; then "
+	for _, directory := range []string{path.Join(p.target.Root, "projects"), path.Dir(path.Dir(p.publicDir)), path.Dir(p.publicDir), p.publicDir} {
+		quoted := shellQuote(directory)
+		script += "test -d " + quoted + "; test ! -L " + quoted + "; "
+	}
+	script += shellJoin([]string{"chmod", "0755", "--", p.publicDir}) + "; fi; "
+	script += p.checkSite() + "; if test -e " + current + "; then test -L " + current + "; fi; "
 	script += "selection=$(" + shellJoin([]string{"mktemp", "-d", path.Join(p.target.Root, "staging", "select.XXXXXXXX")}) + "); "
 	script += "trap 'rm -rf -- \"$selection\"' EXIT; ln -s -- " + shellQuote("releases/"+p.version) + " \"$selection/current\"; mv -Tf -- \"$selection/current\" " + current
+	// Enumerate only immediate version entries, comparing literal paths rather
+	// than patterns. rm does not follow links and cannot cross nested mounts.
+	cleanup := `set -eu; selected=$1; shift; for candidate do
+if test "$candidate" != "$selected"; then
+  rm -rf --one-file-system -- "$candidate"
+fi
+done`
+	script += "; if ! " + shellJoin([]string{"find", "-P", p.siteRoot + "/releases", "-mindepth", "1", "-maxdepth", "1", "-exec", "sh", "-c", cleanup, "site-retention", p.siteDir, "{}", "+"}) + "; then "
+	script += "printf '%s\\n' 'New site selected, but obsolete site cleanup failed; retry link' >&2; exit 1; fi"
 	if err := p.locked(script); err != nil {
-		return fmt.Errorf("select site directory %q: %w", p.siteDir, err)
+		return fmt.Errorf("select site directory and clean obsolete versions %q: %w", p.siteDir, err)
 	}
 	return nil
 }
@@ -183,7 +227,8 @@ func (p *sshPublisher) sudo(command string) string {
 }
 
 func (p *sshPublisher) remote(script string) ([]byte, error) {
-	args := append(append([]string{}, p.args...), "--", p.target.Host, p.sudo(shellJoin([]string{"sh", "-c", "set -eu; umask 022; " + script})))
+	// sudo may retain a login home that the content account cannot traverse.
+	args := append(append([]string{}, p.args...), "--", p.target.Host, p.sudo(shellJoin([]string{"sh", "-c", "set -eu; cd /; umask 022; " + script})))
 	cmd := exec.CommandContext(p.ctx, p.opts.SSHPath, args...)
 	var stdout bytes.Buffer
 	cmd.Stdout, cmd.Stderr = &stdout, p.opts.Stderr

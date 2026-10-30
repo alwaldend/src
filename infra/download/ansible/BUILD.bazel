@@ -39,6 +39,7 @@ al_ansible_binary(
         "//projects/ansible_collection:collections",
     ],
     process_name = "ansible_playbook",
+    visibility = ["//infra/download:__subpackages__"],
 )
 
 pkg_files(
@@ -46,9 +47,11 @@ pkg_files(
     srcs = [
         "inventory.yaml",
         "playbook_deploy.yaml",
+        "playbook_sync.yaml",
     ] + glob([
         "group_vars/**",
         "files/**",
+        "tasks/**",
     ]),
     strip_prefix = strip_prefix.from_pkg(),
 )

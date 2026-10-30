@@ -13,7 +13,7 @@ provider "yandex" { folder_id = var.folder_id }
 variable "folder_id" { type = string }
 variable "zone" {
   type    = string
-  default = "ru-central1-d"
+  default = "ru-central1-a"
 }
 variable "image_id" {
   description = "Immutable Fedora 43 image already used by infra/threexui."

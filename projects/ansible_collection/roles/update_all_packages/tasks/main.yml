@@ -5,11 +5,10 @@
       ansible.builtin.package:
         name: "*"
         state: latest
-    - name: Check if a reboot is required.
-      register: update_all_packages_required_file_result
-      ansible.builtin.stat:
-        path: /var/run/reboot-required
-        get_checksum: no
+    - name: Determine the reboot requirement for this package manager
+      ansible.builtin.import_tasks: reboot_required.yaml
     - name: Reboot the server
       ansible.builtin.reboot:
-      when: update_all_packages_required_file_result.stat.exists
+      when:
+        - update_all_packages_reboot_enabled
+        - update_all_packages_reboot_required

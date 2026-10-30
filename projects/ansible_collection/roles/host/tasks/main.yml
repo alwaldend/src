@@ -44,3 +44,6 @@
     - name: Update all packages
       ansible.builtin.import_role:
         name: alwaldend.main.update_all_packages
+    - name: Configure automatic security updates
+      ansible.builtin.import_role:
+        name: alwaldend.main.automatic_updates

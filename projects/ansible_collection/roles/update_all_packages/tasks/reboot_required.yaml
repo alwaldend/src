@@ -1,0 +1,20 @@
+- name: Check the Debian reboot marker
+  when: ansible_facts.os_family == 'Debian'
+  register: update_all_packages_required_file_result
+  ansible.builtin.stat:
+    path: /var/run/reboot-required
+    get_checksum: false
+- name: Check whether Red Hat family updates require reboot
+  when: ansible_facts.os_family == 'RedHat'
+  ansible.builtin.command:
+    argv: [dnf, needs-restarting, -r]
+  register: update_all_packages_dnf_reboot
+  changed_when: false
+  failed_when: update_all_packages_dnf_reboot.rc not in [0, 1]
+- name: Record whether a reboot is required
+  ansible.builtin.set_fact:
+    update_all_packages_reboot_required: >-
+      {{ (ansible_facts.os_family == 'RedHat' and
+          update_all_packages_dnf_reboot.rc | default(0) == 1) or
+         (ansible_facts.os_family == 'Debian' and
+          update_all_packages_required_file_result.stat.exists | default(false)) }}

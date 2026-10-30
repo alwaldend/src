@@ -1,0 +1,2 @@
+# Enable native automatic security updates. Automatic reboots remain disabled.
+automatic_updates_enabled: true

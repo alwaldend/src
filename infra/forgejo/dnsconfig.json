@@ -10,7 +10,7 @@
         "git_external": {
             "CNAME": {
                 "name": "git",
-                "target": "ingress.alwaldend.com."
+                "target": "download.alwaldend.com."
             },
             "dsp": ["global"]
         },

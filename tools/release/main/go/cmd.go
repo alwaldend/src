@@ -88,6 +88,7 @@ func newDeployCommand(ctx context.Context) (*cobra.Command, error) {
 	flags.StringVar(&opts.RsyncPath, "rsync_path", "rsync", "Local rsync executable")
 	flags.StringVar(&opts.SSHConfig, "ssh_config", "", "OpenSSH configuration file")
 	flags.StringVar(&opts.SSHIdentity, "ssh_identity", "", "OpenSSH identity file")
+	flags.StringVar(&opts.SSHCertificate, "ssh_certificate", "", "OpenSSH client certificate for the explicit identity")
 	flags.StringVar(&opts.SSHKnownHosts, "ssh_known_hosts", "", "Known-hosts file (default: OpenSSH configuration)")
 	flags.IntVar(&opts.SSHPort, "ssh_port", 0, "SSH port override")
 	flags.DurationVar(&opts.Timeout, "timeout", 30*time.Minute, "Maximum time for each SSH release deployment")

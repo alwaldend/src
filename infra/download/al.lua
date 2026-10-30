@@ -40,6 +40,33 @@ local server_ca_file = assert(io.open("data/ssh/ca_servers.pub"))
 local server_ca = assert(server_ca_file:read("*a")):gsub("%s+$", "")
 assert(server_ca_file:close())
 
+local ssh_known_hosts = {
+    name = "ssh_known_hosts",
+    file = {
+        value = "@cert-authority *.download.alwaldend.com "
+            .. server_ca
+            .. "\n",
+    },
+}
+
+lib.plugin_call({
+    name = "ansible_host_trust",
+    plugin = "injector",
+    labels = { ansible = "1" },
+    data = {
+        res = {
+            ssh_known_hosts,
+            {
+                name = "ANSIBLE_SSH_COMMON_ARGS",
+                deps = { "ssh_known_hosts" },
+                env = {
+                    value = '-F /dev/null -o BatchMode=yes -o IdentityAgent=none -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes -o GlobalKnownHostsFile=/dev/null -o UserKnownHostsFile="{{ index .Last.Files 0 }}"',
+                },
+            },
+        },
+    },
+})
+
 lib.plugin_call({
     name = "ssh",
     plugin = "injector",
@@ -57,14 +84,7 @@ lib.plugin_call({
                 deps = { "ssh_key" },
                 env = { value = "{{ .Last.Data.public_key_signed }}" },
             },
-            {
-                name = "ssh_known_hosts",
-                file = {
-                    value = "@cert-authority *.download.alwaldend.com "
-                        .. server_ca
-                        .. "\n",
-                },
-            },
+            ssh_known_hosts,
             {
                 name = "DOWNLOAD_SSH_KNOWN_HOSTS",
                 deps = { "ssh_known_hosts" },
