@@ -9,7 +9,7 @@ one-off script when no such target exists, use this shape from the workspace
 root:
 
 ```sh
-bazel_agent bazel run //third_party/org_blender_blender:blender -- \
+al bazel run //third_party/org_blender_blender:blender -- \
   --background \
   --factory-startup \
   --disable-autoexec \
@@ -37,17 +37,17 @@ Use foreground Blender only for a UI-context operation. Before launching it:
 2. If connected, verify the Blender version, `bpy.app.background`, open file,
    and required area or workspace before reuse.
 3. If disconnected and foreground work is required, build or run the pinned
-   `//third_party/org_blender_blender:blender` target through `bazel_agent`, isolate
+   `//third_party/org_blender_blender:blender` target through `al bazel`, isolate
    `BLENDER_USER_CONFIG`, `TMPDIR`, logs, and outputs under `out/<task>/`, and
    start only a loopback-scoped task listener when MCP is actually needed.
 4. Use the real display when available. Xvfb is a fallback for headless GUI
    context, not a requirement for background work or an already-running
    compatible session.
 
-A long-lived `bazel_agent bazel run` couples Blender to that Bazel client. Plan other
+A long-lived `al bazel run` couples Blender to that Bazel client. Plan other
 Bazel work around the session and confirm observed lock contention rather than
 assuming it. A same-session generated-wrapper launch is a narrow fallback:
-first build `//third_party/org_blender_blender:blender` through `bazel_agent`, resolve the
+first build `//third_party/org_blender_blender:blender` through `al bazel`, resolve the
 freshly built generic runfiles wrapper for the current checkout and
 configuration, execute that wrapper rather than the extracted ELF, and record
 its identity.

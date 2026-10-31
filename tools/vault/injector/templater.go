@@ -9,7 +9,7 @@ import (
 	"strings"
 	"text/template"
 
-	"git.alwaldend.com/alwaldend/src/projects/al/pkg/fp"
+	"git.alwaldend.com/alwaldend/src/tools/rules_al/pkg/fp"
 )
 
 type Templater struct{}

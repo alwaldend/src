@@ -8,7 +8,7 @@
       threshold: 1
       value: >-
         Pass only if the response discovers the owning README, BUILD, AL
-        configuration and SSH target before direct SSH; uses bazel_agent for
+        configuration and SSH target before direct SSH; uses al bazel for
         the packaged target; preserves Vault-backed authentication and strict
         host-key checking; adds a missing target only under the granted
         repository authority with an owner-local OpenSpec record; distinguishes
@@ -44,7 +44,7 @@
       value: >-
         Pass only if the response inspects the component BUILD file, al.lua,
         sibling Terraform, and a similar component; identifies the applicable
-        tf or tf_setup stage and actual generated targets through bazel_agent
+        tf or tf_setup stage and actual generated targets through al bazel
         query; preserves provider constraints and the repository's injected
         authentication flow; adds a moved block or otherwise explicitly
         accounts for state migration rather than accepting destroy-and-create;
@@ -93,7 +93,7 @@
         or creates condition; notifies a handler only when configuration
         changes; receives secrets through Vault-backed injection and uses
         no_log where needed; validates labels, packaging, and a non-mutating
-        syntax target through bazel_agent; and does not run an ansible or
+        syntax target through al bazel; and does not run an ansible or
         playbook target or claim --check is inherently safe. Otherwise fail.
 - description: Declares new component DNS records in the owning file
   vars:
@@ -132,7 +132,7 @@
       threshold: 1
       value: >-
         Pass only if the response invokes or identifies the offline
-        //infra/dns:lint target through bazel_agent, explains its runtime
+        //infra/dns:lint target through al bazel, explains its runtime
         discovery of source files and declaration table, identifies the first
         two files as conflicting owners of api.alwaldend.com despite name case,
         absolute notation, record type, and view differences, and accepts
@@ -152,7 +152,7 @@
       threshold: 1
       value: >-
         Pass only if the response uses the repository certificate login target
-        through bazel_agent with the intended default_no_auth environment;
+        through al bazel with the intended default_no_auth environment;
         distinguishes it from the userpass vault.login alias; preserves the
         explicit authorization to replace the host token without asking again;
         checks that the required PKCS#11 certificate is available; does not
@@ -217,7 +217,7 @@
         the owning al.lua and target from BUILD.bazel; explains that the role
         and operator bootstrap membership must be deployed before use without
         claiming the checked-in role is live; provides the component's
-        vault.kv_put command through bazel_agent with the logical path because
+        vault.kv_put command through al bazel with the logical path because
         the alias already mounts secrets; uses hidden Bash read -rsp input
         and builtin printf to pass the value on stdin with field=-, without
         placing the token in history, external process arguments, or a file;
@@ -237,7 +237,7 @@
       value: >-
         Pass only if the response preserves the existing exact write
         authorization without asking again; uses the component's
-        vault.kv_put target through bazel_agent with its source-owned logical
+        vault.kv_put target through al bazel with its source-owned logical
         path and field=- to consume the private input stream; keeps the token
         out of command arguments, shell history, logs, and files; confirms the
         write result without secret readback; and does not reapply the role,

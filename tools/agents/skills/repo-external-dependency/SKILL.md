@@ -81,12 +81,12 @@ such as `third_party/com_github_owner_tool/` with the following files.
 4. `README.md` links the upstream release repository.
 
 Then regenerate the root `MODULE.bazel` with
-`bazel_agent bazel run //tools/bazel_module:update`, and run
-`bazel_agent bazel mod deps --lockfile_mode=update` to reconcile the module lock.
+`al bazel run //tools/bazel_module:update`, and run
+`al bazel mod deps --lockfile_mode=update` to reconcile the module lock.
 The archive contract lives in the package `binary_toolchain.json`, so adding
 or changing an archive normally does not change the module lock. Verify the
 pin by building and running the alias, for example
-`bazel_agent bazel run //third_party/com_github_owner_tool:<alias> -- --version`,
+`al bazel run //third_party/com_github_owner_tool:<alias> -- --version`,
 before handing off.
 
 ## Preserve reproducibility
@@ -111,12 +111,12 @@ Update generated locks only through their owning workflow. For root Bzlmod
 changes, run:
 
 ```sh
-bazel_agent bazel mod deps --lockfile_mode=update
+al bazel mod deps --lockfile_mode=update
 ```
 
 Review the lockfile diff for unrelated resolution changes. Then query and build
 the dependency package and its narrowest consumer, followed by:
 
 ```sh
-bazel_agent bazel test //:buildifier_test
+al bazel test //:buildifier_test
 ```

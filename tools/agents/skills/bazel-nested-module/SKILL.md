@@ -78,12 +78,14 @@ project path; the placement defaults below do not override it.
   `projects/` must also be excluded from `//projects:deploy_heads` unless it
   intentionally provides the required release target. Reusable rules under
   `tools/` do not receive a dedicated landing site merely by being registered.
-- Verify workspace discovery through the shared `tools/ci/pkg/workspaces`
-  implementation. CI and `full-repo-check` derive membership from `.bazelignore`;
+- Verify workspace discovery through the shared `rules_al/pkg/workspaces`
+  implementation. CI and `al-checks` derive membership from `.bazelignore`;
   do not maintain another workspace list or expected command count. A complete
   repository check must build and test every nested module independently.
 - Ensure the root `.gitignore` covers the nested workspace's generated
   `bazel-*` convenience symlinks before staging source after a build.
+  After renaming a workspace, remove its task-owned convenience symlink with
+  the former name before recursive checks; Bazel may traverse that stale name.
 - Register any Gazelle language library in the root `gazelle_binary`. Remember
   that root Gazelle ignores nested workspaces; run the plugin against the
   nested repository root as well when it should generate that module's BUILD
@@ -96,7 +98,7 @@ project path; the placement defaults below do not override it.
 Update, rather than hand-edit, module locks after dependency changes:
 
 ```sh
-bazel_agent bazel mod deps --lockfile_mode=update
+al bazel mod deps --lockfile_mode=update
 ```
 
 Run that command from every affected workspace root. Then run Gazelle where
@@ -104,11 +106,11 @@ needed, review every generated change, and run it a second time to prove the
 result is stable. Validate at least:
 
 ```sh
-bazel_agent bazel test //...
-bazel_agent bazel build //...
+al bazel test //...
+al bazel build //...
 ```
 
 Run those commands inside the new module and run focused parent-repository
-checks for its integration, including `bazel_agent bazel test //:buildifier_test`.
-Finish with `full-repo-check` when adding a workspace so the updated
+checks for its integration, including `al bazel test //:buildifier_test`.
+Finish with `al-checks` when adding a workspace so the updated
 nested-workspace matrix is exercised.

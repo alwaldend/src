@@ -1,0 +1,8 @@
+load("@rules_al//:defs.bzl", "release_bundle")
+
+release_bundle(
+    name = "bundle",
+    srcs = ["payload.txt"],
+    project = "projects/consumer",
+    status_file = "status.txt",
+)

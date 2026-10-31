@@ -1,0 +1,28 @@
+load("@rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "versioning",
+    srcs = [
+        "doc.go",
+        "git.go",
+        "releaseplan.go",
+        "releasepublish.go",
+        "version.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/tools/rules_al/internal/versioning",
+    visibility = ["//:__subpackages__"],
+    deps = ["@org_golang_x_sys//unix"],
+)
+
+go_test(
+    name = "versioning_test",
+    size = "small",
+    srcs = [
+        "git_integration_test.go",
+        "publication_integration_test.go",
+        "releaseplan_test.go",
+        "releasepublish_test.go",
+        "version_test.go",
+    ],
+    embed = [":versioning"],
+)

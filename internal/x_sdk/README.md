@@ -13,8 +13,8 @@ uses it.
 ## Build
 
 ```sh
-bazel_agent bazel build //internal/x_sdk:generate //internal/x_sdk/pkg/client
-bazel_agent bazel test //internal/x_sdk/...
+al bazel build //internal/x_sdk:generate //internal/x_sdk/pkg/client
+al bazel test //internal/x_sdk/...
 ```
 
 Bazel fetches the pinned schema anonymously from the versioned download mirror

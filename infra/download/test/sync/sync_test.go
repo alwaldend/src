@@ -15,6 +15,8 @@ import (
 	"strings"
 	"testing"
 	"time"
+
+	"github.com/bazelbuild/rules_go/go/runfiles"
 )
 
 // TestDownloadSyncPlaybook exercises the packaged playbook through real loopback
@@ -170,7 +172,7 @@ func TestDownloadSyncPlaybook(t *testing.T) {
 		return string(output)
 	}
 	syncFixturePublication(t, dir, source, sourceMetadata, transport)
-	receipt = append(receipt, "local_publication_collision_and_concurrency", "mounted_release_cleanup_refusal")
+	receipt = append(receipt, "local_publication_collision_and_concurrency", "mounted_release_deletion_refusal")
 	before := syncFixtureTree(t, destination)
 	if output := run("dry_run", true, "--check"); !strings.Contains(output, "*deleting") {
 		t.Fatal("dry run did not report public-only content deletion")
@@ -290,10 +292,10 @@ func TestDownloadSyncPlaybook(t *testing.T) {
 	run("mirror_retained_site_and_archives", true)
 	for _, root := range []string{source, destination} {
 		versions, err := os.ReadDir(filepath.Join(root, "sites/publication.example/releases"))
-		if err != nil || len(versions) != 1 || versions[0].Name() != "v1" {
+		if err != nil || len(versions) != 2 || versions[0].Name() != "2026.44.0" || versions[1].Name() != "2026.44.2" {
 			t.Fatalf("retained extracted versions in %s: %v, %v", root, versions, err)
 		}
-		for _, version := range []string{"v1", "v3"} {
+		for _, version := range []string{"2026.44.0", "2026.44.2"} {
 			if _, err := os.Stat(filepath.Join(root, "projects/publication.example/releases", version, "website.zip")); err != nil {
 				t.Fatalf("retained archive %s in %s: %v", version, root, err)
 			}
@@ -357,6 +359,10 @@ func syncFixturePublication(t *testing.T, dir, root, metadata string, transport 
 	if err := os.Chmod(sshWrapper, 0o700); err != nil {
 		t.Fatal(err)
 	}
+	al, err := runfiles.Rlocation(os.Getenv("AL_BINARY"))
+	if err != nil {
+		t.Fatal(err)
+	}
 	writeBundle := func(version, content string) {
 		t.Helper()
 		var buffer bytes.Buffer
@@ -371,17 +377,27 @@ func syncFixturePublication(t *testing.T, dir, root, metadata string, transport 
 		if err := archive.Close(); err != nil {
 			t.Fatal(err)
 		}
-		syncFixtureFile(t, filepath.Join(bundle, "files/website.zip"), buffer.String())
-		syncFixtureFile(t, filepath.Join(bundle, "release.json"), fmt.Sprintf(`{"name":%q,"items":[{"file":{"name":"website.zip"}}]}`, version))
+		payload, status := filepath.Join(dir, "website.zip"), filepath.Join(dir, "status")
+		syncFixtureFile(t, payload, buffer.String())
+		syncFixtureFile(t, status, "STABLE_VERSION "+version+"\nSTABLE_VERSION_CHANNEL release\nSTABLE_GIT_COMMIT 0123456789012345678901234567890123456789\nSTABLE_GIT_TREE_STATE clean\n")
+		if err := os.RemoveAll(bundle); err != nil {
+			t.Fatal(err)
+		}
+		syncFixtureCommand(t, al, "release", "generate", "--project", "projects/publication.example", "--version_file", status, "--add_file", payload, "--output_dir", bundle)
 	}
 	command := func(steps string) *exec.Cmd {
-		options := []string{"deploy", "--environment", "source", "--ssh_deployment", metadata, "--release_dir", bundle, "--project", "publication.example", "--site_archive", "website.zip", "--steps", steps}
+		options := []string{"release", "deploy", "--environment", "source", "--ssh_deployment", metadata, "--release_dir", bundle, "--project", "publication.example", "--site_archive", "website.zip"}
+		if steps == "delete" {
+			options[1] = "delete"
+		} else {
+			options = append(options, "--steps", steps)
+		}
 		options = append(options, transport...)
-		if steps == "link" {
+		if steps == "link" || steps == "delete" {
 			options = append(options, "--ssh_path", sshWrapper)
 		}
-		cmd := exec.Command(filepath.Join(os.Getenv("TEST_SRCDIR"), os.Getenv("TEST_WORKSPACE"), "tools/release/cmd/release/release_/release"), options...)
-		cmd.Env = append(os.Environ(), "TMPDIR="+dir, "BUILD_WORKSPACE_DIRECTORY=", "ANSIBLE_LOCAL_TEMP="+filepath.Join(dir, "ansible-local"), "ANSIBLE_CONFIG="+filepath.Join(os.Getenv("TEST_SRCDIR"), os.Getenv("TEST_WORKSPACE"), "ansible.cfg"))
+		cmd := exec.Command(al, options...)
+		cmd.Env = append(os.Environ(), "TMPDIR="+dir, "BUILD_WORKSPACE_DIRECTORY=")
 		return cmd
 	}
 	run := func(steps string, success bool) {
@@ -390,44 +406,30 @@ func syncFixturePublication(t *testing.T, dir, root, metadata string, transport 
 		if (err == nil) != success {
 			t.Fatalf("publication %s: success=%t, error=%v\n%s", steps, success, err, output)
 		}
-		if !success && !strings.Contains(string(output), "already exists") {
-			t.Fatalf("publication did not identify collision: %s", output)
-		}
 	}
-	writeBundle("v1", "first local website\n")
+	writeBundle("2026.44.0", "first local website\n")
 	run("upload,extract,link", true)
 	archives := filepath.Join(root, "projects/publication.example")
-	archiveDirectory := filepath.Join(archives, "releases/v1")
+	archiveDirectory := filepath.Join(archives, "releases/2026.44.0")
 	if info, err := os.Stat(archiveDirectory); err != nil || info.Mode().Perm() != 0o755 {
-		t.Fatalf("published archive directory is not public under a restrictive SSH umask: %v, %v", info, err)
+		t.Fatalf("archive directory permissions: %v, %v", info, err)
 	}
-	firstArchive, err := os.ReadFile(filepath.Join(archives, "releases/v1/website.zip"))
+	firstArchive, err := os.ReadFile(filepath.Join(archiveDirectory, "website.zip"))
 	if err != nil {
 		t.Fatal(err)
 	}
 	before := syncFixtureTree(t, root)
-	run("upload,extract,link", false)
-	writeBundle("v1", "changed duplicate website\n")
+	run("upload,extract,link", true)
+	if got := syncFixtureTree(t, root); got != before {
+		t.Fatal("identical retry changed local content")
+	}
+	writeBundle("2026.44.0", "changed duplicate website\n")
 	run("upload,extract,link", false)
 	run("extract", false)
 	if got := syncFixtureTree(t, root); got != before {
-		t.Fatal("duplicate publication changed local content or selection")
+		t.Fatal("conflicting publication changed local content")
 	}
-	if err := os.Chmod(archiveDirectory, 0o750); err != nil {
-		t.Fatal(err)
-	}
-	run("link", true)
-	if info, err := os.Stat(archiveDirectory); err != nil || info.Mode().Perm() != 0o755 {
-		t.Fatalf("selection did not repair the published archive directory: %v, %v", info, err)
-	}
-	writeBundle("v2", "site-only collision\n")
-	syncFixtureFile(t, filepath.Join(root, "sites/publication.example/releases/v2/index.html"), "retained site\n")
-	before = syncFixtureTree(t, root)
-	run("upload", false)
-	if got := syncFixtureTree(t, root); got != before {
-		t.Fatal("site-only collision changed local content")
-	}
-	writeBundle("v3", "concurrent website\n")
+	writeBundle("2026.44.2", "concurrent website\n")
 	first, second := command("upload"), command("upload")
 	var firstOutput, secondOutput bytes.Buffer
 	first.Stdout, first.Stderr = &firstOutput, &firstOutput
@@ -440,75 +442,52 @@ func syncFixturePublication(t *testing.T, dir, root, metadata string, transport 
 		t.Fatal(err)
 	}
 	firstErr, secondErr := first.Wait(), second.Wait()
-	if (firstErr == nil) == (secondErr == nil) {
-		t.Fatalf("expected exactly one publication: %v, %v\n%s\n%s", firstErr, secondErr, &firstOutput, &secondOutput)
+	if firstErr != nil || secondErr != nil {
+		t.Fatalf("identical concurrent publication: %v, %v\n%s\n%s", firstErr, secondErr, &firstOutput, &secondOutput)
 	}
-	if !strings.Contains(firstOutput.String()+secondOutput.String(), "already exists") {
-		t.Fatal("concurrent loser did not report a collision")
-	}
-	before = syncFixtureTree(t, root)
-	if output, err := command("link").CombinedOutput(); err == nil {
-		t.Fatalf("selected missing new website: %s", output)
-	}
-	if got := syncFixtureTree(t, root); got != before {
-		t.Fatal("failed selection changed the old site or archives")
-	}
+	run("link", false)
 	run("extract", true)
 	versionsRoot := filepath.Join(root, "sites/publication.example/releases")
-	for _, version := range []string{"v1", "v2", "v3"} {
-		if _, err := os.Stat(filepath.Join(versionsRoot, version, "index.html")); err != nil {
-			t.Fatalf("extraction prematurely removed %s: %v", version, err)
-		}
-	}
 	private := filepath.Join(root, "state/retention-sentinel")
-	syncFixtureFile(t, private, "private state survives cleanup\n")
-	// A version mount must not make unrelated state a recursive cleanup operand.
-	mountedVersion := filepath.Join(versionsRoot, "v2")
+	syncFixtureFile(t, private, "private state survives deletion\n")
+	mountedVersion := filepath.Join(versionsRoot, "2026.44.2")
 	syncFixtureCommand(t, "mount", "--bind", filepath.Join(root, "state"), mountedVersion)
-	output, mountErr := command("link").CombinedOutput()
+	output, mountErr := command("delete").CombinedOutput()
 	syncFixtureCommand(t, "umount", mountedVersion)
 	if mountErr == nil || !strings.Contains(strings.ToLower(string(output)), "mount") {
-		t.Fatalf("mounted release was not refused: %v, %s", mountErr, output)
+		t.Fatalf("mounted deletion was not refused: %v, %s", mountErr, output)
 	}
-	if body, err := os.ReadFile(private); err != nil || string(body) != "private state survives cleanup\n" {
-		t.Fatalf("site cleanup deleted mounted state: %q, %v", body, err)
+	if body, err := os.ReadFile(private); err != nil || string(body) != "private state survives deletion\n" {
+		t.Fatalf("deletion changed mounted state: %q, %v", body, err)
 	}
-	if current, err := os.Readlink(filepath.Join(root, "sites/publication.example/current")); err != nil || current != "releases/v1" {
+	if current, err := os.Readlink(filepath.Join(root, "sites/publication.example/current")); err != nil || current != "releases/2026.44.0" {
 		t.Fatalf("mount refusal changed selection: %q, %v", current, err)
 	}
-	syncFixtureLink(t, filepath.Join(versionsRoot, "v2/outside"), filepath.Join(root, "state"))
-	otherSites := syncFixtureTree(t, filepath.Join(root, "sites/web.example"))
+	for _, mountedFile := range []string{filepath.Join(mountedVersion, "index.html"), filepath.Join(archives, "releases/2026.44.2/website.zip")} {
+		syncFixtureCommand(t, "mount", "--bind", private, mountedFile)
+		before := syncFixtureTree(t, root)
+		output, mountErr := command("delete").CombinedOutput()
+		after := syncFixtureTree(t, root)
+		syncFixtureCommand(t, "umount", mountedFile)
+		if mountErr == nil || !strings.Contains(strings.ToLower(string(output)), "mount") || before != after {
+			t.Fatalf("file mount refusal changed release content: %v, %s", mountErr, output)
+		}
+	}
 	allArchives := syncFixtureTree(t, archives)
 	run("link", true)
-	versions, err := os.ReadDir(versionsRoot)
-	if err != nil || len(versions) != 1 || versions[0].Name() != "v3" {
-		t.Fatalf("obsolete extracted sites remain: %v, %v", versions, err)
-	}
-	if got := syncFixtureTree(t, archives); got != allArchives {
-		t.Fatal("site cleanup changed downloadable archives")
-	}
-	if got := syncFixtureTree(t, filepath.Join(root, "sites/web.example")); got != otherSites {
-		t.Fatal("site cleanup changed another project")
-	}
-	if body, err := os.ReadFile(private); err != nil || string(body) != "private state survives cleanup\n" {
-		t.Fatalf("site cleanup followed a symlink: %q, %v", body, err)
-	}
-	if body, err := os.ReadFile(filepath.Join(root, "sites/publication.example/releases/v3/index.html")); err != nil || string(body) != "concurrent website\n" {
-		t.Fatalf("concurrent publication content: %q, %v", body, err)
-	}
-	before = syncFixtureTree(t, root)
+	writeBundle("2026.44.0", "first local website\n")
 	run("link", true)
-	if got := syncFixtureTree(t, root); got != before {
-		t.Fatal("repeated selection changed content")
+	for _, version := range []string{"2026.44.0", "2026.44.2"} {
+		if _, err := os.Stat(filepath.Join(versionsRoot, version, "index.html")); err != nil {
+			t.Fatalf("selection removed retained site %s: %v", version, err)
+		}
 	}
 	if err := os.Rename(versionsRoot, versionsRoot+".saved"); err != nil {
 		t.Fatal(err)
 	}
 	syncFixtureLink(t, versionsRoot, versionsRoot+".saved")
 	before = syncFixtureTree(t, root)
-	if output, err := command("link").CombinedOutput(); err == nil {
-		t.Fatalf("accepted symlinked release ancestry: %s", output)
-	}
+	run("link", false)
 	if got := syncFixtureTree(t, root); got != before {
 		t.Fatal("unsafe ancestry refusal changed content")
 	}
@@ -518,32 +497,10 @@ func syncFixturePublication(t *testing.T, dir, root, metadata string, transport 
 	if err := os.Rename(versionsRoot+".saved", versionsRoot); err != nil {
 		t.Fatal(err)
 	}
-	// Roll back by extracting the retained archive; no re-upload is needed.
-	writeBundle("v1", "local payload is ignored during extraction\n")
-	run("extract", true)
-	blocked := filepath.Join(versionsRoot, "v3")
-	if err := os.Chmod(blocked, 0o555); err != nil {
-		t.Fatal(err)
-	}
-	t.Cleanup(func() { _ = os.Chmod(blocked, 0o755) })
-	output, cleanupErr := command("link").CombinedOutput()
-	if cleanupErr == nil || !strings.Contains(string(output), "cleanup") {
-		t.Fatalf("cleanup failure was not reported: %v, %s", cleanupErr, output)
-	}
-	if current, err := os.Readlink(filepath.Join(root, "sites/publication.example/current")); err != nil || current != "releases/v1" {
-		t.Fatalf("cleanup failure lost new selection: %q, %v", current, err)
-	}
-	if body, err := os.ReadFile(filepath.Join(versionsRoot, "v1/index.html")); err != nil || string(body) != "first local website\n" {
-		t.Fatalf("rollback did not extract the retained archive: %q, %v", body, err)
-	}
-	if err := os.Chmod(blocked, 0o755); err != nil {
-		t.Fatal(err)
-	}
-	run("link", true)
 	if got := syncFixtureTree(t, archives); got != allArchives {
-		t.Fatal("rollback or cleanup changed downloadable archives")
+		t.Fatal("rollback changed downloadable archives")
 	}
-	original, err := os.ReadFile(filepath.Join(archives, "releases/v1/website.zip"))
+	original, err := os.ReadFile(filepath.Join(archiveDirectory, "website.zip"))
 	if err != nil || !bytes.Equal(original, firstArchive) {
 		t.Fatalf("original archive changed after rollback: %v", err)
 	}

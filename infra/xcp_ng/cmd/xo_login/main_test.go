@@ -4,7 +4,7 @@ import (
 	"context"
 	"testing"
 
-	"git.alwaldend.com/alwaldend/src/projects/al/pkg/al"
+	"git.alwaldend.com/alwaldend/src/tools/rules_al/pkg/al"
 )
 
 func TestBootstrapConfigurationSelectsOnlyRequestedRole(t *testing.T) {

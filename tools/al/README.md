@@ -3,6 +3,11 @@ title: Repository AL configuration
 description: Shared configuration for repository command wrappers
 ---
 
+The reusable executable, APIs, rules, and lifecycle skills belong to
+[`rules_al`](../rules_al/README.md). This package keeps the monorepo integration:
+shared Lua configuration, the explicit `//tools/al:install` entry point, and
+native command tests that use the parent repository's Vault injector.
+
 `//tools/al:config` packages the repository's shared AL configuration. The
 root `//:al` label remains a compatibility alias. The Lua source files stay
 at the repository root so existing CLI configuration discovery and

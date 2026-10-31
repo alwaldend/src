@@ -24,9 +24,9 @@ From the repository root, review a refresh before applying it:
 ```sh
 mkdir -p out/pki-ca
 export AL_TF_BACKEND_CONFIG_path="path=$PWD/out/pki-ca/terraform.tfstate"
-bazel_agent bazel run //data/ssl/alwaldend.com/tf:tf.plan -- \
+al bazel run //data/ssl/alwaldend.com/tf:tf.plan -- \
   -var="output_directory=$PWD/data/ssl/alwaldend.com"
-bazel_agent bazel run //data/ssl/alwaldend.com/tf:tf.apply -- \
+al bazel run //data/ssl/alwaldend.com/tf:tf.apply -- \
   -var="output_directory=$PWD/data/ssl/alwaldend.com"
 ```
 

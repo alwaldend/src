@@ -14,7 +14,7 @@ packages created by other languages. Each tree selects a package group with
 only these package declarations, run:
 
 ```sh
-bazel_agent bazel run //:gazelle -- -lang=enforce_transitive_visibility
+al bazel run //:gazelle -- -lang=enforce_transitive_visibility
 ```
 
 The [plugin documentation](../../projects/bazel_gazelle_enforce_transitive_visibility/README.md)

@@ -24,13 +24,13 @@ The [pinned CLI](../../../tools/rules_openspec/README.md) runs from the Git work
 root. It selects `infra/src` by default; use `OPENSPEC_PROJECT` for a component:
 
 ```sh
-bazel_agent bazel run //tools/openspec -- list --specs
-OPENSPEC_PROJECT=tools/agents bazel_agent bazel run //tools/openspec -- list
-OPENSPEC_PROJECT=infra/vault bazel_agent bazel run //tools/openspec -- list --specs
+al bazel run //tools/openspec -- list --specs
+OPENSPEC_PROJECT=tools/agents al bazel run //tools/openspec -- list
+OPENSPEC_PROJECT=infra/vault al bazel run //tools/openspec -- list --specs
 ```
 
 Use `new change`, `status`, `instructions`, `validate`, and `archive` with the
-same owner selection. The packaged [Repository OpenSpec skill](../../../tools/openspec/skills/repo-openspec/SKILL.md)
+same owner selection. The packaged [Repository OpenSpec skill](../../../tools/openspec/skills/al-openspec/SKILL.md)
 documents continuation and acceptance. No global install or assistant
 configuration rewrite is needed. The CLI isolates configuration and disables
 telemetry.
@@ -38,7 +38,7 @@ telemetry.
 Repository validation checks every component workspace as well as this one:
 
 ```sh
-bazel_agent bazel test //infra/src/openspec/validation:validate_test //infra/src/openspec/validation:archive_test
+al bazel test //infra/src/openspec/validation:validate_test //infra/src/openspec/validation:archive_test
 ```
 
 Validation checks artifact structure and, for archives, task completion.

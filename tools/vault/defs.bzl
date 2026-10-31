@@ -1,4 +1,4 @@
-load("//projects/al/rules/al:al_binary.bzl", "al_binary_run")
+load("@rules_al//:defs.bzl", "al_binary_run")
 
 def vault_binary(
         args = [],

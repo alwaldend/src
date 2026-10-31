@@ -1,0 +1,70 @@
+module(
+    name = "rules_al",
+    version = "0.0.0",
+    bazel_compatibility = [">=9.3.1"],
+)
+
+bazel_dep(name = "bazel_skylib", version = "1.9.0")
+bazel_dep(name = "bazel_lib", version = "3.1.0")
+bazel_dep(name = "platforms", version = "1.1.0")
+bazel_dep(name = "rules_docs", version = "0.0.0")
+bazel_dep(name = "rules_go", version = "0.60.0")
+bazel_dep(name = "rules_pkg", version = "1.2.0")
+bazel_dep(name = "protobuf", version = "33.4")
+bazel_dep(name = "gazelle", version = "0.54.0")
+bazel_dep(name = "rules_skills", version = "0.0.0")
+bazel_dep(name = "rules_promptfoo", version = "0.0.0")
+bazel_dep(name = "rules_openspec", version = "0.0.0")
+
+local_path_override(
+    module_name = "rules_docs",
+    path = "../rules_docs",
+)
+
+local_path_override(
+    module_name = "rules_skills",
+    path = "../rules_skills",
+)
+
+local_path_override(
+    module_name = "rules_promptfoo",
+    path = "../rules_promptfoo",
+)
+
+local_path_override(
+    module_name = "rules_openspec",
+    path = "../rules_openspec",
+)
+
+go_sdk = use_extension("@rules_go//go:extensions.bzl", "go_sdk")
+go_sdk.from_file(go_mod = "//:go.mod")
+
+go_deps = use_extension("@gazelle//:extensions.bzl", "go_deps")
+go_deps.from_file(go_mod = "//:go.mod")
+use_repo(
+    go_deps,
+    "com_github_go_git_go_billy_v5",
+    "com_github_go_git_go_git_v5",
+    "com_github_hashicorp_vault_api",
+    "com_github_hashicorp_vault_api_auth_approle",
+    "com_github_spf13_cobra",
+    "com_github_yuin_gopher_lua",
+    "io_k8s_sigs_yaml",
+    "org_golang_google_grpc",
+    "org_golang_google_protobuf",
+    "org_golang_x_crypto",
+    "org_golang_x_sys",
+)
+
+# The standalone development workspace uses its local Git checkout. Consumers
+# explicitly configure their own checkout through the exported extension.
+git = use_extension("//:extensions.bzl", "git", dev_dependency = True)
+git.local_git(name = "release_git")
+use_repo(git, "release_git")
+
+register_toolchains(
+    "@release_git//:git_toolchain",
+    dev_dependency = True,
+)
+
+register_toolchains("//rules:al_toolchain_registration")

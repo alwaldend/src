@@ -1,6 +1,5 @@
+load("@rules_al//:defs.bzl", "al_binary_run", "al_config")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("//projects/al/rules/al:al_binary.bzl", "al_binary_run")
-load("//projects/al/rules/al:al_config.bzl", "al_config")
 load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_site_svg", "mermaid_site_webp")
 
 package(transitive_visibility = "//infra:transitive_consumers")

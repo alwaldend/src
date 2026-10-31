@@ -170,3 +170,17 @@ local_path_override(
     module_name = "rules_skill_gazelle",
     path = "tools/rules_skill_gazelle",
 )
+
+bazel_dep(name = "rules_al", version = "0.0.0")
+local_path_override(
+    module_name = "rules_al",
+    path = "tools/rules_al",
+)
+
+release_git = use_extension("@rules_al//:extensions.bzl", "git")
+release_git.local_git(name = "repository_git")
+use_repo(release_git, "repository_git")
+
+register_toolchains("@repository_git//:git_toolchain")
+
+register_toolchains("@rules_al//rules:al_toolchain_registration")

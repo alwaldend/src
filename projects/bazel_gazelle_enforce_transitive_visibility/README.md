@@ -43,7 +43,7 @@ Register `@bazel_gazelle_enforce_transitive_visibility//pkg/gazelle` in the
 executable. This module's own configuration is `transitive_visibility.toml`:
 
 ```sh
-bazel_agent bazel run //cmd/gazelle -- -transitive_visibility_config=transitive_visibility.toml
+al bazel run //cmd/gazelle -- -transitive_visibility_config=transitive_visibility.toml
 ```
 
 Bazel enforcement is separate from generation. Enable
@@ -71,7 +71,7 @@ Explicit build-support package exceptions are therefore an approximation.
 Starlark `load()` edges are separate. Use `--notool_deps` when querying the
 ordinary dependency graph; that query option does not change build enforcement.
 
-From this module, run `bazel_agent bazel test //...` to exercise the real
+From this module, run `al bazel test //...` to exercise the real
 Gazelle command. The tests preserve generated BUILD files and a summary under
 Bazel's undeclared test outputs.
 

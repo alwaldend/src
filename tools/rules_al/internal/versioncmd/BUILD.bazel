@@ -1,0 +1,26 @@
+load("@rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "versioncmd",
+    srcs = [
+        "bazel.go",
+        "cobra.go",
+        "command.go",
+        "doc.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/tools/rules_al/internal/versioncmd",
+    visibility = ["//:__subpackages__"],
+    deps = [
+        "//internal/versioning",
+        "@com_github_spf13_cobra//:cobra",
+    ],
+)
+
+go_test(
+    name = "versioncmd_test",
+    srcs = ["command_test.go"],
+    data = ["//cmd/al"],
+    embed = [":versioncmd"],
+    env = {"AL_BINARY": "$(rlocationpath //cmd/al:al)"},
+    deps = ["@rules_go//go/runfiles"],
+)

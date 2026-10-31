@@ -5,7 +5,7 @@ package(transitive_visibility = ":installation_consumers")
 package_group(
     name = "installation_consumers",
     includes = ["//tools:transitive_consumers"],
-    packages = ["//projects/bazel_agent"],
+    packages = ["//tools/al"],
 )
 
 go_binary(

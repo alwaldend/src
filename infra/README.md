@@ -56,7 +56,7 @@ command selects the plugin.
 ## New project
 
 The commands below are state-changing operator examples. An agent must use
-`bazel_agent`, apply the repository Terraform and secret-handling procedures,
+`al bazel`, apply the repository Terraform and secret-handling procedures,
 and receive explicit authority for the exact operation and environment before
 running an equivalent command.
 
@@ -66,19 +66,19 @@ running an equivalent command.
   [example](https://github.com/alwaldend/src/blob/master/infra/vault/tf/group_approles.tf)
 - Run apply:
   ```sh
-  bazel_agent bazel run //infra/vault/tf:tf.apply
+  al bazel run //infra/vault/tf:tf.apply
   ```
 - Update Yandex Cloud folders:
   ```sh
-  bazel_agent bazel run //infra/yandex_cloud/org1/tf:tf.apply
+  al bazel run //infra/yandex_cloud/org1/tf:tf.apply
   ```
 - Update Proxmox resource pools:
   ```sh
-  bazel_agent bazel run //infra/pve/tf:tf.apply
+  al bazel run //infra/pve/tf:tf.apply
   ```
 - Update Xen Orchestra AppRole resource sets:
   ```sh
-  bazel_agent bazel run //infra/xcp_ng/tf:tf.apply
+  al bazel run //infra/xcp_ng/tf:tf.apply
   ```
 - Set up al config:
   [example](https://github.com/alwaldend/src/blob/master/infra/pve/al.lua)

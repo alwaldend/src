@@ -1,0 +1,30 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "fp",
+    srcs = [
+        "box.go",
+        "compute.go",
+        "curry.go",
+        "doc.go",
+        "each.go",
+        "either.go",
+        "either_empty.go",
+        "find.go",
+        "functor.go",
+        "ignore.go",
+        "io.go",
+        "maybe.go",
+        "monad.go",
+        "pipe.go",
+        "recover.go",
+        "result.go",
+        "return.go",
+        "run.go",
+        "switch.go",
+        "tuple.go",
+        "wg.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/tools/rules_al/pkg/fp",
+    visibility = ["//visibility:public"],
+)

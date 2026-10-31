@@ -47,7 +47,7 @@ This change coordinates the following owner-local plans:
 | ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------- |
 | Ansible collection | [Nginx role](../../../../../projects/ansible_collection/openspec/changes/archive/2026-10-22-add-nginx-role/proposal.md)                      |
 | Vault              | [Download AppRole](../../../../../infra/vault/approles/src_infra_download/README.md)                                                         |
-| Release tool       | [SSH deployment](../../../../../tools/release/openspec/changes/archive/2026-10-22-add-ssh-deployment/proposal.md)                            |
+| Release tool       | [SSH deployment](../../../../../tools/rules_al/openspec/changes/archive/2026-10-22-add-ssh-deployment/proposal.md)                           |
 | Main website       | [Downloads browser and SSH hosting](../../../../../projects/alwaldend.com/openspec/changes/add-download-browser-and-ssh-hosting/proposal.md) |
 
 Infrastructure implementation will also update the existing Yandex folder and

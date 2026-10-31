@@ -18,4 +18,4 @@
         adds agents metadata whose default prompt names the skill; adds
         required offline Promptfoo configuration validation; and proposes
         targeted skill, Promptfoo, discovery-link, and Buildifier checks
-        through bazel_agent. Otherwise fail.
+        through al bazel. Otherwise fail.

@@ -165,7 +165,7 @@ runs from Bazel's output tree:
 
 ```sh
 repo_root="$PWD"
-bazel_agent bazel run //tools/mermaid:mmdc -- \
+al bazel run //tools/mermaid:mmdc -- \
   -i "${repo_root}/path/to/diagram.mmd" \
   -o "${repo_root}/path/to/diagram.svg"
 ```

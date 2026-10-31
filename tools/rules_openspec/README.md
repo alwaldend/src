@@ -17,12 +17,12 @@ which is the default for the runnable target. Run commands from the enclosing
 repository root; `OPENSPEC_PROJECT` selects a different owner directory:
 
 ```sh
-bazel_agent bazel run //tools/openspec -- --version
-bazel_agent bazel run //tools/openspec -- list --specs --json
-bazel_agent bazel run //tools/openspec -- status --change <change-name> --json
-bazel_agent bazel run //tools/openspec -- validate --all --strict --no-interactive
-OPENSPEC_PROJECT=tools/agents bazel_agent bazel run //tools/openspec -- list --specs --json
-OPENSPEC_PROJECT=infra/vault bazel_agent bazel run //tools/openspec -- list --specs --json
+al bazel run //tools/openspec -- --version
+al bazel run //tools/openspec -- list --specs --json
+al bazel run //tools/openspec -- status --change <change-name> --json
+al bazel run //tools/openspec -- validate --all --strict --no-interactive
+OPENSPEC_PROJECT=tools/agents al bazel run //tools/openspec -- list --specs --json
+OPENSPEC_PROJECT=infra/vault al bazel run //tools/openspec -- list --specs --json
 ```
 
 `OPENSPEC_PROJECT` is a repository launcher setting, not an upstream CLI flag.
@@ -34,7 +34,7 @@ Run upstream validation for the declared owner workspaces in sandboxed tests aga
 declared source inputs:
 
 ```sh
-bazel_agent bazel test //infra/src/openspec/validation:validate_test //infra/src/openspec/validation:archive_test
+al bazel test //infra/src/openspec/validation:validate_test //infra/src/openspec/validation:archive_test
 ```
 
 `validate_test` aggregates one strict test per owner for current specs and

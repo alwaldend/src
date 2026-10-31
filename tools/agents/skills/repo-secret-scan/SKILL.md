@@ -11,7 +11,7 @@ description: >-
 
 ## Select coverage
 
-Use `repo-workspace` before writing scan output and `bazel-agent`/`repo-bazel`
+Use `al-workspace` before writing scan output and `al-bazel`/`repo-bazel`
 for repository commands. Record the current commit and working-tree state.
 The [scanner README](../../../trufflehog/README.md) owns the supported
 history scopes; its BUILD file owns the consumers, `allowlist.json` owns approved
@@ -28,7 +28,7 @@ Neither Git-history target establishes coverage of uncommitted or untracked
 files. If those are requested, use the pinned `//tools/trufflehog:trufflehog`
 CLI's filesystem mode with an explicit source scope; do not silently include
 ignored build caches, local credentials, or previous scan reports. Check its
-`--help` through `bazel_agent bazel run` before constructing a different scan.
+`--help` through `al bazel run` before constructing a different scan.
 
 ## Run and retain evidence
 
@@ -40,7 +40,7 @@ umask 077
 mkdir -p out/secret-scan/tmp
 TMPDIR="$PWD/out/secret-scan/tmp" TMP="$PWD/out/secret-scan/tmp" \
   timeout --signal=TERM --kill-after=30s 1200s \
-  bazel_agent bazel test //tools/trufflehog:repo_test \
+  al bazel test //tools/trufflehog:repo_test \
   --nocache_test_results --test_output=summary > out/secret-scan/bazel.log 2>&1
 scan_status=$?
 printf '%s\n' "$scan_status" > out/secret-scan/exit-code.txt

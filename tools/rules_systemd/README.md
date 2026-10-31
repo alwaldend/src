@@ -33,7 +33,7 @@ systemd_run(
 )
 ```
 
-Run it with `bazel_agent bazel run //path/to:server`. Arguments after `--`
+Run it with `al bazel run //path/to:server`. Arguments after `--`
 are appended to `arguments`. Configure the application's default arguments
 on the wrapper; defaults from the raw binary's Bazel `args` attribute are
 not inherited. `arguments` supports location/runfiles expressions referring
@@ -58,7 +58,7 @@ Bazel's persistent server stays outside the new scope.
 The CLI remains available for direct commands:
 
 ```sh
-bazel_agent bazel run @rules_systemd//:systemd_run -- \
+al bazel run @rules_systemd//:systemd_run -- \
   --property=MemoryMax=128M --property=MemorySwapMax=0 -- /usr/bin/true
 ```
 
@@ -69,7 +69,7 @@ environment, and runfiles when supplied `-- --report <absolute-output-path>`.
 
 ## Development
 
-Run `bazel_agent bazel build //...` and `bazel_agent bazel test //...` from
+Run `al bazel build //...` and `al bazel test //...` from
 this module directory. `//:build_test` checks the public rule against the
 runfiles fixture. Runtime verification requires a Linux user systemd manager
 and delegated memory controllers; invoke `//test:probe` with an absolute

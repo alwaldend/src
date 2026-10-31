@@ -8,5 +8,5 @@ context: |
   infra/src/openspec.
   Infrastructure specifications describe checked-in source and desired state;
   they do not establish live deployment or health. Source validation is offline.
-  Use the repository-pinned OpenSpec CLI and the bazel_agent runner.
+  Use the repository-pinned OpenSpec CLI and the AL Bazel runner.
   User requests own scope and authority; specifications do not authorize operations.

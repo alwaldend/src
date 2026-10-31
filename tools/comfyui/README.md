@@ -11,8 +11,8 @@ or global configuration are installed.
 ## Commands
 
 ```sh
-bazel_agent bazel run //tools/comfyui:benchmark
-bazel_agent bazel run //tools/comfyui -- --directory out/comfyui/session
+al bazel run //tools/comfyui:benchmark
+al bazel run //tools/comfyui -- --directory out/comfyui/session
 ```
 
 The benchmark generates one seeded 512 by 512 SD-Turbo image with one sampling
@@ -54,7 +54,7 @@ set. CPU wheel availability determines the runtime selection. Updating the lock
 requires network access only in the upstream sandboxed resolution action:
 
 ```sh
-bazel_agent bazel run --action_env=HTTPS_PROXY --action_env=HTTP_PROXY --action_env=NO_PROXY //tools/comfyui:uv_lock.update
+al bazel run --action_env=HTTPS_PROXY --action_env=HTTP_PROXY --action_env=NO_PROXY //tools/comfyui:uv_lock.update
 ```
 
 The proxy flags forward the controller's existing configuration; omit them when
@@ -68,10 +68,10 @@ ordinary wildcard builds. The explicitly named commands above still build and ru
 ## Z-Image-Turbo CPU trial
 
 ```sh
-bazel_agent bazel run //tools/comfyui:z_image_turbo_benchmark -- --timeout 2400
+al bazel run //tools/comfyui:z_image_turbo_benchmark -- --timeout 2400
 
 # Interactive UI at http://127.0.0.1:8188; Ctrl+C stops the server.
-bazel_agent bazel run //tools/comfyui:z_image_turbo
+al bazel run //tools/comfyui:z_image_turbo
 ```
 
 The benchmark defaults to 512-square images, eight res_multistep/simple steps,

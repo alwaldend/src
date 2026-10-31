@@ -4,8 +4,8 @@ package(transitive_visibility = "//tools:transitive_consumers")
 
 go_binary(
     name = "update",
-    args = ["--git=$(rlocationpath //tools/git)"],
-    data = ["//tools/git"],
+    args = ["--git=$(rlocationpath @rules_al//:git)"],
+    data = ["@rules_al//:git"],
     embed = [":update_lib"],
     visibility = ["//tools/bazel_module:__pkg__"],
 )
@@ -17,8 +17,8 @@ go_test(
         "main.go",
         "main_test.go",
     ],
-    args = ["-git=$(rlocationpath //tools/git)"],
-    data = ["//tools/git"],
+    args = ["-git=$(rlocationpath @rules_al//:git)"],
+    data = ["@rules_al//:git"],
     deps = ["@rules_go//go/runfiles"],
 )
 
@@ -30,12 +30,12 @@ go_test(
         "main.go",
     ],
     args = [
-        "-git=$(rlocationpath //tools/git)",
+        "-git=$(rlocationpath @rules_al//:git)",
         "-workspace-marker=$(rlocationpath //:MODULE.bazel)",
     ],
     data = [
         "//:MODULE.bazel",
-        "//tools/git",
+        "@rules_al//:git",
     ],
     tags = [
         "external",

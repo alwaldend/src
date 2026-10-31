@@ -15,8 +15,8 @@ acquired source retains its notices.
 From the repository root:
 
 ```sh
-bazel_agent bazel build //third_party/com_github_ankitects_anki:native
-bazel_agent bazel build //third_party/com_github_ankitects_anki:protos
+al bazel build //third_party/com_github_ankitects_anki:native
+al bazel build //third_party/com_github_ankitects_anki:protos
 ```
 
 [`crate_universe`](https://bazelbuild.github.io/rules_rust/crate_universe_bzlmod.html)
@@ -97,7 +97,7 @@ reuses its approved Tonic and HTTP/Tokio dependency versions.
 After an intentional dependency declaration change, regenerate metadata:
 
 ```sh
-bazel_agent bazel mod deps --lockfile_mode=update
+al bazel mod deps --lockfile_mode=update
 ```
 
 Inspect Cargo and module lock diffs before delivery. New dependency versions

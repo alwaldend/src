@@ -1,0 +1,28 @@
+load("@protobuf//bazel:proto_library.bzl", "proto_library")
+load("@rules_go//go:def.bzl", "go_library")
+load("@rules_go//proto:def.bzl", "go_proto_library")
+
+proto_library(
+    name = "al_proto_proto",
+    srcs = ["al_proto.proto"],
+    visibility = ["//visibility:public"],
+    deps = ["@protobuf//:any_proto"],
+)
+
+go_proto_library(
+    name = "al_proto_go_proto",
+    compilers = [
+        "@rules_go//proto:go_grpc_v2",
+        "@rules_go//proto:go_proto",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/tools/rules_al/api/al_proto",
+    proto = ":al_proto_proto",
+)
+
+go_library(
+    name = "al_proto",
+    srcs = ["doc.go"],
+    embed = [":al_proto_go_proto"],
+    importpath = "git.alwaldend.com/alwaldend/src/tools/rules_al/api/al_proto",
+    visibility = ["//visibility:public"],
+)

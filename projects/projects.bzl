@@ -6,13 +6,11 @@ from this list.
 
 PROJECTS = [
     "activitywatch_ingester_android",
-    "al",
     "android_launcher",
     "anki_as_code",
     "anki_grpc",
     "ansible_collection",
     "autoscroll",
-    "bazel_agent",
     "bazel_deps_analyzer",
     "bazel_gazelle_enforce_transitive_visibility",
     "ci_platform",

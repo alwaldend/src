@@ -10,7 +10,7 @@ import (
 	"testing"
 )
 
-func TestPrecommitRequiresBazelAgent(t *testing.T) {
+func TestPrecommitRequiresAL(t *testing.T) {
 	t.Parallel()
 	binDirectory := t.TempDir()
 	fallbackMarker := filepath.Join(t.TempDir(), "bazel-called")
@@ -34,7 +34,7 @@ func TestPrecommitRequiresBazelAgent(t *testing.T) {
 	if !errors.As(err, &exitError) || exitError.ExitCode() != 127 {
 		t.Fatalf("pre-commit exit = %v, want 127; output:\n%s", err, output)
 	}
-	if !strings.Contains(string(output), "//projects/bazel_agent:install") {
+	if !strings.Contains(string(output), "//tools/al:install") {
 		t.Fatalf("pre-commit output lacks bootstrap guidance:\n%s", output)
 	}
 	if _, err := os.Stat(fallbackMarker); err == nil {

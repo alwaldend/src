@@ -14,5 +14,5 @@
         attributes and avoids deletion; adds focused generation, merge, and
         idempotence tests plus a standalone binary; wires the language into
         root Gazelle and the full-repository checker; updates locks through
-        bazel_agent; and runs root Gazelle twice while reviewing the diff.
+        al bazel; and runs root Gazelle twice while reviewing the diff.
         Otherwise fail.

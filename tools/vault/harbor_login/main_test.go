@@ -7,7 +7,7 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"git.alwaldend.com/alwaldend/src/projects/al/pkg/lifecycle"
+	"git.alwaldend.com/alwaldend/src/tools/rules_al/pkg/lifecycle"
 	"git.alwaldend.com/alwaldend/src/tools/vault/harbor_login/harbor_login_proto"
 )
 

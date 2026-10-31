@@ -9,7 +9,7 @@ description: >-
 # Add a repository Gazelle plugin
 
 Use `tools/rules_docs_gazelle` as the reference implementation. Also follow
-the `bazel-nested-module`, `repo-bazel`, and `bazel-agent` skills: a repository
+the `bazel-nested-module`, `repo-bazel`, and `al-bazel` skills: a repository
 Gazelle plugin is both a Go language extension and a standalone Bzlmod module.
 
 ## Preserve workspace boundaries
@@ -94,7 +94,7 @@ without initializing unrelated languages from the parent repository.
 2. Add the public language library to the `languages` of the root
    `//:gazelle_bin`. Keep the plugin dependency development-only unless root
    BUILD files load runtime symbols from that module.
-3. Register the new workspace in the `full-repo-check` runner. Update its
+3. Register the new workspace in the `al-checks` runner. Update its
    tests, documentation, workspace count, and expected command count so both
    `build //...` and `test //...` run inside the module.
 4. Run the plugin against its own nested workspace when appropriate, then run
@@ -104,26 +104,26 @@ without initializing unrelated languages from the parent repository.
 
 ## Verify with Bazel
 
-Invoke every Bazel command through `bazel_agent`. From the plugin workspace,
+Invoke every Bazel command through `al bazel`. From the plugin workspace,
 update its lock and validate its complete, intentionally small graph:
 
 ```sh
-bazel_agent bazel mod deps --lockfile_mode=update
-bazel_agent bazel test //...
-bazel_agent bazel build //...
+al bazel mod deps --lockfile_mode=update
+al bazel test //...
+al bazel build //...
 ```
 
 From the repository root, update the parent lock when its module graph changed,
 run Gazelle, inspect the resulting diff, and validate the integration:
 
 ```sh
-bazel_agent bazel mod deps --lockfile_mode=update
-bazel_agent bazel run //:gazelle
-bazel_agent bazel test //path/to/affected/package:all
-bazel_agent bazel build //path/to/affected/package:all
-bazel_agent bazel test //:buildifier_test
+al bazel mod deps --lockfile_mode=update
+al bazel run //:gazelle
+al bazel test //path/to/affected/package:all
+al bazel build //path/to/affected/package:all
+al bazel test //:buildifier_test
 ```
 
 Run root Gazelle a second time and confirm that it changes nothing. Finish with
-the `full-repo-check` skill when a new nested workspace was added. Never use a
+the `al-checks` skill when a new nested workspace was added. Never use a
 direct `bazel` invocation or hand-edit a generated lockfile.

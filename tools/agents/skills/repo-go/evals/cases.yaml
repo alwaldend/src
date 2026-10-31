@@ -46,7 +46,7 @@
         Pass only if it checks local code and declared dependencies before
         seeking a new library, obtains explicit user approval for the specific
         new dependency before adding it, follows repo-external-dependency,
-        uses the Bazel-pinned Go toolchain through bazel_agent,
+        uses the Bazel-pinned Go toolchain through al bazel,
         declares the Go dependency in BUILD.bazel, and verifies literal filenames
         with an isolated command-level fixture. It must not use host Go, hand-edit
         generated locks, disable host verification, or run against a live host.

@@ -7,21 +7,21 @@ description: Build, test, query, and maintain targets in this Bazel monorepo. Us
 
 ## Inspect before editing
 
-1. Follow the `bazel-agent` skill for every repository Bazel invocation. Use
-   `bazel_agent bazel <command> ...`; do not repeat its flags or call `bazel`
+1. Follow the `al-bazel` skill for every repository Bazel invocation. Use
+   `al bazel <command> ...`; do not repeat its flags or call `bazel`
    directly.
 2. Read the nearest `AGENTS.md` and the applicable `BUILD.bazel` files.
 3. Inspect `.bazelrc` and its imports before changing flags. Preserve the final
    `try-import %workspace%/user.bazelrc` so local overrides remain last.
 4. Find existing rules with `rg`; copy the closest repository pattern instead of
    inventing a parallel macro.
-5. Use `bazel_agent bazel query` to confirm labels and dependency boundaries when
+5. Use `al bazel query` to confirm labels and dependency boundaries when
    uncertain.
 
 ## Edit targets
 
 - Keep Starlark formatted with buildifier conventions.
-- Prefer repository macros under `tools/` and `projects/al/rules/` over raw
+- Prefer repository macros under `tools/` and `@rules_al//:defs.bzl` over raw
   upstream rules. Infrastructure commonly uses generated target maps such as
   `terraform_binary_map`, `terraform_test_map`, and `vault_binary_map`.
 - For Terraform, use the public rules in
@@ -70,13 +70,13 @@ builds.
 Run the cheapest relevant commands first:
 
 ```sh
-bazel_agent bazel query //path/to/package:all
-bazel_agent bazel test //path/to/package:all
-bazel_agent bazel build //path/to/package:all
-bazel_agent bazel test //:buildifier_test
+al bazel query //path/to/package:all
+al bazel test //path/to/package:all
+al bazel build //path/to/package:all
+al bazel test //:buildifier_test
 ```
 
-Use `bazel_agent bazel test //...` or `bazel_agent bazel build //...` only when the scope
+Use `al bazel test //...` or `al bazel build //...` only when the scope
 and available time justify a repository-wide check. Report remote-cache,
 credential, network, or platform failures separately from failures caused by
 the patch.
@@ -84,10 +84,10 @@ the patch.
 For generated targets, inspect available labels before guessing:
 
 ```sh
-bazel_agent bazel query '//path/to/package:*'
+al bazel query '//path/to/package:*'
 ```
 
-Never run deploy, apply, or other mutating `bazel_agent bazel run` targets merely as a
+Never run deploy, apply, or other mutating `al bazel run` targets merely as a
 validation step.
 
 ## Automate with Go and Bazel

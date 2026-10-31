@@ -33,18 +33,18 @@ when a documentation refresh is wanted, for example after parallel DNS changes
 have merged:
 
 ```sh
-bazel_agent bazel run //infra/dns/cmd/dump -- --write
+al bazel run //infra/dns/cmd/dump -- --write
 ```
 
 Ordinary validation checks declarations and ownership without requiring or
 rewriting these snapshots. A DNS change does not require a documentation
 refresh in the same PR. To explicitly check snapshot freshness, run
-`bazel_agent bazel run //infra/dns/cmd/dump -- --check`.
+`al bazel run //infra/dns/cmd/dump -- --check`.
 
 ## Inspect and lint declarations
 
 ```sh
-bazel_agent bazel run //infra/dns:lint
+al bazel run //infra/dns:lint
 ```
 
 The linter discovers `dnsconfig.json` files in the current workspace at runtime
@@ -58,7 +58,7 @@ keys and domains declared by different source files are errors. The command
 reads checked-in declarations without contacting Terraform backends or DNS
 providers.
 
-`bazel_agent bazel test //infra/dns:config_test` runs the linter's fixture tests
+`al bazel test //infra/dns:config_test` runs the linter's fixture tests
 and checks every DNS declaration in the current checkout. The repository test
 resolves the root `MODULE.bazel` runfile to the checkout and runs without sandboxing
 or cached test results so newly added files and nested workspaces are included

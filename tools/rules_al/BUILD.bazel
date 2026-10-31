@@ -1,0 +1,57 @@
+load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//:defs.bzl", "git_binary", "git_info_file")
+
+alias(
+    name = "al",
+    actual = "//cmd/al:al",
+    visibility = ["//visibility:public"],
+)
+
+git_binary(
+    name = "git",
+    visibility = ["//visibility:public"],
+)
+
+git_info_file(
+    name = "git_info",
+    visibility = ["//visibility:public"],
+)
+
+bzl_library(
+    name = "defs",
+    srcs = ["defs.bzl"],
+    visibility = ["//visibility:public"],
+    deps = ["//rules"],
+)
+
+bzl_library(
+    name = "extensions",
+    srcs = ["extensions.bzl"],
+    visibility = ["//visibility:public"],
+    deps = ["//rules"],
+)
+
+exports_files(
+    [
+        "defs.bzl",
+        "extensions.bzl",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    prefix = "content/docs/tools/rules_al",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//api:docs",
+        "//docs",
+        "//internal/release:docs",
+        "//openspec:docs",
+        "//rules:docs",
+    ],
+)
+
+exports_files(["agent_operations.json"])

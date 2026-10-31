@@ -4,7 +4,7 @@ description: >-
   Perform structure-aware code search and rewrite in this repository with
   ast-grep. Use when a task needs to find or transform code by syntax shape
   (pattern, AST node, semantic construct) rather than by plain text or regex;
-  use repo-bazel and bazel-agent for build and test orchestration.
+  use repo-bazel and al-bazel for build and test orchestration.
 ---
 
 # Search and rewrite code with ast-grep
@@ -20,11 +20,11 @@ Read the nearest `AGENTS.md` and the tool's `third_party/com_github_ast_grep_ast
 the pinned version and archive contract from
 `third_party/com_github_ast_grep_ast_grep/binary_toolchain.json`; do not hard-code a remembered version.
 
-Follow `bazel-agent` for every Bazel invocation. Run ast-grep through the
+Follow `al-bazel` for every Bazel invocation. Run ast-grep through the
 repository alias and pass pattern and options after Bazel's separator:
 
 ```sh
-bazel_agent bazel run //third_party/com_github_ast_grep_ast_grep:ast-grep -- --pattern 'console.log($A)' --lang javascript .
+al bazel run //third_party/com_github_ast_grep_ast_grep:ast-grep -- --pattern 'console.log($A)' --lang javascript .
 ```
 
 Do not substitute an ast-grep binary from `PATH`, a separately downloaded

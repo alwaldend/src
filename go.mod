@@ -134,6 +134,7 @@ require (
 
 require (
 	dario.cat/mergo v1.0.0 // indirect
+	git.alwaldend.com/alwaldend/src/tools/rules_al v0.0.0
 	github.com/Microsoft/go-winio v0.6.2 // indirect
 	github.com/ProtonMail/go-crypto v1.1.6 // indirect
 	github.com/cloudflare/circl v1.6.3 // indirect
@@ -167,3 +168,5 @@ require (
 	modernc.org/sqlite v1.60.1
 	sigs.k8s.io/yaml v1.6.0
 )
+
+replace git.alwaldend.com/alwaldend/src/tools/rules_al => ./tools/rules_al

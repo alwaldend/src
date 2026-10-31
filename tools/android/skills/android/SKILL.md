@@ -23,7 +23,7 @@ containing an `android_binary` target. Inspect the app's
 `rules_jvm_external` with a `maven_lock.json` lock file.
 
 ```sh
-bazel_agent bazel build //projects/<app>/cmd/<command>:<binary_target>
+al bazel build //projects/<app>/cmd/<command>:<binary_target>
 ```
 
 ### Gradle parallel build (required for F-Droid)
@@ -44,13 +44,13 @@ Gradle files go stale relative to the Bazel lock.
 To regenerate after a dependency change:
 
 ```sh
-bazel_agent bazel run //projects/<app>/gradle:update_toml_write
+al bazel run //projects/<app>/gradle:update_toml_write
 ```
 
 To verify freshness in CI:
 
 ```sh
-bazel_agent bazel test //projects/<app>/gradle:update_toml_write_test
+al bazel test //projects/<app>/gradle:update_toml_write_test
 ```
 
 Regenerate verification metadata through Gradle's
@@ -120,7 +120,7 @@ activity, waits, and verifies that the process is still alive. Run it
 explicitly:
 
 ```sh
-bazel_agent bazel run //projects/<app>/test:<app>_smoke_test
+al bazel run //projects/<app>/test:<app>_smoke_test
 ```
 
 Do not run it as a CI test; it requires local Android platform tools and a
@@ -135,7 +135,7 @@ outside the F-Droid build server (which signs it server-side). Use
 APK with the debug keystore so it installs directly.
 
 ```sh
-bazel_agent bazel run //tools/gradle:gradle-wrapper -- assembleDebug
+al bazel run //tools/gradle:gradle-wrapper -- assembleDebug
 ```
 
 Run this from the app project directory with `ANDROID_HOME` set to the local

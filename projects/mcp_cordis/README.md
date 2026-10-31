@@ -32,7 +32,7 @@ supported. A new Codex session is needed after the MCP registration itself is
 first added; package changes after that do not require another session.
 
 The registration calls `cmd/mcp_cordis/launch.sh`. With a current installed
-`bazel_agent`, the launcher selects a content-addressed runtime from the
+`al bazel`, the launcher selects a content-addressed runtime from the
 per-user tool cache and executes it directly. The first exact source version
 is built and atomically installed under a per-key lock; subsequent worktrees
 with the same inputs do not start Bazel or load a configured graph. An older
@@ -55,7 +55,7 @@ hook does not start a duplicate Cordis build.
 To build and run the server directly from the repository root:
 
 ```sh
-bazel_agent bazel run //projects/mcp_cordis:mcp_cordis -- \
+al bazel run //projects/mcp_cordis:mcp_cordis -- \
   --workspace-root "$PWD" \
   --task-id example-task \
   --run-id example-run

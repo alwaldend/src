@@ -29,7 +29,7 @@ Model targets are marked `manual` to exclude these large downloads from
 wildcard builds. Build an explicit target to fetch the model:
 
 ```sh
-bazel_agent bazel build \
+al bazel build \
   //third_party/co_huggingface_qwen_qwen3_8_27b:snapshot
 mkdir -p out/qwen3_8_27b/model
 tar -xf bazel-bin/third_party/co_huggingface_qwen_qwen3_8_27b/qwen3.8-27b.tar \

@@ -10,8 +10,8 @@ From the repository root, build the existing Puppeteer links and generate a
 launcher for the pinned browser. Use task-local temporary and profile storage.
 
 ```sh
-bazel_agent bazel build //tools:node_modules/puppeteer
-bazel_agent bazel run --script_path=out/video-export/chrome \
+al bazel build //tools:node_modules/puppeteer
+al bazel run --script_path=out/video-export/chrome \
   //third_party/com_google_chrome_headless_shell:chrome_headless_shell
 ```
 

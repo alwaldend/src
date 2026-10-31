@@ -8,7 +8,7 @@ the existing `rules_shell` runtime; it does not hardcode external repository
 names.
 
 ```sh
-bazel_agent bazel run //tools/gradle:gradle-wrapper -- --version
+al bazel run //tools/gradle:gradle-wrapper -- --version
 ```
 
 Gradle caches remain under ignored `out/gradle/`. Set `GRADLE_CACHE_ROOT` to

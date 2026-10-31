@@ -155,7 +155,7 @@ Keep `draft: true` in the front matter and stop there; do not set a future
 
 The site renders drafts for local preview and excludes them from the release
 build, so a draft is withheld from the deployed site while remaining visible
-at `bazel_agent bazel run //projects/alwaldend.com:site_serve`. Publishing is a
+at `al bazel run //projects/alwaldend.com:site_serve`. Publishing is a
 separate authorized step: report the post's draft state in the handoff and let
 the user decide when to release it. Remove `draft: true` only when the user
 asks to publish.
@@ -192,7 +192,7 @@ finding, and never reuse a label within a review. Do not present findings as
 prose paragraphs or unnumbered bullets; the numbering must stay readable as a
 list.
 
-- Build and inspect the rendered page: `bazel_agent bazel build
+- Build and inspect the rendered page: `al bazel build
 //projects/alwaldend.com:site`, then read the generated post under
   `bazel-bin/projects/alwaldend.com/site.destination/blog/<slug>/`.
 - Check inconsistencies against the repository's other pages: heading case and
@@ -212,7 +212,7 @@ list.
   so verify each one by hand and report the ones that point at nothing a reader
   can reach. Files that exist only in the repository need explicit GitHub URLs.
 - Confirm the site builds clean by running
-  `bazel_agent bazel test //projects/alwaldend.com:site_test` and report any
+  `al bazel test //projects/alwaldend.com:site_test` and report any
   failure.
 
 Report every finding to the user with the exact location and the reason, and
@@ -221,11 +221,11 @@ that the user did not ask for.
 
 ## Deliver
 
-Ordinary delivery follows the `repo-delivery` skill for verification, commit,
+Ordinary delivery follows the `al-delivery` skill for verification, commit,
 push, and pull request. Publishing the post itself remains a separate step that
 the user authorizes.
 
-Local preview is available with `bazel_agent bazel run
+Local preview is available with `al bazel run
 //projects/alwaldend.com:site_serve` at `http://127.0.0.1:1313`. Use the
 `repo-hugo` skill for the site's Hugo toolchain, theme, and deployment
 workflow.

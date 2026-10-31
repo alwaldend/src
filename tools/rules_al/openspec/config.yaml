@@ -1,0 +1,5 @@
+schema: spec-driven
+context: |
+  This workspace owns tools/rules_al: AL commands, rules, repository lifecycle and skills.
+  Keep component changes and acceptance evidence here. User requests own authority.
+  Preserve release identities, publication guards and typed delivery receipts.

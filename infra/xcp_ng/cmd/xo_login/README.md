@@ -22,7 +22,7 @@ Bootstrap an approved AppRole's XO identity and synchronized groups before
 binding its resource set:
 
 ```sh
-XO_BOOTSTRAP_APPROLE=src_infra_dc1_forgejo1 bazel_agent bazel run //infra/xcp_ng/cmd/xo_login:bootstrap
+XO_BOOTSTRAP_APPROLE=src_infra_dc1_forgejo1 al bazel run //infra/xcp_ng/cmd/xo_login:bootstrap
 ```
 
 The target authenticates through existing Vault AppRole policies, reports only

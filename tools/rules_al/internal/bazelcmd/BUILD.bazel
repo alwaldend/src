@@ -1,0 +1,21 @@
+load("@rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "bazelcmd",
+    srcs = [
+        "doc.go",
+        "main.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/tools/rules_al/internal/bazelcmd",
+    visibility = ["//:__subpackages__"],
+    deps = ["@com_github_spf13_cobra//:cobra"],
+)
+
+go_test(
+    name = "bazelcmd_test",
+    srcs = [
+        "main_test.go",
+        "tool_removed_test.go",
+    ],
+    embed = [":bazelcmd"],
+)

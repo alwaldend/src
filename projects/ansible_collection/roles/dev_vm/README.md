@@ -22,7 +22,7 @@ to Linux x86-64 development hosts.
 
 The `packages` task entry point exposes package management separately from
 other role tasks. The `bazel` task entry point installs a caller-provided Bazel
-rc, Bazelisk, and the repository's `bazel_agent` runner for one developer
+rc, Bazelisk, and the repository's `al` runner for one developer
 account.
 
 Import the Bazel entry point with `tasks_from: bazel` and set:
@@ -33,10 +33,10 @@ Import the Bazel entry point with `tasks_from: bazel` and set:
 - `dev_vm_bazelrc_src`: controller-side Bazel rc source; defaults to `bazelrc`.
 - `dev_vm_bazelisk_src`: controller-side Bazelisk source; defaults to
   `bazelisk`.
-- `dev_vm_bazel_agent_src`: controller-side `bazel_agent` source; defaults to
-  `bazel_agent`.
+- `dev_vm_al_src`: controller-side `al` source; defaults to
+  `al`.
 
-The role packages its default Linux x86-64 Bazelisk and `bazel_agent` sources.
+The role packages its default Linux x86-64 Bazelisk and `al` sources.
 The calling playbook must package the Bazel rc, plus any overridden binary
 sources, in an Ansible file search path. Cache storage and machine-specific
 Bazel settings remain the caller's responsibility.

@@ -24,8 +24,8 @@ and provenance requirements.
 ## Publish vendored helm
 
 This is a state-changing operator example. An agent needs explicit publication
-authority and must invoke the target through `bazel_agent`.
+authority and must invoke the target through `al bazel`.
 
 ```sh
-bazel_agent bazel run //third_party:publish_helm.io_goharbor_helm_harbor
+al bazel run //third_party:publish_helm.io_goharbor_helm_harbor
 ```

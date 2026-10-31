@@ -24,10 +24,10 @@ also supported. Diagnostics use stderr.
 From the repository root:
 
 ```sh
-bazel_agent bazel build //projects/anki_grpc:anki_grpc //projects/anki_grpc:clippy
+al bazel build //projects/anki_grpc:anki_grpc //projects/anki_grpc:clippy
 ```
 
-Build an optimized worker with `bazel_agent bazel build -c opt //projects/anki_grpc`.
+Build an optimized worker with `al bazel build -c opt //projects/anki_grpc`.
 Optimized builds strip the final Rust executable's debugging information and static
 symbols; development builds retain them.
 
@@ -95,7 +95,7 @@ trunk's `//projects/anki_grpc:cgo` boolean, which defaults to true. Build a
 pure-Go application or worker with:
 
 ```sh
-bazel_agent bazel build -c opt //projects/anki_grpc //projects/anki_as_code --//projects/anki_grpc:cgo=false --//projects/anki_grpc:wasm=true
+al bazel build -c opt //projects/anki_grpc //projects/anki_as_code --//projects/anki_grpc:cgo=false --//projects/anki_grpc:wasm=true
 ```
 
 For the application, generic subprocess and in-process selection both prefer
@@ -182,7 +182,7 @@ its unsupported HTTP sync-server entry points, command failures, process
 transports, and the pinned SQLite build:
 
 ```sh
-bazel_agent bazel test //projects/anki_grpc/internal/wasmhost:backend_test \
+al bazel test //projects/anki_grpc/internal/wasmhost:backend_test \
   //projects/anki_grpc/test/wasm:inprocess_test \
   //projects/anki_grpc/test/wasm:offline_test \
   //projects/anki_grpc/test/wasm:http_server_test \
@@ -420,8 +420,8 @@ Concrete client types include `ClientSTD` and `ClientGRPC`.
 ## Verification
 
 ```sh
-bazel_agent bazel test //projects/anki_grpc/test/transport:transport_test
-bazel_agent bazel test //projects/anki_grpc/pkg/ankiclient:ankiclient_test
+al bazel test //projects/anki_grpc/test/transport:transport_test
+al bazel test //projects/anki_grpc/pkg/ankiclient:ankiclient_test
 ```
 
 The server E2E checks CLI help, invalid arguments, startup initialization,

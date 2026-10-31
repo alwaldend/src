@@ -1,6 +1,0 @@
-package(transitive_visibility = "//tools:transitive_consumers")
-
-exports_files(
-    ["workspace_status.sh"],
-    visibility = ["//:__subpackages__"],
-)

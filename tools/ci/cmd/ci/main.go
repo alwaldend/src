@@ -8,7 +8,7 @@ import (
 	"os/exec"
 	"path/filepath"
 
-	"git.alwaldend.com/alwaldend/src/tools/ci/pkg/workspaces"
+	"git.alwaldend.com/alwaldend/src/tools/rules_al/pkg/workspaces"
 )
 
 type commandRunner func(directory string, arguments ...string) error
@@ -37,7 +37,7 @@ func main() {
 		os.Exit(1)
 	}
 	run := func(directory string, arguments ...string) error {
-		cmd := exec.Command("bazel_agent", arguments...)
+		cmd := exec.Command("al", arguments...)
 		cmd.Dir = directory
 		cmd.Stdin, cmd.Stdout, cmd.Stderr = os.Stdin, os.Stdout, os.Stderr
 		return cmd.Run()

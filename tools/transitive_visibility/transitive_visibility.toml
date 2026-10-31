@@ -9,7 +9,6 @@
 "third_party" = "//third_party:transitive_consumers"
 "tools" = "//tools:transitive_consumers"
 "tools/bazel_configs" = "//tools:build_api_consumers"
-"tools/git/rules" = "//tools:build_api_consumers"
 "tools/helm/rules" = "//tools:build_api_consumers"
 "tools/kt" = "//tools:build_api_consumers"
 "tools/nogo" = "//tools:build_api_consumers"

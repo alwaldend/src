@@ -27,7 +27,6 @@ _ROOT_TOOLS = [
     "tomlv",
     "stylua",
     "buildifier",
-    "release",
 ]
 
 docs_filegroup(
@@ -44,13 +43,14 @@ al_bzlenv_binary(
     tools = {
         "gopackagesdriver": "//tools/sh/internal/scripts:gopackagesdriver",
         "bazel": "//tools/sh/internal/scripts:bazel",
-        "al": "//projects/al/cmd/al",
+        "al": "@rules_al//cmd/al:al",
         "blender": "//third_party/org_blender_blender:blender",
         "buf": "//third_party/build_buf_buf:buf",
         "dnscontrol": "//third_party/com_github_stackexchange_dnscontrol:dnscontrol",
         "hugo": "//third_party/io_gohugo_hugo:hugo",
         "minisign": "//third_party/com_github_jedisct1_minisign:minisign",
         "oras": "//third_party/land_oras_oras:oras",
+        "release": "@rules_al//:al",
         "shellcheck": "//third_party/com_github_koalaman_shellcheck:shellcheck",
         "taplo": "//third_party/com_github_tamasfe_taplo:taplo",
     } | {

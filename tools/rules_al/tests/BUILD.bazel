@@ -1,0 +1,53 @@
+load("@bazel_skylib//rules:build_test.bzl", "build_test")
+load("@rules_go//go:def.bzl", "go_test")
+load("//:defs.bzl", "release", "release_bundle", "release_files")
+
+release_files(
+    name = "payloads",
+    srcs = ["payload.txt"],
+)
+
+release_bundle(
+    name = "bundle",
+    project = "projects/fixture",
+    status_file = "status.txt",
+    deps = [":payloads"],
+)
+
+release_bundle(
+    name = "development_bundle",
+    project = "projects/fixture",
+    deps = [":payloads"],
+)
+
+release(
+    name = "page",
+    srcs = [":payloads"],
+    project = "projects/fixture",
+    release_name = "fixture",
+)
+
+build_test(
+    name = "rules_test",
+    targets = [
+        ":bundle",
+        ":page",
+    ],
+)
+
+go_test(
+    name = "bundle_test",
+    srcs = [
+        "bundle_test.go",
+        "doc.go",
+    ],
+    data = [
+        ":bundle",
+        ":development_bundle",
+    ],
+    env = {
+        "BUNDLE_PATH": "$(rlocationpath :bundle)",
+        "DEVELOPMENT_BUNDLE_PATH": "$(rlocationpath :development_bundle)",
+    },
+    deps = ["@rules_go//go/runfiles"],
+)

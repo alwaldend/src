@@ -95,18 +95,18 @@ independently of these saved colors.
 Run from the repository root:
 
 ```sh
-bazel_agent bazel build //projects/alwaldend.com:site
-bazel_agent bazel test //projects/alwaldend.com:site_test
-bazel_agent bazel test //projects/alwaldend.com/test/mermaid:mermaid_test \
+al bazel build //projects/alwaldend.com:site
+al bazel test //projects/alwaldend.com:site_test
+al bazel test //projects/alwaldend.com/test/mermaid:mermaid_test \
   //projects/alwaldend.com/test/mermaid:readability_test \
   //projects/alwaldend.com/test/search:search_test
-bazel_agent bazel run //projects/alwaldend.com:site_serve
+al bazel run //projects/alwaldend.com:site_serve
 ```
 
 The preview serves the local build at http://127.0.0.1:1313.
 
 Build the site's dependency diagram with
-`bazel_agent bazel build //projects/alwaldend.com:deps_dark_webp` for a dark
+`al bazel build //projects/alwaldend.com:deps_dark_webp` for a dark
 WebP, or `:deps_webp` for light. The companion
 `:deps_mermaid` and `:deps_svg` targets expose Mermaid and light/dark SVG
 outputs. This overview analyzes `:site` at depth eight, reaching content
@@ -227,10 +227,12 @@ The tag index wraps its items, and `/404.html` offers links back to the site.
 
 ## Deployment
 
-Build a portable website release bundle from the repository root:
+Prepare a clean nightly or release version using the
+[release workflow](../../tools/rules_al/README.md), then build a portable website
+release bundle from the repository root:
 
 ```sh
-tools/versioning/cmd/versioning/versioning.sh bazel -- \
+tools/rules_al/cmd/al/al.sh version bazel -- \
   build --config=release //projects/alwaldend.com:release
 ```
 
@@ -246,25 +248,25 @@ it does not connect to a host or publish anything.
 With repository Vault authentication available, publish the bundle to XCP-ng:
 
 ```sh
-bazel_agent bazel run //infra/download:publish.local -- \
+al bazel run //infra/download:publish.local -- \
   --release_dir "$PWD/bazel-bin/projects/alwaldend.com/release" \
   --site_archive website.tar.gz --steps upload,extract,link
 ```
 
-After local verification, use `//infra/download:sync.yandex` to replace public
-content from local. The wrappers inject short-lived SSH credentials and strict
-host trust. Publication uses the release tool; synchronization runs the download
-component's Ansible playbook. See the [release tool](../../tools/release/README.md)
-for identity/configuration overrides and independently selecting upload,
-extraction, or linking. The manifest version selects both the public archive
-directory and the extracted site release; linking selects the main website.
-Use a new version for changed local content: duplicate artifact or extracted
-site versions fail without changes. Public sync overwrites matching versions.
-Selecting a new site removes older extracted versions and retains every
-downloadable archive. Rollback re-extracts and selects an earlier archive.
-Development `0.0.0-dev` is suitable for the first local
-deployment; subsequent releases should use distinct versions from the
-[versioning workflow](../../tools/versioning/README.md).
+After local verification, use `//infra/download:sync.yandex` to mirror local
+content to the public host. The wrappers inject short-lived SSH credentials and
+strict host trust. AL owns immutable publication; synchronization is the download
+component's explicit authoritative Ansible operation. See
+[AL release procedures](../../tools/rules_al/README.md) for destination overrides
+and independent upload, extraction, and activation steps.
+
+The manifest version selects both the archive and extracted site. Identical
+publication retries verify existing bytes. Changed content requires a new version
+or explicit deletion of an inactive release. Activation retains earlier sites;
+roll back with their manifest and `--steps link`. Development `0.0.0-dev` bundles
+can be inspected, but publication requires a nightly or release version even for
+the first local deployment. Follow the
+[versioning workflow](../../tools/rules_al/README.md#prepare-source).
 
 The bundle is intentionally separate from the generated release documentation:
 including the website archive in its own documentation would create a build
@@ -279,7 +281,7 @@ cycle. The Pages commands below remain available during the staged migration.
 - Deploy to the Github Pages repo (the `pages` branch of
   `alwaldend/alwaldend.github.io`, which GitHub Pages serves):
   ```sh
-  tools/versioning/cmd/versioning/versioning.sh bazel -- \
+  tools/rules_al/cmd/al/al.sh version bazel -- \
     run --config=release //projects/alwaldend.com:deploy
   ```
   The deploy script clones the `pages` branch, replaces its contents with the

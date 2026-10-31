@@ -16,8 +16,8 @@ address, active interfaces, routing, and every applicable firewall zone.
 ## Inspect without changing the host
 
 Find the owner's SSH target in its README and BUILD declarations, then confirm
-the label with a bounded `bazel_agent bazel query` when uncertain. Run it with
-`bazel_agent bazel run //<owner>:ssh -- '<read-only command>'`; names may have
+the label with a bounded `al bazel query` when uncertain. Run it with
+`al bazel run //<owner>:ssh -- '<read-only command>'`; names may have
 environment suffixes, such as `//infra/download:ssh.local`. XCP-ng provides
 `//infra/xcp_ng:ssh`. Inspect the actual target before running it: a target
 named `inspect` can include writable probes and is not inherently read-only.

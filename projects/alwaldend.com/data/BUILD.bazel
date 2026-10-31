@@ -14,8 +14,8 @@ pkg_filegroup(
 
 pkg_files(
     name = "git_info",
-    srcs = ["//tools/git:git_info"],
-    renames = {"//tools/git:git_info": "git_info.json"},
+    srcs = ["@rules_al//:git_info"],
+    renames = {"@rules_al//:git_info": "git_info.json"},
 )
 
 docs_filegroup(

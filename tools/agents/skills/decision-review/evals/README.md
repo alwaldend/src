@@ -27,7 +27,7 @@ The target is excluded from ordinary test runs; run it only when live,
 credentialed evaluation is intended:
 
 ```sh
-bazel_agent bazel test //tools/agents/skills/decision-review:eval \
+al bazel test //tools/agents/skills/decision-review:eval \
   //tools/agents/skills/decision-review:eval_routing \
   --test_env=CODEX_HOME=/absolute/path/to/.codex \
   --test_env=CODEX_PATH_OVERRIDE=/absolute/path/to/codex

@@ -21,7 +21,7 @@ From the repository root, create an output directory and generate an icon:
 
 ```sh
 mkdir -p out/icon_generator
-bazel_agent bazel run //projects/icon_generator -- \
+al bazel run //projects/icon_generator -- \
   --width 256 --height 256 \
   --background '#f5f1e8' \
   --colors '#223843,#d77a61,#e3b23c' \
@@ -33,7 +33,7 @@ bazel_agent bazel run //projects/icon_generator -- \
 For circles on a transparent background:
 
 ```sh
-bazel_agent bazel run //projects/icon_generator -- \
+al bazel run //projects/icon_generator -- \
   --background transparent \
   --colors '#223843,#d77a61,#e3b23c' \
   --pixel-shape circle --seed 42 \
@@ -49,7 +49,7 @@ while keeping the same number of occupied cells, also select
 `--clusterization-algorithm strands`. Sparse densities leave more room for open gaps:
 
 ```sh
-bazel_agent bazel run //projects/icon_generator -- \
+al bazel run //projects/icon_generator -- \
   --width 512 --height 512 \
   --background '#212121' --colors '#ffffff' \
   --pixel-size 16 --pixel-shape circle \
@@ -60,7 +60,7 @@ bazel_agent bazel run //projects/icon_generator -- \
 For replication from a sparse initial population of individual white pixels:
 
 ```sh
-bazel_agent bazel run //projects/icon_generator -- \
+al bazel run //projects/icon_generator -- \
   --width 1024 --height 1024 \
   --background '#212121' --colors '#ffffff' \
   --pixel-size 1 --pixel-shape square \
@@ -72,7 +72,7 @@ bazel_agent bazel run //projects/icon_generator -- \
   --seed 42 --output "$PWD/out/icon_generator/replication.png"
 ```
 
-Build the executable with `bazel_agent bazel build //projects/icon_generator`.
+Build the executable with `al bazel build //projects/icon_generator`.
 It can also run directly, without Bazel or other programs on `PATH`:
 
 ```sh
@@ -84,7 +84,7 @@ start with a much sparser population. Density 0.00015 gives about 157 starting
 cells on a 1024-square, one-pixel grid:
 
 ```sh
-bazel_agent bazel run //projects/icon_generator -- \
+al bazel run //projects/icon_generator -- \
   --width 1024 --height 1024 \
   --background '#212121' --colors '#ffffff' \
   --pixel-size 1 --pixel-shape square \
@@ -244,7 +244,7 @@ and a bounded per-root branch frontier. Encoding and the Go runtime use addition
 ## Verification
 
 ```sh
-bazel_agent bazel test //projects/icon_generator:test
+al bazel test //projects/icon_generator:test
 ```
 
 The end-to-end suite runs the built command with an empty `PATH`, decodes

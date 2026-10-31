@@ -8,7 +8,7 @@ import (
 	"strings"
 	"testing"
 
-	"git.alwaldend.com/alwaldend/src/projects/al/pkg/lifecycle"
+	"git.alwaldend.com/alwaldend/src/tools/rules_al/pkg/lifecycle"
 	"git.alwaldend.com/alwaldend/src/tools/vault/pve_login/pve_login_proto"
 )
 

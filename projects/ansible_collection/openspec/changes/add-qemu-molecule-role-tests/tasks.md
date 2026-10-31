@@ -57,7 +57,7 @@
       inspect representative retained artifacts, and run affected semantic lint,
       collection packaging, OpenSpec validation, and repository quality gates.
       Record actual results and unresolved environmental failures separately.
-- [ ] 5.4 Review the final scope, commit and publish through repo-delivery,
+- [ ] 5.4 Review the final scope, commit and publish through al-delivery,
       and archive this change only after implementation acceptance is complete.
       Verify publication receipts, retained evidence links, and cross-change links
       after either change is archived.

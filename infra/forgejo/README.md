@@ -71,8 +71,8 @@ redirects can otherwise make connections fail. Router redirect policy and stale
 client route caches must be resolved before relying on LAN access.
 
 ```sh
-bazel_agent bazel run //infra/forgejo/tf_setup:tf_setup.apply
-bazel_agent bazel run //infra/forgejo/ansible:ansible -- --skip-tags traefik,forgejo,forgejo_oidc
-bazel_agent bazel run //infra/forgejo/ansible:ansible -- --tags traefik,forgejo,forgejo_oidc
-bazel_agent bazel run //infra/forgejo/tf:tf.apply
+al bazel run //infra/forgejo/tf_setup:tf_setup.apply
+al bazel run //infra/forgejo/ansible:ansible -- --skip-tags traefik,forgejo,forgejo_oidc
+al bazel run //infra/forgejo/ansible:ansible -- --tags traefik,forgejo,forgejo_oidc
+al bazel run //infra/forgejo/tf:tf.apply
 ```

@@ -172,7 +172,7 @@ env VAULT_SKIP_VERIFY=true \
   ANSIBLE_SSH_COMMON_ARGS="-o StrictHostKeyChecking=yes \
 -o HostKeyAlias=host1.vault.alwaldend.com \
 -o UserKnownHostsFile=\"${vault_recovery_dir}/ssh_known_hosts\"" \
-  bazel_agent bazel run //infra/vault/ansible:ansible -- \
+  al bazel run //infra/vault/ansible:ansible -- \
   --limit host1.vault.alwaldend.com --tags vault_tls
 ```
 
@@ -181,7 +181,7 @@ component's AppRole login. If that token has expired, connect the login YubiKey
 and refresh it first:
 
 ```sh
-bazel_agent bazel run //tools/vault/login -- simeonwarren --insecure
+al bazel run //tools/vault/login -- simeonwarren --insecure
 ```
 
 This login replaces the host token. Stop if it fails; a missing YubiKey cannot
@@ -195,7 +195,7 @@ modify the host's SSH configuration; do not replace it with an unverified
 After renewal, verify Vault with certificate validation enabled:
 
 ```sh
-env -u VAULT_SKIP_VERIFY bazel_agent bazel run //:vault.status
+env -u VAULT_SKIP_VERIFY al bazel run //:vault.status
 ```
 
 For renewal before expiry, omit `VAULT_SKIP_VERIFY=true` from the Ansible

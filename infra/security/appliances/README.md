@@ -33,7 +33,7 @@ umask 077
 mkdir -p out/security/appliances/tmp
 TMPDIR="$PWD/out/security/appliances/tmp" \
 ANSIBLE_LOCAL_TEMP="$PWD/out/security/appliances/tmp" \
-  bazel_agent bazel run //infra/security/appliances:ansible -- \
+  al bazel run //infra/security/appliances:ansible -- \
   --extra-vars "appliance_report_directory=$PWD/out/security/appliances"
 ```
 

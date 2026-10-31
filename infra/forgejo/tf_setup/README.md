@@ -43,8 +43,8 @@ was removed without issuing a destroy. This package now uses only XO.
 There is no cross-provider state move or data restoration in this package.
 
 ```sh
-bazel_agent bazel run //infra/forgejo/tf_setup:tf_setup.plan
-bazel_agent bazel run //infra/forgejo/tf_setup:tf_setup.apply
+al bazel run //infra/forgejo/tf_setup:tf_setup.plan
+al bazel run //infra/forgejo/tf_setup:tf_setup.apply
 ```
 
 Use this package's `dns.plan`, `dns.show`, and `dns.apply` targets for the

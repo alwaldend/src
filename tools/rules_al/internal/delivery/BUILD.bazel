@@ -1,0 +1,40 @@
+load("@rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "go_lib",
+    srcs = [
+        "command.go",
+        "deliver.go",
+        "delivery.go",
+        "doc.go",
+        "forge.go",
+        "git.go",
+        "github.go",
+        "rebase.go",
+        "receipt.go",
+        "review.go",
+        "review_address.go",
+        "runner.go",
+        "validation.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/tools/rules_al/internal/delivery",
+    visibility = ["//:__subpackages__"],
+    deps = ["@com_github_spf13_cobra//:cobra"],
+)
+
+go_test(
+    name = "go_test",
+    size = "medium",
+    srcs = [
+        "delivery_integration_test.go",
+        "delivery_test.go",
+        "git_integration_test.go",
+        "github_test.go",
+        "receipt_test.go",
+        "review_address_test.go",
+        "review_test.go",
+        "runner_test.go",
+        "validation_test.go",
+    ],
+    embed = [":go_lib"],
+)

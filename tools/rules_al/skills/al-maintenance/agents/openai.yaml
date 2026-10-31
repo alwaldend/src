@@ -1,0 +1,4 @@
+interface:
+  display_name: "AL Maintenance"
+  short_description: "Refresh repository metadata through owning generators"
+  default_prompt: "Use $al-maintenance to update repository-generated metadata through its owner."

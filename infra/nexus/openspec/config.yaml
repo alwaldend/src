@@ -8,5 +8,5 @@ context: |
   proposal records the agreed scope. Keep reusable database contracts with
   the Ansible collection owner before changing its PostgreSQL role.
   Specifications describe desired checked-in behavior, not deployed state.
-  Use the repository-pinned OpenSpec CLI through bazel_agent.
+  Use the repository-pinned OpenSpec CLI through al bazel.
   Planning does not authorize implementation or live infrastructure operations.

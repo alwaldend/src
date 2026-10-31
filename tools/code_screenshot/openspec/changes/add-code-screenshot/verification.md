@@ -2,7 +2,7 @@
 
 The command-level E2E test produced light and dark PNGs with literal markup, a long line, and 60 indented lines. It also rejected invalid theme, scale, unknown flags, and a missing source. A standalone dark capture was visually inspected. The OpenSpec strict check passed. The revised numbered, wrapped capture passed the E2E test, repository quality suite, and affected-target semantic lint. Its compact dark PNG was visually inspected.
 
-Final candidate checks and publication are recorded by repo-delivery under ignored out/code_screenshot. No source content is passed to an interpreter; textContent inserts it into a JavaScript-disabled page.
+Final candidate checks and publication are recorded by al-delivery under ignored out/code_screenshot. No source content is passed to an interpreter; textContent inserts it into a JavaScript-disabled page.
 
 ## Session ergonomics
 

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Release Versioning"
+  short_description: "Calculate and create global nightly and weekly releases"
+  default_prompt: "Use $al-versioning to inspect or perform this repository versioning workflow safely."

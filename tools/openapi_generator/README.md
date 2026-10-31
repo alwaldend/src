@@ -8,8 +8,8 @@ The JAR and integrity pin belong to
 [`third_party/org_openapitools_openapi_generator`](../../third_party/org_openapitools_openapi_generator/README.md).
 
 ```sh
-bazel_agent bazel run //tools/openapi_generator -- version
-bazel_agent bazel run //tools/openapi_generator -- help generate
+al bazel run //tools/openapi_generator -- version
+al bazel run //tools/openapi_generator -- help generate
 ```
 
 `openapi_generate` in `defs.bzl` declares the schema and configuration as inputs
@@ -24,5 +24,5 @@ printing a message for every generated file. Request `--output_groups=logs`
 on the generation target to materialize the complete upstream log, for example:
 
 ```sh
-bazel_agent bazel build --output_groups=logs //internal/x_sdk:generated_client
+al bazel build --output_groups=logs //internal/x_sdk:generated_client
 ```

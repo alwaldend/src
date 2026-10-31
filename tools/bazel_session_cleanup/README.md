@@ -36,7 +36,7 @@ sessions. Resuming a cleaned session rebuilds its outputs normally.
 
 The hook uses shell because it must run from a fresh checkout without first
 building a helper. It invokes Bazel directly to supply the startup lock flag,
-which `bazel_agent` does not currently accept. Tests replace Git, systemd, and
+which `al bazel` does not currently accept. Tests replace Git, systemd, and
 Bazel with fixtures and never clean real caches.
 
 Codex's `SessionEnd` hook is synchronous even with `async: true` and permits

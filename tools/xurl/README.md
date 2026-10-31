@@ -12,8 +12,8 @@ integrity pin belong to
 The current toolchain supports Linux x86-64.
 
 ```sh
-bazel_agent bazel run //tools/xurl -- version
-bazel_agent bazel run //tools/xurl -- --help
+al bazel run //tools/xurl -- version
+al bazel run //tools/xurl -- --help
 ```
 
 xurl uses its native `~/.xurl/auth.yml` credential store. Startup can create or

@@ -63,13 +63,13 @@ archive with the current CLI:
 mkdir -p "$PWD/out/anki-refresh"
 cp /absolute/path/collection-20261017235526.colpkg \
   "$PWD/out/anki-refresh/collection-state-bound.colpkg"
-bazel_agent bazel run //projects/anki_as_code -- col state update \
+al bazel run //projects/anki_as_code -- col state update \
   --collection "$PWD/out/anki-refresh/collection-state-bound.colpkg" \
   "$PWD/users/simeonwarren/anki/state.anki.toml"
-bazel_agent bazel run //projects/anki_as_code -- col plan \
+al bazel run //projects/anki_as_code -- col plan \
   --collection "$PWD/out/anki-refresh/collection-state-bound.colpkg" \
   --text "$PWD/users/simeonwarren/anki"
-bazel_agent bazel run //projects/anki_as_code -- col build \
+al bazel run //projects/anki_as_code -- col build \
   --base "$PWD/out/anki-refresh/collection-state-bound.colpkg" \
   --text "$PWD/users/simeonwarren/anki" \
   --output "$PWD/out/anki-refresh/collection-organized.colpkg"

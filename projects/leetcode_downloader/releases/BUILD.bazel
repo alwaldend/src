@@ -1,6 +1,6 @@
+load("@rules_al//:defs.bzl", "release_bundle", "release_files")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("//tools/release/rules:al_release.bzl", "al_release")
-load("//tools/release/rules:al_release_files.bzl", "al_release_files")
+load("//projects/alwaldend.com/pkg/release_pages:defs.bzl", "release_page")
 
 package(transitive_visibility = "//projects:transitive_consumers")
 
@@ -13,7 +13,7 @@ docs_filegroup(
     ],
 )
 
-al_release_files(
+release_files(
     name = "files",
     srcs = [
         # do not sort
@@ -21,10 +21,10 @@ al_release_files(
         "//projects/leetcode_downloader/cmd/download_submissions",
         "//projects/leetcode_downloader/cmd/leetcode_downloader:go_crossbinary",
     ],
-    deployments = ["//tools/release:deployment"],
+    deployments = ["//projects:release_deployment"],
 )
 
-al_release(
+release_page(
     name = "head",
     srcs = [
         ":files",
@@ -32,4 +32,12 @@ al_release(
     project = "projects/leetcode_downloader",
     release_name = "head",
     visibility = ["//projects:__pkg__"],
+)
+
+# Build this project independently with the shared release bootstrap.
+release_bundle(
+    name = "bundle",
+    project = "projects/leetcode_downloader",
+    visibility = ["//:__subpackages__"],
+    deps = [":files"],
 )

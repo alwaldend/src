@@ -11,7 +11,7 @@ import (
 
 	"golang.org/x/term"
 
-	"git.alwaldend.com/alwaldend/src/projects/al/pkg/al"
+	"git.alwaldend.com/alwaldend/src/tools/rules_al/pkg/al"
 )
 
 var vaultFlag = flag.String("vault", "", "Vault binary")

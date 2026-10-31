@@ -1,5 +1,5 @@
+load("@rules_al//:defs.bzl", "release_binary", "release_deployment")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("//tools/release/rules:al_release_binary.bzl", "al_release_binary")
 
 package(transitive_visibility = "//projects:transitive_consumers")
 
@@ -26,7 +26,7 @@ docs_filegroup(
     ],
 )
 
-al_release_binary(
+release_binary(
     name = "deploy_heads",
     srcs = [
         "//projects/{}/releases:head".format(package)
@@ -39,7 +39,6 @@ al_release_binary(
                 "alwaldend.com",
                 "ansible_collection",
                 "bazel_registry",
-                "bazel_agent",
                 "bazel_deps_analyzer",
                 "bazel_gazelle_enforce_transitive_visibility",
                 "goal",
@@ -52,4 +51,10 @@ al_release_binary(
             ],
         )
     ] + [],
+)
+
+release_deployment(
+    name = "release_deployment",
+    oci_repository = "docker.io/alwaldend/src",
+    visibility = ["//visibility:public"],
 )

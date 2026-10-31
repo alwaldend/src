@@ -1,0 +1,56 @@
+load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load(":al_toolchain.bzl", "al_toolchain")
+load(":al_toolchain_resolved.bzl", "al_toolchain_resolved")
+load(":git_toolchain.bzl", "git_resolved_toolchain")
+
+bzl_library(
+    name = "rules",
+    srcs = glob(["*.bzl"]),
+    visibility = ["//visibility:public"],
+    deps = [
+        "@bazel_lib//lib:stamping",
+        "@bazel_skylib//lib:shell",
+        "@rules_pkg//pkg:bzl_srcs",
+    ],
+)
+
+toolchain_type(
+    name = "git_toolchain_type",
+    visibility = ["//visibility:public"],
+)
+
+git_resolved_toolchain(
+    name = "git_toolchain_resolved",
+    visibility = ["//visibility:public"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    prefix = "content/docs/tools/rules_al/rules",
+    visibility = ["//visibility:public"],
+)
+
+toolchain_type(
+    name = "al_toolchain_type",
+    visibility = ["//visibility:public"],
+)
+
+al_toolchain(
+    name = "al_toolchain_impl",
+    al = "//cmd/al:al",
+    visibility = ["//visibility:public"],
+)
+
+toolchain(
+    name = "al_toolchain_registration",
+    toolchain = ":al_toolchain_impl",
+    toolchain_type = ":al_toolchain_type",
+    visibility = ["//visibility:public"],
+)
+
+al_toolchain_resolved(
+    name = "al_toolchain_resolved",
+    visibility = ["//visibility:public"],
+)

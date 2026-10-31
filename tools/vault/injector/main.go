@@ -7,9 +7,9 @@ import (
 	"syscall"
 	"time"
 
-	"git.alwaldend.com/alwaldend/src/projects/al/pkg/al"
-	"git.alwaldend.com/alwaldend/src/projects/al/pkg/al_plugin"
-	"git.alwaldend.com/alwaldend/src/projects/al/pkg/lifecycle"
+	"git.alwaldend.com/alwaldend/src/tools/rules_al/pkg/al"
+	"git.alwaldend.com/alwaldend/src/tools/rules_al/pkg/al_plugin"
+	"git.alwaldend.com/alwaldend/src/tools/rules_al/pkg/lifecycle"
 )
 
 func run(ctx *al.CmdCtx) error {
