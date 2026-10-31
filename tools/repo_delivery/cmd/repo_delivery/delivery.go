@@ -2606,32 +2606,41 @@ func (d *delivery) publishWithReceiptTransaction(
 			return nil, err
 		}
 	}
+	// Retain the observed publication even when final verification cannot finish.
+	// Verified stays false until every existing candidate and review gate passes.
+	result = &publishReport{
+		Status:        "publication_verification_pending",
+		HeadOID:       currentHead,
+		TreeOID:       currentTree,
+		RemoteHeadOID: currentHead,
+		PullRequest:   pullRequest,
+	}
 	if err := receiptTransaction.requireCurrent(ctx); err != nil {
-		return nil, fmt.Errorf(
+		return result, fmt.Errorf(
 			"final preparation receipt gate: %w",
 			err,
 		)
 	}
 	verified, err := d.verify(ctx, &receipt)
 	if err != nil {
-		return nil, err
+		return result, fmt.Errorf("publication completed; final verification pending: %w", err)
 	}
 	if verified.Inspection.LocalHeadOID != currentHead ||
 		verified.Inspection.LocalTreeOID != currentTree ||
 		verified.Inspection.RemoteHeadOID != currentHead {
-		return nil, fmt.Errorf(
+		return result, fmt.Errorf(
 			"final verification did not describe the exact validated candidate",
 		)
 	}
 	if !options.NoPullRequest &&
 		(pullRequest == nil || verified.Inspection.PullRequest == nil ||
 			verified.Inspection.PullRequest.ID != pullRequest.ID) {
-		return nil, fmt.Errorf(
+		return result, fmt.Errorf(
 			"final verification selected a different pull request",
 		)
 	}
 	if err := receiptTransaction.requireCurrent(ctx); err != nil {
-		return nil, fmt.Errorf(
+		return result, fmt.Errorf(
 			"post-verification preparation receipt gate: %w",
 			err,
 		)

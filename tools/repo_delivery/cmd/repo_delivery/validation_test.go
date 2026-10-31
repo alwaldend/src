@@ -150,6 +150,55 @@ func TestValidationAndContinuation(t *testing.T) {
 	}
 }
 
+// TestCombinedValidationPublication exercises the prepared Git candidate through
+// checks and publication, including refusal when a selected check fails.
+func TestCombinedValidationPublication(t *testing.T) {
+	for _, fail := range []bool{false, true} {
+		t.Run(map[bool]string{false: "passing", true: "failed"}[fail], func(t *testing.T) {
+			fixture, prepared, runner, _ := newValidationFixture(t)
+			runner.fail = fail
+			report, err := fixture.delivery.validateAndPublishCandidate(context.Background(), testValidationReceipt, testValidationPlan, false)
+			if fail {
+				if err == nil || fixture.forge.pull != nil {
+					t.Fatalf("failed checks published: report %#v, error %v", report, err)
+				}
+				return
+			}
+			if err != nil || report.Status != "verified" || report.Publication == nil || report.Publication.HeadOID != prepared.HeadOID || len(runner.checks) != 3 {
+				t.Fatalf("combined execution = %#v, %v; checks %d", report, err, len(runner.checks))
+			}
+		})
+	}
+}
+
+// TestPublicationRetainsEvidenceAfterReviewFailure exercises a completed push
+// followed by a failed review read and verification-only recovery.
+func TestPublicationRetainsEvidenceAfterReviewFailure(t *testing.T) {
+	fixture, prepared, runner, _ := newValidationFixture(t)
+	requireValidated(t, fixture)
+	fixture.forge.reviewError = errGitHubReviewEpochAdvanced
+	report, err := fixture.delivery.continueCandidate(context.Background(), testValidationReceipt, true, false)
+	if !errors.Is(err, errGitHubReviewEpochAdvanced) || report == nil || report.Publication == nil {
+		t.Fatalf("review failure lost publication: %#v, %v", report, err)
+	}
+	publication := report.Publication
+	if publication.Status != "publication_verification_pending" || publication.Verified || publication.HeadOID != prepared.HeadOID || publication.RemoteHeadOID != prepared.HeadOID || publication.PullRequest == nil || publication.PullRequest.URL == "" {
+		t.Fatalf("incomplete publication evidence = %#v", publication)
+	}
+	remoteBefore := runTestGit(t, fixture.work, "ls-remote", "origin", "refs/heads/feature")
+	fixture.forge.reviewError = nil
+	verified, err := fixture.delivery.continueCandidate(context.Background(), testValidationReceipt, false, false)
+	if err != nil || verified.Status != "verified" || len(runner.checks) != 3 {
+		t.Fatalf("verification-only recovery = %#v, %v; checks %d", verified, err, len(runner.checks))
+	}
+	if remoteAfter := runTestGit(t, fixture.work, "ls-remote", "origin", "refs/heads/feature"); remoteAfter != remoteBefore {
+		t.Fatal("verification changed the remote feature ref")
+	}
+	if _, err := fixture.delivery.continueCandidate(context.Background(), testValidationReceipt, true, false); err == nil {
+		t.Fatal("recovery permitted repeated publication")
+	}
+}
+
 func TestValidationPlanRefusesUnsafeOrIncompleteChecks(t *testing.T) {
 	fixture, prepared, _, plan := newValidationFixture(t)
 	for _, test := range []struct {
@@ -400,5 +449,15 @@ func TestContinuationDoesNotRepeatPartialPublication(t *testing.T) {
 	}
 	if _, err := fixture.delivery.continueCandidate(context.Background(), testValidationReceipt, false, false); err != nil {
 		t.Fatal(err)
+	}
+}
+
+// TestValidationRequiresExplicitPublication rejects git-only mode before opening
+// a repository when publication has not been requested.
+func TestValidationRequiresExplicitPublication(t *testing.T) {
+	command := newValidateCommand(context.Background(), &deliveryConfig{}, os.Getenv, nil, nil)
+	command.SetArgs([]string{"--receipt-file", testValidationReceipt, "--plan-file", testValidationPlan, "--no-pull-request"})
+	if err := command.Execute(); err == nil || !strings.Contains(err.Error(), "--no-pull-request requires --publish") {
+		t.Fatalf("git-only validation error = %v", err)
 	}
 }

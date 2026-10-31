@@ -58,8 +58,16 @@ in-scope blockers and tiny related defects, and report other findings.
   including trivial edits, documentation, configuration, and dependency changes.
   Reuse a matching active change and keep artifacts proportional to the scope.
   Read-only questions and reviews do not require a change record.
-- Every authorized change follows delivery: validate, commit, push, and offer a
-  pull request through `repo-delivery` unless the user withholds publication.
+- A request to change this repository authorizes the complete delivery workflow:
+  validate, commit, push the task-owned feature branch, and create or update its
+  pull request through `repo-delivery`, unless the user withholds publication.
+  This standing authorization explicitly includes sending reviewed task-owned
+  source, documentation, and configuration to this repository's configured Git
+  origin and forge, `github.com/alwaldend/src`. Do not ask again solely because
+  that destination is external. Verify repository identity and task ownership,
+  preserve secret-handling and validation requirements, and ask before using a
+  different destination. This authorizes neither merging nor deployment and
+  does not override an automatic approval rejection.
 
 ## When to load a skill
 

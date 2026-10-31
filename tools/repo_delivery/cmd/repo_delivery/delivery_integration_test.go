@@ -13,6 +13,8 @@ import (
 )
 
 type integrationForge struct {
+	// reviewError simulates an unavailable or concurrently changing review inventory.
+	reviewError                      error
 	name                             string
 	remote                           string
 	repository                       remoteRepository
@@ -44,6 +46,9 @@ func (f *integrationForge) InspectReviews(
 	remoteRepository,
 	pullRequest,
 ) (*reviewInspection, error) {
+	if f.reviewError != nil {
+		return nil, f.reviewError
+	}
 	return &reviewInspection{}, nil
 }
 

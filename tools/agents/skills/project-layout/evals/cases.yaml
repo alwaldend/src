@@ -71,3 +71,19 @@
         Pass only if the response keeps the dependency definitions and examples
         within the standalone module, explaining that depending on the main
         module would break its independent build boundary.
+
+- description: Establishes source ownership before generated SDK scaffolding
+  vars:
+    request: >-
+      Add a repository-only SDK generated from an upstream schema. The schema
+      snapshot must be maintained in source; the generated client is consumed
+      only by Bazel targets. Should I check in the generated client and add a
+      public product landing page? Explain the placement decision.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Identifies the schema snapshot and handwritten integration as maintained
+        inputs, keeps the generated client as a declared Bazel output, and
+        establishes repository-only consumers before choosing placement.
+        Does not infer a public product or landing page from SDK generation.

@@ -87,9 +87,7 @@ bazel_agent bazel run //tools/repo_delivery -- prepare \
 # For an explicitly reviewed task-owned multi-commit range, use
 # --consolidate <inspect.local_head_oid> instead of --rewrite.
 out/task/repo_delivery validate \
-  --receipt-file out/task/prepare.json --plan-file out/task/checks.json
-out/task/repo_delivery continue \
-  --receipt-file out/task/prepare.json --publish
+  --receipt-file out/task/prepare.json --plan-file out/task/checks.json --publish
 out/task/repo_delivery continue \
   --receipt-file out/task/prepare.json
 ```
@@ -134,6 +132,13 @@ with exactly one `{ "path": "...", "reason": "..." }` decision. The caller
 still selects sufficient consumer checks and verifies representative output.
 
 `validate` runs aggregate `git diff --check` first, then the selected checks.
+Use `validate --publish` to run checks and guarded publication in one inherited
+process environment. Failed validation stops before publication. This avoids
+incidental environment differences between separate agent tool calls without
+relaxing the environment guard. `--no-pull-request` requires `--publish`.
+Plain `validate` still records checks without publishing; use separate
+`continue --publish` when a separate publication decision is needed and the
+execution environment is unchanged.
 It requires a fully clean worktree and ordinary index flags before and after
 checks. It records exact head/tree, preparation revision, plan bytes, inherited
 environment digest, check outcomes, and log digests beside the receipt, using
@@ -156,6 +161,14 @@ remains `publication_attempted`; further continuation only verifies its remote
 postcondition and never blindly repeats a push or metadata mutation. Diagnose
 an incomplete result before using the existing manual recovery API. A new
 validation run cannot reset an uncertain attempt for the same candidate.
+
+If push and PR synchronization complete but final verification fails, the
+publication report returns `publication_verification_pending`, the known
+candidate and PR identity, and `verified: false`, alongside the error. This
+is publication evidence, not proof that the final review gates passed. Link
+the returned PR and run `continue --receipt-file <path>` without `--publish`
+to resume verification only. Do not rerun checks or rediscover the PR solely
+because the review inventory changed during the final read.
 
 `prepare` derives `affected_bazel_labels` from the prepared aggregate changed
 paths, selecting each nearest non-root Bazel package. It never infers `//:all`
