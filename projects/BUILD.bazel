@@ -15,8 +15,15 @@ docs_filegroup(
     deps = subpackages(
         include = ["*"],
         allow_empty = True,
-        exclude = ["bazel_gazelle_enforce_transitive_visibility"],
-    ) + ["@bazel_gazelle_enforce_transitive_visibility//:docs"],
+        exclude = [
+            "bazel_gazelle_enforce_transitive_visibility",
+            "rules_trufflehog",
+        ],
+    ) + [
+        "//tools/trufflehog:project_diagram",
+        "@bazel_gazelle_enforce_transitive_visibility//:docs",
+        "@rules_trufflehog//:docs",
+    ],
 )
 
 al_release_binary(
@@ -39,6 +46,7 @@ al_release_binary(
                 "icon_generator",
                 "useless_qt_gui",
                 "renders",
+                "rules_trufflehog",
                 "x_article_uploader",
                 "x_profile_cleaner",
             ],

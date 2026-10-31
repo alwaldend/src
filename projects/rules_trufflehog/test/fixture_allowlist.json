@@ -1,0 +1,12 @@
+{
+    "schema": "trufflehog_allowlist/v1",
+    "findings": [
+        {
+            "detector": "URI",
+            "path": "fixture.txt",
+            "commit": "0000000000000000000000000000000000000000",
+            "line": 1,
+            "reason": "Synthetic rule fixture"
+        }
+    ]
+}

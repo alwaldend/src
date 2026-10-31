@@ -1,0 +1,6 @@
+schema: spec-driven
+
+context: |
+  This workspace owns rules_trufflehog, a standalone Bazel rules module and
+  scan-only finding-allowlist wrapper. Use the pinned Bazel runner and
+  preserve original local scan output. User requests own action authority.

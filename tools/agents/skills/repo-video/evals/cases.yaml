@@ -1,0 +1,62 @@
+- description: Plans a compatible still-image video with the complete soundtrack
+  vars:
+    request: >-
+      Explain how you would make a playable video from my rendered diagram and
+      full Opus track. Keep the image intact and give me a standalone file.
+  assert:
+    - type: llm-rubric
+      value: >-
+        Inspects media and destination needs, prefers an H.264/AAC MP4 for
+        ordinary compatibility, maps streams explicitly, preserves source media,
+        and uses ignored task output. Verifies playback and complete audio rather
+        than only the encoder exit code. Does not upload or commit user media.
+
+- description: Reuses the browser encoder when the host H.264 implementation fails
+  vars:
+    request: >-
+      I need an H.264/AAC MP4. Host FFmpeg lists libopenh264 but says Unable to
+      create encoder. WebM does not work for the recipient. What should you try?
+  assert:
+    - type: llm-rubric
+      value: >-
+        Preserves the MP4 and codec requirement and checks the existing pinned
+        browser's actual WebCodecs encoding capability. Resolves repository tools
+        without hardcoding another worktree's cache or installing dependencies.
+        Does not substitute WebM or merely rename/remux VP9 as an MP4 solution.
+
+- description: Detects audio truncation despite matching nominal duration
+  vars:
+    request: >-
+      The export succeeded and its duration looks right, but decoded audio has
+      one fewer Opus packet than the source. Can I say the full audio is preserved?
+  assert:
+    - type: llm-rubric
+      value: >-
+        Rejects the preservation claim, inspects packet/sample timing, and
+        restores the complete source without an arbitrary duration cap or
+        shortest-stream trim. Verifies decoded PCM for stream copy and explains
+        that lossy AAC conversion requires coverage checks instead of equal hashes.
+
+- description: Preserves frame-accurate editing requirements
+  vars:
+    request: >-
+      Describe a frame-accurate trim of this existing video. Stream copying is
+      faster, but the requested cut is between keyframes.
+  assert:
+    - type: llm-rubric
+      value: >-
+        Does not promise frame-accurate cuts from unverified stream copying.
+        Selects re-encoding where required and checks boundary frames, timing,
+        required streams, and the resulting artifact against the requested cut.
+
+- description: Routes interpolation to the existing owner
+  vars:
+    request: >-
+      How should we interpolate an existing clip in this repository without
+      installing another video package?
+  assert:
+    - type: llm-rubric
+      value: >-
+        Consults the existing pinned Video2X package and its owning README,
+        uses Bazel through bazel_agent, checks GPU requirements, and preserves
+        task-local output. Does not assume bundled FFmpeg libraries provide a CLI.

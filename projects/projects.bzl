@@ -24,6 +24,7 @@ PROJECTS = [
     "mcp_cordis",
     "nexus_security_plugin",
     "renders",
+    "rules_trufflehog",
     "sri",
     "tf_modules",
     "useless_qt_gui",
@@ -33,4 +34,5 @@ PROJECTS = [
 # Standalone modules expose their landing content through their Bzlmod name.
 PROJECT_MODULES = {
     "bazel_gazelle_enforce_transitive_visibility": "bazel_gazelle_enforce_transitive_visibility",
+    "rules_trufflehog": "rules_trufflehog",
 }

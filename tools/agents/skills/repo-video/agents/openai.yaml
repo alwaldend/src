@@ -1,0 +1,4 @@
+interface:
+  display_name: "Repository Video"
+  short_description: "Create and verify repository video artifacts"
+  default_prompt: "Use $repo-video to create or edit this video and verify the resulting media against its inputs."

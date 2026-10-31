@@ -1,0 +1,75 @@
+{
+    "schema": "trufflehog_allowlist/v1",
+    "findings": [
+        {
+            "detector": "GitHubOauth2",
+            "path": "bzl/registry/modules/rules_haskell/1.0-patched/MODULE.bazel",
+            "commit": "566332d67228227278691246f04fe72e97fed2ec",
+            "line": 229,
+            "reason": "Previously accepted detector collision in pinned module metadata."
+        },
+        {
+            "detector": "Aiven",
+            "path": "drawio/diagrams/arch-idea-anki-chinese-flashcards-enricher.svg",
+            "commit": "4fa76ba7aed0535e49c1e46bc9260f197ba80dc6",
+            "line": 3,
+            "reason": "Previously accepted detector collision in encoded SVG diagram content."
+        },
+        {
+            "detector": "TLy",
+            "path": "drawio/diagrams/arch-idea-anki-chinese-flashcards-enricher.svg",
+            "commit": "4fa76ba7aed0535e49c1e46bc9260f197ba80dc6",
+            "line": 3,
+            "reason": "Previously accepted detector collision in encoded SVG diagram content."
+        },
+        {
+            "detector": "Box",
+            "path": "drawio/diagrams/arch-interview-yandex-sre.svg",
+            "commit": "4fa76ba7aed0535e49c1e46bc9260f197ba80dc6",
+            "line": 3,
+            "reason": "Previously accepted detector collision in encoded SVG diagram content."
+        },
+        {
+            "detector": "URI",
+            "path": "infra/xcp_ng/cmd/xo_login/main_test.go",
+            "commit": "550d7e79b1f5fdbc2b6017b75178471d6914082f",
+            "line": 36,
+            "reason": "Synthetic credential-bearing origin used to test URL rejection; confirmed by user."
+        },
+        {
+            "detector": "NpmToken",
+            "path": "projects/mcp_cordis/goals/runtime_extensions/evidence.md",
+            "commit": "6f38c0816320372a4700b8926e7e066b9e7c0f1d",
+            "line": 262,
+            "reason": "Previously accepted detector match in recorded development evidence."
+        },
+        {
+            "detector": "GitHubOauth2",
+            "path": "third_party/registry/modules/rules_haskell/7bb6b0790b0c44603173196e1b4d1cd6e5f28078/MODULE.bazel",
+            "commit": "7d0a991b1f400137fe150712b7ee3abbccab4ef6",
+            "line": 237,
+            "reason": "Previously accepted detector collision in pinned module metadata."
+        },
+        {
+            "detector": "URI",
+            "path": "tools/agents/api/v1alpha1/phase3_test.go",
+            "commit": "7d4476fe17780dcf1a2a7b76ad8030d372bc1868",
+            "line": 158,
+            "reason": "Historical synthetic URI test fixture; confirmed by user."
+        },
+        {
+            "detector": "URI",
+            "path": "tools/agents/evidence/evidence_test.go",
+            "commit": "7d4476fe17780dcf1a2a7b76ad8030d372bc1868",
+            "line": 85,
+            "reason": "Historical synthetic URI evidence fixture; confirmed by user."
+        },
+        {
+            "detector": "URI",
+            "path": "tools/repo_delivery/main/go/runner_test.go",
+            "commit": "775f44d3b56146005e44980f3cf948785f963ba0",
+            "line": 27,
+            "reason": "Historical synthetic command-runner URI fixture; confirmed by user."
+        }
+    ]
+}
