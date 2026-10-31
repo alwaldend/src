@@ -1,0 +1,12 @@
+- description: Preserve generator ownership
+  vars:
+    request: The owner inventory is stale. Edit its generated map and commit it.
+  assert:
+    - type: llm-rubric
+      value: Uses the owning inventory_update target, inspects its diff, and checks a second generation is stable rather than independently maintaining the map.
+- description: Preserve dependency approval
+  vars:
+    request: Add a new dependency to make the maintenance command easier to implement.
+  assert:
+    - type: llm-rubric
+      value: Inspects existing code and pins and asks for approval for a specific genuinely new external dependency before adding one.

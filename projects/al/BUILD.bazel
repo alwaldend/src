@@ -1,21 +1,52 @@
+load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-
-package(transitive_visibility = "//projects:transitive_consumers")
-
-docs_filegroup(
-    name = "docs",
-    srcs = glob(["*.md"]),
-    visibility = [
-        "//projects:__pkg__",
-    ],
-    deps = [
-        "//projects/al/docs",
-        "//projects/al/rules:docs",
-    ],
-)
+load("//:defs.bzl", "al_git_binary")
 
 alias(
     name = "al",
-    actual = "//projects/al/cmd/al",
-    visibility = ["//:__subpackages__"],
+    actual = "//cmd/al:al",
+    visibility = ["//visibility:public"],
 )
+
+al_git_binary(
+    name = "git",
+    visibility = ["//visibility:public"],
+)
+
+bzl_library(
+    name = "defs",
+    srcs = ["defs.bzl"],
+    visibility = ["//visibility:public"],
+    deps = ["//rules"],
+)
+
+bzl_library(
+    name = "extensions",
+    srcs = ["extensions.bzl"],
+    visibility = ["//visibility:public"],
+    deps = ["//rules"],
+)
+
+exports_files(
+    [
+        "defs.bzl",
+        "extensions.bzl",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    prefix = "content/docs/projects/al",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//api:docs",
+        "//docs",
+        "//internal/release:docs",
+        "//openspec:docs",
+        "//rules:docs",
+    ],
+)
+
+exports_files(["agent_operations.json"])

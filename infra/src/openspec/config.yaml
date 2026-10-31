@@ -7,8 +7,8 @@ context: |
   its shared structure, build system and development workflows. Each project
   and infrastructure component owns a separate openspec/ workspace beside
   its source. Keep component requirements and changes with that owner.
-  Root and nested Bazel workspaces share the bazel_agent runner. Use the
-  repository-pinned OpenSpec CLI through bazel_agent bazel run //tools/openspec.
+  Root and nested Bazel workspaces share the AL Bazel runner. Use the
+  repository-pinned OpenSpec CLI through al bazel run //tools/openspec.
   User requests own outcome and authority. Specs and plans do not authorize
   deployment, infrastructure mutation, publication, or new scope. Continue
   actions already authorized by the task; no additional approval ceremony.

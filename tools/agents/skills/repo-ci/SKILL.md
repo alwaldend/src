@@ -48,7 +48,7 @@ All repository CI workflows use the local action backed by `//tools/ci`. Extend 
 of adding a second implementation. Runner acceptance probes are separate
 infrastructure verification and do not belong in normal repository CI. Package
 its inputs and dependencies through Bazel so local verification exercises the
-same code as CI. Use `repo-bazel` and `bazel-agent` for target changes and agent
+same code as CI. Use `repo-bazel` and `al-bazel` for target changes and agent
 invocations. Read the current BUILD file before choosing validation commands.
 
 ## Preserve authentication and execution boundaries
@@ -74,4 +74,4 @@ changes. Distinguish source validation from a live CI result.
 For an authorized live check, record the tested commit, source tree, run URL,
 and outcome. This skill grants no deployment, protected-branch publication, or
 credential-mutation authority. Preserve existing authorization and use
-`repo-delivery` for publication and review.
+`al-delivery` for publication and review.

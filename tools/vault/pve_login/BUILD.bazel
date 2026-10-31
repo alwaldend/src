@@ -27,11 +27,11 @@ go_library(
     visibility = ["//:__subpackages__"],
     deps = [
         ":pve_login_proto",
-        "//projects/al/api/al_proto",
-        "//projects/al/pkg/al",
-        "//projects/al/pkg/al_plugin",
-        "//projects/al/pkg/lifecycle",
         "@com_github_google_uuid//:uuid",
+        "@rules_al//api/al_proto",
+        "@rules_al//pkg/al",
+        "@rules_al//pkg/al_plugin",
+        "@rules_al//pkg/lifecycle",
     ],
 )
 
@@ -95,6 +95,6 @@ go_test(
     embed = [":pve_login_lib"],
     deps = [
         ":pve_login_proto",
-        "//projects/al/pkg/lifecycle",
+        "@rules_al//pkg/lifecycle",
     ],
 )

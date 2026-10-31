@@ -144,7 +144,7 @@ style preferences, and confirm findings through relevant tests or call sites.
 
 ### Requirement: Select maintained work before implementation
 
-The repo-workspace and repo-openspec procedures SHALL apply the repository's
+The al-workspace and al-openspec procedures SHALL apply the repository's
 AGENTS.md requirement to select or create an owner-local OpenSpec change for
 all repository modifications, including trivial changes. They SHALL preserve
 existing authority and keep artifacts proportional to the requested work.
@@ -159,7 +159,7 @@ existing authority and keep artifacts proportional to the requested work.
 
 ### Requirement: Repository OpenSpec integration
 
-The repo-openspec skill SHALL define owner selection, pinned
+The al-openspec skill SHALL define owner selection, pinned
 CLI invocation, and maintained-work conventions, and SHALL route operation
 procedures to the discoverable upstream OpenSpec skills. It SHALL NOT independently
 maintain generic create, apply, specification-writing, or archive procedures.

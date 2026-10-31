@@ -15,8 +15,8 @@
         of tools/bazelrc/bzl_project.bazelrc; declares
         only required dependencies and public docs; adds the parent bazel_dep
         and local override, .bazelignore entry,
-        tools docs integration and full-repo-check
-        workspace; updates locks through bazel_agent; runs applicable Gazelle
+        tools docs integration and al-checks
+        workspace; updates locks through bazel; runs applicable Gazelle
         generation twice and reviews its diff; and tests and builds the nested
         module plus focused parent integration and Buildifier checks. Otherwise
         fail. It must not add a dedicated landing site, DNS record, or Pages
@@ -54,14 +54,15 @@
     request: >-
       A nested Bazel module needs a workspace-specific validation aspect.
       Should I replace its shared .bazelrc symlink with a standalone config
-      containing my own agent profile and build settings?
+      containing my own build settings and agent output defaults?
   assert:
     - type: llm-rubric
       threshold: 1
       value: >-
         Pass only if the response requires a regular .bazelrc inheriting the
         repository's shared configuration through a single import of
-        tools/bazelrc/bzl_project.bazelrc, retains the shared agent profile,
-        and adds only the module-specific aspect flags before that import so
-        the wrapper's user override remains last. It must reject copying
-        shared settings or duplicating the wrapper's imports. Otherwise fail.
+        tools/bazelrc/bzl_project.bazelrc, keeps account-specific agent output
+        defaults in the user configuration, and adds only the module-specific
+        aspect flags before that import so its workspace user override
+        remains last. It must reject copying shared settings or duplicating
+        the shared imports. Otherwise fail.

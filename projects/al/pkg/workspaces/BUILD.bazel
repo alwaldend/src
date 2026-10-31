@@ -1,0 +1,11 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "workspaces",
+    srcs = [
+        "doc.go",
+        "workspaces.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/al/pkg/workspaces",
+    visibility = ["//visibility:public"],
+)

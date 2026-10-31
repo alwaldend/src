@@ -37,10 +37,10 @@
         group: "{{ dev_vm_bazel_group }}"
         force: true
 
-    - name: Install Bazel agent runner
+    - name: Install AL repository tool
       ansible.builtin.copy:
-        src: "{{ dev_vm_bazel_agent_src }}"
-        dest: "{{ dev_vm_bazel_home }}/.local/bin/bazel_agent"
+        src: "{{ dev_vm_al_src }}"
+        dest: "{{ dev_vm_bazel_home }}/.local/bin/al"
         owner: "{{ dev_vm_bazel_user }}"
         group: "{{ dev_vm_bazel_group }}"
         mode: "0755"

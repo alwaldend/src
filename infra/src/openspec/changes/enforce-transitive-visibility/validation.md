@@ -4,7 +4,7 @@ The plugin is a standalone Gazelle language using the existing Gazelle 0.53.0
 and rules_go 0.60.0 dependencies. The repository remains pinned to Bazel 9.3.1;
 all first-party module compatibility declarations now require that baseline.
 
-- Standalone `bazel_agent bazel test //...`: passed. The actual Gazelle binaries
+- Standalone `al bazel test //...`: passed. The actual Gazelle binaries
   exercise inheritance, overrides, relative labels, malformed directives,
   attribute/comment preservation, new Go packages, workspace boundaries, and
   repeat generation. Generated fixtures are retained in test undeclared outputs.
@@ -48,7 +48,7 @@ Gazelle. Analysis observations:
 | `//projects/indirect:artifact` through bridge with local policy  | Reject   | **Allow** |
 | Same indirect consumer after removing only bridge package policy | Reject   | Reject    |
 
-Commands use `bazel_agent bazel build --nobuild <consumer>`. Raw fixture BUILD
+Commands use `al bazel build --nobuild <consumer>`. Raw fixture BUILD
 files, logs, and `enforcement-results.json` are under the ignored task directory
 `out/transitive-visibility/`. The failed indirect assertion remains a validation
 gap; it is not converted into a passing test.
@@ -92,41 +92,41 @@ corrected after the root build analysis; focused validation must check it again.
 | root      | test  | Normal `//...` test expansion              | JVM SIGSEGV before tests ran                                            | Retry after server restart; no host configuration changes                                               | `root.test.log`, server `jvm.out`                   |
 
 The matrix below is copied from the checker's report. Logs remain local under
-`out/full-repo-check/run.1566079259/logs/`. Normal `//...` excludes manual and
+`out/al-checks/run.1566079259/logs/`. Normal `//...` excludes manual and
 incompatible targets and does not enable optional configurations such as Harbor.
 
-| Workspace                                            | Phase | Command                         | Result         | Duration | Log                                                                                                                                          |
-| ---------------------------------------------------- | ----- | ------------------------------- | -------------- | -------: | -------------------------------------------------------------------------------------------------------------------------------------------- |
-| root                                                 | build | `bazel_agent bazel build //...` | FAIL (exit 1)  |  1172.8s | [logs/root.build.log](logs/root.build.log)                                                                                                   |
-| root                                                 | test  | `bazel_agent bazel test //...`  | FAIL (exit 37) |    26.9s | [logs/root.test.log](logs/root.test.log)                                                                                                     |
-| projects/bazel_gazelle_enforce_transitive_visibility | build | `bazel_agent bazel build //...` | PASS (exit 0)  |     0.6s | [logs/projects__bazel_gazelle_enforce_transitive_visibility.build.log](logs/projects__bazel_gazelle_enforce_transitive_visibility.build.log) |
-| projects/bazel_gazelle_enforce_transitive_visibility | test  | `bazel_agent bazel test //...`  | PASS (exit 0)  |     0.3s | [logs/projects__bazel_gazelle_enforce_transitive_visibility.test.log](logs/projects__bazel_gazelle_enforce_transitive_visibility.test.log)   |
-| tools/rules_binary_toolchain                         | build | `bazel_agent bazel build //...` | PASS (exit 0)  |     1.9s | [logs/tools__rules_binary_toolchain.build.log](logs/tools__rules_binary_toolchain.build.log)                                                 |
-| tools/rules_binary_toolchain                         | test  | `bazel_agent bazel test //...`  | PASS (exit 0)  |     0.3s | [logs/tools__rules_binary_toolchain.test.log](logs/tools__rules_binary_toolchain.test.log)                                                   |
-| tools/rules_docs                                     | build | `bazel_agent bazel build //...` | PASS (exit 0)  |     1.1s | [logs/tools__rules_docs.build.log](logs/tools__rules_docs.build.log)                                                                         |
-| tools/rules_docs                                     | test  | `bazel_agent bazel test //...`  | PASS (exit 0)  |     0.3s | [logs/tools__rules_docs.test.log](logs/tools__rules_docs.test.log)                                                                           |
-| tools/rules_docs_gazelle                             | build | `bazel_agent bazel build //...` | PASS (exit 0)  |    13.4s | [logs/tools__rules_docs_gazelle.build.log](logs/tools__rules_docs_gazelle.build.log)                                                         |
-| tools/rules_docs_gazelle                             | test  | `bazel_agent bazel test //...`  | PASS (exit 0)  |     0.4s | [logs/tools__rules_docs_gazelle.test.log](logs/tools__rules_docs_gazelle.test.log)                                                           |
-| tools/rules_dnscontrol                               | build | `bazel_agent bazel build //...` | PASS (exit 0)  |     1.2s | [logs/tools__rules_dnscontrol.build.log](logs/tools__rules_dnscontrol.build.log)                                                             |
-| tools/rules_dnscontrol                               | test  | `bazel_agent bazel test //...`  | PASS (exit 0)  |     0.3s | [logs/tools__rules_dnscontrol.test.log](logs/tools__rules_dnscontrol.test.log)                                                               |
-| tools/rules_hugo                                     | build | `bazel_agent bazel build //...` | PASS (exit 0)  |    20.5s | [logs/tools__rules_hugo.build.log](logs/tools__rules_hugo.build.log)                                                                         |
-| tools/rules_hugo                                     | test  | `bazel_agent bazel test //...`  | PASS (exit 0)  |     0.5s | [logs/tools__rules_hugo.test.log](logs/tools__rules_hugo.test.log)                                                                           |
-| tools/rules_iso                                      | build | `bazel_agent bazel build //...` | PASS (exit 0)  |     1.3s | [logs/tools__rules_iso.build.log](logs/tools__rules_iso.build.log)                                                                           |
-| tools/rules_iso                                      | test  | `bazel_agent bazel test //...`  | PASS (exit 0)  |     0.3s | [logs/tools__rules_iso.test.log](logs/tools__rules_iso.test.log)                                                                             |
-| tools/rules_openspec                                 | build | `bazel_agent bazel build //...` | PASS (exit 0)  |     4.6s | [logs/tools__rules_openspec.build.log](logs/tools__rules_openspec.build.log)                                                                 |
-| tools/rules_openspec                                 | test  | `bazel_agent bazel test //...`  | PASS (exit 0)  |     0.3s | [logs/tools__rules_openspec.test.log](logs/tools__rules_openspec.test.log)                                                                   |
-| tools/rules_promptfoo                                | build | `bazel_agent bazel build //...` | PASS (exit 0)  |    16.9s | [logs/tools__rules_promptfoo.build.log](logs/tools__rules_promptfoo.build.log)                                                               |
-| tools/rules_promptfoo                                | test  | `bazel_agent bazel test //...`  | PASS (exit 0)  |     0.6s | [logs/tools__rules_promptfoo.test.log](logs/tools__rules_promptfoo.test.log)                                                                 |
-| tools/rules_promptfoo_gazelle                        | build | `bazel_agent bazel build //...` | PASS (exit 0)  |    13.2s | [logs/tools__rules_promptfoo_gazelle.build.log](logs/tools__rules_promptfoo_gazelle.build.log)                                               |
-| tools/rules_promptfoo_gazelle                        | test  | `bazel_agent bazel test //...`  | PASS (exit 0)  |     1.9s | [logs/tools__rules_promptfoo_gazelle.test.log](logs/tools__rules_promptfoo_gazelle.test.log)                                                 |
-| tools/rules_skills                                   | build | `bazel_agent bazel build //...` | PASS (exit 0)  |    14.7s | [logs/tools__rules_skills.build.log](logs/tools__rules_skills.build.log)                                                                     |
-| tools/rules_skills                                   | test  | `bazel_agent bazel test //...`  | PASS (exit 0)  |     1.0s | [logs/tools__rules_skills.test.log](logs/tools__rules_skills.test.log)                                                                       |
-| tools/rules_skill_gazelle                            | build | `bazel_agent bazel build //...` | PASS (exit 0)  |    15.4s | [logs/tools__rules_skill_gazelle.build.log](logs/tools__rules_skill_gazelle.build.log)                                                       |
-| tools/rules_skill_gazelle                            | test  | `bazel_agent bazel test //...`  | PASS (exit 0)  |     0.5s | [logs/tools__rules_skill_gazelle.test.log](logs/tools__rules_skill_gazelle.test.log)                                                         |
-| tools/rules_template                                 | build | `bazel_agent bazel build //...` | PASS (exit 0)  |    13.5s | [logs/tools__rules_template.build.log](logs/tools__rules_template.build.log)                                                                 |
-| tools/rules_template                                 | test  | `bazel_agent bazel test //...`  | PASS (exit 0)  |     0.5s | [logs/tools__rules_template.test.log](logs/tools__rules_template.test.log)                                                                   |
-| tools/rules_terraform                                | build | `bazel_agent bazel build //...` | PASS (exit 0)  |     2.6s | [logs/tools__rules_terraform.build.log](logs/tools__rules_terraform.build.log)                                                               |
-| tools/rules_terraform                                | test  | `bazel_agent bazel test //...`  | PASS (exit 0)  |     0.5s | [logs/tools__rules_terraform.test.log](logs/tools__rules_terraform.test.log)                                                                 |
+| Workspace                                            | Phase | Command                | Result         | Duration | Log                                                                                                                                          |
+| ---------------------------------------------------- | ----- | ---------------------- | -------------- | -------: | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| root                                                 | build | `al bazel build //...` | FAIL (exit 1)  |  1172.8s | [logs/root.build.log](logs/root.build.log)                                                                                                   |
+| root                                                 | test  | `al bazel test //...`  | FAIL (exit 37) |    26.9s | [logs/root.test.log](logs/root.test.log)                                                                                                     |
+| projects/bazel_gazelle_enforce_transitive_visibility | build | `al bazel build //...` | PASS (exit 0)  |     0.6s | [logs/projects__bazel_gazelle_enforce_transitive_visibility.build.log](logs/projects__bazel_gazelle_enforce_transitive_visibility.build.log) |
+| projects/bazel_gazelle_enforce_transitive_visibility | test  | `al bazel test //...`  | PASS (exit 0)  |     0.3s | [logs/projects__bazel_gazelle_enforce_transitive_visibility.test.log](logs/projects__bazel_gazelle_enforce_transitive_visibility.test.log)   |
+| tools/rules_binary_toolchain                         | build | `al bazel build //...` | PASS (exit 0)  |     1.9s | [logs/tools__rules_binary_toolchain.build.log](logs/tools__rules_binary_toolchain.build.log)                                                 |
+| tools/rules_binary_toolchain                         | test  | `al bazel test //...`  | PASS (exit 0)  |     0.3s | [logs/tools__rules_binary_toolchain.test.log](logs/tools__rules_binary_toolchain.test.log)                                                   |
+| tools/rules_docs                                     | build | `al bazel build //...` | PASS (exit 0)  |     1.1s | [logs/tools__rules_docs.build.log](logs/tools__rules_docs.build.log)                                                                         |
+| tools/rules_docs                                     | test  | `al bazel test //...`  | PASS (exit 0)  |     0.3s | [logs/tools__rules_docs.test.log](logs/tools__rules_docs.test.log)                                                                           |
+| tools/rules_docs_gazelle                             | build | `al bazel build //...` | PASS (exit 0)  |    13.4s | [logs/tools__rules_docs_gazelle.build.log](logs/tools__rules_docs_gazelle.build.log)                                                         |
+| tools/rules_docs_gazelle                             | test  | `al bazel test //...`  | PASS (exit 0)  |     0.4s | [logs/tools__rules_docs_gazelle.test.log](logs/tools__rules_docs_gazelle.test.log)                                                           |
+| tools/rules_dnscontrol                               | build | `al bazel build //...` | PASS (exit 0)  |     1.2s | [logs/tools__rules_dnscontrol.build.log](logs/tools__rules_dnscontrol.build.log)                                                             |
+| tools/rules_dnscontrol                               | test  | `al bazel test //...`  | PASS (exit 0)  |     0.3s | [logs/tools__rules_dnscontrol.test.log](logs/tools__rules_dnscontrol.test.log)                                                               |
+| tools/rules_hugo                                     | build | `al bazel build //...` | PASS (exit 0)  |    20.5s | [logs/tools__rules_hugo.build.log](logs/tools__rules_hugo.build.log)                                                                         |
+| tools/rules_hugo                                     | test  | `al bazel test //...`  | PASS (exit 0)  |     0.5s | [logs/tools__rules_hugo.test.log](logs/tools__rules_hugo.test.log)                                                                           |
+| tools/rules_iso                                      | build | `al bazel build //...` | PASS (exit 0)  |     1.3s | [logs/tools__rules_iso.build.log](logs/tools__rules_iso.build.log)                                                                           |
+| tools/rules_iso                                      | test  | `al bazel test //...`  | PASS (exit 0)  |     0.3s | [logs/tools__rules_iso.test.log](logs/tools__rules_iso.test.log)                                                                             |
+| tools/rules_openspec                                 | build | `al bazel build //...` | PASS (exit 0)  |     4.6s | [logs/tools__rules_openspec.build.log](logs/tools__rules_openspec.build.log)                                                                 |
+| tools/rules_openspec                                 | test  | `al bazel test //...`  | PASS (exit 0)  |     0.3s | [logs/tools__rules_openspec.test.log](logs/tools__rules_openspec.test.log)                                                                   |
+| tools/rules_promptfoo                                | build | `al bazel build //...` | PASS (exit 0)  |    16.9s | [logs/tools__rules_promptfoo.build.log](logs/tools__rules_promptfoo.build.log)                                                               |
+| tools/rules_promptfoo                                | test  | `al bazel test //...`  | PASS (exit 0)  |     0.6s | [logs/tools__rules_promptfoo.test.log](logs/tools__rules_promptfoo.test.log)                                                                 |
+| tools/rules_promptfoo_gazelle                        | build | `al bazel build //...` | PASS (exit 0)  |    13.2s | [logs/tools__rules_promptfoo_gazelle.build.log](logs/tools__rules_promptfoo_gazelle.build.log)                                               |
+| tools/rules_promptfoo_gazelle                        | test  | `al bazel test //...`  | PASS (exit 0)  |     1.9s | [logs/tools__rules_promptfoo_gazelle.test.log](logs/tools__rules_promptfoo_gazelle.test.log)                                                 |
+| tools/rules_skills                                   | build | `al bazel build //...` | PASS (exit 0)  |    14.7s | [logs/tools__rules_skills.build.log](logs/tools__rules_skills.build.log)                                                                     |
+| tools/rules_skills                                   | test  | `al bazel test //...`  | PASS (exit 0)  |     1.0s | [logs/tools__rules_skills.test.log](logs/tools__rules_skills.test.log)                                                                       |
+| tools/rules_skill_gazelle                            | build | `al bazel build //...` | PASS (exit 0)  |    15.4s | [logs/tools__rules_skill_gazelle.build.log](logs/tools__rules_skill_gazelle.build.log)                                                       |
+| tools/rules_skill_gazelle                            | test  | `al bazel test //...`  | PASS (exit 0)  |     0.5s | [logs/tools__rules_skill_gazelle.test.log](logs/tools__rules_skill_gazelle.test.log)                                                         |
+| tools/rules_template                                 | build | `al bazel build //...` | PASS (exit 0)  |    13.5s | [logs/tools__rules_template.build.log](logs/tools__rules_template.build.log)                                                                 |
+| tools/rules_template                                 | test  | `al bazel test //...`  | PASS (exit 0)  |     0.5s | [logs/tools__rules_template.test.log](logs/tools__rules_template.test.log)                                                                   |
+| tools/rules_terraform                                | build | `al bazel build //...` | PASS (exit 0)  |     2.6s | [logs/tools__rules_terraform.build.log](logs/tools__rules_terraform.build.log)                                                               |
+| tools/rules_terraform                                | test  | `al bazel test //...`  | PASS (exit 0)  |     0.5s | [logs/tools__rules_terraform.test.log](logs/tools__rules_terraform.test.log)                                                                 |
 
 ## Public certificate ownership follow-up
 
@@ -139,8 +139,8 @@ blocks. No live Terraform or Vault operation ran.
 
 On 2026-10-28, before the new refresh roots were implemented:
 
-- `bazel_agent bazel query 'filter("^//infra/", deps(//projects/ansible_collection:collections))'` passed with no targets.
-- `bazel_agent bazel build //projects/ansible_collection:collections //infra/forgejo/ansible:ansible_bin //infra/ingress/ansible:ansible_bin //infra/vault/ansible:ansible_bin //infra/download:al` passed.
+- `al bazel query 'filter("^//infra/", deps(//projects/ansible_collection:collections))'` passed with no targets.
+- `al bazel build //projects/ansible_collection:collections //infra/forgejo/ansible:ansible_bin //infra/ingress/ansible:ansible_bin //infra/vault/ansible:ansible_bin //infra/download:al` passed.
 - All four Kustomize certificate references resolve to the data-owned PKI snapshot.
 
 The repeatable commands, build log, query output, and original file hashes are

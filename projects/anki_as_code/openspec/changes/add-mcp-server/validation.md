@@ -72,7 +72,7 @@ under each CLI test's `test.outputs` directory. They contain public fixture
 data. Reproduce the dedicated acceptance cases with:
 
 ```sh
-bazel_agent bazel test --repo_contents_cache= \
+al bazel test --repo_contents_cache= \
   //projects/anki_as_code/cmd/anki_as_code:cli_workflow_test \
   --test_filter=TestMCP --test_output=errors
 ```

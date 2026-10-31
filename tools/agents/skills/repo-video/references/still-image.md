@@ -7,7 +7,7 @@ static video. Ensure the chosen pixel format supports the dimensions without
 silently cropping the image.
 
 Set absolute `video_image`, `video_audio`, and `video_out` paths for the task.
-Create task-local temporary storage through `repo-workspace`. The following
+Create task-local temporary storage through `al-workspace`. The following
 example assumes a usable `libx264` encoder; if it is absent or fails, use
 [the existing browser encoder](browser-avc.md).
 

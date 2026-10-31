@@ -3,5 +3,5 @@ schema: spec-driven
 context: |
   This workspace owns the repository integration of the upstream Video2X executable.
   The dependency pin and Bazel targets belong to third_party/com_github_k4yt3x_video2x.
-  Follow AGENTS.md and the repo-external-dependency, repo-bazel, and bazel-agent skills.
+  Follow AGENTS.md and the repo-external-dependency, repo-bazel, and al-bazel skills.
   Keep upstream executable/model bytes out of tracked source.

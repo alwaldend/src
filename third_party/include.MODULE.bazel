@@ -39,7 +39,7 @@ bazel_dep(name = "contrib_rules_jvm", version = "0.32.0")
 # Own the default Maven repository so the protobuf and grpc-java dependency
 # contributions are resolved and pinned together.
 # Update maven_install.json with:
-# REPIN=1 bazel run --config=agent @maven//:pin
+# REPIN=1 bazel run @maven//:pin
 maven = use_extension("@rules_jvm_external//:extensions.bzl", "maven")
 maven.install(
     name = "maven",
@@ -170,3 +170,17 @@ local_path_override(
     module_name = "rules_skill_gazelle",
     path = "tools/rules_skill_gazelle",
 )
+
+bazel_dep(name = "rules_al", version = "0.0.0")
+local_path_override(
+    module_name = "rules_al",
+    path = "projects/al",
+)
+
+release_git = use_extension("@rules_al//:extensions.bzl", "git")
+release_git.local_git(name = "repository_git")
+use_repo(release_git, "repository_git")
+
+register_toolchains("@repository_git//:git_toolchain")
+
+register_toolchains("@rules_al//rules:al_toolchain_registration")

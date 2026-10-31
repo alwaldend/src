@@ -1,22 +1,6 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
 
 package(transitive_visibility = "//projects:transitive_consumers")
-
-pkg_filegroup(
-    name = "data",
-    srcs = [
-        ":git_info",
-    ],
-    prefix = "data",
-    visibility = ["//projects/alwaldend.com:__pkg__"],
-)
-
-pkg_files(
-    name = "git_info",
-    srcs = ["//tools/git:git_info"],
-    renames = {"//tools/git:git_info": "git_info.json"},
-)
 
 docs_filegroup(
     name = "docs",

@@ -1,5 +1,5 @@
+load("@rules_al//:defs.bzl", "al_release_binary", "al_release_deployment")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("//tools/release/rules:al_release_binary.bzl", "al_release_binary")
 
 package(transitive_visibility = "//projects:transitive_consumers")
 
@@ -16,12 +16,14 @@ docs_filegroup(
         include = ["*"],
         allow_empty = True,
         exclude = [
+            "al",
             "bazel_gazelle_enforce_transitive_visibility",
             "rules_trufflehog",
         ],
     ) + [
         "//tools/trufflehog:project_diagram",
         "@bazel_gazelle_enforce_transitive_visibility//:docs",
+        "@rules_al//:docs",
         "@rules_trufflehog//:docs",
     ],
 )
@@ -33,13 +35,13 @@ al_release_binary(
         for package in subpackages(
             include = ["*"],
             exclude = [
+                "al",
                 "anki_as_code",
                 "mcp_cordis",
                 "mlops_2026",
                 "alwaldend.com",
                 "ansible_collection",
                 "bazel_registry",
-                "bazel_agent",
                 "bazel_deps_analyzer",
                 "bazel_gazelle_enforce_transitive_visibility",
                 "goal",
@@ -53,4 +55,10 @@ al_release_binary(
             ],
         )
     ] + [],
+)
+
+al_release_deployment(
+    name = "release_deployment",
+    oci_repository = "docker.io/alwaldend/src",
+    visibility = ["//visibility:public"],
 )

@@ -1,22 +1,21 @@
 load("@rules_go//go:def.bzl", "go_library", "go_test")
 
-package(transitive_visibility = "//projects:transitive_consumers")
-
 go_library(
     name = "al_plugin",
     srcs = [
+        "doc.go",
         "iolistener.go",
         "manager.go",
         "plugin_client.go",
         "plugin_server.go",
     ],
     importpath = "git.alwaldend.com/alwaldend/src/projects/al/pkg/al_plugin",
-    visibility = ["//:__subpackages__"],
+    visibility = ["//visibility:public"],
     deps = [
-        "//projects/al/api/al_proto",
-        "//projects/al/pkg/al",
-        "//projects/al/pkg/fp",
-        "//projects/al/pkg/lifecycle",
+        "//api/al_proto",
+        "//pkg/al",
+        "//pkg/fp",
+        "//pkg/lifecycle",
         "@org_golang_google_grpc//:grpc",
         "@org_golang_google_grpc//credentials/insecure",
         "@org_golang_google_protobuf//proto",
@@ -33,9 +32,9 @@ go_test(
     ],
     embed = [":al_plugin"],
     deps = [
-        "//projects/al/api/al_proto",
-        "//projects/al/pkg/al",
-        "//projects/al/pkg/lifecycle",
+        "//api/al_proto",
+        "//pkg/al",
+        "//pkg/lifecycle",
         "@org_golang_google_grpc//:grpc",
         "@org_golang_google_grpc//credentials/insecure",
         "@rules_go//go/runfiles",

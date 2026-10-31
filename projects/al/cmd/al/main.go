@@ -6,11 +6,13 @@ import (
 	"os/signal"
 	"syscall"
 
+	"git.alwaldend.com/alwaldend/src/projects/al/internal/cli"
 	"git.alwaldend.com/alwaldend/src/projects/al/pkg/al"
 )
 
+// main owns process signals and delegates command execution to the CLI adapter.
 func main() {
 	ctx, cancel := signal.NotifyContext(context.Background(), syscall.SIGINT, syscall.SIGTERM)
 	defer cancel()
-	os.Exit(Execute(al.NewCmdCtx(ctx, "com.alwaldend.src.projects.al.cmd.al ")))
+	os.Exit(cli.Execute(al.NewCmdCtx(ctx, "al: ")))
 }

@@ -1,10 +1,10 @@
 flowchart TB
-    subgraph publication[Publication · explicit environment]
+    subgraph publication[Publication · ENV is local or yandex]
         direction LR
-        upload[publish.local OR publish.yandex<br/>--steps upload<br/>rsync via SSH, sudo as download]
+        upload["//infra/download:publish.ENV<br/>Upload artifacts only<br/>rsync via SSH, sudo as download"]
         files[(projects/PROJECT/releases/VERSION<br/>Complete release becomes public atomically)]
-        extract[--steps extract --site_archive NAME<br/>Validate/extract on operator machine<br/>Stage and promote completed site]
-        link[--steps link<br/>Atomically select sites/PROJECT/current<br/>Remove older extracted versions; retain archives]
+        extract["//infra/download:website.extract.ENV<br/>--site_archive NAME · validate/extract locally<br/>Stage and promote completed site"]
+        link["//infra/download:website.activate.ENV<br/>Atomically select sites/PROJECT/current<br/>Retain earlier sites and archives for rollback"]
         upload --> files --> extract --> link
     end
     subgraph automatic[Automatic · each VM]
@@ -20,7 +20,7 @@ flowchart TB
     subgraph operator[Operator checks and recovery]
         direction LR
         health[ssh.local OR ssh.yandex<br/>Check services, timer, mount, free space<br/>Check DNS views, TLS, URLs, redirects]
-        recover[Site issue: re-extract a retained archive<br/>Then select it with --steps extract,link<br/>Config issue: reviewed IaC redeployment<br/>Capacity: reviewed manual retention cleanup]
+        recover[Site issue: select a retained version<br/>Use its bundle with website.activate.ENV<br/>Config issue: reviewed IaC redeployment<br/>Capacity: explicitly delete an inactive release]
         boundary[No backups, replication, or failover<br/>Lost content needs an external retained copy<br/>XCP-ng replacement needs a new storage workflow]
         health --> recover --> boundary
     end

@@ -12,7 +12,6 @@ PROJECTS = [
     "anki_grpc",
     "ansible_collection",
     "autoscroll",
-    "bazel_agent",
     "bazel_deps_analyzer",
     "bazel_gazelle_enforce_transitive_visibility",
     "ci_platform",
@@ -34,6 +33,7 @@ PROJECTS = [
 
 # Standalone modules expose their landing content through their Bzlmod name.
 PROJECT_MODULES = {
+    "al": "rules_al",
     "bazel_gazelle_enforce_transitive_visibility": "bazel_gazelle_enforce_transitive_visibility",
     "rules_trufflehog": "rules_trufflehog",
 }

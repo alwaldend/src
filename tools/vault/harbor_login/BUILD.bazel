@@ -27,10 +27,10 @@ go_library(
     visibility = ["//:__subpackages__"],
     deps = [
         ":harbor_login_proto",
-        "//projects/al/api/al_proto",
-        "//projects/al/pkg/al",
-        "//projects/al/pkg/al_plugin",
-        "//projects/al/pkg/lifecycle",
+        "@rules_al//api/al_proto",
+        "@rules_al//pkg/al",
+        "@rules_al//pkg/al_plugin",
+        "@rules_al//pkg/lifecycle",
     ],
 )
 
@@ -94,6 +94,6 @@ go_test(
     embed = [":harbor_login_lib"],
     deps = [
         ":harbor_login_proto",
-        "//projects/al/pkg/lifecycle",
+        "@rules_al//pkg/lifecycle",
     ],
 )

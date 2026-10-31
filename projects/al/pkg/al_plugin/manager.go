@@ -4,7 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"io"
+	"slices"
 	"strings"
 	"sync"
 
@@ -16,25 +16,35 @@ import (
 	"google.golang.org/protobuf/proto"
 )
 
+// pluginState retains one selected plugin and its configured calls.
 type pluginState struct {
+	// client owns the plugin process and RPC connection.
 	client *PluginClient
-	start  *al_proto.PluginStartResponse
+	// config is a private copy with selected calls appended.
 	config *al_proto.PluginConfig
-	calls  map[string]*al_proto.PluginCall
+	// calls prevents registering a selected call twice.
+	calls map[string]*al_proto.PluginCall
 }
 
+// Manager selects plugins and keeps their resources alive until consumers stop.
 type Manager struct {
-	config    *al_proto.Config
-	run       *runfiles.Runfiles
-	plugins   map[string]*pluginState
+	// config supplies the explicit plugin and call declarations.
+	config *al_proto.Config
+	// run resolves relative plugin executables when Bazel runtime files are available.
+	run *runfiles.Runfiles
+	// plugins records selected plugins by their unique configuration names.
+	plugins map[string]*pluginState
+	// pluginsMx serializes plugin selection and export collection.
 	pluginsMx sync.Mutex
-	stderr    io.Writer
-	ctx       *al.CmdCtx
-	lc        *lifecycle.Manager
+	// ctx supplies command cancellation and borrowed streams.
+	ctx *al.CmdCtx
+	// lc owns the independent plugin process lifetimes.
+	lc *lifecycle.Manager
 }
 
+// NewManager validates plugin identities without requiring an optional runfiles context.
 func NewManager(ctx *al.CmdCtx, config *al_proto.Config) (*Manager, error) {
-	run, err := runfiles.New()
+	run, err := al.FindRunfiles()
 	if err != nil {
 		return nil, fmt.Errorf("could not create runfiles: %w", err)
 	}
@@ -55,22 +65,56 @@ func NewManager(ctx *al.CmdCtx, config *al_proto.Config) (*Manager, error) {
 	}, nil
 }
 
+// Lifecycle exposes the selected plugin resources to their enclosing command.
 func (self *Manager) Lifecycle() *lifecycle.Manager {
 	return self.lc
 }
 
-func (self *Manager) Env() []string {
-	res := []string{}
-	for _, plugin := range self.plugins {
+// Env combines exports after selected plugin startup has completed. Equal values
+// coalesce; conflicting values fail deterministically without disclosing values.
+// Inherited command environment is deliberately outside this conflict check.
+func (self *Manager) Env() ([]string, error) {
+	self.pluginsMx.Lock()
+	defer self.pluginsMx.Unlock()
+	names := make([]string, 0, len(self.plugins))
+	for name := range self.plugins {
+		names = append(names, name)
+	}
+	slices.Sort(names)
+	values := map[string]string{}
+	owners := map[string]string{}
+	for _, name := range names {
+		plugin := self.plugins[name]
 		if resp, ok := plugin.client.StartResponse(); ok {
-			for k, v := range resp.Env {
-				res = append(res, fmt.Sprintf("%s=%s", k, v))
+			keys := make([]string, 0, len(resp.Env))
+			for key := range resp.Env {
+				keys = append(keys, key)
+			}
+			slices.Sort(keys)
+			for _, key := range keys {
+				value := resp.Env[key]
+				if previous, exists := values[key]; exists && previous != value {
+					return nil, fmt.Errorf("conflicting environment variable %q from plugins %q and %q", key, owners[key], name)
+				}
+				if _, exists := values[key]; !exists {
+					values[key], owners[key] = value, name
+				}
 			}
 		}
 	}
-	return res
+	keys := make([]string, 0, len(values))
+	for key := range values {
+		keys = append(keys, key)
+	}
+	slices.Sort(keys)
+	res := make([]string, 0, len(keys))
+	for _, key := range keys {
+		res = append(res, key+"="+values[key])
+	}
+	return res, nil
 }
 
+// AddLabels registers plugins and calls matching any supplied label selector.
 func (self *Manager) AddLabels(labelArgs []string) error {
 	self.pluginsMx.Lock()
 	defer self.pluginsMx.Unlock()
@@ -126,6 +170,7 @@ func (self *Manager) AddLabels(labelArgs []string) error {
 	return nil
 }
 
+// newPlugin creates an owned client from an independent copy of its declaration.
 func (self *Manager) newPlugin(config *al_proto.PluginConfig) (*pluginState, error) {
 	config = proto.CloneOf(config)
 	client, err := NewPluginClient(self.ctx, self.run, self.config, config)
@@ -139,7 +184,7 @@ func (self *Manager) newPlugin(config *al_proto.PluginConfig) (*pluginState, err
 	}, nil
 }
 
-// Return true if any labels in `want` match labels in `have`
+// labelsMatch reports whether any requested key and optional value match.
 func labelsMatch(have map[string]string, want map[string]string) bool {
 	for k, v := range want {
 		vHave, ok := have[k]
@@ -150,6 +195,7 @@ func labelsMatch(have map[string]string, want map[string]string) bool {
 	return false
 }
 
+// labelsMap keeps the final selector value supplied for each label key.
 func labelsMap(labels []string) map[string]string {
 	res := map[string]string{}
 	for _, labelFull := range labels {

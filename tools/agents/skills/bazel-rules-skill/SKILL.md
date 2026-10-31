@@ -83,8 +83,8 @@ manifest or create `.agents/skills` links by hand. Run the updater, then its
 generated exact-state test:
 
 ```sh
-bazel_agent bazel run //.agents:write_skills
-bazel_agent bazel test //.agents:write_skills_test
+bazel run //.agents:write_skills
+bazel test //.agents:write_skills_test
 ```
 
 The test rejects missing, extra, indirect, or incorrectly targeted local
@@ -143,11 +143,11 @@ The root Bazel configuration registers `skill_validation_aspect` and requests
 its `skill_validation` output group. Build the library to execute validation:
 
 ```sh
-bazel_agent bazel build //<owner-project>/skills/lowercase-hyphen-name:skill
-bazel_agent bazel test \
+bazel build //<owner-project>/skills/lowercase-hyphen-name:skill
+bazel test \
   //<owner-project>/skills/lowercase-hyphen-name:eval_config_test
-bazel_agent bazel test //.agents:write_skills_test
-bazel_agent bazel test //:buildifier_test
+bazel test //.agents:write_skills_test
+bazel test //:buildifier_test
 ```
 
 The aspect validates the `SKILL.md` frontmatter and body, checks that the name

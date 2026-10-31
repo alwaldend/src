@@ -18,4 +18,4 @@ None.
 
 ## Impact
 
-infra/download; related changes are owned by infra/download, tools/release, projects/ansible_collection and internal/x_sdk.
+infra/download; related changes are owned by infra/download, tools/rules_release, projects/ansible_collection and internal/x_sdk.

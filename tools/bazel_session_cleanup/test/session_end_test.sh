@@ -60,7 +60,7 @@ bash "$hook" --worker
 [[ $(wc -l <"$FIXTURE_LOG") == 4 ]]
 grep -Fx -- "$FIXTURE_ROOT" "$FIXTURE_LOG"
 grep -Fx -- "$FIXTURE_ROOT/nested project" "$FIXTURE_LOG"
-[[ $(grep -Fxc -- '--noblock_for_lock clean --config=agent --expunge_async' "$FIXTURE_LOG") == 2 ]]
+[[ $(grep -Fxc -- '--noblock_for_lock clean --expunge_async' "$FIXTURE_LOG") == 2 ]]
 
 # A busy root is skipped, while the nested workspace still gets cleaned.
 : >"$FIXTURE_LOG"

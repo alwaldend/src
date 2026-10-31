@@ -1,0 +1,22 @@
+load("@rules_go//go:def.bzl", "go_test")
+
+go_test(
+    name = "command_test",
+    size = "medium",
+    srcs = [
+        "command_test.go",
+        "doc.go",
+    ],
+    data = [
+        "//tools/vault/injector",
+        "@rules_al//:al",
+    ],
+    env = {"AL_BINARY": "$(rlocationpath @rules_al//:al)"},
+    deps = [
+        "@org_golang_google_protobuf//encoding/protojson",
+        "@rules_al//api/al_proto",
+        "@rules_al//pkg/al",
+        "@rules_go//go/runfiles",
+        "@rules_go//go/tools/bazel",
+    ],
+)

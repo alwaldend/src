@@ -10,7 +10,7 @@ go_library(
     ],
     importpath = "git.alwaldend.com/alwaldend/src/tools/ci/cmd/ci",
     visibility = ["//visibility:private"],
-    deps = ["//tools/ci/pkg/workspaces"],
+    deps = ["@rules_al//pkg/workspaces"],
 )
 
 go_binary(

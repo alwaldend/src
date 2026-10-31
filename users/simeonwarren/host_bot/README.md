@@ -48,11 +48,13 @@ network binding and loopback connections available for Bazel servers. Other
 private network targets remain blocked. T3 Code must select that profile for
 the thread. Hosted web search is not restricted by this role.
 
-The deployment installs pinned Bazelisk as `~/.local/bin/bazel`, provisions
-the repository's `bazel_agent` runner in the same directory, and pre-seeds its
-content-addressed `mcp_cordis` and `repo_delivery` runtimes when the canonical
-repository checkout is present. New Codex worktrees can then start Cordis and
-run delivery operations without first loading their own Bazel graph.
+The deployment installs pinned Bazelisk as `~/.local/bin/bazel` and AL as
+`~/.local/bin/al`. Run builds and tests with ordinary `bazel` commands.
+The [managed user bazelrc](ansible/files/bazelrc) supplies bounded,
+non-interactive output and failure-focused test reporting directly, so these
+defaults also apply in workspaces without a named `agent` profile. Explicit
+command-line options can override them. AL supplies repository lifecycle
+commands and the workspace status used by release builds.
 
 Two SATA SSDs, selected by their stable ATA IDs, back the `sata_ssd` volume
 group. Its striped `bazel_cache` logical volume is mounted persistently at
@@ -197,7 +199,7 @@ so those subprocesses do not inherit the credential.
 
 ## Cache cleaning
 
-`bazel_agent bazel clean` removes the current workspace's build outputs and
+`bazel clean` removes the current workspace's build outputs and
 resets its local action cache. Adding `--expunge` removes that workspace's
 entire output base and stops its Bazel server. Neither operation purges the
 shared action disk cache, repository-contents cache, or archive-download cache,

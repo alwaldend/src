@@ -14,7 +14,7 @@ trufflehog_test(
     name = "repo_test",
     size = "medium",
     allowlist = "allowlist.json",
-    git = "//tools/git",
+    git = "@rules_al//:git",
     repository_marker = "//:AGENTS.md",
 )
 
@@ -23,7 +23,7 @@ trufflehog_test(
     size = "medium",
     all_refs = True,
     allowlist = "allowlist.json",
-    git = "//tools/git",
+    git = "@rules_al//:git",
     repository_marker = "//:AGENTS.md",
     tags = ["manual"],
 )

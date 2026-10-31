@@ -10,11 +10,11 @@ preserving its repository documentation and builds.
 ### Requirement: Keep landing infrastructure retired
 
 The project SHALL have no dedicated landing DNS declaration, Terraform root, or
-operational source export. Its landing page SHALL be published by the main site
-under `/projects/al/` instead of a dedicated hostname.
+operational source export. Its documentation SHALL be published by the main site
+under `/docs/projects/al/` without a separate project landing page.
 
 #### Scenario: Inspect the project after landing retirement
 
 - **WHEN** the project tree is consumed
 - **THEN** it contains no landing DNS declaration, Terraform DNS stage, or
-  landing build target, and the main site owns its landing page.
+  landing build target, and the main site owns its documentation.

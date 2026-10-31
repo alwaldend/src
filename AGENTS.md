@@ -60,7 +60,7 @@ in-scope blockers and tiny related defects, and report other findings.
   Read-only questions and reviews do not require a change record.
 - A request to change this repository authorizes the complete delivery workflow:
   validate, commit, push the task-owned feature branch, and create or update its
-  pull request through `repo-delivery`, unless the user withholds publication.
+  pull request through `al-delivery`, unless the user withholds publication.
   This standing authorization explicitly includes sending reviewed task-owned
   source, documentation, and configuration to this repository's configured Git
   origin and forge, `github.com/alwaldend/src`. Do not ask again solely because
@@ -75,15 +75,16 @@ This table owns routing; each skill owns its procedure.
 
 | When                                                                     | Load                                         |
 | ------------------------------------------------------------------------ | -------------------------------------------- |
-| Before the first mutation or task-scratch write                          | `repo-workspace`                             |
+| Before the first mutation or task-scratch write                          | `al-workspace`                               |
 | Assessing quality or accuracy, including "is this good/accurate?"        | `quality-assessment`                         |
 | Material, consequential, or repeatedly failing choice                    | `decision-review`                            |
 | Creating or moving source, or choosing a directory layout                | `project-layout`                             |
-| Any Bazel invocation, BUILD or `.bzl` mechanics, or validation scope     | `bazel-agent`, `repo-bazel`                  |
+| Any Bazel invocation, BUILD or `.bzl` mechanics, or validation scope     | `al-bazel`, `repo-bazel`                     |
 | Python implementation, refactoring, or review                            | `repo-python`                                |
 | Go implementation, refactoring, or review                                | `repo-go`                                    |
 | A standalone nested workspace with its own `MODULE.bazel`                | `bazel-nested-module`                        |
 | External dependencies, archives, toolchains, or lockfiles                | `repo-external-dependency`                   |
+| Refreshing repository-generated metadata                                 | `al-maintenance`                             |
 | Gazelle generation behavior or a language plugin                         | `repo-gazelle-plugin`                        |
 | Structure-aware search or rewrite by syntax shape                        | `ast-grep`                                   |
 | `infra/**`, `host_bot`, `al.lua`, tf/Ansible/DNS, deployment diagnostics | `repo-infra`                                 |
@@ -95,16 +96,16 @@ This table owns routing; each skill owns its procedure.
 | A `.blend` asset, or Blender work judged by supplied-reference likeness  | `repo-blender`, `blender-reference-fidelity` |
 | Video creation, editing, conversion, muxing, or media validation         | `repo-video`                                 |
 | Host Codex model, provider, authentication, or shared-config migration   | `codex-migration`                            |
-| Every repository change, specifications, or continuation state           | `repo-openspec`                              |
+| Every repository change, specifications, or continuation state           | `al-openspec`                                |
 | Adding or updating a repository skill                                    | `bazel-rules-skill`                          |
 | Proofreading, polishing, or rewriting supplied prose                     | `spellcheck`                                 |
 | Publishing an article to the blog                                        | `alwaldend-blog`                             |
 | Uploading a blog post to X as an Article draft, or a 429 from X          | `x-article-upload`                           |
-| Complete repository build-and-test health check                          | `full-repo-check`                            |
-| Computing a development, nightly, or weekly version                      | `versioning`                                 |
+| Complete repository build-and-test health check                          | `al-checks`                                  |
+| Computing a development, nightly, or weekly version                      | `al-versioning`                              |
 | Reviewing a PR, commit range, or other bounded change set                | `review-agent`                               |
-| Preparing publication or final handoff                                   | `repo-delivery`                              |
-| Synchronizing an advancing remote base, or rebasing task-owned commits   | `git-rebase-remote`                          |
+| Preparing publication or final handoff                                   | `al-delivery`                                |
+| Synchronizing an advancing remote base, or rebasing task-owned commits   | `al-rebase`                                  |
 | Reviewing a substantial or inefficient session at task close             | `agent-ergonomics-review`                    |
 
 Use `review-agent` for every requested review of repository changes, including
@@ -128,7 +129,7 @@ inspect the diff and never include semantic changes under that exception.
 Exclude disposable build outputs and include required generator-maintained
 files updated through their owning workflow. Commit and push legitimate
 task-owned source and configuration unless the user says otherwise, with binary
-artifacts only through Git LFS. `repo-delivery` owns gates, commits, push, and
+artifacts only through Git LFS. `al-delivery` owns gates, commits, push, and
 requests.
 
 ## Testing

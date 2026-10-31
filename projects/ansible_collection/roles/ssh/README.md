@@ -21,7 +21,7 @@ Select normal SSH setup through the owning deployment's `ssh` tag and an
 explicit host limit, for example:
 
 ```sh
-bazel_agent bazel run //infra/ingress/ansible:ansible -- \
+bazel run //infra/ingress/ansible:ansible -- \
   --limit host1.ingress.alwaldend.com --tags ssh
 ```
 

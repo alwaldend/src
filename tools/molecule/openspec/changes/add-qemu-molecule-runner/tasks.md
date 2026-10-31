@@ -37,6 +37,6 @@
       against the same candidate. Verify retained outputs, clean teardown,
       package mapping fidelity, and no credential leakage.
 - [ ] 3.3 Run OpenSpec, affected semantic lint, and repository quality checks;
-      commit and publish through repo-delivery. Archive only after runner
+      commit and publish through al-delivery. Archive only after runner
       acceptance passes and verify consumer links point to the stable spec or
       archived change.

@@ -12,7 +12,7 @@
 
 Observed on 2026-10-24:
 
-- `bazel_agent bazel build //users/simeonwarren/host_bot/ansible:ansible //users/simeonwarren/host_bot/ansible:ansible_bin` passed.
+- `al bazel build //users/simeonwarren/host_bot/ansible:ansible //users/simeonwarren/host_bot/ansible:ansible_bin` passed.
 - The packaged `ansible_bin` passed `--syntax-check`; its task list with
   `--tags codex_install,grok_install` contained exactly the two installer tasks.
 - Both pipelines use Bash `pipefail` so curl failures propagate to Ansible;
