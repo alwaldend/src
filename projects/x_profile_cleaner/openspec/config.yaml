@@ -1,0 +1,7 @@
+schema: spec-driven
+
+context: |
+  This workspace belongs to projects/x_profile_cleaner, a Go CLI with Lua
+  policy callbacks, an author-only quote/reply graph, and plan/apply commands.
+  Complete historical discovery, Articles, and Highlights are out of scope.
+  No live deletion is authorized by implementation or validation.

@@ -1,0 +1,42 @@
+load("@bazel_skylib//rules:copy_file.bzl", "copy_file")
+load("@rules_go//go:def.bzl", "go_library")
+load("//projects/alwaldend.com/assets:defs.bzl", "site_stylesheet")
+
+package(transitive_visibility = "//projects:transitive_consumers")
+
+site_stylesheet(
+    name = "theme",
+    src = "//projects/alwaldend.com/assets:scss/application.scss",
+    out = "theme.css",
+    includes = {"@com_alwaldend_src_hugo_github_com_twbs_bootstrap//:pkg_files": "scss"},
+    deps = ["//projects/alwaldend.com/assets:application_theme_sources"],
+)
+
+copy_file(
+    name = "default_policy",
+    src = "//projects/x_profile_cleaner/examples:policy.lua",
+    out = "policy.lua",
+)
+
+go_library(
+    name = "web",
+    srcs = [
+        "assets.go",
+        "doc.go",
+        "log.go",
+        "server.go",
+    ],
+    embedsrcs = [
+        ":default_policy",
+        ":theme",
+        "index.html",
+        "app.js",
+        "app.css",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/x_profile_cleaner/internal/web",
+    visibility = ["//projects/x_profile_cleaner:__subpackages__"],
+    deps = [
+        "//projects/x_profile_cleaner/internal/app",
+        "//projects/x_profile_cleaner/internal/model",
+    ],
+)

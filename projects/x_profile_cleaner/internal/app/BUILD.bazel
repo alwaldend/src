@@ -1,0 +1,19 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+package(transitive_visibility = "//projects:transitive_consumers")
+
+go_library(
+    name = "app",
+    srcs = [
+        "app.go",
+        "doc.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/x_profile_cleaner/internal/app",
+    visibility = ["//projects/x_profile_cleaner:__subpackages__"],
+    deps = [
+        "//internal/x_sdk/pkg/oauth1",
+        "//projects/x_profile_cleaner/internal/model",
+        "//projects/x_profile_cleaner/internal/policy",
+        "//projects/x_profile_cleaner/internal/xapi",
+    ],
+)

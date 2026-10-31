@@ -1,0 +1,18 @@
+load("@aspect_rules_js//js:defs.bzl", "js_test")
+
+package(transitive_visibility = "//projects:transitive_consumers")
+
+js_test(
+    name = "serve_test",
+    size = "medium",
+    args = [
+        "$(rootpath //projects/x_profile_cleaner/cmd/x_profile_cleaner)",
+        "$(rootpath @com_google_chrome_headless_shell//:chrome_headless_shell_binary)",
+    ],
+    data = [
+        "//projects/x_profile_cleaner/cmd/x_profile_cleaner",
+        "//tools:node_modules/puppeteer",
+        "@com_google_chrome_headless_shell//:chrome_headless_shell_binary",
+    ],
+    entry_point = "serve_test.mjs",
+)

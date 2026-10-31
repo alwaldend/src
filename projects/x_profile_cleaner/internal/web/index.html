@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en" data-bs-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>X profile cleaner</title>
+    <link rel="stylesheet" href="/theme.css" />
+    <link rel="stylesheet" href="/app.css" />
+    <script src="/app.js" defer></script>
+  </head>
+  <body>
+    <div class="workspace">
+      <header class="page-header">
+        <div>
+          <h1>X profile cleaner</h1>
+        </div>
+        <div class="header-controls">
+          <label class="visually-hidden" for="theme">Color theme</label>
+          <select
+            id="theme"
+            class="form-select form-select-sm"
+            aria-label="Color theme"
+          >
+            <option value="system">System theme</option>
+            <option value="light">Light theme</option>
+            <option value="dark">Dark theme</option>
+          </select>
+        </div>
+      </header>
+
+      <div id="error" class="alert" role="alert" hidden></div>
+
+      <main class="work-grid">
+        <div class="control-column">
+          <section class="panel policy-panel" aria-labelledby="policy-title">
+            <div class="panel-heading">
+              <h2 id="policy-title">Policy</h2>
+              <button id="load-policy" class="btn btn-outline-primary btn-sm">
+                Load file
+              </button>
+              <input
+                id="policy-file"
+                type="file"
+                accept=".lua,text/plain"
+                class="visually-hidden"
+              />
+            </div>
+            <label for="policy" class="visually-hidden"
+              >Lua cleanup policy</label
+            >
+            <textarea
+              id="policy"
+              class="form-control policy-editor"
+              spellcheck="false"
+              autocapitalize="off"
+              autocomplete="off"
+              aria-describedby="policy-note"
+              disabled
+            ></textarea>
+            <p id="policy-note" class="muted small">
+              Planning makes no changes.
+            </p>
+            <button id="plan" class="btn btn-primary" disabled>
+              Run plan
+            </button>
+          </section>
+
+          <section class="panel log-panel" aria-labelledby="logs-title">
+            <div class="panel-heading">
+              <h2 id="logs-title">Logs</h2>
+              <label class="follow-control"
+                ><input
+                  id="follow-logs"
+                  type="checkbox"
+                  class="form-check-input"
+                  checked
+                />
+                Follow latest</label
+              >
+            </div>
+            <div id="operation-status" hidden>
+              <span
+                id="status"
+                data-phase="idle"
+                role="status"
+                aria-live="polite"
+                >Connecting</span
+              >
+              <button
+                id="cancel-operation"
+                class="btn btn-outline-primary btn-sm"
+                hidden
+              >
+                Cancel
+              </button>
+            </div>
+            <pre id="logs" tabindex="0" aria-label="Operational logs">
+Waiting for activity.</pre>
+          </section>
+        </div>
+
+        <section class="panel review-panel" aria-labelledby="review-title">
+          <div class="panel-heading">
+            <div class="review-title">
+              <h2 id="review-title">Review</h2>
+              <span id="selected-count" class="muted small"></span>
+            </div>
+            <button id="apply" class="btn btn-primary btn-sm" disabled>
+              Apply selected
+            </button>
+          </div>
+          <p id="review-note" class="muted small" hidden></p>
+          <div id="review-tools" class="review-tools" hidden>
+            <label for="filter" class="visually-hidden"
+              >Filter planned items</label
+            >
+            <input
+              id="filter"
+              type="search"
+              class="form-control form-control-sm"
+              placeholder="Find text or a post ID"
+            />
+            <button id="select-all" class="btn btn-outline-primary btn-sm">
+              Select all
+            </button>
+            <button id="exclude-all" class="btn btn-outline-primary btn-sm">
+              Exclude all
+            </button>
+          </div>
+          <p id="filter-summary" class="muted small" hidden></p>
+          <p id="selection-note" class="muted small" hidden></p>
+          <div class="items-container">
+            <div id="empty-state" class="empty-state">
+              <p>Run plan to review items for removal.</p>
+            </div>
+            <table id="items" class="table align-middle" hidden>
+              <thead class="visually-hidden">
+                <tr>
+                  <th scope="col">
+                    <span class="visually-hidden">Include</span>
+                  </th>
+                  <th scope="col">Activity</th>
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+      <footer class="page-footer">
+        Available timeline data only. Time windows may contain incomplete
+        threads.
+      </footer>
+    </div>
+
+    <dialog id="confirmation" aria-labelledby="confirmation-title">
+      <h2 id="confirmation-title">Apply this selection?</h2>
+      <p id="confirmation-summary"></p>
+      <p class="muted small">
+        The selected posts will be deleted and selected reposts undone on X.
+        Excluded items stay unchanged.
+      </p>
+      <div class="dialog-actions">
+        <button id="dismiss-confirmation" class="btn btn-outline-primary">
+          Back to review</button
+        ><button id="confirm-apply" class="btn btn-primary">
+          Apply selected
+        </button>
+      </div>
+    </dialog>
+  </body>
+</html>

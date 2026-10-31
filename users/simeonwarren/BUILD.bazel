@@ -93,3 +93,15 @@ al_config(
     visibility = ["//users/simeonwarren:__subpackages__"],
     deps = ["//infra:al"],
 )
+
+filegroup(
+    name = "x_profile_cleaner_policy",
+    srcs = ["x_profile_cleaner.lua"],
+    visibility = ["//users/simeonwarren:__subpackages__"],
+)
+
+filegroup(
+    name = "x_profile_cleaner_single_post_policy",
+    srcs = ["x_profile_cleaner_single_post.lua"],
+    visibility = ["//users/simeonwarren:__subpackages__"],
+)

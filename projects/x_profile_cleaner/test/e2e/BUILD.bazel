@@ -1,0 +1,15 @@
+load("@rules_go//go:def.bzl", "go_test")
+
+package(transitive_visibility = "//projects:transitive_consumers")
+
+go_test(
+    name = "e2e_test",
+    size = "medium",
+    srcs = [
+        "cleanup_test.go",
+        "doc.go",
+    ],
+    args = ["-cleaner=$(rlocationpath //projects/x_profile_cleaner/cmd/x_profile_cleaner)"],
+    data = ["//projects/x_profile_cleaner/cmd/x_profile_cleaner"],
+    deps = ["@rules_go//go/runfiles"],
+)

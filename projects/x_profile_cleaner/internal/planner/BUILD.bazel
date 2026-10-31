@@ -1,0 +1,14 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+package(transitive_visibility = "//projects:transitive_consumers")
+
+go_library(
+    name = "planner",
+    srcs = [
+        "doc.go",
+        "planner.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/x_profile_cleaner/internal/planner",
+    visibility = ["//projects/x_profile_cleaner:__subpackages__"],
+    deps = ["//projects/x_profile_cleaner/internal/model"],
+)

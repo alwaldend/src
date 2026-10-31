@@ -1,0 +1,26 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("@rules_openspec//main/bzl:workspace.bzl", "openspec_workspace")
+
+package(transitive_visibility = "//users:transitive_consumers")
+
+openspec_workspace(
+    name = "source",
+    srcs = ["config.yaml"] + glob(
+        [
+            "specs/**/*.md",
+            "changes/**",
+        ],
+        allow_empty = True,
+    ),
+    visibility = ["//infra/src/openspec/validation"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(
+        ["specs/**/*.md"],
+        allow_empty = True,
+    ),
+    preserve_paths = True,
+    visibility = ["//users/simeonwarren:__pkg__"],
+)

@@ -12,6 +12,7 @@ package_group(
 
 package_group(
     name = "transitive_consumers",
+    includes = ["//projects/x_profile_cleaner:credential_consumers"],
     packages = [
         "//",
         "//.agents/...",
@@ -40,6 +41,7 @@ package_group(
         "//projects/dotfiles/nvim",
         "//projects/mlops_2026",
         "//projects/x_article_uploader/test/...",
+        "//projects/x_profile_cleaner/test/...",
         # Explicit release commands, including the aggregate launcher.
         "//projects",
         "//projects/activitywatch_ingester_android/releases",

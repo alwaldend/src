@@ -7,6 +7,7 @@ package(transitive_visibility = "//projects:transitive_consumers")
 
 package_group(
     name = "x_api_credential_consumers",
+    includes = ["//projects/x_profile_cleaner:credential_consumers"],
     packages = [
         "//projects/x_article_uploader/...",
         "//third_party/com_x_api_openapi",

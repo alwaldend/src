@@ -1,0 +1,18 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+package(transitive_visibility = "//projects:transitive_consumers")
+
+go_library(
+    name = "xapi",
+    srcs = [
+        "client.go",
+        "doc.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/x_profile_cleaner/internal/xapi",
+    visibility = ["//projects/x_profile_cleaner:__subpackages__"],
+    deps = [
+        "//internal/x_sdk/pkg/client",
+        "//internal/x_sdk/pkg/oauth1",
+        "//projects/x_profile_cleaner/internal/model",
+    ],
+)
