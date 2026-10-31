@@ -292,6 +292,37 @@
         - arxiv
         - codex
         - open_computer_use
+    - name: Create the isolated API Codex directory
+      become: false
+      ansible.builtin.file:
+        path: "~/.codex-api"
+        state: directory
+        mode: "0700"
+      tags:
+        - codex
+        - codex_api
+        - open_computer_use
+    - name: Configure the isolated API Codex home
+      become: false
+      ansible.builtin.copy:
+        content: |
+          forced_login_method = "api"
+          {{ lookup('ansible.builtin.file', 'files/codex_config.toml') }}
+        dest: "~/.codex-api/config.toml"
+        mode: "0600"
+      tags:
+        - codex
+        - codex_api
+        - open_computer_use
+    - name: Configure isolated API Codex instructions
+      become: false
+      ansible.builtin.copy:
+        src: codex_agents.md
+        dest: "~/.codex-api/AGENTS.md"
+        mode: "0600"
+      tags:
+        - codex
+        - codex_api
     - name: Remove provider profiles from the main Codex home
       become: false
       ansible.builtin.file:
