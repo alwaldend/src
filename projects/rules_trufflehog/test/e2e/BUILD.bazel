@@ -1,0 +1,21 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("@rules_go//go:def.bzl", "go_test")
+
+go_test(
+    name = "e2e_test",
+    size = "medium",
+    srcs = [
+        "doc.go",
+        "scan_test.go",
+    ],
+    args = ["-wrapper=$(rlocationpath //cmd/scan:scan)"],
+    data = ["//cmd/scan"],
+    deps = ["@rules_go//go/runfiles"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    prefix = "content/docs/projects/rules_trufflehog/test/e2e",
+    visibility = ["//:__pkg__"],
+)

@@ -2,13 +2,13 @@
     "toolchains": [
         {
             "name": "trufflehog",
-            "version": "3.94.2"
+            "version": "3.99.7"
         }
     ],
     "archives": [
         {
             "toolchain_name": "trufflehog",
-            "toolchain_version": "3.94.2",
+            "toolchain_version": "3.99.7",
             "archive_name": "linux_x86_64",
             "binaries": [
                 {
@@ -19,9 +19,9 @@
             "actions": [
                 {
                     "download_and_extract": {
-                        "url": "https://github.com/trufflesecurity/trufflehog/releases/download/v3.94.2/trufflehog_3.94.2_linux_amd64.tar.gz",
+                        "url": "https://github.com/trufflesecurity/trufflehog/releases/download/v3.99.7/trufflehog_3.99.7_linux_amd64.tar.gz",
                         "output": "out",
-                        "integrity": "sha256-b/aFT39mPCCMI6PZvjfSMz0VhXwoy+fwCKf8kQqIdo0="
+                        "integrity": "sha256-vb6gUI5DmxRPSd4U53WQjeX5AvPRTqeug1S65ysLcu8="
                     }
                 }
             ],

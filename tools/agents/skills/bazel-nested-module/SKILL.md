@@ -13,6 +13,14 @@ Follow the root `AGENTS.md` and the `repo-bazel` skill. Inspect all existing
 
 ## Create the standalone workspace
 
+`AGENTS.md` owns dependency-approval scope. Creating or registering a first-party nested module is always allowed within
+the authorized task; it is not a new external dependency. Reusing dependencies
+already present at their repository pins in the module's own manifests and
+locks needs no separate approval. Follow `repo-external-dependency` for pinning
+and upgrades; its new-dependency approval applies only to genuinely new external
+software. Honor an explicit user-selected
+project path; the placement defaults below do not override it.
+
 1. Use `project-layout` and the owning tree's README to choose the boundary:
    reusable Bazel rules live at `tools/<module_name>`; standalone product
    modules may live at `projects/<module_name>`. Use an underscore-separated

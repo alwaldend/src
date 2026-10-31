@@ -35,6 +35,20 @@
         integrates its documentation and independent build/test coverage.
         It must not force a product into tools merely because it has a
         MODULE.bazel.
+
+- description: Respects the requested path and permits existing dependency declarations
+  vars:
+    request: >-
+      Make projects/rules_widget a proper standalone rules project. Reuse only
+      existing repository dependency pins and integrate its module and locks.
+  assert:
+    - type: llm-rubric
+      value: >-
+        Keeps the user-selected projects/rules_widget path, creates and registers
+        the first-party nested module with existing pinned dependencies and its
+        own manifests and locks, and does not request separate dependency
+        approval for the new boundary or repeated declarations. Still requires
+        approval before introducing genuinely new external software.
 - description: Inherits shared configuration when a module needs extra flags
   vars:
     request: >-

@@ -7,6 +7,13 @@ description: Add or upgrade external software consumed by this monorepo with rep
 
 ## Decide whether a new dependency is necessary
 
+`AGENTS.md` owns approval scope: creating or registering a first-party nested module is not adding external
+software and requires no separate dependency approval within an authorized task.
+The module may redeclare dependencies already present in this repository at
+their existing pins, with its own manifests and generated locks. Apply the
+approval procedure below only when introducing genuinely new external software,
+not merely a new module boundary or another declaration of an existing pin.
+
 New external dependencies are strongly discouraged. Before searching for one,
 inspect existing repository code, standard libraries, manifests, lockfiles,
 and locally available dependencies. Prefer an existing option that meets the
