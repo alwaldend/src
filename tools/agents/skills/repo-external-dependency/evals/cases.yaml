@@ -40,6 +40,21 @@
         The response must state the approval procedure itself without requiring
         AGENTS.md to supply the missing rule.
 
+- description: Reuses existing pins in a first-party nested module without redundant approval
+  vars:
+    request: >-
+      Create a nested first-party Bazel module for this authorized project.
+      Its own MODULE.bazel and Go manifest need only the exact tools and libraries
+      already pinned in the parent repository. Do I need new dependency approval?
+  assert:
+    - type: llm-rubric
+      value: >-
+        Distinguishes first-party module creation and re-declaration of existing
+        pinned software from adding genuinely new external software. Proceeds
+        with module integration and its own reproducible manifests and locks
+        without asking for redundant dependency approval. Preserves the approval
+        requirement if genuinely new external software becomes necessary.
+
 - description: Prefers the latest stable release when adding a required API
   vars:
     request: >-

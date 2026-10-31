@@ -80,10 +80,12 @@ This table owns routing; each skill owns its procedure.
 | Structure-aware search or rewrite by syntax shape                        | `ast-grep`                                   |
 | `infra/**`, `host_bot`, `al.lua`, tf/Ansible/DNS, deployment diagnostics | `repo-infra`                                 |
 | Credentials, tokens, private keys, Vault policy, secret-bearing config   | `repo-secrets`                               |
+| Repository secret scans and all-ref credential audits                    | `repo-secret-scan`                           |
 | Workflow changes, reusable CI commands, or CI diagnostics                | `repo-ci`                                    |
 | Hugo site or theme, or landing-site onboarding                           | `repo-hugo`                                  |
 | Android app build, packaging, or publication                             | `android`                                    |
 | A `.blend` asset, or Blender work judged by supplied-reference likeness  | `repo-blender`, `blender-reference-fidelity` |
+| Video creation, editing, conversion, muxing, or media validation         | `repo-video`                                 |
 | Host Codex model, provider, authentication, or shared-config migration   | `codex-migration`                            |
 | Every repository change, specifications, or continuation state           | `repo-openspec`                              |
 | Adding or updating a repository skill                                    | `bazel-rules-skill`                          |
@@ -138,6 +140,11 @@ requests.
 
 **Adding new external dependencies is strongly discouraged and requires the
 user's explicit approval for the specific dependency before it is added.**
+Creating or registering a first-party nested module is always allowed within
+the authorized task and is not a new external dependency. Redeclaring software
+already used by this repository at existing pins inside that module requires
+no separate dependency approval. This includes its own manifests and lockfiles;
+introducing genuinely new external software still follows the approval rule.
 A request to implement a feature, fix a bug, or use a capability does not
 approve a new dependency. Do not add one merely because it is convenient or
 an existing dependency lacks a preferred API.

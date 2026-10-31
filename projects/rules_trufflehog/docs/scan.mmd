@@ -1,0 +1,41 @@
+stateDiagram-v2
+    direction TB
+    [*] --> Operation
+    state "Wrapper" as Operation {
+        [*] --> Validate
+        state "Validate allowlist" as Validate
+        state Launch <<fork>>
+        state Finished <<join>>
+        state "TruffleHog subprocess" as TruffleHog {
+            [*] --> Scan
+            state "Scan Git history<br/>No verification" as Scan
+            state "Exit status<br/>0 / 183 / other" as Stop
+            Scan --> Stop: finished
+            Stop --> [*]
+        }
+        state "Finding processing" as Output {
+            [*] --> Read
+            state "Read stdout" as Read
+            state "Apply allowlist<br/>Preserve JSON" as Classify
+            Read --> Classify: finding
+            Classify --> Read: next
+            Read --> [*]: EOF
+        }
+        state "Validate scan<br/>Write summary" as Complete
+        Validate --> Launch: start process once
+        Launch --> TruffleHog
+        Launch --> Output
+        TruffleHog --> Finished
+        Output --> Finished
+        Finished --> Complete: EOF and process exit
+    }
+
+    state "Pass: exit 0" as Pass
+    state "Unmatched findings<br/>Exit 183" as Findings
+    state "Error: exit 1" as Error
+    Operation --> Error: any error
+    Complete --> Pass: no unmatched findings
+    Complete --> Findings: unmatched findings
+    Pass --> [*]
+    Findings --> [*]
+    Error --> [*]

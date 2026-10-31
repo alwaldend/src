@@ -22,6 +22,7 @@ type workspace struct {
 
 var repositoryWorkspaces = []workspace{
 	{name: "root", path: "."},
+	{name: "projects/rules_trufflehog", path: "projects/rules_trufflehog"},
 	{
 		name: "projects/bazel_gazelle_enforce_transitive_visibility",
 		path: "projects/bazel_gazelle_enforce_transitive_visibility",

@@ -1,56 +1,57 @@
-load("@com_github_trufflesecurity_trufflehog//:defs.bzl", "trufflehog_test")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("@rules_trufflehog//:defs.bzl", "trufflehog_test")
+load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_site_svg", "mermaid_site_webp")
 
 package(transitive_visibility = "//tools:transitive_consumers")
 
 alias(
     name = "trufflehog",
-    actual = "//third_party/com_github_trufflesecurity_trufflehog:trufflehog",
+    actual = "@rules_trufflehog//:trufflehog",
     visibility = ["//:__subpackages__"],
 )
 
 trufflehog_test(
     name = "repo_test",
     size = "medium",
-    arguments = [
-        "git",
-        "--fail",
-        "--fail-on-scan-errors",
-        "--branch",
-        "HEAD",
-        "--skip-additional-refs",
-        "--exclude-paths",
-        "$(GIT_ROOT)/tools/trufflehog/exclude_paths.txt",
-        "file://$(GIT_ROOT)",
-    ],
-    tags = [
-        "local",
-        "no-cache",
-    ],
-    toolchains = ["//tools/git/main/bzl:toolchain_resolved"],
+    allowlist = "allowlist.json",
+    git = "//tools/git",
+    repository_marker = "//:AGENTS.md",
 )
 
 trufflehog_test(
     name = "repo_all_refs_test",
     size = "medium",
-    arguments = [
-        "git",
-        "--fail",
-        "--fail-on-scan-errors",
-        "--exclude-paths",
-        "$(GIT_ROOT)/tools/trufflehog/exclude_paths.txt",
-        "file://$(GIT_ROOT)",
-    ],
-    tags = [
-        "local",
-        "manual",
-        "no-cache",
-    ],
-    toolchains = ["//tools/git/main/bzl:toolchain_resolved"],
+    all_refs = True,
+    allowlist = "allowlist.json",
+    git = "//tools/git",
+    repository_marker = "//:AGENTS.md",
+    tags = ["manual"],
 )
 
 docs_filegroup(
     name = "docs",
     srcs = glob(["*.md"]),
     visibility = ["//tools:__pkg__"],
+)
+
+mermaid_site_svg(
+    name = "scan_diagram_svg",
+    src = "@rules_trufflehog//docs:scan.mmd",
+    out = "rendered/scan.svg",
+)
+
+mermaid_site_webp(
+    name = "scan_diagram_dark_webp",
+    src = "@rules_trufflehog//docs:scan.mmd",
+    out = "rendered/scan.dark.webp",
+    aspect_ratio = [],
+    color_scheme = "dark",
+    scale = 2,
+)
+
+docs_filegroup(
+    name = "project_diagram",
+    srcs = [":scan_diagram_svg"],
+    prefix = "content/docs/projects/rules_trufflehog/assets",
+    visibility = ["//projects:__pkg__"],
 )

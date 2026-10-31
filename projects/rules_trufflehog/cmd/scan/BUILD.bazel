@@ -1,0 +1,17 @@
+load("@rules_go//go:def.bzl", "go_binary")
+
+go_binary(
+    name = "scan",
+    srcs = [
+        "allowlist.go",
+        "doc.go",
+        "main.go",
+        "scan.go",
+    ],
+    visibility = ["//:__subpackages__"],
+    deps = [
+        "@com_github_spf13_cobra//:cobra",
+        "@com_github_trufflesecurity_trufflehog_v3//pkg/pb/source_metadatapb",
+        "@rules_go//go/runfiles",
+    ],
+)

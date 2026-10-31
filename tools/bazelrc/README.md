@@ -14,8 +14,16 @@ values into repository rules, actions, host actions, or tests. Those execution
 contexts use Bazel-managed temporary storage; host tools own any explicit
 task/run scratch they require.
 
+Go build actions (`Go*` and `RunNogo`) remove an inherited `no-sandbox`
+execution requirement through the shared `--modify_execution_info` setting.
+This keeps compilation in Bazel-managed sandboxes even when its owning test
+needs local workspace access. `TestRunner` retains its existing requirements,
+so the test can still inspect workspace files. The shared root and nested
+workspace configuration both apply this setting.
+
 Agent tests use Bazel's normal result cache. Tests that inspect undeclared
-workspace files must opt out with the `no-cache` tag.
+workspace files must use the `external` tag to bypass local test-result reuse;
+`no-cache` alone does not disable that cache.
 
 Agent commands use Bazel's default lockfile update mode. Review and commit
 generated lockfile changes with dependency changes. CI retains strict lockfile

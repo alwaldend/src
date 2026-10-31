@@ -51,6 +51,8 @@ test:agent --test_output=errors
 build --copt="-Wextra"
 # Sandbox workers
 common --worker_sandboxing
+# Keep test-level no-sandbox exceptions out of Go build actions.
+build --modify_execution_info=(Go.*|RunNogo)=-no-sandbox
 # Enable the shell worker
 common --strategy=Shell=worker
 # Enable the Hugo persistent worker

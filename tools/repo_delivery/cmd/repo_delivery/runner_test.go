@@ -19,39 +19,39 @@ func TestRedactCredentialsForSupportedURLSchemes(t *testing.T) {
 	}{
 		{
 			name:  "git",
-			value: "git://token@git.example/owner/repo.git",
+			value: "git://token@git.example/owner/repo.git", // trufflehog:ignore Synthetic redaction fixture.
 			want:  "git://<redacted>@git.example/owner/repo.git",
 		},
 		{
 			name:  "http",
-			value: "http://user:secret@git.example/owner/repo.git",
+			value: "http://user:secret@git.example/owner/repo.git", // trufflehog:ignore Synthetic redaction fixture.
 			want:  "http://<redacted>@git.example/owner/repo.git",
 		},
 		{
 			name:  "https mixed case",
-			value: "HTTPS://user:secret@git.example/owner/repo.git",
+			value: "HTTPS://user:secret@git.example/owner/repo.git", // trufflehog:ignore Synthetic redaction fixture.
 			want:  "HTTPS://<redacted>@git.example/owner/repo.git",
 		},
 		{
 			name:  "ssh mixed case",
-			value: "SsH://token@git.example/owner/repo.git",
+			value: "SsH://token@git.example/owner/repo.git", // trufflehog:ignore Synthetic redaction fixture.
 			want:  "SsH://<redacted>@git.example/owner/repo.git",
 		},
 		{
 			name: "malformed escaped userinfo",
-			value: "parse \"https://user:secret%zz@git.example/repo\": " +
+			value: "parse \"https://user:secret%zz@git.example/repo\": " + // trufflehog:ignore Synthetic redaction fixture.
 				"invalid URL escape \"%zz\"",
 			want: "parse \"https://<redacted>@git.example/repo\": " +
 				"invalid URL escape \"%zz\"",
 		},
 		{
 			name:  "scp style",
-			value: "fatal: user:secret@git.example:owner/repo.git denied",
+			value: "fatal: user:secret@git.example:owner/repo.git denied", // trufflehog:ignore Synthetic redaction fixture.
 			want:  "fatal: <redacted>@git.example:owner/repo.git denied",
 		},
 		{
 			name:  "malformed raw slash",
-			value: "https://user:secret/path@git.example/repo",
+			value: "https://user:secret/path@git.example/repo", // trufflehog:ignore Synthetic redaction fixture.
 			want:  "https://<redacted>@git.example/repo",
 		},
 		{
