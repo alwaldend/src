@@ -1,0 +1,10 @@
+http_archive = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
+http_archive(
+    name = "com_github_comfy_org_comfyui",
+    build_file = "//third_party/com_github_comfy_org_comfyui:upstream.BUILD.bazel",
+    integrity = "sha256-lsBoD6l64PagyyOujyQ0fgdutTW5syku/LSpjXLWfOE=",
+    strip_prefix = "ComfyUI-426f5eea52a7ece1dd599fff4cb6cd1f352ddd24",
+    type = "tar.gz",
+    urls = ["https://codeload.github.com/Comfy-Org/ComfyUI/tar.gz/426f5eea52a7ece1dd599fff4cb6cd1f352ddd24"],
+)

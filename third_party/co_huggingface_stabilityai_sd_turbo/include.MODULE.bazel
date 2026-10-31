@@ -1,0 +1,8 @@
+http_file = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_file")
+
+http_file(
+    name = "co_huggingface_stabilityai_sd_turbo",
+    downloaded_file_path = "sd_turbo.safetensors",
+    integrity = "sha256-PwZ6G5Q88WLyuPhYj2z1gkvVtMfR2I2HFkucoSNhZUk=",
+    urls = ["https://huggingface.co/stabilityai/sd-turbo/resolve/b261bac6fd2cf515557d5d0707481eafa0485ec2/sd_turbo.safetensors"],
+)

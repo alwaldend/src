@@ -41,6 +41,11 @@ lib.plugin_call({
                 deps = { "xcpng_host" },
                 env = { value = "{{ .Last.Data.xcpng_password }}" },
             },
+            {
+                name = "SSHPASS",
+                deps = { "xcpng_host" },
+                env = { value = "{{ .Last.Data.xcpng_password }}" },
+            },
         },
     },
 })

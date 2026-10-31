@@ -1,0 +1,16 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+
+package(transitive_visibility = "//third_party:transitive_consumers")
+
+alias(
+    name = "checkpoint",
+    actual = "@co_huggingface_stabilityai_sd_turbo//file",
+    tags = ["manual"],
+    visibility = ["//tools/comfyui:__subpackages__"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//third_party:__pkg__"],
+)

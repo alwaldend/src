@@ -1,0 +1,22 @@
+http_file = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_file")
+
+http_file(
+    name = "co_huggingface_comfy_org_z_image_turbo",
+    downloaded_file_path = "z_image_turbo_bf16.safetensors",
+    integrity = "sha256-JAdhMFC4Cf/f8YpKyZr4Pqa5VEPs69+A4GSnnIJVdKY=",
+    urls = ["https://huggingface.co/Comfy-Org/Z-Image-Turbo/resolve/6fc90a3b1b653e935a0d175e260736de25b84df5/split_files/diffusion_models/z_image_turbo_bf16.safetensors"],
+)
+
+http_file(
+    name = "co_huggingface_comfy_org_z_image_turbo_text_encoder",
+    downloaded_file_path = "qwen_3_4b.safetensors",
+    integrity = "sha256-bGcUmFc6wvelUBUCzM6NKwjqbKL2YcRY5wjzazbt/Fo=",
+    urls = ["https://huggingface.co/Comfy-Org/Z-Image-Turbo/resolve/6fc90a3b1b653e935a0d175e260736de25b84df5/split_files/text_encoders/qwen_3_4b.safetensors"],
+)
+
+http_file(
+    name = "co_huggingface_comfy_org_z_image_turbo_vae",
+    downloaded_file_path = "ae.safetensors",
+    integrity = "sha256-r8jignLNFds5GbrNtpGM6cHtIulssSxNXtD7qCNSnjg=",
+    urls = ["https://huggingface.co/Comfy-Org/Z-Image-Turbo/resolve/6fc90a3b1b653e935a0d175e260736de25b84df5/split_files/vae/ae.safetensors"],
+)

@@ -22,6 +22,32 @@ vault_binary_map(
 )
 
 al_binary_run(
+    name = "ssh",
+    args = [
+        "sshpass",
+        "-e",
+        "ssh",
+        "-F",
+        "/dev/null",
+        "-o",
+        "ConnectTimeout=10",
+        "-o",
+        "StrictHostKeyChecking=yes",
+        "-o",
+        "PreferredAuthentications=password",
+        "-o",
+        "PubkeyAuthentication=no",
+        "root@host1.xcp-ng.alwaldend.com",
+    ],
+    configs = [":al"],
+    data = ["//tools/vault/injector"],
+    run_args = [
+        "--plugin_label",
+        "xcpng_host=1",
+    ],
+)
+
+al_binary_run(
     name = "xo_inspect",
     args = [
         "$(rootpath //infra/xcp_ng/cmd/xo_config)",
