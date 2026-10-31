@@ -1,0 +1,23 @@
+load("@aspect_rules_js//js:defs.bzl", "js_binary")
+
+package(transitive_visibility = "//tools:transitive_consumers")
+
+js_binary(
+    name = "code_screenshot",
+    data = [
+        "//tools:node_modules/highlight.js",
+        "//tools:node_modules/puppeteer",
+        "//tools/code_screenshot:theme",
+        "@com_alwaldend_src_tools_drawio_fonts//:LiberationMono-Regular.ttf",
+        "@com_google_chrome_headless_shell//:chrome_headless_shell_binary",
+    ],
+    entry_point = "main.mjs",
+    env = {
+        "CODE_SCREENSHOT_THEME": "$(rootpath //tools/code_screenshot:theme)",
+        "CODE_SCREENSHOT_FONT": "$(rootpath @com_alwaldend_src_tools_drawio_fonts//:LiberationMono-Regular.ttf)",
+        "PUPPETEER_EXECUTABLE_PATH": "$(rootpath @com_google_chrome_headless_shell//:chrome_headless_shell_binary)",
+    },
+    expand_env = True,
+    no_copy_to_bin = ["@com_alwaldend_src_tools_drawio_fonts//:LiberationMono-Regular.ttf"],
+    visibility = ["//:__subpackages__"],
+)
