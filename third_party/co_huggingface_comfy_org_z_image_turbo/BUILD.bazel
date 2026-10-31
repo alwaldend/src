@@ -1,0 +1,30 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+
+package(transitive_visibility = "//third_party:transitive_consumers")
+
+alias(
+    name = "diffusion_model",
+    actual = "@co_huggingface_comfy_org_z_image_turbo//file",
+    tags = ["manual"],
+    visibility = ["//tools/comfyui:__subpackages__"],
+)
+
+alias(
+    name = "text_encoder",
+    actual = "@co_huggingface_comfy_org_z_image_turbo_text_encoder//file",
+    tags = ["manual"],
+    visibility = ["//tools/comfyui:__subpackages__"],
+)
+
+alias(
+    name = "vae",
+    actual = "@co_huggingface_comfy_org_z_image_turbo_vae//file",
+    tags = ["manual"],
+    visibility = ["//tools/comfyui:__subpackages__"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//third_party:__pkg__"],
+)

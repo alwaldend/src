@@ -1,0 +1,121 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("@rules_python//python:defs.bzl", "py_binary")
+load("@rules_python//python/uv:lock.bzl", "lock")
+
+package(transitive_visibility = "//tools:transitive_consumers")
+
+exports_files(
+    ["uv.lock"],
+    visibility = ["//:__pkg__"],
+)
+
+_SERVER_ARGS = [
+    "--server",
+    "$(rlocationpath //third_party/com_github_comfy_org_comfyui:comfyui)",
+]
+
+_SD_TURBO_MODEL_ARGS = [
+    "--model",
+    "checkpoints/sd_turbo.safetensors=$(rlocationpath //third_party/co_huggingface_stabilityai_sd_turbo:checkpoint)",
+]
+
+_Z_IMAGE_LIMIT_ARGS = [
+    "--memory-limit-gib",
+    "36",
+]
+
+_Z_IMAGE_MODEL_ARGS = [
+    "--model",
+    "diffusion_models/z_image_turbo_bf16.safetensors=$(rlocationpath //third_party/co_huggingface_comfy_org_z_image_turbo:diffusion_model)",
+    "--model",
+    "text_encoders/qwen_3_4b.safetensors=$(rlocationpath //third_party/co_huggingface_comfy_org_z_image_turbo:text_encoder)",
+    "--model",
+    "vae/ae.safetensors=$(rlocationpath //third_party/co_huggingface_comfy_org_z_image_turbo:vae)",
+]
+
+_SD_TURBO_DATA = [
+    "//third_party/co_huggingface_stabilityai_sd_turbo:checkpoint",
+    "//third_party/com_github_comfy_org_comfyui:comfyui",
+]
+
+_Z_IMAGE_DATA = [
+    "//third_party/co_huggingface_comfy_org_z_image_turbo:diffusion_model",
+    "//third_party/co_huggingface_comfy_org_z_image_turbo:text_encoder",
+    "//third_party/co_huggingface_comfy_org_z_image_turbo:vae",
+    "//third_party/com_github_comfy_org_comfyui:comfyui",
+]
+
+py_binary(
+    name = "comfyui",
+    srcs = ["cmd/serve/main.py"],
+    args = _SERVER_ARGS + _SD_TURBO_MODEL_ARGS,
+    data = _SD_TURBO_DATA,
+    main = "cmd/serve/main.py",
+    python_version = "3.13.13",
+    tags = ["manual"],
+    visibility = ["//:__subpackages__"],
+    deps = ["@rules_python//python/runfiles"],
+)
+
+py_binary(
+    name = "benchmark",
+    srcs = ["cmd/benchmark/main.py"],
+    args = [
+        "--launcher",
+        "$(rlocationpath :comfyui)",
+    ] + _SERVER_ARGS + _SD_TURBO_MODEL_ARGS,
+    data = [":comfyui"] + _SD_TURBO_DATA,
+    main = "cmd/benchmark/main.py",
+    python_version = "3.13.13",
+    tags = ["manual"],
+    visibility = ["//:__subpackages__"],
+    deps = [
+        "@com_alwaldend_src_comfyui_pip//pillow",
+        "@rules_python//python/runfiles",
+    ],
+)
+
+py_binary(
+    name = "z_image_turbo",
+    srcs = ["cmd/serve/main.py"],
+    args = _SERVER_ARGS + _Z_IMAGE_MODEL_ARGS + _Z_IMAGE_LIMIT_ARGS,
+    data = _Z_IMAGE_DATA,
+    main = "cmd/serve/main.py",
+    python_version = "3.13.13",
+    tags = ["manual"],
+    visibility = ["//:__subpackages__"],
+    deps = ["@rules_python//python/runfiles"],
+)
+
+py_binary(
+    name = "z_image_turbo_benchmark",
+    srcs = ["cmd/benchmark/main.py"],
+    args = [
+        "--launcher",
+        "$(rlocationpath :z_image_turbo)",
+        "--profile",
+        "z-image-turbo",
+    ] + _SERVER_ARGS + _Z_IMAGE_MODEL_ARGS + _Z_IMAGE_LIMIT_ARGS,
+    data = [":z_image_turbo"] + _Z_IMAGE_DATA,
+    main = "cmd/benchmark/main.py",
+    python_version = "3.13.13",
+    tags = ["manual"],
+    visibility = ["//:__subpackages__"],
+    deps = [
+        "@com_alwaldend_src_comfyui_pip//pillow",
+        "@rules_python//python/runfiles",
+    ],
+)
+
+lock(
+    name = "uv_lock",
+    srcs = ["pyproject.toml"],
+    out = "uv.lock",
+    python_version = "3.13.13",
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//tools:__pkg__"],
+)

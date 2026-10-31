@@ -1,0 +1,21 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+
+package(transitive_visibility = "//third_party:transitive_consumers")
+
+exports_files(
+    ["upstream.BUILD.bazel"],
+    visibility = ["//:__pkg__"],
+)
+
+alias(
+    name = "comfyui",
+    actual = "@com_github_comfy_org_comfyui//:comfyui",
+    tags = ["manual"],
+    visibility = ["//tools/comfyui:__subpackages__"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//third_party:__pkg__"],
+)

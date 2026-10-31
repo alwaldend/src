@@ -1,0 +1,10 @@
+comfyui_python = use_extension("@rules_python//python/extensions:python.bzl", "python")
+comfyui_python.toolchain(python_version = "3.13.13")
+
+comfyui_pip = use_extension("@rules_python//python/extensions:pip.bzl", "pip")
+comfyui_pip.parse(
+    hub_name = "com_alwaldend_src_comfyui_pip",
+    python_version = "3.13.13",
+    uv_lock = "//tools/comfyui:uv.lock",
+)
+use_repo(comfyui_pip, "com_alwaldend_src_comfyui_pip")

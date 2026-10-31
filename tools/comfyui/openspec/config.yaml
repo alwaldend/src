@@ -1,0 +1,8 @@
+schema: spec-driven
+context: |
+  This workspace owns tools/comfyui and its local image-generation workflow.
+  Upstream source and model dependencies belong under third_party.
+  The user approved ComfyUI v0.43.0, its Python requirements with CPU-only
+  PyTorch, and stabilityai/sd-turbo model weights for a local Bazel trial.
+  Generate a verifiable PNG and record timings without changing host configuration.
+  The user additionally requested a Z-Image trial, including its required model assets.

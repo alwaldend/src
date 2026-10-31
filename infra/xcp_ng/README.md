@@ -87,6 +87,19 @@ renewal briefly interrupt XO management access, not running guest VMs.
 
 ## Commands
 
+Use the packaged SSH target for authorized host inspection:
+
+```sh
+bazel_agent bazel run //infra/xcp_ng:ssh -- 'lscpu; lspci -nn'
+```
+
+This target uses the host's OpenSSH and `sshpass`, the existing Vault-backed
+host password injected as `SSHPASS`, and the host administrator account `root`. The controller
+must already trust the host key in its SSH known-hosts file. It bypasses host
+SSH configuration files and refuses unknown or changed host keys. Arguments
+after `--` are forwarded as the remote command; omitting them opens a session.
+The target grants no authority to change host configuration.
+
 The XO server must be connected to an XCP-ng host before discovering
 templates or creating VMs. `xo_inspect` prints selected operational metadata
 without credentials or plugin configuration:

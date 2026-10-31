@@ -1,0 +1,17 @@
+load("@com_alwaldend_src_comfyui_pip//:requirements.bzl", "all_requirements")
+load("@rules_python//python:defs.bzl", "py_binary")
+
+py_binary(
+    name = "comfyui",
+    srcs = glob(["**/*.py"], exclude = ["tests/**", "tests-unit/**"]),
+    data = glob(
+        ["**"],
+        exclude = ["**/*.py", "BUILD.bazel", "tests/**", "tests-unit/**", ".github/**"],
+    ),
+    imports = ["."],
+    legacy_create_init = False,
+    main = "main.py",
+    python_version = "3.13.13",
+    visibility = ["@//third_party/com_github_comfy_org_comfyui:__pkg__"],
+    deps = all_requirements,
+)

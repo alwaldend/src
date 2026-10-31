@@ -82,6 +82,10 @@ and failure handling through repository targets.
 
 ## Diagnostics
 
+Prefer the owning component's packaged SSH target for remote inspection;
+discover its label and authentication before attempting direct host SSH.
+If none exists, follow the missing-target procedure in the diagnostics reference.
+
 Read [references/diagnostics.md](references/diagnostics.md) for the read-only
 audit procedure and the evidence a finding must carry.
 
