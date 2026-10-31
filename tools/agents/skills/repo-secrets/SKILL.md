@@ -53,6 +53,41 @@ paths aligned with the component label; do not silently share a broader role.
   private keys, literal passwords/tokens, and suspicious high-entropy values.
   Do not use a scan that echoes suspected values into the final response.
 
+## Interactive Bash credential input
+
+When a user requests a pasteable command that prompts for a token, read it
+silently at runtime instead of putting the value in the command. Use
+`IFS= read -r -s -p` to preserve spaces and backslashes and suppress terminal
+echo. Print a newline after the hidden prompt. Stop on failed input or an empty
+value before invoking the consumer.
+
+Use a subshell to scope the temporary variable and preserve the consumer's exit
+status. Disable shell tracing before reading or expanding the secret, and unset
+the variable first so an inherited export attribute cannot expose it to child
+processes. Prefer the consumer's standard-input credential option; quote the
+expansion and use a fixed `printf` format. For example, replace the placeholder
+consumer with the actual tool and its documented stdin option:
+
+```bash
+(
+  set +x
+  unset secret_input
+  IFS= read -r -s -p 'API token: ' secret_input || exit 1
+  printf '\n'
+  [ -n "$secret_input" ] || exit 1
+  printf '%s\n' "$secret_input" | consumer --token-stdin
+)
+```
+
+The literal token stays out of shell history and process arguments. Do not
+substitute an argument such as `--token "$secret_input"`, export the variable,
+or echo the value for confirmation. Subshell exit removes the shell variable;
+it does not guarantee memory erasure or control how the consumer stores login
+credentials. If stdin authentication is unavailable, use the tool's documented
+secure input mechanism and describe any necessary storage. Check prompt,
+input-failure, consumer-failure and cleanup behavior with dummy values; never
+use a real credential as a fixture or run a login merely to test the example.
+
 ## Validate structure
 
 Build or test the narrow Bazel targets that package the changed `al.lua`, Vault

@@ -18,3 +18,19 @@
         merely for validation without explicit authorization; and performs
         narrow structural Bazel checks plus a non-disclosing diff and secret
         review. Otherwise fail.
+- description: Supplies a hidden-input Bash login command
+  vars:
+    request: >-
+      Give me a Bash command that asks for my API token without showing it,
+      then runs client login --token-stdin. Do not run the login for me.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the answer supplies a pasteable Bash command that reads
+        the token silently at runtime, preserves literal input, stops on input
+        failure or empty input, and passes the quoted value through stdin
+        using a fixed printf format. It must scope and clean up the variable,
+        avoid inherited export attributes and shell tracing, preserve a failed
+        login status, and avoid token literals, command-line token arguments,
+        secret output, and executing the login. Otherwise fail.

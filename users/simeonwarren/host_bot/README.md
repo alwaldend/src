@@ -111,6 +111,19 @@ the normal Codex config and the isolated OpenRouter and Abliteration homes.
 The MCP can inspect and control the logged-in desktop session, so agents must treat its actions as real user input and obtain approval before
 externally visible or destructive actions.
 
+The API Codex home is `~/.codex-api`. It uses the shared managed Codex
+settings and instructions, requires API-key login, and keeps its credentials
+and conversation state separate. The `codex_api` tag selects its configuration.
+With `OPENAI_API_KEY` set in your terminal, log in with:
+
+```sh
+printenv OPENAI_API_KEY | CODEX_HOME="$HOME/.codex-api" codex login --with-api-key
+```
+
+Start it with `CODEX_HOME="$HOME/.codex-api" codex`. In T3 Code, set
+`CODEX_HOME path` to `/var/home/simeonwarrenbot/.codex-api` and start a new thread.
+Ansible does not provision or copy API credentials.
+
 OpenRouter is available through its isolated Codex home. Its
 configuration reads its API key from the desktop keyring entry selected by
 `service=openrouter` and `application=codex`; the key is not stored in the
