@@ -1,0 +1,4 @@
+interface:
+  display_name: "Repository Secret Scan"
+  short_description: "Scan Git history and preserve findings for inspection"
+  default_prompt: "Use $repo-secret-scan to scan this repository and retain the original findings for inspection."

@@ -93,6 +93,12 @@ local_path_override(
     path = "tools/rules_terraform",
 )
 
+bazel_dep(name = "rules_trufflehog")
+local_path_override(
+    module_name = "rules_trufflehog",
+    path = "projects/rules_trufflehog",
+)
+
 bazel_dep(name = "rules_binary_toolchain")
 local_path_override(
     module_name = "rules_binary_toolchain",

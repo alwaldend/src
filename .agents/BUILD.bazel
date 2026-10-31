@@ -55,6 +55,7 @@ skills_write(
         "//tools/agents/skills/repo-hugo:skill",
         "//tools/agents/skills/repo-infra:skill",
         "//tools/py/skills/repo-python:skill",
+        "//tools/agents/skills/repo-secret-scan:skill",
         "//tools/agents/skills/repo-secrets:skill",
         "//tools/agents/skills/repo-workspace:skill",
         "//tools/agents/skills/spellcheck:skill",

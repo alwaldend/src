@@ -33,7 +33,7 @@ func TestBootstrapConfigurationSelectsOnlyRequestedRole(t *testing.T) {
 }
 
 func TestOriginRejectsCredentialsAndAlternateDestinations(t *testing.T) {
-	for _, raw := range []string{"http://xo.test", "https://user:private@xo.test", "https://xo.test/path", "https://xo.test/?token=private", "https://xo.test/#fragment", "wss://xo.test"} {
+	for _, raw := range []string{"http://xo.test", "https://user:private@xo.test", "https://xo.test/path", "https://xo.test/?token=private", "https://xo.test/#fragment", "wss://xo.test"} { // trufflehog:ignore Synthetic origin-rejection fixtures.
 		if _, err := origin(raw); err == nil {
 			t.Fatal("accepted unsafe origin")
 		} else if err.Error() != "XO login requires an HTTPS origin" {
