@@ -1,0 +1,17 @@
+- name: Validate installed automatic-update services before timer activation
+  ansible.builtin.import_tasks: automatic_safety.yaml
+
+- name: Enable native APT package metadata refresh
+  ansible.builtin.systemd_service:
+    name: apt-daily.timer
+    enabled: true
+    state: started
+  when:
+    - update_all_packages_backend == 'apt'
+    - update_all_packages_automatic_enabled | bool
+
+- name: Set native automatic-installation timer state
+  ansible.builtin.systemd_service:
+    name: "{{ update_all_packages_automatic_backends[update_all_packages_backend].timer }}"
+    enabled: "{{ update_all_packages_automatic_enabled | bool }}"
+    state: "{{ update_all_packages_automatic_enabled | bool | ternary('started', 'stopped') }}"

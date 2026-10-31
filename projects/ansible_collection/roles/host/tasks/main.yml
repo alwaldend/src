@@ -41,6 +41,6 @@
     - name: Setup os
       ansible.builtin.import_role:
         name: alwaldend.main.os
-    - name: Update all packages
+    - name: Update packages and configure native automatic updates
       ansible.builtin.import_role:
         name: alwaldend.main.update_all_packages

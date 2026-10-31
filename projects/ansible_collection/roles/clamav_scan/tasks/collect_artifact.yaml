@@ -1,0 +1,50 @@
+- name: Collect one artifact without preventing the remaining collection
+  block:
+    - name: Inspect the private remote artifact
+      ansible.builtin.stat:
+        path: "{{ clamav_scan_remote_directory.path }}/{{ clamav_scan_artifact }}"
+        follow: false
+        get_attributes: false
+        get_checksum: false
+      register: clamav_scan_remote_artifact
+      ignore_unreachable: true
+
+    - name: Require a regular root-owned artifact
+      ansible.builtin.assert:
+        that:
+          - clamav_scan_remote_artifact.stat.isreg | default(false)
+          - not (clamav_scan_remote_artifact.stat.islnk | default(false))
+          - clamav_scan_remote_artifact.stat.uid | default(-1) == 0
+          - clamav_scan_remote_artifact.stat.mode | default('') == '0600'
+
+    - name: Fetch the artifact with checksum validation
+      ansible.builtin.fetch:
+        src: "{{ clamav_scan_remote_artifact.stat.path }}"
+        dest: "{{ clamav_scan_result_directory }}/{{ clamav_scan_artifact }}"
+        flat: true
+        validate_checksum: true
+      register: clamav_scan_artifact_fetch
+      ignore_unreachable: true
+
+    - name: Require successful artifact transfer
+      ansible.builtin.assert:
+        that:
+          - clamav_scan_artifact_fetch is succeeded
+          - not (clamav_scan_artifact_fetch.unreachable | default(false))
+
+    - name: Restrict the retained artifact to the controller user
+      ansible.builtin.file:
+        path: "{{ clamav_scan_result_directory }}/{{ clamav_scan_artifact }}"
+        state: file
+        mode: "0600"
+      delegate_to: localhost
+      become: false
+
+    - name: Record successful artifact retention
+      ansible.builtin.set_fact:
+        clamav_scan_retained_artifacts: "{{ clamav_scan_retained_artifacts + [clamav_scan_artifact] }}"
+
+  rescue:
+    - name: Retain private artifact collection diagnostics
+      ansible.builtin.set_fact:
+        clamav_scan_collection_errors: "{{ clamav_scan_collection_errors + [{'artifact': clamav_scan_artifact, 'error': ansible_failed_result}] }}"

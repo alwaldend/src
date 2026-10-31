@@ -18,7 +18,10 @@ docs_filegroup(
 filegroup(
     name = "inventory",
     srcs = ["inventory.yaml"],
-    visibility = ["//infra/ingress:__subpackages__"],
+    visibility = [
+        "//infra/ingress:__subpackages__",
+        "//infra/security:fleet_inventory_consumers",
+    ],
 )
 
 al_binary_run_map(

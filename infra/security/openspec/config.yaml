@@ -1,0 +1,6 @@
+schema: spec-driven
+
+context: |
+  This workspace owns infra/security fleet audit and no-reboot maintenance.
+  Reuse authoritative owner inventories; never copy host lists.
+  Runtime observations stay in private task evidence.

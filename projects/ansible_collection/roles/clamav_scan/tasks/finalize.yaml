@@ -1,0 +1,48 @@
+- name: Remove only the closed controller connection directory
+  ansible.builtin.file:
+    path: "{{ clamav_scan_control_directory.path }}"
+    state: absent
+  delegate_to: localhost
+  become: false
+  when:
+    - not clamav_scan_local
+    - clamav_scan_control_directory.path is defined
+    - clamav_scan_connection_restored
+  register: clamav_scan_control_cleanup
+  ignore_errors: true
+
+- name: Validate the final native outcome and always retain its receipt
+  block:
+    - name: Require completed execution, retained evidence and owned cleanup
+      ansible.builtin.assert:
+        that:
+          - clamav_scan_evidence_retained
+          - clamav_scan_setup_error == {}
+          - clamav_scan_exit_code in [0, 1]
+          - not (clamav_scan_multiscan and clamav_scan_exit_code == 1)
+          - clamav_scan_summary_valid
+          - clamav_scan_reported_errors == 0
+          - clamav_scan_diagnostic_check.rc | default(-1) == 1
+          - clamav_scan_diagnostic_check.stdout | default('') | trim == '0'
+          - clamav_scan_boot_before.rc | default(-1) == 0
+          - clamav_scan_boot_after.rc | default(-1) == 0
+          - clamav_scan_boot_before.stdout | default('before') == clamav_scan_boot_after.stdout | default('after')
+          - clamav_scan_forward_released
+          - clamav_scan_connection_restored
+          - clamav_scan_retention_receipt is succeeded
+          - not (clamav_scan_retention_receipt.unreachable | default(false))
+          - clamav_scan_remote_cleanup is succeeded
+          - not (clamav_scan_remote_cleanup.unreachable | default(false))
+          - clamav_scan_transport_cleanup is succeeded
+          - not (clamav_scan_transport_cleanup.unreachable | default(false))
+          - clamav_scan_control_cleanup is succeeded
+        fail_msg: "Native execution or cleanup is incomplete; consult {{ clamav_scan_result_directory }}/receipt.json."
+      register: clamav_scan_validation
+  always:
+    - name: Save final native validation and lifecycle status
+      ansible.builtin.template:
+        src: receipt.json.j2
+        dest: "{{ clamav_scan_result_directory }}/receipt.json"
+        mode: "0600"
+      delegate_to: localhost
+      become: false

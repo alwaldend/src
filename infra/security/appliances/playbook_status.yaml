@@ -1,0 +1,43 @@
+- name: Read appliance boot status with one SSH connection per host
+  hosts: xcpng:xoa
+  gather_facts: false
+  serial: 1
+  vars:
+    appliance_ssh_multiplexing: -o ControlMaster=no -o ControlPath=none
+  tasks:
+    - name: Inspect the existing private controller evidence directory
+      ansible.builtin.stat:
+        path: "{{ appliance_report_directory }}"
+        follow: false
+      delegate_to: localhost
+      become: false
+      register: appliance_status_directory
+
+    - name: Require an existing private evidence directory
+      ansible.builtin.assert:
+        that:
+          - appliance_status_directory.stat.isdir | default(false)
+          - not (appliance_status_directory.stat.islnk | default(false))
+          - appliance_status_directory.stat.mode | default('') == '0700'
+
+    - name: Read only the current boot identity and uptime
+      ansible.builtin.raw: cat /proc/sys/kernel/random/boot_id /proc/uptime
+      register: appliance_status
+      changed_when: false
+      failed_when: false
+      ignore_unreachable: true
+      no_log: true
+
+    - name: Preserve the status or connection failure privately
+      ansible.builtin.copy:
+        content: "{{ appliance_status | to_nice_json }}"
+        dest: "{{ appliance_report_directory }}/{{ inventory_hostname }}-status.json"
+        mode: "0600"
+      delegate_to: localhost
+      become: false
+      no_log: true
+
+    - name: Report whether the status probe completed
+      ansible.builtin.assert:
+        that: appliance_status.rc | default(1) == 0
+        fail_msg: "Status unavailable; inspect the private {{ inventory_hostname }}-status.json receipt."

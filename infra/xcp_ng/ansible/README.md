@@ -47,6 +47,29 @@ does not pass EAB credentials to its ACME client. Certbot supports
 [external account binding](https://eff-certbot.readthedocs.io/en/stable/using.html#configuration-file)
 without changing Vault's mandatory-EAB policy.
 
+## XCP-ng Ansible interpreter
+
+The existing [inventory](inventory.yaml) selects
+`/opt/ansible-python/3.14.4/bin/python3.14` for
+`host1.xcp-ng.alwaldend.com` at host scope. This takes precedence over the
+security consumer's `group_vars/all.yaml` setting of `/usr/bin/python3`.
+Shared security workflows consume this owner inventory directly.
+
+The user explicitly authorized a **manual bootstrap exception** for this
+host. The parent implementation agent owns installation and validation of
+the side-by-side runtime. Bootstrap must preserve vendor Python, `PATH`, and
+system symlinks, and must not reboot the host. The runtime follows the
+existing rules_python CPython 3.14.4 pin in
+[`tools/py/include.MODULE.bazel`](../../../tools/py/include.MODULE.bazel);
+there is no additional third-party pin. It is not maintained by `yum`.
+
+The host-scoped inventory setting and this exception document the IaC
+reconciliation. The parent reports successful installation and native module
+verification. Evidence and pending shared-role audit validation are recorded in the
+[owner change](../openspec/changes/export-security-inventory/tasks.md).
+The parent must review the candidate before deployment and record the remaining
+validation results there.
+
 ## XCP-ng host certificates
 
 `//infra/xcp_ng/ansible:ansible.host` provisions a Vault ACME certificate for
@@ -56,9 +79,10 @@ The host must serve `/opt/xensource/www/.well-known/acme-challenge` through
 HTTP or an HTTP-to-HTTPS redirect; the inspection verifies and cleans up a
 public probe file. This host supports that path without changing XAPI settings.
 
-XCP-ng's Python 3.6 cannot run the current Ansible modules. The playbook uses
-Ansible's script transport for a Python 3.6-compatible helper, without adding
-packages to dom0. The helper downloads the immutable Lego release declared in
+XCP-ng's vendor Python 3.6 cannot run the current Ansible modules. The
+certificate playbook explicitly uses `/usr/bin/python3` through Ansible's
+script transport for a Python 3.6-compatible helper, without adding packages
+to dom0. The helper downloads the immutable Lego release declared in
 `third_party/com_github_go_acme_lego_bin/binary_toolchain.json`, verifies its
 checksum, and installs it under root-only `/etc/xcp-ng-acme`.
 

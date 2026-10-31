@@ -1,0 +1,73 @@
+- name: Require explicit private evidence inputs
+  ansible.builtin.assert:
+    that:
+      - not ansible_check_mode
+      - appliance_report_directory is defined
+      - appliance_report_directory is match('^/.+')
+      - appliance_audit_phase in ['before', 'after']
+    fail_msg: Supply an existing absolute appliance_report_directory with mode 0700; check mode is unsupported.
+
+- name: Inspect the controller evidence directory
+  ansible.builtin.stat:
+    path: "{{ appliance_report_directory }}"
+    follow: false
+    get_checksum: false
+    get_attributes: false
+  delegate_to: localhost
+  become: false
+  register: appliance_controller_directory
+
+- name: Identify the controller owner
+  ansible.builtin.command:
+    argv: [id, -u]
+  delegate_to: localhost
+  become: false
+  changed_when: false
+  register: appliance_controller_owner
+
+- name: Require controller ownership and private permissions
+  ansible.builtin.assert:
+    that:
+      - appliance_controller_directory.stat.exists
+      - appliance_controller_directory.stat.isdir | default(false)
+      - not (appliance_controller_directory.stat.islnk | default(false))
+      - appliance_controller_directory.stat.mode | default('') == '0700'
+      - appliance_controller_directory.stat.uid | default(-1) == appliance_controller_owner.stdout | int
+
+- name: Allocate a unique private evidence destination
+  ansible.builtin.tempfile:
+    state: directory
+    path: "{{ appliance_report_directory }}"
+    prefix: "{{ inventory_hostname | regex_replace('[^A-Za-z0-9_.-]', '_') }}-{{ appliance_audit_phase }}-"
+  delegate_to: localhost
+  become: false
+  register: appliance_result_directory
+
+- name: Prepare invocation-owned appliance transport
+  ansible.builtin.import_tasks: connection_prepare.yaml
+
+- name: Retain the controller socket path for cleanup after unreachable failures
+  ansible.builtin.copy:
+    content: "{{ appliance_ssh_directory.path }}\n"
+    dest: "{{ appliance_result_directory.path }}/ssh-control-directory.txt"
+    mode: "0600"
+  delegate_to: localhost
+  become: false
+  when: "'xoa' in group_names"
+
+- name: Read the original boot identity
+  ansible.builtin.raw: cat /proc/sys/kernel/random/boot_id
+  changed_when: false
+  register: appliance_boot_before
+
+- name: Retain the original boot identity
+  ansible.builtin.copy:
+    content: "{{ appliance_boot_before.stdout | trim }}\n"
+    dest: "{{ appliance_result_directory.path }}/boot-before.txt"
+    mode: "0600"
+  delegate_to: localhost
+  become: false
+
+- name: Report the private evidence destination
+  ansible.builtin.debug:
+    msg: "Appliance evidence: {{ appliance_result_directory.path }}"

@@ -1,0 +1,10 @@
+ansible_ssh_password_mechanism: sshpass
+appliance_ssh_multiplexing: -o ControlMaster=no -o ControlPath=none
+ansible_ssh_args: >-
+  -F /dev/null {{ appliance_ssh_multiplexing }}
+  -o PreferredAuthentications=password -o PubkeyAuthentication=no
+  -o StrictHostKeyChecking=yes -o UpdateHostKeys=no
+  -o GlobalKnownHostsFile=/dev/null -o HostKeyAlgorithms=ssh-ed25519
+  -o ConnectTimeout=10 -o ServerAliveInterval=15 -o ServerAliveCountMax=2
+ansible_python_interpreter: /usr/bin/python3
+appliance_audit_phase: before

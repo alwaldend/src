@@ -1,0 +1,50 @@
+- name: Update reviewed XOA operating-system packages without reboot
+  hosts: xoa
+  gather_facts: false
+  serial: 1
+  tasks:
+    - name: Require no-reboot OS maintenance
+      ansible.builtin.assert:
+        that:
+          - not (update_all_packages_reboot_enabled | default(false) | bool)
+          - update_all_packages_automatic_enabled | default(true) | bool
+          - not ansible_check_mode
+        fail_msg: XOA OS maintenance requires automatic updates enabled and reboot disabled; check mode is unsupported.
+
+    - name: Maintain XOA with boot verification and guaranteed transport cleanup
+      block:
+        - name: Prepare private controller evidence
+          ansible.builtin.import_tasks: tasks/evidence.yaml
+
+        - name: Gather supported appliance facts
+          ansible.builtin.setup:
+            gather_subset: [min]
+
+        - name: Restrict the OS workflow to Debian
+          ansible.builtin.assert:
+            that: ansible_facts.distribution == 'Debian'
+            fail_msg: This OS update path requires a verified Debian XOA appliance.
+
+        - name: Apply the shared native OS update workflow
+          ansible.builtin.include_role:
+            name: alwaldend.main.update_all_packages
+          vars:
+            update_all_packages_reboot_enabled: false
+            update_all_packages_automatic_enabled: true
+      always:
+        - name: Verify the original boot and always release allocated transport
+          block:
+            - name: Verify the original boot remains active
+              ansible.builtin.import_tasks: tasks/boot_verify.yaml
+              when: appliance_boot_before.rc | default(-1) == 0
+          always:
+            - name: Close and remove invocation-owned SSH transport
+              ansible.builtin.include_tasks: tasks/connection_cleanup.yaml
+              when: appliance_ssh_directory.path is defined
+
+    - name: Report the application update boundary
+      ansible.builtin.debug:
+        msg: >-
+          Debian OS packages use the shared no-reboot role. The XO application
+          and xoa-updater are separate vendor-managed software. Application
+          automation is not changed until its installed behavior is verified.

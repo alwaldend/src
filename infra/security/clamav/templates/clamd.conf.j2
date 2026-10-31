@@ -1,0 +1,28 @@
+Foreground yes
+DatabaseDirectory {{ clamav_database_directory }}
+CVDCertsDirectory {{ clamav_controller.prefix }}/usr/local/etc/certs
+TemporaryDirectory {{ clamav_controller.run_directory }}/tmp
+LocalSocket {{ clamav_controller.socket }}
+LocalSocketMode 600
+FixStaleSocket no
+MaxThreads {{ clamav_controller.threads }}
+MaxQueue {{ clamav_controller.max_queue }}
+ConcurrentDatabaseReload no
+SelfCheck 0
+EnableReloadCommand no
+EnableShutdownCommand no
+MaxFileSize 100M
+StreamMaxLength 104857601
+MaxScanSize 400M
+MaxFiles 10000
+MaxRecursion 17
+MaxScanTime 120000
+HeuristicAlerts yes
+AlertExceedsMax yes
+AlertEncrypted yes
+HeuristicScanPrecedence no
+ReadTimeout 180
+CommandReadTimeout 30
+SendBufTimeout 200
+ExitOnOOM yes
+LogTime yes

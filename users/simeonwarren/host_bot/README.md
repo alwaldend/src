@@ -11,6 +11,12 @@ Host Bot runs Traefik with mTLS in front of T3 Code. The host firewall blocks
 direct external access to T3 Code and accepts new connections only on SSH,
 HTTP, and HTTPS ports.
 
+The canonical package updater keeps automatic OSTree staging enabled without
+automatic reboot. The `automatic_updates` tag reconciles this policy. The
+shared `infra/security` playbook performs on-demand audits and stages immediate
+system updates; activating a staged deployment requires a separately authorized
+reboot.
+
 Ansible declares Tuned's `balanced` power profile through
 `host_bot_tuned_profile`, enables the existing Tuned service, and reconciles
 the selected profile in manual mode. The `power_profile` tag scopes those

@@ -1,0 +1,23 @@
+- name: Inspect the OSTree boot marker before selecting mutable packages
+  ansible.builtin.stat:
+    path: /run/ostree-booted
+    get_checksum: false
+  register: update_all_packages_ostree
+
+- name: Select the effective package backend
+  ansible.builtin.set_fact:
+    update_all_packages_backend: >-
+      {{ 'rpm_ostree' if update_all_packages_ostree.stat.exists
+         else ansible_facts.pkg_mgr | default('unsupported') }}
+
+- name: Require a supported modern host
+  ansible.builtin.assert:
+    that:
+      - update_all_packages_backend in ['dnf', 'dnf5', 'apt', 'rpm_ostree']
+      - ansible_facts.service_mgr | default('') == 'systemd'
+      - ansible_facts.distribution | default('') not in ['XCP-ng', 'XenServer']
+    fail_msg: >-
+      update_all_packages supports modern systemd DNF4, DNF5, APT and OSTree
+      hosts. Backend {{ update_all_packages_backend }} on
+      {{ ansible_facts.distribution | default('unknown distribution') }} is
+      unsupported; appliances require their owning maintenance workflow.
