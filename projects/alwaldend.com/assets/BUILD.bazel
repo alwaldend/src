@@ -13,7 +13,10 @@ filegroup(
         "scss/_shared_controls.scss",
         "scss/_shared_palette.scss",
     ],
-    visibility = ["//projects:__subpackages__"],
+    visibility = [
+        "//projects:__subpackages__",
+        "//tools/code_screenshot:__pkg__",
+    ],
 )
 
 mermaid_palette(

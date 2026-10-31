@@ -23,6 +23,9 @@ importers:
       autoprefixer:
         specifier: ^10.6.1
         version: 10.6.1(postcss@8.5.31)
+      highlight.js:
+        specifier: 11.12.0
+        version: 11.12.0
       lunr:
         specifier: 2.3.9
         version: 2.3.9

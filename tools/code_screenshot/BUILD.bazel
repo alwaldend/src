@@ -1,0 +1,25 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//projects/alwaldend.com/assets:defs.bzl", "site_stylesheet")
+
+package(
+    default_visibility = ["//:__subpackages__"],
+    transitive_visibility = "//tools:transitive_consumers",
+)
+
+alias(
+    name = "code_screenshot",
+    actual = "//tools/code_screenshot/cmd/code_screenshot",
+)
+
+site_stylesheet(
+    name = "theme",
+    src = "//projects/alwaldend.com/assets:scss/application.scss",
+    out = "theme.css",
+    includes = {"@com_alwaldend_src_hugo_github_com_twbs_bootstrap//:pkg_files": "scss"},
+    deps = ["//projects/alwaldend.com/assets:application_theme_sources"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+)
