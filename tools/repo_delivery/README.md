@@ -18,6 +18,28 @@ guarded workflow. Stable reads and writes enforce that
 limit; other typed local records retain their 256 KiB limit. Receipt schema,
 scope, integrity, and publication checks apply at either size.
 
+## Build and install
+
+`//tools/repo_delivery` builds the current local source. Install the standalone
+command explicitly:
+
+```sh
+bazel_agent bazel run //tools/repo_delivery:install
+repo_delivery provider
+```
+
+Installation atomically replaces `~/.local/bin/repo_delivery` with mode 0755.
+Ensure that directory is on `PATH`. It copies the executable rather than
+linking to Bazel outputs, so it remains available after those outputs are
+removed. Rerun the target to update an installed command after source changes.
+No AL executable cache or binary download is involved.
+
+For an isolated installation, pass an absolute destination directory:
+
+```sh
+bazel_agent bazel run //tools/repo_delivery:install -- --directory "$PWD/out/install/bin"
+```
+
 ## Provider and delivery workflow
 
 Run delivery commands from this Git worktree's repository root, which owns the
@@ -31,9 +53,9 @@ credential-bearing remote URL:
 bazel_agent bazel run //tools/repo_delivery -- provider
 ```
 
-The optional cached form is `al tool repo_delivery -- ...`. An execution
-failure or delivery refusal still requires diagnosis. All examples below use
-the baseline.
+The installed `repo_delivery` command is an optional direct entry point. An
+execution failure or delivery refusal requires diagnosis. All examples below
+use the Bazel entry point.
 
 The sanitized report distinguishes forge support from Git transport support.
 `adapter_available` reports whether the forge has an adapter;
@@ -41,8 +63,8 @@ The sanitized report distinguishes forge support from Git transport support.
 `delivery_transport_available` is true only when both captured endpoints are
 canonical SSH endpoints. It never reports either endpoint.
 
-For validation that invokes Bazel, use the cached entry point or generate a
-task-local launcher once from the repository root. Ordinary `bazel run` can
+For validation that invokes Bazel, generate a task-local launcher once from
+the repository root. An installed standalone command also runs independently of the Bazel server. Ordinary `bazel run` can
 retain the Bazel lock while its target runs; `--script_path` releases it before
 the generated launcher is executed. Refresh the launcher after changing the
 delivery tool. This requires no installed runner update:

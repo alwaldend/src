@@ -42,13 +42,13 @@ not another checkout. The baseline works with a bare Bazel entry point:
 bazel_agent bazel run //tools/repo_delivery -- provider
 ```
 
-For the cached path, use `al tool repo_delivery -- ...` when configured. A
+For an explicitly installed command, use `repo_delivery ...` directly. A
 delivery refusal or execution failure needs diagnosis, not a change of entry
 point. Below, `repo_delivery <command>` means the selected invocation.
 
-For `validate`, use the cached entry point or generate one task-local launcher
-from the repository root, then invoke that launcher. This releases Bazel's
-lock before validation starts another Bazel command:
+For `validate`, use an explicitly installed standalone command or generate
+one task-local launcher from the repository root, then invoke that launcher.
+This releases Bazel's lock before validation starts another Bazel command:
 
 ```sh
 bazel_agent bazel run --script_path=out/task/repo_delivery \
@@ -99,7 +99,7 @@ reproducing mutations with Git or `gh` or bypassing a safety refusal.
    it binds candidate, repository, endpoints, refs, remote lease, and expected
    pull-request identity. It does not prove validation or grant authority.
 4. Select a validation plan and run `validate` with `--receipt-file <path>`
-   and `--plan-file <path>` using the launcher or cached tool. It records candidate,
+   and `--plan-file <path>` using the task-local launcher. It records candidate,
    plan, environment, checks, and logs beside the receipt; no OID copying is
    needed for continuation. It runs aggregate `git diff --check` before checks.
    Both
