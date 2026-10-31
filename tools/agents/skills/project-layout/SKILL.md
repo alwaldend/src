@@ -52,6 +52,13 @@ self-contained examples.
 
 ## Choose a source type
 
+Before generation or scaffolding, distinguish maintained inputs from generated
+build outputs and identify the intended consumers. A schema snapshot or
+handwritten integration can belong in source while its generated client belongs
+in Bazel outputs. Check the owning generator workflow before checking generated
+files in. Repository-only reuse does not itself require a public product,
+landing page, or release surface; follow the owner's actual consumer contract.
+
 Place project-owned source at `<project>/<type>/<name-or-tree>`. Choose
 `<type>` for the source's role, not its implementation language:
 

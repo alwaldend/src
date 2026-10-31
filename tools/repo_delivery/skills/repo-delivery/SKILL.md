@@ -12,6 +12,12 @@ description: >-
 Deliver authorized implementation work without asking again whether to commit
 or push. Preserve unrelated work and use the repository's dedicated feature
 worktree. Load `$bazel-agent` and `$repo-bazel` for invocation and validation.
+Apply the root `AGENTS.md` standing delivery authorization to its configured
+repository destination, including source disclosure and PR creation. An external
+forge alone does not require another user approval. Verify the destination and
+scope; an automatic approval rejection still requires diagnosis and must not be
+bypassed. Describe such a rejection as an approval-system refusal rather than
+claiming that the user's standing authorization was absent.
 
 ## Choose the pull-request base
 
@@ -54,7 +60,7 @@ This releases Bazel's lock before validation starts another Bazel command:
 bazel_agent bazel run --script_path=out/task/repo_delivery \
   //tools/repo_delivery
 out/task/repo_delivery validate --receipt-file out/task/prepare.json \
-  --plan-file out/task/checks.json
+  --plan-file out/task/checks.json --publish
 ```
 
 Refresh the launcher after changing the delivery tool. The owning README
@@ -116,12 +122,19 @@ reproducing mutations with Git or `gh` or bypassing a safety refusal.
    BUILD, MODULE, or configuration semantics. Verify representative output as
    well as source. Use a clean exact-candidate checkout when unrelated dirt
    could affect checks, or establish that the checks cannot consume it.
+   After completing the correctness review in step 5, when publication is
+   already authorized and the candidate is ready, use
+   `validate --publish` to run checks and guarded publication in one process
+   environment. This avoids incidental drift between agent commands without
+   changing the environment guard or requiring a custom wrapper. Omit
+   `--publish` when checks must finish before a separate publication decision.
 5. Review changed behavior against the requested result and touched contracts.
    A behavior-changing edit invalidates the prior correctness verdict; seek
    relevant disconfirming cases, fix valid findings, and scrutinize that diff
    again. Passing tests cover only their encoded cases. Keep this proportional
    and do not reopen unrelated accepted code for inert documentation records.
-6. Run `continue --receipt-file <path> --publish` for explicit publication.
+6. If validation did not already publish, run
+   `continue --receipt-file <path> --publish` for explicit publication.
    The tool verifies recorded inputs and passing results under the receipt
    lock, then owns the exact-lease push, commit-to-PR projection, and
    verification. Without `--publish`, continuation only reports readiness or
@@ -151,6 +164,11 @@ The optional message-amend `deliver` wrapper also stops at
 An interrupted or failed publication is verification-only on continuation;
 diagnose it before manual recovery. Never force past a refusal or blindly
 retry. A new validation run cannot reset that state for the same candidate.
+When the report contains `publication_verification_pending`, retain and link
+its known PR URL and candidate. `verified: false` means final gates remain
+incomplete. Resume with `continue --receipt-file <path>` without `--publish`;
+a concurrent review-read failure alone does not require new checks, another
+push, PR creation, or manual PR discovery.
 
 ## Complete review and handoff
 

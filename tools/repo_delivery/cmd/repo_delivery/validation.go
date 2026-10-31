@@ -78,15 +78,24 @@ func newValidateCommand(ctx context.Context, config *deliveryConfig,
 	getenv func(string) string, stdout io.Writer, runner commandRunner,
 ) *cobra.Command {
 	var receiptFile, planFile string
+	var publish, noPullRequest bool
 	command := &cobra.Command{
 		Use: "validate", Short: "Run an explicit bounded validation plan for a prepared candidate",
 		Args: cobra.NoArgs,
 		RunE: func(cmd *cobra.Command, args []string) error {
+			if noPullRequest && !publish {
+				return fmt.Errorf("--no-pull-request requires --publish")
+			}
 			delivery, err := deliveryFromConfig(ctx, config, getenv, runner)
 			if err != nil {
 				return err
 			}
-			report, err := delivery.validateCandidate(ctx, receiptFile, planFile)
+			var report *validationReport
+			if publish {
+				report, err = delivery.validateAndPublishCandidate(ctx, receiptFile, planFile, noPullRequest)
+			} else {
+				report, err = delivery.validateCandidate(ctx, receiptFile, planFile)
+			}
 			if report != nil {
 				if outputErr := writeJSON(stdout, report); outputErr != nil {
 					return outputErr
@@ -97,9 +106,25 @@ func newValidateCommand(ctx context.Context, config *deliveryConfig,
 	}
 	command.Flags().StringVar(&receiptFile, "receipt-file", "", "ignored preparation receipt")
 	command.Flags().StringVar(&planFile, "plan-file", "", "explicit validation plan in the same ignored out/<task>/ directory")
+	command.Flags().BoolVar(&publish, "publish", false, "publish once after passing validation in the same process environment")
+	command.Flags().BoolVar(&noPullRequest, "no-pull-request", false, "publish without creating a pull request when none exists")
 	_ = command.MarkFlagRequired("receipt-file")
 	_ = command.MarkFlagRequired("plan-file")
 	return command
+}
+
+// validateAndPublishCandidate validates once and explicitly publishes through
+// the existing guarded continuation in the same inherited environment.
+func (d *delivery) validateAndPublishCandidate(ctx context.Context, receiptFile, planFile string, noPullRequest bool) (*validationReport, error) {
+	report, err := d.validateCandidate(ctx, receiptFile, planFile)
+	if err != nil {
+		return report, fmt.Errorf("validate before publication: %w", err)
+	}
+	report, err = d.continueCandidate(ctx, receiptFile, true, noPullRequest)
+	if err != nil {
+		return report, fmt.Errorf("continue after validation: %w", err)
+	}
+	return report, nil
 }
 
 func newContinueCommand(ctx context.Context, config *deliveryConfig,

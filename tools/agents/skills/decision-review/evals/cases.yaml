@@ -79,3 +79,21 @@
         against continuing unchanged, identifies what must be learned or
         changed before resuming, compares safer alternatives, and issues an
         explicit revise, ask, or refuse verdict. Otherwise fail.
+
+- description: Preserves settled semantics while simplifying a configuration API
+  vars:
+    request: >-
+      We agreed that Lua registration functions accept per-post predicates;
+      Go owns traversal, and the author-only snapshot is ready before Lua runs.
+      Our concrete policy preserves one thread and deletes other posts older
+      than 30 days. Review a proposal to require on_profile_loaded callbacks,
+      a global profile object, and plan_cleanup(profile) for future-proofing.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Evaluates the proposed abstractions against the concrete agreed policy,
+        preserves registration predicates and Go-owned traversal, and asks what
+        demonstrated requirement justifies the added lifecycle and global state.
+        Does not reinterpret settled semantics or assume future-proofing alone
+        justifies the additional API. Gives a concise revise verdict.
