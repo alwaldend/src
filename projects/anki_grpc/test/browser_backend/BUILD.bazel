@@ -1,0 +1,148 @@
+load("@aspect_rules_js//js:defs.bzl", "js_test")
+load("@go_host_compatible_sdk_label//:defs.bzl", "HOST_COMPATIBLE_SDK")
+load("@rules_go//go:def.bzl", "go_binary", "go_cross_binary")
+
+go_binary(
+    name = "harness",
+    testonly = True,
+    srcs = [
+        "doc.go",
+        "main_js.go",
+        "storage_js.go",
+    ],
+    basename = "browser_backend.wasm",
+    pure = "on",
+    target_compatible_with = [
+        "@rules_go//go/toolchain:js",
+        "@rules_go//go/toolchain:wasm",
+    ],
+    deps = [
+        "//projects/anki_grpc/pkg/ankiclient",
+        "//projects/anki_grpc/pkg/ankigrpc/browser",
+        "//third_party/com_github_ankitects_anki:backend",
+        "//third_party/com_github_ankitects_anki:card_rendering",
+        "//third_party/com_github_ankitects_anki:collection",
+        "//third_party/com_github_ankitects_anki:config",
+        "//third_party/com_github_ankitects_anki:generic",
+        "//third_party/com_github_ankitects_anki:media",
+        "//third_party/com_github_ankitects_anki:notes",
+        "//third_party/com_github_ankitects_anki:notetypes",
+        "//third_party/com_github_ankitects_anki:scheduler",
+        "@com_github_spf13_afero//:afero",
+        "@org_golang_google_grpc//:grpc",
+        "@org_golang_google_grpc//codes",
+        "@org_golang_google_grpc//metadata",
+        "@org_golang_google_grpc//status",
+        "@org_golang_google_protobuf//proto",
+    ],
+)
+
+go_cross_binary(
+    name = "application",
+    testonly = True,
+    platform = "@rules_go//go/toolchain:js_wasm",
+    target = ":harness",
+)
+
+js_test(
+    name = "browser_backend_test",
+    size = "medium",
+    args = [
+        "$(rootpath :application)",
+        "$(rootpath //projects/anki_grpc/pkg/ankigrpc/browser:guest)",
+        "$(rootpath " + str(HOST_COMPATIBLE_SDK.same_package_label("lib/wasm/wasm_exec.js")) + ")",
+        "$(rootpath //projects/anki_grpc/pkg/ankigrpc/browser:server)",
+    ],
+    data = [
+        ":application",
+        "//projects/anki_grpc/pkg/ankigrpc/browser:guest",
+        "//projects/anki_grpc/pkg/ankigrpc/browser:server",
+        HOST_COMPATIBLE_SDK.same_package_label("lib/wasm/wasm_exec.js"),
+    ],
+    entry_point = "backend_test.mjs",
+    no_copy_to_bin = [HOST_COMPATIBLE_SDK.same_package_label("lib/wasm/wasm_exec.js")],
+)
+
+js_test(
+    name = "browser_storage_test",
+    size = "medium",
+    args = [
+        "$(rootpath :application)",
+        "$(rootpath //projects/anki_grpc/pkg/ankigrpc/browser:guest)",
+        "$(rootpath " + str(HOST_COMPATIBLE_SDK.same_package_label("lib/wasm/wasm_exec.js")) + ")",
+        "$(rootpath //projects/anki_grpc/pkg/ankigrpc/browser:wasi)",
+        "$(rootpath //projects/anki_grpc/pkg/ankigrpc/browser:server)",
+        "$(rootpath :storage_worker.js)",
+        "$(rootpath @com_google_chrome_headless_shell//:chrome_headless_shell_binary)",
+        "$(rootpath //projects/anki_grpc/pkg/ankigrpc/browser:go)",
+        "$(rootpath :storage_runtime.js)",
+        "$(rootpath :storage_filesystem.js)",
+        "$(rootpath //projects/anki_grpc/pkg/ankigrpc/browser:emscripten)",
+        "$(rootpath //projects/anki_grpc/pkg/ankigrpc/browser:emscripten_memfs_files)",
+    ],
+    data = [
+        "storage_filesystem.js",
+        "storage_runtime.js",
+        "storage_worker.js",
+        ":application",
+        "//projects/anki_grpc/pkg/ankigrpc/browser:emscripten",
+        "//projects/anki_grpc/pkg/ankigrpc/browser:emscripten_memfs_files",
+        "//projects/anki_grpc/pkg/ankigrpc/browser:go",
+        "//projects/anki_grpc/pkg/ankigrpc/browser:guest",
+        "//projects/anki_grpc/pkg/ankigrpc/browser:server",
+        "//projects/anki_grpc/pkg/ankigrpc/browser:wasi",
+        "//tools:node_modules/puppeteer",
+        "@com_google_chrome_headless_shell//:chrome_headless_shell_binary",
+        HOST_COMPATIBLE_SDK.same_package_label("lib/wasm/wasm_exec.js"),
+    ],
+    entry_point = "storage_test.mjs",
+    no_copy_to_bin = [HOST_COMPATIBLE_SDK.same_package_label("lib/wasm/wasm_exec.js")],
+)
+
+js_test(
+    name = "filesystem_test",
+    size = "medium",
+    args = [
+        "$(rootpath //projects/anki_grpc/pkg/ankigrpc/browser:guest)",
+        "$(rootpath //projects/anki_grpc/pkg/ankigrpc/browser:wasi)",
+    ],
+    data = [
+        "//projects/anki_grpc/pkg/ankigrpc/browser:guest",
+        "//projects/anki_grpc/pkg/ankigrpc/browser:wasi",
+    ],
+    entry_point = "filesystem_test.mjs",
+)
+
+js_test(
+    name = "node_storage_test",
+    size = "medium",
+    args = [
+        "$(rootpath :application)",
+        "$(rootpath //projects/anki_grpc/pkg/ankigrpc/browser:guest)",
+        "$(rootpath " + str(HOST_COMPATIBLE_SDK.same_package_label("lib/wasm/wasm_exec.js")) + ")",
+        "$(rootpath //projects/anki_grpc/pkg/ankigrpc/browser:wasi)",
+        "$(rootpath //projects/anki_grpc/pkg/ankigrpc/browser:go)",
+    ],
+    data = [
+        "storage_runtime.js",
+        ":application",
+        "//projects/anki_grpc/pkg/ankigrpc/browser:go",
+        "//projects/anki_grpc/pkg/ankigrpc/browser:guest",
+        "//projects/anki_grpc/pkg/ankigrpc/browser:wasi",
+        HOST_COMPATIBLE_SDK.same_package_label("lib/wasm/wasm_exec.js"),
+    ],
+    entry_point = "storage_node_test.mjs",
+    env = {"TZ": "America/New_York"},
+    no_copy_to_bin = [HOST_COMPATIBLE_SDK.same_package_label("lib/wasm/wasm_exec.js")],
+)
+
+js_test(
+    name = "emscripten_filesystem_test",
+    size = "small",
+    args = ["$(rootpath //projects/anki_grpc/pkg/ankigrpc/browser:emscripten)"],
+    data = [
+        "//projects/anki_grpc/pkg/ankigrpc/browser:emscripten",
+        "//projects/anki_grpc/pkg/ankigrpc/browser:emscripten_files",
+    ],
+    entry_point = "emscripten_filesystem_test.mjs",
+)

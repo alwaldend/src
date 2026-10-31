@@ -82,6 +82,138 @@ crash isolation without extracting or finding another executable. The standalone
 Both builds currently target Linux x86_64 and require the repository's native
 Rust/C toolchains; linking introduces no new external dependencies.
 
+## Browser command backend
+
+`pkg/ankigrpc/browser` connects a Go `js/wasm` application to the callable Rust
+WASI reactor built by `//projects/anki_grpc/pkg/ankigrpc/browser:guest`. Generated
+protobuf clients use the same direct-command adapter as native hosting for
+serialization, call options, error decoding and lifetime. Rust invokes the
+existing Anki dispatcher. The browser backend operates without a pipe, HTTP/2
+transport or JSPI.
+
+`browser.NewClient(factory)` accepts a JavaScript factory that captures the
+caller's Node-compatible filesystem and absolute provider root. The factory
+receives a separate Go timezone host and resolves with synchronous
+`command(method, Uint8Array)` and `close()` methods:
+
+```js
+import { createBrowserServer } from "./wasi.js";
+import { installGoFilesystem } from "./go.js";
+
+await import("./wasm_exec.js");
+installGoFilesystem(fs);
+const createAnkiBackend = (timezone) =>
+  createBrowserServer(serverModule, fs, { root, timezone });
+```
+
+Pass the factory's `js.Value` to `browser.NewClient`. `createBrowserServer`
+mounts the caller's absolute provider `root` at guest `/`; it does not select,
+create or destroy a backing store. Go applications access the same files through
+`afero.NewBasePathFs(afero.NewOsFs(), root)`. The caller is responsible for
+supplying the same provider and root to both sides; the backend does not enforce
+filesystem identity. Filesystem calls from Rust execute directly in JavaScript,
+without calling back into Go. The timezone host exposes `offsetForUTC(seconds)`
+and `offsetsForLocal(seconds)` for decimal timestamp strings, returning an integer
+offset and a decimal packed offsets value respectively.
+
+The reusable `:go` JavaScript target exports `installGoFilesystem(fs)`. Import
+`wasm_exec.js` first, then install once before `Go.run()`. Go captures `fs`,
+`process` and `path` during initialization: keep those globals and the provider
+stable for its lifetime. The helper forwards Node callback filesystem methods
+with their original receivers, preserves the runtime stdout/stderr sink, uses a
+fixed cwd `/`, and resolves POSIX absolute paths. Workspace selection belongs to
+`BasePathFs`, not process globals. The provider must reserve descriptors 0–2 for
+standard streams; ordinary files use descriptors at least 3.
+
+The provider supplies Node callback methods for Go `os` and synchronous methods
+for Rust: open/close, read/write, stat/lstat/fstat, directory listing and mutation,
+rename, truncate, sync and timestamp updates. Go additionally exposes its usual
+permission, ownership and link operations through that provider. Node constants,
+Stats and error codes retain their meaning; Promise-only APIs are insufficient.
+The WASI adapter owns guest descriptor numbers, rights, positions and directory
+cookies. It attempts to close all provider descriptors it opened on initialization
+failure, normal shutdown or trap, while leaving borrowed storage intact. Link creation is
+unsupported by the WASI host. The optional [Emscripten provider](pkg/ankigrpc/browser/README.md)
+supplies shared browser working storage without changing this host API.
+
+Reads and writes report completed bytes when a later provider transfer fails
+with a recognized filesystem error. Errors before any progress retain their
+errno. A sync failure after writing bytes is retained on that descriptor and
+reported by its next write, sync, datasync or close; reporting the byte count
+does not claim durability. Close invalidates the guest descriptor and attempts
+provider close once. A provider close error takes precedence over the retained
+sync error; recognized errors remain recoverable and unknown exceptions remain
+terminal. Because a failed close may already have released the provider descriptor,
+the host does not retry it or claim its release succeeded. Callers must check
+sync and close results. No-follow
+opens reject an existing final symlink before creation or truncation and use
+the provider's native no-follow flag when available; explicit follow behavior
+is preserved. These rules do not add a path sandbox.
+
+`createBrowserServer` instantiates the reactor with WASI and timezone imports,
+binds its memory and initializes its command state. `server.js` retains the
+Rust handle and buffer ABI. A command returns `{code, data}`: code 0 means success,
+1 carries an encoded Anki error, and 2 identifies an unknown route. Requests and
+responses are copied between the separate Go and Rust memories, and temporary
+Rust buffers are released.
+
+Start the Go client before obtaining its `Connection()` for generated Anki
+clients. Startup supports asynchronous factories, so run Start and command waits
+outside a synchronous JavaScript callback's event stack. Each client permits
+one startup attempt and owns one backend. Start checks its context before and
+after initialization and waits for the factory Promise to settle, including when
+its context is canceled during initialization. Canceled startup exposes no
+backend. A stuck factory delays startup failure and cleanup. Command cancellation
+remains independent. Call Stop after every attempt;
+`Done()` closes only after active initialization and commands finish and backend
+resources, filesystem descriptors and callbacks are released. A Stop deadline
+bounds waiting while cleanup continues, including a backend created after
+startup was cancelled.
+
+Rust commands run synchronously. The browser adapter serializes command entry
+across the complete JavaScript call, including timezone callbacks into Go.
+In a dedicated worker commands leave the page
+responsive, but cancellation cannot interrupt an executing command before it
+returns. Ordinary Anki errors and unknown routes leave the backend usable.
+A trapped or invalid host response terminates it and rejects retained clients;
+the trapped Rust instance is discarded without invoking its destructors again.
+Close any open collection through Anki before normal shutdown. The application
+owns worker disposal and must keep Go alive until managed cleanup completes.
+
+```sh
+bazel_agent bazel test //projects/anki_grpc/test/browser_backend:browser_backend_test \
+  //projects/anki_grpc/test/browser_backend:filesystem_test \
+  //projects/anki_grpc/test/browser_backend:node_storage_test
+```
+
+The Node command-boundary E2E checks the reactor ABI and generated clients using
+Node WASI, retaining `browser-backend.json`. The independent `filesystem_test`
+uses production `wasi.js` over caller-owned `node:fs`, checking descriptor
+cleanup, root mapping, flags, positional I/O, rights and memory checks. It retains
+`filesystem.json`. `node_storage_test` runs the generated Go clients over that
+same production host and the Go OS filesystem adapter. It creates a collection,
+writes a Unicode note and binary/concurrent media, closes and reopens through a
+fresh backend, and checks both Go and Rust access to the shared files. Its
+`node-storage.json` records artifact hashes, timezone calls and cleanup; it also
+retains the closed collection and binary media. None imports application SDK code.
+
+Chromium remains the browser acceptance target. `browser_storage_test` uses the
+same storage workflow in a worker and requires a caller-supplied JavaScript
+module exporting `fs` and an existing absolute `root`. The runner's final
+fixture argument supplies this module; the test serves it as `/filesystem.js`.
+The Bazel target supplies `storage_filesystem.js`, which creates an Emscripten
+provider and its own `/browser-backend` root. It declares and serves the adapter
+and generated MEMFS module alongside the existing Go and Rust assets. The runner
+still accepts another caller-supplied fixture. This exercises collection creation,
+note/media mutation, concurrent media writes and close/reopen over the same
+provider in Chromium, without application SDK imports. Historical Afero-host
+results remain distinct from this provider composition.
+
+The host supplies `TMPDIR=/tmp` beneath the mounted root. Synchronous filesystem
+flushes do not imply browser durability; the caller owns durable persistence,
+workspace storage and worker disposal. The browser's named timezone selects the
+shared Go timezone calculations used by native WASI hosting.
+
 ## Offline WASI server
 
 This mode embeds the Rust CLI in a native Go executable so applications can
@@ -225,6 +357,7 @@ not an Anki compatibility test.
 - `pkg/ankigrpc/native/`: Optional native C ABI bridge, CLI hosting and client registration.
 - `pkg/ankigrpc/`: Pure Go connection-string routing and client construction.
 - `pkg/ankigrpc/wasm/`: Production WASI command build, embedding and argument-vector API.
+- `pkg/ankigrpc/browser/`: Callable Rust WASI backend, JavaScript command API and shared-filesystem host.
 - `internal/wasmhost/`: Pure-Go WASI execution, native byte streams and timezone callbacks.
 - `pkg/ankiclient/`: Reusable Go owner of the server process and gRPC connection.
 - `docs/architecture.mmd`: Client, server, and storage diagram source.

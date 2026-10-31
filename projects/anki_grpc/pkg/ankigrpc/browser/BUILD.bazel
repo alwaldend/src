@@ -1,0 +1,110 @@
+load("@aspect_rules_js//js:defs.bzl", "js_library")
+load("@rules_go//go:def.bzl", "go_library")
+load("@rules_rust//rust:defs.bzl", "rust_shared_library")
+load("//tools/emscripten/pkg:defs.bzl", "emscripten_javascript")
+load(":reactor.bzl", "wasi_reactor_crt")
+
+emscripten_javascript(
+    name = "emscripten_memfs_files",
+    srcs = ["emscripten_memfs.c"],
+    arguments = [
+        "-Os",
+        "--no-entry",
+        "-sWASMFS=0",
+        "-sFORCE_FILESYSTEM=1",
+        "-sMODULARIZE=1",
+        "-sEXPORT_ES6=1",
+        "-sEMIT_EMSCRIPTEN_LICENSE=1",
+        "-sEXPORT_NAME=createEmscriptenMemfs",
+        "-sENVIRONMENT=web,worker",
+        "-sEXPORTED_RUNTIME_METHODS=FS,ERRNO_CODES",
+        "-sEXIT_RUNTIME=0",
+        "-sINITIAL_MEMORY=65536",
+        "-sSTACK_SIZE=16384",
+        "-sMALLOC=none",
+    ],
+    js = "emscripten_memfs.js",
+    visibility = ["//projects/anki_grpc/pkg/ankiclient:consumers"],
+    wasm = False,
+)
+
+# Rust 1.98 omits the reactor startup object for cdylib. Remove this explicit
+# linkage once the pinned compiler supplies it (rust-lang/rust#161421).
+wasi_reactor_crt(
+    name = "reactor_crt",
+    target_compatible_with = [
+        "@platforms//cpu:wasm32",
+        "@platforms//os:wasi",
+    ],
+)
+
+rust_shared_library(
+    name = "guest",
+    srcs = [
+        "guest.rs",
+        "//projects/anki_grpc/internal/backend:ffi.rs",
+    ],
+    compile_data = [":reactor_crt"],
+    crate_name = "anki_browser_backend",
+    crate_root = "guest.rs",
+    edition = "2021",
+    platform = "@rules_rust//rust/platform:wasip1",
+    rustc_flags = [
+        "-Cpanic=abort",
+        "-Clink-arg=$(execpath :reactor_crt)",
+        "-Clink-arg=--export=_initialize",
+    ],
+    visibility = ["//projects/anki_grpc/pkg/ankiclient:consumers"],
+    deps = ["//projects/anki_grpc/internal/backend:backend_rust"],
+)
+
+js_library(
+    name = "server",
+    srcs = ["server.js"],
+    visibility = ["//projects/anki_grpc/pkg/ankiclient:consumers"],
+)
+
+js_library(
+    name = "wasi",
+    srcs = ["wasi.js"],
+    visibility = ["//projects/anki_grpc/pkg/ankiclient:consumers"],
+    deps = [":server"],
+)
+
+go_library(
+    name = "browser",
+    srcs = [
+        "client_js.go",
+        "doc.go",
+        "timezone_js.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/anki_grpc/pkg/ankigrpc/browser",
+    visibility = ["//projects/anki_grpc/pkg/ankiclient:consumers"],
+    deps = [
+        "//projects/anki_grpc/internal/directclient",
+        "//projects/anki_grpc/internal/timezone",
+        "@org_golang_google_grpc//:grpc",
+    ],
+)
+
+js_library(
+    name = "go",
+    srcs = ["go.js"],
+    visibility = ["//projects/anki_grpc/pkg/ankiclient:consumers"],
+)
+
+js_library(
+    name = "emscripten",
+    srcs = ["emscripten.js"],
+    data = [":emscripten_memfs_files"],
+    visibility = ["//projects/anki_grpc/pkg/ankiclient:consumers"],
+)
+
+filegroup(
+    name = "emscripten_files",
+    srcs = [
+        ":emscripten",
+        ":emscripten_memfs_files",
+    ],
+    visibility = ["//projects/anki_grpc/pkg/ankiclient:consumers"],
+)
