@@ -30,8 +30,9 @@ description: >-
    then wait on the lock held by its own enclosing Bazel invocation.
 
    The checker executes `bazel_agent bazel build //...` and
-   `bazel_agent bazel test //...` in every workspace listed in
-   `repositoryWorkspaces` in `scripts/run_full_repo_check.go`.
+   `bazel_agent bazel test //...` in every workspace discovered from the root
+   `.bazelignore` by `tools/ci/pkg/workspaces`, shared with CI. Directories
+   without `MODULE.bazel` are not workspaces.
    It continues after failures so one run covers the whole repository. Child
    commands use the normal machine output-user-root; Bazel assigns each
    workspace its own output base below it.

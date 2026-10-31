@@ -1,0 +1,53 @@
+load("@bazel_skylib//rules:diff_test.bzl", "diff_test")
+load(":fixtures.bzl", "edge_fixture")
+
+package(transitive_visibility = "//tools:transitive_consumers")
+
+edge_fixture(name = "forbidden")
+
+edge_fixture(
+    name = "intermediary",
+    deps = [":forbidden"],
+)
+
+edge_fixture(
+    name = "runtime",
+    deps = [":intermediary"],
+)
+
+edge_fixture(
+    name = "execution",
+    tool = ":forbidden",
+)
+
+genquery(
+    name = "runtime_query",
+    expression = "filter('forbidden$', deps(//tools/transitive_visibility/test:runtime))",
+    opts = [
+        "--noimplicit_deps",
+        "--notool_deps",
+    ],
+    scope = [":runtime"],
+)
+
+genquery(
+    name = "execution_query",
+    expression = "filter('forbidden$', deps(//tools/transitive_visibility/test:execution))",
+    opts = [
+        "--noimplicit_deps",
+        "--notool_deps",
+    ],
+    scope = [":execution"],
+)
+
+diff_test(
+    name = "indirect_artifact_test",
+    file1 = "forbidden.txt",
+    file2 = ":runtime_query",
+)
+
+diff_test(
+    name = "execution_tool_test",
+    file1 = "empty.txt",
+    file2 = ":execution_query",
+)

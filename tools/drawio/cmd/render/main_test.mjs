@@ -39,6 +39,27 @@ try {
     );
     assert.match(svg, /Source SHA-256: [0-9a-f]{64}/);
     assert.match(svg, /viewBox="0 0 [1-9][0-9.]* [1-9][0-9.]*"/);
+    await fs.writeFile(
+        input,
+        xml.replace("<mxGraphModel>", '<mxGraphModel shadow="1">'),
+    );
+    const shadow = await run("shadow");
+    assert.equal(shadow.status, 0, shadow.stderr);
+    assert.match(
+        await fs.readFile(shadow.output, "utf8"),
+        /viewBox="0 0 [1-9][0-9.]* [1-9][0-9.]*"/,
+    );
+    assert.match(await fs.readFile(shadow.output, "utf8"), /drop-shadow/);
+    if (process.env.TEST_UNDECLARED_OUTPUTS_DIR) {
+        await fs.copyFile(
+            first.output,
+            path.join(process.env.TEST_UNDECLARED_OUTPUTS_DIR, "normal.svg"),
+        );
+        await fs.copyFile(
+            shadow.output,
+            path.join(process.env.TEST_UNDECLARED_OUTPUTS_DIR, "shadow.svg"),
+        );
+    }
     const missing = await run("missing", "Absent");
     assert.notEqual(missing.status, 0);
     assert.match(missing.stderr, /Expected exactly one page named Absent/);

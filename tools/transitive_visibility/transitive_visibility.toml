@@ -9,7 +9,6 @@
 "third_party" = "//third_party:transitive_consumers"
 "tools" = "//tools:transitive_consumers"
 "tools/bazel_configs" = "//tools:build_api_consumers"
-"tools/drawio/main/bzl" = "//tools:build_api_consumers"
 "tools/git/main/bzl" = "//tools:build_api_consumers"
 "tools/helm/main/bzl" = "//tools:build_api_consumers"
 "tools/kt" = "//tools:build_api_consumers"

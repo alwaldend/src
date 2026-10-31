@@ -64,5 +64,5 @@ al_helm_toolchain(
         "@platforms//os:linux",
         "@platforms//cpu:x86_64",
     ],
-    helm = "@com_github_helm_helm_linux_amd64//:bin",
+    helm = "//third_party/sh_helm_helm",
 )

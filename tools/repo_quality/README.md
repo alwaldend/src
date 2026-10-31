@@ -69,3 +69,17 @@ comments and strings. Module from-imports are verified against source paths
 and pinned Python module specifications without executing imported packages.
 Like formatting, this complete-checkout check is local
 and uncached; downloaded external repositories are outside its coverage.
+
+## Owner inventories
+
+`bazel_agent bazel run //tools/repo_quality:inventory_update` derives the central
+OpenSpec validation map from declared owner source exports, resolving standalone
+module identities from their MODULE files. It also derives the project index
+from project README metadata. Draft-only specification directories without a
+source export are not registered. Landing-page membership remains owned by
+`projects/projects.bzl`, independently of the documentation index.
+
+The inventory freshness test in the quality suite inspects the actual checkout
+and rejects stale projections, including newly declared exports. Like the other
+whole-checkout checks it is local and uncached. Its isolated command fixture
+checks regeneration and preserves the resulting inventory in test outputs.

@@ -1,4 +1,5 @@
 load("@rules_go//go:def.bzl", "go_binary", "go_library", "go_test")
+load("//tools/transitive_visibility:defs.bzl", "artifact_boundary_test")
 
 package(transitive_visibility = "//projects:transitive_consumers")
 
@@ -37,4 +38,9 @@ go_test(
         "@org_golang_google_protobuf//encoding/protojson",
         "@rules_go//go/tools/bazel",
     ],
+)
+
+artifact_boundary_test(
+    name = "artifact_boundary_test",
+    target = ":al",
 )

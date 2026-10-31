@@ -1,0 +1,3 @@
+load(":schema_test.bzl", "schema_tests")
+
+schema_tests()

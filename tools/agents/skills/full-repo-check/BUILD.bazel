@@ -11,12 +11,16 @@ package(transitive_visibility = "//tools:transitive_consumers")
 
 go_library(
     name = "run_full_repo_check_lib",
-    srcs = ["scripts/run_full_repo_check.go"],
+    srcs = [
+        "scripts/doc.go",
+        "scripts/run_full_repo_check.go",
+    ],
     importpath = (
         "git.alwaldend.com/alwaldend/src/tools/agents/skills/" +
         "full-repo-check/scripts"
     ),
     visibility = ["//visibility:private"],
+    deps = ["//tools/ci/pkg/workspaces"],
 )
 
 # keep

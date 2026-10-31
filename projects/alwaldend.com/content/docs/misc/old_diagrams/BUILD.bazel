@@ -1,5 +1,5 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("//tools/drawio/main/bzl:al_drawio_run_binary.bzl", "al_drawio_run_binary")
+load("//tools/drawio:defs.bzl", "drawio_svg")
 
 package(transitive_visibility = "//projects:transitive_consumers")
 
@@ -7,26 +7,16 @@ _DIAGRAMS = [diagram.replace(".drawio", "") for diagram in glob(["*.drawio"])]
 
 docs_filegroup(
     name = "docs",
-    srcs = glob(["*.md"]) + ["{}.svg".format(diagram) for diagram in _DIAGRAMS],
+    srcs = glob(["*.md"]) + [":{}.gen_svg".format(diagram) for diagram in _DIAGRAMS],
     prefix = "content/docs/misc/old_diagrams",
     visibility = ["//projects/alwaldend.com/content/docs/misc:__pkg__"],
 )
 
 [
-    al_drawio_run_binary(
+    drawio_svg(
         name = "{}.gen_svg".format(diagram),
-        srcs = ["{}.drawio".format(diagram)],
-        out = "{}.svg".format(diagram),
-        arguments = [
-            "$(execpath :{}.drawio)".format(diagram),
-            "--crop",
-            "--export",
-            "--embed-diagram",
-            "--format",
-            "svg",
-            "--output",
-            "$(execpath :{}.svg)".format(diagram),
-        ],
+        src = "{}.drawio".format(diagram),
+        pages = {"Page-1": "{}.svg".format(diagram)},
     )
     for diagram in _DIAGRAMS
 ]
