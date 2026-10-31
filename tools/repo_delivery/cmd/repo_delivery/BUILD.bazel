@@ -27,6 +27,7 @@ go_library(
 go_binary(
     name = "go",
     embed = [":go_lib"],
+    pure = "on",
     visibility = ["//:__subpackages__"],
 )
 

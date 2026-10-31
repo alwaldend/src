@@ -6,7 +6,6 @@ go_test(
     name = "al_test",
     srcs = [
         "config_test.go",
-        "tool_test.go",
         "vault_test.go",
     ],
     embed = [":al"],
@@ -22,7 +21,7 @@ go_library(
         "check.go",
         "command.go",
         "config.go",
-        "tool.go",
+        "doc.go",
         "vault.go",
     ],
     importpath = "git.alwaldend.com/alwaldend/src/projects/al/pkg/al",

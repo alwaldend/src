@@ -71,7 +71,7 @@
   vars:
     request: >-
       Prepare produced out/task/prepare.json. I reviewed the selected check
-      targets and every validation gap. The installed AL tool lacks this tool.
+      targets and every validation gap. The standalone host tool is not installed.
       Run my plan in out/task/checks.json and publish the validated candidate,
       without copying OIDs by hand. Do not update AL configuration.
   assert:
@@ -111,21 +111,19 @@
         must not reuse the prior candidate's passing state or prepare again
         when no source/message edit is needed.
 
-- description: Uses supported delivery without repeating an unavailable cache path
+- description: Uses the source entry point when a host tool is not installed
   vars:
     request: >-
-      Deliver my same-repository GitHub change. The installed AL tool already
-      reported repo_delivery as unavailable today and its configuration is
-      unchanged. The task does not authorize configuration changes. Start with
+      Deliver my same-repository GitHub change. The standalone repo_delivery command is not installed.
+      The task does not authorize installing host tools. Start with
       provider detection.
   assert:
     - type: llm-rubric
       threshold: 1
       value: >-
-        Pass only if the response reuses the known unavailable capability and
+        Pass only if the response reuses the known unavailable host command and
         starts with bazel_agent bazel run //tools/repo_delivery -- provider.
-        It must not repeat capability checks, retry the failed cached tool
-        invocation, update AL configuration, print raw remotes, or bypass
+        It must not repeat capability checks, install a host tool, invoke the removed al tool command, print raw remotes, or bypass
         delivery guards with Git or gh. It must keep provider and transport
         support as separate requirements before further GitHub adapter
         operations. Otherwise fail.
@@ -139,7 +137,7 @@
       projects/standalone/lib.go with nested_workspace. Finish validation.
       The shared module change also affects an existing consumer package.
       You are currently in projects/standalone, which has its own MODULE.bazel.
-      Then continue publication. The installed AL tool lacks this tool.
+      Then continue publication. The standalone host tool is not installed.
   assert:
     - type: llm-rubric
       threshold: 1
@@ -153,7 +151,7 @@
         resulting evidence must remain bound to the literal prepared candidate.
         It must run root quality checks from the enclosing Git feature
         worktree's root Bazel workspace and invoke repo_delivery there through
-        the supported cached entry point or a task-local launcher generated
+        a task-local launcher generated
         by bazel_agent bazel run --script_path before running structured
         validation. It must use the nested
         workspace for its own validation and return to the same worktree root

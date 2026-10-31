@@ -60,33 +60,28 @@ Bazel already schedules internally.
 Use `repo-bazel` in addition to this skill when changing BUILD files, Starlark,
 Bzlmod dependencies, toolchains, or the build graph.
 
-## Run cached repository tools
+## Run repository tools
 
-Run these repository control-tool examples from the enclosing Git worktree's
-root Bazel workspace, which owns `tools/repo_delivery`, even for changes in a
-nested module. Nested build and test targets still use their owning workspace.
-Cached tools are optional; the baseline works with older installed runners:
+Run repository control tools from the enclosing Git worktree's root Bazel
+workspace, which owns `tools/repo_delivery`, even for changes in a nested
+module. Nested build and test targets still use their owning workspace.
 
 ```sh
 bazel_agent bazel run //tools/repo_delivery -- provider
 ```
 
-Use `al tool` for registered, frequently used repository control tools:
+For frequent execution, install the standalone tool explicitly and invoke it
+directly:
 
 ```sh
-al tool repo_delivery -- provider
+bazel_agent bazel run //tools/repo_delivery:install
+repo_delivery provider
 ```
 
-`al tool` hashes the declared source, locks one exact cache key, and builds and
-atomically installs the executable on a miss. A hit executes the cached tool
-without starting Bazel or loading the current worktree's configured graph. Tool
-arguments belong after `--`.
-
-The managed cache defaults to `$XDG_CACHE_HOME/al/tools`. Override it only with
-`AL_TOOL_CACHE` or `--cache-root` for an isolated test. An executable
-cache must not be writable by group or others. A cache miss still uses the
-normal agent Bazel profile and may be slow once; diagnose that build rather
-than bypassing the runner or reusing a differently keyed artifact.
+The installed command is a copy of the local source-built executable. Rerun
+the install target to update it; AL does not maintain an executable cache or
+provide `al tool`. See the [tool documentation](../../../../repo_delivery/README.md).
+Installing changes host state and requires installation authority.
 
 ## Install or update the runner
 

@@ -59,6 +59,8 @@ Once installed, update it with:
 bazel_agent bazel run //projects/bazel_agent:install
 ```
 
-The install target atomically replaces `~/.local/bin/bazel_agent`. After every
+The shared binary installer atomically copies the executable to
+`~/.local/bin/bazel_agent` with mode 0755. It accepts
+`-- --directory /absolute/path` for an isolated destination. After every
 code update to this project, rerun the install target; the installed binary is
 not updated automatically.

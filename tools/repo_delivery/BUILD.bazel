@@ -1,3 +1,4 @@
+load("@bazel_skylib//rules:native_binary.bzl", "native_binary")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 
 package(transitive_visibility = "//tools:transitive_consumers")
@@ -8,6 +9,18 @@ alias(
     name = "repo_delivery",
     actual = "//tools/repo_delivery/cmd/repo_delivery:go",
     visibility = ["//:__subpackages__"],
+)
+
+native_binary(
+    name = "install",
+    src = "//tools/file_installer/cmd/install_binary",
+    args = [
+        "--source",
+        "$(rootpath :repo_delivery)",
+        "--name",
+        "repo_delivery",
+    ],
+    data = [":repo_delivery"],
 )
 
 docs_filegroup(
