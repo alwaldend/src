@@ -89,6 +89,8 @@ traefik_bin_path: "{{ traefik_dir }}/traefik"
 traefik_service_path: "/etc/systemd/system/traefik.service"
 t3code_domain: t3code.host-bot.simeonwarren.users.alwaldend.com
 t3code_port: 3773
+comfyui_domain: comfyui.host-bot.simeonwarren.users.alwaldend.com
+comfyui_port: 8188
 # The unsecured agent server shares host-bot's trust boundary. It binds to
 # loopback, serves the local host only, and is deliberately not routed through
 # host-bot's Traefik or exposed by its firewall.

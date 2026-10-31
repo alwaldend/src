@@ -1,0 +1,16 @@
+load("@rules_go//go:def.bzl", "go_binary")
+
+go_binary(
+    name = "systemd_run",
+    srcs = [
+        "doc.go",
+        "main.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/tools/rules_systemd/cmd/systemd_run",
+    target_compatible_with = ["@platforms//os:linux"],
+    visibility = ["//visibility:public"],
+    deps = [
+        "@com_github_spf13_cobra//:cobra",
+        "@rules_go//go/runfiles",
+    ],
+)

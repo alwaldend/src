@@ -16,7 +16,7 @@ bazel_agent bazel run //tools/comfyui -- --directory out/comfyui/session
 ```
 
 The benchmark generates one seeded 512 by 512 SD-Turbo image with one sampling
-step and eight CPU threads. Each invocation creates a separate run directory
+step and twelve CPU threads. Each invocation creates a separate run directory
 beneath `out/comfyui/runs` containing the PNG, workflow, history, server log,
 and timing report. Startup time is separate from generation time; the first
 generation includes checkpoint loading. `--steps`, `--threads`, `--seed`,
@@ -28,6 +28,15 @@ directly. `cmd/benchmark` owns readiness checks, workflow submission, output
 verification, and timing; it starts that same launcher. Interrupting either
 command stops its owned server. Inputs, outputs, user data, and temporary
 files stay in the selected writable directory, separate from Bazel runfiles.
+
+The launcher serves the bundled frontend from its physical package directory.
+This keeps aiohttp's static-file symlink protections intact while allowing
+JavaScript, styles, and fonts to load from Bazel-managed package inputs.
+
+BUILD.bazel supplies `--threads 12` to the public server and benchmark targets.
+Append `-- --threads N` to override it. Both Python entry points keep the flag
+optional without a default; omitting it leaves inherited or library-default
+thread settings unchanged. The flag sets OpenMP, MKL, and OpenBLAS parallelism.
 
 For interactive SD-Turbo generation, select `sd_turbo.safetensors`, 512 by 512,
 Euler sampling with the normal scheduler, one to four steps, and CFG 1.0.
@@ -59,17 +68,14 @@ ordinary wildcard builds. The explicitly named commands above still build and ru
 ## Z-Image-Turbo CPU trial
 
 ```sh
-mkdir -p out/comfyui
-bazel_agent bazel run --script_path=out/comfyui/z_image_benchmark //tools/comfyui:z_image_turbo_benchmark
-systemd-run --user --scope -p MemoryHigh=32G -p MemoryMax=36G -p MemorySwapMax=0 "$PWD/out/comfyui/z_image_benchmark" --timeout 2400
+bazel_agent bazel run //tools/comfyui:z_image_turbo_benchmark -- --timeout 2400
 
-# For the interactive UI, generate the other launch command and apply the same limits.
-bazel_agent bazel run --script_path=out/comfyui/z_image_server //tools/comfyui:z_image_turbo
-systemd-run --user --scope -p MemoryHigh=32G -p MemoryMax=36G -p MemorySwapMax=0 "$PWD/out/comfyui/z_image_server" --directory out/comfyui/z-image-session
+# Interactive UI at http://127.0.0.1:8188; Ctrl+C stops the server.
+bazel_agent bazel run //tools/comfyui:z_image_turbo
 ```
 
 The benchmark defaults to 512-square images, eight res_multistep/simple steps,
-CFG 1, and eight CPU threads. `--size 1024` selects the upstream workflow's
+CFG 1, and twelve CPU threads. `--size 1024` selects the upstream workflow's
 normal resolution. `--steps`, `--seed`, and `--prompt` select trial inputs.
 Reports include every model file's SHA-256. Generation time includes initial
 model loading but excludes Bazel downloads and server startup.
@@ -81,9 +87,14 @@ them; the launcher stages only declared runfiles. No additional Python
 packages or custom nodes are needed. All model-bearing commands are manual.
 
 Z-Image's default targets require an effective cgroup v2 RAM ceiling of at most
-36 GiB and zero cgroup swap before starting inference. The commands above use
+44 GiB and zero cgroup swap before starting inference. The commands above use
 a transient user systemd scope; they do not install or modify host services.
 The scope can terminate a run that exceeds its limit. A Linux host with a
-working user systemd manager and memory controller is required. Generating
-the Bazel launch script first keeps the inference scope separate from Bazel's
-persistent server. SD-Turbo retains its smaller existing runtime contract.
+working user systemd manager and memory controller is required. The public
+targets declare MemoryHigh=40G, MemoryMax=44G, and MemorySwapMax=0 through the
+generic [systemd rule](../rules_systemd/README.md), keeping Bazel's persistent
+server outside the scope. The server stores state in
+`out/comfyui/z-image-session`; pass `-- --directory <path>` to override it.
+The benchmark starts its private server inside the same scope. The command remains in
+the foreground and holds that workspace's Bazel run lock until stopped.
+SD-Turbo retains its smaller existing runtime contract.

@@ -83,6 +83,7 @@ docs_filegroup(
         "@rules_promptfoo_gazelle//:docs",
         "@rules_skill_gazelle//:docs",
         "@rules_skills//:docs",
+        "@rules_systemd//:docs",
         "@rules_template//:docs",
         "@rules_terraform//:docs",
     ],

@@ -3,6 +3,7 @@ projects/mcp_cordis/node_modules
 projects/bazel_gazelle_enforce_transitive_visibility
 projects/rules_trufflehog
 tools/rules_template
+tools/rules_systemd
 tools/rules_terraform
 tools/rules_binary_toolchain
 tools/rules_docs

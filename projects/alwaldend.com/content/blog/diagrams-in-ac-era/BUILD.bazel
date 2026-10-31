@@ -60,7 +60,7 @@ write_source_files(
         # The architecture diagram's source is owned by the project it
         # documents, so the blog post carries a generated copy of that
         # project's render instead of a second hand-maintained image.
-        "t3code-architecture.svg": "//users/simeonwarren/host_bot:rendered",
+        "t3code-architecture.svg": "//users/simeonwarren/host_bot:rendered_historical",
     },
 )
 

@@ -1,0 +1,29 @@
+module(
+    name = "rules_systemd",
+    version = "0.0.0",
+    bazel_compatibility = [">=8.0.0"],
+)
+
+bazel_dep(name = "aspect_bazel_lib", version = "2.22.5")
+bazel_dep(name = "bazel_skylib", version = "1.9.0")
+bazel_dep(name = "platforms", version = "1.1.0")
+bazel_dep(name = "rules_go", version = "0.60.0")
+bazel_dep(name = "gazelle", version = "0.54.0")
+bazel_dep(name = "rules_docs", version = "0.0.0")
+
+bazel_dep(name = "rules_python", version = "2.4.2", dev_dependency = True)
+
+local_path_override(
+    module_name = "rules_docs",
+    path = "../rules_docs",
+)
+
+go_sdk = use_extension("@rules_go//go:extensions.bzl", "go_sdk")
+go_sdk.from_file(go_mod = "//:go.mod")
+
+go_deps = use_extension("@gazelle//:extensions.bzl", "go_deps")
+go_deps.from_file(go_mod = "//:go.mod")
+use_repo(go_deps, "com_github_spf13_cobra")
+
+python = use_extension("@rules_python//python/extensions:python.bzl", "python", dev_dependency = True)
+python.toolchain(python_version = "3.13.13")

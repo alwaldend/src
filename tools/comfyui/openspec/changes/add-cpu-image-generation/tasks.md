@@ -99,3 +99,33 @@ out/z-image/sd-check/20261031T235556-c1689791/ in a 12 GiB / zero-swap scope.
 All 28 selected repository/skill checks and semantic lint passed before final
 candidate preparation. Exact-candidate checks and publication belong to the
 local delivery receipt under out/z-image/.
+
+## Requested memory increase
+
+- [x] Raise the shared Z-Image soft/hard limits to 40/44 GiB, retain zero swap, and synchronize the launcher guard ceiling.
+- [x] Update current launch documentation and verify both generated wrapper configurations without starting ComfyUI.
+- [x] Record generated-configuration evidence and select exact-candidate quality, build, and lint checks for guarded delivery.
+
+The requested limits are now 40 GiB soft and 44 GiB hard with zero swap.
+Both generated wrapper configurations contain those properties and pass
+`--memory-limit-gib 44` to the existing guard, derived from one BUILD value.
+The user had already stopped the active run; port 8188 was closed.
+Validation builds and inspects the wrappers without starting ComfyUI or
+repeating inference. Quality, build, lint, and publication outcomes are
+recorded by the exact-candidate delivery receipts under ignored
+`out/comfyui-memory-limits/`.
+
+## Requested thread configuration
+
+- [x] Keep `--threads` optional with no Python defaults and supply 12 through the shared BUILD arguments; update current command documentation.
+- [x] Verify the actual server thread environment, explicit override, omitted/invalid flags, public benchmark argument forwarding, and owned-process cleanup without inference.
+- [x] Record verification evidence and prepare exact-candidate quality, build, and lint delivery checks.
+
+Thread verification passed on 2026-11-01: owned server probes reached HTTP
+200 with all three thread variables set to 12 from BUILD and to 4 from a
+caller override, then stopped. Both entry points rejected zero and negative
+values. Both raw commands accepted omission and reached the intentionally
+missing model; the benchmark child also accepted the omitted flag. No image
+was submitted and the active user server was untouched. Reproduction, logs,
+and the eight-case report are under ignored `out/comfyui-threads/`; its
+delivery receipts own exact-candidate quality, build, lint, and publication.

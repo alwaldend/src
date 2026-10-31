@@ -1,0 +1,36 @@
+flowchart LR
+    subgraph internet["Internet"]
+        direction TB
+        remote("Actor")
+        ingress("Ingress")
+    end
+
+    subgraph dc1["Local infra<br/>dc1.alwaldend.com"]
+        direction TB
+        intranet("Actor")
+        vault("Vault<br/>vault.alwaldend.com")
+
+        subgraph host_bot["Bare metal host<br/>host-bot.simeonwarren.users.alwaldend.com"]
+            direction TB
+            traefik("Traefik")
+            models[("Local model weights")]
+            images[("PNG outputs")]
+
+            subgraph comfyui["ComfyUI process<br/>Z-Image systemd scope"]
+                api("HTTP API + UI<br/>127.0.0.1:8188")
+                generation("Generation thread<br/>PyTorch CPU")
+            end
+        end
+    end
+
+    remote -->|"HTTPS + mTLS"| ingress
+    intranet -->|"HTTPS"| traefik
+    ingress -->|"HTTPS over WireGuard"| traefik
+    traefik <-->|"ACME (HTTP)"| vault
+    traefik -->|"HTTP + WebSocket"| api
+    api -->|"Workflow"| generation
+    generation -->|"Read"| models
+    generation -->|"Write"| images
+
+    classDef actor font-style:normal;
+    class remote,intranet actor

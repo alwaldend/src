@@ -4,6 +4,36 @@ Provide a reproducible local CPU image-generation trial with inspectable output.
 
 ## ADDED Requirements
 
+### Requirement: CPU thread configuration
+
+Both Python entry points SHALL accept an optional positive `--threads` value
+without a parser default. When omitted, they SHALL preserve the inherited or
+library-default thread settings and SHALL NOT synthesize a child thread flag.
+Public Bazel targets SHALL supply `--threads 12` through shared
+BUILD arguments and SHALL accept a caller's explicit override. When provided, the benchmark
+SHALL forward the selected value to its owned server, which SHALL configure
+OpenMP, MKL, and OpenBLAS with that value.
+
+#### Scenario: Run a public target
+
+- **WHEN** the caller starts a public server or benchmark without a thread override
+- **THEN** BUILD supplies 12 threads to the runtime
+
+#### Scenario: Override CPU threads
+
+- **WHEN** the caller appends `--threads 4` to the public target command
+- **THEN** its server receives four computation threads
+
+#### Scenario: Omitted thread setting
+
+- **WHEN** either Python entry point receives no thread setting
+- **THEN** it leaves runtime thread selection unchanged
+
+#### Scenario: Invalid thread setting
+
+- **WHEN** either Python entry point receives a non-positive thread value
+- **THEN** argument parsing fails before starting inference
+
 ### Requirement: Declared CPU inference inputs
 
 The tool SHALL obtain ComfyUI, Python, dependencies, and model weights through
@@ -40,7 +70,7 @@ ComfyUI runtime without runtime downloads or custom node installation.
 ### Requirement: Bounded Z-Image process memory
 
 The default Z-Image launch and benchmark targets SHALL refuse inference unless
-the effective cgroup RAM ceiling is at most 36 GiB and cgroup swap is disabled.
+the effective cgroup RAM ceiling is at most 44 GiB and cgroup swap is disabled.
 The documented run SHALL use a transient scope and leave persistent host
 configuration unchanged.
 
