@@ -1,0 +1,17 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+package(transitive_visibility = "//projects:transitive_consumers")
+
+go_library(
+    name = "middleware",
+    srcs = [
+        "common_middleware.go",
+        "cors_middleware.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/ci_platform/internal/api/middleware",
+    visibility = ["//visibility:public"],
+    deps = [
+        "@com_github_gofiber_fiber_v2//:fiber",
+        "@com_github_gofiber_fiber_v2//middleware/cors",
+    ],
+)

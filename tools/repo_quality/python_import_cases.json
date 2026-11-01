@@ -5,7 +5,7 @@
         "from python.runfiles import runfiles",
         "from collections import abc as collections_abc",
         "from projects.mlops_2026.internal.models import recommender as models",
-        "from autoscroll._internal import support",
+        "from autoscroll.internal import support",
         "# from pydantic import BaseModel",
         "text = 'from pydantic import BaseModel'"
     ],

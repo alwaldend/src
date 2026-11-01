@@ -23,7 +23,7 @@ docs_filegroup(
 build_test(
     name = "build_test",
     targets = [
-        "//main/bzl:openspec_validation",
-        "//main/bzl:workspace",
+        "//rules:openspec_validation",
+        "//rules:workspace",
     ],
 )

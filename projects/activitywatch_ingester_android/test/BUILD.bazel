@@ -13,7 +13,7 @@ kt_android_local_test(
     tags = ["requires-network"],
     test_class = "com.alwaldend.src.projects.activitywatch_ingester_android.TestSuite",
     deps = [
-        "//projects/activitywatch_ingester_android/main/java:ingester_lib",
+        "//projects/activitywatch_ingester_android/cmd/ingester:ingester_lib",
         "@com_alwaldend_src_projects_activitywatch_ingester_android_maven//:junit_junit",
         "@com_alwaldend_src_projects_activitywatch_ingester_android_maven//:org_robolectric_robolectric",
         "@rules_robolectric//bazel:android-all",
@@ -27,7 +27,7 @@ kt_android_library(
     manifest = "//projects/activitywatch_ingester_android:test_manifest",
     visibility = ["//projects/activitywatch_ingester_android:__subpackages__"],
     deps = [
-        "//projects/activitywatch_ingester_android/main/java:ingester_lib",
+        "//projects/activitywatch_ingester_android/cmd/ingester:ingester_lib",
         "@com_alwaldend_src_projects_activitywatch_ingester_android_maven//:androidx_test_espresso_espresso_core",
         "@com_alwaldend_src_projects_activitywatch_ingester_android_maven//:androidx_test_ext_junit_ktx",
         "@com_alwaldend_src_projects_activitywatch_ingester_android_maven//:androidx_test_runner",
@@ -49,14 +49,14 @@ build_test(
 build_test(
     name = "android_builds",
     targets = [
-        "//projects/activitywatch_ingester_android/main/java:ingester_binary",
+        "//projects/activitywatch_ingester_android/cmd/ingester:ingester_binary",
     ],
 )
 
 go_test(
     name = "ingester_smoke_test",
     srcs = ["ingester_smoke_test.go"],
-    data = ["//projects/activitywatch_ingester_android/main/java:ingester_binary"],
+    data = ["//projects/activitywatch_ingester_android/cmd/ingester:ingester_binary"],
     env = {
         "ACTIVITY_NAME": "com.alwaldend.src.projects.activitywatch_ingester_android.MainActivity",
         "PACKAGE_NAME": "com.alwaldend.src.projects.activitywatch_ingester_android",
@@ -77,12 +77,12 @@ go_test(
     data = [
         ":instrumentation_apk",
         ":instrumentation_apk.apk",
-        "//projects/activitywatch_ingester_android/main/java:ingester_binary.apk",
+        "//projects/activitywatch_ingester_android/cmd/ingester:ingester_binary.apk",
         "@androidsdk//:adb",
     ],
     env = {
         "E2E_ADB": "/var/home/simeonwarrenbot/Android/Sdk/platform-tools/adb",
-        "E2E_APP_APK": "$(location //projects/activitywatch_ingester_android/main/java:ingester_binary.apk)",
+        "E2E_APP_APK": "$(location //projects/activitywatch_ingester_android/cmd/ingester:ingester_binary.apk)",
         "E2E_APP_PACKAGE": "com.alwaldend.src.projects.activitywatch_ingester_android",
         "E2E_TEST_APK": "$(location :instrumentation_apk.apk)",
         "E2E_TEST_PACKAGE": "com.alwaldend.src.projects.activitywatch_ingester_android.test",

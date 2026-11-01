@@ -34,7 +34,7 @@ func adbOutput(t *testing.T, args ...string) string {
 }
 
 func TestIngesterSmoke(t *testing.T) {
-	apkPath, err := runfiles.Rlocation("_main/projects/activitywatch_ingester_android/main/java/ingester_binary.apk")
+	apkPath, err := runfiles.Rlocation("_main/projects/activitywatch_ingester_android/cmd/ingester/ingester_binary.apk")
 	if err != nil {
 		t.Fatalf("resolve ingester APK: %v", err)
 	}

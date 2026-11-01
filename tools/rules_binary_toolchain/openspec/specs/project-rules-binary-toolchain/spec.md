@@ -7,10 +7,10 @@ including their runtime files. This source baseline was observed on 2026-09-08
 at revision `550d7e79b1f5fdbc2b6017b75178471d6914082f`.
 
 Sources: [project description](../../../README.md),
-[lock parsing](../../../main/bzl/binary_toolchain_lock.bzl),
-[module extension](../../../main/bzl/binary_toolchain_extension.bzl),
-[archive repositories](../../../main/bzl/binary_toolchain_repo.bzl),
-and [runnable wrapper](../../../main/bzl/binary_toolchain_binary.bzl).
+[lock parsing](../../../rules/binary_toolchain_lock.bzl),
+[module extension](../../../rules/binary_toolchain_extension.bzl),
+[archive repositories](../../../rules/binary_toolchain_repo.bzl),
+and [runnable wrapper](../../../rules/binary_toolchain_binary.bzl).
 
 ## Requirements
 

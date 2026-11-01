@@ -74,9 +74,10 @@ features from the separate deferred change.
 - Concurrent calls or disconnects can race cleanup -> reuse one App's guards
   and verify cancellation and process termination through a real client.
 - The application suite has 48 sequential cases, including 513 MiB media, and
-  exceeded its 900-second budget -> use optimized builds and opt-in Bazel
-  sharding. Targets retain Bazel's default shard count; callers select their
-  own parallelism with `--test_sharding_strategy=forced=N`. Go's runner partitions
+  exceeded its 900-second budget -> distribute the WASM application suite
+  across eight isolated Bazel shards, retaining all cases and deadlines.
+  The WASM-only CLI keeps its separate two-shard configuration. Other targets
+  retain default sharding. Go's runner partitions
   top-level cases across processes, preserving environment and cache isolation.
 - Large-fixture preparation previously exported and bound an archive, publishing
   the whole media package repeatedly -> prepare configs/bindings on the source
@@ -89,6 +90,7 @@ features from the separate deferred change.
   case from 25.30 to 9.08 seconds. Proceed with the existing optimized mode and
   document it as the E2E verification command. A forced optimization transition
   would change normal debug-build semantics and is unnecessary for this goal.
+  The normal fastbuild repository matrix must also pass without extending timeouts.
 - The SDK's schema inference accepts Go types rather than protobuf descriptors.
   Go `encoding/json` and ProtoJSON differ for 64-bit integers, enum names and
   oneof layout. Keep the small descriptor converter so schemas match the

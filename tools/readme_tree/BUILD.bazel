@@ -4,7 +4,7 @@ package(transitive_visibility = "//tools:transitive_consumers")
 
 alias(
     name = "readme_tree",
-    actual = "//tools/readme_tree/main/go",
+    actual = "//tools/readme_tree/cmd/readme_tree:readme_tree",
     visibility = ["//:__subpackages__"],
 )
 

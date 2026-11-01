@@ -11,8 +11,8 @@ without expressing a libc constraint.
 Sources: [project description](../../../README.md),
 [module dependencies](../../../MODULE.bazel),
 [CLI declaration](../../../BUILD.bazel),
-[runner](../../../promptfoo/private/promptfoo_test.bzl),
-and [workspace staging](../../../promptfoo/private/workspace.bzl).
+[runner](../../../promptfoo/internal/promptfoo_test.bzl),
+and [workspace staging](../../../promptfoo/internal/workspace.bzl).
 
 ## Requirements
 

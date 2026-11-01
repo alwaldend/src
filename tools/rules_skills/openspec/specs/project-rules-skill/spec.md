@@ -9,7 +9,7 @@ at revision `550d7e79b1f5fdbc2b6017b75178471d6914082f`.
 Sources: [project description](../../../README.md),
 [skill provider](../../../skill/internal/skill_library.bzl),
 [validation aspect](../../../skill/internal/skill_validation.bzl),
-[metadata validator](../../../main/go/validate.go), and
+[metadata validator](../../../cmd/skill_validator/validate.go), and
 [discovery write rules](../../../skill/internal/skills_write.bzl), and
 [archive packaging](../../../skill/internal/skill_archive.bzl).
 

@@ -58,7 +58,7 @@ alias(
 
 alias(
     name = "write_git_hooks",
-    actual = "//tools/git_hooks/main/go",
+    actual = "//tools/git_hooks/cmd/git_hooks:git_hooks",
 )
 
 alias(

@@ -2,7 +2,7 @@
 
 load("@bazel_skylib//lib:unittest.bzl", "analysistest", "asserts")
 load(
-    "//promptfoo/private:workspace.bzl",
+    "//promptfoo/internal:workspace.bzl",
     "PromptfooWorkspaceInfo",
 )
 

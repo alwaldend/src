@@ -23,7 +23,7 @@ local_path_override(
 go_sdk = use_extension("@rules_go//go:extensions.bzl", "go_sdk")
 go_sdk.from_file(go_mod = "//:go.mod")
 
-binary_toolchains = use_extension("@rules_binary_toolchain//main/bzl:binary_toolchain_extension.bzl", "binary_toolchain_extension")
+binary_toolchains = use_extension("@rules_binary_toolchain//rules:binary_toolchain_extension.bzl", "binary_toolchain_extension")
 binary_toolchains.toolchains(
     lock = "//terraform:binary_toolchain.json",
     toolchains_map = {"terraform": "rules_terraform_cli"},

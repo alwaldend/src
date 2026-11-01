@@ -61,3 +61,5 @@
       error in internal/cli and pass concrete mcp.New(app) as its command-group
       dependency. Keep this consumer-only interface out of ankiascodeapi and
       preserve context, nil-configuration and error behavior through existing checks.
+
+- [x] 4.23 Restore sufficient isolated WASM application shards after the full repository audit exhausted one two-shard process's 900-second budget; preserve all cases and deadlines and verify the unfiltered target.

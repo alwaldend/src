@@ -132,7 +132,7 @@ infra/dns/cloudflare_dns.md rules-lint-ignored=true
 infra/dns/mikrotik_dns.md rules-lint-ignored=true
 tools/rules_promptfoo/tests/fake_cli/fake_codex_home/auth.json rules-lint-ignored=true
 projects/alwaldend.com/layouts/** rules-lint-ignored=true
-projects/ci_platform/main/go/docs/swagger.* rules-lint-ignored=true
+projects/ci_platform/internal/docs/swagger.* rules-lint-ignored=true
 projects/dotfiles/vial/** rules-lint-ignored=true
 # The LeetCode downloader owns submission TOML serialization. Preserve its
 # output bytes when relocating stored submissions.

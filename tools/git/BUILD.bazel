@@ -1,5 +1,5 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("//tools/git/main/bzl:al_git_info_file.bzl", "al_git_info_file")
+load("//tools/git/rules:al_git_info_file.bzl", "al_git_info_file")
 
 package(transitive_visibility = "//tools:transitive_consumers")
 
@@ -8,8 +8,8 @@ docs_filegroup(
     srcs = glob(["*.md"]),
     visibility = ["//tools:__pkg__"],
     deps = [
-        "//tools/git/main/bzl:docs",
-        "//tools/git/main/proto:docs",
+        "//tools/git/api:docs",
+        "//tools/git/rules:docs",
     ],
 )
 

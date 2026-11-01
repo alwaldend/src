@@ -41,7 +41,7 @@ def skill_validation(validator = None):
         attrs = {
             "_validator": attr.label(
                 cfg = "exec",
-                default = validator or Label("//main/go:skill_validator"),
+                default = validator or Label("//cmd/skill_validator:skill_validator"),
                 executable = True,
             ),
         },

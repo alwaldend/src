@@ -12,7 +12,7 @@ package(transitive_visibility = "//projects:transitive_consumers")
         manifest = "//projects/android_launcher:manifest",
         test_class = "com.alwaldend.src.projects.android_launcher.{}".format(file.replace(".kt", "")),
         deps = [
-            "//projects/android_launcher/main/java:launcher_library",
+            "//projects/android_launcher/cmd/launcher:launcher_library",
             "@com_alwaldend_src_projects_android_launcher_maven//:junit_junit",
             "@com_alwaldend_src_projects_android_launcher_maven//:org_robolectric_robolectric",
             "@rules_robolectric//bazel:android-all",
@@ -24,7 +24,7 @@ package(transitive_visibility = "//projects:transitive_consumers")
 go_test(
     name = "launcher_smoke_test",
     srcs = ["launcher_smoke_test.go"],
-    data = ["//projects/android_launcher/main/java:launcher_binary"],
+    data = ["//projects/android_launcher/cmd/launcher:launcher_binary"],
     env = {
         "ACTIVITY_NAME": "com.alwaldend.src.projects.android_launcher.MainActivity",
         "PACKAGE_NAME": "com.alwaldend.src.projects.android_launcher",

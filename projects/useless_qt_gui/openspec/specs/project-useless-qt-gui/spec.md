@@ -7,9 +7,9 @@ controls. This baseline was observed at repository revision `550d7e79` on
 2026-09-08. Sources are the
 [project README](../../../README.md),
 [build definition](../../../BUILD.bazel),
-[entry point](../../../main/cpp/main.cpp),
-[main window](../../../main/cpp/mainwindow.cpp), and
-[menu controls](../../../main/cpp/menubutton.cpp).
+[entry point](../../../cmd/useless_qt_gui/main.cpp),
+[main window](../../../internal/application/mainwindow.cpp), and
+[menu controls](../../../internal/application/menubutton.cpp).
 
 ## Requirements
 

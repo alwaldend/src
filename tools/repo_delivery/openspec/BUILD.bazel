@@ -1,5 +1,5 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("@rules_openspec//main/bzl:workspace.bzl", "openspec_workspace")
+load("@rules_openspec//rules:workspace.bzl", "openspec_workspace")
 
 package(transitive_visibility = "//tools:transitive_consumers")
 

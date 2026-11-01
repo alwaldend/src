@@ -1,0 +1,41 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//tools/bzl/rules:al_bzl_library_map.bzl", "al_bzl_library_map")
+
+package(transitive_visibility = "//tools:transitive_consumers")
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//tools/ansible:__pkg__"],
+    deps = subpackages(
+        include = ["*"],
+        allow_empty = True,
+    ) + [":libs.stardoc"],
+)
+
+al_bzl_library_map(
+    name = "libs",
+    libs = {
+        "al_ansible_binary": [
+            "@rules_pkg//pkg:bzl_srcs",
+            "@bazel_skylib//lib:shell",
+            ":al_ansible_scripts",
+        ],
+        "al_ansible_role": [
+            "@rules_pkg//pkg:bzl_srcs",
+            "@bazel_skylib//rules:write_file",
+            "@bazel_skylib//lib:paths",
+        ],
+        "al_ansible_extension": [
+            "@bazel_tools//tools/build_defs/repo:cache.bzl",
+            "@bazel_tools//tools/build_defs/repo:http.bzl",
+            "@bazel_tools//tools/build_defs/repo:utils.bzl",
+        ],
+        "al_ansible_binaries": [
+            ":al_ansible_scripts",
+            ":al_ansible_binary",
+        ],
+        "al_ansible_scripts": [],
+    },
+    visibility = ["//:__subpackages__"],
+)

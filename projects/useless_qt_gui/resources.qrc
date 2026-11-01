@@ -1,19 +1,19 @@
 <RCC>
   <qresource prefix="/img/img">
-    <file alias="close_windiow.png">main/res/close_windiow.png</file>
-    <file alias="maximize_window.png">main/res/maximize_window.png</file>
-    <file alias="minimize_window.png">main/res/minimize_window.png</file>
-    <file alias="select.png">main/res/select.png</file>
-    <file alias="add.png">main/res/add.png</file>
-    <file alias="home.png">main/res/home.png</file>
-    <file alias="close_windiowWhite.png">main/res/close_windiowWhite.png</file>
+    <file alias="close_windiow.png">assets/close_windiow.png</file>
+    <file alias="maximize_window.png">assets/maximize_window.png</file>
+    <file alias="minimize_window.png">assets/minimize_window.png</file>
+    <file alias="select.png">assets/select.png</file>
+    <file alias="add.png">assets/add.png</file>
+    <file alias="home.png">assets/home.png</file>
+    <file alias="close_windiowWhite.png">assets/close_windiowWhite.png</file>
     <file
             alias="maximize_windowWhite.png"
-        >main/res/maximize_windowWhite.png</file>
+        >assets/maximize_windowWhite.png</file>
     <file
             alias="minimize_windowWhite.png"
-        >main/res/minimize_windowWhite.png</file>
-    <file alias="leftArrow.png">main/res/leftArrow.png</file>
-    <file alias="rightArrow.png">main/res/rightArrow.png</file>
+        >assets/minimize_windowWhite.png</file>
+    <file alias="leftArrow.png">assets/leftArrow.png</file>
+    <file alias="rightArrow.png">assets/rightArrow.png</file>
   </qresource>
 </RCC>

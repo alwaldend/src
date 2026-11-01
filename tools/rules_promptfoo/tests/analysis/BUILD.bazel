@@ -1,4 +1,4 @@
-load("//promptfoo/private:workspace.bzl", "promptfoo_workspace")
+load("//promptfoo/internal:workspace.bzl", "promptfoo_workspace")
 load(
     ":analysis_test.bzl",
     "workspace_failure_test",

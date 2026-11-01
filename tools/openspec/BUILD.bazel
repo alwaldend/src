@@ -4,7 +4,7 @@ package(transitive_visibility = "//tools:transitive_consumers")
 
 alias(
     name = "openspec",
-    actual = "@rules_openspec//main/bzl:openspec",
+    actual = "@rules_openspec//rules:openspec",
     visibility = ["//:__subpackages__"],
 )
 

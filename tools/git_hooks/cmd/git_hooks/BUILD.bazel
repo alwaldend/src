@@ -1,0 +1,27 @@
+load("@rules_go//go:def.bzl", "go_binary", "go_library", "go_test")
+
+package(transitive_visibility = "//tools:transitive_consumers")
+
+go_library(
+    name = "go_lib",
+    srcs = [
+        "hooks.go",
+        "main.go",
+    ],
+    embedsrcs = ["precommit.sh"],
+    importpath = "git.alwaldend.com/alwaldend/src/tools/git_hooks/cmd/git_hooks",
+    visibility = ["//visibility:private"],
+)
+
+go_binary(
+    name = "git_hooks",
+    embed = [":go_lib"],
+    visibility = ["//:__subpackages__"],
+)
+
+go_test(
+    name = "go_test",
+    size = "small",
+    srcs = ["hooks_test.go"],
+    embed = [":go_lib"],
+)

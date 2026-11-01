@@ -245,12 +245,22 @@ def main() -> None:
             b"Recommendation model runfile is unavailable" in completed.stdout
         ), completed.stdout.decode(errors="replace")[-4000:]
         results["missing_model"] = "passed"
+        dataset_runfiles: runfiles.Runfiles = runfiles.CreateDirectoryBased(
+            str(runfiles_root)
+        )
         name: str
         for name in ("data.csv", "dataset.csv"):
-            manifest_lines[-1] = (
-                f"+_repo_rules+com_github_yandex_practicum_mlops_freetrack/{name} "
-                f"{directory / 'absent.csv'}\n"
+            dataset_path: str | None = dataset_runfiles.Rlocation(
+                "com_github_yandex_practicum_mlops_freetrack/" + name,
+                source_repo="",
             )
+            assert dataset_path is not None
+            manifest_key: str = (
+                pathlib.Path(dataset_path)
+                .relative_to(runfiles_root)
+                .as_posix()
+            )
+            manifest_lines[-1] = f"{manifest_key} {directory / 'absent.csv'}\n"
             without_model.write_text("".join(manifest_lines))
             completed = subprocess.run(
                 [str(executable), "--port", "0"],

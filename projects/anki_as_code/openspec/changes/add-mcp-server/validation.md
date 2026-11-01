@@ -8,8 +8,8 @@ reduced catalog and workflows. Earlier 507-tool observations below are baseline
 evidence. Publication identity and exact-candidate validation belong to the
 delivery receipt rather than this coverage report.
 
-The complete WASM application and WASM-only CLI workflows use two isolated
-Bazel shards. Other targets retain default sharding. Earlier timing observations
+The complete WASM application uses eight isolated Bazel shards; the WASM-only
+CLI uses two. Other targets retain default sharding. Earlier timing observations
 below used explicit shard counts and do not describe current target defaults.
 The SDK's `StdioTransport`
 now owns protocol streams directly, replacing the custom output wrapper.

@@ -5,10 +5,10 @@
 Calculate file digest output for Subresource Integrity using OpenSSL. This
 baseline was observed at repository revision `550d7e79` on 2026-09-08. Sources
 are the [project README](../../../README.md),
-[command implementation](../../../main/c/cmd.c),
-[digest implementation](../../../main/c/sri.c),
-[existing test cases](../../../main/c/sri_test.c), and
-[build targets](../../../main/c/BUILD.bazel).
+[command implementation](../../../cmd/sri/cmd.c),
+[digest implementation](../../../cmd/sri/sri.c),
+[existing test cases](../../../cmd/sri/sri_test.c), and
+[build targets](../../../cmd/sri/BUILD.bazel).
 The checked-in fixture describes the intended digest format. The current
 `sri_write` passes an uninitialized output buffer to `sri_calculate`, which
 appends with `strncat`; this undefined behavior prevents a deterministic CLI

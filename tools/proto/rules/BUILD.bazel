@@ -1,0 +1,26 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//tools/bzl/rules:al_bzl_library_map.bzl", "al_bzl_library_map")
+
+package(transitive_visibility = "//tools:transitive_consumers")
+
+al_bzl_library_map(
+    name = "libs",
+    libs = {
+        "al_proto_docs": [
+            "@rules_template//rules:template_run_binary",
+            "@bazel_skylib//rules:write_file",
+            "@bazel_skylib//lib:paths",
+            "@rules_pkg//pkg:bzl_srcs",
+        ],
+    },
+    visibility = ["//:__subpackages__"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//tools/proto:__pkg__"],
+    deps = [
+        ":libs.stardoc",
+    ],
+)

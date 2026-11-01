@@ -1,0 +1,25 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//tools/bzl/rules:al_bzl_library_map.bzl", "al_bzl_library_map")
+
+package(transitive_visibility = "//tools:transitive_consumers")
+
+al_bzl_library_map(
+    name = "libs",
+    libs = {
+        "al_lua_library": [
+            "//tools/run_tool/rules:al_run_tool",
+            "@rules_pkg//pkg:bzl_srcs",
+            "@bazel_skylib//lib:paths",
+        ],
+    },
+    visibility = ["//:__subpackages__"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//tools/lua:__pkg__"],
+    deps = [
+        ":libs.stardoc",
+    ],
+)

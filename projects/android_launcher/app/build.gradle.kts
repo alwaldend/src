@@ -34,9 +34,9 @@ android {
 
 // Configure source directories to point to the Bazel-layout sources
 android.sourceSets.getByName("main") {
-  java.srcDirs("../main/java")
+  java.srcDirs("../cmd/launcher")
   res.srcDirs("../res")
-  proto { srcDir("../main/proto") }
+  proto { srcDir("../api") }
   manifest.srcFile("../AndroidManifest.xml")
 }
 

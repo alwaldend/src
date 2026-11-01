@@ -33,44 +33,20 @@ management components.
 
 ## Layout
 
-```
-ci_platform
-├── api [Interface Adapters]
-│   ├── controller
-│   ├── middleware
-│   └── presenter
-├── cmd (CLI interface)
-├── docs (OpenAPI Specification and other documentation)
-│   └── diagrams
-├── entity [Enterprise Business Rules]
-├── infrastructure [Frameworks and Drivers]
-│   ├── access
-│   ├── branch
-│   ├── config
-│   ├── job
-│   ├── jwt
-│   ├── lifecycle
-│   ├── pipeline
-│   ├── pool
-│   ├── project
-│   ├── schedule
-│   ├── session
-│   └── user
-├── pkg (Support packages)
-│   └── error
-└── usecase [Application Business Rules]
-│   ├── access
-│   ├── branch
-│   ├── job
-│   ├── jwt
-│   ├── lifecycle
-│   ├── pipeline
-│   ├── pool
-│   ├── project
-│   ├── schedule
-│   ├── session
-│   └── user
-└── web (Web interface)
+```text
+ci_platform/
+├── cmd/ci_platform/       CLI entry point
+├── internal/
+│   ├── api/               HTTP controllers, middleware, and presenters
+│   ├── command/           CLI dispatch
+│   ├── docs/              Embedded OpenAPI documents
+│   ├── entity/            Enterprise business rules
+│   ├── frontend/          Retained Vue frontend source
+│   ├── infrastructure/    Framework and driver implementations
+│   ├── pkg/               Backend support packages
+│   ├── usecase/           Application business rules
+│   └── web/               Frontend filesystem adapter
+└── openspec/              Source contract and maintained changes
 ```
 
 ## Resources

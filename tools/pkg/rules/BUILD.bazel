@@ -1,0 +1,27 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//tools/bzl/rules:al_bzl_library_map.bzl", "al_bzl_library_map")
+
+package(transitive_visibility = "//tools:transitive_consumers")
+
+al_bzl_library_map(
+    name = "libs",
+    libs = {
+        "al_unpack_archives": [],
+        "al_pkg_tar_combined": [],
+        "al_genrule_src": [],
+        "al_pkg_extract_dir": [],
+        "al_pkg_basic_naming": [
+            "@rules_pkg//pkg:bzl_srcs",
+        ],
+    },
+    visibility = ["//:__subpackages__"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//tools/pkg:__pkg__"],
+    deps = [
+        ":libs.stardoc",
+    ],
+)

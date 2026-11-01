@@ -84,7 +84,7 @@ al_binary_run_map(
         "--plugin_label",
         "opencode",
     ],
-    toolchains = ["//tools/git/main/bzl:toolchain_resolved"],
+    toolchains = ["//tools/git/rules:toolchain_resolved"],
 )
 
 al_config(

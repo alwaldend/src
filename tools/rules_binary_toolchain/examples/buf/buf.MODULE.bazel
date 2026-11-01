@@ -1,5 +1,5 @@
 binary_toolchain_extension = use_extension(
-    "//main/bzl:binary_toolchain_extension.bzl",
+    "//rules:binary_toolchain_extension.bzl",
     "binary_toolchain_extension",
     dev_dependency = True,
 )

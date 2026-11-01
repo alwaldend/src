@@ -52,12 +52,12 @@ Internet, Opera, and Edge do not use that view ID yet.
 ## Build and install
 
 1. Build the APK:
-   `bazel build //projects/activitywatch_ingester_android/main/java:ingester_binary`
+   `bazel build //projects/activitywatch_ingester_android/cmd/ingester:ingester_binary`
 2. Verify the APK starts on an already running device or emulator:
    `bazel run //projects/activitywatch_ingester_android/test:ingester_smoke_test`
    This manual smoke test installs the Bazel-built APK, launches the activity,
    waits for the process, and confirms it stays alive. It is not a CI test.
-3. Install the APK on the device from `bazel-bin/projects/activitywatch_ingester_android/main/java/ingester_binary.apk`.
+3. Install the APK on the device from `bazel-bin/projects/activitywatch_ingester_android/cmd/ingester/ingester_binary.apk`.
 4. Start the app and set the ActivityWatch server URL.
 5. Enable accessibility for the app in Android settings; Android shows the
    full-access warning, which is the mechanism this collector is built on.

@@ -1,8 +1,0 @@
-load("//tools/sh/main/bzl:al_sh_library.bzl", "al_sh_library")
-
-package(transitive_visibility = "//tools:transitive_consumers")
-
-al_sh_library(
-    name = "workspace_status",
-    srcs = ["workspace_status.sh"],
-)

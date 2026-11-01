@@ -1,4 +1,4 @@
-projects/ci_platform/main/js
+projects/ci_platform/internal/frontend
 projects/mcp_cordis/node_modules
 projects/bazel_gazelle_enforce_transitive_visibility
 projects/rules_trufflehog

@@ -1,4 +1,4 @@
-load("//tools/resolved_toolchain/main/bzl:al_resolved_toolchain.bzl", "al_resolved_toolchain")
+load("//tools/resolved_toolchain/rules:al_resolved_toolchain.bzl", "al_resolved_toolchain")
 
 al_toolchain_resolved = al_resolved_toolchain(
     doc = "Resolved al toolchain (for genrules)",

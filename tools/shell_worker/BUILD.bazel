@@ -4,7 +4,7 @@ package(transitive_visibility = "//tools:transitive_consumers")
 
 alias(
     name = "shell_worker",
-    actual = "//tools/shell_worker/main/go",
+    actual = "//tools/shell_worker/cmd/shell_worker:shell_worker",
     visibility = ["//:__subpackages__"],
 )
 
@@ -13,6 +13,6 @@ docs_filegroup(
     srcs = glob(["*.md"]),
     visibility = ["//tools:__pkg__"],
     deps = [
-        "//tools/shell_worker/main/bzl:docs",
+        "//tools/shell_worker/rules:docs",
     ],
 )

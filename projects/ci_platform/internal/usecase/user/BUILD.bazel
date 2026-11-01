@@ -1,0 +1,18 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+package(transitive_visibility = "//projects:transitive_consumers")
+
+go_library(
+    name = "user",
+    srcs = [
+        "user_interactor.go",
+        "user_interface.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/ci_platform/internal/usecase/user",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//projects/ci_platform/internal/entity",
+        "//projects/ci_platform/internal/pkg",
+        "@com_github_google_uuid//:uuid",
+    ],
+)

@@ -1,6 +1,6 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("//tools/ansible/main/bzl:al_ansible_scripts.bzl", "AL_ANSIBLE_SCRIPTS")
-load("//tools/bzlenv/main/bzl:al_bzlenv_binary.bzl", "al_bzlenv_binary")
+load("//tools/ansible/rules:al_ansible_scripts.bzl", "AL_ANSIBLE_SCRIPTS")
+load("//tools/bzlenv/rules:al_bzlenv_binary.bzl", "al_bzlenv_binary")
 
 package(transitive_visibility = "//tools:transitive_consumers")
 
@@ -35,15 +35,15 @@ docs_filegroup(
     srcs = glob(["*.md"]),
     visibility = ["//tools:__pkg__"],
     deps = [
-        "//tools/bzlenv/main/bzl:docs",
+        "//tools/bzlenv/rules:docs",
     ],
 )
 
 al_bzlenv_binary(
     name = "bzlenv",
     tools = {
-        "gopackagesdriver": "//tools/sh/main/sh:gopackagesdriver",
-        "bazel": "//tools/sh/main/sh:bazel",
+        "gopackagesdriver": "//tools/sh/internal/scripts:gopackagesdriver",
+        "bazel": "//tools/sh/internal/scripts:bazel",
         "al": "//projects/al/cmd/al",
         "blender": "//third_party/org_blender_blender:blender",
         "buf": "//third_party/build_buf_buf:buf",

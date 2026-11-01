@@ -4,7 +4,7 @@ package(transitive_visibility = "//projects:transitive_consumers")
 
 alias(
     name = "leetcode_downloader",
-    actual = "//projects/leetcode_downloader/main/go",
+    actual = "//projects/leetcode_downloader/cmd/leetcode_downloader:leetcode_downloader",
 )
 
 docs_filegroup(
@@ -14,7 +14,7 @@ docs_filegroup(
         "//projects:__pkg__",
     ],
     deps = [
-        "//projects/leetcode_downloader/main/bzl:docs",
-        "//projects/leetcode_downloader/main/proto:docs",
+        "//projects/leetcode_downloader/api:docs",
+        "//projects/leetcode_downloader/rules:docs",
     ],
 )

@@ -1,0 +1,44 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("@rules_python//python:defs.bzl", "py_binary", "py_library")
+
+package(transitive_visibility = "//projects:transitive_consumers")
+
+filegroup(
+    name = "wheel_sources",
+    srcs = glob(["*.py"]) + ["py.typed"],
+    visibility = ["//projects/autoscroll:__pkg__"],
+)
+
+filegroup(
+    name = "autoscroll_data",
+    srcs = glob(["resources/**"]),
+    visibility = ["//:__subpackages__"],
+)
+
+py_library(
+    name = "autoscroll_lib",
+    srcs = [
+        "__init__.py",
+        "main.py",
+    ],
+    data = [":autoscroll_data"],
+    imports = [".."],
+    visibility = ["//:__subpackages__"],
+    deps = ["//projects/autoscroll/pkg/autoscroll/internal"],
+)
+
+py_binary(
+    name = "autoscroll",
+    srcs = ["__main__.py"],
+    # keep
+    imports = [".."],
+    main = "__main__.py",
+    visibility = ["//:__subpackages__"],
+    deps = [":autoscroll_lib"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//projects/autoscroll:__pkg__"],
+)

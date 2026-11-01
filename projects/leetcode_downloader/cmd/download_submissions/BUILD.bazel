@@ -1,0 +1,7 @@
+package(transitive_visibility = "//projects:transitive_consumers")
+
+filegroup(
+    name = "download_submissions",
+    srcs = [":leetcode_downloader_tampermonkey.js"],
+    visibility = ["//projects/leetcode_downloader/releases:__pkg__"],
+)

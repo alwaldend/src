@@ -1,0 +1,20 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("@rules_go//go:def.bzl", "go_library")
+
+package(transitive_visibility = "//tools:transitive_consumers")
+
+go_library(
+    name = "command",
+    srcs = ["cmd.go"],
+    importpath = "git.alwaldend.com/alwaldend/src/tools/file_installer/internal/command",
+    visibility = ["//:__subpackages__"],
+    deps = [
+        "@com_github_spf13_cobra//:cobra",
+    ],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//tools/file_installer/cmd/file_installer:__pkg__"],
+)

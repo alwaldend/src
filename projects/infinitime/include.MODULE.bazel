@@ -10,8 +10,8 @@ git_repository(
     init_submodules = True,
     patch_args = ["-p1"],
     patches = [
-        "//projects/infinitime/main/patch:cmake_toolchain.patch",
-        "//projects/infinitime/main/patch:native_uv.patch",
+        "//projects/infinitime/patches:cmake_toolchain.patch",
+        "//projects/infinitime/patches:native_uv.patch",
     ],
     recursive_init_submodules = True,
     remote = "https://github.com/alwaldend/com_github_infinitimeorg_infinitime.git",

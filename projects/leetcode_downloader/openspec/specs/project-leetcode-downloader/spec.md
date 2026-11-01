@@ -9,9 +9,9 @@ README reports direct CLI downloads blocked by bot protection; this baseline
 does not verify current external service access.
 
 Sources: [project README](../../../README.md),
-[submission generator](../../../main/go/generator.go),
-[documentation rule](../../../main/bzl/al_leetcode_submissions.bzl),
-and [browser userscript](../../../main/tampermonkey/leetcode_downloader_tampermonkey.js).
+[submission generator](../../../cmd/leetcode_downloader/generator.go),
+[documentation rule](../../../rules/al_leetcode_submissions.bzl),
+and [browser userscript](../../../cmd/download_submissions/leetcode_downloader_tampermonkey.js).
 
 ## Requirements
 

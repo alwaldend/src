@@ -1,0 +1,41 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//tools/bzl/rules:al_bzl_library_map.bzl", "al_bzl_library_map")
+
+package(transitive_visibility = "//tools:transitive_consumers")
+
+al_bzl_library_map(
+    name = "libs",
+    libs = {
+        "al_release": [
+            ":al_release_files",
+            ":al_release_info",
+            "@rules_pkg//pkg:bzl_srcs",
+            ":al_release_files_info",
+            "//tools/git/rules:al_git_current_state",
+        ],
+        "al_release_binary": [
+            ":al_release_info",
+            ":al_release_deployment_info",
+        ],
+        "al_release_info": [],
+        "al_release_bundle": [],
+        "al_release_deployment_info": [],
+        "al_release_deployment": [":al_release_deployment_info"],
+        "al_release_deps": [":al_release_files"],
+        "al_release_files": [
+            ":al_release_files_info",
+            ":al_release_deployment_info",
+        ],
+        "al_release_files_info": [],
+    },
+    visibility = ["//:__subpackages__"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//tools/release:__pkg__"],
+    deps = [
+        ":libs.stardoc",
+    ],
+)

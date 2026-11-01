@@ -7,6 +7,6 @@ docs_filegroup(
     srcs = glob(["*.md"]),
     visibility = ["//tools:__pkg__"],
     deps = [
-        "//tools/transitive_sources/main/bzl:docs",
+        "//tools/transitive_sources/rules:docs",
     ],
 )

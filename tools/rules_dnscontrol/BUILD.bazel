@@ -12,6 +12,6 @@ build_test(
     name = "build_test",
     targets = [
         ":docs",
-        "//main/bzl:dnscontrol",
+        "//rules:dnscontrol",
     ],
 )

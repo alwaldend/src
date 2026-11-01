@@ -1,4 +1,4 @@
-load("@rules_openspec//main/bzl:openspec.bzl", "openspec_validation")
+load("@rules_openspec//rules:openspec.bzl", "openspec_validation")
 load(":workspaces.bzl", _WORKSPACE_SOURCES = "WORKSPACE_SOURCES")
 
 package(

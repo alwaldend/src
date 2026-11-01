@@ -1,0 +1,23 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//tools/bzl/rules:al_bzl_library_map.bzl", "al_bzl_library_map")
+
+package(transitive_visibility = "//tools:transitive_consumers")
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//tools/install_file:__pkg__"],
+    deps = [
+        ":libs.stardoc",
+    ],
+)
+
+al_bzl_library_map(
+    name = "libs",
+    libs = {
+        "al_install_file": [
+            "@rules_python//python:py_binary_bzl",
+        ],
+    },
+    visibility = ["//:__subpackages__"],
+)
