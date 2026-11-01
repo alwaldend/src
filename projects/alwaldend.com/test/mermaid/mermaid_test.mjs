@@ -71,10 +71,10 @@ try {
     await page.goto(`${base}/docs/users/simeonwarren/host_bot/`, {
         waitUntil: "networkidle0",
     });
+    const documentationDiagramSelector =
+        'img[alt="T3 Code architecture diagram"]';
     const visibleImage = async () => {
-        const images = await page.$$(
-            'img[alt="Host Bot architecture diagram"]',
-        );
+        const images = await page.$$(documentationDiagramSelector);
         const visible = [];
         for (const image of images)
             if (
@@ -233,14 +233,16 @@ try {
     await check("system-light", "light");
 
     // Each standalone SVG must already contain its final colors and font.
-    const diagrams = await page.$$eval(".mermaid-diagram img", (images) =>
-        images.map((element) => ({
-            src: element.src,
-            alt: element.alt,
-            mode: element.classList.contains("mermaid-dark")
-                ? "dark"
-                : "light",
-        })),
+    const diagrams = await page.$$eval(
+        `.mermaid-diagram ${documentationDiagramSelector}`,
+        (images) =>
+            images.map((element) => ({
+                src: element.src,
+                alt: element.alt,
+                mode: element.classList.contains("mermaid-dark")
+                    ? "dark"
+                    : "light",
+            })),
     );
     assert.ok(
         diagrams.length === 2,

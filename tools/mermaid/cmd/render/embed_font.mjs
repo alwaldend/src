@@ -50,12 +50,12 @@ const readFamilyName = (data) => {
 
 // Native renders pass this stylesheet through the CLI's supported CSS input.
 // The historical renderer embeds the same bytes below to preserve its output.
-export const fontFace = (font) => {
+export const fontFace = (font, source) => {
     const family = readFamilyName(font);
     const encoded = Buffer.from(font).toString("base64");
     return (
         `@font-face{font-family:'${family}';` +
-        `src:url(data:font/ttf;base64,${encoded}) format('truetype');}`
+        `src:url(${source ?? `data:font/ttf;base64,${encoded}`}) format('truetype');}`
     );
 };
 

@@ -40,6 +40,8 @@ def _mermaid_svg_impl(ctx):
     if not ctx.attr.native and (theme.palette or ctx.outputs.dark_out):
         fail("palette and dark_out require native rendering")
     plain = ctx.attr.plain
+    if ctx.attr.native and not theme.font_license:
+        fail("native rendering requires label_font_license for CLI font embedding")
     label_font = theme.font
 
     args = ctx.actions.args()
@@ -57,6 +59,7 @@ def _mermaid_svg_impl(ctx):
         if ctx.attr.native:
             args.add("--native")
             args.add("--font-subsetter", ctx.executable._font_subsetter.path)
+            args.add("--font-license", theme.font_license.path)
             args.add("--palette", theme.palette.path)
             args.add("--dark-output", ctx.outputs.dark_out.path)
             outputs.append(ctx.outputs.dark_out)
@@ -84,7 +87,7 @@ def _mermaid_svg_impl(ctx):
             inputs.append(theme.palette)
         inputs = inputs + ctx.files._body_fonts + ctx.files._label_fonts + [label_font]
 
-    if ctx.attr.native and theme.font_license:
+    if ctx.attr.native:
         inputs.append(theme.font_license)
 
     ctx.actions.run(
@@ -146,7 +149,7 @@ mermaid_svg = rule(
         ),
         "label_font_license": attr.label(
             allow_single_file = True,
-            doc = "Optional license belonging to label_font for a standalone JSON theme.",
+            doc = "License belonging to label_font; required for native rendering with a standalone JSON theme.",
         ),
         "label_font": attr.label(
             allow_single_file = [".ttf"],
@@ -202,6 +205,8 @@ def _mermaid_webp_impl(ctx):
     if ctx.attr.aspect_ratio and (len(ctx.attr.aspect_ratio) != 2 or min(ctx.attr.aspect_ratio) <= 0):
         fail("aspect_ratio must contain two positive integers")
 
+    if ctx.attr.native and not theme.font_license:
+        fail("native rendering requires label_font_license for CLI font embedding")
     label_font = theme.font
 
     args = ctx.actions.args()
@@ -221,6 +226,7 @@ def _mermaid_webp_impl(ctx):
     if ctx.attr.native:
         args.add("--native")
         args.add("--font-subsetter", ctx.executable._font_subsetter.path)
+        args.add("--font-license", theme.font_license.path)
         args.add("--palette", theme.palette.path)
         args.add("--color-scheme", ctx.attr.color_scheme)
 
@@ -239,7 +245,7 @@ def _mermaid_webp_impl(ctx):
     if theme.palette:
         inputs.append(theme.palette)
 
-    if ctx.attr.native and theme.font_license:
+    if ctx.attr.native:
         inputs.append(theme.font_license)
 
     ctx.actions.run(
@@ -315,7 +321,7 @@ mermaid_webp = rule(
         ),
         "label_font_license": attr.label(
             allow_single_file = True,
-            doc = "Optional license belonging to label_font for a standalone JSON theme.",
+            doc = "License belonging to label_font; required for native rendering with a standalone JSON theme.",
         ),
         "label_font": attr.label(
             allow_single_file = [".ttf"],

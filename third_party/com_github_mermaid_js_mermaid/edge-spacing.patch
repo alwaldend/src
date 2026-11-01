@@ -1,6 +1,6 @@
---- a/dist/chunks/mermaid.esm/dagre-VDPKY7UI.mjs
-+++ b/dist/chunks/mermaid.esm/dagre-VDPKY7UI.mjs
-@@ -291,11 +291,12 @@
+--- a/dist/chunks/mermaid.esm/dagre-WMVPSHVI.mjs
++++ b/dist/chunks/mermaid.esm/dagre-WMVPSHVI.mjs
+@@ -2468,11 +2468,12 @@
        log.info("(Insert) Node XXX" + v + ": " + JSON.stringify(graph.node(v)));
        if (node?.clusterNode) {
          log.info("Cluster identified XBX", v, node.width, graph.node(v));
@@ -15,7 +15,7 @@
          });
          const o = await renderDagreSubgraph({
            element: nodes,
-@@ -563,6 +564,7 @@
+@@ -2739,6 +2740,7 @@
      compound: true
    }).setGraph({
      rankdir: data4Layout.direction,

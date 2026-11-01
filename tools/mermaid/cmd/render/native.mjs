@@ -1,11 +1,13 @@
 import fs from "node:fs/promises";
+import path from "node:path";
+import { pathToFileURL } from "node:url";
 import { execFileSync } from "node:child_process";
 import puppeteer from "puppeteer";
 import { renderMermaid } from "@mermaid-js/mermaid-cli";
 import { fontFace } from "./embed_font.mjs";
 
-// Read resolved theme colors from the consumer palette JSON.
-// Generated SVG bytes are written without modification.
+// Pass the consumer's palette JSON directly to Mermaid. Generated SVG bytes
+// are written without modification.
 export async function renderNative({
     input,
     output,
@@ -14,14 +16,22 @@ export async function renderNative({
     palette,
     config,
     font,
+    fontLicense,
     fontSubsetter,
     puppeteerConfig,
 }) {
     const appearances = JSON.parse(await fs.readFile(palette, "utf8"));
-    const browser = await puppeteer.launch(puppeteerConfig);
+    const scratch = await fs.mkdtemp(path.resolve(".mermaid-native-"));
+    let browser;
     try {
+        browser = await puppeteer.launch(puppeteerConfig);
         const definition = await fs.readFile(input, "utf8");
-        let myCSS = fontFace(await fs.readFile(font));
+        const fontBytes = await fs.readFile(font);
+        const cssPath = path.join(scratch, "font.css");
+        const fontPath = path.join(scratch, "font.ttf");
+        await fs.writeFile(fontPath, fontBytes);
+        await fs.writeFile(cssPath, fontFace(fontBytes, "font.ttf"));
+        await fs.copyFile(fontLicense, path.join(scratch, "LICENSE"));
         let subsetted = false;
         const variants =
             darkOutput === undefined
@@ -39,7 +49,7 @@ export async function renderNative({
                 throw new Error(
                     `Palette must define a background color for ${mode}`,
                 );
-            // Make the same resolved palette available to Mermaid's input
+            // Make the same palette available to Mermaid's input
             // theme CSS, so caption borders and fills share its native colors.
             const properties = Object.entries(themeVariables)
                 .map(([name, value]) => `--mermaid-${name}:${value}`)
@@ -55,7 +65,8 @@ export async function renderNative({
                     },
                 },
                 backgroundColor: themeVariables.background,
-                myCSS,
+                // CLI 12 embeds custom faces together with their license.
+                customFontCSS: [{ cssUrl: pathToFileURL(cssPath) }],
             };
             let { data } = await renderMermaid(
                 browser,
@@ -67,7 +78,8 @@ export async function renderNative({
                 // Use actual rendered text, including decoded/generated labels.
                 // Re-render with the subset through Mermaid's supported CSS input;
                 // delivered SVG geometry is never rewritten.
-                myCSS = fontFace(
+                await fs.writeFile(
+                    fontPath,
                     execFileSync(fontSubsetter, [font], {
                         input: data,
                         maxBuffer: 8 * 1024 * 1024,
@@ -75,14 +87,17 @@ export async function renderNative({
                     }),
                 );
                 subsetted = true;
-                ({ data } = await renderMermaid(browser, definition, "svg", {
-                    ...options,
-                    myCSS,
-                }));
+                ({ data } = await renderMermaid(
+                    browser,
+                    definition,
+                    "svg",
+                    options,
+                ));
             }
             await fs.writeFile(destination, data);
         }
     } finally {
-        await browser.close();
+        await browser?.close();
+        await fs.rm(scratch, { recursive: true, force: true });
     }
 }
