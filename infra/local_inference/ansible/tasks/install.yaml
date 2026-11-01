@@ -1,0 +1,153 @@
+- name: Install existing operating-system utilities
+  ansible.builtin.apt:
+    name:
+      - ca-certificates
+      - tar
+      - git
+    state: present
+    update_cache: true
+
+- name: Create the inference group
+  ansible.builtin.group:
+    name: llama
+    gid: "{{ local_inference_llama_uid }}"
+    state: present
+
+- name: Create the unprivileged inference account
+  ansible.builtin.user:
+    name: llama
+    uid: "{{ local_inference_llama_uid }}"
+    group: llama
+    groups: ""
+    append: false
+    home: /var/lib/llama
+    shell: /usr/sbin/nologin
+    password_lock: true
+    create_home: true
+    state: present
+
+- name: Create root-owned runtime and policy directories
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+  loop:
+    - /var/cache/local-inference
+    - /etc/codex
+    - /usr/local/libexec
+    - "/opt/codex/{{ local_inference_codex_version }}"
+    - "/opt/llama/{{ local_inference_llama_version }}"
+
+- name: Download checksum-pinned Codex and llama.cpp archives as administrator
+  ansible.builtin.get_url:
+    url: "{{ item.url }}"
+    dest: "/var/cache/local-inference/{{ item.name }}.tar.gz"
+    checksum: "sha256:{{ item.sha256 }}"
+    owner: root
+    group: root
+    mode: "0644"
+  loop:
+    - name: "codex-{{ local_inference_codex_version }}"
+      url: "https://github.com/openai/codex/releases/download/rust-v{{ local_inference_codex_version }}/codex-x86_64-unknown-linux-musl.tar.gz"
+      sha256: "{{ local_inference_codex_sha256 }}"
+    - name: "llama-{{ local_inference_llama_version }}"
+      url: "https://github.com/ggml-org/llama.cpp/releases/download/{{ local_inference_llama_version }}/llama-{{ local_inference_llama_version }}-bin-ubuntu-cuda-12.8-x64.tar.gz"
+      sha256: "{{ local_inference_llama_sha256 }}"
+    - name: "cudart-{{ local_inference_llama_version }}"
+      url: "https://github.com/ggml-org/llama.cpp/releases/download/{{ local_inference_llama_version }}/cudart-llama-{{ local_inference_llama_version }}-bin-ubuntu-cuda-12.8-x64.tar.gz"
+      sha256: "{{ local_inference_cuda_sha256 }}"
+
+- name: Extract the pinned Codex executable
+  ansible.builtin.unarchive:
+    src: "/var/cache/local-inference/codex-{{ local_inference_codex_version }}.tar.gz"
+    dest: "/opt/codex/{{ local_inference_codex_version }}"
+    remote_src: true
+    owner: root
+    group: root
+
+- name: Extract the pinned llama.cpp CUDA binaries
+  ansible.builtin.unarchive:
+    src: "/var/cache/local-inference/llama-{{ local_inference_llama_version }}.tar.gz"
+    dest: "/opt/llama/{{ local_inference_llama_version }}"
+    extra_opts: [--strip-components=1]
+    remote_src: true
+    owner: root
+    group: root
+  notify: Restart llama server
+
+- name: Extract the approved CUDA 12.8 runtime beside llama.cpp
+  ansible.builtin.unarchive:
+    src: "/var/cache/local-inference/cudart-{{ local_inference_llama_version }}.tar.gz"
+    dest: "/opt/llama/{{ local_inference_llama_version }}"
+    extra_opts: [--strip-components=1]
+    remote_src: true
+    owner: root
+    group: root
+  notify: Restart llama server
+
+- name: Check the CUDA backend's shared libraries
+  ansible.builtin.command:
+    argv:
+      - /usr/bin/ldd
+      - "/opt/llama/{{ local_inference_llama_version }}/libggml-cuda.so"
+  environment:
+    LD_LIBRARY_PATH: "/opt/llama/{{ local_inference_llama_version }}"
+  register: local_inference_cuda_libraries
+  changed_when: false
+  failed_when: >-
+    local_inference_cuda_libraries.rc != 0 or
+    'not found' in local_inference_cuda_libraries.stdout
+
+- name: Verify llama.cpp discovers the CUDA device before enabling inference
+  ansible.builtin.command:
+    argv:
+      - "/opt/llama/{{ local_inference_llama_version }}/llama-server"
+      - --list-devices
+  environment:
+    LD_LIBRARY_PATH: "/opt/llama/{{ local_inference_llama_version }}"
+    GGML_BACKEND_PATH: "/opt/llama/{{ local_inference_llama_version }}"
+  register: local_inference_cuda_devices
+  changed_when: false
+  failed_when: >-
+    local_inference_cuda_devices.rc != 0 or
+    'CUDA0' not in (local_inference_cuda_devices.stdout +
+    local_inference_cuda_devices.stderr)
+
+- name: Publish the root-owned Codex command
+  ansible.builtin.file:
+    src: "/opt/codex/{{ local_inference_codex_version }}/codex-x86_64-unknown-linux-musl"
+    dest: /usr/local/bin/codex
+    state: link
+    owner: root
+    group: root
+
+- name: Install the local Responses compatibility bridge
+  ansible.builtin.copy:
+    src: responses_bridge
+    dest: /usr/local/libexec/local-inference-responses-bridge
+    owner: root
+    group: root
+    mode: "0755"
+  notify: Restart Responses bridge
+
+- name: Place the verified model on the encrypted boot disk
+  ansible.builtin.copy:
+    src: "{{ local_inference_model_src }}"
+    dest: /var/lib/llama/model.gguf
+    owner: root
+    group: llama
+    mode: "0640"
+  notify: Restart llama server
+
+- name: Verify the transferred model's SHA-256
+  ansible.builtin.stat:
+    path: /var/lib/llama/model.gguf
+    checksum_algorithm: sha256
+  register: local_inference_installed_model
+
+- name: Reject a transferred model checksum mismatch
+  ansible.builtin.assert:
+    that:
+      - local_inference_installed_model.stat.checksum == local_inference_model_sha256

@@ -1,0 +1,30 @@
+- name: Configure the local inference host
+  hosts: local_inference
+  become: true
+  tasks:
+    - name: Validate deployment inputs and GPU image
+      ansible.builtin.import_tasks: tasks/prerequisites.yaml
+    - name: Install local runtimes
+      ansible.builtin.import_tasks: tasks/install.yaml
+    - name: Configure local-only operation
+      ansible.builtin.import_tasks: tasks/configure.yaml
+    - name: Install the repository trust chain
+      ansible.builtin.import_role:
+        name: alwaldend.main.install_ca
+    - name: Deploy T3 Code normally
+      ansible.builtin.import_role:
+        name: alwaldend.main.t3code
+    - name: Deploy Traefik with client authentication
+      ansible.builtin.import_role:
+        name: alwaldend.main.traefik
+  handlers:
+    - name: Restart llama server
+      ansible.builtin.systemd_service:
+        name: llama-server.service
+        daemon_reload: true
+        state: restarted
+    - name: Restart Responses bridge
+      ansible.builtin.systemd_service:
+        name: responses-bridge.service
+        daemon_reload: true
+        state: restarted

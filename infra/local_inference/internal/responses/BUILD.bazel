@@ -1,0 +1,13 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+package(transitive_visibility = "//infra:transitive_consumers")
+
+go_library(
+    name = "responses",
+    srcs = [
+        "bridge.go",
+        "doc.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/infra/local_inference/internal/responses",
+    visibility = ["//infra/local_inference:__subpackages__"],
+)

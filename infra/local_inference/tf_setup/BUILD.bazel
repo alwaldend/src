@@ -1,0 +1,59 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("@rules_terraform//terraform:defs.bzl", "terraform_binary_map", "terraform_target_binary_map", "terraform_test_map")
+load("//projects/al/rules/al:al_binary.bzl", "al_binary_run")
+
+package(transitive_visibility = "//infra:transitive_consumers")
+
+_PROVIDERS = [
+    "@terraform_provider_cloudflare_cloudflare//:provider",
+    "@terraform_provider_yandex_cloud_yandex//:provider",
+]
+
+_DATA = glob(["*.tf"]) + [
+    "//infra/cloud_init:cloud_init",
+    "//infra/local_inference:dnsconfig",
+    "//projects/tf_modules/dns_records/global",
+    "//tools/vault/injector",
+    "//tools/vault/tf_backend",
+]
+
+terraform_binary_map(
+    name = "tf_setup",
+    data = _DATA,
+    providers = _PROVIDERS,
+    wrapper = al_binary_run,
+    wrapper_kwargs = {
+        "configs": ["//infra/local_inference:al"],
+        "run_args": [
+            "--plugin_label",
+            "tf=setup",
+        ],
+    },
+)
+
+terraform_test_map(
+    name = "tf_tests",
+    data = _DATA,
+    providers = _PROVIDERS,
+)
+
+terraform_target_binary_map(
+    name = "dns",
+    data = _DATA,
+    providers = _PROVIDERS,
+    target = "module.dns",
+    wrapper = al_binary_run,
+    wrapper_kwargs = {
+        "configs": ["//infra/local_inference:al"],
+        "run_args": [
+            "--plugin_label",
+            "dns=1",
+        ],
+    },
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//infra/local_inference:__pkg__"],
+)

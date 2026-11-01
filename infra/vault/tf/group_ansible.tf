@@ -8,6 +8,7 @@ resource "vault_identity_group" "ansible" {
     data.vault_identity_group.src_infra_download.group_id,
     module.src_infra_dc1_forgejo1_approle.group_id,
     module.src_infra_forgejo_runner_approle.group_id,
+    module.src_infra_local_inference_approle.group_id,
     module.src_infra_harbor_approle.group_id,
     module.src_infra_flux_approle.group_id,
     module.src_infra_threexui_approle.group_id,

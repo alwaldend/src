@@ -11,3 +11,9 @@ t3code_auth_token: "{{ undefined() }}"
 t3code_service_path: /lib/systemd/system/t3code.service
 t3code_env_path: "{{ t3code_dir }}/.env"
 t3code_env: {}
+t3code_install_method: npm
+t3code_archive_url: "{{ undefined() }}"
+t3code_archive_checksum: "{{ undefined() }}"
+t3code_release_dir: "{{ t3code_dir }}/releases/{{ t3code_version }}"
+t3code_bin_path: "{{ t3code_release_dir }}/t3"
+t3code_initial_settings: {}

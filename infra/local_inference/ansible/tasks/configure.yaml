@@ -1,0 +1,59 @@
+- name: Install root-owned managed Codex requirements
+  ansible.builtin.template:
+    src: codex_requirements.toml.j2
+    dest: /etc/codex/requirements.toml
+    owner: root
+    group: root
+    mode: "0644"
+
+- name: Install the local model and context configuration
+  ansible.builtin.template:
+    src: codex_config.toml.j2
+    dest: /etc/codex/config.toml
+    owner: root
+    group: root
+    mode: "0644"
+
+- name: Install the inference service definition
+  ansible.builtin.template:
+    src: llama-server.service.j2
+    dest: /etc/systemd/system/llama-server.service
+    owner: root
+    group: root
+    mode: "0644"
+  notify: Restart llama server
+
+- name: Install the Responses bridge service definition
+  ansible.builtin.template:
+    src: responses-bridge.service.j2
+    dest: /etc/systemd/system/responses-bridge.service
+    owner: root
+    group: root
+    mode: "0644"
+  notify: Restart Responses bridge
+
+- name: Apply pending inference changes before checking readiness
+  ansible.builtin.meta: flush_handlers
+
+- name: Enable and start the local inference service
+  ansible.builtin.systemd_service:
+    name: llama-server.service
+    enabled: true
+    state: started
+    daemon_reload: true
+
+- name: Enable and start the local Responses bridge
+  ansible.builtin.systemd_service:
+    name: responses-bridge.service
+    enabled: true
+    state: started
+    daemon_reload: true
+
+- name: Require a healthy local inference endpoint
+  ansible.builtin.uri:
+    url: http://127.0.0.1:8080/health
+    status_code: 200
+  register: local_inference_health
+  retries: 120
+  delay: 5
+  until: local_inference_health.status == 200

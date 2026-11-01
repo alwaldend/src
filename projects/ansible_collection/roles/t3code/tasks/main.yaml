@@ -1,7 +1,18 @@
 - tags:
     - t3code
   block:
+    - name: Validate the T3 Code installation method
+      ansible.builtin.assert:
+        that:
+          - t3code_install_method in ['npm', 'standalone']
+    - name: Require a verified standalone archive
+      when: t3code_install_method == 'standalone'
+      ansible.builtin.assert:
+        that:
+          - t3code_archive_url is match('^https://')
+          - t3code_archive_checksum is match('^sha256:[a-f0-9]{64}$')
     - name: Install T3 Code dependencies
+      when: t3code_install_method == 'npm'
       ansible.builtin.package:
         name:
           - nodejs
@@ -30,7 +41,6 @@
         state: mounted
     - name: Create T3 Code directories
       loop:
-        - "{{ t3code_dir }}"
         - "{{ t3code_home_dir }}"
         - "{{ t3code_state_dir }}"
         - "{{ t3code_work_dir }}"
@@ -41,9 +51,12 @@
         mode: "0700"
         path: "{{ item }}"
     - name: Write the T3 Code environment
+      no_log: true
       ansible.builtin.copy:
         content: |
+          {% if t3code_install_method == 'npm' %}
           T3CODE_AUTH_TOKEN={{ t3code_auth_token }}
+          {% endif %}
           {% for key, value in t3code_env.items() %}
           {{ key }}={{ value }}
           {% endfor %}
@@ -51,13 +64,66 @@
         owner: root
         group: root
         mode: "0600"
+      notify: Restart T3 Code
+    - name: Seed first-start T3 Code settings
+      when: t3code_initial_settings | length > 0
+      block:
+        - name: Create the T3 Code userdata directory
+          ansible.builtin.file:
+            path: "{{ t3code_state_dir }}/userdata"
+            state: directory
+            owner: "{{ t3code_user }}"
+            group: "{{ t3code_user }}"
+            mode: "0700"
+        - name: Install initial settings without replacing UI changes
+          no_log: true
+          ansible.builtin.copy:
+            content: "{{ t3code_initial_settings | to_nice_json }}\n"
+            dest: "{{ t3code_state_dir }}/userdata/settings.json"
+            force: false
+            owner: "{{ t3code_user }}"
+            group: "{{ t3code_user }}"
+            mode: "0600"
+          notify: Restart T3 Code
     - name: Install the package
-      ansible.builtin.command:
-        argv:
-          - npm
-          - install
-          - -g
-          - t3@{{ t3code_version }}
+      when: t3code_install_method == 'npm'
+      community.general.npm:
+        name: t3
+        version: "{{ t3code_version }}"
+        global: true
+        state: present
+      notify: Restart T3 Code
+    - name: Install the standalone release
+      when: t3code_install_method == 'standalone'
+      block:
+        - name: Protect standalone runtime directories
+          ansible.builtin.file:
+            path: "{{ item }}"
+            state: directory
+            owner: root
+            group: root
+            mode: "0755"
+          loop:
+            - "{{ t3code_dir }}"
+            - "{{ t3code_dir }}/releases"
+            - "{{ t3code_release_dir }}"
+        - name: Download the verified standalone bundle
+          ansible.builtin.get_url:
+            url: "{{ t3code_archive_url }}"
+            checksum: "{{ t3code_archive_checksum }}"
+            dest: "{{ t3code_dir }}/releases/{{ t3code_version }}.tar.gz"
+            owner: root
+            group: root
+            mode: "0644"
+        - name: Extract the complete standalone bundle
+          ansible.builtin.unarchive:
+            src: "{{ t3code_dir }}/releases/{{ t3code_version }}.tar.gz"
+            dest: "{{ t3code_release_dir }}"
+            remote_src: true
+            extra_opts: [--strip-components=1]
+            owner: root
+            group: root
+          notify: Restart T3 Code
     - name: Write the T3 Code service
       register: t3code_service_result
       ansible.builtin.template:
@@ -66,12 +132,10 @@
         owner: root
         group: root
         mode: "0644"
-    - name: Reload systemd for T3 Code
-      when: t3code_service_result.changed
-      ansible.builtin.systemd_service:
-        daemon_reload: true
+      notify: Restart T3 Code
     - name: Enable and start T3 Code
       ansible.builtin.systemd_service:
         name: "{{ t3code_service_path | basename }}"
+        daemon_reload: "{{ t3code_service_result.changed }}"
         enabled: true
-        state: restarted
+        state: started

@@ -1,0 +1,25 @@
+{
+    "records": {
+        "yc_ns1": {
+            "NS": {
+                "name": "yc.local-inference.alwaldend.com",
+                "address": "ns1.yandexcloud.net."
+            },
+            "dsp": ["global"]
+        },
+        "yc_ns2": {
+            "NS": {
+                "name": "yc.local-inference.alwaldend.com",
+                "address": "ns2.yandexcloud.net."
+            },
+            "dsp": ["global"]
+        },
+        "t3code": {
+            "CNAME": {
+                "name": "t3code.local-inference.alwaldend.com",
+                "target": "host1.yc.local-inference.alwaldend.com."
+            },
+            "dsp": ["global"]
+        }
+    }
+}
