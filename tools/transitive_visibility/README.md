@@ -25,3 +25,21 @@ for standalone usage and the Bazel 9.3.1 indirect-enforcement limitation.
 Gazelle 0.54.0 appends `package()` after generated rules when it creates a new
 BUILD file. A subsequent run moves it after the loads; further runs are stable.
 The repository uses unmodified upstream Gazelle and does not patch this behavior.
+
+## Artifact dependency tests
+
+`artifact_boundary_test` in `defs.bzl` checks ordinary dependencies separately
+from native package exceptions. It rejects paths into `tools`, `infra` and
+`users` through direct or indirect dependencies, using Bazel genquery with
+`--noimplicit_deps --notool_deps --nonodep_deps`. Execution tools, toolchains,
+visibility metadata and Starlark loads are excluded. Select branches remain
+unconfigured, so this is a conservative source graph rather than a configured
+runtime or action-graph guarantee.
+
+The current audited runtime roots are AL, the dependency analyzer, the X profile
+cleaner, and the Article uploader's converter and draft commands. Their owning
+command BUILD files declare the tests; normal repository tests run them.
+Documentation aggregates and authenticated operator wrappers have different
+allowed inputs and are deliberately outside this check's coverage. The fixture
+suite preserves query outputs proving indirect artifact inclusion and execution
+tool exclusion.

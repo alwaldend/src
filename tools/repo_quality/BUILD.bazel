@@ -309,8 +309,15 @@ test_suite(
         ":repo_format_test",
         "//tools/bazel_module/cmd/update:freshness_test",
         "//tools/go_mod/cmd/go_mod:test",
+        "//tools/repo_quality/test/inventory:freshness_test",
         "//tools/repo_quality/test/root_build:root_build_test",
     ],
+)
+
+alias(
+    name = "inventory_update",
+    actual = "//tools/repo_quality/cmd/inventory",
+    visibility = ["//:__subpackages__"],
 )
 
 test_suite(

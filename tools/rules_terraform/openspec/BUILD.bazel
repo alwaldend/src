@@ -1,5 +1,4 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("@rules_openspec//main/bzl:workspace.bzl", "openspec_workspace")
 
 docs_filegroup(
     name = "docs",
@@ -15,7 +14,7 @@ docs_filegroup(
     visibility = ["//:__pkg__"],
 )
 
-openspec_workspace(
+filegroup(
     name = "source",
     srcs = glob([
         "**/*.md",

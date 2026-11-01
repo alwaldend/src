@@ -13,11 +13,6 @@ local_path_override(
     path = "../../tools/rules_docs",
 )
 
-local_path_override(
-    module_name = "rules_openspec",
-    path = "../../tools/rules_openspec",
-)
-
 go_sdk = use_extension("@rules_go//go:extensions.bzl", "go_sdk")
 go_sdk.from_file(go_mod = "//:go.mod")
 

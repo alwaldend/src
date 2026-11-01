@@ -1,0 +1,11 @@
+filegroup(
+    name = "source",
+    srcs = ["config.yaml"] + glob(
+        [
+            "specs/**/*.md",
+            "changes/**",
+        ],
+        allow_empty = True,
+    ),
+    visibility = ["//visibility:public"],
+)

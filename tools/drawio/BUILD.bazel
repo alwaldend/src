@@ -10,7 +10,7 @@ docs_filegroup(
     deps = subpackages(
         include = ["*"],
         allow_empty = True,
-    ) + ["//tools/drawio/main/bzl:docs"],
+    ),
 )
 
 alias(

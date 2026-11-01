@@ -7,7 +7,7 @@ def _helm_toolchain_impl(ctx):
     )
     default_info = DefaultInfo(
         files = depset([helm]),
-        runfiles = ctx.runfiles(files = [helm]),
+        runfiles = ctx.runfiles(files = [helm]).merge(ctx.attr.helm[DefaultInfo].default_runfiles),
     )
     toolchain_info = platform_common.ToolchainInfo(
         default_info = default_info,

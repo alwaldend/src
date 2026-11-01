@@ -2,7 +2,13 @@ load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 
 package(transitive_visibility = "//tools:transitive_consumers")
 
-exports_files(["transitive_visibility.toml"])
+exports_files(
+    [
+        "transitive_visibility.toml",
+        "defs.bzl",
+    ],
+    visibility = ["//:__subpackages__"],
+)
 
 docs_filegroup(
     name = "docs",

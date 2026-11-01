@@ -67,6 +67,13 @@ def binary_toolchain_lock_find_archives(lock, toolchain_name):
             res.append(archive)
     return res
 
+def _check_fields(value, fields, kind):
+    if type(value) != "dict":
+        fail("{} is not a dict".format(kind))
+    for field in value:
+        if field not in fields:
+            fail("unknown field '{}' in {}".format(field, kind))
+
 def binary_toolchain_lock_parse_toolchain(toolchain):
     """
     Args:
@@ -77,6 +84,7 @@ def binary_toolchain_lock_parse_toolchain(toolchain):
     """
     if type(toolchain) != "dict":
         fail("toolchain is not a dict")
+    _check_fields(toolchain, ["name", "version"], "toolchain")
     name = toolchain.get("name")
     if not name:
         fail("toolchain is missing name")
@@ -101,6 +109,7 @@ def binary_toolchain_lock_parse_archive(archive):
         fail("archive is not a dict")
     if not archive:
         fail("empty archive")
+    _check_fields(archive, ["toolchain_name", "toolchain_version", "archive_name", "actions", "binaries", "toolchain"], "archive")
     toolchain_name = archive.get("toolchain_name")
     if not toolchain_name:
         fail("archive is missing toolchain_name")
@@ -114,6 +123,7 @@ def binary_toolchain_lock_parse_archive(archive):
     for action in archive.get("actions", []):
         if type(action) != "dict":
             fail("invalid action type: {}".format(action))
+        _check_fields(action, ["download", "download_and_extract", "execute", "extract"], "archive action")
         download = action.get("download", {})
         download_and_extract = action.get("download_and_extract", {})
         execute = action.get("execute", {})
@@ -130,6 +140,7 @@ def binary_toolchain_lock_parse_archive(archive):
     for bin in archive.get("binaries", []):
         if type(bin) != "dict":
             fail("invalid binary type: {}".format(bin))
+        _check_fields(bin, ["name", "path", "runtime_files"], "archive binary")
         name = bin.get("name")
         if not name:
             fail("binary is missing name: {}".format(bin))
@@ -150,6 +161,7 @@ def binary_toolchain_lock_parse_archive(archive):
             ),
         )
     toolchain = archive.get("toolchain", {})
+    _check_fields(toolchain, ["exec_compatible_with", "visibility"], "archive toolchain")
     res = BinaryToolchainLockArchive(
         toolchain_name = toolchain_name,
         toolchain_version = toolchain_version,
@@ -172,6 +184,7 @@ def binary_toolchain_lock_parse(lock):
         fail("lock is empty")
     if type(lock) != "dict":
         fail("lock is not a dict: {}".format(type(lock)))
+    _check_fields(lock, ["toolchains", "archives"], "lock")
     toolchains = []
     archives = []
     for toolchain in lock.get("toolchains", []):

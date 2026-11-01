@@ -105,6 +105,21 @@ try {
                         `Expected exactly one page named ${pageName}`,
                     );
                 const index = pages.indexOf(matching[0]);
+                // export.js expects the shadow setter to return padding, but
+                // the pinned Graph implementation returns undefined.
+                const setShadow = Graph.prototype.setShadowVisible;
+                Graph.prototype.setShadowVisible = function (...args) {
+                    const result = setShadow.apply(this, args);
+                    return (
+                        result ??
+                        (this.shadowVisible
+                            ? Math.ceil(
+                                  Number(this.svgShadowSize) *
+                                      Number(this.svgShadowBlur),
+                              )
+                            : 0)
+                    );
+                };
                 window.drawioListeners.render({
                     xml,
                     format: "svg",
@@ -131,6 +146,16 @@ try {
         await page.evaluate(() => window.drawioListeners["get-svg-data"]());
         await page.waitForFunction(() => "svg-data" in window.drawioMessages);
         let svg = await page.evaluate(() => window.drawioMessages["svg-data"]);
+        const viewBox = svg.match(/\bviewBox="([^"]+)"/);
+        const bounds = viewBox?.[1].trim().split(/\s+/).map(Number);
+        if (
+            !bounds ||
+            bounds.length !== 4 ||
+            !bounds.every(Number.isFinite) ||
+            bounds[2] <= 0 ||
+            bounds[3] <= 0
+        )
+            throw new Error(`Invalid SVG bounds: ${pageName}`);
         // Drawio's SVG exporter ignores the PDF-only bg option. Paint an
         // opaque canvas so light-theme labels remain readable on dark pages
         // and when the image is opened or embedded outside these docs.

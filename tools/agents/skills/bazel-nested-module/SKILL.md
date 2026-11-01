@@ -78,9 +78,10 @@ project path; the placement defaults below do not override it.
   `projects/` must also be excluded from `//projects:deploy_heads` unless it
   intentionally provides the required release target. Reusable rules under
   `tools/` do not receive a dedicated landing site merely by being registered.
-- Add the workspace to the `full-repo-check` runner and update its expected
-  command count. A complete repository check must build and test every nested
-  module independently.
+- Verify workspace discovery through the shared `tools/ci/pkg/workspaces`
+  implementation. CI and `full-repo-check` derive membership from `.bazelignore`;
+  do not maintain another workspace list or expected command count. A complete
+  repository check must build and test every nested module independently.
 - Ensure the root `.gitignore` covers the nested workspace's generated
   `bazel-*` convenience symlinks before staging source after a build.
 - Register any Gazelle language library in the root `gazelle_binary`. Remember

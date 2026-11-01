@@ -13,42 +13,13 @@ import (
 	"path/filepath"
 	"strings"
 	"time"
+
+	"git.alwaldend.com/alwaldend/src/tools/ci/pkg/workspaces"
 )
 
 type workspace struct {
 	name string
 	path string
-}
-
-var repositoryWorkspaces = []workspace{
-	{name: "root", path: "."},
-	{name: "projects/rules_trufflehog", path: "projects/rules_trufflehog"},
-	{
-		name: "projects/bazel_gazelle_enforce_transitive_visibility",
-		path: "projects/bazel_gazelle_enforce_transitive_visibility",
-	},
-	{
-		name: "tools/rules_binary_toolchain",
-		path: "tools/rules_binary_toolchain",
-	},
-	{name: "tools/rules_docs", path: "tools/rules_docs"},
-	{name: "tools/rules_docs_gazelle", path: "tools/rules_docs_gazelle"},
-	{name: "tools/rules_dnscontrol", path: "tools/rules_dnscontrol"},
-	{name: "tools/rules_hugo", path: "tools/rules_hugo"},
-	{name: "tools/rules_iso", path: "tools/rules_iso"},
-	{name: "tools/rules_openspec", path: "tools/rules_openspec"},
-	{name: "tools/rules_promptfoo", path: "tools/rules_promptfoo"},
-	{
-		name: "tools/rules_promptfoo_gazelle",
-		path: "tools/rules_promptfoo_gazelle",
-	},
-	{name: "tools/rules_skills", path: "tools/rules_skills"},
-	{
-		name: "tools/rules_skill_gazelle",
-		path: "tools/rules_skill_gazelle",
-	},
-	{name: "tools/rules_template", path: "tools/rules_template"},
-	{name: "tools/rules_terraform", path: "tools/rules_terraform"},
 }
 
 var checkPhases = []string{"build", "test"}
@@ -131,27 +102,6 @@ func repositoryRoot(getenv func(string) string) (string, error) {
 		return "", fmt.Errorf("could not resolve repository root: %w", err)
 	}
 	return filepath.Clean(absolute), nil
-}
-
-func validateWorkspaces(repoRoot string) error {
-	var missing []string
-	for _, candidate := range repositoryWorkspaces {
-		modulePath := filepath.Join(repoRoot, candidate.path, "MODULE.bazel")
-		info, err := os.Stat(modulePath)
-		if err != nil || !info.Mode().IsRegular() {
-			missing = append(
-				missing,
-				filepath.Join(candidate.path, "MODULE.bazel"),
-			)
-		}
-	}
-	if len(missing) != 0 {
-		return fmt.Errorf(
-			"missing Bazel workspace module(s): %s",
-			strings.Join(missing, ", "),
-		)
-	}
-	return nil
 }
 
 func privateDirectory(path string) error {
@@ -269,7 +219,7 @@ func relativeLogPath(runDirectory string, result checkResult) (string, error) {
 	return filepath.ToSlash(relative), nil
 }
 
-func checkPlan() []checkStep {
+func checkPlan(repositoryWorkspaces []workspace) []checkStep {
 	plan := make([]checkStep, 0, len(repositoryWorkspaces)*len(checkPhases))
 	for _, candidate := range repositoryWorkspaces {
 		for _, phase := range checkPhases {
@@ -312,6 +262,7 @@ func cloneCounts(source map[string]int64) map[string]int64 {
 }
 
 func runChecks(
+	repositoryWorkspaces []workspace,
 	repoRoot string,
 	runDirectory string,
 	newCommand commandFactory,
@@ -320,7 +271,7 @@ func runChecks(
 	prior *checkReport,
 	startedAt time.Time,
 ) ([]checkResult, *checkReport, error) {
-	plan := checkPlan()
+	plan := checkPlan(repositoryWorkspaces)
 	if prior != nil {
 		plan = planFromReport(prior)
 	}
@@ -353,7 +304,7 @@ func runChecks(
 			result = runCheck(
 				repoRoot,
 				runDirectory,
-				workspaceFor(step.workspace),
+				workspaceFor(repositoryWorkspaces, step.workspace),
 				step.phase,
 				newCommand,
 				progress,
@@ -362,7 +313,7 @@ func runChecks(
 			result = runCheck(
 				repoRoot,
 				runDirectory,
-				workspaceFor(step.workspace),
+				workspaceFor(repositoryWorkspaces, step.workspace),
 				step.phase,
 				newCommand,
 				progress,
@@ -400,7 +351,7 @@ func planFromReport(report *checkReport) []checkStep {
 	return plan
 }
 
-func workspaceFor(name string) workspace {
+func workspaceFor(repositoryWorkspaces []workspace, name string) workspace {
 	for _, candidate := range repositoryWorkspaces {
 		if candidate.name == name {
 			return candidate
@@ -820,21 +771,6 @@ func writeReport(
 	return reportPath, nil
 }
 
-func workspacePaths(repoRoot string) []string {
-	paths := make([]string, 0, len(repositoryWorkspaces))
-	for _, candidate := range repositoryWorkspaces {
-		if candidate.path == "." {
-			paths = append(paths, filepath.Clean(repoRoot))
-		} else {
-			paths = append(
-				paths,
-				filepath.Join(repoRoot, filepath.FromSlash(candidate.path)),
-			)
-		}
-	}
-	return paths
-}
-
 func countTargets(
 	newCommand commandFactory,
 	candidate workspace,
@@ -862,6 +798,7 @@ func countTargets(
 }
 
 func collectTargetUniverses(
+	repositoryWorkspaces []workspace,
 	newCommand commandFactory,
 	repoRoot string,
 	progress io.Writer,
@@ -930,9 +867,18 @@ func execute(
 		fmt.Fprintln(stderr, err)
 		return 1
 	}
-	if err := validateWorkspaces(repoRoot); err != nil {
+	paths, err := workspaces.Discover(repoRoot)
+	if err != nil {
 		fmt.Fprintln(stderr, err)
 		return 1
+	}
+	repositoryWorkspaces := make([]workspace, 0, len(paths))
+	for _, path := range paths {
+		name := path
+		if path == "." {
+			name = "root"
+		}
+		repositoryWorkspaces = append(repositoryWorkspaces, workspace{name: name, path: path})
 	}
 	startedAt := time.Now()
 
@@ -946,7 +892,7 @@ func execute(
 	}
 
 	inputs := runInputs{
-		Workspaces:      workspaceNames(),
+		Workspaces:      workspaceNames(repositoryWorkspaces),
 		Profile:         "full",
 		TargetUniverses: nil,
 	}
@@ -954,6 +900,7 @@ func execute(
 		inputs = prior.Inputs
 	}
 	universes, err := collectTargetUniverses(
+		repositoryWorkspaces,
 		newCommand,
 		repoRoot,
 		stdout,
@@ -979,6 +926,7 @@ func execute(
 	}
 
 	results, report, err := runChecks(
+		repositoryWorkspaces,
 		repoRoot,
 		runDirectory,
 		newCommand,
@@ -1022,7 +970,7 @@ func execute(
 	return 0
 }
 
-func workspaceNames() []string {
+func workspaceNames(repositoryWorkspaces []workspace) []string {
 	names := make([]string, 0, len(repositoryWorkspaces))
 	for _, candidate := range repositoryWorkspaces {
 		names = append(names, candidate.name)

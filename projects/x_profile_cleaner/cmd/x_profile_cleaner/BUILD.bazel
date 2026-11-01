@@ -1,4 +1,5 @@
 load("@rules_go//go:def.bzl", "go_binary", "go_library")
+load("//tools/transitive_visibility:defs.bzl", "artifact_boundary_test")
 
 package(transitive_visibility = "//projects:transitive_consumers")
 
@@ -23,4 +24,9 @@ go_binary(
     name = "x_profile_cleaner",
     embed = [":x_profile_cleaner_lib"],
     visibility = ["//projects/x_profile_cleaner:__subpackages__"],
+)
+
+artifact_boundary_test(
+    name = "artifact_boundary_test",
+    target = ":x_profile_cleaner",
 )

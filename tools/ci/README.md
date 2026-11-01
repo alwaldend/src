@@ -20,7 +20,8 @@ The command builds
 and tests normal `//...` targets in the root workspace and each nested workspace
 with a `MODULE.bazel` at a boundary declared by `.bazelignore`. Non-workspace
 entries such as caches and dependency directories are ignored. Workspace
-boundaries remain owned by the root ignore file.
+boundaries remain owned by the root ignore file. The shared
+`pkg/workspaces` library also supplies membership to the full repository checker.
 
 Each workspace runs `bazel_agent bazel build --config=ci //...` followed by
 `bazel_agent bazel test --config=ci //...`. The command continues after failures

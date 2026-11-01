@@ -13,9 +13,15 @@ import (
 	"time"
 )
 
+// fixtureWorkspaces intentionally differ from repository membership.
+var fixtureWorkspaces = []workspace{{name: "root", path: "."}, {name: "tools/example", path: "tools/example"}, {name: "tools/new_module", path: "tools/new_module"}}
+
 func writeWorkspaceModules(t *testing.T, repoRoot string) {
 	t.Helper()
-	for _, candidate := range repositoryWorkspaces {
+	if err := os.WriteFile(filepath.Join(repoRoot, ".bazelignore"), []byte("out\nnode_modules\ntools/example\ntools/new_module\n"), 0o600); err != nil {
+		t.Fatal(err)
+	}
+	for _, candidate := range fixtureWorkspaces {
 		modulePath := filepath.Join(repoRoot, candidate.path, "MODULE.bazel")
 		if err := os.MkdirAll(filepath.Dir(modulePath), 0o755); err != nil {
 			t.Fatalf("os.MkdirAll() error = %v", err)
@@ -92,20 +98,20 @@ func TestExecuteContinuesAndWritesRestrictedArtifacts(t *testing.T) {
 	); got != 1 {
 		t.Fatalf("execute() = %d, want 1", got)
 	}
-	if commands != 32 {
-		t.Errorf("commands executed = %d, want 32", commands)
+	if commands != 6 {
+		t.Errorf("commands executed = %d, want 6", commands)
 	}
-	if queries != len(repositoryWorkspaces) {
-		t.Errorf("query count = %d, want %d", queries, len(repositoryWorkspaces))
+	if queries != len(fixtureWorkspaces) {
+		t.Errorf("query count = %d, want %d", queries, len(fixtureWorkspaces))
 	}
-	if got := len(processes); got != len(repositoryWorkspaces) {
-		t.Fatalf("query process count = %d, want %d", got, len(repositoryWorkspaces))
+	if got := len(processes); got != len(fixtureWorkspaces) {
+		t.Fatalf("query process count = %d, want %d", got, len(fixtureWorkspaces))
 	}
-	if got := len(checkProcesses); got != 32 {
-		t.Fatalf("check process count = %d, want 32", got)
+	if got := len(checkProcesses); got != 6 {
+		t.Fatalf("check process count = %d, want 6", got)
 	}
 	for index, process := range checkProcesses {
-		candidate := repositoryWorkspaces[index/len(checkPhases)]
+		candidate := fixtureWorkspaces[index/len(checkPhases)]
 		wantDir := filepath.Join(repoRoot, candidate.path)
 		if process.Dir != wantDir {
 			t.Errorf(
@@ -141,8 +147,8 @@ func TestExecuteContinuesAndWritesRestrictedArtifacts(t *testing.T) {
 	}
 	for _, want := range []string{
 		"| root | build | `bazel_agent bazel build //...` | FAIL (exit 9)",
-		"| tools/rules_template | test |",
-		"| tools/rules_terraform | test |",
+		"| tools/new_module | test |",
+		"| tools/example | test |",
 		"## Failed commands",
 		"| root | build | 9 |",
 	} {
@@ -155,8 +161,8 @@ func TestExecuteContinuesAndWritesRestrictedArtifacts(t *testing.T) {
 	if err != nil {
 		t.Fatalf("os.ReadDir(logs) error = %v", err)
 	}
-	if len(logs) != 32 {
-		t.Fatalf("log count = %d, want 32", len(logs))
+	if len(logs) != 6 {
+		t.Fatalf("log count = %d, want 6", len(logs))
 	}
 	firstLog := filepath.Join(runDirectory, "logs", "root.build.log")
 	assertPermissions(t, firstLog, 0o600)
@@ -197,7 +203,7 @@ func TestExecuteRejectsMissingWorkspace(t *testing.T) {
 	}
 	if !strings.Contains(
 		stderr.String(),
-		"tools/rules_binary_toolchain/MODULE.bazel",
+		".bazelignore",
 	) {
 		t.Errorf("stderr = %q, want missing workspace", stderr.String())
 	}
@@ -259,14 +265,14 @@ func TestJSONReportEmission(t *testing.T) {
 	if report.Inputs.Profile != "full" {
 		t.Errorf("Profile = %q, want full", report.Inputs.Profile)
 	}
-	if got := len(report.Workspaces); got != len(repositoryWorkspaces) {
-		t.Errorf("Workspaces = %d, want %d", got, len(repositoryWorkspaces))
+	if got := len(report.Workspaces); got != len(fixtureWorkspaces) {
+		t.Errorf("Workspaces = %d, want %d", got, len(fixtureWorkspaces))
 	}
 	if report.TargetUniverse <= 0 {
 		t.Errorf("TargetUniverse = %d, want positive", report.TargetUniverse)
 	}
-	if got := len(report.Phases); got != len(repositoryWorkspaces)*len(checkPhases) {
-		t.Errorf("Phases = %d, want %d", got, len(repositoryWorkspaces)*len(checkPhases))
+	if got := len(report.Phases); got != len(fixtureWorkspaces)*len(checkPhases) {
+		t.Errorf("Phases = %d, want %d", got, len(fixtureWorkspaces)*len(checkPhases))
 	}
 	completed := 0
 	withResults := 0
@@ -421,6 +427,7 @@ func TestResumeMarksUnexecutedPhases(t *testing.T) {
 		State: reportUnfinished,
 	}
 	results, composed, err := runChecks(
+		fixtureWorkspaces,
 		"",
 		"",
 		func(name string, args ...string) *exec.Cmd {

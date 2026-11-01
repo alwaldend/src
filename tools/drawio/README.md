@@ -29,6 +29,10 @@ Exports use a light theme with an opaque white canvas, keeping labels and
 connectors readable in both light and dark documentation themes and standalone
 image viewers. The renderer adds this canvas on every export.
 
+The adapter supplies the shadow-padding return value expected by the pinned
+export API, preserving shadow filters and finite dimensions. It rejects
+non-finite or empty SVG viewboxes rather than accepting malformed output.
+
 Chrome's inner sandbox is disabled because it cannot nest within the Bazel
 Linux sandbox used for these actions. The Bazel sandbox remains enabled;
 requests outside local files and embedded data are rejected. The renderer is
