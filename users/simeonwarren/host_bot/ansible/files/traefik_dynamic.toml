@@ -5,3 +5,11 @@ tls = { certResolver = "vault" }
 
 [[http.services.t3code.loadBalancer.servers]]
 url = "http://127.0.0.1:{{ t3code_port }}"
+
+[http.routers.comfyui]
+rule = "Host(`{{ comfyui_domain }}`)"
+service = "comfyui"
+tls = { certResolver = "vault" }
+
+[[http.services.comfyui.loadBalancer.servers]]
+url = "http://127.0.0.1:{{ comfyui_port }}"

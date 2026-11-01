@@ -254,7 +254,7 @@ def _main() -> None:
     )
     parser.add_argument("--size", type=int, default=512)
     parser.add_argument("--directory", default="out/comfyui/runs")
-    parser.add_argument("--threads", type=int, default=8)
+    parser.add_argument("--threads", type=int)
     parser.add_argument("--memory-limit-gib", type=int, default=0)
     parser.add_argument("--steps", type=int)
     parser.add_argument("--seed", type=int, default=42)
@@ -273,7 +273,7 @@ def _main() -> None:
         parser.error("steps are outside the selected model's supported range")
     if args.size < 64 or args.size > 2048 or args.size % 64:
         parser.error("size must be a multiple of 64 between 64 and 2048")
-    if args.threads < 1 or args.timeout <= 0:
+    if (args.threads is not None and args.threads < 1) or args.timeout <= 0:
         parser.error("threads and timeout must be positive")
     workspace: pathlib.Path = pathlib.Path(
         os.environ.get("BUILD_WORKSPACE_DIRECTORY", os.getcwd())
@@ -294,9 +294,9 @@ def _main() -> None:
         str(directory),
         "--port",
         str(port),
-        "--threads",
-        str(args.threads),
     ]
+    if args.threads is not None:
+        command.extend(["--threads", str(args.threads)])
     if args.memory_limit_gib:
         command.extend(["--memory-limit-gib", str(args.memory_limit_gib)])
     specification: str

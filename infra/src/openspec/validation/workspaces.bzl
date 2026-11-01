@@ -64,6 +64,7 @@ WORKSPACE_SOURCES = {
     "tools_rules_promptfoo_gazelle": "@rules_promptfoo_gazelle//openspec:source",
     "tools_rules_skill_gazelle": "@rules_skill_gazelle//openspec:source",
     "tools_rules_skills": "@rules_skills//openspec:source",
+    "tools_rules_systemd": "@rules_systemd//openspec:source",
     "tools_rules_template": "@rules_template//openspec:source",
     "tools_rules_terraform": "@rules_terraform//openspec:source",
     "tools_vault": "//tools/vault/openspec:source",

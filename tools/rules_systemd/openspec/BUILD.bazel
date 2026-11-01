@@ -1,0 +1,27 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+
+filegroup(
+    name = "source",
+    srcs = ["config.yaml"] + glob(
+        [
+            "changes/**",
+            "specs/**/*.md",
+        ],
+        allow_empty = True,
+    ),
+    visibility = ["//visibility:public"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(
+        [
+            "*.md",
+            "specs/**/*.md",
+        ],
+        allow_empty = True,
+    ),
+    prefix = "content/docs/tools/rules_systemd/openspec",
+    preserve_paths = True,
+    visibility = ["//:__pkg__"],
+)

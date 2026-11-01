@@ -79,6 +79,12 @@ local_path_override(
     path = "projects/bazel_gazelle_enforce_transitive_visibility",
 )
 
+bazel_dep(name = "rules_systemd")
+local_path_override(
+    module_name = "rules_systemd",
+    path = "tools/rules_systemd",
+)
+
 bazel_dep(name = "rules_template")
 local_path_override(
     module_name = "rules_template",

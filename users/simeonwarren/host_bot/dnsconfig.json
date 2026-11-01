@@ -34,6 +34,27 @@
                 "target": "ingress.alwaldend.com."
             },
             "dsp": ["global"]
+        },
+        "comfyui_dc1": {
+            "A": {
+                "name": "comfyui.host-bot.simeonwarren.users",
+                "address": "192.168.1.210"
+            },
+            "dsp": ["dc1"]
+        },
+        "comfyui_dc1_target": {
+            "A": {
+                "name": "dc1.comfyui.host-bot.simeonwarren.users",
+                "address": "192.168.1.210"
+            },
+            "dsp": ["all"]
+        },
+        "comfyui_global": {
+            "CNAME": {
+                "name": "comfyui.host-bot.simeonwarren.users",
+                "target": "ingress.alwaldend.com."
+            },
+            "dsp": ["global"]
         }
     }
 }

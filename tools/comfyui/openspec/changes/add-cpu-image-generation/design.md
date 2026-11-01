@@ -60,10 +60,10 @@ stopped at the user's request (Z_IMAGE_MEMORY_PRESSURE). It reached two of
 eight sampling steps at approximately 39.4 seconds per step, not a completed
 image or end-to-end timing. Host available RAM recovered after stopping it.
 
-Decision: proceed only inside a transient cgroup v2 scope with MemoryMax=36G,
-MemoryHigh=32G, and MemorySwapMax=0. GPU offload flags do not bound CPU RAM,
+Decision: proceed only inside a transient cgroup v2 scope with MemoryMax=44G,
+MemoryHigh=40G, and MemorySwapMax=0. GPU offload flags do not bound CPU RAM,
 and a virtual-address-space limit does not model resident model memory. The
-launcher must verify an effective RAM ceiling of at most 36 GiB and disabled
+launcher must verify an effective RAM ceiling of at most 44 GiB and disabled
 swap before loading Z-Image. The bound may terminate an oversized run; do not
 raise it automatically. No persistent systemd or host configuration changes.
 
@@ -71,3 +71,34 @@ Failure cases before implementation: missing cgroup v2 support, absent memory
 controllers, unlimited RAM or swap, a ceiling above the requested bound, and
 a scoped out-of-memory termination. Verify refusal outside a bounded scope,
 the actual kernel limits inside it, and a complete generated PNG if it fits.
+
+## Requested memory increase
+
+The interactive workload reached approximately 32.8 GiB and repeatedly hit
+the former 32 GiB soft limit. The user requested higher limits and stopped
+the run. Raise the shared server/benchmark budget to 40 GiB soft, 44 GiB hard,
+and zero swap, leaving about 18 GiB of physical RAM outside the workload on
+this host. Derive the launcher guard ceiling from the same BUILD constant as
+MemoryMax. Do not change model precision, worker architecture, or inference
+settings. Validate both generated wrapper configurations and their resource
+guard arguments; leave ComfyUI stopped and do not repeat inference.
+
+## CPU thread configuration
+
+Both Python entry points accept an optional positive `--threads` value with no
+parser default. If omitted, preserve inherited or library-default thread
+settings and omit the flag when the benchmark starts its server. The shared
+`_SERVER_ARGS` list in BUILD.bazel supplies `--threads 12`
+to all public server and benchmark targets. User arguments follow the declared
+arguments, so an explicit caller flag overrides the BUILD value. The benchmark
+forwards its parsed value to the owned server; the existing launcher maps it to
+OpenMP, MKL, and OpenBLAS thread settings. Keep active user processes untouched.
+
+Failure cases before implementation: omitted flags cause a None comparison or
+forward the string None, zero/negative values are accepted, a stale eight-thread
+fallback overrides the runtime, caller overrides are ignored by the wrapper,
+or benchmark values do not reach its child. Build all public targets, verify
+their declared arguments, and start owned server probes on separate temporary
+ports to inspect the actual environment for 12 and an explicit override. Verify
+both entry points accept omitted settings and reject invalid values before inference. Preserve
+HTTP readiness and owned-process cleanup evidence without submitting an image.

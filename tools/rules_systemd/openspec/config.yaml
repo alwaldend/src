@@ -1,0 +1,7 @@
+schema: spec-driven
+context: |
+  This workspace owns tools/rules_systemd, a Linux launcher and executable Bazel rule.
+  Keep the wrapper limited to executing the supplied binary through a transient
+  user systemd scope with properties declared by the consuming target. Preserve argv,
+  environment, working directory, signals, and the command exit status.
+  Reuse repository-pinned Go and Cobra. Do not install persistent host services.

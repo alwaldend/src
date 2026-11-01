@@ -7,9 +7,17 @@ tags:
   - traefik
 ---
 
-Host Bot runs Traefik with mTLS in front of T3 Code. The host firewall blocks
-direct external access to T3 Code and accepts new connections only on SSH,
-HTTP, and HTTPS ports.
+Host Bot runs Traefik in front of T3 Code and ComfyUI, with mTLS enforced by
+public ingress. The host firewall blocks direct external access to the
+application ports and accepts new connections only on SSH, HTTP, and HTTPS
+ports.
+
+ComfyUI uses `comfyui.host-bot.simeonwarren.users.alwaldend.com`. Site-local
+DNS points to Host Bot; public DNS points to ingress, which forwards HTTPS
+through `dc1.comfyui.host-bot.simeonwarren.users.alwaldend.com` with the
+service hostname as TLS SNI. Local Traefik uses the Vault certificate resolver
+and forwards to `127.0.0.1:8188`. Ansible declares the route; the server must
+be started separately using the [ComfyUI launcher](../../../tools/comfyui/README.md).
 
 Ansible declares Tuned's `balanced` power profile through
 `host_bot_tuned_profile`, enables the existing Tuned service, and reconciles
@@ -201,18 +209,34 @@ ephemeral module download cache is already deleted after each fetch.
 
 ## Architecture
 
-[![Host Bot architecture diagram](assets/t3code-architecture.svg)](assets/t3code-architecture.svg)
+### T3 Code
+
+[![T3 Code architecture diagram](assets/t3code-architecture.svg)](assets/t3code-architecture.svg)
 
 The diagram source is [`t3code-architecture.mmd`](t3code-architecture.mmd),
 and the SVG beside this page is rendered from it at build time by
-`//users/simeonwarren/host_bot:rendered_site`. There is no committed copy to refresh:
+`//users/simeonwarren/host_bot:rendered`. There is no committed copy to refresh:
 edit the `.mmd` and the next build renders the new diagram.
 
 Rendering uses the repository’s pinned Mermaid, headless Chrome, and Liberation
 font inputs. The site preset renders native light/dark SVG variants with bordered
 caption labels and rounded containers; it does not post-process the generated SVG.
-The site selects the variant matching its theme menu. The `rendered` target
-retains the original appearance used by the historical blog publication.
+The site selects the variant matching its theme menu. The `rendered_historical`
+target retains the original appearance used by the historical blog publication.
+
+### ComfyUI
+
+[![ComfyUI architecture diagram](assets/comfyui-architecture.svg)](assets/comfyui-architecture.svg)
+
+The HTTP API and CPU generation thread share one ComfyUI process. The public
+Z-Image target starts that process inside a transient systemd scope; model
+weights and generated PNGs remain on Host Bot.
+
+The source is [`docs/comfyui-architecture.mmd`](docs/comfyui-architecture.mmd).
+`//users/simeonwarren/host_bot:rendered_comfyui` builds the light/dark
+documentation assets using the same current site style as T3 Code.
+The former `:rendered_site` and `:rendered_comfyui_site` labels remain aliases
+to these normal render targets.
 
 ## Deployment
 

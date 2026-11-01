@@ -7,6 +7,7 @@ import os
 import pathlib
 import typing
 
+import comfyui_frontend_package
 from python.runfiles import runfiles
 
 
@@ -69,15 +70,21 @@ def _main() -> None:
     )
     parser.add_argument("--directory", default="out/comfyui/session")
     parser.add_argument("--port", type=int, default=8188)
-    parser.add_argument("--threads", type=int, default=8)
+    parser.add_argument("--threads", type=int)
     parser.add_argument("--memory-limit-gib", type=int, default=0)
     args: argparse.Namespace = parser.parse_args()
-    if args.threads < 1:
+    if args.threads is not None and args.threads < 1:
         parser.error("threads must be positive")
     if args.memory_limit_gib < 0:
         parser.error("memory limit must not be negative")
     if args.memory_limit_gib:
         _require_memory_limit(args.memory_limit_gib)
+    frontend_module: typing.Optional[str] = comfyui_frontend_package.__file__
+    if frontend_module is None:
+        raise RuntimeError("The bundled frontend has no filesystem location")
+    frontend_root: pathlib.Path = (
+        pathlib.Path(frontend_module).resolve(strict=True).parent / "static"
+    )
     workspace: pathlib.Path = pathlib.Path(
         os.environ.get("BUILD_WORKSPACE_DIRECTORY", os.getcwd())
     )
@@ -117,9 +124,6 @@ def _main() -> None:
     environment: dict[str, str] = dict(os.environ)
     environment.update(
         {
-            "OMP_NUM_THREADS": str(args.threads),
-            "MKL_NUM_THREADS": str(args.threads),
-            "OPENBLAS_NUM_THREADS": str(args.threads),
             "HF_HUB_OFFLINE": "1",
             "TRANSFORMERS_OFFLINE": "1",
             "HF_HUB_DISABLE_TELEMETRY": "1",
@@ -132,6 +136,14 @@ def _main() -> None:
             "PYTHONDONTWRITEBYTECODE": "1",
         }
     )
+    if args.threads is not None:
+        environment.update(
+            {
+                "OMP_NUM_THREADS": str(args.threads),
+                "MKL_NUM_THREADS": str(args.threads),
+                "OPENBLAS_NUM_THREADS": str(args.threads),
+            }
+        )
     command: list[str] = [
         str(_resolve(args.server)),
         "--cpu",
@@ -139,6 +151,8 @@ def _main() -> None:
         "--offline",
         "--disable-all-custom-nodes",
         "--disable-auto-launch",
+        "--front-end-root",
+        str(frontend_root),
         "--listen",
         "127.0.0.1",
         "--port",

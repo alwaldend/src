@@ -31,7 +31,10 @@ filegroup(
 
 docs_filegroup(
     name = "docs",
-    srcs = glob(["*.md"]) + ["t3code-architecture.mmd"],
+    srcs = glob(["*.md"]) + [
+        "docs/comfyui-architecture.mmd",
+        "t3code-architecture.mmd",
+    ],
     visibility = ["//users/simeonwarren:__pkg__"],
     deps = [":docs_assets"] + subpackages(
         include = ["*"],
@@ -39,14 +42,18 @@ docs_filegroup(
     ),
 )
 
-mermaid_svg(
+mermaid_site_svg(
     name = "rendered",
     src = "t3code-architecture.mmd",
     out = "rendered/t3code-architecture.svg",
+)
+
+mermaid_svg(
+    name = "rendered_historical",
+    src = "t3code-architecture.mmd",
+    out = "rendered/historical/t3code-architecture.svg",
     visibility = [
-        # The blog post that documents this migration publishes the same
-        # diagram, so the post depends on the target that renders it rather
-        # than on a hand-written URL that can drift.
+        # Preserve the original image published by the diagram-migration post.
         "//projects/alwaldend.com/content/blog/diagrams-in-ac-era:__pkg__",
     ],
 )
@@ -60,14 +67,27 @@ mermaid_svg(
     plain = True,
 )
 
-mermaid_site_svg(
+alias(
     name = "rendered_site",
-    src = "t3code-architecture.mmd",
-    out = "rendered/site/t3code-architecture.svg",
+    actual = ":rendered",
+)
+
+mermaid_site_svg(
+    name = "rendered_comfyui",
+    src = "docs/comfyui-architecture.mmd",
+    out = "rendered/comfyui-architecture.svg",
+)
+
+alias(
+    name = "rendered_comfyui_site",
+    actual = ":rendered_comfyui",
 )
 
 docs_filegroup(
     name = "docs_assets",
-    srcs = [":rendered_site"],
+    srcs = [
+        ":rendered",
+        ":rendered_comfyui",
+    ],
     prefix = "content/docs/users/simeonwarren/host_bot/assets",
 )

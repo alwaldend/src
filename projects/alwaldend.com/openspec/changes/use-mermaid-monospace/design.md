@@ -34,6 +34,13 @@ font and geometry proposals. See proposal.md for the requested outcome.
 
 ## Verification
 
+Host Bot's current T3 Code and ComfyUI diagram targets use this native preset.
+The earlier diagram-migration blog keeps its existing image and presentation
+through Host Bot's explicitly named `rendered_historical` target. When the
+normal target switches to a light/dark pair, update that one consumer label
+and verify its existing generated-image freshness test. No article content,
+publication asset, shared preset, or palette changes are needed.
+
 Render all six gallery families in both modes and inspect representative
 output. Retain browser reports/screenshots; compare saved palette values to
 the previous committed proposal. Run site, native font/raster, formatting,

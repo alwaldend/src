@@ -1,0 +1,30 @@
+load("@rules_python//python:defs.bzl", "py_binary")
+load("//systemd:defs.bzl", "systemd_run")
+
+package(
+    default_testonly = True,
+)
+
+py_binary(
+    name = "scope_probe",
+    srcs = ["scope_probe.py"],
+    env = {"SYSTEMD_RUN_TEST_VALUE": "configured environment"},
+    main = "scope_probe.py",
+    deps = ["@rules_python//python/runfiles"],
+)
+
+systemd_run(
+    name = "probe",
+    arguments = [
+        "--fixture",
+        "$(rlocationpath :message.txt)",
+    ],
+    binary = ":scope_probe",
+    data = ["message.txt"],
+    properties = {
+        "MemoryHigh": "96M",
+        "MemoryMax": "128M",
+        "MemorySwapMax": "0",
+    },
+    visibility = ["//:__pkg__"],
+)
