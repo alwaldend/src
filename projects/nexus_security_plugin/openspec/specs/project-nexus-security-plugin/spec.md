@@ -5,9 +5,9 @@
 Provide configurable artifact checks for Sonatype Nexus 3. This baseline was
 observed at repository revision `550d7e79` on 2026-09-08. Sources are the
 [project README](../../../README.md),
-[request handler](../../../main/java/main/RequestHandler.java),
-[configuration update task](../../../main/java/capability/task/SecurityCapabilityUpdateTask.java),
-and [Java build](../../../main/java/BUILD.bazel).
+[request handler](../../../internal/plugin/main/RequestHandler.java),
+[configuration update task](../../../internal/plugin/capability/task/SecurityCapabilityUpdateTask.java),
+and [Java build](../../../internal/plugin/BUILD.bazel).
 The handler's implemented checks cover eligible proxy-repository responses;
 this specification does not claim scanning of every repository response.
 

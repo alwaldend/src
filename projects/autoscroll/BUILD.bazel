@@ -52,7 +52,7 @@ py_wheel(
     entry_points = {
         "console_scripts": ["autoscroll = autoscroll.main:cli"],
     },
-    homepage = "https://github.com/alwaldend/src/tree/main/py/autoscroll",
+    homepage = "https://github.com/alwaldend/src/tree/master/projects/autoscroll",
     license = "AGPL-3.0",
     project_urls = {
         "Documentation": "https://alwaldend.github.io/src/en/py/autoscroll/",
@@ -63,14 +63,14 @@ py_wheel(
         "pyside6",
     ],
     strip_path_prefixes = [
-        "main/py/autoscroll",
+        "projects/autoscroll/pkg/",
     ],
     twine = "//tools/twine",
     version = "0.0.0",
     visibility = ["//projects/autoscroll/releases:__pkg__"],
     deps = [
-        "//projects/autoscroll/main/py/autoscroll",
-        "//projects/autoscroll/main/py/autoscroll:autoscroll_data",
-        "//projects/autoscroll/main/py/autoscroll/_internal",
+        "//projects/autoscroll/pkg/autoscroll:autoscroll_data",
+        "//projects/autoscroll/pkg/autoscroll:wheel_sources",
+        "//projects/autoscroll/pkg/autoscroll/internal",
     ],
 )

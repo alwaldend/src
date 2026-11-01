@@ -4,7 +4,7 @@ package(transitive_visibility = "//tools:transitive_consumers")
 
 alias(
     name = "install_file",
-    actual = "//tools/install_file/main/py:install_file",
+    actual = "//tools/install_file/cmd/install_file:install_file",
     visibility = ["//:__subpackages__"],
 )
 
@@ -13,6 +13,6 @@ docs_filegroup(
     srcs = glob(["*.md"]),
     visibility = ["//tools:__pkg__"],
     deps = [
-        "//tools/install_file/main/bzl:docs",
+        "//tools/install_file/rules:docs",
     ],
 )

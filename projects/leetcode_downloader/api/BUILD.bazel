@@ -1,0 +1,12 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+
+package(transitive_visibility = "//projects:transitive_consumers")
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//projects/leetcode_downloader:__pkg__"],
+    deps = [
+        "//projects/leetcode_downloader/api/contracts:contracts_docs",
+    ],
+)

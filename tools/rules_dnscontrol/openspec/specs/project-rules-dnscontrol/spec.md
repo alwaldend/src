@@ -7,7 +7,7 @@ JavaScript loader. This source baseline was observed on 2026-09-08 at revision
 `550d7e79b1f5fdbc2b6017b75178471d6914082f`.
 
 Sources: [project description](../../../README.md) and
-[packaging macro](../../../main/bzl/dnscontrol.bzl).
+[packaging macro](../../../rules/dnscontrol.bzl).
 The current macro accepts a `config` parameter but does not consume it; callers
 must include an entrypoint through another packaged input. The generated
 manifest is `<name>.json`, so the name `requires` produces `requires.json`.

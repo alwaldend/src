@@ -2,10 +2,10 @@ load("@rules_shell//shell:sh_binary.bzl", "sh_binary")
 load("@rules_shell//shell:sh_test.bzl", "sh_test")
 load("//promptfoo:defs.bzl", "promptfoo_validate_test")
 load(
-    "//promptfoo/private:promptfoo_test.bzl",
+    "//promptfoo/internal:promptfoo_test.bzl",
     "promptfoo_runner_test",
 )
-load("//promptfoo/private:workspace.bzl", "promptfoo_workspace")
+load("//promptfoo/internal:workspace.bzl", "promptfoo_workspace")
 
 sh_binary(
     name = "fake_promptfoo",

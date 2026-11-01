@@ -1,5 +1,5 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("//tools/toml/main/bzl:al_toml_data.bzl", "al_toml_data")
+load("//tools/toml/rules:al_toml_data.bzl", "al_toml_data")
 
 package(transitive_visibility = "//data:transitive_consumers")
 

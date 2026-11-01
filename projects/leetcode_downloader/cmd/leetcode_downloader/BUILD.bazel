@@ -1,0 +1,63 @@
+load("@bazel_skylib//rules:build_test.bzl", "build_test")
+load("@rules_go//go:def.bzl", "go_binary", "go_cross_binary", "go_library")
+load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
+
+package(transitive_visibility = "//projects:transitive_consumers")
+
+_GOOS_GOARCH = [
+    ("linux", "amd64"),
+]
+
+build_test(
+    name = "build_test",
+    targets = [
+        ":go_crossbinary",
+        ":go_tar",
+        ":leetcode_downloader",
+    ],
+)
+
+go_library(
+    name = "go_lib",
+    srcs = [
+        "cmd.go",
+        "downloader.go",
+        "generator.go",
+        "main.go",
+        "repo.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/leetcode_downloader/cmd/leetcode_downloader",
+    visibility = ["//visibility:private"],
+    deps = [
+        "//projects/leetcode_downloader/api/contracts",
+        "//projects/leetcode_downloader/internal/model",
+        "@com_github_burntsushi_toml//:toml",
+    ],
+)
+
+go_binary(
+    name = "leetcode_downloader",
+    embed = [":go_lib"],
+    visibility = ["//:__subpackages__"],
+)
+
+pkg_tar(
+    name = "go_tar",
+    srcs = [":leetcode_downloader"],
+    visibility = ["//:__subpackages__"],
+)
+
+[
+    go_cross_binary(
+        name = "go_cross_binary.{}_{}.exe".format(goos, goarch),
+        platform = "@rules_go//go/toolchain:{}_{}".format(goos, goarch),
+        target = ":leetcode_downloader",
+    )
+    for goos, goarch in _GOOS_GOARCH
+]
+
+filegroup(
+    name = "go_crossbinary",
+    srcs = ["go_cross_binary.{}_{}.exe".format(goos, goarch) for goos, goarch in _GOOS_GOARCH],
+    visibility = ["//projects/leetcode_downloader/releases:__pkg__"],
+)

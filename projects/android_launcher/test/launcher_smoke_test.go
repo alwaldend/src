@@ -34,7 +34,7 @@ func adbOutput(t *testing.T, args ...string) string {
 }
 
 func TestLauncherSmoke(t *testing.T) {
-	apkPath, err := runfiles.Rlocation("_main/projects/android_launcher/main/java/launcher_binary.apk")
+	apkPath, err := runfiles.Rlocation("_main/projects/android_launcher/cmd/launcher/launcher_binary.apk")
 	if err != nil {
 		t.Fatalf("resolve launcher APK: %v", err)
 	}

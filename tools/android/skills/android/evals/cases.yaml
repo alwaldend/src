@@ -20,3 +20,14 @@
         app or assume its data is disposable. Explains that removal can delete
         app data and requires explicit approval before any removal, while
         suggesting a separate test device or application ID when appropriate.
+- description: Uses the canonical role-based application layout
+  vars:
+    request: >-
+      Add an Android command and schema to an existing application. Explain
+      where its sources belong and how the Gradle source set should find them.
+  assert:
+    - type: llm-rubric
+      value: >-
+        Places the application under cmd/<command>, schemas under api, and
+        points the Gradle source set at those canonical Bazel locations.
+        Does not introduce main/java, main/proto, or compatibility symlinks.

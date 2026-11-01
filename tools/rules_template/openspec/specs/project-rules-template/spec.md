@@ -9,10 +9,10 @@ and output per invocation; the rule's list attributes do not establish a
 multi-template rendering guarantee.
 
 Sources: [project description](../../../README.md),
-[command flags](../../../main/go/cmd.go),
-[templater](../../../main/go/templater.go),
-[template functions](../../../main/go/templater_func_map.go),
-and [Bazel action](../../../main/bzl/template_run_binary.bzl).
+[command flags](../../../cmd/templater/cmd.go),
+[templater](../../../cmd/templater/templater.go),
+[template functions](../../../cmd/templater/templater_func_map.go),
+and [Bazel action](../../../rules/template_run_binary.bzl).
 
 ## Requirements
 

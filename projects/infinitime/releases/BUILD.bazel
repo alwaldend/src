@@ -1,6 +1,6 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("//tools/release/main/bzl:al_release.bzl", "al_release")
-load("//tools/release/main/bzl:al_release_files.bzl", "al_release_files")
+load("//tools/release/rules:al_release.bzl", "al_release")
+load("//tools/release/rules:al_release_files.bzl", "al_release_files")
 
 package(transitive_visibility = "//projects:transitive_consumers")
 
@@ -16,7 +16,7 @@ docs_filegroup(
 al_release_files(
     name = "files",
     srcs = [
-        "//projects/infinitime/main/patch:patches",
+        "//projects/infinitime/patches",
         "@com_alwaldend_com_github_infinitimeorg_infinitime//:dfu",
     ],
     deployments = ["//tools/release:deployment"],

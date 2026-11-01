@@ -1,0 +1,10 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+package(transitive_visibility = "//projects:transitive_consumers")
+
+go_library(
+    name = "api",
+    srcs = ["doc_api.go"],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/ci_platform/internal/api",
+    visibility = ["//visibility:public"],
+)

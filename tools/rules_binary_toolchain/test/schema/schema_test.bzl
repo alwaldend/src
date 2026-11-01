@@ -1,7 +1,7 @@
 """Behavioral analysis fixtures for binary lock metadata."""
 
 load("@bazel_skylib//lib:unittest.bzl", "analysistest", "asserts")
-load("//main/bzl:binary_toolchain_lock.bzl", "binary_toolchain_lock_parse")
+load("//rules:binary_toolchain_lock.bzl", "binary_toolchain_lock_parse")
 
 ParsedLockInfo = provider(doc = "Parsed lock metadata exposed by the analysis fixture.", fields = ["lock"])
 

@@ -1,5 +1,5 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("@rules_template//main/bzl:template_run_binary.bzl", "template_run_binary")
+load("@rules_template//rules:template_run_binary.bzl", "template_run_binary")
 
 package(
     default_visibility = ["//:__subpackages__"],

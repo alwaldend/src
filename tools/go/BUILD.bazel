@@ -13,6 +13,6 @@ docs_filegroup(
     srcs = glob(["*.md"]),
     visibility = ["//tools:__pkg__"],
     deps = [
-        "//tools/go/main/bzl:docs",
+        "//tools/go/rules:docs",
     ],
 )

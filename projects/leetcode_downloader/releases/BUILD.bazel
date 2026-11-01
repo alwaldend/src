@@ -1,6 +1,6 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("//tools/release/main/bzl:al_release.bzl", "al_release")
-load("//tools/release/main/bzl:al_release_files.bzl", "al_release_files")
+load("//tools/release/rules:al_release.bzl", "al_release")
+load("//tools/release/rules:al_release_files.bzl", "al_release_files")
 
 package(transitive_visibility = "//projects:transitive_consumers")
 
@@ -17,9 +17,9 @@ al_release_files(
     name = "files",
     srcs = [
         # do not sort
-        "//projects/leetcode_downloader/main/proto/contracts:contracts.proto",
-        "//projects/leetcode_downloader/main/tampermonkey",
-        "//projects/leetcode_downloader/main/go:go_crossbinary",
+        "//projects/leetcode_downloader/api/contracts:contracts.proto",
+        "//projects/leetcode_downloader/cmd/download_submissions",
+        "//projects/leetcode_downloader/cmd/leetcode_downloader:go_crossbinary",
     ],
     deployments = ["//tools/release:deployment"],
 )

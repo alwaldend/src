@@ -1,6 +1,6 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_python//python/uv:lock.bzl", "lock")
-load("//tools/toml/main/bzl:al_toml_data.bzl", "al_toml_data")
+load("//tools/toml/rules:al_toml_data.bzl", "al_toml_data")
 
 package(transitive_visibility = "//tools:transitive_consumers")
 
@@ -30,6 +30,6 @@ docs_filegroup(
     srcs = glob(["*.md"]),
     visibility = ["//tools:__pkg__"],
     deps = [
-        "//tools/py/main/bzl:docs",
+        "//tools/py/rules:docs",
     ],
 )

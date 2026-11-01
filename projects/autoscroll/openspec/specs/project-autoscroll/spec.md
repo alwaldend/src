@@ -8,9 +8,9 @@ behavior at revision `550d7e79b1f5fdbc2b6017b75178471d6914082f`, observed on
 2026-09-08; desktop integration was not exercised.
 
 Sources: [project README](../../../README.md),
-[scroll controller](../../../main/py/autoscroll/_internal/autoscroll.py),
-[scrolling and configuration support](../../../main/py/autoscroll/_internal/support.py),
-and [argument parser](../../../main/py/autoscroll/_internal/arguments.py).
+[scroll controller](../../../pkg/autoscroll/internal/autoscroll.py),
+[scrolling and configuration support](../../../pkg/autoscroll/internal/support.py),
+and [argument parser](../../../pkg/autoscroll/internal/arguments.py).
 
 ## Requirements
 

@@ -4,7 +4,7 @@ package(transitive_visibility = "//tools:transitive_consumers")
 
 alias(
     name = "file_installer",
-    actual = "//tools/file_installer/main/go",
+    actual = "//tools/file_installer/cmd/file_installer:file_installer",
     visibility = ["//:__subpackages__"],
 )
 

@@ -1,0 +1,48 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+package(transitive_visibility = "//projects:transitive_consumers")
+
+go_library(
+    name = "lifecycle",
+    srcs = [
+        "database_infrastructure.go",
+        "lifecycle_infrastructure.go",
+        "router_infrastructure.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/ci_platform/internal/infrastructure/lifecycle",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//projects/ci_platform/internal/api/controller",
+        "//projects/ci_platform/internal/api/middleware",
+        "//projects/ci_platform/internal/api/presenter",
+        "//projects/ci_platform/internal/docs",
+        "//projects/ci_platform/internal/infrastructure/branch",
+        "//projects/ci_platform/internal/infrastructure/config",
+        "//projects/ci_platform/internal/infrastructure/job",
+        "//projects/ci_platform/internal/infrastructure/jwt",
+        "//projects/ci_platform/internal/infrastructure/pipeline",
+        "//projects/ci_platform/internal/infrastructure/pool",
+        "//projects/ci_platform/internal/infrastructure/project",
+        "//projects/ci_platform/internal/infrastructure/session",
+        "//projects/ci_platform/internal/infrastructure/user",
+        "//projects/ci_platform/internal/pkg",
+        "//projects/ci_platform/internal/usecase",
+        "//projects/ci_platform/internal/usecase/branch",
+        "//projects/ci_platform/internal/usecase/job",
+        "//projects/ci_platform/internal/usecase/lifecycle",
+        "//projects/ci_platform/internal/usecase/pipeline",
+        "//projects/ci_platform/internal/usecase/pool",
+        "//projects/ci_platform/internal/usecase/project",
+        "//projects/ci_platform/internal/usecase/session",
+        "//projects/ci_platform/internal/usecase/user",
+        "//projects/ci_platform/internal/web",
+        "@com_github_gofiber_fiber_v2//:fiber",
+        "@com_github_gofiber_fiber_v2//middleware/compress",
+        "@com_github_gofiber_fiber_v2//middleware/etag",
+        "@com_github_gofiber_fiber_v2//middleware/logger",
+        "@com_github_gofiber_fiber_v2//middleware/recover",
+        "@io_gorm_driver_postgres//:postgres",
+        "@io_gorm_gorm//:gorm",
+        "@io_gorm_gorm//logger",
+    ],
+)

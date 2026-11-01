@@ -4,10 +4,10 @@ load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 build_test(
     name = "build_test",
     targets = [
-        "//main/go",
+        "//cmd/templater",
     ],
 )
-# load("@com_alwaldend_src//tools/bzl/main/bzl:al_bzl_library_map.bzl", "al_bzl_library_map")
+# load("@com_alwaldend_src//tools/bzl/rules:al_bzl_library_map.bzl", "al_bzl_library_map")
 # al_bzl_library_map(
 #     name = "libs",
 #     libs = {
@@ -26,7 +26,7 @@ docs_filegroup(
         allow_empty = True,
         exclude = [
             "bazel-*",
-            "main/go",
+            "cmd/templater",
         ],
     ),
 )

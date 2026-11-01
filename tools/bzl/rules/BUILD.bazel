@@ -1,0 +1,42 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//tools/bzl/rules:al_bzl_library_map.bzl", "al_bzl_library_map")
+
+package(transitive_visibility = "//tools:transitive_consumers")
+
+al_bzl_library_map(
+    name = "libs",
+    libs = {
+        "al_alias_map": [
+            "@rules_pkg//pkg:bzl_srcs",
+            "@bazel_skylib//rules:write_file",
+        ],
+        "al_bzl_library_map": [
+            "@bazel_skylib//:bzl_library",
+            "@rules_pkg//pkg:bzl_srcs",
+            "@stardoc//stardoc:stardoc_lib",
+            "@bazel_skylib//rules:write_file",
+        ],
+        "al_genquery_write_to_source_file": [
+            "@bazel_skylib//rules:write_file",
+            "@aspect_bazel_lib//lib:write_source_files",
+            "@rules_template//rules:template_run_binary",
+        ],
+        "al_bzl_generate_repository": [],
+        "al_bzl_target_doc": [
+            "@rules_template//rules:template_run_binary",
+            "@rules_pkg//pkg:bzl_srcs",
+            "@bazel_skylib//lib:paths",
+            "@bazel_skylib//rules:write_file",
+        ],
+    },
+    visibility = ["//:__subpackages__"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//tools/bzl:__pkg__"],
+    deps = [
+        ":libs.stardoc",
+    ],
+)

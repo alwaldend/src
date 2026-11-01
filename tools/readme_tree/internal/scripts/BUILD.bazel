@@ -1,0 +1,20 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//tools/sh/rules:al_sh_library.bzl", "al_sh_library")
+
+package(transitive_visibility = "//tools:transitive_consumers")
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//tools/readme_tree:__pkg__"],
+    deps = subpackages(
+        include = ["*"],
+        allow_empty = True,
+    ),
+)
+
+al_sh_library(
+    name = "readme_tree",
+    srcs = ["readme_tree.sh"],
+    visibility = ["//:__subpackages__"],
+)

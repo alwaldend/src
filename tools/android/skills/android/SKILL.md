@@ -23,7 +23,7 @@ containing an `android_binary` target. Inspect the app's
 `rules_jvm_external` with a `maven_lock.json` lock file.
 
 ```sh
-bazel_agent bazel build //projects/<app>/main/java:<binary_target>
+bazel_agent bazel build //projects/<app>/cmd/<command>:<binary_target>
 ```
 
 ### Gradle parallel build (required for F-Droid)
@@ -34,8 +34,9 @@ dependencies so an F-Droid reviewer sees a conventional Gradle project.
 
 **Generated Gradle inputs.** A Go converter
 (`tools/maven_install_gradle_converter/cmd/gradle_lock_gen`) reads the `maven_lock.json` lock file
-and produces `gradle/libs.versions.toml` and
-`gradle/verification-metadata.xml`. The `al_gradle_lock` Starlark macro
+and produces `gradle/libs.versions.toml`. Gradle owns
+`gradle/verification-metadata.xml`, including plugin classpath verification.
+The `al_gradle_lock` Starlark macro
 (`tools/maven_install_gradle_converter/defs.bzl`) wires these through
 `write_source_file`, so a Bazel test (`*_write_test`) fails when the checked-in
 Gradle files go stale relative to the Bazel lock.
@@ -44,21 +45,22 @@ To regenerate after a dependency change:
 
 ```sh
 bazel_agent bazel run //projects/<app>/gradle:update_toml_write
-bazel_agent bazel run //projects/<app>/gradle:update_verification_write
 ```
 
 To verify freshness in CI:
 
 ```sh
 bazel_agent bazel test //projects/<app>/gradle:update_toml_write_test
-bazel_agent bazel test //projects/android_launcher/gradle:update_verification_write_test
 ```
+
+Regenerate verification metadata through Gradle's
+`--write-verification-metadata sha256` option; see the converter README.
 
 **Manual Gradle files.** `build.gradle.kts` and `settings.gradle.kts` are
 hand-authored (not generated). They reference the version catalog from
 `gradle/libs.versions.toml` and apply the Kotlin/Compose plugins. Keep the
-source-set layout aligned with the Bazel source layout (`main/java/`,
-`main/res/`, `AndroidManifest.xml`).
+source-set layout aligned with the Bazel source layout (`cmd/<command>/`,
+`res/`, `api/`, `AndroidManifest.xml`).
 
 ## F-Droid submission
 
@@ -168,9 +170,10 @@ adb logcat | rg 'PackageManager|INSTALL_FAILED'
 
 ## Standard repo practices
 
-- Put all Android source under `projects/<app>/main/java/` with resources in
-  `projects/<app>/main/res/` and the manifest at `projects/<app>/`.
-- Keep the `android_binary` target in `main/java/BUILD.bazel` with a
+- Put Android application source under `projects/<app>/cmd/<command>/` with
+  resources in `projects/<app>/res/`, schemas in `projects/<app>/api/`, and
+  the manifest at `projects/<app>/`.
+- Keep the `android_binary` target in `cmd/<command>/BUILD.bazel` with a
   `build_test` for CI verification.
 - Declare Maven dependencies in the app's `include.MODULE.bazel` via
   `rules_jvm_external`, lock them in `maven_lock.json`, and regenerate the

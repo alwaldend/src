@@ -6,7 +6,7 @@ package(transitive_visibility = "//tools:transitive_consumers")
 refresh_compile_commands(
     name = "refresh_compile_commands",
     targets = {
-        "//projects/sri/main/c/...": "",
+        "//projects/sri/cmd/sri/...": "",
     },
     visibility = ["//:__pkg__"],
 )

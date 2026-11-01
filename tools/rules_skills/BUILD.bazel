@@ -14,7 +14,7 @@ build_test(
     name = "build_test",
     targets = [
         "//examples/example-skill:skill",
-        "//main/go:skill_validator",
+        "//cmd/skill_validator:skill_validator",
         "//skill:defs",
     ],
 )

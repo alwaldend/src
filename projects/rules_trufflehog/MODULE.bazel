@@ -36,7 +36,7 @@ use_repo(
 )
 
 binary_toolchain = use_extension(
-    "@rules_binary_toolchain//main/bzl:binary_toolchain_extension.bzl",
+    "@rules_binary_toolchain//rules:binary_toolchain_extension.bzl",
     "binary_toolchain_extension",
 )
 binary_toolchain.toolchains(

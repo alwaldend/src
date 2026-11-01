@@ -1,0 +1,31 @@
+# gazelle:python_library_naming_convention $package_name$
+
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("@rules_python//python:defs.bzl", "py_library")
+
+package(transitive_visibility = "//projects:transitive_consumers")
+
+py_library(
+    name = "internal",
+    srcs = [
+        "__init__.py",
+        "arguments.py",
+        "autoscroll.py",
+        "constants.py",
+        "functions.py",
+        "qt.py",
+        "support.py",
+    ],
+    imports = ["../.."],
+    visibility = ["//:__subpackages__"],
+    deps = [
+        "@com_alwaldend_src_projects_autoscroll_pip//pynput",
+        "@com_alwaldend_src_projects_autoscroll_pip//pyside6_essentials",
+    ],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//projects/autoscroll/pkg/autoscroll:__pkg__"],
+)

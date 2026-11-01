@@ -8,10 +8,10 @@ revision `550d7e79b1f5fdbc2b6017b75178471d6914082f`, observed on 2026-09-08.
 It does not assert a functioning deployment or complete frontend integration.
 
 Sources: [project README](../../../README.md),
-[root command](../../../main/go/cmd/root_cmd.go),
-[server command](../../../main/go/cmd/server_cmd.go),
-[database command](../../../main/go/cmd/database_cmd.go),
-and [frontend filesystem](../../../main/go/web/dist.go).
+[root command](../../../internal/command/root_cmd.go),
+[server command](../../../internal/command/server_cmd.go),
+[database command](../../../internal/command/database_cmd.go),
+and [frontend filesystem](../../../internal/web/dist.go).
 
 ## Requirements
 

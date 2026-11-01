@@ -30,7 +30,7 @@ android {
 
 // Configure source directories to point to the Bazel-layout sources
 android.sourceSets.getByName("main") {
-  java.srcDirs("../main/java")
+  java.srcDirs("../cmd/ingester")
   res.srcDirs("../res")
   manifest.srcFile("../AndroidManifest.xml")
 }

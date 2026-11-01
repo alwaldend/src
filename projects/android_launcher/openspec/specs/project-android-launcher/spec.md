@@ -9,15 +9,15 @@ records checked-in behavior; on-device verification is recorded per change.
 
 Sources: [project README](../../../README.md),
 [manifest](../../../AndroidManifest.xml),
-[contracts](../../../main/proto/contracts.proto),
-[home route](../../../main/java/ui/HomeRoute.kt),
-[home rows](../../../main/java/ui/HomeRow.kt),
-[home dialog](../../../main/java/ui/HomeDialog.kt),
-[home view model](../../../main/java/ui/HomeViewModel.kt),
-[launcher manager](../../../main/java/LauncherManager.kt),
-[state repository](../../../main/java/LauncherStateRepository.kt),
-[settings screen](../../../main/java/ui/SettingsRoute.kt),
-and [theme](../../../main/java/ui/LauncherTheme.kt).
+[contracts](../../../api/contracts.proto),
+[home route](../../../cmd/launcher/ui/HomeRoute.kt),
+[home rows](../../../cmd/launcher/ui/HomeRow.kt),
+[home dialog](../../../cmd/launcher/ui/HomeDialog.kt),
+[home view model](../../../cmd/launcher/ui/HomeViewModel.kt),
+[launcher manager](../../../cmd/launcher/LauncherManager.kt),
+[state repository](../../../cmd/launcher/LauncherStateRepository.kt),
+[settings screen](../../../cmd/launcher/ui/SettingsRoute.kt),
+and [theme](../../../cmd/launcher/ui/LauncherTheme.kt).
 
 ## Requirements
 

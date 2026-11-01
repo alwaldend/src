@@ -27,7 +27,7 @@ docs_filegroup(
 
 qt_resource_via_qrc(
     name = "resources",
-    files = ["//projects/useless_qt_gui/main/res:images"],
+    files = ["//projects/useless_qt_gui/assets:images"],
     qrc_file = "resources.qrc",
 )
 
@@ -41,16 +41,16 @@ qt_ui_library(
 qt_cc_library(
     name = "application",
     srcs = [
-        "main/cpp/mainwindow.cpp",
-        "main/cpp/menubutton.cpp",
-        "main/cpp/systembutton.cpp",
+        "internal/application/mainwindow.cpp",
+        "internal/application/menubutton.cpp",
+        "internal/application/systembutton.cpp",
     ],
     hdrs = [
-        "main/cpp/mainwindow.h",
-        "main/cpp/menubutton.h",
-        "main/cpp/systembutton.h",
+        "internal/application/mainwindow.h",
+        "internal/application/menubutton.h",
+        "internal/application/systembutton.h",
     ],
-    includes = ["main/cpp"],
+    includes = ["internal/application"],
     deps = [
         ":mainwindow_ui",
         "@rules_qt//:qt_widgets",
@@ -59,7 +59,7 @@ qt_cc_library(
 
 qt_cc_binary(
     name = "useless_qt_gui",
-    srcs = ["main/cpp/main.cpp"],
+    srcs = ["cmd/useless_qt_gui/main.cpp"],
     deps = [
         ":application",
         ":resources",

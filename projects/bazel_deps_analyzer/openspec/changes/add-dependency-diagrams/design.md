@@ -1,6 +1,6 @@
 ## Context
 
-See proposal.md. `tools/bzl/main/bzl/al_bzl_target_doc.bzl` already captures
+See proposal.md. `tools/bzl/rules/al_bzl_target_doc.bzl` already captures
 `streamed_jsonproto` using `native.genquery`. Existing site Mermaid macros
 render generated source as SVG or WebP.
 

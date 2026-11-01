@@ -85,7 +85,7 @@ local_path_override(
     path = "tools/rules_template",
 )
 
-register_toolchains("@rules_template//main/bzl:all")
+register_toolchains("@rules_template//rules:all")
 
 bazel_dep(name = "rules_terraform")
 local_path_override(

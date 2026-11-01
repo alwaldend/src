@@ -57,7 +57,7 @@ go_library(
             "NATIVE_ANKI_CLI": "$(rootpath //projects/anki_as_code/cmd/anki_as_code:native)" if name == "wasm_workflow_test" else "",
         },
         # Distribute the complete WASM workflow without extending each shard's timeout.
-        shard_count = 2 if name == "wasm_workflow_test" else 0,
+        shard_count = 8 if name == "wasm_workflow_test" else 0,
         deps = [
             "//projects/anki_as_code/api/ankiascodeapi",
             "//projects/anki_as_code/api/ankiascodepb",

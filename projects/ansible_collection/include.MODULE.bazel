@@ -1,4 +1,4 @@
-al_ansible_extension = use_extension("//tools/ansible/main/bzl:al_ansible_extension.bzl", "al_ansible_extension")
+al_ansible_extension = use_extension("//tools/ansible/rules:al_ansible_extension.bzl", "al_ansible_extension")
 al_ansible_extension.lock(
     name = "com_ansible_galaxy",
     lock = "//projects/ansible_collection:ansible_lock.json",

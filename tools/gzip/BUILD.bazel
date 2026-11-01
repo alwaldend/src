@@ -7,6 +7,6 @@ docs_filegroup(
     srcs = glob(["*.md"]),
     visibility = ["//tools:__pkg__"],
     deps = [
-        "//tools/gzip/main/bzl:docs",
+        "//tools/gzip/rules:docs",
     ],
 )

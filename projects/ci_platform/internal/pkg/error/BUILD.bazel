@@ -1,0 +1,10 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+package(transitive_visibility = "//projects:transitive_consumers")
+
+go_library(
+    name = "error",
+    srcs = ["error_pkg.go"],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/ci_platform/internal/pkg/error",
+    visibility = ["//visibility:public"],
+)

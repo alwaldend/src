@@ -1,7 +1,7 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("//projects/al/rules/al:al_toolchain.bzl", "al_toolchain")
 load("//projects/al/rules/al:al_toolchain_resolved.bzl", "al_toolchain_resolved")
-load("//tools/bzl/main/bzl:al_bzl_library_map.bzl", "al_bzl_library_map")
+load("//tools/bzl/rules:al_bzl_library_map.bzl", "al_bzl_library_map")
 
 package(transitive_visibility = "//projects:transitive_consumers")
 
@@ -43,7 +43,7 @@ al_bzl_library_map(
         "al_config": [],
         "al_toolchain": [],
         "al_toolchain_resolved": [
-            "//tools/resolved_toolchain/main/bzl:al_resolved_toolchain",
+            "//tools/resolved_toolchain/rules:al_resolved_toolchain",
         ],
     },
     visibility = ["//:__subpackages__"],

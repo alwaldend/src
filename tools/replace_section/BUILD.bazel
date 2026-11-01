@@ -10,6 +10,6 @@ docs_filegroup(
 
 alias(
     name = "replace_section",
-    actual = "//tools/replace_section/main/py:replace_section",
+    actual = "//tools/replace_section/cmd/replace_section:replace_section",
     visibility = ["//:__subpackages__"],
 )

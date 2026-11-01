@@ -9,13 +9,13 @@ text; this baseline records checked-in behavior, not an on-device verification.
 
 Sources: [project README](../../../README.md),
 [manifest](../../../AndroidManifest.xml),
-[accessibility service](../../../main/java/ActivityWatchAccessibilityService.kt),
-[HTTP client](../../../main/java/ActivityWatchIngester.kt),
-[event model](../../../main/java/ActivityWatchEvent.kt),
-[session tracker](../../../main/java/SessionTracker.kt),
-[URL extractor](../../../main/java/UrlExtractor.kt),
-[settings screen](../../../main/java/IngesterSettingsScreen.kt),
-and [theme](../../../main/java/IngesterTheme.kt).
+[accessibility service](../../../cmd/ingester/ActivityWatchAccessibilityService.kt),
+[HTTP client](../../../cmd/ingester/ActivityWatchIngester.kt),
+[event model](../../../cmd/ingester/ActivityWatchEvent.kt),
+[session tracker](../../../cmd/ingester/SessionTracker.kt),
+[URL extractor](../../../cmd/ingester/UrlExtractor.kt),
+[settings screen](../../../cmd/ingester/IngesterSettingsScreen.kt),
+and [theme](../../../cmd/ingester/IngesterTheme.kt).
 
 ## Requirements
 

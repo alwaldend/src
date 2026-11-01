@@ -46,7 +46,7 @@ func e2eAdbOutput(t *testing.T, args ...string) string {
 }
 
 func TestInstrumentationE2E(t *testing.T) {
-	appApk, err := runfiles.Rlocation("_main/projects/activitywatch_ingester_android/main/java/ingester_binary.apk")
+	appApk, err := runfiles.Rlocation("_main/projects/activitywatch_ingester_android/cmd/ingester/ingester_binary.apk")
 	if err != nil {
 		t.Fatalf("resolve app APK: %v", err)
 	}

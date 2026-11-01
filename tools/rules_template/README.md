@@ -20,7 +20,7 @@ actions.
 
 ```py
 bazel_dep(name = "rules_template", version = "<VERSION>")
-register_toolchains("@rules_template//main/bzl:all")
+register_toolchains("@rules_template//rules:all")
 ```
 
 `BUILD.bazel`:

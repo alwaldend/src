@@ -142,15 +142,30 @@ def main() -> None:
         and (workspace / entries[index]).is_file()
     ]
     modules: set[str] = set()
+    source_roots: set[pathlib.Path] = {
+        parent
+        for source in sources
+        for parent in (workspace / source).parents
+        if parent.is_relative_to(workspace)
+        and (parent / "BUILD.bazel").is_file()
+        and "# gazelle:python_root"
+        in (parent / "BUILD.bazel").read_text().splitlines()
+    }
+    """Source roots declared by the owning Python build packages."""
     path: str
     for path in sources:
         relative: str = path.removesuffix(".py")
         if relative.endswith("/__init__"):
             relative = relative.removesuffix("/__init__")
         modules.add(relative.replace("/", "."))
-        # Legacy language source roots expose modules below main/py.
-        if "/main/py/" in relative:
-            modules.add(relative.split("/main/py/", 1)[1].replace("/", "."))
+        # Gazelle declarations own import roots for distributable packages.
+        for source_root in source_roots:
+            if (workspace / relative).is_relative_to(source_root):
+                modules.add(
+                    str(
+                        (workspace / relative).relative_to(source_root)
+                    ).replace("/", ".")
+                )
     rule: pathlib.Path = resolve(args.rule)
     cases: dict[str, list[str]] = typing.cast(
         dict[str, list[str]], json.loads(resolve(args.cases).read_text())

@@ -1,0 +1,86 @@
+syntax = "proto3";
+
+package release;
+
+import "tools/git/api/contracts/contracts.proto";
+
+option go_package = "git.alwaldend.com/alwaldend/src/tools/release/api/contracts";
+
+message ReleaseHash {
+  string algo = 1;
+  string content = 2;
+}
+
+message ReleaseFile {
+  repeated ReleaseHash hashes = 1;
+  string name = 2;
+  string safe_name = 6;
+  string url = 3;
+  int64 size = 4;
+  string local_path = 5;
+}
+
+message ReleaseItem {
+  ReleaseFile file = 1;
+  repeated ReleaseDeployment deployments = 2;
+}
+
+message Project {
+  string subdir = 1;
+  string safe_subdir = 2;
+}
+
+message Git {
+  git.GitCommit revision = 1;
+  repeated git.GitCommit commits = 2;
+}
+
+message ReleasePageSectionItemAttr {
+  string name = 1;
+  string content = 2;
+}
+
+message ReleasePageSectionItem {
+  string content = 1;
+  string content_url = 2;
+  repeated ReleasePageSectionItemAttr attrs = 3;
+}
+
+message ReleasePageSection {
+  string title = 1;
+  repeated ReleasePageSectionItem items = 2;
+}
+
+message ReleasePage {
+  repeated ReleasePageSection sections = 1;
+}
+
+message ReleaseDeploymentOci {
+  string repository = 1;
+  repeated string tags = 2;
+}
+
+message ReleaseDeployment {
+  ReleaseDeploymentOci oci = 1;
+  ReleaseDeploymentSsh ssh = 2;
+}
+
+message ReleaseDeploymentSsh {
+  string environment = 1;
+  string host = 2;
+  string user = 3;
+  string root = 4;
+  string project = 5;
+  string site_archive = 6;
+  string publish_user = 7;
+  string public_url = 8;
+  // Public artifact namespace: projects (default) or third_party.
+  string namespace = 9;
+}
+
+message Release {
+  repeated ReleaseItem items = 1;
+  string name = 2;
+  Project project = 3;
+  Git git = 4;
+}

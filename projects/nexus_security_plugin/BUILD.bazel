@@ -18,11 +18,11 @@ pkg_files(
     name = "docs_pages",
     srcs = [
         "README.md",
-        "//projects/nexus_security_plugin/main/java:model/README.md",
+        "//projects/nexus_security_plugin/internal/plugin:model/README.md",
     ],
     prefix = "content/docs/projects/nexus_security_plugin",
     renames = {
         "README.md": "_index.md",
-        "//projects/nexus_security_plugin/main/java:model/README.md": "model/_index.md",
+        "//projects/nexus_security_plugin/internal/plugin:model/README.md": "model/_index.md",
     },
 )

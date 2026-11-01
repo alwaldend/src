@@ -1,0 +1,9 @@
+load("//tools/sh/rules:al_sh_library.bzl", "al_sh_library")
+
+package(transitive_visibility = "//tools:transitive_consumers")
+
+al_sh_library(
+    name = "activate",
+    srcs = ["activate.sh"],
+    visibility = ["//:__subpackages__"],
+)
