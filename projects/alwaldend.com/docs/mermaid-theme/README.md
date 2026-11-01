@@ -4,8 +4,8 @@ description: Six diagram types rendered with the current flat site theme
 ---
 
 These fictitious document-service examples share the site's current
-[flat theme](https://github.com/alwaldend/src/blob/master/projects/alwaldend.com/pkg/mermaid/theme.json) and
-[palette](https://github.com/alwaldend/src/blob/master/projects/alwaldend.com/assets/scss/mermaid.scss). The site selects light or dark
+[flat theme](https://github.com/alwaldend/src/blob/master/data/alwaldend/assets/mermaid/config.json.tmpl) and
+[palette](https://github.com/alwaldend/src/blob/master/data/alwaldend/assets/theme.json). The site selects light or dark
 images with its theme menu. Open an image to inspect its native size.
 The examples carry structure and labels only; appearance belongs to the theme.
 Labels use embedded Liberation Mono, including when an image is opened alone.

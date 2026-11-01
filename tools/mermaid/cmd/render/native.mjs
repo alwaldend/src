@@ -4,8 +4,8 @@ import puppeteer from "puppeteer";
 import { renderMermaid } from "@mermaid-js/mermaid-cli";
 import { fontFace } from "./embed_font.mjs";
 
-// Resolve the consumer's stylesheet in Chrome, then pass concrete theme
-// variables to Mermaid. Generated SVG bytes are written without modification.
+// Read resolved theme colors from the consumer palette JSON.
+// Generated SVG bytes are written without modification.
 export async function renderNative({
     input,
     output,
@@ -17,12 +17,9 @@ export async function renderNative({
     fontSubsetter,
     puppeteerConfig,
 }) {
+    const appearances = JSON.parse(await fs.readFile(palette, "utf8"));
     const browser = await puppeteer.launch(puppeteerConfig);
     try {
-        const page = await browser.newPage();
-        await page.addStyleTag({
-            content: await fs.readFile(palette, "utf8"),
-        });
         const definition = await fs.readFile(input, "utf8");
         let myCSS = fontFace(await fs.readFile(font));
         let subsetted = false;
@@ -34,23 +31,14 @@ export async function renderNative({
                       ["dark", darkOutput],
                   ];
         for (const [mode, destination] of variants) {
-            await page.emulateMediaFeatures([
-                { name: "prefers-color-scheme", value: mode },
-            ]);
-            const themeVariables = await page.evaluate(() => {
-                const style = getComputedStyle(document.documentElement);
-                const prefix = "--mermaid-";
-                return Object.fromEntries(
-                    [...style]
-                        .filter((name) => name.startsWith(prefix))
-                        .map((name) => [
-                            name.slice(prefix.length),
-                            style.getPropertyValue(name).trim(),
-                        ]),
+            const themeVariables = appearances?.[mode];
+            if (
+                typeof themeVariables?.background !== "string" ||
+                !themeVariables.background.trim()
+            )
+                throw new Error(
+                    `Palette must define a background color for ${mode}`,
                 );
-            });
-            if (!themeVariables.background)
-                throw new Error("Palette must define --mermaid-background");
             // Make the same resolved palette available to Mermaid's input
             // theme CSS, so caption borders and fills share its native colors.
             const properties = Object.entries(themeVariables)

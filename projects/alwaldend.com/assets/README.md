@@ -18,8 +18,14 @@ imports the same `_shared_accent.scss`, `_shared_palette.scss`, and
 own layout rules. The `site_stylesheet` rule in `defs.bzl` compiles these sources
 with the pinned Sass tool and existing Bootstrap archive. The profile cleaner's
 local browser interface embeds that output, without a runtime site dependency.
-The Mermaid stylesheet compiler remains available through its existing alias.
+Generated Sass is included in both site and application builds.
 
 Shared controls own filled and outline primary buttons and checkbox selection
 and keyboard-focus styles in both palettes. Application consumers use Bootstrap's
 component classes rather than defining a second primary-button variant.
+
+`scss/_shared_accent.scss.tmpl` maps the authoritative identity data from
+`//data/alwaldend:assets/theme.json` to Bootstrap/Docsy variables. The build
+packages its generated `_shared_accent.scss` at the usual theme import path.
+Component rules stay in this assets tree; shared color values are edited in
+the identity data rather than in generated Sass.

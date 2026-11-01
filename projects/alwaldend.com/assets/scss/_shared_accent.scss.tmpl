@@ -1,0 +1,53 @@
+{{- $theme := (index .DataFiles 0).Data -}}
+// Docsy loads these shared tokens before Bootstrap. Assign explicitly because
+// its forward declarations have already supplied colored defaults.
+$gray-100: {{index $theme.colors "gray100"}};
+$gray-200: {{index $theme.colors "gray200"}};
+$gray-300: {{index $theme.colors "gray300"}};
+$gray-400: {{index $theme.colors "gray400"}};
+$gray-500: {{index $theme.colors "gray500"}};
+$gray-600: {{index $theme.colors "gray600"}};
+$gray-700: {{index $theme.colors "gray700"}};
+$gray-800: {{index $theme.colors "gray800"}};
+$gray-900: {{index $theme.colors "gray900"}};
+
+$primary: $gray-900;
+$secondary: $gray-600;
+$success: $gray-700;
+$info: $gray-600;
+$warning: $gray-700;
+$danger: $gray-800;
+$light: $gray-100;
+$dark: $gray-900;
+
+$body-color: {{index $theme.colors $theme.modes.light.ink}};
+$body-bg: {{index $theme.colors $theme.modes.light.canvas}};
+$body-color-dark: {{index $theme.colors $theme.modes.dark.ink}};
+$body-bg-dark: {{index $theme.colors $theme.modes.dark.canvas}};
+$body-secondary-bg-dark: {{index $theme.colors $theme.modes.dark.surface}};
+$body-tertiary-bg-dark: {{index $theme.colors $theme.modes.dark.raisedSurface}};
+$border-color: {{index $theme.colors $theme.modes.light.border}};
+$border-color-dark: {{index $theme.colors $theme.modes.dark.border}};
+$link-color: {{index $theme.colors $theme.modes.light.ink}};
+$link-hover-color: {{index $theme.colors $theme.modes.light.linkHover}};
+$link-color-dark: {{index $theme.colors $theme.modes.dark.ink}};
+$link-hover-color-dark: {{index $theme.colors $theme.modes.dark.linkHover}};
+$code-color: {{index $theme.colors $theme.modes.light.code}};
+$code-color-dark: {{index $theme.colors $theme.modes.dark.code}};
+$mark-bg: {{index $theme.colors $theme.modes.light.mark}};
+$mark-bg-dark: {{index $theme.colors $theme.modes.dark.mark}};
+
+$enable-shadows: false;
+$enable-gradients: false;
+$border-radius: 0.625rem;
+$border-radius-sm: 0.375rem;
+$border-radius-lg: 0.875rem;
+$headings-font-weight: 500;
+$h1-font-size: 2rem;
+$h2-font-size: 1.5rem;
+$h3-font-size: 1.25rem;
+$h4-font-size: 1.125rem;
+$h5-font-size: 1rem;
+$h6-font-size: 1rem;
+$line-height-base: 1.65;
+$td-enable-google-fonts: false;

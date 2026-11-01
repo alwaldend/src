@@ -85,10 +85,8 @@ mermaid_svg(
     src = "edge_labels.mmd",
     out = "edge-labels-native.svg",
     dark_out = "edge-labels-native.dark.svg",
-    label_font = "@com_alwaldend_src_tools_drawio_fonts//:LiberationMono-Regular.ttf",
     native = True,
-    palette = "//projects/alwaldend.com/assets:mermaid_palette",
-    theme = "//projects/alwaldend.com/pkg/mermaid:theme.json",
+    theme = "//data/alwaldend:mermaid_theme",
 )
 
 mermaid_webp(
@@ -96,11 +94,9 @@ mermaid_webp(
     src = "edge_labels.mmd",
     out = "edge-labels-native.webp",
     aspect_ratio = [],
-    label_font = "@com_alwaldend_src_tools_drawio_fonts//:LiberationMono-Regular.ttf",
     native = True,
-    palette = "//projects/alwaldend.com/assets:mermaid_palette",
     scale = 2,
-    theme = "//projects/alwaldend.com/pkg/mermaid:theme.json",
+    theme = "//data/alwaldend:mermaid_theme",
 )
 
 mermaid_webp(
@@ -109,11 +105,9 @@ mermaid_webp(
     out = "edge-labels-native.dark.webp",
     aspect_ratio = [],
     color_scheme = "dark",
-    label_font = "@com_alwaldend_src_tools_drawio_fonts//:LiberationMono-Regular.ttf",
     native = True,
-    palette = "//projects/alwaldend.com/assets:mermaid_palette",
     scale = 2,
-    theme = "//projects/alwaldend.com/pkg/mermaid:theme.json",
+    theme = "//data/alwaldend:mermaid_theme",
 )
 
 mermaid_webp(
@@ -131,11 +125,9 @@ mermaid_webp(
         10,
         4,
     ],
-    label_font = "@com_alwaldend_src_tools_drawio_fonts//:LiberationMono-Regular.ttf",
     native = True,
-    palette = "//projects/alwaldend.com/assets:mermaid_palette",
     scale = 1,
-    theme = "//projects/alwaldend.com/pkg/mermaid:theme.json",
+    theme = "//data/alwaldend:mermaid_theme",
 )
 
 mermaid_webp(
@@ -147,11 +139,9 @@ mermaid_webp(
         2,
     ],
     color_scheme = "dark",
-    label_font = "@com_alwaldend_src_tools_drawio_fonts//:LiberationMono-Regular.ttf",
     native = True,
-    palette = "//projects/alwaldend.com/assets:mermaid_palette",
     scale = 2,
-    theme = "//projects/alwaldend.com/pkg/mermaid:theme.json",
+    theme = "//data/alwaldend:mermaid_theme",
 )
 
 js_test(
@@ -202,7 +192,7 @@ js_test(
         "$(rootpath :edge_labels_native_webp)",
         "$(rootpath :edge-labels-native.dark.svg)",
         "$(rootpath :edge_labels_native_dark_webp)",
-        "$(rootpath //projects/alwaldend.com/assets:mermaid_palette)",
+        "$(rootpath //data/alwaldend/assets/mermaid:palette)",
         "$(rootpath @com_google_chrome_headless_shell//:chrome_headless_shell_binary)",
     ],
     data = [
@@ -210,7 +200,7 @@ js_test(
         ":edge-labels-native.svg",
         ":edge_labels_native_dark_webp",
         ":edge_labels_native_webp",
-        "//projects/alwaldend.com/assets:mermaid_palette",
+        "//data/alwaldend/assets/mermaid:palette",
         "//tools:node_modules/puppeteer",
         "@com_google_chrome_headless_shell//:chrome_headless_shell_binary",
     ],

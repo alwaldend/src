@@ -224,23 +224,24 @@ pipeline; a diagram's own look still comes from `theme.json`.
 
 The main site's `mermaid_site_svg` macro lives in
 [`projects/alwaldend.com/pkg/mermaid/defs.bzl`](../../projects/alwaldend.com/pkg/mermaid/defs.bzl).
-It selects `mermaid_svg(native = True)` with the site's own configuration,
-compiled palette, and pinned site font. It does not inherit the
+It selects `mermaid_svg(native = True)` with `theme = "//data/alwaldend:mermaid_theme"`, which bundles generated
+configuration and light/dark palette JSON with the pinned font and its license. It does not inherit the
 historical theme or actor decoration. Its own preset restores rounded caption
 plates using Mermaid's `themeCSS` and flowchart settings. The site's compact
 preset uses basis curves and `flowchart.edgeSpacing`; the
 [pinned dependency patch](../../third_party/com_github_mermaid_js_mermaid/README.md)
 passes the latter through to Dagre before layout, including nested subgraphs.
 
-Native mode requires a `palette` CSS input. `mermaid_svg` also requires a
-`dark_out` SVG output; `mermaid_webp` encodes the selected `color_scheme`
-(`light` by default, or `dark`). The
-stylesheet exposes `--mermaid-*` custom properties named after Mermaid theme
-variables. Chrome resolves them in light and dark media, and the renderer
-passes the resulting values to Mermaid's native configuration and exposes the
-same `--mermaid-*` properties on its diagram root for input `themeCSS`. Font embedding
-uses the CLI's CSS input. The returned SVG bytes are written directly: there
-is no color rewriting, paint-order change, or stylesheet insertion afterwards.
+Native rules accept a bundled theme target. `MermaidThemeInfo` and
+`mermaid_theme` in `theme.bzl` define its configuration, palette, font, and
+license files. A standalone JSON configuration can instead supply separate
+`palette` JSON, `label_font`, and `label_font_license` inputs. A palette maps
+`light` and `dark` to concrete Mermaid theme-variable colors; the renderer
+reads it directly and exposes matching `--mermaid-*` properties on the diagram
+root for input `themeCSS`. `mermaid_svg` requires `dark_out`, while
+`mermaid_webp` selects one `color_scheme`. Font embedding uses the CLI's CSS
+input. Returned SVG bytes are written directly without geometry or color
+post-processing. The historical non-native JSON theme API remains available.
 
 Both outputs are packaged beside each other. The site selects the `.dark.svg`
 sibling using its existing theme attribute and always prints the light image.
@@ -268,13 +269,11 @@ mermaid_webp(
 The rule projects the `mermaid_svg` document to a raster. By default it renders
 the historical themed SVG first — same shared theme, same pinned browser and
 fonts, same paint-order pass — then has the pinned browser encode that document
-to WebP. Set `native = True` and pass the same `palette`, `theme`, and
-`label_font` as a native SVG target to encode that target's appearance.
+to WebP. Set `native = True` and pass the same bundled `theme` as a native SVG target to encode that target's appearance.
 Set `color_scheme = "dark"` for its dark appearance; the default remains
-`"light"`. Native rendering reads the palette's selected media values, embeds
+`"light"`. Native rendering reads the selected palette data, embeds
 the selected font through Mermaid's CSS input, and sends the returned SVG straight to the
-existing encoder without SVG post-processing. `native` and `palette` must be
-set together; selecting `"dark"` requires native rendering. The site macro
+existing encoder without SVG post-processing. The theme must provide a palette for native rendering; selecting `"dark"` requires native rendering. The site macro
 `mermaid_site_webp` accepts the same `color_scheme` option. A WebP carries one
 fixed appearance for page embeds, social cards, and service uploads.
 
