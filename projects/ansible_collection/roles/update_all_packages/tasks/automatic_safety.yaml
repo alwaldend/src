@@ -1,0 +1,32 @@
+- name: Inspect native automatic-update service commands and actions
+  ansible.builtin.command:
+    argv:
+      - systemctl
+      - show
+      - "{{ item }}"
+      - --property=LoadState,ExecStart,ExecStartPre,ExecStartPost,ExecStop,ExecStopPost,SuccessAction,FailureAction,OnSuccess,OnFailure
+  loop: "{{ update_all_packages_automatic_backends[update_all_packages_backend].services }}"
+  register: update_all_packages_automatic_services
+  check_mode: false
+  changed_when: false
+  failed_when: >-
+    update_all_packages_automatic_services.rc != 0 and
+    'LoadState=not-found' not in update_all_packages_automatic_services.stdout
+
+- name: Reject independent automatic reboot hooks before timer activation
+  ansible.builtin.assert:
+    that:
+      - >-
+        item.stdout is not regex(
+          '(?i)(?:--reboot(?:[= ;}]|$)|(?:^|[/= ;])(?:soft-reboot|reboot|shutdown|poweroff|halt|kexec)(?:\s|[;}.]|$|-force|-immediate))')
+      - item.stdout is not regex('(?m)^(?:SuccessAction|FailureAction)=(?!none$).+')
+      - item.stdout is not regex('(?m)^On(?:Success|Failure)=.+')
+    fail_msg: >-
+      {{ item.item }} has a reboot or shutdown command/action outside the native
+      updater policy. Review its systemd overrides before enabling updates;
+      unrelated administrator configuration has not been replaced.
+    quiet: true
+  loop: "{{ update_all_packages_automatic_services.results }}"
+  loop_control:
+    label: "{{ item.item }}"
+  when: update_all_packages_automatic_enabled | bool

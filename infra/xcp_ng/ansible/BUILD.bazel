@@ -5,6 +5,15 @@ load("//tools/ansible/rules:al_ansible_binary.bzl", "al_ansible_binary")
 
 package(transitive_visibility = "//infra:transitive_consumers")
 
+filegroup(
+    name = "inventory",
+    srcs = ["inventory.yaml"],
+    visibility = [
+        "//infra/security:fleet_inventory_consumers",
+        "//infra/security/appliances:__pkg__",
+    ],
+)
+
 docs_filegroup(
     name = "docs",
     srcs = ["README.md"],

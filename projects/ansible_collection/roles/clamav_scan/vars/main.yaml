@@ -1,0 +1,34 @@
+# Projections of registered native results; no incremental completion state.
+clamav_scan_local: "{{ ansible_connection | default('ssh') in ['local', 'ansible.builtin.local'] }}"
+clamav_scan_artifacts: [clamav.log, console.log]
+clamav_scan_exit_code: >-
+  {{ clamav_scan_command.rc
+     if clamav_scan_command.finished | default(false) | bool
+        and not (clamav_scan_command.unreachable | default(false))
+        and clamav_scan_command.rc | default(none) is integer
+        and 0 <= clamav_scan_command.rc <= 255
+     else none }}
+clamav_scan_execution_finished: "{{ clamav_scan_exit_code in [0, 1, 2] }}"
+clamav_scan_summary: >-
+  {{ (clamav_scan_console_tail.stdout | default('')).rsplit('----------- SCAN SUMMARY -----------', 1)[-1]
+     if '----------- SCAN SUMMARY -----------' in (clamav_scan_console_tail.stdout | default('')) else '' }}
+clamav_scan_infected_counts: "{{ clamav_scan_summary | regex_findall('(?m)^Infected files: ([0-9]+)$') }}"
+clamav_scan_error_counts: "{{ clamav_scan_summary | regex_findall('(?m)^Total errors: ([0-9]+)$') }}"
+clamav_scan_summary_valid: >-
+  {{ clamav_scan_infected_counts | length == 1
+     and clamav_scan_error_counts | length <= 1
+     and clamav_scan_summary is search('(?m)^End Date: +[0-9: -]+$') }}
+clamav_scan_infected_files: "{{ clamav_scan_infected_counts | first | int if clamav_scan_infected_counts | length == 1 else none }}"
+clamav_scan_reported_errors: "{{ clamav_scan_error_counts | first | int if clamav_scan_error_counts | length == 1 else 0 }}"
+clamav_scan_evidence_retained: >-
+  {{ clamav_scan_retained_artifacts | sort == clamav_scan_artifacts | sort
+     and clamav_scan_collection_errors | length == 0 }}
+clamav_scan_forward_released: >-
+  {{ clamav_scan_local or clamav_scan_forward == {}
+     or clamav_scan_forward.skipped | default(false)
+     or clamav_scan_forward_cancel.rc | default(-1) == 0 }}
+clamav_scan_connection_restored: >-
+  {{ not clamav_scan_tunnel_configured or
+     (clamav_scan_master_exit.rc | default(-1) == 0
+      and clamav_scan_restore is succeeded) }}
+clamav_scan_complete: "{{ clamav_scan_validation is succeeded }}"

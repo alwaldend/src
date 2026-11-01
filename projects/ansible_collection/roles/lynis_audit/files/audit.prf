@@ -1,0 +1,16 @@
+# Loaded after the packaged default.prf, only from the private working directory.
+skip-plugins=yes
+skip-upgrade-test=yes
+refresh-repositories=no
+upload=no
+error-on-warnings=yes
+
+# These DNF/YUM queries can refresh caches despite refresh-repositories=no.
+# Package maintenance belongs to the caller's dedicated update workflow.
+skip-test=PKGS-7350
+skip-test=PKGS-7352
+skip-test=PKGS-7354
+skip-test=PKGS-7383
+skip-test=PKGS-7384
+skip-test=PKGS-7386
+skip-test=PKGS-7387

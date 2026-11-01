@@ -39,3 +39,4 @@
       vars:
         ssh_trusted_user_ca_keys_file: /etc/ssh/ca_clients.pem
         ssh_host_certificates: "{{ ssh_host_find_public_keys_result.files | ansible.builtin.map(attribute='path') | ansible.builtin.map('ansible.builtin.regex_replace', '^(.*)$', '\\1.signed') }}"
+        ssh_server_match_user: "{{ ssh_hardening_match_user }}"

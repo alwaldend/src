@@ -1,0 +1,9 @@
+# Reboot only when explicitly enabled and the backend reports it is required.
+update_all_packages_reboot_enabled: false
+
+# Allow configuration-only callers to use the normal role entrypoint.
+update_all_packages_upgrade_enabled: true
+
+# Enable native automatic security updates by default (staged updates on OSTree).
+# This never enables automatic reboots, even when immediate reboots are enabled.
+update_all_packages_automatic_enabled: true

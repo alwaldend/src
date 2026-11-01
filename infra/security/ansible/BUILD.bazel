@@ -1,0 +1,129 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files", "strip_prefix")
+load("//projects/al/rules/al:al_binary.bzl", "al_binary_run")
+load("//tools/ansible/rules:al_ansible_binary.bzl", "al_ansible_binary")
+load(":inventories.bzl", "INVENTORIES")
+
+package(transitive_visibility = "//infra:transitive_consumers")
+
+al_binary_run(
+    name = "ansible",
+    args = [
+        "$(rootpath :ansible_bin)",
+        "--inventory",
+        "inventories",
+        "playbook_security.yaml",
+    ],
+    configs = ["//infra/security:al"],
+    data = [
+        ":ansible_bin",
+        "//tools/vault/injector",
+    ],
+    run_args = [
+        "--plugin_label",
+        "maintenance=1",
+    ],
+)
+
+al_ansible_binary(
+    name = "ansible_bin",
+    data = [
+        ":srcs",
+        "//infra:ansible_cfg",
+        "//projects/ansible_collection:collections",
+    ],
+    process_name = "ansible_playbook",
+)
+
+al_binary_run(
+    name = "clamav",
+    args = [
+        "$(rootpath :clamav_bin)",
+        "--inventory",
+        "inventories",
+        "playbook_clamav.yaml",
+    ],
+    configs = ["//infra/security:al"],
+    data = [
+        ":clamav_bin",
+        "//tools/vault/injector",
+    ],
+    run_args = [
+        "--plugin_label",
+        "maintenance=1",
+    ],
+)
+
+al_ansible_binary(
+    name = "clamav_bin",
+    data = [
+        ":clamav_srcs",
+        "//infra:ansible_cfg",
+        "//projects/ansible_collection:collections",
+    ],
+    process_name = "ansible_playbook",
+)
+
+al_ansible_binary(
+    name = "clamav_syntax",
+    arguments = [
+        "--syntax-check",
+        "--inventory",
+        "inventories",
+        "playbook_clamav.yaml",
+    ],
+    data = [
+        ":clamav_srcs",
+        "//infra:ansible_cfg",
+        "//projects/ansible_collection:collections",
+    ],
+    process_name = "ansible_playbook",
+)
+
+pkg_files(
+    name = "clamav_playbook",
+    srcs = ["playbook_clamav.yaml"],
+    strip_prefix = strip_prefix.from_pkg(),
+)
+
+pkg_filegroup(
+    name = "clamav_srcs",
+    srcs = [
+        ":clamav_playbook",
+        ":inventories",
+        "//infra/security/clamav:runtime",
+    ],
+)
+
+pkg_files(
+    name = "inventories",
+    srcs = INVENTORIES.values(),
+    renames = {label: "inventories/" + owner + ".yaml" for owner, label in INVENTORIES.items()},
+)
+
+pkg_files(
+    name = "lynis_archive",
+    srcs = ["//third_party/com_github_cisofy_lynis:archive"],
+    renames = {"//third_party/com_github_cisofy_lynis:archive": "files/lynis.tar.gz"},
+)
+
+pkg_files(
+    name = "files",
+    srcs = ["playbook_security.yaml"],
+    strip_prefix = strip_prefix.from_pkg(),
+)
+
+pkg_filegroup(
+    name = "srcs",
+    srcs = [
+        ":files",
+        ":inventories",
+        ":lynis_archive",
+    ],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = [],
+    visibility = ["//infra/security:__pkg__"],
+)

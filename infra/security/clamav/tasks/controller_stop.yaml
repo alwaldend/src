@@ -1,0 +1,53 @@
+- name: Request cleanup of only the invocation-owned transient unit
+  ansible.builtin.command:
+    argv:
+      [timeout, "45", systemctl, --user, stop, "{{ clamav_controller.unit }}"]
+  register: clamav_unit_stop
+  changed_when: clamav_unit_stop.rc == 0
+  failed_when: false
+  when: clamav_controller_unit_attempted | default(false)
+
+- name: Inspect the stopped or collected unit
+  ansible.builtin.command:
+    argv:
+      [
+        systemctl,
+        --user,
+        show,
+        --property=LoadState,
+        --property=ActiveState,
+        --property=MainPID,
+        --property=Result,
+        "{{ clamav_controller.unit }}",
+      ]
+  register: clamav_unit_final
+  changed_when: false
+  failed_when: false
+  when: clamav_controller_unit_attempted | default(false)
+
+- name: Determine whether native cleanup was confirmed
+  ansible.builtin.set_fact:
+    clamav_controller_cleanup_complete: >-
+      {{ not (clamav_controller_unit_attempted | default(false)) or
+         ('LoadState=not-found' in (clamav_unit_final.stdout_lines | default([]))) or
+         ('MainPID=0' in (clamav_unit_final.stdout_lines | default([])) and
+          (('ActiveState=inactive' in clamav_unit_final.stdout_lines) or
+           ('ActiveState=failed' in clamav_unit_final.stdout_lines))) }}
+
+- name: Preserve the final lifecycle and cleanup observations
+  ansible.builtin.copy:
+    dest: "{{ clamav_controller.run_directory }}/lifecycle.json"
+    mode: "0600"
+    content: >-
+      {{ {'state': ('failed' if (clamav_controller_startup_failure is defined or not clamav_controller_cleanup_complete) else 'stopped'),
+          'controller': clamav_controller,
+          'startup_failure': clamav_controller_startup_failure | default(none),
+          'cleanup_complete': clamav_controller_cleanup_complete,
+          'stop': clamav_unit_stop | default({}),
+          'unit_final': clamav_unit_final | default({})} | to_nice_json }}
+  when: clamav_controller is defined
+
+- name: Require confirmed cleanup without signaling unrelated processes
+  ansible.builtin.assert:
+    that: clamav_controller_cleanup_complete
+    fail_msg: "Cleanup was not confirmed for {{ clamav_controller.unit }}; inspect its private lifecycle receipt."

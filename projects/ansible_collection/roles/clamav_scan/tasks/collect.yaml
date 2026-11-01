@@ -1,0 +1,91 @@
+- name: Capture the endpoint boot identity after execution
+  ansible.builtin.command:
+    argv: [cat, /proc/sys/kernel/random/boot_id]
+  changed_when: false
+  failed_when: false
+  ignore_errors: true
+  ignore_unreachable: true
+  register: clamav_scan_boot_after
+  when: clamav_scan_local or clamav_scan_master_start.rc | default(-1) == 0
+
+- name: Save private execution and recovery details before collection
+  ansible.builtin.template:
+    src: receipt.json.j2
+    dest: "{{ clamav_scan_result_directory }}/receipt.json"
+    mode: "0600"
+  delegate_to: localhost
+  become: false
+  register: clamav_scan_execution_receipt
+  ignore_errors: true
+
+- name: Retain each available artifact independently
+  ansible.builtin.include_tasks: collect_artifact.yaml
+  loop: "{{ clamav_scan_artifacts }}"
+  loop_control:
+    loop_var: clamav_scan_artifact
+  when: clamav_scan_remote_directory.path is defined
+
+- name: Read only the bounded tail of the retained native console
+  ansible.builtin.command:
+    argv: [tail, -n, "24", "{{ clamav_scan_result_directory }}/console.log"]
+  delegate_to: localhost
+  become: false
+  changed_when: false
+  failed_when: false
+  register: clamav_scan_console_tail
+  when: "'console.log' in clamav_scan_retained_artifacts"
+
+- name: Check the complete retained console for native error diagnostics
+  ansible.builtin.command:
+    argv:
+      - grep
+      - --text
+      - --count
+      - --extended-regexp
+      - "(^ERROR:| ERROR$)"
+      - "{{ clamav_scan_result_directory }}/console.log"
+  delegate_to: localhost
+  become: false
+  changed_when: false
+  failed_when: false
+  register: clamav_scan_diagnostic_check
+  when: "'console.log' in clamav_scan_retained_artifacts"
+
+- name: Save verified retention before deleting any endpoint evidence
+  ansible.builtin.template:
+    src: receipt.json.j2
+    dest: "{{ clamav_scan_result_directory }}/receipt.json"
+    mode: "0600"
+  delegate_to: localhost
+  become: false
+  register: clamav_scan_retention_receipt
+  ignore_errors: true
+
+- name: Remove only the retained and terminated root scan scratch
+  ansible.builtin.file:
+    path: "{{ clamav_scan_remote_directory.path }}"
+    state: absent
+  when:
+    - clamav_scan_remote_directory.path is defined
+    - clamav_scan_evidence_retained
+    - clamav_scan_exit_code is not none
+    - clamav_scan_retention_receipt is succeeded
+    - not (clamav_scan_retention_receipt.unreachable | default(false))
+  register: clamav_scan_remote_cleanup
+  ignore_errors: true
+  ignore_unreachable: true
+
+- name: Remove only the disconnected user transport directory
+  ansible.builtin.file:
+    path: "{{ clamav_scan_transport_directory.path }}"
+    state: absent
+  become: false
+  vars:
+    ansible_become: false
+  when:
+    - not clamav_scan_local
+    - clamav_scan_transport_directory.path is defined
+    - clamav_scan_forward_released
+  register: clamav_scan_transport_cleanup
+  ignore_errors: true
+  ignore_unreachable: true
