@@ -4,6 +4,8 @@ def _site_stylesheet_impl(ctx):
     arguments = ctx.actions.args()
     arguments.add_all(["--no-source-map", "--style=compressed"])
     inputs = [ctx.file.src] + ctx.files.deps
+    for directory in depset([file.dirname for file in ctx.files.deps if not file.is_source]).to_list():
+        arguments.add("--load-path=" + directory)
     for target, directory in ctx.attr.includes.items():
         root = "/".join([part for part in [target.label.workspace_root, target.label.package, directory] if part])
         arguments.add("--load-path=" + root)

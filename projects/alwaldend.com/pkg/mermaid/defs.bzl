@@ -1,13 +1,17 @@
-"""Native Mermaid diagrams using the site's shared color palette."""
+"""Site diagram outputs using the shared Alwaldend identity preset."""
 
 load("//projects/alwaldend.com/assets:defs.bzl", "site_stylesheet")
 load("//tools/mermaid:defs.bzl", "mermaid_svg", "mermaid_webp")
 
-_SITE_THEME = "//projects/alwaldend.com/pkg/mermaid:theme.json"
-_SITE_PALETTE = "//projects/alwaldend.com/assets:mermaid_palette"
-_SITE_FONT = "@com_alwaldend_src_tools_drawio_fonts//:LiberationMono-Regular.ttf"
+_SITE_THEME = "//data/alwaldend:mermaid_theme"
 
-# Keep the existing diagram API while sharing the Sass compiler action.
+# Preserve existing configuration and Sass inputs for spatial consumers.
+SITE_MERMAID_THEME = struct(
+    config = "//data/alwaldend/assets/mermaid:config",
+    palette = "//projects/alwaldend.com/assets:mermaid_palette",
+    font = "//data/alwaldend:diagram_font",
+)
+
 mermaid_palette = site_stylesheet
 
 def mermaid_site_svg(name, src, out, **kwargs):
@@ -19,8 +23,6 @@ def mermaid_site_svg(name, src, out, **kwargs):
         dark_out = out.removesuffix(".svg") + ".dark.svg",
         native = True,
         theme = _SITE_THEME,
-        palette = _SITE_PALETTE,
-        label_font = _SITE_FONT,
         **kwargs
     )
 
@@ -32,7 +34,5 @@ def mermaid_site_webp(name, src, out, **kwargs):
         out = out,
         native = True,
         theme = _SITE_THEME,
-        palette = _SITE_PALETTE,
-        label_font = _SITE_FONT,
         **kwargs
     )

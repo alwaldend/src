@@ -1,6 +1,7 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files", "strip_prefix")
-load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_palette")
+load("@rules_template//rules:template_run_binary.bzl", "template_run_binary")
+load(":defs.bzl", "site_stylesheet")
 
 package(transitive_visibility = "//projects:transitive_consumers")
 
@@ -9,9 +10,9 @@ exports_files(["scss/application.scss"])
 filegroup(
     name = "application_theme_sources",
     srcs = [
-        "scss/_shared_accent.scss",
         "scss/_shared_controls.scss",
         "scss/_shared_palette.scss",
+        ":shared_theme_variables",
     ],
     visibility = [
         "//projects:__subpackages__",
@@ -19,12 +20,20 @@ filegroup(
     ],
 )
 
-mermaid_palette(
+template_run_binary(
+    name = "shared_theme_variables",
+    srcs = ["scss/_shared_accent.scss.tmpl"],
+    outs = ["scss/_shared_accent.scss"],
+    data = ["//data/alwaldend:assets/theme.json"],
+)
+
+# Preserve the site palette API for spatial rendering consumers.
+site_stylesheet(
     name = "mermaid_palette",
     src = "scss/mermaid.scss",
     out = "mermaid-palette.css",
     visibility = ["//:__subpackages__"],
-    deps = ["scss/_shared_accent.scss"],
+    deps = [":shared_theme_variables"],
 )
 
 # The shared Docsy canvas and accent live in this site's own assets tree now
@@ -47,9 +56,16 @@ pkg_files(
             "README.md",
             "BUILD.bazel",
             "defs.bzl",
+            "**/*.tmpl",
         ],
-    ) + ["//data/alwaldend:monogram"],
-    renames = {"//data/alwaldend:monogram": "icons/favicon.svg"},
+    ) + [
+        ":shared_theme_variables",
+        "//data/alwaldend:monogram",
+    ],
+    renames = {
+        ":shared_theme_variables": "scss/_shared_accent.scss",
+        "//data/alwaldend:monogram": "icons/favicon.svg",
+    },
     strip_prefix = strip_prefix.from_pkg(),
 )
 
