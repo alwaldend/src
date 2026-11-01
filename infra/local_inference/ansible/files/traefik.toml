@@ -1,0 +1,35 @@
+[global]
+checkNewVersion = false
+sendAnonymousUsage = false
+
+[providers.file]
+filename = "{{ traefik_dynamic_config_path }}"
+watch = true
+
+[log]
+level = "INFO"
+
+[entryPoints.web]
+address = ":80"
+[entryPoints.web.http.redirections.entryPoint]
+to = "websecure"
+scheme = "https"
+
+[entryPoints.websecure]
+address = ":443"
+asDefault = true
+[entryPoints.websecure.http.tls]
+certResolver = "vault"
+options = "default"
+
+[certificatesResolvers.vault.acme]
+email = "src_infra_local_inference@alwaldend.com"
+storage = "{{ traefik_data_dir }}/acme_vault.json"
+caServer = "{{ traefik_acme_url }}"
+
+[certificatesResolvers.vault.acme.httpChallenge]
+entryPoint = "web"
+
+[certificatesResolvers.vault.acme.eab]
+kid = "{{ traefik_acme_kid }}"
+hmacEncoded = "{{ traefik_acme_hmac }}"

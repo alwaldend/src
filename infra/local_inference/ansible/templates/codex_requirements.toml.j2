@@ -1,0 +1,42 @@
+# Root-owned requirements remain effective above workspace and CLI config.
+model_provider = "local_llama"
+allowed_approval_policies = ["on-request", "never"]
+allowed_approvals_reviewers = ["auto_review", "user"]
+allowed_permission_profiles = { ":workspace" = true, ":read-only" = true, ":danger-full-access" = true }
+allowed_web_search_modes = ["disabled"]
+allow_browser_and_computer_use = false
+allow_remote_control = false
+check_for_update_on_startup = false
+remote_sandbox_config = []
+
+[model_providers.local_llama]
+name = "Local llama.cpp"
+base_url = "http://127.0.0.1:8080/v1"
+wire_api = "responses"
+requires_openai_auth = false
+
+# T3 injects session authentication; approve only its local server identity.
+[mcp_servers.t3-code]
+identity = { url = "http://127.0.0.1:{{ t3code_port }}/mcp" }
+
+[features]
+apps = false
+enable_mcp_apps = false
+plugins = false
+remote_plugin = false
+remote_models = false
+remote_control = false
+image_generation = false
+browser_use = false
+browser_use_external = false
+computer_use = false
+standalone_web_search = false
+remote_compaction_v2 = false
+
+[feedback]
+enabled = false
+
+[otel]
+exporter = "none"
+trace_exporter = "none"
+metrics_exporter = "none"

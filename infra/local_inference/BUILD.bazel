@@ -1,3 +1,4 @@
+load("@rules_al//:defs.bzl", "al_config")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 
 package(transitive_visibility = "//infra:transitive_consumers")
@@ -6,6 +7,13 @@ filegroup(
     name = "dnsconfig",
     srcs = ["dnsconfig.json"],
     visibility = ["//infra:__subpackages__"],
+)
+
+al_config(
+    name = "al",
+    srcs = ["al.lua"],
+    visibility = ["//infra/local_inference:__subpackages__"],
+    deps = ["//infra:al"],
 )
 
 docs_filegroup(

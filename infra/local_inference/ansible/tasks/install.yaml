@@ -1,0 +1,36 @@
+- name: Install existing operating-system utilities
+  ansible.builtin.apt:
+    name:
+      - ca-certificates
+      - tar
+      - git
+    state: present
+    update_cache: true
+
+- name: Create root-owned Codex runtime and policy directories
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+  loop:
+    - /etc/codex
+    - /usr/local/libexec
+    - /opt/codex/runtime
+
+- name: Extract the pinned Codex executable
+  ansible.builtin.unarchive:
+    src: "{{ playbook_dir }}/files/codex.tar.gz"
+    dest: "/opt/codex/runtime"
+    remote_src: false
+    owner: root
+    group: root
+
+- name: Publish the root-owned Codex command
+  ansible.builtin.file:
+    src: "/opt/codex/runtime/codex-x86_64-unknown-linux-musl"
+    dest: /usr/local/bin/codex
+    state: link
+    owner: root
+    group: root
