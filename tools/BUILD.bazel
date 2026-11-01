@@ -26,6 +26,12 @@ package_group(
         # Repository documentation and developer commands.
         "//projects/alwaldend.com/...",
         "//projects/x_article_uploader",
+        # Spatial rendering/docs use execution tools; the browser runner is a test.
+        "//projects/mermaid_3d/cmd/render",
+        "//projects/mermaid_3d/cmd/snapshot",
+        "//projects/mermaid_3d/docs",
+        "//projects/mermaid_3d/test/browser",
+        "//projects/mermaid_3d/test/snapshot",
         # Tests and source generation share some packages with product targets.
         "//projects/activitywatch_ingester_android/gradle",
         "//projects/al/cmd/al",

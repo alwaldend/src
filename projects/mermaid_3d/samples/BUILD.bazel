@@ -1,0 +1,56 @@
+load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "SITE_MERMAID_THEME")
+load("//projects/mermaid_3d:defs.bzl", "mermaid_3d", "mermaid_3d_snapshot")
+
+package(transitive_visibility = "//projects:transitive_consumers")
+
+_SAMPLES = [
+    "class",
+    "entity-relationship",
+    "flowchart",
+    "mindmap",
+    "sequence",
+    "state",
+]
+
+[
+    mermaid_3d(
+        name = sample,
+        src = "//projects/alwaldend.com/docs/mermaid-theme:" + sample + ".mmd",
+        out = sample + ".3d.html",
+        font = SITE_MERMAID_THEME.font,
+        model = sample + ".3d.json",
+        palette = SITE_MERMAID_THEME.palette,
+        theme = SITE_MERMAID_THEME.config,
+        visibility = ["//projects/mermaid_3d:__subpackages__"],
+    )
+    for sample in _SAMPLES
+]
+
+filegroup(
+    name = "html",
+    srcs = [":" + sample for sample in _SAMPLES],
+    visibility = ["//projects/alwaldend.com/docs/mermaid-theme:__pkg__"],
+)
+
+[
+    mermaid_3d_snapshot(
+        name = sample + "_" + mode + "_snapshot",
+        src = ":" + sample,
+        out = sample + ".3d" + (".dark" if mode == "dark" else "") + ".png",
+        color_scheme = mode,
+    )
+    for sample in _SAMPLES
+    for mode in [
+        "light",
+        "dark",
+    ]
+]
+
+filegroup(
+    name = "snapshots",
+    srcs = [":" + sample + "_" + mode + "_snapshot" for sample in _SAMPLES for mode in [
+        "light",
+        "dark",
+    ]],
+    visibility = ["//projects/alwaldend.com/docs/mermaid-theme:__pkg__"],
+)

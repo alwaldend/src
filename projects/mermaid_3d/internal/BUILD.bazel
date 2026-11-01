@@ -1,0 +1,19 @@
+load("@aspect_rules_js//js:defs.bzl", "js_library")
+
+package(transitive_visibility = "//projects:transitive_consumers")
+
+exports_files(
+    ["snapshot.bzl"],
+    visibility = ["//projects/mermaid_3d:internal_consumers"],
+)
+
+js_library(
+    name = "model",
+    srcs = [
+        "model.mjs",
+        "routing.mjs",
+        "sequence.mjs",
+        "text.mjs",
+    ],
+    visibility = ["//projects/mermaid_3d:internal_consumers"],
+)

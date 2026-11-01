@@ -1,0 +1,7 @@
+flowchart LR
+    subgraph S["Vertical #quot;group#quot;"]
+        direction TB
+        A{"This is line one<br/>This is line two<br/>This is line three"} -->|"#quot;Proceed#quot;"| B["#9829; #amp; &quot;quoted&quot; &nbsp;"]
+        B ~~~ C[Layout target]
+    end
+    S --> D[Finished]

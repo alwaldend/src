@@ -1,0 +1,6 @@
+schema: spec-driven
+
+context: |
+  This workspace owns projects/mermaid_3d, including diagram adapters, spatial
+  layout, rendering, and browser verification. Consumers own source definitions
+  and appearance inputs. The shared dependency graph belongs to tools/.

@@ -1,0 +1,71 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "SITE_MERMAID_THEME", "mermaid_site_svg")
+load("//projects/mermaid_3d:defs.bzl", "mermaid_3d", "mermaid_3d_snapshot")
+
+package(transitive_visibility = "//projects:transitive_consumers")
+
+mermaid_site_svg(
+    name = "architecture",
+    src = "architecture.mmd",
+    out = "rendered/architecture.svg",
+)
+
+mermaid_3d_snapshot(
+    name = "architecture_preview",
+    src = ":architecture_3d",
+    out = "rendered/architecture.webp",
+    color_scheme = "dark",
+    tags = ["manual"],
+)
+
+mermaid_3d(
+    name = "architecture_3d",
+    src = "architecture.mmd",
+    out = "architecture.3d.html",
+    font = SITE_MERMAID_THEME.font,
+    model = "architecture.3d.json",
+    palette = SITE_MERMAID_THEME.palette,
+    theme = SITE_MERMAID_THEME.config,
+)
+
+[
+    mermaid_3d_snapshot(
+        name = "architecture_" + mode + "_snapshot",
+        src = ":architecture_3d",
+        out = "rendered/architecture.3d" + (".dark" if mode == "dark" else "") + ".png",
+        color_scheme = mode,
+        height = 1600,
+        width = 900,
+    )
+    for mode in [
+        "light",
+        "dark",
+    ]
+]
+
+docs_filegroup(
+    name = "assets",
+    srcs = [
+        ":architecture",
+        ":architecture_dark_snapshot",
+        ":architecture_light_snapshot",
+    ],
+    prefix = "content/docs/projects/mermaid_3d/docs/assets",
+)
+
+docs_filegroup(
+    name = "spatial_assets",
+    srcs = [":architecture_3d"],
+    prefix = "static/docs/projects/mermaid_3d/docs/assets",
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["architecture.mmd"],
+    prefix = "content/docs/projects/mermaid_3d/docs",
+    visibility = ["//projects/mermaid_3d:__pkg__"],
+    deps = [
+        ":assets",
+        ":spatial_assets",
+    ],
+)
