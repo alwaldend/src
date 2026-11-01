@@ -14,5 +14,5 @@ where resources were already managed.
 The catalog test runs without network access or provider initialization:
 
 ```sh
-bazel_agent bazel test //infra/repos/tf:tf_tests.catalog_test
+al bazel test //infra/repos/tf:tf_tests.catalog_test
 ```

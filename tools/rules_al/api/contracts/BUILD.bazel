@@ -1,0 +1,25 @@
+load("@protobuf//bazel:proto_library.bzl", "proto_library")
+load("@rules_go//go:def.bzl", "go_library")
+load("@rules_go//proto:def.bzl", "go_proto_library")
+
+proto_library(
+    name = "contracts_proto",
+    srcs = ["contracts.proto"],
+    visibility = ["//visibility:public"],
+    deps = ["//api/git:git_proto"],
+)
+
+go_proto_library(
+    name = "contracts_go_proto",
+    importpath = "git.alwaldend.com/alwaldend/src/tools/rules_al/api/contracts",
+    proto = ":contracts_proto",
+    deps = ["//api/git"],
+)
+
+go_library(
+    name = "contracts",
+    srcs = ["doc.go"],
+    embed = [":contracts_go_proto"],
+    importpath = "git.alwaldend.com/alwaldend/src/tools/rules_al/api/contracts",
+    visibility = ["//visibility:public"],
+)

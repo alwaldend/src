@@ -11,7 +11,7 @@ bazel run //tools/bazel_module:update
 
 Dependency declarations and pins stay in their owning include files. The small
 root `module(...)` header lives in the Go generator. Discovery uses the existing
-`//tools/git` host Git wrapper to include tracked and untracked files while
+`@rules_al//:git` host Git wrapper to include tracked and untracked files while
 respecting Git ignore rules. Deleted files, symlinks, `.bazelignore`
 directories, and standalone workspaces beneath
 `MODULE.bazel`, `WORKSPACE`, or `WORKSPACE.bazel` boundaries are excluded.

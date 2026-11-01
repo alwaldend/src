@@ -17,8 +17,8 @@ are runtime environment inputs and are not stored in inventory.
 Run the read-only inspection target before deploying a different appliance:
 
 ```sh
-bazel_agent bazel run //infra/xcp_ng/ansible:ansible.inspect
-bazel_agent bazel run //infra/xcp_ng/ansible:ansible
+al bazel run //infra/xcp_ng/ansible:ansible.inspect
+al bazel run //infra/xcp_ng/ansible:ansible
 ```
 
 The checked-in settings match the inspected appliance: `xo-server` runs as

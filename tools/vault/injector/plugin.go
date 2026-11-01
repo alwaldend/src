@@ -6,11 +6,11 @@ import (
 	"fmt"
 	"time"
 
-	"git.alwaldend.com/alwaldend/src/projects/al/pkg/al"
-	"git.alwaldend.com/alwaldend/src/projects/al/pkg/lifecycle"
+	"git.alwaldend.com/alwaldend/src/tools/rules_al/pkg/al"
+	"git.alwaldend.com/alwaldend/src/tools/rules_al/pkg/lifecycle"
 	"git.alwaldend.com/alwaldend/src/tools/vault/injector/injector_proto"
 
-	"git.alwaldend.com/alwaldend/src/projects/al/api/al_proto"
+	"git.alwaldend.com/alwaldend/src/tools/rules_al/api/al_proto"
 )
 
 type Plugin struct {

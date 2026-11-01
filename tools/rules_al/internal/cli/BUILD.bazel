@@ -1,0 +1,23 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "cli",
+    srcs = [
+        "config.go",
+        "doc.go",
+        "root.go",
+        "run.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/tools/rules_al/internal/cli",
+    visibility = ["//:__subpackages__"],
+    deps = [
+        "//internal/bazelcmd",
+        "//internal/delivery:go_lib",
+        "//internal/release:go_lib",
+        "//internal/versioncmd",
+        "//pkg/al",
+        "//pkg/al_plugin",
+        "//pkg/lifecycle",
+        "@com_github_spf13_cobra//:cobra",
+    ],
+)

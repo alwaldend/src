@@ -7,13 +7,13 @@ The exact prepared candidate and publication result are recorded by
 
 ## Completed evidence
 
-- `bazel_agent bazel build
+- `al bazel build
 //projects/alwaldend.com/docs/mermaid-theme:samples`: passed; six native SVG
   pairs rendered, with no local diagram styling.
-- `bazel_agent bazel build //projects/alwaldend.com:site`: passed. The built
+- `al bazel build //projects/alwaldend.com:site`: passed. The built
   gallery contains twelve adaptive image elements with alternative text and
   six source links; every referenced asset exists in the site output.
-- `bazel_agent bazel test
+- `al bazel test
 //projects/alwaldend.com/test/mermaid:mermaid_test`: passed. Its existing
   E2E suite covers theme selection, mobile, print, and historical blog images;
   its Bazel undeclared outputs retain screenshots and a JSON report. It does

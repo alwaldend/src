@@ -7,7 +7,7 @@ import (
 	"os"
 	"sync"
 
-	"git.alwaldend.com/alwaldend/src/projects/al/pkg/al"
+	"git.alwaldend.com/alwaldend/src/tools/rules_al/pkg/al"
 )
 
 // Cleaner owns paths until Stop returns. Registration and deletion are serialized.

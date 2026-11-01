@@ -1,0 +1,32 @@
+load("@rules_go//go:def.bzl", "go_binary", "go_test")
+
+go_binary(
+    name = "al",
+    srcs = [
+        "doc.go",
+        "main.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/tools/rules_al/cmd/al",
+    pure = "on",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//internal/cli",
+        "//pkg/al",
+    ],
+)
+
+go_test(
+    name = "lifecycle_e2e_test",
+    srcs = ["lifecycle_e2e_test.go"],
+    data = [":al"],
+    env = {"AL_BINARY": "$(rlocationpath :al)"},
+    deps = [
+        "@org_golang_x_sys//unix",
+        "@rules_go//go/runfiles",
+    ],
+)
+
+exports_files(
+    ["al.sh"],
+    visibility = ["//visibility:public"],
+)

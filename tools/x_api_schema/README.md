@@ -7,7 +7,7 @@ This first-party developer tool implements the X API schema download command.
 Its maintained entry point belongs to the dependency package:
 
 ```sh
-bazel_agent bazel run //third_party/com_x_api_openapi:fetch_schema
+al bazel run //third_party/com_x_api_openapi:fetch_schema
 ```
 
 That target injects the Article uploader's existing OAuth 1.0a credentials.

@@ -13,6 +13,7 @@ go_deps_mod.module_override(
 )
 use_repo(
     go_deps_mod,
+    "com_alwaldend_git_alwaldend_src_tools_rules_al",
     "com_github_burntsushi_toml",
     "com_github_casbin_casbin_v2",
     "com_github_casbin_gorm_adapter_v3",

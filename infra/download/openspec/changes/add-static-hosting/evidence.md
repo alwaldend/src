@@ -262,7 +262,7 @@ Read-only `systemctl show`, `findmnt`, `df`, `btrfs filesystem usage`,
   the invocation's task-private temporary directory after successful exit.
 
 The repeatable remote command input is `out/download-ssh/inspect-local.sh`,
-executed with `bazel_agent bazel run //infra/download:ssh.local -- bash -s`.
+executed with `al bazel run //infra/download:ssh.local -- bash -s`.
 Its SHA-256 is
 `135e385c41ecf751409ae027f1085c0d1f7fc9edfe8f3adf44de22944e73edba`.
 The sanitized `out/download-ssh/local-observation.log` has SHA-256
@@ -558,7 +558,7 @@ Yandex host as awaiting configuration.
 The generated launcher was inspected for local-to-Yandex direction, required
 mountpoints, temporary client certificate and host trust references, and the
 existing administrator/content-account boundary. The release owner's
-[isolated acceptance](../../../../../tools/release/openspec/changes/sync-published-content/evidence.md)
+[isolated acceptance](../../../../../tools/rules_al/openspec/changes/sync-published-content/evidence.md)
 records source-authoritative replacement and deletion tests. This task adds
 the command without running it against either deployment. The empty public
 store and public apex routing have not been changed by this implementation.
@@ -737,6 +737,6 @@ that mounted extracted releases are refused before selection or deletion.
 The operations diagram now describes complete project upload promotion and
 rollback by extracting a retained archive; the DNS runbook describes the
 completed public CNAME cutover. Rendered labels were inspected. The release
-owner's [review evidence](../../../../../tools/release/openspec/changes/sync-published-content/evidence.md#rebase-and-cleanup-review-2026-11-01)
+owner's [review evidence](../../../../../tools/rules_al/openspec/changes/sync-published-content/evidence.md#rebase-and-cleanup-review-2026-11-01)
 records the focused acceptance. Delivery receipts bind final checks to the
 rebased candidate; no new deployment, content publication or DNS write occurred.

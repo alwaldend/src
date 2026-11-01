@@ -25,7 +25,7 @@ clean_workspace() {
     fi
 
     # The startup lock flag skips active builds instead of waiting for them.
-    # bazel_agent cannot forward startup flags, so invoke Bazel directly.
+    # AL cannot forward startup flags, so invoke Bazel directly.
     (
         cd "$workspace" || exit $?
         "$bazel_bin" --noblock_for_lock clean --config=agent --expunge_async

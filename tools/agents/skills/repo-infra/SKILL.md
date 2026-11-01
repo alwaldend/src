@@ -24,10 +24,10 @@ for that exact operation and scope.
    `tf` (service or API configuration), `ansible/` (host deployment), or
    `dnsconfig.json` (records). Reusable behavior belongs in
    `projects/tf_modules` or `projects/ansible_collection/roles`.
-3. Inspect the real generated targets with `bazel_agent bazel query`; label
-   maps vary by package and are the source of truth. Follow `bazel-agent` and
+3. Inspect the real generated targets with `al bazel query`; label
+   maps vary by package and are the source of truth. Follow `al-bazel` and
    `repo-bazel` for every invocation.
-4. Load `repo-secrets` for secret-valued work and `repo-openspec` when the change
+4. Load `repo-secrets` for secret-valued work and `al-openspec` when the change
    needs durable requirements or continuation state.
 
 ## Keep the shared flow intact
@@ -91,13 +91,13 @@ audit procedure and the evidence a finding must carry.
 
 ## Validate without mutating
 
-| Change         | Non-mutating check                                                                                 |
-| -------------- | -------------------------------------------------------------------------------------------------- |
-| Terraform      | `bazel_agent bazel test //path/tf:tf_tests.fmt_test`; an authorized live review can use `:tf.plan` |
-| Ansible        | `bazel_agent bazel build //path/ansible:ansible_bin`                                               |
-| DNS            | `bazel_agent bazel run //infra/dns:lint`; `bazel_agent bazel test //infra/dns:config_test`         |
-| BUILD/Starlark | `bazel_agent bazel test //:buildifier_test`                                                        |
-| Any            | `git diff --check`                                                                                 |
+| Change         | Non-mutating check                                                                        |
+| -------------- | ----------------------------------------------------------------------------------------- |
+| Terraform      | `al bazel test //path/tf:tf_tests.fmt_test`; an authorized live review can use `:tf.plan` |
+| Ansible        | `al bazel build //path/ansible:ansible_bin`                                               |
+| DNS            | `al bazel run //infra/dns:lint`; `al bazel test //infra/dns:config_test`                  |
+| BUILD/Starlark | `al bazel test //:buildifier_test`                                                        |
+| Any            | `git diff --check`                                                                        |
 
 Start verification with `git diff --check`, then the narrowest package targets.
 A Terraform plan contacts the configured backend and providers; it is a live

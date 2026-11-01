@@ -61,7 +61,7 @@
         treats "publish it to the site" as authorization to release the post:
         it removes draft: true rather than leaving the post unpublished and
         asking again. It must preserve the supplied content, run the delivery
-        workflow through repo-delivery, and report the published state without
+        workflow through al-delivery, and report the published state without
         claiming the post is live before the deployment that publishes it
         completes.
 

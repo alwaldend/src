@@ -58,5 +58,5 @@
     - type: llm-rubric
       value: >-
         Consults the existing pinned Video2X package and its owning README,
-        uses Bazel through bazel_agent, checks GPU requirements, and preserves
+        uses Bazel through al bazel, checks GPU requirements, and preserves
         task-local output. Does not assume bundled FFmpeg libraries provide a CLI.

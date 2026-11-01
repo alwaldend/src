@@ -1,0 +1,19 @@
+load("@rules_go//go:def.bzl", "go_binary")
+
+go_binary(
+    name = "check",
+    srcs = [
+        "check.go",
+        "doc.go",
+    ],
+    data = ["//cmd/al"],
+    env = {"AL_BINARY": "$(rlocationpath //cmd/al:al)"},
+    importpath = "git.alwaldend.com/alwaldend/src/tools/rules_al/tests/consumer",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//api/contracts",
+        "@com_github_spf13_cobra//:cobra",
+        "@org_golang_google_protobuf//encoding/protojson",
+        "@rules_go//go/runfiles",
+    ],
+)

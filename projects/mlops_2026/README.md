@@ -26,7 +26,7 @@ sibling packages under `internal/` and separate `cmd/` entry points.
 ## Run recommender
 
 ```sh
-bazel_agent bazel run //projects/mlops_2026/cmd/recommender -- --host 127.0.0.1 --port 8000
+al bazel run //projects/mlops_2026/cmd/recommender -- --host 127.0.0.1 --port 8000
 ```
 
 The defaults are `127.0.0.1:8000`. GET `/health` returns `{"status": "ok"}`.
@@ -47,7 +47,7 @@ owned by `third_party/com_github_yandex_practicum_mlops_freetrack/`.
 ## Build the course model
 
 ```sh
-bazel_agent bazel build //projects/mlops_2026:model
+al bazel build //projects/mlops_2026:model
 ```
 
 The sandboxed target runs the upstream `train_and_save_model.py` unchanged,
@@ -67,8 +67,8 @@ requires this artifact and can trigger training when it is not cached. Shared Py
 ## Verify
 
 ```sh
-bazel_agent bazel test //projects/mlops_2026/test/e2e:recommender_test
-bazel_agent bazel test //projects/mlops_2026/test/e2e:model_test
+al bazel test //projects/mlops_2026/test/e2e:recommender_test
+al bazel test //projects/mlops_2026/test/e2e:model_test
 ```
 
 These checks exercise real HTTP, factory isolation, startup conflict handling,

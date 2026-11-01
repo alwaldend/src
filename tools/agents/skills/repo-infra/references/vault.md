@@ -16,10 +16,10 @@ Use the full API path, including `<mount>/data/`, for capability checks.
 
 ## Separate AppRole bootstrap from KV permission
 
-The AppRole flow in `projects/al/pkg/al/vault.go` has two credentials: the host
+The AppRole flow in `tools/rules_al/pkg/al/vault.go` has two credentials: the host
 token creates a single-use SecretID, then AL exchanges it for an AppRole token
 and injects that token into the command. The lifecycle and cleanup guarantees
-are owned by `projects/al/docs/README.md`.
+are owned by `tools/rules_al/docs/al/lifecycle.md`.
 
 `projects/tf_modules/vault_approle/main.tf` owns the policy split: the bootstrap
 identity can request a role's SecretID, while the role token receives the
@@ -50,7 +50,7 @@ that Terraform apply; retain the exact operation and scope boundary from
 on the exact destination through the component passthrough, for example:
 
 ```sh
-bazel_agent bazel run //infra/<component>:vault -- token capabilities secrets/data/<logical-path>
+al bazel run //infra/<component>:vault -- token capabilities secrets/data/<logical-path>
 ```
 
 These checks report capabilities without reading a secret. Use the target
@@ -74,7 +74,7 @@ source-owned names and run this Bash example:
   printf '\n' >&2
   [ -n "$component_token" ] || exit 1
   printf '%s' "$component_token" |
-    bazel_agent bazel run '//infra/<component>:vault.kv_put' -- \
+    al bazel run '//infra/<component>:vault.kv_put' -- \
       '<logical-path>' '<field>=-'
 )
 ```
@@ -99,7 +99,7 @@ include the token in `data.id`. JSON output alone does not redact it. For a
 single TTL observation, the passthrough can select the field before output:
 
 ```sh
-bazel_agent bazel run //:vault -- read -field=ttl auth/token/lookup-self
+al bazel run //:vault -- read -field=ttl auth/token/lookup-self
 ```
 
 When several fields are needed, capture `token_lookup -- -format=json` in
@@ -121,7 +121,7 @@ passthrough without replacing the host token file. This command requests the
 same self-renewal endpoint as `token renew` and prints only the resulting TTL:
 
 ```sh
-bazel_agent bazel run //:vault -- write -force -field=token_duration auth/token/renew-self
+al bazel run //:vault -- write -force -field=token_duration auth/token/renew-self
 ```
 
 Renewal does not fix missing roles or insufficient policies. An expired token
@@ -129,7 +129,7 @@ needs a fresh login; use the certificate login target when that is the intended
 authentication method:
 
 ```sh
-bazel_agent bazel run //tools/vault/login -- <username>
+al bazel run //tools/vault/login -- <username>
 ```
 
 That target uses `default_no_auth`, obtains the client certificate through

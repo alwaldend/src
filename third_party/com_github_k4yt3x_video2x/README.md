@@ -17,9 +17,9 @@ Run from the repository root with task-local extraction and cache directories:
 mkdir -p out/video2x/tmp out/video2x/cache
 export TMPDIR="$PWD/out/video2x/tmp"
 export XDG_CACHE_HOME="$PWD/out/video2x/cache"
-bazel_agent bazel run //third_party/com_github_k4yt3x_video2x:video2x -- \
+al bazel run //third_party/com_github_k4yt3x_video2x:video2x -- \
   --appimage-extract-and-run --version
-bazel_agent bazel run //third_party/com_github_k4yt3x_video2x:video2x -- \
+al bazel run //third_party/com_github_k4yt3x_video2x:video2x -- \
   --appimage-extract-and-run --list-devices
 ```
 
@@ -28,7 +28,7 @@ device index reported by `--list-devices`. For example, this interpolates a
 caller-provided video fivefold using RIFE 4.25 and writes a lossless FFV1 video:
 
 ```sh
-bazel_agent bazel run //third_party/com_github_k4yt3x_video2x:video2x -- \
+al bazel run //third_party/com_github_k4yt3x_video2x:video2x -- \
   --appimage-extract-and-run \
   -i "$PWD/out/video2x/input.nut" -o "$PWD/out/video2x/interpolated.nut" \
   -p rife --rife-model rife-v4.25 -m 5 -t 100 -d 0 -a none \

@@ -11,15 +11,15 @@ The Lynis BUILD and module fragment are byte-identical to the source commit.
 The README only drops the link to the consumer role excluded from this pull
 request. The new owner record describes extraction without a behavior change.
 
-`bazel_agent bazel run //tools/bazel_module:update` preserves exactly the two
+`al bazel run //tools/bazel_module:update` preserves exactly the two
 scanner includes from the source commit. Running
-`bazel_agent bazel mod deps --lockfile_mode=update` produces no lockfile change.
+`al bazel mod deps --lockfile_mode=update` produces no lockfile change.
 The companion ClamAV dependency retains its own OpenSpec record. No consumer
 role, scan configuration, host change, or live operation is included here.
 
 ## Artifact verification
 
-`bazel_agent bazel build //third_party/com_github_cisofy_lynis:all` succeeds.
+`al bazel build //third_party/com_github_cisofy_lynis:all` succeeds.
 The archive resolved through `cquery --output=files` is 355590 bytes and has
 SHA-256 `b5314a07fd85fa3ffc7da57b508f0108ec3280d84e4af823f805d95cbbc2428c`,
 which matches the unchanged SRI pin. Extraction retains `lynis/lynis`,
@@ -35,7 +35,7 @@ directory also fails include discovery; `lynis-version.txt` records that
 diagnosis. No audit was requested or performed.
 
 Strict validation of `extract-lynis-dependency` passes through
-`OPENSPEC_PROJECT=third_party/com_github_cisofy_lynis bazel_agent bazel run
+`OPENSPEC_PROJECT=third_party/com_github_cisofy_lynis al bazel run
 //tools/openspec -- validate extract-lynis-dependency --strict`.
 Delivery receipts retain the exact committed candidate and mandatory gate
 results separately from these source and artifact observations.

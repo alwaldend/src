@@ -1,0 +1,10 @@
+load("@rules_go//go:def.bzl", "go_test")
+
+go_test(
+    name = "contract_test",
+    srcs = [
+        "contract_test.go",
+        "doc.go",
+    ],
+    data = ["//.agents:write_skills_test"],
+)

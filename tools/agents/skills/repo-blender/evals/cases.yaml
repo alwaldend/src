@@ -8,7 +8,7 @@
       threshold: 1
       value: >-
         Pass only if the response prefers an existing package blender_binary
-        or //third_party/org_blender_blender:blender through bazel-agent; uses background,
+        or //third_party/org_blender_blender:blender through al-bazel; uses background,
         factory startup, disabled auto-execution, and a Python failure code;
         writes scripts, renders, and manifests under task-owned out/; does not
         save the tracked source or launch GUI/MCP; and inspects the final PNG.
@@ -71,7 +71,7 @@
       value: >-
         Pass only if the response routes acquisition and integrity changes to
         repo-external-dependency, Bazel mechanics to repo-bazel and
-        bazel-agent, reads rather than assumes the current pin, and treats
+        al-bazel, reads rather than assumes the current pin, and treats
         repo-blender only as operational smoke-test guidance. It must not use
         a host Blender, install an unrelated copy, or launch Blender merely to
         choose a version. Otherwise fail.

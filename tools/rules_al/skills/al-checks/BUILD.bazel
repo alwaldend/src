@@ -1,0 +1,59 @@
+# gazelle:exclude scripts
+
+load("@rules_go//go:def.bzl", "go_binary", "go_library", "go_test")
+load(
+    "@rules_promptfoo//promptfoo:defs.bzl",
+    "promptfoo_validate_test",
+)
+load("@rules_skills//skill:defs.bzl", "skill_library")
+
+go_library(
+    name = "run_full_repo_check_lib",
+    srcs = [
+        "scripts/doc.go",
+        "scripts/run_full_repo_check.go",
+    ],
+    importpath = (
+        "git.alwaldend.com/alwaldend/src/tools/rules_al/skills/" +
+        "al-checks/scripts"
+    ),
+    visibility = ["//visibility:private"],
+    deps = ["//pkg/workspaces"],
+)
+
+# keep
+go_binary(
+    name = "run_full_repo_check",
+    embed = [":run_full_repo_check_lib"],
+    visibility = ["//visibility:public"],
+)
+
+go_test(
+    name = "run_full_repo_check_test",
+    size = "small",
+    srcs = ["scripts/run_full_repo_check_test.go"],
+    embed = [":run_full_repo_check_lib"],
+)
+
+skill_library(
+    name = "skill",
+    srcs = glob(
+        ["**"],
+        exclude = [
+            "BUILD",
+            "BUILD.bazel",
+            "evals/**",
+        ],
+    ),
+    visibility = ["//visibility:public"],
+)
+
+promptfoo_validate_test(
+    name = "eval_config_test",
+    config = "evals/promptfooconfig.yaml",
+    data = [
+        "evals/README.md",
+        "evals/cases.yaml",
+    ],
+    skills = [":skill"],
+)

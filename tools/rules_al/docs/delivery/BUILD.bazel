@@ -1,0 +1,8 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    prefix = "content/docs/tools/rules_al/docs/delivery",
+    visibility = ["//visibility:public"],
+)

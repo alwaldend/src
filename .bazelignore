@@ -20,3 +20,4 @@ node_modules
 out
 tools/node_modules
 .agents/skills
+tools/rules_al

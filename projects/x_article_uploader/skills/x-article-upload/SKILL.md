@@ -24,7 +24,7 @@ Do the conversion before the draft, and never export `X_*` values by hand.
    type:
 
    ```sh
-   bazel_agent bazel run //projects/x_article_uploader/cmd/convert -- \
+   al bazel run //projects/x_article_uploader/cmd/convert -- \
      --source projects/alwaldend.com/content/blog/<slug>/index.md \
      --out out/x-article-uploader/<slug>.json \
      --post-package projects/alwaldend.com/content/blog/<slug>
@@ -40,7 +40,7 @@ Do the conversion before the draft, and never export `X_*` values by hand.
    that needs credentials and the only one that touches the network:
 
    ```sh
-   bazel_agent bazel run //projects/x_article_uploader:draft -- \
+   al bazel run //projects/x_article_uploader:draft -- \
      --artifact out/x-article-uploader/<slug>.json
    ```
 

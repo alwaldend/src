@@ -14,7 +14,7 @@ Sources: [repository map](../../../../../README.md), [agent policy](../../../../
 [root build](../../../../../BUILD.bazel), [project boundary](../../../../../projects/README.md),
 [infrastructure boundary](../../../../README.md),
 [tool boundary](../../../../../tools/README.md), [OpenSpec workflow](../../README.md),
-[workspace procedure](../../../../../tools/agents/skills/repo-workspace/SKILL.md),
+[workspace procedure](../../../../../tools/agents/skills/al-workspace/SKILL.md),
 and [goal migration record](../../migration.md).
 
 ## Requirements
@@ -36,7 +36,7 @@ describe component requirements with links to these owners.
 
 ### Requirement: Reproducible Bazel development
 
-Repository agent build and test operations MUST use `bazel_agent bazel` in the
+Repository agent build and test operations MUST use `al bazel` in the
 owning workspace with pinned dependencies and the repository's shared agent
 configuration. Generated dependency and catalog files MUST be updated through
 their owning generator.
@@ -69,9 +69,9 @@ workspace boundary. Each nested workspace MUST build and test standalone.
 ### Requirement: Isolated implementation and evidence
 
 Repository modifications MUST use a dedicated feature branch and linked
-worktree. The repository SHALL own that procedure in a `repo-workspace` skill
+worktree. The repository SHALL own that procedure in a `al-workspace` skill
 that runs before the first mutation or task-scratch write, so isolation and
-scratch placement are established before `repo-delivery` is loaded. Task
+scratch placement are established before `al-delivery` is loaded. Task
 scratch MUST remain under ignored `out/<task>/` in the applicable workspace,
 and configurable temporary and cache locations SHALL point there. Delivery
 SHALL exclude disposable build outputs and include required

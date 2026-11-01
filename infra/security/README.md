@@ -25,7 +25,7 @@ Create a private controller report directory before running:
 ```sh
 umask 077
 mkdir -p out/security/reports out/security/tmp
-TMPDIR="$PWD/out/security/tmp" bazel_agent bazel run //infra/security/ansible:ansible -- \
+TMPDIR="$PWD/out/security/tmp" al bazel run //infra/security/ansible:ansible -- \
   --extra-vars "lynis_audit_report_directory=$PWD/out/security/reports"
 ```
 
@@ -42,7 +42,7 @@ and the public SSH host CA. It does not inject unrelated deployment secrets.
 The SSH target uses the same boundary:
 
 ```sh
-bazel_agent bazel run //infra/security:ssh -- ansible@host1.ingress.alwaldend.com uname -r
+al bazel run //infra/security:ssh -- ansible@host1.ingress.alwaldend.com uname -r
 ```
 
 Lynis reports and logs are private operational artifacts. Review warnings before
@@ -88,7 +88,7 @@ umask 077
 mkdir -p out/security/clamav/reports out/security/clamav/database out/security/clamav/tmp
 TMPDIR="$PWD/out/security/clamav/tmp" \
 ANSIBLE_LOCAL_TEMP="$PWD/out/security/clamav/tmp" \
-  bazel_agent bazel run //infra/security/ansible:clamav -- \
+  al bazel run //infra/security/ansible:clamav -- \
   --extra-vars "clamav_scan_report_directory=$PWD/out/security/clamav/reports" \
   --extra-vars "clamav_database_directory=$PWD/out/security/clamav/database"
 ```

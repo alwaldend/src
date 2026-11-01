@@ -12,10 +12,10 @@ import (
 	"syscall"
 	"time"
 
-	"git.alwaldend.com/alwaldend/src/projects/al/api/al_proto"
-	"git.alwaldend.com/alwaldend/src/projects/al/pkg/al"
-	"git.alwaldend.com/alwaldend/src/projects/al/pkg/al_plugin"
-	"git.alwaldend.com/alwaldend/src/projects/al/pkg/lifecycle"
+	"git.alwaldend.com/alwaldend/src/tools/rules_al/api/al_proto"
+	"git.alwaldend.com/alwaldend/src/tools/rules_al/pkg/al"
+	"git.alwaldend.com/alwaldend/src/tools/rules_al/pkg/al_plugin"
+	"git.alwaldend.com/alwaldend/src/tools/rules_al/pkg/lifecycle"
 	"git.alwaldend.com/alwaldend/src/tools/vault/harbor_login/harbor_login_proto"
 )
 

@@ -13,7 +13,7 @@ The `tools:build_api_consumers` entries preserve existing build-tool and
 toolchain exceptions. Website, developer, and test exceptions remain expressed
 by the package groups.
 
-Run `bazel_agent bazel run //:gazelle -- -lang=enforce_transitive_visibility`
+Run `al bazel run //:gazelle -- -lang=enforce_transitive_visibility`
 after changing this file. Gazelle validates all mappings before updating BUILD
 files and places managed `package()` declarations in existing files after loads
 and before rules.

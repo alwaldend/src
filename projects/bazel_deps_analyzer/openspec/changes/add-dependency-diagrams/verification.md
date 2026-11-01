@@ -206,10 +206,10 @@ and the review WebP are under ignored `out/bazel_deps_analyzer/`.
   during cold C++ compilation, without a failed assertion. Use a longer bounded
   deadline for the Bazel major-version migration; retain both logs.
 - `DELIVERY-ENTRY-001` (live): the optional `al` command is unavailable. The
-  documented task-local repo-delivery launcher works; refresh it under the new
+  documented task-local al-delivery launcher works; refresh it under the new
   Bazel pin and retain that entry point through preparation and publication.
 - The user authorized publishing the completed revision to PR 206. Exact final
-  validation and remote state are recorded by repo-delivery; no live site
+  validation and remote state are recorded by al-delivery; no live site
   deployment is requested.
 
 ## Native uv replacement acceptance

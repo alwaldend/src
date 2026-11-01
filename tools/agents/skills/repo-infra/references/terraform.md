@@ -49,13 +49,13 @@ values to literal backend arguments; it is not this plugin's output.
 ## Validate without mutation
 
 ```sh
-bazel_agent bazel query '//path/to/tf:*'
-bazel_agent bazel test //path/to/tf:tf_tests.fmt_test
+al bazel query '//path/to/tf:*'
+al bazel test //path/to/tf:tf_tests.fmt_test
 ```
 
 Target names may be mapped variants; use query output and the package
 `BUILD.bazel` as the source of truth. Keep offline implementation validation
-separate from a live plan review: `bazel_agent bazel run //path/to/tf:tf.plan`
+separate from a live plan review: `al bazel run //path/to/tf:tf.plan`
 contacts the configured Vault, backend, and providers and can acquire a backend
 lock. Run it when the requested scope includes that live review. If access is
 unauthorized or unavailable, still run formatting and Bazel build/tests, then
@@ -93,9 +93,9 @@ apply can still have completed independent resources or advanced state metadata
 without changing resources; inspect refreshed state and save a new plan for the
 remaining changes before retrying.
 
-When using `bazel_agent bazel run --script_path` launchers, regenerate every
+When using `al bazel run --script_path` launchers, regenerate every
 owning launcher used, including both plan and apply, after changing declared
-data files. `bazel_agent bazel build` can refresh the manifest while an existing
+data files. `al bazel build` can refresh the manifest while an existing
 runfiles directory still omits added inputs or retains dangling links to deleted
 ones. Verify each launcher's inputs before planning or applying.
 

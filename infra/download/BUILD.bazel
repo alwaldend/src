@@ -1,8 +1,5 @@
+load("@rules_al//:defs.bzl", "al_binary_run", "al_config", "release_binary", "release_deployment")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("//projects/al/rules/al:al_binary.bzl", "al_binary_run")
-load("//projects/al/rules/al:al_config.bzl", "al_config")
-load("//tools/release/rules:al_release_binary.bzl", "al_release_binary")
-load("//tools/release/rules:al_release_deployment.bzl", "al_release_deployment")
 load("//tools/ssh:defs.bzl", "ssh_binary")
 load("//tools/vault:defs.bzl", "vault_binary_map")
 
@@ -14,7 +11,7 @@ _HOSTS = {
 }
 
 [
-    al_release_deployment(
+    release_deployment(
         name = "publication." + environment,
         ssh_environment = environment,
         ssh_host = host,
@@ -63,7 +60,7 @@ _HOSTS = {
 ]
 
 [
-    al_release_binary(
+    release_binary(
         name = "publish." + environment + ".command",
         arguments = [
             "--environment",

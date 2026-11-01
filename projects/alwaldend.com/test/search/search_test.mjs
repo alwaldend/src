@@ -193,7 +193,7 @@ try {
     await page.waitForSelector(results);
     report.cases.push("Failed index request retries without page reload");
 
-    await page.goto(base + "/docs/projects/al/", {
+    await page.goto(base + "/docs/tools/rules_al/", {
         waitUntil: "networkidle0",
     });
     const tagPaths = await page.$$eval('a[href*="/tags/"]', (links) => [
@@ -217,7 +217,7 @@ try {
         links.map((link) => new URL(link.href).pathname),
     );
     assert(
-        navigation.includes("/docs/projects/"),
+        navigation.includes("/docs/tools/"),
         "Scoped navigation retains the parent link",
     );
     assert(

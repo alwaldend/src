@@ -56,7 +56,7 @@
         {
             "id": "delivery-validation-decision",
             "kind": "delivery",
-            "request": "Use the repo-delivery skill to assess prepare.json and validation.json. This is an isolated decision fixture: do not execute checks, Git, publication, or remote actions. State which previous checks can be reused, which must rerun, and whether publication is ready now. Return reusableChecks, rerunChecks, publicationReady, and validatedHead (null until all required validation is satisfied).",
+            "request": "Use the al-delivery skill to assess prepare.json and validation.json. This is an isolated decision fixture: do not execute checks, Git, publication, or remote actions. State which previous checks can be reused, which must rerun, and whether publication is ready now. Return reusableChecks, rerunChecks, publicationReady, and validatedHead (null until all required validation is satisfied).",
             "files": {
                 "prepare.json": "{\n  \"status\": \"revalidation_required\",\n  \"head\": \"2222222222222222222222222222222222222222\",\n  \"previousHead\": \"1111111111111111111111111111111111111111\",\n  \"tree\": \"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\n  \"previousTree\": \"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\n  \"change\": \"Commit-message amendment only\",\n  \"requiredChecks\": [\"package_unit_test\", \"release_stamp_test\"]\n}\n",
                 "validation.json": "{\n  \"head\": \"1111111111111111111111111111111111111111\",\n  \"tree\": \"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\n  \"checks\": [\n    {\"name\": \"package_unit_test\", \"result\": \"pass\", \"inputBasis\": \"source tree and pinned dependencies only\", \"relevantInputsUnchanged\": true},\n    {\"name\": \"release_stamp_test\", \"result\": \"pass\", \"inputBasis\": \"commit identity and history\", \"relevantInputsUnchanged\": false}\n  ]\n}\n"
@@ -68,7 +68,7 @@
                 "publicationReady": false,
                 "validatedHead": null
             },
-            "expectedSkillReads": ["repo-delivery"],
+            "expectedSkillReads": ["al-delivery"],
             "humanCheck": "The reason binds the new validation decision to the prepared head and explains why tree equality permits the explicitly source-only pass to be reused but does not cover the history-sensitive check. This measures a fixture decision, not publication behavior."
         }
     ]

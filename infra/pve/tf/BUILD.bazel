@@ -1,6 +1,6 @@
+load("@rules_al//:defs.bzl", "al_binary_run")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_terraform//terraform:defs.bzl", "terraform_binary_map", "terraform_target_binary_map", "terraform_test_map")
-load("//projects/al/rules/al:al_binary.bzl", "al_binary_run")
 
 package(transitive_visibility = "//infra:transitive_consumers")
 

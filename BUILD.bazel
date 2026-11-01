@@ -276,6 +276,14 @@ test_suite(
 # gazelle:python_library_naming_convention $package_name$_lib
 # gazelle:python_binary_naming_convention $package_name$
 
+# Keep Bazel consumers on the owning module when Go's local replacement is visible.
+# gazelle:resolve go git.alwaldend.com/alwaldend/src/tools/rules_al/api/al_proto @rules_al//api/al_proto
+# gazelle:resolve go git.alwaldend.com/alwaldend/src/tools/rules_al/pkg/al @rules_al//pkg/al
+# gazelle:resolve go git.alwaldend.com/alwaldend/src/tools/rules_al/pkg/al_plugin @rules_al//pkg/al_plugin
+# gazelle:resolve go git.alwaldend.com/alwaldend/src/tools/rules_al/pkg/fp @rules_al//pkg/fp
+# gazelle:resolve go git.alwaldend.com/alwaldend/src/tools/rules_al/pkg/lifecycle @rules_al//pkg/lifecycle
+# gazelle:resolve go git.alwaldend.com/alwaldend/src/tools/rules_al/pkg/workspaces @rules_al//pkg/workspaces
+
 # gazelle:java_maven_install_file projects/nexus_security_plugin/maven_lock.json
 # gazelle:resolve java javax.annotation @com_alwaldend_src_maven//:org_apache_tomcat_annotations_api
 # gazelle:resolve java org.joda.time @com_alwaldend_src_maven//:joda_time_joda_time

@@ -35,7 +35,7 @@ reposts older than 30 days, while preserving the six named threads and their
 connected own quote/reply branches. Open it for review with:
 
 ```sh
-bazel_agent bazel run //projects/x_profile_cleaner -- \
+al bazel run //projects/x_profile_cleaner -- \
   serve --config "${PWD}/users/simeonwarren/x_profile_cleaner.lua"
 ```
 

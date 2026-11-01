@@ -34,7 +34,7 @@ Under separately authorized live scope:
    and add its shared group memberships.
 4. Apply the XCP-ng/Yandex provider assignments, then the download deployment.
 
-Run the named targets through `bazel_agent bazel run`; AL injects credentials
+Run the named targets through `al bazel run`; AL injects credentials
 and backend configuration. A new installation creates the identity without
 a state move or import. A core-stage plan using the name lookups requires
 step 2 first; do not use the core stage to bootstrap this identity.

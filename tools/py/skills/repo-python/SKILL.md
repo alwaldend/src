@@ -3,7 +3,7 @@ name: repo-python
 description: >-
   Implement, refactor, and review Python code in this Bazel monorepo with
   mandatory type hints, repository formatting, dependency locks, and Gazelle.
-  Use alongside repo-bazel and bazel-agent for builds and validation.
+  Use alongside repo-bazel and al-bazel for builds and validation.
 ---
 
 # Work with Python in this repository
@@ -130,9 +130,9 @@ in tools/py/include.MODULE.bazel before changing them.
 For root dependency changes, use the owning workflows in order:
 
 ```sh
-bazel_agent bazel run //tools/py:uv_lock.update
-bazel_agent bazel run //tools/gazelle:gazelle_python_manifest.update
-bazel_agent bazel run //:gazelle
+al bazel run //tools/py:uv_lock.update
+al bazel run //tools/gazelle:gazelle_python_manifest.update
+al bazel run //:gazelle
 ```
 
 Do not hand-edit uv.lock or gazelle_python.yaml. Bazel imports the native lock
@@ -144,12 +144,12 @@ resources in data and inspect generated entry points and library boundaries.
 
 ## Verify the affected behavior
 
-Use bazel-agent and repo-bazel for pinned execution, package checks, and
+Use al-bazel and repo-bazel for pinned execution, package checks, and
 semantic lint. Validate root dependency changes with
 //tools/py:uv_lock (a build target), review the regenerated lock diff, and
 run //tools/gazelle:gazelle_python_manifest.test plus affected consumers.
 Upstream uv locking has no test target because resolution depends on the package
 index. Prefer repeatable end-to-end artifacts for complex behavior and follow
 the root test policy before implementing isolated tests.
-Complete repo-delivery's publication gates. Offline skill eval validation proves
+Complete al-delivery's publication gates. Offline skill eval validation proves
 configuration and packaging, not that an agent follows these instructions.

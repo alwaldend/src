@@ -237,7 +237,7 @@ Run the CLI only with an endpoint you trust to receive authenticated requests.
 ## Local browser interface
 
 ```sh
-bazel_agent bazel run //projects/x_profile_cleaner -- \
+al bazel run //projects/x_profile_cleaner -- \
   serve --config /absolute/path/policy.lua
 ```
 
@@ -296,16 +296,16 @@ Run the Bazel command from the repository root, supplying absolute input and
 output paths because Bazel may execute within runfiles:
 
 ```sh
-bazel_agent bazel run //projects/x_profile_cleaner -- \
+al bazel run //projects/x_profile_cleaner -- \
   plan --config /absolute/path/policy.lua --out /absolute/path/plan.json
 
-bazel_agent bazel run //projects/x_profile_cleaner -- \
+al bazel run //projects/x_profile_cleaner -- \
   apply --plan /absolute/path/plan.json
 
-bazel_agent bazel run //projects/x_profile_cleaner -- \
+al bazel run //projects/x_profile_cleaner -- \
   apply --config /absolute/path/policy.lua
 
-bazel_agent bazel run //projects/x_profile_cleaner -- \
+al bazel run //projects/x_profile_cleaner -- \
   apply --config /absolute/path/policy.lua --yes
 ```
 
@@ -430,7 +430,7 @@ References: [user timeline](https://docs.x.com/x-api/posts/timelines/introductio
 ## Validation
 
 ```sh
-bazel_agent bazel test //projects/x_profile_cleaner:test
+al bazel test //projects/x_profile_cleaner:test
 ```
 
 The browser suite drives the built server with pinned Chromium and a local X

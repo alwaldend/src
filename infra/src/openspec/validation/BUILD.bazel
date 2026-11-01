@@ -20,6 +20,7 @@ package_group(
 ]
 
 _ARCHIVE_WORKSPACES = [
+    "tools_rules_al",
     "infra_openhands",
     "infra_repos",
     "infra_threexui",
@@ -27,8 +28,6 @@ _ARCHIVE_WORKSPACES = [
     "repository",
     "tools_agents",
     "tools_mermaid",
-    "tools_release",
-    "tools_repo_delivery",
     "projects_alwaldend_com",
     "projects_anki_as_code",
     "projects_anki_grpc",

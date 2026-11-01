@@ -26,7 +26,7 @@ filters, reciprocal-direction preservation, JSON/Mermaid equivalence, invalid
 input/flags, output preservation, and existing target modes are covered.
 
 ```sh
-bazel_agent bazel test \
+al bazel test \
   //projects/bazel_deps_analyzer/test/e2e:e2e_test \
   //projects/bazel_deps_analyzer/openspec:validate_test
 ```
@@ -90,7 +90,7 @@ Pinned gofumpt, buildifier, and Prettier completed successfully. The final
 behavioral validation command completed at 08:39:51 UTC with exit status zero:
 
 ```sh
-bazel_agent bazel test \
+al bazel test \
   //projects/bazel_deps_analyzer/test/e2e:e2e_test \
   //projects/bazel_deps_analyzer/openspec:validate_test \
   //projects/bazel_deps_analyzer:bazel_deps_analyzer

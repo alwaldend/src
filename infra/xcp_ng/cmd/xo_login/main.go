@@ -15,10 +15,10 @@ import (
 	"time"
 
 	"git.alwaldend.com/alwaldend/src/infra/xcp_ng/internal/oidclogin"
-	"git.alwaldend.com/alwaldend/src/projects/al/api/al_proto"
-	"git.alwaldend.com/alwaldend/src/projects/al/pkg/al"
-	"git.alwaldend.com/alwaldend/src/projects/al/pkg/al_plugin"
-	"git.alwaldend.com/alwaldend/src/projects/al/pkg/lifecycle"
+	"git.alwaldend.com/alwaldend/src/tools/rules_al/api/al_proto"
+	"git.alwaldend.com/alwaldend/src/tools/rules_al/pkg/al"
+	"git.alwaldend.com/alwaldend/src/tools/rules_al/pkg/al_plugin"
+	"git.alwaldend.com/alwaldend/src/tools/rules_al/pkg/lifecycle"
 )
 
 type config struct {

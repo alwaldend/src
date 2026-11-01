@@ -90,7 +90,7 @@ renewal briefly interrupt XO management access, not running guest VMs.
 Use the packaged SSH target for authorized host inspection:
 
 ```sh
-bazel_agent bazel run //infra/xcp_ng:ssh -- 'lscpu; lspci -nn'
+al bazel run //infra/xcp_ng:ssh -- 'lscpu; lspci -nn'
 ```
 
 This target uses the host's OpenSSH and `sshpass`, the existing Vault-backed
@@ -105,10 +105,10 @@ templates or creating VMs. `xo_inspect` prints selected operational metadata
 without credentials or plugin configuration:
 
 ```sh
-XOA_URL=wss://xoa.xcp-ng.alwaldend.com bazel_agent bazel run //infra/xcp_ng:xo_inspect
-bazel_agent bazel run //infra/xcp_ng/tf:tf.plan
-bazel_agent bazel run //infra/xcp_ng/tf:tf.apply
-bazel_agent bazel test //infra/xcp_ng/tf:tf_tests.fmt_test //infra/xcp_ng/cmd/xo_config:xo_config_test
+XOA_URL=wss://xoa.xcp-ng.alwaldend.com al bazel run //infra/xcp_ng:xo_inspect
+al bazel run //infra/xcp_ng/tf:tf.plan
+al bazel run //infra/xcp_ng/tf:tf.apply
+al bazel test //infra/xcp_ng/tf:tf_tests.fmt_test //infra/xcp_ng/cmd/xo_config:xo_config_test
 ```
 
 Formatting and helper tests run without live authentication. See
@@ -118,7 +118,7 @@ To register `host1`, store its `xcpng_username` and `xcpng_password` fields
 in `secrets/alwaldend.com/vault1/approles/src_infra_xcp_ng/host1`, then run:
 
 ```sh
-XOA_URL=wss://xoa.xcp-ng.alwaldend.com XCPNG_HOST=192.168.1.213 bazel_agent bazel run //infra/xcp_ng:xo_register_host
+XOA_URL=wss://xoa.xcp-ng.alwaldend.com XCPNG_HOST=192.168.1.213 al bazel run //infra/xcp_ng:xo_register_host
 ```
 
 The command uses the XOA token to register the host and supplies its separate

@@ -22,9 +22,9 @@ From the repository root, review a refresh before applying it:
 ```sh
 mkdir -p out/ssh-ca
 export AL_TF_BACKEND_CONFIG_path="path=$PWD/out/ssh-ca/terraform.tfstate"
-bazel_agent bazel run //data/ssh/tf:tf.plan -- \
+al bazel run //data/ssh/tf:tf.plan -- \
   -var="output_directory=$PWD/data/ssh"
-bazel_agent bazel run //data/ssh/tf:tf.apply -- \
+al bazel run //data/ssh/tf:tf.apply -- \
   -var="output_directory=$PWD/data/ssh"
 ```
 

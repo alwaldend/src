@@ -51,7 +51,7 @@ in another file.
   the blog deployment. Keep landing content small and validate with the site
   build before publishing. Do not silence these flags to get a build through;
   fix the source.
-- Local preview: `bazel_agent bazel run //projects/alwaldend.com:site_serve`
+- Local preview: `al bazel run //projects/alwaldend.com:site_serve`
   serves the built site on `127.0.0.1:1313`.
 
 ## Use a theme
@@ -146,7 +146,7 @@ inventing features or presenting unfinished work as released.
 
 ### Check the candidate
 
-Use `repo-bazel` and `bazel-agent` for the owning build/tests and formatter.
+Use `repo-bazel` and `al-bazel` for the owning build/tests and formatter.
 Build `//projects/alwaldend.com:site`, check `//infra/dns:config_test`, and
 inspect representative HTML from the candidate: the `/projects/` section
 index, the landing page, its documentation page, and any taxonomy term page

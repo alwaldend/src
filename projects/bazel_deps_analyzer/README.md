@@ -54,11 +54,11 @@ options as the target macro:
 Capture a graph and convert it independently:
 
 ```sh
-bazel_agent bazel query 'deps(//projects/alwaldend.com:site, 3)' \
+al bazel query 'deps(//projects/alwaldend.com:site, 3)' \
   --output=streamed_jsonproto --implicit_deps --notool_deps --nonodep_deps \
   > "$PWD/out/site-dependencies.ndjson"
 
-bazel_agent bazel run //projects/bazel_deps_analyzer -- analyze target \
+al bazel run //projects/bazel_deps_analyzer -- analyze target \
   --input "$PWD/out/site-dependencies.ndjson" \
   --output "$PWD/out/site-dependencies.mmd" \
   --root //projects/alwaldend.com:site --depth 3
@@ -106,7 +106,7 @@ synthetic selection node. Each owner is a graph node, rather than a container
 of target nodes.
 
 ```sh
-bazel_agent bazel run //projects/bazel_deps_analyzer -- analyze package \
+al bazel run //projects/bazel_deps_analyzer -- analyze package \
   --input "$PWD/out/all-targets.ndjson" \
   --output "$PWD/out/packages.mmd" --package-depth 1
 ```
@@ -133,7 +133,7 @@ also accepts `RL`, `TB`, and `BT`.
 Use `--format=json` to consume exactly the same constructed aggregate:
 
 ```sh
-bazel_agent bazel run //projects/bazel_deps_analyzer -- analyze package \
+al bazel run //projects/bazel_deps_analyzer -- analyze package \
   --input "$PWD/out/all-targets.ndjson" \
   --output "$PWD/out/packages.json" --package-depth 2 --format json
 ```
@@ -210,14 +210,14 @@ Disabled filtering preserves existing output and accepts older captures.
 Filtered input requires a new capture with all these options:
 
 ```sh
-bazel_agent bazel query 'deps(//projects/alwaldend.com:site, 3)' \
+al bazel query 'deps(//projects/alwaldend.com:site, 3)' \
   --output=streamed_jsonproto --consistent_labels \
   --noimplicit_deps --notool_deps --nonodep_deps \
   --proto:output_rule_attrs=name,deps,srcs --proto:default_values=true \
   --proto:flatten_selects=false --proto:rule_inputs_and_outputs=true \
   > "$PWD/out/site-build-dependencies.ndjson"
 
-bazel_agent bazel run //projects/bazel_deps_analyzer -- analyze package \
+al bazel run //projects/bazel_deps_analyzer -- analyze package \
   --input "$PWD/out/site-build-dependencies.ndjson" \
   --build-deps-only --format=json \
   --output "$PWD/out/site-build-packages.json"
@@ -303,7 +303,7 @@ This view is built from the converter command itself at depth two:
 The site package exposes companion targets that analyze `:site` at depth eight:
 
 ```sh
-bazel_agent bazel build //projects/alwaldend.com:deps_mermaid \
+al bazel build //projects/alwaldend.com:deps_mermaid \
   //projects/alwaldend.com:deps_svg //projects/alwaldend.com:deps_webp \
   //projects/alwaldend.com:deps_dark_webp
 ```
@@ -335,7 +335,7 @@ JSON-input rule or command to inspect the available portion of the graph.
 ## Validation
 
 ```sh
-bazel_agent bazel test //projects/bazel_deps_analyzer/test/e2e:e2e_test
+al bazel test //projects/bazel_deps_analyzer/test/e2e:e2e_test
 ```
 
 The E2E command checks graph semantics and failure handling, then verifies a

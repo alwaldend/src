@@ -16,5 +16,5 @@ Run the [pinned CLI](../../tools/openspec/README.md) from the repository root.
 It selects this project by default:
 
 ```sh
-bazel_agent bazel run //tools/openspec -- list --specs
+al bazel run //tools/openspec -- list --specs
 ```

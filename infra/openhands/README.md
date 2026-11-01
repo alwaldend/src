@@ -73,13 +73,13 @@ the fields listed above for its path. Initialize the paths through standard
 input; `-cas=0` prevents overwriting existing data:
 
 ```sh
-bazel_agent bazel run //infra/openhands:vault.kv_put -- -cas=0 \
+al bazel run //infra/openhands:vault.kv_put -- -cas=0 \
   alwaldend.com/vault1/approles/src_infra_openhands/agent_server \
   - < "$OPENHANDS_AGENT_SERVER_JSON"
-bazel_agent bazel run //infra/openhands:vault.kv_put -- -cas=0 \
+al bazel run //infra/openhands:vault.kv_put -- -cas=0 \
   alwaldend.com/vault1/approles/src_infra_openhands/automation \
   - < "$OPENHANDS_AUTOMATION_JSON"
-bazel_agent bazel run //users/simeonwarren:vault.kv_put -- -cas=0 \
+al bazel run //users/simeonwarren:vault.kv_put -- -cas=0 \
   alwaldend.com/vault1/approles/user_simeonwarren/openhands \
   - < "$OPENHANDS_HOST_BOT_JSON"
 ```

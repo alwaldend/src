@@ -10,8 +10,8 @@ upstream's Python dependencies and requires glibc 2.17 or newer.
 Run it through the repository alias:
 
 ```sh
-bazel_agent bazel run //third_party/com_github_yt_dlp_yt_dlp:yt-dlp -- --version
-bazel_agent bazel run //third_party/com_github_yt_dlp_yt_dlp:yt-dlp -- --help
+al bazel run //third_party/com_github_yt_dlp_yt_dlp:yt-dlp -- --version
+al bazel run //third_party/com_github_yt_dlp_yt_dlp:yt-dlp -- --help
 ```
 
 Pass download options and URLs after `--`. Use absolute output paths to select

@@ -22,7 +22,7 @@ Read the nearest `AGENTS.md`, owning project README and BUILD file, and
 `third_party/org_blender_blender/README.md`. Read the current version and archive contract from
 `third_party/org_blender_blender/binary_toolchain.json`; do not hard-code a remembered version.
 
-Follow `bazel-agent` for every Bazel invocation. Prefer an owning package's
+Follow `al-bazel` for every Bazel invocation. Prefer an owning package's
 purpose-built `blender_binary` target when it implements the operation;
 otherwise use `//third_party/org_blender_blender:blender`. Do not substitute `blender` from
 `PATH`, Flatpak Blender, a separately downloaded binary, or an extracted ELF
@@ -35,7 +35,7 @@ owning Bazel and dependency skills.
 Pass Blender arguments after Bazel's separator:
 
 ```sh
-bazel_agent bazel run //third_party/org_blender_blender:blender -- --version
+al bazel run //third_party/org_blender_blender:blender -- --version
 ```
 
 ## Select the least-stateful execution mode

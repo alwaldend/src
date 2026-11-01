@@ -6,4 +6,4 @@ context: |
   Keep owner requirements and changes in this openspec directory.
   Specifications describe checked-in desired state and do not establish live
   configuration or authorize infrastructure operations. Validation is offline.
-  Use the repository-pinned OpenSpec CLI and the bazel_agent runner.
+  Use the repository-pinned OpenSpec CLI and the AL Bazel runner.

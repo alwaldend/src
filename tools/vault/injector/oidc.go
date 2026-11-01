@@ -8,7 +8,7 @@ import (
 	"io"
 	"net/http"
 
-	"git.alwaldend.com/alwaldend/src/projects/al/pkg/al"
+	"git.alwaldend.com/alwaldend/src/tools/rules_al/pkg/al"
 	"git.alwaldend.com/alwaldend/src/tools/vault/injector/injector_proto"
 )
 

@@ -20,7 +20,7 @@ Behavioral judgments run in an empty workspace; the subject receives this skill.
 Use the credential and scratch isolation requirements from that owning README:
 
 ```sh
-bazel_agent bazel test //tools/agents/skills/quality-assessment:eval \
+al bazel test //tools/agents/skills/quality-assessment:eval \
   //tools/agents/skills/quality-assessment:eval_routing \
   --test_env=CODEX_HOME=/absolute/path/to/.codex \
   --test_env=CODEX_PATH_OVERRIDE=/absolute/path/to/codex

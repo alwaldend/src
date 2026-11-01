@@ -32,7 +32,7 @@ one child page per root subcommand, each containing its complete nested help,
 including the generated Anki API tree. Bazel generates these pages from the
 Cobra definitions with `tools/generate_cli_docs` and packages the hierarchy
 with the documentation; generated Markdown is not checked in. Build it with
-`bazel_agent bazel build //projects/anki_as_code/docs:cli_reference`.
+`al bazel build //projects/anki_as_code/docs:cli_reference`.
 
 ## Optional server engines
 
@@ -41,7 +41,7 @@ with the documentation; generated Markdown is not checked in. Build it with
 Build the Go CLI itself for WASI Preview 1 with both bundled servers disabled:
 
 ```sh
-bazel_agent bazel build -c opt --//projects/anki_as_code:wasm=true //projects/anki_as_code
+al bazel build -c opt --//projects/anki_as_code:wasm=true //projects/anki_as_code
 ```
 
 This produces a `wasip1/wasm` module. The public alias uses `select()` to choose
@@ -49,12 +49,12 @@ a `go_cross_binary` target that cross-compiles the existing server-free command.
 Other targets in the same invocation keep their normal platform and server-engine settings. This
 selection excludes both bundled servers regardless of the `anki_grpc` engine flags.
 Find the module path with
-`bazel_agent bazel cquery -c opt --//projects/anki_as_code:wasm=true //projects/anki_as_code --output=files`.
+`al bazel cquery -c opt --//projects/anki_as_code:wasm=true //projects/anki_as_code --output=files`.
 Run it with a WASI Preview 1 runtime and grant access to the configuration
 directory. For example, with the repository-pinned wazero CLI:
 
 ```sh
-bazel_agent bazel run @com_github_tetratelabs_wazero//cmd/wazero -- run \
+al bazel run @com_github_tetratelabs_wazero//cmd/wazero -- run \
   -mount "$PWD/configs:/configs:ro" /absolute/path/to/wasi \
   config dump --text /configs
 ```
@@ -72,7 +72,7 @@ The independent booleans `//projects/anki_grpc:cgo` (default true) and
 public command. Build a pure-Go host executable with the bundled WASM server:
 
 ```sh
-bazel_agent bazel build -c opt //projects/anki_as_code --//projects/anki_grpc:cgo=false --//projects/anki_grpc:wasm=true
+al bazel build -c opt //projects/anki_as_code --//projects/anki_grpc:cgo=false --//projects/anki_grpc:wasm=true
 ```
 
 The default worker uses cgo when available and otherwise runs the complete Rust
@@ -126,7 +126,7 @@ engine map or concrete adapter constructor. Subprocess connection strings encode
 executable and arguments with `ankigrpc.SubprocessAddress`; local in-process labels
 remain opaque and never identify shared state.
 
-`bazel_agent bazel build -c opt //projects/anki_as_code` produces an optimized
+`al bazel build -c opt //projects/anki_as_code` produces an optimized
 executable with final symbol and debug information stripping. It uses the host
 Linux runtime libraries, including OpenSSL 3.
 
@@ -310,20 +310,20 @@ Use a fresh text directory so stale declarations from earlier exports are not
 included. Export configs and their native bindings together:
 
 ```sh
-bazel_agent bazel run //projects/anki_as_code -- col export \
+al bazel run //projects/anki_as_code -- col export \
   --collection /absolute/path/collection.colpkg --output /absolute/path/text \
   --state-output /absolute/path/state.anki.toml
-bazel_agent bazel run //projects/anki_as_code -- col state update \
+al bazel run //projects/anki_as_code -- col state update \
   --collection /absolute/path/collection.colpkg /absolute/path/state.anki.toml
-bazel_agent bazel run //projects/anki_as_code -- config dump \
+al bazel run //projects/anki_as_code -- config dump \
   --text /absolute/path/text
 # Edit the TOML files before planning and applying.
-bazel_agent bazel run //projects/anki_as_code -- col plan \
+al bazel run //projects/anki_as_code -- col plan \
   --collection /absolute/path/collection.colpkg --text /absolute/path/text
-bazel_agent bazel run //projects/anki_as_code -- col apply \
+al bazel run //projects/anki_as_code -- col apply \
   --collection /absolute/path/collection.colpkg --text /absolute/path/text
 # Alternatively, build a separate archive instead of applying in place.
-bazel_agent bazel run //projects/anki_as_code -- col build \
+al bazel run //projects/anki_as_code -- col build \
   --base /absolute/path/collection.colpkg --text /absolute/path/text \
   --output /absolute/path/rebuilt.colpkg
 ```
@@ -730,7 +730,7 @@ State dump exports stored bindings separately; it does not discover bindings
 for an untracked config tree:
 
 ```sh
-bazel_agent bazel run //projects/anki_as_code -- col state dump \
+al bazel run //projects/anki_as_code -- col state dump \
   --collection /absolute/path/collection.colpkg > /absolute/path/state.anki.toml
 ```
 
@@ -1114,7 +1114,7 @@ cleanup errors are retained. Cancellation preserves both the context error and
 its custom cause for `errors.Is`. Atomic publication does not guarantee power-loss
 durability. The App callback delegates to `ColApply`.
 
-Run `bazel_agent bazel test //projects/anki_as_code/internal/rebuild:rebuild_test`.
+Run `al bazel test //projects/anki_as_code/internal/rebuild:rebuild_test`.
 The native E2E changes real Anki state in the staged archive and emits original,
 changed and unchanged `.colpkg` files plus a decoded JSON state object.
 
@@ -1233,15 +1233,15 @@ The maintained [Mermaid source](backend-approaches.mmd) is rendered by the
 ## Verification
 
 ```sh
-bazel_agent bazel build -c opt //projects/anki_as_code
-bazel_agent bazel test -c opt //projects/anki_as_code/...
+al bazel build -c opt //projects/anki_as_code
+al bazel test -c opt //projects/anki_as_code/...
 ```
 
 E2E targets use Bazel's default shard count. Opt into parallel Go E2E execution
 with a count appropriate for the host, for example:
 
 ```sh
-bazel_agent bazel test -c opt --test_sharding_strategy=forced=4 \
+al bazel test -c opt --test_sharding_strategy=forced=4 \
   //projects/anki_as_code/pkg/ankiascode:ankiascode_test \
   //projects/anki_as_code/pkg/ankiascode:wasm_workflow_test \
   //projects/anki_as_code/cmd/anki_as_code:cli_workflow_test \
@@ -1267,4 +1267,4 @@ It checks exact Unicode/multiline fields, presentation, member bindings, stable
 bound/discovered paths, native filename text conversion, filtered-card exclusion,
 read-only state namespaces, untouched existing entries, cancellation and partial output
 after filesystem errors. It emits a complete text tree and a native `.colpkg` artifact.
-Run `bazel_agent bazel test //projects/anki_as_code/internal/export:export_test`.
+Run `al bazel test //projects/anki_as_code/internal/export:export_test`.

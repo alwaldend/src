@@ -29,7 +29,7 @@
       value: >-
         Requires type hints for all parameters and return values, including
         async handlers and callbacks, uses precise optional types and None
-        returns, and uses repository-pinned tooling through bazel_agent.
+        returns, and uses repository-pinned tooling through al bazel.
         Checks root pyproject.toml and component support rather than assuming the
         Bazel runtime determines the supported source syntax.
 - description: Preserves extras and updates generated dependency mappings
@@ -42,7 +42,7 @@
       value: >-
         Updates tools/py/pyproject.toml, preserves the standard extra, regenerates
         tools/py/uv.lock through tools/py:uv_lock.update, then updates
-        the Gazelle Python manifest and runs Gazelle through bazel_agent.
+        the Gazelle Python manifest and runs Gazelle through al bazel.
         Reviews generated diffs and validates locks and affected consumers.
         Uses native uv lock and Bazel's uv_lock and Gazelle's lockfiles inputs,
         preserving hashes and extras without exporting requirements.txt.

@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 	"time"
 
-	"git.alwaldend.com/alwaldend/src/projects/al/pkg/al"
+	"git.alwaldend.com/alwaldend/src/tools/rules_al/pkg/al"
 )
 
 var (

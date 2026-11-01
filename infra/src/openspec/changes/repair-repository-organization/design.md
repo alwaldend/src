@@ -29,7 +29,7 @@ archived Drawio outputs now have finite positive viewboxes (2281 by 2349 and
 The renderer fixture reproduces the pinned exporter's missing shadow-padding
 return value and verifies the corrected adapter. Inventory freshness now agrees
 with the configured Markdown formatter. Exact candidate checks and publication
-are recorded separately by repo-delivery.
+are recorded separately by al-delivery.
 
 Session review: an overbroad staging proposal was rejected by automatic approval
 review. Only explicitly inspected new task files were staged afterward. The

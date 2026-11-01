@@ -42,8 +42,8 @@ cloud-init completes, verify that `/dev/xvda` is the boot disk before running
 Ansible.
 
 ```sh
-bazel_agent bazel run //infra/openhands/tf_setup:tf_setup.plan
-bazel_agent bazel run //infra/openhands/tf_setup:tf_setup.apply
+al bazel run //infra/openhands/tf_setup:tf_setup.plan
+al bazel run //infra/openhands/tf_setup:tf_setup.apply
 ```
 
 Use this package's `dns.plan`, `dns.show`, and `dns.apply` targets for the

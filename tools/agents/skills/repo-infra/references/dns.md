@@ -20,8 +20,8 @@ owns the schema, normalization, and provider resource mapping.
 4. Run the offline checks:
 
    ```sh
-   bazel_agent bazel run //infra/dns:lint
-   bazel_agent bazel test //infra/dns:config_test
+   al bazel run //infra/dns:lint
+   al bazel test //infra/dns:config_test
    ```
 
 The linter discovers raw `dnsconfig.json` files in the current workspace at

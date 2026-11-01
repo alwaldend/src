@@ -19,7 +19,7 @@
       discovery limitations; verify examples against the built CLI and shims.
 - [x] 3.2 Run E2E validation and emit a repeatable plan artifact, formatting,
       semantic lint, repository quality, and OpenSpec validation; record results.
-- [x] 3.3 Commit and publish the task-owned candidate through repo-delivery;
+- [x] 3.3 Commit and publish the task-owned candidate through al-delivery;
       verify publication or report the exact blocking condition.
 
 ## 4. Review corrections
@@ -40,7 +40,7 @@
 - [x] 5.3 Pass the shared application instance into command constructors, move
       plan-source selection into the application, and update examples and comments.
 - [x] 5.4 Verify the CLI acceptance output, example policy, formatting, and
-      strict OpenSpec validation; use repo-delivery for candidate gates and replies.
+      strict OpenSpec validation; use al-delivery for candidate gates and replies.
 
 ## 6. Mandatory safety contract
 

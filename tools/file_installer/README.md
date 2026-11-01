@@ -17,6 +17,6 @@ command. It accepts `--source`, `--name`, and optional `--directory` (default
 refresh protocol. Missing or invalid sources leave an existing installation
 unchanged. Tool-specific install targets supply their source and command name.
 
-`//tools/repo_delivery:install` and `//projects/bazel_agent:install` use this
+`//tools/al:install` use this
 installer. Host installation requires explicit authority; validation uses an
 isolated directory. Existing directory/archive installation remains separate.

@@ -28,8 +28,6 @@ package_group(
         "//projects/x_article_uploader",
         # Tests and source generation share some packages with product targets.
         "//projects/activitywatch_ingester_android/gradle",
-        "//projects/al/cmd/al",
-        "//projects/al/rules/al",
         "//projects/android_launcher/gradle",
         "//projects/anki_as_code",
         "//projects/anki_as_code/docs",
@@ -45,7 +43,6 @@ package_group(
         # Explicit release commands, including the aggregate launcher.
         "//projects",
         "//projects/activitywatch_ingester_android/releases",
-        "//projects/al/releases",
         "//projects/android_launcher/releases",
         "//projects/anki_grpc/releases",
         "//projects/autoscroll/releases",
@@ -72,6 +69,7 @@ docs_filegroup(
             "rules_*",
         ],
     ) + [
+        "@rules_al//:docs",
         "@rules_binary_toolchain//:docs",
         "@rules_dnscontrol//:docs",
         "@rules_docs//:docs",

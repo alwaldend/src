@@ -21,23 +21,23 @@ and `.qrc` files.
 Format all safe, hand-maintained files:
 
 ```sh
-bazel_agent bazel run //:format
+al bazel run //:format
 ```
 
 Run the non-mutating repository check:
 
 ```sh
-bazel_agent bazel test //:repo_quality_test
+al bazel test //:repo_quality_test
 ```
 
 The suite also parses root `BUILD.bazel` and rejects `load()` statements to keep
 unrelated tool dependencies out of root package loading. Run this check alone
-with `bazel_agent bazel test //tools/repo_quality/test/root_build:root_build_test`.
+with `al bazel test //tools/repo_quality/test/root_build:root_build_test`.
 
 Run semantic source linters over declared targets:
 
 ```sh
-bazel_agent bazel build --config=lint //...
+al bazel build --config=lint //...
 ```
 
 The CSS formatter bucket includes CSS, Less and SCSS. The JavaScript bucket
@@ -72,7 +72,7 @@ and uncached; downloaded external repositories are outside its coverage.
 
 ## Owner inventories
 
-`bazel_agent bazel run //tools/repo_quality:inventory_update` derives the central
+`al bazel run //tools/repo_quality:inventory_update` derives the central
 OpenSpec validation map from declared owner source exports, resolving standalone
 module identities from their MODULE files. It also derives the project index
 from project README metadata. Draft-only specification directories without a

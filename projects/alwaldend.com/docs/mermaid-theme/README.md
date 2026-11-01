@@ -65,8 +65,8 @@ site's explicit surfaces and text colors. Branches represent grouping, not data 
 From the repository root:
 
 ```sh
-bazel_agent bazel build //projects/alwaldend.com/docs/mermaid-theme:samples
-bazel_agent bazel build //projects/alwaldend.com:site
+al bazel build //projects/alwaldend.com/docs/mermaid-theme:samples
+al bazel build //projects/alwaldend.com:site
 ```
 
 The first target produces six SVGs and their `.dark.svg` siblings. The second

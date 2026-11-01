@@ -5,7 +5,7 @@
   assert:
     - type: llm-rubric
       value: >-
-        Uses the repository-pinned Bazel scanner through bazel_agent, selects
+        Uses the repository-pinned Bazel scanner through al bazel, selects
         repo_test for HEAD-reachable history, records revision and exact finding policy,
         retains original local output with restrictive permissions, provides the
         report path, and reports findings separately from execution failures.
@@ -21,7 +21,7 @@
   assert:
     - type: llm-rubric
       value: >-
-        Selects repo_all_refs_test explicitly through bazel_agent, reports that
+        Selects repo_all_refs_test explicitly through al bazel, reports that
         all local refs are in scope, preserves history and approved finding policy, and does
         not misrepresent this as a scan of remote-only or untracked content.
 

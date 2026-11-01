@@ -3,7 +3,7 @@ name: repo-go
 description: >-
   Implement, refactor, and review Go code in this Bazel monorepo, including
   contextual error wrapping, subprocess boundaries, and Go dependency wiring.
-  Use alongside repo-bazel and bazel-agent for builds and validation.
+  Use alongside repo-bazel and al-bazel for builds and validation.
 ---
 
 # Work with Go in this repository
@@ -102,7 +102,7 @@ module metadata and the repository workflow for generated locks.
 
 ## Build and verify
 
-Use bazel-agent and repo-bazel for every build, test, formatter, or tool run.
+Use al-bazel and repo-bazel for every build, test, formatter, or tool run.
 Use the repository-pinned Go entry point `//tools/go:go` when a Go module
 command is needed; do not substitute host Go. Inspect generator ownership
 before changing generated source or BUILD declarations.
@@ -110,5 +110,5 @@ before changing generated source or BUILD declarations.
 Write behavioral failure cases before implementation when isolation is
 necessary. Prefer an isolated end-to-end command fixture with a repeatable
 result artifact. Keep ordinary checks package-scoped, include affected
-consumers, and complete repo-delivery's required gates. Offline skill eval
+consumers, and complete al-delivery's required gates. Offline skill eval
 validation checks packaging and configuration, not agent behavior.

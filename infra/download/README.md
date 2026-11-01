@@ -51,7 +51,7 @@ and cannot write it. The host-configuration playbook never publishes or selects 
 
 The release tool and component publishing targets are available in this tree.
 Their commands and transfer behavior belong
-to the [release tool documentation](../../tools/release/README.md). The
+to the [release tool documentation](../../tools/rules_al/README.md). The
 [website browser change](../../projects/alwaldend.com/openspec/changes/add-download-browser-and-ssh-hosting/proposal.md)
 also remains separate implementation work.
 
@@ -115,9 +115,9 @@ known-hosts file is changed. AL removes temporary keys and trust files on exit.
 For example, inspect the local services without changing the host:
 
 ```sh
-bazel_agent bazel run //infra/download:ssh.local -- \
+al bazel run //infra/download:ssh.local -- \
   systemctl is-active nginx traefik download-deduplicate.timer
-bazel_agent bazel run //infra/download:ssh.local -- \
+al bazel run //infra/download:ssh.local -- \
   findmnt /srv/download
 ```
 
@@ -131,23 +131,22 @@ as the SSH targets. `--namespace third_party` selects versioned upstream
 artifacts; project publication remains the default. Upload,
 extract, and link are separate ordered steps; only link selects the website.
 Both publication targets inject the same temporary SSH credentials and host
-trust as the SSH and sync targets. Normal publication rejects an existing
-release version and stages new uploads before making them public. Linking
-removes older extracted website versions while retaining downloadable archives.
-Restore a previous archive with `--steps extract,link` for rollback. Public sync
-overwrites from local and propagates the extracted-site cleanup.
-The release tool owns the
-[commands and failure behavior](../../tools/release/README.md#choose-publication-steps).
+trust as the SSH and sync targets. Publication stages and verifies every namespace
+before promotion. Identical retries succeed; changed bytes require a new version
+or explicit deletion of an inactive release. Activation retains earlier extracted
+sites for rollback through `--steps link`. The AL owner documents
+[commands and failure behavior](../../tools/rules_al/README.md#publish-over-ssh).
 
 Publish and inspect locally, then mirror that published content to Yandex:
 
 ```sh
-bazel_agent bazel run //infra/download:sync.yandex -- --check
-bazel_agent bazel run //infra/download:sync.yandex
+al bazel run //infra/download:sync.yandex -- --check
+al bazel run //infra/download:sync.yandex
 ```
 
 **Local is the source of truth:** differing public content is replaced and
-public-only files, releases, and site selections are removed. The target runs
+public-only files, releases, and site selections are removed. This explicit
+infrastructure mirror is separate from immutable AL publication. The target runs
 `ansible/playbook_sync.yaml` with the existing inventory and temporary Vault
 SSH credentials. Host trust remains strict and both content mounts are required.
 Check mode reports changes and deletions without changing published content.
@@ -175,11 +174,10 @@ and all locally retained release archives. This is a mirror, not a backup.
 
 The manual `//infra/download/test/sync:sync_test` target runs the packaged
 playbook and release CLI against isolated directories through real OpenSSH
-and rsync. It uses a private user/mount namespace to verify that site cleanup refuses
+and rsync. It uses a private user/mount namespace to verify that explicit deletion refuses
 mounted release directories without deleting private state. It checks trust
 and layout refusals, authoritative replacements and
-deletions, failed staging, repeated execution, and archive-preserving local
-cleanup. Its `sync-receipt.json` contains repeatable hashes, modes, and links.
+deletions, failed staging, repeated execution, and retained-site rollback. Its `sync-receipt.json` contains repeatable hashes, modes, and links.
 
 On the selected host, inspect `systemctl status nginx traefik`,
 `systemctl list-timers download-deduplicate.timer`, and
@@ -187,7 +185,7 @@ On the selected host, inspect `systemctl status nginx traefik`,
 `findmnt /srv/download`, free space with `btrfs filesystem usage /srv/download`,
 and sharing with `btrfs filesystem du` on the published trees. Verify DNS,
 certificate trust, website assets, JSON listings, downloads, and `www` redirects
-from each DNS view. Extracted-site cleanup runs after release selection; archives remain retained.
+from each DNS view. Extracted sites and archives remain available until explicit deletion.
 Deduplication never deletes releases. Retained disks and earlier releases provide no
 backup against disk loss.
 
@@ -275,7 +273,7 @@ own approved scope.
    [bootstrap target](../xcp_ng/cmd/xo_login/README.md) and record its result:
 
    ```sh
-   XO_BOOTSTRAP_APPROLE=src_infra_download bazel_agent bazel run //infra/xcp_ng/cmd/xo_login:bootstrap
+   XO_BOOTSTRAP_APPROLE=src_infra_download al bazel run //infra/xcp_ng/cmd/xo_login:bootstrap
    ```
 
 2. After that login, review/apply the XO resource-set assignment through
@@ -305,7 +303,7 @@ own approved scope.
    Verify both trust chains, renewal, `www` redirects, downloads, and reboot
    persistence. Keep the previous deployment available for a reviewed recovery.
 
-Use `bazel_agent bazel run <target>` for these commands. Provider credentials
+Use `al bazel run <target>` for these commands. Provider credentials
 and backend state are injected by AL; no host-installed Terraform or Ansible
 is required. See the [acceptance matrix](openspec/changes/add-static-hosting/acceptance.md)
 for isolated checks and the remaining live acceptance cases.

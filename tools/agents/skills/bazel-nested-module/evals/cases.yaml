@@ -15,8 +15,8 @@
         of tools/bazelrc/bzl_project.bazelrc; declares
         only required dependencies and public docs; adds the parent bazel_dep
         and local override, .bazelignore entry,
-        tools docs integration and full-repo-check
-        workspace; updates locks through bazel_agent; runs applicable Gazelle
+        tools docs integration and al-checks
+        workspace; updates locks through al bazel; runs applicable Gazelle
         generation twice and reviews its diff; and tests and builds the nested
         module plus focused parent integration and Buildifier checks. Otherwise
         fail. It must not add a dedicated landing site, DNS record, or Pages

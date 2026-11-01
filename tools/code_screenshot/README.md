@@ -3,7 +3,7 @@
 Capture a UTF-8 code file as a PNG using the alwaldend.com shared light/dark palette and typography. Source is inserted as literal text, never interpreted as HTML or executed. The command runs the pinned headless browser with page JavaScript disabled and network requests blocked.
 
 ```sh
-bazel_agent bazel run //tools/code_screenshot -- \
+al bazel run //tools/code_screenshot -- \
   --input tools/code_screenshot/cmd/code_screenshot/main.mjs \
   --output out/code_screenshot/example.png --theme dark
 ```
@@ -12,4 +12,4 @@ Paths are relative to the workspace when run through Bazel. Parent output direct
 
 The command compiles the existing site application stylesheet and embeds pinned Liberation Mono. It adds no runtime network dependency and does not change the site theme. Chrome uses the repository's existing `--no-sandbox` launch convention; capture only files you intend to read.
 
-Run `bazel_agent bazel test //tools/code_screenshot/test:capture_test` for repeatable command-level checks. Bazel test outputs retain light and dark PNGs plus a JSON report.
+Run `al bazel test //tools/code_screenshot/test:capture_test` for repeatable command-level checks. Bazel test outputs retain light and dark PNGs plus a JSON report.

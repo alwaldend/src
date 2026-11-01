@@ -49,7 +49,7 @@ private network targets remain blocked. T3 Code must select that profile for
 the thread. Hosted web search is not restricted by this role.
 
 The deployment installs pinned Bazelisk as `~/.local/bin/bazel`, provisions
-the repository's `bazel_agent` runner in the same directory, and pre-seeds its
+the repository's `al bazel` runner in the same directory, and pre-seeds its
 content-addressed `mcp_cordis` and `repo_delivery` runtimes when the canonical
 repository checkout is present. New Codex worktrees can then start Cordis and
 run delivery operations without first loading their own Bazel graph.
@@ -197,7 +197,7 @@ so those subprocesses do not inherit the credential.
 
 ## Cache cleaning
 
-`bazel_agent bazel clean` removes the current workspace's build outputs and
+`al bazel clean` removes the current workspace's build outputs and
 resets its local action cache. Adding `--expunge` removes that workspace's
 entire output base and stops its Bazel server. Neither operation purges the
 shared action disk cache, repository-contents cache, or archive-download cache,

@@ -11,7 +11,7 @@
 
 ## Measured acceptance
 
-On 2026-10-31, `bazel_agent bazel run //tools/comfyui:benchmark` generated and
+On 2026-10-31, `al bazel run //tools/comfyui:benchmark` generated and
 decoded a 512 by 512 PNG on the i5-13400 desktop. The report confirmed CPU
 device type, Python 3.13.13, and torch 2.15.0+cpu. With eight threads, one
 sampling step, and seed 42, startup took 10.756 seconds and first generation

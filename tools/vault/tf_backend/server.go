@@ -8,7 +8,7 @@ import (
 	"net/http"
 	"sync"
 
-	"git.alwaldend.com/alwaldend/src/projects/al/pkg/al"
+	"git.alwaldend.com/alwaldend/src/tools/rules_al/pkg/al"
 )
 
 type Server struct {

@@ -1,0 +1,68 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("@rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "go_lib",
+    srcs = [
+        "bundle.go",
+        "cmd.go",
+        "deployer.go",
+        "doc.go",
+        "generator.go",
+        "git_bundle.go",
+        "git_info.go",
+        "publication.go",
+        "receipt.go",
+        "ssh_archive.go",
+        "ssh_config.go",
+        "ssh_deployer.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/tools/rules_al/internal/release",
+    visibility = ["//:__subpackages__"],
+    deps = [
+        "//api/contracts",
+        "//internal/gitinfo",
+        "//internal/versioning",
+        "@com_github_go_git_go_git_v5//:go-git",
+        "@com_github_go_git_go_git_v5//plumbing",
+        "@com_github_go_git_go_git_v5//plumbing/format/packfile",
+        "@com_github_go_git_go_git_v5//plumbing/object",
+        "@com_github_go_git_go_git_v5//storage/memory",
+        "@com_github_spf13_cobra//:cobra",
+        "@org_golang_google_protobuf//encoding/protojson",
+        "@org_golang_google_protobuf//proto",
+    ],
+)
+
+go_test(
+    name = "go_test",
+    srcs = [
+        "bundle_test.go",
+        "git_bundle_test.go",
+        "git_info_test.go",
+        "lifecycle_test.go",
+        "namespace_test.go",
+        "selection_test.go",
+    ],
+    data = ["//cmd/al"],
+    embed = [":go_lib"],
+    env = {"RELEASE_BINARY": "$(rlocationpath //cmd/al:al)"},
+    deps = [
+        "@com_github_go_git_go_git_v5//:go-git",
+        "@com_github_go_git_go_git_v5//plumbing",
+        "@com_github_go_git_go_git_v5//plumbing/filemode",
+        "@com_github_go_git_go_git_v5//plumbing/format/packfile",
+        "@com_github_go_git_go_git_v5//plumbing/object",
+        "@com_github_go_git_go_git_v5//storage/memory",
+        "@org_golang_x_crypto//ssh",
+        "@org_golang_x_crypto//ssh/agent",
+        "@rules_go//go/runfiles",
+    ],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    prefix = "content/docs/tools/rules_al/internal/release",
+    visibility = ["//visibility:public"],
+)
