@@ -1,0 +1,82 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("@rules_pkg//pkg:mappings.bzl", "pkg_files", "strip_prefix")
+load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
+
+package(transitive_visibility = "//third_party:transitive_consumers")
+
+filegroup(
+    name = "metadata",
+    srcs = [
+        "@co_huggingface_qwen_qwen3_8_27b_license//file",
+        "@co_huggingface_qwen_qwen3_8_27b_readme_md//file",
+        "@co_huggingface_qwen_qwen3_8_27b_chat_template_jinja//file",
+        "@co_huggingface_qwen_qwen3_8_27b_config_json//file",
+        "@co_huggingface_qwen_qwen3_8_27b_generation_config_json//file",
+        "@co_huggingface_qwen_qwen3_8_27b_merges_txt//file",
+        "@co_huggingface_qwen_qwen3_8_27b_model_safetensors_index_json//file",
+        "@co_huggingface_qwen_qwen3_8_27b_preprocessor_config_json//file",
+        "@co_huggingface_qwen_qwen3_8_27b_tokenizer_json//file",
+        "@co_huggingface_qwen_qwen3_8_27b_tokenizer_config_json//file",
+        "@co_huggingface_qwen_qwen3_8_27b_video_preprocessor_config_json//file",
+        "@co_huggingface_qwen_qwen3_8_27b_vocab_json//file",
+    ],
+    tags = ["manual"],
+    visibility = ["//:__subpackages__"],
+)
+
+filegroup(
+    name = "weights",
+    srcs = [
+        "@co_huggingface_qwen_qwen3_8_27b_model_00001_of_00018_safetensors//file",
+        "@co_huggingface_qwen_qwen3_8_27b_model_00002_of_00018_safetensors//file",
+        "@co_huggingface_qwen_qwen3_8_27b_model_00003_of_00018_safetensors//file",
+        "@co_huggingface_qwen_qwen3_8_27b_model_00004_of_00018_safetensors//file",
+        "@co_huggingface_qwen_qwen3_8_27b_model_00005_of_00018_safetensors//file",
+        "@co_huggingface_qwen_qwen3_8_27b_model_00006_of_00018_safetensors//file",
+        "@co_huggingface_qwen_qwen3_8_27b_model_00007_of_00018_safetensors//file",
+        "@co_huggingface_qwen_qwen3_8_27b_model_00008_of_00018_safetensors//file",
+        "@co_huggingface_qwen_qwen3_8_27b_model_00009_of_00018_safetensors//file",
+        "@co_huggingface_qwen_qwen3_8_27b_model_00010_of_00018_safetensors//file",
+        "@co_huggingface_qwen_qwen3_8_27b_model_00011_of_00018_safetensors//file",
+        "@co_huggingface_qwen_qwen3_8_27b_model_00012_of_00018_safetensors//file",
+        "@co_huggingface_qwen_qwen3_8_27b_model_00013_of_00018_safetensors//file",
+        "@co_huggingface_qwen_qwen3_8_27b_model_00014_of_00018_safetensors//file",
+        "@co_huggingface_qwen_qwen3_8_27b_model_00015_of_00018_safetensors//file",
+        "@co_huggingface_qwen_qwen3_8_27b_model_00016_of_00018_safetensors//file",
+        "@co_huggingface_qwen_qwen3_8_27b_model_00017_of_00018_safetensors//file",
+        "@co_huggingface_qwen_qwen3_8_27b_model_00018_of_00018_safetensors//file",
+    ],
+    tags = ["manual"],
+    visibility = ["//:__subpackages__"],
+)
+
+filegroup(
+    name = "model",
+    srcs = [
+        ":metadata",
+        ":weights",
+    ],
+    tags = ["manual"],
+    visibility = ["//:__subpackages__"],
+)
+
+pkg_files(
+    name = "snapshot_files",
+    srcs = [":model"],
+    strip_prefix = strip_prefix.files_only(),
+    tags = ["manual"],
+)
+
+pkg_tar(
+    name = "snapshot",
+    srcs = [":snapshot_files"],
+    out = "qwen3.8-27b.tar",
+    tags = ["manual"],
+    visibility = ["//:__subpackages__"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//third_party:__pkg__"],
+)
