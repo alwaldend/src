@@ -1,0 +1,213 @@
+# Publisher: https://huggingface.co/Qwen/Qwen3.8-27B
+# Weight integrity values are the publisher's SHA-256 LFS object identifiers.
+http_file = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_file")
+
+http_file(
+    name = "co_huggingface_qwen_qwen3_8_27b_license",
+    downloaded_file_path = "LICENSE",
+    integrity = "sha256-u+3D/aMwWCC5dyZfAbhhnYdXCmc53jpVgsNGSEDx5Xo=",
+    urls = ["https://huggingface.co/Qwen/Qwen3.8-27B/resolve/1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0/LICENSE"],
+)
+
+http_file(
+    name = "co_huggingface_qwen_qwen3_8_27b_readme_md",
+    downloaded_file_path = "README.md",
+    integrity = "sha256-V+S9sljuGn0mNcUXTr1OVqvjklBc21+LuzVrDcQpNkE=",
+    urls = ["https://huggingface.co/Qwen/Qwen3.8-27B/resolve/1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0/README.md"],
+)
+
+http_file(
+    name = "co_huggingface_qwen_qwen3_8_27b_chat_template_jinja",
+    downloaded_file_path = "chat_template.jinja",
+    integrity = "sha256-w8+eNKv0+eNsLXIWWqnBMtPipyW2wlhqqjqK+deoEEE=",
+    urls = ["https://huggingface.co/Qwen/Qwen3.8-27B/resolve/1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0/chat_template.jinja"],
+)
+
+http_file(
+    name = "co_huggingface_qwen_qwen3_8_27b_config_json",
+    downloaded_file_path = "config.json",
+    integrity = "sha256-GR4K8jIQTti2UljPP7K4QuKIAIusp2M8EbgqGscgOqs=",
+    urls = ["https://huggingface.co/Qwen/Qwen3.8-27B/resolve/1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0/config.json"],
+)
+
+http_file(
+    name = "co_huggingface_qwen_qwen3_8_27b_generation_config_json",
+    downloaded_file_path = "generation_config.json",
+    integrity = "sha256-5wwTbBt43cH7CQW6yOczpNxEjU+FKl3XUUP//HC+VQ4=",
+    urls = ["https://huggingface.co/Qwen/Qwen3.8-27B/resolve/1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0/generation_config.json"],
+)
+
+http_file(
+    name = "co_huggingface_qwen_qwen3_8_27b_merges_txt",
+    downloaded_file_path = "merges.txt",
+    integrity = "sha256-qdNW173x70lJ4+dI6VuOEK2dTi6Djt3Digp7a5TR240=",
+    urls = ["https://huggingface.co/Qwen/Qwen3.8-27B/resolve/1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0/merges.txt"],
+)
+
+http_file(
+    name = "co_huggingface_qwen_qwen3_8_27b_model_00001_of_00018_safetensors",
+    downloaded_file_path = "model-00001-of-00018.safetensors",
+    integrity = "sha256-ugziCq5ImtGWcz2lBkvN8Vmh/oT1MzZkgZbh67d1Gxw=",
+    urls = ["https://huggingface.co/Qwen/Qwen3.8-27B/resolve/1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0/model-00001-of-00018.safetensors"],
+)
+
+http_file(
+    name = "co_huggingface_qwen_qwen3_8_27b_model_00002_of_00018_safetensors",
+    downloaded_file_path = "model-00002-of-00018.safetensors",
+    integrity = "sha256-BqFIwBv74/qhSl8YSn/ymnBveuHIsnBdIFjibRegAfs=",
+    urls = ["https://huggingface.co/Qwen/Qwen3.8-27B/resolve/1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0/model-00002-of-00018.safetensors"],
+)
+
+http_file(
+    name = "co_huggingface_qwen_qwen3_8_27b_model_00003_of_00018_safetensors",
+    downloaded_file_path = "model-00003-of-00018.safetensors",
+    integrity = "sha256-Lhv2LLzUBuqmS2DRA1Ph8O9AOdCXblbwXKvpU0VPmWg=",
+    urls = ["https://huggingface.co/Qwen/Qwen3.8-27B/resolve/1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0/model-00003-of-00018.safetensors"],
+)
+
+http_file(
+    name = "co_huggingface_qwen_qwen3_8_27b_model_00004_of_00018_safetensors",
+    downloaded_file_path = "model-00004-of-00018.safetensors",
+    integrity = "sha256-UR40BjGHiCZZdTxNk/OFn5PAGf1DjYgTBxkhyB2aPxo=",
+    urls = ["https://huggingface.co/Qwen/Qwen3.8-27B/resolve/1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0/model-00004-of-00018.safetensors"],
+)
+
+http_file(
+    name = "co_huggingface_qwen_qwen3_8_27b_model_00005_of_00018_safetensors",
+    downloaded_file_path = "model-00005-of-00018.safetensors",
+    integrity = "sha256-Y1y1NEbcdPIZdA/Fnhi3dPh3uAO5ci4onKYldabvpwE=",
+    urls = ["https://huggingface.co/Qwen/Qwen3.8-27B/resolve/1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0/model-00005-of-00018.safetensors"],
+)
+
+http_file(
+    name = "co_huggingface_qwen_qwen3_8_27b_model_00006_of_00018_safetensors",
+    downloaded_file_path = "model-00006-of-00018.safetensors",
+    integrity = "sha256-C8UhT6xgfw5syS7sN4nUuFWUEO+fzmZiG6gVjoQQ2uA=",
+    urls = ["https://huggingface.co/Qwen/Qwen3.8-27B/resolve/1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0/model-00006-of-00018.safetensors"],
+)
+
+http_file(
+    name = "co_huggingface_qwen_qwen3_8_27b_model_00007_of_00018_safetensors",
+    downloaded_file_path = "model-00007-of-00018.safetensors",
+    integrity = "sha256-gLDEkDPpoNV2JWKqEvSs239U2lhvPQEQ8oxI2RzweJI=",
+    urls = ["https://huggingface.co/Qwen/Qwen3.8-27B/resolve/1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0/model-00007-of-00018.safetensors"],
+)
+
+http_file(
+    name = "co_huggingface_qwen_qwen3_8_27b_model_00008_of_00018_safetensors",
+    downloaded_file_path = "model-00008-of-00018.safetensors",
+    integrity = "sha256-cZLFtmGF01kpJ9qr7hzBnm9uDOdZiO4g6CS2JHZf2nk=",
+    urls = ["https://huggingface.co/Qwen/Qwen3.8-27B/resolve/1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0/model-00008-of-00018.safetensors"],
+)
+
+http_file(
+    name = "co_huggingface_qwen_qwen3_8_27b_model_00009_of_00018_safetensors",
+    downloaded_file_path = "model-00009-of-00018.safetensors",
+    integrity = "sha256-rzxIzDevRPPbauBXm68BkYDUjZxSfKoKHwP/hYE6Vtg=",
+    urls = ["https://huggingface.co/Qwen/Qwen3.8-27B/resolve/1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0/model-00009-of-00018.safetensors"],
+)
+
+http_file(
+    name = "co_huggingface_qwen_qwen3_8_27b_model_00010_of_00018_safetensors",
+    downloaded_file_path = "model-00010-of-00018.safetensors",
+    integrity = "sha256-FjSQp2876jpAhVt+/ATObSevrxo08LveSVuUkfdkV8k=",
+    urls = ["https://huggingface.co/Qwen/Qwen3.8-27B/resolve/1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0/model-00010-of-00018.safetensors"],
+)
+
+http_file(
+    name = "co_huggingface_qwen_qwen3_8_27b_model_00011_of_00018_safetensors",
+    downloaded_file_path = "model-00011-of-00018.safetensors",
+    integrity = "sha256-XzrhuUiu7jnad67FWOgjbNZf5NfLdoana7AHrMVjxtg=",
+    urls = ["https://huggingface.co/Qwen/Qwen3.8-27B/resolve/1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0/model-00011-of-00018.safetensors"],
+)
+
+http_file(
+    name = "co_huggingface_qwen_qwen3_8_27b_model_00012_of_00018_safetensors",
+    downloaded_file_path = "model-00012-of-00018.safetensors",
+    integrity = "sha256-o94ccRRneo9axcSJLJDoI46lweIDjIDnV9/IfDkCylU=",
+    urls = ["https://huggingface.co/Qwen/Qwen3.8-27B/resolve/1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0/model-00012-of-00018.safetensors"],
+)
+
+http_file(
+    name = "co_huggingface_qwen_qwen3_8_27b_model_00013_of_00018_safetensors",
+    downloaded_file_path = "model-00013-of-00018.safetensors",
+    integrity = "sha256-Bqt5pB90ycXLc0gW/rDH/DZBBLInFl7nORIx4RVaoCo=",
+    urls = ["https://huggingface.co/Qwen/Qwen3.8-27B/resolve/1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0/model-00013-of-00018.safetensors"],
+)
+
+http_file(
+    name = "co_huggingface_qwen_qwen3_8_27b_model_00014_of_00018_safetensors",
+    downloaded_file_path = "model-00014-of-00018.safetensors",
+    integrity = "sha256-QTjtlGAwZbqIS7yt7bBNdxi7QBF+heb1xvxbnAW3qFs=",
+    urls = ["https://huggingface.co/Qwen/Qwen3.8-27B/resolve/1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0/model-00014-of-00018.safetensors"],
+)
+
+http_file(
+    name = "co_huggingface_qwen_qwen3_8_27b_model_00015_of_00018_safetensors",
+    downloaded_file_path = "model-00015-of-00018.safetensors",
+    integrity = "sha256-aSJOJ7neTn2/b8k2xuquCER72juApsMahxq0URc6/SI=",
+    urls = ["https://huggingface.co/Qwen/Qwen3.8-27B/resolve/1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0/model-00015-of-00018.safetensors"],
+)
+
+http_file(
+    name = "co_huggingface_qwen_qwen3_8_27b_model_00016_of_00018_safetensors",
+    downloaded_file_path = "model-00016-of-00018.safetensors",
+    integrity = "sha256-c8uaEIn7YVXLZIYJR41mM76KXH2cpaBbyJJc6KVTzv4=",
+    urls = ["https://huggingface.co/Qwen/Qwen3.8-27B/resolve/1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0/model-00016-of-00018.safetensors"],
+)
+
+http_file(
+    name = "co_huggingface_qwen_qwen3_8_27b_model_00017_of_00018_safetensors",
+    downloaded_file_path = "model-00017-of-00018.safetensors",
+    integrity = "sha256-vrUfAQVhQqxJhL2ABQew3Q/RjeV/jp726kHRo1mJg6g=",
+    urls = ["https://huggingface.co/Qwen/Qwen3.8-27B/resolve/1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0/model-00017-of-00018.safetensors"],
+)
+
+http_file(
+    name = "co_huggingface_qwen_qwen3_8_27b_model_00018_of_00018_safetensors",
+    downloaded_file_path = "model-00018-of-00018.safetensors",
+    integrity = "sha256-HTR5UJ4hSUZY+bZNMX9eqOVcQCXSjHAtbE0LNWzo6gY=",
+    urls = ["https://huggingface.co/Qwen/Qwen3.8-27B/resolve/1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0/model-00018-of-00018.safetensors"],
+)
+
+http_file(
+    name = "co_huggingface_qwen_qwen3_8_27b_model_safetensors_index_json",
+    downloaded_file_path = "model.safetensors.index.json",
+    integrity = "sha256-dwQglAdmEbaXkaYQBl8otwE7jGIXlfqG3czIusfRud8=",
+    urls = ["https://huggingface.co/Qwen/Qwen3.8-27B/resolve/1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0/model.safetensors.index.json"],
+)
+
+http_file(
+    name = "co_huggingface_qwen_qwen3_8_27b_preprocessor_config_json",
+    downloaded_file_path = "preprocessor_config.json",
+    integrity = "sha256-JyJUUKycZSmHLuGST8sJYv9WNINPgXBA9EQRgRb05RY=",
+    urls = ["https://huggingface.co/Qwen/Qwen3.8-27B/resolve/1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0/preprocessor_config.json"],
+)
+
+http_file(
+    name = "co_huggingface_qwen_qwen3_8_27b_tokenizer_json",
+    downloaded_file_path = "tokenizer.json",
+    integrity = "sha256-CZf0EMV6H05TsJ5L6PShctkO3ZVkNo+whHAwk3IpufM=",
+    urls = ["https://huggingface.co/Qwen/Qwen3.8-27B/resolve/1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0/tokenizer.json"],
+)
+
+http_file(
+    name = "co_huggingface_qwen_qwen3_8_27b_tokenizer_config_json",
+    downloaded_file_path = "tokenizer_config.json",
+    integrity = "sha256-sRNJqvp83GoyB2fPfOsp7YL37aXWXo4IGedvDOlHvyc=",
+    urls = ["https://huggingface.co/Qwen/Qwen3.8-27B/resolve/1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0/tokenizer_config.json"],
+)
+
+http_file(
+    name = "co_huggingface_qwen_qwen3_8_27b_video_preprocessor_config_json",
+    downloaded_file_path = "video_preprocessor_config.json",
+    integrity = "sha256-d2ivJ8H6+pzJARwdwgBn4D+JFeA7Y1BFUOEdUGaYbRM=",
+    urls = ["https://huggingface.co/Qwen/Qwen3.8-27B/resolve/1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0/video_preprocessor_config.json"],
+)
+
+http_file(
+    name = "co_huggingface_qwen_qwen3_8_27b_vocab_json",
+    downloaded_file_path = "vocab.json",
+    integrity = "sha256-zpm0yymD0RiAbOCot3ejWwk+IAClA+veJYUyhMnfoAM=",
+    urls = ["https://huggingface.co/Qwen/Qwen3.8-27B/resolve/1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0/vocab.json"],
+)
