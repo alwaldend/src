@@ -26,3 +26,5 @@ existing image freshness tests passed on 2026-11-01, including the unchanged
 T3 Code publication SVG. The source diagram and blog image remain unchanged.
 Evidence and exact-candidate delivery receipts are under ignored
 `out/comfyui-diagram-style/` in the repository worktree.
+
+- [x] 4.2 Align the documentation browser fixture with the current T3 Code diagram alternative text, preserving accessible-image and light/dark visibility checks.

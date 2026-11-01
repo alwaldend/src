@@ -16,6 +16,11 @@ Glyph outlines and metrics are retained, and each SVG remains self-contained.
 The pinned Python dependency belongs to `tools/py`; historical themed output
 retains its existing embedding behavior.
 
+Mermaid CLI 12 uses `customFontCSS` to load and embed custom fonts. Native
+rules require `label_font_license` alongside `label_font`; both must describe
+the same face. The renderer supplies a local stylesheet, subset font, and
+license to the CLI, which writes the SVG without geometry post-processing.
+
 [`theme.json`](theme.json) owns the diagram appearance. It applies a
 documentation palette, typography, layout, and the `handDrawn` look to every
 diagram, so rendered work shares one visual contract instead of Mermaid's
