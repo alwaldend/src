@@ -1,0 +1,23 @@
+load("@rules_go//go:def.bzl", "go_binary", "go_library")
+
+package(transitive_visibility = "//infra:transitive_consumers")
+
+go_library(
+    name = "responses_bridge_lib",
+    srcs = [
+        "doc.go",
+        "main.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/infra/local_inference/cmd/responses_bridge",
+    visibility = ["//visibility:private"],
+    deps = [
+        "//infra/local_inference/internal/responses",
+        "@com_github_spf13_cobra//:cobra",
+    ],
+)
+
+go_binary(
+    name = "responses_bridge",
+    embed = [":responses_bridge_lib"],
+    visibility = ["//infra/local_inference:__subpackages__"],
+)

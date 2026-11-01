@@ -1,0 +1,28 @@
+[Unit]
+Description=Local CUDA inference for Codex
+
+[Service]
+Type=simple
+User=llama
+Group=llama
+WorkingDirectory=/var/lib/llama
+Environment=LD_LIBRARY_PATH=/opt/llama/{{ local_inference_llama_version }}
+Environment=GGML_BACKEND_PATH=/opt/llama/{{ local_inference_llama_version }}
+ExecStartPre=/usr/bin/nvidia-smi --query-gpu=name --format=csv,noheader
+ExecStart=/opt/llama/{{ local_inference_llama_version }}/llama-server --model /var/lib/llama/model.gguf --alias local-coder --host 127.0.0.1 --port 8081 --jinja --device CUDA0 --n-gpu-layers all --ctx-size {{ local_inference_context_size }} --parallel 1 --no-webui
+Restart=on-failure
+RestartSec=10
+UMask=0077
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+RestrictSUIDSGID=yes
+RestrictAddressFamilies=AF_UNIX AF_INET
+CapabilityBoundingSet=
+
+[Install]
+WantedBy=multi-user.target

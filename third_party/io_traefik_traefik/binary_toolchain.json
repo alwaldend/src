@@ -2,14 +2,14 @@
     "toolchains": [
         {
             "name": "traefik",
-            "version": "3.7.16"
+            "version": "3.7.17"
         }
     ],
     "archives": [
         {
             "archive_name": "linux_x86_64",
             "toolchain_name": "traefik",
-            "toolchain_version": "3.7.16",
+            "toolchain_version": "3.7.17",
             "binaries": [
                 {
                     "name": "traefik",
@@ -19,9 +19,9 @@
             "actions": [
                 {
                     "download_and_extract": {
-                        "url": "https://github.com/traefik/traefik/releases/download/v3.7.16/traefik_v3.7.16_linux_amd64.tar.gz",
+                        "url": "https://github.com/traefik/traefik/releases/download/v3.7.17/traefik_v3.7.17_linux_amd64.tar.gz",
                         "output": "out",
-                        "integrity": "sha256-dZp7wNZrdMWIJV7Z5Bx/nUq6YL23vOnd5VGxJopV6wc="
+                        "integrity": "sha256-pWSr1fyO6X2DgnDxiLuUyzFyzBE/S1GqXn3WEX7ts5M="
                     }
                 }
             ],

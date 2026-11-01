@@ -1,0 +1,7 @@
+local_inference:
+  hosts:
+    local-inference:
+      ansible_host: >-
+        {{ lookup('ansible.builtin.env', 'LOCAL_INFERENCE_HOST',
+        default=undefined()) }}
+      ansible_user: ansible

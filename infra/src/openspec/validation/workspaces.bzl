@@ -10,6 +10,7 @@ WORKSPACE_SOURCES = {
     "infra_github": "//infra/github/openspec:source",
     "infra_harbor": "//infra/harbor/openspec:source",
     "infra_ingress": "//infra/ingress/openspec:source",
+    "infra_local_inference": "//infra/local_inference/openspec:source",
     "infra_mikrotik": "//infra/mikrotik/openspec:source",
     "infra_nas": "//infra/nas/openspec:source",
     "infra_nexus": "//infra/nexus/openspec:source",

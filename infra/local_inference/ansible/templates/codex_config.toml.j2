@@ -1,0 +1,10 @@
+model = "local-coder"
+model_context_window = {{ local_inference_context_size }}
+model_auto_compact_token_limit = {{ (local_inference_context_size * 0.75) | int }}
+default_permissions = ":workspace"
+approval_policy = "on-request"
+approvals_reviewer = "auto_review"
+web_search = "disabled"
+
+[analytics]
+enabled = false

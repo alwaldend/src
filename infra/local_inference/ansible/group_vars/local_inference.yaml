@@ -1,0 +1,44 @@
+local_inference_llama_uid: 1101
+local_inference_context_size: 32768
+local_inference_model_src: >-
+  {{ lookup('ansible.builtin.env', 'LOCAL_INFERENCE_MODEL_SRC',
+  default=undefined()) }}
+local_inference_model_sha256: >-
+  {{ lookup('ansible.builtin.env', 'LOCAL_INFERENCE_MODEL_SHA256',
+  default=undefined()) }}
+local_inference_codex_version: 0.166.0
+local_inference_codex_sha256: a0bf572d2f93f056c6712a6da348e96078dc84f3885fd7be67807ef389cb3978
+local_inference_llama_version: b11960
+local_inference_llama_sha256: 64d57beb9abb637c177c6afb313760a0c0782224cac71e74869eed5b8f9a1ea4
+local_inference_cuda_sha256: 7c4d5974bd39649df649649e5d71950688a70e37aaae00bf11afbb656ea2cc56
+
+local_inference_dns: "{{ lookup('ansible.builtin.file', playbook_dir ~ '/dnsconfig.json') | from_json }}"
+local_inference_model_selection:
+  instanceId: codex
+  model: local-coder
+  options: []
+
+t3code_install_method: standalone
+t3code_version: "0.1.6"
+t3code_archive_url: "https://github.com/pingdotgg/t3code/releases/download/v{{ t3code_version }}/t3-{{ t3code_version }}-linux-x64.tar.gz"
+t3code_archive_checksum: sha256:7cf31da90dee41f524dd5b679ebb6d404637ca5d9dc6fd8bc019511d57bb77e6
+t3code_port: 3773
+t3code_domain: "{{ local_inference_dns.records.t3code.CNAME.name }}"
+t3code_service_path: /etc/systemd/system/t3code.service
+t3code_initial_settings:
+  defaultModelSelection: "{{ local_inference_model_selection }}"
+  textGenerationModelSelection: "{{ local_inference_model_selection }}"
+  defaultRuntimeMode: auto
+  providerInstances:
+    codex:
+      driver: codex
+      config:
+        setupMode: existing
+        binaryPath: /usr/local/bin/codex
+        homePath: "{{ t3code_home_dir }}/.codex"
+        customModels: [local-coder]
+
+traefik_bin_path: "{{ traefik_dir }}/traefik"
+traefik_service_path: /etc/systemd/system/traefik.service
+traefik_acme_path: pki/ica_servers/roles/src_infra_local_inference_pki_server/acme
+traefik_acme_url: "https://vault.alwaldend.com:8200/v1/{{ traefik_acme_path }}/directory"

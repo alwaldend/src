@@ -8,6 +8,7 @@ module "dns_access" {
     src_infra_forgejo_runner   = ["dc1"]
     src_infra_harbor           = ["dc1"]
     src_infra_ingress          = ["dc1", "global"]
+    src_infra_local_inference  = ["global"]
     src_infra_openhands        = ["dc1", "global"]
     src_infra_threexui         = ["dc1", "global"]
     src_infra_xcp_ng           = ["dc1"]
