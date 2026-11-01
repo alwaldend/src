@@ -36,9 +36,11 @@ An A record alone does not suppress upstream AAAA answers: while public DNS
 still points to Pages, IPv6 clients would reach that site instead of the local
 VM. This local override keeps clients on the configured IPv4 endpoint without
 changing public DNS or relying on a guest's temporary IPv6 address.
-The public apex follows `download.alwaldend.com`, which in turn follows the
-component-owned Yandex host. Renaming that host therefore requires no copied
-endpoint edit in the apex owner.
+The public apex follows `download.alwaldend.com` through its configured CNAME,
+which follows the component-owned Yandex host. The former GitHub Pages A/AAAA
+records were removed during the authorized cutover. Renaming the Yandex host
+requires no copied endpoint edit in the apex owner. The staged procedure below
+records that cutover sequence.
 
 ## Staged public apex cutover
 

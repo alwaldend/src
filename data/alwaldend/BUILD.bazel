@@ -2,7 +2,10 @@ load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 
 package(transitive_visibility = "//data:transitive_consumers")
 
-exports_files(["assets/theme.json"], visibility = ["//:__subpackages__"])
+exports_files(
+    ["assets/theme.json"],
+    visibility = ["//:__subpackages__"],
+)
 
 alias(
     name = "mermaid_theme",

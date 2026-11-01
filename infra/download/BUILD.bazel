@@ -121,6 +121,26 @@ filegroup(
     visibility = ["//infra:__subpackages__"],
 )
 
+al_binary_run(
+    name = "sync.yandex",
+    args = [
+        "$(rootpath //infra/download/ansible:ansible_bin)",
+        "--inventory",
+        "inventory.yaml",
+        "playbook_sync.yaml",
+    ],
+    configs = [":al"],
+    data = [
+        "//infra/download/ansible:ansible_bin",
+        "//tools/vault/injector",
+    ],
+    run_args = [
+        "--plugin_label",
+        "ssh=1",
+    ],
+    visibility = ["//infra:__subpackages__"],
+)
+
 vault_binary_map(
     name = "vault",
     configs = [":al"],
@@ -133,5 +153,6 @@ docs_filegroup(
     deps = subpackages(
         include = ["*"],
         allow_empty = True,
+        exclude = ["test/**"],
     ),
 )

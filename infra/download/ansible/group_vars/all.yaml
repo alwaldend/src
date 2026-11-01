@@ -9,12 +9,20 @@ ansible_ssh_common_args: >-
   -o GlobalKnownHostsFile=/dev/null
   -o StrictHostKeyChecking=yes
 download_nginx_port: 8008
+download_site_enabled: true
+download_git_redirect_enabled: false
 download_acme_email: src_infra_download@alwaldend.com
 ssh_vault_role: src_infra_download_ssh
 firewall_allow_port_from:
   - { src: any, port: 22, proto: tcp, comment: SSH }
   - { src: any, port: 80, proto: tcp, comment: HTTP }
   - { src: any, port: 443, proto: tcp, comment: HTTPS }
+# Explicit TCP allowances above replace these inherited image rules.
+firewall_delete_rules:
+  - { rule: allow, name: SSH }
+  - { rule: allow, name: mDNS }
+  - { rule: allow, name: mDNS, dest: 224.0.0.251 }
+  - { rule: allow, name: mDNS, dest: "ff02::fb" }
 nginx_config_template: files/nginx.conf.j2
 traefik_config_local_path: files/traefik.toml.j2
 traefik_dynamic_config_local_path: files/traefik_dynamic.toml.j2

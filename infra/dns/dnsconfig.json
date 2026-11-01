@@ -1,13 +1,5 @@
 {
     "records": {
-        "download_global": {
-            "CNAME": {
-                "name": "@",
-                "ttl": 300,
-                "target": "download.alwaldend.com."
-            },
-            "dsp": ["global"]
-        },
         "download_dc1": {
             "A": {
                 "name": "@",
@@ -209,6 +201,14 @@
                 "content": "v=DKIM1; k=rsa; t=s; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCcYzFVgkeDOhaIIkWM8gNQjxVsv0/aXfU+ax5urB5y6hA6lSjRnjRo6tm0bXbkOJf41GmiwMNgdXpwRtzgzAlX1i2aJbtEr4b9jzibEGLQ7Cvqs44bOYES9f/K3ueQpnvdTOJmFqlRReFL7ZrUyDFCoQ7f4+7h4i8s01cCcRrt5wIDAQAB"
             },
             "dsp": ["all"]
+        },
+        "download_global": {
+            "CNAME": {
+                "name": "@",
+                "ttl": 300,
+                "target": "download.alwaldend.com."
+            },
+            "dsp": ["global"]
         }
     }
 }

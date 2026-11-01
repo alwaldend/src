@@ -1,0 +1,32 @@
+- name: Allow declared incoming ports
+  loop: "{{ firewall_allow_port_from | list }}"
+  community.general.ufw:
+    rule: allow
+    direction: in
+    proto: "{{ item.proto | default('any') }}"
+    port: "{{ item.port | mandatory }}"
+    src: "{{ item.src | mandatory }}"
+    comment: "{{ item.comment | mandatory }} # Ansible"
+
+- name: Allow declared forwarding
+  loop: "{{ firewall_allow_forward | list }}"
+  community.general.ufw:
+    rule: allow
+    route: true
+    src: "{{ item.src | default('any') }}"
+    dest: "{{ item.dest | default('any') }}"
+    comment: "{{ item.comment | mandatory }} # Ansible"
+
+- name: Delete explicitly retired firewall rules
+  loop: "{{ firewall_delete_rules | list }}"
+  community.general.ufw:
+    delete: true
+    rule: "{{ item.rule | mandatory }}"
+    name: "{{ item.name | default(omit) }}"
+    proto: "{{ item.proto | default(omit) }}"
+    port: "{{ item.port | default(omit) }}"
+    from_port: "{{ item.from_port | default(omit) }}"
+    src: "{{ item.src | default('any') }}"
+    dest: "{{ item.dest | default('any') }}"
+    direction: "{{ item.direction | default(omit) }}"
+    route: "{{ item.route | default(false) }}"

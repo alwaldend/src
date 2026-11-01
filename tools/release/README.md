@@ -71,7 +71,7 @@ Omitting the environment selects existing OCI deployments and requires
 
 Host trust and authentication use normal OpenSSH configuration, with strict
 host-key checks and noninteractive authentication. `--ssh_config`,
-`--ssh_identity`, `--ssh_known_hosts`, `--ssh_port`, and `--ssh_user` allow
+`--ssh_identity`, `--ssh_certificate`, `--ssh_known_hosts`, `--ssh_port`, and `--ssh_user` allow
 explicit local overrides. Credentials are not written into manifests.
 An explicit identity can select a key held by the operator's SSH agent.
 `--ssh_disable_agent` disables agent authentication and restricts authentication
@@ -88,13 +88,20 @@ defaults to `projects`; `--namespace third_party` selects the parallel upstream
 artifact tree. A manifest project beginning with `third_party/` selects it by
 default. Only these two namespaces are accepted. `third_party` supports upload
 only; website extraction and selection remain project-only.
-Rsync updates matching filenames using checksums, normalizes directories to
-`0755` and files to `0644`, and never deletes other files. A failed multi-file
-transfer can leave completed files published; rsync's error and itemized
-output describe the transfer. Files are transferred through private staging
-on the same content filesystem, using rsync's normal temporary-file rename.
+Third-party uploads retain checksum-based replacement of matching filenames;
+a failed transfer can leave completed files published.
+Project publication rejects an existing artifact or extracted-site version.
+It transfers the complete release into private staging, normalizes directories
+to `0755` and files to `0644`, then promotes the directory under the project
+lock. The collision check runs before transfer and again under the lock;
+concurrent uploads cannot overwrite a completed version. A failed transfer
+does not expose a partial release. Use the download component’s Ansible mirror for authoritative public replacement.
 
 Remote shell arguments use POSIX single-quote escaping to preserve literal values.
+SSH publication starts remote commands from `/`, so the content account need
+not traverse the administrator's private home. Uploaded archive directories
+are set to 0755 before promotion, independently of the remote umask. Repeating
+`link` also repairs the selected archive directory's mode without changing bytes.
 
 ## Choose publication steps
 
@@ -123,8 +130,7 @@ archive into a private local temporary directory, validates and extracts it,
 then copies the site into private remote staging and promotes the completed
 directory to `sites/<project>/releases/<version>`. Local free space must hold
 both the archive and its extracted content. No archive helper is installed on
-the host. Existing completed site versions are retained without retransferring
-or reextracting their content.
+the host. Extracting an existing site version fails without changing it.
 
 The extractor rejects traversal, absolute paths, links, device entries,
 duplicate file names, and missing root `index.html`. Archives may contain at
@@ -133,11 +139,21 @@ attributes are not preserved. Server-created content inherits the destination's
 configured SELinux labels.
 
 Linking atomically replaces `sites/<project>/current` after checking the
-selected directory and its root index. A short `flock` serializes promotion
-and link changes. A failure in an earlier step leaves the current site
-unchanged, although completed ordinary uploads may already be public. Use a
-new version for changed website content; select an earlier retained version
-with `--steps link`. There is no separate rollback command or automatic deletion.
+selected directory, its root index, and managed directory ancestry. It then
+deletes other extracted versions of that same website, under the project lock.
+All downloadable archives remain in `projects/<project>/releases/`. Before selection, linking rejects mounted site ancestry and directory mounts
+inside the extracted releases. Cleanup does not follow symlinks or cross nested
+filesystems. A cleanup failure reports
+failure after selection; the new site remains selected and repeating `link`
+can finish cleanup. Serialize complete publication workflows for one project:
+linking also removes versions extracted by another unfinished workflow.
+
+A failure before selection leaves the current site unchanged, although a
+completed upload may precede failed extraction. Upload-only and extract-only
+operations do not delete sites. Use a new version for changed website content.
+To roll back, use the earlier version's manifest and `--steps extract,link`
+to restore its retained archive; use only `link` if it is already extracted.
+There is no separate rollback command.
 
 `al_release_deployment` accepts `ssh_*` metadata alongside its existing OCI
 variant. `ssh_public_url` supplies generated artifact URLs with the public
@@ -150,3 +166,16 @@ bundles accept both `projects/<name>` and `third_party/<name>` project identitie
 The download-host publication targets inject short-lived SSH credentials and
 scoped host-CA trust; direct generic CLI usage still accepts explicit SSH options,
 including `--ssh_certificate`.
+
+## Infrastructure synchronization
+
+The download component owns local-to-public store synchronization through its
+Ansible playbook and `//infra/download:sync.yandex` target. The release CLI has
+no sync command. See the [download runbook](../../infra/download/README.md)
+for check-mode preview, authoritative replacement, and failure boundaries.
+
+The isolated `//infra/download/test/sync:sync_test` acceptance fixture
+exercises this CLI's publication, duplicate-version refusal, archive-preserving
+site cleanup, and the Ansible mirror against a real loopback OpenSSH server.
+It never uses deployment hosts. Its repeatable receipt records content hashes,
+permissions, links, and the checked failure cases.

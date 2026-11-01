@@ -11,7 +11,8 @@ tags:
 ---
 
 Alwaldend.com is the repository's main website and documentation site. It
-uses Hugo with Docsy to publish project documentation on GitHub Pages.
+uses Hugo with Docsy to publish project documentation through the local and
+public [download servers](../../infra/download/README.md).
 
 ## Historical www architecture
 
@@ -23,7 +24,7 @@ The [Mermaid source](docs/legacy-www.mmd) is authoritative; Bazel renders its li
 ## Links
 
 - Source code: https://github.com/alwaldend/src/tree/master/projects/alwaldend.com
-- Github Pages repo: https://github.com/alwaldend/alwaldend.github.io
+- Former GitHub Pages repo: https://github.com/alwaldend/alwaldend.github.io
 - Hugo rules: [../../tools/rules_hugo](../../tools/rules_hugo)
 
 ## Features
@@ -45,6 +46,7 @@ indented; chevrons expand branches independently of the row's page link. Heading
 search fields, code blocks, tables, and callouts follow the same typography
 and surface styles. Syntax highlighting
 uses CSS classes so code colors follow the active theme.
+
 Docsy's `sidebar_root_enabled` scopes `/docs/<category>/<owner>` sections to
 their owner's subtree. One Hugo cascade applies `sidebar_root_for: self`;
 the sidebar root links up to the parent section. Full navigation remains on
@@ -236,11 +238,12 @@ The output directory `bazel-bin/projects/alwaldend.com/release` contains
 `release.json` and `files/website.tar.gz`. The manifest uses `STABLE_VERSION`
 from the versioning tool, including `0.0.0-dev` for development builds.
 The archive contains the complete site with `index.html` at its root and
-excludes drafts, generated project release documentation, and project binary
-payloads. The release target requires release configuration. Building
+excludes drafts, generated project release pages/manifests, and project binary
+payloads. Release artifacts remain on the download server. The release target
+requires release configuration. Building
 it does not connect to a host or publish anything.
 
-With administrator SSH access configured, publish the bundle to XCP-ng:
+With repository Vault authentication available, publish the bundle to XCP-ng:
 
 ```sh
 bazel_agent bazel run //infra/download:publish.local -- \
@@ -248,14 +251,18 @@ bazel_agent bazel run //infra/download:publish.local -- \
   --site_archive website.tar.gz --steps upload,extract,link
 ```
 
-Use `publish.yandex` only for an explicitly selected, configured cloud host.
-The publisher uses ordinary OpenSSH authentication and strict host trust; it
-does not run Ansible. See the [release tool](../../tools/release/README.md)
+After local verification, use `//infra/download:sync.yandex` to replace public
+content from local. The wrappers inject short-lived SSH credentials and strict
+host trust. Publication uses the release tool; synchronization runs the download
+component's Ansible playbook. See the [release tool](../../tools/release/README.md)
 for identity/configuration overrides and independently selecting upload,
 extraction, or linking. The manifest version selects both the public archive
 directory and the extracted site release; linking selects the main website.
-Use a new version for changed site content because an already extracted
-version is retained. Development `0.0.0-dev` is suitable for the first local
+Use a new version for changed local content: duplicate artifact or extracted
+site versions fail without changes. Public sync overwrites matching versions.
+Selecting a new site removes older extracted versions and retains every
+downloadable archive. Rollback re-extracts and selects an earlier archive.
+Development `0.0.0-dev` is suitable for the first local
 deployment; subsequent releases should use distinct versions from the
 [versioning workflow](../../tools/versioning/README.md).
 

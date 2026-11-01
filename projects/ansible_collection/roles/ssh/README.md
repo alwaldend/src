@@ -30,3 +30,10 @@ above, including the native restart handler. The `ssh_hardening` tag alone
 skips the required certificate discovery. The upstream template validates its
 candidate during apply; `--check --diff` previews do not validate the proposed
 configuration. The scanner does not invoke this role or change server policy.
+
+Replacing a signed host certificate notifies a role-owned handler. It runs
+`sshd -t` before reloading the daemon so new connections receive the renewed
+certificate even when the hardening configuration is unchanged. The service
+name follows `sshd_service_name` when provided, otherwise the OS-family default.
+Existing sessions survive the reload. This is deployment-time renewal; the role
+does not install a certificate renewal timer.

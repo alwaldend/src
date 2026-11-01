@@ -80,18 +80,11 @@ func (self *Deployer) deployRelease(opts *DeployerOpts, releasePath string) erro
 	if opts.SSHDeployment != "" || opts.SSHHost != "" {
 		deployment := &contracts.ReleaseDeploymentSsh{}
 		if opts.SSHDeployment != "" {
-			data, err := os.ReadFile(opts.SSHDeployment)
+			var err error
+			deployment, err = readSSHDeployment(opts.SSHDeployment)
 			if err != nil {
-				return fmt.Errorf("read SSH deployment %q: %w", opts.SSHDeployment, err)
+				return fmt.Errorf("configure release destination: %w", err)
 			}
-			wrapper := &contracts.ReleaseDeployment{}
-			if err := protojson.Unmarshal(data, wrapper); err != nil {
-				return fmt.Errorf("parse SSH deployment %q: %w", opts.SSHDeployment, err)
-			}
-			if wrapper.Ssh == nil {
-				return fmt.Errorf("ssh_deployment does not contain SSH configuration")
-			}
-			deployment = wrapper.Ssh
 		}
 		if err := self.deploySSH(opts, manifest, releasePath, deployment, manifest.Items); err != nil {
 			return fmt.Errorf("deploy manifest over SSH: %w", err)
@@ -137,4 +130,20 @@ func (self *Deployer) deployRelease(opts *DeployerOpts, releasePath string) erro
 		return fmt.Errorf("no deployment selected; SSH requires an explicit environment")
 	}
 	return nil
+}
+
+// readSSHDeployment loads the existing deployment metadata contract.
+func readSSHDeployment(filename string) (*contracts.ReleaseDeploymentSsh, error) {
+	data, err := os.ReadFile(filename)
+	if err != nil {
+		return nil, fmt.Errorf("read SSH deployment %q: %w", filename, err)
+	}
+	wrapper := &contracts.ReleaseDeployment{}
+	if err := protojson.Unmarshal(data, wrapper); err != nil {
+		return nil, fmt.Errorf("parse SSH deployment %q: %w", filename, err)
+	}
+	if wrapper.Ssh == nil {
+		return nil, fmt.Errorf("deployment %q does not contain SSH configuration", filename)
+	}
+	return wrapper.Ssh, nil
 }

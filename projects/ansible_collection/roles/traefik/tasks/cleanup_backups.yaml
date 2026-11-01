@@ -1,0 +1,12 @@
+- name: Remove temporary activation backups
+  no_log: true
+  ansible.builtin.file:
+    path: "{{ item.backup_file }}"
+    state: absent
+  when: item.backup_file is defined
+  loop:
+    - "{{ traefik_config_var }}"
+    - "{{ traefik_dynamic_config_var }}"
+    - "{{ traefik_ca_var }}"
+    - "{{ traefik_bin_var }}"
+    - "{{ traefik_service_var }}"

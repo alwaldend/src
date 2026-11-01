@@ -1,0 +1,204 @@
+- name: Mirror the authoritative local download store to Yandex
+  hosts: download_yandex
+  gather_facts: false
+  any_errors_fatal: true
+  become: "{{ download_sync_become | default(true) }}"
+  vars:
+    download_sync_source: "{{ groups['download_local'] | first }}"
+    download_sync_source_root: "{{ hostvars[download_sync_source].download_root | default('/srv/download') }}"
+    download_sync_root: "{{ download_root | default('/srv/download') }}"
+    download_sync_publisher: "{{ download_publisher | default('download') }}"
+    download_sync_source_publisher: "{{ hostvars[download_sync_source].download_publisher | default('download') }}"
+    download_sync_command_prefix: "{{ ['sudo', '-n', '-u', download_sync_publisher, '--'] if download_sync_publisher else [] }}"
+    download_sync_controller_base: >-
+      {{ (lookup('ansible.builtin.env', 'BUILD_WORKSPACE_DIRECTORY') + '/out/download-sync')
+         if lookup('ansible.builtin.env', 'BUILD_WORKSPACE_DIRECTORY')
+         else lookup('ansible.builtin.env', 'TMPDIR', default=undef()) }}
+  module_defaults:
+    ansible.posix.synchronize:
+      archive: false
+      recursive: true
+      links: true
+      perms: true
+      checksum: true
+      times: false
+      compress: true
+      verify_host: true
+      use_ssh_args: true
+      rsync_timeout: 60
+      rsync_path: "{{ download_sync_rsync_path | default(('sudo -n -u ' + download_sync_publisher + ' -- rsync') if download_sync_publisher else 'rsync') }}"
+      # synchronize adds -F; payload .rsync-filter files must remain ordinary data.
+      rsync_opts: ["--chmod=D755,F644", "--protect-args", "--filter=!"]
+  tasks:
+    - name: Require exactly one source and destination
+      ansible.builtin.assert:
+        that:
+          - groups['download_local'] | length == 1
+          - groups['download_yandex'] | length == 1
+          - download_sync_source != inventory_hostname
+        quiet: true
+
+    - name: Validate both managed stores before transfer
+      ansible.builtin.include_tasks: tasks/sync_endpoint.yaml
+      loop:
+        - host: "{{ download_sync_source }}"
+          root: "{{ download_sync_source_root }}"
+        - host: "{{ inventory_hostname }}"
+          root: "{{ download_sync_root }}"
+      loop_control:
+        loop_var: download_sync_endpoint
+
+    - name: Reject overlapping roots on the same SSH host
+      ansible.builtin.assert:
+        that:
+          - >-
+            hostvars[download_sync_source].ansible_host | default(download_sync_source) != ansible_host | default(inventory_hostname)
+            or (download_sync_source_root != download_sync_root
+                and not download_sync_source_root.startswith(download_sync_root + '/')
+                and not download_sync_root.startswith(download_sync_source_root + '/'))
+        quiet: true
+
+    - name: Check atomic directory exchange support
+      ansible.builtin.command:
+        argv: [mv, --help]
+      environment:
+        LC_ALL: C
+      register: download_sync_mv
+      changed_when: false
+      check_mode: false
+
+    - name: Require native atomic directory exchange
+      ansible.builtin.assert:
+        that:
+          - "'--exchange' in download_sync_mv.stdout"
+          - "'--no-copy' in download_sync_mv.stdout"
+        quiet: true
+
+    - name: Inspect destination links without following them
+      ansible.builtin.find:
+        paths: ["{{ download_sync_root }}/projects", "{{ download_sync_root }}/sites"]
+        recurse: true
+        hidden: true
+        follow: false
+        file_type: link
+      register: download_sync_destination_links
+
+    - name: Reject destination links outside current selections
+      ansible.builtin.assert:
+        that:
+          - >-
+            download_sync_destination_links.files | map(attribute='path') |
+            reject('match', '^' + (download_sync_root | regex_escape) + '/sites/[^/]+/current$') | list | length == 0
+        quiet: true
+
+    - name: Refuse special source files
+      ansible.builtin.command:
+        argv: [find, "{{ download_sync_source_root }}/projects", "{{ download_sync_source_root }}/sites", "!", -type, d, "!", -type, f, "!", -type, l, -print, -quit]
+      delegate_to: "{{ download_sync_source }}"
+      register: download_sync_special
+      changed_when: false
+      failed_when: download_sync_special.rc != 0 or download_sync_special.stdout | length > 0
+      check_mode: false
+
+    - name: Prepare private controller scratch
+      ansible.builtin.file:
+        path: "{{ download_sync_controller_base }}"
+        state: directory
+        mode: "0700"
+      delegate_to: localhost
+      become: false
+      check_mode: false
+
+    - name: Capture and publish complete trees
+      block:
+        - name: Allocate a private controller capture
+          ansible.builtin.tempfile:
+            path: "{{ download_sync_controller_base }}"
+            state: directory
+            prefix: capture.
+          delegate_to: localhost
+          become: false
+          check_mode: false
+          register: download_sync_capture
+
+        - name: Capture authoritative published content through the controller
+          ansible.posix.synchronize:
+            mode: pull
+            src: "{{ hostvars[download_sync_source].ansible_user | default(ansible_user) }}@{{ hostvars[download_sync_source].ansible_host | default(download_sync_source) }}:{{ download_sync_source_root }}/{{ item }}/"
+            dest: "{{ download_sync_capture.path }}/{{ item }}/"
+            dest_port: "{{ hostvars[download_sync_source].ansible_port | default(22) }}"
+            rsync_path: "{{ ('sudo -n -u ' + download_sync_source_publisher + ' -- rsync') if download_sync_source_publisher else 'rsync' }}"
+          become: false
+          check_mode: false
+          loop: [projects, sites]
+
+        - name: Validate the complete captured publication layout
+          ansible.builtin.include_tasks: tasks/sync_capture.yaml
+
+        - name: Preview authoritative changes and deletions
+          ansible.posix.synchronize:
+            src: "{{ download_sync_capture.path }}/{{ item }}/"
+            dest: "{{ ansible_user }}@{{ ansible_host | default(inventory_hostname) }}:{{ download_sync_root }}/{{ item }}/"
+            delete: true
+          become: false
+          check_mode: true
+          loop: [projects, sites]
+          register: download_sync_preview
+
+        - name: Report the publication preview
+          ansible.builtin.debug:
+            msg: "{{ download_sync_preview.results | map(attribute='msg') | list }}"
+          when: ansible_check_mode
+
+        - name: Stage and select changed project trees
+          when:
+            - not ansible_check_mode
+            - download_sync_preview.results | selectattr('changed') | list | length > 0
+          block:
+            - name: Allocate private destination staging
+              ansible.builtin.tempfile:
+                path: "{{ download_sync_root }}/staging"
+                state: directory
+                prefix: sync.
+              register: download_sync_staging
+
+            - name: Set staging ownership for the content publisher
+              ansible.builtin.file:
+                path: "{{ download_sync_staging.path }}"
+                owner: "{{ download_sync_publisher if download_sync_publisher else omit }}"
+                mode: "0700"
+
+            - name: Stage every changed tree before public selection
+              ansible.posix.synchronize:
+                src: "{{ download_sync_capture.path }}/{{ item }}/"
+                dest: "{{ ansible_user }}@{{ ansible_host | default(inventory_hostname) }}:{{ download_sync_staging.path }}/{{ item }}/"
+                # The pinned synchronize module does not quote link_dest paths.
+                # Pass the equivalent rsync option with explicit shell quoting.
+                rsync_opts:
+                  - --chmod=D755,F644
+                  - --protect-args
+                  - --filter=!
+                  - "{{ ('--link-dest=' + download_sync_root + '/' + item) | quote }}"
+              become: false
+              loop: "{{ download_sync_preview.results | selectattr('changed') | map(attribute='item') | list }}"
+
+            - name: Select complete projects and retire public-only projects
+              ansible.builtin.include_tasks: tasks/sync_tree.yaml
+              loop: "{{ download_sync_preview.results | selectattr('changed') | map(attribute='item') | list }}"
+              loop_control:
+                loop_var: download_sync_kind
+      always:
+        - name: Remove only this invocation's destination staging
+          ansible.builtin.file:
+            path: "{{ download_sync_staging.path }}"
+            state: absent
+          when: download_sync_staging.path is defined
+
+        - name: Remove the controller capture
+          ansible.builtin.file:
+            path: "{{ download_sync_capture.path }}"
+            state: absent
+          delegate_to: localhost
+          become: false
+          check_mode: false
+          when: download_sync_capture.path is defined

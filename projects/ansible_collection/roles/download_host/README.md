@@ -67,3 +67,9 @@ aggregation. Domain-specific serving templates stay with the deployment.
 The `download_publication` tag updates publication roots, read-only SELinux
 labels, deduplication units and Nginx without provisioning storage or changing
 other host services. It first requires the content root to be a mounted filesystem.
+
+The content mount uses `nofail` and a ten-second device timeout, so an absent
+content disk does not make it mandatory for OS boot. Nginx and deduplication
+explicitly require the mount; SSH and Traefik remain on the system disk for
+recovery. Missing storage still fails an attempted role deployment. This does
+not provide content replication, backup, or automatic recovery of a lost disk.

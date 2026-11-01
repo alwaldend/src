@@ -1,0 +1,2 @@
+- name: Reload signed SSH host certificates
+  ansible.builtin.include_tasks: reload_certificates.yaml

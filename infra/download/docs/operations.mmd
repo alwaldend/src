@@ -2,15 +2,15 @@ flowchart TB
     subgraph publication[Publication · explicit environment]
         direction LR
         upload[publish.local OR publish.yandex<br/>--steps upload<br/>rsync via SSH, sudo as download]
-        files[(projects/PROJECT/releases/VERSION<br/>Completed files are immediately public)]
+        files[(projects/PROJECT/releases/VERSION<br/>Complete release becomes public atomically)]
         extract[--steps extract --site_archive NAME<br/>Validate/extract on operator machine<br/>Stage and promote completed site]
-        link[--steps link<br/>Atomically select sites/PROJECT/current<br/>Reselect a retained version for recovery]
+        link[--steps link<br/>Atomically select sites/PROJECT/current<br/>Remove older extracted versions; retain archives]
         upload --> files --> extract --> link
     end
     subgraph automatic[Automatic · each VM]
         direction LR
         timer[Daily timer + missed-run catch-up<br/>download-deduplicate.timer]
-        dedup[duperemove · projects/ + sites/<br/>Private incremental hash database<br/>50% CPU · 512 MiB · 6h deadline]
+        dedup[duperemove · projects/ + third_party/ + sites/<br/>Private incremental hash database<br/>50% CPU · 512 MiB · 6h deadline]
         extents[Share identical Btrfs extents<br/>Preserve bytes and current selection<br/>No release deletion]
         timer --> dedup --> extents
         proxy[Traefik ACME renewal<br/>Private state on system disk]
@@ -20,7 +20,7 @@ flowchart TB
     subgraph operator[Operator checks and recovery]
         direction LR
         health[ssh.local OR ssh.yandex<br/>Check services, timer, mount, free space<br/>Check DNS views, TLS, URLs, redirects]
-        recover[Site issue: select a retained release<br/>Config issue: reviewed IaC redeployment<br/>Capacity: reviewed manual retention cleanup]
+        recover[Site issue: re-extract a retained archive<br/>Then select it with --steps extract,link<br/>Config issue: reviewed IaC redeployment<br/>Capacity: reviewed manual retention cleanup]
         boundary[No backups, replication, or failover<br/>Lost content needs an external retained copy<br/>XCP-ng replacement needs a new storage workflow]
         health --> recover --> boundary
     end

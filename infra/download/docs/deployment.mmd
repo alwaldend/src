@@ -1,14 +1,54 @@
 flowchart TB
-    prerequisites[1 · Confirm inventory, image, address, SSH trust<br/>Vault AppRole and provider assignments<br/>XO first login before resource-set reconciliation]
-    auth[AL injects stage credentials and Vault HTTP backend<br/>Independent state keys: local / yandex / dns]
-    prerequisites --> auth
-    auth --> local[2a · local:tf.plan → tf.apply<br/>XCP-ng VM + boot and content disks<br/>prevent_destroy protects the whole VM]
-    auth --> cloud[2b · yandex:tf.plan → tf.apply<br/>VM, retained disk, reserved IP, network/firewall<br/>Yandex zone + host A record]
-    local --> dns[3 · Prepare dc1 apex through infra/dns/tf<br/>Keep public Pages records during local preparation<br/>download/dns:tf.plan → tf.apply for aliases/delegation]
-    cloud --> dns
-    dns --> hosts[4 · Verify inventory FQDNs and SSH trust<br/>ansible:ansible.local OR ansible:ansible.yandex<br/>Mount Btrfs; configure services, permissions, timer]
-    hosts --> publish[5 · Publish a concrete site to each selected environment<br/>publish.local OR publish.yandex<br/>Check routing and content with address overrides]
-    publish --> cutover[6 · Public apex cutover through infra/dns/tf<br/>Phase 1: remove old public apex A/AAAA<br/>Verify removal before phase 2: create apex CNAME]
-    cutover --> certificates[7 · DNS and port 80 reach each issuer's target<br/>Yandex: Let's Encrypt staging → production<br/>Local: Vault HTTP-01 + EAB using dc1 DNS]
-    certificates --> acceptance[8 · Verify HTTPS chains, www redirects, downloads<br/>Verify renewal, reboot, and retained content<br/>Keep prior deployment for reviewed recovery]
-    certificates -.-> interval[Public cutover has a DNS and certificate bootstrap interval<br/>Keep staging and production ACME storage separate]
+    subgraph yandex["Public · Yandex Cloud"]
+        direction LR
+        public_visitor["Public visitor"]
+
+        public_publisher["Publisher"]
+
+        subgraph yandex_vm["host1.yc.download.alwaldend.com"]
+            direction LR
+            public_traefik["Traefik<br/>TCP 80 / 443"]
+            public_nginx["Nginx · read only<br/>127.0.0.1:8008"]
+            public_storage[("Btrfs · 100 GiB<br/>/srv/download")]
+            public_traefik -->|HTTP| public_nginx
+            public_nginx -->|"Serve site<br/>/srv/download/sites/"| public_storage
+            public_nginx -->|"Serve files<br/>/srv/download/projects/"| public_storage
+        end
+
+        public_publisher ---->|"SSH · TCP 22"| public_storage
+        public_visitor -->|"HTTPS<br/>alwaldend.com<br/>www.alwaldend.com<br/>download.alwaldend.com<br/>git.alwaldend.com"| public_traefik
+        subgraph public_external["External services"]
+            direction LR
+            public_acme["Let's Encrypt<br/>HTTP-01 · no EAB"]
+            github["GitHub<br/>github.com"]
+            public_acme ~~~ github
+        end
+        public_traefik -->|"Redirect git.alwaldend.com"| github
+        public_traefik -->|ACME| public_acme
+    end
+
+    subgraph local["Local · XCP-ng"]
+        direction LR
+        local_visitor["Local visitor<br/>Repository CA trusted"]
+
+        local_publisher["Publisher"]
+
+        subgraph local_vm["host1.dc1.download.alwaldend.com"]
+            direction LR
+            local_traefik["Traefik<br/>TCP 80 / 443"]
+            local_nginx["Nginx · read only<br/>127.0.0.1:8008"]
+            local_storage[("Btrfs · 100 GiB<br/>/srv/download")]
+            local_traefik -->|HTTP| local_nginx
+            local_nginx -->|"Serve site<br/>/srv/download/sites/"| local_storage
+            local_nginx -->|"Serve files<br/>/srv/download/projects/"| local_storage
+        end
+
+        local_publisher ---->|"SSH · TCP 22"| local_storage
+        local_visitor -->|"HTTPS<br/>alwaldend.com<br/>www.alwaldend.com<br/>download.alwaldend.com"| local_traefik
+        subgraph local_external["External services"]
+            local_vault["Vault PKI<br/>HTTP-01 + EAB"]
+        end
+        local_traefik -->|ACME| local_vault
+    end
+
+    yandex ~~~ local

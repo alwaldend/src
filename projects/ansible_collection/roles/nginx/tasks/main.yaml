@@ -18,6 +18,30 @@
         validate: "{{ nginx_binary }} -t -c %s"
       notify: Reload Nginx
 
+    - name: Create the Nginx unit override directory
+      ansible.builtin.file:
+        path: "/etc/systemd/system/{{ nginx_service_name }}.service.d"
+        state: directory
+        owner: root
+        group: root
+        mode: "0755"
+
+    - name: Configure required content mounts
+      ansible.builtin.copy:
+        content: |
+          [Unit]
+          RequiresMountsFor={{ nginx_requires_mounts_for | join(' ') }}
+        dest: "/etc/systemd/system/{{ nginx_service_name }}.service.d/10-content-mounts.conf"
+        owner: root
+        group: root
+        mode: "0644"
+      register: nginx_mount_dependencies
+
+    - name: Reload changed Nginx dependencies
+      when: nginx_mount_dependencies.changed
+      ansible.builtin.systemd_service:
+        daemon_reload: true
+
     - name: Enable and start Nginx
       ansible.builtin.systemd_service:
         name: "{{ nginx_service_name }}"

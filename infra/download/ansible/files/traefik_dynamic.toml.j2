@@ -5,6 +5,7 @@
   [http.routers.download.tls]
     certResolver = "default"
 
+{% if download_site_enabled %}
 [http.routers.site]
   rule = "Host(`alwaldend.com`)"
   entryPoints = ["websecure"]
@@ -24,6 +25,31 @@
   regex = "^https?://www\\.alwaldend\\.com(?::[0-9]+)?/(.*)"
   replacement = "https://alwaldend.com/${1}"
   permanent = true
+{% endif %}
+
+{% if download_git_redirect_enabled %}
+[http.routers.git_discovery]
+  rule = "Host(`git.alwaldend.com`) && Query(`go-get`, `1`)"
+  priority = 200
+  entryPoints = ["websecure"]
+  service = "nginx"
+  [http.routers.git_discovery.tls]
+    certResolver = "default"
+
+[http.routers.git]
+  rule = "Host(`git.alwaldend.com`)"
+  priority = 100
+  entryPoints = ["websecure"]
+  service = "noop@internal"
+  middlewares = ["github"]
+  [http.routers.git.tls]
+    certResolver = "default"
+
+[http.middlewares.github.redirectRegex]
+  regex = "^https?://git\\.alwaldend\\.com(?::[0-9]+)?/(.*)"
+  replacement = "https://github.com/${1}"
+  permanent = true
+{% endif %}
 
 [[http.services.nginx.loadBalancer.servers]]
   url = "http://127.0.0.1:{{ download_nginx_port }}"

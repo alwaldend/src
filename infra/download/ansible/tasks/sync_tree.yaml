@@ -1,0 +1,35 @@
+- name: Inspect current public projects
+  ansible.builtin.find:
+    paths: "{{ download_sync_root }}/{{ download_sync_kind }}"
+    recurse: false
+    hidden: true
+    file_type: any
+    follow: false
+  register: download_sync_public_projects
+
+- name: Select staged projects under the synchronization lock
+  vars:
+    source_prefix: "{{ download_sync_capture.path }}/{{ download_sync_kind }}/"
+    project_name: "{{ item | basename }}"
+    staged_project: "{{ download_sync_staging.path }}/{{ download_sync_kind }}/{{ project_name }}"
+    public_project: "{{ download_sync_root }}/{{ download_sync_kind }}/{{ project_name }}"
+  ansible.builtin.command:
+    argv: >-
+      {{ download_sync_command_prefix + ['flock', '--', download_sync_root + '/staging/sync.lock', 'sh', '-c',
+         'set -eu; if test -e "$2"; then test -d "$2"; test ! -L "$2"; mv --exchange --no-copy -T -- "$1" "$2"; else mv --no-copy -T -- "$1" "$2"; fi',
+         'select-project', staged_project, public_project] }}
+  changed_when: true
+  loop: "{{ download_sync_entries.files | selectattr('isdir') | map(attribute='path') | select('match', '^' + (source_prefix | regex_escape) + '[^/]+$') | list }}"
+
+- name: Move public-only projects into private cleanup staging
+  vars:
+    source_prefix: "{{ download_sync_capture.path }}/{{ download_sync_kind }}/"
+    wanted_projects: "{{ download_sync_entries.files | selectattr('isdir') | map(attribute='path') | select('match', '^' + (source_prefix | regex_escape) + '[^/]+$') | map('basename') | list }}"
+    project_name: "{{ item.path | basename }}"
+  ansible.builtin.command:
+    argv: "{{ download_sync_command_prefix + ['flock', '--', download_sync_root + '/staging/sync.lock', 'mv', '--no-copy', '-T', '--', item.path, download_sync_staging.path + '/' + download_sync_kind + '/' + project_name] }}"
+  changed_when: true
+  loop: "{{ download_sync_public_projects.files }}"
+  loop_control:
+    label: "{{ item.path }}"
+  when: project_name not in wanted_projects
