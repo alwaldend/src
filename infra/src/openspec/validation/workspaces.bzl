@@ -37,6 +37,7 @@ WORKSPACE_SOURCES = {
     "projects_infinitime": "//projects/infinitime/openspec:source",
     "projects_kustomization": "//projects/kustomization/openspec:source",
     "projects_leetcode_downloader": "//projects/leetcode_downloader/openspec:source",
+    "projects_llama_responses_bridge": "//projects/llama_responses_bridge/openspec:source",
     "projects_mcp_cordis": "//projects/mcp_cordis/openspec:source",
     "projects_mlops_2026": "//projects/mlops_2026/openspec:source",
     "projects_nexus_security_plugin": "//projects/nexus_security_plugin/openspec:source",

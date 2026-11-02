@@ -21,6 +21,7 @@ PROJECTS = [
     "infinitime",
     "kustomization",
     "leetcode_downloader",
+    "llama_responses_bridge",
     "mcp_cordis",
     "nexus_security_plugin",
     "renders",

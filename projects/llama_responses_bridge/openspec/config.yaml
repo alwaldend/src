@@ -1,0 +1,7 @@
+schema: spec-driven
+
+context: |
+  This workspace owns projects/llama_responses_bridge.
+  Extract the existing loopback Responses namespace adapter and protocol acceptance
+  from infra/local_inference without changing runtime behavior or dependencies.
+  Host configuration remains owned by infra/local_inference.

@@ -1,0 +1,19 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+
+package(transitive_visibility = "//projects:transitive_consumers")
+
+alias(
+    name = "llama_responses_bridge",
+    actual = "//projects/llama_responses_bridge/cmd/responses_bridge",
+    visibility = ["//:__subpackages__"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//projects:__pkg__"],
+    deps = [
+        "//projects/llama_responses_bridge/openspec:docs",
+        "//projects/llama_responses_bridge/test/protocol:docs",
+    ],
+)
