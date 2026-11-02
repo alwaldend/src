@@ -1,0 +1,28 @@
+[Unit]
+Description=Local llama.cpp CUDA inference
+
+[Service]
+Type=simple
+User={{ llama_user }}
+Group={{ llama_user }}
+WorkingDirectory={{ llama_home }}
+Environment=LD_LIBRARY_PATH={{ llama_runtime_dir }}
+Environment=GGML_BACKEND_PATH={{ llama_runtime_dir }}
+ExecStartPre=/usr/bin/nvidia-smi --query-gpu=name --format=csv,noheader
+ExecStart={{ llama_runtime_dir }}/llama-server --model {{ llama_model_path }} --alias {{ llama_model_alias }} --host 127.0.0.1 --port {{ llama_port }} --jinja --device {{ llama_device }} --n-gpu-layers all --ctx-size {{ llama_context_size }} --parallel 1 --no-webui
+Restart=on-failure
+RestartSec=10
+UMask=0077
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+RestrictSUIDSGID=yes
+RestrictAddressFamilies=AF_UNIX AF_INET
+CapabilityBoundingSet=
+
+[Install]
+WantedBy=multi-user.target

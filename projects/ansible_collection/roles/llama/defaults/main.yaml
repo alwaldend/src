@@ -1,0 +1,14 @@
+llama_user: llama
+llama_uid: 1101
+llama_home: /var/lib/llama
+llama_runtime_dir: /opt/llama/runtime
+llama_archive_src: "{{ undefined() }}"
+llama_cuda_archive_src: "{{ undefined() }}"
+llama_model_src: "{{ undefined() }}"
+llama_model_sha256: "{{ undefined() }}"
+llama_model_path: "{{ llama_home }}/model.gguf"
+llama_model_alias: model
+llama_context_size: 32768
+llama_port: 8080
+llama_device: CUDA0
+llama_service_path: /etc/systemd/system/llama-server.service
