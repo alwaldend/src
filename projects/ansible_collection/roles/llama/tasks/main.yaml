@@ -1,0 +1,149 @@
+- name: Require controller-side runtime and model inputs
+  ansible.builtin.assert:
+    that:
+      - llama_archive_src | length > 0
+      - llama_cuda_archive_src | length > 0
+      - llama_model_src is match('^/')
+      - llama_model_sha256 is match('^[a-f0-9]{64}$')
+      - llama_context_size | int >= 4096
+      - llama_port | int > 0
+      - llama_port | int <= 65535
+
+- name: Inspect the controller's model artifact
+  ansible.builtin.stat:
+    path: "{{ llama_model_src }}"
+    checksum_algorithm: sha256
+    get_checksum: true
+  delegate_to: localhost
+  become: false
+  register: llama_controller_model
+
+- name: Reject missing or unverified models before installation
+  ansible.builtin.assert:
+    that:
+      - llama_controller_model.stat.isreg | default(false)
+      - llama_controller_model.stat.checksum | default('') == llama_model_sha256
+    fail_msg: The operator-supplied GGUF must match llama_model_sha256.
+
+- name: Create the inference group
+  ansible.builtin.group:
+    name: "{{ llama_user }}"
+    gid: "{{ llama_uid }}"
+    state: present
+
+- name: Create the unprivileged inference account
+  ansible.builtin.user:
+    name: "{{ llama_user }}"
+    uid: "{{ llama_uid }}"
+    group: "{{ llama_user }}"
+    groups: ""
+    append: false
+    home: "{{ llama_home }}"
+    shell: /usr/sbin/nologin
+    password_lock: true
+    create_home: true
+    state: present
+
+- name: Create the root-owned llama runtime directory
+  ansible.builtin.file:
+    path: "{{ llama_runtime_dir }}"
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: Extract the pinned llama.cpp CUDA binaries
+  ansible.builtin.unarchive:
+    src: "{{ llama_archive_src }}"
+    dest: "{{ llama_runtime_dir }}"
+    extra_opts: [--strip-components=1]
+    remote_src: false
+    owner: root
+    group: root
+  notify: Restart llama server
+
+- name: Extract the approved CUDA 12.8 runtime beside llama.cpp
+  ansible.builtin.unarchive:
+    src: "{{ llama_cuda_archive_src }}"
+    dest: "{{ llama_runtime_dir }}"
+    extra_opts: [--strip-components=1]
+    remote_src: false
+    owner: root
+    group: root
+  notify: Restart llama server
+
+- name: Check the CUDA backend's shared libraries
+  ansible.builtin.command:
+    argv:
+      - /usr/bin/ldd
+      - "{{ llama_runtime_dir }}/libggml-cuda.so"
+  environment:
+    LD_LIBRARY_PATH: "{{ llama_runtime_dir }}"
+  register: llama_cuda_libraries
+  changed_when: false
+  failed_when: >-
+    llama_cuda_libraries.rc != 0 or
+    'not found' in llama_cuda_libraries.stdout
+
+- name: Verify llama.cpp discovers the CUDA device before enabling inference
+  ansible.builtin.command:
+    argv:
+      - "{{ llama_runtime_dir }}/llama-server"
+      - --list-devices
+  environment:
+    LD_LIBRARY_PATH: "{{ llama_runtime_dir }}"
+    GGML_BACKEND_PATH: "{{ llama_runtime_dir }}"
+  register: llama_cuda_devices
+  changed_when: false
+  failed_when: >-
+    llama_cuda_devices.rc != 0 or
+    llama_device not in (llama_cuda_devices.stdout +
+    llama_cuda_devices.stderr)
+
+- name: Install the verified model
+  ansible.builtin.copy:
+    src: "{{ llama_model_src }}"
+    dest: "{{ llama_model_path }}"
+    owner: root
+    group: "{{ llama_user }}"
+    mode: "0640"
+  notify: Restart llama server
+
+- name: Verify the transferred model's SHA-256
+  ansible.builtin.stat:
+    path: "{{ llama_model_path }}"
+    checksum_algorithm: sha256
+  register: llama_installed_model
+
+- name: Reject a transferred model checksum mismatch
+  ansible.builtin.assert:
+    that:
+      - llama_installed_model.stat.checksum == llama_model_sha256
+
+- name: Install the inference service definition
+  ansible.builtin.template:
+    src: llama-server.service.j2
+    dest: "{{ llama_service_path }}"
+    owner: root
+    group: root
+    mode: "0644"
+  notify: Restart llama server
+
+- name: Apply pending llama changes before startup and readiness
+  ansible.builtin.meta: flush_handlers
+
+- name: Enable and start the local inference service
+  ansible.builtin.systemd_service:
+    name: "{{ llama_service_path | basename }}"
+    enabled: true
+    state: started
+    daemon_reload: true
+
+- name: Require a healthy llama endpoint after activation
+  ansible.builtin.uri:
+    url: "http://127.0.0.1:{{ llama_port }}/health"
+    status_code: 200
+  register: llama_health
+  retries: 120
+  delay: 5
+  until: llama_health.status == 200

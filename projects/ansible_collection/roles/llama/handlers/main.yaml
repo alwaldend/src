@@ -1,0 +1,5 @@
+- name: Restart llama server
+  ansible.builtin.systemd_service:
+    name: "{{ llama_service_path | basename }}"
+    daemon_reload: true
+    state: restarted
