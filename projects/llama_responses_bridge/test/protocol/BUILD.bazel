@@ -1,0 +1,22 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("@rules_go//go:def.bzl", "go_test")
+
+package(transitive_visibility = "//projects:transitive_consumers")
+
+go_test(
+    name = "protocol_test",
+    size = "small",
+    srcs = [
+        "doc.go",
+        "protocol_test.go",
+    ],
+    args = ["-bridge=$(rlocationpath //projects/llama_responses_bridge/cmd/responses_bridge)"],
+    data = ["//projects/llama_responses_bridge/cmd/responses_bridge"],
+    deps = ["@rules_go//go/runfiles"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//projects/llama_responses_bridge:__pkg__"],
+)

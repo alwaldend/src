@@ -1,0 +1,23 @@
+load("@rules_go//go:def.bzl", "go_binary", "go_library")
+
+package(transitive_visibility = "//projects:transitive_consumers")
+
+go_library(
+    name = "responses_bridge_lib",
+    srcs = [
+        "doc.go",
+        "main.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/llama_responses_bridge/cmd/responses_bridge",
+    visibility = ["//visibility:private"],
+    deps = [
+        "//projects/llama_responses_bridge/internal/responses",
+        "@com_github_spf13_cobra//:cobra",
+    ],
+)
+
+go_binary(
+    name = "responses_bridge",
+    embed = [":responses_bridge_lib"],
+    visibility = ["//projects/llama_responses_bridge:__subpackages__"],
+)

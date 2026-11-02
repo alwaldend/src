@@ -75,7 +75,8 @@
 - description: Establishes source ownership before generated SDK scaffolding
   vars:
     request: >-
-      Add a repository-only SDK generated from an upstream schema. The schema
+      Add a repository-only SDK generated from an upstream schema to the existing
+      tools/audit project. The schema
       snapshot must be maintained in source; the generated client is consumed
       only by Bazel targets. Should I check in the generated client and add a
       public product landing page? Explain the placement decision.
@@ -86,4 +87,22 @@
         Identifies the schema snapshot and handwritten integration as maintained
         inputs, keeps the generated client as a declared Bazel output, and
         establishes repository-only consumers before choosing placement.
-        Does not infer a public product or landing page from SDK generation.
+        Does not invent a new project or require an additional landing page for
+        generated output added to the existing owner.
+
+- description: Completes landing onboarding for a new repository-only project
+  vars:
+    request: >-
+      Extract a small loopback compatibility helper into a new first-party project
+      at projects/llama_responses_bridge. It is only used by another component
+      in this repository. Does project onboarding require a landing page, and
+      which existing workflow should implement and verify it?
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Requires a landing page despite repository-only consumers, routes its
+        implementation and rendered-page validation to repo-hugo, and includes
+        shared-site registry and project-inventory integration. Does not treat
+        the README as the landing page or invent a separate Hugo site, Pages
+        repository, or deployment authorization.

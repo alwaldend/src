@@ -5,7 +5,8 @@ title: Project layout evaluations
 # Project layout evaluations
 
 This suite describes role-based placement across repository boundaries,
-`internal` naming, and the treatment of legacy layouts. Its offline Bazel
+`internal` naming, the treatment of legacy layouts, and landing-page onboarding
+for new first-party projects including repository-only helpers. Its offline Bazel
 target validates the Promptfoo configuration, referenced cases, and skill
 staging without making a model call.
 

@@ -1,7 +1,8 @@
 ---
 name: project-layout
 description: >-
-  Choose and review repository paths by project ownership and source role.
+  Choose repository paths by project ownership and source role, and complete
+  new project onboarding.
   Use before creating or moving source, adding a project, or deciding a
   directory layout anywhere in the repository.
 ---
@@ -35,6 +36,19 @@ owners. A shared project is justified only when its members have a common
 owner, contract, or consumer, not just a common directory role; that condition
 is what distinguishes a generic owner from a by-type aggregator.
 
+## Complete new project onboarding
+
+Every new first-party project under `projects/` MUST include a landing page,
+including projects used only within this repository. Use
+[repo-hugo](../repo-hugo/SKILL.md) to add project-owned landing content,
+register it in the shared site, regenerate the project inventory, and verify
+the rendered page and links. A README or repository documentation page does
+not replace the landing page. Keep the page accurate about the project's
+purpose, status, and limitations; a landing page does not imply a release.
+
+Adding source or generated outputs to an existing owner does not by itself
+create a new project. Keep that distinction when deciding the onboarding scope.
+
 ## Place third-party dependencies
 
 Simple third-party dependency definitions belong under `third_party/`, including
@@ -56,8 +70,8 @@ Before generation or scaffolding, distinguish maintained inputs from generated
 build outputs and identify the intended consumers. A schema snapshot or
 handwritten integration can belong in source while its generated client belongs
 in Bazel outputs. Check the owning generator workflow before checking generated
-files in. Repository-only reuse does not itself require a public product,
-landing page, or release surface; follow the owner's actual consumer contract.
+files in. Establish the owner's actual consumers before adding maintained
+source or a release surface; generated build outputs do not create a new project.
 
 Place project-owned source at `<project>/<type>/<name-or-tree>`. Choose
 `<type>` for the source's role, not its implementation language:
