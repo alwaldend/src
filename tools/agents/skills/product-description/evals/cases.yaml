@@ -1,0 +1,27 @@
+- description: Plan CLI documentation without inventing verification
+  vars:
+    request: >-
+      Use $product-description to plan user behavior documentation for a CLI.
+      Source is available but the executable cannot be run. Explain the plan
+      only; do not edit files or start subagents.
+  assert:
+    - type: llm-rubric
+      value: >-
+        Cover scope, glossary, pilot, foundations, feature documents,
+        consistency, checklists, and triage. Adapt interactions to CLI
+        invocation and interruption. Separate code-derived claims from
+        runtime verification. Respect the plan-only request.
+
+- description: Keep foundation facts with their authoritative owners
+  vars:
+    request: >-
+      Use $product-description. Our foundation document defines a 250 ms
+      interruption threshold. What should go in goal.md as foundations are
+      written, and how should later writers use it? Explain without editing.
+  assert:
+    - type: llm-rubric
+      value: >-
+        Keep goal.md as an index of relative links to owning foundation
+        sections. Do not instruct independently maintained copies of the
+        threshold, defaults, or rules. Later writers read the owning sections;
+        foundation changes do not leave stale factual bullets in goal.md.

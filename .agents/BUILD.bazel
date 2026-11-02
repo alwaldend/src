@@ -43,6 +43,7 @@ skills_write(
         "//tools/agents/skills/full-repo-check:skill",
         "//tools/agents/skills/git-rebase-remote:skill",
         "//tools/mermaid/skills/mermaid-diagrams:skill",
+        "//tools/agents/skills/product-description:skill",
         "//tools/agents/skills/project-layout:skill",
         "//tools/agents/skills/quality-assessment:skill",
         "//tools/agents/skills/repo-bazel:skill",
