@@ -234,7 +234,7 @@ the read.
 Convert a post to a draft artifact:
 
 ```sh
-bazel_agent bazel run //projects/x_article_uploader/cmd/convert -- \
+bazel run //projects/x_article_uploader/cmd/convert -- \
   --source projects/alwaldend.com/content/blog/<slug>/index.md \
   --out out/x_article_uploader/<slug>.json \
   --post-package projects/alwaldend.com/content/blog/<slug>
@@ -260,7 +260,7 @@ wrapped command is the draft binary, so its own flags are passed after
 Create a draft from a converted artifact:
 
 ```sh
-bazel_agent bazel run //projects/x_article_uploader:draft -- \
+bazel run //projects/x_article_uploader:draft -- \
   --artifact out/x_article_uploader/<slug>.json
 ```
 
@@ -273,7 +273,7 @@ would bypass the AppRole boundary the wrapper establishes.
 ## Checks
 
 ```sh
-bazel_agent bazel test //projects/x_article_uploader/test/e2e:e2e_test
+bazel test //projects/x_article_uploader/test/e2e:e2e_test
 ```
 
 The end-to-end check discovers every post in the site content tree, asserts each

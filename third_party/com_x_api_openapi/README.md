@@ -18,6 +18,6 @@ stored in Git. Both local and Yandex download stores contain the same bytes.
 To refresh, use `//third_party/com_x_api_openapi:fetch_schema` to download into ignored `out/`
 with the uploader's existing credentials. Inspect the schema, assign a new
 upstream-version-and-digest release label, generate a portable release bundle
-with `//tools/release`, and publish through `//infra/download:publish.local` and
+with `@rules_al//:al`, and publish through `//infra/download:publish.local` and
 `:publish.yandex` with `--namespace third_party`. Verify both HTTPS responses and
 their hashes before updating the pin. Never replace a pinned version's bytes.

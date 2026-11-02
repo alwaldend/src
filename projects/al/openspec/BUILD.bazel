@@ -1,8 +1,6 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_openspec//rules:workspace.bzl", "openspec_workspace")
 
-package(transitive_visibility = "//projects:transitive_consumers")
-
 openspec_workspace(
     name = "source",
     srcs = ["config.yaml"] + glob(
@@ -12,7 +10,7 @@ openspec_workspace(
         ],
         allow_empty = True,
     ),
-    visibility = ["//infra/src/openspec/validation"],
+    visibility = ["//visibility:public"],
 )
 
 docs_filegroup(
@@ -24,6 +22,7 @@ docs_filegroup(
         ],
         allow_empty = True,
     ),
+    prefix = "content/docs/projects/al/openspec",
     preserve_paths = True,
-    visibility = ["//projects/al:__pkg__"],
+    visibility = ["//:__pkg__"],
 )

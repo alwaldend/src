@@ -24,7 +24,7 @@
     - type: llm-rubric
       threshold: 1
       value: >-
-        Pass only if the response follows bazel-agent for every Bazel command;
+        Pass only if the response follows al-bazel for every Bazel command;
         reads the nearest AGENTS.md and BUILD files and inspects Bazel rc
         imports and nearby repository macros before editing; queries labels or
         dependencies when uncertain; places the runtime configuration in data

@@ -18,7 +18,7 @@ after upgrading Codex; this is an observed version-specific behavior, not a
 guarantee for every release.
 
 The shell hook launches a transient user systemd service, which runs
-`bazel --noblock_for_lock clean --config=agent --expunge_async` in each built,
+`bazel --noblock_for_lock clean --expunge_async` in each built,
 tracked Bazel workspace in the linked Git worktree. It skips the primary
 checkout, submodules, workspaces without a `bazel-out` symlink, and busy Bazel
 instances. Source files, Git worktrees, and shared disk caches are preserved.
@@ -35,9 +35,8 @@ build state when one ends; the Bazel lock protects running builds, not idle
 sessions. Resuming a cleaned session rebuilds its outputs normally.
 
 The hook uses shell because it must run from a fresh checkout without first
-building a helper. It invokes Bazel directly to supply the startup lock flag,
-which `bazel_agent` does not currently accept. Tests replace Git, systemd, and
-Bazel with fixtures and never clean real caches.
+building a helper. The startup lock flag lets it skip a busy Bazel server.
+Tests replace Git, systemd, and Bazel with fixtures and never clean real caches.
 
 Codex's `SessionEnd` hook is synchronous even with `async: true` and permits
 at most three seconds. Systemd owns the longer-running cleanup; the hook does

@@ -77,11 +77,11 @@ confirms both missing CSVs, missing/corrupt models, and normal HTTP behavior.
 The generated image matches the inspected Git LFS asset. All eight unfiltered
 WASM shards passed. Scoped semantic lint and strict OpenSpec validation passed.
 
-The complete normal matrix then passed all 32 commands: `bazel_agent bazel
-build //...` and `bazel_agent bazel test //...` in the root and 15 nested
+The complete normal matrix then passed all 32 commands: `al bazel
+build //...` and `al bazel test //...` in the root and 15 nested
 workspaces. All 374 root tests passed. Normal expansion excludes manual and
 incompatible targets and optional configuration matrices. Full-check reports
-under `out/full-repo-check/` and the guarded delivery receipt own final
+under `out/al-checks/` and the guarded delivery receipt own final
 exact-candidate results; `out/project-layout/full-repair/` retains repair
 artifacts and the selected validation plan.
 

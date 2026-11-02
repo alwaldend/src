@@ -1,9 +1,13 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 
-package(transitive_visibility = "//projects:transitive_consumers")
-
 docs_filegroup(
     name = "docs",
-    srcs = ["README.md"],
-    visibility = ["//projects/al:__pkg__"],
+    srcs = [],
+    visibility = ["//visibility:public"],
+    deps = [
+        "//docs/al:docs",
+        "//docs/bazel:docs",
+        "//docs/delivery:docs",
+        "//docs/product-description:docs",
+    ],
 )

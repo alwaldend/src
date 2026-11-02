@@ -64,6 +64,6 @@ replacement. The retained branch rules continue to own administrator and
 automation-writer exceptions.
 
 ```sh
-bazel_agent bazel run //infra/forgejo/tf:tf.plan
-bazel_agent bazel run //infra/forgejo/tf:tf.apply
+bazel run //infra/forgejo/tf:tf.plan
+bazel run //infra/forgejo/tf:tf.apply
 ```

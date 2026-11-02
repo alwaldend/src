@@ -9,6 +9,7 @@ import (
 	"net"
 	"os"
 	"os/exec"
+	"path/filepath"
 	"slices"
 	"sync"
 	"time"
@@ -35,10 +36,19 @@ type PluginClient struct {
 	ctx      *al.CmdCtx
 }
 
+// NewPluginClient prepares an owned plugin process and transport. Absolute plugin
+// executables work without runfiles; relative identifiers require a Bazel context.
 func NewPluginClient(ctx *al.CmdCtx, run *runfiles.Runfiles, config *al_proto.Config, plugin *al_proto.PluginConfig) (*PluginClient, error) {
-	bin, err := run.Rlocation(plugin.Bin)
-	if err != nil {
-		return nil, fmt.Errorf("could not find location of %s: %w", plugin.Bin, err)
+	bin := plugin.Bin
+	if !filepath.IsAbs(bin) {
+		if run == nil {
+			return nil, fmt.Errorf("relative plugin executable %q requires Bazel runfiles or an absolute path", bin)
+		}
+		var err error
+		bin, err = run.Rlocation(bin)
+		if err != nil {
+			return nil, fmt.Errorf("could not find location of %s: %w", plugin.Bin, err)
+		}
 	}
 	cmd := exec.Command(bin, plugin.Args...)
 	constructed := false
@@ -50,7 +60,9 @@ func NewPluginClient(ctx *al.CmdCtx, run *runfiles.Runfiles, config *al_proto.Co
 	cmd.WaitDelay = time.Second * 10
 	cmd.Stderr = os.Stderr
 	cmd.Env = os.Environ()
-	cmd.Env = append(cmd.Env, run.Env()...)
+	if run != nil {
+		cmd.Env = append(cmd.Env, run.Env()...)
+	}
 	for key, value := range plugin.Env {
 		cmd.Env = append(cmd.Env, fmt.Sprintf("%s=%s", key, value))
 	}

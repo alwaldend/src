@@ -34,7 +34,7 @@ dev_vm_bazel_group: "{{ dev_vm_bazel_user }}"
 dev_vm_bazel_home: "{{ undefined() }}"
 dev_vm_bazelrc_src: bazelrc
 dev_vm_bazelisk_src: bazelisk
-dev_vm_bazel_agent_src: bazel_agent
+dev_vm_al_src: al
 dev_vm_selinux_android_emulation: true
 dev_vm_android_sdk_root: "{{ dev_vm_bazel_home }}/Android/Sdk"
 dev_vm_android_installer_dir: "{{ dev_vm_bazel_home }}/.local/lib/android-installer"

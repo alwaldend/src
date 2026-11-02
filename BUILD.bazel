@@ -51,12 +51,6 @@ alias(
 )
 
 alias(
-    name = "al",
-    actual = "//tools/al:config",
-    visibility = ["//:__subpackages__"],
-)
-
-alias(
     name = "write_git_hooks",
     actual = "//tools/git_hooks/cmd/git_hooks:git_hooks",
 )
@@ -153,81 +147,6 @@ test_suite(
 )
 
 alias(
-    name = "tf.direct",
-    actual = "//tools/al:tf.direct",
-)
-
-alias(
-    name = "tf.init",
-    actual = "//tools/al:tf.init",
-)
-
-alias(
-    name = "tf.migrate",
-    actual = "//tools/al:tf.migrate",
-)
-
-alias(
-    name = "tf.fmt",
-    actual = "//tools/al:tf.fmt",
-)
-
-alias(
-    name = "tf.fmt_check",
-    actual = "//tools/al:tf.fmt_check",
-)
-
-alias(
-    name = "tf.plan",
-    actual = "//tools/al:tf.plan",
-)
-
-alias(
-    name = "tf.output",
-    actual = "//tools/al:tf.output",
-)
-
-alias(
-    name = "tf.import",
-    actual = "//tools/al:tf.import",
-)
-
-alias(
-    name = "tf.destroy",
-    actual = "//tools/al:tf.destroy",
-)
-
-alias(
-    name = "tf.apply",
-    actual = "//tools/al:tf.apply",
-)
-
-alias(
-    name = "tf.show",
-    actual = "//tools/al:tf.show",
-)
-
-alias(
-    name = "tf.deploy",
-    actual = "//tools/al:tf.deploy",
-)
-
-alias(
-    name = "tf.deploy_y",
-    actual = "//tools/al:tf.deploy_y",
-)
-
-alias(
-    name = "tf.state",
-    actual = "//tools/al:tf.state",
-)
-
-alias(
-    name = "tf.force_unlock",
-    actual = "//tools/al:tf.force_unlock",
-)
-
-alias(
     name = "vault",
     actual = "//tools/vault/cmd/workspace:vault",
 )
@@ -275,6 +194,14 @@ test_suite(
 # gazelle:python_generate_proto true
 # gazelle:python_library_naming_convention $package_name$_lib
 # gazelle:python_binary_naming_convention $package_name$
+
+# Keep Bazel consumers on the owning module when Go's local replacement is visible.
+# gazelle:resolve go git.alwaldend.com/alwaldend/src/projects/al/api/al_proto @rules_al//api/al_proto
+# gazelle:resolve go git.alwaldend.com/alwaldend/src/projects/al/pkg/al @rules_al//pkg/al
+# gazelle:resolve go git.alwaldend.com/alwaldend/src/projects/al/pkg/al_plugin @rules_al//pkg/al_plugin
+# gazelle:resolve go git.alwaldend.com/alwaldend/src/projects/al/pkg/fp @rules_al//pkg/fp
+# gazelle:resolve go git.alwaldend.com/alwaldend/src/projects/al/pkg/lifecycle @rules_al//pkg/lifecycle
+# gazelle:resolve go git.alwaldend.com/alwaldend/src/projects/al/pkg/workspaces @rules_al//pkg/workspaces
 
 # gazelle:java_maven_install_file projects/nexus_security_plugin/maven_lock.json
 # gazelle:resolve java javax.annotation @com_alwaldend_src_maven//:org_apache_tomcat_annotations_api

@@ -17,7 +17,7 @@
         job conditions, runner, checkout, environment, and short invocations
         in YAML, and reuses one implementation for local tests and CI. It must
         inspect the owning BUILD and runtime inputs, use repo-bazel and
-        bazel-agent, and propose offline behavior checks without performing a
+        al-bazel, and propose offline behavior checks without performing a
         live login or deployment. Fail if it leaves parsing, API requests,
         authentication, conditionals, or loops in run blocks, moves them to
         composite-action YAML, or merely encodes the inline program.

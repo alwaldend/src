@@ -15,7 +15,7 @@ Preserve explicit container, codec, dimensions, timing, crop, and soundtrack
 requirements. A valid file that the user's player or upload service rejects
 does not fulfill the request.
 
-Use `repo-workspace` for task output and temporary storage. Keep generated
+Use `al-workspace` for task output and temporary storage. Keep generated
 media, browser profiles, intermediate files, and reports under ignored
 `out/<task>/`; preserve the source media. Artifact creation alone does not
 require a source commit. Use the repository change and delivery procedures
@@ -29,7 +29,7 @@ when preparing an upload, rather than applying one platform's limits everywhere.
 
 ## Select available tools
 
-Prefer an existing repository entry point and use `bazel-agent`/`repo-bazel`
+Prefer an existing repository entry point and use `al-bazel`/`repo-bazel`
 for Bazel commands. When no suitable entry point exists, use available local
 FFmpeg and ffprobe. Inspect their version, encoder list, and selected encoder's
 help. Before a long export with an unfamiliar encoder, actually encode a short

@@ -1,0 +1,89 @@
+{
+    "schema": "agents.alwaldend.com/operations/v1alpha1",
+    "owner": "projects.al",
+    "provider": "github.forge",
+    "definition": "projects/al/internal/delivery/command.go",
+    "operations": [
+        {
+            "id": "al.delivery.prepare",
+            "selector": "delivery prepare",
+            "classification": "classified",
+            "effects": ["history.write", "source.write", "task_state.write"],
+            "inputs": ["task paths", "message", "expected head"],
+            "outputs": ["commit", "preparation receipt"],
+            "information": ["public"],
+            "credentialUse": "none",
+            "networkUse": "read-only forge inspection",
+            "environmentSelector": "selected Git worktree",
+            "authorityGate": "explicit implementation and task path scope",
+            "preflight": "fresh repository and provider inspection",
+            "verification": "clean exact commit and receipt",
+            "cost": "task-path-bounded",
+            "cacheability": "not_cacheable",
+            "cancellation": "process context"
+        },
+        {
+            "id": "al.delivery.publish",
+            "selector": "delivery publish",
+            "classification": "classified",
+            "effects": [
+                "credential.consume",
+                "history.write",
+                "network.read",
+                "remote.write",
+                "source.write",
+                "task_state.write"
+            ],
+            "inputs": ["preparation receipt", "current prepared candidate"],
+            "outputs": [
+                "remote ref",
+                "pull request",
+                "updated preparation receipt when rebasing"
+            ],
+            "information": ["public", "secret"],
+            "credentialUse": "Git and forge credentials",
+            "networkUse": "Git and forge write",
+            "environmentSelector": "receipt-bound repository",
+            "authorityGate": "explicit delivery authority and exact receipt",
+            "preflight": "fresh base, feature ref, and PR expectations",
+            "verification": "remote ref and PR match receipt; rebase stops before push for caller-owned checks",
+            "cost": "one guarded publication",
+            "cacheability": "not_cacheable",
+            "cancellation": "process context with guarded retry"
+        },
+        {
+            "id": "al.delivery.review-mutate",
+            "selector": "delivery review",
+            "classification": "classified",
+            "effects": [
+                "credential.consume",
+                "network.read",
+                "remote.write",
+                "task_state.write"
+            ],
+            "inputs": [
+                "review inventory",
+                "one-shot mutation receipt",
+                "goal or delivery ref",
+                "defect identity",
+                "published preparation receipt and exact current candidate for review address"
+            ],
+            "outputs": [
+                "comment or thread disposition",
+                "joined durable review receipt",
+                "durable attempt checkpoint for review address"
+            ],
+            "information": ["public", "secret"],
+            "credentialUse": "forge credentials",
+            "networkUse": "forge write",
+            "environmentSelector": "exact pull request",
+            "authorityGate": "explicit review mutation and exact guards",
+            "preflight": "reinspect bounded review inventory",
+            "verification": "post-mutation inventory",
+            "cost": "bounded guarded review operations; address posts at most one reply per workflow",
+            "cacheability": "not_cacheable",
+            "cancellation": "address checkpoint prevents automatic reposting; only conclusively pre-mutation resolution read failures restore unexpired authority"
+        }
+    ],
+    "removedAliases": []
+}

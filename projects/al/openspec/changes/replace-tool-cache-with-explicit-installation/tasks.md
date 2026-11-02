@@ -9,5 +9,5 @@
 - [x] 2.1 Execute the installed tool and preserve a repeatable JSON acceptance artifact.
 - [x] 2.2 Pass affected tests, repository quality, semantic lint and OpenSpec validation.
 
-Delivery follows repo-delivery; its receipts own commit, push and
+Delivery follows al-delivery; its receipts own commit, push and
 pull-request state.

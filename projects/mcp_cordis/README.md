@@ -31,31 +31,18 @@ also covers its linked worktrees; a glob trust entry is neither needed nor
 supported. A new Codex session is needed after the MCP registration itself is
 first added; package changes after that do not require another session.
 
-The registration calls `cmd/mcp_cordis/launch.sh`. With a current installed
-`bazel_agent`, the launcher selects a content-addressed runtime from the
-per-user tool cache and executes it directly. The first exact source version
-is built and atomically installed under a per-key lock; subsequent worktrees
-with the same inputs do not start Bazel or load a configured graph. An older
-runner falls back to asking Bazel for a launch script under the task's ignored
-`out` directory. Either path releases Bazel's output-base lock before the
+The registration calls `cmd/mcp_cordis/launch.sh`. The launcher asks Bazel for
+a launch script under the task's ignored `out` directory, then executes it
+after Bazel exits. This releases Bazel's output-base lock before the
 long-lived stdio server starts, so builds and tests can run normally while
-Codex remains connected.
-
-The cached artifact contains the stable server runtime and pinned JavaScript
-dependencies, but not `cordis.yaml` or reusable plugins. It always reads those
-from the explicit active workspace, so editing a package changes live behavior
-without repackaging the runtime or selecting a new cache key.
-
-The same project configuration starts an optional asynchronous `SessionStart`
-hook that starts the worktree's Bazel server and warms `repo_delivery`. It
-produces no session context, ignores failure, and never queries the whole
-workspace graph. Cordis itself is already warmed by its MCP launch path, so the
-hook does not start a duplicate Cordis build.
+Codex remains connected. The server reads `cordis.yaml` and reusable plugins
+from the explicit active workspace; editing a package changes live behavior
+without rebuilding the server runtime.
 
 To build and run the server directly from the repository root:
 
 ```sh
-bazel_agent bazel run //projects/mcp_cordis:mcp_cordis -- \
+bazel run //projects/mcp_cordis:mcp_cordis -- \
   --workspace-root "$PWD" \
   --task-id example-task \
   --run-id example-run

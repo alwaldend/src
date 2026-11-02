@@ -6,7 +6,7 @@
 ## 2. Integration verification
 
 - [x] 2.1 Verify argument forwarding using offline SSH configuration output and
-      run `//projects/al/cmd/al:command_test` for AL injection lifecycle coverage.
+      run `@rules_al//cmd/al:al:command_test` for AL injection lifecycle coverage.
 
 ## Validation cases
 
@@ -21,11 +21,11 @@ existing AL wrapper and introduces no new lifecycle or authentication design.
 
 ## Evidence
 
-On 2026-10-25, `bazel_agent bazel run //tools/ssh -- -V` reported the host
+On 2026-10-25, `al bazel run //tools/ssh -- -V` reported the host
 OpenSSH client. An offline `-G -F /dev/null` invocation preserved the requested
 user, port, and identity path containing spaces. The AL command test passed
 its injector success, startup failure, and cancellation scenarios. Local
 artifacts are in ignored `out/ssh/`.
 
 Package lint and repository quality are mandatory publication gates through
-`repo-delivery`; Git and delivery receipts own commit, push, and PR state.
+`al-delivery`; Git and delivery receipts own commit, push, and PR state.

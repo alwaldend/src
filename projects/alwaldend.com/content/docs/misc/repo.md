@@ -19,6 +19,15 @@ tags:
   ```sh
   ln -s ~/.local/bin/bazelisk ~/.local/bin/bazel
   ```
+- Install AL for repository lifecycle commands and release stamping:
+  ```sh
+  bazel run //tools/al:install
+  ```
+  Keep `~/.local/bin` on `PATH` and rerun this command after updating AL's
+  source. Release builds use `bazel build --config=release <target>` with
+  the installed AL command supplying workspace status. See the
+  [release workflow](../../../../al/README.md) for version selection and
+  publication.
 - Install git hooks:
   ```sh
   bazel run //:write_git_hooks
@@ -26,7 +35,7 @@ tags:
 - Install android tools:
   ```sh
   ANDROID_HOME="${HOME}/Android/Sdk" \
-    bazel run --config=agent \
+    bazel run \
       --repo_env=ANDROID_HOME= \
       //tools/android:install
   ```
@@ -45,6 +54,20 @@ tags:
   nvm install node
   ```
 - Qt is downloaded by Bazel; no host installation is required.
+
+## Bazel output for agents
+
+Use ordinary `bazel build`, `bazel test`, and `bazel run` commands. Bazel reads
+`~/.bazelrc` for user defaults across workspaces. For bounded, non-interactive
+output and failure-focused test reporting, add the **Agent output defaults**
+block from the
+[managed Host Bot configuration](https://github.com/alwaldend/src/blob/master/users/simeonwarren/host_bot/ansible/files/bazelrc)
+to your own `~/.bazelrc`. The block uses standard Bazel options and needs no
+named `agent` profile. Explicit command-line options override these defaults.
+
+Copy only that output-settings block; the cache directories, SDK locations,
+and resource limits elsewhere in the file belong to Host Bot. Ansible manages
+the complete file on that host.
 
 ## Vault login
 

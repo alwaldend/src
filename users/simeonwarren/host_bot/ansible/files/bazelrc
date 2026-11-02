@@ -12,3 +12,14 @@ common --repo_contents_cache=/var/cache/bazel/repo_contents_cache
 common --repo_env=GO_REPOSITORY_EPHEMERAL_MODCACHE=1
 build --local_resources=cpu=HOST_CPUS*0.25
 build --jobs=4
+
+# Agent output defaults. This block is portable to another user's ~/.bazelrc.
+common --color=no
+common --curses=no
+build --experimental_ui_max_stdouterr_bytes=1048576
+build --show_progress
+build --show_progress_rate_limit=5
+build --show_timestamps
+test --max_test_output_bytes=1048576
+test --test_summary=terse
+test --test_output=errors

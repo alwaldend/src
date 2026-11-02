@@ -1,0 +1,147 @@
+- description: Budgets cold builds without queuing progress probes
+  vars:
+    request: >-
+      The previous cold build of our repository control tool took 175 seconds,
+      mostly in analysis. Start another cold build with a sensible deadline.
+      An independent CLI task also needs the same Bazel server. Explain the
+      ordering and how you will monitor progress without hiding failures.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response budgets for the observed total build time,
+        including analysis; schedules ready CLI work before the long build or
+        waits for that build to release the server lock; uses modest polling
+        with user updates; and diagnoses failures without switching entry
+        points or issuing another Bazel invocation as a progress probe.
+
+- description: Runs and troubleshoots Bazel directly
+  vars:
+    request: >-
+      Run the tests for //projects/example:all. If the Bazel executable is
+      missing or its managed cache is not writable, diagnose the problem and
+      get the requested test command ready to rerun.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response runs the requested tests from the applicable
+        workspace root as bazel test //projects/example:all; uses the
+        account's Bazel configuration for defaults without requiring AL or
+        a repository-defined agent profile; preserves
+        Bazel's exit status; fixes managed sandbox writable roots instead of
+        redirecting caches into /tmp; and distinguishes environment failures
+        from failures caused by the repository patch. Otherwise fail.
+- description: Batches only compatible multi-target Bazel work
+  vars:
+    request: >-
+      Plan the repository Bazel invocations for this work. Build
+      //projects/alpha:library and //projects/beta:library with the same
+      options. Test //projects/alpha:unit_test and
+      //projects/beta:unit_test with the same options. Also run
+      //projects/tools:inspector, test //projects/gamma:flaky_test with a
+      different runs-per-test setting, and run a diagnostic test only after
+      the ordinary tests fail so its output stays isolated. Show how you
+      would group and order the commands.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response invokes bazel directly;
+        batches the two compatible build targets into one build invocation;
+        batches the two compatible ordinary test targets into one test
+        invocation; and keeps the single-target run, the differently
+        configured flaky test, and the conditionally ordered diagnostic work
+        in separate invocations. It must explain that separation is justified
+        by command or option incompatibility, a real ordering dependency, or
+        diagnostic isolation, and must not split compatible targets merely to
+        parallelize them. Otherwise fail.
+- description: Uses explicit standalone installations for frequent tools
+  vars:
+    request: >-
+      Show how to build and install AL from local
+      source, then run the installed delivery provider check. Do not install
+      anything yet.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response shows bazel run
+        //tools/al:install, followed by al delivery provider.
+        It must explain explicit updates and must not suggest AL executable
+        caching, al tool, binary downloads, or run a host installation before
+        it is authorized. Otherwise fail.
+
+- description: Keeps agent defaults in portable user configuration
+  vars:
+    request: >-
+      Make plain Bazel use bounded non-interactive output on our bot account,
+      including when it builds another repository. Document setup and update
+      the managed configuration, without deploying the host.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response puts ordinary output defaults in the
+        account's managed user Bazel configuration, links the setup guidance
+        to that owner, and leaves the live host unchanged. It must not require
+        AL for normal builds or make the account depend on every repository
+        declaring a named agent profile. It must preserve the repository's
+        Bazelisk pin and normal command-line override behavior.
+
+- description: Selects affected tests within an explicit Bazel scope
+  vars:
+    request: >-
+      Use AL to preview and then run tests affected by changes since origin/master
+      within //projects/widget/... and //projects/shared/... in this workspace.
+      AL is already installed. Keep Bazel's normal configuration and cache.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response uses al bazel test --base origin/master
+        --dry-run with both requested target patterns to inspect the selection,
+        then the same command and patterns without --dry-run to execute it.
+        It must explain that Git paths seed Bazel dependency queries and that
+        the requested patterns bound the test scope. It must preserve normal
+        Bazel configuration/caching, honor failures, and avoid adding delivery
+        receipts, check plans, generic argument passthrough, or a named agent
+        profile. It must not replace unrelated explicit Bazel commands with AL.
+
+- description: Preserves scope when affected-test selection falls back
+  vars:
+    request: >-
+      Preview affected tests for a nested Bazel workspace at projects/standalone
+      since origin/master, limited to //lib/.... The diff includes a deleted
+      source file and a changed BUILD file. Does a full-scope fallback mean the
+      whole monorepo was checked?
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response uses al bazel test with --base origin/master,
+        --workspace projects/standalone, --dry-run, and the //lib/... scope.
+        It must treat a conservative fallback as selecting the requested test
+        scope in that Bazel workspace, not the entire monorepo or all nested
+        workspaces. It must inspect and report the fallback reason instead of
+        treating missing/deleted/configuration paths as proof that no tests are
+        affected. Other required owner, consumer, build, or lint checks remain
+        separately selected ordinary Bazel work.
+
+- description: Treats affected-test query failures as failures
+  vars:
+    request: >-
+      al bazel test --base origin/master --dry-run could not load the Bazel
+      dependency graph because a BUILD file is invalid. No selected tests were
+      printed. Can I report that no tests were affected and publish?
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response reports the selection/query failure, preserves
+        its diagnostics, and fixes or reports the broken graph before claiming
+        a selection result. It must not equate absent output with an empty
+        successful selection, hide the exit status, or publish past a failed
+        required check. The affected-test command is independent of delivery;
+        it does not certify publication readiness or replace the caller's other
+        required checks.

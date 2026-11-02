@@ -1,8 +1,5 @@
+load("@rules_al//:defs.bzl", "al_binary_run", "al_config", "al_release_binary", "al_release_deployment")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("//projects/al/rules/al:al_binary.bzl", "al_binary_run")
-load("//projects/al/rules/al:al_config.bzl", "al_config")
-load("//tools/release/rules:al_release_binary.bzl", "al_release_binary")
-load("//tools/release/rules:al_release_deployment.bzl", "al_release_deployment")
 load("//tools/ssh:defs.bzl", "ssh_binary")
 load("//tools/vault:defs.bzl", "vault_binary_map")
 
@@ -11,6 +8,23 @@ package(transitive_visibility = "//infra:transitive_consumers")
 _HOSTS = {
     "local": "host1.dc1.download.alwaldend.com",
     "yandex": "host1.yc.download.alwaldend.com",
+}
+
+_CONTENT_COMMANDS = {
+    "publish": [
+        "release",
+        "publish",
+    ],
+    "website.extract": [
+        "release",
+        "website",
+        "extract",
+    ],
+    "website.activate": [
+        "release",
+        "website",
+        "activate",
+    ],
 }
 
 [
@@ -64,7 +78,7 @@ _HOSTS = {
 
 [
     al_release_binary(
-        name = "publish." + environment + ".command",
+        name = operation + "." + environment + ".command",
         arguments = [
             "--environment",
             environment,
@@ -78,22 +92,20 @@ _HOSTS = {
             "--ssh_known_hosts",
             "$${DOWNLOAD_SSH_KNOWN_HOSTS}",
         ],
-        oras = None,
+        command = command,
         ssh_deployment = ":publication." + environment,
     )
-    for environment in [
-        "local",
-        "yandex",
-    ]
+    for environment in _HOSTS
+    for operation, command in _CONTENT_COMMANDS.items()
 ]
 
 [
     al_binary_run(
-        name = "publish." + environment,
-        args = ["$(rootpath :publish." + environment + ".command)"],
+        name = operation + "." + environment,
+        args = ["$(rootpath :" + operation + "." + environment + ".command)"],
         configs = [":al"],
         data = [
-            ":publish." + environment + ".command",
+            ":" + operation + "." + environment + ".command",
             "//tools/vault/injector",
         ],
         run_args = [
@@ -101,10 +113,8 @@ _HOSTS = {
             "ssh=1",
         ],
     )
-    for environment in [
-        "local",
-        "yandex",
-    ]
+    for environment in _HOSTS
+    for operation in _CONTENT_COMMANDS
 ]
 
 al_config(

@@ -9,7 +9,9 @@ go_test(
     ],
     data = [
         "//infra/download/ansible:ansible_bin",
-        "//tools/release/cmd/release",
+        "@rules_al//:al",
     ],
+    env = {"AL_BINARY": "$(rlocationpath @rules_al//:al)"},
     tags = ["manual"],
+    deps = ["@rules_go//go/runfiles"],
 )

@@ -27,13 +27,13 @@ and live operations are withheld by the task instruction.
 The following repository commands completed successfully through `bazel_agent`:
 
 ```sh
-bazel_agent bazel run //tools/bazel_module:update
-bazel_agent bazel mod deps --lockfile_mode=update
-bazel_agent bazel build \
+al bazel run //tools/bazel_module:update
+al bazel mod deps --lockfile_mode=update
+al bazel build \
   //third_party/com_github_cisco_talos_clamav:archive \
   //third_party/com_github_cisco_talos_clamav:payload_tar \
   //third_party/com_github_cisco_talos_clamav:docs
-bazel_agent bazel build --config=lint \
+al bazel build --config=lint \
   //third_party/com_github_cisco_talos_clamav:archive \
   //third_party/com_github_cisco_talos_clamav:payload_tar \
   //third_party/com_github_cisco_talos_clamav:docs

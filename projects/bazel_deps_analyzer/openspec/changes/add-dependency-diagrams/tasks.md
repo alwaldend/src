@@ -14,7 +14,7 @@
 - [x] 2.2 Verify site integration through its owner-local change, inspect the
       candidate site graph WebP, and record exact validation evidence.
 - [x] 2.3 Validate formatting and affected package checks, then hand the
-      candidate to repo-delivery; its receipts own publication verification.
+      candidate to al-delivery; its receipts own publication verification.
 
 ## 3. Optional external boundary view
 
@@ -56,4 +56,4 @@
 - [x] 6.3 Add site companion targets, validate both native pipelines, and show
       the dark outputs locally. Canvas size is secondary to readable structure.
       The user subsequently authorized publication; hand the completed revision
-      to repo-delivery for the existing pull request.
+      to al-delivery for the existing pull request.

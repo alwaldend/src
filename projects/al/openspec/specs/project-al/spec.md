@@ -6,11 +6,11 @@ Describe AL, the repository command runner that prepares plugin resources and
 environment variables, executes a command, and releases those resources.
 
 Sources: [project README](../../../README.md),
-[lifecycle contract](../../../docs/README.md),
-[command implementation](../../../cmd/al/cmd.go),
+[lifecycle contract](../../../docs/al/lifecycle.md),
+[command implementation](../../../internal/cli/root.go),
 [lifecycle manager](../../../pkg/lifecycle/lifecycle.go),
 [Bazel package](../../../BUILD.bazel), and
-[toolchain registration](../../../include.MODULE.bazel).
+[toolchain registration](../../../MODULE.bazel).
 Baseline source revision: `550d7e79b1f5fdbc2b6017b75178471d6914082f`,
 observed 2026-09-08.
 

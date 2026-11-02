@@ -18,7 +18,7 @@ go_library(
     srcs = ["main.go"],
     importpath = "git.alwaldend.com/alwaldend/src/tools/vault/backup",
     visibility = ["//:__subpackages__"],
-    deps = ["//projects/al/pkg/al"],
+    deps = ["@rules_al//pkg/al"],
 )
 
 go_binary(

@@ -9,7 +9,9 @@ description: Bazelrc files
 bazel run //tools/bazelrc:preset.update
 ```
 
-The `agent` profile must not propagate ambient `TEMP`, `TMP`, or `TMPDIR`
+Account-specific output defaults belong in `~/.bazelrc`; see the
+[repository setup guide](../../projects/alwaldend.com/content/docs/misc/repo.md).
+Repository configuration must not propagate ambient `TEMP`, `TMP`, or `TMPDIR`
 values into repository rules, actions, host actions, or tests. Those execution
 contexts use Bazel-managed temporary storage; host tools own any explicit
 task/run scratch they require.
