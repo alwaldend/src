@@ -1,0 +1,21 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+
+package(transitive_visibility = "//third_party:transitive_consumers")
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//third_party:__pkg__"],
+)
+
+alias(
+    name = "llama_archive",
+    actual = "@com_github_ggml_org_llama_cpp_linux_x86_64//file",
+    visibility = ["//infra/local_inference/ansible:__pkg__"],
+)
+
+alias(
+    name = "cuda_archive",
+    actual = "@com_github_ggml_org_llama_cpp_cuda_linux_x86_64//file",
+    visibility = ["//infra/local_inference/ansible:__pkg__"],
+)

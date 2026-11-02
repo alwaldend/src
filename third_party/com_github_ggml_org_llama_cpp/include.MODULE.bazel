@@ -1,0 +1,15 @@
+http_file = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_file")
+
+http_file(
+    name = "com_github_ggml_org_llama_cpp_linux_x86_64",
+    downloaded_file_path = "llama-b11960-bin-ubuntu-cuda-12.8-x64.tar.gz",
+    integrity = "sha256-ZNV765q7Y3wXfGr7MTdgoMB4IiTKxx50hp7tW4+aHqQ=",
+    urls = ["https://github.com/ggml-org/llama.cpp/releases/download/b11960/llama-b11960-bin-ubuntu-cuda-12.8-x64.tar.gz"],
+)
+
+http_file(
+    name = "com_github_ggml_org_llama_cpp_cuda_linux_x86_64",
+    downloaded_file_path = "cudart-llama-b11960-bin-ubuntu-cuda-12.8-x64.tar.gz",
+    integrity = "sha256-fE1ZdL05ZJ32SWSeXXGVBoinDjeqrgC/Ea+7ZW6izFY=",
+    urls = ["https://github.com/ggml-org/llama.cpp/releases/download/b11960/cudart-llama-b11960-bin-ubuntu-cuda-12.8-x64.tar.gz"],
+)
