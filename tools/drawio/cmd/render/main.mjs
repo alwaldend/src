@@ -45,7 +45,7 @@ try {
     browser = await puppeteer.launch({
         executablePath: path.resolve(browserPath),
         headless: true,
-        args: ["--no-sandbox", "--disable-dev-shm-usage"],
+        args: ["--disable-dev-shm-usage"],
         env: {
             ...process.env,
             FONTCONFIG_FILE: fontConfig,

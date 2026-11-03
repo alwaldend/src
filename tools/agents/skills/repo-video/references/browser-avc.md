@@ -27,18 +27,16 @@ async function launchVideoBrowser() {
     executablePath: path.resolve("out/video-export/chrome"),
     headless: true,
     userDataDir: path.resolve("out/video-export/browser-profile"),
-    args: [
-      "--no-sandbox",
-      "--disable-dev-shm-usage",
-      "--disable-background-networking",
-    ],
+    args: ["--disable-dev-shm-usage", "--disable-background-networking"],
   });
 }
 ```
 
-Place asynchronous code in an async function when using CommonJS. The browser
-launch convention matches existing repository browser tools. Do not copy a
-foreign worktree's cache path or install another browser or npm package.
+Place asynchronous code in an async function when using CommonJS. Retain
+Chromium's process sandbox and run as a non-root user on a host that supports
+it. If sandbox initialization fails, diagnose that failure instead of disabling
+sandboxing. A task-local profile does not provide process confinement. Do not
+copy a foreign worktree's cache path or install another browser or npm package.
 
 ## Encode the intended frames
 
