@@ -65,7 +65,7 @@ async function main() {
     const browser = await puppeteer.launch({
         executablePath: path.resolve(process.env.PUPPETEER_EXECUTABLE_PATH),
         headless: true,
-        args: ["--no-sandbox", "--disable-dev-shm-usage"],
+        args: ["--disable-dev-shm-usage"],
     });
     try {
         const page = await browser.newPage();

@@ -33,10 +33,11 @@ The adapter supplies the shadow-padding return value expected by the pinned
 export API, preserving shadow filters and finite dimensions. It rejects
 non-finite or empty SVG viewboxes rather than accepting malformed output.
 
-Chrome's inner sandbox is disabled because it cannot nest within the Bazel
-Linux sandbox used for these actions. The Bazel sandbox remains enabled;
-requests outside local files and embedded data are rejected. The renderer is
-intended for checked-in, reviewed diagram sources and propagates export failures.
+Chrome's process sandbox and the Bazel action sandbox remain enabled.
+Run as a non-root user on a host that supports Chromium sandboxing; startup
+fails if the sandbox cannot initialize. Requests outside local files and
+embedded data are rejected. The renderer is intended for checked-in, reviewed
+diagram sources and propagates export failures.
 
 The repeat-render test checks byte equality, including stable SVG identifiers.
 Rendering uses only the declared [Liberation Fonts 2.1.5](https://github.com/liberationfonts/liberation-fonts/releases/tag/2.1.5)

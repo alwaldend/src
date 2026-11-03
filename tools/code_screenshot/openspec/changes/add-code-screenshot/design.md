@@ -12,7 +12,7 @@ Compile the existing application stylesheet and add tool-owned layout only. Use 
 
 ## Risks / Trade-offs
 
-Very large files can exceed Chrome image limits; fail explicitly above a bounded canvas size. Comments use the site secondary text color; keywords use emphasis and medium weight. Browser sandbox support varies by host; use the existing repository headless launch flags.
+Very large files can exceed Chrome image limits; fail explicitly above a bounded canvas size. Comments use the site secondary text color; keywords use emphasis and medium weight. Browser sandbox support varies by host; retain Chromium sandboxing and fail if it cannot initialize.
 
 Each original source line is a grid row with a number gutter and an inert text cell. CSS pre-wrap preserves indentation and wraps long lines at the selected canvas width.
 
