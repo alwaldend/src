@@ -1,0 +1,16 @@
+[tls.options.default]
+minVersion = "VersionTLS12"
+sniStrict = true
+
+[tls.options.default.clientAuth]
+caFiles = ["{{ traefik_mtls_ca_path }}"]
+clientAuthType = "RequireAndVerifyClientCert"
+
+[http.routers.t3code]
+rule = "Host(`{{ t3code_domain }}`)"
+entryPoints = ["websecure"]
+service = "t3code"
+tls = { certResolver = "vault", options = "default" }
+
+[[http.services.t3code.loadBalancer.servers]]
+url = "http://127.0.0.1:{{ t3code_port }}"

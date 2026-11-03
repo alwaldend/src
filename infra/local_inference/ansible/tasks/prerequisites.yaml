@@ -1,0 +1,29 @@
+- name: Require the reviewed GPU image and explicit model input
+  ansible.builtin.assert:
+    that:
+      - ansible_facts.distribution == 'Ubuntu'
+      - ansible_facts.distribution_version == '24.04'
+      - ansible_facts.architecture == 'x86_64'
+      - llama_model_src is match('^/')
+      - llama_model_sha256 is match('^[a-f0-9]{64}$')
+      - llama_context_size | int >= 4096
+      - llama_context_size | int <= 32768
+    fail_msg: Supply an immutable compatible image and an absolute model path with SHA-256.
+
+- name: Inspect the preinstalled NVIDIA driver and GPU
+  ansible.builtin.command:
+    argv:
+      - /usr/bin/nvidia-smi
+      - --query-gpu=name,memory.total,driver_version
+      - --format=csv,noheader,nounits
+  register: local_inference_gpu
+  changed_when: false
+
+- name: Require one 32 GB V100 and a CUDA 12.8 compatible driver
+  ansible.builtin.assert:
+    that:
+      - local_inference_gpu.stdout_lines | length == 1
+      - "'V100' in local_inference_gpu.stdout"
+      - local_inference_gpu.stdout.split(',')[1] | trim | int >= 32000
+      - local_inference_gpu.stdout.split(',')[2] | trim is version('570.26', '>=')
+    fail_msg: The image must expose one 32 GB V100 with a proprietary NVIDIA driver >= 570.26.

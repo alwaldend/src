@@ -1,0 +1,41 @@
+llama_uid: 1101
+llama_context_size: 32768
+llama_model_src: >-
+  {{ lookup('ansible.builtin.env', 'LOCAL_INFERENCE_MODEL_SRC',
+  default=undefined()) }}
+llama_model_sha256: >-
+  {{ lookup('ansible.builtin.env', 'LOCAL_INFERENCE_MODEL_SHA256',
+  default=undefined()) }}
+llama_archive_src: "{{ playbook_dir }}/files/llama.tar.gz"
+llama_cuda_archive_src: "{{ playbook_dir }}/files/cuda.tar.gz"
+llama_port: 8081
+llama_model_alias: local-coder
+
+local_inference_dns: "{{ lookup('ansible.builtin.file', playbook_dir ~ '/dnsconfig.json') | from_json }}"
+local_inference_model_selection:
+  instanceId: codex
+  model: local-coder
+  options: []
+
+t3code_install_method: standalone
+t3code_archive_src: "{{ playbook_dir }}/files/t3code.tar.gz"
+t3code_port: 3773
+t3code_domain: "{{ local_inference_dns.records.t3code.CNAME.name }}"
+t3code_service_path: /etc/systemd/system/t3code.service
+t3code_initial_settings:
+  defaultModelSelection: "{{ local_inference_model_selection }}"
+  textGenerationModelSelection: "{{ local_inference_model_selection }}"
+  defaultRuntimeMode: auto
+  providerInstances:
+    codex:
+      driver: codex
+      config:
+        setupMode: existing
+        binaryPath: /usr/local/bin/codex
+        homePath: "{{ t3code_home_dir }}/.codex"
+        customModels: [local-coder]
+
+traefik_bin_path: "{{ traefik_dir }}/traefik"
+traefik_service_path: /etc/systemd/system/traefik.service
+traefik_acme_path: pki/ica_servers/roles/src_infra_local_inference_pki_server/acme
+traefik_acme_url: "https://vault.alwaldend.com:8200/v1/{{ traefik_acme_path }}/directory"

@@ -1,0 +1,12 @@
+local infra = require("infra.al_lib")
+local lib = require("al_lib")
+
+lib.vault_auth({
+    name = "default",
+    approle = { name = "src_infra_local_inference" },
+})
+
+infra.ansible_keys({
+    labels = { ansible = "1" },
+    vault_ssh = { backend = "ssh/clients/sign/admins", ttl = 60 * 60 * 2 },
+})
