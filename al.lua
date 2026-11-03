@@ -63,7 +63,7 @@ lib.plugin_call({
 
 lib.plugin({
     name = "injector",
-    bin = "com_alwaldend_src/tools/vault/injector/injector_/injector",
+    bin = "_main/tools/vault/injector/injector_/injector",
 })
 
 lib.plugin({
@@ -104,5 +104,5 @@ lib.plugin({
 
 lib.plugin({
     name = "tf_backend",
-    bin = "com_alwaldend_src/tools/vault/tf_backend/tf_backend_/tf_backend",
+    bin = "_main/tools/vault/tf_backend/tf_backend_/tf_backend",
 })
