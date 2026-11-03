@@ -15,8 +15,11 @@ directories, and each is a separate stage:
 `README.md` owns the component's purpose and boundaries; `BUILD.bazel` owns
 target structure; `al.lua` owns wiring. Read them before changing any stage.
 
-DNS declarations feed the shared Terraform `dns_records` module in the owner's
-`tf_setup` stage when present, otherwise `tf`. The
+Prefer a component-owned `dns/` Terraform root with its own state and DNS-only
+credentials, consuming the shared `dns_records` module. Keep canonical record
+declarations in that component's `dnsconfig.json`. Existing combined roots can
+remain until a scoped migration is requested; source movement alone does not
+transfer state ownership. The
 [DNS workflow](dns.md) describes runtime source discovery, ownership checks,
 and the prerequisites for using those roots.
 

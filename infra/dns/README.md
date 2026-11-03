@@ -8,7 +8,9 @@ tags:
 
 DNS records live in each owner's `dnsconfig.json`. Each owner manages its records
 through the reusable [Terraform DNS module](../../projects/tf_modules/dns_records/)
-from its designated `tf_setup` or `tf` root. This component's
+from a component-owned Terraform root, preferably a separate `dns/` root with
+independent state and DNS-only credentials. Existing combined `tf_setup` or
+`tf` roots require explicit state migration when split. This component's
 [dnsconfig.json](dnsconfig.json) owns shared apex and mail records.
 
 The public apex follows `download.alwaldend.com` to the Yandex download host.

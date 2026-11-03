@@ -13,10 +13,15 @@ owns the schema, normalization, and provider resource mapping.
    multiple supported type members (`A`, `AAAA`, `CNAME`, `NS`, `MX`, `TXT`)
    and a `dsp` list selecting `global`, `dc1`, or `all`. Follow the shared
    module's schema; Cloudflare records remain unproxied.
-3. Use the shared `dns_records` module in the owner's `tf_setup` root when it
-   exists, otherwise `tf`. Consume the JSON instead of copying record values
-   into Terraform. Include the source filegroup and module sources in the
-   root's Bazel data and preserve its AppRole, injection, and backend flow.
+3. Prefer a separate component-owned `dns/` Terraform root with its own state
+   backend, following `infra/download/dns`. Consume the canonical JSON through
+   the shared `dns_records` module instead of copying record values. Select
+   only DNS providers and credentials; VM inputs and provider login do not
+   belong in this root. Reuse the component AppRole and include the document
+   and module sources in Bazel data. For an existing combined root, transfer
+   state explicitly with reviewed non-destructive removal/import plans; moving
+   source files does not transfer ownership. This preference does not require
+   migrating unrelated existing components.
 4. Run the offline checks:
 
    ```sh

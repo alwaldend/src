@@ -12,4 +12,8 @@ docs_filegroup(
     name = "docs",
     srcs = ["README.md"],
     visibility = ["//infra:__pkg__"],
+    deps = subpackages(
+        include = ["*"],
+        allow_empty = True,
+    ),
 )
