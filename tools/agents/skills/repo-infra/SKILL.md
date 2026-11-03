@@ -22,8 +22,11 @@ for that exact operation and scope.
    `al.lua`, and the closest sibling component.
 2. Identify which stage owns the change: `tf_setup` (provisioning/bootstrap),
    `tf` (service or API configuration), `ansible/` (host deployment), or
-   `dnsconfig.json` (records). Reusable behavior belongs in
-   `projects/tf_modules` or `projects/ansible_collection/roles`.
+   a component-owned `dns/` Terraform root (records). Prefer a separate DNS
+   root with its own state and DNS-only credentials, independent of VM
+   provisioning. Keep canonical declarations in the component's
+   `dnsconfig.json`. Reusable behavior belongs in `projects/tf_modules` or
+   `projects/ansible_collection/roles`.
 3. Inspect the real generated targets with `bazel query`; label
    maps vary by package and are the source of truth. Follow `al-bazel` and
    `repo-bazel` for every invocation.

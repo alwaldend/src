@@ -438,3 +438,22 @@
         scratch under the owning workspace, retries only after that causal
         change, and preserves provider pins, validation, deployment authority,
         and the owning Bazel target. Otherwise fail.
+
+- description: Separates component DNS lifecycle from VM provisioning
+  vars:
+    request: >-
+      Add DNS management for a component with a GPU tf_setup stage. DNS must
+      be independently deployable; its existing records are in provisioning
+      state. Prepare the source only; do not apply or move live state.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response prefers a component-owned dns/ Terraform
+        root with its own state backend, reuses the component AppRole,
+        canonical dnsconfig.json and shared DNS module, selects only DNS
+        provider credentials and excludes VM variables, and prepares an
+        explicit non-destructive state migration for existing records. It
+        must not duplicate declarations, automatically migrate unrelated
+        components, or run live plans, imports, applies or state edits when
+        source-only authority was granted. Otherwise fail.

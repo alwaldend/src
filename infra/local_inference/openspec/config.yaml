@@ -1,0 +1,8 @@
+schema: spec-driven
+
+context: |
+  This workspace belongs to infra/local_inference in alwaldend/src.
+  Follow the repository AGENTS.md and this owner's README.md.
+  Terraform provisions Yandex Cloud resources; Ansible configures the host.
+  Source validation is offline and does not authorize deployment.
+  Keep inference and Codex tools local; credentials remain in Vault.
