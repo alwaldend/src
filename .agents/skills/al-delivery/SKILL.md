@@ -67,9 +67,30 @@ from the applicable workspace; Bazel owns check configuration and caching.
 
 Use the sanitized `provider` report; never print the raw remote URL. GitHub
 requires both `adapter_available` and `delivery_transport_available` to be
-true. Both Git endpoints must use SSH. An HTTPS endpoint requires explicit SSH
-configuration before adapter use; do not import mutable credential helpers or
-silently change remotes. Same-repository pull requests are a caller-enforced
+true. SSH is the default Git transport. When SSH is unavailable, or the captured
+GitHub remote uses HTTPS, select `--git-transport gh` explicitly on `provider`,
+`inspect`, `prepare`, `publish`, `verify`, and other commands in that workflow.
+This mode uses HTTPS with the selected `--forge-cli` executable (default `gh`)
+as the only host-scoped credential helper. Authenticate with `gh auth login`
+when needed; do not print tokens or run `gh auth setup-git`. AL does not import
+global Git configuration, change remotes, or automatically fall back from SSH.
+Receipts bind transport selection: use the same mode when resuming publication
+or verification; legacy receipts imply SSH. For example:
+
+```sh
+al delivery provider --git-transport gh
+al delivery inspect --git-transport gh --base master
+al delivery prepare --git-transport gh --base master \
+  --path path/to/owned/source --message-file out/task/commit.md \
+  --receipt-file out/task/prepare.json
+# Run the required checks against the prepared candidate.
+al delivery publish --git-transport gh --base master \
+  --receipt-file out/task/prepare.json
+al delivery verify --git-transport gh --base master \
+  --receipt-file out/task/prepare.json
+```
+
+Same-repository pull requests are a caller-enforced
 precondition: except for `provider`, stop before adapter use for fork or
 cross-repository requests, uncertain ownership, or an unknown actual base.
 

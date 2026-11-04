@@ -19,6 +19,10 @@ type gitRepository struct {
 	directory  string
 	executable string
 	runner     commandRunner
+	// gitTransport selects the isolated Git authentication mechanism; empty means SSH.
+	gitTransport string
+	// credentialExecutable is the selected GitHub CLI used only as the HTTPS helper.
+	credentialExecutable string
 }
 
 var gitUnsetEnvironment = []string{
@@ -705,6 +709,8 @@ var gitTransportUnsetEnvironment = []string{
 	"ALL_PROXY",
 	"CURL_CA_BUNDLE",
 	"FTP_PROXY",
+	"GH_DEBUG",
+	"GH_FORCE_TTY",
 	"GIT_ALLOW_PROTOCOL",
 	"GIT_ASKPASS",
 	"GIT_EXEC_PATH",
@@ -812,7 +818,7 @@ func requireCanonicalSSHEndpoint(endpoint string) error {
 	}
 	if strings.Contains(endpoint, "://") {
 		return fmt.Errorf(
-			"repository delivery v1 requires SSH Git endpoints; HTTPS credential helpers are intentionally not loaded",
+			"SSH mode requires SSH Git endpoints; select --git-transport gh for GitHub HTTPS",
 		)
 	}
 	colon := strings.IndexByte(endpoint, ':')
@@ -837,6 +843,52 @@ func requireCanonicalSSHEndpoint(endpoint string) error {
 	return nil
 }
 
+// normalizeGitTransport validates the explicit transport selector while preserving the SSH default.
+func normalizeGitTransport(value string) (string, error) {
+	if value == "" || value == "ssh" {
+		return "ssh", nil
+	}
+	if value == "gh" {
+		return "gh", nil
+	}
+	return "", fmt.Errorf("unsupported Git transport; select ssh or gh")
+}
+
+// gitTransportEndpoint validates the captured endpoint before selecting a GitHub HTTPS equivalent.
+func gitTransportEndpoint(endpoint, mode string) (string, error) {
+	if mode != "gh" {
+		if err := requireCanonicalSSHEndpoint(endpoint); err != nil {
+			return "", fmt.Errorf("validate SSH endpoint: %w", err)
+		}
+		return endpoint, nil
+	}
+	if strings.HasPrefix(endpoint, "https://") {
+		parsed, err := url.Parse(endpoint)
+		if err != nil || parsed.User != nil || parsed.Host != "github.com" || strings.ContainsAny(endpoint, "\x00\r\n?#") {
+			return "", fmt.Errorf("gh transport requires a canonical credential-free GitHub endpoint")
+		}
+	} else if err := requireCanonicalSSHEndpoint(endpoint); err != nil {
+		return "", fmt.Errorf("validate gh transport endpoint: %w", err)
+	}
+	repository, err := parseRemoteRepository(endpoint)
+	if err != nil || repository.Host != "github.com" || !canonicalForgeRepository(repository) {
+		return "", fmt.Errorf("gh transport requires a canonical GitHub repository")
+	}
+	return "https://github.com/" + repository.Owner + "/" + repository.Name + ".git", nil
+}
+
+// bindGitRemote retains local fixture transports and validates the selected network endpoint.
+func (g *gitRepository) bindGitRemote(endpoint string) (boundGitRemote, error) {
+	if g.gitTransport != "gh" || filepath.IsAbs(endpoint) {
+		return bindGitRemote(endpoint)
+	}
+	selected, err := gitTransportEndpoint(endpoint, "gh")
+	if err != nil {
+		return boundGitRemote{}, fmt.Errorf("bind gh transport: %w", err)
+	}
+	return boundGitRemote{endpoint: selected}, nil
+}
+
 func bindGitRemote(endpoint string) (boundGitRemote, error) {
 	if filepath.IsAbs(endpoint) {
 		if filepath.Clean(endpoint) != endpoint ||
@@ -853,7 +905,8 @@ func bindGitRemote(endpoint string) (boundGitRemote, error) {
 	return boundGitRemote{endpoint: endpoint}, nil
 }
 
-func transportConfiguration(objectFormat string) ([]string, error) {
+// transportConfiguration isolates Git configuration and scopes optional credentials to GitHub.
+func transportConfiguration(objectFormat, mode, credentialExecutable string) ([]string, error) {
 	repositoryFormat := "0"
 	configuration := [][2]string{
 		{"core.bare", "true"},
@@ -869,6 +922,24 @@ func transportConfiguration(objectFormat string) ([]string, error) {
 		{"protocol.ext.allow", "never"},
 		{"protocol.file.allow", "always"},
 		{"protocol.ssh.allow", "always"},
+	}
+	if mode == "gh" {
+		if credentialExecutable == "" || strings.ContainsAny(credentialExecutable, "\x00\r\n") {
+			return nil, fmt.Errorf("gh transport requires a valid GitHub CLI executable")
+		}
+		// Git runs helpers through a shell; quote the executable as one literal word.
+		helper := "!'" + strings.ReplaceAll(credentialExecutable, "'", "'\\''") + "' auth git-credential"
+		configuration = append(configuration,
+			[2]string{"credential.helper", ""},
+			[2]string{"credential.https://github.com.helper", helper},
+			[2]string{"credential.interactive", "false"},
+			[2]string{"protocol.https.allow", "always"},
+		)
+		for index := range configuration {
+			if configuration[index][0] == "protocol.ssh.allow" {
+				configuration[index][1] = "never"
+			}
+		}
 	}
 	switch objectFormat {
 	case "sha1":
@@ -887,6 +958,7 @@ func transportConfiguration(objectFormat string) ([]string, error) {
 		"GIT_CONFIG_NOSYSTEM=1",
 		"GIT_CONFIG_SYSTEM=" + os.DevNull,
 		"GIT_TERMINAL_PROMPT=0",
+		"GH_PROMPT_DISABLED=1",
 	}
 	for index, entry := range configuration {
 		environment = append(
@@ -930,7 +1002,7 @@ func (g *gitRepository) openIsolatedTransport(
 	if err != nil {
 		return nil, fmt.Errorf("resolve repository object format: %w", err)
 	}
-	environment, err := transportConfiguration(objectFormat)
+	environment, err := transportConfiguration(objectFormat, g.gitTransport, g.credentialExecutable)
 	if err != nil {
 		return nil, err
 	}
@@ -1295,7 +1367,7 @@ func (g *gitRepository) snapshot(
 	if err := g.checkBranch(ctx, headBranch); err != nil {
 		return nil, fmt.Errorf("invalid head: %w", err)
 	}
-	boundRemote, err := bindGitRemote(remote)
+	boundRemote, err := g.bindGitRemote(remote)
 	if err != nil {
 		return nil, err
 	}
@@ -2734,9 +2806,11 @@ func (g *gitRepository) createIsolatedRebaseWorktree(
 		return nil, fmt.Errorf("create isolated rebase worktree: %w", err)
 	}
 	return &gitRepository{
-		directory:  path,
-		executable: g.executable,
-		runner:     g.runner,
+		directory:            path,
+		executable:           g.executable,
+		runner:               g.runner,
+		gitTransport:         g.gitTransport,
+		credentialExecutable: g.credentialExecutable,
 	}, nil
 }
 
@@ -3078,7 +3152,7 @@ func (g *gitRepository) push(
 	if !isObjectID(localOID) {
 		return fmt.Errorf("push source is not a full Git object ID")
 	}
-	boundRemote, err := bindGitRemote(remote)
+	boundRemote, err := g.bindGitRemote(remote)
 	if err != nil {
 		return err
 	}
