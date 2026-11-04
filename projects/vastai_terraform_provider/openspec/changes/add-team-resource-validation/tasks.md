@@ -24,3 +24,7 @@
 - [x] 4.4 Separate provider registration, resource lifecycles, data sources, and shared provider data; retain private implementations and verify CLI behavior.
 - [x] 4.5 Pass a typed provider-data struct and address immutable-update, deletion-clarity, schema, and validation feedback.
 - [x] 4.6 Reproduce incomplete instance metadata and preserve image/disk state on invalid refresh responses.
+
+## 5. Test-root integration
+
+- [x] 5.1 Integrate the dedicated AppRole, injector, isolated backend, and non-compute Terraform root with the merged provider; validate packaging and preserve provider behavior.

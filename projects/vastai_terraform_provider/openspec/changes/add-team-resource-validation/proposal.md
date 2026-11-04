@@ -11,6 +11,8 @@ without renting paid compute or configuring live credentials.
   through the real Terraform CLI against loopback API fixtures.
 - Deliver the provider implementation separately from Terraform configurations,
   AppRole provisioning, Vault policies, credential injection, and live state.
+- Follow the merged implementation with a non-compute test root using the
+  generated team token, project AppRole, and isolated Vault-backed state.
 
 ## Capabilities
 

@@ -49,6 +49,18 @@ and expose generated project keys only through sensitive attributes.
 - **WHEN** the fixture creates a team and API key
 - **THEN** generated values are retained in sensitive state and hidden from normal CLI output.
 
+### Requirement: Restricted test project
+
+The test project SHALL use its own AppRole, generated-token injection, isolated
+state, and clearly identified test_ objects (TEST_ environment names) in its
+team. It SHALL contain no compute rental, volume allocation, credit transfer,
+or membership invitation.
+
+#### Scenario: Team validation
+
+- **WHEN** an explicitly authorized live test-root operation runs after bootstrap
+- **THEN** only its SSH public key, non-secret marker variable, and read-only role are managed, without renting compute.
+
 ### Requirement: Compound team ownership
 
 The provider SHALL track confirmed team creation independently of management-key

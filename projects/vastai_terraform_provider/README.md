@@ -78,6 +78,17 @@ same name. If a team is deleted externally, refresh retains its management key
 and plans replacement; apply revokes that key before creating another team.
 Failed key revocation retains state for an explicit retry.
 
+The [bootstrap root](../../infra/vastai/tf/README.md) uses the personal token
+from infra/vastai to create the `test_` team and project key, then writes the key
+directly into the project's Vault namespace. It retains the personal token's
+existing context.
+
+The [team test root](test/team/README.md) exercises the three non-compute types
+using the generated key and the project's own AppRole and injector. Its object
+names and SSH-key comment begin with `test_`; its environment name uses uppercase
+`TEST_` because that API uppercases identifiers. It uses isolated Vault-backed
+state and contains no compute resources or team-ID guard.
+
 ## Build and develop
 
 ```sh
@@ -130,6 +141,10 @@ resource "vastai_instance" "worker" {
   label    = "terraform-worker"
 }
 ```
+
+The [checked-in example](examples/gpu_rental/main.tf) separates offer discovery
+from explicit offer selection so refreshing volatile search results does not
+replace an existing rental.
 
 ## Import
 

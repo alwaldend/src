@@ -1,0 +1,54 @@
+load("@rules_al//:defs.bzl", "al_binary_run")
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("@rules_terraform//terraform:defs.bzl", "terraform_binary_map", "terraform_test_map")
+
+package(transitive_visibility = "//infra:transitive_consumers")
+
+terraform_binary_map(
+    name = "tf",
+    args = {
+        "plan": ["plan"],
+        "show": ["show"],
+        "apply": [
+            "--require-saved-plan",
+            "apply",
+        ],
+        "destroy_plan": [
+            "plan",
+            "-destroy",
+        ],
+    },
+    data = glob(["*.tf"]) + [
+        "teams.json",
+        "//projects/tf_modules/vastai_team",
+        "//tools/vault/injector",
+        "//tools/vault/tf_backend",
+    ],
+    providers = [
+        "//projects/vastai_terraform_provider:provider",
+        "@terraform_provider_hashicorp_vault//:provider",
+    ],
+    wrapper = al_binary_run,
+    wrapper_kwargs = {
+        "configs": ["//infra/vastai:al"],
+        "run_args": [
+            "--plugin_label",
+            "tf=main",
+            "--plugin_label",
+            "vastai=1",
+            "--plugin_label",
+            "vault_env=provider_project",
+        ],
+    },
+)
+
+terraform_test_map(
+    name = "tf_tests",
+    data = glob(["*.tf"]),
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//infra/vastai:__pkg__"],
+)

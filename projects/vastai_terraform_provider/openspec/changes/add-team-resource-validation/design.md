@@ -12,8 +12,9 @@ avoiding dependency cycles through the registration package.
 ## Goals / Non-Goals
 
 Manage Vast.ai account resources and preserve ownership through failures.
-Terraform deployment roots, AppRoles, Vault configuration, token injection,
-backend setup, and checked-in Terraform examples remain outside this PR.
+The provider implementation is delivered separately from Terraform roots,
+AppRoles, token injection, and backend setup. Their integration is described
+below; live deployment and Registry publication remain outside this change.
 
 ## Decisions
 
@@ -61,6 +62,17 @@ backend setup, and checked-in Terraform examples remain outside this PR.
 
 The provider-only PR targets trunk and consumes merged SDK PR #251. It contains
 Go implementation, its approved dependency graph, offline fixtures, provider
-packaging, and project documentation. PR #249 retains Terraform configurations
-and credential integration and can drop the provider after this prerequisite
-merges. The split creates no merge or deployment authority.
+packaging, and project documentation. That implementation is merged in PR #255.
+PR #249 now retains only Terraform configurations and credential integration.
+The split creates no merge or deployment authority.
+
+## Test-root integration
+
+The test/team root consumes its generated team token through the project's own
+AppRole and injector, with a separate tf=test Vault backend. It manages a test_
+SSH public-key comment, TEST_ environment marker, and unassigned test_ read-only
+team role. The bootstrap catalog and token delivery belong to infra/vastai;
+the AppRole declaration belongs to infra/vault. The test root contains no
+compute, storage rental, credit transfer, or membership invitation, and adds no
+account-ID guard. Reuse the merged provider's package layout and reviewed
+lifecycle behavior without restoring the older combined provider snapshot.
