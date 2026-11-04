@@ -135,12 +135,19 @@ reproducing mutations with Git or `gh` or bypassing a safety refusal.
    the prepared candidate when unrelated dirt could affect checks, or
    establish that the checks cannot consume it. Preserve useful diagnostics
    under ignored task scratch and diagnose every failed required check.
-5. Review changed behavior against the requested result and touched contracts.
-   A behavior-changing edit invalidates the prior correctness verdict; seek
-   relevant disconfirming cases, fix valid findings, and scrutinize that diff
-   again. Passing tests cover only their encoded cases. Keep this proportional
-   and do not reopen unrelated accepted code for inert documentation records.
-6. After the required checks pass, run `publish --receipt-file <path>`.
+5. Before every PR creation or update, explicitly select `$review-agent` and
+   complete a local code review of the entire merge-base-to-prepared-candidate
+   diff, including documentation and configuration. Record the comparison base,
+   candidate head, verdict, and finding dispositions in the task evidence.
+   Evaluate every finding against the request and touched contracts, fix
+   in-scope defects, and review the corrected candidate before publication.
+   A changed candidate diff invalidates the prior local review. For changed
+   behavior, seek relevant disconfirming cases; passing tests cover only their
+   encoded cases. Keep scrutiny proportional and do not reopen unrelated
+   accepted code for inert documentation records. Tests and remote review do
+   not substitute for this local review.
+6. After the required checks and local review pass, run
+   `publish --receipt-file <path>`.
    The tool compares current HEAD and tree with the prepared candidate,
    rechecks clean source and remote expectations, then owns the exact-lease
    push, commit-to-PR projection, and verification. `--no-pull-request` is
@@ -159,7 +166,8 @@ Bazel's cache decisions with a parallel AL check plan or results ledger.
 
 If publication returns `checks_required`, it rebased into a new candidate and
 updated the preparation receipt without pushing. Run the required ordinary
-Bazel checks on that candidate, then call `publish` with the updated receipt.
+Bazel checks on that candidate, and repeat local review if the reviewed diff
+changed, then call `publish` with the updated receipt.
 Prepare again only if content or message must change. A changed candidate,
 receipt, dirty worktree, remote lease, or PR state still requires diagnosis;
 never force past a refusal.
@@ -175,7 +183,8 @@ are unchanged.
 
 ## Complete review and handoff
 
-After publication, use `review inspect` to inspect feedback. If an enabled
+After every PR creation or update, use `review inspect` to inspect remote
+feedback; local review does not replace this step. If an enabled
 remote review started for the exact final head, wait for an authoritative
 terminal result, then reinspect its findings. Poll at modest intervals only
 when the selected monitor exposes execution state for that head. Silence or an
@@ -187,8 +196,10 @@ explicitly. Publishing a new head invalidates an older review's completion.
 When findings need a reply, resolution, or review request, read
 [the review workflow](references/reviews.md) before mutation. Prefer `review address`
 for thread feedback on a checked, published candidate; it derives guards and
-retains reply state for safe resolution recovery. Fix valid feedback,
-revalidate and publish, then reply with the reasoned change. Explain inapplicable
+retains reply state for safe resolution recovery. Fix valid in-scope feedback,
+prepare and revalidate, complete local review of the corrected candidate, and
+publish, then reply with the reasoned change. Inspect remote feedback again for
+the new head. Explain inapplicable
 feedback before resolving it. Never silently resolve, bypass receipt guards,
 or post routine progress/completion comments. Do not mutate actively coedited
 PR metadata or threads: provider checks are not atomic compare-and-swap.
@@ -203,6 +214,7 @@ External comments must end exactly with
 external artifacts use the corresponding type-specific final disclaimer;
 documentation, code, binaries, and conversational responses do not need one.
 Report the changed files, verification commands and actual results, and PR or
-publication state. A linked task report may hold detailed commands. Distinguish
+publication state, including local review and remote feedback outcomes
+separately. A linked task report may hold detailed commands. Distinguish
 failed checks, unavailable provider capabilities, and unverified review outcomes
 from completed work.

@@ -16,7 +16,9 @@ only task-owned paths or hunks, and maintain exactly one non-merge task-owned
 feature commit. Keep its aggregate message and signing correct. A commit,
 amend, rebase, or conflict resolution invalidates
 affected earlier checks; rerun them against the resulting tree before the
-lease-protected push. Follow `$al-rebase` through its final fetch,
+lease-protected push. Complete the skill's local `review-agent` review before
+each PR creation or update, repeating it when a rebase or fix changes the
+reviewed diff. Follow `$al-rebase` through its final fetch,
 explicit lease, push, and Git-level verification. Stop rather than rewrite
 shared, stacked, human-owned, or ambiguous history.
 

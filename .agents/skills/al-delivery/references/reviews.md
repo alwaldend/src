@@ -35,7 +35,9 @@ user accounts. Never invoke `gh` directly for these mutations.
 
 - For valid feedback, implement the fix, prepare the aggregate commit again,
   rerun all checks that establish publish readiness against the exact new
-  top-level `head_oid`, publish, then reply with what changed and why before
+  top-level `head_oid`, and complete the skill's local `review-agent` review
+  of the corrected candidate before publishing. Then reply with what changed
+  and why before
   resolving the thread.
 - For invalid or inapplicable feedback, reply with the concrete reason no
   change is needed, then resolve it when supported.
@@ -76,7 +78,7 @@ stale IDs or digests.
 
 After a review-driven rewrite, use `al delivery review request` to request
 review for the new commit SHA, or use `review inspect` to verify that review
-already covers that exact SHA. After the final publish, inspect the review
+already covers that exact SHA. After every PR creation or update, inspect the remote review
 state, wait for any review started for the exact final head to finish, then
 reinspect and handle its findings. Run `verify --receipt-file <path>` and
 confirm no requested change remains uncommitted.

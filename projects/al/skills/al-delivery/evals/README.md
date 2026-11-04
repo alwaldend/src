@@ -33,7 +33,13 @@ conflict resolution. They retain aggregate commit and type-specific disclaimer
 requirements. No check failure authorizes merging a prerequisite or bypassing
 a required gate.
 
-Review cases keep inspection and mutations behind `al delivery review`.
+Local review cases require explicit `review-agent` selection for the complete
+candidate diff before each PR creation or update, including documentation-only
+changes and changed publish-time rebases. An unchanged publication recovery
+reuses its local review evidence. Local review does not replace remote feedback
+inspection, and remote review does not replace local review.
+
+Remote review cases keep inspection and mutations behind `al delivery review`.
 `review address` uses the clean prepared candidate and verified publication,
 then preserves the existing reply checkpoint, one-use receipt, and expiry.
 Cases reject automatic duplicate replies after unknown outcomes, silent
