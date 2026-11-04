@@ -27,6 +27,11 @@ pip.parse(
     uv_lock = "//tools/ykman:uv.lock",
 )
 pip.parse(
+    hub_name = "com_alwaldend_src_tools_vastai_pip",
+    python_version = PYTHON_VERSION,
+    uv_lock = "//tools/vastai:uv.lock",
+)
+pip.parse(
     hub_name = "com_alwaldend_src_projects_autoscroll_pip",
     python_version = PYTHON_VERSION,
     uv_lock = "//projects/autoscroll:uv.lock",
@@ -41,5 +46,6 @@ use_repo(
     "com_alwaldend_src_bzl_rules_ansible_pip",
     "com_alwaldend_src_pip",
     "com_alwaldend_src_projects_autoscroll_pip",
+    "com_alwaldend_src_tools_vastai_pip",
     "com_alwaldend_src_tools_ykman_pip",
 )
