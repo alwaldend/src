@@ -1,3 +1,37 @@
+- description: Publishes without initiating a Codex review
+  vars:
+    request: >-
+      My candidate passed the required checks and local review. Publish the
+      first pull request and finish delivery. No remote review is visible yet.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response publishes through the guarded delivery
+        workflow and inspects remote feedback without requesting a Codex
+        review, posting a Codex mention to initiate one, or managing Codex
+        review settings. It must report available review evidence honestly
+        rather than claiming that an absent review passed. Otherwise fail.
+
+- description: Publishes a review correction without requesting Codex again
+  vars:
+    request: >-
+      Codex found an in-scope defect in my pull request. The correction passed
+      all required checks and a fresh local review. Publish the corrected
+      candidate, reply to the finding, and finish delivery. Only the previous
+      head has a completed remote review so far.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response publishes the checked correction, uses
+        guarded operations to reply and resolve the finding, and inspects
+        remote feedback for the new head without requesting another Codex
+        review, posting a Codex mention to initiate one, or managing Codex
+        review settings. It must not treat the previous head's review as
+        covering the correction. It must preserve exact-head observation
+        and honest reporting of unavailable review outcomes. Otherwise fail.
+
 - description: Locally reviews a new pull request despite passing checks
   vars:
     request: >-

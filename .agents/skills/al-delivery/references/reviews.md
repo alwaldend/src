@@ -30,8 +30,10 @@ also binds the last top-level comment and inventory digest; `review reply`
 binds the thread, last comment, and thread digest. Pass ignored
 `out/<task>/` bodies with `--body-file`, and pass the exact receipt written by
 `review reply` to `review resolve`, using its `reply_comment_id` and
-`result_thread_digest`. Use `review request --reviewer <login>` for explicit
-user accounts. Never invoke `gh` directly for these mutations.
+`result_thread_digest`. When the user explicitly asks to request a human
+reviewer, use `review request --reviewer <login>`. Do not request Codex reviews
+or post Codex mentions to initiate them. Never invoke `gh` directly for these
+mutations.
 
 - For valid feedback, implement the fix, prepare the aggregate commit again,
   rerun all checks that establish publish readiness against the exact new
@@ -76,9 +78,8 @@ that narrow provider window. Avoid an actively coedited pull request and
 reinspect after every mutation or ambiguous failure; never retry blindly with
 stale IDs or digests.
 
-After a review-driven rewrite, use `al delivery review request` to request
-review for the new commit SHA, or use `review inspect` to verify that review
-already covers that exact SHA. After every PR creation or update, inspect the remote review
-state, wait for any review started for the exact final head to finish, then
+After every PR creation or update, including a review-driven rewrite, use
+`review inspect` to inspect remote feedback for the exact published head.
+Wait for any review started for that head to finish, then
 reinspect and handle its findings. Run `verify --receipt-file <path>` and
 confirm no requested change remains uncommitted.

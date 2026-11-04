@@ -40,6 +40,9 @@ reuses its local review evidence. Local review does not replace remote feedback
 inspection, and remote review does not replace local review.
 
 Remote review cases keep inspection and mutations behind `al delivery review`.
+Initial-publication and review-correction cases reject Codex review requests,
+Codex mentions used to initiate reviews, and changes to Codex review settings.
+They preserve remote feedback inspection and honest reporting for the final head.
 `review address` uses the clean prepared candidate and verified publication,
 then preserves the existing reply checkpoint, one-use receipt, and expiry.
 Cases reject automatic duplicate replies after unknown outcomes, silent

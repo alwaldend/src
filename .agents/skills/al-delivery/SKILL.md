@@ -184,6 +184,9 @@ are unchanged.
 
 ## Complete review and handoff
 
+Do not request Codex reviews or post Codex mentions to initiate them, including
+after a review-driven rewrite.
+
 After every PR creation or update, use `review inspect` to inspect remote
 feedback; local review does not replace this step. If an enabled
 remote review started for the exact final head, wait for an authoritative
