@@ -71,8 +71,9 @@ true. SSH is the default Git transport. When SSH is unavailable, or the captured
 GitHub remote uses HTTPS, select `--git-transport gh` explicitly on `provider`,
 `inspect`, `prepare`, `publish`, `verify`, and other commands in that workflow.
 This mode uses HTTPS with the selected `--forge-cli` executable (default `gh`)
-as the only host-scoped credential helper. Authenticate with `gh auth login`
-when needed; do not print tokens or run `gh auth setup-git`. AL does not import
+as the only host-scoped credential helper. For authentication failures, use
+[authentication recovery](references/authentication.md) before asking for a new
+login or changing transport. Do not print tokens or run `gh auth setup-git`. AL does not import
 global Git configuration, change remotes, or automatically fall back from SSH.
 Receipts bind transport selection: use the same mode when resuming publication
 or verification; legacy receipts imply SSH. For example:

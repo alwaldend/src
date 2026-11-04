@@ -191,6 +191,14 @@ prompts and credential diagnostics, and rejects credentials in endpoint URLs.
 `gh` authentication uses its configured credential store or supported token
 environment variables; secrets do not belong in command arguments or output.
 
+GitHub API preflight uses the selected forge CLI in both Git modes. An HTTP
+401 there is independent of `--git-transport`. A sandbox can prevent the CLI
+from retrieving a valid stored credential: the same login can succeed outside
+it. AL's HTTP 401 diagnostic points to an approved-context comparison; it does
+not retry, extract tokens, change login state, or escalate itself. Follow the
+delivery skill's [authentication recovery](../../skills/al-delivery/references/authentication.md)
+procedure before requesting a new login or changing transport.
+
 `prepare` writes a strict versioned receipt under an ignored
 `out/<task>/` directory. The receipt binds the prepared head and tree to the
 exact worktree and Git directories, fetch and push endpoint digests, sanitized

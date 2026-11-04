@@ -55,6 +55,13 @@ without importing global Git configuration. Remote-review cases require observed
 final head when the provider exposes it; an unobservable result is reported
 honestly after bounded inspection.
 
+Authentication cases distinguish API preflight from Git transport, compare
+sanitized active-account status across execution contexts, inspect JSON state
+rather than exit status alone, and preserve approval rejection. They reject
+unnecessary login changes and token copying when the stored login works in an
+approved context. Offline configuration validation does not exercise a live
+credential store or sandbox; the change record retains the bounded live checks.
+
 A live target is omitted because representative delivery requires inspecting
 and changing Git history, pushing a remote ref, interacting with a forge, and
 responding to live review state. A read-only, tool-free model evaluation cannot

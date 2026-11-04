@@ -2616,6 +2616,58 @@ func hasEnvironmentPrefix(environment []string, prefix string) bool {
 	return false
 }
 
+// TestGitHubPreflightFailureStopsCLI checks API failures independently of Git transport.
+func TestGitHubPreflightFailureStopsCLI(t *testing.T) {
+	for _, transport := range []string{"ssh", "gh"} {
+		for _, status := range []string{"401", "403"} {
+			t.Run(transport+"_"+status, func(t *testing.T) {
+				fixture := newIntegrationDeliveryFixture(t)
+				runTestGit(t, fixture.work, "remote", "set-url", "origin", "git@github.com:owner/repo.git")
+				head := runTestGit(t, fixture.work, "rev-parse", "HEAD")
+				state := runTestGit(t, fixture.work, "status", "--porcelain=v2")
+				refs := runTestGit(t, fixture.work, "show-ref")
+				helper := filepath.Join(t.TempDir(), "gh")
+				writeTestFile(t, helper, `#!/bin/sh
+printf 'call\n' >> "$0.calls"
+[ "$*" = 'repo view github.com/owner/repo --json id,nameWithOwner,url' ] || exit 2
+printf 'gh: API rejected request (HTTP `+status+`)\nAuthorization: Bearer fixture-secret\n' >&2
+exit 1
+`)
+				if err := os.Chmod(helper, 0o700); err != nil {
+					t.Fatalf("chmod forge fixture: %v", err)
+				}
+				var output strings.Builder
+				command := NewCommand(context.Background(), os.Getenv, &output)
+				command.SetArgs([]string{
+					"inspect", "--repository", fixture.work, "--base", "master",
+					"--forge-cli", helper, "--git-transport", transport,
+				})
+				err := command.Execute()
+				var commandErr *commandError
+				if !errors.As(err, &commandErr) || commandErr.Result.ExitCode != 1 {
+					t.Fatalf("inspect lost preflight failure: %v", err)
+				}
+				if strings.Contains(err.Error()+output.String(), "fixture-secret") {
+					t.Fatal("inspect exposed a credential from forge stderr")
+				}
+				if got := strings.Contains(err.Error(), "API authentication"); got != (status == "401") {
+					t.Fatalf("authentication advice for HTTP %s: %v", status, err)
+				}
+				calls, readErr := os.ReadFile(helper + ".calls")
+				if readErr != nil || string(calls) != "call\n" {
+					t.Fatalf("preflight was retried or skipped: calls=%q error=%v", calls, readErr)
+				}
+				if runTestGit(t, fixture.work, "rev-parse", "HEAD") != head ||
+					runTestGit(t, fixture.work, "status", "--porcelain=v2") != state ||
+					runTestGit(t, fixture.work, "show-ref") != refs {
+					t.Fatal("failed preflight changed Git state")
+				}
+				t.Logf("Verified API failure: transport=%s status=%s calls=1 unchanged_git=true redacted=true", transport, status)
+			})
+		}
+	}
+}
+
 // TestGHTransportPublication exercises helper execution and guarded publication using real local Git.
 func TestGHTransportPublication(t *testing.T) {
 	for _, failure := range []bool{false, true} {

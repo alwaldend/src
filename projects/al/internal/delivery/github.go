@@ -539,6 +539,12 @@ func (g *githubForge) Preflight(
 		"--json", "id,nameWithOwner,url",
 	}, "")
 	if err != nil {
+		if strings.Contains(result.Stderr, "HTTP 401") {
+			return fmt.Errorf(
+				"GitHub CLI repository preflight failed: GitHub API authentication was rejected; --git-transport changes Git authentication only. Compare read-only gh auth status in the failing and approved execution contexts; if the login works outside the sandbox, run delivery there through the approval mechanism without changing credentials: %w",
+				err,
+			)
+		}
 		return fmt.Errorf("GitHub CLI repository preflight failed: %w", err)
 	}
 	var metadata struct {
