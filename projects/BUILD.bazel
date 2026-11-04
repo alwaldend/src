@@ -52,6 +52,7 @@ al_release_binary(
                 "x_article_uploader",
                 "x_profile_cleaner",
                 "llama_responses_bridge",
+                "vastai_terraform_provider",
             ],
         )
     ] + [],

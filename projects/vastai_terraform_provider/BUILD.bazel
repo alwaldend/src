@@ -1,0 +1,49 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("@rules_pkg//pkg:mappings.bzl", "pkg_attributes", "pkg_files")
+load("@rules_pkg//pkg:zip.bzl", "pkg_zip")
+load("@rules_terraform//terraform:providers.bzl", "terraform_provider")
+
+package(transitive_visibility = "//projects:transitive_consumers")
+
+package_group(
+    name = "registration_consumers",
+    packages = ["//projects/vastai_terraform_provider/internal/provider"],
+)
+
+alias(
+    name = "vastai_terraform_provider",
+    actual = "//projects/vastai_terraform_provider/cmd/terraform-provider-vastai",
+    visibility = ["//:__subpackages__"],
+)
+
+pkg_files(
+    name = "provider_files",
+    srcs = ["//projects/vastai_terraform_provider/cmd/terraform-provider-vastai"],
+    attributes = pkg_attributes(mode = "0755"),
+    renames = {"//projects/vastai_terraform_provider/cmd/terraform-provider-vastai": "terraform-provider-vastai_v0.0.0-dev"},
+)
+
+pkg_zip(
+    name = "provider_archive",
+    srcs = [":provider_files"],
+)
+
+terraform_provider(
+    name = "provider",
+    src = ":provider_archive",
+    platform = "linux_amd64",
+    source = "registry.terraform.io/alwaldend/vastai",
+    target_compatible_with = [
+        "@platforms//os:linux",
+        "@platforms//cpu:x86_64",
+    ],
+    version = "0.0.0-dev",
+    visibility = ["//:__subpackages__"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//projects:__pkg__"],
+    deps = ["//projects/vastai_terraform_provider/openspec:docs"],
+)

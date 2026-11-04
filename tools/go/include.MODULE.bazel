@@ -30,6 +30,7 @@ use_repo(
     "com_github_gomodule_redigo",
     "com_github_google_uuid",
     "com_github_hashicorp_hcl_v2",
+    "com_github_hashicorp_terraform_plugin_framework",
     "com_github_hashicorp_vault_api",
     "com_github_hashicorp_vault_api_auth_approle",
     "com_github_klauspost_compress",
