@@ -1,0 +1,16 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+package(transitive_visibility = "//internal:transitive_consumers")
+
+# gazelle:ignore
+go_library(
+    name = "generated",
+    srcs = [
+        "doc.go",
+        "query.go",
+        "//internal/vastai_sdk:generate",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/internal/vastai_sdk/internal/generated",
+    visibility = ["//internal/vastai_sdk/pkg/client:__pkg__"],
+    deps = ["@in_gopkg_validator_v2//:validator_v2"],
+)

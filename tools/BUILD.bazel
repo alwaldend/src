@@ -23,6 +23,7 @@ package_group(
         "//users/...",
         # The SDK uses the generator and logging config as execution inputs.
         "//internal/x_sdk",
+        "//internal/vastai_sdk",
         # Repository documentation and developer commands.
         "//projects/alwaldend.com/...",
         "//projects/x_article_uploader",

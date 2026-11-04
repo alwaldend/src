@@ -1,0 +1,17 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+package(transitive_visibility = "//internal:transitive_consumers")
+
+go_library(
+    name = "client",
+    srcs = [
+        "account.go",
+        "client.go",
+        "doc.go",
+        "generated.go",
+        "team.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/internal/vastai_sdk/pkg/client",
+    visibility = ["//:__subpackages__"],
+    deps = ["//internal/vastai_sdk/internal/generated"],
+)

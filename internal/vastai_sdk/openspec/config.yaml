@@ -1,0 +1,7 @@
+schema: spec-driven
+
+context: |
+  This workspace owns the shared Vast.ai API client and generated schema integration.
+  The user explicitly selected shared internal placement. Keep Terraform schemas,
+  resource state, and acceptance tests with projects/vastai_terraform_provider.
+  This library has no independent product release or landing page.
