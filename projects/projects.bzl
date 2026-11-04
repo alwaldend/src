@@ -28,6 +28,7 @@ PROJECTS = [
     "sri",
     "tf_modules",
     "useless_qt_gui",
+    "vastai_terraform_provider",
     "x_article_uploader",
 ]
 

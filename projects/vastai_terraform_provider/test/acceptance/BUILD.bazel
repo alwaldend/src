@@ -1,0 +1,33 @@
+load("@rules_go//go:def.bzl", "go_library", "go_test")
+
+package(transitive_visibility = "//projects:transitive_consumers")
+
+go_test(
+    name = "acceptance_test",
+    size = "medium",
+    srcs = [
+        "acceptance_test.go",
+        "doc.go",
+        "module_test.go",
+        "ownership_test.go",
+        "team_test.go",
+    ],
+    args = [
+        "-provider=$(rlocationpath //projects/vastai_terraform_provider/cmd/terraform-provider-vastai)",
+        "-terraform=$(rlocationpath @rules_terraform//terraform:cli)",
+        "-team-module=$(rlocationpath //projects/tf_modules/vastai_team)",
+    ],
+    data = [
+        "//projects/tf_modules/vastai_team",
+        "//projects/vastai_terraform_provider/cmd/terraform-provider-vastai",
+        "@rules_terraform//terraform:cli",
+    ],
+    deps = ["@rules_go//go/runfiles"],
+)
+
+go_library(
+    name = "acceptance",
+    srcs = ["doc.go"],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/vastai_terraform_provider/test/acceptance",
+    visibility = ["//visibility:public"],
+)

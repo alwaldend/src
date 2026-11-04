@@ -1,0 +1,26 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+package(transitive_visibility = "//projects:transitive_consumers")
+
+go_library(
+    name = "provider",
+    srcs = [
+        "doc.go",
+        "provider.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/vastai_terraform_provider/internal/provider",
+    visibility = [
+        "//projects/vastai_terraform_provider:__subpackages__",
+    ],
+    deps = [
+        "//internal/vastai_sdk/pkg/client",
+        "//projects/vastai_terraform_provider/internal/datasources",
+        "//projects/vastai_terraform_provider/internal/providerdata",
+        "//projects/vastai_terraform_provider/internal/resources",
+        "@com_github_hashicorp_terraform_plugin_framework//datasource",
+        "@com_github_hashicorp_terraform_plugin_framework//provider",
+        "@com_github_hashicorp_terraform_plugin_framework//provider/schema",
+        "@com_github_hashicorp_terraform_plugin_framework//resource",
+        "@com_github_hashicorp_terraform_plugin_framework//types",
+    ],
+)

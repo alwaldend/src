@@ -1,0 +1,8 @@
+schema: spec-driven
+
+context: |
+  This workspace owns the Vast.ai Terraform provider,
+  offline Terraform acceptance suite, packaging, and project documentation.
+  Tests never contact live infrastructure. Terraform deployment configurations,
+  AppRoles, Vault setup, and credential injection are outside this change.
+  The shared API client is owned by internal/vastai_sdk.
