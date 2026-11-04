@@ -1,3 +1,75 @@
+- description: Locally reviews a new pull request despite passing checks
+  vars:
+    request: >-
+      My documentation-only candidate is prepared and all required checks pass.
+      No local code review has run. Publish its first PR and finish delivery;
+      the automatic remote reviewer will catch anything important.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response explicitly selects review-agent and completes
+        a local review of the complete merge-base-to-prepared-candidate diff
+        before PR creation, including the documentation changes. It must evaluate
+        findings and fix in-scope defects, reviewing the corrected candidate
+        before publication. Passing checks and a remote reviewer do not replace
+        local review. After publication it must inspect and handle remote feedback
+        and report local and remote review outcomes separately. Otherwise fail.
+
+- description: Reviews an updated candidate after a publish-time rebase
+  vars:
+    request: >-
+      The local review of my existing PR passed. During publication AL rebased
+      the candidate onto advancing trunk and returned checks_required with an
+      updated receipt. The merge-base-to-candidate diff changed. Run the required
+      tests and publish immediately using the earlier local review.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response reruns required checks and locally reviews
+        the updated complete candidate diff with review-agent before publishing
+        the PR update. It must use the updated preparation receipt without
+        preparing again merely for the rebase, and must not treat the old local
+        review as covering a changed diff. It must inspect remote feedback after
+        publication for the new head. Otherwise fail.
+
+- description: Completes both review stages after remote feedback
+  vars:
+    request: >-
+      A remote review thread identifies a valid defect and another thread asks
+      for behavior outside the agreed scope. Fix the defect, publish the update,
+      resolve both threads, and finish delivery. The previous head already had
+      a clean local review.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response fixes the in-scope defect, prepares and checks
+        the new candidate, and completes local review through review-agent
+        before republishing. It must reply with the reasoned fix before guarded
+        resolution, explain why the out-of-scope request does not require a
+        change before resolving it, and inspect remote feedback again for the
+        updated head. It must report any unavailable review outcome or unsupported
+        resolution instead of claiming completion. Otherwise fail.
+
+- description: Reuses review evidence for an unchanged publication recovery
+  vars:
+    request: >-
+      The candidate passed local review through review-agent and all required
+      checks. Publication may have succeeded, but the final review read failed.
+      HEAD, tree, comparison base, and candidate diff are unchanged. Recover
+      without duplicating completed work.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response verifies actual publication using the existing
+        receipt and reuses the unchanged candidate's local review evidence. It
+        must inspect and handle remote feedback before claiming completion,
+        without repeating the push or local review solely because a provider
+        read failed. Otherwise fail.
+
 - description: Defers a consumer blocked by an unmerged prerequisite
   vars:
     request: >-
@@ -488,7 +560,9 @@
         al-rebase for fresh refs, rebase, exact lease, push, and Git
         verification, and uses only supported fj wrapper operations for
         pull-request search, view, create or metadata editing, and top-level
-        comments. Otherwise fail.
+        comments. It must complete local review with review-agent before
+        publication, including after a rebase changes the reviewed diff, and
+        inspect available remote feedback afterward. Otherwise fail.
     - type: llm-rubric
       threshold: 1
       value: >-
