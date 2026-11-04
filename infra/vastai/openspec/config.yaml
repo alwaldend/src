@@ -1,0 +1,9 @@
+schema: spec-driven
+
+context: |
+  This OpenSpec workspace belongs to infra/vastai in alwaldend/src.
+  Follow the repository AGENTS.md and this owner's README.md and build files.
+  This project owns Vast.ai infrastructure configuration and AL authentication.
+  Vault AppRole declarations belong to infra/vault/tf.
+  Specifications describe checked-in desired state, not deployed resources.
+  Source validation does not authorize live infrastructure operations.

@@ -1,0 +1,41 @@
+load("@rules_al//:defs.bzl", "al_binary_run", "al_config")
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//tools/vault:defs.bzl", "vault_binary_map")
+
+package(transitive_visibility = "//infra:transitive_consumers")
+
+al_config(
+    name = "al",
+    srcs = ["al.lua"],
+    visibility = ["//infra/vastai:__subpackages__"],
+    deps = ["//infra:al"],
+)
+
+vault_binary_map(
+    name = "vault",
+    configs = [":al"],
+)
+
+al_binary_run(
+    name = "vastai",
+    args = ["$(rootpath //tools/vastai)"],
+    configs = [":al"],
+    data = [
+        "//tools/vastai",
+        "//tools/vault/injector",
+    ],
+    run_args = [
+        "--plugin_label",
+        "vastai=1",
+    ],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//infra:__pkg__"],
+    deps = subpackages(
+        include = ["*"],
+        allow_empty = True,
+    ),
+)

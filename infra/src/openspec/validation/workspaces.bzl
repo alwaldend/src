@@ -18,6 +18,7 @@ WORKSPACE_SOURCES = {
     "infra_pve": "//infra/pve/openspec:source",
     "infra_repos": "//infra/repos/openspec:source",
     "infra_threexui": "//infra/threexui/openspec:source",
+    "infra_vastai": "//infra/vastai/openspec:source",
     "infra_vault": "//infra/vault/openspec:source",
     "infra_xcp_ng": "//infra/xcp_ng/openspec:source",
     "infra_yandex_cloud": "//infra/yandex_cloud/openspec:source",
