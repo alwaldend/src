@@ -3,6 +3,7 @@ title: TruffleHog rules
 linkTitle: TruffleHog rules
 description: Scan Git history in Bazel and fail on unapproved secret findings
 layout: landing
+date: 2026-10-31
 statuses:
   - in_progress
 languages:

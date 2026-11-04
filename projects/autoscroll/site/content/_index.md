@@ -3,6 +3,7 @@ title: Autoscroll
 linkTitle: Autoscroll
 description: Mouse-driven autoscroll CLI with reloadable configuration
 layout: landing
+date: 2022-03-19
 statuses:
   - finished
 languages:

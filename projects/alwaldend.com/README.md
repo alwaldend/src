@@ -74,7 +74,8 @@ macro file to encode the native diagram with the site's palette and monospace
 font for syndication and social previews. Set `color_scheme = "dark"` to select
 the dark palette; the default remains light.
 The homepage panel links to GitHub, GitLab, Blog, Docs, and the project index,
-followed by permanently visible, indented project links in title order.
+followed by permanently visible, indented project links in creation date order,
+newest first.
 Each row shows its destination alongside its title; narrow screens place the
 destination below the title. The panel has space below the fixed header.
 
@@ -104,6 +105,32 @@ bazel run //projects/alwaldend.com:site_serve
 ```
 
 The preview serves the local build at http://127.0.0.1:1313.
+
+Capture full-page screenshots of the homepage, project landing index, and
+project documentation index without a preview server:
+
+```sh
+bazel run //projects/alwaldend.com:site_screenshots
+```
+
+The default output directory is `out/site-screenshots/`, containing `root.png`,
+`projects.png`, `docs-projects.png`, and `screenshots.json`. The manifest records
+page paths, titles, viewport settings, and actual image dimensions. The command
+uses the existing pinned Puppeteer and Chrome, serves only built local assets
+through browser request interception, and blocks external origins.
+
+Use `--output-dir` for a different destination, repeat `--path` to select pages,
+set `--width` and `--height` for the viewport, and select `--color-scheme dark`
+for dark-mode captures. For example:
+
+```sh
+bazel run //projects/alwaldend.com:site_screenshots -- \
+  --output-dir "$PWD/out/site-review" --path /projects/ --color-scheme dark
+bazel test //projects/alwaldend.com/cmd/screenshots:command_test
+```
+
+The offline command test retains real PNGs and a JSON result report in its
+Bazel undeclared test outputs.
 
 Build the site's dependency diagram with
 `bazel build //projects/alwaldend.com:deps_dark_webp` for a dark
@@ -200,6 +227,10 @@ those directories into `content/projects/<name>/` from the registry in
 [projects/projects.bzl](../projects.bzl). Landing content carries no layouts,
 styles, or build rules, and participates in the shared `statuses`,
 `languages`, and `tags` taxonomies.
+
+Every project landing declares its creation date explicitly as `date: YYYY-MM-DD`
+in front matter. The homepage project links and `/projects/` index use that
+date to list newer projects first. Routine page edits preserve the creation date.
 
 Repository reference documentation, including each project README, stays under
 `/docs/projects/<name>/`. Because every landing is part of this one build, a

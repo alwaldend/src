@@ -3,6 +3,7 @@ title: AL
 linkTitle: AL
 description: One command-line toolkit for repository work and independent project releases
 layout: landing
+date: 2025-10-04
 statuses:
   - active
 languages:

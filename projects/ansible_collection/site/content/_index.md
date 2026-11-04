@@ -3,6 +3,7 @@ title: Ansible collection
 linkTitle: Ansible collection
 description: Ansible collection alwaldend.main with Bazel source packaging
 layout: landing
+date: 2025-11-01
 statuses:
   - maintenance
 tags:

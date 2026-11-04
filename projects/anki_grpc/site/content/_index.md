@@ -3,6 +3,7 @@ title: Anki gRPC
 linkTitle: Anki gRPC
 description: Use Anki's native backend through gRPC
 layout: landing
+date: 2026-10-12
 statuses:
   - finished
 languages:

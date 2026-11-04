@@ -3,6 +3,7 @@ title: Kustomization
 linkTitle: Kustomization
 description: Kubernetes resources for Flux, Traefik, and cert-manager
 layout: landing
+date: 2026-07-12
 statuses:
   - in_progress
 languages:

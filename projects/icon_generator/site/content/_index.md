@@ -3,6 +3,7 @@ title: Icon generator
 linkTitle: Icon generator
 description: Make random pixel patterns with your own colors and shapes
 layout: landing
+date: 2026-09-26
 statuses:
   - active
 languages:

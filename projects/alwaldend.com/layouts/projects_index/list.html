@@ -6,7 +6,7 @@
   {{ end }} {{ .Content }}
   <div class="section-index">
     <hr class="panel-line" />
-    {{ range .Pages.ByTitle }}
+    {{ range .Pages.ByDate.Reverse }}
     <div class="entry">
       <h5><a href="{{ .RelPermalink }}">{{ .Title }}</a></h5>
       <p>{{ .Description | markdownify }}</p>

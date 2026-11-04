@@ -321,6 +321,11 @@ al_http_server_binary(
     ],
 )
 
+alias(
+    name = "site_screenshots",
+    actual = "//projects/alwaldend.com/cmd/screenshots:screenshots",
+)
+
 pkg_files(
     name = "site_config",
     srcs = [":site_config_src"],

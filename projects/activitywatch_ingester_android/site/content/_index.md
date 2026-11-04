@@ -3,6 +3,7 @@ title: ActivityWatch ingester Android
 linkTitle: ActivityWatch ingester Android
 description: Accessibility-based Android collector that sends browser URLs to ActivityWatch
 layout: landing
+date: 2026-09-09
 statuses:
   - maintenance
 languages:

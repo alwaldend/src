@@ -3,6 +3,7 @@ title: Llama Responses bridge
 linkTitle: Llama Responses bridge
 description: Local function namespace compatibility between Codex and llama.cpp
 layout: landing
+date: 2026-11-02
 statuses:
   - active
 languages:

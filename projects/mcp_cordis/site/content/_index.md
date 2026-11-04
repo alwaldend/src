@@ -3,6 +3,7 @@ title: MCP Cordis
 linkTitle: MCP Cordis
 description: Workspace-local runtime packages behind a stable MCP server
 layout: landing
+date: 2026-08-30
 statuses:
   - active
 tags:

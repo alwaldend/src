@@ -3,6 +3,7 @@ title: Renders
 linkTitle: Renders
 description: Repository-owned render assets and their acceptance evidence
 layout: landing
+date: 2026-09-04
 statuses:
   - in_progress
 tags:

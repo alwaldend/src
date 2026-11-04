@@ -19,7 +19,7 @@
       </a>
     </li>
     {{ end }} {{ end }} {{ with $site.GetPage "/projects" }} {{ range
-    .Pages.ByTitle }}
+    .Pages.ByDate.Reverse }}
     <li class="home-links__project">
       <a href="{{ .RelPermalink }}">
         <span>{{ .LinkTitle }}</span>
