@@ -3,9 +3,33 @@ load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_pkg//pkg:mappings.bzl", "pkg_attributes", "pkg_files")
 load("@rules_pkg//pkg:zip.bzl", "pkg_zip")
 load("@rules_terraform//terraform:providers.bzl", "terraform_provider")
+load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_site_svg", "mermaid_site_webp")
 load("//tools/vault:defs.bzl", "vault_binary_map")
 
 package(transitive_visibility = "//projects:transitive_consumers")
+
+mermaid_site_svg(
+    name = "architecture",
+    src = "docs/architecture.mmd",
+    out = "rendered/architecture.svg",
+)
+
+docs_filegroup(
+    name = "docs_assets",
+    srcs = [":architecture"],
+    prefix = "content/docs/projects/vastai_terraform_provider/assets",
+    visibility = ["//projects/vastai_terraform_provider/site/content:__pkg__"],
+)
+
+mermaid_site_webp(
+    name = "architecture_preview",
+    src = "docs/architecture.mmd",
+    out = "rendered/architecture.webp",
+    aspect_ratio = [],
+    color_scheme = "dark",
+    scale = 2,
+    tags = ["manual"],
+)
 
 package_group(
     name = "registration_consumers",
@@ -68,6 +92,7 @@ docs_filegroup(
     srcs = ["README.md"],
     visibility = ["//projects:__pkg__"],
     deps = [
+        ":docs_assets",
         "//projects/vastai_terraform_provider/openspec:docs",
         "//projects/vastai_terraform_provider/test/team:docs",
     ],

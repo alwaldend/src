@@ -35,6 +35,8 @@ type teamRoleModel struct {
 	RoleID types.Int64 `tfsdk:"role_id"`
 	// Permissions is a JSON object, preferably produced with jsonencode.
 	Permissions types.String `tfsdk:"permissions"`
+	// EffectivePermissions records the last observed server-normalized permissions.
+	EffectivePermissions types.String `tfsdk:"effective_permissions"`
 }
 
 // Metadata names the team role resource.
@@ -45,10 +47,11 @@ func (r *teamRoleResource) Metadata(_ context.Context, req resource.MetadataRequ
 // Schema declares name identity, numeric update ID, and permission JSON.
 func (r *teamRoleResource) Schema(_ context.Context, _ resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{Attributes: map[string]schema.Attribute{
-		"id":          schema.StringAttribute{Computed: true, PlanModifiers: []planmodifier.String{stringplanmodifier.UseStateForUnknown()}, Description: "Role name used as Terraform identity."},
-		"name":        schema.StringAttribute{Required: true, PlanModifiers: []planmodifier.String{stringplanmodifier.RequiresReplace()}, Description: "Custom team role name. Changing it requires replacement."},
-		"role_id":     schema.Int64Attribute{Computed: true, PlanModifiers: []planmodifier.Int64{int64planmodifier.UseStateForUnknown()}, Description: "Numeric role ID used for updates."},
-		"permissions": schema.StringAttribute{Required: true, Description: "JSON permission object. Use jsonencode; this resource does not assign members."},
+		"id":                    schema.StringAttribute{Computed: true, PlanModifiers: []planmodifier.String{stringplanmodifier.UseStateForUnknown()}, Description: "Role name used as Terraform identity."},
+		"name":                  schema.StringAttribute{Required: true, PlanModifiers: []planmodifier.String{stringplanmodifier.RequiresReplace()}, Description: "Custom team role name. Changing it requires replacement."},
+		"role_id":               schema.Int64Attribute{Computed: true, PlanModifiers: []planmodifier.Int64{int64planmodifier.UseStateForUnknown()}, Description: "Numeric role ID used for updates."},
+		"permissions":           schema.StringAttribute{Required: true, Description: "Requested JSON permission object. Use jsonencode; Vast.ai adds baseline permissions."},
+		"effective_permissions": schema.StringAttribute{Computed: true, Description: "Server-normalized permission object, including Vast.ai baseline grants. This resource does not assign members."},
 	}}
 }
 
@@ -75,7 +78,7 @@ func (r *teamRoleResource) ValidateConfig(ctx context.Context, req resource.Vali
 	}
 }
 
-// readRole refreshes IDs and preserves equivalent JSON spellings to avoid false drift.
+// readRole refreshes identity and distinguishes API normalization from later drift.
 func (r *teamRoleResource) readRole(ctx context.Context, data *teamRoleModel) error {
 	role, err := r.providerData.Client.TeamRole(ctx, data.ID.ValueString())
 	if err != nil {
@@ -84,13 +87,18 @@ func (r *teamRoleResource) readRole(ctx context.Context, data *teamRoleModel) er
 	data.Name = types.StringValue(role.Name)
 	data.RoleID = types.Int64Value(role.ID)
 	var prior, current any
-	priorErr := json.Unmarshal([]byte(data.Permissions.ValueString()), &prior)
+	priorErr := json.Unmarshal([]byte(data.EffectivePermissions.ValueString()), &prior)
 	if err := json.Unmarshal(role.Permissions, &current); err != nil {
 		return fmt.Errorf("decode role permissions: %w", err)
 	}
-	if priorErr != nil || !reflect.DeepEqual(prior, current) {
-		data.Permissions = types.StringValue(string(role.Permissions))
+	effective, err := json.Marshal(current)
+	if err != nil {
+		return fmt.Errorf("encode effective role permissions: %w", err)
 	}
+	if data.Permissions.IsNull() || data.Permissions.IsUnknown() || (priorErr == nil && !reflect.DeepEqual(prior, current)) {
+		data.Permissions = types.StringValue(string(effective))
+	}
+	data.EffectivePermissions = types.StringValue(string(effective))
 	return nil
 }
 
@@ -107,6 +115,7 @@ func (r *teamRoleResource) Create(ctx context.Context, req resource.CreateReques
 	}
 	data.ID = data.Name
 	data.RoleID = types.Int64Null()
+	data.EffectivePermissions = types.StringNull()
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
 	if err := r.readRole(ctx, &data); err != nil {
 		resp.Diagnostics.AddError("Cannot read created team role", err.Error())
@@ -147,6 +156,10 @@ func (r *teamRoleResource) Update(ctx context.Context, req resource.UpdateReques
 	}
 	if err := r.providerData.Client.WriteTeamRole(ctx, data.RoleID.ValueInt64(), data.Name.ValueString(), data.Permissions.ValueString()); err != nil {
 		resp.Diagnostics.AddError("Cannot update team role", err.Error())
+		return
+	}
+	if err := r.readRole(ctx, &data); err != nil {
+		resp.Diagnostics.AddError("Cannot read updated team role", err.Error())
 		return
 	}
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)

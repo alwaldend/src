@@ -19,6 +19,9 @@ import (
 // ErrNotFound indicates a missing resource confirmed by its endpoint's response.
 var ErrNotFound = errors.New("Vast.ai resource not found")
 
+// ErrValueRedacted indicates an existing environment variable with a masked value.
+var ErrValueRedacted = errors.New("Vast.ai environment value is redacted")
+
 // Options configures a client's required endpoint and bearer credential.
 type Options struct {
 	// Endpoint is the REST API root, including its version path.
@@ -119,10 +122,19 @@ func (c *Client) decodeResponse(method, path string, resp *http.Response, result
 			resultErr = errors.Join(resultErr, fmt.Errorf("close %s %s response: %w", method, path, err))
 		}
 	}()
-	if resp.StatusCode == http.StatusNotFound && (strings.HasPrefix(path, "/instances/") || strings.HasPrefix(path, "/ssh/") || strings.HasPrefix(path, "/team/roles/") || strings.HasPrefix(path, "/auth/apikeys/")) {
+	if resp.StatusCode == http.StatusNotFound && (strings.HasPrefix(path, "/instances/") || strings.HasPrefix(path, "/ssh/") || strings.HasPrefix(path, "/team/roles/") || (strings.HasPrefix(path, "/auth/apikeys/") && path != "/auth/apikeys/")) {
 		return fmt.Errorf("%s %s: %w", method, path, ErrNotFound)
 	}
 	if resp.StatusCode < 200 || resp.StatusCode >= 300 {
+		if resp.StatusCode == http.StatusBadRequest && method == http.MethodPost && path == "/team/" {
+			var rejection struct {
+				// Message is compared only against a documented constant, never rendered.
+				Message string `json:"msg"`
+			}
+			if err := json.NewDecoder(io.LimitReader(resp.Body, 8<<20)).Decode(&rejection); err == nil && rejection.Message == "Team name already exists" {
+				return errors.New("Vast.ai team name already exists; choose a different name")
+			}
+		}
 		return fmt.Errorf("Vast.ai %s %s returned HTTP %d", method, path, resp.StatusCode)
 	}
 	const maximumBody = 8 << 20

@@ -28,3 +28,6 @@
 ## 5. Test-root integration
 
 - [x] 5.1 Integrate the dedicated AppRole, injector, isolated backend, and non-compute Terraform root with the merged provider; validate packaging and preserve provider behavior.
+- [x] 5.2 Apply and verify the live non-compute root using its generated team credential, after the authorized bootstrap.
+- [x] 5.3 Reproduce masked environment reads before preserving their stored values, including import and explicit deletion.
+- [x] 5.4 Separate requested and effective role permissions; replace unsupported team SSH keys with a generated test key and verify clean live plans.

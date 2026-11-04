@@ -4,7 +4,7 @@ load("@rules_terraform//terraform:defs.bzl", "terraform_binary_map", "terraform_
 
 package(transitive_visibility = "//projects:transitive_consumers")
 
-_INPUTS = glob(["*.tf"]) + ["test_public_key.pub"]
+_INPUTS = glob(["*.tf"])
 
 terraform_binary_map(
     name = "tf",

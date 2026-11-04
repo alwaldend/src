@@ -4,20 +4,22 @@ description: Non-compute provider validation in a Terraform-created test team
 ---
 
 This root manages three test objects in the team created by
-the infra/vastai bootstrap root: an SSH public key with a `test_` comment, a
+the infra/vastai bootstrap root: a generated `test_` API key, a
 `TEST_VASTAI_TERRAFORM_PROVIDER` environment marker, and an unassigned
-`test_vastai_terraform_provider` role granting only `user_read`.
+`test_vastai_terraform_provider` role requesting current-account reads.
+Vast.ai adds baseline role permissions; `effective_permissions` records the
+actual grants. SSH keys require personal context and cannot be created in a team.
 It has no compute, storage rental, credit transfer, team creation, or member
 invitation resources. It adds no team-ID guard.
 
-The checked-in key contains public material only; its private material was
-discarded during generation. The marker value is non-secret. Provider values
-can still appear in Terraform state, so the root uses a separate Vault HTTP
+The marker value is non-secret. Generated keys remain sensitive in Terraform
+state and are not outputs. The root uses a separate Vault HTTP
 backend under the provider project's own `tf_backend/test` entry.
 
 The project authenticates as `src_projects_vastai_terraform_provider`.
 Its `vastai=1` injector reads the Terraform-generated token from its own
-`vastai` credential entry, and `tf=test` selects the isolated backend.
+`vastai` credential entry into `VAST_API_KEY` and `TF_VAR_test_team_api_key`;
+`tf=test` selects the isolated backend.
 The provider is built from source and installed
 from its declared Bazel ZIP; no Terraform Registry publication is required.
 

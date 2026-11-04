@@ -22,8 +22,13 @@ success and resource identity, including the distinction between omitted and
 explicit-null instance responses. Those lifecycle guarantees are absent from
 the raw generated interface, which remains an implementation detail.
 
-The schema omits account SSH-key listing, individual API-key reads, and the
-console's context-selection endpoint; the client supplies those operations.
+The schema omits account SSH-key listing and the console's context-selection
+endpoint; the client supplies those operations. API-key reads use the generated
+key-collection operation. Revocation checks that collection before and after
+deletion, so replies without success flags do not abandon cleanup ownership.
+Team-context selection verifies the current account first and leaves an
+already-selected team key unchanged. Canonical trailing-slash API paths avoid
+redirects; redirect refusal remains enabled.
 The search request maps to an open JSON object to preserve arbitrary filters
 and avoid invalid object-default initializers in the pinned generator. Numeric
 mappings retain 64-bit identifiers and Terraform-compatible precision.

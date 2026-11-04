@@ -95,12 +95,14 @@ func (r *environmentResource) Read(ctx context.Context, req resource.ReadRequest
 		resp.State.RemoveResource(ctx)
 		return
 	}
-	if err != nil {
+	if err != nil && !errors.Is(err, vastclient.ErrValueRedacted) {
 		resp.Diagnostics.AddError("Cannot read environment variable", err.Error())
 		return
 	}
 	data.Name = data.ID
-	data.Value = types.StringValue(value)
+	if !errors.Is(err, vastclient.ErrValueRedacted) {
+		data.Value = types.StringValue(value)
+	}
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
 }
 
@@ -129,7 +131,7 @@ func (r *environmentResource) Delete(ctx context.Context, req resource.DeleteReq
 	if errors.Is(err, vastclient.ErrNotFound) {
 		return
 	}
-	if err != nil {
+	if err != nil && !errors.Is(err, vastclient.ErrValueRedacted) {
 		resp.Diagnostics.AddError("Cannot read environment variable before deletion", err.Error())
 		return
 	}
@@ -138,7 +140,7 @@ func (r *environmentResource) Delete(ctx context.Context, req resource.DeleteReq
 	}
 }
 
-// ImportState accepts the uppercase variable name and hydrates its value on read.
+// ImportState accepts the name; masked values require configuration on the next apply.
 func (r *environmentResource) ImportState(ctx context.Context, req resource.ImportStateRequest, resp *resource.ImportStateResponse) {
 	if !environmentName.MatchString(req.ID) {
 		resp.Diagnostics.AddError("Invalid environment import ID", "Use the canonical uppercase variable name.")

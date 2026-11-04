@@ -89,7 +89,7 @@ func (c *Client) DeleteSSHKey(ctx context.Context, id int64) error {
 	return nil
 }
 
-// EnvironmentVariable reads one variable without exposing other account values.
+// EnvironmentVariable reads one variable, returning ErrValueRedacted for a mask.
 func (c *Client) EnvironmentVariable(ctx context.Context, name string) (string, error) {
 	var result struct {
 		// Secrets holds the account's variable mapping.
@@ -105,6 +105,9 @@ func (c *Client) EnvironmentVariable(ctx context.Context, name string) (string, 
 	value, ok := result.Secrets[name]
 	if !ok {
 		return "", fmt.Errorf("environment variable absent: %w", ErrNotFound)
+	}
+	if value == "********" {
+		return "", fmt.Errorf("read environment variable: %w", ErrValueRedacted)
 	}
 	return value, nil
 }

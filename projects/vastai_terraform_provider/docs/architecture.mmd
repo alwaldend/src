@@ -1,0 +1,28 @@
+%%{init: {"flowchart": {"diagramPadding": 48}}}%%
+flowchart LR
+    terraform["Terraform"]
+
+    subgraph vastai_terraform_provider["vastai_terraform_provider"]
+        server["Provider server"]
+        provider["Provider"]
+        resources["Resources"]
+        datasources["Data resources"]
+        server --> provider
+        provider -->|Registers| resources
+        provider -->|Registers| datasources
+    end
+
+    subgraph vastai_sdk["vastai_sdk"]
+        client["Vast.ai client"]
+        generated["Generated client<br/>OpenAPI"]
+        client --> generated
+    end
+
+    vastai["Vast.ai<br/>REST API"]
+
+    terraform -->|Plugin protocol 6| server
+    resources -->|Read/Write| client
+    datasources -->|Read| client
+    provider -. Configure .-> client
+    generated --> vastai
+    client -->|Direct API calls| vastai

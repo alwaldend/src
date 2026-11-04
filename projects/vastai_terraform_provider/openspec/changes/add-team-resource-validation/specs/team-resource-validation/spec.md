@@ -38,6 +38,16 @@ removed from state; malformed responses and API failures SHALL preserve it.
 - **WHEN** a role name contains a forward slash
 - **THEN** refresh, import, and deletion address that name as one escaped API path segment.
 
+#### Scenario: Masked environment value
+
+- **WHEN** the API reports an existing variable with a masked value
+- **THEN** refresh preserves its stored value without false drift, an import requires its configured value on the next apply, and explicit deletion remains available.
+
+#### Scenario: Server-normalized role permissions
+
+- **WHEN** Vast.ai adds baseline grants to requested role permissions
+- **THEN** state preserves the configured request, exposes effective permissions separately, and detects subsequent effective-permission drift.
+
 ### Requirement: Team and API-key resources
 
 The provider SHALL create teams with zero credit transfer, generate an
@@ -59,7 +69,7 @@ or membership invitation.
 #### Scenario: Team validation
 
 - **WHEN** an explicitly authorized live test-root operation runs after bootstrap
-- **THEN** only its SSH public key, non-secret marker variable, and read-only role are managed, without renting compute.
+- **THEN** only its generated test key, non-secret marker variable, and unassigned role are managed, without renting compute; SSH keys remain limited to personal accounts.
 
 ### Requirement: Compound team ownership
 
