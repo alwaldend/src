@@ -3,6 +3,7 @@ title: Sri
 linkTitle: Sri
 description: Command-line Subresource Integrity calculator using OpenSSL
 layout: landing
+date: 2025-06-01
 statuses:
   - finished
 languages:

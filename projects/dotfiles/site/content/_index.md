@@ -3,6 +3,7 @@ title: Dotfiles
 linkTitle: Dotfiles
 description: Personal configuration files with installation and comparison commands
 layout: landing
+date: 2020-10-18
 statuses:
   - maintenance
 languages:

@@ -3,6 +3,7 @@ title: Anki as code
 linkTitle: Anki as code
 description: Manage Anki collections through editable TOML
 layout: landing
+date: 2026-10-10
 statuses:
   - in_progress
 languages:

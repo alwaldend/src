@@ -3,6 +3,7 @@ title: Nexus security plugin
 linkTitle: Nexus security plugin
 description: Security plugin for Sonatype Nexus 3
 layout: landing
+date: 2022-06-27
 statuses:
   - finished
 languages:

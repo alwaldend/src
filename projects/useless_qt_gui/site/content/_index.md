@@ -3,6 +3,7 @@ title: Useless QT GUI
 linkTitle: Useless QT GUI
 description: Desktop GUI application built with C++ and Qt
 layout: landing
+date: 2020-01-20
 statuses:
   - finished
 languages:

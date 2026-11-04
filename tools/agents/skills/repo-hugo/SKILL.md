@@ -105,7 +105,11 @@ inventing features or presenting unfinished work as released.
   `PROJECTS`, so a registered project is declared once. A registered project
   without content produces no page and no build failure.
 - The apex site renders a landing through the front matter contract
-  `layout: landing` with `title`, `linkTitle`, and `description`. The
+  `layout: landing` with `title`, `linkTitle`, `description`, and a mandatory
+  `date` field for the project's creation date (ISO `YYYY-MM-DD`). Set this date
+  explicitly in front matter; do not derive it from Git or filesystem timestamps
+  during builds, or update it for routine page edits. The homepage project links
+  and `/projects/` index sort by this date, newest first. The
   `projects/landing.html` layout and the `.landing-content` styles in
   `projects/alwaldend.com/assets/scss/_styles_project.scss` own its
   presentation. Never add a project-local layout or stylesheet.
@@ -119,9 +123,9 @@ inventing features or presenting unfinished work as released.
   and `/blog/`; `baseof.html` owns that column markup. Its
   `list.html` renders the section index with each entry's description, status,
   and tags, linking the last two to their taxonomy term pages, ordered by
-  title; the section index carries no introductory prose. Keep the type
-  distinct from `projects`: a `layouts/projects/baseof.html` would also capture
-  the 18 landing pages that resolve `projects/landing.html`.
+  creation date, newest first; the section index carries no introductory prose.
+  Keep the type distinct from `projects`: a `layouts/projects/baseof.html`
+  would also capture the landing pages that resolve `projects/landing.html`.
 - Reusable `tools/rules_*` modules publish their documentation through
   `//tools:docs`, using external labels such as `@rules_example//:docs`. They
   are outside the landing registry and have no landing page, Pages repository,

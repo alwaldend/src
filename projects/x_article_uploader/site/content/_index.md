@@ -3,6 +3,7 @@ title: X Article uploader
 linkTitle: X Article uploader
 description: Create an X Article draft from a Markdown blog post
 layout: landing
+date: 2026-09-29
 statuses:
   - active
 languages:

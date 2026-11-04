@@ -4,7 +4,8 @@ title: Repo Hugo skill evaluations
 
 The offline target validates the Promptfoo configuration, case files, and
 skill staging without credentials or model calls. Cases cover repository Hugo
-and theme usage, implementation without deployment authority, adding an
+and theme usage, mandatory landing creation dates and newest-first project
+ordering, implementation without deployment authority, adding an
 in-site landing without per-project infrastructure, and nested-module assembly
 with the apex-site exclusion.
 

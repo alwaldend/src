@@ -1,0 +1,33 @@
+load("@aspect_rules_js//js:defs.bzl", "js_binary", "js_test")
+
+package(transitive_visibility = "//projects:transitive_consumers")
+
+js_binary(
+    name = "screenshots",
+    args = [
+        "$(rootpath //projects/alwaldend.com:site)",
+        "$(rootpath @com_google_chrome_headless_shell//:chrome_headless_shell_binary)",
+    ],
+    data = [
+        "//projects/alwaldend.com:site",
+        "//tools:node_modules/puppeteer",
+        "@com_google_chrome_headless_shell//:chrome_headless_shell_binary",
+    ],
+    entry_point = "main.mjs",
+    visibility = ["//projects/alwaldend.com:__pkg__"],
+)
+
+js_test(
+    name = "command_test",
+    size = "medium",
+    args = [
+        "$(rootpath :main.mjs)",
+        "$(rootpath @com_google_chrome_headless_shell//:chrome_headless_shell_binary)",
+    ],
+    data = [
+        "main.mjs",
+        "//tools:node_modules/puppeteer",
+        "@com_google_chrome_headless_shell//:chrome_headless_shell_binary",
+    ],
+    entry_point = "command_test.mjs",
+)

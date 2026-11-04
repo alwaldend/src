@@ -3,6 +3,7 @@ title: Bazel Gazelle transitive visibility
 linkTitle: Gazelle transitive visibility
 description: Maintain Bazel dependency boundaries with TOML path mappings
 layout: landing
+date: 2026-10-28
 statuses:
   - active
 languages:
