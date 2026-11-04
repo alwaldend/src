@@ -4,7 +4,8 @@ description: Hugo assets
 ---
 
 The assets package maps `//data/alwaldend:monogram` to `icons/favicon.svg`
-in the Hugo source archive. The [identity asset](../../../data/alwaldend/README.md)
+and Docsy's `icons/logo.svg` header resource in the Hugo source archive.
+The [identity asset](../../../data/alwaldend/README.md)
 owns the S8 square monogram, its centered geometry, and adaptive light/dark
 colors. The site consumes that SVG directly without a separate artwork copy.
 

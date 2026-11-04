@@ -43,9 +43,16 @@ pkg_filegroup(
     name = "assets",
     srcs = [
         ":assets_files",
+        ":navbar_logo",
     ],
     prefix = "assets",
     visibility = ["//projects/alwaldend.com:__pkg__"],
+)
+
+pkg_files(
+    name = "navbar_logo",
+    srcs = ["//data/alwaldend:monogram"],
+    renames = {"//data/alwaldend:monogram": "icons/logo.svg"},
 )
 
 pkg_files(
