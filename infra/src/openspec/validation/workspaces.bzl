@@ -22,6 +22,7 @@ WORKSPACE_SOURCES = {
     "infra_vault": "//infra/vault/openspec:source",
     "infra_xcp_ng": "//infra/xcp_ng/openspec:source",
     "infra_yandex_cloud": "//infra/yandex_cloud/openspec:source",
+    "internal_vastai_sdk": "//internal/vastai_sdk/openspec:source",
     "internal_x_sdk": "//internal/x_sdk/openspec:source",
     "projects_activitywatch_ingester_android": "//projects/activitywatch_ingester_android/openspec:source",
     "projects_al": "@rules_al//openspec:source",

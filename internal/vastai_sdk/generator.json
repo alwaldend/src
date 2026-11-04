@@ -1,0 +1,14 @@
+{
+    "packageName": "generated",
+    "withGoMod": false,
+    "hideGenerationTimestamp": true,
+    "disallowAdditionalPropertiesIfNotPresent": false,
+    "enumClassPrefix": true,
+    "typeMappings": {
+        "integer": "int64",
+        "float": "float64"
+    },
+    "schemaMappings": {
+        "searchOffers_request": "SearchOffersRequest"
+    }
+}

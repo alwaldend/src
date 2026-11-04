@@ -1,6 +1,6 @@
 ---
 title: Tf modules
-description: Reusable Terraform modules for Vault, virtual machines, and storage
+description: Reusable Terraform modules for Vault, virtual machines, storage, and Vast.ai
 statuses:
   - in_progress
 tags:
@@ -9,7 +9,8 @@ tags:
 
 This project contains reusable Terraform modules for Vault configuration,
 Proxmox virtual machines, backup storage, and related infrastructure. The
-module collection is still in progress.
+module collection is still in progress. The [Vast.ai team module](vastai_team/README.md)
+composes zero-credit teams and project API keys while callers own secret storage.
 
 ## Links
 

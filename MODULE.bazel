@@ -7,6 +7,7 @@ module(
 
 include("//third_party:include.MODULE.bazel")
 include("//third_party/ai_opencode_opencode:include.MODULE.bazel")
+include("//third_party/ai_vast_openapi:include.MODULE.bazel")
 include("//third_party/build_buf_buf:include.MODULE.bazel")
 include("//third_party/co_huggingface_comfy_org_z_image_turbo:include.MODULE.bazel")
 include("//third_party/co_huggingface_qwen_qwen3_8_27b:include.MODULE.bazel")

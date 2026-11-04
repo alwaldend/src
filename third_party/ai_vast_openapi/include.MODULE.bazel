@@ -1,0 +1,8 @@
+http_file = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_file")
+
+http_file(
+    name = "ai_vast_openapi",
+    downloaded_file_path = "openapi.yaml",
+    integrity = "sha256-iZCi3CKXXiCHoiKoOBUwJhYgs5L190WioI7dlart3E0=",
+    urls = ["https://raw.githubusercontent.com/vast-ai/docs/2b2d9a04e7cb542f3305c0c148c2395b0cfab86e/api-reference/openapi.yaml"],
+)
