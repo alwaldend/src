@@ -138,6 +138,8 @@ func (a rewriteAuthorization) validate() error {
 }
 
 type preparationReceipt struct {
+	// GitTransport binds explicit gh mode; omitted legacy values retain SSH semantics.
+	GitTransport          string                 `json:"git_transport,omitempty"`
 	Schema                string                 `json:"schema"`
 	RevisionNonce         string                 `json:"revision_nonce"`
 	RepositoryFingerprint string                 `json:"repository_fingerprint"`
@@ -435,6 +437,7 @@ func (d *delivery) newPreparationReceiptWithExpectation(
 		RevisionNonce:         revisionNonce,
 		RepositoryFingerprint: fingerprint,
 		RemoteName:            d.remote,
+		GitTransport:          d.repository.gitTransport,
 		FetchEndpointDigest: endpointDigest(
 			"fetch",
 			d.fetchEndpoint,
@@ -458,6 +461,10 @@ func (d *delivery) newPreparationReceiptWithExpectation(
 		ExpectedPullRequest: expectedPullRequest,
 		Scope:               scope,
 	}
+	// Preserve the legacy SSH receipt encoding for older delivery clients.
+	if receipt.GitTransport == "ssh" {
+		receipt.GitTransport = ""
+	}
 	if err := receipt.validate(); err != nil {
 		return preparationReceipt{}, err
 	}
@@ -465,6 +472,9 @@ func (d *delivery) newPreparationReceiptWithExpectation(
 }
 
 func (r preparationReceipt) validate() error {
+	if _, err := normalizeGitTransport(r.GitTransport); err != nil {
+		return fmt.Errorf("invalid preparation receipt transport: %w", err)
+	}
 	if r.Schema != preparationReceiptSchema {
 		return fmt.Errorf("unsupported preparation receipt schema %q", r.Schema)
 	}
@@ -773,6 +783,14 @@ func (d *delivery) validateReceiptContext(
 	if err != nil {
 		return err
 	}
+	receiptTransport, err := normalizeGitTransport(receipt.GitTransport)
+	if err != nil {
+		return fmt.Errorf("read receipt transport: %w", err)
+	}
+	selectedTransport, err := normalizeGitTransport(d.repository.gitTransport)
+	if err != nil {
+		return fmt.Errorf("read selected transport: %w", err)
+	}
 	wantBaseRef := "refs/heads/" + report.Base
 	wantHeadRef := report.HeadRef
 	comparisons := []struct {
@@ -782,6 +800,7 @@ func (d *delivery) validateReceiptContext(
 	}{
 		{"repository fingerprint", receipt.RepositoryFingerprint, fingerprint},
 		{"remote name", receipt.RemoteName, d.remote},
+		{"Git transport", receiptTransport, selectedTransport},
 		{"fetch endpoint", receipt.FetchEndpointDigest, endpointDigest("fetch", d.fetchEndpoint)},
 		{"push endpoint", receipt.PushEndpointDigest, endpointDigest("push", d.pushEndpoint)},
 		{"forge adapter", receipt.Forge, d.forge.Name()},
@@ -1593,6 +1612,7 @@ func preparationReceiptJSONShape() *canonicalJSONShape {
 		"revision_nonce":         stringValue,
 		"repository_fingerprint": stringValue,
 		"remote_name":            stringValue,
+		"git_transport":          {optional: true, scalarKind: "string"},
 		"fetch_endpoint_sha256":  stringValue,
 		"push_endpoint_sha256":   stringValue,
 		"remote_repository":      remoteRepository,

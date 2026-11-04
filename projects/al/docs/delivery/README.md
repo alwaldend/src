@@ -59,9 +59,11 @@ use the Bazel entry point.
 
 The sanitized report distinguishes forge support from Git transport support.
 `adapter_available` reports whether the forge has an adapter;
-`git_transport` reports `ssh`, `https`, or `mixed_or_unsupported`; and
-`delivery_transport_available` is true only when both captured endpoints are
-canonical SSH endpoints. It never reports either endpoint.
+`git_transport` reports `ssh`, `https`, or `mixed_or_unsupported` by default,
+and `gh` when that mode is explicitly selected.
+`delivery_transport_available` is true when both captured endpoints are valid
+for the selected mode: canonical SSH endpoints by default, or canonical GitHub
+SSH/HTTPS endpoints in gh mode. It never reports either endpoint.
 
 For the supported GitHub adapter, preparation, checks, and publication are
 separate commands:
@@ -165,13 +167,29 @@ For a message-only amendment, use
 preparation receipt. Run the checks appropriate to that changed commit before
 publishing through the same receipt-bound workflow.
 
-Version 1 delivery accepts only SCP-style or `ssh://` Git fetch and push
-endpoints. The `gh` CLI is still used for the GitHub forge API, but the tool
-does not import mutable global credential-helper configuration installed by
-`gh auth setup-git`. An HTTPS Git remote is therefore rejected before
-`inspect`, preparation, or publication performs network access. Configure an
-SSH remote explicitly before using delivery; the tool will not rewrite the
-repository's remote configuration for you.
+SSH is the default Git transport, accepting canonical SCP-style or `ssh://`
+fetch and push endpoints. Select `--git-transport gh` explicitly to use GitHub
+CLI credentials over HTTPS. This mode accepts canonical GitHub SSH or HTTPS
+remotes, derives the HTTPS endpoint for the captured repository, and uses the
+selected `--forge-cli` executable (default `gh`) as a host-scoped credential
+helper. It never reads tokens into AL, imports global Git configuration,
+runs `gh auth setup-git`, rewrites remotes, or falls back automatically.
+Authenticate using `gh auth login` when needed, then pass the same transport
+selector throughout inspection, preparation, publication and verification:
+
+```sh
+al delivery provider --git-transport gh
+al delivery inspect --git-transport gh --base master
+al delivery publish --git-transport gh --base master \
+  --receipt-file out/task/prepare.json
+```
+
+Preparation receipts also bind transport mode; legacy receipts imply SSH.
+Changing modes requires preparing a new receipt. HTTPS transport verifies TLS,
+disables redirects and proxies, resets ambient credential helpers, disables
+prompts and credential diagnostics, and rejects credentials in endpoint URLs.
+`gh` authentication uses its configured credential store or supported token
+environment variables; secrets do not belong in command arguments or output.
 
 `prepare` writes a strict versioned receipt under an ignored
 `out/<task>/` directory. The receipt binds the prepared head and tree to the
@@ -238,8 +256,8 @@ replace independently edited PR text.
 The tool creates commits with Git plumbing and pushes one exact ref with hooks
 disabled. It rejects shallow, promisor, or grafted history and ignores
 replacement objects. Each network operation runs in a fresh private,
-config-free bare Git directory bound to the captured SSH endpoint and the
-repository's canonical object database. It does not load mutable main-repo
+config-free bare Git directory bound to the captured endpoint, selected
+transport, and repository's canonical object database. It does not load mutable main-repo
 local/worktree URL rewriting, proxy, TLS, SSH-command, or remote
 configuration. Normal DNS resolution and SSH host-key verification still
 apply; the tool does not claim to pin an IP address or server key. Ordinary

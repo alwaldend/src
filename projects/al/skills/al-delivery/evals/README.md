@@ -42,8 +42,10 @@ A behavior-changing review fix requires fresh proportional scrutiny as well
 as the relevant Bazel checks.
 
 Compatibility cases preserve honest Forgejo capability reporting, a clean
-worktree/index without autostash, same-repository GitHub topology, and SSH
-transport boundaries. Remote-review cases require observed completion for the
+worktree/index without autostash, same-repository GitHub topology, and explicit
+SSH or gh-authenticated HTTPS transport boundaries. HTTPS cases require an
+isolated host-scoped helper and consistent receipt-bound transport selection,
+without importing global Git configuration. Remote-review cases require observed completion for the
 final head when the provider exposes it; an unobservable result is reported
 honestly after bounded inspection.
 

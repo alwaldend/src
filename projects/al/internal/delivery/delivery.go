@@ -35,6 +35,8 @@ type deliveryConfig struct {
 	Forge      string
 	ForgeCLI   string
 	GitCLI     string
+	// gitTransport selects SSH or explicit gh-authenticated HTTPS.
+	gitTransport string
 }
 
 type delivery struct {
@@ -87,10 +89,14 @@ func newDelivery(
 			"fetch and push URLs identify different repositories",
 		)
 	}
-	if err := requireCanonicalSSHEndpoint(fetchURL); err != nil {
+	mode, err := normalizeGitTransport(config.gitTransport)
+	if err != nil {
+		return nil, fmt.Errorf("select Git transport: %w", err)
+	}
+	if _, err := gitTransportEndpoint(fetchURL, mode); err != nil {
 		return nil, fmt.Errorf("validate captured fetch endpoint: %w", err)
 	}
-	if err := requireCanonicalSSHEndpoint(pushURL); err != nil {
+	if _, err := gitTransportEndpoint(pushURL, mode); err != nil {
 		return nil, fmt.Errorf("validate captured push endpoint: %w", err)
 	}
 	forge, err := resolveForge(
@@ -102,6 +108,23 @@ func newDelivery(
 	)
 	if err != nil {
 		return nil, err
+	}
+	repository.gitTransport = mode
+	if mode == "gh" {
+		github, supported := forge.(*githubForge)
+		if !supported {
+			return nil, fmt.Errorf("gh transport requires the GitHub CLI forge adapter")
+		}
+		repository.credentialExecutable = github.executable
+		// Keep relative executable paths anchored to the forge's working directory.
+		if !filepath.IsAbs(repository.credentialExecutable) &&
+			(strings.ContainsRune(repository.credentialExecutable, '/') ||
+				strings.ContainsRune(repository.credentialExecutable, filepath.Separator)) {
+			repository.credentialExecutable = filepath.Join(github.directory, repository.credentialExecutable)
+		}
+		if strings.ContainsAny(repository.credentialExecutable, "\x00\r\n") {
+			return nil, fmt.Errorf("GitHub CLI executable contains unsupported control characters")
+		}
 	}
 	if err := forge.Preflight(ctx, fetchRepository); err != nil {
 		return nil, err

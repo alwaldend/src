@@ -55,6 +55,13 @@ func newRootCommand(
 		"single Git executable path or name",
 	)
 
+	flags.StringVar(
+		&config.gitTransport,
+		"git-transport",
+		"ssh",
+		"Git authentication transport (ssh or gh for GitHub CLI HTTPS)",
+	)
+
 	root.AddCommand(
 		newProviderCommand(ctx, config, getenv, stdout, runner),
 		newInspectCommand(ctx, config, getenv, stdout, runner),
@@ -221,6 +228,17 @@ func inspectProvider(
 		fetchURL,
 		pushURL,
 	)
+	mode, err := normalizeGitTransport(config.gitTransport)
+	if err != nil {
+		return nil, fmt.Errorf("select Git transport: %w", err)
+	}
+	if mode == "gh" {
+		_, fetchErr := gitTransportEndpoint(fetchURL, mode)
+		_, pushErr := gitTransportEndpoint(pushURL, mode)
+		gitTransport = "gh"
+		deliveryTransportAvailable = fetchErr == nil && pushErr == nil
+	}
+
 	return &providerReport{
 		RemoteRepository:           fetchRepository,
 		ProviderHint:               provider,

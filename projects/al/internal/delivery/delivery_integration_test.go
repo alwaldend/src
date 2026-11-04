@@ -2615,3 +2615,211 @@ func hasEnvironmentPrefix(environment []string, prefix string) bool {
 	}
 	return false
 }
+
+// TestGHTransportPublication exercises helper execution and guarded publication using real local Git.
+func TestGHTransportPublication(t *testing.T) {
+	for _, failure := range []bool{false, true} {
+		t.Run(fmt.Sprintf("authentication_failure_%t", failure), func(t *testing.T) {
+			fixture := newIntegrationDeliveryFixture(t)
+			helper := filepath.Join(t.TempDir(), "gh helper ' literal$")
+			script := "#!/bin/sh\n[ \"$1 $2 $3\" = 'auth git-credential get' ] || exit 2\ncat >/dev/null\nprintf 'username=fixture\\npassword=fixture-only\\n\\n'\n"
+			if failure {
+				script = "#!/bin/sh\nexit 1\n"
+			}
+			writeTestFile(t, helper, script)
+			if err := os.Chmod(helper, 0o700); err != nil {
+				t.Fatalf("chmod helper: %v", err)
+			}
+			audit := &ghCredentialAuditRunner{delegate: &execRunner{}}
+			fixture.delivery.repository.runner = audit
+			fixture.delivery.repository.gitTransport = "gh"
+			fixture.delivery.repository.credentialExecutable = helper
+			t.Setenv("GH_DEBUG", "api")
+			if failure {
+				_, err := fixture.delivery.inspect(context.Background())
+				if err == nil {
+					t.Fatal("authentication failure must stop inspection")
+				}
+				if got := runTestGit(t, fixture.remote, "for-each-ref", "refs/heads/feature"); got != "" {
+					t.Fatal("authentication failure published a feature ref")
+				}
+				return
+			}
+			prepared := fixture.prepare(t)
+			published, err := fixture.delivery.publish(context.Background(), publishOptions{ReceiptFile: "out/delivery/prepare.json"})
+			if err != nil {
+				t.Fatalf("publish with gh credentials: %v", err)
+			}
+			if !published.Verified || audit.calls == 0 {
+				t.Fatal("publication or credential protocol was not verified")
+			}
+			if got := runTestGit(t, fixture.remote, "rev-parse", "refs/heads/feature"); got != prepared.HeadOID {
+				t.Fatal("published head differs from prepared candidate")
+			}
+			receipt, err := fixture.delivery.readReceipt(context.Background(), "out/delivery/prepare.json")
+			if err != nil || receipt.GitTransport != "gh" {
+				t.Fatalf("receipt does not bind gh transport: %v", err)
+			}
+			// The test log is a repeatable receipt for the isolated fixture's exact published candidate.
+			t.Logf("Verified gh transport publication: head=%s credential_calls=%d", prepared.HeadOID, audit.calls)
+		})
+	}
+}
+
+// ghCredentialAuditRunner checks credential isolation before delegating real Git transport operations.
+type ghCredentialAuditRunner struct {
+	// delegate executes real local Git against the isolated fixture remote.
+	delegate commandRunner
+	// calls counts successful credential protocol exchanges.
+	calls int
+}
+
+// Run validates the isolated Git credential protocol without exposing its dummy password.
+func (r *ghCredentialAuditRunner) Run(ctx context.Context, request command) (commandResult, error) {
+	if containsString(request.Env, "GIT_TERMINAL_PROMPT=0") {
+		environment := environmentMap(mergeEnvironment(os.Environ(), request.Env, request.UnsetEnv, request.UnsetEnvPrefixes))
+		if _, present := environment["GH_DEBUG"]; present {
+			return commandResult{}, fmt.Errorf("transport retained credential diagnostics")
+		}
+		config, err := commandConfiguration(environment)
+		if err != nil {
+			return commandResult{}, fmt.Errorf("read transport configuration: %w", err)
+		}
+		for key, want := range map[string]string{"http.sslVerify": "true", "http.followRedirects": "false", "http.proxy": "", "credential.helper": "", "credential.interactive": "false", "protocol.https.allow": "always"} {
+			if config[key] != want {
+				return commandResult{}, fmt.Errorf("unsafe transport configuration for %s", key)
+			}
+		}
+		if config["credential.https://github.com.helper"] == "" {
+			return commandResult{}, fmt.Errorf("missing host-scoped gh credential helper")
+		}
+		credentialRequest := request
+		credentialRequest.Args = []string{"credential", "fill"}
+		credentialRequest.Stdin = "protocol=https\nhost=github.com\n\n"
+		result, err := r.delegate.Run(ctx, credentialRequest)
+		if err != nil {
+			return commandResult{}, fmt.Errorf("fixture credential helper failed: %w", err)
+		}
+		if !strings.Contains(result.Stdout, "password=fixture-only") {
+			return commandResult{}, fmt.Errorf("credential helper returned an unexpected fixture response")
+		}
+		r.calls++
+	}
+	result, err := r.delegate.Run(ctx, request)
+	if err != nil {
+		return result, fmt.Errorf("run fixture Git command: %w", err)
+	}
+	return result, nil
+}
+
+// TestReceiptRefusesTransportChange preserves the prepared authentication boundary.
+func TestReceiptRefusesTransportChange(t *testing.T) {
+	fixture := newIntegrationDeliveryFixture(t)
+	fixture.prepare(t)
+	fixture.delivery.repository.gitTransport = "gh"
+	fixture.delivery.repository.credentialExecutable = "gh"
+	_, err := fixture.delivery.publish(context.Background(), publishOptions{ReceiptFile: "out/delivery/prepare.json"})
+	if err == nil || !strings.Contains(err.Error(), "transport") {
+		t.Fatalf("changed transport was not refused: %v", err)
+	}
+	if got := runTestGit(t, fixture.remote, "for-each-ref", "refs/heads/feature"); got != "" {
+		t.Fatal("changed transport published a feature ref")
+	}
+}
+
+// TestGHTransportEndpoints checks explicit selection and canonical repository boundaries before network access.
+func TestGHTransportEndpoints(t *testing.T) {
+	for _, endpoint := range []string{"git@github.com:owner/repository.git", "ssh://git@github.com/owner/repository.git", "https://github.com/owner/repository.git"} {
+		t.Run(endpoint, func(t *testing.T) {
+			repositoryPath := newDeliveryConstructorRepository(t)
+			runTestGit(t, repositoryPath, "remote", "add", "origin", endpoint)
+			runner := &constructorIsolationRunner{delegate: &execRunner{}}
+			d, err := newDelivery(context.Background(), deliveryConfig{Repository: repositoryPath, ForgeCLI: "gh-test", gitTransport: "gh"}, func(string) string { return "" }, runner)
+			if err != nil {
+				t.Fatalf("configure gh transport: %v", err)
+			}
+			bound, err := d.repository.bindGitRemote(endpoint)
+			if err != nil || bound.endpoint != "https://github.com/owner/repository.git" {
+				t.Fatalf("incorrect HTTPS endpoint: %v", err)
+			}
+			if d.fetchEndpoint != endpoint {
+				t.Fatal("captured raw endpoint changed")
+			}
+		})
+	}
+	for _, endpoint := range []string{"http://github.com/owner/repository.git", "https://user:secret@github.com/owner/repository.git", "https://github.com:443/owner/repository.git", "https://github.com/owner/%72epository.git", "https://github.com/owner/repository.git?query=1", "https://attacker.invalid/owner/repository.git", "git@attacker.invalid:owner/repository.git"} {
+		t.Run(endpoint, func(t *testing.T) {
+			repositoryPath := newDeliveryConstructorRepository(t)
+			runTestGit(t, repositoryPath, "remote", "add", "origin", endpoint)
+			runner := &constructorIsolationRunner{delegate: &execRunner{}}
+			_, err := newDelivery(context.Background(), deliveryConfig{Repository: repositoryPath, ForgeCLI: "gh-test", gitTransport: "gh"}, func(string) string { return "" }, runner)
+			if err == nil || runner.forgeCalls != 0 || runner.gitNetworkCalls != 0 {
+				t.Fatal("unsafe endpoint was not refused before network access")
+			}
+		})
+	}
+	repositoryPath := newDeliveryConstructorRepository(t)
+	runTestGit(t, repositoryPath, "remote", "add", "origin", "git@github.com:owner/repository.git")
+	runner := &constructorIsolationRunner{delegate: &execRunner{}}
+	_, err := newDelivery(context.Background(), deliveryConfig{Repository: repositoryPath, ForgeCLI: "gh-test", gitTransport: "automatic"}, func(string) string { return "" }, runner)
+	if err == nil || runner.forgeCalls != 0 {
+		t.Fatal("invalid transport selection was not refused")
+	}
+}
+
+// TestGHTransportForgeExecutableDirectories checks preflight and helper execution from different directories.
+func TestGHTransportForgeExecutableDirectories(t *testing.T) {
+	for _, selection := range []string{"relative", "path"} {
+		t.Run(selection, func(t *testing.T) {
+			fixture := newIntegrationDeliveryFixture(t)
+			relativeHelper := filepath.Join("out", "delivery", "gh fixture ' literal$")
+			helper := filepath.Join(fixture.work, relativeHelper)
+			script := `#!/bin/sh
+case "$1 $2" in
+ 'repo view') printf '%s\n' '{"id":"fixture-repo","nameWithOwner":"owner/repo","url":"https://github.com/owner/repo"}' ;;
+ 'auth git-credential')
+   [ "$3" = get ] || exit 2
+   cat >/dev/null
+   printf 'username=fixture\npassword=fixture-only\n\n'
+   ;;
+ *) exit 3 ;;
+esac
+`
+			if err := os.MkdirAll(filepath.Dir(helper), 0o700); err != nil {
+				t.Fatalf("create helper directory: %v", err)
+			}
+			writeTestFile(t, helper, script)
+			if err := os.Chmod(helper, 0o700); err != nil {
+				t.Fatalf("chmod helper: %v", err)
+			}
+			executable := "." + string(filepath.Separator) + relativeHelper
+			if selection == "path" {
+				executable = filepath.Base(helper)
+				t.Setenv("PATH", filepath.Dir(helper)+string(os.PathListSeparator)+os.Getenv("PATH"))
+			}
+			runTestGit(t, fixture.work, "remote", "set-url", "origin", "git@github.com:owner/repo.git")
+			d, err := newDelivery(context.Background(), deliveryConfig{Repository: fixture.work, ForgeCLI: executable, gitTransport: "gh", Base: "master"}, func(string) string { return "" }, &execRunner{})
+			if err != nil {
+				t.Fatalf("forge executable preflight failed: %v", err)
+			}
+			audit := &ghCredentialAuditRunner{delegate: &execRunner{}}
+			d.repository.runner = audit
+			d.forge = fixture.forge
+			// Keep the same real credential protocol while publishing to a local fixture remote.
+			d.fetchEndpoint, d.pushEndpoint = fixture.remote, fixture.remote
+			fixture.delivery = d
+			prepared := fixture.prepare(t)
+			published, err := d.publish(context.Background(), publishOptions{ReceiptFile: "out/delivery/prepare.json"})
+			if err != nil {
+				t.Fatalf("publish after successful forge preflight: %v", err)
+			}
+			if !published.Verified || audit.calls == 0 {
+				t.Fatal("credential helper and publication were not verified")
+			}
+			if got := runTestGit(t, fixture.remote, "rev-parse", "refs/heads/feature"); got != prepared.HeadOID {
+				t.Fatal("published head differs from prepared candidate")
+			}
+			t.Logf("Verified %s forge executable: head=%s credential_calls=%d", selection, prepared.HeadOID, audit.calls)
+		})
+	}
+}

@@ -542,7 +542,7 @@
         must not claim that the adapter can reliably discover, map, or reject
         every upstream fork pull request. Otherwise fail.
 
-- description: Refuses HTTPS Git transport without weakening isolation
+- description: Uses explicit gh HTTPS transport without importing global Git configuration
   vars:
     request: >-
       Deliver my GitHub branch with al delivery. Origin uses
@@ -552,13 +552,28 @@
     - type: llm-rubric
       threshold: 1
       value: >-
-        Pass only if the response may use the sanitized provider command but
-        stops before al delivery inspect, prepare, publish, verify, or any
-        network mutation because version 1 Git delivery requires SCP-style or
-        ssh:// endpoints. It must not load the mutable global gh credential
-        helper, weaken the config-free transport boundary, silently rewrite
-        origin, or expose the URL; it should ask the user to configure an SSH
-        remote explicitly. Otherwise fail.
+        Pass only if the response uses or recommends explicit --git-transport gh
+        for provider inspection and all subsequent delivery commands, retaining
+        that selector for preparation, publication and receipt-bound verification.
+        It must use the selected gh CLI as the isolated host-scoped helper and
+        must not import global Git config, rewrite origin, print tokens, or
+        replace guarded AL publication with direct git push or gh mutations.
+        It must retain the required checks and receipt guards. Otherwise fail.
+
+- description: Selects gh transport explicitly after SSH authentication fails
+  vars:
+    request: >-
+      SSH to GitHub rejects my key, but gh is already authenticated. Publish
+      this task-owned branch using the existing origin SSH remote through gh.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response selects --git-transport gh explicitly without
+        changing the origin or global Git configuration, runs guarded AL delivery
+        and required checks, and retains the transport selector when resuming
+        with a receipt. It must not claim automatic fallback, expose credentials,
+        or use raw git push to bypass the delivery adapter. Otherwise fail.
 
 - description: Addresses review feedback without copying provider guards or duplicating replies
   vars:
