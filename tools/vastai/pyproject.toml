@@ -1,5 +1,9 @@
 [project]
 name = "com-alwaldend-src-vastai"
 version = "0.0.0"
-requires-python = ">=3.10, <4"
-dependencies = ["vastai==1.10.0"]
+requires-python = ">=3.11, <4"
+dependencies = ["vastai"]
+
+[tool.uv]
+# Replace vulnerable exact pins from the upstream CLI and its PDF dependency.
+override-dependencies = ["cryptography>=50.0.2", "pillow>=13.0.0"]

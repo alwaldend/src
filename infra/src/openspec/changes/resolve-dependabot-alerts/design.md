@@ -43,6 +43,17 @@ Verify a representative diagram before accepting that override.
 
 ## Execution State
 
+November 4 follow-up: captured 63 live alerts in
+`out/dependabot-vastai/alerts.jsonl`. Upgrade Go JOSE to stable v4.1.8 in root
+and AL modules. Use targeted pnpm overrides for stable glob 14.0.3 and minimatch
+11.0.4, preserving Promptfoo's existing version and maintained patch. pkgsite
+already selects x/net v0.57.0, outside the alert's `<0.55.0` range. Verify
+all captured ranges against the final selections, including the linked Vast.ai
+change, then run affected consumer and delivery checks. Forge authentication
+requires host credential-store access outside the restricted sandbox.
+
+### October 25 candidate
+
 Current candidate: dependency updates and Cordis YAML migration implemented.
 The final version-range reconciliation resolves all 250 captured alerts; the
 unpatched ecdsa implementation is excluded from unsigned DFU packaging.

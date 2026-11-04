@@ -1,11 +1,19 @@
 ## Why
 
+The November 4 follow-up inventory contains 63 open alerts: 54 in the new
+Vast.ai environment, six against Go JOSE across root and AL manifests, two
+against Promptfoo's glob/minimatch selections, and one already-safe pkgsite
+selection. Vast.ai maintenance is recorded in
+`tools/vastai/openspec/changes/update-vastai-dependencies`.
+
 GitHub reports 250 open Dependabot alerts across ten repository dependency
 manifests on 2026-10-25. Resolve vulnerable dependency selections while preserving
 the affected tools and reproducible Bazel workflows.
 
 ## What Changes
 
+- Follow up with current stable Go JOSE, glob, and minimatch releases, reconcile
+  every November 4 alert, and preserve the existing Promptfoo patch.
 - Upgrade affected Python, npm, and Go dependencies and regenerate their locks
   through their owning workflows.
 - Preserve consumer compatibility, including Promptfoo telemetry and serialized
