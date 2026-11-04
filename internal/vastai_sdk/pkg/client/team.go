@@ -11,27 +11,27 @@ import (
 	generatedapi "git.alwaldend.com/alwaldend/src/internal/vastai_sdk/internal/generated"
 )
 
-// teamKey identifies a team context without relying on retrievable credential values.
-type teamKey struct {
-	// ID is the owner context identifier used by save-context.
+// apiKeyMetadata identifies keys and team contexts without retrieving credentials.
+type apiKeyMetadata struct {
+	// ID identifies an API key or the owner context used by save-context.
 	ID int64 `json:"id"`
 	// TeamID identifies the account represented by the key.
 	TeamID int64 `json:"team_id"`
 	// TeamName identifies the team's current name.
 	TeamName string `json:"team_name"`
-	// Name identifies the owner role.
+	// Name identifies the key or owner role.
 	Name string `json:"name"`
 }
 
-// ownerKeys obtains the authenticated user's team owner contexts.
-func (c *Client) ownerKeys(ctx context.Context) ([]teamKey, error) {
+// keyMetadata obtains the authenticated user's key collection, including owner contexts.
+func (c *Client) keyMetadata(ctx context.Context) ([]apiKeyMetadata, error) {
 	var result struct {
 		// Keys is the validated key collection from the API.
-		Keys []teamKey `json:"apikeys"`
+		Keys []apiKeyMetadata `json:"apikeys"`
 	}
 	request := c.api.AccountsAPI.ShowApiKeys(ctx)
 	if err := generated(c, http.MethodGet, "/auth/apikeys/", &result, true, request.Execute); err != nil {
-		return nil, fmt.Errorf("list team contexts: %w", err)
+		return nil, fmt.Errorf("list API key metadata: %w", err)
 	}
 	if result.Keys == nil {
 		return nil, errors.New("API key response omitted its collection")
@@ -63,7 +63,7 @@ func (c *Client) CreateTeam(ctx context.Context, name string) error {
 
 // TeamContext returns an owned team's account and owner-context identifiers.
 func (c *Client) TeamContext(ctx context.Context, name string) (int64, int64, error) {
-	keys, err := c.ownerKeys(ctx)
+	keys, err := c.keyMetadata(ctx)
 	if err != nil {
 		return 0, 0, fmt.Errorf("read team %q: %w", name, err)
 	}
@@ -77,7 +77,7 @@ func (c *Client) TeamContext(ctx context.Context, name string) (int64, int64, er
 
 // TeamContextByID locates only the account captured after confirmed creation.
 func (c *Client) TeamContextByID(ctx context.Context, id int64) (string, int64, error) {
-	keys, err := c.ownerKeys(ctx)
+	keys, err := c.keyMetadata(ctx)
 	if err != nil {
 		return "", 0, fmt.Errorf("read team account %d: %w", id, err)
 	}
@@ -101,10 +101,29 @@ func (c *Client) WithKey(key string) (*Client, error) {
 // ActivateTeam changes this credential's context and verifies the selected account.
 // Callers must use an independently generated key to preserve bootstrap context.
 func (c *Client) ActivateTeam(ctx context.Context, contextID, teamID int64) error {
+	selected, err := c.teamContextMatches(ctx, teamID)
+	if err != nil {
+		return err
+	}
+	if selected {
+		return nil
+	}
 	var result struct{}
 	if err := c.requestPolicy(ctx, http.MethodPut, "/users/save-context/", map[string]int64{"context_key_id": contextID}, &result, false); err != nil {
 		return fmt.Errorf("activate generated team credential: %w", err)
 	}
+	selected, err = c.teamContextMatches(ctx, teamID)
+	if err != nil {
+		return err
+	}
+	if !selected {
+		return errors.New("generated management key did not enter its requested team context")
+	}
+	return nil
+}
+
+// teamContextMatches reads the selected account before changing an owned key's context.
+func (c *Client) teamContextMatches(ctx context.Context, teamID int64) (bool, error) {
 	var current struct {
 		// ID is the authenticated account after selection.
 		ID int64 `json:"id"`
@@ -112,13 +131,13 @@ func (c *Client) ActivateTeam(ctx context.Context, contextID, teamID int64) erro
 		IsTeam bool `json:"is_team"`
 	}
 	request := c.api.AccountsAPI.ShowUser(ctx)
-	if err := generated(c, http.MethodGet, "/users/current", &current, true, request.Execute); err != nil {
-		return fmt.Errorf("verify generated team context: %w", err)
+	if err := generated(c, http.MethodGet, "/users/current/", &current, true, request.Execute); err != nil {
+		return false, fmt.Errorf("read generated team context: %w", err)
 	}
-	if current.ID != teamID || !current.IsTeam {
-		return errors.New("generated management key did not enter its requested team context")
+	if current.ID <= 0 {
+		return false, errors.New("current account response omitted its identifier")
 	}
-	return nil
+	return current.ID == teamID && current.IsTeam, nil
 }
 
 // DeleteTeam destroys the team selected on this independent management client.
@@ -157,25 +176,32 @@ func (c *Client) CreateAPIKey(ctx context.Context, name, permissions string) (in
 
 // ReadAPIKey checks identity without returning or replacing stored credential material.
 func (c *Client) ReadAPIKey(ctx context.Context, id int64) error {
-	var result struct {
-		// ID is the server's key identifier.
-		ID int64 `json:"id"`
-	}
-	if err := c.request(ctx, http.MethodGet, "/auth/apikeys/"+strconv.FormatInt(id, 10)+"/", nil, &result); err != nil {
+	keys, err := c.keyMetadata(ctx)
+	if err != nil {
 		return fmt.Errorf("read team API key: %w", err)
 	}
-	if result.ID != id {
-		return errors.New("API key response omitted or mismatched its identifier")
+	for _, key := range keys {
+		if key.ID == id {
+			return nil
+		}
 	}
-	return nil
+	return fmt.Errorf("API key %d: %w", id, ErrNotFound)
 }
 
 // DeleteAPIKey revokes only the explicitly identified key in its owning team.
 func (c *Client) DeleteAPIKey(ctx context.Context, id int64) error {
-	var result struct{}
+	if err := c.ReadAPIKey(ctx, id); err != nil {
+		return err
+	}
+	var result json.RawMessage
 	request := c.api.AccountsAPI.DeleteApiKey(ctx, id)
-	if err := generated(c, http.MethodDelete, "/auth/apikeys/"+strconv.FormatInt(id, 10)+"/", &result, true, request.Execute); err != nil {
+	if err := generated(c, http.MethodDelete, "/auth/apikeys/"+strconv.FormatInt(id, 10)+"/", &result, false, request.Execute); err != nil {
 		return fmt.Errorf("revoke team API key: %w", err)
 	}
-	return nil
+	if err := c.ReadAPIKey(ctx, id); errors.Is(err, ErrNotFound) {
+		return nil
+	} else if err != nil {
+		return fmt.Errorf("verify API key revocation: %w", err)
+	}
+	return errors.New("API key remains present after revocation")
 }

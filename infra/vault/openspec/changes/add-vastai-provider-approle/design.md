@@ -11,3 +11,11 @@ additional policy or cross-role secret access is required.
 
 The identity definitions require a separately authorized Vault apply before
 authentication works. Source checks do not deploy them or write credentials.
+
+## Live verification
+
+On 2026-11-04, a reviewed plan targeted only this project's AppRole module.
+The apply created eight identity, policy, and role resources with zero updates
+or destroys. The role attaches its standard namespace and named shared-read
+policies and joins no general infrastructure group. The subsequent bootstrap
+plan authenticated using the new project identity for its Vault destination.

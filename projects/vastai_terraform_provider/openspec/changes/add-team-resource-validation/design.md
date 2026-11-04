@@ -70,9 +70,22 @@ The split creates no merge or deployment authority.
 
 The test/team root consumes its generated team token through the project's own
 AppRole and injector, with a separate tf=test Vault backend. It manages a test_
-SSH public-key comment, TEST_ environment marker, and unassigned test_ read-only
-team role. The bootstrap catalog and token delivery belong to infra/vastai;
+API key, TEST_ environment marker, and unassigned test_ role requesting current-account
+reads. The bootstrap catalog and token delivery belong to infra/vastai;
 the AppRole declaration belongs to infra/vault. The test root contains no
 compute, storage rental, credit transfer, or membership invitation, and adds no
 account-ID guard. Reuse the merged provider's package layout and reviewed
 lifecycle behavior without restoring the older combined provider snapshot.
+
+## Live verification
+
+The user subsequently authorized deployment on 2026-11-04. Vast.ai rejects SSH
+keys in team context, so the live root uses an API key instead. Personal SSH
+behavior remains covered by the offline lifecycle fixture. Masked environment
+reads preserve stored values; imports require a configured value on the next
+apply. Role state separates requested permissions from effective server grants,
+retaining a prior effective document to distinguish normalization from drift.
+
+The AppRole and bootstrap were applied, followed by the three-resource team
+root. Both Vast.ai roots produced no-change plans; the personal bootstrap
+context stayed unchanged. No compute was rented and no credit transferred.

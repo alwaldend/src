@@ -9,6 +9,8 @@ tags:
   - terraform
 ---
 
+![Terraform provider request flow](assets/architecture.svg)
+
 This project implements a Terraform Plugin Framework provider for the
 [Vast.ai REST API](https://docs.vast.ai/api-reference/hello-world).
 The provider type is `vastai`; the source address is
@@ -54,15 +56,22 @@ membership management are outside the supported surface.
   Updates change public material in place; import uses the key ID. The
   provider never generates or stores private keys. Vast.ai may propagate
   registered keys to existing instances in the account.
+  SSH keys require personal account context; Vast.ai rejects them in teams.
 - `vastai_environment_variable`: required uppercase `name` and sensitive
   `value`; `id` equals the name. Values update in place; changing the name
   requires replacement. Import uses the uppercase name. Values remain in
   state, so use a secure backend.
-- `vastai_team_role`: required `name` and JSON-object `permissions`, computed
-  `id` (role name) and numeric `role_id`. Permissions update in place;
+  Masked API reads preserve the stored value and cannot detect external value
+  changes. After importing a masked variable, configure its value for the next apply.
+- `vastai_team_role`: required `name` and requested JSON-object `permissions`, computed
+  `id` (role name), numeric `role_id`, and `effective_permissions` including
+  Vast.ai's baseline grants. Permissions update in place;
   changing the name requires replacement. Import uses the role name. The
   resource does not assign or invite members.
   Names containing a forward slash are retained as one encoded API path segment.
+  Refresh compares effective permissions with their previous observed value to
+  detect drift while preserving configured permission categories. Imported roles
+  may require an apply to establish that configured representation.
 
 `vastai_team` creates a separate team with zero credit transfer and generates
 an independent management key in sensitive state. `vastai_api_key` generates
@@ -83,9 +92,10 @@ from infra/vastai to create the `test_` team and project key, then writes the ke
 directly into the project's Vault namespace. It retains the personal token's
 existing context.
 
-The [team test root](test/team/README.md) exercises the three non-compute types
+The [team test root](test/team/README.md) exercises API keys, an environment marker,
+and an unassigned role
 using the generated key and the project's own AppRole and injector. Its object
-names and SSH-key comment begin with `test_`; its environment name uses uppercase
+names begin with `test_`; its environment name uses uppercase
 `TEST_` because that API uppercases identifiers. It uses isolated Vault-backed
 state and contains no compute resources or team-ID guard.
 
@@ -173,7 +183,13 @@ replacement plans, import, drift, remote disappearance, failure diagnostics,
 and credential-safe redirect handling. `lifecycle.json` in test undeclared
 outputs records the observed non-sensitive API operations. It requires no
 Vast.ai account, network access outside loopback, or paid instances; live
-account compatibility remains unverified.
+compute compatibility remains unverified.
+
+On 2026-11-04, the authorized live deployment applied the project AppRole,
+team/token bootstrap, and the three-resource team test root. Both Vast.ai
+Terraform roots then produced no-change plans using their own credentials.
+No compute was rented or credit transferred; the personal bootstrap context
+remained unchanged.
 
 `cmd/terraform-provider-vastai` owns plugin startup. `internal/provider` owns
 provider configuration and registration; `internal/resources` owns resource

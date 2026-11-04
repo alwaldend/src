@@ -28,8 +28,7 @@ reusable projects/tf_modules/vastai_team module; secret resources remain in this
 root with its explicitly selected provider identity.
 
 The catalog is plain `teams.json`, loaded with jsondecode(file(...)); main.tf
-owns resource composition. The user requested removal of moved.tf. No live
-bootstrap apply has been performed in this task.
+owns resource composition. The user requested removal of moved.tf.
 
 ## Rebase validation
 
@@ -42,3 +41,18 @@ Vault, test-root, and provider launchers and the shared site build successfully.
 The bootstrap runtime includes teams.json and the shared team module; no live
 plan, apply, token generation, Vault write, credit transfer, or rental is run.
 Git publication identity and review state belong to the delivery receipts.
+
+## Authorized live deployment
+
+On 2026-11-04, the user requested an apply. The project AppRole was deployed
+through its owning Vault module. Saved plans then applied the team, project
+key, and Vault token entry. The catalog uses a distinct short test name after
+the API rejected the earlier names during recovery. Failed management keys
+were revoked through Terraform before replacement.
+
+The bootstrap and provider test root both produced no-change verification
+plans. The test root uses a generated API key, marker variable, and unassigned
+role; Vast.ai does not support SSH keys in team context. The bootstrap
+credential's account context remained unchanged, with zero compute rentals
+and zero credit transfer. Raw plans, state, credentials, and diagnostic
+responses were kept in restricted temporary storage and are not durable evidence.

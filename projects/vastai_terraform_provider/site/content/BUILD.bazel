@@ -7,4 +7,5 @@ docs_filegroup(
     srcs = ["_index.md"],
     prefix = "content/projects/vastai_terraform_provider",
     visibility = ["//projects/alwaldend.com/content/projects:__pkg__"],
+    deps = ["//projects/vastai_terraform_provider:docs_assets"],
 )

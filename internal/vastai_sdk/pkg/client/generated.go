@@ -27,7 +27,7 @@ func (t *generatedTransport) RoundTrip(request *http.Request) (*http.Response, e
 	escapedPath := t.escapedPath + strings.TrimPrefix(request.URL.EscapedPath(), "/api/v0")
 	request.URL.Path = t.path + strings.TrimPrefix(request.URL.Path, "/api/v0")
 	request.URL.RawPath = escapedPath
-	if request.URL.Path != t.path+"/users/current" && !strings.HasSuffix(escapedPath, "/") {
+	if !strings.HasSuffix(escapedPath, "/") {
 		request.URL.Path += "/"
 		request.URL.RawPath += "/"
 	}

@@ -26,6 +26,8 @@ type teamFixture struct {
 	calls []string
 	// failReads selects a malformed response to test state retention.
 	failReads bool
+	// maskVariables models the live API's non-retrievable secret values.
+	maskVariables bool
 }
 
 // ServeHTTP implements documented non-compute response shapes.
@@ -79,7 +81,14 @@ func (f *teamFixture) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprint(w, `{"success":true}`)
 	case "/api/v0/secrets/":
 		if r.Method == http.MethodGet {
-			if err := json.NewEncoder(w).Encode(map[string]any{"success": true, "secrets": f.variables}); err != nil {
+			values := make(map[string]string, len(f.variables))
+			for name, value := range f.variables {
+				if f.maskVariables {
+					value = "********"
+				}
+				values[name] = value
+			}
+			if err := json.NewEncoder(w).Encode(map[string]any{"success": true, "secrets": values}); err != nil {
 				panic(err)
 			}
 			return
@@ -108,6 +117,9 @@ func (f *teamFixture) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			w.WriteHeader(http.StatusNotFound)
 			return
 		}
+		permissions := f.permissions.(map[string]any)
+		api := permissions["api"].(map[string]any)
+		api["*"] = map[string]any{"api.users.current": map[string]any{"GET": map[string]any{}}}
 		if err := json.NewEncoder(w).Encode(map[string]any{"id": 9, "name": "test_engineering/read", "permissions": f.permissions}); err != nil {
 			panic(err)
 		}
@@ -149,7 +161,19 @@ func TestTeamResources(t *testing.T) {
 	h := newHarness(t, srv.URL+"/api/v0")
 	h.writeTeam(t, srv.URL+"/api/v0", "initial")
 	h.run(t, true, "apply", "-auto-approve", "-no-color")
+	f.mu.Lock()
+	f.maskVariables = true
+	f.mu.Unlock()
 	h.run(t, true, "plan", "-detailed-exitcode", "-no-color")
+	f.mu.Lock()
+	f.maskVariables = false
+	f.permissions.(map[string]any)["external"] = map[string]any{"changed": true}
+	f.mu.Unlock()
+	drift := h.run(t, false, "plan", "-detailed-exitcode", "-no-color")
+	if !strings.Contains(drift, "Plan: 0 to add, 1 to change, 0 to destroy") {
+		t.Fatal("effective permission drift did not plan a role update")
+	}
+	h.run(t, true, "apply", "-auto-approve", "-no-color")
 	h.writeTeam(t, srv.URL+"/api/v0", "updated")
 	h.run(t, true, "apply", "-auto-approve", "-no-color")
 	h.run(t, true, "plan", "-detailed-exitcode", "-no-color")
@@ -157,6 +181,12 @@ func TestTeamResources(t *testing.T) {
 		h.run(t, true, "state", "rm", address)
 		h.run(t, true, "import", "-no-color", address, id)
 	}
+	f.mu.Lock()
+	f.maskVariables = true
+	f.mu.Unlock()
+	h.run(t, true, "state", "rm", "vastai_environment_variable.test_marker")
+	h.run(t, true, "import", "-no-color", "vastai_environment_variable.test_marker", "TEST_PROVIDER")
+	h.run(t, true, "apply", "-auto-approve", "-no-color")
 	h.run(t, true, "plan", "-detailed-exitcode", "-no-color")
 	f.mu.Lock()
 	f.failReads = true
@@ -170,6 +200,7 @@ func TestTeamResources(t *testing.T) {
 	}
 	f.mu.Lock()
 	f.failReads = false
+	f.maskVariables = true
 	f.mu.Unlock()
 	h.run(t, true, "destroy", "-auto-approve", "-no-color")
 	f.mu.Lock()
@@ -197,7 +228,7 @@ func TestTeamResources(t *testing.T) {
 // TestTeamBootstrap verifies team creation and key generation without exposing tokens.
 func TestTeamBootstrap(t *testing.T) {
 	var mu sync.Mutex
-	teamExists, keyExists := false, false
+	teamExists, keyExists, managementExists := false, false, false
 	projectID, projectGenerations := int64(0), 0
 	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		mu.Lock()
@@ -223,13 +254,22 @@ func TestTeamBootstrap(t *testing.T) {
 			teamExists = true
 			fmt.Fprint(w, `{"success":true}`)
 		case "GET /api/v0/auth/apikeys/":
-			if !teamExists {
-				fmt.Fprint(w, `{"apikeys":[]}`)
-				return
+			keys := []map[string]any{}
+			if teamExists {
+				keys = append(keys, map[string]any{"id": 99, "name": "owner", "team_id": 42, "team_name": "test_provider"})
 			}
-			fmt.Fprint(w, `{"apikeys":[{"id":99,"name":"owner","key_type":"team","team_id":42,"team_name":"test_provider","key":null}]}`)
+			if managementExists {
+				keys = append(keys, map[string]any{"id": 100, "name": "test_management"})
+			}
+			if keyExists {
+				keys = append(keys, map[string]any{"id": projectID, "name": "test_project"})
+			}
+			if err := json.NewEncoder(w).Encode(map[string]any{"apikeys": keys}); err != nil {
+				panic(err)
+			}
 		case "POST /api/v0/auth/apikeys/":
 			if !owner {
+				managementExists = true
 				fmt.Fprint(w, `{"id":100,"key":"fixture-team-management"}`)
 				return
 			}
@@ -242,34 +282,25 @@ func TestTeamBootstrap(t *testing.T) {
 			projectID = int64(122 + projectGenerations)
 			fmt.Fprintf(w, `{"id":%d,"key":"fixture-project-key-%d"}`, projectID, projectGenerations)
 		case "PUT /api/v0/users/save-context/":
-			if !owner {
-				w.WriteHeader(403)
-				return
-			}
-			fmt.Fprint(w, `{}`)
+			// Team creation already selects this key's context on the live API.
+			w.WriteHeader(http.StatusBadRequest)
 		case "GET /api/v0/users/current":
+			http.Redirect(w, r, "/api/v0/users/current/", http.StatusMovedPermanently)
+		case "GET /api/v0/users/current/":
 			if !owner {
 				w.WriteHeader(403)
 				return
 			}
 			fmt.Fprint(w, `{"id":42,"is_team":true}`)
 		case "GET " + projectPath:
-			if !owner {
-				w.WriteHeader(403)
-				return
-			}
-			if !keyExists {
-				w.WriteHeader(404)
-				return
-			}
-			fmt.Fprintf(w, `{"id":%d}`, projectID)
+			w.WriteHeader(http.StatusMethodNotAllowed)
 		case "DELETE " + projectPath:
 			if !owner {
 				w.WriteHeader(403)
 				return
 			}
 			keyExists = false
-			fmt.Fprint(w, `{"success":true}`)
+			fmt.Fprint(w, `{}`)
 		case "DELETE /api/v0/team/":
 			if !owner || keyExists {
 				w.WriteHeader(403)
@@ -278,7 +309,8 @@ func TestTeamBootstrap(t *testing.T) {
 			teamExists = false
 			fmt.Fprint(w, `{"success":true}`)
 		case "DELETE /api/v0/auth/apikeys/100/":
-			fmt.Fprint(w, `{"success":true}`)
+			managementExists = false
+			fmt.Fprint(w, `"API key deleted"`)
 		default:
 			w.WriteHeader(403)
 		}
@@ -333,14 +365,14 @@ output "project_key" {
 	h.run(t, true, "destroy", "-auto-approve", "-no-color")
 	mu.Lock()
 	defer mu.Unlock()
-	if teamExists || keyExists {
+	if teamExists || keyExists || managementExists {
 		t.Fatal("bootstrap destroy left test team or token")
 	}
 	if projectGenerations != 3 {
 		t.Fatal("API-key replacements did not revoke and recreate the key")
 	}
 	if dir := os.Getenv("TEST_UNDECLARED_OUTPUTS_DIR"); dir != "" {
-		if err := os.WriteFile(filepath.Join(dir, "team-bootstrap.json"), []byte(`{"result":"passed","team_deleted":true,"project_token_deleted":true,"credit_transfer":0,"project_key_generations":3}`), 0o600); err != nil {
+		if err := os.WriteFile(filepath.Join(dir, "team-bootstrap.json"), []byte(`{"result":"passed","team_deleted":true,"project_token_deleted":true,"credit_transfer":0,"project_key_generations":3,"already_selected_context":true,"canonical_current_account_path":true}`), 0o600); err != nil {
 			t.Fatal(err)
 		}
 	}

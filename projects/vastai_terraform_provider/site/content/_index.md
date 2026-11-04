@@ -12,6 +12,8 @@ tags:
   - terraform
 ---
 
+![Terraform provider request flow](/docs/projects/vastai_terraform_provider/assets/architecture.svg)
+
 Discover available GPUs and manage Vast.ai instances with Terraform.
 The provider supports on-demand rental creation, refresh, label and power-state
 updates, import, and destruction through Vast.ai's REST API.

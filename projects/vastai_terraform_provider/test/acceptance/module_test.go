@@ -36,6 +36,9 @@ func (f *moduleFixture) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			if team.teamExists {
 				keys = append(keys, map[string]any{"id": team.accountID + 57, "name": "owner", "team_id": team.accountID, "team_name": team.teamName})
 			}
+			for id := range team.keys {
+				keys = append(keys, map[string]any{"id": id, "name": "test_generated"})
+			}
 			team.mu.Unlock()
 		}
 		w.Header().Set("Content-Type", "application/json")

@@ -6,3 +6,4 @@
 - [x] 1.4 Replace the fixed team/key declarations with a catalog using a reusable Terraform module; verify multiple-team lifecycle through fixtures.
 - [x] 1.5 Store catalog data in teams.json and remove moved.tf; verify declared runtime inputs and formatting.
 - [x] 1.6 Rebase the integration onto the merged SDK and provider; preserve their implementation and validate the remaining Terraform and credential wiring offline.
+- [x] 1.7 Review and apply the live team/token bootstrap, then verify the non-compute test root using the generated project credential.

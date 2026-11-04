@@ -17,8 +17,16 @@ variable "test_marker" {
   default     = "initial"
 }
 
-resource "vastai_ssh_key" "test_ssh_key" {
-  public_key = "${trimspace(file("${path.module}/test_public_key.pub"))} test_vastai_terraform_provider_${var.test_marker}"
+variable "test_team_api_key" {
+  description = "Generated team credential supplied by the project's Vault injector."
+  type        = string
+  sensitive   = true
+}
+
+resource "vastai_api_key" "test_api_key" {
+  name         = "test_vastai_terraform_provider_reader"
+  team_api_key = var.test_team_api_key
+  permissions  = jsonencode({ api = { user_read = {} } })
 }
 
 resource "vastai_environment_variable" "test_environment_variable" {
@@ -28,5 +36,5 @@ resource "vastai_environment_variable" "test_environment_variable" {
 
 resource "vastai_team_role" "test_team_role" {
   name        = "test_vastai_terraform_provider"
-  permissions = jsonencode({ api = { user_read = {} } })
+  permissions = jsonencode({ api = { "*" = { "api.users.current" = { GET = {} } } } })
 }

@@ -33,6 +33,8 @@ type ownershipFixture struct {
 	revokeFailures int
 	// malformedReads omits key identifiers to distinguish invalid data from absence.
 	malformedReads bool
+	// unavailableReads distinguishes a missing collection endpoint from a missing key.
+	unavailableReads bool
 	// calls records non-sensitive operations for repeatable evidence.
 	calls []string
 }
@@ -72,18 +74,27 @@ func (f *ownershipFixture) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		f.teamExists = true
 		fmt.Fprint(w, `{"success":true}`)
 	case "GET /api/v0/auth/apikeys/":
+		if f.unavailableReads {
+			w.WriteHeader(http.StatusNotFound)
+			return
+		}
 		if f.malformedReads {
 			fmt.Fprint(w, `{"apikeys":[{}]}`)
 			return
 		}
+		keys := []map[string]any{}
 		if f.teamExists {
 			name := f.teamName
 			if name == "" {
 				name = "test_provider"
 			}
-			fmt.Fprintf(w, `{"apikeys":[{"id":%d,"name":"owner","team_id":%d,"team_name":%q}]}`, accountID+57, accountID, name)
-		} else {
-			fmt.Fprint(w, `{"apikeys":[]}`)
+			keys = append(keys, map[string]any{"id": accountID + 57, "name": "owner", "team_id": accountID, "team_name": name})
+		}
+		for id := range f.keys {
+			keys = append(keys, map[string]any{"id": id, "name": "test_generated"})
+		}
+		if err := json.NewEncoder(w).Encode(map[string]any{"apikeys": keys}); err != nil {
+			panic(err)
 		}
 	case "PUT /api/v0/users/save-context/":
 		if personal || !f.teamExists {
@@ -93,7 +104,13 @@ func (f *ownershipFixture) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		f.contexts[keyID] = accountID
 		fmt.Fprint(w, `{}`)
 	case "GET /api/v0/users/current":
-		fmt.Fprintf(w, `{"id":%d,"is_team":%t}`, f.contexts[keyID], f.contexts[keyID] == accountID)
+		http.Redirect(w, r, "/api/v0/users/current/", http.StatusMovedPermanently)
+	case "GET /api/v0/users/current/":
+		currentID := f.contexts[keyID]
+		if currentID == 0 {
+			currentID = 7
+		}
+		fmt.Fprintf(w, `{"id":%d,"is_team":%t}`, currentID, f.contexts[keyID] == accountID)
 	case "DELETE /api/v0/team/":
 		if personal || !f.teamExists || f.contexts[keyID] != accountID {
 			w.WriteHeader(http.StatusForbidden)
@@ -121,18 +138,20 @@ func (f *ownershipFixture) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		}
 		if f.revokeFailures > 0 {
 			f.revokeFailures--
-			w.WriteHeader(http.StatusForbidden)
+			// A success-shaped reply without deletion must not abandon ownership.
+			fmt.Fprint(w, `{}`)
 			return
 		}
 		delete(f.keys, id)
-		fmt.Fprint(w, `{"success":true}`)
+		fmt.Fprint(w, `{}`)
 	}
 }
 
 // TestTeamOwnership verifies failed-create cleanup and explicit missing-team replacement.
 func TestTeamOwnership(t *testing.T) {
-	for _, mode := range []string{"duplicate-name", "external-deletion", "revocation-failure", "malformed-context"} {
+	for _, mode := range []string{"duplicate-name", "external-deletion", "revocation-failure", "malformed-context", "unavailable-context"} {
 		t.Run(mode, func(t *testing.T) {
+			invalidContext := mode == "malformed-context" || mode == "unavailable-context"
 			f := &ownershipFixture{teamExists: mode == "duplicate-name", nextKey: 100, keys: map[int64]bool{}, contexts: map[int64]int64{}}
 			srv := httptest.NewServer(f)
 			defer srv.Close()
@@ -146,10 +165,14 @@ resource "vastai_team" "test_team" { name = "test_provider" }
 			if err := os.WriteFile(filepath.Join(h.directory, "main.tf"), []byte(config), 0o600); err != nil {
 				t.Fatal(err)
 			}
-			h.run(t, mode != "duplicate-name", "apply", "-auto-approve", "-no-color")
-			if mode == "malformed-context" {
+			creation := h.run(t, mode != "duplicate-name", "apply", "-auto-approve", "-no-color")
+			if mode == "duplicate-name" && !strings.Contains(creation, "team name already exists") {
+				t.Fatal("duplicate team creation omitted its safe conflict diagnostic")
+			}
+			if invalidContext {
 				f.mu.Lock()
-				f.malformedReads = true
+				f.malformedReads = mode == "malformed-context"
+				f.unavailableReads = mode == "unavailable-context"
 				f.mu.Unlock()
 			} else if mode != "duplicate-name" {
 				f.mu.Lock()
@@ -160,7 +183,7 @@ resource "vastai_team" "test_team" { name = "test_provider" }
 				}
 				f.mu.Unlock()
 			}
-			h.run(t, mode != "malformed-context", "apply", "-refresh-only", "-auto-approve", "-no-color")
+			h.run(t, !invalidContext, "apply", "-refresh-only", "-auto-approve", "-no-color")
 			if state := h.run(t, true, "state", "list"); !strings.Contains(state, "vastai_team.test_team") {
 				t.Fatal("refresh abandoned management-key ownership")
 			}
@@ -169,9 +192,10 @@ resource "vastai_team" "test_team" { name = "test_provider" }
 				t.Error("refresh mutated the management key")
 			}
 			f.mu.Unlock()
-			if mode == "malformed-context" {
+			if invalidContext {
 				f.mu.Lock()
 				f.malformedReads = false
+				f.unavailableReads = false
 				f.mu.Unlock()
 				h.run(t, true, "plan", "-detailed-exitcode", "-no-color")
 			} else if mode != "duplicate-name" {

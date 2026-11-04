@@ -45,6 +45,21 @@ team-bootstrap.json records three project-key generations and complete cleanup.
 This verifies that valid plans use replacement rather than the defensive Update
 guard. The full suite passes after the payload and deletion-clarity changes.
 
+## Live compatibility follow-up
+
+On 2026-11-04, the user-authorized Vault, bootstrap, and non-compute test applies
+completed. Both Vast.ai roots then produced no-change plans, using the project's
+own generated credential and preserving the personal bootstrap context. The live
+test objects are an API key, marker, and unassigned role. Team SSH creation is
+unsupported by Vast.ai; no compute was rented and no credit transferred.
+
+Terraform CLI fixtures now cover canonical account paths, already-selected team
+credentials, key deletion acknowledgments and confirmed absence, unavailable key
+collections, masked environment reads/import/deletion, and server-added role
+permissions with subsequent drift. All 35 selected quality, format, owner
+OpenSpec, and acceptance tests pass. Both diagram themes and the shared site
+build; the README and landing reference the same generated assets.
+
 Seven additional CLI cases reproduced successful refreshes overwriting image or
 disk state when those fields were missing, null, blank, zero, or negative. Refresh
 now rejects these values before assigning any remote attributes. The read-failure

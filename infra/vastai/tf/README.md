@@ -6,7 +6,7 @@ description: Terraform-created test team and generated project token
 This root manages the team and project-key catalog in `teams.json`.
 Each team uses the reusable `projects/tf_modules/vastai_team` module, and each
 project token is written directly to its configured Vault secret. The default
-catalog declares `test_vastai_terraform_provider` and its provider-test token.
+catalog declares a provider-test team and its project token.
 The root transfers no credit and declares no compute resources. Generated
 credentials remain sensitive and are not root outputs.
 
