@@ -200,7 +200,7 @@ records a "telemetry disabled" event through that separate endpoint. The same
 patch makes Promptfoo's otherwise hard-coded prompt-suggestion concurrency
 honor the runner's serialization setting.
 
-Security overrides select patched MSAL and basic-ftp versions where transitive
-ranges retain vulnerable releases. OpenTelemetry API stays at 1.9.0 to satisfy
+Security overrides select patched MSAL, basic-ftp, glob, and minimatch versions
+where transitive ranges retain vulnerable releases. OpenTelemetry API stays at 1.9.0 to satisfy
 the tracing SDK's `<1.10.0` peer contract. Optional provider peers are installed
 only when explicitly declared by this runner.

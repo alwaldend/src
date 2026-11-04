@@ -3,11 +3,13 @@ title: Vast.ai CLI
 description: Pinned upstream command-line client for Vast.ai GPU cloud resources
 ---
 
-Runs the unmodified upstream `vastai` CLI, pinned to 1.10.0 in
-[`pyproject.toml`](pyproject.toml). The existing
+Runs the unmodified upstream `vastai` CLI with exact versions and hashes recorded
+in [`uv.lock`](uv.lock). The manifest in [`pyproject.toml`](pyproject.toml) leaves
+the Vast.ai version unconstrained so lock updates can select newer releases. The existing
 [`Python dependency workflow`](../py/README.md) defines the update mechanism: `bazel run //tools/vastai:uv_lock.update`.
-The component-local lock isolates upstream's exact dependency pins from the shared
-Python environment.
+The component-local environment requires Python 3.11 or later and overrides
+upstream's vulnerable Pillow and cryptography pins with secure release minimums.
+The lock isolates these dependencies from the shared Python environment.
 
 ```sh
 bazel run //tools/vastai -- --help
@@ -23,4 +25,4 @@ command arguments, and captured output.
 ## Links
 
 - [Upstream source and usage](https://github.com/vast-ai/vast-cli)
-- [Pinned release](https://github.com/vast-ai/vast-cli/releases/tag/v1.10.0)
+- [Upstream releases](https://github.com/vast-ai/vast-cli/releases)

@@ -1,5 +1,43 @@
 # Dependency remediation evidence
 
+## November 4 follow-up
+
+The live GitHub API inventory contains 63 open alerts across five manifests.
+The final selections exclude every captured vulnerable range:
+
+- Vast.ai: Pillow 13.0.0 and cryptography 50.0.2 resolve 54 alerts.
+- Root and AL Go modules: Go JOSE v4.1.8 resolves six alerts.
+- Promptfoo: glob 14.0.3 and minimatch 11.0.4 resolve two alerts; the existing
+  Promptfoo patch remains unchanged. The user approved the newly required
+  `@isaacs/nonrecursive-glob-match` package after review of its upstream owner
+  and purpose. pnpm records its archive integrity; lifecycle scripts stay disabled.
+- pkgsite: x/net v0.57.0 already excludes the reported `<0.55.0` range.
+
+`out/dependabot-vastai/alert-reconciliation.json` records each alert number,
+advisory, vulnerable range, and selected version. This establishes safe candidate
+selections; GitHub closure still depends on default-branch integration and scanning.
+
+Promptfoo's eight offline tests pass, including real configuration validation.
+The AL package tests pass with updated Vault/JOSE dependencies. The linked
+Vast.ai record describes CLI, image/PDF, and encryption compatibility evidence.
+The AL module's native Go tidy passes. Root Go tidy cannot resolve existing
+Bazel-generated Anki and worker-protocol packages; pinned Go get updates the
+required module and its checksums without changing those unrelated packages.
+
+Session review: `CREDENTIAL-STORE-SANDBOX` was resolved by reading the existing
+host credential store through approved execution; no login or shared configuration
+changed. `ROOT-GO-TIDY-GENERATED-PACKAGES` records the existing native-tidy limit
+above. `NESTED-LINT-CONFIG` records that standalone Promptfoo has no lint preset;
+use the root workspace's configured aspects on `@rules_promptfoo//:promptfoo`.
+The initial Python compatibility probes also required the generated Bazel site
+initialization; the successful probe uses that exact dependency runfiles tree.
+
+Repository quality and Buildifier pass all 28 checks. Root semantic lint passes
+for Vast.ai, its lock target, both root Vault commands, the AL package, and the
+real Promptfoo binary. Formatting introduces no unrelated source changes.
+
+## October 25 baseline
+
 The 2026-10-25 GitHub API snapshot contains 250 open alerts across ten manifests.
 One alert already selects a safe version (`tools/pkgsite/go.mod`, x/net 0.57.0).
 The updates remove vulnerable selections for the other 249 alerts. Comparing
