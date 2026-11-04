@@ -1,0 +1,19 @@
+{
+    "test_provider": {
+        "name": "test_vastai_terraform_provider",
+        "api_keys": {
+            "test_project": {
+                "name": "test_vastai_terraform_provider",
+                "secret_name": "alwaldend.com/vault1/approles/src_projects_vastai_terraform_provider/vastai",
+                "permissions": {
+                    "api": {
+                        "user_read": {},
+                        "user_write": {},
+                        "team_read": {},
+                        "team_write": {}
+                    }
+                }
+            }
+        }
+    }
+}

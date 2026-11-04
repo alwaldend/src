@@ -18,6 +18,8 @@ updates, import, and destruction through Vast.ai's REST API.
 It also manages SSH public keys, account environment variables, and custom
 team roles, enabling non-compute lifecycle validation without GPU rentals.
 Team and API-key resources manage separate teams and sensitive project tokens.
+The infrastructure bootstrap delivers the generated test token directly to
+Vault, and the non-compute test root uses the project's dedicated identity.
 
 This development provider uses HashiCorp's Terraform Plugin Framework and an
 API client generated from Vast.ai's official OpenAPI schema. It has

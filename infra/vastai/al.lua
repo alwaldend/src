@@ -7,6 +7,25 @@ lib.vault_auth({
     },
 })
 
+lib.vault_auth({
+    name = "provider_project",
+    approle = { name = "src_projects_vastai_terraform_provider" },
+})
+
+lib.plugin_call({
+    name = "env_provider_project",
+    plugin = "injector",
+    labels = { vault_env = "provider_project" },
+    data = {
+        res = {
+            {
+                name = "env_provider_project",
+                vault_env = { conn = "default", auth = "provider_project" },
+            },
+        },
+    },
+})
+
 lib.plugin_call({
     name = "tf_backend_tf",
     plugin = "tf_backend",

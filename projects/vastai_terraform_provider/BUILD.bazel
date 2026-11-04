@@ -1,13 +1,35 @@
+load("@rules_al//:defs.bzl", "al_config")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_pkg//pkg:mappings.bzl", "pkg_attributes", "pkg_files")
 load("@rules_pkg//pkg:zip.bzl", "pkg_zip")
 load("@rules_terraform//terraform:providers.bzl", "terraform_provider")
+load("//tools/vault:defs.bzl", "vault_binary_map")
 
 package(transitive_visibility = "//projects:transitive_consumers")
 
 package_group(
     name = "registration_consumers",
     packages = ["//projects/vastai_terraform_provider/internal/provider"],
+)
+
+package_group(
+    name = "credential_consumers",
+    packages = [
+        "//projects/vastai_terraform_provider",
+        "//projects/vastai_terraform_provider/test/team",
+    ],
+)
+
+al_config(
+    name = "al",
+    srcs = ["al.lua"],
+    visibility = ["//projects/vastai_terraform_provider:__subpackages__"],
+    deps = ["//infra:al"],
+)
+
+vault_binary_map(
+    name = "vault",
+    configs = [":al"],
 )
 
 alias(
@@ -45,5 +67,8 @@ docs_filegroup(
     name = "docs",
     srcs = ["README.md"],
     visibility = ["//projects:__pkg__"],
-    deps = ["//projects/vastai_terraform_provider/openspec:docs"],
+    deps = [
+        "//projects/vastai_terraform_provider/openspec:docs",
+        "//projects/vastai_terraform_provider/test/team:docs",
+    ],
 )
