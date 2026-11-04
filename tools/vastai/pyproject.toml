@@ -1,0 +1,5 @@
+[project]
+name = "com-alwaldend-src-vastai"
+version = "0.0.0"
+requires-python = ">=3.10, <4"
+dependencies = ["vastai==1.10.0"]
