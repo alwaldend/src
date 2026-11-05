@@ -1,0 +1,29 @@
+load("@aspect_bazel_lib//lib:copy_to_bin.bzl", "copy_to_bin")
+load("@aspect_rules_ts//ts:defs.bzl", "ts_config")
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+
+package(transitive_visibility = "//projects:transitive_consumers")
+
+package_group(
+    name = "internal_consumers",
+    packages = ["//projects/mermaid_3d/..."],
+)
+
+copy_to_bin(
+    name = "module_metadata",
+    srcs = ["package.json"],
+    visibility = [":internal_consumers"],
+)
+
+ts_config(
+    name = "compiler_config",
+    src = "tsconfig.json",
+    visibility = [":internal_consumers"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//projects:__pkg__"],
+    deps = ["//projects/mermaid_3d/docs"],
+)

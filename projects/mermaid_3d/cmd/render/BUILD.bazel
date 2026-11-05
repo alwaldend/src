@@ -1,0 +1,47 @@
+load("@aspect_rules_js//js:defs.bzl", "js_binary")
+load("@aspect_rules_ts//ts:defs.bzl", "ts_project")
+
+package(transitive_visibility = "//projects:transitive_consumers")
+
+ts_project(
+    name = "program",
+    srcs = [
+        "main.ts",
+        "//projects/mermaid_3d:module_metadata",
+    ],
+    data = ["//projects/mermaid_3d:module_metadata"],
+    extends = "//projects/mermaid_3d:compiler_config",
+    supports_workers = 0,
+    transpiler = "tsc",
+    tsconfig = {"compilerOptions": {
+        "lib": [
+            "ES2024",
+            "DOM",
+            "DOM.Iterable",
+        ],
+        "types": ["node"],
+    }},
+    deps = [
+        "//projects/mermaid_3d/internal:model",
+        "//projects/mermaid_3d/internal/viewer:document",
+        "//tools:node_modules/@types/node",
+        "//tools:node_modules/mermaid",
+        "//tools:node_modules/puppeteer",
+    ],
+)
+
+js_binary(
+    name = "render",
+    args = [
+        "--browser",
+        "$(rootpath @com_google_chrome_headless_shell//:chrome_headless_shell_binary)",
+    ],
+    data = [
+        ":program",
+        "//projects/mermaid_3d/internal/viewer",
+        "//tools:node_modules/three",
+        "@com_google_chrome_headless_shell//:chrome_headless_shell_binary",
+    ],
+    entry_point = "main.js",
+    visibility = ["//projects/mermaid_3d:__subpackages__"],
+)

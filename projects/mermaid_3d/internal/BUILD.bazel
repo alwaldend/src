@@ -1,0 +1,24 @@
+load("@aspect_rules_ts//ts:defs.bzl", "ts_project")
+
+package(transitive_visibility = "//projects:transitive_consumers")
+
+ts_project(
+    name = "model",
+    srcs = [
+        "model.ts",
+        "routing.ts",
+        "text.ts",
+        "types.ts",
+        "//projects/mermaid_3d:module_metadata",
+    ],
+    data = ["//projects/mermaid_3d:module_metadata"],
+    declaration = True,
+    extends = "//projects/mermaid_3d:compiler_config",
+    supports_workers = 0,
+    transpiler = "tsc",
+    tsconfig = {"compilerOptions": {
+        "lib": ["ES2024"],
+        "types": [],
+    }},
+    visibility = ["//projects/mermaid_3d:internal_consumers"],
+)

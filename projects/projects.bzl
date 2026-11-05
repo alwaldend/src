@@ -22,6 +22,7 @@ PROJECTS = [
     "leetcode_downloader",
     "llama_responses_bridge",
     "mcp_cordis",
+    "mermaid_3d",
     "nexus_security_plugin",
     "renders",
     "rules_trufflehog",
