@@ -1,0 +1,103 @@
+load("@aspect_rules_js//js:defs.bzl", "js_test")
+load("@aspect_rules_ts//ts:defs.bzl", "ts_project")
+load("//projects/mermaid_3d:defs.bzl", "mermaid_3d", "mermaid_3d_snapshot")
+
+package(transitive_visibility = "//projects:transitive_consumers")
+
+mermaid_3d(
+    name = "state_terminals",
+    testonly = True,
+    src = "state-terminals.mmd",
+    out = "state-terminals.3d.html",
+    model = "state-terminals.3d.json",
+    theme = "//data/alwaldend:mermaid_theme",
+)
+
+# Exercise both encoders, camera directions, appearances, and aspect ratios.
+_CASES = [
+    ("flowchart", "light", "isometric", "png", 960, 720),
+    ("flowchart", "dark", "isometric", "png", 960, 720),
+    ("flowchart", "light", "front", "png", 960, 720),
+    ("flowchart", "light", "front", "webp", 960, 720),
+    ("state", "dark", "front", "png", 480, 960),
+    ("state", "light", "isometric", "webp", 1280, 640),
+]
+
+[
+    mermaid_3d_snapshot(
+        name = "_".join([
+            diagram,
+            scheme,
+            camera,
+            extension,
+        ]),
+        testonly = True,
+        src = "//projects/mermaid_3d/samples:" + diagram,
+        out = "-".join([
+            diagram,
+            scheme,
+            camera,
+        ]) + "." + extension,
+        camera = camera,
+        color_scheme = scheme,
+        height = height,
+        width = width,
+    )
+    for diagram, scheme, camera, extension, width, height in _CASES
+]
+
+_IMAGES = [
+    ":" + "_".join([
+        diagram,
+        scheme,
+        camera,
+        extension,
+    ])
+    for diagram, scheme, camera, extension, _, _ in _CASES
+]
+
+_INPUTS = [
+    "@com_google_chrome_headless_shell//:chrome_headless_shell_binary",
+    "//projects/mermaid_3d/cmd/snapshot",
+    "//projects/mermaid_3d/samples:flowchart",
+    "//projects/mermaid_3d/samples:state",
+    ":state_terminals",
+] + _IMAGES
+
+ts_project(
+    name = "driver",
+    testonly = True,
+    srcs = [
+        "snapshot_test.ts",
+        "//projects/mermaid_3d:module_metadata",
+    ],
+    data = ["//projects/mermaid_3d:module_metadata"],
+    extends = "//projects/mermaid_3d:compiler_config",
+    supports_workers = 0,
+    transpiler = "tsc",
+    tsconfig = {"compilerOptions": {
+        "lib": [
+            "ES2024",
+            "DOM",
+            "DOM.Iterable",
+        ],
+        "types": ["node"],
+    }},
+    visibility = ["//projects/mermaid_3d:internal_consumers"],
+    deps = [
+        "//projects/mermaid_3d/internal:model",
+        "//tools:node_modules/@types/node",
+        "//tools:node_modules/puppeteer",
+    ],
+)
+
+js_test(
+    name = "snapshot_test",
+    size = "large",
+    args = ["$(rootpath {})".format(label) for label in _INPUTS],
+    data = _INPUTS + [
+        ":driver",
+        "//tools:node_modules/puppeteer",
+    ],
+    entry_point = "snapshot_test.js",
+)

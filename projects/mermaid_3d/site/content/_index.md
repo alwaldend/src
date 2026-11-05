@@ -15,7 +15,8 @@ tags:
 Explore Mermaid diagrams as solid nodes, spatial connections, and group volumes.
 Rotate the camera, trace relationships, and switch between light and dark views
 using the same theme as the static diagrams. Generated HTML files contain their
-fonts and renderer, so they work offline.
+fonts and renderer, so they work offline. PNG and WebP snapshots use the same
+scene and can be embedded as ordinary documentation images.
 
 ## How it works
 
@@ -23,7 +24,7 @@ The renderer CLI obtains graph data through Mermaid's public layout extension. T
 three dimensions, using text measurements and colors from the shared theme.
 The CLI writes self-contained HTML and can export the scene and metadata as JSON.
 
-[![Mermaid 3D flowchart: mermaid_3d calls Mermaid and writes HTML and JSON](/docs/projects/mermaid_3d/docs/assets/architecture.svg)](/docs/projects/mermaid_3d/docs/assets/architecture.svg)
+[![Mermaid 3D flowchart: mermaid_3d calls Mermaid and writes HTML and JSON](/docs/projects/mermaid_3d/docs/assets/architecture.3d.png)](/docs/projects/mermaid_3d/docs/assets/architecture.3d.png)
 
 [Explore the flowchart in 3D](/docs/projects/mermaid_3d/docs/assets/architecture.3d.html).
 

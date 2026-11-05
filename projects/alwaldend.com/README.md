@@ -240,6 +240,8 @@ deployment.
 ## Documentation links
 
 Markdown links and images resolve relative to their source directory.
+Documentation images select matching `.dark.svg`, `.dark.png`, and `.dark.webp`
+siblings through the shared theme menu; print pages use the light image.
 `README.md` and `_index.md` links resolve to generated pages; packaged resources
 use their published URLs, including when embedded in print pages. Link files
 that exist only in the repository with explicit GitHub URLs. Unknown internal

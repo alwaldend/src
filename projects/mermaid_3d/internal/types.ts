@@ -1,6 +1,7 @@
 export type Point3 = number[];
 export type Point2 = number[];
 export type ColorScheme = "light" | "dark";
+export type CameraView = "isometric" | "front";
 export type ElementKind = "node" | "group" | "edge";
 
 export interface TextOptions {
@@ -166,6 +167,13 @@ export interface ViewInspection extends SceneInspection {
 export interface DiagramView {
     ready: boolean;
     inspect(): ViewInspection;
+    prepareSnapshot(options: SnapshotOptions): ViewInspection;
+}
+export interface SnapshotOptions {
+    width: number;
+    height: number;
+    colorScheme: ColorScheme;
+    camera: CameraView;
 }
 declare global {
     interface Window {

@@ -1,6 +1,9 @@
 """Hermetic spatial views from authoritative Mermaid definitions."""
 
+load("//projects/mermaid_3d/internal:snapshot.bzl", _mermaid_3d_snapshot = "mermaid_3d_snapshot")
 load("//tools/mermaid:theme.bzl", "MermaidThemeInfo")
+
+mermaid_3d_snapshot = _mermaid_3d_snapshot
 
 def _mermaid_3d_impl(ctx):
     theme = ctx.attr.theme[MermaidThemeInfo]

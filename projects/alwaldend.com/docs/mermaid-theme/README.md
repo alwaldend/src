@@ -22,7 +22,7 @@ trace its connections. Each HTML file works offline.
 
 Branching decisions, a container, two data stores, and dashed revision/retry
 paths test arrow direction, caption weight, and route separation.
-[Source](flowchart.mmd) · [Interactive 3D](assets/flowchart.3d.html).
+[Source](flowchart.mmd) · [Interactive 3D](assets/flowchart.3d.html) · [3D snapshot](assets/flowchart.3d.png) · [Dark snapshot](assets/flowchart.3d.dark.png).
 
 [![Document processing with validation, retry, search, and audit paths](assets/flowchart.svg)](assets/flowchart.svg)
 
@@ -37,7 +37,7 @@ and a note test the distinction between messages and structural guides.
 ## State
 
 A composite processing state, retry cycle, cancellation, and terminal markers
-test transition labels and nested boundaries. [Source](state.mmd) · [Interactive 3D](assets/state.3d.html).
+test transition labels and nested boundaries. [Source](state.mmd) · [Interactive 3D](assets/state.3d.html) · [3D snapshot](assets/state.3d.png) · [Dark snapshot](assets/state.3d.dark.png).
 
 [![A queued document progresses through validation and indexing or retries after failure](assets/state.svg)](assets/state.svg)
 
@@ -45,7 +45,7 @@ test transition labels and nested boundaries. [Source](state.mmd) · [Interactiv
 
 An interface, implementation, dependency, association, and composition test
 open and filled markers, dashed lines, and cardinality labels.
-[Source](class.mmd) · [Interactive 3D](assets/class.3d.html).
+[Source](class.mmd) · [Interactive 3D](assets/class.3d.html) · [3D snapshot](assets/class.3d.png) · [Dark snapshot](assets/class.3d.dark.png).
 
 [![Repository interface, search implementation, indexer, documents, and revisions](assets/class.svg)](assets/class.svg)
 
@@ -53,7 +53,7 @@ open and filled markers, dashed lines, and cardinality labels.
 
 Identifying and non-identifying relationships, optional cardinality, and
 attribute tables test crow's-foot markers and fine table separators.
-[Source](entity-relationship.mmd) · [Interactive 3D](assets/entity-relationship.3d.html).
+[Source](entity-relationship.mmd) · [Interactive 3D](assets/entity-relationship.3d.html) · [3D snapshot](assets/entity-relationship.3d.png) · [Dark snapshot](assets/entity-relationship.3d.dark.png).
 
 [![Authors submit documents with revisions and optional search index entries](assets/entity-relationship.svg)](assets/entity-relationship.svg)
 
@@ -61,7 +61,7 @@ attribute tables test crow's-foot markers and fine table separators.
 
 Three ownership branches and two leaf levels test branch visibility and the
 site's explicit surfaces and text colors. Branches represent grouping, not data flow.
-[Source](mindmap.mmd) · [Interactive 3D](assets/mindmap.3d.html).
+[Source](mindmap.mmd) · [Interactive 3D](assets/mindmap.3d.html) · [3D snapshot](assets/mindmap.3d.png) · [Dark snapshot](assets/mindmap.3d.dark.png).
 
 [![Document service grouped into intake, processing, and operations](assets/mindmap.svg)](assets/mindmap.svg)
 
@@ -71,11 +71,11 @@ From the repository root:
 
 ```sh
 bazel build //projects/alwaldend.com/docs/mermaid-theme:samples
-bazel build //projects/mermaid_3d/samples:html
+bazel build //projects/mermaid_3d/samples:html //projects/mermaid_3d/samples:snapshots
 bazel build //projects/alwaldend.com:site
 ```
 
 The first target produces six SVGs and their `.dark.svg` siblings. The second
-produces five self-contained HTML files. The site target packages this page and
-both formats. Generated files remain build outputs; the six `.mmd` files are
+produces five self-contained HTML files and ten light/dark PNG snapshots. The
+site target packages this page and all formats. Generated files remain build outputs; the six `.mmd` files are
 authoritative. [Mermaid 3D](../../../mermaid_3d/README.md) owns the spatial renderer.

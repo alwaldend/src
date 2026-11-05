@@ -40,10 +40,11 @@ The gallery links static SVGs and interactive 3D views.
 
 ## Rendering
 
-[![Mermaid 3D flowchart: mermaid_3d calls Mermaid, lays out the scene, and writes HTML and JSON](docs/assets/architecture.svg)](docs/assets/architecture.svg)
+[![Mermaid 3D flowchart: mermaid_3d calls Mermaid, lays out the scene, and writes HTML and JSON](docs/assets/architecture.3d.png)](docs/assets/architecture.3d.png)
 
 [Explore the flowchart in 3D](docs/assets/architecture.3d.html).
-Both views are generated from one [Mermaid source](docs/architecture.mmd).
+[Native 2D SVG](docs/assets/architecture.svg).
+All views are generated from one [Mermaid source](docs/architecture.mmd).
 The flowchart follows a successful CLI run.
 The `mermaid_3d` CLI runs in Node and launches a separate headless Chrome process
 through Puppeteer. Chrome loads the font and Mermaid; the nested Mermaid group
@@ -64,6 +65,41 @@ handles interaction.
 The default output is HTML; the named JSON output is available for diagnostics.
 The optional `view` attribute (CLI `--view`) selects `front-left` or `front-right`;
 the default is `front-right`. Reset view restores the selected initial perspective.
+
+## Static snapshots
+
+`mermaid_3d_snapshot` renders an existing HTML target as a PNG or WebP image.
+It uses the viewer's scene and framing, includes geometry and labels, and
+encodes only the canvas. Documentation can embed the image and link to the
+interactive HTML. No controls, server, or remote assets are required.
+
+```starlark
+load("//projects/mermaid_3d:defs.bzl", "mermaid_3d_snapshot")
+
+mermaid_3d_snapshot(
+    name = "diagram_snapshot",
+    src = ":diagram_3d",
+    out = "diagram.3d.png",
+    color_scheme = "light",
+    camera = "isometric",
+    width = 1600,
+    height = 900,
+)
+```
+
+The `isometric` option preserves the diagram's configured 3D perspective.
+Choose `camera = "front"` for a front projection. PNG is lossless; WebP uses
+the browser's highest quality setting. Defaults are 1280 by 960 pixels. Each
+dimension must be 128–8192 pixels, with at most 16,777,216 pixels in total.
+Choose an aspect ratio suited to the diagram; fitting the complete scene can
+make text small in a narrow image. Build all five light/dark sample pairs with:
+
+```sh
+bazel build //projects/mermaid_3d/samples:snapshots
+```
+
+The site recognizes matching `.dark.png` and `.dark.webp` siblings using the
+same theme menu as SVG diagrams. The architecture image above is a snapshot.
 
 ## Scene construction
 
@@ -113,7 +149,7 @@ graph-data changes require adapter verification on upgrades.
 
 ## TypeScript
 
-All renderer and project E2E sources use ordinary `.ts` files.
+All renderer, snapshot, and project E2E sources use ordinary `.ts` files.
 Bazel checks them with `strict` and `noEmitOnError`, then runs or embeds the
 emitted `.js` ES modules. One project-owned `package.json` supplies module
 metadata. Model declarations connect the separate Node and browser compiler
@@ -136,10 +172,13 @@ with scene construction and label placement handled separately.
 | `internal/viewer/document.ts`, `viewer.css` | Offline HTML document and viewer styles                                      |
 | `test/browser/`                             | Browser verification and behavior fixtures                                   |
 
+`cmd/snapshot` owns offline image export; `internal/snapshot.bzl` exposes its
+build rule, and `test/snapshot` checks the encoded images end to end.
+
 ## Verification
 
 ```sh
-bazel test //projects/mermaid_3d/test/browser:browser_test
+bazel test //projects/mermaid_3d/test/browser:browser_test //projects/mermaid_3d/test/snapshot:snapshot_test
 ```
 
 The browser test opens every built view with remote requests blocked. It checks

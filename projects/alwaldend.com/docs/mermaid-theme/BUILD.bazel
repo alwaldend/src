@@ -36,6 +36,7 @@ docs_filegroup(
     name = "docs_assets",
     srcs = [
         ":samples",
+        "//projects/mermaid_3d/samples:snapshots",
     ],
     prefix = "content/docs/projects/alwaldend.com/docs/mermaid-theme/assets",
 )

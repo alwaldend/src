@@ -1,5 +1,5 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("//projects/mermaid_3d:defs.bzl", "mermaid_3d")
+load("//projects/mermaid_3d:defs.bzl", "mermaid_3d", "mermaid_3d_snapshot")
 load("//tools/mermaid:defs.bzl", "mermaid_svg")
 
 package(transitive_visibility = "//projects:transitive_consumers")
@@ -23,10 +23,27 @@ mermaid_3d(
     visibility = ["//projects/mermaid_3d/test/browser:__pkg__"],
 )
 
+[
+    mermaid_3d_snapshot(
+        name = "architecture_" + mode + "_snapshot",
+        src = ":architecture_3d",
+        out = "rendered/architecture.3d" + (".dark" if mode == "dark" else "") + ".png",
+        color_scheme = mode,
+        height = 1500,
+        width = 1200,
+    )
+    for mode in [
+        "light",
+        "dark",
+    ]
+]
+
 docs_filegroup(
     name = "assets",
     srcs = [
         ":architecture",
+        ":architecture_dark_snapshot",
+        ":architecture_light_snapshot",
     ],
     prefix = "content/docs/projects/mermaid_3d/docs/assets",
 )
