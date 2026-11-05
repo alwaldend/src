@@ -12,6 +12,11 @@ diagram font and license for SVG and 3D consumers. Generic rendering and theme
 rules remain in their tool/project owners. The hand-drawn Mermaid default is
 a separate preset.
 
+Renderers select `//data/alwaldend:mermaid_theme` as their `theme` input. Its
+`MermaidThemeInfo` provider exposes concrete configuration, light/dark JSON
+palette, font, and license files to their build actions. This keeps theme
+configuration, palette, and font dependencies with the shared target.
+
 `assets/monogram_s8.svg` is the canonical S8 graduated square monogram.
 It preserves the selected square winding, angled `l` cap, and full clipped
 underline in a 64 by 64 canvas. The refined spiral has a minimum stroke of
