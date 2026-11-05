@@ -39,6 +39,7 @@ try {
     assert.equal(node.status, 0, node.stdout + node.stderr);
     const nodeResult = JSON.parse(await fs.readFile(destination, "utf8"));
     assert.equal(nodeResult.magnitude, 13);
+    assert.equal(nodeResult.vectorMagnitude, 13);
     assert.equal(nodeResult.moduleType, "module");
     report.node = nodeResult;
 
