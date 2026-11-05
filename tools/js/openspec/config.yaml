@@ -1,0 +1,7 @@
+schema: spec-driven
+
+context: |
+  This workspace owns repository JavaScript and TypeScript build support.
+  tools/package.json and its generated pnpm lock own language dependency pins.
+  Bazel module declarations remain with their existing owners. Product source
+  and its compiler configuration remain with the consuming project.
