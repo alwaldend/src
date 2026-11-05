@@ -1,0 +1,3 @@
+- [x] 1. Generate the missing archive checksum with pinned Go and inspect the metadata diff.
+- [x] 2. Verify the original broad lint command and prepare the repaired feature for AL delivery. Exact-candidate consumer gates and publication state belong to the delivery evidence.
+- [x] 3. Extract the checksum repair into a dedicated branch from master, regenerate the same checksum with pinned Go, and define standalone quality, lint, and HCL consumer checks. AL evidence owns final validation and publication state.
