@@ -28,6 +28,7 @@ const server = http.createServer(async (request, response) => {
             ".json": "application/json",
             ".svg": "image/svg+xml",
             ".webp": "image/webp",
+            ".png": "image/png",
         };
         response.setHeader(
             "Content-Type",
@@ -773,6 +774,83 @@ try {
     await page.screenshot({
         path: path.join(output, "blog-headers-print.png"),
     });
+
+    // Spatial snapshots use the same documentation image and theme-menu path
+    // as SVG diagrams, on both repository documentation and the landing page.
+    await page.emulateMediaType("screen");
+    await page.setViewport({ width: 1280, height: 1000 });
+    for (const [name, destination] of [
+        ["spatial-docs", "/docs/projects/mermaid_3d/"],
+        ["spatial-landing", "/projects/mermaid_3d/"],
+    ]) {
+        await page.goto(base + destination, { waitUntil: "networkidle0" });
+        const snapshots = await page.$$(
+            'img[src$="architecture.3d.png"], img[src$="architecture.3d.dark.png"]',
+        );
+        assert.equal(
+            snapshots.length,
+            2,
+            `${name}: both snapshot appearances are packaged`,
+        );
+        for (const mode of ["light", "dark"]) {
+            await select(mode);
+            const visible = [];
+            for (const image of snapshots)
+                if (
+                    await image.evaluate(
+                        (element) =>
+                            getComputedStyle(element).display !== "none",
+                    )
+                )
+                    visible.push(image);
+            assert.equal(
+                visible.length,
+                1,
+                `${name}: exactly one appearance is visible`,
+            );
+            const image = visible[0];
+            await image.scrollIntoView();
+            await page.waitForFunction(
+                (element) => element.complete && element.naturalWidth > 0,
+                {},
+                image,
+            );
+            const result = await image.evaluate(async (element) => {
+                await element.decode();
+                const canvas = document.createElement("canvas");
+                canvas.width = canvas.height = 1;
+                const context = canvas.getContext("2d");
+                context.drawImage(element, 0, 0);
+                return {
+                    src: element.src,
+                    width: element.naturalWidth,
+                    height: element.naturalHeight,
+                    corner: [...context.getImageData(0, 0, 1, 1).data].slice(
+                        0,
+                        3,
+                    ),
+                    background: getComputedStyle(document.body)
+                        .backgroundColor.match(/\d+/g)
+                        .slice(0, 3)
+                        .map(Number),
+                };
+            });
+            assert.ok(
+                result.src.endsWith(
+                    mode === "dark" ? ".3d.dark.png" : ".3d.png",
+                ),
+            );
+            assert.deepEqual(
+                result.corner,
+                result.background,
+                `${name}: snapshot canvas follows site appearance`,
+            );
+            await image.screenshot({
+                path: path.join(output, `${name}-${mode}.png`),
+            });
+            report.push({ name, mode, ...result });
+        }
+    }
 } finally {
     await fs.writeFile(
         path.join(output, "report.json"),

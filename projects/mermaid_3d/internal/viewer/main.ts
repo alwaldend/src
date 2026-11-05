@@ -64,6 +64,7 @@ let palette: Palette;
 let baseCamera: THREE.Vector3;
 let baseTarget: THREE.Vector3;
 let viewMode: "readable" | "fit" = "readable";
+let snapshotSize: { width: number; height: number } | undefined;
 const vector = (point: Point3) =>
     new THREE.Vector3(point[0], point[1], point[2]);
 const selection = element<HTMLSelectElement>("selection");
@@ -201,10 +202,12 @@ function resize() {
     );
     camera.position.add(shift);
     controls.target.add(shift);
-    const availableWidth = viewport.clientWidth;
-    const availableHeight = parseFloat(
-        getComputedStyle(viewport).getPropertyValue("--view-height"),
-    );
+    const availableWidth = snapshotSize?.width ?? viewport.clientWidth;
+    const availableHeight =
+        snapshotSize?.height ??
+        parseFloat(
+            getComputedStyle(viewport).getPropertyValue("--view-height"),
+        );
     const fitScale = Math.min(
         (availableWidth - 96) / span.x,
         (availableHeight - 96) / span.y,
@@ -218,9 +221,10 @@ function resize() {
             ? availableWidth
             : Math.max(availableWidth, Math.ceil(span.x * scale + 96));
     const height =
-        viewMode === "fit"
+        snapshotSize?.height ??
+        (viewMode === "fit"
             ? Math.min(availableHeight, Math.ceil(span.y * scale + 96))
-            : Math.max(availableHeight, Math.ceil(span.y * scale + 96));
+            : Math.max(availableHeight, Math.ceil(span.y * scale + 96)));
     if (viewMode === "fit")
         viewport.style.setProperty("--overview-height", height + "px");
     else viewport.style.removeProperty("--overview-height");
@@ -239,7 +243,7 @@ function resize() {
         width,
         height,
         Math.min(
-            devicePixelRatio,
+            snapshotSize ? 1 : devicePixelRatio,
             2,
             maximumWidth / width,
             maximumHeight / height,
@@ -247,7 +251,7 @@ function resize() {
     );
     const touchScroll =
         viewMode === "readable" && matchMedia("(pointer: coarse)").matches;
-    controls.enabled = !touchScroll;
+    controls.enabled = !snapshotSize && !touchScroll;
     renderer.domElement.style.touchAction = touchScroll
         ? "pan-x pan-y"
         : "none";
@@ -281,7 +285,7 @@ baseCamera = center
 reset();
 controls.addEventListener("change", render);
 new ResizeObserver(() => {
-    resize();
+    if (!snapshotSize) resize();
 }).observe(viewport);
 element<HTMLSelectElement>("appearance").value = appearance;
 element("appearance").addEventListener("change", (event) => {
@@ -323,6 +327,81 @@ renderer.domElement.addEventListener("pointerup", (event) => {
 });
 window.diagramView = {
     ready: true,
+    prepareSnapshot({ width, height, colorScheme, camera: view }) {
+        if (
+            ![width, height].every(
+                (value) =>
+                    Number.isInteger(value) && value >= 128 && value <= 8192,
+            ) ||
+            width * height > 16777216
+        )
+            throw new Error(
+                "Snapshot dimensions must be integers from 128 to 8192, at most 16777216 pixels total",
+            );
+        if (width > maximumWidth || height > maximumHeight)
+            throw new Error(
+                "Snapshot dimensions exceed WebGL drawing buffer limits",
+            );
+        if (
+            !["light", "dark"].includes(colorScheme) ||
+            !["isometric", "front"].includes(view)
+        )
+            throw new Error("Invalid snapshot appearance or camera");
+        snapshotSize = { width, height };
+        appearance = colorScheme;
+        selected = "";
+        rebuild();
+        reset(view === "front", "fit");
+        const padding = 24;
+        for (let attempt = 0; attempt < 16; attempt += 1) {
+            // Frame points include physical mesh bounds and placed labels in
+            // camera space. The normal render path also fits near/far depth.
+            const points = diagram.framePoints(true).map((point) => {
+                const projected = point
+                    .clone()
+                    .applyMatrix4(camera.projectionMatrix);
+                return [
+                    ((projected.x + 1) * width) / 2,
+                    ((1 - projected.y) * height) / 2,
+                ];
+            });
+            const left = Math.min(...points.map((point) => point[0]));
+            const right = Math.max(...points.map((point) => point[0]));
+            const top = Math.min(...points.map((point) => point[1]));
+            const bottom = Math.max(...points.map((point) => point[1]));
+            if (
+                left >= padding - 1 &&
+                top >= padding - 1 &&
+                right <= width - padding + 1 &&
+                bottom <= height - padding + 1
+            )
+                return this.inspect();
+            const shift = new THREE.Vector3(
+                (((left + right - width) / 2) * (camera.right - camera.left)) /
+                    width,
+                (((height - top - bottom) / 2) *
+                    (camera.top - camera.bottom)) /
+                    height,
+                0,
+            ).applyQuaternion(camera.quaternion);
+            camera.position.add(shift);
+            controls.target.add(shift);
+            const scale = Math.max(
+                1.02,
+                (right - left) / (width - padding * 2),
+                (bottom - top) / (height - padding * 2),
+            );
+            camera.left *= scale;
+            camera.right *= scale;
+            camera.top *= scale;
+            camera.bottom *= scale;
+            camera.updateProjectionMatrix();
+            render();
+        }
+        throw new Error(
+            "Could not fit the complete diagram within snapshot bounds",
+        );
+    },
     inspect: () => ({
         ...diagram.inspect(),
         model,
