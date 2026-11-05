@@ -1,0 +1,33 @@
+load("@aspect_rules_ts//ts:defs.bzl", "ts_project")
+
+package(transitive_visibility = "//tools:transitive_consumers")
+
+ts_project(
+    name = "browser",
+    testonly = True,
+    srcs = [
+        "main.ts",
+        "//tools/js/test/typescript:package_metadata",
+    ],
+    data = ["//tools/js/test/typescript:package_metadata"],
+    declaration = True,
+    supports_workers = 0,
+    transpiler = "tsc",
+    tsconfig = {"compilerOptions": {
+        "lib": [
+            "ES2024",
+            "DOM",
+            "DOM.Iterable",
+        ],
+        "module": "NodeNext",
+        "noEmitOnError": True,
+        "strict": True,
+        "target": "ES2024",
+        "types": [],
+    }},
+    visibility = ["//tools/js/test/typescript:__pkg__"],
+    deps = [
+        "//tools:node_modules/@types/three",
+        "//tools/js/test/typescript/model",
+    ],
+)

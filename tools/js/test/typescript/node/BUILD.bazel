@@ -1,0 +1,37 @@
+load("@aspect_rules_js//js:defs.bzl", "js_binary")
+load("@aspect_rules_ts//ts:defs.bzl", "ts_project")
+
+package(transitive_visibility = "//tools:transitive_consumers")
+
+ts_project(
+    name = "program",
+    testonly = True,
+    srcs = [
+        "main.ts",
+        "//tools/js/test/typescript:package_metadata",
+    ],
+    data = ["//tools/js/test/typescript:package_metadata"],
+    declaration = True,
+    supports_workers = 0,
+    transpiler = "tsc",
+    tsconfig = {"compilerOptions": {
+        "lib": ["ES2024"],
+        "module": "NodeNext",
+        "noEmitOnError": True,
+        "strict": True,
+        "target": "ES2024",
+        "types": ["node"],
+    }},
+    deps = [
+        "//tools:node_modules/@types/node",
+        "//tools/js/test/typescript/model",
+    ],
+)
+
+js_binary(
+    name = "node",
+    testonly = True,
+    data = [":program"],
+    entry_point = "main.js",
+    visibility = ["//tools/js/test/typescript:__pkg__"],
+)

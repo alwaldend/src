@@ -17,7 +17,6 @@ npm.npm_translate_lock(
         "@fission-ai/openspec": ["openspec=./bin/openspec.js"],
         "typescript": [
             "tsc=./bin/tsc",
-            "tsserver=./bin/tsserver",
         ],
         "lv_font_conv": ["lv_font_conv=./lv_font_conv.js"],
         "@mermaid-js/mermaid-cli": ["mmdc=./src/cli.js"],
@@ -44,3 +43,7 @@ npm.npm_translate_lock(
     verify_node_modules_ignored = "//:.bazelignore",
 )
 use_repo(npm, "com_alwaldend_src_npm")
+
+typescript = use_extension("@aspect_rules_ts//ts:extensions.bzl", "typescript")
+typescript.deps(version_from = "//tools:package.json")
+use_repo(typescript, "npm_typescript")

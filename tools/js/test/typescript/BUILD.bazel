@@ -1,0 +1,55 @@
+load("@aspect_bazel_lib//lib:copy_to_bin.bzl", "copy_to_bin")
+load("@aspect_rules_js//js:defs.bzl", "js_test")
+load("@aspect_rules_ts//ts:defs.bzl", "ts_project")
+
+package(transitive_visibility = "//tools:transitive_consumers")
+
+copy_to_bin(
+    name = "package_metadata",
+    srcs = ["package.json"],
+    visibility = ["//tools/js/test/typescript:__subpackages__"],
+)
+
+ts_project(
+    name = "driver",
+    testonly = True,
+    srcs = [
+        "typescript_test.ts",
+        ":package_metadata",
+    ],
+    data = [":package_metadata"],
+    supports_workers = 0,
+    transpiler = "tsc",
+    tsconfig = {"compilerOptions": {
+        "lib": [
+            "ES2024",
+            "DOM",
+        ],
+        "module": "NodeNext",
+        "noEmitOnError": True,
+        "strict": True,
+        "target": "ES2024",
+        "types": ["node"],
+    }},
+    deps = [
+        "//tools:node_modules/@types/node",
+        "//tools:node_modules/puppeteer",
+    ],
+)
+
+_INPUTS = [
+    "@com_google_chrome_headless_shell//:chrome_headless_shell_binary",
+    "//tools/js/test/typescript/node",
+    "//tools/js/test/typescript/browser",
+    ":invalid.ts",
+    "@npm_typescript//:tsc",
+    "//tools/js/test/typescript/model:coordinates.d.ts",
+]
+
+js_test(
+    name = "typescript_test",
+    size = "medium",
+    args = ["$(rootpath {})".format(label) for label in _INPUTS],
+    data = _INPUTS + [":driver"],
+    entry_point = "typescript_test.js",
+)
