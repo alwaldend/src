@@ -178,9 +178,19 @@ and read-only inspection to establish the actual remote state before recovery.
 Never blindly repeat the push. When a report contains
 `publication_verification_pending`, retain and link its known PR URL and
 candidate; `verified: false` means final gates remain incomplete. Use `verify`
-for another verification attempt. A concurrent review-read failure alone does
-not require another push, PR creation, or repeated builds when their inputs
-are unchanged.
+for a read-only attempt when the original candidate is still checked out.
+
+A completed push can leave GitHub's PR object at the receipt's exact prior head.
+If Git and the branch API identify the already-pushed candidate, diagnose the
+original receipt and unchanged PR identity/projection rather than assuming human
+edits or waiting indefinitely. Use the PR-only recovery described in
+[rewrites and recovery](references/rewrites.md), including when later local work
+has advanced. It never pushes or changes local source, and it refuses human
+metadata edits and unexpected remote heads. Its synchronized status does not
+validate later local work or complete remote review. Preserve known identities
+and inspect actual state after an unverified mutation before deciding to retry.
+A concurrent review-read failure alone does not require another push, PR creation,
+or repeated builds when their inputs are unchanged.
 
 ## Complete review and handoff
 

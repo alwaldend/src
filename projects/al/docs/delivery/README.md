@@ -108,9 +108,37 @@ does not assert that checks passed.
 If push and PR synchronization complete but final verification fails,
 `publication_verification_pending` retains the known candidate and PR identity
 with `verified: false`. Preserve that report, link the known PR, and use
-`verify --receipt-file PATH` to inspect the postcondition before deciding
-whether any mutation needs recovery. Do not infer that a failed final read
+`verify --receipt-file PATH` while the original candidate remains checked out
+to inspect the postcondition before deciding whether any mutation needs recovery. Do not infer that a failed final read
 undid a successful push.
+
+A PR update failure after the push also retains `publication_verification_pending`
+with its candidate, observed remote head, and existing PR identity. GitHub's PR
+object can still report the exact previous head even though Git and the branch
+API already identify the prepared candidate. Generic inspection remains strict.
+For that exact receipt-bound state, explicitly synchronize only the historical
+PR projection:
+
+```sh
+al delivery recover-pull-request --receipt-file out/task/prepare.json
+```
+
+Retain `--git-transport gh` when that transport is bound by the receipt. Recovery
+requires the original receipt, same repository/endpoints/refs, exact already-pushed
+commit/tree/scope, and unchanged PR identity, author/draft state, and prior or
+desired projection. It rejects third heads, changed remote refs, human edits,
+replacement PRs, and missing PRs. It preserves later local commits, index and
+working files, and the receipt. It never pushes, rebases, or creates another PR.
+An already synchronized PR needs no further mutation.
+
+The recovery report's `head_oid` is the historical prepared commit; `local_head_oid`
+can be later local progress, and `pushed` is always false. Status
+`pull_request_synchronized` verifies only the PR projection, without claiming
+checks or remote review of current source. If mutation verification fails,
+`pull_request_verification_pending` retains the known identities. Inspect the
+actual remote/PR state before choosing another recovery attempt. After recovery,
+resume normal inspection, preparation and validation for the current candidate;
+ordinary `publish` and `verify` still require the exact clean prepared source.
 
 To synchronize a prepared, task-owned, single-commit feature branch with an
 advanced base before `prepare`, use the guarded adapter workflow:

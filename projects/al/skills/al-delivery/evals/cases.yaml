@@ -825,3 +825,57 @@
         provide --validated-head, or recreate the retired check-plan/results
         ledger. It must retain current HEAD/tree, clean source, exact remote
         lease, and PR identity guards and diagnose any refusal before recovery.
+
+- description: Recovers an already-pushed PR while preserving advanced local work
+  vars:
+    request: >-
+      A checked candidate was pushed using its preparation receipt, but PR
+      synchronization failed. The branch API and Git both show the receipt's
+      prepared head; the PR still shows the receipt's prior head and unchanged
+      prior title/body. Local commits, staged changes, and unstaged edits have
+      advanced since that push. Explain the supported recovery without tools.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Uses delivery recover-pull-request with the original trusted preparation
+        receipt after inspecting the exact remote and PR state. Preserves all
+        later local work and the receipt without resetting, committing, pushing,
+        recreating the PR, or capturing a new expectation to bypass the refusal.
+        Distinguishes metadata synchronization from complete publication checks
+        and remote review, then resumes normal inspection and preparation of
+        the current candidate. Does not wait indefinitely or repeat the push.
+
+- description: Refuses PR recovery over a human edit or unexpected remote head
+  vars:
+    request: >-
+      The original receipt says my candidate was pushed. The PR now has a human
+      body edit, and Git reports a different remote feature head. Use the new
+      recover-pull-request command anyway so the rebase can continue. Explain
+      without tools.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Refuses automatic metadata recovery because the original exact remote
+        head and unchanged projection requirements are not satisfied. Preserves
+        the human edit, remote progress, local work, and original receipt.
+        Diagnoses the changed state rather than weakening guards, force-pushing,
+        overwriting metadata, or replacing the receipt to authorize recovery.
+
+- description: Handles an unverified PR recovery mutation without a blind retry
+  vars:
+    request: >-
+      recover-pull-request returned pull_request_verification_pending, the
+      historical candidate SHA, pushed false, and a known PR URL. Its final
+      provider read failed. Local work has advanced. What should happen next?
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Preserves the recovery report and inspects actual PR and remote state
+        before deciding whether recovery still needs mutation. Keeps the original
+        receipt and later local work. Does not claim complete publication or
+        review validation, blindly repeat a metadata mutation or push, or run
+        verify against an unrelated current local candidate as though it were
+        the historical receipt candidate.

@@ -689,3 +689,76 @@ func TestGitHubCreateReportsUnknownOutcomeWhenRereadFails(t *testing.T) {
 	}
 	runner.done()
 }
+
+// TestGitHubUpdateAcceptsExactPushedHeadTransition exercises the provider boundary
+// with either the captured old head or the freshly pushed head in GitHub's PR object.
+func TestGitHubUpdateAcceptsExactPushedHeadTransition(t *testing.T) {
+	for _, currentHead := range []string{testOID('b'), testOID('c')} {
+		t.Run(currentHead[:1], func(t *testing.T) {
+			expected := pullRequest{
+				ID: "PR_node", Number: 7, URL: "https://github.com/owner/repo/pull/7",
+				State: "OPEN", Title: "Old", Body: "Old body", AuthorLogin: "agent",
+				BaseRefName: "master", BaseRefOID: testOID('a'),
+				HeadRefName: "feature;not-shell", HeadRefOID: testOID('b'),
+				HeadRepositoryOwner: "owner", HeadRepositoryName: "repo",
+			}
+			current := strings.Replace(githubPRJSON("Old", "Old body"), testOID('b'), currentHead, 1)
+			updated := strings.Replace(githubPRJSON("New", "New body"), testOID('b'), testOID('c'), 1)
+			runner := &transcriptRunner{t: t, expected: []expectedCommand{
+				{command: githubCommand([]string{"pr", "view", "7", "--repo", "github.com/owner/repo", "--json", githubPullRequestFields}, ""), result: commandResult{Stdout: current}},
+				{command: githubCommand([]string{"pr", "edit", "7", "--repo", "github.com/owner/repo", "--base", "master", "--title", "New", "--body-file", "-"}, "New body")},
+				{command: githubCommand([]string{"pr", "view", "7", "--repo", "github.com/owner/repo", "--json", githubPullRequestFields}, ""), result: commandResult{Stdout: updated}},
+			}}
+			forge := &githubForge{executable: "gh-test", runner: runner, directory: "/repo"}
+			result, err := forge.UpdatePullRequest(context.Background(), remoteRepository{Host: "github.com", Owner: "owner", Name: "repo"}, expected, pullRequestInput{
+				BaseRefName: "master", HeadRefName: "feature;not-shell", ExpectedHeadOID: testOID('c'), Title: "New", Body: "New body",
+			})
+			if err != nil || result.HeadRefOID != testOID('c') {
+				t.Fatalf("exact head transition = %#v, %v", result, err)
+			}
+			runner.done()
+		})
+	}
+}
+
+// TestGitHubHeadTransitionPreservesMetadataGuards checks the actual provider
+// adapter against independently changed fields at the new pushed head.
+func TestGitHubHeadTransitionPreservesMetadataGuards(t *testing.T) {
+	changes := map[string][2]string{
+		"title":    {`"title":"Old"`, `"title":"Human"`},
+		"body":     {`"body":"Old body"`, `"body":"Human body"`},
+		"author":   {`"login":"agent"`, `"login":"human"`},
+		"draft":    {`"isDraft":false`, `"isDraft":true`},
+		"identity": {`"id":"PR_node"`, `"id":"Replacement"`},
+		"base":     {`"baseRefName":"master"`, `"baseRefName":"another-base"`},
+		"branch":   {`"headRefName":"feature;not-shell"`, `"headRefName":"another-branch"`},
+		"state":    {`"state":"OPEN"`, `"state":"CLOSED"`},
+		"head":     {testOID('c'), testOID('d')},
+	}
+	for name, change := range changes {
+		t.Run(name, func(t *testing.T) {
+			current := strings.Replace(githubPRJSON("Old", "Old body"), testOID('b'), testOID('c'), 1)
+			changed := strings.Replace(current, change[0], change[1], 1)
+			if changed == current {
+				t.Fatal("fixture did not change the intended provider field")
+			}
+			expected := pullRequest{
+				ID: "PR_node", Number: 7, URL: "https://github.com/owner/repo/pull/7",
+				State: "OPEN", Title: "Old", Body: "Old body", AuthorLogin: "agent",
+				BaseRefName: "master", BaseRefOID: testOID('a'),
+				HeadRefName: "feature;not-shell", HeadRefOID: testOID('b'),
+				HeadRepositoryOwner: "owner", HeadRepositoryName: "repo",
+			}
+			runner := &transcriptRunner{t: t, expected: []expectedCommand{{
+				command: githubCommand([]string{"pr", "view", "7", "--repo", "github.com/owner/repo", "--json", githubPullRequestFields}, ""), result: commandResult{Stdout: changed},
+			}}}
+			forge := &githubForge{executable: "gh-test", runner: runner, directory: "/repo"}
+			if result, err := forge.UpdatePullRequest(context.Background(), remoteRepository{Host: "github.com", Owner: "owner", Name: "repo"}, expected, pullRequestInput{
+				BaseRefName: "master", HeadRefName: "feature;not-shell", ExpectedHeadOID: testOID('c'), Title: "New", Body: "New body",
+			}); err == nil {
+				t.Fatalf("accepted changed %s: %#v", name, result)
+			}
+			runner.done()
+		})
+	}
+}

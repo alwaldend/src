@@ -776,72 +776,14 @@ func (d *delivery) validateReceiptContext(
 	receipt preparationReceipt,
 	report *inspection,
 ) error {
-	if err := receipt.validate(); err != nil {
-		return err
+	if err := d.validateReceiptRepositoryContext(ctx, receipt, report.Base, report.HeadRef); err != nil {
+		return fmt.Errorf("validate receipt repository: %w", err)
 	}
-	fingerprint, err := d.repository.repositoryFingerprint(ctx)
-	if err != nil {
-		return err
+	if receipt.PreparedHeadOID != report.LocalHeadOID {
+		return fmt.Errorf("preparation receipt prepared head differs from current delivery state")
 	}
-	receiptTransport, err := normalizeGitTransport(receipt.GitTransport)
-	if err != nil {
-		return fmt.Errorf("read receipt transport: %w", err)
-	}
-	selectedTransport, err := normalizeGitTransport(d.repository.gitTransport)
-	if err != nil {
-		return fmt.Errorf("read selected transport: %w", err)
-	}
-	wantBaseRef := "refs/heads/" + report.Base
-	wantHeadRef := report.HeadRef
-	comparisons := []struct {
-		name string
-		got  string
-		want string
-	}{
-		{"repository fingerprint", receipt.RepositoryFingerprint, fingerprint},
-		{"remote name", receipt.RemoteName, d.remote},
-		{"Git transport", receiptTransport, selectedTransport},
-		{"fetch endpoint", receipt.FetchEndpointDigest, endpointDigest("fetch", d.fetchEndpoint)},
-		{"push endpoint", receipt.PushEndpointDigest, endpointDigest("push", d.pushEndpoint)},
-		{"forge adapter", receipt.Forge, d.forge.Name()},
-		{"base ref", receipt.BaseRef, wantBaseRef},
-		{"head ref", receipt.HeadRef, wantHeadRef},
-		{"prepared head", receipt.PreparedHeadOID, report.LocalHeadOID},
-		{"prepared tree", receipt.PreparedTreeOID, report.LocalTreeOID},
-	}
-	for _, comparison := range comparisons {
-		if comparison.got != comparison.want {
-			if comparison.name == "base ref" {
-				return fmt.Errorf(
-					"preparation receipt base ref %q differs from current delivery state %q; "+
-						"refusal reason: missing_base (no pull request exists and no explicit --base was supplied to publish)",
-					comparison.got,
-					comparison.want,
-				)
-			}
-			return fmt.Errorf(
-				"preparation receipt %s differs from current delivery state",
-				comparison.name,
-			)
-		}
-	}
-	if !sameRemoteRepository(receipt.RemoteRepository, d.remoteRepository) {
-		return fmt.Errorf("preparation receipt identifies a different remote repository")
-	}
-	parents, err := d.repository.commitParents(ctx, receipt.PreparedHeadOID)
-	if err != nil {
-		return err
-	}
-	if len(parents) != 1 || parents[0] != receipt.BaseOID {
-		return fmt.Errorf("prepared commit parent differs from the receipt base OID")
-	}
-	if err := d.verifyAggregateScope(
-		ctx,
-		receipt.BaseOID,
-		receipt.PreparedHeadOID,
-		receipt.Scope,
-	); err != nil {
-		return fmt.Errorf("verify receipt aggregate scope: %w", err)
+	if receipt.PreparedTreeOID != report.LocalTreeOID {
+		return fmt.Errorf("preparation receipt prepared tree differs from current delivery state")
 	}
 	return nil
 }
@@ -942,6 +884,29 @@ func (r preparationReceipt) pullRequestState(
 	return "", fmt.Errorf(
 		"pull request differs from its exact pre-publication expectation",
 	)
+}
+
+// pullRequestRecoveryState permits only the receipt's exact prior head to lag
+// its already-pushed candidate. All identity, metadata, and lease checks remain
+// owned by pullRequestState; generic inspection and publication remain strict.
+func (r preparationReceipt) pullRequestRecoveryState(
+	current *pullRequest,
+	remoteHeadOID string,
+	desired commitProjection,
+) (receiptPullRequestState, error) {
+	if !r.ExpectedPullRequest.Present || remoteHeadOID != r.PreparedHeadOID {
+		return "", fmt.Errorf("PR recovery requires an existing receipt-bound PR and the already-pushed candidate")
+	}
+	if current != nil && current.HeadRefOID == r.ExpectedPullRequest.PriorHeadOID {
+		observed := *current
+		observed.HeadRefOID = remoteHeadOID
+		current = &observed
+	}
+	state, err := r.pullRequestState(current, remoteHeadOID, desired)
+	if err != nil {
+		return "", fmt.Errorf("validate PR recovery expectation: %w", err)
+	}
+	return state, nil
 }
 
 func (r preparationReceipt) pullRequestMatchesTopology(value pullRequest) bool {

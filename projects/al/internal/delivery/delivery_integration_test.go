@@ -14,6 +14,16 @@ import (
 )
 
 type integrationForge struct {
+	// headOIDOverride simulates a stale PR object after a completed Git push.
+	headOIDOverride string
+	// requireObservedUpdate makes the provider reject fabricated pre-update metadata.
+	requireObservedUpdate bool
+	// syncHeadOnUpdate makes a successful update expose the actual branch head.
+	syncHeadOnUpdate bool
+	// updateCalls counts attempted metadata mutations.
+	updateCalls int
+	// failAfterUpdate simulates an unknown outcome after a metadata mutation.
+	failAfterUpdate bool
 	// reviewError simulates an unavailable or concurrently changing review inventory.
 	reviewError                      error
 	name                             string
@@ -130,6 +140,9 @@ func (f *integrationForge) refreshed(
 	if err != nil {
 		return nil, err
 	}
+	if f.headOIDOverride != "" {
+		result.HeadRefOID = f.headOIDOverride
+	}
 	f.pull = &result
 	return &result, nil
 }
@@ -205,6 +218,16 @@ func (f *integrationForge) UpdatePullRequest(
 		!sameRemoteRepository(repository, f.repository) {
 		return nil, fmt.Errorf("unexpected pull-request update")
 	}
+	f.updateCalls++
+	if f.requireObservedUpdate {
+		current, err := f.refreshed(ctx)
+		if err != nil {
+			return nil, fmt.Errorf("read provider update expectation: %w", err)
+		}
+		if !samePullRequestMetadata(*current, pull) {
+			return nil, fmt.Errorf("provider rejected fabricated update expectation")
+		}
+	}
 	if f.failUpdates > 0 {
 		f.failUpdates--
 		return nil, fmt.Errorf("injected pull-request update failure")
@@ -218,6 +241,12 @@ func (f *integrationForge) UpdatePullRequest(
 	f.pull.Body = input.Body
 	f.pull.BaseRefName = input.BaseRefName
 	f.pull.HeadRefName = input.HeadRefName
+	if f.syncHeadOnUpdate {
+		f.headOIDOverride = ""
+	}
+	if f.failAfterUpdate {
+		return nil, fmt.Errorf("injected failure after metadata mutation")
+	}
 	return f.refreshed(ctx)
 }
 
@@ -2873,5 +2902,30 @@ esac
 			}
 			t.Logf("Verified %s forge executable: head=%s credential_calls=%d", selection, prepared.HeadOID, audit.calls)
 		})
+	}
+}
+
+// TestPublishPreservesObservedLaggingHead exercises a real push followed by a
+// provider that still exposes the old PR head until its metadata is synchronized.
+func TestPublishPreservesObservedLaggingHead(t *testing.T) {
+	fixture := newIntegrationDeliveryFixture(t)
+	first := fixture.prepare(t)
+	if _, err := fixture.delivery.publish(context.Background(), publishOptions{ReceiptFile: "out/delivery/prepare.json"}); err != nil {
+		t.Fatalf("initial publication: %v", err)
+	}
+	writeTestFile(t, filepath.Join(fixture.work, "out/delivery/commit.md"), "Revise lagging publication\n")
+	writeTestFile(t, filepath.Join(fixture.work, "feature.txt"), "revised\n")
+	prepared, err := fixture.delivery.prepare(context.Background(), prepareOptions{
+		MessageFile: "out/delivery/commit.md", ReceiptFile: "out/delivery/prepare.json", Paths: []string{"feature.txt"}, RewriteOID: first.HeadOID,
+	})
+	if err != nil {
+		t.Fatalf("prepare revision: %v", err)
+	}
+	fixture.forge.headOIDOverride = first.HeadOID
+	fixture.forge.requireObservedUpdate = true
+	fixture.forge.syncHeadOnUpdate = true
+	report, err := fixture.delivery.publish(context.Background(), publishOptions{ReceiptFile: "out/delivery/prepare.json"})
+	if err != nil || report == nil || !report.Verified || report.HeadOID != prepared.HeadOID {
+		t.Fatalf("lagging publication = %#v, %v", report, err)
 	}
 }
