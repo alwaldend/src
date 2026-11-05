@@ -899,7 +899,14 @@ func (g *githubForge) UpdatePullRequest(
 	if err != nil {
 		return nil, err
 	}
-	if !samePullRequestMetadata(*current, pullRequest) {
+	observed := *current
+	if observed.HeadRefOID != pullRequest.HeadRefOID && observed.HeadRefOID != input.ExpectedHeadOID {
+		return nil, fmt.Errorf("pull request %d has an unexpected head before update", pullRequest.Number)
+	}
+	// A completed Git push can become visible before or after this PR read.
+	// Only normalize its exact captured-to-pushed head transition for comparison.
+	observed.HeadRefOID = pullRequest.HeadRefOID
+	if !samePullRequestMetadata(observed, pullRequest) {
 		return nil, fmt.Errorf(
 			"pull request %d changed before update; preserve possible human edits",
 			pullRequest.Number,

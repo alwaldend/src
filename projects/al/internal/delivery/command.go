@@ -68,6 +68,7 @@ func newRootCommand(
 		newRewriteAuthorizeCommand(ctx, config, getenv, stdout, runner),
 		newPrepareCommand(ctx, config, getenv, stdout, runner),
 		newPublishCommand(ctx, config, getenv, stdout, runner),
+		newRecoverPullRequestCommand(ctx, config, getenv, stdout, runner),
 		newRebaseCommand(ctx, config, getenv, stdout, runner),
 		newVerifyCommand(ctx, config, getenv, stdout, runner),
 		newReviewCommand(ctx, config, getenv, stdout, runner),
@@ -427,6 +428,41 @@ func newPublishCommand(
 		false,
 		"push the feature branch without creating or synchronizing a pull request",
 	)
+	_ = command.MarkFlagRequired("receipt-file")
+	return command
+}
+
+// newRecoverPullRequestCommand exposes explicit metadata-only recovery of an already-pushed candidate.
+func newRecoverPullRequestCommand(
+	ctx context.Context,
+	config *deliveryConfig,
+	getenv func(string) string,
+	stdout io.Writer,
+	runner commandRunner,
+) *cobra.Command {
+	options := &recoverPullRequestOptions{}
+	command := &cobra.Command{
+		Use:   "recover-pull-request",
+		Short: "Synchronize a pushed candidate PR while preserving later local work",
+		Args:  cobra.NoArgs,
+		RunE: func(cmd *cobra.Command, args []string) error {
+			delivery, err := deliveryFromConfig(ctx, config, getenv, runner)
+			if err != nil {
+				return fmt.Errorf("configure PR recovery: %w", err)
+			}
+			report, err := delivery.recoverPullRequest(ctx, *options)
+			if report != nil {
+				if outputErr := writeJSON(stdout, report); outputErr != nil {
+					return fmt.Errorf("write PR recovery report: %w", outputErr)
+				}
+			}
+			if err != nil {
+				return fmt.Errorf("recover pull request: %w", err)
+			}
+			return nil
+		},
+	}
+	command.Flags().StringVar(&options.receiptFile, "receipt-file", "", "original trusted preparation receipt for the already-pushed candidate")
 	_ = command.MarkFlagRequired("receipt-file")
 	return command
 }

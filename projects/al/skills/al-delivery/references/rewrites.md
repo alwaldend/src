@@ -1,5 +1,35 @@
 # Rewrites and recovery
 
+## Recover a pushed PR projection
+
+A successful push can precede GitHub's PR-head update. A mismatch alone does
+not establish a human edit. Inspect Git, the PR, and the original trusted
+preparation receipt before choosing recovery. When the remote feature ref is
+exactly the prepared commit and the same PR retains the recorded prior or
+prepared head and prior or desired projection, run:
+
+```sh
+al delivery recover-pull-request --git-transport gh \
+  --receipt-file out/task/prepare.json
+```
+
+Use the receipt's transport (omit gh for a receipt bound to SSH). The command
+validates the original repository, endpoints, refs, historical commit/tree,
+scope, PR identity, author/draft state, and projection, and freshly rechecks the
+already-pushed remote head. It updates only the existing PR's title/body/base
+projection. It never pushes, rebases, commits, stages, resets, recreates a PR,
+or rewrites the receipt; later local commits and working changes are preserved.
+Do not create a new receipt to recapture a changed head or human-edited metadata.
+
+`pull_request_synchronized` establishes only that historical PR projection.
+Resume normal `inspect`, preparation, required checks, local review, publication,
+and remote feedback handling for the current candidate. A report with
+`pull_request_verification_pending` preserves known identities after an attempted
+but unverified update; inspect actual state before another mutation. Do not run
+receipt-bound `verify` against later local HEAD as if it were the old candidate.
+
+## Rewrite task-owned history
+
 Read before consolidation, remote replacement, manual conflict resolution, or
 recovery. Load `$al-rebase` when synchronizing an advanced base. Commands
 use the invocation selected in the skill entry point.

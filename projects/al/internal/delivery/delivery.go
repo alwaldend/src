@@ -1950,6 +1950,223 @@ func (d *delivery) requirePreparedCandidate(ctx context.Context, receipt prepara
 	return nil
 }
 
+// validateReceiptRepositoryContext binds the receipt to this checkout and its
+// immutable historical candidate without selecting the currently checked-out HEAD.
+func (d *delivery) validateReceiptRepositoryContext(
+	ctx context.Context,
+	receipt preparationReceipt,
+	baseBranch string,
+	headRef string,
+) error {
+	if err := receipt.validate(); err != nil {
+		return fmt.Errorf("validate preparation receipt: %w", err)
+	}
+	fingerprint, err := d.repository.repositoryFingerprint(ctx)
+	if err != nil {
+		return fmt.Errorf("read receipt repository fingerprint: %w", err)
+	}
+	receiptTransport, err := normalizeGitTransport(receipt.GitTransport)
+	if err != nil {
+		return fmt.Errorf("read receipt transport: %w", err)
+	}
+	selectedTransport, err := normalizeGitTransport(d.repository.gitTransport)
+	if err != nil {
+		return fmt.Errorf("read selected transport: %w", err)
+	}
+	wantBaseRef := "refs/heads/" + baseBranch
+	wantHeadRef := headRef
+	comparisons := []struct {
+		name string
+		got  string
+		want string
+	}{
+		{"repository fingerprint", receipt.RepositoryFingerprint, fingerprint},
+		{"remote name", receipt.RemoteName, d.remote},
+		{"Git transport", receiptTransport, selectedTransport},
+		{"fetch endpoint", receipt.FetchEndpointDigest, endpointDigest("fetch", d.fetchEndpoint)},
+		{"push endpoint", receipt.PushEndpointDigest, endpointDigest("push", d.pushEndpoint)},
+		{"forge adapter", receipt.Forge, d.forge.Name()},
+		{"base ref", receipt.BaseRef, wantBaseRef},
+		{"head ref", receipt.HeadRef, wantHeadRef},
+	}
+	for _, comparison := range comparisons {
+		if comparison.got != comparison.want {
+			if comparison.name == "base ref" {
+				return fmt.Errorf(
+					"preparation receipt base ref %q differs from current delivery state %q; "+
+						"refusal reason: missing_base (no pull request exists and no explicit --base was supplied to publish)",
+					comparison.got,
+					comparison.want,
+				)
+			}
+			return fmt.Errorf(
+				"preparation receipt %s differs from current delivery state",
+				comparison.name,
+			)
+		}
+	}
+	if !sameRemoteRepository(receipt.RemoteRepository, d.remoteRepository) {
+		return fmt.Errorf("preparation receipt identifies a different remote repository")
+	}
+	tree, err := d.repository.tree(ctx, receipt.PreparedHeadOID)
+	if err != nil {
+		return fmt.Errorf("read receipt candidate tree: %w", err)
+	}
+	if tree != receipt.PreparedTreeOID {
+		return fmt.Errorf("preparation receipt prepared tree differs from its commit")
+	}
+	parents, err := d.repository.commitParents(ctx, receipt.PreparedHeadOID)
+	if err != nil {
+		return fmt.Errorf("read receipt candidate parents: %w", err)
+	}
+	if len(parents) != 1 || parents[0] != receipt.BaseOID {
+		return fmt.Errorf("prepared commit parent differs from the receipt base OID")
+	}
+	if err := d.verifyAggregateScope(
+		ctx,
+		receipt.BaseOID,
+		receipt.PreparedHeadOID,
+		receipt.Scope,
+	); err != nil {
+		return fmt.Errorf("verify receipt aggregate scope: %w", err)
+	}
+	return nil
+}
+
+// recoverPullRequestOptions selects the original preparation receipt for PR-only recovery.
+type recoverPullRequestOptions struct {
+	// receiptFile identifies the trusted receipt for the already-pushed candidate.
+	receiptFile string
+}
+
+// recoverPullRequestReport records metadata synchronization, never full source validation.
+type recoverPullRequestReport struct {
+	// Status distinguishes synchronized metadata from an unverified mutation outcome.
+	Status string `json:"status"`
+	// HeadOID identifies the historical prepared candidate, which is already remote.
+	HeadOID string `json:"head_oid"`
+	// RemoteHeadOID records the exact remote candidate observed during recovery.
+	RemoteHeadOID string `json:"remote_head_oid"`
+	// LocalHeadOID identifies later local progress, which recovery leaves untouched.
+	LocalHeadOID string `json:"local_head_oid"`
+	// PullRequest preserves the observed PR identity, including on an update failure.
+	PullRequest *pullRequest `json:"pull_request"`
+	// Pushed is always false: recovery never changes a Git ref.
+	Pushed bool `json:"pushed"`
+}
+
+// recoverPullRequest synchronizes only an existing, receipt-bound PR for an
+// already-pushed candidate. Later local commits, index, and working files are
+// not selected as that candidate and are neither committed nor reset.
+func (d *delivery) recoverPullRequest(
+	ctx context.Context,
+	options recoverPullRequestOptions,
+) (result *recoverPullRequestReport, returnErr error) {
+	transaction, err := d.beginReceiptTransaction(ctx, options.receiptFile, true)
+	if err != nil {
+		return nil, fmt.Errorf("lock PR recovery receipt: %w", err)
+	}
+	defer func() {
+		if err := transaction.close(); err != nil {
+			returnErr = errors.Join(returnErr, fmt.Errorf("close PR recovery receipt: %w", err))
+		}
+	}()
+	receipt, err := transaction.read()
+	if err != nil {
+		return nil, fmt.Errorf("read PR recovery receipt: %w", err)
+	}
+	branch, localHead, err := d.repository.branchHead(ctx)
+	if err != nil {
+		return nil, fmt.Errorf("read PR recovery checkout: %w", err)
+	}
+	base := d.base
+	if base == "" {
+		base = strings.TrimPrefix(receipt.BaseRef, "refs/heads/")
+	}
+	if err := d.validateReceiptRepositoryContext(ctx, receipt, base, "refs/heads/"+branch); err != nil {
+		return nil, fmt.Errorf("validate PR recovery repository: %w", err)
+	}
+	if err := d.requirePushedCandidate(ctx, receipt); err != nil {
+		return nil, fmt.Errorf("inspect PR recovery candidate: %w", err)
+	}
+	projection, err := d.repository.projection(ctx, receipt.PreparedHeadOID)
+	if err != nil {
+		return nil, fmt.Errorf("read original candidate projection: %w", err)
+	}
+	current, err := d.currentOpenPullRequest(ctx, branch)
+	if err != nil {
+		return nil, fmt.Errorf("read PR recovery identity: %w", err)
+	}
+	state, err := receipt.pullRequestRecoveryState(current, receipt.PreparedHeadOID, projection)
+	if err != nil {
+		return nil, fmt.Errorf("check PR recovery state: %w", err)
+	}
+	result = &recoverPullRequestReport{
+		Status: "pull_request_verification_pending", HeadOID: receipt.PreparedHeadOID,
+		RemoteHeadOID: receipt.PreparedHeadOID, LocalHeadOID: localHead, PullRequest: current,
+	}
+	// Re-fetch after observing the PR; an unrelated push must stop metadata mutation.
+	if err := d.requirePushedCandidate(ctx, receipt); err != nil {
+		return result, fmt.Errorf("recheck PR recovery candidate: %w", err)
+	}
+	if err := transaction.requireCurrent(ctx); err != nil {
+		return result, fmt.Errorf("recheck original PR recovery receipt: %w", err)
+	}
+	if state != receiptPullRequestDesired || current.HeadRefOID != receipt.PreparedHeadOID {
+		updated, err := d.forge.UpdatePullRequest(ctx, d.remoteRepository, *current, pullRequestInput{
+			BaseRefName: base, HeadRefName: branch, ExpectedHeadOID: receipt.PreparedHeadOID,
+			Title: projection.Title, Body: projection.Body,
+		})
+		if updated != nil {
+			result.PullRequest = updated
+		}
+		if err != nil {
+			return result, fmt.Errorf("recover pushed candidate PR projection: %w", err)
+		}
+		if state, err := receipt.pullRequestState(updated, receipt.PreparedHeadOID, projection); err != nil || state != receiptPullRequestDesired {
+			if err != nil {
+				return result, fmt.Errorf("verify recovered PR projection: %w", err)
+			}
+			return result, fmt.Errorf("recovered PR does not show the desired projection")
+		}
+	}
+	if err := d.requirePushedCandidate(ctx, receipt); err != nil {
+		return result, fmt.Errorf("verify remote candidate after PR recovery: %w", err)
+	}
+	if err := transaction.requireCurrent(ctx); err != nil {
+		return result, fmt.Errorf("verify unchanged PR recovery receipt: %w", err)
+	}
+	result.Status = "pull_request_synchronized"
+	return result, nil
+}
+
+// requirePushedCandidate freshly verifies the receipt's exact remote head and
+// rejects rewritten base history. It neither pushes nor changes local source.
+func (d *delivery) requirePushedCandidate(ctx context.Context, receipt preparationReceipt) (returnErr error) {
+	snapshot, err := d.repository.snapshot(ctx, d.fetchEndpoint,
+		strings.TrimPrefix(receipt.BaseRef, "refs/heads/"),
+		strings.TrimPrefix(receipt.HeadRef, "refs/heads/"))
+	if err != nil {
+		return fmt.Errorf("fetch already-pushed candidate refs: %w", err)
+	}
+	defer func() {
+		if err := snapshot.close(context.Background()); err != nil {
+			returnErr = errors.Join(returnErr, fmt.Errorf("clean pushed candidate snapshot: %w", err))
+		}
+	}()
+	if snapshot.RemoteHeadOID != receipt.PreparedHeadOID {
+		return fmt.Errorf("remote feature head is not the receipt's exact already-pushed candidate")
+	}
+	descendant, err := d.repository.isAncestor(ctx, receipt.BaseOID, snapshot.BaseOID)
+	if err != nil {
+		return fmt.Errorf("compare pushed candidate base history: %w", err)
+	}
+	if !descendant {
+		return fmt.Errorf("remote base no longer descends from the receipt base")
+	}
+	return nil
+}
+
 // publishOptions selects the preparation receipt and publication destination actions.
 type publishOptions struct {
 	// ReceiptFile names the ignored receipt binding the current prepared candidate.
@@ -2351,12 +2568,15 @@ func (d *delivery) publishWithReceiptTransaction(
 	); err != nil {
 		return nil, err
 	}
-	if err := d.repository.requireBranchHead(
-		ctx,
-		currentBranch,
-		currentHead,
-	); err != nil {
-		return nil, err
+	result = &publishReport{
+		Status: "publication_verification_pending", HeadOID: currentHead,
+		TreeOID: currentTree, RemoteHeadOID: currentHead, PullRequest: currentPullRequest,
+	}
+	if err := d.repository.requireBranchHead(ctx, currentBranch, currentHead); err != nil {
+		return result, fmt.Errorf("check local branch after push: %w", err)
+	}
+	if err := d.requirePushedCandidate(ctx, receipt); err != nil {
+		return result, fmt.Errorf("check pushed candidate before PR synchronization: %w", err)
 	}
 	var pullRequest *pullRequest
 	if !options.NoPullRequest {
@@ -2368,15 +2588,9 @@ func (d *delivery) publishWithReceiptTransaction(
 			Body:            projection.Body,
 		}
 		pullRequest = currentPullRequest
-		if pullRequest != nil {
-			expected := *pullRequest
-			expected.State = "OPEN"
-			expected.HeadRefOID = currentHead
-			pullRequest = &expected
-		}
 		if pullRequest == nil {
 			if err := receiptTransaction.requireCurrent(ctx); err != nil {
-				return nil, fmt.Errorf(
+				return result, fmt.Errorf(
 					"pre-create preparation receipt gate: %w",
 					err,
 				)
@@ -2388,7 +2602,7 @@ func (d *delivery) publishWithReceiptTransaction(
 			)
 		} else if !pullRequestMatchesInput(*pullRequest, input) {
 			if err := receiptTransaction.requireCurrent(ctx); err != nil {
-				return nil, fmt.Errorf(
+				return result, fmt.Errorf(
 					"pre-update preparation receipt gate: %w",
 					err,
 				)
@@ -2400,11 +2614,14 @@ func (d *delivery) publishWithReceiptTransaction(
 				input,
 			)
 		}
+		if pullRequest != nil {
+			result.PullRequest = pullRequest
+		}
 		if err != nil {
-			return nil, err
+			return result, fmt.Errorf("synchronize pull request after push: %w", err)
 		}
 	} else if currentPullRequest != nil {
-		return nil, fmt.Errorf(
+		return result, fmt.Errorf(
 			"a pull request already exists for this branch; use --pull-request to synchronize it or close it before git-only publication",
 		)
 	}
@@ -2415,21 +2632,13 @@ func (d *delivery) publishWithReceiptTransaction(
 			projection,
 		)
 		if err != nil {
-			return nil, err
+			return result, err
 		}
 		if err := receiptTransaction.write(ctx, receipt); err != nil {
-			return nil, err
+			return result, err
 		}
 	}
-	// Retain the observed publication even when final verification cannot finish.
-	// Verified stays false until every existing candidate and review gate passes.
-	result = &publishReport{
-		Status:        "publication_verification_pending",
-		HeadOID:       currentHead,
-		TreeOID:       currentTree,
-		RemoteHeadOID: currentHead,
-		PullRequest:   pullRequest,
-	}
+	result.PullRequest = pullRequest
 	if err := receiptTransaction.requireCurrent(ctx); err != nil {
 		return result, fmt.Errorf(
 			"final preparation receipt gate: %w",

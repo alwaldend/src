@@ -24,7 +24,11 @@ The preparation case keeps build passthrough and check execution out of Git
 preparation. The publication-rebase case reruns ordinary required Bazel commands
 on the updated candidate before another explicit publication attempt. Recovery
 first verifies known remote state; it does not blindly push again after an
-uncertain outcome.
+uncertain outcome. PR-only cases exercise the original receipt route when the
+remote candidate is already pushed and local work has advanced. They preserve
+human edits, later local work, and the distinction between synchronized metadata
+and complete publication/review verification. Offline configuration validation
+loads these cases but does not prove live agent behavior.
 
 The base-selection cases distinguish independent PRs with merge prerequisites
 from an explicitly requested stack. History cases preserve task ownership,
