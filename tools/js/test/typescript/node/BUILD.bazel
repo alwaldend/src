@@ -15,7 +15,10 @@ ts_project(
     supports_workers = 0,
     transpiler = "tsc",
     tsconfig = {"compilerOptions": {
-        "lib": ["ES2024"],
+        "lib": [
+            "ES2024",
+            "DOM",
+        ],
         "module": "NodeNext",
         "noEmitOnError": True,
         "strict": True,
@@ -24,6 +27,8 @@ ts_project(
     }},
     deps = [
         "//tools:node_modules/@types/node",
+        "//tools:node_modules/@types/three",
+        "//tools:node_modules/three",
         "//tools/js/test/typescript/model",
     ],
 )

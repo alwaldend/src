@@ -14,7 +14,7 @@ when updating the lockfile.
 
 A security override selects patched KaTeX where Mermaid's upstream range
 retains a vulnerable release. PostCSS is pinned explicitly to supply a secure
-version to its CLI and plugins' peers. Mermaid is pinned exactly;
+version to its CLI and plugins' peers. Mermaid and Three.js are exact pins;
 the Dagre spacing patch is maintained with each Mermaid upgrade.
 
 ## TypeScript
@@ -51,6 +51,7 @@ rule configuration and declaration dependencies. Run their full acceptance with:
 bazel test //tools/js/test/typescript:typescript_test
 ```
 
-The test runs emitted modules in pinned Node and Chrome, checks a real compiler
-type error, and retains `node-result.json`, `browser.png`, `type-error.log`, and
+The test runs emitted modules in pinned Node and Chrome, exercises a Three.js
+vector calculation, checks a real compiler type error, and retains
+`node-result.json`, `browser.png`, `type-error.log`, and
 `verification.json` with output hashes in its test output directory.
