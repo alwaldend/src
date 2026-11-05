@@ -1,0 +1,62 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: shared-boundary-hair-113
+  resourceVersion: "3"
+  generation: 3
+  creationTimestamp: "2026-09-06T10:33:21.14765986Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 16
+  criteriaRevision: 4
+  criteriaDigest: sha256:f5fe4b5c4efc12d5b82ad42cf0d41fd7274f48b421abf42e9db1ce5ae316d8a3
+  goalStateDigest: sha256:d3dd99930bf18292653455d315de740e68d0a10d03186a30fad1ab2e06501ad6
+  workType: change
+  subject: head_113_shared_seam.blend;sha256=d84d3608a2063ff04acf41605ea21359b4c2cf4d33d0c37c719475565e11f27a;blind-reject-profile-construction
+  priorAttemptID: continuous-fabric-hair-112
+  nextAction: 114shared-root filled panel lofts, replacing rejected curtain and independently placed locks; no materials/detail advance.
+status:
+  state: closed
+  closedAt: "2026-09-06T10:46:46.415392512Z"
+  artifacts:
+    planDigest: sha256:7f80ebb0338cf0889688973cf87da042f557c4e0df1f1cf77e2c321847182013
+    resultDigest: sha256:8ee192e46aa157be898e881b165a9a6a0c6f2bfb85373d13ecd8a6e36e861abc
+    evidence: []
+  review:
+    decision: refine
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-002
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-004
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-005
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-006
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-007
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-09-06T10:46:46.415392512Z"

@@ -1,0 +1,65 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: front-calibrated-hanging-sleeves-081
+  resourceVersion: "2"
+  generation: 2
+  creationTimestamp: "2026-09-05T22:40:01.659866694Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 16
+  criteriaRevision: 4
+  criteriaDigest: sha256:f5fe4b5c4efc12d5b82ad42cf0d41fd7274f48b421abf42e9db1ce5ae316d8a3
+  goalStateDigest: sha256:d3dd99930bf18292653455d315de740e68d0a10d03186a30fad1ab2e06501ad6
+  workType: change
+  subject: c7aeaf157f7d451d658c302c6a9300125ab145a7551b5fa8713288052c747050
+  nextAction: Include cuff in receiver-relative seating without changing global calibratedheight/span or arm.
+status:
+  state: closed
+  closedAt: "2026-09-05T22:44:16.688986197Z"
+  artifacts:
+    planDigest: sha256:3bc64354cd9f9f0f2a442d23cfe2f2e38fece612564ff9d1f02c59a6fefcbfae
+    resultDigest: sha256:7c20a6b2b34898724c2ac15d03928fe0e55092e39acef1f574799d6dfa91e8a5
+    evidence:
+    - path: evidence/construction_081_blind.md
+      digest: sha256:5b77c5a6ea38c1c80a23f26d1b27481851f977e1f3b23ba8812572f31fc0eaaa
+  review:
+    decision: reset
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 3
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-002
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-004
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-005
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-006
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-007
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-09-05T22:44:16.688986197Z"

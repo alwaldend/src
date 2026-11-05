@@ -1,0 +1,74 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: surface-fitted-collar-050
+  resourceVersion: "2"
+  generation: 1
+  creationTimestamp: "2026-09-05T09:45:56.808171046Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 16
+  criteriaRevision: 4
+  criteriaDigest: sha256:f5fe4b5c4efc12d5b82ad42cf0d41fd7274f48b421abf42e9db1ce5ae316d8a3
+  goalStateDigest: sha256:8798b523ec91de40ec3fe710ecc4fb35d34a88dd65a27e8aa998fef6b72bb140
+  planID: surface-fitted-collar-v44
+  workType: change
+  stableDefect: collar-torso-clamped-support
+  hypothesis: Curvature-resolved support and smooth free shoulder remove sampled torso intersections without detached collar
+  subject: hair_049_candidate.blend
+  priorAttemptID: continuous-crown-angle-049
+  nextAction: Apply inspected collar helper to new050 bytes, require zero sampled intersections and fixed-view improvement
+status:
+  state: closed
+  closedAt: "2026-09-05T09:54:25.438540977Z"
+  artifacts:
+    planDigest: sha256:47a6b0e4224dd245c5e3de96feb1fcda3fe9c07e89e66b48f60e38ace9a7aeac
+    resultDigest: sha256:fb02bd16077a19c514e626ffd1371ff3d0abea8e37e370e13099f3619885ad3f
+    evidence:
+    - path: evidence/collar_050_result.md
+      digest: sha256:fb02bd16077a19c514e626ffd1371ff3d0abea8e37e370e13099f3619885ad3f
+    - path: evidence/collar_050_setup_repair.md
+      digest: sha256:8ffa450e0dfb300dbaca35069c89713585797163fbfde9985f8a4f339a75976c
+    - path: evidence/hair_049_result.md
+      digest: sha256:7647f55241a7534a135e763ab7ade251f7cb60a02f63f0e8e48aeede50308127
+  review:
+    decision: refine
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 3
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-002
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-004
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-005
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-006
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-007
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-09-05T09:54:25.438540977Z"

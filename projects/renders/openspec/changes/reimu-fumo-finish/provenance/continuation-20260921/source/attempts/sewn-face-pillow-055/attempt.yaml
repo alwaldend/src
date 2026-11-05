@@ -1,0 +1,66 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: sewn-face-pillow-055
+  resourceVersion: "2"
+  generation: 2
+  creationTimestamp: "2026-09-05T12:20:34.560118649Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 16
+  criteriaRevision: 4
+  criteriaDigest: sha256:f5fe4b5c4efc12d5b82ad42cf0d41fd7274f48b421abf42e9db1ce5ae316d8a3
+  goalStateDigest: sha256:35fae7fc620ab42a0fa965ba7e7479af38d827d6f1045cafc3c51d54f4af48b9
+  planID: sewn-face-pillow-v49
+  workType: change
+  stableDefect: hidden-cream-substrate-coverage
+  subject: head_055_candidate.blend sha256:8efdc290fc383135479f964b0e33e24152ef484ce69d863bd209f66337a4d5f1
+  priorAttemptID: rooted-sheet-crown-054
+  nextAction: Design continuous low-resolution cap-fringe-side seam cage; do not repeat rejected053-055 radius and overlay constructions
+status:
+  state: closed
+  closedAt: "2026-09-05T12:28:27.57216075Z"
+  artifacts:
+    planDigest: sha256:0be85e6af13b34e733c02373137207cc6e6214c728a3af1afb29940409f441d5
+    resultDigest: sha256:85e294eed09b855d6429ac7713b524b6a79772721be7ccbbee574da7343d5bfe
+    evidence: []
+  review:
+    decision: reset
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 3
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-002
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-004
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-005
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-006
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-007
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-09-05T12:28:27.57216075Z"

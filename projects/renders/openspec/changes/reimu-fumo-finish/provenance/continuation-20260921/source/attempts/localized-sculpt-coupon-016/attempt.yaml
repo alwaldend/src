@@ -1,0 +1,39 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: localized-sculpt-coupon-016
+  resourceVersion: "2"
+  generation: 1
+  creationTimestamp: "2026-09-04T11:59:15.03940469Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 14
+  criteriaRevision: 4
+  criteriaDigest: sha256:f5fe4b5c4efc12d5b82ad42cf0d41fd7274f48b421abf42e9db1ce5ae316d8a3
+  goalStateDigest: sha256:686c6696c96a42989b75eb9a6a4e807c733706c06bb7fa6e1aea9d89020046d9
+  planID: localized-sculpt-stack-v14
+  workType: investigation
+  stableDefect: Broad Grab and proportional Edit transforms cannot independently flatten pillow inflation, seat a stem root, or taper a free edge
+  hypothesis: Localized native flattening, controlled volume, smoothing, and isolated multi-view strokes can clear all three attempt-015 construction mechanisms on one disposable panel
+  subject: Disposable connected dense padded-panel fixture only; no Reimu model bytes
+  regressionRefs:
+  - macro-sculpt-010
+  - native-manual-head-015
+  priorAttemptID: native-manual-head-015
+  measurableDelta: One saved coupon simultaneously reduces plane variance by at least 35 percent, increases root contact width by at least 25 percent, reduces root curvature discontinuity by at least 30 percent, tapers tip width to at most 0.55 of mid-panel width, reduces tip roughness by at least 25 percent, and holds non-target displacement at or below 1e-6
+  nextAction: Named sole writer creates and freezes one disposable coupon state, then the coordinator audits exact bytes, pinned-renders front and three-quarter comparisons, and accepts or rejects the capability without editing Reimu
+status:
+  state: closed
+  closedAt: "2026-09-04T12:08:34.352467884Z"
+  artifacts:
+    planDigest: sha256:bda80d01e8bca91b5c8554bc145191a1f79a6210b3d8c0e6c46b1e53dfb0443d
+    resultDigest: sha256:1591decce216160c60a395e0a64b9972cba217f8a389a69325fc2349cae2f658
+    evidence:
+    - path: evidence/writer_result.md
+      digest: sha256:0bd1e8c3a71b0d0f64dc8d23536b8ca17e40f8562ba972e45e3da40a63813dc9
+  review:
+    decision: reset
+    criteria: []
+  observedAt: "2026-09-04T12:08:34.352467884Z"

@@ -1,0 +1,63 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: rigid-free-lock-refit-075
+  resourceVersion: "3"
+  generation: 3
+  creationTimestamp: "2026-09-05T20:13:53.787043483Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 16
+  criteriaRevision: 4
+  criteriaDigest: sha256:f5fe4b5c4efc12d5b82ad42cf0d41fd7274f48b421abf42e9db1ce5ae316d8a3
+  goalStateDigest: sha256:d3dd99930bf18292653455d315de740e68d0a10d03186a30fad1ab2e06501ad6
+  workType: change
+  subject: f3f5573dc6b39bd9ed586d72cc9e722968847ece96073c964b3c7642ae861474
+  nextAction: Diagnose front-lock raw versus evaluated shell overlaps before a new construction plan; no075 saved, repair exhausted.
+status:
+  state: closed
+  closedAt: "2026-09-05T20:23:44.477980112Z"
+  artifacts:
+    planDigest: sha256:9afa494c820d87ccdb7d61b4a4bf70c68d27e18b0e44af6747e1911959913922
+    resultDigest: sha256:0e545d9e19274bb520591d0f4d01393969f6d4d2b5ac56b70e61e9beeb643c4a
+    evidence: []
+  review:
+    decision: reset
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 3
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-002
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-004
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-005
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-006
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-007
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-09-05T20:23:44.477980112Z"

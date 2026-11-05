@@ -1,0 +1,52 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalCriteria
+metadata:
+  name: reimu-fumo-finish
+  resourceVersion: "3"
+  generation: 3
+  creationTimestamp: "2026-09-04T07:36:58.882058192Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  revision: 3
+  items:
+  - criterionID: criterion-001
+    revision: 3
+    required: true
+    statement: "Reference fidelity: one exact candidate matches the canonical Reimu Fumo variant in every fixed view defined by review contract sha256:4835f1595995db408567044849ff8f2f19717b9ce1a6492fc85de34755ac7be4, with no major identity or silhouette defect."
+    evidenceMethod: Inspect a self-contained candidate packet against the exact contract bytes and record the candidate and packet digests.
+  - criterionID: criterion-002
+    revision: 3
+    required: true
+    statement: "Measured landmarks: calibrated comparisons put every critical canonical-view landmark within 0.03 Wh, silhouette extrema and major gaps within 0.05 Wh, and uncertain depth landmarks inside the frozen bands bound by review contract sha256:4835f1595995db408567044849ff8f2f19717b9ce1a6492fc85de34755ac7be4."
+    evidenceMethod: Publish aligned measurements tied to the exact candidate, contract, landmark file, references, cameras, and render digests.
+  - criterionID: criterion-003
+    revision: 2
+    required: true
+    statement: "Plush construction: the neutral model reads as sewn and softly stuffed, with plausible panel thickness, seams, gathers, compression, attachment, and contact and no helmet, card, armor, hollow-tube, cone, floating, clipping, or disconnected-primitive failure."
+    evidenceMethod: Inspect the exact fixed-view and presentation renders in the immutable candidate packet.
+  - criterionID: criterion-004
+    revision: 2
+    required: true
+    statement: "Independent visual review: two implementation-blind reviewers identified by stable ID and role recognize the exact variant, score every applicable visual category at least 8/10, and report no major visible failure on the same candidate and review-contract digests."
+    evidenceMethod: Publish both independent category matrices and reviewer identities in the immutable candidate packet.
+  - criterionID: criterion-005
+    revision: 2
+    required: true
+    statement: "Reusable structure: the deliverable contains one clearly named reusable collection with intentional meshes, materials, armature, actions, controls, transforms, and no review-only content or missing dependency."
+    evidenceMethod: Append only the reusable collection into a blank file, clean-reopen it, and publish the structure and dependency audit.
+  - criterionID: criterion-006
+    revision: 2
+    required: true
+    statement: "Animation readiness: the same candidate deforms without visible tearing or clipping in seated neutral, actual head-yaw turn, arm-wave, and combined validation actions."
+    evidenceMethod: Exercise the stored actions and publish fixed-view pose renders tied to the exact candidate digest.
+  - criterionID: criterion-007
+    revision: 2
+    required: true
+    statement: "Technical integrity: the same candidate has no unintended non-manifold boundary, degenerate geometry, duplicate object name, broken modifier, dependency cycle, local path disclosure, or unpacked required resource."
+    evidenceMethod: Run the pinned-Blender clean-open audit against the exact candidate and publish its machine-readable result.
+  - criterionID: criterion-008
+    revision: 2
+    required: true
+    statement: "Exact-byte delivery: a self-contained packet proves pinned-Blender rendering from the exact committed Git LFS object; the reference packet has documented redistribution authority or cleared replacements; and //projects/renders:reimu_fumo exposes only the accepted reusable asset."
+    evidenceMethod: Hydrate and rerender the committed LFS object, compare packet and object digests, verify the rights record, and inspect the final Bazel target.

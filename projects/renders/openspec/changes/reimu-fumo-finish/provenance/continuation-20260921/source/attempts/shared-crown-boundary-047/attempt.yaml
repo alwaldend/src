@@ -1,0 +1,74 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: shared-crown-boundary-047
+  resourceVersion: "2"
+  generation: 1
+  creationTimestamp: "2026-09-05T08:55:42.545777847Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 16
+  criteriaRevision: 4
+  criteriaDigest: sha256:f5fe4b5c4efc12d5b82ad42cf0d41fd7274f48b421abf42e9db1ce5ae316d8a3
+  goalStateDigest: sha256:444f039ac6fb4b9fb50d11b258710609a33f440a6ec373592b73cd795f2b0f02
+  planID: fitted-crown-free-panels-v43
+  workType: change
+  stableDefect: independent-crown-boundary-gap
+  hypothesis: Deriving wrap endpoints from the actual front pattern closes the observed open scalp wedge
+  subject: cushion_044d_candidate.blend
+  priorAttemptID: curvature-resolved-crown-046
+  nextAction: Build hair_047 and inspect fixed front-side before full review
+status:
+  state: closed
+  closedAt: "2026-09-05T09:08:10.858038401Z"
+  artifacts:
+    planDigest: sha256:bb1944a19a3b71a452065362b0f17ca068b86838c50136c9eb51b07cb39d75a2
+    resultDigest: sha256:6cc135a6f7568ec146841f3d88d5e7381919d5b24aac87787a192f4c96aaaaa5
+    evidence:
+    - path: evidence/hair_046_result.md
+      digest: sha256:9bf5a2ff8d6c7791458f5b61c74dbf44bc93a47bafa4bd67a9db24e44a800758
+    - path: evidence/hair_047_process_audit.md
+      digest: sha256:b6425d95085a550323025a3cd4688217eeeecf08b781633a1c3319afaca93196
+  review:
+    decision: reset
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 3
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-002
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-004
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-005
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-006
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-007
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-09-05T09:08:10.858038401Z"

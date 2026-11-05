@@ -1,0 +1,75 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: narrow-tangent-leaves-059
+  resourceVersion: "3"
+  generation: 1
+  creationTimestamp: "2026-09-05T14:10:07.754406385Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 16
+  criteriaRevision: 4
+  criteriaDigest: sha256:f5fe4b5c4efc12d5b82ad42cf0d41fd7274f48b421abf42e9db1ce5ae316d8a3
+  goalStateDigest: sha256:08fd66c6948ea5625a6fe134c6c5fc7355dc0a1826ca598d0c3b059bf8612d7b
+  planID: narrow-tangent-leaves-v53
+  workType: change
+  stableDefect: inflated-lower-hair-panels
+  hypothesis: Narrow tangent-plane ends outside the stuffing produce thin overlapping hair leaves rather than a broad lower shell.
+  subject: source050 sha256:6098307ff3b44052bd31ab73e80f1f2df1c8dee5ae79391f1f0aa5fb685dd93b; builder059 sha256:f98f1c394d801cf5d28759e6cce46bc2f127f512ec99b49e8a42ad1c23875acb
+  affectedCriteria:
+  - criterion-001
+  - criterion-002
+  - criterion-003
+  priorAttemptID: centered-crown-close-applique-058
+  nextAction: Execute059 once, inspect seating limit, then clean-open fixed front-side if saved.
+status:
+  state: closed
+  closedAt: "2026-09-05T14:26:06.140875249Z"
+  artifacts:
+    planDigest: sha256:d0804137c30ad632d657f1034166082a8d0de14dad0f4f61a6e35f6c4c15fc4d
+    resultDigest: sha256:f56d07905fc1ee66f3ec2d1329095cce46fbd5a2d25e3382bfef6ca1d27026b3
+    evidence:
+    - path: evidence/head_059_metadata_repair.md
+      digest: sha256:8ea91e1185235db3a1d810459c1bbd4399d065702cdefd6e6cc42a1e3e405df6
+    - path: evidence/head_059_process_review.md
+      digest: sha256:f1116b67652b9c0a998ff109bf8eb314abaf10f9654c50bb2499cf4fdb967867
+  review:
+    decision: reset
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 3
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-002
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-004
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-005
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-006
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-007
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-09-05T14:26:06.140875249Z"

@@ -1,0 +1,67 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: continuous-front-chart-shell-076
+  resourceVersion: "3"
+  generation: 3
+  creationTimestamp: "2026-09-05T20:29:18.353290086Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 16
+  criteriaRevision: 4
+  criteriaDigest: sha256:f5fe4b5c4efc12d5b82ad42cf0d41fd7274f48b421abf42e9db1ce5ae316d8a3
+  goalStateDigest: sha256:d3dd99930bf18292653455d315de740e68d0a10d03186a30fad1ab2e06501ad6
+  workType: change
+  subject: c7aeaf157f7d451d658c302c6a9300125ab145a7551b5fa8713288052c747050
+  nextAction: Preserve076 head only provisionally; reconstruct two overlap0 side-panel contacts and front-lock root transitions from receiver-relative sewing, then address cap/sleeve construction; no further chin bump without matched evidence.
+status:
+  state: closed
+  closedAt: "2026-09-05T20:42:11.036086294Z"
+  artifacts:
+    planDigest: sha256:6a4934f18132ead0ce0106f47ec0438802e425adabe0110c9c952ca4f68b081d
+    resultDigest: sha256:05d2129f3fe2208d42984df8d5c3010852234528faa52cf59b81f71f3d5b251b
+    evidence:
+    - path: evidence/face_076_blind_review.md
+      digest: sha256:91063d223f4b7d9dd06cbe4a1c54d257987325c4f2d5c943c29e226b56c3cfec
+    - path: evidence/face_076_contact_audit.md
+      digest: sha256:9f9b40a19dbdf77b4c89640ca61cf1e1fef734bbbd5f81613d460708ae930ac7
+  review:
+    decision: reset
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 3
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-002
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-004
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-005
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-006
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-007
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-09-05T20:42:11.036086294Z"

@@ -1,0 +1,75 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: shared-skin-fringe-057
+  resourceVersion: "4"
+  generation: 1
+  creationTimestamp: "2026-09-05T13:32:20.69318456Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 16
+  criteriaRevision: 4
+  criteriaDigest: sha256:f5fe4b5c4efc12d5b82ad42cf0d41fd7274f48b421abf42e9db1ce5ae316d8a3
+  goalStateDigest: sha256:9e4370514e0f33353a4486c1475939ce9101d786760724384ebeee50f38bd053
+  planID: shared-skin-fringe-v51
+  workType: change
+  stableDefect: overlapping-hair-shells
+  hypothesis: A topologically shared cream-brown seam removes raised cap boundaries while preserving the fuller facial profile.
+  subject: source050 sha256:6098307ff3b44052bd31ab73e80f1f2df1c8dee5ae79391f1f0aa5fb685dd93b; head_057_build.py constrained shared skin
+  affectedCriteria:
+  - criterion-001
+  - criterion-002
+  - criterion-003
+  priorAttemptID: convex-face-continuous-fringe-056
+  nextAction: Execute057 once; verify closed shared skin and then render fixed front-side.
+status:
+  state: closed
+  closedAt: "2026-09-05T13:45:14.769969722Z"
+  artifacts:
+    planDigest: sha256:082cdee13633affd73e62587f4fec05747e7bb488c6972ea187b89cf2d0a4b70
+    resultDigest: sha256:acf6382031ef82b87dd9c43eb62086717a023ebed2975550b843838255ea96e2
+    evidence:
+    - path: evidence/head_057_boundary_repair.md
+      digest: sha256:e503ec498c660f0c20fb422032c46aa99a0b29f937b4d411e97c70acc4beac2c
+    - path: evidence/head_057_cheek_repair.md
+      digest: sha256:cb669d2e1472f94128c8b4269f980d80221eebb74f3fd764f6d193793e1e8518
+  review:
+    decision: reset
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 3
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-002
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-004
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-005
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-006
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-007
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-09-05T13:45:14.769969722Z"

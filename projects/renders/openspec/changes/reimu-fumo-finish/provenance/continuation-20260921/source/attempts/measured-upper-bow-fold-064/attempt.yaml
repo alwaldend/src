@@ -1,0 +1,66 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: measured-upper-bow-fold-064
+  resourceVersion: "3"
+  generation: 3
+  creationTimestamp: "2026-09-05T17:27:31.690789498Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 16
+  criteriaRevision: 4
+  criteriaDigest: sha256:f5fe4b5c4efc12d5b82ad42cf0d41fd7274f48b421abf42e9db1ce5ae316d8a3
+  goalStateDigest: sha256:f844f2d2f0067e68a303c8df71856020aa8fdb09bae93eaf9b43229b72a5ce9d
+  planID: measured-upper-bow-fold-v58
+  workType: change
+  subject: Rejected macro_064_candidate.blend SHA502a52cbd825460f20f49d15d9b6443edfc68a8a9883c6d139aead7741db0211
+  nextAction: Use the completed head/reference diagnosis for a new sewn-panel and thin-fringe macro hypothesis; preserve050 and do not repeat bow shear or unstable cloth settings.
+status:
+  state: closed
+  closedAt: "2026-09-05T17:36:32.31497359Z"
+  artifacts:
+    planDigest: sha256:caf922dac653c366152138110d73f9e8d30dd09bf3a21c9bd365c1d22e783114
+    resultDigest: sha256:66c2e4e2bcc9be999e66a3d2c24d4c78d870b82ccd90d72c7392b4a222d417cc
+    evidence:
+    - path: evidence/audit_064_report.md
+      digest: sha256:c7b6e8367bc1314886608082e8f591ed7e042e2bbf06c0ab9df2b6566e342415
+  review:
+    decision: reset
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 3
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-002
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-004
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-005
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-006
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-007
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-09-05T17:36:32.31497359Z"

@@ -1,0 +1,155 @@
+diff --git a/projects/goal/internal/fsstore/checkpoint.go b/projects/goal/internal/fsstore/checkpoint.go
+index a0ecd8ee..c0da70a4 100644
+--- a/projects/goal/internal/fsstore/checkpoint.go
++++ b/projects/goal/internal/fsstore/checkpoint.go
+@@ -597,7 +597,9 @@ func (s *Store) buildAttemptTree(
+ 			return nil, err
+ 		}
+ 		entries, err := os.ReadDir(filepath.Join(attemptDir, "evidence"))
+-		if err != nil {
++		// Validation already checked the frozen manifest; packaging can omit
++		// an empty evidence directory before this attempt is resumed.
++		if err != nil && !os.IsNotExist(err) {
+ 			return nil, err
+ 		}
+ 		for _, entry := range entries {
+diff --git a/projects/goal/internal/fsstore/integrity.go b/projects/goal/internal/fsstore/integrity.go
+index c729510b..27fa15ed 100644
+--- a/projects/goal/internal/fsstore/integrity.go
++++ b/projects/goal/internal/fsstore/integrity.go
+@@ -263,7 +263,8 @@ func computeArtifactManifest(attemptDir string) (ArtifactManifest, error) {
+ 		return ArtifactManifest{}, fmt.Errorf("read result artifact: %w", err)
+ 	}
+ 	entries, err := os.ReadDir(filepath.Join(attemptDir, "evidence"))
+-	if err != nil {
++	// An absent empty directory has the same portable manifest as an empty one.
++	if err != nil && !os.IsNotExist(err) {
+ 		return ArtifactManifest{}, fmt.Errorf("read evidence directory: %w", err)
+ 	}
+ 	if len(entries) > maxEvidenceFiles {
+diff --git a/projects/goal/internal/fsstore/integrity_test.go b/projects/goal/internal/fsstore/integrity_test.go
+index 29de6345..cd83e526 100644
+--- a/projects/goal/internal/fsstore/integrity_test.go
++++ b/projects/goal/internal/fsstore/integrity_test.go
+@@ -460,3 +460,84 @@ func TestAttemptRootAndEvidenceLayoutsAreExact(t *testing.T) {
+ 		t.Fatalf("non-Markdown evidence was accepted: %v", err)
+ 	}
+ }
++
++func TestAttemptWithoutEvidenceSurvivesMissingEmptyDirectory(t *testing.T) {
++	store, root := newTestStore(t)
++	goalDir := initTestGoal(t, store, root, "empty-evidence-roundtrip")
++	if _, err := store.Checkpoint(CheckpointOptions{
++		GoalDir: goalDir, ExpectedResourceVersion: "1", AttemptID: "attempt-1",
++	}); err != nil {
++		t.Fatal(err)
++	}
++	// Git and Bazel file packaging do not preserve empty directories.
++	evidenceDir := filepath.Join(goalDir, "attempts", "attempt-1", "evidence")
++	if err := os.Remove(evidenceDir); err != nil {
++		t.Fatal(err)
++	}
++	if err := store.ValidateGoal(goalDir); err != nil {
++		t.Fatalf("missing empty evidence directory invalidated the record: %v", err)
++	}
++	if _, err := store.Checkpoint(CheckpointOptions{
++		GoalDir: goalDir, ExpectedResourceVersion: "2", AttemptID: "attempt-1",
++		NextAction: "Continue verification after checkout.",
++	}); err != nil {
++		t.Fatalf("missing empty evidence directory prevented continuation: %v", err)
++	}
++	if err := store.ValidateGoal(goalDir); err != nil {
++		t.Fatalf("continued attempt is invalid: %v", err)
++	}
++}
++
++func TestAttemptStillRequiresPlanAndResult(t *testing.T) {
++	for _, name := range []string{"plan.md", "result.md"} {
++		t.Run(name, func(t *testing.T) {
++			store, root := newTestStore(t)
++			goalDir := initTestGoal(t, store, root, "missing-required-artifact")
++			if _, err := store.Checkpoint(CheckpointOptions{
++				GoalDir: goalDir, ExpectedResourceVersion: "1", AttemptID: "attempt-1",
++			}); err != nil {
++				t.Fatal(err)
++			}
++			attemptDir := filepath.Join(goalDir, "attempts", "attempt-1")
++			if err := os.Remove(filepath.Join(attemptDir, name)); err != nil {
++				t.Fatal(err)
++			}
++			if err := store.ValidateGoal(goalDir); err == nil {
++				t.Fatalf("attempt with missing %s was accepted", name)
++			}
++		})
++	}
++}
++
++func TestAttemptStillRequiresDeclaredEvidence(t *testing.T) {
++	for _, removeDirectory := range []bool{false, true} {
++		name := "missing file"
++		if removeDirectory {
++			name = "missing directory"
++		}
++		t.Run(name, func(t *testing.T) {
++			store, root := newTestStore(t)
++			goalDir := initTestGoal(t, store, root, "missing-declared-evidence")
++			evidence := filepath.Join(root, "out", "task", "evidence.md")
++			writeTestFile(t, evidence, "# Evidence\n\nCandidate verification.\n")
++			if _, err := store.Checkpoint(CheckpointOptions{
++				GoalDir: goalDir, ExpectedResourceVersion: "1", AttemptID: "attempt-1",
++				EvidenceFiles: []string{evidence},
++			}); err != nil {
++				t.Fatal(err)
++			}
++			evidenceDir := filepath.Join(goalDir, "attempts", "attempt-1", "evidence")
++			if err := os.Remove(filepath.Join(evidenceDir, "evidence.md")); err != nil {
++				t.Fatal(err)
++			}
++			if removeDirectory {
++				if err := os.Remove(evidenceDir); err != nil {
++					t.Fatal(err)
++				}
++			}
++			if err := store.ValidateGoal(goalDir); err == nil {
++				t.Fatal("attempt with missing declared evidence was accepted")
++			}
++		})
++	}
++}
+diff --git a/projects/goal/internal/fsstore/store.go b/projects/goal/internal/fsstore/store.go
+index 864a55b2..fc8b81cd 100644
+--- a/projects/goal/internal/fsstore/store.go
++++ b/projects/goal/internal/fsstore/store.go
+@@ -1342,7 +1342,7 @@ func validateAttemptFiles(dir string) error {
+ 		"plan.md":      false,
+ 		"result.md":    false,
+ 	}
+-	if len(entries) != len(allowed) {
++	if len(entries) < len(allowed)-1 || len(entries) > len(allowed) {
+ 		return fmt.Errorf(
+ 			"attempt %s must contain only attempt.yaml, plan.md, result.md, and evidence/",
+ 			filepath.Base(dir),
+@@ -1353,6 +1353,12 @@ func validateAttemptFiles(dir string) error {
+ 		if !ok || entry.IsDir() != wantDirectory {
+ 			return fmt.Errorf("unexpected attempt entry %q", entry.Name())
+ 		}
++		delete(allowed, entry.Name())
++	}
++	for _, name := range []string{"attempt.yaml", "plan.md", "result.md"} {
++		if _, missing := allowed[name]; missing {
++			return fmt.Errorf("missing required attempt entry %q", name)
++		}
+ 	}
+ 	for _, name := range []string{"plan.md", "result.md"} {
+ 		if _, err := readMarkdownFile(filepath.Join(dir, name), maxPlanResultBytes); err != nil {
+@@ -1360,7 +1366,9 @@ func validateAttemptFiles(dir string) error {
+ 		}
+ 	}
+ 	evidenceEntries, err := os.ReadDir(filepath.Join(dir, "evidence"))
+-	if err != nil {
++	// Git and packaged runfiles omit empty directories. The artifact manifest
++	// still rejects any missing declared evidence.
++	if err != nil && !os.IsNotExist(err) {
+ 		return fmt.Errorf("read evidence directory: %w", err)
+ 	}
+ 	if len(evidenceEntries) > maxEvidenceFiles {

@@ -1,0 +1,75 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: sewn-lower-assembly-024
+  resourceVersion: "4"
+  generation: 1
+  creationTimestamp: "2026-09-04T22:05:26.027025938Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 16
+  criteriaRevision: 4
+  criteriaDigest: sha256:f5fe4b5c4efc12d5b82ad42cf0d41fd7274f48b421abf42e9db1ce5ae316d8a3
+  goalStateDigest: sha256:ceb904536ed4c6d66255377d24d264284d72057f223e28d196a245212eb85d87
+  workType: candidate
+  stableDefect: flat-hem-black-pod-feet
+  hypothesis: Sewn gathered strip over cream stuffed legs recovers lower-assembly reference construction without altering upper proportions.
+  subject: Frozen body023 lower garment and leg assembly
+  priorAttemptID: fitted-torso-cloth-023
+  nextAction: Inspect the isolated helper, execute once to a new candidate, then review frozen views and contacts.
+status:
+  state: closed
+  closedAt: "2026-09-04T22:19:48.405968403Z"
+  artifacts:
+    planDigest: sha256:9b19a97ffffd3b0258b4f8a407926f6e7d538af077b68ea967b1a900611e6b2d
+    resultDigest: sha256:032cbbfc07eb947163e1c86ba0776acdad713a9ccc0172b29c106ade14d89ea2
+    evidence:
+    - path: evidence/lower_024_evidence.md
+      digest: sha256:47f0d28d4bb12d4fc3424ca6a618396c339b8d080e9f184cc8249c7653e83794
+    - path: evidence/lower_024_sources.md
+      digest: sha256:1db956dbdd4e00d3837f3c096389ba402e20bcf2f26711e8055a2848a60362ac
+    - path: evidence/palette_024_diagnostic.md
+      digest: sha256:9168b51a6a1720cfb32aaeb545f5f19825611ac62aa2e6ba460d502a1cb04ce9
+    - path: evidence/retained_023_sources.md
+      digest: sha256:3b09406d03ae2f69bc070a685cf4ba4a1223f8431bef6898c5bdd191b8128f15
+  review:
+    decision: reset
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 3
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-002
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-004
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-005
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-006
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-007
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-09-04T22:19:48.405968403Z"

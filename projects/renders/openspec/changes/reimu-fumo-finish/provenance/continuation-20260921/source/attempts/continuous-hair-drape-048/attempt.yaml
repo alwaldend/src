@@ -1,0 +1,74 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: continuous-hair-drape-048
+  resourceVersion: "2"
+  generation: 1
+  creationTimestamp: "2026-09-05T09:10:36.151786015Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 16
+  criteriaRevision: 4
+  criteriaDigest: sha256:f5fe4b5c4efc12d5b82ad42cf0d41fd7274f48b421abf42e9db1ce5ae316d8a3
+  goalStateDigest: sha256:444f039ac6fb4b9fb50d11b258710609a33f440a6ec373592b73cd795f2b0f02
+  planID: fitted-crown-free-panels-v43
+  workType: change
+  stableDefect: common-height-cut-shell-junction
+  hypothesis: A smooth curvature-dependent drape removes the common release-height seam and permits longer tapered fabric ends
+  subject: hair_047_candidate.blend
+  priorAttemptID: shared-crown-boundary-047
+  nextAction: Build hair_048 and inspect lower hair transition in front side and rear
+status:
+  state: closed
+  closedAt: "2026-09-05T09:21:47.733404953Z"
+  artifacts:
+    planDigest: sha256:e2b54a226227826c8e07743b50f17230cdc90d8882aa3e6c59cf4c193943761c
+    resultDigest: sha256:32b77c41f25878e070811f7a5add163fd4957bb282620d3562cce54d088921eb
+    evidence:
+    - path: evidence/hair_047_result.md
+      digest: sha256:6cc135a6f7568ec146841f3d88d5e7381919d5b24aac87787a192f4c96aaaaa5
+    - path: evidence/hair_048_preflight.md
+      digest: sha256:0703b0091b6e91d33a5165e41d43a4487b281cd95500166c5e7a0c3f65de6b7b
+  review:
+    decision: reset
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 3
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-002
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-004
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-005
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-006
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-007
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-09-05T09:21:47.733404953Z"

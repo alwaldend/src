@@ -1,0 +1,63 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: downward-planar-oval-cuff-092
+  resourceVersion: "2"
+  generation: 2
+  creationTimestamp: "2026-09-06T01:23:50.415341179Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 16
+  criteriaRevision: 4
+  criteriaDigest: sha256:f5fe4b5c4efc12d5b82ad42cf0d41fd7274f48b421abf42e9db1ce5ae316d8a3
+  goalStateDigest: sha256:d3dd99930bf18292653455d315de740e68d0a10d03186a30fad1ab2e06501ad6
+  workType: change
+  subject: c171fea554811e825e2cd9d7f1d5a069c6b305e85888c6058d2390e1a20738e1
+  nextAction: Use measured arm-cuff section and independently checked reference endpoints before a new sleeve plan; separately prepare bounded single-triangle front topology repair for continuous hair-cover feasibility.
+status:
+  state: closed
+  closedAt: "2026-09-06T01:37:24.185906633Z"
+  artifacts:
+    planDigest: sha256:482552ff70e6620a0ed1c91a0074486dee627c54f7b3fe9a06a9b6815b4b6007
+    resultDigest: sha256:0b23010e0c949f03e4b2ab59becc5d8081a5bb303e472e9ed75f38cd2a44bd4c
+    evidence: []
+  review:
+    decision: reset
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 3
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-002
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-004
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-005
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-006
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-007
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-09-06T01:37:24.185906633Z"

@@ -1,0 +1,79 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: chart-triangulated-head-interface-035
+  resourceVersion: "2"
+  generation: 1
+  creationTimestamp: "2026-09-05T01:46:36.423784893Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 16
+  criteriaRevision: 4
+  criteriaDigest: sha256:f5fe4b5c4efc12d5b82ad42cf0d41fd7274f48b421abf42e9db1ce5ae316d8a3
+  goalStateDigest: sha256:d43642d4c98fe384aee5baef43292c6d5d6fca0612f9c5154c861dae87caefb9
+  workType: candidate
+  stableDefect: Crossed legacy side-root boundary prevents a single-valued smooth shared hair transition.
+  hypothesis: A bounded root-support reset yields a simple chart whose triangulated depth field avoids the invalid fixed-strip correspondence.
+  subject: Fringe/hood transition and four local crossing-support seeds with one neighbor ring
+  priorAttemptID: oriented-shared-head-interface-034
+  nextAction: Check the one expanded perimeter, then only if valid build one unsaved chart-based state for root review.
+status:
+  state: closed
+  closedAt: "2026-09-05T01:57:22.653183707Z"
+  artifacts:
+    planDigest: sha256:bc68ded08450611705f22c141b4abcf738fce29e60d378553103d1b3b6596124
+    resultDigest: sha256:650c74c63b7642f6a9505bd0ae3b560baae49de32b46dd0a30813a7a300e46bf
+    evidence:
+    - path: evidence/head_034_chart_surface_plan.md
+      digest: sha256:f6006a2aec5defa02fb79984d993be03c25c8bf2b8374ba9b283581ac1495ba4
+    - path: evidence/head_035_handoff.md
+      digest: sha256:49f24f2f7483e22772247846e6ad7ecd96be91c1f6c5da26ebe54cfde9ff2c2a
+    - path: evidence/head_036_boundary_evidence.md
+      digest: sha256:24a55de01fe6f409db0dabe9af1d6179e99f0fcc61a7d72f02f32aed159bbbdd
+    - path: evidence/head_036_cylindrical_hypothesis.md
+      digest: sha256:044378fc05ae9375d6ff45cac4f7bc971b9d88ea1aef8c3b3f4b767d5e0c626c
+    - path: evidence/licensed_fumo_fallback_research.md
+      digest: sha256:5824fd1aa2445498b843b43962285c818ea8636f864fa1793cf62ce50d45a3d4
+  review:
+    decision: reset
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 3
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-002
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-004
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-005
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-006
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-007
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-09-05T01:57:22.653183707Z"

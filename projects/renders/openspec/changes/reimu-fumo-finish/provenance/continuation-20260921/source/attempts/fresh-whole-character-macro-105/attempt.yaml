@@ -1,0 +1,66 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: fresh-whole-character-macro-105
+  resourceVersion: "2"
+  generation: 2
+  creationTimestamp: "2026-09-06T07:42:25.762090102Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 16
+  criteriaRevision: 4
+  criteriaDigest: sha256:f5fe4b5c4efc12d5b82ad42cf0d41fd7274f48b421abf42e9db1ce5ae316d8a3
+  goalStateDigest: sha256:d3dd99930bf18292653455d315de740e68d0a10d03186a30fad1ab2e06501ad6
+  workType: change
+  subject: sha256:48061f2398d53acfbf8bddb0a0e6963ebefd9a476d94fdfcc964258cb958d490
+  nextAction: Replace world-axis panel assumptions with wrapping cloth cages and seated contact; remain at whole-character macro stage.
+status:
+  state: closed
+  closedAt: "2026-09-06T07:52:59.957275205Z"
+  artifacts:
+    planDigest: sha256:e1f41245a095e5f74caea9a8a8be660d3acb67317bc7cbdd579d403c02b1791d
+    resultDigest: sha256:a3a0bf7ebd78a41816e1c007e74318c8a9a1a6fe8afdb483d35d48082588fc3b
+    evidence:
+    - path: evidence/macro_105_blind_review.md
+      digest: sha256:559fdc3520cac80547cdcf3390f413375e2f2f61f99a42542c7a222b883e55af
+  review:
+    decision: reset
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 3
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-002
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-004
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-005
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-006
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-007
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-09-06T07:52:59.957275205Z"
