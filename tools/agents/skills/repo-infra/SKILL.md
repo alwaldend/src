@@ -61,7 +61,8 @@ Do not commit `.terraform/`, state, plans, environment files, or credentials.
 ## Terraform
 
 Read [references/terraform.md](references/terraform.md) for the stage choice,
-module conventions, format/plan targets, and state-migration rules. Treat
+module conventions, text-mode interactive review, format/plan targets, and
+state-migration rules. Apply the root `AGENTS.md` plan-artifact policy. Treat
 `tf.apply`, `destroy`, `import`, and state operations as mutating.
 
 ## Ansible

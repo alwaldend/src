@@ -16,6 +16,12 @@ behavior across chained Traefik proxies, DNS operational prerequisites, and
 runtime discovery with single-file ownership of canonical domain names across
 record types and views.
 
+Terraform cases cover text-mode inspection without saved plans or JSON,
+reviewing the plan held by an interactive apply, reporting incompatible
+saved-plan-only targets without bypassing them, and reviewing remaining work
+after partial failure. Normal text in agent transcripts is intentional;
+durable evidence contains only sanitized summaries.
+
 Its required offline Bazel target validates the Promptfoo configuration,
 referenced cases, and staged skill without making a model call.
 
