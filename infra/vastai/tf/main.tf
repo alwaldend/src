@@ -18,6 +18,18 @@ provider "vault" {
   skip_child_token = true
 }
 
+variable "component_vault_token" {
+  description = "Component AppRole token injected by AL for its own Vault destinations."
+  type        = string
+  sensitive   = true
+}
+
+provider "vault" {
+  alias            = "component"
+  token            = var.component_vault_token
+  skip_child_token = true
+}
+
 resource "vastai_environment_variable" "enable_https" {
   name  = "ENABLE_HTTPS"
   value = "true"
@@ -31,9 +43,13 @@ locals {
         name = key.secret_name
         team = team_name
         key  = key_name
+        auth = try(key.vault_auth, "provider_project")
       }
     }
   ]...)
+  valid_secret_targets = length(distinct([for target in values(local.secret_targets) : target.name])) == length(local.secret_targets) && alltrue([
+    for target in values(local.secret_targets) : contains(["default", "provider_project"], target.auth)
+  ])
 }
 
 resource "vastai_team" "teams" {
@@ -52,13 +68,13 @@ module "teams" {
   api_keys = {
     for name, key in each.value.api_keys : name => {
       name        = key.name
-      permissions = jsonencode(key.permissions)
+      permissions = key.permissions == null ? "" : jsonencode(key.permissions)
     }
   }
 }
 
 resource "vault_kv_secret_v2" "project_tokens" {
-  for_each = local.secret_targets
+  for_each = { for name, target in local.secret_targets : name => target if target.auth != "default" }
   mount    = "secrets"
   name     = each.value.name
   data_json = jsonencode({
@@ -68,8 +84,26 @@ resource "vault_kv_secret_v2" "project_tokens" {
 
   lifecycle {
     precondition {
-      condition     = length(distinct([for target in values(local.secret_targets) : target.name])) == length(local.secret_targets)
-      error_message = "Each project key must have a distinct Vault secret destination."
+      condition     = local.valid_secret_targets
+      error_message = "Each key must select a known Vault identity and a distinct secret destination."
+    }
+  }
+}
+
+resource "vault_kv_secret_v2" "component_tokens" {
+  provider = vault.component
+  for_each = { for name, target in local.secret_targets : name => target if target.auth == "default" }
+  mount    = "secrets"
+  name     = each.value.name
+  data_json = jsonencode({
+    api_key = module.teams[each.value.team].api_keys[each.value.key]
+  })
+  delete_all_versions = false
+
+  lifecycle {
+    precondition {
+      condition     = local.valid_secret_targets
+      error_message = "Each key must select a known Vault identity and a distinct secret destination."
     }
   }
 }

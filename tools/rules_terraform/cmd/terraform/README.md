@@ -37,6 +37,11 @@ Its standard output goes to standard error, preserving structured command output
 arguments; other provider and backend environment, including `TF_HTTP_*`, is
 preserved. Terraform process exit codes are returned unchanged.
 
+SIGINT and SIGTERM interrupt the active Terraform child and wait for it to exit.
+The launcher allows ten seconds for graceful shutdown, then forces the child to
+exit. Callers that start the launcher with their own cancellation deadline must
+allow a longer interval so that Terraform finishes before recovery begins.
+
 Configuration supports declared local modules. Provider installation is isolated;
 the launcher does not inspect module source expressions or sandbox Terraform's
 service connections.

@@ -11,6 +11,15 @@ compute or transferring credits. A catalog supports additional teams and keys
 through the shared team module.
 The pinned upstream CLI is owned by [tools/vastai](../../tools/vastai/README.md).
 
+[GPU rental targets](rentals/README.md) use a dedicated `alwaldend` team key
+from Vault with an aliased provider passed into a child module. They select
+the cheapest on-demand offer and include an explicit interactive rent-and-release
+test with separate state. They do not switch credential context or transfer credit.
+The existing [team catalog](tf/README.md) declares the team's full-access key
+through the shared team module and stores it in Vault. The stored issuer creates keys, but Vast.ai rejected selecting
+alwaldend on the generated key with HTTP 400. Live rental acceptance remains
+blocked by that team-binding operation.
+
 ## Vault authentication
 
 The [AL configuration](al.lua) uses the `src_infra_vastai` AppRole, declared in
@@ -49,7 +58,8 @@ The `tf=main` label registers the existing Vault HTTP backend at
 mount. The bootstrap root selects that label and packages the backend plugin.
 The provider project's test root has its own AppRole, injector, generated token,
 and state namespace; it does not reuse this personal bootstrap credential.
-Bootstrap selects that project's Vault identity for writing generated tokens,
-using its standard namespace permissions without an additional policy grant.
+The team catalog uses each destination's Vault identity for generated tokens:
+the provider project's AppRole for its test key and this component's AppRole
+for the rental key. Both retain their existing namespace permissions.
 
 Building these targets does not authenticate or change live infrastructure.

@@ -1,96 +1,109 @@
 ---
-title: Vast.ai provider bootstrap
-description: Terraform-created test team and generated project token
+title: Vast.ai team catalog
+description: Team identities, generated project keys, and Vault delivery
 ---
 
-This root manages the personal-account `ENABLE_HTTPS` setting with value
-`true` and the team and project-key catalog in `teams.json`.
-The single `teams` map is loaded from `teams.json`, with one configuration
-object per team. Entries without `api_keys` use `vastai_team.teams` and retain
-their imported account IDs in state, with `prevent_destroy` enabled. Their
-management credentials are unavailable, so import does not generate keys.
-Temporary import and moved blocks are removed after adoption and address
-reconciliation. The final resource addresses are retained directly in state.
-Entries with `api_keys` retain the reusable `projects/tf_modules/vastai_team`
-module and write each generated project token directly to its configured Vault
-secret. The catalog contains three imported team identities and a provider-test
-team with its project token. Existing module and secret addresses are preserved.
-The root transfers no credit and declares no compute resources. Generated
-credentials remain sensitive and are not root outputs.
+This root owns the team and key catalog in `teams.json`, the personal-account
+`ENABLE_HTTPS` setting, and Vault delivery of generated keys. Each entry with
+`api_keys` calls `projects/tf_modules/vastai_team`, which owns both the team and
+its keys. Entries without `api_keys` retain imported identity-only resources
+with `prevent_destroy`. The root transfers no credit and declares no compute.
+Generated credentials remain sensitive and are not root outputs.
 
-The provider generates a separate management key to select the team context;
-it never changes the personal bootstrap key's context. The project API key
-grants user and team administration for the test fixtures, with no instance
-permissions. The personal-key injector and Terraform backend use the
-`src_infra_vastai` identity. The Vault provider authenticates separately as
-`src_projects_vastai_terraform_provider` and uses its existing permissions on
-its own secret subtree. No extra Vault policy or cross-role secret access is
-required. Deploy that project AppRole before running bootstrap.
+Alwaldend and its full-access rental key belong to this catalog. No separate
+credential root or credential backend is declared. The rental targets consume the
+key from Vault and keep their compute lifecycle in separate states.
 
-Secret destruction uses standard Vault soft deletion; the Vast.ai key resource
-revokes the token. Purging Vault metadata is outside the role's permissions.
+## Existing team addresses
 
-## Add another team
+The live alwaldend identity is currently at
+`vastai_team.teams["alwaldend"]`. Its declared module address is now
+`module.teams["alwaldend"].vastai_team.team`. Reconcile that address within
+this same state before applying the rental key. This state migration is pending;
+preserve the existing funded team and reject team creation, replacement, or
+deletion. Do not import a duplicate identity or transfer it to another backend.
+Remove temporary migration blocks after reconciliation and verify the final
+owning plan without them. No temporary import or moved blocks remain in source.
 
-Add an object to `teams.json` with a distinct team key. The optional `name`
-defaults to that key. Omit `api_keys` for a team identity without managed
-project tokens, or include the map to select the credential-generating module.
-Each API key declares a name, a JSON-compatible permission object, and a distinct
-`secret_name` beneath the selected AppRole's namespace. For example:
+The provider-test module, key, and `project_tokens` secret addresses are
+unchanged. Other imported team identities retain their existing addresses.
+
+## Vault identities
+
+The personal Vast.ai issuer and HTTP state backend use `src_infra_vastai`.
+AL injects both existing Vault AppRole identities for secret delivery:
+
+| Catalog `vault_auth`         | Vault identity                           | Provider          |
+| ---------------------------- | ---------------------------------------- | ----------------- |
+| `provider_project` (default) | `src_projects_vastai_terraform_provider` | `vault`           |
+| `default`                    | `src_infra_vastai`                       | `vault.component` |
+
+The default provider retains the project's environment credential. The component
+provider receives its sensitive token through `TF_VAR_component_vault_token`;
+no resource receives a token input. Each AppRole writes only its existing
+namespace. This requires no broader Vault policy or secret sharing between roles.
+
+Secret destruction uses Vault soft deletion; the team module's key resource
+revokes the API key. Purging Vault metadata is outside the roles' permissions.
+
+## Add teams and keys
+
+Add a distinct team object to `teams.json`. Its optional `name` defaults to the
+catalog key. Include `api_keys`, even when empty, to retain its module address.
+Each key declares a name, `secret_name`, permission object, and optional
+`vault_auth`. A permission value of `null` explicitly requests default full
+access; permission objects describe scoped keys. Imported-team owner binding
+requires full access. Duplicate secret destinations and unknown Vault identities
+fail planning.
 
 ```json
 {
-  "test_secondary": {
-    "name": "test_secondary",
+  "alwaldend": {
     "api_keys": {
-      "test_reader": {
-        "name": "test_secondary_reader",
-        "secret_name": "alwaldend.com/vault1/approles/src_projects_vastai_terraform_provider/vastai/secondary",
-        "permissions": { "api": { "user_read": {} } }
+      "rentals": {
+        "name": "infra_vastai_alwaldend",
+        "secret_name": "alwaldend.com/vault1/approles/src_infra_vastai/vastai/alwaldend",
+        "vault_auth": "default",
+        "permissions": null
       }
     }
   }
 }
 ```
 
-Retain `api_keys`, even when empty, to preserve the module address. Adding or
-removing that field changes the owning resource path and requires an explicit
-state migration for an existing team. Duplicate Vault
-destinations fail planning. Another project can reuse the module from its own
-authenticated root; Vault identity and secret destinations remain caller-owned.
+A new team receives zero credits and uses its generated management key for
+same-apply project-key bootstrap. For a pre-existing team not yet owned in state,
+declare its module and import its numeric account ID at that module's team
+resource through the packaged import target before applying keys:
+
+```sh
+bazel run //infra/vastai/tf:tf.import -- RESOURCE_ADDRESS TEAM_ID
+```
+
+Already imported teams require address reconciliation rather than a second
+import. Imports read identity without recovering old management secrets.
+Imported-team key creation uses the configured issuer and the imported account
+ID. Imported team destruction is refused by the provider.
 
 ## Review and apply
 
 ```sh
-bazel run //infra/vastai/tf:tf.plan -- -out=/absolute/private/path/bootstrap.tfplan
-bazel run //infra/vastai/tf:tf.show -- /absolute/private/path/bootstrap.tfplan
-bazel run //infra/vastai/tf:tf.apply -- /absolute/private/path/bootstrap.tfplan
+bazel run //infra/vastai/tf:tf.plan
+bazel run //infra/vastai/tf:tf.apply
 ```
 
-Review the saved plan before applying it. Keep plans private because they can
-contain generated credentials. After bootstrap, run the provider project's
-non-compute test root using its own AppRole and generated-token injector.
+Review the plan displayed by the interactive apply. After address reconciliation,
+the rental-key addition must create only its key and Vault entry, with no team
+changes. The existing project key and secret must remain unchanged. Do not save
+plans or use automatic approval.
 
-## Reconcile existing resources
+The stored issuer can generate a full-access key, but the previous generated
+key received HTTP 400 while selecting alwaldend. That tracked key was revoked
+and no rental Vault entry was created. Binding and live rental acceptance remain
+unresolved. This catalog refactor does not justify retrying that unchanged
+operation. See the [rental targets](../rentals/README.md) and the
+[reconciliation evidence](../openspec/changes/reconcile-live-account/validation.md).
 
-The authenticated import command uses this root's existing Vault-backed state
-and provider credentials:
-
-```sh
-bazel run //infra/vastai/tf:tf.import -- RESOURCE_ADDRESS RESOURCE_ID
-```
-
-Declare a supported resource with its intended configuration before importing
-it, then review a fresh plan. The provider supports import for instances,
-SSH keys, environment variables, team roles, and owned team identities. Imported
-teams have no recovered management credential and cannot be destroyed by the
-provider. API keys cannot be imported. Adding an existing team to `teams.json`
-requires importing it at its selected resource address before applying; a
-catalog entry alone does not adopt a live resource.
-Resources in the provider's test root retain that root's separate ownership.
-
-The [reconciliation record](../openspec/changes/reconcile-live-account/validation.md)
-records the observed inventory and unresolved adoption requirements. A
-no-change plan covers declared resources; it does not establish that every
-live resource is managed. API-masked variable values require their intended
-values before they can be reproduced in configuration.
+`//infra/vastai/test/catalog:catalog_test` exercises this actual root with mocked
+provider identities, checks both Vault routes, and rejects duplicate destinations
+and unsupported identities. It uses no live credentials or infrastructure.
