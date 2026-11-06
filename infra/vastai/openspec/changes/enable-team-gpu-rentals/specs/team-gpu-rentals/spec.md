@@ -8,12 +8,12 @@ and verify the lifecycle with a minimal-duration paid rental.
 ### Requirement: Independent team authentication
 
 Rental commands SHALL use a full-access alwaldend team credential retrieved from
-Vault with an aliased provider passed into a child module. They MUST NOT switch
+Vault through the default provider's environment variable. They MUST NOT switch
 credential context or modify personal credentials or team ownership.
 
 #### Scenario: Configure rental access
 
-- **WHEN** the rental module is configured with the dedicated key
+- **WHEN** the flat rental root is configured with the dedicated key
 - **THEN** its provider uses that team's credential without generating keys,
   switching context, creating teams, or transferring credit
 
@@ -30,36 +30,60 @@ MUST NOT replace an existing rental merely because a cheaper offer appears.
 - **THEN** the cheapest matching offer is selected, subject to the stated price ceiling
 - **AND** later offer changes do not replace the rented contract
 
-### Requirement: Declarative full-access team credential
+### Requirement: Separate account and team ownership
 
-The existing team catalog SHALL create a full-access key through its team
-module for the owned alwaldend team and store it directly in Vault. It MUST preserve the
-personal issuer's context and verify the resulting team binding before rental.
-The root SHALL reuse the shared team module and configure issuer authentication
-through its provider, with Vault storage remaining in the caller. Each secret
-SHALL use its namespace owner's existing Vault identity. The team and its keys
-SHALL share the existing catalog state; no separate credential root is required.
+The account root SHALL own team identities and account settings without creating
+project API keys. A separate alwaldend root SHALL use an operator-provided team
+credential through its provider, create full-access keys in that team, and store
+them in Vault. The seed credential MUST remain operator-owned. Each root SHALL
+use its own backend; rentals MUST remain in their independent root and state.
 
 #### Scenario: Provision rental access
 
-- **WHEN** the reconciled team catalog is applied for the owned alwaldend team
-- **THEN** Terraform creates its key and Vault entry without creating a team or transferring credit
-- **AND** the generated key is verified to select alwaldend before compute is rented
+- **WHEN** the alwaldend root is applied with its verified team provider key
+- **THEN** Terraform creates the rental key and Vault entry without creating a team or transferring credit
+- **AND** the generated key selects alwaldend before compute is rented
+
+### Requirement: Shared environment defaults
+
+Account and team configuration SHALL read one environment-variable section.
+ENABLE_HTTPS, WEB_ENABLE_HTTPS and WEB_ENABLE_AUTH SHALL be true in both scopes.
+Settings MUST NOT depend on inheritance between accounts and teams.
+
+#### Scenario: Configure both scopes
+
+- **WHEN** the account and team roots are applied
+- **THEN** both receive the same declared environment map from one configuration owner
+
+### Requirement: Retire other teams explicitly
+
+The desired account configuration SHALL retain only alwaldend. Retirement SHALL
+clean up test resources through their owning state before revoking credentials.
+A failed deletion MUST remain tracked and MUST NOT be reported as completed or
+silently detached. Temporary migration blocks SHALL be removed after state
+reconciliation is verified.
+
+#### Scenario: A retired team has no management credential
+
+- **WHEN** the provider cannot destroy an imported identity
+- **THEN** the team remains tracked and the remaining deletion is reported explicitly
+- **AND** the funded alwaldend team is preserved
 
 ### Requirement: Explicit rent-and-release test
 
-The live test SHALL rent the cheapest matching offer and start releasing its
+The flat rentals_test root SHALL provide separate rent and release commands.
+The operator SHALL rent the cheapest matching offer and start releasing its
 contract immediately after creation, without waiting for boot or SSH readiness.
 Creation and release SHALL use reviewed interactive Terraform applies without
 saved plans or automatic approval. Cleanup SHALL also be attempted after an
-apply failure. The test SHALL produce a sanitized receipt and confirm no
-test-owned rental remains; unrelated contracts MUST be preserved.
+apply failure. State listing and CLI inventory SHALL confirm no test-owned rental
+remains; unrelated contracts MUST be preserved.
 
 #### Scenario: Successful lifecycle test
 
-- **WHEN** the operator runs and approves the explicit live test
+- **WHEN** the operator runs and approves rent followed immediately by release
 - **THEN** one contract is rented and immediately destroyed
-- **AND** a receipt records the result and cleanup verification
+- **AND** state listing and CLI inventory confirm cleanup
 
 #### Scenario: Creation fails
 

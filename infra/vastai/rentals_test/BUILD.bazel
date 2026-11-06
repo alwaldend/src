@@ -2,50 +2,50 @@ load("@rules_al//:defs.bzl", "al_binary_run")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_terraform//terraform:defs.bzl", "terraform_binary_map", "terraform_test_map")
 
-package(transitive_visibility = "//projects:transitive_consumers")
+package(transitive_visibility = "//infra:transitive_consumers")
 
-_INPUTS = glob(["*.tf"])
+filegroup(
+    name = "validation_inputs",
+    testonly = True,
+    srcs = glob(["*.tf"]),
+    visibility = ["//infra/vastai/tf:__pkg__"],
+)
 
 terraform_binary_map(
     name = "tf",
     args = {
         "plan": ["plan"],
-        "show": ["show"],
-        "apply": [
-            "--require-saved-plan",
+        "rent": ["apply"],
+        "release": [
             "apply",
-        ],
-        "destroy_plan": [
-            "plan",
             "-destroy",
         ],
         "state": ["state"],
-        "import": ["import"],
     },
-    data = _INPUTS + [
+    data = glob(["*.tf"]) + [
         "//tools/vault/injector",
         "//tools/vault/tf_backend",
     ],
     providers = ["//projects/vastai_terraform_provider:provider"],
     wrapper = al_binary_run,
     wrapper_kwargs = {
-        "configs": ["//projects/vastai_terraform_provider:al"],
+        "configs": ["//infra/vastai:al"],
         "run_args": [
             "--plugin_label",
-            "tf=test",
+            "tf=rental_test",
             "--plugin_label",
-            "vastai=1",
+            "vastai=rentals",
         ],
     },
 )
 
 terraform_test_map(
     name = "tf_tests",
-    data = _INPUTS,
+    data = glob(["*.tf"]),
 )
 
 docs_filegroup(
     name = "docs",
     srcs = ["README.md"],
-    visibility = ["//projects/vastai_terraform_provider:__pkg__"],
+    visibility = ["//infra/vastai:__pkg__"],
 )

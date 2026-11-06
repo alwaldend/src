@@ -40,7 +40,6 @@ package_group(
     name = "credential_consumers",
     packages = [
         "//projects/vastai_terraform_provider",
-        "//projects/vastai_terraform_provider/test/team",
     ],
 )
 
@@ -94,6 +93,5 @@ docs_filegroup(
     deps = [
         ":docs_assets",
         "//projects/vastai_terraform_provider/openspec:docs",
-        "//projects/vastai_terraform_provider/test/team:docs",
     ],
 )

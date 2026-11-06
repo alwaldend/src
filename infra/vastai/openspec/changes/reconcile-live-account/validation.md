@@ -1,3 +1,5 @@
+> Historical reconciliation before team retirement. See [current live acceptance](../enable-team-gpu-rentals/validation.md) for present ownership and remaining deletions.
+
 ## Live reconciliation, 2026-11-06
 
 ### Current status
