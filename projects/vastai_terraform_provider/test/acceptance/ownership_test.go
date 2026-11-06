@@ -159,6 +159,7 @@ func TestTeamOwnership(t *testing.T) {
 			config := fmt.Sprintf(`terraform {
   required_providers { vastai = { source = "alwaldend/vastai" } }
 }
+
 provider "vastai" { endpoint = %q }
 resource "vastai_team" "test_team" { name = "test_provider" }
 `, srv.URL+"/api/v0")
@@ -224,6 +225,115 @@ resource "vastai_team" "test_team" { name = "test_provider" }
 			}
 			if dir := os.Getenv("TEST_UNDECLARED_OUTPUTS_DIR"); dir != "" {
 				if err := os.WriteFile(filepath.Join(dir, "team-ownership-"+mode+".json"), report, 0o600); err != nil {
+					t.Fatal(err)
+				}
+			}
+		})
+	}
+}
+
+// TestTeamImport verifies identity adoption without credentials or remote mutations.
+func TestTeamImport(t *testing.T) {
+	for _, mode := range []string{"existing", "missing", "invalid-id", "malformed-context", "unavailable-context", "external-deletion", "refresh-failure"} {
+		t.Run(mode, func(t *testing.T) {
+			f := &ownershipFixture{
+				teamExists:       mode != "missing",
+				keys:             map[int64]bool{},
+				contexts:         map[int64]int64{},
+				malformedReads:   mode == "malformed-context",
+				unavailableReads: mode == "unavailable-context",
+			}
+			srv := httptest.NewServer(f)
+			defer srv.Close()
+			h := newHarness(t, srv.URL+"/api/v0")
+			config := fmt.Sprintf(`terraform {
+  required_providers { vastai = { source = "alwaldend/vastai" } }
+}
+provider "vastai" { endpoint = %q }
+resource "vastai_team" "existing" { name = "test_provider" }
+`, srv.URL+"/api/v0")
+			if err := os.WriteFile(filepath.Join(h.directory, "main.tf"), []byte(config), 0o600); err != nil {
+				t.Fatal(err)
+			}
+			id := "42"
+			if mode == "invalid-id" {
+				id = "042"
+			}
+			success := mode == "existing" || mode == "external-deletion" || mode == "refresh-failure"
+			h.run(t, success, "import", "-no-color", "vastai_team.existing", id)
+			if !success {
+				if _, err := os.Stat(filepath.Join(h.directory, "terraform.tfstate")); err == nil {
+					if state := h.run(t, true, "state", "list"); strings.Contains(state, "vastai_team.existing") {
+						t.Fatal("failed import created resource state")
+					}
+				} else if !os.IsNotExist(err) {
+					t.Fatal(err)
+				}
+			} else {
+				var state struct {
+					// Values contains the imported resource's public attributes.
+					Values struct {
+						// Root contains the configured root resources.
+						Root struct {
+							// Resources contains the imported team.
+							Resources []struct {
+								// Values contains identity and null credential fields.
+								Values map[string]any `json:"values"`
+							} `json:"resources"`
+						} `json:"root_module"`
+					} `json:"values"`
+				}
+				if err := json.Unmarshal([]byte(h.run(t, true, "show", "-json")), &state); err != nil {
+					t.Fatal(err)
+				}
+				if len(state.Values.Root.Resources) != 1 {
+					t.Fatal("import did not record exactly one resource")
+				}
+				v := state.Values.Root.Resources[0].Values
+				if v["id"] != "test_provider" || v["name"] != "test_provider" || v["team_id"] != float64(42) || v["api_key"] != nil || v["management_key_id"] != nil {
+					t.Fatal("import changed identity or invented credential values")
+				}
+				h.run(t, true, "plan", "-detailed-exitcode", "-no-color")
+				switch mode {
+				case "external-deletion":
+					f.mu.Lock()
+					f.teamExists = false
+					f.mu.Unlock()
+					h.run(t, true, "apply", "-refresh-only", "-auto-approve", "-no-color")
+					if strings.Contains(h.run(t, true, "state", "list"), "vastai_team.existing") {
+						t.Fatal("confirmed external absence retained imported identity")
+					}
+				case "refresh-failure":
+					f.mu.Lock()
+					f.malformedReads = true
+					f.mu.Unlock()
+					h.run(t, false, "apply", "-refresh-only", "-auto-approve", "-no-color")
+					if !strings.Contains(h.run(t, true, "state", "list"), "vastai_team.existing") {
+						t.Fatal("failed refresh abandoned imported identity")
+					}
+				default:
+					output := h.run(t, false, "destroy", "-auto-approve", "-no-color")
+					if !strings.Contains(output, "Imported teams cannot be destroyed") || !strings.Contains(h.run(t, true, "state", "list"), "vastai_team.existing") {
+						t.Fatal("imported team destruction did not fail closed and retain state")
+					}
+				}
+			}
+			f.mu.Lock()
+			defer f.mu.Unlock()
+			for _, call := range f.calls {
+				if !strings.HasPrefix(call, "GET ") {
+					t.Fatalf("import lifecycle mutated the account: %s", call)
+				}
+			}
+			if len(f.keys) != 0 || (mode != "external-deletion" && f.teamExists != (mode != "missing")) {
+				t.Fatal("import lifecycle changed the team or its keys")
+			}
+			report, err := json.MarshalIndent(map[string]any{"result": "passed", "scenario": mode, "calls": f.calls}, "", "  ")
+			if err != nil {
+				t.Fatal(err)
+			}
+			if dir := os.Getenv("TEST_UNDECLARED_OUTPUTS_DIR"); dir != "" {
+				if err := os.WriteFile(filepath.Join(dir, "team-import-"+mode+".json"), report, 0o600); err != nil {
 					t.Fatal(err)
 				}
 			}

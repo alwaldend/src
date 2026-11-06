@@ -18,11 +18,16 @@ provider "vault" {
   skip_child_token = true
 }
 
+resource "vastai_environment_variable" "enable_https" {
+  name  = "ENABLE_HTTPS"
+  value = "true"
+}
+
 locals {
   teams = jsondecode(file("${path.module}/teams.json"))
   secret_targets = merge({}, [
     for team_name, team in local.teams : {
-      for key_name, key in team.api_keys : "${team_name}/${key_name}" => {
+      for key_name, key in try(team.api_keys, {}) : "${team_name}/${key_name}" => {
         name = key.secret_name
         team = team_name
         key  = key_name
@@ -31,10 +36,24 @@ locals {
   ]...)
 }
 
+moved {
+  from = vastai_team.existing
+  to   = vastai_team.teams
+}
+
+resource "vastai_team" "teams" {
+  for_each = { for name, team in local.teams : name => team if !can(team.api_keys) }
+  name     = try(each.value.name, each.key)
+
+  lifecycle {
+    prevent_destroy = true
+  }
+}
+
 module "teams" {
-  for_each = local.teams
+  for_each = { for name, team in local.teams : name => team if can(team.api_keys) }
   source   = "../../../projects/tf_modules/vastai_team"
-  name     = each.value.name
+  name     = try(each.value.name, each.key)
   api_keys = {
     for name, key in each.value.api_keys : name => {
       name        = key.name
