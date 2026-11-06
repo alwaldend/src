@@ -9,6 +9,7 @@ go_test(
         "acceptance_test.go",
         "doc.go",
         "existing_team_key_test.go",
+        "imagegen_test.go",
         "module_test.go",
         "ownership_test.go",
         "team_test.go",
@@ -17,8 +18,10 @@ go_test(
         "-provider=$(rlocationpath //projects/vastai_terraform_provider/cmd/terraform-provider-vastai)",
         "-terraform=$(rlocationpath @rules_terraform//terraform:cli)",
         "-team-module=$(rlocationpath //projects/tf_modules/vastai_team)",
+        "-imagegen-module=$(rlocationpath //projects/tf_modules/vastai_instance_imagegen)",
     ],
     data = [
+        "//projects/tf_modules/vastai_instance_imagegen",
         "//projects/tf_modules/vastai_team",
         "//projects/vastai_terraform_provider/cmd/terraform-provider-vastai",
         "@rules_terraform//terraform:cli",

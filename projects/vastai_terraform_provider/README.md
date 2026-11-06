@@ -27,9 +27,17 @@ The adapter retains endpoint validation and a few operations omitted from the sc
 - `vastai_offers` searches GPU offers using a JSON object query and returns
   `offers` in API order: `id`, `gpu_name`, `num_gpus`, `gpu_ram_mb`, and
   `hourly_price`. An empty search produces an empty list.
+- `vastai_template` reads exactly one template by `hash_id`, returning its resolved
+  `image` and `environment_only` classification. Only literal Docker environment
+  assignments qualify; port mappings, unknown flags, and malformed quoting do not.
+  Template environment values are not stored in Terraform state. Application
+  code and provisioning scripts still require operator review.
 - `vastai_instance` rents an offer with `offer_id`, Docker `image`, and
   positive `disk_gb`. Optional creation settings are `runtype` (default
-  `ssh`) and sensitive `onstart` (default empty). Supported launch modes are
+  `ssh`), sensitive `onstart` (default empty), and `template_hash_id` (default
+  empty). A template hash selects inherited defaults; explicit image, launch,
+  and startup settings override scalars, while template environment and port
+  options remain inherited. Use `vastai_template` to inspect them first. Supported launch modes are
   `ssh`, `ssh_proxy`, `ssh_direct`, `jupyter`, `jupyter_proxy`, and
   `jupyter_direct`. Changing creation settings replaces the instance.
   Refresh normalizes compound API modes and retains a compatible configured
@@ -47,7 +55,7 @@ Apply acknowledges the rental or update request. It does not wait for boot,
 power-state convergence, or SSH readiness. Connection fields are initially
 null; use `terraform apply -refresh-only` to observe them after provisioning.
 Offers can disappear between plan and apply. Stopped instances continue to
-incur storage charges. Spot bids, templates, volumes, and
+incur storage charges. Spot bids, template management, volumes, and
 membership management are outside the supported surface.
 
 ## Non-compute resources

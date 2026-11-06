@@ -1,0 +1,22 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("@rules_terraform//terraform:defs.bzl", "terraform_test_map")
+
+package(transitive_visibility = "//projects:transitive_consumers")
+
+filegroup(
+    name = "vastai_instance_imagegen",
+    srcs = ["main.tf"],
+    visibility = ["//:__subpackages__"],
+)
+
+terraform_test_map(
+    name = "tf_tests",
+    data = [":vastai_instance_imagegen"],
+    providers = ["//projects/vastai_terraform_provider:provider"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//projects/tf_modules:__pkg__"],
+)
