@@ -1,0 +1,64 @@
+{
+    "schema_version": 1,
+    "status": "stylized remake; reference likeness and motion remain approximate",
+    "reference": {
+        "name": "NO-EXCUSES-Spot-11-In-the-Army-Canadian-English-mp4.mp4",
+        "sha256": "4aa8481103870d56131063ed62438f6999e3d0085a5826a647a03b6eb6e7917d",
+        "frames": 898
+    },
+    "toolchain": {
+        "blender": "5.2.1 LTS",
+        "build_hash": "9e2066aef7ef"
+    },
+    "render": {
+        "engine": "CYCLES",
+        "samples": 8,
+        "denoised": true,
+        "width": 960,
+        "height": 540,
+        "fps_numerator": 30000,
+        "fps_denominator": 1001,
+        "rendered_frames": 898,
+        "encoded_frames": 902
+    },
+    "audio": {
+        "codec": "AAC",
+        "sample_rate": 44100,
+        "channels": 2,
+        "duration_seconds": 30.069841,
+        "decoded_pcm_sha256": "821d3b681271fe1195545dc8b13d89aea73c23ef1d763cc03d18f29ec2851d17",
+        "matches_complete_source": true
+    },
+    "scene": {
+        "objects": 452,
+        "cameras": 11,
+        "camera_cut_markers": 12,
+        "actions": 299,
+        "packed_sounds": 1,
+        "linked_libraries": 0,
+        "embedded_scripts": 0
+    },
+    "verification": {
+        "clean_reopen": true,
+        "packed_audio_bytes_checked": true,
+        "all_898_png_frames_checked": true,
+        "decoded_video_frames": [1, 120, 301, 569, 648, 842, 898, 902],
+        "fast_start": true,
+        "reference_unchanged": true,
+        "reference_fidelity_exact_match": false
+    },
+    "files": {
+        "army_spot.blend": {
+            "sha256": "8723ac065cf09761a4153f54ed103e685cbdc1a72f412c20aa76787db6a9e87f",
+            "bytes": 24619231
+        },
+        "army_spot.mp4": {
+            "sha256": "d66d52208df7029c864b6996218ba279147a8b7eb5a460240b376e3b0d0a8b7f",
+            "bytes": 4402347
+        },
+        "poster.png": {
+            "sha256": "82a792f48acc56ed4e9bd84c3bb0bf402b6cfb364c4e64f98b2f8b9b73a20c9c",
+            "bytes": 592855
+        }
+    }
+}

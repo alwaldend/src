@@ -47,6 +47,7 @@ WORKSPACE_SOURCES = {
     "projects_rules_trufflehog": "@rules_trufflehog//openspec:source",
     "projects_sri": "//projects/sri/openspec:source",
     "projects_tf_modules": "//projects/tf_modules/openspec:source",
+    "projects_un_no_excuses_campaign": "//projects/un_no_excuses_campaign/openspec:source",
     "projects_useless_qt_gui": "//projects/useless_qt_gui/openspec:source",
     "projects_vastai_terraform_provider": "//projects/vastai_terraform_provider/openspec:source",
     "projects_x_article_uploader": "//projects/x_article_uploader/openspec:source",
