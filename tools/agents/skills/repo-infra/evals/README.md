@@ -21,6 +21,9 @@ reviewing the plan held by an interactive apply, reporting incompatible
 saved-plan-only targets without bypassing them, and reviewing remaining work
 after partial failure. Normal text in agent transcripts is intentional;
 durable evidence contains only sanitized summaries.
+Migration cases require removal of completed temporary import and moved blocks
+and a no-change plan without them, while preserving unapplied transitions when
+live mutation is outside the authorized scope.
 
 Its required offline Bazel target validates the Promptfoo configuration,
 referenced cases, and staged skill without making a model call.

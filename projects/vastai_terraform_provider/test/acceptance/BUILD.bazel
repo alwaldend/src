@@ -8,6 +8,7 @@ go_test(
     srcs = [
         "acceptance_test.go",
         "doc.go",
+        "existing_team_key_test.go",
         "module_test.go",
         "ownership_test.go",
         "team_test.go",

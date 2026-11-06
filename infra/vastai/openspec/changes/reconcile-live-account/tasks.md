@@ -15,3 +15,4 @@
 - [x] 2.6 Use a name-keyed map of team configuration objects and verify a no-change plan with the same resource addresses.
 - [x] 2.7 Rename the map and resource key to teams, apply the reviewed state migration, and verify a no-change plan without recreating teams.
 - [x] 2.8 Consolidate all four teams in one configuration catalog and verify a no-change plan preserving team, module, and Vault secret addresses.
+- [x] 2.9 Remove the completed resource-address migration block and verify the owning no-change plan without temporary blocks.

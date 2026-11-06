@@ -98,6 +98,8 @@ func TestTeamModule(t *testing.T) {
 	config := fmt.Sprintf(`terraform {
   required_providers { vastai = { source = "alwaldend/vastai" } }
 }
+
+
 provider "vastai" { endpoint = %q }
 locals {
   teams = {
@@ -146,6 +148,92 @@ module "teams" {
 	}
 	if dir := os.Getenv("TEST_UNDECLARED_OUTPUTS_DIR"); dir != "" {
 		if err := os.WriteFile(filepath.Join(dir, "team-module.json"), report, 0o600); err != nil {
+			t.Fatal(err)
+		}
+	}
+}
+
+// TestTeamModuleUpgrade preserves the singleton-team state contract from b2696dd.
+func TestTeamModuleUpgrade(t *testing.T) {
+	f := &ownershipFixture{teamName: "test_first", accountID: 42, nextKey: 100, keys: map[int64]bool{}, contexts: map[int64]int64{}}
+	server := httptest.NewServer(&moduleFixture{teams: []*ownershipFixture{f}})
+	defer server.Close()
+	h := newHarness(t, server.URL+"/api/v0")
+	legacy := filepath.Join(h.directory, "legacy")
+	if err := os.Mkdir(legacy, 0o700); err != nil {
+		t.Fatal(err)
+	}
+	// This frozen input models the pre-existing singleton address, not the new mode.
+	legacySource := `terraform {
+ required_providers { vastai = { source = "alwaldend/vastai" } }
+}
+variable "name" { type = string }
+variable "api_keys" { type = map(object({ name = string, permissions = string })) }
+resource "vastai_team" "team" { name = var.name }
+resource "vastai_api_key" "project" {
+ for_each = var.api_keys
+ name = each.value.name
+ permissions = each.value.permissions
+ team_api_key = vastai_team.team.api_key
+}
+`
+	if err := os.WriteFile(filepath.Join(legacy, "main.tf"), []byte(legacySource), 0o600); err != nil {
+		t.Fatal(err)
+	}
+	configuration := `terraform {
+ required_providers { vastai = { source = "alwaldend/vastai" } }
+}
+provider "vastai" { endpoint = %q }
+module "team" {
+ source = %q
+ name = "test_first"
+ api_keys = { reader = { name = "test_first_project", permissions = jsonencode({api={user_read={}}}) } }
+}
+`
+	if err := os.WriteFile(filepath.Join(h.directory, "main.tf"), []byte(fmt.Sprintf(configuration, server.URL+"/api/v0", legacy)), 0o600); err != nil {
+		t.Fatal(err)
+	}
+	h.run(t, true, "get", "-no-color")
+	h.run(t, true, "apply", "-auto-approve", "-no-color")
+	f.mu.Lock()
+	previousCalls := len(f.calls)
+	f.mu.Unlock()
+	source, err := runfiles.Rlocation(*teamModulePath)
+	if err != nil {
+		t.Fatalf("resolve module: %v", err)
+	}
+	if err := os.WriteFile(filepath.Join(h.directory, "main.tf"), []byte(fmt.Sprintf(configuration, server.URL+"/api/v0", filepath.Dir(source))), 0o600); err != nil {
+		t.Fatal(err)
+	}
+	h.run(t, true, "get", "-no-color")
+	plan := h.run(t, true, "plan", "-detailed-exitcode", "-no-color")
+	if !strings.Contains(plan, "No changes.") {
+		t.Fatalf("upgrade would change managed resources: %s", plan)
+	}
+	h.run(t, true, "apply", "-auto-approve", "-no-color")
+	h.run(t, true, "plan", "-detailed-exitcode", "-no-color")
+	state := h.run(t, true, "state", "list")
+	if !strings.Contains(state, "module.team.vastai_team.team") || !strings.Contains(state, `module.team.vastai_api_key.project["reader"]`) {
+		t.Fatal("upgrade lost managed addresses")
+	}
+	f.mu.Lock()
+	for _, call := range f.calls[previousCalls:] {
+		if !strings.HasPrefix(call, "GET ") {
+			t.Errorf("upgrade mutated API resources: %s", call)
+		}
+	}
+	if f.nextKey != 102 || len(f.keys) != 2 || !f.teamExists {
+		t.Error("upgrade changed team or key identity")
+	}
+	f.mu.Unlock()
+	h.run(t, true, "destroy", "-auto-approve", "-no-color")
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	if f.teamExists || len(f.keys) != 0 {
+		t.Fatal("owned module resources survived cleanup")
+	}
+	if dir := os.Getenv("TEST_UNDECLARED_OUTPUTS_DIR"); dir != "" {
+		if err := os.WriteFile(filepath.Join(dir, "team-module-upgrade.json"), []byte(`{"result":"passed","upgrade_api_mutations":0,"generated_keys":2,"team_identity_preserved":true,"cleanup":"complete"}`), 0o600); err != nil {
 			t.Fatal(err)
 		}
 	}

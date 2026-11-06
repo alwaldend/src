@@ -75,8 +75,23 @@ membership management are outside the supported surface.
 
 `vastai_team` creates a separate team with zero credit transfer and generates
 an independent management key in sensitive state. `vastai_api_key` generates
-a project key using `team_api_key`, `name`, and JSON `permissions`; its
-computed `key` is sensitive. Both use replacement for configuration changes.
+a project key using its configured provider, `name`, and JSON `permissions`;
+its computed `key` is sensitive. Key name, permission, and team-binding changes
+require replacement. Optional `team_api_key` is reserved for a management key
+generated during the same bootstrap apply. Ordinary resources omit it. Removing
+that override verifies key visibility through the provider and updates only
+state metadata, preserving the generated key ID and value. A new explicit
+bootstrap issuer retains replacement behavior because it can select another team.
+An empty permission string omits the permission field and requests default
+full access; `{}` is not equivalent. Optional `team_id` resolves an existing
+owned team's owner context, retains the new key in state, and attempts binding
+only on that generated key. It requires empty permissions for explicit full
+access and rejects scoped input before key creation. Computed bindings may require
+read-only team refresh before validation. The issuer is never switched. Binding failure
+fails apply before downstream Vault storage and leaves the key recoverable by
+destruction. Offline fixtures verify this behavior; the live alwaldend attempt
+created a key but received HTTP 400 from context selection, so that binding
+has not passed live acceptance. The failed key was revoked through its root.
 Their generated credentials cannot be recovered through import. API-key
 imports remain unsupported. Use a secure backend and pass generated keys
 directly to your secret manager rather than Terraform outputs.
@@ -84,7 +99,8 @@ directly to your secret manager rather than Terraform outputs.
 An existing owned team can be imported by numeric account ID. Import and
 refresh read the personal account's owner-context metadata without generating
 keys or changing credential context. Imported teams have null `api_key` and
-`management_key_id`, so they cannot supply credentials for project-key creation.
+`management_key_id`; project keys can instead use the configured provider and
+the imported team ID.
 Their destruction is refused while they remain in state; use `prevent_destroy`
 in their configuration and an explicit state-removal workflow to detach them.
 Confirmed external absence removes an imported identity without key cleanup.
@@ -100,7 +116,9 @@ same name. If a team is deleted externally, refresh retains its management key
 and plans replacement; apply revokes that key before creating another team.
 Failed key revocation retains state for an explicit retry.
 
-The [bootstrap root](../../infra/vastai/tf/README.md) uses the personal token
+The [shared team module](../tf_modules/vastai_team/README.md) composes
+new or imported teams and keys and returns sensitive values for caller-owned
+Vault storage. The [bootstrap root](../../infra/vastai/tf/README.md) uses the personal token
 from infra/vastai to create the `test_` team and project key, then writes the key
 directly into the project's Vault namespace. It retains the personal token's
 existing context.

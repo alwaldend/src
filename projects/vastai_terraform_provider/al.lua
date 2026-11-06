@@ -33,11 +33,6 @@ lib.plugin_call({
                 deps = { "vastai" },
                 env = { value = "{{ .Last.Data.api_key }}" },
             },
-            {
-                name = "TF_VAR_test_team_api_key",
-                deps = { "vastai" },
-                env = { value = "{{ .Last.Data.api_key }}" },
-            },
         },
     },
 })

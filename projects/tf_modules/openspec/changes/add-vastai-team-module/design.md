@@ -15,3 +15,24 @@ one role. The selected design permits explicit provider identities at the caller
 
 No live apply is authorized by these declarations. All creation requests transfer
 zero credit, and neither module nor bootstrap declares compute resources.
+
+## Imported teams
+
+Keep one singleton team resource per module. Import an existing team's account
+ID into that resource, or migrate its current Terraform address into the module
+when already owned. Never duplicate the same team in multiple states. Imported
+team state supplies identity and has null management credentials. In that case,
+the API-key resource uses the caller-selected provider and the imported team ID.
+New teams retain their generated management-key override for same-apply bootstrap.
+There is no `existing_team_id` variable, count transition, or module moved block.
+Existing managed resources retain their exact addresses.
+
+Defer permission checks while a computed team binding is unknown. Once resolved,
+imported-team owner binding still requires explicit default full access; a scoped
+key must never be widened by selecting owner context. Terraform CLI fixtures
+cover both import and managed bootstrap. Imported team destruction remains
+refused; key-only cleanup preserves the team. Temporary migration blocks in
+fixtures are removed after reconciliation and followed by a no-change plan.
+
+The live HTTP 400 team-binding failure is unresolved. This refactor does not
+justify repeating that unchanged request or recreating the funded team.

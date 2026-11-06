@@ -29,11 +29,12 @@ resource "vastai_api_key" "project" {
   name         = each.value.name
   permissions  = each.value.permissions
   team_api_key = vastai_team.team.api_key
+  team_id      = vastai_team.team.management_key_id == null ? vastai_team.team.team_id : null
 }
 
 output "team_id" {
   value       = vastai_team.team.team_id
-  description = "Created team account ID."
+  description = "Managed or existing team account ID."
 }
 
 output "api_keys" {

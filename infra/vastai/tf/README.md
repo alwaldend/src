@@ -9,8 +9,8 @@ The single `teams` map is loaded from `teams.json`, with one configuration
 object per team. Entries without `api_keys` use `vastai_team.teams` and retain
 their imported account IDs in state, with `prevent_destroy` enabled. Their
 management credentials are unavailable, so import does not generate keys.
-Import blocks were removed after adoption; a moved block preserves the previous
-resource addresses.
+Temporary import and moved blocks are removed after adoption and address
+reconciliation. The final resource addresses are retained directly in state.
 Entries with `api_keys` retain the reusable `projects/tf_modules/vastai_team`
 module and write each generated project token directly to its configured Vault
 secret. The catalog contains three imported team identities and a provider-test
