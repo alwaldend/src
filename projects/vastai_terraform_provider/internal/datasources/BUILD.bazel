@@ -7,6 +7,7 @@ go_library(
     srcs = [
         "doc.go",
         "offers.go",
+        "template.go",
     ],
     importpath = "git.alwaldend.com/alwaldend/src/projects/vastai_terraform_provider/internal/datasources",
     visibility = [

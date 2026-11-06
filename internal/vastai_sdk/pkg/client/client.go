@@ -175,6 +175,8 @@ func (c *Client) decodeResponse(method, path string, resp *http.Response, result
 
 // CreateInput contains the supported on-demand rental parameters.
 type CreateInput struct {
+	// TemplateHashID optionally selects an existing template's creation defaults.
+	TemplateHashID string `json:"template_hash_id,omitempty"`
 	// Image selects the Docker image.
 	Image string `json:"image"`
 	// Disk allocates local storage in GB.
@@ -196,6 +198,9 @@ func (c *Client) Create(ctx context.Context, offerID int64, input CreateInput) (
 		ID int64 `json:"new_contract"`
 	}
 	body := generatedapi.CreateInstanceRequest{Image: input.Image, Disk: &input.Disk, Label: &input.Label, Runtype: &input.Runtype, TargetState: &input.State}
+	if input.TemplateHashID != "" {
+		body.TemplateHashId = &input.TemplateHashID
+	}
 	if input.Onstart != "" {
 		body.Onstart = &input.Onstart
 	}

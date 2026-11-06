@@ -95,7 +95,7 @@ func (p *vastProvider) Resources(_ context.Context) []func() resource.Resource {
 	}
 }
 
-// DataSources registers marketplace offer discovery.
+// DataSources registers marketplace offer and template discovery.
 func (p *vastProvider) DataSources(_ context.Context) []func() datasource.DataSource {
-	return []func() datasource.DataSource{datasources.NewOffers}
+	return []func() datasource.DataSource{datasources.NewOffers, datasources.NewTemplate}
 }

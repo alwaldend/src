@@ -4,7 +4,10 @@ description: A bounded client backed by the official generated API protocol
 ---
 
 The SDK exposes one public interface at `pkg/client` for offers, instances,
-SSH public keys, environment variables, team roles, teams, and project API keys.
+SSH public keys, environment variables, team roles, teams, project API keys,
+and exact template lookup. Template reads validate the returned hash, image,
+and Docker option metadata; they return an environment-only classification
+without retaining environment values. Creation accepts an optional template hash.
 The Terraform provider consumes this client; it owns Terraform schemas and state.
 
 Construct a client with `client.New(client.Options{Endpoint: endpoint, APIKey: key})`.

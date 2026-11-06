@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"regexp"
 	"slices"
 	"strconv"
 	"strings"
@@ -63,6 +64,8 @@ type instanceResource struct {
 
 // instanceModel maps supported rental configuration and observed connection data.
 type instanceModel struct {
+	// TemplateHashID selects optional template defaults only at creation.
+	TemplateHashID types.String `tfsdk:"template_hash_id"`
 	// ID is the decimal contract ID.
 	ID types.String `tfsdk:"id"`
 	// OfferID is the marketplace offer used at creation, unavailable on import.
@@ -99,6 +102,20 @@ func (r *instanceResource) Schema(_ context.Context, _ resource.SchemaRequest, r
 	resp.Schema = schema.Schema{
 		Description: "An on-demand Vast.ai GPU instance. Apply records API acceptance; refresh observes boot and connection details.",
 		Attributes: map[string]schema.Attribute{
+			"template_hash_id": schema.StringAttribute{
+				Optional:    true,
+				Computed:    true,
+				Default:     stringdefault.StaticString(""),
+				Description: "Optional 32-character template hash. Creation-only; image and launch settings override template defaults, while template environment and ports are inherited.",
+				PlanModifiers: []planmodifier.String{stringplanmodifier.RequiresReplaceIf(
+					func(_ context.Context, req planmodifier.StringRequest, resp *stringplanmodifier.RequiresReplaceIfFuncResponse) {
+						// Older image-only state has no selector; the empty default is equivalent.
+						resp.RequiresReplace = !(req.StateValue.IsNull() && req.PlanValue.ValueString() == "")
+					},
+					"Changes to a nonempty template selector replace the instance.",
+					"Changes to a nonempty template selector replace the instance.",
+				)},
+			},
 			"id": schema.StringAttribute{
 				Computed:      true,
 				Description:   "Decimal instance contract ID.",
@@ -174,6 +191,9 @@ func (r *instanceResource) Configure(_ context.Context, req resource.ConfigureRe
 // validateInstance rejects known invalid parameters before any API operation.
 func validateInstance(data instanceModel) diag.Diagnostics {
 	var diagnostics diag.Diagnostics
+	if !data.TemplateHashID.IsUnknown() && !data.TemplateHashID.IsNull() && data.TemplateHashID.ValueString() != "" && !regexp.MustCompile(`^[0-9a-f]{32}$`).MatchString(data.TemplateHashID.ValueString()) {
+		diagnostics.AddAttributeError(path.Root("template_hash_id"), "Invalid template hash", "template_hash_id must be empty or a 32-character lowercase hexadecimal template hash.")
+	}
 	if !data.OfferID.IsUnknown() && !data.OfferID.IsNull() && data.OfferID.ValueInt64() <= 0 {
 		diagnostics.AddAttributeError(path.Root("offer_id"), "Invalid offer ID", "offer_id must be a positive integer.")
 	}
@@ -212,7 +232,7 @@ func (r *instanceResource) Create(ctx context.Context, req resource.CreateReques
 	if resp.Diagnostics.HasError() {
 		return
 	}
-	id, err := r.providerData.Client.Create(ctx, data.OfferID.ValueInt64(), vastclient.CreateInput{Image: data.Image.ValueString(), Disk: data.DiskGB.ValueFloat64(), Label: data.Label.ValueString(), State: data.State.ValueString(), Runtype: data.Runtype.ValueString(), Onstart: data.Onstart.ValueString()})
+	id, err := r.providerData.Client.Create(ctx, data.OfferID.ValueInt64(), vastclient.CreateInput{TemplateHashID: data.TemplateHashID.ValueString(), Image: data.Image.ValueString(), Disk: data.DiskGB.ValueFloat64(), Label: data.Label.ValueString(), State: data.State.ValueString(), Runtype: data.Runtype.ValueString(), Onstart: data.Onstart.ValueString()})
 	if err != nil {
 		resp.Diagnostics.AddError("Cannot create instance", err.Error())
 		return
@@ -260,6 +280,9 @@ func (r *instanceResource) Read(ctx context.Context, req resource.ReadRequest, r
 		return
 	}
 	data.Image = types.StringValue(remote.Image)
+	if data.TemplateHashID.IsNull() {
+		data.TemplateHashID = types.StringValue("")
+	}
 	data.DiskGB = types.Float64Value(remote.Disk)
 	data.Runtype = types.StringValue(runtype)
 	data.Label = types.StringValue(remote.Label)

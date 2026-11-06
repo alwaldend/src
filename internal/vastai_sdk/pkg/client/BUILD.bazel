@@ -10,6 +10,7 @@ go_library(
         "doc.go",
         "generated.go",
         "team.go",
+        "template.go",
     ],
     importpath = "git.alwaldend.com/alwaldend/src/internal/vastai_sdk/pkg/client",
     visibility = ["//:__subpackages__"],
