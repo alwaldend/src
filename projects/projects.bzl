@@ -28,6 +28,7 @@ PROJECTS = [
     "rules_trufflehog",
     "sri",
     "tf_modules",
+    "un_no_excuses_campaign",
     "useless_qt_gui",
     "vastai_terraform_provider",
     "x_article_uploader",
