@@ -1,8 +1,32 @@
 load("@rules_al//:defs.bzl", "al_binary_run")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("@rules_terraform//terraform:defs.bzl", "terraform_binary_map", "terraform_test_map")
+load("@rules_terraform//terraform:defs.bzl", "terraform_binary", "terraform_binary_map", "terraform_test_map")
 
 package(transitive_visibility = "//infra:transitive_consumers")
+
+filegroup(
+    name = "catalog_root",
+    srcs = ["main.tf"],
+    visibility = ["//infra/vastai/test/catalog:__pkg__"],
+)
+
+terraform_binary(
+    name = "catalog_terraform",
+    testonly = True,
+    arguments = ["--direct"],
+    data = glob([
+        "*.tf",
+        "tests/*.tftest.hcl",
+    ]) + [
+        "teams.json",
+        "//projects/tf_modules/vastai_team",
+    ],
+    providers = [
+        "//projects/vastai_terraform_provider:provider",
+        "@terraform_provider_hashicorp_vault//:provider",
+    ],
+    visibility = ["//infra/vastai/test/catalog:__pkg__"],
+)
 
 terraform_binary_map(
     name = "tf",
@@ -10,10 +34,7 @@ terraform_binary_map(
         "plan": ["plan"],
         "show": ["show"],
         "import": ["import"],
-        "apply": [
-            "--require-saved-plan",
-            "apply",
-        ],
+        "apply": ["apply"],
         "destroy_plan": [
             "plan",
             "-destroy",
@@ -45,7 +66,10 @@ terraform_binary_map(
 
 terraform_test_map(
     name = "tf_tests",
-    data = glob(["*.tf"]),
+    data = glob([
+        "*.tf",
+        "tests/*.tftest.hcl",
+    ]),
 )
 
 docs_filegroup(

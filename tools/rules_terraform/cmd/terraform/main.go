@@ -1,16 +1,20 @@
 package main
 
 import (
+	"context"
 	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
 	"os"
 	"os/exec"
+	"os/signal"
 	"path"
 	"path/filepath"
 	"runtime"
 	"strings"
+	"syscall"
+	"time"
 
 	"github.com/bazelbuild/rules_go/go/runfiles"
 )
@@ -51,6 +55,8 @@ type resolver interface {
 }
 
 type invocation struct {
+	// context cancels initialization, provenance inspection, and Terraform execution.
+	context  context.Context
 	program  string
 	environ  []string
 	runfiles resolver
@@ -65,6 +71,8 @@ func main() {
 }
 
 func run() int {
+	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
+	defer stop()
 	rf, err := runfiles.New(runfiles.ProgramName(os.Args[0]), runfiles.SourceRepo(""))
 	if err != nil {
 		fmt.Fprintln(os.Stderr, "rules_terraform: locate runfiles:", err)
@@ -77,6 +85,7 @@ func run() int {
 		return 2
 	}
 	call := invocation{
+		context: ctx,
 		program: os.Args[0], environ: environ, runfiles: rf,
 		stdin: os.Stdin, stdout: os.Stdout, stderr: os.Stderr,
 		execute: func(cmd *exec.Cmd) error { return cmd.Run() },
@@ -275,7 +284,15 @@ func (call invocation) run(config configuration, extra []string) (int, error) {
 		}
 	}
 	runCommand := func(args []string, stdout io.Writer) error {
-		cmd := exec.Command(terraform, append([]string{"-chdir=" + chdir}, args...)...)
+		ctx := call.context
+		if ctx == nil {
+			ctx = context.Background()
+		}
+		cmd := exec.CommandContext(ctx, terraform, append([]string{"-chdir=" + chdir}, args...)...)
+		// Terraform handles SIGINT by stopping provider operations and saving state.
+		// Keep the launcher alive until that child exits before its caller cleans up.
+		cmd.Cancel = func() error { return cmd.Process.Signal(os.Interrupt) }
+		cmd.WaitDelay = 10 * time.Second
 		cmd.Env = environ
 		cmd.Stdin = call.stdin
 		cmd.Stdout = stdout
