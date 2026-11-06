@@ -13,12 +13,10 @@ go_test(
     args = [
         "-terraform=$(rlocationpath //infra/vastai/tf:catalog_terraform)",
         "-configuration=$(rlocationpath //infra/vastai/tf:catalog_root)",
-        "-team-module=$(rlocationpath //projects/tf_modules/vastai_team)",
     ],
     data = [
         "//infra/vastai/tf:catalog_root",
         "//infra/vastai/tf:catalog_terraform",
-        "//projects/tf_modules/vastai_team",
     ],
     deps = ["@rules_go//go/runfiles"],
 )

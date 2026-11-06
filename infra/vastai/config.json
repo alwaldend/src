@@ -1,0 +1,12 @@
+{
+    "environment_variables": {
+        "ENABLE_HTTPS": "true",
+        "WEB_ENABLE_HTTPS": "true",
+        "WEB_ENABLE_AUTH": "true"
+    },
+    "teams": {
+        "alwaldend": {
+            "api_keys": ["rentals"]
+        }
+    }
+}

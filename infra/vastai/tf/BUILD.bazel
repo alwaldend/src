@@ -18,8 +18,9 @@ terraform_binary(
         "*.tf",
         "tests/*.tftest.hcl",
     ]) + [
-        "teams.json",
-        "//projects/tf_modules/vastai_team",
+        "//infra/vastai:configuration",
+        "//infra/vastai/alwaldend:validation_inputs",
+        "//infra/vastai/rentals_test:validation_inputs",
     ],
     providers = [
         "//projects/vastai_terraform_provider:provider",
@@ -34,6 +35,7 @@ terraform_binary_map(
         "plan": ["plan"],
         "show": ["show"],
         "import": ["import"],
+        "state": ["state"],
         "apply": ["apply"],
         "destroy_plan": [
             "plan",
@@ -41,15 +43,11 @@ terraform_binary_map(
         ],
     },
     data = glob(["*.tf"]) + [
-        "teams.json",
-        "//projects/tf_modules/vastai_team",
+        "//infra/vastai:configuration",
         "//tools/vault/injector",
         "//tools/vault/tf_backend",
     ],
-    providers = [
-        "//projects/vastai_terraform_provider:provider",
-        "@terraform_provider_hashicorp_vault//:provider",
-    ],
+    providers = ["//projects/vastai_terraform_provider:provider"],
     wrapper = al_binary_run,
     wrapper_kwargs = {
         "configs": ["//infra/vastai:al"],
@@ -58,8 +56,6 @@ terraform_binary_map(
             "tf=main",
             "--plugin_label",
             "vastai=1",
-            "--plugin_label",
-            "vault_env=provider_project",
         ],
     },
 )

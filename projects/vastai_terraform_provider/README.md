@@ -116,19 +116,16 @@ same name. If a team is deleted externally, refresh retains its management key
 and plans replacement; apply revokes that key before creating another team.
 Failed key revocation retains state for an explicit retry.
 
-The [shared team module](../tf_modules/vastai_team/README.md) composes
-new or imported teams and keys and returns sensitive values for caller-owned
-Vault storage. The [bootstrap root](../../infra/vastai/tf/README.md) uses the personal token
-from infra/vastai to create the `test_` team and project key, then writes the key
-directly into the project's Vault namespace. It retains the personal token's
-existing context.
+The [account root](../../infra/vastai/tf/README.md) owns team creation and
+account defaults. The separate [alwaldend root](../../infra/vastai/alwaldend/README.md)
+uses its operator-provided team key as provider authentication and creates
+full-access project keys directly in that context. Rentals use an independent
+[root and state](../../infra/vastai/rentals_test/README.md).
 
-The [team test root](test/team/README.md) exercises API keys, an environment marker,
-and an unassigned role
-using the generated key and the project's own AppRole and injector. Its object
-names begin with `test_`; its environment name uses uppercase
-`TEST_` because that API uppercases identifiers. It uses isolated Vault-backed
-state and contains no compute resources or team-ID guard.
+The former isolated live test root and test team are retired. Its test key,
+environment marker and role were destroyed through their original state before
+revoking the team's credential. Offline Terraform CLI acceptance fixtures
+continue to exercise non-compute resources, team bootstrap and cleanup.
 
 ## Build and develop
 

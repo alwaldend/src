@@ -1,6 +1,6 @@
 local lib = require("al_lib")
 
-for _, stage in ipairs({ "rentals", "rental_test" }) do
+for _, stage in ipairs({ "rental_test", "alwaldend" }) do
     lib.plugin_call({
         name = "tf_backend_" .. stage,
         plugin = "tf_backend",
@@ -22,17 +22,12 @@ lib.plugin_call({
             {
                 name = "vastai_rentals",
                 kv = {
-                    path = "alwaldend.com/vault1/approles/src_infra_vastai/vastai/alwaldend",
+                    path = "alwaldend.com/vault1/approles/src_infra_vastai/vastai/alwaldend/rentals",
                     mount = "secrets",
                 },
             },
             {
                 name = "VAST_API_KEY",
-                deps = { "vastai_rentals" },
-                env = { value = "{{ .Last.Data.api_key }}" },
-            },
-            {
-                name = "TF_VAR_alwaldend_api_key",
                 deps = { "vastai_rentals" },
                 env = { value = "{{ .Last.Data.api_key }}" },
             },
@@ -44,34 +39,6 @@ lib.vault_auth({
     name = "default",
     approle = {
         name = "src_infra_vastai",
-    },
-})
-
-lib.vault_auth({
-    name = "provider_project",
-    approle = { name = "src_projects_vastai_terraform_provider" },
-})
-
-lib.plugin_call({
-    name = "env_provider_project",
-    plugin = "injector",
-    labels = { vault_env = "provider_project" },
-    data = {
-        res = {
-            {
-                name = "env_component",
-                vault_env = { conn = "default", auth = "default" },
-            },
-            {
-                name = "TF_VAR_component_vault_token",
-                deps = { "env_component" },
-                env = { value = "{{ .Last.Env.VAULT_TOKEN }}" },
-            },
-            {
-                name = "env_provider_project",
-                vault_env = { conn = "default", auth = "provider_project" },
-            },
-        },
     },
 })
 
@@ -104,6 +71,42 @@ lib.plugin_call({
                 env = {
                     value = "{{ .Last.Data.api_key }}",
                 },
+            },
+        },
+    },
+})
+
+lib.plugin_call({
+    name = "vastai_alwaldend",
+    plugin = "injector",
+    labels = { vastai = "alwaldend" },
+    data = {
+        res = {
+            {
+                name = "vastai_alwaldend",
+                kv = {
+                    path = "alwaldend.com/vault1/approles/src_infra_vastai/vastai/alwaldend",
+                    mount = "secrets",
+                },
+            },
+            {
+                name = "VAST_API_KEY",
+                deps = { "vastai_alwaldend" },
+                env = { value = "{{ .Last.Data.api_key }}" },
+            },
+        },
+    },
+})
+
+lib.plugin_call({
+    name = "env_component",
+    plugin = "injector",
+    labels = { vault_env = "component" },
+    data = {
+        res = {
+            {
+                name = "env_component",
+                vault_env = { conn = "default", auth = "default" },
             },
         },
     },

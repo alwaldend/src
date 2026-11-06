@@ -4,6 +4,12 @@ load("//tools/vault:defs.bzl", "vault_binary_map")
 
 package(transitive_visibility = "//infra:transitive_consumers")
 
+filegroup(
+    name = "configuration",
+    srcs = ["config.json"],
+    visibility = ["//infra/vastai:__subpackages__"],
+)
+
 al_config(
     name = "al",
     srcs = ["al.lua"],
