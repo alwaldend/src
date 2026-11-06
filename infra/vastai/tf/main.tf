@@ -36,11 +36,6 @@ locals {
   ]...)
 }
 
-moved {
-  from = vastai_team.existing
-  to   = vastai_team.teams
-}
-
 resource "vastai_team" "teams" {
   for_each = { for name, team in local.teams : name => team if !can(team.api_keys) }
   name     = try(each.value.name, each.key)

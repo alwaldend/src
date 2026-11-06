@@ -18,7 +18,7 @@ backend under the provider project's own `tf_backend/test` entry.
 
 The project authenticates as `src_projects_vastai_terraform_provider`.
 Its `vastai=1` injector reads the Terraform-generated token from its own
-`vastai` credential entry into `VAST_API_KEY` and `TF_VAR_test_team_api_key`;
+`vastai` credential entry into `VAST_API_KEY` for provider authentication;
 `tf=test` selects the isolated backend.
 The provider is built from source and installed
 from its declared Bazel ZIP; no Terraform Registry publication is required.

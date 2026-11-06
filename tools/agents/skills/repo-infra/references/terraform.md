@@ -46,6 +46,20 @@ values to literal backend arguments; it is not this plugin's output.
   destroy-and-create by default.
 - Format changed files before validation.
 
+## Complete one-time migrations
+
+Use temporary `import` and `moved` blocks only while reconciling state. After
+the authorized migration succeeds, verify the final state addresses, remove
+those blocks, format and validate the configuration, and run the owning
+no-change plan without them before final handoff. Do not retain temporary
+blocks as migration history; keep a sanitized receipt in the owning change.
+
+Do not remove a still-required migration or apply it merely to satisfy cleanup
+when live mutation is outside the granted scope. Record the pending migration
+and cleanup prerequisite, preserve its safe transition, and report reconciliation
+as incomplete. A permanent compatibility migration needs an explicit maintained
+requirement; a completed one-time reconciliation does not establish one.
+
 ## Validate without mutation
 
 ```sh

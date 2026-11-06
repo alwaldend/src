@@ -112,3 +112,13 @@ creation and credential-cleanup scenarios remain covered. Terraform formatting,
 both owner OpenSpec validations, repository quality, and affected semantic lint
 are delivery gates. Live acceptance is the verified imported state and final
 no-change plan after removing import blocks.
+
+## Temporary migration cleanup
+
+On 2026-11-06 at 17:25 UTC, the owning `//infra/vastai/tf:tf.plan`
+with `-detailed-exitcode` returned exit 0 and no changes after removal of the
+completed `vastai_team.existing` to `vastai_team.teams` moved block. Refresh
+confirmed all three imported addresses and the existing singleton test-team
+module address. No import or moved blocks remain in this root; no apply or
+state-changing operation was run for this cleanup. The import-capable shared
+module preserves the existing managed-team and project-key addresses.

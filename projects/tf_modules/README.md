@@ -10,7 +10,8 @@ tags:
 This project contains reusable Terraform modules for Vault configuration,
 Proxmox virtual machines, backup storage, and related infrastructure. The
 module collection is still in progress. The [Vast.ai team module](vastai_team/README.md)
-composes zero-credit teams and project API keys while callers own secret storage.
+composes managed or existing teams and project API keys while callers select
+provider credentials and own secret storage.
 
 ## Links
 

@@ -17,16 +17,9 @@ variable "test_marker" {
   default     = "initial"
 }
 
-variable "test_team_api_key" {
-  description = "Generated team credential supplied by the project's Vault injector."
-  type        = string
-  sensitive   = true
-}
-
 resource "vastai_api_key" "test_api_key" {
-  name         = "test_vastai_terraform_provider_reader"
-  team_api_key = var.test_team_api_key
-  permissions  = jsonencode({ api = { user_read = {} } })
+  name        = "test_vastai_terraform_provider_reader"
+  permissions = jsonencode({ api = { user_read = {} } })
 }
 
 resource "vastai_environment_variable" "test_environment_variable" {
