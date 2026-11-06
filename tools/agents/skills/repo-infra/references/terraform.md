@@ -68,30 +68,37 @@ explicitly requested and reviewed scope. Summarize a plan for additions,
 changes, destroys, replacements, and sensitive or security-impacting changes
 without copying secret values.
 
-## Review and apply a saved plan
+## Review and apply interactively
+
+Follow the root `AGENTS.md` Terraform output and artifact policy. For inspection,
+run the owning `:tf.plan` target without `-out` or `-json`. For an authorized
+deployment, run the owning `:tf.apply` target in an interactive terminal. Review
+the plan displayed by that invocation and answer `yes` only when it matches the
+authorized scope; otherwise answer `no`. A standalone plan is advisory: apply
+generates a new plan, so review it again before answering.
+
+Keep the normal text output in the agent transcript and retain only sanitized
+summaries as durable evidence. Terraform's sensitive markings provide the
+existing redaction; an extra filtering layer is not required. Text output is
+not a guarantee that unmarked secrets cannot appear.
+
+Inspect the owning command contract before execution. Some scoped targets still
+require a saved plan. Report that incompatibility instead of saving or consuming
+a plan, bypassing their guard, or switching to a broader target or raw Terraform.
+A change to that contract is separate source work, not an execution workaround.
 
 Keep the backend attributes supplied by `TF_HTTP_*` unset in source and backend
 arguments. The plugin creates a fresh loopback endpoint and credentials for
-each invocation; the pinned Terraform HTTP backend resolves unset attributes
-from the current environment when loading a saved plan. Preserve the owning
-`:tf.plan` and `:tf.apply` targets so each establishes that environment. Literal
-backend configuration saved in a plan takes precedence over the environment
-and can retain an obsolete endpoint. See the
+each invocation. Preserve the owning `:tf.plan` and `:tf.apply` targets so each
+establishes its own environment. See the
 [HTTP backend configuration](https://developer.hashicorp.com/terraform/language/backend/http#configuration-variables).
 
-For an authorized apply, save the scoped plan to an absolute path in private
-task scratch, review that exact plan, then pass its path to the owning apply
-target. The saved plan already records target selection; do not regenerate it
-with different flags during apply. An interactive apply can instead hold at
-its confirmation prompt while its proposed changes are reviewed. Both flows
-must preserve the authorized scope and the secret handling of plan artifacts.
-
-Finish formatting and all input-file edits before saving the plan. Terraform
-checks `file()` results during apply, so even JSON whitespace changes can
-invalidate it. Regenerate and review the plan after any input change. A failed
-apply can still have completed independent resources or advanced state metadata
-without changing resources; inspect refreshed state and save a new plan for the
-remaining changes before retrying.
+Finish formatting and all input-file edits before starting apply. Keep inputs
+unchanged while reviewing its prompt; if they change, cancel and start a new
+interactive apply. A failed apply can still have completed independent resources
+or advanced state metadata without changing resources. Account for those
+changes and review the next interactive apply's plan for the remaining work
+within the existing authorization before retrying.
 
 When using `bazel run --script_path` launchers, regenerate every
 owning launcher used, including both plan and apply, after changing declared

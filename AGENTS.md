@@ -51,6 +51,14 @@ in-scope blockers and tiny related defects, and report other findings.
   not one. Secret values stay in Vault; IaC carries only their references.
 - Never run state-changing infrastructure operations without the user's exact
   request for that operation and scope; validation must not mutate live systems.
+- For Terraform plan review and deployment, use the owning repository targets
+  with normal text output. Do not save plan files, request JSON plan/state
+  output, or persist raw plan output. For an authorized apply, review the plan
+  displayed by that interactive apply before answering `yes` or `no`; do not
+  use automatic approval. Normal terminal output is permitted in agent
+  transcripts, and no additional filtering layer is required. Mark secrets
+  sensitive in Terraform and retain only sanitized summaries in repository
+  documentation and PRs. Follow `repo-infra` for the operation procedure.
 - Treat an automatic approval rejection as a strategy signal: diagnose it,
   choose a materially safer authorized approach, or ask. Never route around it
   or retry a rejected, failed, or rate-limited escalated operation immediately.
