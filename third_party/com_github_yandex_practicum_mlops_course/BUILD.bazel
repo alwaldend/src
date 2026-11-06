@@ -18,3 +18,9 @@ docs_filegroup(
     srcs = ["README.md"],
     visibility = ["//third_party:__pkg__"],
 )
+
+alias(
+    name = "taxi_data",
+    actual = "@com_github_yandex_practicum_mlops_course//:taxi_data",
+    visibility = ["//projects/mlops_2026/code_review:__pkg__"],
+)

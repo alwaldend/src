@@ -1,0 +1,29 @@
+load("@rules_python//python:defs.bzl", "py_test")
+
+# gazelle:ignore
+
+package(transitive_visibility = "//projects:transitive_consumers")
+
+py_test(
+    name = "training_test",
+    size = "small",
+    srcs = ["test_data.py"],
+    data = [
+        "//projects/mlops_2026/code_review:data",
+        "//projects/mlops_2026/code_review:train",
+    ],
+    env = {
+        "TRAINER_RLOCATION": "$(rlocationpath //projects/mlops_2026/code_review:train)",
+        "DATASET_RLOCATION": "$(rlocationpath //projects/mlops_2026/code_review:data)",
+        "OPENBLAS_NUM_THREADS": "1",
+        "OMP_NUM_THREADS": "1",
+        "MKL_NUM_THREADS": "1",
+    },
+    main = "test_data.py",
+    deps = [
+        "@com_alwaldend_src_pip//numpy",
+        "@com_alwaldend_src_pip//pandas",
+        "@com_alwaldend_src_pip//scikit_learn",
+        "@rules_python//python/runfiles",
+    ],
+)

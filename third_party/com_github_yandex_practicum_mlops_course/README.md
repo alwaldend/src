@@ -14,3 +14,7 @@ and dependencies remain upstream-owned.
 
 License: [MIT](https://github.com/Yandex-Practicum/mlops-course/blob/74dc45062f43f9b4abfbca738ffa6b56db4d5daa/LICENSE).
 The archive retains the upstream license and copyright notice.
+
+`//third_party/com_github_yandex_practicum_mlops_course:taxi_data` exposes the
+full `lesson-08-code-review/data/uber.csv` to the maintained code-review lesson.
+The lesson uses the repository Python lock; the source archive pin is unchanged.
