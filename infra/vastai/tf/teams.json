@@ -1,4 +1,7 @@
 {
+    "alwaldend": {},
+    "projects_vastai_terraform_prov": {},
+    "test_vastai_terraform_provider": {},
     "test_provider": {
         "name": "test_vastai_provider",
         "api_keys": {

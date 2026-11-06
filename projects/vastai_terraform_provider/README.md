@@ -77,9 +77,22 @@ membership management are outside the supported surface.
 an independent management key in sensitive state. `vastai_api_key` generates
 a project key using `team_api_key`, `name`, and JSON `permissions`; its
 computed `key` is sensitive. Both use replacement for configuration changes.
-Their generated credentials cannot be recovered through import, so imports
-are not supported. Use a secure backend and pass generated keys directly to
-your secret manager rather than Terraform outputs.
+Their generated credentials cannot be recovered through import. API-key
+imports remain unsupported. Use a secure backend and pass generated keys
+directly to your secret manager rather than Terraform outputs.
+
+An existing owned team can be imported by numeric account ID. Import and
+refresh read the personal account's owner-context metadata without generating
+keys or changing credential context. Imported teams have null `api_key` and
+`management_key_id`, so they cannot supply credentials for project-key creation.
+Their destruction is refused while they remain in state; use `prevent_destroy`
+in their configuration and an explicit state-removal workflow to detach them.
+Confirmed external absence removes an imported identity without key cleanup.
+Import failures and refresh errors preserve account resources.
+
+```sh
+terraform import vastai_team.existing 846045
+```
 
 Team deletion requires a private record of confirmed creation and uses the
 captured account ID. Failed creation never adopts an existing team with the

@@ -16,7 +16,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
-// teamResource owns a separate team and its independently generated management key.
+// teamResource creates teams with management keys or imports existing identities.
 type teamResource struct {
 	// providerData contains shared dependencies supplied by provider configuration.
 	providerData *providerdata.Data
@@ -27,6 +27,9 @@ const teamCreationConfirmedKey = "team_creation_confirmed"
 
 // teamMissingKey requests explicit replacement while preserving credential cleanup.
 const teamMissingKey = "team_missing"
+
+// teamImportedKey distinguishes read-only adoption from confirmed creation.
+const teamImportedKey = "team_imported"
 
 // teamModel tracks durable ownership before each credential-dependent operation.
 type teamModel struct {
@@ -53,8 +56,8 @@ func (r *teamResource) Schema(_ context.Context, _ resource.SchemaRequest, resp 
 		"id":                schema.StringAttribute{Computed: true, PlanModifiers: []planmodifier.String{stringplanmodifier.UseStateForUnknown()}, Description: "Team name used as resource identity."},
 		"name":              schema.StringAttribute{Required: true, PlanModifiers: []planmodifier.String{stringplanmodifier.RequiresReplace()}, Description: "New team name. Creation transfers zero credits; renaming requires replacement."},
 		"team_id":           schema.Int64Attribute{Computed: true, PlanModifiers: []planmodifier.Int64{int64planmodifier.UseStateForUnknown()}, Description: "Team account ID."},
-		"api_key":           schema.StringAttribute{Computed: true, Sensitive: true, PlanModifiers: []planmodifier.String{stringplanmodifier.UseStateForUnknown()}, Description: "Generated team management credential. Secure Terraform state; the personal key's context is unchanged."},
-		"management_key_id": schema.Int64Attribute{Computed: true, PlanModifiers: []planmodifier.Int64{int64planmodifier.UseStateForUnknown()}, Description: "Generated management key ID retained for cleanup."},
+		"api_key":           schema.StringAttribute{Computed: true, Sensitive: true, PlanModifiers: []planmodifier.String{stringplanmodifier.UseStateForUnknown()}, Description: "Generated team management credential, null for imported teams. Secure Terraform state; the personal key's context is unchanged."},
+		"management_key_id": schema.Int64Attribute{Computed: true, PlanModifiers: []planmodifier.Int64{int64planmodifier.UseStateForUnknown()}, Description: "Generated management key ID retained for cleanup, null for imported teams."},
 	}}
 }
 
@@ -132,7 +135,9 @@ func (r *teamResource) Read(ctx context.Context, req resource.ReadRequest, resp 
 	}
 	confirmed, diags := req.Private.GetKey(ctx, teamCreationConfirmedKey)
 	resp.Diagnostics.Append(diags...)
-	if resp.Diagnostics.HasError() || string(confirmed) != "true" {
+	imported, diags := req.Private.GetKey(ctx, teamImportedKey)
+	resp.Diagnostics.Append(diags...)
+	if resp.Diagnostics.HasError() || (string(confirmed) != "true" && string(imported) != "true") {
 		// Failed creation owns only its generated key, even if this name exists.
 		return
 	}
@@ -144,6 +149,10 @@ func (r *teamResource) Read(ctx context.Context, req resource.ReadRequest, resp 
 		id, _, err = r.providerData.Client.TeamContext(ctx, name)
 	}
 	if errors.Is(err, vastclient.ErrNotFound) {
+		if string(imported) == "true" {
+			resp.State.RemoveResource(ctx)
+			return
+		}
 		// The independent key can survive team deletion; only apply may revoke it.
 		resp.Diagnostics.Append(resp.Private.SetKey(ctx, teamMissingKey, []byte("true"))...)
 		return
@@ -189,6 +198,15 @@ func (r *teamResource) Delete(ctx context.Context, req resource.DeleteRequest, r
 	if resp.Diagnostics.HasError() {
 		return
 	}
+	imported, diags := req.Private.GetKey(ctx, teamImportedKey)
+	resp.Diagnostics.Append(diags...)
+	if resp.Diagnostics.HasError() {
+		return
+	}
+	if string(imported) == "true" {
+		resp.Diagnostics.AddError("Imported teams cannot be destroyed", "Imported teams have no recovered management credential. Preserve the live team and detach it explicitly from Terraform state if ownership must be removed.")
+		return
+	}
 	confirmed, diags := req.Private.GetKey(ctx, teamCreationConfirmedKey)
 	resp.Diagnostics.Append(diags...)
 	if resp.Diagnostics.HasError() {
@@ -229,6 +247,29 @@ func (r *teamResource) Delete(ctx context.Context, req resource.DeleteRequest, r
 			resp.Diagnostics.AddError("Cannot revoke management key", err.Error())
 		}
 	}
+}
+
+// ImportState adopts an owned team identity without generating or recovering keys.
+func (r *teamResource) ImportState(ctx context.Context, req resource.ImportStateRequest, resp *resource.ImportStateResponse) {
+	id, err := resourceID(req.ID)
+	if err != nil {
+		resp.Diagnostics.AddError("Invalid team import ID", "Use the canonical positive decimal team account ID.")
+		return
+	}
+	name, _, err := r.providerData.Client.TeamContextByID(ctx, id)
+	if err != nil {
+		resp.Diagnostics.AddError("Cannot read imported team", err.Error())
+		return
+	}
+	data := teamModel{
+		ID:     types.StringValue(name),
+		Name:   types.StringValue(name),
+		TeamID: types.Int64Value(id),
+		APIKey: types.StringNull(),
+		KeyID:  types.Int64Null(),
+	}
+	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
+	resp.Diagnostics.Append(resp.Private.SetKey(ctx, teamImportedKey, []byte("true"))...)
 }
 
 // NewTeam constructs an unconfigured team resource for provider registration.
