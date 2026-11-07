@@ -37,11 +37,11 @@ Read this guide for stuffed toys, fabric dolls, and Fumo-style models.
   smoothing produces balloons; random surface noise does not create fabric.
 - Let seams change the silhouette or tension of adjacent panels. Decorative
   seam lines without construction consequences do not establish plush form.
-- Add fibers, fuzz, stitch detail, and micro-wrinkles only after the neutral
-  sculpt passes the multi-view silhouette and construction gates.
+- Check silhouette and construction before spending effort on fibers, fuzz,
+  stitching, and micro-wrinkles.
 - Judge the neutral sculpt as an untextured object, not as abstract topology.
-  It must already read as stuffed fabric; if it reads as a helmet, mask, cone,
-  robot limb, or disconnected primitives, reject its construction.
+  If it reads as a helmet, mask, cone, robot limb, or disconnected
+  primitives, reconsider its construction.
 
 ## High-impact review order
 

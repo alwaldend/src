@@ -4,15 +4,12 @@ title: Blender reference-fidelity evaluations
 
 # Blender reference-fidelity evaluations
 
-This suite records the behavioral contract for revising a Blender asset when
-fidelity to supplied references is the acceptance criterion. The required
-offline Bazel target validates the Promptfoo configuration, referenced case,
-and staged skill without making a model call.
+The offline Bazel target checks that the Promptfoo configuration, behavioral
+cases, and staged skill load without credentials or a model call. The cases
+cover honest comparison, incomplete references, user-directed delivery of an
+imperfect result, and continued work toward an explicit quality goal.
 
-A live target is omitted because a representative evaluation needs reference
-images, a Blender scene, fixed-camera renders, overlays, and inspection of the
-resulting pixels. A tool-free response cannot prove that geometry changed or
-that the rendered candidate meets its visual gates. Promptfoo validation
-therefore proves only that these evaluation assets load; behavior needs an
-isolated Blender fixture with image-based review before a live target would be
-meaningful.
+A live target is omitted because representative evaluation requires reference
+images, a Blender scene, rendered output, and visual inspection. Offline
+validation does not prove that an agent follows the guidance or that a model
+matches its reference.
