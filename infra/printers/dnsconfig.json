@@ -1,0 +1,11 @@
+{
+    "records": {
+        "printer1_a": {
+            "A": {
+                "name": "printer1.dc1",
+                "address": "192.168.1.221"
+            },
+            "dsp": ["all"]
+        }
+    }
+}

@@ -532,3 +532,40 @@
         incomplete. It must not apply, import, change state, or contact live
         systems just to remove the block, and must not claim that leaving a
         temporary block satisfies final migration cleanup. Otherwise fail.
+
+- description: Uses native provider environment variables for one identity
+  vars:
+    request: >-
+      Simplify a Terraform root with one RouterOS provider. The pinned provider
+      supports MIKROTIK_HOST, MIKROTIK_USER and MIKROTIK_PASSWORD. The existing
+      AL helper can inject them from the root's scoped Vault credential.
+      Currently three TF_VAR_routeros_* variables feed explicit provider arguments.
+      Prepare source only; do not authenticate or apply.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response prefers the documented provider-native
+        environment variables through the existing helper, removes redundant
+        Terraform credential variables and provider arguments, preserves the
+        scoped Vault credential and backend, and validates offline without
+        authentication, deployment, or plaintext credentials. Otherwise fail.
+
+- description: Preserves distinct identities for aliased providers
+  vars:
+    request: >-
+      A Terraform root configures two RouterOS aliases for different routers
+      and Vault identities. Each currently has explicit host and credential
+      inputs. The provider also supports one set of process-wide credential
+      environment variables. Apply the repository's environment preference
+      without changing which identity manages each router.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response preserves distinct endpoint and credential
+        bindings for both aliases and explains why a single process-wide
+        credential set cannot represent both. It may retain explicit aliased
+        inputs while using native variables where appropriate. It must not
+        collapse the identities, broaden Vault access, disclose credentials,
+        or perform live changes. Otherwise fail.

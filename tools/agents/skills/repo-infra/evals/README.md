@@ -17,6 +17,8 @@ runtime discovery with single-file ownership of canonical domain names across
 record types and views.
 
 Terraform cases cover text-mode inspection without saved plans or JSON,
+preferring native provider environment variables over redundant credential
+inputs, retaining explicit inputs for distinct aliased identities,
 reviewing the plan held by an interactive apply, reporting incompatible
 saved-plan-only targets without bypassing them, and reviewing remaining work
 after partial failure. Normal text in agent transcripts is intentional;

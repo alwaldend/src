@@ -4,6 +4,7 @@ resource "vault_identity_group" "dns_approles" {
   policies = []
   member_entity_ids = [
     module.src_infra_mikrotik.entity_id,
+    module.src_infra_printers.entity_id,
     module.src_infra_nas.entity_id,
     module.src_projects_activitywatch_ingester_android.entity_id,
     module.src_projects_agents.entity_id,
@@ -39,6 +40,6 @@ resource "vault_identity_group" "dns_approles" {
     module.src_users_simeonwarren_host_bot.entity_id,
   ]
   metadata = {
-    comment = "DNS-only AppRoles without general infrastructure privileges"
+    comment = "AppRoles with scoped provider credentials and no general infrastructure privileges"
   }
 }

@@ -12,6 +12,11 @@ module "src_infra_mikrotik" {
   context = local.dns_approle_context
 }
 
+module "src_infra_printers" {
+  source  = "./approles/src_infra_printers"
+  context = local.dns_approle_context
+}
+
 module "src_infra_nas" {
   source  = "./approles/src_infra_nas"
   context = local.dns_approle_context

@@ -1,0 +1,7 @@
+schema: spec-driven
+
+context: |
+  This OpenSpec workspace belongs to infra/printers in the alwaldend/src monorepo.
+  Read the repository AGENTS.md and the owner README and build declarations.
+  Specifications describe checked-in desired state, not deployed state.
+  Source changes do not authorize live infrastructure operations.
