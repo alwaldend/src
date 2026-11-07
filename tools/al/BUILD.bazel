@@ -59,7 +59,7 @@ al_plugin_config(
     name = "forgejo_login",
     args = {
         "forgejo_oauth_name": "vault",
-        "forgejo_url": "https://git.alwaldend.com",
+        "forgejo_url": "https://forgejo.alwaldend.com",
     },
     executable = "//tools/vault/forgejo_login",
     labels = {"forgejo_login": "1"},

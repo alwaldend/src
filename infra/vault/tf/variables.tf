@@ -24,7 +24,7 @@ variable "xoa_url" {
 variable "forgejo_url" {
   type        = string
   description = "Forgejo url"
-  default     = "https://git.alwaldend.com"
+  default     = "https://forgejo.alwaldend.com"
 }
 
 variable "harbor_url" {

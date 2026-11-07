@@ -1,0 +1,24 @@
+- name: Wait for Forgejo HTTP health
+  ansible.builtin.uri:
+    url: "{{ forgejo_health_url }}/api/healthz"
+    status_code: 200
+    timeout: 5
+    use_proxy: false
+  register: forgejo_health
+  until: forgejo_health.status | default(0) == 200
+  retries: "{{ forgejo_health_retries }}"
+  delay: "{{ forgejo_health_delay }}"
+
+- name: Inspect the version of the running process
+  ansible.builtin.uri:
+    url: "{{ forgejo_health_url }}/api/v1/version"
+    status_code: 200
+    return_content: true
+    timeout: 5
+    use_proxy: false
+  register: forgejo_running_version
+
+- name: Require the expected candidate process
+  ansible.builtin.assert:
+    that: (forgejo_running_version.json.version | default('') | regex_search('^[0-9]+\.[0-9]+\.[0-9]+')) == forgejo_candidate_version
+    fail_msg: Forgejo HTTP is serving an unexpected executable version.

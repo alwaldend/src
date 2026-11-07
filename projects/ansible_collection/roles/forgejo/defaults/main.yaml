@@ -1,4 +1,8 @@
 forgejo_user: forgejo
+forgejo_group: "{{ forgejo_user }}"
+forgejo_owner: root
+forgejo_manage_packages: true
+forgejo_manage_user: true
 forgejo_user_uid: 5157
 forgejo_dir: "/opt/forgejo"
 forgejo_data_dir: "{{ forgejo_dir }}/data"
@@ -12,3 +16,14 @@ forgejo_service_path: "/lib/systemd/system/forgejo.service"
 forgejo_vault_local_path: "{{ role_path }}/files/vault"
 forgejo_bin_local_path: "{{ role_path }}/files/forgejo"
 forgejo_bin_path: /usr/bin/forgejo
+forgejo_database_path: "{{ forgejo_work_dir }}/data/forgejo.db"
+forgejo_backup_dir: /var/backups/forgejo
+forgejo_backup_paths:
+  - "{{ forgejo_dir }}"
+  - "{{ forgejo_config_path }}"
+  - "{{ forgejo_bin_path }}"
+  - "{{ forgejo_service_path }}"
+forgejo_queue_timeout: 120s
+forgejo_health_url: http://127.0.0.1:3000
+forgejo_health_retries: 60
+forgejo_health_delay: 2
