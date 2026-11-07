@@ -16,7 +16,16 @@ module "dns" {
   source  = "../../dns_access"
   name    = local.name
   secrets = var.context.secrets
-  views   = ["dc1"]
+  views   = ["dc1", "global"]
+}
+
+resource "vault_policy" "routeros_firewall" {
+  name   = "${local.name}_routeros_firewall"
+  policy = <<-EOT
+    path "${var.context.secrets}/data/alwaldend.com/vault1/approles/src_infra_ingress/mikrotik" {
+      capabilities = ["read"]
+    }
+  EOT
 }
 
 module "approle" {
@@ -27,10 +36,13 @@ module "approle" {
   backend_accessor         = var.context.backend_accessor
   member_entity_ids        = var.context.member_entity_ids
   disable_yc_folder_policy = true
-  policies                 = [module.dns.policy_name]
+  policies = [
+    module.dns.policy_name,
+    vault_policy.routeros_firewall.name,
+  ]
 }
 
 output "entity_id" {
-  description = "DNS owner AppRole entity id"
+  description = "MikroTik owner AppRole entity id"
   value       = module.approle.entity_id
 }

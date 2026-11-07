@@ -21,6 +21,13 @@
             },
             "dsp": ["dc1"]
         },
+        "printer1_a": {
+            "A": {
+                "name": "printer1.dc1",
+                "address": "192.168.1.221"
+            },
+            "dsp": ["all"]
+        },
         "bm_a": {
             "A": {
                 "name": "bm1.dc1",
