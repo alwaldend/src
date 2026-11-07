@@ -51,6 +51,14 @@ terraform_providers.archive(
     version = "2.9.0",
 )
 terraform_providers.archive(
+    name = "terraform_provider_hashicorp_random",
+    integrity = "sha256-YLT4qO8Y9Sv44ZIVIp2uQIvucygllkCS23yYn9LeQJc=",
+    platform = "linux_amd64",
+    source = "registry.terraform.io/hashicorp/random",
+    urls = ["https://releases.hashicorp.com/terraform-provider-random/3.9.1/terraform-provider-random_3.9.1_linux_amd64.zip"],
+    version = "3.9.1",
+)
+terraform_providers.archive(
     name = "terraform_provider_hashicorp_vault",
     integrity = "sha256-GOebQsjBVaXFQaRdVKbM3qsjxATCOaze7TNqF8v8L9Q=",
     platform = "linux_amd64",
@@ -114,6 +122,7 @@ use_repo(
     "terraform_provider_goharbor_harbor",
     "terraform_provider_hashicorp_external",
     "terraform_provider_hashicorp_local",
+    "terraform_provider_hashicorp_random",
     "terraform_provider_hashicorp_vault",
     "terraform_provider_integrations_github",
     "terraform_provider_svalabs_forgejo",

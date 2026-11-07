@@ -7,28 +7,7 @@ terraform {
   }
 }
 
-variable "routeros_hosturl" {
-  type        = string
-  description = "RouterOS management endpoint supplied by the firewall credential injector."
-}
-
-variable "routeros_username" {
-  type        = string
-  description = "Existing non-DNS RouterOS username supplied by the scoped Vault read grant."
-  sensitive   = true
-}
-
-variable "routeros_password" {
-  type        = string
-  description = "Existing non-DNS RouterOS password supplied by the scoped Vault read grant."
-  sensitive   = true
-}
-
-provider "routeros" {
-  hosturl  = var.routeros_hosturl
-  username = var.routeros_username
-  password = var.routeros_password
-}
+provider "routeros" {}
 
 locals {
   printer_address = jsondecode(file("${path.module}/../dnsconfig.json")).records.printer1_a.A.address
@@ -57,6 +36,9 @@ resource "routeros_ip_firewall_filter" "wifi_printer" {
   place_before  = try(one(data.routeros_ip_firewall.forward_drop.rules[*].id), null)
 
   lifecycle {
+    # RouterOS does not return this creation-only field on import or refresh.
+    ignore_changes = [place_before]
+
     precondition {
       condition     = length(data.routeros_ip_firewall.forward_drop.rules) == 1
       error_message = "Expected exactly one enabled forward drop with comment 'drop forward'; inspect the live firewall before deploying."

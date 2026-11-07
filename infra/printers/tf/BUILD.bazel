@@ -6,7 +6,7 @@ package(transitive_visibility = "//infra:transitive_consumers")
 
 _PROVIDERS = ["@terraform_provider_terraform_routeros_routeros//:provider"]
 
-_DATA = glob(["*.tf"]) + ["//infra/mikrotik:dnsconfig"]
+_DATA = glob(["*.tf"]) + ["//infra/printers:dnsconfig"]
 
 terraform_binary_map(
     name = "tf",
@@ -17,10 +17,10 @@ terraform_binary_map(
     providers = _PROVIDERS,
     wrapper = al_binary_run,
     wrapper_kwargs = {
-        "configs": ["//infra/mikrotik:al"],
+        "configs": ["//infra/printers:al"],
         "run_args": [
             "--plugin_label",
-            "tf=firewall",
+            "tf=main",
         ],
     },
 )
@@ -40,12 +40,12 @@ terraform_test_map(
     data = glob(
         ["*.tf"],
         exclude = ["backend.tf"],
-    ) + ["//infra/mikrotik:dnsconfig"],
+    ) + ["//infra/printers:dnsconfig"],
     providers = _PROVIDERS,
 )
 
 docs_filegroup(
     name = "docs",
     srcs = ["README.md"],
-    visibility = ["//infra/mikrotik:__pkg__"],
+    visibility = ["//infra/printers:__pkg__"],
 )

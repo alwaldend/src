@@ -15,6 +15,7 @@ WORKSPACE_SOURCES = {
     "infra_nas": "//infra/nas/openspec:source",
     "infra_nexus": "//infra/nexus/openspec:source",
     "infra_openhands": "//infra/openhands/openspec:source",
+    "infra_printers": "//infra/printers/openspec:source",
     "infra_pve": "//infra/pve/openspec:source",
     "infra_repos": "//infra/repos/openspec:source",
     "infra_threexui": "//infra/threexui/openspec:source",

@@ -23,42 +23,31 @@ infra.dns({
 })
 
 lib.plugin_call({
-    name = "firewall_backend",
+    name = "accounts_backend",
     plugin = "tf_backend",
-    labels = { tf = "firewall" },
+    labels = { tf = "accounts" },
     data = {
-        vault_secret = "alwaldend.com/vault1/approles/src_infra_mikrotik/tf_backend/firewall",
+        vault_secret = "alwaldend.com/vault1/approles/src_infra_mikrotik/tf_backend/accounts",
         vault_secret_mount = "secrets",
     },
 })
 
+infra.mikrotik({
+    name = "accounts_routeros",
+    labels = { tf = "accounts" },
+    path = "alwaldend.com/vault1/approles/src_infra_mikrotik/routeros_admin",
+    host = infra.routeros_hosturl,
+})
+
 lib.plugin_call({
-    name = "firewall_routeros",
+    name = "accounts_vault_env",
     plugin = "injector",
-    labels = { tf = "firewall" },
+    labels = { tf = "accounts" },
     data = {
         res = {
             {
-                name = "firewall_routeros",
-                kv = {
-                    path = "alwaldend.com/vault1/approles/src_infra_ingress/mikrotik",
-                    mount = "secrets",
-                },
-            },
-            {
-                name = "TF_VAR_routeros_hosturl",
-                deps = { "firewall_routeros" },
-                env = { value = infra.routeros_hosturl },
-            },
-            {
-                name = "TF_VAR_routeros_username",
-                deps = { "firewall_routeros" },
-                env = { value = "{{ .Last.Data.mikrotik_username }}" },
-            },
-            {
-                name = "TF_VAR_routeros_password",
-                deps = { "firewall_routeros" },
-                env = { value = "{{ .Last.Data.mikrotik_password }}" },
+                name = "accounts_vault_env",
+                vault_env = { conn = "default", auth = "default" },
             },
         },
     },

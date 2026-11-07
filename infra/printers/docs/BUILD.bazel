@@ -1,0 +1,27 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_site_svg")
+
+package(transitive_visibility = "//infra:transitive_consumers")
+
+mermaid_site_svg(
+    name = "network",
+    src = "network.mmd",
+    out = "rendered/network.svg",
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob([
+        "*.md",
+        "*.mmd",
+    ]),
+    preserve_paths = True,
+    visibility = ["//infra/printers:__pkg__"],
+    deps = [":docs_assets"],
+)
+
+docs_filegroup(
+    name = "docs_assets",
+    srcs = [":network"],
+    prefix = "content/docs/infra/printers/docs/assets",
+)

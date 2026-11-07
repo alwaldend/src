@@ -60,6 +60,12 @@ Do not commit `.terraform/`, state, plans, environment files, or credentials.
 
 ## Terraform
 
+Prefer the pinned provider's documented environment variables for credentials
+and endpoints, supplied through the existing injection flow and shared helpers.
+Avoid redundant Terraform variables and provider arguments when those native
+variables suffice. Keep explicit provider inputs when the provider lacks
+environment support or aliases need different identities in the same process.
+
 Read [references/terraform.md](references/terraform.md) for the stage choice,
 module conventions, text-mode interactive review, format/plan targets, and
 state-migration rules. Apply the root `AGENTS.md` plan-artifact policy. Treat

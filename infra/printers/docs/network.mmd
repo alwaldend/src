@@ -1,0 +1,13 @@
+flowchart LR
+    subgraph lan["LAN"]
+        actor_lan("Actor")
+        printer["Printer<br/>printer1.dc1.alwaldend.com"]
+    end
+    subgraph wifi["Wi-Fi"]
+        actor_wifi("Actor")
+    end
+    router["Router (MikroTik)<br/>router1.dc1.alwaldend.com"]
+
+    router <--> actor_lan
+    actor_wifi -->|"Firewall exception<br/>Default: block LAN"| router
+    router <--> printer
