@@ -2,14 +2,14 @@
     "toolchains": [
         {
             "name": "forgejo_runner",
-            "version": "13.1.0"
+            "version": "13.2.1"
         }
     ],
     "archives": [
         {
             "archive_name": "linux_x86_64",
             "toolchain_name": "forgejo_runner",
-            "toolchain_version": "13.1.0",
+            "toolchain_version": "13.2.1",
             "binaries": [
                 {
                     "name": "forgejo_runner",
@@ -25,10 +25,10 @@
             "actions": [
                 {
                     "download": {
-                        "url": "https://code.forgejo.org/forgejo/runner/releases/download/v13.1.0/forgejo-runner-13.1.0-linux-amd64",
+                        "url": "https://code.forgejo.org/forgejo/runner/releases/download/v13.2.1/forgejo-runner-13.2.1-linux-amd64",
                         "output": "out/forgejo-runner",
                         "executable": true,
-                        "integrity": "sha256-KdriHpPw6rXN81ZACNRGA8dHcLQaT08azu0XLHdLw3Y="
+                        "integrity": "sha256-uzaf4ey1D9yYPAsdmT8ZsJIN9uWGRRGJKzzb8W2FizQ="
                     }
                 }
             ]

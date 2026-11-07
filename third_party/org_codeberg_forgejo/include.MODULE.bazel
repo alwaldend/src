@@ -3,10 +3,10 @@ http_archive = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "ht
 http_archive(
     name = "org_codeberg_forgejo",
     build_file = "//third_party/org_codeberg_forgejo:forgejo.BUILD.bazel",
-    integrity = "sha256-OawwI9HWFlqH2Ju0RALsRWcyfZUpANVSK5KjlRtF20U=",
-    strip_prefix = "forgejo-src-15.0.3",
+    integrity = "sha256-1rMqx35xrwc38wYT2YWg3DNbaUuLmJ1gmgzIiXLy/U0=",
+    strip_prefix = "forgejo-src-17.0.1",
     urls = [
-        "https://codeberg.org/forgejo/forgejo/releases/download/v15.0.3/forgejo-src-15.0.3.tar.gz",
-        "https://code.forgejo.org/forgejo/forgejo/releases/download/v15.0.3/forgejo-src-15.0.3.tar.gz",
+        "https://codeberg.org/forgejo/forgejo/releases/download/v17.0.1/forgejo-src-17.0.1.tar.gz",
+        "https://code.forgejo.org/forgejo/forgejo/releases/download/v17.0.1/forgejo-src-17.0.1.tar.gz",
     ],
 )

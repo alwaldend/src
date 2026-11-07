@@ -6,7 +6,7 @@ terraform {
     }
     forgejo = {
       source  = "svalabs/forgejo"
-      version = "1.5.0"
+      version = "1.7.0"
     }
   }
   backend "http" {
