@@ -9,6 +9,8 @@ tags:
 
 The [Terraform package](tf/README.md) prepares owner-local DNS management.
 Router exports remain documentation inputs and are not applied by that package.
+The separate [firewall package](firewall/README.md) defines the Wi-Fi exception
+for `printer1.dc1.alwaldend.com`; its deployment is independent of DNS.
 
 ## DC1 architecture
 
