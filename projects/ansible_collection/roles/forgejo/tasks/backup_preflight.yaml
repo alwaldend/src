@@ -1,0 +1,64 @@
+- name: Require explicit recovery roots
+  ansible.builtin.assert:
+    that: forgejo_backup_paths | length > 0
+
+- name: Require literal absolute recovery paths
+  ansible.builtin.assert:
+    that:
+      - item is string and item is abs
+      - item == (item | ansible.builtin.normpath)
+      - item != '/' and not item.startswith('//')
+      - "'*' not in item and '?' not in item and '[' not in item and ']' not in item"
+    fail_msg: Forgejo recovery paths must be literal normalized absolute paths, excluding the filesystem root.
+  loop: "{{ forgejo_backup_paths + [forgejo_backup_dir, forgejo_database_path] }}"
+
+- name: Initialize the minimal declared archive roots
+  ansible.builtin.set_fact:
+    forgejo_backup_roots: []
+
+- name: Retain only roots not already covered by a containing directory
+  when: >-
+    forgejo_backup_roots | length == 0 or
+    not (item is match('^(?:' + (forgejo_backup_roots | map('regex_escape') | join('|')) + ')(?:/|$)'))
+  ansible.builtin.set_fact:
+    forgejo_backup_roots: "{{ forgejo_backup_roots + [item] }}"
+  loop: "{{ forgejo_backup_paths | unique | sort }}"
+
+- name: Resolve recovery storage and archive roots on the managed host
+  ansible.builtin.command:
+    argv: [realpath, --canonicalize-missing, --, "{{ item }}"]
+    strip_empty_ends: false
+  changed_when: false
+  loop: "{{ [forgejo_backup_dir] + forgejo_backup_roots }}"
+  register: forgejo_backup_physical_paths
+
+- name: Require recovery storage outside every physical archive root
+  vars:
+    # Remove only realpath's final newline, preserving filename whitespace.
+    forgejo_resolved_recovery_path: "{{ forgejo_backup_physical_paths.results[0].stdout[:-1] }}"
+    forgejo_resolved_archive_path: "{{ item.stdout[:-1] }}"
+  ansible.builtin.assert:
+    that:
+      - forgejo_resolved_recovery_path != '/' and forgejo_resolved_archive_path != '/'
+      - not (forgejo_resolved_recovery_path is match('^' + (forgejo_resolved_archive_path | regex_escape) + '(?:/|$)'))
+      - not (forgejo_resolved_archive_path is match('^' + (forgejo_resolved_recovery_path | regex_escape) + '(?:/|$)'))
+    fail_msg: Forgejo recovery storage must be separate from its archive roots.
+  loop: "{{ forgejo_backup_physical_paths.results[1:] }}"
+
+- name: Record the declared coverage boundary
+  ansible.builtin.set_fact:
+    forgejo_backup_coverage: "^({{ forgejo_backup_roots | map('regex_escape') | join('|') }})(?:/|$)"
+
+- name: Require managed state and startup inputs in the declared archive
+  ansible.builtin.assert:
+    that: item is match(forgejo_backup_coverage)
+    fail_msg: Declare backup coverage for the managed Forgejo tree, SQLite database and startup files.
+  loop:
+    - "{{ forgejo_dir }}"
+    - "{{ forgejo_work_dir }}"
+    - "{{ forgejo_data_dir }}"
+    - "{{ forgejo_log_dir }}"
+    - "{{ forgejo_database_path }}"
+    - "{{ forgejo_config_path }}"
+    - "{{ forgejo_bin_path }}"
+    - "{{ forgejo_service_path }}"

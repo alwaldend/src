@@ -1,3 +1,14 @@
+http_file = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_file")
+
+# Previous deployed pin, retained only for real SQLite upgrade acceptance.
+http_file(
+    name = "org_codeberg_forgejo_upgrade_fixture",
+    downloaded_file_path = "forgejo-15.0.3",
+    executable = True,
+    integrity = "sha256-MhjcVLcaD9giw7FdMmokWpo1lN+t+jXyva6YCegb134=",
+    urls = ["https://codeberg.org/forgejo/forgejo/releases/download/v15.0.3/forgejo-15.0.3-linux-amd64"],
+)
+
 binary_toolchain_extension = use_extension(
     "@rules_binary_toolchain//rules:binary_toolchain_extension.bzl",
     "binary_toolchain_extension",

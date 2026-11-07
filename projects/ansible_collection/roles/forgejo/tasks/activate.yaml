@@ -1,0 +1,123 @@
+- name: Activate a changed Forgejo installation
+  block:
+    - name: Drain the installed instance before downtime
+      when: forgejo_existing_installation and forgejo_previous_service.rc == 0
+      become: true
+      become_user: "{{ forgejo_user }}"
+      no_log: true
+      ansible.builtin.command:
+        argv:
+          - "{{ forgejo_bin_path }}"
+          - --config
+          - "{{ forgejo_config_path }}"
+          - --work-path
+          - "{{ forgejo_work_dir }}"
+          - manager
+          - flush-queues
+          - --timeout
+          - "{{ forgejo_queue_timeout }}"
+      changed_when: false
+
+    - name: Stop the installed service before archiving or replacing inputs
+      when: forgejo_existing_installation
+      ansible.builtin.systemd_service:
+        name: "{{ forgejo_service_path | basename }}"
+        state: stopped
+
+    - name: Archive the stopped installation
+      when: forgejo_existing_installation
+      ansible.builtin.include_tasks: backup.yaml
+
+    - name: Persist the activation boundary before replacing startup inputs
+      ansible.builtin.copy:
+        content: >-
+          {{ {'candidate_version': forgejo_candidate_version,
+              'candidate_checksum': forgejo_candidate_binary.stat.checksum,
+              'recovery_directory': forgejo_recovery_directory} | to_nice_json }}
+        dest: "{{ forgejo_backup_dir }}/pending.json"
+        owner: "{{ forgejo_owner }}"
+        group: "{{ forgejo_owner }}"
+        mode: "0600"
+
+    - name: Mark the candidate installation boundary
+      ansible.builtin.set_fact:
+        forgejo_candidate_installed: true
+
+    - name: Install candidate startup files with their declared metadata
+      no_log: true
+      ansible.builtin.copy:
+        src: "{{ forgejo_stage_directory.path }}/{{ item.staged_name }}"
+        dest: "{{ item.path }}"
+        remote_src: true
+        owner: "{{ item.owner }}"
+        group: "{{ item.group }}"
+        mode: "{{ item.mode }}"
+      loop: "{{ forgejo_startup_files }}"
+
+    - name: Reload the candidate service unit
+      ansible.builtin.systemd_service:
+        daemon_reload: true
+
+    - name: Clear an earlier systemd startup rate limit
+      ansible.builtin.command:
+        argv:
+          [systemctl, reset-failed, "{{ forgejo_service_path | basename }}"]
+      changed_when: false
+
+    - name: Mark the candidate process activation boundary
+      ansible.builtin.set_fact:
+        forgejo_candidate_start_attempted: true
+
+    - name: Start the candidate with its current unit definition
+      ansible.builtin.systemd_service:
+        name: "{{ forgejo_service_path | basename }}"
+        enabled: true
+        state: started
+
+    - name: Require a healthy candidate before completing activation
+      ansible.builtin.include_tasks: verify.yaml
+
+    - name: Check the activated database and repository state without repairs
+      become: true
+      become_user: "{{ forgejo_user }}"
+      no_log: true
+      ansible.builtin.command:
+        argv:
+          - "{{ forgejo_bin_path }}"
+          - --config
+          - "{{ forgejo_config_path }}"
+          - --work-path
+          - "{{ forgejo_work_dir }}"
+          - doctor
+          - check
+          - --run
+          - check-db-version
+          - --run
+          - check-db-consistency
+          - --log-file
+          - "{{ forgejo_log_dir }}/upgrade-doctor.log"
+      changed_when: false
+      register: forgejo_doctor_result
+
+    - name: Complete the accepted activation transaction
+      ansible.builtin.file:
+        path: "{{ forgejo_backup_dir }}/pending.json"
+        state: absent
+  rescue:
+    - name: Stop an installed candidate whose acceptance did not complete
+      when: forgejo_candidate_start_attempted
+      ansible.builtin.systemd_service:
+        name: "{{ forgejo_service_path | basename }}"
+        state: stopped
+
+    - name: Recover an intact previously active service after preparation failure
+      when: not forgejo_candidate_installed and forgejo_previous_service.rc == 0
+      ansible.builtin.systemd_service:
+        name: "{{ forgejo_service_path | basename }}"
+        state: started
+
+    - name: Report the failed upgrade and preserved recovery location
+      ansible.builtin.fail:
+        msg: >-
+          Forgejo activation failed. Recovery directory: {{ forgejo_recovery_directory | default('not created', true) }}.
+          {{ 'The candidate is stopped. Restore the complete archive with its matching executable before starting the prior version; no automatic database downgrade was attempted.' if forgejo_candidate_installed and forgejo_existing_installation else ('Fresh installation failed; no prior recovery archive exists. Inspect the service journal and correct the candidate before retrying.' if forgejo_candidate_installed else 'Installed startup inputs were preserved; a previously active service was recovered.') }}

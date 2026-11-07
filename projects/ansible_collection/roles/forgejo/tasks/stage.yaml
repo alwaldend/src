@@ -1,0 +1,60 @@
+- name: Inspect the protected recovery storage path
+  ansible.builtin.stat:
+    path: "{{ forgejo_backup_dir }}"
+  register: forgejo_backup_root_stat
+
+- name: Reject a symbolic recovery storage path
+  ansible.builtin.assert:
+    that: not (forgejo_backup_root_stat.stat.islnk | default(false))
+    fail_msg: Forgejo recovery storage must be a real directory outside the persisted trees.
+
+- name: Create protected host-local recovery storage
+  ansible.builtin.file:
+    path: "{{ forgejo_backup_dir }}"
+    state: directory
+    owner: "{{ forgejo_owner }}"
+    group: "{{ forgejo_owner }}"
+    mode: "0700"
+
+- name: Allocate a private candidate staging directory
+  ansible.builtin.tempfile:
+    state: directory
+    path: "{{ forgejo_backup_dir }}"
+    prefix: .candidate-
+  register: forgejo_stage_directory
+
+- name: Stage the candidate executable before downtime
+  ansible.builtin.copy:
+    src: "{{ forgejo_bin_local_path }}"
+    dest: "{{ forgejo_stage_directory.path }}/forgejo"
+    owner: "{{ forgejo_owner }}"
+    group: "{{ forgejo_owner }}"
+    mode: "0700"
+
+- name: Verify candidate execution on the target before downtime
+  ansible.builtin.command:
+    argv: ["{{ forgejo_stage_directory.path }}/forgejo", --version]
+  changed_when: false
+  register: forgejo_target_version
+
+- name: Require the staged target to report the expected version
+  ansible.builtin.assert:
+    that: forgejo_target_version.stdout == forgejo_candidate_version_output.stdout
+    fail_msg: The staged Forgejo executable does not match the validated candidate.
+
+- name: Stage the candidate configuration privately
+  no_log: true
+  ansible.builtin.copy:
+    content: "{{ forgejo_candidate_config }}"
+    dest: "{{ forgejo_stage_directory.path }}/forgejo.ini"
+    owner: "{{ forgejo_owner }}"
+    group: "{{ forgejo_owner }}"
+    mode: "0600"
+
+- name: Stage the candidate unit
+  ansible.builtin.copy:
+    content: "{{ forgejo_candidate_unit }}"
+    dest: "{{ forgejo_stage_directory.path }}/forgejo.service"
+    owner: "{{ forgejo_owner }}"
+    group: "{{ forgejo_owner }}"
+    mode: "0600"
