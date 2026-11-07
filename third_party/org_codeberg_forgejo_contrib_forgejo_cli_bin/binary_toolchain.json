@@ -2,14 +2,14 @@
     "toolchains": [
         {
             "name": "fj",
-            "version": "0.5.0"
+            "version": "0.7.0"
         }
     ],
     "archives": [
         {
             "archive_name": "linux_x86_64",
             "toolchain_name": "fj",
-            "toolchain_version": "0.5.0",
+            "toolchain_version": "0.7.0",
             "binaries": [
                 {
                     "name": "fj",
@@ -25,9 +25,9 @@
             "actions": [
                 {
                     "download_and_extract":{
-                        "url": "https://codeberg.org/forgejo-contrib/forgejo-cli/releases/download/v0.5.0/forgejo-cli-x86_64-linux.tar.gz",
+                        "url": "https://codeberg.org/forgejo-contrib/forgejo-cli/releases/download/v0.7.0/forgejo-cli-x86_64-linux.tar.gz",
                         "output": "out",
-                        "integrity": "sha256-pv4lhEyxXYqX5JCZM6M25JabIov/wNpInhANWGA2IlU="
+                        "integrity": "sha256-aAPBLu0Xv620C6ldoqarWPm0p9wQ6r/jUS/Ofi/mIW8="
                     }
                 }
             ]

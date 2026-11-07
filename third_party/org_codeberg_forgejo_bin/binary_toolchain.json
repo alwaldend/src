@@ -2,14 +2,14 @@
     "toolchains": [
         {
             "name": "forgejo",
-            "version": "15.0.3"
+            "version": "17.0.1"
         }
     ],
     "archives": [
         {
             "archive_name": "linux_x86_64",
             "toolchain_name": "forgejo",
-            "toolchain_version": "15.0.3",
+            "toolchain_version": "17.0.1",
             "binaries": [
                 {
                     "name": "forgejo",
@@ -25,10 +25,10 @@
             "actions": [
                 {
                     "download": {
-                        "url": "https://codeberg.org/forgejo/forgejo/releases/download/v15.0.3/forgejo-15.0.3-linux-amd64",
+                        "url": "https://codeberg.org/forgejo/forgejo/releases/download/v17.0.1/forgejo-17.0.1-linux-amd64",
                         "output": "out/forgejo",
                         "executable": true,
-                        "integrity": "sha256-MhjcVLcaD9giw7FdMmokWpo1lN+t+jXyva6YCegb134="
+                        "integrity": "sha256-UajN9KElLnn0s4VdeniRr2xmNRBUIHaMRg4vBpA4XW8="
                     }
                 }
             ]

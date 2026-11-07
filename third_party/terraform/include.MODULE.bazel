@@ -68,11 +68,11 @@ terraform_providers.archive(
 )
 terraform_providers.archive(
     name = "terraform_provider_svalabs_forgejo",
-    integrity = "sha256-pNPxKa/3jQXlmpani0sybXBRy/oRf5t+pfB6blc/xE4=",
+    integrity = "sha256-EjS5uCbCBb5YL8ock8UbYiDby6Z8/0bOytGqnOkPoFY=",
     platform = "linux_amd64",
     source = "registry.terraform.io/svalabs/forgejo",
-    urls = ["https://github.com/svalabs/terraform-provider-forgejo/releases/download/v1.5.0/terraform-provider-forgejo_1.5.0_linux_amd64.zip"],
-    version = "1.5.0",
+    urls = ["https://github.com/svalabs/terraform-provider-forgejo/releases/download/v1.7.0/terraform-provider-forgejo_1.7.0_linux_amd64.zip"],
+    version = "1.7.0",
 )
 terraform_providers.archive(
     name = "terraform_provider_telmate_proxmox",
