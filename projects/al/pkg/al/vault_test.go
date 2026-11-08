@@ -19,8 +19,8 @@ import (
 
 func testVaultConfig(address string, auth *al_proto.VaultAuth) *al_proto.Config {
 	return &al_proto.Config{
-		VaultConn: []*al_proto.VaultConn{{Name: "default", Config: &al_proto.VaultConfig{Address: address}}},
-		VaultAuth: []*al_proto.VaultAuth{auth},
+		VaultConn: map[string]*al_proto.VaultConn{"default": {Config: &al_proto.VaultConfig{Address: address}}},
+		VaultAuth: map[string]*al_proto.VaultAuth{"default": auth},
 	}
 }
 
@@ -35,7 +35,7 @@ func TestNoAuthDoesNotReadOrForwardCredentials(t *testing.T) {
 		io.WriteString(w, `{"data":{}}`)
 	}))
 	defer server.Close()
-	store := NewVault(testVaultConfig(server.URL, &al_proto.VaultAuth{Name: "default", NoAuth: true}))
+	store := NewVault(testVaultConfig(server.URL, &al_proto.VaultAuth{NoAuth: true}))
 	item, err := store.Client(context.Background(), "", "").Get()
 	if err != nil {
 		t.Fatal(err)
@@ -105,7 +105,7 @@ func TestVaultOwnedCredentialCleanup(t *testing.T) {
 				}
 			}))
 			defer server.Close()
-			store := NewVault(testVaultConfig(server.URL, &al_proto.VaultAuth{Name: "default", Approle: &al_proto.VaultAuthApprole{Name: "fixture"}}))
+			store := NewVault(testVaultConfig(server.URL, &al_proto.VaultAuth{Approle: &al_proto.VaultAuthApprole{Name: "fixture"}}))
 			_, err := store.Client(context.Background(), "", "").Get()
 			if (err != nil) != failLogin {
 				t.Fatalf("login error = %v", err)

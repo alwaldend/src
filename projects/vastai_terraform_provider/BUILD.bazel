@@ -1,4 +1,4 @@
-load("@rules_al//:defs.bzl", "al_config", "al_injector_call", "al_vault_auth")
+load("@rules_al//:defs.bzl", "al_config", "al_inject", "al_vault_auth")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_pkg//pkg:mappings.bzl", "pkg_attributes", "pkg_files")
 load("@rules_pkg//pkg:zip.bzl", "pkg_zip")
@@ -56,7 +56,7 @@ vault_tf_backend(
     path = "alwaldend.com/vault1/approles/src_projects_vastai_terraform_provider/tf_backend/test",
 )
 
-al_injector_call(
+al_inject(
     name = "vastai",
     labels = {"vastai": "1"},
     res_env = {"VAST_API_KEY": {

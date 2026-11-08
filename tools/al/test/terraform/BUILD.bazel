@@ -1,7 +1,7 @@
-load("@rules_al//:defs.bzl", "al_config", "al_injector_call")
+load("@rules_al//:defs.bzl", "al_config", "al_inject")
 load("//tools/al:al_terraform.bzl", "al_terraform_binary_map", "al_terraform_test_map")
 
-al_injector_call(
+al_inject(
     name = "version_environment",
     testonly = True,
     labels = {"fixture": "terraform"},
@@ -13,7 +13,6 @@ al_config(
     testonly = True,
     configs = [
         ":version_environment",
-        "@rules_al//plugins/injector:config",
     ],
 )
 

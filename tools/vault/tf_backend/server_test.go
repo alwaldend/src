@@ -90,15 +90,15 @@ func TestPluginStopsAlreadyRunningBackend(t *testing.T) {
 	}
 	response, err := plugin.PluginStart(ctx.Ctx, &al_proto.PluginStartRequest{
 		Config: &al_proto.Config{
-			VaultConn: []*al_proto.VaultConn{{Name: "default", Config: &al_proto.VaultConfig{Address: "http://127.0.0.1:1"}, Tls: &al_proto.VaultTLS{}}},
-			VaultAuth: []*al_proto.VaultAuth{{Name: "default", NoAuth: true}},
+			VaultConn: map[string]*al_proto.VaultConn{"default": {Config: &al_proto.VaultConfig{Address: "http://127.0.0.1:1"}, Tls: &al_proto.VaultTLS{}}},
+			VaultAuth: map[string]*al_proto.VaultAuth{"default": {NoAuth: true}},
 		},
-		Plugin: &al_proto.PluginConfig{Calls: []*al_proto.PluginCall{{Name: "fixture", Data: data}}},
+		Plugin: &al_proto.PluginConfig{Calls: map[string]*al_proto.PluginCall{"fixture": {Data: data}}},
 	})
 	if err != nil {
 		t.Fatal(err)
 	}
-	endpoint := response.Env["TF_HTTP_ADDRESS"]
+	endpoint := response.GetResult().GetEnv()["TF_HTTP_ADDRESS"]
 	if endpoint == "" {
 		t.Fatal("missing backend address")
 	}

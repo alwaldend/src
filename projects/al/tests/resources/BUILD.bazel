@@ -1,0 +1,20 @@
+load("@rules_go//go:def.bzl", "go_test")
+
+go_test(
+    name = "resources_test",
+    srcs = [
+        "doc.go",
+        "resources_test.go",
+    ],
+    data = ["//:al"],
+    env = {"AL_BINARY": "$(rlocationpath //:al)"},
+    deps = [
+        "//api/al_proto",
+        "//pkg/al",
+        "//pkg/al_plugin",
+        "//pkg/injector",
+        "@org_golang_google_protobuf//encoding/protojson",
+        "@org_golang_google_protobuf//proto",
+        "@rules_go//go/runfiles",
+    ],
+)

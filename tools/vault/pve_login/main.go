@@ -244,7 +244,7 @@ func (self *Plugin) PluginStart(ctx context.Context, req *al_proto.PluginStartRe
 	if err != nil {
 		return nil, fmt.Errorf("could not create proxmox token: %w", err)
 	}
-	res := &al_proto.PluginStartResponse{
+	res := &al_proto.ResourceResult{
 		Env: map[string]string{
 			"PM_API_TOKEN_ID":     pveToken.Data.TokenId,
 			"TOKEN_ID":            pveToken.Data.TokenId,
@@ -254,7 +254,7 @@ func (self *Plugin) PluginStart(ctx context.Context, req *al_proto.PluginStartRe
 			"API_URL":             fmt.Sprintf("%s/api2/json", config.PveBaseUrl),
 		},
 	}
-	return res, nil
+	return &al_proto.PluginStartResponse{Result: res}, nil
 }
 
 func run(ctx *al.CmdCtx) error {

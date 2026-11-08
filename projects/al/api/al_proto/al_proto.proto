@@ -17,8 +17,8 @@ message VaultTLS {
 }
 
 message VaultConn {
-  // Vault name
-  string name = 1;
+  reserved 1;
+  reserved "name";
   // Vault config
   VaultConfig config = 2;
   // Vault tls config
@@ -35,8 +35,8 @@ message VaultAuthTokenHelper {}
 
 // Vault authentication config
 message VaultAuth {
-  // Authentication name
-  string name = 1;
+  reserved 1;
+  reserved "name";
   // Authentification with approle
   VaultAuthApprole approle = 2;
   // Authentification using the token helper
@@ -45,14 +45,16 @@ message VaultAuth {
 }
 
 message Config {
-  // List of Vault configs
-  repeated VaultConn vault_conn = 1;
-  // List of Vault authentication configs
-  repeated VaultAuth vault_auth = 2;
-  // Plugin configs
-  repeated PluginConfig plugins = 7;
-  // Plugin call configs
-  repeated PluginCall plugin_calls = 8;
+  // Named Vault connections
+  map<string, VaultConn> vault_conn = 1;
+  // Named Vault authentication methods
+  map<string, VaultAuth> vault_auth = 2;
+  // Named executable declarations
+  map<string, PluginConfig> plugin_configs = 7;
+  // Named plugin invocations
+  map<string, PluginCall> plugins = 8;
+  // Built-in injection declarations, independent of external plugin calls.
+  map<string, InjectorCall> inject = 11;
   reserved 9, 10;
   reserved "tool_methods", "tools";
 }
@@ -77,8 +79,8 @@ message Json {
 }
 
 message PluginCall {
-  // Request name
-  string name = 1;
+  reserved 1;
+  reserved "name";
   // Plugin name
   string plugin = 2;
   // Plugin data
@@ -86,14 +88,55 @@ message PluginCall {
   map<string, string> labels = 4;
 }
 
-message PluginConfig {
+// Injector calls group named resource definitions under label selection.
+message InjectorCall {
+  reserved 1;
+  reserved "name";
+  map<string, string> labels = 2;
+  map<string, ResourceConfig> res = 3;
+  // Explicit parent group for resource override precedence.
+  string extends = 4;
+}
+
+// Provider-neutral resource settings; the provider owns args interpretation.
+message ResourceConfig {
+  string type = 1;
+  Json args = 2;
+  repeated string deps = 3;
+  // Resource input for templates and providers, independent of dependency output.
+  Json data = 4;
+}
+
+// Settings for the built-in environment resource.
+message InjectorEnv {
+  string value = 1;
+}
+
+// Settings for a built-in private file rendered from dependencies.
+message InjectorFile {
+  string value = 1;
+  string from_file = 2;
+  reserved 3;
+  reserved "extra";
+}
+
+// Settings for an invocation-owned helper process.
+message InjectorProcess {
   string name = 1;
+  repeated string args = 2;
+}
+
+message PluginConfig {
+  reserved 1;
+  reserved "name";
   string bin = 2;
   repeated string args = 3;
   map<string, string> env = 4;
   Json data = 5;
   map<string, string> labels = 6;
-  repeated PluginCall calls = 7;
+  map<string, PluginCall> calls = 7;
+  // Eligible for lazy capability discovery when a graph needs external types.
+  bool resource_provider = 8;
 }
 
 service PluginService {
@@ -105,10 +148,45 @@ message PluginStartRequest {
   Config config = 1;
   // Plugin config
   PluginConfig plugin = 2;
-  // Plugin requests
-  repeated PluginCall calls = 3;
+  reserved 3;
+  reserved "calls";
+  // Selected executable declaration key.
+  string name = 4;
 }
+
+// Startup metadata is separate from the optional resource output.
 message PluginStartResponse {
-  // Environment variables
-  map<string, string> env = 1;
+  // Absent when startup produced no resource output.
+  ResourceResult result = 1;
+  // Capabilities served by an eligible provider, initialized without fetching.
+  repeated string resource_types = 2;
+}
+
+// Eligible providers advertise capabilities in PluginStartResponse, then fetch only
+// resources requested by AL's built-in dependency evaluator.
+service ResourceService {
+  rpc ResourceFetch(ResourceFetchRequest) returns (ResourceResult) {}
+}
+message ResourceResult {
+  // Fetched results must be empty or match the requested resource name.
+  // Startup results may use the plugin's identity.
+  string name = 1;
+  // Exports available to dependent resources and the command environment.
+  map<string, string> env = 2;
+  // Provider-owned paths kept alive until command consumers have stopped.
+  repeated string files = 3;
+  // Opaque JSON-compatible values for templates and downstream providers.
+  Json data = 4;
+}
+message ResourceFetchRequest {
+  // Identity in the selected resource graph.
+  string name = 1;
+  // One of the provider's advertised type names.
+  string type = 2;
+  // Opaque type-specific settings; core does not interpret these fields.
+  Json args = 3;
+  // Completed results in the resource's declared dependency order.
+  repeated ResourceResult dependencies = 4;
+  // Configured resource input, independently of type-specific args.
+  Json data = 5;
 }

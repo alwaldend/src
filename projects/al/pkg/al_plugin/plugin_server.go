@@ -51,6 +51,9 @@ func NewPluginServer(ctx *al.CmdCtx, plugin al_proto.PluginServiceServer) *Plugi
 		grpc.UnaryInterceptor(unaryInterceptor),
 	)
 	al_proto.RegisterPluginServiceServer(server, plugin)
+	if provider, ok := plugin.(al_proto.ResourceServiceServer); ok {
+		al_proto.RegisterResourceServiceServer(server, provider)
+	}
 	res := &PluginServer{
 		server: server,
 		res:    make(chan error, 1),

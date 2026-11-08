@@ -33,31 +33,29 @@ func TestPluginConfigInheritsDefaultsAndSelectsNamedAuthentication(t *testing.T)
 	}
 	for _, test := range []struct {
 		name     string
-		calls    []*al_proto.PluginCall
+		calls    map[string]*al_proto.PluginCall
 		wantAuth string
 	}{
 		{name: "no selected calls", wantAuth: "default"},
 		{
 			name: "empty calls preserve defaults",
-			calls: []*al_proto.PluginCall{
-				{Name: "first"},
-				{Name: "second", Data: pluginData(t, map[string]any{})},
+			calls: map[string]*al_proto.PluginCall{
+				"first":  {},
+				"second": {Data: pluginData(t, map[string]any{})},
 			},
 			wantAuth: "default",
 		},
 		{
 			name: "named authentication inherits service configuration",
-			calls: []*al_proto.PluginCall{
-				{Name: "ordinary"},
-				{Name: "registration", Data: pluginData(t, map[string]any{"vault_auth": "forgejo_registration"})},
+			calls: map[string]*al_proto.PluginCall{
+				"ordinary":     {},
+				"registration": {Data: pluginData(t, map[string]any{"vault_auth": "forgejo_registration"})},
 			},
 			wantAuth: "forgejo_registration",
 		},
 		{
-			name: "empty fields preserve defaults",
-			calls: []*al_proto.PluginCall{
-				{Data: pluginData(t, map[string]any{"vault_auth": "", "forgejo_url": ""})},
-			},
+			name:     "empty fields preserve defaults",
+			calls:    map[string]*al_proto.PluginCall{"fixture_1": {Data: pluginData(t, map[string]any{"vault_auth": "", "forgejo_url": ""})}},
 			wantAuth: "default",
 		},
 	} {
@@ -97,23 +95,16 @@ func TestPluginConfigRejectsAmbiguousOrMalformedData(t *testing.T) {
 			},
 		},
 		{
-			name: "malformed call",
-			plugin: &al_proto.PluginConfig{Calls: []*al_proto.PluginCall{
-				{Data: pluginData(t, map[string]any{"vault_auth": map[string]any{"private": true}})},
-			}},
+			name:   "malformed call",
+			plugin: &al_proto.PluginConfig{Calls: map[string]*al_proto.PluginCall{"fixture_1": {Data: pluginData(t, map[string]any{"vault_auth": map[string]any{"private": true}})}}},
 		},
 		{
-			name: "unknown call field",
-			plugin: &al_proto.PluginConfig{Calls: []*al_proto.PluginCall{
-				{Data: pluginData(t, map[string]any{"private_unknown_field": "value"})},
-			}},
+			name:   "unknown call field",
+			plugin: &al_proto.PluginConfig{Calls: map[string]*al_proto.PluginCall{"fixture_1": {Data: pluginData(t, map[string]any{"private_unknown_field": "value"})}}},
 		},
 		{
-			name: "ambiguous selected identities",
-			plugin: &al_proto.PluginConfig{Calls: []*al_proto.PluginCall{
-				{Data: pluginData(t, map[string]any{"vault_auth": "first"})},
-				{Data: pluginData(t, map[string]any{"vault_auth": "second"})},
-			}},
+			name:   "ambiguous selected identities",
+			plugin: &al_proto.PluginConfig{Calls: map[string]*al_proto.PluginCall{"fixture_1": {Data: pluginData(t, map[string]any{"vault_auth": "first"})}, "fixture_2": {Data: pluginData(t, map[string]any{"vault_auth": "second"})}}},
 		},
 	} {
 		t.Run(test.name, func(t *testing.T) {

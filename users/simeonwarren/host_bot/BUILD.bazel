@@ -1,4 +1,4 @@
-load("@rules_al//:defs.bzl", "al_config", "al_injector_call", "al_vault_auth")
+load("@rules_al//:defs.bzl", "al_config", "al_inject", "al_vault_auth")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("//infra:al_config.bzl", "infra_ansible_keys", "infra_dns")
 load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_site_svg")
@@ -22,7 +22,7 @@ infra_ansible_keys(
     },
 )
 
-al_injector_call(
+al_inject(
     name = "openhands",
     labels = {"ansible": "1"},
     res_env = {"OPENHANDS_SERVER_SECRET_KEY": {

@@ -402,8 +402,10 @@ Ansible mirror. Its receipt records hashes, permissions, links, and failure case
 
 ## Plugins
 
-The external [injector](plugins/injector/README.md) is owned and built by AL at
-`@rules_al//plugins/injector`. It evaluates named `args.res` resource dictionaries
-and supplies environment values and files for the selected command. Its Vault
-resources are implemented by that external plugin. See the
-[configuration API](rules/README.md).
+The [built-in injector](pkg/injector/README.md) evaluates named resource graphs
+inside AL and owns generic environment, file and process resources. Eligible
+plugins advertise resource types in their startup response and supply
+them through generic resource-fetch RPCs. Startup returns an extensible
+`PluginStartResponse` with an optional generic result; fetches return `ResourceResult`
+directly. The standalone [Vault provider](plugins/vault/README.md)
+owns Vault-specific resources. See the [configuration API](rules/README.md).

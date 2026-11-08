@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"maps"
+	"slices"
 	"time"
 
 	"git.alwaldend.com/alwaldend/src/projects/al/api/al_proto"
@@ -59,14 +60,20 @@ func (self *Plugin) handleCall(ctx context.Context, req *al_proto.PluginStartReq
 }
 
 func (self *Plugin) PluginStart(ctx context.Context, req *al_proto.PluginStartRequest) (*al_proto.PluginStartResponse, error) {
-	res := &al_proto.PluginStartResponse{Env: map[string]string{}}
-	for _, call := range req.Plugin.Calls {
-		self.ctx.Logger.Printf("handling call %s", call.Name)
+	res := &al_proto.ResourceResult{Env: map[string]string{}}
+	for _, name := range slices.Sorted(maps.Keys(req.Plugin.Calls)) {
+		call := req.Plugin.Calls[name]
+		self.ctx.Logger.Printf("handling call %s", name)
 		env, err := self.handleCall(ctx, req, call)
 		if err != nil {
-			return nil, fmt.Errorf("could not process call %s: %w", call.Name, err)
+			return nil, fmt.Errorf("could not process call %s: %w", name, err)
 		}
-		maps.Copy(res.Env, env)
+		for key, value := range env {
+			if previous, exists := res.Env[key]; exists && previous != value {
+				return nil, fmt.Errorf("conflicting backend environment export %q from selected calls", key)
+			}
+			res.Env[key] = value
+		}
 	}
-	return res, nil
+	return &al_proto.PluginStartResponse{Result: res}, nil
 }

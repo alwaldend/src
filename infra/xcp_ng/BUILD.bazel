@@ -1,4 +1,4 @@
-load("@rules_al//:defs.bzl", "al_binary_run", "al_config", "al_injector_call", "al_vault_auth")
+load("@rules_al//:defs.bzl", "al_binary_run", "al_config", "al_inject", "al_vault_auth")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("//infra:al_config.bzl", "infra_dns")
 load("//tools/vault:defs.bzl", "vault_binary_map")
@@ -22,7 +22,7 @@ vault_tf_backend(
     vault_auth = "xcp_ng",
 )
 
-al_injector_call(
+al_inject(
     name = "xcpng_host_login",
     labels = {"xcpng_host": "1"},
     res_env = {
@@ -48,7 +48,7 @@ al_injector_call(
     },
 )
 
-al_injector_call(
+al_inject(
     name = "xoa_ssh",
     labels = {"xcp_ng_ansible": "1"},
     res_env = {"XOA_SSH_PASSWORD": {
@@ -64,7 +64,7 @@ al_injector_call(
     },
 )
 
-al_injector_call(
+al_inject(
     name = "xoa_login",
     labels = {"xoa": "1"},
     res_env = {"XOA_TOKEN": {
@@ -80,7 +80,7 @@ al_injector_call(
     },
 )
 
-al_injector_call(
+al_inject(
     name = "env_xcp_ng",
     labels = {"vault_env": "xcp_ng"},
     res_vault_env = {"env_xcp_ng": {

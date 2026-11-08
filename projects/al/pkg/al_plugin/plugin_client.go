@@ -5,12 +5,10 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"maps"
 	"net"
 	"os"
 	"os/exec"
 	"path/filepath"
-	"slices"
 	"sync"
 	"time"
 
@@ -29,16 +27,22 @@ type PluginClient struct {
 	cmd      *exec.Cmd
 	bin      string
 	client   al_proto.PluginServiceClient
-	conn     *grpc.ClientConn
-	ioConn   *IOConn
-	req      *al_proto.PluginStartRequest
-	resp     *al_proto.PluginStartResponse
+	// resourceClient shares the plugin transport for all resource fetches.
+	resourceClient al_proto.ResourceServiceClient
+	conn           *grpc.ClientConn
+	ioConn         *IOConn
+	req            *al_proto.PluginStartRequest
+	// response retains the startup envelope independently of resource output.
+	response *al_proto.PluginStartResponse
 	ctx      *al.CmdCtx
 }
 
 // NewPluginClient prepares an owned plugin process and transport. Absolute plugin
 // executables work without runfiles; relative identifiers require a Bazel context.
-func NewPluginClient(ctx *al.CmdCtx, run *runfiles.Runfiles, config *al_proto.Config, plugin *al_proto.PluginConfig) (*PluginClient, error) {
+func NewPluginClient(ctx *al.CmdCtx, run *runfiles.Runfiles, config *al_proto.Config, name string, plugin *al_proto.PluginConfig) (*PluginClient, error) {
+	if name == "" {
+		return nil, fmt.Errorf("plugin declaration requires a name")
+	}
 	bin := plugin.Bin
 	if !filepath.IsAbs(bin) {
 		if run == nil {
@@ -82,7 +86,7 @@ func NewPluginClient(ctx *al.CmdCtx, run *runfiles.Runfiles, config *al_proto.Co
 		return nil, fmt.Errorf("could not create an io connection: %w", err)
 	}
 	conn, err := grpc.NewClient(
-		fmt.Sprintf("passthrough://%s", plugin.Name),
+		fmt.Sprintf("passthrough://%s", name),
 		grpc.WithTransportCredentials(insecure.NewCredentials()),
 		grpc.WithContextDialer(func(ctx context.Context, s string) (net.Conn, error) {
 			return ioConn, nil
@@ -94,18 +98,20 @@ func NewPluginClient(ctx *al.CmdCtx, run *runfiles.Runfiles, config *al_proto.Co
 	}
 	client := al_proto.NewPluginServiceClient(conn)
 	request := &al_proto.PluginStartRequest{
+		Name:   name,
 		Config: config,
 		Plugin: plugin,
 	}
 	constructed = true
 	return &PluginClient{
-		req:    request,
-		ioConn: ioConn,
-		cmd:    cmd,
-		client: client,
-		conn:   conn,
-		ctx:    ctx,
-		wait:   make(chan error, 1),
+		req:            request,
+		ioConn:         ioConn,
+		cmd:            cmd,
+		client:         client,
+		resourceClient: al_proto.NewResourceServiceClient(conn),
+		conn:           conn,
+		ctx:            ctx,
+		wait:           make(chan error, 1),
 	}, nil
 }
 
@@ -127,15 +133,13 @@ func (self *PluginClient) stop(ctx context.Context) error {
 	return errors.Join(errs...)
 }
 
-func (self *PluginClient) StartResponse() (*al_proto.PluginStartResponse, bool) {
-	if self.resp == nil {
-		return nil, false
-	}
-	return self.resp, true
+// StartResponse retains startup metadata independently of optional resource output.
+func (self *PluginClient) StartResponse() *al_proto.PluginStartResponse {
+	return self.response
 }
 
 func (self *PluginClient) Start(ctx context.Context) error {
-	self.ctx.Logger.Printf("starting plugin %s", self.req.Plugin.Name)
+	self.ctx.Logger.Printf("starting plugin %s", self.req.Name)
 	if err := self.cmd.Start(); err != nil {
 		return fmt.Errorf("could not start the plugin binary: %w", err)
 	}
@@ -144,8 +148,8 @@ func (self *PluginClient) Start(ctx context.Context) error {
 	if err != nil {
 		return fmt.Errorf("could not execute plugin start request: %w", err)
 	}
-	self.ctx.Logger.Printf("finished starting plugin %s, env: %s", self.req.Plugin.Name, slices.Collect(maps.Keys(resp.Env)))
-	self.resp = resp
+	self.ctx.Logger.Printf("finished starting plugin %s", self.req.Name)
+	self.response = resp
 	return nil
 }
 
@@ -165,4 +169,13 @@ func closeUnstartedChildPipes(cmd *exec.Cmd) error {
 		}
 	}
 	return errors.Join(errs...)
+}
+
+// FetchResource dispatches one advertised resource request over the plugin connection.
+func (self *PluginClient) FetchResource(ctx context.Context, request *al_proto.ResourceFetchRequest) (*al_proto.ResourceResult, error) {
+	response, err := self.resourceClient.ResourceFetch(ctx, request)
+	if err != nil {
+		return nil, fmt.Errorf("fetch provider resource: %w", err)
+	}
+	return response, nil
 }

@@ -44,7 +44,7 @@ func TestConfigDumpPrivateAndTruncated(t *testing.T) {
 func TestConfigErrorsDoNotEchoValues(t *testing.T) {
 	dir := t.TempDir()
 	for extension, content := range map[string]string{
-		"json": `{"vault_auth":[{"no_auth":"synthetic-secret"}]}`,
+		"json": `{"vault_auth":{"default":{"no_auth":"synthetic-secret"}}}`,
 		"lua":  `error("synthetic-secret")`,
 	} {
 		path := filepath.Join(dir, "config."+extension)

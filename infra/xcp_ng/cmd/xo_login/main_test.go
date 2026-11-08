@@ -23,10 +23,10 @@ func TestBootstrapConfigurationSelectsOnlyRequestedRole(t *testing.T) {
 		if err != nil {
 			return nil, config{}, err
 		}
-		if len(cfg.Plugins) != 1 || cfg.Plugins[0].Name != "xo_login" || len(cfg.PluginCalls) != 0 {
+		if len(cfg.PluginConfigs) != 1 || cfg.PluginConfigs["xo_login"] == nil || len(cfg.Plugins) != 0 {
 			t.Fatal("bootstrap loaded unexpected plugins")
 		}
-		value, err := al.FromPbJson(cfg.Plugins[0].Data).Get()
+		value, err := al.FromPbJson(cfg.PluginConfigs["xo_login"].Data).Get()
 		if err != nil {
 			return nil, config{}, err
 		}
@@ -48,15 +48,15 @@ func TestBootstrapConfigurationSelectsOnlyRequestedRole(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if len(cfg.VaultAuth) != 1 || cfg.VaultAuth[0].Name != "xo_bootstrap" || cfg.VaultAuth[0].Approle.Name != "src_infra_dc1_forgejo1" || conf.VaultAuth != "xo_bootstrap" {
+	if len(cfg.VaultAuth) != 1 || cfg.VaultAuth["xo_bootstrap"] == nil || cfg.VaultAuth["xo_bootstrap"].Approle.Name != "src_infra_dc1_forgejo1" || conf.VaultAuth != "xo_bootstrap" {
 		t.Fatal("bootstrap did not isolate the selected role")
 	}
 	t.Setenv("XO_BOOTSTRAP_APPROLE", "user_simeonwarren")
-	if cfg, _, err := load(); err != nil || cfg.VaultAuth[0].Approle.Name != "user_simeonwarren" {
+	if cfg, _, err := load(); err != nil || cfg.VaultAuth["xo_bootstrap"].Approle.Name != "user_simeonwarren" {
 		t.Fatal("approved user AppRole rejected")
 	}
 	t.Setenv("XO_BOOTSTRAP_ISSUER_APPROLE", "src_infra_flux")
-	if cfg, conf, err := load(); err != nil || cfg.VaultAuth[0].Approle.Name != "src_infra_flux" || conf.IssuerAuth != "xo_bootstrap" || conf.TargetApprole != "user_simeonwarren" {
+	if cfg, conf, err := load(); err != nil || cfg.VaultAuth["xo_bootstrap"].Approle.Name != "src_infra_flux" || conf.IssuerAuth != "xo_bootstrap" || conf.TargetApprole != "user_simeonwarren" {
 		t.Fatal("explicit issuer not selected")
 	}
 	for _, bad := range []string{"../other", "src_role/secret-id", "src_role\nother", "user_simeonwarren"} {

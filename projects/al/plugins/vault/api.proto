@@ -1,0 +1,58 @@
+syntax = "proto3";
+
+package com.alwaldend.src.projects.al.plugins.vault.vault_proto;
+
+option go_package = "git.alwaldend.com/alwaldend/src/projects/al/plugins/vault/vault_proto";
+
+message Kv {
+  // Secret path
+  string path = 1;
+  // Secret mount
+  string mount = 2;
+}
+
+message Op {
+  string method = 1;
+  string path = 4;
+  map<string, string> data = 5;
+}
+
+message VaultSsh {
+  string backend = 1;
+  int64 ttl = 2;
+}
+
+message Oidc {
+  string name = 1;
+  string scope = 2;
+  string client_id = 3;
+  string redirect_uri = 4;
+}
+
+message VaultEnv {
+  // Vault connection
+  string conn = 1;
+  // Vault auth
+  string auth = 2;
+}
+
+message Resource {
+  // Resource name
+  string name = 1;
+  // Vault connection for the resource
+  string vault_conn = 2;
+  // Vault auth for the resource
+  string vault_auth = 3;
+  oneof res {
+    // Vault operation
+    Op op = 4;
+    // Vault KV secret
+    Kv kv = 5;
+    // Vault environment variables
+    VaultEnv vault_env = 9;
+    // SSH key signed by Vault
+    VaultSsh vault_ssh = 10;
+    // Create an OIDC token
+    Oidc oidc = 12;
+  }
+}

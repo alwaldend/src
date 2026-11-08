@@ -28,17 +28,23 @@ description: Safely add, route, rotate, or review secrets and authentication in 
 2. Declare an `al_vault_auth` target whose `extends` selects the shared
    `//tools/al:auth` target. Compose it with the inherited configuration through
    `al_config(configs = ...)`; overrides depend on explicit ancestry.
-3. Declare `al_injector_call` targets with named `res_<type>` maps, or small
-   `al_plugin_call` targets and existing namespaced macros for
-   the component plugin (`injector`, `tf_backend`, provider login, or another
+3. Declare `al_inject` targets with named `res_<type>` maps, or small
+   `al_plugin` targets and existing namespaced macros for
+   built-in injection or the component plugin (`tf_backend`, provider login, or another
    established plugin). Keep small declarations inline; use local `defs.bzl`
    only when it provides significant reuse or substantially simplifies complex
    graphs/templates. Call existing common target macros directly. Generic payloads use `args`. Injector entries use structured settings plus
-   explicit deps/vault_auth/vault_conn metadata; the helper produces `args.res`.
+   explicit deps/vault_auth/vault_conn metadata; the helper produces dedicated `inject` resource declarations.
+   Put local template values in resource `data` and read them as `.Data`; file-specific
+   `extra` is removed. Vault operations use resource `data` for their write payload.
+   Generated root sections are name-keyed maps; plugin and injector groups retain
+   their merge namespaces. Injector precedence follows explicit extends, not order.
 4. Select calls with `plugin_labels` dictionaries such as `{"tf": "main"}` or
    `{"ansible": ""}` for presence-only selection.
-5. Register the executable once through an `al_plugin` configuration target;
-   config dependencies propagate its runtime files to consumers.
+5. AL evaluates injector calls internally. For external resource kinds, compose
+   the provider config target (the shared config already includes Vault).
+   Providers use al_plugin_config(resource_provider = True) and advertise kinds through
+   PluginStartResponse.resource_types at startup; config dependencies propagate their executable/runfiles.
 6. Inject the minimum values and grant the minimum Vault policy needed.
 
 Follow sibling `BUILD.bazel` files exactly for the target shape. Keep AppRole names and

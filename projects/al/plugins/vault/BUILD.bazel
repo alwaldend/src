@@ -1,0 +1,95 @@
+load("@protobuf//bazel:proto_library.bzl", "proto_library")
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("@rules_go//go:def.bzl", "go_binary", "go_library", "go_test")
+load("@rules_go//proto:def.bzl", "go_proto_library")
+load("//:defs.bzl", "al_plugin_config")
+
+go_library(
+    name = "vault_lib",
+    srcs = [
+        "doc.go",
+        "main.go",
+        "oidc.go",
+        "op.go",
+        "plugin.go",
+        "secret.go",
+        "vault_env.go",
+        "vault_ssh.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/al/plugins/vault",
+    visibility = ["//visibility:public"],
+    deps = [
+        ":vault_proto",
+        "//api/al_proto",
+        "//pkg/al",
+        "//pkg/al_plugin",
+        "//pkg/fp",
+        "//pkg/injector",
+        "//pkg/lifecycle",
+        "@com_github_google_uuid//:uuid",
+        "@com_github_hashicorp_vault_api//:api",
+        "@org_golang_google_protobuf//encoding/protojson",
+    ],
+)
+
+go_binary(
+    name = "vault",
+    embed = [":vault_lib"],
+    visibility = ["//visibility:public"],
+)
+
+al_plugin_config(
+    name = "config",
+    config_name = "vault",
+    executable = ":vault",
+    resource_provider = True,
+    visibility = ["//visibility:public"],
+)
+
+go_test(
+    name = "vault_test",
+    srcs = [
+        "cleanup_test.go",
+        "oidc_test.go",
+    ],
+    embed = [":vault_lib"],
+    deps = [
+        ":vault_proto",
+        "//api/al_proto",
+        "//pkg/al",
+        "//pkg/injector",
+    ],
+)
+
+proto_library(
+    name = "vault_proto_proto",
+    srcs = ["api.proto"],
+    visibility = ["//visibility:public"],
+)
+
+go_proto_library(
+    name = "vault_proto_go_proto",
+    importpath = "git.alwaldend.com/alwaldend/src/projects/al/plugins/vault/vault_proto",
+    proto = ":vault_proto_proto",
+    visibility = ["//visibility:public"],
+)
+
+go_library(
+    name = "vault_proto",
+    srcs = ["vault_proto/doc.go"],
+    embed = [":vault_proto_go_proto"],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/al/plugins/vault/vault_proto",
+    visibility = ["//visibility:public"],
+)
+
+exports_files(
+    ["dev_server_test.go"],
+    visibility = ["//visibility:public"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    prefix = "content/docs/projects/al/plugins/vault",
+    visibility = ["//visibility:public"],
+)

@@ -82,7 +82,10 @@ func configureBootstrap(conf *config, cfg *al_proto.Config) error {
 		authRole = issuer
 		conf.IssuerAuth, conf.TargetApprole = "xo_bootstrap", role
 	}
-	cfg.VaultAuth = append(cfg.VaultAuth, &al_proto.VaultAuth{Name: "xo_bootstrap", Approle: &al_proto.VaultAuthApprole{Name: authRole}})
+	if cfg.VaultAuth == nil {
+		cfg.VaultAuth = map[string]*al_proto.VaultAuth{}
+	}
+	cfg.VaultAuth["xo_bootstrap"] = &al_proto.VaultAuth{Approle: &al_proto.VaultAuthApprole{Name: authRole}}
 	return nil
 }
 
@@ -174,7 +177,7 @@ func (p *plugin) PluginStart(ctx context.Context, req *al_proto.PluginStartReque
 		if cookie.Name == "token" && cookie.Value != "" {
 			endpoint := *xo
 			endpoint.Scheme = "wss"
-			return &al_proto.PluginStartResponse{Env: map[string]string{"XOA_TOKEN": cookie.Value, "XOA_URL": endpoint.String(), "XOA_INSECURE": "false"}}, nil
+			return &al_proto.PluginStartResponse{Result: &al_proto.ResourceResult{Env: map[string]string{"XOA_TOKEN": cookie.Value, "XOA_URL": endpoint.String(), "XOA_INSECURE": "false"}}}, nil
 		}
 	}
 	return nil, errors.New("XO login did not issue a session token")

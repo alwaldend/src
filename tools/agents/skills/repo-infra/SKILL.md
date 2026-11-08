@@ -42,7 +42,7 @@ expose commands with `al_terraform_binary_map` from
 pinning and installation; do not add source `.terraform.lock.hcl` files.
 Ansible packages package runtime files as
 `pkg_files`/`pkg_filegroup`, build with `al_ansible_binary`, and run through
-`al_binary_run`/`al_binary_run_map`. Use `al_injector_call` with named `res_<type>` maps for injector declarations.
+`al_binary_run`/`al_binary_run_map`. Use `al_inject` with named `res_<type>` maps for injector declarations.
 Authentication, state backend, and secret values arrive through small authentication, plugin and plugin-call targets
 composed with `al_config` and selected by labels (`tf=setup`, `tf=main`,
 `ansible=1`). Component auth explicitly extends `//tools/al:auth`; aggregate
@@ -55,7 +55,7 @@ propagate through configuration dependencies; wrappers select labels with
 committed credentials, a host `vault`/`terraform` binary, or an unprefixed
 ad-hoc command.
 
-`al_plugin_call(plugin = "tf_backend", ...)` is the repository's Vault-backed
+`al_plugin(plugin = "tf_backend", ...)` is the repository's Vault-backed
 HTTP state backend: the plugin stores lock and state as Vault KV entries under
 the AppRole's own path and creates them on first use. It is not an object-storage
 bucket, and switching to `backend "s3"` or adding a `tf_backend` module bucket
