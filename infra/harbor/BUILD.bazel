@@ -1,14 +1,95 @@
-load("@rules_al//:defs.bzl", "al_binary_run", "al_config")
+load("@rules_al//:defs.bzl", "al_binary_run", "al_config", "al_plugin_call", "al_vault_auth")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//infra:al_config.bzl", "infra_ansible_keys", "infra_dns", "infra_k3s_token", "infra_pve_provider_inputs")
 load("//tools/vault:defs.bzl", "vault_binary_map")
+load("//tools/vault/tf_backend:defs.bzl", "vault_tf_backend")
+load(":defs.bzl", "infra_harbor_kubernetes_login")
 
 package(transitive_visibility = "//infra:transitive_consumers")
 
+al_vault_auth(
+    name = "auth",
+    approle = "src_infra_harbor",
+    extends = "//tools/al:auth",
+)
+
+infra_ansible_keys(
+    name = "ansible_keys",
+    labels = {"ansible": "1"},
+    vault_ssh = {
+        "backend": "ssh/clients/sign/admins",
+        "ttl": 7200,
+    },
+)
+
+vault_tf_backend(
+    name = "tf_backend_tf_setup",
+    labels = {
+        "dns": "1",
+        "tf": "setup",
+    },
+    path = "alwaldend.com/vault1/approles/src_infra_harbor/tf_backend/tf_setup",
+)
+
+vault_tf_backend(
+    name = "tf_backend_tf",
+    extends = ":tf_backend_tf_setup",
+    labels = {"tf": "main"},
+    path = "alwaldend.com/vault1/approles/src_infra_harbor/tf_backend/tf",
+)
+
+al_plugin_call(
+    name = "pve_login",
+    labels = {"tf": "setup"},
+)
+
+al_plugin_call(
+    name = "harbor_login",
+    labels = {"tf": "main"},
+)
+
+infra_k3s_token(
+    name = "k3s_token",
+    labels = {"ansible": "1"},
+    path = "alwaldend.com/vault1/approles/src_infra_harbor/config",
+)
+
+infra_harbor_kubernetes_login(
+    name = "kubernetes_login",
+    labels = {"k8s": "1"},
+)
+
+infra_pve_provider_inputs(
+    name = "pve_provider_inputs",
+    labels = {"dns": "1"},
+)
+
+infra_dns(
+    name = "dns_providers",
+    dc1 = True,
+    global_records = False,
+    labels = {
+        "dns": "1",
+        "tf": "setup",
+    },
+)
+
 al_config(
     name = "al",
-    srcs = ["al.lua"],
+    configs = [
+        ":ansible_keys",
+        ":auth",
+        ":dns_providers",
+        ":harbor_login",
+        ":k3s_token",
+        ":kubernetes_login",
+        ":pve_login",
+        ":pve_provider_inputs",
+        ":tf_backend_tf",
+        ":tf_backend_tf_setup",
+        "//infra:al",
+    ],
     visibility = ["//infra/harbor:__subpackages__"],
-    deps = ["//infra:al"],
 )
 
 filegroup(
@@ -30,12 +111,8 @@ al_binary_run(
     configs = [":al"],
     data = [
         "//tools/harbor",
-        "//tools/vault/injector",
     ],
-    run_args = [
-        "--plugin_label",
-        "harbor",
-    ],
+    plugin_labels = {"harbor": ""},
 )
 
 docs_filegroup(

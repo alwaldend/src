@@ -1,14 +1,55 @@
-load("@rules_al//:defs.bzl", "al_config")
+load("@rules_al//:defs.bzl", "al_config", "al_vault_auth")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//infra:al_config.bzl", "infra_dns", "infra_mikrotik")
 load("//tools/vault:defs.bzl", "vault_binary_map")
+load("//tools/vault/tf_backend:defs.bzl", "vault_tf_backend")
 
 package(transitive_visibility = "//infra:transitive_consumers")
 
+al_vault_auth(
+    name = "auth",
+    approle = "src_infra_printers",
+    extends = "//tools/al:auth",
+)
+
+vault_tf_backend(
+    name = "tf_backend",
+    labels = {"tf": "dns"},
+    path = "alwaldend.com/vault1/approles/src_infra_printers/tf_backend/dns",
+)
+
+infra_dns(
+    name = "dns_providers",
+    dc1 = True,
+    labels = {"tf": "dns"},
+)
+
+vault_tf_backend(
+    name = "firewall_backend",
+    extends = ":tf_backend",
+    labels = {"tf": "main"},
+    path = "alwaldend.com/vault1/approles/src_infra_printers/tf_backend/tf",
+)
+
+infra_mikrotik(
+    name = "firewall_routeros",
+    host = "https://router1.dc1.alwaldend.com",
+    labels = {"tf": "main"},
+    path = "alwaldend.com/vault1/approles/src_infra_mikrotik/printers",
+    resource_name = "firewall_routeros",
+)
+
 al_config(
     name = "al",
-    srcs = ["al.lua"],
+    configs = [
+        ":auth",
+        ":dns_providers",
+        ":firewall_backend",
+        ":firewall_routeros",
+        ":tf_backend",
+        "//infra:al",
+    ],
     visibility = ["//infra/printers:__subpackages__"],
-    deps = ["//infra:al"],
 )
 
 vault_binary_map(

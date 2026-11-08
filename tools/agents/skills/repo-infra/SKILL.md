@@ -4,7 +4,7 @@ description: >-
   Implement, review, and validate this repository's infrastructure: Terraform
   stages, Bazel-packaged Ansible, DNS declarations, Vault-backed injection, and
   read-only deployment diagnostics. Use for infra/** and host_bot work,
-  al.lua configuration, tf_setup/tf/ansible packages, dnsconfig.json records,
+  BUILD.bazel configuration, tf_setup/tf/ansible packages, dnsconfig.json records,
   or repository Vault targets. Do not use it to authorize live deployment.
 ---
 
@@ -18,8 +18,7 @@ for that exact operation and scope.
 
 ## Start from ownership and authority
 
-1. Read the nearest `AGENTS.md`, the owning `README.md`, `BUILD.bazel`,
-   `al.lua`, and the closest sibling component.
+1. Read the nearest `AGENTS.md`, the owning `README.md`, `BUILD.bazel`, and the closest sibling component.
 2. Identify which stage owns the change: `tf_setup` (provisioning/bootstrap),
    `tf` (service or API configuration), `ansible/` (host deployment), or
    a component-owned `dns/` Terraform root (records). Prefer a separate DNS
@@ -37,20 +36,26 @@ for that exact operation and scope.
 
 Terraform packages declare `.tf` files and module inputs in `data`, select
 provider labels through `providers`, pass one or more `al_config` labels, and
-expose commands with `terraform_binary_map` from rules_terraform, selecting
-AL's generic wrapper and its configuration explicitly in the BUILD file. Follow the
+expose commands with `al_terraform_binary_map` from
+`//tools/al:al_terraform.bzl`, passing `configs` and `plugin_labels` directly. Follow the
 [Terraform rule owner](../../../../tools/rules_terraform/README.md) for provider
 pinning and installation; do not add source `.terraform.lock.hcl` files.
 Ansible packages package runtime files as
 `pkg_files`/`pkg_filegroup`, build with `al_ansible_binary`, and run through
-`al_binary_run`/`al_binary_run_map`. Authentication, state backend, and secret
-values arrive through plugins named in `al.lua` and selected by labels
-(`tf=setup`, `tf=main`, `ansible=1`); every plugin must also appear in the
-Bazel target's `data` and its label in `run_args`. Never replace that flow with
+`al_binary_run`/`al_binary_run_map`. Use `al_injector_call` with named `res_<type>` maps for injector declarations.
+Authentication, state backend, and secret values arrive through small authentication, plugin and plugin-call targets
+composed with `al_config` and selected by labels (`tf=setup`, `tf=main`,
+`ansible=1`). Component auth explicitly extends `//tools/al:auth`; aggregate
+reference order does not select overrides. Keep short declarations inline.
+Use local `defs.bzl` only for significant reuse or a substantial readability gain
+from complex graphs, long templates or construction logic; call common target
+macros directly. Use `vault_tf_backend` for each backend call. Plugin executable runfiles
+propagate through configuration dependencies; wrappers select labels with
+`plugin_labels` dictionaries. Never replace that flow with
 committed credentials, a host `vault`/`terraform` binary, or an unprefixed
 ad-hoc command.
 
-`lib.plugin_call({plugin = "tf_backend", ...})` is the repository's Vault-backed
+`al_plugin_call(plugin = "tf_backend", ...)` is the repository's Vault-backed
 HTTP state backend: the plugin stores lock and state as Vault KV entries under
 the AppRole's own path and creates them on first use. It is not an object-storage
 bucket, and switching to `backend "s3"` or adding a `tf_backend` module bucket

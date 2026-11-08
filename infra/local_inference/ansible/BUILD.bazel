@@ -18,14 +18,11 @@ al_binary_run_map(
     configs = ["//infra/local_inference:al"],
     data = [
         ":ansible_bin",
-        "//tools/vault/injector",
     ],
-    run_args = [
-        "--plugin_label",
-        "vault_env=default_default",
-        "--plugin_label",
-        "ansible=1",
-    ],
+    plugin_labels = {
+        "vault_env": "default_default",
+        "ansible": "1",
+    },
 )
 
 al_ansible_binary(

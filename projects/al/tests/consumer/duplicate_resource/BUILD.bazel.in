@@ -1,0 +1,11 @@
+load("@rules_al//:defs.bzl", "al_injector_call")
+
+al_injector_call(
+    name = "invalid",
+    res_env = {"same": {"value": "fixture"}},
+    res_kv = {"same": {
+        "mount": "secrets",
+        "path": "fixture/key",
+    }},
+    tags = ["manual"],
+)

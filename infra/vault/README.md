@@ -187,7 +187,7 @@ bazel run //tools/vault/login -- simeonwarren --insecure
 This login replaces the host token. Stop if it fails; a missing YubiKey cannot
 be fixed by disabling TLS verification. Neither command changes the persistent
 TLS verification configuration. Do not add the bypass to shell profiles,
-`al.lua`, or Ansible defaults, and do not use verbose or diff output for the
+`BUILD.bazel`, or Ansible defaults, and do not use verbose or diff output for the
 certificate tasks. The temporary public `known_hosts` projection does not
 modify the host's SSH configuration; do not replace it with an unverified
 `ssh-keyscan` result or disable SSH host verification.

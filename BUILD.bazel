@@ -16,8 +16,6 @@ exports_files(
         ".shellcheckrc",
         "BUILD.bazel",
         "MODULE.bazel",
-        "al.lua",
-        "al_lib.lua",
         "gazelle_python.yaml",
         "pyproject.toml",
     ],

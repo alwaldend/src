@@ -77,10 +77,12 @@ receives the final target `name`, the inner executable in `args`, its runfiles
 in `data`, and common target attributes. `wrapper_kwargs` cannot replace those
 arguments or duplicate common attributes. Wrapped tests require a test wrapper.
 
-Repository consumers load AL's generic `al_binary_run` or
-`al_binary_run_test` and pass their `configs` and `run_args` in
-`wrapper_kwargs`. Their plugin binaries remain in `data`. Provider-free tests
-can use the Terraform test maps directly. Repository root command bindings
+Repository consumers load `al_terraform_binary_map`,
+`al_terraform_target_binary_map`, or `al_terraform_test_map` from
+`//tools/al:al_terraform.bzl` and pass `configs` and `run_args` directly.
+That repository integration selects the wrapper once; configuration targets
+provide plugin runfiles transitively. Provider-free tests can use the Terraform
+test maps directly. Repository root command bindings
 live with [the shared AL configuration](../al/README.md).
 
 The default Terraform executable is the pinned toolchain in

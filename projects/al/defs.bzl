@@ -1,7 +1,8 @@
 """Public AL configuration, command wrappers, release rules, and providers."""
 
+load("//plugins/injector:defs.bzl", _al_injector_call = "al_injector_call")
 load("//rules:al_binary.bzl", _al_binary_run = "al_binary_run", _al_binary_run_map = "al_binary_run_map", _al_binary_run_test = "al_binary_run_test")
-load("//rules:al_config.bzl", _AlConfigInfo = "AlConfigInfo", _al_config = "al_config")
+load("//rules:al_config.bzl", _AlConfigInfo = "AlConfigInfo", _al_config = "al_config", _al_plugin = "al_plugin", _al_plugin_call = "al_plugin_call", _al_vault_auth = "al_vault_auth", _al_vault_conn = "al_vault_conn")
 load("//rules:al_git_binary.bzl", _al_git_binary = "al_git_binary")
 load("//rules:al_release.bzl", _al_release = "al_release")
 load("//rules:al_release_binary.bzl", _al_release_binary = "al_release_binary")
@@ -29,3 +30,10 @@ AlConfigInfo = _AlConfigInfo
 al_binary_run = _al_binary_run
 al_binary_run_map = _al_binary_run_map
 al_binary_run_test = _al_binary_run_test
+
+al_plugin = _al_plugin
+al_plugin_call = _al_plugin_call
+al_vault_auth = _al_vault_auth
+al_vault_conn = _al_vault_conn
+
+al_injector_call = _al_injector_call

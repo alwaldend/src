@@ -34,14 +34,11 @@ al_binary_run_map(
     configs = ["//infra/harbor:al"],
     data = [
         ":ansible_bin",
-        "//tools/vault/injector",
     ],
-    run_args = [
-        "--plugin_label",
-        "vault_env=default_default",
-        "--plugin_label",
-        "ansible",
-    ],
+    plugin_labels = {
+        "vault_env": "default_default",
+        "ansible": "",
+    },
 )
 
 al_ansible_binary(

@@ -6,7 +6,7 @@ desired state. It is read-only and never authorizes a repair.
 ## Establish the intended state
 
 Read the root `AGENTS.md`, the owning `README.md`, the component's
-`BUILD.bazel`, `al.lua`, and the relevant files under `ansible/`. Consult the owning component's README and Mermaid source under `docs/` when
+`BUILD.bazel`, `BUILD.bazel`, and the relevant files under `ansible/`. Consult the owning component's README and Mermaid source under `docs/` when
 the topology matters; ownerless historical diagrams live in `infra/archive`.
 
 Treat the checked-in Terraform and Ansible as desired state. Do not infer
@@ -22,8 +22,9 @@ environment suffixes, such as `//infra/download:ssh.local`. XCP-ng provides
 `//infra/xcp_ng:ssh`. Inspect the actual target before running it: a target
 named `inspect` can include writable probes and is not inherently read-only.
 
-Keep AL configuration, Vault references, injection plugins in `data`, and
-selected `run_args` labels aligned. Prefer `//tools/ssh:defs.bzl`'s `ssh_binary`
+Keep the wrapper's `configs`, which supply Vault references and plugin runtime
+files, aligned with its selected `plugin_labels` labels. Prefer
+`//tools/ssh:defs.bzl`'s `ssh_binary`
 for direct SSH; password-authenticated targets may use `al_binary_run` with
 the established `sshpass` environment mechanism. Never put passwords in command
 arguments or print injected credentials. Preserve strict host-key verification.

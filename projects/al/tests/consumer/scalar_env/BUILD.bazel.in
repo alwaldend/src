@@ -1,0 +1,7 @@
+load("@rules_al//:defs.bzl", "al_injector_call")
+
+al_injector_call(
+    name = "invalid",
+    res_env = {"INVALID": "fixture"},
+    tags = ["manual"],
+)

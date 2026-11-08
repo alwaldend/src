@@ -1,14 +1,89 @@
-load("@rules_al//:defs.bzl", "al_config")
+load("@rules_al//:defs.bzl", "al_config", "al_plugin_call", "al_vault_auth")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//infra:al_config.bzl", "infra_ansible_keys", "infra_dns", "infra_k3s_token", "infra_pve_provider_inputs")
 load("//tools/vault:defs.bzl", "vault_binary_map")
+load("//tools/vault/tf_backend:defs.bzl", "vault_tf_backend")
+load(":defs.bzl", "infra_flux_kubernetes_login")
 
 package(transitive_visibility = "//infra:transitive_consumers")
 
+al_vault_auth(
+    name = "auth",
+    approle = "src_infra_flux",
+    extends = "//tools/al:auth",
+)
+
+infra_flux_kubernetes_login(
+    name = "kubernetes_login",
+    labels = {"k8s": "1"},
+)
+
+infra_ansible_keys(
+    name = "ansible_keys",
+    labels = {"ansible": "1"},
+    vault_ssh = {
+        "backend": "ssh/clients/sign/admins",
+        "ttl": 7200,
+    },
+)
+
+vault_tf_backend(
+    name = "tf_backend_tf_setup",
+    labels = {
+        "dns": "1",
+        "tf": "setup",
+    },
+    path = "alwaldend.com/vault1/approles/src_infra_flux/tf_backend/tf_setup",
+)
+
+vault_tf_backend(
+    name = "tf_backend_tf",
+    extends = ":tf_backend_tf_setup",
+    labels = {"tf": "main"},
+    path = "alwaldend.com/vault1/approles/src_infra_flux/tf_backend/tf",
+)
+
+al_plugin_call(
+    name = "pve_login",
+    labels = {"tf": "setup"},
+)
+
+infra_k3s_token(
+    name = "k3s_token",
+    labels = {"ansible": "1"},
+    path = "alwaldend.com/vault1/approles/src_infra_flux/config",
+)
+
+infra_pve_provider_inputs(
+    name = "pve_provider_inputs",
+    labels = {"dns": "1"},
+)
+
+infra_dns(
+    name = "dns_providers",
+    dc1 = True,
+    global_records = False,
+    labels = {
+        "dns": "1",
+        "tf": "setup",
+    },
+)
+
 al_config(
     name = "al",
-    srcs = ["al.lua"],
+    configs = [
+        ":ansible_keys",
+        ":auth",
+        ":dns_providers",
+        ":k3s_token",
+        ":kubernetes_login",
+        ":pve_login",
+        ":pve_provider_inputs",
+        ":tf_backend_tf",
+        ":tf_backend_tf_setup",
+        "//infra:al",
+    ],
     visibility = ["//infra/flux:__subpackages__"],
-    deps = ["//infra:al"],
 )
 
 filegroup(

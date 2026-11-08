@@ -94,7 +94,7 @@ problem:
 - `could not create secret id for the approle: Vault request failed (HTTP 403)`
   means the host's Vault bootstrap token is invalid or expired, so the AppRole
   can never be logged into. Re-authenticate the host with `//tools/vault/login`;
-  the uploader and its `al.lua` are not at fault, and no retry of the draft
+  the uploader and its `BUILD.bazel` are not at fault, and no retry of the draft
   command will help until the token is renewed.
 - `missing credential reference(s): X_...` means a field is absent from the
   injected environment; do not work around it by exporting `X_*` values, which

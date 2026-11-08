@@ -1,6 +1,5 @@
-load("@rules_al//:defs.bzl", "al_binary_run", "al_binary_run_test")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("@rules_terraform//terraform:defs.bzl", "terraform_binary_map", "terraform_test_map")
+load("//tools/al:al_terraform.bzl", "al_terraform_binary_map", "al_terraform_test_map")
 
 package(transitive_visibility = "//infra:transitive_consumers")
 
@@ -24,32 +23,22 @@ _CONFIGS = ["//infra/yandex_cloud/org1:al"]
 _DATA = glob(["*.tf"]) + [
     "//projects/tf_modules/yc_folder",
     "//projects/tf_modules/tf_backend",
-    "//tools/vault/tf_backend",
-    "//tools/vault/injector",
 ]
 
-terraform_binary_map(
+al_terraform_binary_map(
     name = "tf",
+    configs = _CONFIGS,
     data = _DATA,
-    providers = _PROVIDERS,
-    wrapper = al_binary_run,
-    wrapper_kwargs = {
-        "configs": _CONFIGS,
-        "run_args": [
-            "--plugin_label",
-            "tf",
-            "--plugin_label",
-            "vault_env=default_default",
-        ],
+    plugin_labels = {
+        "tf": "",
+        "vault_env": "default_default",
     },
+    providers = _PROVIDERS,
 )
 
-terraform_test_map(
+al_terraform_test_map(
     name = "tf_test",
+    configs = _CONFIGS,
     data = _DATA,
     providers = _PROVIDERS,
-    wrapper = al_binary_run_test,
-    wrapper_kwargs = {
-        "configs": _CONFIGS,
-    },
 )

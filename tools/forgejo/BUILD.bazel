@@ -13,13 +13,8 @@ al_binary_run_map(
     configs = ["//tools/al:config"],
     data = [
         "//third_party/org_codeberg_forgejo_bin",
-        "//tools/vault/forgejo_login",
-        "//tools/vault/injector",
     ],
-    run_args = [
-        "--plugin_label",
-        "forgejo_login",
-    ],
+    plugin_labels = {"forgejo_login": ""},
     visibility = ["//:__subpackages__"],
 )
 

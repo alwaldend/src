@@ -216,7 +216,7 @@ quota waits; `--policy-timeout` changes it. For example, use
 ## Authentication
 
 The default Bazel runner reuses the Article uploader's
-[Vault-backed injection configuration](../x_article_uploader/al.lua) and
+[Vault-backed injection configuration](../x_article_uploader/BUILD.bazel) and
 OAuth 1.0a user-context credential. Its four environment variables are documented
 under [Article uploader credentials](../x_article_uploader/README.md#credentials).
 The existing AppRole and Vault path remain owned by that configuration; the

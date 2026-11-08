@@ -1,6 +1,8 @@
-load("@rules_al//:defs.bzl", "al_binary_run", "al_config")
+load("@rules_al//:defs.bzl", "al_binary_run", "al_config", "al_injector_call", "al_vault_auth")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//infra:al_config.bzl", "infra_ansible_keys", "infra_dns", "infra_pve_provider_inputs", "infra_rclone_config", "infra_yc_account", "infra_yc_auth", "infra_yc_bucket_auth")
 load("//tools/vault:defs.bzl", "vault_binary_map")
+load("//tools/vault/tf_backend:defs.bzl", "vault_tf_backend")
 
 package(transitive_visibility = "//infra:transitive_consumers")
 
@@ -25,11 +27,107 @@ vault_binary_map(
     configs = [":al"],
 )
 
+al_vault_auth(
+    name = "auth",
+    approle = "src_infra_dc1_vault",
+    extends = "//tools/al:auth",
+)
+
+infra_ansible_keys(
+    name = "ansible_keys",
+    labels = {"ansible": "1"},
+    vault_ssh = {
+        "backend": "ssh/clients/sign/admins",
+        "ttl": 7200,
+    },
+)
+
+vault_tf_backend(
+    name = "tf_backend_setup",
+    labels = {
+        "dns": "1",
+        "tf": "setup",
+    },
+    path = "alwaldend.com/vault1/approles/src_infra_dc1_vault/tf_backend/tf_setup",
+)
+
+vault_tf_backend(
+    name = "tf_backend_main",
+    extends = ":tf_backend_setup",
+    labels = {"tf": "main"},
+    path = "alwaldend.com/vault1/approles/src_infra_dc1_vault/tf_backend/main",
+    visibility = ["//infra/vault/approles/src_infra_download:__pkg__"],
+)
+
+infra_yc_auth(
+    name = "yc_auth",
+    labels = {"tf": "main"},
+    path = "yandex.cloud/org1/folders/src-infra-dc1-vault/account_iam_key",
+)
+
+infra_yc_bucket_auth(
+    name = "yc_bucket_auth",
+    labels = {"tf": "main"},
+    path = "yandex.cloud/org1/folders/src-infra-dc1-vault/account_static_key",
+)
+
+infra_yc_account(
+    name = "yc_account",
+    labels = {"tf": "main"},
+    path = "yandex.cloud/org1/folders/src-infra-dc1-vault/account",
+)
+
+infra_rclone_config(
+    name = "rclone_config",
+    labels = {"backup": "1"},
+    path = "alwaldend.com/vault1/approles/src_infra_dc1_vault/backup_bucket",
+)
+
+al_injector_call(
+    name = "al.plugin_call.unseal",
+    config_name = "unseal",
+    labels = {"unseal": "1"},
+    res_env = {"UNSEAL_KEY": {
+        "value": "{{ .Last.Data.encrypted_key }}",
+        "deps": ["unseal"],
+    }},
+    res_kv = {"unseal": {
+        "mount": "secrets",
+        "path": "alwaldend.com/vault1/approles/src_infra_dc1_vault/unseal",
+    }},
+)
+
+infra_pve_provider_inputs(
+    name = "pve_provider_inputs",
+    labels = {"dns": "1"},
+)
+
+infra_dns(
+    name = "dns_providers",
+    dc1 = True,
+    labels = {
+        "dns": "1",
+        "tf": "setup",
+    },
+)
+
 al_config(
     name = "al",
-    srcs = ["al.lua"],
+    configs = [
+        ":al.plugin_call.unseal",
+        ":ansible_keys",
+        ":auth",
+        ":dns_providers",
+        ":pve_provider_inputs",
+        ":rclone_config",
+        ":tf_backend_main",
+        ":tf_backend_setup",
+        ":yc_account",
+        ":yc_auth",
+        ":yc_bucket_auth",
+        "//infra:al",
+    ],
     visibility = ["//infra/vault:__subpackages__"],
-    deps = ["//infra:al"],
 )
 
 al_binary_run(
@@ -43,12 +141,8 @@ al_binary_run(
     data = [
         "//tools/vault",
         "//tools/vault/gen_client_cert",
-        "//tools/vault/injector",
     ],
-    run_args = [
-        "--plugin_label",
-        "vault_env=default_default",
-    ],
+    plugin_labels = {"vault_env": "default_default"},
 )
 
 al_binary_run(
@@ -63,10 +157,7 @@ al_binary_run(
         "//tools/vault",
         "//tools/vault/gen_root_token",
     ],
-    run_args = [
-        "--plugin_label",
-        "vault_env=default_no_auth",
-    ],
+    plugin_labels = {"vault_env": "default_no_auth"},
 )
 
 al_binary_run(
@@ -80,16 +171,13 @@ al_binary_run(
     configs = ["//infra/vault:al"],
     data = [
         "//tools/vault",
-        "//tools/vault/injector",
         "//tools/vault/unseal",
         "//tools/ykman",
     ],
-    run_args = [
-        "--plugin_label",
-        "vault_env=default_no_auth",
-        "--plugin_label",
-        "unseal",
-    ],
+    plugin_labels = {
+        "vault_env": "default_no_auth",
+        "unseal": "",
+    },
 )
 
 al_binary_run(
@@ -103,14 +191,10 @@ al_binary_run(
     configs = ["//infra/vault:al"],
     data = [
         "//tools/vault",
-        "//tools/vault/injector",
         "//tools/vault/unseal",
         "//tools/ykman",
     ],
-    run_args = [
-        "--plugin_label",
-        "vault_env=default_no_auth",
-    ],
+    plugin_labels = {"vault_env": "default_no_auth"},
 )
 
 al_binary_run(
@@ -127,15 +211,10 @@ al_binary_run(
         "//third_party/org_rclone_rclone:rclone",
         "//tools/vault",
         "//tools/vault/backup",
-        "//tools/vault/injector",
-        "//tools/vault/tf_backend",
     ],
-    run_args = [
-        "--plugin_label",
-        "vault_env=default_default",
-        "--plugin_label",
-        "backup",
-        "--plugin_label",
-        "tf",
-    ],
+    plugin_labels = {
+        "vault_env": "default_default",
+        "backup": "",
+        "tf": "",
+    },
 )

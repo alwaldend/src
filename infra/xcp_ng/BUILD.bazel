@@ -1,18 +1,122 @@
-load("@rules_al//:defs.bzl", "al_binary_run", "al_config")
+load("@rules_al//:defs.bzl", "al_binary_run", "al_config", "al_injector_call", "al_vault_auth")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//infra:al_config.bzl", "infra_dns")
 load("//tools/vault:defs.bzl", "vault_binary_map")
+load("//tools/vault/tf_backend:defs.bzl", "vault_tf_backend")
 
 package(transitive_visibility = "//infra:transitive_consumers")
 
+al_vault_auth(
+    name = "auth.xcp_ng",
+    approle = "src_infra_xcp_ng",
+    config_name = "xcp_ng",
+)
+
+vault_tf_backend(
+    name = "tf_backend",
+    labels = {
+        "dns": "1",
+        "xcp_ng_tf": "1",
+    },
+    path = "alwaldend.com/vault1/approles/src_infra_xcp_ng/tf_backend",
+    vault_auth = "xcp_ng",
+)
+
+al_injector_call(
+    name = "xcpng_host_login",
+    labels = {"xcpng_host": "1"},
+    res_env = {
+        "XCPNG_USERNAME": {
+            "value": "{{ .Last.Data.xcpng_username }}",
+            "deps": ["xcpng_host"],
+        },
+        "XCPNG_PASSWORD": {
+            "value": "{{ .Last.Data.xcpng_password }}",
+            "deps": ["xcpng_host"],
+        },
+        "SSHPASS": {
+            "value": "{{ .Last.Data.xcpng_password }}",
+            "deps": ["xcpng_host"],
+        },
+    },
+    res_kv = {
+        "xcpng_host": {
+            "mount": "secrets",
+            "path": "alwaldend.com/vault1/approles/src_infra_xcp_ng/host1",
+            "vault_auth": "xcp_ng",
+        },
+    },
+)
+
+al_injector_call(
+    name = "xoa_ssh",
+    labels = {"xcp_ng_ansible": "1"},
+    res_env = {"XOA_SSH_PASSWORD": {
+        "value": "{{ .Last.Data.xoa_ssh_password }}",
+        "deps": ["xoa_ssh"],
+    }},
+    res_kv = {
+        "xoa_ssh": {
+            "mount": "secrets",
+            "path": "alwaldend.com/vault1/approles/src_infra_xcp_ng/xoa",
+            "vault_auth": "xcp_ng",
+        },
+    },
+)
+
+al_injector_call(
+    name = "xoa_login",
+    labels = {"xoa": "1"},
+    res_env = {"XOA_TOKEN": {
+        "value": "{{ .Last.Data.xoa_token }}",
+        "deps": ["xoa"],
+    }},
+    res_kv = {
+        "xoa": {
+            "mount": "secrets",
+            "path": "alwaldend.com/vault1/approles/src_infra_xcp_ng/xoa",
+            "vault_auth": "xcp_ng",
+        },
+    },
+)
+
+al_injector_call(
+    name = "env_xcp_ng",
+    labels = {"vault_env": "xcp_ng"},
+    res_vault_env = {"env_xcp_ng": {
+        "auth": "xcp_ng",
+        "conn": "default",
+    }},
+)
+
+infra_dns(
+    name = "dns_providers",
+    dc1 = True,
+    global_records = False,
+    labels = {
+        "dns": "1",
+        "xcp_ng_tf": "1",
+    },
+    vault_auth = "xcp_ng",
+)
+
 al_config(
     name = "al",
-    srcs = ["al.lua"],
+    configs = [
+        ":auth.xcp_ng",
+        ":dns_providers",
+        ":env_xcp_ng",
+        ":tf_backend",
+        ":xcpng_host_login",
+        ":xoa_login",
+        ":xoa_ssh",
+        "//infra:al",
+    ],
     visibility = [
         "//infra/forgejo:__subpackages__",
         "//infra/security/appliances:__pkg__",
         "//infra/xcp_ng:__subpackages__",
     ],
-    deps = ["//infra:al"],
 )
 
 vault_binary_map(
@@ -40,11 +144,7 @@ al_binary_run(
         "root@host1.xcp-ng.alwaldend.com",
     ],
     configs = [":al"],
-    data = ["//tools/vault/injector"],
-    run_args = [
-        "--plugin_label",
-        "xcpng_host=1",
-    ],
+    plugin_labels = {"xcpng_host": "1"},
 )
 
 al_binary_run(
@@ -56,12 +156,8 @@ al_binary_run(
     configs = [":al"],
     data = [
         "//infra/xcp_ng/cmd/xo_config",
-        "//tools/vault/injector",
     ],
-    run_args = [
-        "--plugin_label",
-        "xoa=1",
-    ],
+    plugin_labels = {"xoa": "1"},
 )
 
 al_binary_run(
@@ -73,14 +169,11 @@ al_binary_run(
     configs = [":al"],
     data = [
         "//infra/xcp_ng/cmd/xo_config",
-        "//tools/vault/injector",
     ],
-    run_args = [
-        "--plugin_label",
-        "xoa=1",
-        "--plugin_label",
-        "xcpng_host=1",
-    ],
+    plugin_labels = {
+        "xoa": "1",
+        "xcpng_host": "1",
+    },
 )
 
 al_binary_run(
@@ -94,12 +187,8 @@ al_binary_run(
     data = [
         "//infra/xcp_ng/cmd/xo_config",
         "//third_party/org_fedora_cloud",
-        "//tools/vault/injector",
     ],
-    run_args = [
-        "--plugin_label",
-        "xoa=1",
-    ],
+    plugin_labels = {"xoa": "1"},
 )
 
 al_binary_run(
@@ -111,12 +200,8 @@ al_binary_run(
     configs = [":al"],
     data = [
         "//infra/xcp_ng/cmd/xo_config",
-        "//tools/vault/injector",
     ],
-    run_args = [
-        "--plugin_label",
-        "xoa=1",
-    ],
+    plugin_labels = {"xoa": "1"},
 )
 
 filegroup(

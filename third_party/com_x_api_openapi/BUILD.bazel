@@ -8,13 +8,9 @@ al_binary_run(
     args = ["$(rootpath //tools/x_api_schema/cmd/fetch_schema)"],
     configs = ["//projects/x_article_uploader:al"],
     data = [
-        "//tools/vault/injector",
         "//tools/x_api_schema/cmd/fetch_schema",
     ],
-    run_args = [
-        "--plugin_label",
-        "x_api=1",
-    ],
+    plugin_labels = {"x_api": "1"},
 )
 
 alias(

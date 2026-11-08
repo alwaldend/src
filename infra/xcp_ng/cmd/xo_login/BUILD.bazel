@@ -1,8 +1,28 @@
-load("@rules_al//:defs.bzl", "al_binary_run")
+load("@rules_al//:defs.bzl", "al_binary_run", "al_config", "al_plugin")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_go//go:def.bzl", "go_binary", "go_library", "go_test")
 
 package(transitive_visibility = "//infra:transitive_consumers")
+
+al_plugin(
+    name = "bootstrap_plugin",
+    args = {
+        "bootstrap": True,
+        "xoa_url": "https://xoa.xcp-ng.alwaldend.com",
+        "discovery_url": "https://vault.alwaldend.com:8200/v1/identity/oidc/provider/src_infra_xcp_ng_provider/.well-known/openid-configuration",
+    },
+    config_name = "xo_login",
+    executable = ":xo_login",
+    labels = {"xoa_login": "1"},
+)
+
+al_config(
+    name = "bootstrap_config",
+    configs = [
+        ":bootstrap_plugin",
+        "//tools/al:connection",
+    ],
+)
 
 al_binary_run(
     name = "bootstrap",
@@ -10,17 +30,11 @@ al_binary_run(
         "$(rootpath :xo_login)",
         "--report",
     ],
-    configs = ["//infra:al"],
+    configs = [":bootstrap_config"],
     data = [
-        "bootstrap.lua",
         ":xo_login",
     ],
-    run_args = [
-        "--config",
-        "$(rootpath bootstrap.lua)",
-        "--plugin_label",
-        "xoa_login=1",
-    ],
+    plugin_labels = {"xoa_login": "1"},
 )
 
 docs_filegroup(
@@ -32,6 +46,7 @@ docs_filegroup(
 go_library(
     name = "xo_login_lib",
     srcs = [
+        "doc.go",
         "issuer.go",
         "main.go",
     ],
@@ -59,10 +74,12 @@ go_test(
         "issuer_test.go",
         "main_test.go",
     ],
-    data = ["bootstrap.lua"],
+    data = [":bootstrap_config"],
     embed = [":xo_login_lib"],
+    env = {"BOOTSTRAP_CONFIG": "$(rlocationpath :bootstrap_config)"},
     deps = [
         "@com_github_hashicorp_vault_api//:api",
         "@rules_al//pkg/al",
+        "@rules_go//go/runfiles",
     ],
 )

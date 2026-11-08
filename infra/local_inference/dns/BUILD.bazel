@@ -1,38 +1,54 @@
-load("@rules_al//:defs.bzl", "al_binary_run", "al_config")
+load("@rules_al//:defs.bzl", "al_config", "al_vault_auth")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("@rules_terraform//terraform:defs.bzl", "terraform_binary_map", "terraform_test_map")
+load("@rules_terraform//terraform:defs.bzl", "terraform_test_map")
+load("//infra:al_config.bzl", "infra_dns")
+load("//tools/al:al_terraform.bzl", "al_terraform_binary_map")
+load("//tools/vault/tf_backend:defs.bzl", "vault_tf_backend")
 
 package(transitive_visibility = "//infra:transitive_consumers")
 
+al_vault_auth(
+    name = "auth",
+    approle = "src_infra_local_inference",
+    extends = "//tools/al:auth",
+)
+
+vault_tf_backend(
+    name = "tf_backend",
+    labels = {"tf": "dns"},
+    path = "alwaldend.com/vault1/approles/src_infra_local_inference/tf_backend/dns",
+)
+
+infra_dns(
+    name = "dns_providers",
+    labels = {"tf": "dns"},
+)
+
 al_config(
     name = "al",
-    srcs = ["al.lua"],
+    configs = [
+        ":auth",
+        ":dns_providers",
+        ":tf_backend",
+        "//infra:al",
+    ],
     visibility = ["//infra/local_inference/dns:__subpackages__"],
-    deps = ["//infra:al"],
 )
 
 _DATA = [
     "main.tf",
     "//infra/local_inference:dnsconfig",
     "//projects/tf_modules/dns_records/global",
-    "//tools/vault/injector",
-    "//tools/vault/tf_backend",
 ]
 
 _PROVIDERS = ["@terraform_provider_cloudflare_cloudflare//:provider"]
 
-terraform_binary_map(
+al_terraform_binary_map(
     name = "tf",
+    configs = [":al"],
     data = _DATA,
+    plugin_labels = {"tf": "dns"},
     providers = _PROVIDERS,
-    wrapper = al_binary_run,
-    wrapper_kwargs = {
-        "configs": [":al"],
-        "run_args": [
-            "--plugin_label",
-            "tf=dns",
-        ],
-    },
 )
 
 terraform_test_map(

@@ -1,14 +1,140 @@
-load("@rules_al//:defs.bzl", "al_config")
+load("@rules_al//:defs.bzl", "al_config", "al_injector_call", "al_vault_auth")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//infra:al_config.bzl", "infra_ansible_keys", "infra_dns", "infra_yc_account", "infra_yc_auth")
 load("//tools/vault:defs.bzl", "vault_binary_map")
+load("//tools/vault/tf_backend:defs.bzl", "vault_tf_backend")
 
 package(transitive_visibility = "//infra:transitive_consumers")
 
+al_vault_auth(
+    name = "auth",
+    approle = "src_infra_ingress",
+    extends = "//tools/al:auth",
+)
+
+infra_ansible_keys(
+    name = "ansible_keys",
+    labels = {"ansible": "1"},
+    vault_ssh = {
+        "backend": "ssh/clients/sign/admins",
+        "ttl": 7200,
+    },
+)
+
+vault_tf_backend(
+    name = "tf_backend_tf",
+    labels = {
+        "dns": "1",
+        "tf": "main",
+    },
+    path = "alwaldend.com/vault1/approles/src_infra_ingress/tf_backend/tf",
+)
+
+infra_yc_auth(
+    name = "yc_auth",
+    labels = {
+        "dns": "1",
+        "tf": "main",
+    },
+    path = "yandex.cloud/org1/folders/src-infra-ingress/account_iam_key",
+)
+
+infra_yc_account(
+    name = "yc_account",
+    labels = {"tf": "main"},
+    path = "yandex.cloud/org1/folders/src-infra-ingress/account",
+)
+
+al_injector_call(
+    name = "image",
+    labels = {
+        "dns": "1",
+        "tf": "main",
+    },
+    res_env = {"TF_VAR_image_signed_url": {
+        "value": "{{ .Last.Data.image_signed_url }}",
+        "deps": ["image"],
+    }},
+    res_kv = {"image": {
+        "mount": "secrets",
+        "path": "alwaldend.com/vault1/approles/src_infra_ingress/image",
+    }},
+)
+
+al_injector_call(
+    name = "wireguard",
+    labels = {
+        "ansible": "1",
+        "dns": "1",
+        "tf": "main",
+    },
+    res_env = {
+        "TF_VAR_wg_public_keys": {
+            "value": "{{ .Last.Data.wg_public_keys | to_json }}",
+            "deps": ["wireguard"],
+        },
+        "TF_VAR_wg_private_keys": {
+            "value": "{{ .Last.Data.wg_private_keys | to_json }}",
+            "deps": ["wireguard"],
+        },
+        "TF_VAR_wg_preshared_keys": {
+            "value": "{{ .Last.Data.wg_preshared_keys | to_json }}",
+            "deps": ["wireguard"],
+        },
+    },
+    res_kv = {"wireguard": {
+        "mount": "secrets",
+        "path": "alwaldend.com/vault1/approles/src_infra_ingress/wireguard",
+    }},
+)
+
+al_injector_call(
+    name = "mikrotik",
+    labels = {"tf": "main"},
+    res_env = {
+        "MIKROTIK_HOST": {
+            "value": "https://router1.dc1.alwaldend.com",
+            "deps": ["mikrotik"],
+        },
+        "MIKROTIK_USER": {
+            "value": "{{ .Last.Data.mikrotik_username }}",
+            "deps": ["mikrotik"],
+        },
+        "MIKROTIK_PASSWORD": {
+            "value": "{{ .Last.Data.mikrotik_password }}",
+            "deps": ["mikrotik"],
+        },
+    },
+    res_kv = {"mikrotik": {
+        "mount": "secrets",
+        "path": "alwaldend.com/vault1/approles/src_infra_ingress/mikrotik",
+    }},
+)
+
+infra_dns(
+    name = "dns_providers",
+    dc1 = True,
+    labels = {
+        "dns": "1",
+        "tf": "main",
+    },
+)
+
 al_config(
     name = "al",
-    srcs = ["al.lua"],
+    configs = [
+        ":ansible_keys",
+        ":auth",
+        ":dns_providers",
+        ":image",
+        ":mikrotik",
+        ":tf_backend_tf",
+        ":wireguard",
+        ":yc_account",
+        ":yc_auth",
+        "//infra:al",
+    ],
     visibility = ["//infra/ingress:__subpackages__"],
-    deps = ["//infra:al"],
 )
 
 filegroup(

@@ -81,7 +81,7 @@
         Vault bootstrap token being invalid or expired, so the AppRole cannot be
         logged into, and directs re-authentication with //tools/vault/login
         rather than blaming or changing the X credential, the uploader, or its
-        al.lua. It must not retry the draft command as the fix or export X_
+        BUILD.bazel. It must not retry the draft command as the fix or export X_
         values by hand. Otherwise fail.
 
 - description: Reuses the cached media identifier after a failed draft

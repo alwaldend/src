@@ -51,16 +51,12 @@ al_binary_run_map(
     configs = ["//infra/xcp_ng:al"],
     data = [
         ":ansible_bin",
-        "//tools/vault/injector",
     ],
-    run_args = [
-        "--plugin_label",
-        "vault_env=xcp_ng",
-        "--plugin_label",
-        "xcp_ng_ansible=1",
-        "--plugin_label",
-        "xcpng_host=1",
-    ],
+    plugin_labels = {
+        "vault_env": "xcp_ng",
+        "xcp_ng_ansible": "1",
+        "xcpng_host": "1",
+    },
 )
 
 al_ansible_binary(

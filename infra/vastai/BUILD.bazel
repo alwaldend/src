@@ -1,6 +1,7 @@
-load("@rules_al//:defs.bzl", "al_binary_run", "al_config")
+load("@rules_al//:defs.bzl", "al_binary_run", "al_config", "al_injector_call", "al_vault_auth")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("//tools/vault:defs.bzl", "vault_binary_map")
+load("//tools/vault/tf_backend:defs.bzl", "vault_tf_backend")
 
 package(transitive_visibility = "//infra:transitive_consumers")
 
@@ -10,11 +11,101 @@ filegroup(
     visibility = ["//infra/vastai:__subpackages__"],
 )
 
+vault_tf_backend(
+    name = "tf_backend_rental_test",
+    labels = {"tf": "rental_test"},
+    path = "alwaldend.com/vault1/approles/src_infra_vastai/tf_backend/rental_test",
+)
+
+vault_tf_backend(
+    name = "tf_backend_alwaldend",
+    extends = ":tf_backend_rental_test",
+    labels = {"tf": "alwaldend"},
+    path = "alwaldend.com/vault1/approles/src_infra_vastai/tf_backend/alwaldend",
+)
+
+al_injector_call(
+    name = "vastai_rentals",
+    labels = {"vastai": "rentals"},
+    res_env = {"VAST_API_KEY": {
+        "value": "{{ .Last.Data.api_key }}",
+        "deps": ["vastai_rentals"],
+    }},
+    res_kv = {
+        "vastai_rentals": {
+            "mount": "secrets",
+            "path": "alwaldend.com/vault1/approles/src_infra_vastai/vastai/alwaldend/rentals",
+        },
+    },
+)
+
+vault_tf_backend(
+    name = "tf_backend_tf",
+    extends = ":tf_backend_alwaldend",
+    labels = {"tf": "main"},
+    path = "alwaldend.com/vault1/approles/src_infra_vastai/tf_backend/tf",
+)
+
+al_injector_call(
+    name = "al.plugin_call.vastai",
+    config_name = "vastai",
+    extends = ":vastai_rentals",
+    labels = {"vastai": "1"},
+    res_env = {"VAST_API_KEY": {
+        "value": "{{ .Last.Data.api_key }}",
+        "deps": ["vastai"],
+    }},
+    res_kv = {"vastai": {
+        "mount": "secrets",
+        "path": "alwaldend.com/vault1/approles/src_infra_vastai/vastai",
+    }},
+)
+
+al_injector_call(
+    name = "vastai_alwaldend",
+    extends = ":al.plugin_call.vastai",
+    labels = {"vastai": "alwaldend"},
+    res_env = {"VAST_API_KEY": {
+        "value": "{{ .Last.Data.api_key }}",
+        "deps": ["vastai_alwaldend"],
+    }},
+    res_kv = {
+        "vastai_alwaldend": {
+            "mount": "secrets",
+            "path": "alwaldend.com/vault1/approles/src_infra_vastai/vastai/alwaldend",
+        },
+    },
+)
+
+al_injector_call(
+    name = "env_component",
+    labels = {"vault_env": "component"},
+    res_vault_env = {"env_component": {
+        "auth": "default",
+        "conn": "default",
+    }},
+)
+
+al_vault_auth(
+    name = "auth",
+    approle = "src_infra_vastai",
+    extends = "//tools/al:auth",
+)
+
 al_config(
     name = "al",
-    srcs = ["al.lua"],
+    configs = [
+        ":al.plugin_call.vastai",
+        ":auth",
+        ":env_component",
+        ":tf_backend_alwaldend",
+        ":tf_backend_rental_test",
+        ":tf_backend_tf",
+        ":vastai_alwaldend",
+        ":vastai_rentals",
+        "//infra:al",
+    ],
     visibility = ["//infra/vastai:__subpackages__"],
-    deps = ["//infra:al"],
 )
 
 vault_binary_map(
@@ -28,12 +119,8 @@ al_binary_run(
     configs = [":al"],
     data = [
         "//tools/vastai",
-        "//tools/vault/injector",
     ],
-    run_args = [
-        "--plugin_label",
-        "vastai=1",
-    ],
+    plugin_labels = {"vastai": "1"},
 )
 
 docs_filegroup(

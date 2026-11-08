@@ -81,40 +81,40 @@ in-scope blockers and tiny related defects, and report other findings.
 
 This table owns routing; each skill owns its procedure.
 
-| When                                                                     | Load                                         |
-| ------------------------------------------------------------------------ | -------------------------------------------- |
-| Before the first mutation or task-scratch write                          | `al-workspace`                               |
-| Assessing quality or accuracy, including "is this good/accurate?"        | `quality-assessment`                         |
-| Material, consequential, or repeatedly failing choice                    | `decision-review`                            |
-| Creating or moving source, or choosing a directory layout                | `project-layout`                             |
-| Any Bazel invocation, BUILD or `.bzl` mechanics, or validation scope     | `al-bazel`, `repo-bazel`                     |
-| Python implementation, refactoring, or review                            | `repo-python`                                |
-| Go implementation, refactoring, or review                                | `repo-go`                                    |
-| A standalone nested workspace with its own `MODULE.bazel`                | `bazel-nested-module`                        |
-| External dependencies, archives, toolchains, or lockfiles                | `repo-external-dependency`                   |
-| Refreshing repository-generated metadata                                 | `al-maintenance`                             |
-| Gazelle generation behavior or a language plugin                         | `repo-gazelle-plugin`                        |
-| Structure-aware search or rewrite by syntax shape                        | `ast-grep`                                   |
-| `infra/**`, `host_bot`, `al.lua`, tf/Ansible/DNS, deployment diagnostics | `repo-infra`                                 |
-| Credentials, tokens, private keys, Vault policy, secret-bearing config   | `repo-secrets`                               |
-| Repository secret scans and all-ref credential audits                    | `repo-secret-scan`                           |
-| Workflow changes, reusable CI commands, or CI diagnostics                | `repo-ci`                                    |
-| Hugo site or theme, or landing-site onboarding                           | `repo-hugo`                                  |
-| Android app build, packaging, or publication                             | `android`                                    |
-| A `.blend` asset, or Blender work judged by supplied-reference likeness  | `repo-blender`, `blender-reference-fidelity` |
-| Video creation, editing, conversion, muxing, or media validation         | `repo-video`                                 |
-| Host Codex model, provider, authentication, or shared-config migration   | `codex-migration`                            |
-| Every repository change, specifications, or continuation state           | `al-openspec`                                |
-| Adding or updating a repository skill                                    | `bazel-rules-skill`                          |
-| Proofreading, polishing, or rewriting supplied prose                     | `spellcheck`                                 |
-| Publishing an article to the blog                                        | `alwaldend-blog`                             |
-| Uploading a blog post to X as an Article draft, or a 429 from X          | `x-article-upload`                           |
-| Complete repository build-and-test health check                          | `al-checks`                                  |
-| Computing a development, nightly, or weekly version                      | `al-versioning`                              |
-| Reviewing a PR, commit range, or other bounded change set                | `review-agent`                               |
-| Preparing publication or final handoff                                   | `al-delivery`                                |
-| Synchronizing an advancing remote base, or rebasing task-owned commits   | `al-rebase`                                  |
-| Reviewing a substantial or inefficient session at task close             | `agent-ergonomics-review`                    |
+| When                                                                             | Load                                         |
+| -------------------------------------------------------------------------------- | -------------------------------------------- |
+| Before the first mutation or task-scratch write                                  | `al-workspace`                               |
+| Assessing quality or accuracy, including "is this good/accurate?"                | `quality-assessment`                         |
+| Material, consequential, or repeatedly failing choice                            | `decision-review`                            |
+| Creating or moving source, or choosing a directory layout                        | `project-layout`                             |
+| Any Bazel invocation, BUILD or `.bzl` mechanics, or validation scope             | `al-bazel`, `repo-bazel`                     |
+| Python implementation, refactoring, or review                                    | `repo-python`                                |
+| Go implementation, refactoring, or review                                        | `repo-go`                                    |
+| A standalone nested workspace with its own `MODULE.bazel`                        | `bazel-nested-module`                        |
+| External dependencies, archives, toolchains, or lockfiles                        | `repo-external-dependency`                   |
+| Refreshing repository-generated metadata                                         | `al-maintenance`                             |
+| Gazelle generation behavior or a language plugin                                 | `repo-gazelle-plugin`                        |
+| Structure-aware search or rewrite by syntax shape                                | `ast-grep`                                   |
+| `infra/**`, `host_bot`, AL configuration, tf/Ansible/DNS, deployment diagnostics | `repo-infra`                                 |
+| Credentials, tokens, private keys, Vault policy, secret-bearing config           | `repo-secrets`                               |
+| Repository secret scans and all-ref credential audits                            | `repo-secret-scan`                           |
+| Workflow changes, reusable CI commands, or CI diagnostics                        | `repo-ci`                                    |
+| Hugo site or theme, or landing-site onboarding                                   | `repo-hugo`                                  |
+| Android app build, packaging, or publication                                     | `android`                                    |
+| A `.blend` asset, or Blender work judged by supplied-reference likeness          | `repo-blender`, `blender-reference-fidelity` |
+| Video creation, editing, conversion, muxing, or media validation                 | `repo-video`                                 |
+| Host Codex model, provider, authentication, or shared-config migration           | `codex-migration`                            |
+| Every repository change, specifications, or continuation state                   | `al-openspec`                                |
+| Adding or updating a repository skill                                            | `bazel-rules-skill`                          |
+| Proofreading, polishing, or rewriting supplied prose                             | `spellcheck`                                 |
+| Publishing an article to the blog                                                | `alwaldend-blog`                             |
+| Uploading a blog post to X as an Article draft, or a 429 from X                  | `x-article-upload`                           |
+| Complete repository build-and-test health check                                  | `al-checks`                                  |
+| Computing a development, nightly, or weekly version                              | `al-versioning`                              |
+| Reviewing a PR, commit range, or other bounded change set                        | `review-agent`                               |
+| Preparing publication or final handoff                                           | `al-delivery`                                |
+| Synchronizing an advancing remote base, or rebasing task-owned commits           | `al-rebase`                                  |
+| Reviewing a substantial or inefficient session at task close                     | `agent-ergonomics-review`                    |
 
 Use `review-agent` for every requested review of repository changes, including
 PRs, commits, staged changes, working-tree changes, and supplied patches.

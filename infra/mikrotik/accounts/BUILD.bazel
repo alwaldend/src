@@ -1,6 +1,6 @@
-load("@rules_al//:defs.bzl", "al_binary_run")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("@rules_terraform//terraform:defs.bzl", "terraform_binary_map", "terraform_test_map")
+load("@rules_terraform//terraform:defs.bzl", "terraform_test_map")
+load("//tools/al:al_terraform.bzl", "al_terraform_binary_map")
 
 package(transitive_visibility = "//infra:transitive_consumers")
 
@@ -12,21 +12,12 @@ _PROVIDERS = [
 
 _DATA = glob(["*.tf"])
 
-terraform_binary_map(
+al_terraform_binary_map(
     name = "tf",
-    data = _DATA + [
-        "//tools/vault/injector",
-        "//tools/vault/tf_backend",
-    ],
+    configs = ["//infra/mikrotik:al"],
+    data = _DATA,
+    plugin_labels = {"tf": "accounts"},
     providers = _PROVIDERS,
-    wrapper = al_binary_run,
-    wrapper_kwargs = {
-        "configs": ["//infra/mikrotik:al"],
-        "run_args": [
-            "--plugin_label",
-            "tf=accounts",
-        ],
-    },
 )
 
 terraform_test_map(

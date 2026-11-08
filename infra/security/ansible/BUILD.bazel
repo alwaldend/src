@@ -17,12 +17,8 @@ al_binary_run(
     configs = ["//infra/security:al"],
     data = [
         ":ansible_bin",
-        "//tools/vault/injector",
     ],
-    run_args = [
-        "--plugin_label",
-        "maintenance=1",
-    ],
+    plugin_labels = {"maintenance": "1"},
 )
 
 al_ansible_binary(
@@ -46,12 +42,8 @@ al_binary_run(
     configs = ["//infra/security:al"],
     data = [
         ":clamav_bin",
-        "//tools/vault/injector",
     ],
-    run_args = [
-        "--plugin_label",
-        "maintenance=1",
-    ],
+    plugin_labels = {"maintenance": "1"},
 )
 
 al_ansible_binary(

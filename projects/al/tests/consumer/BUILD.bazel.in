@@ -1,8 +1,157 @@
-load("@rules_al//:defs.bzl", "al_release_bundle")
+load("@rules_al//:defs.bzl", "al_binary_run", "al_config", "al_injector_call", "al_plugin_call", "al_release_bundle", "al_vault_auth")
 
 al_release_bundle(
     name = "bundle",
     srcs = ["payload.txt"],
     project = "projects/consumer",
     status_file = "status.txt",
+)
+
+al_vault_auth(
+    name = "parent_auth",
+    approle = "consumer",
+)
+
+al_vault_auth(
+    name = "auth_override",
+    extends = ":parent_auth",
+    no_auth = True,
+)
+
+al_vault_auth(
+    name = "unrelated_auth",
+    no_auth = True,
+)
+
+al_config(
+    name = "parent",
+    config = {
+        "vault_conn": {"default": {
+            "address": "https://vault.example.invalid",
+            "ca_cert": "fixture-ca.crt",
+            "client_cert": "fixture-client.crt",
+            "client_key": "fixture-client.key",
+        }},
+        "plugins": {"plugin": {
+            "executable": "@rules_al//:al",
+            "argv": ["--help"],
+        }},
+    },
+    configs = [":parent_auth"],
+)
+
+al_config(
+    name = "config",
+    config = {
+        "plugin_calls": {"call": {
+            "plugin": "plugin",
+            "labels": {"selected": "fixture"},
+            "args": {"nested": [
+                True,
+                7,
+                1.5,
+                {},
+                [],
+                None,
+                "@PAYLOAD@",
+            ]},
+            "substitutions": {"payload.txt": "@PAYLOAD@"},
+        }},
+    },
+    configs = [
+        ":auth_override",
+        ":parent",
+    ],
+)
+
+al_config(
+    name = "ambiguous",
+    configs = [
+        ":parent",
+        ":unrelated_auth",
+    ],
+    tags = ["manual"],
+)
+
+al_binary_run(
+    name = "config_runner",
+    configs = [":config"],
+)
+
+al_binary_run(
+    name = "layered_runner",
+    configs = [
+        ":auth_override",
+        ":parent",
+    ],
+)
+
+al_injector_call(
+    name = "typed_resources",
+    res_env = {"EXAMPLE": {
+        "deps": [
+            "key",
+            "payload_file",
+        ],
+        "vault_auth": "fixture_auth",
+        "value": "fixture",
+    }},
+    res_file = {"payload_file": {"value": "@PAYLOAD@"}},
+    res_kv = {"key": {
+        "vault_conn": "fixture_conn",
+        "vault_auth": "fixture_auth",
+        "mount": "secrets",
+        "path": "fixture/key",
+    }},
+    res_oidc = {"token": {
+        "name": "fixture-provider",
+        "scope": "openid",
+    }},
+    res_op = {"operation": {
+        "method": "read",
+        "path": "fixture/operation",
+        "data": {"field": "value"},
+    }},
+    res_process = {"helper": {
+        "name": "fixture-tool",
+        "args": ["--fixture"],
+    }},
+    res_vault_env = {"vault": {
+        "auth": "fixture_auth",
+        "conn": "fixture_conn",
+    }},
+    res_vault_ssh = {"ssh": {
+        "backend": "ssh/clients/sign/fixture",
+        "ttl": 60,
+    }},
+    substitutions = {"payload.txt": "@PAYLOAD@"},
+)
+
+al_injector_call(
+    name = "aliased_resources",
+    config_name = "custom_resources",
+    res_env = {"AL_ALIAS": {"value": "alias"}},
+)
+
+al_plugin_call(name = "default_call")
+
+al_plugin_call(
+    name = "target_plugin",
+    config_name = "explicit_call_name",
+)
+
+al_config(
+    name = "dictionary_defaults",
+    config = {"plugin_calls": {"dict_plugin": {}}},
+)
+
+al_config(
+    name = "flat_config",
+    configs = [
+        ":aliased_resources",
+        ":default_call",
+        ":dictionary_defaults",
+        ":target_plugin",
+        ":typed_resources",
+    ],
 )

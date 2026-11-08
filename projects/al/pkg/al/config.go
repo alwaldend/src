@@ -6,19 +6,26 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"sort"
+	"strings"
 
 	"git.alwaldend.com/alwaldend/src/projects/al/api/al_proto"
 	"git.alwaldend.com/alwaldend/src/projects/al/pkg/fp"
-	"github.com/yuin/gopher-lua"
 	"google.golang.org/protobuf/encoding/protojson"
 	"google.golang.org/protobuf/proto"
 	"sigs.k8s.io/yaml"
 )
 
+// LoadConfigs merges JSON and YAML configuration in the supplied order.
 func LoadConfigs(ctx context.Context, paths ...string) (*al_proto.Config, error) {
+	return loadConfigs(ctx, nil, paths...)
+}
+
+// loadConfigs merges declarative configurations after explicit file substitution.
+func loadConfigs(ctx context.Context, replacements *strings.Replacer, paths ...string) (*al_proto.Config, error) {
 	res := &al_proto.Config{}
 	for _, path := range paths {
-		config, err := loadConfig(ctx, path)
+		config, err := loadConfig(ctx, path, replacements)
 		if err != nil {
 			return nil, fmt.Errorf("could not load config %s: %w", path, err)
 		}
@@ -27,7 +34,8 @@ func LoadConfigs(ctx context.Context, paths ...string) (*al_proto.Config, error)
 	return res, nil
 }
 
-func loadConfig(ctx context.Context, path string) (*al_proto.Config, error) {
+// loadConfig decodes one JSON or YAML configuration without code evaluation.
+func loadConfig(ctx context.Context, path string, replacements *strings.Replacer) (*al_proto.Config, error) {
 	select {
 	case <-ctx.Done():
 		return nil, fmt.Errorf("context ended: %w", ctx.Err())
@@ -39,6 +47,9 @@ func loadConfig(ctx context.Context, path string) (*al_proto.Config, error) {
 	if err != nil {
 		return nil, fmt.Errorf("could not open config file %s: %w", path, err)
 	}
+	if replacements != nil {
+		configContent = []byte(replacements.Replace(string(configContent)))
+	}
 	switch extension {
 	case ".yaml", ".json":
 		configContentJson, err := yaml.YAMLToJSON(configContent)
@@ -49,95 +60,47 @@ func loadConfig(ctx context.Context, path string) (*al_proto.Config, error) {
 		if err != nil {
 			return nil, fmt.Errorf("could not unmarshal config file %s", path)
 		}
-	case ".lua":
-		state := lua.NewState()
-		defer state.Close()
-		state.SetContext(ctx)
-		state.SetGlobal("config", state.NewFunction(func(l *lua.LState) int {
-			val := &al_proto.Config{}
-			if err := parseTableArg(state, val); err != nil {
-				state.ArgError(1, fmt.Sprintf("could not parse config: %s", err))
-			} else {
-				proto.Merge(res, val)
-			}
-			return 0
-		}))
-		state.SetGlobal("to_json", state.NewFunction(func(l *lua.LState) int {
-			if res, err := toJson(l); err != nil {
-				state.ArgError(1, fmt.Sprintf("could not convert to json: %s", err))
-			} else {
-				state.Push(lua.LString(res))
-			}
-			return 1
-		}))
-		state.SetGlobal("to_pb_json", state.NewFunction(func(l *lua.LState) int {
-			if res, err := toPbJson(l); err != nil {
-				state.ArgError(1, fmt.Sprintf("could not convert to protobuf json: %s", err))
-			} else {
-				state.Push(res)
-			}
-			return 1
-		}))
-		err := state.DoString(string(configContent))
-		if err != nil {
-			return nil, fmt.Errorf("could not run Lua config %s", path)
-		}
+
 	default:
 		return nil, fmt.Errorf("invalid extension: %s", extension)
 	}
 	return res, nil
 }
 
-func toPbJson(state *lua.LState) (lua.LValue, error) {
-	data, err := parseLua(state.ToTable(1), nil)
-	if err != nil {
-		return nil, fmt.Errorf("could not parse the table: %w", err)
-	}
-	data_pb, err := ToPbJson(data).Get()
-	if err != nil {
-		return nil, fmt.Errorf("could not covert data to protobuf json: %w", err)
-	}
-	data_pb_json, err := protojson.Marshal(data_pb)
-	if err != nil {
-		return nil, fmt.Errorf("could not marshal converted protobuf json: %w", err)
-	}
-	var data_parsed any
-	if err := json.Unmarshal(data_pb_json, &data_parsed); err != nil {
-		return nil, fmt.Errorf("could not parse converted protobuf as json: %w", err)
-	}
-	res, err := dumpLua(state, data_parsed)
-	if err != nil {
-		return nil, fmt.Errorf("could not dump json as lua: %w", err)
-	}
-	return res, nil
-}
-
-func toJson(state *lua.LState) ([]byte, error) {
-	data, err := parseLua(state.ToTable(1), nil)
-	if err != nil {
-		return nil, fmt.Errorf("could not parse the table: %w", err)
-	}
-	res, err := json.Marshal(data)
-	if err != nil {
-		return nil, fmt.Errorf("could not marshal the data: %w", err)
-	}
-	return res, nil
-}
-
-func parseTableArg(state *lua.LState, target proto.Message) error {
-	data, err := toJson(state)
-	if err != nil {
-		return fmt.Errorf("could not convert to json: %w", err)
-	}
-	err = protojson.Unmarshal(data, target)
-	if err != nil {
-		return fmt.Errorf("could not unmarshal as proto: %w", err)
-	}
-	return nil
-}
-
+// DumpConfigs writes merged declarative configuration with private permissions.
 func DumpConfigs(ctx context.Context, out string, paths ...string) error {
-	config, err := LoadConfigs(ctx, paths...)
+	return DumpConfigsWithSubstitutions(ctx, out, nil, paths...)
+}
+
+// DumpConfigsWithSubstitutions replaces explicit markers with JSON-escaped,
+// whitespace-trimmed file contents before merging configuration. Callers must
+// supply public build inputs only; secret values belong in runtime injection.
+func DumpConfigsWithSubstitutions(ctx context.Context, out string, substitutions map[string]string, paths ...string) error {
+	keys := make([]string, 0, len(substitutions))
+	for key := range substitutions {
+		keys = append(keys, key)
+	}
+	sort.Strings(keys)
+	pairs := make([]string, 0, len(keys)*2)
+	for _, key := range keys {
+		if key == "" {
+			return fmt.Errorf("empty configuration substitution marker")
+		}
+		content, err := os.ReadFile(substitutions[key])
+		if err != nil {
+			return fmt.Errorf("read configuration substitution %q: %w", key, err)
+		}
+		encodedKey, err := json.Marshal(key)
+		if err != nil {
+			return fmt.Errorf("encode configuration substitution marker: %w", err)
+		}
+		encodedValue, err := json.Marshal(strings.TrimSpace(string(content)))
+		if err != nil {
+			return fmt.Errorf("encode configuration substitution value: %w", err)
+		}
+		pairs = append(pairs, string(encodedKey[1:len(encodedKey)-1]), string(encodedValue[1:len(encodedValue)-1]))
+	}
+	config, err := loadConfigs(ctx, strings.NewReplacer(pairs...), paths...)
 	if err != nil {
 		return fmt.Errorf("could not load configs: %w", err)
 	}
@@ -172,106 +135,6 @@ func DumpConfigs(ctx context.Context, out string, paths ...string) error {
 		return fmt.Errorf("could not finish config output: %w", err)
 	}
 	return nil
-}
-
-func dumpLua(state *lua.LState, val any) (lua.LValue, error) {
-	switch converted := val.(type) {
-	case bool:
-		return lua.LBool(converted), nil
-	case float64:
-		return lua.LNumber(converted), nil
-	case string:
-		return lua.LString(converted), nil
-	case json.Number:
-		return lua.LString(converted), nil
-	case []any:
-		arr := state.CreateTable(len(converted), 0)
-		for _, item := range converted {
-			item_l, err := dumpLua(state, item)
-			if err != nil {
-				return nil, fmt.Errorf("could not convert item to lua: %w", err)
-			}
-			arr.Append(item_l)
-		}
-		return arr, nil
-	case map[string]any:
-		tbl := state.CreateTable(0, len(converted))
-		for key, item := range converted {
-			item_l, err := dumpLua(state, item)
-			if err != nil {
-				return nil, fmt.Errorf("could not covert item to lua: %w", err)
-			}
-			tbl.RawSetH(lua.LString(key), item_l)
-		}
-		return tbl, nil
-	case nil:
-		return lua.LNil, nil
-	default:
-		return nil, fmt.Errorf("unsupported type: %T: %v", val, val)
-	}
-}
-
-func parseLua(val lua.LValue, enc map[*lua.LTable]bool) (any, error) {
-	if enc == nil {
-		enc = map[*lua.LTable]bool{}
-	}
-	switch converted := val.(type) {
-	case lua.LBool:
-		return bool(converted), nil
-	case lua.LNumber:
-		return float64(converted), nil
-	case *lua.LNilType:
-		return nil, nil
-	case lua.LString:
-		return string(converted), nil
-	case *lua.LTable:
-		if enc[converted] {
-			return nil, fmt.Errorf("nested table: %s", val)
-		}
-		enc[converted] = true
-		key, value := converted.Next(lua.LNil)
-		switch key.Type() {
-		case lua.LTNil: // empty table
-			return []any{}, nil
-		case lua.LTNumber:
-			res := []any{}
-			expectedKey := lua.LNumber(1)
-			for key != lua.LNil {
-				if key.Type() != lua.LTNumber {
-					return nil, fmt.Errorf("invalid key: %s", key)
-				}
-				if expectedKey != key {
-					return nil, fmt.Errorf("sparse array: expected %s, got %s", expectedKey, key)
-				}
-				valueParsed, err := parseLua(value, enc)
-				if err != nil {
-					return nil, fmt.Errorf("could not parse table value: %w", err)
-				}
-				res = append(res, valueParsed)
-				expectedKey++
-				key, value = converted.Next(key)
-			}
-			return res, nil
-		case lua.LTString:
-			res := make(map[string]any)
-			for key != lua.LNil {
-				if key.Type() != lua.LTString {
-					return nil, fmt.Errorf("invalid key: %s", key)
-				}
-				valueParsed, err := parseLua(value, enc)
-				if err != nil {
-					return nil, fmt.Errorf("could not parse table value: %w", err)
-				}
-				res[key.String()] = valueParsed
-				key, value = converted.Next(key)
-			}
-			return res, nil
-		default:
-			return nil, fmt.Errorf("invalid key: %s", key)
-		}
-	default:
-		return nil, fmt.Errorf("invalid type: %s", val.Type())
-	}
 }
 
 func VaultByName(config *al_proto.Config, name string) (*al_proto.VaultConn, error) {
@@ -339,6 +202,8 @@ func FromPbJson(val *al_proto.Json) fp.Result[any] {
 		return fp.Right[any](nil)
 	}
 	switch valTyped := val.Val.(type) {
+	case nil:
+		return fp.Right[any](nil)
 	case *al_proto.Json_ValString:
 		return fp.Right[any](valTyped.ValString)
 	case *al_proto.Json_ValBool:

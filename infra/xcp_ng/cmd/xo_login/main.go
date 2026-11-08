@@ -1,4 +1,3 @@
-// xo_login authenticates with the caller's Vault identity for an AL invocation.
 package main
 
 import (
@@ -11,6 +10,7 @@ import (
 	"net/url"
 	"os"
 	"os/signal"
+	"strings"
 	"syscall"
 	"time"
 
@@ -21,20 +21,37 @@ import (
 	"git.alwaldend.com/alwaldend/src/projects/al/pkg/lifecycle"
 )
 
+// config selects the XO endpoint and the invocation's Vault authentication.
 type config struct {
-	URL           string `json:"xoa_url"`
-	Discovery     string `json:"discovery_url"`
-	VaultConn     string `json:"vault_conn"`
-	VaultAuth     string `json:"vault_auth"`
-	IssuerAuth    string `json:"issuer_auth"`
+	// Bootstrap selects the explicitly requested role from the invocation environment.
+	Bootstrap bool `json:"bootstrap"`
+	// URL is the Xen Orchestra HTTPS origin.
+	URL string `json:"xoa_url"`
+	// Discovery selects the Vault OIDC provider metadata.
+	Discovery string `json:"discovery_url"`
+	// VaultConn selects a named AL Vault connection.
+	VaultConn string `json:"vault_conn"`
+	// VaultAuth selects the caller's named authentication method.
+	VaultAuth string `json:"vault_auth"`
+	// IssuerAuth optionally selects an authorized SecretID issuer.
+	IssuerAuth string `json:"issuer_auth"`
+	// TargetApprole is the identity bootstrapped through an issuer.
 	TargetApprole string `json:"target_approle"`
 }
 
-type plugin struct{ lc lifecycle.Manager }
+// plugin owns the invocation's authentication resources.
+type plugin struct {
+	// lc releases sessions and tokens when the invocation ends.
+	lc lifecycle.Manager
+}
 
+// Start starts the plugin's resource lifecycle.
 func (p *plugin) Start(ctx context.Context) error { return p.lc.Start(ctx) }
-func (p *plugin) Stop(ctx context.Context) error  { return p.lc.Stop(ctx) }
 
+// Stop releases the invocation's authentication resources.
+func (p *plugin) Stop(ctx context.Context) error { return p.lc.Stop(ctx) }
+
+// origin validates an HTTPS origin without disclosing rejected input.
 func origin(raw string) (*url.URL, error) {
 	u, err := url.Parse(raw)
 	if err != nil || u.Scheme != "https" || u.Host == "" || u.User != nil || (u.Path != "" && u.Path != "/") || u.RawQuery != "" || u.Fragment != "" {
@@ -44,6 +61,32 @@ func origin(raw string) (*url.URL, error) {
 	return u, nil
 }
 
+// configureBootstrap selects only the invocation's approved AppRole and optional issuer.
+// These values stay in the plugin process and never enter Bazel action inputs.
+func configureBootstrap(conf *config, cfg *al_proto.Config) error {
+	if !conf.Bootstrap {
+		return nil
+	}
+	role := os.Getenv("XO_BOOTSTRAP_APPROLE")
+	if !roleName.MatchString(role) {
+		return errors.New("set XO_BOOTSTRAP_APPROLE to an approved AppRole name")
+	}
+	issuer := os.Getenv("XO_BOOTSTRAP_ISSUER_APPROLE")
+	if issuer != "" && (!strings.HasPrefix(issuer, "src_") || !roleName.MatchString(issuer)) {
+		return errors.New("invalid issuer AppRole name")
+	}
+	authRole := role
+	conf.VaultAuth = "xo_bootstrap"
+	conf.IssuerAuth, conf.TargetApprole = "", ""
+	if issuer != "" {
+		authRole = issuer
+		conf.IssuerAuth, conf.TargetApprole = "xo_bootstrap", role
+	}
+	cfg.VaultAuth = append(cfg.VaultAuth, &al_proto.VaultAuth{Name: "xo_bootstrap", Approle: &al_proto.VaultAuthApprole{Name: authRole}})
+	return nil
+}
+
+// PluginStart authenticates the selected identity and exports an invocation-owned XO session.
 func (p *plugin) PluginStart(ctx context.Context, req *al_proto.PluginStartRequest) (res *al_proto.PluginStartResponse, err error) {
 	defer func() {
 		if err != nil {
@@ -63,6 +106,9 @@ func (p *plugin) PluginStart(ctx context.Context, req *al_proto.PluginStartReque
 	var conf config
 	if json.Unmarshal(raw, &conf) != nil {
 		return nil, errors.New("invalid XO login configuration")
+	}
+	if err := configureBootstrap(&conf, req.Config); err != nil {
+		return nil, err
 	}
 	xo, err := origin(conf.URL)
 	if err != nil {
@@ -134,6 +180,7 @@ func (p *plugin) PluginStart(ctx context.Context, req *al_proto.PluginStartReque
 	return nil, errors.New("XO login did not issue a session token")
 }
 
+// main runs the AL plugin server or reports the bootstrapped identity's scope.
 func main() {
 	if len(os.Args) == 2 && os.Args[1] == "--report" {
 		if os.Getenv("XOA_TOKEN") == "" || os.Getenv("XOA_INSECURE") != "false" {

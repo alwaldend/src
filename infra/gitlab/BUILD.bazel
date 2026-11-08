@@ -1,14 +1,44 @@
-load("@rules_al//:defs.bzl", "al_config")
+load("@rules_al//:defs.bzl", "al_config", "al_injector_call", "al_vault_auth")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("//tools/vault:defs.bzl", "vault_binary_map")
+load("//tools/vault/tf_backend:defs.bzl", "vault_tf_backend")
 
 package(transitive_visibility = "//infra:transitive_consumers")
 
+al_vault_auth(
+    name = "auth",
+    approle = "src_infra_gitlab",
+    extends = "//tools/al:auth",
+)
+
+vault_tf_backend(
+    name = "tf_backend_tf",
+    labels = {"tf": "main"},
+    path = "alwaldend.com/vault1/approles/src_infra_gitlab/tf_backend/tf",
+)
+
+al_injector_call(
+    name = "gitlab",
+    labels = {"tf": "main"},
+    res_env = {"GITLAB_TOKEN": {
+        "value": "{{ .Last.Data.gitlab_token }}",
+        "deps": ["gitlab"],
+    }},
+    res_kv = {"gitlab": {
+        "mount": "secrets",
+        "path": "alwaldend.com/vault1/approles/src_infra_gitlab/gitlab",
+    }},
+)
+
 al_config(
     name = "al",
-    srcs = ["al.lua"],
+    configs = [
+        ":auth",
+        ":gitlab",
+        ":tf_backend_tf",
+        "//infra:al",
+    ],
     visibility = ["//infra/gitlab:__subpackages__"],
-    deps = ["//infra:al"],
 )
 
 vault_binary_map(

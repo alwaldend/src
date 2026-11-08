@@ -1,4 +1,45 @@
+load("@rules_al//:defs.bzl", "al_config", "al_injector_call")
 load("@rules_go//go:def.bzl", "go_test")
+
+al_injector_call(
+    name = "cleanup",
+    testonly = True,
+    labels = {"test": "cleanup"},
+    res_env = {"AL_TEST_SECRET_PATH": {
+        "value": "{{ index .Last.Files 0 }}",
+        "deps": ["fixture"],
+    }},
+    res_file = {"fixture": {"value": "synthetic command cleanup fixture"}},
+)
+
+al_injector_call(
+    name = "invalid_template",
+    testonly = True,
+    extends = ":cleanup",
+    labels = {"test": "cleanup"},
+    res_env = {"AL_TEST_SECRET_PATH": {
+        "value": "{{",
+        "deps": ["fixture"],
+    }},
+)
+
+al_config(
+    name = "cleanup_config",
+    testonly = True,
+    configs = [
+        ":cleanup",
+        "@rules_al//plugins/injector:config",
+    ],
+)
+
+al_config(
+    name = "cleanup_failure_config",
+    testonly = True,
+    configs = [
+        ":cleanup_config",
+        ":invalid_template",
+    ],
+)
 
 go_test(
     name = "command_test",
@@ -8,15 +49,18 @@ go_test(
         "doc.go",
     ],
     data = [
-        "//tools/vault/injector",
+        ":cleanup_config",
+        ":cleanup_failure_config",
         "@rules_al//:al",
     ],
-    env = {"AL_BINARY": "$(rlocationpath @rules_al//:al)"},
+    env = {
+        "AL_BINARY": "$(rlocationpath @rules_al//:al)",
+        "CLEANUP_CONFIG": "$(rlocationpath :cleanup_config)",
+        "CLEANUP_FAILURE_CONFIG": "$(rlocationpath :cleanup_failure_config)",
+    },
     deps = [
         "@org_golang_google_protobuf//encoding/protojson",
-        "@rules_al//api/al_proto",
         "@rules_al//pkg/al",
         "@rules_go//go/runfiles",
-        "@rules_go//go/tools/bazel",
     ],
 )

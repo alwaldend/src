@@ -1,6 +1,5 @@
-load("@rules_al//:defs.bzl", "al_binary_run", "al_binary_run_test")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("@rules_terraform//terraform:defs.bzl", "terraform_binary_map", "terraform_test_map")
+load("//tools/al:al_terraform.bzl", "al_terraform_binary_map", "al_terraform_test_map")
 
 package(transitive_visibility = "//infra:transitive_consumers")
 
@@ -22,12 +21,10 @@ _PROVIDERS = [
 
 _CONFIGS = ["//infra/vault:al"]
 
-_RUN_ARGS = [
-    "--plugin_label",
-    "tf=main",
-    "--plugin_label",
-    "vault_env=default_default",
-]
+_PLUGIN_LABELS = {
+    "tf": "main",
+    "vault_env": "default_default",
+}
 
 _DATA = glob([
     "*.tf",
@@ -46,29 +43,21 @@ _DATA = glob([
     "//projects/tf_modules/vault_oidc_provider",
     "//projects/tf_modules/vault_ssh_server_role",
     "//projects/tf_modules/vault_transit_key",
-    "//tools/vault/tf_backend",
-    "//tools/vault/injector",
 ]
 
-terraform_binary_map(
+al_terraform_binary_map(
     name = "tf",
+    configs = _CONFIGS,
     data = _DATA,
+    plugin_labels = _PLUGIN_LABELS,
     providers = _PROVIDERS,
-    wrapper = al_binary_run,
-    wrapper_kwargs = {
-        "configs": _CONFIGS,
-        "run_args": _RUN_ARGS,
-    },
 )
 
-terraform_test_map(
+al_terraform_test_map(
     name = "tf_tests",
+    configs = _CONFIGS,
     data = _DATA,
     providers = _PROVIDERS,
-    wrapper = al_binary_run_test,
-    wrapper_kwargs = {
-        "configs": _CONFIGS,
-    },
 )
 
 filegroup(

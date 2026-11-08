@@ -2,15 +2,15 @@
 
 ## Follow the packaged execution model
 
-1. Read the component's `ansible/BUILD.bazel`, parent `al.lua`, inventory,
+1. Read the component's `ansible/BUILD.bazel`, parent `BUILD.bazel`, inventory,
    `group_vars`, and the closest sibling deployment.
 2. Keep runtime inputs in the `pkg_files`/`pkg_filegroup` source set. Update its
    globs or explicit entries when adding a new file type or location.
 3. Use `al_ansible_binary` with `//infra:ansible_cfg` and the repository Ansible
    collection. Execute through `al_binary_run`/`al_binary_run_map`, not an
    ad-hoc local command that bypasses packaging and injection.
-4. Keep Vault injector and SSH/auth plugin labels aligned between `al.lua`,
-   Bazel `data`, and `run_args`.
+4. Keep Vault injector and SSH/auth plugin labels aligned between `BUILD.bazel`,
+   Bazel `data`, and `plugin_labels`.
 
 The root `infra/ansible.cfg` establishes Python, roles, collections, and YAML
 result behavior. Do not add component-local overrides without a demonstrated

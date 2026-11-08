@@ -30,7 +30,7 @@ trusted infrastructure.
   [host-bot project](../../users/simeonwarren/host_bot/README.md) owns and
   deploys its unsecured agent server.
 - `dnsconfig.json` owns the component hostnames and static addresses.
-- `al.lua` authenticates with the `src_infra_openhands` Vault AppRole, signs
+- `BUILD.bazel` authenticates with the `src_infra_openhands` Vault AppRole, signs
   host keys for Ansible, and injects the component secrets.
 
 There is no `tf` package: these components keep their state in files and
@@ -63,7 +63,7 @@ server, and the browser because all three authenticate the same
 `X-Session-API-Key` value.
 
 The unsecured host-bot server has a separate `secret_key` reference owned by
-[its host's AL configuration](../../users/simeonwarren/host_bot/al.lua).
+[its host's AL configuration](../../users/simeonwarren/host_bot/BUILD.bazel).
 
 Prepare one private JSON input for each path through the
 [secret-handling workflow](../../tools/agents/skills/repo-secrets/SKILL.md).

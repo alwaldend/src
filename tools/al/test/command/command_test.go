@@ -13,16 +13,15 @@ import (
 	"testing"
 	"time"
 
-	"git.alwaldend.com/alwaldend/src/projects/al/api/al_proto"
 	"git.alwaldend.com/alwaldend/src/projects/al/pkg/al"
 	"github.com/bazelbuild/rules_go/go/runfiles"
-	"github.com/bazelbuild/rules_go/go/tools/bazel"
 	"google.golang.org/protobuf/encoding/protojson"
 )
 
+// fixtureSecret is the expected public value in the generated cleanup fixture.
 const fixtureSecret = "synthetic command cleanup fixture"
 
-// Run as the command's child process, so the assertions exercise the real
+// TestSecretConsumer runs as the command's child process, exercising the real
 // injector binary, RPC transport, environment injection, and process shutdown.
 func TestSecretConsumer(t *testing.T) {
 	if len(os.Args) < 4 || os.Args[len(os.Args)-3] != "al-secret-consumer" {
@@ -63,16 +62,18 @@ func TestSecretConsumer(t *testing.T) {
 	}
 }
 
+// TestExecuteInjectorCleanup verifies generated configuration and transitive
+// plugin runfiles through successful, failed and cancelled command lifecycles.
 func TestExecuteInjectorCleanup(t *testing.T) {
 	for _, mode := range []string{"success", "startup_failure", "cancel"} {
 		t.Run(mode, func(t *testing.T) {
-			injector, ok := bazel.FindBinary("tools/vault/injector", "injector")
-			if !ok {
-				t.Fatal("injector binary missing from runfiles")
+			configVariable := "CLEANUP_CONFIG"
+			if mode == "startup_failure" {
+				configVariable = "CLEANUP_FAILURE_CONFIG"
 			}
-			injector, err := filepath.Abs(injector)
+			fixture, err := runfiles.Rlocation(os.Getenv(configVariable))
 			if err != nil {
-				t.Fatal(err)
+				t.Fatalf("resolve generated cleanup configuration: %v", err)
 			}
 			self, err := os.Executable()
 			if err != nil {
@@ -80,26 +81,19 @@ func TestExecuteInjectorCleanup(t *testing.T) {
 			}
 			scratch, secrets := t.TempDir(), t.TempDir()
 			receipt := filepath.Join(scratch, "consumer-receipt")
-			value := "{{ index .Last.Files 0 }}"
-			if mode == "startup_failure" {
-				value = "{{"
-			}
-			data, err := al.ToPbJson(map[string]any{"res": []any{
-				map[string]any{"name": "fixture", "file": map[string]any{"value": fixtureSecret}},
-				map[string]any{"name": "AL_TEST_SECRET_PATH", "deps": []any{"fixture"}, "env": map[string]any{"value": value}},
-			}}).Get()
+			config, err := al.LoadConfigs(context.Background(), fixture)
 			if err != nil {
-				t.Fatal(err)
+				t.Fatalf("load generated cleanup configuration: %v", err)
 			}
-			config, err := protojson.Marshal(&al_proto.Config{Plugins: []*al_proto.PluginConfig{{
-				Name: "fixture", Bin: injector, Data: data,
-				Labels: map[string]string{"test": "cleanup"}, Env: map[string]string{"TMPDIR": secrets},
-			}}})
+			for _, plugin := range config.Plugins {
+				plugin.Env = map[string]string{"TMPDIR": secrets}
+			}
+			content, err := protojson.Marshal(config)
 			if err != nil {
 				t.Fatal(err)
 			}
 			configPath := filepath.Join(scratch, "config.json")
-			if err := os.WriteFile(configPath, config, 0o600); err != nil {
+			if err := os.WriteFile(configPath, content, 0o600); err != nil {
 				t.Fatal(err)
 			}
 			ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
@@ -170,6 +164,10 @@ func TestExecuteInjectorCleanup(t *testing.T) {
 			remaining, err := os.ReadDir(secrets)
 			if err != nil || len(remaining) != 0 {
 				t.Fatalf("injector left temporary material: %v, %v", remaining, err)
+			}
+			output := filepath.Join(os.Getenv("TEST_UNDECLARED_OUTPUTS_DIR"), mode+".txt")
+			if err := os.WriteFile(output, []byte("command lifecycle and temporary-file cleanup verified\n"), 0o600); err != nil {
+				t.Fatalf("write cleanup verification artifact: %v", err)
 			}
 		})
 	}

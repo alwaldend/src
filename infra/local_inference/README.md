@@ -22,7 +22,7 @@ deployed state or service health. Deployment requires separate authorization.
   local Codex inference and tools. It also runs T3 Code behind Traefik mTLS.
   Bazel owns runtime pins in `third_party/`; the deployment packages the
   verified archives for Ansible. The shared `llama` role owns inference.
-- `al.lua` wires the component's Vault AppRole and signed Ansible SSH key.
+- `BUILD.bazel` wires the component's Vault AppRole and signed Ansible SSH key.
 - `openspec/` records the component contract and implementation evidence.
 
 There is no service-side `tf/` stage: llama.cpp and Codex configuration lives

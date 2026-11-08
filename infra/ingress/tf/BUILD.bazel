@@ -1,6 +1,6 @@
-load("@rules_al//:defs.bzl", "al_binary_run")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("@rules_terraform//terraform:defs.bzl", "terraform_binary_map", "terraform_target_binary_map", "terraform_test_map")
+load("@rules_terraform//terraform:defs.bzl", "terraform_test_map")
+load("//tools/al:al_terraform.bzl", "al_terraform_binary_map", "al_terraform_target_binary_map")
 
 package(transitive_visibility = "//infra:transitive_consumers")
 
@@ -26,38 +26,24 @@ _DATA = glob(["*.tf"]) + [
     "//projects/tf_modules/dns_records:dns_records",
     "//infra/ingress:dnsconfig",
     "//infra/ingress/ansible:inventory",
-    "//tools/vault/tf_backend",
-    "//tools/vault/injector",
     "//infra/cloud_init:cloud_init",
 ]
 
-terraform_binary_map(
+al_terraform_binary_map(
     name = "tf",
+    configs = _CONFIGS,
     data = _DATA,
+    plugin_labels = {"tf": ""},
     providers = _PROVIDERS,
-    wrapper = al_binary_run,
-    wrapper_kwargs = {
-        "configs": _CONFIGS,
-        "run_args": [
-            "--plugin_label",
-            "tf",
-        ],
-    },
 )
 
-terraform_target_binary_map(
+al_terraform_target_binary_map(
     name = "dns",
+    configs = _CONFIGS,
     data = _DATA,
+    plugin_labels = {"dns": "1"},
     providers = _PROVIDERS,
     target = "module.dns",
-    wrapper = al_binary_run,
-    wrapper_kwargs = {
-        "configs": _CONFIGS,
-        "run_args": [
-            "--plugin_label",
-            "dns=1",
-        ],
-    },
 )
 
 terraform_test_map(

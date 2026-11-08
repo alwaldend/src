@@ -1,14 +1,13 @@
-# gazelle:exclude site.go
-
 load("@bazel_skylib//rules:build_test.bzl", "build_test")
 load("@bazel_skylib//rules:write_file.bzl", "write_file")
-load("@rules_al//:defs.bzl", "al_config", "al_release_bundle")
+load("@rules_al//:defs.bzl", "al_config", "al_plugin_call", "al_release_bundle", "al_vault_auth")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_go//go:def.bzl", "go_library")
 load("@rules_hugo//pkg/bzl:al_hugo_binary.bzl", "al_hugo_binary")
 load("@rules_pkg//pkg:mappings.bzl", "REMOVE_BASE_DIRECTORY", "pkg_filegroup", "pkg_files")
 load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
 load("@rules_shell//shell:sh_binary.bzl", "sh_binary")
+load("//infra:al_config.bzl", "infra_dns", "infra_pve_provider_inputs")
 load("//projects/alwaldend.com/internal/content:prepare.bzl", "prepare_content")
 load("//projects/alwaldend.com/internal/search:defs.bzl", "indexed_hugo_site")
 load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_site_svg", "mermaid_site_webp")
@@ -17,6 +16,9 @@ load("//tools/http_server/rules:al_http_server_binary.bzl", "al_http_server_bina
 load("//tools/pkg/rules:al_pkg_rename_files.bzl", "al_pkg_rename_files")
 load("//tools/toml/rules:al_toml_data.bzl", "al_toml_data")
 load("//tools/vault:defs.bzl", "vault_binary_map")
+# gazelle:exclude site.go
+
+load("//tools/vault/tf_backend:defs.bzl", "vault_tf_backend")
 
 package(transitive_visibility = "//projects:transitive_consumers")
 
@@ -25,11 +27,51 @@ vault_binary_map(
     configs = [":al"],
 )
 
+al_vault_auth(
+    name = "auth",
+    approle = "src_projects_alwaldend_com",
+    extends = "//tools/al:auth",
+)
+
+vault_tf_backend(
+    name = "tf_backend_tf",
+    labels = {
+        "dns": "1",
+        "tf": "main",
+    },
+    path = "alwaldend.com/vault1/approles/src_projects_alwaldend_com/tf_backend/tf",
+)
+
+al_plugin_call(
+    name = "pve_login",
+    labels = {"tf": "main"},
+    plugin = "pve_login",
+)
+
+infra_pve_provider_inputs(
+    name = "pve_provider_inputs",
+    labels = {"dns": "1"},
+)
+
+infra_dns(
+    name = "dns_providers",
+    labels = {
+        "dns": "1",
+        "tf": "main",
+    },
+)
+
 al_config(
     name = "al",
-    srcs = ["al.lua"],
+    configs = [
+        ":auth",
+        ":dns_providers",
+        ":pve_login",
+        ":pve_provider_inputs",
+        ":tf_backend_tf",
+        "//infra:al",
+    ],
     visibility = ["//projects/alwaldend.com:__subpackages__"],
-    deps = ["//infra:al"],
 )
 
 go_library(

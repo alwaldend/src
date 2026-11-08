@@ -45,13 +45,18 @@ sharing a package cannot have different transitive policies.
 
 ## Shared AL helpers
 
-`infra.al_lib.xo_login({ labels = ..., oidc_provider = ... })` registers the
+`infra_xo_login(name = ..., labels = ..., oidc_provider = ...)` from
+[`al_config.bzl`](al_config.bzl) declares a configuration target for the
 Xen Orchestra login plugin with the shared XO and Vault endpoints. The caller
 must supply the Vault OIDC provider name; the helper constructs its discovery
-URL. Consumers include
-`//infra/xcp_ng/cmd/xo_login` in their runtime data and select the same labels
+URL. The helper declares the
+`//infra/xcp_ng/cmd/xo_login` executable dependency. Consumers select its labels
 in their command wrapper. Registration does not authenticate until a matching
 command selects the plugin.
+
+Public target macros in `al_config.bzl` use the `infra_` namespace, including
+`infra_dns` and `infra_ansible_keys`. Backend calls use `vault_tf_backend` from
+`//tools/vault/tf_backend:defs.bzl`, which owns their shared argument structure.
 
 ## New project
 
@@ -81,7 +86,7 @@ running an equivalent command.
   bazel run //infra/xcp_ng/tf:tf.apply
   ```
 - Set up al config:
-  [example](https://github.com/alwaldend/src/blob/master/infra/pve/al.lua)
+  [example](https://github.com/alwaldend/src/blob/master/infra/pve/BUILD.bazel)
 - Configure the component's Terraform state through the existing
   [Vault HTTP backend flow](../tools/agents/skills/repo-infra/references/flow.md).
   The `tf_backend` plugin creates state and lock KV entries on first use.
