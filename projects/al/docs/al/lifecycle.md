@@ -3,6 +3,20 @@ title: Command and plugin lifecycle
 description: Startup, shutdown, and secret cleanup guarantees
 ---
 
+Build merges AL configs and propagates plugin runfiles into the command's
+runfiles. The Runfiles subgraph contains the merged AL configuration, plugin
+runfiles and command executable; source AL configs remain build inputs. AL reads the merged configuration,
+starts plugin subprocesses and communicates with them using gRPC over stdio.
+Plugins return environment values, file paths and data through that connection,
+as shown by the dashed Resources edge. AL runs the command with its
+prepared environment. Plugins connect to external services. Build arrows show configuration
+dependencies; Run arrows show AL's interactions with the built outputs and plugins.
+
+![Build and Run phases of al run](/docs/projects/al/docs/al/assets/run-lifecycle.svg)
+
+The [Mermaid source](/docs/projects/al/docs/al/run.mmd) is authoritative. This repository renders and
+packages its light/dark assets through `//tools/al:run_lifecycle`.
+
 `al run` starts selected plugins, passes their environment to a command, and
 keeps plugin resources available until that command exits. On cancellation it
 asks the command to terminate and waits up to ten seconds before killing it.
@@ -19,8 +33,9 @@ instead of silently falling back to standalone execution.
 Selected plugins may export the same environment name only when their values
 agree. Different values fail before the child starts and trigger plugin cleanup.
 The diagnostic names the key and plugins in a deterministic order without
-printing the values. Agreed plugin exports can override inherited environment
-values intentionally.
+printing the values. Explicit injection exports override plugin startup defaults,
+including otherwise conflicting startup values. Agreed plugin exports can
+override inherited environment values intentionally.
 
 `--stdout` and `--stderr` create output files when absent and truncate existing
 files before execution. New files use owner-only permissions; existing file
