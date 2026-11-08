@@ -1,0 +1,28 @@
+flowchart TB
+    subgraph run_phase["Run"]
+        al["AL"]
+        plugins@{ shape: procs, label: "Plugins" }
+        al -->|Run subprocess|plugins
+        al <-->|gRPC over stdio|plugins
+        plugins -.->|"Resources<br/>(env, files,<br/>secrets, etc)"|al
+    end
+
+    subgraph build_phase["Build"]
+        configs@{ shape: docs, label: "AL configs" }
+        subgraph runfiles["Runfiles"]
+            merged["Merged AL config"]
+            dependencies@{ shape: junction }
+            plugin_runfiles@{ shape: docs, label: "Plugin runfiles" }
+            command["Command executable"]
+        end
+        merged --- dependencies
+        dependencies -->|Composed from|configs
+        dependencies -->|Runtime dependencies|plugin_runfiles
+        %% Keep the configuration Read arrow clear of the command.
+        merged ~~~ command
+    end
+
+    services@{ shape: procs, label: "External services" }
+    al -->|Read|merged
+    al -->|Run with<br/>prepared environment|command
+    plugins --> services
