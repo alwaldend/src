@@ -1,10 +1,10 @@
-load("@rules_al//:defs.bzl", "al_binary_run", "al_config", "al_plugin")
+load("@rules_al//:defs.bzl", "al_binary_run", "al_config", "al_plugin_config")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_go//go:def.bzl", "go_binary", "go_library", "go_test")
 
 package(transitive_visibility = "//infra:transitive_consumers")
 
-al_plugin(
+al_plugin_config(
     name = "bootstrap_plugin",
     args = {
         "bootstrap": True,

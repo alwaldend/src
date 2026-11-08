@@ -1,4 +1,4 @@
-load("@rules_al//:defs.bzl", "al_binary_run", "al_config", "al_injector_call", "al_vault_auth")
+load("@rules_al//:defs.bzl", "al_binary_run", "al_config", "al_inject", "al_vault_auth")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("//tools/vault:defs.bzl", "vault_binary_map")
 load("//tools/vault/tf_backend:defs.bzl", "vault_tf_backend")
@@ -24,7 +24,7 @@ vault_tf_backend(
     path = "alwaldend.com/vault1/approles/src_infra_vastai/tf_backend/alwaldend",
 )
 
-al_injector_call(
+al_inject(
     name = "vastai_rentals",
     labels = {"vastai": "rentals"},
     res_env = {"VAST_API_KEY": {
@@ -46,7 +46,7 @@ vault_tf_backend(
     path = "alwaldend.com/vault1/approles/src_infra_vastai/tf_backend/tf",
 )
 
-al_injector_call(
+al_inject(
     name = "al.plugin_call.vastai",
     config_name = "vastai",
     extends = ":vastai_rentals",
@@ -61,7 +61,7 @@ al_injector_call(
     }},
 )
 
-al_injector_call(
+al_inject(
     name = "vastai_alwaldend",
     extends = ":al.plugin_call.vastai",
     labels = {"vastai": "alwaldend"},
@@ -77,7 +77,7 @@ al_injector_call(
     },
 )
 
-al_injector_call(
+al_inject(
     name = "env_component",
     labels = {"vault_env": "component"},
     res_vault_env = {"env_component": {

@@ -225,13 +225,13 @@ func (self *Plugin) PluginStart(ctx context.Context, req *al_proto.PluginStartRe
 	if err != nil {
 		return nil, fmt.Errorf("could not authorize the session using OIDC code: %w", err)
 	}
-	res := &al_proto.PluginStartResponse{
+	res := &al_proto.ResourceResult{
 		Env: map[string]string{
 			"HARBOR_SESSION_ID": sessionId,
 			"HARBOR_URL":        config.HarborUrl,
 		},
 	}
-	return res, nil
+	return &al_proto.PluginStartResponse{Result: res}, nil
 }
 
 func run(ctx *al.CmdCtx) error {

@@ -1,5 +1,5 @@
 load("@bazel_skylib//rules:native_binary.bzl", "native_binary")
-load("@rules_al//:defs.bzl", "al_config", "al_injector_call", "al_plugin", "al_vault_auth", "al_vault_conn")
+load("@rules_al//:defs.bzl", "al_config", "al_inject", "al_plugin_config", "al_vault_auth", "al_vault_conn")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_go//go:def.bzl", "go_test")
 load("//infra:al_config.bzl", "infra_dns")
@@ -36,7 +36,7 @@ al_vault_conn(
     visibility = ["//infra/xcp_ng/cmd/xo_login:__pkg__"],
 )
 
-al_injector_call(
+al_inject(
     name = "env_default_no_auth",
     labels = {"vault_env": "default_no_auth"},
     res_vault_env = {"env_default_no_auth": {
@@ -45,7 +45,7 @@ al_injector_call(
     }},
 )
 
-al_injector_call(
+al_inject(
     name = "env_default_default",
     labels = {"vault_env": "default_default"},
     res_vault_env = {"env_default_default": {
@@ -54,7 +54,7 @@ al_injector_call(
     }},
 )
 
-al_plugin(
+al_plugin_config(
     name = "forgejo_login",
     args = {
         "forgejo_oauth_name": "vault",
@@ -64,14 +64,14 @@ al_plugin(
     labels = {"forgejo_login": "1"},
 )
 
-al_plugin(
+al_plugin_config(
     name = "harbor_login",
     args = {"harbor_url": "https://harbor.alwaldend.com"},
     executable = "//tools/vault/harbor_login",
     labels = {"harbor_login": "1"},
 )
 
-al_plugin(
+al_plugin_config(
     name = "pve_login",
     args = {
         "pve_base_url": "https://pve.alwaldend.com:8006",
@@ -82,7 +82,7 @@ al_plugin(
     labels = {"pve_login": "1"},
 )
 
-al_plugin(
+al_plugin_config(
     name = "tf_backend",
     executable = "//tools/vault/tf_backend",
 )
@@ -100,7 +100,7 @@ al_config(
         ":harbor_login",
         ":pve_login",
         ":tf_backend",
-        "@rules_al//plugins/injector:config",
+        "@rules_al//plugins/vault:config",
     ],
     visibility = ["//:__subpackages__"],
 )
@@ -159,10 +159,10 @@ al_config(
 )
 
 go_test(
-    name = "injector_dev_server_test",
-    srcs = ["@rules_al//plugins/injector:dev_server_test.go"],
+    name = "vault_dev_server_test",
+    srcs = ["@rules_al//plugins/vault:dev_server_test.go"],
     data = ["//tools/vault"],
-    embed = ["@rules_al//plugins/injector:injector_lib"],
+    embed = ["@rules_al//plugins/vault:vault_lib"],
     env = {"VAULT_BINARY": "$(rlocationpath //tools/vault)"},
     deps = [
         "@com_github_hashicorp_vault_api//:api",

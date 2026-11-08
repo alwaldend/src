@@ -47,11 +47,11 @@ def _pb_json(value):
             elif kind == "float":
                 output["val_float"] = item
             else:
-                fail("Unsupported plugin data type: " + kind)
+                fail("Unsupported configuration argument type: " + kind)
         pending = children
         if not pending:
             return result
-    fail("Plugin data exceeds 64 nesting levels")
+    fail("Configuration arguments exceed 64 nesting levels")
 
 def _merge_definitions(definitions, incoming):
     for key, candidate in incoming.items():
@@ -69,9 +69,9 @@ def _merge_definitions(definitions, incoming):
             ))
 
 def _definition_order(definition):
-    return (definition.depth, definition.kind, definition.name)
+    return (definition.kind, definition.name)
 
-def _emit(ctx, content, runtime = [], kind = ""):
+def _emit(ctx, content, runtime = [], kind = "", runtime_parent = ""):
     source = ctx.actions.declare_file(ctx.label.name + "_/declarations.json")
     out = ctx.actions.declare_file(ctx.label.name + "_/al.json")
     ctx.actions.write(source, json.encode(content))
@@ -124,6 +124,7 @@ def _emit(ctx, content, runtime = [], kind = ""):
             kind = kind,
             name = ctx.attr.config_name,
             file = declaration,
+            runtime_parent = runtime_parent,
         )
         _merge_definitions(definitions, {(kind, ctx.attr.config_name): definition})
     inputs = [definition.file for definition in sorted(definitions.values(), key = _definition_order)]
@@ -156,7 +157,7 @@ def _config_impl(ctx):
     return _emit(ctx, {})
 
 def _auth_impl(ctx):
-    auth = {"name": ctx.attr.config_name}
+    auth = {}
     if ctx.attr.approle:
         auth["approle"] = {"name": ctx.attr.approle}
     if ctx.attr.token_helper:
@@ -165,7 +166,7 @@ def _auth_impl(ctx):
         auth["no_auth"] = True
     if len([value for value in [ctx.attr.approle, ctx.attr.token_helper, ctx.attr.no_auth] if value]) > 1:
         fail("Select at most one Vault authentication method")
-    return _emit(ctx, {"vault_auth": [auth]}, kind = "vault_auth")
+    return _emit(ctx, {"vault_auth": {ctx.attr.config_name: auth}}, kind = "vault_auth")
 
 def _conn_impl(ctx):
     tls = {}
@@ -175,23 +176,22 @@ def _conn_impl(ctx):
         if file:
             tls[field] = _runfile(file)
             runtime.append(file)
-    return _emit(ctx, {"vault_conn": [{
-        "name": ctx.attr.config_name,
+    return _emit(ctx, {"vault_conn": {ctx.attr.config_name: {
         "config": {"address": ctx.attr.address},
         "tls": tls,
-    }]}, runtime, kind = "vault_conn")
+    }}}, runtime, kind = "vault_conn")
 
-def _plugin_impl(ctx):
+def _plugin_config_impl(ctx):
     content = {
-        "name": ctx.attr.config_name,
         "bin": _runfile(ctx.executable.executable),
         "args": ctx.attr.argv,
         "env": ctx.attr.env,
         "labels": ctx.attr.labels,
+        "resource_provider": ctx.attr.resource_provider,
     }
     if ctx.attr.args_json:
         content["data"] = _pb_json(json.decode(ctx.attr.args_json))
-    result = _emit(ctx, {"plugins": [content]}, [ctx.executable.executable], kind = "plugins")
+    result = _emit(ctx, {"plugin_configs": {ctx.attr.config_name: content}}, [ctx.executable.executable], kind = "plugin_configs")
     default = result[0]
     return [
         DefaultInfo(
@@ -201,17 +201,40 @@ def _plugin_impl(ctx):
         result[1],
     ]
 
-def _call_impl(ctx):
-    content = {"name": ctx.attr.config_name, "plugin": ctx.attr.plugin, "labels": ctx.attr.labels}
+def _plugin_impl(ctx):
+    content = {"plugin": ctx.attr.plugin, "labels": ctx.attr.labels}
     if ctx.attr.args_json:
         content["data"] = _pb_json(json.decode(ctx.attr.args_json))
-    return _emit(ctx, {"plugin_calls": [content]}, kind = "plugin_calls")
+    return _emit(ctx, {"plugins": {ctx.attr.config_name: content}}, kind = "plugins")
 
 def _attrs(extra):
     return dict({
         "data": attr.label_list(allow_files = True, doc = "Runtime inputs."),
         "extends": attr.label(providers = [AlConfigInfo], doc = "Atomic target extended by this definition."),
     }, **extra)
+
+def _injector_impl(ctx):
+    resources = json.decode(ctx.attr.resources_json)
+    if type(resources) != "dict":
+        fail("Injector resources must be a dictionary keyed by name")
+    for resource in resources.values():
+        if type(resource) != "dict":
+            fail("Injector resource definitions must be dictionaries")
+        resource["args"] = _pb_json(resource.get("args", {}))
+        if "data" in resource:
+            resource["data"] = _pb_json(resource["data"])
+    runtime_parent = ""
+    if ctx.attr.extends:
+        base = ctx.attr.extends[AlConfigInfo]
+        own = [definition for definition in base.definitions.values() if definition.owner == base.owner]
+        if len(own) != 1:
+            fail("Injector extends must select one named group")
+        parent = own[0]
+        runtime_parent = parent.name if parent.name != ctx.attr.config_name else parent.runtime_parent
+    content = {"labels": ctx.attr.labels, "res": resources}
+    if runtime_parent:
+        content["extends"] = runtime_parent
+    return _emit(ctx, {"inject": {ctx.attr.config_name: content}}, kind = "inject", runtime_parent = runtime_parent)
 
 _TOOLCHAINS = [Label("//rules:al_toolchain_type")]
 
@@ -250,8 +273,8 @@ al_vault_conn = rule(
     }),
 )
 
-_al_plugin = rule(
-    implementation = _plugin_impl,
+_al_plugin_config = rule(
+    implementation = _plugin_config_impl,
     provides = [AlConfigInfo],
     toolchains = _TOOLCHAINS,
     attrs = _attrs({
@@ -261,11 +284,12 @@ _al_plugin = rule(
         "env": attr.string_dict(),
         "labels": attr.string_dict(),
         "args_json": attr.string(),
+        "resource_provider": attr.bool(),
     }),
 )
 
-_al_plugin_call = rule(
-    implementation = _call_impl,
+_al_plugin = rule(
+    implementation = _plugin_impl,
     provides = [AlConfigInfo],
     toolchains = _TOOLCHAINS,
     attrs = _attrs({
@@ -277,9 +301,9 @@ _al_plugin_call = rule(
     }),
 )
 
-def al_plugin(name, executable, config_name = None, args = None, **kwargs):
+def al_plugin_config(name, executable, config_name = None, args = None, **kwargs):
     """Declare a plugin executable and its ordinary JSON-compatible parameters."""
-    _al_plugin(
+    _al_plugin_config(
         name = name,
         executable = executable,
         config_name = config_name or name,
@@ -287,9 +311,30 @@ def al_plugin(name, executable, config_name = None, args = None, **kwargs):
         **kwargs
     )
 
-def al_plugin_call(name, plugin = None, config_name = None, args = None, **kwargs):
+_al_inject_config = rule(
+    implementation = _injector_impl,
+    provides = [AlConfigInfo],
+    toolchains = _TOOLCHAINS,
+    attrs = _attrs({
+        "config_name": attr.string(mandatory = True),
+        "labels": attr.string_dict(),
+        "resources_json": attr.string(mandatory = True),
+        "substitutions": attr.label_keyed_string_dict(allow_files = True),
+    }),
+)
+
+def al_inject_config(name, resources = {}, config_name = None, **kwargs):
+    """Declare built-in resources independently of external plugin calls."""
+    _al_inject_config(
+        name = name,
+        config_name = config_name or name,
+        resources_json = json.encode(resources),
+        **kwargs
+    )
+
+def al_plugin(name, plugin = None, config_name = None, args = None, **kwargs):
     """Declare a plugin call; runtime call and plugin names default to name."""
-    _al_plugin_call(
+    _al_plugin(
         name = name,
         plugin = plugin or name,
         config_name = config_name or name,
@@ -302,7 +347,7 @@ def al_config(name, config = {}, configs = [], **kwargs):
 
     Args:
         name: Aggregate target name.
-        config: Dictionaries of vault_auth, vault_conn, plugins and plugin_calls.
+        config: Dictionaries of vault_auth, vault_conn, plugin_configs, plugins and inject.
         configs: Configuration targets combined by identity and explicit extensions.
         **kwargs: Aggregate target attributes; test/platform attributes propagate.
     """
@@ -311,10 +356,11 @@ def al_config(name, config = {}, configs = [], **kwargs):
     constructors = {
         "vault_auth": al_vault_auth,
         "vault_conn": al_vault_conn,
+        "plugin_configs": al_plugin_config,
         "plugins": al_plugin,
-        "plugin_calls": al_plugin_call,
+        "inject": al_inject_config,
     }
-    suffixes = {"vault_auth": "vault_auth", "vault_conn": "vault_conn", "plugins": "plugin", "plugin_calls": "plugin_call"}
+    suffixes = {"vault_auth": "vault_auth", "vault_conn": "vault_conn", "plugin_configs": "plugin_config", "plugins": "plugin", "inject": "inject"}
     fragments = []
     common = {key: kwargs[key] for key in ["testonly", "tags", "target_compatible_with", "exec_compatible_with", "features"] if key in kwargs}
     for section, entries in config.items():
@@ -327,7 +373,7 @@ def al_config(name, config = {}, configs = [], **kwargs):
                 fail("AL configuration entries must be attribute dictionaries")
             if "name" in attributes or "config_name" in attributes:
                 fail("The dictionary key owns each AL configuration entry name")
-            if section == "plugin_calls" and "plugin" not in attributes:
+            if section == "plugins" and "plugin" not in attributes:
                 attributes = dict(attributes, plugin = config_name)
             target = name + "." + suffixes[section] + "." + config_name
             constructors[section](

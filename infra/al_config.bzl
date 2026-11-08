@@ -1,12 +1,12 @@
 """Repository-specific AL authentication and injection target macros."""
 
-load("@rules_al//:defs.bzl", "al_injector_call", "al_plugin")
+load("@rules_al//:defs.bzl", "al_inject", "al_plugin_config")
 
 def infra_xo_login(name, config_name = None, oidc_provider = "", labels = {}, **kwargs):
     """Declare Xen Orchestra login configuration."""
     if not oidc_provider:
         fail("infra_xo_login requires oidc_provider")
-    al_plugin(
+    al_plugin_config(
         name = name,
         config_name = config_name,
         labels = labels,
@@ -20,7 +20,7 @@ def infra_xo_login(name, config_name = None, oidc_provider = "", labels = {}, **
 
 def infra_pve_provider_inputs(name, config_name = None, labels = {}, **kwargs):
     """Declare pve provider inputs configuration."""
-    al_injector_call(
+    al_inject(
         name = name,
         config_name = config_name,
         labels = labels,
@@ -30,7 +30,7 @@ def infra_pve_provider_inputs(name, config_name = None, labels = {}, **kwargs):
 
 def infra_ansible_keys(name, config_name = None, vault_ssh = {}, labels = {}, resource_name = "ansible_keys", **kwargs):
     """Declare ansible keys configuration."""
-    al_injector_call(
+    al_inject(
         name = name,
         config_name = config_name,
         labels = labels,
@@ -44,7 +44,7 @@ def infra_ansible_keys(name, config_name = None, vault_ssh = {}, labels = {}, re
 
 def infra_k3s_token(name, config_name = None, path = "", labels = {}, resource_name = "k3s_token", mount = "secrets", **kwargs):
     """Declare k3s token configuration."""
-    al_injector_call(
+    al_inject(
         name = name,
         config_name = config_name,
         labels = labels,
@@ -55,18 +55,18 @@ def infra_k3s_token(name, config_name = None, path = "", labels = {}, resource_n
 
 def infra_kubernetes_login(name, config_name = None, oidc = {}, cluster_ca = "", labels = {}, resource_name = "kubernetes_login", **kwargs):
     """Declare kubernetes login configuration."""
-    al_injector_call(
+    al_inject(
         name = name,
         config_name = config_name,
         labels = labels,
         res_oidc = {resource_name: oidc},
         res_file = {
             resource_name + "_file": {
-                "extra": {"cluster_ca": cluster_ca},
+                "data": {"cluster_ca": cluster_ca},
                 "value": """apiVersion: v1
 clusters:
   - cluster:
-      certificate-authority-data: "{{ .Extra.cluster_ca }}"
+      certificate-authority-data: "{{ .Data.cluster_ca }}"
       server: https://127.0.0.1:6443
     name: default
 contexts:
@@ -90,7 +90,7 @@ users:
 
 def infra_yc_auth(name, config_name = None, path = "", labels = {}, resource_name = "yc_auth", filename = "service_account_key", **kwargs):
     """Declare yc auth configuration."""
-    al_injector_call(
+    al_inject(
         name = name,
         config_name = config_name,
         labels = labels,
@@ -108,7 +108,7 @@ def infra_yc_auth(name, config_name = None, path = "", labels = {}, resource_nam
 
 def infra_yc_account(name, config_name = None, path = "", labels = {}, resource_name = "yc_account", **kwargs):
     """Declare yc account configuration."""
-    al_injector_call(
+    al_inject(
         name = name,
         config_name = config_name,
         labels = labels,
@@ -119,7 +119,7 @@ def infra_yc_account(name, config_name = None, path = "", labels = {}, resource_
 
 def infra_yc_bucket_auth(name, config_name = None, path = "", labels = {}, resource_name = "yc_bucket_auth", **kwargs):
     """Declare yc bucket auth configuration."""
-    al_injector_call(
+    al_inject(
         name = name,
         config_name = config_name,
         labels = labels,
@@ -133,7 +133,7 @@ def infra_yc_bucket_auth(name, config_name = None, path = "", labels = {}, resou
 
 def infra_rclone_config(name, config_name = None, path = "", labels = {}, resource_name = "rclone_config", **kwargs):
     """Declare rclone config configuration."""
-    al_injector_call(
+    al_inject(
         name = name,
         config_name = config_name,
         labels = labels,
@@ -158,7 +158,7 @@ def infra_rclone_config(name, config_name = None, path = "", labels = {}, resour
 
 def infra_mikrotik(name, config_name = None, path = "", host = "", labels = {}, resource_name = "mikrotik", mount = "secrets", **kwargs):
     """Declare mikrotik configuration."""
-    al_injector_call(
+    al_inject(
         name = name,
         config_name = config_name,
         labels = labels,
@@ -202,7 +202,7 @@ def infra_dns(name, config_name = None, labels = {}, global_records = True, dc1 
     if vault_auth != None:
         for settings in kv.values():
             settings["vault_auth"] = vault_auth
-    al_injector_call(
+    al_inject(
         name = name,
         config_name = config_name,
         labels = labels,

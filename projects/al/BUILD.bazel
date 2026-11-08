@@ -18,7 +18,6 @@ bzl_library(
     srcs = ["defs.bzl"],
     visibility = ["//visibility:public"],
     deps = [
-        "//plugins/injector:defs",
         "//rules",
     ],
 )
@@ -48,7 +47,8 @@ docs_filegroup(
         "//docs",
         "//internal/release:docs",
         "//openspec:docs",
-        "//plugins/injector:docs",
+        "//pkg/injector:docs",
+        "//plugins/vault:docs",
         "//rules:docs",
     ],
 )

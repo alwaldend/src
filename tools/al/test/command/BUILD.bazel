@@ -1,7 +1,7 @@
-load("@rules_al//:defs.bzl", "al_config", "al_injector_call")
+load("@rules_al//:defs.bzl", "al_config", "al_inject")
 load("@rules_go//go:def.bzl", "go_test")
 
-al_injector_call(
+al_inject(
     name = "cleanup",
     testonly = True,
     labels = {"test": "cleanup"},
@@ -12,7 +12,7 @@ al_injector_call(
     res_file = {"fixture": {"value": "synthetic command cleanup fixture"}},
 )
 
-al_injector_call(
+al_inject(
     name = "invalid_template",
     testonly = True,
     extends = ":cleanup",
@@ -28,7 +28,6 @@ al_config(
     testonly = True,
     configs = [
         ":cleanup",
-        "@rules_al//plugins/injector:config",
     ],
 )
 

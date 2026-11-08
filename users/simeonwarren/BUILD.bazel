@@ -1,4 +1,4 @@
-load("@rules_al//:defs.bzl", "al_binary_run", "al_binary_run_map", "al_config", "al_injector_call", "al_plugin_call", "al_vault_auth")
+load("@rules_al//:defs.bzl", "al_binary_run", "al_binary_run_map", "al_config", "al_inject", "al_plugin", "al_vault_auth")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("//infra:al_config.bzl", "infra_ansible_keys", "infra_yc_account", "infra_yc_auth", "infra_yc_bucket_auth")
 load("//tools/vault:defs.bzl", "vault_binary_map")
@@ -95,7 +95,7 @@ infra_ansible_keys(
     },
 )
 
-al_plugin_call(
+al_plugin(
     name = "forgejo_login",
     labels = {"ansible": "1"},
 )
@@ -112,7 +112,7 @@ infra_yc_auth(
     path = "yandex.cloud/org1/folders/user-simeonwarren/account_iam_key",
 )
 
-al_injector_call(
+al_inject(
     name = "oidc_client",
     labels = {"ansible": "1"},
     res_env = {
@@ -131,7 +131,7 @@ al_injector_call(
     }},
 )
 
-al_plugin_call(
+al_plugin(
     name = "pve_login",
     labels = {"tf": "1"},
 )
@@ -148,7 +148,7 @@ infra_yc_bucket_auth(
     path = "yandex.cloud/org1/folders/user-simeonwarren/account_static_key",
 )
 
-al_injector_call(
+al_inject(
     name = "opencode_ssh",
     labels = {"ansible": "1"},
     res_env = {
@@ -167,7 +167,7 @@ al_injector_call(
     }},
 )
 
-al_injector_call(
+al_inject(
     name = "al.plugin_call.opencode",
     config_name = "opencode",
     labels = {

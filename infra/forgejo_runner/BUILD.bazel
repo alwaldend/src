@@ -1,4 +1,4 @@
-load("@rules_al//:defs.bzl", "al_config", "al_injector_call", "al_plugin_call", "al_vault_auth")
+load("@rules_al//:defs.bzl", "al_config", "al_inject", "al_plugin", "al_vault_auth")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("//infra:al_config.bzl", "infra_ansible_keys", "infra_dns", "infra_pve_provider_inputs")
 load("//tools/vault:defs.bzl", "vault_binary_map")
@@ -30,12 +30,12 @@ vault_tf_backend(
     path = "alwaldend.com/vault1/approles/src_infra_forgejo_runner/tf_backend/tf_setup",
 )
 
-al_plugin_call(
+al_plugin(
     name = "pve_login",
     labels = {"tf": "setup"},
 )
 
-al_injector_call(
+al_inject(
     name = "config",
     labels = {"ansible": "1"},
     res_env = {"FORGEJO_RUNNER_TOKEN": {

@@ -1,4 +1,4 @@
-load("@rules_al//:defs.bzl", "al_config", "al_plugin_call", "al_vault_auth")
+load("@rules_al//:defs.bzl", "al_config", "al_plugin", "al_vault_auth")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("//infra:al_config.bzl", "infra_ansible_keys", "infra_dns", "infra_k3s_token", "infra_pve_provider_inputs")
 load("//tools/vault:defs.bzl", "vault_binary_map")
@@ -43,7 +43,7 @@ vault_tf_backend(
     path = "alwaldend.com/vault1/approles/src_infra_flux/tf_backend/tf",
 )
 
-al_plugin_call(
+al_plugin(
     name = "pve_login",
     labels = {"tf": "setup"},
 )

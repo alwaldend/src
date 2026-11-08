@@ -85,7 +85,7 @@ func TestExecuteInjectorCleanup(t *testing.T) {
 			if err != nil {
 				t.Fatalf("load generated cleanup configuration: %v", err)
 			}
-			for _, plugin := range config.Plugins {
+			for _, plugin := range config.PluginConfigs {
 				plugin.Env = map[string]string{"TMPDIR": secrets}
 			}
 			content, err := protojson.Marshal(config)
@@ -104,6 +104,7 @@ func TestExecuteInjectorCleanup(t *testing.T) {
 				t.Fatal(err)
 			}
 			command := exec.CommandContext(ctx, binary, "run", "--config", configPath, "--plugin_label", "test=cleanup", "--", self, "-test.run=^TestSecretConsumer$", "--", "al-secret-consumer", receipt, mode)
+			command.Env = append(os.Environ(), "TMPDIR="+secrets)
 			command.Stdout, command.Stderr = &logs, &logs
 			command.Cancel = func() error { return command.Process.Signal(syscall.SIGTERM) }
 			command.WaitDelay = 15 * time.Second

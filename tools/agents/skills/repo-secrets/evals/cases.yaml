@@ -1,3 +1,20 @@
+- description: Configures built-in injection with an advertised Vault provider
+  vars:
+    request: >-
+      A command needs one literal environment export and one field from Vault
+      KV. Configure AL targets for it without running live Vault operations.
+      Explain which executable and runtime files the command needs.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response uses al_inject with named res_env and
+        res_kv maps, structured settings and explicit dependencies for the KV
+        export; identifies the injector as built into AL; composes the shared
+        AL config or the standalone plugins/vault:config target to obtain the
+        provider executable and runfiles; does not register an external injector
+        or duplicate the provider in consumer data; and keeps values in Vault
+        while performing only offline validation. Otherwise fail.
 - description: Replaces an exposed credential with repository-safe injection
   vars:
     request: >-

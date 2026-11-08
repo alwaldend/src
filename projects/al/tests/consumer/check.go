@@ -196,10 +196,10 @@ func checkConsumer(ctx context.Context, source, output string) error {
 	if err := protojson.Unmarshal(configContent, config); err != nil {
 		return fmt.Errorf("decode consumer configuration: %w", err)
 	}
-	if len(config.VaultAuth) != 1 || !config.VaultAuth[0].NoAuth || len(config.VaultConn) != 1 || len(config.Plugins) != 1 || len(config.PluginCalls) != 1 {
+	if len(config.VaultAuth) != 1 || !config.VaultAuth["default"].NoAuth || len(config.VaultConn) != 1 || len(config.PluginConfigs) != 1 || len(config.Plugins) != 1 {
 		return fmt.Errorf("consumer configuration lost declarations or explicit extension precedence")
 	}
-	if !reflect.DeepEqual(config.Plugins[0].Args, []string{"--help"}) || config.PluginCalls[0].Labels["selected"] != "fixture" || config.VaultConn[0].Config.Address != "https://vault.example.invalid" {
+	if !reflect.DeepEqual(config.PluginConfigs["plugin"].Args, []string{"--help"}) || config.Plugins["call"].Labels["selected"] != "fixture" || config.VaultConn["default"].Config.Address != "https://vault.example.invalid" {
 		return fmt.Errorf("consumer configuration lost labels or connection settings")
 	}
 	layeredContent, err := os.ReadFile(filepath.Join(output, "bazel-bin/layered_runner.config_/al.json"))
@@ -210,10 +210,10 @@ func checkConsumer(ctx context.Context, source, output string) error {
 	if err := protojson.Unmarshal(layeredContent, layered); err != nil {
 		return fmt.Errorf("decode wrapper-composed configuration: %w", err)
 	}
-	if len(layered.VaultAuth) != 1 || !layered.VaultAuth[0].NoAuth {
+	if len(layered.VaultAuth) != 1 || !layered.VaultAuth["default"].NoAuth {
 		return fmt.Errorf("wrapper composition lost explicit extension precedence")
 	}
-	parameters, err := al.FromPbJson(config.PluginCalls[0].Data).Get()
+	parameters, err := al.FromPbJson(config.Plugins["call"].Data).Get()
 	if err != nil {
 		return fmt.Errorf("decode consumer plugin parameters: %w", err)
 	}
@@ -229,31 +229,66 @@ func checkConsumer(ctx context.Context, source, output string) error {
 	if err := protojson.Unmarshal(flatContent, flat); err != nil {
 		return fmt.Errorf("decode flat injector configuration: %w", err)
 	}
-	calls := map[string]*al_proto.PluginCall{}
-	for _, call := range flat.PluginCalls {
-		calls[call.Name] = call
-	}
-	if len(calls) != 5 || calls["dict_plugin"].GetPlugin() != "dict_plugin" || calls["default_call"].GetPlugin() != "default_call" || calls["explicit_call_name"].GetPlugin() != "target_plugin" || calls["typed_resources"].GetPlugin() != "injector" || calls["custom_resources"].GetPlugin() != "injector" {
+	calls := flat.Plugins
+	if len(calls) != 3 || calls["dict_plugin"].GetPlugin() != "dict_plugin" || calls["default_call"].GetPlugin() != "default_call" || calls["explicit_call_name"].GetPlugin() != "target_plugin" {
 		return fmt.Errorf("consumer lost target-derived plugin/call names or explicit call overrides")
 	}
-	flatArgs, err := al.FromPbJson(calls["typed_resources"].Data).Get()
+	injections := flat.Inject
+	if len(injections) != 4 || injections["typed_resources"] == nil || injections["custom_resources"] == nil || injections["dict_resources"] == nil || injections["other_namespace"] == nil {
+		return fmt.Errorf("consumer lost dedicated injector declarations")
+	}
+	flatResources := map[string]any{}
+	for name, resource := range injections["typed_resources"].Res {
+		args, err := al.FromPbJson(resource.Args).Get()
+		if err != nil {
+			return fmt.Errorf("decode injector resource %q: %w", name, err)
+		}
+		definition := map[string]any{"type": resource.Type, "args": args}
+		if resource.Data != nil {
+			data, err := al.FromPbJson(resource.Data).Get()
+			if err != nil {
+				return fmt.Errorf("decode injector resource %q data: %w", name, err)
+			}
+			definition["data"] = data
+		}
+		if len(resource.Deps) > 0 {
+			deps := []any{}
+			for _, dep := range resource.Deps {
+				deps = append(deps, dep)
+			}
+			definition["deps"] = deps
+		}
+		flatResources[name] = definition
+	}
+	dictionary, err := al.FromPbJson(injections["dict_resources"].Res["DICT_VALUE"].Args).Get()
 	if err != nil {
-		return fmt.Errorf("decode flat injector arguments: %w", err)
+		return fmt.Errorf("decode dictionary injector resource: %w", err)
+	}
+	if !reflect.DeepEqual(dictionary, map[string]any{"value": "{{ .Data.value }}"}) {
+		return fmt.Errorf("consumer lost dictionary injector settings")
+	}
+	dictionaryData, err := al.FromPbJson(injections["dict_resources"].Res["DICT_VALUE"].Data).Get()
+	if err != nil || !reflect.DeepEqual(dictionaryData, map[string]any{"value": "dictionary"}) {
+		return fmt.Errorf("consumer lost dictionary injector data")
+	}
+	other, err := al.FromPbJson(injections["other_namespace"].Res["DICT_VALUE"].Args).Get()
+	if err != nil || !reflect.DeepEqual(other, map[string]any{"value": "unrelated namespace"}) {
+		return fmt.Errorf("merging configuration mixed resource namespaces")
 	}
 	expectedResources := map[string]any{
-		"EXAMPLE":      map[string]any{"deps": []any{"key", "payload_file"}, "vault_auth": "fixture_auth", "env": map[string]any{"value": "fixture"}},
-		"payload_file": map[string]any{"file": map[string]any{"value": strings.TrimSpace(string(expected))}},
-		"key":          map[string]any{"vault_conn": "fixture_conn", "vault_auth": "fixture_auth", "kv": map[string]any{"mount": "secrets", "path": "fixture/key"}},
-		"operation":    map[string]any{"op": map[string]any{"method": "read", "path": "fixture/operation", "data": map[string]any{"field": "value"}}},
-		"token":        map[string]any{"oidc": map[string]any{"name": "fixture-provider", "scope": "openid"}},
-		"vault":        map[string]any{"vault_env": map[string]any{"auth": "fixture_auth", "conn": "fixture_conn"}},
-		"ssh":          map[string]any{"vault_ssh": map[string]any{"backend": "ssh/clients/sign/fixture", "ttl": int64(60)}},
-		"helper":       map[string]any{"process": map[string]any{"name": "fixture-tool", "args": []any{"--fixture"}}},
+		"EXAMPLE":      map[string]any{"type": "env", "deps": []any{"key", "payload_file"}, "args": map[string]any{"value": "fixture"}, "data": map[string]any{"nested": []any{true, nil, int64(9007199254740993)}}},
+		"payload_file": map[string]any{"type": "file", "args": map[string]any{"value": strings.TrimSpace(string(expected))}, "data": map[string]any{"title": "payload"}},
+		"key":          map[string]any{"type": "kv", "args": map[string]any{"vault_conn": "fixture_conn", "vault_auth": "fixture_auth", "mount": "secrets", "path": "fixture/key"}},
+		"operation":    map[string]any{"type": "op", "args": map[string]any{"method": "read", "path": "fixture/operation"}, "data": map[string]any{"field": "value"}},
+		"token":        map[string]any{"type": "oidc", "args": map[string]any{"name": "fixture-provider", "scope": "openid"}},
+		"vault":        map[string]any{"type": "vault_env", "args": map[string]any{"auth": "fixture_auth", "conn": "fixture_conn"}},
+		"ssh":          map[string]any{"type": "vault_ssh", "args": map[string]any{"backend": "ssh/clients/sign/fixture", "ttl": int64(60)}},
+		"helper":       map[string]any{"type": "process", "args": map[string]any{"name": "fixture-tool", "args": []any{"--fixture"}}},
 	}
-	if !reflect.DeepEqual(flatArgs, map[string]any{"res": expectedResources}) {
+	if !reflect.DeepEqual(flatResources, expectedResources) {
 		return fmt.Errorf("flat injector groups changed typed settings, dependency order or Vault metadata")
 	}
-	for _, runtimePath := range []string{config.Plugins[0].Bin, config.VaultConn[0].Tls.CaCert, config.VaultConn[0].Tls.ClientCert, config.VaultConn[0].Tls.ClientKey} {
+	for _, runtimePath := range []string{config.PluginConfigs["plugin"].Bin, config.VaultConn["default"].Tls.CaCert, config.VaultConn["default"].Tls.ClientCert, config.VaultConn["default"].Tls.ClientKey} {
 		if _, err := os.Stat(filepath.Join(output, "bazel-bin/config_runner.exe.runfiles", runtimePath)); err != nil {
 			return fmt.Errorf("inspect propagated consumer runtime input %q: %w", runtimePath, err)
 		}
@@ -315,7 +350,7 @@ func verifyConsumerTLS(ctx context.Context, config *al_proto.Config, output, add
 				return fmt.Errorf("select %s runfiles: %w", mode, err)
 			}
 		}
-		connection := *config.VaultConn[0]
+		connection := *config.VaultConn["default"]
 		connection.Config = &al_proto.VaultConfig{Address: address}
 		tlsConfig, err := al.VaultTlsConfig(&connection).Get()
 		if err != nil {
@@ -334,7 +369,7 @@ func verifyConsumerTLS(ctx context.Context, config *al_proto.Config, output, add
 				return fmt.Errorf("%s TLS lookup selected a different input for %q", mode, name)
 			}
 		}
-		store := al.NewVault(&al_proto.Config{VaultConn: []*al_proto.VaultConn{&connection}, VaultAuth: config.VaultAuth})
+		store := al.NewVault(&al_proto.Config{VaultConn: map[string]*al_proto.VaultConn{"default": &connection}, VaultAuth: config.VaultAuth})
 		client, err := store.Client(ctx, "default", "default").Get()
 		if err != nil {
 			return fmt.Errorf("construct %s Vault TLS client: %w", mode, err)

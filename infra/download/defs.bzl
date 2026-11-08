@@ -1,10 +1,10 @@
 """infra download configuration targets."""
 
-load("@rules_al//:defs.bzl", "al_injector_call")
+load("@rules_al//:defs.bzl", "al_inject")
 
 def infra_download_ssh(name, labels = {}, config_name = None, **kwargs):
     """Declare the ssh configuration target."""
-    al_injector_call(
+    al_inject(
         name = name,
         config_name = config_name,
         labels = labels,

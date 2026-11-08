@@ -30,15 +30,17 @@ minimum policy for its work. An `al_vault_auth` target extends `//tools/al:auth`
 and selects the component AppRole. Compose small targets with `al_config` and
 keep short declarations inline. Use local `defs.bzl` only when extraction
 provides significant reuse or substantially simplifies complex graphs/templates.
-Sibling BUILD files show the wiring. Components then call plugins:
+Sibling BUILD files show the wiring. Components select injection and plugins:
 
-- `injector` reads KV values, files, and operations and exposes them as
-  environment variables or files.
+- AL's built-in `injector` evaluates resource dependencies and produces
+  environment variables or files. The shared configuration supplies the
+  [Vault resource provider](../../../../../projects/al/plugins/vault/README.md)
+  for Vault-backed reads and operations.
 - `tf_backend` supplies the Vault-backed Terraform HTTP state backend.
 - Provider logins (`xo_login`, `pve_login`, `forgejo_login`, and so on) obtain
   provider credentials for a specific stage.
 
-A plugin call only takes effect when its label matches the wrapper's
+Plugin calls and dedicated injector declarations only take effect when their labels match the wrapper's
 `plugin_labels` dictionary. The wrapper's `configs` dependencies
 provide the registered plugin executables and their runtime files transitively;
 do not repeat plugin binaries in the wrapper's `data`.

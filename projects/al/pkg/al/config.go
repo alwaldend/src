@@ -31,7 +31,45 @@ func loadConfigs(ctx context.Context, replacements *strings.Replacer, paths ...s
 		}
 		proto.Merge(res, config)
 	}
+	if err := ValidateConfig(res); err != nil {
+		return nil, fmt.Errorf("validate configuration: %w", err)
+	}
 	return res, nil
+}
+
+// ValidateConfig verifies map-owned identities before declarations reach consumers.
+func ValidateConfig(config *al_proto.Config) error {
+	if config == nil {
+		return fmt.Errorf("missing configuration")
+	}
+	for _, err := range []error{
+		validateNames("vault_conn", config.VaultConn), validateNames("vault_auth", config.VaultAuth),
+		validateNames("plugin_configs", config.PluginConfigs), validateNames("plugins", config.Plugins),
+		validateNames("inject", config.Inject),
+	} {
+		if err != nil {
+			return fmt.Errorf("validate named declarations: %w", err)
+		}
+	}
+	for name, plugin := range config.PluginConfigs {
+		if err := validateNames("calls", plugin.Calls); err != nil {
+			return fmt.Errorf("plugin %q: %w", name, err)
+		}
+	}
+	return nil
+}
+
+// validateNames checks named messages without exposing their argument values.
+func validateNames[T proto.Message](section string, entries map[string]T) error {
+	for name, value := range entries {
+		if name == "" {
+			return fmt.Errorf("configuration section %q has an empty name", section)
+		}
+		if !value.ProtoReflect().IsValid() {
+			return fmt.Errorf("configuration section %q has no declaration for %q", section, name)
+		}
+	}
+	return nil
 }
 
 // loadConfig decodes one JSON or YAML configuration without code evaluation.
@@ -138,21 +176,15 @@ func DumpConfigsWithSubstitutions(ctx context.Context, out string, substitutions
 }
 
 func VaultByName(config *al_proto.Config, name string) (*al_proto.VaultConn, error) {
-	for i := range config.VaultConn {
-		curVault := config.VaultConn[len(config.VaultConn)-1-i]
-		if curVault.Name == name {
-			return curVault, nil
-		}
+	if value := config.VaultConn[name]; value != nil {
+		return value, nil
 	}
 	return nil, fmt.Errorf("missing vault with name %s", name)
 }
 
 func VaultAuthByName(config *al_proto.Config, name string) (*al_proto.VaultAuth, error) {
-	for i := range config.VaultAuth {
-		curAuth := config.VaultAuth[len(config.VaultAuth)-1-i]
-		if curAuth.Name == name {
-			return curAuth, nil
-		}
+	if value := config.VaultAuth[name]; value != nil {
+		return value, nil
 	}
 	return nil, fmt.Errorf("missing vault auth with name %s", name)
 }

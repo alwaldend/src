@@ -1,4 +1,4 @@
-load("@rules_al//:defs.bzl", "al_binary_run", "al_config", "al_injector_call", "al_vault_auth")
+load("@rules_al//:defs.bzl", "al_binary_run", "al_config", "al_inject", "al_vault_auth")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("//infra:al_config.bzl", "infra_ansible_keys", "infra_dns", "infra_pve_provider_inputs", "infra_rclone_config", "infra_yc_account", "infra_yc_auth", "infra_yc_bucket_auth")
 load("//tools/vault:defs.bzl", "vault_binary_map")
@@ -83,7 +83,7 @@ infra_rclone_config(
     path = "alwaldend.com/vault1/approles/src_infra_dc1_vault/backup_bucket",
 )
 
-al_injector_call(
+al_inject(
     name = "al.plugin_call.unseal",
     config_name = "unseal",
     labels = {"unseal": "1"},

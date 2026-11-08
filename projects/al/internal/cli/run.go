@@ -76,7 +76,7 @@ func newRunCmd(ctx *al.CmdCtx) *cobra.Command {
 	flags.StringVar(&cmdStdout, "stdout", "", "Override stdout")
 	flags.StringVar(&cmdStderr, "stderr", "", "Override stderr")
 	flags.StringVar(&cmdStdin, "stdin", "", "Override stdin")
-	flags.StringArrayVar(&pluginLabels, "plugin_label", nil, "Plugin labels to run")
+	flags.StringArrayVar(&pluginLabels, "plugin_label", nil, "Select plugin and injector call labels")
 	return cmd
 }
 

@@ -1,0 +1,38 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("@rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "injector",
+    srcs = [
+        "cleaner.go",
+        "doc.go",
+        "env.go",
+        "file.go",
+        "process.go",
+        "resource.go",
+        "templater.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/al/pkg/injector",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//api/al_proto",
+        "//pkg/al",
+        "//pkg/fp",
+        "//pkg/lifecycle",
+        "@org_golang_google_protobuf//encoding/protojson",
+        "@org_golang_google_protobuf//proto",
+    ],
+)
+
+go_test(
+    name = "cleanup_test",
+    srcs = ["cleanup_test.go"],
+    embed = [":injector"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    prefix = "content/docs/projects/al/injector",
+    visibility = ["//visibility:public"],
+)

@@ -14,7 +14,7 @@ go_library(
     deps = [
         "//api/al_proto",
         "//pkg/al",
-        "//pkg/fp",
+        "//pkg/injector",
         "//pkg/lifecycle",
         "@org_golang_google_grpc//:grpc",
         "@org_golang_google_grpc//credentials/insecure",

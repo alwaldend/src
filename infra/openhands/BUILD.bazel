@@ -1,4 +1,4 @@
-load("@rules_al//:defs.bzl", "al_config", "al_injector_call", "al_vault_auth")
+load("@rules_al//:defs.bzl", "al_config", "al_inject", "al_vault_auth")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("//infra:al_config.bzl", "infra_ansible_keys", "infra_dns", "infra_xo_login")
 load("//tools/vault:defs.bzl", "vault_binary_map")
@@ -36,7 +36,7 @@ vault_tf_backend(
     path = "alwaldend.com/vault1/approles/src_infra_openhands/tf_backend",
 )
 
-al_injector_call(
+al_inject(
     name = "agent_server",
     labels = {"ansible": "1"},
     res_env = {
@@ -57,7 +57,7 @@ al_injector_call(
     },
 )
 
-al_injector_call(
+al_inject(
     name = "automation",
     labels = {"ansible": "1"},
     res_env = {"OPENHANDS_AUTOMATION_KV_SECRET": {

@@ -1,3 +1,3 @@
-// Package command verifies AL and its external injector through generated
+// Package command verifies AL and its built-in injector through generated
 // configuration targets and their transitive runtime inputs.
 package command

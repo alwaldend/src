@@ -1,4 +1,4 @@
-load("@rules_al//:defs.bzl", "al_binary_run", "al_config", "al_injector_call", "al_plugin_call", "al_release_bundle", "al_vault_auth")
+load("@rules_al//:defs.bzl", "al_binary_run", "al_config", "al_inject", "al_plugin", "al_release_bundle", "al_vault_auth")
 
 al_release_bundle(
     name = "bundle",
@@ -32,7 +32,7 @@ al_config(
             "client_cert": "fixture-client.crt",
             "client_key": "fixture-client.key",
         }},
-        "plugins": {"plugin": {
+        "plugin_configs": {"plugin": {
             "executable": "@rules_al//:al",
             "argv": ["--help"],
         }},
@@ -43,7 +43,7 @@ al_config(
 al_config(
     name = "config",
     config = {
-        "plugin_calls": {"call": {
+        "plugins": {"call": {
             "plugin": "plugin",
             "labels": {"selected": "fixture"},
             "args": {"nested": [
@@ -86,17 +86,17 @@ al_binary_run(
     ],
 )
 
-al_injector_call(
+al_inject(
     name = "typed_resources",
     res_env = {"EXAMPLE": {
         "deps": [
             "key",
             "payload_file",
         ],
-        "vault_auth": "fixture_auth",
         "value": "fixture",
+        "data": {"nested": [True, None, 9007199254740993]},
     }},
-    res_file = {"payload_file": {"value": "@PAYLOAD@"}},
+    res_file = {"payload_file": {"value": "@PAYLOAD@", "data": {"title": "payload"}}},
     res_kv = {"key": {
         "vault_conn": "fixture_conn",
         "vault_auth": "fixture_auth",
@@ -127,22 +127,30 @@ al_injector_call(
     substitutions = {"payload.txt": "@PAYLOAD@"},
 )
 
-al_injector_call(
+al_inject(
     name = "aliased_resources",
     config_name = "custom_resources",
     res_env = {"AL_ALIAS": {"value": "alias"}},
 )
 
-al_plugin_call(name = "default_call")
+al_plugin(name = "default_call")
 
-al_plugin_call(
+al_plugin(
     name = "target_plugin",
     config_name = "explicit_call_name",
 )
 
 al_config(
     name = "dictionary_defaults",
-    config = {"plugin_calls": {"dict_plugin": {}}},
+    config = {
+        "plugins": {"dict_plugin": {}},
+        "inject": {"dict_resources": {"resources": {"DICT_VALUE": {"type": "env", "args": {"value": "{{ .Data.value }}"}, "data": {"value": "dictionary"}}}}},
+    },
+)
+
+al_config(
+    name = "dictionary_other_namespace",
+    config = {"inject": {"other_namespace": {"resources": {"DICT_VALUE": {"type": "env", "args": {"value": "unrelated namespace"}}}}}},
 )
 
 al_config(
@@ -151,6 +159,7 @@ al_config(
         ":aliased_resources",
         ":default_call",
         ":dictionary_defaults",
+        ":dictionary_other_namespace",
         ":target_plugin",
         ":typed_resources",
     ],

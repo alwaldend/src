@@ -35,10 +35,15 @@ description: Build, test, query, and maintain targets in this Bazel monorepo. Us
   let the formatter sort references. Ordered resource dependency lists retain
   their runtime meaning. Use plugin_labels dictionaries for call selection;
   wrappers own CLI encoding and run_args is reserved for other AL options.
-  Prefer al_injector_call with named `res_<type>` maps;
+  Prefer al_inject with named `res_<type>` maps;
   keep structured settings and explicit deps/Vault metadata in each entry.
+  Resource `data` holds generic template/provider input; env/file templates use
+  `.Data` for local values and `.Last.Data` or `.Res` for dependency output.
+  Root configuration sections are maps keyed by name. Keep named plugin and
+  injection groups as merge namespaces; use explicit extends for resource
+  overrides rather than declaration order.
   Generic calls default call and plugin names to the target name; override
-  config_name/plugin only when needed. Injector calls select injector directly.
+  config_name/plugin only when needed. Injector declarations use their own inject field, independently of plugins.
 - Namespace public Starlark rules, macros, and configuration constructors with
   their owning component prefix: `infra_dns`, `al_terraform_binary_map`, and
   `vault_tf_backend`, for example. Providers use the corresponding CamelCase

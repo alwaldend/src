@@ -39,7 +39,7 @@ func (p *runFixturePlugin) PluginStart(context.Context, *al_proto.PluginStartReq
 	if err := os.WriteFile(p.ready, []byte("started"), 0o600); err != nil {
 		return nil, fmt.Errorf("record fixture startup: %w", err)
 	}
-	return &al_proto.PluginStartResponse{Env: p.exports}, nil
+	return &al_proto.PluginStartResponse{Result: &al_proto.ResourceResult{Env: p.exports}}, nil
 }
 
 // TestRunProcessFixture is a child executable and a plugin server for CLI scenarios.
@@ -196,9 +196,15 @@ func (f *runCLIFixture) invoke(t *testing.T, flags ...string) (string, string, e
 }
 
 // config writes only synthetic plugin declarations for a real CLI invocation.
-func (f *runCLIFixture) config(t *testing.T, plugins ...*al_proto.PluginConfig) string {
+func (f *runCLIFixture) config(t *testing.T, plugins ...map[string]*al_proto.PluginConfig) string {
 	t.Helper()
-	data, err := protojson.Marshal(&al_proto.Config{Plugins: plugins})
+	declarations := map[string]*al_proto.PluginConfig{}
+	for _, group := range plugins {
+		for name, plugin := range group {
+			declarations[name] = plugin
+		}
+	}
+	data, err := protojson.Marshal(&al_proto.Config{PluginConfigs: declarations})
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -210,21 +216,21 @@ func (f *runCLIFixture) config(t *testing.T, plugins ...*al_proto.PluginConfig) 
 }
 
 // plugin defines a synthetic RPC helper and independent startup/shutdown receipts.
-func (f *runCLIFixture) plugin(t *testing.T, name, executable string, exports map[string]string) *al_proto.PluginConfig {
+func (f *runCLIFixture) plugin(t *testing.T, name, executable string, exports map[string]string) map[string]*al_proto.PluginConfig {
 	t.Helper()
 	data, err := json.Marshal(exports)
 	if err != nil {
 		t.Fatal(err)
 	}
-	return &al_proto.PluginConfig{
-		Name: name, Bin: executable, Args: []string{"-test.run=^TestRunProcessFixture$"},
+	return map[string]*al_proto.PluginConfig{name: {
+		Bin: executable, Args: []string{"-test.run=^TestRunProcessFixture$"},
 		Labels: map[string]string{"fixture": "run"},
 		Env: map[string]string{
 			"AL_RUN_PROCESS_FIXTURE": "plugin", "AL_RUN_PLUGIN_EXPORTS": string(data),
 			"AL_RUN_PLUGIN_READY":   filepath.Join(f.directory, name+".ready"),
 			"AL_RUN_PLUGIN_STOPPED": filepath.Join(f.directory, name+".stopped"),
 		},
-	}
+	}}
 }
 
 // TestRunStandaloneCLI distinguishes optional runfiles from required or invalid contexts.
@@ -352,12 +358,12 @@ func TestRunPluginEnvironment(t *testing.T) {
 			}
 			first := fixture.plugin(t, "alpha", fixture.helper, map[string]string{"AL_RUN_SHARED": firstValue})
 			second := fixture.plugin(t, "zeta", fixture.helper, map[string]string{"AL_RUN_SHARED": secondValue})
-			plugins := []*al_proto.PluginConfig{second, first}
+			plugins := []map[string]*al_proto.PluginConfig{second, first}
 			if mode == "conflict-reversed" {
-				plugins = []*al_proto.PluginConfig{first, second}
+				plugins = []map[string]*al_proto.PluginConfig{first, second}
 			}
 			ignored := fixture.plugin(t, "ignored", "fixture/missing", map[string]string{"AL_RUN_SHARED": "ignored"})
-			ignored.Labels = map[string]string{"fixture": "unselected"}
+			ignored["ignored"].Labels = map[string]string{"fixture": "unselected"}
 			config := fixture.config(t, append(plugins, ignored)...)
 			stdout, stderr, err := fixture.invoke(t, "--config", config, "--plugin_label", "fixture=run")
 			if mode == "equal" {

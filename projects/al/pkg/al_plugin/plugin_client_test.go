@@ -71,11 +71,11 @@ func TestPluginClientLifecycle(t *testing.T) {
 	for _, mode := range []string{"clean", "start-failure", "exit-failure"} {
 		t.Run(mode, func(t *testing.T) {
 			marker := filepath.Join(t.TempDir(), "cleaned")
-			plugin := &al_proto.PluginConfig{Name: "test", Bin: bin, Args: []string{"-test.run=^TestPluginClientHelper$"}, Env: map[string]string{"AL_PLUGIN_CLIENT_TEST": mode, "AL_PLUGIN_CLIENT_MARKER": marker}}
+			plugin := &al_proto.PluginConfig{Bin: bin, Args: []string{"-test.run=^TestPluginClientHelper$"}, Env: map[string]string{"AL_PLUGIN_CLIENT_TEST": mode, "AL_PLUGIN_CLIENT_MARKER": marker}}
 			cmdCtx := al.NewCmdCtx(context.Background(), "")
 			defer cmdCtx.RequestShutdown()
 			cmdCtx.Logger = log.New(io.Discard, "", 0)
-			client, err := NewPluginClient(cmdCtx, run, &al_proto.Config{}, plugin)
+			client, err := NewPluginClient(cmdCtx, run, &al_proto.Config{}, "test", plugin)
 			if err != nil {
 				t.Fatal(err)
 			}
@@ -122,7 +122,7 @@ func TestPluginClientStopBeforeStartClosesPipes(t *testing.T) {
 	}
 	cmdCtx := al.NewCmdCtx(context.Background(), "")
 	defer cmdCtx.RequestShutdown()
-	client, err := NewPluginClient(cmdCtx, run, &al_proto.Config{}, &al_proto.PluginConfig{Name: "unstarted", Bin: bin})
+	client, err := NewPluginClient(cmdCtx, run, &al_proto.Config{}, "unstarted", &al_proto.PluginConfig{Bin: bin})
 	if err != nil {
 		t.Fatal(err)
 	}

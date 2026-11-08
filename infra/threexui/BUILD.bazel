@@ -1,4 +1,4 @@
-load("@rules_al//:defs.bzl", "al_binary_run_map", "al_config", "al_injector_call", "al_plugin_call", "al_vault_auth")
+load("@rules_al//:defs.bzl", "al_binary_run_map", "al_config", "al_inject", "al_plugin", "al_vault_auth")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("//infra:al_config.bzl", "infra_ansible_keys", "infra_dns", "infra_pve_provider_inputs", "infra_yc_account", "infra_yc_auth")
 load("//tools/vault:defs.bzl", "vault_binary_map")
@@ -30,7 +30,7 @@ vault_tf_backend(
     path = "alwaldend.com/vault1/approles/src_infra_threexui/tf_backend/tf_setup",
 )
 
-al_plugin_call(
+al_plugin(
     name = "pve_login",
     labels = {"tf": "setup"},
 )
@@ -57,7 +57,7 @@ vault_tf_backend(
     path = "alwaldend.com/vault1/approles/src_infra_threexui/tf_backend/tf",
 )
 
-al_injector_call(
+al_inject(
     name = "mullvad_keys",
     labels = {"tf": "main"},
     res_env = {"TF_VAR_mullvad_keys": {
@@ -72,7 +72,7 @@ al_injector_call(
     },
 )
 
-al_injector_call(
+al_inject(
     name = "http_proxies",
     labels = {"tf": "main"},
     res_env = {"TF_VAR_http_proxies": {
@@ -87,7 +87,7 @@ al_injector_call(
     },
 )
 
-al_injector_call(
+al_inject(
     name = "control_plane",
     labels = {
         "ansible": "1",
@@ -123,7 +123,7 @@ al_injector_call(
     },
 )
 
-al_injector_call(
+al_inject(
     name = "nodes",
     labels = {
         "ansible": "1",

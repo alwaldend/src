@@ -488,12 +488,12 @@ func (self *Plugin) PluginStart(ctx context.Context, req *al_proto.PluginStartRe
 	if err != nil {
 		return nil, fmt.Errorf("could not create Forgejo token: %w", err)
 	}
-	res = &al_proto.PluginStartResponse{
+	res = &al_proto.PluginStartResponse{Result: &al_proto.ResourceResult{
 		Env: map[string]string{
 			"FORGEJO_API_TOKEN": token,
 			"FORGEJO_HOST":      config.ForgejoUrl,
 		},
-	}
+	}}
 	return res, nil
 }
 

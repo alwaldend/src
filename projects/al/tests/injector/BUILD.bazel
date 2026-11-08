@@ -1,0 +1,95 @@
+load("@rules_go//go:def.bzl", "go_test")
+load("//:defs.bzl", "al_config", "al_inject", "al_vault_auth", "al_vault_conn")
+load(":defs.bzl", "al_injector_fixture_selected")
+
+al_vault_auth(
+    name = "auth",
+    testonly = True,
+    no_auth = True,
+)
+
+al_vault_conn(
+    name = "connection",
+    testonly = True,
+    address = "http://127.0.0.1:1",
+)
+
+al_injector_fixture_selected(
+    name = "selected",
+    testonly = True,
+    labels = {"dictionary": "selected"},
+)
+
+al_inject(
+    name = "selected_override",
+    testonly = True,
+    extends = ":selected",
+    labels = {"dictionary": "selected"},
+    res_kv = {"credentials": {
+        "mount": "secrets",
+        "path": "fixture/credentials_override",
+    }},
+)
+
+al_inject(
+    name = "missing",
+    testonly = True,
+    labels = {"dictionary": "missing"},
+    res_env = {"missing": {
+        "value": "unused",
+        "deps": ["absent"],
+    }},
+)
+
+al_inject(
+    name = "cycle",
+    testonly = True,
+    labels = {"dictionary": "cycle"},
+    res_env = {"cycle": {
+        "value": "unused",
+        "deps": ["cycle"],
+    }},
+)
+
+al_inject(
+    name = "unselected",
+    testonly = True,
+    labels = {"dictionary": "unselected"},
+    res_kv = {"unused": {
+        "mount": "secrets",
+        "path": "fixture/unused",
+    }},
+)
+
+al_config(
+    name = "dictionary_config",
+    testonly = True,
+    configs = [
+        ":auth",
+        ":connection",
+        ":cycle",
+        ":missing",
+        ":selected",
+        ":selected_override",
+        ":unselected",
+        "//plugins/vault:config",
+    ],
+)
+
+go_test(
+    name = "dictionary_e2e_test",
+    srcs = ["dictionary_e2e_test.go"],
+    data = [
+        ":dictionary_config",
+        "//:al",
+    ],
+    env = {
+        "DICTIONARY_CONFIG": "$(rlocationpath :dictionary_config)",
+        "AL_BINARY": "$(rlocationpath //:al)",
+    },
+    deps = [
+        "//pkg/al",
+        "@org_golang_google_protobuf//encoding/protojson",
+        "@rules_go//go/runfiles",
+    ],
+)
