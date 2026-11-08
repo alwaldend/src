@@ -10,6 +10,11 @@ load("//tools/proto/rules:al_proto_docs.bzl", "al_proto_docs")
 
 package(transitive_visibility = "//tools:transitive_consumers")
 
+exports_files(
+    ["defs.bzl"],
+    visibility = ["//:__subpackages__"],
+)
+
 docs_filegroup(
     name = "docs",
     srcs = glob(["*.md"]),

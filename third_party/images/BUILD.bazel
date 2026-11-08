@@ -84,10 +84,6 @@ al_binary_run_map(
         ":deploy_yc_script",
         "//third_party/org_fedora_cloud",
         "//third_party/org_rclone_rclone:rclone",
-        "//tools/vault/injector",
     ],
-    run_args = [
-        "--plugin_label",
-        "rclone",
-    ],
+    plugin_labels = {"rclone": ""},
 )

@@ -1,14 +1,38 @@
-load("@rules_al//:defs.bzl", "al_config")
+load("@rules_al//:defs.bzl", "al_config", "al_vault_auth")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//infra:al_config.bzl", "infra_dns")
 load("//tools/vault:defs.bzl", "vault_binary_map")
+load("//tools/vault/tf_backend:defs.bzl", "vault_tf_backend")
 
 package(transitive_visibility = "//infra:transitive_consumers")
 
+al_vault_auth(
+    name = "auth",
+    approle = "src_infra_dns",
+    extends = "//tools/al:auth",
+)
+
+vault_tf_backend(
+    name = "tf_backend_tf",
+    labels = {"tf": "1"},
+    path = "alwaldend.com/vault1/approles/src_infra_dns/tf_backend/tf",
+)
+
+infra_dns(
+    name = "dns_providers",
+    dc1 = True,
+    labels = {"tf": "1"},
+)
+
 al_config(
     name = "al",
-    srcs = ["al.lua"],
+    configs = [
+        ":auth",
+        ":dns_providers",
+        ":tf_backend_tf",
+        "//infra:al",
+    ],
     visibility = ["//infra/dns:__subpackages__"],
-    deps = ["//infra:al"],
 )
 
 vault_binary_map(

@@ -1,14 +1,39 @@
-load("@rules_al//:defs.bzl", "al_binary_run", "al_config")
+load("@rules_al//:defs.bzl", "al_config", "al_vault_auth")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("@rules_terraform//terraform:defs.bzl", "terraform_binary_map", "terraform_test_map")
+load("@rules_terraform//terraform:defs.bzl", "terraform_test_map")
+load("//infra:al_config.bzl", "infra_yc_auth")
+load("//tools/al:al_terraform.bzl", "al_terraform_binary_map")
+load("//tools/vault/tf_backend:defs.bzl", "vault_tf_backend")
 
 package(transitive_visibility = "//infra:transitive_consumers")
 
+al_vault_auth(
+    name = "auth",
+    approle = "src_infra_local_inference",
+    extends = "//tools/al:auth",
+)
+
+vault_tf_backend(
+    name = "tf_backend",
+    labels = {"tf": "setup"},
+    path = "alwaldend.com/vault1/approles/src_infra_local_inference/tf_backend/tf_setup",
+)
+
+infra_yc_auth(
+    name = "yc_auth",
+    labels = {"tf": "setup"},
+    path = "yandex.cloud/org1/folders/src-infra-local-inference/account_iam_key",
+)
+
 al_config(
     name = "al",
-    srcs = ["al.lua"],
+    configs = [
+        ":auth",
+        ":tf_backend",
+        ":yc_auth",
+        "//infra:al",
+    ],
     visibility = ["//infra/local_inference/tf_setup:__subpackages__"],
-    deps = ["//infra:al"],
 )
 
 _PROVIDERS = [
@@ -18,22 +43,14 @@ _PROVIDERS = [
 _DATA = glob(["*.tf"]) + [
     "//infra/cloud_init:cloud_init",
     "//infra/local_inference:dnsconfig",
-    "//tools/vault/injector",
-    "//tools/vault/tf_backend",
 ]
 
-terraform_binary_map(
+al_terraform_binary_map(
     name = "tf_setup",
+    configs = [":al"],
     data = _DATA,
+    plugin_labels = {"tf": "setup"},
     providers = _PROVIDERS,
-    wrapper = al_binary_run,
-    wrapper_kwargs = {
-        "configs": [":al"],
-        "run_args": [
-            "--plugin_label",
-            "tf=setup",
-        ],
-    },
 )
 
 terraform_test_map(

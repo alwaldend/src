@@ -1,6 +1,8 @@
-load("@rules_al//:defs.bzl", "al_binary_run", "al_config")
+load("@rules_al//:defs.bzl", "al_config")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("@rules_terraform//terraform:defs.bzl", "terraform_binary", "terraform_binary_map", "terraform_test_map")
+load("@rules_terraform//terraform:defs.bzl", "terraform_binary", "terraform_test_map")
+load("//tools/al:al_terraform.bzl", "al_terraform_binary_map")
+load("//tools/vault/tf_backend:defs.bzl", "vault_tf_backend")
 
 package(transitive_visibility = "//infra:transitive_consumers")
 
@@ -12,32 +14,34 @@ _DATA = glob([
     "//projects/tf_modules/vault_pki_server",
     "//projects/tf_modules/vault_ssh_server_role",
     "//infra/vault/tf:dns_access",
-    "//tools/vault/tf_backend",
-    "//tools/vault/injector",
 ]
 
 _PROVIDERS = ["@terraform_provider_hashicorp_vault//:provider"]
 
-al_config(
-    name = "al",
-    srcs = ["al.lua"],
-    deps = ["//infra/vault:al"],
+vault_tf_backend(
+    name = "download_approle_backend",
+    extends = "//infra/vault:tf_backend_main",
+    labels = {"tf": "approle_download"},
+    path = "alwaldend.com/vault1/approles/src_infra_dc1_vault/tf_backend/approles/src_infra_download",
 )
 
-terraform_binary_map(
+al_config(
+    name = "al",
+    configs = [
+        ":download_approle_backend",
+        "//infra/vault:al",
+    ],
+)
+
+al_terraform_binary_map(
     name = "tf",
+    configs = [":al"],
     data = _DATA,
-    providers = _PROVIDERS,
-    wrapper = al_binary_run,
-    wrapper_kwargs = {
-        "configs": [":al"],
-        "run_args": [
-            "--plugin_label",
-            "tf=approle_download",
-            "--plugin_label",
-            "vault_env=default_default",
-        ],
+    plugin_labels = {
+        "tf": "approle_download",
+        "vault_env": "default_default",
     },
+    providers = _PROVIDERS,
 )
 
 terraform_binary(

@@ -11,6 +11,7 @@ import (
 func newConfigCmd(ctx *al.CmdCtx) *cobra.Command {
 	var configs []string
 	var out string
+	var substitutions map[string]string
 	cmd := &cobra.Command{
 		Use:   "config",
 		Short: "Config commands",
@@ -21,7 +22,7 @@ func newConfigCmd(ctx *al.CmdCtx) *cobra.Command {
 		Short: "Dump configs",
 		Long:  "Dump merged configs",
 		RunE: func(cmd *cobra.Command, args []string) error {
-			if err := al.DumpConfigs(ctx.Ctx, out, configs...); err != nil {
+			if err := al.DumpConfigsWithSubstitutions(ctx.Ctx, out, substitutions, configs...); err != nil {
 				return fmt.Errorf("dump configuration: %w", err)
 			}
 			return nil
@@ -29,6 +30,7 @@ func newConfigCmd(ctx *al.CmdCtx) *cobra.Command {
 	}
 	flags := cmdDump.PersistentFlags()
 	flags.StringArrayVarP(&configs, "config", "c", nil, "Config path")
+	flags.StringToStringVar(&substitutions, "substitution", nil, "Public file substitution marker=path (JSON-escaped and trimmed)")
 	flags.StringVarP(&out, "out", "o", "", "Output path")
 	cmd.AddCommand(cmdDump)
 	return cmd

@@ -11,10 +11,24 @@
         Pass only if the response uses the rules_terraform documentation to
         find the existing extension declaration in third_party/terraform and selects its provider label
         through the target's providers attribute. It must preserve one version
-        per provider source, keep source Terraform lockfiles absent, explicitly select
-        generic AL wrappers when the target requires repository authentication, and
+        per provider source, keep source Terraform lockfiles absent, select
+        the repository's al_terraform maps with direct configs/plugin_labels when
+        the target requires repository authentication, and
         verify the declaration through offline Bazel checks. Fail if it adds
         a second pin, host provider cache, or runtime registry fallback.
+- description: Namespaces public repository Bazel APIs
+  vars:
+    request: >-
+      Add a reusable DNS configuration constructor under infra/al_config.bzl
+      and call it from a component BUILD file. Choose its public name and
+      explain the naming convention.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the constructor uses the owning infrastructure namespace,
+        such as infra_dns, and its BUILD load and call use the same public name.
+        Fail if it introduces an unnamespaced public dns rule or constructor.
 - description: Makes and verifies a narrowly scoped Bazel target change
   vars:
     request: >-
@@ -33,3 +47,62 @@
         focused query, tests, build, and the root Buildifier test before any
         justified broad check; and never runs deploy, apply, or another
         mutating target as validation. Otherwise fail.
+
+- description: Composes small AL targets without formatter-dependent overrides
+  vars:
+    request: >-
+      A component BUILD.bazel has a large injector graph and repeats common
+      Vault setup. Split it into reusable targets, select Terraform plugins,
+      and override the shared default AppRole without preserving list order.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if BUILD contains small target declarations composed by
+        al_config configs, extraction to namespaced local defs.bzl materially
+        simplifies complex graphs or long templates, short single-use
+        declarations stay inline, common patterns use reusable
+        owner-provided target macros, and the auth target explicitly extends
+        //tools/al:auth. Plugin selectors must use a plugin_labels dictionary
+        whose empty values mean presence-only selection. Fail for a whole
+        giant configuration hidden in one macro, copied shared graphs,
+        --plugin_label lists in run_args, or do-not-sort directives used to
+        control aggregate override precedence.
+
+- description: Keeps a short single-use injector declaration inline
+  vars:
+    request: >-
+      infra/github/defs.bzl contains a single-use macro that only calls
+      al_injector_call with a named res_kv map and one named GITHUB_TOKEN
+      export. It has no construction logic. Simplify the declaration and explain
+      when a local defs.bzl would be useful.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response calls the existing al_injector_call
+        macro with named resource-type maps directly in BUILD.bazel, keeps dependency
+        metadata explicit, and removes the trivial local wrapper and
+        unused defs.bzl. Small dictionaries may stay inline. Extraction needs
+        significant reuse or a substantial readability benefit for construction
+        logic, complex graphs, long templates or bulky settings. Fail if it
+        moves the same small mapping into another one-use wrapper or mandates
+        extracting every resource dictionary.
+
+- description: Uses flat injector maps and target-derived call names
+  vars:
+    request: >-
+      Add a GitHub token injection target with al_injector_call using named res_kv
+      and res_env maps, then add a pve_login generic plugin call. Avoid repeating
+      default names or wrapping payloads in plugin/args/res scaffolding.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the injector call uses named res_kv and res_env maps with
+        structured settings and explicit env deps. It must omit plugin and
+        args.res wrappers and keep the simple declaration inline. The generic
+        pve_login call may omit plugin because it defaults to the target name;
+        config_name is used only when runtime identity differs. Fail if resource
+        names or dependency order are inferred implicitly or env values are
+        reduced to strings.

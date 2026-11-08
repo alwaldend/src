@@ -9,7 +9,7 @@ def ssh_binary(name, args = [], **kwargs):
         name: Target name.
         args: Fixed SSH arguments; invocation arguments are appended.
         **kwargs: Additional al_binary_run attributes, including configs,
-            run_args, and data for consumer-owned key injection.
+            plugin_labels, and data for consumer-owned key injection.
     """
     al_binary_run(
         name = name,

@@ -28,8 +28,9 @@ XO_BOOTSTRAP_APPROLE=src_infra_dc1_forgejo1 bazel run //infra/xcp_ng/cmd/xo_logi
 The target authenticates through existing Vault AppRole policies, reports only
 callback completion, then revokes its XO session. Repeat for each approved
 AppRole. It does not load the administrator XO token or Terraform backend.
-`bootstrap.lua` is loaded at runtime through AL's `--config` flag; the selected
-role is not baked into a Bazel configuration artifact. This operation creates
+The native `:bootstrap_config` target declares only the Vault connection and
+bootstrap plugin. The plugin selects and validates the requested role at startup;
+the selected role is not baked into a Bazel configuration artifact. This operation creates
 external identities/groups on first login and requires deployment authority.
 
 After bindings exist, add `XO_EXPECT_RESOURCE_SET` and optionally

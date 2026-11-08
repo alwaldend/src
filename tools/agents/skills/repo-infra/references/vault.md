@@ -60,7 +60,7 @@ moving while a live prerequisite is unavailable.
 
 ## Set up a component credential
 
-Derive the logical secret path and field name from the component's `al.lua`
+Derive the logical secret path and field name from the component's `BUILD.bazel`
 and select its `vault.kv_put` target from the owning `BUILD.bazel`. Once the
 AppRole and bootstrap access above are deployed, this target writes using
 the component's identity. Its KV alias already selects the `secrets` mount.

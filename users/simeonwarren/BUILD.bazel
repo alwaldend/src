@@ -1,6 +1,8 @@
-load("@rules_al//:defs.bzl", "al_binary_run", "al_binary_run_map", "al_config")
+load("@rules_al//:defs.bzl", "al_binary_run", "al_binary_run_map", "al_config", "al_injector_call", "al_plugin_call", "al_vault_auth")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//infra:al_config.bzl", "infra_ansible_keys", "infra_yc_account", "infra_yc_auth", "infra_yc_bucket_auth")
 load("//tools/vault:defs.bzl", "vault_binary_map")
+load("//tools/vault/tf_backend:defs.bzl", "vault_tf_backend")
 
 package(transitive_visibility = "//users:transitive_consumers")
 
@@ -19,12 +21,8 @@ al_binary_run(
     data = [
         "//tools/vault",
         "//tools/vault/gen_client_cert",
-        "//tools/vault/injector",
     ],
-    run_args = [
-        "--plugin_label",
-        "vault_env=default_no_auth",
-    ],
+    plugin_labels = {"vault_env": "default_no_auth"},
 )
 
 filegroup(
@@ -77,20 +75,146 @@ al_binary_run_map(
     configs = [":al"],
     data = [
         "//tools/opencode",
-        "//tools/vault/injector",
     ],
-    run_args = [
-        "--plugin_label",
-        "opencode",
-    ],
+    plugin_labels = {"opencode": ""},
     toolchains = ["@rules_al//rules:git_toolchain_resolved"],
+)
+
+al_vault_auth(
+    name = "auth",
+    approle = "user_simeonwarren",
+    extends = "//tools/al:auth",
+)
+
+infra_ansible_keys(
+    name = "ansible_keys",
+    labels = {"ansible": "1"},
+    vault_ssh = {
+        "backend": "ssh/clients/sign/admins",
+        "ttl": 7200,
+    },
+)
+
+al_plugin_call(
+    name = "forgejo_login",
+    labels = {"ansible": "1"},
+)
+
+vault_tf_backend(
+    name = "tf_backend",
+    labels = {"tf": "1"},
+    path = "alwaldend.com/vault1/approles/user_simeonwarren/tf_backend/main",
+)
+
+infra_yc_auth(
+    name = "yc_auth",
+    labels = {"tf": "1"},
+    path = "yandex.cloud/org1/folders/user-simeonwarren/account_iam_key",
+)
+
+al_injector_call(
+    name = "oidc_client",
+    labels = {"ansible": "1"},
+    res_env = {
+        "OIDC_CLIENT_ID": {
+            "value": "{{ .Last.Data.client_id }}",
+            "deps": ["oidc_client"],
+        },
+        "OIDC_CLIENT_SECRET": {
+            "value": "{{ .Last.Data.client_secret }}",
+            "deps": ["oidc_client"],
+        },
+    },
+    res_op = {"oidc_client": {
+        "method": "read",
+        "path": "identity/oidc/client/users_simeonwarren_provider",
+    }},
+)
+
+al_plugin_call(
+    name = "pve_login",
+    labels = {"tf": "1"},
+)
+
+infra_yc_account(
+    name = "yc_account",
+    labels = {"tf": "1"},
+    path = "yandex.cloud/org1/folders/user-simeonwarren/account",
+)
+
+infra_yc_bucket_auth(
+    name = "yc_bucket_auth",
+    labels = {"tf": "1"},
+    path = "yandex.cloud/org1/folders/user-simeonwarren/account_static_key",
+)
+
+al_injector_call(
+    name = "opencode_ssh",
+    labels = {"ansible": "1"},
+    res_env = {
+        "OPENCODE_SSH_PRIVATE_KEY": {
+            "value": "{{ .Last.Data.ssh_private_key }}",
+            "deps": ["opencode_ssh"],
+        },
+        "OPENCODE_SSH_PUBLIC_KEY": {
+            "value": "{{ .Last.Data.ssh_public_key }}",
+            "deps": ["opencode_ssh"],
+        },
+    },
+    res_kv = {"opencode_ssh": {
+        "mount": "secrets",
+        "path": "alwaldend.com/vault1/approles/user_simeonwarren/opencode_ssh",
+    }},
+)
+
+al_injector_call(
+    name = "al.plugin_call.opencode",
+    config_name = "opencode",
+    labels = {
+        "ansible": "1",
+        "opencode": "1",
+    },
+    res_env = {
+        "OPENCODE_SERVER_USERNAME": {
+            "value": "{{ .Last.Data.opencode_server_username }}",
+            "deps": ["opencode"],
+        },
+        "OPENCODE_SERVER_PASSWORD": {
+            "value": "{{ .Last.Data.opencode_server_password }}",
+            "deps": ["opencode"],
+        },
+        "OPENCODE_YANDEX_CLOUD_TOKEN": {
+            "value": "{{ .Last.Data.yc_secret_key }}",
+            "deps": ["opencode"],
+        },
+        "OPENCODE_YANDEX_CLOUD_FOLDER": {
+            "value": "{{ .Last.Data.yc_folder_id }}",
+            "deps": ["opencode"],
+        },
+    },
+    res_kv = {"opencode": {
+        "mount": "secrets",
+        "path": "alwaldend.com/vault1/approles/user_simeonwarren/opencode",
+    }},
 )
 
 al_config(
     name = "al",
-    srcs = ["al.lua"],
+    configs = [
+        ":al.plugin_call.opencode",
+        ":ansible_keys",
+        ":auth",
+        ":forgejo_login",
+        ":oidc_client",
+        ":opencode_ssh",
+        ":pve_login",
+        ":tf_backend",
+        ":yc_account",
+        ":yc_auth",
+        ":yc_bucket_auth",
+        "//infra:al",
+    ],
     visibility = ["//users/simeonwarren:__subpackages__"],
-    deps = ["//infra:al"],
 )
 
 filegroup(

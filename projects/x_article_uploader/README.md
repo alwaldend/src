@@ -225,7 +225,7 @@ No credential value is recorded in source, and the values are never printed.
 The identity, policy, and credential path are owned by
 `infra/vault/openspec/changes/archive/2026-10-22-add-x-article-uploader-credentials`. The credential
 sits inside the identity's own AppRole subtree, the same shape every other
-component uses, and `al.lua` names its path directly, as every other component's
+component uses, and `BUILD.bazel` names its path directly, as every other component's
 injected reference does; the shared AppRole module's own-subtree policy grants
 the read.
 
@@ -252,10 +252,10 @@ root, never a root rediscovered by walking the filesystem.
 
 Draft creation is the only operation that needs credentials, so run it through
 the wrapper that injects them: `//projects/x_article_uploader:draft` selects
-the `x_api=1` injection declared in `al.lua`, authenticates as the component
+the `x_api=1` injection declared in `BUILD.bazel`, authenticates as the component
 AppRole, and places each credential field in its environment variable. The
 wrapped command is the draft binary, so its own flags are passed after
-`--`; the binary and the injector travel in the target's data.
+`--`; the binary travels in the target's data and the config supplies the injector.
 
 Create a draft from a converted artifact:
 

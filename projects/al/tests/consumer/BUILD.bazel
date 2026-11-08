@@ -9,7 +9,9 @@ go_binary(
     importpath = "git.alwaldend.com/alwaldend/src/projects/al/tests/consumer",
     visibility = ["//visibility:public"],
     deps = [
+        "//api/al_proto",
         "//api/contracts",
+        "//pkg/al",
         "@com_github_spf13_cobra//:cobra",
         "@org_golang_google_protobuf//encoding/protojson",
     ],

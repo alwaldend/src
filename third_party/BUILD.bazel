@@ -1,6 +1,8 @@
 load("@bazel_skylib//rules:write_file.bzl", "write_file")
-load("@rules_al//:defs.bzl", "al_binary_run_map", "al_config")
+load("@rules_al//:defs.bzl", "al_binary_run_map", "al_config", "al_plugin_call", "al_vault_auth")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//infra:al_config.bzl", "infra_yc_account", "infra_yc_auth", "infra_yc_bucket_auth")
+load("//tools/vault/tf_backend:defs.bzl", "vault_tf_backend")
 
 package(transitive_visibility = "//third_party:transitive_consumers")
 
@@ -10,11 +12,57 @@ package_group(
     packages = ["public"],
 )
 
+al_vault_auth(
+    name = "auth",
+    approle = "src_third_party",
+    extends = "//tools/al:auth",
+)
+
+al_plugin_call(
+    name = "forgejo_login",
+    labels = {"forgejo": "1"},
+    plugin = "forgejo_login",
+)
+
+vault_tf_backend(
+    name = "tf_backend_tf",
+    labels = {"tf": "main"},
+    path = "alwaldend.com/vault1/approles/src_third_party/tf_backend/tf",
+)
+
+infra_yc_bucket_auth(
+    name = "yc_bucket_auth",
+    labels = {
+        "rclone": "1",
+        "tf": "main",
+    },
+    path = "yandex.cloud/org1/folders/src-third-party/account_static_key",
+)
+
+infra_yc_auth(
+    name = "yc_auth",
+    labels = {"tf": "main"},
+    path = "yandex.cloud/org1/folders/src-third-party/account_iam_key",
+)
+
+infra_yc_account(
+    name = "yc_account",
+    labels = {"tf": "main"},
+    path = "yandex.cloud/org1/folders/src-third-party/account",
+)
+
 al_config(
     name = "al",
-    srcs = ["al.lua"],
+    configs = [
+        ":auth",
+        ":forgejo_login",
+        ":tf_backend_tf",
+        ":yc_account",
+        ":yc_auth",
+        ":yc_bucket_auth",
+        "//infra:al",
+    ],
     visibility = ["//third_party:__subpackages__"],
-    deps = ["//infra:al"],
 )
 
 docs_filegroup(
@@ -55,11 +103,6 @@ al_binary_run_map(
     data = [
         ":publish_helm_script",
         "//third_party/io_goharbor_helm_harbor",
-        "//tools/vault/forgejo_login",
-        "//tools/vault/injector",
     ],
-    run_args = [
-        "--plugin_label",
-        "forgejo",
-    ],
+    plugin_labels = {"forgejo": ""},
 )

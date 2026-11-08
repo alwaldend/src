@@ -10,7 +10,7 @@ validates the Promptfoo configuration, referenced case, and staged skill
 without making a model call.
 
 A live target is omitted because representative behavior requires access to
-repository-specific `al.lua` wiring, Vault authentication and policy state,
+repository-specific `BUILD.bazel` wiring, Vault authentication and policy state,
 and possibly sensitive Terraform or deployment tooling. Supplying those tools
 or credentials to a model evaluation would be unsafe and non-reproducible.
 Offline validation does not demonstrate correct secret handling; it only proves

@@ -188,6 +188,32 @@ func (self *VaultStore) Client(ctx context.Context, conn string, authName string
 	return fp.Right(client)
 }
 
+// resolveVaultTLSFile expands a filesystem path or resolves a relative Bazel
+// runfile identifier when runtime metadata is available. Installed commands
+// without runfiles retain working-directory-relative filesystem paths.
+func resolveVaultTLSFile(value string) (string, error) {
+	path := os.ExpandEnv(value)
+	if !filepath.IsAbs(path) {
+		runtimeFiles, err := FindRunfiles()
+		if err != nil {
+			return "", fmt.Errorf("discover Vault TLS runfiles: %w", err)
+		}
+		if runtimeFiles != nil {
+			path, err = runtimeFiles.Rlocation(path)
+			if err != nil {
+				return "", fmt.Errorf("resolve Vault TLS runfile: %w", err)
+			}
+		}
+	}
+	absolute, err := filepath.Abs(path)
+	if err != nil {
+		return "", fmt.Errorf("resolve absolute Vault TLS path: %w", err)
+	}
+	return absolute, nil
+}
+
+// VaultTlsConfig resolves the configured CA and client certificate/key files
+// for both Vault clients and environment-variable injection.
 func VaultTlsConfig(vault *al_proto.VaultConn) fp.Either[*api.TLSConfig] {
 	res := &api.TLSConfig{}
 	if vault == nil {
@@ -197,21 +223,21 @@ func VaultTlsConfig(vault *al_proto.VaultConn) fp.Either[*api.TLSConfig] {
 		return fp.Right(res)
 	}
 	if vault.Tls.CaCert != "" {
-		cacert, err := filepath.Abs(os.ExpandEnv(vault.Tls.CaCert))
+		cacert, err := resolveVaultTLSFile(vault.Tls.CaCert)
 		if err != nil {
 			return fp.Left[*api.TLSConfig](fmt.Errorf("could not expand cacert: %w", err))
 		}
 		res.CACert = cacert
 	}
 	if vault.Tls.ClientCert != "" {
-		clientCert, err := filepath.Abs(os.ExpandEnv(vault.Tls.ClientCert))
+		clientCert, err := resolveVaultTLSFile(vault.Tls.ClientCert)
 		if err != nil {
 			return fp.Left[*api.TLSConfig](fmt.Errorf("could not expand client cert: %w", err))
 		}
 		res.ClientCert = clientCert
 	}
 	if vault.Tls.ClientKey != "" {
-		clientKey, err := filepath.Abs(os.ExpandEnv(vault.Tls.ClientKey))
+		clientKey, err := resolveVaultTLSFile(vault.Tls.ClientKey)
 		if err != nil {
 			return fp.Left[*api.TLSConfig](fmt.Errorf("could not expand client key: %w", err))
 		}

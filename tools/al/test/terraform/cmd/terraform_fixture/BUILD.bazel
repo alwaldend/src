@@ -1,0 +1,11 @@
+load("@rules_go//go:def.bzl", "go_binary")
+
+go_binary(
+    name = "terraform_fixture",
+    testonly = True,
+    srcs = [
+        "doc.go",
+        "main.go",
+    ],
+    visibility = ["//tools/al/test/terraform:__pkg__"],
+)

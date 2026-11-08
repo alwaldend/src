@@ -7,7 +7,7 @@ tags:
 ---
 
 This package creates a Xen Orchestra VM in the `src_infra_dc1_forgejo1`
-resource set. `infra/forgejo/al.lua` authenticates with Forgejo's own Vault
+resource set. `infra/forgejo/BUILD.bazel` authenticates with Forgejo's own Vault
 AppRole and the packaged XO OIDC login plugin. The plugin supplies a temporary
 XO token and revokes it on shutdown; no infrastructure administrator token
 is loaded. The setup HTTP backend remains owned by the same Forgejo config.

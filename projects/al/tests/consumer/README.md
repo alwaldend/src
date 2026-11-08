@@ -5,7 +5,13 @@ title: External consumer fixture
 The `check` command materializes these templates in an absent or empty ignored
 output directory, builds the public rules and AL with independent Bazel
 configuration, verifies source identity and payload bytes, size and SHA-256,
-and writes `result.json` with the verified manifest and digest. A failure exits
+verifies order-independent configuration extensions, rejects ambiguous sibling
+overrides, checks wrapper composition, flat injector groups and metadata,
+target-derived call/plugin defaults, duplicate names and invalid settings,
+nested plugin arguments, public file
+substitution and propagated plugin/TLS runfiles, performs local TLS requests
+with CA and client certificate/key runfile inputs in directory and manifest
+modes from an unrelated working directory, and writes `result.json` with the verified manifest and digest. A failure exits
 nonzero without a success result. The first-party module overrides reuse existing
 repository pins. No parent Bazel configuration is imported.
 

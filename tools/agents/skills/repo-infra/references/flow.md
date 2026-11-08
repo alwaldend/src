@@ -10,10 +10,10 @@ directories, and each is a separate stage:
 | `tf`             | Service configuration: API-side resources, policies, roles |
 | `ansible/`       | Host deployment: packages, users, files, services, ingress |
 | `dnsconfig.json` | The component's record declarations                        |
-| `al.lua`         | Vault authentication, backend, and secret injection        |
+| `BUILD.bazel`    | Vault authentication, backend, and secret injection        |
 
 `README.md` owns the component's purpose and boundaries; `BUILD.bazel` owns
-target structure; `al.lua` owns wiring. Read them before changing any stage.
+target structure and configuration wiring. Read them before changing any stage.
 
 Prefer a component-owned `dns/` Terraform root with its own state and DNS-only
 credentials, consuming the shared `dns_records` module. Keep canonical record
@@ -26,9 +26,11 @@ and the prerequisites for using those roots.
 ## Authentication and injection
 
 Each component authenticates with its own Vault AppRole and receives the
-minimum policy for its work. `lib.vault_auth({name = "default", approle = {
-name = "<component>"}})` selects it, and sibling `al.lua` files show the exact
-DSL shape. Components then call plugins:
+minimum policy for its work. An `al_vault_auth` target extends `//tools/al:auth`
+and selects the component AppRole. Compose small targets with `al_config` and
+keep short declarations inline. Use local `defs.bzl` only when extraction
+provides significant reuse or substantially simplifies complex graphs/templates.
+Sibling BUILD files show the wiring. Components then call plugins:
 
 - `injector` reads KV values, files, and operations and exposes them as
   environment variables or files.
@@ -36,9 +38,10 @@ DSL shape. Components then call plugins:
 - Provider logins (`xo_login`, `pve_login`, `forgejo_login`, and so on) obtain
   provider credentials for a specific stage.
 
-A plugin call only takes effect when three things agree: the call's label in
-`al.lua`, the `--plugin_label` arguments in the target's `run_args`, and the
-plugin binary in the target's `data`. Keep them aligned.
+A plugin call only takes effect when its label matches the wrapper's
+`plugin_labels` dictionary. The wrapper's `configs` dependencies
+provide the registered plugin executables and their runtime files transitively;
+do not repeat plugin binaries in the wrapper's `data`.
 
 ## Why one component can have several modules
 

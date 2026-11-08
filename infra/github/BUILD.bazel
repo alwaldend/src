@@ -1,14 +1,44 @@
-load("@rules_al//:defs.bzl", "al_config")
+load("@rules_al//:defs.bzl", "al_config", "al_injector_call", "al_vault_auth")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("//tools/vault:defs.bzl", "vault_binary_map")
+load("//tools/vault/tf_backend:defs.bzl", "vault_tf_backend")
 
 package(transitive_visibility = "//infra:transitive_consumers")
 
+al_vault_auth(
+    name = "auth",
+    approle = "src_infra_github",
+    extends = "//tools/al:auth",
+)
+
+vault_tf_backend(
+    name = "tf_backend_tf",
+    labels = {"tf": "main"},
+    path = "alwaldend.com/vault1/approles/src_infra_github/tf_backend/tf",
+)
+
+al_injector_call(
+    name = "github",
+    labels = {"tf": "main"},
+    res_env = {"GITHUB_TOKEN": {
+        "value": "{{ .Last.Data.github_token }}",
+        "deps": ["github"],
+    }},
+    res_kv = {"github": {
+        "mount": "secrets",
+        "path": "alwaldend.com/vault1/approles/src_infra_github/github",
+    }},
+)
+
 al_config(
     name = "al",
-    srcs = ["al.lua"],
+    configs = [
+        ":auth",
+        ":github",
+        ":tf_backend_tf",
+        "//infra:al",
+    ],
     visibility = ["//infra/github:__subpackages__"],
-    deps = ["//infra:al"],
 )
 
 vault_binary_map(

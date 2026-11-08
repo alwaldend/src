@@ -1,7 +1,10 @@
-load("@rules_al//:defs.bzl", "al_binary_run", "al_config", "al_release_binary", "al_release_deployment")
+load("@rules_al//:defs.bzl", "al_binary_run", "al_config", "al_release_binary", "al_release_deployment", "al_vault_auth")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//infra:al_config.bzl", "infra_dns", "infra_xo_login", "infra_yc_auth")
 load("//tools/ssh:defs.bzl", "ssh_binary")
 load("//tools/vault:defs.bzl", "vault_binary_map")
+load("//tools/vault/tf_backend:defs.bzl", "vault_tf_backend")
+load(":defs.bzl", "infra_download_ssh")
 
 package(transitive_visibility = "//infra:transitive_consumers")
 
@@ -66,11 +69,7 @@ _CONTENT_COMMANDS = {
             "ansible@" + host,
         ],
         configs = [":al"],
-        data = ["//tools/vault/injector"],
-        run_args = [
-            "--plugin_label",
-            "ssh=1",
-        ],
+        plugin_labels = {"ssh": "1"},
         visibility = ["//infra:__subpackages__"],
     )
     for environment, host in _HOSTS.items()
@@ -106,23 +105,76 @@ _CONTENT_COMMANDS = {
         configs = [":al"],
         data = [
             ":" + operation + "." + environment + ".command",
-            "//tools/vault/injector",
         ],
-        run_args = [
-            "--plugin_label",
-            "ssh=1",
-        ],
+        plugin_labels = {"ssh": "1"},
     )
     for environment in _HOSTS
     for operation in _CONTENT_COMMANDS
 ]
 
+al_vault_auth(
+    name = "auth",
+    approle = "src_infra_download",
+    extends = "//tools/al:auth",
+)
+
+vault_tf_backend(
+    name = "tf_backend_local",
+    labels = {"tf": "local"},
+    path = "alwaldend.com/vault1/approles/src_infra_download/tf_backend/local",
+)
+
+vault_tf_backend(
+    name = "tf_backend_yandex",
+    extends = ":tf_backend_local",
+    labels = {"tf": "yandex"},
+    path = "alwaldend.com/vault1/approles/src_infra_download/tf_backend/yandex",
+)
+
+vault_tf_backend(
+    name = "tf_backend_dns",
+    extends = ":tf_backend_yandex",
+    labels = {"tf": "dns"},
+    path = "alwaldend.com/vault1/approles/src_infra_download/tf_backend/dns",
+)
+
+infra_yc_auth(
+    name = "yc_auth",
+    labels = {"tf": "yandex"},
+    path = "yandex.cloud/org1/folders/src-infra-download/account_iam_key",
+)
+
+infra_dns(
+    name = "dns_providers",
+    dc1 = True,
+    labels = {"tf": "dns"},
+)
+
+infra_download_ssh(
+    name = "ssh",
+    labels = {"ssh": "1"},
+)
+
+infra_xo_login(
+    name = "xo_login",
+    labels = {"xoa_login": "1"},
+    oidc_provider = "src_infra_xcp_ng_provider",
+)
+
 al_config(
     name = "al",
-    srcs = ["al.lua"],
-    data = ["//data/ssh:ca_servers"],
+    configs = [
+        ":auth",
+        ":dns_providers",
+        ":ssh",
+        ":tf_backend_dns",
+        ":tf_backend_local",
+        ":tf_backend_yandex",
+        ":xo_login",
+        ":yc_auth",
+        "//infra:al",
+    ],
     visibility = ["//infra/download:__subpackages__"],
-    deps = ["//infra:al"],
 )
 
 filegroup(
@@ -142,12 +194,8 @@ al_binary_run(
     configs = [":al"],
     data = [
         "//infra/download/ansible:ansible_bin",
-        "//tools/vault/injector",
     ],
-    run_args = [
-        "--plugin_label",
-        "ssh=1",
-    ],
+    plugin_labels = {"ssh": "1"},
     visibility = ["//infra:__subpackages__"],
 )
 

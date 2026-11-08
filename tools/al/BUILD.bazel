@@ -1,26 +1,115 @@
 load("@bazel_skylib//rules:native_binary.bzl", "native_binary")
-load("@rules_al//:defs.bzl", "al_binary_run", "al_config")
+load("@rules_al//:defs.bzl", "al_config", "al_injector_call", "al_plugin", "al_vault_auth", "al_vault_conn")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("@rules_terraform//terraform:defs.bzl", "terraform_binary_map")
+load("@rules_go//go:def.bzl", "go_test")
+load("//infra:al_config.bzl", "infra_dns")
+load("//tools/al:al_terraform.bzl", "al_terraform_binary_map")
+load("//tools/vault/tf_backend:defs.bzl", "vault_tf_backend")
 
 package(transitive_visibility = "//tools:transitive_consumers")
 
+exports_files(
+    ["al_terraform.bzl"],
+    visibility = ["//:__subpackages__"],
+)
+
+al_vault_auth(
+    name = "auth",
+    visibility = ["//:__subpackages__"],
+)
+
+al_vault_auth(
+    name = "auth.token_helper",
+    config_name = "token_helper",
+)
+
+al_vault_auth(
+    name = "auth.no_auth",
+    config_name = "no_auth",
+    no_auth = True,
+)
+
+al_vault_conn(
+    name = "connection",
+    address = "https://vault.alwaldend.com:8200",
+    ca_cert = "//data/ssl/alwaldend.com:ica_servers",
+    visibility = ["//infra/xcp_ng/cmd/xo_login:__pkg__"],
+)
+
+al_injector_call(
+    name = "env_default_no_auth",
+    labels = {"vault_env": "default_no_auth"},
+    res_vault_env = {"env_default_no_auth": {
+        "auth": "no_auth",
+        "conn": "default",
+    }},
+)
+
+al_injector_call(
+    name = "env_default_default",
+    labels = {"vault_env": "default_default"},
+    res_vault_env = {"env_default_default": {
+        "auth": "default",
+        "conn": "default",
+    }},
+)
+
+al_plugin(
+    name = "forgejo_login",
+    args = {
+        "forgejo_oauth_name": "vault",
+        "forgejo_url": "https://git.alwaldend.com",
+    },
+    executable = "//tools/vault/forgejo_login",
+    labels = {"forgejo_login": "1"},
+)
+
+al_plugin(
+    name = "harbor_login",
+    args = {"harbor_url": "https://harbor.alwaldend.com"},
+    executable = "//tools/vault/harbor_login",
+    labels = {"harbor_login": "1"},
+)
+
+al_plugin(
+    name = "pve_login",
+    args = {
+        "pve_base_url": "https://pve.alwaldend.com:8006",
+        "pve_realm": "src_infra_dc1_vault",
+        "pve_redirect_url": "https://pve.alwaldend.com:8006",
+    },
+    executable = "//tools/vault/pve_login",
+    labels = {"pve_login": "1"},
+)
+
+al_plugin(
+    name = "tf_backend",
+    executable = "//tools/vault/tf_backend",
+)
+
 al_config(
     name = "config",
-    srcs = ["//:al.lua"],
-    data = [
-        "//:al_lib.lua",
-        "//data/ssl/alwaldend.com:ica_servers",
+    configs = [
+        ":auth",
+        ":auth.no_auth",
+        ":auth.token_helper",
+        ":connection",
+        ":env_default_default",
+        ":env_default_no_auth",
+        ":forgejo_login",
+        ":harbor_login",
+        ":pve_login",
+        ":tf_backend",
+        "@rules_al//plugins/injector:config",
     ],
     visibility = ["//:__subpackages__"],
 )
 
-terraform_binary_map(
+al_terraform_binary_map(
     name = "tf",
     chdir = ".",
+    configs = [":config"],
     visibility = ["//:__pkg__"],
-    wrapper = al_binary_run,
-    wrapper_kwargs = {"configs": [":config"]},
 )
 
 docs_filegroup(
@@ -40,4 +129,43 @@ native_binary(
     ],
     data = ["@rules_al//:al"],
     visibility = ["//:__subpackages__"],
+)
+
+al_vault_auth(
+    name = "dns_config.vault_auth.default",
+    approle = "src_projects_al",
+    extends = "//tools/al:auth",
+)
+
+vault_tf_backend(
+    name = "tf_backend_tf",
+    labels = {"tf": "main"},
+    path = "alwaldend.com/vault1/approles/src_projects_al/tf_backend/tf",
+)
+
+infra_dns(
+    name = "dns_providers",
+    labels = {"tf": "main"},
+)
+
+al_config(
+    name = "dns_config",
+    configs = [
+        ":dns_config.vault_auth.default",
+        ":dns_providers",
+        ":tf_backend_tf",
+        "//infra:al",
+    ],
+)
+
+go_test(
+    name = "injector_dev_server_test",
+    srcs = ["@rules_al//plugins/injector:dev_server_test.go"],
+    data = ["//tools/vault"],
+    embed = ["@rules_al//plugins/injector:injector_lib"],
+    env = {"VAULT_BINARY": "$(rlocationpath //tools/vault)"},
+    deps = [
+        "@com_github_hashicorp_vault_api//:api",
+        "@rules_go//go/runfiles",
+    ],
 )

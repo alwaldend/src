@@ -16,12 +16,8 @@ al_binary_run(
     configs = ["//projects/x_article_uploader:al"],
     data = [
         "//projects/x_profile_cleaner/cmd/x_profile_cleaner",
-        "//tools/vault/injector",
     ],
-    run_args = [
-        "--plugin_label",
-        "x_api=1",
-    ],
+    plugin_labels = {"x_api": "1"},
     visibility = ["//visibility:public"],
 )
 

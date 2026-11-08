@@ -1,14 +1,204 @@
-load("@rules_al//:defs.bzl", "al_binary_run_map", "al_config")
+load("@rules_al//:defs.bzl", "al_binary_run_map", "al_config", "al_injector_call", "al_plugin_call", "al_vault_auth")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//infra:al_config.bzl", "infra_ansible_keys", "infra_dns", "infra_pve_provider_inputs", "infra_yc_account", "infra_yc_auth")
 load("//tools/vault:defs.bzl", "vault_binary_map")
+load("//tools/vault/tf_backend:defs.bzl", "vault_tf_backend")
 
 package(transitive_visibility = "//infra:transitive_consumers")
 
+al_vault_auth(
+    name = "auth",
+    approle = "src_infra_threexui",
+    extends = "//tools/al:auth",
+)
+
+infra_ansible_keys(
+    name = "ansible_keys",
+    labels = {"ansible": "1"},
+    vault_ssh = {
+        "backend": "ssh/clients/sign/admins",
+        "ttl": 7200,
+    },
+)
+
+vault_tf_backend(
+    name = "tf_backend_tf_setup",
+    labels = {
+        "dns": "1",
+        "tf": "setup",
+    },
+    path = "alwaldend.com/vault1/approles/src_infra_threexui/tf_backend/tf_setup",
+)
+
+al_plugin_call(
+    name = "pve_login",
+    labels = {"tf": "setup"},
+)
+
+infra_yc_auth(
+    name = "yc_auth",
+    labels = {
+        "dns": "1",
+        "tf": "setup",
+    },
+    path = "yandex.cloud/org1/folders/src-infra-threexui/account_iam_key",
+)
+
+infra_yc_account(
+    name = "yc_account",
+    labels = {"tf": "setup"},
+    path = "yandex.cloud/org1/folders/src-infra-threexui/account",
+)
+
+vault_tf_backend(
+    name = "tf_backend_tf",
+    extends = ":tf_backend_tf_setup",
+    labels = {"tf": "main"},
+    path = "alwaldend.com/vault1/approles/src_infra_threexui/tf_backend/tf",
+)
+
+al_injector_call(
+    name = "mullvad_keys",
+    labels = {"tf": "main"},
+    res_env = {"TF_VAR_mullvad_keys": {
+        "value": '{{ to_json_indent .Last.Data.keys "" "    " }}',
+        "deps": ["mullvad_keys"],
+    }},
+    res_kv = {
+        "mullvad_keys": {
+            "mount": "secrets",
+            "path": "alwaldend.com/vault1/approles/src_infra_threexui/mullvad_keys",
+        },
+    },
+)
+
+al_injector_call(
+    name = "http_proxies",
+    labels = {"tf": "main"},
+    res_env = {"TF_VAR_http_proxies": {
+        "value": "{{ .Last.Data.http_proxies | to_json }}",
+        "deps": ["http_proxies"],
+    }},
+    res_kv = {
+        "http_proxies": {
+            "mount": "secrets",
+            "path": "alwaldend.com/vault1/approles/src_infra_threexui/http_proxies",
+        },
+    },
+)
+
+al_injector_call(
+    name = "control_plane",
+    labels = {
+        "ansible": "1",
+        "tf": "main",
+    },
+    res_env = {
+        "XUI_USERNAME": {
+            "value": "{{ .Last.Data.xui_username }}",
+            "deps": ["control_plane"],
+        },
+        "XUI_PASSWORD": {
+            "value": "{{ .Last.Data.xui_password }}",
+            "deps": ["control_plane"],
+        },
+        "TF_VAR_xui_url": {
+            "value": "{{ .Last.Data.xui_url }}",
+            "deps": ["control_plane"],
+        },
+        "TF_VAR_xui_username": {
+            "value": "{{ .Last.Data.xui_username }}",
+            "deps": ["control_plane"],
+        },
+        "TF_VAR_xui_password": {
+            "value": "{{ .Last.Data.xui_password }}",
+            "deps": ["control_plane"],
+        },
+    },
+    res_kv = {
+        "control_plane": {
+            "mount": "secrets",
+            "path": "alwaldend.com/vault1/approles/src_infra_threexui/control_panel",
+        },
+    },
+)
+
+al_injector_call(
+    name = "nodes",
+    labels = {
+        "ansible": "1",
+        "sub": "1",
+        "tf": "main",
+    },
+    res_env = {
+        "NODE_XUI_USERNAME": {
+            "value": "{{ .Last.Data.xui_username }}",
+            "deps": ["nodes"],
+        },
+        "TF_VAR_node_xui_username": {
+            "value": "{{ .Last.Data.xui_username }}",
+            "deps": ["nodes"],
+        },
+        "NODE_XUI_PASSWORD": {
+            "value": "{{ .Last.Data.xui_password }}",
+            "deps": ["nodes"],
+        },
+        "TF_VAR_node_xui_password": {
+            "value": "{{ .Last.Data.xui_password }}",
+            "deps": ["nodes"],
+        },
+        "NODE_XUI_BASE_PATH": {
+            "value": "{{ .Last.Data.xui_base_path }}",
+            "deps": ["nodes"],
+        },
+        "TF_VAR_node_xui_base_path": {
+            "value": "{{ .Last.Data.xui_base_path }}",
+            "deps": ["nodes"],
+        },
+        "TF_VAR_node_xui_tokens": {
+            "value": "{{ .Last.Data.xui_tokens | to_json }}",
+            "deps": ["nodes"],
+        },
+    },
+    res_kv = {"nodes": {
+        "mount": "secrets",
+        "path": "alwaldend.com/vault1/approles/src_infra_threexui/nodes",
+    }},
+)
+
+infra_pve_provider_inputs(
+    name = "pve_provider_inputs",
+    labels = {"dns": "1"},
+)
+
+infra_dns(
+    name = "dns_providers",
+    dc1 = True,
+    labels = {
+        "dns": "1",
+        "tf": "setup",
+    },
+)
+
 al_config(
     name = "al",
-    srcs = ["al.lua"],
+    configs = [
+        ":ansible_keys",
+        ":auth",
+        ":control_plane",
+        ":dns_providers",
+        ":http_proxies",
+        ":mullvad_keys",
+        ":nodes",
+        ":pve_login",
+        ":pve_provider_inputs",
+        ":tf_backend_tf",
+        ":tf_backend_tf_setup",
+        ":yc_account",
+        ":yc_auth",
+        "//infra:al",
+    ],
     visibility = ["//infra/threexui:__subpackages__"],
-    deps = ["//infra:al"],
 )
 
 filegroup(
@@ -27,12 +217,8 @@ al_binary_run_map(
     configs = [":al"],
     data = [
         "//infra/threexui/sub",
-        "//tools/vault/injector",
     ],
-    run_args = [
-        "--plugin_label",
-        "sub",
-    ],
+    plugin_labels = {"sub": ""},
 )
 
 vault_binary_map(

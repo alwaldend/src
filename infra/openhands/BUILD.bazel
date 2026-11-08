@@ -1,14 +1,97 @@
-load("@rules_al//:defs.bzl", "al_config")
+load("@rules_al//:defs.bzl", "al_config", "al_injector_call", "al_vault_auth")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//infra:al_config.bzl", "infra_ansible_keys", "infra_dns", "infra_xo_login")
 load("//tools/vault:defs.bzl", "vault_binary_map")
+load("//tools/vault/tf_backend:defs.bzl", "vault_tf_backend")
 
 package(transitive_visibility = "//infra:transitive_consumers")
 
+infra_xo_login(
+    name = "xo_login",
+    labels = {"xoa_login": "1"},
+    oidc_provider = "src_infra_xcp_ng_provider",
+)
+
+al_vault_auth(
+    name = "auth",
+    approle = "src_infra_openhands",
+    extends = "//tools/al:auth",
+)
+
+infra_ansible_keys(
+    name = "ansible_keys",
+    labels = {"ansible": "1"},
+    vault_ssh = {
+        "backend": "ssh/clients/sign/admins",
+        "ttl": 7200,
+    },
+)
+
+vault_tf_backend(
+    name = "tf_backend",
+    labels = {
+        "dns": "1",
+        "tf": "setup",
+    },
+    path = "alwaldend.com/vault1/approles/src_infra_openhands/tf_backend",
+)
+
+al_injector_call(
+    name = "agent_server",
+    labels = {"ansible": "1"},
+    res_env = {
+        "OPENHANDS_SESSION_API_KEY": {
+            "value": "{{ .Last.Data.session_api_key }}",
+            "deps": ["agent_server"],
+        },
+        "OPENHANDS_SECRET_KEY": {
+            "value": "{{ .Last.Data.secret_key }}",
+            "deps": ["agent_server"],
+        },
+    },
+    res_kv = {
+        "agent_server": {
+            "mount": "secrets",
+            "path": "alwaldend.com/vault1/approles/src_infra_openhands/agent_server",
+        },
+    },
+)
+
+al_injector_call(
+    name = "automation",
+    labels = {"ansible": "1"},
+    res_env = {"OPENHANDS_AUTOMATION_KV_SECRET": {
+        "value": "{{ .Last.Data.kv_secret }}",
+        "deps": ["automation"],
+    }},
+    res_kv = {"automation": {
+        "mount": "secrets",
+        "path": "alwaldend.com/vault1/approles/src_infra_openhands/automation",
+    }},
+)
+
+infra_dns(
+    name = "dns_providers",
+    dc1 = True,
+    labels = {
+        "dns": "1",
+        "tf": "setup",
+    },
+)
+
 al_config(
     name = "al",
-    srcs = ["al.lua"],
+    configs = [
+        ":agent_server",
+        ":ansible_keys",
+        ":auth",
+        ":automation",
+        ":dns_providers",
+        ":tf_backend",
+        ":xo_login",
+        "//infra:al",
+    ],
     visibility = ["//infra/openhands:__subpackages__"],
-    deps = ["//infra:al"],
 )
 
 filegroup(

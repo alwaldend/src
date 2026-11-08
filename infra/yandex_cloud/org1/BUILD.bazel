@@ -1,6 +1,8 @@
-load("@rules_al//:defs.bzl", "al_config")
+load("@rules_al//:defs.bzl", "al_config", "al_vault_auth")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//infra:al_config.bzl", "infra_yc_account", "infra_yc_auth", "infra_yc_bucket_auth")
 load("//tools/vault:defs.bzl", "vault_binary_map")
+load("//tools/vault/tf_backend:defs.bzl", "vault_tf_backend")
 
 package(transitive_visibility = "//infra:transitive_consumers")
 
@@ -19,9 +21,45 @@ vault_binary_map(
     configs = [":al"],
 )
 
+al_vault_auth(
+    name = "auth",
+    approle = "src_infra_yandex_cloud_org1",
+    extends = "//tools/al:auth",
+)
+
+vault_tf_backend(
+    name = "tf_backend",
+    labels = {"tf": "1"},
+    path = "alwaldend.com/vault1/approles/src_infra_yandex_cloud_org1/tf_backend/main",
+)
+
+infra_yc_auth(
+    name = "yc_auth",
+    labels = {"tf": "1"},
+    path = "yandex.cloud/org1/folders/src-infra-yandex-cloud-org1/account_iam_key",
+)
+
+infra_yc_account(
+    name = "yc_account",
+    labels = {"tf": "1"},
+    path = "yandex.cloud/org1/folders/src-infra-yandex-cloud-org1/account",
+)
+
+infra_yc_bucket_auth(
+    name = "yc_bucket_auth",
+    labels = {"tf": "1"},
+    path = "yandex.cloud/org1/folders/src-infra-yandex-cloud-org1/account_static_key",
+)
+
 al_config(
     name = "al",
-    srcs = ["al.lua"],
+    configs = [
+        ":auth",
+        ":tf_backend",
+        ":yc_account",
+        ":yc_auth",
+        ":yc_bucket_auth",
+        "//infra:al",
+    ],
     visibility = ["//infra/yandex_cloud/org1:__subpackages__"],
-    deps = ["//infra:al"],
 )

@@ -43,12 +43,11 @@ go_deps = use_extension("@gazelle//:extensions.bzl", "go_deps")
 go_deps.from_file(go_mod = "//:go.mod")
 use_repo(
     go_deps,
-    "com_github_go_git_go_billy_v5",
     "com_github_go_git_go_git_v5",
+    "com_github_google_uuid",
     "com_github_hashicorp_vault_api",
     "com_github_hashicorp_vault_api_auth_approle",
     "com_github_spf13_cobra",
-    "com_github_yuin_gopher_lua",
     "io_k8s_sigs_yaml",
     "org_golang_google_grpc",
     "org_golang_google_protobuf",

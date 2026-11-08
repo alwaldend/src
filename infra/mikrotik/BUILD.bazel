@@ -1,14 +1,65 @@
-load("@rules_al//:defs.bzl", "al_config")
+load("@rules_al//:defs.bzl", "al_config", "al_injector_call", "al_vault_auth")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//infra:al_config.bzl", "infra_dns", "infra_mikrotik")
 load("//tools/vault:defs.bzl", "vault_binary_map")
+load("//tools/vault/tf_backend:defs.bzl", "vault_tf_backend")
 
 package(transitive_visibility = "//infra:transitive_consumers")
 
+al_vault_auth(
+    name = "auth",
+    approle = "src_infra_mikrotik",
+    extends = "//tools/al:auth",
+)
+
+vault_tf_backend(
+    name = "tf_backend",
+    labels = {"tf": "main"},
+    path = "alwaldend.com/vault1/approles/src_infra_mikrotik/tf_backend/tf",
+)
+
+infra_dns(
+    name = "dns_providers",
+    dc1 = True,
+    labels = {"tf": "main"},
+)
+
+vault_tf_backend(
+    name = "accounts_backend",
+    extends = ":tf_backend",
+    labels = {"tf": "accounts"},
+    path = "alwaldend.com/vault1/approles/src_infra_mikrotik/tf_backend/accounts",
+)
+
+infra_mikrotik(
+    name = "accounts_routeros",
+    host = "https://router1.dc1.alwaldend.com",
+    labels = {"tf": "accounts"},
+    path = "alwaldend.com/vault1/approles/src_infra_mikrotik/routeros_admin",
+    resource_name = "accounts_routeros",
+)
+
+al_injector_call(
+    name = "accounts_vault_env",
+    labels = {"tf": "accounts"},
+    res_vault_env = {"accounts_vault_env": {
+        "auth": "default",
+        "conn": "default",
+    }},
+)
+
 al_config(
     name = "al",
-    srcs = ["al.lua"],
+    configs = [
+        ":accounts_backend",
+        ":accounts_routeros",
+        ":accounts_vault_env",
+        ":auth",
+        ":dns_providers",
+        ":tf_backend",
+        "//infra:al",
+    ],
     visibility = ["//infra/mikrotik:__subpackages__"],
-    deps = ["//infra:al"],
 )
 
 vault_binary_map(

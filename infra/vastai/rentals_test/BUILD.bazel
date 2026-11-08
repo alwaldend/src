@@ -1,6 +1,6 @@
-load("@rules_al//:defs.bzl", "al_binary_run")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("@rules_terraform//terraform:defs.bzl", "terraform_binary_map", "terraform_test_map")
+load("@rules_terraform//terraform:defs.bzl", "terraform_test_map")
+load("//tools/al:al_terraform.bzl", "al_terraform_binary_map")
 
 package(transitive_visibility = "//infra:transitive_consumers")
 
@@ -11,7 +11,7 @@ filegroup(
     visibility = ["//infra/vastai/tf:__pkg__"],
 )
 
-terraform_binary_map(
+al_terraform_binary_map(
     name = "tf",
     args = {
         "plan": ["plan"],
@@ -22,21 +22,13 @@ terraform_binary_map(
         ],
         "state": ["state"],
     },
-    data = glob(["*.tf"]) + [
-        "//tools/vault/injector",
-        "//tools/vault/tf_backend",
-    ],
-    providers = ["//projects/vastai_terraform_provider:provider"],
-    wrapper = al_binary_run,
-    wrapper_kwargs = {
-        "configs": ["//infra/vastai:al"],
-        "run_args": [
-            "--plugin_label",
-            "tf=rental_test",
-            "--plugin_label",
-            "vastai=rentals",
-        ],
+    configs = ["//infra/vastai:al"],
+    data = glob(["*.tf"]),
+    plugin_labels = {
+        "tf": "rental_test",
+        "vastai": "rentals",
     },
+    providers = ["//projects/vastai_terraform_provider:provider"],
 )
 
 terraform_test_map(

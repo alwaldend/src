@@ -32,12 +32,8 @@ al_binary_run_map(
     ],
     data = [
         "//tools/helm",
-        "//tools/vault/injector",
     ] + _DATA,
-    run_args = [
-        "--plugin_label",
-        "k8s",
-    ],
+    plugin_labels = {"k8s": ""},
 )
 
 al_binary_run_map(
@@ -61,12 +57,8 @@ al_binary_run_map(
     ],
     data = [
         "//tools/sops",
-        "//tools/vault/injector",
     ] + _DATA,
-    run_args = [
-        "--plugin_label",
-        "vault_env=env_default_default",
-    ],
+    plugin_labels = {"vault_env": "env_default_default"},
 )
 
 al_binary_run_map(
@@ -81,12 +73,8 @@ al_binary_run_map(
     ],
     data = [
         "//tools/cmctl",
-        "//tools/vault/injector",
     ] + _DATA,
-    run_args = [
-        "--plugin_label",
-        "k8s",
-    ],
+    plugin_labels = {"k8s": ""},
 )
 
 al_binary_run_map(
@@ -101,12 +89,8 @@ al_binary_run_map(
     ],
     data = [
         "//tools/kubectl",
-        "//tools/vault/injector",
     ] + _DATA,
-    run_args = [
-        "--plugin_label",
-        "k8s",
-    ],
+    plugin_labels = {"k8s": ""},
 )
 
 al_binary_run_map(
@@ -121,12 +105,8 @@ al_binary_run_map(
     ],
     data = [
         "//tools/flux_operator",
-        "//tools/vault/injector",
     ] + _DATA,
-    run_args = [
-        "--plugin_label",
-        "k8s",
-    ],
+    plugin_labels = {"k8s": ""},
 )
 
 al_binary_run_map(
@@ -164,12 +144,8 @@ al_binary_run_map(
     ],
     data = [
         "//tools/flux",
-        "//tools/vault/injector",
     ] + _DATA,
-    run_args = [
-        "--plugin_label",
-        "k8s",
-    ],
+    plugin_labels = {"k8s": ""},
 )
 
 vault_binary_map(

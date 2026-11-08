@@ -1,2 +1,3 @@
-// Package command verifies the built AL command and parent-owned Vault injector together.
+// Package command verifies AL and its external injector through generated
+// configuration targets and their transitive runtime inputs.
 package command

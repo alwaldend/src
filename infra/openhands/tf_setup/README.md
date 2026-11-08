@@ -8,7 +8,7 @@ tags:
 
 This package creates Xen Orchestra VMs in the `src_infra_openhands` resource
 set for the three OpenHands components that run off host-bot: Agent Canvas,
-the agent server, and the automation server. `infra/openhands/al.lua`
+the agent server, and the automation server. `infra/openhands/BUILD.bazel`
 authenticates with OpenHands' own Vault AppRole and the packaged XO OIDC login
 plugin. The plugin supplies a temporary XO token and revokes it on shutdown;
 no infrastructure administrator token is loaded. The setup HTTP backend

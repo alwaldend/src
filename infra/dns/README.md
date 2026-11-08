@@ -78,7 +78,7 @@ owner's Terraform DNS module.
 Owner-local roots receive their provider credentials and Vault HTTP state
 backend through the existing AL configuration. The shared module resolves the
 Cloudflare zone by name when no optional zone ID is provided. DNS and ingress
-reuse the RouterOS endpoint declared in the [shared AL configuration](../al_lib.lua),
+reuse the RouterOS endpoint declared in the [shared AL configuration](../al_config.bzl),
 while their separate credentials remain in Vault. Neither integration requires
 adding metadata fields to the existing credential entries.
 Validate their source with the

@@ -1,22 +1,78 @@
-load("@rules_al//:defs.bzl", "al_config")
+load("@rules_al//:defs.bzl", "al_config", "al_injector_call", "al_vault_auth")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//infra:al_config.bzl", "infra_ansible_keys", "infra_dns")
 load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_site_svg")
 load("//tools/mermaid:defs.bzl", "mermaid_svg")
+load("//tools/vault/tf_backend:defs.bzl", "vault_tf_backend")
 
 package(transitive_visibility = "//users:transitive_consumers")
 
+al_vault_auth(
+    name = "auth",
+    approle = "user_simeonwarren",
+    extends = "//tools/al:auth",
+)
+
+infra_ansible_keys(
+    name = "ansible_keys",
+    labels = {"ansible": "1"},
+    vault_ssh = {
+        "backend": "ssh/clients/sign/admins",
+        "ttl": 7200,
+    },
+)
+
+al_injector_call(
+    name = "openhands",
+    labels = {"ansible": "1"},
+    res_env = {"OPENHANDS_SERVER_SECRET_KEY": {
+        "value": "{{ .Last.Data.secret_key }}",
+        "deps": ["openhands"],
+    }},
+    res_kv = {"openhands": {
+        "mount": "secrets",
+        "path": "alwaldend.com/vault1/approles/user_simeonwarren/openhands",
+    }},
+)
+
 al_config(
     name = "al",
-    srcs = ["al.lua"],
+    configs = [
+        ":ansible_keys",
+        ":auth",
+        ":openhands",
+        "//infra:al",
+    ],
     visibility = ["//users/simeonwarren/host_bot:__subpackages__"],
-    deps = ["//infra:al"],
+)
+
+al_vault_auth(
+    name = "dns_al.vault_auth.default",
+    approle = "src_users_simeonwarren_host_bot",
+    extends = "//tools/al:auth",
+)
+
+vault_tf_backend(
+    name = "tf_backend",
+    labels = {"tf": "main"},
+    path = "alwaldend.com/vault1/approles/src_users_simeonwarren_host_bot/tf_backend/tf",
+)
+
+infra_dns(
+    name = "dns_providers",
+    dc1 = True,
+    labels = {"tf": "main"},
 )
 
 al_config(
     name = "dns_al",
-    srcs = ["dns.al.lua"],
+    configs = [
+        ":dns_al.vault_auth.default",
+        ":dns_providers",
+        ":tf_backend",
+        "//infra:al",
+    ],
     visibility = ["//users/simeonwarren/host_bot/tf:__pkg__"],
-    deps = ["//infra:al"],
 )
 
 filegroup(

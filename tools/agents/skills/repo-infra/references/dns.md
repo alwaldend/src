@@ -49,7 +49,7 @@ password for `dc1`. An explicit Cloudflare zone ID is optional; enabled global
 records resolve the zone by name when it is absent or empty, requiring zone-list
 and zone-read access. DNS and ingress share the RouterOS endpoint in the infra
 AL configuration. These defaults require no additional metadata fields in
-existing credential entries. Follow the owning `al.lua` and cutover procedure
+existing credential entries. Follow the owning `BUILD.bazel` and cutover procedure
 for exact references and independent endpoint recovery requirements. Disabled
 DNS management does not bypass credential injection or guarantee that provider
 configuration is unnecessary.

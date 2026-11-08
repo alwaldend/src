@@ -1,6 +1,7 @@
-load("@rules_al//:defs.bzl", "al_binary_run", "al_config")
+load("@rules_al//:defs.bzl", "al_binary_run", "al_config", "al_vault_auth")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_site_svg", "mermaid_site_webp")
+load(":defs.bzl", "infra_security_maintenance_ssh")
 
 package(transitive_visibility = "//infra:transitive_consumers")
 
@@ -18,19 +19,28 @@ al_binary_run(
         "ssh",
     ],
     configs = [":al"],
-    data = ["//tools/vault/injector"],
-    run_args = [
-        "--plugin_label",
-        "maintenance=1",
-    ],
+    plugin_labels = {"maintenance": "1"},
+)
+
+al_vault_auth(
+    name = "auth",
+    approle = "user_simeonwarren",
+    extends = "//tools/al:auth",
+)
+
+infra_security_maintenance_ssh(
+    name = "maintenance_ssh",
+    labels = {"maintenance": "1"},
 )
 
 al_config(
     name = "al",
-    srcs = ["al.lua"],
-    data = ["//data/ssh:ca_servers"],
+    configs = [
+        ":auth",
+        ":maintenance_ssh",
+        "//infra:al",
+    ],
     visibility = ["//infra/security:__subpackages__"],
-    deps = ["//infra:al"],
 )
 
 mermaid_site_svg(

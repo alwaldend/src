@@ -1,6 +1,5 @@
-load("@rules_al//:defs.bzl", "al_binary_run")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("@rules_terraform//terraform:defs.bzl", "terraform_binary_map")
+load("//tools/al:al_terraform.bzl", "al_terraform_binary_map")
 
 package(transitive_visibility = "//users:transitive_consumers")
 
@@ -25,24 +24,16 @@ _CONFIGS = ["//users/simeonwarren:al"]
 _DATA = glob(["*.tf"]) + [
     "//projects/tf_modules/pve_vm_qemu",
     "//users/simeonwarren:dnsconfig",
-    "//tools/vault/tf_backend",
-    "//tools/vault/pve_login",
-    "//tools/vault/injector",
     "//infra/cloud_init:cloud_init",
 ]
 
-terraform_binary_map(
+al_terraform_binary_map(
     name = "tf",
+    configs = _CONFIGS,
     data = _DATA,
-    providers = _PROVIDERS,
-    wrapper = al_binary_run,
-    wrapper_kwargs = {
-        "configs": _CONFIGS,
-        "run_args": [
-            "--plugin_label",
-            "tf",
-            "--plugin_label",
-            "vault_env=default_default",
-        ],
+    plugin_labels = {
+        "tf": "",
+        "vault_env": "default_default",
     },
+    providers = _PROVIDERS,
 )

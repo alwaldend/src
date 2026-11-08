@@ -1,0 +1,55 @@
+load("@rules_al//:defs.bzl", "al_config", "al_injector_call")
+load("//tools/al:al_terraform.bzl", "al_terraform_binary_map", "al_terraform_test_map")
+
+al_injector_call(
+    name = "version_environment",
+    testonly = True,
+    labels = {"fixture": "terraform"},
+    res_env = {"AL_TERRAFORM_FIXTURE": {"value": "selected"}},
+)
+
+al_config(
+    name = "config",
+    testonly = True,
+    configs = [
+        ":version_environment",
+        "@rules_al//plugins/injector:config",
+    ],
+)
+
+al_terraform_binary_map(
+    name = "command",
+    testonly = True,
+    srcs = ["main.tf"],
+    args = {"version": [
+        "--direct",
+        "version",
+    ]},
+    configs = [":config"],
+    plugin_labels = {"fixture": "terraform"},
+    terraform = "//tools/al/test/terraform/cmd/terraform_fixture",
+)
+
+al_terraform_test_map(
+    name = "checks",
+    srcs = ["main.tf"],
+    args = {"version": [
+        "--direct",
+        "version",
+    ]},
+    configs = [":config"],
+    plugin_labels = {"fixture": "terraform"},
+    terraform = "//tools/al/test/terraform/cmd/terraform_fixture",
+)
+
+al_terraform_test_map(
+    name = "pinned_checks",
+    srcs = ["main.tf"],
+    args = {"version": [
+        "--direct",
+        "version",
+        "-json",
+    ]},
+    configs = [":config"],
+    plugin_labels = {"fixture": ""},
+)

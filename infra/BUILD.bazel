@@ -38,9 +38,8 @@ pkg_files(
 
 al_config(
     name = "al",
-    data = ["al_lib.lua"],
+    configs = ["//tools/al:config"],
     visibility = ["//:__subpackages__"],
-    deps = ["//tools/al:config"],
 )
 
 docs_filegroup(
@@ -51,4 +50,9 @@ docs_filegroup(
         include = ["*"],
         allow_empty = True,
     ),
+)
+
+exports_files(
+    ["al_config.bzl"],
+    visibility = ["//:__subpackages__"],
 )

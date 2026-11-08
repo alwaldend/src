@@ -1,5 +1,6 @@
-load("@rules_al//:defs.bzl", "al_config")
+load("@rules_al//:defs.bzl", "al_config", "al_vault_auth")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//infra:al_config.bzl", "infra_ansible_keys")
 
 package(transitive_visibility = "//infra:transitive_consumers")
 
@@ -9,11 +10,29 @@ filegroup(
     visibility = ["//infra:__subpackages__"],
 )
 
+al_vault_auth(
+    name = "auth",
+    approle = "src_infra_local_inference",
+    extends = "//tools/al:auth",
+)
+
+infra_ansible_keys(
+    name = "ansible_keys",
+    labels = {"ansible": "1"},
+    vault_ssh = {
+        "backend": "ssh/clients/sign/admins",
+        "ttl": 7200,
+    },
+)
+
 al_config(
     name = "al",
-    srcs = ["al.lua"],
+    configs = [
+        ":ansible_keys",
+        ":auth",
+        "//infra:al",
+    ],
     visibility = ["//infra/local_inference:__subpackages__"],
-    deps = ["//infra:al"],
 )
 
 docs_filegroup(

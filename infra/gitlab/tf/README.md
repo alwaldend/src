@@ -21,7 +21,7 @@ branches. They have no ongoing synchronization. GitLab forks retain their
 upstream fork relationship and target upstream when opening merge requests.
 The catalog owns destination names and upstream identities.
 
-[AL configuration](../al.lua) authenticates with the
+[AL configuration](../BUILD.bazel) authenticates with the
 [`src_infra_gitlab` AppRole](../../vault/tf/approles/src_infra_gitlab/main.tf),
 injects the `gitlab_token` field as `GITLAB_TOKEN`, and supplies the existing
 [Vault HTTP state backend](../../../tools/agents/skills/repo-infra/references/flow.md).

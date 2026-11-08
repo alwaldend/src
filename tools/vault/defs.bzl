@@ -3,21 +3,19 @@ load("@rules_al//:defs.bzl", "al_binary_run")
 def vault_binary(
         args = [],
         run_args = [],
+        plugin_labels = {},
         data = [],
         vault_env = "default_default",
         vault = "//tools/vault",
-        vault_injector = "//tools/vault/injector",
         **kwargs):
     """
     Create a vault runner
     """
     al_binary_run(
-        run_args = [
-            "--plugin_label",
-            "vault_env={}".format(vault_env),
-        ] + run_args,
+        plugin_labels = dict({"vault_env": vault_env}, **plugin_labels),
+        run_args = run_args,
         args = ["$(rootpath {})".format(vault)] + args,
-        data = data + [vault, vault_injector],
+        data = data + [vault],
         **kwargs
     )
 

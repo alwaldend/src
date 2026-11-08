@@ -1,14 +1,82 @@
-load("@rules_al//:defs.bzl", "al_binary_run", "al_config")
+load("@rules_al//:defs.bzl", "al_binary_run", "al_config", "al_plugin_call", "al_vault_auth")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//infra:al_config.bzl", "infra_ansible_keys", "infra_dns", "infra_xo_login")
 load("//tools/vault:defs.bzl", "vault_binary_map")
+load("//tools/vault/tf_backend:defs.bzl", "vault_tf_backend")
+load(":defs.bzl", "infra_forgejo_config")
 
 package(transitive_visibility = "//infra:transitive_consumers")
 
+infra_xo_login(
+    name = "xo_login",
+    labels = {"xoa_login": "1"},
+    oidc_provider = "src_infra_xcp_ng_provider",
+)
+
+al_vault_auth(
+    name = "auth",
+    approle = "src_infra_dc1_forgejo1",
+    extends = "//tools/al:auth",
+)
+
+infra_ansible_keys(
+    name = "ansible_keys",
+    labels = {"ansible": "1"},
+    vault_ssh = {
+        "backend": "ssh/clients/sign/admins",
+        "ttl": 7200,
+    },
+)
+
+vault_tf_backend(
+    name = "tf_backend_tf_setup",
+    labels = {
+        "dns": "1",
+        "tf": "setup",
+    },
+    path = "alwaldend.com/vault1/approles/src_infra_dc1_forgejo1/tf_backend/tf_setup",
+)
+
+vault_tf_backend(
+    name = "tf_backend_tf",
+    extends = ":tf_backend_tf_setup",
+    labels = {"tf": "main"},
+    path = "alwaldend.com/vault1/approles/src_infra_dc1_forgejo1/tf_backend/tf",
+)
+
+al_plugin_call(
+    name = "forgejo_login",
+    labels = {"tf": "main"},
+)
+
+infra_forgejo_config(
+    name = "config",
+    labels = {"ansible": "1"},
+)
+
+infra_dns(
+    name = "dns_providers",
+    dc1 = True,
+    labels = {
+        "dns": "1",
+        "tf": "setup",
+    },
+)
+
 al_config(
     name = "al",
-    srcs = ["al.lua"],
+    configs = [
+        ":ansible_keys",
+        ":auth",
+        ":config",
+        ":dns_providers",
+        ":forgejo_login",
+        ":tf_backend_tf",
+        ":tf_backend_tf_setup",
+        ":xo_login",
+        "//infra:al",
+    ],
     visibility = ["//infra/forgejo:__subpackages__"],
-    deps = ["//infra:al"],
 )
 
 filegroup(
@@ -30,12 +98,8 @@ al_binary_run(
     configs = [":al"],
     data = [
         "//tools/forgejo",
-        "//tools/vault/injector",
     ],
-    run_args = [
-        "--plugin_label",
-        "forgejo",
-    ],
+    plugin_labels = {"forgejo": ""},
 )
 
 docs_filegroup(

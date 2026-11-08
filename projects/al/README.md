@@ -33,8 +33,8 @@ live in `pkg/`. CLI entry points use the same owning implementations as Bazel
 execution tools. Credential plugins start through `al run`; ordinary lifecycle
 inspection and artifact generation do not start them.
 
-AL's public Bazel API is `@rules_al//:defs.bzl`, including `al_config`, AL run
-wrappers, release packaging rules, and their providers. The module supplies its
+AL's public Bazel API is `@rules_al//:defs.bzl`, including composable configuration targets, `al_config` aggregation and small
+dictionary inputs, AL run wrappers, release packaging rules, and their providers. The module supplies its
 own AL execution toolchain. Existing pinned dependencies are declared locally.
 
 From this repository's root, build the executable with
@@ -399,3 +399,11 @@ serialization, staging, and failure boundaries. AL has no synchronization comman
 The manual `//infra/download/test/sync:sync_test` fixture uses real loopback SSH,
 rsync, and an isolated mount namespace to exercise AL publication and the packaged
 Ansible mirror. Its receipt records hashes, permissions, links, and failure cases.
+
+## Plugins
+
+The external [injector](plugins/injector/README.md) is owned and built by AL at
+`@rules_al//plugins/injector`. It evaluates named `args.res` resource dictionaries
+and supplies environment values and files for the selected command. Its Vault
+resources are implemented by that external plugin. See the
+[configuration API](rules/README.md).

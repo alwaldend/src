@@ -21,12 +21,38 @@ description: Build, test, query, and maintain targets in this Bazel monorepo. Us
 ## Edit targets
 
 - Keep Starlark formatted with buildifier conventions.
+- Keep short, single-use configuration in BUILD.bazel, including small
+  dictionaries and direct calls to existing macros. Extract a local defs.bzl
+  only when it provides significant reuse or makes complex construction logic,
+  resource graphs, long templates or bulky settings substantially easier to
+  read. Do not add a single-use wrapper merely to bind a few fixed attributes
+  to an existing rule or macro. Put genuinely common patterns in reusable
+  namespaced target macros with their owner. Compose small targets instead of
+  hiding a whole large config dictionary behind a single macro.
+- For AL configuration, combine small targets through configs. Declare intended
+  overrides with per-target extends relationships, including component auth
+  extending //tools/al:auth. Aggregate list order does not select overrides;
+  let the formatter sort references. Ordered resource dependency lists retain
+  their runtime meaning. Use plugin_labels dictionaries for call selection;
+  wrappers own CLI encoding and run_args is reserved for other AL options.
+  Prefer al_injector_call with named `res_<type>` maps;
+  keep structured settings and explicit deps/Vault metadata in each entry.
+  Generic calls default call and plugin names to the target name; override
+  config_name/plugin only when needed. Injector calls select injector directly.
+- Namespace public Starlark rules, macros, and configuration constructors with
+  their owning component prefix: `infra_dns`, `al_terraform_binary_map`, and
+  `vault_tf_backend`, for example. Providers use the corresponding CamelCase
+  namespace, such as `AlConfigInfo`. Apply this convention when creating or
+  renaming an API and update its callers.
 - Prefer repository macros under `tools/` and `@rules_al//:defs.bzl` over raw
   upstream rules. Infrastructure commonly uses generated target maps such as
-  `terraform_binary_map`, `terraform_test_map`, and `vault_binary_map`.
+  `al_terraform_binary_map`, `al_terraform_test_map`, and `vault_binary_map`.
 - For Terraform, use the public rules in
   [`rules_terraform`](../../../../tools/rules_terraform/README.md). Repository
-  consumers explicitly select generic AL wrappers for authentication.
+  consumers use `//tools/al:al_terraform.bzl` for AL integration, passing
+  `configs` and `plugin_labels` directly. Plain offline checks can use the standalone
+  Terraform rules. Reuse `vault_tf_backend` from
+  `//tools/vault/tf_backend:defs.bzl` for backend call targets.
   Provider pins belong to [third_party/terraform](../../../../third_party/terraform/README.md), with selected
   provider labels in rule attributes; do not add source Terraform lockfiles.
 - Keep runtime files in `data`; declaring a file in `srcs` does not necessarily

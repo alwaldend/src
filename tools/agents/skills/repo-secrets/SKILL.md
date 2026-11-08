@@ -1,6 +1,6 @@
 ---
 name: repo-secrets
-description: Safely add, route, rotate, or review secrets and authentication in this repository using Vault, AppRole, the al.lua DSL, injectors, and Bazel wrappers. Use whenever work involves credentials, tokens, private keys, sensitive Terraform values, Ansible secrets, Vault policy, or secret-bearing configuration.
+description: Safely add, route, rotate, or review secrets and authentication in this repository using Vault, AppRole, Bazel configuration targets, injectors, and Bazel wrappers. Use whenever work involves credentials, tokens, private keys, sensitive Terraform values, Ansible secrets, Vault policy, or secret-bearing configuration.
 ---
 
 # Handle Secrets
@@ -24,16 +24,24 @@ description: Safely add, route, rotate, or review secrets and authentication in 
 
 ## Reuse the injection flow
 
-1. Find the nearest component `al.lua` and its parent `al_config` dependency.
-2. Reuse `lib.vault_auth` for AppRole authentication.
-3. Use `lib.plugin_call` with the existing component plugin (`injector`,
-   `tf_backend`, provider login, or another established plugin).
-4. Select calls through labels such as `tf=main`, `tf=setup`, or `ansible=1`.
-5. Ensure the corresponding plugin binary is present in the Bazel target's
-   `data` and its label is present in `run_args`.
+1. Find the nearest component `BUILD.bazel` and its parent `al_config` dependency.
+2. Declare an `al_vault_auth` target whose `extends` selects the shared
+   `//tools/al:auth` target. Compose it with the inherited configuration through
+   `al_config(configs = ...)`; overrides depend on explicit ancestry.
+3. Declare `al_injector_call` targets with named `res_<type>` maps, or small
+   `al_plugin_call` targets and existing namespaced macros for
+   the component plugin (`injector`, `tf_backend`, provider login, or another
+   established plugin). Keep small declarations inline; use local `defs.bzl`
+   only when it provides significant reuse or substantially simplifies complex
+   graphs/templates. Call existing common target macros directly. Generic payloads use `args`. Injector entries use structured settings plus
+   explicit deps/vault_auth/vault_conn metadata; the helper produces `args.res`.
+4. Select calls with `plugin_labels` dictionaries such as `{"tf": "main"}` or
+   `{"ansible": ""}` for presence-only selection.
+5. Register the executable once through an `al_plugin` configuration target;
+   config dependencies propagate its runtime files to consumers.
 6. Inject the minimum values and grant the minimum Vault policy needed.
 
-Follow sibling `al.lua` files exactly for the DSL shape. Keep AppRole names and
+Follow sibling `BUILD.bazel` files exactly for the target shape. Keep AppRole names and
 paths aligned with the component label; do not silently share a broader role.
 
 ## Prevent disclosure while working
@@ -90,7 +98,7 @@ use a real credential as a fixture or run a login merely to test the example.
 
 ## Validate structure
 
-Build or test the narrow Bazel targets that package the changed `al.lua`, Vault
+Build or test the narrow Bazel targets that package the changed `BUILD.bazel`, Vault
 policy, Terraform, or Ansible configuration. Explain when live authentication is
 required and leave the live operation to an authorized operator unless the user
 explicitly requests it and the environment is clearly non-production.

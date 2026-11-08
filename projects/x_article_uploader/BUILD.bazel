@@ -1,4 +1,4 @@
-load("@rules_al//:defs.bzl", "al_binary_run", "al_config")
+load("@rules_al//:defs.bzl", "al_binary_run", "al_config", "al_injector_call", "al_vault_auth")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("//tools/vault:defs.bzl", "vault_binary_map")
 
@@ -13,15 +13,53 @@ package_group(
     ],
 )
 
+al_vault_auth(
+    name = "auth",
+    approle = "src_projects_x_article_uploader",
+    extends = "//tools/al:auth",
+)
+
+al_injector_call(
+    name = "x_api",
+    labels = {"x_api": "1"},
+    res_env = {
+        "X_API_KEY": {
+            "value": "{{ .Last.Data.api_key }}",
+            "deps": ["x_api"],
+        },
+        "X_API_SECRET": {
+            "value": "{{ .Last.Data.api_secret }}",
+            "deps": ["x_api"],
+        },
+        "X_ACCESS_TOKEN": {
+            "value": "{{ .Last.Data.access_token }}",
+            "deps": ["x_api"],
+        },
+        "X_ACCESS_TOKEN_SECRET": {
+            "value": "{{ .Last.Data.access_token_secret }}",
+            "deps": ["x_api"],
+        },
+    },
+    res_kv = {
+        "x_api": {
+            "mount": "secrets",
+            "path": "alwaldend.com/vault1/approles/src_projects_x_article_uploader/oauth1",
+        },
+    },
+)
+
 al_config(
     name = "al",
-    srcs = ["al.lua"],
+    configs = [
+        ":auth",
+        ":x_api",
+        "//infra:al",
+    ],
     visibility = [":x_api_credential_consumers"],
-    deps = ["//infra:al"],
 )
 
 # Runs draft creation with the injected OAuth 1.0a credential. The plugin label
-# selects the injection declared in al.lua; the plugin binary is in data. The
+# selects the injection declared in BUILD.bazel; its config supplies the plugin. The
 # target creates a draft only and never publishes an article.
 al_binary_run(
     name = "draft",
@@ -31,12 +69,8 @@ al_binary_run(
     configs = [":al"],
     data = [
         "//projects/x_article_uploader/cmd/draft",
-        "//tools/vault/injector",
     ],
-    run_args = [
-        "--plugin_label",
-        "x_api=1",
-    ],
+    plugin_labels = {"x_api": "1"},
 )
 
 vault_binary_map(

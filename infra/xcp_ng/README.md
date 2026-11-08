@@ -21,7 +21,7 @@ before Terraform can bind their sets. `resource_set_cpu_limit` defaults to
 32 CPUs per set. Creating a set does not allocate CPUs or storage.
 
 The provider is pinned to `vatesfr/xenorchestra` 0.41.0. The single
-`infra/xcp_ng/al.lua` configuration supplies administrator authentication for
+`infra/xcp_ng/BUILD.bazel` configuration supplies administrator authentication for
 XCP-ng infrastructure operations: its named `xcp_ng` Vault AppRole injects
 `XOA_TOKEN` from key `xoa_token` in
 `secrets/alwaldend.com/vault1/approles/src_infra_xcp_ng/xoa`.

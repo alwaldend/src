@@ -6,7 +6,7 @@ description: Encrypted Yandex Cloud Cascade Lake V100 VM
 This stage owns the VM, network, security group, encrypted SSD, KMS key,
 and the delegated Yandex DNS zone. Providers are pinned
 by the repository's shared Terraform toolchain. The Vault HTTP backend
-and Yandex credentials arrive through this stage's `al.lua`.
+and Yandex credentials arrive through this stage's `BUILD.bazel`.
 
 The component AppRole is owned by `infra/vault/tf`. Prepare the Yandex folder
 and service-account credentials through `infra/yandex_cloud/org1/tf` after

@@ -21,11 +21,13 @@ each resource individually.
 
 Terraform packages declare `.tf` files and configuration inputs in `data`,
 select provider labels through `providers`, and pass one or more `al_config`
-labels through the generic AL wrapper's `wrapper_kwargs`. The
+labels through the `configs` attribute of the repository's `al_terraform_*`
+maps from `//tools/al:al_terraform.bzl`; pass selection labels in `plugin_labels`. The
 [reusable Terraform rules](../../../../../tools/rules_terraform/README.md) own
-`terraform_binary_map` commands and `terraform_test_map` tests. Select
-`al_binary_run` or `al_binary_run_test` as their optional `wrapper` when the
-invocation needs AL configuration. Provider pins belong to
+underlying command and test execution. Plain offline checks can use its maps
+directly. Reuse `vault_tf_backend` from `//tools/vault/tf_backend:defs.bzl`
+when declaring backend calls; component paths and labels remain explicit.
+Provider pins belong to
 [third_party/terraform](../../../../../third_party/terraform/README.md) and are
 shared across roots; source `.terraform.lock.hcl` files are not used.
 

@@ -1,10 +1,11 @@
-load("@rules_al//:defs.bzl", "al_config")
+load("@rules_al//:defs.bzl", "al_config", "al_injector_call", "al_vault_auth")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_pkg//pkg:mappings.bzl", "pkg_attributes", "pkg_files")
 load("@rules_pkg//pkg:zip.bzl", "pkg_zip")
 load("@rules_terraform//terraform:providers.bzl", "terraform_provider")
 load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_site_svg", "mermaid_site_webp")
 load("//tools/vault:defs.bzl", "vault_binary_map")
+load("//tools/vault/tf_backend:defs.bzl", "vault_tf_backend")
 
 package(transitive_visibility = "//projects:transitive_consumers")
 
@@ -43,11 +44,42 @@ package_group(
     ],
 )
 
+al_vault_auth(
+    name = "auth",
+    approle = "src_projects_vastai_terraform_provider",
+    extends = "//tools/al:auth",
+)
+
+vault_tf_backend(
+    name = "tf_backend_test",
+    labels = {"tf": "test"},
+    path = "alwaldend.com/vault1/approles/src_projects_vastai_terraform_provider/tf_backend/test",
+)
+
+al_injector_call(
+    name = "vastai",
+    labels = {"vastai": "1"},
+    res_env = {"VAST_API_KEY": {
+        "value": "{{ .Last.Data.api_key }}",
+        "deps": ["vastai"],
+    }},
+    res_kv = {
+        "vastai": {
+            "mount": "secrets",
+            "path": "alwaldend.com/vault1/approles/src_projects_vastai_terraform_provider/vastai",
+        },
+    },
+)
+
 al_config(
     name = "al",
-    srcs = ["al.lua"],
+    configs = [
+        ":auth",
+        ":tf_backend_test",
+        ":vastai",
+        "//infra:al",
+    ],
     visibility = ["//projects/vastai_terraform_provider:__subpackages__"],
-    deps = ["//infra:al"],
 )
 
 vault_binary_map(
