@@ -5,6 +5,31 @@ shared web service while preserving failure without a partial executable plan.
 
 ## ADDED Requirements
 
+### Requirement: Independently buildable archive-script protocol
+
+The archive-script protobuf package SHALL declare an unversioned typed gRPC
+contract with unary source-reference submission, job/account-bound status lookup,
+cancellation, and deletion. Requests SHALL contain a source name and opaque
+provider-specific archive key, with no archive or normalized inventory payload.
+Requests SHALL contain generic Lua source and a fixed evaluation time. Status SHALL
+retain operation/account/time/source bindings independently of script-controlled
+result contents. Success SHALL return a typed Plan containing ordered operations
+with exactly one payload per operation. Payload messages SHALL represent post
+deletion, unrepost, unlike, unfollow, post creation/read and profile-description
+updates. Cleanup explanations SHALL occupy a separate optional typed report.
+The result SHALL contain no JSON field, arbitrary parameter map, opaque payload or
+compatibility fallback. Failure codes and lifecycle metadata SHALL remain typed.
+The consuming backend SHALL own supported executors and authorization; a typed
+operation plan SHALL grant no mutation authority.
+The package SHALL generate compilable Go and gRPC bindings independently of
+the worker executable and backend client. Schema declarations SHALL grant no
+credential or mutation authority.
+
+#### Scenario: Build transport definitions without a worker implementation
+
+- **WHEN** the protocol and its Go/gRPC binding targets are built
+- **THEN** code generation and compilation succeed, exposing unary submit/get/cancel/delete service methods without requiring a runtime worker implementation
+
 ### Requirement: Bounded untrusted inputs and work
 
 The service SHALL enforce configurable limits before and during parsing and

@@ -23,6 +23,18 @@ supported archive layouts without claiming complete history or graph coverage.
 
 ### One backend and resource-limited workers on one VM
 
+The generic archive-script contract is maintained in `api/workerpb/worker.proto`, with
+Bazel-generated protobuf and gRPC Go bindings. Submit one bounded unary request
+with Lua source, a fixed time, expected account, source name and opaque provider-specific archive key; workers fetch archives
+directly rather than accepting payload streams. Retrieve status/results by the
+account-bound job ID through submit/get/cancel/delete RPCs. Source providers own
+key semantics, allowing future S3 support without changing job submissions. Success
+returns a typed operation plan, with trusted account/time/source
+bindings in the status envelope. Operation schemas, validation and X execution
+are constrained by declared operation payloads; authorization and execution belong
+to the backend. Cleanup explanations occupy a separate optional typed report. Protocol declarations
+are delivered separately from executable worker and backend-client implementation.
+
 Use chi for explicit HTTP routes and standard net/http middleware. The current
 private interface launches through `server serve`; its local-authority and
 capability checks precede routing, including unmatched paths and methods.

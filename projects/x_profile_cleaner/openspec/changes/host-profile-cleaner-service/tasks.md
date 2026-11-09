@@ -37,6 +37,8 @@
 
 ## 6. Isolated policy execution and admission
 
+- [x] 6.0a Deliver the asynchronous source-reference archive-script protobuf contract with typed operation results, optional cleanup reports and trusted account/time/source bindings and generated Go/gRPC bindings independently of runtime implementation; verify schema compilation and inspect the generated service descriptor.
+
 - [ ] 6.1 Add fixed worker executable/IPC contracts for archive parsing and policy evaluation, excluding credentials and validating returned data in the backend; verify malformed or oversized worker output cannot publish a plan.
 - [ ] 6.2 Package systemd worker units with separate cgroup OOM behavior, memory/CPU/task/runtime restrictions, a sanitized environment, and no network/general host-file access; verify real resource exhaustion in a disposable VM leaves backend login/status responsive.
 - [ ] 6.3 Implement policy source/rule/identifier/callback/graph/output bounds and cancellable evaluation over one cached snapshot; verify infinite loops, allocation growth, and excessive traversal fail without partial executable plans.
