@@ -1,0 +1,17 @@
+window.YTD.following.part0 = [
+  {
+    "following": {
+      "accountId": "200"
+    }
+  },
+  {
+    "following": {
+      "accountId": "9007199254740993"
+    }
+  },
+  {
+    "following": {
+      "accountId": "300"
+    }
+  }
+];

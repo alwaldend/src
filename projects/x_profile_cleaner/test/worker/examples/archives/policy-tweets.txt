@@ -1,0 +1,18 @@
+window.YTD.tweets.part0 = [
+  {
+    "tweet": {
+      "id_str": "101",
+      "created_at": "Mon Nov 09 12:00:00 +0000 2020",
+      "full_text": "Old policy post",
+      "favorite_count": "0"
+    }
+  },
+  {
+    "tweet": {
+      "id_str": "102",
+      "created_at": "Sun Nov 08 12:00:00 +0000 2026",
+      "full_text": "Recent policy post",
+      "favorite_count": "0"
+    }
+  }
+];

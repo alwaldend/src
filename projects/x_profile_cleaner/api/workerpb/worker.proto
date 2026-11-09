@@ -1,0 +1,163 @@
+syntax = "proto3";
+
+package x_profile_cleaner.worker;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "git.alwaldend.com/alwaldend/src/projects/x_profile_cleaner/api/workerpb";
+
+// ArchiveWorker evaluates Lua scripts over configured archives without X access.
+service ArchiveWorker {
+  // Submit a source reference; fetching and evaluation continue independently.
+  rpc SubmitEvaluation(Evaluation) returns (SubmitEvaluationResponse);
+  rpc GetEvaluation(EvaluationRef) returns (EvaluationStatus);
+  rpc CancelEvaluation(EvaluationRef) returns (CancelEvaluationResponse);
+  rpc DeleteEvaluation(EvaluationRef) returns (DeleteEvaluationResponse);
+}
+
+// Evaluation selects a configured source object; no archive payload is accepted.
+message Evaluation {
+  string operation_id = 1;
+  string account_id = 2;
+  google.protobuf.Timestamp evaluated_at = 3;
+  string script = 4;
+  string source_name = 5;
+  string archive_key = 6;
+}
+
+// SubmitEvaluationResponse acknowledges the backend-provided operation ID.
+message SubmitEvaluationResponse {
+  string job_id = 1;
+}
+
+// EvaluationRef binds a job lookup or management request to its account.
+message EvaluationRef {
+  string job_id = 1;
+  string account_id = 2;
+}
+
+// EvaluationState describes one transient worker execution.
+enum EvaluationState {
+  EVALUATION_STATE_UNSPECIFIED = 0;
+  RUNNING = 1;
+  SUCCEEDED = 2;
+  FAILED = 3;
+  CANCELLED = 4;
+}
+
+// EvaluationFailure identifies a terminal computation failure without a plan.
+message EvaluationFailure {
+  enum Code {
+    FAILURE_CODE_UNSPECIFIED = 0;
+    INVALID_SCRIPT = 1;
+    DEADLINE_EXCEEDED = 2;
+    OUTPUT_LIMIT = 3;
+    RESULT_CAPACITY = 4;
+    INTERNAL = 5;
+    INVALID_ARCHIVE = 6;
+  }
+  Code code = 1;
+  string message = 2;
+}
+
+// EvaluationStatus exposes only complete, immutable terminal results.
+message EvaluationStatus {
+  string job_id = 1;
+  string account_id = 2;
+  EvaluationState state = 3;
+  Plan plan = 4;
+  EvaluationFailure failure = 5;
+  google.protobuf.Timestamp expires_at = 6;
+  string source_name = 7;
+  string archive_key = 8;
+  google.protobuf.Timestamp evaluated_at = 9;
+}
+
+// CancelEvaluationResponse acknowledges an idempotent cancellation request.
+message CancelEvaluationResponse {}
+
+// DeleteEvaluationResponse acknowledges removal of a terminal result.
+message DeleteEvaluationResponse {}
+
+// Plan is an ordered list of X operations, without execution authority.
+message Plan {
+  repeated Operation operations = 1;
+  // Only the cleanup library supplies this explanatory report.
+  CleanupReport cleanup_report = 2;
+}
+
+// Operation contains exactly one typed payload. Execution belongs to the backend.
+message Operation {
+  oneof action {
+    DeletePost delete_post = 1;
+    Unrepost unrepost = 2;
+    Unlike unlike = 3;
+    Unfollow unfollow = 4;
+    CreatePost create_post = 5;
+    ReadPost read_post = 6;
+    UpdateProfile update_profile = 7;
+  }
+}
+
+// DeletePost selects one owned post for deletion.
+message DeletePost {
+  string post_id = 1;
+  // Selection provenance; never an additional X request parameter.
+  bool forced = 2;
+}
+
+// Unrepost removes the account's repost relationship to the original post.
+message Unrepost {
+  string post_id = 1;
+  bool forced = 2;
+}
+
+// Unlike removes the account's like relationship to a post.
+message Unlike {
+  string post_id = 1;
+}
+
+// Unfollow removes the account's following relationship to another account.
+message Unfollow {
+  string user_id = 1;
+}
+
+// CreatePost proposes a text post.
+message CreatePost {
+  string text = 1;
+}
+
+// ReadPost proposes an explicit backend read of one post.
+message ReadPost {
+  string post_id = 1;
+}
+
+// UpdateProfile changes the account's profile description.
+message UpdateProfile {
+  // Omission is invalid; an explicit empty string requests clearing the description.
+  optional string description = 1;
+}
+
+// CleanupReport preserves the cleanup application's review explanations.
+message CleanupReport {
+  repeated CleanupDecision decisions = 1;
+}
+
+// CleanupDecision explains one loaded own activity without authorizing execution.
+message CleanupDecision {
+  string item_id = 1;
+  string source_id = 2;
+  string kind = 3;
+  google.protobuf.Timestamp created_at = 4;
+  string text = 5;
+  string outcome = 6;
+  repeated CleanupReason reasons = 7;
+}
+
+// CleanupReason identifies a cleanup declaration and optional preservation witness.
+message CleanupReason {
+  int32 rule_id = 1;
+  string name = 2;
+  string operation = 3;
+  string seed_id = 4;
+}

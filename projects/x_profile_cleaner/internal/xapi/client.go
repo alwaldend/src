@@ -11,7 +11,6 @@ import (
 	"net"
 	"net/http"
 	"net/url"
-	"reflect"
 	"strconv"
 	"strings"
 	"sync"
@@ -19,7 +18,9 @@ import (
 
 	sdk "git.alwaldend.com/alwaldend/src/internal/x_sdk/pkg/client"
 	"git.alwaldend.com/alwaldend/src/internal/x_sdk/pkg/oauth1"
+	"git.alwaldend.com/alwaldend/src/projects/x_profile_cleaner/api/workerpb"
 	"git.alwaldend.com/alwaldend/src/projects/x_profile_cleaner/internal/model"
+	"git.alwaldend.com/alwaldend/src/projects/x_profile_cleaner/internal/plan"
 )
 
 // endpointKey carries a stable endpoint bucket independently of individual IDs.
@@ -36,11 +37,11 @@ type responseError struct {
 // Error exposes the same diagnostic as other API failures.
 func (e *responseError) Error() string { return e.message }
 
-// Client adapts the generated SDK to owned cleanup data and explicit mutations.
+// Client exposes only explicit X mutations through the generated SDK.
 type Client struct {
 	// api owns schema-defined requests and response decoding.
 	api *sdk.APIClient
-	// logger reports read progress without response bodies or credentials.
+	// logger reports mutation progress without response bodies or credentials.
 	logger *slog.Logger
 }
 
@@ -111,12 +112,6 @@ func (t *quotaTransport) reserve(ctx context.Context, endpoint string) error {
 		w := t.windows[endpoint]
 		if w == nil {
 			limit := 50
-			switch endpoint {
-			case "identity":
-				limit = 75
-			case "timeline":
-				limit = 900
-			}
 			w = &quotaWindow{limit: limit, remaining: limit, reset: now.Add(15 * time.Minute)}
 			t.windows[endpoint] = w
 		}
@@ -167,6 +162,9 @@ func (t *quotaTransport) observe(endpoint string, header http.Header) {
 // RoundTrip performs one admitted request with a separate 30-second network limit.
 // API errors and unconfirmed mutations are never replayed or exposed as success.
 func (t *quotaTransport) RoundTrip(request *http.Request) (*http.Response, error) {
+	if request.Method != http.MethodDelete {
+		return nil, fmt.Errorf("X read requests are disabled; use an export archive")
+	}
 	endpoint, ok := request.Context().Value(endpointKey{}).(string)
 	if !ok {
 		return nil, fmt.Errorf("request has no endpoint quota identity")
@@ -285,249 +283,71 @@ func (t *quotaTransport) problemSummary(body []byte) (string, bool) {
 	return strings.Join(summaries, "; "), partial
 }
 
-// Account identifies the authenticated user through the generated SDK.
-func (c *Client) Account(ctx context.Context) (string, error) {
-	c.logger.InfoContext(ctx, "Identifying account")
-	result, _, err := c.api.UsersAPI.GetUsersMe(c.requestContext(ctx, "identity")).Execute()
-	if err != nil {
-		return "", fmt.Errorf("identify authenticated account: %w", err)
+// ValidatePlan admits the complete supported executor set before any mutation.
+// Duplicate operations on the same endpoint and target are rejected upfront.
+func ValidatePlan(value *workerpb.Plan) error {
+	if err := plan.Validate(value); err != nil {
+		return fmt.Errorf("validate executable plan: %w", err)
 	}
-	if result == nil || result.Data == nil || len(result.Errors) > 0 || !model.ValidID(result.Data.GetId()) {
-		return "", fmt.Errorf("account lookup returned errors or an invalid identifier")
-	}
-	return result.Data.GetId(), nil
-}
-
-// Snapshot caches mixed timeline pages and normalizes only requested owned kinds.
-type Snapshot struct {
-	// AccountID binds this planning snapshot to the authenticated account.
-	AccountID string
-	// client provides schema-defined, quota-paced read operations.
-	client *Client
-	// posts is populated once from the available paginated timeline.
-	posts []sdk.Post
-	// loaded distinguishes an empty completed timeline from an unread one.
-	loaded bool
-	// window binds cached pages and kind views to the initial discovery bounds.
-	window model.TimeWindow
-	// items caches normalized views independently by activity kind.
-	items map[model.ItemKind][]model.Item
-}
-
-// Inventory identifies the account without fetching timeline data yet.
-func (c *Client) Inventory(ctx context.Context) (*Snapshot, error) {
-	account, err := c.Account(ctx)
-	if err != nil {
-		return nil, fmt.Errorf("collect inventory identity: %w", err)
-	}
-	return &Snapshot{AccountID: account, client: c, items: map[model.ItemKind][]model.Item{}}, nil
-}
-
-// collect requests full 100-record pages once, without per-post HTTP requests.
-func (s *Snapshot) collect(ctx context.Context, window model.TimeWindow) error {
-	if err := window.Validate(); err != nil {
-		return fmt.Errorf("validate discovery window: %w", err)
-	}
-	if s.loaded {
-		if !s.window.Start.Equal(window.Start) || !s.window.End.Equal(window.End) {
-			return fmt.Errorf("cannot change the discovery window of a loaded snapshot")
+	seen := map[string]bool{}
+	for _, operation := range value.Operations {
+		if operation.GetDeletePost() == nil && operation.GetUnrepost() == nil {
+			return fmt.Errorf("unsupported execution operation %q", plan.OperationName(operation))
 		}
-		return nil
-	}
-	seen := map[string]sdk.Post{}
-	tokens := map[string]bool{}
-	token := ""
-	pages := 0
-	s.client.logger.InfoContext(ctx, "Fetching timeline", "account", s.AccountID)
-	for {
-		request := s.client.api.UsersAPI.GetUsersPosts(s.client.requestContext(ctx, "timeline"), s.AccountID).
-			MaxResults(100).PostFields([]string{"id", "text", "author_id", "created_at", "referenced_posts", "edit_history_post_ids", "public_metrics", "note_post", "article", "article_title", "lang", "attachments", "entities"})
-		if !window.Start.IsZero() {
-			request = request.StartTime(window.Start)
+		key := plan.OperationName(operation) + ":" + plan.TargetID(operation)
+		if seen[key] {
+			return fmt.Errorf("duplicate execution operation")
 		}
-		if !window.End.IsZero() {
-			request = request.EndTime(window.End)
-		}
-		if token != "" {
-			request = request.PaginationToken(token)
-		}
-		page, _, err := request.Execute()
-		if err != nil {
-			return fmt.Errorf("collect timeline page %d after %d activities: %w", pages+1, len(s.posts), err)
-		}
-		if page == nil {
-			return fmt.Errorf("timeline page %d returned no response after %d activities; planning aborted", pages+1, len(s.posts))
-		}
-		for _, post := range page.Data {
-			id := post.GetId()
-			if previous, exists := seen[id]; exists {
-				if !reflect.DeepEqual(previous, post) {
-					return fmt.Errorf("activity %s changed between timeline pages", id)
-				}
-				continue
-			}
-			seen[id] = post
-			s.posts = append(s.posts, post)
-		}
-		pages++
-		s.client.logger.InfoContext(ctx, "Fetched timeline page", "page", pages, "records", len(page.Data), "collected", len(s.posts))
-		token = ""
-		if page.Meta != nil {
-			token = page.Meta.GetNextToken()
-		}
-		if token == "" {
-			break
-		}
-		if tokens[token] {
-			return fmt.Errorf("timeline repeated pagination token; planning aborted")
-		}
-		tokens[token] = true
-	}
-	s.loaded = true
-	s.window = window
-	s.client.logger.InfoContext(ctx, "Timeline collected", "pages", pages, "records", len(s.posts))
-	return nil
-}
-
-// Items returns a complete cached kind view; irrelevant kinds are not normalized.
-func (s *Snapshot) Items(ctx context.Context, kind model.ItemKind, window model.TimeWindow) ([]model.Item, error) {
-	if err := s.collect(ctx, window); err != nil {
-		return nil, fmt.Errorf("load %s inventory: %w", kind, err)
-	}
-	if items, ok := s.items[kind]; ok {
-		return items, nil
-	}
-	items := []model.Item{}
-	for _, post := range s.posts {
-		postKind := model.ItemPost
-		for _, ref := range post.ReferencedPosts {
-			if ref.Type == "retweeted" || ref.Type == "reposted" {
-				postKind = model.ItemRepost
-			}
-		}
-		if postKind != kind {
-			continue
-		}
-		if post.AuthorId == nil {
-			return nil, fmt.Errorf("timeline omitted activity author; planning aborted")
-		}
-		if post.GetAuthorId() != s.AccountID || post.Article != nil || post.ArticleTitle != nil {
-			continue
-		}
-		if post.CreatedAt != nil && !window.Contains(*post.CreatedAt) {
-			continue
-		}
-		item, err := normalize(post)
-		if err != nil {
-			return nil, fmt.Errorf("normalize timeline activity: %w", err)
-		}
-		items = append(items, item)
-	}
-	s.items[kind] = items
-	s.client.logger.InfoContext(ctx, "Inventory ready", "kind", kind, "activities", len(items))
-	return items, nil
-}
-
-// normalize maps one owned SDK post without inventing missing metadata.
-func normalize(post sdk.Post) (model.Item, error) {
-	id := post.GetId()
-	if !model.ValidID(id) || !model.ValidID(post.GetAuthorId()) || post.CreatedAt == nil || post.CreatedAt.IsZero() || post.Text == nil {
-		return model.Item{}, fmt.Errorf("invalid or incomplete owned activity %q", id)
-	}
-	item := model.Item{ID: id, AuthorID: post.GetAuthorId(), EditHistoryIDs: post.EditHistoryPostIds, Kind: model.ItemPost, CreatedAt: *post.CreatedAt, Text: post.GetText()}
-	if post.NotePost != nil {
-		item.Text = post.NotePost.Text
-	}
-	item.Language = post.Lang
-	if post.Attachments != nil {
-		item.Attachments = &model.Attachments{MediaKeys: post.Attachments.MediaKeys, PollIDs: post.Attachments.PollIds, MediaSourceIDs: post.Attachments.MediaSourceTweetId}
-	}
-	var entities any = post.Entities
-	if post.NotePost != nil {
-		entities = post.NotePost.Entities.Get()
-	}
-	if err := projectMetadata(entities, &item.Entities); err != nil {
-		return model.Item{}, fmt.Errorf("normalize activity %s entities: %w", id, err)
-	}
-	if post.PublicMetrics != nil {
-		content, err := json.Marshal(post.PublicMetrics)
-		if err != nil {
-			return model.Item{}, fmt.Errorf("encode activity %s metrics: %w", id, err)
-		}
-		if err := json.Unmarshal(content, &item.Metrics); err != nil {
-			return model.Item{}, fmt.Errorf("decode activity %s counters: %w", id, err)
-		}
-	}
-	for _, ref := range post.ReferencedPosts {
-		if !model.ValidID(ref.Id) {
-			return model.Item{}, fmt.Errorf("invalid reference on activity %s", id)
-		}
-		kind := model.ReferenceKind(ref.Type)
-		switch kind {
-		case model.ReferenceQuote, model.ReferenceReply:
-		case model.ReferenceRepost, "reposted":
-			if item.SourceID != "" {
-				return model.Item{}, fmt.Errorf("ambiguous repost source on activity %s", id)
-			}
-			kind = model.ReferenceRepost
-			item.Kind = model.ItemRepost
-			item.SourceID = ref.Id
-		default:
-			return model.Item{}, fmt.Errorf("unknown reference kind %q on activity %s", ref.Type, id)
-		}
-		item.References = append(item.References, model.Reference{ID: ref.Id, Kind: kind})
-	}
-	return item, nil
-}
-
-// projectMetadata maps the SDK's ordinary or long-post entity schema into owned data.
-func projectMetadata(source any, destination any) error {
-	content, err := json.Marshal(source)
-	if err != nil {
-		return fmt.Errorf("encode SDK metadata: %w", err)
-	}
-	if err := json.Unmarshal(content, destination); err != nil {
-		return fmt.Errorf("decode owned metadata: %w", err)
+		seen[key] = true
 	}
 	return nil
 }
 
 // Execute sends exactly one typed SDK mutation for the validated action.
 // A successful response or HTTP 404 confirms completion; other errors propagate.
-func (c *Client) Execute(ctx context.Context, account string, action model.Action) error {
-	if !model.ValidID(account) || !model.ValidID(action.TargetID) {
+func (c *Client) Execute(ctx context.Context, account string, action *workerpb.Operation) error {
+	if !model.ValidID(account) {
 		return fmt.Errorf("invalid execution identifier")
 	}
-	switch action.Kind {
-	case model.ActionDeletePost:
-		result, _, err := c.api.PostsAPI.DeletePosts(c.requestContext(ctx, "delete"), action.TargetID).Execute()
+	if err := ValidatePlan(&workerpb.Plan{Operations: []*workerpb.Operation{action}}); err != nil {
+		return fmt.Errorf("validate execution payload: %w", err)
+	}
+	switch plan.OperationName(action) {
+	case "delete_post":
+		result, _, err := c.api.PostsAPI.DeletePosts(c.requestContext(ctx, "delete"), plan.TargetID(action)).Execute()
 		if err != nil {
-			return c.mutationError(ctx, action, err)
+			if failure := c.mutationError(ctx, action, err); failure != nil {
+				return fmt.Errorf("perform X mutation: %w", failure)
+			}
+			return nil
 		}
 		if result == nil || result.Data == nil || !result.Data.Deleted || len(result.Errors) > 0 {
 			return fmt.Errorf("post deletion returned errors or lacked confirmation")
 		}
-	case model.ActionUnrepost:
-		result, _, err := c.api.UsersAPI.UnrepostPost(c.requestContext(ctx, "unrepost"), account, action.TargetID).Execute()
+	case "unrepost":
+		result, _, err := c.api.UsersAPI.UnrepostPost(c.requestContext(ctx, "unrepost"), account, plan.TargetID(action)).Execute()
 		if err != nil {
-			return c.mutationError(ctx, action, err)
+			if failure := c.mutationError(ctx, action, err); failure != nil {
+				return fmt.Errorf("perform X mutation: %w", failure)
+			}
+			return nil
 		}
 		if result == nil || result.Data == nil || result.Data.Retweeted || len(result.Errors) > 0 {
 			return fmt.Errorf("repost removal returned errors or lacked confirmation")
 		}
 	default:
-		return fmt.Errorf("unsupported action %q", action.Kind)
+		return fmt.Errorf("unsupported action %q", plan.OperationName(action))
 	}
 	return nil
 }
 
 // mutationError treats only an HTTP 404 from an explicit mutation as already absent.
 // Authentication, quota, transport, and server failures remain errors for the caller.
-func (c *Client) mutationError(ctx context.Context, action model.Action, err error) error {
+func (c *Client) mutationError(ctx context.Context, action *workerpb.Operation, err error) error {
 	var response *responseError
 	if errors.As(err, &response) && response.status == http.StatusNotFound {
-		c.logger.InfoContext(ctx, "Skipping target already absent", "kind", action.Kind, "target", action.TargetID)
+		c.logger.InfoContext(ctx, "Skipping target already absent", "kind", plan.OperationName(action), "target", plan.TargetID(action))
 		return nil
 	}
-	return fmt.Errorf("execute %s for %s: %w", action.Kind, action.TargetID, err)
+	return fmt.Errorf("execute %s for %s: %w", plan.OperationName(action), plan.TargetID(action), err)
 }

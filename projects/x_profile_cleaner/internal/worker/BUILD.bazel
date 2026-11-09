@@ -1,0 +1,29 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+package(transitive_visibility = "//projects:transitive_consumers")
+
+go_library(
+    name = "worker",
+    srcs = [
+        "codec.go",
+        "doc.go",
+        "jobs.go",
+        "source.go",
+        "worker.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/x_profile_cleaner/internal/worker",
+    visibility = ["//projects/x_profile_cleaner:__subpackages__"],
+    deps = [
+        "//projects/x_profile_cleaner/api/workerpb",
+        "//projects/x_profile_cleaner/internal/archive",
+        "//projects/x_profile_cleaner/internal/model",
+        "//projects/x_profile_cleaner/internal/plan",
+        "//projects/x_profile_cleaner/internal/script",
+        "@org_golang_google_grpc//:grpc",
+        "@org_golang_google_grpc//codes",
+        "@org_golang_google_grpc//credentials/insecure",
+        "@org_golang_google_grpc//status",
+        "@org_golang_google_protobuf//proto",
+        "@org_golang_google_protobuf//types/known/timestamppb",
+    ],
+)

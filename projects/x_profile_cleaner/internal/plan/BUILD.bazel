@@ -1,0 +1,21 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+package(transitive_visibility = "//projects:transitive_consumers")
+
+go_library(
+    name = "plan",
+    srcs = [
+        "doc.go",
+        "document.go",
+        "plan.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/x_profile_cleaner/internal/plan",
+    visibility = ["//projects/x_profile_cleaner:__subpackages__"],
+    deps = [
+        "//projects/x_profile_cleaner/api/workerpb",
+        "//projects/x_profile_cleaner/internal/model",
+        "@org_golang_google_protobuf//encoding/protojson",
+        "@org_golang_google_protobuf//proto",
+        "@org_golang_google_protobuf//reflect/protoreflect",
+    ],
+)

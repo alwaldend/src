@@ -12,8 +12,11 @@ go_library(
     visibility = ["//projects/x_profile_cleaner:__subpackages__"],
     deps = [
         "//internal/x_sdk/pkg/oauth1",
+        "//projects/x_profile_cleaner/api/workerpb",
+        "//projects/x_profile_cleaner/internal/cleanup",
         "//projects/x_profile_cleaner/internal/model",
-        "//projects/x_profile_cleaner/internal/policy",
+        "//projects/x_profile_cleaner/internal/plan",
+        "//projects/x_profile_cleaner/internal/worker",
         "//projects/x_profile_cleaner/internal/xapi",
     ],
 )

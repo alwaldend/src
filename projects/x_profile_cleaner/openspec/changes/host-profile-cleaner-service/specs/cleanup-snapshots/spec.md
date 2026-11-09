@@ -1,16 +1,17 @@
 ## Purpose
 
-Reuse account-owned discovery data for local policy evaluation and accept bounded
-X archive imports as an alternative to spending credits on timeline collection.
+Use bounded standard X export archives as the only inventory for policy evaluation.
+Workers retrieve archives directly from configured sources without payload uploads.
 
 ## ADDED Requirements
 
 ### Requirement: Explicit discovery and zero-request reevaluation
 
-Refresh from X, Import X archive, and Evaluate policy SHALL be distinct actions.
+Archive replacement and policy evaluation SHALL be distinct actions. The cleaner
+SHALL NOT provide live timeline acquisition or refresh.
 Snapshots SHALL be immutable, persisted per account, and reusable within retention
 and validity limits. Evaluation SHALL use cached data without X API calls, including
-identity calls. Missing data SHALL require an explicit refresh or replacement import.
+identity calls. Missing data SHALL require an explicit replacement import.
 
 #### Scenario: Change a policy repeatedly
 
@@ -26,24 +27,43 @@ restrict data before graph evaluation. Incomplete acquisition SHALL NOT replace 
 usable snapshot or publish an executable partial plan. No source SHALL imply
 complete history or graph membership solely because import or collection succeeded.
 
-#### Scenario: Refresh runs out of budget during pagination
+#### Scenario: Archive acquisition fails
 
-- **WHEN** additional pages are required but cannot be admitted
-- **THEN** refresh fails without publishing partial coverage as a complete snapshot
-- **AND** the previous usable snapshot remains available and dispatched reads remain accounted
+- **WHEN** a configured source cannot supply a valid bounded matching export
+- **THEN** evaluation fails without publishing partial coverage as a complete snapshot
+- **AND** previous usable data remains unchanged and no X request is sent
 
 #### Scenario: Preservation seed is missing
 
 - **WHEN** a policy explicitly names a seed absent from the selected snapshot
 - **THEN** planning fails rather than silently widening deletion or fetching the seed
 
+### Requirement: Configured archive source references
+
+The job API SHALL accept a configured source name and an opaque provider-specific
+archive key. The worker SHALL retrieve the object directly after acknowledging the
+job ID; the backend SHALL NOT stream archive or normalized inventory payloads.
+Provider configuration SHALL remain operator-owned. The initial provider SHALL be
+a confined local directory. The provider interface SHALL permit future object-store
+support without changing job submissions; S3 implementation is outside this increment.
+
+#### Scenario: Select one of several configured sources
+
+- **WHEN** a job selects a valid source name and object key
+- **THEN** that provider supplies the archive directly to the worker
+- **AND** unknown sources, unsafe local paths and source escapes fail closed
+
 ### Requirement: Safe archive import
 
 The service SHALL accept supported X archive account, post, and repost records as
-snapshot data. It SHALL verify matching account identity, validate normalized data,
-and preserve the distinction between repost activity and source post IDs. Archives
-SHALL NOT grant X authorization. Import SHALL NOT execute bundled code, follow
-external links, or ingest unrelated private archive content. Unsupported, ambiguous,
+snapshot data. It SHALL require `data/account.js`, `data/tweets.js` and supported consecutive
+multipart tweet files, verify matching account identity, validate normalized data,
+and preserve the distinction between repost activity and source post IDs. An unresolved repost SHALL NOT be treated as an own post or assigned a guessed
+source target; a requested repost view containing one SHALL fail. Archives
+SHALL NOT grant X authorization. Import SHALL NOT execute bundled code, follow external links, or decode unrequested
+archive content. Generic scripts SHALL be able to read other top-level YTD datasets,
+including multipart likes and following, within shared byte/record limits. These
+datasets SHALL remain read-only input for plans of X-account API operations. Unsupported, ambiguous,
 conflicting, or over-limit input SHALL fail without replacing an existing snapshot.
 
 #### Scenario: Import without X authorization
@@ -61,7 +81,7 @@ conflicting, or over-limit input SHALL fail without replacing an existing snapsh
 
 Dispatching a mutation SHALL invalidate affected cached snapshots and other
 unconsumed plans, including uncertain outcomes. Evaluation of dirty snapshots SHALL
-require explicit refresh or replacement import. Invalidation SHALL NOT erase the
+require explicit replacement import. Invalidation SHALL NOT erase the
 original consumed execution or prevent explicit recovery of its unfinished actions.
 
 #### Scenario: Lost deletion response followed by reevaluation

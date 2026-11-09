@@ -1,0 +1,108 @@
+# gazelle:ignore
+
+load("@rules_go//go:def.bzl", "go_test")
+
+package(transitive_visibility = "//projects:transitive_consumers")
+
+go_test(
+    name = "worker_test",
+    size = "medium",
+    srcs = [
+        "async_test.go",
+        "datasets_test.go",
+        "doc.go",
+        "generic_test.go",
+        "lua_api_test.go",
+        "process_test.go",
+        "worker_test.go",
+    ],
+    args = [
+        "-cleaner=$(rlocationpath //projects/x_profile_cleaner/cmd/x_profile_cleaner)",
+        "-lua-generator=$(rlocationpath //projects/x_profile_cleaner/cmd/generate_lua_api)",
+        "-lua-types=$(rlocationpath //projects/x_profile_cleaner/api:types.lua)",
+    ],
+    data = [
+        "//projects/x_profile_cleaner/api:types.lua",
+        "//projects/x_profile_cleaner/cmd/generate_lua_api",
+        "//projects/x_profile_cleaner/cmd/x_profile_cleaner",
+    ],
+    deps = [
+        "//projects/x_profile_cleaner/api/workerpb",
+        "//projects/x_profile_cleaner/internal/archive",
+        "//projects/x_profile_cleaner/internal/cleanup",
+        "//projects/x_profile_cleaner/internal/model",
+        "//projects/x_profile_cleaner/internal/plan",
+        "//projects/x_profile_cleaner/internal/script",
+        "//projects/x_profile_cleaner/internal/worker",
+        "//projects/x_profile_cleaner/test/exportfixture",
+        "@com_github_yuin_gopher_lua//:gopher-lua",
+        "@org_golang_google_grpc//:grpc",
+        "@org_golang_google_grpc//codes",
+        "@org_golang_google_grpc//credentials/insecure",
+        "@org_golang_google_grpc//status",
+        "@org_golang_google_protobuf//encoding/protojson",
+        "@org_golang_google_protobuf//proto",
+        "@org_golang_google_protobuf//types/known/timestamppb",
+        "@rules_go//go/runfiles",
+    ],
+)
+
+go_test(
+    name = "examples_test",
+    size = "medium",
+    srcs = [
+        "doc.go",
+        "examples_test.go",
+        "process_test.go",
+    ],
+    args = [
+        "-cleaner=$(rlocationpath //projects/x_profile_cleaner/cmd/x_profile_cleaner)",
+        "-example-config=$(rlocationpath :examples/cases.json)",
+        "-example-files='$(rlocationpaths //projects/x_profile_cleaner/examples:scripts)'",
+    ],
+    data = [
+        "examples/cases.json",
+        ":example_fixtures",
+        "//projects/x_profile_cleaner/cmd/x_profile_cleaner",
+        "//projects/x_profile_cleaner/examples:scripts",
+    ],
+    deps = [
+        "//projects/x_profile_cleaner/api/workerpb",
+        "//projects/x_profile_cleaner/internal/cleanup",
+        "//projects/x_profile_cleaner/internal/model",
+        "//projects/x_profile_cleaner/test/exportfixture",
+        "@org_golang_google_grpc//:grpc",
+        "@org_golang_google_grpc//credentials/insecure",
+        "@org_golang_google_protobuf//encoding/protojson",
+        "@org_golang_google_protobuf//proto",
+        "@org_golang_google_protobuf//types/known/timestamppb",
+        "@rules_go//go/runfiles",
+    ],
+)
+
+filegroup(
+    name = "example_fixtures",
+    srcs = glob(["examples/archives/**"]),
+)
+
+go_test(
+    name = "source_test",
+    size = "medium",
+    srcs = [
+        "doc.go",
+        "source_test.go",
+    ],
+    args = ["-source-cleaner=$(rlocationpath //projects/x_profile_cleaner/cmd/x_profile_cleaner)"],
+    data = ["//projects/x_profile_cleaner/cmd/x_profile_cleaner"],
+    deps = [
+        "//projects/x_profile_cleaner/api/workerpb",
+        "//projects/x_profile_cleaner/internal/archive",
+        "//projects/x_profile_cleaner/internal/cleanup",
+        "@org_golang_google_grpc//:grpc",
+        "@org_golang_google_grpc//codes",
+        "@org_golang_google_grpc//credentials/insecure",
+        "@org_golang_google_grpc//status",
+        "@org_golang_google_protobuf//types/known/timestamppb",
+        "@rules_go//go/runfiles",
+    ],
+)

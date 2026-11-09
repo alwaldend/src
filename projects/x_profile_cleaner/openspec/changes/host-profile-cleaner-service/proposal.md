@@ -21,8 +21,13 @@ before it can safely accept other users.
   and resource limits.
 - Persist account-isolated snapshots, policies, immutable plans, execution progress,
   and conservative spend reservations. Reevaluate cached snapshots without API calls.
-- Add bounded X archive import as another snapshot source, avoiding timeline reads.
+- Use standard X export ZIP archives as the sole inventory source, removing live
+  timeline reads. Workers fetch source/key references directly from configured local
+  providers; the provider boundary permits future S3 without changing job submissions.
   Display source, age, coverage, and cost before confirmation.
+- Evaluate generic Lua archive scripts into typed protobuf operation plans for X-account API
+  operations. Keep operation semantics/authorization in backend consumers and use an
+  explicit cleanup library for existing deletion/preservation behavior.
 - Execute untrusted policy evaluation and archive parsing in separately limited
   systemd workers. Bound inputs, discovery, output, storage, and job admission.
 - Preserve the existing policy-selection and exact-plan execution contracts. Resume
@@ -39,7 +44,7 @@ before it can safely accept other users.
   credentials, refresh, and inactivity expiry.
 - `cleanup-spending`: shared/account/run budgets, owner exemption, request admission,
   durable reservations, and user-visible cost accounting.
-- `cleanup-snapshots`: reusable cached reads, archive import, coverage, retention,
+- `cleanup-snapshots`: archive-backed snapshots, source references, coverage, retention,
   and invalidation after mutations.
 - `policy-execution-limits`: untrusted-input limits, systemd worker isolation,
   bounded scheduling, and failure without a partial executable plan.
@@ -60,9 +65,9 @@ external dependency requires separate approval.
 
 Deployment implementation will need an owning infrastructure change, packaged
 Ansible/systemd/Traefik configuration, component-owned DNS and VM provisioning as
-needed, and Vault secret references. This planning PR changes only this OpenSpec
-change's artifacts. It does not alter the CLI, provision infrastructure, configure
-the live X app, or authorize live reads or deletions. VM location, public hostname,
+needed, and Vault secret references. The current worker increment changes CLI/server planning and private gRPC; hosted
+authorization, durable state and infrastructure remain future work. It does not
+provision infrastructure, configure the live X app or authorize live deletions. VM location, public hostname,
 and any live rollout remain separate deployment inputs.
 
 Articles, Highlights, bring-your-own app keys, historical search, and automatic

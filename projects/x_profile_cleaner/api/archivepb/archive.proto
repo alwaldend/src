@@ -1,0 +1,101 @@
+syntax = "proto3";
+
+package x_profile_cleaner.archive;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "git.alwaldend.com/alwaldend/src/projects/x_profile_cleaner/api/archivepb";
+
+// Account identifies the export owner; it does not establish X authorization.
+message Account {
+  string id = 1;
+  optional string username = 2;
+  optional string display_name = 3;
+}
+
+// Following identifies one followed account in the export.
+message Following {
+  string account_id = 1;
+  optional string user_link = 2;
+}
+
+// Like identifies a liked post and optional exported display data.
+message Like {
+  string post_id = 1;
+  optional string text = 2;
+  optional string url = 3;
+}
+
+// ActivityKind distinguishes posts from repost activities.
+enum ActivityKind {
+  ACTIVITY_KIND_UNSPECIFIED = 0;
+  POST = 1;
+  REPOST = 2;
+}
+
+// ReferenceKind identifies a relationship to another post.
+enum ReferenceKind {
+  REFERENCE_KIND_UNSPECIFIED = 0;
+  QUOTE = 1;
+  REPLY = 2;
+  REPOST_SOURCE = 3;
+}
+
+// Reference records an explicit or validated inferred relationship.
+message Reference {
+  string id = 1;
+  ReferenceKind kind = 2;
+}
+
+// Metrics distinguishes an unavailable counter from a known zero.
+message Metrics {
+  optional int64 like_count = 1;
+  optional int64 repost_count = 2;
+  optional int64 reply_count = 3;
+  optional int64 quote_count = 4;
+  optional int64 bookmark_count = 5;
+  optional int64 impression_count = 6;
+}
+
+// Attachments contains identifiers only; no media files are loaded.
+message Attachments {
+  repeated string media_keys = 1;
+  repeated string poll_ids = 2;
+  repeated string media_source_ids = 3;
+}
+
+// TextEntity describes a validated exported span and its available metadata.
+message TextEntity {
+  int64 start = 1;
+  int64 end = 2;
+  optional string tag = 3;
+  optional string id = 4;
+  optional string username = 5;
+  optional string url = 6;
+  optional string expanded_url = 7;
+  optional string display_url = 8;
+}
+
+// TextEntities groups spans by their meaning.
+message TextEntities {
+  repeated TextEntity hashtags = 1;
+  repeated TextEntity cashtags = 2;
+  repeated TextEntity mentions = 3;
+  repeated TextEntity urls = 4;
+}
+
+// Tweet is one normalized owned post or repost activity from a standard X export.
+message Tweet {
+  string id = 1;
+  string author_id = 2;
+  ActivityKind kind = 3;
+  google.protobuf.Timestamp created_at = 4;
+  string text = 5;
+  optional string language = 6;
+  repeated string edit_history_ids = 7;
+  optional string source_id = 8;
+  Metrics metrics = 9;
+  Attachments attachments = 10;
+  TextEntities entities = 11;
+  repeated Reference references = 12;
+}

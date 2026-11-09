@@ -46,22 +46,12 @@ type fixture struct {
 	mutationAttempts []string
 	// allowedMutations contains only owned post and repost removal routes.
 	allowedMutations map[string]bool
-	// reads records timeline pagination requests.
+	// reads counts forbidden non-mutation requests.
 	reads int
 	// requests counts all HTTP requests, including rejected authentication.
 	requests int
 	// nonces rejects reused OAuth signatures across reads and mutations.
 	nonces map[string]bool
-	// windowStart is the expected inclusive API discovery boundary, or empty.
-	windowStart string
-	// windowEnd is the expected exclusive API discovery boundary, or empty.
-	windowEnd string
-	// ignoreWindow tests local rejection of out-of-window server records.
-	ignoreWindow bool
-	// relativeWindow records rolling bounds for verification against evaluation time.
-	relativeWindow bool
-	// requiredFields contains metadata requested by a richer policy fixture.
-	requiredFields []string
 	// mutationBarrier requires both endpoint workers to enter before either responds.
 	mutationBarrier chan string
 	// holdPostUntilCancelled keeps a post request in flight while the other endpoint fails.
@@ -76,16 +66,8 @@ type fixture struct {
 	failMutationAt int
 	// malformed makes an owned inventory record incomplete.
 	malformed bool
-	// repeatPage makes pagination return a repeated token.
-	repeatPage bool
-	// timelineErrors supplies X problem details on the second page.
-	timelineErrors []map[string]any
-	// timelineStatus optionally overrides the second page's HTTP status.
-	timelineStatus int
 	// quotaMutation makes the first mutation exhaust its endpoint allowance.
 	quotaMutation bool
-	// quotaTimeline makes the first page exhaust the timeline allowance.
-	quotaTimeline bool
 	// resetAt records the fixture's announced quota reset time.
 	resetAt time.Time
 	// independentBeforeReset records another endpoint dispatching without waiting.
@@ -96,7 +78,7 @@ type fixture struct {
 	mutationResponse string
 	// mutationStatus overrides the status of a known mutation target.
 	mutationStatus int
-	// pages is the timeline fixture split across two responses.
+	// pages groups synthetic archive records for graph scenarios.
 	pages [][]map[string]any
 }
 
@@ -162,6 +144,11 @@ func newFixture(t *testing.T) (*fixture, *httptest.Server) {
 		f.mu.Lock()
 		defer f.mu.Unlock()
 		f.requests++
+		if r.Method != http.MethodDelete {
+			f.reads++
+			http.Error(w, "X reads are forbidden", http.StatusMethodNotAllowed)
+			return
+		}
 		signedAt, err := verifyAuthorization(r, f.nonces)
 		if err != nil {
 			t.Errorf("fixture authentication: %v", err)
@@ -170,70 +157,6 @@ func newFixture(t *testing.T) (*fixture, *httptest.Server) {
 		}
 		w.Header().Set("Content-Type", "application/json")
 		switch {
-		case r.Method == http.MethodGet && r.URL.Path == "/2/users/me":
-			fmt.Fprintf(w, `{"data":{"id":%q}}`, f.account)
-		case r.Method == http.MethodGet && r.URL.Path == "/2/users/100/tweets":
-			f.reads++
-			if f.relativeWindow && f.reads == 1 {
-				f.windowStart, f.windowEnd = r.URL.Query().Get("start_time"), r.URL.Query().Get("end_time")
-			}
-			if r.URL.Query().Get("start_time") != f.windowStart || r.URL.Query().Get("end_time") != f.windowEnd {
-				t.Error("timeline discovery bounds changed or were omitted")
-			}
-			if r.URL.Query().Get("exclude") != "" || r.URL.Query().Get("max_results") != "100" {
-				t.Error("timeline excluded activities or did not request maximum page size")
-			}
-			if r.URL.Query().Get("post.fields") == "" {
-				t.Error("timeline did not use the SDK's schema-defined post fields")
-			}
-			for _, field := range f.requiredFields {
-				if !strings.Contains(","+r.URL.Query().Get("post.fields")+",", ","+field+",") {
-					t.Errorf("timeline omitted required field %s", field)
-				}
-			}
-			if f.quotaTimeline && f.reads == 1 {
-				f.resetAt = time.Unix(time.Now().Unix()+2, 0)
-				w.Header().Set("X-Rate-Limit-Remaining", "0")
-				w.Header().Set("X-Rate-Limit-Reset", fmt.Sprint(f.resetAt.Unix()))
-			} else if f.quotaTimeline && time.Now().Before(f.resetAt) {
-				t.Error("timeline request dispatched before quota reset")
-			} else if f.quotaTimeline && signedAt.Before(f.resetAt) {
-				t.Error("timeline request was signed before waiting for quota")
-			}
-			page := 0
-			if r.URL.Query().Get("pagination_token") != "" {
-				page = 1
-			}
-			data := f.pages[page]
-			if !f.ignoreWindow && (f.windowStart != "" || f.windowEnd != "") {
-				filtered := []map[string]any{}
-				for _, post := range data {
-					stamp, ok := post["created_at"].(string)
-					if !ok || (f.windowStart != "" && stamp < f.windowStart) || (f.windowEnd != "" && stamp >= f.windowEnd) {
-						continue
-					}
-					filtered = append(filtered, post)
-				}
-				data = filtered
-			}
-			if f.malformed {
-				data = []map[string]any{{"id": "1", "author_id": "100"}}
-			}
-			meta := map[string]any{}
-			if page == 0 || f.repeatPage {
-				meta["next_token"] = "next"
-			}
-			body := map[string]any{"data": data, "meta": meta}
-			if page == 1 && len(f.timelineErrors) > 0 {
-				body["errors"] = f.timelineErrors
-				body["debug"] = "unrelated response field"
-				if f.timelineStatus != 0 {
-					w.WriteHeader(f.timelineStatus)
-				}
-			}
-			if err := json.NewEncoder(w).Encode(body); err != nil {
-				t.Errorf("encode fixture: %v", err)
-			}
 		case r.Method == http.MethodDelete:
 			f.mutationAttempts = append(f.mutationAttempts, r.URL.Path)
 			if !f.allowedMutations[r.URL.Path] {
@@ -280,7 +203,8 @@ func newFixture(t *testing.T) (*fixture, *httptest.Server) {
 			w.WriteHeader(404)
 		}
 	}))
-	t.Cleanup(server.Close)
+	exportFixtures.Store(server.URL, f)
+	t.Cleanup(func() { exportFixtures.Delete(server.URL); server.Close() })
 	return f, server
 }
 
@@ -329,7 +253,6 @@ func TestTimeWindow(t *testing.T) {
 	} {
 		t.Run(scenario.name, func(t *testing.T) {
 			f, server := newWindowFixture(t)
-			f.windowStart, f.windowEnd, f.ignoreWindow = scenario.start, scenario.end, scenario.ignoreWindow
 			policy := writePolicy(t, scenario.declaration+fmt.Sprintf(`
 assert(#get_posts()+#get_reposts()==%d)
 for _,p in ipairs(get_posts()) do assert(get_post(p.id).id==p.id) end
@@ -339,7 +262,7 @@ force_delete_repost_when(function(p) return true end)
 `, len(scenario.paths)))
 			plan := filepath.Join(t.TempDir(), "plan.json")
 			out, err := runCLI(t, server, "", "plan", "--config", policy, "--out", plan)
-			if err != nil || f.reads != 2 || len(f.mutationAttempts) != 0 {
+			if err != nil || f.reads != 0 || len(f.mutationAttempts) != 0 {
 				t.Fatalf("window planning: %v pages=%d attempts=%v\n%s", err, f.reads, f.mutationAttempts, out)
 			}
 			if output := os.Getenv("TEST_UNDECLARED_OUTPUTS_DIR"); output != "" && scenario.name == "bounded" {
@@ -355,7 +278,7 @@ force_delete_repost_when(function(p) return true end)
 				t.Fatal(err)
 			}
 			out, err = runCLI(t, server, "", "apply", "--plan", plan)
-			if err != nil || f.reads != 2 || !sameEndpointOrder(f.mutations, scenario.paths) {
+			if err != nil || f.reads != 0 || !sameEndpointOrder(f.mutations, scenario.paths) {
 				t.Fatalf("window apply: %v pages=%d mutations=%v; want %v\n%s", err, f.reads, f.mutations, scenario.paths, out)
 			}
 		})
@@ -381,14 +304,12 @@ func TestRejectedTimeWindow(t *testing.T) {
 		{name: "reversed bounds", policy: `set_time_window("2025-01-01T00:00:00Z","2024-01-01T00:00:00Z")`},
 		{name: "equal bounds", policy: `set_time_window("2024-01-01T00:00:00Z","2024-01-01T00:00:00Z")`},
 		{name: "unsupported precision", policy: `set_time_window("2024-01-01T00:00:00.5Z",nil)`},
-		{name: "unsupported date", policy: `set_time_window("0001-01-01T00:00:00Z",nil)`},
-		{name: "after query", policy: `get_posts(); set_time_window(nil,"2024-01-01T00:00:00Z")`, reads: 2},
-		{name: "inside callback", policy: `delete_post_when(function(p) set_time_window(nil,"2024-01-01T00:00:00Z"); return true end)`, reads: 2},
-		{name: "missing seed", policy: `set_time_window("2024-01-01T00:00:00Z","2024-02-01T00:00:00Z"); preserve_thread("11")`, start: "2024-01-01T00:00:00Z", end: "2024-02-01T00:00:00Z", reads: 2},
+		{name: "after query", policy: `get_posts(); set_time_window(nil,"2024-01-01T00:00:00Z")`, reads: 0},
+		{name: "inside callback", policy: `delete_post_when(function(p) set_time_window(nil,"2024-01-01T00:00:00Z"); return true end)`, reads: 0},
+		{name: "missing seed", policy: `set_time_window("2024-01-01T00:00:00Z","2024-02-01T00:00:00Z"); preserve_thread("11")`, start: "2024-01-01T00:00:00Z", end: "2024-02-01T00:00:00Z", reads: 0},
 	} {
 		t.Run(scenario.name, func(t *testing.T) {
 			f, server := newWindowFixture(t)
-			f.windowStart, f.windowEnd = scenario.start, scenario.end
 			path := filepath.Join(t.TempDir(), "plan.json")
 			if err := os.WriteFile(path, []byte("existing plan"), 0o600); err != nil {
 				t.Fatal(err)
@@ -423,12 +344,11 @@ func TestWindowGraphBoundary(t *testing.T) {
 			declaration := ""
 			var paths []string
 			if bounded {
-				f.windowStart, f.windowEnd = "2024-01-01T00:00:00Z", "2024-02-01T00:00:00Z"
 				declaration = `set_time_window("2024-01-01T00:00:00Z","2024-02-01T00:00:00Z"); assert(get_post("5")==nil); assert(#get_posts()==5);`
 				paths = []string{"/2/tweets/2", "/2/tweets/4", "/2/tweets/6"}
 			}
 			out, err := runCLI(t, server, "", "apply", "--config", writePolicy(t, declaration+`delete_post({"2","4","6"}); preserve_thread("3")`), "--yes")
-			if err != nil || f.reads != 2 || !sameEndpointOrder(f.mutations, paths) {
+			if err != nil || f.reads != 0 || !sameEndpointOrder(f.mutations, paths) {
 				t.Fatalf("window graph: %v pages=%d mutations=%v; want %v\n%s", err, f.reads, f.mutations, paths, out)
 			}
 		})
@@ -524,7 +444,15 @@ func cliCommand(t *testing.T, server *httptest.Server, credentials map[string]st
 	if err != nil {
 		t.Fatalf("locate cleaner: %v", err)
 	}
-	args = append(args, "--api-base-url", server.URL+"/2")
+	value, ok := exportFixtures.Load(server.URL)
+	if !ok {
+		t.Fatal("missing archive fixture")
+	}
+	f := value.(*fixture)
+	directory := t.TempDir()
+	writeFixtureArchive(t, f, directory)
+	socket := startArchiveWorker(t, binary, directory)
+	args = append(args, "--api-base-url", server.URL+"/2", "--worker-socket", socket, "--archive-source", "exports", "--archive-key", "export.zip", "--account", f.account)
 	cmd := exec.Command(binary, args...)
 	for _, entry := range os.Environ() {
 		name, _, _ := strings.Cut(entry, "=")
@@ -628,13 +556,13 @@ func TestOperatorProgress(t *testing.T) {
 	if !json.Valid(stdout.Bytes()) || len(f.mutationAttempts) != 0 {
 		t.Fatal("planning mixed diagnostics into JSON or mutated X")
 	}
-	for _, message := range []string{"Identifying account", "Evaluating cleanup policy", "Fetching timeline", "Fetched timeline page", "Timeline collected", "Plan prepared"} {
+	for _, message := range []string{"Evaluating archive policy", "Plan prepared"} {
 		if !strings.Contains(stderr.String(), message) {
 			t.Errorf("missing planning progress %q", message)
 		}
 	}
-	if !strings.Contains(stderr.String(), "page=2") || !strings.Contains(stderr.String(), "actions=4") {
-		t.Error("missing page or action counts")
+	if !strings.Contains(stderr.String(), "actions=4") {
+		t.Error("missing action counts")
 	}
 	plan := filepath.Join(t.TempDir(), "plan.json")
 	if err := os.WriteFile(plan, stdout.Bytes(), 0o600); err != nil {
@@ -694,7 +622,7 @@ func TestAuthentication(t *testing.T) {
 // writePolicy writes caller-owned policy input into the test's private directory.
 func writePolicy(t *testing.T, text string) string {
 	t.Helper()
-	path := filepath.Join(t.TempDir(), "policy.lua")
+	path := filepath.Join(t.TempDir(), "cleanup.lua")
 	if err := os.WriteFile(path, []byte(text), 0o600); err != nil {
 		t.Fatalf("write policy: %v", err)
 	}
@@ -745,25 +673,22 @@ force_delete_repost_when(function(p) return p.id == "28" end)
 	if out, err := runCLI(t, server, "", "plan", "--config", policy, "--out", plan); err != nil {
 		t.Fatalf("plan: %v\n%s", err, out)
 	}
-	if len(f.mutationAttempts) != 0 || f.reads != 2 {
+	if len(f.mutationAttempts) != 0 || f.reads != 0 {
 		t.Fatalf("planning effects: mutation attempts=%v pages=%d", f.mutationAttempts, f.reads)
 	}
 	content, err := os.ReadFile(plan)
 	if err != nil {
 		t.Fatal(err)
 	}
-	var result struct {
-		Actions []struct {
-			Kind     string `json:"kind"`
-			TargetID string `json:"target_id"`
-		} `json:"actions"`
-	}
-	if err := json.Unmarshal(content, &result); err != nil {
+	var document map[string]any
+	if err := json.Unmarshal(content, &document); err != nil {
 		t.Fatal(err)
 	}
 	var actual []string
-	for _, action := range result.Actions {
-		actual = append(actual, action.Kind+":"+action.TargetID)
+	for _, row := range document["plan"].(map[string]any)["operations"].([]any) {
+		for kind, payload := range row.(map[string]any) {
+			actual = append(actual, kind+":"+payload.(map[string]any)["post_id"].(string))
+		}
 	}
 	sort.Strings(actual)
 	want := []string{"delete_post:118", "delete_post:13", "delete_post:19", "delete_post:2", "delete_post:21", "delete_post:22", "delete_post:23", "delete_post:24", "delete_post:4", "delete_post:7", "unrepost:901", "unrepost:904"}
@@ -781,7 +706,7 @@ force_delete_repost_when(function(p) return p.id == "28" end)
 	if out, err := runCLI(t, server, "", "apply", "--plan", plan); err != nil {
 		t.Fatalf("apply: %v\n%s", err, out)
 	}
-	if f.reads != 2 || len(f.mutations) != len(want) {
+	if f.reads != 0 || len(f.mutations) != len(want) {
 		t.Fatalf("saved apply reread inventory or lost actions: reads=%d mutations=%v", f.reads, f.mutations)
 	}
 	wantPaths := []string{"/2/users/100/retweets/901", "/2/users/100/retweets/904", "/2/tweets/118", "/2/tweets/13", "/2/tweets/19", "/2/tweets/2", "/2/tweets/21", "/2/tweets/22", "/2/tweets/23", "/2/tweets/24", "/2/tweets/4", "/2/tweets/7"}
@@ -827,7 +752,7 @@ func TestSavedPlanBoundary(t *testing.T) {
 	for _, scenario := range []struct {
 		// name identifies the application boundary being checked.
 		name string
-		// actions is the explicit saved action list, independent of a policy.
+		// actions is the explicit saved action list, independent of a cleanup.
 		actions string
 		// failAt rejects this numbered mutation attempt, or zero for success.
 		failAt int
@@ -838,17 +763,17 @@ func TestSavedPlanBoundary(t *testing.T) {
 		// wantError distinguishes rejected and partially applied plans.
 		wantError bool
 	}{
-		{name: "exact subset and endpoint order", actions: `[{"kind":"delete_post","target_id":"11","forced":true},{"kind":"unrepost","target_id":"902","forced":false}]`, attempts: []string{"/2/tweets/11", "/2/users/100/retweets/902"}, completed: 2},
-		{name: "invalid later kind", actions: `[{"kind":"delete_post","target_id":"7","forced":false},{"kind":"unknown","target_id":"2","forced":false}]`, wantError: true},
-		{name: "invalid later target", actions: `[{"kind":"delete_post","target_id":"7","forced":false},{"kind":"delete_post","target_id":"2/other","forced":false}]`, wantError: true},
-		{name: "duplicate action", actions: `[{"kind":"delete_post","target_id":"7","forced":false},{"kind":"delete_post","target_id":"7","forced":true}]`, wantError: true},
-		{name: "stop after failure", actions: `[{"kind":"delete_post","target_id":"7","forced":false},{"kind":"delete_post","target_id":"11","forced":false},{"kind":"delete_post","target_id":"2","forced":false}]`, failAt: 2, attempts: []string{"/2/tweets/7", "/2/tweets/11"}, completed: 1, wantError: true},
+		{name: "exact subset and endpoint order", actions: `[{"delete_post":{"post_id":"11","forced":true}},{"unrepost":{"post_id":"902","forced":false}}]`, attempts: []string{"/2/tweets/11", "/2/users/100/retweets/902"}, completed: 2},
+		{name: "invalid later kind", actions: `[{"delete_post":{"post_id":"7","forced":false}},{"unknown":{"post_id":"2","forced":false}}]`, wantError: true},
+		{name: "invalid later target", actions: `[{"delete_post":{"post_id":"7","forced":false}},{"delete_post":{"post_id":"2/other","forced":false}}]`, wantError: true},
+		{name: "duplicate action", actions: `[{"delete_post":{"post_id":"7","forced":false}},{"delete_post":{"post_id":"7","forced":true}}]`, wantError: true},
+		{name: "stop after failure", actions: `[{"delete_post":{"post_id":"7","forced":false}},{"delete_post":{"post_id":"11","forced":false}},{"delete_post":{"post_id":"2","forced":false}}]`, failAt: 2, attempts: []string{"/2/tweets/7", "/2/tweets/11"}, completed: 1, wantError: true},
 	} {
 		t.Run(scenario.name, func(t *testing.T) {
 			f, server := newFixture(t)
 			f.failMutationAt = scenario.failAt
 			plan := filepath.Join(t.TempDir(), "plan.json")
-			content := `{"version":1,"account_id":"100","evaluated_at":"2026-10-30T00:00:00Z","actions":` + scenario.actions + `}`
+			content := `{"account_id":"100","evaluated_at":"2026-10-30T00:00:00Z","plan":{"operations":` + scenario.actions + `}}`
 			if err := os.WriteFile(plan, []byte(content), 0o600); err != nil {
 				t.Fatal(err)
 			}
@@ -864,48 +789,6 @@ func TestSavedPlanBoundary(t *testing.T) {
 			}
 			if len(scenario.attempts) > 0 && !strings.Contains(out, fmt.Sprintf("Completed %d of", scenario.completed)) {
 				t.Fatalf("missing confirmed progress: %s", out)
-			}
-		})
-	}
-}
-
-// TestTimelineProblems verifies useful bounded diagnostics without partial plans or mutations.
-func TestTimelineProblems(t *testing.T) {
-	for _, status := range []int{http.StatusOK, http.StatusForbidden} {
-		t.Run(strconv.Itoa(status), func(t *testing.T) {
-			f, server := newFixture(t)
-			detail := "The requested resource is unavailable."
-			for _, credential := range fixtureCredentials {
-				detail += " " + credential + " " + url.QueryEscape(credential)
-			}
-			problem := map[string]any{"type": "https://api.x.com/2/problems/resource-not-found", "title": "Not Found Error", "detail": detail, "resource_type": "tweet", "resource_id": "999", "debug": "unrelated problem field"}
-			f.timelineErrors = []map[string]any{problem, problem, problem, problem}
-			f.timelineStatus = status
-			plan := filepath.Join(t.TempDir(), "plan.json")
-			out, err := runCLI(t, server, "", "plan", "--config", writePolicy(t, `delete_post_when(function(post) return true end)`), "--out", plan)
-			if err == nil || f.reads != 2 || len(f.mutationAttempts) != 0 {
-				t.Fatalf("partial planning: err=%v reads=%d mutations=%v", err, f.reads, f.mutationAttempts)
-			}
-			if _, err := os.Stat(plan); !os.IsNotExist(err) {
-				t.Fatal("failed collection must not publish a plan")
-			}
-			for _, expected := range []string{fmt.Sprintf("HTTP %d", status), "page 2", "after 12 activities", "resource-not-found", "Not Found Error", "resource_id=\"999\"", "1 additional problem", "[redacted]"} {
-				if !strings.Contains(out, expected) {
-					t.Errorf("missing diagnostic %q", expected)
-				}
-			}
-			for _, credential := range fixtureCredentials {
-				if strings.Contains(out, credential) || strings.Contains(out, url.QueryEscape(credential)) {
-					t.Fatal("API diagnostics disclosed credentials")
-				}
-			}
-			if strings.Contains(out, "unrelated") || strings.Contains(out, "fixture 1") {
-				t.Fatal("API diagnostics included unrelated response content")
-			}
-			if output := os.Getenv("TEST_UNDECLARED_OUTPUTS_DIR"); output != "" && status == http.StatusOK {
-				if err := os.WriteFile(filepath.Join(output, "partial-response-diagnostic.log"), []byte(out), 0o600); err != nil {
-					t.Fatal(err)
-				}
 			}
 		})
 	}
@@ -928,10 +811,10 @@ func TestLazyInventory(t *testing.T) {
 		{name: "empty", policy: ``},
 		{name: "empty arrays", policy: `preserve_post({}); preserve_thread({}); delete_repost({})`},
 		{name: "unused time window", policy: `set_time_window(nil,"2024-02-01T00:00:00Z"); preserve_thread({}); delete_repost({})`},
-		{name: "repost only", policy: `delete_repost_when(function(p) return p.age_days > 30 end)`, reads: 2, malformedPost: true},
-		{name: "cross kind callback", policy: `local n=0; delete_repost_when(function(p) n=n+1; assert(#get_posts()==18); return false end); preserve_repost_when(function(p) assert(n==4); return false end)`, reads: 2},
-		{name: "caught collection failure", policy: `assert(not pcall(get_posts))`, reads: 2, malformedPost: true, wantError: true},
-		{name: "caught callback collection failure", policy: `delete_repost_when(function(p) pcall(get_posts); return true end)`, reads: 2, malformedPost: true, wantError: true},
+		{name: "repost only rejects malformed archive", policy: `delete_repost_when(function(p) return p.age_days > 30 end)`, malformedPost: true, wantError: true},
+		{name: "cross kind callback", policy: `local n=0; delete_repost_when(function(p) n=n+1; assert(#get_posts()==18); return false end); preserve_repost_when(function(p) assert(n==4); return false end)`, reads: 0},
+		{name: "caught collection failure", policy: `assert(not pcall(get_posts))`, reads: 0, malformedPost: true, wantError: true},
+		{name: "caught callback collection failure", policy: `delete_repost_when(function(p) pcall(get_posts); return true end)`, reads: 0, malformedPost: true, wantError: true},
 	} {
 		t.Run(scenario.name, func(t *testing.T) {
 			f, server := newFixture(t)
@@ -995,7 +878,7 @@ delete_repost("9", {name="old repost"})
 		}
 	}
 	document := readPlanDocument(t, path)
-	decisions := document["decisions"].([]any)
+	decisions := document["plan"].(map[string]any)["cleanup_report"].(map[string]any)["decisions"].([]any)
 	byID := map[string]map[string]any{}
 	for _, value := range decisions {
 		d := value.(map[string]any)
@@ -1028,7 +911,7 @@ delete_repost("9", {name="old repost"})
 		}
 	}
 	// Explanations are descriptive and must never become execution input.
-	document["decisions"] = append(decisions, map[string]any{"item_id": "13", "outcome": "force_delete"})
+	document["plan"].(map[string]any)["cleanup_report"].(map[string]any)["decisions"] = append(decisions, map[string]any{"item_id": "13", "kind": "post", "created_at": "2026-11-13T00:00:00Z", "text": "informational", "outcome": "force_delete", "reasons": []any{}})
 	content, err = json.Marshal(document)
 	if err != nil {
 		t.Fatal(err)
@@ -1039,7 +922,7 @@ delete_repost("9", {name="old repost"})
 	if out, err := runCLI(t, server, "", "apply", "--plan", path); err != nil {
 		t.Fatalf("apply explained plan: %v\n%s", err, out)
 	}
-	if !sameEndpointOrder(f.mutations, []string{"/2/users/100/retweets/901", "/2/tweets/19", "/2/tweets/7"}) || f.reads != 2 {
+	if !sameEndpointOrder(f.mutations, []string{"/2/users/100/retweets/901", "/2/tweets/19", "/2/tweets/7"}) || f.reads != 0 {
 		t.Fatalf("explanations changed execution: %v, reads %d", f.mutations, f.reads)
 	}
 }
@@ -1061,7 +944,6 @@ func readPlanDocument(t *testing.T, path string) map[string]any {
 // TestLuaAPITime checks rolling bounds against the plan's fixed evaluation time.
 func TestLuaAPITime(t *testing.T) {
 	f, server := newFixture(t)
-	f.relativeWindow = true
 	path := filepath.Join(t.TempDir(), "relative-plan.json")
 	source := `local start=days_ago(90); set_time_window(start,days_ago(30)); delete_post_when(function(p) assert(days_ago(90)==start); return true end)`
 	if out, err := runCLI(t, server, "", "plan", "--config", writePolicy(t, source), "--out", path); err != nil {
@@ -1072,28 +954,55 @@ func TestLuaAPITime(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if f.windowStart != now.Add(-90*24*time.Hour).UTC().Truncate(time.Second).Format(time.RFC3339) || f.windowEnd != now.Add(-30*24*time.Hour).UTC().Truncate(time.Second).Format(time.RFC3339) || f.reads != 2 {
-		t.Fatalf("inconsistent rolling bounds: %s %s", f.windowStart, f.windowEnd)
+	decisions := document["plan"].(map[string]any)["cleanup_report"].(map[string]any)["decisions"].([]any)
+	if len(decisions) == 0 || f.reads != 0 {
+		t.Fatal("rolling window returned no archive decisions or contacted X")
+	}
+	for _, value := range decisions {
+		stamp, err := time.Parse(time.RFC3339Nano, value.(map[string]any)["created_at"].(string))
+		if err != nil || stamp.Before(now.Add(-90*24*time.Hour).Truncate(time.Second)) || !stamp.Before(now.Add(-30*24*time.Hour).Truncate(time.Second)) {
+			t.Fatalf("decision outside rolling bounds: %v", value)
+		}
 	}
 }
 
 // TestLuaAPIMetadata verifies optional structured data and isolated nested Lua copies.
 func TestLuaAPIMetadata(t *testing.T) {
 	f, server := newFixture(t)
-	f.requiredFields = []string{"lang", "attachments", "entities"}
 	p := f.pages[0][0]
 	p["lang"] = "en"
 	p["attachments"] = map[string]any{"media_keys": []string{"3_123"}, "poll_ids": []string{"456"}}
 	p["entities"] = map[string]any{"hashtags": []map[string]any{{"start": 0, "end": 6, "tag": "short"}}}
 	p["note_post"] = map[string]any{"text": "long #retained", "entities": map[string]any{"hashtags": []map[string]any{{"start": 5, "end": 14, "tag": "retained"}}, "mentions": []map[string]any{{"start": 0, "end": 4, "id": "900", "username": "name"}}, "urls": []map[string]any{{"start": 0, "end": 4, "url": "https://t.co/test", "expanded_url": "https://example.org/article"}}}}
+	for _, page := range f.pages {
+		for _, post := range page {
+			if post["id"] == "7" {
+				delete(post, "public_metrics")
+			}
+			if post["id"] == "11" {
+				post["attachments"] = map[string]any{"media_keys": []string{}, "poll_ids": []string{}, "media_source_tweet_id": []string{}}
+				post["entities"] = map[string]any{"hashtags": []any{}, "cashtags": []any{}, "mentions": []any{}, "urls": []any{}}
+				delete(post, "public_metrics")
+			}
+		}
+	}
 	source := `
 local p=get_post("101")
-assert(p.language=="en" and p.attachments.media_keys[1]=="3_123" and p.attachments.poll_ids[1]=="456")
+assert(p.language=="en" and p.attachments.media_keys[1]=="3_123" and #p.attachments.poll_ids==0)
 assert(p.entities.hashtags[1].tag=="retained" and p.entities.mentions[1].id=="900")
 assert(p.entities.urls[1].expanded_url=="https://example.org/article")
+assert(p.metrics.like_count==1 and p.metrics.reply_count==0 and p.metrics.missing_count==nil)
+assert(#p.attachments.media_source_ids==0 and #p.entities.cashtags==0)
 p.attachments.media_keys[1]="changed"; p.entities.hashtags[1].tag="changed"
 assert(get_post("101").attachments.media_keys[1]=="3_123" and get_post("101").entities.hashtags[1].tag=="retained")
-assert(get_post("7").language==nil and get_post("7").entities==nil and get_post("7").attachments==nil)
+for _, id in ipairs({"7", "11"}) do
+  local post=get_post(id)
+  assert(post.language==nil and next(post.metrics)==nil)
+  assert(#post.attachments.media_keys==0 and #post.attachments.poll_ids==0 and #post.attachments.media_source_ids==0)
+  assert(#post.entities.hashtags==0 and #post.entities.cashtags==0 and #post.entities.mentions==0 and #post.entities.urls==0)
+  post.attachments.media_keys[1]="changed"; post.entities.hashtags[1]={tag="changed"}
+  assert(#get_post(id).attachments.media_keys==0 and #get_post(id).entities.hashtags==0)
+end
 delete_post("101")
 preserve_post_when(function(p) return p.language=="en" and p.entities.hashtags[1].tag=="retained" end)
 `
@@ -1101,8 +1010,17 @@ preserve_post_when(function(p) return p.language=="en" and p.entities.hashtags[1
 	if out, err := runCLI(t, server, "", "plan", "--config", writePolicy(t, source), "--out", path); err != nil {
 		t.Fatalf("metadata policy: %v\n%s", err, out)
 	}
-	if len(readPlanDocument(t, path)["actions"].([]any)) != 0 || f.reads != 2 || len(f.mutationAttempts) != 0 {
+	if len(readPlanDocument(t, path)["plan"].(map[string]any)["operations"].([]any)) != 0 || f.reads != 0 || len(f.mutationAttempts) != 0 {
 		t.Fatal("metadata policy selected unexpected actions or performed extra requests")
+	}
+	if output := os.Getenv("TEST_UNDECLARED_OUTPUTS_DIR"); output != "" {
+		content, err := os.ReadFile(path)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if err := os.WriteFile(filepath.Join(output, "metadata-plan.json"), content, 0o600); err != nil {
+			t.Fatal(err)
+		}
 	}
 }
 
@@ -1145,10 +1063,10 @@ func TestLuaAPIOverlappingThreads(t *testing.T) {
 	}
 	f.pages = [][]map[string]any{records[:1600], records[1600:]}
 	path := filepath.Join(t.TempDir(), "overlapping-plan.json")
-	if out, err := runCLI(t, server, "", "plan", "--config", writePolicy(t, `delete_post_when(function() return true end); preserve_thread_when(function() return true end)`), "--out", path, "--policy-timeout", "5s"); err != nil {
+	if out, err := runCLI(t, server, "", "plan", "--config", writePolicy(t, `delete_post_when(function() return true end); preserve_thread_when(function() return true end)`), "--out", path, "--evaluation-timeout", "5s"); err != nil {
 		t.Fatalf("overlapping threads: %v\n%s", err, out)
 	}
-	if len(readPlanDocument(t, path)["actions"].([]any)) != 0 || len(f.mutationAttempts) != 0 {
+	if len(readPlanDocument(t, path)["plan"].(map[string]any)["operations"].([]any)) != 0 || len(f.mutationAttempts) != 0 {
 		t.Fatal("overlapping traversal changed preservation")
 	}
 }
@@ -1163,7 +1081,7 @@ func TestParallelDeletion(t *testing.T) {
 			f.mutationBarrier = make(chan string, 4)
 			f.releaseMutations = make(chan struct{})
 			plan := filepath.Join(t.TempDir(), "parallel-plan.json")
-			content := `{"version":1,"account_id":"100","evaluated_at":"2026-10-30T00:00:00Z","actions":[{"kind":"unrepost","target_id":"901","forced":false},{"kind":"delete_post","target_id":"7","forced":false},{"kind":"unrepost","target_id":"902","forced":false},{"kind":"delete_post","target_id":"11","forced":false}]}`
+			content := `{"account_id":"100","evaluated_at":"2026-10-30T00:00:00Z","plan":{"operations":[{"unrepost":{"post_id":"901","forced":false}},{"delete_post":{"post_id":"7","forced":false}},{"unrepost":{"post_id":"902","forced":false}},{"delete_post":{"post_id":"11","forced":false}}]}}`
 			if err := os.WriteFile(plan, []byte(content), 0o600); err != nil {
 				t.Fatal(err)
 			}
@@ -1209,14 +1127,14 @@ func TestDeletionDependencies(t *testing.T) {
 	for _, reverse := range []bool{false, true} {
 		f, server := newFixture(t)
 		f.allowedMutations["/2/users/100/retweets/7"] = true
-		actions := []string{`{"kind":"unrepost","target_id":"7","forced":false}`, `{"kind":"delete_post","target_id":"7","forced":false}`}
+		actions := []string{`{"unrepost":{"post_id":"7","forced":false}}`, `{"delete_post":{"post_id":"7","forced":false}}`}
 		paths := []string{"/2/users/100/retweets/7", "/2/tweets/7"}
 		if reverse {
 			actions[0], actions[1] = actions[1], actions[0]
 			paths[0], paths[1] = paths[1], paths[0]
 		}
 		plan := filepath.Join(t.TempDir(), "dependent-plan.json")
-		content := `{"version":1,"account_id":"100","evaluated_at":"2026-10-30T00:00:00Z","actions":[` + strings.Join(actions, ",") + `]}`
+		content := `{"account_id":"100","evaluated_at":"2026-10-30T00:00:00Z","plan":{"operations":[` + strings.Join(actions, ",") + `]}}`
 		if err := os.WriteFile(plan, []byte(content), 0o600); err != nil {
 			t.Fatal(err)
 		}
@@ -1248,12 +1166,12 @@ func TestQuotaPacing(t *testing.T) {
 		t.Run(fmt.Sprint(independent), func(t *testing.T) {
 			f, server := newFixture(t)
 			f.quotaMutation = true
-			actions := `[{"kind":"delete_post","target_id":"7","forced":false},{"kind":"delete_post","target_id":"11","forced":false}]`
+			actions := `[{"delete_post":{"post_id":"7","forced":false}},{"delete_post":{"post_id":"11","forced":false}}]`
 			if independent {
-				actions = `[{"kind":"delete_post","target_id":"7","forced":false},{"kind":"unrepost","target_id":"901","forced":false}]`
+				actions = `[{"delete_post":{"post_id":"7","forced":false}},{"unrepost":{"post_id":"901","forced":false}}]`
 			}
 			plan := filepath.Join(t.TempDir(), "plan.json")
-			content := `{"version":1,"account_id":"100","evaluated_at":"2026-10-30T00:00:00Z","actions":` + actions + `}`
+			content := `{"account_id":"100","evaluated_at":"2026-10-30T00:00:00Z","plan":{"operations":` + actions + `}}`
 			if err := os.WriteFile(plan, []byte(content), 0o600); err != nil {
 				t.Fatal(err)
 			}
@@ -1266,14 +1184,6 @@ func TestQuotaPacing(t *testing.T) {
 			}
 		})
 	}
-	t.Run("cancel timeline wait", func(t *testing.T) {
-		f, server := newFixture(t)
-		f.quotaTimeline = true
-		out, err := runCLI(t, server, "", "plan", "--config", writePolicy(t, `delete_post_when(function(p) return true end)`), "--policy-timeout", "150ms")
-		if err == nil || f.reads != 1 || len(f.mutationAttempts) != 0 {
-			t.Fatalf("wait cancellation: %v pages=%d attempts=%v\n%s", err, f.reads, f.mutationAttempts, out)
-		}
-	})
 }
 
 // TestIdempotentApply skips absent targets on explicit replay without masking other failures.
@@ -1282,7 +1192,7 @@ func TestIdempotentApply(t *testing.T) {
 		t.Run(fmt.Sprint(status), func(t *testing.T) {
 			f, server := newFixture(t)
 			plan := filepath.Join(t.TempDir(), "plan.json")
-			content := `{"version":1,"account_id":"100","evaluated_at":"2026-10-30T00:00:00Z","actions":[{"kind":"delete_post","target_id":"7","forced":false},{"kind":"unrepost","target_id":"901","forced":false}]}`
+			content := `{"account_id":"100","evaluated_at":"2026-10-30T00:00:00Z","plan":{"operations":[{"delete_post":{"post_id":"7","forced":false}},{"unrepost":{"post_id":"901","forced":false}}]}}`
 			if err := os.WriteFile(plan, []byte(content), 0o600); err != nil {
 				t.Fatal(err)
 			}
@@ -1308,7 +1218,7 @@ func TestUnconfirmedMutation(t *testing.T) {
 			f, server := newFixture(t)
 			f.mutationResponse = response
 			plan := filepath.Join(t.TempDir(), "plan.json")
-			content := `{"version":1,"account_id":"100","evaluated_at":"2026-10-30T00:00:00Z","actions":[{"kind":"unrepost","target_id":"901","forced":false},{"kind":"unrepost","target_id":"902","forced":false}]}`
+			content := `{"account_id":"100","evaluated_at":"2026-10-30T00:00:00Z","plan":{"operations":[{"unrepost":{"post_id":"901","forced":false}},{"unrepost":{"post_id":"902","forced":false}}]}}`
 			if err := os.WriteFile(plan, []byte(content), 0o600); err != nil {
 				t.Fatal(err)
 			}
@@ -1364,19 +1274,18 @@ func TestRejectedInputs(t *testing.T) {
 	} {
 		t.Run(policy[:min(30, len(policy))], func(t *testing.T) {
 			f, server := newFixture(t)
-			out, err := runCLI(t, server, "", "apply", "--config", writePolicy(t, policy), "--yes", "--policy-timeout", "100ms")
+			out, err := runCLI(t, server, "", "apply", "--config", writePolicy(t, policy), "--yes", "--evaluation-timeout", "100ms")
 			if err == nil || len(f.mutations) != 0 {
 				t.Fatalf("accepted invalid policy: %v\n%s", err, out)
 			}
 		})
 	}
-	for _, mode := range []string{"schema", "account", "rate-limit", "inventory", "pagination", "edit-id", "edit-conflict"} {
+	for _, mode := range []string{"schema", "account", "rate-limit", "inventory", "edit-id", "edit-conflict"} {
 		t.Run(mode, func(t *testing.T) {
 			f, server := newFixture(t)
 			plan := filepath.Join(t.TempDir(), "plan.json")
-			if mode == "inventory" || mode == "pagination" || strings.HasPrefix(mode, "edit-") {
+			if mode == "inventory" || strings.HasPrefix(mode, "edit-") {
 				f.malformed = mode == "inventory"
-				f.repeatPage = mode == "pagination"
 				if mode == "edit-id" {
 					f.pages[0][0]["edit_history_post_ids"] = []string{"invalid", "101"}
 				}
@@ -1389,7 +1298,7 @@ func TestRejectedInputs(t *testing.T) {
 				}
 				return
 			}
-			text := `{"version":1,"account_id":"100","evaluated_at":"2026-10-30T00:00:00Z","actions":[{"kind":"delete_post","target_id":"7","forced":false}]}`
+			text := `{"account_id":"100","evaluated_at":"2026-10-30T00:00:00Z","plan":{"operations":[{"delete_post":{"post_id":"7","forced":false}}]}}`
 			if mode == "schema" {
 				text = strings.Replace(text, `"delete_post"`, `"unknown"`, 1)
 			}

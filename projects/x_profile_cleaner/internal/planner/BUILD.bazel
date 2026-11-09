@@ -10,5 +10,10 @@ go_library(
     ],
     importpath = "git.alwaldend.com/alwaldend/src/projects/x_profile_cleaner/internal/planner",
     visibility = ["//projects/x_profile_cleaner:__subpackages__"],
-    deps = ["//projects/x_profile_cleaner/internal/model"],
+    deps = [
+        "//projects/x_profile_cleaner/api/workerpb",
+        "//projects/x_profile_cleaner/internal/model",
+        "//projects/x_profile_cleaner/internal/plan",
+        "@org_golang_google_protobuf//types/known/timestamppb",
+    ],
 )

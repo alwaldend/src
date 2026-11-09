@@ -1,3 +1,9 @@
 package(transitive_visibility = "//projects:transitive_consumers")
 
 exports_files(["policy.lua"])
+
+filegroup(
+    name = "scripts",
+    srcs = glob(["*.lua"]),
+    visibility = ["//projects/x_profile_cleaner:__subpackages__"],
+)

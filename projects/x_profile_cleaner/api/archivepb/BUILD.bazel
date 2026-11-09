@@ -1,0 +1,26 @@
+load("@protobuf//bazel:proto_library.bzl", "proto_library")
+load("@rules_go//go:def.bzl", "go_library")
+load("@rules_go//proto:def.bzl", "go_proto_library")
+
+package(transitive_visibility = "//projects:transitive_consumers")
+
+proto_library(
+    name = "archive_proto",
+    srcs = ["archive.proto"],
+    deps = ["@protobuf//:timestamp_proto"],
+)
+
+go_proto_library(
+    name = "archive_go_proto",
+    compilers = ["@rules_go//proto:go_proto"],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/x_profile_cleaner/api/archivepb",
+    proto = ":archive_proto",
+)
+
+go_library(
+    name = "archivepb",
+    srcs = ["doc.go"],
+    embed = [":archive_go_proto"],  # keep
+    importpath = "git.alwaldend.com/alwaldend/src/projects/x_profile_cleaner/api/archivepb",
+    visibility = ["//projects/x_profile_cleaner:__subpackages__"],
+)

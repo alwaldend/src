@@ -1,3 +1,11 @@
 package(transitive_visibility = "//projects:transitive_consumers")
 
 exports_files(["cleaner.lua"])
+
+exports_files(
+    [
+        "archive.lua",
+        "types.lua",
+    ],
+    visibility = ["//projects/x_profile_cleaner:__subpackages__"],
+)

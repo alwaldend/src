@@ -115,7 +115,7 @@ function render() {
     element("selected-count").textContent = executing
         ? `${state.completed} of ${state.actions} completed`
         : currentPlan
-          ? `${selected.size} of ${currentPlan.actions.length} selected`
+          ? `${selected.size} of ${currentPlan.plan.operations.length} selected`
           : "";
     const dirty = currentPlan && source.value !== plannedSource;
     element("review-note").textContent = dirty
@@ -148,11 +148,11 @@ function render() {
         input.disabled = !editable;
         input.checked = included;
         row.classList.toggle("excluded", !included && !completed.has(index));
-        const action = currentPlan.actions[index];
+        const action = currentPlan.plan.operations[index];
         row.querySelector(".action-label").textContent = completed.has(index)
             ? "Completed"
             : included
-              ? action.kind === "unrepost"
+              ? Boolean(action.unrepost)
                   ? "Undo repost"
                   : "Delete post"
               : "Excluded";
@@ -194,27 +194,29 @@ function showPlan(plan, id, policy) {
     currentPlan = plan;
     currentPlanID = id;
     plannedSource = policy;
-    selected = new Set(plan.actions.map((_, index) => index));
+    selected = new Set(plan.plan.operations.map((_, index) => index));
     const decisions = new Map(
-        (plan.decisions || []).map((decision) => [
+        (plan.plan.cleanup_report?.decisions || []).map((decision) => [
             `${decision.kind === "repost" ? "unrepost" : "delete_post"}:${decision.source_id || decision.item_id}`,
             decision,
         ]),
     );
     const rows = document.createDocumentFragment();
-    plan.actions.forEach((action, index) => {
-        const decision = decisions.get(`${action.kind}:${action.target_id}`);
+    plan.plan.operations.forEach((action, index) => {
+        const decision = decisions.get(
+            `${action.unrepost ? "unrepost" : "delete_post"}:${(action.unrepost || action.delete_post).post_id}`,
+        );
         const row = node("tr");
-        row.dataset.target = action.target_id;
+        row.dataset.target = (action.unrepost || action.delete_post).post_id;
         row.dataset.search =
-            `${decision?.text || ""} ${action.target_id}`.toLowerCase();
+            `${decision?.text || ""} ${(action.unrepost || action.delete_post).post_id}`.toLowerCase();
         const checkCell = node("td");
         const checkbox = node("input", "form-check-input");
         checkbox.type = "checkbox";
         checkbox.checked = true;
         checkbox.setAttribute(
             "aria-label",
-            `Include ${action.kind === "unrepost" ? "repost" : "post"} ${action.target_id}`,
+            `Include ${Boolean(action.unrepost) ? "repost" : "post"} ${(action.unrepost || action.delete_post).post_id}`,
         );
         checkbox.addEventListener("change", () => {
             if (checkbox.checked) selected.add(index);
@@ -260,8 +262,12 @@ function showPlan(plan, id, policy) {
                     new Date(decision.created_at).toLocaleString(),
                 ),
             );
-        const link = node("a", "", action.target_id);
-        link.href = `https://x.com/i/status/${action.target_id}`;
+        const link = node(
+            "a",
+            "",
+            (action.unrepost || action.delete_post).post_id,
+        );
+        link.href = `https://x.com/i/status/${(action.unrepost || action.delete_post).post_id}`;
         link.target = "_blank";
         link.rel = "noreferrer noopener";
         metadata.append(link);
@@ -282,10 +288,10 @@ function showPlan(plan, id, policy) {
             node(
                 "span",
                 "action-label",
-                action.kind === "unrepost" ? "Undo repost" : "Delete post",
+                Boolean(action.unrepost) ? "Undo repost" : "Delete post",
             ),
         );
-        if (action.forced)
+        if ((action.unrepost || action.delete_post).forced)
             actionCell.append(
                 node("span", "forced-label", "Forced by policy"),
             );
@@ -293,9 +299,9 @@ function showPlan(plan, id, policy) {
         rows.append(row);
     });
     element("items").querySelector("tbody").replaceChildren(rows);
-    element("items").hidden = plan.actions.length === 0;
-    element("empty-state").hidden = plan.actions.length !== 0;
-    if (!plan.actions.length)
+    element("items").hidden = plan.plan.operations.length === 0;
+    element("empty-state").hidden = plan.plan.operations.length !== 0;
+    if (!plan.plan.operations.length)
         element("empty-state").replaceChildren(
             node("p", "", "No items selected for removal."),
             node(
@@ -304,7 +310,7 @@ function showPlan(plan, id, policy) {
                 "Your policy leaves the collected items unchanged.",
             ),
         );
-    element("review-tools").hidden = plan.actions.length === 0;
+    element("review-tools").hidden = plan.plan.operations.length === 0;
     filterRows();
 }
 
@@ -392,11 +398,11 @@ element("apply").addEventListener("click", () => {
         return;
     }
     if (!canApply()) return;
-    const actions = currentPlan.actions.filter((_, index) =>
+    const actions = currentPlan.plan.operations.filter((_, index) =>
         selected.has(index),
     );
-    const posts = actions.filter(
-        (action) => action.kind === "delete_post",
+    const posts = actions.filter((action) =>
+        Boolean(action.delete_post),
     ).length;
     element("confirmation-summary").textContent =
         `Delete ${quantity(posts, "post or reply", "posts or replies")} and undo ${quantity(actions.length - posts, "repost")}.`;

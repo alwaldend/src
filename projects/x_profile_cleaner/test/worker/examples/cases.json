@@ -1,0 +1,297 @@
+{
+    "account_id": "100",
+    "evaluated_at": "2026-11-09T12:00:00Z",
+    "archives": {
+        "full": {
+            "data/account.js": "archives/account.txt",
+            "data/tweets.js": "archives/full-tweets.txt",
+            "data/like.js": "archives/likes.txt",
+            "data/following.js": "archives/following.txt"
+        },
+        "empty": {
+            "data/account.js": "archives/account.txt",
+            "data/tweets.js": "archives/empty-tweets.txt",
+            "data/like.js": "archives/empty-likes.txt",
+            "data/following.js": "archives/empty-following.txt"
+        },
+        "anonymous": {
+            "data/account.js": "archives/anonymous-account.txt",
+            "data/tweets.js": "archives/empty-tweets.txt"
+        },
+        "policy": {
+            "data/account.js": "archives/account.txt",
+            "data/tweets.js": "archives/policy-tweets.txt"
+        }
+    },
+    "cases": [
+        {
+            "name": "operations-full",
+            "example": "operations.lua",
+            "archive": "full",
+            "entrypoint": "script",
+            "expected_plan": {
+                "operations": [
+                    {
+                        "unlike": {
+                            "post_id": "9007199254740993"
+                        }
+                    },
+                    {
+                        "unlike": {
+                            "post_id": "9223372036854775807"
+                        }
+                    },
+                    {
+                        "unlike": {
+                            "post_id": "901"
+                        }
+                    },
+                    {
+                        "unlike": {
+                            "post_id": "902"
+                        }
+                    },
+                    {
+                        "unfollow": {
+                            "user_id": "200"
+                        }
+                    },
+                    {
+                        "unfollow": {
+                            "user_id": "9007199254740993"
+                        }
+                    },
+                    {
+                        "unfollow": {
+                            "user_id": "300"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "name": "operations-empty",
+            "example": "operations.lua",
+            "archive": "empty",
+            "entrypoint": "script",
+            "expected_plan": {}
+        },
+        {
+            "name": "delete-old-posts-full",
+            "example": "delete_old_posts.lua",
+            "archive": "full",
+            "entrypoint": "script",
+            "expected_plan": {
+                "operations": [
+                    {
+                        "delete_post": {
+                            "post_id": "101"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "name": "delete-old-posts-empty",
+            "example": "delete_old_posts.lua",
+            "archive": "empty",
+            "entrypoint": "script",
+            "expected_plan": {}
+        },
+        {
+            "name": "remove-old-reposts-full",
+            "example": "remove_old_reposts.lua",
+            "archive": "full",
+            "entrypoint": "script",
+            "expected_plan": {
+                "operations": [
+                    {
+                        "unrepost": {
+                            "post_id": "900"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "name": "remove-old-reposts-empty",
+            "example": "remove_old_reposts.lua",
+            "archive": "empty",
+            "entrypoint": "script",
+            "expected_plan": {}
+        },
+        {
+            "name": "prune-relationships-full",
+            "example": "prune_relationships.lua",
+            "archive": "full",
+            "entrypoint": "script",
+            "expected_plan": {
+                "operations": [
+                    {
+                        "unlike": {
+                            "post_id": "9007199254740993"
+                        }
+                    },
+                    {
+                        "unlike": {
+                            "post_id": "901"
+                        }
+                    },
+                    {
+                        "unfollow": {
+                            "user_id": "9007199254740993"
+                        }
+                    },
+                    {
+                        "unfollow": {
+                            "user_id": "300"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "name": "prune-relationships-empty",
+            "example": "prune_relationships.lua",
+            "archive": "empty",
+            "entrypoint": "script",
+            "expected_plan": {}
+        },
+        {
+            "name": "read-referenced-posts-full",
+            "example": "read_referenced_posts.lua",
+            "archive": "full",
+            "entrypoint": "script",
+            "expected_plan": {
+                "operations": [
+                    {
+                        "read_post": {
+                            "post_id": "700"
+                        }
+                    },
+                    {
+                        "read_post": {
+                            "post_id": "701"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "name": "read-referenced-posts-empty",
+            "example": "read_referenced_posts.lua",
+            "archive": "empty",
+            "entrypoint": "script",
+            "expected_plan": {}
+        },
+        {
+            "name": "profile-announcement-full",
+            "example": "profile_announcement.lua",
+            "archive": "full",
+            "entrypoint": "script",
+            "expected_plan": {
+                "operations": [
+                    {
+                        "update_profile": {
+                            "description": "Archive reviewed: 15 activities for @fixture"
+                        }
+                    },
+                    {
+                        "create_post": {
+                            "text": "Archive review complete."
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "name": "profile-announcement-empty",
+            "example": "profile_announcement.lua",
+            "archive": "empty",
+            "entrypoint": "script",
+            "expected_plan": {
+                "operations": [
+                    {
+                        "update_profile": {
+                            "description": "Archive reviewed: 0 activities for @fixture"
+                        }
+                    },
+                    {
+                        "create_post": {
+                            "text": "Archive review complete."
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "name": "profile-account-fallback",
+            "example": "profile_announcement.lua",
+            "archive": "anonymous",
+            "entrypoint": "script",
+            "expected_plan": {
+                "operations": [
+                    {
+                        "update_profile": {
+                            "description": "Archive reviewed: 0 activities for 100"
+                        }
+                    },
+                    {
+                        "create_post": {
+                            "text": "Archive review complete."
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "name": "cleanup-policy-populated",
+            "example": "policy.lua",
+            "archive": "policy",
+            "entrypoint": "cleanup",
+            "expected_plan": {
+                "operations": [
+                    {
+                        "delete_post": {
+                            "post_id": "101"
+                        }
+                    }
+                ],
+                "cleanup_report": {
+                    "decisions": [
+                        {
+                            "item_id": "101",
+                            "kind": "post",
+                            "created_at": "2020-11-09T12:00:00Z",
+                            "text": "Old policy post",
+                            "outcome": "delete",
+                            "reasons": [
+                                {
+                                    "rule_id": 3,
+                                    "name": "Posts and replies older than 30 days",
+                                    "operation": "delete_post_when"
+                                }
+                            ]
+                        },
+                        {
+                            "item_id": "102",
+                            "kind": "post",
+                            "created_at": "2026-11-08T12:00:00Z",
+                            "text": "Recent policy post",
+                            "outcome": "unchanged"
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "name": "cleanup-policy-empty",
+            "example": "policy.lua",
+            "archive": "empty",
+            "entrypoint": "cleanup",
+            "expected_plan": {
+                "cleanup_report": {}
+            }
+        }
+    ]
+}

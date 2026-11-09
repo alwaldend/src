@@ -1,5 +1,5 @@
 ---@meta
--- Editor-only declarations for the globals bound by internal/policy/policy.go.
+-- Editor-only declarations for the globals bound by internal/cleanup/cleanup.go.
 -- Runtime behavior is owned by that implementation; do not execute this file.
 -- Direct selection functions accept one ID or a dense ID array; empty arrays
 -- do nothing. Queries take one ID. Unsupported arguments and options are errors.
@@ -12,9 +12,9 @@
 ---@field kind string quoted, replied_to, or retweeted.
 
 ---@class CleanerAttachments
----@field media_keys? string[] Attached media identifiers; no media expansion.
----@field poll_ids? string[] Attached poll identifiers.
----@field media_source_ids? string[] Source post IDs for reused media.
+---@field media_keys string[] Attached media identifiers; empty when unavailable.
+---@field poll_ids string[] Attached poll identifiers; empty when unavailable.
+---@field media_source_ids string[] Source post IDs for reused media; empty when unavailable.
 
 ---@class CleanerTextEntity
 ---@field start number Starting offset in the exposed text.
@@ -27,10 +27,10 @@
 ---@field display_url? string Display form of the link, when returned.
 
 ---@class CleanerEntities
----@field hashtags? CleanerTextEntity[] Returned hashtag spans.
----@field cashtags? CleanerTextEntity[] Returned cashtag spans.
----@field mentions? CleanerTextEntity[] Returned mention spans.
----@field urls? CleanerTextEntity[] Returned URL spans.
+---@field hashtags CleanerTextEntity[] Returned hashtag spans; empty when unavailable.
+---@field cashtags CleanerTextEntity[] Returned cashtag spans; empty when unavailable.
+---@field mentions CleanerTextEntity[] Returned mention spans; empty when unavailable.
+---@field urls CleanerTextEntity[] Returned URL spans; empty when unavailable.
 
 ---@class CleanerPost
 ---@field id string Own post or repost activity ID, never a Lua number.
@@ -39,8 +39,8 @@
 ---@field source_id? string Reposted original ID used by the unrepost endpoint.
 ---@field text string Full available text; no foreign source expansion.
 ---@field language? string Returned language code; absent metadata remains nil.
----@field attachments? CleanerAttachments Returned media and poll identifiers.
----@field entities? CleanerEntities Entities corresponding to text, including long posts.
+---@field attachments CleanerAttachments Media and poll collections, including empty arrays.
+---@field entities CleanerEntities Collections corresponding to text, including long posts.
 ---@field created_at number Activity time as Unix seconds.
 ---@field age_days number Fractional days at the planning run's fixed time.
 ---@field is_reply boolean Includes own replies to foreign posts.
@@ -78,8 +78,8 @@
 ---@return string
 function days_ago(days) end
 
---- Limit API discovery, Lua queries, and graph traversal to an activity-time window.
---- Bounds are RFC3339 timestamps at whole seconds, on or after 2010-11-06.
+--- Limit archive inventory, Lua queries, and graph traversal to an activity-time window.
+--- Bounds are RFC3339 timestamps at whole seconds.
 --- Start is inclusive and end exclusive; nil omits either bound. Both nil means
 --- unbounded discovery. Set before any inventory read; callbacks cannot change it.
 --- Thread seeds or connecting posts outside the window remain unavailable.

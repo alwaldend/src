@@ -1,0 +1,9 @@
+window.YTD.account.part0 = [
+  {
+    "account": {
+      "accountId": "100",
+      "username": "fixture",
+      "accountDisplayName": "Fixture Account"
+    }
+  }
+];

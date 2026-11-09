@@ -1,0 +1,15 @@
+flowchart LR
+    actor("Actor")
+    subgraph cleaner["x_profile_cleaner"]
+        backend["Backend"]
+        worker["Worker"]
+        archive[("X Export Archive")]
+        backend -->|Submit job| worker
+        backend -->|Read result| worker
+        backend -->|Write| archive
+        worker -->|Read ZIP| archive
+    end
+    x["X<br/>x.com"]
+    actor -->|HTTP| backend
+    actor -->|Upload archive| backend
+    backend -->|Apply plan| x

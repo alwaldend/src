@@ -1,0 +1,26 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+package(transitive_visibility = "//projects:transitive_consumers")
+
+go_library(
+    name = "cleanup",
+    srcs = [
+        "cleanup.go",
+        "doc.go",
+        "script.go",
+        "snapshot.go",
+        "validation.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/x_profile_cleaner/internal/cleanup",
+    visibility = ["//projects/x_profile_cleaner:__subpackages__"],
+    deps = [
+        "//projects/x_profile_cleaner/api/archivepb",
+        "//projects/x_profile_cleaner/api/workerpb",
+        "//projects/x_profile_cleaner/internal/archive",
+        "//projects/x_profile_cleaner/internal/model",
+        "//projects/x_profile_cleaner/internal/plan",
+        "//projects/x_profile_cleaner/internal/planner",
+        "//projects/x_profile_cleaner/internal/script",
+        "@com_github_yuin_gopher_lua//:gopher-lua",
+    ],
+)

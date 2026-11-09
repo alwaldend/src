@@ -10,18 +10,22 @@ import (
 	"os"
 	"os/signal"
 	"strings"
+	"syscall"
 	"time"
 
 	"git.alwaldend.com/alwaldend/src/internal/x_sdk/pkg/oauth1"
 	"git.alwaldend.com/alwaldend/src/projects/x_profile_cleaner/internal/app"
-	"git.alwaldend.com/alwaldend/src/projects/x_profile_cleaner/internal/model"
+	"git.alwaldend.com/alwaldend/src/projects/x_profile_cleaner/internal/cleanup"
+	operationplan "git.alwaldend.com/alwaldend/src/projects/x_profile_cleaner/internal/plan"
+	"git.alwaldend.com/alwaldend/src/projects/x_profile_cleaner/internal/script"
 	"git.alwaldend.com/alwaldend/src/projects/x_profile_cleaner/internal/web"
+	"git.alwaldend.com/alwaldend/src/projects/x_profile_cleaner/internal/worker"
 	"github.com/spf13/cobra"
 )
 
 // main establishes cancellation and reports application errors at the CLI boundary.
 func main() {
-	ctx, cancel := signal.NotifyContext(context.Background(), os.Interrupt)
+	ctx, cancel := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
 	defer cancel()
 	if err := command().ExecuteContext(ctx); err != nil {
 		fmt.Fprintln(os.Stderr, err)
@@ -29,13 +33,18 @@ func main() {
 	}
 }
 
-// command constructs the plan, apply, and server commands without global state.
+// command constructs operator and credential-free worker modes without global state.
 func command() *cobra.Command {
 	var base string
-	var policyTimeout time.Duration
+	var workerSocket, archiveSource, archiveKey, account string
+	var evaluationTimeout time.Duration
 	root := &cobra.Command{Use: "x_profile_cleaner", Short: "Plan and apply Lua-configured X profile cleanup", SilenceUsage: true, SilenceErrors: true}
 	root.PersistentFlags().StringVar(&base, "api-base-url", "https://api.x.com/2", "X API v2 base URL (HTTP allowed only on loopback)")
-	root.PersistentFlags().DurationVar(&policyTimeout, "policy-timeout", 10*time.Second, "deadline for Lua configuration, callbacks, and lazy reads")
+	root.PersistentFlags().StringVar(&workerSocket, "worker-socket", "", "private archive worker socket")
+	root.PersistentFlags().StringVar(&archiveSource, "archive-source", "", "configured worker archive source name")
+	root.PersistentFlags().StringVar(&archiveKey, "archive-key", "", "provider-specific archive object key")
+	root.PersistentFlags().StringVar(&account, "account", "", "expected archive and execution account ID")
+	root.PersistentFlags().DurationVar(&evaluationTimeout, "evaluation-timeout", 10*time.Second, "deadline for archive fetching, parsing and policy evaluation")
 	application := &app.App{}
 	logs := &web.Log{}
 	logger := slog.New(slog.NewTextHandler(io.MultiWriter(logs, root.ErrOrStderr()), nil))
@@ -46,16 +55,57 @@ func command() *cobra.Command {
 			AccessToken:       os.Getenv("X_ACCESS_TOKEN"),
 			AccessTokenSecret: os.Getenv("X_ACCESS_TOKEN_SECRET"),
 		}
-		if err := application.Configure(base, credentials, policyTimeout, logger); err != nil {
+		if err := application.Configure(app.Config{APIBaseURL: base, Credentials: credentials, EvaluationTimeout: evaluationTimeout, Logger: logger, WorkerSocket: workerSocket, ArchiveSource: archiveSource, ArchiveKey: archiveKey, AccountID: account}); err != nil {
 			return fmt.Errorf("configure cleanup application: %w", err)
 		}
 		return nil
 	}
-	root.AddCommand(newPlanCommand(application), newApplyCommand(application), newServerCommand(application, logger, logs))
+	root.AddCommand(newPlanCommand(application), newApplyCommand(application), newServerCommand(application, logger, logs), newWorkerCommand())
 	return root
 }
 
-// newServerCommand groups HTTP backend commands and supplies the initial policy.
+// newWorkerCommand bypasses credential initialization and accepts archive
+// references over a private gRPC socket. Supervisors must launch with a clean
+// environment; clearing inherited values here is defense in depth.
+func newWorkerCommand() *cobra.Command {
+	var socket string
+	var timeout time.Duration
+	var retention time.Duration
+	var sourceDefinitions []string
+	command := &cobra.Command{Use: "worker", Short: "Credential-free archive worker commands"}
+	serve := &cobra.Command{
+		Use: "serve", Short: "Evaluate Lua archive scripts over private gRPC without credentials", Args: cobra.NoArgs,
+		PersistentPreRunE: func(_ *cobra.Command, _ []string) error {
+			os.Clearenv()
+			return nil
+		},
+		RunE: func(cmd *cobra.Command, _ []string) error {
+			sources := map[string]string{}
+			for _, definition := range sourceDefinitions {
+				name, directory, ok := strings.Cut(definition, "=")
+				if !ok || name == "" || sources[name] != "" {
+					return fmt.Errorf("each source requires a unique NAME=/absolute/directory")
+				}
+				sources[name] = directory
+			}
+			if err := worker.Serve(cmd.Context(), socket, timeout, retention, sources, script.Evaluator{Options: script.Options{Timeout: timeout, Library: cleanup.New}}); err != nil {
+				return fmt.Errorf("run archive worker: %w", err)
+			}
+			return nil
+		},
+	}
+	serve.Flags().StringArrayVar(&sourceDefinitions, "source", nil, "named local archive directory, NAME=/absolute/directory (repeatable)")
+	serve.Flags().StringVar(&socket, "socket", "", "absolute Unix socket path in an existing private directory")
+	serve.Flags().DurationVar(&timeout, "evaluation-timeout", 90*time.Second, "archive fetch and evaluation deadline, at most 90s")
+	serve.Flags().DurationVar(&retention, "result-ttl", 5*time.Minute, "terminal job retention, at most 1h")
+	if err := serve.MarkFlagRequired("socket"); err != nil {
+		panic(fmt.Sprintf("declare worker socket flag: %v", err))
+	}
+	command.AddCommand(serve)
+	return command
+}
+
+// newServerCommand groups HTTP backend commands and supplies the initial cleanup.
 func newServerCommand(application *app.App, logger *slog.Logger, logs *web.Log) *cobra.Command {
 	var address, path string
 	server := &cobra.Command{Use: "server", Short: "HTTP backend commands"}
@@ -97,11 +147,11 @@ func newPlanCommand(application *app.App) *cobra.Command {
 			if err := app.WritePlan(output, plan); err != nil {
 				return fmt.Errorf("save cleanup plan: %w", err)
 			}
-			if _, err := fmt.Fprintf(cmd.OutOrStdout(), "Planned %d actions for account %s in %s\n", len(plan.Actions), plan.AccountID, output); err != nil {
+			if _, err := fmt.Fprintf(cmd.OutOrStdout(), "Planned %d actions for account %s in %s\n", len(plan.Plan.Operations), plan.AccountID, output); err != nil {
 				return fmt.Errorf("report saved plan: %w", err)
 			}
 		}
-		if _, err := fmt.Fprintln(cmd.ErrOrStderr(), "Coverage: available timeline inventory only; complete historical discovery is outside scope."); err != nil {
+		if _, err := fmt.Fprintln(cmd.ErrOrStderr(), "Coverage: selected X export archive only; history and thread membership may be incomplete."); err != nil {
 			return fmt.Errorf("report discovery coverage: %w", err)
 		}
 		if explain {
@@ -150,7 +200,7 @@ func newApplyCommand(application *app.App) *cobra.Command {
 			}
 		}
 		completed, applyErr := application.Apply(cmd.Context(), plan, nil)
-		if _, err := fmt.Fprintf(cmd.OutOrStdout(), "Completed %d of %d actions.\n", completed, len(plan.Actions)); err != nil {
+		if _, err := fmt.Fprintf(cmd.OutOrStdout(), "Completed %d of %d actions.\n", completed, len(plan.Plan.Operations)); err != nil {
 			if applyErr != nil {
 				return fmt.Errorf("apply cleanup: %w; report progress: %w", applyErr, err)
 			}
@@ -205,16 +255,16 @@ func confirm(ctx context.Context, input io.Reader, output io.Writer) (bool, erro
 }
 
 // displayPlan prints the exact actions which confirmation will authorize.
-func displayPlan(output io.Writer, plan model.Plan) error {
-	if _, err := fmt.Fprintf(output, "Account %s: %d actions\n", plan.AccountID, len(plan.Actions)); err != nil {
+func displayPlan(output io.Writer, plan operationplan.Document) error {
+	if _, err := fmt.Fprintf(output, "Account %s: %d actions\n", plan.AccountID, len(plan.Plan.Operations)); err != nil {
 		return fmt.Errorf("write plan summary: %w", err)
 	}
-	for _, action := range plan.Actions {
+	for _, action := range plan.Plan.Operations {
 		level := "ordinary"
-		if action.Forced {
+		if action.GetDeletePost().GetForced() || action.GetUnrepost().GetForced() {
 			level = "forced"
 		}
-		if _, err := fmt.Fprintf(output, "%s %s (%s)\n", action.Kind, action.TargetID, level); err != nil {
+		if _, err := fmt.Fprintf(output, "%s %s (%s)\n", operationplan.OperationName(action), operationplan.TargetID(action), level); err != nil {
 			return fmt.Errorf("write plan action: %w", err)
 		}
 	}
@@ -222,13 +272,13 @@ func displayPlan(output io.Writer, plan model.Plan) error {
 }
 
 // displayDecisions prints quoted snapshot evidence; only displayed actions authorize execution.
-func displayDecisions(output io.Writer, plan model.Plan) error {
-	for _, decision := range plan.Decisions {
-		if _, err := fmt.Fprintf(output, "%s %s %s %s %q\n", decision.Kind, decision.ItemID, decision.CreatedAt.UTC().Format(time.RFC3339), decision.Outcome, decision.Text); err != nil {
+func displayDecisions(output io.Writer, plan operationplan.Document) error {
+	for _, decision := range plan.Plan.GetCleanupReport().GetDecisions() {
+		if _, err := fmt.Fprintf(output, "%s %s %s %s %q\n", decision.Kind, decision.ItemId, decision.CreatedAt.AsTime().UTC().Format(time.RFC3339), decision.Outcome, decision.Text); err != nil {
 			return fmt.Errorf("write decision: %w", err)
 		}
 		for _, reason := range decision.Reasons {
-			if _, err := fmt.Fprintf(output, "  rule %d %s %q seed=%s\n", reason.RuleID, reason.Operation, reason.Name, reason.SeedID); err != nil {
+			if _, err := fmt.Fprintf(output, "  rule %d %s %q seed=%s\n", reason.RuleId, reason.Operation, reason.Name, reason.SeedId); err != nil {
 				return fmt.Errorf("write decision reason: %w", err)
 			}
 		}

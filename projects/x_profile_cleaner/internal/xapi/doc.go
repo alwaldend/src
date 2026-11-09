@@ -1,7 +1,3 @@
-// Package xapi adapts the shared X SDK to lazy inventory and explicit mutations.
-// It caches timeline pages, normalizes requested owned kinds, and paces endpoint
-// quotas, signing admitted requests with the shared OAuth 1.0a signer.
-// Collection and quota progress use the command-owned logger.
-// It ignores foreign and article content, refuses redirects, and never
-// automatically replays failed requests or accepts unconfirmed mutations.
+// Package xapi signs and paces exact X post-deletion and repost-removal requests.
+// Its transport rejects all non-DELETE requests; it provides no discovery APIs.
 package xapi

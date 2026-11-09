@@ -2,8 +2,12 @@
 
 See [proposal.md](proposal.md) for motivation and capability scope. The existing
 loopback server owns one application, credential, plan, execution, and log stream.
-Its Lua adapter has restricted libraries and cancellation, but runs inside the web
-process. API request-window pacing exists; durable billing limits do not.
+Its restricted Lua adapter now runs in a separate archive-owning worker. API request-window pacing exists; durable billing limits do not.
+
+The README's current architecture diagram is maintained in `docs/architecture.mmd`
+and rendered through the project's documentation targets. It describes implemented
+actors, application processes, archive storage and external services; the hosted
+design below includes further work tracked by the remaining tasks.
 
 The baseline safety contract remains in
 [profile-cleanup](../add-x-profile-cleaner/specs/profile-cleanup/spec.md). Hosted
@@ -41,9 +45,10 @@ separate from hosted OAuth 2.0 user-context clients. The hosted command must not
 inherit the Article uploader's personal user credential as a fallback.
 
 Run policy parsing/evaluation and archive parsing in separately limited systemd
-worker units. A worker receives only the selected account's bounded source data,
-policy, fixed evaluation time, and operation identifier through bounded local IPC.
-It has no OAuth environment, network access, arbitrary host filesystem access, or
+worker units. A worker receives a configured source reference, expected account, policy, fixed
+evaluation time, and operation identifier through bounded local IPC. It fetches
+the archive directly through an operator-configured provider. It has no OAuth
+environment, general network access, arbitrary host filesystem access, or
 permission to manage units. Backend-owned admission starts a fixed executable/unit
 template; user input cannot choose unit properties or executable arguments.
 
@@ -52,6 +57,162 @@ failure does not terminate the backend. Disable swap and core dumps for services
 holding credentials. Worker environments explicitly exclude deployment secrets.
 In-process timeouts alone were rejected because a Lua allocation or parser can
 exhaust backend memory before cooperative cancellation.
+
+The policy worker protocol uses gRPC over a private Unix socket,
+with no transport credentials or TCP listener. `worker serve --socket <absolute path>`
+is a mode of the direct cleaner executable and bypasses OAuth initialization.
+Use a clean supervisor environment; the command also clears inherited variables.
+The unary `SubmitEvaluation(Evaluation)` request carries operation/account binding,
+Lua script, fixed time, a logical source name and an opaque provider-specific archive
+key. It contains no archive bytes or normalized records. Submission acknowledges
+the backend-provided ID before fetching, parsing or computation. Accepted work
+survives RPC disconnection under a worker-owned deadline. `GetEvaluation` returns
+running or terminal status by job/account ID, with a complete typed operation plan only on
+success; `CancelEvaluation` stops work and `DeleteEvaluation` releases terminal data.
+There is one current unversioned contract, without streaming or compatibility APIs.
+
+Only local sources are implemented: repeated `--source NAME=/absolute/directory`
+flags open directory capabilities at startup. A source-provider interface owns key
+validation, seekable object access and cleanup. Local keys are relative paths;
+`os.Root` confines symlink and rename traversal, and nonblocking opens reject
+non-regular files. Future S3 providers may interpret the same key as an object name
+under operator-configured storage, with no job API change. No S3 implementation or
+AWS dependency is included. Jobs cannot choose arbitrary roots, buckets or endpoints.
+
+Open standard X ZIP exports, requiring `data/account.js` and `data/tweets.js`.
+Validate ZIP metadata and the sole matching account before script execution. Expose
+lazy `archive.datasets()` and named `account()`, `tweets()`, `likes()` and
+`following()` accessors over top-level YTD dataset files, including consecutive
+multipart files. Validate and normalize records into protobuf, remove YTD row wrappers and
+retain string IDs. Optional null fields become absent Lua fields. Expose original
+JSON structure only through explicit `archive.read_raw(name)`, including its
+`json.null` sentinel. Remove the ambiguous `archive.read` API without a compatibility
+alias. Parse literal array assignments as data; never
+execute bundled JavaScript, extract files, follow links or read unrequested datasets.
+A failed dataset read remains fatal across Lua `pcall`.
+
+Scripts call a per-evaluation `plan` API whose methods derive from the protobuf
+Operation oneof. Required scalar strings and target identifiers are positional;
+remaining fields form options, while presence-sensitive profile updates use a
+table. One descriptor rule drives runtime argument handling and editor generation.
+The collector validates each contribution and aggregate bounds before mutation,
+copies values, preserves operation order and retains caught API failures. The
+interpreter accepts no returned values; successful completion publishes the native
+protobuf plan, and any failure discards it. An empty script yields no operations.
+There is no returned-plan decoder or compatibility path.
+
+The generic job service imports no cleanup evaluator. The composition root installs
+the cleanup application's `cleaner.plan` helper, which appends native deletion/repost
+operations and a typed cleanup report for the existing review interface without
+a protobuf-to-Lua round trip.
+Other scripts need no report. The helper normalizes tweets, preserves cleanup/graph
+semantics and verifies its report against actual archived records. The cleanup
+backend retains the same protobuf payload and checks exact
+operation/decision agreement. The generic worker/client share operation-payload,
+unknown-field and message-bound validation. Every backend still owns authorization
+and its supported executor set; planning a read or write performs neither.
+
+Saved JSON documents have an independent 128 MiB encoded-size limit, including
+file indentation, escaping and default fields. Validate the final formatted bytes
+before replacing a file, bound reads before decoding, and retain the protobuf
+payload limit after decoding. Optional null archive counters normalize to absent
+values; numeric zero remains present and invalid counters still fail import.
+
+Decision verdict: revise JSON results to typed protobuf operation plans. The result
+is specifically executable X-operation intent, so an unconstrained return object
+is broader than the requirement. Extending the protocol alongside a new executor
+is appropriate. Typed payloads constrain targets and parameters while Lua remains
+arbitrary computation over archive datasets. No JSON-result fallback, generic
+parameter map, opaque bytes or compatibility service is retained. Preserve up to
+50,000 operations and a complete result below 16 MiB, reserving metadata space;
+conversion retains 64-level/one-million-value work bounds.
+
+Lua editor declarations follow the same owners as runtime data. A project-owned
+Go command generates plan methods and their exact argument types from operation
+descriptors, and account/tweet/like/following types from archive descriptors.
+The handwritten API declares named validated accessors, an explicit recursive JSON-value
+raw read and the void cleanup helper. Typed projections include only
+declared fields and allocate fresh tables. Dataset validation failures remain fatal
+even if Lua catches the immediate error. The example calls plan methods directly,
+without an operation array or returned result. Process acceptance verifies deterministic generation,
+freshness, invalid-path behavior, Lua syntax and real example execution. Existing
+Selene/StyLua checks remain available; LuaLS diagnostic checking is unavailable and
+no new external dependency is introduced for this increment.
+
+The composition root supplies a `script.Evaluator` struct through the worker's
+`Evaluator` interface. Its `Options.Timeout` configures evaluation without adding
+trusted options to job payloads. Zero inherits the parent context, a positive value
+shortens the deadline and a negative value is rejected. The parent worker deadline
+continues to bound the complete fetch/parse/evaluate job. Each call owns a fresh
+interpreter; `Library: cleanup.New` installs a fresh cleanup helper and snapshot.
+Cancellation and deadline errors retain their causes. No legacy policy evaluator
+or function alias remains. The operator and worker use `--evaluation-timeout`.
+
+Bounds: 128 KiB unary request, 64 KiB policy, 1 GiB ZIP, 10,000 entries, 8 MiB central
+directory, 64 MiB per selected file, 256 MiB total selected decoded data, 50,000
+records, 2 MiB per row, 32 MiB encoded inventory, 16 MiB complete result. ZIP64 and
+multi-disk archives are unsupported. Typed account/tweet/entity decoding replaces per-field raw JSON maps. Explicit
+and inferred references use stable reply/quote/repost array order. Cleanup result validation checks action/decision consistency directly; only the
+source-owning cleanup helper performs membership checks against actual records. Policy error summaries contain
+only the stage and source location, retaining original causes internally. The
+client performs one terminal cleanup attempt under an independent bounded context;
+cleanup failure warns without discarding a complete validated result.
+
+The backend does not fetch the archive again. It relies on the trusted source-owning
+cleanup helper for membership and cannot independently detect fabricated but
+consistent inventory. The private socket is the process trust boundary.
+
+The CLI and private server use this worker for all Lua evaluation. Planning has no
+X client or credentials requirement. Explicit apply lazily initializes the mutation
+client, requires a matching operator-selected account and rejects non-DELETE HTTP
+operations. Archive identity is not proof of credential ownership; X enforces write
+authority. Hosted OAuth identity verification remains future authorization work.
+
+Decision verdict: proceed with pinned gRPC/protobuf and standard-library ZIP and
+filesystem capabilities. This satisfies direct worker retrieval without a duplicate
+backend parse or payload transport. Hard OS restrictions remain deployment work.
+
+Keep one active fetch/evaluation, no waiting queue, at most 16 retained job
+records, and 32 MiB retained successful payloads. Terminal results expire after
+five minutes by default (`--result-ttl`, at most one hour); polling never renews
+retention. Reject submissions when job retention is full and fail a result that
+cannot fit, preserving existing retained results. Duplicate retained IDs cannot
+replace work. The backend chooses globally unique IDs and owns durable status;
+the worker owns only bounded transient attempts. Connection loss after acceptance
+does not cancel them. Worker exit loses all transient jobs, which the backend
+must mark interrupted rather than resume automatically. Long-lived worker units
+must support result retrieval; the 90-second limit applies to fetch/parse/computation,
+not retention. Hard operating-system enforcement remains deployment work.
+
+### Canonical plan and evaluator ownership
+
+Local simplification decision (2026-11-13): proceed with one protobuf operation
+plan from planner through execution. A Go document envelope owns trusted account
+and evaluation time and serializes its payload with strict protobuf JSON; it adds
+no second operation schema or version compatibility. Adding these fields to the
+script-controlled Plan would blur metadata ownership; retaining the old model
+would preserve the redundant conversions identified in review. Saved files and
+browser responses use the new envelope without accepting the old actions/version
+format. Generic evaluation options belong to script.Evaluator. A per-evaluation
+library factory installs cleanup behavior and checks its report; cleanup state
+must never survive between calls. Rename the cleanup-specific package rather
+than retaining a policy alias. The cleanup DSL and its graph semantics remain
+active behavior, while only the existing deletion/unrepost executor is admitted.
+
+### Canonical archive records
+
+Archive schema decision (2026-11-13): proceed with api/archivepb/archive.proto as
+the canonical typed input contract. The importer maps X's third-party JSON into
+normalized protobuf account/tweet/like/following records, with typed timestamps,
+reference/activity enums and optional exact counters. The importer constructs protobuf records directly through primitive source readers;
+there are no Go JSON record structs or protobuf JSON-name aliases. The cleanup
+graph's derived domain projection belongs only to cleanup. Lua uses
+canonical protobuf field names and enum names; integers outside Lua's exact range
+use decimal strings. Descriptor-driven projection and editor generation replace
+the separate Go-reflection schema. Only literal standard X field names are read;
+canonical-record and case-folded input spellings do not act as fallbacks. Records remain worker-local; the job protocol
+still carries source references and typed operation results. ZIP retrieval and
+decompression stay in the worker; no extraction responsibility moves to the backend.
 
 ### OAuth 2.0 login and temporary cleanup authorization
 
@@ -112,47 +273,29 @@ policy or plan cannot replace an execution's retained selection.
 
 ### Separate discovery from evaluation
 
-Refresh from X and Import X archive produce immutable snapshots. Evaluate policy
-uses exactly one authorized cached snapshot, performs no HTTP identity check or
-lazy network read, and publishes a new plan ID. Preserve Lua's lazy query behavior
-against the local snapshot. Freeze a per-evaluation time so relative dates and ages
-are consistent without pretending cached metrics or text are fresh.
+Configured X export archives are the only inventory source. Live timeline reads and
+refresh are removed. Evaluate policy uses one matching archive snapshot with no X
+requests. Preserve Lua's lazy query behavior against the parsed local snapshot and
+freeze one evaluation time for consistent relative dates and ages.
 
-Record owner, source, creation/import times, available fields, requested discovery
-window, and completion/coverage limitations. Cache keys include those properties
-and normalization version, not a username alone. Narrower windows filter before
-building the policy graph. Unbounded policies use the available snapshot with its
-coverage warning; they do not establish complete history. Missing required
-coverage or fields returns an explicit refresh/import choice. Never silently merge
-archives and API data or spend credits during an evaluation.
-
-Budget-aware pagination can reduce page size within X's supported range. Before a
-page, reserve its maximum possible returned resources and requested expansions.
-An incomplete refresh never replaces a usable snapshot or produces an executable
-partial plan. Reads already dispatched still count even if collection or a later
-policy fails. Discovery estimates include user-selected headroom for deletion;
-when complete discovery cannot fit, suggest a narrower window or archive import.
-
-Read supported account/post/repost archive data without executing the bundled site
-or scripts. Treat script-wrapped JSON as data with a strict parser; use the existing
-dependency set where possible. Parse bounded selected entries rather than extract
-the whole archive. Reject path traversal, links, nested archives, unsupported or
-conflicting records, missing identity, and invalid repost mappings. Verify archive
-identity against the logged-in account, but never treat upload metadata as proof of
-ownership. Store only supported own records, not DMs, contacts, media binaries, or
-unneeded archive files. Missing preservation seeds fail as in API discovery.
+Hosted persistence will record owner, source/key, import time, available fields,
+normalization version and coverage limitations. Narrower windows filter before
+graph construction. Missing seeds, fields or coverage require explicit archive
+replacement; they never trigger a network read or merge sources. Only explicitly requested YTD datasets are decoded; media binaries and external
+links are never loaded. The cleanup helper retains only its account/tweet projection. An export does not grant X authorization or establish
+complete history or graph coverage.
 
 The backend validates the worker's returned snapshot/plan before publication.
 After a dispatched mutation, mark affected snapshots and other unconsumed plans
 dirty, including when the result is unknown. Do not alter the consumed execution's
 original plan or disable explicit recovery. A dirty snapshot needs an explicit
-refresh or replacement import before another evaluation; display its status.
+replacement import before another evaluation; display its status.
 
 ### Money limits are independent of request windows
 
 The monetary contract is [cleanup-spending](specs/cleanup-spending/spec.md).
 Represent USD as integer microdollars, never binary floating point. Each explicit
-cleanup owns one budget account: refresh, repeated evaluation, apply, cancellation,
+cleanup owns one budget account: archive acquisition, evaluation, apply, cancellation,
 and resume retain its accumulated spend and outstanding reservations. A user may
 set a lower run and/or personal monthly ceiling. A new cleanup does not reset
 account or shared monthly usage. Raising a budget is explicit and remains bounded
@@ -201,8 +344,7 @@ uncapped service allowance.
 
 Price configuration carries its observation date, endpoint/category mapping,
 conservative rounding, and maximum billable response size. As researched on
-2026-11-09, public Post reads are $0.005/resource, owner-app timeline reads
-$0.001/resource, and ContentManage is $0.005/request. The deletion category mapping
+2026-11-09, ContentManage is $0.005/request. The deletion category mapping
 comes from X's Playground, not a live invoice. `/2/users/me` free treatment remains
 unverified: reserve the published User category's $0.01 until confirmed. These are
 dated implementation inputs, not permanent tariffs. Keep the provider ceiling and
@@ -214,34 +356,33 @@ These values complete unspecified implementation details for review; they are no
 host configuration changes. Display applicable limits in the UI and reject startup
 configuration whose aggregate worker/storage bounds cannot fit the VM.
 
-| Limit                       | Initial value                                    |
-| --------------------------- | ------------------------------------------------ |
-| Policy source               | 64 KiB UTF-8, bounded before parsing             |
-| API non-upload request body | 256 KiB                                          |
-| Archive upload              | 64 MiB compressed                                |
-| Archive decoded entries     | 256 MiB total; 10,000 entries; no nested archive |
-| Snapshot                    | 50,000 records and 32 MiB normalized data        |
-| Cached snapshots            | 64 MiB/account; 512 MiB globally; seven days     |
-| Policy declarations         | 256 rules; 10,000 explicit IDs total             |
-| Callback/graph work         | 1,000,000 callbacks and 1,000,000 edge visits    |
-| Planning worker output      | 16 MiB, including decisions and actions          |
-| Worker unit                 | 256 MiB memory; 100% CPU quota; 32 tasks         |
-| Worker lifetime             | 90 seconds, including parsing and IPC            |
-| Admission                   | One active operation/account; two workers/VM     |
-| Waiting queue               | 20 jobs globally; one queued job/account         |
-| Unconsumed plan retention   | 24 hours; cannot outlive its snapshot            |
-| Stopped execution retention | Seven days from last explicit apply/resume       |
-| Upload staging              | Removed after import/failure; one-hour sweeper   |
-| Application sessions        | Seven-day absolute lifetime                      |
-| Browser progress logs       | Latest 1,000 entries; 4 KiB/entry                |
-| Durable operational logs    | Seven days; bounded rotation; no post content    |
-| Rate control                | Five OAuth starts/IP/minute and 20/account/hour  |
-| Total runtime data disk     | 2 GiB including database, WAL, uploads, and logs |
-| Accounting disk headroom    | 128 MiB reserved; stop data admission below it   |
-| Consistent backups          | Daily; seven-day retention in bounded storage    |
+| Limit                       | Initial value                                        |
+| --------------------------- | ---------------------------------------------------- |
+| Policy source               | 64 KiB UTF-8, bounded before parsing                 |
+| API request body            | 256 KiB                                              |
+| Archive object              | 1 GiB, fetched by worker                             |
+| Archive decoded entries     | 256 MiB total; 10,000 entries; no nested archive     |
+| Snapshot                    | 50,000 records and 32 MiB normalized data            |
+| Cached snapshots            | 64 MiB/account; 512 MiB globally; seven days         |
+| Policy declarations         | 256 rules; 10,000 explicit IDs total                 |
+| Callback/graph work         | 1,000,000 callbacks and 1,000,000 edge visits        |
+| Planning worker output      | 16 MiB, including decisions and actions              |
+| Worker unit                 | 256 MiB memory; 100% CPU quota; 32 tasks             |
+| Evaluation deadline         | 90 seconds, including fetch, parsing and computation |
+| Admission                   | One active operation/account; two workers/VM         |
+| Waiting queue               | 20 jobs globally; one queued job/account             |
+| Unconsumed plan retention   | 24 hours; cannot outlive its snapshot                |
+| Stopped execution retention | Seven days from last explicit apply/resume           |
+| Application sessions        | Seven-day absolute lifetime                          |
+| Browser progress logs       | Latest 1,000 entries; 4 KiB/entry                    |
+| Durable operational logs    | Seven days; bounded rotation; no post content        |
+| Rate control                | Five OAuth starts/IP/minute and 20/account/hour      |
+| Total runtime data disk     | 2 GiB including database, WAL, snapshots, and logs   |
+| Accounting disk headroom    | 128 MiB reserved; stop data admission below it       |
+| Consistent backups          | Daily; seven-day retention in bounded storage        |
 
 Limits apply to the owner too. Enforce total disk use across database, WAL, retained
-execution records, uploads, and logs, reserving free space for ledger commits.
+execution records, snapshots, and logs, reserving free space for ledger commits.
 Evict only eligible unreferenced cache records; preserve a running or retained
 execution's required data until completion/expiry. If protected data fills the
 limit, reject new work rather than silently delete progress. Account deletion clears
@@ -289,8 +430,8 @@ External references, observed 2026-11-09:
   immediate remote revocation or exactly-once effects across network failures.
 - Cached/archive data can be old or incomplete: show provenance and scope, fail on
   missing explicit seeds, and never describe successful planning as full coverage.
-- A tiny public allowance can be spent collecting an unusable partial refresh:
-  bound reads, preserve the old snapshot, expose headroom, and offer archive import.
+- Missing archive coverage can produce an incomplete graph: expose coverage, fail
+  missing seeds, and require explicit replacement rather than live read fallback.
 - Price changes and uncertain responses can make estimates differ from invoices:
   use conservative dated tariffs, durable reservations, and operator reconciliation.
 - Account isolation and archive intake expand the attack surface: enforce every

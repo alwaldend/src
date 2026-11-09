@@ -17,8 +17,9 @@ import (
 	"sync"
 	"time"
 
+	"git.alwaldend.com/alwaldend/src/projects/x_profile_cleaner/api/workerpb"
 	"git.alwaldend.com/alwaldend/src/projects/x_profile_cleaner/internal/app"
-	"git.alwaldend.com/alwaldend/src/projects/x_profile_cleaner/internal/model"
+	operationplan "git.alwaldend.com/alwaldend/src/projects/x_profile_cleaner/internal/plan"
 	"github.com/go-chi/chi/v5"
 )
 
@@ -59,7 +60,7 @@ type status struct {
 // execution retains the fixed submitted subset and its progress for this server session.
 type execution struct {
 	// plan contains only the actions selected and confirmed before initial execution.
-	plan model.Plan
+	plan operationplan.Document
 	// policy is the original source shown with the selected plan, never reevaluated here.
 	policy string
 	// id identifies this execution plan across resumed jobs.
@@ -87,7 +88,7 @@ type server struct {
 	// policy is the latest submitted editor source.
 	policy string
 	// plan is retained only until replacement or a validated apply starts.
-	plan *model.Plan
+	plan *operationplan.Document
 	// execution survives a failed or cancelled apply until a new plan replaces it.
 	execution *execution
 	// sequence identifies each admitted operation.
@@ -318,7 +319,7 @@ func (s *server) postApply(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		index := *value
-		if index < 0 || index >= len(s.plan.Actions) || selected[index] {
+		if index < 0 || index >= len(s.plan.Plan.Operations) || selected[index] {
 			s.fail(w, http.StatusBadRequest, fmt.Errorf("selection contains an invalid or repeated action index"))
 			return
 		}
@@ -328,11 +329,12 @@ func (s *server) postApply(w http.ResponseWriter, r *http.Request) {
 		s.fail(w, http.StatusBadRequest, fmt.Errorf("select at least one planned action"))
 		return
 	}
-	plan := *s.plan
-	plan.Actions = []model.Action{}
-	for index, action := range s.plan.Actions {
+	plan := s.plan.Clone()
+	operations := plan.Plan.Operations
+	plan.Plan.Operations = []*workerpb.Operation{}
+	for index, action := range operations {
 		if selected[index] {
-			plan.Actions = append(plan.Actions, action)
+			plan.Plan.Operations = append(plan.Plan.Operations, action)
 		}
 	}
 	s.execution = &execution{plan: plan, policy: s.policy, completed: map[int]bool{}}
@@ -403,7 +405,7 @@ func (s *server) start(phase string, actions int) context.Context {
 // prepare retains a complete plan only when planning and cancellation both succeed.
 func (s *server) prepare(ctx context.Context, source string) {
 	defer s.jobs.Done()
-	plan, err := s.application.PrepareSource(ctx, source, "browser-policy.lua")
+	plan, err := s.application.PrepareSource(ctx, source, "browser-cleanup.lua")
 	s.mu.Lock()
 	defer s.mu.Unlock()
 	if err == nil {
@@ -411,7 +413,7 @@ func (s *server) prepare(ctx context.Context, source string) {
 	}
 	if s.finish(ctx, err) {
 		s.plan = &plan
-		s.state.Phase, s.state.PlanID, s.state.Actions = "ready", s.state.JobID, len(plan.Actions)
+		s.state.Phase, s.state.PlanID, s.state.Actions = "ready", s.state.JobID, len(plan.Plan.Operations)
 	}
 }
 
@@ -419,19 +421,20 @@ func (s *server) prepare(ctx context.Context, source string) {
 // The caller holds the session lock, and admission has excluded another active job.
 func (s *server) startApply() {
 	run := s.execution
-	plan := run.plan
-	plan.Actions = []model.Action{}
+	plan := run.plan.Clone()
+	operations := plan.Plan.Operations
+	plan.Plan.Operations = []*workerpb.Operation{}
 	indexes := []int{}
 	completed := []int{}
-	for index, action := range run.plan.Actions {
+	for index, action := range operations {
 		if run.completed[index] {
 			completed = append(completed, index)
 		} else {
 			indexes = append(indexes, index)
-			plan.Actions = append(plan.Actions, action)
+			plan.Plan.Operations = append(plan.Plan.Operations, action)
 		}
 	}
-	ctx := s.start("applying", len(run.plan.Actions))
+	ctx := s.start("applying", len(run.plan.Plan.Operations))
 	if run.id == "" {
 		run.id = s.state.JobID
 	}
@@ -442,7 +445,7 @@ func (s *server) startApply() {
 }
 
 // apply records confirmed progress by original index and retains unfinished actions.
-func (s *server) apply(ctx context.Context, run *execution, plan model.Plan, indexes []int) {
+func (s *server) apply(ctx context.Context, run *execution, plan operationplan.Document, indexes []int) {
 	defer s.jobs.Done()
 	_, err := s.application.Apply(ctx, plan, func(index int) {
 		s.mu.Lock()
