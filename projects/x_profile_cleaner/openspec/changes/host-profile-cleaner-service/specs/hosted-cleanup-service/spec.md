@@ -5,6 +5,25 @@ while retaining the existing planner and exact-action execution safety contract.
 
 ## ADDED Requirements
 
+### Requirement: Explicit HTTP backend routes
+
+The backend SHALL use chi for HTTP routing and standard net/http middleware.
+The private interface SHALL launch with `server serve`, without a top-level
+`serve` alias. Route migration SHALL preserve host/origin checks, API capability
+authentication, strict bounded JSON decoding, serialized jobs, and exact confirmed
+execution. Unknown paths and unsupported methods SHALL remain rejected, including
+unauthenticated API paths; error responses SHALL retain security headers.
+
+#### Scenario: Unmatched or malformed HTTP requests
+
+- **WHEN** a request uses an unknown API route, unsupported method, foreign origin, missing capability, or malformed/oversized JSON
+- **THEN** it is rejected before job admission or X mutation, with the existing security headers and API error representation
+
+#### Scenario: Server command lifecycle
+
+- **WHEN** the operator launches `server serve`, plans and confirms a subset, cancels or resumes work, and interrupts the process
+- **THEN** the backend exposes the authenticated local workflow, executes only the confirmed subset, and shuts down its jobs through the existing lifecycle
+
 ### Requirement: Hosted account boundary
 
 The service SHALL permit registration through verified X login and SHALL isolate

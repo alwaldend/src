@@ -29,7 +29,7 @@ func main() {
 	}
 }
 
-// command constructs the plan, apply, and serve commands without global state.
+// command constructs the plan, apply, and server commands without global state.
 func command() *cobra.Command {
 	var base string
 	var policyTimeout time.Duration
@@ -51,13 +51,14 @@ func command() *cobra.Command {
 		}
 		return nil
 	}
-	root.AddCommand(newPlanCommand(application), newApplyCommand(application), newServeCommand(application, logger, logs))
+	root.AddCommand(newPlanCommand(application), newApplyCommand(application), newServerCommand(application, logger, logs))
 	return root
 }
 
-// newServeCommand supplies an optional initial policy to the loopback HTTP adapter.
-func newServeCommand(application *app.App, logger *slog.Logger, logs *web.Log) *cobra.Command {
+// newServerCommand groups HTTP backend commands and supplies the initial policy.
+func newServerCommand(application *app.App, logger *slog.Logger, logs *web.Log) *cobra.Command {
 	var address, path string
+	server := &cobra.Command{Use: "server", Short: "HTTP backend commands"}
 	command := &cobra.Command{Use: "serve", Short: "Review and apply cleanup in a local browser", Args: cobra.NoArgs, RunE: func(cmd *cobra.Command, _ []string) error {
 		source, err := web.DefaultPolicy()
 		if path != "" {
@@ -73,7 +74,8 @@ func newServeCommand(application *app.App, logger *slog.Logger, logs *web.Log) *
 	}}
 	command.Flags().StringVar(&address, "listen", "127.0.0.1:0", "loopback listen address; port 0 selects an available port")
 	command.Flags().StringVar(&path, "config", "", "initial Lua policy file; defaults to the maintained example")
-	return command
+	server.AddCommand(command)
+	return server
 }
 
 // newPlanCommand owns plan input flags and output reporting.
