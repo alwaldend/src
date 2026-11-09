@@ -18,4 +18,14 @@ run "team_keys_and_environment" {
     condition     = vault_kv_secret_v2.keys["rentals"].name == "alwaldend.com/vault1/approles/src_infra_vastai/vastai/alwaldend/rentals"
     error_message = "Rental access must be stored separately from the operator-owned root team key."
   }
+
+  assert {
+    condition     = vastai_api_key.imagegen.name == "users_simeonwarren_imagegen" && vastai_api_key.imagegen.permissions == ""
+    error_message = "The existing alwaldend root must own the dedicated image-generation key without changing its name."
+  }
+
+  assert {
+    condition     = vault_kv_secret_v2.imagegen.name == "alwaldend.com/vault1/approles/user_simeonwarren/imagegen/vastai" && jsondecode(vault_kv_secret_v2.imagegen.data_json).api_key == vastai_api_key.imagegen.key
+    error_message = "The team root must store the generated key in the regular user namespace."
+  }
 }

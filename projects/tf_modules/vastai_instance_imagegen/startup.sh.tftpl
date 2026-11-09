@@ -1,0 +1,64 @@
+set -eu
+umask 077
+# Configure the selected Vast image before its Supervisor starts any service.
+test -x /opt/instance-tools/bin/boot_default.sh
+test -f /etc/supervisor/conf.d/forge.conf
+printf '%s' '${model_manifest_b64}' | base64 -d > /etc/imagegen-models.json
+cat > /etc/vast_boot.d/60-imagegen-services.sh <<'IMAGEGEN_SERVICES'
+# This hook is sourced by boot_default.sh after environment setup.
+unset CF_TUNNEL_TOKEN HOTFIX_SCRIPT BOOT_SCRIPT
+export CF_QUICK_TUNNELS=false
+export PROVISIONING_MANIFEST=/etc/imagegen-models.json
+export ENABLE_AUTH=true
+export ENABLE_HTTPS=true
+export WEB_USERNAME='${web_username}'
+%{ if exposed ~}
+export WEB_PASSWORD='${web_password}'
+%{ endif ~}
+export FORGE_ARGS='--port 17860 --server-name 127.0.0.1'
+export PORTAL_CONFIG='localhost:1111:11111:/:Instance Portal|localhost:8080:18080:/:Jupyter|localhost:6006:16006:/:Tensorboard|localhost:7860:17860:/:Forge'
+# Persist only these reviewed settings for Supervisor service environment loading.
+sed -n '/^export /p' /etc/vast_boot.d/60-imagegen-services.sh >> /etc/environment || exit 1
+# Disable services that can create outbound access; retain local UI tools.
+for service in tunnel_manager syncthing pyworker%{ if !exposed } caddy%{ endif }; do
+    sed -i -E 's/^autostart=.*/autostart=false/; s/^autorestart=.*/autorestart=false/' "/etc/supervisor/conf.d/$service.conf" || exit 1
+done
+# Generate the local portal service inventory without launching the shared proxy.
+# Calling the CLI main() would print generated credentials into boot logs.
+(cd /opt/portal-aio/caddy_manager && /opt/portal-aio/venv/bin/python -c 'from caddy_config_manager import load_config; load_config()') || exit 1
+IMAGEGEN_SERVICES
+%{ if exposed ~}
+# Keep portal/Jupyter/TensorBoard on loopback; publish Forge alone with Basic auth.
+cat > /opt/supervisor-scripts/caddy.sh <<'IMAGEGEN_PROXY'
+#!/bin/bash
+set -eu
+umask 077
+. /opt/supervisor-scripts/utils/environment.sh
+test -s /etc/instance.crt
+test -s /etc/instance.key
+caddy=/opt/portal-aio/caddy_manager/caddy
+export IMAGEGEN_PASSWORD_HASH="$(printf '%s\n' "$WEB_PASSWORD" | "$caddy" hash-password)"
+unset WEB_PASSWORD
+exec "$caddy" run --config - --adapter caddyfile <<'IMAGEGEN_CADDY'
+{
+    admin off
+    auto_https off
+    servers {
+        protocols h1 h2
+    }
+}
+https://:7860 {
+    tls /etc/instance.crt /etc/instance.key
+    basicauth {
+        {$WEB_USERNAME} {$IMAGEGEN_PASSWORD_HASH}
+    }
+    header -Server
+    reverse_proxy 127.0.0.1:17860
+}
+IMAGEGEN_CADDY
+IMAGEGEN_PROXY
+chmod 700 /opt/supervisor-scripts/caddy.sh
+%{ endif ~}
+# Do not run template-selected early boot code or fetch portal/CLI updates.
+unset CF_TUNNEL_TOKEN HOTFIX_SCRIPT BOOT_SCRIPT
+exec /opt/instance-tools/bin/boot_default.sh --no-update-portal --no-update-vast --no-agent-banner

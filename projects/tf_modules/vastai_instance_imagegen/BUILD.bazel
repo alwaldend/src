@@ -5,8 +5,17 @@ package(transitive_visibility = "//projects:transitive_consumers")
 
 filegroup(
     name = "vastai_instance_imagegen",
-    srcs = ["main.tf"],
+    srcs = [
+        "main.tf",
+        "startup.sh.tftpl",
+    ],
     visibility = ["//:__subpackages__"],
+)
+
+filegroup(
+    name = "entry",
+    srcs = ["main.tf"],
+    visibility = ["//projects/vastai_terraform_provider/test/acceptance:__pkg__"],
 )
 
 terraform_test_map(

@@ -36,6 +36,8 @@ type fixture struct {
 	state string
 	// runtype overrides the API launch-mode representation for normalization fixtures.
 	runtype string
+	// image overrides the default image for pinned-runtime fixtures.
+	image string
 	// mode selects a specific API failure.
 	mode string
 	// calls records non-sensitive HTTP methods and paths.
@@ -89,7 +91,11 @@ func (f *fixture) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 	if r.Method == http.MethodPut && r.URL.Path == "/api/v0/asks/17/" {
 		var body map[string]any
-		if err := json.NewDecoder(r.Body).Decode(&body); err != nil || body["image"] != "fixture/image:1" || body["disk"] != float64(20) {
+		expectedImage := f.image
+		if expectedImage == "" {
+			expectedImage = "fixture/image:1"
+		}
+		if err := json.NewDecoder(r.Body).Decode(&body); err != nil || body["image"] != expectedImage || body["disk"] != float64(20) {
 			w.WriteHeader(http.StatusBadRequest)
 			return
 		}
@@ -141,10 +147,15 @@ func (f *fixture) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			} else if f.mode == "missing-runtype" {
 				runtype = ""
 			}
+			image := f.image
+			if image == "" {
+				image = "fixture/image:1"
+			}
 			instance := map[string]any{
 				"id": 91, "label": f.label, "intended_status": f.state, "actual_status": f.state,
-				"image_uuid": "fixture/image:1", "disk_space": 20, "image_runtype": runtype,
+				"image_uuid": image, "disk_space": 20, "image_runtype": runtype,
 				"ssh_host": "203.0.113.1", "ssh_port": 22001, "public_ipaddr": "203.0.113.2",
+				"ports": map[string]any{"7860/tcp": []any{map[string]any{"HostPort": "27860"}}},
 			}
 			switch f.mode {
 			case "missing-image":

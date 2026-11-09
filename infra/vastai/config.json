@@ -6,7 +6,8 @@
     },
     "teams": {
         "alwaldend": {
-            "api_keys": ["rentals"]
+            "api_keys": ["rentals"],
+            "imagegen_api_key_name": "users_simeonwarren_imagegen"
         }
     }
 }

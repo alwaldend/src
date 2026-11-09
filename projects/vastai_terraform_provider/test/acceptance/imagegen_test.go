@@ -27,6 +27,12 @@ type imagegenFixture struct {
 	options string
 	// response overrides template metadata for malformed-response cases.
 	response string
+	// startup retains the public-fixture startup for manifest inspection.
+	startup string
+	// noTemplate requires a rental without inherited template configuration.
+	noTemplate bool
+	// exposed selects the single-port HTTPS request contract.
+	exposed bool
 	// offerID changes the search result to verify existing rentals remain stable.
 	offerID int
 }
@@ -46,6 +52,11 @@ func (f *imagegenFixture) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 				return
 			}
 		}
+		memory, ok := query["gpu_ram"].(map[string]any)
+		if !ok || memory["gte"] != float64(32768) {
+			w.WriteHeader(http.StatusBadRequest)
+			return
+		}
 		w.Header().Set("Content-Type", "application/json")
 		if f.rental.mode == "empty-offers" {
 			fmt.Fprint(w, `{"offers":[]}`)
@@ -55,10 +66,21 @@ func (f *imagegenFixture) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		if id == 0 {
 			id = 17
 		}
-		fmt.Fprintf(w, `{"offers":[{"id":%d,"gpu_name":"RTX 4090","num_gpus":1,"gpu_ram":24576,"dph_total":0.25}]}`, id)
+		tier := `,"hosting_type":1,"verification":"verified"`
+		if f.rental.mode == "uncertified" {
+			tier = `,"hosting_type":0,"verification":"verified"`
+		}
+		if f.rental.mode == "missing-tier" {
+			tier = ""
+		}
+		fmt.Fprintf(w, `{"offers":[{"id":%d,"gpu_name":"RTX 5090","num_gpus":1,"gpu_ram":32768,"dph_total":0.25%s}]}`, id, tier)
 		return
 	}
 	if r.Method == http.MethodGet && r.URL.Path == "/api/v0/template/" {
+		if f.noTemplate {
+			w.WriteHeader(http.StatusBadRequest)
+			return
+		}
 		w.Header().Set("Content-Type", "application/json")
 		var filters map[string]map[string]string
 		if r.Header.Get("Authorization") != "Bearer fixture-credential" || json.Unmarshal([]byte(r.URL.Query().Get("select_filters")), &filters) != nil || len(filters["hash_id"]["eq"]) != 32 {
@@ -81,17 +103,29 @@ func (f *imagegenFixture) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		var input map[string]any
-		if json.Unmarshal(body, &input) != nil || input["template_hash_id"] != strings.Repeat("a", 32) || input["runtype"] != "ssh_direct" || input["env"] != nil {
+		if json.Unmarshal(body, &input) != nil || (f.noTemplate && input["template_hash_id"] != nil) || (!f.noTemplate && input["template_hash_id"] != strings.Repeat("a", 32)) || input["runtype"] != "ssh_direct" {
 			w.WriteHeader(http.StatusBadRequest)
 			return
 		}
 		startup, _ := input["onstart"].(string)
-		for _, required := range []string{"CF_QUICK_TUNNELS=false", "SUPERVISOR_NO_AUTOSTART=", "cloudflared", "quicktunnel", "FORGE_PORT_LOCAL=17860", "FORGE_ARGS=--server-name___127.0.0.1"} {
+		f.startup = startup
+		options, _ := input["env"].(string)
+		if f.exposed {
+			if options != "-p 7860:7860" || !strings.Contains(startup, "basicauth") || !strings.Contains(startup, "tls /etc/instance.crt /etc/instance.key") || !strings.Contains(startup, "admin off") || strings.Contains(startup, "OPEN_BUTTON_TOKEN") {
+				w.WriteHeader(http.StatusBadRequest)
+				return
+			}
+		} else if options != "" {
+			w.WriteHeader(http.StatusBadRequest)
+			return
+		}
+		for _, required := range []string{"CF_QUICK_TUNNELS=false", "--no-update-portal", "--no-update-vast", "unset CF_TUNNEL_TOKEN HOTFIX_SCRIPT BOOT_SCRIPT", "--port 17860 --server-name 127.0.0.1", "localhost:1111:11111:/:Instance Portal", "localhost:8080:18080:/:Jupyter", "localhost:6006:16006:/:Tensorboard"} {
 			if !strings.Contains(startup, required) {
 				w.WriteHeader(http.StatusBadRequest)
 				return
 			}
 		}
+		f.rental.image, _ = input["image"].(string)
 		r.Body = io.NopCloser(bytes.NewReader(body))
 	}
 	f.rental.ServeHTTP(w, r)
@@ -110,6 +144,7 @@ func writeImagegen(t *testing.T, h *harness, endpoint, hash string) {
 provider "vastai" { endpoint = %q }
 module "imagegen" {
   source = %q
+  image = "fixture/image@sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
   template_hash_id = %q
   disk_gb = 20
 }
@@ -182,7 +217,9 @@ func TestTemplateSchemaUpgrade(t *testing.T) {
 		object := resource.(map[string]any)
 		if object["type"] == "vastai_instance" {
 			for _, instance := range object["instances"].([]any) {
-				delete(instance.(map[string]any)["attributes"].(map[string]any), "template_hash_id")
+				for _, name := range []string{"template_hash_id", "docker_options", "mapped_ports"} {
+					delete(instance.(map[string]any)["attributes"].(map[string]any), name)
+				}
 			}
 		}
 	}
@@ -227,7 +264,7 @@ func TestImagegenTemplateRejection(t *testing.T) {
 
 // TestImagegenOfferDefaults verifies empty and over-budget markets fail without renting.
 func TestImagegenOfferDefaults(t *testing.T) {
-	for _, mode := range []string{"empty-offers", "over-budget"} {
+	for _, mode := range []string{"empty-offers", "over-budget", "uncertified", "missing-tier"} {
 		t.Run(mode, func(t *testing.T) {
 			f := &imagegenFixture{}
 			f.rental.mode = mode

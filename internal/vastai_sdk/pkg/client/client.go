@@ -187,6 +187,8 @@ type CreateInput struct {
 	Runtype string `json:"runtype"`
 	// State selects the initial power state.
 	State string `json:"target_state"`
+	// DockerOptions contains optional per-instance environment assignments and port mappings.
+	DockerOptions string `json:"env,omitempty"`
 	// Onstart is the optional startup command.
 	Onstart string `json:"onstart,omitempty"`
 }
@@ -200,6 +202,9 @@ func (c *Client) Create(ctx context.Context, offerID int64, input CreateInput) (
 	body := generatedapi.CreateInstanceRequest{Image: input.Image, Disk: &input.Disk, Label: &input.Label, Runtype: &input.Runtype, TargetState: &input.State}
 	if input.TemplateHashID != "" {
 		body.TemplateHashId = &input.TemplateHashID
+	}
+	if input.DockerOptions != "" {
+		body.Env = &input.DockerOptions
 	}
 	if input.Onstart != "" {
 		body.Onstart = &input.Onstart
@@ -236,8 +241,16 @@ type Instance struct {
 	SSHHost *string `json:"ssh_host"`
 	// SSHPort is the SSH port, when assigned.
 	SSHPort *int64 `json:"ssh_port"`
+	// Ports contains observed container-port bindings, without environment or credentials.
+	Ports map[string][]PortBinding `json:"ports"`
 	// PublicIP is the public address, when assigned.
 	PublicIP *string `json:"public_ipaddr"`
+}
+
+// PortBinding describes one host binding returned by the Vast.ai instance API.
+type PortBinding struct {
+	// HostPort is the externally assigned decimal port number.
+	HostPort string `json:"HostPort"`
 }
 
 // Get recognizes explicit null as deletion and rejects omitted or mismatched instances.
@@ -291,6 +304,10 @@ func (c *Client) Delete(ctx context.Context, id int64) error {
 type Offer struct {
 	// ID identifies the offer accepted by Create.
 	ID int64 `json:"id"`
+	// HostingType is the API tier; 1 identifies a certified datacenter, nil means omitted.
+	HostingType *int64 `json:"hosting_type"`
+	// Verification is the returned verification status, nil means omitted.
+	Verification *string `json:"verification"`
 	// GPUName is the GPU model.
 	GPUName string `json:"gpu_name"`
 	// GPUs is the GPU count.

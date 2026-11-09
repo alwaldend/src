@@ -24,6 +24,12 @@ variable "member_group_ids" {
   default     = []
 }
 
+variable "allow_member_secret_access" {
+  type        = bool
+  default     = false
+  description = "Grant existing group members the role's own KV namespace policy; disabled for component roles by default."
+}
+
 variable "policies" {
   type        = list(string)
   default     = []
@@ -80,6 +86,14 @@ variable "token_max_ttl" {
 locals {
   secret_path = "alwaldend.com/vault1/approles/${var.name}"
   yc_folder   = "yandex.cloud/org1/folders/${replace(var.name, "_", "-")}"
+  metadata_parent_paths = [
+    for depth in range(length(split("/", local.secret_path))) :
+    join("/", concat([var.secrets, "metadata"], slice(split("/", local.secret_path), 0, depth)))
+  ]
+  metadata_navigation_paths = concat(
+    flatten([for path in local.metadata_parent_paths : [path, "${path}/"]]),
+    ["${var.secrets}/metadata/${local.secret_path}"],
+  )
 }
 
 output "name" {
@@ -128,6 +142,11 @@ resource "vault_policy" "approle_secrets" {
     path "${var.secrets}/metadata/${local.secret_path}/*" {
       capabilities = ["list", "read", "update"]
     }
+%{for path in var.allow_member_secret_access ? local.metadata_navigation_paths : []~}
+    path "${path}" {
+      capabilities = ["list"]
+    }
+%{endfor~}
 EOT
 }
 
@@ -193,9 +212,10 @@ resource "vault_identity_entity_alias" "alias" {
 resource "vault_identity_group" "group" {
   name = var.name
   type = "internal"
-  policies = [
-    vault_policy.policy_approle.name,
-  ]
+  policies = concat(
+    [vault_policy.policy_approle.name],
+    var.allow_member_secret_access ? [vault_policy.approle_secrets.name] : [],
+  )
   member_group_ids = var.member_group_ids
   member_entity_ids = concat(
     var.member_entity_ids,

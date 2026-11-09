@@ -14,8 +14,9 @@ resource "vault_identity_entity_alias" "userpass_simeonwarren" {
 }
 
 module "users_simeonwarren_approle" {
-  source = "../../../projects/tf_modules/vault_approle"
-  name   = "user_${vault_identity_entity.simeonwarren.name}"
+  source                     = "../../../projects/tf_modules/vault_approle"
+  name                       = "user_${vault_identity_entity.simeonwarren.name}"
+  allow_member_secret_access = true
   policies = [
     module.users_simeonwarren_ssh.policy,
   ]

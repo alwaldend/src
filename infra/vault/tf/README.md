@@ -35,3 +35,19 @@ stages can authenticate; source validation does not establish deployed access.
 Follow the [DNS migration](../../dns/README.md) for the coordinated cutover and
 the [AppRole bootstrap procedure](../../../tools/agents/skills/repo-infra/references/vault.md)
 when distinguishing missing deployment from insufficient operator access.
+
+## Vast team token delivery
+
+[The Vast infrastructure role](approle_src_infra_vastai.tf) can manage only the
+regular user's `imagegen/vastai` KV entry in addition to its existing namespace.
+Its delivery policy grants data lifecycle operations and metadata reads on the
+exact path, with no wildcard or sibling/backend access. This lets the existing
+alwaldend root publish its generated team key using its own identity. User
+provisioning reads that key through the regular user identity.
+
+The personal simeonwarren role explicitly enables its existing KV namespace
+policy for its human members. This grants direct browser access to that user
+namespace while other role groups keep bootstrap-only membership. The existing
+KV mount remains authenticated and is not made anonymously visible.
+List-only access to exact metadata ancestors supports browsing from the mount
+root; secret values outside the user's namespace remain denied.

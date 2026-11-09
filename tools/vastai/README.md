@@ -1,6 +1,6 @@
 ---
 title: Vast.ai CLI
-description: Pinned upstream command-line client for Vast.ai GPU cloud resources
+description: Vast.ai command-line client and public Forge image discovery
 ---
 
 Runs the unmodified upstream `vastai` CLI with exact versions and hashes recorded
@@ -26,3 +26,19 @@ command arguments, and captured output.
 
 - [Upstream source and usage](https://github.com/vast-ai/vast-cli)
 - [Upstream releases](https://github.com/vast-ai/vast-cli/releases)
+
+## Forge image discovery
+
+`//tools/vastai/cmd/latest_image` is the first-party adapter for Terraform's
+external-data JSON protocol. It reads public Docker Hub metadata and returns the
+newest published Vast Forge Neo/CUDA 12.9 image tag. It does not supply credentials,
+create a template, or rent an instance. The bounded lookup fails for registry
+errors or a missing matching image family; it does not substitute another runtime.
+
+The personal [image-generation root](../../users/simeonwarren/imagegen/README.md)
+packages this executable as runtime data. The executable-protocol fixture runs
+without external network access and emits `latest-image.json`:
+
+```sh
+bazel test //tools/vastai/test/latest_image:lookup_test
+```
