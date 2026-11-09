@@ -1,0 +1,69 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("@rules_terraform//terraform:defs.bzl", "terraform_test_map")
+load("//tools/al:al_terraform.bzl", "al_terraform_binary_map")
+
+package(transitive_visibility = "//users:transitive_consumers")
+
+_PROVIDERS = [
+    "//projects/vastai_terraform_provider:provider",
+    "@terraform_provider_hashicorp_external//:provider",
+    "@terraform_provider_hashicorp_random//:provider",
+    "@terraform_provider_hashicorp_vault//:provider",
+]
+
+_DATA = [
+    "//projects/tf_modules/vastai_instance_imagegen",
+    "//tools/vastai/cmd/latest_image",
+]
+
+al_terraform_binary_map(
+    name = "tf",
+    args = {
+        "plan": ["plan"],
+        "rent": ["apply"],
+        "release": [
+            "apply",
+            "-destroy",
+        ],
+        "refresh": [
+            "apply",
+            "-refresh-only",
+        ],
+        "output": ["output"],
+    },
+    configs = ["//users/simeonwarren/imagegen:al"],
+    data = glob(["*.tf"]) + _DATA,
+    plugin_labels = {"tf": "imagegen"},
+    providers = _PROVIDERS,
+)
+
+terraform_test_map(
+    name = "tf_tests",
+    args = {
+        "fmt": [
+            "--direct",
+            "fmt",
+            "-check",
+            "-recursive",
+        ],
+        "validate": ["validate"],
+        "test": [
+            "test",
+            "-no-color",
+        ],
+    },
+    data = glob(
+        [
+            "*.tf",
+            "tests/*.tftest.hcl",
+        ],
+        exclude = ["backend.tf"],
+    ) + _DATA,
+    providers = _PROVIDERS,
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//users/simeonwarren/imagegen:__pkg__"],
+)

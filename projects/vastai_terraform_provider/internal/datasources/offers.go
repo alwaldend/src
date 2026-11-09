@@ -29,6 +29,10 @@ type offersModel struct {
 type offerModel struct {
 	// ID selects the offer when creating an instance.
 	ID types.Int64 `tfsdk:"id"`
+	// HostingType is the marketplace tier, null if the API omits it.
+	HostingType types.Int64 `tfsdk:"hosting_type"`
+	// Verification is the API verification status, null if omitted.
+	Verification types.String `tfsdk:"verification"`
 	// GPUName names the GPU model.
 	GPUName types.String `tfsdk:"gpu_name"`
 	// GPUs is the available GPU count.
@@ -50,6 +54,8 @@ func (d *offersDataSource) Schema(_ context.Context, _ datasource.SchemaRequest,
 		"query": schema.StringAttribute{Required: true, Description: "JSON object with Vast.ai filter operators, order, type, and limit. Use jsonencode; set type to on-demand for this provider's rental surface."},
 		"offers": schema.ListNestedAttribute{Computed: true, Description: "Offers in API order; may be empty.", NestedObject: schema.NestedAttributeObject{Attributes: map[string]schema.Attribute{
 			"id":           schema.Int64Attribute{Computed: true, Description: "Offer ID accepted by vastai_instance.offer_id."},
+			"hosting_type": schema.Int64Attribute{Computed: true, Description: "API hosting tier: 1 is a certified datacenter; null when omitted."},
+			"verification": schema.StringAttribute{Computed: true, Description: "Returned verification status; null when omitted."},
 			"gpu_name":     schema.StringAttribute{Computed: true, Description: "GPU model name."},
 			"num_gpus":     schema.Int64Attribute{Computed: true, Description: "Number of GPUs."},
 			"gpu_ram_mb":   schema.Float64Attribute{Computed: true, Description: "Memory per GPU in MiB."},
@@ -82,7 +88,7 @@ func (d *offersDataSource) Read(ctx context.Context, req datasource.ReadRequest,
 	}
 	data.Offers = make([]offerModel, 0, len(offers))
 	for _, offer := range offers {
-		data.Offers = append(data.Offers, offerModel{ID: types.Int64Value(offer.ID), GPUName: types.StringValue(offer.GPUName), GPUs: types.Int64Value(offer.GPUs), GPURAM: types.Float64Value(offer.GPURAM), HourlyPrice: types.Float64Value(offer.HourlyPrice)})
+		data.Offers = append(data.Offers, offerModel{ID: types.Int64Value(offer.ID), HostingType: types.Int64PointerValue(offer.HostingType), Verification: types.StringPointerValue(offer.Verification), GPUName: types.StringValue(offer.GPUName), GPUs: types.Int64Value(offer.GPUs), GPURAM: types.Float64Value(offer.GPURAM), HourlyPrice: types.Float64Value(offer.HourlyPrice)})
 	}
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
 }

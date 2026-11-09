@@ -1,0 +1,54 @@
+load("@rules_al//:defs.bzl", "al_config", "al_inject")
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//tools/vault:defs.bzl", "vault_binary_map")
+load("//tools/vault/tf_backend:defs.bzl", "vault_tf_backend")
+
+package(transitive_visibility = "//users:transitive_consumers")
+
+vault_tf_backend(
+    name = "imagegen_tf_backend",
+    labels = {"tf": "imagegen"},
+    path = "alwaldend.com/vault1/approles/user_simeonwarren/tf_backend/imagegen",
+)
+
+al_inject(
+    name = "rental_auth",
+    labels = {"tf": "imagegen"},
+    res_env = {"VAST_API_KEY": {
+        "value": "{{ .Last.Data.api_key }}",
+        "deps": ["rental_key"],
+    }},
+    res_kv = {"rental_key": {
+        "mount": "secrets",
+        "path": "alwaldend.com/vault1/approles/user_simeonwarren/imagegen/vastai",
+    }},
+    res_vault_env = {"component": {
+        "auth": "default",
+        "conn": "default",
+    }},
+)
+
+al_config(
+    name = "al",
+    configs = [
+        ":imagegen_tf_backend",
+        ":rental_auth",
+        "//users/simeonwarren:al",
+    ],
+    visibility = ["//users/simeonwarren/imagegen:__subpackages__"],
+)
+
+vault_binary_map(
+    name = "vault",
+    configs = [":al"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//users/simeonwarren:__pkg__"],
+    deps = subpackages(
+        include = ["*"],
+        allow_empty = True,
+    ),
+)

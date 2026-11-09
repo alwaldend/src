@@ -234,3 +234,13 @@ schemas, plans, state, and imports; `internal/datasources` owns offer queries.
 resource and data-source configuration. The shared `internal/vastai_sdk` owns generated endpoint operations,
 bounded transport, and API response contracts.
 `openspec` contains the maintained implementation record.
+
+## Instance networking options
+
+`vastai_instance.docker_options` supplies creation-only Docker environment and
+port options, merged with the selected template. It is sensitive in normal
+Terraform output but retained in state; changes replace the instance. The
+provider never reads API-returned environment contents. Computed `mapped_ports`
+returns observed host ports keyed by container port/protocol, such as `7860/tcp`.
+Connection details remain null before refresh; ambiguous or invalid bindings
+fail refresh while retaining prior state.

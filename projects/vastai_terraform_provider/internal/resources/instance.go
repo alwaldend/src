@@ -80,6 +80,10 @@ type instanceModel struct {
 	State types.String `tfsdk:"state"`
 	// Runtype is the creation-only container launch mode.
 	Runtype types.String `tfsdk:"runtype"`
+	// DockerOptions contains creation-only environment and publishing overrides.
+	DockerOptions types.String `tfsdk:"docker_options"`
+	// MappedPorts contains observed TCP/UDP bindings keyed by container port/protocol.
+	MappedPorts types.Map `tfsdk:"mapped_ports"`
 	// Onstart is the creation-only startup command.
 	Onstart types.String `tfsdk:"onstart"`
 	// Status is the last observed container status.
@@ -154,6 +158,22 @@ func (r *instanceResource) Schema(_ context.Context, _ resource.SchemaRequest, r
 				Default:       stringdefault.StaticString(runtypeSSH),
 				Description:   "Creation-only launch mode: ssh, ssh_proxy, ssh_direct, jupyter, jupyter_proxy, or jupyter_direct.",
 				PlanModifiers: []planmodifier.String{stringplanmodifier.RequiresReplace()},
+			},
+			"docker_options": schema.StringAttribute{
+				Optional:    true,
+				Computed:    true,
+				Sensitive:   true,
+				Default:     stringdefault.StaticString(""),
+				Description: "Creation-only Docker environment and port options. Merged with template defaults; sensitive but stored in state. API-returned environment is never read.",
+				PlanModifiers: []planmodifier.String{stringplanmodifier.RequiresReplaceIf(
+					func(_ context.Context, req planmodifier.StringRequest, resp *stringplanmodifier.RequiresReplaceIfFuncResponse) {
+						resp.RequiresReplace = !(req.StateValue.IsNull() && req.PlanValue.ValueString() == "")
+					}, "Changed Docker options replace the instance.", "Changed Docker options replace the instance.")},
+			},
+			"mapped_ports": schema.MapAttribute{
+				Computed:    true,
+				ElementType: types.Int64Type,
+				Description: "Observed host ports keyed by container port/protocol, for example 7860/tcp; null before refresh. Distinct host ports for one container port are rejected.",
 			},
 			"onstart": schema.StringAttribute{
 				Optional:      true,
@@ -232,7 +252,7 @@ func (r *instanceResource) Create(ctx context.Context, req resource.CreateReques
 	if resp.Diagnostics.HasError() {
 		return
 	}
-	id, err := r.providerData.Client.Create(ctx, data.OfferID.ValueInt64(), vastclient.CreateInput{TemplateHashID: data.TemplateHashID.ValueString(), Image: data.Image.ValueString(), Disk: data.DiskGB.ValueFloat64(), Label: data.Label.ValueString(), State: data.State.ValueString(), Runtype: data.Runtype.ValueString(), Onstart: data.Onstart.ValueString()})
+	id, err := r.providerData.Client.Create(ctx, data.OfferID.ValueInt64(), vastclient.CreateInput{TemplateHashID: data.TemplateHashID.ValueString(), Image: data.Image.ValueString(), Disk: data.DiskGB.ValueFloat64(), Label: data.Label.ValueString(), State: data.State.ValueString(), Runtype: data.Runtype.ValueString(), Onstart: data.Onstart.ValueString(), DockerOptions: data.DockerOptions.ValueString()})
 	if err != nil {
 		resp.Diagnostics.AddError("Cannot create instance", err.Error())
 		return
@@ -242,6 +262,7 @@ func (r *instanceResource) Create(ctx context.Context, req resource.CreateReques
 	data.SSHHost = types.StringNull()
 	data.SSHPort = types.Int64Null()
 	data.PublicIP = types.StringNull()
+	data.MappedPorts = types.MapNull(types.Int64Type)
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
 }
 
@@ -278,6 +299,35 @@ func (r *instanceResource) Read(ctx context.Context, req resource.ReadRequest, r
 	if err != nil {
 		resp.Diagnostics.AddError("Cannot read instance launch mode", err.Error())
 		return
+	}
+	bindings := map[string]int64{}
+	for name, ports := range remote.Ports {
+		if len(ports) == 0 {
+			continue
+		}
+		var port int64
+		for _, binding := range ports {
+			parsed, err := strconv.ParseInt(binding.HostPort, 10, 64)
+			if err != nil || parsed < 1 || parsed > 65535 {
+				resp.Diagnostics.AddError("Invalid port binding", "Instance returned an invalid mapped host port; prior state is retained.")
+				return
+			}
+			if port != 0 && port != parsed {
+				resp.Diagnostics.AddError("Ambiguous port binding", "Instance returned distinct host ports for a container port; prior state is retained.")
+				return
+			}
+			port = parsed
+		}
+		bindings[name] = port
+	}
+	mapped, diagnostics := types.MapValueFrom(ctx, types.Int64Type, bindings)
+	resp.Diagnostics.Append(diagnostics...)
+	if resp.Diagnostics.HasError() {
+		return
+	}
+	data.MappedPorts = mapped
+	if data.DockerOptions.IsNull() {
+		data.DockerOptions = types.StringValue("")
 	}
 	data.Image = types.StringValue(remote.Image)
 	if data.TemplateHashID.IsNull() {
@@ -356,7 +406,7 @@ func (r *instanceResource) Update(ctx context.Context, req resource.UpdateReques
 		resp.Diagnostics.AddError("Cannot update instance", err.Error())
 		return
 	}
-	data.Status, data.SSHHost, data.SSHPort, data.PublicIP = prior.Status, prior.SSHHost, prior.SSHPort, prior.PublicIP
+	data.Status, data.SSHHost, data.SSHPort, data.PublicIP, data.MappedPorts = prior.Status, prior.SSHHost, prior.SSHPort, prior.PublicIP, prior.MappedPorts
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
 }
 
