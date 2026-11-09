@@ -1,0 +1,43 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("@rules_template//rules:template_run_binary.bzl", "template_run_binary")
+load("//tools/mermaid:defs.bzl", "mermaid_webp")
+load("//tools/mermaid:theme.bzl", "mermaid_theme")
+
+package(transitive_visibility = "//users:transitive_consumers")
+
+# Compose the shared site theme and existing actor artwork without duplicating either.
+template_run_binary(
+    name = "theme_config",
+    srcs = ["theme.json.tmpl"],
+    outs = ["theme.json"],
+    data = [
+        "//data/alwaldend/assets/mermaid:config",
+        "//tools/mermaid:theme.json",
+    ],
+)
+
+mermaid_theme(
+    name = "theme",
+    config = ":theme_config",
+    font = "//data/alwaldend:diagram_font",
+    font_license = "//data/alwaldend:diagram_font_license",
+    palette = "//data/alwaldend/assets/mermaid:palette",
+)
+
+mermaid_webp(
+    name = "architecture",
+    src = "architecture.mmd",
+    out = "rendered/architecture.dark.webp",
+    aspect_ratio = [],
+    color_scheme = "dark",
+    native = True,
+    scale = 2,
+    theme = ":theme",
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = [":architecture"],
+    prefix = "content/docs/users/simeonwarren/imagegen/assets",
+    visibility = ["//users/simeonwarren/imagegen:__pkg__"],
+)

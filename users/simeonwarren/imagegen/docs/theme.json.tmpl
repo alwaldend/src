@@ -1,0 +1,12 @@
+{{- $config := (index .DataFiles 0).Data -}}
+{{- $historical := (index .DataFiles 1).Data -}}
+{{- $actor := printf "data:image/svg+xml;base64,%s" (index (split (index (split $historical.themeCSS "data:image/svg+xml;base64,") 1) "'") 0) -}}
+{{- $css := printf ".actor div{position:relative;padding-left:28px;}.actor div::before{content:' ';position:absolute;left:0;top:50%%;transform:translateY(-50%%);width:20px;height:24px;background:var(--mermaid-textColor);mask:url('%s') no-repeat center/contain;}" $actor -}}
+{
+    "themeCSS": {{to_json (printf "%s%s" $config.themeCSS $css)}}
+    {{- range $key, $value := $config -}}
+    {{- if ne $key "themeCSS" -}}
+    ,{{to_json $key}}: {{to_json $value}}
+    {{- end -}}
+    {{- end }}
+}

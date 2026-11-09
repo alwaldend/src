@@ -1,3 +1,7 @@
+## Current follow-up
+
+The personal root now declares its published image tag directly; the dynamic lookup and external provider have been removed at the user's request. The user explicitly authorized a live rental after reviewing security/privacy and accepted the host-administrator trust boundary. The current predeployment review and live acceptance belong to users/simeonwarren/openspec/changes/add-imagegen-rental. The sections below record earlier implementation evidence rather than the new deployment outcome.
+
 ## Candidate and scope
 
 Task branch: `t3/image-generation-exposed-mode`. The module takes an explicit
@@ -147,3 +151,34 @@ manage only the exact generated-token entry in the user namespace; sibling
 password and user-backend access remain denied. The existing key and version-1
 KV entry are unchanged, and the team root reports no changes using its own
 credentials. The reviewed refresh-only state update changes no remote resources.
+
+## Chroma components
+
+The existing Terraform CLI acceptance fixture was extended before implementation.
+It first failed because model_selection was unsupported, then passed with the
+actual three-file manifest, native encoder/VAE paths, global/preset selections,
+and sampler defaults staged by Terraform. All 36 scoped checks and affected
+semantic lint passed before the authorized replacement apply. Network and
+credential configuration are unchanged.
+
+## Runtime module refactor, 2026-11-10
+
+The base now owns rental/security/provisioning without Forge paths or settings.
+Forge and ComfyUI wrappers own native directories, loopback arguments and profile
+configuration. The user specifically approved Vast's ComfyUI v0.44.0 CUDA 12.9
+image. After the user's clarification, retain its API wrapper locally on 18288
+and include its local portal entry; do not expose it through Caddy. Custom nodes,
+partner APIs, tunnels, sync, worker and the optional instance test runner remain
+disabled. Inspection of the exact image configuration and verified small runtime
+layers confirms the native boot/service contract; its declared diagnostic port
+3000 is not a requested application mapping. Live bindings remain unverified.
+
+The pinned Terraform CLI and actual provider pass both Forge and ComfyUI
+lifecycle fixtures against loopback APIs, native model destinations, backend SSH
+forwarding and HTTPS proxy routing, model validation and unchanged security
+constraints. Scoped Bazel checks pass, including root credential checks. The architecture
+is a rendered build target consumed directly by documentation; no generated
+raster or copy/freshness rule is checked in. Repeatable outputs include
+comfyui-ssh.json and comfyui-https.json. No live rental, state or Vault mutation
+was performed for this refactor. Final aggregate quality/lint and publication
+are recorded by ignored task evidence and the delivery receipt.

@@ -8,9 +8,6 @@ terraform {
       source  = "hashicorp/vault"
       version = ">= 5"
     }
-    external = {
-      source = "hashicorp/external"
-    }
     random = {
       source  = "hashicorp/random"
       version = "3.9.1"
@@ -27,7 +24,7 @@ provider "random" {}
 variable "template_hash_id" {
   type        = string
   default     = null
-  description = "Optional reviewed Vast Forge template hash. Omit to use the newest selected runtime without inherited template options."
+  description = "Optional reviewed Vast ComfyUI template hash. Omit to use the configured image tag without inherited template options."
 }
 
 variable "web_username" {
@@ -56,18 +53,25 @@ variable "model_downloads" {
     filename = string
     kind     = optional(string, "checkpoint")
   }))
-  default = [{
-    url      = "https://huggingface.co/RunDiffusion/Juggernaut-XL-v9/resolve/cf419233522daa0b9ea36c3aff98fa2cab1fb0fb/Juggernaut-XL_v9_RunDiffusionPhoto_v2.safetensors"
-    filename = "Juggernaut-XL_v9_RunDiffusionPhoto_v2.safetensors"
-    kind     = "checkpoint"
-  }]
+  default = [
+    {
+      url      = "https://huggingface.co/lodestones/Chroma1-Flash/resolve/093c4f63b60507234aa53a073f1f9f565b3f4336/Chroma1-HD-Flash.safetensors"
+      filename = "Chroma1-HD-Flash.safetensors"
+      kind     = "checkpoint"
+    },
+    {
+      url      = "https://huggingface.co/comfyanonymous/flux_text_encoders/resolve/6af2a98e3f615bdfa612fbd85da93d1ed5f69ef5/t5xxl_fp16.safetensors"
+      filename = "t5xxl_fp16.safetensors"
+      kind     = "text_encoder"
+    },
+    {
+      url      = "https://huggingface.co/lodestones/Chroma/resolve/2f3b2730d7b5edbd02cdff12f72610af5787300b/ae.safetensors"
+      filename = "ae.safetensors"
+      kind     = "vae"
+    }
+  ]
   nullable    = false
-  description = "Public model files downloaded before Forge starts; defaults to the approved Juggernaut XL v9 checkpoint."
-}
-
-data "external" "forge_image" {
-  program = [abspath("${path.module}/../../../../tools/vastai/cmd/latest_image/latest_image_/latest_image")]
-  query   = {}
+  description = "Public model files downloaded before ComfyUI starts; defaults to Chroma1-HD-Flash with its T5 encoder and VAE."
 }
 
 resource "random_password" "web" {
@@ -86,12 +90,12 @@ resource "vault_kv_secret_v2" "web" {
 }
 
 module "imagegen" {
-  source = "../../../../projects/tf_modules/vastai_instance_imagegen"
+  source = "../../../../projects/tf_modules/vastai_instance_imagegen_comfyui"
 
   # A failed Vault write must prevent creation of the paid instance.
   depends_on = [vault_kv_secret_v2.web]
 
-  image            = data.external.forge_image.result.image
+  image            = "vastai/comfy:v0.44.0-cuda-12.9-py312"
   model_downloads  = var.model_downloads
   template_hash_id = var.template_hash_id
   access_mode      = "exposed"
