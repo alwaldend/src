@@ -433,7 +433,7 @@ profile and policy data SHALL never be interpreted as page markup or scripts.
 
 #### Scenario: Policy loaded through either input
 
-- **WHEN** a file is supplied with serve --config or chosen in the page's picker
+- **WHEN** a file is supplied with server serve --config or chosen in the page's picker
 - **THEN** its Lua text appears in the editor and can be changed before planning
 - **AND** the API never accepts an arbitrary server filesystem path
 

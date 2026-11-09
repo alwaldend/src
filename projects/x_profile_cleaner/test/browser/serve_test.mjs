@@ -135,6 +135,7 @@ Object.assign(environment, {
 const child = spawn(
     cleaner,
     [
+        "server",
         "serve",
         "--listen",
         "127.0.0.1:0",
@@ -218,6 +219,65 @@ try {
         request.on("error", reject);
     });
     assert.equal(foreignHostStatus, 403);
+    for (const route of ["/api/unknown", "/api/state/", "/api/session"]) {
+        const response = await fetch(address.origin + route, {
+            method: "OPTIONS",
+        });
+        assert.equal(response.status, 403);
+        assert.equal(response.headers.get("cache-control"), "no-store");
+        assert.equal(
+            response.headers.get("x-content-type-options"),
+            "nosniff",
+        );
+        assert.equal(response.headers.get("referrer-policy"), "no-referrer");
+        assert.ok(
+            response.headers
+                .get("content-security-policy")
+                .includes("frame-ancestors 'none'"),
+        );
+    }
+    for (const [route, method, expected] of [
+        ["/api/unknown", "GET", 404],
+        ["/api/state/", "GET", 404],
+        ["/api/state", "POST", 404],
+        ["/api/session", "OPTIONS", 404],
+        ["/app.js", "POST", 404],
+        ["/unknown", "GET", 404],
+    ]) {
+        const response = await fetch(address.origin + route, {
+            method,
+            headers: { "X-Cleaner-Token": capability, Origin: address.origin },
+        });
+        assert.equal(response.status, expected);
+        assert.equal(response.headers.get("cache-control"), "no-store");
+        if (route.startsWith("/api/")) {
+            assert.equal(
+                (await response.json()).error,
+                "unknown API operation",
+            );
+        }
+    }
+    for (const [body, contentType, expected] of [
+        ['{"policy":""} {}', "application/json", 400],
+        ['{"policy":', "application/json", 400],
+        [
+            JSON.stringify({ policy: "x".repeat(1024 * 1024) }),
+            "application/json",
+            400,
+        ],
+        ['{"policy":""}', "text/plain", 415],
+    ]) {
+        const response = await fetch(address.origin + "/api/plan", {
+            method: "POST",
+            headers: {
+                "X-Cleaner-Token": capability,
+                Origin: address.origin,
+                "Content-Type": contentType,
+            },
+            body,
+        });
+        assert.equal(response.status, expected);
+    }
     assert.equal(
         (await api("/api/plan", { policy: pickedPolicy, path: "/etc/passwd" }))
             .status,
@@ -703,6 +763,9 @@ try {
                     "exact subset",
                     "stale and fabricated selections",
                     "access control",
+                    "exact HTTP routes and unsupported methods",
+                    "authenticated routing errors and security headers",
+                    "strict bounded JSON requests",
                     "live quota logs",
                     "reload",
                     "resume exact unfinished selection",

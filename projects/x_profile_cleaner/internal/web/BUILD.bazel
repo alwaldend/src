@@ -38,5 +38,6 @@ go_library(
     deps = [
         "//projects/x_profile_cleaner/internal/app",
         "//projects/x_profile_cleaner/internal/model",
+        "@com_github_go_chi_chi_v5//:chi",
     ],
 )

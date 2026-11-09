@@ -8,6 +8,8 @@
 
 ## 2. Hosted configuration and durable account state
 
+- [x] 2.0a Adopt the pinned chi router for the existing HTTP backend and expose it as `server serve`; preserve exact routes, capability/origin checks, strict JSON, bounded responses, cancellation and exact-action workflows through process/browser acceptance. This increment does not complete hosted configuration or account persistence.
+
 - [ ] 2.1 Add the hosted command and strict deployment configuration, reusing existing SQLite/OAuth dependencies and the approved pinned htmx asset; verify missing configuration fails safely and the operator CLI/private serve retain their existing behavior.
 - [ ] 2.2 Implement schema migrations and account-scoped persistence for sessions, policies, snapshots, plans, executions, and reservations; verify two-account isolation and migration/restart behavior through the E2E fixture.
 - [ ] 2.3 Implement bounded retention, upload cleanup, ledger-preserving account deletion, disk admission, and consistent backup/restore procedures; verify expiry, full-disk rejection, and restoration without quota reset.

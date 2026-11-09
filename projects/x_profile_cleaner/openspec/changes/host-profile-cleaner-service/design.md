@@ -23,6 +23,12 @@ supported archive layouts without claiming complete history or graph coverage.
 
 ### One backend and resource-limited workers on one VM
 
+Use chi for explicit HTTP routes and standard net/http middleware. The current
+private interface launches through `server serve`; its local-authority and
+capability checks precede routing, including unmatched paths and methods.
+Keep strict bounded JSON decoding and application job ownership outside the
+router. The user selected chi; the pinned module has no additional dependencies.
+
 Run Traefik and a Go backend as systemd services. Bind the backend to loopback and
 expose only the configured HTTPS origin. Serve escaped Go templates and locally
 packaged htmx; normal forms and fragment responses share handlers and authorization.
@@ -30,7 +36,7 @@ Use bounded htmx polling for job state and logs. Polling does not keep X authori
 alive. Avoid a second frontend build application or client-side credential store.
 
 Add a hosted command/configuration boundary rather than relaxing the private
-`serve` command's capability and loopback checks. Keep the CLI's OAuth 1.0a adapter
+`server serve` command's capability and loopback checks. Keep the CLI's OAuth 1.0a adapter
 separate from hosted OAuth 2.0 user-context clients. The hosted command must not
 inherit the Article uploader's personal user credential as a fallback.
 
@@ -294,7 +300,7 @@ External references, observed 2026-11-09:
 
 ## Migration Plan
 
-1. Keep the existing CLI and private `serve` command unchanged while adding hosted
+1. Keep the existing CLI and private `server serve` command unchanged while adding hosted
    configuration, schema migrations, and offline acceptance fixtures.
 2. Implement account boundaries, ephemeral grants, and durable request admission
    before enabling discovery or mutation routes.

@@ -238,10 +238,12 @@ Run the CLI only with an endpoint you trust to receive authenticated requests.
 
 ```sh
 bazel run //projects/x_profile_cleaner -- \
-  serve --config /absolute/path/policy.lua
+  server serve --config /absolute/path/policy.lua
 ```
 
-Open the private link printed on stdout. `serve` binds to an available loopback
+The HTTP backend uses [chi](https://github.com/go-chi/chi) for routing and
+standard net/http middleware. Open the private link printed on stdout.
+`server serve` binds to an available loopback
 port; `--listen 127.0.0.1:8080` selects a fixed port. Non-loopback addresses are
 rejected. The page uses the site's shared light/dark theme and embedded assets,
 without fetching scripts, fonts, or styles from external services.
@@ -278,17 +280,18 @@ The page shows the same progress and quota-wait logs as stderr, retaining the
 latest 1,000 lines with a 4 KiB limit per line. Only one operation runs at a time.
 **Cancel operation** or Ctrl-C cancels pending work; X may already have accepted
 in-flight deletions. Closing or reloading the page leaves the job running while
-`serve` stays open. A reload restores server status and logs, but unsaved editor
+`server serve` stays open. A reload restores server status and logs, but unsaved
+editor
 changes and exclusions for an unsubmitted plan are local to that page. After an
 interrupted apply, reloading restores its submitted selection and progress, and
 **Resume** remains available. **Run plan** replaces that execution record. Resume
-state exists only while the same `serve` process remains running.
+state exists only while the same `server serve` process remains running.
 
 Policies, plans, and job status are held in memory for this server process.
 The private link contains a per-run access key; keep it private. The page removes
 the key from its address bar and retains it for that tab's session. HTTP APIs
 require it and reject foreign hosts and origins. OAuth credentials remain in Go
-and are never sent to the page. Restarting `serve` requires its new access link.
+and are never sent to the page. Restarting `server serve` requires its new access link.
 
 ## Commands
 

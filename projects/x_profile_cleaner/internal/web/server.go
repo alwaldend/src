@@ -19,6 +19,7 @@ import (
 
 	"git.alwaldend.com/alwaldend/src/projects/x_profile_cleaner/internal/app"
 	"git.alwaldend.com/alwaldend/src/projects/x_profile_cleaner/internal/model"
+	"github.com/go-chi/chi/v5"
 )
 
 // Config supplies command-owned resources and the initial editor contents.
@@ -128,7 +129,7 @@ func Serve(parent context.Context, application *app.App, config Config) error {
 		return fmt.Errorf("write private browser access link: %w", err)
 	}
 	config.Logger.InfoContext(ctx, "Serving profile cleaner", "address", s.host)
-	httpServer := &http.Server{Handler: http.HandlerFunc(s.handle), ReadHeaderTimeout: 5 * time.Second, ReadTimeout: 10 * time.Second, WriteTimeout: 10 * time.Second, IdleTimeout: 30 * time.Second, MaxHeaderBytes: 8192}
+	httpServer := &http.Server{Handler: s.routes(), ReadHeaderTimeout: 5 * time.Second, ReadTimeout: 10 * time.Second, WriteTimeout: 10 * time.Second, IdleTimeout: 30 * time.Second, MaxHeaderBytes: 8192}
 	stopped := make(chan error, 1)
 	go func() {
 		<-ctx.Done()
@@ -150,194 +151,234 @@ func Serve(parent context.Context, application *app.App, config Config) error {
 	return nil
 }
 
-// handle enforces local authority, capability authentication, and explicit routes.
-func (s *server) handle(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Cache-Control", "no-store")
-	w.Header().Set("X-Content-Type-Options", "nosniff")
-	w.Header().Set("Referrer-Policy", "no-referrer")
-	w.Header().Set("Content-Security-Policy", "default-src 'none'; script-src 'self'; style-src 'self'; connect-src 'self'; img-src 'self' data:; base-uri 'none'; frame-ancestors 'none'; form-action 'none'")
-	if r.Host != s.host || (r.Header.Get("Origin") != "" && r.Header.Get("Origin") != "http://"+s.host) {
-		s.fail(w, http.StatusForbidden, fmt.Errorf("foreign host or origin"))
-		return
+// routes registers exact HTTP paths behind the shared private request boundary.
+func (s *server) routes() http.Handler {
+	router := chi.NewRouter()
+	router.Use(s.boundary)
+	router.NotFound(s.notFound)
+	router.MethodNotAllowed(s.notFound)
+	types := map[string]string{"index.html": "text/html; charset=utf-8", "app.js": "text/javascript; charset=utf-8", "app.css": "text/css; charset=utf-8", "theme.css": "text/css; charset=utf-8"}
+	for name, contentType := range types {
+		router.Get("/"+name, s.asset(name, contentType))
 	}
-	if strings.HasPrefix(r.URL.Path, "/api/") {
-		if subtle.ConstantTimeCompare([]byte(r.Header.Get("X-Cleaner-Token")), []byte(s.token)) != 1 {
-			s.fail(w, http.StatusForbidden, fmt.Errorf("open the private access link printed by serve"))
+	router.Get("/", s.asset("index.html", types["index.html"]))
+	router.Get("/api/session", s.getSession)
+	router.Get("/api/state", s.getState)
+	router.Get("/api/plan", s.getPlan)
+	router.Post("/api/plan", s.postPlan)
+	router.Post("/api/apply", s.postApply)
+	router.Post("/api/resume", s.postResume)
+	router.Post("/api/cancel", s.postCancel)
+	return router
+}
+
+// boundary applies security headers and authentication before route selection.
+func (s *server) boundary(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Cache-Control", "no-store")
+		w.Header().Set("X-Content-Type-Options", "nosniff")
+		w.Header().Set("Referrer-Policy", "no-referrer")
+		w.Header().Set("Content-Security-Policy", "default-src 'none'; script-src 'self'; style-src 'self'; connect-src 'self'; img-src 'self' data:; base-uri 'none'; frame-ancestors 'none'; form-action 'none'")
+		if r.Host != s.host || (r.Header.Get("Origin") != "" && r.Header.Get("Origin") != "http://"+s.host) {
+			s.fail(w, http.StatusForbidden, fmt.Errorf("foreign host or origin"))
 			return
 		}
-		s.handleAPI(w, r)
-		return
-	}
-	name := strings.TrimPrefix(r.URL.Path, "/")
-	if name == "" {
-		name = "index.html"
-	}
-	types := map[string]string{"index.html": "text/html; charset=utf-8", "app.js": "text/javascript; charset=utf-8", "app.css": "text/css; charset=utf-8", "theme.css": "text/css; charset=utf-8"}
-	contentType, ok := types[name]
-	if !ok || r.Method != http.MethodGet {
-		http.NotFound(w, r)
-		return
-	}
-	content, err := assets.ReadFile(name)
-	if err != nil {
-		s.fail(w, http.StatusInternalServerError, fmt.Errorf("read interface asset: %w", err))
-		return
-	}
-	w.Header().Set("Content-Type", contentType)
-	if _, err := w.Write(content); err != nil {
-		s.config.Logger.Debug("Browser asset delivery ended", "error", err)
+		if strings.HasPrefix(r.URL.Path, "/api/") {
+			if subtle.ConstantTimeCompare([]byte(r.Header.Get("X-Cleaner-Token")), []byte(s.token)) != 1 {
+				s.fail(w, http.StatusForbidden, fmt.Errorf("open the private access link printed by server serve"))
+				return
+			}
+		}
+		next.ServeHTTP(w, r)
+	})
+}
+
+// asset serves only the embedded file selected by an explicit registered route.
+func (s *server) asset(name, contentType string) http.HandlerFunc {
+	return func(w http.ResponseWriter, _ *http.Request) {
+		content, err := assets.ReadFile(name)
+		if err != nil {
+			s.fail(w, http.StatusInternalServerError, fmt.Errorf("read interface asset: %w", err))
+			return
+		}
+		w.Header().Set("Content-Type", contentType)
+		if _, err := w.Write(content); err != nil {
+			s.config.Logger.Debug("Browser asset delivery ended", "error", err)
+		}
 	}
 }
 
-// handleAPI maps authenticated requests to state reads or serialized operations.
-func (s *server) handleAPI(w http.ResponseWriter, r *http.Request) {
-	switch r.Method + " " + r.URL.Path {
-	case "GET /api/session":
-		s.mu.Lock()
-		policy := s.policy
-		s.mu.Unlock()
-		s.respond(w, http.StatusOK, map[string]string{"policy": policy})
-	case "GET /api/state":
-		var after uint64
-		if value := r.URL.Query().Get("after"); value != "" {
-			var err error
-			after, err = strconv.ParseUint(value, 10, 64)
-			if err != nil {
-				s.fail(w, http.StatusBadRequest, fmt.Errorf("parse log cursor: %w", err))
-				return
-			}
-		}
-		s.mu.Lock()
-		state := s.state
-		state.CompletedIndexes = append([]int(nil), s.state.CompletedIndexes...)
-		s.mu.Unlock()
-		entries, cursor := s.config.Logs.since(after)
-		s.respond(w, http.StatusOK, struct {
-			// status is the operation snapshot.
-			status
-			// Logs are new retained lines since the supplied cursor.
-			Logs []logEntry `json:"logs"`
-			// Cursor is the next polling position.
-			Cursor uint64 `json:"cursor"`
-		}{state, entries, cursor})
-	case "GET /api/plan":
-		s.mu.Lock()
-		plan, id, source := s.plan, s.state.PlanID, s.policy
-		if plan == nil && s.execution != nil {
-			plan, id, source = &s.execution.plan, s.execution.id, s.execution.policy
-		}
-		s.mu.Unlock()
-		if plan == nil {
-			s.fail(w, http.StatusConflict, fmt.Errorf("no reviewable plan; run plan first"))
-			return
-		}
-		s.respond(w, http.StatusOK, map[string]any{"plan_id": id, "plan": plan, "policy": source})
-	case "POST /api/plan":
-		var request struct {
-			// Policy is editor text, never a server-side path.
-			Policy *string `json:"policy"`
-		}
-		if !s.decode(w, r, &request) {
-			return
-		}
-		if request.Policy == nil {
-			s.fail(w, http.StatusBadRequest, fmt.Errorf("policy text is required"))
-			return
-		}
-		s.mu.Lock()
-		defer s.mu.Unlock()
-		if !s.admit(w) {
-			return
-		}
-		s.policy = *request.Policy
-		s.execution = nil
-		ctx := s.start("planning", 0)
-		go s.prepare(ctx, *request.Policy)
-		s.respond(w, http.StatusAccepted, s.state)
-	case "POST /api/apply":
-		var request struct {
-			// PlanID identifies the immutable server-held plan being reviewed.
-			PlanID string `json:"plan_id"`
-			// Selected contains unique indexes into that plan's action list.
-			Selected []*int `json:"selected"`
-		}
-		if !s.decode(w, r, &request) {
-			return
-		}
-		s.mu.Lock()
-		defer s.mu.Unlock()
-		if !s.admit(w) {
-			return
-		}
-		if s.plan == nil || request.PlanID != s.state.PlanID {
-			s.fail(w, http.StatusConflict, fmt.Errorf("plan is absent, replaced, or already applied; run plan again"))
-			return
-		}
-		selected := map[int]bool{}
-		for _, value := range request.Selected {
-			if value == nil {
-				s.fail(w, http.StatusBadRequest, fmt.Errorf("selection indexes must be integers"))
-				return
-			}
-			index := *value
-			if index < 0 || index >= len(s.plan.Actions) || selected[index] {
-				s.fail(w, http.StatusBadRequest, fmt.Errorf("selection contains an invalid or repeated action index"))
-				return
-			}
-			selected[index] = true
-		}
-		if len(selected) == 0 {
-			s.fail(w, http.StatusBadRequest, fmt.Errorf("select at least one planned action"))
-			return
-		}
-		plan := *s.plan
-		plan.Actions = []model.Action{}
-		for index, action := range s.plan.Actions {
-			if selected[index] {
-				plan.Actions = append(plan.Actions, action)
-			}
-		}
-		s.execution = &execution{plan: plan, policy: s.policy, completed: map[int]bool{}}
-		s.startApply()
-		s.respond(w, http.StatusAccepted, s.state)
-	case "POST /api/resume":
-		var request struct {
-			// JobID rejects duplicate or stale resume requests from another tab.
-			JobID string `json:"job_id"`
-		}
-		if !s.decode(w, r, &request) {
-			return
-		}
-		s.mu.Lock()
-		defer s.mu.Unlock()
-		if !s.admit(w) {
-			return
-		}
-		if request.JobID != s.state.JobID || s.execution == nil || s.state.Remaining == 0 || (s.state.Phase != "failed" && s.state.Phase != "cancelled") {
-			s.fail(w, http.StatusConflict, fmt.Errorf("no interrupted execution for this job"))
-			return
-		}
-		s.startApply()
-		s.respond(w, http.StatusAccepted, s.state)
-	case "POST /api/cancel":
-		var request struct {
-			// JobID prevents a delayed tab from cancelling a later operation.
-			JobID string `json:"job_id"`
-		}
-		if !s.decode(w, r, &request) {
-			return
-		}
-		s.mu.Lock()
-		defer s.mu.Unlock()
-		if s.cancel == nil || request.JobID != s.state.JobID {
-			s.fail(w, http.StatusConflict, fmt.Errorf("operation is no longer running"))
-			return
-		}
-		s.cancel()
-		s.respond(w, http.StatusAccepted, s.state)
-	default:
+// notFound preserves API error data and rejects unsupported HTTP methods.
+func (s *server) notFound(w http.ResponseWriter, r *http.Request) {
+	if strings.HasPrefix(r.URL.Path, "/api/") {
 		s.fail(w, http.StatusNotFound, fmt.Errorf("unknown API operation"))
+		return
 	}
+	http.NotFound(w, r)
+}
+
+// getSession returns the initial editor source.
+func (s *server) getSession(w http.ResponseWriter, r *http.Request) {
+	s.mu.Lock()
+	policy := s.policy
+	s.mu.Unlock()
+	s.respond(w, http.StatusOK, map[string]string{"policy": policy})
+}
+
+// getState returns operation state and bounded log delivery.
+func (s *server) getState(w http.ResponseWriter, r *http.Request) {
+	var after uint64
+	if value := r.URL.Query().Get("after"); value != "" {
+		var err error
+		after, err = strconv.ParseUint(value, 10, 64)
+		if err != nil {
+			s.fail(w, http.StatusBadRequest, fmt.Errorf("parse log cursor: %w", err))
+			return
+		}
+	}
+	s.mu.Lock()
+	state := s.state
+	state.CompletedIndexes = append([]int(nil), s.state.CompletedIndexes...)
+	s.mu.Unlock()
+	entries, cursor := s.config.Logs.since(after)
+	s.respond(w, http.StatusOK, struct {
+		// status is the operation snapshot.
+		status
+		// Logs are new retained lines since the supplied cursor.
+		Logs []logEntry `json:"logs"`
+		// Cursor is the next polling position.
+		Cursor uint64 `json:"cursor"`
+	}{state, entries, cursor})
+}
+
+// getPlan returns the server-owned review or execution plan.
+func (s *server) getPlan(w http.ResponseWriter, r *http.Request) {
+	s.mu.Lock()
+	plan, id, source := s.plan, s.state.PlanID, s.policy
+	if plan == nil && s.execution != nil {
+		plan, id, source = &s.execution.plan, s.execution.id, s.execution.policy
+	}
+	s.mu.Unlock()
+	if plan == nil {
+		s.fail(w, http.StatusConflict, fmt.Errorf("no reviewable plan; run plan first"))
+		return
+	}
+	s.respond(w, http.StatusOK, map[string]any{"plan_id": id, "plan": plan, "policy": source})
+}
+
+// postPlan admits evaluation of strict editor input.
+func (s *server) postPlan(w http.ResponseWriter, r *http.Request) {
+	var request struct {
+		// Policy is editor text, never a server-side path.
+		Policy *string `json:"policy"`
+	}
+	if !s.decode(w, r, &request) {
+		return
+	}
+	if request.Policy == nil {
+		s.fail(w, http.StatusBadRequest, fmt.Errorf("policy text is required"))
+		return
+	}
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	if !s.admit(w) {
+		return
+	}
+	s.policy = *request.Policy
+	s.execution = nil
+	ctx := s.start("planning", 0)
+	go s.prepare(ctx, *request.Policy)
+	s.respond(w, http.StatusAccepted, s.state)
+}
+
+// postApply confirms an exact subset of the retained plan.
+func (s *server) postApply(w http.ResponseWriter, r *http.Request) {
+	var request struct {
+		// PlanID identifies the immutable server-held plan being reviewed.
+		PlanID string `json:"plan_id"`
+		// Selected contains unique indexes into that plan's action list.
+		Selected []*int `json:"selected"`
+	}
+	if !s.decode(w, r, &request) {
+		return
+	}
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	if !s.admit(w) {
+		return
+	}
+	if s.plan == nil || request.PlanID != s.state.PlanID {
+		s.fail(w, http.StatusConflict, fmt.Errorf("plan is absent, replaced, or already applied; run plan again"))
+		return
+	}
+	selected := map[int]bool{}
+	for _, value := range request.Selected {
+		if value == nil {
+			s.fail(w, http.StatusBadRequest, fmt.Errorf("selection indexes must be integers"))
+			return
+		}
+		index := *value
+		if index < 0 || index >= len(s.plan.Actions) || selected[index] {
+			s.fail(w, http.StatusBadRequest, fmt.Errorf("selection contains an invalid or repeated action index"))
+			return
+		}
+		selected[index] = true
+	}
+	if len(selected) == 0 {
+		s.fail(w, http.StatusBadRequest, fmt.Errorf("select at least one planned action"))
+		return
+	}
+	plan := *s.plan
+	plan.Actions = []model.Action{}
+	for index, action := range s.plan.Actions {
+		if selected[index] {
+			plan.Actions = append(plan.Actions, action)
+		}
+	}
+	s.execution = &execution{plan: plan, policy: s.policy, completed: map[int]bool{}}
+	s.startApply()
+	s.respond(w, http.StatusAccepted, s.state)
+}
+
+// postResume resumes only unfinished confirmed actions.
+func (s *server) postResume(w http.ResponseWriter, r *http.Request) {
+	var request struct {
+		// JobID rejects duplicate or stale resume requests from another tab.
+		JobID string `json:"job_id"`
+	}
+	if !s.decode(w, r, &request) {
+		return
+	}
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	if !s.admit(w) {
+		return
+	}
+	if request.JobID != s.state.JobID || s.execution == nil || s.state.Remaining == 0 || (s.state.Phase != "failed" && s.state.Phase != "cancelled") {
+		s.fail(w, http.StatusConflict, fmt.Errorf("no interrupted execution for this job"))
+		return
+	}
+	s.startApply()
+	s.respond(w, http.StatusAccepted, s.state)
+}
+
+// postCancel cancels only the identified active job.
+func (s *server) postCancel(w http.ResponseWriter, r *http.Request) {
+	var request struct {
+		// JobID prevents a delayed tab from cancelling a later operation.
+		JobID string `json:"job_id"`
+	}
+	if !s.decode(w, r, &request) {
+		return
+	}
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	if s.cancel == nil || request.JobID != s.state.JobID {
+		s.fail(w, http.StatusConflict, fmt.Errorf("operation is no longer running"))
+		return
+	}
+	s.cancel()
+	s.respond(w, http.StatusAccepted, s.state)
 }
 
 // admit checks job exclusion and shutdown while the caller holds the session lock.
