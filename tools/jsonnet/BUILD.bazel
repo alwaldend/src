@@ -1,0 +1,26 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+
+package(transitive_visibility = "//tools:transitive_consumers")
+
+alias(
+    name = "jsonnet",
+    actual = "//third_party/com_github_google_go_jsonnet:jsonnet",
+    visibility = ["//:__subpackages__"],
+)
+
+alias(
+    name = "format",
+    actual = "//third_party/com_github_google_go_jsonnet:jsonnetfmt",
+    visibility = ["//:__subpackages__"],
+)
+
+exports_files(
+    ["defs.bzl"],
+    visibility = ["//:__subpackages__"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//tools:__pkg__"],
+)

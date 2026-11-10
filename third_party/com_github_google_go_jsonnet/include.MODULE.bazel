@@ -1,0 +1,11 @@
+binary_toolchain_extension = use_extension(
+    "@rules_binary_toolchain//rules:binary_toolchain_extension.bzl",
+    "binary_toolchain_extension",
+)
+binary_toolchain_extension.toolchains(
+    archives = {},
+    lock = "//third_party/com_github_google_go_jsonnet:binary_toolchain.json",
+    toolchains_map = {"jsonnet": "com_github_google_go_jsonnet"},
+)
+register_toolchains("@com_github_google_go_jsonnet//:all")
+use_repo(binary_toolchain_extension, "com_github_google_go_jsonnet")
