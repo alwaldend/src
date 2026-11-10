@@ -56,6 +56,17 @@ variable "workflows" {
   }
 }
 
+variable "checkpoint_directory" {
+  type        = string
+  default     = "models/diffusion_models"
+  nullable    = false
+  description = "Use models/checkpoints for all-in-one SDXL checkpoints, or models/diffusion_models for standalone diffusion models."
+  validation {
+    condition     = contains(["models/diffusion_models", "models/checkpoints"], var.checkpoint_directory)
+    error_message = "Checkpoint directory must be models/diffusion_models or models/checkpoints."
+  }
+}
+
 variable "custom_nodes" {
   type        = map(object({ url = string, ref = string }))
   default     = {}
@@ -205,7 +216,7 @@ module "imagegen" {
     arguments          = "--listen 127.0.0.1 --port 18188 --disable-auto-launch --disable-all-custom-nodes --offline${length(local.enabled_custom_nodes) == 0 ? "" : " --whitelist-custom-nodes ${join(" ", local.enabled_custom_nodes)}"}"
     model_root         = "/workspace/ComfyUI"
     model_directories = {
-      checkpoint   = "models/diffusion_models"
+      checkpoint   = var.checkpoint_directory
       lora         = "models/loras"
       vae          = "models/vae"
       embedding    = "models/embeddings"

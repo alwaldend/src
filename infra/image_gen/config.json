@@ -1,7 +1,7 @@
 {
     "image": "vastai/comfy:v0.44.0-cuda-12.9-py312",
     "web_username": "imagegen",
-    "model_profile": "flux",
+    "model_profile": "juggernaut",
     "hardware_profile": "standard",
     "hardware_profiles": {
         "standard": {
@@ -18,9 +18,9 @@
     "model_profiles": {
         "qwen": {
             "workflows": [
-                "qwen-image-edit-single-reference",
-                "qwen-image-edit-character-style",
-                "qwen-image-edit-prompt-sequence"
+                "qwen-single-reference",
+                "qwen-character-style",
+                "qwen-prompt-sequence"
             ],
             "downloads": [
                 {
@@ -42,9 +42,9 @@
         },
         "flux": {
             "workflows": [
-                "flux-klein-single-reference",
-                "flux-klein-character-style",
-                "flux-klein-prompt-sequence"
+                "flux-single-reference",
+                "flux-character-style",
+                "flux-prompt-sequence"
             ],
             "downloads": [
                 {
@@ -63,6 +63,30 @@
                     "kind": "vae"
                 }
             ]
+        },
+        "juggernaut": {
+            "checkpoint_directory": "models/checkpoints",
+            "workflows": [
+                "juggernaut-text-to-image",
+                "juggernaut-image-to-image",
+                "juggernaut-prompt-sequence",
+                "juggernaut-style-reference",
+                "juggernaut-style-prompt-sequence"
+            ],
+            "downloads": [
+                {
+                    "url": "https://huggingface.co/RunDiffusion/Juggernaut-XL-v9/resolve/cf419233522daa0b9ea36c3aff98fa2cab1fb0fb/Juggernaut-XL_v9_RunDiffusionPhoto_v2.safetensors",
+                    "filename": "Juggernaut-XL_v9_RunDiffusionPhoto_v2.safetensors",
+                    "kind": "checkpoint"
+                }
+            ],
+            "custom_nodes": {
+                "RES4LYF": {
+                    "url": "https://github.com/ClownsharkBatwing/RES4LYF",
+                    "ref": "6780724de0ddb98e7454d54bb80387836a911ece"
+                }
+            },
+            "python_requirements": "res4lyf-requirements.txt"
         }
     }
 }

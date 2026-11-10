@@ -57,6 +57,9 @@ module "imagegen" {
 
   image                   = local.configuration.image
   model_downloads         = local.model_downloads
+  checkpoint_directory    = try(local.model.checkpoint_directory, "models/diffusion_models")
+  custom_nodes            = try(local.model.custom_nodes, {})
+  python_requirements     = try(local.model.python_requirements, null) == null ? null : file("${path.module}/../${local.model.python_requirements}")
   custom_node_sources     = { prompt_sequence = file("${path.module}/../../../projects/comfyui_tools/nodes/prompt_sequence/prompt_sequence.py") }
   custom_node_web_scripts = { prompt_sequence = file("${path.module}/../../../projects/comfyui_tools/nodes/prompt_sequence/web/index.js") }
   hugging_face_token      = length(data.vault_kv_secret_v2.huggingface) == 0 ? null : data.vault_kv_secret_v2.huggingface[0].data["token"]

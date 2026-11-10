@@ -102,6 +102,30 @@ try {
     assert.equal(saved[1], "Shared robot reference.");
     assert.equal(saved[2], "JSON");
     assert.equal(saved[3], "comic");
+    // LiteGraph cloning configures widgets in order without loadedGraphNode.
+    await page.evaluate((saved) => {
+        const node = window.createNode("default");
+        node.widgets.forEach((widget, index) => {
+            widget.value = saved[index];
+        });
+    }, saved);
+    assert.deepEqual(
+        await page.$$eval("textarea", (fields) =>
+            fields.map((field) => field.value),
+        ),
+        [...JSON.parse(saved[0]), ""],
+        "a duplicate must restore separate panels after its separator is restored",
+    );
+    await page.evaluate(() => {
+        const first = document.querySelector("textarea");
+        first.value = "A robot sketches a snowy park.";
+        first.dispatchEvent(new Event("input", { bubbles: true }));
+    });
+    assert.deepEqual(
+        await page.evaluate(() => JSON.parse(window.node.widgets[0].value)),
+        ["A robot sketches a snowy park.", "A robot watches snow."],
+        "editing a duplicate must preserve its other panels",
+    );
     await page.evaluate((saved) => {
         const node = window.createNode("default");
         node.widgets.forEach((widget, index) => {
@@ -154,6 +178,8 @@ try {
                     "empty fields omitted",
                     "paragraph preservation",
                     "ordered save/reload",
+                    "node duplication without graph-load hooks",
+                    "editing duplicated panels",
                     "existing separators",
                     "literal prompt markup",
                     "unrelated nodes untouched",

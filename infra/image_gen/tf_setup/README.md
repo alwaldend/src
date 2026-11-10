@@ -27,8 +27,9 @@ there is no registry lookup or helper executable during Terraform planning.
 Changing the tag produces a reviewed replacement plan for an existing rental.
 The component's [config.json](../config.json) owns the image, HTTPS username,
 selected model/hardware profiles and their definitions. Terraform has no root
-input variables or tfvars presets. The default model is FLUX.2 klein Base 9B FP8;
-set `model_profile` to `qwen` in that file to select Qwen-Image-Edit-2511.
+input variables or tfvars presets. The default model is Juggernaut XL v9;
+set `model_profile` to `flux` or `qwen` in that file to select FLUX.2 klein Base
+9B FP8 or Qwen-Image-Edit-2511.
 
 ```sh
 bazel run //infra/image_gen/tf_setup:tf.plan
@@ -86,18 +87,25 @@ a separately scoped live acceptance run.
 
 ## Download models
 
-`model_profile` in config.json selects matching model downloads and saved workflows:
+`model_profile` in config.json selects matching model downloads and saved workflows.
+Every saved name uses `<profile>-<purpose>`, matching its source filename:
 
-| Profile          | Bundle                                                                       | Native workflows                                                                                         |
-| ---------------- | ---------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
-| `flux` (default) | FLUX.2 klein Base 9B FP8, Qwen3 8B mixed FP8 encoder, Flux small-decoder VAE | `flux-klein-single-reference`, `flux-klein-character-style`, `flux-klein-prompt-sequence`                |
-| `qwen`           | Qwen-Image-Edit-2511 mixed FP8, Qwen 2.5 VL 7B FP8 encoder, Qwen VAE         | `qwen-image-edit-single-reference`, `qwen-image-edit-character-style`, `qwen-image-edit-prompt-sequence` |
+| Profile                | Bundle                                                                       | Native workflows                                                                                                                                        |
+| ---------------------- | ---------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `juggernaut` (default) | Juggernaut XL v9 all-in-one SDXL checkpoint                                  | `juggernaut-text-to-image`, `juggernaut-image-to-image`, `juggernaut-prompt-sequence`, `juggernaut-style-reference`, `juggernaut-style-prompt-sequence` |
+| `flux`                 | FLUX.2 klein Base 9B FP8, Qwen3 8B mixed FP8 encoder, Flux small-decoder VAE | `flux-single-reference`, `flux-character-style`, `flux-prompt-sequence`                                                                                 |
+| `qwen`                 | Qwen-Image-Edit-2511 mixed FP8, Qwen 2.5 VL 7B FP8 encoder, Qwen VAE         | `qwen-single-reference`, `qwen-character-style`, `qwen-prompt-sequence`                                                                                 |
 
-All files are fixed to publisher revisions in [config.json](../config.json). Both bundles
+All files are fixed to publisher revisions in [config.json](../config.json). All three bundles
 fit the 100 GB disk. Vast's native provisioner downloads them inside the rental;
-no custom downloader, external node pack or additional Python package is installed.
-The sole whitelisted custom node is the first-party `Prompt Sequence`, staged
-from checked-in source through native `write_files`.
+no custom downloader is installed. Every profile stages the first-party
+`Prompt Sequence` through native `write_files`. Only Juggernaut also restores
+[RES4LYF](https://github.com/ClownsharkBatwing/RES4LYF/tree/6780724de0ddb98e7454d54bb80387836a911ece)
+at the previously approved revision and the unchanged
+[hash-locked requirements](../res4lyf-requirements.txt). Vast's native Git/pip
+provisioner installs them; only RES4LYF and Prompt Sequence are whitelisted for
+that profile. Flux/Qwen retain only Prompt Sequence. No additional adapter
+weights are downloaded.
 The archived Chroma documents are examples and are not staged by these profiles.
 
 Flux uses the publisher's [non-commercial model](https://huggingface.co/black-forest-labs/FLUX.2-klein-base-9b-fp8).
@@ -105,10 +113,30 @@ Its checkpoint requires the user's Hugging Face license acceptance and a read-on
 model token. The operator or external IaC supplies the
 [Vault token entry](../README.md#identity-and-state). The rental root reads it only for a nonempty Flux manifest and
 passes it as sensitive startup input to Vast's native `HF_TOKEN` downloader.
-Missing access must be resolved before creating paid capacity; Qwen's public
-bundle needs no token. Both profiles retain at least 32 GiB VRAM and Secure Cloud.
+Missing access must be resolved before creating paid capacity; Juggernaut and Qwen's public
+bundles need no token. All profiles retain at least 32 GiB VRAM and Secure Cloud.
 
-Select images in Load Image: image 1 supplies character and output aspect;
+Juggernaut's all-in-one checkpoint goes in `models/checkpoints` and supplies
+its own CLIP encoders and VAE. Its text-to-image and prompt-sequence graphs
+start with a fresh 1024-square latent. The img2img graph resizes and center-crops
+the reference to 1024 square, then samples at denoise 0.65. Raise denoise for
+larger changes, or lower it to retain more reference structure. All three use
+30 DPM++ 2M SDE/Karras steps and CFG 6.5 as starting settings. Describe the
+wanted style in the positive prompt. Img2img also carries over composition;
+these native graphs do not isolate only a reference's style or character.
+For a reference image's style with a new scene, use
+`juggernaut-style-reference`. It routes the VAE-encoded reference through
+RES4LYF's style guide and the SDXL model patcher, starting generation from
+fresh noise. Describe the scene and broad medium in the positive prompt.
+The guide's `weight` controls influence; zero disables it. Start at 1 and
+compare at the same seed. `juggernaut-style-prompt-sequence` reuses that guide
+for every panel in the growing prompt list. These are style-guided workflows,
+not guarantees of style isolation or character preservation. Their sampler
+starts at 30 RES 2M/beta57 steps, CFG 6.5 and full denoise; its controls differ
+from the native KSampler graphs. Juggernaut GPU execution and style quality
+remain unverified.
+
+For Flux and Qwen, select images in Load Image: image 1 supplies character and output aspect;
 image 2, when present, supplies style. Describe the new action/scene and the
 reference roles in the positive prompt. Flux uses native reference latents on
 both conditioning branches, an encoded empty negative prompt, fresh Flux2 noise, 50 Euler steps and CFG 4.

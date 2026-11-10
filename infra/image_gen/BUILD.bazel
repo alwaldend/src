@@ -7,7 +7,10 @@ package(transitive_visibility = "//infra:transitive_consumers")
 
 filegroup(
     name = "configuration",
-    srcs = ["config.json"],
+    srcs = [
+        "config.json",
+        "res4lyf-requirements.txt",
+    ],
     visibility = ["//infra/image_gen:__subpackages__"],
 )
 
@@ -109,6 +112,7 @@ docs_filegroup(
     srcs = [
         "README.md",
         "config.json",
+        "res4lyf-requirements.txt",
     ],
     visibility = ["//infra:__pkg__"],
     deps = subpackages(
