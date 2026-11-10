@@ -52,10 +52,10 @@ type testSelection struct {
 	DryRun bool `json:"dry_run"`
 }
 
-// NewCommand exposes graph-based affected tests without a general Bazel passthrough.
+// NewCommand exposes graph-based affected tests and the opt-in Bazel MCP server.
 func NewCommand() *cobra.Command {
 	options := testOptions{}
-	command := &cobra.Command{Use: "bazel", Short: "Select tests using Git changes and the Bazel graph"}
+	command := &cobra.Command{Use: "bazel", Short: "Select affected tests and serve Bazel tools over MCP"}
 	test := &cobra.Command{
 		Use:   "test --base REF [TARGET_PATTERN ...]",
 		Short: "Run affected tests within a Bazel workspace",
@@ -88,7 +88,7 @@ func NewCommand() *cobra.Command {
 	test.Flags().StringVar(&options.workspace, "workspace", "", "Bazel workspace directory (default: current enclosing workspace)")
 	test.Flags().BoolVar(&options.dryRun, "dry-run", false, "Print the selection without running tests")
 	_ = test.MarkFlagRequired("base")
-	command.AddCommand(test)
+	command.AddCommand(test, newMCPCommand())
 	return command
 }
 

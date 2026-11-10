@@ -5,11 +5,15 @@ go_library(
     srcs = [
         "doc.go",
         "main.go",
+        "mcp.go",
         "test.go",
     ],
     importpath = "git.alwaldend.com/alwaldend/src/projects/al/internal/bazelcmd",
     visibility = ["//:__subpackages__"],
-    deps = ["@com_github_spf13_cobra//:cobra"],
+    deps = [
+        "@com_github_modelcontextprotocol_go_sdk//mcp",
+        "@com_github_spf13_cobra//:cobra",
+    ],
 )
 
 go_test(

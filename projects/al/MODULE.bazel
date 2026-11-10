@@ -47,6 +47,7 @@ use_repo(
     "com_github_google_uuid",
     "com_github_hashicorp_vault_api",
     "com_github_hashicorp_vault_api_auth_approle",
+    "com_github_modelcontextprotocol_go_sdk",
     "com_github_spf13_cobra",
     "io_k8s_sigs_yaml",
     "org_golang_google_grpc",

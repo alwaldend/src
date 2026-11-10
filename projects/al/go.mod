@@ -7,6 +7,7 @@ require (
 	github.com/go-git/go-git/v5 v5.19.3
 	github.com/hashicorp/vault/api v1.23.0
 	github.com/hashicorp/vault/api/auth/approle v0.12.0
+	github.com/modelcontextprotocol/go-sdk v1.8.0
 	github.com/spf13/cobra v1.10.1
 	golang.org/x/crypto v0.57.0
 	google.golang.org/grpc v1.84.0
@@ -14,7 +15,15 @@ require (
 	sigs.k8s.io/yaml v1.6.0
 )
 
-require github.com/go-git/go-billy/v5 v5.9.2 // indirect
+require (
+	github.com/go-git/go-billy/v5 v5.9.2 // indirect
+	github.com/google/jsonschema-go v0.4.3 // indirect
+	github.com/segmentio/asm v1.1.3 // indirect
+	github.com/segmentio/encoding v0.5.4 // indirect
+	github.com/yosida95/uritemplate/v3 v3.0.2 // indirect
+	golang.org/x/oauth2 v0.36.0 // indirect
+	golang.org/x/sync v0.23.0 // indirect
+)
 
 require (
 	dario.cat/mergo v1.0.0 // indirect
@@ -53,7 +62,7 @@ require (
 	golang.org/x/net v0.58.0 // indirect
 	golang.org/x/sys v0.48.0
 	golang.org/x/text v0.42.0 // indirect
-	golang.org/x/time v0.12.0 // indirect
+	golang.org/x/time v0.15.0 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20260706201446-f0a921348800 // indirect
 	gopkg.in/warnings.v0 v0.1.2 // indirect
 )
