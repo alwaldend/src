@@ -3,6 +3,12 @@ load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 package(transitive_visibility = "//third_party:transitive_consumers")
 
 alias(
+    name = "root_certificate",
+    actual = "@ai_vast_root_certificate//file",
+    visibility = ["//infra/image_gen:__pkg__"],
+)
+
+alias(
     name = "schema",
     actual = "@ai_vast_openapi//file",
     visibility = ["//internal/vastai_sdk:__pkg__"],

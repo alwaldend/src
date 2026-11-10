@@ -6,3 +6,10 @@ http_file(
     integrity = "sha256-iZCi3CKXXiCHoiKoOBUwJhYgs5L190WioI7dlart3E0=",
     urls = ["https://raw.githubusercontent.com/vast-ai/docs/2b2d9a04e7cb542f3305c0c148c2395b0cfab86e/api-reference/openapi.yaml"],
 )
+
+http_file(
+    name = "ai_vast_root_certificate",
+    downloaded_file_path = "jvastai_root.cer",
+    sha256 = "4068eae92482f045a1159b52b604142cc2c7e427a76bf8cf2070e779978e9507",
+    urls = ["https://console.vast.ai/static/jvastai_root.cer"],
+)

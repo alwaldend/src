@@ -5,6 +5,12 @@ load("@rules_systemd//systemd:defs.bzl", "systemd_run")
 
 package(transitive_visibility = "//tools:transitive_consumers")
 
+alias(
+    name = "cli",
+    actual = "//tools/comfyui/cli:comfy",
+    visibility = ["//:__subpackages__"],
+)
+
 exports_files(
     ["uv.lock"],
     visibility = ["//:__pkg__"],

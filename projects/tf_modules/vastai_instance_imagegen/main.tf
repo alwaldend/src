@@ -72,6 +72,13 @@ variable "model_downloads" {
   }
 }
 
+variable "hugging_face_token" {
+  type        = string
+  default     = null
+  sensitive   = true
+  description = "Optional Vault-sourced read-only token for native gated Hugging Face downloads. The rented host can access it."
+}
+
 variable "runtime" {
   type = object({
     service            = string
@@ -192,7 +199,7 @@ data "vastai_offers" "imagegen" {
     type              = "on-demand"
     order             = [["dph_total", "asc"]]
     limit             = 1
-  }, var.gpu_name == null ? {} : { gpu_name = { eq = var.gpu_name } }, var.offer_id == null ? {} : { id = { eq = var.offer_id } }))
+  }, var.gpu_name == null ? {} : { gpu_name = { eq = var.gpu_name } }, var.offer_id == null ? {} : { ask_contract_id = { eq = var.offer_id } }))
 
   lifecycle {
     postcondition {
@@ -275,6 +282,7 @@ data "vastai_template" "imagegen" {
 locals {
   startup_script = templatefile("${path.module}/startup.sh.tftpl", {
     model_manifest_b64 = base64encode(local.model_manifest)
+    hf_token_b64       = var.hugging_face_token == null ? "" : base64encode(var.hugging_face_token)
     runtime            = var.runtime
     runtime_files      = { for path, content in var.runtime_files : path => base64encode(content) }
     exposed            = var.access_mode == "exposed"

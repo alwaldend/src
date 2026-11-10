@@ -8,3 +8,10 @@ comfyui_pip.parse(
     uv_lock = "//tools/comfyui:uv.lock",
 )
 use_repo(comfyui_pip, "com_alwaldend_src_comfyui_pip")
+
+comfyui_pip.parse(
+    hub_name = "com_alwaldend_src_comfy_cli_pip",
+    python_version = "3.13.13",
+    uv_lock = "//tools/comfyui/cli:uv.lock",
+)
+use_repo(comfyui_pip, "com_alwaldend_src_comfy_cli_pip")

@@ -1,0 +1,10 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+
+package(transitive_visibility = "//projects:transitive_consumers")
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    prefix = "content/projects/comfyui_tools",
+    visibility = ["//projects/alwaldend.com/content/projects:__pkg__"],
+)

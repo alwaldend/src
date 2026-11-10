@@ -1,0 +1,25 @@
+load("@rules_python//python:defs.bzl", "py_binary")
+load("@rules_python//python/uv:lock.bzl", "lock")
+
+package(transitive_visibility = "//tools:transitive_consumers")
+
+exports_files(
+    ["uv.lock"],
+    visibility = ["//:__pkg__"],
+)
+
+py_binary(
+    name = "comfy",
+    srcs = ["main.py"],
+    main = "main.py",
+    python_version = "3.13.13",
+    visibility = ["//:__subpackages__"],
+    deps = ["@com_alwaldend_src_comfy_cli_pip//comfy_cli"],
+)
+
+lock(
+    name = "uv_lock",
+    srcs = ["pyproject.toml"],
+    out = "uv.lock",
+    python_version = "3.13.13",
+)

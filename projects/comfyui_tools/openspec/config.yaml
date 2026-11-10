@@ -1,0 +1,7 @@
+schema: spec-driven
+
+context: |
+  Reusable first-party ComfyUI custom nodes and workflow JSON.
+  Deployment and model profiles belong to infra/image_gen.
+  Repository CLI and local launchers belong to tools/comfyui.
+  Relocation preserves runtime node names and workflow contents.

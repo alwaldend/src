@@ -9,7 +9,8 @@ KV and state namespace. The existing team root SHALL issue a dedicated key and
 write it to the component's `vastai` entry through an exact-path policy. The
 component SHALL NOT use the personal user backend or team operator seed.
 The rental SHALL use the direct approved Vast ComfyUI image tag, at least
-32 GiB VRAM, verified Secure Cloud hosts and a USD 1/hour ceiling. Offline
+32 GiB VRAM, verified Secure Cloud hosts and a USD 1/hour default ceiling. Only
+the explicitly selected high-memory preset SHALL use its separate ceiling. Offline
 validation SHALL NOT rent capacity or deploy the new role, policies or keys.
 
 #### Scenario: Authorized configuration
@@ -24,26 +25,28 @@ validation SHALL NOT rent capacity or deploy the new role, policies or keys.
 
 ### Requirement: Rental-owned default checkpoint
 
-The rental root SHALL call the ComfyUI module and default to the official Comfy-Org Qwen-Image-Edit-2511 mixed-precision checkpoint and its required Qwen 2.5 VL encoder and Qwen VAE from fixed publisher revisions. The shared modules SHALL remain model-configurable.
+The rental root SHALL read the image, login name, hardware and model configuration
+from the component config.json, with selectable flux and qwen profiles. The default flux profile SHALL use FLUX.2 klein Base 9B FP8, Qwen3 8B mixed FP8 and the Flux small-decoder VAE at fixed publisher revisions. The qwen profile SHALL retain Qwen-Image-Edit-2511 and its existing encoder/VAE bundle. The shared modules SHALL remain model-configurable.
 
 #### Scenario: Default rental configuration
 
-- **WHEN** model_downloads is omitted
-- **THEN** the native provisioner SHALL receive the three public model downloads in native ComfyUI directories before ComfyUI serves generation requests
+- **WHEN** the committed model profile is selected
+- **THEN** the native provisioner SHALL receive the selected three model downloads in native ComfyUI directories before ComfyUI serves generation requests
 
 #### Scenario: Explicit model selection
 
-- **WHEN** the caller supplies model_downloads
-- **THEN** that list SHALL replace the rental default, including an empty list to disable configured downloads
+- **WHEN** the operator edits the selected profile's downloads array in config.json
+- **THEN** that list SHALL supply the rental downloads, including an empty list to disable configured downloads
 
 ### Requirement: Native reference-conditioned generation
 
 The rental SHALL supply native one-reference and separate character/style
-workflows using the requested Qwen bundle. Reference images SHALL reach both
-the vision-language encoder and reference-latent conditioning. The graphs SHALL
-retain the native index_timestep_zero method, flow shift and CFG normalization.
-The default profile SHALL disable custom nodes and install no additional Python
-packages. Source and validation fixtures SHALL contain only neutral content.
+workflows matching the selected model bundle. Both profiles SHALL provide native reference
+latents; Qwen SHALL also retain vision-language conditioning, index_timestep_zero,
+flow shift and CFG normalization. Flux SHALL use the Base native
+schedule with 50 steps, CFG 4, an encoded empty negative prompt and fresh latent noise.
+The profiles SHALL enable only the dependency-free first-party prompt sequence
+node and install no additional Python packages. Source and validation fixtures SHALL contain only neutral content.
 
 #### Scenario: Default native workflows
 
@@ -71,3 +74,43 @@ protected historical Terraform state is outside that guarantee.
 
 - **WHEN** the replacement IaC is published
 - **THEN** new AppRole, policy, key and rental deployment SHALL remain separate from source validation
+
+### Requirement: CLI and model authentication
+
+The component SHALL expose the approved official CLI through an owning target
+that reads the current Terraform HTTPS output and its Vault web login. Gated
+Flux downloads SHALL read a scoped Hugging Face token from the component's own
+Vault namespace, populated manually by the operator or through external IaC.
+This component SHALL only read that entry and SHALL NOT create, rotate or delete it.
+No Vault or Vast account token SHALL be passed to the rental.
+
+#### Scenario: Missing model access
+
+- **WHEN** the publisher has not granted the token download access
+- **THEN** rental creation SHALL wait for access verification rather than consume paid capacity
+
+### Requirement: Prompt sequence generation
+
+Both model profiles SHALL supply a single-node multiline prompt workflow using
+shared character/style references and one numbered image per nonempty prompt.
+The node SHALL retain prompt order, support line and blank-line separators and
+reject empty input or unsafe filename prefixes without echoing prompt content.
+
+#### Scenario: Several panels
+
+- **WHEN** the user enters three prompts and runs the sequence workflow once
+- **THEN** native list mapping SHALL generate three ordered panels with paired numbered filenames and the same reference inputs
+
+### Requirement: Opt-in high-memory hardware
+
+The component config.json SHALL provide a nominal 96 GB-or-larger hardware
+profile with a 95 GiB reported-memory floor, 150 GB disk and a USD 3/hour ceiling.
+The ordinary plan and rent targets SHALL consume the selected hardware profile.
+The committed standard selection SHALL retain the 32 GiB, 100 GB and USD 1/hour defaults. All host trust requirements
+SHALL remain enforced. Preparing this option SHALL NOT deploy it or change the
+selected model bundle.
+
+#### Scenario: Prepare the larger option
+
+- **WHEN** the preset and its targets are built or validated
+- **THEN** no high-memory rental SHALL be created

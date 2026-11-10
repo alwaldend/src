@@ -46,6 +46,7 @@ package_group(
         "//projects/anki_grpc",
         "//projects/bazel_deps_analyzer/docs",
         "//projects/bazel_deps_analyzer/test/...",
+        "//projects/comfyui_tools/test/browser",
         "//projects/dotfiles/bin",
         "//projects/dotfiles/home",
         "//projects/dotfiles/nvim",

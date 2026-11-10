@@ -1,6 +1,10 @@
 # The actual rental module/API behavior is covered by the provider CLI E2E suite.
 # This test isolates credential generation and Vault persistence in this root.
-mock_provider "vault" {}
+mock_provider "vault" {
+  mock_data "vault_kv_secret_v2" {
+    defaults = { data = { token = "fixture-model-token" } }
+  }
+}
 mock_provider "vastai" {}
 override_module {
   target = module.imagegen
@@ -13,11 +17,8 @@ override_module {
 
 run "vault_backed_login" {
   command = apply
-  variables {
-    template_hash_id = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-  }
   assert {
-    condition     = jsondecode(vault_kv_secret_v2.web.data_json).password == random_password.web.result && jsondecode(vault_kv_secret_v2.web.data_json).username == var.web_username
+    condition     = jsondecode(vault_kv_secret_v2.web.data_json).password == random_password.web.result && jsondecode(vault_kv_secret_v2.web.data_json).username == local.configuration.web_username
     error_message = "Vault must retain the generated login used by the rental."
   }
   assert {

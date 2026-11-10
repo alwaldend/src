@@ -11,9 +11,20 @@ _PROVIDERS = [
 ]
 
 _DATA = [
-    "//infra/image_gen/workflows:workflows",
+    "//infra/image_gen:configuration",
+    "//projects/comfyui_tools/nodes/prompt_sequence:source",
+    "//projects/comfyui_tools/nodes/prompt_sequence:web_source",
+    "//projects/comfyui_tools/workflows:workflows",
     "//projects/tf_modules/vastai_instance_imagegen_comfyui",
 ]
+
+# The parent component supplies the same AL/backend context while embedding
+# this self-describing read-only Terraform invocation in its CLI bridge.
+alias(
+    name = "connection_output",
+    actual = ":tf.output.terraform",
+    visibility = ["//infra/image_gen:__pkg__"],
+)
 
 al_terraform_binary_map(
     name = "tf",
@@ -34,6 +45,7 @@ al_terraform_binary_map(
     data = glob(["*.tf"]) + _DATA,
     plugin_labels = {"tf": "setup"},
     providers = _PROVIDERS,
+    visibility = ["//infra/image_gen:__pkg__"],
 )
 
 terraform_test_map(

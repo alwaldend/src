@@ -34,3 +34,12 @@
 ## Infrastructure consumer
 
 - [x] Update the shared module's consumer and privacy links to the new infra/image_gen owner after the authorized personal-stack teardown.
+
+## 7. Gated model authentication
+
+- [x] 7.1 Accept an optional sensitive Hugging Face download token, with safe first-boot encoding and unchanged public exposure; validate existing Terraform/provider acceptance.
+- [x] 7.2 Stage approved first-party custom-node source through native write_files and include only its validated directory in the whitelist.
+
+## 8. First-party browser assets
+
+- [x] 8.1 Stage an optional web/index.js only under approved first-party node directories; verify the offline provisioning fixture and unchanged whitelist.
