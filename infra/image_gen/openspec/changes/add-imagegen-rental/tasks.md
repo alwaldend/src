@@ -74,3 +74,16 @@ workflow defaults remain available for a later authorized deployment.
 - [x] 13.1 Apply the merged AppRole/policies and dedicated key through owning scoped interactive workflows.
 - [x] 13.2 Apply only password and web-login resources, retaining the password after correcting metadata access; create no instance.
 - [x] 13.3 Verify credential access and absence of a rental, then record the sanitized receipt.
+
+## 14. Authorized rental and Qwen acceptance
+
+- [x] 14.1 Review and apply one rental with unchanged credentials and existing Secure Cloud/VRAM/price constraints.
+- [x] 14.2 Verify TLS/authentication, native model/node availability, and both staged workflows.
+- [x] 14.3 Execute both workflows with neutral character/style references; inspect prompt, character and style behavior and correct in-scope defects.
+- [x] 14.4 Refresh connection outputs through the owning workflow and deliver sanitized acceptance evidence.
+
+## 15. Requested rental release
+
+- [x] 15.1 Destroy only the current rental through its owning reviewed apply and clear connection outputs through refresh-only apply.
+- [x] 15.2 Verify the instance is absent and retain the component identity, credentials and reusable IaC.
+- [x] 15.3 Update current deployment status and prepare the sanitized release record for delivery.

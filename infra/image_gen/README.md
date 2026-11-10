@@ -35,9 +35,9 @@ existing Vault identity membership. No general infrastructure group is required.
 
 The former personal stack was destroyed on 2026-11-10. The replacement AppRole,
 scoped policies, dedicated team key, generated web login and component state
-are deployed. No GPU instance has been rented and there is no active URL.
-The [deployment receipt](openspec/changes/add-imagegen-rental/design.md#credential-only-deployment)
-records the reviewed scope. No old state or credential was reused. Historical
+remain deployed. The last rental was destroyed at the user's request; no
+instance or active URL remains. The [acceptance record](openspec/changes/add-imagegen-rental/design.md#authorized-qwen-rental-acceptance)
+records the prior rental checks and subsequent release. No old state or credential was reused. Historical
 Vault versions can remain protected; the shared team and operator seed remain.
 
 Deployment is staged: authorize the component role and delivery policy through
