@@ -14,11 +14,12 @@ module "src_infra_image_gen_approle" {
 
 # The role's standard namespace policy permits soft deletion only. This root
 # owns the web login and needs metadata deletion for delete_all_versions=true.
+# Exact-path capabilities replace the wildcard grant, so retain metadata reads.
 resource "vault_policy" "image_gen_web_lifecycle" {
   name   = "src_infra_image_gen_web_lifecycle"
   policy = <<-EOT
     path "${vault_mount.secrets.path}/metadata/alwaldend.com/vault1/approles/src_infra_image_gen/web" {
-      capabilities = ["delete"]
+      capabilities = ["read", "delete"]
     }
   EOT
 }

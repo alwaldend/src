@@ -10,7 +10,9 @@ The new `vastai_api_key.image_gen` and `vault_kv_secret_v2.image_gen` declare a
 fresh key named `infra_vastai_alwaldend_image_gen`, delivered directly to
 `src_infra_image_gen/vastai`. The new entry deletes all versions on destroy;
 Vault's exact metadata-delete grant is owned by infra/vault. These replacement
-resources are not deployed. Earlier handoff receipts below describe the now
+resources were created after the user authorized applying IaC without renting
+capacity. The [component receipt](../../../../image_gen/openspec/changes/add-imagegen-rental/design.md#credential-only-deployment)
+records the reviewed operation. Earlier handoff receipts below describe the
 revoked personal key.
 
 ## Legacy ownership before teardown

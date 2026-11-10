@@ -15,3 +15,7 @@
 - [x] 3.1 Destroy the legacy dedicated key and current delivery entry without affecting shared team resources.
 - [x] 3.2 Declare fresh component key issuance and delivery to src_infra_image_gen, with full managed-entry deletion on destroy.
 - [x] 3.3 Validate and review the replacement desired state without creating its key or a rental.
+
+## Credential-only deployment
+
+- [x] 4.1 Create and deliver only the dedicated component key after the authorized Vault prerequisites; retain all unrelated team resources.

@@ -33,11 +33,12 @@ existing Vault identity membership. No general infrastructure group is required.
 
 ## Deployment status
 
-The former personal rental, login secret, dedicated team key and delivery grant
-were destroyed on 2026-11-10. This replacement is checked-in desired state and
-has not been deployed. It uses a fresh component state path; no old state or
-credential is migrated or reused. Historical Vault versions can remain as
-protected records. The shared team and operator seed are outside this teardown.
+The former personal stack was destroyed on 2026-11-10. The replacement AppRole,
+scoped policies, dedicated team key, generated web login and component state
+are deployed. No GPU instance has been rented and there is no active URL.
+The [deployment receipt](openspec/changes/add-imagegen-rental/design.md#credential-only-deployment)
+records the reviewed scope. No old state or credential was reused. Historical
+Vault versions can remain protected; the shared team and operator seed remain.
 
 Deployment is staged: authorize the component role and delivery policy through
 Vault Terraform, create the dedicated key through the team root, then rent

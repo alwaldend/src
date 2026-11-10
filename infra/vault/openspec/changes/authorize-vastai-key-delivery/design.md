@@ -31,3 +31,23 @@ are source only. The component's exact web metadata-delete permission supports
 full managed-login deletion without granting metadata deletion over its state.
 Operator membership permits role bootstrap and browser access to this namespace;
 no broad infrastructure group membership is added.
+
+## Web metadata policy precedence
+
+The user authorized applying the merged infrastructure without renting capacity.
+The AppRole and dedicated team key were created through reviewed scoped applies.
+The credential-only rental-root apply generated its password but failed with
+403 while reading the exact web metadata path. Vault chooses the exact policy
+path over the namespace wildcard, so its delete-only grant suppressed the
+metadata read. Include both read and delete on that exact entry, then apply only
+that policy and retry the remaining Vault credential resource. Preserve the
+password already saved in the component backend. Do not create an instance.
+
+The reviewed correction changed only vault_policy.image_gen_web_lifecycle.
+The subsequent credential-only apply read metadata successfully, replaced the
+tainted web entry and retained the existing generated password. Live component
+capabilities include web metadata read/delete and own state data access, but
+exclude metadata deletion for its state and all access to the team issuer.
+The team writer can manage only the delivered key entry and is denied the
+component's web login and backend. The human operator can read both entries and
+list the namespace. The component receipt owns apply counts and timestamps.
