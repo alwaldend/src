@@ -1,0 +1,40 @@
+{
+    "toolchains": [
+        {
+            "name": "jsonnet",
+            "version": "0.22.0"
+        }
+    ],
+    "archives": [
+        {
+            "toolchain_name": "jsonnet",
+            "toolchain_version": "0.22.0",
+            "archive_name": "linux_x86_64",
+            "binaries": [
+                {
+                    "name": "jsonnet",
+                    "path": "out/jsonnet"
+                },
+                {
+                    "name": "jsonnetfmt",
+                    "path": "out/jsonnetfmt"
+                }
+            ],
+            "actions": [
+                {
+                    "download_and_extract": {
+                        "url": "https://github.com/google/go-jsonnet/releases/download/v0.22.0/go-jsonnet_0.22.0_linux_amd64.tar.gz",
+                        "output": "out",
+                        "integrity": "sha256-6HqT6kTjTaksFWNiBcfyJAvzrJLQDMuFXbtOfgPqaUE="
+                    }
+                }
+            ],
+            "toolchain": {
+                "exec_compatible_with": [
+                    "@platforms//os:linux",
+                    "@platforms//cpu:x86_64"
+                ]
+            }
+        }
+    ]
+}

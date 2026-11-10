@@ -5,7 +5,7 @@ description: Reusable ComfyUI custom nodes and image-generation workflows
 
 This project owns reusable ComfyUI nodes and workflow JSON. Each node has its
 own directory under nodes/, with its implementation, test, browser script and
-README. Workflow documents are grouped by model under workflows/. Deployment,
+README. Workflow definitions are grouped by model under workflows/. Deployment,
 model downloads, credentials and rental state belong to
 [image-generation infrastructure](../../infra/image_gen/README.md). The
 [repository CLI and local launchers](../../tools/comfyui/README.md) remain in
@@ -39,6 +39,30 @@ fixed-seed comparison. Describe the broad medium and new scene in the prompt.
 These graphs start at 30 RES 2M/beta57 steps and CFG 6.5. They guide style;
 they do not guarantee exact style isolation or character preservation.
 Offline graph checks do not establish GPU execution or style quality.
+
+## Workflow source and generation
+
+The maintained sources are [workflows.jsonnet](workflows/workflows.jsonnet),
+model-specific `workflows.libsonnet` files and shared graph/node libraries in
+`workflows/internal/`. The sequence transformation is shared across model families.
+Connections are declared once; generation derives port metadata and reciprocal
+link lists. The public rental configuration supplies model filenames from the first matching
+download of each required kind. Additional downloads remain available without
+changing those selections. Recorded workflow defaults remain available when
+downloads are disabled.
+
+```sh
+bazel build //projects/comfyui_tools/workflows:workflows
+bazel test //projects/comfyui_tools/workflows:format_test
+```
+
+Native JSON is generated beneath
+`bazel-bin/projects/comfyui_tools/workflows/<profile>/` at the documented names.
+Edit Libsonnet source rather than generated JSON. Terraform and documentation
+consume those declared outputs directly. The pinned Jsonnet compiler and
+formatter are build tools and are never installed on the rental. To format an
+edited source, pass its absolute path to
+`bazel run //tools/jsonnet:format -- --in-place /absolute/path/to/source.libsonnet`.
 
 ## Prompt sequences
 

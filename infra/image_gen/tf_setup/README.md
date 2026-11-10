@@ -88,7 +88,7 @@ a separately scoped live acceptance run.
 ## Download models
 
 `model_profile` in config.json selects matching model downloads and saved workflows.
-Every saved name uses `<profile>-<purpose>`, matching its source filename:
+Every saved name uses `<profile>-<purpose>`, matching its generated JSON filename:
 
 | Profile                | Bundle                                                                       | Native workflows                                                                                                                                        |
 | ---------------------- | ---------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -106,7 +106,10 @@ at the previously approved revision and the unchanged
 provisioner installs them; only RES4LYF and Prompt Sequence are whitelisted for
 that profile. Flux/Qwen retain only Prompt Sequence. No additional adapter
 weights are downloaded.
-The archived Chroma documents are examples and are not staged by these profiles.
+The [workflow definitions](../../../projects/comfyui_tools/README.md#workflow-source-and-generation)
+are compiled from Libsonnet during the Bazel build; the rental receives native
+JSON and does not require Jsonnet. Archived Chroma examples are generated for
+documentation and are not staged by these profiles.
 
 Flux uses the publisher's [non-commercial model](https://huggingface.co/black-forest-labs/FLUX.2-klein-base-9b-fp8).
 Its checkpoint requires the user's Hugging Face license acceptance and a read-only

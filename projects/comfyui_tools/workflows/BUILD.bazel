@@ -1,16 +1,43 @@
+load("@com_github_google_go_jsonnet//:defs.bzl", "jsonnetfmt_test")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//tools/jsonnet:defs.bzl", "jsonnet_to_json")
 
 package(transitive_visibility = "//projects:transitive_consumers")
 
-filegroup(
+_SOURCES = glob(["**/*.libsonnet"]) + ["workflows.jsonnet"]
+
+jsonnet_to_json(
     name = "workflows",
-    srcs = glob(["*/*.json"]),
+    src = "workflows.jsonnet",
+    outs = [
+        "chroma/chroma-image-to-image.json",
+        "chroma/chroma-style-reference.json",
+        "chroma/chroma-text-to-image.json",
+        "flux/flux-character-style.json",
+        "flux/flux-prompt-sequence.json",
+        "flux/flux-single-reference.json",
+        "juggernaut/juggernaut-image-to-image.json",
+        "juggernaut/juggernaut-prompt-sequence.json",
+        "juggernaut/juggernaut-style-prompt-sequence.json",
+        "juggernaut/juggernaut-style-reference.json",
+        "juggernaut/juggernaut-text-to-image.json",
+        "qwen/qwen-character-style.json",
+        "qwen/qwen-prompt-sequence.json",
+        "qwen/qwen-single-reference.json",
+    ],
     visibility = ["//projects/comfyui_tools:asset_consumers"],
+    deps = glob(["**/*.libsonnet"]) + ["//infra/image_gen:config.json"],
+)
+
+jsonnetfmt_test(
+    name = "format_test",
+    arguments = ["--test"] + ["$(rootpath %s)" % source for source in _SOURCES],
+    data = _SOURCES,
 )
 
 docs_filegroup(
     name = "docs",
-    srcs = glob(["*/*.json"]),
+    srcs = [":workflows"] + _SOURCES,
     prefix = "content/docs/projects/comfyui_tools/workflows",
     preserve_paths = True,
     visibility = ["//projects/comfyui_tools:__pkg__"],

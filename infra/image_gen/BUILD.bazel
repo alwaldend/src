@@ -5,6 +5,16 @@ load("//tools/vault/tf_backend:defs.bzl", "vault_tf_backend")
 
 package(transitive_visibility = "//infra:transitive_consumers")
 
+package_group(
+    name = "workflow_configuration_consumers",
+    packages = ["//projects/comfyui_tools/workflows"],
+)
+
+exports_files(
+    ["config.json"],
+    visibility = [":workflow_configuration_consumers"],
+)
+
 filegroup(
     name = "configuration",
     srcs = [

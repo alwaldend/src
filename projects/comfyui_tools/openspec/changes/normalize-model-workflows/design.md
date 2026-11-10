@@ -40,3 +40,23 @@ profile bytes and startup-payload constraints. Existing browser and Terraform
 CLI fixtures cover editor duplication and provisioner behavior. Retain a graph
 and dependency verification receipt under ignored task scratch. No rental or
 private content is used by these checks.
+
+## Jsonnet authoring
+
+The operator approved go-jsonnet v0.22.0 as a separate build dependency. Shared
+tooling is recorded by infra/src/add-jsonnet-tooling. Source definitions use one
+graph library for node defaults and link bookkeeping, model-specific builders
+for their conditioning/sampling contracts and shared sequence composition.
+Generate native workflow JSON as Bazel outputs at existing model/name paths;
+remove independently maintained JSON copies. Preserve every parsed field against
+the public 14-document baseline at ec49a504, including editor positions, settings,
+IDs and widget links. Libraries take model filenames as parameters; the generation
+entrypoint may read the existing public rental configuration as its single owner.
+Archived Chroma filenames remain local example defaults. No model/rental changes.
+
+Failure cases: reordered widget values, missing input metadata, changed reference
+conditioning, unstable IDs or link IDs, stale configuration filenames, lost layout,
+undeclared imports, missing generated files in Terraform/Hugo packaging, changes
+to prompts or sampler defaults, and requiring Jsonnet on the rented host.
+Use actual compiler generation plus exact parsed-output comparison and existing
+consumer fixtures. No new GPU/private-content acceptance is claimed.

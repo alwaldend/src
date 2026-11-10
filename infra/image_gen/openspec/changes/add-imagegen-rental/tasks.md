@@ -132,3 +132,7 @@ workflow defaults remain available for a later authorized deployment.
 - [x] 21.3 Document style-prompting and img2img limits, complete source validation and review, and prepare the follow-up for publication. No deployment is authorized.
 
 - [x] 21.4 Restore the previously approved RES4LYF revision and unchanged requirements only for Juggernaut; stage matching style-reference and style-sequence graphs without a rental.
+
+## 22. Generated workflow inputs
+
+- [x] 22.1 Consume native workflow outputs from the shared Libsonnet build and grant its generator access only to public config.json, retaining the existing Terraform paths and offline behavior.

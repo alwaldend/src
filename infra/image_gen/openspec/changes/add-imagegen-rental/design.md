@@ -523,3 +523,11 @@ Sequence widget links retain their native widget metadata. The restored lock is
 byte-identical to the approved historical lock. Browser duplication and isolated
 Terraform CLI acceptance pass. These checks establish source and fixture behavior,
 not GPU inference or style quality. No rental or live Vault operation was run.
+
+The Jsonnet authoring refactor retains the same parsed native workflow values
+and package-relative filenames. The workflow generator receives only the public
+config.json through an explicit file export and owner-local consumer group; no
+Vault/backend credential or protected infrastructure artifact is a build input.
+Terraform still reads native JSON from declared Bazel data. Empty download arrays
+retain the existing workflow filenames and recorded model defaults. Shared
+Jsonnet tooling is owned by infra/src/add-jsonnet-tooling; no rental is changed.
