@@ -1,0 +1,127 @@
+{
+    "schema_version": 1,
+    "status": "work in progress after visual rejection; army_spot.mp4 and poster.png show the previous draft",
+    "reference": {
+        "name": "NO-EXCUSES-Spot-11-In-the-Army-Canadian-English-mp4.mp4",
+        "sha256": "4aa8481103870d56131063ed62438f6999e3d0085a5826a647a03b6eb6e7917d",
+        "frames": 898
+    },
+    "toolchain": {
+        "blender": "5.2.1 LTS",
+        "build_hash": "9e2066aef7ef"
+    },
+    "render": {
+        "engine": "CYCLES",
+        "samples": 8,
+        "denoised": true,
+        "width": 960,
+        "height": 540,
+        "fps_numerator": 30000,
+        "fps_denominator": 1001,
+        "rendered_frames": 898,
+        "encoded_frames": 902,
+        "source_scene_sha256": "8723ac065cf09761a4153f54ed103e685cbdc1a72f412c20aa76787db6a9e87f"
+    },
+    "audio": {
+        "codec": "AAC",
+        "sample_rate": 44100,
+        "channels": 2,
+        "duration_seconds": 30.069841,
+        "decoded_pcm_sha256": "821d3b681271fe1195545dc8b13d89aea73c23ef1d763cc03d18f29ec2851d17",
+        "matches_complete_source": true
+    },
+    "scene": {
+        "objects": 437,
+        "cameras": 13,
+        "camera_cut_markers": 12,
+        "actions": 413,
+        "packed_sounds": 1,
+        "linked_libraries": 0,
+        "embedded_scripts": 0,
+        "armatures": 8
+    },
+    "verification": {
+        "clean_reopen": true,
+        "packed_audio_bytes_checked": true,
+        "all_898_png_frames_checked": true,
+        "decoded_video_frames": [1, 120, 301, 569, 648, 842, 898, 902],
+        "fast_start": true,
+        "reference_unchanged": true,
+        "reference_fidelity_exact_match": false,
+        "render_matches_scene": false
+    },
+    "files": {
+        "army_spot.blend": {
+            "sha256": "b6d22695b0537599888dde18118da579cc6d539865abb3edbf8759d64a14130b",
+            "bytes": 37446684
+        },
+        "army_spot.mp4": {
+            "sha256": "d66d52208df7029c864b6996218ba279147a8b7eb5a460240b376e3b0d0a8b7f",
+            "bytes": 4402347
+        },
+        "poster.png": {
+            "sha256": "82a792f48acc56ed4e9bd84c3bb0bf402b6cfb364c4e64f98b2f8b9b73a20c9c",
+            "bytes": 592855
+        },
+        "opening_preview.mp4": {
+            "sha256": "f04879465a5551daad106f92dbdae453f805d1346e1446f665da0d26708dd863",
+            "bytes": 171343
+        },
+        "wide_shot_preview.mp4": {
+            "sha256": "81f90bc8f4a87c5a22138972fca81ef5804a13075fdc61f56e9825d125333b6c",
+            "bytes": 164008
+        },
+        "character_preview.mp4": {
+            "sha256": "3ac4ed14e1062733f25304a98ab8982d3c90e380ebd1ce7daf124b6aa8c4f510",
+            "bytes": 207802
+        }
+    },
+    "opening_preview": {
+        "file": "opening_preview.mp4",
+        "status": "diagnostic preview; overall visual revision remains unfinished",
+        "source_scene_sha256": "b6d22695b0537599888dde18118da579cc6d539865abb3edbf8759d64a14130b",
+        "width": 480,
+        "height": 270,
+        "samples": 6,
+        "fps_numerator": 30000,
+        "fps_denominator": 1001,
+        "audio": "corresponding source excerpt",
+        "decoded_video_frames": [1, 15, 30, 45, 60, 78],
+        "maximum_decoded_pixel_error": 1.3847376543209877,
+        "fast_start": true,
+        "source_frames": [1, 78]
+    },
+    "wide_shot_preview": {
+        "file": "wide_shot_preview.mp4",
+        "status": "diagnostic preview; overall visual revision remains unfinished",
+        "source_scene_sha256": "b6d22695b0537599888dde18118da579cc6d539865abb3edbf8759d64a14130b",
+        "width": 480,
+        "height": 270,
+        "samples": 6,
+        "fps_numerator": 30000,
+        "fps_denominator": 1001,
+        "audio": "corresponding source excerpt",
+        "decoded_video_frames": [1, 15, 30, 45, 60, 79],
+        "maximum_decoded_pixel_error": 1.4544058641975308,
+        "fast_start": true,
+        "source_frames": [350, 428]
+    },
+    "character_preview": {
+        "file": "character_preview.mp4",
+        "status": "diagnostic preview; overall visual revision remains unfinished",
+        "source_scene_sha256": "b6d22695b0537599888dde18118da579cc6d539865abb3edbf8759d64a14130b",
+        "width": 480,
+        "height": 270,
+        "samples": 6,
+        "fps_numerator": 30000,
+        "fps_denominator": 1001,
+        "audio": "corresponding source excerpts",
+        "decoded_video_frames": [1, 15, 30, 31, 45, 60, 90],
+        "maximum_decoded_pixel_error": 1.5787705761316875,
+        "fast_start": true,
+        "source_segments": [
+            [289, 318],
+            [548, 607]
+        ]
+    }
+}

@@ -1,0 +1,45 @@
+load("@org_blender_blender//:defs.bzl", "blender_binary")
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+
+package(transitive_visibility = "//projects:transitive_consumers")
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//projects:__pkg__"],
+)
+
+blender_binary(
+    name = "army_spot_scene",
+    arguments = [
+        "--background",
+        "--factory-startup",
+        "--disable-autoexec",
+        "--python-exit-code",
+        "2",
+        "--python",
+        "$(location cmd/army_spot_scene/main.py)",
+        "--",
+    ],
+    data = ["cmd/army_spot_scene/main.py"],
+)
+
+blender_binary(
+    name = "encode_frames",
+    arguments = [
+        "--background",
+        "--factory-startup",
+        "--disable-autoexec",
+        "--python-exit-code",
+        "2",
+        "--python",
+        "$(location cmd/encode_frames/main.py)",
+        "--",
+    ],
+    data = ["cmd/encode_frames/main.py"],
+)
+
+filegroup(
+    name = "army_spot_draft",
+    srcs = glob(["assets/army_spot/*"]),
+)
