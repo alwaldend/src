@@ -198,24 +198,26 @@ model_selection = {
 
 // TestComfyUIModule verifies both access modes and native model paths through Terraform.
 func TestComfyUIModule(t *testing.T) {
-	for _, exposed := range []bool{false, true} {
-		t.Run(map[bool]string{false: "ssh", true: "https"}[exposed], func(t *testing.T) {
-			f := &imagegenFixture{noTemplate: true, exposed: exposed, comfyUI: true}
-			f.rental.runtype = "ssh_direct"
-			server := httptest.NewServer(f)
-			defer server.Close()
-			h := newHarness(t, server.URL+"/api/v0")
-			writeImagegenProfile(t, h, server.URL+"/api/v0", strings.Repeat("a", 32), *comfyuiModulePath)
-			path := filepath.Join(h.directory, "main.tf")
-			data, err := os.ReadFile(path)
-			if err != nil {
-				t.Fatal(err)
-			}
-			configuration := strings.Replace(string(data), `template_hash_id = "`+strings.Repeat("a", 32)+`"`, "", 1)
-			if err := os.WriteFile(path, []byte(configuration), 0o600); err != nil {
-				t.Fatal(err)
-			}
-			extra := `model_downloads = [
+	for _, checkpointDirectory := range []string{"models/diffusion_models", "models/checkpoints"} {
+		for _, exposed := range []bool{false, true} {
+			t.Run(checkpointDirectory+"/"+map[bool]string{false: "ssh", true: "https"}[exposed], func(t *testing.T) {
+				f := &imagegenFixture{noTemplate: true, exposed: exposed, comfyUI: true}
+				f.rental.runtype = "ssh_direct"
+				server := httptest.NewServer(f)
+				defer server.Close()
+				h := newHarness(t, server.URL+"/api/v0")
+				writeImagegenProfile(t, h, server.URL+"/api/v0", strings.Repeat("a", 32), *comfyuiModulePath)
+				path := filepath.Join(h.directory, "main.tf")
+				data, err := os.ReadFile(path)
+				if err != nil {
+					t.Fatal(err)
+				}
+				configuration := strings.Replace(string(data), `template_hash_id = "`+strings.Repeat("a", 32)+`"`, "", 1)
+				if err := os.WriteFile(path, []byte(configuration), 0o600); err != nil {
+					t.Fatal(err)
+				}
+				extra := `checkpoint_directory = "` + checkpointDirectory + `"
+model_downloads = [
  {url="https://example.invalid/flash.safetensors",filename="flash.safetensors",kind="checkpoint"},
  {url="https://example.invalid/t5.safetensors",filename="t5.safetensors",kind="text_encoder"},
  {url="https://example.invalid/ae.safetensors",filename="ae.safetensors",kind="vae"}
@@ -223,81 +225,82 @@ func TestComfyUIModule(t *testing.T) {
 workflows = { fixture = jsonencode({version=0.4,nodes=[],links=[]}) }
 custom_nodes = { FixtureNodes = {url="https://github.com/example/fixture",ref="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"} }
 python_requirements = "fixture-package==1.0 --hash=sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\n${join("",[for i in range(1000):"# Public fixture dependency commentary.\n"])}"`
-			if exposed {
-				extra += "\naccess_mode = \"exposed\"\nweb_password = \"fixtureCredentialOnly01234567890123456789\""
-			}
-			configureImagegenAccess(t, h, extra)
-			h.run(t, true, "apply", "-auto-approve", "-no-color")
-			h.run(t, true, "apply", "-refresh-only", "-auto-approve", "-no-color")
-			if command := h.run(t, true, "output", "-raw", "forward"); !strings.Contains(command, ":7860:127.0.0.1:18188") {
-				t.Fatalf("ComfyUI forwarding targets wrong backend: %s", command)
-			}
-			_, encoded, found := strings.Cut(f.startup, "printf '%s' '")
-			if !found {
-				t.Fatal("model manifest missing")
-			}
-			encoded, _, _ = strings.Cut(encoded, "'")
-			manifest, err := base64.StdEncoding.DecodeString(encoded)
-			if err != nil {
-				t.Fatal(err)
-			}
-			for _, destination := range []string{"models/diffusion_models/flash.safetensors", "models/text_encoders/t5.safetensors", "models/vae/ae.safetensors"} {
-				if !strings.Contains(string(manifest), "/workspace/ComfyUI/"+destination) {
-					t.Fatalf("wrong ComfyUI destination: %s", manifest)
+				if exposed {
+					extra += "\naccess_mode = \"exposed\"\nweb_password = \"fixtureCredentialOnly01234567890123456789\""
 				}
-			}
-			for _, required := range []string{"--disable-all-custom-nodes", "--offline", "localhost:8288:18288:/:API Wrapper", "/etc/supervisor/conf.d/comfyui.conf"} {
-				if !strings.Contains(f.startup, required) {
-					t.Fatalf("missing ComfyUI restriction %s", required)
+				configureImagegenAccess(t, h, extra)
+				h.run(t, true, "apply", "-auto-approve", "-no-color")
+				h.run(t, true, "apply", "-refresh-only", "-auto-approve", "-no-color")
+				if command := h.run(t, true, "output", "-raw", "forward"); !strings.Contains(command, ":7860:127.0.0.1:18188") {
+					t.Fatalf("ComfyUI forwarding targets wrong backend: %s", command)
 				}
-			}
-			if !strings.Contains(f.startup, "--whitelist-custom-nodes FixtureNodes") {
-				t.Fatal("approved node pack was not selectively enabled")
-			}
-			var provisioning struct {
-				// GitRepos contains the pinned native fetcher configuration.
-				GitRepos []struct {
-					// Ref fixes the reviewed node-pack revision.
-					Ref string `json:"ref"`
-					// Dest installs nodes under the native custom-node directory.
-					Dest string `json:"dest"`
-				} `json:"git_repos"`
-				// PipPackages retains the requirements and integrity policy.
-				PipPackages []struct {
-					// Args requires hashes without unconstrained dependency resolution.
-					Args string `json:"args"`
-				} `json:"pip_packages"`
-			}
-			if err := json.Unmarshal(manifest, &provisioning); err != nil || len(provisioning.GitRepos) != 1 || provisioning.GitRepos[0].Ref != strings.Repeat("a", 40) || provisioning.GitRepos[0].Dest != "/workspace/ComfyUI/custom_nodes/FixtureNodes" || len(provisioning.PipPackages) != 1 || provisioning.PipPackages[0].Args != "--require-hashes --no-deps" {
-				t.Fatal("native fetcher did not retain pinned nodes and locked dependencies")
-			}
-			if strings.Contains(f.startup, "for service in tunnel_manager syncthing pyworker api-wrapper") {
-				t.Fatal("local API wrapper was unnecessarily disabled")
-			}
-			if strings.Contains(f.startup, "--enable-cors-header") || strings.Contains(f.startup, "--enable-manager") {
-				t.Fatal("unrestricted runtime option retained")
-			}
-			if exposed && !strings.Contains(f.startup, "reverse_proxy 127.0.0.1:18188") {
-				t.Fatal("proxy targets wrong backend")
-			}
-
-			_, staged, found := strings.Cut(f.startup, "mkdir -p \"$(dirname '/workspace/ComfyUI/user/default/workflows/fixture.json')\"")
-			if !found || !strings.Contains(staged, "| base64 -d > '/workspace/ComfyUI/user/default/workflows/fixture.json'") {
-				t.Fatal("workflow was not staged after native workspace initialization")
-			}
-
-			h.run(t, true, "plan", "-detailed-exitcode", "-no-color")
-			h.run(t, true, "destroy", "-auto-approve", "-no-color")
-			if directory := os.Getenv("TEST_UNDECLARED_OUTPUTS_DIR"); directory != "" {
-				evidence, err := json.Marshal(map[string]any{"runtime": "comfyui", "exposed": exposed, "native_model_paths": true, "live_operations": 0})
+				_, encoded, found := strings.Cut(f.startup, "printf '%s' '")
+				if !found {
+					t.Fatal("model manifest missing")
+				}
+				encoded, _, _ = strings.Cut(encoded, "'")
+				manifest, err := base64.StdEncoding.DecodeString(encoded)
 				if err != nil {
 					t.Fatal(err)
 				}
-				if err := os.WriteFile(filepath.Join(directory, "comfyui-"+map[bool]string{false: "ssh", true: "https"}[exposed]+".json"), evidence, 0o600); err != nil {
-					t.Fatal(err)
+				for _, destination := range []string{checkpointDirectory + "/flash.safetensors", "models/text_encoders/t5.safetensors", "models/vae/ae.safetensors"} {
+					if !strings.Contains(string(manifest), "/workspace/ComfyUI/"+destination) {
+						t.Fatalf("wrong ComfyUI destination: %s", manifest)
+					}
 				}
-			}
-		})
+				for _, required := range []string{"--disable-all-custom-nodes", "--offline", "localhost:8288:18288:/:API Wrapper", "/etc/supervisor/conf.d/comfyui.conf"} {
+					if !strings.Contains(f.startup, required) {
+						t.Fatalf("missing ComfyUI restriction %s", required)
+					}
+				}
+				if !strings.Contains(f.startup, "--whitelist-custom-nodes FixtureNodes") {
+					t.Fatal("approved node pack was not selectively enabled")
+				}
+				var provisioning struct {
+					// GitRepos contains the pinned native fetcher configuration.
+					GitRepos []struct {
+						// Ref fixes the reviewed node-pack revision.
+						Ref string `json:"ref"`
+						// Dest installs nodes under the native custom-node directory.
+						Dest string `json:"dest"`
+					} `json:"git_repos"`
+					// PipPackages retains the requirements and integrity policy.
+					PipPackages []struct {
+						// Args requires hashes without unconstrained dependency resolution.
+						Args string `json:"args"`
+					} `json:"pip_packages"`
+				}
+				if err := json.Unmarshal(manifest, &provisioning); err != nil || len(provisioning.GitRepos) != 1 || provisioning.GitRepos[0].Ref != strings.Repeat("a", 40) || provisioning.GitRepos[0].Dest != "/workspace/ComfyUI/custom_nodes/FixtureNodes" || len(provisioning.PipPackages) != 1 || provisioning.PipPackages[0].Args != "--require-hashes --no-deps" {
+					t.Fatal("native fetcher did not retain pinned nodes and locked dependencies")
+				}
+				if strings.Contains(f.startup, "for service in tunnel_manager syncthing pyworker api-wrapper") {
+					t.Fatal("local API wrapper was unnecessarily disabled")
+				}
+				if strings.Contains(f.startup, "--enable-cors-header") || strings.Contains(f.startup, "--enable-manager") {
+					t.Fatal("unrestricted runtime option retained")
+				}
+				if exposed && !strings.Contains(f.startup, "reverse_proxy 127.0.0.1:18188") {
+					t.Fatal("proxy targets wrong backend")
+				}
+
+				_, staged, found := strings.Cut(f.startup, "mkdir -p \"$(dirname '/workspace/ComfyUI/user/default/workflows/fixture.json')\"")
+				if !found || !strings.Contains(staged, "| base64 -d > '/workspace/ComfyUI/user/default/workflows/fixture.json'") {
+					t.Fatal("workflow was not staged after native workspace initialization")
+				}
+
+				h.run(t, true, "plan", "-detailed-exitcode", "-no-color")
+				h.run(t, true, "destroy", "-auto-approve", "-no-color")
+				if directory := os.Getenv("TEST_UNDECLARED_OUTPUTS_DIR"); directory != "" {
+					evidence, err := json.Marshal(map[string]any{"runtime": "comfyui", "exposed": exposed, "native_model_paths": true, "checkpoint_directory": checkpointDirectory, "live_operations": 0})
+					if err != nil {
+						t.Fatal(err)
+					}
+					if err := os.WriteFile(filepath.Join(directory, "comfyui-"+filepath.Base(checkpointDirectory)+"-"+map[bool]string{false: "ssh", true: "https"}[exposed]+".json"), evidence, 0o600); err != nil {
+						t.Fatal(err)
+					}
+				}
+			})
+		}
 	}
 }
 

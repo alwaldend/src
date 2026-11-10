@@ -27,7 +27,10 @@ Model kinds map below `/workspace/ComfyUI`:
 | `text_encoder` | `models/text_encoders`    |
 
 Here `checkpoint` means the standalone diffusion model, loaded with ComfyUI's
-Load Diffusion Model node. This profile does not assume an all-in-one checkpoint.
+Load Diffusion Model node. For an all-in-one SDXL checkpoint loaded by CheckpointLoaderSimple, set
+`checkpoint_directory = "models/checkpoints"`. The only allowed alternatives
+are that directory and the default `models/diffusion_models`; other model kinds
+retain the paths above.
 `workflows` accepts named native JSON documents and stages them in
 `user/default/workflows` after Vast initializes the workspace. The wrapper
 compacts the JSON; the base compresses larger startup payloads and rejects

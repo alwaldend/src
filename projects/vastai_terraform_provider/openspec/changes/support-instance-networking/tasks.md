@@ -15,3 +15,5 @@
 - [x] 3.2 Exercise Forge and ComfyUI wrappers, native model destinations, loopback forwarding, proxy routing, disabled services and invalid manifests through the actual Terraform CLI before and after the module refactor.
 
 - [x] 3.3 Verify native node provisioning, selective enablement and compressed startup through the actual CLI; classify rental rejection without exposing response content.
+
+- [x] 3.4 Verify all-in-one SDXL and standalone diffusion-model destinations through the same real Terraform CLI acceptance cases before and after the wrapper change.

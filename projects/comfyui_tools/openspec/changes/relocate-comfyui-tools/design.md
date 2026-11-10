@@ -26,3 +26,7 @@ Run the existing node behavior test and offline Terraform mocked-provider
 checks, build the site, inspect representative HTML and check generated
 inventories are stable. Verify tools/comfyui and its external references remain
 unchanged from the previous candidate. No rental access or apply is authorized.
+
+The subsequent normalize-model-workflows change owns the requested filename
+normalization and added Juggernaut assets. The relocation's byte-preservation
+guarantee applies to the existing Flux, Qwen and Chroma graph contents.

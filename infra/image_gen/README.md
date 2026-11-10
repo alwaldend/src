@@ -9,8 +9,8 @@ This project owns one image-generation rental in [tf_setup](tf_setup/README.md).
 It uses the reusable [ComfyUI module](../../projects/tf_modules/vastai_instance_imagegen_comfyui/README.md)
 in exposed mode: a single HTTPS proxy with a generated username/password login,
 plus account-key SSH access. The GPU must have at least 32 GiB VRAM.
-The [configuration](config.json) defaults to FLUX.2 klein Base 9B FP8, with
-Qwen-Image-Edit-2511 retained as a selectable profile,
+The [configuration](config.json) defaults to Juggernaut XL v9, with
+FLUX.2 klein Base 9B FP8 and Qwen-Image-Edit-2511 retained as selectable profiles,
 downloaded on first boot; see [model configuration](tf_setup/README.md#download-models).
 
 ## Identity and state

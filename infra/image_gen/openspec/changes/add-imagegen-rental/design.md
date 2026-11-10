@@ -489,3 +489,37 @@ root input variables, separate tfvars preset or duplicate high-memory targets
 are needed. Keep the standard selection and all existing model revisions,
 workflow filenames and hardware limits unchanged. Only source validation is
 authorized for the new configuration.
+
+## Juggernaut profile restoration
+
+The operator requested restoring Juggernaut and selecting it as the default for
+the next rental. Reuse the previously approved RunDiffusion XL v9 checkpoint
+at cf419233522daa0b9ea36c3aff98fa2cab1fb0fb, with its original filename. The earlier
+move to Chroma followed the operator's request to try another model; it did
+not establish that Juggernaut was unsuitable.
+
+Juggernaut is an all-in-one SDXL checkpoint containing its encoders and VAE.
+It needs the native models/checkpoints directory and CheckpointLoaderSimple;
+Flux/Qwen keep models/diffusion_models. Add a constrained checkpoint-directory
+option to the wrapper while preserving all base exposure and host controls.
+Native generation uses SDXL nodes plus the existing first-party Prompt Sequence.
+Text prompts can describe styles; native img2img also retains input composition
+and does not isolate a reference's style or character. The reference-style paths
+use only the previously approved pack and requirements described below. No new
+external dependency or live operation is authorized.
+
+The follow-up reference-style request restores RES4LYF at its previously approved
+6780724de0ddb98e7454d54bb80387836a911ece revision and the byte-identical requirements
+from commit 9919bb90a. The Juggernaut profile alone declares them in config.json;
+other profiles still install no third-party pack. ComfyUI tools owns the SDXL
+style graph and the normalized profile-purpose filenames. No new adapter, vision
+encoder or package revision is introduced. GPU style quality remains unverified.
+
+Offline source acceptance: all 14 workflow graphs have reciprocal typed links;
+all nine renamed Flux, Qwen and Chroma documents retain their exact graph bytes.
+The five Juggernaut graphs use the approved checkpoint filename, and the style
+paths include the SDXL patcher, connected guide and fresh latent sampling.
+Sequence widget links retain their native widget metadata. The restored lock is
+byte-identical to the approved historical lock. Browser duplication and isolated
+Terraform CLI acceptance pass. These checks establish source and fixture behavior,
+not GPU inference or style quality. No rental or live Vault operation was run.

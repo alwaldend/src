@@ -90,7 +90,8 @@ function installEditor(node) {
         getValue: () => raw,
         setValue: (value) => {
             raw = value;
-            render();
+            // Cloning restores the separator after this widget in the same task.
+            queueMicrotask(render);
         },
         getMinHeight: () => 220,
         getMaxHeight: () => 420,

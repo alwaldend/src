@@ -41,3 +41,12 @@ Terraform payload.
 Publish source and packaging only. No rental exists and none is authorized.
 A future deployment must load the packaged script and validate the target
 ComfyUI frontend before claiming runtime acceptance.
+
+## Duplication correction
+
+Native node cloning restores widget values synchronously without invoking the
+full graph-loading hook. Restoring prompts before the separator previously
+rendered a saved JSON list using the default line separator. Defer rendering
+to a microtask so the complete widget state is available; keep the existing
+node lifecycle hooks and avoid patching framework prototypes. Verify the
+cloning path in the existing browser fixture before changing implementation.

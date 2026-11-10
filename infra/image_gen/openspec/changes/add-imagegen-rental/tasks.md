@@ -124,3 +124,11 @@ workflow defaults remain available for a later authorized deployment.
 
 - [x] 20.1 Move image, model definitions, hardware presets and selected profiles into config.json; remove root variables, the tfvars preset and duplicate high-memory targets. Verify the existing mocked-provider checks read the packaged JSON.
 - [x] 20.2 Update operator instructions and review the selected defaults and all profile contents against the previous candidate before publication; do not rent.
+
+## 21. Restore Juggernaut
+
+- [x] 21.1 Restore the previously approved Juggernaut XL v9 checkpoint at its existing revision as the default JSON profile, retaining Flux/Qwen options and hardware constraints.
+- [x] 21.2 Supply neutral native SDXL text-to-image, image-to-image and prompt-sequence workflows; verify model paths, node types and graph links without renting.
+- [x] 21.3 Document style-prompting and img2img limits, complete source validation and review, and prepare the follow-up for publication. No deployment is authorized.
+
+- [x] 21.4 Restore the previously approved RES4LYF revision and unchanged requirements only for Juggernaut; stage matching style-reference and style-sequence graphs without a rental.

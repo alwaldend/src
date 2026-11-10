@@ -26,12 +26,12 @@ validation SHALL NOT rent capacity or deploy the new role, policies or keys.
 ### Requirement: Rental-owned default checkpoint
 
 The rental root SHALL read the image, login name, hardware and model configuration
-from the component config.json, with selectable flux and qwen profiles. The default flux profile SHALL use FLUX.2 klein Base 9B FP8, Qwen3 8B mixed FP8 and the Flux small-decoder VAE at fixed publisher revisions. The qwen profile SHALL retain Qwen-Image-Edit-2511 and its existing encoder/VAE bundle. The shared modules SHALL remain model-configurable.
+from the component config.json, with selectable juggernaut, flux and qwen profiles. The default juggernaut profile SHALL use the previously approved Juggernaut XL v9 all-in-one SDXL checkpoint at revision cf419233522daa0b9ea36c3aff98fa2cab1fb0fb. The flux profile SHALL retain FLUX.2 klein Base 9B FP8, Qwen3 8B mixed FP8 and the Flux small-decoder VAE at fixed publisher revisions. The qwen profile SHALL retain Qwen-Image-Edit-2511 and its existing encoder/VAE bundle. The shared modules SHALL remain model-configurable.
 
 #### Scenario: Default rental configuration
 
 - **WHEN** the committed model profile is selected
-- **THEN** the native provisioner SHALL receive the selected three model downloads in native ComfyUI directories before ComfyUI serves generation requests
+- **THEN** the native provisioner SHALL receive the selected profile's model downloads in native ComfyUI directories before ComfyUI serves generation requests
 
 #### Scenario: Explicit model selection
 
@@ -40,18 +40,20 @@ from the component config.json, with selectable flux and qwen profiles. The defa
 
 ### Requirement: Native reference-conditioned generation
 
-The rental SHALL supply native one-reference and separate character/style
-workflows matching the selected model bundle. Both profiles SHALL provide native reference
+The rental SHALL supply native SDXL text-to-image, img2img and prompt-sequence
+and approved RES4LYF style-reference workflows for Juggernaut, plus one-reference and separate character/style
+workflows for Flux/Qwen. The Flux/Qwen profiles SHALL provide native reference
 latents; Qwen SHALL also retain vision-language conditioning, index_timestep_zero,
 flow shift and CFG normalization. Flux SHALL use the Base native
 schedule with 50 steps, CFG 4, an encoded empty negative prompt and fresh latent noise.
-The profiles SHALL enable only the dependency-free first-party prompt sequence
-node and install no additional Python packages. Source and validation fixtures SHALL contain only neutral content.
+All profiles SHALL enable the dependency-free first-party prompt sequence node.
+Only Juggernaut SHALL additionally restore the previously approved RES4LYF revision
+and its exact locked Python requirements. Source and validation fixtures SHALL contain only neutral content.
 
 #### Scenario: Default native workflows
 
 - **WHEN** the model bundle and workflow documents finish provisioning
-- **THEN** the saved workflow library SHALL contain both native graphs with matching model filenames and reference-role prompts
+- **THEN** the saved workflow library SHALL contain its configured graphs with matching model filenames and model-appropriate prompts
 
 #### Scenario: Meaningful reference and prompt behavior
 
@@ -91,15 +93,16 @@ No Vault or Vast account token SHALL be passed to the rental.
 
 ### Requirement: Prompt sequence generation
 
-Both model profiles SHALL supply a single-node multiline prompt workflow using
-shared character/style references and one numbered image per nonempty prompt.
+Each model profile SHALL supply a single-node multiline prompt workflow with
+one numbered image per nonempty prompt. Flux/Qwen SHALL reuse shared
+character/style references; Juggernaut SHALL use shared text instructions.
 The node SHALL retain prompt order, support line and blank-line separators and
 reject empty input or unsafe filename prefixes without echoing prompt content.
 
 #### Scenario: Several panels
 
 - **WHEN** the user enters three prompts and runs the sequence workflow once
-- **THEN** native list mapping SHALL generate three ordered panels with paired numbered filenames and the same reference inputs
+- **THEN** native list mapping SHALL generate three ordered panels with paired numbered filenames and the same shared conditioning
 
 ### Requirement: Opt-in high-memory hardware
 

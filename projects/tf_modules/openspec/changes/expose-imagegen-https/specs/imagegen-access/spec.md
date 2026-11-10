@@ -86,3 +86,14 @@ workspace initialization. The base SHALL reject rendered startup exceeding
 
 - **WHEN** a caller supplies a reviewed node repository and requirements
 - **THEN** Vast's native provisioner SHALL fetch the pinned sources and install requirements with mandatory hashes and no dependency resolution
+
+### Requirement: Native checkpoint layout
+
+The ComfyUI wrapper SHALL default checkpoint downloads to models/diffusion_models
+and SHALL support an explicit models/checkpoints selection for all-in-one SDXL
+checkpoints. Other model directories and access controls SHALL remain unchanged.
+
+#### Scenario: All-in-one SDXL checkpoint
+
+- **WHEN** a caller selects models/checkpoints
+- **THEN** the native downloader SHALL stage checkpoint files there for CheckpointLoaderSimple without changing encoder or VAE paths

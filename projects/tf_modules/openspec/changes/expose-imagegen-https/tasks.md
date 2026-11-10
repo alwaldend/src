@@ -43,3 +43,7 @@
 ## 8. First-party browser assets
 
 - [x] 8.1 Stage an optional web/index.js only under approved first-party node directories; verify the offline provisioning fixture and unchanged whitelist.
+
+## 9. Native all-in-one checkpoints
+
+- [x] 9.1 Allow selecting only models/checkpoints or the existing models/diffusion_models checkpoint directory; verify both through the Terraform CLI fixture without broadening service exposure.

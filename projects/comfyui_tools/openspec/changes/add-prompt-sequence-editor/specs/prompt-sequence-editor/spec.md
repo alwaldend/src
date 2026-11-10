@@ -37,3 +37,9 @@ remain accepted. Invalid JSON input SHALL fail without echoing prompt content.
 
 - **WHEN** JSON mode receives malformed JSON or values other than strings
 - **THEN** execution reports an input error without disclosing the submitted text
+
+#### Scenario: Duplicate an edited node
+
+- **WHEN** a node containing an edited JSON panel list is duplicated without reloading the graph
+- **THEN** the duplicate SHALL retain separate ordered panel text boxes and multiline text
+- **AND** editing the duplicate SHALL preserve the other panels
