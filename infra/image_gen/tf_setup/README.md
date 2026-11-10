@@ -16,8 +16,10 @@ is injected separately through AL. No account API key is passed to the container
 First deploy the `src_infra_image_gen` AppRole and exact-path team-writer
 policy through [Vault Terraform](../../vault/tf/README.md#vast-team-token-delivery).
 Then run [team credential setup](../../vastai/alwaldend/README.md) to generate
-and store a fresh key in this component's namespace. The replacement is
-currently undeployed; these are operator instructions, not a deployment receipt.
+and store a fresh key in this component's namespace. The component credentials
+are deployed; the last rental was released. These remain operator instructions. The
+[acceptance record](../openspec/changes/add-imagegen-rental/design.md#authorized-qwen-rental-acceptance)
+owns the observed rental and workflow results.
 The [module](../../../projects/tf_modules/vastai_instance_imagegen_comfyui/README.md) uses
 the direct Vast ComfyUI/CUDA 12.9 image tag declared in [main.tf](main.tf),
 without inheriting stock template options. The root selects an explicit published release tag. Update that one image reference to select a newer build;
@@ -112,7 +114,9 @@ Public safetensors URLs must contain no credentials. Gated tokens require
 separate Vault-backed wiring.
 
 Changing the model manifest replaces the rental and removes its local disk.
-The old rental and its credentials have been destroyed. A new rental, login and
-key require separately authorized deployment; no URL is active. Implementation
-and teardown evidence is recorded in the
+The retired personal rental was destroyed. The new component credentials and
+Qwen rental were subsequently deployed under separate user authorizations.
+No rental or connection URL is currently active. Future connection coordinates
+come from the owning Terraform outputs. Implementation,
+teardown and acceptance evidence is recorded in the
 [owning change](../openspec/changes/add-imagegen-rental/design.md).

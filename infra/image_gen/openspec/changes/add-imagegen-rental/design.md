@@ -12,8 +12,9 @@ their exact metadata-delete permissions do not extend to component state.
 The replacement uses fresh state and generated fresh credentials after the
 user authorized applying IaC without renting capacity. No migration, import or
 reuse of the personal backend was required. The AppRole, policies and credentials
-are deployed; the rental remains absent. Prior deployment receipts
-below describe retired resources and do not establish a current endpoint.
+are deployed. The user subsequently authorized one Qwen rental and workflow
+acceptance, recorded below. Historical personal-rental receipts describe
+retired resources; owning Terraform outputs provide current connection details.
 
 ## Legacy teardown receipt, 2026-11-10
 
@@ -254,3 +255,67 @@ the namespace. A read-only API request authenticated with the generated key
 reported zero team instances and zero image-generation rentals. Credential
 values remained in memory and were not printed. This establishes access and
 absence of capacity, not ComfyUI readiness or model quality.
+
+## Authorized Qwen rental acceptance
+
+The user explicitly requested renting the instance and checking all supplied
+workflows. On 2026-11-10 at 10:28 UTC, the owning interactive apply created
+instance 60055445: 1 addition, 0 changes, 0 destructions. Existing credentials
+were retained. The host reports verified Secure Cloud hosting_type=1, one CMP
+170HX with 40 GiB VRAM, 100 GB disk and USD 0.455037/hour. A reviewed
+refresh-only apply saved connection outputs with zero remote-resource changes.
+
+Trusted TLS and HTTP authentication checks passed: missing/wrong login returned
+401 and the Vault login returned 200. All three Qwen model filenames, required
+native nodes and both staged workflow documents are available. The optional
+custom-node pack is disabled. The image also declares diagnostic port 3000;
+its mapped port refused a TCP probe. The active workflow library contains only
+the two native Qwen documents; historical Chroma examples require their older
+models and node pack and are not staged.
+
+Acceptance uses only neutral robot-character and watercolor reference images,
+a fixed seed, and a new snowy-park bicycle scene. Both staged native UI graphs
+are serialized through the live node schemas and executed by ComfyUI, with
+model, reference-latent and encoder connections intact. Output assessment and
+its limits are recorded below after execution; availability alone is not
+inference or style-fidelity acceptance. No user content is copied into source.
+
+Both active workflows completed with the configured 40 Euler/simple steps,
+CFG 4, shift 3.1 and denoise 1. The single-reference run completed in about
+117 seconds including initial model load; the two-reference run completed
+about 269 seconds after submission, including time queued behind the first.
+Both produced visually inspected 1024 x 1024 PNGs. They retained the reference
+robot's white body, antenna, black face and cyan eyes while replacing the
+book/cafe composition with the requested bicycle and snowy park. The
+character/style result uses visibly softer watercolor washes and paper texture,
+particularly in the background. This is functional reference-guided generation,
+not a guarantee of exact style matching or artifact-free comic continuity.
+
+Neutral outputs and per-job receipts are retained under ignored
+out/imagegen/qwen. No raster, user prompt or user upload is committed. Native
+workflow execution required no custom nodes, extra packages or runtime repair.
+
+The owning full Terraform plan after startup reported no changes. No image,
+model manifest, workflow, access setting or credential replacement was needed
+to pass the two active workflow checks.
+
+A separate controlled pair kept seed 184463, the scene prompt, character image,
+model and sampler settings fixed while changing only image 2 between a flat
+comic and watercolor reference. Both completed at 1024 x 1024. Visual inspection
+showed crisp shaded comic rendering for the flat reference and softer pigment
+washes and paper texture for the watercolor reference. The robot and bicycle
+scene remain recognizable in both. This demonstrates style-image influence
+independently of explicit watercolor prompt wording; the character still retains
+strong outlines, so the result is approximate style transfer. All four neutral
+acceptance jobs completed without runtime errors.
+
+## Subsequent requested release
+
+The user explicitly requested destruction of the current instance. On
+2026-11-10 at 11:16 UTC, the owning targeted interactive release destroyed
+instance 60055445: 0 added, 0 changed, 1 destroyed. A reviewed refresh-only
+apply then cleared instance, HTTPS and SSH connection outputs with zero remote
+resource changes. A read-only Vast API lookup confirmed the instance is absent.
+The dedicated AppRole, policies, API key, web login and component backend remain
+managed. No replacement was rented and no user files were copied from the
+instance. Earlier acceptance evidence describes the now-retired rental.
