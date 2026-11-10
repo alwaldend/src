@@ -25,7 +25,7 @@ run "vault_backed_login" {
     error_message = "The login must be a generated 48-character alphanumeric credential."
   }
   assert {
-    condition     = vault_kv_secret_v2.web.name == "alwaldend.com/vault1/approles/user_simeonwarren/imagegen/web"
-    error_message = "The login must use the regular user secret namespace."
+    condition     = vault_kv_secret_v2.web.name == "alwaldend.com/vault1/approles/src_infra_image_gen/web"
+    error_message = "The login must use the component AppRole secret namespace."
   }
 }

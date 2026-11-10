@@ -12,7 +12,7 @@ flowchart LR
         subgraph instance["Rented instance (≥32 GiB VRAM)"]
             provisioner["Vast startup<br/>provisioner"]
             proxy["Caddy"]
-            comfyui["ComfyUI<br/>Chroma1-HD-Flash<br/>T5 + VAE"]
+            comfyui["ComfyUI<br/>Qwen-Image-Edit-2511<br/>Qwen VL + VAE"]
             disk[("Ephemeral disk<br/>100 GB<br/>Models, images, metadata")]
             proxy --> comfyui
             comfyui --> disk

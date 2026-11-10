@@ -111,14 +111,25 @@ variable "runtime_files" {
   }
 }
 
+variable "provisioning" {
+  type = object({
+    git_repos    = optional(list(object({ url = string, dest = string, ref = string })), [])
+    pip_packages = optional(list(object({ venv = string, requirements = list(string), args = string })), [])
+    write_files  = optional(list(object({ path = string, content = string, permissions = string })), [])
+  })
+  default     = {}
+  nullable    = false
+  description = "Reviewed native provisioner entries supplied by runtime wrappers; no extra installer script."
+}
+
 locals {
-  model_manifest = jsonencode({
+  model_manifest = jsonencode(merge(var.provisioning, {
     version = 1
     downloads = [for model in var.model_downloads : {
       url  = model.url
       dest = "${var.runtime.model_root}/${lookup(var.runtime.model_directories, model.kind, "invalid")}/${model.filename}"
     }]
-  })
+  }))
 }
 
 variable "offer_id" {
@@ -261,6 +272,24 @@ data "vastai_template" "imagegen" {
   hash_id = var.template_hash_id
 }
 
+locals {
+  startup_script = templatefile("${path.module}/startup.sh.tftpl", {
+    model_manifest_b64 = base64encode(local.model_manifest)
+    runtime            = var.runtime
+    runtime_files      = { for path, content in var.runtime_files : path => base64encode(content) }
+    exposed            = var.access_mode == "exposed"
+    web_username       = var.web_username
+    web_password       = var.web_password == null ? "" : var.web_password
+  })
+  # Reduce inline startup size for larger dependency manifests.
+  startup_command = length(local.startup_script) <= 8192 ? local.startup_script : <<-STARTUP
+    # Compressed imagegen startup
+    umask 077
+    printf '%s' '${base64gzip(local.startup_script)}' | base64 -d | gzip -dc > /etc/imagegen-startup.sh &&
+    exec /bin/bash /etc/imagegen-startup.sh
+  STARTUP
+}
+
 resource "vastai_instance" "imagegen" {
   offer_id         = data.vastai_offers.imagegen.offers[0].id
   template_hash_id = var.template_hash_id == null ? "" : var.template_hash_id
@@ -271,18 +300,16 @@ resource "vastai_instance" "imagegen" {
   runtype          = "ssh_direct"
 
   docker_options = var.access_mode == "exposed" ? "-p 7860:7860" : ""
-  onstart = templatefile("${path.module}/startup.sh.tftpl", {
-    model_manifest_b64 = base64encode(local.model_manifest)
-    runtime            = var.runtime
-    runtime_files      = { for path, content in var.runtime_files : path => base64encode(content) }
-    exposed            = var.access_mode == "exposed"
-    web_username       = var.web_username
-    web_password       = var.web_password == null ? "" : var.web_password
-  })
+  onstart        = local.startup_command
 
   lifecycle {
     # Marketplace changes must not replace an existing paid contract.
     ignore_changes = [offer_id]
+
+    precondition {
+      condition     = length(local.startup_command) <= 16384
+      error_message = "Rendered startup exceeds Vast's 16384-byte inline limit. Reduce the provisioning payload before renting."
+    }
 
     precondition {
       condition     = alltrue([for model in var.model_downloads : contains(keys(var.runtime.model_directories), model.kind)])

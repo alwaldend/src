@@ -9,3 +9,9 @@
 
 - [x] 2.1 Remove recipient Vault authentication, token lookup, Terraform token variable, and aliased provider from the team root.
 - [x] 2.2 Verify the team writer delivers the same key to the user KV and the user rental reads it with its own identity.
+
+## Infrastructure component recipient
+
+- [x] 3.1 Destroy the legacy dedicated key and current delivery entry without affecting shared team resources.
+- [x] 3.2 Declare fresh component key issuance and delivery to src_infra_image_gen, with full managed-entry deletion on destroy.
+- [x] 3.3 Validate and review the replacement desired state without creating its key or a rental.

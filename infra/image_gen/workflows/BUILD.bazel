@@ -1,0 +1,16 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+
+package(transitive_visibility = "//infra:transitive_consumers")
+
+filegroup(
+    name = "workflows",
+    srcs = glob(["*.json"]),
+    visibility = ["//infra/image_gen/tf_setup:__pkg__"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.json"]),
+    prefix = "content/docs/infra/image_gen/workflows",
+    visibility = ["//infra/image_gen:__pkg__"],
+)

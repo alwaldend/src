@@ -55,23 +55,23 @@ variable "model_downloads" {
   }))
   default = [
     {
-      url      = "https://huggingface.co/lodestones/Chroma1-Flash/resolve/093c4f63b60507234aa53a073f1f9f565b3f4336/Chroma1-HD-Flash.safetensors"
-      filename = "Chroma1-HD-Flash.safetensors"
+      url      = "https://huggingface.co/Comfy-Org/Qwen-Image-Edit/resolve/f68ace85e60b4a02a323e394253731947657b7d2/split_files/diffusion_models/qwen_image_edit_2511_fp8mixed.safetensors"
+      filename = "qwen_image_edit_2511_fp8mixed.safetensors"
       kind     = "checkpoint"
     },
     {
-      url      = "https://huggingface.co/comfyanonymous/flux_text_encoders/resolve/6af2a98e3f615bdfa612fbd85da93d1ed5f69ef5/t5xxl_fp16.safetensors"
-      filename = "t5xxl_fp16.safetensors"
+      url      = "https://huggingface.co/Comfy-Org/Qwen-Image/resolve/1f12b17be14c89b026c51a91d67c32f84bb047bc/split_files/text_encoders/qwen_2.5_vl_7b_fp8_scaled.safetensors"
+      filename = "qwen_2.5_vl_7b_fp8_scaled.safetensors"
       kind     = "text_encoder"
     },
     {
-      url      = "https://huggingface.co/lodestones/Chroma/resolve/2f3b2730d7b5edbd02cdff12f72610af5787300b/ae.safetensors"
-      filename = "ae.safetensors"
+      url      = "https://huggingface.co/Comfy-Org/Qwen-Image/resolve/1f12b17be14c89b026c51a91d67c32f84bb047bc/split_files/vae/qwen_image_vae.safetensors"
+      filename = "qwen_image_vae.safetensors"
       kind     = "vae"
     }
   ]
   nullable    = false
-  description = "Public model files downloaded before ComfyUI starts; defaults to Chroma1-HD-Flash with its T5 encoder and VAE."
+  description = "Public model files downloaded before ComfyUI starts; defaults to the native Qwen-Image-Edit-2511 bundle."
 }
 
 resource "random_password" "web" {
@@ -81,22 +81,25 @@ resource "random_password" "web" {
 
 resource "vault_kv_secret_v2" "web" {
   mount = "secrets"
-  name  = "alwaldend.com/vault1/approles/user_simeonwarren/imagegen/web"
+  name  = "alwaldend.com/vault1/approles/src_infra_image_gen/web"
   data_json = jsonencode({
     username = var.web_username
     password = random_password.web.result
   })
-  delete_all_versions = false
+  delete_all_versions = true
 }
 
 module "imagegen" {
-  source = "../../../../projects/tf_modules/vastai_instance_imagegen_comfyui"
+  source = "../../../projects/tf_modules/vastai_instance_imagegen_comfyui"
 
   # A failed Vault write must prevent creation of the paid instance.
   depends_on = [vault_kv_secret_v2.web]
 
-  image            = "vastai/comfy:v0.44.0-cuda-12.9-py312"
-  model_downloads  = var.model_downloads
+  image           = "vastai/comfy:v0.44.0-cuda-12.9-py312"
+  model_downloads = var.model_downloads
+  workflows = { for name in ["qwen-image-edit-single-reference", "qwen-image-edit-character-style"] :
+    name => file("${path.module}/../workflows/${name}.json")
+  }
   template_hash_id = var.template_hash_id
   access_mode      = "exposed"
   web_username     = var.web_username
@@ -105,7 +108,7 @@ module "imagegen" {
   disk_gb          = 100
   max_hourly_price = var.max_hourly_price
   offer_id         = var.offer_id
-  label            = "simeonwarren_imagegen"
+  label            = "src_infra_image_gen"
 }
 
 output "instance_id" {

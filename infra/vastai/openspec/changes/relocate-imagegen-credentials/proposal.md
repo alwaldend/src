@@ -1,11 +1,18 @@
 ## Why
 
-The existing alwaldend root already owns team API keys. The personal rental must only consume its dedicated credential.
+The alwaldend team root owns key issuance. Image generation is moving from a
+personal rental into infra/image_gen with its own Vault identity and state.
 
 ## What Changes
 
-Move the dedicated token and user Vault write into infra/vastai/alwaldend, reusing the existing issuer and user identity. Remove the separate credential root. Preserve the existing key through an explicitly authorized state handoff rather than generating a replacement.
+Destroy the legacy dedicated key and current personal delivery entry, then
+declare a fresh component key delivered into src_infra_image_gen/vastai.
+The existing team issuer and unrelated team resources remain unchanged. The
+Vault owner supplies the new exact-path delivery grant; the component consumes
+its generated key with its own AppRole.
 
 ## Impact
 
-No new AppRole, dependency, key rotation, or GPU rental. The exact-path delivery policy is owned and deployed by infra/vault. The authorized state handoff preserved the existing key and the team plan reports no changes.
+The user authorized legacy destruction, which is complete. Replacement key
+creation is not part of source delivery. No state handoff, import, key-value
+reuse or GPU rental is required. Historical handoff receipts remain context.

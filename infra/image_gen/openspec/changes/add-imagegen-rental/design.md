@@ -1,3 +1,43 @@
+## Current design and deployment status
+
+The current owner is `infra/image_gen`, authenticated as `src_infra_image_gen`.
+Its KV namespace contains `vastai`, `web` and `tf_backend/setup`. Vault Terraform
+owns the role, operator membership and policies. The existing Vast team root
+owns issuance and exact-entry delivery; the component owns generated web login
+and rental. The rental receives no Vault or Vast API token. The component
+operator can browse its namespace through existing Vault identity membership.
+The web and delivered key resources delete all their KV versions on destroy;
+their exact metadata-delete permissions do not extend to component state.
+
+The replacement uses fresh state and generates fresh credentials when later
+authorized. No migration, import or reuse of the personal backend is required.
+New role, policies, key and rental remain undeployed. Prior deployment receipts
+below describe retired resources and do not establish a current endpoint.
+
+## Legacy teardown receipt, 2026-11-10
+
+The user requested destruction of the instance and then all dedicated resources,
+followed by fresh infrastructure IaC with its own AppRole. Owning interactive
+applies were reviewed before approval:
+
+| UTC   | Owner                   | Reviewed and completed scope                                                                        |
+| ----- | ----------------------- | --------------------------------------------------------------------------------------------------- |
+| 09:18 | Former user rental root | Destroy instance 60043006; 0 additions, 0 changes, 1 destroy                                        |
+| 09:22 | Former user rental root | Destroy generated password and current web secret; 0 additions, 0 changes, 2 destroys               |
+| 09:24 | Vast alwaldend root     | Revoke key 36816419 and delete its current delivery entry; 0 additions, 0 changes, 2 destroys       |
+| 09:29 | Vault root              | Remove legacy writer policy from Vast role and delete that policy; 0 additions, 1 change, 1 destroy |
+
+The old rental root now manages no resources. The shared team, its operator seed,
+unrelated keys and personal identity remain outside this scope. Legacy KV
+resources used soft deletion; protected historical Vault/state versions may
+remain. No raw state or secret was printed, saved or moved. The previous
+instance URL is inactive. Qwen was not deployed or live-tested before teardown.
+
+## Historical implementation and deployment evidence
+
+The following sections retain earlier decisions and receipts. Personal identity
+and credential-preservation statements below describe the retired stack only.
+
 ## Context
 
 A personal image generation rental needs generated credentials retained in Vault before paid instance creation.
@@ -102,3 +142,84 @@ The maintained dark WebP was rendered and visually inspected: browser request
 arrows point to Vault/Caddy, the provisioner is inside the rented instance, and
 container titles and edge labels remain readable. The user explicitly requested the usual build-target integration: documentation
 consumes its render target directly, with no checked-in raster or copy rule.
+
+## Authorized ComfyUI deployment
+
+The user requested deployment after merging the ComfyUI source, followed by a
+rebase. RES4LYF at 6780724de0ddb98e7454d54bb80387836a911ece and its required
+Python dependencies were explicitly approved for style-reference workflows.
+Vast's native Git/pip provisioner owns installation. The three native workflow
+documents are compacted and staged after workspace initialization.
+
+Vast rejected expanded startup arguments above 16,384 bytes. The approved
+package versions now use exact CPython 3.12 Linux x86_64 publisher wheels with
+hashes, and Terraform checks the rendered size before creation. On 2026-11-10
+at 08:19 UTC, the reviewed interactive apply created instance 60043006 from
+offer 59544635: one addition, no changes or destruction. Vault login and team
+API key were retained. The host reports verified Secure Cloud hosting_type=1,
+one CMP 170HX with 40 GiB VRAM, 100 GB disk and USD 0.477037/hour.
+
+Live acceptance passed trusted TLS, missing/wrong-login rejection (401),
+authenticated access (200), all three model filenames, both approved RES4LYF
+node types and all three staged workflows. Text-to-image, img2img and style-reference
+sampling produced visually inspected 1024 x 1024 PNG artifacts. The style test
+used the public text-to-image output as reference and generated a different
+scene; it establishes execution compatibility, not reliable style isolation.
+Vast also maps the image's diagnostic port 3000; its test server is disabled
+and a direct probe found no reachable listener. A reviewed refresh-only apply
+saved the connection outputs with zero resource changes. The source was rebased
+onto master after creation; the delivery receipt owns publication state.
+
+## Ignored style-reference correction
+
+A subsequent user report exposed a gap in the initial execution-only acceptance.
+At fixed prompt and seed, the original graph produced identical PNG image data
+with guide weight zero and one. The graph omitted the approved pack's
+ReChromaPatcher, so native Chroma did not consume its style transformer options.
+The corrected document enables that model patch in float32 before sampling.
+The active rental receives a separate corrected user document rather than an
+infrastructure replacement; preserve current user graphs and instance files.
+
+The corrected path changed output at the same prompt/seed when its guide weight
+changed, and when a flat comic reference replaced the watercolor reference.
+Both outputs were visually inspected. The live corrected document is named
+chroma-flash-style-transfer and preserves the user's recent workflow settings;
+it leaves the original document intact and is not overwritten by the old
+startup's original filename. Future rentals receive the corrected canonical
+style-reference document through the checked-in configuration.
+
+## Requested Qwen replacement
+
+The user selected Qwen-Image-Edit-2511 and requested redeployment, then confirmed
+that no files from the current rental require preservation. Keep the existing
+Vast image, Vault login, certified hosting constraints and hourly ceiling. Use
+the official Comfy-Org mixed-precision checkpoint, Qwen 2.5 VL encoder and Qwen
+VAE at fixed publisher revisions, matching the native workflow's default
+checkpoint variant. This bundle is about 30.2 GB. Do not install another node
+pack, acceleration LoRA or Python package; the default profile no longer needs
+RES4LYF. Keep historical neutral Chroma documents as examples only.
+
+Before calling the replacement ready, check these failure cases: mismatched
+model/encoder/VAE names; missing or unused reference-image conditioning; omitted
+index_timestep_zero reference method; incorrect flow shift or CFG normalization;
+image resizing that discards the intended content; out-of-memory inference;
+changes to credentials or public management-service exposure. Validate native
+single-reference and separate character/style graphs against the published
+recipe, then exercise new-action/new-background prompts using public neutral
+references. Successful execution alone is insufficient acceptance.
+
+## Replacement source validation
+
+Offline checks passed for the moved rental root, shared modules, team catalog,
+Vault formatting and affected OpenSpec workspaces. The catalog fixture applies
+the real team key/Vault declarations against mocked providers; the rental
+fixture generates a real random password while mocking Vault and the paid
+module. Existing real Terraform CLI E2E acceptance covers exposed/SSH lifecycle,
+startup compression and credential-safe rejection diagnostics. None contacts
+live infrastructure.
+
+Both Qwen graphs have consistent node/slot/link types and model filenames.
+The diagram target was rendered and visually inspected with readable nested
+containers and the existing dark actor theme. Inventory regeneration was stable
+on its second run. New AppRole permissions and Qwen inference still require
+separately authorized live acceptance; this delivery makes no runtime claim.

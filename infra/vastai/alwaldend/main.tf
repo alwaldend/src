@@ -52,16 +52,16 @@ resource "vault_kv_secret_v2" "keys" {
   delete_all_versions = false
 }
 
-resource "vastai_api_key" "imagegen" {
-  name        = local.configuration.teams.alwaldend.imagegen_api_key_name
+resource "vastai_api_key" "image_gen" {
+  name        = local.configuration.teams.alwaldend.image_gen_api_key_name
   permissions = ""
 }
 
-resource "vault_kv_secret_v2" "imagegen" {
+resource "vault_kv_secret_v2" "image_gen" {
   mount = "secrets"
-  name  = "alwaldend.com/vault1/approles/user_simeonwarren/imagegen/vastai"
+  name  = "alwaldend.com/vault1/approles/src_infra_image_gen/vastai"
   data_json = jsonencode({
-    api_key = vastai_api_key.imagegen.key
+    api_key = vastai_api_key.image_gen.key
   })
-  delete_all_versions = false
+  delete_all_versions = true
 }

@@ -10,3 +10,8 @@
 - [x] 2.1 Enable the existing namespace policy for the personal role's existing human members.
 - [x] 2.2 Verify authenticated mount visibility, own-namespace access, and unrelated-namespace denial after the approved deployment.
 - [x] 2.3 Deploy the personal policy's metadata navigation correction and verify root-to-secret folder traversal, slash variants, and unchanged value isolation.
+
+## Legacy image-generation teardown
+
+- [x] 3.1 Remove the legacy image-generation delivery grant from the existing Vast role and delete only its obsolete policy through a reviewed targeted apply.
+- [x] 3.2 Define the fresh image-generation AppRole and exact-path team-writer permission without deploying the replacement component.

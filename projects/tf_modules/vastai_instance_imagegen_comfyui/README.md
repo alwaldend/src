@@ -8,8 +8,8 @@ with the native Vast ComfyUI service at `127.0.0.1:18188`. Supply a reviewed
 `vastai/comfy` image through `image`. It forwards the base's access, credential,
 offer, storage and connection interfaces, retaining SSH-only access by default.
 
-ComfyUI uses `--disable-all-custom-nodes --offline`; Manager and third-party
-custom nodes are not enabled, partner API nodes are disabled, and the frontend
+ComfyUI uses `--disable-all-custom-nodes --offline`; Manager is not enabled and unapproved
+custom nodes are disabled, partner API nodes are disabled, and the frontend
 receives ComfyUI's restrictive offline Content-Security-Policy. No wildcard CORS
 flag is supplied. The bundled API wrapper remains on loopback `127.0.0.1:18288` for scripted
 jobs. It is included in the local portal inventory but never routed by the
@@ -28,7 +28,16 @@ Model kinds map below `/workspace/ComfyUI`:
 
 Here `checkpoint` means the standalone diffusion model, loaded with ComfyUI's
 Load Diffusion Model node. This profile does not assume an all-in-one checkpoint.
-Select its encoder and VAE separately in a native workflow. Downloads are served
+`workflows` accepts named native JSON documents and stages them in
+`user/default/workflows` after Vast initializes the workspace. The wrapper
+compacts the JSON; the base compresses larger startup payloads and rejects
+requests exceeding Vast's 16 KB limit before creating a rental.
+`custom_nodes` accepts explicitly approved public GitHub repositories at full
+commit IDs. Vast's built-in `git_repos` fetcher installs them, and ComfyUI's
+whitelist enables only those directories. `python_requirements` supplies a
+version- and hash-locked requirements file installed with `--require-hashes
+--no-deps` in the existing application environment. No custom installer or image
+rebuild is needed. Downloads are served
 by Vast's provisioner inside the rented instance, with no model cache retained
 after destruction.
 

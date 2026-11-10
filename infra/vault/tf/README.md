@@ -38,16 +38,21 @@ when distinguishing missing deployment from insufficient operator access.
 
 ## Vast team token delivery
 
-[The Vast infrastructure role](approle_src_infra_vastai.tf) can manage only the
-regular user's `imagegen/vastai` KV entry in addition to its existing namespace.
-Its delivery policy grants data lifecycle operations and metadata reads on the
-exact path, with no wildcard or sibling/backend access. This lets the existing
-alwaldend root publish its generated team key using its own identity. User
-provisioning reads that key through the regular user identity.
+[The Vast infrastructure role](approle_src_infra_vastai.tf) declares access to
+only `src_infra_image_gen/vastai` in addition to its existing namespace. The
+policy grants data lifecycle operations and exact metadata read/delete access,
+with no sibling or component-state access. It lets the team root deliver and
+later remove the generated key using its own identity.
 
-The personal simeonwarren role explicitly enables its existing KV namespace
-policy for its human members. This grants direct browser access to that user
-namespace while other role groups keep bootstrap-only membership. The existing
-KV mount remains authenticated and is not made anonymously visible.
-List-only access to exact metadata ancestors supports browsing from the mount
-root; secret values outside the user's namespace remain denied.
+[The image-generation role](approle_src_infra_image_gen.tf) owns its own KV and
+state subtree. Its operator member can bootstrap the AppRole and browse that
+namespace in Vault. List-only permissions on exact metadata ancestors support
+UI navigation without access to other secret values. An additional exact-path
+metadata-delete policy lets the component remove all versions of its web-login
+entry. It does not join the broad infrastructure AppRole group.
+
+The legacy personal image-generation grant was removed through a reviewed
+scoped apply on 2026-11-10. The replacement role and delivery grant are source
+only and require a separately authorized Vault apply before key creation or
+rental. The existing personal user role and its browser access are independent
+and remain unchanged.

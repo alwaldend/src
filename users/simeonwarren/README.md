@@ -50,5 +50,6 @@ command to review that target without loading the 30-day cleanup rules.
 
 ## Image generation
 
-[Image generation](imagegen/README.md) provisions a Vast.ai Forge instance with
-a generated Vault-backed HTTPS login and a 32 GiB VRAM minimum.
+The image-generation rental is owned by
+[infra/image_gen](../../infra/image_gen/README.md), with its own Vault AppRole,
+credentials and Terraform state.

@@ -1,4 +1,19 @@
-## Current ownership
+## Current desired state, 2026-11-10
+
+The user requested destruction of the personal image-generation stack and fresh
+IaC under infra/image_gen with its own AppRole. At 09:24 UTC, a reviewed targeted
+apply destroyed key 36816419 and its current personal Vault entry: 0 additions,
+0 changes, 2 destroys. The shared team issuer, unrelated keys and team remain.
+Historical Vault/state versions remain protected; no state handoff is reused.
+
+The new `vastai_api_key.image_gen` and `vault_kv_secret_v2.image_gen` declare a
+fresh key named `infra_vastai_alwaldend_image_gen`, delivered directly to
+`src_infra_image_gen/vastai`. The new entry deletes all versions on destroy;
+Vault's exact metadata-delete grant is owned by infra/vault. These replacement
+resources are not deployed. Earlier handoff receipts below describe the now
+revoked personal key.
+
+## Legacy ownership before teardown
 
 The existing infra/vastai/alwaldend root owns the dedicated image-generation API key and its regular-user Vault entry. The team issuer remains unchanged; its existing infrastructure Vault identity delivers the generated key through an exact-path policy. The team root contains no recipient authentication or token variable. The personal rental only consumes that token. There is no additional credential root or AppRole. The delivery policy is owned by infra/vault.
 

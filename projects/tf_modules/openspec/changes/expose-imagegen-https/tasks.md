@@ -24,3 +24,13 @@
 - [x] 5.1 Define behavioral failure cases for Forge and ComfyUI consumers before refactoring.
 - [x] 5.2 Extract runtime-neutral rental, model provisioning, and HTTPS controls into the base module; add thin Forge and ComfyUI modules.
 - [x] 5.3 Verify both profiles through the real Terraform CLI fixture, including loopback ports, model destinations, authentication and rejected configuration.
+
+## 6. Approved ComfyUI node provisioning
+
+- [x] 6.1 Define CLI acceptance cases for the native Git/pip fetcher and selective custom-node enablement before implementation.
+- [x] 6.2 Pass pinned node repositories and hash-locked requirements to Vast's native provisioner, with compressed startup for larger manifests.
+- [x] 6.3 Verify the native provisioning manifest and access controls through the actual Terraform/provider fixture.
+
+## Infrastructure consumer
+
+- [x] Update the shared module's consumer and privacy links to the new infra/image_gen owner after the authorized personal-stack teardown.

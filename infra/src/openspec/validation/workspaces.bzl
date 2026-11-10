@@ -9,6 +9,7 @@ WORKSPACE_SOURCES = {
     "infra_forgejo_runner": "//infra/forgejo_runner/openspec:source",
     "infra_github": "//infra/github/openspec:source",
     "infra_harbor": "//infra/harbor/openspec:source",
+    "infra_image_gen": "//infra/image_gen/openspec:source",
     "infra_ingress": "//infra/ingress/openspec:source",
     "infra_local_inference": "//infra/local_inference/openspec:source",
     "infra_mikrotik": "//infra/mikrotik/openspec:source",

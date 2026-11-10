@@ -6,7 +6,7 @@ description: Shared Vast rentals with SSH-only or password-protected HTTPS acces
 This module rents one GPU with at least **32 GiB VRAM**, using a caller-selected Vast-native image.
 The default mode is `ssh_only`; `exposed` publishes the application through HTTPS and a
 caller-supplied username/password. The caller supplies provider authentication
-and secure state. The [personal rental project](../../../users/simeonwarren/imagegen/README.md)
+and secure state. The [image-generation infrastructure project](../../../infra/image_gen/README.md)
 generates and stores its login in Vault before creating the paid instance.
 Building and testing these definitions does not deploy or rent capacity.
 
@@ -138,7 +138,7 @@ host administrator or a no-training commitment for the complete stack.
 
 [Vast's privacy policy](https://vast.ai/privacy) covers account/website processing.
 Certified datacenter status does not prevent the host administrator accessing the
-workload. See the [personal project's privacy boundary](../../../users/simeonwarren/imagegen/README.md#privacy-boundary)
+workload. See the [infrastructure project's privacy boundary](../../../infra/image_gen/README.md#privacy-boundary)
 for host trust and retention limits. Stopping retains billable storage; export
 wanted files before destruction. This project cannot verify physical erasure or
 exclude host-made copies.

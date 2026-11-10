@@ -1,26 +1,32 @@
-load("@rules_al//:defs.bzl", "al_config", "al_inject")
+load("@rules_al//:defs.bzl", "al_config", "al_inject", "al_vault_auth")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("//tools/vault:defs.bzl", "vault_binary_map")
 load("//tools/vault/tf_backend:defs.bzl", "vault_tf_backend")
 
-package(transitive_visibility = "//users:transitive_consumers")
+package(transitive_visibility = "//infra:transitive_consumers")
+
+al_vault_auth(
+    name = "auth",
+    approle = "src_infra_image_gen",
+    extends = "//tools/al:auth",
+)
 
 vault_tf_backend(
-    name = "imagegen_tf_backend",
-    labels = {"tf": "imagegen"},
-    path = "alwaldend.com/vault1/approles/user_simeonwarren/tf_backend/imagegen",
+    name = "tf_backend_setup",
+    labels = {"tf": "setup"},
+    path = "alwaldend.com/vault1/approles/src_infra_image_gen/tf_backend/setup",
 )
 
 al_inject(
     name = "rental_auth",
-    labels = {"tf": "imagegen"},
+    labels = {"tf": "setup"},
     res_env = {"VAST_API_KEY": {
         "value": "{{ .Last.Data.api_key }}",
         "deps": ["rental_key"],
     }},
     res_kv = {"rental_key": {
         "mount": "secrets",
-        "path": "alwaldend.com/vault1/approles/user_simeonwarren/imagegen/vastai",
+        "path": "alwaldend.com/vault1/approles/src_infra_image_gen/vastai",
     }},
     res_vault_env = {"component": {
         "auth": "default",
@@ -31,11 +37,12 @@ al_inject(
 al_config(
     name = "al",
     configs = [
-        ":imagegen_tf_backend",
+        ":auth",
         ":rental_auth",
-        "//users/simeonwarren:al",
+        ":tf_backend_setup",
+        "//infra:al",
     ],
-    visibility = ["//users/simeonwarren/imagegen:__subpackages__"],
+    visibility = ["//infra/image_gen:__subpackages__"],
 )
 
 vault_binary_map(
@@ -46,7 +53,7 @@ vault_binary_map(
 docs_filegroup(
     name = "docs",
     srcs = ["README.md"],
-    visibility = ["//users/simeonwarren:__pkg__"],
+    visibility = ["//infra:__pkg__"],
     deps = subpackages(
         include = ["*"],
         allow_empty = True,

@@ -219,7 +219,10 @@ func TestComfyUIModule(t *testing.T) {
  {url="https://example.invalid/flash.safetensors",filename="flash.safetensors",kind="checkpoint"},
  {url="https://example.invalid/t5.safetensors",filename="t5.safetensors",kind="text_encoder"},
  {url="https://example.invalid/ae.safetensors",filename="ae.safetensors",kind="vae"}
-]`
+]
+workflows = { fixture = jsonencode({version=0.4,nodes=[],links=[]}) }
+custom_nodes = { FixtureNodes = {url="https://github.com/example/fixture",ref="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"} }
+python_requirements = "fixture-package==1.0 --hash=sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\n${join("",[for i in range(1000):"# Public fixture dependency commentary.\n"])}"`
 			if exposed {
 				extra += "\naccess_mode = \"exposed\"\nweb_password = \"fixtureCredentialOnly01234567890123456789\""
 			}
@@ -248,6 +251,26 @@ func TestComfyUIModule(t *testing.T) {
 					t.Fatalf("missing ComfyUI restriction %s", required)
 				}
 			}
+			if !strings.Contains(f.startup, "--whitelist-custom-nodes FixtureNodes") {
+				t.Fatal("approved node pack was not selectively enabled")
+			}
+			var provisioning struct {
+				// GitRepos contains the pinned native fetcher configuration.
+				GitRepos []struct {
+					// Ref fixes the reviewed node-pack revision.
+					Ref string `json:"ref"`
+					// Dest installs nodes under the native custom-node directory.
+					Dest string `json:"dest"`
+				} `json:"git_repos"`
+				// PipPackages retains the requirements and integrity policy.
+				PipPackages []struct {
+					// Args requires hashes without unconstrained dependency resolution.
+					Args string `json:"args"`
+				} `json:"pip_packages"`
+			}
+			if err := json.Unmarshal(manifest, &provisioning); err != nil || len(provisioning.GitRepos) != 1 || provisioning.GitRepos[0].Ref != strings.Repeat("a", 40) || provisioning.GitRepos[0].Dest != "/workspace/ComfyUI/custom_nodes/FixtureNodes" || len(provisioning.PipPackages) != 1 || provisioning.PipPackages[0].Args != "--require-hashes --no-deps" {
+				t.Fatal("native fetcher did not retain pinned nodes and locked dependencies")
+			}
 			if strings.Contains(f.startup, "for service in tunnel_manager syncthing pyworker api-wrapper") {
 				t.Fatal("local API wrapper was unnecessarily disabled")
 			}
@@ -257,6 +280,12 @@ func TestComfyUIModule(t *testing.T) {
 			if exposed && !strings.Contains(f.startup, "reverse_proxy 127.0.0.1:18188") {
 				t.Fatal("proxy targets wrong backend")
 			}
+
+			_, staged, found := strings.Cut(f.startup, "mkdir -p \"$(dirname '/workspace/ComfyUI/user/default/workflows/fixture.json')\"")
+			if !found || !strings.Contains(staged, "| base64 -d > '/workspace/ComfyUI/user/default/workflows/fixture.json'") {
+				t.Fatal("workflow was not staged after native workspace initialization")
+			}
+
 			h.run(t, true, "plan", "-detailed-exitcode", "-no-color")
 			h.run(t, true, "destroy", "-auto-approve", "-no-color")
 			if directory := os.Getenv("TEST_UNDECLARED_OUTPUTS_DIR"); directory != "" {
@@ -269,6 +298,21 @@ func TestComfyUIModule(t *testing.T) {
 				}
 			}
 		})
+	}
+}
+
+// TestRentalRejectionDiagnostic retains the public startup limit without echoing a response body.
+func TestRentalRejectionDiagnostic(t *testing.T) {
+	f := &imagegenFixture{}
+	f.rental.mode = "startup-too-long"
+	server := httptest.NewServer(f)
+	defer server.Close()
+	h := newHarness(t, server.URL+"/api/v0")
+	writeImagegen(t, h, server.URL+"/api/v0", strings.Repeat("a", 32))
+	output := h.run(t, false, "apply", "-auto-approve", "-no-color")
+	output = strings.Join(strings.Fields(output), " ")
+	if !strings.Contains(output, "startup arguments exceed the server limit of 32768") || strings.Contains(output, "fixture-private-content") || f.rental.exists {
+		t.Fatal("rental rejection was not classified safely")
 	}
 }
 

@@ -61,3 +61,25 @@ Use its native ComfyUI service and retain the additional api-wrapper service on 
 
 The approved image declares diagnostic port 3000 in Docker metadata. Keep its
 optional instance test runner explicitly disabled; request no publish-all flag.
+
+## Workflow provisioning follow-up
+
+The user requested deployment and then rebase, and identified the missing workflow
+from the model README. Keep workflow JSON as ordinary user documents in the personal imagegen owner.
+The user subsequently requested including them in startup again. The root reads
+those documents and the wrapper compacts and stages them through runtime_files
+after native workspace initialization. Changes to startup replace the rental. Reference-style extensions require separate specific dependency
+approval and evidence of compatibility with Chroma Flash before declaration.
+
+The user explicitly approved RES4LYF and its required dependencies on 2026-11-10,
+then selected Vast's native fetcher. Use typed git_repos, write_files and
+pip_packages entries rather than another installer. Pin the exact Git revision
+and all Python dependencies with hashes; allowlist only the approved directory.
+OpenCV's headless distribution supplies the same required cv2 module without GUI
+system libraries. The CLI fixture verifies the actual rendered manifest and allowlist; it does
+not install fake fixture packages. Larger startup payloads use gzip/base64 with
+a root-private decoded file to reduce Vast request argument size.
+
+Vast rejected the initial expanded lock because startup arguments exceeded its
+16,384-byte limit. Use exact Python 3.12 Linux x86_64 wheel URLs and hashes rather
+than hashes for unused platforms. Reject oversized rendered startup before rental.

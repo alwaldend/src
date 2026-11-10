@@ -7,7 +7,7 @@
     "teams": {
         "alwaldend": {
             "api_keys": ["rentals"],
-            "imagegen_api_key_name": "users_simeonwarren_imagegen"
+            "image_gen_api_key_name": "infra_vastai_alwaldend_image_gen"
         }
     }
 }
