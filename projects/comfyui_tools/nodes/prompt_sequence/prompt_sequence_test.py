@@ -16,7 +16,8 @@ class _PromptSequenceTest(unittest.TestCase):
         node: prompt_sequence.PromptSequence = prompt_sequence.PromptSequence()
         prompts: list[str]
         prefixes: list[str]
-        prompts, prefixes = node.expand(
+        negative: str
+        prompts, prefixes, negative = node.expand(
             "A robot rides a bicycle.\n\nA robot reads a book.",
             "Use the shared reference character and style.",
             "line",
@@ -27,10 +28,52 @@ class _PromptSequenceTest(unittest.TestCase):
         self.assertTrue(prompts[1].endswith("reads a book."))
         self.assertTrue(all(p.startswith("Use the shared") for p in prompts))
         self.assertEqual(prefixes, ["comic_001", "comic_002"])
+        self.assertEqual(negative, "")
         output: str = os.environ.get("TEST_UNDECLARED_OUTPUTS_DIR", "")
         if output:
             pathlib.Path(output, "prompt-sequence-result.json").write_text(
-                json.dumps({"prompts": prompts, "prefixes": prefixes})
+                json.dumps(
+                    {
+                        "prompts": prompts,
+                        "prefixes": prefixes,
+                        "negative": negative,
+                    }
+                )
+            )
+
+    def test_shared_negative_prompt(self) -> None:
+        """Share one multiline negative without panel splitting or positive context."""
+        node: prompt_sequence.PromptSequence = prompt_sequence.PromptSequence()
+        prompts: list[str]
+        prefixes: list[str]
+        negative: str
+        shared_negative: str = "blurry\n\nwatermark, text"
+        prompts, prefixes, negative = node.expand(
+            "A robot rides a bicycle.\n \nA robot reads a book.",
+            "A watercolor comic panel.",
+            "line",
+            "comic",
+            negative_prompt=shared_negative,
+        )
+        self.assertEqual(
+            prompts,
+            [
+                "A watercolor comic panel.\n\nA robot rides a bicycle.",
+                "A watercolor comic panel.\n\nA robot reads a book.",
+            ],
+        )
+        self.assertEqual(prefixes, ["comic_001", "comic_002"])
+        self.assertEqual(negative, shared_negative)
+        output: str = os.environ.get("TEST_UNDECLARED_OUTPUTS_DIR", "")
+        if output:
+            pathlib.Path(output, "shared-negative-result.json").write_text(
+                json.dumps(
+                    {
+                        "prompts": prompts,
+                        "prefixes": prefixes,
+                        "negative": negative,
+                    }
+                )
             )
 
     def test_paragraphs(self) -> None:
@@ -66,7 +109,7 @@ class _PromptSequenceTest(unittest.TestCase):
         ]
         self.assertEqual(
             node.expand(json.dumps([*panels, "  "]), "", "JSON", "comic"),
-            (panels, ["comic_001", "comic_002"]),
+            (panels, ["comic_001", "comic_002"], ""),
         )
         for invalid in [
             '{"private": "text"}',

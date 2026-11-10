@@ -18,7 +18,7 @@ policy through [Vault Terraform](../../vault/tf/README.md#vast-team-token-delive
 Then run [team credential setup](../../vastai/alwaldend/README.md) to generate
 and store a fresh key in this component's namespace. The component credentials
 are deployed; the previous Flux rental and its Base replacement were destroyed at the operator's request. These remain operator instructions. The
-[acceptance record](../openspec/changes/add-imagegen-rental/design.md#base-checkpoint-replacement)
+[acceptance record](../openspec/changes/add-imagegen-rental/design.md#requested-flux2-dev-32b-replacement)
 owns the observed rental and workflow results.
 The [module](../../../projects/tf_modules/vastai_instance_imagegen_comfyui/README.md) uses
 the direct Vast ComfyUI/CUDA 12.9 image tag declared in [config.json](../config.json),
@@ -27,9 +27,9 @@ there is no registry lookup or helper executable during Terraform planning.
 Changing the tag produces a reviewed replacement plan for an existing rental.
 The component's [config.json](../config.json) owns the image, HTTPS username,
 selected model/hardware profiles and their definitions. Terraform has no root
-input variables or tfvars presets. The default model is Juggernaut XL v9;
-set `model_profile` to `flux` or `qwen` in that file to select FLUX.2 klein Base
-9B FP8 or Qwen-Image-Edit-2511.
+input variables or tfvars presets. The selected model is FLUX.2 dev 32B FP8. Set `model_profile` to `juggernaut`,
+`flux` or `qwen` to select Juggernaut XL v9, FLUX.2 klein Base 9B FP8 or
+Qwen-Image-Edit-2511.
 
 ```sh
 bazel run //infra/image_gen/tf_setup:tf.plan
@@ -37,16 +37,14 @@ bazel run //infra/image_gen/tf_setup:tf.rent
 ```
 
 `rent` displays the interactive plan; review it before approving. The selected
-`standard` hardware profile requests one GPU with at least 32 GiB VRAM, 100 GB
+`96gb` hardware profile requests at least 95 GiB reported VRAM, 150 GB disk
+and a USD 3/hour ceiling. The optional `standard` profile requests one GPU with at least 32 GiB VRAM, 100 GB
 disk and a USD 1/hour ceiling including disk. The module selects the cheapest
 qualifying Secure Cloud offer. The ceiling is not a total budget and market
 availability is not guaranteed.
 
-For the prepared 96 GB option, set `hardware_profile` to `96gb` in config.json,
-then use the same plan and rent targets after authorizing deployment. That
-profile uses a 95 GiB reported-memory floor for nominal 96 GB cards, 150 GB disk
-and a USD 3/hour ceiling. Model selection is independent. The committed selection
-remains `standard`; no high-memory rental has been deployed.
+Model and hardware selections are independent. The operator selected `96gb`
+for the first 32B trial; the smaller profile remains available for later use.
 
 Creation acknowledges a contract; boot and provisioning take longer. Refresh
 through the same owner after boot, reviewing its interactive plan:
@@ -90,22 +88,30 @@ a separately scoped live acceptance run.
 `model_profile` in config.json selects matching model downloads and saved workflows.
 Every saved name uses `<profile>-<purpose>`, matching its generated JSON filename:
 
-| Profile                | Bundle                                                                       | Native workflows                                                                                                                                        |
-| ---------------------- | ---------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `juggernaut` (default) | Juggernaut XL v9 all-in-one SDXL checkpoint                                  | `juggernaut-text-to-image`, `juggernaut-image-to-image`, `juggernaut-prompt-sequence`, `juggernaut-style-reference`, `juggernaut-style-prompt-sequence` |
-| `flux`                 | FLUX.2 klein Base 9B FP8, Qwen3 8B mixed FP8 encoder, Flux small-decoder VAE | `flux-single-reference`, `flux-character-style`, `flux-prompt-sequence`                                                                                 |
-| `qwen`                 | Qwen-Image-Edit-2511 mixed FP8, Qwen 2.5 VL 7B FP8 encoder, Qwen VAE         | `qwen-single-reference`, `qwen-character-style`, `qwen-prompt-sequence`                                                                                 |
+Juggernaut also stages `juggernaut-multi-reference` and
+`juggernaut-multi-reference-prompt-sequence`, with three shared character/style
+references through IP-Adapter Plus. The two additional public safetensors files
+add about 3.4 GB: the SDXL Plus adapter in `models/ipadapter` and its CLIP-ViT-H
+encoder in `models/clip_vision`. Their publisher revisions are fixed in config.json.
 
-All files are fixed to publisher revisions in [config.json](../config.json). All three bundles
-fit the 100 GB disk. Vast's native provisioner downloads them inside the rental;
+| Profile                | Bundle                                                                       | Native workflows                                                                                                                                                                |
+| ---------------------- | ---------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `juggernaut`           | Juggernaut XL v9 all-in-one SDXL checkpoint                                  | `juggernaut-text-to-image`, `juggernaut-image-to-image`, `juggernaut-prompt-sequence`, `juggernaut-style-reference`, `juggernaut-style-prompt-sequence`                         |
+| `flux2-dev` (selected) | FLUX.2 dev 32B FP8, local Mistral FP8 encoder, FLUX.2 VAE                    | `flux2-dev-text-to-image`, `flux2-dev-single-reference`, `flux2-dev-single-reference-prompt-sequence`, `flux2-dev-multi-reference`, `flux2-dev-multi-reference-prompt-sequence` |
+| `flux`                 | FLUX.2 klein Base 9B FP8, Qwen3 8B mixed FP8 encoder, Flux small-decoder VAE | `flux-single-reference`, `flux-character-style`, `flux-prompt-sequence`                                                                                                         |
+| `qwen`                 | Qwen-Image-Edit-2511 mixed FP8, Qwen 2.5 VL 7B FP8 encoder, Qwen VAE         | `qwen-single-reference`, `qwen-character-style`, `qwen-prompt-sequence`                                                                                                         |
+
+All files are fixed to publisher revisions in [config.json](../config.json). The selected 32B bundle totals about 54 GB and uses the 150 GB disk profile. Vast's native provisioner downloads them inside the rental;
 no custom downloader is installed. Every profile stages the first-party
 `Prompt Sequence` through native `write_files`. Only Juggernaut also restores
 [RES4LYF](https://github.com/ClownsharkBatwing/RES4LYF/tree/6780724de0ddb98e7454d54bb80387836a911ece)
 at the previously approved revision and the unchanged
 [hash-locked requirements](../res4lyf-requirements.txt). Vast's native Git/pip
-provisioner installs them; only RES4LYF and Prompt Sequence are whitelisted for
-that profile. Flux/Qwen retain only Prompt Sequence. No additional adapter
-weights are downloaded.
+provisioner installs them. Juggernaut additionally stages the explicitly approved
+ComfyUI_IPAdapter_plus pack at revision a0f451a5113cf9becb0847b92884cb10cbdec0ef;
+only those two packs and Prompt Sequence are whitelisted for that profile.
+The general SDXL Plus path uses the existing image environment and requires no
+FaceID/InsightFace installation. Flux, FLUX.2 dev and Qwen retain only Prompt Sequence.
 The [workflow definitions](../../../projects/comfyui_tools/README.md#workflow-source-and-generation)
 are compiled from Libsonnet during the Bazel build; the rental receives native
 JSON and does not require Jsonnet. Archived Chroma examples are generated for
@@ -133,13 +139,25 @@ RES4LYF's style guide and the SDXL model patcher, starting generation from
 fresh noise. Describe the scene and broad medium in the positive prompt.
 The guide's `weight` controls influence; zero disables it. Start at 1 and
 compare at the same seed. `juggernaut-style-prompt-sequence` reuses that guide
-for every panel in the growing prompt list. These are style-guided workflows,
+for every nonempty prompt line. These are style-guided workflows,
 not guarantees of style isolation or character preservation. Their sampler
 starts at 30 RES 2M/beta57 steps, CFG 6.5 and full denoise; its controls differ
-from the native KSampler graphs. Juggernaut GPU execution and style quality
-remain unverified.
+from the native KSampler graphs. All seven Juggernaut workflows completed with
+neutral fixtures on the selected runtime; see the
+[GPU acceptance record](../openspec/changes/add-imagegen-rental/design.md#replacement-gpu-acceptance).
+Execution does not guarantee reference fidelity or scene adherence. The adapter
+workflows give more direct character/style conditioning; lower adapter weight
+when references overpower the requested scene.
 
-For Flux and Qwen, select images in Load Image: image 1 supplies character and output aspect;
+For FLUX.2 dev, use three Load Image nodes as combined character/style
+references. Its native sequence uses the same three reference latents for
+every prompt. Start at 1024 square, batch one, 28 Euler steps and FluxGuidance 4.
+It uses BasicGuider with distilled positive guidance, so a negative prompt has
+no sampling effect in this family. The matching Mistral encoder runs inside the
+rental; no remote text-encoding API is configured. The official ComfyUI FP8
+bundle is public and does not receive the gated Klein profile's Vault HF token.
+
+For Flux Base and Qwen, select images in Load Image: image 1 supplies character and output aspect;
 image 2, when present, supplies style. Describe the new action/scene and the
 reference roles in the positive prompt. Flux uses native reference latents on
 both conditioning branches, an encoded empty negative prompt, fresh Flux2 noise, 50 Euler steps and CFG 4.

@@ -15,6 +15,13 @@ local defaults = {
   },
   juggernaut: {
     checkpoint: 'Juggernaut-XL_v9_RunDiffusionPhoto_v2.safetensors',
+    ipadapter: 'ip-adapter-plus_sdxl_vit-h.safetensors',
+    clip_vision: 'CLIP-ViT-H-14-laion2B-s32B-b79K.safetensors',
+  },
+  'flux2-dev': {
+    checkpoint: 'flux2_dev_fp8mixed.safetensors',
+    text_encoder: 'mistral_3_small_flux2_fp8.safetensors',
+    vae: 'flux2-vae.safetensors',
   },
 };
 local downloadKind(entry) =
@@ -35,6 +42,7 @@ local families = {
   qwen: (import 'qwen/workflows.libsonnet')(filenames('qwen')),
   juggernaut: (import 'juggernaut/workflows.libsonnet')(filenames('juggernaut')),
   chroma: (import 'chroma/workflows.libsonnet')({}),
+  'flux2-dev': (import 'flux2-dev/workflows.libsonnet')(filenames('flux2-dev')),
 };
 {
   [profile + '/' + profile + '-' + name + '.json']: g.render(families[profile][name])

@@ -1,8 +1,8 @@
 {
     "image": "vastai/comfy:v0.44.0-cuda-12.9-py312",
     "web_username": "imagegen",
-    "model_profile": "juggernaut",
-    "hardware_profile": "standard",
+    "model_profile": "flux2-dev",
+    "hardware_profile": "96gb",
     "hardware_profiles": {
         "standard": {
             "min_gpu_ram_gb": 32,
@@ -71,22 +71,64 @@
                 "juggernaut-image-to-image",
                 "juggernaut-prompt-sequence",
                 "juggernaut-style-reference",
-                "juggernaut-style-prompt-sequence"
+                "juggernaut-style-prompt-sequence",
+                "juggernaut-multi-reference",
+                "juggernaut-multi-reference-prompt-sequence"
             ],
             "downloads": [
                 {
                     "url": "https://huggingface.co/RunDiffusion/Juggernaut-XL-v9/resolve/cf419233522daa0b9ea36c3aff98fa2cab1fb0fb/Juggernaut-XL_v9_RunDiffusionPhoto_v2.safetensors",
                     "filename": "Juggernaut-XL_v9_RunDiffusionPhoto_v2.safetensors",
                     "kind": "checkpoint"
+                },
+                {
+                    "url": "https://huggingface.co/h94/IP-Adapter/resolve/9bf28b38530e55ffa91c6d82e5161a982c22f284/sdxl_models/ip-adapter-plus_sdxl_vit-h.safetensors",
+                    "filename": "ip-adapter-plus_sdxl_vit-h.safetensors",
+                    "kind": "ipadapter"
+                },
+                {
+                    "url": "https://huggingface.co/h94/IP-Adapter/resolve/0859e809306db97aa2338e370587ab284e8a754f/models/image_encoder/model.safetensors",
+                    "filename": "CLIP-ViT-H-14-laion2B-s32B-b79K.safetensors",
+                    "kind": "clip_vision"
                 }
             ],
             "custom_nodes": {
                 "RES4LYF": {
                     "url": "https://github.com/ClownsharkBatwing/RES4LYF",
                     "ref": "6780724de0ddb98e7454d54bb80387836a911ece"
+                },
+                "ComfyUI_IPAdapter_plus": {
+                    "url": "https://github.com/cubiq/ComfyUI_IPAdapter_plus",
+                    "ref": "a0f451a5113cf9becb0847b92884cb10cbdec0ef"
                 }
             },
             "python_requirements": "res4lyf-requirements.txt"
+        },
+        "flux2-dev": {
+            "workflows": [
+                "flux2-dev-text-to-image",
+                "flux2-dev-single-reference",
+                "flux2-dev-single-reference-prompt-sequence",
+                "flux2-dev-multi-reference",
+                "flux2-dev-multi-reference-prompt-sequence"
+            ],
+            "downloads": [
+                {
+                    "url": "https://huggingface.co/Comfy-Org/Flux-2-Dev/resolve/9630c1b4b6e690497ae0c19bb6b1b35d4ebedcb7/split_files/diffusion_models/flux2_dev_fp8mixed.safetensors",
+                    "filename": "flux2_dev_fp8mixed.safetensors",
+                    "kind": "checkpoint"
+                },
+                {
+                    "url": "https://huggingface.co/Comfy-Org/Flux-2-Dev/resolve/9630c1b4b6e690497ae0c19bb6b1b35d4ebedcb7/split_files/text_encoders/mistral_3_small_flux2_fp8.safetensors",
+                    "filename": "mistral_3_small_flux2_fp8.safetensors",
+                    "kind": "text_encoder"
+                },
+                {
+                    "url": "https://huggingface.co/Comfy-Org/Flux-2-Dev/resolve/9630c1b4b6e690497ae0c19bb6b1b35d4ebedcb7/split_files/vae/flux2-vae.safetensors",
+                    "filename": "flux2-vae.safetensors",
+                    "kind": "vae"
+                }
+            ]
         }
     }
 }

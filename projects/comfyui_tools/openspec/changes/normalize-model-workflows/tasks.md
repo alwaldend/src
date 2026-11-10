@@ -14,3 +14,25 @@
 - [x] 3.1 Replace repeated JSON with shared Libsonnet graph/node helpers, model-specific builders and composed sequence/reference variants.
 - [x] 3.2 Generate every native JSON through Bazel at its existing path; preserve graph settings, IDs, widget metadata, layout and wiring against the recorded baseline.
 - [x] 3.3 Verify generated assets through Terraform and documentation consumers, formatter and semantic checks; review and publish source only.
+
+## 4. SDXL style precision
+
+- [x] 4.1 Trace the reported WCT dtype failure using the pinned public source only; restore the upstream float64 style-patcher default in both composed Juggernaut style workflows.
+- [x] 4.2 Verify the regenerated workflow settings offline without accessing the running rental or claiming GPU acceptance.
+
+## 5. Several character/style references
+
+- [x] 5.1 Compose three reference inputs through the approved SDXL Plus adapter with native sampling, and provide a shared-reference prompt-sequence variant.
+- [x] 5.2 Verify generated ports, widget contracts, configured model filenames and reference connectivity against the pinned node source offline.
+
+## 6. Shared negative prompt
+
+- [x] 6.1 Extend the existing node behavior checks for a shared negative prompt, empty defaults and preserved panel order before implementation.
+- [x] 6.2 Append a backward-compatible negative-prompt input/output and connect every sequence workflow to its existing negative encoder without a separate editable text field.
+- [x] 6.3 Verify generated graphs, native CLI conversion, packaging and repository delivery gates offline; leave the active rental untouched.
+
+## 7. Native FLUX.2 dev workflows
+
+- [x] 7.1 Add the explicitly requested 32B model's native guidance-distilled text-to-image and three-reference workflows, with a sequence variant.
+- [x] 7.2 Preserve existing models and conditioning, keep reference/text encoding local, and verify generated workflow contracts before the authorized replacement deployment.
+- [x] 7.3 Add the requested single-reference workflow and matching sequence through the shared graph builder; provide generated JSON for operator import without accessing the running rental.

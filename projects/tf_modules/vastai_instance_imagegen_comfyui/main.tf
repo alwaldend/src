@@ -221,6 +221,8 @@ module "imagegen" {
       vae          = "models/vae"
       embedding    = "models/embeddings"
       text_encoder = "models/text_encoders"
+      ipadapter    = "models/ipadapter"
+      clip_vision  = "models/clip_vision"
     }
     portal_entries = ["localhost:8288:18288:/:API Wrapper"]
   }

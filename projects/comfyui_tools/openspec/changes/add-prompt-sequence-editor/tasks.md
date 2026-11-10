@@ -12,3 +12,8 @@
 
 - [x] 3.1 Extend the existing browser fixture to restore an edited node without the graph-loading hook and demonstrate the clone failure before changing code.
 - [x] 3.2 Render restored fields after synchronous widget restoration completes; verify duplication preserves separate prompts, order, multiline text and subsequent edits.
+
+## 4. Restore the native editor
+
+- [x] 4.1 Remove the custom DOM editor, its browser fixture and rental browser-asset wiring; retain ComfyUI's native multiline widget and compatibility with saved inputs.
+- [x] 4.2 Verify blank-line omission, workflow generation and packaged rental inputs; document that the running rental is not changed while the operator uses it.

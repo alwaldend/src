@@ -19,6 +19,9 @@ and the native download manifest. Runtime wrappers own model directories,
 loopback arguments, optional JSON configuration and local portal entries.
 No image discovery or registry lookup runs during Terraform planning. The caller
 selects an explicit published image tag; changing it replaces an existing rental.
+The base supplies a plain startup script and opts into the provider's gzip
+transport. The provider owns encoding and the 16,384-byte API command limit;
+the selected Vast images provide the required shell utilities.
 
 By default no `template_hash_id` is sent, avoiding the stock template's public
 ports and unrelated provisioning configuration. Configure `model_downloads` for

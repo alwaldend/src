@@ -19,22 +19,28 @@ local get(nodes, id) = byId(nodes)[std.toString(id)];
       else links,
     },
 
-  // All families expose sequence text and paired image filenames identically.
-  sequence(base, sequenceNode, positiveId, saveId, linkIds)::
+  // Preserve model-specific encoders while centralizing editable sequence text.
+  sequence(base, sequenceNode, positiveId, negativeId, saveId, linkIds, textInput='text')::
     local positive = get(base.nodes, positiveId);
+    local negative = if negativeId == null then null else get(base.nodes, negativeId);
     local save = get(base.nodes, saveId);
     local widget(name) = { name: name, type: 'STRING', widget: { name: name } };
     self.variant(base, {
-      nodes: [sequenceNode],
+      nodes: [sequenceNode {
+        widgets_values: sequenceNode.widgets_values + [if negative == null then '' else negative.widgets_values[0]],
+        size: [sequenceNode.size[0], sequenceNode.size[1] + 140],
+      }],
       updates: {
-        [std.toString(positiveId)]: { inputs: positive.inputs + [widget('text')] },
+        [std.toString(positiveId)]: { inputs: positive.inputs + [widget(textInput)] },
         [std.toString(saveId)]: { inputs: save.inputs + [widget('filename_prefix')] },
-      },
+      } + (if negative == null then {} else {
+             [std.toString(negativeId)]: { inputs: negative.inputs + [widget(textInput)], title: 'Encode shared negative prompt' },
+           }),
       links: [
         [linkIds[0], sequenceNode.id, 0, positiveId, std.length(positive.inputs)],
         [linkIds[1], sequenceNode.id, 1, saveId, std.length(save.inputs)],
-      ],
-      metadata: { last_node_id: sequenceNode.id, last_link_id: linkIds[1] },
+      ] + (if negative == null then [] else [[linkIds[2], sequenceNode.id, 2, negativeId, std.length(negative.inputs)]]),
+      metadata: { last_node_id: sequenceNode.id, last_link_id: linkIds[std.length(linkIds) - 1] },
     }),
 
   render(spec)::

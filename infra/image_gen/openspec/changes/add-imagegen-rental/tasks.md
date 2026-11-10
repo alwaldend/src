@@ -136,3 +136,26 @@ workflow defaults remain available for a later authorized deployment.
 ## 22. Generated workflow inputs
 
 - [x] 22.1 Consume native workflow outputs from the shared Libsonnet build and grant its generator access only to public config.json, retaining the existing Terraform paths and offline behavior.
+
+## 23. Authorized Juggernaut rental
+
+- [x] 23.1 Repair the startup transport limit through the owning module/provider, review the full interactive plan and create one standard rental.
+- [x] 23.2 Refresh connection outputs and verify authenticated ComfyUI and the configured checkpoint without reading user content or generating images.
+
+## 24. Editor and multi-reference source update
+
+- [x] 24.1 Stop staging the retired prompt editor and include the approved IP-Adapter Plus pack, adapter weights, CLIP vision encoder and two native multi-reference workflows in the Juggernaut profile.
+- [x] 24.2 Validate source, generated assets and provisioning without accessing or modifying the rental while the operator uses it.
+
+## 25. Authorized replacement
+
+- [x] 25.1 Destroy only the current instance through its reviewed targeted apply after the operator ends use.
+- [x] 25.2 Apply the completed source through the full reviewed rental plan and verify the replacement endpoint and configured runtime.
+- [x] 25.3 Run all seven selected workflows on the replacement GPU with neutral fixtures; verify 13 outputs and both corrected style paths.
+
+## 26. FLUX.2 dev replacement
+
+- [x] 26.1 Destroy the Juggernaut instance through its reviewed instance-scoped apply after the operator explicitly requests replacement.
+- [x] 26.2 Add the requested publisher-pinned FLUX.2 dev 32B FP8 bundle and native workflows, selecting the existing 96 GB hardware profile for the first run.
+- [x] 26.3 Validate source and review the full interactive rental plan, retaining Secure Cloud, verified-host and HTTPS authentication controls.
+- [x] 26.4 Deploy the replacement and provide its observed URL; stop all further rental access when the operator begins use, recording the unperformed acceptance checks.

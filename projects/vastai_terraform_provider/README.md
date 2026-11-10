@@ -43,6 +43,14 @@ The adapter retains endpoint validation and a few operations omitted from the sc
   Refresh normalizes compound API modes and retains a compatible configured
   value; imports select a supported mode. Missing or unsupported modes produce
   a read error and retain state.
+- `compress_onstart` (default false) enables gzip transport for compatible images
+  providing `/bin/bash`, `base64`, `gzip`, `mktemp` and `rm`. The provider compresses
+  the complete script when that reduces its size and enforces Vast's 16,384-byte
+  startup command limit before creation. The decoded script runs from a private
+  temporary file that is removed on exit. Terraform retains the original sensitive
+  script, and refresh recognizes its encoded API representation without drift.
+  Changing this creation setting replaces the instance. Oversized commands fail
+  without a rental request or disclosure of script content.
 - `label` (default empty) and `state` (`running` or `stopped`, default
   `running`) update in place. Refresh reads drift, observed `actual_status`,
   `ssh_host`, `ssh_port`, and `public_ip`. Destroy terminates the contract;

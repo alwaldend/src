@@ -111,3 +111,22 @@ a root-private decoded file to reduce Vast request argument size.
 Vast rejected the initial expanded lock because startup arguments exceeded its
 16,384-byte limit. Use exact Python 3.12 Linux x86_64 wheel URLs and hashes rather
 than hashes for unused platforms. Reject oversized rendered startup before rental.
+
+## Provider-owned startup transport
+
+The expanded Juggernaut configuration exceeded the API limit before creating a
+rental. The module now supplies plain JSON through quoted, content-derived
+heredocs rather than Base64-encoding each file before compression. It opts into
+the provider's gzip startup transport; the provider owns encoding and the API
+byte-limit guard. Native boot ordering, model provisioner inputs, authentication
+and service exposure remain unchanged. The complete selected configuration must
+pass its owning interactive plan before the separately authorized rental.
+
+## Native image-adapter model paths
+
+Extend the validated model kinds with ipadapter and clip_vision and map them
+only in ComfyUI to models/ipadapter and models/clip_vision. Other runtime maps
+still reject unsupported kinds before creation. Native Git/download phases
+retain approved immutable references; no custom downloader or public service is
+added. The real Terraform CLI fixture covers both access modes and both
+checkpoint layouts with the new destinations.

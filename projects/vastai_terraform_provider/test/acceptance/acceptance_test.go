@@ -42,6 +42,8 @@ type fixture struct {
 	mode string
 	// calls records non-sensitive HTTP methods and paths.
 	calls []string
+	// onstart is the fixture's creation command, echoed to exercise refresh.
+	onstart string
 }
 
 // ServeHTTP validates authentication and serves a minimal Vast.ai contract.
@@ -104,6 +106,7 @@ func (f *fixture) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		f.exists = true
+		f.onstart, _ = body["onstart"].(string)
 		f.label, _ = body["label"].(string)
 		f.state, _ = body["target_state"].(string)
 		fmt.Fprint(w, `{"success":true,"new_contract":91,"instance_api_key":"fixture-secret-response"}`)
@@ -156,6 +159,9 @@ func (f *fixture) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 				"image_uuid": image, "disk_space": 20, "image_runtype": runtype,
 				"ssh_host": "203.0.113.1", "ssh_port": 22001, "public_ipaddr": "203.0.113.2",
 				"ports": map[string]any{"7860/tcp": []any{map[string]any{"HostPort": "27860"}}},
+			}
+			if f.onstart != "" {
+				instance["onstart"] = f.onstart
 			}
 			switch f.mode {
 			case "missing-image":

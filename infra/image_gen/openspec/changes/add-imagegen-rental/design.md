@@ -531,3 +531,116 @@ Vault/backend credential or protected infrastructure artifact is a build input.
 Terraform still reads native JSON from declared Bazel data. Empty download arrays
 retain the existing workflow filenames and recorded model defaults. Shared
 Jsonnet tooling is owned by infra/src/add-jsonnet-tooling; no rental is changed.
+
+## Juggernaut rental and startup transport
+
+On 2026-11-10 the operator explicitly requested a rental and its URL. The first
+interactive apply rejected the expanded startup configuration before creating
+capacity. The provider now owns opt-in gzip transport and the API byte limit;
+the base module supplies plain JSON rather than pre-encoding each file.
+The provider CLI fixture passed actual script execution, stable refresh,
+external startup drift and oversized-input rejection.
+
+The reviewed apply then created one standard Juggernaut rental with no other
+resource changes. The selected certified datacenter offer reported one CMP
+170HX, 40 GiB VRAM and approximately USD 0.497/hour including the requested
+disk. Reviewed refresh-only applies recorded its connection metadata. The
+official CA verified the live HTTPS endpoint, unauthenticated requests returned
+401, and the existing Vault login accessed ComfyUI successfully. The native
+checkpoint schema included the configured Juggernaut file. No user uploads,
+history or outputs were read, and no image-generation jobs were submitted.
+GPU generation and style quality remain unverified. Credentials and current
+connection coordinates remain in Vault and the owning Terraform outputs.
+
+## Native editor and multi-reference replacement
+
+The operator rejected the growing prompt editor and requested the original
+multiline box with blank lines for visual spacing. Stop staging its browser
+script; the existing line parser already ignores blank lines. Restore the
+upstream float64 SDXL style-patcher setting after the supplied WCT dtype error.
+The approved IP-Adapter Plus pack and two public model files add two
+multi-reference workflows to the Juggernaut profile. No new pip packages are
+required by the general adapter path; the existing image supplies Torch,
+Torchvision, NumPy and Pillow.
+
+While the operator was using the instance, all investigation and source checks
+remained local or used pinned public source. The operator then explicitly
+requested destruction and a new deployment after the changes. A reviewed,
+instance-targeted apply destroyed contract 60111260 on 2026-11-10, with one
+resource destroyed and no login, key or AppRole changes. Targeted apply left
+historical outputs cached; they are not a live connection. The requested
+replacement must use the full reviewed plan and publish newly observed outputs.
+
+## Replacement GPU acceptance
+
+The operator explicitly requested tests of all workflows on the rented instance.
+The full reviewed plan created replacement 60116333 on 2026-11-10 with the
+configured Vast ComfyUI image, one CMP 170HX and 40 GiB VRAM. Reviewed refresh
+recorded its new coordinates. Authenticated metadata reported ComfyUI 0.44.0
+and Torch 2.10.0; the official root verified HTTPS, unauthenticated requests
+returned 401, and the diagnostic port remained closed.
+
+The owning authenticated CLI uploaded three first-party neutral geometric robot
+images and ran all seven selected generated Juggernaut workflows. Only reference
+filenames and output prefixes changed for fixture isolation; 1024-square resolution,
+30-step sampling and guidance defaults were retained. All workflows completed,
+producing the expected 13 PNGs. Dimensions, CRC, decompression and nonempty-pixel
+checks passed. Both RES4LYF paths completed without the reported dtype failure;
+the blank-spaced multi-reference prompt list produced three outputs. Two artifact
+downloads timed out during GPU activity and succeeded after the queue finished.
+
+The original WCT guide produced soft images with these simple fixtures. The
+three-reference adapter retained the geometric appearance strongly at weight 0.8
+but often omitted the requested action. A fixed-seed comparison at weight 0.5
+and end_at 0.8 retained the broad reference style while adding the requested
+reading scene. These results establish runtime execution and useful tuning,
+not exact character identity or reliable scene adherence. The original
+reference-heavy defaults remain available; guidance controls are documented.
+
+Repeatable native workflow variants, prompt IDs, per-output hashes and neutral
+images remain under ignored out/imagegen/startup/live; acceptance.json records
+all seven executions and 13 verified images. No private user content was read.
+Credentials remain in Vault and current coordinates in Terraform outputs.
+
+## Requested FLUX.2 dev 32B replacement
+
+After discussing the named FLUX.2 dev 32B model, its native ComfyUI FP8 diffusion
+weights and local Mistral text encoder, the operator explicitly requested
+destruction and deployment of that larger model. The operator then selected the
+prepared larger 96 GB instance for the first run. This directly accepts the
+identified model bundle; no new image, custom-node pack or Python dependency is
+needed. Pin the Comfy-Org diffusion model, matching Mistral encoder and FLUX.2 VAE
+at an observed immutable publisher revision. Preserve all existing model options.
+
+Decision verdict: proceed with FP8 and the existing 96gb hardware profile,
+95 GiB VRAM floor, 150 GB disk and USD 3/hour ceiling. The prior 48 GB/FP8 proposal
+would be a cheaper trial, but the operator chose more memory for initial use.
+Keep text encoding inside the rental. The official ComfyUI example supplies the
+native FLUX.2 dev conditioning and sampling contracts; the 9B Klein workflow
+must not be relabeled without adapting its different guidance behavior.
+
+A reviewed targeted apply destroyed instance 60116333 on 2026-11-11, with zero
+other resources changed. Its former connection outputs are historical until a
+full reviewed rental apply and refresh publishes new coordinates. No private
+uploads or outputs were inspected during destruction.
+
+The full reviewed apply created instance 60123890 from offer 54022741, adding
+one resource and changing no credentials. An initial reviewed refresh recorded
+its IP and SSH endpoint before port mappings were available. Subsequent scoped
+read-only Vast metadata reported running status, RTX PRO 6000 S, 97,887 MiB
+VRAM, approximately 1 TiB host RAM and USD 1.7889/hour including the selected
+disk. Its newly observed HTTPS endpoint was supplied to the operator.
+
+The operator then began using the replacement and explicitly prohibited further
+access. No new generation jobs, user-content inspection or runtime changes were
+performed. Final connection-output refresh, authenticated health/TLS acceptance
+and GPU workflow checks were not completed and require renewed authorization.
+The source passes offline node, graph, Terraform and provider checks; those do
+not establish inference quality for the new 32B deployment.
+
+After operator use began, the operator requested the missing single-reference
+workflow. The source bundle now also includes single-reference and matching
+sequence JSON. These were compiled and supplied as importable operator artifacts;
+they were not installed on the rental. The active initial three-workflow bundle
+and the five-workflow desired configuration therefore differ until a later
+authorized deployment. This follow-up does not authorize a replacement.

@@ -25,6 +25,8 @@ go_library(
         "@com_github_hashicorp_terraform_plugin_framework//path",
         "@com_github_hashicorp_terraform_plugin_framework//resource",
         "@com_github_hashicorp_terraform_plugin_framework//resource/schema",
+        "@com_github_hashicorp_terraform_plugin_framework//resource/schema/booldefault",
+        "@com_github_hashicorp_terraform_plugin_framework//resource/schema/boolplanmodifier",
         "@com_github_hashicorp_terraform_plugin_framework//resource/schema/float64planmodifier",
         "@com_github_hashicorp_terraform_plugin_framework//resource/schema/int64planmodifier",
         "@com_github_hashicorp_terraform_plugin_framework//resource/schema/planmodifier",

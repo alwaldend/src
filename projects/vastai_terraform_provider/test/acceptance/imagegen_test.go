@@ -3,6 +3,8 @@ package acceptance
 import (
 	"bytes"
 	"compress/gzip"
+	"context"
+	"crypto/sha256"
 	"encoding/base64"
 	"encoding/json"
 	"flag"
@@ -11,9 +13,11 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"os"
+	"os/exec"
 	"path/filepath"
 	"strings"
 	"testing"
+	"time"
 
 	"github.com/bazelbuild/rules_go/go/runfiles"
 )
@@ -23,6 +27,15 @@ var imagegenModulePath = flag.String("imagegen-module", "", "Image generation mo
 
 // comfyuiModulePath locates the native ComfyUI wrapper.
 var comfyuiModulePath = flag.String("comfyui-module", "", "ComfyUI module runfile")
+
+// imagegenConfigurationPath selects the public deployment profile for full-bundle acceptance.
+var imagegenConfigurationPath = flag.String("imagegen-configuration", "", "Image generation configuration runfile")
+
+// promptSequencePath selects the actual first-party node staged in the startup manifest.
+var promptSequencePath = flag.String("prompt-sequence", "", "Prompt Sequence source runfile")
+
+// configuredWorkflowPath anchors the generated workflow tree consumed by the real profile.
+var configuredWorkflowPath = flag.String("configured-workflow", "", "Configured workflow runfile")
 
 // imagegenFixture adds template discovery and creation guards to the rental fixture.
 type imagegenFixture struct {
@@ -34,6 +47,8 @@ type imagegenFixture struct {
 	response string
 	// startup retains the public-fixture startup for manifest inspection.
 	startup string
+	// startupBytes records the encoded API payload size without retaining it in evidence.
+	startupBytes int
 	// noTemplate requires a rental without inherited template configuration.
 	noTemplate bool
 	// exposed selects the single-port HTTPS request contract.
@@ -116,13 +131,14 @@ func (f *imagegenFixture) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		startup, _ := input["onstart"].(string)
+		f.startupBytes = len(startup)
 		if f.rental.mode == "startup-too-long" {
 			w.Header().Set("Content-Type", "application/json")
 			w.WriteHeader(http.StatusBadRequest)
 			fmt.Fprint(w, `{"error":"invalid_args","msg":"Invalid args: len(args) > 32768; fixture-private-content"}`)
 			return
 		}
-		if strings.HasPrefix(startup, "# Compressed imagegen startup") {
+		if strings.HasPrefix(startup, "# Compressed Vast.ai startup") {
 			_, encoded, found := strings.Cut(startup, "printf '%s' '")
 			if !found || len(startup) > 16384 {
 				w.WriteHeader(http.StatusBadRequest)
@@ -141,7 +157,7 @@ func (f *imagegenFixture) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			}
 			decoded, err := io.ReadAll(reader)
 			closeErr := reader.Close()
-			if err != nil || closeErr != nil || !strings.Contains(startup, "exec /bin/bash /etc/imagegen-startup.sh") {
+			if err != nil || closeErr != nil || !strings.Contains(startup, `/bin/bash "$startup_file"`) {
 				w.WriteHeader(http.StatusBadRequest)
 				return
 			}
@@ -172,6 +188,93 @@ func (f *imagegenFixture) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		r.Body = io.NopCloser(bytes.NewReader(body))
 	}
 	f.rental.ServeHTTP(w, r)
+}
+
+// TestInstanceStartupCompression executes the API command and verifies refresh and drift through Terraform.
+func TestInstanceStartupCompression(t *testing.T) {
+	f := &fixture{}
+	server := httptest.NewServer(f)
+	defer server.Close()
+	h := newHarness(t, server.URL+"/api/v0")
+	script := strings.Repeat("# Public neutral startup fixture.\n", 4000) + "printf '%s' 'literal $HOME and apostrophe: '\"'\"'' > result.txt\n"
+	if err := os.WriteFile(filepath.Join(h.directory, "startup.sh"), []byte(script), 0o600); err != nil {
+		t.Fatalf("write startup fixture: %v", err)
+	}
+	configuration, err := os.ReadFile(filepath.Join(h.directory, "main.tf"))
+	if err != nil {
+		t.Fatalf("read startup configuration: %v", err)
+	}
+	configuration = []byte(strings.Replace(string(configuration), "offer_id = 17", "offer_id = 17\n  onstart = file(\"${path.module}/startup.sh\")\n  compress_onstart = true", 1))
+	if err := os.WriteFile(filepath.Join(h.directory, "main.tf"), configuration, 0o600); err != nil {
+		t.Fatalf("write startup configuration: %v", err)
+	}
+	h.run(t, true, "apply", "-auto-approve", "-no-color")
+	f.mu.Lock()
+	command := f.onstart
+	f.mu.Unlock()
+	if len(command) > 16384 || len(command) >= len(script) {
+		t.Fatal("API command did not fit the startup limit")
+	}
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+	process := exec.CommandContext(ctx, "/bin/bash", "-c", command)
+	process.Dir, process.Env = h.directory, h.environment
+	if output, err := process.CombinedOutput(); err != nil {
+		t.Fatalf("execute startup command: %v\n%s", err, output)
+	}
+	result, err := os.ReadFile(filepath.Join(h.directory, "result.txt"))
+	if err != nil || string(result) != "literal $HOME and apostrophe: '" {
+		t.Fatalf("startup literal content changed: %v", err)
+	}
+	h.run(t, true, "apply", "-refresh-only", "-auto-approve", "-no-color")
+	h.run(t, true, "plan", "-detailed-exitcode", "-no-color")
+	f.mu.Lock()
+	f.onstart = "printf 'external change'"
+	f.mu.Unlock()
+	if output := h.run(t, true, "plan", "-no-color"); !strings.Contains(output, "must be replaced") {
+		t.Fatal("external startup drift was not detected")
+	}
+	h.run(t, true, "destroy", "-auto-approve", "-no-color")
+	if directory := os.Getenv("TEST_UNDECLARED_OUTPUTS_DIR"); directory != "" {
+		evidence, err := json.Marshal(map[string]any{"original_bytes": len(script), "command_bytes": len(command), "execution": "passed", "refresh": "stable", "drift": "detected", "live_operations": 0})
+		if err != nil {
+			t.Fatalf("encode startup evidence: %v", err)
+		}
+		if err := os.WriteFile(filepath.Join(directory, "startup-compression.json"), evidence, 0o600); err != nil {
+			t.Fatalf("write startup evidence: %v", err)
+		}
+	}
+}
+
+// TestInstanceStartupLimit rejects oversized plain and incompressible commands before creation.
+func TestInstanceStartupLimit(t *testing.T) {
+	var payload strings.Builder
+	for index := range 2048 {
+		fmt.Fprintf(&payload, "%x", sha256.Sum256([]byte(fmt.Sprint(index))))
+	}
+	for _, compress := range []bool{false, true} {
+		t.Run(fmt.Sprint(compress), func(t *testing.T) {
+			f := &fixture{}
+			server := httptest.NewServer(f)
+			defer server.Close()
+			h := newHarness(t, server.URL+"/api/v0")
+			if err := os.WriteFile(filepath.Join(h.directory, "startup.sh"), []byte(payload.String()), 0o600); err != nil {
+				t.Fatalf("write oversized fixture: %v", err)
+			}
+			configuration, err := os.ReadFile(filepath.Join(h.directory, "main.tf"))
+			if err != nil {
+				t.Fatalf("read oversized configuration: %v", err)
+			}
+			configuration = []byte(strings.Replace(string(configuration), "offer_id = 17", fmt.Sprintf("offer_id = 17\n  onstart = file(\"${path.module}/startup.sh\")\n  compress_onstart = %t", compress), 1))
+			if err := os.WriteFile(filepath.Join(h.directory, "main.tf"), configuration, 0o600); err != nil {
+				t.Fatalf("write oversized configuration: %v", err)
+			}
+			output := h.run(t, false, "apply", "-auto-approve", "-no-color")
+			if !strings.Contains(output, "startup command exceeds 16384 bytes") || strings.Contains(output, payload.String()[:80]) || f.exists {
+				t.Fatal("oversized startup did not fail safely before creation")
+			}
+		})
+	}
 }
 
 // writeImagegen configures a consumer of the checked-in module rather than duplicating it.

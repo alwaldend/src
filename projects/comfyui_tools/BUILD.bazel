@@ -7,7 +7,7 @@ package_group(
     packages = [
         "//infra/image_gen/tf_setup",
         "//projects/comfyui_tools",
-        "//projects/comfyui_tools/test/browser",
+        "//projects/vastai_terraform_provider/test/acceptance",
     ],
 )
 
@@ -15,7 +15,6 @@ filegroup(
     name = "comfyui_tools",
     srcs = [
         "//projects/comfyui_tools/nodes/prompt_sequence:source",
-        "//projects/comfyui_tools/nodes/prompt_sequence:web_source",
         "//projects/comfyui_tools/workflows",
     ],
     visibility = ["//:__subpackages__"],

@@ -25,6 +25,8 @@ Model kinds map below `/workspace/ComfyUI`:
 | `vae`          | `models/vae`              |
 | `embedding`    | `models/embeddings`       |
 | `text_encoder` | `models/text_encoders`    |
+| `ipadapter`    | `models/ipadapter`        |
+| `clip_vision`  | `models/clip_vision`      |
 
 Here `checkpoint` means the standalone diffusion model, loaded with ComfyUI's
 Load Diffusion Model node. For an all-in-one SDXL checkpoint loaded by CheckpointLoaderSimple, set
@@ -33,8 +35,9 @@ are that directory and the default `models/diffusion_models`; other model kinds
 retain the paths above.
 `workflows` accepts named native JSON documents and stages them in
 `user/default/workflows` after Vast initializes the workspace. The wrapper
-compacts the JSON; the base compresses larger startup payloads and rejects
-requests exceeding Vast's 16 KB limit before creating a rental.
+compacts the JSON; the base supplies plain JSON in its startup script and enables
+the provider's gzip transport. The provider rejects encoded commands exceeding
+Vast's 16 KB limit before creating a rental.
 `custom_node_sources` accepts approved first-party Python modules keyed by
 validated directory names. The native file provisioner stages each module as
 `custom_nodes/<name>/__init__.py`; only those directories and approved Git packs
