@@ -15,3 +15,9 @@
 
 - [x] 3.1 Remove the legacy image-generation delivery grant from the existing Vast role and delete only its obsolete policy through a reviewed targeted apply.
 - [x] 3.2 Define the fresh image-generation AppRole and exact-path team-writer permission without deploying the replacement component.
+
+## Component deployment without capacity
+
+- [x] 4.1 Correct the exact web metadata policy to include read and delete, preserving the namespace boundary.
+- [x] 4.2 Apply the authorized AppRole/policies and credential-only roots; verify metadata access and no rental.
+- [x] 4.3 Record sanitized deployment evidence and prepare the correction for guarded delivery.

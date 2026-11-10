@@ -48,11 +48,13 @@ later remove the generated key using its own identity.
 state subtree. Its operator member can bootstrap the AppRole and browse that
 namespace in Vault. List-only permissions on exact metadata ancestors support
 UI navigation without access to other secret values. An additional exact-path
-metadata-delete policy lets the component remove all versions of its web-login
-entry. It does not join the broad infrastructure AppRole group.
+metadata read/delete policy lets the component manage and remove all versions
+of its web-login entry. Its explicit read permission retains metadata access
+when this exact-path policy takes precedence over the namespace wildcard. It does not join the broad infrastructure AppRole group.
 
 The legacy personal image-generation grant was removed through a reviewed
-scoped apply on 2026-11-10. The replacement role and delivery grant are source
-only and require a separately authorized Vault apply before key creation or
-rental. The existing personal user role and its browser access are independent
+scoped apply on 2026-11-10. The replacement role and delivery grant were then
+deployed under the user's credential-only authorization; no rental was created.
+The [component receipt](../../image_gen/openspec/changes/add-imagegen-rental/design.md#credential-only-deployment)
+records the operation. The existing personal user role and its browser access are independent
 and remain unchanged.

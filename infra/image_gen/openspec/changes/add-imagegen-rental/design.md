@@ -9,9 +9,10 @@ operator can browse its namespace through existing Vault identity membership.
 The web and delivered key resources delete all their KV versions on destroy;
 their exact metadata-delete permissions do not extend to component state.
 
-The replacement uses fresh state and generates fresh credentials when later
-authorized. No migration, import or reuse of the personal backend is required.
-New role, policies, key and rental remain undeployed. Prior deployment receipts
+The replacement uses fresh state and generated fresh credentials after the
+user authorized applying IaC without renting capacity. No migration, import or
+reuse of the personal backend was required. The AppRole, policies and credentials
+are deployed; the rental remains absent. Prior deployment receipts
 below describe retired resources and do not establish a current endpoint.
 
 ## Legacy teardown receipt, 2026-11-10
@@ -223,3 +224,33 @@ The diagram target was rendered and visually inspected with readable nested
 containers and the existing dark actor theme. Inventory regeneration was stable
 on its second run. New AppRole permissions and Qwen inference still require
 separately authorized live acceptance; this delivery makes no runtime claim.
+
+## Credential-only deployment
+
+After merging PR #285 the user explicitly authorized applying IaC without renting
+an instance. Inputs matched merged commit 611710800d460b633abc8c27a3d814720c3ffdcf.
+Owning interactive applies were reviewed before each approval:
+
+| UTC, 2026-11-10 | Owner                 | Scope and result                                                                                         |
+| --------------- | --------------------- | -------------------------------------------------------------------------------------------------------- |
+| 09:53           | Vault                 | Component AppRole, identity/group/policies and exact team-writer grant: 10 added, 1 changed, 0 destroyed |
+| 09:54           | Vast team             | Key 36936194 and component delivery entry: 2 added, 0 changed, 0 destroyed                               |
+| 09:55           | Component credentials | Password created; web entry written but apply failed on metadata read and tainted that entry             |
+| 09:57           | Vault                 | Exact web policy corrected to read/delete: 0 added, 1 changed, 0 destroyed                               |
+| 09:58           | Component credentials | Replace only the tainted web entry, retaining the generated password: 1 added, 0 changed, 1 destroyed    |
+
+The component backend is initialized at its new setup path. All component-root
+applies explicitly targeted random_password.web and vault_kv_secret_v2.web;
+no instance module, offer selection or paid capacity was applied. The Vault
+owner records the metadata-policy precedence failure and correction. Credential
+values were not printed or saved locally. Runtime Qwen verification remains
+outside this no-rental deployment.
+
+At 2026-11-10T10:01:20Z, the new AppRole read the dedicated API key and valid
+48-character alphanumeric web login. Effective-capability checks passed own
+namespace/backend access, exact web metadata read/delete, team-writer login/state
+denial and component team-issuer denial. The human operator can browse and read
+the namespace. A read-only API request authenticated with the generated key
+reported zero team instances and zero image-generation rentals. Credential
+values remained in memory and were not printed. This establishes access and
+absence of capacity, not ComfyUI readiness or model quality.

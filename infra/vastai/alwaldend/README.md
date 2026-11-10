@@ -20,8 +20,9 @@ its own AppRole. The writer can delete metadata for this exact entry so its
 managed key delivery is removed completely during teardown.
 
 The former personal key and its delivery entry were destroyed on 2026-11-10.
-The new component key is declared under fresh resource names and has not been
-created. No state handoff or import is needed. The
+The fresh component key has been created and delivered to its own namespace.
+The [component receipt](../../image_gen/openspec/changes/add-imagegen-rental/design.md#credential-only-deployment)
+records its reviewed creation without a rental. No state handoff or import is needed. The
 [change record](../openspec/changes/relocate-imagegen-credentials/design.md)
 retains the previous handoff history and current teardown evidence.
 
@@ -40,7 +41,7 @@ Verify that the seed selects alwaldend and review the interactive apply before
 approving it. Do not save plans or use automatic approval. The component AppRole owns team credentials/state and the exact-path token
 delivery permission. The owning Vault workflow manages that narrow permission. The
 [acceptance record](../../vault/openspec/changes/authorize-vastai-key-delivery/verification.md)
-records the legacy grant; the replacement policy and key remain undeployed.
+records the legacy grant; the component receipt above records the new deployment.
 
 Rent and release compute through the separate [rental test](../rentals_test/README.md),
 which reads the generated `rentals` key. Running this root does not rent compute.

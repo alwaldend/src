@@ -68,3 +68,9 @@ workflow defaults remain available for a later authorized deployment.
 - [x] 12.3 Wire team issuance into the component's exact key entry and remove personal credential/state references from active configuration.
 - [x] 12.4 Validate source, representative diagram and native workflow structure without deploying replacement resources.
 - [x] 12.5 Review the new desired state and prepare it for guarded publication; delivery receipts own publication and remote-review state.
+
+## 13. Credential-only deployment
+
+- [x] 13.1 Apply the merged AppRole/policies and dedicated key through owning scoped interactive workflows.
+- [x] 13.2 Apply only password and web-login resources, retaining the password after correcting metadata access; create no instance.
+- [x] 13.3 Verify credential access and absence of a rental, then record the sanitized receipt.
