@@ -1,5 +1,17 @@
 ## ADDED Requirements
 
+### Requirement: Optional gated model downloads
+
+The base and ComfyUI modules SHALL accept an optional sensitive Hugging Face
+token for native downloads without placing credentials in model URLs, manifests
+or public outputs. Public-download callers SHALL require no token. Access and
+license acceptance SHALL remain the caller's responsibility.
+
+#### Scenario: Gated publisher file
+
+- **WHEN** the caller supplies an authorized Vault-sourced token
+- **THEN** native first-boot downloading SHALL receive it without changing service exposure
+
 ### Requirement: Imagegen access
 
 The implementation SHALL provide the following behavior: Retain ssh_only by default; exposed publishes only 7860/tcp through a dedicated TLS and Basic-auth Caddy configuration. The selected runtime stays on loopback. Reject unsafe template options and weak credentials; disable outbound tunnels and synchronization while retaining loopback-only portal, Jupyter, and TensorBoard services.

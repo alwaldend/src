@@ -36,6 +36,7 @@ WORKSPACE_SOURCES = {
     "projects_autoscroll": "//projects/autoscroll/openspec:source",
     "projects_bazel_deps_analyzer": "//projects/bazel_deps_analyzer/openspec:source",
     "projects_ci_platform": "//projects/ci_platform/openspec:source",
+    "projects_comfyui_tools": "//projects/comfyui_tools/openspec:source",
     "projects_dotfiles": "//projects/dotfiles/openspec:source",
     "projects_icon_generator": "//projects/icon_generator/openspec:source",
     "projects_infinitime": "//projects/infinitime/openspec:source",

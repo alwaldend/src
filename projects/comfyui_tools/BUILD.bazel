@@ -1,0 +1,33 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+
+package(transitive_visibility = "//projects:transitive_consumers")
+
+package_group(
+    name = "asset_consumers",
+    packages = [
+        "//infra/image_gen/tf_setup",
+        "//projects/comfyui_tools",
+        "//projects/comfyui_tools/test/browser",
+    ],
+)
+
+filegroup(
+    name = "comfyui_tools",
+    srcs = [
+        "//projects/comfyui_tools/nodes/prompt_sequence:source",
+        "//projects/comfyui_tools/nodes/prompt_sequence:web_source",
+        "//projects/comfyui_tools/workflows",
+    ],
+    visibility = ["//:__subpackages__"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//projects:__pkg__"],
+    deps = [
+        "//projects/comfyui_tools/nodes/prompt_sequence:docs",
+        "//projects/comfyui_tools/openspec:docs",
+        "//projects/comfyui_tools/workflows:docs",
+    ],
+)

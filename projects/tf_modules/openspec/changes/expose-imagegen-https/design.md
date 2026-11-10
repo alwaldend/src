@@ -1,4 +1,32 @@
+## Gated model follow-up
+
+Live preparation exposed VAST_OFFER_ID_QUERY: an id equality filter returned no
+offers even though a GPU-model search returned the selected offer. The native
+API accepted ask_contract_id and returned the exact same offer ID. Use that
+field while retaining the returned-ID, hosting, memory and price postconditions.
+The failed interactive apply made no remote-resource changes.
+
+The user approved FLUX.2 klein 9B and requested a rental. Its publisher gates the
+checkpoint. Add an optional sensitive Hugging Face token to the base and ComfyUI
+interfaces. The caller reads it from its Vault namespace. Encode it into the
+existing sensitive startup command and export it only for the native boot
+process, without putting it into the download manifest or persistent global
+environment file. Native Hugging Face downloading already consumes HF_TOKEN.
+No new downloader or Python package is added to the rental. The selected host
+administrator and rental processes can access this token, so use a read-only
+token restricted to the model repository. Existing host trust remains accepted.
+
+Failure cases: null token preserves public-download behavior; arbitrary token
+characters must not become shell syntax; native provisioning must receive the
+value; neither Terraform public outputs nor fixture diagnostics may expose it.
+
 ## Context
+
+The user also requested a first-party prompt-list node. Extend native write_files
+with a map of approved source modules written only as
+`ComfyUI/custom_nodes/<validated-directory>/__init__.py`. Merge their directory names
+into the existing custom-node whitelist; do not install another pack or package.
+Verify default-empty behavior and prevent directory traversal and name collisions.
 
 Image generation needs SSH-only and password-authenticated HTTPS access with a 32 GiB VRAM floor.
 

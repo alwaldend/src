@@ -15,6 +15,7 @@ PROJECTS = [
     "bazel_deps_analyzer",
     "bazel_gazelle_enforce_transitive_visibility",
     "ci_platform",
+    "comfyui_tools",
     "dotfiles",
     "icon_generator",
     "infinitime",

@@ -1,0 +1,794 @@
+{
+    "last_node_id": 24,
+    "last_link_id": 32,
+    "nodes": [
+        {
+            "id": 1,
+            "type": "UNETLoader",
+            "pos": [0, 0],
+            "size": [320, 180],
+            "flags": {},
+            "order": 0,
+            "mode": 0,
+            "inputs": [],
+            "outputs": [
+                {
+                    "name": "MODEL",
+                    "type": "MODEL",
+                    "links": [17]
+                }
+            ],
+            "title": "FLUX.2 klein Base 9B FP8",
+            "properties": {
+                "Node name for S&R": "UNETLoader"
+            },
+            "widgets_values": [
+                "flux-2-klein-base-9b-fp8.safetensors",
+                "default"
+            ]
+        },
+        {
+            "id": 2,
+            "type": "CLIPLoader",
+            "pos": [0, 230],
+            "size": [320, 180],
+            "flags": {},
+            "order": 1,
+            "mode": 0,
+            "inputs": [],
+            "outputs": [
+                {
+                    "name": "CLIP",
+                    "type": "CLIP",
+                    "links": [4, 5]
+                }
+            ],
+            "title": "Qwen3 8B text encoder",
+            "properties": {
+                "Node name for S&R": "CLIPLoader"
+            },
+            "widgets_values": [
+                "qwen_3_8b_fp8mixed.safetensors",
+                "flux2",
+                "default"
+            ]
+        },
+        {
+            "id": 3,
+            "type": "VAELoader",
+            "pos": [0, 460],
+            "size": [320, 180],
+            "flags": {},
+            "order": 2,
+            "mode": 0,
+            "inputs": [],
+            "outputs": [
+                {
+                    "name": "VAE",
+                    "type": "VAE",
+                    "links": [3, 12, 26]
+                }
+            ],
+            "title": "Flux encoder and small decoder",
+            "properties": {
+                "Node name for S&R": "VAELoader"
+            },
+            "widgets_values": ["full_encoder_small_decoder.safetensors"]
+        },
+        {
+            "id": 4,
+            "type": "LoadImage",
+            "pos": [0, 690],
+            "size": [320, 180],
+            "flags": {},
+            "order": 3,
+            "mode": 0,
+            "inputs": [],
+            "outputs": [
+                {
+                    "name": "IMAGE",
+                    "type": "IMAGE",
+                    "links": [1]
+                },
+                {
+                    "name": "MASK",
+                    "type": "MASK",
+                    "links": []
+                }
+            ],
+            "title": "Image 1: character",
+            "properties": {
+                "Node name for S&R": "LoadImage"
+            },
+            "widgets_values": ["character-reference.png", "image"]
+        },
+        {
+            "id": 5,
+            "type": "ImageScaleToTotalPixels",
+            "pos": [370, 690],
+            "size": [320, 180],
+            "flags": {},
+            "order": 4,
+            "mode": 0,
+            "inputs": [
+                {
+                    "name": "image",
+                    "type": "IMAGE",
+                    "link": 1
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "IMAGE",
+                    "type": "IMAGE",
+                    "links": [2, 28]
+                }
+            ],
+            "title": "Scale reference to one megapixel",
+            "properties": {
+                "Node name for S&R": "ImageScaleToTotalPixels"
+            },
+            "widgets_values": ["lanczos", 1, 1]
+        },
+        {
+            "id": 6,
+            "type": "VAEEncode",
+            "pos": [740, 690],
+            "size": [320, 180],
+            "flags": {},
+            "order": 5,
+            "mode": 0,
+            "inputs": [
+                {
+                    "name": "pixels",
+                    "type": "IMAGE",
+                    "link": 2
+                },
+                {
+                    "name": "vae",
+                    "type": "VAE",
+                    "link": 3
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "LATENT",
+                    "type": "LATENT",
+                    "links": [7, 9]
+                }
+            ],
+            "title": "Encode character reference",
+            "properties": {
+                "Node name for S&R": "VAEEncode"
+            },
+            "widgets_values": []
+        },
+        {
+            "id": 7,
+            "type": "CLIPTextEncode",
+            "pos": [370, 0],
+            "size": [320, 180],
+            "flags": {},
+            "order": 6,
+            "mode": 0,
+            "inputs": [
+                {
+                    "name": "clip",
+                    "type": "CLIP",
+                    "link": 4
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "CONDITIONING",
+                    "type": "CONDITIONING",
+                    "links": [6]
+                }
+            ],
+            "title": "Describe the new scene and reference roles",
+            "properties": {
+                "Node name for S&R": "CLIPTextEncode"
+            },
+            "widgets_values": [
+                "Create a comic panel of the white robot character from image 1 riding a bicycle through a snowy park. Use the illustration style, colors and linework of image 2. Show the new action and setting; do not reproduce the reference composition."
+            ]
+        },
+        {
+            "id": 8,
+            "type": "CLIPTextEncode",
+            "pos": [740, 230],
+            "size": [320, 180],
+            "flags": {},
+            "order": 7,
+            "mode": 0,
+            "inputs": [
+                {
+                    "name": "clip",
+                    "type": "CLIP",
+                    "link": 5
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "CONDITIONING",
+                    "type": "CONDITIONING",
+                    "links": [8]
+                }
+            ],
+            "title": "Base negative prompt",
+            "properties": {
+                "Node name for S&R": "CLIPTextEncode"
+            },
+            "widgets_values": [""]
+        },
+        {
+            "id": 9,
+            "type": "ReferenceLatent",
+            "pos": [1110, 0],
+            "size": [320, 180],
+            "flags": {},
+            "order": 8,
+            "mode": 0,
+            "inputs": [
+                {
+                    "name": "conditioning",
+                    "type": "CONDITIONING",
+                    "link": 6
+                },
+                {
+                    "name": "latent",
+                    "type": "LATENT",
+                    "link": 7
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "CONDITIONING",
+                    "type": "CONDITIONING",
+                    "links": [13]
+                }
+            ],
+            "title": "Positive character reference",
+            "properties": {
+                "Node name for S&R": "ReferenceLatent"
+            },
+            "widgets_values": []
+        },
+        {
+            "id": 10,
+            "type": "ReferenceLatent",
+            "pos": [1110, 230],
+            "size": [320, 180],
+            "flags": {},
+            "order": 9,
+            "mode": 0,
+            "inputs": [
+                {
+                    "name": "conditioning",
+                    "type": "CONDITIONING",
+                    "link": 8
+                },
+                {
+                    "name": "latent",
+                    "type": "LATENT",
+                    "link": 9
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "CONDITIONING",
+                    "type": "CONDITIONING",
+                    "links": [15]
+                }
+            ],
+            "title": "Negative character reference",
+            "properties": {
+                "Node name for S&R": "ReferenceLatent"
+            },
+            "widgets_values": []
+        },
+        {
+            "id": 11,
+            "type": "LoadImage",
+            "pos": [0, 980],
+            "size": [320, 180],
+            "flags": {},
+            "order": 10,
+            "mode": 0,
+            "inputs": [],
+            "outputs": [
+                {
+                    "name": "IMAGE",
+                    "type": "IMAGE",
+                    "links": [10]
+                },
+                {
+                    "name": "MASK",
+                    "type": "MASK",
+                    "links": []
+                }
+            ],
+            "title": "Image 2: style",
+            "properties": {
+                "Node name for S&R": "LoadImage"
+            },
+            "widgets_values": ["style-reference.png", "image"]
+        },
+        {
+            "id": 12,
+            "type": "ImageScaleToTotalPixels",
+            "pos": [370, 980],
+            "size": [320, 180],
+            "flags": {},
+            "order": 11,
+            "mode": 0,
+            "inputs": [
+                {
+                    "name": "image",
+                    "type": "IMAGE",
+                    "link": 10
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "IMAGE",
+                    "type": "IMAGE",
+                    "links": [11]
+                }
+            ],
+            "title": "Scale style reference",
+            "properties": {
+                "Node name for S&R": "ImageScaleToTotalPixels"
+            },
+            "widgets_values": ["lanczos", 1, 1]
+        },
+        {
+            "id": 13,
+            "type": "VAEEncode",
+            "pos": [740, 980],
+            "size": [320, 180],
+            "flags": {},
+            "order": 12,
+            "mode": 0,
+            "inputs": [
+                {
+                    "name": "pixels",
+                    "type": "IMAGE",
+                    "link": 11
+                },
+                {
+                    "name": "vae",
+                    "type": "VAE",
+                    "link": 12
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "LATENT",
+                    "type": "LATENT",
+                    "links": [14, 16]
+                }
+            ],
+            "title": "Encode style reference",
+            "properties": {
+                "Node name for S&R": "VAEEncode"
+            },
+            "widgets_values": []
+        },
+        {
+            "id": 14,
+            "type": "ReferenceLatent",
+            "pos": [1480, 0],
+            "size": [320, 180],
+            "flags": {},
+            "order": 13,
+            "mode": 0,
+            "inputs": [
+                {
+                    "name": "conditioning",
+                    "type": "CONDITIONING",
+                    "link": 13
+                },
+                {
+                    "name": "latent",
+                    "type": "LATENT",
+                    "link": 14
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "CONDITIONING",
+                    "type": "CONDITIONING",
+                    "links": [18]
+                }
+            ],
+            "title": "Positive style reference",
+            "properties": {
+                "Node name for S&R": "ReferenceLatent"
+            },
+            "widgets_values": []
+        },
+        {
+            "id": 15,
+            "type": "ReferenceLatent",
+            "pos": [1480, 230],
+            "size": [320, 180],
+            "flags": {},
+            "order": 14,
+            "mode": 0,
+            "inputs": [
+                {
+                    "name": "conditioning",
+                    "type": "CONDITIONING",
+                    "link": 15
+                },
+                {
+                    "name": "latent",
+                    "type": "LATENT",
+                    "link": 16
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "CONDITIONING",
+                    "type": "CONDITIONING",
+                    "links": [19]
+                }
+            ],
+            "title": "Negative style reference",
+            "properties": {
+                "Node name for S&R": "ReferenceLatent"
+            },
+            "widgets_values": []
+        },
+        {
+            "id": 16,
+            "type": "EmptyFlux2LatentImage",
+            "pos": [1110, 980],
+            "size": [320, 180],
+            "flags": {},
+            "order": 15,
+            "mode": 0,
+            "inputs": [
+                {
+                    "name": "width",
+                    "type": "INT",
+                    "link": 29,
+                    "widget": {
+                        "name": "width"
+                    }
+                },
+                {
+                    "name": "height",
+                    "type": "INT",
+                    "link": 30,
+                    "widget": {
+                        "name": "height"
+                    }
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "LATENT",
+                    "type": "LATENT",
+                    "links": [24]
+                }
+            ],
+            "title": "Fresh scene canvas",
+            "properties": {
+                "Node name for S&R": "EmptyFlux2LatentImage"
+            },
+            "widgets_values": [1024, 1024, 1]
+        },
+        {
+            "id": 17,
+            "type": "RandomNoise",
+            "pos": [1480, 690],
+            "size": [320, 180],
+            "flags": {},
+            "order": 16,
+            "mode": 0,
+            "inputs": [],
+            "outputs": [
+                {
+                    "name": "NOISE",
+                    "type": "NOISE",
+                    "links": [20]
+                }
+            ],
+            "title": "Noise seed",
+            "properties": {
+                "Node name for S&R": "RandomNoise"
+            },
+            "widgets_values": [184463, "fixed"]
+        },
+        {
+            "id": 18,
+            "type": "Flux2Scheduler",
+            "pos": [1480, 980],
+            "size": [320, 180],
+            "flags": {},
+            "order": 17,
+            "mode": 0,
+            "inputs": [
+                {
+                    "name": "width",
+                    "type": "INT",
+                    "link": 31,
+                    "widget": {
+                        "name": "width"
+                    }
+                },
+                {
+                    "name": "height",
+                    "type": "INT",
+                    "link": 32,
+                    "widget": {
+                        "name": "height"
+                    }
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "SIGMAS",
+                    "type": "SIGMAS",
+                    "links": [23]
+                }
+            ],
+            "title": "Base schedule: 50 steps",
+            "properties": {
+                "Node name for S&R": "Flux2Scheduler"
+            },
+            "widgets_values": [50, 1024, 1024]
+        },
+        {
+            "id": 19,
+            "type": "CFGGuider",
+            "pos": [1850, 0],
+            "size": [320, 180],
+            "flags": {},
+            "order": 18,
+            "mode": 0,
+            "inputs": [
+                {
+                    "name": "model",
+                    "type": "MODEL",
+                    "link": 17
+                },
+                {
+                    "name": "positive",
+                    "type": "CONDITIONING",
+                    "link": 18
+                },
+                {
+                    "name": "negative",
+                    "type": "CONDITIONING",
+                    "link": 19
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "GUIDER",
+                    "type": "GUIDER",
+                    "links": [21]
+                }
+            ],
+            "title": "Base guidance: CFG 4",
+            "properties": {
+                "Node name for S&R": "CFGGuider"
+            },
+            "widgets_values": [4]
+        },
+        {
+            "id": 20,
+            "type": "KSamplerSelect",
+            "pos": [1850, 230],
+            "size": [320, 180],
+            "flags": {},
+            "order": 19,
+            "mode": 0,
+            "inputs": [],
+            "outputs": [
+                {
+                    "name": "SAMPLER",
+                    "type": "SAMPLER",
+                    "links": [22]
+                }
+            ],
+            "title": "Native Euler sampler",
+            "properties": {
+                "Node name for S&R": "KSamplerSelect"
+            },
+            "widgets_values": ["euler"]
+        },
+        {
+            "id": 21,
+            "type": "SamplerCustomAdvanced",
+            "pos": [2220, 0],
+            "size": [320, 180],
+            "flags": {},
+            "order": 20,
+            "mode": 0,
+            "inputs": [
+                {
+                    "name": "noise",
+                    "type": "NOISE",
+                    "link": 20
+                },
+                {
+                    "name": "guider",
+                    "type": "GUIDER",
+                    "link": 21
+                },
+                {
+                    "name": "sampler",
+                    "type": "SAMPLER",
+                    "link": 22
+                },
+                {
+                    "name": "sigmas",
+                    "type": "SIGMAS",
+                    "link": 23
+                },
+                {
+                    "name": "latent_image",
+                    "type": "LATENT",
+                    "link": 24
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "LATENT",
+                    "type": "LATENT",
+                    "links": [25]
+                },
+                {
+                    "name": "LATENT",
+                    "type": "LATENT",
+                    "links": []
+                }
+            ],
+            "title": "Generate the new scene",
+            "properties": {
+                "Node name for S&R": "SamplerCustomAdvanced"
+            },
+            "widgets_values": []
+        },
+        {
+            "id": 22,
+            "type": "VAEDecode",
+            "pos": [2590, 0],
+            "size": [320, 180],
+            "flags": {},
+            "order": 21,
+            "mode": 0,
+            "inputs": [
+                {
+                    "name": "samples",
+                    "type": "LATENT",
+                    "link": 25
+                },
+                {
+                    "name": "vae",
+                    "type": "VAE",
+                    "link": 26
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "IMAGE",
+                    "type": "IMAGE",
+                    "links": [27]
+                }
+            ],
+            "title": "Decode image",
+            "properties": {
+                "Node name for S&R": "VAEDecode"
+            },
+            "widgets_values": []
+        },
+        {
+            "id": 23,
+            "type": "SaveImage",
+            "pos": [2960, 0],
+            "size": [320, 180],
+            "flags": {},
+            "order": 22,
+            "mode": 0,
+            "inputs": [
+                {
+                    "name": "images",
+                    "type": "IMAGE",
+                    "link": 27
+                }
+            ],
+            "outputs": [],
+            "title": "Save comic panel",
+            "properties": {
+                "Node name for S&R": "SaveImage"
+            },
+            "widgets_values": ["flux-klein"]
+        },
+        {
+            "id": 24,
+            "type": "GetImageSize",
+            "pos": [740, 1220],
+            "size": [320, 180],
+            "flags": {},
+            "order": 23,
+            "mode": 0,
+            "inputs": [
+                {
+                    "name": "image",
+                    "type": "IMAGE",
+                    "link": 28
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "INT",
+                    "type": "INT",
+                    "links": [29, 31]
+                },
+                {
+                    "name": "INT",
+                    "type": "INT",
+                    "links": [30, 32]
+                },
+                {
+                    "name": "INT",
+                    "type": "INT",
+                    "links": []
+                }
+            ],
+            "title": "Output aspect from character reference",
+            "properties": {
+                "Node name for S&R": "GetImageSize"
+            },
+            "widgets_values": []
+        }
+    ],
+    "links": [
+        [1, 4, 0, 5, 0, "IMAGE"],
+        [2, 5, 0, 6, 0, "IMAGE"],
+        [3, 3, 0, 6, 1, "VAE"],
+        [4, 2, 0, 7, 0, "CLIP"],
+        [5, 2, 0, 8, 0, "CLIP"],
+        [6, 7, 0, 9, 0, "CONDITIONING"],
+        [7, 6, 0, 9, 1, "LATENT"],
+        [8, 8, 0, 10, 0, "CONDITIONING"],
+        [9, 6, 0, 10, 1, "LATENT"],
+        [10, 11, 0, 12, 0, "IMAGE"],
+        [11, 12, 0, 13, 0, "IMAGE"],
+        [12, 3, 0, 13, 1, "VAE"],
+        [13, 9, 0, 14, 0, "CONDITIONING"],
+        [14, 13, 0, 14, 1, "LATENT"],
+        [15, 10, 0, 15, 0, "CONDITIONING"],
+        [16, 13, 0, 15, 1, "LATENT"],
+        [17, 1, 0, 19, 0, "MODEL"],
+        [18, 14, 0, 19, 1, "CONDITIONING"],
+        [19, 15, 0, 19, 2, "CONDITIONING"],
+        [20, 17, 0, 21, 0, "NOISE"],
+        [21, 19, 0, 21, 1, "GUIDER"],
+        [22, 20, 0, 21, 2, "SAMPLER"],
+        [23, 18, 0, 21, 3, "SIGMAS"],
+        [24, 16, 0, 21, 4, "LATENT"],
+        [25, 21, 0, 22, 0, "LATENT"],
+        [26, 3, 0, 22, 1, "VAE"],
+        [27, 22, 0, 23, 0, "IMAGE"],
+        [28, 5, 0, 24, 0, "IMAGE"],
+        [29, 24, 0, 16, 0, "INT"],
+        [30, 24, 1, 16, 1, "INT"],
+        [31, 24, 0, 18, 0, "INT"],
+        [32, 24, 1, 18, 1, "INT"]
+    ],
+    "groups": [],
+    "config": {},
+    "extra": {
+        "ds": {
+            "scale": 0.5,
+            "offset": [100, 100]
+        }
+    },
+    "version": 0.4
+}

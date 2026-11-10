@@ -45,6 +45,7 @@ al_release_binary(
                 "bazel_registry",
                 "bazel_deps_analyzer",
                 "bazel_gazelle_enforce_transitive_visibility",
+                "comfyui_tools",
                 "goal",
                 "icon_generator",
                 "useless_qt_gui",

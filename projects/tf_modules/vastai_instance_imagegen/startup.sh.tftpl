@@ -66,4 +66,7 @@ chmod 700 /opt/supervisor-scripts/caddy.sh
 %{ endif ~}
 # Do not run template-selected early boot code or fetch portal/CLI updates.
 unset CF_TUNNEL_TOKEN HOTFIX_SCRIPT BOOT_SCRIPT
+%{ if hf_token_b64 != "" ~}
+export HF_TOKEN="$(printf '%s' '${hf_token_b64}' | base64 -d)"
+%{ endif ~}
 exec /opt/instance-tools/bin/boot_default.sh --no-update-portal --no-update-vast --no-agent-banner

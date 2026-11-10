@@ -32,6 +32,13 @@ Load Diffusion Model node. This profile does not assume an all-in-one checkpoint
 `user/default/workflows` after Vast initializes the workspace. The wrapper
 compacts the JSON; the base compresses larger startup payloads and rejects
 requests exceeding Vast's 16 KB limit before creating a rental.
+`custom_node_sources` accepts approved first-party Python modules keyed by
+validated directory names. The native file provisioner stages each module as
+`custom_nodes/<name>/__init__.py`; only those directories and approved Git packs
+are whitelisted. No packages are installed for first-party source modules.
+`custom_node_web_scripts` optionally supplies one `web/index.js` per declared
+first-party module. ComfyUI serves it when the module exports `WEB_DIRECTORY`;
+script keys cannot introduce additional node directories or change the whitelist.
 `custom_nodes` accepts explicitly approved public GitHub repositories at full
 commit IDs. Vast's built-in `git_repos` fetcher installs them, and ComfyUI's
 whitelist enables only those directories. `python_requirements` supplies a
@@ -40,6 +47,13 @@ version- and hash-locked requirements file installed with `--require-hashes
 rebuild is needed. Downloads are served
 by Vast's provisioner inside the rented instance, with no model cache retained
 after destruction.
+
+`hugging_face_token` optionally passes a sensitive, Vault-sourced read-only
+token to native first-boot downloading. Public URLs and the manifest contain
+no credentials. The token's account must already have gated repository access;
+this module does not accept licenses. The token is available to the rented
+host and its processes. It is encoded into sensitive startup configuration,
+without adding it to `/etc/environment` or a public Terraform output.
 
 ```hcl
 module "imagegen" {

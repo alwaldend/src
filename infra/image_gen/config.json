@@ -1,0 +1,68 @@
+{
+    "image": "vastai/comfy:v0.44.0-cuda-12.9-py312",
+    "web_username": "imagegen",
+    "model_profile": "flux",
+    "hardware_profile": "standard",
+    "hardware_profiles": {
+        "standard": {
+            "min_gpu_ram_gb": 32,
+            "disk_gb": 100,
+            "max_hourly_price": 1
+        },
+        "96gb": {
+            "min_gpu_ram_gb": 95,
+            "disk_gb": 150,
+            "max_hourly_price": 3
+        }
+    },
+    "model_profiles": {
+        "qwen": {
+            "workflows": [
+                "qwen-image-edit-single-reference",
+                "qwen-image-edit-character-style",
+                "qwen-image-edit-prompt-sequence"
+            ],
+            "downloads": [
+                {
+                    "url": "https://huggingface.co/Comfy-Org/Qwen-Image-Edit/resolve/f68ace85e60b4a02a323e394253731947657b7d2/split_files/diffusion_models/qwen_image_edit_2511_fp8mixed.safetensors",
+                    "filename": "qwen_image_edit_2511_fp8mixed.safetensors",
+                    "kind": "checkpoint"
+                },
+                {
+                    "url": "https://huggingface.co/Comfy-Org/Qwen-Image/resolve/1f12b17be14c89b026c51a91d67c32f84bb047bc/split_files/text_encoders/qwen_2.5_vl_7b_fp8_scaled.safetensors",
+                    "filename": "qwen_2.5_vl_7b_fp8_scaled.safetensors",
+                    "kind": "text_encoder"
+                },
+                {
+                    "url": "https://huggingface.co/Comfy-Org/Qwen-Image/resolve/1f12b17be14c89b026c51a91d67c32f84bb047bc/split_files/vae/qwen_image_vae.safetensors",
+                    "filename": "qwen_image_vae.safetensors",
+                    "kind": "vae"
+                }
+            ]
+        },
+        "flux": {
+            "workflows": [
+                "flux-klein-single-reference",
+                "flux-klein-character-style",
+                "flux-klein-prompt-sequence"
+            ],
+            "downloads": [
+                {
+                    "url": "https://huggingface.co/black-forest-labs/FLUX.2-klein-base-9b-fp8/resolve/9ecf2143d71542449960c5584340269c6d401449/flux-2-klein-base-9b-fp8.safetensors",
+                    "filename": "flux-2-klein-base-9b-fp8.safetensors",
+                    "kind": "checkpoint"
+                },
+                {
+                    "url": "https://huggingface.co/Comfy-Org/Flux-2-Klein-9B/resolve/1138ce884c8e977cdacacbe779784fec4426bb3f/split_files/text_encoders/qwen_3_8b_fp8mixed.safetensors",
+                    "filename": "qwen_3_8b_fp8mixed.safetensors",
+                    "kind": "text_encoder"
+                },
+                {
+                    "url": "https://huggingface.co/black-forest-labs/FLUX.2-small-decoder/resolve/a3efc24f613ef42d9428af62fdbd6f5fd8856c4a/full_encoder_small_decoder.safetensors",
+                    "filename": "full_encoder_small_decoder.safetensors",
+                    "kind": "vae"
+                }
+            ]
+        }
+    }
+}

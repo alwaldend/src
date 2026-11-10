@@ -1,6 +1,8 @@
 schema: spec-driven
 context: |
-  This workspace owns tools/comfyui and its local image-generation workflow.
+  This workspace owns tools/comfyui, its local CPU workflow, and the approved
+  official CLI with a temporary authenticated HTTPS bridge. Rental-specific
+  Vault and endpoint wiring belongs to infra/image_gen.
   Upstream source and model dependencies belong under third_party.
   The user approved ComfyUI v0.43.0, its Python requirements with CPU-only
   PyTorch, and stabilityai/sd-turbo model weights for a local Bazel trial.

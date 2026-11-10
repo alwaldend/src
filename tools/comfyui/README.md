@@ -10,6 +10,34 @@ or global configuration are installed.
 
 ## Commands
 
+The official [comfy-cli](https://github.com/Comfy-Org/comfy-cli) is separately
+packaged at version 1.25.0; it does not download the local CPU models:
+
+```sh
+bazel run //tools/comfyui:cli -- --help
+```
+
+Its independent hash-bearing lock lives in [cli/](cli/). The repository entry
+point opts out of telemetry and selects `out/comfyui/cli` for settings/cache
+before importing the upstream command. `COMFY_REPOSITORY_PROFILE` selects another
+task-owned profile. No host Python installation or shared CLI settings change.
+
+The rental's [authenticated target](../../infra/image_gen/README.md#command-line-access)
+adds its Vault login and verified HTTPS connection. The temporary Go bridge
+binds loopback, checks Linux TCP socket ownership, rejects browser origins,
+refuses upstream redirects and closes when the command exits. It removes the
+injected login and Vault/Vast credentials from the CLI child environment. It
+forces local routing and disables detached watchers. Each authenticated command
+uses a temporary profile and queries server history for later job commands;
+use prompt IDs for status/download instead of cached state-file paths. Same-user processes share the
+operator account's credential boundary. The authenticated bridge requires Linux
+procfs; the raw packaged CLI retains upstream platform support.
+
+`bazel test //tools/comfyui/cmd/remote:remote_test` exercises the real packaged CLI
+against an isolated HTTPS API, including a workflow/WebSocket run, job status,
+download, credential rejection and TLS hostname rejection. Its sanitized result
+artifact describes transport acceptance; it does not test a GPU model.
+
 ```sh
 bazel run //tools/comfyui:benchmark
 bazel run //tools/comfyui -- --directory out/comfyui/session

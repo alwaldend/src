@@ -1,3 +1,4 @@
+load("@bazel_skylib//rules:copy_file.bzl", "copy_file")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_terraform//terraform:defs.bzl", "terraform_test_map")
 
@@ -18,9 +19,32 @@ filegroup(
     visibility = ["//projects/tf_modules:imagegen_acceptance_consumers"],
 )
 
+copy_file(
+    name = "test_provider_override",
+    testonly = True,
+    src = "tests/provider_constraints.tf",
+    out = "provider_test_override.tf",
+)
+
 terraform_test_map(
     name = "tf_tests",
-    data = [":vastai_instance_imagegen_comfyui"],
+    args = {
+        "fmt": [
+            "--direct",
+            "fmt",
+            "-check",
+            "-recursive",
+        ],
+        "validate": ["validate"],
+        "test": [
+            "test",
+            "-no-color",
+        ],
+    },
+    data = [
+        ":test_provider_override",
+        ":vastai_instance_imagegen_comfyui",
+    ] + glob(["tests/*.tftest.hcl"]),
     providers = ["//projects/vastai_terraform_provider:provider"],
 )
 

@@ -17,27 +17,35 @@ First deploy the `src_infra_image_gen` AppRole and exact-path team-writer
 policy through [Vault Terraform](../../vault/tf/README.md#vast-team-token-delivery).
 Then run [team credential setup](../../vastai/alwaldend/README.md) to generate
 and store a fresh key in this component's namespace. The component credentials
-are deployed; the last rental was released. These remain operator instructions. The
-[acceptance record](../openspec/changes/add-imagegen-rental/design.md#authorized-qwen-rental-acceptance)
+are deployed; the previous Flux rental and its Base replacement were destroyed at the operator's request. These remain operator instructions. The
+[acceptance record](../openspec/changes/add-imagegen-rental/design.md#base-checkpoint-replacement)
 owns the observed rental and workflow results.
 The [module](../../../projects/tf_modules/vastai_instance_imagegen_comfyui/README.md) uses
-the direct Vast ComfyUI/CUDA 12.9 image tag declared in [main.tf](main.tf),
+the direct Vast ComfyUI/CUDA 12.9 image tag declared in [config.json](../config.json),
 without inheriting stock template options. The root selects an explicit published release tag. Update that one image reference to select a newer build;
 there is no registry lookup or helper executable during Terraform planning.
 Changing the tag produces a reviewed replacement plan for an existing rental.
-The rental defaults to Qwen-Image-Edit-2511; override public model downloads using
-`model_downloads` in a task-owned tfvars file. An optional reviewed `template_hash_id` may
-supply provisioning environment settings; its Docker options must be environment-only.
+The component's [config.json](../config.json) owns the image, HTTPS username,
+selected model/hardware profiles and their definitions. Terraform has no root
+input variables or tfvars presets. The default model is FLUX.2 klein Base 9B FP8;
+set `model_profile` to `qwen` in that file to select Qwen-Image-Edit-2511.
 
 ```sh
 bazel run //infra/image_gen/tf_setup:tf.plan
 bazel run //infra/image_gen/tf_setup:tf.rent
 ```
 
-`rent` displays the interactive plan; review it before approving. Defaults are
-32 GiB VRAM, one GPU, 100 GB disk, and a USD 1/hour ceiling including requested
-disk. `max_hourly_price` and `offer_id` can be supplied explicitly. The ceiling
-is not a total budget and market availability is not guaranteed.
+`rent` displays the interactive plan; review it before approving. The selected
+`standard` hardware profile requests one GPU with at least 32 GiB VRAM, 100 GB
+disk and a USD 1/hour ceiling including disk. The module selects the cheapest
+qualifying Secure Cloud offer. The ceiling is not a total budget and market
+availability is not guaranteed.
+
+For the prepared 96 GB option, set `hardware_profile` to `96gb` in config.json,
+then use the same plan and rent targets after authorizing deployment. That
+profile uses a 95 GiB reported-memory floor for nominal 96 GB cards, 150 GB disk
+and a USD 3/hour ceiling. Model selection is independent. The committed selection
+remains `standard`; no high-memory rental has been deployed.
 
 Creation acknowledges a contract; boot and provisioning take longer. Refresh
 through the same owner after boot, reviewing its interactive plan:
@@ -78,45 +86,46 @@ a separately scoped live acceptance run.
 
 ## Download models
 
-The default `model_downloads` in [main.tf](main.tf) selects the official
-Comfy-Org Qwen-Image-Edit-2511 mixed-precision diffusion checkpoint, Qwen 2.5 VL
-7B FP8-scaled encoder and Qwen VAE at fixed publisher revisions. These are the
-components used by [ComfyUI's native Qwen workflow](https://docs.comfy.org/tutorials/image/qwen/qwen-image-edit-2511).
-The bundle totals about 30.2 GB and fits the 100 GB disk. Vast's native
-provisioner downloads it inside the rental before generation. No Hugging Face
-token, custom node pack, acceleration LoRA or additional Python package is used.
+`model_profile` in config.json selects matching model downloads and saved workflows:
 
-Terraform stages two neutral [workflow documents](../workflows/) at startup:
+| Profile          | Bundle                                                                       | Native workflows                                                                                         |
+| ---------------- | ---------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
+| `flux` (default) | FLUX.2 klein Base 9B FP8, Qwen3 8B mixed FP8 encoder, Flux small-decoder VAE | `flux-klein-single-reference`, `flux-klein-character-style`, `flux-klein-prompt-sequence`                |
+| `qwen`           | Qwen-Image-Edit-2511 mixed FP8, Qwen 2.5 VL 7B FP8 encoder, Qwen VAE         | `qwen-image-edit-single-reference`, `qwen-image-edit-character-style`, `qwen-image-edit-prompt-sequence` |
 
-- `qwen-image-edit-single-reference`: use one image for character and style.
-- `qwen-image-edit-character-style`: use image 1 for the character and image 2 for the style.
+All files are fixed to publisher revisions in [config.json](../config.json). Both bundles
+fit the 100 GB disk. Vast's native provisioner downloads them inside the rental;
+no custom downloader, external node pack or additional Python package is installed.
+The sole whitelisted custom node is the first-party `Prompt Sequence`, staged
+from checked-in source through native `write_files`.
+The archived Chroma documents are examples and are not staged by these profiles.
 
-Choose the reference images in Load Image and describe the new scene in the
-positive prompt. The graphs feed images to both Qwen's vision-language encoder
-and its native reference latents. They retain the published
-`index_timestep_zero` reference method, flow shift 3.1 and CFG normalization.
-The full model starts with 40 Euler/simple steps, CFG 4 and denoise 1. Output
-aspect follows the scaled first reference. Denoise 1 starts fresh sampling;
-references provide conditioning rather than fixing the original composition.
+Flux uses the publisher's [non-commercial model](https://huggingface.co/black-forest-labs/FLUX.2-klein-base-9b-fp8).
+Its checkpoint requires the user's Hugging Face license acceptance and a read-only
+model token. The operator or external IaC supplies the
+[Vault token entry](../README.md#identity-and-state). The rental root reads it only for a nonempty Flux manifest and
+passes it as sensitive startup input to Vast's native `HF_TOKEN` downloader.
+Missing access must be resolved before creating paid capacity; Qwen's public
+bundle needs no token. Both profiles retain at least 32 GiB VRAM and Secure Cloud.
 
-These defaults need live reference/prompt verification on each new image or
-model bundle; native node availability and successful execution do not establish
-character continuity or style fidelity. Keep test prompts and reference assets
-neutral. User prompts, uploads and generated images do not belong in Git.
-The existing Chroma workflow documents are historical examples and are not
-staged by this profile; they need their original models and approved node pack.
+Select images in Load Image: image 1 supplies character and output aspect;
+image 2, when present, supplies style. Describe the new action/scene and the
+reference roles in the positive prompt. Flux uses native reference latents on
+both conditioning branches, an encoded empty negative prompt, fresh Flux2 noise, 50 Euler steps and CFG 4.
+Qwen retains native vision-language and reference-latent conditioning,
+`index_timestep_zero`, shift 3.1, CFG normalization, 40 Euler/simple steps,
+CFG 4 and denoise 1. These are reference-guided generation workflows; they do
+not guarantee exact style isolation or character continuity.
 
-Override `model_downloads` with a list of `{url, filename, kind}` objects in a
-reviewed tfvars file; an explicit empty list disables configured downloads.
-Pass its absolute path with `-- -var-file=/absolute/path/models.tfvars` to both
-`tf.plan` and `tf.rent`. Another architecture also requires matching workflows.
-Public safetensors URLs must contain no credentials. Gated tokens require
-separate Vault-backed wiring.
+Edit the selected profile's `downloads` array to change its model files. An
+empty array disables configured downloads; workflows still require matching
+files. URLs must contain no credentials. Source and acceptance assets remain
+neutral; private prompts, uploads and generated images do not belong in Git.
 
 Changing the model manifest replaces the rental and removes its local disk.
 The retired personal rental was destroyed. The new component credentials and
 Qwen rental were subsequently deployed under separate user authorizations.
-No rental or connection URL is currently active. Future connection coordinates
+The Base replacement was created and then destroyed at the operator's request, retaining component credentials. Base GPU workflow acceptance was superseded by that release. Connection coordinates
 come from the owning Terraform outputs. Implementation,
 teardown and acceptance evidence is recorded in the
 [owning change](../openspec/changes/add-imagegen-rental/design.md).

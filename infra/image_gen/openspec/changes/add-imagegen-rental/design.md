@@ -1,3 +1,72 @@
+## Base checkpoint replacement
+
+The user selected FLUX.2 klein Base 9B and requested redeployment, then explicitly
+requested destroying the current rental. Instance 60069855 was destroyed through
+its owning targeted interactive apply on 2026-11-10 at 14:05 UTC: 0 added,
+0 changed, 1 destroyed. A reviewed refresh-only apply at 14:08 UTC cleared all
+connection outputs with zero remote-resource changes. The component AppRole,
+team API key, generated web login and model token remain managed.
+
+The flux profile selects the publisher's Base FP8 checkpoint at revision
+9ecf2143d71542449960c5584340269c6d401449. Encoder and small-decoder VAE pins are
+unchanged. The three native Flux graphs use 50 Euler steps, CFG 4, and an empty
+CLIPTextEncode negative prompt instead of zeroing the positive embedding.
+Reference latents remain on both branches. These defaults follow the publisher's
+Base example; the current upstream Comfy template also confirms the encoded
+empty-negative structure and the same model bundle. No runtime package, image
+or custom-node dependency changes are required.
+
+The existing Vault token received HTTP 403 from the pinned Base file before any
+replacement capacity was created. Account license acceptance or token scope
+was resolved by the operator. A subsequent in-memory HEAD returned 302 with the pinned commit and 9,567,278,472-byte checkpoint. The requested replacement
+retains the existing USD 1/hour ceiling, Secure Cloud, VRAM floor and exposure.
+The operator permits neutral workflow checks on the fresh replacement. Once operator use starts, further inspection or generation requires renewed approval. Earlier distilled workflow results do not validate Base quality.
+
+The user also requested a 96 GB option as source wiring only. The 96gb hardware profile in config.json selects at least 95 GiB of
+reported VRAM (covering nominal 96 GB cards), 150 GB disk and a USD 3/hour ceiling.
+The normal defaults remain 32 GiB, 100 GB and USD 1/hour. Model selection is
+independent. This preset is not selected for the Base replacement and no
+high-memory deployment is authorized.
+
+The reviewed Base apply created instance 60080494 on 2026-11-10 at 14:29 UTC:
+1 added, 0 changed, 0 destroyed. It selected the same RTX PRO 5000 class,
+100 GB disk and existing USD 1/hour ceiling. The operator then requested destroying
+the current instance. A reviewed targeted release at 14:31 UTC destroyed it:
+0 added, 0 changed, 1 destroyed. A refresh-only apply at 14:32 UTC cleared
+connection outputs with zero remote-resource changes. No rental remains running.
+No generation job was submitted and no Base runtime or quality acceptance is
+claimed. The 96 GB preset was never selected or deployed. Component credentials
+remain managed for later use.
+
+## Previous follow-up: profiles and CLI
+
+The user requested retaining Qwen, adding FLUX.2 klein 9B and renting one
+instance, then explicitly approved adding the official ComfyUI CLI and a target
+that authenticates to the rental. Keep existing identity, credentials, host
+requirements and price limits. Flux weights require publisher license acceptance
+and authorized Hugging Face download access before any paid rental is created.
+
+The infrastructure target injects its web login and backend context into a short-lived
+first-party bridge, which obtains the endpoint through its owning Terraform output
+target and removes injected credentials from the upstream CLI child. The tools owner packages the CLI and bridge. Source and tests remain
+neutral. No private uploads or prompts are used for acceptance.
+
+## Prompt sequence follow-up
+
+The user requested one node accepting several prompts and producing several
+images in one queued workflow. Use a first-party, dependency-free ComfyUI list
+node: a multiline prompt list plus shared reference instructions produce paired
+prompt and numbered filename-prefix lists. Native downstream list mapping
+executes one image per prompt with the same character/style references. This
+does not provide previous-panel memory. Stage a sequence workflow for both
+model profiles and whitelist only this first-party node directory.
+
+Before implementing, check empty input, blank-line/line splitting, stable input
+order, one output per nonempty prompt, paired filename ordering, unchanged shared
+references and empty/invalid filename prefixes. Errors must not echo prompts.
+The shared module must validate directory names and cannot enable arbitrary
+unapproved packs. Verify actual list mapping during neutral live acceptance.
+
 ## Current design and deployment status
 
 The current owner is `infra/image_gen`, authenticated as `src_infra_image_gen`.
@@ -319,3 +388,104 @@ resource changes. A read-only Vast API lookup confirmed the instance is absent.
 The dedicated AppRole, policies, API key, web login and component backend remain
 managed. No replacement was rented and no user files were copied from the
 instance. Earlier acceptance evidence describes the now-retired rental.
+
+## Flux and CLI source acceptance
+
+The approved official CLI is pinned to 1.25.0 with a separate hash-bearing lock.
+Its real executable passed an isolated HTTPS fixture covering workflow submit,
+WebSocket completion, status and output download, credential rejection and TLS
+hostname rejection. Settings stay under ignored task storage and telemetry is
+opted out. During source implementation, the live component AppRole retrieved the existing web login;
+the owning Terraform output was null after the preceding release. The later authorized rental and token reconciliation are recorded below.
+
+Publisher metadata pins the Flux checkpoint to 902d9d510b51533e07729f19211414a3648b77d2,
+Qwen3 8B encoder to 1138ce884c8e977cdacacbe779784fec4426bb3f and the small-decoder
+VAE to a3efc24f613ef42d9428af62fdbd6f5fd8856c4a. The encoder and VAE are public;
+the official checkpoint HEAD returned 401 GatedRepo on 2026-11-10. After the private request timed out, the operator stored the token through
+the component target. An in-memory HEAD check returned 302 with the pinned
+publisher commit, confirming download access. The model-authentication root
+reconciled that same value with a reviewed apply: 1 added, 0 changed, 0 destroyed.
+Flux GPU workflow acceptance follows the separately reviewed rental below. Source and fixture
+acceptance must not be presented as live model or style-fidelity verification.
+
+The first-party Prompt Sequence contract check covers ordered nonempty prompts,
+shared instructions, paragraph input and rejected filename prefixes. Native
+list mapping is wired into both sequence graphs; the Flux three-panel GPU result
+is recorded below. No user uploads or private prompts are
+used in repository fixtures or source.
+
+## Authorized Flux rental
+
+After correcting the exact-offer search field to ask_contract_id, the owning
+apply with gpu_name=RTX PRO 5000 created instance 60069855 on 2026-11-10 at
+12:50 UTC: 1 added, 0 changed, 0 destroyed. Existing web login, dedicated team
+key and AppRole were unchanged. The source retains Qwen as a selectable profile.
+Startup, trusted HTTPS and actual GPU workflow results are recorded separately;
+contract creation alone is not runtime acceptance.
+
+## Flux live acceptance
+
+The host reports verified Secure Cloud hosting_type=1, one RTX PRO 5000 Blackwell
+with 48 GB nominal VRAM, 100 GB disk and USD 0.905852/hour. Native downloading
+completed for all three fixed-revision model files. Trusted TLS, missing/wrong
+login rejection (401), correct login (200), native node availability and all
+three staged workflow documents passed. The mapped diagnostic port refused a
+TCP connection. A reviewed refresh-only apply saved connection outputs with
+zero remote-resource changes.
+
+The new authenticated CLI reports ComfyUI 0.44.0, PyTorch 2.10.0+cu128 and a CUDA
+RTX PRO 5000 device. Its live upload, workflow/WebSocket execution and download
+commands passed. Single-reference generation produced one 1024-square image in
+17.84 seconds including first model load; separate character/style produced one
+in 6.52 seconds. Prompt Sequence produced three 1024-square images in input order
+in 17.92 seconds, with paired comic_001, comic_002 and comic_003 output prefixes.
+These are observed job timings, not a general hardware benchmark.
+
+All five neutral outputs were downloaded and visually inspected. The robot's
+white body, antenna, black face and cyan eyes remain recognizable, and cycling,
+pond and reading scenes follow the requested actions. Style isolation remains
+approximate: strong comic linework dominates the watercolor reference. The pond
+image also introduces multiple panels, a duplicate robot and spurious lettering.
+Execution and sequence ordering are accepted; exact layout, style and character
+continuity are not guaranteed. No private references, prompts or outputs were
+committed. Local neutral images, hashes, dimensions and CLI receipts remain in
+ignored out/imagegen/flux.
+
+The operator briefly requested destruction and immediately withdrew it. Keep
+instance 60069855 running at that stage. The later Base replacement request above supersedes that instruction. Qwen remains an
+offline-validated selectable option; its new sequence graph was not GPU-tested
+on this Flux-only rental. Historical Qwen acceptance does not establish that new
+graph's runtime results.
+
+## Externally supplied model token
+
+The component consumes the huggingface/token Vault entry supplied manually by
+the operator or managed by external IaC. It does not own token issuance,
+rotation or deletion. The separate tf root only copied an existing token and
+introduced redundant Terraform ownership and state.
+
+The operator authorized removing that root and detaching its state ownership
+while preserving the Vault secret. Use a temporary declarative removed block
+with destroy=false through the owning interactive apply. Check secret metadata
+without reading token contents, then remove the transition and confirm the
+owning plan is empty before deleting the root and unused main-backend wiring.
+Historical protected backend versions are outside this cleanup; do not delete
+them or the externally owned token. No rental operation is authorized.
+
+## Token ownership cleanup receipt
+
+On 2026-11-10 at 16:05:18 UTC, the reviewed owning apply relinquished only
+vault_kv_secret_v2.huggingface using destroy=false: 0 added, 0 changed,
+0 destroyed. The token's Vault current_version remained 2 before and after.
+After removing the temporary block, the owning tf.plan reported No changes
+at 16:05:41 UTC. The retired main backend's latest state no longer owns the
+entry; protected historical versions remain. Token contents were not read.
+
+## Configuration simplification
+
+The component owns one config.json with its image, login name, model and
+hardware profile selections and definitions. Terraform reads it directly; no
+root input variables, separate tfvars preset or duplicate high-memory targets
+are needed. Keep the standard selection and all existing model revisions,
+workflow filenames and hardware limits unchanged. Only source validation is
+authorized for the new configuration.

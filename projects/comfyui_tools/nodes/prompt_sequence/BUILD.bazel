@@ -1,0 +1,35 @@
+load("@aspect_rules_js//js:defs.bzl", "js_library")
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("@rules_python//python:defs.bzl", "py_library", "py_test")
+
+package(transitive_visibility = "//projects:transitive_consumers")
+
+filegroup(
+    name = "source",
+    srcs = ["prompt_sequence.py"],
+    visibility = ["//projects/comfyui_tools:asset_consumers"],
+)
+
+js_library(
+    name = "web_source",
+    srcs = ["web/index.js"],
+    visibility = ["//projects/comfyui_tools:asset_consumers"],
+)
+
+py_library(
+    name = "prompt_sequence",
+    srcs = ["prompt_sequence.py"],
+)
+
+py_test(
+    name = "prompt_sequence_test",
+    size = "small",
+    srcs = ["prompt_sequence_test.py"],
+    deps = [":prompt_sequence"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//projects/comfyui_tools:__pkg__"],
+)

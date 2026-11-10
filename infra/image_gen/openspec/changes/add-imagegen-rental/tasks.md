@@ -87,3 +87,40 @@ workflow defaults remain available for a later authorized deployment.
 - [x] 15.1 Destroy only the current rental through its owning reviewed apply and clear connection outputs through refresh-only apply.
 - [x] 15.2 Verify the instance is absent and retain the component identity, credentials and reusable IaC.
 - [x] 15.3 Update current deployment status and prepare the sanitized release record for delivery.
+
+## 16. Selectable profiles and authenticated CLI
+
+- [x] 16.1 Add the approved packaged CLI target with Vault login and Terraform endpoint discovery.
+- [x] 16.2 Preserve Qwen as a profile and add FLUX.2 klein 9B with matching native reference workflows.
+- [x] 16.3 Validate source and download access before renting one Flux instance through the reviewed owning apply.
+- [x] 16.4 Verify authenticated CLI execution and neutral reference generation, and deliver sanitized evidence.
+- [x] 16.5 Supply a first-party prompt sequence node and workflows for both profiles; verify prompt splitting and paired filename ordering offline.
+- [x] 16.6 Execute a neutral three-prompt workflow on the GPU and verify one numbered image per prompt with shared references.
+
+## 17. Base checkpoint replacement
+
+- [x] 17.1 Destroy the current rental through its owning reviewed apply and clear connection outputs, retaining component credentials.
+- [x] 17.2 Pin the approved FLUX.2 klein Base 9B FP8 checkpoint and update all three Flux workflows to native Base conditioning, 50 steps and CFG 4.
+- [x] 17.3 Validate the source and verify gated model download access before creating paid capacity.
+- [x] 17.4 Create the requested Base rental through its reviewed apply; stop workflow acceptance when the operator subsequently requests destruction.
+- [x] 17.5 Prepare the checked source update and sanitized teardown status for guarded publication; delivery receipts own publication state.
+- [x] 17.6 Wire an opt-in 96 GB hardware preset and owning targets without selecting it for deployment.
+
+- [x] 17.7 Destroy the brief Base rental and clear its connection outputs, retaining credentials and source; no inference jobs were submitted.
+
+## 18. ComfyUI tools relocation
+
+- [x] 18.1 Consume custom nodes and workflows from projects/comfyui_tools; keep the CLI in tools/comfyui and verify Terraform packaging offline.
+
+- [x] 18.2 Include the Prompt Sequence browser script through the native provisioner and verify the staged asset without renting.
+
+## 19. Externally supplied model token
+
+- [x] 19.1 Relinquish the redundant root's Terraform ownership through a reviewed removed block with destroy=false; verify the token entry is retained.
+- [x] 19.2 Remove the completed transition, verify a no-change plan, then delete the token-writing root and its unused authentication/backend wiring.
+- [x] 19.3 Document manual or external-IaC token ownership and verify the rental still reads the existing entry through offline checks; prepare the reviewed cleanup for publication.
+
+## 20. Single JSON configuration
+
+- [x] 20.1 Move image, model definitions, hardware presets and selected profiles into config.json; remove root variables, the tfvars preset and duplicate high-memory targets. Verify the existing mocked-provider checks read the packaged JSON.
+- [x] 20.2 Update operator instructions and review the selected defaults and all profile contents against the previous candidate before publication; do not rent.

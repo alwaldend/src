@@ -1,9 +1,15 @@
-load("@rules_al//:defs.bzl", "al_config", "al_inject", "al_vault_auth")
+load("@rules_al//:defs.bzl", "al_binary_run", "al_config", "al_inject", "al_vault_auth")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("//tools/vault:defs.bzl", "vault_binary_map")
 load("//tools/vault/tf_backend:defs.bzl", "vault_tf_backend")
 
 package(transitive_visibility = "//infra:transitive_consumers")
+
+filegroup(
+    name = "configuration",
+    srcs = ["config.json"],
+    visibility = ["//infra/image_gen:__subpackages__"],
+)
 
 al_vault_auth(
     name = "auth",
@@ -40,9 +46,57 @@ al_config(
         ":auth",
         ":rental_auth",
         ":tf_backend_setup",
+        ":web_auth",
         "//infra:al",
     ],
     visibility = ["//infra/image_gen:__subpackages__"],
+)
+
+al_inject(
+    name = "web_auth",
+    labels = {"comfy": "1"},
+    res_env = {
+        "IMAGEGEN_WEB_USERNAME": {
+            "value": "{{ .Last.Data.username }}",
+            "deps": ["web_login"],
+        },
+        "IMAGEGEN_WEB_PASSWORD": {
+            "value": "{{ .Last.Data.password }}",
+            "deps": ["web_login"],
+        },
+    },
+    res_kv = {"web_login": {
+        "mount": "secrets",
+        "path": "alwaldend.com/vault1/approles/src_infra_image_gen/web",
+    }},
+)
+
+al_binary_run(
+    name = "comfy",
+    args = [
+        "$(rootpath //tools/comfyui/cmd/remote)",
+        "--cli",
+        "$(rlocationpath //tools/comfyui/cli:comfy)",
+        "--endpoint-command",
+        "$(rlocationpath //infra/image_gen/tf_setup:connection_output)",
+        "--endpoint-arg=-raw",
+        "--endpoint-arg=-no-color",
+        "--endpoint-arg=https_url",
+        "--ca-file",
+        "$(rlocationpath //third_party/ai_vast_openapi:root_certificate)",
+        "--",
+    ],
+    configs = [":al"],
+    data = [
+        "//infra/image_gen/tf_setup:connection_output",
+        "//third_party/ai_vast_openapi:root_certificate",
+        "//tools/comfyui/cli:comfy",
+        "//tools/comfyui/cmd/remote",
+    ],
+    plugin_labels = {
+        "comfy": "1",
+        "tf": "setup",
+    },
 )
 
 vault_binary_map(
@@ -52,7 +106,10 @@ vault_binary_map(
 
 docs_filegroup(
     name = "docs",
-    srcs = ["README.md"],
+    srcs = [
+        "README.md",
+        "config.json",
+    ],
     visibility = ["//infra:__pkg__"],
     deps = subpackages(
         include = ["*"],
