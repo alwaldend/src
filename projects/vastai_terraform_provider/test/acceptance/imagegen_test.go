@@ -19,6 +19,9 @@ import (
 // imagegenModulePath locates the actual reusable module source.
 var imagegenModulePath = flag.String("imagegen-module", "", "Image generation module runfile")
 
+// comfyuiModulePath locates the native ComfyUI wrapper.
+var comfyuiModulePath = flag.String("comfyui-module", "", "ComfyUI module runfile")
+
 // imagegenFixture adds template discovery and creation guards to the rental fixture.
 type imagegenFixture struct {
 	// rental supplies the existing rental lifecycle API.
@@ -35,6 +38,9 @@ type imagegenFixture struct {
 	exposed bool
 	// offerID changes the search result to verify existing rentals remain stable.
 	offerID int
+
+	// comfyUI selects the native ComfyUI service and backend contract.
+	comfyUI bool
 }
 
 // ServeHTTP rejects incorrect template selection or networking before accepting a fixture rental.
@@ -119,7 +125,11 @@ func (f *imagegenFixture) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			w.WriteHeader(http.StatusBadRequest)
 			return
 		}
-		for _, required := range []string{"CF_QUICK_TUNNELS=false", "--no-update-portal", "--no-update-vast", "unset CF_TUNNEL_TOKEN HOTFIX_SCRIPT BOOT_SCRIPT", "--port 17860 --server-name 127.0.0.1", "localhost:1111:11111:/:Instance Portal", "localhost:8080:18080:/:Jupyter", "localhost:6006:16006:/:Tensorboard"} {
+		arguments := "--port 17860 --server-name 127.0.0.1"
+		if f.comfyUI {
+			arguments = "--listen 127.0.0.1 --port 18188"
+		}
+		for _, required := range []string{"CF_QUICK_TUNNELS=false", "INSTANCE_TEST=false", "--no-update-portal", "--no-update-vast", "unset CF_TUNNEL_TOKEN HOTFIX_SCRIPT BOOT_SCRIPT", arguments, "localhost:1111:11111:/:Instance Portal", "localhost:8080:18080:/:Jupyter", "localhost:6006:16006:/:Tensorboard"} {
 			if !strings.Contains(startup, required) {
 				w.WriteHeader(http.StatusBadRequest)
 				return
@@ -134,9 +144,19 @@ func (f *imagegenFixture) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 // writeImagegen configures a consumer of the checked-in module rather than duplicating it.
 func writeImagegen(t *testing.T, h *harness, endpoint, hash string) {
 	t.Helper()
-	module, err := runfiles.Rlocation(*imagegenModulePath)
+	writeImagegenProfile(t, h, endpoint, hash, *imagegenModulePath)
+}
+
+// writeImagegenProfile supplies the selected real module to a fixture consumer.
+func writeImagegenProfile(t *testing.T, h *harness, endpoint, hash, modulePath string) {
+	t.Helper()
+	module, err := runfiles.Rlocation(modulePath)
 	if err != nil {
 		t.Fatalf("resolve image generation module: %v", err)
+	}
+	// Use a local package so sibling module sources retain their normal boundaries.
+	if err := os.Symlink(filepath.Dir(filepath.Dir(module)), filepath.Join(h.directory, "modules")); err != nil && !os.IsExist(err) {
+		t.Fatalf("link image generation modules: %v", err)
 	}
 	configuration := fmt.Sprintf(`terraform {
   required_providers { vastai = { source = "alwaldend/vastai" } }
@@ -150,7 +170,7 @@ module "imagegen" {
 }
 
 output "forward" { value = module.imagegen.ssh_forward_command }
-`, endpoint, filepath.Dir(module), hash)
+`, endpoint, "./modules/"+filepath.Base(filepath.Dir(module)), hash)
 	if err := os.WriteFile(filepath.Join(h.directory, "main.tf"), []byte(configuration), 0o600); err != nil {
 		t.Fatalf("write module consumer: %v", err)
 	}

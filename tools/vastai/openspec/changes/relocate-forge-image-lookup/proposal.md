@@ -1,11 +1,11 @@
 ## Why
 
-Public Forge image discovery is repository tooling rather than personal infrastructure.
+The user requested a direct image tag instead of automatic Forge image discovery.
 
 ## What Changes
 
-Move the existing external-data JSON executable and its protocol fixture to tools/vastai. Update the rental's packaged input and path without changing the selection protocol.
+Retire the first-party image lookup executable and its protocol fixture after the personal rental switches to a direct tag. Preserve the upstream Vast CLI.
 
 ## Impact
 
-No dependency, registry endpoint, image family, or image-selection behavior changes.
+Removes source, fixture, and consumer dependency wiring; no new dependency or runtime is introduced.

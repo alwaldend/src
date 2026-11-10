@@ -1,13 +1,15 @@
 ---
 title: Image generation
-description: Personal Vast.ai Forge rental with Vault-managed HTTPS credentials
+description: Personal Vast.ai ComfyUI rental with Vault-managed HTTPS credentials
 ---
 
+![Image-generation architecture](assets/architecture.dark.webp)
+
 This project owns one image-generation rental in [tf_setup](tf_setup/README.md).
-It uses the reusable [Forge module](../../../projects/tf_modules/vastai_instance_imagegen/README.md)
+It uses the reusable [ComfyUI module](../../../projects/tf_modules/vastai_instance_imagegen_comfyui/README.md)
 in exposed mode: a single HTTPS proxy with a generated username/password login,
 plus account-key SSH access. The GPU must have at least 32 GiB VRAM.
-The rental's Terraform defaults to the publisher's Juggernaut XL v9 checkpoint,
+The rental's Terraform defaults to the publisher's full Chroma1-HD-Flash checkpoint with its T5 encoder and VAE,
 downloaded on first boot; see [model configuration](tf_setup/README.md#download-models).
 
 The project reuses the existing `user_simeonwarren` identity and regular secret
@@ -25,11 +27,11 @@ rents a GPU. The existing key was preserved during its completed state handoff. 
 
 ## Privacy boundary
 
-The newest published Vast Forge Neo image runs Forge on the rented host. It is not a separate hosted
+The configured Vast ComfyUI image runs ComfyUI on the rented host. It is not a separate hosted
 inference API, and this configuration adds no prompt/image upload service or
-access logging. Forge can retain generated images and prompt metadata locally;
+access logging. ComfyUI can retain generated images and prompt metadata locally;
 provisioning scripts and extensions can access those files and the internet.
-The image is selected dynamically, as requested. Review optional templates, scripts, models, and extensions before use.
+The image is selected directly by tag in the rental Terraform. Review optional templates, scripts, models, and extensions before use.
 
 [Vast's privacy policy](https://vast.ai/privacy) covers its account and website
 processing; it does not establish a blanket no-retention or no-training promise
@@ -47,3 +49,15 @@ this project cannot verify physical erasure or exclude host-made copies.
 Generated login credentials also remain in the Vault-backed Terraform state
 and may remain in historical Vault secret/state versions. There are no public
 password outputs. Destroying the rental does not revoke copies already disclosed.
+
+## Architecture diagram
+
+The diagram source is [docs/architecture.mmd](docs/architecture.mmd). It uses the
+shared Alwaldend dark palette and typography, composed with the existing Mermaid
+actor artwork for the requested browser actor. The local template derives both
+from their owners. Build the WebP with
+`bazel build //users/simeonwarren/imagegen/docs:architecture`. The documentation
+consumes the rendered target directly; generated images are not checked in.
+The diagram describes the configured
+architecture, not an active rental. The simplified certificate label refers to
+Vast's non-public instance trust chain; see the base module's certificate guidance.

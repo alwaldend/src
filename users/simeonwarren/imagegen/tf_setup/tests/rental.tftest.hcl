@@ -2,12 +2,6 @@
 # This test isolates credential generation and Vault persistence in this root.
 mock_provider "vault" {}
 mock_provider "vastai" {}
-mock_provider "external" {
-  mock_data "external" {
-    defaults = { result = { image = "vastai/sd-forge:fixture" } }
-  }
-}
-
 override_module {
   target = module.imagegen
   outputs = {

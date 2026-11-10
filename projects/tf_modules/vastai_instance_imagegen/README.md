@@ -1,25 +1,24 @@
 ---
 title: Vast.ai image generation instance module
-description: Vast Forge Neo rentals with SSH-only or password-protected HTTPS access
+description: Shared Vast rentals with SSH-only or password-protected HTTPS access
 ---
 
-This module rents one GPU with at least **32 GiB VRAM**, using a caller-selected Vast-native Forge image.
-The default mode is `ssh_only`; `exposed` publishes Forge through HTTPS and a
+This module rents one GPU with at least **32 GiB VRAM**, using a caller-selected Vast-native image.
+The default mode is `ssh_only`; `exposed` publishes the application through HTTPS and a
 caller-supplied username/password. The caller supplies provider authentication
 and secure state. The [personal rental project](../../../users/simeonwarren/imagegen/README.md)
 generates and stores its login in Vault before creating the paid instance.
 Building and testing these definitions does not deploy or rent capacity.
 
-## Runtime and templates
+## Runtime modules
 
-The caller supplies `image`; the personal consumer resolves the newest published
-Forge Neo/CUDA 12.9 tag from Docker Hub at plan time. Vast does not publish a literal
-`:latest` tag for `vastai/sd-forge`. User preference explicitly permits mutable
-image selection here. The [upstream README](https://github.com/vast-ai/base-image/tree/main/derivatives/pytorch/derivatives/sd-forge)
-describes the native boot/Supervisor contract. Future images can change that
-contract; inspection and proxy evidence recorded in the change apply to the
-observed image, not every future tag. A newer selected image produces a replacement
-plan for an existing rental; no instance is changed without applying that plan.
+Use the [Forge wrapper](../vastai_instance_imagegen_forge/README.md) or
+[ComfyUI wrapper](../vastai_instance_imagegen_comfyui/README.md) for application
+configuration. This base owns offer selection, rental lifecycle, authentication,
+and the native download manifest. Runtime wrappers own model directories,
+loopback arguments, optional JSON configuration and local portal entries.
+No image discovery or registry lookup runs during Terraform planning. The caller
+selects an explicit published image tag; changing it replaces an existing rental.
 
 By default no `template_hash_id` is sent, avoiding the stock template's public
 ports and unrelated provisioning configuration. Configure `model_downloads` for
@@ -35,12 +34,12 @@ arbitrary extensions remain trusted code, outside the network guarantees below.
 
 ## Access and local services
 
-| Mode                 | Public application access             | Authentication                        |
-| -------------------- | ------------------------------------- | ------------------------------------- |
-| `ssh_only` (default) | No web port requested; Caddy disabled | Vast account SSH key and forwarding   |
-| `exposed`            | Only Forge proxy, container 7860/tcp  | TLS plus HTTP Basic username/password |
+| Mode                 | Public application access                  | Authentication                        |
+| -------------------- | ------------------------------------------ | ------------------------------------- |
+| `ssh_only` (default) | No web port requested; Caddy disabled      | Vast account SSH key and forwarding   |
+| `exposed`            | Only application proxy, container 7860/tcp | TLS plus HTTP Basic username/password |
 
-Forge listens at loopback `127.0.0.1:17860` in both modes. Local tools are retained:
+Each wrapper fixes its application listener to loopback in both modes. Local tools are retained:
 Instance Portal at `127.0.0.1:11111`, Jupyter at `127.0.0.1:18080`, and TensorBoard
 at `127.0.0.1:16006`. Access them through SSH forwarding to the corresponding
 internal port. They are not published by the proxy. These local management
@@ -48,8 +47,8 @@ interfaces can provide unauthenticated shell/file access, so only trusted local
 processes and SSH users belong on this instance.
 
 Cloudflare tunnel management, Syncthing (including outbound relays), and the
-serverless worker are disabled. Other bundled services retain their native defaults. The inspected linux/amd64 image declared no
-Dockerfile EXPOSE ports. The module requests only the SSH service, plus
+serverless worker are disabled. Other bundled services retain their native defaults. The inspected ComfyUI image declares diagnostic `3000/tcp` in its Docker metadata;
+the instance test runner is explicitly disabled and no publish-all flag is used. The module requests only the SSH service, plus
 `-p 7860:7860` in exposed mode. Verify actual listeners during live acceptance;
 reviewed provisioning code can still start additional listeners or outbound traffic.
 
@@ -70,21 +69,11 @@ There are no password outputs; restrict the Vault-backed state accordingly.
 
 ## Compose
 
-```hcl
-provider "vastai" {} # Inject VAST_API_KEY through the caller's AL/Vault config.
-
-module "imagegen" {
-  source = "../../../projects/tf_modules/vastai_instance_imagegen"
-
-  image = var.forge_image_reference
-  # access_mode = "exposed"
-  # web_username = "imagegen"
-  # web_password = random_password.web.result
-}
-```
-
-Package `//projects/tf_modules/vastai_instance_imagegen` in the consuming
-Terraform target's `data`, and select `//projects/vastai_terraform_provider:provider`.
+Compose a runtime wrapper rather than configuring the low-level runtime contract
+here. Package its filegroup in the consuming Terraform target's `data`, and select
+`//projects/vastai_terraform_provider:provider`. Both wrappers forward the base's
+rental inputs and connection outputs. No Vault resources belong in these shared
+modules; callers generate and persist their own login before rental creation.
 
 Offer selection requests one verified datacenter NVIDIA GPU, an amd64 host with
 CUDA 12.9 compatibility, at least 32 GiB VRAM, 99% reported reliability, 100 GB disk
@@ -105,18 +94,13 @@ changes replace the instance. Export wanted images before replacement/destructio
 
 `model_downloads` is a list of `{url, filename, kind}` objects. The URL must be
 public HTTPS without embedded credentials; filenames end in `.safetensors` and
-cannot traverse directories. `kind` selects the Forge destination:
-
-| Kind                   | Directory relative to Forge's workspace installation |
-| ---------------------- | ---------------------------------------------------- |
-| `checkpoint` (default) | `models/Stable-diffusion`                            |
-| `lora`                 | `models/Lora`                                        |
-| `vae`                  | `models/VAE`                                         |
-| `embedding`            | `embeddings`                                         |
+cannot traverse directories. `kind` selects a directory supplied by the runtime wrapper. The base validates
+public URLs, filenames, uniqueness and the presence of a destination for each
+kind; it contains no application-specific paths.
 
 Startup writes a local JSON/YAML-compatible manifest and passes it to Vast's
 [native provisioner](https://github.com/vast-ai/base-image/blob/main/ROOT/opt/instance-tools/lib/provisioner/README.md).
-The image's Forge launcher waits while `/.provisioning` exists. Provisioning
+The native application launcher waits while `/.provisioning` exists. Provisioning
 runs on the rented machine and downloads to its billable local storage; there
 is no model cache preserved after destruction. An empty list downloads no
 configured models. SCP/SFTP remains available for manual file transfer.
@@ -146,13 +130,11 @@ trusted domain certificate is configured by this module.
 
 ## Privacy
 
-The selected [Vast Forge README](https://github.com/vast-ai/base-image/tree/main/derivatives/pytorch/derivatives/sd-forge)
-and [base README](https://github.com/vast-ai/base-image) describe security and
-networking but have no privacy section or no-training commitment (checked
-2026-11-09). The earlier AI-Dock and original Forge READMEs likewise supplied no
-such commitment. Forge runs on the rented machine; output files and prompt/image
-metadata may persist locally. Extensions and provisioning code may access them
-and make network requests. This module adds no prompt-sharing service.
+Applications run on the rented machine; output files and prompt/image metadata
+may persist locally. Extensions and provisioning code may access them and make
+network requests. This module adds no prompt-sharing service. Runtime-specific
+controls are described by each wrapper; none establish confidentiality from the
+host administrator or a no-training commitment for the complete stack.
 
 [Vast's privacy policy](https://vast.ai/privacy) covers account/website processing.
 Certified datacenter status does not prevent the host administrator accessing the
@@ -168,7 +150,7 @@ bazel test //projects/tf_modules/vastai_instance_imagegen:all
 bazel test //projects/vastai_terraform_provider/test/acceptance:acceptance_test
 ```
 
-The actual module runs through pinned Terraform/provider against a loopback API
+The base and both wrappers run through pinned Terraform/provider against a loopback API
 fixture: both modes, unsafe templates/credentials, memory/tier rejection, sensitive
 output, replacement, and mapped URLs. `imagegen-lifecycle.json` and
 `imagegen-https.json` are repeatable undeclared test outputs. No GPU is rented.

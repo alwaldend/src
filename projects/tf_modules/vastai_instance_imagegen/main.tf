@@ -10,7 +10,7 @@ variable "access_mode" {
   type        = string
   default     = "ssh_only"
   nullable    = false
-  description = "ssh_only uses local forwarding; exposed publishes only the password-protected Forge HTTPS proxy."
+  description = "ssh_only uses local forwarding; exposed publishes only the password-protected image-generation HTTPS proxy."
   validation {
     condition     = contains(["ssh_only", "exposed"], var.access_mode)
     error_message = "access_mode must be ssh_only or exposed."
@@ -42,7 +42,7 @@ variable "web_password" {
 variable "image" {
   type        = string
   nullable    = false
-  description = "Vast-native Forge image reference selected by the caller; the personal consumer resolves the newest published tag."
+  description = "Vast-native image reference selected by the caller."
   validation {
     condition     = can(regex("^[a-zA-Z0-9./_:@-]+$", var.image))
     error_message = "image must be a container image reference without whitespace or shell syntax."
@@ -62,24 +62,61 @@ variable "model_downloads" {
     condition = alltrue([for model in var.model_downloads :
       can(regex("^https://[A-Za-z0-9.-]+/[^?#[:space:]]+$", model.url)) &&
       can(regex("^[A-Za-z0-9][A-Za-z0-9._-]*[.]safetensors$", model.filename)) &&
-      contains(["checkpoint", "lora", "vae", "embedding"], model.kind)
+      contains(["checkpoint", "lora", "vae", "embedding", "text_encoder"], model.kind)
     ])
-    error_message = "Models need a public HTTPS URL, a plain .safetensors filename, and checkpoint/lora/vae/embedding kind."
+    error_message = "Models need a public HTTPS URL, a plain .safetensors filename, and checkpoint/lora/vae/embedding/text_encoder kind."
+  }
+  validation {
+    condition     = length(distinct([for model in var.model_downloads : model.filename])) == length(var.model_downloads)
+    error_message = "Model filenames must be unique."
+  }
+}
+
+variable "runtime" {
+  type = object({
+    service            = string
+    port               = number
+    arguments_variable = string
+    arguments          = string
+    model_root         = string
+    model_directories  = map(string)
+    portal_entries     = optional(list(string), [])
+  })
+  nullable    = false
+  description = "Native runtime contract supplied by a runtime-specific module. All services bind to loopback."
+  validation {
+    condition = (
+      can(regex("^[a-z][a-z0-9_-]*$", var.runtime.service)) &&
+      var.runtime.port >= 1024 && var.runtime.port <= 65535 && floor(var.runtime.port) == var.runtime.port && var.runtime.port != 7860 &&
+      can(regex("^[A-Z][A-Z0-9_]*$", var.runtime.arguments_variable)) &&
+      can(regex("^[A-Za-z0-9 /_.=-]+$", var.runtime.arguments)) &&
+      can(regex("^/workspace/[A-Za-z0-9_-]+$", var.runtime.model_root)) &&
+      alltrue([for directory in values(var.runtime.model_directories) : can(regex("^[A-Za-z0-9_-]+(/[A-Za-z0-9_-]+)*$", directory))]) &&
+      alltrue([for entry in var.runtime.portal_entries : can(regex("^localhost:[0-9]+:[0-9]+:/:[A-Za-z0-9 ]+$", entry))])
+    )
+    error_message = "Runtime needs plain service/argument identifiers, a non-proxy integer port, and safe workspace-relative model directories."
+  }
+}
+
+variable "runtime_files" {
+  type        = map(string)
+  default     = {}
+  nullable    = false
+  description = "Native configuration files staged by the runtime wrapper after workspace initialization."
+  validation {
+    condition = alltrue([for path in keys(var.runtime_files) :
+      can(regex("^/(etc|workspace)/[A-Za-z0-9_/-]+[.]json$", path)) && !strcontains(path, "..")
+    ])
+    error_message = "Runtime configuration files must have safe absolute JSON paths beneath /etc or /workspace."
   }
 }
 
 locals {
-  model_directories = {
-    checkpoint = "models/Stable-diffusion"
-    lora       = "models/Lora"
-    vae        = "models/VAE"
-    embedding  = "embeddings"
-  }
   model_manifest = jsonencode({
     version = 1
     downloads = [for model in var.model_downloads : {
       url  = model.url
-      dest = "/workspace/stable-diffusion-webui-forge/${local.model_directories[model.kind]}/${model.filename}"
+      dest = "${var.runtime.model_root}/${lookup(var.runtime.model_directories, model.kind, "invalid")}/${model.filename}"
     }]
   })
 }
@@ -169,7 +206,7 @@ data "vastai_offers" "imagegen" {
 variable "template_hash_id" {
   type        = string
   default     = null
-  description = "Optional reviewed Vast Forge template hash with environment-only options. Omit to use the selected image without inheriting any template configuration."
+  description = "Optional reviewed Vast template hash with environment-only options. Omit to use the selected image without inheriting any template configuration."
   validation {
     condition     = var.template_hash_id == null ? true : can(regex("^[0-9a-f]{32}$", var.template_hash_id))
     error_message = "template_hash_id must be a 32-character lowercase hexadecimal hash."
@@ -236,6 +273,8 @@ resource "vastai_instance" "imagegen" {
   docker_options = var.access_mode == "exposed" ? "-p 7860:7860" : ""
   onstart = templatefile("${path.module}/startup.sh.tftpl", {
     model_manifest_b64 = base64encode(local.model_manifest)
+    runtime            = var.runtime
+    runtime_files      = { for path, content in var.runtime_files : path => base64encode(content) }
     exposed            = var.access_mode == "exposed"
     web_username       = var.web_username
     web_password       = var.web_password == null ? "" : var.web_password
@@ -246,13 +285,18 @@ resource "vastai_instance" "imagegen" {
     ignore_changes = [offer_id]
 
     precondition {
+      condition     = alltrue([for model in var.model_downloads : contains(keys(var.runtime.model_directories), model.kind)])
+      error_message = "The selected runtime must define a destination for each model kind."
+    }
+
+    precondition {
       condition     = var.access_mode != "exposed" || var.web_password != null
       error_message = "exposed mode requires a generated web_password."
     }
 
     precondition {
       condition     = var.template_hash_id == null ? true : data.vastai_template.imagegen[0].environment_only
-      error_message = "Template Docker options must contain only environment assignments. Remove all -p, -P, --publish, networking, and other Docker flags from a reviewed copy of the Forge template."
+      error_message = "Template Docker options must contain only environment assignments. Remove all -p, -P, --publish, networking, and other Docker flags from a reviewed copy of the template."
     }
   }
 }
@@ -274,15 +318,15 @@ output "ssh_port" {
 
 output "ssh_forward_command" {
   value = (vastai_instance.imagegen.ssh_host == null || vastai_instance.imagegen.ssh_port == null) ? null : format(
-    "ssh -N -o ExitOnForwardFailure=yes -L 127.0.0.1:%d:127.0.0.1:17860 -p %d root@'%s'",
-    var.local_port, vastai_instance.imagegen.ssh_port, replace(vastai_instance.imagegen.ssh_host, "'", "'\"'\"'"),
+    "ssh -N -o ExitOnForwardFailure=yes -L 127.0.0.1:%d:127.0.0.1:%d -p %d root@'%s'",
+    var.local_port, var.runtime.port, vastai_instance.imagegen.ssh_port, replace(vastai_instance.imagegen.ssh_host, "'", "'\"'\"'"),
   )
   description = "Run locally after SSH is ready, then open local_url. Uses the caller's SSH agent or normal SSH identity configuration."
 }
 
 output "local_url" {
   value       = "http://127.0.0.1:${var.local_port}"
-  description = "Forge URL available only while the SSH forwarding command is running."
+  description = "Application URL available only while the SSH forwarding command is running."
 }
 
 output "https_url" {
@@ -292,5 +336,5 @@ output "https_url" {
       "https://${vastai_instance.imagegen.public_ip}:${vastai_instance.imagegen.mapped_ports["7860/tcp"]}"
     )
   )
-  description = "Direct Forge HTTPS URL after refresh observes the public IP and mapped 7860/tcp port. Verify the instance certificate before sending credentials."
+  description = "Direct application HTTPS URL after refresh observes the public IP and mapped 7860/tcp port. Verify the instance certificate before sending credentials."
 }

@@ -2,7 +2,7 @@
 
 ### Requirement: Imagegen access
 
-The implementation SHALL provide the following behavior: Retain ssh_only by default; exposed publishes only 7860/tcp through a dedicated TLS and Basic-auth Caddy configuration. Forge stays on loopback. Reject unsafe template options and weak credentials; disable outbound tunnels and synchronization while retaining loopback-only portal, Jupyter, and TensorBoard services.
+The implementation SHALL provide the following behavior: Retain ssh_only by default; exposed publishes only 7860/tcp through a dedicated TLS and Basic-auth Caddy configuration. The selected runtime stays on loopback. Reject unsafe template options and weak credentials; disable outbound tunnels and synchronization while retaining loopback-only portal, Jupyter, and TensorBoard services.
 
 #### Scenario: Authorized configuration
 
@@ -28,11 +28,35 @@ community hosts or smaller GPUs.
 
 ### Requirement: Approved native runtime
 
-The personal consumer SHALL select the newest published Vast Forge Neo/CUDA 12.9 image tag and SHALL inherit no template by default. Optional reviewed templates SHALL
+Each runtime consumer SHALL declare a direct published Vast image tag and SHALL inherit no template by default. Optional reviewed templates SHALL
 contain only environment assignments. The module SHALL preserve loopback-only
-management tools and expose only the authenticated Forge HTTPS proxy when selected.
+management tools and expose only the authenticated image-generation HTTPS proxy when selected.
 
 #### Scenario: Default personal rental
 
 - **WHEN** the personal root provisions without an optional template
-- **THEN** it SHALL use the newest selected image tag without stock template ports or provisioning scripts
+- **THEN** it SHALL use the explicitly configured image tag without stock template ports or provisioning scripts
+
+### Requirement: External model components
+
+The module SHALL support public safetensors text-encoder files and an optional
+selection of a declared checkpoint and encoder/VAE modules in native Forge settings.
+It SHALL preserve the existing HTTPS authentication and loopback bindings.
+
+#### Scenario: Chroma components
+
+- **WHEN** the caller selects a checkpoint, encoder, and VAE declared in model_downloads
+- **THEN** the provisioner SHALL stage them in their Forge directories and startup SHALL select them globally and for the chosen UI preset
+
+### Requirement: Runtime module boundaries
+
+The base module SHALL own offer selection, rental lifecycle, native downloads and
+access controls without Forge-specific paths or settings. Separate Forge and
+ComfyUI modules SHALL configure their native model directories and loopback
+listeners while preserving base constraints and connection outputs. ComfyUI SHALL
+retain its bundled API wrapper on loopback and disable custom nodes and partner APIs.
+
+#### Scenario: ComfyUI access
+
+- **WHEN** an exposed ComfyUI rental is configured
+- **THEN** only the authenticated HTTPS proxy and account SSH SHALL be published, with ComfyUI on loopback and model files in native ComfyUI directories

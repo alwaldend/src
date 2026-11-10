@@ -6,14 +6,12 @@ package(transitive_visibility = "//users:transitive_consumers")
 
 _PROVIDERS = [
     "//projects/vastai_terraform_provider:provider",
-    "@terraform_provider_hashicorp_external//:provider",
     "@terraform_provider_hashicorp_random//:provider",
     "@terraform_provider_hashicorp_vault//:provider",
 ]
 
 _DATA = [
-    "//projects/tf_modules/vastai_instance_imagegen",
-    "//tools/vastai/cmd/latest_image",
+    "//projects/tf_modules/vastai_instance_imagegen_comfyui",
 ]
 
 al_terraform_binary_map(

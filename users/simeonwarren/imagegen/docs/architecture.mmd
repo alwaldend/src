@@ -1,0 +1,29 @@
+flowchart LR
+    terraform[Terraform]
+    vault[("Vault<br/>vault.alwaldend.com")]
+    user("Browser")
+    terraform -->|Store login| vault
+    user -->|Retrieve login| vault
+    terraform ~~~ user
+
+    models["Hugging Face<br/>huggingface.co<br/>Pinned model files"]
+
+    subgraph vast["Vast.ai (Secure Cloud)<br/>vast.ai"]
+        subgraph instance["Rented instance (≥32 GiB VRAM)"]
+            provisioner["Vast startup<br/>provisioner"]
+            proxy["Caddy"]
+            comfyui["ComfyUI<br/>Chroma1-HD-Flash<br/>T5 + VAE"]
+            disk[("Ephemeral disk<br/>100 GB<br/>Models, images, metadata")]
+            proxy --> comfyui
+            comfyui --> disk
+        end
+    end
+
+    terraform -->|Rent| instance
+    terraform -->|Set login| proxy
+    provisioner -->|Save models| disk
+    provisioner -->|Fetch models| models
+    user -->|HTTPS<br/>&lpar;self-signed&rpar;<br/>&lpar;username/password&rpar;| proxy
+
+    classDef actor font-style:normal;
+    class user actor

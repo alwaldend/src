@@ -2,7 +2,7 @@
 
 ### Requirement: Imagegen rental
 
-The implementation SHALL provide the following behavior: Add imagegen/tf_setup with random_password, Vault KV storage, and the reusable exposed-mode module. Reuse the existing user_simeonwarren AppRole, regular user secret namespace, and independent Vault-backed state. Use the newest published Vast Forge Neo/CUDA 12.9 image tag without a template by default; provide optional declarative public model downloads; allow an optional reviewed environment-only template; retain the USD 1/hour cap. Do not execute a live rental as implementation validation.
+The implementation SHALL provide the following behavior: Add imagegen/tf_setup with random_password, Vault KV storage, and the reusable exposed-mode module. Reuse the existing user_simeonwarren AppRole, regular user secret namespace, and independent Vault-backed state. Declare a direct published Vast ComfyUI/CUDA 12.9 image tag without a template by default; provide optional declarative public model downloads; allow an optional reviewed environment-only template; retain the USD 1/hour cap. Offline validation SHALL NOT rent capacity; the user separately authorized one live rental after security review.
 
 #### Scenario: Authorized configuration
 
@@ -16,12 +16,12 @@ The implementation SHALL provide the following behavior: Add imagegen/tf_setup w
 
 ### Requirement: Rental-owned default checkpoint
 
-The rental root SHALL default to the approved Juggernaut XL v9 standalone safetensors checkpoint from a fixed publisher revision. The shared template SHALL remain model-configurable.
+The rental root SHALL call the ComfyUI module and default to the full Chroma1-HD-Flash safetensors checkpoint and its required T5 encoder and VAE from fixed publisher revisions. The shared modules SHALL remain model-configurable.
 
 #### Scenario: Default rental configuration
 
 - **WHEN** model_downloads is omitted
-- **THEN** the native provisioner SHALL receive the public Juggernaut XL v9 checkpoint download before starting Forge
+- **THEN** the native provisioner SHALL receive the three public model downloads in native ComfyUI directories before ComfyUI serves generation requests
 
 #### Scenario: Explicit model selection
 
