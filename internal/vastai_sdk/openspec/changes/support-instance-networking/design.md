@@ -22,6 +22,13 @@ HTTPS uses the Vast-provided instance certificate; clients must verify its trust
 Default SSH behavior is retained; changed startup settings intentionally replace a rental.
 Deploy identity prerequisites separately before using the new rental root.
 
-## Open Questions
+## Rental rejection diagnostics
 
-None for implementation. A live rental requires an operator-selected reviewed template.
+The authorized ComfyUI deployment returned HTTP 400 twice. Decode bounded rental
+rejection metadata only for known categories and the documented numeric startup
+limit; never render free-text messages, request content or credentials. Preserve
+generic errors for unknown response shapes. This extends the existing constant
+team-name rejection diagnostic rather than enabling raw response logging.
+
+The bounded diagnostic identified the server's 16,384-byte limit, and the
+corrected request created the authorized rental successfully.

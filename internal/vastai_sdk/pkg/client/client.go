@@ -10,6 +10,7 @@ import (
 	"net"
 	"net/http"
 	"net/url"
+	"regexp"
 	"strings"
 	"time"
 
@@ -126,6 +127,39 @@ func (c *Client) decodeResponse(method, path string, resp *http.Response, result
 		return fmt.Errorf("%s %s: %w", method, path, ErrNotFound)
 	}
 	if resp.StatusCode < 200 || resp.StatusCode >= 300 {
+		if resp.StatusCode == http.StatusBadRequest && method == http.MethodPut && strings.HasPrefix(path, "/asks/") {
+			var rejection struct {
+				// Message is classified but never rendered as response-derived text.
+				Message string `json:"msg"`
+				// Code permits only a bounded numeric machine-error identifier.
+				Code json.RawMessage `json:"error"`
+			}
+			if err := json.NewDecoder(io.LimitReader(resp.Body, 65536)).Decode(&rejection); err == nil {
+				limit := regexp.MustCompile(`len\((?:args|onstart)\)\s*>\s*([0-9]{1,8})`).FindStringSubmatch(rejection.Message)
+				if len(limit) == 2 {
+					return fmt.Errorf("Vast.ai startup arguments exceed the server limit of %s bytes", limit[1])
+				}
+				message := strings.ToLower(rejection.Message)
+				category := "unclassified request validation"
+				switch {
+				case strings.Contains(message, "credit") || strings.Contains(message, "balance"):
+					category = "account credit requirements"
+				case strings.Contains(message, "no_such_ask") || strings.Contains(message, "unavailable") || strings.Contains(message, "already rented"):
+					category = "offer availability"
+				case strings.Contains(message, "onstart") || strings.Contains(message, "args"):
+					category = "startup arguments"
+				case strings.Contains(message, "image") || strings.Contains(message, "docker"):
+					category = "image or Docker configuration"
+				case strings.Contains(message, "permission") || strings.Contains(message, "not allowed"):
+					category = "API key permissions"
+				}
+				var code int
+				if json.Unmarshal(rejection.Code, &code) == nil && code > 0 && code < 1000000000 {
+					return fmt.Errorf("Vast.ai rejected rental: %s (HTTP 400, code %d)", category, code)
+				}
+				return fmt.Errorf("Vast.ai rejected rental: %s (HTTP 400)", category)
+			}
+		}
 		if resp.StatusCode == http.StatusBadRequest && method == http.MethodPost && path == "/team/" {
 			var rejection struct {
 				// Message is compared only against a documented constant, never rendered.

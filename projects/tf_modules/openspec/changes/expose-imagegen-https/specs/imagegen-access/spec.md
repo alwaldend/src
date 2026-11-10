@@ -54,9 +54,23 @@ The base module SHALL own offer selection, rental lifecycle, native downloads an
 access controls without Forge-specific paths or settings. Separate Forge and
 ComfyUI modules SHALL configure their native model directories and loopback
 listeners while preserving base constraints and connection outputs. ComfyUI SHALL
-retain its bundled API wrapper on loopback and disable custom nodes and partner APIs.
+retain its bundled API wrapper on loopback and disable unapproved custom nodes and partner APIs.
 
 #### Scenario: ComfyUI access
 
 - **WHEN** an exposed ComfyUI rental is configured
 - **THEN** only the authenticated HTTPS proxy and account SSH SHALL be published, with ComfyUI on loopback and model files in native ComfyUI directories
+
+### Requirement: Approved ComfyUI node provisioning
+
+The ComfyUI wrapper SHALL pass explicitly approved custom-node repositories at
+immutable revisions and version- and hash-locked Python requirements to Vast's
+native provisioner. Only approved node directories SHALL be allowlisted;
+public access controls SHALL remain unchanged. The wrapper SHALL compact named native workflow documents and stage them after
+workspace initialization. The base SHALL reject rendered startup exceeding
+16,384 bytes before creating a rental.
+
+#### Scenario: Approved style-reference node pack
+
+- **WHEN** a caller supplies a reviewed node repository and requirements
+- **THEN** Vast's native provisioner SHALL fetch the pinned sources and install requirements with mandatory hashes and no dependency resolution

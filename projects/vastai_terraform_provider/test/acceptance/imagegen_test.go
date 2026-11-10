@@ -2,6 +2,8 @@ package acceptance
 
 import (
 	"bytes"
+	"compress/gzip"
+	"encoding/base64"
 	"encoding/json"
 	"flag"
 	"fmt"
@@ -114,6 +116,37 @@ func (f *imagegenFixture) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		startup, _ := input["onstart"].(string)
+		if f.rental.mode == "startup-too-long" {
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusBadRequest)
+			fmt.Fprint(w, `{"error":"invalid_args","msg":"Invalid args: len(args) > 32768; fixture-private-content"}`)
+			return
+		}
+		if strings.HasPrefix(startup, "# Compressed imagegen startup") {
+			_, encoded, found := strings.Cut(startup, "printf '%s' '")
+			if !found || len(startup) > 16384 {
+				w.WriteHeader(http.StatusBadRequest)
+				return
+			}
+			encoded, _, _ = strings.Cut(encoded, "'")
+			compressed, err := base64.StdEncoding.DecodeString(encoded)
+			if err != nil {
+				w.WriteHeader(http.StatusBadRequest)
+				return
+			}
+			reader, err := gzip.NewReader(bytes.NewReader(compressed))
+			if err != nil {
+				w.WriteHeader(http.StatusBadRequest)
+				return
+			}
+			decoded, err := io.ReadAll(reader)
+			closeErr := reader.Close()
+			if err != nil || closeErr != nil || !strings.Contains(startup, "exec /bin/bash /etc/imagegen-startup.sh") {
+				w.WriteHeader(http.StatusBadRequest)
+				return
+			}
+			startup = string(decoded)
+		}
 		f.startup = startup
 		options, _ := input["env"].(string)
 		if f.exposed {

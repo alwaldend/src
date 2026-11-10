@@ -24,7 +24,9 @@ The public client adds 60-second deadlines, HTTPS endpoint validation, an 8 MiB
 response bound, redirect refusal, and credential-safe errors. It checks endpoint
 success and resource identity, including the distinction between omitted and
 explicit-null instance responses. Those lifecycle guarantees are absent from
-the raw generated interface, which remains an implementation detail.
+the raw generated interface, which remains an implementation detail. Rental HTTP 400
+responses are classified into fixed diagnostic categories; a documented startup
+argument limit can be reported numerically, but response text is never echoed.
 
 The schema omits account SSH-key listing and the console's context-selection
 endpoint; the client supplies those operations. API-key reads use the generated
@@ -43,5 +45,7 @@ bazel build //internal/vastai_sdk/pkg/client
 
 The [provider integration](https://github.com/alwaldend/src/pull/249) exercises
 this client through real Terraform CLI lifecycle fixtures against loopback API
-servers. Live mutation compatibility remains unverified. This internal library
+servers. The [rental acceptance](../../infra/image_gen/openspec/changes/add-imagegen-rental/design.md#authorized-comfyui-deployment)
+also verifies live instance creation; other live API operations are not
+comprehensively verified. This internal library
 has no independent product release or landing page.

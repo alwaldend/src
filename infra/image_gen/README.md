@@ -1,29 +1,48 @@
 ---
 title: Image generation
-description: Personal Vast.ai ComfyUI rental with Vault-managed HTTPS credentials
+description: Vast.ai ComfyUI rental with Vault-managed HTTPS credentials
 ---
 
 ![Image-generation architecture](assets/architecture.dark.webp)
 
 This project owns one image-generation rental in [tf_setup](tf_setup/README.md).
-It uses the reusable [ComfyUI module](../../../projects/tf_modules/vastai_instance_imagegen_comfyui/README.md)
+It uses the reusable [ComfyUI module](../../projects/tf_modules/vastai_instance_imagegen_comfyui/README.md)
 in exposed mode: a single HTTPS proxy with a generated username/password login,
 plus account-key SSH access. The GPU must have at least 32 GiB VRAM.
-The rental's Terraform defaults to the publisher's full Chroma1-HD-Flash checkpoint with its T5 encoder and VAE,
+The rental's Terraform defaults to the native Qwen-Image-Edit-2511 model bundle,
 downloaded on first boot; see [model configuration](tf_setup/README.md#download-models).
 
-The project reuses the existing `user_simeonwarren` identity and regular secret
-namespace. [Infrastructure credential setup](../../../infra/vastai/alwaldend/README.md) creates a dedicated API token in the
-alwaldend team and writes it to `imagegen/vastai` in that user namespace. Token generation belongs to infra/vastai; this user project only reads the
-result. The existing alwaldend root uses its team issuer and infrastructure Vault
-identity to generate and deliver the key. Its delivery permission covers only
-this KV entry. The user project authenticates as itself to read that key and
-provision the instance. No extra AppRole or shared rental-token copy is created.
+## Identity and state
 
-The [rental root](tf_setup/README.md) reads that user-owned token. Its generated
-HTTPS login is stored at `imagegen/web`, with independent rental state at
-`tf_backend/imagegen`. The alwaldend root owns token generation in its existing team state and never
-rents a GPU. The existing key was preserved during its completed state handoff. No shared host configuration is changed.
+The component authenticates as `src_infra_image_gen`, declared by
+[Vault Terraform](../vault/tf/approle_src_infra_image_gen.tf). Its own namespace
+at mount `secrets` is `alwaldend.com/vault1/approles/src_infra_image_gen`:
+
+| Entry              | Owner                     | Purpose                                  |
+| ------------------ | ------------------------- | ---------------------------------------- |
+| `vastai`           | `infra/vastai/alwaldend`  | Dedicated generated team key (`api_key`) |
+| `web`              | This project's `tf_setup` | Generated HTTPS username/password        |
+| `tf_backend/setup` | This project's backend    | Rental Terraform state and lock          |
+
+[The existing team root](../vastai/alwaldend/README.md) creates and delivers the
+key using its own issuer and Vault identity. Its delivery policy covers only
+this component's `vastai` entry. The rental reads that entry through its own
+AppRole; it never reads the team's operator seed or passes an API key to the
+container. The operator can bootstrap the role and browse its KV entries through
+existing Vault identity membership. No general infrastructure group is required.
+
+## Deployment status
+
+The former personal rental, login secret, dedicated team key and delivery grant
+were destroyed on 2026-11-10. This replacement is checked-in desired state and
+has not been deployed. It uses a fresh component state path; no old state or
+credential is migrated or reused. Historical Vault versions can remain as
+protected records. The shared team and operator seed are outside this teardown.
+
+Deployment is staged: authorize the component role and delivery policy through
+Vault Terraform, create the dedicated key through the team root, then rent
+through this project's `tf_setup`. Each live apply requires its own reviewed
+interactive plan. Building and testing the source performs none of these steps.
 
 ## Privacy boundary
 
@@ -56,7 +75,7 @@ The diagram source is [docs/architecture.mmd](docs/architecture.mmd). It uses th
 shared Alwaldend dark palette and typography, composed with the existing Mermaid
 actor artwork for the requested browser actor. The local template derives both
 from their owners. Build the WebP with
-`bazel build //users/simeonwarren/imagegen/docs:architecture`. The documentation
+`bazel build //infra/image_gen/docs:architecture`. The documentation
 consumes the rendered target directly; generated images are not checked in.
 The diagram describes the configured
 architecture, not an active rental. The simplified certificate label refers to

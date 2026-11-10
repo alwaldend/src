@@ -2,7 +2,7 @@ load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_terraform//terraform:defs.bzl", "terraform_test_map")
 load("//tools/al:al_terraform.bzl", "al_terraform_binary_map")
 
-package(transitive_visibility = "//users:transitive_consumers")
+package(transitive_visibility = "//infra:transitive_consumers")
 
 _PROVIDERS = [
     "//projects/vastai_terraform_provider:provider",
@@ -11,6 +11,7 @@ _PROVIDERS = [
 ]
 
 _DATA = [
+    "//infra/image_gen/workflows:workflows",
     "//projects/tf_modules/vastai_instance_imagegen_comfyui",
 ]
 
@@ -29,9 +30,9 @@ al_terraform_binary_map(
         ],
         "output": ["output"],
     },
-    configs = ["//users/simeonwarren/imagegen:al"],
+    configs = ["//infra/image_gen:al"],
     data = glob(["*.tf"]) + _DATA,
-    plugin_labels = {"tf": "imagegen"},
+    plugin_labels = {"tf": "setup"},
     providers = _PROVIDERS,
 )
 
@@ -63,5 +64,5 @@ terraform_test_map(
 docs_filegroup(
     name = "docs",
     srcs = ["README.md"],
-    visibility = ["//users/simeonwarren/imagegen:__pkg__"],
+    visibility = ["//infra/image_gen:__pkg__"],
 )

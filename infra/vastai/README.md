@@ -33,9 +33,9 @@ persistent CLI key files.
 | `vastai/alwaldend/rentals`                                         | Team root's generated rental key       |
 
 The existing [alwaldend root](alwaldend/README.md) also declares a
-dedicated token into the regular `user_simeonwarren/imagegen/vastai` namespace.
+dedicated token into the `src_infra_image_gen/vastai` component namespace.
 The existing team Vault writer has an exact-path delivery permission for that
-entry. The personal rental reads it with the regular user identity and uses the
+entry. The infrastructure rental reads it with its own AppRole and uses the
 generated team key to provision the instance.
 
 Each entry stores field `api_key`. The team root preserves its own seed key.
@@ -69,6 +69,6 @@ bazel run //infra/vastai/alwaldend -- show user
 ```
 
 The HTTP backend stores each root's lock and state under its configured
-`tf_backend/STATE_SUFFIX` entry. The image-generation token and its user Vault entry are owned by the existing
-team backend after their completed state handoff.
+`tf_backend/STATE_SUFFIX` entry. The image-generation token and its component Vault entry are owned by the existing
+team backend without reusing the destroyed personal key.
 Building or testing these targets does not authenticate or change live infrastructure.

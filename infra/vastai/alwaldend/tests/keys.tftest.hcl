@@ -20,12 +20,12 @@ run "team_keys_and_environment" {
   }
 
   assert {
-    condition     = vastai_api_key.imagegen.name == "users_simeonwarren_imagegen" && vastai_api_key.imagegen.permissions == ""
-    error_message = "The existing alwaldend root must own the dedicated image-generation key without changing its name."
+    condition     = vastai_api_key.image_gen.name == "infra_vastai_alwaldend_image_gen" && vastai_api_key.image_gen.permissions == ""
+    error_message = "The existing alwaldend root must own the dedicated image-generation key for the infrastructure component."
   }
 
   assert {
-    condition     = vault_kv_secret_v2.imagegen.name == "alwaldend.com/vault1/approles/user_simeonwarren/imagegen/vastai" && jsondecode(vault_kv_secret_v2.imagegen.data_json).api_key == vastai_api_key.imagegen.key
-    error_message = "The team root must store the generated key in the regular user namespace."
+    condition     = vault_kv_secret_v2.image_gen.name == "alwaldend.com/vault1/approles/src_infra_image_gen/vastai" && jsondecode(vault_kv_secret_v2.image_gen.data_json).api_key == vastai_api_key.image_gen.key
+    error_message = "The team root must store the generated key in the component AppRole namespace."
   }
 }

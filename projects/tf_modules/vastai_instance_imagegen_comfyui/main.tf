@@ -42,6 +42,41 @@ variable "model_downloads" {
   description = "Public HTTPS model files for the native first-boot provisioner. URLs must not contain credentials."
 }
 
+variable "workflows" {
+  type        = map(string)
+  default     = {}
+  nullable    = false
+  description = "Named native ComfyUI workflow JSON documents staged after workspace initialization."
+  validation {
+    condition = alltrue([for name, content in var.workflows :
+      can(regex("^[A-Za-z0-9][A-Za-z0-9_-]*$", name)) &&
+      can(jsondecode(content).nodes) && can(jsondecode(content).links)
+    ])
+    error_message = "Workflows require safe basenames and native JSON with nodes and links."
+  }
+}
+
+variable "custom_nodes" {
+  type        = map(object({ url = string, ref = string }))
+  default     = {}
+  nullable    = false
+  description = "Explicitly approved node packs fetched at immutable commits by Vast's native provisioner."
+  validation {
+    condition = alltrue([for name, node in var.custom_nodes :
+      can(regex("^[A-Za-z0-9][A-Za-z0-9_-]*$", name)) &&
+      can(regex("^https://github[.]com/[A-Za-z0-9_-]+/[A-Za-z0-9_.-]+$", node.url)) &&
+      can(regex("^[0-9a-f]{40}$", node.ref))
+    ])
+    error_message = "Node packs need a safe directory name, public GitHub repository URL and full immutable commit."
+  }
+}
+
+variable "python_requirements" {
+  type        = string
+  default     = null
+  description = "Approved, version-pinned and hash-locked requirements for the selected node packs."
+}
+
 variable "offer_id" {
   type        = number
   default     = null
@@ -124,11 +159,12 @@ module "imagegen" {
   label            = var.label
   state            = var.state
   local_port       = var.local_port
+  runtime_files    = { for name, content in var.workflows : "/workspace/ComfyUI/user/default/workflows/${name}.json" => jsonencode(jsondecode(content)) }
   runtime = {
     service            = "comfyui"
     port               = 18188
     arguments_variable = "COMFYUI_ARGS"
-    arguments          = "--listen 127.0.0.1 --port 18188 --disable-auto-launch --disable-all-custom-nodes --offline"
+    arguments          = "--listen 127.0.0.1 --port 18188 --disable-auto-launch --disable-all-custom-nodes --offline${length(var.custom_nodes) == 0 ? "" : " --whitelist-custom-nodes ${join(" ", sort(keys(var.custom_nodes)))}"}"
     model_root         = "/workspace/ComfyUI"
     model_directories = {
       checkpoint   = "models/diffusion_models"
@@ -138,6 +174,11 @@ module "imagegen" {
       text_encoder = "models/text_encoders"
     }
     portal_entries = ["localhost:8288:18288:/:API Wrapper"]
+  }
+  provisioning = {
+    git_repos    = [for name, node in var.custom_nodes : { url = node.url, ref = node.ref, dest = "/workspace/ComfyUI/custom_nodes/${name}" }]
+    write_files  = var.python_requirements == null ? [] : [{ path = "/etc/imagegen-python-requirements.txt", content = var.python_requirements, permissions = "0600" }]
+    pip_packages = var.python_requirements == null ? [] : [{ venv = "/venv/main", requirements = ["/etc/imagegen-python-requirements.txt"], args = "--require-hashes --no-deps" }]
   }
 }
 

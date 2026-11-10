@@ -1,0 +1,8 @@
+schema: spec-driven
+
+context: |
+  This OpenSpec workspace belongs to infra/image_gen in alwaldend/src.
+  Follow the repository AGENTS.md and this owner's README.md and build files.
+  This project owns the image-generation rental, login and dedicated state.
+  Vault AppRole declarations belong to infra/vault/tf; team key issuance belongs
+  to infra/vastai/alwaldend. Specifications describe desired state, not deployment.
