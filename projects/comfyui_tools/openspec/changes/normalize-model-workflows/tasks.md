@@ -62,3 +62,19 @@
 - [x] 11.1 Parameterize the shared SDXL graph construction for NoobAI and Illustrious while preserving all existing Juggernaut outputs.
 - [x] 11.2 Add native HiDream-I1 Full generation, img2img, style and sequence/GIF variants using published native schemas and the already approved model patcher.
 - [x] 11.3 Verify generated graphs, model-role selection and every profile's offline packaging without renting; document that new model GPU/reference acceptance remains unperformed.
+
+## 12. NoobAI img2img prompt sequence
+
+- [x] 12.1 Compose the existing img2img graph with Prompt Sequence, retaining the original reference for every panel, shared negative text, progress and grouped unique filenames.
+- [x] 12.2 Package the native PNG workflow, verify graph connections and unchanged existing outputs offline, and upload only the new saved workflow on the operator's subsequent request without accessing jobs or restarting.
+
+## 13. HiDream img2img prompt sequence
+
+- [x] 13.1 Compose the existing HiDream img2img graph with the native Prompt Sequence helper, preserving its encoders, sampling controls and same-reference behavior.
+- [x] 13.2 Verify the new artifact and unchanged existing HiDream outputs offline before the separately authorized deployment.
+
+## 14. Native USO and UMO-UNO references
+
+- [x] 14.1 Compose native USO subject, style and combined-reference graphs plus their prompt-sequence variants from the published workflow contracts.
+- [x] 14.2 Compose UMO-UNO single/multiple-identity reference graphs and corresponding sequences, preserving reference order and native guidance.
+- [x] 14.3 Verify generated links, model roles, full catalog packaging and unchanged existing workflow outputs offline; document that GPU and reference-quality acceptance is unperformed.

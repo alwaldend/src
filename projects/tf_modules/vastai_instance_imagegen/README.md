@@ -9,6 +9,9 @@ caller-supplied username/password. The caller supplies provider authentication
 and secure state. The [image-generation infrastructure project](../../../infra/image_gen/README.md)
 generates and stores its login in Vault before creating the paid instance.
 Building and testing these definitions does not deploy or rent capacity.
+The shared offer declaration caps both download and upload transfer rates at
+USD 0.025/GB, in addition to hourly-price and host requirements. The evaluator
+inherits these same predicates; it does not maintain a second bandwidth policy.
 
 ## Runtime modules
 
@@ -159,3 +162,9 @@ output, replacement, and mapped URLs. `imagegen-lifecycle.json` and
 `imagegen-https.json` are repeatable undeclared test outputs. No GPU is rented.
 Actual image boot, TLS/authentication, management-service bindings, model loading,
 and image generation remain unverified without a scoped live acceptance run.
+
+The common offer filters are declared once in offer_defaults.json; callers add
+their hardware, storage, port and price bounds. The ephemeral evaluator reuses
+those filters and the same startup.sh.tftpl through pure template compilation.
+Terraform still owns this module's regular rental lifecycle; it does not own
+evaluation resources.

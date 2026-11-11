@@ -45,7 +45,7 @@ class _Result(typing.TypedDict):
 
 
 class ChainedImageToImageGIF:
-    """Consume all ordered positive conditionings in one dependent frame job."""
+    """Sample ordered frame poses with shared model and noise/reference controls."""
 
     INPUT_IS_LIST: bool = True
     """Consume the complete conditioning sequence instead of independent mapping."""
@@ -94,6 +94,16 @@ class ChainedImageToImageGIF:
                 "fps": ("FLOAT", {"default": 6.0, "min": 0.1, "max": 60.0}),
                 "filename_prefix": ("STRING", {"default": "animation"}),
             },
+            "optional": {
+                "frame_source": (
+                    ["previous", "original"],
+                    {"default": "previous"},
+                ),
+                "frame_seed_mode": (
+                    ["increment", "fixed"],
+                    {"default": "increment"},
+                ),
+            },
             "hidden": {"unique_id": "UNIQUE_ID"},
         }
 
@@ -113,8 +123,15 @@ class ChainedImageToImageGIF:
         fps: list[float],
         filename_prefix: list[str],
         unique_id: list[str] | None = None,
+        frame_source: list[str] | None = None,
+        frame_seed_mode: list[str] | None = None,
+        _frame_inputs: typing.Callable[
+            [int, torch.Tensor | None],
+            tuple[object, object, dict[str, torch.Tensor]],
+        ]
+        | None = None,
     ) -> _Result:
-        """Feed each generated latent forward, then atomically publish one GIF."""
+        """Sample each pose from the selected latent and publish one complete GIF."""
         if not positive or len(negative) not in (1, len(positive)):
             raise ValueError(
                 "Supply frame prompts and either one shared negative or one per frame."
@@ -145,6 +162,23 @@ class ChainedImageToImageGIF:
             raise ValueError(
                 "Use a positive frame rate up to 60 and denoise between zero and one."
             )
+        source: str = (
+            "previous"
+            if frame_source is None
+            else (frame_source[0] if len(frame_source) == 1 else "")
+        )
+        seed_mode: str = (
+            "increment"
+            if frame_seed_mode is None
+            else (frame_seed_mode[0] if len(frame_seed_mode) == 1 else "")
+        )
+        if source not in ("previous", "original") or seed_mode not in (
+            "increment",
+            "fixed",
+        ):
+            raise ValueError(
+                "Select one valid frame source and frame seed mode."
+            )
         current: dict[str, torch.Tensor] = latent_image[0]
         if current["samples"].shape[0] != 1:
             raise ValueError(
@@ -156,6 +190,11 @@ class ChainedImageToImageGIF:
 
         frames: list[torch.Tensor] = []
         for index, conditioning in enumerate(positive):
+            if source == "original":
+                current = {
+                    name: value.clone() if torch.is_tensor(value) else value
+                    for name, value in latent_image[0].items()
+                }
             if unique_id and "server" in sys.modules:
                 import server
 
@@ -164,20 +203,35 @@ class ChainedImageToImageGIF:
                     unique_id[0],
                     server.PromptServer.instance.client_id,
                 )
+            negative_conditioning: object = negative[
+                0 if len(negative) == 1 else index
+            ]
+            if _frame_inputs is not None:
+                conditioning, negative_conditioning, current = _frame_inputs(
+                    index, frames[-1] if frames else None
+                )
+            elif source == "previous" and frames:
+                current = dict(latent_image[0])
+                current.update(nodes.VAEEncode().encode(vae[0], frames[-1])[0])
             current = nodes.common_ksampler(
                 model[0],
-                (seed[0] + index) % (2**64),
+                (seed[0] + (index if seed_mode == "increment" else 0))
+                % (2**64),
                 steps[0],
                 cfg[0],
                 sampler_name[0],
                 scheduler[0],
                 conditioning,
-                negative[0 if len(negative) == 1 else index],
+                negative_conditioning,
                 current,
                 denoise=denoise[0],
             )[0]
             decoded: torch.Tensor = (
-                vae[0].decode(current["samples"]).detach().cpu()
+                nodes.VAEDecode()
+                .decode(vae[0], current)[0]
+                .detach()
+                .cpu()
+                .float()
             )
             if decoded.shape[0] != 1 or (
                 frames and decoded.shape != frames[0].shape
@@ -263,11 +317,11 @@ class ChainedImageToImageGIF:
 
 
 NODE_CLASS_MAPPINGS: dict[str, type[ChainedImageToImageGIF]] = {
-    "ImagegenChainedImageToImageGIF": ChainedImageToImageGIF
+    "ImagegenChainedImageToImageGIF": ChainedImageToImageGIF,
 }
 """Native registry for the first-party chained-frame output node."""
 
 NODE_DISPLAY_NAME_MAPPINGS: dict[str, str] = {
-    "ImagegenChainedImageToImageGIF": "Chained Image to Image GIF"
+    "ImagegenChainedImageToImageGIF": "Chained Image to Image GIF",
 }
 """Readable workflow editor title."""

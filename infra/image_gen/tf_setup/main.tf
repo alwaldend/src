@@ -69,7 +69,7 @@ module "imagegen" {
     contains(local.model.workflows, "${local.configuration.model_profile}-image-to-image-gif") ? { chained_img2img_gif = file("${path.module}/../../../projects/comfyui_tools/nodes/chained_img2img_gif/chained_img2img_gif.py") } : {},
   )
   hugging_face_token = length(data.vault_kv_secret_v2.huggingface) == 0 ? null : data.vault_kv_secret_v2.huggingface[0].data["token"]
-  workflows = { for name in local.model.workflows :
+  workflows = { for name in try(local.model.startup_workflows, local.model.workflows) :
     name => file("${path.module}/../../../projects/comfyui_tools/workflows/${local.configuration.model_profile}/${name}.json")
   }
   access_mode      = "exposed"

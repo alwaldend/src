@@ -62,9 +62,9 @@ variable "model_downloads" {
     condition = alltrue([for model in var.model_downloads :
       can(regex("^https://[A-Za-z0-9.-]+/[^?#[:space:]]+$", model.url)) &&
       can(regex("^[A-Za-z0-9][A-Za-z0-9._-]*[.]safetensors$", model.filename)) &&
-      contains(["checkpoint", "lora", "vae", "embedding", "text_encoder", "ipadapter", "clip_vision"], model.kind)
+      contains(["checkpoint", "lora", "vae", "embedding", "text_encoder", "ipadapter", "clip_vision", "model_patch"], model.kind)
     ])
-    error_message = "Models need a public HTTPS URL, a plain .safetensors filename, and a supported checkpoint/lora/vae/embedding/text_encoder/ipadapter/clip_vision kind."
+    error_message = "Models need a public HTTPS URL, a plain .safetensors filename, and a supported checkpoint/lora/vae/embedding/text_encoder/ipadapter/clip_vision/model_patch kind."
   }
   validation {
     condition     = length(distinct([for model in var.model_downloads : model.filename])) == length(var.model_downloads)
@@ -180,25 +180,17 @@ variable "gpu_name" {
   description = "Optional exact GPU model filter for automatic selection, for example RTX 4090."
 }
 
+locals {
+  offer_defaults = jsondecode(file("${path.module}/offer_defaults.json"))
+}
+
 data "vastai_offers" "imagegen" {
-  query = jsonencode(merge({
-    datacenter        = { eq = true }
-    gpu_arch          = { eq = "nvidia" }
-    cpu_arch          = { eq = "amd64" }
-    cuda_max_good     = { gte = 12.9 }
-    verified          = { eq = true }
-    rentable          = { eq = true }
-    rented            = { eq = false }
-    num_gpus          = { eq = 1 }
+  query = jsonencode(merge(local.offer_defaults, {
     gpu_ram           = { gte = var.min_gpu_ram_gb * 1024 }
-    reliability       = { gte = 0.99 }
     direct_port_count = { gte = var.access_mode == "exposed" ? 2 : 1 }
     disk_space        = { gte = var.disk_gb }
     allocated_storage = var.disk_gb
     dph_total         = { lte = var.max_hourly_price }
-    type              = "on-demand"
-    order             = [["dph_total", "asc"]]
-    limit             = 1
   }, var.gpu_name == null ? {} : { gpu_name = { eq = var.gpu_name } }, var.offer_id == null ? {} : { ask_contract_id = { eq = var.offer_id } }))
 
   lifecycle {

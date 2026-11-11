@@ -46,7 +46,7 @@ local get(nodes, id) = byId(nodes)[std.toString(id)];
         [linkIds[1], sequenceNode.id, 1, saveId, std.length(save.inputs)],
       ] + (if negative == null then [] else [[linkIds[2], sequenceNode.id, 2, negativeId, std.length(negative.inputs)]]),
       removeLinks: [modelLink[0]],
-      metadata: { last_node_id: sequenceNode.id, last_link_id: progressLinkId },
+      metadata: { last_node_id: std.max(sequenceNode.id, base.last_node_id), last_link_id: progressLinkId },
     }),
 
   render(spec)::

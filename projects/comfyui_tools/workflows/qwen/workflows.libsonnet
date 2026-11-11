@@ -8,7 +8,7 @@ function(models) {
     extra: { ds: { offset: [40, 40], scale: 0.65 } },
     groups: [],
     last_link_id: 22,
-    last_node_id: 16,
+    last_node_id: 18,
     version: 0.4,
     nodes: [
       n.node(1, 'UNETLoader', [models.checkpoint, 'default'], [0, 0], [315, 180], order=1),
@@ -27,6 +27,7 @@ function(models) {
       n.node(14, 'VAEDecode', [], [1900, 0], [315, 120], order=14),
       n.node(15, 'SaveImage', ['QwenImageEdit'], [2250, 0], [400, 450], order=15),
       n.node(16, 'LoadImage', ['style-reference.png', 'image'], [350, 1200], [315, 320], title='Style reference', order=16),
+      n.node(18, 'ImageScale', ['lanczos', 1024, 1024, 'disabled'], [350, 980], [315, 180], title='Output canvas: width and height', order=17),
     ],
     links: [
       [1, 1, 0, 4, 0],
@@ -40,7 +41,8 @@ function(models) {
       [9, 7, 0, 9, 2],
       [10, 8, 0, 10, 0],
       [11, 9, 0, 11, 0],
-      [12, 7, 0, 12, 0],
+      [12, 7, 0, 18, 0],
+      [0, 18, 0, 12, 0],
       [13, 3, 0, 12, 1],
       [14, 5, 0, 13, 0],
       [15, 10, 0, 13, 1],
@@ -59,9 +61,9 @@ function(models) {
     nodes: [
       n.node(8, 'TextEncodeQwenImageEditPlus', ['Create a new comic panel using the robot character and illustration style from image 1. Show the robot riding a bicycle through a quiet mountain village. Change the pose, camera angle, and background while preserving the character design and art style.'], [700, 250], [420, 300], title='New scene', order=8),
     ],
-    order: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
+    order: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 18],
     removeLinks: [21, 22],
-    metadata: { last_link_id: 20, last_node_id: 15 },
+    metadata: { last_link_id: 20, last_node_id: 18 },
   }),
   'prompt-sequence': g.sequence(self['character-style'],
                                 n.node(17, 'ImagegenPromptSequence', ['A white robot rides a bicycle through a snowy park.\nA white robot stops beside a frozen pond.\nA white robot reads a book on a park bench.', 'Use the character from image 1 and the illustration style, colors and linework from image 2. Create a new comic panel for this scene:', 'line', 'comic'], [400, -450], [560, 360], indexed=false, title='Prompt Sequence: one image per prompt', order=0),
@@ -70,4 +72,28 @@ function(models) {
                                 15,
                                 [23, 24, 25],
                                 textInput='prompt'),
+  'image-to-image-gif': local reference = self['single-reference']; g.variant(reference, {
+    removeNodes: [7, 8, 9, 10, 11, 13, 14, 15, 18],
+    removeLinks: [edge[0] for edge in reference.links if !std.member([1, 2, 3, 13, 17], edge[0])],
+    nodes: [
+      n.node(7, 'ImageScale', ['lanczos', 1024, 1024, 'center'], [350, 800], [315, 180], title='Frame canvas size'),
+      n.node(13, 'ImagegenQwenChainedImageToImageGIF', [0, 'fixed', 40, 4.0, 'euler', 'simple', 1.0, 6.0, 'animation', 'previous', 'fixed'], [1100, 0], [440, 500]) {
+        inputs+: [{ name: 'filename_prefix', type: 'STRING', widget: { name: 'filename_prefix' } }],
+      },
+      n.node(17, 'ImagegenPromptSequence', ['The existing hand rests flat on the plush head.\nThe existing hand gently presses down on the plush head.\nThe existing hand rests flat on the plush head.', 'Edit the supplied image. Keep the camera and background unchanged. Change only the existing hand to this pose:', 'line', 'animation', ''], [350, -450], [680, 520], title='One edit instruction per frame'),
+    ],
+    links: [
+      [12, 7, 0, 12, 0],
+      [14, 5, 0, 17, 0],
+      [15, 17, 3, 13, 0],
+      [16, 17, 0, 13, 1],
+      [18, 17, 2, 13, 2],
+      [19, 17, 1, 13, 7],
+      [20, 3, 0, 13, 4],
+      [21, 2, 0, 13, 5],
+      [22, 7, 0, 13, 6],
+    ],
+    metadata: { last_link_id: 22, last_node_id: 17 },
+  }),
+  'image-to-image-gif-masked': (import '../internal/animation.libsonnet').masked(self['image-to-image-gif'], 7),
 }

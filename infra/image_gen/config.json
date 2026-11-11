@@ -1,7 +1,7 @@
 {
     "image": "vastai/comfy:v0.44.0-cuda-12.9-py312",
     "web_username": "imagegen",
-    "model_profile": "chroma-hd",
+    "model_profile": "hidream-i1-full",
     "hardware_profile": "48gb",
     "hardware_profiles": {
         "standard": {
@@ -101,6 +101,7 @@
             "workflows": [
                 "noobai-text-to-image",
                 "noobai-image-to-image",
+                "noobai-image-to-image-prompt-sequence",
                 "noobai-prompt-sequence",
                 "noobai-style-reference",
                 "noobai-style-prompt-sequence",
@@ -135,13 +136,16 @@
             "python_requirements": "res4lyf-requirements.txt"
         },
         "hidream-i1-full": {
+            "startup_workflows": [],
             "workflows": [
                 "hidream-i1-full-text-to-image",
                 "hidream-i1-full-image-to-image",
+                "hidream-i1-full-image-to-image-prompt-sequence",
                 "hidream-i1-full-style-reference",
                 "hidream-i1-full-prompt-sequence",
                 "hidream-i1-full-style-prompt-sequence",
-                "hidream-i1-full-image-to-image-gif"
+                "hidream-i1-full-image-to-image-gif",
+                "hidream-i1-full-image-to-image-gif-masked"
             ],
             "downloads": [
                 "hidream_i1_full_fp16.safetensors",
@@ -159,6 +163,36 @@
             },
             "custom_nodes": ["RES4LYF"],
             "python_requirements": "res4lyf-requirements.txt"
+        },
+        "uso": {
+            "components": {
+                "projector": "uso-flux1-projector-v1.safetensors"
+            },
+            "workflows": [
+                "uso-single-reference",
+                "uso-single-reference-prompt-sequence",
+                "uso-style-reference",
+                "uso-style-prompt-sequence",
+                "uso-character-style",
+                "uso-prompt-sequence"
+            ],
+            "downloads": [
+                "flux1-dev-fp8.safetensors",
+                "uso-flux1-dit-lora-v1.safetensors",
+                "uso-flux1-projector-v1.safetensors",
+                "sigclip_vision_patch14_384.safetensors"
+            ],
+            "checkpoint_directory": "models/checkpoints"
+        },
+        "umo-uno": {
+            "workflows": [
+                "umo-uno-single-reference",
+                "umo-uno-single-reference-prompt-sequence",
+                "umo-uno-multi-reference",
+                "umo-uno-multi-reference-prompt-sequence"
+            ],
+            "downloads": ["flux1-dev-fp8.safetensors", "UMO_UNO.safetensors"],
+            "checkpoint_directory": "models/checkpoints"
         }
     },
     "downloads": {
@@ -245,6 +279,26 @@
         "llama_3.1_8b_instruct_fp8_scaled.safetensors": {
             "url": "https://huggingface.co/Comfy-Org/HiDream/resolve/942970a008493fc9bf05b4827374009e69f6a993/split_files/text_encoders/llama_3.1_8b_instruct_fp8_scaled.safetensors",
             "kind": "text_encoder"
+        },
+        "flux1-dev-fp8.safetensors": {
+            "url": "https://huggingface.co/Comfy-Org/Flux-1-Dev/resolve/10cf201a3d49f7ff4de84d6a97d6a32cdfa8cb86/flux1-dev-fp8.safetensors",
+            "kind": "checkpoint"
+        },
+        "uso-flux1-dit-lora-v1.safetensors": {
+            "url": "https://huggingface.co/Comfy-Org/USO-1.0/resolve/5665f4249983d8a7ebae0de7afe2070887b0397c/split_files/loras/uso-flux1-dit-lora-v1.safetensors",
+            "kind": "lora"
+        },
+        "uso-flux1-projector-v1.safetensors": {
+            "url": "https://huggingface.co/Comfy-Org/USO-1.0/resolve/5665f4249983d8a7ebae0de7afe2070887b0397c/split_files/model_patches/uso-flux1-projector-v1.safetensors",
+            "kind": "model_patch"
+        },
+        "sigclip_vision_patch14_384.safetensors": {
+            "url": "https://huggingface.co/Comfy-Org/sigclip_vision_384/resolve/5421dab31229df19801c8e3af446b5a8bc71a3bc/sigclip_vision_patch14_384.safetensors",
+            "kind": "clip_vision"
+        },
+        "UMO_UNO.safetensors": {
+            "url": "https://huggingface.co/bytedance-research/UMO/resolve/3ae6b3a107aef38c3ee2bb1ab824ac473457e895/UMO_UNO.safetensors",
+            "kind": "lora"
         }
     },
     "custom_nodes": {

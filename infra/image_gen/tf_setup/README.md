@@ -27,10 +27,16 @@ there is no registry lookup or helper executable during Terraform planning.
 Changing the tag produces a reviewed replacement plan for an existing rental.
 The component's [config.json](../config.json) owns the image, HTTPS username,
 selected model/hardware profiles and their definitions. Terraform has no root
-input variables or tfvars presets. The selected model is full Chroma1-HD with
-its FP16 T5 encoder and original FLUX VAE. Other model profiles remain available
-as `flux2-dev`, `juggernaut`, `noobai`, `illustrious`, `hidream-i1-full`, `flux`
-and `qwen`. Selecting a profile does not rent until an explicitly authorized apply.
+input variables or tfvars presets. The selected model is HiDream-I1 Full with its
+four local text encoders and FLUX VAE, on the
+existing 48 GB hardware profile. Other model profiles remain available
+as `chroma-hd`, `flux2-dev`, `juggernaut`, `noobai`, `illustrious`, `flux`,
+`qwen`, `uso` and `umo-uno`. Selecting a profile does not rent until an explicitly authorized apply.
+
+HiDream's eight workflow files are uploaded through the authenticated ComfyUI
+API after startup. Its empty `startup_workflows` selection keeps those JSON
+files out of the inline command; other profiles default to their full catalog.
+Models, approved nodes and hardening still use the normal native startup.
 
 ```sh
 bazel run //infra/image_gen/tf_setup:tf.plan
@@ -100,19 +106,21 @@ references through IP-Adapter Plus. The two additional public safetensors files
 add about 3.4 GB: the SDXL Plus adapter in `models/ipadapter` and its CLIP-ViT-H
 encoder in `models/clip_vision`. Their publisher revisions are fixed in config.json.
 
-| Profile                | Bundle                                                                        | Native workflows                                                                                                                                                                   |
-| ---------------------- | ----------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `juggernaut`           | Juggernaut XL v9 all-in-one SDXL checkpoint                                   | `juggernaut-text-to-image`, `juggernaut-image-to-image`, `juggernaut-prompt-sequence`, `juggernaut-style-reference`, `juggernaut-style-prompt-sequence`                            |
-| `noobai`               | NoobAI XL 1.1 all-in-one SDXL checkpoint, SDXL Plus adapter and CLIP vision   | Seven purposes as Juggernaut, prefixed `noobai-`                                                                                                                                   |
-| `illustrious`          | Illustrious XL v2.0-STABLE SDXL checkpoint, SDXL Plus adapter and CLIP vision | Seven purposes as Juggernaut, prefixed `illustrious-`                                                                                                                              |
-| `hidream-i1-full`      | HiDream-I1 Full 17B FP16, four local text encoders, FLUX VAE                  | Six purposes as full Chroma, prefixed `hidream-i1-full-`                                                                                                                           |
-| `chroma-hd` (selected) | Full Chroma1-HD, FP16 T5 encoder, FLUX VAE                                    | `chroma-hd-text-to-image`, `chroma-hd-image-to-image`, `chroma-hd-style-reference`, `chroma-hd-prompt-sequence`, `chroma-hd-style-prompt-sequence`, `chroma-hd-image-to-image-gif` |
-| `flux2-dev`            | FLUX.2 dev 32B FP8, local Mistral FP8 encoder, FLUX.2 VAE                     | `flux2-dev-text-to-image`, `flux2-dev-single-reference`, `flux2-dev-single-reference-prompt-sequence`, `flux2-dev-multi-reference`, `flux2-dev-multi-reference-prompt-sequence`    |
-| `flux`                 | FLUX.2 klein Base 9B FP8, Qwen3 8B mixed FP8 encoder, Flux small-decoder VAE  | `flux-single-reference`, `flux-character-style`, `flux-prompt-sequence`                                                                                                            |
-| `qwen`                 | Qwen-Image-Edit-2511 mixed FP8, Qwen 2.5 VL 7B FP8 encoder, Qwen VAE          | `qwen-single-reference`, `qwen-character-style`, `qwen-prompt-sequence`                                                                                                            |
+| Profile                      | Bundle                                                                             | Native workflows                                                                                                                                                                   |
+| ---------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `juggernaut`                 | Juggernaut XL v9 all-in-one SDXL checkpoint                                        | `juggernaut-text-to-image`, `juggernaut-image-to-image`, `juggernaut-prompt-sequence`, `juggernaut-style-reference`, `juggernaut-style-prompt-sequence`                            |
+| `noobai`                     | NoobAI XL 1.1 all-in-one SDXL checkpoint, SDXL Plus adapter and CLIP vision        | Seven purposes as Juggernaut, plus img2img prompt sequence; prefixed `noobai-`                                                                                                     |
+| `illustrious`                | Illustrious XL v2.0-STABLE SDXL checkpoint, SDXL Plus adapter and CLIP vision      | Seven purposes as Juggernaut, prefixed `illustrious-`                                                                                                                              |
+| `hidream-i1-full` (selected) | HiDream-I1 Full 17B FP16, four local text encoders, FLUX VAE                       | Eight purposes: txt2img, img2img, their prompt sequences, style and its sequence, and both GIF paths; prefixed `hidream-i1-full-`                                                  |
+| `chroma-hd`                  | Full Chroma1-HD, FP16 T5 encoder, FLUX VAE                                         | `chroma-hd-text-to-image`, `chroma-hd-image-to-image`, `chroma-hd-style-reference`, `chroma-hd-prompt-sequence`, `chroma-hd-style-prompt-sequence`, `chroma-hd-image-to-image-gif` |
+| `flux2-dev`                  | FLUX.2 dev 32B FP8, local Mistral FP8 encoder, FLUX.2 VAE                          | `flux2-dev-text-to-image`, `flux2-dev-single-reference`, `flux2-dev-single-reference-prompt-sequence`, `flux2-dev-multi-reference`, `flux2-dev-multi-reference-prompt-sequence`    |
+| `flux`                       | FLUX.2 klein Base 9B FP8, Qwen3 8B mixed FP8 encoder, Flux small-decoder VAE       | `flux-single-reference`, `flux-character-style`, `flux-prompt-sequence`                                                                                                            |
+| `qwen`                       | Qwen-Image-Edit-2511 mixed FP8, Qwen 2.5 VL 7B FP8 encoder, Qwen VAE               | `qwen-single-reference`, `qwen-character-style`, `qwen-prompt-sequence`                                                                                                            |
+| `uso`                        | FLUX.1 dev FP8 all-in-one checkpoint, USO LoRA/projector and SigLIP vision encoder | Subject reference, style reference and combined subject/two-style references, each with a sequence; prefixed `uso-`                                                                |
+| `umo-uno`                    | Same FLUX.1 dev FP8 checkpoint and UMO-UNO LoRA                                    | Single and three-identity references, each with a sequence; prefixed `umo-uno-`                                                                                                    |
 
 All files are fixed to publisher revisions in [config.json](../config.json).
-The selected full Chroma bundle totals about 28 GB. The optional 32B and HiDream
+The full Chroma bundle totals about 28 GB. The optional 32B and HiDream
 bundles each total about 55 GB of model files. Model and hardware selections
 are independent: choose sufficient disk/VRAM for the bundle; `48gb` provides
 100 GB disk and `96gb` provides 150 GB. No new model is deployed by these additions.
@@ -195,8 +203,40 @@ not guarantee exact style isolation or character continuity.
 
 ## Additional model options
 
-The approved additions are selectable source configurations with offline checks;
-they have not been rented or tested on a GPU. Model size alone does not predict
+[USO](https://docs.comfy.org/tutorials/flux/flux-1-uso) and
+[UMO-UNO](https://github.com/bytedance/UMO) are optional
+native ComfyUI profiles. USO downloads about 18.6 GB, including its FLUX.1 dev
+FP8 checkpoint with local text encoders and VAE, a LoRA, a style projector and
+SigLIP vision weights. UMO-UNO downloads about 19.2 GB, sharing that checkpoint
+and adding its own LoRA. All five registry files are fixed to publisher
+revisions. Both use the existing runtime image and Prompt Sequence node;
+neither installs another custom-node pack or Python requirement. The shared
+checkpoint retains the FLUX.1 dev non-commercial license; the USO, UMO and
+SigLIP additions use Apache 2.0. These model options have only offline
+packaging/graph validation, without GPU or reference-quality acceptance.
+
+For USO, `uso-single-reference` uses one subject; `uso-style-reference` uses
+one style image; `uso-character-style` uses one subject and two style images.
+Use the same image in both style inputs when only one style reference is
+needed. Each has a sequence counterpart. Subject references are resized with
+aspect preserved, starting at a 1024-pixel longest side. Style images use the
+native SigLIP crop control. UMO-UNO offers a single-reference or ordered
+three-reference path; its publisher's starting reference size is 512 pixels
+on the longest side. Repeating one subject in multiple inputs is not a
+substitute for separate identities. It has no USO style-projector branch.
+Describe reference roles and the wanted scene in natural language.
+
+Both families start from fresh noise, with editable 1024-square output size,
+Euler/simple sampling and CFG 1. USO starts at 20 steps and FluxGuidance 3.5;
+UMO starts at 25 steps and FluxGuidance 4. The zeroed negative branch has no
+effect at CFG 1, including the sequence node's negative output. Sequences reuse
+the same original reference inputs per panel, showing progress and unique
+grouped filenames. These are independent reference-conditioned panels, not
+joint attention across the sequence. No reference workflow guarantees exact
+style isolation or identity continuity.
+
+The profiles below remain selectable; later rental and acceptance observations
+belong to the linked deployment record. Model size alone does not predict
 comic quality or reference adherence.
 
 - [NoobAI XL 1.1](https://huggingface.co/Laxhar/noobai-XL-1.1) is an SDXL

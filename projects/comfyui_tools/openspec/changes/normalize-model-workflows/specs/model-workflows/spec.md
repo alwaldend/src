@@ -1,5 +1,20 @@
 ## ADDED Requirements
 
+### Requirement: Native USO and UMO-UNO reference workflows
+
+USO SHALL provide subject, style and combined subject/style reference workflows
+and a prompt-sequence variant of each. UMO-UNO SHALL provide single and multiple
+identity-reference workflows and a sequence variant of each. Graphs SHALL use
+the publisher's native ComfyUI conditioning, matching declared model components,
+fresh starting latents and editable image dimensions. Existing workflow
+contents SHALL remain unchanged.
+
+#### Scenario: Reference-guided panel sequence
+
+- **WHEN** the operator supplies the required reference images and nonempty prompt lines
+- **THEN** each line SHALL reuse those original references and produce a separately numbered image in the same uniquely named media group
+- **AND** USO style references SHALL pass through its SigLIP/projector branch while UMO-UNO SHALL preserve identity reference ordering without claiming style isolation
+
 ### Requirement: Additional approved model families
 
 NoobAI and Illustrious SHALL provide SDXL generation, img2img, style and
@@ -132,6 +147,32 @@ SHALL NOT imply that an unconnected negative-prompt output affects sampling.
 
 - **WHEN** the operator supplies three references and several nonempty scene lines
 - **THEN** the sequence SHALL generate one panel per line using all three references and the same native guidance settings
+
+### Requirement: HiDream img2img prompt sequence
+
+The HiDream image-to-image prompt sequence SHALL compose the existing native
+four-encoder img2img graph with the shared Prompt Sequence helper. Every prompt
+SHALL use the same original reference latent, shared negative text, per-panel
+progress and unique grouped PNG filenames. Existing sampling and size controls
+SHALL remain editable, and existing HiDream workflow contents SHALL be preserved.
+
+#### Scenario: Independent variations of one reference
+
+- **WHEN** the operator selects a reference and enters several nonempty prompt lines
+- **THEN** the workflow SHALL sample one independent image per line from that original reference without previous-frame feedback
+
+### Requirement: NoobAI img2img prompt sequence
+
+The NoobAI image-to-image prompt sequence SHALL use the same original reference
+for every nonempty prompt line and save separate PNG images in one native job.
+It SHALL retain ordinary img2img size and sampling controls, shared negative
+text, per-panel progress and unique grouped filenames, without frame feedback
+or GIF assembly.
+
+#### Scenario: Several variations of the same reference
+
+- **WHEN** the operator selects a reference and supplies three nonempty prompt lines
+- **THEN** the workflow SHALL produce three independent img2img outputs from that reference with the same configured denoise and shared negative text
 
 ### Requirement: Reusable authoring and native outputs
 

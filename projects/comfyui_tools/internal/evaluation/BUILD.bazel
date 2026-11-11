@@ -1,0 +1,26 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+package(transitive_visibility = "//projects:transitive_consumers")
+
+go_library(
+    name = "evaluation",
+    srcs = [
+        "config.go",
+        "doc.go",
+        "lifecycle.go",
+        "preflight.go",
+        "provisioning.go",
+        "workload.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/comfyui_tools/internal/evaluation",
+    visibility = [
+        "//infra/image_gen/evals:__pkg__",
+        "//projects/comfyui_tools:__subpackages__",
+    ],
+    deps = ["//internal/vastai_sdk/pkg/client"],
+)
+
+exports_files(
+    ["workload_e2e_test.go"],
+    visibility = ["//infra/image_gen/evals:__pkg__"],
+)

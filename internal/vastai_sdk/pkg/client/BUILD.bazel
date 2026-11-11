@@ -9,6 +9,7 @@ go_library(
         "client.go",
         "doc.go",
         "generated.go",
+        "startup.go",
         "team.go",
         "template.go",
     ],

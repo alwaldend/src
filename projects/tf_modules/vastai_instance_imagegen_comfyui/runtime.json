@@ -1,0 +1,18 @@
+{
+    "service": "comfyui",
+    "port": 18188,
+    "arguments_variable": "COMFYUI_ARGS",
+    "arguments": "--listen 127.0.0.1 --port 18188 --disable-auto-launch --disable-all-custom-nodes --offline",
+    "model_root": "/workspace/ComfyUI",
+    "model_directories": {
+        "checkpoint": "models/diffusion_models",
+        "lora": "models/loras",
+        "vae": "models/vae",
+        "embedding": "models/embeddings",
+        "text_encoder": "models/text_encoders",
+        "ipadapter": "models/ipadapter",
+        "clip_vision": "models/clip_vision",
+        "model_patch": "models/model_patches"
+    },
+    "portal_entries": ["localhost:8288:18288:/:API Wrapper"]
+}

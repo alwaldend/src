@@ -1,0 +1,67 @@
+{
+    "owner": "image_gen",
+    "max_parallel": 3,
+    "max_lifetime_seconds": 2700,
+    "boot_timeout_seconds": 300,
+    "workload_timeout_seconds": 2400,
+    "cleanup_timeout_seconds": 180,
+    "poll_seconds": 5,
+    "matrix": [
+        {
+            "id": "thorns_sdxl",
+            "hardware_profiles": ["standard"],
+            "model_profiles": ["juggernaut", "noobai", "illustrious"],
+            "workflows": ["text-to-image", "multi-reference"],
+            "case_ids": ["landscape_of_thorns"],
+            "seeds": [42, 123]
+        },
+        {
+            "id": "thorns_style",
+            "hardware_profiles": ["standard"],
+            "model_profiles": ["chroma-hd", "hidream-i1-full"],
+            "workflows": ["text-to-image", "style-reference"],
+            "case_ids": ["landscape_of_thorns"],
+            "seeds": [42, 123]
+        },
+        {
+            "hardware_profiles": ["standard"],
+            "case_ids": ["plush_petting"],
+            "seeds": [42],
+            "id": "plush",
+            "model_profiles": ["chroma-hd", "hidream-i1-full"],
+            "workflows": ["image-to-image-gif"],
+            "sampling": {
+                "frame_source": "previous",
+                "frame_seed_mode": "fixed",
+                "denoise": 0.45
+            }
+        },
+        {
+            "hardware_profiles": ["standard"],
+            "case_ids": ["plush_petting"],
+            "seeds": [42],
+            "id": "plush_anchored",
+            "model_profiles": ["chroma-hd", "hidream-i1-full"],
+            "workflows": ["image-to-image-gif", "image-to-image-gif-masked"],
+            "sampling": {
+                "frame_source": "original",
+                "frame_seed_mode": "fixed",
+                "denoise": 0.65
+            }
+        },
+        {
+            "hardware_profiles": ["standard"],
+            "case_ids": ["plush_petting"],
+            "seeds": [42],
+            "id": "plush_edit",
+            "model_profiles": ["qwen"],
+            "workflows": ["image-to-image-gif", "image-to-image-gif-masked"],
+            "sampling": {
+                "frame_source": "previous",
+                "frame_seed_mode": "fixed",
+                "denoise": 1.0
+            }
+        }
+    ],
+    "minimum_reliability": 0
+}

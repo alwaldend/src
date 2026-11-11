@@ -3,10 +3,19 @@ load("@rules_terraform//terraform:defs.bzl", "terraform_test_map")
 
 package(transitive_visibility = "//projects:transitive_consumers")
 
+exports_files(
+    [
+        "startup.sh.tftpl",
+        "offer_defaults.json",
+    ],
+    visibility = ["//projects/comfyui_tools:asset_consumers"],
+)
+
 filegroup(
     name = "vastai_instance_imagegen",
     srcs = [
         "main.tf",
+        "offer_defaults.json",
         "startup.sh.tftpl",
     ],
     visibility = ["//:__subpackages__"],

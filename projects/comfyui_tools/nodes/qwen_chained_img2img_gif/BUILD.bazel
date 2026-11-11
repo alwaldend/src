@@ -1,0 +1,15 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+
+package(transitive_visibility = "//projects:transitive_consumers")
+
+filegroup(
+    name = "source",
+    srcs = ["qwen_chained_img2img_gif.py"],
+    visibility = ["//projects/comfyui_tools:asset_consumers"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//projects/comfyui_tools:__pkg__"],
+)

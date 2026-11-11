@@ -3,6 +3,16 @@ local configuration = import '../../../infra/image_gen/config.json';
 local g = import 'internal/graph.libsonnet';
 // Recorded workflow defaults remain usable when native downloading is disabled.
 local defaults = {
+  uso: {
+    checkpoint: 'flux1-dev-fp8.safetensors',
+    lora: 'uso-flux1-dit-lora-v1.safetensors',
+    projector: 'uso-flux1-projector-v1.safetensors',
+    clip_vision: 'sigclip_vision_patch14_384.safetensors',
+  },
+  'umo-uno': {
+    checkpoint: 'flux1-dev-fp8.safetensors',
+    lora: 'UMO_UNO.safetensors',
+  },
   noobai: {
     checkpoint: 'NoobAI-XL-v1.1.safetensors',
     ipadapter: 'ip-adapter-plus_sdxl_vit-h.safetensors',
@@ -67,6 +77,8 @@ local filenames(profile) = {
   for kind in std.objectFields(defaults[profile])
 };
 local families = {
+  uso: (import 'uso/workflows.libsonnet')(filenames('uso')),
+  'umo-uno': (import 'umo-uno/workflows.libsonnet')(filenames('umo-uno')),
   noobai: (import 'noobai/workflows.libsonnet')(filenames('noobai')),
   illustrious: (import 'illustrious/workflows.libsonnet')(filenames('illustrious')),
   'hidream-i1-full': (import 'hidream-i1-full/workflows.libsonnet')(filenames('hidream-i1-full')),

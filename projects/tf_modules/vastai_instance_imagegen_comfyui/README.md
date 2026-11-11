@@ -75,3 +75,8 @@ owns the boot contract. [ComfyUI's native arguments](https://github.com/Comfy-Or
 own the offline and custom-node behavior. Offline Terraform acceptance covers
 both access modes, native model paths and proxy/forwarding ports; actual image
 boot and GPU generation require separately authorized live acceptance.
+
+Fixed runtime settings are declared in runtime.json and merged with the
+selected checkpoint directory and approved node whitelist. The ephemeral
+evaluator consumes the same declaration instead of maintaining another set of
+ports, command-line flags and native model directories.
