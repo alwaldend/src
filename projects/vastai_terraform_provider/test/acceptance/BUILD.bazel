@@ -23,11 +23,13 @@ go_test(
         "-imagegen-module=$(rlocationpath //projects/tf_modules/vastai_instance_imagegen_forge:entry)",
         "-imagegen-configuration=$(rlocationpath //infra/image_gen:config.json)",
         "-prompt-sequence=$(rlocationpath //projects/comfyui_tools/nodes/prompt_sequence:source)",
+        "-chained-gif=$(rlocationpath //projects/comfyui_tools/nodes/chained_img2img_gif:source)",
         "-configured-workflow=$(rlocationpath //projects/comfyui_tools/workflows:juggernaut/juggernaut-text-to-image.json)",
     ],
     data = [
         "//infra/image_gen:config.json",
         "//infra/image_gen:configuration",
+        "//projects/comfyui_tools/nodes/chained_img2img_gif:source",
         "//projects/comfyui_tools/nodes/prompt_sequence:source",
         "//projects/comfyui_tools/workflows",
         "//projects/comfyui_tools/workflows:juggernaut/juggernaut-text-to-image.json",

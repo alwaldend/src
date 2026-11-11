@@ -22,8 +22,12 @@ provider "vault" {
 provider "random" {}
 
 locals {
-  configuration   = jsondecode(file("${path.module}/../config.json"))
-  model           = local.configuration.model_profiles[local.configuration.model_profile]
+  configuration = jsondecode(file("${path.module}/../config.json"))
+  profile       = local.configuration.model_profiles[local.configuration.model_profile]
+  model = merge(local.profile, {
+    downloads    = [for name in local.profile.downloads : merge(local.configuration.downloads[name], { filename = name })]
+    custom_nodes = { for name in try(local.profile.custom_nodes, []) : name => local.configuration.custom_nodes[name] }
+  })
   hardware        = local.configuration.hardware_profiles[local.configuration.hardware_profile]
   model_downloads = local.model.downloads
 }
@@ -62,7 +66,7 @@ module "imagegen" {
   python_requirements  = try(local.model.python_requirements, null) == null ? null : file("${path.module}/../${local.model.python_requirements}")
   custom_node_sources = merge(
     { prompt_sequence = file("${path.module}/../../../projects/comfyui_tools/nodes/prompt_sequence/prompt_sequence.py") },
-    local.configuration.model_profile == "chroma-hd" ? { chained_img2img_gif = file("${path.module}/../../../projects/comfyui_tools/nodes/chained_img2img_gif/chained_img2img_gif.py") } : {},
+    contains(local.model.workflows, "${local.configuration.model_profile}-image-to-image-gif") ? { chained_img2img_gif = file("${path.module}/../../../projects/comfyui_tools/nodes/chained_img2img_gif/chained_img2img_gif.py") } : {},
   )
   hugging_face_token = length(data.vault_kv_secret_v2.huggingface) == 0 ? null : data.vault_kv_secret_v2.huggingface[0].data["token"]
   workflows = { for name in local.model.workflows :

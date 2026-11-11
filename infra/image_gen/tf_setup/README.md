@@ -29,7 +29,8 @@ The component's [config.json](../config.json) owns the image, HTTPS username,
 selected model/hardware profiles and their definitions. Terraform has no root
 input variables or tfvars presets. The selected model is full Chroma1-HD with
 its FP16 T5 encoder and original FLUX VAE. Other model profiles remain available
-as `flux2-dev`, `juggernaut`, `flux` and `qwen`.
+as `flux2-dev`, `juggernaut`, `noobai`, `illustrious`, `hidream-i1-full`, `flux`
+and `qwen`. Selecting a profile does not rent until an explicitly authorized apply.
 
 ```sh
 bazel run //infra/image_gen/tf_setup:tf.plan
@@ -82,7 +83,10 @@ The checks omit the live backend, validate the actual module/provider schema,
 and exercise password generation and Vault persistence with a mocked Vault and
 overridden rental module; the separate CLI E2E suite covers the actual rental module. They do not write Vault or rent
 capacity. The provider's Terraform CLI acceptance suite emits separate SSH and
-HTTPS lifecycle artifacts. Actual image startup and TLS/authentication require
+HTTPS lifecycle artifacts. Its configured-bundle check packages every model
+profile through the real module against a loopback API, checking workflow
+contents, model destinations and the 16 KiB startup limit. It does not download
+weights or evaluate generated images. Actual image startup and TLS/authentication require
 a separately scoped live acceptance run.
 
 ## Download models
@@ -96,28 +100,34 @@ references through IP-Adapter Plus. The two additional public safetensors files
 add about 3.4 GB: the SDXL Plus adapter in `models/ipadapter` and its CLIP-ViT-H
 encoder in `models/clip_vision`. Their publisher revisions are fixed in config.json.
 
-| Profile                | Bundle                                                                       | Native workflows                                                                                                                                                                   |
-| ---------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `juggernaut`           | Juggernaut XL v9 all-in-one SDXL checkpoint                                  | `juggernaut-text-to-image`, `juggernaut-image-to-image`, `juggernaut-prompt-sequence`, `juggernaut-style-reference`, `juggernaut-style-prompt-sequence`                            |
-| `chroma-hd` (selected) | Full Chroma1-HD, FP16 T5 encoder, FLUX VAE                                   | `chroma-hd-text-to-image`, `chroma-hd-image-to-image`, `chroma-hd-style-reference`, `chroma-hd-prompt-sequence`, `chroma-hd-style-prompt-sequence`, `chroma-hd-image-to-image-gif` |
-| `flux2-dev`            | FLUX.2 dev 32B FP8, local Mistral FP8 encoder, FLUX.2 VAE                    | `flux2-dev-text-to-image`, `flux2-dev-single-reference`, `flux2-dev-single-reference-prompt-sequence`, `flux2-dev-multi-reference`, `flux2-dev-multi-reference-prompt-sequence`    |
-| `flux`                 | FLUX.2 klein Base 9B FP8, Qwen3 8B mixed FP8 encoder, Flux small-decoder VAE | `flux-single-reference`, `flux-character-style`, `flux-prompt-sequence`                                                                                                            |
-| `qwen`                 | Qwen-Image-Edit-2511 mixed FP8, Qwen 2.5 VL 7B FP8 encoder, Qwen VAE         | `qwen-single-reference`, `qwen-character-style`, `qwen-prompt-sequence`                                                                                                            |
+| Profile                | Bundle                                                                        | Native workflows                                                                                                                                                                   |
+| ---------------------- | ----------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `juggernaut`           | Juggernaut XL v9 all-in-one SDXL checkpoint                                   | `juggernaut-text-to-image`, `juggernaut-image-to-image`, `juggernaut-prompt-sequence`, `juggernaut-style-reference`, `juggernaut-style-prompt-sequence`                            |
+| `noobai`               | NoobAI XL 1.1 all-in-one SDXL checkpoint, SDXL Plus adapter and CLIP vision   | Seven purposes as Juggernaut, prefixed `noobai-`                                                                                                                                   |
+| `illustrious`          | Illustrious XL v2.0-STABLE SDXL checkpoint, SDXL Plus adapter and CLIP vision | Seven purposes as Juggernaut, prefixed `illustrious-`                                                                                                                              |
+| `hidream-i1-full`      | HiDream-I1 Full 17B FP16, four local text encoders, FLUX VAE                  | Six purposes as full Chroma, prefixed `hidream-i1-full-`                                                                                                                           |
+| `chroma-hd` (selected) | Full Chroma1-HD, FP16 T5 encoder, FLUX VAE                                    | `chroma-hd-text-to-image`, `chroma-hd-image-to-image`, `chroma-hd-style-reference`, `chroma-hd-prompt-sequence`, `chroma-hd-style-prompt-sequence`, `chroma-hd-image-to-image-gif` |
+| `flux2-dev`            | FLUX.2 dev 32B FP8, local Mistral FP8 encoder, FLUX.2 VAE                     | `flux2-dev-text-to-image`, `flux2-dev-single-reference`, `flux2-dev-single-reference-prompt-sequence`, `flux2-dev-multi-reference`, `flux2-dev-multi-reference-prompt-sequence`    |
+| `flux`                 | FLUX.2 klein Base 9B FP8, Qwen3 8B mixed FP8 encoder, Flux small-decoder VAE  | `flux-single-reference`, `flux-character-style`, `flux-prompt-sequence`                                                                                                            |
+| `qwen`                 | Qwen-Image-Edit-2511 mixed FP8, Qwen 2.5 VL 7B FP8 encoder, Qwen VAE          | `qwen-single-reference`, `qwen-character-style`, `qwen-prompt-sequence`                                                                                                            |
 
 All files are fixed to publisher revisions in [config.json](../config.json).
-The selected full Chroma bundle totals about 28 GB and uses the 100 GB disk
-profile. The optional 32B bundle totals about 54 GB and uses the 150 GB disk profile.
+The selected full Chroma bundle totals about 28 GB. The optional 32B and HiDream
+bundles each total about 55 GB of model files. Model and hardware selections
+are independent: choose sufficient disk/VRAM for the bundle; `48gb` provides
+100 GB disk and `96gb` provides 150 GB. No new model is deployed by these additions.
 Vast's native provisioner downloads them inside the rental;
 no custom downloader is installed. Every profile stages the first-party
-`Prompt Sequence` through native `write_files`. Full Chroma additionally stages
+`Prompt Sequence` through native `write_files`. Full Chroma and HiDream additionally stage
 the first-party chained img2img GIF node, using only ComfyUI's existing Torch,
-NumPy and Pillow packages. Both first-party nodes are whitelisted for that profile. Chroma1-HD and Juggernaut restore
+NumPy and Pillow packages. Both first-party nodes are whitelisted for those profiles.
+Chroma1-HD, HiDream and all three SDXL profiles restore
 [RES4LYF](https://github.com/ClownsharkBatwing/RES4LYF/tree/6780724de0ddb98e7454d54bb80387836a911ece)
 at the previously approved revision and the unchanged
 [hash-locked requirements](../res4lyf-requirements.txt). Vast's native Git/pip
-provisioner installs them. Juggernaut additionally stages the explicitly approved
+provisioner installs them. The SDXL profiles additionally stage the explicitly approved
 ComfyUI_IPAdapter_plus pack at revision a0f451a5113cf9becb0847b92884cb10cbdec0ef;
-only those two packs and Prompt Sequence are whitelisted for that profile.
+only those two packs and Prompt Sequence are whitelisted for those profiles.
 The general SDXL Plus path uses the existing image environment and requires no
 FaceID/InsightFace installation. Flux, FLUX.2 dev and Qwen retain only Prompt Sequence.
 The [workflow definitions](../../../projects/comfyui_tools/README.md#workflow-source-and-generation)
@@ -183,7 +193,41 @@ Qwen retains native vision-language and reference-latent conditioning,
 CFG 4 and denoise 1. These are reference-guided generation workflows; they do
 not guarantee exact style isolation or character continuity.
 
-Edit the selected profile's `downloads` array to change its model files. An
+## Additional model options
+
+The approved additions are selectable source configurations with offline checks;
+they have not been rented or tested on a GPU. Model size alone does not predict
+comic quality or reference adherence.
+
+- [NoobAI XL 1.1](https://huggingface.co/Laxhar/noobai-XL-1.1) is an SDXL
+  illustration fine-tune. Its publisher recommends Euler ancestral, 25–30
+  steps and CFG 5–6. The starting preset uses 30 steps and CFG 5.5. Its custom
+  license prohibits commercializing the model, derivatives and generated
+  products, and imposes obligations on derivatives; review it before use.
+- [Illustrious XL v2.0-STABLE](https://huggingface.co/OnomaAIResearch/Illustrious-XL-v2.0)
+  is another SDXL illustration model under CreativeML OpenRAIL-M. Its matching
+  starting preset is provisional, not a measured quality recommendation.
+- [HiDream-I1 Full](https://huggingface.co/HiDream-ai/HiDream-I1-Full) is a 17B
+  alternative. The denoiser is FP16; its published Llama 3.1 8B encoder is FP8.
+  The bundle also reuses the existing FP16 T5 and FLUX VAE, plus model-specific
+  CLIP-L/G. Native sampling follows the
+  [official workflow](https://github.com/Comfy-Org/workflow_templates/blob/a8bc07a76478dfada740fa8fa49ac87be1bff519/templates/hidream_i1_full.json):
+  50 UniPC/simple steps, CFG 5, shift 3. The transformer and CLIP weights use
+  MIT licenses, T5 and the VAE use Apache 2.0, and Llama retains Meta's Llama
+  3.1 Community License. The complete bundle is not licensed solely under MIT.
+
+The 48 GB option can rely on ComfyUI's model offloading for the larger bundle;
+peak VRAM, speed and style-patcher compatibility remain unmeasured. Several
+models can be stored on disk and loaded as needed. Two 9B FP16 denoisers alone
+need about 36 GB before encoders, activations and runtime overhead; three need
+about 54 GB and cannot all remain resident on 48 GB. Quantization changes that
+calculation, and ComfyUI may unload models between jobs.
+
+The `downloads` registry owns each immutable publisher URL and destination kind;
+the `custom_nodes` registry owns approved pack revisions. Each model profile's
+`downloads` array lists registry filenames, and `custom_nodes` lists pack names.
+HiDream's `components` map assigns its four text-encoder roles explicitly.
+Add or select registry entries to change a profile's files. An
 empty array disables configured downloads; workflows still require matching
 files. URLs must contain no credentials. Source and acceptance assets remain
 neutral; private prompts, uploads and generated images do not belong in Git.

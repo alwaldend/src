@@ -13,3 +13,8 @@
 - [x] 3.2 Add opt-in gzip startup transport and the API byte limit to the instance resource without exposing sensitive contents.
 - [x] 3.3 Validate the provider and image-generation consumers and prepare the reviewed fix for delivery; the receipt owns publication state.
 - [x] 3.4 Separate synthetic owner-key IDs from generated IDs in the existing team fixture so cleanup does not depend on cross-team execution order.
+
+## 4. Configured model profiles
+
+- [x] 4.1 Extend configured-profile acceptance to every model profile and resolve the shared public asset registry through real Terraform before implementation of the new profile configuration.
+- [x] 4.2 Verify model destinations, workflow preservation and startup byte limits using only loopback fixture resources; retain a per-profile artifact.

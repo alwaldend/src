@@ -11,10 +11,15 @@ in exposed mode: a single HTTPS proxy with a generated username/password login,
 plus account-key SSH access. The GPU must have at least 32 GiB VRAM.
 The [configuration](config.json) selects full Chroma1-HD with an FP16 T5 encoder
 on RTX PRO 5000 Blackwell with 48 GB nominal VRAM. FLUX.2 dev 32B FP8,
-Juggernaut XL v9, FLUX.2 klein Base 9B FP8 and Qwen-Image-Edit-2511 remain selectable profiles,
+Juggernaut XL v9, NoobAI XL 1.1, Illustrious XL v2.0-STABLE, HiDream-I1 Full 17B,
+FLUX.2 klein Base 9B FP8 and Qwen-Image-Edit-2511 remain selectable profiles,
 downloaded on first boot; see [model configuration](tf_setup/README.md#download-models).
 Juggernaut includes the approved IP-Adapter Plus and CLIP vision weights for
-several character/style references. Prompt Sequence uses the native multiline
+several character/style references; NoobAI and Illustrious reuse that SDXL path.
+The three new profiles have offline packaging checks only; GPU execution and
+reference quality remain unverified. NoobAI's publisher prohibits commercial
+use of generated products; see the model configuration before selecting it.
+Prompt Sequence uses the native multiline
 editor; blank lines in line mode provide visual spacing without extra panels.
 
 ## Identity and state

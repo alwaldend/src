@@ -22,7 +22,7 @@ function(models, sampling={ steps: 10, cfg: 1 }, sequences=false)
         n.node(10, 'VAEDecode', [], [1400, 0], [315, 220], order=10),
         n.node(11, 'SaveImage', [std.get(sampling, 'filename_prefix', 'ChromaFlash')], [1750, 0], [315, 220], order=11),
         n.node(8, 'EmptySD3LatentImage', [1024, 1024, 1], [700, 720], [315, 220], order=8),
-        n.node(9, 'KSampler', [0, 'randomize', sampling.steps, sampling.cfg, std.get(sampling, 'sampler', 'heun'), 'beta', 1.0], [1050, 0], [315, 220], order=9),
+        n.node(9, 'KSampler', [0, 'randomize', sampling.steps, sampling.cfg, std.get(sampling, 'sampler', 'heun'), std.get(sampling, 'scheduler', 'beta'), 1.0], [1050, 0], [315, 220], order=9),
       ],
       links: [
         [1, 1, 0, 4, 0],
@@ -44,7 +44,7 @@ function(models, sampling={ steps: 10, cfg: 1 }, sequences=false)
         n.node(8, 'VAEEncode', [], [700, 760], [315, 220], order=8),
         n.node(12, 'LoadImage', ['reference.png', 'image'], [0, 760], [315, 220], order=12),
         n.node(13, 'ImageScale', ['lanczos', 1024, 1024, 'center'], [350, 760], [315, 220], order=13),
-        n.node(9, 'KSampler', [0, 'randomize', sampling.steps, sampling.cfg, std.get(sampling, 'sampler', 'heun'), 'beta', 0.7], [1050, 0], [315, 220], order=9),
+        n.node(9, 'KSampler', [0, 'randomize', sampling.steps, sampling.cfg, std.get(sampling, 'sampler', 'heun'), std.get(sampling, 'scheduler', 'beta'), 0.7], [1050, 0], [315, 220], order=9),
       ],
       order: [1, 2, 3, 4, 5, 6, 7, 10, 11, 8, 9, 12, 13],
       links: [
@@ -81,7 +81,7 @@ function(models, sampling={ steps: 10, cfg: 1 }, sequences=false)
     'image-to-image-gif': g.sequence(g.variant(workflows['image-to-image'], {
                                        removeNodes: [9, 10, 11],
                                        removeLinks: [9, 10, 11],
-                                       nodes: [n.node(9, 'ImagegenChainedImageToImageGIF', [0, 'randomize', sampling.steps, sampling.cfg, std.get(sampling, 'sampler', 'euler'), 'beta', 0.45, 6.0, 'animation'], [1050, 0], [420, 420], order=9)],
+                                       nodes: [n.node(9, 'ImagegenChainedImageToImageGIF', [0, 'randomize', sampling.steps, sampling.cfg, std.get(sampling, 'sampler', 'euler'), std.get(sampling, 'scheduler', 'beta'), 0.45, 6.0, 'animation'], [1050, 0], [420, 420], order=9)],
                                        links: [[21, 3, 0, 9, 4]],
                                        metadata: { last_link_id: 21 },
                                      }),

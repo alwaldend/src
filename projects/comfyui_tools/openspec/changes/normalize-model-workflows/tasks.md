@@ -56,3 +56,9 @@
 - [x] 10.1 Define failure cases and write behavior checks before changing sequence execution.
 - [x] 10.2 Keep one native job and media group per sequence, display a native panel counter through the cloned model's sampling wrapper, and generate a fresh shared run prefix with numbered panel suffixes.
 - [x] 10.3 Verify unchanged sampler behavior, counter resets, distinct repeated runs, generated model connections and deployed queue/history behavior.
+
+## 11. Additional approved model workflows
+
+- [x] 11.1 Parameterize the shared SDXL graph construction for NoobAI and Illustrious while preserving all existing Juggernaut outputs.
+- [x] 11.2 Add native HiDream-I1 Full generation, img2img, style and sequence/GIF variants using published native schemas and the already approved model patcher.
+- [x] 11.3 Verify generated graphs, model-role selection and every profile's offline packaging without renting; document that new model GPU/reference acceptance remains unperformed.

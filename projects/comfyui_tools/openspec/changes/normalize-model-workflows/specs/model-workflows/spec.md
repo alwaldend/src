@@ -1,5 +1,19 @@
 ## ADDED Requirements
 
+### Requirement: Additional approved model families
+
+NoobAI and Illustrious SHALL provide SDXL generation, img2img, style and
+multi-reference workflows with matching sequence variants through shared graph
+construction. HiDream-I1 Full SHALL provide native generation, img2img, style,
+sequence and chained GIF workflows with its full denoiser, four matching text
+encoders and VAE. Existing workflows SHALL retain their settings and graph
+contents. These additions SHALL NOT rent or deploy an instance.
+
+#### Scenario: Profile-specific model roles
+
+- **WHEN** each approved profile is generated and packaged offline
+- **THEN** every loader SHALL select that profile's declared asset, references SHALL use a compatible patcher or adapter, and the offline fixture SHALL verify all native outputs without a live rental
+
 ### Requirement: Grouped panel progress and unique runs
 
 Prompt sequences SHALL remain one native ComfyUI job and media group. The

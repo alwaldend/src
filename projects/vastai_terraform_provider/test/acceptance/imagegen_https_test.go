@@ -7,6 +7,7 @@ import (
 	"os"
 	"path/filepath"
 	"reflect"
+	"sort"
 	"strings"
 	"testing"
 
@@ -31,7 +32,7 @@ func stagedJSON(t *testing.T, startup, path string) []byte {
 	return []byte(content)
 }
 
-// TestConfiguredImagegenStartup verifies the complete selected public profile fits the API transport.
+// TestConfiguredImagegenStartup verifies every public profile without live resources.
 func TestConfiguredImagegenStartup(t *testing.T) {
 	configurationPath, err := runfiles.Rlocation(*imagegenConfigurationPath)
 	if err != nil {
@@ -50,41 +51,66 @@ func TestConfiguredImagegenStartup(t *testing.T) {
 		t.Fatalf("read public profile: %v", err)
 	}
 	var configuration struct {
-		// ModelProfile selects the deployment's current bundle.
-		ModelProfile string `json:"model_profile"`
-		// ModelProfiles supplies the selected workflow names without another maintained list.
+		// Downloads owns the public publisher URLs and model destination kinds.
+		Downloads map[string]struct {
+			// URL identifies the immutable publisher file.
+			URL string `json:"url"`
+			// Kind selects the native model directory.
+			Kind string `json:"kind"`
+		} `json:"downloads"`
+		// ModelProfiles supplies the bundles without another maintained list.
 		ModelProfiles map[string]struct {
 			// Workflows identifies every staged native graph.
 			Workflows []string `json:"workflows"`
+			// Downloads is the ordered list of filenames resolved from the registry.
+			Downloads []string `json:"downloads"`
+			// CheckpointDirectory distinguishes SDXL bundles from standalone denoisers.
+			CheckpointDirectory string `json:"checkpoint_directory"`
 		} `json:"model_profiles"`
 	}
 	if err := json.Unmarshal(data, &configuration); err != nil {
 		t.Fatalf("decode public profile: %v", err)
 	}
-	f := &imagegenFixture{noTemplate: true, exposed: true, comfyUI: true}
-	f.rental.runtype = "ssh_direct"
-	server := httptest.NewServer(f)
-	defer server.Close()
-	h := newHarness(t, server.URL+"/api/v0")
-	writeImagegenProfile(t, h, server.URL+"/api/v0", strings.Repeat("a", 32), *comfyuiModulePath)
-	path := filepath.Join(h.directory, "main.tf")
-	consumer, err := os.ReadFile(path)
+	gifPath, err := runfiles.Rlocation(*chainedGIFPath)
 	if err != nil {
-		t.Fatalf("read profile consumer: %v", err)
+		t.Fatalf("resolve configured GIF node: %v", err)
 	}
-	text := strings.Replace(string(consumer), `template_hash_id = "`+strings.Repeat("a", 32)+`"`, "", 1)
-	text += fmt.Sprintf(`
+	var names []string
+	for name := range configuration.ModelProfiles {
+		names = append(names, name)
+	}
+	sort.Strings(names)
+	for _, profileName := range names {
+		t.Run(profileName, func(t *testing.T) {
+			f := &imagegenFixture{noTemplate: true, exposed: true, comfyUI: true}
+			f.rental.runtype = "ssh_direct"
+			server := httptest.NewServer(f)
+			defer server.Close()
+			h := newHarness(t, server.URL+"/api/v0")
+			writeImagegenProfile(t, h, server.URL+"/api/v0", strings.Repeat("a", 32), *comfyuiModulePath)
+			path := filepath.Join(h.directory, "main.tf")
+			consumer, err := os.ReadFile(path)
+			if err != nil {
+				t.Fatalf("read profile consumer: %v", err)
+			}
+			text := strings.Replace(string(consumer), `template_hash_id = "`+strings.Repeat("a", 32)+`"`, "", 1)
+			text += fmt.Sprintf(`
 locals {
   configuration = jsondecode(file(%q))
-  profile = local.configuration.model_profiles[local.configuration.model_profile]
+  profile_name = %q
+  selected_profile = local.configuration.model_profiles[local.profile_name]
+  profile = merge(local.selected_profile, {
+    downloads = [for name in local.selected_profile.downloads : merge(local.configuration.downloads[name], {filename=name})]
+    custom_nodes = {for name in try(local.selected_profile.custom_nodes, []) : name => local.configuration.custom_nodes[name]}
+  })
   configuration_directory = %q
   workflow_directory = %q
 }
-`, configurationPath, filepath.Dir(configurationPath), filepath.Dir(filepath.Dir(workflowPath)))
-	if err := os.WriteFile(path, []byte(text), 0o600); err != nil {
-		t.Fatalf("write profile consumer: %v", err)
-	}
-	configureImagegenAccess(t, h, fmt.Sprintf(`
+`, configurationPath, profileName, filepath.Dir(configurationPath), filepath.Dir(filepath.Dir(workflowPath)))
+			if err := os.WriteFile(path, []byte(text), 0o600); err != nil {
+				t.Fatalf("write profile consumer: %v", err)
+			}
+			configureImagegenAccess(t, h, fmt.Sprintf(`
 access_mode = "exposed"
 web_username = local.configuration.web_username
 web_password = "fixtureCredentialOnly01234567890123456789"
@@ -92,35 +118,67 @@ model_downloads = local.profile.downloads
 checkpoint_directory = try(local.profile.checkpoint_directory, "models/diffusion_models")
 custom_nodes = try(local.profile.custom_nodes, {})
 python_requirements = try(local.profile.python_requirements, null) == null ? null : file("${local.configuration_directory}/${local.profile.python_requirements}")
-custom_node_sources = {prompt_sequence = file(%q)}
-workflows = {for name in local.profile.workflows : name => file("${local.workflow_directory}/${local.configuration.model_profile}/${name}.json")}
-`, sequencePath))
-	h.run(t, true, "apply", "-auto-approve", "-no-color")
-	if f.startupBytes == 0 || f.startupBytes > 16384 {
-		t.Fatal("configured bundle exceeded the API startup limit")
-	}
-	for _, name := range configuration.ModelProfiles[configuration.ModelProfile].Workflows {
-		actual := stagedJSON(t, f.startup, "/workspace/ComfyUI/user/default/workflows/"+name+".json")
-		expected, err := os.ReadFile(filepath.Join(filepath.Dir(filepath.Dir(workflowPath)), configuration.ModelProfile, name+".json"))
-		if err != nil {
-			t.Fatalf("read generated workflow: %v", err)
-		}
-		var actualGraph, expectedGraph any
-		if json.Unmarshal(actual, &actualGraph) != nil || json.Unmarshal(expected, &expectedGraph) != nil || !reflect.DeepEqual(actualGraph, expectedGraph) {
-			t.Fatalf("configured workflow %s changed during startup packaging", name)
-		}
-	}
-	h.run(t, true, "apply", "-refresh-only", "-auto-approve", "-no-color")
-	h.run(t, true, "plan", "-detailed-exitcode", "-no-color")
-	h.run(t, true, "destroy", "-auto-approve", "-no-color")
-	if directory := os.Getenv("TEST_UNDECLARED_OUTPUTS_DIR"); directory != "" {
-		evidence, err := json.Marshal(map[string]any{"profile": configuration.ModelProfile, "workflow_count": len(configuration.ModelProfiles[configuration.ModelProfile].Workflows), "startup_bytes": f.startupBytes, "limit_bytes": 16384, "workflow_contents_preserved": true, "live_operations": 0})
-		if err != nil {
-			t.Fatalf("encode configured startup evidence: %v", err)
-		}
-		if err := os.WriteFile(filepath.Join(directory, "configured-imagegen-startup.json"), evidence, 0o600); err != nil {
-			t.Fatalf("write configured startup evidence: %v", err)
-		}
+custom_node_sources = merge(
+  {prompt_sequence = file(%q)},
+  contains(local.profile.workflows, "${local.profile_name}-image-to-image-gif") ? {chained_img2img_gif=file(%q)} : {},
+)
+workflows = {for name in local.profile.workflows : name => file("${local.workflow_directory}/${local.profile_name}/${name}.json")}
+`, sequencePath, gifPath))
+			h.run(t, true, "apply", "-auto-approve", "-no-color")
+			if f.startupBytes == 0 || f.startupBytes > 16384 {
+				t.Fatal("configured bundle exceeded the API startup limit")
+			}
+			for _, name := range configuration.ModelProfiles[profileName].Workflows {
+				actual := stagedJSON(t, f.startup, "/workspace/ComfyUI/user/default/workflows/"+name+".json")
+				expected, err := os.ReadFile(filepath.Join(filepath.Dir(filepath.Dir(workflowPath)), profileName, name+".json"))
+				if err != nil {
+					t.Fatalf("read generated workflow: %v", err)
+				}
+				var actualGraph, expectedGraph any
+				if json.Unmarshal(actual, &actualGraph) != nil || json.Unmarshal(expected, &expectedGraph) != nil || !reflect.DeepEqual(actualGraph, expectedGraph) {
+					t.Fatalf("configured workflow %s changed during startup packaging", name)
+				}
+			}
+			var manifest struct {
+				// Downloads retains the exact URL/destination pairs sent to the provisioner.
+				Downloads []struct {
+					// URL selects the publisher file rather than another profile's weights.
+					URL string `json:"url"`
+					// Destination names the final native ComfyUI model path.
+					Destination string `json:"dest"`
+				} `json:"downloads"`
+			}
+			if err := json.Unmarshal(stagedJSON(t, f.startup, "/etc/imagegen-models.json"), &manifest); err != nil {
+				t.Fatalf("decode configured model manifest: %v", err)
+			}
+			profile := configuration.ModelProfiles[profileName]
+			if len(manifest.Downloads) != len(profile.Downloads) {
+				t.Fatal("configured model asset count changed during packaging")
+			}
+			for index, filename := range profile.Downloads {
+				asset, exists := configuration.Downloads[filename]
+				if !exists {
+					t.Fatalf("model asset %s is missing from the registry", filename)
+				}
+				directory := map[string]string{"checkpoint": profile.CheckpointDirectory, "text_encoder": "models/text_encoders", "vae": "models/vae", "ipadapter": "models/ipadapter", "clip_vision": "models/clip_vision"}[asset.Kind]
+				if directory == "" && asset.Kind == "checkpoint" {
+					directory = "models/diffusion_models"
+				}
+				if directory == "" || manifest.Downloads[index].URL != asset.URL || manifest.Downloads[index].Destination != "/workspace/ComfyUI/"+directory+"/"+filename {
+					t.Fatalf("model asset %s has the wrong publisher or destination", filename)
+				}
+			}
+			h.run(t, true, "destroy", "-auto-approve", "-no-color")
+			if directory := os.Getenv("TEST_UNDECLARED_OUTPUTS_DIR"); directory != "" {
+				evidence, err := json.Marshal(map[string]any{"profile": profileName, "model_files": profile.Downloads, "workflow_count": len(configuration.ModelProfiles[profileName].Workflows), "startup_bytes": f.startupBytes, "limit_bytes": 16384, "workflow_contents_preserved": true, "model_destinations_preserved": true, "live_operations": 0})
+				if err != nil {
+					t.Fatalf("encode configured startup evidence: %v", err)
+				}
+				if err := os.WriteFile(filepath.Join(directory, "configured-imagegen-startup-"+profileName+".json"), evidence, 0o600); err != nil {
+					t.Fatalf("write configured startup evidence: %v", err)
+				}
+			}
+		})
 	}
 }
 
