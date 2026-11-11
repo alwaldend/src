@@ -12,6 +12,7 @@ _PROVIDERS = [
 
 _DATA = [
     "//infra/image_gen:configuration",
+    "//projects/comfyui_tools/nodes/chained_img2img_gif:source",
     "//projects/comfyui_tools/nodes/prompt_sequence:source",
     "//projects/comfyui_tools/workflows:workflows",
     "//projects/tf_modules/vastai_instance_imagegen_comfyui",

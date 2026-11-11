@@ -9,9 +9,9 @@ This project owns one image-generation rental in [tf_setup](tf_setup/README.md).
 It uses the reusable [ComfyUI module](../../projects/tf_modules/vastai_instance_imagegen_comfyui/README.md)
 in exposed mode: a single HTTPS proxy with a generated username/password login,
 plus account-key SSH access. The GPU must have at least 32 GiB VRAM.
-The [configuration](config.json) selects FLUX.2 dev 32B FP8 on the 96 GB hardware profile, with
-Juggernaut XL v9,
-FLUX.2 klein Base 9B FP8 and Qwen-Image-Edit-2511 retained as selectable profiles,
+The [configuration](config.json) selects full Chroma1-HD with an FP16 T5 encoder
+on RTX PRO 5000 Blackwell with 48 GB nominal VRAM. FLUX.2 dev 32B FP8,
+Juggernaut XL v9, FLUX.2 klein Base 9B FP8 and Qwen-Image-Edit-2511 remain selectable profiles,
 downloaded on first boot; see [model configuration](tf_setup/README.md#download-models).
 Juggernaut includes the approved IP-Adapter Plus and CLIP vision weights for
 several character/style references. Prompt Sequence uses the native multiline
@@ -42,9 +42,11 @@ existing Vault identity membership. No general infrastructure group is required.
 The former personal stack was destroyed on 2026-11-10. The replacement AppRole,
 scoped policies, dedicated team key, generated web login and component state
 remain deployed. The previous Flux rental and its brief Base replacement were destroyed at the
-operator's request. The latest authorized replacement selects the FLUX.2 dev profile;
-retrieve its current URL through the owning Terraform outputs. The
-[acceptance record](openspec/changes/add-imagegen-rental/design.md#requested-flux2-dev-32b-replacement)
+operator's request. The FLUX.2 dev rental was also destroyed. The latest
+configuration selects full Chroma1-HD on the named 48 GB GPU profile. Its test
+rentals were destroyed after acceptance; rent manually and refresh the owning
+Terraform outputs when another instance is needed. The
+[acceptance record](openspec/changes/add-imagegen-rental/design.md#full-chroma-deployment-on-rtx-pro-5000)
 records the deployment and links the historical workflow results. The component did not reuse personal state or credentials. Historical
 Vault versions can remain protected; the shared team and operator seed remain.
 
@@ -86,6 +88,15 @@ and may remain in historical Vault secret/state versions. There are no public
 password outputs. Destroying the rental does not revoke copies already disclosed.
 
 ## Command-line access
+
+For agent-run acceptance tests, finish local implementation and offline checks
+before renting. Keep test rentals only while provisioning, generating or
+retrieving results; treat roughly three minutes without active test work as
+idle. Destroy the rental through the owning Terraform workflow before coding,
+review or other local work, and clear its connection outputs with refresh-only
+apply. Rental creation and release remain manual reviewed operations; no
+automatic lifecycle runner is configured. An instance being used by the
+operator is outside this disposable-test rule.
 
 The authenticated target obtains the current HTTPS URL from the owning
 Terraform output target and retrieves the login through the component AppRole:

@@ -146,3 +146,65 @@ Compose a single-reference variant by retaining the first native reference chain
 with a matching sequence that shares that image. Add generated JSON to the
 declared future provisioning bundle and provide the operator importable artifacts.
 Do not install or inspect anything on the active rental.
+
+## Full Chroma1-HD profile
+
+The operator requests the full, previously approved Chroma1-HD checkpoint on
+the earlier RTX PRO 5000 48 GB rental and explicitly authorizes generation tests.
+Reuse the Chroma builder with model filenames and sampling parameters; retain
+the three archived Flash graphs unchanged. Add five chroma-hd outputs: native
+text-to-image, img2img, RES4LYF style-reference, prompt-sequence and
+style-prompt-sequence. Use the shared sequence transformation so the positive
+prompts, paired filenames and scalar negative prompt remain connected.
+
+The publisher's full-model example uses CFG 3 and 40 steps. Its native workflow
+uses Euler and T5TokenizerOptions [0, 0]. Use those contracts for native HD
+graphs with beta scheduling; retain RES 2M/beta57 for the approved style path.
+Use the full 16-bit checkpoint and FP16 T5 with the original VAE, not quantized
+substitutes from the publisher's optional workflow example. Native img2img
+carries composition; RES4LYF guides style without promising character identity.
+Check all five workflows on the separately authorized rental with neutral
+fixtures, including blank-spaced panel lines and shared negatives.
+
+## Chained frames and native queue visibility
+
+Use the existing Prompt Sequence parser as the sole owner of panel separation.
+The operator prioritizes the existing media grouping over separate queue jobs.
+Keep the native list mapping within one job and group. Append an optional model
+input/output to Prompt Sequence, clone its patcher and wrap OUTER_SAMPLE to emit
+native progress text such as Panel 2 of 3, leaving sampler results unchanged.
+Use the shared graph transformation to place that connection before each native
+sampler or guider. Do not add a browser extension or an independent queue.
+Allocate one UUID per actual node execution and include it in every panel prefix.
+Mark the node non-cacheable so identical queued runs receive new identities and
+fresh counters; retain unchanged model weights and conditioning caches upstream.
+
+The chained img2img GIF is one output node using the installed native sampler,
+VAE, Torch and Pillow. It consumes the ordered conditioning list, samples from
+the previous frame's latent, decodes each generated frame and writes one GIF.
+It does not create independent queue entries because frames depend on each
+other. Native sampler progress remains available within that job. Start at
+denoise 0.45 and 6 fps; prompt lines are discrete frames, not interpolated motion.
+
+Before implementation, cover: blank/JSON/paragraph parsing mismatches, unsafe
+prefixes, reused run identities, wrong panel filenames, counter state leaking
+between jobs, mutating the original model, changing sampler return values,
+missing model connections and splitting a media group. For the GIF cover:
+resetting the latent instead of feeding back, prompt/negative ordering, invalid
+batch/list lengths, inconsistent dimensions, unsafe paths, incorrect GIF frame
+count/timing/looping, interruption leaving partial output and filename collisions.
+Use deterministic native-sampler boundaries for isolated behavior checks and
+real neutral GPU workflows for acceptance. No new dependency is introduced.
+
+The controlled full Chroma style comparison favored guide weight 0.5 with
+end_step 15 over weight 1 through all steps. Parameterize those HD defaults while
+preserving archived Flash settings; this improves the tested sharpness but does
+not establish general style fidelity.
+
+The follow-up temporary GPU acceptance completed all six HD workflows, a
+repeated sequence and a zero-denoise identical-frame GIF control. Native
+progress messages count all panels, each sequence remains one job with three
+outputs, and repeated runs use distinct UUID prefixes. Both GIFs retain three
+1024-square frames at 170 ms, including identical frames. The owning
+infra/image_gen change records timings, visual limitations and immediate
+teardown. No paid rental remains after acceptance.

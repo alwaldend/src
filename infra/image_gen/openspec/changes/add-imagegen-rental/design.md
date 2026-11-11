@@ -644,3 +644,98 @@ sequence JSON. These were compiled and supplied as importable operator artifacts
 they were not installed on the rental. The active initial three-workflow bundle
 and the five-workflow desired configuration therefore differ until a later
 authorized deployment. This follow-up does not authorize a replacement.
+
+## Full Chroma deployment on RTX PRO 5000
+
+The operator subsequently requested destruction of instance 60127015. Its
+reviewed instance-targeted apply destroyed one resource; a reviewed refresh-only
+apply cleared its connection outputs while retaining component credentials.
+No generation jobs or user-content inspection were performed during teardown.
+
+The operator now explicitly requests the full Chroma deployment, the earlier
+fast 48 GB GPU and generation tests. The recorded GPU was RTX PRO 5000
+Blackwell, not the slower CMP 170HX. Decision: proceed with a named 48gb hardware
+profile, exact GPU filter RTX PRO 5000, 47 GiB reported-memory floor, 100 GB disk
+and the existing USD 1/hour ceiling. Do not substitute another GPU silently.
+
+Reuse the previously approved Chroma1-HD revision
+0e0c60ece1e82b17cb7f77342d765ba5024c40c0, FP16 T5 and FLUX VAE pins. Keep the
+Vast ComfyUI image and existing approved RES4LYF revision and hash-locked
+requirements. The full checkpoint has ordinary CFG; use 40 steps and CFG 3 as
+the publisher's documented starting point. Native img2img retains composition;
+RES4LYF is a style guide, not a guarantee of character identity or prompt fidelity.
+Acceptance uses only first-party neutral fixtures and must inspect generated
+images rather than equating a completed job with good reference adherence.
+The unpublished diagram remains a local preview and is outside this source update.
+
+The reviewed interactive apply created instance 60180986 from offer 44193892 on
+2026-11-11: one addition, no changes or destruction. A reviewed refresh-only
+apply saved its connection outputs with no remote changes. Authenticated metadata
+confirms RTX PRO 5000 Blackwell with 50,752,520,192 bytes of VRAM, ComfyUI 0.44.0
+and the exact Prompt Sequence/RES4LYF whitelist. Official-CA TLS verification,
+missing-login rejection (401) and an unreachable diagnostic port passed.
+
+All five configured workflows completed at 1024 square, 40 steps and CFG 3 with
+neutral first-party fixtures. Text-to-image took 49.16 seconds including initial
+loading, img2img 34.17 seconds, style-reference 70.33 seconds, the three-image
+native sequence 103.07 seconds and the three-image style sequence 208.62 seconds.
+A fixed-seed style-guide-disabled comparison completed in 38.17 seconds. Ten
+downloaded PNGs passed dimensions, CRC, decompression and nonempty-pixel checks;
+sequence filenames preserve their three input positions. The three archived
+Flash graphs also match their parsed pre-refactor baseline exactly.
+
+Visual assessment separates execution from quality. Native text-to-image follows
+the neutral robot/book/bench/tree prompt. Img2img retains the original geometric
+reference and omits the requested new action. The style guide has a clear visual
+effect in the fixed-seed comparison, matching the cream/blue/red palette while
+softening detail. Native sequence prompts containing comic wording produce
+unwanted page layouts and lettering; style sequences preserve palette but have
+unreliable subjects, compositions and actions. These paths are available for
+operator tuning, not certified reference fidelity. No private user content was
+read, and only neutral prompts and fixtures were used. Reproducible workflow
+variants, results, hashes and images remain under ignored
+out/imagegen/chroma-hd; acceptance.json owns the detailed local receipt.
+
+### Grouped progress and chained GIF acceptance
+
+The operator prioritizes one media group per sequence over separate queue jobs
+and requests a unique prefix for each run. Keep native list mapping, append a
+model pass-through to Prompt Sequence, and report the current panel through the
+native sampling wrapper. Generate a fresh shared UUID prefix on each execution.
+The optional model input preserves saved text-widget and output positions.
+
+Controlled style comparisons favored weight 0.5 through step 15 over weight 1
+through all 40 steps: the robot/book/bench composition became clearer while
+retaining the reference palette. Those are the HD defaults; archived Flash
+settings are unchanged. Source and offline checks were completed before renting
+again. No new image, model, custom-node dependency or Python package was added.
+The first-party GIF node uses the existing native sampler, VAE, Torch and Pillow.
+
+The reviewed temporary apply created instance 60189648 from offer 53904695 on
+2026-11-11, adding one resource and changing no credentials. Authenticated
+metadata confirmed ComfyUI 0.44.0 and RTX PRO 5000 Blackwell with
+50,752,520,192 bytes of VRAM. All six selected workflows and two controls
+completed: native img2img 38.63 seconds, native three-panel sequence 106.56,
+style sequence 158.27, style-reference 55.17, text-to-image 38.19, chained
+three-frame GIF 135.00, repeated native sequence 106.25 and identical-frame
+GIF control 6.46 seconds. These are observed job times, not latency guarantees.
+
+Native WebSocket progress reported Panel 1 of 3 through Panel 3 of 3 for both
+sequence variants and reset on the repeated run. Each sequence remained one
+job with three output images; repeated runs used different UUID prefixes and
+retained 001/002/003 suffixes. Twelve downloaded PNGs passed 1024-square,
+CRC and decompression checks. Both GIFs contain three 1024-square frames,
+170-millisecond intervals and infinite looping. The zero-denoise control
+retained three identical frames rather than merging them. The isolated native
+sampler boundary additionally verifies previous-latent feedback and ordered
+positive/shared-negative conditioning with real Torch/Pillow media output.
+
+Visual inspection finds clearer requested actions and matching cream/blue/red
+colors with the revised guide, with residual softness and character variation
+across panels. Chained img2img preserves much of the initial composition at
+denoise 0.45; it does not promise smooth motion or precise pose changes.
+All fixtures were neutral and first-party. Results and progress receipts remain
+under ignored out/imagegen/chroma-hd. After downloading them, the reviewed
+instance-only apply destroyed the rental at 09:27:59 UTC; refresh-only apply
+cleared its connection outputs. Component credentials remain available for the
+next manual rental. No paid instance remains and the diagram is unpublished.

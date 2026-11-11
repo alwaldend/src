@@ -36,3 +36,23 @@
 - [x] 7.1 Add the explicitly requested 32B model's native guidance-distilled text-to-image and three-reference workflows, with a sequence variant.
 - [x] 7.2 Preserve existing models and conditioning, keep reference/text encoding local, and verify generated workflow contracts before the authorized replacement deployment.
 - [x] 7.3 Add the requested single-reference workflow and matching sequence through the shared graph builder; provide generated JSON for operator import without accessing the running rental.
+
+## 8. Full Chroma generation and reference workflows
+
+- [x] 8.1 Parameterize the existing Chroma graph builder for the selected checkpoint, encoder, VAE and sampling settings, preserving the archived Flash defaults.
+- [x] 8.2 Compose full Chroma1-HD text-to-image, img2img, style-reference and native/style prompt-sequence workflows with shared negative prompts, using only existing approved nodes.
+- [x] 8.3 Verify generated graphs and selected provisioning offline, then assess neutral outputs through the separately authorized infrastructure deployment.
+- [x] 8.4 Apply the controlled comparison's improved style strength/schedule without changing archived Flash defaults, and assess its sequence behavior.
+
+## 9. Chained img2img GIF
+
+- [x] 9.1 Define failure cases and behavior checks before implementation for ordered prompt consumption, previous-frame feedback, shared negative conditioning, bounded output paths and GIF timing.
+- [x] 9.2 Add a first-party chained img2img/GIF output node using the existing native sampler, VAE and installed Pillow, with one generated frame per Prompt Sequence line and no new dependency.
+- [x] 9.3 Compose a Chroma1-HD native workflow and package its node through the owning infrastructure; keep GIFs and neutral test artifacts outside Git.
+- [x] 9.4 Execute the prepared workflow on a temporary rental, verify frame order/count/timing and actual latent feedback, retrieve the GIF, and destroy the test rental before returning to local work.
+
+## 10. Grouped sequence progress and run identity
+
+- [x] 10.1 Define failure cases and write behavior checks before changing sequence execution.
+- [x] 10.2 Keep one native job and media group per sequence, display a native panel counter through the cloned model's sampling wrapper, and generate a fresh shared run prefix with numbered panel suffixes.
+- [x] 10.3 Verify unchanged sampler behavior, counter resets, distinct repeated runs, generated model connections and deployed queue/history behavior.

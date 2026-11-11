@@ -1,5 +1,50 @@
 ## ADDED Requirements
 
+### Requirement: Grouped panel progress and unique runs
+
+Prompt sequences SHALL remain one native ComfyUI job and media group. The
+sampler SHALL display the current panel and total through native progress text.
+Each execution SHALL create a unique shared filename prefix while retaining
+ordered panel suffixes. Unchanged text queued again SHALL receive a new run
+identity and fresh counter. Existing prompt/filename/negative slots SHALL remain.
+
+#### Scenario: Repeated grouped generation
+
+- **WHEN** the same three-panel workflow is queued twice
+- **THEN** each run SHALL remain one job with three grouped outputs, its own filename prefix and a counter from panel 1 of 3 through panel 3 of 3
+
+### Requirement: Chained img2img GIF
+
+The full Chroma profile SHALL provide a chained image-to-image GIF workflow using
+one prompt per frame. Each generated latent SHALL become the next frame's input.
+The output SHALL be a looping GIF at the configured frame interval, with one
+generated frame per prompt and no new external dependency.
+
+#### Scenario: Ordered frame feedback
+
+- **WHEN** a reference image and three frame prompts are supplied
+- **THEN** the workflow SHALL sample three frames in order, feeding each result into the next sample, and save one three-frame GIF
+
+### Requirement: Full Chroma1-HD workflows
+
+The chroma-hd profile SHALL provide text-to-image, image-to-image, style-reference,
+prompt-sequence and style-prompt-sequence graphs using its configured full
+checkpoint, FP16 T5 encoder and matching VAE. Native graphs SHALL start at
+40 Euler/beta steps and CFG 3; style graphs SHALL use the already approved
+RES4LYF Chroma patcher and guide with 40 RES 2M/beta57 steps and CFG 3.
+Both sequence graphs SHALL connect the shared negative prompt. Archived Flash
+graphs SHALL retain their existing model names, sampling settings and links.
+
+#### Scenario: Full checkpoint and ordered panels
+
+- **WHEN** the selected HD profile is built and three nonempty panel lines are supplied
+- **THEN** generated graphs SHALL reference the selected model files and map one ordered output filename per panel while sharing the scalar negative prompt
+
+#### Scenario: Style reference
+
+- **WHEN** the HD style workflow is selected
+- **THEN** the reference latent SHALL feed the approved style guide and the model SHALL pass through ReChromaPatcher before fresh-noise sampling
+
 ### Requirement: Consistent workflow names
 
 Workflow files SHALL use <profile>-<purpose>.json within their model directory.

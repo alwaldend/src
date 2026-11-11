@@ -1,15 +1,74 @@
 """Verify the first-party ComfyUI node contract before GPU workflow acceptance."""
 
+import collections.abc
 import json
 import os
 import pathlib
+import types
 import unittest
+from unittest import mock
 
 from projects.comfyui_tools.nodes.prompt_sequence import prompt_sequence
 
 
 class _PromptSequenceTest(unittest.TestCase):
     """Exercise paired prompt/prefix lists and rejection before sampling."""
+
+    def test_unique_run_prefix(self) -> None:
+        """Give repeated and cached-input runs distinct grouped panel prefixes."""
+        node: prompt_sequence.PromptSequence = prompt_sequence.PromptSequence()
+        first: tuple[list[str], list[str], str, object] = node.execute(
+            "First\n\nSecond", "Context", "line", "comic", "Blur"
+        )
+        second: tuple[list[str], list[str], str, object] = node.execute(
+            "First\n\nSecond", "Context", "line", "comic", "Blur"
+        )
+        self.assertEqual(first[0], ["Context\n\nFirst", "Context\n\nSecond"])
+        self.assertEqual(first[2], "Blur")
+        self.assertIsNone(first[3])
+        self.assertRegex(first[1][0], r"^comic_[0-9a-f]{32}_001$")
+        self.assertEqual(first[1][0][:-3], first[1][1][:-3])
+        self.assertNotEqual(first[1][0], second[1][0])
+        self.assertTrue(
+            prompt_sequence.PromptSequence.IS_CHANGED()
+            != prompt_sequence.PromptSequence.IS_CHANGED()
+        )
+
+    def test_native_panel_progress(self) -> None:
+        """Count sampler invocations on a clone while preserving sampler results."""
+        original: mock.Mock = mock.Mock()
+        cloned: mock.Mock = original.clone.return_value
+        extension: types.SimpleNamespace = types.SimpleNamespace(
+            WrappersMP=types.SimpleNamespace(OUTER_SAMPLE="outer_sample")
+        )
+        server: mock.Mock = mock.Mock()
+        with mock.patch.dict(
+            "sys.modules",
+            {
+                "comfy": types.SimpleNamespace(patcher_extension=extension),
+                "comfy.patcher_extension": extension,
+                "server": server,
+            },
+        ):
+            result: tuple[list[str], list[str], str, object] = (
+                prompt_sequence.PromptSequence().execute(
+                    "First\nSecond", "", "line", "comic", model=original
+                )
+            )
+            wrapper: collections.abc.Callable[..., object] = (
+                cloned.add_wrapper_with_key.call_args.args[2]
+            )
+            executor: mock.Mock = mock.Mock(return_value="sampled")
+            self.assertEqual(wrapper(executor, "latent"), "sampled")
+            self.assertEqual(wrapper(executor, "latent"), "sampled")
+        self.assertIs(result[3], cloned)
+        original.add_wrapper_with_key.assert_not_called()
+        messages: list[str] = [
+            call.args[0]
+            for call in server.PromptServer.instance.send_progress_text.call_args_list
+        ]
+        self.assertEqual(messages, ["Panel 1 of 2", "Panel 2 of 2"])
+        self.assertEqual(executor.call_count, 2)
 
     def test_order_and_shared_instructions(self) -> None:
         """Keep nonempty panels in input order with matching numbered prefixes."""

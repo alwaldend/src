@@ -60,8 +60,11 @@ module "imagegen" {
   checkpoint_directory = try(local.model.checkpoint_directory, "models/diffusion_models")
   custom_nodes         = try(local.model.custom_nodes, {})
   python_requirements  = try(local.model.python_requirements, null) == null ? null : file("${path.module}/../${local.model.python_requirements}")
-  custom_node_sources  = { prompt_sequence = file("${path.module}/../../../projects/comfyui_tools/nodes/prompt_sequence/prompt_sequence.py") }
-  hugging_face_token   = length(data.vault_kv_secret_v2.huggingface) == 0 ? null : data.vault_kv_secret_v2.huggingface[0].data["token"]
+  custom_node_sources = merge(
+    { prompt_sequence = file("${path.module}/../../../projects/comfyui_tools/nodes/prompt_sequence/prompt_sequence.py") },
+    local.configuration.model_profile == "chroma-hd" ? { chained_img2img_gif = file("${path.module}/../../../projects/comfyui_tools/nodes/chained_img2img_gif/chained_img2img_gif.py") } : {},
+  )
+  hugging_face_token = length(data.vault_kv_secret_v2.huggingface) == 0 ? null : data.vault_kv_secret_v2.huggingface[0].data["token"]
   workflows = { for name in local.model.workflows :
     name => file("${path.module}/../../../projects/comfyui_tools/workflows/${local.configuration.model_profile}/${name}.json")
   }
@@ -69,6 +72,7 @@ module "imagegen" {
   web_username     = local.configuration.web_username
   web_password     = random_password.web.result
   min_gpu_ram_gb   = local.hardware.min_gpu_ram_gb
+  gpu_name         = try(local.hardware.gpu_name, null)
   disk_gb          = local.hardware.disk_gb
   max_hourly_price = local.hardware.max_hourly_price
   label            = "src_infra_image_gen"

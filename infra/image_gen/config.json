@@ -1,11 +1,17 @@
 {
     "image": "vastai/comfy:v0.44.0-cuda-12.9-py312",
     "web_username": "imagegen",
-    "model_profile": "flux2-dev",
-    "hardware_profile": "96gb",
+    "model_profile": "chroma-hd",
+    "hardware_profile": "48gb",
     "hardware_profiles": {
         "standard": {
             "min_gpu_ram_gb": 32,
+            "disk_gb": 100,
+            "max_hourly_price": 1
+        },
+        "48gb": {
+            "gpu_name": "RTX PRO 5000",
+            "min_gpu_ram_gb": 47,
             "disk_gb": 100,
             "max_hourly_price": 1
         },
@@ -16,6 +22,40 @@
         }
     },
     "model_profiles": {
+        "chroma-hd": {
+            "workflows": [
+                "chroma-hd-text-to-image",
+                "chroma-hd-image-to-image",
+                "chroma-hd-image-to-image-gif",
+                "chroma-hd-style-reference",
+                "chroma-hd-prompt-sequence",
+                "chroma-hd-style-prompt-sequence"
+            ],
+            "downloads": [
+                {
+                    "url": "https://huggingface.co/lodestones/Chroma1-HD/resolve/0e0c60ece1e82b17cb7f77342d765ba5024c40c0/Chroma1-HD.safetensors",
+                    "filename": "Chroma1-HD.safetensors",
+                    "kind": "checkpoint"
+                },
+                {
+                    "url": "https://huggingface.co/comfyanonymous/flux_text_encoders/resolve/6af2a98e3f615bdfa612fbd85da93d1ed5f69ef5/t5xxl_fp16.safetensors",
+                    "filename": "t5xxl_fp16.safetensors",
+                    "kind": "text_encoder"
+                },
+                {
+                    "url": "https://huggingface.co/lodestones/Chroma/resolve/2f3b2730d7b5edbd02cdff12f72610af5787300b/ae.safetensors",
+                    "filename": "ae.safetensors",
+                    "kind": "vae"
+                }
+            ],
+            "custom_nodes": {
+                "RES4LYF": {
+                    "url": "https://github.com/ClownsharkBatwing/RES4LYF",
+                    "ref": "6780724de0ddb98e7454d54bb80387836a911ece"
+                }
+            },
+            "python_requirements": "res4lyf-requirements.txt"
+        },
         "qwen": {
             "workflows": [
                 "qwen-single-reference",

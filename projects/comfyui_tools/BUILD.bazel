@@ -14,6 +14,7 @@ package_group(
 filegroup(
     name = "comfyui_tools",
     srcs = [
+        "//projects/comfyui_tools/nodes/chained_img2img_gif:source",
         "//projects/comfyui_tools/nodes/prompt_sequence:source",
         "//projects/comfyui_tools/workflows",
     ],
@@ -25,6 +26,7 @@ docs_filegroup(
     srcs = ["README.md"],
     visibility = ["//projects:__pkg__"],
     deps = [
+        "//projects/comfyui_tools/nodes/chained_img2img_gif:docs",
         "//projects/comfyui_tools/nodes/prompt_sequence:docs",
         "//projects/comfyui_tools/openspec:docs",
         "//projects/comfyui_tools/workflows:docs",

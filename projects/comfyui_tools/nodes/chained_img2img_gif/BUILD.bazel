@@ -1,0 +1,31 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("@rules_python//python:defs.bzl", "py_test")
+
+package(transitive_visibility = "//projects:transitive_consumers")
+
+filegroup(
+    name = "source",
+    srcs = ["chained_img2img_gif.py"],
+    visibility = ["//projects/comfyui_tools:asset_consumers"],
+)
+
+py_test(
+    name = "chained_img2img_gif_test",
+    size = "small",
+    srcs = [
+        "chained_img2img_gif.py",
+        "chained_img2img_gif_test.py",
+    ],
+    python_version = "3.13.13",
+    deps = [
+        "@com_alwaldend_src_comfyui_pip//numpy",
+        "@com_alwaldend_src_comfyui_pip//pillow",
+        "@com_alwaldend_src_comfyui_pip//torch",
+    ],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//projects/comfyui_tools:__pkg__"],
+)

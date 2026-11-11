@@ -10,6 +10,12 @@ jsonnet_to_json(
     name = "workflows",
     src = "workflows.jsonnet",
     outs = [
+        "chroma-hd/chroma-hd-image-to-image.json",
+        "chroma-hd/chroma-hd-image-to-image-gif.json",
+        "chroma-hd/chroma-hd-prompt-sequence.json",
+        "chroma-hd/chroma-hd-style-prompt-sequence.json",
+        "chroma-hd/chroma-hd-style-reference.json",
+        "chroma-hd/chroma-hd-text-to-image.json",
         "chroma/chroma-image-to-image.json",
         "chroma/chroma-style-reference.json",
         "chroma/chroma-text-to-image.json",
