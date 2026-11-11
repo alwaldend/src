@@ -159,3 +159,11 @@ workflow defaults remain available for a later authorized deployment.
 - [x] 26.2 Add the requested publisher-pinned FLUX.2 dev 32B FP8 bundle and native workflows, selecting the existing 96 GB hardware profile for the first run.
 - [x] 26.3 Validate source and review the full interactive rental plan, retaining Secure Cloud, verified-host and HTTPS authentication controls.
 - [x] 26.4 Deploy the replacement and provide its observed URL; stop all further rental access when the operator begins use, recording the unperformed acceptance checks.
+
+## 27. Full Chroma on the earlier 48 GB GPU
+
+- [x] 27.1 Restore the previously approved full Chroma1-HD, FP16 T5 and FLUX VAE bundle as a selectable profile; select RTX PRO 5000 Blackwell with 48 GB nominal VRAM, verified Secure Cloud and the existing USD 1/hour ceiling.
+- [x] 27.2 Package model-appropriate native and approved RES4LYF reference workflows, including prompt sequences, and validate the selected startup offline.
+- [x] 27.3 Review the owning interactive apply and deploy one matching instance, retaining component credentials and all exposure controls.
+- [x] 27.4 Verify trusted HTTPS and execute the selected workflows using neutral fixtures; inspect outputs and record execution, reference limits, timings and the endpoint.
+- [x] 27.5 Validate improved Chroma style settings and the requested per-prompt chained GIF workflow on an ephemeral test rental, then save results and destroy it promptly.

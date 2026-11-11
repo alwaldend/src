@@ -27,9 +27,9 @@ there is no registry lookup or helper executable during Terraform planning.
 Changing the tag produces a reviewed replacement plan for an existing rental.
 The component's [config.json](../config.json) owns the image, HTTPS username,
 selected model/hardware profiles and their definitions. Terraform has no root
-input variables or tfvars presets. The selected model is FLUX.2 dev 32B FP8. Set `model_profile` to `juggernaut`,
-`flux` or `qwen` to select Juggernaut XL v9, FLUX.2 klein Base 9B FP8 or
-Qwen-Image-Edit-2511.
+input variables or tfvars presets. The selected model is full Chroma1-HD with
+its FP16 T5 encoder and original FLUX VAE. Other model profiles remain available
+as `flux2-dev`, `juggernaut`, `flux` and `qwen`.
 
 ```sh
 bazel run //infra/image_gen/tf_setup:tf.plan
@@ -37,14 +37,16 @@ bazel run //infra/image_gen/tf_setup:tf.rent
 ```
 
 `rent` displays the interactive plan; review it before approving. The selected
-`96gb` hardware profile requests at least 95 GiB reported VRAM, 150 GB disk
-and a USD 3/hour ceiling. The optional `standard` profile requests one GPU with at least 32 GiB VRAM, 100 GB
+`48gb` hardware profile requires RTX PRO 5000 Blackwell, at least 47 GiB reported
+VRAM, 100 GB disk and a USD 1/hour ceiling. The optional `96gb` profile requests
+at least 95 GiB reported VRAM, 150 GB disk and a USD 3/hour ceiling.
+The optional `standard` profile requests one GPU with at least 32 GiB VRAM, 100 GB
 disk and a USD 1/hour ceiling including disk. The module selects the cheapest
 qualifying Secure Cloud offer. The ceiling is not a total budget and market
 availability is not guaranteed.
 
-Model and hardware selections are independent. The operator selected `96gb`
-for the first 32B trial; the smaller profile remains available for later use.
+Model and hardware selections are independent. The named GPU filter applies
+only to `48gb`; other profiles retain automatic GPU selection.
 
 Creation acknowledges a contract; boot and provisioning take longer. Refresh
 through the same owner after boot, reviewing its interactive plan:
@@ -94,16 +96,22 @@ references through IP-Adapter Plus. The two additional public safetensors files
 add about 3.4 GB: the SDXL Plus adapter in `models/ipadapter` and its CLIP-ViT-H
 encoder in `models/clip_vision`. Their publisher revisions are fixed in config.json.
 
-| Profile                | Bundle                                                                       | Native workflows                                                                                                                                                                |
-| ---------------------- | ---------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `juggernaut`           | Juggernaut XL v9 all-in-one SDXL checkpoint                                  | `juggernaut-text-to-image`, `juggernaut-image-to-image`, `juggernaut-prompt-sequence`, `juggernaut-style-reference`, `juggernaut-style-prompt-sequence`                         |
-| `flux2-dev` (selected) | FLUX.2 dev 32B FP8, local Mistral FP8 encoder, FLUX.2 VAE                    | `flux2-dev-text-to-image`, `flux2-dev-single-reference`, `flux2-dev-single-reference-prompt-sequence`, `flux2-dev-multi-reference`, `flux2-dev-multi-reference-prompt-sequence` |
-| `flux`                 | FLUX.2 klein Base 9B FP8, Qwen3 8B mixed FP8 encoder, Flux small-decoder VAE | `flux-single-reference`, `flux-character-style`, `flux-prompt-sequence`                                                                                                         |
-| `qwen`                 | Qwen-Image-Edit-2511 mixed FP8, Qwen 2.5 VL 7B FP8 encoder, Qwen VAE         | `qwen-single-reference`, `qwen-character-style`, `qwen-prompt-sequence`                                                                                                         |
+| Profile                | Bundle                                                                       | Native workflows                                                                                                                                                                   |
+| ---------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `juggernaut`           | Juggernaut XL v9 all-in-one SDXL checkpoint                                  | `juggernaut-text-to-image`, `juggernaut-image-to-image`, `juggernaut-prompt-sequence`, `juggernaut-style-reference`, `juggernaut-style-prompt-sequence`                            |
+| `chroma-hd` (selected) | Full Chroma1-HD, FP16 T5 encoder, FLUX VAE                                   | `chroma-hd-text-to-image`, `chroma-hd-image-to-image`, `chroma-hd-style-reference`, `chroma-hd-prompt-sequence`, `chroma-hd-style-prompt-sequence`, `chroma-hd-image-to-image-gif` |
+| `flux2-dev`            | FLUX.2 dev 32B FP8, local Mistral FP8 encoder, FLUX.2 VAE                    | `flux2-dev-text-to-image`, `flux2-dev-single-reference`, `flux2-dev-single-reference-prompt-sequence`, `flux2-dev-multi-reference`, `flux2-dev-multi-reference-prompt-sequence`    |
+| `flux`                 | FLUX.2 klein Base 9B FP8, Qwen3 8B mixed FP8 encoder, Flux small-decoder VAE | `flux-single-reference`, `flux-character-style`, `flux-prompt-sequence`                                                                                                            |
+| `qwen`                 | Qwen-Image-Edit-2511 mixed FP8, Qwen 2.5 VL 7B FP8 encoder, Qwen VAE         | `qwen-single-reference`, `qwen-character-style`, `qwen-prompt-sequence`                                                                                                            |
 
-All files are fixed to publisher revisions in [config.json](../config.json). The selected 32B bundle totals about 54 GB and uses the 150 GB disk profile. Vast's native provisioner downloads them inside the rental;
+All files are fixed to publisher revisions in [config.json](../config.json).
+The selected full Chroma bundle totals about 28 GB and uses the 100 GB disk
+profile. The optional 32B bundle totals about 54 GB and uses the 150 GB disk profile.
+Vast's native provisioner downloads them inside the rental;
 no custom downloader is installed. Every profile stages the first-party
-`Prompt Sequence` through native `write_files`. Only Juggernaut also restores
+`Prompt Sequence` through native `write_files`. Full Chroma additionally stages
+the first-party chained img2img GIF node, using only ComfyUI's existing Torch,
+NumPy and Pillow packages. Both first-party nodes are whitelisted for that profile. Chroma1-HD and Juggernaut restore
 [RES4LYF](https://github.com/ClownsharkBatwing/RES4LYF/tree/6780724de0ddb98e7454d54bb80387836a911ece)
 at the previously approved revision and the unchanged
 [hash-locked requirements](../res4lyf-requirements.txt). Vast's native Git/pip
@@ -114,8 +122,17 @@ The general SDXL Plus path uses the existing image environment and requires no
 FaceID/InsightFace installation. Flux, FLUX.2 dev and Qwen retain only Prompt Sequence.
 The [workflow definitions](../../../projects/comfyui_tools/README.md#workflow-source-and-generation)
 are compiled from Libsonnet during the Bazel build; the rental receives native
-JSON and does not require Jsonnet. Archived Chroma examples are generated for
-documentation and are not staged by these profiles.
+JSON and does not require Jsonnet. The archived Chroma Flash examples remain
+available separately and are not staged by the full Chroma profile.
+
+Chroma1-HD stages the already approved RES4LYF pack and its unchanged locked
+requirements alongside Prompt Sequence. Native graphs start at 40 Euler/beta
+steps and CFG 3; style graphs use 40 RES 2M/beta57 steps and CFG 3 with the
+Chroma model patcher. Img2img preserves some reference composition, while the
+style path starts from fresh noise and guides style. Neither path guarantees
+character identity. Both sequence graphs share their negative prompt across
+all nonempty panel lines. This full checkpoint is distinct from the archived
+Flash model; additional VRAM alone does not establish better image quality.
 
 Flux uses the publisher's [non-commercial model](https://huggingface.co/black-forest-labs/FLUX.2-klein-base-9b-fp8).
 Its checkpoint requires the user's Hugging Face license acceptance and a read-only

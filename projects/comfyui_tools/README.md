@@ -77,6 +77,25 @@ variant. Reference images supply character and style through native VAE latents.
 positive guidance and has no negative branch; the sequence node's negative
 output is unconnected in this family. Its Mistral text encoder runs locally.
 
+The selected `chroma-hd` profile provides text-to-image, image-to-image,
+style-reference, prompt-sequence and style-prompt-sequence workflows with the
+full Chroma1-HD checkpoint, FP16 T5 and original VAE, plus a chained img2img GIF
+workflow with one prompt per frame. Native sampling starts at
+40 Euler/beta steps and CFG 3; style sampling uses the already approved
+RES4LYF Chroma patcher and 40 RES 2M/beta57 steps with CFG 3. Its style guide
+starts at weight 0.5 and ends at step 15, which preserved more detail than
+weight 1 through all steps in the controlled neutral comparison. The two sequences
+use the existing multiline node and shared negative prompt. Img2img preserves
+composition; the style path guides style from fresh noise and does not promise
+character identity. The original three `chroma-*` workflows retain their Flash
+defaults as archived examples.
+
+The [full Chroma GPU acceptance](../../infra/image_gen/openspec/changes/add-imagegen-rental/design.md#full-chroma-deployment-on-rtx-pro-5000)
+verifies execution and ordered outputs, with significant visual limits: img2img
+can preserve the source too strongly, the style guide can blur detail, and comic
+wording can elicit extra panels and lettering. Start with native text-to-image;
+reference and sequence paths require prompt/strength tuning for useful results.
+
 ## Workflow source and generation
 
 The maintained sources are [workflows.jsonnet](workflows/workflows.jsonnet),
@@ -120,10 +139,21 @@ their prompt/filename output slots; an omitted negative prompt defaults to empty
 For Flux/Qwen, shared context describes image 1
 as the character and image 2 as style. Juggernaut's native sequence uses shared textual character and style descriptions;
 its style-sequence variant also reuses one reference image for style. Run a `prompt-sequence` workflow once for
-sequential panels named `comic_001`, `comic_002`, and so on. Sampling batch size
+sequential panels named `comic_<run UUID>_001`, `comic_<run UUID>_002`, and so on.
+Each run has a unique prefix, including repeated runs with identical text. The
+sequence remains one native job so its media outputs remain grouped. The native
+sampler displays `Panel 2 of 3` alongside its step progress; current workflows
+connect the sequence node's optional MODEL path to enable that counter. Sampling batch size
 remains one; native list mapping reuses the shared conditioning. Panels do not inherit
 previous-panel composition or story state. The node requires no external package.
 The `JSON` separator remains available for lists saved by the former custom editor.
+
+Use `chroma-hd-image-to-image-gif` to animate from an initial image, with one
+prompt per generated frame in the same multiline box. Each latent feeds the
+next img2img step. The result is one looping GIF and a native frame batch; start
+at denoise 0.45 and 6 fps. This makes discrete chained images without motion
+interpolation. The [GIF node](nodes/chained_img2img_gif/README.md) documents
+timing and output behavior.
 
 Terraform packages the node source and selected workflow files through their
 Bazel filegroups and installs them with Vast's native provisioner. This project

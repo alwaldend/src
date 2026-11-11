@@ -24,6 +24,9 @@ local get(nodes, id) = byId(nodes)[std.toString(id)];
     local positive = get(base.nodes, positiveId);
     local negative = if negativeId == null then null else get(base.nodes, negativeId);
     local save = get(base.nodes, saveId);
+    local sampler = [node for node in base.nodes if std.member(['KSampler', 'ClownsharKSampler_Beta', 'BasicGuider', 'CFGGuider', 'ImagegenChainedImageToImageGIF'], node.type)][0];
+    local modelLink = [edge for edge in base.links if edge[3] == sampler.id && sampler.inputs[edge[4]].type == 'MODEL'][0];
+    local progressLinkId = std.foldl(function(maximum, id) std.max(maximum, id), [edge[0] for edge in base.links] + linkIds, 0) + 1;
     local widget(name) = { name: name, type: 'STRING', widget: { name: name } };
     self.variant(base, {
       nodes: [sequenceNode {
@@ -37,10 +40,13 @@ local get(nodes, id) = byId(nodes)[std.toString(id)];
              [std.toString(negativeId)]: { inputs: negative.inputs + [widget(textInput)], title: 'Encode shared negative prompt' },
            }),
       links: [
+        [modelLink[0], modelLink[1], modelLink[2], sequenceNode.id, 0],
+        [progressLinkId, sequenceNode.id, 3, sampler.id, modelLink[4]],
         [linkIds[0], sequenceNode.id, 0, positiveId, std.length(positive.inputs)],
         [linkIds[1], sequenceNode.id, 1, saveId, std.length(save.inputs)],
       ] + (if negative == null then [] else [[linkIds[2], sequenceNode.id, 2, negativeId, std.length(negative.inputs)]]),
-      metadata: { last_node_id: sequenceNode.id, last_link_id: linkIds[std.length(linkIds) - 1] },
+      removeLinks: [modelLink[0]],
+      metadata: { last_node_id: sequenceNode.id, last_link_id: progressLinkId },
     }),
 
   render(spec)::

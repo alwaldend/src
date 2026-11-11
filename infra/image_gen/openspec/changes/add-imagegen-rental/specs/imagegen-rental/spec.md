@@ -26,7 +26,13 @@ validation SHALL NOT rent capacity or deploy the new role, policies or keys.
 ### Requirement: Rental-owned default checkpoint
 
 The rental root SHALL read the image, login name, hardware and model configuration
-from the component config.json, with selectable juggernaut, flux and qwen profiles. The default juggernaut profile SHALL use the previously approved Juggernaut XL v9 all-in-one SDXL checkpoint at revision cf419233522daa0b9ea36c3aff98fa2cab1fb0fb. The flux profile SHALL retain FLUX.2 klein Base 9B FP8, Qwen3 8B mixed FP8 and the Flux small-decoder VAE at fixed publisher revisions. The qwen profile SHALL retain Qwen-Image-Edit-2511 and its existing encoder/VAE bundle. The shared modules SHALL remain model-configurable.
+from the component config.json, with selectable chroma-hd, juggernaut, flux,
+flux2-dev and qwen profiles. The selected chroma-hd profile SHALL use the
+previously approved full Chroma1-HD checkpoint at revision
+0e0c60ece1e82b17cb7f77342d765ba5024c40c0 with its existing FP16 T5 and FLUX VAE
+pins. Juggernaut SHALL retain its previously approved all-in-one checkpoint;
+the remaining profiles SHALL retain their existing publisher-pinned bundles.
+The shared modules SHALL remain model-configurable.
 
 #### Scenario: Default rental configuration
 
@@ -47,7 +53,7 @@ latents; Qwen SHALL also retain vision-language conditioning, index_timestep_zer
 flow shift and CFG normalization. Flux SHALL use the Base native
 schedule with 50 steps, CFG 4, an encoded empty negative prompt and fresh latent noise.
 All profiles SHALL enable the dependency-free first-party prompt sequence node.
-Only Juggernaut SHALL additionally restore the previously approved RES4LYF revision
+Chroma1-HD and Juggernaut SHALL additionally restore the previously approved RES4LYF revision
 and its exact locked Python requirements. Source and validation fixtures SHALL contain only neutral content.
 
 #### Scenario: Default native workflows
@@ -109,7 +115,9 @@ reject empty input or unsafe filename prefixes without echoing prompt content.
 The component config.json SHALL provide a nominal 96 GB-or-larger hardware
 profile with a 95 GiB reported-memory floor, 150 GB disk and a USD 3/hour ceiling.
 The ordinary plan and rent targets SHALL consume the selected hardware profile.
-The committed standard selection SHALL retain the 32 GiB, 100 GB and USD 1/hour defaults. All host trust requirements
+The standard option SHALL retain the 32 GiB, 100 GB and USD 1/hour defaults. The
+selected 48gb option SHALL require RTX PRO 5000, at least 47 GiB reported VRAM,
+100 GB disk and a USD 1/hour ceiling. All host trust requirements
 SHALL remain enforced. Preparing this option SHALL NOT deploy it or change the
 selected model bundle.
 

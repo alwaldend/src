@@ -1,26 +1,52 @@
 """Expand panel prompts into paired lists for native ComfyUI workflow mapping."""
 
+import collections.abc
 import json
 import re
+import typing
+import uuid
+
+
+class _Model(typing.Protocol):
+    """Native model patcher interface used to attach local sampling progress."""
+
+    def clone(self) -> "_Model":
+        """Return an independent patcher sharing the existing model weights."""
+        ...
+
+    def add_wrapper_with_key(
+        self,
+        kind: str,
+        key: str,
+        wrapper: collections.abc.Callable[..., object],
+    ) -> None:
+        """Add one wrapper through ComfyUI's supported model patcher API."""
+        ...
 
 
 class PromptSequence:
     """Provide ordered panel prompts, filenames and one shared negative prompt."""
 
-    RETURN_TYPES: tuple[str, str, str] = ("STRING", "STRING", "STRING")
-    """Native positive prompt, filename-prefix and shared negative text types."""
+    RETURN_TYPES: tuple[str, str, str, str] = (
+        "STRING",
+        "STRING",
+        "STRING",
+        "MODEL",
+    )
+    """Native prompt/prefix/negative strings and the optional tracked model."""
 
-    RETURN_NAMES: tuple[str, str, str] = (
+    RETURN_NAMES: tuple[str, str, str, str] = (
         "prompt",
         "filename_prefix",
         "negative_prompt",
+        "model",
     )
     """User-visible output names identifying the paired panel values."""
 
-    OUTPUT_IS_LIST: tuple[bool, bool, bool] = (True, True, False)
-    """Map panel lists while sharing one scalar negative across every panel."""
+    OUTPUT_IS_LIST: tuple[bool, bool, bool, bool] = (True, True, False, False)
+    """Map panel lists while sharing the scalar negative and tracked model."""
 
-    FUNCTION: str = "expand"
+    FUNCTION: str = "execute"
     """Framework entry point called to expand the widget input."""
 
     CATEGORY: str = "imagegen/workflow"
@@ -58,6 +84,7 @@ class PromptSequence:
                         "tooltip": "Shared negative prompt for every panel. Leave empty to use an empty negative prompt.",
                     },
                 ),
+                "model": ("MODEL",),
             },
         }
 
@@ -109,6 +136,61 @@ class PromptSequence:
             f"{filename_prefix}_{i:03d}" for i in range(1, len(panels) + 1)
         ]
         return texts, prefixes, negative_prompt
+
+    @classmethod
+    def IS_CHANGED(cls, **inputs: object) -> float:
+        """Create a new run identity even when a queued graph's text is unchanged."""
+        return float("nan")
+
+    def execute(
+        self,
+        prompts: str,
+        context: str,
+        separator: str,
+        filename_prefix: str,
+        negative_prompt: str = "",
+        model: _Model | None = None,
+    ) -> tuple[list[str], list[str], str, _Model | None]:
+        """Keep panels in one job, add a run prefix and report native sampler progress."""
+        texts: list[str]
+        prefixes: list[str]
+        negative: str
+        texts, prefixes, negative = self.expand(
+            prompts, context, separator, filename_prefix, negative_prompt
+        )
+        run: str = uuid.uuid4().hex
+        prefixes = [
+            f"{filename_prefix}_{run}_{index:03d}"
+            for index in range(1, len(texts) + 1)
+        ]
+        if model is not None:
+            import comfy.patcher_extension
+            import server
+
+            model = model.clone()
+            panel: int = 0
+
+            def sample(
+                executor: collections.abc.Callable[..., object],
+                *args: object,
+                **kwargs: object,
+            ) -> object:
+                """Label each complete native sampling invocation without changing it."""
+                nonlocal panel
+                panel += 1
+                server.PromptServer.instance.send_progress_text(
+                    f"Panel {panel} of {len(texts)}",
+                    server.PromptServer.instance.last_node_id,
+                    server.PromptServer.instance.client_id,
+                )
+                return executor(*args, **kwargs)
+
+            model.add_wrapper_with_key(
+                comfy.patcher_extension.WrappersMP.OUTER_SAMPLE,
+                "imagegen_sequence_progress",
+                sample,
+            )
+        return texts, prefixes, negative, model
 
 
 NODE_CLASS_MAPPINGS: dict[str, type[PromptSequence]] = {
