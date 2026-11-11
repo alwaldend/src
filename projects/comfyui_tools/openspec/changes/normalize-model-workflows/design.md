@@ -208,3 +208,21 @@ outputs, and repeated runs use distinct UUID prefixes. Both GIFs retain three
 1024-square frames at 170 ms, including identical frames. The owning
 infra/image_gen change records timings, visual limitations and immediate
 teardown. No paid rental remains after acceptance.
+
+## Additional approved model families
+
+NoobAI XL 1.1 and Illustrious XL v2.0-STABLE reuse the shared SDXL builder for
+seven workflow purposes each. Factoring Juggernaut into that builder must
+preserve its existing generated graphs. HiDream-I1 Full reuses latent, sequence
+and GIF graph composition, replacing Chroma's encoder path with the native
+QuadrupleCLIPLoader and its sampling patch with ModelSamplingSD3 shift 3.
+Its four encoder roles resolve explicitly from the owning public asset registry.
+The official full-model example supplies 50 UniPC/simple steps and CFG 5;
+RES4LYF supplies its already approved dedicated HiDream style patcher.
+
+The existing generator assertions check unique node/link identities, connection
+types and single-input ownership. Offline module acceptance checks all selected
+workflow contents and model destinations after startup compression. New model
+GPU execution, memory, speed, reference quality and image quality remain
+unverified: the operator explicitly forbids renting for these checks. Existing
+Chroma acceptance is not evidence for the three new model families.

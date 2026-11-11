@@ -50,3 +50,15 @@ module without Vault or rental credentials. Verify the final encoded byte count,
 every selected workflow and model destination before any paid creation. This
 closes the gap where small synthetic manifests passed but the deployed bundle
 exceeded the API limit.
+
+## Shared model asset profiles
+
+The operator approves three additional model options and explicitly prohibits
+renting to validate them. Extend the configured startup fixture to every public
+profile, resolving shared model/node asset references into real Terraform input.
+Before changing configuration, cover missing assets, wrong checkpoint/encoder
+destinations, wrong model selected in a graph, missing first-party GIF source,
+workflow changes during packaging and oversized encoded startup commands.
+Each profile must complete the loopback lifecycle and emit its own sanitized
+model/workflow/byte-count artifact. These fixtures never execute the startup
+script, download weights, contact a live account or establish GPU compatibility.

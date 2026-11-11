@@ -15,8 +15,8 @@ model downloads, credentials and rental state belong to
 
 The workflow files, including the [Flux panel sequence](workflows/flux/flux-prompt-sequence.json), contain single-reference, character/style and
 prompt-sequence graphs for FLUX.2 klein Base and Qwen-Image-Edit, plus
-Juggernaut XL v9 text-to-image, img2img and prompt-sequence graphs and archived
-Chroma Flash examples. All files use `<profile>-<purpose>.json`; the saved
+Juggernaut XL v9, NoobAI XL 1.1, Illustrious XL v2.0-STABLE, HiDream-I1 Full,
+full Chroma and archived Chroma Flash examples. All files use `<profile>-<purpose>.json`; the saved
 workflow name uses that same basename. Load a matching JSON in ComfyUI or pass it to the
 authenticated infrastructure CLI. Each graph requires its matching models and
 nodes; the rental's [model profile](../../infra/image_gen/tf_setup/README.md#download-models)
@@ -61,6 +61,24 @@ maintenance-only mode; future runtime upgrades need compatibility validation.
 The older RES4LYF style graphs retain the upstream `float64` style-patcher
 default to avoid mixing float32 reference features with its float64 SDXL branch.
 
+`noobai` and `illustrious` each provide the same seven SDXL workflow purposes
+as Juggernaut. They reuse the shared SDXL builder, style patcher and approved
+IP-Adapter/CLIP vision weights. Native graphs start at 30 Euler ancestral/normal
+steps and CFG 5.5; NoobAI uses neutral tag-style starting prompts. These are
+starting presets, with no new GPU acceptance or reference-quality claim.
+NoobAI's publisher restricts commercial use, including generated products;
+the [model configuration](../../infra/image_gen/tf_setup/README.md#additional-model-options)
+records the licenses and component choices.
+
+`hidream-i1-full` provides text-to-image, img2img, style-reference, both panel
+sequences and chained img2img GIF. Native graphs use 50 UniPC/simple steps,
+CFG 5 and shift 3, following the official full-model example. They load four
+local text encoders: CLIP-L, CLIP-G, T5 and Llama 3.1 8B. Style graphs reuse
+RES4LYF with its dedicated HiDream patcher and style sampler. This is style
+guidance; it is not a trained character-reference adapter. These graphs have
+offline packaging checks only; their GPU execution and output quality remain
+unverified.
+
 All seven Juggernaut workflows completed on the replacement rental on
 2026-11-10, producing 13 neutral 1024-square images at 30 steps. Both style paths
 completed without the reported dtype error. This establishes execution for the
@@ -102,8 +120,11 @@ The maintained sources are [workflows.jsonnet](workflows/workflows.jsonnet),
 model-specific `workflows.libsonnet` files and shared graph/node libraries in
 `workflows/internal/`. The sequence transformation is shared across model families.
 Connections are declared once; generation derives port metadata and reciprocal
-link lists. The public rental configuration supplies model filenames from the first matching
-download of each required kind. Additional downloads remain available without
+link lists. SDXL model families share one graph builder. The public rental
+configuration owns an asset registry keyed by filename; profiles reference
+those assets and approved node packs by name. Workflows select the first
+download of each required kind, with explicit component roles for HiDream's
+four text encoders. Additional downloads remain available without
 changing those selections. Recorded workflow defaults remain available when
 downloads are disabled.
 

@@ -3,6 +3,24 @@ local configuration = import '../../../infra/image_gen/config.json';
 local g = import 'internal/graph.libsonnet';
 // Recorded workflow defaults remain usable when native downloading is disabled.
 local defaults = {
+  noobai: {
+    checkpoint: 'NoobAI-XL-v1.1.safetensors',
+    ipadapter: 'ip-adapter-plus_sdxl_vit-h.safetensors',
+    clip_vision: 'CLIP-ViT-H-14-laion2B-s32B-b79K.safetensors',
+  },
+  illustrious: {
+    checkpoint: 'Illustrious-XL-v2.0.safetensors',
+    ipadapter: 'ip-adapter-plus_sdxl_vit-h.safetensors',
+    clip_vision: 'CLIP-ViT-H-14-laion2B-s32B-b79K.safetensors',
+  },
+  'hidream-i1-full': {
+    checkpoint: 'hidream_i1_full_fp16.safetensors',
+    clip_l: 'clip_l_hidream.safetensors',
+    clip_g: 'clip_g_hidream.safetensors',
+    t5: 't5xxl_fp16.safetensors',
+    llama: 'llama_3.1_8b_instruct_fp8_scaled.safetensors',
+    vae: 'ae.safetensors',
+  },
   'chroma-hd': {
     checkpoint: 'Chroma1-HD.safetensors',
     text_encoder: 't5xxl_fp16.safetensors',
@@ -34,15 +52,24 @@ local downloadKind(entry) =
 // First matching files select workflow components; additional downloads remain available.
 local filenames(profile) = {
   [kind]:
+    local definition = configuration.model_profiles[profile];
+    local component = std.get(std.get(definition, 'components', {}), kind, null);
     local matches = [
-      entry
-      for entry in configuration.model_profiles[profile].downloads
+      configuration.downloads[name] { filename: name }
+      for name in definition.downloads
+      for entry in [configuration.downloads[name]]
       if downloadKind(entry) == kind
     ];
-    if std.length(matches) == 0 then defaults[profile][kind] else matches[0].filename
+    if component != null then
+      assert std.length(definition.downloads) == 0 || std.member(definition.downloads, component) : 'Missing component download: ' + component;
+      if std.length(definition.downloads) == 0 then defaults[profile][kind] else component
+    else if std.length(matches) == 0 then defaults[profile][kind] else matches[0].filename
   for kind in std.objectFields(defaults[profile])
 };
 local families = {
+  noobai: (import 'noobai/workflows.libsonnet')(filenames('noobai')),
+  illustrious: (import 'illustrious/workflows.libsonnet')(filenames('illustrious')),
+  'hidream-i1-full': (import 'hidream-i1-full/workflows.libsonnet')(filenames('hidream-i1-full')),
   flux: (import 'flux/workflows.libsonnet')(filenames('flux')),
   qwen: (import 'qwen/workflows.libsonnet')(filenames('qwen')),
   juggernaut: (import 'juggernaut/workflows.libsonnet')(filenames('juggernaut')),

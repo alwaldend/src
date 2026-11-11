@@ -34,6 +34,9 @@ var imagegenConfigurationPath = flag.String("imagegen-configuration", "", "Image
 // promptSequencePath selects the actual first-party node staged in the startup manifest.
 var promptSequencePath = flag.String("prompt-sequence", "", "Prompt Sequence source runfile")
 
+// chainedGIFPath selects the first-party GIF source for profiles that stage it.
+var chainedGIFPath = flag.String("chained-gif", "", "Chained img2img GIF source runfile")
+
 // configuredWorkflowPath anchors the generated workflow tree consumed by the real profile.
 var configuredWorkflowPath = flag.String("configured-workflow", "", "Configured workflow runfile")
 

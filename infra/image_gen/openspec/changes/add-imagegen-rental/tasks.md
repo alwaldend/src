@@ -167,3 +167,9 @@ workflow defaults remain available for a later authorized deployment.
 - [x] 27.3 Review the owning interactive apply and deploy one matching instance, retaining component credentials and all exposure controls.
 - [x] 27.4 Verify trusted HTTPS and execute the selected workflows using neutral fixtures; inspect outputs and record execution, reference limits, timings and the endpoint.
 - [x] 27.5 Validate improved Chroma style settings and the requested per-prompt chained GIF workflow on an ephemeral test rental, then save results and destroy it promptly.
+
+## 28. Additional approved model profiles
+
+- [x] 28.1 Verify publisher revisions, checkpoint types and component licenses for the explicitly approved NoobAI-XL 1.1, Illustrious XL v2.0-STABLE and HiDream-I1 Full 17B bundles.
+- [x] 28.2 Add selectable profiles using one shared asset registry for model files and approved node sources; preserve the selected Chroma profile and existing asset selections.
+- [x] 28.3 Validate every profile's packaged workflow/model destinations through offline Terraform fixtures, document memory/offload limits, and prepare the source PR without renting or deploying an instance; delivery receipts own publication state.

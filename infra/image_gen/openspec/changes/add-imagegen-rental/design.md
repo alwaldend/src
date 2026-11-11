@@ -739,3 +739,67 @@ under ignored out/imagegen/chroma-hd. After downloading them, the reviewed
 instance-only apply destroyed the rental at 09:27:59 UTC; refresh-only apply
 cleared its connection outputs. Component credentials remain available for the
 next manual rental. No paid instance remains and the diagram is unpublished.
+
+## Additional approved model options
+
+The operator explicitly approves NoobAI-XL 1.1 and Illustrious XL v2.0-STABLE,
+then HiDream-I1 Full 17B, as additional options. This authorizes their inference
+bundles and required native encoders/VAE, with publisher revisions and component
+licenses recorded. The operator explicitly prohibits renting an instance to
+validate these additions. Preserve Chroma and the current hardware selection;
+use source and offline Terraform/provider acceptance only, with no GPU-quality
+claim for the new profiles.
+
+Decision: proceed. SDXL finetunes reuse the existing native checkpoint loader,
+approved SDXL adapter and RES4LYF paths. HiDream uses native UNET/quadruple text
+encoding with the existing FLUX VAE; the approved RES4LYF revision has a dedicated
+HiDream style patcher. No new runtime software package or custom-node pack is
+needed. NoobAI's publisher prohibits commercialization, including generated
+products; HiDream's transformer license does not replace its component licenses.
+
+Keep model URLs and node revisions in a single JSON asset registry, referenced
+by each profile, rather than independently repeating shared pins. Terraform and
+Jsonnet resolve those references into their native inputs. Shared SDXL graph
+construction preserves Juggernaut defaults. HiDream follows the upstream full
+workflow's 50 UniPC/simple steps, CFG 5 and ModelSamplingSD3 shift 3; use the
+full FP16 denoiser, native published Llama FP8 encoder and existing FP16 T5.
+
+Failure cases before implementation: changed old profile assets/workflows,
+wrong checkpoint destination, missing encoders or VAE, a new model receiving
+another model's checkpoint, wrong sampling prediction, repeated shared pins,
+omitted adapter assets, incompatible style patchers, oversized startup payloads,
+unsafe filenames and accidental live API/rental operations. Exercise every
+configured profile against the loopback fixture and preserve generated graphs
+and model destinations as repeatable artifacts.
+
+Publisher metadata inspected on 2026-11-11 identifies these new files. Runtime
+URLs are owned by config.json; this table records the approval evidence rather
+than introducing a second download manifest. Safetensors are loaded without
+publisher Python code. No model weights were downloaded for offline validation.
+
+| Publisher repository / revision                                                | File                                         | Bytes       | Publisher LFS SHA-256                                            |
+| ------------------------------------------------------------------------------ | -------------------------------------------- | ----------- | ---------------------------------------------------------------- |
+| Laxhar/noobai-XL-1.1 / 814a274af2b8097c0828819d561ec74c7d0c6cea                | NoobAI-XL-v1.1.safetensors                   | 7105349958  | 6681e8e4b134c81f16533acedb0d406d7e5e366e1624b4105178c64d00b05d51 |
+| OnomaAIResearch/Illustrious-XL-v2.0 / 69459c1fe6f46db41ab31e6114f05acc0e06bcaa | Illustrious-XL-v2.0.safetensors              | 6938040674  | c2a1a3eaa13d4c107dc7e00c3fe830cab427aa026362740ea094745b3422a331 |
+| Comfy-Org/HiDream / 942970a008493fc9bf05b4827374009e69f6a993                   | hidream_i1_full_fp16.safetensors             | 34211673776 | 8bbebd53a19ff0ff685c51b9425cee9529f283e3efb052e22add4a28f414ab3e |
+| Same HiDream revision                                                          | clip_l_hidream.safetensors                   | 247586528   | 706fdb88e22e18177b207837c02f4b86a652abca0302821f2bfa24ac6aea4f71 |
+| Same HiDream revision                                                          | clip_g_hidream.safetensors                   | 1389743104  | 3771e70e36450e5199f30bad61a53faae85a2e02606974bcda0a6a573c0519d5 |
+| Same HiDream revision                                                          | llama_3.1_8b_instruct_fp8_scaled.safetensors | 9081258056  | 9f86897bbeb933ef4fd06297740edb8dd962c94efcd92b373a11460c33765ea6 |
+
+NoobAI's scheduler declares epsilon prediction. Its publisher's Euler ancestral,
+25–30-step, CFG 5–6 guidance supports the starting preset. Illustrious's matching
+preset is provisional. Both reuse the approved SDXL Plus/CLIP-ViT-H assets.
+HiDream reuses the existing FP16 T5 and FLUX VAE rather than adding a second T5
+quantization. Its roughly 55 GB disk bundle has an FP16 denoiser and FP8 Llama
+encoder. Component licenses remain separate: MIT transformer/CLIP, Apache 2.0
+T5/VAE, Meta Llama 3.1 Community License. Illustrious uses CreativeML OpenRAIL-M;
+NoobAI retains its publisher's noncommercial generated-product restriction.
+
+Offline acceptance passed all eight configured profiles. Compressed startup
+sizes were Chroma 15,398 bytes, Flux 9,690, FLUX.2 dev 9,890, Juggernaut 13,642,
+NoobAI 13,662, Illustrious 13,694, HiDream 15,474 and Qwen 8,526, each below
+16,384 bytes. The fixture preserved every staged graph and all model URL/path
+pairs. All 27 existing generated documents remained equal to their recorded
+pre-refactor JSON values; 20 new documents were added. This is packaging and
+configuration acceptance only. No rental, model download or inference job was
+performed for the additions; the last Chroma test rental remains destroyed.

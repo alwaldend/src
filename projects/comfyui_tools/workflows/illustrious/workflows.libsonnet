@@ -1,0 +1,2 @@
+// Approved SDXL checkpoint using the shared generation/reference graphs.
+function(models) (import '../internal/sdxl.libsonnet')(models, { name: 'Illustrious XL v2.0-STABLE', prefix: 'Illustrious', steps: 30, cfg: 5.5, sampler: 'euler_ancestral', scheduler: 'normal', prompt: 'An illustration of a small blue robot with a red chest plate reading an open book on a park bench. Snowy park, watercolor, clear outlines, a single scene.' })

@@ -229,6 +229,12 @@ outputs records the observed non-sensitive API operations. It requires no
 Vast.ai account, network access outside loopback, or paid instances; live
 compute compatibility remains unverified.
 
+The configured image-generation case packages every public model profile
+through its real module and compressed startup transport. It compares staged
+workflow contents and model destinations and enforces the 16 KiB API limit,
+emitting one `configured-imagegen-startup-<profile>.json` artifact per profile.
+It downloads no weights and establishes no model inference or image quality.
+
 On 2026-11-04, the authorized live deployment applied the project AppRole,
 team/token bootstrap, and the three-resource team test root. Both Vast.ai
 Terraform roots then produced no-change plans using their own credentials.
