@@ -34,7 +34,8 @@ func (f *moduleFixture) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		for _, team := range f.teams {
 			team.mu.Lock()
 			if team.teamExists {
-				keys = append(keys, map[string]any{"id": team.accountID + 57, "name": "owner", "team_id": team.accountID, "team_name": team.teamName})
+				// Owner-context metadata must not collide with generated fixture keys.
+				keys = append(keys, map[string]any{"id": team.accountID + 1_000_000, "name": "owner", "team_id": team.accountID, "team_name": team.teamName})
 			}
 			for id := range team.keys {
 				keys = append(keys, map[string]any{"id": id, "name": "test_generated"})

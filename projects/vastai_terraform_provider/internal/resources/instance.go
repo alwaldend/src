@@ -1,7 +1,10 @@
 package resources
 
 import (
+	"bytes"
+	"compress/gzip"
 	"context"
+	"encoding/base64"
 	"errors"
 	"fmt"
 	"regexp"
@@ -14,6 +17,8 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/boolplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/float64planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int64planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
@@ -48,6 +53,8 @@ const (
 	instanceStateStopped = "stopped"
 	// maximumInstanceLabelLength bounds an instance label in Unicode characters.
 	maximumInstanceLabelLength = 1024
+	// maximumStartupBytes is Vast's inline startup command limit, including encoding.
+	maximumStartupBytes = 16384
 )
 
 // supportedRuntypes owns the canonical launch modes used by validation and schema descriptions.
@@ -86,6 +93,8 @@ type instanceModel struct {
 	MappedPorts types.Map `tfsdk:"mapped_ports"`
 	// Onstart is the creation-only startup command.
 	Onstart types.String `tfsdk:"onstart"`
+	// CompressOnstart opts into gzip transport for images with the required shell utilities.
+	CompressOnstart types.Bool `tfsdk:"compress_onstart"`
 	// Status is the last observed container status.
 	Status types.String `tfsdk:"actual_status"`
 	// SSHHost is the last observed SSH endpoint.
@@ -183,6 +192,16 @@ func (r *instanceResource) Schema(_ context.Context, _ resource.SchemaRequest, r
 				Description:   "Creation-only startup command. Sensitive in CLI output; still stored in Terraform state.",
 				PlanModifiers: []planmodifier.String{stringplanmodifier.RequiresReplace()},
 			},
+			"compress_onstart": schema.BoolAttribute{
+				Optional:    true,
+				Computed:    true,
+				Default:     booldefault.StaticBool(false),
+				Description: "Compress startup when smaller. Requires /bin/bash, base64, gzip and mktemp in the image. Creation-only; the original sensitive script remains in state.",
+				PlanModifiers: []planmodifier.Bool{boolplanmodifier.RequiresReplaceIf(
+					func(_ context.Context, req planmodifier.BoolRequest, resp *boolplanmodifier.RequiresReplaceIfFuncResponse) {
+						resp.RequiresReplace = !(req.StateValue.IsNull() && !req.PlanValue.ValueBool())
+					}, "Changed startup compression replaces the instance.", "Changed startup compression replaces the instance.")},
+			},
 			"actual_status": schema.StringAttribute{
 				Computed:    true,
 				Description: "Observed container status; null before refresh or while unavailable.",
@@ -232,7 +251,39 @@ func validateInstance(data instanceModel) diag.Diagnostics {
 	if !data.Runtype.IsUnknown() && !data.Runtype.IsNull() && !slices.Contains(supportedRuntypes[:], data.Runtype.ValueString()) {
 		diagnostics.AddAttributeError(path.Root("runtype"), "Invalid launch mode", fmt.Sprintf("Use one of: %s.", strings.Join(supportedRuntypes[:], ", ")))
 	}
+	if !data.Onstart.IsUnknown() && !data.CompressOnstart.IsUnknown() {
+		if _, err := instanceStartupCommand(data.Onstart.ValueString(), data.CompressOnstart.ValueBool()); err != nil {
+			diagnostics.AddAttributeError(path.Root("onstart"), "Invalid startup command", err.Error())
+		}
+	}
 	return diagnostics
+}
+
+// instanceStartupCommand prepares bounded API input without including script contents in errors.
+func instanceStartupCommand(script string, compress bool) (string, error) {
+	command := script
+	if compress && script != "" {
+		var compressed bytes.Buffer
+		writer, err := gzip.NewWriterLevel(&compressed, gzip.BestCompression)
+		if err != nil {
+			return "", fmt.Errorf("initialize startup compression: %w", err)
+		}
+		if _, err := writer.Write([]byte(script)); err != nil {
+			return "", fmt.Errorf("compress startup: %w", err)
+		}
+		if err := writer.Close(); err != nil {
+			return "", fmt.Errorf("finish startup compression: %w", err)
+		}
+		encoded := base64.StdEncoding.EncodeToString(compressed.Bytes())
+		wrapped := "# Compressed Vast.ai startup\nset -eu\numask 077\nstartup_file=$(mktemp)\ntrap 'rm -f \"$startup_file\"' EXIT\nprintf '%s' '" + encoded + "' | base64 -d | gzip -dc > \"$startup_file\"\n/bin/bash \"$startup_file\"\n"
+		if len(wrapped) < len(script) {
+			command = wrapped
+		}
+	}
+	if len(command) > maximumStartupBytes {
+		return "", fmt.Errorf("startup command exceeds %d bytes after the selected encoding; reduce the payload or enable compression for a compatible image", maximumStartupBytes)
+	}
+	return command, nil
 }
 
 // ValidateConfig reports invalid known values during Terraform validation and planning.
@@ -252,7 +303,12 @@ func (r *instanceResource) Create(ctx context.Context, req resource.CreateReques
 	if resp.Diagnostics.HasError() {
 		return
 	}
-	id, err := r.providerData.Client.Create(ctx, data.OfferID.ValueInt64(), vastclient.CreateInput{TemplateHashID: data.TemplateHashID.ValueString(), Image: data.Image.ValueString(), Disk: data.DiskGB.ValueFloat64(), Label: data.Label.ValueString(), State: data.State.ValueString(), Runtype: data.Runtype.ValueString(), Onstart: data.Onstart.ValueString(), DockerOptions: data.DockerOptions.ValueString()})
+	startup, err := instanceStartupCommand(data.Onstart.ValueString(), data.CompressOnstart.ValueBool())
+	if err != nil {
+		resp.Diagnostics.AddAttributeError(path.Root("onstart"), "Invalid startup command", err.Error())
+		return
+	}
+	id, err := r.providerData.Client.Create(ctx, data.OfferID.ValueInt64(), vastclient.CreateInput{TemplateHashID: data.TemplateHashID.ValueString(), Image: data.Image.ValueString(), Disk: data.DiskGB.ValueFloat64(), Label: data.Label.ValueString(), State: data.State.ValueString(), Runtype: data.Runtype.ValueString(), Onstart: startup, DockerOptions: data.DockerOptions.ValueString()})
 	if err != nil {
 		resp.Diagnostics.AddError("Cannot create instance", err.Error())
 		return
@@ -338,9 +394,15 @@ func (r *instanceResource) Read(ctx context.Context, req resource.ReadRequest, r
 	data.Label = types.StringValue(remote.Label)
 	data.State = types.StringValue(remote.State)
 	if remote.Onstart != nil {
-		data.Onstart = types.StringPointerValue(remote.Onstart)
+		startup, err := instanceStartupCommand(data.Onstart.ValueString(), data.CompressOnstart.ValueBool())
+		if data.Onstart.IsNull() || err != nil || startup != *remote.Onstart {
+			data.Onstart = types.StringPointerValue(remote.Onstart)
+		}
 	} else if data.Onstart.IsNull() {
 		data.Onstart = types.StringValue("")
+	}
+	if data.CompressOnstart.IsNull() {
+		data.CompressOnstart = types.BoolValue(false)
 	}
 	data.Status = types.StringPointerValue(remote.Status)
 	data.SSHHost = types.StringPointerValue(remote.SSHHost)

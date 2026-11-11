@@ -10,9 +10,17 @@ package_group(
     packages = ["//projects/comfyui_tools/workflows"],
 )
 
+package_group(
+    name = "configuration_acceptance_consumers",
+    packages = ["//projects/vastai_terraform_provider/test/acceptance"],
+)
+
 exports_files(
     ["config.json"],
-    visibility = [":workflow_configuration_consumers"],
+    visibility = [
+        ":configuration_acceptance_consumers",
+        ":workflow_configuration_consumers",
+    ],
 )
 
 filegroup(
@@ -21,7 +29,10 @@ filegroup(
         "config.json",
         "res4lyf-requirements.txt",
     ],
-    visibility = ["//infra/image_gen:__subpackages__"],
+    visibility = [
+        ":configuration_acceptance_consumers",
+        "//infra/image_gen:__subpackages__",
+    ],
 )
 
 al_vault_auth(

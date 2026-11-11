@@ -47,3 +47,13 @@
 ## 9. Native all-in-one checkpoints
 
 - [x] 9.1 Allow selecting only models/checkpoints or the existing models/diffusion_models checkpoint directory; verify both through the Terraform CLI fixture without broadening service exposure.
+
+## 10. Startup transport ownership
+
+- [x] 10.1 Supply plain JSON file content in the startup script and delegate gzip transport and byte-limit enforcement to the provider.
+- [x] 10.2 Verify native manifests, workflow staging, credential redaction and the complete selected Juggernaut rental plan.
+
+## 11. Approved image adapters
+
+- [x] 11.1 Add native ipadapter and clip_vision model destinations, retaining runtime path validation, selective node loading and existing exposure controls.
+- [x] 11.2 Verify both destinations through the real Terraform CLI fixture in both ComfyUI access modes.

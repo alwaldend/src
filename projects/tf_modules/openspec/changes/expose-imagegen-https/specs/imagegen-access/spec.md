@@ -79,8 +79,9 @@ The ComfyUI wrapper SHALL pass explicitly approved custom-node repositories at
 immutable revisions and version- and hash-locked Python requirements to Vast's
 native provisioner. Only approved node directories SHALL be allowlisted;
 public access controls SHALL remain unchanged. The wrapper SHALL compact named native workflow documents and stage them after
-workspace initialization. The base SHALL reject rendered startup exceeding
-16,384 bytes before creating a rental.
+workspace initialization. The base SHALL supply a plain startup script and
+enable provider-owned gzip transport. The provider SHALL reject encoded startup
+exceeding 16,384 bytes before creating a rental.
 
 #### Scenario: Approved style-reference node pack
 

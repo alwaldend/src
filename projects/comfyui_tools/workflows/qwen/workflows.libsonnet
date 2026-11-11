@@ -66,6 +66,8 @@ function(models) {
   'prompt-sequence': g.sequence(self['character-style'],
                                 n.node(17, 'ImagegenPromptSequence', ['A white robot rides a bicycle through a snowy park.\nA white robot stops beside a frozen pond.\nA white robot reads a book on a park bench.', 'Use the character from image 1 and the illustration style, colors and linework from image 2. Create a new comic panel for this scene:', 'line', 'comic'], [400, -450], [560, 360], indexed=false, title='Prompt Sequence: one image per prompt', order=0),
                                 8,
+                                9,
                                 15,
-                                [23, 24]),
+                                [23, 24, 25],
+                                textInput='prompt'),
 }

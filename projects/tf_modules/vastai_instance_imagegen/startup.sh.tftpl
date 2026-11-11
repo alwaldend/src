@@ -3,12 +3,16 @@ umask 077
 # Configure the selected Vast image before its Supervisor starts any service.
 test -x /opt/instance-tools/bin/boot_default.sh
 test -f /etc/supervisor/conf.d/${runtime.service}.conf
-printf '%s' '${model_manifest_b64}' | base64 -d > /etc/imagegen-models.json
+cat > '/etc/imagegen-models.json' <<'IMAGEGEN_MANIFEST_${sha256(model_manifest)}'
+${model_manifest}
+IMAGEGEN_MANIFEST_${sha256(model_manifest)}
 cat > /etc/vast_boot.d/60-imagegen-services.sh <<'IMAGEGEN_SERVICES'
 # This hook is sourced by boot_default.sh after environment setup.
 %{ for path, content in runtime_files ~}
 mkdir -p "$(dirname '${path}')"
-printf '%s' '${content}' | base64 -d > '${path}'
+cat > '${path}' <<'IMAGEGEN_FILE_${sha256(content)}'
+${content}
+IMAGEGEN_FILE_${sha256(content)}
 %{ endfor ~}
 unset CF_TUNNEL_TOKEN HOTFIX_SCRIPT BOOT_SCRIPT
 export CF_QUICK_TUNNELS=false

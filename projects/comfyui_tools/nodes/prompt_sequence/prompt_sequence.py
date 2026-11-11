@@ -3,21 +3,22 @@
 import json
 import re
 
-WEB_DIRECTORY: str = "./web"
-"""First-party frontend script directory served by ComfyUI."""
-
 
 class PromptSequence:
-    """Provide shared reference instructions and one filename per panel prompt."""
+    """Provide ordered panel prompts, filenames and one shared negative prompt."""
 
-    RETURN_TYPES: tuple[str, str] = ("STRING", "STRING")
-    """Native prompt and Save Image filename-prefix output types."""
+    RETURN_TYPES: tuple[str, str, str] = ("STRING", "STRING", "STRING")
+    """Native positive prompt, filename-prefix and shared negative text types."""
 
-    RETURN_NAMES: tuple[str, str] = ("prompt", "filename_prefix")
+    RETURN_NAMES: tuple[str, str, str] = (
+        "prompt",
+        "filename_prefix",
+        "negative_prompt",
+    )
     """User-visible output names identifying the paired panel values."""
 
-    OUTPUT_IS_LIST: tuple[bool, bool] = (True, True)
-    """Ask ComfyUI to map downstream nodes over both ordered panel lists."""
+    OUTPUT_IS_LIST: tuple[bool, bool, bool] = (True, True, False)
+    """Map panel lists while sharing one scalar negative across every panel."""
 
     FUNCTION: str = "expand"
     """Framework entry point called to expand the widget input."""
@@ -27,13 +28,14 @@ class PromptSequence:
 
     @classmethod
     def INPUT_TYPES(cls) -> dict[str, object]:
-        """Declare multiline prompts, shared context and panel naming controls."""
+        """Append optional negative text without shifting saved widget values."""
         return {
             "required": {
                 "prompts": (
                     "STRING",
                     {
                         "multiline": True,
+                        "tooltip": "In line mode, enter one prompt per line. Blank lines are ignored and can be used for visual spacing.",
                         "default": "A white robot rides a bicycle through a snowy park.\nA white robot stops beside a frozen pond.\nA white robot reads a book on a park bench.",
                     },
                 ),
@@ -46,7 +48,17 @@ class PromptSequence:
                 ),
                 "separator": (["line", "blank line", "JSON"],),
                 "filename_prefix": ("STRING", {"default": "comic"}),
-            }
+            },
+            "optional": {
+                "negative_prompt": (
+                    "STRING",
+                    {
+                        "multiline": True,
+                        "default": "",
+                        "tooltip": "Shared negative prompt for every panel. Leave empty to use an empty negative prompt.",
+                    },
+                ),
+            },
         }
 
     def expand(
@@ -55,8 +67,9 @@ class PromptSequence:
         context: str,
         separator: str,
         filename_prefix: str,
-    ) -> tuple[list[str], list[str]]:
-        """Return ordered nonempty panels and safe paired output prefixes."""
+        negative_prompt: str = "",
+    ) -> tuple[list[str], list[str], str]:
+        """Return panel lists and unchanged shared negative text, without encoding."""
         if not re.fullmatch(
             r"[A-Za-z0-9][A-Za-z0-9_-]{0,63}", filename_prefix
         ):
@@ -95,7 +108,7 @@ class PromptSequence:
         prefixes: list[str] = [
             f"{filename_prefix}_{i:03d}" for i in range(1, len(panels) + 1)
         ]
-        return texts, prefixes
+        return texts, prefixes, negative_prompt
 
 
 NODE_CLASS_MAPPINGS: dict[str, type[PromptSequence]] = {

@@ -8,14 +8,15 @@ statuses:
   - active
 languages:
   - python
-  - javascript
 tags:
   - ai
 ---
 
 ComfyUI tools provides reusable reference-image workflows and a Prompt Sequence
-node for generating several panels from automatically growing text boxes. The workflows
-cover FLUX.2 klein Base, Qwen-Image-Edit and Chroma Flash.
+node for generating several panels from one multiline text box. Blank lines can
+separate prompts visually without creating extra panels. The workflows
+cover Juggernaut XL, FLUX.2 klein Base, Qwen-Image-Edit and Chroma Flash, including
+multi-reference character/style conditioning for Juggernaut.
 
 Load a workflow in a compatible ComfyUI installation with its required models
 and nodes. The project is under active development; model compatibility and

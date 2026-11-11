@@ -62,9 +62,9 @@ variable "model_downloads" {
     condition = alltrue([for model in var.model_downloads :
       can(regex("^https://[A-Za-z0-9.-]+/[^?#[:space:]]+$", model.url)) &&
       can(regex("^[A-Za-z0-9][A-Za-z0-9._-]*[.]safetensors$", model.filename)) &&
-      contains(["checkpoint", "lora", "vae", "embedding", "text_encoder"], model.kind)
+      contains(["checkpoint", "lora", "vae", "embedding", "text_encoder", "ipadapter", "clip_vision"], model.kind)
     ])
-    error_message = "Models need a public HTTPS URL, a plain .safetensors filename, and checkpoint/lora/vae/embedding/text_encoder kind."
+    error_message = "Models need a public HTTPS URL, a plain .safetensors filename, and a supported checkpoint/lora/vae/embedding/text_encoder/ipadapter/clip_vision kind."
   }
   validation {
     condition     = length(distinct([for model in var.model_downloads : model.filename])) == length(var.model_downloads)
@@ -111,10 +111,10 @@ variable "runtime_files" {
   nullable    = false
   description = "Native configuration files staged by the runtime wrapper after workspace initialization."
   validation {
-    condition = alltrue([for path in keys(var.runtime_files) :
-      can(regex("^/(etc|workspace)/[A-Za-z0-9_/-]+[.]json$", path)) && !strcontains(path, "..")
+    condition = alltrue([for path, content in var.runtime_files :
+      can(regex("^/(etc|workspace)/[A-Za-z0-9_/-]+[.]json$", path)) && !strcontains(path, "..") && can(jsondecode(content))
     ])
-    error_message = "Runtime configuration files must have safe absolute JSON paths beneath /etc or /workspace."
+    error_message = "Runtime configuration files must contain valid JSON with safe absolute paths beneath /etc or /workspace."
   }
 }
 
@@ -281,21 +281,14 @@ data "vastai_template" "imagegen" {
 
 locals {
   startup_script = templatefile("${path.module}/startup.sh.tftpl", {
-    model_manifest_b64 = base64encode(local.model_manifest)
-    hf_token_b64       = var.hugging_face_token == null ? "" : base64encode(var.hugging_face_token)
-    runtime            = var.runtime
-    runtime_files      = { for path, content in var.runtime_files : path => base64encode(content) }
-    exposed            = var.access_mode == "exposed"
-    web_username       = var.web_username
-    web_password       = var.web_password == null ? "" : var.web_password
+    model_manifest = local.model_manifest
+    hf_token_b64   = var.hugging_face_token == null ? "" : base64encode(var.hugging_face_token)
+    runtime        = var.runtime
+    runtime_files  = var.runtime_files
+    exposed        = var.access_mode == "exposed"
+    web_username   = var.web_username
+    web_password   = var.web_password == null ? "" : var.web_password
   })
-  # Reduce inline startup size for larger dependency manifests.
-  startup_command = length(local.startup_script) <= 8192 ? local.startup_script : <<-STARTUP
-    # Compressed imagegen startup
-    umask 077
-    printf '%s' '${base64gzip(local.startup_script)}' | base64 -d | gzip -dc > /etc/imagegen-startup.sh &&
-    exec /bin/bash /etc/imagegen-startup.sh
-  STARTUP
 }
 
 resource "vastai_instance" "imagegen" {
@@ -307,17 +300,13 @@ resource "vastai_instance" "imagegen" {
   state            = var.state
   runtype          = "ssh_direct"
 
-  docker_options = var.access_mode == "exposed" ? "-p 7860:7860" : ""
-  onstart        = local.startup_command
+  docker_options   = var.access_mode == "exposed" ? "-p 7860:7860" : ""
+  onstart          = local.startup_script
+  compress_onstart = true
 
   lifecycle {
     # Marketplace changes must not replace an existing paid contract.
     ignore_changes = [offer_id]
-
-    precondition {
-      condition     = length(local.startup_command) <= 16384
-      error_message = "Rendered startup exceeds Vast's 16384-byte inline limit. Reduce the provisioning payload before renting."
-    }
 
     precondition {
       condition     = alltrue([for model in var.model_downloads : contains(keys(var.runtime.model_directories), model.kind)])
