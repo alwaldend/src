@@ -1,7 +1,7 @@
 {
     "image": "vastai/comfy:v0.44.0-cuda-12.9-py312",
     "web_username": "imagegen",
-    "model_profile": "hidream-i1-full",
+    "model_profile": "noobai",
     "hardware_profile": "48gb",
     "hardware_profiles": {
         "standard": {
