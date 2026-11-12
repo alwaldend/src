@@ -17,3 +17,8 @@
 
 - [x] 4.1 Allow the requested USO projector's model_patch download kind and map it to ComfyUI's models/model_patches directory, retaining URL/filename validation.
 - [x] 4.2 Verify destinations and startup limits through the existing configured-profile fixture without creating rentals.
+
+## 5. Permanent transfer-price ceiling
+
+- [x] 5.1 Raise both shared transfer-price ceilings to the operator-approved USD 0.04/GB and align current documentation.
+- [x] 5.2 Validate Terraform and evaluator consumers offline, preserving hourly, resource and host constraints.

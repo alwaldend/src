@@ -30,9 +30,9 @@
     "order": [["dph_total", "asc"]],
     "limit": 1,
     "inet_down_cost": {
-        "lte": 0.025
+        "lte": 0.04
     },
     "inet_up_cost": {
-        "lte": 0.025
+        "lte": 0.04
     }
 }

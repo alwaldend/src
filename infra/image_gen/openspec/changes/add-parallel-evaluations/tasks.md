@@ -63,3 +63,13 @@
 
 - [x] 11.1 Inspect the proposed integrations and withdraw the stale SeaArtLab dependency proposal after confirming a current API mismatch.
 - [x] 11.2 Honor the operator's subsequent decision to omit StoryDiffusion because the integrations are old; add no pack, profile or first-party adapter.
+
+## 12. Corpse evaluation and shared transfer-price ceiling
+
+- [x] 12.1 Run the two thorn groups with the approved USD 0.04/GB transfer ceiling, retain available images and record failed attempts and namespace cleanup.
+- [x] 12.2 Align current eval documentation with the operator's subsequent permanent shared ceiling; retain all other rental constraints.
+
+## 13. Retained artistic iterations
+
+- [x] 13.1 Document explicit retained-run reuse and its compatibility, provenance and billing boundaries.
+- [x] 13.2 Run the authorized controlled prompt/workflow experiments with cleanup disabled, preserve retrieved images and cost evidence, and destroy all rentals under the operator's later explicit instruction; verify the account is empty.

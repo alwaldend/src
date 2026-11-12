@@ -49,3 +49,30 @@ The GIF node SHALL use ComfyUI's native decoded-image normalization, including t
 
 - **WHEN** a frame decoder returns a single-frame five-dimensional tensor
 - **THEN** GIF output SHALL contain one image per prompt with ordinary image dimensions and no extra temporal axis
+
+### Requirement: Explicit retained-run reuse
+
+The run command SHALL accept an explicit previous retained-run directory only
+with cleanup disabled. It SHALL match selected hardware/model installations,
+provider endpoint and namespace, validate distinct retained instance identities
+and exact live ownership, and compare nonempty fingerprints of the compiled
+provisioning inputs before accepting reuse. It SHALL reject missing, stopped or incompatible instances
+without allocating replacements or deleting rentals. New prompts, cases,
+workflows and sampling settings SHALL receive independent result directories
+with provenance back to the retained rental. Active work SHALL retain bounded
+deadlines and ownership monitoring; retention SHALL NOT imply a spending timer.
+
+#### Scenario: A second artistic iteration
+
+- **WHEN** a retained installation matches the selected model and hardware and the operator supplies revised cases or sampling
+- **THEN** the new run SHALL execute on the same instance without searching offers, allocating, reinstalling or overwriting prior results
+
+#### Scenario: Incompatible or lost retained installation
+
+- **WHEN** the prior journal names a foreign, duplicated, released, absent, stopped or differently provisioned instance
+- **THEN** the command SHALL fail before workload execution and SHALL leave account resources unchanged
+
+#### Scenario: Changed installed source or requirements
+
+- **WHEN** selected first-party node contents, requirements, effective runtime, startup template or explicit recipe differ from the prior installation, or the prior journal lacks its fingerprint
+- **THEN** reuse SHALL fail before execution without changing account resources, while identical contents at another local path and unused model-specific source changes SHALL remain compatible

@@ -126,3 +126,54 @@ latents, ordered subject references and separate USO style conditioning;
 the seven earlier NoobAI and seven earlier HiDream baseline outputs remain
 byte-identical. The current selected model, hardware, image and authentication
 are unchanged. No model weights were downloaded and no instance was rented.
+
+## Corpse evaluation and permanent transfer ceiling
+
+The operator explicitly requests running both thorn groups with stronger art
+direction and a shocking flesh-covered corpse, followed by complete cleanup.
+After restoring the host login, the first controller finds no offers under the
+shared USD 0.025/GB transfer ceiling and confirms the namespace empty. The
+operator approves USD 0.04/GB for this run, then requests it permanently. The
+shared module remains the sole policy owner; current documentation follows it.
+Do not change the personal rental, hourly ceiling or required host predicates.
+
+The initial approved-cap run retrieved twelve stills, with a NoobAI readiness
+timeout and a stale Chroma offer. A retry limited to those two models retrieved
+the remaining eight. All six created rentals across both rendering runs were
+destroyed; final namespace enumeration succeeded after each. The retry exited
+successfully at 2026-11-12 16:34:42 UTC. Detailed run identities and qualitative
+findings belong to the ComfyUI tools change; actual media and receipts remain
+in ignored local output. The personal rental was not accessed or modified.
+
+The operator subsequently requests several controlled artistic runs, workflow
+diagnosis, disabled cleanup and reuse of existing eval rentals. The reusable
+command owns the new explicit retained-run validation and independent result
+provenance. Use the current approved profiles and shared host/price limits;
+install selected profiles once, then reuse those exact journaled installations
+without fallback allocation, personal rental access or automatic cleanup.
+Retained instances remain billable between runs and after handoff, as requested.
+
+The operator subsequently restores credit and explicitly authorizes starting
+only retained eval instances 60383020, 60383021 and 60383022. Record that
+instance-scoped operational exception here; existing startup declarations and
+the evaluator remain the desired-state owners. No personal rental, secret,
+host configuration or replacement allocation is included in this operation.
+
+## Final retained-experiment disposition
+
+The operator subsequently requested destruction of everything and presentation
+of saved results. This supersedes the retention instruction and cancels the
+approved but unissued NoobAI/HiDream stop/restart repair. After interrupting the
+active controller, the owning cleanup target confirmed the eval namespace
+empty. An independent current v1 account listing at 2026-11-12 17:54:37 UTC
+returned zero instances and no next page. No personal rental was created or
+modified by these experiments.
+
+Twenty additional Chroma stills were retrieved over five batches using the
+same installation; the final native-mask batch was interrupted after two
+retrievals. NoobAI and HiDream comparisons remained blocked by missing mapped
+ports despite provider-running state. The project-owned change records prompt,
+workflow and quality findings. No successful NoobAI/HiDream comparison or overall
+artistic acceptance is claimed. Images, effective inputs, cleanup evidence and
+account-specific cost data remain in ignored task output; no new dependency or
+persistent host configuration was introduced.

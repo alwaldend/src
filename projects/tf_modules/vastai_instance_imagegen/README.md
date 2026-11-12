@@ -10,7 +10,7 @@ and secure state. The [image-generation infrastructure project](../../../infra/i
 generates and stores its login in Vault before creating the paid instance.
 Building and testing these definitions does not deploy or rent capacity.
 The shared offer declaration caps both download and upload transfer rates at
-USD 0.025/GB, in addition to hourly-price and host requirements. The evaluator
+USD 0.04/GB, in addition to hourly-price and host requirements. The evaluator
 inherits these same predicates; it does not maintain a second bandwidth policy.
 
 ## Runtime modules

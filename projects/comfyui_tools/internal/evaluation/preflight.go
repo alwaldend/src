@@ -41,7 +41,7 @@ func prepareRentals(ctx context.Context, options Options, configuration configur
 		if selection.ModelProfile != "flux" {
 			jobLogin.huggingface = ""
 		}
-		startup, err := prepareStartup(ctx, options, profiles, model, selection.ModelProfile == "qwen", filepath.Join(directory, "render-"+selection.ID), jobLogin)
+		startup, fingerprint, err := prepareStartup(ctx, options, profiles, model, selection.ModelProfile == "qwen", filepath.Join(directory, "render-"+selection.ID), jobLogin)
 		if err != nil {
 			return nil, fmt.Errorf("compile rental %q provisioning: %w", selection.ID, err)
 		}
@@ -62,7 +62,7 @@ func prepareRentals(ctx context.Context, options Options, configuration configur
 				query["reliability"] = map[string]any{"gte": *configuration.MinimumReliability}
 			}
 		}
-		rentals = append(rentals, preparedRental{rental: selection, hardware: hardware, startup: startup, query: query})
+		rentals = append(rentals, preparedRental{rental: selection, hardware: hardware, startup: startup, startupFingerprint: fingerprint, query: query})
 	}
 	return rentals, nil
 }

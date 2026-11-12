@@ -123,3 +123,191 @@ On 2026-11-11, the authorized retained-rental update completed both public plush
 The full-image chain drifts in framing and deforms the fingers. The masked chain preserves the scene more closely but remains largely static, with the hand becoming distorted instead of performing the specified stroke/lift. Neither passes natural motion or loop continuity. Correct image feedback establishes the implementation contract, not convincing animation. The later source separation preserves this Qwen callback body and leaves the generic-model correction offline-only; no additional service restart or GPU generation was performed for that packaging change. All twelve actual GIFs remain under ignored local output with a clickable inventory.
 
 All seven NoobAI workflows were subsequently reviewed offline: the native checkpoint/encoder/VAE path, 30 Euler ancestral/normal steps with CFG 5.5 at 1024 square, shared negative prompts, sequence/model/prefix links, RES4LYF float64 style paths and matching SDXL Plus/ViT-H adapter paths. The native settings agree with the publisher's model card. No configuration blocker was identified; GPU execution and reference quality remain unverified for NoobAI.
+
+## Thorn-landscape artistic direction
+
+The operator requests more artistic quality and intensity in the corpse eval,
+then live evaluation, complete rental cleanup and visible results. Revise the
+existing case rather than adding another fixture or changing model settings.
+Use an asymmetric low viewpoint, interlocking monumental silhouettes, a narrow
+light opening and restrained painterly edges to strengthen visual hierarchy and
+oppressive scale. The operator additionally requests a more shocking corpse:
+make its chest wound, dead face and broken hanging posture readable against
+pale haze. The operator explicitly excludes skeletons: preserve substantial
+flesh over the torso and limbs and an intact, sunken human face, reinforced by
+the negative prompt and subject rubric. Keep the corpse a secondary discovery,
+the architectural reference and the wide canvas. Align the case rubric and
+negative prompt with those concrete visual goals. Artistic intensity is a
+human review criterion, not an automatic execution score.
+
+Run only thorns_sdxl and thorns_style: five model rentals, two workflows and
+seeds 42/123 per model, yielding twenty stills. This explicitly authorized live
+scope supersedes the earlier source-only restriction for those groups. Retain
+the existing verified/datacenter, capacity, transfer-price, lifetime and cleanup
+limits. Do not select plush workloads or change the personal rental. Download
+before destruction, confirm the eval namespace empty and retain only useful
+local images and reproducibility evidence after removing task-private residue.
+
+The 2026-11-12 attempt passed the offline selected-matrix check but stopped in
+credential injection before the evaluator started. A read-only host-token TTL
+lookup returned HTTP 403, permission denied and invalid token. No evaluation
+run journal or rental was created by this attempt; no image or account-wide
+cleanup claim follows. Restore the existing host login before rerunning the
+two thorn groups. The task did not replace shared authentication or modify
+host configuration. `EVAL-SHARED-AUTH` remains the blocking prerequisite.
+
+After the operator restored the login, run `bdceb90665e6cfe5f43def228ec89121`
+found no offers within the original transfer ceiling and confirmed namespace
+cleanup. A read-only comparison isolated transfer pricing as the blocker.
+The operator approved USD 0.04/GB per direction, then requested that shared
+ceiling permanently. The module's owner-local change records the policy update.
+
+Run `e8947dd755f4db5e9b424fdfcfa59ec0` evaluated source prompt candidate
+`c36ed51e9bb6bf9112b75347b9635f50461360d9` and retrieved twelve Juggernaut,
+Illustrious and HiDream stills. NoobAI missed its five-minute readiness deadline;
+Chroma's selected offer became unavailable before allocation. All four created
+instances were destroyed and final namespace cleanup succeeded. The wrapper
+separately reported its existing owned-token revocation error during shutdown.
+No clean whole-suite success is asserted for that attempt.
+
+The bounded retry `658976f8525530e5d79a2c8bcb73d81b` selected only NoobAI and
+Chroma, excluding the two failed offer IDs and using the updated shared caps.
+Both rentals reached readiness, retrieved the remaining eight stills and were
+destroyed. Its final sweep confirmed the namespace empty at
+2026-11-12 16:34:42 UTC; the whole command exited successfully. Across these
+runs, all twenty intended 1344-by-768 PNGs match their saved SHA-256 receipts.
+The original references, seeds, sampling settings and prompt were preserved.
+
+Human inspection finds Chroma text-only seed 123 closest overall: readable
+flesh-covered remains, monumental stone forms and oppressive painterly lighting.
+Its architecture is too sparse and impalement/anatomy remain imperfect.
+HiDream depicts flesh-covered dead bodies but centers them against tree-like
+crosses and fuses their lower bodies with the supports. Juggernaut omits the
+corpse; NoobAI and Illustrious reference paths show severe streak/color artifacts.
+No output fully passes subject and structural acceptance. A previous-prompt
+baseline was not rendered, so this run does not measure artistic improvement
+against the original prompt. The local gallery retains all twenty outputs and
+per-image review notes; failed attempts remain in the run receipts. No additional
+dependency or model was introduced.
+
+## Explicit retained-run reuse
+
+The operator requests several artistic iterations, workflow diagnosis, disabled
+cleanup and rental reuse. Proceed with --reuse-run pointing to a previous
+retained run directory, requiring --cleanup=false. Resolve selected rentals by
+hardware/model pair from that run's own report and journals, not by guessing
+account instances or accepting arbitrary endpoints. Before any workload, require
+the same owner/provider endpoint and declared image, selected hardware/model,
+model asset pins and extension pins. Require distinct instance identities,
+exact live ownership labels and a running provider state. Missing, foreign,
+stopped, released or incompatible rentals fail without replacement allocation
+or cleanup. Recheck ownership during readiness and execution as before.
+
+Each invocation writes a new run directory with exact updated cases/workflows,
+sampling and seeds; journals retain the original label, creation time and source
+run. Prompt, case, workflow and sampler changes are allowed when their model
+files remain compatible. Do not reinstall or restart a reused rental. Per-run
+deadlines still bound active controller work; retained rentals remain billable
+between and after runs until explicit cleanup. Standalone namespace cleanup
+retains its existing meaning. The user's explicit retention request supersedes
+the disposable-rental idle rule for these experiments.
+
+Automatic discovery/adoption could select another task's instance; arbitrary
+instance IDs lose installation provenance. Explicit prior-run reuse is the
+smaller, reviewable alternative and needs no new provider API or dependency.
+The first experiment installs the chosen approved profiles once; subsequent
+iterations use their journals. Start with the strongest observed models and a
+controlled SDXL reference ablation. The earlier saved graphs contain their
+requested prompts and matching checkpoint/adapter filenames, but that is not
+proof of learned adapter compatibility. Compare no adapter, reduced adapter
+weight/end time, shorter subject-first prompts, and deliberate painterly
+lighting before blaming the model. Preserve substantial flesh and a readable
+chest impalement while increasing grotesque facial/body damage. Do not turn the
+corpse into a skeleton. Record actual observations rather than claiming that
+prompt detail or successful execution establishes artistic improvement.
+
+The first retained experiment produced two Chroma images with stronger flesh
+and painterly treatment, but oversized bodies and distorted support geometry.
+HiDream and NoobAI missed readiness. Their retained provider containers later
+reported stopped state, including the previously working Chroma container.
+The second invocation rejected that state before queueing or allocation,
+establishing the fail-closed live reuse boundary. All three contracts remain
+retained; further comparisons require the operator to restore runnable state.
+No SDXL adapter-quality verdict follows from an experiment that did not run.
+
+After restoring account credit, the operator explicitly authorizes starting
+retained instances 60383020 (HiDream), 60383021 (Chroma) and 60383022 (NoobAI),
+then continuing with cleanup disabled. The one-time instance-scoped state
+requests use the existing component credential after exact journal/live-label
+checks. Preserve disks, installation declarations and identities; create no
+replacement and change no host configuration. The owning evaluator continues
+through explicit retained-run reuse after those instances are running.
+
+## Completed retained corpse experiments
+
+The operator ended experimentation and explicitly requested destruction of all
+rentals, superseding both retention and the just-approved restart attempt. No
+stop/restart repair was issued. The active controller was interrupted before
+standalone cleanup. Namespace cleanup succeeded; a separate current v1 account
+listing at 2026-11-12 17:54:37 UTC returned zero instances and no next page.
+
+Five Chroma batches retrieved twenty additional 1344-by-768 images: two initial
+corpse-first prompts, four wide compositions, six text/reference comparisons,
+six whole-image refinements, and two localized refinements. Subsequent batches
+successfully reused the same retained installation without allocation or model
+reinstallation. The localized batch was interrupted on the operator's final
+instruction; its two high-denoise trials were not retrieved. Exact prompts,
+references, effective workflows, seeds, download receipts and the final gallery
+remain in ignored task output. Do not count queued images as saved results.
+
+The paintings show stronger atmosphere and some legible flesh-covered corpses,
+but none is accepted against the complete case: excessive body scale, anatomy
+merging into the support, floating figures, misplaced head/neck wounds and
+unbranched architecture remain. Low-denoise refinement preserves structural
+errors; higher denoise changes the subject or architecture. Native masking
+preserves more background but did not fix the body. These experiments do not
+justify replacing the canonical prompt or claiming overall artistic success.
+
+NoobAI-XL v1.1 and HiDream remained provider-running without mapped ports after
+the authorized start, so readiness expired before their controlled comparisons.
+Their SSH endpoints also returned no host key within the bounded check. Prior
+logs show a local ComfyUI listener and DNS failures, which do not establish the
+root cause. The saved SDXL graphs use matching checkpoint, encoder/VAE and
+adapter filenames. Native, adapter-disabled, weak and strong comparisons remain
+unexecuted; reference-guided artifacts cannot yet be attributed to model quality.
+
+The operator's EasyNoobai reference was inspected at tree
+fa8008023bdd97e10315e0648d0cc95cb1dd756b. Its structured tag prompts and optional
+quality prefix informed an offline-validated six-image native comparison, which
+was not run before cancellation. No package or dependency was installed. Its
+explicit CLIP layer -2 matches ComfyUI v0.44.0's existing SDXL defaults for both
+encoders, and its example uses another Illustrious-derived checkpoint. It is
+not evidence of a missing clip setting or a reference-adapter fix.
+
+Session ergonomics: `EVAL-ENDPOINT-ABSENCE` identifies provider-running rentals
+without public mappings; inspect that contract before repeating readiness runs.
+`EVAL-REFERENCE-SOURCE-VOLUME` records an oversized source/workflow response;
+retain downloaded sources once and extract bounded relevant fields. The final
+status record now owns the current operational state, replacing stale interim
+resume notes. Account billing remains only in ignored task output.
+
+## Retained provisioning compatibility correction
+
+Remote review identified that registry equality omitted the installed contents
+of first-party nodes and the selected requirements lock. Before correction,
+ten command-boundary scenarios were added: unchanged contents at different
+paths and an unused Qwen source remain reusable; changed sequence/GIF/Qwen node
+contents, requirements, runtime arguments, template or explicit recipe, and a
+missing legacy fingerprint must reject reuse before workloads or allocations.
+All eight rejection scenarios reproduced the defect before implementation.
+
+The compiler now fingerprints the exact public provisioner manifest, effective
+runtime and template bytes before credential injection. The renderer consumes
+a task-private snapshot of those same template bytes. Explicit recipes retain
+only a SHA-256 digest, never their contents. Journals record the installation
+fingerprint and reuse requires an exact nonempty match. Only selected node and
+requirements contents contribute, so irrelevant Qwen changes do not invalidate
+other models. Original registry and live-ownership checks remain. Older
+journals without fingerprints are deliberately rejected. The new E2E receipt
+records acceptance/rejection and zero resource mutations; no live rerun is
+required or authorized after the operator's final destruction instruction.

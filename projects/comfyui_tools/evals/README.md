@@ -5,9 +5,13 @@ title: Image-generation evaluation cases
 Each case owns its prompt, supplied reference and review criteria. The operator
 approved publishing both cases and their assets. Both reference files retain their original operator-supplied bytes.
 
-The thorn case uses the final corpse-and-thorns prompt from the supplied
-conversation. Its reference guides architectural form; the text requests a
-painted digital-art style rather than copying the reference's drawing medium.
+The thorn case depicts a forbidden burial ground of monumental artificial
+thorns and one visibly impaled, flesh-covered adult corpse. Its reference guides
+architectural form; the text directs a low viewpoint, asymmetric silhouettes,
+selective painterly edges and harsh raking light. The architecture dominates,
+while a legible chest wound, dead face and hanging posture provide a shocking
+second reading. Emotional intensity has its own review criterion; darkness and detail
+alone do not establish it. A skeleton or bare skull fails subject adherence.
 Compare text-only and reference-guided results with the same seeds.
 
 The plush case requests visible petting motion and a seamless loop. Frame

@@ -54,3 +54,16 @@ capacity, and SHALL document the remaining live acceptance checks.
 
 - **WHEN** no offer meets the datacenter, capacity, connectivity, and hourly ceiling constraints
 - **THEN** planning fails without creating a rental
+
+### Requirement: Shared bounded transfer prices
+
+The shared offer declaration SHALL cap incoming and outgoing transfer prices
+at USD 0.04/GB each. The regular rental and ephemeral evaluator SHALL consume
+that declaration while preserving their hourly-price, resource and mandatory
+verified/datacenter constraints. This rate ceiling SHALL NOT be presented as
+a total spending cap.
+
+#### Scenario: Transfer price exceeds the ceiling
+
+- **WHEN** either transfer direction costs more than USD 0.04/GB
+- **THEN** the shared search predicates SHALL exclude the offer
