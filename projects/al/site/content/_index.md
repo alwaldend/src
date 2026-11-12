@@ -4,6 +4,7 @@ linkTitle: AL
 description: One command-line toolkit for repository work and independent project releases
 layout: landing
 date: 2025-10-04
+# Generated from project README by //tools/repo_quality:inventory_update.
 statuses:
   - active
 languages:

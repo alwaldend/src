@@ -1,4 +1,6 @@
 ---
+statuses:
+  - active
 title: X profile cleaner
 description: CLI and local browser interface for Lua-configured X profile cleanup
 languages:

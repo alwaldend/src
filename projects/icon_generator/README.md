@@ -2,7 +2,7 @@
 title: Icon generator
 description: Generate random patterns of colored squares or circles as PNG icons
 statuses:
-  - active
+  - maintenance
 languages:
   - go
 tags:

@@ -1,3 +1,10 @@
+---
+title: Bazel dependency analyzer
+description: Bazel rules and a Go command for dependency graphs and Mermaid diagrams
+statuses:
+  - maintenance
+---
+
 # Bazel dependency analyzer
 
 Bazel rules and a Go command that analyze Bazel's streamed JSON dependency

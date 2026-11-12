@@ -4,8 +4,9 @@ linkTitle: Mermaid 3D
 description: Interactive spatial views of Mermaid diagrams
 layout: landing
 date: 2026-10-29
+# Generated from project README by //tools/repo_quality:inventory_update.
 statuses:
-  - active
+  - maintenance
 languages:
   - ts
 tags:

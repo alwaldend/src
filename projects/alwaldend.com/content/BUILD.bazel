@@ -11,5 +11,6 @@ docs_filegroup(
         "//projects/alwaldend.com/content/blog:docs",
         "//projects/alwaldend.com/content/docs",
         "//projects/alwaldend.com/content/projects:docs",
+        "//projects/alwaldend.com/content/statuses:docs",
     ],
 )

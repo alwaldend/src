@@ -2,7 +2,7 @@
 title: Useless QT GUI
 description: Desktop GUI application built with C++ and Qt
 statuses:
-  - finished
+  - completed
 languages:
   - cpp
 tags:

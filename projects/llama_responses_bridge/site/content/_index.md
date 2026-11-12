@@ -4,8 +4,9 @@ linkTitle: Llama Responses bridge
 description: Local function namespace compatibility between Codex and llama.cpp
 layout: landing
 date: 2026-11-02
+# Generated from project README by //tools/repo_quality:inventory_update.
 statuses:
-  - active
+  - maintenance
 languages:
   - go
 tags:

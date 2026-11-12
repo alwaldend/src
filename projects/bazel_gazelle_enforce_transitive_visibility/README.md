@@ -1,4 +1,6 @@
 ---
+statuses:
+  - maintenance
 title: Bazel Gazelle transitive visibility
 description: Generate package dependency restrictions from TOML path mappings
 languages:

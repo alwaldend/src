@@ -4,8 +4,9 @@ linkTitle: MCP Cordis
 description: Workspace-local runtime packages behind a stable MCP server
 layout: landing
 date: 2026-08-30
+# Generated from project README by //tools/repo_quality:inventory_update.
 statuses:
-  - active
+  - maintenance
 tags:
   - mcp
   - cordis

@@ -4,8 +4,9 @@ linkTitle: Icon generator
 description: Make random pixel patterns with your own colors and shapes
 layout: landing
 date: 2026-09-26
+# Generated from project README by //tools/repo_quality:inventory_update.
 statuses:
-  - active
+  - maintenance
 languages:
   - go
 tags:

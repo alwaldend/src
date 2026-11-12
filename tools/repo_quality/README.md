@@ -75,7 +75,10 @@ and uncached; downloaded external repositories are outside its coverage.
 `bazel run //tools/repo_quality:inventory_update` derives the central
 OpenSpec validation map from declared owner source exports, resolving standalone
 module identities from their MODULE files. It also derives the project index
-from project README metadata. Draft-only specification directories without a
+from project README metadata, validates each project's single lifecycle declaration
+against `projects/statuses.yaml`, generates the lifecycle definitions and index
+status column, and synchronizes existing landing-page status fields. Project
+READMEs own the declarations; landing status is a generated projection. Draft-only specification directories without a
 source export are not registered. Landing-page membership remains owned by
 `projects/projects.bzl`, independently of the documentation index.
 

@@ -2,7 +2,7 @@
 title: MCP Cordis
 description: Workspace-local runtime packages behind a stable MCP server
 statuses:
-  - active
+  - maintenance
 ---
 
 `mcp_cordis` is a standalone stdio MCP server that mounts runtime JavaScript

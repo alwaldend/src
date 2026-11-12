@@ -4,8 +4,9 @@ linkTitle: Anki gRPC
 description: Use Anki's native backend through gRPC
 layout: landing
 date: 2026-10-12
+# Generated from project README by //tools/repo_quality:inventory_update.
 statuses:
-  - finished
+  - maintenance
 languages:
   - rust
 tags:

@@ -2,7 +2,7 @@
 title: X Article uploader
 description: Compile a Markdown blog post into a DraftJS content_state and create an X Article draft
 statuses:
-  - active
+  - maintenance
 languages:
   - go
 tags:

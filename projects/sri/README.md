@@ -2,7 +2,7 @@
 title: Sri
 description: Command-line Subresource Integrity calculator using OpenSSL
 statuses:
-  - finished
+  - completed
 languages:
   - c
 tags:

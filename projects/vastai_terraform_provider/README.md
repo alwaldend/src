@@ -2,7 +2,7 @@
 title: Vast.ai Terraform provider
 description: Terraform management of Vast.ai compute and team resources
 statuses:
-  - in_progress
+  - active
 languages:
   - go
 tags:

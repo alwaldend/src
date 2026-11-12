@@ -2,7 +2,7 @@
 title: Renders
 description: Repository-owned render assets and their acceptance evidence
 statuses:
-  - in_progress
+  - maintenance
 ---
 
 This project owns reusable Blender assets, their controlling references, and

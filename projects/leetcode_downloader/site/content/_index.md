@@ -4,8 +4,9 @@ linkTitle: Leetcode downloader
 description: LeetCode submission export and documentation tools
 layout: landing
 date: 2024-02-16
+# Generated from project README by //tools/repo_quality:inventory_update.
 statuses:
-  - in_progress
+  - maintenance
 languages:
   - go
   - js
@@ -17,8 +18,10 @@ tags:
 ---
 
 Tools for exporting your LeetCode submissions and turning them into
-documentation. This work is still in progress.
+documentation. The tooling remains incomplete.
 
 ## Status
 
-In progress. The export and documentation tooling is not yet complete.
+Maintenance only; no current feature development. The export and documentation
+tooling is not yet complete, and direct CLI downloads are blocked by bot
+protection.

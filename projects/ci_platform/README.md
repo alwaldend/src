@@ -2,7 +2,7 @@
 title: Ci platform
 description: Abandoned CI platform with a Go backend and Vue frontend
 statuses:
-  - abandoned
+  - archived
 languages:
   - go
   - js

@@ -4,8 +4,9 @@ linkTitle: Vast.ai Terraform provider
 description: Manage Vast.ai compute and team resources with Terraform
 layout: landing
 date: 2026-11-04
+# Generated from project README by //tools/repo_quality:inventory_update.
 statuses:
-  - in_progress
+  - active
 languages:
   - go
 tags:

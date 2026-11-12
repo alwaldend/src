@@ -4,8 +4,9 @@ linkTitle: Tf modules
 description: Reusable Terraform modules for Vault, virtual machines, and storage
 layout: landing
 date: 2026-04-27
+# Generated from project README by //tools/repo_quality:inventory_update.
 statuses:
-  - in_progress
+  - active
 tags:
   - terraform
 ---

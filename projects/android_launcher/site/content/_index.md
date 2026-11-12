@@ -4,6 +4,7 @@ linkTitle: Android launcher
 description: Text-only Android launcher built with Kotlin and Jetpack Compose
 layout: landing
 date: 2023-10-16
+# Generated from project README by //tools/repo_quality:inventory_update.
 statuses:
   - maintenance
 languages:

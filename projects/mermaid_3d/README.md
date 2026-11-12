@@ -1,4 +1,6 @@
 ---
+statuses:
+  - maintenance
 title: Mermaid 3D
 description: Themed spatial views of Mermaid diagrams
 ---

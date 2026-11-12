@@ -4,8 +4,9 @@ linkTitle: TruffleHog rules
 description: Scan Git history in Bazel and fail on unapproved secret findings
 layout: landing
 date: 2026-10-31
+# Generated from project README by //tools/repo_quality:inventory_update.
 statuses:
-  - in_progress
+  - maintenance
 languages:
   - go
   - bzl

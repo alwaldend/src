@@ -2,7 +2,7 @@
 title: Nexus security plugin
 description: Security plugin for Sonatype Nexus 3
 statuses:
-  - finished
+  - completed
 languages:
   - java
 tags:

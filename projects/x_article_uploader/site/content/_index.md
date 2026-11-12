@@ -4,8 +4,9 @@ linkTitle: X Article uploader
 description: Create an X Article draft from a Markdown blog post
 layout: landing
 date: 2026-09-29
+# Generated from project README by //tools/repo_quality:inventory_update.
 statuses:
-  - active
+  - maintenance
 languages:
   - go
 tags:

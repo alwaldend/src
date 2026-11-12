@@ -2,7 +2,7 @@
 title: Kustomization
 description: Kubernetes resources for Flux, Traefik, and cert-manager
 statuses:
-  - in_progress
+  - maintenance
 languages:
   - kustomization
 tags:
@@ -11,7 +11,8 @@ tags:
 ---
 
 This project contains Kubernetes Kustomization resources for Flux, Traefik,
-and cert-manager. It is still in progress.
+and cert-manager. The resource set remains incomplete and receives maintenance
+as needed.
 
 ## Links
 

@@ -4,6 +4,7 @@ linkTitle: Infinitime
 description: InfiniTime firmware fork with a text watchface and Pomodoro app
 layout: landing
 date: 2025-04-27
+# Generated from project README by //tools/repo_quality:inventory_update.
 statuses:
   - maintenance
 languages:

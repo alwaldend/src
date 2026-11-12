@@ -2,7 +2,7 @@
 title: Tf modules
 description: Reusable Terraform modules for Vault, virtual machines, storage, and Vast.ai
 statuses:
-  - in_progress
+  - active
 tags:
   - terraform
 ---

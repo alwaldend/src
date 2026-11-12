@@ -4,8 +4,9 @@ linkTitle: ComfyUI tools
 description: Reusable ComfyUI custom nodes and image-generation workflows
 layout: landing
 date: 2026-11-10
+# Generated from project README by //tools/repo_quality:inventory_update.
 statuses:
-  - active
+  - maintenance
 languages:
   - python
 tags:
