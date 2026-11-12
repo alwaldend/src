@@ -4,8 +4,9 @@ linkTitle: Nexus security plugin
 description: Security plugin for Sonatype Nexus 3
 layout: landing
 date: 2022-06-27
+# Generated from project README by //tools/repo_quality:inventory_update.
 statuses:
-  - finished
+  - completed
 languages:
   - java
 tags:

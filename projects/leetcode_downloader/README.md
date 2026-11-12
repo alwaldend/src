@@ -2,7 +2,7 @@
 title: Leetcode downloader
 description: LeetCode submission export and documentation tools
 statuses:
-  - in_progress
+  - maintenance
 languages:
   - go
   - js

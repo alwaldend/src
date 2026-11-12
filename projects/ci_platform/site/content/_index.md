@@ -4,8 +4,9 @@ linkTitle: Ci platform
 description: Abandoned CI platform with a Go backend and Vue frontend
 layout: landing
 date: 2022-07-25
+# Generated from project README by //tools/repo_quality:inventory_update.
 statuses:
-  - abandoned
+  - archived
 languages:
   - go
   - js

@@ -4,8 +4,9 @@ linkTitle: Renders
 description: Repository-owned render assets and their acceptance evidence
 layout: landing
 date: 2026-09-04
+# Generated from project README by //tools/repo_quality:inventory_update.
 statuses:
-  - in_progress
+  - maintenance
 tags:
   - blender
   - renders

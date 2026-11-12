@@ -4,8 +4,9 @@ linkTitle: Bazel dependency analyzer
 description: Turn Bazel dependency graphs into Mermaid diagrams
 layout: landing
 date: 2026-10-27
+# Generated from project README by //tools/repo_quality:inventory_update.
 statuses:
-  - active
+  - maintenance
 languages:
   - go
   - bzl

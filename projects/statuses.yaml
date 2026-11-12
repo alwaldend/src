@@ -1,0 +1,5 @@
+# Canonical project lifecycle vocabulary. Project READMEs select exactly one value.
+active: Substantive feature development is currently underway. Unfinished plans or routine upkeep alone do not qualify.
+maintenance: Retained with upkeep as needed and no current feature development. Scope may still be unfinished or limited.
+completed: The intended scope is declared complete. This does not promise ongoing maintenance, compatibility, or a published release.
+archived: Retained for reference; no further development or maintenance is intended.

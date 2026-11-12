@@ -2,7 +2,7 @@
 title: Anki gRPC
 description: Rust CLI exposing Anki's backend over stdio, TCP, or Unix sockets
 statuses:
-  - finished
+  - maintenance
 languages:
   - rust
   - go

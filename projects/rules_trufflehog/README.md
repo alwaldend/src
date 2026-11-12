@@ -1,4 +1,6 @@
 ---
+statuses:
+  - maintenance
 title: TruffleHog rules
 description: Scan-only Bazel tests with commit-and-line finding allowlists
 languages:

@@ -4,6 +4,7 @@ linkTitle: Dotfiles
 description: Personal configuration files with installation and comparison commands
 layout: landing
 date: 2020-10-18
+# Generated from project README by //tools/repo_quality:inventory_update.
 statuses:
   - maintenance
 languages:

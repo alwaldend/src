@@ -4,8 +4,9 @@ linkTitle: Gazelle transitive visibility
 description: Maintain Bazel dependency boundaries with TOML path mappings
 layout: landing
 date: 2026-10-28
+# Generated from project README by //tools/repo_quality:inventory_update.
 statuses:
-  - active
+  - maintenance
 languages:
   - go
 tags:

@@ -1,4 +1,6 @@
 ---
+statuses:
+  - maintenance
 title: ComfyUI tools
 description: Reusable ComfyUI custom nodes and image-generation workflows
 ---

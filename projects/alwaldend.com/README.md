@@ -4,7 +4,7 @@ description: Main website and project documentation
 websites:
   - alwaldend.com
 statuses:
-  - in_progress
+  - active
 tags:
   - hugo
   - github_pages
@@ -227,6 +227,12 @@ those directories into `content/projects/<name>/` from the registry in
 [projects/projects.bzl](../projects.bzl). Landing content carries no layouts,
 styles, or build rules, and participates in the shared `statuses`,
 `languages`, and `tags` taxonomies.
+
+Project README `statuses` declarations use the shared
+[project lifecycle catalog](../README.md#project-status). The repository inventory
+updater derives each landing's status field from its README and checks freshness;
+edit the README and regenerate rather than editing generated landing status.
+Taxonomy aliases retain the former in_progress, finished, and abandoned URLs.
 
 Every project landing declares its creation date explicitly as `date: YYYY-MM-DD`
 in front matter. The homepage project links and `/projects/` index use that

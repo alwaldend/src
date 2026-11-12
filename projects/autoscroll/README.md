@@ -2,7 +2,7 @@
 title: Autoscroll
 description: Mouse-driven autoscroll CLI with reloadable configuration
 statuses:
-  - finished
+  - completed
 languages:
   - py
 tags:

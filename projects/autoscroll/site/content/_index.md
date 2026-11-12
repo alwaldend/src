@@ -4,8 +4,9 @@ linkTitle: Autoscroll
 description: Mouse-driven autoscroll CLI with reloadable configuration
 layout: landing
 date: 2022-03-19
+# Generated from project README by //tools/repo_quality:inventory_update.
 statuses:
-  - finished
+  - completed
 languages:
   - py
 tags:

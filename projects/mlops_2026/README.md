@@ -2,7 +2,7 @@
 title: MLOps 2026
 description: MLOps course
 statuses:
-  - active
+  - maintenance
 languages:
   - py
   - bzl

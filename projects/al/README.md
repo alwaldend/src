@@ -1,4 +1,6 @@
 ---
+statuses:
+  - active
 title: AL
 description: Repository lifecycle commands and reusable Bazel rules
 languages:

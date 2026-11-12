@@ -1,4 +1,6 @@
 ---
+statuses:
+  - maintenance
 title: Llama Responses bridge
 description: Loopback Responses API function namespace compatibility for llama.cpp
 ---

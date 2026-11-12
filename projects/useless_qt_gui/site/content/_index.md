@@ -4,8 +4,9 @@ linkTitle: Useless QT GUI
 description: Desktop GUI application built with C++ and Qt
 layout: landing
 date: 2020-01-20
+# Generated from project README by //tools/repo_quality:inventory_update.
 statuses:
-  - finished
+  - completed
 languages:
   - cpp
 tags:

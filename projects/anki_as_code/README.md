@@ -2,7 +2,7 @@
 title: Anki as code
 description: Export and reconcile Anki collections as TOML
 statuses:
-  - in_progress
+  - maintenance
 languages:
   - go
 tags:

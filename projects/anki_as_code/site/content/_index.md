@@ -4,8 +4,9 @@ linkTitle: Anki as code
 description: Manage Anki collections through editable TOML
 layout: landing
 date: 2026-10-10
+# Generated from project README by //tools/repo_quality:inventory_update.
 statuses:
-  - in_progress
+  - maintenance
 languages:
   - go
 tags:
@@ -40,7 +41,8 @@ review a plan of the changes, and reconcile your Anki collection with the result
 
 ## Status
 
-The CLI is in development. It supports modern collection archives and offline Anki collections supported by the pinned
+The CLI receives maintenance without current feature development. It supports
+modern collection archives and offline Anki collections supported by the pinned
 backend. Reconciliation preserves review history while
 retaining existing card scheduling. Scheduling presets remain unmanaged; media stays
 in the original archive.

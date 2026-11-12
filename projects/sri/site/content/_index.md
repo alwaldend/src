@@ -4,8 +4,9 @@ linkTitle: Sri
 description: Command-line Subresource Integrity calculator using OpenSSL
 layout: landing
 date: 2025-06-01
+# Generated from project README by //tools/repo_quality:inventory_update.
 statuses:
-  - finished
+  - completed
 languages:
   - c
 tags:

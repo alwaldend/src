@@ -4,6 +4,7 @@ linkTitle: Ansible collection
 description: Ansible collection alwaldend.main with Bazel source packaging
 layout: landing
 date: 2025-11-01
+# Generated from project README by //tools/repo_quality:inventory_update.
 statuses:
   - maintenance
 tags:
