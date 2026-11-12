@@ -3,6 +3,7 @@ package evaluation
 import (
 	"bytes"
 	"context"
+	"crypto/sha256"
 	"encoding/base64"
 	"encoding/json"
 	"errors"
@@ -18,30 +19,30 @@ import (
 )
 
 // prepareStartup compiles the canonical template without providers, plans or state.
-func prepareStartup(ctx context.Context, options Options, profiles registry, model model, qwenGIF bool, directory string, login credentials) (result string, resultErr error) {
+func prepareStartup(ctx context.Context, options Options, profiles registry, model model, qwenGIF bool, directory string, login credentials) (result string, fingerprint string, resultErr error) {
 	if options.StartupFile != "" {
 		data, err := os.ReadFile(options.StartupFile)
 		if err != nil {
-			return "", fmt.Errorf("read explicit startup recipe: %w", err)
+			return "", "", fmt.Errorf("read explicit startup recipe: %w", err)
 		}
 		command, err := vastclient.StartupCommand(string(data), true)
 		if err != nil {
-			return "", fmt.Errorf("encode explicit startup recipe: %w", err)
+			return "", "", fmt.Errorf("encode explicit startup recipe: %w", err)
 		}
-		return command, nil
+		return command, fmt.Sprintf("%x", sha256.Sum256(data)), nil
 	}
 	password := login.password
 	username := login.username
 	if !regexp.MustCompile(`^[A-Za-z0-9_-]{1,32}$`).MatchString(username) || !regexp.MustCompile(`^[A-Za-z0-9]{32,64}$`).MatchString(password) {
-		return "", errors.New("evaluation requires the component's Vault-injected HTTPS username/password")
+		return "", "", errors.New("evaluation requires the component's Vault-injected HTTPS username/password")
 	}
 	var runtime map[string]any
 	if err := readJSON(options.RuntimeDefaults, &runtime); err != nil {
-		return "", fmt.Errorf("read shared runtime declaration: %w", err)
+		return "", "", fmt.Errorf("read shared runtime declaration: %w", err)
 	}
 	directories, ok := runtime["model_directories"].(map[string]any)
 	if !ok {
-		return "", errors.New("runtime declaration omits model directories")
+		return "", "", errors.New("runtime declaration omits model directories")
 	}
 	if model.CheckpointDirectory != "" {
 		directories["checkpoint"] = model.CheckpointDirectory
@@ -52,7 +53,7 @@ func prepareStartup(ctx context.Context, options Options, profiles registry, mod
 		destination, valid := directories[entry.Kind].(string)
 		u, err := url.Parse(entry.URL)
 		if !found || !valid || err != nil || u.Scheme != "https" || u.Hostname() == "" || u.User != nil || u.RawQuery != "" || filepath.Base(filename) != filename || filename == "." || filename == ".." || strings.ContainsAny(filename, "'\r\n\\") || !strings.HasPrefix(destination, "models/") || strings.Contains(destination, "..") {
-			return "", fmt.Errorf("model asset %q has an invalid publisher or destination", filename)
+			return "", "", fmt.Errorf("model asset %q has an invalid publisher or destination", filename)
 		}
 		downloads = append(downloads, map[string]string{"url": entry.URL, "dest": fmt.Sprint(runtime["model_root"]) + "/" + destination + "/" + filename})
 	}
@@ -63,7 +64,7 @@ func prepareStartup(ctx context.Context, options Options, profiles registry, mod
 	for _, name := range names {
 		node, found := profiles.Nodes[name]
 		if !found || !regexp.MustCompile(`^[A-Za-z0-9][A-Za-z0-9_-]*$`).MatchString(name) || !regexp.MustCompile(`^https://github[.]com/[A-Za-z0-9_-]+/[A-Za-z0-9_.-]+$`).MatchString(node.URL) || !regexp.MustCompile(`^[0-9a-f]{40}$`).MatchString(node.Ref) {
-			return "", fmt.Errorf("node pack %q is not a valid approved registry entry", name)
+			return "", "", fmt.Errorf("node pack %q is not a valid approved registry entry", name)
 		}
 		repositories = append(repositories, map[string]string{"url": node.URL, "ref": node.Ref, "dest": "/workspace/ComfyUI/custom_nodes/" + name})
 		enabled = append(enabled, name)
@@ -83,7 +84,7 @@ func prepareStartup(ctx context.Context, options Options, profiles registry, mod
 	for _, source := range sources {
 		data, err := os.ReadFile(source.path)
 		if err != nil {
-			return "", fmt.Errorf("read first-party node %q: %w", source.name, err)
+			return "", "", fmt.Errorf("read first-party node %q: %w", source.name, err)
 		}
 		files = append(files, map[string]string{"path": "/workspace/ComfyUI/custom_nodes/" + source.name + "/__init__.py", "content": string(data), "permissions": "0600"})
 		enabled = append(enabled, source.name)
@@ -92,7 +93,7 @@ func prepareStartup(ctx context.Context, options Options, profiles registry, mod
 	if model.Requirements != "" {
 		data, err := os.ReadFile(options.Requirements)
 		if err != nil {
-			return "", fmt.Errorf("read approved node requirements: %w", err)
+			return "", "", fmt.Errorf("read approved node requirements: %w", err)
 		}
 		files = append(files, map[string]string{"path": "/etc/imagegen-python-requirements.txt", "content": string(data), "permissions": "0600"})
 		packages = append(packages, map[string]any{"venv": "/venv/main", "requirements": []string{"/etc/imagegen-python-requirements.txt"}, "args": "--require-hashes --no-deps"})
@@ -101,23 +102,37 @@ func prepareStartup(ctx context.Context, options Options, profiles registry, mod
 	runtime["arguments"] = fmt.Sprint(runtime["arguments"]) + " --whitelist-custom-nodes " + strings.Join(enabled, " ")
 	manifest, err := json.Marshal(map[string]any{"version": 1, "downloads": downloads, "git_repos": repositories, "write_files": files, "pip_packages": packages})
 	if err != nil {
-		return "", fmt.Errorf("encode native provisioner manifest: %w", err)
+		return "", "", fmt.Errorf("encode native provisioner manifest: %w", err)
 	}
+	template, err := os.ReadFile(options.StartupTemplate)
+	if err != nil {
+		return "", "", fmt.Errorf("read startup template: %w", err)
+	}
+	// Hash only installation inputs, before adding any credential values.
+	publicInputs, err := json.Marshal(map[string]any{"version": 1, "template": string(template), "runtime": runtime, "model_manifest": string(manifest)})
+	if err != nil {
+		return "", "", fmt.Errorf("encode installation fingerprint: %w", err)
+	}
+	fingerprint = fmt.Sprintf("%x", sha256.Sum256(publicInputs))
 	parameters, err := json.Marshal(map[string]any{"model_manifest": string(manifest), "hf_token_b64": base64.StdEncoding.EncodeToString([]byte(login.huggingface)), "runtime": runtime, "runtime_files": map[string]string{}, "exposed": true, "web_username": username, "web_password": password})
 	if err != nil {
-		return "", fmt.Errorf("encode template parameters: %w", err)
+		return "", "", fmt.Errorf("encode template parameters: %w", err)
 	}
 	if err := os.MkdirAll(directory, 0o700); err != nil {
-		return "", fmt.Errorf("create empty renderer directory: %w", err)
+		return "", "", fmt.Errorf("create empty renderer directory: %w", err)
 	}
 	defer func() {
 		if err := os.RemoveAll(directory); err != nil {
 			resultErr = errors.Join(resultErr, fmt.Errorf("remove renderer directory: %w", err))
 		}
 	}()
-	path, err := filepath.Abs(options.StartupTemplate)
+	templatePath := filepath.Join(directory, "startup.sh.tftpl")
+	if err := os.WriteFile(templatePath, template, 0o600); err != nil {
+		return "", "", fmt.Errorf("write startup template snapshot: %w", err)
+	}
+	path, err := filepath.Abs(templatePath)
 	if err != nil {
-		return "", fmt.Errorf("resolve startup template: %w", err)
+		return "", "", fmt.Errorf("resolve startup template: %w", err)
 	}
 	quotedPath, _ := json.Marshal(path)
 	expression := "base64encode(templatefile(" + string(quotedPath) + ", jsondecode(base64decode(\"" + base64.StdEncoding.EncodeToString(parameters) + "\"))))\n"
@@ -128,19 +143,19 @@ func prepareStartup(ctx context.Context, options Options, profiles registry, mod
 	child.Stdout = &output
 	child.Stderr = &bytes.Buffer{}
 	if err := child.Run(); err != nil {
-		return "", fmt.Errorf("render startup template (secret-bearing diagnostics suppressed): %w", err)
+		return "", "", fmt.Errorf("render startup template (secret-bearing diagnostics suppressed): %w", err)
 	}
 	var encoded string
 	if err := json.Unmarshal(bytes.TrimSpace(output.Bytes()), &encoded); err != nil {
-		return "", fmt.Errorf("decode template renderer string: %w", err)
+		return "", "", fmt.Errorf("decode template renderer string: %w", err)
 	}
 	decoded, err := base64.StdEncoding.DecodeString(encoded)
 	if err != nil {
-		return "", fmt.Errorf("decode rendered startup: %w", err)
+		return "", "", fmt.Errorf("decode rendered startup: %w", err)
 	}
 	command, err := vastclient.StartupCommand(string(decoded), true)
 	if err != nil {
-		return "", fmt.Errorf("encode compiled startup: %w", err)
+		return "", "", fmt.Errorf("encode compiled startup: %w", err)
 	}
-	return command, nil
+	return command, fingerprint, nil
 }

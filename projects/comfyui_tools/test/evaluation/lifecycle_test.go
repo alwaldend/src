@@ -45,6 +45,8 @@ type fixture struct {
 	statusReads int
 	// ambiguousCreate records an allocation while losing its acknowledgment.
 	ambiguousCreate bool
+	// providerStatus optionally overrides the simulated running state.
+	providerStatus string
 }
 
 // ServeHTTP supplies the supported Vast protocol without contacting an account.
@@ -135,6 +137,9 @@ func (f *fixture) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		status := "running"
+		if f.providerStatus != "" {
+			status = f.providerStatus
+		}
 		if f.exitAfterReady {
 			f.statusReads++
 			if f.statusReads > 1 {
@@ -704,5 +709,379 @@ func TestCleanupDisabled(t *testing.T) {
 				}
 			}
 		})
+	}
+}
+
+// TestRetainedProvisioningInputs rejects stale code and environments before reuse.
+func TestRetainedProvisioningInputs(t *testing.T) {
+	observations := map[string]any{}
+	for _, scenario := range []string{"unchanged", "unused_qwen", "sequence-source", "gif-source", "qwen-gif-source", "requirements", "runtime-defaults", "startup-template", "recipe", "missing_fingerprint"} {
+		t.Run(scenario, func(t *testing.T) {
+			t.Setenv("XDG_CACHE_HOME", t.TempDir())
+			f := &fixture{labels: map[int]string{99: "src_infra_image_gen"}}
+			server := httptest.NewServer(f)
+			defer server.Close()
+			directory := t.TempDir()
+			// configure uses public fixture files and a deterministic renderer, while
+			// exercising the real provisioning assembly and controller boundary.
+			configure := func(command *exec.Cmd, name string) map[string]string {
+				t.Helper()
+				paths := map[string]string{}
+				if scenario == "recipe" {
+					for i, arg := range command.Args {
+						if arg == "--startup-file" {
+							paths["recipe"] = command.Args[i+1]
+						}
+					}
+					return paths
+				}
+				for i, arg := range command.Args {
+					if arg == "--startup-file" {
+						command.Args = append(command.Args[:i], command.Args[i+2:]...)
+						break
+					}
+				}
+				for flag, content := range map[string]string{
+					"sequence-source": "# public sequence source\n", "gif-source": "# public GIF source\n", "qwen-gif-source": "# public Qwen source\n",
+					"requirements": "# public requirements\n", "runtime-defaults": `{"model_root":"/workspace/ComfyUI","model_directories":{},"arguments":"--listen 127.0.0.1"}`,
+					"startup-template": "# public startup template\n", "terraform": "#!/bin/sh\nprintf '\"dHJ1ZQo=\"\\n'\n",
+				} {
+					path := filepath.Join(directory, name+"-"+flag)
+					if err := os.WriteFile(path, []byte(content), 0o700); err != nil {
+						t.Fatal(err)
+					}
+					paths[flag] = path
+					command.Args = append(command.Args, "--"+flag, path)
+				}
+				for i, arg := range command.Args {
+					if arg != "--profiles" {
+						continue
+					}
+					data, err := os.ReadFile(command.Args[i+1])
+					if err != nil {
+						t.Fatal(err)
+					}
+					// The Qwen scenario includes its model-specific first-party node.
+					if scenario == "qwen-gif-source" {
+						data = []byte(strings.ReplaceAll(string(data), `"test":{"downloads":[]}`, `"qwen":{"downloads":[]}`))
+					}
+					if scenario == "requirements" {
+						data = []byte(strings.ReplaceAll(string(data), `"test":{"downloads":[]}`, `"test":{"downloads":[],"python_requirements":"fixture"}`))
+					}
+					if err := os.WriteFile(command.Args[i+1], data, 0o600); err != nil {
+						t.Fatal(err)
+					}
+				}
+				command.Env = append(command.Env, "IMAGEGEN_WEB_USERNAME=fixture", "IMAGEGEN_WEB_PASSWORD="+strings.Repeat("x", 48))
+				return paths
+			}
+			group := fixtureGroup("original")
+			if scenario == "qwen-gif-source" {
+				group["model_profiles"] = []string{"qwen"}
+			}
+			first := fixtureCommand(t, server.URL, filepath.Join(directory, "first"), []map[string]any{group})
+			configure(first, "first")
+			first.Args = append(first.Args, "--cleanup=false")
+			if output, err := first.CombinedOutput(); err != nil {
+				t.Fatalf("create retained fixture: %v\n%s", err, output)
+			}
+			reports, err := filepath.Glob(filepath.Join(directory, "first", "*", "run.json"))
+			if err != nil || len(reports) != 1 {
+				t.Fatalf("find retained report: %v", err)
+			}
+			source := filepath.Dir(reports[0])
+			next := fixtureCommand(t, server.URL, filepath.Join(directory, "second"), []map[string]any{group})
+			paths := configure(next, "second")
+			next.Args = append(next.Args, "--cleanup=false", "--reuse-run", source)
+			if scenario == "missing_fingerprint" {
+				journals, err := filepath.Glob(filepath.Join(source, "*", "journal.json"))
+				if err != nil || len(journals) != 1 {
+					t.Fatalf("find retained journal: %v", err)
+				}
+				data, err := os.ReadFile(journals[0])
+				if err != nil {
+					t.Fatal(err)
+				}
+				var state map[string]any
+				if err := json.Unmarshal(data, &state); err != nil {
+					t.Fatal(err)
+				}
+				delete(state, "installation_fingerprint")
+				data, err = json.Marshal(state)
+				if err != nil {
+					t.Fatal(err)
+				}
+				if err := os.WriteFile(journals[0], data, 0o600); err != nil {
+					t.Fatal(err)
+				}
+			} else if scenario == "runtime-defaults" {
+				if err := os.WriteFile(paths[scenario], []byte(`{"model_root":"/workspace/ComfyUI","model_directories":{},"arguments":"--listen 127.0.0.1 --disable-metadata"}`), 0o600); err != nil {
+					t.Fatal(err)
+				}
+			} else if scenario != "unchanged" {
+				key := scenario
+				if scenario == "unused_qwen" {
+					key = "qwen-gif-source"
+				}
+				file, err := os.OpenFile(paths[key], os.O_APPEND|os.O_WRONLY, 0)
+				if err != nil {
+					t.Fatal(err)
+				}
+				if _, err := file.WriteString("\n "); err != nil {
+					t.Fatal(err)
+				}
+				if err := file.Close(); err != nil {
+					t.Fatal(err)
+				}
+			}
+			f.mu.Lock()
+			queries, creates := len(f.queries), len(f.createdOffers)
+			labels, err := json.Marshal(f.labels)
+			f.mu.Unlock()
+			if err != nil {
+				t.Fatal(err)
+			}
+			output, runErr := next.CombinedOutput()
+			accepted := scenario == "unchanged" || scenario == "unused_qwen"
+			if (runErr == nil) != accepted {
+				t.Fatalf("provisioning reuse %s: %v\n%s", scenario, runErr, output)
+			}
+			f.mu.Lock()
+			after, err := json.Marshal(f.labels)
+			changed := len(f.queries) != queries || len(f.createdOffers) != creates || string(after) != string(labels)
+			f.mu.Unlock()
+			if err != nil || changed {
+				t.Fatal("provisioning reuse changed account resources")
+			}
+			results, err := filepath.Glob(filepath.Join(directory, "second", "*", "*", "*", "*", "result.json"))
+			if err != nil || (len(results) > 0) != accepted {
+				t.Fatal("provisioning mismatch executed work or valid reuse lost its output")
+			}
+			observations[scenario] = map[string]any{"accepted": accepted, "new_allocations": 0, "live_operations": 0}
+		})
+	}
+	if output := os.Getenv("TEST_UNDECLARED_OUTPUTS_DIR"); output != "" {
+		data, err := json.MarshalIndent(observations, "", "  ")
+		if err != nil {
+			t.Fatal(err)
+		}
+		if err := os.WriteFile(filepath.Join(output, "retained-provisioning-inputs.json"), data, 0o600); err != nil {
+			t.Fatal(err)
+		}
+	}
+}
+
+// TestRetainedRunReuse exercises repeat command invocations without new allocations.
+func TestRetainedRunReuse(t *testing.T) {
+	observations := map[string]any{}
+	for _, scenario := range []string{"revised", "failure", "interrupted", "cleanup", "foreign", "missing", "stopped", "installation", "released", "duplicate", "endpoint", "missing_model"} {
+		t.Run(scenario, func(t *testing.T) {
+			t.Setenv("XDG_CACHE_HOME", t.TempDir())
+			f := &fixture{labels: map[int]string{99: "src_infra_image_gen"}}
+			server := httptest.NewServer(f)
+			defer server.Close()
+			directory := t.TempDir()
+			groups := []map[string]any{fixtureGroup("original")}
+			if scenario == "duplicate" {
+				other := fixtureGroup("other")
+				other["model_profiles"] = []string{"other"}
+				groups = append(groups, other)
+			}
+			first := fixtureCommand(t, server.URL, filepath.Join(directory, "first"), groups)
+			first.Args = append(first.Args, "--cleanup=false")
+			if output, err := first.CombinedOutput(); err != nil {
+				t.Fatalf("create retained fixture: %v\n%s", err, output)
+			}
+			reports, err := filepath.Glob(filepath.Join(directory, "first", "*", "run.json"))
+			if err != nil || len(reports) != 1 {
+				t.Fatalf("find retained run: %v", err)
+			}
+			source := filepath.Dir(reports[0])
+			group := fixtureGroup("revision")
+			group["seeds"] = []int{123, 456}
+			group["sampling"] = map[string]any{"cfg": 4.5}
+			if scenario == "failure" {
+				group = fixtureGroup("failure")
+			}
+			if scenario == "interrupted" {
+				group = fixtureGroup("cancel")
+			}
+			if scenario == "missing_model" {
+				group["model_profiles"] = []string{"other"}
+			}
+			nextGroups := []map[string]any{group}
+			if scenario == "duplicate" {
+				nextGroups = append(nextGroups, groups[1])
+			}
+			next := fixtureCommand(t, server.URL, filepath.Join(directory, "second"), nextGroups)
+			next.Args = append(next.Args, "--reuse-run", source)
+			if scenario != "cleanup" {
+				next.Args = append(next.Args, "--cleanup=false")
+			}
+			journals, err := filepath.Glob(filepath.Join(source, "*", "journal.json"))
+			if err != nil {
+				t.Fatal(err)
+			}
+			var firstIdentity int
+			for _, path := range journals {
+				data, err := os.ReadFile(path)
+				if err != nil {
+					t.Fatal(err)
+				}
+				var state map[string]any
+				if err := json.Unmarshal(data, &state); err != nil {
+					t.Fatal(err)
+				}
+				identity := int(state["instance_id"].(float64))
+				if firstIdentity == 0 {
+					firstIdentity = identity
+				}
+				if scenario == "duplicate" {
+					state["instance_id"] = firstIdentity
+				}
+				if scenario == "released" {
+					state["released_at"] = time.Now().UTC().Format(time.RFC3339Nano)
+				}
+				if scenario == "duplicate" || scenario == "released" {
+					data, err := json.Marshal(state)
+					if err != nil {
+						t.Fatal(err)
+					}
+					if err := os.WriteFile(path, data, 0o600); err != nil {
+						t.Fatal(err)
+					}
+				}
+			}
+			f.mu.Lock()
+			switch scenario {
+			case "foreign":
+				f.labels[firstIdentity] = "src_infra_image_gen"
+			case "missing":
+				delete(f.labels, firstIdentity)
+			case "stopped":
+				f.providerStatus = "exited"
+			}
+			beforeLabels, err := json.Marshal(f.labels)
+			beforeQueries, beforeCreates := len(f.queries), len(f.createdOffers)
+			f.mu.Unlock()
+			if err != nil {
+				t.Fatal(err)
+			}
+			if scenario == "installation" {
+				for i, arg := range next.Args {
+					if arg != "--profiles" {
+						continue
+					}
+					data, err := os.ReadFile(next.Args[i+1])
+					if err != nil {
+						t.Fatal(err)
+					}
+					data = []byte(strings.Replace(string(data), `"image":"fixture"`, `"image":"different"`, 1))
+					if err := os.WriteFile(next.Args[i+1], data, 0o600); err != nil {
+						t.Fatal(err)
+					}
+				}
+			}
+			if scenario == "endpoint" {
+				data, err := os.ReadFile(reports[0])
+				if err != nil {
+					t.Fatal(err)
+				}
+				var report map[string]any
+				if err := json.Unmarshal(data, &report); err != nil {
+					t.Fatal(err)
+				}
+				report["provider_endpoint"] = "https://different.invalid/api/v0"
+				data, err = json.Marshal(report)
+				if err != nil {
+					t.Fatal(err)
+				}
+				if err := os.WriteFile(reports[0], data, 0o600); err != nil {
+					t.Fatal(err)
+				}
+			}
+			original, err := os.ReadFile(journals[0])
+			if err != nil {
+				t.Fatal(err)
+			}
+			var diagnostics []byte
+			if scenario == "interrupted" {
+				if err = next.Start(); err != nil {
+					t.Fatal(err)
+				}
+				time.Sleep(100 * time.Millisecond)
+				if err = next.Process.Signal(syscall.SIGTERM); err != nil {
+					t.Fatal(err)
+				}
+				err = next.Wait()
+			} else {
+				diagnostics, err = next.CombinedOutput()
+			}
+			if (err == nil) != (scenario == "revised") {
+				t.Fatalf("retained reuse %s: %v\n%s", scenario, err, diagnostics)
+			}
+			f.mu.Lock()
+			afterLabels, encodeErr := json.Marshal(f.labels)
+			changed := len(f.queries) != beforeQueries || len(f.createdOffers) != beforeCreates || string(beforeLabels) != string(afterLabels)
+			f.mu.Unlock()
+			if encodeErr != nil {
+				t.Fatal(encodeErr)
+			}
+			if changed {
+				t.Fatal("reuse searched offers, allocated or changed account rentals")
+			}
+			if scenario != "revised" && scenario != "failure" && scenario != "interrupted" {
+				results, err := filepath.Glob(filepath.Join(directory, "second", "*", "*", "*", "*", "result.json"))
+				if err != nil || len(results) != 0 {
+					t.Fatal("invalid reuse executed a workload before rejecting its inputs")
+				}
+			}
+			after, err := os.ReadFile(journals[0])
+			if err != nil || string(after) != string(original) {
+				t.Fatal("reuse overwrote its source journal")
+			}
+			if scenario == "revised" {
+				results, err := filepath.Glob(filepath.Join(directory, "second", "*", "*", "*", "*", "result.json"))
+				if err != nil || len(results) != 2 {
+					t.Fatal("revised seed trials were not independently retrieved")
+				}
+				newJournals, err := filepath.Glob(filepath.Join(directory, "second", "*", "*", "journal.json"))
+				if err != nil || len(newJournals) != 1 {
+					t.Fatal("reuse journal absent")
+				}
+				data, err := os.ReadFile(newJournals[0])
+				if err != nil {
+					t.Fatal(err)
+				}
+				var state map[string]any
+				if err := json.Unmarshal(data, &state); err != nil {
+					t.Fatal(err)
+				}
+				if int(state["instance_id"].(float64)) != firstIdentity || state["reused_from"] != source {
+					t.Fatal("reuse lost rental identity or provenance")
+				}
+				third := fixtureCommand(t, server.URL, filepath.Join(directory, "third"), []map[string]any{fixtureGroup("followup")})
+				third.Args = append(third.Args, "--cleanup=false", "--reuse-run", filepath.Dir(filepath.Dir(newJournals[0])))
+				if output, err := third.CombinedOutput(); err != nil {
+					t.Fatalf("reuse an already reused rental: %v\n%s", err, output)
+				}
+				f.mu.Lock()
+				changed := len(f.queries) != beforeQueries || len(f.createdOffers) != beforeCreates
+				f.mu.Unlock()
+				if changed {
+					t.Fatal("third iteration allocated instead of preserving rental provenance")
+				}
+			}
+			observations[scenario] = map[string]any{"account_unchanged": true, "new_allocations": 0, "new_offer_searches": 0, "live_operations": 0}
+		})
+	}
+	if output := os.Getenv("TEST_UNDECLARED_OUTPUTS_DIR"); output != "" {
+		data, err := json.MarshalIndent(observations, "", "  ")
+		if err != nil {
+			t.Fatal(err)
+		}
+		if err := os.WriteFile(filepath.Join(output, "retained-run-reuse.json"), data, 0o600); err != nil {
+			t.Fatal(err)
+		}
 	}
 }

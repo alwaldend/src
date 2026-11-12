@@ -12,6 +12,8 @@ import (
 	"net/url"
 	"os"
 	"path/filepath"
+	"reflect"
+	"regexp"
 	"sort"
 	"strconv"
 	"strings"
@@ -134,8 +136,12 @@ type preparedRental struct {
 	hardware hardware
 	// startup is the bounded encoded startup command, never written to reports.
 	startup string
+	// startupFingerprint binds installed public source, requirements, runtime and template.
+	startupFingerprint string
 	// query retains the shared image-compatible filters for this allocation.
 	query map[string]any
+	// retained identifies a validated existing installation instead of an allocation.
+	retained *journal
 }
 
 // journal records non-secret lifecycle ownership and terminal result status.
@@ -162,10 +168,17 @@ type journal struct {
 	CompletedAt time.Time `json:"completed_at,omitempty"`
 	// Failure reports a contextual non-secret error, including cleanup failures.
 	Failure string `json:"failure,omitempty"`
+	// ReusedFrom names the prior retained run while preserving the original label.
+	ReusedFrom string `json:"reused_from,omitempty"`
+	// InstallationFingerprint binds the compiled installation without credential values.
+	InstallationFingerprint string `json:"installation_fingerprint"`
 }
 
 // Run owns one bounded concurrent suite with automatic cleanup enabled by default.
 func Run(ctx context.Context, options Options) (resultErr error) {
+	if options.ReuseRun != "" && !options.DisableCleanup {
+		return errors.New("retained-run reuse requires --cleanup=false; use explicit cleanup to release rentals")
+	}
 	if options.Progress == nil {
 		options.Progress = io.Discard
 	}
@@ -233,7 +246,10 @@ func Run(ctx context.Context, options Options) (resultErr error) {
 		}
 		resultErr = errors.Join(resultErr, cleanupErr)
 		cleanupConfirmed := !options.DisableCleanup && cleanupErr == nil
-		report := map[string]any{"run_id": runID, "owner": configuration.Owner, "finished_at": time.Now().UTC(), "cleanup_confirmed": cleanupConfirmed, "cleanup_skipped": options.DisableCleanup, "execution_success": resultErr == nil, "quality_review": "unscored", "jobs": configuration.Jobs, "rentals": groupRentals(configuration.Jobs)}
+		report := map[string]any{"run_id": runID, "owner": configuration.Owner, "provider_endpoint": options.Endpoint, "finished_at": time.Now().UTC(), "cleanup_confirmed": cleanupConfirmed, "cleanup_skipped": options.DisableCleanup, "execution_success": resultErr == nil, "quality_review": "unscored", "jobs": configuration.Jobs, "rentals": groupRentals(configuration.Jobs)}
+		if options.ReuseRun != "" {
+			report["reused_from"] = options.ReuseRun
+		}
 		if len(options.ExcludedOffers) > 0 {
 			report["excluded_offers"] = options.ExcludedOffers
 		}
@@ -255,6 +271,11 @@ func Run(ctx context.Context, options Options) (resultErr error) {
 	rentals, err := prepareRentals(ctx, options, configuration, profiles, directory, credentials{username: os.Getenv("IMAGEGEN_WEB_USERNAME"), password: os.Getenv("IMAGEGEN_WEB_PASSWORD"), huggingface: os.Getenv("HF_TOKEN")})
 	if err != nil {
 		return fmt.Errorf("prepare evaluation inputs: %w", err)
+	}
+	if options.ReuseRun != "" {
+		if err := reuseRentals(ctx, api, options, configuration, profiles, rentals); err != nil {
+			return fmt.Errorf("validate retained installations: %w", err)
+		}
 	}
 	if err := writeJSON(filepath.Join(directory, "inputs.json"), map[string]any{"configuration": configuration, "profiles": profiles}); err != nil {
 		return fmt.Errorf("save effective public inputs: %w", err)
@@ -302,7 +323,16 @@ func runRental(ctx context.Context, api *vastclient.Client, options Options, con
 	rental := prepared.rental
 	rentalDirectory := filepath.Join(directory, rental.ID)
 	label := prefix(configuration.Owner) + runID + ":" + rental.ID + ":"
-	state := journal{Rental: rental, Label: label, Phase: "planned", StartedAt: time.Now().UTC()}
+	state := journal{Rental: rental, Label: label, Phase: "planned", StartedAt: time.Now().UTC(), InstallationFingerprint: prepared.startupFingerprint}
+	if previous := prepared.retained; previous != nil {
+		state.Label = previous.Label
+		state.InstanceID = previous.InstanceID
+		state.CreatedAt = previous.CreatedAt
+		state.ReusedFrom = options.ReuseRun
+		state.Phase = "reused"
+		label = previous.Label
+		options.logger.Printf("rental %s: reusing instance %d from retained run", rental.ID, state.InstanceID)
+	}
 	statePath := filepath.Join(rentalDirectory, "journal.json")
 	if err := writeJSON(statePath, state); err != nil {
 		return fmt.Errorf("record allocation intent: %w", err)
@@ -356,72 +386,75 @@ func runRental(ctx context.Context, api *vastclient.Client, options Options, con
 			resultErr = errors.Join(resultErr, fmt.Errorf("save rental outcome: %w", err))
 		}
 	}()
-	hardware := prepared.hardware
-	query := prepared.query
-	for key, value := range map[string]any{"gpu_ram": map[string]any{"gte": hardware.MinimumVRAM * 1024}, "disk_space": map[string]any{"gte": hardware.Disk}, "dph_total": map[string]any{"lte": hardware.MaximumPrice}, "allocated_storage": hardware.Disk, "direct_port_count": map[string]any{"gte": 2}, "limit": 16} {
-		query[key] = value
-	}
-	if hardware.GPU != "" {
-		query["gpu_name"] = map[string]any{"eq": hardware.GPU}
-	}
-	var selected vastclient.Offer
-	for {
-		offers, err := api.Search(ctx, query)
-		if err != nil {
-			return fmt.Errorf("search evaluation offers: %w", err)
+	if prepared.retained == nil {
+		hardware := prepared.hardware
+		query := prepared.query
+		for key, value := range map[string]any{"gpu_ram": map[string]any{"gte": hardware.MinimumVRAM * 1024}, "disk_space": map[string]any{"gte": hardware.Disk}, "dph_total": map[string]any{"lte": hardware.MaximumPrice}, "allocated_storage": hardware.Disk, "direct_port_count": map[string]any{"gte": 2}, "limit": 16} {
+			query[key] = value
 		}
-		sort.Slice(offers, func(i, j int) bool { return offers[i].HourlyPrice < offers[j].HourlyPrice })
-		offersMu.Lock()
-		for _, offer := range offers {
-			_, reserved := usedOffers[offer.ID]
-			if !reserved && offer.HostingType != nil && *offer.HostingType == 1 && offer.Verification != nil && *offer.Verification == "verified" && offer.GPUs == 1 && offer.GPURAM >= hardware.MinimumVRAM*1024 && offer.HourlyPrice > 0 && offer.HourlyPrice <= hardware.MaximumPrice && (hardware.GPU == "" || offer.GPUName == hardware.GPU) {
-				selected = offer
-				usedOffers[offer.ID] = true
-				break
+		if hardware.GPU != "" {
+			query["gpu_name"] = map[string]any{"eq": hardware.GPU}
+		}
+		var selected vastclient.Offer
+		for {
+			offers, err := api.Search(ctx, query)
+			if err != nil {
+				return fmt.Errorf("search evaluation offers: %w", err)
 			}
-		}
-		releasable := false
-		for _, active := range usedOffers {
-			releasable = releasable || active
-		}
-		offersMu.Unlock()
-		if selected.ID != 0 {
-			reservationID = selected.ID
-			break
-		}
-		if !releasable {
-			return errors.New("no unused verified Secure Cloud offer satisfies the configured limits")
-		}
-		if err := pause(ctx, duration(configuration.PollSeconds)); err != nil {
-			return fmt.Errorf("wait for capacity held by another evaluation worker: %w", err)
-		}
-	}
-	if err := writeJSON(filepath.Join(rentalDirectory, "offer.json"), selected); err != nil {
-		return fmt.Errorf("save selected offer: %w", err)
-	}
-	createAttempted = true
-	id, err := api.Create(ctx, selected.ID, vastclient.CreateInput{Image: image, Disk: hardware.Disk, Label: label, Runtype: "ssh_direct", State: "running", DockerOptions: "-p 7860:7860", Onstart: prepared.startup})
-	if err != nil {
-		reconcileContext, reconcileCancel := context.WithTimeout(context.Background(), duration(configuration.CleanupTimeoutSeconds))
-		defer reconcileCancel()
-		instances, reconcileErr := api.Instances(reconcileContext)
-		if reconcileErr == nil {
-			for _, instance := range instances {
-				if instance.Label == label {
-					state.InstanceID = instance.ID
+			sort.Slice(offers, func(i, j int) bool { return offers[i].HourlyPrice < offers[j].HourlyPrice })
+			offersMu.Lock()
+			for _, offer := range offers {
+				_, reserved := usedOffers[offer.ID]
+				if !reserved && offer.HostingType != nil && *offer.HostingType == 1 && offer.Verification != nil && *offer.Verification == "verified" && offer.GPUs == 1 && offer.GPURAM >= hardware.MinimumVRAM*1024 && offer.HourlyPrice > 0 && offer.HourlyPrice <= hardware.MaximumPrice && (hardware.GPU == "" || offer.GPUName == hardware.GPU) {
+					selected = offer
+					usedOffers[offer.ID] = true
 					break
 				}
 			}
+			releasable := false
+			for _, active := range usedOffers {
+				releasable = releasable || active
+			}
+			offersMu.Unlock()
+			if selected.ID != 0 {
+				reservationID = selected.ID
+				break
+			}
+			if !releasable {
+				return errors.New("no unused verified Secure Cloud offer satisfies the configured limits")
+			}
+			if err := pause(ctx, duration(configuration.PollSeconds)); err != nil {
+				return fmt.Errorf("wait for capacity held by another evaluation worker: %w", err)
+			}
 		}
-		return errors.Join(fmt.Errorf("create evaluation rental (no retry): %w", err), reconcileErr)
+		if err := writeJSON(filepath.Join(rentalDirectory, "offer.json"), selected); err != nil {
+			return fmt.Errorf("save selected offer: %w", err)
+		}
+		createAttempted = true
+		id, err := api.Create(ctx, selected.ID, vastclient.CreateInput{Image: image, Disk: hardware.Disk, Label: label, Runtype: "ssh_direct", State: "running", DockerOptions: "-p 7860:7860", Onstart: prepared.startup})
+		if err != nil {
+			reconcileContext, reconcileCancel := context.WithTimeout(context.Background(), duration(configuration.CleanupTimeoutSeconds))
+			defer reconcileCancel()
+			instances, reconcileErr := api.Instances(reconcileContext)
+			if reconcileErr == nil {
+				for _, instance := range instances {
+					if instance.Label == label {
+						state.InstanceID = instance.ID
+						break
+					}
+				}
+			}
+			return errors.Join(fmt.Errorf("create evaluation rental (no retry): %w", err), reconcileErr)
+		}
+		state.InstanceID = id
+		state.Phase = "created"
+		state.CreatedAt = time.Now().UTC()
+		options.logger.Printf("rental %s: instance %d created; waiting for ComfyUI", rental.ID, id)
+		if err := writeJSON(statePath, state); err != nil {
+			return fmt.Errorf("record rental identity: %w", err)
+		}
 	}
-	state.InstanceID = id
-	state.Phase = "created"
-	state.CreatedAt = time.Now().UTC()
-	options.logger.Printf("rental %s: instance %d created; waiting for ComfyUI", rental.ID, id)
-	if err := writeJSON(statePath, state); err != nil {
-		return fmt.Errorf("record rental identity: %w", err)
-	}
+	id := state.InstanceID
 	bootContext, bootCancel := context.WithTimeout(ctx, duration(configuration.BootTimeoutSeconds))
 	defer bootCancel()
 	var endpoint string
@@ -473,7 +506,11 @@ func runRental(ctx context.Context, api *vastclient.Client, options Options, con
 	}
 	state.Phase = "ready"
 	state.ReadyAt = time.Now().UTC()
-	options.logger.Printf("rental %s: ready after %.1fs", rental.ID, state.ReadyAt.Sub(state.CreatedAt).Seconds())
+	readinessStart := state.CreatedAt
+	if state.ReusedFrom != "" {
+		readinessStart = state.StartedAt
+	}
+	options.logger.Printf("rental %s: ready after %.1fs", rental.ID, state.ReadyAt.Sub(readinessStart).Seconds())
 	if err := writeJSON(statePath, state); err != nil {
 		return fmt.Errorf("record readiness: %w", err)
 	}
@@ -577,4 +614,99 @@ func monitorRental(ctx context.Context, api *vastclient.Client, id int64, label 
 			return failure
 		}
 	}
+}
+
+// compatibleInstallation compares the selected declared installation, not mutable prompts.
+func compatibleInstallation(before, after registry, selected rental) bool {
+	if before.Image != after.Image || !reflect.DeepEqual(before.Models[selected.ModelProfile], after.Models[selected.ModelProfile]) || !reflect.DeepEqual(before.Hardware[selected.HardwareProfile], after.Hardware[selected.HardwareProfile]) {
+		return false
+	}
+	definition, found := before.Models[selected.ModelProfile]
+	if !found {
+		return false
+	}
+	for _, name := range definition.Downloads {
+		if !reflect.DeepEqual(before.Downloads[name], after.Downloads[name]) {
+			return false
+		}
+	}
+	for _, name := range definition.Nodes {
+		if !reflect.DeepEqual(before.Nodes[name], after.Nodes[name]) {
+			return false
+		}
+	}
+	return true
+}
+
+// reuseRentals validates every selected prior installation before any worker executes.
+func reuseRentals(ctx context.Context, api *vastclient.Client, options Options, configuration configuration, profiles registry, rentals []preparedRental) error {
+	ctx, cancel := context.WithTimeout(ctx, duration(configuration.BootTimeoutSeconds))
+	defer cancel()
+	var report struct {
+		// Owner binds retained resources to the configured namespace.
+		Owner string `json:"owner"`
+		// ProviderEndpoint prevents identities being reused against another provider.
+		ProviderEndpoint string `json:"provider_endpoint"`
+		// CleanupSkipped establishes explicit retention rather than released resources.
+		CleanupSkipped bool `json:"cleanup_skipped"`
+		// Rentals identifies the prior hardware/model installations.
+		Rentals []rental `json:"rentals"`
+	}
+	if err := readJSON(filepath.Join(options.ReuseRun, "run.json"), &report); err != nil {
+		return fmt.Errorf("read retained run report: %w", err)
+	}
+	if report.Owner != configuration.Owner || report.ProviderEndpoint != options.Endpoint || !report.CleanupSkipped {
+		return errors.New("source run must retain the same namespace and provider endpoint")
+	}
+	var inputs struct {
+		// Profiles preserves the declared installed image, assets and hardware.
+		Profiles registry `json:"profiles"`
+	}
+	if err := readJSON(filepath.Join(options.ReuseRun, "inputs.json"), &inputs); err != nil {
+		return fmt.Errorf("read retained installation inputs: %w", err)
+	}
+	identities := map[int64]bool{}
+	safe := regexp.MustCompile(`^[A-Za-z0-9][A-Za-z0-9_-]{0,63}$`)
+	for index := range rentals {
+		prepared := &rentals[index]
+		var matches []rental
+		for _, previous := range report.Rentals {
+			if previous.ModelProfile == prepared.rental.ModelProfile && previous.HardwareProfile == prepared.rental.HardwareProfile {
+				matches = append(matches, previous)
+			}
+		}
+		if len(matches) != 1 || !safe.MatchString(matches[0].ID) {
+			return fmt.Errorf("rental %q requires exactly one retained hardware/model match", prepared.rental.ID)
+		}
+		previous := matches[0]
+		if !compatibleInstallation(inputs.Profiles, profiles, prepared.rental) {
+			return fmt.Errorf("rental %q differs from its retained installation declaration", prepared.rental.ID)
+		}
+		var state journal
+		if err := readJSON(filepath.Join(options.ReuseRun, previous.ID, "journal.json"), &state); err != nil {
+			return fmt.Errorf("read retained rental %q: %w", previous.ID, err)
+		}
+		if state.InstallationFingerprint == "" || state.InstallationFingerprint != prepared.startupFingerprint {
+			return fmt.Errorf("rental %q differs from its retained provisioning inputs or lacks an installation fingerprint", previous.ID)
+		}
+		parts := strings.Split(state.Label, ":")
+		validLabel := len(parts) == 5 && parts[0] == "imagegen-eval" && parts[1] == configuration.Owner && len(parts[2]) == 32 && safe.MatchString(parts[3]) && parts[4] == ""
+		if validLabel {
+			_, err := hex.DecodeString(parts[2])
+			validLabel = err == nil
+		}
+		if state.Rental.ID != previous.ID || state.Rental.ModelProfile != previous.ModelProfile || state.Rental.HardwareProfile != previous.HardwareProfile || state.Phase != "retained" || !state.ReleasedAt.IsZero() || state.CreatedAt.IsZero() || state.InstanceID <= 0 || identities[state.InstanceID] || !validLabel {
+			return fmt.Errorf("rental %q has an invalid, duplicated or released retained identity", previous.ID)
+		}
+		identities[state.InstanceID] = true
+		remote, err := api.Get(ctx, state.InstanceID)
+		if err != nil {
+			return fmt.Errorf("inspect retained instance %d: %w", state.InstanceID, err)
+		}
+		if remote.Label != state.Label || remote.Status == nil || *remote.Status != "running" {
+			return fmt.Errorf("retained instance %d ownership or running state does not match", state.InstanceID)
+		}
+		prepared.retained = &state
+	}
+	return nil
 }

@@ -56,7 +56,7 @@ func command() *cobra.Command {
 				}
 				options.DisableCleanup = !enabled
 			}
-			paths := []*string{&options.Configuration, &options.Profiles, &options.Cases, &options.Workflows, &options.Terraform, &options.StartupTemplate, &options.RuntimeDefaults, &options.Requirements, &options.SequenceSource, &options.GIFSource, &options.QwenGIFSource, &options.Bridge, &options.CLI, &options.CAFile, &options.Worker, &options.StartupFile}
+			paths := []*string{&options.Configuration, &options.Profiles, &options.Cases, &options.Workflows, &options.Terraform, &options.StartupTemplate, &options.RuntimeDefaults, &options.Requirements, &options.SequenceSource, &options.GIFSource, &options.QwenGIFSource, &options.Bridge, &options.CLI, &options.CAFile, &options.Worker, &options.StartupFile, &options.ReuseRun}
 			for _, path := range paths {
 				value, err := resolve(*path)
 				if err != nil {
@@ -103,6 +103,7 @@ func command() *cobra.Command {
 		flags.StringSliceVar(&options.Groups, "group", nil, "Select named matrix groups; cleanup still covers the whole namespace")
 		if operation == "run" {
 			flags.Bool("cleanup", true, "Destroy rentals and sweep the namespace when the run ends")
+			flags.StringVar(&options.ReuseRun, "reuse-run", "", "Reuse matching installations from a retained run directory; requires --cleanup=false")
 			flags.Int64SliceVar(&options.ExcludedOffers, "exclude-offer", nil, "Skip known failed offer IDs for this run only")
 		}
 		flags.StringVar(&options.Configuration, "config", "", "Evaluation matrix JSON")

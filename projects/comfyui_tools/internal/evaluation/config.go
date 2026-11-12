@@ -107,6 +107,8 @@ type samplingOverrides struct {
 type Options struct {
 	// DisableCleanup retains rentals and skips the final sweep when explicitly requested.
 	DisableCleanup bool
+	// ReuseRun selects an explicitly retained prior run instead of new allocations.
+	ReuseRun string
 	// Progress receives non-secret lifecycle events and the final report location.
 	Progress io.Writer
 	// logger serializes progress from parallel workers during one run.

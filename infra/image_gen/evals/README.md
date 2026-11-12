@@ -46,7 +46,7 @@ entire assigned workload, a five-minute readiness deadline and a separate cleanu
 100 GB disk and a $1/hour reported offer-price ceiling. Offers are ordered by
 lowest reported hourly price among offers satisfying both transfer-rate caps;
 no GPU model is pinned. The canonical shared offer declaration caps incoming
-and outgoing bandwidth at USD 0.025/GB each. This rejects the expensive-transfer
+and outgoing bandwidth at USD 0.04/GB each. This rejects the expensive-transfer
 hosts used in the first experiment without disabling any host requirements. Datacenter and verification are
 mandatory in both the query declaration and returned tier metadata. The explicit
 minimum_reliability value of zero removes only the inherited 99-percent floor;
@@ -106,6 +106,28 @@ destruction and the final sweep are skipped, and run.json records
 cleanup_skipped=true and cleanup_confirmed=false. The journal identifies each
 retained rental; invoke the standalone cleanup target when debugging is finished. Source validation builds the live targets without
 executing them.
+
+To iterate on those retained installations, pass their completed run directory:
+
+```sh
+bazel run //infra/image_gen/evals:run -- --cleanup=false \
+  --reuse-run /absolute/path/to/results/RUN_ID
+```
+
+Select the desired groups or supply revised case/workflow paths as usual. Every
+selected hardware/model pair must match exactly one retained installation,
+including its declared image, asset/extension pins and hardware configuration.
+The journal's installation fingerprint must also match installed first-party
+source, selected requirements contents, runtime settings and startup template.
+The source report must belong to the same namespace and provider endpoint.
+Live instance labels and running state are checked before work; missing,
+released, foreign or incompatible installations fail without new allocations.
+Reuse never reinstalls models or restarts services. New iterations get separate
+reports and media, preserving prior outputs and original rental identities.
+The first run must record provider_endpoint and installation fingerprints;
+older retained runs are rejected rather than assumed compatible.
+Per-run deadlines bound active work, not continued billing of retained rentals.
+Explicit cleanup still destroys the whole eval namespace.
 
 Edit config.json to select matrix groups, profiles, cases, workflow purposes,
 seeds and limits. Optional per-group sampling controls include steps, cfg, denoise,

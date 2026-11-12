@@ -243,6 +243,16 @@ output hashes and cleanup status are retained in private run artifacts.
 Artistic quality and reference adherence remain separate, unscored review
 criteria; execution success is not a quality verdict.
 
+For repeated iterations, retain the first run with `--cleanup=false`, then pass
+`--reuse-run /absolute/path/to/that/run --cleanup=false`. Reuse requires matching
+declared installations, recorded provisioning fingerprints and exact live
+ownership; it never allocates a fallback. Fingerprints cover installed node
+source and requirements contents, runtime settings and the startup template.
+Runs without fingerprints cannot be reused.
+Each iteration records new cases, workflows and sampling in a separate result
+directory while preserving the original instance and prior results. Retention
+continues billing outside controller deadlines; release requires explicit cleanup.
+
 Loopback E2E checks exercise matrix pooling, offer reuse, namespace exclusion
 across output directories, duplicate-seed rejection, parallel completion,
 failures, interruption, lost

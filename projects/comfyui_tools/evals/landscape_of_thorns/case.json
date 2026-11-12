@@ -1,7 +1,7 @@
 {
     "id": "landscape_of_thorns",
     "prompt_file": "prompt.txt",
-    "negative_prompt": "lettering, captions, signatures, watermarks, decorative borders",
+    "negative_prompt": "lettering, captions, signatures, watermarks, decorative borders, skeleton, skeletal body, bare skull, exposed teeth without lips, bare ribcage, centered portrait, close-up face, living person, standing person, multiple bodies, upright healthy anatomy, floating body, disconnected spike, organic trees, leafy branches, isolated obelisks, symmetrical rows, bright cheerful colors, glossy plastic, smooth 3D render, uniform sharpness, decorative fantasy armor",
     "references": [
         {
             "path": "reference.jpg",
@@ -13,7 +13,7 @@
     "review_criteria": [
         {
             "id": "subject_adherence",
-            "description": "Small desiccated remains in the middle distance, pierced through the chest by a grounded side-spur; the architecture remains the main subject."
+            "description": "One small but legible flesh-covered adult corpse in the nearer middle distance, a connected side-spur visibly emerging through its wounded chest, intact facial flesh, mottled skin and heavily dangling limbs; reject a skeleton or bare skull. The monumental thorn field remains the main subject."
         },
         {
             "id": "reference_adherence",
@@ -21,11 +21,15 @@
         },
         {
             "id": "style_adherence",
-            "description": "Painterly grimdark digital concept art with deliberate silhouettes, restrained palette and atmospheric depth."
+            "description": "Painterly grimdark fine art with bold asymmetrical silhouettes, selective impasto and lost edges, a charcoal/olive/ash palette and layered atmospheric depth; avoid glossy rendering and uniform detail."
         },
         {
             "id": "artistic_quality",
-            "description": "Assess composition, lighting, shape design, brushwork, visual hierarchy and storytelling separately from detail or resolution."
+            "description": "Assess low-viewpoint composition, interlocking shape design, narrow raking light, selective brushwork and visual hierarchy: architecture on first glance, shocking human remains on second reading. Detail or resolution alone is not artistic quality."
+        },
+        {
+            "id": "emotional_intensity",
+            "description": "Oppressive scale and encroaching storm create dread; the legible impalement wound, flesh-covered dead face and broken hanging posture deliver a disturbing human consequence. A tiny unreadable body, skeleton or merely dark palette does not satisfy this criterion."
         },
         {
             "id": "structural_quality",

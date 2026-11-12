@@ -58,3 +58,19 @@
 - [x] 10.4 After Qwen is fixed, update the other model workflows with offline validation only; rent no capacity for them.
 
 - [x] 10.5 Inspect both corrected Qwen outputs, retain the GIF artifacts locally, and review all seven NoobAI workflows offline before its requested future selection.
+
+## 11. Thorn-landscape artistic direction
+
+- [x] 11.1 Strengthen the corpse-and-thorns prompt's composition, lighting, painterly treatment and oppressive intensity; preserve architectural dominance and revise its review criteria.
+- [x] 11.2 Validate the packaged case and run only both thorn matrix groups with the existing seeds, model settings and default automatic cleanup.
+- [x] 11.3 Inspect the downloaded stills, record quality limits and cleanup evidence, retain a local result gallery, and deliver the source change.
+
+## 12. Retained-rental artistic experiments
+
+- [x] 12.1 Establish command-level failure cases for retained-run reuse before implementation: missing/foreign/stale rentals, duplicate identities, changed installation, changed workloads, failure/interruption and accidental cleanup/allocation.
+- [x] 12.2 Add explicit retained-run reuse with ownership/installation checks, separate result directories and no fallback allocation; verify through the existing loopback command boundary.
+- [x] 12.3 Audit saved SDXL workflow bindings and prepare controlled reference-disabled/reduced comparisons; record that missing endpoints and operator cancellation prevented execution, without attributing artifacts to model quality.
+- [x] 12.4 Run several flesh-covered corpse prompt, sampling and native-mask variants on reused rentals with cleanup disabled; inspect saved outputs, report costs and destroy all rentals under the operator's later explicit instruction.
+- [x] 12.5 Validate and prepare publication of source and workflow/prompt findings with an honest quality verdict and saved comparison gallery; delivery receipts own publication state.
+
+- [x] 12.6 Reproduce changed provisioning contents and missing-fingerprint reuse before correction; bind retained installations to compiled input fingerprints and verify selected versus unused sources through the command E2E boundary.
