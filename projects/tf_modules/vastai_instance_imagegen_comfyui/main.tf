@@ -141,6 +141,7 @@ variable "custom_node_web_scripts" {
 }
 
 locals {
+  runtime_defaults     = jsondecode(file("${path.module}/runtime.json"))
   enabled_custom_nodes = sort(concat(keys(var.custom_nodes), keys(var.custom_node_sources)))
   first_party_files = concat(
     [for name, content in var.custom_node_sources : { path = "/workspace/ComfyUI/custom_nodes/${name}/__init__.py", content = content, permissions = "0600" }],
@@ -209,23 +210,10 @@ module "imagegen" {
   state              = var.state
   local_port         = var.local_port
   runtime_files      = { for name, content in var.workflows : "/workspace/ComfyUI/user/default/workflows/${name}.json" => jsonencode(jsondecode(content)) }
-  runtime = {
-    service            = "comfyui"
-    port               = 18188
-    arguments_variable = "COMFYUI_ARGS"
-    arguments          = "--listen 127.0.0.1 --port 18188 --disable-auto-launch --disable-all-custom-nodes --offline${length(local.enabled_custom_nodes) == 0 ? "" : " --whitelist-custom-nodes ${join(" ", local.enabled_custom_nodes)}"}"
-    model_root         = "/workspace/ComfyUI"
-    model_directories = {
-      checkpoint   = var.checkpoint_directory
-      lora         = "models/loras"
-      vae          = "models/vae"
-      embedding    = "models/embeddings"
-      text_encoder = "models/text_encoders"
-      ipadapter    = "models/ipadapter"
-      clip_vision  = "models/clip_vision"
-    }
-    portal_entries = ["localhost:8288:18288:/:API Wrapper"]
-  }
+  runtime = merge(local.runtime_defaults, {
+    arguments         = "${local.runtime_defaults.arguments}${length(local.enabled_custom_nodes) == 0 ? "" : " --whitelist-custom-nodes ${join(" ", local.enabled_custom_nodes)}"}"
+    model_directories = merge(local.runtime_defaults.model_directories, { checkpoint = var.checkpoint_directory })
+  })
   provisioning = {
     git_repos    = [for name, node in var.custom_nodes : { url = node.url, ref = node.ref, dest = "/workspace/ComfyUI/custom_nodes/${name}" }]
     write_files  = concat(local.first_party_files, var.python_requirements == null ? [] : [{ path = "/etc/imagegen-python-requirements.txt", content = var.python_requirements, permissions = "0600" }])

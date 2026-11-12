@@ -15,6 +15,7 @@ py_test(
     srcs = [
         "chained_img2img_gif.py",
         "chained_img2img_gif_test.py",
+        "//projects/comfyui_tools/nodes/qwen_chained_img2img_gif:source",
     ],
     python_version = "3.13.13",
     deps = [

@@ -3,9 +3,9 @@ title: ComfyUI tools
 description: Reusable ComfyUI custom nodes and image-generation workflows
 ---
 
-This project owns reusable ComfyUI nodes and workflow JSON. Each node has its
+This project owns reusable ComfyUI nodes, workflows and evaluation tooling. Each node has its
 own directory under nodes/, with its implementation, test and
-README. Workflow definitions are grouped by model under workflows/. Deployment,
+README. Workflow definitions are grouped by model under workflows/. Evaluation code and reusable cases live here; run configuration and deployment,
 model downloads, credentials and rental state belong to
 [image-generation infrastructure](../../infra/image_gen/README.md). The
 [repository CLI and local launchers](../../tools/comfyui/README.md) remain in
@@ -61,8 +61,13 @@ maintenance-only mode; future runtime upgrades need compatibility validation.
 The older RES4LYF style graphs retain the upstream `float64` style-patcher
 default to avoid mixing float32 reference features with its float64 SDXL branch.
 
-`noobai` and `illustrious` each provide the same seven SDXL workflow purposes
-as Juggernaut. They reuse the shared SDXL builder, style patcher and approved
+`noobai` and `illustrious` provide the same seven SDXL workflow purposes
+as Juggernaut. NoobAI also provides
+`noobai-image-to-image-prompt-sequence`: enter one prompt per nonempty line in
+Prompt Sequence; every image starts from the same original reference. It saves
+separate PNGs with shared negative text, a panel counter and unique grouped
+filenames. Adjust output dimensions in ImageScale and denoise in KSampler
+(default 0.65). They reuse the shared SDXL builder, style patcher and approved
 IP-Adapter/CLIP vision weights. Native graphs start at 30 Euler ancestral/normal
 steps and CFG 5.5; NoobAI uses neutral tag-style starting prompts. These are
 starting presets, with no new GPU acceptance or reference-quality claim.
@@ -70,14 +75,30 @@ NoobAI's publisher restricts commercial use, including generated products;
 the [model configuration](../../infra/image_gen/tf_setup/README.md#additional-model-options)
 records the licenses and component choices.
 
-`hidream-i1-full` provides text-to-image, img2img, style-reference, both panel
-sequences and chained img2img GIF. Native graphs use 50 UniPC/simple steps,
+`hidream-i1-full` provides text-to-image, img2img, style-reference, all three panel
+sequences and ordinary/masked chained img2img GIFs. The img2img sequence reuses
+the same original reference for each prompt, with editable output dimensions
+and denoise. Native graphs use 50 UniPC/simple steps,
 CFG 5 and shift 3, following the official full-model example. They load four
 local text encoders: CLIP-L, CLIP-G, T5 and Llama 3.1 8B. Style graphs reuse
 RES4LYF with its dedicated HiDream patcher and style sampler. This is style
-guidance; it is not a trained character-reference adapter. These graphs have
-offline packaging checks only; their GPU execution and output quality remain
-unverified.
+guidance; it is not a trained character-reference adapter. Its GIF workflow
+completed the approved plush case on a verified datacenter CMP 170HX 40 GiB
+on 2026-11-11. The output drifts in appearance and does not establish convincing
+petting motion. Other HiDream workflows still have offline packaging checks
+only; their GPU execution and output quality remain unverified.
+
+`uso` provides native subject-only, style-only and combined subject/two-style
+reference workflows, each with a prompt-sequence variant. `umo-uno` provides
+single and three-identity reference workflows and their sequences, without
+USO's style-projector branch. They share the native FLUX.1 graph builder,
+load matching model adapters and preserve the publisher's reference positioning.
+All sequences reuse the same original reference inputs per prompt and keep
+progress plus uniquely grouped filenames. Both families expose output size
+and native sampling controls. At CFG 1 their sequence negative output is
+unused. See the [model options](../../infra/image_gen/tf_setup/README.md#additional-model-options)
+for workflow names, reference roles and starting settings. Source and offline
+packaging are available; GPU compatibility and reference quality are untested.
 
 All seven Juggernaut workflows completed on the replacement rental on
 2026-11-10, producing 13 neutral 1024-square images at 30 steps. Both style paths
@@ -95,7 +116,7 @@ variant. Reference images supply character and style through native VAE latents.
 positive guidance and has no negative branch; the sequence node's negative
 output is unconnected in this family. Its Mistral text encoder runs locally.
 
-The selected `chroma-hd` profile provides text-to-image, image-to-image,
+The `chroma-hd` profile provides text-to-image, image-to-image,
 style-reference, prompt-sequence and style-prompt-sequence workflows with the
 full Chroma1-HD checkpoint, FP16 T5 and original VAE, plus a chained img2img GIF
 workflow with one prompt per frame. Native sampling starts at
@@ -170,15 +191,24 @@ previous-panel composition or story state. The node requires no external package
 The `JSON` separator remains available for lists saved by the former custom editor.
 
 Use `chroma-hd-image-to-image-gif` to animate from an initial image, with one
-prompt per generated frame in the same multiline box. Each latent feeds the
+prompt per generated frame in the same multiline box. Each decoded image is VAE-encoded for the
 next img2img step. The result is one looping GIF and a native frame batch; start
 at denoise 0.45 and 6 fps. This makes discrete chained images without motion
 interpolation. The [GIF node](nodes/chained_img2img_gif/README.md) documents
 timing and output behavior.
 
+For controlled frame edits, choose `frame_source=original` and
+`frame_seed_mode=fixed`; each pose then starts from the same reference and
+noise. Chroma, HiDream and Qwen each have an `image-to-image-gif-masked` variant
+with an adjustable soft edit rectangle. Qwen's GIF paths re-encode the preceding decoded image in the native
+instruction-based edit encoder when `frame_source=previous`; original mode
+keeps the initial reference for independent edits. Identical first/last pose
+prompts provide a controlled loop boundary with original-reference/fixed-noise
+sampling. These workflows still require visual motion evaluation.
+
 Terraform packages the node source and selected workflow files through their
 Bazel filegroups and installs them with Vast's native provisioner. This project
-does not own a CLI, server image or infrastructure state.
+does not own the upstream ComfyUI CLI, server image or infrastructure state.
 
 ## Offline validation
 
@@ -191,3 +221,31 @@ These checks exercise node behavior and Terraform's packaged workflow inputs.
 The node uses the standard ComfyUI editor without a custom browser extension.
 They do not access
 a rental or establish compatibility with its frontend version or GPU image quality.
+
+## Evaluations
+
+The evaluator runs independent, bounded rental workloads using the existing
+Vast SDK and ComfyUI CLI. Reusable [cases](evals/README.md) include the supplied
+thorn-landscape artwork prompt/reference and the plush-petting GIF reference.
+[Infrastructure composition](../../infra/image_gen/evals/README.md) owns the
+run matrix, credentials, limits and final/manual cleanup targets. No personal
+Terraform state is read or changed. All executable code stays in this project.
+
+Matrix groups expand hardware/model/workflow/case coordinates. All compatible
+workflows, cases and seeds sharing a hardware/model profile reuse one rental.
+Each rental starts as soon as its own endpoint is ready, keeps native jobs queued
+ahead of retrieval and releases capacity as soon as all its configured outputs
+are downloaded. Local media validation follows
+deletion. Inputs, native workflows, fixed seeds, model definitions, timings,
+output hashes and cleanup status are retained in private run artifacts.
+Artistic quality and reference adherence remain separate, unscored review
+criteria; execution success is not a quality verdict.
+
+Loopback E2E checks exercise matrix pooling, offer reuse, namespace exclusion
+across output directories, duplicate-seed rejection, parallel completion,
+failures, interruption, lost
+creation acknowledgments, cleanup recovery and the real authenticated CLI's
+upload/conversion/native-queue/download path, plus descendant cancellation. They never rent capacity or prove
+GPU model quality. Runtime composition currently supports the maintained
+CLIPTextEncode-based SDXL and HiDream graphs; unsupported workflow bindings
+fail before allocation. The authenticated CLI bridge requires Linux procfs.

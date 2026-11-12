@@ -81,7 +81,7 @@ function(models, sampling={ steps: 10, cfg: 1 }, sequences=false)
     'image-to-image-gif': g.sequence(g.variant(workflows['image-to-image'], {
                                        removeNodes: [9, 10, 11],
                                        removeLinks: [9, 10, 11],
-                                       nodes: [n.node(9, 'ImagegenChainedImageToImageGIF', [0, 'randomize', sampling.steps, sampling.cfg, std.get(sampling, 'sampler', 'euler'), std.get(sampling, 'scheduler', 'beta'), 0.45, 6.0, 'animation'], [1050, 0], [420, 420], order=9)],
+                                       nodes: [n.node(9, 'ImagegenChainedImageToImageGIF', [0, 'randomize', sampling.steps, sampling.cfg, std.get(sampling, 'sampler', 'euler'), std.get(sampling, 'scheduler', 'beta'), 0.45, 6.0, 'animation', 'previous', 'increment'], [1050, 0], [420, 480], order=9)],
                                        links: [[21, 3, 0, 9, 4]],
                                        metadata: { last_link_id: 21 },
                                      }),
@@ -90,6 +90,7 @@ function(models, sampling={ steps: 10, cfg: 1 }, sequences=false)
                                      7,
                                      9,
                                      [18, 19, 20]),
+    'image-to-image-gif-masked': (import '../internal/animation.libsonnet').masked(self['image-to-image-gif'], 13),
     'prompt-sequence': g.sequence(workflows['text-to-image'],
                                   n.node(17, 'ImagegenPromptSequence', ['A small blue robot enters a snowy park.\n\nA small blue robot reads a book on a bench.\n\nA small blue robot waves beside a tree.', 'An illustrated comic panel, consistent small blue robot character and watercolor style, clear silhouettes.', 'line', 'comic'], [0, 1400], [680, 380], title='Panel prompts and shared style', order=12),
                                   6,

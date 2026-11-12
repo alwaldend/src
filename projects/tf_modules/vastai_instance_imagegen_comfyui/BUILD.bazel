@@ -8,9 +8,15 @@ filegroup(
     name = "vastai_instance_imagegen_comfyui",
     srcs = [
         "main.tf",
+        "runtime.json",
     ],
     data = ["//projects/tf_modules/vastai_instance_imagegen"],
     visibility = ["//:__subpackages__"],
+)
+
+exports_files(
+    ["runtime.json"],
+    visibility = ["//projects/comfyui_tools:asset_consumers"],
 )
 
 filegroup(

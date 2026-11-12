@@ -7,6 +7,7 @@ import (
 	"os"
 	"path/filepath"
 	"reflect"
+	"slices"
 	"sort"
 	"strings"
 	"testing"
@@ -60,8 +61,10 @@ func TestConfiguredImagegenStartup(t *testing.T) {
 		} `json:"downloads"`
 		// ModelProfiles supplies the bundles without another maintained list.
 		ModelProfiles map[string]struct {
-			// Workflows identifies every staged native graph.
+			// Workflows identifies the complete native graph catalog.
 			Workflows []string `json:"workflows"`
+			// StartupWorkflows optionally limits inline graphs; remaining files are uploaded through the API.
+			StartupWorkflows *[]string `json:"startup_workflows"`
 			// Downloads is the ordered list of filenames resolved from the registry.
 			Downloads []string `json:"downloads"`
 			// CheckpointDirectory distinguishes SDXL bundles from standalone denoisers.
@@ -82,6 +85,11 @@ func TestConfiguredImagegenStartup(t *testing.T) {
 	sort.Strings(names)
 	for _, profileName := range names {
 		t.Run(profileName, func(t *testing.T) {
+			profile := configuration.ModelProfiles[profileName]
+			startupWorkflows := profile.Workflows
+			if profile.StartupWorkflows != nil {
+				startupWorkflows = *profile.StartupWorkflows
+			}
 			f := &imagegenFixture{noTemplate: true, exposed: true, comfyUI: true}
 			f.rental.runtype = "ssh_direct"
 			server := httptest.NewServer(f)
@@ -122,20 +130,29 @@ custom_node_sources = merge(
   {prompt_sequence = file(%q)},
   contains(local.profile.workflows, "${local.profile_name}-image-to-image-gif") ? {chained_img2img_gif=file(%q)} : {},
 )
-workflows = {for name in local.profile.workflows : name => file("${local.workflow_directory}/${local.profile_name}/${name}.json")}
+workflows = {for name in try(local.profile.startup_workflows, local.profile.workflows) : name => file("${local.workflow_directory}/${local.profile_name}/${name}.json")}
 `, sequencePath, gifPath))
 			h.run(t, true, "apply", "-auto-approve", "-no-color")
 			if f.startupBytes == 0 || f.startupBytes > 16384 {
 				t.Fatal("configured bundle exceeded the API startup limit")
 			}
 			for _, name := range configuration.ModelProfiles[profileName].Workflows {
-				actual := stagedJSON(t, f.startup, "/workspace/ComfyUI/user/default/workflows/"+name+".json")
 				expected, err := os.ReadFile(filepath.Join(filepath.Dir(filepath.Dir(workflowPath)), profileName, name+".json"))
 				if err != nil {
 					t.Fatalf("read generated workflow: %v", err)
 				}
 				var actualGraph, expectedGraph any
-				if json.Unmarshal(actual, &actualGraph) != nil || json.Unmarshal(expected, &expectedGraph) != nil || !reflect.DeepEqual(actualGraph, expectedGraph) {
+				if json.Unmarshal(expected, &expectedGraph) != nil {
+					t.Fatalf("configured workflow %s is not valid JSON", name)
+				}
+				if !slices.Contains(startupWorkflows, name) {
+					if strings.Contains(f.startup, "cat > '/workspace/ComfyUI/user/default/workflows/"+name+".json'") {
+						t.Fatalf("API-staged workflow %s was embedded in startup", name)
+					}
+					continue
+				}
+				actual := stagedJSON(t, f.startup, "/workspace/ComfyUI/user/default/workflows/"+name+".json")
+				if json.Unmarshal(actual, &actualGraph) != nil || !reflect.DeepEqual(actualGraph, expectedGraph) {
 					t.Fatalf("configured workflow %s changed during startup packaging", name)
 				}
 			}
@@ -151,7 +168,6 @@ workflows = {for name in local.profile.workflows : name => file("${local.workflo
 			if err := json.Unmarshal(stagedJSON(t, f.startup, "/etc/imagegen-models.json"), &manifest); err != nil {
 				t.Fatalf("decode configured model manifest: %v", err)
 			}
-			profile := configuration.ModelProfiles[profileName]
 			if len(manifest.Downloads) != len(profile.Downloads) {
 				t.Fatal("configured model asset count changed during packaging")
 			}
@@ -160,7 +176,7 @@ workflows = {for name in local.profile.workflows : name => file("${local.workflo
 				if !exists {
 					t.Fatalf("model asset %s is missing from the registry", filename)
 				}
-				directory := map[string]string{"checkpoint": profile.CheckpointDirectory, "text_encoder": "models/text_encoders", "vae": "models/vae", "ipadapter": "models/ipadapter", "clip_vision": "models/clip_vision"}[asset.Kind]
+				directory := map[string]string{"checkpoint": profile.CheckpointDirectory, "text_encoder": "models/text_encoders", "vae": "models/vae", "ipadapter": "models/ipadapter", "clip_vision": "models/clip_vision", "lora": "models/loras", "model_patch": "models/model_patches"}[asset.Kind]
 				if directory == "" && asset.Kind == "checkpoint" {
 					directory = "models/diffusion_models"
 				}
@@ -170,7 +186,7 @@ workflows = {for name in local.profile.workflows : name => file("${local.workflo
 			}
 			h.run(t, true, "destroy", "-auto-approve", "-no-color")
 			if directory := os.Getenv("TEST_UNDECLARED_OUTPUTS_DIR"); directory != "" {
-				evidence, err := json.Marshal(map[string]any{"profile": profileName, "model_files": profile.Downloads, "workflow_count": len(configuration.ModelProfiles[profileName].Workflows), "startup_bytes": f.startupBytes, "limit_bytes": 16384, "workflow_contents_preserved": true, "model_destinations_preserved": true, "live_operations": 0})
+				evidence, err := json.Marshal(map[string]any{"profile": profileName, "model_files": profile.Downloads, "workflow_count": len(profile.Workflows), "startup_workflow_count": len(startupWorkflows), "startup_bytes": f.startupBytes, "limit_bytes": 16384, "workflow_contents_preserved": true, "model_destinations_preserved": true, "live_operations": 0})
 				if err != nil {
 					t.Fatalf("encode configured startup evidence: %v", err)
 				}

@@ -5,8 +5,12 @@ package(transitive_visibility = "//projects:transitive_consumers")
 package_group(
     name = "asset_consumers",
     packages = [
+        "//infra/image_gen/evals",
         "//infra/image_gen/tf_setup",
         "//projects/comfyui_tools",
+        "//projects/comfyui_tools/internal/evaluation",
+        "//projects/comfyui_tools/nodes/chained_img2img_gif",
+        "//projects/comfyui_tools/test/evaluation",
         "//projects/vastai_terraform_provider/test/acceptance",
     ],
 )
@@ -16,6 +20,7 @@ filegroup(
     srcs = [
         "//projects/comfyui_tools/nodes/chained_img2img_gif:source",
         "//projects/comfyui_tools/nodes/prompt_sequence:source",
+        "//projects/comfyui_tools/nodes/qwen_chained_img2img_gif:source",
         "//projects/comfyui_tools/workflows",
     ],
     visibility = ["//:__subpackages__"],
@@ -26,8 +31,10 @@ docs_filegroup(
     srcs = ["README.md"],
     visibility = ["//projects:__pkg__"],
     deps = [
+        "//projects/comfyui_tools/evals:docs",
         "//projects/comfyui_tools/nodes/chained_img2img_gif:docs",
         "//projects/comfyui_tools/nodes/prompt_sequence:docs",
+        "//projects/comfyui_tools/nodes/qwen_chained_img2img_gif:docs",
         "//projects/comfyui_tools/openspec:docs",
         "//projects/comfyui_tools/workflows:docs",
     ],

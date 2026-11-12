@@ -1,0 +1,38 @@
+{
+    "datacenter": {
+        "eq": true
+    },
+    "gpu_arch": {
+        "eq": "nvidia"
+    },
+    "cpu_arch": {
+        "eq": "amd64"
+    },
+    "cuda_max_good": {
+        "gte": 12.9
+    },
+    "verified": {
+        "eq": true
+    },
+    "rentable": {
+        "eq": true
+    },
+    "rented": {
+        "eq": false
+    },
+    "num_gpus": {
+        "eq": 1
+    },
+    "reliability": {
+        "gte": 0.99
+    },
+    "type": "on-demand",
+    "order": [["dph_total", "asc"]],
+    "limit": 1,
+    "inet_down_cost": {
+        "lte": 0.025
+    },
+    "inet_up_cost": {
+        "lte": 0.025
+    }
+}

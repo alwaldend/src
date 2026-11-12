@@ -1,7 +1,8 @@
 schema: spec-driven
 
 context: |
-  Reusable first-party ComfyUI custom nodes and workflow JSON.
+  Reusable first-party ComfyUI custom nodes, workflow JSON and evaluation code/cases.
+  Evaluation runtime configuration, deployment and credentials belong to infra/image_gen/evals.
   Deployment and model profiles belong to infra/image_gen.
   Repository CLI and local launchers belong to tools/comfyui.
   Relocation preserves runtime node names and workflow contents.

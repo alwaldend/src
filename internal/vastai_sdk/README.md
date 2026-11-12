@@ -9,6 +9,13 @@ and exact template lookup. Template reads validate the returned hash, image,
 and Docker option metadata; they return an environment-only classification
 without retaining environment values. Creation accepts an optional template hash and Docker environment/port options.
 Instance reads expose typed host-port bindings without retaining returned environment values.
+Instances() enumerates bounded pages of the current v1 endpoint, requesting and
+retaining only IDs and labels for ownership reconciliation. Repeated cursors,
+invalid identities and incomplete enumeration fail without reporting success.
+Existing per-instance operations retain their v0 protocol.
+StartupCommand() supplies the shared bounded optional gzip transport used by
+the provider and ephemeral evaluator; compatible images must provide Bash,
+base64, gzip, mktemp and rm.
 The Terraform provider consumes this client; it owns Terraform schemas and state.
 
 Construct a client with `client.New(client.Options{Endpoint: endpoint, APIKey: key})`.
@@ -49,3 +56,7 @@ servers. The [rental acceptance](../../infra/image_gen/openspec/changes/add-imag
 also verifies live instance creation; other live API operations are not
 comprehensively verified. This internal library
 has no independent product release or landing page.
+
+PublishedPort() normalizes duplicate IPv4/IPv6 bindings to one host port and
+rejects invalid or distinct port values. The provider and evaluator share this
+implementation; zero indicates a port not yet published.

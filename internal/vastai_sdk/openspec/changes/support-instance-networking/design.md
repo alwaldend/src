@@ -32,3 +32,9 @@ team-name rejection diagnostic rather than enabling raw response logging.
 
 The bounded diagnostic identified the server's 16,384-byte limit, and the
 corrected request created the authorized rental successfully.
+
+## Ephemeral evaluation support
+
+Expose typed ID/label-only instance enumeration for exact evaluation-namespace reconciliation. Share the existing bounded gzip startup encoding with the provider and evaluator through one SDK implementation; preserve all emitted bytes and runtime prerequisites. The evaluator owns lifecycle policy and never retries ambiguous creation blindly. Verify with real command/loopback lifecycle fixtures and existing provider acceptance; no live operations.
+
+The first live eval cancellation confirmed deletion of instance 60211536 through v0 Get/Delete, but namespace enumeration returned HTTP 410. Vast's current official CLI uses GET /api/v1/instances/ with limit, order_by and after_token pagination. Replace the obsolete list route while preserving existing v0 resource operations. Request only id/label columns, validate all pages and cursor progress, and never claim an empty namespace from a partial or malformed response. The controller fixture must reject the deprecated route and place matching rentals on later pages before implementation. Source: https://github.com/vast-ai/vast-cli/blob/master/vast.py (_fetch_all_instances_v1).

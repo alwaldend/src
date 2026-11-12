@@ -11,6 +11,7 @@ import (
 	"net/http"
 	"net/url"
 	"regexp"
+	"strconv"
 	"strings"
 	"time"
 
@@ -313,6 +314,68 @@ func (c *Client) Get(ctx context.Context, id int64) (*Instance, error) {
 	return &instance, nil
 }
 
+// InstanceIdentity is the non-secret ownership surface used by cleanup.
+type InstanceIdentity struct {
+	// ID is the confirmed contract identifier.
+	ID int64 `json:"id"`
+	// Label is the caller-assigned instance label.
+	Label string `json:"label"`
+}
+
+// Instances enumerates every v1 page, retaining only non-secret ownership metadata.
+func (c *Client) Instances(ctx context.Context) ([]InstanceIdentity, error) {
+	endpoint, err := url.Parse(c.endpoint)
+	if err != nil {
+		return nil, fmt.Errorf("parse instance-list endpoint: %w", err)
+	}
+	if strings.HasSuffix(endpoint.Path, "/v0") {
+		endpoint.Path = strings.TrimSuffix(endpoint.Path, "/v0") + "/v1"
+	} else {
+		endpoint.Path = strings.TrimRight(endpoint.Path, "/") + "/api/v1"
+	}
+	endpoint.RawPath = ""
+	versioned := *c
+	versioned.endpoint = endpoint.String()
+	parameters := url.Values{"limit": {"100"}, "order_by": {`[{"col":"id","dir":"asc"}]`}, "select_cols": {`["id","label"]`}, "select_filters": {"{}"}}
+	instances := []InstanceIdentity{}
+	seenIDs := map[int64]bool{}
+	seenCursors := map[string]bool{}
+	for page := 0; page < 100; page++ {
+		var result struct {
+			// Instances distinguishes a confirmed empty collection from missing data.
+			Instances json.RawMessage `json:"instances"`
+			// NextToken identifies the next page, with nil/empty marking the final page.
+			NextToken *string `json:"next_token"`
+		}
+		if err := versioned.request(ctx, http.MethodGet, "/instances/?"+parameters.Encode(), nil, &result); err != nil {
+			return nil, fmt.Errorf("list instances page %d: %w", page+1, err)
+		}
+		if len(result.Instances) == 0 || string(result.Instances) == "null" {
+			return nil, errors.New("instance listing omitted the collection")
+		}
+		var rows []InstanceIdentity
+		if err := json.Unmarshal(result.Instances, &rows); err != nil {
+			return nil, fmt.Errorf("decode instance collection page %d: %w", page+1, err)
+		}
+		for _, instance := range rows {
+			if instance.ID <= 0 || seenIDs[instance.ID] {
+				return nil, errors.New("instance listing contains an invalid or duplicate identity")
+			}
+			seenIDs[instance.ID] = true
+			instances = append(instances, instance)
+		}
+		if result.NextToken == nil || *result.NextToken == "" {
+			return instances, nil
+		}
+		if seenCursors[*result.NextToken] {
+			return nil, errors.New("instance listing repeated a pagination cursor")
+		}
+		seenCursors[*result.NextToken] = true
+		parameters.Set("after_token", *result.NextToken)
+	}
+	return nil, errors.New("instance listing exceeded 100 pages; enumeration remains incomplete")
+}
+
 // Update changes an existing instance's mutable name and desired power state.
 func (c *Client) Update(ctx context.Context, id int64, label, state string) error {
 	input := generatedapi.ManageInstanceRequest{Label: &label, State: &state}
@@ -375,4 +438,27 @@ func (c *Client) Search(ctx context.Context, query map[string]any) ([]Offer, err
 		}
 	}
 	return offers, nil
+}
+
+// ErrInvalidPortBinding classifies a malformed published port without disclosing its value.
+var ErrInvalidPortBinding = errors.New("invalid mapped host port")
+
+// ErrAmbiguousPortBinding classifies distinct published ports for one container port.
+var ErrAmbiguousPortBinding = errors.New("ambiguous mapped host port")
+
+// PublishedPort normalizes identical IPv4/IPv6 bindings; zero means not published yet.
+// Both the Terraform provider and ephemeral evaluator consume this transport contract.
+func PublishedPort(bindings []PortBinding) (int64, error) {
+	var port int64
+	for _, binding := range bindings {
+		parsed, err := strconv.ParseInt(binding.HostPort, 10, 64)
+		if err != nil || parsed < 1 || parsed > 65535 {
+			return 0, fmt.Errorf("validate published port: %w", ErrInvalidPortBinding)
+		}
+		if port != 0 && port != parsed {
+			return 0, fmt.Errorf("normalize published port: %w", ErrAmbiguousPortBinding)
+		}
+		port = parsed
+	}
+	return port, nil
 }

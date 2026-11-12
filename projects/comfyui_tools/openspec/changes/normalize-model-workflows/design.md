@@ -226,3 +226,46 @@ workflow contents and model destinations after startup compression. New model
 GPU execution, memory, speed, reference quality and image quality remain
 unverified: the operator explicitly forbids renting for these checks. Existing
 Chroma acceptance is not evidence for the three new model families.
+
+## NoobAI img2img prompt sequence
+
+Compose the existing NoobAI img2img graph through the shared sequence helper.
+Each prompt starts from the same original reference latent and saves an ordinary
+PNG. Preserve its size controls, denoise 0.65, CFG 5.5 and 30-step sampler.
+Use the existing node's shared negative text, native progress and unique grouped
+filename outputs. No new node or dependency is needed.
+
+Before implementation, reject these failure cases: replacing the reference
+latent with fresh noise, feeding a previous output into the next image,
+producing a GIF, losing the negative/model/filename connections, changing the
+one-output-per-prompt contract, or changing existing generated workflows.
+Validate generation and compressed provisioning offline. The operator subsequently
+requested uploading this exact new saved workflow to the current rental through
+the authenticated CLI; verify its readback without accessing jobs or restarting
+ComfyUI. Preserve all other saved workflows and supply the generated JSON for import.
+
+The requested HiDream deployment also needs its ordinary img2img sequence.
+Apply the same shared transformation to the existing HiDream img2img graph;
+preserve its four encoders, shift, sampling controls and reference latent.
+Validate the same failure cases above and preserve all seven existing HiDream
+JSON documents. This adds no node implementation or external dependency.
+
+## Native USO and UMO-UNO options
+
+The operator requests the other discussed model options without renting.
+Use ComfyUI's native FLUX.1 reference conditioning and the existing Prompt
+Sequence helper. USO supplies subject, style and combined reference purposes;
+UMO-UNO supplies single and multiple identities without a style-projector
+branch. Each purpose also has a grouped prompt sequence. Preserve existing
+graphs and keep model files owned by infra/image_gen.
+
+Reject wrong model/LoRA roles, missing USO projector or SigLIP conditioning,
+missing VAE reference encoding, incorrect reference ordering, absent uxo/uno
+conditioning and reference latents used as starting noise. Native KSampler
+uses a fresh latent, CFG 1, Euler/simple and the publisher's guidance/step
+settings. Do not add EasyCache or claim that negative text affects CFG 1.
+Size controls remain editable. Every sequence uses the same original reference
+inputs for each prompt, with progress and unique grouped filenames. Validate
+links and native node contracts before implementation and inspect generated
+artifacts without a rental. No first-party node implementation changes or new
+runtime packages are required.

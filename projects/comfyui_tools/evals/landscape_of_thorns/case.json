@@ -1,0 +1,35 @@
+{
+    "id": "landscape_of_thorns",
+    "prompt_file": "prompt.txt",
+    "negative_prompt": "lettering, captions, signatures, watermarks, decorative borders",
+    "references": [
+        {
+            "path": "reference.jpg",
+            "role": "architectural shapes, density and monumental scale"
+        }
+    ],
+    "width": 1344,
+    "height": 768,
+    "review_criteria": [
+        {
+            "id": "subject_adherence",
+            "description": "Small desiccated remains in the middle distance, pierced through the chest by a grounded side-spur; the architecture remains the main subject."
+        },
+        {
+            "id": "reference_adherence",
+            "description": "Dense, angular, tapered manufactured thorns match the architectural reference; avoid isolated obelisks and organic trees."
+        },
+        {
+            "id": "style_adherence",
+            "description": "Painterly grimdark digital concept art with deliberate silhouettes, restrained palette and atmospheric depth."
+        },
+        {
+            "id": "artistic_quality",
+            "description": "Assess composition, lighting, shape design, brushwork, visual hierarchy and storytelling separately from detail or resolution."
+        },
+        {
+            "id": "structural_quality",
+            "description": "Convincing supported geometry, gravity and anatomy without unrelated objects, duplicated forms or unwanted lettering."
+        }
+    ]
+}

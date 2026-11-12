@@ -1,0 +1,53 @@
+{
+    "id": "plush_petting",
+    "prompt_file": "prompt.txt",
+    "negative_prompt": "camera movement, scene cuts, extra hands, extra fingers, deformed plush, lettering, watermarks",
+    "references": [
+        {
+            "path": "reference.jpg",
+            "role": "initial frame, scene composition and plush identity"
+        }
+    ],
+    "width": 1024,
+    "height": 960,
+    "fps": 6,
+    "frame_prompts": [
+        "The existing palm rests lightly and flat on top of the plush's yellow hair, with straight relaxed fingers pointing right.",
+        "The existing palm is one finger-width lower, pressing the plush's yellow hair downward; relaxed fingers still point right.",
+        "The existing hand has slid about half a palm-width to the right across the plush's yellow hair, fingers extended and together.",
+        "The existing hand is at the end of that rightward stroke, half a palm-width right of its resting position, with its fingertips slightly curled downward.",
+        "The existing palm is raised two finger-widths above the yellow hair, fingers together and the wrist lifted.",
+        "The existing hand has moved left toward its original resting position, hovering just above the yellow hair.",
+        "The existing palm is lowering onto the top of the yellow hair in its original position.",
+        "The existing palm rests lightly and flat on top of the plush's yellow hair, with straight relaxed fingers pointing right."
+    ],
+    "review_criteria": [
+        {
+            "id": "motion_adherence",
+            "description": "The existing hand visibly pets the plush's head; a static GIF or unrelated motion fails this criterion."
+        },
+        {
+            "id": "reference_adherence",
+            "description": "Preserve the yellow-haired plush, its expression, the arm emerging from the monitor, desk and framing."
+        },
+        {
+            "id": "temporal_consistency",
+            "description": "The hand, fingers, plush and background remain coherent across frames without flicker or new objects."
+        },
+        {
+            "id": "loop_continuity",
+            "description": "The final pose returns naturally to the initial pose with no visible jump at the loop boundary."
+        },
+        {
+            "id": "artistic_quality",
+            "description": "Preserve the photograph's appearance and make the motion readable and gentle."
+        }
+    ],
+    "edit_region": {
+        "x": 460,
+        "y": 420,
+        "width": 500,
+        "height": 240,
+        "feather": 32
+    }
+}

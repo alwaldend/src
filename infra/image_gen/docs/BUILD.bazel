@@ -1,6 +1,6 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_template//rules:template_run_binary.bzl", "template_run_binary")
-load("//tools/mermaid:defs.bzl", "mermaid_webp")
+load("//tools/mermaid:defs.bzl", "mermaid_svg", "mermaid_webp")
 load("//tools/mermaid:theme.bzl", "mermaid_theme")
 
 package(transitive_visibility = "//infra:transitive_consumers")
@@ -37,7 +37,31 @@ mermaid_webp(
 
 docs_filegroup(
     name = "docs",
-    srcs = [":architecture"],
+    srcs = [
+        ":architecture",
+        ":evaluations",
+        ":evaluations_svg",
+    ],
     prefix = "content/docs/infra/image_gen/assets",
     visibility = ["//infra/image_gen:__pkg__"],
+)
+
+mermaid_svg(
+    name = "evaluations_svg",
+    src = "evaluations.mmd",
+    out = "rendered/evaluations.svg",
+    dark_out = "rendered/evaluations.dark.svg",
+    native = True,
+    theme = ":theme",
+)
+
+mermaid_webp(
+    name = "evaluations",
+    src = "evaluations.mmd",
+    out = "rendered/evaluations.dark.webp",
+    aspect_ratio = [],
+    color_scheme = "dark",
+    native = True,
+    scale = 2,
+    theme = ":theme",
 )

@@ -1,0 +1,25 @@
+flowchart LR
+    subgraph runner["Eval runner"]
+        direction TB
+        matrix["Matrix<br/>Hardware × model × workflow × case × seed"]
+        plan["Validate and pool<br/>One rental per hardware + model"]
+        matrix --> plan
+    end
+
+    subgraph workers["Workers (up to 3 rentals in parallel)"]
+        direction TB
+        rent["Rent Vast.ai GPU<br/>Verified datacenter"]
+        ready["Wait for ComfyUI<br/>Models and nodes installed"]
+        queue["Queue workflows × cases × seeds<br/>Reuse model weights"]
+        download["Download outputs<br/>While later jobs render"]
+        release["Destroy rental<br/>After its last download"]
+        rent --> ready --> queue --> download --> release
+    end
+
+    runner --> workers
+    workers -->|Save outputs| results[("Local results<br/>Media, inputs,<br/>timings and hashes")]
+    workers -->|Finally, including handled failures| cleanup["Cleanup sweep<br/>Destroy eval-labeled leftovers"]
+    manual("Operator") -->|Manual cleanup target| cleanup
+
+    classDef actor font-style:normal;
+    class manual actor

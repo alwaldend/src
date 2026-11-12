@@ -1,10 +1,7 @@
 package resources
 
 import (
-	"bytes"
-	"compress/gzip"
 	"context"
-	"encoding/base64"
 	"errors"
 	"fmt"
 	"regexp"
@@ -53,8 +50,6 @@ const (
 	instanceStateStopped = "stopped"
 	// maximumInstanceLabelLength bounds an instance label in Unicode characters.
 	maximumInstanceLabelLength = 1024
-	// maximumStartupBytes is Vast's inline startup command limit, including encoding.
-	maximumStartupBytes = 16384
 )
 
 // supportedRuntypes owns the canonical launch modes used by validation and schema descriptions.
@@ -259,29 +254,11 @@ func validateInstance(data instanceModel) diag.Diagnostics {
 	return diagnostics
 }
 
-// instanceStartupCommand prepares bounded API input without including script contents in errors.
+// instanceStartupCommand delegates the shared bounded transport encoding.
 func instanceStartupCommand(script string, compress bool) (string, error) {
-	command := script
-	if compress && script != "" {
-		var compressed bytes.Buffer
-		writer, err := gzip.NewWriterLevel(&compressed, gzip.BestCompression)
-		if err != nil {
-			return "", fmt.Errorf("initialize startup compression: %w", err)
-		}
-		if _, err := writer.Write([]byte(script)); err != nil {
-			return "", fmt.Errorf("compress startup: %w", err)
-		}
-		if err := writer.Close(); err != nil {
-			return "", fmt.Errorf("finish startup compression: %w", err)
-		}
-		encoded := base64.StdEncoding.EncodeToString(compressed.Bytes())
-		wrapped := "# Compressed Vast.ai startup\nset -eu\numask 077\nstartup_file=$(mktemp)\ntrap 'rm -f \"$startup_file\"' EXIT\nprintf '%s' '" + encoded + "' | base64 -d | gzip -dc > \"$startup_file\"\n/bin/bash \"$startup_file\"\n"
-		if len(wrapped) < len(script) {
-			command = wrapped
-		}
-	}
-	if len(command) > maximumStartupBytes {
-		return "", fmt.Errorf("startup command exceeds %d bytes after the selected encoding; reduce the payload or enable compression for a compatible image", maximumStartupBytes)
+	command, err := vastclient.StartupCommand(script, compress)
+	if err != nil {
+		return "", fmt.Errorf("encode instance startup: %w", err)
 	}
 	return command, nil
 }
@@ -361,18 +338,14 @@ func (r *instanceResource) Read(ctx context.Context, req resource.ReadRequest, r
 		if len(ports) == 0 {
 			continue
 		}
-		var port int64
-		for _, binding := range ports {
-			parsed, err := strconv.ParseInt(binding.HostPort, 10, 64)
-			if err != nil || parsed < 1 || parsed > 65535 {
-				resp.Diagnostics.AddError("Invalid port binding", "Instance returned an invalid mapped host port; prior state is retained.")
-				return
-			}
-			if port != 0 && port != parsed {
+		port, err := vastclient.PublishedPort(ports)
+		if err != nil {
+			if errors.Is(err, vastclient.ErrAmbiguousPortBinding) {
 				resp.Diagnostics.AddError("Ambiguous port binding", "Instance returned distinct host ports for a container port; prior state is retained.")
-				return
+			} else {
+				resp.Diagnostics.AddError("Invalid port binding", "Instance returned an invalid mapped host port; prior state is retained.")
 			}
-			port = parsed
+			return
 		}
 		bindings[name] = port
 	}

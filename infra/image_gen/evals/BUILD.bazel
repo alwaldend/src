@@ -1,0 +1,204 @@
+load("@rules_al//:defs.bzl", "al_binary_run", "al_config")
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("@rules_go//go:def.bzl", "go_test")
+load("//tools/ssh:defs.bzl", "ssh_binary")
+
+package(transitive_visibility = "//infra:transitive_consumers")
+
+_CONFIGURATION = [
+    "--config",
+    "$(rlocationpath :config.json)",
+]
+
+_GIF_SELECTION = [
+    "--group",
+    "plush",
+    "--group",
+    "plush_anchored",
+    "--group",
+    "plush_edit",
+]
+
+_ASSETS = [
+    "--profiles",
+    "$(rlocationpath //infra/image_gen:config.json)",
+    "--cases",
+    "$(rlocationpath //projects/comfyui_tools/evals:README.md)",
+    "--workflows",
+    "$(rlocationpath //projects/comfyui_tools/workflows:chroma-hd/chroma-hd-text-to-image.json)",
+    "--terraform",
+    "$(rlocationpath @rules_terraform//terraform:cli)",
+    "--startup-template",
+    "$(rlocationpath //projects/tf_modules/vastai_instance_imagegen:startup.sh.tftpl)",
+    "--offer-defaults",
+    "$(rlocationpath //projects/tf_modules/vastai_instance_imagegen:offer_defaults.json)",
+    "--runtime-defaults",
+    "$(rlocationpath //projects/tf_modules/vastai_instance_imagegen_comfyui:runtime.json)",
+    "--requirements",
+    "$(rlocationpath //infra/image_gen:res4lyf-requirements.txt)",
+    "--sequence-source",
+    "$(rlocationpath //projects/comfyui_tools/nodes/prompt_sequence:source)",
+    "--gif-source",
+    "$(rlocationpath //projects/comfyui_tools/nodes/chained_img2img_gif:source)",
+    "--qwen-gif-source",
+    "$(rlocationpath //projects/comfyui_tools/nodes/qwen_chained_img2img_gif:source)",
+    "--bridge",
+    "$(rlocationpath //tools/comfyui/cmd/remote)",
+    "--cli",
+    "$(rlocationpath //tools/comfyui/cli:comfy)",
+    "--ca-file",
+    "$(rlocationpath //infra/image_gen:evaluation_certificate)",
+]
+
+_DATA = [
+    ":config.json",
+    "//infra/image_gen:config.json",
+    "//infra/image_gen:res4lyf-requirements.txt",
+    "//projects/comfyui_tools/cmd/evaluate",
+    "//projects/comfyui_tools/evals:README.md",
+    "//projects/comfyui_tools/evals:cases",
+    "//projects/comfyui_tools/nodes/chained_img2img_gif:source",
+    "//projects/comfyui_tools/nodes/prompt_sequence:source",
+    "//projects/comfyui_tools/nodes/qwen_chained_img2img_gif:source",
+    "//projects/comfyui_tools/workflows",
+    "//projects/comfyui_tools/workflows:chroma-hd/chroma-hd-text-to-image.json",
+    "//projects/tf_modules/vastai_instance_imagegen:startup.sh.tftpl",
+    "//projects/tf_modules/vastai_instance_imagegen:offer_defaults.json",
+    "//projects/tf_modules/vastai_instance_imagegen_comfyui:runtime.json",
+    "//infra/image_gen:evaluation_certificate",
+    "//tools/comfyui/cli:comfy",
+    "//tools/comfyui/cmd/remote",
+    "@rules_terraform//terraform:cli",
+]
+
+al_config(
+    name = "credentials",
+    configs = [
+        "//infra:al",
+        "//infra/image_gen:auth",
+        "//infra/image_gen:rental_auth",
+        "//infra/image_gen:web_auth",
+    ],
+)
+
+al_config(
+    name = "cleanup_credentials",
+    configs = [
+        "//infra:al",
+        "//infra/image_gen:auth",
+        "//infra/image_gen:rental_auth",
+    ],
+)
+
+al_binary_run(
+    name = "run",
+    args = [
+        "$(rootpath //projects/comfyui_tools/cmd/evaluate)",
+        "run",
+    ] + _CONFIGURATION + _ASSETS,
+    configs = [":credentials"],
+    data = _DATA,
+    plugin_labels = {
+        "tf": "setup",
+        "comfy": "1",
+    },
+)
+
+al_binary_run(
+    name = "gif",
+    args = [
+        "$(rootpath //projects/comfyui_tools/cmd/evaluate)",
+        "run",
+    ] + _GIF_SELECTION + _CONFIGURATION + _ASSETS,
+    configs = [":credentials"],
+    data = _DATA,
+    plugin_labels = {
+        "tf": "setup",
+        "comfy": "1",
+    },
+)
+
+al_binary_run(
+    name = "cleanup",
+    args = [
+        "$(rootpath //projects/comfyui_tools/cmd/evaluate)",
+        "cleanup",
+    ] + _CONFIGURATION,
+    configs = [":cleanup_credentials"],
+    data = [
+        ":config.json",
+        "//projects/comfyui_tools/cmd/evaluate",
+    ],
+    plugin_labels = {"tf": "setup"},
+)
+
+al_binary_run(
+    name = "check",
+    args = [
+        "$(rootpath //projects/comfyui_tools/cmd/evaluate)",
+        "check",
+    ] + _CONFIGURATION + _ASSETS,
+    configs = [],
+    data = _DATA,
+    visibility = ["//projects/comfyui_tools:asset_consumers"],
+)
+
+exports_files(
+    ["config.json"],
+    visibility = ["//projects/comfyui_tools:asset_consumers"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = [
+        "README.md",
+        "config.json",
+    ],
+    visibility = ["//infra/image_gen:__pkg__"],
+)
+
+go_test(
+    name = "configuration_test",
+    size = "small",
+    srcs = [
+        "//projects/comfyui_tools/test/evaluation:configuration_test.go",
+        "//projects/comfyui_tools/test/evaluation:doc.go",
+    ],
+    data = _DATA,
+    env = {
+        "EVALUATOR_BINARY": "$(rlocationpath //projects/comfyui_tools/cmd/evaluate)",
+        "EVALUATION_ARGUMENTS": json.encode(_CONFIGURATION + _ASSETS),
+        "EVALUATION_GIF_ARGUMENTS": json.encode(_GIF_SELECTION),
+    },
+    deps = ["@rules_go//go/runfiles"],
+)
+
+go_test(
+    name = "workload_e2e_test",
+    size = "small",
+    srcs = ["//projects/comfyui_tools/internal/evaluation:workload_e2e_test.go"],
+    data = [
+        "//tools/comfyui/cli:comfy",
+        "//tools/comfyui/cmd/remote",
+    ],
+    embed = ["//projects/comfyui_tools/internal/evaluation"],
+    env = {
+        "BRIDGE_BINARY": "$(rlocationpath //tools/comfyui/cmd/remote)",
+        "CLI_BINARY": "$(rlocationpath //tools/comfyui/cli:comfy)",
+    },
+    deps = [
+        "@org_golang_x_net//websocket",
+        "@rules_go//go/runfiles",
+    ],
+)
+
+ssh_binary(
+    name = "ssh",
+    args = [
+        "-o",
+        "BatchMode=yes",
+        "-o",
+        "StrictHostKeyChecking=yes",
+    ],
+    configs = [],
+)

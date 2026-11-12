@@ -62,3 +62,10 @@ workflow changes during packaging and oversized encoded startup commands.
 Each profile must complete the loopback lifecycle and emit its own sanitized
 model/workflow/byte-count artifact. These fixtures never execute the startup
 script, download weights, contact a live account or establish GPU compatibility.
+
+The provider now delegates startup transport encoding to the shared SDK helper,
+which the ephemeral evaluator also consumes. The algorithm, compression
+wrapper, API byte bound and sensitive original Terraform state are unchanged.
+Existing provider acceptance remains the compatibility gate.
+
+The provider also delegates its existing published-port normalization to the SDK so the ephemeral evaluator handles real duplicate IPv4/IPv6 bindings identically. Diagnostic titles and invalid/ambiguous-value behavior are retained; existing Terraform acceptance verifies compatibility.
