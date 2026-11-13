@@ -79,3 +79,8 @@
 - [x] 14.1 Select the existing NoobAI XL 1.1 profile on the unchanged 48 GB hardware profile.
 - [x] 14.2 Validate the packaged configuration, review the owning interactive plan and deploy one personal rental with existing credentials and host/price constraints.
 - [x] 14.3 Refresh connection outputs, verify authenticated service and saved workflows, provide the URL and record verification limits. Delivery receipts own publication state.
+
+## 15. Requested NoobAI release
+
+- [x] 15.1 Review the instance-scoped destruction plan and destroy only personal instance 60406482, retaining component credentials.
+- [x] 15.2 Apply the reviewed refresh-only plan, verify null connection outputs and record the completed release.

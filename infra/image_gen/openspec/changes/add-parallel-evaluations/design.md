@@ -205,3 +205,22 @@ NoobAI workflows with no additional page. No image job was submitted; these
 checks establish service readiness and workflow staging, not image quality
 or successful model inference. The existing login remains in the component's
 web entry. Instance 60406482 remains running for the operator.
+
+## Requested NoobAI release
+
+The operator subsequently requests destruction. At 2026-11-13 00:51:50 UTC,
+the owning instance-targeted interactive release destroyed only instance
+60406482: 0 added, 0 changed, 1 destroyed. The generated password, Vault web
+entry, component identity and dedicated team key remain deployed. No replacement
+or evaluation rental was created.
+
+The first confirmation was rejected by automatic approval review because
+Terraform's generic destruction warning appeared broader than the requested
+scope. That attempt was cancelled without mutation. An independent read-only
+text plan and the fresh interactive apply both confirmed the single instance
+deletion before the successful confirmation.
+
+At 00:52:33 UTC, a reviewed refresh-only apply cleared the instance ID, HTTPS
+URL and SSH forwarding outputs to null, with no remote resource changes.
+No rental remains managed by this root. The source retains the selected NoobAI
+and 48 GB profiles for a future explicitly authorized deployment.

@@ -53,7 +53,9 @@ scoped policies, dedicated team key, generated web login and component state
 remain deployed. The earlier Flux, FLUX.2 dev, NoobAI and HiDream rentals were
 destroyed at the operator's request. The latest configuration selects NoobAI
 XL 1.1 on the named 48 GB GPU profile. The operator-requested deployment on
-2026-11-13 created personal instance 60406482, retaining the existing credentials.
+2026-11-13 created personal instance 60406482. It was subsequently destroyed at
+the operator's request; its connection outputs are cleared and no rental is
+currently managed by this root. Component credentials remain deployed.
 USO and UMO-UNO remain source-only alternatives. No image-generation acceptance
 was performed on this NoobAI rental. The
 [current deployment record](openspec/changes/add-parallel-evaluations/design.md)
