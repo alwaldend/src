@@ -8,3 +8,10 @@
 
 - [x] 2.1 Review and apply the owning rental plan; verify running GPU, downloaded
       files, staged examples and a neutral text-to-image output.
+
+## 3. Sequence workflow staging
+
+- [x] 3.1 Register all six sequence examples while preserving the original
+      first-boot selection; verify offline startup packaging.
+- [x] 3.2 Save the new examples through the authenticated workflow API and verify
+      twelve saved examples without replacing the running rental.

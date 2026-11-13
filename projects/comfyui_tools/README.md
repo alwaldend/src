@@ -139,7 +139,7 @@ reference and sequence paths require prompt/strength tuning for useful results.
 
 ## MOSS-Image examples
 
-The `moss-image` family supplies six examples, adapted from the
+The `moss-image` family supplies six examples and six prompt-sequence variants, adapted from the
 [official templates](https://github.com/Comfy-Org/workflow_templates/tree/36ecd0663961c5e1e83f7c0ea521658b33b36bbc/templates)
 as compact native graphs without the optional LLM prompt enhancer. Their model
 files come from the infrastructure profile; generation uses local Qwen3.5 text
@@ -162,6 +162,34 @@ encoding and the small FLUX.2 VAE.
   dimensions when using another size. The example uses the control LoRA,
   layer-24 skip guidance, shift 5, temporal score rescaling, 25 ER-SDE/simple
   steps, CFG 3 and control ending at 60% of sampling. It does not estimate depth.
+
+The sequence variants use the existing multiline Prompt Sequence node:
+
+- `moss-image-prompt-sequence` and `moss-image-base-prompt-sequence`
+- `moss-image-layout-prompt-sequence` and `moss-image-base-layout-prompt-sequence`
+- `moss-image-image-edit-prompt-sequence`
+- `moss-image-color-depth-prompt-sequence`
+
+Enter one panel prompt per nonempty line, shared context and shared negative
+text in Prompt Sequence. One Run saves ordered PNGs with a fresh grouped filename
+prefix and displays panel progress. Layout variants reuse the same box captions
+and positions; edit variants reuse the original reference for every instruction;
+control variants reuse the selected maps. Panels are independent generations,
+with no joint attention or guaranteed character continuity. Sampling defaults
+and reference requirements match the corresponding single-image examples.
+
+The original six examples are installed on first boot. Save each generated
+sequence example through the authenticated API after deployment, for example:
+
+```sh
+bazel build //projects/comfyui_tools/workflows:workflows
+bazel run //infra/image_gen:comfy -- workflow save \
+  "$PWD/bazel-bin/projects/comfyui_tools/workflows/moss-image/moss-image-prompt-sequence.json" \
+  --name moss-image-prompt-sequence --where local
+```
+
+Repeat the save command for the other five sequence variants. This stages user
+workflows without replacing the running rental or changing its startup command.
 
 These are editable examples, not guarantees of exact edits, layout or reference
 fidelity. Actual GPU execution and its limitations belong to the

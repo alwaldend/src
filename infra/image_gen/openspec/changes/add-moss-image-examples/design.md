@@ -83,6 +83,15 @@ HTTP 200 token lookup. The existing authorization then allowed the reviewed
 rental retry. Stable blocker `MOSS-VAULT-AUTH` is resolved; the agent changed no
 shared authentication configuration.
 
+## Prompt sequence extension
+
+Add six sequence examples to the complete catalog. Keep the original six graphs
+as the explicit `startup_workflows` subset, preserving the existing immutable
+startup payload. Save the new graphs through the authenticated ComfyUI workflow
+API, as with the existing API-staged HiDream examples. This updates saved user
+content without replacing the operator's running rental or its local files.
+Future rentals require the same documented API staging step for these additions.
+
 ## Session ergonomics
 
 The work used two owner-local change records and reused the existing generator,
@@ -99,3 +108,22 @@ under ignored `out/moss-image/`.
 - Managed Bazel/LFS cache writes required normal sandbox escalation; read-only
   status with LFS disabled produced misleading binary modifications. Normal
   Git status under the approved cache access showed only task-owned changes.
+
+### Sequence staging and verification limits
+
+All six new examples were saved through the authenticated workflow API on
+instance 60541185. The saved catalog returned twelve workflows, and a readback
+of `moss-image-prompt-sequence.json` matched the generated JSON exactly. The
+existing offline configured-startup acceptance suite passed for every model
+profile; MOSS reports twelve catalog entries, six inline workflows and a
+10,382-byte encoded command below the 16,384-byte limit.
+
+Two neutral three-panel jobs were submitted for live sequence checks:
+`31fd311b-02ea-4dbf-980f-71ac99599426` (SFT) and
+`38d7bf09-6ab3-41ae-ac5b-9e61539003f1` (Base layout). Their CLI waits timed out
+without verified outputs. The operator requested cancellation of only these
+jobs and no further instance changes. Exact-ID cancellation calls succeeded
+for both, with `queue_delete_ok=true`; no queue-wide clearing, service action,
+rental mutation or further generation was performed. Stable verification limit:
+`MOSS-SEQUENCE-LIVE-CANCELLED`. Ordered GPU execution of the sequences remains
+unverified. The operator's restriction supersedes further live acceptance work.

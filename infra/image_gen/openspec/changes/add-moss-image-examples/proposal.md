@@ -8,6 +8,8 @@ The model catalog currently has no MOSS profile.
 - Add and select a pinned public MOSS-Image bundle with SFT/Base INT8 models,
   Qwen3.5 INT8 text encoding, the small FLUX.2 VAE and edit/control adapters.
 - Stage the six native example workflows owned by ComfyUI tools.
+- Register six additional sequence examples, staged through the authenticated
+  workflow API while retaining the original first-boot selection.
 - Deploy through the existing reviewed Terraform rental workflow on `48gb`.
 
 ## Capabilities

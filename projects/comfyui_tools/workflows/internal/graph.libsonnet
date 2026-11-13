@@ -20,14 +20,15 @@ local get(nodes, id) = byId(nodes)[std.toString(id)];
     },
 
   // Preserve model-specific encoders while centralizing editable sequence text.
-  sequence(base, sequenceNode, positiveId, negativeId, saveId, linkIds, textInput='text')::
+  sequence(base, sequenceNode, positiveId, negativeId, saveId, linkIds, textInput='text', negativeTextInput=null)::
     local positive = get(base.nodes, positiveId);
     local negative = if negativeId == null then null else get(base.nodes, negativeId);
     local save = get(base.nodes, saveId);
-    local sampler = [node for node in base.nodes if std.member(['KSampler', 'ClownsharKSampler_Beta', 'BasicGuider', 'CFGGuider', 'ImagegenChainedImageToImageGIF'], node.type)][0];
+    local sampler = [node for node in base.nodes if std.member(['KSampler', 'SamplerCustom', 'ClownsharKSampler_Beta', 'BasicGuider', 'CFGGuider', 'ImagegenChainedImageToImageGIF'], node.type)][0];
     local modelLink = [edge for edge in base.links if edge[3] == sampler.id && sampler.inputs[edge[4]].type == 'MODEL'][0];
     local progressLinkId = std.foldl(function(maximum, id) std.max(maximum, id), [edge[0] for edge in base.links] + linkIds, 0) + 1;
     local widget(name) = { name: name, type: 'STRING', widget: { name: name } };
+    local negativeInput = if negativeTextInput == null then textInput else negativeTextInput;
     self.variant(base, {
       nodes: [sequenceNode {
         widgets_values: sequenceNode.widgets_values + [if negative == null then '' else negative.widgets_values[0]],
@@ -37,7 +38,7 @@ local get(nodes, id) = byId(nodes)[std.toString(id)];
         [std.toString(positiveId)]: { inputs: positive.inputs + [widget(textInput)] },
         [std.toString(saveId)]: { inputs: save.inputs + [widget('filename_prefix')] },
       } + (if negative == null then {} else {
-             [std.toString(negativeId)]: { inputs: negative.inputs + [widget(textInput)], title: 'Encode shared negative prompt' },
+             [std.toString(negativeId)]: { inputs: negative.inputs + [widget(negativeInput)], title: 'Encode shared negative prompt' },
            }),
       links: [
         [modelLink[0], modelLink[1], modelLink[2], sequenceNode.id, 0],

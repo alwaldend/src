@@ -28,13 +28,27 @@
                 "edit_lora": "moss_image_edit_lora_rank_64_bf16.safetensors",
                 "control_lora": "moss_image_color_depth_control.safetensors"
             },
-            "workflows": [
+            "startup_workflows": [
                 "moss-image-text-to-image",
                 "moss-image-base-text-to-image",
                 "moss-image-layout-guided",
                 "moss-image-base-layout-guided",
                 "moss-image-image-edit",
                 "moss-image-color-depth-control"
+            ],
+            "workflows": [
+                "moss-image-text-to-image",
+                "moss-image-base-text-to-image",
+                "moss-image-layout-guided",
+                "moss-image-base-layout-guided",
+                "moss-image-image-edit",
+                "moss-image-color-depth-control",
+                "moss-image-prompt-sequence",
+                "moss-image-base-prompt-sequence",
+                "moss-image-layout-prompt-sequence",
+                "moss-image-base-layout-prompt-sequence",
+                "moss-image-image-edit-prompt-sequence",
+                "moss-image-color-depth-prompt-sequence"
             ],
             "downloads": [
                 "moss_image_sft_int8_convrot.safetensors",

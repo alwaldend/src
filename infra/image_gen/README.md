@@ -9,7 +9,7 @@ This project owns one image-generation rental in [tf_setup](tf_setup/README.md).
 It uses the reusable [ComfyUI module](../../projects/tf_modules/vastai_instance_imagegen_comfyui/README.md)
 in exposed mode: a single HTTPS proxy with a generated username/password login,
 plus account-key SSH access. The GPU must have at least 32 GiB VRAM.
-The [configuration](config.json) selects MOSS-Image SFT/Base INT8 with six example workflows
+The [configuration](config.json) selects MOSS-Image SFT/Base INT8 with six example workflows and six sequence variants
 on RTX PRO 5000 Blackwell with 48 GB nominal VRAM. Full Chroma1-HD,
 FLUX.2 dev 32B FP8, Juggernaut XL v9, HiDream-I1 Full 17B, Illustrious XL v2.0-STABLE,
 FLUX.2 klein Base 9B FP8, NoobAI XL 1.1 and Qwen-Image-Edit-2511 remain selectable profiles,
@@ -56,8 +56,9 @@ destroyed at the operator's request. The operator-requested deployment on
 the operator's request; its connection outputs are cleared and no rental is
 managed by this root according to that record. Component credentials remain deployed.
 The requested MOSS-Image deployment created instance 60541185 on the named
-48 GB RTX PRO 5000 profile. All six examples are staged; SFT text-to-image and
-Base layout-guided generation completed. Edit/control execution remains
+48 GB RTX PRO 5000 profile. All twelve examples, including six sequence variants,
+are staged; single-image SFT text-to-image and
+Base layout-guided generation completed. Sequence and edit/control execution remain
 unverified. See [the current deployment record](openspec/changes/add-moss-image-examples/design.md).
 USO and UMO-UNO remain source-only alternatives. No image-generation acceptance
 was performed on this NoobAI rental. The
