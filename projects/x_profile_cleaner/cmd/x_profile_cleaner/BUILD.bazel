@@ -14,8 +14,11 @@ go_library(
     deps = [
         "//internal/x_sdk/pkg/oauth1",
         "//projects/x_profile_cleaner/internal/app",
-        "//projects/x_profile_cleaner/internal/model",
+        "//projects/x_profile_cleaner/internal/cleanup",
+        "//projects/x_profile_cleaner/internal/plan",
+        "//projects/x_profile_cleaner/internal/script",
         "//projects/x_profile_cleaner/internal/web",
+        "//projects/x_profile_cleaner/internal/worker",
         "@com_github_spf13_cobra//:cobra",
     ],
 )

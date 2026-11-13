@@ -1,4 +1,4 @@
-package policy
+package cleanup
 
 import (
 	"context"
@@ -7,8 +7,10 @@ import (
 	"strings"
 	"time"
 
+	"git.alwaldend.com/alwaldend/src/projects/x_profile_cleaner/api/workerpb"
 	"git.alwaldend.com/alwaldend/src/projects/x_profile_cleaner/internal/model"
 	"git.alwaldend.com/alwaldend/src/projects/x_profile_cleaner/internal/planner"
+	"git.alwaldend.com/alwaldend/src/projects/x_profile_cleaner/internal/script"
 	lua "github.com/yuin/gopher-lua"
 )
 
@@ -24,37 +26,23 @@ type adapter struct {
 	callbacks []*lua.LFunction
 }
 
-// Build registers Lua configuration as Go rules and evaluates a read-only plan.
+// build registers Lua configuration as Go rules and evaluates a read-only plan.
 // Interpreter values remain inside this adapter; the planner receives plain data.
-func Build(ctx context.Context, account string, load func(context.Context, model.ItemKind, model.TimeWindow) ([]model.Item, error), source, filename string, now time.Time) (model.Plan, error) {
-	state := lua.NewState(lua.Options{SkipOpenLibs: true})
+func build(ctx context.Context, account string, load func(context.Context, model.ItemKind, model.TimeWindow) ([]model.Item, error), source, filename string, now time.Time) (*workerpb.Plan, error) {
+	state := script.NewState(ctx)
 	defer state.Close()
-	state.SetContext(ctx)
-	for _, library := range []struct {
-		// name identifies the restricted standard library.
-		name string
-		// open initializes only that library.
-		open lua.LGFunction
-	}{{lua.BaseLibName, lua.OpenBase}, {lua.TabLibName, lua.OpenTable}, {lua.StringLibName, lua.OpenString}, {lua.MathLibName, lua.OpenMath}} {
-		state.Push(state.NewFunction(library.open))
-		state.Push(lua.LString(library.name))
-		state.Call(1, 0)
-	}
-	for _, name := range []string{"dofile", "loadfile", "load", "loadstring", "require", "module", "print", "_printregs", "collectgarbage"} {
-		state.SetGlobal(name, lua.LNil)
-	}
-	e := &adapter{state: state, planner: planner.New(ctx, account, load, now), now: now}
+	e := &adapter{state: state, planner: planner.New(ctx, account, load), now: now}
 	e.bind()
-	fn, err := state.LoadString(source)
+	fn, err := state.Load(strings.NewReader(source), filename)
 	if err != nil {
-		return model.Plan{}, fmt.Errorf("parse policy %q: %w", filename, err)
+		return nil, script.Failure("syntax", filename, fmt.Errorf("parse policy %q: %w", filename, err))
 	}
 	if err := state.CallByParam(lua.P{Fn: fn, NRet: 0, Protect: true}); err != nil {
-		return model.Plan{}, fmt.Errorf("execute policy %q: %w", filename, err)
+		return nil, script.Failure("execution", filename, fmt.Errorf("execute policy %q: %w", filename, err))
 	}
 	plan, err := e.planner.Evaluate(e.evaluate)
 	if err != nil {
-		return model.Plan{}, fmt.Errorf("evaluate policy %q: %w", filename, err)
+		return nil, script.Failure("evaluation", filename, fmt.Errorf("evaluate policy %q: %w", filename, err))
 	}
 	return plan, nil
 }
@@ -330,42 +318,40 @@ func (e *adapter) record(item model.Item) *lua.LTable {
 	if item.Language != nil {
 		result.RawSetString("language", lua.LString(*item.Language))
 	}
+	var attachmentData model.Attachments
 	if item.Attachments != nil {
-		attachments := l.NewTable()
-		for key, values := range map[string][]string{"media_keys": item.Attachments.MediaKeys, "poll_ids": item.Attachments.PollIDs, "media_source_ids": item.Attachments.MediaSourceIDs} {
-			if values == nil {
-				continue
-			}
-			array := l.NewTable()
-			for _, value := range values {
-				array.Append(lua.LString(value))
-			}
-			attachments.RawSetString(key, array)
-		}
-		result.RawSetString("attachments", attachments)
+		attachmentData = *item.Attachments
 	}
+	attachments := l.NewTable()
+	for key, values := range map[string][]string{"media_keys": attachmentData.MediaKeys, "poll_ids": attachmentData.PollIDs, "media_source_ids": attachmentData.MediaSourceIDs} {
+		array := l.NewTable()
+		for _, value := range values {
+			array.Append(lua.LString(value))
+		}
+		attachments.RawSetString(key, array)
+	}
+	result.RawSetString("attachments", attachments)
+	var entityData model.TextEntities
 	if item.Entities != nil {
-		entities := l.NewTable()
-		for key, values := range map[string][]model.TextEntity{"hashtags": item.Entities.Hashtags, "cashtags": item.Entities.Cashtags, "mentions": item.Entities.Mentions, "urls": item.Entities.URLs} {
-			if values == nil {
-				continue
-			}
-			array := l.NewTable()
-			for _, value := range values {
-				entity := l.NewTable()
-				entity.RawSetString("start", lua.LNumber(value.Start))
-				entity.RawSetString("end", lua.LNumber(value.End))
-				for key, value := range map[string]*string{"tag": value.Tag, "id": value.ID, "username": value.Username, "url": value.URL, "expanded_url": value.ExpandedURL, "display_url": value.DisplayURL} {
-					if value != nil {
-						entity.RawSetString(key, lua.LString(*value))
-					}
-				}
-				array.Append(entity)
-			}
-			entities.RawSetString(key, array)
-		}
-		result.RawSetString("entities", entities)
+		entityData = *item.Entities
 	}
+	entities := l.NewTable()
+	for key, values := range map[string][]model.TextEntity{"hashtags": entityData.Hashtags, "cashtags": entityData.Cashtags, "mentions": entityData.Mentions, "urls": entityData.URLs} {
+		array := l.NewTable()
+		for _, value := range values {
+			entity := l.NewTable()
+			entity.RawSetString("start", lua.LNumber(value.Start))
+			entity.RawSetString("end", lua.LNumber(value.End))
+			for key, value := range map[string]*string{"tag": value.Tag, "id": value.ID, "username": value.Username, "url": value.URL, "expanded_url": value.ExpandedURL, "display_url": value.DisplayURL} {
+				if value != nil {
+					entity.RawSetString(key, lua.LString(*value))
+				}
+			}
+			array.Append(entity)
+		}
+		entities.RawSetString(key, array)
+	}
+	result.RawSetString("entities", entities)
 	result.RawSetString("references", refs)
 	result.RawSetString("is_reply", lua.LBool(isReply))
 	result.RawSetString("is_quote", lua.LBool(isQuote))

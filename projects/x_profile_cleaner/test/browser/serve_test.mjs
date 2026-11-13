@@ -5,6 +5,7 @@ import fs from "node:fs/promises";
 import http from "node:http";
 import { createRequire } from "node:module";
 import path from "node:path";
+import os from "node:os";
 
 const require = createRequire(
     new URL("../../../../tools/package.json", import.meta.url),
@@ -57,26 +58,14 @@ let loseResponse = "";
 let holdMutation = "";
 let mutationHeld = () => {};
 let reads = 0;
-let holdTimeline = false;
-let rejectTimeline = false;
 let exhaustedDelete = false;
 const fixture = http.createServer((request, response) => {
     response.setHeader("Content-Type", "application/json");
     const url = new URL(request.url, "http://fixture");
-    if (request.method === "GET" && url.pathname === "/2/users/me") {
-        response.end(JSON.stringify({ data: { id: "100" } }));
-    } else if (
-        request.method === "GET" &&
-        url.pathname === "/2/users/100/tweets"
-    ) {
+    if (request.method !== "DELETE") {
         reads++;
-        if (holdTimeline) return;
-        if (rejectTimeline) {
-            response.writeHead(429);
-            response.end("{}");
-            return;
-        }
-        response.end(JSON.stringify({ data: records }));
+        response.writeHead(405);
+        response.end("{}");
     } else if (request.method === "DELETE") {
         mutationAttempts.push(url.pathname);
         if (missingTargets.has(url.pathname)) {
@@ -132,18 +121,135 @@ Object.assign(environment, {
     X_ACCESS_TOKEN: "browser-fixture-token",
     X_ACCESS_TOKEN_SECRET: "browser-fixture-token-secret",
 });
+// Encode stored ZIP entries independently of the Go archive reader.
+function zipArchive(files) {
+    const entries = [];
+    const directory = [];
+    let offset = 0;
+    for (const [name, text] of Object.entries(files)) {
+        const data = Buffer.from(text);
+        const filename = Buffer.from(name);
+        let crc = 0xffffffff;
+        for (const byte of data) {
+            crc ^= byte;
+            for (let bit = 0; bit < 8; bit++)
+                crc = (crc >>> 1) ^ (crc & 1 ? 0xedb88320 : 0);
+        }
+        crc = (crc ^ 0xffffffff) >>> 0;
+        const header = Buffer.alloc(30);
+        header.writeUInt32LE(0x04034b50);
+        header.writeUInt16LE(20, 4);
+        header.writeUInt32LE(crc, 14);
+        header.writeUInt32LE(data.length, 18);
+        header.writeUInt32LE(data.length, 22);
+        header.writeUInt16LE(filename.length, 26);
+        const central = Buffer.alloc(46);
+        central.writeUInt32LE(0x02014b50);
+        central.writeUInt16LE(20, 4);
+        central.writeUInt16LE(20, 6);
+        central.writeUInt32LE(crc, 16);
+        central.writeUInt32LE(data.length, 20);
+        central.writeUInt32LE(data.length, 24);
+        central.writeUInt16LE(filename.length, 28);
+        central.writeUInt32LE(offset, 42);
+        entries.push(header, filename, data);
+        directory.push(central, filename);
+        offset += header.length + filename.length + data.length;
+    }
+    const central = Buffer.concat(directory);
+    const end = Buffer.alloc(22);
+    end.writeUInt32LE(0x06054b50);
+    end.writeUInt16LE(Object.keys(files).length, 8);
+    end.writeUInt16LE(Object.keys(files).length, 10);
+    end.writeUInt32LE(central.length, 12);
+    end.writeUInt32LE(offset, 16);
+    return Buffer.concat([...entries, central, end]);
+}
+const archivePath = path.join(scratch, "export.zip");
+await fs.writeFile(
+    archivePath,
+    zipArchive({
+        "data/account.js":
+            'window.YTD.account.part0 = [{"account":{"accountId":"100"}}];',
+        "data/tweets.js":
+            "window.YTD.tweets.part0 = " +
+            JSON.stringify(
+                records
+                    .filter((record) => record.author_id === "100")
+                    .map((record) => ({
+                        tweet: {
+                            id_str: record.id,
+                            full_text: record.text,
+                            created_at: "Mon Nov 09 12:00:00 +0000 2020",
+                            ...(record.referenced_posts
+                                ? {
+                                      retweeted_status_id_str:
+                                          record.referenced_posts[0].id,
+                                  }
+                                : {}),
+                        },
+                    })),
+            ) +
+            ";",
+    }),
+);
+// Short task-owned temporary path avoids the Unix-domain socket address limit.
+const socketDirectory = await fs.mkdtemp(
+    path.join(os.tmpdir(), "cleaner-browser-"),
+);
+const workerSocket = path.join(socketDirectory, "worker.sock");
+const worker = spawn(
+    cleaner,
+    [
+        "worker",
+        "serve",
+        "--socket",
+        workerSocket,
+        "--source",
+        "exports=" + scratch,
+    ],
+    {
+        env: { PATH: environment.PATH },
+        stdio: ["ignore", "pipe", "pipe"],
+    },
+);
+let workerDiagnostics = "";
+worker.stderr.on("data", (chunk) => {
+    workerDiagnostics += chunk;
+});
+const workerExited = once(worker, "exit");
+for (let attempt = 0; ; attempt++) {
+    if (worker.exitCode !== null)
+        throw new Error("worker exited: " + workerDiagnostics);
+    try {
+        await fs.stat(workerSocket);
+        break;
+    } catch {
+        /* Await socket readiness. */
+    }
+    if (attempt >= 500) throw new Error("worker readiness timeout");
+    await new Promise((resolve) => setTimeout(resolve, 10));
+}
 const child = spawn(
     cleaner,
     [
         "server",
         "serve",
+        "--worker-socket",
+        workerSocket,
+        "--archive-source",
+        "exports",
+        "--archive-key",
+        "export.zip",
+        "--account",
+        "100",
         "--listen",
         "127.0.0.1:0",
         "--config",
         initialPath,
         "--api-base-url",
         `http://127.0.0.1:${fixture.address().port}/2`,
-        "--policy-timeout",
+        "--evaluation-timeout",
         "5s",
     ],
     { env: environment, stdio: ["ignore", "pipe", "pipe"] },
@@ -558,7 +664,10 @@ try {
     await page.waitForSelector('#status[data-phase="completed"]');
     assert.equal(mutations.length, 3, "reload must not replay apply");
 
-    holdTimeline = true;
+    await page.$eval("#policy", (input) => {
+        input.value = "while true do end";
+        input.dispatchEvent(new Event("input"));
+    });
     await page.click("#plan");
     await page.waitForSelector('#status[data-phase="planning"]');
     assert.equal(
@@ -571,20 +680,20 @@ try {
     );
     await page.click("#cancel-operation");
     await page.waitForSelector('#status[data-phase="cancelled"]');
-    holdTimeline = false;
+
     assert.equal(mutations.length, 3);
     assert.equal((await api("/api/plan")).status, 409);
 
-    rejectTimeline = true;
+    await fs.rename(archivePath, archivePath + ".held");
     await page.click("#plan");
     await page.waitForSelector('#status[data-phase="failed"]');
     assert.match(
         await page.$eval("#error", (element) => element.textContent),
-        /429/,
+        /INVALID_ARCHIVE/,
     );
     assert.equal((await api("/api/plan")).status, 409);
     assert.equal(mutations.length, 3);
-    rejectTimeline = false;
+    await fs.rename(archivePath + ".held", archivePath);
     const readsBeforeEmptyPolicy = reads;
     assert.equal(
         (
@@ -603,7 +712,7 @@ try {
     assert.equal(
         reads,
         readsBeforeEmptyPolicy,
-        "empty policy must not fetch timeline data",
+        "archive planning must not contact X",
     );
     assert.match(
         await page.$eval("#review-note", (element) => element.textContent),
@@ -738,6 +847,7 @@ try {
         );
     }
     assert.deepEqual(failures, []);
+    assert.equal(reads, 0, "archive workflow issued an X read");
     for (const value of [
         capability,
         ...Object.entries(environment)
@@ -797,6 +907,19 @@ try {
         }),
     ]);
     clearTimeout(timer);
+    worker.kill("SIGINT");
+    let workerTimer;
+    await Promise.race([
+        workerExited,
+        new Promise((resolve) => {
+            workerTimer = setTimeout(() => {
+                worker.kill("SIGKILL");
+                resolve();
+            }, 3000);
+        }),
+    ]);
+    clearTimeout(workerTimer);
+    await fs.rm(socketDirectory, { recursive: true, force: true });
     fixture.closeAllConnections();
     await new Promise((resolve) => fixture.close(resolve));
     await fs.rm(scratch, { recursive: true, force: true });

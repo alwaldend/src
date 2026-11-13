@@ -4,9 +4,11 @@ import (
 	"context"
 	"fmt"
 	"sort"
-	"time"
 
+	"git.alwaldend.com/alwaldend/src/projects/x_profile_cleaner/api/workerpb"
 	"git.alwaldend.com/alwaldend/src/projects/x_profile_cleaner/internal/model"
+	"git.alwaldend.com/alwaldend/src/projects/x_profile_cleaner/internal/plan"
+	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
 // CallbackID is an adapter-owned callback identifier; zero means no callback.
@@ -103,15 +105,13 @@ type selection struct {
 	// deletion is the strongest requested deletion level.
 	deletion deletionLevel
 	// reasons retains one match per declaration, keyed by its stable index.
-	reasons map[int]model.Reason
+	reasons map[int]*workerpb.CleanupReason
 }
 
 // Planner owns one immutable snapshot and its registered cleanup rules.
 type Planner struct {
 	// ctx bounds collection, callbacks, and Go graph traversal.
 	ctx context.Context
-	// now anchors every age calculation and report timestamp.
-	now time.Time
 	// account admits only the authenticated author's records.
 	account string
 	// load supplies a complete view for each requested kind and window.
@@ -141,8 +141,8 @@ type Planner struct {
 }
 
 // New creates a planner without loading inventory or evaluating callbacks.
-func New(ctx context.Context, account string, load func(context.Context, model.ItemKind, model.TimeWindow) ([]model.Item, error), now time.Time) *Planner {
-	return &Planner{ctx: ctx, account: account, load: load, now: now, loaded: map[model.ItemKind]bool{}, items: map[string]model.Item{}, canonical: map[string]string{}, children: map[model.ReferenceKind]map[string][]Edge{}, selections: map[string]*selection{}}
+func New(ctx context.Context, account string, load func(context.Context, model.ItemKind, model.TimeWindow) ([]model.Item, error)) *Planner {
+	return &Planner{ctx: ctx, account: account, load: load, loaded: map[model.ItemKind]bool{}, items: map[string]model.Item{}, canonical: map[string]string{}, children: map[model.ReferenceKind]map[string][]Edge{}, selections: map[string]*selection{}}
 }
 
 // operations defines each supported operation once for registration and evaluation.
@@ -287,7 +287,7 @@ func (e *Planner) ensureKind(kind model.ItemKind) (err error) {
 		}
 		e.items[item.ID] = item
 		e.ids = append(e.ids, item.ID)
-		e.selections[item.ID] = &selection{reasons: map[int]model.Reason{}}
+		e.selections[item.ID] = &selection{reasons: map[int]*workerpb.CleanupReason{}}
 	}
 	sort.Strings(e.ids)
 	e.loaded[kind] = true
@@ -348,13 +348,13 @@ func (e *Planner) recordReason(index int, id, seed string) {
 	if rule.Predicate != 0 {
 		name += "_when"
 	}
-	chosen.reasons[index] = model.Reason{RuleID: index + 1, Name: rule.Name, Operation: name, SeedID: seed}
+	chosen.reasons[index] = &workerpb.CleanupReason{RuleId: int32(index + 1), Name: rule.Name, Operation: name, SeedId: seed}
 }
 
 // Evaluate seals declarations, runs sequential callbacks, and constructs an exact plan.
-func (e *Planner) Evaluate(evaluate Evaluator) (model.Plan, error) {
+func (e *Planner) Evaluate(evaluate Evaluator) (*workerpb.Plan, error) {
 	if e.sealed {
-		return model.Plan{}, fmt.Errorf("planner already evaluated")
+		return nil, fmt.Errorf("planner already evaluated")
 	}
 	e.sealed = true
 	for index, d := range e.rules {
@@ -362,16 +362,16 @@ func (e *Planner) Evaluate(evaluate Evaluator) (model.Plan, error) {
 			continue
 		}
 		if err := e.ensureKind(d.operation.kind); err != nil {
-			return model.Plan{}, fmt.Errorf("load %s_when candidates: %w", d.operation.name, err)
+			return nil, fmt.Errorf("load %s_when candidates: %w", d.operation.name, err)
 		}
 		for _, id := range e.kindIDs(d.operation.kind) {
 			if err := e.ctx.Err(); err != nil {
-				return model.Plan{}, fmt.Errorf("evaluate policy: %w", err)
+				return nil, fmt.Errorf("evaluate policy: %w", err)
 			}
 			item := e.items[id]
 			matches, err := evaluate(d.rule.Predicate, CallbackInput{Post: &item})
 			if err != nil {
-				return model.Plan{}, fmt.Errorf("%s_when for %s: %w", d.operation.name, id, err)
+				return nil, fmt.Errorf("%s_when for %s: %w", d.operation.name, id, err)
 			}
 			if matches {
 				e.selectItem(index, id)
@@ -389,16 +389,16 @@ func (e *Planner) Evaluate(evaluate Evaluator) (model.Plan, error) {
 			seen = shared[r.rule]
 		}
 		if err := e.preserve(r, seen, evaluate); err != nil {
-			return model.Plan{}, fmt.Errorf("%s for %s: %w", rule.Operation, r.id, err)
+			return nil, fmt.Errorf("%s for %s: %w", rule.Operation, r.id, err)
 		}
 	}
 	if e.loadErr != nil {
-		return model.Plan{}, fmt.Errorf("load policy inventory: %w", e.loadErr)
+		return nil, fmt.Errorf("load policy inventory: %w", e.loadErr)
 	}
 	if err := e.ctx.Err(); err != nil {
-		return model.Plan{}, fmt.Errorf("finish policy: %w", err)
+		return nil, fmt.Errorf("finish policy: %w", err)
 	}
-	plan := model.Plan{Version: 1, AccountID: e.account, EvaluatedAt: e.now.UTC(), Actions: []model.Action{}}
+	result := &workerpb.Plan{Operations: []*workerpb.Operation{}, CleanupReport: &workerpb.CleanupReport{}}
 	for _, id := range e.ids {
 		item, chosen := e.items[id], e.selections[id]
 		outcome := "unchanged"
@@ -411,31 +411,30 @@ func (e *Planner) Evaluate(evaluate Evaluator) (model.Plan, error) {
 			if chosen.deletion == forcedDeletion {
 				outcome = "force_delete"
 			}
-			action := model.Action{Kind: model.ActionDeletePost, TargetID: item.ID, Forced: chosen.deletion == forcedDeletion}
+			operation := &workerpb.Operation{Action: &workerpb.Operation_DeletePost{DeletePost: &workerpb.DeletePost{PostId: item.ID, Forced: chosen.deletion == forcedDeletion}}}
 			if item.Kind == model.ItemRepost {
-				action.Kind = model.ActionUnrepost
-				action.TargetID = item.SourceID
+				operation.Action = &workerpb.Operation_Unrepost{Unrepost: &workerpb.Unrepost{PostId: item.SourceID, Forced: chosen.deletion == forcedDeletion}}
 			}
-			plan.Actions = append(plan.Actions, action)
+			result.Operations = append(result.Operations, operation)
 		}
-		reasons := []model.Reason{}
+		reasons := []*workerpb.CleanupReason{}
 		for _, reason := range chosen.reasons {
 			reasons = append(reasons, reason)
 		}
-		sort.Slice(reasons, func(i, j int) bool { return reasons[i].RuleID < reasons[j].RuleID })
-		plan.Decisions = append(plan.Decisions, model.Decision{ItemID: id, SourceID: item.SourceID, Kind: item.Kind, CreatedAt: item.CreatedAt, Text: item.Text, Outcome: outcome, Reasons: reasons})
+		sort.Slice(reasons, func(i, j int) bool { return reasons[i].RuleId < reasons[j].RuleId })
+		result.CleanupReport.Decisions = append(result.CleanupReport.Decisions, &workerpb.CleanupDecision{ItemId: id, SourceId: item.SourceID, Kind: string(item.Kind), CreatedAt: timestamppb.New(item.CreatedAt), Text: item.Text, Outcome: outcome, Reasons: reasons})
 	}
-	sort.Slice(plan.Actions, func(i, j int) bool {
-		a, b := plan.Actions[i], plan.Actions[j]
-		if a.Kind != b.Kind {
-			return a.Kind == model.ActionUnrepost
+	sort.Slice(result.Operations, func(i, j int) bool {
+		a, b := result.Operations[i], result.Operations[j]
+		if plan.OperationName(a) != plan.OperationName(b) {
+			return a.GetUnrepost() != nil
 		}
-		return a.TargetID < b.TargetID
+		return plan.TargetID(a) < plan.TargetID(b)
 	})
-	if err := plan.Validate(); err != nil {
-		return model.Plan{}, fmt.Errorf("validate generated plan: %w", err)
+	if err := plan.Validate(result); err != nil {
+		return nil, fmt.Errorf("validate generated plan: %w", err)
 	}
-	return plan, nil
+	return result, nil
 }
 
 // preserve walks a seed with per-request callbacks or shared callback-free visitation.

@@ -1,0 +1,23 @@
+load("@rules_go//go:def.bzl", "go_binary", "go_library")
+
+package(transitive_visibility = "//projects:transitive_consumers")
+
+go_library(
+    name = "generate_lua_api_lib",
+    srcs = [
+        "doc.go",
+        "main.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/x_profile_cleaner/cmd/generate_lua_api",
+    visibility = ["//visibility:private"],
+    deps = [
+        "//projects/x_profile_cleaner/internal/luaapi",
+        "@com_github_spf13_cobra//:cobra",
+    ],
+)
+
+go_binary(
+    name = "generate_lua_api",
+    embed = [":generate_lua_api_lib"],
+    visibility = ["//projects/x_profile_cleaner:__subpackages__"],
+)

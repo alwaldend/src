@@ -7,7 +7,9 @@ cases cover the left-to-right flowchart default, keeping appearance in the share
 theme, direct documentation consumption, generated blog publication assets,
 native site WebP selection for social previews,
 absolute paths and matching post-processing for the interactive CLI, container
-containment, and hermetic rendering.
+containment, and hermetic rendering. Additional cases cover using the owning
+normal target and preset for an unpublished dark WebP preview, and preserving a
+prescribed system overview without implementation components or extra controls.
 
 A live target is omitted because realistic evaluation requires rendering
 diagrams through Bazel and comparing rendered geometry. Offline validation does

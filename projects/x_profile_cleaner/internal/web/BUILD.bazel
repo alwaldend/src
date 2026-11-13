@@ -27,17 +27,18 @@ go_library(
         "server.go",
     ],
     embedsrcs = [
-        ":default_policy",
-        ":theme",
         "index.html",
         "app.js",
         "app.css",
+        "theme.css",
+        "policy.lua",
     ],
     importpath = "git.alwaldend.com/alwaldend/src/projects/x_profile_cleaner/internal/web",
     visibility = ["//projects/x_profile_cleaner:__subpackages__"],
     deps = [
+        "//projects/x_profile_cleaner/api/workerpb",
         "//projects/x_profile_cleaner/internal/app",
-        "//projects/x_profile_cleaner/internal/model",
+        "//projects/x_profile_cleaner/internal/plan",
         "@com_github_go_chi_chi_v5//:chi",
     ],
 )

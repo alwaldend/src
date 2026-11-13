@@ -1,0 +1,134 @@
+window.YTD.tweets.part0 = [
+  {
+    "tweet": {
+      "id_str": "101",
+      "created_at": "Mon Nov 09 12:00:00 +0000 2020",
+      "full_text": "Low engagement post",
+      "favorite_count": "2"
+    }
+  },
+  {
+    "tweet": {
+      "id_str": "102",
+      "created_at": "Sun Nov 08 12:00:00 +0000 2026",
+      "full_text": "Recent post",
+      "favorite_count": "0"
+    }
+  },
+  {
+    "tweet": {
+      "id_str": "103",
+      "created_at": "Mon Nov 09 12:00:00 +0000 2020",
+      "full_text": "Unknown engagement"
+    }
+  },
+  {
+    "tweet": {
+      "id_str": "104",
+      "created_at": "Mon Nov 09 12:00:00 +0000 2020",
+      "full_text": "Large engagement count",
+      "favorite_count": "9007199254740993"
+    }
+  },
+  {
+    "tweet": {
+      "id_str": "105",
+      "created_at": "Mon Nov 09 12:00:00 +0000 2020",
+      "full_text": "Post with media",
+      "favorite_count": "0",
+      "extended_entities": {
+        "media": [
+          {
+            "id_str": "123"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "tweet": {
+      "id_str": "106",
+      "created_at": "Mon Nov 09 12:00:00 +0000 2020",
+      "full_text": "Popular post",
+      "favorite_count": "20"
+    }
+  },
+  {
+    "tweet": {
+      "id_str": "107",
+      "created_at": "Mon Nov 09 12:00:00 +0000 2020",
+      "full_text": "Reply to another post",
+      "favorite_count": "20",
+      "in_reply_to_status_id_str": "700"
+    }
+  },
+  {
+    "tweet": {
+      "id_str": "108",
+      "created_at": "Mon Nov 09 12:00:00 +0000 2020",
+      "full_text": "Quote of another post",
+      "favorite_count": "20",
+      "quoted_status_id_str": "701"
+    }
+  },
+  {
+    "tweet": {
+      "id_str": "109",
+      "created_at": "Mon Nov 09 12:00:00 +0000 2020",
+      "full_text": "Repeated reference",
+      "favorite_count": "20",
+      "quoted_status_id_str": "700"
+    }
+  },
+  {
+    "tweet": {
+      "id_str": "110",
+      "created_at": "Mon Nov 09 12:00:00 +0000 2020",
+      "full_text": "RT @fixture: old repost",
+      "favorite_count": "0",
+      "retweeted_status_id_str": "900"
+    }
+  },
+  {
+    "tweet": {
+      "id_str": "111",
+      "created_at": "Mon Nov 09 12:00:00 +0000 2020",
+      "full_text": "RT @fixture: repeated repost",
+      "favorite_count": "0",
+      "retweeted_status_id_str": "900"
+    }
+  },
+  {
+    "tweet": {
+      "id_str": "112",
+      "created_at": "Sun Nov 08 12:00:00 +0000 2026",
+      "full_text": "RT @fixture: recent repost",
+      "favorite_count": "0",
+      "retweeted_status_id_str": "901"
+    }
+  },
+  {
+    "tweet": {
+      "id_str": "113",
+      "created_at": "Mon Nov 09 12:00:00 +0000 2020",
+      "full_text": "RT @fixture: unresolved repost",
+      "favorite_count": "0"
+    }
+  },
+  {
+    "tweet": {
+      "id_str": "114",
+      "created_at": "Tue Aug 11 12:00:00 +0000 2026",
+      "full_text": "Exactly ninety days old",
+      "favorite_count": "0"
+    }
+  },
+  {
+    "tweet": {
+      "id_str": "1001",
+      "created_at": "Mon Nov 09 12:00:00 +0000 2020",
+      "full_text": "Explicitly retained post",
+      "favorite_count": "0"
+    }
+  }
+];

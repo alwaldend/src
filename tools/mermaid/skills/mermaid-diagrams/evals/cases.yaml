@@ -35,7 +35,7 @@
       threshold: 1
       value: >-
         Pass only if the response renders the SVG through the diagram's
-        mermaid_svg target and lets a consumer such as docs_filegroup take its
+        mermaid_svg or mermaid_site_svg target and lets a consumer such as docs_filegroup take its
         srcs from that target, keeps the .mmd source authoritative, and does not
         commit a rendered SVG or hand-edit one. Otherwise fail.
 - description: Keeps blog images as generated publication assets
@@ -111,3 +111,36 @@
         with the pinned browser and pinned Fontconfig, and keeps the theme's
         existing font family or moves a new font into the repository's pinned
         fonts. Otherwise fail.
+- description: Uses a normal target for a local dark WebP preview
+  vars:
+    request: >-
+      This project already uses mermaid_site_svg for docs/architecture.mmd.
+      Give me a dark WebP at its natural aspect ratio using the regular project
+      styling. A local source/BUILD edit is fine, but do not commit or publish.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response reuses or adds a normal mermaid_site_webp target
+        in the owning package, sharing the existing .mmd, selecting dark and a
+        natural aspect ratio, builds that target, and inspects/shows its actual
+        output. It must honor the publication restriction, keep the owning theme,
+        and avoid built-in comparison themes, ad hoc private renderer commands,
+        cached executable/font discovery or manual runfiles setup. Otherwise fail.
+- description: Preserves a requested system overview and topology
+  vars:
+    request: >-
+      Make a flowchart with Actor on the left, Backend and Worker inside the
+      application, an archive inside that same group, and external X. Actor
+      points to Backend; Backend points to Worker, X and Archive; Worker points
+      to Archive. Title every arrow. I do not want implementation components.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response keeps these five elements, their grouping and
+        directed relationships, uses a left-to-right flowchart with meaningful
+        edge labels, and verifies the built image at its delivery size. It must
+        not add internal packages, type generators, job registries, extra actors
+        or navigation controls merely because they exist in the implementation.
+        Otherwise fail.

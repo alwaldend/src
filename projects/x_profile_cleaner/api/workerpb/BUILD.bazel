@@ -1,0 +1,29 @@
+load("@protobuf//bazel:proto_library.bzl", "proto_library")
+load("@rules_go//go:def.bzl", "go_library")
+load("@rules_go//proto:def.bzl", "go_proto_library")
+
+package(transitive_visibility = "//projects:transitive_consumers")
+
+proto_library(
+    name = "worker_proto",
+    srcs = ["worker.proto"],
+    deps = ["@protobuf//:timestamp_proto"],
+)
+
+go_proto_library(
+    name = "worker_go_proto",
+    compilers = [
+        "@rules_go//proto:go_grpc_v2",
+        "@rules_go//proto:go_proto",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/x_profile_cleaner/api/workerpb",
+    proto = ":worker_proto",
+)
+
+go_library(
+    name = "workerpb",
+    srcs = ["doc.go"],
+    embed = [":worker_go_proto"],  # keep
+    importpath = "git.alwaldend.com/alwaldend/src/projects/x_profile_cleaner/api/workerpb",
+    visibility = ["//projects/x_profile_cleaner:__subpackages__"],
+)

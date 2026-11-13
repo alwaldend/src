@@ -1,3 +1,6 @@
+# gazelle:resolve go git.alwaldend.com/alwaldend/src/projects/x_profile_cleaner/api/archivepb //projects/x_profile_cleaner/api/archivepb
+# gazelle:resolve go git.alwaldend.com/alwaldend/src/projects/x_profile_cleaner/api/workerpb //projects/x_profile_cleaner/api/workerpb
+
 load("@rules_al//:defs.bzl", "al_binary_run")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_site_svg", "mermaid_site_webp")
@@ -26,6 +29,9 @@ test_suite(
     tests = [
         "//projects/x_profile_cleaner/test/browser:serve_test",
         "//projects/x_profile_cleaner/test/e2e:e2e_test",
+        "//projects/x_profile_cleaner/test/worker:examples_test",
+        "//projects/x_profile_cleaner/test/worker:source_test",
+        "//projects/x_profile_cleaner/test/worker:worker_test",
     ],
 )
 
@@ -37,6 +43,21 @@ docs_filegroup(
         ":docs_assets",
         "//projects/x_profile_cleaner/openspec:docs",
     ],
+)
+
+mermaid_site_svg(
+    name = "architecture",
+    src = "docs/architecture.mmd",
+    out = "rendered/architecture.svg",
+)
+
+mermaid_site_webp(
+    name = "architecture_webp",
+    src = "docs/architecture.mmd",
+    out = "rendered/architecture.dark.webp",
+    aspect_ratio = [],
+    color_scheme = "dark",
+    scale = 2,
 )
 
 mermaid_site_svg(
@@ -59,6 +80,8 @@ docs_filegroup(
     srcs = [
         ":apply_state",
         ":apply_state_webp",
+        ":architecture",
+        ":architecture_webp",
     ],
     prefix = "content/docs/projects/x_profile_cleaner/assets",
 )

@@ -1,0 +1,25 @@
+window.YTD.like.part0 = [
+  {
+    "like": {
+      "tweetId": "9007199254740993",
+      "fullText": "Giveaway: example"
+    }
+  },
+  {
+    "like": {
+      "tweetId": "9223372036854775807",
+      "fullText": "Editorial note"
+    }
+  },
+  {
+    "like": {
+      "tweetId": "901",
+      "fullText": "SPONSORED announcement"
+    }
+  },
+  {
+    "like": {
+      "tweetId": "902"
+    }
+  }
+];

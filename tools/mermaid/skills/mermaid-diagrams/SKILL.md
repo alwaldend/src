@@ -10,30 +10,58 @@ description: >-
 
 # Write repository diagrams
 
-Read [`tools/mermaid/README.md`](../../README.md) for the theme contract and the
-measured reasons behind each setting before changing a diagram that depends on
-one of them.
+## Preserve the requested scope
 
-## Prefer the Bazel rule
+For an application overview, start with actors, application processes, storage
+and external services. Add internal packages, job registries, generators or other
+implementation detail only when requested. Preserve supplied node names, grouping,
+arrow directions and labels. Use a flowchart for structural relationships; a state
+diagram describes states and transitions. Keep planned relationships identifiable
+in the accompanying prose rather than claiming that drawing them implements them.
 
-Declare a maintained diagram as a `mermaid_svg` action, and feed that target
-straight into whatever consumes the image:
+## Build the owner's normal target
+
+1. Inspect the owning `.mmd` and `BUILD.bazel`. Reuse the existing render target;
+   if the requested format or color variant is missing, add a small normal target
+   beside it. Use this workflow for local previews too. Honor a restriction on
+   publication separately from permission to edit/build local files.
+2. Match the owner's existing macro and theme. "Regular repository styling"
+   means that preset, not Mermaid's built-in `default`/`dark` or the upstream
+   comparison theme. For native site diagrams, pair `mermaid_site_svg` with
+   `mermaid_site_webp`; historical consumers use `mermaid_svg`/`mermaid_webp`.
+3. Run `bazel build //<owner>:<render_target>` from the workspace root. The rule
+   supplies the pinned browser, fonts, palette, font subsetter and runfiles. Do
+   not reconstruct private renderer commands from `aquery`, cached executables,
+   discovered font paths or manually assembled launchers for ordinary diagram
+   work. Diagnose a failed target through its declared inputs and build log.
+4. Inspect the actual built asset at the intended display size. Show that image
+   through the available display mechanism and provide the file in the requested
+   format. An HTML preview or screenshot does not replace the requested WebP.
+
+For example, add a dark raster beside an existing native site SVG, sharing its
+authoritative source:
 
 ```starlark
-load("//tools/mermaid:defs.bzl", "mermaid_svg")
+load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_site_webp")
 
-mermaid_svg(
-    name = "rendered",
-    src = "architecture.mmd",
-    out = "rendered/architecture.svg",
-)
-
-docs_filegroup(
-    name = "docs_assets",
-    srcs = [":rendered"],
-    prefix = "content/docs/<package>/assets",
+mermaid_site_webp(
+    name = "architecture_webp",
+    src = "docs/architecture.mmd",
+    out = "rendered/architecture.dark.webp",
+    aspect_ratio = [],
+    color_scheme = "dark",
+    scale = 2,
 )
 ```
+
+Build `//<owner>:architecture_webp`; its file is under
+`bazel-bin/<owner>/rendered/architecture.dark.webp`. Keep disposable copies under
+ignored task scratch when a stable attachment path is needed. Simple diagrams
+should be readable directly; do not add navigation or zoom controls to compensate
+for unnecessary detail. See the relevant sections of
+[`tools/mermaid/README.md`](../../README.md) for renderer and theme mechanics.
+
+## Connect the render to its consumer
 
 For diagrams published in the main site's documentation, use
 `mermaid_site_svg` from `//projects/alwaldend.com/pkg/mermaid:defs.bzl`.
@@ -111,9 +139,11 @@ Subgraph directions are ignored when internal nodes connect outside the group;
 switching between Dagre and ELK does not fix that case. Verify the actual
 render before claiming that groups follow their declared direction.
 
-## Keep theme changes in `tools/mermaid/theme.json`
+## Keep appearance in the owning theme
 
-The theme owns appearance, so a diagram carries structure and labels only. A
+`tools/mermaid/theme.json` owns the historical shared appearance; native site
+macros select their bundled site theme. Keep that existing selection when changing
+diagram content or choosing a dark variant. A diagram carries structure and labels only. A
 diagram that needs a different look should not carry a local `themeCSS` block:
 change the theme when the look should apply everywhere.
 
@@ -143,12 +173,10 @@ only the repository's pinned fonts through Fontconfig. Never add a CDN script,
 a `<script type="module">` import, a downloaded font, or a network fetch to a
 diagram or theme: rendering must resolve everything from the Bazel graph.
 
-The height of hermeticity is the whole pipeline, not just the render. A themed
-output also embeds the pinned handwriting face, because a page that shows the
-SVG through `<img>` cannot see the page's webfonts and would otherwise lay the
-text out in a wider system font than the renderer measured. Do not remove that
-embedding or reintroduce a webfont dependency, and do not hand a viewer a
-diagram whose labels only fit when a particular font happens to be installed.
+Hermeticity includes the delivered font. Historical output embeds its pinned
+handwriting face; native site output embeds the font selected by its bundled
+theme. An SVG shown through `<img>` cannot see the page's webfonts, so retain
+that embedding rather than relying on an installed font or a network font fetch.
 
 Set `plain = True` on `mermaid_svg`, or `MERMAID_PLAIN=1` for `mmdc`, to render
 Mermaid's own defaults for comparison. That output is neither themed nor
@@ -160,21 +188,12 @@ appearance while keeping the render hermetic. The post at
 `//projects/alwaldend.com/content/blog/diagrams-in-ac-era` is the worked
 example.
 
-For an interactive render, `mmdc` needs absolute paths because the launcher
-runs from Bazel's output tree:
-
-```sh
-repo_root="$PWD"
-bazel run //tools/mermaid:mmdc -- \
-  -i "${repo_root}/path/to/diagram.mmd" \
-  -o "${repo_root}/path/to/diagram.svg"
-```
-
-`mmdc` applies the same theme, pinned fonts, and paint-order fix as a build
-action, so an interactive render matches the committed one. It writes only the
-file named by `-o` or `--output`, so an SVG printed to stdout is not rewritten.
-Always re-render a maintained diagram through its `mermaid_svg` target before
-handoff, which is the only path a build action verifies.
+The public `//tools/mermaid:mmdc` target remains available for an explicitly
+requested CLI render or focused CLI troubleshooting. It requires absolute input
+and output paths because its launcher runs from Bazel's output tree; the README
+contains the invocation. It applies the historical shared theme, pinned fonts and
+paint-order fix. Its SVG output does not substitute for building a native site
+variant or the maintained target for the requested format before handoff.
 
 ## Verify
 
