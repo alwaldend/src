@@ -1,78 +1,79 @@
-- tags:
-    - forgejo
+- name: Configure Forgejo with guarded activation
+  tags: [forgejo]
   block:
+    - name: Require normal execution for the controlled upgrade transaction
+      ansible.builtin.assert:
+        that: not ansible_check_mode
+        fail_msg: Forgejo upgrades require real backup and health checks; check mode is unsupported.
+
     - name: Install packages
+      when: forgejo_manage_packages
       ansible.builtin.package:
-        name:
-          - git
-          - git-lfs
-    - name: Create forgejo user
+        name: [acl, git, git-lfs]
+
+    - name: Create Forgejo user
+      when: forgejo_manage_user
       ansible.builtin.user:
         name: "{{ forgejo_user }}"
         uid: "{{ forgejo_user_uid }}"
         shell: /sbin/nologin
         home: "{{ forgejo_dir }}/home"
         system: true
-    - name: Create filesystem on the forgejo disk
+
+    - name: Create filesystem on the Forgejo disk
       when: forgejo_disk is truthy
       community.general.filesystem:
         fstype: ext4
         dev: "{{ forgejo_disk }}"
-    - name: Mount forgejo disk
+
+    - name: Mount Forgejo disk
       when: forgejo_disk is truthy
       ansible.posix.mount:
         path: "{{ forgejo_dir }}"
         src: "{{ forgejo_disk }}"
         fstype: ext4
         state: mounted
-    - name: Create forgejo dirs
+
+    - name: Create Forgejo runtime directories
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: directory
+        owner: "{{ forgejo_user }}"
+        group: "{{ forgejo_group }}"
+        mode: "0700"
       loop:
         - "{{ forgejo_dir }}"
         - "{{ forgejo_data_dir }}"
         - "{{ forgejo_config_dir }}"
         - "{{ forgejo_work_dir }}"
         - "{{ forgejo_log_dir }}"
-      ansible.builtin.file:
-        state: directory
-        owner: "{{ forgejo_user }}"
-        group: "{{ forgejo_user }}"
-        mode: "0700"
-        path: "{{ item }}"
-    - name: Copy the forgejo binary
-      register: forgejo_bin_var
-      ansible.builtin.copy:
-        src: "{{ forgejo_bin_local_path }}"
-        dest: "{{ forgejo_bin_path }}"
-        owner: "root"
-        group: "{{ forgejo_user }}"
-        mode: "0755"
-    - name: Copy the config
-      ansible.builtin.template:
-        src: "{{ forgejo_config_local_path }}"
-        dest: "{{ forgejo_config_path }}"
-        owner: "{{ forgejo_user }}"
-        group: "{{ forgejo_user }}"
-        mode: "0600"
-    - name: Write the service
-      register: forgejo_service_result
-      ansible.builtin.template:
-        src: systemd_service.conf
-        dest: "{{ forgejo_service_path }}"
-        owner: root
-        group: root
-        mode: 644
-    - name: Ensure the daemon is reloaded
-      when: forgejo_service_result.changed
-      ansible.builtin.systemd_service:
-        daemon_reload: true
-    - name: Start the service and enable
-      register: forgejo_service_started_result
+
+    - name: Inspect and validate candidate inputs
+      ansible.builtin.include_tasks: preflight.yaml
+
+    - name: Activate changed startup inputs
+      when: forgejo_activation_required
+      ansible.builtin.include_tasks: activate.yaml
+
+    - name: Ensure an unchanged installation is enabled and running
+      when: not forgejo_activation_required
       ansible.builtin.systemd_service:
         name: "{{ forgejo_service_path | basename }}"
         enabled: true
         state: started
-    - name: Reload the service
-      when: not forgejo_service_started_result.changed
-      ansible.builtin.systemd_service:
-        name: "{{ forgejo_service_path | basename }}"
-        state: reloaded
+
+    - name: Verify the running Forgejo version and health
+      when: not forgejo_activation_required
+      ansible.builtin.include_tasks: verify.yaml
+
+    - name: Report accepted activation and its recovery location
+      when: forgejo_activation_required
+      ansible.builtin.debug:
+        msg: "Forgejo {{ forgejo_candidate_version }} accepted. Recovery directory: {{ forgejo_recovery_directory | default('none for a fresh installation', true) }}."
+  always:
+    - name: Remove only this invocation's private staging files
+      when: forgejo_stage_directory.path is defined
+      no_log: true
+      ansible.builtin.file:
+        path: "{{ forgejo_stage_directory.path }}"
+        state: absent

@@ -1,0 +1,32 @@
+load("@rules_python//python:defs.bzl", "py_test")
+load("//tools/ansible/rules:al_ansible_binary.bzl", "al_ansible_binary")
+
+package(transitive_visibility = "//projects:transitive_consumers")
+
+al_ansible_binary(
+    name = "ansible",
+    testonly = True,
+    data = ["//projects/ansible_collection:collections"],
+    process_name = "ansible_playbook",
+)
+
+py_test(
+    name = "upgrade_test",
+    size = "large",
+    srcs = ["upgrade_test.py"],
+    args = [
+        "-f",
+        "--ansible=$(rlocationpath :ansible)",
+        "--candidate=$(rlocationpath //third_party/org_codeberg_forgejo_bin)",
+        "--previous=$(rlocationpath @org_codeberg_forgejo_upgrade_fixture//file)",
+        "--service-fixture=$(rlocationpath :service_fixture.py)",
+        "--collections=_main/collections",
+    ],
+    data = [
+        "service_fixture.py",
+        ":ansible",
+        "//third_party/org_codeberg_forgejo_bin",
+        "@org_codeberg_forgejo_upgrade_fixture//file",
+    ],
+    deps = ["@rules_python//python/runfiles"],
+)

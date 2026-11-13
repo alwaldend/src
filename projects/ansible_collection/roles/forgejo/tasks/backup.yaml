@@ -1,0 +1,84 @@
+- name: Allocate a unique private recovery directory
+  ansible.builtin.tempfile:
+    state: directory
+    path: "{{ forgejo_backup_dir }}"
+    prefix: "upgrade-{{ forgejo_candidate_version }}-"
+  register: forgejo_backup_directory
+
+- name: Retain the recovery location for failure reporting
+  ansible.builtin.set_fact:
+    forgejo_recovery_directory: "{{ forgejo_backup_directory.path }}"
+
+- name: Protect the recovery directory
+  ansible.builtin.file:
+    path: "{{ forgejo_recovery_directory }}"
+    owner: "{{ forgejo_owner }}"
+    group: "{{ forgejo_owner }}"
+    mode: "0700"
+
+- name: Inspect declared root metadata while the instance is stopped
+  ansible.builtin.stat:
+    path: "{{ item }}"
+    get_checksum: false
+    get_mime: false
+  loop: "{{ forgejo_backup_roots }}"
+  register: forgejo_snapshot_roots
+
+- name: Initialize directory-root restoration metadata
+  ansible.builtin.set_fact:
+    forgejo_directory_roots: []
+
+- name: Retain directory-root ownership and permission bits
+  when: item.stat.isdir | default(false)
+  ansible.builtin.set_fact:
+    forgejo_directory_roots: >-
+      {{ forgejo_directory_roots + [{'path': item.stat.path,
+          'uid': item.stat.uid, 'gid': item.stat.gid, 'mode': item.stat.mode}] }}
+  loop: "{{ forgejo_snapshot_roots.results }}"
+
+- name: Archive complete stopped-instance roots without removing source files
+  no_log: true
+  community.general.archive:
+    path: "{{ forgejo_backup_roots }}"
+    dest: "{{ forgejo_recovery_directory }}/snapshot.tar.gz"
+    format: gz
+    force_archive: true
+    remove: false
+    owner: "{{ forgejo_owner }}"
+    group: "{{ forgejo_owner }}"
+    mode: "0600"
+  register: forgejo_archive
+
+- name: Reject an incomplete archive
+  ansible.builtin.assert:
+    that:
+      - forgejo_archive.dest_state == 'archive'
+      - forgejo_archive.missing | default([]) | length == 0
+    fail_msg: The Forgejo archive was incomplete; the candidate was not installed.
+
+- name: Verify that the recovery archive is nonempty
+  ansible.builtin.stat:
+    path: "{{ forgejo_recovery_directory }}/snapshot.tar.gz"
+    checksum_algorithm: sha256
+  register: forgejo_archive_stat
+
+- name: Require a completed archive file
+  ansible.builtin.assert:
+    that:
+      - forgejo_archive_stat.stat.isreg
+      - forgejo_archive_stat.stat.size > 0
+
+- name: Record non-secret restoration metadata after a complete archive
+  ansible.builtin.copy:
+    content: >-
+      {{ {'previous_version': forgejo_previous_version_output.stdout,
+          'candidate_version': forgejo_candidate_version,
+          'archive_root': forgejo_archive.arcroot,
+          'backup_paths': forgejo_backup_roots,
+          'directory_roots': forgejo_directory_roots,
+          'archive_checksum': forgejo_archive_stat.stat.checksum,
+          'candidate_checksum': forgejo_candidate_binary.stat.checksum} | to_nice_json }}
+    dest: "{{ forgejo_recovery_directory }}/manifest.json"
+    owner: "{{ forgejo_owner }}"
+    group: "{{ forgejo_owner }}"
+    mode: "0600"
