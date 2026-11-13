@@ -73,3 +73,9 @@
 
 - [x] 13.1 Document explicit retained-run reuse and its compatibility, provenance and billing boundaries.
 - [x] 13.2 Run the authorized controlled prompt/workflow experiments with cleanup disabled, preserve retrieved images and cost evidence, and destroy all rentals under the operator's later explicit instruction; verify the account is empty.
+
+## 14. Requested NoobAI personal deployment
+
+- [x] 14.1 Select the existing NoobAI XL 1.1 profile on the unchanged 48 GB hardware profile.
+- [x] 14.2 Validate the packaged configuration, review the owning interactive plan and deploy one personal rental with existing credentials and host/price constraints.
+- [x] 14.3 Refresh connection outputs, verify authenticated service and saved workflows, provide the URL and record verification limits. Delivery receipts own publication state.

@@ -177,3 +177,31 @@ workflow and quality findings. No successful NoobAI/HiDream comparison or overal
 artistic acceptance is claimed. Images, effective inputs, cleanup evidence and
 account-specific cost data remain in ignored task output; no new dependency or
 persistent host configuration was introduced.
+
+## Requested NoobAI personal deployment
+
+The operator requests deployment of NoobAI on the existing 48 GB hardware
+profile and its connection link. Select the existing NoobAI XL 1.1 bundle,
+retaining RTX PRO 5000, 100 GB disk, the USD 1/hour ceiling and mandatory
+verified/datacenter and transfer-price constraints. Reuse the component's
+existing web login and deploy through its reviewed interactive Terraform apply.
+Verify service readiness and the eight saved workflows without submitting image
+jobs. Retain this personal rental for the operator. No new dependency, host
+configuration or evaluation rental is included.
+
+At 2026-11-13 00:16:51 MSK, the reviewed owning apply created instance 60406482
+with 100 GB disk: 1 added, 0 changed, 0 destroyed. Existing Vault login resources
+were unchanged. All four offline Terraform/provider checks passed; the NoobAI
+packaging artifact reports eight workflows, preserved model destinations and
+13,990 startup bytes against the unchanged 16,384-byte limit. The first reviewed
+refresh-only apply recorded loading status and SSH connection information,
+with no mapped HTTPS port yet and no remote resource changes.
+
+The subsequent reviewed refresh-only apply recorded running status and
+`https://93.91.156.86:49649`, changing no remote resources. At 00:20 MSK,
+the owning authenticated CLI successfully verified the trusted certificate,
+ComfyUI 0.44.0 and NVIDIA RTX PRO 5000 Blackwell, then listed all eight expected
+NoobAI workflows with no additional page. No image job was submitted; these
+checks establish service readiness and workflow staging, not image quality
+or successful model inference. The existing login remains in the component's
+web entry. Instance 60406482 remains running for the operator.

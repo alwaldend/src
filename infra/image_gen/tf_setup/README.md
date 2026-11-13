@@ -27,10 +27,10 @@ there is no registry lookup or helper executable during Terraform planning.
 Changing the tag produces a reviewed replacement plan for an existing rental.
 The component's [config.json](../config.json) owns the image, HTTPS username,
 selected model/hardware profiles and their definitions. Terraform has no root
-input variables or tfvars presets. The selected model is HiDream-I1 Full with its
-four local text encoders and FLUX VAE, on the
+input variables or tfvars presets. The selected model is NoobAI XL 1.1 with the
+approved SDXL Plus adapter and CLIP vision encoder, on the
 existing 48 GB hardware profile. Other model profiles remain available
-as `chroma-hd`, `flux2-dev`, `juggernaut`, `noobai`, `illustrious`, `flux`,
+as `chroma-hd`, `flux2-dev`, `juggernaut`, `hidream-i1-full`, `illustrious`, `flux`,
 `qwen`, `uso` and `umo-uno`. Selecting a profile does not rent until an explicitly authorized apply.
 
 HiDream's eight workflow files are uploaded through the authenticated ComfyUI
@@ -106,18 +106,18 @@ references through IP-Adapter Plus. The two additional public safetensors files
 add about 3.4 GB: the SDXL Plus adapter in `models/ipadapter` and its CLIP-ViT-H
 encoder in `models/clip_vision`. Their publisher revisions are fixed in config.json.
 
-| Profile                      | Bundle                                                                             | Native workflows                                                                                                                                                                   |
-| ---------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `juggernaut`                 | Juggernaut XL v9 all-in-one SDXL checkpoint                                        | `juggernaut-text-to-image`, `juggernaut-image-to-image`, `juggernaut-prompt-sequence`, `juggernaut-style-reference`, `juggernaut-style-prompt-sequence`                            |
-| `noobai`                     | NoobAI XL 1.1 all-in-one SDXL checkpoint, SDXL Plus adapter and CLIP vision        | Seven purposes as Juggernaut, plus img2img prompt sequence; prefixed `noobai-`                                                                                                     |
-| `illustrious`                | Illustrious XL v2.0-STABLE SDXL checkpoint, SDXL Plus adapter and CLIP vision      | Seven purposes as Juggernaut, prefixed `illustrious-`                                                                                                                              |
-| `hidream-i1-full` (selected) | HiDream-I1 Full 17B FP16, four local text encoders, FLUX VAE                       | Eight purposes: txt2img, img2img, their prompt sequences, style and its sequence, and both GIF paths; prefixed `hidream-i1-full-`                                                  |
-| `chroma-hd`                  | Full Chroma1-HD, FP16 T5 encoder, FLUX VAE                                         | `chroma-hd-text-to-image`, `chroma-hd-image-to-image`, `chroma-hd-style-reference`, `chroma-hd-prompt-sequence`, `chroma-hd-style-prompt-sequence`, `chroma-hd-image-to-image-gif` |
-| `flux2-dev`                  | FLUX.2 dev 32B FP8, local Mistral FP8 encoder, FLUX.2 VAE                          | `flux2-dev-text-to-image`, `flux2-dev-single-reference`, `flux2-dev-single-reference-prompt-sequence`, `flux2-dev-multi-reference`, `flux2-dev-multi-reference-prompt-sequence`    |
-| `flux`                       | FLUX.2 klein Base 9B FP8, Qwen3 8B mixed FP8 encoder, Flux small-decoder VAE       | `flux-single-reference`, `flux-character-style`, `flux-prompt-sequence`                                                                                                            |
-| `qwen`                       | Qwen-Image-Edit-2511 mixed FP8, Qwen 2.5 VL 7B FP8 encoder, Qwen VAE               | `qwen-single-reference`, `qwen-character-style`, `qwen-prompt-sequence`                                                                                                            |
-| `uso`                        | FLUX.1 dev FP8 all-in-one checkpoint, USO LoRA/projector and SigLIP vision encoder | Subject reference, style reference and combined subject/two-style references, each with a sequence; prefixed `uso-`                                                                |
-| `umo-uno`                    | Same FLUX.1 dev FP8 checkpoint and UMO-UNO LoRA                                    | Single and three-identity references, each with a sequence; prefixed `umo-uno-`                                                                                                    |
+| Profile             | Bundle                                                                             | Native workflows                                                                                                                                                                   |
+| ------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `juggernaut`        | Juggernaut XL v9 all-in-one SDXL checkpoint                                        | `juggernaut-text-to-image`, `juggernaut-image-to-image`, `juggernaut-prompt-sequence`, `juggernaut-style-reference`, `juggernaut-style-prompt-sequence`                            |
+| `noobai` (selected) | NoobAI XL 1.1 all-in-one SDXL checkpoint, SDXL Plus adapter and CLIP vision        | Seven purposes as Juggernaut, plus img2img prompt sequence; prefixed `noobai-`                                                                                                     |
+| `illustrious`       | Illustrious XL v2.0-STABLE SDXL checkpoint, SDXL Plus adapter and CLIP vision      | Seven purposes as Juggernaut, prefixed `illustrious-`                                                                                                                              |
+| `hidream-i1-full`   | HiDream-I1 Full 17B FP16, four local text encoders, FLUX VAE                       | Eight purposes: txt2img, img2img, their prompt sequences, style and its sequence, and both GIF paths; prefixed `hidream-i1-full-`                                                  |
+| `chroma-hd`         | Full Chroma1-HD, FP16 T5 encoder, FLUX VAE                                         | `chroma-hd-text-to-image`, `chroma-hd-image-to-image`, `chroma-hd-style-reference`, `chroma-hd-prompt-sequence`, `chroma-hd-style-prompt-sequence`, `chroma-hd-image-to-image-gif` |
+| `flux2-dev`         | FLUX.2 dev 32B FP8, local Mistral FP8 encoder, FLUX.2 VAE                          | `flux2-dev-text-to-image`, `flux2-dev-single-reference`, `flux2-dev-single-reference-prompt-sequence`, `flux2-dev-multi-reference`, `flux2-dev-multi-reference-prompt-sequence`    |
+| `flux`              | FLUX.2 klein Base 9B FP8, Qwen3 8B mixed FP8 encoder, Flux small-decoder VAE       | `flux-single-reference`, `flux-character-style`, `flux-prompt-sequence`                                                                                                            |
+| `qwen`              | Qwen-Image-Edit-2511 mixed FP8, Qwen 2.5 VL 7B FP8 encoder, Qwen VAE               | `qwen-single-reference`, `qwen-character-style`, `qwen-prompt-sequence`                                                                                                            |
+| `uso`               | FLUX.1 dev FP8 all-in-one checkpoint, USO LoRA/projector and SigLIP vision encoder | Subject reference, style reference and combined subject/two-style references, each with a sequence; prefixed `uso-`                                                                |
+| `umo-uno`           | Same FLUX.1 dev FP8 checkpoint and UMO-UNO LoRA                                    | Single and three-identity references, each with a sequence; prefixed `umo-uno-`                                                                                                    |
 
 All files are fixed to publisher revisions in [config.json](../config.json).
 The full Chroma bundle totals about 28 GB. The optional 32B and HiDream

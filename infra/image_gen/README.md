@@ -9,16 +9,17 @@ This project owns one image-generation rental in [tf_setup](tf_setup/README.md).
 It uses the reusable [ComfyUI module](../../projects/tf_modules/vastai_instance_imagegen_comfyui/README.md)
 in exposed mode: a single HTTPS proxy with a generated username/password login,
 plus account-key SSH access. The GPU must have at least 32 GiB VRAM.
-The [configuration](config.json) selects HiDream-I1 Full 17B with four local text
-encoders on RTX PRO 5000 Blackwell with 48 GB nominal VRAM. Full Chroma1-HD,
-FLUX.2 dev 32B FP8, Juggernaut XL v9, NoobAI XL 1.1, Illustrious XL v2.0-STABLE,
+The [configuration](config.json) selects NoobAI XL 1.1
+on RTX PRO 5000 Blackwell with 48 GB nominal VRAM. Full Chroma1-HD,
+FLUX.2 dev 32B FP8, Juggernaut XL v9, HiDream-I1 Full 17B, Illustrious XL v2.0-STABLE,
 FLUX.2 klein Base 9B FP8 and Qwen-Image-Edit-2511 remain selectable profiles,
 downloaded on first boot; see [model configuration](tf_setup/README.md#download-models).
 The additional `uso` and `umo-uno` profiles provide native FLUX.1 subject/style
 and multiple-identity conditioning respectively; both have prompt sequences.
 Juggernaut includes the approved IP-Adapter Plus and CLIP vision weights for
 several character/style references; NoobAI and Illustrious reuse that SDXL path.
-NoobAI and Illustrious have offline packaging checks only. HiDream's GIF
+NoobAI has verified service/workflow staging; GPU inference remains unverified.
+Illustrious has offline packaging checks only. HiDream's GIF
 workflow completed the approved eval case, with poor motion/reference quality;
 its other workflows remain unverified on a GPU. NoobAI's publisher prohibits commercial
 use of generated products; see the model configuration before selecting it.
@@ -49,15 +50,12 @@ existing Vault identity membership. No general infrastructure group is required.
 
 The former personal stack was destroyed on 2026-11-10. The replacement AppRole,
 scoped policies, dedicated team key, generated web login and component state
-remain deployed. The previous Flux rental and its brief Base replacement were destroyed at the
-operator's request. The FLUX.2 dev and later NoobAI rentals were also destroyed
-at the operator's request. The latest configuration selects HiDream-I1 Full
-on the named 48 GB GPU profile. HiDream instance 60332580 was subsequently
-destroyed at the operator's request, and its connection outputs are cleared.
-Component credentials remain deployed; no rental is currently managed by this
-root. USO and UMO-UNO were added as source-only alternatives, without changing
-the selection or renting. HiDream model readiness and image quality were not
-verified at the operator's request. No NoobAI image-generation acceptance was performed by the agent. The
+remain deployed. The earlier Flux, FLUX.2 dev, NoobAI and HiDream rentals were
+destroyed at the operator's request. The latest configuration selects NoobAI
+XL 1.1 on the named 48 GB GPU profile. The operator-requested deployment on
+2026-11-13 created personal instance 60406482, retaining the existing credentials.
+USO and UMO-UNO remain source-only alternatives. No image-generation acceptance
+was performed on this NoobAI rental. The
 [current deployment record](openspec/changes/add-parallel-evaluations/design.md)
 documents deployment and its verification limits; the [earlier Chroma acceptance](openspec/changes/add-imagegen-rental/design.md#full-chroma-deployment-on-rtx-pro-5000)
 retains its historical workflow results. The component did not reuse personal state or credentials. Historical
