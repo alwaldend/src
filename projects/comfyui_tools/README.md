@@ -18,7 +18,7 @@ model downloads, credentials and rental state belong to
 The workflow files, including the [Flux panel sequence](workflows/flux/flux-prompt-sequence.json), contain single-reference, character/style and
 prompt-sequence graphs for FLUX.2 klein Base and Qwen-Image-Edit, plus
 Juggernaut XL v9, NoobAI XL 1.1, Illustrious XL v2.0-STABLE, HiDream-I1 Full,
-full Chroma and archived Chroma Flash examples. All files use `<profile>-<purpose>.json`; the saved
+full Chroma, MOSS-Image and archived Chroma Flash examples. All files use `<profile>-<purpose>.json`; the saved
 workflow name uses that same basename. Load a matching JSON in ComfyUI or pass it to the
 authenticated infrastructure CLI. Each graph requires its matching models and
 nodes; the rental's [model profile](../../infra/image_gen/tf_setup/README.md#download-models)
@@ -136,6 +136,36 @@ verifies execution and ordered outputs, with significant visual limits: img2img
 can preserve the source too strongly, the style guide can blur detail, and comic
 wording can elicit extra panels and lettering. Start with native text-to-image;
 reference and sequence paths require prompt/strength tuning for useful results.
+
+## MOSS-Image examples
+
+The `moss-image` family supplies six examples, adapted from the
+[official templates](https://github.com/Comfy-Org/workflow_templates/tree/36ecd0663961c5e1e83f7c0ea521658b33b36bbc/templates)
+as compact native graphs without the optional LLM prompt enhancer. Their model
+files come from the infrastructure profile; generation uses local Qwen3.5 text
+encoding and the small FLUX.2 VAE.
+
+- `moss-image-text-to-image` and `moss-image-base-text-to-image` use SFT and Base,
+  respectively, with 1024-square output, 25 ER-SDE/simple steps, CFG 2.5 and
+  layer-22 skip guidance through the first half of sampling.
+- `moss-image-layout-guided` and `moss-image-base-layout-guided` add an editable
+  native bounding-box canvas. Edit the box description and overall caption;
+  canvas size drives the prompt coordinates and output latent dimensions.
+- `moss-image-image-edit` requires `reference.png` selected in Load Image. Edit
+  its instruction; the example uses the SFT edit LoRA, `Moss-Image-Edit` reference
+  conditioning on both branches, 30 Euler/normal steps and CFG 4. The reference
+  is scaled to about one megapixel and determines the output dimensions.
+- `moss-image-color-depth-control` requires prepared `color-map.png` and
+  `depth-map.png` selected in their Load Image nodes. Start with both maps at
+  1024 square. Region colors are identifiers; depth is white near the viewer.
+  Disconnect an optional map input to use only the other map. Change the latent
+  dimensions when using another size. The example uses the control LoRA,
+  layer-24 skip guidance, shift 5, temporal score rescaling, 25 ER-SDE/simple
+  steps, CFG 3 and control ending at 60% of sampling. It does not estimate depth.
+
+These are editable examples, not guarantees of exact edits, layout or reference
+fidelity. Actual GPU execution and its limitations belong to the
+[deployment record](../../infra/image_gen/openspec/changes/add-moss-image-examples/design.md).
 
 ## Workflow source and generation
 

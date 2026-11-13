@@ -27,11 +27,11 @@ there is no registry lookup or helper executable during Terraform planning.
 Changing the tag produces a reviewed replacement plan for an existing rental.
 The component's [config.json](../config.json) owns the image, HTTPS username,
 selected model/hardware profiles and their definitions. Terraform has no root
-input variables or tfvars presets. The selected model is NoobAI XL 1.1 with the
-approved SDXL Plus adapter and CLIP vision encoder, on the
+input variables or tfvars presets. The selected model is MOSS-Image SFT/Base INT8
+with its edit and color/depth adapters and six example workflows, on the
 existing 48 GB hardware profile. Other model profiles remain available
 as `chroma-hd`, `flux2-dev`, `juggernaut`, `hidream-i1-full`, `illustrious`, `flux`,
-`qwen`, `uso` and `umo-uno`. Selecting a profile does not rent until an explicitly authorized apply.
+`qwen`, `noobai`, `uso` and `umo-uno`. Selecting a profile does not rent until an explicitly authorized apply.
 
 HiDream's eight workflow files are uploaded through the authenticated ComfyUI
 API after startup. Its empty `startup_workflows` selection keeps those JSON
@@ -202,6 +202,26 @@ CFG 4 and denoise 1. These are reference-guided generation workflows; they do
 not guarantee exact style isolation or character continuity.
 
 ## Additional model options
+
+### MOSS-Image examples
+
+The selected `moss-image` profile downloads about 21.4 GB from
+[Comfy-Org/MOSS-Image](https://huggingface.co/Comfy-Org/MOSS-Image/tree/2929efe3cdd506c0a430bcfca70a9a8d805cc095):
+SFT and Base INT8 denoisers, Qwen3.5 9B INT8, the small FLUX.2 VAE, and the
+edit and color/depth LoRAs. Files use immutable publisher URLs in `config.json`.
+The model repository declares Apache 2.0. All downloads are public; no model
+token, extra node pack or Python requirement is configured.
+
+The six examples cover SFT/Base text-to-image, SFT/Base layout guidance,
+image editing and prepared color/depth maps. The Base model is selected only by
+the two `moss-image-base-*` examples; the other examples use SFT. See
+[workflow instructions](../../../projects/comfyui_tools/README.md#moss-image-examples)
+for inputs and sampling defaults. The existing ComfyUI v0.44.0 runtime provides
+their native nodes. The examples omit optional prompt enhancement and automatic
+MoGe depth estimation. GPU acceptance is recorded separately in the
+[MOSS deployment record](../openspec/changes/add-moss-image-examples/design.md).
+
+### Other profiles
 
 [USO](https://docs.comfy.org/tutorials/flux/flux-1-uso) and
 [UMO-UNO](https://github.com/bytedance/UMO) are optional

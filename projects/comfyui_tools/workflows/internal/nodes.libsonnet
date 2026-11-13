@@ -1,5 +1,14 @@
 // Native port contracts for the nodes used by these workflow families.
 local ports = {
+  BasicScheduler: { inputs: [{ name: 'model', type: 'MODEL' }], outputs: [{ name: 'SIGMAS', type: 'SIGMAS' }] },
+  CreateBoundingBoxes: { inputs: [{ name: 'background', type: 'IMAGE', shape: 7 }, { name: 'bboxes', type: 'BOUNDING_BOX,ARRAY,STRING', shape: 7 }], outputs: [{ name: 'preview', type: 'IMAGE' }, { name: 'bboxes', type: 'BOUNDING_BOX' }, { name: 'elements', type: 'ARRAY' }] },
+  MOSSImageLayoutPrompt: { inputs: [{ name: 'element', type: 'ARRAY' }, { name: 'width', type: 'INT', widget: { name: 'width' } }, { name: 'height', type: 'INT', widget: { name: 'height' } }], outputs: [{ name: 'prompt', type: 'STRING' }] },
+  MOSSImageControl: { inputs: [{ name: 'positive', type: 'CONDITIONING' }, { name: 'negative', type: 'CONDITIONING' }, { name: 'vae', type: 'VAE' }, { name: 'color_map', type: 'IMAGE', shape: 7 }, { name: 'depth_map', type: 'IMAGE', shape: 7 }], outputs: [{ name: 'positive', type: 'CONDITIONING' }, { name: 'negative', type: 'CONDITIONING' }] },
+  TextEncodeMOSSImageEdit: { inputs: [{ name: 'clip', type: 'CLIP' }, { name: 'images.image_0', type: 'IMAGE' }, { name: 'images.image_1', type: 'IMAGE', shape: 7 }, { name: 'vae', type: 'VAE', shape: 7 }], outputs: [{ name: 'CONDITIONING', type: 'CONDITIONING' }] },
+  SkipLayerGuidanceDiTSimple: { inputs: [{ name: 'model', type: 'MODEL' }], outputs: [{ name: 'MODEL', type: 'MODEL' }] },
+  TemporalScoreRescaling: { inputs: [{ name: 'model', type: 'MODEL' }], outputs: [{ name: 'patched_model', type: 'MODEL' }] },
+  SamplerER_SDE: { inputs: [], outputs: [{ name: 'SAMPLER', type: 'SAMPLER' }] },
+  SamplerCustom: { inputs: [{ name: 'model', type: 'MODEL' }, { name: 'positive', type: 'CONDITIONING' }, { name: 'negative', type: 'CONDITIONING' }, { name: 'sampler', type: 'SAMPLER' }, { name: 'sigmas', type: 'SIGMAS' }, { name: 'latent_image', type: 'LATENT' }], outputs: [{ name: 'output', type: 'LATENT' }, { name: 'denoised_output', type: 'LATENT' }] },
   BasicGuider: { inputs: [{ name: 'model', type: 'MODEL' }, { name: 'conditioning', type: 'CONDITIONING' }], outputs: [{ name: 'GUIDER', type: 'GUIDER' }] },
   FluxGuidance: { inputs: [{ name: 'conditioning', type: 'CONDITIONING' }], outputs: [{ name: 'CONDITIONING', type: 'CONDITIONING' }] },
   CFGGuider: { inputs: [{ name: 'model', type: 'MODEL' }, { name: 'positive', type: 'CONDITIONING' }, { name: 'negative', type: 'CONDITIONING' }], outputs: [{ name: 'GUIDER', type: 'GUIDER' }] },

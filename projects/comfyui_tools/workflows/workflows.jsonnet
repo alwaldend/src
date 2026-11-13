@@ -3,6 +3,14 @@ local configuration = import '../../../infra/image_gen/config.json';
 local g = import 'internal/graph.libsonnet';
 // Recorded workflow defaults remain usable when native downloading is disabled.
 local defaults = {
+  'moss-image': {
+    checkpoint: 'moss_image_sft_int8_convrot.safetensors',
+    base_checkpoint: 'moss_image_base_int8_convrot.safetensors',
+    text_encoder: 'qwen3.5_9b_int8_convrot.safetensors',
+    vae: 'flux2-vae_small.safetensors',
+    edit_lora: 'moss_image_edit_lora_rank_64_bf16.safetensors',
+    control_lora: 'moss_image_color_depth_control.safetensors',
+  },
   uso: {
     checkpoint: 'flux1-dev-fp8.safetensors',
     lora: 'uso-flux1-dit-lora-v1.safetensors',
@@ -77,6 +85,7 @@ local filenames(profile) = {
   for kind in std.objectFields(defaults[profile])
 };
 local families = {
+  'moss-image': (import 'moss-image/workflows.libsonnet')(filenames('moss-image')),
   uso: (import 'uso/workflows.libsonnet')(filenames('uso')),
   'umo-uno': (import 'umo-uno/workflows.libsonnet')(filenames('umo-uno')),
   noobai: (import 'noobai/workflows.libsonnet')(filenames('noobai')),
