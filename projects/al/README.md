@@ -14,7 +14,7 @@ AL is an independent project providing repository lifecycle commands and reusabl
 Bazel rules. Its source lives in `projects/al`; its Bzlmod module name remains
 `rules_al`, preserving consumers' `@rules_al` labels.
 Its direct commands are `al config`, `al run`, `al version`, `al release`,
-`al delivery`, `al bazel test`, and `al doctor`.
+`al delivery`, `al bazel test`, `al bazel mcp serve`, and `al doctor`.
 
 Consumers supply plugin configuration, repository and base selections, and release
 destinations. They run their normal build, test, and lint commands before source
@@ -55,6 +55,72 @@ update that installation before building a release from changed AL source.
 Operator procedures live in the module's `al-*` skills. Workspace preparation,
 checks, maintenance, and OpenSpec workflows use existing targets through those
 skills; they do not add speculative command groups.
+
+## Bazel MCP server
+
+Start AL's opt-in MCP server with `al bazel mcp serve --workspace /absolute/workspace`.
+It uses stdio and the normal `bazel` on PATH, preserving Bazelisk pins, rc files,
+and caching. An omitted workspace selects the enclosing workspace, including
+`BUILD_WORKSPACE_DIRECTORY` when started through `bazel run`. The process starts
+no credential plugins and writes protocol messages only to stdout.
+
+An MCP client's server entry can use:
+
+```json
+{
+  "mcpServers": {
+    "bazel": {
+      "command": "al",
+      "args": ["bazel", "mcp", "serve", "--workspace", "/absolute/workspace"]
+    }
+  }
+}
+```
+
+The server advertises these tools and their input/output schemas:
+
+| Tool           | Inputs and behavior                                                                                      |
+| -------------- | -------------------------------------------------------------------------------------------------------- |
+| `bazel_query`  | Required `expression`; `output` defaults to `label`.                                                     |
+| `bazel_cquery` | Required configured-target `expression`; `output` defaults to `label`.                                   |
+| `bazel_aquery` | Required action-graph `expression`; `output` defaults to `jsonproto`.                                    |
+| `bazel_build`  | Required nonempty `targets` array of absolute labels or patterns.                                        |
+| `bazel_test`   | Required nonempty `targets`; runs them directly. Git-aware selection remains `al bazel test --base REF`. |
+| `bazel_info`   | Optional `keys` array; omitted keys request the full report.                                             |
+
+Each tool accepts an optional `options` array of Bazel command flags in
+`--name` or `--name=value` form. Values belong in the same array element as their
+flag; positional options and `--` are rejected. Query output formats are limited
+to textual formats; binary protobuf output is excluded. For example:
+
+```json
+{ "expression": "deps(//app:app)", "output": "label_kind" }
+```
+
+```json
+{ "targets": ["//app:app_test"], "options": ["--test_output=errors"] }
+```
+
+Results include `workspace`, `command`, `exit_code` (`-1` when no normal exit is
+available), `stdout`, `stderr`, `stdout_truncated`, `stderr_truncated`,
+`timed_out`, and `cancelled`. Failures also include `error`. Nonzero exits,
+timeouts, cancellation, and truncated output set MCP's `isError`; partial output
+is diagnostic evidence, not a complete successful graph result. Text content
+mirrors the structured result for clients without structured-content support.
+
+`--timeout` defaults to `10m` per call, including time waiting for another
+request. `--max-output-bytes` defaults to 65536 per stream and accepts 1 through 524288. The upper bound keeps escaped structured and text results within the SDK's
+default message limit. Calls are serialized. `--bazel-path` selects another executable and
+repeatable `--startup-option=VALUE` supplies operator-selected startup arguments.
+These startup settings are fixed for the session. MCP input frames are limited
+to 1 MiB. Cancellation and disconnect cancel active Bazel clients; Bazel retains
+ownership of its persistent server and action cleanup. No rollback is implied.
+
+Use this interface only with a trusted local client and workspace. Bazel rc files,
+options, analysis, build rules, and tests can execute code, write files, and use
+configured remote services. MCP is an invocation interface, not a sandbox or
+deployment authorization mechanism. Client configuration and host installation
+remain explicit operator actions.
 
 AL also owns repository versions and independent project releases.
 The release identity is `(project, version)`: projects share a source version
