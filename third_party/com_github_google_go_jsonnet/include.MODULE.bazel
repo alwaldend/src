@@ -7,5 +7,7 @@ binary_toolchain_extension.toolchains(
     lock = "//third_party/com_github_google_go_jsonnet:binary_toolchain.json",
     toolchains_map = {"jsonnet": "com_github_google_go_jsonnet"},
 )
+
 register_toolchains("@com_github_google_go_jsonnet//:all")
+
 use_repo(binary_toolchain_extension, "com_github_google_go_jsonnet")
