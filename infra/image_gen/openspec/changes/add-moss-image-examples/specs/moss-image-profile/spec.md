@@ -17,6 +17,17 @@ VAE, edit adapter and color/depth adapter, and six matching example workflows.
 - **THEN** the native provisioner downloads its models to their matching directories
   and stages all six examples under the ComfyUI user's workflows
 
+### Requirement: Sequence example catalog
+
+The MOSS profile SHALL also list six sequence examples for authenticated API
+staging, preserving the original six first-boot workflows so adding examples
+does not require replacing an existing rental.
+
+#### Scenario: Extend the running instance's examples
+
+- **WHEN** the operator stages the sequence catalog on the existing instance
+- **THEN** ComfyUI lists all twelve examples and the original instance is retained
+
 ### Requirement: Retain 48 GB rental controls
 
 The selected hardware SHALL retain the existing `48gb` requirements, authenticated

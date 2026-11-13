@@ -9,6 +9,8 @@ The existing generated workflow catalog does not include this model family.
   image editing, and color/depth control using prepared maps.
 - Generate native JSON from the existing Libsonnet graph infrastructure.
 - Document inputs, sampling defaults and the limits of example acceptance.
+- Provide a prompt-sequence variant for each example with shared inputs,
+  negative text, panel progress and grouped output filenames.
 
 ## Capabilities
 

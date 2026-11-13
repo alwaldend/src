@@ -7,6 +7,9 @@ local negative = 'worst quality, bad anatomy, watermark, jpeg artifact';
 local boxes = [
   { x: 200, y: 160, width: 620, height: 720, metadata: { type: 'obj', text: '', desc: 'A small blue robot reading a book on a wooden bench', palette: [] } },
 ];
+local panels = 'A small blue robot reads a book on a snowy park bench at dawn.\n\nA small blue robot reads a book on a snowy park bench at noon.\n\nA small blue robot reads a book on a snowy park bench at sunset.';
+local sequenceNode(id, prefix, prompts=panels, context='Watercolor illustration, clear silhouettes, soft light.') =
+  n.node(id, 'ImagegenPromptSequence', [prompts, context, 'line', prefix], [0, 1640], [680, 380], title='Panel prompts and shared negative text');
 
 function(models) {
   'text-to-image': {
@@ -140,4 +143,10 @@ function(models) {
     ],
     metadata: { last_node_id: 18, last_link_id: 26 },
   }),
+  'prompt-sequence': g.sequence(self['text-to-image'], sequenceNode(11, 'moss-image'), 4, 5, 10, [11, 12, 13]),
+  'base-prompt-sequence': g.sequence(self['base-text-to-image'], sequenceNode(11, 'moss-image-base'), 4, 5, 10, [11, 12, 13]),
+  'layout-prompt-sequence': g.sequence(self['layout-guided'], sequenceNode(14, 'moss-image-layout'), 12, 5, 10, [18, 19, 20], textInput='prompt', negativeTextInput='text'),
+  'base-layout-prompt-sequence': g.sequence(self['base-layout-guided'], sequenceNode(14, 'moss-image-base-layout'), 12, 5, 10, [18, 19, 20], textInput='prompt', negativeTextInput='text'),
+  'image-edit-prompt-sequence': g.sequence(self['image-edit'], sequenceNode(15, 'moss-image-edit', prompts='Change the robot to red. Keep the scene, pose and illustration style unchanged.\n\nChange the robot to green. Keep the scene, pose and illustration style unchanged.\n\nChange the robot to yellow. Keep the scene, pose and illustration style unchanged.', context=''), 4, 5, 10, [21, 22, 23], textInput='prompt'),
+  'color-depth-prompt-sequence': g.sequence(self['color-depth-control'], sequenceNode(19, 'moss-image-control'), 4, 5, 10, [27, 28, 29]),
 }

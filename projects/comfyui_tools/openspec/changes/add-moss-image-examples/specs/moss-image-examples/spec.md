@@ -25,3 +25,15 @@ filenames selected from the model configuration.
 
 - **WHEN** a user selects a region map and depth map at the output size
 - **THEN** the control graph uses the control adapter without installing a depth estimator
+
+### Requirement: Prompt sequence variants
+
+Each example SHALL have a sequence variant that generates one image per nonempty
+prompt line, shares one negative prompt and its original reference/layout/control
+inputs, displays panel progress and saves uniquely grouped ordered filenames.
+
+#### Scenario: Queue several panel prompts
+
+- **WHEN** a user queues a sequence example with several nonempty prompt lines
+- **THEN** one native job saves the corresponding ordered panels using the same
+  shared inputs and run-specific filename group

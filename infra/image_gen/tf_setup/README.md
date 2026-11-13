@@ -28,14 +28,17 @@ Changing the tag produces a reviewed replacement plan for an existing rental.
 The component's [config.json](../config.json) owns the image, HTTPS username,
 selected model/hardware profiles and their definitions. Terraform has no root
 input variables or tfvars presets. The selected model is MOSS-Image SFT/Base INT8
-with its edit and color/depth adapters and six example workflows, on the
+with its edit and color/depth adapters, six examples and six sequence variants, on the
 existing 48 GB hardware profile. Other model profiles remain available
 as `chroma-hd`, `flux2-dev`, `juggernaut`, `hidream-i1-full`, `illustrious`, `flux`,
 `qwen`, `noobai`, `uso` and `umo-uno`. Selecting a profile does not rent until an explicitly authorized apply.
 
 HiDream's eight workflow files are uploaded through the authenticated ComfyUI
 API after startup. Its empty `startup_workflows` selection keeps those JSON
-files out of the inline command; other profiles default to their full catalog.
+files out of the inline command. MOSS retains its original six first-boot examples
+and stages six sequence variants through the same authenticated workflow API;
+see the [save commands](../../../projects/comfyui_tools/README.md#moss-image-examples).
+This preserves the running rental's startup payload. Other profiles default to their full catalog.
 Models, approved nodes and hardening still use the normal native startup.
 
 ```sh
@@ -212,9 +215,12 @@ edit and color/depth LoRAs. Files use immutable publisher URLs in `config.json`.
 The model repository declares Apache 2.0. All downloads are public; no model
 token, extra node pack or Python requirement is configured.
 
-The six examples cover SFT/Base text-to-image, SFT/Base layout guidance,
+The six single-image examples cover SFT/Base text-to-image, SFT/Base layout guidance,
 image editing and prepared color/depth maps. The Base model is selected only by
-the two `moss-image-base-*` examples; the other examples use SFT. See
+the `moss-image-base-*` examples; the other examples use SFT. Each example has a
+prompt-sequence counterpart with shared negative text, progress and grouped
+ordered filenames. The catalog lists all twelve; `startup_workflows` selects the
+original six, and the sequence variants are saved through the API. See
 [workflow instructions](../../../projects/comfyui_tools/README.md#moss-image-examples)
 for inputs and sampling defaults. The existing ComfyUI v0.44.0 runtime provides
 their native nodes. The examples omit optional prompt enhancement and automatic
