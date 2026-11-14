@@ -1,0 +1,17 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+package(transitive_visibility = "//projects:transitive_consumers")
+
+go_library(
+    name = "experiments",
+    srcs = [
+        "artifacts.go",
+        "doc.go",
+        "identity.go",
+        "process.go",
+        "records.go",
+        "runner.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/comfyui_tools/internal/experiments",
+    visibility = ["//projects/comfyui_tools/cmd/experiments:__pkg__"],
+)

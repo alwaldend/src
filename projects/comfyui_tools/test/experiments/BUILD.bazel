@@ -1,0 +1,17 @@
+load("@rules_go//go:def.bzl", "go_test")
+
+package(transitive_visibility = "//projects:transitive_consumers")
+
+go_test(
+    name = "experiments_test",
+    size = "medium",
+    srcs = [
+        "command_test.go",
+        "doc.go",
+    ],
+    data = ["//projects/comfyui_tools/cmd/experiments"],
+    env = {
+        "EXPERIMENTS_BINARY": "$(rlocationpath //projects/comfyui_tools/cmd/experiments)",
+    },
+    deps = ["@rules_go//go/runfiles"],
+)
