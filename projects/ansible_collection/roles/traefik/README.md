@@ -26,6 +26,8 @@ recovery removes them. This covers startup rejection, not failures after a
 successful startup or invalid dynamic routing accepted by the process.
 
 Local ACME enrollment is cached in administrator-only `eab.json` (mode `0600`).
+The Vault request runs on the controller without privilege escalation; cache
+installation runs on the managed host with its declared administrator ownership.
 Unchanged deployments reuse it without issuing another Vault request. The first
 upgrade creates the cache once. Changing the issuer path or setting
 `traefik_rotate_eab: true` requests a new binding; reset the flag afterwards.
