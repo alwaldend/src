@@ -1,7 +1,7 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("//tools/toml/rules:al_toml_data.bzl", "al_toml_data")
 
-package(transitive_visibility = "//data:transitive_consumers")
+package(transitive_visibility = "//users:transitive_consumers")
 
 filegroup(
     name = "covers",
@@ -10,7 +10,6 @@ filegroup(
         "*.jpg",
         "*.png",
     ]),
-    visibility = ["//projects/alwaldend.com/content/docs/misc/books:__pkg__"],
 )
 
 docs_filegroup(
@@ -18,24 +17,17 @@ docs_filegroup(
     srcs = glob(["*.md"]) + [
         ":authors",
         ":books",
+        ":covers",
     ],
-    visibility = ["//data:__pkg__"],
+    visibility = ["//users/simeonwarren:__pkg__"],
 )
 
 al_toml_data(
     name = "authors",
     srcs = ["authors.toml"],
-    visibility = [
-        "//data:__pkg__",
-        "//projects/alwaldend.com/content/docs/misc/books:__pkg__",
-    ],
 )
 
 al_toml_data(
     name = "books",
     srcs = ["books.toml"],
-    visibility = [
-        "//data:__pkg__",
-        "//projects/alwaldend.com/content/docs/misc/books:__pkg__",
-    ],
 )
