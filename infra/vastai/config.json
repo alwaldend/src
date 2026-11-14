@@ -9,5 +9,6 @@
             "api_keys": ["rentals"],
             "image_gen_api_key_name": "infra_vastai_alwaldend_image_gen"
         }
-    }
+    },
+    "ssh_key_entities": ["simeonwarrenbot"]
 }

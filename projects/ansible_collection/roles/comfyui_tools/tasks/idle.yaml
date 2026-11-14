@@ -1,0 +1,10 @@
+- name: Wait for the aggregate idle count without reading jobs
+  ansible.builtin.uri:
+    url: "{{ comfyui_tools_api_url }}/prompt"
+    return_content: true
+  register: comfyui_tools_queue
+  until: >-
+    comfyui_tools_queue.status == 200 and
+    comfyui_tools_queue.json.exec_info.queue_remaining == 0
+  retries: "{{ comfyui_tools_idle_retries }}"
+  delay: "{{ comfyui_tools_idle_delay }}"

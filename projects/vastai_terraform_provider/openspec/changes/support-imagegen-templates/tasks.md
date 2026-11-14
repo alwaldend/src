@@ -22,3 +22,9 @@
 - [x] 4.2 Verify model destinations, workflow preservation and startup byte limits using only loopback fixture resources; retain a per-profile artifact.
 - [x] 4.3 Verify optional startup workflow selection, preservation of the complete catalog, and the HiDream API-staging profile without live resources.
 - [x] 4.4 Extend configured-profile E2E destination checks for the native LoRA and model-patch assets before adding the discussed USO/UMO bundles; retain offline artifacts for every profile.
+- [x] 4.5 Include the first-party still-sequence node when a configured workflow uses it; verify exact staged source, whitelist membership and all profile startup limits through the loopback fixture.
+- [x] 4.6 Verify the approved ControlNet destination and deferred-node source omission with retained whitelist membership in configured startup acceptance.
+
+## Ansible application ownership
+
+- [x] Update consumer acceptance before implementation to verify minimal ComfyUI startup, alternate workspaces, argument preservation and unchanged access constraints.

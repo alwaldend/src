@@ -57,3 +57,17 @@
 
 - [x] 11.1 Add native ipadapter and clip_vision model destinations, retaining runtime path validation, selective node loading and existing exposure controls.
 - [x] 11.2 Verify both destinations through the real Terraform CLI fixture in both ComfyUI access modes.
+
+## 12. Native ComfyUI App files
+
+- [x] 12.1 Allow only an optional `.app` suffix on otherwise-safe workflow basenames, retaining path traversal rejection; verify configured App staging through the existing Terraform CLI fixture.
+
+## 13. Approved NoobAI Canny conditioning
+
+- [x] 13.1 Permit the controlnet model kind and its native ComfyUI destination; verify configured provisioning without deploying a replacement rental.
+- [x] 13.2 Permit explicitly approved deferred custom-node directories in the whitelist without embedding their sources; verify source omission and retained whitelist through the Terraform CLI fixture.
+
+## Ansible-managed ComfyUI
+
+- [x] Remove ComfyUI asset installation inputs, expose a validated workspace directory, and retain a minimal secured bootstrap.
+- [x] Preserve the Ansible-owned runtime argument line across boot and verify both access modes offline.

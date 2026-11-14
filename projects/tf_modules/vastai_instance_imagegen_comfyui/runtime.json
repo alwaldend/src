@@ -12,7 +12,8 @@
         "text_encoder": "models/text_encoders",
         "ipadapter": "models/ipadapter",
         "clip_vision": "models/clip_vision",
-        "model_patch": "models/model_patches"
+        "model_patch": "models/model_patches",
+        "controlnet": "models/controlnet"
     },
     "portal_entries": ["localhost:8288:18288:/:API Wrapper"]
 }

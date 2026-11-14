@@ -173,3 +173,26 @@ workflow defaults remain available for a later authorized deployment.
 - [x] 28.1 Verify publisher revisions, checkpoint types and component licenses for the explicitly approved NoobAI-XL 1.1, Illustrious XL v2.0-STABLE and HiDream-I1 Full 17B bundles.
 - [x] 28.2 Add selectable profiles using one shared asset registry for model files and approved node sources; preserve the selected Chroma profile and existing asset selections.
 - [x] 28.3 Validate every profile's packaged workflow/model destinations through offline Terraform fixtures, document memory/offload limits, and prepare the source PR without renting or deploying an instance; delivery receipts own publication state.
+
+## 29. NoobAI sequence App
+
+- [x] 29.1 Stage the first-party still-sequence module and generated NoobAI App only for the matching workflow; verify packaging and startup size offline.
+- [x] 29.2 Document scene breaks, continuation and import, preserving the selected MOSS profile and leaving the live rental untouched.
+
+## 30. Authorized NoobAI 96 GB demonstration
+
+- [x] 30.1 Select NoobAI and the existing 96 GB profile, verify its GIF-enabled App packaging and document the source-defined default demonstration.
+- [x] 30.2 Review the owning interactive Terraform apply plan and deploy the requested NoobAI rental, preserving credentials and exposure controls.
+- [x] 30.3 Verify HTTPS, execute and inspect the default two-scene example, save its outputs and provide the endpoint. Leave the rental running at the operator's explicit request.
+- [x] 30.4 Install the explicitly approved NoobAI Canny checkpoint, updated node and App through a checked-in Ansible update, preserving instance 60693791 and its outputs.
+- [x] 30.5 Install the reviewed interpolation-cancellation correction through the same updater with workflow copies skipped; verify the node hash and interface while preserving later App edits and inspecting only aggregate idle counts.
+- [x] 30.6 Package separate reference and scene-composer graph/App pairs with the same node source and existing model pins; preserve later live App edits, retention and the single combined-GIF contract.
+
+## 31. Ansible application ownership
+
+- [x] 31.1 Move every selected profile asset to the shared comfyui_tools role and remove application payloads from rental startup.
+- [x] 31.2 Parameterize the workspace, preserve update safety and workflow edits, and validate locally without deployment.
+
+- [x] 31.3 Reduce the playbook to loading configuration and invoking comfyui_tools; move optional model-token access into AL injection and validate public/gated entry points without live authentication.
+
+- [x] 31.4 Translate JSON into ordinary role variables in the playbook and remove the role's registry-specific interface; verify the complete local deployment fixture.

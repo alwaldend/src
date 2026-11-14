@@ -31,63 +31,6 @@ variable "image" {
   description = "Vast-native image reference selected by the caller."
 }
 
-variable "model_downloads" {
-  type = list(object({
-    url      = string
-    filename = string
-    kind     = optional(string, "checkpoint")
-  }))
-  default     = []
-  nullable    = false
-  description = "Public HTTPS model files for the native first-boot provisioner. URLs must not contain credentials."
-}
-
-variable "workflows" {
-  type        = map(string)
-  default     = {}
-  nullable    = false
-  description = "Named native ComfyUI workflow JSON documents staged after workspace initialization."
-  validation {
-    condition = alltrue([for name, content in var.workflows :
-      can(regex("^[A-Za-z0-9][A-Za-z0-9_-]*$", name)) &&
-      can(jsondecode(content).nodes) && can(jsondecode(content).links)
-    ])
-    error_message = "Workflows require safe basenames and native JSON with nodes and links."
-  }
-}
-
-variable "checkpoint_directory" {
-  type        = string
-  default     = "models/diffusion_models"
-  nullable    = false
-  description = "Use models/checkpoints for all-in-one SDXL checkpoints, or models/diffusion_models for standalone diffusion models."
-  validation {
-    condition     = contains(["models/diffusion_models", "models/checkpoints"], var.checkpoint_directory)
-    error_message = "Checkpoint directory must be models/diffusion_models or models/checkpoints."
-  }
-}
-
-variable "custom_nodes" {
-  type        = map(object({ url = string, ref = string }))
-  default     = {}
-  nullable    = false
-  description = "Explicitly approved node packs fetched at immutable commits by Vast's native provisioner."
-  validation {
-    condition = alltrue([for name, node in var.custom_nodes :
-      can(regex("^[A-Za-z0-9][A-Za-z0-9_-]*$", name)) &&
-      can(regex("^https://github[.]com/[A-Za-z0-9_-]+/[A-Za-z0-9_.-]+$", node.url)) &&
-      can(regex("^[0-9a-f]{40}$", node.ref))
-    ])
-    error_message = "Node packs need a safe directory name, public GitHub repository URL and full immutable commit."
-  }
-}
-
-variable "python_requirements" {
-  type        = string
-  default     = null
-  description = "Approved, version-pinned and hash-locked requirements for the selected node packs."
-}
-
 variable "offer_id" {
   type        = number
   default     = null
@@ -111,42 +54,19 @@ variable "max_hourly_price" {
 
 }
 
-variable "hugging_face_token" {
+variable "workspace_directory" {
   type        = string
-  default     = null
-  sensitive   = true
-  description = "Optional Vault-sourced read-only Hugging Face model download token, visible to the rented host."
-}
-
-variable "custom_node_sources" {
-  type        = map(string)
-  default     = {}
+  default     = "/workspace"
   nullable    = false
-  description = "Approved first-party custom node modules, keyed by plain directory name and staged as __init__.py through the native provisioner."
+  description = "Absolute workspace initialized by the native image; application assets are installed by Ansible."
   validation {
-    condition     = alltrue([for name in keys(var.custom_node_sources) : can(regex("^[A-Za-z][A-Za-z0-9_]*$", name))]) && length(setintersection(toset(keys(var.custom_node_sources)), toset(keys(var.custom_nodes)))) == 0
-    error_message = "First-party node directories must be plain identifiers and distinct from Git-installed packs."
-  }
-}
-
-variable "custom_node_web_scripts" {
-  type        = map(string)
-  default     = {}
-  nullable    = false
-  description = "Optional first-party web/index.js content keyed by a directory already declared in custom_node_sources."
-  validation {
-    condition     = length(setsubtract(toset(keys(var.custom_node_web_scripts)), toset(keys(var.custom_node_sources)))) == 0
-    error_message = "Browser scripts must belong to an approved first-party node module."
+    condition     = can(regex("^/([A-Za-z0-9_-]+/)*[A-Za-z0-9_-]+$", var.workspace_directory))
+    error_message = "Workspace must be an absolute directory without whitespace, traversal, trailing slash or shell syntax."
   }
 }
 
 locals {
-  runtime_defaults     = jsondecode(file("${path.module}/runtime.json"))
-  enabled_custom_nodes = sort(concat(keys(var.custom_nodes), keys(var.custom_node_sources)))
-  first_party_files = concat(
-    [for name, content in var.custom_node_sources : { path = "/workspace/ComfyUI/custom_nodes/${name}/__init__.py", content = content, permissions = "0600" }],
-    [for name, content in var.custom_node_web_scripts : { path = "/workspace/ComfyUI/custom_nodes/${name}/web/index.js", content = content, permissions = "0600" }],
-  )
+  runtime_defaults = jsondecode(file("${path.module}/runtime.json"))
 }
 
 variable "gpu_name" {
@@ -193,32 +113,24 @@ variable "local_port" {
 }
 
 module "imagegen" {
-  source             = "../vastai_instance_imagegen"
-  access_mode        = var.access_mode
-  web_username       = var.web_username
-  web_password       = var.web_password
-  image              = var.image
-  model_downloads    = var.model_downloads
-  hugging_face_token = var.hugging_face_token
-  offer_id           = var.offer_id
-  min_gpu_ram_gb     = var.min_gpu_ram_gb
-  max_hourly_price   = var.max_hourly_price
-  gpu_name           = var.gpu_name
-  template_hash_id   = var.template_hash_id
-  disk_gb            = var.disk_gb
-  label              = var.label
-  state              = var.state
-  local_port         = var.local_port
-  runtime_files      = { for name, content in var.workflows : "/workspace/ComfyUI/user/default/workflows/${name}.json" => jsonencode(jsondecode(content)) }
+  source           = "../vastai_instance_imagegen"
+  access_mode      = var.access_mode
+  web_username     = var.web_username
+  web_password     = var.web_password
+  image            = var.image
+  offer_id         = var.offer_id
+  min_gpu_ram_gb   = var.min_gpu_ram_gb
+  max_hourly_price = var.max_hourly_price
+  gpu_name         = var.gpu_name
+  template_hash_id = var.template_hash_id
+  disk_gb          = var.disk_gb
+  label            = var.label
+  state            = var.state
+  local_port       = var.local_port
   runtime = merge(local.runtime_defaults, {
-    arguments         = "${local.runtime_defaults.arguments}${length(local.enabled_custom_nodes) == 0 ? "" : " --whitelist-custom-nodes ${join(" ", local.enabled_custom_nodes)}"}"
-    model_directories = merge(local.runtime_defaults.model_directories, { checkpoint = var.checkpoint_directory })
+    workspace_directory = var.workspace_directory
+    model_root          = "${var.workspace_directory}/${basename(local.runtime_defaults.model_root)}"
   })
-  provisioning = {
-    git_repos    = [for name, node in var.custom_nodes : { url = node.url, ref = node.ref, dest = "/workspace/ComfyUI/custom_nodes/${name}" }]
-    write_files  = concat(local.first_party_files, var.python_requirements == null ? [] : [{ path = "/etc/imagegen-python-requirements.txt", content = var.python_requirements, permissions = "0600" }])
-    pip_packages = var.python_requirements == null ? [] : [{ venv = "/venv/main", requirements = ["/etc/imagegen-python-requirements.txt"], args = "--require-hashes --no-deps" }]
-  }
 }
 
 output "instance_id" {

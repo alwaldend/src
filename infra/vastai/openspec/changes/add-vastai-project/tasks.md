@@ -41,3 +41,8 @@ The user then explicitly requested a live read-only check. Running
 and returned an authenticated account response from `GET /users/current`.
 Only a sanitized success receipt was retained; the raw response and logs were
 removed without publishing account details. No Vast.ai resources were changed.
+
+## Account SSH access
+
+- [x] Fetch the configured host user’s sshpubkey from Vault identity metadata and manage its account-wide Vast SSH registration in the account root.
+- [x] Validate key changes and missing metadata with offline Terraform fixtures and document source-only status.

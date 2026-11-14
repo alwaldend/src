@@ -1,0 +1,9 @@
+imagegen:
+  hosts:
+    rental:
+      ansible_host: "{{ lookup('ansible.builtin.env', 'IMAGEGEN_SSH_HOST', default=undefined()) }}"
+      ansible_port: "{{ lookup('ansible.builtin.env', 'IMAGEGEN_SSH_PORT', default=undefined()) | int }}"
+      ansible_user: root
+      ansible_ssh_common_args: >-
+        -o BatchMode=yes -o StrictHostKeyChecking=yes
+        -o UserKnownHostsFile={{ lookup('ansible.builtin.env', 'IMAGEGEN_KNOWN_HOSTS', default=undefined()) | quote }}

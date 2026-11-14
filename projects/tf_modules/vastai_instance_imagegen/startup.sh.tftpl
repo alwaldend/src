@@ -24,7 +24,10 @@ export WEB_USERNAME='${web_username}'
 %{ if exposed ~}
 export WEB_PASSWORD='${web_password}'
 %{ endif ~}
-export ${runtime.arguments_variable}='${runtime.arguments}'
+# Ansible owns reviewed runtime arguments after application installation.
+if ! grep -qE '^export ${runtime.arguments_variable}=.* # imagegen-ansible$' /etc/environment; then
+    printf '%s\n' "export ${runtime.arguments_variable}='${runtime.arguments}'" >> /etc/environment
+fi
 export PORTAL_CONFIG='localhost:1111:11111:/:Instance Portal|localhost:8080:18080:/:Jupyter|localhost:6006:16006:/:Tensorboard|localhost:7860:${runtime.port}:/:${runtime.service}%{ for entry in runtime.portal_entries }|${entry}%{ endfor }'
 # Persist only these reviewed settings for Supervisor service environment loading.
 sed -n '/^export /p' /etc/vast_boot.d/60-imagegen-services.sh >> /etc/environment || exit 1
@@ -73,4 +76,5 @@ unset CF_TUNNEL_TOKEN HOTFIX_SCRIPT BOOT_SCRIPT
 %{ if hf_token_b64 != "" ~}
 export HF_TOKEN="$(printf '%s' '${hf_token_b64}' | base64 -d)"
 %{ endif ~}
+export WORKSPACE='${try(runtime.workspace_directory, "/workspace")}'
 exec /opt/instance-tools/bin/boot_default.sh --no-update-portal --no-update-vast --no-agent-banner

@@ -1,18 +1,16 @@
 package acceptance
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/http/httptest"
 	"os"
+	"os/exec"
 	"path/filepath"
-	"reflect"
-	"slices"
-	"sort"
 	"strings"
 	"testing"
-
-	"github.com/bazelbuild/rules_go/go/runfiles"
+	"time"
 )
 
 // stagedJSON reads a quoted heredoc without executing the public fixture startup.
@@ -31,171 +29,6 @@ func stagedJSON(t *testing.T, startup, path string) []byte {
 		t.Fatal("staged heredoc is not complete JSON")
 	}
 	return []byte(content)
-}
-
-// TestConfiguredImagegenStartup verifies every public profile without live resources.
-func TestConfiguredImagegenStartup(t *testing.T) {
-	configurationPath, err := runfiles.Rlocation(*imagegenConfigurationPath)
-	if err != nil {
-		t.Fatalf("resolve profile configuration: %v", err)
-	}
-	sequencePath, err := runfiles.Rlocation(*promptSequencePath)
-	if err != nil {
-		t.Fatalf("resolve configured node: %v", err)
-	}
-	workflowPath, err := runfiles.Rlocation(*configuredWorkflowPath)
-	if err != nil {
-		t.Fatalf("resolve configured workflows: %v", err)
-	}
-	data, err := os.ReadFile(configurationPath)
-	if err != nil {
-		t.Fatalf("read public profile: %v", err)
-	}
-	var configuration struct {
-		// Downloads owns the public publisher URLs and model destination kinds.
-		Downloads map[string]struct {
-			// URL identifies the immutable publisher file.
-			URL string `json:"url"`
-			// Kind selects the native model directory.
-			Kind string `json:"kind"`
-		} `json:"downloads"`
-		// ModelProfiles supplies the bundles without another maintained list.
-		ModelProfiles map[string]struct {
-			// Workflows identifies the complete native graph catalog.
-			Workflows []string `json:"workflows"`
-			// StartupWorkflows optionally limits inline graphs; remaining files are uploaded through the API.
-			StartupWorkflows *[]string `json:"startup_workflows"`
-			// Downloads is the ordered list of filenames resolved from the registry.
-			Downloads []string `json:"downloads"`
-			// CheckpointDirectory distinguishes SDXL bundles from standalone denoisers.
-			CheckpointDirectory string `json:"checkpoint_directory"`
-		} `json:"model_profiles"`
-	}
-	if err := json.Unmarshal(data, &configuration); err != nil {
-		t.Fatalf("decode public profile: %v", err)
-	}
-	gifPath, err := runfiles.Rlocation(*chainedGIFPath)
-	if err != nil {
-		t.Fatalf("resolve configured GIF node: %v", err)
-	}
-	var names []string
-	for name := range configuration.ModelProfiles {
-		names = append(names, name)
-	}
-	sort.Strings(names)
-	for _, profileName := range names {
-		t.Run(profileName, func(t *testing.T) {
-			profile := configuration.ModelProfiles[profileName]
-			startupWorkflows := profile.Workflows
-			if profile.StartupWorkflows != nil {
-				startupWorkflows = *profile.StartupWorkflows
-			}
-			f := &imagegenFixture{noTemplate: true, exposed: true, comfyUI: true}
-			f.rental.runtype = "ssh_direct"
-			server := httptest.NewServer(f)
-			defer server.Close()
-			h := newHarness(t, server.URL+"/api/v0")
-			writeImagegenProfile(t, h, server.URL+"/api/v0", strings.Repeat("a", 32), *comfyuiModulePath)
-			path := filepath.Join(h.directory, "main.tf")
-			consumer, err := os.ReadFile(path)
-			if err != nil {
-				t.Fatalf("read profile consumer: %v", err)
-			}
-			text := strings.Replace(string(consumer), `template_hash_id = "`+strings.Repeat("a", 32)+`"`, "", 1)
-			text += fmt.Sprintf(`
-locals {
-  configuration = jsondecode(file(%q))
-  profile_name = %q
-  selected_profile = local.configuration.model_profiles[local.profile_name]
-  profile = merge(local.selected_profile, {
-    downloads = [for name in local.selected_profile.downloads : merge(local.configuration.downloads[name], {filename=name})]
-    custom_nodes = {for name in try(local.selected_profile.custom_nodes, []) : name => local.configuration.custom_nodes[name]}
-  })
-  configuration_directory = %q
-  workflow_directory = %q
-}
-`, configurationPath, profileName, filepath.Dir(configurationPath), filepath.Dir(filepath.Dir(workflowPath)))
-			if err := os.WriteFile(path, []byte(text), 0o600); err != nil {
-				t.Fatalf("write profile consumer: %v", err)
-			}
-			configureImagegenAccess(t, h, fmt.Sprintf(`
-access_mode = "exposed"
-web_username = local.configuration.web_username
-web_password = "fixtureCredentialOnly01234567890123456789"
-model_downloads = local.profile.downloads
-checkpoint_directory = try(local.profile.checkpoint_directory, "models/diffusion_models")
-custom_nodes = try(local.profile.custom_nodes, {})
-python_requirements = try(local.profile.python_requirements, null) == null ? null : file("${local.configuration_directory}/${local.profile.python_requirements}")
-custom_node_sources = merge(
-  {prompt_sequence = file(%q)},
-  contains(local.profile.workflows, "${local.profile_name}-image-to-image-gif") ? {chained_img2img_gif=file(%q)} : {},
-)
-workflows = {for name in try(local.profile.startup_workflows, local.profile.workflows) : name => file("${local.workflow_directory}/${local.profile_name}/${name}.json")}
-`, sequencePath, gifPath))
-			h.run(t, true, "apply", "-auto-approve", "-no-color")
-			if f.startupBytes == 0 || f.startupBytes > 16384 {
-				t.Fatal("configured bundle exceeded the API startup limit")
-			}
-			for _, name := range configuration.ModelProfiles[profileName].Workflows {
-				expected, err := os.ReadFile(filepath.Join(filepath.Dir(filepath.Dir(workflowPath)), profileName, name+".json"))
-				if err != nil {
-					t.Fatalf("read generated workflow: %v", err)
-				}
-				var actualGraph, expectedGraph any
-				if json.Unmarshal(expected, &expectedGraph) != nil {
-					t.Fatalf("configured workflow %s is not valid JSON", name)
-				}
-				if !slices.Contains(startupWorkflows, name) {
-					if strings.Contains(f.startup, "cat > '/workspace/ComfyUI/user/default/workflows/"+name+".json'") {
-						t.Fatalf("API-staged workflow %s was embedded in startup", name)
-					}
-					continue
-				}
-				actual := stagedJSON(t, f.startup, "/workspace/ComfyUI/user/default/workflows/"+name+".json")
-				if json.Unmarshal(actual, &actualGraph) != nil || !reflect.DeepEqual(actualGraph, expectedGraph) {
-					t.Fatalf("configured workflow %s changed during startup packaging", name)
-				}
-			}
-			var manifest struct {
-				// Downloads retains the exact URL/destination pairs sent to the provisioner.
-				Downloads []struct {
-					// URL selects the publisher file rather than another profile's weights.
-					URL string `json:"url"`
-					// Destination names the final native ComfyUI model path.
-					Destination string `json:"dest"`
-				} `json:"downloads"`
-			}
-			if err := json.Unmarshal(stagedJSON(t, f.startup, "/etc/imagegen-models.json"), &manifest); err != nil {
-				t.Fatalf("decode configured model manifest: %v", err)
-			}
-			if len(manifest.Downloads) != len(profile.Downloads) {
-				t.Fatal("configured model asset count changed during packaging")
-			}
-			for index, filename := range profile.Downloads {
-				asset, exists := configuration.Downloads[filename]
-				if !exists {
-					t.Fatalf("model asset %s is missing from the registry", filename)
-				}
-				directory := map[string]string{"checkpoint": profile.CheckpointDirectory, "text_encoder": "models/text_encoders", "vae": "models/vae", "ipadapter": "models/ipadapter", "clip_vision": "models/clip_vision", "lora": "models/loras", "model_patch": "models/model_patches"}[asset.Kind]
-				if directory == "" && asset.Kind == "checkpoint" {
-					directory = "models/diffusion_models"
-				}
-				if directory == "" || manifest.Downloads[index].URL != asset.URL || manifest.Downloads[index].Destination != "/workspace/ComfyUI/"+directory+"/"+filename {
-					t.Fatalf("model asset %s has the wrong publisher or destination", filename)
-				}
-			}
-			h.run(t, true, "destroy", "-auto-approve", "-no-color")
-			if directory := os.Getenv("TEST_UNDECLARED_OUTPUTS_DIR"); directory != "" {
-				evidence, err := json.Marshal(map[string]any{"profile": profileName, "model_files": profile.Downloads, "workflow_count": len(profile.Workflows), "startup_workflow_count": len(startupWorkflows), "startup_bytes": f.startupBytes, "limit_bytes": 16384, "workflow_contents_preserved": true, "model_destinations_preserved": true, "live_operations": 0})
-				if err != nil {
-					t.Fatalf("encode configured startup evidence: %v", err)
-				}
-				if err := os.WriteFile(filepath.Join(directory, "configured-imagegen-startup-"+profileName+".json"), evidence, 0o600); err != nil {
-					t.Fatalf("write configured startup evidence: %v", err)
-				}
-			}
-		})
-	}
 }
 
 // configureImagegenAccess supplies public fixture credentials and explicit access configuration.
@@ -367,106 +200,64 @@ model_selection = {
 	h.run(t, true, "destroy", "-auto-approve", "-no-color")
 }
 
-// TestComfyUIModule verifies both access modes and native model paths through Terraform.
+// TestComfyUIModule verifies both access modes with an Ansible-managed installation.
 func TestComfyUIModule(t *testing.T) {
-	for _, checkpointDirectory := range []string{"models/diffusion_models", "models/checkpoints"} {
-		for _, exposed := range []bool{false, true} {
-			t.Run(checkpointDirectory+"/"+map[bool]string{false: "ssh", true: "https"}[exposed], func(t *testing.T) {
-				f := &imagegenFixture{noTemplate: true, exposed: exposed, comfyUI: true}
-				f.rental.runtype = "ssh_direct"
-				server := httptest.NewServer(f)
-				defer server.Close()
-				h := newHarness(t, server.URL+"/api/v0")
-				writeImagegenProfile(t, h, server.URL+"/api/v0", strings.Repeat("a", 32), *comfyuiModulePath)
-				path := filepath.Join(h.directory, "main.tf")
-				data, err := os.ReadFile(path)
-				if err != nil {
-					t.Fatal(err)
+	for _, exposed := range []bool{false, true} {
+		t.Run(fmt.Sprint(exposed), func(t *testing.T) {
+			f := &imagegenFixture{noTemplate: true, exposed: exposed, comfyUI: true}
+			f.rental.runtype = "ssh_direct"
+			server := httptest.NewServer(f)
+			defer server.Close()
+			h := newHarness(t, server.URL+"/api/v0")
+			writeImagegenProfile(t, h, server.URL+"/api/v0", strings.Repeat("a", 32), *comfyuiModulePath)
+			path := filepath.Join(h.directory, "main.tf")
+			data, err := os.ReadFile(path)
+			if err != nil {
+				t.Fatal(err)
+			}
+			data = []byte(strings.Replace(string(data), `template_hash_id = "`+strings.Repeat("a", 32)+`"`, "", 1))
+			if err := os.WriteFile(path, data, 0o600); err != nil {
+				t.Fatal(err)
+			}
+			extra := `workspace_directory = "/srv/imagegen"`
+			if exposed {
+				extra += "\naccess_mode = \"exposed\"\nweb_password = \"fixtureCredentialOnly01234567890123456789\""
+			}
+			configureImagegenAccess(t, h, extra)
+			h.run(t, true, "apply", "-auto-approve", "-no-color")
+			h.run(t, true, "apply", "-refresh-only", "-auto-approve", "-no-color")
+			if command := h.run(t, true, "output", "-raw", "forward"); !strings.Contains(command, ":7860:127.0.0.1:18188") {
+				t.Fatal("wrong ComfyUI forwarding backend")
+			}
+			for _, required := range []string{"--disable-all-custom-nodes", "--offline", "localhost:8288:18288:/:API Wrapper", "/etc/supervisor/conf.d/comfyui.conf", "export WORKSPACE='/srv/imagegen'"} {
+				if !strings.Contains(f.startup, required) {
+					t.Fatalf("missing runtime restriction %s", required)
 				}
-				configuration := strings.Replace(string(data), `template_hash_id = "`+strings.Repeat("a", 32)+`"`, "", 1)
-				if err := os.WriteFile(path, []byte(configuration), 0o600); err != nil {
-					t.Fatal(err)
-				}
-				extra := `checkpoint_directory = "` + checkpointDirectory + `"
-model_downloads = [
- {url="https://example.invalid/flash.safetensors",filename="flash.safetensors",kind="checkpoint"},
- {url="https://example.invalid/t5.safetensors",filename="t5.safetensors",kind="text_encoder"},
- {url="https://example.invalid/ae.safetensors",filename="ae.safetensors",kind="vae"},
- {url="https://example.invalid/adapter.safetensors",filename="adapter.safetensors",kind="ipadapter"},
- {url="https://example.invalid/vision.safetensors",filename="vision.safetensors",kind="clip_vision"}
-]
-workflows = { fixture = jsonencode({version=0.4,nodes=[],links=[]}) }
-custom_nodes = { FixtureNodes = {url="https://github.com/example/fixture",ref="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"} }
-python_requirements = "fixture-package==1.0 --hash=sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\n${join("",[for i in range(1000):"# Public fixture dependency commentary.\n"])}"`
-				if exposed {
-					extra += "\naccess_mode = \"exposed\"\nweb_password = \"fixtureCredentialOnly01234567890123456789\""
-				}
-				configureImagegenAccess(t, h, extra)
-				h.run(t, true, "apply", "-auto-approve", "-no-color")
-				h.run(t, true, "apply", "-refresh-only", "-auto-approve", "-no-color")
-				if command := h.run(t, true, "output", "-raw", "forward"); !strings.Contains(command, ":7860:127.0.0.1:18188") {
-					t.Fatalf("ComfyUI forwarding targets wrong backend: %s", command)
-				}
-				manifest := stagedJSON(t, f.startup, "/etc/imagegen-models.json")
-				for _, destination := range []string{checkpointDirectory + "/flash.safetensors", "models/text_encoders/t5.safetensors", "models/vae/ae.safetensors", "models/ipadapter/adapter.safetensors", "models/clip_vision/vision.safetensors"} {
-					if !strings.Contains(string(manifest), "/workspace/ComfyUI/"+destination) {
-						t.Fatalf("wrong ComfyUI destination: %s", manifest)
-					}
-				}
-				for _, required := range []string{"--disable-all-custom-nodes", "--offline", "localhost:8288:18288:/:API Wrapper", "/etc/supervisor/conf.d/comfyui.conf"} {
-					if !strings.Contains(f.startup, required) {
-						t.Fatalf("missing ComfyUI restriction %s", required)
-					}
-				}
-				if !strings.Contains(f.startup, "--whitelist-custom-nodes FixtureNodes") {
-					t.Fatal("approved node pack was not selectively enabled")
-				}
-				var provisioning struct {
-					// GitRepos contains the pinned native fetcher configuration.
-					GitRepos []struct {
-						// Ref fixes the reviewed node-pack revision.
-						Ref string `json:"ref"`
-						// Dest installs nodes under the native custom-node directory.
-						Dest string `json:"dest"`
-					} `json:"git_repos"`
-					// PipPackages retains the requirements and integrity policy.
-					PipPackages []struct {
-						// Args requires hashes without unconstrained dependency resolution.
-						Args string `json:"args"`
-					} `json:"pip_packages"`
-				}
-				if err := json.Unmarshal(manifest, &provisioning); err != nil || len(provisioning.GitRepos) != 1 || provisioning.GitRepos[0].Ref != strings.Repeat("a", 40) || provisioning.GitRepos[0].Dest != "/workspace/ComfyUI/custom_nodes/FixtureNodes" || len(provisioning.PipPackages) != 1 || provisioning.PipPackages[0].Args != "--require-hashes --no-deps" {
-					t.Fatal("native fetcher did not retain pinned nodes and locked dependencies")
-				}
-				if strings.Contains(f.startup, "for service in tunnel_manager syncthing pyworker api-wrapper") {
-					t.Fatal("local API wrapper was unnecessarily disabled")
-				}
-				if strings.Contains(f.startup, "--enable-cors-header") || strings.Contains(f.startup, "--enable-manager") {
-					t.Fatal("unrestricted runtime option retained")
-				}
-				if exposed && !strings.Contains(f.startup, "reverse_proxy 127.0.0.1:18188") {
-					t.Fatal("proxy targets wrong backend")
-				}
+			}
+			if exposed && !strings.Contains(f.startup, "reverse_proxy 127.0.0.1:18188") {
+				t.Fatal("wrong HTTPS backend")
+			}
+			if strings.Contains(f.startup, "--enable-manager") || strings.Contains(f.startup, "--enable-cors-header") {
+				t.Fatal("unrestricted runtime arguments")
+			}
+			verifyManagedArguments(t, f.startup)
 
-				_, staged, found := strings.Cut(f.startup, "mkdir -p \"$(dirname '/workspace/ComfyUI/user/default/workflows/fixture.json')\"")
-				if !found {
-					t.Fatal("workflow was not staged after native workspace initialization")
+			var manifest map[string]any
+			if err := json.Unmarshal(stagedJSON(t, f.startup, "/etc/imagegen-models.json"), &manifest); err != nil {
+				t.Fatal(err)
+			}
+			for _, key := range []string{"downloads", "git_repos", "pip_packages", "write_files"} {
+				if entries, ok := manifest[key].([]any); !ok || len(entries) != 0 {
+					t.Fatalf("ComfyUI bootstrap still installs %s", key)
 				}
-				stagedJSON(t, staged, "/workspace/ComfyUI/user/default/workflows/fixture.json")
+			}
+			if strings.Contains(f.startup, "/user/default/workflows/") {
+				t.Fatal("workflow payload retained in rental startup")
+			}
 
-				h.run(t, true, "plan", "-detailed-exitcode", "-no-color")
-				h.run(t, true, "destroy", "-auto-approve", "-no-color")
-				if directory := os.Getenv("TEST_UNDECLARED_OUTPUTS_DIR"); directory != "" {
-					evidence, err := json.Marshal(map[string]any{"runtime": "comfyui", "exposed": exposed, "native_model_paths": true, "checkpoint_directory": checkpointDirectory, "live_operations": 0})
-					if err != nil {
-						t.Fatal(err)
-					}
-					if err := os.WriteFile(filepath.Join(directory, "comfyui-"+filepath.Base(checkpointDirectory)+"-"+map[bool]string{false: "ssh", true: "https"}[exposed]+".json"), evidence, 0o600); err != nil {
-						t.Fatal(err)
-					}
-				}
-			})
-		}
+			h.run(t, true, "plan", "-detailed-exitcode", "-no-color")
+			h.run(t, true, "destroy", "-auto-approve", "-no-color")
+		})
 	}
 }
 
@@ -505,5 +296,48 @@ func TestImagegenModelRejection(t *testing.T) {
 				t.Fatal("invalid manifest created rental")
 			}
 		})
+	}
+}
+
+// verifyManagedArguments executes the rendered boot guard against disposable environment files.
+func verifyManagedArguments(t *testing.T, startup string) {
+	t.Helper()
+	_, guard, found := strings.Cut(startup, "# Ansible owns reviewed runtime arguments after application installation.\n")
+	if !found {
+		t.Fatal("missing runtime argument ownership guard")
+	}
+	guard, _, found = strings.Cut(guard, "export PORTAL_CONFIG=")
+	if !found {
+		t.Fatal("missing runtime guard boundary")
+	}
+	for _, managed := range []bool{false, true} {
+		directory := t.TempDir()
+		environment := filepath.Join(directory, "environment")
+		initial := "export COMFYUI_ARGS='--listen 127.0.0.1 --offline --whitelist-custom-nodes FixtureNodes'"
+		if managed {
+			initial += " # imagegen-ansible"
+		}
+		initial += "\n"
+		if err := os.WriteFile(environment, []byte(initial), 0o600); err != nil {
+			t.Fatal(err)
+		}
+		script := strings.ReplaceAll(guard, "/etc/environment", environment)
+		ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+		command := exec.CommandContext(ctx, "/bin/bash", "-eu", "-c", script)
+		output, err := command.CombinedOutput()
+		cancel()
+		if err != nil {
+			t.Fatalf("execute public boot guard: %v: %s", err, output)
+		}
+		actual, err := os.ReadFile(environment)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if managed && string(actual) != initial {
+			t.Fatal("boot overwrote Ansible runtime arguments")
+		}
+		if !managed && !strings.Contains(string(actual), "--disable-all-custom-nodes --offline") {
+			t.Fatal("unmanaged image arguments bypassed restrictive defaults")
+		}
 	}
 }

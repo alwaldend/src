@@ -62,9 +62,9 @@ variable "model_downloads" {
     condition = alltrue([for model in var.model_downloads :
       can(regex("^https://[A-Za-z0-9.-]+/[^?#[:space:]]+$", model.url)) &&
       can(regex("^[A-Za-z0-9][A-Za-z0-9._-]*[.]safetensors$", model.filename)) &&
-      contains(["checkpoint", "lora", "vae", "embedding", "text_encoder", "ipadapter", "clip_vision", "model_patch"], model.kind)
+      contains(["checkpoint", "lora", "vae", "embedding", "text_encoder", "ipadapter", "clip_vision", "model_patch", "controlnet"], model.kind)
     ])
-    error_message = "Models need a public HTTPS URL, a plain .safetensors filename, and a supported checkpoint/lora/vae/embedding/text_encoder/ipadapter/clip_vision/model_patch kind."
+    error_message = "Models need a public HTTPS URL, a plain .safetensors filename, and a supported checkpoint/lora/vae/embedding/text_encoder/ipadapter/clip_vision/model_patch/controlnet kind."
   }
   validation {
     condition     = length(distinct([for model in var.model_downloads : model.filename])) == length(var.model_downloads)
@@ -81,13 +81,14 @@ variable "hugging_face_token" {
 
 variable "runtime" {
   type = object({
-    service            = string
-    port               = number
-    arguments_variable = string
-    arguments          = string
-    model_root         = string
-    model_directories  = map(string)
-    portal_entries     = optional(list(string), [])
+    service             = string
+    port                = number
+    arguments_variable  = string
+    arguments           = string
+    workspace_directory = optional(string, "/workspace")
+    model_root          = string
+    model_directories   = map(string)
+    portal_entries      = optional(list(string), [])
   })
   nullable    = false
   description = "Native runtime contract supplied by a runtime-specific module. All services bind to loopback."
@@ -97,7 +98,9 @@ variable "runtime" {
       var.runtime.port >= 1024 && var.runtime.port <= 65535 && floor(var.runtime.port) == var.runtime.port && var.runtime.port != 7860 &&
       can(regex("^[A-Z][A-Z0-9_]*$", var.runtime.arguments_variable)) &&
       can(regex("^[A-Za-z0-9 /_.=-]+$", var.runtime.arguments)) &&
-      can(regex("^/workspace/[A-Za-z0-9_-]+$", var.runtime.model_root)) &&
+      can(regex("^/([A-Za-z0-9_-]+/)*[A-Za-z0-9_-]+$", var.runtime.workspace_directory)) &&
+      can(regex("^/([A-Za-z0-9_-]+/)*[A-Za-z0-9_-]+$", var.runtime.model_root)) &&
+      startswith(var.runtime.model_root, "${var.runtime.workspace_directory}/") &&
       alltrue([for directory in values(var.runtime.model_directories) : can(regex("^[A-Za-z0-9_-]+(/[A-Za-z0-9_-]+)*$", directory))]) &&
       alltrue([for entry in var.runtime.portal_entries : can(regex("^localhost:[0-9]+:[0-9]+:/:[A-Za-z0-9 ]+$", entry))])
     )
@@ -112,7 +115,7 @@ variable "runtime_files" {
   description = "Native configuration files staged by the runtime wrapper after workspace initialization."
   validation {
     condition = alltrue([for path, content in var.runtime_files :
-      can(regex("^/(etc|workspace)/[A-Za-z0-9_/-]+[.]json$", path)) && !strcontains(path, "..") && can(jsondecode(content))
+      can(regex("^/(etc|workspace)/[A-Za-z0-9_/-]+([.]app)?[.]json$", path)) && !strcontains(path, "..") && can(jsondecode(content))
     ])
     error_message = "Runtime configuration files must contain valid JSON with safe absolute paths beneath /etc or /workspace."
   }

@@ -1,0 +1,27 @@
+# Required caller inputs for the existing ComfyUI installation.
+comfyui_tools_directory: null
+comfyui_tools_arguments: null
+comfyui_tools_model_directories: null
+
+comfyui_tools_python_environment: /venv/main
+comfyui_tools_state_directory: /opt/imagegen
+comfyui_tools_environment_file: /etc/environment
+comfyui_tools_api_url: http://127.0.0.1:18188
+comfyui_tools_restart_command: [supervisorctl, restart, comfyui]
+comfyui_tools_idle_retries: 60
+comfyui_tools_idle_delay: 5
+
+# Model entries: filename, kind, immutable URL and optional sha256.
+comfyui_tools_models: []
+comfyui_tools_hugging_face_token: ""
+comfyui_tools_require_hugging_face_token: false
+# Git packs: directory name -> {url, ref}; ref is a full immutable commit.
+comfyui_tools_git_nodes: {}
+# First-party modules and browser scripts: directory name -> controller file.
+comfyui_tools_node_sources: {}
+comfyui_tools_node_web_scripts: {}
+# Controller files for locked requirements, native workflows and optional Video2X.
+comfyui_tools_python_requirements: ""
+comfyui_tools_workflows: []
+comfyui_tools_required_nodes: []
+comfyui_tools_interpolation_source: ""

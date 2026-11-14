@@ -1,0 +1,22 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("@rules_go//go:def.bzl", "go_test")
+
+package(transitive_visibility = "//infra:transitive_consumers")
+
+go_test(
+    name = "assets_test",
+    size = "medium",
+    srcs = [
+        "assets_test.go",
+        "doc.go",
+    ],
+    args = ["-ansible=$(rlocationpath //infra/image_gen/ansible:ansible_bin)"],
+    data = ["//infra/image_gen/ansible:ansible_bin"],
+    deps = ["@rules_go//go/runfiles"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//infra/image_gen:__subpackages__"],
+)

@@ -1,0 +1,110 @@
+load("@rules_al//:defs.bzl", "al_binary_run")
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files", "strip_prefix")
+load("//tools/ansible/rules:al_ansible_binary.bzl", "al_ansible_binary")
+
+package(transitive_visibility = "//infra:transitive_consumers")
+
+al_binary_run(
+    name = "ansible",
+    args = [
+        "$(rootpath :ansible_bin)",
+        "--inventory",
+        "inventory.yaml",
+        "playbook.yaml",
+    ],
+    configs = [],
+    data = [":ansible_bin"],
+)
+
+al_binary_run(
+    name = "ansible.syntax",
+    args = [
+        "$(rootpath :ansible_bin)",
+        "--inventory",
+        "inventory.yaml",
+        "--syntax-check",
+        "playbook.yaml",
+    ],
+    configs = [],
+    data = [":ansible_bin"],
+)
+
+# Only gated model installation selects the optional model-token injector.
+al_binary_run(
+    name = "ansible.huggingface",
+    args = [
+        "$(rootpath :ansible_bin)",
+        "--inventory",
+        "inventory.yaml",
+        "playbook.yaml",
+    ],
+    configs = ["//infra/image_gen:al"],
+    data = [":ansible_bin"],
+    plugin_labels = {"model_auth": "huggingface"},
+)
+
+al_ansible_binary(
+    name = "ansible_bin",
+    data = [
+        ":srcs",
+        "//infra:ansible_cfg",
+        "//projects/ansible_collection:collections",
+    ],
+    process_name = "ansible_playbook",
+    visibility = ["//infra/image_gen:__subpackages__"],
+)
+
+pkg_files(
+    name = "srcs_files",
+    srcs = [
+        "inventory.yaml",
+        "playbook.yaml",
+    ],
+    strip_prefix = strip_prefix.from_pkg(),
+)
+
+pkg_files(
+    name = "assets",
+    srcs = [
+        "//infra/image_gen:config.json",
+        "//infra/image_gen:res4lyf-requirements.txt",
+        "//projects/comfyui_tools/nodes/chained_img2img_gif:source",
+        "//projects/comfyui_tools/nodes/image_sequence:source",
+        "//projects/comfyui_tools/nodes/prompt_sequence:source",
+        "//projects/tf_modules/vastai_instance_imagegen_comfyui:runtime.json",
+        "//third_party/com_github_k4yt3x_video2x:portable_appimage",
+    ],
+    prefix = "files",
+    renames = {
+        "//infra/image_gen:config.json": "configuration.json",
+        "//infra/image_gen:res4lyf-requirements.txt": "res4lyf-requirements.txt",
+        "//projects/tf_modules/vastai_instance_imagegen_comfyui:runtime.json": "runtime.json",
+        "//projects/comfyui_tools/nodes/prompt_sequence:source": "prompt_sequence.py",
+        "//projects/comfyui_tools/nodes/chained_img2img_gif:source": "chained_img2img_gif.py",
+        "//projects/comfyui_tools/nodes/image_sequence:source": "image_sequence.py",
+        "//third_party/com_github_k4yt3x_video2x:portable_appimage": "Video2X.AppImage",
+    },
+)
+
+pkg_files(
+    name = "workflows",
+    srcs = ["//projects/comfyui_tools/workflows"],
+    prefix = "files/workflows",
+    strip_prefix = strip_prefix.from_root("projects/comfyui_tools/workflows"),
+)
+
+pkg_filegroup(
+    name = "srcs",
+    srcs = [
+        ":assets",
+        ":srcs_files",
+        ":workflows",
+    ],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//infra/image_gen:__pkg__"],
+)

@@ -7,6 +7,7 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"regexp"
 	"strings"
 	"testing"
 	"time"
@@ -72,6 +73,39 @@ func TestCatalog(t *testing.T) {
 	}
 	run(true, "init", "-backend=false", "-no-color")
 	run(true, "test", "-no-color")
+	// Exercise metadata rotation and missing/invalid metadata through the real CLI.
+	fixturePath := filepath.Join(directory, "tests", "catalog.tftest.hcl")
+	originalFixture, err := os.ReadFile(fixturePath)
+	if err != nil {
+		t.Fatal(err)
+	}
+	field := regexp.MustCompile(`data_json\s*=\s*"(?:[^"\\]|\\.)*"`)
+	for _, metadata := range []string{
+		`{"metadata":{"sshpubkey":"ssh-rsa Zml4dHVyZS1yb3RhdGlvbg== rotated-fixture"}}`,
+		`{"metadata":{}}`,
+		`{"metadata":{"sshpubkey":"invalid-key-material"}}`,
+	} {
+		encoded, err := json.Marshal(metadata)
+		if err != nil {
+			t.Fatal(err)
+		}
+		changed := field.ReplaceAll(originalFixture, append([]byte("data_json = "), encoded...))
+		if string(changed) == string(originalFixture) {
+			t.Fatal("metadata fixture was not changed")
+		}
+		if err := os.WriteFile(fixturePath, changed, 0o600); err != nil {
+			t.Fatal(err)
+		}
+		valid := strings.Contains(metadata, "rotated-fixture")
+		output := run(valid, "test", "-no-color")
+		if !valid && !strings.Contains(output, "must contain one OpenSSH public key") {
+			t.Fatal("missing or invalid user metadata bypassed the key validation")
+		}
+	}
+	if err := os.WriteFile(fixturePath, originalFixture, 0o600); err != nil {
+		t.Fatal(err)
+	}
+
 	directory = teamDirectory
 	run(true, "init", "-backend=false", "-no-color")
 	run(true, "test", "-no-color")
@@ -111,7 +145,7 @@ func TestCatalog(t *testing.T) {
 		t.Fatalf("invalid key configuration bypassed its guard: %s", output)
 	}
 	if output := os.Getenv("TEST_UNDECLARED_OUTPUTS_DIR"); output != "" {
-		if err := os.WriteFile(filepath.Join(output, "catalog-root.json"), []byte(`{"result":"passed","account_teams":1,"team_roots":1,"rental_roots_validated":1,"invalid_configurations_rejected":1,"live_operations":0}`), 0o600); err != nil {
+		if err := os.WriteFile(filepath.Join(output, "catalog-root.json"), []byte(`{"result":"passed","account_teams":1,"team_roots":1,"rental_roots_validated":1,"invalid_configurations_rejected":1,"ssh_metadata_rotation_checked":true,"invalid_ssh_metadata_rejected":2,"live_operations":0}`), 0o600); err != nil {
 			t.Fatal(err)
 		}
 	}

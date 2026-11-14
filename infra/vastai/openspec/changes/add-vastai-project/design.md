@@ -27,3 +27,7 @@ The role must be deployed before authenticated commands work. Document that
 prerequisite; validate packaging offline without creating credentials.
 Store the key through the component Vault target before running the CLI.
 Do not pass credentials as arguments or persist them in a CLI key file.
+
+## Account SSH access
+
+Proceed with the operator-requested account-wide registration in tf, rather than rental-specific attachment or boot-time key edits. The existing vastai_ssh_key resource receives the configured Vault entity’s sshpubkey metadata through an exact-path read. No key literal or private material is added to this component. The account root gains the already-used Vault provider and injected component identity; its AppRole gets only the configured host entity metadata read. Existing registrations must be imported before apply if the provider reports a duplicate. No account or rental mutation is authorized by this source change.

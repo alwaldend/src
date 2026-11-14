@@ -1,8 +1,8 @@
 {
     "image": "vastai/comfy:v0.44.0-cuda-12.9-py312",
     "web_username": "imagegen",
-    "model_profile": "moss-image",
-    "hardware_profile": "48gb",
+    "model_profile": "noobai",
+    "hardware_profile": "96gb",
     "hardware_profiles": {
         "standard": {
             "min_gpu_ram_gb": 32,
@@ -28,14 +28,6 @@
                 "edit_lora": "moss_image_edit_lora_rank_64_bf16.safetensors",
                 "control_lora": "moss_image_color_depth_control.safetensors"
             },
-            "startup_workflows": [
-                "moss-image-text-to-image",
-                "moss-image-base-text-to-image",
-                "moss-image-layout-guided",
-                "moss-image-base-layout-guided",
-                "moss-image-image-edit",
-                "moss-image-color-depth-control"
-            ],
             "workflows": [
                 "moss-image-text-to-image",
                 "moss-image-base-text-to-image",
@@ -57,7 +49,8 @@
                 "flux2-vae_small.safetensors",
                 "moss_image_edit_lora_rank_64_bf16.safetensors",
                 "moss_image_color_depth_control.safetensors"
-            ]
+            ],
+            "first_party_nodes": ["prompt_sequence"]
         },
         "chroma-hd": {
             "workflows": [
@@ -74,7 +67,8 @@
                 "ae.safetensors"
             ],
             "custom_nodes": ["RES4LYF"],
-            "python_requirements": "res4lyf-requirements.txt"
+            "python_requirements": "res4lyf-requirements.txt",
+            "first_party_nodes": ["prompt_sequence", "chained_img2img_gif"]
         },
         "qwen": {
             "workflows": [
@@ -86,7 +80,8 @@
                 "qwen_image_edit_2511_fp8mixed.safetensors",
                 "qwen_2.5_vl_7b_fp8_scaled.safetensors",
                 "qwen_image_vae.safetensors"
-            ]
+            ],
+            "first_party_nodes": ["prompt_sequence"]
         },
         "flux": {
             "workflows": [
@@ -98,7 +93,9 @@
                 "flux-2-klein-base-9b-fp8.safetensors",
                 "qwen_3_8b_fp8mixed.safetensors",
                 "full_encoder_small_decoder.safetensors"
-            ]
+            ],
+            "first_party_nodes": ["prompt_sequence"],
+            "hugging_face_auth": true
         },
         "juggernaut": {
             "checkpoint_directory": "models/checkpoints",
@@ -117,7 +114,8 @@
                 "CLIP-ViT-H-14-laion2B-s32B-b79K.safetensors"
             ],
             "custom_nodes": ["RES4LYF", "ComfyUI_IPAdapter_plus"],
-            "python_requirements": "res4lyf-requirements.txt"
+            "python_requirements": "res4lyf-requirements.txt",
+            "first_party_nodes": ["prompt_sequence"]
         },
         "flux2-dev": {
             "workflows": [
@@ -131,7 +129,8 @@
                 "flux2_dev_fp8mixed.safetensors",
                 "mistral_3_small_flux2_fp8.safetensors",
                 "flux2-vae.safetensors"
-            ]
+            ],
+            "first_party_nodes": ["prompt_sequence"]
         },
         "noobai": {
             "checkpoint_directory": "models/checkpoints",
@@ -139,6 +138,12 @@
                 "noobai-text-to-image",
                 "noobai-image-to-image",
                 "noobai-image-to-image-prompt-sequence",
+                "noobai-image-sequence",
+                "noobai-image-sequence.app",
+                "noobai-reference-sequence",
+                "noobai-reference-sequence.app",
+                "noobai-scene-composer",
+                "noobai-scene-composer.app",
                 "noobai-prompt-sequence",
                 "noobai-style-reference",
                 "noobai-style-prompt-sequence",
@@ -147,11 +152,14 @@
             ],
             "downloads": [
                 "NoobAI-XL-v1.1.safetensors",
+                "noob_sdxl_controlnet_canny.fp16.safetensors",
                 "ip-adapter-plus_sdxl_vit-h.safetensors",
                 "CLIP-ViT-H-14-laion2B-s32B-b79K.safetensors"
             ],
             "custom_nodes": ["RES4LYF", "ComfyUI_IPAdapter_plus"],
-            "python_requirements": "res4lyf-requirements.txt"
+            "python_requirements": "res4lyf-requirements.txt",
+            "first_party_nodes": ["prompt_sequence", "image_sequence"],
+            "interpolation": true
         },
         "illustrious": {
             "checkpoint_directory": "models/checkpoints",
@@ -170,10 +178,10 @@
                 "CLIP-ViT-H-14-laion2B-s32B-b79K.safetensors"
             ],
             "custom_nodes": ["RES4LYF", "ComfyUI_IPAdapter_plus"],
-            "python_requirements": "res4lyf-requirements.txt"
+            "python_requirements": "res4lyf-requirements.txt",
+            "first_party_nodes": ["prompt_sequence"]
         },
         "hidream-i1-full": {
-            "startup_workflows": [],
             "workflows": [
                 "hidream-i1-full-text-to-image",
                 "hidream-i1-full-image-to-image",
@@ -199,7 +207,8 @@
                 "llama": "llama_3.1_8b_instruct_fp8_scaled.safetensors"
             },
             "custom_nodes": ["RES4LYF"],
-            "python_requirements": "res4lyf-requirements.txt"
+            "python_requirements": "res4lyf-requirements.txt",
+            "first_party_nodes": ["prompt_sequence", "chained_img2img_gif"]
         },
         "uso": {
             "components": {
@@ -219,7 +228,8 @@
                 "uso-flux1-projector-v1.safetensors",
                 "sigclip_vision_patch14_384.safetensors"
             ],
-            "checkpoint_directory": "models/checkpoints"
+            "checkpoint_directory": "models/checkpoints",
+            "first_party_nodes": ["prompt_sequence"]
         },
         "umo-uno": {
             "workflows": [
@@ -229,7 +239,8 @@
                 "umo-uno-multi-reference-prompt-sequence"
             ],
             "downloads": ["flux1-dev-fp8.safetensors", "UMO_UNO.safetensors"],
-            "checkpoint_directory": "models/checkpoints"
+            "checkpoint_directory": "models/checkpoints",
+            "first_party_nodes": ["prompt_sequence"]
         }
     },
     "downloads": {
@@ -321,6 +332,11 @@
             "url": "https://huggingface.co/Laxhar/noobai-XL-1.1/resolve/814a274af2b8097c0828819d561ec74c7d0c6cea/NoobAI-XL-v1.1.safetensors",
             "kind": "checkpoint"
         },
+        "noob_sdxl_controlnet_canny.fp16.safetensors": {
+            "url": "https://huggingface.co/Eugeoter/noob-sdxl-controlnet-canny/resolve/3c1b6e45cbd0df09368599c1d205be459a67c552/noob_sdxl_controlnet_canny.fp16.safetensors",
+            "kind": "controlnet",
+            "sha256": "e37bcdb2f4a6d1782daf6a943a326bee6e6d3027c34f6016460a2c937ba9fba0"
+        },
         "Illustrious-XL-v2.0.safetensors": {
             "url": "https://huggingface.co/OnomaAIResearch/Illustrious-XL-v2.0/resolve/69459c1fe6f46db41ab31e6114f05acc0e06bcaa/Illustrious-XL-v2.0.safetensors",
             "kind": "checkpoint"
@@ -370,6 +386,26 @@
         "ComfyUI_IPAdapter_plus": {
             "url": "https://github.com/cubiq/ComfyUI_IPAdapter_plus",
             "ref": "a0f451a5113cf9becb0847b92884cb10cbdec0ef"
+        }
+    },
+    "workspace_directory": "/workspace",
+    "first_party_nodes": {
+        "prompt_sequence": {
+            "source": "prompt_sequence.py",
+            "node_classes": ["ImagegenPromptSequence"]
+        },
+        "chained_img2img_gif": {
+            "source": "chained_img2img_gif.py",
+            "node_classes": ["ImagegenChainedImageToImageGIF"]
+        },
+        "image_sequence": {
+            "source": "image_sequence.py",
+            "node_classes": [
+                "ImagegenReferenceImages",
+                "ImagegenImageSequence",
+                "ImagegenScenePrompts",
+                "ImagegenOptionalLora"
+            ]
         }
     }
 }

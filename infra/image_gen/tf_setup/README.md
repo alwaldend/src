@@ -27,19 +27,20 @@ there is no registry lookup or helper executable during Terraform planning.
 Changing the tag produces a reviewed replacement plan for an existing rental.
 The component's [config.json](../config.json) owns the image, HTTPS username,
 selected model/hardware profiles and their definitions. Terraform has no root
-input variables or tfvars presets. The selected model is MOSS-Image SFT/Base INT8
-with its edit and color/depth adapters, six examples and six sequence variants, on the
-existing 48 GB hardware profile. Other model profiles remain available
+input variables or tfvars presets. The selected model is NoobAI XL 1.1 with the
+scene-aware sequence App, default two-scene example and GIF outputs, on the existing
+96 GB hardware profile. Other model profiles remain available
 as `chroma-hd`, `flux2-dev`, `juggernaut`, `hidream-i1-full`, `illustrious`, `flux`,
 `qwen`, `noobai`, `uso` and `umo-uno`. Selecting a profile does not rent until an explicitly authorized apply.
 
-HiDream's eight workflow files are uploaded through the authenticated ComfyUI
-API after startup. Its empty `startup_workflows` selection keeps those JSON
-files out of the inline command. MOSS retains its original six first-boot examples
-and stages six sequence variants through the same authenticated workflow API;
-see the [save commands](../../../projects/comfyui_tools/README.md#moss-image-examples).
-This preserves the running rental's startup payload. Other profiles default to their full catalog.
-Models, approved nodes and hardening still use the normal native startup.
+Application installation is a separate [Ansible stage](../ansible/README.md).
+Every profile's complete workflow catalog, models, LoRAs and approved nodes are
+installed by the shared role after the existing image initializes ComfyUI.
+`workspace_directory` in config.json is passed to this module and the role.
+Terraform does not carry those asset payloads in startup or state. Account-wide
+SSH access is managed by [infra/vastai](../../vastai/tf/README.md), using the
+host user's Vault metadata. Deploy that policy and registration before relying
+on the host key to run Ansible; no private key is copied to the rental.
 
 ```sh
 bazel run //infra/image_gen/tf_setup:tf.plan
@@ -92,10 +93,11 @@ The checks omit the live backend, validate the actual module/provider schema,
 and exercise password generation and Vault persistence with a mocked Vault and
 overridden rental module; the separate CLI E2E suite covers the actual rental module. They do not write Vault or rent
 capacity. The provider's Terraform CLI acceptance suite emits separate SSH and
-HTTPS lifecycle artifacts. Its configured-bundle check packages every model
-profile through the real module against a loopback API, checking workflow
-contents, model destinations and the 16 KiB startup limit. It does not download
-weights or evaluate generated images. Actual image startup and TLS/authentication require
+HTTPS lifecycle artifacts. The ComfyUI module checks cover alternate workspace
+paths, empty application provisioning and the 16 KiB startup limit. The separate
+Ansible role fixture verifies model destinations, source installation, workflow
+preservation and safe repeat application using disposable local inputs. Neither
+check downloads real weights or evaluates generated images. Actual image startup and TLS/authentication require
 a separately scoped live acceptance run.
 
 ## Download models
@@ -108,6 +110,22 @@ Juggernaut also stages `juggernaut-multi-reference` and
 references through IP-Adapter Plus. The two additional public safetensors files
 add about 3.4 GB: the SDXL Plus adapter in `models/ipadapter` and its CLIP-ViT-H
 encoder in `models/clip_vision`. Their publisher revisions are fixed in config.json.
+
+NoobAI provides `noobai-image-sequence` and its first-party `image_sequence` module.
+The [Ansible deployment](../ansible/README.md) installs the module, every
+selected native workflow/App, approved Canny checkpoint and pinned RIFE engine.
+All profiles use the same installation role; no workflow is embedded in startup.
+This native ComfyUI App reuses original IP-Adapter
+references across scenes, starts each scene from fresh noise and edits the preceding
+image for subsequent actions. A line containing `---` starts a new scene. The
+[App instructions](../../../projects/comfyui_tools/README.md#noobai-image-sequence-app)
+cover uploads, change strength, continuation and one combined GIF. The
+default includes three related poses in each of two scenes. GPU and reference
+quality acceptance belongs to the current deployment record.
+The separately named reference-sequence and scene-composer Apps compare that
+carry-forward approach with independent two-pass sampling, fixed shared prompt
+fields and optional installed LoRA weights. Both retain scene boundaries and
+individual PNGs, and neither publishes per-scene GIFs.
 
 | Profile             | Bundle                                                                             | Native workflows                                                                                                                                                                   |
 | ------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -127,16 +145,15 @@ The full Chroma bundle totals about 28 GB. The optional 32B and HiDream
 bundles each total about 55 GB of model files. Model and hardware selections
 are independent: choose sufficient disk/VRAM for the bundle; `48gb` provides
 100 GB disk and `96gb` provides 150 GB. No new model is deployed by these additions.
-Vast's native provisioner downloads them inside the rental;
-no custom downloader is installed. Every profile stages the first-party
-`Prompt Sequence` through native `write_files`. Full Chroma and HiDream additionally stage
+The shared Ansible role downloads them inside the rental using built-in modules.
+Every profile installs the first-party `Prompt Sequence` from its packaged source. Full Chroma and HiDream additionally stage
 the first-party chained img2img GIF node, using only ComfyUI's existing Torch,
 NumPy and Pillow packages. Both first-party nodes are whitelisted for those profiles.
 Chroma1-HD, HiDream and all three SDXL profiles restore
 [RES4LYF](https://github.com/ClownsharkBatwing/RES4LYF/tree/6780724de0ddb98e7454d54bb80387836a911ece)
 at the previously approved revision and the unchanged
-[hash-locked requirements](../res4lyf-requirements.txt). Vast's native Git/pip
-provisioner installs them. The SDXL profiles additionally stage the explicitly approved
+[hash-locked requirements](../res4lyf-requirements.txt). Ansible installs them
+at those pins using the image's existing Python environment. The SDXL profiles additionally stage the explicitly approved
 ComfyUI_IPAdapter_plus pack at revision a0f451a5113cf9becb0847b92884cb10cbdec0ef;
 only those two packs and Prompt Sequence are whitelisted for those profiles.
 The general SDXL Plus path uses the existing image environment and requires no
@@ -158,8 +175,9 @@ Flash model; additional VRAM alone does not establish better image quality.
 Flux uses the publisher's [non-commercial model](https://huggingface.co/black-forest-labs/FLUX.2-klein-base-9b-fp8).
 Its checkpoint requires the user's Hugging Face license acceptance and a read-only
 model token. The operator or external IaC supplies the
-[Vault token entry](../README.md#identity-and-state). The rental root reads it only for a nonempty Flux manifest and
-passes it as sensitive startup input to Vast's native `HF_TOKEN` downloader.
+[Vault token entry](../README.md#identity-and-state). The authenticated Ansible entry point injects
+it through AL for a profile marked `hugging_face_auth`, then supplies it to the
+Hugging Face request with task output hidden and redirect forwarding disabled.
 Missing access must be resolved before creating paid capacity; Juggernaut and Qwen's public
 bundles need no token. All profiles retain at least 32 GiB VRAM and Secure Cloud.
 
@@ -219,8 +237,8 @@ The six single-image examples cover SFT/Base text-to-image, SFT/Base layout guid
 image editing and prepared color/depth maps. The Base model is selected only by
 the `moss-image-base-*` examples; the other examples use SFT. Each example has a
 prompt-sequence counterpart with shared negative text, progress and grouped
-ordered filenames. The catalog lists all twelve; `startup_workflows` selects the
-original six, and the sequence variants are saved through the API. See
+ordered filenames. The catalog lists all twelve, and Ansible installs the
+complete selected catalog. See
 [workflow instructions](../../../projects/comfyui_tools/README.md#moss-image-examples)
 for inputs and sampling defaults. The existing ComfyUI v0.44.0 runtime provides
 their native nodes. The examples omit optional prompt enhancement and automatic
@@ -298,7 +316,8 @@ empty array disables configured downloads; workflows still require matching
 files. URLs must contain no credentials. Source and acceptance assets remain
 neutral; private prompts, uploads and generated images do not belong in Git.
 
-Changing the model manifest replaces the rental and removes its local disk.
+Changing model/profile assets is an Ansible update and does not replace the rental.
+Image, workspace and access bootstrap changes remain Terraform provisioning changes.
 The retired personal rental was destroyed. The new component credentials and
 Qwen rental were subsequently deployed under separate user authorizations.
 The Base replacement was created and then destroyed at the operator's request, retaining component credentials. Base GPU workflow acceptance was superseded by that release. Connection coordinates

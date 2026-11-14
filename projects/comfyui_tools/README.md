@@ -178,8 +178,8 @@ control variants reuse the selected maps. Panels are independent generations,
 with no joint attention or guaranteed character continuity. Sampling defaults
 and reference requirements match the corresponding single-image examples.
 
-The original six examples are installed on first boot. Save each generated
-sequence example through the authenticated API after deployment, for example:
+The image-generation Ansible stage installs all twelve selected examples.
+You can also save a generated workflow through the authenticated API, for example:
 
 ```sh
 bazel build //projects/comfyui_tools/workflows:workflows
@@ -221,6 +221,124 @@ consume those declared outputs directly. The pinned Jsonnet compiler and
 formatter are build tools and are never installed on the rental. To format an
 edited source, pass its absolute path to
 `bazel run //tools/jsonnet:format -- --in-place /absolute/path/to/source.libsonnet`.
+
+## NoobAI image sequence App
+
+Import the generated `noobai/noobai-image-sequence.app.json` from the workflow build
+into ComfyUI. It opens in native App mode with a reference uploader, shared
+appearance/style text, an action editor and a results gallery. Use **Graph Mode**
+to inspect its editable graph. The App targets frontend 1.57.6, bundled with the
+configured ComfyUI v0.44.0. Its `.app.json` filename also identifies it in ComfyUI's
+Apps list. NoobAI workflows are saved through the authenticated workflow API after
+boot, keeping its startup within the provider limit. The complete catalog remains
+generated and importable; model and node installation still uses normal provisioning.
+The matching `noobai-image-sequence.json` opens the same graph in Graph
+Mode. It requires the NoobAI checkpoint, approved SDXL Plus
+adapter/CLIP vision weights and the first-party `image_sequence` module; an imported
+JSON alone does not install those dependencies. Build with:
+
+```sh
+bazel build //projects/comfyui_tools/workflows:workflows
+```
+
+Select the main appearance reference and optionally two additional views; keep
+unused inputs at `(none)`. These references remain active for the whole sequence.
+Use the shared prompt for stable appearance and style. Enter complete desired-image
+tags, one image per nonempty line:
+
+```text
+standing, snowy park, beside a bench
+sitting, snowy park, on a bench
+---
+standing, library, beside a bookshelf
+reading, library, holding an open book
+```
+
+The first image in each scene starts from fresh noise. The following images edit
+the preceding decoded result at **change strength**, initially `0.6`. Raise it
+for larger changes, lower it to retain more composition, and insert `---` for a
+new location or camera setup. No page layout, speech bubbles or comic style is
+added automatically. Describe the wanted medium in the shared prompt.
+
+**Reference weight** starts at `0.05`; stronger generic SDXL conditioning can
+distort NoobAI instead of preserving identity.
+Choose dimensions once for the whole sequence. Keep the seed fixed while tuning.
+Set **image count** to `1` for a single preview, or `0` for all remaining actions.
+For continuation, keep the complete action list, select the accepted preceding
+image in **continuation**, and set **start image** to the next action number.
+Starting inside a scene requires that image. Starting at a scene boundary creates
+a fresh composition. Completed PNGs are saved immediately with grouped ordered
+filenames and effective prompt/seed metadata; the App gallery populates on completion.
+
+The default action list demonstrates two scenes with three images each: a robot
+raises its hand in a snowy park, then opens a book in a library. Camera, location
+and lighting tags repeat within each scene; `---` changes the scene. Keep shared
+appearance tags in the shared prompt and describe the complete desired image on
+each action line.
+
+The selected run produces one combined GIF and no per-scene GIF files.
+**GIF frame duration** defaults to 500 milliseconds per
+keyframe. **Interpolation multiplier** defaults to 4x using the repository-pinned
+RIFE engine; 1 disables interpolation. Each scene is smoothed separately and the
+combined GIF retains hard scene cuts. Original PNGs remain available after
+interruption; no partial GIF is published. Partial runs include only new images.
+
+**Control strength** defaults to 0.2 in the App and guides same-scene edits from the preceding
+image's Canny edges. Zero disables it. **Control end** defaults to 0.75. Lower the
+strength for larger pose changes; edges can resist those changes. New scenes
+start without the old scene's guide.
+
+The App starts IP-Adapter reference influence at 0.05 for NoobAI. The generic
+SDXL adapter can overwhelm this checkpoint at stronger weights. Shared appearance
+tags and previous-image continuation provide additional continuity; exact identity
+across fresh scenes and precise pose edits are not guaranteed.
+
+After an authorized NoobAI deployment, use the infrastructure owner's
+[in-place update](../../infra/image_gen/ansible/README.md) to install the node,
+approved Canny checkpoint, App and RIFE engine. NoobAI defers this node's source
+and workflow documents to that stage to keep startup below its payload limit.
+The App can also be refreshed through the authenticated workflow API:
+
+```sh
+bazel run //infra/image_gen:comfy -- workflow save \
+  "$PWD/bazel-bin/projects/comfyui_tools/workflows/noobai/noobai-image-sequence.app.json" \
+  --name noobai-image-sequence.app --where local
+```
+
+The [node contract](nodes/image_sequence/README.md) describes partial runs,
+interruption and drift limits. Offline checks verify transitions and saved media.
+The [live acceptance](openspec/changes/add-noobai-image-sequence/acceptance.md)
+records the completed two-scene GPU run and its remaining pose/identity limits.
+
+### Reference and scene-composer versions
+
+Two separate native Apps make the different generation strategies explicit:
+
+| App                                  | Reused information                                                                 | Generation                                                               |
+| ------------------------------------ | ---------------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
+| `noobai-reference-sequence.app.json` | Uploaded references, shared appearance text and preceding pixels within a scene    | Fresh scene starts, then previous-image edits; incrementing action seeds |
+| `noobai-scene-composer.app.json`     | Fixed character/clothing/style text, per-scene setting and optional installed LoRA | Independent images with a fixed seed and a second latent refinement pass |
+
+Both have matching editable `.json` graphs and six-image, two-scene examples.
+Both save PNGs and one combined GIF. Their new presets start with interpolation
+disabled; the reference preset also starts Canny at zero to avoid locking the
+previous pose. Existing `noobai-image-sequence` files remain import-compatible.
+
+The composer adapts the shared-prompt organization and two-pass sampler in the
+operator-supplied Tache Scenes Composer, without its external prompt/utility
+node packs or preset library. Enter a fixed character description, clothing and
+render style. Enter one setting per scene on separate lines, or one setting for
+all scenes. Enter one desired-image action per line, using `---` between scenes.
+Settings are expanded into the effective prompts before sampling. The default
+uses an adult woman in a red coat in a snowy park, then a library.
+
+The optional LoRA selector lists only locally installed weights and defaults to
+`(none)`. It installs nothing. The second pass uses the same model, prompt and
+seed to resample each first-pass latent at lower denoise; it does not transfer
+information between images. Set refinement steps to zero to disable it. Shared
+tags and a fixed seed are not an identity lock, and refinement can worsen an image.
+This version does not use uploaded reference images. Inspect individual PNGs
+before enabling interpolation; smoothing cannot correct missing actions.
 
 ## Prompt sequences
 
@@ -266,8 +384,8 @@ keeps the initial reference for independent edits. Identical first/last pose
 prompts provide a controlled loop boundary with original-reference/fixed-noise
 sampling. These workflows still require visual motion evaluation.
 
-Terraform packages the node source and selected workflow files through their
-Bazel filegroups and installs them with Vast's native provisioner. This project
+The image-generation Ansible deployment packages the selected node sources and
+workflow files through Bazel and installs them with the shared `comfyui_tools` role. This project
 does not own the upstream ComfyUI CLI, server image or infrastructure state.
 
 ## Offline validation

@@ -803,3 +803,80 @@ pairs. All 27 existing generated documents remained equal to their recorded
 pre-refactor JSON values; 20 new documents were added. This is packaging and
 configuration acceptance only. No rental, model download or inference job was
 performed for the additions; the last Chroma test rental remains destroyed.
+
+## NoobAI 96 GB sequence demonstration
+
+On 2026-11-14 the operator requested a new NoobAI 96 GB rental, the default
+two-scene demonstration and retention after completion. Account enumeration at
+20:33 UTC found zero rentals. The reviewed interactive apply created only the
+generated web password, component Vault login and instance 60693791; no changes
+or deletions were proposed. The offer is an RTX PRO 6000 Blackwell Max-Q at
+USD 2.2681/hour, with 150 GB disk. Refresh-only apply observed its HTTPS endpoint.
+Authenticated TLS-verified system stats report ComfyUI 0.44.0, frontend 1.57.6
+and 102,069,305,344 bytes VRAM. The neutral robot reference job completed.
+
+The operator subsequently approved the NoobAI Canny FP16 checkpoint and requested
+an in-place installation and GIF interpolation. Preserve the same instance and
+its outputs; perform updates through the checked-in Ansible workflow. Do not
+apply a Terraform replacement merely to update its startup manifest.
+
+`IMAGEGEN-INSTANCE-SSH-ACCESS`: SSH initially rejected the existing host key.
+The operator explicitly approved attaching that existing public key only to
+instance 60693791 (SHA256:MECEFy9M8xrFmdEYXb+NlwB6e7imUFhIdpf0Adb5w0w).
+The owning authenticated Vast CLI completed this one-time imperative access
+bootstrap at 20:47 UTC. No private key left the host, no account-wide key was
+registered, and SSH now uses strict checking against a task-local host-key file
+for the provider-reported direct endpoint. Persistent model/node/App changes
+remain owned by checked-in Ansible; no shared host configuration changes.
+
+The in-place update installed the Canny file with its pinned SHA-256 and
+Video2X 6.4.0 with bundled RIFE 4.25. `IMAGEGEN-PORTABLE-APPIMAGE` records the
+first packaging failure: the ordinary tool alias is a runfiles launcher, not
+the distributable binary. The corrected target exposes the resolved native ELF
+at the existing pin; its 231,232,704 bytes match SHA-256
+8238fc38325107f0a08a140d069baee3db80c5ac7470b0a516cc683183f5f92d.
+Vulkan device enumeration succeeded, the updated node/App loaded, and all ten
+NoobAI documents were saved. No rental was replaced, stopped or destroyed.
+
+The final default job `2af51190-554b-45c4-bb90-503eaedf03eb` completed in 54.7
+seconds. Its six 1024-square keyframes and per-scene/combined interpolated GIFs
+were downloaded and decoded. Scene GIFs have nine frames and 1.5 seconds each;
+the combined GIF has eighteen frames and three seconds, with a hard scene cut.
+The [workflow acceptance](../../../../../projects/comfyui_tools/openspec/changes/add-noobai-image-sequence/acceptance.md)
+records visual limitations and rejected reference settings. The rental remains
+running at the operator's explicit request; its verified endpoint is
+`https://93.91.156.110:49335` as observed on 2026-11-14/15.
+
+The interpolation-cancellation correction was subsequently installed through
+the same Ansible target with `--skip-tags workflows`. Both aggregate idle
+checks passed; only the node copy and its notified ComfyUI restart changed.
+The native interface responded and the installed source hash matched the
+candidate. Later workflow edits and the separately uploaded example remain
+preserved. This correction submitted no GPU jobs and inspected no job inventory.
+
+On 2026-11-15 at 08:43 UTC, read-only upload preflight found the old HTTPS
+endpoint returning HTTP 502 and its pinned direct SSH endpoint refusing the
+connection. Terraform still returned instance ID 60693791, while the provider's
+specific-instance lookup explicitly returned `instances: null`. Treat the
+connection outputs as stale; do not claim the rental remains available. This
+task performed no stop, destruction, replacement, refresh apply or new rental.
+No job inventory was inspected. The reference/composer variants and their exact
+node source are packaged, but live upload and new GPU acceptance are blocked.
+
+## Ansible application ownership
+
+The requested refactor uses the shared comfyui_tools role for all selected-profile models, LoRAs, custom nodes, locked Python requirements, workflows and optional interpolation. config.json remains the bundle registry and gains the workspace directory and explicit first-party-node selections. Terraform owns the rental and authenticated exposure; assets no longer travel in startup or Terraform state. Account-wide SSH registration belongs to infra/vastai at the operator’s explicit direction. This follow-up authorizes source delivery, not a rental or deployment.
+
+The reusable role and actual deployment fixtures pass locally, including all
+75 selected workflow files across 11 profiles and a complete NoobAI installation
+with tiny local model/Git substitutes. Native model weights, actual Git packages,
+locked dependency installation, Vulkan and GPU quality are not claimed by that
+fixture. Source changes, packaging and syntax checks perform no live apply,
+SSH operation, rental creation or key registration.
+
+Session ergonomics: `IMAGEGEN-ANSIBLE-FIXTURE-DIAGNOSTICS` records that a failed
+local module emitted a large embedded archive. The fixture now uses the pinned
+controller interpreter and bounded diagnostics. Explicit formatter invocation
+handles new source beneath the repository's intentionally excluded Ansible trees;
+no shared lint policy was changed. Existing fixture and delivery receipts remain
+the bounded continuation points rather than a duplicate deployment record.
