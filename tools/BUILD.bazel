@@ -44,6 +44,7 @@ package_group(
         "//projects/anki_as_code",
         "//projects/anki_as_code/docs",
         "//projects/anki_grpc",
+        "//projects/ansible_collection/test/forgejo_upgrade",
         "//projects/bazel_deps_analyzer/docs",
         "//projects/bazel_deps_analyzer/test/...",
         "//projects/comfyui_tools/test/browser",

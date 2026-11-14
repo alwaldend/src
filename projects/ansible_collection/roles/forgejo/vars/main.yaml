@@ -1,0 +1,16 @@
+forgejo_startup_files:
+  - staged_name: forgejo
+    path: "{{ forgejo_bin_path }}"
+    owner: "{{ forgejo_owner }}"
+    group: "{{ forgejo_group }}"
+    mode: "0755"
+  - staged_name: forgejo.ini
+    path: "{{ forgejo_config_path }}"
+    owner: "{{ forgejo_user }}"
+    group: "{{ forgejo_group }}"
+    mode: "0600"
+  - staged_name: forgejo.service
+    path: "{{ forgejo_service_path }}"
+    owner: "{{ forgejo_owner }}"
+    group: "{{ forgejo_owner }}"
+    mode: "0644"

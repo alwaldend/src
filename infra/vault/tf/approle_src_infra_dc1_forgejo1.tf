@@ -47,7 +47,6 @@ module "src_infra_dc1_forgejo1_provider" {
   ]
   redirect_urls = [
     "${var.forgejo_url}/user/oauth2/vault/callback",
-    "https://forgejo.alwaldend.com/user/oauth2/vault/callback",
   ]
 }
 

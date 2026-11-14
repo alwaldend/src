@@ -1,0 +1,154 @@
+- name: Inspect a previous unfinished activation
+  ansible.builtin.stat:
+    path: "{{ forgejo_backup_dir }}/pending.json"
+  register: forgejo_pending_activation
+
+- name: Require recovery before retrying an unfinished activation
+  ansible.builtin.assert:
+    that: not forgejo_pending_activation.stat.exists
+    fail_msg: An unfinished Forgejo activation exists; inspect its recovery directory before retrying.
+
+- name: Render startup inputs and initialize this activation
+  no_log: true
+  ansible.builtin.set_fact:
+    forgejo_candidate_config: "{{ lookup('ansible.builtin.template', forgejo_config_local_path) }}"
+    forgejo_candidate_unit: "{{ lookup('ansible.builtin.template', 'systemd_service.conf') }}"
+    forgejo_candidate_installed: false
+    forgejo_candidate_start_attempted: false
+    forgejo_recovery_directory: ""
+    forgejo_stage_directory: {}
+
+- name: Inspect candidate content on the controller
+  delegate_to: localhost
+  become: false
+  ansible.builtin.stat:
+    path: "{{ forgejo_bin_local_path }}"
+    checksum_algorithm: sha256
+    follow: true
+  register: forgejo_candidate_binary
+
+- name: Inspect installed startup files
+  ansible.builtin.stat:
+    path: "{{ item }}"
+    checksum_algorithm: sha256
+  loop: "{{ forgejo_startup_files | map(attribute='path') | list }}"
+  register: forgejo_installed_files
+
+- name: Require a candidate file and a complete or fresh installation
+  ansible.builtin.assert:
+    that:
+      - forgejo_candidate_binary.stat.checksum is defined
+      - forgejo_installed_files.results | selectattr('stat.exists') | list | length in [0, 3]
+    fail_msg: Require a readable candidate file and either all installed startup files or none.
+
+- name: Determine whether activation is required
+  no_log: true
+  ansible.builtin.set_fact:
+    forgejo_existing_installation: "{{ forgejo_installed_files.results[0].stat.exists }}"
+    forgejo_activation_required: >-
+      {{ (forgejo_installed_files.results[0].stat.checksum | default('')) != forgejo_candidate_binary.stat.checksum or
+         (forgejo_installed_files.results[1].stat.checksum | default('')) != (forgejo_candidate_config | hash('sha256')) or
+         (forgejo_installed_files.results[2].stat.checksum | default('')) != (forgejo_candidate_unit | hash('sha256')) }}
+
+- name: Repair unchanged startup-file metadata without activation
+  when: not forgejo_activation_required
+  ansible.builtin.include_tasks: permissions.yaml
+
+- name: Inspect the configured SQLite database
+  ansible.builtin.stat:
+    path: "{{ forgejo_database_path }}"
+  register: forgejo_database
+
+- name: Require an existing database or an empty fresh installation
+  ansible.builtin.assert:
+    that: >-
+      (forgejo_database.stat.isreg | default(false)) if forgejo_existing_installation
+      else not forgejo_database.stat.exists
+    fail_msg: Existing installations require their SQLite file; fresh installations must not adopt an existing database.
+
+- name: Validate recovery paths before activation
+  when: forgejo_activation_required
+  ansible.builtin.include_tasks: backup_preflight.yaml
+
+- name: Validate existing inputs before activation
+  when: forgejo_existing_installation and forgejo_activation_required
+  block:
+    - name: Read the installed key configuration
+      no_log: true
+      ansible.builtin.slurp:
+        src: "{{ forgejo_config_path }}"
+      register: forgejo_previous_configuration
+
+    - name: Read literal database-key bindings with the existing INI filter
+      no_log: true
+      ansible.builtin.set_fact:
+        forgejo_previous_security: "{{ (('[DEFAULT]\n' + (forgejo_previous_configuration.content | b64decode)) | community.general.from_ini).get('security', {}) }}"
+        forgejo_candidate_security: "{{ (('[DEFAULT]\n' + forgejo_candidate_config) | community.general.from_ini).get('security', {}) }}"
+
+    - name: Preserve unchanged literal database-key bindings
+      no_log: true
+      ansible.builtin.assert:
+        that:
+          - "'%(' not in forgejo_previous_security.get(item, '')"
+          - "'%(' not in forgejo_candidate_security.get(item, '')"
+          - forgejo_previous_security.get(item, '') == forgejo_candidate_security.get(item, '')
+        fail_msg: Database-key bindings must remain literal and unchanged; coordinate key migrations separately.
+      loop: [SECRET_KEY, SECRET_KEY_URI]
+
+    - name: Inspect declared backup inputs
+      ansible.builtin.stat:
+        path: "{{ item }}"
+      loop: "{{ forgejo_backup_paths }}"
+      register: forgejo_backup_inputs
+
+    - name: Require existing ordinary files or directories
+      ansible.builtin.assert:
+        that: (item.stat.isdir | default(false)) or (item.stat.isreg | default(false))
+        fail_msg: A declared Forgejo backup input is missing or is not an ordinary file or directory.
+      loop: "{{ forgejo_backup_inputs.results }}"
+
+- name: Inspect the prior service state before activation
+  when: forgejo_activation_required
+  ansible.builtin.command:
+    argv: [systemctl, is-active, "{{ forgejo_service_path | basename }}"]
+  changed_when: false
+  failed_when: forgejo_previous_service.rc not in [0, 3, 4]
+  register: forgejo_previous_service
+
+- name: Stage changed inputs before downtime
+  when: forgejo_activation_required
+  ansible.builtin.include_tasks: stage.yaml
+
+- name: Inspect the candidate version on the managed host
+  ansible.builtin.command:
+    argv:
+      [
+        "{{ forgejo_stage_directory.path + '/forgejo' if forgejo_activation_required else forgejo_bin_path }}",
+        --version,
+      ]
+  changed_when: false
+  register: forgejo_candidate_version_output
+
+- name: Require a recognizable candidate release
+  ansible.builtin.assert:
+    that: forgejo_candidate_version_output.stdout is match('^forgejo version [0-9]+\.[0-9]+\.[0-9]+(?:\+[^ ]+)?(?:\s|$)')
+    fail_msg: The candidate does not report a recognizable Forgejo release version.
+
+- name: Record the expected running version
+  ansible.builtin.set_fact:
+    forgejo_candidate_version: "{{ forgejo_candidate_version_output.stdout | regex_findall('forgejo version ([0-9]+\\.[0-9]+\\.[0-9]+)') | first }}"
+
+- name: Inspect the installed release before replacement
+  when: forgejo_existing_installation and forgejo_activation_required
+  ansible.builtin.command:
+    argv: ["{{ forgejo_bin_path }}", --version]
+  changed_when: false
+  register: forgejo_previous_version_output
+
+- name: Reject downgrades and unrecognized installed releases
+  when: forgejo_existing_installation and forgejo_activation_required
+  ansible.builtin.assert:
+    that:
+      - forgejo_previous_version_output.stdout is match('^forgejo version [0-9]+\.[0-9]+\.[0-9]+(?:\+[^ ]+)?(?:\s|$)')
+      - forgejo_candidate_version is version(forgejo_previous_version_output.stdout | regex_findall('forgejo version ([0-9]+\.[0-9]+\.[0-9]+)') | first, '>=', version_type='semver')
+    fail_msg: The installed release must be recognizable and no newer than the candidate.

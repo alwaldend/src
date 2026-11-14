@@ -1,7 +1,18 @@
 [http.routers.forgejo_websecure]
-rule = "Host(`{{ forgejo_domain }}`) || Host(`{{ inventory_hostname }}`) || Host(`{{ forgejo_legacy_domain }}`)"
+rule = "Host(`{{ forgejo_domain }}`) || Host(`{{ inventory_hostname }}`)"
 service = "forgejo"
 tls = { certResolver = "vault" }
+
+[http.routers.git_websecure]
+rule = "Host(`{{ forgejo_git_domain }}`)"
+service = "noop@internal"
+middlewares = ["forgejo_redirect"]
+tls = { certResolver = "vault" }
+
+[http.middlewares.forgejo_redirect.redirectRegex]
+regex = "^https?://[^/]+/(.*)"
+replacement = "https://{{ forgejo_domain }}/${1}"
+permanent = true
 
 [http.services.forgejo.loadBalancer]
 [[http.services.forgejo.loadBalancer.servers]]
