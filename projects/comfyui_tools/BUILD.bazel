@@ -28,7 +28,10 @@ filegroup(
 
 docs_filegroup(
     name = "docs",
-    srcs = ["README.md"],
+    srcs = [
+        "README.md",
+        "docs/experiments.md",
+    ],
     visibility = ["//projects:__pkg__"],
     deps = [
         "//projects/comfyui_tools/evals:docs",

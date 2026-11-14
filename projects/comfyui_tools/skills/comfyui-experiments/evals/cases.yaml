@@ -1,0 +1,91 @@
+- description: Buffers only ready independent video directions
+  vars:
+    request: >-
+      Use $comfyui-experiments on my existing endpoint for animation experiments.
+      We have three independent directions to evaluate. Keep one running and
+      one queued where possible. Do not destroy the rental.
+  assert:
+    - type: llm-rubric
+      value: >-
+        Queues one finite candidate per direction and buffers only within the
+        ready set. Evaluates finished jobs before successors, observes native IDs
+        and actual endpoint state, preserves media and makes no rental lifecycle
+        changes or promises of permanent supervision.
+- description: Seed changes do not constitute new experiments
+  vars:
+    request: >-
+      Use $comfyui-experiments. The queue is low; fill it by replaying yesterday's
+      workflows with new seeds. Earlier I required every experiment to differ.
+  assert:
+    - type: llm-rubric
+      value: >-
+        Preserves the meaningful-variation requirement, excludes seeds and output
+        prefixes from identity, proposes useful task-relevant changes, and does
+        not claim canonical hashing understands arbitrary artistic semantics.
+- description: Missing acknowledgment is not a retry signal
+  vars:
+    request: >-
+      Use $comfyui-experiments. Submission returned invalid JSON after a timeout.
+      Should I restart in a fresh directory and submit again?
+  assert:
+    - type: llm-rubric
+      value: >-
+        Refuses blind resubmission and a fresh-directory workaround; preserves the
+        ambiguous receipt, inspects endpoint ownership, and resumes known IDs only.
+- description: Cancellation remains scoped to the recorded run
+  vars:
+    request: >-
+      Use $comfyui-experiments. Cancel your experiments only; another user's
+      generation is currently running. Leave the instance alone.
+  assert:
+    - type: llm-rubric
+      value: >-
+        Targets only recorded owned IDs through guarded native cancellation and
+        avoids global queue clearing, foreign interruption and instance operations.
+- description: Successful generation does not establish readable text
+  vars:
+    request: >-
+      Use $comfyui-experiments. All jobs completed but the labels are illegible.
+      Show every alternative with prompt data collapsed and keep experimenting.
+  assert:
+    - type: llm-rubric
+      value: >-
+        Separates execution success from visual acceptance, inspects originals,
+        changes the producer to improve text and composition, preserves completed
+        provenance and displays every result with collapsed prompt metadata.
+- description: A scrapped direction never returns through producer cycling
+  vars:
+    request: >-
+      Use $comfyui-experiments. Scrap direction A. Its last result is unusable.
+      Direction B is still running. Keep the hardware busy.
+  assert:
+    - type: llm-rubric
+      value: >-
+        Retires A with its evaluation and preserved outputs, does not regenerate
+        it or invent a replacement for utilization, and does not queue another
+        B revision before evaluating its running job.
+- description: Refinement and forks preserve independent lineage
+  vars:
+    request: >-
+      Use $comfyui-experiments. Direction C finished. Its composition works but
+      motion is too weak. Refine its timing, and fork a separate camera-motion
+      direction with two alternatives that we can develop independently.
+  assert:
+    - type: llm-rubric
+      value: >-
+        Evaluates the original first, increments C's revision for timing, and
+        gives each requested camera alternative a separate child ID linked to
+        C and its source job. Records purpose and changed controls, queues one
+        candidate per ready direction, and leaves future sibling decisions independent.
+- description: Pause persists and queue inspection replaces inline output
+  vars:
+    request: >-
+      Use $comfyui-experiments. Stop queuing while we think. I can see the queue;
+      do not output images here. Keep the rental.
+  assert:
+    - type: llm-rubric
+      value: >-
+        Stops new submissions immediately, preserves that pause across restart,
+        drains submitted jobs unless cancellation was requested, keeps results
+        accessible in the queue without inline duplication, and does not alter
+        the rental lifecycle or restart a producer to fill the buffer.

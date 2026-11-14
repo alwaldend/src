@@ -1,0 +1,4 @@
+interface:
+  display_name: "ComfyUI experiments"
+  short_description: "Develop and review independent experiment directions"
+  default_prompt: "Use $comfyui-experiments to evaluate, refine, fork or retire directions on my existing ComfyUI endpoint."

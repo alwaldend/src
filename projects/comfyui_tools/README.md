@@ -282,6 +282,15 @@ The node uses the standard ComfyUI editor without a custom browser extension.
 They do not access
 a rental or establish compatibility with its frontend version or GPU image quality.
 
+## Continuous experiments
+
+The [experiment runner](docs/experiments.md) maintains a configurable owned job
+buffer on an existing endpoint. External producers supply arbitrary native
+workflows and meaningful variations. It preserves original media, workflow
+snapshots, hashes and a resumable private journal, with no instance lifecycle
+operations. The [ComfyUI experiments skill](skills/comfyui-experiments/SKILL.md)
+covers queue observation, feedback and result review.
+
 ## Evaluations
 
 The evaluator runs independent, bounded rental workloads using the existing
