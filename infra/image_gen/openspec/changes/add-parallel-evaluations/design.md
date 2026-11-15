@@ -224,3 +224,22 @@ At 00:52:33 UTC, a reviewed refresh-only apply cleared the instance ID, HTTPS
 URL and SSH forwarding outputs to null, with no remote resource changes.
 No rental remains managed by this root. The source retains the selected NoobAI
 and 48 GB profiles for a future explicitly authorized deployment.
+
+## Qwen keyframe deployment, 2026-11-15
+
+The operator authorizes one 48 GB Qwen instance and a corrected plush-petting
+trial. Select the existing Qwen-Image-Edit-2511 and RTX PRO 5000 profiles, keeping
+the USD 1/hour ceiling and mandatory host/transfer constraints. Terraform owns
+the personal rental and authenticated access; the existing Ansible role installs
+all model files, Qwen workflows, both GIF node directories, the image-sequence
+writer and the already approved Video2X/RIFE engine. The initial account SSH lookup failed with a missing-secret error. A scoped Vault apply subsequently confirmed
+the bot identity already exists, while the account token lacks read access to
+its exact metadata path. The operator explicitly approved deployment of the existing
+Vault identity declaration and account SSH registration, restricted to those
+resources. After the identity apply found no changes, the operator separately
+approved its existing metadata-read policy and account AppRole attachment. The
+reviewed Vault apply added that policy and attached it in place, with no deletes.
+The broad account plan also proposed unrelated team destruction and
+was not applied. Preserve any unrelated instance and inspect only owned
+job IDs. Retain this personal rental at handoff under the operator's standing
+retention request. Local validation must finish before paid allocation.

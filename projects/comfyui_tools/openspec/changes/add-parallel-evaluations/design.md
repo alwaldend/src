@@ -1,5 +1,30 @@
 ## Context
 
+### Qwen keyframe follow-up, 2026-11-15
+
+The operator requests workflow corrections, one 48 GB Qwen deployment and a new
+plush-petting trial. Proceed with independent, inspectable keyframes instead of
+repeating the rejected eight-frame chain. Crop around the hand and upper plush,
+edit through the native Qwen encoder, and composite the edited crop onto the
+original photograph with a feathered image-space boundary. The edit has no latent
+noise mask; the unchanged background is enforced by compositing. Crop controls
+must include the complete old and desired hand/forearm positions. Preserve the
+ordinary Qwen workflows and both corrected chained GIF alternatives.
+
+An image-batch output node reuses the existing GIF/RIFE writer to assemble
+approved keyframes, optionally returning through them in reverse order. Sampling
+and GIF assembly remain separate so poor keyframes cannot pass as animation.
+Before implementation cover empty/single/oversized batches, malformed images,
+unsafe prefixes, invalid timing/interpolation, missing engines, actual playback
+order, identical loop endpoints and source-image preservation. The fixture must
+write a fully decoded GIF artifact. No new model or external dependency is added.
+
+Compare a small number of explicit lift/press poses, inspect every original
+output, and refine only observed failures. Initial ready directions are a clear
+hand lift and a localized downward press, with up to two reviewed corrections.
+Only accepted poses advance to interpolation. The existing one-seed failures
+remain evidence against their exact configurations, not proof of model inability.
+
 The operator requests fully automated, configurable model evaluations. Each independent rental must boot, run its configured work, download results and be destroyed without waiting for the other workers. Code belongs to projects/comfyui_tools; infra/image_gen/evals owns its instantiation and deployment. The operator explicitly approves checking in both cases and supplied references, overriding the earlier private-fixture restriction for these cases.
 
 ## Decisions

@@ -88,3 +88,11 @@ The [NoobAI workflow instructions](../../README.md#noobai-image-sequence-app)
 describe importing the generated App. The runtime source is staged as one native
 custom-node module. Interpolation additionally uses the repository-pinned
 Video2X installation managed by the infrastructure owner.
+
+`ImagegenKeyframeGIF` assembles an approved IMAGE batch without loading a model.
+Use 2 to 128 equally sized poses, a frame duration divisible by 10 ms and an
+interpolation multiplier of 1, 2, 4 or 8. Reversible playback traverses the poses
+and returns to the first, allowing RIFE to smooth both directions. The node
+retains each source as a PNG and publishes one looping GIF using the same writer
+as image sequences. Interpolation requires the deployment's existing Video2X
+engine. Validate the poses first; neither reversal nor RIFE fixes incorrect edits.

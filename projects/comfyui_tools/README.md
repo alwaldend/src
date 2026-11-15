@@ -384,6 +384,24 @@ keeps the initial reference for independent edits. Identical first/last pose
 prompts provide a controlled loop boundary with original-reference/fixed-noise
 sampling. These workflows still require visual motion evaluation.
 
+For Qwen animation, start with `qwen-keyframe-edit` or
+`qwen-keyframe-sequence`. Both edit a crop independently from the shared original,
+then feather the edited crop onto the original scene. The crop's X/Y controls
+also position the composite; include the old and desired hand positions inside
+the crop, away from its feathered boundary. Image 1 is the edit crop and image 2
+is full-scene context. The crop is sampled without a latent noise mask. The raw
+crop and final composited PNG are both saved for inspection. This guarantees
+unchanged pixels outside the composite rectangle in each saved PNG, but does not
+guarantee a correct pose inside it.
+
+Inspect each pose before loading selected, equally sized PNGs into
+`qwen-keyframe-gif`. This model-free workflow combines three approved poses,
+optionally reverses them back to the first pose, and uses the existing RIFE
+engine at 1x (disabled), 2x, 4x or 8x. Reversal closes the loop; interpolation
+smooths accepted poses and cannot repair malformed hands. The assembly node
+also accepts any native IMAGE batch of 2 to 128 keyframes. Each input is retained
+as a PNG. The older chained Qwen GIF workflows remain available for comparison.
+
 The image-generation Ansible deployment packages the selected node sources and
 workflow files through Bazel and installs them with the shared `comfyui_tools` role. This project
 does not own the upstream ComfyUI CLI, server image or infrastructure state.

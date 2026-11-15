@@ -7,6 +7,7 @@ Saved PNGs and a JSON receipt expose order, seeds, feedback and native metadata.
 import json
 import os
 import pathlib
+import shutil
 import signal
 import sys
 import tempfile
@@ -1073,6 +1074,74 @@ class _ImageSequenceTest(unittest.TestCase):
                         ),
                         600,
                     )
+
+    def test_selected_keyframes_publish_reversible_loop(self) -> None:
+        """Serialize selected poses in order and retain their exact RGB sources."""
+        with tempfile.TemporaryDirectory() as temporary:
+            root: pathlib.Path = pathlib.Path(temporary)
+            fixture: _NativeFixture = _NativeFixture(root)
+            frames: torch.Tensor = torch.stack(
+                [torch.full((16, 16, 3), value) for value in (0.0, 0.5, 1.0)]
+            )
+            original: torch.Tensor = frames.clone()
+            with mock.patch.dict("sys.modules", fixture.modules()):
+                result: dict[str, object] = image_sequence.KeyframeGIF().save(
+                    frames, 200, 1, True, "selected"
+                )
+            self.assertTrue(torch.equal(frames, original))
+            animation: pathlib.Path = next(root.glob("*.gif"))
+            with PIL.Image.open(animation) as playback:
+                colors: list[int] = []
+                durations: list[int] = []
+                for frame in PIL.ImageSequence.Iterator(playback):
+                    colors.append(frame.convert("RGB").getpixel((0, 0))[0])
+                    durations.append(frame.info["duration"])
+                self.assertEqual(colors, [0, 127, 255, 127, 0])
+                self.assertEqual(durations, [200] * 5)
+                self.assertEqual(playback.info["loop"], 0)
+            self.assertEqual(len(list(root.glob("*.png"))), 3)
+            self.assertEqual(
+                typing.cast(tuple[torch.Tensor], result["result"])[0].shape,
+                frames.shape,
+            )
+            artifact: str = os.environ.get("TEST_UNDECLARED_OUTPUTS_DIR", "")
+            if artifact:
+                shutil.copyfile(
+                    animation, pathlib.Path(artifact, "selected-keyframes.gif")
+                )
+
+    def test_keyframe_playback_rejects_invalid_inputs_before_writes(
+        self,
+    ) -> None:
+        """Reject invalid image batches, timing and paths before publishing files."""
+        valid: torch.Tensor = torch.zeros(2, 16, 16, 3)
+        cases: list[tuple[torch.Tensor, int, int, str]] = [
+            (valid[:0], 200, 1, "test"),
+            (valid[:1], 200, 1, "test"),
+            (torch.zeros(129, 1, 1, 3), 200, 1, "test"),
+            (torch.zeros(2, 16, 16), 200, 1, "test"),
+            (torch.zeros(2, 16, 16, 1), 200, 1, "test"),
+            (valid, 25, 1, "test"),
+            (valid, 20, 4, "test"),
+            (valid, 200, 3, "test"),
+            (valid, 200, 1, "../test"),
+        ]
+        for frames, duration, multiplier, prefix in cases:
+            with self.subTest(
+                shape=frames.shape,
+                duration=duration,
+                multiplier=multiplier,
+                prefix=prefix,
+            ):
+                with tempfile.TemporaryDirectory() as temporary:
+                    root: pathlib.Path = pathlib.Path(temporary)
+                    fixture: _NativeFixture = _NativeFixture(root)
+                    with mock.patch.dict("sys.modules", fixture.modules()):
+                        with self.assertRaises(ValueError):
+                            image_sequence.KeyframeGIF().save(
+                                frames, duration, multiplier, True, prefix
+                            )
+                    self.assertEqual(list(root.iterdir()), [])
 
     def test_reference_views_remain_uncropped(self) -> None:
         """Prepare only selected views, retaining edge details and optional continuation."""

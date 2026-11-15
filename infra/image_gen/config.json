@@ -1,8 +1,8 @@
 {
     "image": "vastai/comfy:v0.44.0-cuda-12.9-py312",
     "web_username": "imagegen",
-    "model_profile": "noobai",
-    "hardware_profile": "96gb",
+    "model_profile": "qwen",
+    "hardware_profile": "48gb",
     "hardware_profiles": {
         "standard": {
             "min_gpu_ram_gb": 32,
@@ -74,14 +74,25 @@
             "workflows": [
                 "qwen-single-reference",
                 "qwen-character-style",
-                "qwen-prompt-sequence"
+                "qwen-prompt-sequence",
+                "qwen-keyframe-edit",
+                "qwen-keyframe-sequence",
+                "qwen-keyframe-gif",
+                "qwen-image-to-image-gif",
+                "qwen-image-to-image-gif-masked"
             ],
             "downloads": [
                 "qwen_image_edit_2511_fp8mixed.safetensors",
                 "qwen_2.5_vl_7b_fp8_scaled.safetensors",
                 "qwen_image_vae.safetensors"
             ],
-            "first_party_nodes": ["prompt_sequence"]
+            "first_party_nodes": [
+                "prompt_sequence",
+                "chained_img2img_gif",
+                "qwen_chained_img2img_gif",
+                "image_sequence"
+            ],
+            "interpolation": true
         },
         "flux": {
             "workflows": [
@@ -404,8 +415,13 @@
                 "ImagegenReferenceImages",
                 "ImagegenImageSequence",
                 "ImagegenScenePrompts",
-                "ImagegenOptionalLora"
+                "ImagegenOptionalLora",
+                "ImagegenKeyframeGIF"
             ]
+        },
+        "qwen_chained_img2img_gif": {
+            "source": "qwen_chained_img2img_gif.py",
+            "node_classes": ["ImagegenQwenChainedImageToImageGIF"]
         }
     }
 }
