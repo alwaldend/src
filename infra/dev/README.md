@@ -211,6 +211,38 @@ T3 Code, set its `CODEX_HOME path` to
 connection to T3 Code at `/mcp`. Codex excludes it from model-spawned commands
 so those subprocesses do not inherit the credential.
 
+## Codex terminal session argument limitation
+
+Codex can reject `write_stdin` before it reaches a running command when a
+provider encodes `session_id` as a whole floating-point number. For example,
+`{"session_id":96230.0}` fails with `invalid type: floating point, expected i32`,
+while `{"session_id":96230}` parses successfully. Use the actual ID returned by
+`exec_command`; the number above is only an example. Quoting the ID changes it
+to a string and is also rejected by the integer parser.
+
+As checked on 2026-11-15, upstream tracks this schema/parser mismatch in
+[Codex issue #33452](https://github.com/openai/codex/issues/33452).
+The installed CLI reported `0.167.0`: its
+[tool schema](https://github.com/openai/codex/blob/rust-v0.167.0/codex-rs/core/src/tools/handlers/shell_spec.rs)
+advertises `session_id` as `number`, but its
+[terminal resolver](https://github.com/openai/codex/blob/rust-v0.167.0/codex-rs/core/src/tools/handlers/unified_exec.rs)
+uses strict `i32` deserialization. The
+[0.169.0 resolver](https://github.com/openai/codex/blob/rust-v0.169.0/codex-rs/core/src/tools/handlers/unified_exec.rs)
+and [argument parser](https://github.com/openai/codex/blob/rust-v0.169.0/codex-rs/core/src/tools/handlers/mod.rs)
+retain that behavior, so upgrading to that release alone does not fix it.
+This evidence establishes an argument-parsing defect; it does not establish
+that an XML parser caused the numeric conversion.
+
+Retry the terminal-continuation call with the original session ID encoded as a
+bare integer, without a decimal point or quotes. If the client keeps converting
+it to a float or the session is unavailable, inspect the original process and
+resource state before repeating its shell command. An argument error does not
+cancel a process already started by `exec_command` or establish whether its
+operation succeeded. For Terraform, confirm that the original operation has
+exited before any authorized stale-lock recovery, then use the owning
+component's Terraform workflow. This note records the upstream limitation;
+the host does not carry a local parser patch.
+
 ## Cache cleaning
 
 `bazel clean` removes the current workspace's build outputs and
