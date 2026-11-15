@@ -35,3 +35,5 @@ secure VM. Its disk contents may be discarded; dev1 must not reboot.
 - [x] 3.6 Remove the completed OpenHands cleanup block and obsolete tag documentation; verify the packaged playbook has no OpenHands tasks.
 
 - [x] 3.7 Replace the secure1-specific host-key command with shared SSH-role reconciliation and verify packaged configuration.
+
+- [x] 3.8 Publish the approved service-network overview with hostnames, edge-only connection details and an enabled runner; render SVG/WebP assets and verify documentation packaging.

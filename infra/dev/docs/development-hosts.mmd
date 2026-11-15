@@ -1,0 +1,39 @@
+---
+title: Development hosts · service network
+---
+flowchart LR
+    remote("Remote user")
+    ingress("Ingress · Traefik<br/>ingress.alwaldend.com")
+    local("LAN user / administrator")
+
+    subgraph dev1["dev1.dev.alwaldend.com · bare metal"]
+        proxy("Traefik")
+        comfy("ComfyUI · on demand")
+        t3("T3 Code")
+        codex("Codex processes")
+        devssh("OpenSSH")
+    end
+
+    subgraph secure1["secure1.dev.alwaldend.com · XO VM"]
+        runnerssh("OpenSSH")
+        worker("Forgejo Actions runner")
+    end
+
+    forgejo("Forgejo<br/>forgejo.alwaldend.com")
+    vault("Vault PKI / ACME<br/>vault.alwaldend.com")
+    github("GitHub<br/>github.com")
+    inference("LLM APIs<br/>OpenAI / OpenRouter")
+
+    remote -->|"HTTPS :443 + mTLS"| ingress
+    ingress -->|"HTTPS :443 over WireGuard"| proxy
+    local -->|"HTTPS :443"| proxy
+    local -->|"SSH :22"| devssh
+    local -->|"SSH :22"| runnerssh
+    proxy -.->|"HTTP / WebSocket :8188"| comfy
+    proxy -->|"HTTP / WebSocket :3773"| t3
+    t3 -->|"Local execution"| codex
+    t3 -->|"Source · HTTPS :443"| github
+    t3 -->|"Source · HTTPS :443"| forgejo
+    codex -->|"Inference · HTTPS :443"| inference
+    proxy -.->|"Certificates · HTTPS :8200"| vault
+    worker -->|"Jobs / results · HTTPS :443"| forgejo

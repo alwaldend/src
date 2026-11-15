@@ -266,6 +266,16 @@ ephemeral module download cache is already deleted after each fetch.
 
 ## Architecture
 
+### Development hosts
+
+[![Development workstation and secure runner](assets/development-hosts.svg)](assets/development-hosts.svg)
+
+The Forgejo runner and development machine share deployment configuration under
+`infra/dev` while retaining separate roles. This service overview shows the
+runner enabled.
+
+[Download the dark WebP diagram](assets/development-hosts.dark.webp).
+
 ### T3 Code
 
 [![T3 Code architecture diagram](assets/t3code-architecture.svg)](assets/t3code-architecture.svg)
