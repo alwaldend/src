@@ -24,7 +24,8 @@
   no_log: true
   block:
     - name: Request scoped ACME enrollment
-      connection: local
+      delegate_to: localhost
+      become: false
       ansible.builtin.command:
         argv:
           - "{{ traefik_vault_bin_local_path }}"

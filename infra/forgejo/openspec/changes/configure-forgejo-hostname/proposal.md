@@ -10,6 +10,8 @@ download server's GitHub redirect and Go discovery behavior.
 - Redirect local Git browser requests to the canonical URL, preserving paths
   and queries. Retain TLS coverage for both names and the inventory hostname.
 - Preserve DNS declarations and coordinate the Vault and client URL updates.
+- Replace the historical architecture diagram with the current XCP-ng deployment,
+  canonical hostname, split Git routing, and Vault authentication.
 
 ## Capabilities
 

@@ -1,17 +1,29 @@
 flowchart LR
-    subgraph proxmox["Historical · Proxmox · pve.alwaldend.com"]
-        subgraph forgejo_vm["Forgejo VM · forgejo.alwaldend.com"]
-            traefik["Traefik"]
+    local_client("LAN client")
+    public_client("Public client")
+    ingress["Ingress · mTLS<br/>ingress.alwaldend.com"]
+    download["Download server<br/>git.alwaldend.com"]
+
+    subgraph xcp_ng["XCP-ng"]
+        subgraph forgejo_vm["Forgejo VM · host1.forgejo.alwaldend.com<br/>192.168.10.40"]
+            local_git["Traefik<br/>git.alwaldend.com"]
+            traefik["Traefik<br/>forgejo.alwaldend.com"]
             forgejo["Forgejo"]
+            data[("Persistent data<br/>SQLite · repositories · LFS")]
         end
     end
-    vault["Vault<br/>vault.alwaldend.com"]
-    actor("Actor")
-    github["Github<br/>github.com"]
 
-    traefik --> forgejo
+    vault["Vault<br/>vault.alwaldend.com"]
+    github["GitHub<br/>github.com"]
+
+    local_client -->|"HTTPS"| traefik
+    local_client -->|"HTTPS"| local_git
+    local_git -->|"301 · keep path + query"| traefik
+    local_client -->|"SSH · 3005"| forgejo
+    public_client -->|"HTTPS"| ingress
+    ingress -->|"Upstream HTTPS"| traefik
+    public_client -->|"HTTPS"| download
+    download -->|"301 · keep path + query"| github
+    traefik -->|"HTTP · 127.0.0.1:3000"| forgejo
     forgejo -->|"OIDC"| vault
-    actor -->|"HTTPS"| traefik
-    actor -->|"SSH"| forgejo
-    actor -->|"OIDC"| vault
-    forgejo -->|"Push mirror"| github
+    forgejo --> data

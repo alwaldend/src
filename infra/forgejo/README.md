@@ -7,13 +7,17 @@ tags:
   - forgejo
 ---
 
-## Historical architecture
+## Architecture
 
-This diagram preserves the former Proxmox deployment. Forgejo now runs on XCP-ng;
-see [Deployment](#deployment) for the maintained deployment contract.
+Forgejo runs on an XCP-ng VM behind Traefik. Local Git links redirect to the
+canonical Forgejo hostname; public Git links redirect through the download
+server to GitHub. The two local Traefik nodes represent routes in the same proxy.
+Public Forgejo access passes through the ingress server, which requires a client
+certificate and opens a separate HTTPS connection to the service proxy.
+See [Deployment](#deployment) for DNS, provisioning, and service configuration.
 The [Mermaid source](docs/architecture.mmd) is authoritative; Bazel renders its light and dark SVGs.
 
-[![Historical Forgejo architecture](docs/assets/architecture.svg)](docs/assets/architecture.svg)
+[![Forgejo architecture](docs/assets/architecture.svg)](docs/assets/architecture.svg)
 
 ## Links
 
