@@ -31,7 +31,7 @@ runner acceptance checks. Normal Bazel expansion excludes manual targets and
 incompatible platforms; optional configurations are not a build matrix.
 
 The runner needs the repository-managed Node.js, `bazel`, `al`, and Android
-SDK/NDK prerequisites. The [runner deployment](../../infra/forgejo_runner/ansible/README.md)
+SDK/NDK prerequisites. The [runner deployment](../../infra/dev/ansible/README.md)
 installs these before CI starts. Agent invocations use
 `bazel run --config=ci //tools/ci`.
 

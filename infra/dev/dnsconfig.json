@@ -1,0 +1,67 @@
+{
+    "records": {
+        "secure1": {
+            "A": {
+                "name": "secure1.dev",
+                "address": "192.168.10.101"
+            },
+            "dsp": ["dc1"]
+        },
+        "dev1_dc1": {
+            "A": {
+                "name": "dev1.dev",
+                "address": "192.168.1.210"
+            },
+            "dsp": ["dc1"]
+        },
+        "dev1_dc1_target": {
+            "A": {
+                "name": "dc1.dev1.dev",
+                "address": "192.168.1.210"
+            },
+            "dsp": ["all"]
+        },
+        "t3code_dc1": {
+            "A": {
+                "name": "t3code.dev1.dev",
+                "address": "192.168.1.210"
+            },
+            "dsp": ["dc1"]
+        },
+        "t3code_dc1_target": {
+            "A": {
+                "name": "dc1.t3code.dev1.dev",
+                "address": "192.168.1.210"
+            },
+            "dsp": ["all"]
+        },
+        "t3code_global": {
+            "CNAME": {
+                "name": "t3code.dev1.dev",
+                "target": "ingress.alwaldend.com."
+            },
+            "dsp": ["global"]
+        },
+        "comfyui_dc1": {
+            "A": {
+                "name": "comfyui.dev1.dev",
+                "address": "192.168.1.210"
+            },
+            "dsp": ["dc1"]
+        },
+        "comfyui_dc1_target": {
+            "A": {
+                "name": "dc1.comfyui.dev1.dev",
+                "address": "192.168.1.210"
+            },
+            "dsp": ["all"]
+        },
+        "comfyui_global": {
+            "CNAME": {
+                "name": "comfyui.dev1.dev",
+                "target": "ingress.alwaldend.com."
+            },
+            "dsp": ["global"]
+        }
+    }
+}

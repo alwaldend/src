@@ -1,0 +1,7 @@
+ansible_user: ansible
+ssh_valid_principals:
+  - "{{ inventory_hostname }}"
+firewall_allow_port_from:
+  - src: "any"
+    port: 22
+    comment: ssh

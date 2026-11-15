@@ -69,7 +69,7 @@ try {
     await page.emulateMediaFeatures([
         { name: "prefers-color-scheme", value: "light" },
     ]);
-    await page.goto(`${base}/docs/users/simeonwarren/host_bot/`, {
+    await page.goto(`${base}/docs/infra/dev/`, {
         waitUntil: "networkidle0",
     });
     const documentationDiagramSelector =
@@ -439,7 +439,7 @@ try {
         ),
         "No mobile page overflow",
     );
-    await page.goto(`${base}/_print/docs/users/simeonwarren/host_bot/`, {
+    await page.goto(`${base}/_print/docs/infra/dev/`, {
         waitUntil: "networkidle0",
     });
     image = await visibleImage();

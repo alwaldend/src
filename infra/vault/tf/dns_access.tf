@@ -4,6 +4,7 @@ module "dns_access" {
     src_infra_dc1_forgejo1     = ["dc1", "global"]
     src_infra_dc1_pve1         = ["dc1"]
     src_infra_dc1_vault        = ["dc1", "global"]
+    src_infra_dev              = ["dc1", "global"]
     src_infra_flux             = ["dc1"]
     src_infra_forgejo_runner   = ["dc1"]
     src_infra_harbor           = ["dc1"]

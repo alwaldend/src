@@ -1,0 +1,10 @@
+schema: spec-driven
+
+context: |
+  This OpenSpec workspace owns infra/dev, consolidating the former Forgejo
+  runner and Host Bot deployments. Read AGENTS.md and the owner README.
+  Preserve per-host roles. Ansible and the single DNS root use the shared
+  src_infra_dev identity. Reconcile legacy DNS states before operational
+  adoption; source movement does not transfer state. Specifications describe
+  desired state, not live deployment.
+  Use the repository-pinned OpenSpec wrapper and offline validation.

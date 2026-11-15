@@ -1,4 +1,0 @@
-forgejo_runner:
-  hosts:
-    host1.forgejo-runner.alwaldend.com:
-    secure.forgejo-runner.alwaldend.com:

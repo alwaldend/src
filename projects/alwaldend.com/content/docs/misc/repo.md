@@ -61,7 +61,7 @@ Use ordinary `bazel build`, `bazel test`, and `bazel run` commands. Bazel reads
 `~/.bazelrc` for user defaults across workspaces. For bounded, non-interactive
 output and failure-focused test reporting, add the **Agent output defaults**
 block from the
-[managed Host Bot configuration](https://github.com/alwaldend/src/blob/master/users/simeonwarren/host_bot/ansible/files/bazelrc)
+[managed Host Bot configuration](https://github.com/alwaldend/src/blob/master/infra/dev/ansible/files/bazelrc)
 to your own `~/.bazelrc`. The block uses standard Bazel options and needs no
 named `agent` profile. Explicit command-line options override these defaults.
 

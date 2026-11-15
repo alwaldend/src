@@ -33,7 +33,7 @@ outputs under the task's ignored workspace `out/<task>/` directory.
 Agent output defaults belong in the account's `~/.bazelrc`, as described in
 the [repository setup guide](../../../alwaldend.com/content/docs/misc/repo.md).
 The bot account's configuration is managed by
-[host Ansible](../../../../users/simeonwarren/host_bot/ansible/files/bazelrc).
+[host Ansible](../../../../infra/dev/ansible/files/bazelrc).
 Normal builds do not require AL or a named agent profile. Change persistent
 host configuration through its owning declarative workflow; a source task
 does not authorize deploying it. Command-line options can override user

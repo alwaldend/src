@@ -26,7 +26,7 @@ docs_filegroup(
 
 exports_files(
     ["packages.txt"],
-    visibility = ["//infra/forgejo_runner/ansible:__pkg__"],
+    visibility = ["//infra/dev/ansible:__pkg__"],
 )
 
 pkg_files(
@@ -45,5 +45,5 @@ pkg_tar(
         "//third_party/com_android_commandlinetools:sdkmanager_files",
     ],
     extension = "tar.gz",
-    visibility = ["//infra/forgejo_runner/ansible:__pkg__"],
+    visibility = ["//infra/dev/ansible:__pkg__"],
 )

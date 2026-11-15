@@ -1,0 +1,105 @@
+ansible_user: simeonwarrenbot
+update_all_packages_upgrade_enabled: false
+dev1_tuned_profile: balanced
+openspec_version: "1.14.2"
+openspec_npm_prefix: "{{ dev_vm_bazel_home }}/.local"
+open_computer_use_version: "0.3.3"
+open_computer_use_npm_prefix: "{{ dev_vm_bazel_home }}/.local"
+open_computer_use_skill_repository: iFurySt/open-codex-computer-use
+open_computer_use_skill_revision: >-
+  41c5294cfe4735baca03f9c82b4de99d191a0b49
+open_computer_use_skill_files:
+  - SKILL.md
+  - agents/openai.yaml
+  - references/installation.md
+  - references/troubleshooting.md
+  - references/usage.md
+arxiv_mcp_storage_path: "{{ misc_storage_mount }}/arxiv-mcp-server/papers"
+misc_storage_device: /dev/sata_ssd/misc
+misc_storage_mount: /srv/misc
+misc_storage_mount_options:
+  - defaults
+  - noatime
+  - nodev
+  - nosuid
+  - noexec
+  - nofail
+  - x-systemd.device-timeout=10s
+misc_storage_size: 100G
+dev_vm_bazel_user: "{{ ansible_user }}"
+dev_vm_bazel_group: "{{ ansible_user }}"
+dev_vm_bazel_home: /var/home/simeonwarrenbot
+dev_vm_install_packages: true
+dev_vm_package_backend: rpm_ostree
+bazel_cache_directories:
+  - path: /var/cache/bazel/disk_cache
+    # World-writable so Codex's workspace-write sandbox can create and write
+    # Bazel cache content without escalating to a host-bot permission profile;
+    # the sandbox only grants writes under the workspace, /tmp, and explicit
+    # writable roots. This cache is disposable and reconstructed from source.
+    mode: "0777"
+  - path: /var/cache/bazel/output_user_root
+    # World-writable for the same sandbox write requirement. Bazel normalizes
+    # its output-user-root to 0755 on every startup, so this mode only matters
+    # for the initial creation and the sandbox's write permission check.
+    mode: "0777"
+  - path: /var/cache/bazel/repo_contents_cache
+    # Owner-only because Bazel restores these materialized external repositories
+    # without re-verifying their contents, and they may carry executable
+    # Starlark and tool binaries. Codex reaches this cache through its explicit
+    # filesystem write permission rather than through world write access.
+    mode: "0700"
+  - path: /var/cache/bazel/tool_cache
+    # Cached tools are executable, so only the owning account may modify or
+    # traverse this content-addressed store.
+    mode: "0700"
+repo_tool_workspace_root: /var/home/simeonwarrenbot/Projects/src
+bazel_cache_device: /dev/sata_ssd/bazel_cache
+bazel_cache_mount: /var/cache/bazel
+bazel_cache_pvs:
+  - /dev/disk/by-id/ata-GIGABYTE_GP-GSTFS31100TNTD_SN252308902396
+  - /dev/disk/by-id/ata-GIGABYTE_GP-GSTFS31100TNTD_SN252308902405
+filesystem_setup:
+  - dev: "{{ bazel_cache_device }}"
+    fstype: ext4
+    opts: "-m 1"
+    resizefs: true
+lvg_volume_groups:
+  - vg: sata_ssd
+    pvs: "{{ bazel_cache_pvs }}"
+lvol_volumes:
+  - vg: sata_ssd
+    lv: bazel_cache
+    size: 1T
+    resizefs: false
+    shrink: false
+    pvs: "{{ bazel_cache_pvs }}"
+    opts: --type striped --stripes 2
+mount_points:
+  - path: "{{ bazel_cache_mount }}"
+    src: "{{ bazel_cache_device }}"
+    state: mounted
+    fstype: ext4
+    opts: defaults,noatime,nodev,nosuid,nofail,x-systemd.device-timeout=10s
+    dump: "0"
+    passno: "2"
+traefik_acme_path: pki/ica_servers/roles/src_infra_dev_pki_server/acme
+traefik_acme_url: "https://vault.alwaldend.com:8200/v1/{{ traefik_acme_path }}/directory"
+traefik_bin_path: "{{ traefik_dir }}/traefik"
+traefik_service_path: "/etc/systemd/system/traefik.service"
+t3code_domain: t3code.dev1.dev.alwaldend.com
+t3code_port: 3773
+comfyui_domain: comfyui.dev1.dev.alwaldend.com
+comfyui_port: 8188
+# The unsecured agent server shares host-bot's trust boundary. It binds to
+# loopback, serves the local host only, and is deliberately not routed through
+# host-bot's Traefik or exposed by its firewall.
+openhands_version: "1.46.0"
+openhands_server_port: 18002
+openhands_server_secure: false
+openhands_server_install_packages: false
+openhands_server_service_path: /etc/systemd/system/openhands-server.service
+openhands_server_version: "{{ openhands_version }}"
+openhands_server_secret_key: >-
+  {{ lookup('ansible.builtin.env', 'OPENHANDS_SERVER_SECRET_KEY',
+  default=undefined()) }}

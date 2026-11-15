@@ -40,7 +40,7 @@ _ARCHIVE_WORKSPACES = [
     "projects_x_article_uploader",
     "tools_rules_terraform",
     "users_simeonwarren_anki",
-    "users_simeonwarren_host_bot",
+    "infra_dev",
 ]
 
 [
