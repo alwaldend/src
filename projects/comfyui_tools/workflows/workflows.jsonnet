@@ -25,6 +25,7 @@ local defaults = {
     checkpoint: 'NoobAI-XL-v1.1.safetensors',
     ipadapter: 'ip-adapter-plus_sdxl_vit-h.safetensors',
     clip_vision: 'CLIP-ViT-H-14-laion2B-s32B-b79K.safetensors',
+    controlnet: 'noob_sdxl_controlnet_canny.fp16.safetensors',
   },
   illustrious: {
     checkpoint: 'Illustrious-XL-v2.0.safetensors',

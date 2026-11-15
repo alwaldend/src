@@ -1,0 +1,30 @@
+- name: Install the selected image-generation profile
+  hosts: imagegen
+  gather_facts: false
+  vars:
+    imagegen_configuration: "{{ lookup('ansible.builtin.file', 'files/configuration.json') | from_json }}"
+    imagegen_runtime: "{{ lookup('ansible.builtin.file', 'files/runtime.json') | from_json }}"
+    imagegen_profile: "{{ imagegen_configuration.model_profiles[imagegen_configuration.model_profile] }}"
+    imagegen_modules: "{{ imagegen_profile.first_party_nodes | map('extract', imagegen_configuration.first_party_nodes) | list }}"
+    imagegen_assets_directory: "{{ playbook_dir }}/files"
+
+    comfyui_tools_directory: "{{ imagegen_configuration.workspace_directory }}/{{ imagegen_runtime.model_root | basename }}"
+    comfyui_tools_arguments: "{{ imagegen_runtime.arguments }}"
+    comfyui_tools_api_url: "http://127.0.0.1:{{ imagegen_runtime.port }}"
+    comfyui_tools_model_directories: "{{ imagegen_runtime.model_directories | combine({'checkpoint': imagegen_profile.checkpoint_directory | default(imagegen_runtime.model_directories.checkpoint)}) }}"
+    comfyui_tools_models: >-
+      {{ imagegen_profile.downloads | map('community.general.dict_kv', 'filename')
+         | zip(imagegen_profile.downloads | map('extract', imagegen_configuration.downloads))
+         | map('combine') | list }}
+    comfyui_tools_git_nodes: "{{ imagegen_configuration.custom_nodes | dict2items | selectattr('key', 'in', imagegen_profile.custom_nodes | default([])) | items2dict }}"
+    comfyui_tools_node_sources: >-
+      {{ dict(imagegen_profile.first_party_nodes | zip(imagegen_modules
+         | map(attribute='source') | map('regex_replace', '^', imagegen_assets_directory ~ '/'))) }}
+    comfyui_tools_required_nodes: "{{ imagegen_modules | map(attribute='node_classes') | flatten }}"
+    comfyui_tools_workflows: "{{ imagegen_profile.workflows | map('regex_replace', '^', imagegen_assets_directory ~ '/workflows/' ~ imagegen_configuration.model_profile ~ '/') | map('regex_replace', '$', '.json') | list }}"
+    comfyui_tools_python_requirements: "{{ imagegen_assets_directory ~ '/' ~ imagegen_profile.python_requirements if imagegen_profile.python_requirements is defined else '' }}"
+    comfyui_tools_interpolation_source: "{{ imagegen_assets_directory ~ '/Video2X.AppImage' if imagegen_profile.interpolation | default(false) else '' }}"
+    comfyui_tools_hugging_face_token: "{{ lookup('ansible.builtin.env', 'COMFYUI_HUGGING_FACE_TOKEN') }}"
+    comfyui_tools_require_hugging_face_token: "{{ imagegen_profile.hugging_face_auth | default(false) }}"
+  roles:
+    - alwaldend.main.comfyui_tools

@@ -17,3 +17,8 @@ launcher built with the AppRole source in its runfiles; affected semantic
 lint passed. The declaration uses the shared module and existing operator
 entity, disables Yandex policy attachment, and adds no broad group membership.
 No live plan, apply, credential generation, or secret write was performed.
+
+## Host public-key metadata
+
+- [x] Grant the Vast account AppRole read access to the host user entity metadata for declarative SSH registration, without KV or identity write capabilities.
+- [x] Validate source and packaging without applying Vault policy.

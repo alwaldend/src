@@ -8,17 +8,29 @@ description: Vast.ai ComfyUI rental with Vault-managed HTTPS credentials
 This project owns one image-generation rental in [tf_setup](tf_setup/README.md).
 It uses the reusable [ComfyUI module](../../projects/tf_modules/vastai_instance_imagegen_comfyui/README.md)
 in exposed mode: a single HTTPS proxy with a generated username/password login,
-plus account-key SSH access. The GPU must have at least 32 GiB VRAM.
-The [configuration](config.json) selects MOSS-Image SFT/Base INT8 with six example workflows and six sequence variants
-on RTX PRO 5000 Blackwell with 48 GB nominal VRAM. Full Chroma1-HD,
-FLUX.2 dev 32B FP8, Juggernaut XL v9, HiDream-I1 Full 17B, Illustrious XL v2.0-STABLE,
-FLUX.2 klein Base 9B FP8, NoobAI XL 1.1 and Qwen-Image-Edit-2511 remain selectable profiles,
-downloaded on first boot; see [model configuration](tf_setup/README.md#download-models).
+plus account-key SSH access managed by [infra/vastai](../vastai/tf/README.md). The GPU must have at least 32 GiB VRAM.
+The [configuration](config.json) selects NoobAI XL 1.1 and the existing 96 GB
+hardware profile for the operator-requested sequence demonstration. Its native
+App has a six-image, two-scene default, persistent references and
+one combined GIF, with optional Canny structure guidance and RIFE interpolation.
+Separate reference-sequence and scene-composer Apps expose the previous-image
+and independent two-pass strategies; the composer uses shared descriptions and
+an optional already-installed LoRA instead of image references.
+The [Ansible deployment](ansible/README.md) calls the reusable `comfyui_tools`
+role to install all selected models, LoRAs, node packs, dependencies and native
+workflows/Apps, including the pinned interpolation tool when selected.
+Terraform provisions the rental and authenticated access. `workspace_directory`
+in the configuration controls the shared workspace path for both stages.
+MOSS-Image SFT/Base INT8, full Chroma1-HD, FLUX.2 dev 32B FP8, Juggernaut XL v9,
+HiDream-I1 Full 17B, Illustrious XL v2.0-STABLE, FLUX.2 klein Base 9B FP8,
+NoobAI XL 1.1 and Qwen-Image-Edit-2511 remain selectable profiles;
+see [model configuration](tf_setup/README.md#download-models).
 The additional `uso` and `umo-uno` profiles provide native FLUX.1 subject/style
 and multiple-identity conditioning respectively; both have prompt sequences.
 Juggernaut includes the approved IP-Adapter Plus and CLIP vision weights for
 several character/style references; NoobAI and Illustrious reuse that SDXL path.
-NoobAI has verified service/workflow staging; GPU inference remains unverified.
+NoobAI's scene sequence, Canny and interpolated GIF pipeline have completed GPU
+execution; precise pose edits and exact character identity remain limited.
 Illustrious has offline packaging checks only. HiDream's GIF
 workflow completed the approved eval case, with poor motion/reference quality;
 its other workflows remain unverified on a GPU. NoobAI's publisher prohibits commercial
@@ -48,6 +60,14 @@ existing Vault identity membership. No general infrastructure group is required.
 
 ## Deployment status
 
+The last authorized rental used NoobAI on the 96 GB RTX PRO 6000 profile,
+with retention requested. The original ten workflows were uploaded. Its endpoint
+is now unavailable and the provider lookup no longer returns that instance;
+the two additional App variants remain packaged for import. The
+[current deployment record](openspec/changes/add-imagegen-rental/design.md#noobai-96-gb-sequence-demonstration)
+owns its instance identity, endpoint observations, in-place installation and
+sequence/GIF results. Earlier rental observations follow.
+
 The former personal stack was destroyed on 2026-11-10. The replacement AppRole,
 scoped policies, dedicated team key, generated web login and component state
 remain deployed. The earlier Flux, FLUX.2 dev, NoobAI and HiDream rentals were
@@ -59,9 +79,8 @@ The requested MOSS-Image deployment created instance 60541185 on the named
 48 GB RTX PRO 5000 profile. All twelve examples, including six sequence variants,
 are staged; single-image SFT text-to-image and
 Base layout-guided generation completed. Sequence and edit/control execution remain
-unverified. See [the current deployment record](openspec/changes/add-moss-image-examples/design.md).
-USO and UMO-UNO remain source-only alternatives. No image-generation acceptance
-was performed on this NoobAI rental. The
+unverified. See [the historical MOSS deployment record](openspec/changes/add-moss-image-examples/design.md).
+USO and UMO-UNO remain source-only alternatives. The
 [earlier NoobAI record](openspec/changes/add-parallel-evaluations/design.md)
 documents deployment and its verification limits; the [earlier Chroma acceptance](openspec/changes/add-imagegen-rental/design.md#full-chroma-deployment-on-rtx-pro-5000)
 retains its historical workflow results. The component did not reuse personal state or credentials. Historical
@@ -69,7 +88,7 @@ Vault versions can remain protected; the shared team and operator seed remain.
 
 Deployment is staged: authorize the component role and delivery policy through
 Vault Terraform, create the dedicated key through the team root, then rent
-through this project's `tf_setup`. Each live apply requires its own reviewed
+through this project's `tf_setup`, then install the selected application profile through Ansible. Each live apply requires its own reviewed
 interactive plan. Building and testing the source performs none of these steps.
 
 ## Privacy boundary
@@ -93,7 +112,7 @@ protect transport, not a workload from its machine's administrator.
 Gated Flux downloads require a read-only Hugging Face token whose account has
 accepted the publisher's non-commercial license. The operator or external IaC
 stores it in the `huggingface` entry as field `token`; this component only reads
-it. Vast's native downloader consumes it inside the rental.
+it. The authenticated Ansible entry point receives it through AL injection for the gated profile and supplies it to the publisher download request.
 The token is visible to rental processes and the host administrator. No Vault or
 Vast account key is passed to the rental.
 
@@ -137,6 +156,13 @@ Reusable nodes and workflow files belong to
 [ComfyUI tools](../../projects/comfyui_tools/README.md). For several panels, open
 the selected profile's `prompt-sequence` workflow and follow its
 [panel instructions](../../projects/comfyui_tools/README.md#prompt-sequences).
+
+For scene-aware NoobAI generation, use
+[`noobai-image-sequence`](../../projects/comfyui_tools/README.md#noobai-image-sequence-app).
+It opens as a native ComfyUI App with persistent references, previous-image edits
+and explicit fresh-scene breaks. Its node is staged only with that workflow.
+GIF playback is available per scene and for the selected sequence. Live deployment
+observations belong to the maintained deployment record.
 
 ## Automated evaluations
 

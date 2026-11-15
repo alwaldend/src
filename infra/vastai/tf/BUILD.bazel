@@ -49,8 +49,12 @@ al_terraform_binary_map(
     plugin_labels = {
         "tf": "main",
         "vastai": "1",
+        "vault_env": "component",
     },
-    providers = ["//projects/vastai_terraform_provider:provider"],
+    providers = [
+        "//projects/vastai_terraform_provider:provider",
+        "@terraform_provider_hashicorp_vault//:provider",
+    ],
 )
 
 terraform_test_map(

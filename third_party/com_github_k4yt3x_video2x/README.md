@@ -8,6 +8,10 @@ integrity for the Linux x86_64 AppImage. It includes the Video2X CLI, FFmpeg
 libraries, ncnn, and RIFE models 4.6, 4.25, and 4.26. The release asset has no
 publisher-provided digest; the lock records the locally calculated download hash.
 
+`portable_appimage` exposes the resolved native artifact for the image-generation
+Ansible package. Use it when copying the executable to a rental; the ordinary
+`video2x` target is a Bazel launcher that depends on local runfiles.
+
 The host must provide an AVX2-capable CPU, a Vulkan loader, a compatible GPU
 driver, and access to its render device. No desktop session is required.
 

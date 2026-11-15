@@ -8,7 +8,7 @@ module "src_infra_vastai_approle" {
   backend                  = vault_auth_backend.approle.path
   backend_accessor         = vault_auth_backend.approle.accessor
   disable_yc_folder_policy = true
-  policies                 = [vault_policy.vastai_image_gen_delivery.name]
+  policies                 = [vault_policy.vastai_image_gen_delivery.name, vault_policy.vastai_host_metadata.name]
 }
 
 resource "vault_policy" "vastai_image_gen_delivery" {
@@ -19,6 +19,15 @@ resource "vault_policy" "vastai_image_gen_delivery" {
     }
     path "${vault_mount.secrets.path}/metadata/alwaldend.com/vault1/approles/src_infra_image_gen/vastai" {
       capabilities = ["read", "delete"]
+    }
+  EOT
+}
+
+resource "vault_policy" "vastai_host_metadata" {
+  name   = "src_infra_vastai_host_metadata"
+  policy = <<-EOT
+    path "identity/entity/name/${vault_identity_entity.simeonwarrenbot.name}" {
+      capabilities = ["read"]
     }
   EOT
 }

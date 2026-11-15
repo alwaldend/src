@@ -23,19 +23,7 @@ provider "random" {}
 
 locals {
   configuration = jsondecode(file("${path.module}/../config.json"))
-  profile       = local.configuration.model_profiles[local.configuration.model_profile]
-  model = merge(local.profile, {
-    downloads    = [for name in local.profile.downloads : merge(local.configuration.downloads[name], { filename = name })]
-    custom_nodes = { for name in try(local.profile.custom_nodes, []) : name => local.configuration.custom_nodes[name] }
-  })
-  hardware        = local.configuration.hardware_profiles[local.configuration.hardware_profile]
-  model_downloads = local.model.downloads
-}
-
-data "vault_kv_secret_v2" "huggingface" {
-  count = local.configuration.model_profile == "flux" && length(local.model_downloads) > 0 ? 1 : 0
-  mount = "secrets"
-  name  = "alwaldend.com/vault1/approles/src_infra_image_gen/huggingface"
+  hardware      = local.configuration.hardware_profiles[local.configuration.hardware_profile]
 }
 
 resource "random_password" "web" {
@@ -59,27 +47,16 @@ module "imagegen" {
   # A failed Vault write must prevent creation of the paid instance.
   depends_on = [vault_kv_secret_v2.web]
 
-  image                = local.configuration.image
-  model_downloads      = local.model_downloads
-  checkpoint_directory = try(local.model.checkpoint_directory, "models/diffusion_models")
-  custom_nodes         = try(local.model.custom_nodes, {})
-  python_requirements  = try(local.model.python_requirements, null) == null ? null : file("${path.module}/../${local.model.python_requirements}")
-  custom_node_sources = merge(
-    { prompt_sequence = file("${path.module}/../../../projects/comfyui_tools/nodes/prompt_sequence/prompt_sequence.py") },
-    contains(local.model.workflows, "${local.configuration.model_profile}-image-to-image-gif") ? { chained_img2img_gif = file("${path.module}/../../../projects/comfyui_tools/nodes/chained_img2img_gif/chained_img2img_gif.py") } : {},
-  )
-  hugging_face_token = length(data.vault_kv_secret_v2.huggingface) == 0 ? null : data.vault_kv_secret_v2.huggingface[0].data["token"]
-  workflows = { for name in try(local.model.startup_workflows, local.model.workflows) :
-    name => file("${path.module}/../../../projects/comfyui_tools/workflows/${local.configuration.model_profile}/${name}.json")
-  }
-  access_mode      = "exposed"
-  web_username     = local.configuration.web_username
-  web_password     = random_password.web.result
-  min_gpu_ram_gb   = local.hardware.min_gpu_ram_gb
-  gpu_name         = try(local.hardware.gpu_name, null)
-  disk_gb          = local.hardware.disk_gb
-  max_hourly_price = local.hardware.max_hourly_price
-  label            = "src_infra_image_gen"
+  image               = local.configuration.image
+  workspace_directory = local.configuration.workspace_directory
+  access_mode         = "exposed"
+  web_username        = local.configuration.web_username
+  web_password        = random_password.web.result
+  min_gpu_ram_gb      = local.hardware.min_gpu_ram_gb
+  gpu_name            = try(local.hardware.gpu_name, null)
+  disk_gb             = local.hardware.disk_gb
+  max_hourly_price    = local.hardware.max_hourly_price
+  label               = "src_infra_image_gen"
 }
 
 output "instance_id" {
@@ -96,4 +73,12 @@ output "ssh_forward_command" {
 
 output "credentials_path" {
   value = "secrets/${vault_kv_secret_v2.web.name}"
+}
+
+output "ssh_host" {
+  value = module.imagegen.ssh_host
+}
+
+output "ssh_port" {
+  value = module.imagegen.ssh_port
 }

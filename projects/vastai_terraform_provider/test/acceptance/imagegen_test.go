@@ -28,18 +28,6 @@ var imagegenModulePath = flag.String("imagegen-module", "", "Image generation mo
 // comfyuiModulePath locates the native ComfyUI wrapper.
 var comfyuiModulePath = flag.String("comfyui-module", "", "ComfyUI module runfile")
 
-// imagegenConfigurationPath selects the public deployment profile for full-bundle acceptance.
-var imagegenConfigurationPath = flag.String("imagegen-configuration", "", "Image generation configuration runfile")
-
-// promptSequencePath selects the actual first-party node staged in the startup manifest.
-var promptSequencePath = flag.String("prompt-sequence", "", "Prompt Sequence source runfile")
-
-// chainedGIFPath selects the first-party GIF source for profiles that stage it.
-var chainedGIFPath = flag.String("chained-gif", "", "Chained img2img GIF source runfile")
-
-// configuredWorkflowPath anchors the generated workflow tree consumed by the real profile.
-var configuredWorkflowPath = flag.String("configured-workflow", "", "Configured workflow runfile")
-
 // imagegenFixture adds template discovery and creation guards to the rental fixture.
 type imagegenFixture struct {
 	// rental supplies the existing rental lifecycle API.

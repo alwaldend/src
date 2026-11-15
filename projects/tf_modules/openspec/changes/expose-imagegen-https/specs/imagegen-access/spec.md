@@ -2,15 +2,15 @@
 
 ### Requirement: Optional gated model downloads
 
-The base and ComfyUI modules SHALL accept an optional sensitive Hugging Face
-token for native downloads without placing credentials in model URLs, manifests
+The base module SHALL accept an optional sensitive Hugging Face
+token for its Forge native downloads without placing credentials in model URLs, manifests
 or public outputs. Public-download callers SHALL require no token. Access and
 license acceptance SHALL remain the caller's responsibility.
 
 #### Scenario: Gated publisher file
 
 - **WHEN** the caller supplies an authorized Vault-sourced token
-- **THEN** native first-boot downloading SHALL receive it without changing service exposure
+- **THEN** the Forge native downloader SHALL receive it without changing service exposure
 
 ### Requirement: Imagegen access
 
@@ -75,26 +75,33 @@ retain its bundled API wrapper on loopback and disable unapproved custom nodes a
 
 ### Requirement: Approved ComfyUI node provisioning
 
-The ComfyUI wrapper SHALL pass explicitly approved custom-node repositories at
-immutable revisions and version- and hash-locked Python requirements to Vast's
-native provisioner. Only approved node directories SHALL be allowlisted;
-public access controls SHALL remain unchanged. The wrapper SHALL compact named native workflow documents and stage them after
-workspace initialization. The base SHALL supply a plain startup script and
-enable provider-owned gzip transport. The provider SHALL reject encoded startup
-exceeding 16,384 bytes before creating a rental.
+The ComfyUI wrapper SHALL provision the image and secured runtime without
+application assets in Terraform startup. The shared comfyui_tools Ansible role
+SHALL install approved immutable Git repositories, hash-locked requirements,
+first-party node sources and complete selected native workflows/Apps. It SHALL
+allowlist only selected installed node directories. The base SHALL preserve
+Ansible-managed runtime arguments across reboot and retain the provider-owned
+startup transport and 16,384-byte limit.
 
 #### Scenario: Approved style-reference node pack
 
-- **WHEN** a caller supplies a reviewed node repository and requirements
-- **THEN** Vast's native provisioner SHALL fetch the pinned sources and install requirements with mandatory hashes and no dependency resolution
+- **WHEN** a caller supplies a reviewed node repository and requirements to Ansible
+- **THEN** the role SHALL fetch the pinned source and install requirements with mandatory hashes and no dependency resolution
+- **AND** the rental startup SHALL contain no application installation payload
+
+#### Scenario: Configured workspace
+
+- **WHEN** a caller supplies a valid alternate absolute workspace directory
+- **THEN** the native bootstrap SHALL initialize that workspace and the deployment SHALL install assets under its ComfyUI application directory
+- **AND** traversal and shell syntax SHALL be rejected
 
 ### Requirement: Native checkpoint layout
 
-The ComfyUI wrapper SHALL default checkpoint downloads to models/diffusion_models
-and SHALL support an explicit models/checkpoints selection for all-in-one SDXL
+The shared ComfyUI runtime declaration SHALL default checkpoint paths to models/diffusion_models
+and the Ansible deployment SHALL support an explicit models/checkpoints selection for all-in-one SDXL
 checkpoints. Other model directories and access controls SHALL remain unchanged.
 
 #### Scenario: All-in-one SDXL checkpoint
 
 - **WHEN** a caller selects models/checkpoints
-- **THEN** the native downloader SHALL stage checkpoint files there for CheckpointLoaderSimple without changing encoder or VAE paths
+- **THEN** the Ansible role SHALL stage checkpoint files there for CheckpointLoaderSimple without changing encoder or VAE paths

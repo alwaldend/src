@@ -5,11 +5,11 @@ description: Account, team, and rental infrastructure with Vault authentication
 
 This project manages Vast.ai through three independent Terraform roots:
 
-| Root                                  | Credential                      | Owns                                    | State suffix  |
-| ------------------------------------- | ------------------------------- | --------------------------------------- | ------------- |
-| [Account](tf/README.md)               | Personal account key            | Team identities and account settings    | `tf`          |
-| [Alwaldend](alwaldend/README.md)      | Operator-provided alwaldend key | Full-access team keys and team settings | `alwaldend`   |
-| [Rental test](rentals_test/README.md) | Generated alwaldend rental key  | One test GPU contract                   | `rental_test` |
+| Root                                  | Credential                      | Owns                                           | State suffix  |
+| ------------------------------------- | ------------------------------- | ---------------------------------------------- | ------------- |
+| [Account](tf/README.md)               | Personal account key            | Team identities, account settings and SSH keys | `tf`          |
+| [Alwaldend](alwaldend/README.md)      | Operator-provided alwaldend key | Full-access team keys and team settings        | `alwaldend`   |
+| [Rental test](rentals_test/README.md) | Generated alwaldend rental key  | One test GPU contract                          | `rental_test` |
 
 [config.json](config.json) defines environment settings once. The account and
 alwaldend roots both read that section because teams do not inherit account

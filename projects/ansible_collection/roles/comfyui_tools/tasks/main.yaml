@@ -1,0 +1,217 @@
+- name: Require a caller-supplied token for gated model installation
+  ansible.builtin.assert:
+    that: comfyui_tools_hugging_face_token | length > 0
+    fail_msg: The selected profile requires a model token from the authenticated deployment entry point.
+  when:
+    - comfyui_tools_require_hugging_face_token
+    - comfyui_tools_models | length > 0
+
+- name: Validate application and runtime inputs
+  ansible.builtin.assert:
+    that:
+      - comfyui_tools_directory is string
+      - comfyui_tools_arguments is string
+      - comfyui_tools_model_directories is mapping
+      - comfyui_tools_directory is match('^/([A-Za-z0-9_-]+/)*[A-Za-z0-9_-]+$')
+      - comfyui_tools_state_directory is match('^/([A-Za-z0-9_-]+/)*[A-Za-z0-9_-]+$')
+      - comfyui_tools_arguments is match('^[A-Za-z0-9 /_.=-]+$')
+      - comfyui_tools_restart_command | length > 0
+      - comfyui_tools_node_web_scripts.keys() | difference(comfyui_tools_node_sources.keys()) | length == 0
+      - comfyui_tools_git_nodes.keys() | intersect(comfyui_tools_node_sources.keys()) | length == 0
+      - comfyui_tools_interpolation_source | length == 0 or comfyui_tools_state_directory == '/opt/imagegen'
+
+- name: Validate relative model directories
+  ansible.builtin.assert:
+    that: item is match('^models(/[A-Za-z0-9_-]+)+$')
+  loop: "{{ comfyui_tools_model_directories.values() | list }}"
+
+- name: Validate model destinations and immutable sources
+  ansible.builtin.assert:
+    that:
+      - item.filename is match('^[A-Za-z0-9][A-Za-z0-9._-]*\.safetensors$')
+      - item.kind in comfyui_tools_model_directories
+      - item.url is match('^https://[A-Za-z0-9.-]+/[^?#\s]+$') or item.url is match('^http://127\.0\.0\.1:[0-9]+/[^?#\s]+$')
+      - item.sha256 | default('') is match('^[a-f0-9]{64}$') or item.url is search('/resolve/[a-f0-9]{40}/')
+  loop: "{{ comfyui_tools_models }}"
+  loop_control:
+    label: "{{ item.filename }}"
+
+- name: Validate installed node directory names
+  ansible.builtin.assert:
+    that: item is match('^[A-Za-z][A-Za-z0-9_-]*$')
+  loop: "{{ comfyui_tools_git_nodes.keys() | list + comfyui_tools_node_sources.keys() | list }}"
+
+- name: Validate immutable Git node sources
+  ansible.builtin.assert:
+    that:
+      - item.value.ref is match('^[a-f0-9]{40}$')
+      - item.value.url is match('^https://github\.com/[A-Za-z0-9_-]+/[A-Za-z0-9_.-]+$') or item.value.url is match('^file:///')
+  loop: "{{ comfyui_tools_git_nodes | dict2items }}"
+  loop_control:
+    label: "{{ item.key }}"
+
+- name: Validate native workflow files before any host mutation
+  ansible.builtin.assert:
+    that:
+      - item | basename is match('^[A-Za-z0-9][A-Za-z0-9_-]*(\.app)?\.json$')
+      - (lookup('ansible.builtin.file', item) | from_json).nodes is sequence
+      - (lookup('ansible.builtin.file', item) | from_json).links is sequence
+  loop: "{{ comfyui_tools_workflows }}"
+  tags: [workflows]
+
+- name: Require the existing application supplied by the host image
+  ansible.builtin.stat:
+    path: "{{ comfyui_tools_directory }}/main.py"
+  register: comfyui_tools_application
+
+- name: Reject an uninitialized or incorrect workspace
+  ansible.builtin.assert:
+    that: comfyui_tools_application.stat.isreg | default(false)
+
+- name: Require an idle service before installation
+  ansible.builtin.include_tasks: idle.yaml
+
+- name: Create model and application directories
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: "0755"
+  loop: >-
+    {{ [comfyui_tools_state_directory, comfyui_tools_state_directory ~ '/cache',
+        comfyui_tools_directory ~ '/custom_nodes',
+        comfyui_tools_directory ~ '/user/default/workflows'] +
+       (comfyui_tools_model_directories.values() | map('regex_replace', '^', comfyui_tools_directory ~ '/') | list) }}
+
+- name: Install selected model files including LoRAs and controls
+  ansible.builtin.get_url:
+    url: "{{ item.url }}"
+    dest: "{{ comfyui_tools_directory }}/{{ comfyui_tools_model_directories[item.kind] }}/{{ item.filename }}"
+    checksum: "{{ 'sha256:' ~ item.sha256 if item.sha256 is defined else omit }}"
+    headers: >-
+      {{ {'Authorization': 'Bearer ' ~ comfyui_tools_hugging_face_token}
+         if comfyui_tools_hugging_face_token | length > 0 and item.url is match('^https://huggingface\.co/') else {} }}
+    unredirected_headers: [Authorization]
+    mode: "0644"
+    timeout: 300
+  loop: "{{ comfyui_tools_models }}"
+  loop_control:
+    label: "{{ item.filename }}"
+  no_log: "{{ comfyui_tools_hugging_face_token | length > 0 }}"
+  notify: Restart ComfyUI tools
+
+- name: Recheck idle state before loaded code changes
+  ansible.builtin.include_tasks: idle.yaml
+
+- name: Install approved node packs at their exact commits
+  ansible.builtin.git:
+    repo: "{{ item.value.url }}"
+    dest: "{{ comfyui_tools_directory }}/custom_nodes/{{ item.key }}"
+    version: "{{ item.value.ref }}"
+    recursive: false
+    force: false
+  loop: "{{ comfyui_tools_git_nodes | dict2items }}"
+  loop_control:
+    label: "{{ item.key }}"
+  notify: Restart ComfyUI tools
+
+- name: Create first-party module directories
+  ansible.builtin.file:
+    path: "{{ comfyui_tools_directory }}/custom_nodes/{{ item }}"
+    state: directory
+    mode: "0755"
+  loop: "{{ comfyui_tools_node_sources.keys() | list }}"
+
+- name: Install first-party node modules
+  ansible.builtin.copy:
+    src: "{{ item.value }}"
+    dest: "{{ comfyui_tools_directory }}/custom_nodes/{{ item.key }}/__init__.py"
+    mode: "0600"
+  loop: "{{ comfyui_tools_node_sources | dict2items }}"
+  loop_control:
+    label: "{{ item.key }}"
+  notify: Restart ComfyUI tools
+
+- name: Create first-party browser directories
+  ansible.builtin.file:
+    path: "{{ comfyui_tools_directory }}/custom_nodes/{{ item }}/web"
+    state: directory
+    mode: "0755"
+  loop: "{{ comfyui_tools_node_web_scripts.keys() | list }}"
+
+- name: Install first-party browser scripts
+  ansible.builtin.copy:
+    src: "{{ item.value }}"
+    dest: "{{ comfyui_tools_directory }}/custom_nodes/{{ item.key }}/web/index.js"
+    mode: "0600"
+  loop: "{{ comfyui_tools_node_web_scripts | dict2items }}"
+  loop_control:
+    label: "{{ item.key }}"
+  notify: Restart ComfyUI tools
+
+- name: Install locked Python requirements
+  when: comfyui_tools_python_requirements | length > 0
+  block:
+    - name: Copy the approved dependency lock
+      ansible.builtin.copy:
+        src: "{{ comfyui_tools_python_requirements }}"
+        dest: "{{ comfyui_tools_state_directory }}/requirements.txt"
+        mode: "0600"
+    - name: Reconcile dependencies without unconstrained resolution
+      ansible.builtin.pip:
+        requirements: "{{ comfyui_tools_state_directory }}/requirements.txt"
+        executable: "{{ comfyui_tools_python_environment }}/bin/pip"
+        extra_args: --require-hashes --no-deps
+      notify: Restart ComfyUI tools
+
+- name: Install optional interpolation tool
+  when: comfyui_tools_interpolation_source | length > 0
+  block:
+    - name: Copy the pinned Video2X executable and bundled models
+      ansible.builtin.copy:
+        src: "{{ comfyui_tools_interpolation_source }}"
+        dest: "{{ comfyui_tools_state_directory }}/Video2X.AppImage"
+        mode: "0755"
+    - name: Verify Vulkan device discovery
+      ansible.builtin.command:
+        argv:
+          - "{{ comfyui_tools_state_directory }}/Video2X.AppImage"
+          - --appimage-extract-and-run
+          - --list-devices
+      environment:
+        TMPDIR: "{{ comfyui_tools_state_directory }}/cache"
+        XDG_CACHE_HOME: "{{ comfyui_tools_state_directory }}/cache"
+      changed_when: false
+
+- name: Configure the installed node whitelist
+  ansible.builtin.lineinfile:
+    path: "{{ comfyui_tools_environment_file }}"
+    regexp: '^(export )?COMFYUI_ARGS='
+    line: "export COMFYUI_ARGS='{{ comfyui_tools_arguments }}{{ ' --whitelist-custom-nodes ' ~ ((comfyui_tools_git_nodes.keys() | list + comfyui_tools_node_sources.keys() | list) | sort(case_sensitive=true) | join(' ')) if comfyui_tools_git_nodes | length + comfyui_tools_node_sources | length > 0 else '' }}' # imagegen-ansible"
+    create: true
+    mode: "0600"
+  notify: Restart ComfyUI tools
+
+- name: Install the selected native workflows and Apps
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: "{{ comfyui_tools_directory }}/user/default/workflows/{{ item | basename }}"
+    mode: "0600"
+  loop: "{{ comfyui_tools_workflows }}"
+  tags: [workflows]
+
+- name: Recheck idle state before applying pending restarts
+  ansible.builtin.include_tasks: idle.yaml
+
+- name: Apply pending application changes
+  ansible.builtin.meta: flush_handlers
+
+- name: Wait for the selected native node interfaces
+  ansible.builtin.uri:
+    url: "{{ comfyui_tools_api_url }}/object_info"
+    return_content: true
+  register: comfyui_tools_health
+  until: >-
+    comfyui_tools_health.status == 200 and
+    comfyui_tools_required_nodes | difference(comfyui_tools_health.json.keys() | list) | length == 0
+  retries: 60
+  delay: 2

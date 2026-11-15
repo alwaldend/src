@@ -51,3 +51,16 @@ this API-key injection.
 
 - **WHEN** the component CLI launcher is built
 - **THEN** no live Vault or Vast.ai request is made
+
+### Requirement: Account-wide host SSH registration
+
+The personal account root SHALL manage the configured host identities through
+vastai_ssh_key resources, reading each sshpubkey from Vault user metadata.
+It SHALL reject missing or malformed metadata and SHALL NOT hardcode key
+material, create private keys or attach keys through imperative rental commands.
+
+#### Scenario: Change the canonical host public key
+
+- **WHEN** the configured Vault entity metadata changes
+- **THEN** the account resource SHALL use the updated public key through the normal reviewed Terraform apply
+- **AND** building or testing source SHALL NOT register or rotate a live key

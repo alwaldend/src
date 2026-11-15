@@ -130,3 +130,16 @@ still reject unsupported kinds before creation. Native Git/download phases
 retain approved immutable references; no custom downloader or public service is
 added. The real Terraform CLI fixture covers both access modes and both
 checkpoint layouts with the new destinations.
+
+## Deferred NoobAI runtime updates
+
+Add the approved `controlnet` kind and map it to native `models/controlnet`.
+Accept explicitly declared deferred custom-node directory names in the existing
+whitelist, without putting their sources in the startup command. The caller's
+checked-in post-boot workflow owns installation. Invalid directory identifiers
+remain rejected. This keeps NoobAI's expanded sequence node below the provider
+payload limit without weakening loading or changing any retained rental.
+
+## Application installation boundary
+
+The ComfyUI wrapper now provisions only the native runtime and access settings. Its workspace_directory defaults to /workspace and controls native workspace initialization and the application root. ComfyUI assets and the approved-node argument line are owned by Ansible; the boot hook must preserve that line. The generic base’s native provisioning interface remains for its separate Forge consumer. Local fixture acceptance must reject unsafe roots and prove that ComfyUI startup contains no asset downloads, Git repositories, Python installations or workflow payloads.

@@ -37,7 +37,7 @@ The shared modules SHALL remain model-configurable.
 #### Scenario: Default rental configuration
 
 - **WHEN** the committed model profile is selected
-- **THEN** the native provisioner SHALL receive the selected profile's model downloads in native ComfyUI directories before ComfyUI serves generation requests
+- **THEN** the Ansible stage SHALL install the selected profile's models, LoRAs, nodes and complete workflow catalog in native ComfyUI directories before declaring the application profile ready
 
 #### Scenario: Explicit model selection
 
@@ -125,3 +125,17 @@ selected model bundle.
 
 - **WHEN** the preset and its targets are built or validated
 - **THEN** no high-memory rental SHALL be created
+
+### Requirement: Separate application installation
+
+Terraform SHALL own rental creation, exposure and the configured workspace.
+The Ansible deployment SHALL consume the same workspace setting and the existing
+profile registry through the shared comfyui_tools role. Application asset changes
+SHALL NOT change the rental startup. The role SHALL retain aggregate-idle checks
+and the workflows-tag opt-out without reading foreign jobs.
+
+#### Scenario: Update a retained installation
+
+- **WHEN** an authorized Ansible update changes the selected profile assets
+- **THEN** the role SHALL install them without replacing the rental
+- **AND** skipping workflows SHALL preserve later workflow edits

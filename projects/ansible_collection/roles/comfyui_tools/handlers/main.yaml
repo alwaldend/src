@@ -1,0 +1,4 @@
+- name: Restart ComfyUI tools
+  ansible.builtin.command:
+    argv: "{{ comfyui_tools_restart_command }}"
+  changed_when: true

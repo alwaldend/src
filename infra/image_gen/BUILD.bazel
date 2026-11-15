@@ -1,9 +1,21 @@
 load("@rules_al//:defs.bzl", "al_binary_run", "al_config", "al_inject", "al_vault_auth")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//tools/ssh:defs.bzl", "ssh_binary")
 load("//tools/vault:defs.bzl", "vault_binary_map")
 load("//tools/vault/tf_backend:defs.bzl", "vault_tf_backend")
 
 package(transitive_visibility = "//infra:transitive_consumers")
+
+ssh_binary(
+    name = "ssh",
+    args = [
+        "-o",
+        "BatchMode=yes",
+        "-o",
+        "StrictHostKeyChecking=yes",
+    ],
+    configs = [],
+)
 
 package_group(
     name = "workflow_configuration_consumers",
@@ -76,10 +88,25 @@ al_inject(
     visibility = ["//infra/image_gen:__subpackages__"],
 )
 
+al_inject(
+    name = "hugging_face_auth",
+    labels = {"model_auth": "huggingface"},
+    res_env = {"COMFYUI_HUGGING_FACE_TOKEN": {
+        "value": "{{ .Last.Data.token }}",
+        "deps": ["hugging_face_model_token"],
+    }},
+    res_kv = {"hugging_face_model_token": {
+        "mount": "secrets",
+        "path": "alwaldend.com/vault1/approles/src_infra_image_gen/huggingface",
+    }},
+    visibility = ["//infra/image_gen:__subpackages__"],
+)
+
 al_config(
     name = "al",
     configs = [
         ":auth",
+        ":hugging_face_auth",
         ":rental_auth",
         ":tf_backend_setup",
         ":web_auth",

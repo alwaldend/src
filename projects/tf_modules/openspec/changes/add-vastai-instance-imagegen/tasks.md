@@ -22,3 +22,7 @@
 
 - [x] 5.1 Raise both shared transfer-price ceilings to the operator-approved USD 0.04/GB and align current documentation.
 - [x] 5.2 Validate Terraform and evaluator consumers offline, preserving hourly, resource and host constraints.
+
+## 6. Native ComfyUI App paths
+
+- [x] 6.1 Accept the native `.app.json` suffix for otherwise-safe runtime JSON paths, retaining traversal rejection; verify real configured-profile staging with the provider fixture.

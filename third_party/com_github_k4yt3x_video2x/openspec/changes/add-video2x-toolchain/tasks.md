@@ -8,3 +8,7 @@
 
 - [x] 2.1 Run package validation, buildifier, and a local interpolation sample; verify frame counts and representative output, recording results in task scratch.
 - [x] 2.2 Review the final source diff and record verification evidence for repository delivery.
+
+## 3. Retained rental installation
+
+- [x] 3.1 Expose the resolved native AppImage to the owning image-generation Ansible package, preserving the existing pin and verifying the packaged artifact's ELF header and checksum.
