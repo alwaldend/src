@@ -13,9 +13,9 @@
           - xoa_https_certificate_path is match('^/')
           - xoa_https_key_path is match('^/')
           - xoa_https_certificate_path != xoa_https_key_path
-          - xoa_native_acme_disabled | default(false) | bool
+          - xoa_config_path is match('^/')
           - xoa_service_runs_as_root | default(false) | bool
-        fail_msg: Supply the provisioned SSH user and the inspected absolute XO certificate/key paths; confirm native autoCert is disabled and xo-server runs as root.
+        fail_msg: Supply the provisioned SSH user and inspected absolute XO configuration/certificate/key paths; confirm xo-server runs as root.
     - name: Check existing certificate and key paths
       ansible.builtin.stat:
         path: "{{ item }}"
@@ -33,7 +33,18 @@
         label: "{{ item.item }}"
   tasks:
     - name: Install the group-aware OpenID Connect plugin
+      tags: [oidc]
       ansible.builtin.import_tasks: tasks/oidc.yaml
+    - name: Disable XO self-signed certificate generation
+      ansible.builtin.lineinfile:
+        path: "{{ xoa_config_path }}"
+        regexp: '^\s*autoCert\s*='
+        insertafter: >-
+          ^\s*key\s*=\s*["']{{ xoa_https_key_path | regex_escape }}["'](?:\s+#.*)?\s*$
+        line: autoCert = false
+        validate: >-
+          /usr/bin/python3 -c 'import sys,tomllib;tomllib.load(open(sys.argv[1],"rb"))' %s
+      notify: Restart XO
     - name: Install the appliance distribution's ACME client
       ansible.builtin.apt:
         name: certbot
@@ -85,8 +96,28 @@
       ansible.builtin.stat:
         path: "{{ xoa_acme_dir }}/live/{{ xoa_acme_cert_name }}/fullchain.pem"
       register: xoa_managed_certificate
-    - name: Register an ACME account and issue the initial certificate
-      when: not xoa_managed_certificate.stat.exists
+    - name: Verify the managed certificate chain and hostnames
+      when: xoa_managed_certificate.stat.exists
+      ansible.builtin.command:
+        argv:
+          - openssl
+          - verify
+          - -CAfile
+          - "{{ xoa_acme_dir }}/ca.crt"
+          - -untrusted
+          - "{{ xoa_acme_dir }}/live/{{ xoa_acme_cert_name }}/chain.pem"
+          - -verify_hostname
+          - "{{ item }}"
+          - "{{ xoa_acme_dir }}/live/{{ xoa_acme_cert_name }}/fullchain.pem"
+      loop: "{{ xoa_acme_domains }}"
+      register: xoa_managed_certificate_verification
+      changed_when: false
+      failed_when: false
+    - name: Issue a missing or invalid managed certificate
+      when: >-
+        not xoa_managed_certificate.stat.exists or
+        (xoa_managed_certificate_verification.results | default([])
+        | selectattr('rc', 'ne', 0) | list | length > 0)
       block:
         - name: Generate a role-scoped external account binding
           delegate_to: localhost
@@ -117,11 +148,12 @@
             argv:
               - /usr/bin/certbot
               - certonly
+              - --force-renewal
               - --config
               - "{{ xoa_acme_dir }}/registration.ini"
               - --domains
               - "{{ xoa_acme_domains | join(',') }}"
-            creates: "{{ xoa_acme_dir }}/live/{{ xoa_acme_cert_name }}/fullchain.pem"
+          notify: Restart XO
           environment:
             REQUESTS_CA_BUNDLE: "{{ xoa_acme_dir }}/ca.crt"
           no_log: true

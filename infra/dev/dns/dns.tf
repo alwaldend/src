@@ -52,28 +52,3 @@ module "dns" {
   cloudflare_zone_id = var.dns_cloudflare_zone_id
   enabled            = var.dns_enabled
 }
-
-# Temporary adoption inputs; remove after the authorized state handoff.
-variable "dns_routeros_import_ids" {
-  type        = map(string)
-  description = "Existing RouterOS row IDs keyed by normalized DNS record key, supplied during reviewed adoption."
-  default     = {}
-}
-
-variable "dns_cloudflare_import_ids" {
-  type        = map(string)
-  description = "Existing Cloudflare zone/record IDs keyed by normalized DNS record key, supplied during reviewed adoption."
-  default     = {}
-}
-
-import {
-  for_each = var.dns_routeros_import_ids
-  to       = module.dns.module.dc1[0].routeros_ip_dns_record.records[each.key]
-  id       = each.value
-}
-
-import {
-  for_each = var.dns_cloudflare_import_ids
-  to       = module.dns.module.global.cloudflare_dns_record.records[each.key]
-  id       = each.value
-}

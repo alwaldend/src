@@ -5,10 +5,17 @@ tags:
   - ansible_role
 ---
 
-Normal setup installs fail2ban, installs the trusted user CA, discovers and
-signs host keys, and invokes `devsec.hardening.ssh_hardening` with those signed
+Normal setup installs fail2ban, installs the trusted user CA, creates missing
+RSA, ECDSA and Ed25519 host keys, discovers and signs them, and invokes
+`devsec.hardening.ssh_hardening` with those signed
 certificate paths. The upstream role retains its native tasks and restart
 handler.
+
+Key creation preserves existing private keys. `ssh_host_keys_dir` defaults to
+`/etc/ssh` and controls creation, discovery and upstream hardening. New RSA keys
+use `ssh_host_rsa_key_size` (4096 bits by default), matching the hardening policy
+before certificates are issued. The `ssh_host_keys` tag selects key creation
+alone; upstream hardening retains its existing key-strength policy.
 
 The `ssh_hardening_match_user` default supplies `Match User ansible` with
 `AllowTcpForwarding remote`, `PermitListen none`, and

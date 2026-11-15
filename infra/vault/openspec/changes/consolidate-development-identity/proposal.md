@@ -5,7 +5,7 @@ The development-host consolidation now includes a single DNS root. Its shared id
 ## What Changes
 
 - Grant src_infra_dev read access to the existing dc1 and public DNS provider credentials.
-- Remove its unused legacy runner-config read and preserve the required OpenHands read.
+- Remove its unused legacy runner-config read and remove the retired OpenHands read.
 - Retain both legacy identities until their DNS states have been reconciled under separate authorization.
 
 ## Capabilities

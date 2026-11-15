@@ -38,4 +38,3 @@
         owner: root
         group: root
       notify: Reload signed SSH host certificates
-

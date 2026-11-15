@@ -1,6 +1,6 @@
 load("@rules_al//:defs.bzl", "al_config", "al_inject", "al_vault_auth")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("//infra:al_config.bzl", "infra_ansible_keys", "infra_dns")
+load("//infra:al_config.bzl", "infra_ansible_keys", "infra_dns", "infra_xo_login")
 load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_site_svg")
 load("//tools/mermaid:defs.bzl", "mermaid_svg")
 load("//tools/vault:defs.bzl", "vault_binary_map")
@@ -23,27 +23,16 @@ infra_ansible_keys(
     },
 )
 
-al_inject(
-    name = "openhands",
-    labels = {"ansible": "1"},
-    res_env = {"OPENHANDS_SERVER_SECRET_KEY": {
-        "value": "{{ .Last.Data.secret_key }}",
-        "deps": ["openhands"],
-    }},
-    res_kv = {"openhands": {
-        "mount": "secrets",
-        "path": "alwaldend.com/vault1/approles/user_simeonwarren/openhands",
-    }},
-)
-
 al_config(
     name = "al",
     configs = [
         ":ansible_keys",
         ":auth",
         ":dns_providers",
-        ":openhands",
+        ":setup_ssh_key",
         ":tf_backend",
+        ":tf_backend_setup",
+        ":xo_login",
         "//infra:al",
     ],
     visibility = ["//infra/dev:__subpackages__"],
@@ -53,6 +42,38 @@ vault_tf_backend(
     name = "tf_backend",
     labels = {"tf": "dns"},
     path = "alwaldend.com/vault1/approles/src_infra_dev/tf_backend/dns",
+)
+
+vault_tf_backend(
+    name = "tf_backend_setup",
+    labels = {"tf": "setup"},
+    path = "alwaldend.com/vault1/approles/src_infra_dev/tf_backend/tf_setup",
+)
+
+# Seed the VM's initial SSH identity through the existing private key injector.
+al_inject(
+    name = "setup_ssh_key",
+    labels = {"tf": "setup"},
+    res_env = {
+        "TF_VAR_ssh_private_key_file": {
+            "value": "{{ .Last.Data.private_key }}",
+            "deps": ["secure1_host_key"],
+        },
+        "TF_VAR_ssh_public_key_file": {
+            "value": "{{ .Last.Data.public_key }}",
+            "deps": ["secure1_host_key"],
+        },
+    },
+    res_vault_ssh = {"secure1_host_key": {
+        "backend": "ssh/clients/sign/admins",
+        "ttl": 600,
+    }},
+)
+
+infra_xo_login(
+    name = "xo_login",
+    labels = {"xoa_login": "1"},
+    oidc_provider = "src_infra_xcp_ng_provider",
 )
 
 infra_dns(
@@ -72,6 +93,7 @@ filegroup(
     visibility = [
         "//infra:__pkg__",
         "//infra/dev/dns:__pkg__",
+        "//infra/dev/tf_setup:__pkg__",
         "//infra/dns:__pkg__",
         "//infra/vault/tf:__pkg__",
     ],

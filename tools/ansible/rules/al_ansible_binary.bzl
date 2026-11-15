@@ -25,13 +25,15 @@ def _impl(ctx):
     script = ctx.actions.declare_file("{}.script.sh".format(ctx.label.name))
     ansible = ctx.attr.ansible[ctx.attr.process_name]
     source_scripts = []
+    askpass = ctx.attr.ansible["ansible"]
+    runfiles_files.append(askpass[DefaultInfo].files_to_run.executable)
 
     for symlink in ctx.attr.data:
         for info, _ in symlink[PackageFilegroupInfo].pkg_files:
             runfiles_symlinks.update(info.dest_src_map)
 
     runfiles = ctx.runfiles(files = runfiles_files, symlinks = runfiles_symlinks)
-    runfiles = runfiles.merge_all([ansible[DefaultInfo].default_runfiles])
+    runfiles = runfiles.merge_all([ansible[DefaultInfo].default_runfiles, askpass[DefaultInfo].default_runfiles])
 
     args = []
     args.extend(ctx.attr.arguments)

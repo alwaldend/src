@@ -49,7 +49,16 @@ al_ansible_binary(
 
 pkg_filegroup(
     name = "srcs",
-    srcs = [":srcs_files"],
+    srcs = [
+        ":srcs_files",
+        ":ssh_server_ca",
+    ],
+)
+
+pkg_files(
+    name = "ssh_server_ca",
+    srcs = ["//data/ssh:ca_servers"],
+    renames = {"//data/ssh:ca_servers": "files/ssh_ca_servers.pub"},
 )
 
 pkg_files(

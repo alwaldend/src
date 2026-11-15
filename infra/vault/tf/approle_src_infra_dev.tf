@@ -9,7 +9,6 @@ module "src_infra_dev_approle" {
   policies = [
     module.src_infra_dev_ssh.policy,
     module.dns_access["src_infra_dev"].policy_name,
-    vault_policy.src_infra_dev_services.name,
   ]
 }
 
@@ -36,13 +35,4 @@ module "src_infra_dev_pki_server" {
   allowed_domains = [
     for key in ["t3code_dc1", "comfyui_dc1"] : "${local.dev_dns.records[key].A.name}.alwaldend.com"
   ]
-}
-
-resource "vault_policy" "src_infra_dev_services" {
-  name   = "src_infra_dev_services"
-  policy = <<EOT
-    path "${vault_mount.secrets.path}/data/alwaldend.com/vault1/approles/user_simeonwarren/openhands" {
-      capabilities = ["read"]
-    }
-EOT
 }

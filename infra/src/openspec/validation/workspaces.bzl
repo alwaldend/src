@@ -56,6 +56,7 @@ WORKSPACE_SOURCES = {
     "projects_x_profile_cleaner": "//projects/x_profile_cleaner/openspec:source",
     "repository": "//infra/src/openspec:source",
     "tools_agents": "//tools/agents/openspec:source",
+    "tools_ansible": "//tools/ansible/openspec:source",
     "tools_mermaid": "//tools/mermaid/openspec:source",
     "tools_openapi_generator": "//tools/openapi_generator/openspec:source",
     "tools_rules_binary_toolchain": "@rules_binary_toolchain//openspec:source",
