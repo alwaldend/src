@@ -1,5 +1,337 @@
 ## Context
 
+### Coherent sketch comparison correction
+
+Proceed with a corrected input and an isolated comparison before another rental.
+The previous scene map retained a high outer hair contour while adding a lower
+crown; the hand-only guide omitted the head boundary. Those inputs did not
+unambiguously constrain the intended gap. The geometry-only successor also
+removed the guide's detailed VAE reference. Preserve those failures as evidence.
+
+Use one inspected black-on-white case sketch with one natural hand, one continuous
+head outline and a visible gap below the entire hand. Store its source/provenance
+with the existing public plush case. A built-in image editor may prepare this
+input; its output is not a Qwen inference result or evidence of model quality.
+
+Package a sketch-only reconstruction and a second variant adding the original
+photograph as image 2. Both use the sketch as image 1, the same prompt assigning
+optional appearance to image 2, the same canvas/seed/sampling, blank negative text,
+and native VL plus VAE reference conditioning on both branches. Save raw full
+outputs; compositing cannot establish sketch adherence. First accept a coherent
+sketch reconstruction, then inspect whether adding appearance preserves it.
+
+Alternatives rejected for this correction: more arbitrary sampler tuning,
+another checkpoint or external ControlNet, and deleting the guide's VAE path.
+Acceptance is an unambiguous input and structurally matched offline graphs;
+generated-frame quality still requires a separately authorized GPU trial.
+
+The accepted case asset has one continuous rounded head outline and a visible
+gap under the palm and fingertips. The editor simplified line detail, so it is
+a structural input, not an exactly aligned original-scene mask. Its owning case
+README records the prompt, source provenance, dimensions and output hash.
+Generated-graph inspection confirms identical prompt, negative text, sampler
+and sketch canvas across the pair; only the appearance variant loads image 2.
+Both branches retain their native VAE inputs. The baseline saves VAEDecode
+directly; the appearance variant also retains the existing optional composite,
+whose destination and restored dimensions come from the original photograph.
+
+#### Retained GPU trial
+
+The operator subsequently authorizes another 48 GB rental and continued testing,
+with explicit retention afterward. Proceed with the inspected sketch at seed 42,
+40 Euler/simple steps, CFG 4 and full denoise. First inspect the raw sketch-only
+reconstruction; once its geometry supports comparison, add the original photo
+at identical settings. Permit at most two reviewed corrective generations,
+each tied to an observed defect. No seed-only retries or new dependencies are
+part of this trial. The task-local direction record and experiment journals own
+exact inputs, native job IDs and outputs; record the visual verdict here after
+inspection. Rental identity, cost and retention belong to the infrastructure
+owner's matching change.
+
+Four completed diffusion jobs form two matched prompt pairs. All use the same
+inspected sketch, seed, sampler and ordinary native conditioning. The operator
+requests displaying each completed result and retaining both variants; the
+raw images are shown as paired comparisons, with the rejected correction
+explicitly labeled.
+
+| Prompt                               | Sketch only                                                                                                  | Sketch plus original appearance                                                                                    |
+| ------------------------------------ | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ |
+| Packaged default                     | Preserves a visible hand gap, one connected arm/hand and rounded head; invents the face and scene materials. | Restores the original yellow eyes, colors and scene; preserves a gap but adds two raised fabric folds on the head. |
+| Added uncompressed-crown instruction | Adds a separate cushion-like object that fills the hand gap. Rejected.                                       | Enlarges the top into a cushion-like shape touching the hand. Rejected.                                            |
+
+The correction adds wording that the head has "fully sprung back after petting"
+and requests a "smooth convex dome" with hair lying flat. Its failure in both
+variants is evidence against that instruction, rather than evidence that the
+original photo alone caused the added object. Do not promote it to the default.
+The first pair remains useful for reconstructing geometry and comparing
+appearance conditioning, but reference fidelity and a clean original-scene
+animation remain incomplete. No interpolation or GIF is accepted.
+
+Original images, hashes, prompts and workflow snapshots remain in task-local
+journals for default jobs `6fe7f122-a0bd-4b01-8a20-b440f0c6292d` (sketch) and
+`16ca3a8e-86b5-4f91-8714-023795442133` (appearance), plus rejected correction jobs
+`c289f4b2-f72d-4f44-9bcf-89e79ff84c35` (sketch) and
+`039cbdb7-69c3-421c-b449-ebbdadc49a07` (appearance). All four terminal outcomes
+and six original PNG downloads are confirmed; no generation remains pending.
+
+The operator then requests returning to the ear-like-fold result and discouraging
+those folds directly. This authorizes a new finite pair on the retained endpoint,
+superseding the previous four-job stopping point for these two tests. Keep the
+packaged positive prompt, references, seed and sampler unchanged; replace only
+the blank negative text with targeted unwanted head features in both variants.
+The native negative encoder remains connected through the reference-latent method
+to the sampler's negative input at CFG 4. Do not infer that a supported negative
+prompt guarantees removal; inspect both raw outputs before accepting it.
+
+The native [Qwen Edit Plus pipeline documentation](https://huggingface.co/docs/diffusers/main/api/pipelines/qwenimage#diffusers.QwenImageEditPlusPipeline)
+confirms negative conditioning with CFG greater than one. Inspection of the
+submitted graphs confirms that node 9's negative text is the only meaningful
+change; output prefixes also differ for provenance. The case README retains
+the exact tested text. Appearance job `af860230-3dd8-4c0d-a184-b5be2a0a0d18`
+keeps the raised hand and original identity but retains the two unwanted folds.
+Sketch-only job `90896a5f-7d40-4282-b875-59d2e61c4983` preserves a clean rounded
+head and visible gap while generating its own face and scene materials.
+Both raw outputs are shown. Reject this as a fix for appearance-reference
+artifacts; retain the original blank default rather than claiming that the
+negative prompt solved the defect. This trial totals six completed diffusion
+jobs and nine original PNGs, with no active owned generation or accepted GIF.
+
+The operator then explicitly requests generating the ear-like-fold variant first
+and attempting removal afterward. Reuse the already completed default appearance
+result as the sole input to one additional native Qwen edit. Preserve its exact
+bytes and lineage; do not reconstruct from the original photo/sketch again.
+Use a direct positive removal instruction and blank negative text, native
+aspect-preserving conditioning and the existing 40-step CFG 4 sampler. Inspect
+the full raw output for successful removal and drift in the hovering hand,
+identity, camera and background before accepting a two-stage procedure.
+
+Removal job `08bf6e87-123a-40b7-a009-c279bca8b8b3` removes the protrusions but
+leaves cutouts in the hair silhouette. The hand and scene remain largely stable;
+the malformed outline prevents finished-frame acceptance. The before/after raw
+images are shown and retained. The operator then explicitly accepts proceeding
+with the original generated ear variant instead. This supersedes rejection of
+that variant for loop assembly; the defective removal remains rejected.
+The original contact photograph and earlier appearance composite complete a
+two-keyframe reversal/RIFE diagnostic, job
+`7a8dd316-d7b0-45e9-965a-58893983cfb6`. The operator requests more actual poses
+and then directs preparation of a sketch GIF before photographic conversion;
+the two-keyframe diagnostic does not satisfy that revised motion requirement.
+
+#### Approved sketch motion
+
+Built-in image generation prepares a background plate and transparent arm from
+the coherent sketch. Local FFmpeg animation supplies explicit poses; these are
+structural guides, not Qwen outputs. The operator rejects the initial rigid,
+distant motion. Subsequent revisions add a relaxed hand, wrist flex, a short
+stroke, two vertical presses and localized crown compression. The final approved
+guide lowers the hand another 24 pixels while preserving the accepted motion.
+It contains 60 timed frames over three seconds at 1296 by 1213 pixels, SHA-256
+`75826f6375369a0f1e5fb957954268baebc81e90511362b80616905f7bc605b7`.
+Decoded frame checks confirm that the inspected face, body and background
+regions stay fixed.
+
+The operator then authorizes photographic reconstruction on the retained Qwen
+endpoint. Replace the example's hovering and air-gap instruction with explicit
+contact, finger curvature and crown-compression guidance. Keep the approved
+sketch as image 1 and the original photograph as appearance-only image 2, with
+seed 42, 40 Euler/simple steps, CFG 4, full denoise and blank negative text.
+Contact job `b74f9a36-340e-4989-b8f9-39bbd96a6778` and pressed job
+`de9d47c0-ffde-4caf-a185-cdb7fcb33432` retain contact and produce different hand
+heights. The original plush remains recognizable, but fingers and portal
+texture vary. Reject the optional rectangular composites for visible seams;
+evaluate raw outputs for the motion preview. Neither still establishes temporal
+stability.
+
+The planned twelve sketch positions contain eleven distinct inputs. After the
+two anchors, eight additional jobs are submitted before the operator's
+simplification request stops replenishment; the ninth is never submitted. All
+submitted jobs complete. Preserve all ten jobs and twenty original PNGs.
+Adjacent poses change fingers, grip and portal
+texture, and two produce a new gray protrusion beside the fingers. Reject this
+direction as a finished animation. The submitted jobs drain normally; no full
+loop or additional interpolation is run for this batch.
+
+The operator requests simpler motion. After an optional preference question
+receives no reply during independent preparation, proceed with the announced
+fixed-image default: use the pressed Qwen still to generate a clean background
+and transparent arm, then animate those fixed layers with FFmpeg. One vertical
+press and return moves the hand 14 pixels and yields the crown by at most 12
+pixels. The portal end remains fixed; there is no sideways stroke, changing
+finger articulation or RIFE. Image generation reconstructs the layers, so they
+are not exact pixel extractions of the Qwen output.
+
+The simplified preview contains 60 timed frames over three seconds at 20 fps,
+1056 by 992 pixels, with 31 distinct poses on a symmetric return path. Its GIF
+SHA-256 is
+`2d34a1b2782ca2f6b8b11e8fc63a4c3230a0282ea887ba1e777c08f94f33bd87`.
+Decoded PNG comparisons confirm fixed face/body, upper-background and left-edge
+regions. An initial jagged crown deformation is rejected and preserved; the
+revised contact and pressed poses have a smooth boundary. The GIF is shown for
+operator review. It demonstrates deterministic layer animation, not successful
+temporal consistency across generated Qwen poses. Preserve the layers, motion
+filter, original frames and verification receipt in ignored task output. The
+retained rental remains running under the existing instruction.
+
+#### Photographic pose guides and visible motion
+
+The operator rejects the deterministic layer animation and requests another
+Qwen trial. Six photographic guides from the same 14-pixel pat are independently
+refined with the original photograph as image 2, seed 42, 40 Euler/simple steps,
+CFG 4, blank negative text and denoise 0.7. All six native outputs are retained
+and assembled through RIFE. Fingers are more coherent than in the full-strength
+sketch sequence, but skin texture changes and the operator rejects the barely
+visible movement. The subsequent rental release belongs to the infrastructure
+record.
+
+The next authorized trial keeps the photographic-guide approach and increases
+hand travel to 154 pixels: from 140 pixels above the starting hand layer to a
+14-pixel press. Image generation had prepared the clean background and
+transparent photographic arm from the earlier pressed Qwen result. FFmpeg
+constructs each target pose with a fixed portal end and a smooth spatial warp;
+the earlier drawn sketch is not used. These guides already contain the desired
+movement. Qwen refines their appearance and anatomy rather than inferring
+pixel-precise movement from an instruction alone.
+
+Image 1 supplies each photographic pose; image 2 supplies the same original
+appearance reference. The prompt preserves a visible gap when the guide shows
+one and contact only where it shows contact, while requesting natural skin
+without exaggerated veins. The native positive and negative encoders retain
+both semantic and VAE image conditioning. Sampling uses seed 42, 40 steps,
+CFG 4, Euler/simple, shift 3.1 and initial denoise 0.7. Inspect raw 1056-by-992
+outputs; the optional original-size composites are not sequence inputs.
+
+Both endpoints retain their distinct positions and coherent fingers. Four
+intermediates follow. One adds a downward thumb-like digit; a denoise-0.45
+revision removes it while preserving the guided pose. Another intermediate
+creates an artificial cracked skin texture; its denoise-0.45 revision does not
+fix it. Preserve all eight diffusion jobs and their raw/composited PNGs. Exclude
+the extra-digit revision and both cracked-skin outputs, leaving five distinct
+Qwen-refined poses. The task-local direction record and run journals retain
+exact prompts, guide hashes, job identities and revision lineage.
+
+Assembly job `fa409084-81e0-4e2e-ac9e-c07e38f3c070` traverses the five selected
+poses forward and back, with 320 ms between keyframes and 8x RIFE interpolation.
+Removing only the closing duplicate hold yields 64 frames over 2560 ms at
+1056 by 992 pixels, SHA-256
+`da217e18b34b99daeb065c1dd9821943c34be17e551f9534a46b72b9e3a291b0`.
+All frames decode; their pixels match the corresponding source GIF frames.
+Representative keyframes and interpolated frames are inspected and the loop is
+shown to the operator. Motion is substantially more visible, but the forearm
+changes thickness and bends unnaturally; texture variation and GIF palette
+posterization remain. This is a delivered motion trial, not accepted natural
+temporal consistency. No further generation is planned.
+
+At the operator's request, a local FFmpeg resize with a 256-color palette
+produces a 560-by-526 GIF of 12672821 bytes, below the decimal 15 MB limit.
+It preserves all 64 frames, 40 ms frame durations and infinite looping; SHA-256
+`f9bd6e925a4233c4f2eff1b143befcea2900efa329252058e2b54fdde211b1f4`.
+The full-size original, reduced derivative, inputs and verification receipts
+remain in ignored task output. The [infrastructure record](../../../../../infra/image_gen/openspec/changes/add-parallel-evaluations/design.md#retained-visible-motion-trial-2026-11-16)
+owns rental retention and dated access observations.
+
+### Native structural-reference trial
+
+The operator requests another rental and reference trial after discussing native
+pose/edge guidance. Proceed with the existing Qwen Edit checkpoint and native
+multi-image encoder. Image 1 is the original photograph and sampling canvas;
+image 2 is a clean structural map. Both conditioning branches receive the same
+references. Restore original dimensions and composite onto image 1, not the map.
+This is native reference conditioning, not a separately installed ControlNet.
+
+Compare one isolated moved-hand outline against a full-scene edge map with the
+old hand edges erased and the target hand inserted. Preserve original camera,
+plush identity and one coherent bare hand with a visible lift. Remove rough
+placeholder boundaries from the maps. Use the same prompt, seed and sampling
+settings so the guide is the initial comparison variable. Keep both full and
+composited outputs. Permit at most two successors, each justified by evaluated
+failure or a distinct accepted-pose action. Interpolate only accepted frames.
+
+The earlier RGB-guide experiment preserved the pose only at partial denoise and
+copied crude background fill; direct structural references test a distinct
+supported edit-family capability without another model or package. Pose drift,
+line-art copying, duplicate limbs, poor fingers, scene changes and composite
+seams remain disconfirming outcomes. Finish local source, guide and executable
+preparation before allocation; retrieve results and release the disposable
+rental before further local implementation or review.
+
+The native Canny preprocessing job produced aligned white-on-black hand-only
+and scene maps at the original 986-by-923 resolution. Both generation directions
+used the original photo first, the map second, seed 42, 40 Euler/simple steps,
+CFG 4 and full denoise, with native aspect-preserving 1056-by-992 sampling.
+Each saved the full generation and an original-size feathered composite.
+The hand-only output closely follows its outline, as confirmed by a target-line
+overlay, but raises the plush into the palm and retains contact. The scene map
+produces a dark smear under the hand. Both fail the clean lifted-frame criterion.
+
+Two reviewed successors add a separated plush-crown contour. One removes the
+guide's VAE reference latent, retaining both images in the VL encoder and only
+the original latent through native ReferenceLatent nodes. It removes the dark
+smear but loses the requested pose and draws a new forearm from the right.
+The other uses a black-on-white sketch with ordinary native reference latents;
+it retains the forearm origin but produces a doubled hand-like form below the
+palm. All four outputs are rejected as finished frames. No GIF is assembled and
+no additional diffusion job is submitted. The guide-color explanation remains
+a hypothesis rather than an established cause of the smear.
+
+The private run journals retain original PNGs, hashes, exact API graphs and
+lineage for preprocessing job `522bc301-bb27-4fb1-9347-0ff56daf6cc3` and generation
+jobs `d629a6fc-bf9f-46c8-8caa-f8110b6c921b`,
+`450e09aa-1c2e-4366-8a62-387d7c463bbc`,
+`a0c174b5-2df8-4277-b8c1-9b013f273718` and
+`9222c18f-80af-418f-bcb1-325c86ce3cc7`. Clean structural references improve one
+aspect of guidance, but this trial does not establish reliable hand animation
+or compatibility with a separately trained ControlNet.
+
+### Rough pose repair follow-up
+
+The operator requests a new rental and trial after discussing roughly placed
+hand poses and the original photograph as a second appearance reference. The
+prior PR is merged; synchronize with its current master before implementation
+and rental creation. Proceed with one native two-image workflow: the first
+reference supplies visible target geometry and the second supplies appearance.
+Generate independent poses from the same scene, restore original dimensions,
+and composite only a feathered repair region covering both hand positions.
+Retain the full generated image so compositing cannot conceal a pose failure.
+
+The first comparison is one clearly lifted rough guide, with fixed seed,
+40-step native Qwen sampling and the existing approved model files. Accept only
+one natural bare hand with a visible air gap, an attached wrist/forearm and
+stable plush/camera geometry without a visible composite seam. Prepare at most
+three reviewed successors, each addressing an observed failure or testing a
+distinct pose. Assemble/interpolate only accepted poses. Plain text-only pose
+instructions already failed; a geometric guide makes this a meaningful new
+direction. No result or improvement is claimed before visual inspection.
+
+Potential failures include copying crude cut edges, reverting to the original
+pose, duplicate fingers/hands, shifting the camera or plush, and clipping moved
+anatomy at the repair boundary. Existing graph/installation checks and the
+actual saved PNGs cover this configuration change; add no mirror tests or
+external dependencies. Finish local preparation before allocating paid capacity.
+
+Four generation jobs completed on the requested new rental. Full-strength guide
+repair returned to the original hand contact pose and redrew the scene. A
+partial-denoise 0.7 edit with matched reference aspect retained the raised hand
+and improved anatomy, while copying the rough background placeholders. Swapping
+reference roles at full strength produced an upright waving gesture instead of
+the requested flat lifted hand. The final background-only masked edit used the
+partial-denoise result and an original computer-case appearance crop. It removed
+most gray fill, but left a dark cutout artifact beneath the forearm and changed
+the exposed plush top. None passed finished-frame acceptance; no GIF was made.
+
+The final PNG retained all 878385 pixels outside its repair mask exactly, with
+zero changed pixels and zero maximum channel delta against its PNG input. This
+verifies local preservation, not background plausibility or overall quality.
+Original PNGs, guide recipe, masks, exact workflows, prompt IDs and hashes remain
+in ignored task output. The matched-aspect live runs used a 1056-by-992 resize;
+the saved workflow uses the server-verified native megapixel node with eight-pixel
+rounding to select that size for this fixture. Its preset retains denoise 0.7.
+
+The follow-up producer initially changed a resize node class without changing
+its UI search/replace class property. CLI validation rejected that candidate
+before submission. The failure receipt proves no GPU job was accepted; the
+corrected candidates update both class metadata and UI link projections. The
+original failed snapshot is retained. Do not classify this as a model failure.
+
 ### Qwen keyframe follow-up, 2026-11-15
 
 The operator requests workflow corrections, one 48 GB Qwen deployment and a new
@@ -10,6 +342,15 @@ original photograph with a feathered image-space boundary. The edit has no laten
 noise mask; the unchanged background is enforced by compositing. Crop controls
 must include the complete old and desired hand/forearm positions. Preserve the
 ordinary Qwen workflows and both corrected chained GIF alternatives.
+
+The live initial crop/full-scene-context pair changes framing and the plush,
+so the default is revised to one crop reference and a separate localized output
+rectangle. The accepted press preserves the bare arm and scene better; the lift
+still changes the gesture and crosses the mask boundary. A full-frame native
+noise-mask comparison at denoise 0.8 preserves the scene but remains static.
+Automatic review rejects one further full-strength control as outside the prior
+bound; the operator explicitly approves exactly that additional 40-step edit,
+changing only denoise to 1.0. Preserve each rejected trial and its lineage.
 
 An image-batch output node reuses the existing GIF/RIFE writer to assemble
 approved keyframes, optionally returning through them in reverse order. Sampling

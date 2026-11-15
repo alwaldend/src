@@ -8,6 +8,7 @@ filegroup(
         "*/*.json",
         "*/*.txt",
         "*/*.jpg",
+        "*/*.png",
     ]),
     visibility = ["//projects/comfyui_tools:asset_consumers"],
 )
@@ -19,6 +20,12 @@ exports_files(
 
 docs_filegroup(
     name = "docs",
-    srcs = ["README.md"],
+    srcs = [
+        "README.md",
+        "plush_petting/README.md",
+        "plush_petting/lift-sketch.png",
+        "plush_petting/sketch-prompt.txt",
+    ],
+    preserve_paths = True,
     visibility = ["//projects/comfyui_tools:__pkg__"],
 )

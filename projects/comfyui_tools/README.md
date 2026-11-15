@@ -388,11 +388,79 @@ For Qwen animation, start with `qwen-keyframe-edit` or
 `qwen-keyframe-sequence`. Both edit a crop independently from the shared original,
 then feather the edited crop onto the original scene. The crop's X/Y controls
 also position the composite; include the old and desired hand positions inside
-the crop, away from its feathered boundary. Image 1 is the edit crop and image 2
-is full-scene context. The crop is sampled without a latent noise mask. The raw
-crop and final composited PNG are both saved for inspection. This guarantees
-unchanged pixels outside the composite rectangle in each saved PNG, but does not
-guarantee a correct pose inside it.
+the crop. The separate movement rectangle controls which part of that crop is
+blended back; include both old and intended hand positions inside it, away from
+its feathered boundary. Qwen receives only the crop as its image reference.
+The crop is sampled without a latent noise mask. The raw crop and final PNG
+are both saved for inspection. Original scene pixels outside the movement area
+are retained before image encoding, but the workflow cannot guarantee a correct
+pose or alignment inside it. Reject edits that cross or misalign with the mask.
+
+The initial crop/full-scene-reference trial produced redraw and seams. A later
+single-reference localized press with a narrower composite was steadier;
+a precise hand lift remained unreliable. These are inspectable still-edit tools,
+not a validated natural-petting animation preset.
+
+For rough-pose repair, use `qwen-pose-guide-edit`: image 1 is a roughly composed
+target frame and image 2 is the original appearance reference. Supply equally
+sized, aligned images with only one hand in the guide. The prompt assigns pose
+to image 1 and appearance to image 2. The guide is scaled to about one megapixel
+with its aspect preserved and dimensions rounded to eight-pixel steps. Sampling
+starts at denoise 0.7 to retain visible guide geometry. The guide determines the
+sampling canvas;
+the output is restored to the original dimensions, and a feathered region is
+composited onto the original. Shared X/Y and width/height controls keep the crop,
+composite and mask matched; the region must include old and target
+poses plus the exposed background. Inspect both the full repair and composite.
+This supplies visible geometry but does not enforce the pose or temporal
+consistency. Evaluate a single repaired pose before producing a sequence.
+
+The four-edit rough-pose trial preserved a lifted hand and improved its anatomy
+at denoise 0.7, but retained rough background placeholders. Full-denoise repair
+returned to the original contact pose; reversing the reference order produced a
+waving gesture. A separate background-only masked repair removed most gray fill
+while preserving all pixels outside its mask, but left a cutout artifact and
+changed the plush top. No finished frame or GIF passed visual acceptance. Avoid
+large flat placeholders in guides; repairing anatomy and rebuilding vacated
+background may require separate, independently inspected edits.
+
+A later [photographic-guide trial](openspec/changes/add-parallel-evaluations/design.md#photographic-pose-guides-and-visible-motion)
+uses image-editor-prepared background/hand layers and FFmpeg to construct target
+poses, then refines every selected pose with Qwen and interpolates with RIFE.
+Increasing the guide's hand travel from 14 to 154 pixels makes the movement
+visible. Five inspected Qwen poses produce a 64-frame loop, but the forearm still
+deforms unnaturally and textures vary. Lowering denoise from 0.7 to 0.45 removes
+an extra digit in one pose but does not repair another pose's artificial skin
+texture. These are case-specific findings, not new defaults or a validated
+natural-animation preset. Guide preparation is a separate image-editing step;
+the complete process is not solely Qwen and RIFE.
+
+For structural references, first use `qwen-sketch-reconstruction` with a coherent
+target sketch as image 1. It produces a raw full-frame reconstruction from that
+single reference. Then use `qwen-structure-guide-edit`: image 1 remains the sketch
+and image 2 adds the original appearance photograph. Both graphs share the
+prompt, blank negative text, seed 42, 40 steps, CFG 4 and full denoise. Both
+retain normal native semantic and VAE reference conditioning on both branches.
+The sketch determines the sampling canvas. Compare raw outputs to distinguish
+sketch comprehension from competition with the appearance reference.
+
+The structural-reference workflow also restores the original dimensions and
+saves an optional feathered composite onto the original. Inspect its raw output
+first. Earlier exports used the opposite reference order; import the corrected
+graph and assign the inputs using their titles. Native conditioning has no
+separate ControlNet strength and does not guarantee pose or identity preservation.
+Use the [prepared sketch and comparison procedure](evals/plush_petting/README.md).
+
+The earlier structural-reference trial followed the moved-hand outline closely, but
+raised the plush into the palm instead of preserving a gap. Full-scene edges
+introduced a dark smear; geometry-only conditioning lost the pose, and a white
+sketch produced a doubled hand. None of the four outputs passed finished-frame
+acceptance. This remains an experimental guide workflow; no usable petting GIF
+was obtained. Subsequent input review found conflicting head contours in the
+scene sketch. In the [corrected-guide GPU trial](openspec/changes/add-parallel-evaluations/design.md#retained-gpu-trial),
+the sketch-only default reconstructs a clear hand gap and a coherent scene.
+Adding the original photo restores its appearance but introduces unwanted crown
+folds. These results demonstrate useful guidance, not a finished petting animation.
 
 Inspect each pose before loading selected, equally sized PNGs into
 `qwen-keyframe-gif`. This model-free workflow combines three approved poses,

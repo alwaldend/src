@@ -80,4 +80,56 @@
 - [x] 13.1 Establish playback validation, selected-frame ordering and repeatable GIF artifacts before implementation.
 - [x] 13.2 Add native crop-edit/composite and independent keyframe workflows; retain the corrected previous-image GIF alternatives.
 - [x] 13.3 Reuse the existing GIF/RIFE writer for approved keyframes with a reversible loop, without adding dependencies.
-- [ ] 13.4 Validate source and packaging, then evaluate distinct hand poses on the operator-authorized 48 GB Qwen rental before assembling a loop. Record visual failures and preserve owned outputs.
+- [x] 13.4 Validate source and packaging, then evaluate distinct hand poses on the operator-authorized 48 GB Qwen rental before assembling a loop. Record visual failures and preserve owned outputs.
+
+## 14. Rough pose repair
+
+- [x] 14.1 Package a native two-image pose-guide repair workflow with explicit input roles and original-scene compositing; preserve existing workflows.
+- [x] 14.2 Prepare inspectable rough lifted/pressing poses and run a bounded trial on one operator-authorized 48 GB rental, beginning with one lifted pose. Evaluate pose preservation, anatomy, background and seams before successors or interpolation.
+- [x] 14.3 Retrieve original outputs, record failures and any accepted loop, validate the exact candidate and prepare delivery; receipts own publication state.
+
+## 15. Native structural references
+
+- [x] 15.1 Package a native original-photo/structure-guide workflow with correct image roles, original canvas and compositing destination; add no dependency.
+- [x] 15.2 Prepare guide inputs, packaging and executable tooling before renting; produce and inspect native Canny hand/scene maps with obsolete hand edges removed before diffusion.
+- [x] 15.3 Evaluate both ready directions on one authorized 48 GB rental, allow at most two reviewed generation successors, and retain original outputs and honest acceptance decisions.
+- [x] 15.4 Retrieve and show results, assemble only accepted poses, verify rental release, and prepare delivery of the exact checked candidate.
+
+## 16. Coherent sketch comparison
+
+- [x] 16.1 Replace the contradictory guide with an inspected case asset showing a single head boundary and an uninterrupted hand/head gap; retain provenance and previous failures.
+- [x] 16.2 Package paired sketch-only and sketch-plus-appearance workflows with shared prompt, seed, canvas, normal native conditioning and raw outputs; keep compositing separate from this diagnostic comparison.
+- [x] 16.3 Document the staged acceptance procedure, verify generated graphs and case packaging offline, and prepare delivery without renting or claiming GPU acceptance; delivery receipts own publication state.
+
+## 17. Coherent-sketch GPU acceptance
+
+- [x] 17.1 Run the inspected sketch through the sketch-only baseline and evaluate the original PNG for hand gap, anatomy, crown and layout before a successor.
+- [x] 17.2 Compare original-photo appearance conditioning at identical settings once the baseline supports that comparison; allow at most two evidence-driven corrective edits and preserve their lineage.
+- [x] 17.3 Retrieve and show original results, report actual acceptance and remaining limitations, and retain the endpoint under the operator's explicit instruction. Assemble a loop only from accepted poses.
+
+## 18. Requested targeted negative comparison
+
+- [x] 18.1 Return to the packaged positive prompt and compare a narrowly targeted negative prompt against raised ear-like folds in both sketch-only and original-photo variants at unchanged settings.
+- [x] 18.2 Show both original outputs, evaluate the result against the earlier default pair and preserve or reject the change based on evidence; retain the existing instance.
+
+## 19. Requested second-pass ear removal
+
+- [x] 19.1 Use the better original-photo result with raised folds as the sole input to one native Qwen edit that removes those protrusions while preserving the raised hand and scene.
+- [x] 19.2 Show the before/after originals, evaluate the localized change and any drift, and retain the existing endpoint and evidence.
+
+## 20. Approved sketch animation
+
+- [x] 20.1 Preserve the completed two-keyframe interpolation as a diagnostic after the operator requests more actual poses; retain the accepted ear variant and rejected removal evidence.
+- [x] 20.2 Prepare and show a sketch animation first, refine its contact, wrist movement and vertical presses, and obtain the operator's acceptance before photographic reconstruction.
+- [x] 20.3 Replace the hovering instruction with contact-specific guidance and compare the approved contact and pressed sketches using the original appearance reference at unchanged native sampling settings.
+- [x] 20.4 Stop the additional-pose batch on the operator's simplification request, drain submitted jobs, inspect and show the remaining outputs, and preserve temporal failures without assembling the rejected full loop.
+- [x] 20.5 Prepare and show one smaller vertical pat from fixed photographic layers, verify timing and unchanged regions, and document that this is deterministic animation rather than a generated pose sequence.
+- [x] 20.6 Preserve the motion settings and evidence, update the task record, and retain the rental under the operator's existing instruction; delivery receipts own publication state.
+
+## 21. Photographic-guide motion trials
+
+- [x] 21.1 Refine six photographic small-pat guides with Qwen, assemble their inspected outputs through RIFE, show the result and record the operator's rejection of its small movement.
+- [x] 21.2 Prepare larger lifted/pressed photographic guides before the next authorized rental, inspect the two Qwen endpoints, then generate four intermediate poses.
+- [x] 21.3 Inspect all outputs, run two evidence-driven lower-denoise corrections and exclude the three defective outputs; preserve every original and its lineage.
+- [x] 21.4 Assemble and show the five selected Qwen poses with RIFE, verify all decoded frames and timing, and document remaining forearm and texture defects without claiming finished natural animation.
+- [x] 21.5 Produce and verify the requested derivative below 15 MB while preserving all 64 frames and original timing; retain the full-size original.

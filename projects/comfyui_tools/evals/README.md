@@ -19,6 +19,9 @@ prompts describe successive static hand poses, with identical first and last
 poses. Its edit_region selects the hand area for masked comparisons. The matrix
 compares chained feedback, original-reference sampling and native Qwen editing;
 it does not imply a trained video model or guarantee smooth motion.
+Its [sketch comparison](plush_petting/README.md) provides a corrected structural
+input and a staged sketch-only/appearance-reference procedure. This separate
+diagnostic does not run as part of the existing GIF matrix.
 
 Execution, media validity, timings and cleanup can be checked automatically.
 Review requested subject, style, reference adherence and artistic quality

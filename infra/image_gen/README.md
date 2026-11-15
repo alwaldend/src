@@ -62,7 +62,26 @@ existing Vault identity membership. No general infrastructure group is required.
 
 ## Deployment status
 
-The last authorized rental used NoobAI on the 96 GB RTX PRO 6000 profile,
+Check [remaining team credit](../vastai/README.md#check-remaining-credit) before
+renting or leaving an instance running.
+
+The latest visible-motion trial created 48 GB Qwen instance 60921795 through
+Terraform and installed it through the shared Ansible role. It completed the
+owned trials and was retained under the operator's instruction. Its
+[deployment record](openspec/changes/add-parallel-evaluations/design.md#retained-visible-motion-trial-2026-11-16)
+owns the dated connection and cost observations. A later Vault authentication
+failure prevented a fresh provider check during PR completion; the record is
+not a live status guarantee. The preceding instance 60894930 was destroyed at
+the operator's request before this rental was created.
+
+The preceding 48 GB Qwen trial completed four structural-reference still edits and
+then released test instance 60886376. The hand outline guided the pose, but
+contact, scene artifacts and duplicate anatomy prevented frame/GIF acceptance.
+That trial's connection outputs were cleared; its
+[deployment record](openspec/changes/add-parallel-evaluations/design.md#native-structural-reference-trial-2026-11-16)
+records installation, results and teardown.
+
+An earlier rental used NoobAI on the 96 GB RTX PRO 6000 profile,
 with retention requested. The original ten workflows were uploaded. Its endpoint
 is now unavailable and the provider lookup no longer returns that instance;
 the two additional App variants remain packaged for import. The

@@ -67,6 +67,11 @@ of the preceding implementation; this simplification adds no paid rental.
 
 ## Verification
 
+The 2026-11-16 documentation follow-up adds the existing team-scoped `show user`
+command with a projection of its `credit` field only. It changes no credentials,
+account configuration, transfers or resource lifecycle. The image-generation
+owner links this command instead of maintaining a second balance procedure.
+
 The actual account and team configurations run in separate isolated Terraform
 working directories with mock providers. Their assertions cover the declared
 team, shared variable map, default full-access key and separate Vault destination.
