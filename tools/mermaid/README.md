@@ -202,7 +202,7 @@ defaults instead of the repository appearance: no theme, no paint-order
 post-processing, and no pinned fonts. The output is deliberately neither themed
 nor hermetic, and exists to compare a diagram against the upstream appearance.
 A plain action declares neither the theme nor the fonts as inputs, so it cannot
-depend on them by accident; `//users/simeonwarren/host_bot:rendered_plain` is a
+depend on them by accident; `//infra/dev:rendered_plain` is a
 worked example. Plain output is not published and not committed.
 
 [`upstream-theme.json`](upstream-theme.json) is the themed counterpart to that

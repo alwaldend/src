@@ -2,11 +2,11 @@
 WORKSPACE_SOURCES = {
     "infra_ceph": "//infra/ceph/openspec:source",
     "infra_cloud_init": "//infra/cloud_init/openspec:source",
+    "infra_dev": "//infra/dev/openspec:source",
     "infra_dns": "//infra/dns/openspec:source",
     "infra_download": "//infra/download/openspec:source",
     "infra_flux": "//infra/flux/openspec:source",
     "infra_forgejo": "//infra/forgejo/openspec:source",
-    "infra_forgejo_runner": "//infra/forgejo_runner/openspec:source",
     "infra_github": "//infra/github/openspec:source",
     "infra_harbor": "//infra/harbor/openspec:source",
     "infra_image_gen": "//infra/image_gen/openspec:source",
@@ -76,5 +76,4 @@ WORKSPACE_SOURCES = {
     "tools_x_api_schema": "//tools/x_api_schema/openspec:source",
     "users_simeonwarren": "//users/simeonwarren/openspec:source",
     "users_simeonwarren_anki": "//users/simeonwarren/anki/openspec:source",
-    "users_simeonwarren_host_bot": "//users/simeonwarren/host_bot/openspec:source",
 }

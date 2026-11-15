@@ -32,6 +32,7 @@ _DATA = glob([
     "approles/*/*.tf",
     "dns_access/*.tf",
 ]) + [
+    "//infra/dev:dnsconfig",
     "//infra/local_inference:dnsconfig",
     "//data/ssl/alwaldend.com:ica1",
     "//data/ssl/alwaldend.com:simeonwarren",

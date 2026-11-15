@@ -92,7 +92,7 @@ flowchart LR
         intranet("Actor")
         vault("Vault<br/>vault.alwaldend.com")
 
-        subgraph host_bot["Bare metal host<br/>host-bot.simeonwarren.users.alwaldend.com"]
+        subgraph host_bot["Bare metal host<br/>dev1.dev.alwaldend.com"]
             direction TB
             traefik("Traefik")
             t3code("T3 Code")

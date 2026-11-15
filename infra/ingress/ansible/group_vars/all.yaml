@@ -19,12 +19,12 @@ traefik_services:
   cloud:
     hostname: cloud.alwaldend.com
     target: "dc1.cloud.alwaldend.com:30027"
-  t3code-host-bot:
-    hostname: t3code.host-bot.simeonwarren.users.alwaldend.com
-    target: "dc1.t3code.host-bot.simeonwarren.users.alwaldend.com"
-  comfyui-host-bot:
-    hostname: comfyui.host-bot.simeonwarren.users.alwaldend.com
-    target: "dc1.comfyui.host-bot.simeonwarren.users.alwaldend.com"
+  t3code-dev1:
+    hostname: t3code.dev1.dev.alwaldend.com
+    target: "dc1.t3code.dev1.dev.alwaldend.com"
+  comfyui-dev1:
+    hostname: comfyui.dev1.dev.alwaldend.com
+    target: "dc1.comfyui.dev1.dev.alwaldend.com"
   vault:
     hostname: vault.alwaldend.com
     port: 8200

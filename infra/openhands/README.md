@@ -27,7 +27,7 @@ trusted infrastructure.
 - `tf_setup` creates the Agent Canvas, secured agent server, and automation
   server VMs in the `src_infra_openhands` Xen Orchestra resource set.
 - `ansible` deploys the three VM components. The
-  [host-bot project](../../users/simeonwarren/host_bot/README.md) owns and
+  [host-bot project](../../infra/dev/README.md) owns and
   deploys its unsecured agent server.
 - `dnsconfig.json` owns the component hostnames and static addresses.
 - `BUILD.bazel` authenticates with the `src_infra_openhands` Vault AppRole, signs
@@ -63,7 +63,7 @@ server, and the browser because all three authenticate the same
 `X-Session-API-Key` value.
 
 The unsecured host-bot server has a separate `secret_key` reference owned by
-[its host's AL configuration](../../users/simeonwarren/host_bot/BUILD.bazel).
+[its host's AL configuration](../../infra/dev/BUILD.bazel).
 
 Prepare one private JSON input for each path through the
 [secret-handling workflow](../../tools/agents/skills/repo-secrets/SKILL.md).

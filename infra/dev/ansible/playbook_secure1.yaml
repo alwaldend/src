@@ -1,0 +1,11 @@
+- name: Deploy secure1 host
+  hosts: secure1
+  force_handlers: true
+  become: true
+  pre_tasks:
+    - name: Configure host name
+      ansible.builtin.hostname:
+        name: "{{ inventory_hostname }}"
+      tags: [hostname]
+  roles:
+    - role: alwaldend.main.host

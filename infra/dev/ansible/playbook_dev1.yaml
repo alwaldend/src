@@ -1,0 +1,484 @@
+- name: Deploy dev1 workstation
+  hosts: dev1
+  force_handlers: true
+  become: true
+  handlers:
+    - name: Validate firewalld configuration
+      ansible.builtin.command:
+        argv:
+          - firewall-cmd
+          - --check-config
+      changed_when: false
+      listen: Reload firewalld
+    - name: Reload firewalld
+      ansible.builtin.command:
+        argv:
+          - firewall-cmd
+          - --reload
+      changed_when: true
+      listen: Reload firewalld
+  tasks:
+    - name: Configure host name
+      ansible.builtin.hostname:
+        name: "{{ inventory_hostname }}"
+      tags: [hostname]
+    - name: Configure power profile
+      tags:
+        - power_profile
+      environment:
+        LC_ALL: C
+      block:
+        - name: Enable Tuned
+          ansible.builtin.systemd_service:
+            name: tuned
+            enabled: true
+            state: started
+        - name: Read active Tuned profile
+          ansible.builtin.command:
+            argv:
+              - tuned-adm
+              - active
+          register: dev1_tuned_active
+          changed_when: false
+          failed_when: >-
+            dev1_tuned_active.rc != 0 and
+            (dev1_tuned_active.rc != 1 or
+             dev1_tuned_active.stdout != 'No current active profile.')
+        - name: Read Tuned profile selection mode
+          ansible.builtin.command:
+            argv:
+              - tuned-adm
+              - profile_mode
+          register: dev1_tuned_mode
+          changed_when: false
+        - name: Select declared Tuned profile
+          ansible.builtin.command:
+            argv:
+              - tuned-adm
+              - profile
+              - "{{ dev1_tuned_profile }}"
+          changed_when: true
+          when: >-
+            ('Current active profile: ' ~ dev1_tuned_profile)
+            not in dev1_tuned_active.stdout_lines or
+            dev1_tuned_mode.stdout != 'Profile selection mode: manual'
+    - name: Enable firewalld
+      ansible.builtin.systemd_service:
+        name: firewalld
+        enabled: true
+        state: started
+      tags:
+        - firewall
+    - name: Configure firewall allowlist
+      ansible.builtin.copy:
+        src: firewalld_zone.xml
+        dest: /etc/firewalld/zones/FedoraWorkstation.xml
+        owner: root
+        group: root
+        mode: "0644"
+      notify: Reload firewalld
+      tags:
+        - firewall
+    - name: Configure Git
+      become: false
+      ansible.builtin.copy:
+        src: gitconfig
+        dest: "~/.gitconfig"
+        mode: "0600"
+    - name: Preserve approved appliance SSH host keys
+      become: false
+      tags: [ssh_known_hosts]
+      block:
+        - name: Ensure the operator SSH directory is private
+          ansible.builtin.file:
+            path: "{{ dev_vm_bazel_home }}/.ssh"
+            state: directory
+            mode: "0700"
+        - name: Reconcile approved appliance host keys
+          ansible.builtin.known_hosts:
+            path: "{{ dev_vm_bazel_home }}/.ssh/known_hosts"
+            name: "{{ item.split()[0].split(',')[0] }}"
+            key: "{{ item }}"
+            state: present
+          loop: "{{ lookup('ansible.builtin.file', 'maintenance_known_hosts').splitlines() }}"
+    - name: Configure development packages
+      ansible.builtin.import_role:
+        name: alwaldend.main.dev_vm
+        tasks_from: packages
+    - name: Configure package maintenance
+      ansible.builtin.import_role:
+        name: alwaldend.main.update_all_packages
+    - name: Configure SELinux for Android emulation
+      ansible.builtin.import_role:
+        name: alwaldend.main.dev_vm
+        tasks_from: selinux
+      tags:
+        - android
+        - selinux
+    - name: Setup Bazel cache volume group
+      ansible.builtin.import_role:
+        name: alwaldend.main.lvg
+      tags:
+        - bazel
+        - storage
+    - name: Setup Bazel cache logical volume
+      ansible.builtin.import_role:
+        name: alwaldend.main.lvol
+      tags:
+        - bazel
+        - storage
+    - name: Setup Bazel cache filesystem
+      ansible.builtin.import_role:
+        name: alwaldend.main.filesystem
+      tags:
+        - bazel
+        - storage
+    - name: Mount Bazel cache filesystem
+      ansible.builtin.import_role:
+        name: alwaldend.main.mount
+      tags:
+        - bazel
+        - storage
+    - name: Create the Bazel cache directories
+      loop: "{{ bazel_cache_directories }}"
+      ansible.builtin.file:
+        path: "{{ item.path }}"
+        state: directory
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+        mode: "{{ item.mode }}"
+      tags:
+        - bazel
+        - storage
+    - name: Configure Bazel developer tools
+      ansible.builtin.import_role:
+        name: alwaldend.main.dev_vm
+        tasks_from: bazel
+    - name: Install Codex CLI
+      become: false
+      ansible.builtin.shell:
+        cmd: |
+          set -o pipefail
+          curl -fsSL https://chatgpt.com/codex/install.sh | sh
+        executable: /bin/bash
+        creates: "{{ dev_vm_bazel_home }}/.local/bin/codex"
+      environment:
+        CODEX_INSTALL_DIR: "{{ dev_vm_bazel_home }}/.local/bin"
+        CODEX_NON_INTERACTIVE: "1"
+      tags:
+        - codex
+        - codex_install
+    - name: Install Grok CLI
+      become: false
+      ansible.builtin.shell:
+        cmd: |
+          set -o pipefail
+          curl -fsSL https://x.ai/cli/install.sh | bash
+        executable: /bin/bash
+        creates: "{{ dev_vm_bazel_home }}/.local/bin/grok"
+      environment:
+        GROK_BIN_DIR: "{{ dev_vm_bazel_home }}/.local/bin"
+      tags:
+        - grok
+        - grok_install
+    - name: Install Node.js CLI dependencies
+      ansible.builtin.import_role:
+        name: alwaldend.main.dev_vm
+        tasks_from: packages
+      vars:
+        dev_vm_packages:
+          - nodejs
+          - npm
+      tags:
+        - codex
+        - open_computer_use
+        - openspec
+    - name: Install OpenSpec CLI
+      become: false
+      community.general.npm:
+        name: "@fission-ai/openspec"
+        version: "{{ openspec_version }}"
+        global: true
+        state: present
+        ignore_scripts: true
+        executable: /usr/bin/npm
+      environment:
+        NPM_CONFIG_PREFIX: "{{ openspec_npm_prefix }}"
+      tags:
+        - openspec
+    - name: Install Open Computer Use
+      become: false
+      community.general.npm:
+        name: open-computer-use
+        version: "{{ open_computer_use_version }}"
+        global: true
+        state: present
+        ignore_scripts: true
+        executable: /usr/bin/npm
+      environment:
+        NPM_CONFIG_PREFIX: "{{ open_computer_use_npm_prefix }}"
+      tags:
+        - codex
+        - open_computer_use
+    - name: Create the managed Open Computer Use skill directories
+      loop:
+        - /etc/codex
+        - /etc/codex/skills
+        - /etc/codex/skills/open-computer-use
+        - /etc/codex/skills/open-computer-use/agents
+        - /etc/codex/skills/open-computer-use/references
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: directory
+        owner: root
+        group: root
+        mode: "0755"
+      tags:
+        - codex
+        - open_computer_use
+    - name: Install the managed Open Computer Use skill
+      loop: "{{ open_computer_use_skill_files }}"
+      ansible.builtin.get_url:
+        url: >-
+          https://raw.githubusercontent.com/{{
+          open_computer_use_skill_repository }}/{{
+          open_computer_use_skill_revision }}/skills/open-computer-use/{{
+          item }}
+        dest: "/etc/codex/skills/open-computer-use/{{ item }}"
+        owner: root
+        group: root
+        mode: "0644"
+      tags:
+        - codex
+        - open_computer_use
+    - name: Create the miscellaneous data logical volume
+      community.general.lvol:
+        vg: sata_ssd
+        lv: misc
+        size: "{{ misc_storage_size }}"
+        resizefs: false
+        shrink: false
+      tags:
+        - arxiv
+        - misc_storage
+        - storage
+    - name: Create or resize the miscellaneous data filesystem
+      community.general.filesystem:
+        dev: "{{ misc_storage_device }}"
+        fstype: ext4
+        resizefs: true
+      tags:
+        - arxiv
+        - misc_storage
+        - storage
+    - name: Mount the miscellaneous data filesystem
+      ansible.posix.mount:
+        path: "{{ misc_storage_mount }}"
+        src: "{{ misc_storage_device }}"
+        state: mounted
+        fstype: ext4
+        opts: "{{ misc_storage_mount_options | join(',') }}"
+        dump: "0"
+        passno: "2"
+      tags:
+        - arxiv
+        - misc_storage
+        - storage
+    - name: Create the arXiv MCP paper directory
+      ansible.builtin.file:
+        path: "{{ arxiv_mcp_storage_path }}"
+        state: directory
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+        mode: "0700"
+      tags:
+        - arxiv
+        - misc_storage
+        - storage
+    - name: Create the Codex configuration directory
+      become: false
+      ansible.builtin.file:
+        path: "~/.codex"
+        state: directory
+        mode: "0700"
+      tags:
+        - arxiv
+        - codex
+        - open_computer_use
+    - name: Configure Codex
+      become: false
+      ansible.builtin.copy:
+        src: codex_config.toml
+        dest: "~/.codex/config.toml"
+        mode: "0600"
+      tags:
+        - arxiv
+        - codex
+        - open_computer_use
+    - name: Create the isolated API Codex directory
+      become: false
+      ansible.builtin.file:
+        path: "~/.codex-api"
+        state: directory
+        mode: "0700"
+      tags:
+        - codex
+        - codex_api
+        - open_computer_use
+    - name: Configure the isolated API Codex home
+      become: false
+      ansible.builtin.copy:
+        content: |
+          forced_login_method = "api"
+          {{ lookup('ansible.builtin.file', 'files/codex_config.toml') }}
+        dest: "~/.codex-api/config.toml"
+        mode: "0600"
+      tags:
+        - codex
+        - codex_api
+        - open_computer_use
+    - name: Configure isolated API Codex instructions
+      become: false
+      ansible.builtin.copy:
+        src: codex_agents.md
+        dest: "~/.codex-api/AGENTS.md"
+        mode: "0600"
+      tags:
+        - codex
+        - codex_api
+    - name: Remove provider profiles from the main Codex home
+      become: false
+      ansible.builtin.file:
+        path: "~/.codex/{{ item }}.config.toml"
+        state: absent
+      loop:
+        - openrouter
+        - abliteration
+      tags:
+        - codex
+    - name: Create the isolated Abliteration Codex directory
+      become: false
+      ansible.builtin.file:
+        path: "~/.codex-abliteration"
+        state: directory
+        mode: "0700"
+      tags:
+        - codex
+        - open_computer_use
+    - name: Configure the isolated Abliteration Codex provider
+      become: false
+      ansible.builtin.copy:
+        src: codex_abliteration_provider_config.toml
+        dest: "~/.codex-abliteration/config.toml"
+        mode: "0600"
+      tags:
+        - codex
+        - open_computer_use
+    - name: Configure isolated Abliteration Codex instructions
+      become: false
+      ansible.builtin.copy:
+        src: codex_agents.md
+        dest: "~/.codex-abliteration/AGENTS.md"
+        mode: "0600"
+      tags:
+        - codex
+    - name: Configure user-level Codex instructions
+      become: false
+      ansible.builtin.copy:
+        src: codex_agents.md
+        dest: "~/.codex/AGENTS.md"
+        mode: "0600"
+      tags:
+        - codex
+    - name: Create the isolated OpenRouter Codex directories
+      become: false
+      ansible.builtin.file:
+        path: "~/.codex-openrouter"
+        state: directory
+        mode: "0700"
+      tags:
+        - codex
+        - open_computer_use
+    - name: Configure the isolated OpenRouter Codex provider
+      become: false
+      ansible.builtin.copy:
+        src: codex_openrouter_provider_config.toml
+        dest: "~/.codex-openrouter/config.toml"
+        mode: "0600"
+      tags:
+        - codex
+        - open_computer_use
+    - name: Configure isolated OpenRouter Codex instructions
+      become: false
+      ansible.builtin.copy:
+        src: codex_agents.md
+        dest: "~/.codex-openrouter/AGENTS.md"
+        mode: "0600"
+      tags:
+        - codex
+    - name: Create the OpenRouter no-tools Codex directories
+      become: false
+      ansible.builtin.file:
+        path: "~/.codex-openrouter-no-tools"
+        state: directory
+        mode: "0700"
+      tags:
+        - codex
+        - codex_openrouter_no_tools
+        - open_computer_use
+    - name: Configure the OpenRouter no-tools Codex provider
+      become: false
+      ansible.builtin.copy:
+        src: codex_openrouter_no_tools_provider_config.toml
+        dest: "~/.codex-openrouter-no-tools/config.toml"
+        mode: "0600"
+      tags:
+        - codex
+        - codex_openrouter_no_tools
+        - open_computer_use
+    - name: Configure OpenRouter no-tools Codex instructions
+      become: false
+      ansible.builtin.copy:
+        src: codex_agents.md
+        dest: "~/.codex-openrouter-no-tools/AGENTS.md"
+        mode: "0600"
+      tags:
+        - codex
+        - codex_openrouter_no_tools
+    - name: Configure managed Codex requirements
+      ansible.builtin.copy:
+        src: codex_requirements.toml
+        dest: /etc/codex/requirements.toml
+        owner: root
+        group: root
+        mode: "0644"
+      tags:
+        - codex
+    - name: Setup CA
+      ansible.builtin.import_role:
+        name: alwaldend.main.install_ca
+    - name: Setup Traefik
+      ansible.builtin.import_role:
+        name: alwaldend.main.traefik
+    # The unsecured agent server shares dev1's trust boundary. It binds to
+    # loopback and receives no session API key, so it is intentionally not
+    # routed through dev1's Traefik or its public firewall ports.
+    - name: Configure OpenHands agent server packages
+      ansible.builtin.import_role:
+        name: alwaldend.main.dev_vm
+        tasks_from: packages
+      vars:
+        dev_vm_packages: "{{ openhands_server_packages }}"
+      tags:
+        - openhands_server
+    - name: Require the OpenHands dependencies in the booted deployment
+      when: dev_vm_rpm_ostree_result.needs_reboot | default(false)
+      ansible.builtin.fail:
+        msg: >-
+          OpenHands dependencies were staged in a new OSTree deployment.
+          Reboot the host and rerun this playbook to install the agent server.
+      tags:
+        - openhands_server
+    - name: Deploy the OpenHands agent server
+      ansible.builtin.import_role:
+        name: alwaldend.main.openhands_server

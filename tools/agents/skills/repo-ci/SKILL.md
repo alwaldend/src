@@ -23,7 +23,7 @@ sources:
 
 - `.forgejo/workflows/secure.yaml`: triggers, runner selection, checkout, and
   the local `uses: ./tools/ci/action` invocation.
-- `infra/forgejo_runner/README.md` and its `ansible/README.md`: execution
+- `infra/dev/README.md` and its `ansible/README.md`: execution
   boundary and prerequisites.
 - `infra/vault/tf/forgejo_ci.tf` and `infra/forgejo/tf/alwaldend_repos.tf`:
   signed claim restrictions, token permissions, and protected refs.

@@ -1,0 +1,4 @@
+- name: Deploy secure1 host
+  ansible.builtin.import_playbook: playbook_secure1.yaml
+- name: Deploy development workstation
+  ansible.builtin.import_playbook: playbook_dev1.yaml

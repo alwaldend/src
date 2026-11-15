@@ -12,7 +12,7 @@ tags:
 
 The [binary lock](binary_toolchain.json) pins the runner version and publisher
 checksum. Native Forgejo Actions OIDC support is required by the
-[runner deployment](../../infra/forgejo_runner/README.md).
+[runner deployment](../../infra/dev/README.md).
 
 Validate a workflow without executing jobs:
 

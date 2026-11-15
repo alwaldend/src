@@ -30,7 +30,7 @@ over the frontend route, so the configured browser reaches one origin.
 Downstream routers accept the original canvas Host header.
 
 The unsecured agent server runs on host-bot and is deployed by
-[the host-bot project](../../../users/simeonwarren/host_bot/README.md), which
+[the host-bot project](../../../infra/dev/README.md), which
 owns that host entirely. It omits `OH_SESSION_API_KEYS_0` and binds to loopback
 without a session API key. Access is local to host-bot; its Traefik and firewall
 configuration add no route for this server.
