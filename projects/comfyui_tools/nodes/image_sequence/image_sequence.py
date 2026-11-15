@@ -1,6 +1,7 @@
 """Generate reference-anchored still sequences through native ComfyUI operations.
 
 Reference sequences edit the preceding image; composer images are independent.
+Approved keyframes can also be assembled without another sampling pass.
 Model loading and identity conditioning belong to the enclosing workflow. Native
 ComfyUI owns sampling, cancellation and immediate per-image PNG serialization.
 """
@@ -1015,17 +1016,122 @@ class ImageSequence:
         }
 
 
+class KeyframeGIF:
+    """Publish approved image batches with optional reversible RIFE playback."""
+
+    RETURN_TYPES: tuple[str] = ("IMAGE",)
+    """Retain the approved images for downstream native consumers."""
+
+    FUNCTION: str = "save"
+    """Native framework entry point for model-free GIF assembly."""
+
+    OUTPUT_NODE: bool = True
+    """Publish the animation through ComfyUI output metadata."""
+
+    CATEGORY: str = "imagegen/workflow"
+    """Shared first-party workflow menu."""
+
+    @classmethod
+    def INPUT_TYPES(cls) -> dict[str, object]:
+        """Expose playback controls independently of image generation."""
+        return {
+            "required": {
+                "images": ("IMAGE",),
+                "frame_duration_ms": (
+                    "INT",
+                    {"default": 320, "min": 20, "max": 10000, "step": 10},
+                ),
+                "interpolation_multiplier": ([1, 2, 4, 8], {"default": 4}),
+                "ping_pong": ("BOOLEAN", {"default": True}),
+                "filename_prefix": ("STRING", {"default": "keyframes"}),
+            },
+            "hidden": {"prompt": "PROMPT", "extra_pnginfo": "EXTRA_PNGINFO"},
+        }
+
+    def save(
+        self,
+        images: torch.Tensor,
+        frame_duration_ms: int,
+        interpolation_multiplier: int,
+        ping_pong: bool,
+        filename_prefix: str,
+        prompt: object = None,
+        extra_pnginfo: dict[str, object] | None = None,
+    ) -> dict[str, object]:
+        """Validate before writing, retain source PNGs and publish one closed loop."""
+        if images.ndim != 4 or not 2 <= images.shape[0] <= 128:
+            raise ValueError(
+                "Supply 2 to 128 approved keyframes in one image batch."
+            )
+        _image(images[:1])
+        if not re.fullmatch(
+            r"[A-Za-z0-9][A-Za-z0-9_-]{0,127}", filename_prefix
+        ):
+            raise ValueError(
+                "Use a filename prefix containing letters, digits, underscores and hyphens."
+            )
+        if (
+            interpolation_multiplier not in (1, 2, 4, 8)
+            or not 20 <= frame_duration_ms <= 10000
+            or frame_duration_ms % 10
+            or frame_duration_ms < interpolation_multiplier * 10
+        ):
+            raise ValueError(
+                "Use interpolation 1, 2, 4 or 8 and a multiple of 10 milliseconds with at least 10 milliseconds per interpolated frame."
+            )
+        if (
+            interpolation_multiplier > 1
+            and not shutil.which("video2x")
+            and not pathlib.Path("/opt/imagegen/Video2X.AppImage").is_file()
+        ):
+            raise ValueError(
+                "Install the configured Video2X/RIFE engine or set interpolation to one."
+            )
+        import comfy.model_management
+        import nodes
+
+        run: str = uuid.uuid4().hex[:12]
+        saved: list[dict[str, str]] = []
+        for index in range(images.shape[0]):
+            comfy.model_management.throw_exception_if_processing_interrupted()
+            output: dict[str, object] = nodes.SaveImage().save_images(
+                images[index : index + 1].detach().cpu().float(),
+                f"{filename_prefix}_{run}_keyframe{index + 1:03d}",
+                prompt=prompt,
+                extra_pnginfo=extra_pnginfo,
+            )
+            descriptors: list[dict[str, str]] = typing.cast(
+                dict[str, list[dict[str, str]]], output["ui"]
+            )["images"]
+            saved.extend(descriptors)
+        playback: list[dict[str, str]] = (
+            saved + list(reversed(saved[:-1])) if ping_pong else saved
+        )
+        animation: dict[str, str] = _save_gif(
+            playback,
+            f"{filename_prefix}_{run}_sequence",
+            frame_duration_ms,
+            interpolation_multiplier,
+        )
+        return {
+            "ui": {"images": [*saved, animation], "animated": (True,)},
+            "result": (images,),
+        }
+
+
 NODE_CLASS_MAPPINGS: dict[
     str,
     type[ReferenceImages]
     | type[ImageSequence]
     | type[ScenePrompts]
-    | type[OptionalLora],
+    | type[OptionalLora]
+    | type[KeyframeGIF],
 ] = {
     "ImagegenReferenceImages": ReferenceImages,
     "ImagegenImageSequence": ImageSequence,
     "ImagegenScenePrompts": ScenePrompts,
     "ImagegenOptionalLora": OptionalLora,
+    "ImagegenKeyframeGIF": KeyframeGIF,
 }
 """Native registry for references, prompt composition, LoRA loading and sampling."""
 
@@ -1034,5 +1140,6 @@ NODE_DISPLAY_NAME_MAPPINGS: dict[str, str] = {
     "ImagegenImageSequence": "Image Sequence",
     "ImagegenScenePrompts": "Scene Prompts",
     "ImagegenOptionalLora": "Optional LoRA",
+    "ImagegenKeyframeGIF": "Approved Keyframes to GIF",
 }
 """Readable native node names in the graph and App builder."""

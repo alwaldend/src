@@ -74,3 +74,10 @@
 - [x] 12.5 Validate and prepare publication of source and workflow/prompt findings with an honest quality verdict and saved comparison gallery; delivery receipts own publication state.
 
 - [x] 12.6 Reproduce changed provisioning contents and missing-fingerprint reuse before correction; bind retained installations to compiled input fingerprints and verify selected versus unused sources through the command E2E boundary.
+
+## 13. Qwen keyframe animation
+
+- [x] 13.1 Establish playback validation, selected-frame ordering and repeatable GIF artifacts before implementation.
+- [x] 13.2 Add native crop-edit/composite and independent keyframe workflows; retain the corrected previous-image GIF alternatives.
+- [x] 13.3 Reuse the existing GIF/RIFE writer for approved keyframes with a reversible loop, without adding dependencies.
+- [ ] 13.4 Validate source and packaging, then evaluate distinct hand poses on the operator-authorized 48 GB Qwen rental before assembling a loop. Record visual failures and preserve owned outputs.

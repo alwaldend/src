@@ -1,5 +1,9 @@
 // Native port contracts for the nodes used by these workflow families.
 local ports = {
+  PrimitiveInt: { inputs: [], outputs: [{ name: 'INT', type: 'INT' }] },
+  ImageCrop: { inputs: [{ name: 'image', type: 'IMAGE' }, { name: 'width', type: 'INT', widget: { name: 'width' } }, { name: 'height', type: 'INT', widget: { name: 'height' } }, { name: 'x', type: 'INT', widget: { name: 'x' } }, { name: 'y', type: 'INT', widget: { name: 'y' } }], outputs: [{ name: 'IMAGE', type: 'IMAGE' }] },
+  ImageCompositeMasked: { inputs: [{ name: 'destination', type: 'IMAGE' }, { name: 'source', type: 'IMAGE' }, { name: 'x', type: 'INT', widget: { name: 'x' } }, { name: 'y', type: 'INT', widget: { name: 'y' } }, { name: 'mask', type: 'MASK', shape: 7 }], outputs: [{ name: 'IMAGE', type: 'IMAGE' }] },
+  ImagegenKeyframeGIF: { inputs: [{ name: 'images', type: 'IMAGE' }], outputs: [{ name: 'IMAGE', type: 'IMAGE' }] },
   BasicScheduler: { inputs: [{ name: 'model', type: 'MODEL' }], outputs: [{ name: 'SIGMAS', type: 'SIGMAS' }] },
   CreateBoundingBoxes: { inputs: [{ name: 'background', type: 'IMAGE', shape: 7 }, { name: 'bboxes', type: 'BOUNDING_BOX,ARRAY,STRING', shape: 7 }], outputs: [{ name: 'preview', type: 'IMAGE' }, { name: 'bboxes', type: 'BOUNDING_BOX' }, { name: 'elements', type: 'ARRAY' }] },
   MOSSImageLayoutPrompt: { inputs: [{ name: 'element', type: 'ARRAY' }, { name: 'width', type: 'INT', widget: { name: 'width' } }, { name: 'height', type: 'INT', widget: { name: 'height' } }], outputs: [{ name: 'prompt', type: 'STRING' }] },

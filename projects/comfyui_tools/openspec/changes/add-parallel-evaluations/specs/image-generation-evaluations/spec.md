@@ -76,3 +76,24 @@ deadlines and ownership monitoring; retention SHALL NOT imply a spending timer.
 
 - **WHEN** selected first-party node contents, requirements, effective runtime, startup template or explicit recipe differ from the prior installation, or the prior journal lacks its fingerprint
 - **THEN** reuse SHALL fail before execution without changing account resources, while identical contents at another local path and unused model-specific source changes SHALL remain compatible
+
+### Requirement: Inspectable Qwen keyframe animation
+
+Qwen keyframe workflows SHALL edit a crop through the native image-edit encoder
+and composite it back onto the original photograph. Crop placement SHALL use the
+same coordinates for extraction and compositing. Independent keyframe generation
+SHALL preserve the original reference and fixed sampling seed. Raw edited crops
+and composited PNGs SHALL be available for visual review before GIF assembly.
+
+#### Scenario: Approve poses before animation
+
+- **WHEN** the operator selects a batch of 2 to 128 approved keyframes
+- **THEN** the assembly node SHALL retain each source PNG, optionally traverse the
+  poses back to the first, and write one looping GIF through the existing writer
+- **AND** optional interpolation SHALL reuse the existing RIFE engine without
+  running diffusion again
+
+#### Scenario: Invalid playback settings
+
+- **WHEN** the batch, timing, interpolation mode or filename prefix is invalid
+- **THEN** assembly SHALL fail before writing any files

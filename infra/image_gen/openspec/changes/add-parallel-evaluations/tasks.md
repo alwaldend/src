@@ -84,3 +84,9 @@
 
 - [x] 15.1 Review the instance-scoped destruction plan and destroy only personal instance 60406482, retaining component credentials.
 - [x] 15.2 Apply the reviewed refresh-only plan, verify null connection outputs and record the completed release.
+
+## 16. Qwen keyframe deployment
+
+- [x] 16.1 Select Qwen and the existing 48 GB hardware profile; package all Qwen workflows and required first-party nodes through Ansible, including the existing interpolation engine.
+- [x] 16.2 Pass offline checks, review the owning interactive Terraform plan, and deploy one instance without replacing unrelated rentals.
+- [ ] 16.3 Install through the shared role, inspect only owned generation jobs, retrieve keyframes/GIF results, and retain the instance with its URL and honest quality verdict.

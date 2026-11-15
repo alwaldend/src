@@ -22,3 +22,8 @@ No live plan, apply, credential generation, or secret write was performed.
 
 - [x] Grant the Vast account AppRole read access to the host user entity metadata for declarative SSH registration, without KV or identity write capabilities.
 - [x] Validate source and packaging without applying Vault policy.
+
+## Approved current-host metadata reconciliation
+
+- [x] Update only the bot public-key metadata to match the existing host public key and loaded agent; validate formatting and the exact fingerprint.
+- [x] Apply only the approved identity metadata, existing read policy/attachment and account SSH registration, recording results without unrelated changes.

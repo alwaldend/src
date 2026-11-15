@@ -9,9 +9,11 @@ This project owns one image-generation rental in [tf_setup](tf_setup/README.md).
 It uses the reusable [ComfyUI module](../../projects/tf_modules/vastai_instance_imagegen_comfyui/README.md)
 in exposed mode: a single HTTPS proxy with a generated username/password login,
 plus account-key SSH access managed by [infra/vastai](../vastai/tf/README.md). The GPU must have at least 32 GiB VRAM.
-The [configuration](config.json) selects NoobAI XL 1.1 and the existing 96 GB
-hardware profile for the operator-requested sequence demonstration. Its native
-App has a six-image, two-scene default, persistent references and
+The [configuration](config.json) selects Qwen-Image-Edit-2511 and the existing
+48 GB hardware profile for the operator-requested keyframe animation trial.
+The Qwen bundle includes ordinary edits, crop-composited keyframes, selected-frame
+GIF assembly, both chained GIF variants and the existing RIFE engine.
+NoobAI remains a selectable profile for scene sequences. The NoobAI App has a six-image, two-scene default, persistent references and
 one combined GIF, with optional Canny structure guidance and RIFE interpolation.
 Separate reference-sequence and scene-composer Apps expose the previous-image
 and independent two-pass strategies; the composer uses shared descriptions and
@@ -161,7 +163,7 @@ For scene-aware NoobAI generation, use
 [`noobai-image-sequence`](../../projects/comfyui_tools/README.md#noobai-image-sequence-app).
 It opens as a native ComfyUI App with persistent references, previous-image edits
 and explicit fresh-scene breaks. Its node is staged only with that workflow.
-GIF playback is available per scene and for the selected sequence. Live deployment
+One combined GIF is generated for the selected sequence. Live deployment
 observations belong to the maintained deployment record.
 
 ## Automated evaluations
