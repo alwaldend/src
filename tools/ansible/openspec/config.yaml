@@ -1,0 +1,8 @@
+schema: spec-driven
+
+context: |
+  This workspace owns tools/ansible and its pinned CLI dependencies.
+  Read the owning README and repository AGENTS.md. Use the uv_lock.update
+  target to maintain dependency locks. Reuse existing dependencies and validate
+  packaged Ansible against supported controller and target Python versions.
+  User requests own deployment authority.

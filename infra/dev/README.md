@@ -9,11 +9,12 @@ tags:
 
 `infra/dev` owns the existing workstation at `dev1.dev.alwaldend.com`
 (192.168.1.210) and the secure runner at `secure1.dev.alwaldend.com`
-(192.168.10.101).
+(192.168.10.102).
 One [Ansible deployment](ansible/README.md) configures both host groups while
 preserving their current roles, users, package backends and storage settings.
 The secure runner uses the shared host role; its Actions runner role remains
-disabled.
+disabled. Its [provisioning root](tf_setup/README.md) owns the XO VM through the
+shared development identity and its own resource set.
 
 Dev1 runs Traefik in front of T3 Code and ComfyUI, with mTLS enforced by
 public ingress. The host firewall blocks direct external access to the
@@ -39,14 +40,16 @@ the selected profile in manual mode. The `power_profile` tag scopes those
 tasks. The live setting was applied directly at the user's explicit request;
 no Ansible deployment was run for that initial change.
 
-Ansible and DNS use the dedicated `src_infra_dev` AppRole. Its service policy
-reads the existing OpenHands key; SSH signing is scoped to these hosts and TLS
-issuance to dev1's services. DNS credential reads cover dc1 and public records.
+Ansible and DNS use the dedicated `src_infra_dev` AppRole. SSH signing is scoped to these hosts and TLS issuance to dev1's services.
+OpenHands has been removed and disabled; deployment neither installs it nor reads
+its Vault key. The completed one-time removal tasks are no longer in the playbook.
+DNS credential reads cover dc1 and public records.
 Provision this identity through Vault Terraform before deploying.
 
 [One DNS root](dns/README.md) consumes the complete `dnsconfig.json` and uses
-the `src_infra_dev/tf_backend/dns` backend. Both old states require a reviewed
-handoff before deploying this root; the DNS README records the pending migration.
+the `src_infra_dev/tf_backend/dns` backend. The authorized handoff adopted all
+12 existing records without recreation; the [rollout record](openspec/changes/consolidate-development-hosts/deployment.md)
+records the state boundaries and rollout results.
 DNS, Vault and host deployment remain separately authorized operations.
 
 T3 Code controls permissions per thread. Its **Auto** mode maps to Codex

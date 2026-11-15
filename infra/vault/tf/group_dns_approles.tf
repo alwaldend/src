@@ -37,7 +37,6 @@ resource "vault_identity_group" "dns_approles" {
     module.src_projects_tf_modules.entity_id,
     module.src_projects_useless_qt_gui.entity_id,
     module.src_projects_x_article_uploader.entity_id,
-    module.src_users_simeonwarren_host_bot.entity_id,
   ]
   metadata = {
     comment = "AppRoles with scoped provider credentials and no general infrastructure privileges"

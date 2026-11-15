@@ -21,7 +21,7 @@ certResolver = "vault"
 
 [certificatesResolvers.vault.acme]
 email = "users_simeonwarren_host_bot@alwaldend.com"
-storage = "{{ traefik_data_dir }}/acme_vault.json"
+storage = "{{ traefik_data_dir }}/acme_vault_{{ traefik_acme_url | hash('sha256') }}.json"
 caServer = "{{ traefik_acme_url }}"
 
 [certificatesResolvers.vault.acme.httpChallenge]

@@ -12,4 +12,9 @@ One invocation runs both host-specific plays using the `src_infra_dev` AppRole.
 Workstation storage and services apply only to dev1; secure1 keeps the host-only
 runner baseline.
 
+The workstation's managed known_hosts trusts secure1 certificates through the
+canonical repository server CA and pins dev1's public host key. The dev1 key
+was verified from its local host filesystem and strict SSH handshake during
+the deployment; host-key checking remains enabled through hostname cutover.
+
 Build `:ansible_bin` and run `:syntax` for offline validation.

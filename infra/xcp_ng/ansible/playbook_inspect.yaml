@@ -3,6 +3,38 @@
   become: true
   gather_facts: false
   tasks:
+    - name: Inspect the managed and listener public certificates
+      tags: [certificate_status]
+      ansible.builtin.command:
+        argv:
+          - openssl
+          - x509
+          - -in
+          - "{{ item.path }}"
+          - -noout
+          - -subject
+          - -issuer
+          - -dates
+          - -fingerprint
+          - -sha256
+          - -ext
+          - subjectAltName
+      loop:
+        - name: managed
+          path: "{{ xoa_acme_dir }}/live/{{ xoa_acme_cert_name }}/fullchain.pem"
+        - name: listener
+          path: "{{ xoa_https_certificate_path }}"
+      loop_control:
+        label: "{{ item.name }}"
+      changed_when: false
+      register: xoa_managed_certificate_status
+    - name: Report the public certificate identities
+      tags: [certificate_status]
+      ansible.builtin.debug:
+        msg: "{{ item.item.name }}: {{ item.stdout_lines }}"
+      loop: "{{ xoa_managed_certificate_status.results }}"
+      loop_control:
+        label: "{{ item.item.name }}"
     - name: Inspect Certbot version, renewal threshold, and timer state
       tags: [renewal_status]
       ansible.builtin.command:

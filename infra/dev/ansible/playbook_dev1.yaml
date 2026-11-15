@@ -101,6 +101,19 @@
             key: "{{ item }}"
             state: present
           loop: "{{ lookup('ansible.builtin.file', 'maintenance_known_hosts').splitlines() }}"
+        - name: Trust the verified workstation host key
+          ansible.builtin.known_hosts:
+            path: "{{ dev_vm_bazel_home }}/.ssh/known_hosts"
+            name: "{{ inventory_hostname }}"
+            key: "{{ inventory_hostname }} {{ lookup('ansible.builtin.file', 'dev1_ssh_host_key.pub') | trim }}"
+            state: present
+        - name: Trust secure host certificates through the canonical server CA
+          ansible.builtin.known_hosts:
+            path: "{{ dev_vm_bazel_home }}/.ssh/known_hosts"
+            name: "{{ item }}"
+            key: "@cert-authority {{ item }} {{ lookup('ansible.builtin.file', 'ssh_ca_servers.pub') | trim }}"
+            state: present
+          loop: "{{ groups['secure1'] }}"
     - name: Configure development packages
       ansible.builtin.import_role:
         name: alwaldend.main.dev_vm
@@ -460,25 +473,3 @@
     - name: Setup Traefik
       ansible.builtin.import_role:
         name: alwaldend.main.traefik
-    # The unsecured agent server shares dev1's trust boundary. It binds to
-    # loopback and receives no session API key, so it is intentionally not
-    # routed through dev1's Traefik or its public firewall ports.
-    - name: Configure OpenHands agent server packages
-      ansible.builtin.import_role:
-        name: alwaldend.main.dev_vm
-        tasks_from: packages
-      vars:
-        dev_vm_packages: "{{ openhands_server_packages }}"
-      tags:
-        - openhands_server
-    - name: Require the OpenHands dependencies in the booted deployment
-      when: dev_vm_rpm_ostree_result.needs_reboot | default(false)
-      ansible.builtin.fail:
-        msg: >-
-          OpenHands dependencies were staged in a new OSTree deployment.
-          Reboot the host and rerun this playbook to install the agent server.
-      tags:
-        - openhands_server
-    - name: Deploy the OpenHands agent server
-      ansible.builtin.import_role:
-        name: alwaldend.main.openhands_server

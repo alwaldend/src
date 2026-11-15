@@ -10,8 +10,8 @@ external account binding; its registration file is removed after issuance.
 
 The target injects `xoa_ssh_password` from
 `secrets/alwaldend.com/vault1/approles/src_infra_xcp_ng/xoa` for the appliance's
-`xoa` SSH account and sudo. Ansible uses its `sshpass` password mechanism;
-the controller must provide `sshpass` and a verified SSH host key. Passwords
+`xoa` SSH account and sudo. Ansible uses its native `ssh_askpass` password mechanism;
+the controller must provide a verified SSH host key. Passwords
 are runtime environment inputs and are not stored in inventory.
 
 Run the read-only inspection target before deploying a different appliance:
@@ -19,11 +19,20 @@ Run the read-only inspection target before deploying a different appliance:
 ```sh
 bazel run //infra/xcp_ng/ansible:ansible.inspect
 bazel run //infra/xcp_ng/ansible:ansible
+# Certificate and trust reconciliation without reinstalling the OIDC plugin:
+bazel run //infra/xcp_ng/ansible:ansible -- --skip-tags oidc
 ```
+
+The playbook verifies existing managed certificates against the Vault CA and both
+hostnames. Missing or invalid certificates trigger issuance and an XO restart;
+file existence alone does not establish a valid certificate. Inspect the public
+certificate with `:ansible.inspect -- --tags certificate_status`.
 
 The checked-in settings match the inspected appliance: `xo-server` runs as
 root and listens on HTTPS with `/etc/ssl/cert.pem` and `/etc/ssl/key.pem`.
-Native `autoCert` is disabled. The deployment preserves these listener paths.
+The deployment explicitly sets `autoCert = false` in that HTTPS listener so XO
+cannot replace the externally managed certificate with a self-signed fallback.
+The deployment preserves these listener paths.
 Apply the Vault PKI role before certificate issuance.
 
 Certbot uses standalone HTTP-01 validation. Vault must resolve both names to

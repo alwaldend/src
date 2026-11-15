@@ -1,25 +1,52 @@
 ## Context
 
-Secure1 is 192.168.10.101; the obsolete runner1 declaration used 192.168.10.100. Dev1 is the existing workstation at 192.168.1.210.
+Infra/dev owns dev1 at 192.168.1.210 and secure1 at 192.168.10.102.
+Dev1 retains workstation storage and services; secure1 keeps the host-only
+runner baseline with Actions disabled.
 
 ## Decisions
 
-Use one standard packaged Ansible invocation and the existing host-specific plays. A dedicated src_infra_dev AppRole supplies deployment credentials for both hosts and DNS. Its service policy reads only the existing OpenHands key; its SSH role is limited to the two host names and its PKI role to dev1's two service names. DNS uses scoped provider credential reads and the role's own backend namespace. It receives no access to legacy Terraform state.
+Use one packaged Ansible invocation with separate host plays and the shared
+src_infra_dev AppRole. Limit SSH signing to these hosts, TLS issuance to dev1's
+services, and DNS access to the existing dc1 and global provider credentials.
+The development identity owns its DNS and provisioning backends; it receives
+no access to either legacy namespace.
 
-Decision review: proceed. A shared deployment identity removes the nested command wrapper and its argument protocol without mixing workstation storage or services into the runner play. Keeping separate authentication inside that command requires the extra orchestration the user asked to remove.
+One DNS root consumes the entire canonical DNS document. The authorized
+handoff adopted seven RouterOS and five Cloudflare records by provider ID and
+renamed them in place. Both old backends are now empty, so their identities,
+remaining grants and temporary deployment wiring can be removed.
 
-Use one dns root consuming the complete canonical DNS document and the backend at alwaldend.com/vault1/approles/src_infra_dev/tf_backend/dns. Remove tf_setup and its duplicate provider/authentication wrappers. Retain the legacy Vault identities and backend contents until separately authorized state reconciliation is complete; the current root does not consume them. Retain migrated historical records unchanged.
+Traefik account storage is keyed by the complete ACME directory URL. Reusing
+an account registered against another Vault role caused HTTP 400 despite valid
+EAB enrollment. Managed Ansible creates the account store for the new directory
+and restarts Traefik when configuration changes.
 
-Decision review: proceed. Keeping the two roots perpetuates the split the user explicitly asked to merge. Reusing a legacy backend would keep an obsolete identity in the active configuration. One owner-named backend removes both dependencies, with a documented adoption prerequisite because moving source does not move state. Live state transfer is outside this source change. The Vault-owned policy work is recorded in infra/vault/openspec/changes/consolidate-development-identity.
+OpenHands retirement is complete: its installation and secret inputs are gone,
+its service is disabled, its executables are absent and its Python 3.12 layering
+request is removed. Remove the completed cleanup block from normal deployment.
+Preserve existing uv tooling and application work/state.
 
-The inactive Actions worker needs no registration token, instance URL or disk input. Remove its unused injector and variables. Use secure1 and dev1 for inventory groups, playbooks and logical DNS keys. Preserve the simeonwarrenbot account, shared dev_vm role names, Codex host-bot profile and existing ACME account contact because they identify working interfaces or accounts.
+The user chose secure1 recreation without migration. Use the existing scoped
+XO workflow and preserve its 8 CPUs, 16 GiB RAM and 500 GiB boot disk. The new
+provisioning root uses the shared Xen cloud-init foundation and the canonical
+DNS address. Seed an Ed25519 host key through the existing private-key injector
+and read its public identity from the created resource for strict initial SSH
+verification. The shared SSH role creates missing standard host keys before signing and hardening
+and installs the permanent host certificates. Cloud-init is creation-only;
+normal plans do not rotate the bootstrap key.
 
-## Rollout
+The first canonical VM completed cloud-init at 192.168.10.101 but IPv4 SSH
+was unreachable. The user requested another recreation and a new IP. No
+checked-in allocation used 192.168.10.102 and two ARP probes received no replies.
+The second VM completed cloud-init at .102; deploying the declared firewall
+over IPv6 then made IPv4 SSH reachable. Use native Terraform replacement with
+manual plan review for explicitly authorized recreations.
 
-Source changes do not deploy infrastructure. Under separate authorization, provision the shared Vault identity and DNS policy, freeze old DNS writers, reconcile both old states and import existing records into the new backend before applying desired DNS changes. Follow the owning dns README for the handoff and key mapping. Then deploy host and ingress configuration. Rollback requires freezing writers and reconciling state ownership against the prior source; reverting source alone is insufficient after adoption. No VM transfer is required.
+## Deployment boundaries
 
-## Legacy runner retirement
-
-The user clarified that the Proxmox runner does not exist and requested IaC removal only. Remove VM 1200/runner1, its DNS record, the stale host1 inventory entry and Proxmox wiring. No live destruction or state modification is authorized or required by the revised request. Secure1 and dev1 remain unchanged.
-
-Preliminary read-only investigation did not complete: Proxmox was unreachable, and the existing backend referenced a Xen Orchestra provider absent from the old Proxmox package. This pre-existing live-state discrepancy must be reconciled before a live DNS handoff. Preserve the backend contents and legacy access until then.
+Vault, DNS, VM provisioning and host deployment are separate live operations.
+The user authorized this rollout and the XO management certificate repair.
+Dev1 must not reboot; package updates leave reboot disabled by default.
+The obsolete undeployed Proxmox runner was removed from IaC only. The separate
+legacy XO secure VM was destroyed under the later recreation request.
