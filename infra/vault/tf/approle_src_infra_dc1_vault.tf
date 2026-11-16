@@ -9,6 +9,7 @@ module "src_infra_dc1_vault_approle" {
     module.dns_access["src_infra_dc1_vault"].policy_name,
     vault_policy.pki_admin.name,
     vault_policy.auth_admin.name,
+    vault_policy.userpass_writer.name,
     vault_policy.identity_admin.name,
     vault_policy.sys_leases_admin.name,
     vault_policy.sys_storage_admin.name,

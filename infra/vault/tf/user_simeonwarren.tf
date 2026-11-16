@@ -1,10 +1,25 @@
 resource "vault_identity_entity" "simeonwarren" {
   name = "simeonwarren"
+  policies = [
+    vault_policy.simeonwarrenbot_userpass_reader.name,
+  ]
   metadata = {
     username  = "simeonwarren"
     email     = "simeonwarren@alwaldend.com"
     sshpubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINe+6zNbs5HKrdZnHgeik/y7v5QYQr1cLYqfdCQ49GbM openpgp:0x485AEA03"
   }
+}
+
+resource "vault_policy" "simeonwarrenbot_userpass_reader" {
+  name   = "simeonwarrenbot_userpass_reader"
+  policy = <<EOT
+    path "${vault_mount.secrets.path}/data/${local.userpass_paths[vault_identity_entity.simeonwarrenbot.name]}" {
+      capabilities = ["read"]
+    }
+    path "${vault_mount.secrets.path}/metadata/${local.userpass_paths[vault_identity_entity.simeonwarrenbot.name]}" {
+      capabilities = ["read"]
+    }
+EOT
 }
 
 resource "vault_identity_entity_alias" "userpass_simeonwarren" {

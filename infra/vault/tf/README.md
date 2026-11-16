@@ -5,6 +5,28 @@ tags:
   - terraform
 ---
 
+## Selected userpass entries
+
+[userpass.tf](userpass.tf) contains the explicit user list, initially only
+`simeonwarrenbot`. It generates a stable 72-character password for each selected
+user and stores the username/password at
+`secrets/alwaldend.com/users/<username>/userpass` before updating that login.
+Users and the users group receive no storage grant. No deny rules are added.
+
+The existing `simeonwarren` entity receives exact data/metadata read access to
+`secrets/alwaldend.com/users/simeonwarrenbot/userpass`. This grants no writes,
+namespace listing, or sibling reads. The infrastructure role can manage only
+selected userpass entries, including provider-required metadata read/update,
+without metadata deletion.
+
+The account's existing alias and token policy settings are preserved. Unchanged
+configuration retains the generated password. Vault cannot return userpass
+passwords for drift detection; out-of-band changes require managed rotation.
+Sensitive state remains in the existing Vault backend. Do not export it or
+enable debug logging. KV removal soft-deletes the entry and retains versions.
+The [deployment verification](../openspec/changes/add-simeonwarrenbot-userpass/verification.md)
+records the authorized apply and live access checks.
+
 ## Public certificate snapshots
 
 This root manages Vault's PKI and SSH issuers. Public snapshots are owned and
