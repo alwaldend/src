@@ -85,3 +85,7 @@ tool changes do not rerun registration. An explicit replacement reuses the
 Vault cache. The token is written directly to Vault and is never a Terraform
 attribute. Removing the resource preserves the runner and cached credentials.
 The local tool's README owns its failure and reconciliation contract.
+
+Runner registration consumes an existing repository and uses its identity from
+the shared catalog. Provision the repository first on a fresh service. A
+targeted runner bootstrap does not reconcile the service's repository resources.

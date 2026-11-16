@@ -31,6 +31,13 @@ The source declaration selects secure1 for alwaldend/src, matching infra/dev's
 documented runner host. The secret stays below the Forgejo AppRole's existing
 KV namespace, requiring no new writer policy or provider.
 
+Derive the runner's repository identity from the authoritative catalog output.
+Registration consumes an existing repository, verified by the tool's initial API
+read. A dependency on managed repository resources pulls protected orphan
+instances into targeted applies, even with a literal instance reference. Catalog
+metadata keeps this bootstrap independent of service-resource reconciliation.
+Provision the repository before bootstrapping a runner on a fresh service.
+
 The user explicitly selected creation-only execution and caching. A pending
 reservation protocol and tool-content replacement triggers were rejected as
 unnecessary machinery. A managed REST provider would provide a fuller lifecycle

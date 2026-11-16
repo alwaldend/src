@@ -3,6 +3,7 @@
 - [x] 1.1 Record failure cases and write isolated CLI and Terraform acceptance coverage before implementation; produce a sanitized result artifact.
 - [x] 1.2 Implement the packaged local command with Vault caching, same-name collision checks, bounded requests and redacted diagnostics; pass the acceptance fixture.
 - [x] 1.3 Wire the command into the existing service Terraform and document credentials, execution timing, lifecycle and recovery; verify offline validation and packaged inputs.
+- [x] 1.4 Derive the existing repository identity from the shared catalog; verify a runner-only interactive plan excludes unrelated protected removals and apply the authorized bootstrap.
 
 ## 2. Delivery
 
