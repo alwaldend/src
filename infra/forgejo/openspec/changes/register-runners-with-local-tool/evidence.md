@@ -24,9 +24,37 @@ validation, offline skill evaluation configuration and affected semantic lint
 pass. Final root quality and candidate review are recorded in the task-local
 delivery receipts and review report.
 
-No live plan, apply, registration, Vault write, host change, credential rotation,
-or deletion was performed. The existing writer AppRole's namespace is reused;
+The initial implementation phase performed no live plan, apply, registration,
+Vault write, host change, credential rotation, or deletion. The existing writer AppRole's namespace is reused;
 worker deployment and its reader policy are separate ownership concerns.
+
+## Authorized deployment on 2026-11-16
+
+The user explicitly requested application of the existing implementation.
+The active Vault OAuth2 source was verified as ID 2 through the existing
+maintenance SSH target. The full service apply stopped during planning because
+an old checkout mirror and runner account would be removed despite their
+prevent_destroy guards. No deletion was approved.
+
+Targeting the runner while depending on managed repository resources still
+included the protected mirror, including with a literal instance reference.
+The final source derives the existing repository identity from the shared
+catalog and leaves service-resource reconciliation independent.
+
+The owning interactive apply with target
+`terraform_data.runners["secure1"]` displayed one addition, zero changes and
+zero deletions. After review, it was approved and Terraform reported completion
+with those counts. Forgejo runner ID 2 was created for `alwaldend/src`, named
+`secure1.dev.alwaldend.com`. The tool reported its initial Vault write, and a
+separate owning Vault read verified matching identity metadata, UUID/token
+presence and KV version 1 without displaying either credential. The subsequent
+owning runner-only plan reported no changes. Runner-host deployment was not run.
+
+Both completed Terraform operations were followed by the existing Forgejo login
+plugin's cleanup error, `Forgejo logout status: 303`, causing the wrapper to exit
+with status 1. This does not reverse the completed registration or saved state;
+the independent verification establishes their persisted result. Full service
+reconciliation and the logout response handling remain separate issues.
 
 ## Session ergonomics
 
