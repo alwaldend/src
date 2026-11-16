@@ -23,12 +23,11 @@ shared development identity and its own resource set.
 The runner reuses the API-issued identity owned by
 [`infra/forgejo`](../forgejo/cmd/runner_registration/README.md), delivered through
 an exact-path Vault read grant for the development deployment. Jobs receive no
-deployment credentials. This revision contains no `.forgejo/workflows` files:
-enabling the worker does not activate automatic CI. The existing
-[`tools/ci`](../../tools/ci/README.md) entry point is intended to build and test
-the root and declared nested Bazel workspaces. Its current subprocess launcher
-still invokes the removed `al bazel build` interface; that existing defect and
-workflow activation need separate CI work before automatic builds can run.
+deployment credentials. The repository's
+[`CI workflow`](../../.forgejo/workflows/ci.yaml) runs only on pushes to master:
+it checks out the event revision and invokes the local action backed by
+[`tools/ci`](../../tools/ci/README.md). The command builds and tests all normal
+targets in the root and declared nested Bazel workspaces.
 
 Dev1 runs Traefik in front of T3 Code and ComfyUI, with mTLS enforced by
 public ingress. The host firewall blocks direct external access to the

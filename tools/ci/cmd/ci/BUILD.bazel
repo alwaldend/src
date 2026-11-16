@@ -25,3 +25,13 @@ go_test(
     srcs = ["main_test.go"],
     embed = [":ci_lib"],
 )
+
+go_test(
+    name = "ci_e2e_test",
+    size = "small",
+    srcs = ["e2e_test.go"],
+    data = [":ci"],
+    env = {"CI_BINARY": "$(rlocationpath :ci)"},
+    target_compatible_with = ["@platforms//os:linux"],
+    deps = ["@rules_go//go/runfiles"],
+)

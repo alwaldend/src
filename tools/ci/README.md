@@ -3,7 +3,9 @@ title: Repository CI
 description: Shared entry point for repository builds and tests
 ---
 
-Every CI workflow checks out its event revision and uses the local action:
+The [Forgejo workflow](../../.forgejo/workflows/ci.yaml) runs only for pushes to
+`master`. It checks out the event revision, including Git LFS assets, and uses
+the local action:
 
 ```yaml
 - name: Build and test the repository
@@ -15,6 +17,9 @@ directly from Node.js with an argument array and no shell. It uses
 `GITHUB_WORKSPACE` as the working directory, streams the command output, and
 propagates failure. It needs no npm packages or generated JavaScript bundle.
 The action comes from the exact revision already checked out by the workflow.
+Checkout stays in the workflow because a local action must already exist in the
+workspace before the runner can load it. Moving checkout inside this action
+would require loading the action remotely with a separate source reference.
 
 The command builds
 and tests normal `//...` targets in the root workspace and each nested workspace
@@ -30,18 +35,21 @@ and exits nonzero if any phase fails. It does not run deployment targets or
 runner acceptance checks. Normal Bazel expansion excludes manual targets and
 incompatible platforms; optional configurations are not a build matrix.
 
-The runner needs the repository-managed Node.js, `bazel`, `al`, and Android
+The runner needs the repository-managed Node.js, `bazel`, and Android
 SDK/NDK prerequisites. The [runner deployment](../../infra/dev/ansible/README.md)
 installs these before CI starts. Agent invocations use
 `bazel run --config=ci //tools/ci`.
 
 The pinned Bazel releases its invocation before executing the command, allowing
 child builds to reuse each workspace's normal output base. No second cache or
-source checkout is needed. Unit tests verify workspace discovery, both phases,
-and propagation of failures without running nested Bazel inside a test sandbox.
+source checkout is needed. Existing unit tests verify workspace discovery and
+phase orchestration. The Linux executable acceptance fixture runs the compiled command
+against a private Bazel process fixture, covering both phases in every workspace,
+build/test failures, missing Bazel and invalid boundaries. Its repeatable
+`ci-execution.json` receipt is retained in Bazel test outputs; it does not launch
+real nested builds inside a sandbox.
 
 The workflow's checkout action comes from the organization-owned
-[Forgejo mirror](https://git.alwaldend.com/alwaldend/com_github_actions_checkout),
-managed by the [repository catalog](../../infra/repos/README.md) and Forgejo
-Terraform. Its immutable commit pin selects the action implementation;
+[Forgejo mirror](https://forgejo.alwaldend.com/alwaldend/com_github_actions_checkout),
+at the existing v4.4.0 commit. Its immutable pin selects the action implementation;
 `github.sha` separately selects the source revision being built.
