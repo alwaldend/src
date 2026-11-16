@@ -1,7 +1,7 @@
 load("@rules_al//:defs.bzl", "al_config", "al_inject", "al_vault_auth")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("//infra:al_config.bzl", "infra_ansible_keys", "infra_dns", "infra_xo_login")
-load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_site_svg")
+load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_site_svg", "mermaid_site_webp")
 load("//tools/mermaid:defs.bzl", "mermaid_svg")
 load("//tools/vault:defs.bzl", "vault_binary_map")
 load("//tools/vault/tf_backend:defs.bzl", "vault_tf_backend")
@@ -103,6 +103,7 @@ docs_filegroup(
     name = "docs",
     srcs = glob(["*.md"]) + [
         "docs/comfyui-architecture.mmd",
+        "docs/development-hosts.mmd",
         "t3code-architecture.mmd",
     ],
     visibility = ["//infra:__pkg__"],
@@ -153,11 +154,31 @@ alias(
     actual = ":rendered_comfyui",
 )
 
+mermaid_site_svg(
+    name = "rendered_development_hosts",
+    src = "docs/development-hosts.mmd",
+    out = "rendered/development-hosts.svg",
+)
+
+mermaid_site_webp(
+    name = "development_hosts_dark_webp",
+    src = "docs/development-hosts.mmd",
+    out = "rendered/development-hosts.dark.webp",
+    aspect_ratio = [
+        16,
+        9,
+    ],
+    color_scheme = "dark",
+    scale = 2,
+)
+
 docs_filegroup(
     name = "docs_assets",
     srcs = [
+        ":development_hosts_dark_webp",
         ":rendered",
         ":rendered_comfyui",
+        ":rendered_development_hosts",
     ],
     prefix = "content/docs/infra/dev/assets",
 )
