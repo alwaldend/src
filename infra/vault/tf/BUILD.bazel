@@ -1,5 +1,6 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("//tools/al:al_terraform.bzl", "al_terraform_binary_map", "al_terraform_test_map")
+load("@rules_terraform//terraform:defs.bzl", "terraform_test_map")
+load("//tools/al:al_terraform.bzl", "al_terraform_binary_map")
 
 package(transitive_visibility = "//infra:transitive_consumers")
 
@@ -15,6 +16,7 @@ docs_filegroup(
 
 _PROVIDERS = [
     "@terraform_provider_hashicorp_local//:provider",
+    "@terraform_provider_hashicorp_random//:provider",
     "@terraform_provider_hashicorp_vault//:provider",
     "@terraform_provider_yandex_cloud_yandex//:provider",
 ]
@@ -54,10 +56,18 @@ al_terraform_binary_map(
     providers = _PROVIDERS,
 )
 
-al_terraform_test_map(
+terraform_test_map(
     name = "tf_tests",
-    configs = _CONFIGS,
-    data = _DATA,
+    args = {
+        "fmt": [
+            "--direct",
+            "fmt",
+            "-check",
+            "-recursive",
+        ],
+        "validate": ["validate"],
+    },
+    data = [path for path in _DATA if path != "backend.tf"],
     providers = _PROVIDERS,
 )
 
