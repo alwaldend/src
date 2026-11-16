@@ -27,6 +27,12 @@ Migration cases require removal of completed temporary import and moved blocks
 and a no-change plan without them, while preserving unapplied transitions when
 live mutation is outside the authorized scope.
 
+Local-tool cases cover creation-only `terraform_data` provisioners without
+automatic invalidation, Bazel runfiles, existing AL credentials, Vault caching,
+and interrupted creation without blind retries or deletion. Offline evaluation
+validation checks this harness; the Forgejo owner's isolated executable and
+Terraform fixture supplies behavioral evidence for its implementation.
+
 Its required offline Bazel target validates the Promptfoo configuration,
 referenced cases, and staged skill without making a model call.
 

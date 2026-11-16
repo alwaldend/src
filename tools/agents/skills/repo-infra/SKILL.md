@@ -73,7 +73,9 @@ environment support or aliases need different identities in the same process.
 
 Read [references/terraform.md](references/terraform.md) for the stage choice,
 module conventions, text-mode interactive review, format/plan targets, and
-state-migration rules. Apply the root `AGENTS.md` plan-artifact policy. Treat
+state-migration rules. It also covers creation-only bootstrap through packaged
+local tools when an existing provider lacks a small operation. Apply the root
+`AGENTS.md` plan-artifact policy. Treat
 `tf.apply`, `destroy`, `import`, and state operations as mutating.
 
 ## Ansible

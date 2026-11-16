@@ -1,0 +1,56 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("@rules_go//go:def.bzl", "go_binary", "go_library", "go_test")
+load("@rules_terraform//terraform:defs.bzl", "terraform_binary")
+
+package(transitive_visibility = "//infra:transitive_consumers")
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//infra/forgejo:__subpackages__"],
+)
+
+go_library(
+    name = "runner_registration_lib",
+    srcs = [
+        "doc.go",
+        "main.go",
+        "registration.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/infra/forgejo/cmd/runner_registration",
+    visibility = ["//visibility:private"],
+    deps = [
+        "@com_github_hashicorp_vault_api//:api",
+        "@com_github_spf13_cobra//:cobra",
+    ],
+)
+
+go_binary(
+    name = "runner_registration",
+    out = "runner_registration",
+    embed = [":runner_registration_lib"],
+    visibility = ["//infra/forgejo/tf:__pkg__"],
+)
+
+go_test(
+    name = "acceptance_test",
+    size = "medium",
+    srcs = ["acceptance_test.go"],
+    data = [
+        ":runner_registration",
+        ":terraform",
+        "//infra/forgejo/tf:runner_bootstrap_source",
+    ],
+    env = {
+        "BOOTSTRAP_SOURCE": "$(rlocationpath //infra/forgejo/tf:runner_bootstrap_source)",
+        "RUNNER_TOOL": "$(rlocationpath :runner_registration)",
+        "TERRAFORM": "$(rlocationpath :terraform)",
+    },
+    deps = ["@rules_go//go/runfiles"],
+)
+
+terraform_binary(
+    name = "terraform",
+    testonly = True,
+    arguments = ["--direct"],
+)

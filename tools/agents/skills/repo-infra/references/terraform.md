@@ -48,6 +48,56 @@ values to literal backend arguments; it is not this plugin's output.
   destroy-and-create by default.
 - Format changed files before validation.
 
+## Bootstrap through a packaged local tool
+
+When the pinned provider lacks a small operation, a checked-in local tool can
+be simpler than adding a provider or introducing an Ansible controller. Package
+it with Bazel, include the executable and its runfiles in the owning Terraform
+target's `data`, and invoke it through built-in `terraform_data` and
+`local-exec`. Use a stable executable output path and explicit interpreter to
+avoid shell interpolation. For example:
+
+```hcl
+resource "terraform_data" "bootstrap" {
+  provisioner "local-exec" {
+    interpreter = [local.bootstrap_tool]
+    command     = "ensure"
+  }
+}
+```
+
+Creation-time provisioners run when their resource is created. A stable resource
+without `triggers_replace` does not rerun on ordinary plans/applies or after
+tool edits. Avoid timestamps, executable hashes, and automatic replacement
+triggers for credentials intended to be created once and cached. Adding
+`ignore_changes` is unnecessary for this creation-only behavior. Changing a
+provisioner does not reconfigure an existing external object; document explicit
+reconciliation and replacement behavior.
+
+Keep invocation credentials in the established AL environment and pass only
+non-secret target selectors as arguments or resource values. Provisioner stdout
+is not a Terraform result attribute. A credential-producing tool can store its
+one-time response directly in Vault and reuse that cache on explicit repeats,
+keeping it out of Terraform state. Do not add a mutating command to a data
+source that Terraform may read during planning or refresh.
+
+The tool owns side-effect safety: failed provisioners may run again, and an API
+creation can succeed before response delivery or Vault persistence fails.
+Distinguish absent cache entries from access failures and check external
+identity before creating when the cache is absent. Use the owning backend lock
+to serialize execution and document whether standalone concurrency is supported.
+Do not delete or recreate objects merely because a one-time response was lost.
+Document that Terraform cannot automatically detect external drift or delete
+the external object through this bootstrap resource.
+
+Verify the actual executable and provisioner against isolated dummy services,
+including plan, initial apply, repeat apply, tool edits, explicit replacement,
+partial failure and credential exclusion from logs/state. This source pattern
+does not authorize a live plan, apply or bootstrap. The
+[Forgejo implementation](../../../../../infra/forgejo/cmd/runner_registration/README.md)
+is a creation-only example; its owner documents service-specific inputs and
+recovery.
+
 ## Complete one-time migrations
 
 Use temporary `import` and `moved` blocks only while reconciling state. After

@@ -67,3 +67,21 @@ automation-writer exceptions.
 bazel run //infra/forgejo/tf:tf.plan
 bazel run //infra/forgejo/tf:tf.apply
 ```
+
+## Runner credentials
+
+`terraform_data.runners["secure1"]` bootstraps the repository-scoped
+`secure1.dev.alwaldend.com` runner for `alwaldend/src` through the packaged
+[local tool](../cmd/runner_registration/README.md). Its credentials are cached
+in KV v2 mount `secrets` at
+`alwaldend.com/vault1/approles/src_infra_dc1_forgejo1/runners/secure1`, within
+the Forgejo AppRole's existing namespace. The worker receives no controller
+API credential. This declaration creates credentials; host configuration and
+consumer read access remain owned by their deployment and Vault policies.
+
+The provisioner runs only when its stable Terraform resource is created. It
+has no timestamp, executable hash or replacement trigger. Normal applies and
+tool changes do not rerun registration. An explicit replacement reuses the
+Vault cache. The token is written directly to Vault and is never a Terraform
+attribute. Removing the resource preserves the runner and cached credentials.
+The local tool's README owns its failure and reconciliation contract.
