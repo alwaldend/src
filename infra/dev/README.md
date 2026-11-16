@@ -12,9 +12,23 @@ tags:
 (192.168.10.102).
 One [Ansible deployment](ansible/README.md) configures both host groups while
 preserving their current roles, users, package backends and storage settings.
-The secure runner uses the shared host role; its Actions runner role remains
-disabled. Its [provisioning root](tf_setup/README.md) owns the XO VM through the
+The secure runner uses the shared host and Forgejo runner roles, with one
+`self-hosted` host-executor slot scoped to `alwaldend/src`. Jobs run as the
+unprivileged `forgejo-runner` account and share its persistent filesystem;
+only trusted code belongs on this worker. Ansible installs Node.js, Bazelisk,
+AL and the repository Android prerequisites. Its
+[provisioning root](tf_setup/README.md) owns the XO VM through the
 shared development identity and its own resource set.
+
+The runner reuses the API-issued identity owned by
+[`infra/forgejo`](../forgejo/cmd/runner_registration/README.md), delivered through
+an exact-path Vault read grant for the development deployment. Jobs receive no
+deployment credentials. This revision contains no `.forgejo/workflows` files:
+enabling the worker does not activate automatic CI. The existing
+[`tools/ci`](../../tools/ci/README.md) entry point is intended to build and test
+the root and declared nested Bazel workspaces. Its current subprocess launcher
+still invokes the removed `al bazel build` interface; that existing defect and
+workflow activation need separate CI work before automatic builds can run.
 
 Dev1 runs Traefik in front of T3 Code and ComfyUI, with mTLS enforced by
 public ingress. The host firewall blocks direct external access to the

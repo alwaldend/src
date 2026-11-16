@@ -10,5 +10,7 @@ outputs.
 Cases cover initial registration, repeated deployment without bootstrap inputs,
 missing inputs, credential-bearing command failure, bounded registration,
 file permissions, default and advanced configuration, and protected paths.
+API-issued identity cases cover import without registration, preservation on
+repeat deployment, invalid ID/UUID/token rejection and name/instance mismatch.
 The real package manager, account creation, systemd, cross-account ACL transfer
 and remote Forgejo protocol are outside this fixture.

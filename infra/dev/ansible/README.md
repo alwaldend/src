@@ -9,8 +9,22 @@ bazel run //infra/dev/ansible -- --limit secure1.dev.alwaldend.com
 ```
 
 One invocation runs both host-specific plays using the `src_infra_dev` AppRole.
-Workstation storage and services apply only to dev1; secure1 keeps the host-only
-runner baseline.
+Workstation storage and services apply only to dev1; secure1 runs the Forgejo
+worker and its build prerequisites.
+
+Enable or reconcile only the secure worker and its build prerequisites with:
+
+```sh
+bazel run //infra/dev/ansible -- --limit secure1.dev.alwaldend.com --tags forgejo_runner
+```
+
+The deployment identity needs its exact-path read grant for the existing worker
+record before initial deployment. The runner role preserves existing local
+credentials. Inspect the service with the packaged SSH target:
+
+```sh
+bazel run //infra/dev:ssh.secure1 -- 'systemctl is-active forgejo-runner.service'
+```
 
 The workstation's managed known_hosts trusts secure1 certificates through the
 canonical repository server CA and pins dev1's public host key. The dev1 key

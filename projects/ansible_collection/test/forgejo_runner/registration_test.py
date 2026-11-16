@@ -125,6 +125,7 @@ def _exercise(
         assert "fixture-registration-token" not in output, (
             "Registration token disclosed"
         )
+        assert "fixture-api-token" not in output, "API token disclosed"
         assert (result.returncode == 0) == success, output
         return output
 
@@ -177,6 +178,40 @@ def _exercise(
     expired: pathlib.Path = install("expired-registration", "timeout")
     assert "Runner registration failed" in apply(success=False)
     assert not (expired / "work/.runner").exists()
+    imported: pathlib.Path = install("imported-identity")
+    credentials: dict[str, object] = {
+        "id": 2,
+        "uuid": "fixture-api-uuid",
+        "token": "fixture-api-token",
+        "name": "fixture-worker",
+        "instance": "https://forgejo.invalid",
+    }
+    variables["forgejo_runner_credentials"] = credentials
+    del variables["forgejo_runner_token"]
+    apply()
+    imported_file: pathlib.Path = imported / "work/.runner"
+    imported_data: dict[str, object] = json.loads(imported_file.read_text())
+    assert imported_data["uuid"] == credentials["uuid"]
+    assert imported_data["token"] == credentials["token"]
+    assert imported_data["address"] == credentials["instance"]
+    assert imported_file.stat().st_mode & 0o777 == 0o600
+    assert (imported / "events").read_text() == "restart\n"
+    variables["forgejo_runner_credentials"] = {}
+    del variables["forgejo_runner_instance"]
+    apply()
+    assert json.loads(imported_file.read_text()) == imported_data
+    variables["forgejo_runner_instance"] = "https://forgejo.invalid"
+    for field, value in (
+        ("id", 0),
+        ("uuid", ""),
+        ("token", ""),
+        ("name", "other-worker"),
+        ("instance", "https://other.invalid"),
+    ):
+        rejected: pathlib.Path = install("invalid-" + field)
+        variables["forgejo_runner_credentials"] = {**credentials, field: value}
+        apply(success=False)
+        assert not (rejected / "work/.runner").exists()
     evidence: pathlib.Path = pathlib.Path(
         os.environ["TEST_UNDECLARED_OUTPUTS_DIR"]
     )
@@ -193,6 +228,9 @@ def _exercise(
                 "missing_inputs_rejected": True,
                 "failure_output_suppressed": True,
                 "registration_deadline": True,
+                "api_identity_import": True,
+                "api_identity_preserved": True,
+                "invalid_api_identity_rejected": True,
                 "live_operations": 0,
             },
             indent=2,

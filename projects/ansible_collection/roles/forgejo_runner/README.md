@@ -24,6 +24,12 @@ input. That file contains the worker credentials and is restricted to mode
 daemon configuration; changing a registered runner's instance or identity
 requires deliberate re-registration.
 
+For an identity already created through Forgejo's API, supply
+`forgejo_runner_credentials` with `id`, `uuid`, `token`, `instance` and `name`.
+The instance and name must match the role's configured values. The role installs
+this identity only when `work/.runner` is absent, with secret logging suppressed;
+it does not register another worker or overwrite existing credentials.
+
 `forgejo_runner_labels` and `forgejo_runner_capacity` control job selection and
 concurrency. `forgejo_runner_config` supplies advanced settings using upstream
 YAML keys. Its default mapping is shown in [defaults](defaults/main.yaml).
@@ -62,6 +68,12 @@ out of the runner environment. The role does not grant sudo access. The Actions
 cache service is disabled by default; enable it only after configuring its
 network reachability. Configuration, binary, and service changes trigger a
 handler to reload systemd and restart the runner.
+
+Callers that install build tools into the runner's home can import `install`
+first and `service` after their prerequisites. The normal role entry point runs
+both phases. Installation defers restarts; the service phase marks prerequisites
+ready and flushes pending handlers. If prerequisite setup fails, forced handlers
+leave a fresh worker stopped.
 
 Registration failures produce a fixed message. Check initial inputs,
 connectivity, TLS trust and Ansible's ability to switch to the runner account;

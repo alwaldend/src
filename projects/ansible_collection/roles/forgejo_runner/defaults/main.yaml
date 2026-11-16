@@ -9,6 +9,7 @@ forgejo_runner_packages:
   - nodejs
 forgejo_runner_instance: "{{ undefined() }}"
 forgejo_runner_token: "{{ undefined() }}"
+forgejo_runner_credentials: {}
 forgejo_runner_name: "{{ inventory_hostname }}"
 forgejo_runner_labels:
   - "self-hosted:host"

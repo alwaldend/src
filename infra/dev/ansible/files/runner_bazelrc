@@ -1,0 +1,8 @@
+common --repo_env=ANDROID_HOME=/opt/forgejo-runner/home/Android/Sdk
+common --repo_env=ANDROID_NDK_HOME=/opt/forgejo-runner/home/Android/Sdk/ndk/current
+common --repo_env=GO_REPOSITORY_EPHEMERAL_MODCACHE=1
+build --jobs=4
+build --local_resources=cpu=HOST_CPUS*0.5
+common --color=no
+common --curses=no
+test --test_output=errors

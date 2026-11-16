@@ -3,6 +3,7 @@ load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("//infra:al_config.bzl", "infra_ansible_keys", "infra_dns", "infra_xo_login")
 load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_site_svg", "mermaid_site_webp")
 load("//tools/mermaid:defs.bzl", "mermaid_svg")
+load("//tools/ssh:defs.bzl", "ssh_binary")
 load("//tools/vault:defs.bzl", "vault_binary_map")
 load("//tools/vault/tf_backend:defs.bzl", "vault_tf_backend")
 
@@ -23,19 +24,74 @@ infra_ansible_keys(
     },
 )
 
+al_inject(
+    name = "ssh_known_hosts",
+    labels = {"ansible": "1"},
+    res_env = {"DEV_SSH_KNOWN_HOSTS": {
+        "value": "{{ index .Last.Files 0 }}",
+        "deps": ["dev_known_hosts"],
+    }},
+    res_file = {"dev_known_hosts": {
+        "value": "@cert-authority secure1.dev.alwaldend.com @AL_SSH_SERVER_CA@\n",
+    }},
+    substitutions = {"//data/ssh:ca_servers": "@AL_SSH_SERVER_CA@"},
+)
+
+ssh_binary(
+    name = "ssh.secure1",
+    args = [
+        "-F",
+        "/dev/null",
+        "-o",
+        "BatchMode=yes",
+        "-o",
+        "ConnectTimeout=10",
+        "-o",
+        "IdentityAgent=none",
+        "-o",
+        "IdentitiesOnly=yes",
+        "-o",
+        "IdentityFile=$${ANSIBLE_PRIVATE_KEY_FILE}",
+        "-o",
+        "UserKnownHostsFile=$${DEV_SSH_KNOWN_HOSTS}",
+        "-o",
+        "GlobalKnownHostsFile=/dev/null",
+        "-o",
+        "StrictHostKeyChecking=yes",
+        "ansible@secure1.dev.alwaldend.com",
+    ],
+    configs = [":al"],
+    plugin_labels = {"ansible": "1"},
+)
+
 al_config(
     name = "al",
     configs = [
         ":ansible_keys",
         ":auth",
         ":dns_providers",
+        ":runner_credentials",
         ":setup_ssh_key",
+        ":ssh_known_hosts",
         ":tf_backend",
         ":tf_backend_setup",
         ":xo_login",
         "//infra:al",
     ],
     visibility = ["//infra/dev:__subpackages__"],
+)
+
+al_inject(
+    name = "runner_credentials",
+    labels = {"runner": "1"},
+    res_env = {"FORGEJO_RUNNER_CREDENTIALS": {
+        "value": "{{ .Last.Data | to_json }}",
+        "deps": ["secure1_runner"],
+    }},
+    res_kv = {"secure1_runner": {
+        "mount": "secrets",
+        "path": "alwaldend.com/vault1/approles/src_infra_dc1_forgejo1/runners/secure1",
+    }},
 )
 
 vault_tf_backend(

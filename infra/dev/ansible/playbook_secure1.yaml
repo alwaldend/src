@@ -9,3 +9,26 @@
       tags: [hostname]
   roles:
     - role: alwaldend.main.host
+  tasks:
+    - name: Configure the secure1 worker
+      tags: [forgejo_runner]
+      block:
+        - name: Install repository build packages
+          ansible.builtin.import_role:
+            name: alwaldend.main.dev_vm
+        - name: Install the Forgejo worker
+          ansible.builtin.import_role:
+            name: alwaldend.main.forgejo_runner
+            tasks_from: install
+        - name: Configure runner build tools
+          ansible.builtin.import_role:
+            name: alwaldend.main.dev_vm
+            tasks_from: bazel
+        - name: Configure runner Android prerequisites
+          ansible.builtin.import_role:
+            name: alwaldend.main.dev_vm
+            tasks_from: android
+        - name: Enable the prepared Forgejo worker
+          ansible.builtin.import_role:
+            name: alwaldend.main.forgejo_runner
+            tasks_from: service
