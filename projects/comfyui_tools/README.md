@@ -222,6 +222,43 @@ formatter are build tools and are never installed on the rental. To format an
 edited source, pass its absolute path to
 `bazel run //tools/jsonnet:format -- --in-place /absolute/path/to/source.libsonnet`.
 
+## NoobAI sketch-guided edits
+
+Import `noobai/noobai-sketch-edit.app.json` for a whole-image edit, or
+`noobai/noobai-sketch-edit-masked.app.json` to restrict the edit with a painted
+mask. Matching `.json` files open in Graph Mode. Both reuse NoobAI XL 1.1 and
+the profile's existing Canny ControlNet; no additional weights or node pack is
+needed. These are still-image editors, separate from the sequence Apps.
+
+Choose the original picture in **Source image** and an aligned outline drawing
+in **Separate sketch**. The source supplies starting pixels; only the sketch
+supplies structural edges. Draw the desired final outline, removing obsolete
+lines. Arrows, crossed-out parts and written annotations are not edit commands.
+Keep both inputs on the same framing and aspect ratio. The output canvas starts
+at 1024 square; change its width and height to multiples of eight matching the
+source aspect ratio. Source and sketch are resized to that canvas without cropping.
+
+Describe the complete finished image in NoobAI tags, including appearance,
+setting and the desired pose. **Denoise** starts at 0.65: raise it for larger
+changes or lower it to retain more source composition. **Strength** starts at
+0.7 and controls sketch influence; **end_percent** starts at 0.8. Set strength
+to zero with the same seed for an unguided comparison. The two Canny thresholds
+start at 0.1/0.3; lower them if faint sketch lines are missing. Clear outlines
+are the intended input; rough scribbles are not a dedicated scribble-control path.
+
+For the masked variant, open the source loader in **Graph Mode**, use its native
+**Mask Editor**, paint the allowed edit area and save the edited input before
+running. White permits edits; black preserves the source. Cover both the old
+shape and the space the new shape will occupy. An empty mask returns the resized
+source unchanged. The same resized mask controls sampling and final compositing,
+preserving source pixels wherever it is zero. The unmasked App edits the whole
+canvas. Each run saves one PNG with native generation metadata.
+
+Offline graph and deployment checks do not establish sketch fidelity, anatomical
+correctness or precise pose edits. GPU inference for these new graphs has not
+been performed. Profile selection stages the files through the normal Ansible
+deployment; importing an App does not install its model weights.
+
 ## NoobAI image sequence App
 
 Import the generated `noobai/noobai-image-sequence.app.json` from the workflow build

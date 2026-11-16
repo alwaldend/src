@@ -742,6 +742,16 @@ next manual rental. No paid instance remains and the diagram is unpublished.
 
 ## Additional approved model options
 
+### Separate NoobAI sketch-edit documents
+
+The operator requests source-and-sketch editing. Select the reusable owner's
+`noobai-sketch-edit` and `noobai-sketch-edit-masked` graphs and App projections
+in the NoobAI profile. Reuse its existing Canny checkpoint and native ComfyUI
+nodes. The [workflow design](../../../../../projects/comfyui_tools/openspec/changes/add-noobai-image-sequence/design.md#separate-sketch-guided-edits)
+owns behavior and verification limits. Keep Qwen selected and preserve hardware,
+model downloads, live workflows and rental state. This is source configuration
+only; no rental, installation or inference operation is authorized.
+
 The operator explicitly approves NoobAI-XL 1.1 and Illustrious XL v2.0-STABLE,
 then HiDream-I1 Full 17B, as additional options. This authorizes their inference
 bundles and required native encoders/VAE, with publisher revisions and component

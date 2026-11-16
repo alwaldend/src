@@ -18,6 +18,10 @@ one combined GIF, with optional Canny structure guidance and RIFE interpolation.
 Separate reference-sequence and scene-composer Apps expose the previous-image
 and independent two-pass strategies; the composer uses shared descriptions and
 an optional already-installed LoRA instead of image references.
+Separate [sketch-edit Apps](../../projects/comfyui_tools/README.md#noobai-sketch-guided-edits)
+take a source image and an aligned desired-outline sketch, with a painted-mask
+variant for restricted edits. They reuse the existing Canny weights; their GPU
+edit quality remains unverified.
 The [Ansible deployment](ansible/README.md) calls the reusable `comfyui_tools`
 role to install all selected models, LoRAs, node packs, dependencies and native
 workflows/Apps, including the pinned interpolation tool when selected.

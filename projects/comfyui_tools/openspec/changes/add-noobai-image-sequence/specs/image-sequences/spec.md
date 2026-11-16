@@ -3,8 +3,39 @@
 Provide a simple way to generate ordered still images with persistent references,
 previous-image continuity within a scene and deliberate composition resets.
 Also provide a separate shared-prompt composer for independent scene images.
+Provide source-and-sketch still edits with optional painted-mask restriction.
 
 ## ADDED Requirements
+
+### Requirement: Separate source and sketch edit inputs
+
+The project SHALL provide editable native graphs and Apps for whole-image and
+painted-mask NoobAI sketch edits. The source SHALL initialize the sampled latent.
+A separate sketch SHALL supply Canny ControlNet conditioning for both positive
+and negative prompts. Source, sketch and mask SHALL share the output canvas.
+The Apps SHALL expose desired-result text, change strength, sketch influence,
+control end, Canny thresholds, canvas dimensions and seed. Existing sequence
+guidance SHALL retain its previous-image behavior.
+
+#### Scenario: Guide an edit with a different outline
+
+- **WHEN** source and aligned sketch depict different poses
+- **THEN** the source supplies initial appearance and the sketch supplies the
+  structural guide, using the existing approved NoobAI Canny model
+- **AND** zero sketch influence disables structural conditioning
+
+### Requirement: Painted-mask edit restriction
+
+The masked graph SHALL apply the source loader's painted mask to sampling and
+final pixel compositing over the resized source. White SHALL permit changes and
+black SHALL preserve the resized source pixels. An empty mask SHALL retain the
+resized source. The unmasked graph SHALL allow whole-image edits.
+
+#### Scenario: Restrict the changed region
+
+- **WHEN** the user paints an edit mask covering the old and desired new shape
+- **THEN** the saved image retains source pixels wherever the resized mask is zero
+- **AND** the same aligned mask controls both sampling and final compositing
 
 ### Requirement: Scene-aware sequential generation
 

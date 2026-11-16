@@ -176,6 +176,8 @@ workflow defaults remain available for a later authorized deployment.
 
 ## 29. NoobAI sequence App
 
+- [x] Select the source/sketch edit and painted-mask graphs/Apps using existing weights; verify their packaged installation in the local-only fixture.
+
 - [x] 29.1 Stage the first-party still-sequence module and generated NoobAI App only for the matching workflow; verify packaging and startup size offline.
 - [x] 29.2 Document scene breaks, continuation and import, preserving the selected MOSS profile and leaving the live rental untouched.
 

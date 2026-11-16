@@ -17,7 +17,7 @@ function(models)
       'medium shot, eye level, library, wooden desk, bookshelves, warm lighting, sitting, open red book on desk, hands on pages',
     ]),
   };
-  workflows {
+  workflows + (import 'sketch_edit.libsonnet')(models) {
     'image-sequence': {
       version: 0.4,
       config: {},
