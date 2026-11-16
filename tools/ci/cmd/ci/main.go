@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"errors"
 	"fmt"
 	"io"
@@ -11,8 +12,10 @@ import (
 	"git.alwaldend.com/alwaldend/src/projects/al/pkg/workspaces"
 )
 
+// commandRunner executes a literal argument vector in one workspace.
 type commandRunner func(directory string, arguments ...string) error
 
+// check attempts every workspace's build and test phases and combines failures.
 func check(root string, run commandRunner, output io.Writer) error {
 	paths, err := workspaces.Discover(root)
 	if err != nil {
@@ -30,6 +33,7 @@ func check(root string, run commandRunner, output io.Writer) error {
 	return errors.Join(failures...)
 }
 
+// main runs repository CI with Bazel directly and propagates failed phases.
 func main() {
 	root := os.Getenv("BUILD_WORKSPACE_DIRECTORY")
 	if root == "" || len(os.Args) != 1 {
@@ -37,10 +41,13 @@ func main() {
 		os.Exit(1)
 	}
 	run := func(directory string, arguments ...string) error {
-		cmd := exec.Command("al", arguments...)
+		cmd := exec.CommandContext(context.Background(), arguments[0], arguments[1:]...)
 		cmd.Dir = directory
 		cmd.Stdin, cmd.Stdout, cmd.Stderr = os.Stdin, os.Stdout, os.Stderr
-		return cmd.Run()
+		if err := cmd.Run(); err != nil {
+			return fmt.Errorf("execute Bazel: %w", err)
+		}
+		return nil
 	}
 	if err := check(root, run, os.Stdout); err != nil {
 		fmt.Fprintln(os.Stderr, "CI failed:", err)
