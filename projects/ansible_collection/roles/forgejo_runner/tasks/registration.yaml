@@ -5,7 +5,9 @@
     path: "{{ forgejo_runner_dir }}/work/.runner"
 
 - name: Register the Forgejo runner
-  when: not forgejo_runner_registration.stat.exists
+  when:
+    - not forgejo_runner_registration.stat.exists
+    - forgejo_runner_credentials | length == 0
   block:
     - name: Validate initial registration inputs
       no_log: true
@@ -38,6 +40,39 @@
     - name: Report the registration failure
       ansible.builtin.fail:
         msg: Runner registration failed. Check the initial inputs, connectivity, TLS and runner-account permissions.
+
+- name: Import the existing runner identity
+  when:
+    - not forgejo_runner_registration.stat.exists
+    - forgejo_runner_credentials | length > 0
+  no_log: true
+  block:
+    - name: Validate the cached runner identity
+      ansible.builtin.assert:
+        that:
+          - forgejo_runner_credentials.id | int > 0
+          - forgejo_runner_credentials.uuid | length > 0
+          - forgejo_runner_credentials.token | length > 0
+          - forgejo_runner_credentials.instance == forgejo_runner_instance
+          - forgejo_runner_credentials.name == forgejo_runner_name
+
+    - name: Install the existing runner identity
+      notify: Restart the Forgejo runner service
+      ansible.builtin.copy:
+        dest: "{{ forgejo_runner_dir }}/work/.runner"
+        content: >-
+          {{ {
+            'id': forgejo_runner_credentials.id | int,
+            'uuid': forgejo_runner_credentials.uuid,
+            'name': forgejo_runner_credentials.name,
+            'token': forgejo_runner_credentials.token,
+            'address': forgejo_runner_credentials.instance,
+            'labels': forgejo_runner_labels,
+          } | to_nice_json }}
+        owner: "{{ forgejo_runner_user }}"
+        group: "{{ forgejo_runner_user }}"
+        mode: "0600"
+        force: false
 
 - name: Restrict access to the runner registration
   ansible.builtin.file:

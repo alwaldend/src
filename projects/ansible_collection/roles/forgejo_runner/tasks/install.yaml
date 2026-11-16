@@ -1,0 +1,78 @@
+---
+- name: Configure the Forgejo runner
+  tags:
+    - forgejo_runner
+  block:
+    - name: Defer runner restarts until prerequisites are ready
+      ansible.builtin.set_fact:
+        forgejo_runner_service_ready: false
+
+    - name: Validate runner configuration
+      ansible.builtin.assert:
+        that:
+          - forgejo_runner_capacity | int > 0
+          - forgejo_runner_labels | length > 0
+          - forgejo_runner_dir is match('^/')
+
+    - name: Install runner packages
+      when: forgejo_runner_install_packages | bool
+      ansible.builtin.package:
+        name: "{{ forgejo_runner_packages }}"
+        state: present
+
+    - name: Create the runner installation directory
+      ansible.builtin.file:
+        path: "{{ forgejo_runner_dir }}"
+        state: directory
+        owner: root
+        group: root
+        mode: "0755"
+
+    - name: Create the Forgejo runner user
+      ansible.builtin.user:
+        name: "{{ forgejo_runner_user }}"
+        uid: "{{ forgejo_runner_user_uid }}"
+        shell: /sbin/nologin
+        home: "{{ forgejo_runner_dir }}/home"
+        system: true
+
+    - name: Create runner data directories
+      loop:
+        - "{{ forgejo_runner_dir }}/home"
+        - "{{ forgejo_runner_dir }}/work"
+      ansible.builtin.file:
+        state: directory
+        owner: "{{ forgejo_runner_user }}"
+        group: "{{ forgejo_runner_user }}"
+        mode: "0700"
+        path: "{{ item }}"
+
+    - name: Copy the Forgejo runner binary
+      notify: Restart the Forgejo runner service
+      ansible.builtin.copy:
+        src: "forgejo-runner"
+        dest: "{{ forgejo_runner_dir }}/forgejo-runner"
+        owner: root
+        group: "{{ forgejo_runner_user }}"
+        mode: "0750"
+
+    - name: Write the Forgejo runner configuration
+      notify: Restart the Forgejo runner service
+      ansible.builtin.template:
+        src: config.yaml.j2
+        dest: "{{ forgejo_runner_dir }}/config.yaml"
+        owner: root
+        group: "{{ forgejo_runner_user }}"
+        mode: "0640"
+
+    - name: Configure initial runner registration
+      ansible.builtin.import_tasks: registration.yaml
+
+    - name: Write the Forgejo runner service
+      notify: Restart the Forgejo runner service
+      ansible.builtin.template:
+        src: forgejo-runner.service
+        dest: "/etc/systemd/system/forgejo-runner.service"
+        owner: root
+        group: root
+        mode: "0644"

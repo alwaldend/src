@@ -34,6 +34,7 @@ al_binary_run_map(
     plugin_labels = {
         "vault_env": "default_default",
         "ansible": "",
+        "runner": "1",
     },
 )
 
@@ -70,10 +71,23 @@ al_binary_run_map(
 pkg_filegroup(
     name = "srcs",
     srcs = [
+        ":android_installer",
         ":fj_binary",
         ":srcs_files",
         ":ssh_server_ca",
     ],
+)
+
+pkg_files(
+    name = "android_installer",
+    srcs = [
+        "//tools/android:installer_tar",
+        "//tools/android:packages.txt",
+    ],
+    renames = {
+        "//tools/android:installer_tar": "files/android-installer.tar.gz",
+        "//tools/android:packages.txt": "files/android-packages.txt",
+    },
 )
 
 pkg_files(

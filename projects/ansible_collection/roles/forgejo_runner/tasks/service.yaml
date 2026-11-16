@@ -1,0 +1,15 @@
+---
+- name: Enable the Forgejo runner service
+  tags: [forgejo_runner]
+  block:
+    - name: Mark the runner prerequisites ready
+      ansible.builtin.set_fact:
+        forgejo_runner_service_ready: true
+    - name: Apply pending runner service changes
+      ansible.builtin.meta: flush_handlers
+    - name: Start and enable the Forgejo runner service
+      ansible.builtin.systemd_service:
+        name: forgejo-runner.service
+        daemon_reload: true
+        enabled: true
+        state: started

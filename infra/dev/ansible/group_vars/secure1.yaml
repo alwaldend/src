@@ -1,4 +1,13 @@
 ansible_user: ansible
+forgejo_runner_instance: https://forgejo.alwaldend.com
+forgejo_runner_credentials: >-
+  {{ lookup('ansible.builtin.env', 'FORGEJO_RUNNER_CREDENTIALS', default='{}') | from_json }}
+dev_vm_bazel_user: "{{ forgejo_runner_user }}"
+dev_vm_bazel_group: "{{ forgejo_runner_user }}"
+dev_vm_bazel_home: "{{ forgejo_runner_dir }}/home"
+dev_vm_bazelrc_src: runner_bazelrc
+dev_vm_android_installer_src: android-installer.tar.gz
+dev_vm_android_packages_src: android-packages.txt
 ssh_valid_principals:
   - "{{ inventory_hostname }}"
 firewall_allow_port_from:

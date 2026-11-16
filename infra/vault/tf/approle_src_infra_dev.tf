@@ -9,7 +9,17 @@ module "src_infra_dev_approle" {
   policies = [
     module.src_infra_dev_ssh.policy,
     module.dns_access["src_infra_dev"].policy_name,
+    vault_policy.src_infra_dev_runner.name,
   ]
+}
+
+resource "vault_policy" "src_infra_dev_runner" {
+  name   = "src_infra_dev_runner"
+  policy = <<-EOT
+    path "${vault_mount.secrets.path}/data/alwaldend.com/vault1/approles/src_infra_dc1_forgejo1/runners/secure1" {
+      capabilities = ["read"]
+    }
+  EOT
 }
 
 locals {
