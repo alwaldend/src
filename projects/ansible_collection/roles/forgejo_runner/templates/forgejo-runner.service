@@ -7,10 +7,10 @@ Wants=network-online.target
 Type=simple
 User={{ forgejo_runner_user }}
 Group={{ forgejo_runner_user }}
-WorkingDirectory={{ forgejo_runner_work_dir }}
-Environment=HOME={{ forgejo_runner_home_dir }}
-Environment=PATH={{ forgejo_runner_home_dir }}/.local/bin:/usr/local/bin:/usr/bin:/bin
-ExecStart={{ forgejo_runner_bin_path }} --config {{ forgejo_runner_config_path }} daemon
+WorkingDirectory={{ forgejo_runner_dir }}/work
+Environment=HOME={{ forgejo_runner_dir }}/home
+Environment=PATH={{ forgejo_runner_dir }}/home/.local/bin:/usr/local/bin:/usr/bin:/bin
+ExecStart={{ forgejo_runner_dir }}/forgejo-runner --config {{ forgejo_runner_dir }}/config.yaml daemon
 UMask=0077
 NoNewPrivileges=true
 Restart=on-failure

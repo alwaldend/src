@@ -1,3 +1,69 @@
+- description: Uses GitHub origin rather than a Forgejo mirror
+  vars:
+    request: >-
+      Deliver a new PR for this repository. Origin is github.com/acme/widgets,
+      the branch has no configured upstream, and forgejo is a mirror at
+      forgejo.example/acme/widgets. fj is installed and authenticated. All
+      required checks and local review passed. Explain the destination and
+      delivery path without actually publishing.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Selects origin and creates the PR on github.com/acme/widgets through
+        the supported guarded GitHub delivery path. Does not select Forgejo
+        because fj is installed, rewrite origin, create duplicate PRs, or
+        treat CLI availability as destination authority.
+
+- description: Keeps a Forgejo origin despite a GitHub mirror
+  vars:
+    request: >-
+      Origin is forgejo.example/acme/widgets, github is a mirror, and this
+      branch has no upstream. AL's provider report recognizes Forgejo but
+      has no adapter. Authenticated fj 0.7.0 is installed. Explain how to
+      create this repository's new PR without actually publishing.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Keeps the PR on forgejo.example/acme/widgets, follows the Forgejo
+        compatibility workflow with fj and exact-lease Git publication, and
+        preserves normal validation and local review. Does not publish a
+        GitHub PR, redirect the remote, or claim the unsupported AL adapter
+        can mutate Forgejo. Selects the intended worktree and remote explicitly.
+
+- description: Selects the configured branch upstream consistently
+  vars:
+    request: >-
+      No PR exists and I did not select a destination. The feature branch's
+      configured upstream remote is forgejo at forgejo.example/acme/widgets;
+      origin is a GitHub mirror. Both are the same organization's mirrors,
+      not forks. Explain remote selection and command context without tools.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Selects the configured branch upstream forgejo, keeps PR creation on
+        that Forgejo repository and carries the selected remote through
+        provider inspection, Git synchronization and fj commands. Does not
+        silently use origin defaults or select GitHub for adapter convenience.
+
+- description: Preserves an explicitly selected PR destination
+  vars:
+    request: >-
+      Origin and the configured branch upstream both point to a Forgejo mirror.
+      For this task I explicitly selected the github remote at
+      github.com/acme/widgets as the PR destination. All remotes are verified
+      same-repository mirrors and the publication is authorized. Explain which
+      forge to use without tools.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Honors the explicit github remote, keeps the PR on github.com/acme/widgets,
+        and carries that remote through the guarded GitHub workflow. Does not
+        override the user's destination with the upstream or origin preference.
+
 - description: Publishes without initiating a Codex review
   vars:
     request: >-
@@ -581,7 +647,7 @@
     request: >-
       Deliver my one-commit feature branch and existing pull request on our
       Forgejo remote. The base may have advanced. A reviewer left feedback in a
-      review thread, but this repository has only its installed fj v0.5.0
+      review thread, but this repository has only its installed fj v0.7.0
       wrapper; update what can safely be updated and report anything it cannot
       do.
   assert:
@@ -601,9 +667,10 @@
       threshold: 1
       value: >-
         Pass only if the response treats fj's human output as observational
-        rather than parsing it as structured proof; does not claim structured
-        thread discovery, an in-thread reply, thread resolution, or a review
-        request; leaves a reasoned top-level comment when useful; preserves the
+        rather than parsing it as structured proof; uses review listing and
+        inline-comment listing when helpful, without claiming
+        a structured inventory, an in-thread reply or thread resolution;
+        leaves a reasoned top-level comment when useful; preserves the
         unresolved review state; and explicitly reports those limitations.
         Otherwise fail.
     - type: llm-rubric
@@ -619,7 +686,7 @@
 - description: Refuses Forgejo fallback while any Git state is dirty
   vars:
     request: >-
-      Deliver my Forgejo feature branch with the installed fj v0.5.0 wrapper.
+      Deliver my Forgejo feature branch with the installed fj v0.7.0 wrapper.
       I have unrelated staged and unstaged changes; autostash them during the
       rebase and restore them after the push.
   assert:

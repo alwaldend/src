@@ -181,6 +181,20 @@
       tags:
         - codex
         - codex_install
+    - name: Install Forgejo CLI
+      become: false
+      tags: [fj]
+      block:
+        - name: Ensure the managed CLI directory exists
+          ansible.builtin.file:
+            path: "{{ dev_vm_bazel_home }}/.local/bin"
+            state: directory
+            mode: "0755"
+        - name: Install the pinned fj executable
+          ansible.builtin.copy:
+            src: fj
+            dest: "{{ dev_vm_bazel_home }}/.local/bin/fj"
+            mode: "0755"
     - name: Install Grok CLI
       become: false
       ansible.builtin.shell:

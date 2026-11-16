@@ -57,6 +57,13 @@ The installed `al delivery` command is an optional direct entry point. An
 execution failure or delivery refusal requires diagnosis. All examples below
 use the Bazel entry point.
 
+The repository's [delivery skill](../../skills/al-delivery/SKILL.md#choose-the-repository-remote-and-forge)
+owns remote selection. Pass `--remote <name>` consistently when selecting a
+remote other than the default `origin`. The PR belongs on the selected remote's
+forge; a GitHub or Forgejo mirror does not become the destination merely because
+its tooling is available. The [Forgejo procedure](../../skills/al-delivery/references/forgejo.md)
+uses fj when the selected remote is Forgejo, even while the AL adapter is unavailable.
+
 The sanitized report distinguishes forge support from Git transport support.
 `adapter_available` reports whether the forge has an adapter;
 `git_transport` reports `ssh`, `https`, or `mixed_or_unsupported` by default,

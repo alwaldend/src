@@ -1,0 +1,33 @@
+- name: Exercise local runner registration and rendering
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  tasks:
+    - name: Render the packaged configuration
+      ansible.builtin.template:
+        src: "{{ fixture_role }}/templates/config.yaml.j2"
+        dest: "{{ forgejo_runner_dir }}/config.yaml"
+        mode: "0600"
+
+    - name: Render the packaged unit
+      ansible.builtin.template:
+        src: "{{ fixture_role }}/templates/forgejo-runner.service"
+        dest: "{{ forgejo_runner_dir }}/forgejo-runner.service"
+        mode: "0600"
+
+    - name: Verify managed and advanced configuration
+      vars:
+        rendered: "{{ lookup('ansible.builtin.file', forgejo_runner_dir ~ '/config.yaml') | from_yaml }}"
+      ansible.builtin.assert:
+        that:
+          - rendered.runner.file == forgejo_runner_dir ~ '/work/.runner'
+          - rendered.runner.labels == forgejo_runner_labels
+          - rendered.runner.capacity == forgejo_runner_capacity
+          - rendered.runner.timeout == fixture_timeout | default('3h')
+          - rendered.host.workdir_parent == forgejo_runner_dir ~ '/work'
+          - rendered.cache.enabled == fixture_cache | default(false)
+
+    - name: Exercise the packaged registration entry point
+      ansible.builtin.import_role:
+        name: alwaldend.main.forgejo_runner
+        tasks_from: registration

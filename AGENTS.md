@@ -70,11 +70,14 @@ in-scope blockers and tiny related defects, and report other findings.
   validate, commit, push the task-owned feature branch, and create or update its
   pull request through `al-delivery`, unless the user withholds publication.
   This standing authorization explicitly includes sending reviewed task-owned
-  source, documentation, and configuration to this repository's configured Git
-  origin and forge, `github.com/alwaldend/src`. Do not ask again solely because
-  that destination is external. Verify repository identity and task ownership,
-  preserve secret-handling and validation requirements, and ask before using a
-  different destination. This authorizes neither merging nor deployment and
+  source, documentation, and configuration to this repository's verified Git
+  origin or selected upstream repository on its own forge. Follow `al-delivery`
+  to select the remote: GitHub remotes use GitHub PRs and Forgejo remotes use
+  Forgejo PRs. Do not substitute a mirror because its CLI is more convenient.
+  Do not ask again solely because that destination is external. Verify
+  repository identity and task ownership, preserve secret-handling and validation
+  requirements, and ask before publishing to a different destination.
+  This authorizes neither merging nor deployment and
   does not override an automatic approval rejection.
 
 ## When to load a skill

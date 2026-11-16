@@ -1,0 +1,48 @@
+---
+- name: Check for an existing runner registration
+  register: forgejo_runner_registration
+  ansible.builtin.stat:
+    path: "{{ forgejo_runner_dir }}/work/.runner"
+
+- name: Register the Forgejo runner
+  when: not forgejo_runner_registration.stat.exists
+  block:
+    - name: Validate initial registration inputs
+      no_log: true
+      ansible.builtin.assert:
+        that:
+          - forgejo_runner_instance | length > 0
+          - forgejo_runner_token | length > 0
+          - forgejo_runner_name | length > 0
+
+    - name: Submit the initial runner registration
+      become: true
+      become_user: "{{ forgejo_runner_user }}"
+      no_log: true
+      async: "{{ forgejo_runner_registration_timeout }}"
+      poll: 5
+      notify: Restart the Forgejo runner service
+      ansible.builtin.command:
+        argv:
+          - "{{ forgejo_runner_dir }}/forgejo-runner"
+          - --config
+          - "{{ forgejo_runner_dir }}/config.yaml"
+          - register
+        chdir: "{{ forgejo_runner_dir }}/work"
+        creates: "{{ forgejo_runner_dir }}/work/.runner"
+        stdin: |-
+          {{ forgejo_runner_instance }}
+          {{ forgejo_runner_token }}
+          {{ forgejo_runner_name }}
+  rescue:
+    - name: Report the registration failure
+      ansible.builtin.fail:
+        msg: Runner registration failed. Check the initial inputs, connectivity, TLS and runner-account permissions.
+
+- name: Restrict access to the runner registration
+  ansible.builtin.file:
+    path: "{{ forgejo_runner_dir }}/work/.runner"
+    state: file
+    owner: "{{ forgejo_runner_user }}"
+    group: "{{ forgejo_runner_user }}"
+    mode: "0600"
