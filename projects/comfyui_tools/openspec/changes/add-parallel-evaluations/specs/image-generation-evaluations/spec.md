@@ -97,3 +97,45 @@ and composited PNGs SHALL be available for visual review before GIF assembly.
 
 - **WHEN** the batch, timing, interpolation mode or filename prefix is invalid
 - **THEN** assembly SHALL fail before writing any files
+
+### Requirement: Qwen rough-pose repair
+
+The pose-guide workflow SHALL use a rough target frame and a separate original
+appearance reference through the native Qwen multi-image encoder. Its prompt
+SHALL assign geometry to the rough frame and appearance to the original. It
+SHALL retain the full generated repair and a region-composited original-size
+image for visual acceptance before animation.
+
+#### Scenario: A roughly lifted hand
+
+- **WHEN** the operator supplies an aligned rough pose and original photograph
+- **THEN** sampling SHALL use the rough frame's canvas and both references
+- **AND** the workflow SHALL restore original dimensions and composite only the
+  selected feathered region onto the original, without claiming pose acceptance
+
+### Requirement: Native structural-reference editing
+
+The structural-reference workflow SHALL use a coherent target sketch as image 1
+and the original appearance photograph as image 2 through the native Qwen encoder.
+The sketch SHALL determine the sampling canvas; the original SHALL determine
+restored dimensions and the optional compositing destination. Both conditioning
+branches SHALL retain both native semantic and VAE reference paths. Full
+generated and composited PNGs SHALL remain inspectable.
+
+#### Scenario: Guide used only for geometry
+
+- **WHEN** the operator supplies a target sketch and an original photograph
+- **THEN** the workflow SHALL composite the repaired region onto the original
+  photograph rather than the sketch
+- **AND** the workflow SHALL require no separately downloaded ControlNet model
+
+#### Scenario: Isolate sketch comprehension from appearance references
+
+- **WHEN** the operator runs the sketch-reconstruction baseline and then adds
+  the appearance reference through the structural-reference workflow
+- **THEN** both SHALL use the same sketch, prompt, blank negative text, seed,
+  sampling settings and sampling canvas
+- **AND** the baseline SHALL require no original photograph and save the full
+  generated image without compositing
+- **AND** acceptance SHALL compare raw outputs for hand anatomy, one head outline
+  and a visible hand/head gap before any optional compositing or interpolation

@@ -243,3 +243,180 @@ The broad account plan also proposed unrelated team destruction and
 was not applied. Preserve any unrelated instance and inspect only owned
 job IDs. Retain this personal rental at handoff under the operator's standing
 retention request. Local validation must finish before paid allocation.
+
+### Operator stop and release
+
+The operator stops experimentation and requests destruction. All six owned
+Qwen still-image jobs have completed and their original PNGs are retained
+locally. No GIF assembly was submitted. The refined press preserves the bare
+arm and scene better; both native-mask lift controls still fail to lift the
+palm reliably. Do not report successful natural petting.
+
+The reviewed instance-only Terraform destruction completed at 15:21:44 UTC on
+2026-11-15: zero additions, zero changes and one destruction, instance60797191.
+It retains the web credential and account key. The approved one-time attachment
+of the current host public key to this instance ends with that destruction; the
+canonical Vault metadata and account registration remain managed by IaC. The
+latest workflow refinements remain local when the operator stops the task.
+
+### Rough-pose retry
+
+The operator subsequently requests another rental and trial, with rebase before
+allocation. The prior PR is already merged. The task checkout synchronizes to
+master 07cc629db7546975d4da619d2a4dfee13c85a8aa and restores its four task-owned
+local edits without conflicts. Offline workflow, Ansible and Terraform checks,
+repository quality and semantic checks pass before allocation.
+
+The reviewed apply creates one Qwen rental, instance 60828898, and its declared
+HTTPS credential resources: three additions, zero changes and zero deletions.
+It retains the existing 48 GB RTX PRO 5000, 100 GB disk, price and certified-host
+constraints. The GPU reports 48935 MiB. Existing account SSH access works on
+this new instance without another key attachment or bootstrap exception.
+The shared Ansible role installs all nine Qwen workflows, approved models,
+first-party nodes and the existing interpolation tool: ok23, changed8, failed0.
+
+Four owned generation jobs complete and all eight original PNGs are downloaded.
+The rough-guide/partial-denoise path improves the lifted hand, but a separate
+masked cleanup still leaves background/plush defects. No frame is accepted for
+GIF assembly. Preserve the rejected trials and their lineage; do not report a
+successful natural-petting animation.
+
+The reviewed instance-only destruction completes at 20:20:38 UTC on 2026-11-15:
+zero additions, zero changes and one destruction. A separate lookup of only
+instance 60828898 confirms absence at 20:22:20 UTC. Refresh-only apply completes
+at 20:22:33 UTC with no resource mutations and clears instance, HTTPS and SSH
+connection outputs. The web credential and account key are retained. No other
+rental or job inventory is inspected or changed.
+
+## Native structural-reference trial, 2026-11-16
+
+The operator requests one new rental and reference trial. Synchronize the
+task-owned branch to master `3da98f0e0cd8708f3578ede4c63c1cf7fda12044` before
+allocation. The existing Qwen Edit and 48 GB profiles retain their approved
+model pins, 100 GB disk, USD 1/hour ceiling and mandatory host/transfer limits.
+Offline repository, workflow, Ansible and Terraform checks and semantic lint
+pass; a normal build verifies that the experiment runner actually exists.
+
+The reviewed create plan adds only instance 60886376 at 05:50:13 UTC, retaining
+the web credentials and account key. The GPU reports RTX PRO 5000 Blackwell
+with 48935 MiB. Existing account SSH access works without another attachment or
+bootstrap exception. Direct SSH is verified against keys also returned by the
+provider proxy and is used for Ansible. The shared role installs all ten Qwen
+workflows, existing approved models, first-party nodes and interpolation tool:
+ok23, changed8, unreachable0, failed0, skipped7.
+
+One native Canny preprocessing job and four bounded diffusion jobs complete.
+All ten original output PNGs are downloaded before release. The
+[workflow owner's trial record](../../../../../projects/comfyui_tools/openspec/changes/add-parallel-evaluations/design.md#native-structural-reference-trial)
+owns settings, job lineage and the visual verdict: no accepted lifted frame and
+no GIF. No separate ControlNet weight or new dependency is installed. Only
+task-owned IDs are inspected; no other rental or job inventory is read.
+
+The reviewed instance-only destruction completes at 06:25:42 UTC: zero additions,
+zero changes and one destruction. A reviewed refresh-only apply at 06:26:30 UTC
+clears instance, HTTPS and SSH connection outputs, with no resource mutations.
+A separate lookup of instance 60886376 confirms absence. Component credentials
+and account SSH registration remain deployed. No rental from this trial remains.
+
+### Source-only sketch correction
+
+The operator requests correction of the ambiguous sketch and experiment design.
+Select `qwen-sketch-reconstruction` alongside the corrected
+`qwen-structure-guide-edit` in the existing Ansible profile. The workflow owner
+provides the prepared case input and matched baseline/appearance comparison.
+This follow-up changes packaged source only. No rental, live deployment,
+credential change or GPU acceptance is performed.
+
+### Retained coherent-sketch trial, 2026-11-16
+
+The operator subsequently requests balance-lookup documentation, another rental
+and continued testing, explicitly prohibiting destruction afterward. This
+authorizes one new instance with the existing Qwen/48 GB profile and shared
+Ansible installation. Retain the instance after testing and provide its link;
+the previous disposable-trial cleanup instructions do not apply. Existing
+credentials and account SSH registration remain unchanged. A filtered live team
+lookup confirms available credit before allocation; amounts remain in private
+task evidence. Record live allocation, installation, observed cost and final retention below; do not treat this request
+as evidence that a rental already exists.
+
+The reviewed apply creates only instance 60894930 at 07:27:36 UTC: one addition,
+zero changes and zero destructions. The provider reports RTX PRO 5000, 48935 MiB,
+100 GB disk, verified Secure Cloud hosting and USD 0.905852/hour, with separate
+transfer charges. Direct SSH and provider proxy return the same Ed25519 host
+key; existing account access needs no bootstrap exception. The reviewed
+refresh-only apply at 07:29:37 UTC records connection outputs without changing
+remote resources. The endpoint is `https://80.188.223.200:39631`; the generated
+login remains at the component's existing Vault web entry.
+
+The shared Ansible role completes with ok=23, changed=8, unreachable=0 and
+failed=0. It installs all eleven selected Qwen workflows, existing pinned models
+and approved first-party nodes, then passes its native interface checks.
+Authenticated ComfyUI reports version 0.44.0 and RTX PRO 5000 Blackwell. Both
+case images upload successfully under their canonical filenames. No credential
+or host-configuration exception was needed.
+
+The initial owned comparison completes four diffusion jobs and retrieves all six PNGs. Two
+matched prompt pairs compare sketch-only against original-photo appearance
+conditioning. The default sketch reconstructs the gap; the appearance variant
+restores identity but adds raised hair folds. A stronger crown instruction is
+rejected in both variants. The workflow owner's record retains detailed visual
+acceptance and lineage; no GIF is accepted. The user sees the original raw
+comparisons as they finish. Instance 60894930 is retained under the explicit
+instruction; no release operation is executed. The exact balance command is
+verified with filtered output and links to its account-owned documentation.
+The provider lookup at 07:53:13 UTC confirms that this exact instance remains
+running at the recorded hourly price. The contemporaneous credit amount remains
+in private task evidence and the operator conversation.
+
+The operator then requests a targeted negative prompt on the better default
+variant. Two additional owned jobs run on this same retained instance, preserving
+the paired sketch-only and original-photo comparison. Both complete and three
+more original PNGs are retrieved, bringing this trial to six diffusion jobs and
+nine PNGs. The original-photo folds persist, so the negative is not promoted to
+the workflow defaults. No replacement rental, dependency or release is involved.
+
+Subsequent operator-approved ear-removal, sketch-animation and photographic
+motion tests reuse this same endpoint. Their exact jobs, input lineage and
+visual decisions belong to the [workflow owner's motion record](../../../../../projects/comfyui_tools/openspec/changes/add-parallel-evaluations/design.md#approved-sketch-motion).
+No new provisioning, model installation, SSH attachment or rental release is
+part of those tests. The explicit retention instruction remains in force.
+
+### Retained visible-motion trial, 2026-11-16
+
+The operator subsequently requests destruction of instance 60894930. The
+reviewed instance-scoped Terraform apply destroys exactly that resource at
+10:36:08 UTC: zero additions, zero changes and one destruction. The exact-instance
+provider lookup confirms absence at 10:36:41 UTC. The reviewed refresh-only apply
+clears connection outputs at 10:37:24 UTC without changing remote resources.
+Component credentials and account SSH registration remain unchanged; downloaded
+results are preserved.
+
+After rejecting the small movement in the photographic-guide Qwen sequence,
+the operator requests another rental and trial. Prepare the larger guides and
+finite endpoint workflows before allocation. The existing Qwen/48 GB profile
+creates only instance 60921795 at 12:06:13 UTC: one addition, zero changes and
+zero destructions. The provider reports RTX PRO 5000, 48935 MiB and
+USD 0.905852/hour, with separate transfer charges. Direct SSH and provider proxy
+return the same Ed25519 host key; existing account access requires no bootstrap
+exception. The reviewed refresh-only apply records connection outputs at
+12:07:58 UTC without changing remote resources. The endpoint is
+`https://80.188.223.200:39881`; login remains in the existing component Vault entry.
+
+The checked-in Ansible role completes with ok=23, changed=8, unreachable=0 and
+failed=0. Authenticated checks identify ComfyUI 0.44.0, frontend 1.57.6 and the
+RTX PRO 5000 Blackwell. Existing pinned Qwen models, workflows and RIFE support
+are reused; no dependency, credential or host-configuration exception is added.
+
+Eight owned diffusion jobs and one assembly job finish. Five inspected Qwen
+poses form the delivered loop; three defective outputs are excluded. The
+[workflow record](../../../../../projects/comfyui_tools/openspec/changes/add-parallel-evaluations/design.md#photographic-pose-guides-and-visible-motion)
+owns input preparation, settings, selection and visual limitations. Authenticated
+assembly completes at 12:43:50 UTC; all outputs are retrieved. No release is
+performed for this rental, and the operator's retention instruction remains in
+force. Balance observations stay in private task evidence and the conversation.
+
+During PR completion, a fresh exact-instance lookup fails while obtaining its
+Vault credential, before contacting the provider. This does not establish a
+change in rental state. The last successful runtime observation above remains
+the deployment evidence; no infrastructure or credential mutation is attempted
+as part of source delivery.

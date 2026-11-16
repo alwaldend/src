@@ -89,4 +89,32 @@
 
 - [x] 16.1 Select Qwen and the existing 48 GB hardware profile; package all Qwen workflows and required first-party nodes through Ansible, including the existing interpolation engine.
 - [x] 16.2 Pass offline checks, review the owning interactive Terraform plan, and deploy one instance without replacing unrelated rentals.
-- [ ] 16.3 Install through the shared role, inspect only owned generation jobs, retrieve keyframes/GIF results, and retain the instance with its URL and honest quality verdict.
+- [x] 16.3 Install through the shared role, inspect only owned generation jobs, retrieve keyframe results and report the honest quality verdict; honor the operator's later stop/destruction instruction instead of the superseded retention request.
+
+## 17. Rough-pose retry
+
+- [x] 17.1 Rebase before allocation, validate the existing Qwen/48 GB profile with the additional pose-guide workflow, and prepare authenticated tooling locally.
+- [x] 17.2 Review the owning interactive plan, create exactly one rental, install through Ansible and execute the bounded rough-pose trial.
+- [x] 17.3 Retrieve results, release the disposable test rental through Terraform, clear its connection outputs and retain sanitized acceptance evidence.
+
+## 18. Native structural-reference trial
+
+- [x] 18.1 Synchronize the branch and validate the selected Qwen/48 GB profile and structural-reference workflow before rental allocation.
+- [x] 18.2 Review the owning interactive plan, create one rental, verify direct SSH when exposed by the provider, and install through the existing Ansible role.
+- [x] 18.3 Run only the bounded owned reference jobs, retrieve outputs, release the rental, clear connection outputs and record sanitized evidence.
+
+## 19. Sketch comparison packaging
+
+- [x] 19.1 Select the sketch-only baseline alongside the corrected structure-guide workflow, validate the Ansible asset bundle offline, and record that no new rental or deployment was performed.
+
+## 20. Retained coherent-sketch trial
+
+- [x] 20.1 Review the owning interactive plan and rent one instance using the already validated Qwen/48 GB configuration; install through the shared Ansible role.
+- [x] 20.2 Verify the authenticated endpoint, execute owned comparison jobs and record results and current credit. Retain the instance and provide its URL as explicitly requested; do not execute release.
+
+## 21. Later release and visible-motion rental
+
+- [x] 21.1 Honor the later destruction request for instance 60894930, verify its absence and clear connection outputs through the owning reviewed Terraform targets.
+- [x] 21.2 Prepare larger pose guides and executable tooling before the newly requested allocation; create one Qwen/48 GB rental and install through the existing Ansible role.
+- [x] 21.3 Retrieve the bounded owned trial outputs, report visual limitations and retain instance 60921795 under the operator's instruction.
+- [x] 21.4 Reconcile the deployment documentation with the dated receipts and distinguish the failed delivery-time provider check from the last successful observation.

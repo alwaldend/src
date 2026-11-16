@@ -20,6 +20,24 @@ and its test objects have been deleted. See the [live evidence](openspec/changes
 
 ## Authentication
 
+### Check remaining credit
+
+Image-generation rentals charge the alwaldend team. Read its current prepaid
+credit without printing the rest of the account response:
+
+```sh
+bazel run //infra/vastai/alwaldend -- --raw show user |
+  python3 -c 'import json, sys; print("USD {:.2f}".format(json.load(sys.stdin)["credit"]))'
+```
+
+The `credit` field is the remaining prepaid amount in USD; the separate `balance`
+field is not that amount. The command reads live data through the existing Vault
+injection and does not rent capacity or change the account. Use the team target
+above for these rentals; `//infra/vastai` selects the personal account instead.
+Retained instances continue to consume credit until released.
+
+### Credential ownership
+
 The component uses the `src_infra_vastai` Vault AppRole declared in
 [Vault Terraform](../vault/tf/approle_src_infra_vastai.tf). Secret references use
 the `secrets` mount and its existing component namespace. Credentials are

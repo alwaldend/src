@@ -26,3 +26,8 @@
 - [x] 4.1 Before implementation, exercise separate account/team configuration, shared defaults, full-access keys and invalid key names with actual Terraform roots and mock providers.
 - [x] 4.2 Pass formatting, repository quality, affected semantic lint, owner OpenSpec checks and package tests against the final candidate.
 - [x] 4.3 Complete local review and prepare delivery inputs, reporting the two remaining deletions. AL receipts own publication and remote-feedback status.
+
+## 5. Balance lookup documentation
+
+- [x] 5.1 Document the existing read-only team credit command, distinguish team from personal context and credit from balance, and link it from image-generation operations.
+- [x] 5.2 Execute the documented command with filtered output and validate the documentation before delivery. Unrelated pending team deletion remains outside this follow-up.

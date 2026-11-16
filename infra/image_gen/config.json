@@ -78,6 +78,9 @@
                 "qwen-keyframe-edit",
                 "qwen-keyframe-sequence",
                 "qwen-keyframe-gif",
+                "qwen-pose-guide-edit",
+                "qwen-sketch-reconstruction",
+                "qwen-structure-guide-edit",
                 "qwen-image-to-image-gif",
                 "qwen-image-to-image-gif-masked"
             ],
