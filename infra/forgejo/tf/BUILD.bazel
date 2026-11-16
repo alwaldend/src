@@ -26,9 +26,16 @@ _PLUGIN_LABELS = {
 }
 
 _DATA = glob(["*.tf"]) + [
+    "//infra/forgejo/cmd/runner_registration",
     "//infra/repos:config",
     "//infra/repos/tf:module",
 ]
+
+filegroup(
+    name = "runner_bootstrap_source",
+    srcs = ["runner_bootstrap.tf"],
+    visibility = ["//infra/forgejo/cmd/runner_registration:__pkg__"],
+)
 
 al_terraform_binary_map(
     name = "tf",

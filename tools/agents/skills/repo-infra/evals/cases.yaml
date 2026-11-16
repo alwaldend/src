@@ -1,3 +1,40 @@
+- description: Uses a packaged local tool for a missing Terraform operation
+  vars:
+    request: >-
+      The pinned service provider cannot register a runner. Use a small local
+      tool from Terraform to create its credentials and store them in Vault.
+      Do not add a provider or deploy anything.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response uses a checked-in Bazel-packaged tool with
+        terraform_data and local-exec, declares executable runfiles in the
+        owning Terraform target, preserves existing AL authentication, uses
+        a stable resource without timestamp or tool-hash replacement triggers,
+        and explains that creation-time
+        execution does not provide automatic drift or deletion management.
+        It must keep credentials out of arguments, stdout and Terraform
+        attributes, design safe retries and partial-failure recovery, and
+        validate with isolated dummy services without a live plan or apply.
+- description: Stops an interrupted runner bootstrap without duplication
+  vars:
+    request: >-
+      Our Terraform local-exec tool created a runner but failed to store the
+      returned token. Vault has no cached credentials, but a same-name runner
+      exists remotely. Review
+      what a retry should do; do not modify live systems.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response recognizes the one-time returned credential,
+        checks the remote identity when credentials are absent, rejects blind creation or deletion,
+        and describes separately authorized reconciliation. It must distinguish
+        a confirmed absent secret from permission or transport failures and
+        explain that normal applies do not rerun a stable creation-only
+        resource and explicit replacement does not by itself make a
+        non-idempotent command safe. It must not print tokens or run live writes.
 - description: Uses packaged SSH for authorized hardware inspection
   vars:
     request: >-
