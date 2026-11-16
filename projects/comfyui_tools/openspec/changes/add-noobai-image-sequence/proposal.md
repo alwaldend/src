@@ -19,6 +19,8 @@ images, with previous-image carry-forward as the default and persistent referenc
   supplied composer's shared character/clothing/style fields, per-scene settings,
   optional locally installed LoRA, fixed sampling seed and independent two-pass
   generation. Both retain scene grouping and playback outputs.
+- Provide separate source-and-sketch edit graphs and Apps, including a painted-mask
+  variant, using the already approved NoobAI Canny checkpoint and native nodes.
 
 ## Capabilities
 

@@ -55,3 +55,10 @@
 ## Installation ownership
 
 - [x] Document the shared Ansible role as the owner of selected workflow and node installation; retain existing generated graphs and native behavior.
+
+## 10. Separate sketch-guided edits
+
+- [x] 10.1 Record source/sketch/mask roles, native-node design and disconfirming validation cases before implementation.
+- [x] 10.2 Generate whole-image and painted-mask sketch-edit graphs and matching native Apps using the approved Canny model.
+- [x] 10.3 Select the documents in the NoobAI profile and document alignment, controls, mask behavior and verification limits.
+- [x] 10.4 Inspect exact generated graphs, run offline installation and preserve repeatable receipts; delivery receipts own final publication state.

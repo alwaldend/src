@@ -183,3 +183,44 @@ The operator subsequently removed per-scene GIF outputs. Both variants now save
 PNGs and exactly one combined GIF. Interpolate scene groups separately in memory
 then concatenate them for publication, retaining hard cuts without publishing
 intermediate scene GIFs. Cancellation preserves PNGs and publishes no partial GIF.
+
+## Separate sketch-guided edits
+
+Add `noobai-sketch-edit` and `noobai-sketch-edit-masked`, each with an App projection.
+Encode the source image as the starting latent; extract Canny edges only from a
+separate aligned sketch, applying the approved ControlNet to both conditioning
+branches. Native image scaling gives source, sketch and mask the same canvas.
+Expose desired-result text, denoise, Canny thresholds, control strength/end, canvas
+and seed. A zero control strength permits a same-seed unguided comparison.
+
+The masked variant uses the source loader's native painted mask, resized through
+native mask/image conversions. Apply it to latent noise and composite the decoded
+result over the resized source using that same mask. Black retains source pixels;
+white permits edits. An empty mask intentionally retains the source. Keep the
+unmasked workflow as the default whole-image editor. No custom runtime node, new
+model weight, dependency or live operation is needed. The infrastructure owner
+selects all four generated documents while retaining the selected Qwen profile.
+
+Before implementation, check these failure cases: source edges accidentally used
+as the sketch; source and sketch conflated as appearance embeddings; inconsistent
+canvas dimensions; mask connected only to sampling without final compositing;
+mask polarity reversed; blank mask changing source pixels; missing App widget
+bindings or reciprocal graph links; stale generated documents in deployment;
+changed existing workflow semantics. Workflow installation belongs to Ansible;
+these documents do not change the Terraform startup payload.
+Use generated graph inspection and the existing local-only profile installation
+E2E fixture, retaining its JSON receipt. Offline checks establish graph and packaging
+contracts only; sketch adherence and edit quality require separately authorized
+GPU inference. Do not rent, deploy or replace a running workflow for this task.
+
+Offline acceptance on 2026-11-16 generated all four documents and verified source
+encoding, sketch-only Canny input, shared canvas dimensions, positive/negative
+conditioning and shared sampling/compositing mask paths. Native node interfaces
+were inspected against ComfyUI v0.44.0. The existing local Ansible fixture installed
+all 18 NoobAI documents and preserved their exact generated contents, alongside
+the other ten profiles. Its `profile-workflows.json` receipt records zero live
+operations. The workflow format test passed. Receipts and generated-graph summaries
+are retained under ignored `out/noobai-sketch-reference/`; delivery receipts own
+the prepared candidate, publication and final validation state. No GPU inference
+or browser interaction was performed, so visual adherence and App interaction
+remain unverified.
