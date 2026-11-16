@@ -136,6 +136,15 @@ without npm lifecycle scripts under the managed user's `~/.local` prefix,
 providing `~/.local/bin/openspec`. Its exact version is controlled by
 `openspec_version`; the `openspec` tag selects its prerequisites and installation.
 Repository workflows continue to use the repository-pinned Bazel CLI wrapper.
+
+Ansible installs the repository-pinned standalone Forgejo CLI as
+`~/.local/bin/fj`. The `fj` tag selects only its user-local directory and binary
+tasks; reapplication preserves an unchanged executable. On dev1,
+`bazel run //infra/dev/ansible:fj_install` runs those same tasks locally without
+SSH or Vault authentication. This target changes only the managed user's CLI
+installation. Native fj authentication is a separate user-authorized operation;
+Ansible does not install passwords or API tokens. See the
+[Forgejo CLI guide](../../tools/fj/README.md).
 Open Computer Use 0.3.3 is then installed without npm
 lifecycle scripts under the managed user's `~/.local` prefix. Its skill is
 then installed for the whole host under `/etc/codex/skills` from the matching

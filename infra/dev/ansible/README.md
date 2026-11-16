@@ -18,3 +18,9 @@ was verified from its local host filesystem and strict SSH handshake during
 the deployment; host-key checking remains enabled through hostname cutover.
 
 Build `:ansible_bin` and run `:syntax` for offline validation.
+
+To install or reconcile only the pinned standalone fj binary on the current
+dev1 host, run `bazel run //infra/dev/ansible:fj_install`. It uses the same
+packaged playbook's `fj` tasks with a local connection and privilege escalation
+disabled, independently of the Vault/SSH deployment wrapper. `-- --list-tasks`
+and `-- --syntax-check` inspect this selection without installing it.

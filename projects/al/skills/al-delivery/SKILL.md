@@ -19,6 +19,22 @@ scope; an automatic approval rejection still requires diagnosis and must not be
 bypassed. Describe such a rejection as an approval-system refusal rather than
 claiming that the user's standing authorization was absent.
 
+## Choose the repository remote and forge
+
+Use an explicit user-selected destination or an existing PR's repository when
+present. For a new PR without an explicit destination, select the current
+branch's configured upstream remote, falling back to `origin` when no upstream
+is configured. Inspect the selected repository identity through the sanitized
+`provider` report and carry `--remote <name>` consistently through delivery
+commands; the examples below assume `origin`. Resolve ambiguous ownership,
+different fetch/push repositories and unsupported fork topology before mutation.
+
+Create the PR on that remote's forge: GitHub for GitHub, Forgejo for Forgejo.
+Another mirror, an installed CLI or an unavailable adapter does not change the
+destination. For Forgejo, use [its compatibility workflow](references/forgejo.md).
+Never rewrite a remote or create a duplicate PR on another forge to obtain a
+supported tool path. `--forge` selects an adapter, not a different repository.
+
 ## Choose the pull-request base
 
 Use trunk-based development by default: each new feature branch and pull

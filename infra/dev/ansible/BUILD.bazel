@@ -47,12 +47,39 @@ al_ansible_binary(
     process_name = "ansible_playbook",
 )
 
+# The fj installation is user-local and has no SSH or Vault inputs.
+al_binary_run_map(
+    name = "fj_install",
+    args = {"": [
+        "$(rootpath :ansible_bin)",
+        "--inventory",
+        "inventory.yaml",
+        "playbook_deploy.yaml",
+        "--limit",
+        "dev1.dev.alwaldend.com",
+        "--connection",
+        "local",
+        "--tags",
+        "fj",
+        "--extra-vars",
+        "ansible_become=false",
+    ]},
+    data = [":ansible_bin"],
+)
+
 pkg_filegroup(
     name = "srcs",
     srcs = [
+        ":fj_binary",
         ":srcs_files",
         ":ssh_server_ca",
     ],
+)
+
+pkg_files(
+    name = "fj_binary",
+    srcs = ["@org_codeberg_forgejo_contrib_forgejo_cli_bin_linux_x86_64//:fj_filegroup"],
+    renames = {"@org_codeberg_forgejo_contrib_forgejo_cli_bin_linux_x86_64//:fj_filegroup": "files/fj"},
 )
 
 pkg_files(

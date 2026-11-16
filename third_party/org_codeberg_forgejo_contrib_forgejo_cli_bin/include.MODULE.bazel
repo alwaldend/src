@@ -16,4 +16,5 @@ register_toolchains(
 use_repo(
     binary_toolchain_extension,
     "org_codeberg_forgejo_contrib_forgejo_cli_bin",
+    "org_codeberg_forgejo_contrib_forgejo_cli_bin_linux_x86_64",
 )

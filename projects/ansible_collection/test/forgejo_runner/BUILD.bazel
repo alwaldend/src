@@ -1,0 +1,26 @@
+load("@rules_python//python:defs.bzl", "py_test")
+load("//tools/ansible/rules:al_ansible_binary.bzl", "al_ansible_binary")
+
+package(transitive_visibility = "//projects:transitive_consumers")
+
+al_ansible_binary(
+    name = "ansible",
+    testonly = True,
+    data = ["//projects/ansible_collection:collections"],
+    process_name = "ansible_playbook",
+)
+
+py_test(
+    name = "registration_test",
+    size = "medium",
+    srcs = ["registration_test.py"],
+    args = [
+        "--ansible=$(rlocationpath :ansible)",
+        "--playbook=$(rlocationpath :playbook.yaml)",
+    ],
+    data = [
+        "playbook.yaml",
+        ":ansible",
+    ],
+    deps = ["@rules_python//python/runfiles"],
+)

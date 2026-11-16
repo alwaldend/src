@@ -62,6 +62,14 @@ without importing global Git configuration. Remote-review cases require observed
 final head when the provider exposes it; an unobservable result is reported
 honestly after bounded inspection.
 
+Remote-routing cases keep PR creation on GitHub for a GitHub origin and on
+Forgejo for a Forgejo origin, even when another forge is mirrored or its CLI is
+available. They preserve explicit destinations and existing PR identity, select
+a configured branch upstream before the fallback origin, and carry the selected
+remote consistently. The fj capability case follows the current 0.7.0 help:
+review and inline-comment listing are available, while structured thread replies
+and resolution remain outside this CLI workflow.
+
 Authentication cases distinguish API preflight from Git transport, compare
 sanitized active-account status across execution contexts, inspect JSON state
 rather than exit status alone, and preserve approval rejection. They reject
