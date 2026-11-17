@@ -34,6 +34,34 @@ and the preserved automation grants.
 
 ## Deployment
 
+### Instance commit signing
+
+Setup Terraform creates a dedicated Ed25519 SSH commit-signing pair through the
+[shared Vault SSH key tool](../../tools/vault/cmd/ssh_key/README.md). The pair is stored in
+KV v2 mount `secrets` at
+`alwaldend.com/vault1/approles/src_infra_dc1_forgejo1/commit_signing`, within the
+existing Forgejo AppRole namespace. Secret values never become Terraform
+attributes. Normal applies preserve the pair; an explicit bootstrap resource
+replacement validates and reuses the Vault record. Deletion or corruption of
+the cache requires restoration, not automatic regeneration.
+
+Ansible reads that record through AL and installs the pair under
+`/opt/forgejo/signing/`, with mode `0600` on the private file and a service-owned
+`0700` directory. The existing recovery archive includes this directory.
+Deployment rejects a different existing private key; rotation is a separate
+operation. The service uses the public file `instance.pub` as `SIGNING_KEY`,
+`FORMAT = ssh`, and the `Forgejo <noreply@forgejo.alwaldend.com>` identity.
+Existing merge and CRUD signing policies and the committer trust model remain.
+
+After separate live authorization, run setup Terraform before service-only
+Ansible deployment using the commands below. This does not require running
+service Terraform to obtain an API token first. Modern Git (2.34+) and
+OpenSSH `ssh-keygen` (8.2p1+) must be present on the service host. Verify
+`/api/v1/signing-key.ssh` and an instance-generated commit after activation.
+See the [Forgejo 17 signing contract](https://forgejo.org/docs/v17.0/admin/advanced/signing/).
+
+### Host and service deployment
+
 Forgejo is recreated on XCP-ng through Xen Orchestra, using the
 `src_infra_dc1_forgejo1` resource set provisioned by `infra/xcp_ng`.
 VM provisioning authenticates to XO through Vault OIDC as Forgejo's own

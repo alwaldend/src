@@ -3,6 +3,7 @@ forgejo_group: "{{ forgejo_user }}"
 forgejo_owner: root
 forgejo_manage_packages: true
 forgejo_manage_user: true
+forgejo_signing_ssh_key: {}
 forgejo_user_uid: 5157
 forgejo_dir: "/opt/forgejo"
 forgejo_data_dir: "{{ forgejo_dir }}/data"

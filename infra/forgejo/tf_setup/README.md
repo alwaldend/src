@@ -12,6 +12,12 @@ AppRole and the packaged XO OIDC login plugin. The plugin supplies a temporary
 XO token and revokes it on shutdown; no infrastructure administrator token
 is loaded. The setup HTTP backend remains owned by the same Forgejo config.
 
+It also bootstraps the [instance commit-signing key](../../../tools/vault/cmd/ssh_key/README.md)
+directly into Vault through a stable creation-only resource. Run this stage
+before Ansible, which requires that cache. The provisioner receives the existing
+Vault environment without loading a Forgejo API credential. Plans do not run
+generation; normal applies do not rotate or refresh an existing key.
+
 Before running this package, bootstrap the AppRole's XO OIDC user and apply
 its resource-set membership and existing VM ACL through `infra/xcp_ng/tf`.
 Subjects are matched by immutable Vault entity UUID under the configured

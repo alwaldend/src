@@ -1,0 +1,32 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("@rules_go//go:def.bzl", "go_binary", "go_library")
+
+package(transitive_visibility = "//tools:transitive_consumers")
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//tools/vault:__subpackages__"],
+)
+
+go_library(
+    name = "ssh_key_lib",
+    srcs = [
+        "doc.go",
+        "main.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/tools/vault/cmd/ssh_key",
+    visibility = ["//visibility:private"],
+    deps = [
+        "@com_github_hashicorp_vault_api//:api",
+        "@com_github_spf13_cobra//:cobra",
+        "@org_golang_x_crypto//ssh",
+    ],
+)
+
+go_binary(
+    name = "ssh_key",
+    out = "ssh_key",
+    embed = [":ssh_key_lib"],
+    visibility = ["//:__subpackages__"],
+)

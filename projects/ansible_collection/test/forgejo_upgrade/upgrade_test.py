@@ -415,6 +415,63 @@ class UpgradeTest(unittest.TestCase):
             + "\n"
         )
 
+    def test_ssh_commit_signing(self) -> None:
+        """Deploy a pair, verify a real API commit, and reject implicit rotation."""
+        key: pathlib.Path = self._root / "fixture-signing-key"
+        subprocess.run(
+            ["ssh-keygen", "-q", "-t", "ed25519", "-N", "", "-f", str(key)],
+            env=self._environment,
+            check=True,
+            capture_output=True,
+            timeout=10,
+        )
+        self._private_values.append(key.read_text())
+        self._variables["forgejo_signing_ssh_key"] = {
+            "private_key": key.read_text(),
+            "public_key": key.with_suffix(".pub").read_text(),
+        }
+        with self._template.open("a") as template:
+            template.write(
+                "[repository.signing]\nFORMAT = ssh\n"
+                f"SIGNING_KEY = {self._state}/signing/instance.pub\n"
+                "SIGNING_NAME = Forgejo fixture\nSIGNING_EMAIL = forgejo@example.invalid\n"
+                "CRUD_ACTIONS = always\nDEFAULT_TRUST_MODEL = committer\n"
+            )
+        self._role(_OPTIONS.candidate)
+        self._seed()
+        result: object = self._request(
+            "/repos/fixture/preserved/contents/signed.txt",
+            {"content": base64.b64encode(b"signed content").decode(), "message": "Signed fixture edit"},
+        )
+        self.assertIsInstance(result, dict)
+        repository: pathlib.Path = self._state / "work/data/forgejo-repositories/fixture/preserved.git"
+        allowed: pathlib.Path = self._root / "allowed_signers"
+        allowed.write_text("forgejo@example.invalid " + key.with_suffix(".pub").read_text())
+        verification: subprocess.CompletedProcess[str] = subprocess.run(
+            ["git", "-C", str(repository), "-c", "gpg.format=ssh", "-c", f"gpg.ssh.allowedSignersFile={allowed}", "verify-commit", "HEAD"],
+            env=self._environment,
+            text=True,
+            capture_output=True,
+            timeout=10,
+            check=False,
+        )
+        self.assertEqual(verification.returncode, 0, "API commit did not verify with the declared signing identity")
+        installed: pathlib.Path = self._state / "signing/instance"
+        self.assertEqual(installed.read_text(), key.read_text())
+        self.assertEqual(installed.stat().st_mode & 0o777, 0o600)
+        lifecycle: list[str] = self._actions()
+        installed.chmod(0o644)
+        installed.with_suffix(".pub").unlink()
+        self._role(_OPTIONS.candidate)
+        self.assertEqual(self._actions(), lifecycle)
+        self.assertEqual(installed.stat().st_mode & 0o777, 0o600)
+        self.assertEqual(installed.with_suffix(".pub").read_text(), key.with_suffix(".pub").read_text())
+        installed.write_text("different deployed identity\n")
+        self._role(_OPTIONS.candidate, success=False)
+        self.assertEqual(installed.read_text(), "different deployed identity\n")
+        self.assertEqual(self._actions(), lifecycle)
+        self._evidence("ssh-commit-signing")
+
     def test_upgrade_restore_and_unchanged(self) -> None:
         """Migrate actual old data, preserve a repository, and restore the old state."""
         external: dict[str, pathlib.Path] = {

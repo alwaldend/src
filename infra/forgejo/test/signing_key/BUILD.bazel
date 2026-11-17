@@ -1,0 +1,34 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("@rules_go//go:def.bzl", "go_test")
+load("@rules_terraform//terraform:defs.bzl", "terraform_binary")
+
+package(transitive_visibility = "//infra:transitive_consumers")
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//infra/forgejo:__subpackages__"],
+)
+
+go_test(
+    name = "acceptance_test",
+    size = "medium",
+    srcs = ["acceptance_test.go"],
+    data = [
+        ":terraform",
+        "//infra/forgejo/tf_setup:signing_bootstrap_source",
+        "//tools/vault/cmd/ssh_key",
+    ],
+    env = {
+        "SSH_KEY_TOOL": "$(rlocationpath //tools/vault/cmd/ssh_key)",
+        "BOOTSTRAP_SOURCE": "$(rlocationpath //infra/forgejo/tf_setup:signing_bootstrap_source)",
+        "TERRAFORM": "$(rlocationpath :terraform)",
+    },
+    deps = ["@rules_go//go/runfiles"],
+)
+
+terraform_binary(
+    name = "terraform",
+    testonly = True,
+    arguments = ["--direct"],
+)
