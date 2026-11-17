@@ -1,0 +1,39 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("@rules_terraform//terraform:defs.bzl", "terraform_test_map")
+load("//tools/al:al_terraform.bzl", "al_terraform_binary_map")
+
+package(transitive_visibility = "//infra:transitive_consumers")
+
+_PROVIDERS = ["@terraform_provider_truenas_truenas//:provider"]
+
+al_terraform_binary_map(
+    name = "tf",
+    configs = ["//infra/nas:al"],
+    data = glob(["*.tf"]),
+    plugin_labels = {"tf": "truenas"},
+    providers = _PROVIDERS,
+)
+
+terraform_test_map(
+    name = "tf_tests",
+    args = {
+        "fmt": [
+            "--direct",
+            "fmt",
+            "-check",
+            "-recursive",
+        ],
+        "validate": ["validate"],
+    },
+    data = glob(
+        ["*.tf"],
+        exclude = ["backend.tf"],
+    ),
+    providers = _PROVIDERS,
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//infra/nas:__pkg__"],
+)

@@ -6,8 +6,11 @@ tags:
   - truenas
 ---
 
-The [Terraform package](tf/README.md) prepares this owner's DNS records through
-its dedicated Vault AppRole. NAS service provisioning remains outside that root.
+The [DNS Terraform package](tf/README.md) manages this owner's DNS records through
+its dedicated Vault AppRole. The separate [TrueNAS root](truenas/README.md)
+manages the existing pool, filesystem datasets, and Nextcloud lifecycle
+metadata with its own state. Existing NAS resources are
+adopted through that root; appliance installation remains outside these roots.
 
 ## Architecture
 
