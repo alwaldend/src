@@ -51,6 +51,10 @@
     - name: Inspect and validate candidate inputs
       ansible.builtin.include_tasks: preflight.yaml
 
+    - name: Install the optional instance signing identity before activation
+      when: forgejo_signing_ssh_key | length > 0
+      ansible.builtin.include_tasks: signing.yaml
+
     - name: Activate changed startup inputs
       when: forgejo_activation_required
       ansible.builtin.include_tasks: activate.yaml

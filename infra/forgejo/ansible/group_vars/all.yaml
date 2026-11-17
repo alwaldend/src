@@ -5,6 +5,9 @@ traefik_acme_url: "https://vault.alwaldend.com:8200/v1/{{ traefik_acme_path }}/d
 forgejo_domain: forgejo.alwaldend.com
 forgejo_git_domain: git.alwaldend.com
 forgejo_disk: /dev/xvdb
+forgejo_signing_ssh_key:
+  private_key: "{{ lookup('ansible.builtin.env', 'FORGEJO_SIGNING_PRIVATE_KEY', default=undef()) }}"
+  public_key: "{{ lookup('ansible.builtin.env', 'FORGEJO_SIGNING_PUBLIC_KEY', default=undef()) }}"
 traefik_disk: /dev/xvdc
 ssh_valid_principals:
   - forgejo.alwaldend.com

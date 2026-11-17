@@ -1,0 +1,96 @@
+- name: Install the supplied SSH signing identity without rotating it
+  no_log: true
+  block:
+    - name: Require both signing-key fields
+      ansible.builtin.assert:
+        that:
+          - forgejo_signing_ssh_key is mapping
+          - forgejo_signing_ssh_key.private_key | default('') | length > 0
+          - forgejo_signing_ssh_key.public_key | default('') | length > 0
+
+    - name: Inspect the existing private signing key
+      ansible.builtin.stat:
+        path: "{{ forgejo_dir }}/signing/instance"
+        checksum_algorithm: sha256
+      register: forgejo_existing_signing_key
+
+    - name: Inspect the signing directory boundary
+      ansible.builtin.stat:
+        path: "{{ forgejo_dir }}/signing"
+      register: forgejo_existing_signing_directory
+
+    - name: Keep signing files within the declared persistence root
+      ansible.builtin.assert:
+        that:
+          - >-
+            not forgejo_existing_signing_directory.stat.exists or
+            ((forgejo_existing_signing_directory.stat.isdir | default(false)) and
+             not (forgejo_existing_signing_directory.stat.islnk | default(false)))
+
+    - name: Reject an implicit signing-key replacement
+      ansible.builtin.assert:
+        that:
+          - >-
+            not forgejo_existing_signing_key.stat.exists or
+            ((forgejo_existing_signing_key.stat.isreg | default(false)) and
+             not (forgejo_existing_signing_key.stat.islnk | default(false)) and
+             forgejo_existing_signing_key.stat.checksum == (forgejo_signing_ssh_key.private_key | hash('sha256')))
+        fail_msg: Existing private signing identity differs; reconcile it explicitly before deployment.
+
+    - name: Allocate a private candidate file
+      ansible.builtin.tempfile:
+        state: file
+        path: "{{ forgejo_dir }}"
+        prefix: .signing-candidate-
+      register: forgejo_signing_candidate
+
+    - name: Stage the private candidate for pair validation
+      ansible.builtin.copy:
+        content: "{{ forgejo_signing_ssh_key.private_key }}"
+        dest: "{{ forgejo_signing_candidate.path }}"
+        owner: "{{ forgejo_user }}"
+        group: "{{ forgejo_group }}"
+        mode: "0600"
+
+    - name: Derive the candidate public key
+      become_user: "{{ forgejo_user }}"
+      ansible.builtin.command:
+        argv: [ssh-keygen, -y, -P, "", -f, "{{ forgejo_signing_candidate.path }}"]
+      register: forgejo_signing_public
+      changed_when: false
+
+    - name: Require a matching Ed25519 signing pair
+      ansible.builtin.assert:
+        that:
+          - forgejo_signing_public.stdout.split()[0] == 'ssh-ed25519'
+          - forgejo_signing_public.stdout.split()[:2] == forgejo_signing_ssh_key.public_key.split()[:2]
+
+    - name: Protect the persistent signing directory
+      ansible.builtin.file:
+        path: "{{ forgejo_dir }}/signing"
+        state: directory
+        owner: "{{ forgejo_user }}"
+        group: "{{ forgejo_group }}"
+        mode: "0700"
+
+    - name: Install the persistent signing pair
+      ansible.builtin.copy:
+        content: "{{ item.content }}"
+        dest: "{{ forgejo_dir }}/signing/{{ item.name }}"
+        owner: "{{ forgejo_user }}"
+        group: "{{ forgejo_group }}"
+        mode: "{{ item.mode }}"
+      loop:
+        - name: instance
+          content: "{{ forgejo_signing_ssh_key.private_key }}"
+          mode: "0600"
+        - name: instance.pub
+          content: "{{ forgejo_signing_ssh_key.public_key }}"
+          mode: "0644"
+  always:
+    - name: Remove this invocation's private candidate
+      when: forgejo_signing_candidate.path is defined
+      no_log: true
+      ansible.builtin.file:
+        path: "{{ forgejo_signing_candidate.path }}"
+        state: absent

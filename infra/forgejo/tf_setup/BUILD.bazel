@@ -23,6 +23,7 @@ _CONFIGS = ["//infra/forgejo:al"]
 
 _PLUGIN_LABELS = {
     "tf": "setup",
+    "vault_env": "default_default",
     "xoa_login": "1",
 }
 
@@ -30,8 +31,15 @@ _DATA = glob(["*.tf"]) + [
     "//projects/tf_modules/dns_records:dns_records",
     "//infra/cloud_init:xen_linux",
     "//infra/forgejo:dnsconfig",
+    "//tools/vault/cmd/ssh_key",
     "//infra/xcp_ng/cmd/xo_login",
 ]
+
+filegroup(
+    name = "signing_bootstrap_source",
+    srcs = ["signing_bootstrap.tf"],
+    visibility = ["//infra/forgejo/test/signing_key:__pkg__"],
+)
 
 al_terraform_binary_map(
     name = "tf_setup",

@@ -5,7 +5,7 @@ It executes the packaged role with real pinned Forgejo 15.0.3 and 17.0.1,
 disposable SQLite databases and local HTTP/Git operations. The bounded
 `systemctl` fixture starts only its private processes, never the host manager.
 
-Seven scenarios cover upgrade and removed-tree restoration, explicit backup
+Eight scenarios cover upgrade and removed-tree restoration, explicit backup
 validation and configuration changes, unchanged permission repair, downgrade
 rejection, and drain/archive/marker/version/doctor failures. The restore case
 includes explicitly declared external repositories, storage, token and Git-home
@@ -22,5 +22,9 @@ restore case retains case-distinct and overlapping roots. Scenario failure cases
 
 Each successful scenario emits sanitized JSON in Bazel's undeclared outputs.
 Generated credentials, private configuration and archives are removed during
-cleanup. Real systemd, cross-account SSH/ACL transfers and actual signing are
-outside fixture coverage. Synthetic signing state verifies preservation only.
+cleanup. The signing case deploys a dedicated SSH pair, verifies an API-generated
+commit with Git, repairs public content and private permissions on a repeat,
+and rejects a different private key without service downtime. It requires the
+host's existing modern Git and OpenSSH tools. Real systemd and cross-account
+SSH/ACL transfers remain outside fixture coverage. The restore case separately
+uses synthetic GPG state to verify preservation.

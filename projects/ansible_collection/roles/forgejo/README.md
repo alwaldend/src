@@ -46,6 +46,22 @@ Callers disabling `forgejo_manage_user` or `forgejo_manage_packages` supply thos
 prerequisites. ACL support is needed for unprivileged Ansible module execution.
 Serialize upgrades per instance. Check mode cannot verify this transaction.
 
+## Optional SSH commit-signing pair
+
+Set `forgejo_signing_ssh_key` to a dictionary with `private_key` and `public_key`
+strings to install a dedicated Ed25519 pair before service activation. It defaults
+to an empty dictionary. The caller owns secure generation and storage and must
+supply Git 2.34+ and OpenSSH `ssh-keygen` 8.2p1+ on the managed host. Configure
+the service template with `FORMAT = ssh` and
+`SIGNING_KEY = {{ forgejo_dir }}/signing/instance.pub`, plus its signing identity.
+
+The role validates the pair, installs private/public files with modes 0600/0644
+under a service-owned 0700 directory, and rejects different existing private
+content. Matching reruns repair metadata and public content without restarting.
+The files remain under `forgejo_dir` and its existing backup coverage. The role
+does not generate, rotate, or publish keys. Secret-bearing tasks suppress output;
+their temporary candidate is removed even on validation failure.
+
 ## Recovery
 
 Every changed existing installation retains a private recovery directory with
@@ -77,5 +93,7 @@ requires explicit operator authorization.
 runs actual Forgejo 15.0.3 and 17.0.1 with disposable SQLite state and a bounded
 service-manager fixture. It checks upgrade/restore, unchanged runs, explicit
 backup validation and failure recovery. Sanitized JSON results are retained;
-fixture credentials and archives are discarded. Real systemd, cross-account
-SSH, production data and cryptographic signing are outside this rehearsal.
+fixture credentials and archives are discarded. The signing case verifies a real
+API-generated commit with the installed SSH pair and checks unchanged runs and
+private-key mismatch refusal. Real systemd, cross-account SSH and production
+data are outside this rehearsal.

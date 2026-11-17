@@ -10,12 +10,17 @@ def infra_forgejo_config(name, labels = {}, config_name = None, **kwargs):
         labels = labels,
         res_op = {"forgejo_oidc_client": {"method": "read", "path": "identity/oidc/client/src_infra_dc1_forgejo1_provider"}},
         res_env = {
+            "FORGEJO_SIGNING_PRIVATE_KEY": {"value": "{{ .Last.Data.private_key }}", "deps": ["commit_signing"]},
+            "FORGEJO_SIGNING_PUBLIC_KEY": {"value": "{{ .Last.Data.public_key }}", "deps": ["commit_signing"]},
             "FORGEJO_OIDC_CLIENT_ID": {"value": "{{ .Last.Data.client_id }}", "deps": ["forgejo_oidc_client"]},
             "FORGEJO_OIDC_CLIENT_SECRET": {"value": "{{ .Last.Data.client_secret }}", "deps": ["forgejo_oidc_client"]},
             "LFS_JWT_SECRET": {"value": "{{ .Last.Data.lfs_jwt_secret }}", "deps": ["config"]},
             "SECURITY_INTERNAL_TOKEN": {"value": "{{ .Last.Data.security_internal_token }}", "deps": ["config"]},
             "OAUTH2_JWT_SECRET": {"value": "{{ .Last.Data.oauth2_jwt_secret }}", "deps": ["config"]},
         },
-        res_kv = {"config": {"mount": "secrets", "path": "alwaldend.com/vault1/approles/src_infra_dc1_forgejo1/config"}},
+        res_kv = {
+            "config": {"mount": "secrets", "path": "alwaldend.com/vault1/approles/src_infra_dc1_forgejo1/config"},
+            "commit_signing": {"mount": "secrets", "path": "alwaldend.com/vault1/approles/src_infra_dc1_forgejo1/commit_signing"},
+        },
         **kwargs
     )
