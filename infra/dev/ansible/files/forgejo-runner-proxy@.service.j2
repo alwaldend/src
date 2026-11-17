@@ -1,0 +1,14 @@
+[Unit]
+Description=Forgejo runner HTTP proxy TLS connection
+
+[Service]
+ExecStart=/usr/bin/openssl s_client -quiet -no_ign_eof -nocommands -verify_return_error -verify_hostname {{ secure1_runner_proxy_host }} -servername {{ secure1_runner_proxy_host }} -connect {{ secure1_runner_proxy_host }}:{{ secure1_runner_proxy_port }}
+StandardInput=socket
+StandardOutput=socket
+StandardError=journal
+DynamicUser=yes
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectSystem=strict
+ProtectHome=yes
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6

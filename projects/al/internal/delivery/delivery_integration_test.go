@@ -2828,7 +2828,7 @@ func TestGHTransportEndpoints(t *testing.T) {
 			}
 		})
 	}
-	for _, endpoint := range []string{"http://github.com/owner/repository.git", "https://user:secret@github.com/owner/repository.git", "https://github.com:443/owner/repository.git", "https://github.com/owner/%72epository.git", "https://github.com/owner/repository.git?query=1", "https://attacker.invalid/owner/repository.git", "git@attacker.invalid:owner/repository.git"} {
+	for _, endpoint := range []string{"http://github.com/owner/repository.git", "https://user:secret@github.com/owner/repository.git", "https://github.com:443/owner/repository.git", "https://github.com/owner/%72epository.git", "https://github.com/owner/repository.git?query=1", "https://attacker.invalid/owner/repository.git", "git@attacker.invalid:owner/repository.git"} { // trufflehog:ignore synthetic credential tests URL rejection.
 		t.Run(endpoint, func(t *testing.T) {
 			repositoryPath := newDeliveryConstructorRepository(t)
 			runTestGit(t, repositoryPath, "remote", "add", "origin", endpoint)

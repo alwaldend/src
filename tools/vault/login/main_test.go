@@ -196,7 +196,7 @@ func TestLoginCommand(t *testing.T) {
 		{name: "empty-discovery", uris: "No tokens found"},
 		{name: "explicit-selection", uris: "No tokens found", args: []string{"--certificate-uri", certificateURI}, response: `{"auth":{"client_token":"fixture-new-token"}}`, success: true, called: true},
 		{name: "plaintext-address", address: "http://vault.invalid"},
-		{name: "credential-address", address: "https://user:fixture-private-response@vault.invalid"},
+		{name: "credential-address", address: "https://user:fixture-private-response@vault.invalid"}, // trufflehog:ignore synthetic credential tests URL rejection.
 		{name: "pin-bearing-uri", args: []string{"--certificate-uri", "pkcs11:token=fixture?pin-value=fixture-private-response"}},
 		{name: "invalid-mode", args: []string{"--certificate-type", "PEM"}},
 		{name: "symlink-destination", response: `{"auth":{"client_token":"fixture-new-token"}}`, symlink: true},

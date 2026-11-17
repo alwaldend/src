@@ -57,6 +57,8 @@
         mode: "0750"
 
     - name: Write the Forgejo runner configuration
+      no_log: true
+      diff: false
       notify: Restart the Forgejo runner service
       ansible.builtin.template:
         src: config.yaml.j2

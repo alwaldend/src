@@ -280,7 +280,7 @@ func TestRentalRejectionDiagnostic(t *testing.T) {
 func TestImagegenModelRejection(t *testing.T) {
 	for _, models := range []string{
 		`[{url="https://example.invalid/a",filename="../model.safetensors"}]`,
-		`[{url="https://user:password@example.invalid/a",filename="model.safetensors"}]`,
+		`[{url="https://user:password@example.invalid/a",filename="model.safetensors"}]`, // trufflehog:ignore synthetic credential tests URL rejection.
 		`[{url="https://example.invalid/a",filename="model.safetensors",kind="unknown"}]`,
 		`[{url="https://example.invalid/a",filename="model.safetensors"},{url="https://example.invalid/b",filename="model.safetensors"}]`,
 	} {

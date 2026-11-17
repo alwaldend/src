@@ -70,6 +70,34 @@
             "commit": "775f44d3b56146005e44980f3cf948785f963ba0",
             "line": 27,
             "reason": "Historical synthetic command-runner URI fixture; confirmed by user."
+        },
+        {
+            "detector": "CannyIo",
+            "path": "projects/comfyui_tools/openspec/changes/add-noobai-image-sequence/acceptance.md",
+            "commit": "f8db8e554b7ca1e08afe4a029f19362e312f7906",
+            "line": 97,
+            "reason": "Recorded ComfyUI job UUID, not a Canny API credential."
+        },
+        {
+            "detector": "URI",
+            "path": "projects/vastai_terraform_provider/test/acceptance/imagegen_https_test.go",
+            "commit": "a2ac82f5b431bd29e02613ec079c4c9a3aee3397",
+            "line": 279,
+            "reason": "Synthetic credential in URL validation rejection fixture; no usable credential."
+        },
+        {
+            "detector": "URI",
+            "path": "tools/vault/login/main_test.go",
+            "commit": "0acc0b1383a52bfcf888d9ea4cea4a2259a9ae0c",
+            "line": 199,
+            "reason": "Synthetic credential in URL validation rejection fixture; no usable credential."
+        },
+        {
+            "detector": "URI",
+            "path": "projects/al/internal/delivery/delivery_integration_test.go",
+            "commit": "eb678bceff2fc9ab43fd8a58f05492e984febf14",
+            "line": 2750,
+            "reason": "Synthetic credential in URL validation rejection fixture; no usable credential."
         }
     ]
 }

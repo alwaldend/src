@@ -8,6 +8,20 @@ dev_vm_bazel_home: "{{ forgejo_runner_dir }}/home"
 dev_vm_bazelrc_src: runner_bazelrc
 dev_vm_android_installer_src: android-installer.tar.gz
 dev_vm_android_packages_src: android-packages.txt
+secure1_runner_proxy_host: yc1.nodes.threexui.alwaldend.com
+secure1_runner_proxy_port: 40201
+secure1_runner_proxy_local_port: 18080
+secure1_runner_proxy_password: "{{ lookup('ansible.builtin.env', 'DEV_RUNNER_PROXY_PASSWORD', default=undefined()) }}"
+secure1_runner_proxy_url: >-
+  http://t3code:{{ secure1_runner_proxy_password | urlencode | replace('/', '%2F') }}@127.0.0.1:{{ secure1_runner_proxy_local_port }}
+secure1_runner_no_proxy: "localhost,127.0.0.1,::1,alwaldend.com,.alwaldend.com,192.168.0.0/16,10.0.0.0/8,172.16.0.0/12"
+secure1_runner_proxy_environment:
+  HTTP_PROXY: "{{ secure1_runner_proxy_url }}"
+  HTTPS_PROXY: "{{ secure1_runner_proxy_url }}"
+  http_proxy: "{{ secure1_runner_proxy_url }}"
+  https_proxy: "{{ secure1_runner_proxy_url }}"
+  NO_PROXY: "{{ secure1_runner_no_proxy }}"
+  no_proxy: "{{ secure1_runner_no_proxy }}"
 ssh_valid_principals:
   - "{{ inventory_hostname }}"
 firewall_allow_port_from:

@@ -4,7 +4,8 @@ description: Shared entry point for repository builds and tests
 ---
 
 The [Forgejo workflow](../../.forgejo/workflows/ci.yaml) runs only for pushes to
-`master`. It checks out the event revision, including Git LFS assets, and uses
+`master`. It checks out the event revision with complete Git history and tags
+for release metadata and secret scanning, including Git LFS assets, and uses
 the local action:
 
 ```yaml

@@ -1,0 +1,10 @@
+[Unit]
+Description=Forgejo runner HTTP proxy TLS transport
+
+[Socket]
+ListenStream=127.0.0.1:{{ secure1_runner_proxy_local_port }}
+Accept=yes
+MaxConnections=128
+
+[Install]
+WantedBy=sockets.target
