@@ -19,6 +19,9 @@ resource "vault_policy" "src_infra_dev_runner" {
     path "${vault_mount.secrets.path}/data/alwaldend.com/vault1/approles/src_infra_dc1_forgejo1/runners/secure1" {
       capabilities = ["read"]
     }
+    path "${vault_mount.secrets.path}/data/alwaldend.com/vault1/approles/src_infra_threexui/http_proxies" {
+      capabilities = ["read"]
+    }
   EOT
 }
 

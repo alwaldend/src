@@ -13,9 +13,17 @@
     - name: Configure the secure1 worker
       tags: [forgejo_runner]
       block:
+        - name: Configure runner job proxy environment
+          no_log: true
+          ansible.builtin.set_fact:
+            forgejo_runner_config: "{{ forgejo_runner_config | combine({'runner': {'envs': secure1_runner_proxy_environment}}, recursive=true) }}"
         - name: Install repository build packages
           ansible.builtin.import_role:
             name: alwaldend.main.dev_vm
+        - name: Install Android archive prerequisite
+          ansible.builtin.package:
+            name: zip
+            state: present
         - name: Install the Forgejo worker
           ansible.builtin.import_role:
             name: alwaldend.main.forgejo_runner
@@ -28,6 +36,23 @@
           ansible.builtin.import_role:
             name: alwaldend.main.dev_vm
             tasks_from: android
+        - name: Install the runner proxy socket and service
+          loop:
+            - forgejo-runner-proxy.socket
+            - forgejo-runner-proxy@.service
+          ansible.builtin.template:
+            src: "files/{{ item }}.j2"
+            dest: "/etc/systemd/system/{{ item }}"
+            owner: root
+            group: root
+            mode: "0644"
+          register: secure1_runner_proxy_units
+        - name: Enable the runner proxy socket
+          ansible.builtin.systemd_service:
+            name: forgejo-runner-proxy.socket
+            daemon_reload: true
+            enabled: true
+            state: "{{ 'restarted' if secure1_runner_proxy_units.changed else 'started' }}"
         - name: Enable the prepared Forgejo worker
           ansible.builtin.import_role:
             name: alwaldend.main.forgejo_runner

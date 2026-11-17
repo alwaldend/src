@@ -29,6 +29,19 @@ it checks out the event revision and invokes the local action backed by
 [`tools/ci`](../../tools/ci/README.md). The command builds and tests all normal
 targets in the root and declared nested Bazel workspaces.
 
+Secure1 jobs use the existing Vault-owned T3 Code HTTP proxy for external
+downloads. Ansible injects the selected password into the restricted runner
+configuration, without logging it. A loopback socket on port 18080 forwards
+HTTP proxy traffic over certificate-verified TLS to
+`yc1.nodes.threexui.alwaldend.com:40201`, supporting Bazel's Java downloader.
+Both cases of `NO_PROXY` bypass localhost, `alwaldend.com` and its subdomains;
+private CIDR entries also apply to clients that support them. The proxy is
+scoped to jobs; the runner daemon continues contacting the local forge directly.
+Ansible installs `zip` for Android test archive creation. The
+[2026-11-17 rollout](openspec/changes/configure-runner-proxy/deployment.md)
+records the authorized deployment, a no-change rerun, successful upstream
+requests and checksum-verified Bazel download, and direct local-forge access.
+
 Dev1 runs Traefik in front of T3 Code and ComfyUI, with mTLS enforced by
 public ingress. The host firewall blocks direct external access to the
 application ports and accepts new connections only on SSH, HTTP, and HTTPS

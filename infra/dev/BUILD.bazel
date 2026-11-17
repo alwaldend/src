@@ -71,6 +71,7 @@ al_config(
         ":auth",
         ":dns_providers",
         ":runner_credentials",
+        ":runner_proxy",
         ":setup_ssh_key",
         ":ssh_known_hosts",
         ":tf_backend",
@@ -79,6 +80,19 @@ al_config(
         "//infra:al",
     ],
     visibility = ["//infra/dev:__subpackages__"],
+)
+
+al_inject(
+    name = "runner_proxy",
+    labels = {"runner": "1"},
+    res_env = {"DEV_RUNNER_PROXY_PASSWORD": {
+        "value": "{{ .Last.Data.http_proxies.t3code }}",
+        "deps": ["runner_proxy"],
+    }},
+    res_kv = {"runner_proxy": {
+        "mount": "secrets",
+        "path": "alwaldend.com/vault1/approles/src_infra_threexui/http_proxies",
+    }},
 )
 
 al_inject(

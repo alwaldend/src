@@ -20,7 +20,13 @@ bazel run //infra/dev/ansible -- --limit secure1.dev.alwaldend.com --tags forgej
 
 The deployment identity needs its exact-path read grant for the existing worker
 record before initial deployment. The runner role preserves existing local
-credentials. Inspect the service with the packaged SSH target:
+credentials. Proxy configuration additionally needs an exact read of
+`secrets/alwaldend.com/vault1/approles/src_infra_threexui/http_proxies` by
+`src_infra_dev`; the controller injects only the selected `t3code` password.
+Apply the checked-in Vault policy through its owning workflow before deploying
+the worker. Proxy credentials remain in the mode-0640 runner configuration;
+the systemd transport units contain no credentials. Inspect the service with the
+packaged SSH target:
 
 ```sh
 bazel run //infra/dev:ssh.secure1 -- 'systemctl is-active forgejo-runner.service'
