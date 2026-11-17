@@ -17,11 +17,6 @@ module "src_infra_printers" {
   context = local.dns_approle_context
 }
 
-module "src_infra_nas" {
-  source  = "./approles/src_infra_nas"
-  context = local.dns_approle_context
-}
-
 module "src_projects_activitywatch_ingester_android" {
   source  = "./approles/src_projects_activitywatch_ingester_android"
   context = local.dns_approle_context
@@ -29,11 +24,6 @@ module "src_projects_activitywatch_ingester_android" {
 
 module "src_projects_agents" {
   source  = "./approles/src_projects_agents"
-  context = local.dns_approle_context
-}
-
-module "src_projects_al" {
-  source  = "./approles/src_projects_al"
   context = local.dns_approle_context
 }
 

@@ -16,7 +16,9 @@ terraform {
   }
 }
 
-provider "vault" {}
+provider "vault" {
+  skip_child_token = true
+}
 
 # Connection and API key arrive through the provider's native environment.
 provider "truenas" {

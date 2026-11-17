@@ -10,3 +10,4 @@
 - [x] 2.2 Record sanitized verification and deployment prerequisites.
 
 - [x] 2.3 Keep namespace/cache declarations in independent infra/nas/approles/src_infra_dev state and targets; verify NAS operator/backend selection, VM-only provisioning and complete apply order.
+- [x] 2.4 Add and inspect the CI site variants and dark WebP, with runner-to-Forgejo and runner-to-disk-to-NAS edges, a VM-to-VPN edge and one External deps node.

@@ -34,7 +34,6 @@ _DATA = glob([
     "approles/*/*.tf",
     "dns_access/*.tf",
 ]) + [
-    "//infra/dev:dnsconfig",
     "//infra/local_inference:dnsconfig",
     "//data/ssl/alwaldend.com:ica1",
     "//data/ssl/alwaldend.com:simeonwarren",
@@ -74,5 +73,5 @@ terraform_test_map(
 filegroup(
     name = "dns_access",
     srcs = ["dns_access/main.tf"],
-    visibility = ["//infra/vault/approles/src_infra_download:__pkg__"],
+    visibility = ["//infra/vault:approle_state_projects"],
 )

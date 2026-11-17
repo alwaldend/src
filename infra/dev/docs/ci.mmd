@@ -1,0 +1,23 @@
+---
+title: Repository CI
+---
+flowchart LR
+    forgejo("Forgejo<br/>forgejo.alwaldend.com")
+
+    subgraph secure1["secure1.dev.alwaldend.com · XO VM"]
+        worker("Forgejo Actions runner")
+        ci("Repository CI<br/>Bazel build / test")
+        cache[("Disk cache<br/>/var/cache/bazel")]
+    end
+
+    external("External deps")
+    vpn("VPN<br/>yc1.nodes.threexui.alwaldend.com")
+    nas("TrueNAS<br/>nas.alwaldend.com")
+
+    forgejo ~~~ worker
+    worker -->|"Jobs / results · HTTPS :443"| forgejo
+    worker -->|"Checked-out action"| ci
+    secure1 -->|"HTTPS proxy · TLS :40201"| vpn
+    vpn -->|"Downloads"| external
+    worker -->|"Bazel disk cache"| cache
+    cache -->|"XCP-ng VDI · encrypted SMB3"| nas

@@ -27,13 +27,13 @@ Under separately authorized live scope:
 3. Apply `//infra/xcp_ng/tf:tf.apply` for the storage repository, then the runner
    VM root and Ansible for disk attachment and mounting.
 
-Run the named targets through `bazel run`. Each apply covers its complete root;
-no target selection is needed. Other AppRole states are outside this project.
+Run the named targets through `bazel run`. Each NAS apply covers its complete root;
+other AppRole states are outside this project. Follow the
+[VM provisioning guide](../../../dev/tf_setup/README.md) for initial disk attachment.
 Formatting and offline provider validation use `:tf_tests.fmt_test` and
 `:tf_tests.validate_test`.
 
-The account/cache definitions have not been deployed by this task. If an earlier
-shared-state revision was applied elsewhere, reconcile its namespace and cache
-resources into this state before applying either root. Do not recreate existing
-data or treat their removal from the shared source as permission to delete them.
-No live plan, apply or state transfer was run for this change.
+The [authorized rollout](../../../dev/openspec/changes/mount-runner-cache/deployment.md)
+created this namespace/cache and its ACLs/shares in this independent state. Its
+subsequent plan has no changes. If an earlier shared-state revision was applied
+elsewhere, reconcile its ownership before applying either root; preserve existing data.

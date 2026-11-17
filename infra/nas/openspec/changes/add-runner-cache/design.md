@@ -16,6 +16,8 @@ module call. The reusable dataset module retains filesystem/share defaults.
 Namespace creation is part of that AppRole project's apply, not account creation.
 
 Use the existing NAS operator identity and API credential in both NAS roots.
+The shared root uses its short-lived injected AppRole token directly; it does
+not request child-token creation rights.
 Store AppRole state under src_infra_nas/tf_backend/approles/<approle>. Reuse one
 connection injector with a truenas selection label and explicitly extend the
 core backend call for the AppRole backend. No development AppRole grant or VM
@@ -35,11 +37,13 @@ backend/configuration pattern; no dependency or new framework is needed.
 Apply Vault groups/grants, then the shared NAS root (accounts, shared encrypted
 parent and SMB transport), then the development NAS root (namespace and cache),
 then XCP-ng, VM provisioning and Ansible. Unlock the encrypted parent first.
-Every stage uses a complete apply with its own backend lock. No remote state,
-parent input or targeted apply is needed.
+Every stage uses its own backend lock. No remote state or parent input is
+needed. The authorized rollout scoped XCP-ng to the development resource set to
+leave unrelated OIDC/AppRole changes unapplied, and initialized the VM disk
+before publishing metadata because the pinned provider plans a null position.
 
-Keep the adopted pool, seven datasets and app addresses unchanged. This task
-has not deployed the account/cache resources or moved live state. If an earlier
+Keep the adopted pool, seven datasets and app addresses unchanged. The
+authorized rollout is recorded in validation.md. If an earlier
 revision was applied elsewhere, its namespaces must be adopted into the matching
 AppRole states before removing their old ownership. In particular, the previous
 module.approle_namespaces["src_infra_dev"] resources belong under module.namespace

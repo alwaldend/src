@@ -9,5 +9,7 @@ entity sets to provision accounts and matching group membership.
 The existing scoped NAS publisher and AppRole shared-read grants remain intact.
 XCP-ng reads its own account through its existing policy. The added
 development-account read policy and binding are removed; other AppRoles gain no
-read of the separate NAS provisioning API credential. These are source-policy
-checks; no live Vault group, grant or secret was changed.
+read of the separate NAS provisioning API credential. The authorized rollout
+applied the three access additions and three updates. State persistence was
+recovered through the [independent AppRole migration](../isolate-approle-state/validation.md)
+without restarting or reloading Vault. All four migrated resource plans are unchanged.

@@ -26,3 +26,17 @@ and SHALL attach an 800-GiB disk from the provisioned repository. Terraform SHAL
 
 - **WHEN** metadata is missing, malformed or names an invalid device or capacity
 - **THEN** Ansible fails before formatting or mounting any disk
+
+### Requirement: CI storage diagram
+
+The development documentation SHALL include a CI diagram using the development-host
+diagram's site style. Its runner subgraph SHALL contain the cache disk, with
+edges from the runner to the disk and from the disk to NAS. External dependency
+services SHALL be represented by one node labeled External deps.
+The VM SHALL connect to the VPN/proxy node, which connects to External deps.
+A dark WebP SHALL be available for download.
+
+#### Scenario: Read CI architecture
+
+- **WHEN** the documentation assets are built
+- **THEN** both light and dark variants show the runner's NAS-backed disk and a single External deps node with readable labels

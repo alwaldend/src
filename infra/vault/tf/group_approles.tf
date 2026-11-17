@@ -9,7 +9,7 @@ resource "vault_identity_group" "approles" {
     data.vault_identity_entity.src_infra_download.entity_id,
     module.src_infra_dc1_consul1_approle.entity_id,
     module.src_infra_dc1_forgejo1_approle.entity_id,
-    module.src_infra_dev_approle.entity_id,
+    data.vault_identity_entity.standalone_approles["src_infra_dev"].entity_id,
     module.src_infra_local_inference_approle.entity_id,
     module.src_infra_dc1_pve1_approle.entity_id,
     module.src_infra_dc1_router1_approle.entity_id,

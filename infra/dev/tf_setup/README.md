@@ -33,11 +33,25 @@ After separate authorization, apply Vault groups/grants, then the complete
 `//infra/nas/approles/src_infra_dev:tf.apply` for its namespace and runner cache
 dataset/share/ACLs. Then apply `//infra/xcp_ng/tf:tf.apply`
 to create and delegate the storage repository, and `//infra/dev/tf_setup:tf.apply`
-to attach the cache disk. Each stage uses a complete apply in its own state.
+to attach the cache disk. Each stage uses its own state.
+
+For the initial disk attachment, Xen Orchestra provider 0.41.0 leaves the new
+disk's position null during planning. Initialize the VM disk first, then apply
+the complete root to publish its observed device:
+
+```sh
+bazel run //infra/dev/tf_setup:tf.apply -- -target=xenorchestra_vm.secure1
+bazel run //infra/dev/tf_setup:tf.apply
+```
+
+Review both interactive plans. Subsequent complete applies use the existing
+attachment position and need no target selection.
 
 The complete VM apply publishes the attached cache device and capacity to
 `secrets/alwaldend.com/vault1/approles/src_infra_dev/runner_cache`, using the
 existing development AppRole permissions. Terraform owns this generated record;
 do not edit its values manually. The normal Ansible wrapper loads it from Vault,
 so deployment requires no Terraform output command or extra-vars handoff.
-See the [playbook guide](../ansible/README.md). No live apply ran for this change.
+See the [playbook guide](../ansible/README.md). The
+[rollout record](../openspec/changes/mount-runner-cache/deployment.md) records the
+attached disk, saved metadata and no-change full plan.

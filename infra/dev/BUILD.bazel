@@ -179,13 +179,14 @@ filegroup(
         "//infra/dev/dns:__pkg__",
         "//infra/dev/tf_setup:__pkg__",
         "//infra/dns:__pkg__",
-        "//infra/vault/tf:__pkg__",
+        "//infra/vault/approles/src_infra_dev:__pkg__",
     ],
 )
 
 docs_filegroup(
     name = "docs",
     srcs = glob(["*.md"]) + [
+        "docs/ci.mmd",
         "docs/comfyui-architecture.mmd",
         "docs/development-hosts.mmd",
         "t3code-architecture.mmd",
@@ -244,6 +245,24 @@ mermaid_site_svg(
     out = "rendered/development-hosts.svg",
 )
 
+mermaid_site_svg(
+    name = "rendered_ci",
+    src = "docs/ci.mmd",
+    out = "rendered/ci.svg",
+)
+
+mermaid_site_webp(
+    name = "ci_dark_webp",
+    src = "docs/ci.mmd",
+    out = "rendered/ci.dark.webp",
+    aspect_ratio = [
+        16,
+        9,
+    ],
+    color_scheme = "dark",
+    scale = 2,
+)
+
 mermaid_site_webp(
     name = "development_hosts_dark_webp",
     src = "docs/development-hosts.mmd",
@@ -259,8 +278,10 @@ mermaid_site_webp(
 docs_filegroup(
     name = "docs_assets",
     srcs = [
+        ":ci_dark_webp",
         ":development_hosts_dark_webp",
         ":rendered",
+        ":rendered_ci",
         ":rendered_comfyui",
         ":rendered_development_hosts",
     ],

@@ -6,6 +6,11 @@ load("//tools/vault/tf_backend:defs.bzl", "vault_tf_backend")
 
 package(transitive_visibility = "//infra:transitive_consumers")
 
+package_group(
+    name = "approle_state_projects",
+    packages = ["//infra/vault/approles/..."],
+)
+
 docs_filegroup(
     name = "docs",
     srcs = glob(["*.md"]),
@@ -56,7 +61,7 @@ vault_tf_backend(
     extends = ":tf_backend_setup",
     labels = {"tf": "main"},
     path = "alwaldend.com/vault1/approles/src_infra_dc1_vault/tf_backend/main",
-    visibility = ["//infra/vault/approles/src_infra_download:__pkg__"],
+    visibility = ["//infra/vault:approle_state_projects"],
 )
 
 infra_yc_auth(
