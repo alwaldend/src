@@ -99,6 +99,14 @@ terraform_providers.archive(
     version = "1.99.1",
 )
 terraform_providers.archive(
+    name = "terraform_provider_truenas_truenas",
+    integrity = "sha256-SkE7RqdSTnHK0UyngjfuskTJK107xDSO4AhhLx2xFV0=",
+    platform = "linux_amd64",
+    source = "registry.terraform.io/truenas/truenas",
+    urls = ["https://github.com/truenas/terraform-provider-truenas/releases/download/v1.9.3/terraform-provider-truenas_1.9.3_linux_amd64.zip"],
+    version = "1.9.3",
+)
+terraform_providers.archive(
     name = "terraform_provider_vatesfr_xenorchestra",
     integrity = "sha256-1RqsyguDDhqrg+vOeMzR7OTApSRKU/aB1ryrJ99uLGk=",
     platform = "linux_amd64",
@@ -128,6 +136,7 @@ use_repo(
     "terraform_provider_svalabs_forgejo",
     "terraform_provider_telmate_proxmox",
     "terraform_provider_terraform_routeros_routeros",
+    "terraform_provider_truenas_truenas",
     "terraform_provider_vatesfr_xenorchestra",
     "terraform_provider_yandex_cloud_yandex",
 )
