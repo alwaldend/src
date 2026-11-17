@@ -28,11 +28,12 @@ vault_tf_backend(
     name = "truenas_backend",
     labels = {"tf": "truenas"},
     path = "alwaldend.com/vault1/approles/src_infra_nas/tf_backend/truenas",
+    visibility = ["//infra/nas/approles:__subpackages__"],
 )
 
 al_inject(
     name = "truenas_connection",
-    labels = {"tf": "truenas"},
+    labels = {"truenas": ""},
     res_env = {
         "TRUENAS_ENDPOINT": {
             "value": "{{ .Last.Data.endpoint }}",

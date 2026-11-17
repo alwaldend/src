@@ -9,7 +9,10 @@ _DATA = glob(["*.tf"]) + [
     "//infra/dev:dnsconfig",
 ]
 
-_PROVIDERS = ["@terraform_provider_vatesfr_xenorchestra//:provider"]
+_PROVIDERS = [
+    "@terraform_provider_hashicorp_vault//:provider",
+    "@terraform_provider_vatesfr_xenorchestra//:provider",
+]
 
 al_terraform_binary_map(
     name = "tf",
@@ -17,6 +20,7 @@ al_terraform_binary_map(
     data = _DATA,
     plugin_labels = {
         "tf": "setup",
+        "vault_env": "default_default",
         "xoa_login": "1",
     },
     providers = _PROVIDERS,
@@ -24,7 +28,16 @@ al_terraform_binary_map(
 
 terraform_test_map(
     name = "tf_tests",
-    data = _DATA,
+    args = {
+        "fmt": [
+            "--direct",
+            "fmt",
+            "-check",
+            "-recursive",
+        ],
+        "validate": ["validate"],
+    },
+    data = [path for path in _DATA if path != "backend.tf"],
     providers = _PROVIDERS,
 )
 

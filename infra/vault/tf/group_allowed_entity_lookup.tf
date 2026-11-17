@@ -5,6 +5,7 @@ resource "vault_identity_group" "allowed_entity_lookup" {
     vault_policy.allowed_entity_lookup.name,
   ]
   member_group_ids = [
+    module.src_infra_nas.group_id,
     module.src_infra_dc1_forgejo1_approle.group_id,
     module.src_infra_dc1_pve1_approle.group_id,
     module.src_infra_xcp_ng_approle.group_id,

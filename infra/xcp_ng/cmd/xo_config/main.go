@@ -1,4 +1,3 @@
-// xo_config reconciles the XO OIDC plugin through its JSON-RPC API.
 package main
 
 import (
@@ -206,9 +205,10 @@ func inspect(r *rpc, out io.Writer) error {
 	return json.NewEncoder(out).Encode(map[string]any{"objects": selected, "plugins": ps, "groups": groups, "servers": servers})
 }
 
+// run dispatches a scoped configuration or read-only inspection command.
 func run(args []string, out io.Writer) error {
-	if len(args) == 0 || (len(args) != 1 && !(len(args) == 2 && args[0] == "import-template")) || (args[0] != "oidc-identities" && args[0] != "inspect" && args[0] != "apply-oidc" && args[0] != "register-host" && args[0] != "import-template") {
-		return errors.New("usage: xo_config oidc-identities|inspect|apply-oidc|register-host|import-template [image-path]")
+	if len(args) == 0 || (len(args) != 1 && !(len(args) == 2 && args[0] == "import-template")) || (args[0] != "oidc-identities" && args[0] != "inspect" && args[0] != "apply-oidc" && args[0] != "register-host" && args[0] != "import-template" && args[0] != "ensure-cache-storage") {
+		return errors.New("usage: xo_config oidc-identities|inspect|apply-oidc|register-host|import-template|ensure-cache-storage [image-path]")
 	}
 	if args[0] == "oidc-identities" {
 		return externalOIDCIdentities(os.Stdin, out)
@@ -220,6 +220,12 @@ func run(args []string, out io.Writer) error {
 	defer r.conn.Close()
 	if args[0] == "inspect" {
 		return inspect(r, out)
+	}
+	if args[0] == "ensure-cache-storage" {
+		if err := ensureCacheStorage(r, out); err != nil {
+			return fmt.Errorf("ensure cache storage: %w", err)
+		}
+		return nil
 	}
 	if args[0] == "register-host" {
 		return registerHostEnv(r, out)

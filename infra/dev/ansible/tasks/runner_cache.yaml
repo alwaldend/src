@@ -1,0 +1,81 @@
+- name: Require cache metadata published to Vault by provisioning
+  ansible.builtin.assert:
+    that:
+      - secure1_cache_metadata is mapping
+      - secure1_cache_metadata.device is defined
+      - secure1_cache_metadata.size is defined
+      - secure1_cache_metadata.device is match('^/dev/xvd[b-z]$')
+      - secure1_cache_metadata.size | int > 0
+    fail_msg: Apply infra/dev/tf_setup and use the packaged Ansible target to load its cache metadata from Vault.
+
+- name: Inspect the cache device before filesystem creation
+  ansible.builtin.command:
+    argv: [lsblk, --json, --bytes, --output, "NAME,TYPE,SIZE,FSTYPE,UUID,MOUNTPOINTS", "{{ secure1_cache_metadata.device }}"]
+  register: secure1_cache_block
+  changed_when: false
+
+- name: Read the guest device description
+  ansible.builtin.set_fact:
+    secure1_cache_devices: "{{ (secure1_cache_block.stdout | from_json).blockdevices }}"
+
+- name: Require one unpartitioned cache disk with the intended capacity
+  ansible.builtin.assert:
+    that:
+      - secure1_cache_devices | length == 1
+      - secure1_cache_devices[0].type == 'disk'
+      - secure1_cache_devices[0].size | int == secure1_cache_metadata.size | int
+      - secure1_cache_devices[0].get('children', []) | length == 0
+      - secure1_cache_devices[0].fstype in [none, 'ext4']
+      - secure1_cache_devices[0].mountpoints | reject('equalto', none) | difference(['/var/cache/bazel']) | length == 0
+    fail_msg: The cache must match the Terraform disk capacity, be unpartitioned, empty or ext4, and unused outside the cache mount.
+
+- name: Create the cache filesystem without overwriting existing data
+  community.general.filesystem:
+    dev: "{{ secure1_cache_metadata.device }}"
+    fstype: ext4
+    opts: -m 0 -L runner-cache
+    force: false
+
+- name: Read the cache filesystem identity
+  ansible.builtin.command:
+    argv: [blkid, -s, UUID, -o, value, "{{ secure1_cache_metadata.device }}"]
+  register: secure1_cache_uuid
+  changed_when: false
+
+- name: Require a valid cache filesystem UUID
+  ansible.builtin.assert:
+    that: secure1_cache_uuid.stdout is match('^[0-9a-fA-F-]{36}$')
+
+- name: Mount the runner cache persistently
+  ansible.posix.mount:
+    path: /var/cache/bazel
+    src: "UUID={{ secure1_cache_uuid.stdout }}"
+    fstype: ext4
+    opts: defaults,nodev,nosuid,noexec,nofail,x-systemd.device-timeout=30s
+    state: mounted
+  notify: Restart the Forgejo runner service
+
+- name: Create the private runner action cache
+  ansible.builtin.file:
+    path: /var/cache/bazel/disk_cache
+    state: directory
+    owner: "{{ forgejo_runner_user }}"
+    group: "{{ forgejo_runner_user }}"
+    mode: "0700"
+
+- name: Create the runner service override directory
+  ansible.builtin.file:
+    path: /etc/systemd/system/forgejo-runner.service.d
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: Require mounted cache storage for the worker
+  ansible.builtin.copy:
+    src: forgejo-runner-cache.conf
+    dest: /etc/systemd/system/forgejo-runner.service.d/cache.conf
+    owner: root
+    group: root
+    mode: "0644"
+  notify: Restart the Forgejo runner service

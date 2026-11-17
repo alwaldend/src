@@ -20,6 +20,34 @@ synchronized the 18 AppRole users; new AppRoles need their first OIDC login
 before Terraform can bind their sets. `resource_set_cpu_limit` defaults to
 32 CPUs per set. Creating a set does not allocate CPUs or storage.
 
+The development resource set additionally receives the dedicated `Runner cache`
+SMB storage repository. The existing host has the SMB3 driver and client. The
+[shared NAS root](../nas/truenas/README.md) owns AppRole accounts and mandatory
+transport encryption. The [development NAS project](../nas/approles/src_infra_dev/README.md)
+owns its namespace, cache and shares in separate state. The XCP-ng AppRole reads
+its own account at `shared/read/approle/src_infra_xcp_ng/nas` for this connection.
+The cache UNC path is `//nas.alwaldend.com/src_infra_dev_runner_cache`.
+Named NAS ACLs grant parent traversal and cache modification; namespace share
+ACLs prevent connection to the development namespace share. Jobs and guest
+configuration receive no SMB credential; XAPI retains its mount credential.
+
+The pinned provider lacks an SR resource. `terraform_data.runner_cache` therefore
+invokes the existing XO helper's `ensure-cache-storage` command once under the
+Terraform backend lock. It creates absent storage, verifies its type, pool and
+ownership marker, and preserves a matching repository on an explicit rerun.
+It rejects ambiguous or conflicting inventory and never deletes or reformats an
+existing repository. After a failed creation response, inspect the inventory
+before retrying: server-side creation may already have completed.
+
+This is creation-only bootstrap: ordinary plans do not refresh its PBD settings,
+credential rotation is coordinated separately, and forgetting its Terraform
+record leaves the repository intact. Host/share changes require explicit
+reconciliation. Do not run the helper concurrently outside the owning workflow.
+Before deployment, apply Vault groups/grants, the shared NAS root, and
+`//infra/nas/approles/src_infra_dev:tf.apply` for the namespace and runner share,
+before this root.
+The complete runner VM apply and guest mount follow in `infra/dev`. This source change does not deploy any of them.
+
 The provider is pinned to `vatesfr/xenorchestra` 0.41.0. The single
 `infra/xcp_ng/BUILD.bazel` configuration supplies administrator authentication for
 XCP-ng infrastructure operations: its named `xcp_ng` Vault AppRole injects

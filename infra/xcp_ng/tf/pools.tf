@@ -25,11 +25,11 @@ variable "resource_set_cpu_limit" {
 resource "xenorchestra_resource_set" "approles" {
   for_each = local.entities_by_name
   name     = each.key
-  objects = contains(keys(var.resource_set_inventory), each.key) ? [
+  objects = concat(contains(keys(var.resource_set_inventory), each.key) ? [
     data.xenorchestra_template.resource_sets[each.key].id,
     data.xenorchestra_sr.resource_sets[each.key].id,
     data.xenorchestra_network.resource_sets[each.key].id,
-  ] : []
+  ] : [], each.key == "src_infra_dev" ? [data.xenorchestra_sr.runner_cache.id] : [])
   subjects = contains(keys(local.oidc_users), each.value.entity_id) ? [local.oidc_users[each.value.entity_id]] : []
 
   limit {

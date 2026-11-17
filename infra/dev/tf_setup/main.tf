@@ -1,12 +1,17 @@
 terraform {
   required_providers {
+    vault = {
+      source  = "hashicorp/vault"
+      version = "5.8.0"
+    }
     xenorchestra = {
       source  = "vatesfr/xenorchestra"
       version = "0.41.0"
     }
   }
-  backend "http" {}
 }
+
+provider "vault" {}
 
 provider "xenorchestra" {
   url = "wss://xoa.xcp-ng.alwaldend.com"
@@ -34,6 +39,7 @@ locals {
 data "xenorchestra_resource_set" "dev" { name = "src_infra_dev" }
 data "xenorchestra_template" "secure1" { name_label = "fedora44-cloud.templates.xcp-ng.alwaldend.com" }
 data "xenorchestra_sr" "secure1" { name_label = "Local storage" }
+data "xenorchestra_sr" "runner_cache" { name_label = "Runner cache" }
 data "xenorchestra_network" "secure1" { name_label = "Pool-wide network 1" }
 
 resource "xenorchestra_vm" "secure1" {
@@ -76,6 +82,11 @@ resource "xenorchestra_vm" "secure1" {
     sr_id      = data.xenorchestra_sr.secure1.id
     name_label = "${local.hostname} boot"
     size       = 500 * 1024 * 1024 * 1024
+  }
+  disk {
+    sr_id      = data.xenorchestra_sr.runner_cache.id
+    name_label = "${local.hostname} cache"
+    size       = 800 * 1024 * 1024 * 1024
   }
   lifecycle {
     # Cloud-init and its initial host key are consumed only at creation.

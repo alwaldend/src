@@ -20,14 +20,16 @@
         - name: Install repository build packages
           ansible.builtin.import_role:
             name: alwaldend.main.dev_vm
-        - name: Install Android archive prerequisite
+        - name: Install runner archive and filesystem prerequisites
           ansible.builtin.package:
-            name: zip
+            name: [zip, e2fsprogs]
             state: present
         - name: Install the Forgejo worker
           ansible.builtin.import_role:
             name: alwaldend.main.forgejo_runner
             tasks_from: install
+        - name: Configure the runner cache disk
+          ansible.builtin.import_tasks: tasks/runner_cache.yaml
         - name: Configure runner build tools
           ansible.builtin.import_role:
             name: alwaldend.main.dev_vm

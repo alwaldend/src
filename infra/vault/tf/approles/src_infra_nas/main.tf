@@ -27,7 +27,24 @@ module "approle" {
   backend_accessor         = var.context.backend_accessor
   member_entity_ids        = var.context.member_entity_ids
   disable_yc_folder_policy = true
-  policies                 = [module.dns.policy_name]
+  policies                 = [module.dns.policy_name, vault_policy.nas_accounts.name]
+}
+
+resource "vault_policy" "nas_accounts" {
+  name   = "src_infra_nas_accounts"
+  policy = <<-EOT
+    path "${var.context.secrets}/data/alwaldend.com/vault1/shared/read/approle/+/nas" {
+      capabilities = ["create", "read", "update"]
+    }
+    path "${var.context.secrets}/metadata/alwaldend.com/vault1/shared/read/approle/+/nas" {
+      capabilities = ["read"]
+    }
+  EOT
+}
+
+output "group_id" {
+  description = "NAS provisioning AppRole group."
+  value       = module.approle.group_id
 }
 
 output "entity_id" {

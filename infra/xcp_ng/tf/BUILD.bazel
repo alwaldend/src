@@ -28,6 +28,7 @@ al_terraform_binary_map(
     configs = _CONFIGS,
     data = _RUNTIME_DATA,
     plugin_labels = {
+        "runner_cache": "1",
         "xcp_ng_tf": "1",
         "xoa": "1",
         "vault_env": "xcp_ng",
@@ -46,7 +47,16 @@ al_terraform_target_binary_map(
 
 terraform_test_map(
     name = "tf_tests",
-    data = _DATA,
+    args = {
+        "fmt": [
+            "--direct",
+            "fmt",
+            "-check",
+            "-recursive",
+        ],
+        "validate": ["validate"],
+    },
+    data = [path for path in _RUNTIME_DATA if path != "backend.tf"],
     providers = _PROVIDERS,
 )
 

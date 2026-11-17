@@ -18,6 +18,10 @@ constrained rentals and SSH-only or password-protected HTTPS access with at leas
 [ComfyUI](vastai_instance_imagegen_comfyui/README.md) modules supply native runtime
 configuration and model paths. Creating a consumer does not authorize a paid rental.
 
+The [TrueNAS dataset module](truenas_dataset/README.md) creates a protected child
+from `parent` and inline `config`, with shared defaults, private account ownership
+and optional standard SMB exports.
+
 ## Links
 
 - Source code: https://github.com/alwaldend/src/tree/master/projects/tf_modules

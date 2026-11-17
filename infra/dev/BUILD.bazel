@@ -70,6 +70,7 @@ al_config(
         ":ansible_keys",
         ":auth",
         ":dns_providers",
+        ":runner_cache_metadata",
         ":runner_credentials",
         ":runner_proxy",
         ":setup_ssh_key",
@@ -80,6 +81,19 @@ al_config(
         "//infra:al",
     ],
     visibility = ["//infra/dev:__subpackages__"],
+)
+
+al_inject(
+    name = "runner_cache_metadata",
+    labels = {"runner": "1"},
+    res_env = {"DEV_RUNNER_CACHE_METADATA": {
+        "value": "{{ .Last.Data | to_json }}",
+        "deps": ["runner_cache_metadata"],
+    }},
+    res_kv = {"runner_cache_metadata": {
+        "mount": "secrets",
+        "path": "alwaldend.com/vault1/approles/src_infra_dev/runner_cache",
+    }},
 )
 
 al_inject(

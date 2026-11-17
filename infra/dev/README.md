@@ -20,6 +20,15 @@ AL and the repository Android prerequisites. Its
 [provisioning root](tf_setup/README.md) owns the XO VM through the
 shared development identity and its own resource set.
 
+The [NAS AppRole project](../nas/approles/src_infra_dev/README.md) owns its
+namespace and cache in independent state using the NAS operator identity;
+VM provisioning only attaches the
+800-GiB disk from the dedicated XO repository. The module owns encrypted storage
+and private ACLs. Terraform publishes disk metadata to Vault for automatic
+Ansible injection and UUID mounting. The worker requires the mount; action-cache
+GC is 700 GiB and Bazel working state remains local. These declarations have not
+been deployed. See the provisioning guide for stage order.
+
 The runner reuses the API-issued identity owned by
 [`infra/forgejo`](../forgejo/cmd/runner_registration/README.md), delivered through
 an exact-path Vault read grant for the development deployment. Jobs receive no
@@ -342,6 +351,5 @@ to these normal render targets.
 
 ## Deployment
 
-```sh
-bazel run //infra/dev/ansible
-```
+Follow the [playbook guide](ansible/README.md). The wrapper automatically loads
+the provisioned cache metadata from Vault when deploying secure1.
