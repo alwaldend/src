@@ -946,3 +946,18 @@
         review validation, blindly repeat a metadata mutation or push, or run
         verify against an unrelated current local candidate as though it were
         the historical receipt candidate.
+
+- description: Removes superseded work introduced within the PR
+  vars:
+    request: >-
+      Review this PR for delivery. The diff adds an unused GitHub App manifest
+      from an abandoned approach and a Terraform moved block for two objects
+      that are still at the old addresses in live state. What should change
+      before publication?
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Requires removing the superseded manifest and its unused configuration.
+        Retains the moved block while live state needs it, records why it is
+        required, and checks the updated candidate before publication.

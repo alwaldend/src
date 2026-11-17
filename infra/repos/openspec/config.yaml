@@ -6,5 +6,5 @@ context: |
   Consumers retain their provider configuration, state, and service identities.
   Adopt existing resources by import; never recreate them to resolve collisions.
   The user requires approval before any deletion or replacement.
-  GitLab repositories receive one-time imports; ongoing sync is deferred.
+  GitLab repositories receive one-time imports; src declares ongoing Forgejo push mirrors.
   Specifications describe desired source, not proof of deployed behavior.

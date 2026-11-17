@@ -1,0 +1,24 @@
+load("@rules_go//go:def.bzl", "go_binary", "go_library", "go_test")
+
+package(transitive_visibility = "//infra:transitive_consumers")
+
+go_library(
+    name = "push_mirror_lib",
+    srcs = ["main.go"],
+    importpath = "git.alwaldend.com/alwaldend/src/infra/forgejo/cmd/push_mirror",
+    visibility = ["//visibility:private"],
+    deps = ["@com_github_hashicorp_vault_api//:api"],
+)
+
+go_binary(
+    name = "push_mirror",
+    out = "push_mirror",
+    embed = [":push_mirror_lib"],
+    visibility = ["//infra/forgejo/tf_mirrors:__pkg__"],
+)
+
+go_test(
+    name = "push_mirror_test",
+    srcs = ["main_test.go"],
+    embed = [":push_mirror_lib"],
+)

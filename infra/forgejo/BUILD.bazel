@@ -49,6 +49,29 @@ al_plugin(
     labels = {"tf": "main"},
 )
 
+al_plugin(
+    name = "mirror_login",
+    labels = {"tf": "mirrors"},
+    plugin = "forgejo_login",
+)
+
+vault_tf_backend(
+    name = "tf_backend_mirrors",
+    labels = {"tf": "mirrors"},
+    path = "alwaldend.com/vault1/approles/src_infra_dc1_forgejo1/tf_backend/mirrors",
+)
+
+al_config(
+    name = "mirror_al",
+    configs = [
+        ":auth",
+        ":mirror_login",
+        ":tf_backend_mirrors",
+        "//infra:al",
+    ],
+    visibility = ["//infra/forgejo/tf_mirrors:__pkg__"],
+)
+
 infra_forgejo_config(
     name = "config",
     labels = {"ansible": "1"},
