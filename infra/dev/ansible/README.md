@@ -39,6 +39,24 @@ the deployment; host-key checking remains enabled through hostname cutover.
 
 Build `:ansible_bin` and run `:syntax` for offline validation.
 
+Terraform publishes the cache device and capacity to the development AppRole's
+`runner_cache` Vault record. The normal wrapper reads it into
+`DEV_RUNNER_CACHE_METADATA`; secure1 group variables decode its `device` and
+`size` fields. Apply VM provisioning before deployment so this record exists.
+No output command or caller-supplied cache arguments are needed. The cache tasks
+reject missing/invalid metadata, boot
+positions, capacity mismatches, partitions, incompatible filesystems and mounts
+used elsewhere before creating ext4 without forcing an overwrite. The filesystem
+is mounted by UUID at `/var/cache/bazel`; the worker requires it before startup.
+Ansible has no XO lookup executable, API request or authentication.
+
+The action cache uses its private `disk_cache` directory with 700-GiB garbage
+collection. Bazel output bases remain local. The guest receives no SMB credential
+or network-filesystem client. Apply storage and the VM disk in the order in the
+[provisioning guide](../tf_setup/README.md). Verify
+live encryption, mount identity, write access and a repeated Bazel action only
+after separately authorized deployment.
+
 To install or reconcile only the pinned standalone fj binary on the current
 dev1 host, run `bazel run //infra/dev/ansible:fj_install`. It uses the same
 packaged playbook's `fj` tasks with a local connection and privilege escalation

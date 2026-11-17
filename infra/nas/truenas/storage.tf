@@ -62,3 +62,12 @@ resource "truenas_dataset" "managed" {
 
   depends_on = [truenas_pool.managed]
 }
+
+module "approles" {
+  source = "../../../projects/tf_modules/truenas_dataset"
+  parent = truenas_dataset.managed["default/encrypted"].name
+  config = {
+    name     = "approles"
+    traverse = true
+  }
+}

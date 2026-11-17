@@ -4,13 +4,23 @@ load("//tools/al:al_terraform.bzl", "al_terraform_binary_map")
 
 package(transitive_visibility = "//infra:transitive_consumers")
 
-_PROVIDERS = ["@terraform_provider_truenas_truenas//:provider"]
+_PROVIDERS = [
+    "@terraform_provider_hashicorp_random//:provider",
+    "@terraform_provider_hashicorp_vault//:provider",
+    "@terraform_provider_truenas_truenas//:provider",
+]
 
 al_terraform_binary_map(
     name = "tf",
     configs = ["//infra/nas:al"],
-    data = glob(["*.tf"]),
-    plugin_labels = {"tf": "truenas"},
+    data = glob(["*.tf"]) + [
+        "//projects/tf_modules/truenas_dataset",
+    ],
+    plugin_labels = {
+        "tf": "truenas",
+        "truenas": "",
+        "vault_env": "default_default",
+    },
     providers = _PROVIDERS,
 )
 
@@ -28,7 +38,9 @@ terraform_test_map(
     data = glob(
         ["*.tf"],
         exclude = ["backend.tf"],
-    ),
+    ) + [
+        "//projects/tf_modules/truenas_dataset",
+    ],
     providers = _PROVIDERS,
 )
 

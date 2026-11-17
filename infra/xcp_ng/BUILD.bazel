@@ -89,6 +89,26 @@ al_inject(
     }},
 )
 
+al_inject(
+    name = "runner_cache_credentials",
+    labels = {"runner_cache": "1"},
+    res_env = {
+        "XO_CACHE_SMB_USER": {
+            "value": "{{ .Last.Data.username }}",
+            "deps": ["runner_cache_credentials"],
+        },
+        "XO_CACHE_SMB_PASSWORD": {
+            "value": "{{ .Last.Data.password }}",
+            "deps": ["runner_cache_credentials"],
+        },
+    },
+    res_kv = {"runner_cache_credentials": {
+        "mount": "secrets",
+        "path": "alwaldend.com/vault1/shared/read/approle/src_infra_xcp_ng/nas",
+        "vault_auth": "xcp_ng",
+    }},
+)
+
 infra_dns(
     name = "dns_providers",
     dc1 = True,
@@ -106,6 +126,7 @@ al_config(
         ":auth.xcp_ng",
         ":dns_providers",
         ":env_xcp_ng",
+        ":runner_cache_credentials",
         ":tf_backend",
         ":xcpng_host_login",
         ":xoa_login",

@@ -21,8 +21,6 @@ terraform {
       version = "0.41.0"
     }
   }
-  backend "http" {
-  }
 }
 
 provider "xenorchestra" {

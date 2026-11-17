@@ -13,8 +13,10 @@ go_library(
     name = "xo_config_lib",
     srcs = [
         "authorization.go",
+        "doc.go",
         "host.go",
         "main.go",
+        "storage.go",
         "template.go",
     ],
     importpath = "git.alwaldend.com/alwaldend/src/infra/xcp_ng/cmd/xo_config",
@@ -38,6 +40,7 @@ go_test(
         "authorization_test.go",
         "host_test.go",
         "main_test.go",
+        "storage_test.go",
         "template_test.go",
     ],
     embed = [":xo_config_lib"],

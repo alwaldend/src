@@ -110,6 +110,7 @@ pkg_files(
         "group_vars/**/*.yaml",
         "files/**",
         "playbook_*.yaml",
+        "tasks/**/*.yaml",
     ]),
     strip_prefix = strip_prefix.from_pkg(),
 )

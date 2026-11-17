@@ -1,0 +1,59 @@
+load("@rules_al//:defs.bzl", "al_config")
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("@rules_terraform//terraform:defs.bzl", "terraform_test_map")
+load("//tools/al:al_terraform.bzl", "al_terraform_binary_map")
+load("//tools/vault/tf_backend:defs.bzl", "vault_tf_backend")
+
+package(transitive_visibility = "//infra:transitive_consumers")
+
+_DATA = glob(["*.tf"]) + ["//projects/tf_modules/truenas_dataset"]
+
+_PROVIDERS = ["@terraform_provider_truenas_truenas//:provider"]
+
+vault_tf_backend(
+    name = "approle_backend",
+    extends = "//infra/nas:truenas_backend",
+    labels = {"tf": "approle_src_infra_dev"},
+    path = "alwaldend.com/vault1/approles/src_infra_nas/tf_backend/approles/src_infra_dev",
+)
+
+al_config(
+    name = "al",
+    configs = [
+        ":approle_backend",
+        "//infra/nas:al",
+    ],
+)
+
+al_terraform_binary_map(
+    name = "tf",
+    configs = [":al"],
+    data = _DATA,
+    plugin_labels = {
+        "tf": "approle_src_infra_dev",
+        "truenas": "",
+        "vault_env": "default_default",
+    },
+    providers = _PROVIDERS,
+)
+
+terraform_test_map(
+    name = "tf_tests",
+    args = {
+        "fmt": [
+            "--direct",
+            "fmt",
+            "-check",
+            "-recursive",
+        ],
+        "validate": ["validate"],
+    },
+    data = [path for path in _DATA if path != "backend.tf"],
+    providers = _PROVIDERS,
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//infra/nas/approles:__pkg__"],
+)

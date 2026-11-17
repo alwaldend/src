@@ -11,6 +11,8 @@ its dedicated Vault AppRole. The separate [TrueNAS root](truenas/README.md)
 manages the existing pool, filesystem datasets, and Nextcloud lifecycle
 metadata with its own state. Existing NAS resources are
 adopted through that root; appliance installation remains outside these roots.
+Namespaces and child datasets are managed independently by AppRole under
+[approles/](approles/README.md), with separate state and plan/apply targets.
 
 ## Architecture
 
