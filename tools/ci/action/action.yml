@@ -1,5 +1,9 @@
 name: Repository CI
 description: Build and test the repository through its shared Bazel entry point
+inputs:
+  stable-checkout:
+    description: Reuse a checkout owned by the dedicated serial runner
+    default: "false"
 runs:
   using: node20
   main: main.cjs

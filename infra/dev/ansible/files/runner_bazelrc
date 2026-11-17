@@ -3,8 +3,9 @@ common --repo_env=ANDROID_NDK_HOME=/opt/forgejo-runner/home/Android/Sdk/ndk/curr
 common --repo_env=GO_REPOSITORY_EPHEMERAL_MODCACHE=1
 common --disk_cache=/var/cache/bazel/disk_cache
 common --experimental_disk_cache_gc_max_size=700G
-build --jobs=4
-build --local_resources=cpu=HOST_CPUS*0.5
+build --jobs=HOST_CPUS*0.8
+build --local_resources=cpu=HOST_CPUS*0.8
+build --local_resources=memory=HOST_RAM*0.8
 common --color=no
 common --curses=no
 test --test_output=errors
