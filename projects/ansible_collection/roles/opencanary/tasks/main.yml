@@ -4,6 +4,7 @@
       - gcc
       - git
       - libpcap-devel
+      - python3-packaging
       - python3.13
       - python3.13-devel
     state: present
@@ -20,6 +21,17 @@
     name: "opencanary[required-for-snmp]=={{ opencanary_version }}"
     virtualenv: /opt/opencanary
     virtualenv_command: /usr/bin/python3.13 -m venv
+  notify: Restart OpenCanary
+
+- name: Allow the service account to read and run the root-owned installation
+  ansible.builtin.file:
+    path: /opt/opencanary
+    state: directory
+    owner: root
+    group: opencanary
+    mode: "g=rX,o="
+    recurse: true
+    follow: false
   notify: Restart OpenCanary
 
 - name: Configure the audited Samba decoy
@@ -83,3 +95,15 @@
     name: opencanary.service
     enabled: true
     state: started
+
+- name: Maintain the OpenCanary HTTPS certificate
+  ansible.builtin.import_role:
+    name: alwaldend.main.vault_server_certificate
+  vars:
+    vault_server_certificate_sign_path: "{{ opencanary_https_sign_path }}"
+    vault_server_certificate_path: "{{ opencanary_https_certificate }}"
+    vault_server_certificate_key_path: "{{ opencanary_https_key }}"
+    vault_server_certificate_group: opencanary
+    vault_server_certificate_notify: Restart OpenCanary
+  when: "'https' in opencanary_services and opencanary_https_sign_path | length > 0"
+  tags: [opencanary_tls]

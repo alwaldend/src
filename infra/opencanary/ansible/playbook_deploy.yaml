@@ -1,6 +1,14 @@
 - name: Configure the OpenCanary guest
   hosts: opencanary
   become: true
+  pre_tasks:
+    - name: Enable Xen guest address reporting
+      ansible.builtin.systemd_service:
+        name: xe-linux-distribution.service
+        enabled: true
+        state: started
+      tags: [opencanary_guest_tools]
+
   tasks:
     - name: Configure the guest
       ansible.builtin.import_role:
@@ -9,3 +17,4 @@
     - name: Configure the native decoys
       ansible.builtin.import_role:
         name: alwaldend.main.opencanary
+      tags: [opencanary]

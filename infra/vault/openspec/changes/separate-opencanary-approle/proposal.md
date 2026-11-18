@@ -4,7 +4,8 @@ OpenCanary needs an independently managed Vault AppRole.
 
 ## What Changes
 
-Move the OpenCanary AppRole and its SSH signing policy to a standalone Terraform root.
+Move the OpenCanary AppRole and its SSH signing policy to a standalone Terraform
+root. Manage the app's server-certificate signing role in the same root.
 
 ## Capabilities
 

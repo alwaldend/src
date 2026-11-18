@@ -71,3 +71,14 @@ remove an ingress service's authentication requirements.
 For project landing names and targets, follow the DNS README and the project's
 existing declarations. Keep apex and shared hosting records with their
 declared owner instead of copying them into project files.
+
+For ingress-backed services, publish a public CNAME to
+`ingress.alwaldend.com.` and give the private upstream a separate
+`dc1.<service>.alwaldend.com` name in the service's DNS document. Point
+Traefik's `target` at that backend name. When ingress resolves through the
+public view, publish the backend A record there as well, using `dsp: ["all"]`
+for an identical A record in both views. Verify from ingress that the backend
+name returns the private address and that the private route is reachable.
+The backend listener remains governed by the private network and its firewall.
+See the [ingress configuration](../../../../../infra/ingress/README.md) and
+[OpenHands records](../../../../../infra/openhands/dnsconfig.json).

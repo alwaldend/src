@@ -7,7 +7,9 @@ load("//tools/vault/tf_backend:defs.bzl", "vault_tf_backend")
 package(transitive_visibility = "//infra:transitive_consumers")
 
 _DATA = glob(["*.tf"]) + [
+    "//infra/vault/tf:dns_access",
     "//projects/tf_modules/vault_approle",
+    "//projects/tf_modules/vault_pki_server",
     "//projects/tf_modules/vault_ssh_server_role",
 ]
 

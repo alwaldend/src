@@ -1,0 +1,38 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("@rules_terraform//terraform:defs.bzl", "terraform_binary")
+load("//tools/al:al_terraform.bzl", "al_terraform_package")
+
+package(transitive_visibility = "//infra:transitive_consumers")
+
+_DATA = glob(["*.tf"]) + [
+    "//infra/opencanary:dnsconfig",
+    "//projects/tf_modules/dns_records",
+]
+
+_PROVIDERS = [
+    "@terraform_provider_cloudflare_cloudflare//:provider",
+    "@terraform_provider_terraform_routeros_routeros//:provider",
+]
+
+al_terraform_package(
+    name = "tf",
+    configs = ["//infra/opencanary:al"],
+    data = _DATA,
+    plugin_labels = {"tf": "dns"},
+    providers = _PROVIDERS,
+)
+
+# Offline init/validate entry point: no AL plugins, backend, or credentials.
+terraform_binary(
+    name = "offline",
+    testonly = True,
+    arguments = ["--direct"],
+    data = _DATA,
+    providers = _PROVIDERS,
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//infra/opencanary:__pkg__"],
+)

@@ -1,0 +1,32 @@
+{
+    "records": {
+        "opencanary": {
+            "A": {
+                "name": "opencanary",
+                "address": "192.168.10.93"
+            },
+            "dsp": ["dc1"]
+        },
+        "upstream": {
+            "CNAME": {
+                "name": "dc1.opencanary",
+                "target": "opencanary.alwaldend.com."
+            },
+            "dsp": ["dc1"]
+        },
+        "ingress": {
+            "CNAME": {
+                "name": "opencanary",
+                "target": "ingress.alwaldend.com."
+            },
+            "dsp": ["global"]
+        },
+        "upstream_global": {
+            "A": {
+                "name": "dc1.opencanary",
+                "address": "192.168.10.93"
+            },
+            "dsp": ["global"]
+        }
+    }
+}
