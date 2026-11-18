@@ -1,48 +1,30 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files", "strip_prefix")
-load("@rules_template//rules:template_run_binary.bzl", "template_run_binary")
 
 package(transitive_visibility = "//projects:transitive_consumers")
 
-exports_files(["scss/application.scss"])
-
-filegroup(
-    name = "application_theme_sources",
-    srcs = [
-        "scss/_shared_controls.scss",
-        "scss/_shared_palette.scss",
-        ":shared_theme_variables",
-    ],
-    visibility = [
-        "//projects:__subpackages__",
-        "//tools/code_screenshot:__pkg__",
-    ],
-)
-
-template_run_binary(
-    name = "shared_theme_variables",
-    srcs = ["scss/_shared_accent.scss.tmpl"],
-    outs = ["scss/_shared_accent.scss"],
-    data = ["//data/alwaldend:assets/theme.json"],
-)
-
-# The shared Docsy canvas and accent live in this site's own assets tree now
-# that the reusable landing project is retired, so both the home page and the
-# project landings render one palette from one implementation.
 pkg_filegroup(
     name = "assets",
     srcs = [
         ":assets_files",
         ":navbar_logo",
+        ":theme_stylesheets",
     ],
     prefix = "assets",
     visibility = ["//projects/alwaldend.com:__pkg__"],
 )
 
 pkg_files(
+    name = "theme_stylesheets",
+    srcs = ["//internal/assets/web:hugo_stylesheets"],
+    prefix = "scss",
+    strip_prefix = strip_prefix.from_root("internal/assets/web"),
+)
+
+pkg_files(
     name = "navbar_logo",
-    srcs = ["//data/alwaldend:monogram"],
-    renames = {"//data/alwaldend:monogram": "icons/logo.svg"},
+    srcs = ["//internal/assets:monogram"],
+    renames = {"//internal/assets:monogram": "icons/logo.svg"},
 )
 
 pkg_files(
@@ -52,17 +34,10 @@ pkg_files(
         exclude = [
             "README.md",
             "BUILD.bazel",
-            "defs.bzl",
             "**/*.tmpl",
         ],
-    ) + [
-        ":shared_theme_variables",
-        "//data/alwaldend:monogram",
-    ],
-    renames = {
-        ":shared_theme_variables": "scss/_shared_accent.scss",
-        "//data/alwaldend:monogram": "icons/favicon.svg",
-    },
+    ) + ["//internal/assets:monogram"],
+    renames = {"//internal/assets:monogram": "icons/favicon.svg"},
     strip_prefix = strip_prefix.from_pkg(),
 )
 

@@ -37,7 +37,7 @@ while preserving their CSS dimensions and scrolling.
 
 The [theme gallery](../alwaldend.com/docs/mermaid-theme/README.md) owns the six
 Mermaid definitions. The sample targets consume the five graph definitions directly and use
-the shared `//data/alwaldend:mermaid_theme` bundle and its pinned diagram font.
+the shared `//internal/assets:mermaid_theme` bundle and its pinned diagram font.
 The gallery links static SVGs and interactive 3D views.
 
 ## Rendering

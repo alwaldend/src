@@ -1,15 +1,15 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 
-package(transitive_visibility = "//data:transitive_consumers")
+package(transitive_visibility = "//internal:transitive_consumers")
 
 exports_files(
-    ["assets/theme.json"],
+    ["theme.json"],
     visibility = ["//:__subpackages__"],
 )
 
 alias(
     name = "mermaid_theme",
-    actual = "//data/alwaldend/assets/mermaid:theme",
+    actual = "//internal/assets/mermaid:theme",
     visibility = ["//:__subpackages__"],
 )
 
@@ -28,11 +28,11 @@ alias(
 docs_filegroup(
     name = "docs",
     srcs = ["README.md"],
-    visibility = ["//data:__pkg__"],
+    visibility = ["//internal:__pkg__"],
 )
 
 filegroup(
     name = "monogram",
-    srcs = ["assets/monogram_s8.svg"],
+    srcs = ["monogram_s8.svg"],
     visibility = ["//:__subpackages__"],
 )

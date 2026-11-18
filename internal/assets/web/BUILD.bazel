@@ -1,0 +1,42 @@
+load("@rules_template//rules:template_run_binary.bzl", "template_run_binary")
+
+package(transitive_visibility = "//internal:transitive_consumers")
+
+exports_files(
+    ["application.scss"],
+    visibility = [
+        "//projects:__subpackages__",
+        "//tools/code_screenshot:__pkg__",
+    ],
+)
+
+filegroup(
+    name = "application_theme_sources",
+    srcs = [
+        "_shared_controls.scss",
+        "_shared_palette.scss",
+        ":shared_theme_variables",
+    ],
+    visibility = [
+        "//projects:__subpackages__",
+        "//tools/code_screenshot:__pkg__",
+    ],
+)
+
+filegroup(
+    name = "hugo_stylesheets",
+    srcs = [
+        "_shared_controls.scss",
+        "_shared_palette.scss",
+        "_shared_theme.scss",
+        ":shared_theme_variables",
+    ],
+    visibility = ["//projects/alwaldend.com/assets:__pkg__"],
+)
+
+template_run_binary(
+    name = "shared_theme_variables",
+    srcs = ["_shared_accent.scss.tmpl"],
+    outs = ["_shared_accent.scss"],
+    data = ["//internal/assets:theme.json"],
+)

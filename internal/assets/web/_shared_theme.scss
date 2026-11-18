@@ -55,7 +55,7 @@ body {
 
     .nav-link {
         border-radius: $border-radius;
-        font-weight: 500;
+        font-weight: $shared-navigation-weight;
 
         &:hover,
         &.active {
@@ -461,7 +461,7 @@ body {
     td a {
         text-decoration: underline;
         text-decoration-color: var(--bs-secondary-color);
-        text-underline-offset: 0.2em;
+        text-underline-offset: $shared-link-underline-offset;
     }
 
     blockquote {
@@ -558,8 +558,8 @@ button:focus-visible,
 input:focus-visible,
 summary:focus-visible,
 .td-navbar .nav-link:focus-visible {
-    outline: 2px solid var(--bs-emphasis-color);
-    outline-offset: 3px;
+    outline: $shared-focus-outline-width solid var(--bs-emphasis-color);
+    outline-offset: $shared-focus-outline-offset;
     box-shadow: none;
 }
 

@@ -39,9 +39,14 @@ $mark-bg-dark: {{index $theme.colors $theme.modes.dark.mark}};
 
 $enable-shadows: false;
 $enable-gradients: false;
-$border-radius: 0.625rem;
-$border-radius-sm: 0.375rem;
-$border-radius-lg: 0.875rem;
+$font-family-sans-serif: {{$theme.typography.interface.family}};
+$border-radius: {{$theme.cornerRadius.regular}};
+$border-radius-sm: {{$theme.cornerRadius.small}};
+$border-radius-lg: {{$theme.cornerRadius.large}};
+$shared-navigation-weight: {{$theme.controls.navigationWeight}};
+$shared-link-underline-offset: {{$theme.controls.linkUnderlineOffset}};
+$shared-focus-outline-width: {{$theme.controls.focusOutlineWidth}};
+$shared-focus-outline-offset: {{$theme.controls.focusOutlineOffset}};
 $headings-font-weight: 500;
 $h1-font-size: 2rem;
 $h2-font-size: 1.5rem;

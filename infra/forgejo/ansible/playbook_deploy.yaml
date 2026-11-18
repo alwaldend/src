@@ -29,6 +29,26 @@
         name: alwaldend.main.traefik
     - ansible.builtin.import_role:
         name: alwaldend.main.forgejo
+    - name: Install Forgejo's shared monogram
+      tags: [forgejo, forgejo_branding]
+      block:
+        - name: Create the public image directory
+          ansible.builtin.file:
+            path: "{{ forgejo_work_dir }}/custom/public/assets/img"
+            state: directory
+            owner: "{{ forgejo_user }}"
+            group: "{{ forgejo_group }}"
+            mode: "0755"
+
+        - name: Copy the shared SVG into Forgejo's public image overrides
+          ansible.builtin.copy:
+            src: "{{ playbook_dir }}/files/forgejo_monogram.svg"
+            dest: "{{ forgejo_work_dir }}/custom/public/assets/img/{{ item }}"
+            owner: "{{ forgejo_owner }}"
+            group: "{{ forgejo_group }}"
+            mode: "0644"
+          loop: [favicon.svg, logo.svg]
+
     - name: Bootstrap Vault authentication for a fresh Forgejo instance
       tags:
         - forgejo_oidc

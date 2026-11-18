@@ -1,0 +1,11 @@
+load("@rules_template//rules:template_run_binary.bzl", "template_run_binary")
+
+package(transitive_visibility = "//internal:transitive_consumers")
+
+template_run_binary(
+    name = "header",
+    srcs = ["header.tmpl"],
+    outs = ["forgejo_header.tmpl"],
+    data = ["//internal/assets:theme.json"],
+    visibility = ["//infra/forgejo/ansible:__pkg__"],
+)

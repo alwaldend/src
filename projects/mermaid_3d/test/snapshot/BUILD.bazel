@@ -10,7 +10,7 @@ mermaid_3d(
     src = "state-terminals.mmd",
     out = "state-terminals.3d.html",
     model = "state-terminals.3d.json",
-    theme = "//data/alwaldend:mermaid_theme",
+    theme = "//internal/assets:mermaid_theme",
 )
 
 # Exercise both encoders, camera directions, appearances, and aspect ratios.

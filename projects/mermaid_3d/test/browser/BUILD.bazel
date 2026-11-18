@@ -29,7 +29,7 @@ _INPUTS = [
         src = name + ".mmd",
         out = name + ".3d.html",
         model = name + ".3d.json",
-        theme = "//data/alwaldend:mermaid_theme",
+        theme = "//internal/assets:mermaid_theme",
     )
     for name in _FIXTURES
 ]

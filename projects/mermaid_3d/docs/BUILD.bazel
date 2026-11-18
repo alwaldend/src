@@ -10,7 +10,7 @@ mermaid_svg(
     out = "rendered/architecture.svg",
     dark_out = "rendered/architecture.dark.svg",
     native = True,
-    theme = "//data/alwaldend:mermaid_theme",
+    theme = "//internal/assets:mermaid_theme",
 )
 
 mermaid_3d(
@@ -18,7 +18,7 @@ mermaid_3d(
     src = "architecture.mmd",
     out = "architecture.3d.html",
     model = "architecture.3d.json",
-    theme = "//data/alwaldend:mermaid_theme",
+    theme = "//internal/assets:mermaid_theme",
     view = "front-left",
     visibility = ["//projects/mermaid_3d/test/browser:__pkg__"],
 )

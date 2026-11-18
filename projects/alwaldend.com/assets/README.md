@@ -3,30 +3,25 @@ title: Assets
 description: Hugo assets
 ---
 
-The assets package maps `//data/alwaldend:monogram` to `icons/favicon.svg`
+The assets package maps `//internal/assets:monogram` to `icons/favicon.svg`
 and Docsy's `icons/logo.svg` header resource in the Hugo source archive.
-The [identity asset](../../../data/alwaldend/README.md)
+The [identity asset](../../../internal/assets/README.md)
 owns the S8 square monogram, its centered geometry, and adaptive light/dark
 colors. The site consumes that SVG directly without a separate artwork copy.
 
 The shared favicon partial fingerprints the resource to refresh cached tab
 icons when the canonical SVG changes.
 
-`scss/application.scss` exports the site's Bootstrap typography, neutral palette,
-light/dark variables, and shared controls for embedded application pages. It
-imports the same `_shared_accent.scss`, `_shared_palette.scss`, and
-`_shared_controls.scss` used by the Hugo theme; applications supply only their
-own layout rules. The `site_stylesheet` rule in `defs.bzl` compiles these sources
-with the pinned Sass tool and existing Bootstrap archive. The profile cleaner's
-local browser interface embeds that output, without a runtime site dependency.
-Generated Sass is included in both site and application builds.
+The Hugo archive mounts the [common web theme](../../../internal/assets/web)
+under `assets/scss`. The application stylesheet in that package exports the
+same Bootstrap typography, neutral palette, and shared controls. Its
+`site_stylesheet` rule uses the pinned Sass tool and Bootstrap archive. The
+profile cleaner embeds the compiled stylesheet in its local web interface.
 
 Shared controls own filled and outline primary buttons and checkbox selection
 and keyboard-focus styles in both palettes. Application consumers use Bootstrap's
 component classes rather than defining a second primary-button variant.
 
-`scss/_shared_accent.scss.tmpl` maps the authoritative identity data from
-`//data/alwaldend:assets/theme.json` to Bootstrap/Docsy variables. The build
-packages its generated `_shared_accent.scss` at the usual theme import path.
-Component rules stay in this assets tree; shared color values are edited in
-the identity data rather than in generated Sass.
+`//internal/assets:theme.json` defines the color values. The common web theme
+maps them to Bootstrap and Docsy variables in the generated
+`_shared_accent.scss`. Site-specific component rules live in this assets tree.
