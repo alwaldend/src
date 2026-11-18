@@ -1,15 +1,15 @@
 load("@bazel_skylib//rules:copy_file.bzl", "copy_file")
 load("@rules_go//go:def.bzl", "go_library")
-load("//projects/alwaldend.com/assets:defs.bzl", "site_stylesheet")
+load("//internal/assets/web:defs.bzl", "site_stylesheet")
 
 package(transitive_visibility = "//projects:transitive_consumers")
 
 site_stylesheet(
     name = "theme",
-    src = "//projects/alwaldend.com/assets:scss/application.scss",
+    src = "//internal/assets/web:application.scss",
     out = "theme.css",
     includes = {"@com_alwaldend_src_hugo_github_com_twbs_bootstrap//:pkg_files": "scss"},
-    deps = ["//projects/alwaldend.com/assets:application_theme_sources"],
+    deps = ["//internal/assets/web:application_theme_sources"],
 )
 
 copy_file(

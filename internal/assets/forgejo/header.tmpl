@@ -1,0 +1,182 @@
+{{- $theme := (index .DataFiles 0).Data -}}
+<style>
+{{- range $name := split "light,dark,auto" "," }}
+  {{- $mode := $theme.modes.dark }}
+  {{- if eq $name "light" }}
+    {{- $mode = $theme.modes.light }}
+  :root:is([data-theme="forgejo-light"], [data-theme="forgejo-auto"]) {
+  {{- else if eq $name "dark" }}
+  :root[data-theme="forgejo-dark"] {
+  {{- else }}
+  @media (prefers-color-scheme: dark) {
+  :root[data-theme="forgejo-auto"] {
+  {{- end }}
+    --alwaldend-canvas: {{index $theme.colors $mode.canvas}};
+    --alwaldend-ink: {{index $theme.colors $mode.ink}};
+    --alwaldend-border: {{index $theme.colors $mode.border}};
+    --alwaldend-surface: {{index $theme.colors $mode.surface}};
+    --alwaldend-raised-surface: {{index $theme.colors $mode.raisedSurface}};
+    --alwaldend-muted: {{index $theme.colors $mode.guide}};
+    --alwaldend-emphasis: {{index $theme.colors $mode.linkHover}};
+    --alwaldend-mark: {{index $theme.colors $mode.mark}};
+  }
+  {{- if eq $name "auto" }}
+  }
+  {{- end }}
+{{- end }}
+
+  /* Forgejo loads this header after the selected theme and its syntax styles. */
+  :root:is([data-theme="forgejo-light"], [data-theme="forgejo-dark"], [data-theme="forgejo-auto"]) {
+    --color-body: var(--alwaldend-canvas);
+    --color-nav-bg: var(--alwaldend-canvas);
+    --color-footer: var(--alwaldend-canvas);
+    --color-header-wrapper: var(--alwaldend-raised-surface);
+    --color-header-wrapper-transparent: transparent;
+    --color-box-header: var(--alwaldend-surface);
+    --color-box-body: var(--alwaldend-canvas);
+    --color-box-body-highlight: var(--alwaldend-raised-surface);
+    --color-menu: var(--alwaldend-surface);
+    --color-card: var(--alwaldend-surface);
+    --fancy-card-bg: var(--alwaldend-surface);
+    --fancy-card-border: var(--alwaldend-border);
+    --color-secondary-bg: var(--alwaldend-surface);
+    --color-code-bg: var(--alwaldend-raised-surface);
+    --color-markup-code-block: var(--alwaldend-raised-surface);
+    --color-markup-code-inline: var(--alwaldend-raised-surface);
+    --color-input-background: var(--alwaldend-canvas);
+    --color-input-toggle-background: var(--alwaldend-canvas);
+    --color-input-border: var(--alwaldend-border);
+    --color-input-border-hover: var(--alwaldend-muted);
+    --color-input-text: var(--alwaldend-ink);
+    --color-text: var(--alwaldend-ink);
+    --color-text-dark: var(--alwaldend-emphasis);
+    --color-text-light: var(--alwaldend-ink);
+    --color-text-light-1: var(--alwaldend-ink);
+    --color-text-light-2: var(--alwaldend-muted);
+    --color-text-light-3: var(--alwaldend-muted);
+    --color-secondary: var(--alwaldend-border);
+    --color-secondary-hover: var(--alwaldend-raised-surface);
+    --color-secondary-active: var(--alwaldend-border);
+    --color-light-border: var(--alwaldend-border);
+    --color-nav-hover-bg: var(--alwaldend-raised-surface);
+    --color-hover: var(--alwaldend-raised-surface);
+    --color-active: var(--alwaldend-border);
+    --color-primary: var(--alwaldend-ink);
+    --color-primary-contrast: var(--alwaldend-canvas);
+    --color-primary-hover: var(--alwaldend-emphasis);
+    --color-primary-active: var(--alwaldend-emphasis);
+    --color-primary-dark-1: var(--alwaldend-ink);
+    --color-primary-dark-2: var(--alwaldend-emphasis);
+    --color-primary-dark-3: var(--alwaldend-emphasis);
+    --color-primary-dark-4: var(--alwaldend-emphasis);
+    --color-primary-light-1: var(--alwaldend-muted);
+    --color-primary-light-2: var(--alwaldend-muted);
+    --color-primary-light-3: var(--alwaldend-muted);
+    --color-primary-light-4: var(--alwaldend-border);
+    --color-primary-light-5: var(--alwaldend-border);
+    --color-primary-light-6: var(--alwaldend-raised-surface);
+    --color-primary-light-7: var(--alwaldend-surface);
+    --color-accent: var(--alwaldend-ink);
+    --color-small-accent: var(--alwaldend-border);
+    --color-highlight-fg: var(--alwaldend-ink);
+    --color-highlight-bg: var(--alwaldend-mark);
+    --color-selection-bg: var(--alwaldend-ink);
+    --color-selection-fg: var(--alwaldend-canvas);
+    --fonts-regular: {{$theme.typography.interface.family}};
+    --border-radius: {{$theme.cornerRadius.small}};
+    --border-radius-medium: {{$theme.cornerRadius.regular}};
+    --border-radius-large: {{$theme.cornerRadius.large}};
+{{- range $percent := split "10,20,30,40,50,60,70,80,90" "," }}
+    --color-primary-alpha-{{$percent}}: color-mix(in srgb, var(--alwaldend-ink) {{$percent}}%, transparent);
+{{- end }}
+  }
+
+  :root:is([data-theme="forgejo-light"], [data-theme="forgejo-dark"], [data-theme="forgejo-auto"]) .markup :is(p, li, td) a {
+    text-decoration: underline;
+    text-decoration-color: var(--alwaldend-muted);
+    text-underline-offset: {{$theme.controls.linkUnderlineOffset}};
+  }
+
+  :root:is([data-theme="forgejo-light"], [data-theme="forgejo-dark"], [data-theme="forgejo-auto"]) {
+    #navbar .ui.secondary.menu > a.item {
+      border-radius: var(--border-radius-medium);
+      font-weight: {{$theme.controls.navigationWeight}};
+    }
+
+    .ui.primary.button:not(.basic, .item) {
+      --color-primary: var(--alwaldend-emphasis);
+      --color-primary-hover: var(--alwaldend-ink);
+      --color-primary-active: var(--alwaldend-ink);
+    }
+
+    :is(#navbar a, #navbar button, .markup a, .ui.primary.button):focus-visible {
+      outline: {{$theme.controls.focusOutlineWidth}} solid var(--alwaldend-emphasis);
+      outline-offset: {{$theme.controls.focusOutlineOffset}};
+    }
+
+    .page-footer {
+      border-top: 1px solid var(--alwaldend-border);
+    }
+  }
+
+  @media (max-width: 767.98px) {
+    /* Allow the diff column to shrink past the intrinsic width of its files. */
+    .repository.pull.files #diff-content-container {
+      min-inline-size: 0;
+    }
+
+    .repository.pull.files .pull.tabular.menu {
+      flex-wrap: wrap;
+    }
+
+    .repository.pull.files .pull.tabular.menu > .item {
+      padding-inline: 0.6rem;
+      white-space: normal;
+    }
+
+    .repository.pull.files .diff-detail-box {
+      height: auto;
+      min-height: 44px;
+    }
+
+    .repository.pull.files .diff-detail-actions {
+      flex: 1;
+      flex-wrap: wrap;
+      min-inline-size: 0;
+    }
+
+    /* A wrapped toolbar can cover a sticky file header with a fixed offset. */
+    .repository.pull.files .ui.attached.header.diff-file-header.sticky-2nd-row {
+      position: static;
+      row-gap: 0.25rem;
+    }
+
+    .repository.pull.files .diff-file-name {
+      flex-basis: 100%;
+      min-inline-size: 0;
+    }
+
+    .repository.pull.files .diff-box .diff-file-header .file {
+      flex: 1 1 12ch;
+      flex-wrap: wrap;
+    }
+
+    .repository.pull.files .diff-box .diff-file-header .file .file-link {
+      display: block;
+      min-inline-size: 0;
+      overflow-wrap: anywhere;
+    }
+
+    .repository.pull.files .diff-file-header-actions {
+      max-inline-size: 100%;
+    }
+
+    .repository.pull.files .diff-file-box .file-body.file-code {
+      overflow-x: auto;
+    }
+
+    .repository.pull.files .diff-file-box .file-body.file-code .lines-num {
+      min-width: 3ch;
+    }
+  }
+</style>

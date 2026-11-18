@@ -16,7 +16,7 @@ _SAMPLES = [
         src = "//projects/alwaldend.com/docs/mermaid-theme:" + sample + ".mmd",
         out = sample + ".3d.html",
         model = sample + ".3d.json",
-        theme = "//data/alwaldend:mermaid_theme",
+        theme = "//internal/assets:mermaid_theme",
         visibility = ["//projects/mermaid_3d:__subpackages__"],
     )
     for sample in _SAMPLES

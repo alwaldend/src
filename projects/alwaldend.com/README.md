@@ -35,7 +35,7 @@ The [Mermaid source](docs/legacy-www.mmd) is authoritative; Bazel renders its li
 The homepage, blog, documentation, and project pages share a flat monochrome
 theme with white and charcoal color modes, subtle borders, and system fonts.
 The navigation's theme menu supports light, dark, and system preferences.
-Every page uses the centered S8 square monogram from `//data/alwaldend:monogram`
+Every page uses the centered S8 square monogram from `//internal/assets:monogram`
 in its header and SVG favicon, with adaptive light/dark colors.
 Prose links are underlined, and keyboard focus uses a visible outline.
 Scrollbars are thin and muted; taxonomy links use small rounded labels shared
@@ -61,7 +61,7 @@ invisible, and semantic marker distinctions remain native. Caption plates use
 muted borders; sequence lifelines are thinner and grayer than messages.
 Mindmaps use the site's surfaces, text, and connector colors in both modes.
 The `mermaid_site_svg` macro in `pkg/mermaid/defs.bzl`
-selects the shared `//data/alwaldend:mermaid_theme` target and renders both
+selects the shared `//internal/assets:mermaid_theme` target and renders both
 SVGs through the native Mermaid API without post-processing. The preset supplies
 caption styling through `themeCSS` and places titles on container borders with
 Mermaid's `subGraphTitleMargin` setting. Compact node/rank spacing and the
@@ -87,7 +87,7 @@ site theme. Each source builds light and dark SVGs for visual comparison.
 Teal surfaces, and Violet technical color schemes in both modes. Each has
 named canvas, surface, ink, outline, accent, and muted-border colors. This is
 an inactive palette catalog; the render macro still selects the neutral
-palette and diagram typography from `data/alwaldend/assets/theme.json`.
+palette and diagram typography from `internal/assets/theme.json`.
 Mermaid geometry and color-role mappings remain in its preset templates,
 independently of these saved colors.
 

@@ -38,8 +38,8 @@
     }
 
     &:focus-visible {
-        outline: 2px solid var(--bs-emphasis-color);
-        outline-offset: 3px;
+        outline: $shared-focus-outline-width solid var(--bs-emphasis-color);
+        outline-offset: $shared-focus-outline-offset;
         box-shadow: none;
     }
 }

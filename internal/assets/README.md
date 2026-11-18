@@ -1,23 +1,25 @@
 ---
-title: Alwaldend identity assets
-description: Shared identity artwork, colors, and diagram typography
+title: Alwaldend assets
+description: Common theme, identity artwork, and diagram typography
 ---
 
-`assets/theme.json` owns the neutral colors, light/dark semantic roles, and
-diagram typography. The website generates its Sass variables from this data.
-The `assets/mermaid` templates generate the neutral diagram preset and resolved
+`theme.json` owns the neutral colors, light/dark semantic roles, typography,
+corner radii, and control styles. The `web` package generates Sass variables from this data
+and provides the common Hugo and application styles. The `forgejo` package
+generates the managed Forgejo header from the same light and dark palette.
+The `mermaid` templates generate the neutral diagram preset and resolved
 light/dark palette; they contain mappings rather than another color definition.
-`//data/alwaldend:mermaid_theme` bundles those generated files with the pinned
+`//internal/assets:mermaid_theme` bundles those generated files with the pinned
 diagram font and license for SVG and 3D consumers. Generic rendering and theme
 rules remain in their tool/project owners. The hand-drawn Mermaid default is
 a separate preset.
 
-Renderers select `//data/alwaldend:mermaid_theme` as their `theme` input. Its
+Renderers select `//internal/assets:mermaid_theme` as their `theme` input. Its
 `MermaidThemeInfo` provider exposes concrete configuration, light/dark JSON
 palette, font, and license files to their build actions. This keeps theme
 configuration, palette, and font dependencies with the shared target.
 
-`assets/monogram_s8.svg` is the canonical S8 graduated square monogram.
+`monogram_s8.svg` is the canonical S8 graduated square monogram.
 It preserves the selected square winding, angled `l` cap, and full clipped
 underline in a 64 by 64 canvas. The refined spiral has a minimum stroke of
 3 units, four-unit channels between its outer and middle turns, and a
@@ -30,7 +32,7 @@ The transparent SVG uses charcoal in light mode and off-white in dark mode.
 A 2.5-unit horizontal translation centers the complete mark, leaving equal
 8.5-unit side margins and equal 8-unit vertical margins.
 
-The SVG is available as `//data/alwaldend:monogram` for internal repository
+The SVG is available as `//internal/assets:monogram` for internal repository
 consumers. The `projects/alwaldend.com` assets package consumes it directly
 as the site's fingerprinted favicon. WebP previews are generated output,
 not source.
@@ -49,7 +51,7 @@ mkdir -p out/s8-favicon/tmp
 node <<'NODE'
 const fs = require('fs');
 const source = fs.readFileSync(
-  'data/alwaldend/assets/monogram_s8.svg', 'utf8');
+  'internal/assets/monogram_s8.svg', 'utf8');
 const dark = source
   .replace('viewBox="0 0 64 64"',
     'viewBox="0 0 64 64" width="448" height="448" color="#ededed"')

@@ -229,7 +229,7 @@ pipeline; a diagram's own look still comes from `theme.json`.
 
 The main site's `mermaid_site_svg` macro lives in
 [`projects/alwaldend.com/pkg/mermaid/defs.bzl`](../../projects/alwaldend.com/pkg/mermaid/defs.bzl).
-It selects `mermaid_svg(native = True)` with `theme = "//data/alwaldend:mermaid_theme"`, which bundles generated
+It selects `mermaid_svg(native = True)` with `theme = "//internal/assets:mermaid_theme"`, which bundles generated
 configuration and light/dark palette JSON with the pinned font and its license. It does not inherit the
 historical theme or actor decoration. Its own preset restores rounded caption
 plates using Mermaid's `themeCSS` and flowchart settings. The site's compact

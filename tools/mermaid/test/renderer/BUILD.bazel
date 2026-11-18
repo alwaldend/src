@@ -86,7 +86,7 @@ mermaid_svg(
     out = "edge-labels-native.svg",
     dark_out = "edge-labels-native.dark.svg",
     native = True,
-    theme = "//data/alwaldend:mermaid_theme",
+    theme = "//internal/assets:mermaid_theme",
 )
 
 mermaid_webp(
@@ -96,7 +96,7 @@ mermaid_webp(
     aspect_ratio = [],
     native = True,
     scale = 2,
-    theme = "//data/alwaldend:mermaid_theme",
+    theme = "//internal/assets:mermaid_theme",
 )
 
 mermaid_webp(
@@ -107,7 +107,7 @@ mermaid_webp(
     color_scheme = "dark",
     native = True,
     scale = 2,
-    theme = "//data/alwaldend:mermaid_theme",
+    theme = "//internal/assets:mermaid_theme",
 )
 
 mermaid_webp(
@@ -127,7 +127,7 @@ mermaid_webp(
     ],
     native = True,
     scale = 1,
-    theme = "//data/alwaldend:mermaid_theme",
+    theme = "//internal/assets:mermaid_theme",
 )
 
 mermaid_webp(
@@ -141,7 +141,7 @@ mermaid_webp(
     color_scheme = "dark",
     native = True,
     scale = 2,
-    theme = "//data/alwaldend:mermaid_theme",
+    theme = "//internal/assets:mermaid_theme",
 )
 
 js_test(
@@ -192,7 +192,7 @@ js_test(
         "$(rootpath :edge_labels_native_webp)",
         "$(rootpath :edge-labels-native.dark.svg)",
         "$(rootpath :edge_labels_native_dark_webp)",
-        "$(rootpath //data/alwaldend/assets/mermaid:palette)",
+        "$(rootpath //internal/assets/mermaid:palette)",
         "$(rootpath @com_google_chrome_headless_shell//:chrome_headless_shell_binary)",
     ],
     data = [
@@ -200,7 +200,7 @@ js_test(
         ":edge-labels-native.svg",
         ":edge_labels_native_dark_webp",
         ":edge_labels_native_webp",
-        "//data/alwaldend/assets/mermaid:palette",
+        "//internal/assets/mermaid:palette",
         "//tools:node_modules/puppeteer",
         "@com_google_chrome_headless_shell//:chrome_headless_shell_binary",
     ],
