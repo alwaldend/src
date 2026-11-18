@@ -12,6 +12,11 @@ Its [Terraform module](../../repos/tf/README.md) supplies the consumer's
 repository projection. First-party names remain stable across forges;
 external fork and mirror names retain their original upstream identity.
 
+Repository resources preselect deletion of eligible pull request source
+branches in Forgejo's web merge form. The pinned provider sends the setting
+on repository creation and update and does not detect out-of-band changes to
+this field during refresh.
+
 Before applying, provision the Vault OIDC authentication source with Ansible and set
 `TF_VAR_vault_oauth_source_id` to its verified positive numeric ID. Obtain the
 ID from `forgejo admin auth list` on the instance using the service's config

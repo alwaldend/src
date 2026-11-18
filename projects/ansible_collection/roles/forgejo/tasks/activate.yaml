@@ -28,6 +28,15 @@
       when: forgejo_existing_installation
       ansible.builtin.include_tasks: backup.yaml
 
+    - name: Create the custom header directory
+      when: forgejo_custom_header_local_path | length > 0
+      ansible.builtin.file:
+        path: "{{ forgejo_custom_header_file.path | dirname }}"
+        state: directory
+        owner: "{{ forgejo_user }}"
+        group: "{{ forgejo_group }}"
+        mode: "0755"
+
     - name: Persist the activation boundary before replacing startup inputs
       ansible.builtin.copy:
         content: >-
@@ -52,7 +61,7 @@
         owner: "{{ item.owner }}"
         group: "{{ item.group }}"
         mode: "{{ item.mode }}"
-      loop: "{{ forgejo_startup_files }}"
+      loop: "{{ forgejo_managed_startup_files }}"
 
     - name: Reload the candidate service unit
       ansible.builtin.systemd_service:

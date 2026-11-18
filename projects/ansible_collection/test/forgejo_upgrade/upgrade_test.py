@@ -17,6 +17,7 @@ import sys
 import tarfile
 import tempfile
 import time
+import typing
 import unittest
 import urllib.error
 import urllib.request
@@ -414,6 +415,52 @@ class UpgradeTest(unittest.TestCase):
             )
             + "\n"
         )
+
+    def test_custom_header_activation(self) -> None:
+        """Load a new header, archive its replacement, and leave identical runs active."""
+        self._role(_OPTIONS.candidate)
+        source: pathlib.Path = self._root / "header.tmpl"
+        initial: str = '<meta name="forgejo-fixture" content="initial">\n'
+        replacement: str = '<meta name="forgejo-fixture" content="replacement">\n'
+        self._variables["forgejo_custom_header_local_path"] = str(source)
+        url: str = f"http://127.0.0.1:{self._port}/"
+        self._events.write_text("")
+
+        source.write_text(initial)
+        self._role(_OPTIONS.candidate)
+        self.assertIn("stop", self._actions())
+        with urllib.request.urlopen(url, timeout=10) as response:
+            self.assertIn(initial.encode().strip(), response.read())
+        initial_archives: list[pathlib.Path] = self._archives()
+        self.assertEqual(len(initial_archives), 1)
+        self._events.write_text("")
+        self._role(_OPTIONS.candidate)
+        self.assertEqual(self._actions(), [])
+        self.assertEqual(self._archives(), initial_archives)
+
+        source.write_text(replacement)
+        self._role(_OPTIONS.candidate)
+        with urllib.request.urlopen(url, timeout=10) as response:
+            self.assertIn(replacement.encode().strip(), response.read())
+        replacement_archives: set[pathlib.Path] = set(self._archives()) - set(
+            initial_archives
+        )
+        self.assertEqual(len(replacement_archives), 1)
+        installed: pathlib.Path = (
+            self._state / "work/custom/templates/custom/header.tmpl"
+        )
+        with tarfile.open(replacement_archives.pop()) as archive:
+            archived: tarfile.TarInfo = next(
+                member
+                for member in archive.getmembers()
+                if member.name.endswith("work/custom/templates/custom/header.tmpl")
+            )
+            content: typing.IO[bytes] | None = archive.extractfile(archived)
+            assert content is not None
+            with content:
+                self.assertEqual(content.read(), initial.encode())
+        self.assertEqual(installed.read_text(), replacement)
+        self._evidence("custom-header-activation")
 
     def test_ssh_commit_signing(self) -> None:
         """Deploy a pair, verify a real API commit, and reject implicit rotation."""
