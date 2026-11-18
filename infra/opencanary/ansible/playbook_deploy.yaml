@@ -1,0 +1,11 @@
+- name: Configure the OpenCanary guest
+  hosts: opencanary
+  become: true
+  tasks:
+    - name: Configure the guest
+      ansible.builtin.import_role:
+        name: alwaldend.main.host
+
+    - name: Configure the native decoys
+      ansible.builtin.import_role:
+        name: alwaldend.main.opencanary

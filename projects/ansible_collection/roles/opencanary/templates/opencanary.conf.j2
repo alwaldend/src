@@ -1,0 +1,22 @@
+{
+{% for module, listener in opencanary_services.items() %}
+  "{{ module }}.enabled": true,
+  "{{ module }}.port": {{ listener.port | int }},
+{% endfor %}
+  "device.node_id": {{ inventory_hostname | to_json }},
+  "https.certificate": "/var/lib/opencanary/https.pem",
+  "https.key": "/var/lib/opencanary/https.key",
+  "ssh.key_path": "/var/lib/opencanary",
+  "tcpbanner.enabled": {{ ('tcpbanner_1' in opencanary_services) | to_json }},
+  "smb.enabled": {{ opencanary_smb_enabled | bool | to_json }},
+  "smb.auditfile": "/var/log/opencanary-samba.log",
+  "portscan.enabled": false,
+  "logger": {
+    "class": "PyLogger",
+    "kwargs": {
+      "handlers": {
+        "console": {"class": "logging.StreamHandler", "stream": "ext://sys.stdout"}
+      }
+    }
+  }
+}

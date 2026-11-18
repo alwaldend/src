@@ -1,0 +1,73 @@
+- name: Install Samba, rsyslog and SELinux labeling tools
+  ansible.builtin.dnf:
+    name:
+      - samba
+      - rsyslog
+      - policycoreutils-python-utils
+    state: present
+
+- name: Create read-only Samba decoy share
+  ansible.builtin.file:
+    path: /srv/opencanary
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: Label the Samba share for SELinux
+  community.general.sefcontext:
+    target: "/srv/opencanary(/.*)?"
+    setype: samba_share_t
+    state: present
+  notify: Relabel OpenCanary Samba share
+
+- name: Create sample Samba document
+  ansible.builtin.copy:
+    content: "Office document index\n"
+    dest: /srv/opencanary/index.txt
+    owner: root
+    group: root
+    mode: "0644"
+  notify: Relabel OpenCanary Samba share
+
+- name: Configure Samba decoy
+  ansible.builtin.template:
+    src: smb.conf.j2
+    dest: /etc/samba/smb.conf
+    owner: root
+    group: root
+    mode: "0644"
+    validate: /usr/bin/testparm -s %s
+  notify: Restart OpenCanary Samba
+
+- name: Prepare writable audit log for rsyslog
+  ansible.builtin.file:
+    path: /var/log/opencanary-samba.log
+    state: touch
+    owner: root
+    group: opencanary
+    mode: "0640"
+    access_time: preserve
+    modification_time: preserve
+
+- name: Route Samba audit events to OpenCanary
+  ansible.builtin.copy:
+    content: |
+      if ($programname == "smbd_audit" and $syslogfacility-text == "local7") then {
+        action(type="omfile" file="/var/log/opencanary-samba.log" fileGroup="opencanary" fileCreateMode="0640")
+        stop
+      }
+    dest: /etc/rsyslog.d/10-opencanary-samba.conf
+    owner: root
+    group: root
+    mode: "0644"
+  notify: Restart OpenCanary rsyslog
+
+- name: Enable audit logging and the Samba listener
+  ansible.builtin.systemd_service:
+    name: "{{ item }}"
+    enabled: true
+    state: started
+  loop:
+    - rsyslog.service
+    - smb.service

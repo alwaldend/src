@@ -1,0 +1,40 @@
+ansible_host: "{{ lookup('ansible.builtin.env', 'OPENCANARY_HOST', default=undefined()) }}"
+ansible_user: ansible
+ansible_ssh_extra_args: "-o HostKeyAlias={{ inventory_hostname }}"
+ssh_vault_role: src_infra_opencanary_ssh
+ssh_valid_principals:
+  - opencanary.alwaldend.com
+
+opencanary_management_source: "{{ lookup('ansible.builtin.env', 'OPENCANARY_MANAGEMENT_SOURCE', default=undefined()) }}"
+opencanary_decoy_source: "{{ lookup('ansible.builtin.env', 'OPENCANARY_DECOY_SOURCE', default=undefined()) }}"
+opencanary_smb_enabled: true
+opencanary_services:
+  ftp: {port: 21, proto: tcp}
+  telnet: {port: 23, proto: tcp}
+  tftp: {port: 69, proto: udp}
+  http: {port: 80, proto: tcp}
+  ntp: {port: 123, proto: udp}
+  snmp: {port: 161, proto: udp}
+  https: {port: 443, proto: tcp}
+  mssql: {port: 1433, proto: tcp}
+  ssh: {port: 2222, proto: tcp}
+  mysql: {port: 3306, proto: tcp}
+  rdp: {port: 3389, proto: tcp}
+  vnc: {port: 5000, proto: tcp}
+  sip: {port: 5060, proto: udp}
+  llmnr: {port: 5355, proto: udp}
+  redis: {port: 6379, proto: tcp}
+  tcpbanner_1: {port: 8001, proto: tcp}
+  httpproxy: {port: 8080, proto: tcp}
+  git: {port: 9418, proto: tcp}
+  mongodb: {port: 27017, proto: tcp}
+
+firewall_allow_port_from: |-
+  {%- set rules = [{'src': opencanary_management_source, 'port': 22, 'proto': 'tcp', 'comment': 'Administrative SSH'}] -%}
+  {%- for name, listener in opencanary_services.items() -%}
+  {%- set _ = rules.append(listener | combine({'src': opencanary_decoy_source, 'comment': 'OpenCanary ' ~ name})) -%}
+  {%- endfor -%}
+  {%- if opencanary_smb_enabled -%}
+  {%- set _ = rules.append({'src': opencanary_decoy_source, 'port': 445, 'proto': 'tcp', 'comment': 'OpenCanary SMB'}) -%}
+  {%- endif -%}
+  {{ rules }}

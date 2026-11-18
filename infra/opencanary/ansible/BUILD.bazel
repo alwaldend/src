@@ -1,0 +1,16 @@
+load("//tools/ansible/rules:al_ansible_package.bzl", "al_ansible_package")
+
+package(transitive_visibility = "//infra:transitive_consumers")
+
+al_ansible_package(
+    name = "ansible",
+    srcs = [
+        "inventory.yaml",
+        "playbook_deploy.yaml",
+    ] + glob(["group_vars/*.yaml"]),
+    configs = ["//infra/opencanary:al"],
+    plugin_labels = {
+        "ansible": "",
+        "vault_env": "default_default",
+    },
+)

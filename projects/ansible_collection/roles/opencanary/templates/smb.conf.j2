@@ -1,0 +1,19 @@
+[global]
+server role = standalone server
+server string = Documents
+map to guest = Bad User
+load printers = no
+disable spoolss = yes
+smb ports = 445
+
+[documents]
+path = /srv/opencanary
+guest ok = yes
+guest only = yes
+read only = yes
+vfs objects = full_audit
+full_audit:prefix = %U|%I|%i|%m|%S|%L|%R|%a|%T|%D
+full_audit:success = pread pread_send
+full_audit:failure = none
+full_audit:facility = LOCAL7
+full_audit:priority = NOTICE
