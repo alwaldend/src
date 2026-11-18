@@ -623,8 +623,37 @@ func TestPrepareStagesSymlinkReplacedByExplicitDirectory(t *testing.T) {
 }
 
 func TestDeliveryPreparePublishVerify(t *testing.T) {
+	home := t.TempDir()
+	t.Setenv("HOME", home)
+	t.Setenv("XDG_CONFIG_HOME", filepath.Join(home, ".config"))
+	const coAuthor = "Example Operator <operator@example.invalid>"
+	const otherCoAuthor = "Another Operator <another@example.invalid>"
+	writeTestFile(t, filepath.Join(home, ".gitconfig"), "[al]\n\tdeliveryCoAuthor = "+coAuthor+"\n")
 	fixture := newIntegrationDeliveryFixture(t)
+	runTestGit(t, fixture.work, "config", "--local", "al.deliveryCoAuthor", otherCoAuthor)
 	prepared := fixture.prepare(t)
+	trailers := runTestGit(t, fixture.work, "show", "-s", "--format=%(trailers:only)", prepared.HeadOID)
+	if want := "Co-authored-by: " + coAuthor + "\n" + commitDisclaimer; trailers != want {
+		t.Fatalf("prepared trailers = %q, want %q", trailers, want)
+	}
+	originalTree := prepared.TreeOID
+	messageFile := "out/delivery/commit.md"
+	writeTestFile(t, filepath.Join(fixture.work, messageFile),
+		"Add delivery fixture\n\nExercise the complete delivery flow.\n\n"+
+			"Co-authored-by: "+otherCoAuthor+"\n"+
+			"Co-authored-by: "+coAuthor+"\n"+
+			"co-authored-by: "+coAuthor+"\n"+
+			commitDisclaimer+"\n",
+	)
+	prepared, err := fixture.delivery.prepare(context.Background(), prepareOptions{
+		MessageFile: messageFile,
+		ReceiptFile: "out/delivery/prepare.json",
+		RewriteOID:  prepared.HeadOID,
+		MessageOnly: true,
+	})
+	if err != nil {
+		t.Fatalf("rewrite attributed message: %v", err)
+	}
 	receiptPath := filepath.Join(
 		fixture.work,
 		"out",
@@ -647,7 +676,8 @@ func TestDeliveryPreparePublishVerify(t *testing.T) {
 	}
 	if prepared.Receipt.PreparedHeadOID != prepared.HeadOID ||
 		prepared.Receipt.PreparedTreeOID != prepared.TreeOID ||
-		prepared.Receipt.Scope.Mode != scopeModePaths ||
+		prepared.TreeOID != originalTree ||
+		prepared.Receipt.Scope.Mode != scopeModeMessageOnly ||
 		!containsString(prepared.Receipt.Scope.AggregatePaths, "feature.txt") {
 		t.Fatalf("prepared receipt = %#v", prepared.Receipt)
 	}
@@ -664,6 +694,10 @@ func TestDeliveryPreparePublishVerify(t *testing.T) {
 		published.PullRequest.HeadRefOID != prepared.HeadOID {
 		t.Fatalf("publish() = %#v", published)
 	}
+	trailers = runTestGit(t, fixture.remote, "show", "-s", "--format=%(trailers:only)", published.HeadOID)
+	if want := "Co-authored-by: " + otherCoAuthor + "\nCo-authored-by: " + coAuthor + "\n" + commitDisclaimer; trailers != want {
+		t.Fatalf("published trailers = %q, want %q", trailers, want)
+	}
 	if !hasFinalLine(published.PullRequest.Body, pullRequestDisclaimer) {
 		t.Fatalf("pull request body lacks disclaimer: %q", published.PullRequest.Body)
 	}
@@ -677,10 +711,11 @@ func TestDeliveryPreparePublishVerify(t *testing.T) {
 	}
 	if directory := os.Getenv("TEST_UNDECLARED_OUTPUTS_DIR"); directory != "" {
 		artifact, err := json.MarshalIndent(map[string]any{
-			"prepared_head":  prepared.HeadOID,
-			"published_head": published.HeadOID,
-			"remote_head":    published.RemoteHeadOID,
-			"verified":       verified.Verified,
+			"prepared_head":   prepared.HeadOID,
+			"published_head":  published.HeadOID,
+			"remote_head":     published.RemoteHeadOID,
+			"commit_trailers": strings.Split(trailers, "\n"),
+			"verified":        verified.Verified,
 		}, "", "  ")
 		if err != nil {
 			t.Fatalf("encode publication artifact: %v", err)
