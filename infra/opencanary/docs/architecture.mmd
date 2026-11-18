@@ -1,0 +1,36 @@
+flowchart LR
+    accTitle: OpenCanary network paths
+    accDescr: Public clients use mutual TLS at Traefik, which connects to the web decoy over verified HTTPS. Inside Local infra, a local actor can reach each enabled decoy on the OpenCanary VM.
+
+    public_client("Public client")
+    traefik["Traefik ingress<br/>opencanary.alwaldend.com"]
+
+    subgraph local_infra["Local infra"]
+        local_actor("Local actor")
+        subgraph vm["Virtual machine<br/>opencanary.alwaldend.com"]
+            canary["OpenCanary"]
+        end
+    end
+
+    public_client -->|"HTTPS with mTLS"| traefik
+    traefik -->|"HTTPS over WireGuard"| canary
+    local_actor -->|"`FTP 21/TCP
+Telnet 23/TCP
+TFTP 69/UDP
+HTTP 80/TCP
+NTP 123/UDP
+SNMP 161/UDP
+HTTPS 443/TCP
+SMB 445/TCP
+MSSQL 1433/TCP
+SSH 2222/TCP
+MySQL 3306/TCP
+RDP 3389/TCP
+VNC 5000/TCP
+SIP 5060/UDP
+LLMNR 5355/UDP
+Redis 6379/TCP
+Banner 8001/TCP
+Proxy 8080/TCP
+Git 9418/TCP
+MongoDB 27017/TCP`"| canary

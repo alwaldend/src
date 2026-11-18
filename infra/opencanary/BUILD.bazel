@@ -76,6 +76,7 @@ docs_filegroup(
     visibility = ["//infra:__pkg__"],
     deps = [
         "//infra/opencanary/dns:docs",
+        "//infra/opencanary/docs",
         "//infra/opencanary/openspec:docs",
     ],
 )

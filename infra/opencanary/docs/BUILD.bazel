@@ -1,0 +1,23 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_site_svg")
+
+package(transitive_visibility = "//infra:transitive_consumers")
+
+mermaid_site_svg(
+    name = "architecture",
+    src = "architecture.mmd",
+    out = "rendered/architecture.svg",
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["architecture.mmd"],
+    visibility = ["//infra/opencanary:__pkg__"],
+    deps = [":docs_assets"],
+)
+
+docs_filegroup(
+    name = "docs_assets",
+    srcs = [":architecture"],
+    prefix = "content/docs/infra/opencanary/docs/assets",
+)

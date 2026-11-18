@@ -17,6 +17,16 @@ resolver so the LLMNR decoy can listen on UDP 5355.
 Events appear in the guest journal under `opencanary.service`. No external
 alert destination or dashboard is configured.
 
+## Network architecture
+
+[![OpenCanary network diagram](docs/assets/architecture.svg)](docs/assets/architecture.svg)
+
+The [Mermaid source](docs/architecture.mmd) shows public ingress and the local
+access path labeled with the decoys in the [guest profile](ansible/group_vars/opencanary.yaml).
+Traefik requires a trusted client certificate and uses HTTPS over WireGuard
+to reach the web decoy. Traefik verifies the Vault-issued backend certificate
+for `opencanary.alwaldend.com`.
+
 ## Deployment inputs
 
 - Apply the [standalone Vault AppRole](../vault/approles/src_infra_opencanary/README.md),
@@ -28,10 +38,6 @@ alert destination or dashboard is configured.
 - Management SSH accepts connections from any routed source. Decoy traffic
   defaults to the guest subnet. The ingress WireGuard peer may also reach the
   HTTPS decoy. Verify the guest SSH host key out of band before connecting.
-
-The public HTTPS route requires a trusted client certificate at ingress.
-Traefik connects to the web decoy over HTTPS via WireGuard and verifies the
-Vault-issued certificate for `opencanary.alwaldend.com`.
 
 ```sh
 bazel run //infra/opencanary/tf_setup:tf_setup.plan
