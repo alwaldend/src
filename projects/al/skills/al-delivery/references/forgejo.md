@@ -72,6 +72,13 @@ reviewed diff. Follow `$al-rebase` through its final fetch,
 explicit lease, push, and Git-level verification. Stop rather than rewrite
 shared, stacked, human-owned, or ambiguous history.
 
+Read the optional agent co-author with
+`git config --global --no-includes --get-all al.deliveryCoAuthor`. When set,
+include the single configured `Name <email>` value once as a `Co-authored-by`
+trailer in the same block as the final LLM disclaimer. Preserve other
+co-authors. Resolve malformed or multiple values before committing. Inspect
+the committed trailers with `git show -s --format='%(trailers:only)' HEAD`.
+
 Use `fj pr search` and `pr view` to inspect candidate pull requests before
 creating one. Create the exact-head pull request only when its absence is
 clear. For an agent-owned pull request, set the title from Git's `%s` and the

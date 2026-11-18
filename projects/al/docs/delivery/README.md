@@ -94,6 +94,12 @@ single-commit candidate, or `--consolidate <inspect.local_head_oid>` for an
 explicitly reviewed task-owned multi-commit range. The inspected value must be
 carried literally.
 
+To add a co-author to agent commits, set the account's global Git configuration
+key `al.deliveryCoAuthor` to one `Name <email>` identity. `prepare` adds the
+configured identity once in the final trailer block, immediately before the LLM
+disclaimer. Use the account's global Git file directly. The lookup excludes
+included and repository-local files.
+
 `prepare` performs Git preparation and writes the typed receipt. It does not
 invoke Bazel, select affected targets, or produce a validation plan. Run the
 normal build, test, and lint commands appropriate to the changed components

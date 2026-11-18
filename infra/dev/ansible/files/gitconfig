@@ -12,3 +12,5 @@
 	format = ssh
 [commit]
 	gpgsign = true
+[al]
+	deliveryCoAuthor = simeonwarren <simeonwarren@alwaldend.com>
