@@ -79,12 +79,25 @@
       notify: Reload firewalld
       tags:
         - firewall
-    - name: Configure Git
+    - name: Configure Git credentials and identity
       become: false
-      ansible.builtin.copy:
-        src: gitconfig
-        dest: "~/.gitconfig"
-        mode: "0600"
+      tags: [git]
+      block:
+        - name: Create the directory for the Git credential helper
+          ansible.builtin.file:
+            path: "{{ dev_vm_bazel_home }}/.local/bin"
+            state: directory
+            mode: "0755"
+        - name: Install the Forgejo Git credential helper
+          ansible.builtin.copy:
+            src: git_credential_forgejo.py
+            dest: "{{ dev_vm_bazel_home }}/.local/bin/git-credential-forgejo"
+            mode: "0700"
+        - name: Install the managed Git configuration
+          ansible.builtin.copy:
+            src: gitconfig
+            dest: "~/.gitconfig"
+            mode: "0600"
     - name: Preserve approved appliance SSH host keys
       become: false
       tags: [ssh_known_hosts]
