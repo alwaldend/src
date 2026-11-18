@@ -1,5 +1,5 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("//tools/al:al_terraform.bzl", "al_terraform_binary_map", "al_terraform_test_map")
+load("//tools/al:al_terraform.bzl", "al_terraform_package")
 
 package(transitive_visibility = "//infra:transitive_consumers")
 
@@ -13,32 +13,21 @@ docs_filegroup(
     ),
 )
 
-_PROVIDERS = [
-    "@terraform_provider_hashicorp_vault//:provider",
-    "@terraform_provider_yandex_cloud_yandex//:provider",
-]
-
-_CONFIGS = ["//infra/yandex_cloud/org1:al"]
-
-_DATA = glob(["*.tf"]) + [
-    "//projects/tf_modules/yc_folder",
-    "//projects/tf_modules/tf_backend",
-]
-
-al_terraform_binary_map(
+al_terraform_package(
     name = "tf",
-    configs = _CONFIGS,
-    data = _DATA,
+    configs = ["//infra/yandex_cloud/org1:al"],
+    data = glob(["*.tf"]) + [
+        "//projects/tf_modules/tf_backend",
+        "//projects/tf_modules/yc_folder",
+    ],
     plugin_labels = {
         "tf": "",
         "vault_env": "default_default",
     },
-    providers = _PROVIDERS,
-)
-
-al_terraform_test_map(
-    name = "tf_test",
-    configs = _CONFIGS,
-    data = _DATA,
-    providers = _PROVIDERS,
+    providers = [
+        "@terraform_provider_hashicorp_vault//:provider",
+        "@terraform_provider_yandex_cloud_yandex//:provider",
+    ],
+    tests_name = "tf_test",
+    tests_use_al = True,
 )

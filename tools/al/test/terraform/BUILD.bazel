@@ -1,5 +1,5 @@
 load("@rules_al//:defs.bzl", "al_config", "al_inject")
-load("//tools/al:al_terraform.bzl", "al_terraform_binary_map", "al_terraform_test_map")
+load("//tools/al:al_terraform.bzl", "al_terraform_package", "al_terraform_test_map")
 
 al_inject(
     name = "version_environment",
@@ -16,7 +16,7 @@ al_config(
     ],
 )
 
-al_terraform_binary_map(
+al_terraform_package(
     name = "command",
     testonly = True,
     srcs = ["main.tf"],
@@ -27,18 +27,15 @@ al_terraform_binary_map(
     configs = [":config"],
     plugin_labels = {"fixture": "terraform"},
     terraform = "//tools/al/test/terraform/cmd/terraform_fixture",
-)
-
-al_terraform_test_map(
-    name = "checks",
-    srcs = ["main.tf"],
-    args = {"version": [
-        "--direct",
-        "version",
-    ]},
-    configs = [":config"],
-    plugin_labels = {"fixture": "terraform"},
-    terraform = "//tools/al/test/terraform/cmd/terraform_fixture",
+    test_kwargs = {
+        "args": {"version": [
+            "--direct",
+            "version",
+        ]},
+        "plugin_labels": {"fixture": "terraform"},
+    },
+    tests_name = "checks",
+    tests_use_al = True,
 )
 
 al_terraform_test_map(

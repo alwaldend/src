@@ -1,8 +1,7 @@
 load("@rules_al//:defs.bzl", "al_config", "al_vault_auth")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("@rules_terraform//terraform:defs.bzl", "terraform_test_map")
 load("//infra:al_config.bzl", "infra_yc_auth")
-load("//tools/al:al_terraform.bzl", "al_terraform_binary_map")
+load("//tools/al:al_terraform.bzl", "al_terraform_package")
 load("//tools/vault/tf_backend:defs.bzl", "vault_tf_backend")
 
 package(transitive_visibility = "//infra:transitive_consumers")
@@ -36,27 +35,18 @@ al_config(
     visibility = ["//infra/local_inference/tf_setup:__subpackages__"],
 )
 
-_PROVIDERS = [
-    "@terraform_provider_yandex_cloud_yandex//:provider",
-]
-
-_DATA = glob(["*.tf"]) + [
-    "//infra/cloud_init:cloud_init",
-    "//infra/local_inference:dnsconfig",
-]
-
-al_terraform_binary_map(
+al_terraform_package(
     name = "tf_setup",
     configs = [":al"],
-    data = _DATA,
+    data = glob(["*.tf"]) + [
+        "//infra/cloud_init",
+        "//infra/local_inference:dnsconfig",
+    ],
     plugin_labels = {"tf": "setup"},
-    providers = _PROVIDERS,
-)
-
-terraform_test_map(
-    name = "tf_tests",
-    data = _DATA,
-    providers = _PROVIDERS,
+    providers = [
+        "@terraform_provider_yandex_cloud_yandex//:provider",
+    ],
+    tests_name = "tf_tests",
 )
 
 docs_filegroup(

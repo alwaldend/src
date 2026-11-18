@@ -1,6 +1,5 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("@rules_terraform//terraform:defs.bzl", "terraform_test_map")
-load("//tools/al:al_terraform.bzl", "al_terraform_binary_map", "al_terraform_target_binary_map")
+load("//tools/al:al_terraform.bzl", "al_terraform_package", "al_terraform_target_binary_map")
 
 package(transitive_visibility = "//infra:transitive_consumers")
 
@@ -24,12 +23,6 @@ _PROVIDERS = [
 
 _CONFIGS = ["//infra/pve:al"]
 
-_PLUGIN_LABELS = {
-    "tf": "",
-    "pve_login": "",
-    "vault_env": "default_default",
-}
-
 _DATA = glob(["*.tf"]) + [
     "//projects/tf_modules/dns_records:dns_records",
     "//projects/tf_modules/tf_backend",
@@ -37,11 +30,15 @@ _DATA = glob(["*.tf"]) + [
     "//infra/pve:dnsconfig",
 ]
 
-al_terraform_binary_map(
+al_terraform_package(
     name = "tf",
     configs = _CONFIGS,
     data = _DATA,
-    plugin_labels = _PLUGIN_LABELS,
+    plugin_labels = {
+        "tf": "",
+        "pve_login": "",
+        "vault_env": "default_default",
+    },
     providers = _PROVIDERS,
 )
 
@@ -52,10 +49,4 @@ al_terraform_target_binary_map(
     plugin_labels = {"dns": "1"},
     providers = _PROVIDERS,
     target = "module.dns",
-)
-
-terraform_test_map(
-    name = "tf_tests",
-    data = _DATA,
-    providers = _PROVIDERS,
 )

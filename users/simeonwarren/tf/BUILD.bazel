@@ -1,5 +1,5 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("//tools/al:al_terraform.bzl", "al_terraform_binary_map")
+load("//tools/al:al_terraform.bzl", "al_terraform_package")
 
 package(transitive_visibility = "//users:transitive_consumers")
 
@@ -27,7 +27,7 @@ _DATA = glob(["*.tf"]) + [
     "//infra/cloud_init:cloud_init",
 ]
 
-al_terraform_binary_map(
+al_terraform_package(
     name = "tf",
     configs = _CONFIGS,
     data = _DATA,
@@ -36,4 +36,5 @@ al_terraform_binary_map(
         "vault_env": "default_default",
     },
     providers = _PROVIDERS,
+    tests = False,
 )

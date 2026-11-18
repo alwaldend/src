@@ -1,7 +1,8 @@
 load("@rules_al//:defs.bzl", "al_binary_run_map")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files", "strip_prefix")
+load("@rules_pkg//pkg:mappings.bzl", "pkg_files")
 load("//tools/ansible/rules:al_ansible_binary.bzl", "al_ansible_binary")
+load("//tools/ansible/rules:al_ansible_package.bzl", "al_ansible_package")
 
 package(transitive_visibility = "//infra:transitive_consumers")
 
@@ -21,31 +22,28 @@ docs_filegroup(
     ),
 )
 
-al_binary_run_map(
+al_ansible_package(
     name = "ansible",
-    args = {"": [
-        "$(rootpath :ansible_bin)",
-        "--inventory",
+    srcs = [
         "inventory.yaml",
-        "playbook_deploy.yaml",
-    ]},
+    ] + glob([
+        "group_vars/**/*.yaml",
+        "files/**",
+        "playbook_*.yaml",
+        "tasks/**/*.yaml",
+    ]),
     configs = ["//infra/dev:al"],
-    data = [":ansible_bin"],
+    packaged_srcs = [
+        ":android_installer",
+        ":fj_binary",
+        ":srcs_files",
+        ":ssh_server_ca",
+    ],
     plugin_labels = {
         "vault_env": "default_default",
         "ansible": "",
         "runner": "1",
     },
-)
-
-al_ansible_binary(
-    name = "ansible_bin",
-    data = [
-        ":srcs",
-        "//infra:ansible_cfg",
-        "//projects/ansible_collection:collections",
-    ],
-    process_name = "ansible_playbook",
 )
 
 # The fj installation is user-local and has no SSH or Vault inputs.
@@ -66,16 +64,6 @@ al_binary_run_map(
         "ansible_become=false",
     ]},
     data = [":ansible_bin"],
-)
-
-pkg_filegroup(
-    name = "srcs",
-    srcs = [
-        ":android_installer",
-        ":fj_binary",
-        ":srcs_files",
-        ":ssh_server_ca",
-    ],
 )
 
 pkg_files(
@@ -100,19 +88,6 @@ pkg_files(
     name = "ssh_server_ca",
     srcs = ["//data/ssh:ca_servers"],
     renames = {"//data/ssh:ca_servers": "files/ssh_ca_servers.pub"},
-)
-
-pkg_files(
-    name = "srcs_files",
-    srcs = [
-        "inventory.yaml",
-    ] + glob([
-        "group_vars/**/*.yaml",
-        "files/**",
-        "playbook_*.yaml",
-        "tasks/**/*.yaml",
-    ]),
-    strip_prefix = strip_prefix.from_pkg(),
 )
 
 al_ansible_binary(

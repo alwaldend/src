@@ -1,5 +1,5 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("//tools/al:al_terraform.bzl", "al_terraform_binary_map", "al_terraform_test_map")
+load("//tools/al:al_terraform.bzl", "al_terraform_package")
 
 package(transitive_visibility = "//infra:transitive_consumers")
 
@@ -13,41 +13,27 @@ docs_filegroup(
     ),
 )
 
-_PROVIDERS = [
-    "@terraform_provider_hashicorp_vault//:provider",
-    "@terraform_provider_svalabs_forgejo//:provider",
-]
-
-_CONFIGS = ["//infra/forgejo:al"]
-
-_PLUGIN_LABELS = {
-    "tf": "main",
-    "vault_env": "default_default",
-}
-
-_DATA = glob(["*.tf"]) + [
-    "//infra/forgejo/cmd/runner_registration",
-    "//infra/repos:config",
-    "//infra/repos/tf:module",
-]
-
 filegroup(
     name = "runner_bootstrap_source",
     srcs = ["runner_bootstrap.tf"],
     visibility = ["//infra/forgejo/cmd/runner_registration:__pkg__"],
 )
 
-al_terraform_binary_map(
+al_terraform_package(
     name = "tf",
-    configs = _CONFIGS,
-    data = _DATA,
-    plugin_labels = _PLUGIN_LABELS,
-    providers = _PROVIDERS,
-)
-
-al_terraform_test_map(
-    name = "tf_tests",
-    configs = _CONFIGS,
-    data = _DATA,
-    providers = _PROVIDERS,
+    configs = ["//infra/forgejo:al"],
+    data = glob(["*.tf"]) + [
+        "//infra/forgejo/cmd/runner_registration",
+        "//infra/repos:config",
+        "//infra/repos/tf:module",
+    ],
+    plugin_labels = {
+        "tf": "main",
+        "vault_env": "default_default",
+    },
+    providers = [
+        "@terraform_provider_hashicorp_vault//:provider",
+        "@terraform_provider_svalabs_forgejo//:provider",
+    ],
+    tests_use_al = True,
 )

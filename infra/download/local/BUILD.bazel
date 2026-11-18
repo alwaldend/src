@@ -1,6 +1,6 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("@rules_terraform//terraform:defs.bzl", "terraform_binary", "terraform_test_map")
-load("//tools/al:al_terraform.bzl", "al_terraform_binary_map")
+load("@rules_terraform//terraform:defs.bzl", "terraform_binary")
+load("//tools/al:al_terraform.bzl", "al_terraform_package")
 
 package(transitive_visibility = "//infra:transitive_consumers")
 
@@ -16,7 +16,7 @@ _DATA = glob([
 
 _PROVIDERS = ["@terraform_provider_vatesfr_xenorchestra//:provider"]
 
-al_terraform_binary_map(
+al_terraform_package(
     name = "tf",
     configs = ["//infra/download:al"],
     data = _DATA,
@@ -24,12 +24,6 @@ al_terraform_binary_map(
         "tf": "local",
         "xoa_login": "1",
     },
-    providers = _PROVIDERS,
-)
-
-terraform_test_map(
-    name = "tf_tests",
-    data = _DATA,
     providers = _PROVIDERS,
 )
 

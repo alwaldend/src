@@ -1,7 +1,7 @@
 load("@rules_al//:defs.bzl", "al_config")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("@rules_terraform//terraform:defs.bzl", "terraform_binary", "terraform_test_map")
-load("//tools/al:al_terraform.bzl", "al_terraform_binary_map")
+load("@rules_terraform//terraform:defs.bzl", "terraform_binary")
+load("//tools/al:al_terraform.bzl", "al_terraform_package")
 load("//tools/vault/tf_backend:defs.bzl", "vault_tf_backend")
 
 package(transitive_visibility = "//infra:transitive_consumers")
@@ -33,7 +33,7 @@ al_config(
     ],
 )
 
-al_terraform_binary_map(
+al_terraform_package(
     name = "tf",
     configs = [":al"],
     data = _DATA,
@@ -48,12 +48,6 @@ terraform_binary(
     name = "offline",
     testonly = True,
     arguments = ["--direct"],
-    data = _DATA,
-    providers = _PROVIDERS,
-)
-
-terraform_test_map(
-    name = "tf_tests",
     data = _DATA,
     providers = _PROVIDERS,
 )

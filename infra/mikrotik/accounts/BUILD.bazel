@@ -1,42 +1,34 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("@rules_terraform//terraform:defs.bzl", "terraform_test_map")
-load("//tools/al:al_terraform.bzl", "al_terraform_binary_map")
+load("//tools/al:al_terraform.bzl", "al_terraform_package")
 
 package(transitive_visibility = "//infra:transitive_consumers")
 
-_PROVIDERS = [
-    "@terraform_provider_hashicorp_random//:provider",
-    "@terraform_provider_hashicorp_vault//:provider",
-    "@terraform_provider_terraform_routeros_routeros//:provider",
-]
-
-_DATA = glob(["*.tf"])
-
-al_terraform_binary_map(
+al_terraform_package(
     name = "tf",
     configs = ["//infra/mikrotik:al"],
-    data = _DATA,
+    data = glob(["*.tf"]),
     plugin_labels = {"tf": "accounts"},
-    providers = _PROVIDERS,
-)
-
-terraform_test_map(
-    name = "tf_tests",
-    args = {
-        "fmt": [
-            "--direct",
-            "fmt",
-            "--check",
-            "--recursive",
-        ],
-        "validate": ["validate"],
+    providers = [
+        "@terraform_provider_hashicorp_random//:provider",
+        "@terraform_provider_hashicorp_vault//:provider",
+        "@terraform_provider_terraform_routeros_routeros//:provider",
+    ],
+    test_kwargs = {
+        "args": {
+            "fmt": [
+                "--direct",
+                "fmt",
+                "--check",
+                "--recursive",
+            ],
+            "validate": ["validate"],
+        },
+        # Omit only the operational backend so checks initialize without Vault.
+        "data": glob(
+            ["*.tf"],
+            exclude = ["backend.tf"],
+        ),
     },
-    # Omit only the operational backend so checks initialize without Vault.
-    data = glob(
-        ["*.tf"],
-        exclude = ["backend.tf"],
-    ),
-    providers = _PROVIDERS,
 )
 
 docs_filegroup(
