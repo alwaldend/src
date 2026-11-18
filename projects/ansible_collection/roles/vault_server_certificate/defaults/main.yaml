@@ -1,0 +1,7 @@
+vault_server_certificate_sign_path: "{{ undefined() }}"
+vault_server_certificate_path: "{{ undefined() }}"
+vault_server_certificate_key_path: "{{ undefined() }}"
+vault_server_certificate_group: "{{ undefined() }}"
+vault_server_certificate_name: "{{ inventory_hostname }}"
+vault_server_certificate_ttl: 720h
+vault_server_certificate_notify: []

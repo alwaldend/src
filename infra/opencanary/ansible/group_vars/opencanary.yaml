@@ -1,13 +1,13 @@
-ansible_host: "{{ lookup('ansible.builtin.env', 'OPENCANARY_HOST', default=undefined()) }}"
+ansible_host: "{{ lookup('ansible.builtin.env', 'OPENCANARY_HOST', default=inventory_hostname) }}"
 ansible_user: ansible
 ansible_ssh_extra_args: "-o HostKeyAlias={{ inventory_hostname }}"
 ssh_vault_role: src_infra_opencanary_ssh
 ssh_valid_principals:
   - opencanary.alwaldend.com
 
-opencanary_management_source: "{{ lookup('ansible.builtin.env', 'OPENCANARY_MANAGEMENT_SOURCE', default=undefined()) }}"
-opencanary_decoy_source: "{{ lookup('ansible.builtin.env', 'OPENCANARY_DECOY_SOURCE', default=undefined()) }}"
+opencanary_decoy_source: "{{ lookup('ansible.builtin.env', 'OPENCANARY_DECOY_SOURCE', default='192.168.10.0/24') }}"
 opencanary_smb_enabled: true
+opencanary_https_sign_path: pki/ica_servers/issuer/default/sign/src_infra_opencanary_pki_server_rsa_2048
 opencanary_services:
   ftp: {port: 21, proto: tcp}
   telnet: {port: 23, proto: tcp}
@@ -30,7 +30,7 @@ opencanary_services:
   mongodb: {port: 27017, proto: tcp}
 
 firewall_allow_port_from: |-
-  {%- set rules = [{'src': opencanary_management_source, 'port': 22, 'proto': 'tcp', 'comment': 'Administrative SSH'}] -%}
+  {%- set rules = [{'src': 'any', 'port': 22, 'proto': 'tcp', 'comment': 'Administrative SSH'}, {'src': '10.10.0.1/32', 'port': opencanary_services.https.port, 'proto': 'tcp', 'comment': 'Ingress WireGuard HTTPS'}] -%}
   {%- for name, listener in opencanary_services.items() -%}
   {%- set _ = rules.append(listener | combine({'src': opencanary_decoy_source, 'comment': 'OpenCanary ' ~ name})) -%}
   {%- endfor -%}
@@ -38,3 +38,6 @@ firewall_allow_port_from: |-
   {%- set _ = rules.append({'src': opencanary_decoy_source, 'port': 445, 'proto': 'tcp', 'comment': 'OpenCanary SMB'}) -%}
   {%- endif -%}
   {{ rules }}
+
+firewall_delete_rules:
+  - {rule: allow, direction: in, src: 10.10.0.1/32, port: 80, proto: tcp}

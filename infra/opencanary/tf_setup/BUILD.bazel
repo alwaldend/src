@@ -7,6 +7,7 @@ al_terraform_package(
     configs = ["//infra/opencanary:al"],
     data = glob(["*.tf"]) + [
         "//infra/cloud_init:xen_linux",
+        "//infra/opencanary:dnsconfig",
         "//infra/xcp_ng/cmd/xo_login",
     ],
     plugin_labels = {

@@ -22,19 +22,34 @@ alert destination or dashboard is configured.
 - Apply the [standalone Vault AppRole](../vault/approles/src_infra_opencanary/README.md),
   reconcile its shared Vault memberships, then synchronize its identity through
   the [XCP-ng workflow](../xcp_ng/tf/README.md).
-- Assign the Fedora 44 template, Local storage, and an isolated honeypot network
-  to the `src_infra_opencanary` resource set. Supply that entry in the XCP-ng
-  `resource_set_inventory` input alongside the existing entries.
-- Supply the DHCP-enabled network as `TF_VAR_network_name`. DHCP supplies
-  the guest's IPv4 address, gateway, and DNS. Use the Terraform `address`
-  output for Ansible and `mac_address` if you need a DHCP reservation.
-- Export `OPENCANARY_HOST`, `OPENCANARY_MANAGEMENT_SOURCE`, and
-  `OPENCANARY_DECOY_SOURCE` before running Ansible. The source values are the
-  management and monitored IPv4 CIDRs. Verify the guest's initial SSH host
-  key out of band and trust it under the alias `opencanary.alwaldend.com`.
+- The Xen Orchestra resource set uses the regular VM network. The
+  [DNS declaration](dnsconfig.json) owns the static IPv4 address and the
+  [DNS root](dns/README.md) publishes the name in the site-local view.
+- Management SSH accepts connections from any routed source. Decoy traffic
+  defaults to the guest subnet. The ingress WireGuard peer may also reach the
+  HTTPS decoy. Verify the guest SSH host key out of band before connecting.
+
+The public HTTPS route requires a trusted client certificate at ingress.
+Traefik connects to the web decoy over HTTPS via WireGuard and verifies the
+Vault-issued certificate for `opencanary.alwaldend.com`.
 
 ```sh
 bazel run //infra/opencanary/tf_setup:tf_setup.plan
 bazel run //infra/opencanary/tf_setup:tf_setup.apply
+bazel run //infra/opencanary/dns:tf.apply
 bazel run //infra/opencanary/ansible
 ```
+
+For an existing HTTP upstream, apply the AppRole changes, then use these
+Ansible stages to switch the route without retiring its HTTP access early:
+
+```sh
+bazel run //infra/opencanary/ansible -- --tags opencanary_tls
+bazel run //infra/opencanary/ansible -- --tags firewall --extra-vars '{"firewall_delete_rules":[]}'
+bazel run //infra/ingress/ansible -- --tags traefik
+bazel run //infra/opencanary/ansible -- --tags firewall
+```
+
+Verify the HTTPS listener from ingress before switching Traefik. The guest
+keeps its private key. Run the `opencanary_tls` stage weekly to replace the
+30-day certificate when fewer than seven days remain.

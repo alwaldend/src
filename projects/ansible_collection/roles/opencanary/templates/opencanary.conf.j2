@@ -4,8 +4,11 @@
   "{{ module }}.port": {{ listener.port | int }},
 {% endfor %}
   "device.node_id": {{ inventory_hostname | to_json }},
-  "https.certificate": "/var/lib/opencanary/https.pem",
-  "https.key": "/var/lib/opencanary/https.key",
+  "http.skin": "nasLogin",
+  "http.log_redirect_request": true,
+  "https.skin": "nasLogin",
+  "https.certificate": {{ opencanary_https_certificate | to_json }},
+  "https.key": {{ opencanary_https_key | to_json }},
   "ssh.key_path": "/var/lib/opencanary",
   "tcpbanner.enabled": {{ ('tcpbanner_1' in opencanary_services) | to_json }},
   "smb.enabled": {{ opencanary_smb_enabled | bool | to_json }},

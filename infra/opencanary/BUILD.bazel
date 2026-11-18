@@ -1,6 +1,7 @@
 load("@rules_al//:defs.bzl", "al_config", "al_vault_auth")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("//infra:al_config.bzl", "infra_ansible_keys", "infra_xo_login")
+load("//infra:al_config.bzl", "infra_ansible_keys", "infra_dns", "infra_xo_login")
+load("//tools/vault:defs.bzl", "vault_binary_map")
 load("//tools/vault/tf_backend:defs.bzl", "vault_tf_backend")
 
 package(transitive_visibility = "//infra:transitive_consumers")
@@ -32,11 +33,31 @@ vault_tf_backend(
     path = "alwaldend.com/vault1/approles/src_infra_opencanary/tf_backend",
 )
 
+infra_dns(
+    name = "dns_providers",
+    dc1 = True,
+    labels = {"tf": "dns"},
+)
+
+vault_tf_backend(
+    name = "dns_backend",
+    labels = {"tf": "dns"},
+    path = "alwaldend.com/vault1/approles/src_infra_opencanary/tf_backend/dns",
+)
+
+filegroup(
+    name = "dnsconfig",
+    srcs = ["dnsconfig.json"],
+    visibility = ["//infra/opencanary:__subpackages__"],
+)
+
 al_config(
     name = "al",
     configs = [
         ":ansible_keys",
         ":auth",
+        ":dns_backend",
+        ":dns_providers",
         ":tf_backend",
         ":xo_login",
         "//infra:al",
@@ -44,9 +65,17 @@ al_config(
     visibility = ["//infra/opencanary:__subpackages__"],
 )
 
+vault_binary_map(
+    name = "vault",
+    configs = [":al"],
+)
+
 docs_filegroup(
     name = "docs",
     srcs = ["README.md"],
     visibility = ["//infra:__pkg__"],
-    deps = ["//infra/opencanary/openspec:docs"],
+    deps = [
+        "//infra/opencanary/dns:docs",
+        "//infra/opencanary/openspec:docs",
+    ],
 )

@@ -2,3 +2,6 @@ opencanary_version: "0.9.10"
 opencanary_services:
   http: {port: 80, proto: tcp}
 opencanary_smb_enabled: false
+opencanary_https_certificate: /var/lib/opencanary/https.pem
+opencanary_https_key: /var/lib/opencanary/https.key
+opencanary_https_sign_path: ""

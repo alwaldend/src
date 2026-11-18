@@ -1,0 +1,67 @@
+- name: Ensure the OpenSSL command is available
+  ansible.builtin.package:
+    name: openssl
+    state: present
+
+- name: Check that the certificate remains trusted for seven days
+  ansible.builtin.command:
+    argv:
+      - openssl
+      - verify
+      - -purpose
+      - sslserver
+      - -verify_hostname
+      - "{{ vault_server_certificate_name }}"
+      - -attime
+      - "{{ (ansible_facts.date_time.epoch | int) + 604800 }}"
+      - "{{ vault_server_certificate_path }}"
+  register: vault_server_certificate_current
+  check_mode: false
+  changed_when: false
+  failed_when: false
+
+- name: Renew the missing, untrusted, or expiring certificate
+  when: vault_server_certificate_current.rc | default(1) != 0 and not ansible_check_mode
+  block:
+    - name: Create a signing request with the managed host key
+      ansible.builtin.command:
+        argv:
+          - openssl
+          - req
+          - -new
+          - -key
+          - "{{ vault_server_certificate_key_path }}"
+          - -subj
+          - "/CN={{ vault_server_certificate_name }}"
+          - -addext
+          - "subjectAltName=DNS:{{ vault_server_certificate_name }}"
+      register: vault_server_certificate_csr
+      changed_when: false
+
+    - name: Sign the host request in Vault
+      delegate_to: localhost
+      become: false
+      no_log: true
+      ansible.builtin.uri:
+        url: "{{ lookup('ansible.builtin.env', 'VAULT_ADDR') }}/v1/{{ vault_server_certificate_sign_path }}"
+        method: POST
+        headers:
+          X-Vault-Token: "{{ lookup('ansible.builtin.env', 'VAULT_TOKEN') }}"
+        ca_path: "{{ lookup('ansible.builtin.env', 'VAULT_CACERT') | default(omit, true) }}"
+        client_cert: "{{ lookup('ansible.builtin.env', 'VAULT_CLIENT_CERT') | default(omit, true) }}"
+        client_key: "{{ lookup('ansible.builtin.env', 'VAULT_CLIENT_KEY') | default(omit, true) }}"
+        body_format: json
+        body:
+          csr: "{{ vault_server_certificate_csr.stdout }}"
+          ttl: "{{ vault_server_certificate_ttl }}"
+      register: vault_server_certificate_signed
+
+    - name: Install the verified server certificate
+      ansible.builtin.copy:
+        content: "{{ vault_server_certificate_signed.json.data.certificate | trim }}\n"
+        dest: "{{ vault_server_certificate_path }}"
+        owner: root
+        group: "{{ vault_server_certificate_group }}"
+        mode: "0640"
+        validate: "openssl verify -purpose sslserver -verify_hostname {{ vault_server_certificate_name }} %s"
+      notify: "{{ vault_server_certificate_notify }}"

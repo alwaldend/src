@@ -1,8 +1,9 @@
 # OpenCanary Vault AppRole
 
-This Terraform root owns the `src_infra_opencanary` AppRole and its SSH host
-signing policy in separate Vault-backed state. The shared Vault root owns the
-mounts, the operator group, and the shared AppRole and Ansible memberships.
+This Terraform root owns the `src_infra_opencanary` AppRole, its SSH host
+signing policy, and its scoped TLS server signing role. The shared Vault root
+owns the mounts, the operator group, and the shared AppRole and Ansible
+memberships.
 
 For a fresh installation, provision the shared Vault prerequisites, apply
 this root, then reconcile shared group memberships before configuring Xen
