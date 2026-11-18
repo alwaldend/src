@@ -19,11 +19,16 @@ to the development resource set. The account now comes from NAS-managed Vault
 publication. Plans do not reconcile retained PBD settings or rotate credentials.
 
 The [coordinated receipt](../../../../dev/openspec/changes/mount-runner-cache/validation.md)
-records quality, semantic lint, packaging and strict specification checks. No
-SR, VM disk or host mount was created; live encrypted storage verification is
-still required after separately authorized deployment.
+records quality, semantic lint, packaging and strict specification checks. The authorized
+rollout created the SR, attached the VM disk and mounted the guest filesystem.
+A real repeated action verified a disk-cache hit; see the coordinated receipt.
 
 The credential injector now reads shared/read/approle/src_infra_xcp_ng/nas using
 its own AppRole. The cross-account Vault policy and binding are removed. The
 development NAS project supplies cache filesystem/share access and parent traversal;
-no live SR credential or mount was changed.
+the new SR uses the published XCP-ng account.
+
+The full initial apply was canceled to preserve unrelated OIDC and AppRole
+changes. The scoped development resource-set apply completed one addition and
+one update with no deletions. Direct CIFS negotiation inspection through the
+owning SSH target was unavailable because this controller lacks sshpass.

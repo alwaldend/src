@@ -26,8 +26,9 @@ VM provisioning only attaches the
 800-GiB disk from the dedicated XO repository. The module owns encrypted storage
 and private ACLs. Terraform publishes disk metadata to Vault for automatic
 Ansible injection and UUID mounting. The worker requires the mount; action-cache
-GC is 700 GiB and Bazel working state remains local. These declarations have not
-been deployed. See the provisioning guide for stage order.
+GC is 700 GiB and Bazel working state remains local. The
+[rollout record](openspec/changes/mount-runner-cache/deployment.md) records the
+live mount, worker and repeated-action cache verification.
 
 The runner reuses the API-issued identity owned by
 [`infra/forgejo`](../forgejo/cmd/runner_registration/README.md), delivered through
@@ -319,6 +320,16 @@ The Forgejo runner and development machine share deployment configuration under
 runner enabled.
 
 [Download the dark WebP diagram](assets/development-hosts.dark.webp).
+
+### Repository CI
+
+[![Repository CI and NAS-backed runner cache](assets/ci.svg)](assets/ci.svg)
+
+The runner uses a guest cache disk backed by the NAS through XCP-ng. The
+[diagram source](docs/ci.mmd) uses the same light/dark site render as the
+development-host diagram. `//infra/dev:rendered_ci` builds both variants.
+
+[Download the dark WebP diagram](assets/ci.dark.webp).
 
 ### T3 Code
 

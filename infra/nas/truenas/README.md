@@ -43,7 +43,8 @@ distinct backend paths and does not depend on this root's state outputs.
 Apply the Vault NAS access groups, account-publisher and lookup grants before
 planning this root.
 Unlock the encrypted root before provisioning namespaces or mounting shares.
-Live apply is separately authorized; no cache or account deployment ran here.
+The [authorized rollout](../../dev/openspec/changes/mount-runner-cache/deployment.md)
+provisioned the accounts and shared settings; the subsequent plan has no changes.
 
 ```sh
 bazel run //infra/nas/truenas:tf.plan

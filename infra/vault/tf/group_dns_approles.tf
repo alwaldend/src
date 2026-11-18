@@ -5,10 +5,10 @@ resource "vault_identity_group" "dns_approles" {
   member_entity_ids = [
     module.src_infra_mikrotik.entity_id,
     module.src_infra_printers.entity_id,
-    module.src_infra_nas.entity_id,
+    data.vault_identity_entity.standalone_approles["src_infra_nas"].entity_id,
     module.src_projects_activitywatch_ingester_android.entity_id,
     module.src_projects_agents.entity_id,
-    module.src_projects_al.entity_id,
+    data.vault_identity_entity.standalone_approles["src_projects_al"].entity_id,
     module.src_projects_android_launcher.entity_id,
     module.src_projects_ansible_collection.entity_id,
     module.src_projects_autoscroll.entity_id,

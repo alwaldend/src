@@ -217,3 +217,12 @@ bazel run //infra/vault -- read identity/oidc/client/src_infra_dc1_forgejo1_prov
 ```sh
  bazel run //infra/vault -- list -format json identity/entity-alias/id | jq ".[]" | xargs "-I{}" bazel run //infra/vault -- read "identity/entity-alias/id/{}"
 ```
+
+## Independent AppRole projects
+
+The [NAS](approles/src_infra_nas/README.md),
+[development](approles/src_infra_dev/README.md),
+[AL](approles/src_projects_al/README.md), and
+[download](approles/src_infra_download/README.md) identities use independent
+Terraform roots and states. The core root retains shared mounts and global
+memberships, discovering those projects' existing identities by name.

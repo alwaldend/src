@@ -6,6 +6,6 @@ resource "vault_identity_group" "truenas_user" {
       vault_identity_group.approles.member_entity_ids,
       vault_identity_group.dns_approles.member_entity_ids,
     ),
-    [module.src_infra_nas.entity_id],
+    [data.vault_identity_entity.standalone_approles["src_infra_nas"].entity_id],
   )
 }

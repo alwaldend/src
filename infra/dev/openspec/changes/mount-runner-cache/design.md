@@ -28,8 +28,10 @@ incompatible filesystems and mounts used outside the cache path.
 
 Apply Vault groups/grants, the shared NAS root, the standalone development NAS
 project (namespace and runner cache), XCP-ng storage, the VM root and Ansible.
-Each uses a complete apply with its own state. No live state transfer is
-part of this source-only revision; no live cache apply has run in this task.
+Each uses its owning state and backend lock. Initial VM attachment precedes
+metadata publication as described below. The authorized rollout used a scoped
+XCP-ng apply to leave unrelated OIDC and AppRole changes unapplied; deployment.md
+records the exact scope and final verification.
 
 ## Metadata handoff failure cases
 
@@ -40,6 +42,13 @@ Terraform must not publish an unattached or invalid disk position. The existing
 development AppRole policy owns reads and writes; no broader credential grant
 or live Vault write is needed to validate source. Offline playbook syntax must
 remain independent of Vault, and user-local fj installation must not fetch it.
+
+The pinned XO provider leaves a new disk's computed position null in its plan
+and changes it during apply. Initialize the attachment through the owning VM
+apply with -target=xenorchestra_vm.secure1, then run the complete VM apply to
+publish its actual device and capacity. A built-in data projection cannot repair
+that provider inconsistency. Never guess a guest device or publish null positions;
+a repeated complete plan must leave the VM and Vault record unchanged.
 
 The cache module grants XCP-ng inherited MODIFY access. The module owns the
 filesystem/share ACL implementation; the AppRole project owns the required parent traversal.
