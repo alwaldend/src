@@ -1,7 +1,6 @@
 load("@rules_al//:defs.bzl", "al_binary_run")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("@rules_terraform//terraform:defs.bzl", "terraform_test_map")
-load("//tools/al:al_terraform.bzl", "al_terraform_binary_map")
+load("//tools/al:al_terraform.bzl", "al_terraform_package")
 
 package(transitive_visibility = "//infra:transitive_consumers")
 
@@ -15,7 +14,7 @@ filegroup(
     visibility = ["//infra/vastai/tf:__pkg__"],
 )
 
-al_terraform_binary_map(
+al_terraform_package(
     name = "tf",
     args = {
         "plan": ["plan"],
@@ -35,6 +34,13 @@ al_terraform_binary_map(
         "//projects/vastai_terraform_provider:provider",
         "@terraform_provider_hashicorp_vault//:provider",
     ],
+    test_kwargs = {
+        "data": glob([
+            "*.tf",
+            "tests/*.tftest.hcl",
+        ]),
+        "providers": [],
+    },
 )
 
 al_binary_run(
@@ -45,14 +51,6 @@ al_binary_run(
         "//tools/vastai",
     ],
     plugin_labels = {"vastai": "alwaldend"},
-)
-
-terraform_test_map(
-    name = "tf_tests",
-    data = glob([
-        "*.tf",
-        "tests/*.tftest.hcl",
-    ]),
 )
 
 docs_filegroup(

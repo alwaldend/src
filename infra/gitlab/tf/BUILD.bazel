@@ -1,5 +1,5 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("//tools/al:al_terraform.bzl", "al_terraform_binary_map", "al_terraform_test_map")
+load("//tools/al:al_terraform.bzl", "al_terraform_package")
 
 package(transitive_visibility = "//infra:transitive_consumers")
 
@@ -9,30 +9,16 @@ docs_filegroup(
     visibility = ["//infra/gitlab:__pkg__"],
 )
 
-_PROVIDERS = [
-    "@terraform_provider_gitlabhq_gitlab//:provider",
-]
-
-_CONFIGS = ["//infra/gitlab:al"]
-
-_PLUGIN_LABELS = {"tf": "main"}
-
-_DATA = glob(["*.tf"]) + [
-    "//infra/repos:config",
-    "//infra/repos/tf:module",
-]
-
-al_terraform_binary_map(
+al_terraform_package(
     name = "tf",
-    configs = _CONFIGS,
-    data = _DATA,
-    plugin_labels = _PLUGIN_LABELS,
-    providers = _PROVIDERS,
-)
-
-al_terraform_test_map(
-    name = "tf_tests",
-    configs = _CONFIGS,
-    data = _DATA,
-    providers = _PROVIDERS,
+    configs = ["//infra/gitlab:al"],
+    data = glob(["*.tf"]) + [
+        "//infra/repos:config",
+        "//infra/repos/tf:module",
+    ],
+    plugin_labels = {"tf": "main"},
+    providers = [
+        "@terraform_provider_gitlabhq_gitlab//:provider",
+    ],
+    tests_use_al = True,
 )

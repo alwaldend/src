@@ -30,6 +30,28 @@ Terraform commands. Pass `configs` and `plugin_labels` directly; this integratio
 selects the AL wrapper once. Provider pins and operation behavior remain owned
 by standalone rules_terraform. Plain offline tests can use its maps directly.
 
+Use `al_terraform_package` from the same file for a Terraform root's command
+and test maps:
+
+```starlark
+al_terraform_package(
+    name = "tf",
+    configs = ["//infra/example:al"],
+    data = glob(["*.tf"]),
+    plugin_labels = {"tf": "main"},
+    providers = ["@terraform_provider_hashicorp_vault//:provider"],
+)
+```
+
+It shares configuration inputs and providers between operations and checks,
+preserving names such as `tf.plan` and `tf_tests.fmt_test`. Checks run directly
+without AL by default; `tests_use_al = True` retains AL-wrapped checks and
+inherits `configs`, independently of operation plugin selectors. `test_kwargs`
+overrides check inputs, arguments, providers or selectors, including data that
+omits an operational backend. `command_kwargs` overrides only operations.
+`tests_name` retains custom test prefixes, and `tests = False` declares only
+operations. Keep scoped operation maps and other specialized targets explicit.
+
 Backend calls reuse `vault_tf_backend(name = ..., path = ..., labels = ...)` from
 `//tools/vault/tf_backend:defs.bzl`. The shared configuration registers the
 backend executable once and supplies its runtime files to component commands.

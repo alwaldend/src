@@ -1,7 +1,5 @@
-load("@rules_al//:defs.bzl", "al_binary_run_map")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files", "strip_prefix")
-load("//tools/ansible/rules:al_ansible_binary.bzl", "al_ansible_binary")
+load("//tools/ansible/rules:al_ansible_package.bzl", "al_ansible_package")
 
 package(transitive_visibility = "//infra:transitive_consumers")
 
@@ -11,42 +9,8 @@ filegroup(
     visibility = ["//infra/security:fleet_inventory_consumers"],
 )
 
-al_binary_run_map(
+al_ansible_package(
     name = "ansible",
-    args = {environment: [
-        "$(rootpath :ansible_bin)",
-        "--inventory",
-        "inventory.yaml",
-        "--limit",
-        "download_" + environment,
-        "playbook_deploy.yaml",
-    ] for environment in [
-        "local",
-        "yandex",
-    ]},
-    configs = ["//infra/download:al"],
-    data = [
-        ":ansible_bin",
-    ],
-    plugin_labels = {
-        "vault_env": "default_default",
-        "ssh": "1",
-    },
-)
-
-al_ansible_binary(
-    name = "ansible_bin",
-    data = [
-        ":srcs",
-        "//infra:ansible_cfg",
-        "//projects/ansible_collection:collections",
-    ],
-    process_name = "ansible_playbook",
-    visibility = ["//infra/download:__subpackages__"],
-)
-
-pkg_files(
-    name = "files",
     srcs = [
         "inventory.yaml",
         "playbook_deploy.yaml",
@@ -56,14 +20,23 @@ pkg_files(
         "files/**",
         "tasks/**",
     ]),
-    strip_prefix = strip_prefix.from_pkg(),
-)
-
-pkg_filegroup(
-    name = "srcs",
-    srcs = [
-        ":files",
-    ],
+    args = {environment: [
+        "--inventory",
+        "inventory.yaml",
+        "--limit",
+        "download_" + environment,
+        "playbook_deploy.yaml",
+    ] for environment in [
+        "local",
+        "yandex",
+    ]},
+    binary_visibility = ["//infra/download:__subpackages__"],
+    configs = ["//infra/download:al"],
+    files_name = "files",
+    plugin_labels = {
+        "vault_env": "default_default",
+        "ssh": "1",
+    },
 )
 
 docs_filegroup(

@@ -1,5 +1,5 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("//tools/al:al_terraform.bzl", "al_terraform_binary_map", "al_terraform_target_binary_map", "al_terraform_test_map")
+load("//tools/al:al_terraform.bzl", "al_terraform_package", "al_terraform_target_binary_map")
 
 package(transitive_visibility = "//infra:transitive_consumers")
 
@@ -21,12 +21,6 @@ _PROVIDERS = [
 
 _CONFIGS = ["//infra/forgejo:al"]
 
-_PLUGIN_LABELS = {
-    "tf": "setup",
-    "vault_env": "default_default",
-    "xoa_login": "1",
-}
-
 _DATA = glob(["*.tf"]) + [
     "//projects/tf_modules/dns_records:dns_records",
     "//infra/cloud_init:xen_linux",
@@ -41,12 +35,18 @@ filegroup(
     visibility = ["//infra/forgejo/test/signing_key:__pkg__"],
 )
 
-al_terraform_binary_map(
+al_terraform_package(
     name = "tf_setup",
     configs = _CONFIGS,
     data = _DATA,
-    plugin_labels = _PLUGIN_LABELS,
+    plugin_labels = {
+        "tf": "setup",
+        "vault_env": "default_default",
+        "xoa_login": "1",
+    },
     providers = _PROVIDERS,
+    tests_name = "tf_tests",
+    tests_use_al = True,
 )
 
 al_terraform_target_binary_map(
@@ -56,11 +56,4 @@ al_terraform_target_binary_map(
     plugin_labels = {"dns": "1"},
     providers = _PROVIDERS,
     target = "module.dns",
-)
-
-al_terraform_test_map(
-    name = "tf_tests",
-    configs = _CONFIGS,
-    data = _DATA,
-    providers = _PROVIDERS,
 )

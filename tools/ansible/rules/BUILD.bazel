@@ -16,6 +16,11 @@ docs_filegroup(
 al_bzl_library_map(
     name = "libs",
     libs = {
+        "al_ansible_package": [
+            ":al_ansible_binary",
+            "@rules_al//:defs",
+            "@rules_pkg//pkg:bzl_srcs",
+        ],
         "al_ansible_binary": [
             "@rules_pkg//pkg:bzl_srcs",
             "@bazel_skylib//lib:shell",

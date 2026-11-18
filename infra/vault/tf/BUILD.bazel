@@ -1,6 +1,5 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("@rules_terraform//terraform:defs.bzl", "terraform_test_map")
-load("//tools/al:al_terraform.bzl", "al_terraform_binary_map")
+load("//tools/al:al_terraform.bzl", "al_terraform_package")
 
 package(transitive_visibility = "//infra:transitive_consumers")
 
@@ -13,20 +12,6 @@ docs_filegroup(
         allow_empty = True,
     ),
 )
-
-_PROVIDERS = [
-    "@terraform_provider_hashicorp_local//:provider",
-    "@terraform_provider_hashicorp_random//:provider",
-    "@terraform_provider_hashicorp_vault//:provider",
-    "@terraform_provider_yandex_cloud_yandex//:provider",
-]
-
-_CONFIGS = ["//infra/vault:al"]
-
-_PLUGIN_LABELS = {
-    "tf": "main",
-    "vault_env": "default_default",
-}
 
 _DATA = glob([
     "*.tf",
@@ -47,27 +32,32 @@ _DATA = glob([
     "//projects/tf_modules/vault_transit_key",
 ]
 
-al_terraform_binary_map(
+al_terraform_package(
     name = "tf",
-    configs = _CONFIGS,
+    configs = ["//infra/vault:al"],
     data = _DATA,
-    plugin_labels = _PLUGIN_LABELS,
-    providers = _PROVIDERS,
-)
-
-terraform_test_map(
-    name = "tf_tests",
-    args = {
-        "fmt": [
-            "--direct",
-            "fmt",
-            "-check",
-            "-recursive",
-        ],
-        "validate": ["validate"],
+    plugin_labels = {
+        "tf": "main",
+        "vault_env": "default_default",
     },
-    data = [path for path in _DATA if path != "backend.tf"],
-    providers = _PROVIDERS,
+    providers = [
+        "@terraform_provider_hashicorp_local//:provider",
+        "@terraform_provider_hashicorp_random//:provider",
+        "@terraform_provider_hashicorp_vault//:provider",
+        "@terraform_provider_yandex_cloud_yandex//:provider",
+    ],
+    test_kwargs = {
+        "args": {
+            "fmt": [
+                "--direct",
+                "fmt",
+                "-check",
+                "-recursive",
+            ],
+            "validate": ["validate"],
+        },
+        "data": [path for path in _DATA if path != "backend.tf"],
+    },
 )
 
 filegroup(

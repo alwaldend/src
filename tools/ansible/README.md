@@ -7,6 +7,30 @@ tags:
   - bzl_rules
 ---
 
+`al_ansible_package` from `//tools/ansible/rules:al_ansible_package.bzl`
+declares mapped sources, their runtime package, an `<name>_bin` executable and
+AL command wrappers. For example:
+
+```starlark
+al_ansible_package(
+    name = "ansible",
+    srcs = ["inventory.yaml"] + glob(["group_vars/**/*.yaml", "playbook_*.yaml"]),
+    configs = ["//infra/example:al"],
+    plugin_labels = {"ansible": "", "vault_env": "default_default"},
+)
+```
+
+The default command uses `--inventory inventory.yaml playbook_deploy.yaml`.
+Pass an `args` dictionary to declare custom command suffixes and arguments;
+the macro supplies the executable. Sources retain package-relative paths.
+`renames` changes individual destinations, while `packaged_srcs` supplies the
+complete ordered list of mapped source groups (including `:srcs_files`).
+`srcs_name` and `files_name` override those source target names, and
+`binary_visibility` grants access to the packaged executable independently.
+The binary includes the shared infrastructure Ansible configuration and
+repository collection. Keep specialized syntax/inventory binaries, inventory
+exports and documentation targets explicit beside the package declaration.
+
 `ansible_lint` runs `ansible-lint` from Bazel-managed Python
 dependencies. A Go test runner exposes the CLI binaries under their
 hyphenated names, configures writable Ansible paths, and invokes the

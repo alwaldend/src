@@ -10,7 +10,9 @@ bzl_library(
     visibility = ["//visibility:public"],
     deps = [
         "@bazel_lib//lib:stamping",
+        "@bazel_skylib//lib:paths",
         "@bazel_skylib//lib:shell",
+        "@bazel_skylib//rules:native_binary",
         "@rules_pkg//pkg:bzl_srcs",
     ],
 )

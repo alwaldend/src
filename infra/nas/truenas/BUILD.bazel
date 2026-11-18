@@ -1,16 +1,9 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("@rules_terraform//terraform:defs.bzl", "terraform_test_map")
-load("//tools/al:al_terraform.bzl", "al_terraform_binary_map")
+load("//tools/al:al_terraform.bzl", "al_terraform_package")
 
 package(transitive_visibility = "//infra:transitive_consumers")
 
-_PROVIDERS = [
-    "@terraform_provider_hashicorp_random//:provider",
-    "@terraform_provider_hashicorp_vault//:provider",
-    "@terraform_provider_truenas_truenas//:provider",
-]
-
-al_terraform_binary_map(
+al_terraform_package(
     name = "tf",
     configs = ["//infra/nas:al"],
     data = glob(["*.tf"]) + [
@@ -21,27 +14,28 @@ al_terraform_binary_map(
         "truenas": "",
         "vault_env": "default_default",
     },
-    providers = _PROVIDERS,
-)
-
-terraform_test_map(
-    name = "tf_tests",
-    args = {
-        "fmt": [
-            "--direct",
-            "fmt",
-            "-check",
-            "-recursive",
-        ],
-        "validate": ["validate"],
-    },
-    data = glob(
-        ["*.tf"],
-        exclude = ["backend.tf"],
-    ) + [
-        "//projects/tf_modules/truenas_dataset",
+    providers = [
+        "@terraform_provider_hashicorp_random//:provider",
+        "@terraform_provider_hashicorp_vault//:provider",
+        "@terraform_provider_truenas_truenas//:provider",
     ],
-    providers = _PROVIDERS,
+    test_kwargs = {
+        "args": {
+            "fmt": [
+                "--direct",
+                "fmt",
+                "-check",
+                "-recursive",
+            ],
+            "validate": ["validate"],
+        },
+        "data": glob(
+            ["*.tf"],
+            exclude = ["backend.tf"],
+        ) + [
+            "//projects/tf_modules/truenas_dataset",
+        ],
+    },
 )
 
 docs_filegroup(

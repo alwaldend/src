@@ -1,31 +1,20 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("@rules_terraform//terraform:defs.bzl", "terraform_test_map")
-load("//tools/al:al_terraform.bzl", "al_terraform_binary_map")
+load("//tools/al:al_terraform.bzl", "al_terraform_package")
 
 package(transitive_visibility = "//infra:transitive_consumers")
 
-_PROVIDERS = [
-    "@terraform_provider_cloudflare_cloudflare//:provider",
-    "@terraform_provider_terraform_routeros_routeros//:provider",
-]
-
-_DATA = glob(["*.tf"]) + [
-    "//infra/mikrotik:dnsconfig",
-    "//projects/tf_modules/dns_records:dns_records",
-]
-
-al_terraform_binary_map(
+al_terraform_package(
     name = "tf",
     configs = ["//infra/mikrotik:al"],
-    data = _DATA,
+    data = glob(["*.tf"]) + [
+        "//infra/mikrotik:dnsconfig",
+        "//projects/tf_modules/dns_records",
+    ],
     plugin_labels = {"tf": "main"},
-    providers = _PROVIDERS,
-)
-
-terraform_test_map(
-    name = "tf_tests",
-    data = _DATA,
-    providers = _PROVIDERS,
+    providers = [
+        "@terraform_provider_cloudflare_cloudflare//:provider",
+        "@terraform_provider_terraform_routeros_routeros//:provider",
+    ],
 )
 
 docs_filegroup(
