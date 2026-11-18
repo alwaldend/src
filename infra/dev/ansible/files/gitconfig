@@ -1,3 +1,9 @@
+[http "https://forgejo.alwaldend.com/alwaldend/src.git"]
+	followRedirects = false
+[credential "https://forgejo.alwaldend.com/alwaldend/src.git"]
+	useHttpPath = true
+	helper =
+	helper = !~/.local/bin/git-credential-forgejo
 [credential "https://github.com"]
 	helper =
 	helper = !/usr/bin/gh auth git-credential

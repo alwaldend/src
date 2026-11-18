@@ -181,6 +181,13 @@ SSH or Vault authentication. This target changes only the managed user's CLI
 installation. Native fj authentication is a separate user-authorized operation;
 Ansible does not install passwords or API tokens. See the
 [Forgejo CLI guide](../../tools/fj/README.md).
+
+The workstation's managed Git configuration uses that native login for
+`https://forgejo.alwaldend.com/alwaldend/src.git`. Its credential helper asks
+fj to refresh the login when necessary and reads the matching host entry from
+the private credential file used by fj 0.7.0. The `git` tag selects the Git
+configuration and helper installation. Git obtains its credential from the
+helper on request.
 Open Computer Use 0.3.3 is then installed without npm
 lifecycle scripts under the managed user's `~/.local` prefix. Its skill is
 then installed for the whole host under `/etc/codex/skills` from the matching
