@@ -39,12 +39,6 @@
   ansible.builtin.assert:
     that: item is match(forgejo_backup_coverage)
     fail_msg: Declare backup coverage for the managed Forgejo tree, SQLite database and startup files.
-  loop:
-    - "{{ forgejo_dir }}"
-    - "{{ forgejo_work_dir }}"
-    - "{{ forgejo_data_dir }}"
-    - "{{ forgejo_log_dir }}"
-    - "{{ forgejo_database_path }}"
-    - "{{ forgejo_config_path }}"
-    - "{{ forgejo_bin_path }}"
-    - "{{ forgejo_service_path }}"
+  loop: >-
+    {{ [forgejo_dir, forgejo_work_dir, forgejo_data_dir, forgejo_log_dir, forgejo_database_path]
+       + (forgejo_managed_startup_files | map(attribute='path') | list) }}

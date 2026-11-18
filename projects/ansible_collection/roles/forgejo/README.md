@@ -46,6 +46,13 @@ Callers disabling `forgejo_manage_user` or `forgejo_manage_packages` supply thos
 prerequisites. ACL support is needed for unprivileged Ansible module execution.
 Serialize upgrades per instance. Check mode cannot verify this transaction.
 
+## Optional custom header
+
+Set `forgejo_custom_header_local_path` to a controller-side Forgejo template
+file. The role installs it under `forgejo_work_dir/custom/templates/custom/header.tmpl`
+through the guarded activation workflow. The file contents are copied literally.
+An empty source path leaves the installed header unmanaged.
+
 ## Optional SSH commit-signing pair
 
 Set `forgejo_signing_ssh_key` to a dictionary with `private_key` and `public_key`

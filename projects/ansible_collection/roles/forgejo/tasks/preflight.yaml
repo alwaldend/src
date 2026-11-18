@@ -13,6 +13,9 @@
   ansible.builtin.set_fact:
     forgejo_candidate_config: "{{ lookup('ansible.builtin.template', forgejo_config_local_path) }}"
     forgejo_candidate_unit: "{{ lookup('ansible.builtin.template', 'systemd_service.conf') }}"
+    forgejo_candidate_header: >-
+      {{ lookup('ansible.builtin.file', forgejo_custom_header_local_path, rstrip=false)
+         if forgejo_custom_header_local_path else '' }}
     forgejo_candidate_installed: false
     forgejo_candidate_start_attempted: false
     forgejo_recovery_directory: ""
@@ -34,6 +37,19 @@
   loop: "{{ forgejo_startup_files | map(attribute='path') | list }}"
   register: forgejo_installed_files
 
+- name: Inspect an installed custom header when managed
+  when: forgejo_custom_header_local_path | length > 0
+  ansible.builtin.stat:
+    path: "{{ forgejo_custom_header_file.path }}"
+    checksum_algorithm: sha256
+  register: forgejo_installed_header
+
+- name: Require the managed custom header to be absent or a regular file
+  when: forgejo_custom_header_local_path | length > 0
+  ansible.builtin.assert:
+    that: not forgejo_installed_header.stat.exists or forgejo_installed_header.stat.isreg
+    fail_msg: The managed Forgejo custom header path must be absent or a regular file.
+
 - name: Require a candidate file and a complete or fresh installation
   ansible.builtin.assert:
     that:
@@ -48,7 +64,9 @@
     forgejo_activation_required: >-
       {{ (forgejo_installed_files.results[0].stat.checksum | default('')) != forgejo_candidate_binary.stat.checksum or
          (forgejo_installed_files.results[1].stat.checksum | default('')) != (forgejo_candidate_config | hash('sha256')) or
-         (forgejo_installed_files.results[2].stat.checksum | default('')) != (forgejo_candidate_unit | hash('sha256')) }}
+         (forgejo_installed_files.results[2].stat.checksum | default('')) != (forgejo_candidate_unit | hash('sha256')) or
+         (forgejo_custom_header_local_path | length > 0 and
+          (forgejo_installed_header.stat.checksum | default('')) != (forgejo_candidate_header | hash('sha256'))) }}
 
 - name: Repair unchanged startup-file metadata without activation
   when: not forgejo_activation_required

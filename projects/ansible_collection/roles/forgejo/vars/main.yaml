@@ -14,3 +14,11 @@ forgejo_startup_files:
     owner: "{{ forgejo_owner }}"
     group: "{{ forgejo_owner }}"
     mode: "0644"
+forgejo_custom_header_file:
+  staged_name: header.tmpl
+  path: "{{ forgejo_work_dir }}/custom/templates/custom/header.tmpl"
+  owner: "{{ forgejo_owner }}"
+  group: "{{ forgejo_group }}"
+  mode: "0644"
+forgejo_managed_startup_files: >-
+  {{ forgejo_startup_files + ([forgejo_custom_header_file] if forgejo_custom_header_local_path else []) }}

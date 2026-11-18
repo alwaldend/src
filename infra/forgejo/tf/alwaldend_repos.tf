@@ -1,12 +1,13 @@
 resource "forgejo_repository" "repositories" {
   for_each = module.repositories.forgejo_repositories
 
-  owner          = forgejo_organization.alwaldend.name
-  name           = each.value.name
-  description    = each.value.description
-  website        = each.value.homepage_url
-  default_branch = each.value.default_branch
-  clone_addr     = each.value.config.clone_addr
+  owner                             = forgejo_organization.alwaldend.name
+  name                              = each.value.name
+  description                       = each.value.description
+  website                           = each.value.homepage_url
+  default_branch                    = each.value.default_branch
+  clone_addr                        = each.value.config.clone_addr
+  default_delete_branch_after_merge = true
 
   lifecycle {
     prevent_destroy = true
