@@ -1,0 +1,25 @@
+- name: Relabel OpenCanary Samba share
+  ansible.builtin.command:
+    argv: [/usr/sbin/restorecon, -R, /srv/opencanary]
+  changed_when: true
+
+- name: Restart OpenCanary rsyslog
+  ansible.builtin.systemd_service:
+    name: rsyslog.service
+    state: restarted
+
+- name: Restart OpenCanary Samba
+  ansible.builtin.systemd_service:
+    name: smb.service
+    state: restarted
+
+- name: Restart OpenCanary guest resolver
+  ansible.builtin.systemd_service:
+    name: systemd-resolved.service
+    state: restarted
+
+- name: Restart OpenCanary
+  ansible.builtin.systemd_service:
+    name: opencanary.service
+    daemon_reload: true
+    state: restarted

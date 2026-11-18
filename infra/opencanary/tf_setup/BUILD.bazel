@@ -1,0 +1,19 @@
+load("//tools/al:al_terraform.bzl", "al_terraform_package")
+
+package(transitive_visibility = "//infra:transitive_consumers")
+
+al_terraform_package(
+    name = "tf_setup",
+    configs = ["//infra/opencanary:al"],
+    data = glob(["*.tf"]) + [
+        "//infra/cloud_init:xen_linux",
+        "//infra/xcp_ng/cmd/xo_login",
+    ],
+    plugin_labels = {
+        "tf": "setup",
+        "xoa_login": "1",
+    },
+    providers = ["@terraform_provider_vatesfr_xenorchestra//:provider"],
+    tests_name = "tf_tests",
+    tests_use_al = True,
+)

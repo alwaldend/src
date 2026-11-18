@@ -1,0 +1,85 @@
+- name: Install virtual environment and build prerequisites
+  ansible.builtin.dnf:
+    name:
+      - gcc
+      - git
+      - libpcap-devel
+      - python3.13
+      - python3.13-devel
+    state: present
+
+- name: Create OpenCanary service account
+  ansible.builtin.user:
+    name: opencanary
+    system: true
+    create_home: false
+    shell: /usr/sbin/nologin
+
+- name: Install OpenCanary and protocol dependencies
+  ansible.builtin.pip:
+    name: "opencanary[required-for-snmp]=={{ opencanary_version }}"
+    virtualenv: /opt/opencanary
+    virtualenv_command: /usr/bin/python3.13 -m venv
+  notify: Restart OpenCanary
+
+- name: Configure the audited Samba decoy
+  ansible.builtin.include_tasks: samba.yml
+  when: opencanary_smb_enabled
+
+- name: Reserve the LLMNR port for the decoy
+  when: "'llmnr' in opencanary_services"
+  block:
+    - name: Create resolver configuration directory
+      ansible.builtin.file:
+        path: /etc/systemd/resolved.conf.d
+        state: directory
+        owner: root
+        group: root
+        mode: "0755"
+
+    - name: Disable LLMNR in the guest resolver
+      ansible.builtin.copy:
+        content: |
+          [Resolve]
+          LLMNR=no
+        dest: /etc/systemd/resolved.conf.d/90-opencanary.conf
+        owner: root
+        group: root
+        mode: "0644"
+      notify: Restart OpenCanary guest resolver
+
+- name: Create OpenCanary configuration directory
+  ansible.builtin.file:
+    path: /etc/opencanaryd
+    state: directory
+    owner: root
+    group: opencanary
+    mode: "0750"
+
+- name: Configure OpenCanary
+  ansible.builtin.template:
+    src: opencanary.conf.j2
+    dest: /etc/opencanaryd/opencanary.conf
+    owner: root
+    group: opencanary
+    mode: "0640"
+    validate: /usr/bin/python3 -m json.tool %s
+  notify: Restart OpenCanary
+
+- name: Install OpenCanary service unit
+  ansible.builtin.template:
+    src: opencanary.service.j2
+    dest: /etc/systemd/system/opencanary.service
+    owner: root
+    group: root
+    mode: "0644"
+  notify: Restart OpenCanary
+
+- name: Apply changed service configuration
+  ansible.builtin.meta: flush_handlers
+
+- name: Enable and start OpenCanary
+  ansible.builtin.systemd_service:
+    name: opencanary.service
+    enabled: true
+    state: started

@@ -15,6 +15,7 @@ WORKSPACE_SOURCES = {
     "infra_mikrotik": "//infra/mikrotik/openspec:source",
     "infra_nas": "//infra/nas/openspec:source",
     "infra_nexus": "//infra/nexus/openspec:source",
+    "infra_opencanary": "//infra/opencanary/openspec:source",
     "infra_openhands": "//infra/openhands/openspec:source",
     "infra_printers": "//infra/printers/openspec:source",
     "infra_pve": "//infra/pve/openspec:source",

@@ -1,0 +1,25 @@
+[Unit]
+Description=OpenCanary network decoys
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+User=opencanary
+Group=opencanary
+StateDirectory=opencanary
+StateDirectoryMode=0700
+WorkingDirectory=/var/lib/opencanary
+Environment=PYTHONUNBUFFERED=1
+ExecStart=/opt/opencanary/bin/twistd --nodaemon --pidfile= --python=/opt/opencanary/bin/opencanary.tac
+Restart=on-failure
+UMask=0077
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectHome=yes
+ProtectSystem=strict
+{% set capabilities = 'CAP_NET_BIND_SERVICE CAP_NET_RAW' if 'llmnr' in opencanary_services else 'CAP_NET_BIND_SERVICE' %}
+CapabilityBoundingSet={{ capabilities }}
+AmbientCapabilities={{ capabilities }}
+
+[Install]
+WantedBy=multi-user.target

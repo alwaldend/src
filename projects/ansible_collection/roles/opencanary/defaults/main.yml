@@ -1,0 +1,4 @@
+opencanary_version: "0.9.10"
+opencanary_services:
+  http: {port: 80, proto: tcp}
+opencanary_smb_enabled: false

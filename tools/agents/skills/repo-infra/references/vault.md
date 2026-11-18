@@ -35,18 +35,18 @@ missing: undeployed configuration and insufficient bootstrap policy are
 separate possibilities. Even a component `vault.status` target can fail here;
 use `//:vault.status` to isolate server reachability from component login.
 
-When implementing a new component, register its role and operator bootstrap
-membership in the [owning Vault stage](../../../../../infra/vault/tf/README.md)
-using the [shared AppRole module](../../../../../projects/tf_modules/vault_approle/main.tf).
-Its own KV subtree covers component credentials and Terraform state. Disable
-the optional Yandex Cloud policy when unused, and do not add general
-infrastructure group membership merely to enable a credential write.
+Put each new infrastructure AppRole and its component-specific policies in
+`infra/vault/approles/<role>/`, with a dedicated Bazel Terraform package and
+Vault HTTP backend. Follow the
+[OpenCanary project](../../../../../infra/vault/approles/src_infra_opencanary/README.md)
+and reuse the [AppRole module](../../../../../projects/tf_modules/vault_approle/main.tf).
+Disable the optional Yandex Cloud policy when unused. Keep shared mounts and
+cross-component memberships in the core Vault root. Look up standalone entities
+and groups by name when the shared root needs them.
 
-A checked-in role is not evidence that it has been deployed. If the role or
-its policy has not been deployed, prepare and validate the owning
-`infra/vault/tf` change. An authorized KV write does not also authorize
-that Terraform apply; retain the exact operation and scope boundary from
-`AGENTS.md`. Once bootstrap works, inspect the selected role token's capability
+Bootstrap shared prerequisites first, then apply the AppRole project, then
+reconcile shared memberships. A checked-in role does not establish live state.
+An authorized KV write does not authorize a Terraform apply. Once bootstrap works, inspect the selected role token's capability
 on the exact destination through the component passthrough, for example:
 
 ```sh

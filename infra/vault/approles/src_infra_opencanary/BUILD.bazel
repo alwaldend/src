@@ -1,0 +1,66 @@
+load("@rules_al//:defs.bzl", "al_config")
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("@rules_terraform//terraform:defs.bzl", "terraform_binary")
+load("//tools/al:al_terraform.bzl", "al_terraform_package")
+load("//tools/vault/tf_backend:defs.bzl", "vault_tf_backend")
+
+package(transitive_visibility = "//infra:transitive_consumers")
+
+_DATA = glob(["*.tf"]) + [
+    "//projects/tf_modules/vault_approle",
+    "//projects/tf_modules/vault_ssh_server_role",
+]
+
+_PROVIDERS = ["@terraform_provider_hashicorp_vault//:provider"]
+
+vault_tf_backend(
+    name = "approle_backend",
+    extends = "//infra/vault:tf_backend_main",
+    labels = {"tf": "approle_src_infra_opencanary"},
+    path = "alwaldend.com/vault1/approles/src_infra_dc1_vault/tf_backend/approles/src_infra_opencanary",
+)
+
+al_config(
+    name = "al",
+    configs = [
+        ":approle_backend",
+        "//infra/vault:al",
+    ],
+)
+
+al_terraform_package(
+    name = "tf",
+    configs = [":al"],
+    data = _DATA,
+    plugin_labels = {
+        "tf": "approle_src_infra_opencanary",
+        "vault_env": "default_default",
+    },
+    providers = _PROVIDERS,
+    test_kwargs = {
+        "args": {
+            "fmt": [
+                "--direct",
+                "fmt",
+                "-check",
+                "-recursive",
+            ],
+            "validate": ["validate"],
+        },
+        "data": [path for path in _DATA if path != "backend.tf"],
+    },
+)
+
+terraform_binary(
+    name = "offline",
+    testonly = True,
+    arguments = ["--direct"],
+    data = _DATA,
+    providers = _PROVIDERS,
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//infra/vault:__pkg__"],
+)

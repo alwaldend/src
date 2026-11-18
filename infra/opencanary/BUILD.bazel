@@ -1,0 +1,52 @@
+load("@rules_al//:defs.bzl", "al_config", "al_vault_auth")
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//infra:al_config.bzl", "infra_ansible_keys", "infra_xo_login")
+load("//tools/vault/tf_backend:defs.bzl", "vault_tf_backend")
+
+package(transitive_visibility = "//infra:transitive_consumers")
+
+al_vault_auth(
+    name = "auth",
+    approle = "src_infra_opencanary",
+    extends = "//tools/al:auth",
+)
+
+infra_xo_login(
+    name = "xo_login",
+    labels = {"xoa_login": "1"},
+    oidc_provider = "src_infra_xcp_ng_provider",
+)
+
+infra_ansible_keys(
+    name = "ansible_keys",
+    labels = {"ansible": "1"},
+    vault_ssh = {
+        "backend": "ssh/clients/sign/admins",
+        "ttl": 7200,
+    },
+)
+
+vault_tf_backend(
+    name = "tf_backend",
+    labels = {"tf": "setup"},
+    path = "alwaldend.com/vault1/approles/src_infra_opencanary/tf_backend",
+)
+
+al_config(
+    name = "al",
+    configs = [
+        ":ansible_keys",
+        ":auth",
+        ":tf_backend",
+        ":xo_login",
+        "//infra:al",
+    ],
+    visibility = ["//infra/opencanary:__subpackages__"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//infra:__pkg__"],
+    deps = ["//infra/opencanary/openspec:docs"],
+)
