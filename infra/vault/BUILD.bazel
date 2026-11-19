@@ -1,6 +1,7 @@
 load("@rules_al//:defs.bzl", "al_binary_run", "al_config", "al_inject", "al_vault_auth")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("//infra:al_config.bzl", "infra_ansible_keys", "infra_dns", "infra_pve_provider_inputs", "infra_rclone_config", "infra_yc_account", "infra_yc_auth", "infra_yc_bucket_auth")
+load("//infra:al_config.bzl", "infra_ansible_keys", "infra_rclone_config", "infra_yc_account", "infra_yc_auth", "infra_yc_bucket_auth")
+load("//infra/dns/terraform:defs.bzl", "infra_terraform_dns_config")
 load("//tools/vault:defs.bzl", "vault_binary_map")
 load("//tools/vault/tf_backend:defs.bzl", "vault_tf_backend")
 
@@ -19,12 +20,6 @@ docs_filegroup(
         include = ["*"],
         allow_empty = True,
     ),
-)
-
-filegroup(
-    name = "dnsconfig",
-    srcs = ["dnsconfig.json"],
-    visibility = ["//infra:__subpackages__"],
 )
 
 vault_binary_map(
@@ -50,7 +45,6 @@ infra_ansible_keys(
 vault_tf_backend(
     name = "tf_backend_setup",
     labels = {
-        "dns": "1",
         "tf": "setup",
     },
     path = "alwaldend.com/vault1/approles/src_infra_dc1_vault/tf_backend/tf_setup",
@@ -102,18 +96,12 @@ al_inject(
     }},
 )
 
-infra_pve_provider_inputs(
-    name = "pve_provider_inputs",
-    labels = {"dns": "1"},
-)
-
-infra_dns(
-    name = "dns_providers",
+infra_terraform_dns_config(
+    name = "dns_al",
+    auth = ":auth",
+    backend_path = "alwaldend.com/vault1/approles/src_infra_dc1_vault/tf_backend/dns",
     dc1 = True,
-    labels = {
-        "dns": "1",
-        "tf": "setup",
-    },
+    visibility = ["//infra/vault/dns:__pkg__"],
 )
 
 al_config(
@@ -122,8 +110,6 @@ al_config(
         ":al.plugin_call.unseal",
         ":ansible_keys",
         ":auth",
-        ":dns_providers",
-        ":pve_provider_inputs",
         ":rclone_config",
         ":tf_backend_main",
         ":tf_backend_setup",

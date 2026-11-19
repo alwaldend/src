@@ -15,7 +15,7 @@ module "src_infra_local_inference_pki_server" {
   name    = "src_infra_local_inference_pki_server"
   backend = module.pki_ica_servers.backend
   allowed_domains = [
-    jsondecode(file("${path.module}/../../local_inference/dnsconfig.json")).records.t3code.CNAME.name,
+    jsondecode(file("${path.module}/../../local_inference/dns/dnsconfig.json")).records.t3code.CNAME.name,
   ]
   allow_subdomains         = false
   client_flag              = false

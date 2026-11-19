@@ -125,8 +125,8 @@ split: public addresses select Yandex and local addresses select XCP-ng.
 Do not publish both hosts as a public round-robin pool. The same release can
 be deployed to both explicitly; their files and active symlinks are independent.
 
-`infra/download/dnsconfig.json` owns the download name in both views. Existing
-apex records remain in `infra/dns/dnsconfig.json`, updated through that owner's
+`infra/download/dns/dnsconfig.json` owns the download name in both views. Existing
+apex records remain in `infra/dns/dns/dnsconfig.json`, updated through that owner's
 Terraform workflow. VM addresses feed these declarations without duplicate
 maintained values. Retire obsolete apex A/AAAA destinations during cutover;
 preserve unrelated records and the existing `www` CNAME pointing at the apex

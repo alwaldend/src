@@ -1,5 +1,5 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("//tools/al:al_terraform.bzl", "al_terraform_package", "al_terraform_target_binary_map")
+load("//tools/al:al_terraform.bzl", "al_terraform_package")
 
 package(transitive_visibility = "//projects:transitive_consumers")
 
@@ -40,15 +40,12 @@ chmod u+x $(@)
 )
 
 _PROVIDERS = [
-    "@terraform_provider_cloudflare_cloudflare//:provider",
     "@terraform_provider_telmate_proxmox//:provider",
 ]
 
 _CONFIGS = ["//projects/alwaldend.com:al"]
 
 _DATA = glob(["*.tf"]) + [
-    "//projects/alwaldend.com:dnsconfig",
-    "//projects/tf_modules/dns_records/global:global",
 ]
 
 al_terraform_package(
@@ -58,13 +55,4 @@ al_terraform_package(
     plugin_labels = {"tf": "main"},
     providers = _PROVIDERS,
     tests_use_al = True,
-)
-
-al_terraform_target_binary_map(
-    name = "dns",
-    configs = _CONFIGS,
-    data = _DATA,
-    plugin_labels = {"dns": "1"},
-    providers = _PROVIDERS,
-    target = "module.dns",
 )

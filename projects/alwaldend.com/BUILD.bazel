@@ -7,7 +7,7 @@ load("@rules_hugo//pkg/bzl:al_hugo_binary.bzl", "al_hugo_binary")
 load("@rules_pkg//pkg:mappings.bzl", "REMOVE_BASE_DIRECTORY", "pkg_filegroup", "pkg_files")
 load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
 load("@rules_shell//shell:sh_binary.bzl", "sh_binary")
-load("//infra:al_config.bzl", "infra_dns", "infra_pve_provider_inputs")
+load("//infra/dns/terraform:defs.bzl", "infra_terraform_dns_config")
 load("//projects/alwaldend.com/internal/content:prepare.bzl", "prepare_content")
 load("//projects/alwaldend.com/internal/search:defs.bzl", "indexed_hugo_site")
 load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_site_svg", "mermaid_site_webp")
@@ -36,7 +36,6 @@ al_vault_auth(
 vault_tf_backend(
     name = "tf_backend_tf",
     labels = {
-        "dns": "1",
         "tf": "main",
     },
     path = "alwaldend.com/vault1/approles/src_projects_alwaldend_com/tf_backend/tf",
@@ -48,26 +47,18 @@ al_plugin(
     plugin = "pve_login",
 )
 
-infra_pve_provider_inputs(
-    name = "pve_provider_inputs",
-    labels = {"dns": "1"},
-)
-
-infra_dns(
-    name = "dns_providers",
-    labels = {
-        "dns": "1",
-        "tf": "main",
-    },
+infra_terraform_dns_config(
+    name = "dns_al",
+    auth = ":auth",
+    backend_path = "alwaldend.com/vault1/approles/src_projects_alwaldend_com/tf_backend/dns",
+    visibility = ["//projects/alwaldend.com/dns:__pkg__"],
 )
 
 al_config(
     name = "al",
     configs = [
         ":auth",
-        ":dns_providers",
         ":pve_login",
-        ":pve_provider_inputs",
         ":tf_backend_tf",
         "//infra:al",
     ],
@@ -172,18 +163,9 @@ docs_filegroup(
         "//projects:__pkg__",
     ],
     deps = [
+        "//projects/alwaldend.com/dns:docs",
         "//projects/alwaldend.com/docs",
         "//projects/alwaldend.com/tf:docs",
-    ],
-)
-
-filegroup(
-    name = "dnsconfig",
-    srcs = ["dnsconfig.json"],
-    visibility = [
-        "//infra:__pkg__",
-        "//infra/dns:__pkg__",
-        "//projects/alwaldend.com:__subpackages__",
     ],
 )
 

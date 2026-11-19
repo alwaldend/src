@@ -22,7 +22,7 @@ variable "image_id" {
 }
 
 locals {
-  records  = jsondecode(file("${path.module}/../dnsconfig.json")).records
+  records  = jsondecode(file("${path.module}/../dns/dnsconfig.json")).records
   hostname = trimsuffix(local.records.download_global.CNAME.target, ".")
 }
 

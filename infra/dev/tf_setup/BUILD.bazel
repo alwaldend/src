@@ -5,7 +5,7 @@ package(transitive_visibility = "//infra:transitive_consumers")
 
 _DATA = glob(["*.tf"]) + [
     "//infra/cloud_init:xen_linux",
-    "//infra/dev:dnsconfig",
+    "//infra/dev/dns:dnsconfig",
 ]
 
 al_terraform_package(

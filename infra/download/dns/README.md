@@ -14,7 +14,7 @@ It does not authenticate with either VM provider or require either VM's state.
 ## Local DNS preparation
 
 Before configuring the local host by its inventory FQDN, prepare and commit a
-reviewed intermediate `infra/dns/dnsconfig.json` revision that installs the
+reviewed intermediate `infra/dns/dns/dnsconfig.json` revision that installs the
 final `download_dc1` A record in the dc1 view and removes the old dc1 Pages
 A/AAAA members. Keep the old public Pages A/AAAA records and all unrelated
 records unchanged; split prior `dsp: ["all"]` declarations by view as needed.
@@ -58,13 +58,13 @@ Record the prior source revision and recovery plan. Schedule a maintenance
 window: the public apex has an intentional address gap between the phases,
 and resolver caches can extend that interval.
 
-1. Prepare and commit a reviewed intermediate `infra/dns/dnsconfig.json`
+1. Prepare and commit a reviewed intermediate `infra/dns/dns/dnsconfig.json`
    revision with the old public apex A/AAAA members removed from the global view and
    `records.download_global` absent. Keep local records, `www`, mail, TXT,
    and unrelated records at their prior values. Through
-   `//infra/dns/tf:tf.plan`, save and review a plan that deletes only the old
+   `//infra/dns/dns:tf.plan`, save and review a plan that deletes only the old
    public apex A/AAAA instances and creates no apex CNAME. Apply that exact
-   saved plan through `//infra/dns/tf:tf.apply`. Verify completion and the
+   saved plan through `//infra/dns/dns:tf.apply`. Verify completion and the
    authoritative Cloudflare inventory shows those A/AAAA records are gone.
 2. Only after phase 1 succeeds, select the reviewed final declaration from
    this change, including `records.download_global`. Create a fresh saved

@@ -30,7 +30,7 @@ Ingress allows TCP 22 from administrator CIDRs and public TCP 80/443 for
 Traefik's ACME validation, HTTPS redirect, and mTLS application route.
 T3 Code and inference listen on loopback. Accounts retain normal outbound
 networking, and no service account is attached to the VM. Zone and hostname
-inputs come from `../dnsconfig.json`; the VM's dynamic address is maintained
+inputs come from `../dns/dnsconfig.json`; the VM's dynamic address is maintained
 in the delegated Yandex zone.
 
 Offline formatting check:

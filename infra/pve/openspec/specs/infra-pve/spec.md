@@ -50,7 +50,7 @@ DNS configuration, and place it in the `src_infra_dc1_pve1` AppRole pool. The
 baseline declaration SHALL use VM ID 100, a 5G `scsi0` disk, and the `test` tag.
 
 Sources: [VM definition](../../../tf/vms.tf) and
-[DNS configuration](../../../dnsconfig.json).
+[DNS configuration](../../../dns/dnsconfig.json).
 
 #### Scenario: Resolve the test VM's desired configuration
 

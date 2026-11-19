@@ -1,21 +1,17 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("//tools/al:al_terraform.bzl", "al_terraform_package", "al_terraform_target_binary_map")
+load("//tools/al:al_terraform.bzl", "al_terraform_package")
 
 package(transitive_visibility = "//infra:transitive_consumers")
 
 _PROVIDERS = [
-    "@terraform_provider_cloudflare_cloudflare//:provider",
     "@terraform_provider_hashicorp_external//:provider",
     "@terraform_provider_hashicorp_vault//:provider",
-    "@terraform_provider_terraform_routeros_routeros//:provider",
     "@terraform_provider_vatesfr_xenorchestra//:provider",
 ]
 
 _CONFIGS = ["//infra/xcp_ng:al"]
 
 _DATA = [
-    "//infra/xcp_ng:dnsconfig",
-    "//projects/tf_modules/dns_records:dns_records",
 ] + glob(["*.tf"])
 
 _RUNTIME_DATA = _DATA + [
@@ -45,15 +41,6 @@ al_terraform_package(
         },
         "data": [path for path in _RUNTIME_DATA if path != "backend.tf"],
     },
-)
-
-al_terraform_target_binary_map(
-    name = "dns",
-    configs = _CONFIGS,
-    data = _RUNTIME_DATA,
-    plugin_labels = {"dns": "1"},
-    providers = _PROVIDERS,
-    target = "module.dns",
 )
 
 docs_filegroup(

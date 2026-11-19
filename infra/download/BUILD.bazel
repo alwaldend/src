@@ -177,12 +177,6 @@ al_config(
     visibility = ["//infra/download:__subpackages__"],
 )
 
-filegroup(
-    name = "dnsconfig",
-    srcs = ["dnsconfig.json"],
-    visibility = ["//infra:__subpackages__"],
-)
-
 al_binary_run(
     name = "sync.yandex",
     args = [

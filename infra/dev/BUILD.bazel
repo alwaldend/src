@@ -171,18 +171,6 @@ vault_binary_map(
     configs = [":al"],
 )
 
-filegroup(
-    name = "dnsconfig",
-    srcs = ["dnsconfig.json"],
-    visibility = [
-        "//infra:__pkg__",
-        "//infra/dev/dns:__pkg__",
-        "//infra/dev/tf_setup:__pkg__",
-        "//infra/dns:__pkg__",
-        "//infra/vault/approles/src_infra_dev:__pkg__",
-    ],
-)
-
 docs_filegroup(
     name = "docs",
     srcs = glob(["*.md"]) + [

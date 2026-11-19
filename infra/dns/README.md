@@ -6,12 +6,12 @@ tags:
   - terraform
 ---
 
-DNS records live in each owner's `dnsconfig.json`. Each owner manages its records
+DNS records live in each owner's `dns/dnsconfig.json`. Each owner manages its records
 through the reusable [Terraform DNS module](../../projects/tf_modules/dns_records/)
-from a component-owned Terraform root, preferably a separate `dns/` root with
-independent state and DNS-only credentials. Existing combined `tf_setup` or
-`tf` roots require explicit state migration when split. This component's
-[dnsconfig.json](dnsconfig.json) owns shared apex and mail records.
+from a dedicated DNS root with independent state and DNS-only credentials.
+DNS-only roots moved from `tf/` to `dns/` keep their existing backends.
+This component's
+[dnsconfig.json](dns/dnsconfig.json) owns shared apex and mail records.
 
 The public apex follows `download.alwaldend.com` to the Yandex download host.
 The dc1 apex continues to use the local download VM. The
@@ -76,7 +76,9 @@ mail settings. The normalization module remains an internal dependency of each
 owner's Terraform DNS module.
 
 Owner-local roots receive their provider credentials and Vault HTTP state
-backend through the existing AL configuration. The shared module resolves the
+backend through the existing AL configuration. Standalone roots can use the
+[`infra_terraform_dns` macro](terraform/README.md) to package their Terraform
+configuration and Bazel commands. The shared module resolves the
 Cloudflare zone by name when no optional zone ID is provided. DNS and ingress
 reuse the RouterOS endpoint declared in the [shared AL configuration](../al_config.bzl),
 while their separate credentials remain in Vault. Neither integration requires
@@ -85,13 +87,59 @@ Validate their source with the
 owning package's offline checks. A live plan, import, apply, or state operation
 requires separate authorization for that owner and operation.
 
-Service roots expose `dns.plan`, `dns.show`, and `dns.apply` alongside their
-ordinary Terraform commands. They retain the owning root, AppRole and backend,
-select the DNS AL calls, and plan `module.dns`. Required root inputs still load
-through the existing read-only Vault injectors. Unrelated service authentication
-is not selected. Apply accepts only a reviewed saved plan file and rejects
-Terraform CLI argument environment overrides. See the runbook for the optional
-import-ID maps and adoption checks.
+Run `tf.plan` and interactive `tf.apply` from the owner's DNS package.
+Service commands retain their own AL settings, providers, and backends.
+
+## Transfer from service state
+
+The [consolidation change](openspec/changes/consolidate-terraform-dns/proposal.md)
+introduces independent roots for the owners below. Each new root uses the
+same AppRole and a distinct `tf_backend/dns` path under that AppRole.
+Freeze both writers before using the new revision. Complete the state transfer
+before running ordinary plan or apply from this revision. A DNS plan against a
+fresh backend can propose creation. A service plan against its old state can
+fail or propose removal. Use the prior revision to inspect and relinquish the
+old bindings.
+
+| Owner         | Previous root                 |
+| ------------- | ----------------------------- |
+| Flux          | `//infra/flux/tf_setup`       |
+| Forgejo       | `//infra/forgejo/tf_setup`    |
+| Harbor        | `//infra/harbor/tf_setup`     |
+| Ingress       | `//infra/ingress/tf`          |
+| OpenHands     | `//infra/openhands/tf_setup`  |
+| Proxmox       | `//infra/pve/tf`              |
+| 3x-ui         | `//infra/threexui/tf_setup`   |
+| Vault         | `//infra/vault/tf_setup`      |
+| Xen Orchestra | `//infra/xcp_ng/tf`           |
+| alwaldend.com | `//projects/alwaldend.com/tf` |
+
+1. Obtain explicit authorization for the source state removal and the
+   destination imports for one owner. Freeze all writers to both backends,
+   record the prior deployed revision, and verify an independent recovery
+   path for infrastructure endpoints.
+2. Inspect both states using their owning wrappers. Verify the destination
+   is absent or empty, and check each managed source DNS address and exact
+   provider ID against the declaration and provider inventory. Cloudflare
+   imports use `zone_id/record_id`. RouterOS imports use the static row ID.
+   Keep that inventory private and preserve a recoverable KV version of the
+   original state.
+3. From the prior revision, use the previous root's state target to review
+   `rm -dry-run module.dns`. Require every address to match the reviewed DNS
+   inventory or a DNS data source under the same module. Run the separately
+   authorized state removal and verify the scope. The previous revision retains
+   the provider configuration needed to inspect the original bindings.
+4. In the new `dns/` root, import each reviewed provider ID at the same
+   Terraform address with `tf.import -- <address> <id>`. If an import fails,
+   inspect both states before resuming and import only the missing bindings.
+5. Review a fresh DNS `tf.plan` and a service plan
+   against the new revision. Require zero DNS additions, changes, replacements,
+   or deletions in both. Verify provider IDs and authoritative DNS answers,
+   then release the writer freeze.
+
+If a transfer cannot finish, keep both writers frozen. Reconcile back to a
+single owner using the reviewed state inventory and the prior revision before
+resuming normal operations.
 
 ## Migration and recovery
 

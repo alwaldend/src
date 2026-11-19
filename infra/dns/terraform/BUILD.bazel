@@ -1,0 +1,24 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+
+package(transitive_visibility = "//infra:transitive_consumers")
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//infra/dns:__pkg__"],
+)
+
+exports_files(
+    [
+        "backend.tf",
+        "common.tf",
+        "enabled.tf",
+        "global.tf",
+        "global_dc1.tf",
+        "outputs.tf",
+    ],
+    visibility = [
+        "//infra:__subpackages__",
+        "//projects/alwaldend.com:__subpackages__",
+    ],
+)

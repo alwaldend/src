@@ -1,6 +1,7 @@
 load("@rules_al//:defs.bzl", "al_config", "al_vault_auth")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("//infra:al_config.bzl", "infra_dns", "infra_pve_provider_inputs", "infra_yc_account", "infra_yc_auth", "infra_yc_bucket_auth")
+load("//infra:al_config.bzl", "infra_yc_account", "infra_yc_auth", "infra_yc_bucket_auth")
+load("//infra/dns/terraform:defs.bzl", "infra_terraform_dns_config")
 load("//tools/vault:defs.bzl", "vault_binary_map")
 load("//tools/vault/tf_backend:defs.bzl", "vault_tf_backend")
 
@@ -15,7 +16,6 @@ al_vault_auth(
 vault_tf_backend(
     name = "tf_backend",
     labels = {
-        "dns": "1",
         "tf": "1",
     },
     path = "alwaldend.com/vault1/approles/src_infra_dc1_pve1/tf_backend",
@@ -24,7 +24,6 @@ vault_tf_backend(
 infra_yc_auth(
     name = "yc_auth",
     labels = {
-        "dns": "1",
         "tf": "1",
     },
     path = "yandex.cloud/org1/folders/src-infra-dc1-pve1/account_iam_key",
@@ -39,33 +38,24 @@ infra_yc_bucket_auth(
 infra_yc_account(
     name = "yc_account",
     labels = {
-        "dns": "1",
         "tf": "1",
     },
     path = "yandex.cloud/org1/folders/src-infra-dc1-pve1/account",
 )
 
-infra_pve_provider_inputs(
-    name = "pve_provider_inputs",
-    labels = {"dns": "1"},
-)
-
-infra_dns(
-    name = "dns_providers",
+infra_terraform_dns_config(
+    name = "dns_al",
+    auth = ":auth",
+    backend_path = "alwaldend.com/vault1/approles/src_infra_dc1_pve1/tf_backend/dns",
     dc1 = True,
     global_records = False,
-    labels = {
-        "dns": "1",
-        "tf": "1",
-    },
+    visibility = ["//infra/pve/dns:__pkg__"],
 )
 
 al_config(
     name = "al",
     configs = [
         ":auth",
-        ":dns_providers",
-        ":pve_provider_inputs",
         ":tf_backend",
         ":yc_account",
         ":yc_auth",
@@ -73,12 +63,6 @@ al_config(
         "//infra:al",
     ],
     visibility = ["//infra/pve:__subpackages__"],
-)
-
-filegroup(
-    name = "dnsconfig",
-    srcs = ["dnsconfig.json"],
-    visibility = ["//:__subpackages__"],
 )
 
 vault_binary_map(

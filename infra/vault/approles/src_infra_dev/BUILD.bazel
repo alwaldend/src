@@ -11,7 +11,7 @@ _DATA = glob(["*.tf"]) + [
     "//infra/vault/tf:dns_access",
     "//projects/tf_modules/vault_pki_server",
     "//projects/tf_modules/vault_ssh_server_role",
-    "//infra/dev:dnsconfig",
+    "//infra/dev/dns:dnsconfig",
 ]
 
 _PROVIDERS = ["@terraform_provider_hashicorp_vault//:provider"]

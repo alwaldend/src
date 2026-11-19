@@ -23,5 +23,5 @@ None.
 
 ## Impact
 
-`infra/dns/dnsconfig.json`, its Terraform root and runbook, and the coordinated
+`infra/dns/dns/dnsconfig.json`, its Terraform root and runbook, and the coordinated
 download-host rollout. No new provider, dependency, or credential is required.

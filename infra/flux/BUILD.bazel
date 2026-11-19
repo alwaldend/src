@@ -1,6 +1,7 @@
 load("@rules_al//:defs.bzl", "al_config", "al_plugin", "al_vault_auth")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("//infra:al_config.bzl", "infra_ansible_keys", "infra_dns", "infra_k3s_token", "infra_pve_provider_inputs")
+load("//infra:al_config.bzl", "infra_ansible_keys", "infra_k3s_token")
+load("//infra/dns/terraform:defs.bzl", "infra_terraform_dns_config")
 load("//tools/vault:defs.bzl", "vault_binary_map")
 load("//tools/vault/tf_backend:defs.bzl", "vault_tf_backend")
 load(":defs.bzl", "infra_flux_kubernetes_login")
@@ -30,7 +31,6 @@ infra_ansible_keys(
 vault_tf_backend(
     name = "tf_backend_tf_setup",
     labels = {
-        "dns": "1",
         "tf": "setup",
     },
     path = "alwaldend.com/vault1/approles/src_infra_flux/tf_backend/tf_setup",
@@ -54,19 +54,13 @@ infra_k3s_token(
     path = "alwaldend.com/vault1/approles/src_infra_flux/config",
 )
 
-infra_pve_provider_inputs(
-    name = "pve_provider_inputs",
-    labels = {"dns": "1"},
-)
-
-infra_dns(
-    name = "dns_providers",
+infra_terraform_dns_config(
+    name = "dns_al",
+    auth = ":auth",
+    backend_path = "alwaldend.com/vault1/approles/src_infra_flux/tf_backend/dns",
     dc1 = True,
     global_records = False,
-    labels = {
-        "dns": "1",
-        "tf": "setup",
-    },
+    visibility = ["//infra/flux/dns:__pkg__"],
 )
 
 al_config(
@@ -74,22 +68,14 @@ al_config(
     configs = [
         ":ansible_keys",
         ":auth",
-        ":dns_providers",
         ":k3s_token",
         ":kubernetes_login",
         ":pve_login",
-        ":pve_provider_inputs",
         ":tf_backend_tf",
         ":tf_backend_tf_setup",
         "//infra:al",
     ],
     visibility = ["//infra/flux:__subpackages__"],
-)
-
-filegroup(
-    name = "dnsconfig",
-    srcs = ["dnsconfig.json"],
-    visibility = ["//infra:__subpackages__"],
 )
 
 vault_binary_map(

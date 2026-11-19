@@ -7,7 +7,7 @@ tags:
   - mikrotik
 ---
 
-The [Terraform package](tf/README.md) prepares owner-local DNS management.
+The [Terraform package](dns/README.md) prepares owner-local DNS management.
 Router exports remain documentation inputs and are not applied by that package.
 The separate [accounts package](accounts/README.md) provisions the dedicated
 RouterOS account and Vault credential consumed by [printers](../printers/README.md).

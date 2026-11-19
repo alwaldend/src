@@ -4,12 +4,6 @@ load("//infra:al_config.bzl", "infra_ansible_keys")
 
 package(transitive_visibility = "//infra:transitive_consumers")
 
-filegroup(
-    name = "dnsconfig",
-    srcs = ["dnsconfig.json"],
-    visibility = ["//infra:__subpackages__"],
-)
-
 al_vault_auth(
     name = "auth",
     approle = "src_infra_local_inference",

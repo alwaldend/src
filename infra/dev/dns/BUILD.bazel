@@ -1,24 +1,28 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("//tools/al:al_terraform.bzl", "al_terraform_package")
+load("//infra/dns/terraform:defs.bzl", "infra_terraform_dns")
 
 package(transitive_visibility = "//infra:transitive_consumers")
 
-al_terraform_package(
+infra_terraform_dns(
     name = "tf",
     configs = ["//infra/dev:al"],
-    data = glob(["*.tf"]) + [
-        "//infra/dev:dnsconfig",
-        "//projects/tf_modules/dns_records",
-    ],
-    plugin_labels = {"tf": "dns"},
-    providers = [
-        "@terraform_provider_cloudflare_cloudflare//:provider",
-        "@terraform_provider_terraform_routeros_routeros//:provider",
-    ],
+    dc1 = True,
 )
 
 docs_filegroup(
     name = "docs",
     srcs = ["README.md"],
     visibility = ["//infra/dev:__pkg__"],
+)
+
+filegroup(
+    name = "dnsconfig",
+    srcs = ["dnsconfig.json"],
+    visibility = [
+        "//infra:__pkg__",
+        "//infra/dev/dns:__pkg__",
+        "//infra/dev/tf_setup:__pkg__",
+        "//infra/dns:__pkg__",
+        "//infra/vault/approles/src_infra_dev:__pkg__",
+    ],
 )

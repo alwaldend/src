@@ -23,6 +23,6 @@ None.
 
 ## Impact
 
-Only the public apex records in `infra/dns/dnsconfig.json` change. No new
+Only the public apex records in `infra/dns/dns/dnsconfig.json` change. No new
 provider, package, credential, VM, or host configuration is required. The user
 explicitly authorized the rollback, including removal of the apex CNAME.

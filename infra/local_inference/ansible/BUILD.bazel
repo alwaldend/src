@@ -28,8 +28,8 @@ al_ansible_package(
 
 pkg_files(
     name = "dnsconfig_file",
-    srcs = ["//infra/local_inference:dnsconfig"],
-    strip_prefix = strip_prefix.from_root("infra/local_inference"),
+    srcs = ["//infra/local_inference/dns:dnsconfig"],
+    strip_prefix = strip_prefix.from_root("infra/local_inference/dns"),
 )
 
 pkg_files(

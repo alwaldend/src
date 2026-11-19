@@ -1,5 +1,5 @@
 locals {
-  dns_document = jsondecode(file("${path.module}/../dnsconfig.json"))
+  dns_document = jsondecode(file("${path.module}/../dns/dnsconfig.json"))
   name         = "local-inference"
   cloud_init   = file("${path.module}/../../cloud_init/assets/cloud_init.yaml")
   labels = {

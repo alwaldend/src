@@ -1,0 +1,23 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//infra/dns/terraform:defs.bzl", "infra_terraform_dns")
+
+package(transitive_visibility = "//infra:transitive_consumers")
+
+infra_terraform_dns(
+    name = "tf",
+    configs = ["//infra/nas:al"],
+    dc1 = True,
+    plugin_labels = {"tf": "main"},
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//infra/nas:__pkg__"],
+)
+
+filegroup(
+    name = "dnsconfig",
+    srcs = ["dnsconfig.json"],
+    visibility = ["//infra:__subpackages__"],
+)

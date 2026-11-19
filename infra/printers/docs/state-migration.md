@@ -30,7 +30,7 @@ With explicit authority for live review, use the normal text plans:
 bazel run //infra/printers/dns:tf.plan
 bazel run //infra/printers/tf:tf.plan
 bazel run //infra/mikrotik/accounts:tf.plan
-bazel run //infra/mikrotik/tf:tf.plan
+bazel run //infra/mikrotik/dns:tf.plan
 ```
 
 All should report no resource changes. Check the existing firewall rule still

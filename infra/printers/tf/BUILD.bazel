@@ -6,7 +6,7 @@ package(transitive_visibility = "//infra:transitive_consumers")
 al_terraform_package(
     name = "tf",
     configs = ["//infra/printers:al"],
-    data = glob(["*.tf"]) + ["//infra/printers:dnsconfig"],
+    data = glob(["*.tf"]) + ["//infra/printers/dns:dnsconfig"],
     plugin_labels = {"tf": "main"},
     providers = ["@terraform_provider_terraform_routeros_routeros//:provider"],
     test_kwargs = {
@@ -23,7 +23,7 @@ al_terraform_package(
         "data": glob(
             ["*.tf"],
             exclude = ["backend.tf"],
-        ) + ["//infra/printers:dnsconfig"],
+        ) + ["//infra/printers/dns:dnsconfig"],
     },
 )
 

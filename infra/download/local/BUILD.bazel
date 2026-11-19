@@ -8,8 +8,8 @@ _DATA = glob([
     "*.tf",
     "tests/*.tftest.hcl",
 ]) + [
-    "//infra/download:dnsconfig",
-    "//infra/dns:dnsconfig",
+    "//infra/download/dns:dnsconfig",
+    "//infra/dns/dns:dnsconfig",
     "//infra/cloud_init:xen_linux",
     "//infra/xcp_ng/cmd/xo_login",
 ]

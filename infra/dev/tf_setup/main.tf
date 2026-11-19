@@ -31,7 +31,7 @@ variable "ssh_public_key_file" {
 }
 
 locals {
-  secure1  = jsondecode(file("${path.module}/../dnsconfig.json")).records.secure1.A
+  secure1  = jsondecode(file("${path.module}/../dns/dnsconfig.json")).records.secure1.A
   hostname = "${local.secure1.name}.alwaldend.com"
   mac      = join(":", concat(["02"], [for i in range(5) : substr(sha256(local.hostname), i * 2, 2)]))
 }

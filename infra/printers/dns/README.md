@@ -1,6 +1,6 @@
 # Printer DNS
 
-This DNS-only root manages the canonical [printer declaration](../dnsconfig.json)
+This DNS-only root manages the canonical [printer declaration](dnsconfig.json)
 through the shared DNS module. Printer1 retains `printer1.dc1.alwaldend.com`,
 its private IPv4 address, and both dc1 and global DNS views. Public resolution
 does not provide a route to the printer. Records remain unproxied.

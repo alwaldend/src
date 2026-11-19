@@ -40,7 +40,7 @@ SHALL target `nas.alwaldend.com.`, while the global alias SHALL target
 `ingress.alwaldend.com.`. The DNS filegroup SHALL remain visible only within
 the infrastructure tree.
 
-Sources: [DNS declarations](../../../dnsconfig.json) and
+Sources: [DNS declarations](../../../dns/dnsconfig.json) and
 [DNS target visibility](../../../BUILD.bazel).
 
 #### Scenario: Consume DNS declarations for different views
