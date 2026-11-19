@@ -9,13 +9,13 @@ source; it does not establish live adoption or authorize infrastructure writes.
 Sources: [component documentation](../../../README.md),
 [target definitions](../../../BUILD.bazel),
 [runtime linter](../../../cmd/lint/main.go), and
-[Terraform root](../../../tf/dns.tf).
+[shared Terraform packaging](../../../terraform/README.md).
 
 ## Requirements
 
 ### Requirement: Aggregate records from their owning components
 
-DNS declarations SHALL remain in their owners' `dnsconfig.json` files. Runtime
+DNS declarations SHALL remain in their owners' `dns/dnsconfig.json` files. Runtime
 inventory SHALL discover all canonical files, including nested modules and
 empty declarations, without a checked-in ownership registry. The inventory
 SHALL print a deterministic table of files, DNS names, types and views.
@@ -70,16 +70,27 @@ SHALL be removed from the candidate.
 
 ### Requirement: Reconcile DNS through its owner's Terraform state
 
-Each owner SHALL instantiate the shared module in `tf_setup` when present,
-otherwise in `tf`. Missing roots and AppRoles SHALL be added. Related
-AppRole resources SHALL be grouped in modules under
-`infra/vault/tf/approles/<name>`. Provider instance keys SHALL be stable across
-value-only changes; unrelated owners SHALL remain outside the state.
+Terraform-managed DNS SHALL use the shared DNS packaging with an owner-local
+`dns/` root and state. Terraform DNS commands SHALL use the owner's Vault
+AppRole and DNS credentials without selecting service provisioning settings.
+Service commands SHALL retain their independent state and authentication.
+The root SHALL consume the owner's canonical
+`dns/dnsconfig.json` and use the provider views that owner requires. Provider
+instance keys SHALL remain stable across value-only changes. Empty inventories
+do not require an operational root.
 
-#### Scenario: An owner has both stages
+#### Scenario: DNS currently shares provisioning state
 
-- **WHEN** the integration is prepared
-- **THEN** only its setup root declares the DNS module
+- **WHEN** the DNS configuration moves to its dedicated root
+- **THEN** the old root SHALL relinquish DNS bindings without deleting records
+- **AND** the operator SHALL complete the state transfer before ordinary plans or applies from the new revision
+- **AND** an authorized transfer SHALL import the same provider IDs and verify a no-change plan
+- **AND** provisioning SHALL retain any canonical declaration inputs it uses for host configuration
+
+#### Scenario: An owner already has independent DNS state
+
+- **WHEN** the owner adopts shared packaging
+- **THEN** its existing backend and Terraform resource addresses SHALL be preserved
 
 ### Requirement: One declaration file owns each DNS name
 

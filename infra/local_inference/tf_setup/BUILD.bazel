@@ -40,7 +40,7 @@ al_terraform_package(
     configs = [":al"],
     data = glob(["*.tf"]) + [
         "//infra/cloud_init",
-        "//infra/local_inference:dnsconfig",
+        "//infra/local_inference/dns:dnsconfig",
     ],
     plugin_labels = {"tf": "setup"},
     providers = [

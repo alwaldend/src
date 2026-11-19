@@ -22,7 +22,7 @@ name or AppRole group membership. See
 
 `vms` holds the component definitions, and each entry names the `dnsconfig`
 record prefix that owns its hostname and address. Adding a component means
-adding a record to `../dnsconfig.json` and an entry here; the guest hostname,
+adding a record to `../dns/dnsconfig.json` and an entry here; the guest hostname,
 static address, and derived MAC all come from that one record. The agent
 server is sized larger because it stores every backend conversation,
 workspace, and bash event.
@@ -37,7 +37,7 @@ wired router) and can be overridden.
 
 The PVE-based `infra/cloud_init:xen_linux` target supplies the shared Ansible
 user and CA configuration through the repository template rule. Terraform adds
-the hostname and static network configuration from `../dnsconfig.json`. After
+the hostname and static network configuration from `../dns/dnsconfig.json`. After
 cloud-init completes, verify that `/dev/xvda` is the boot disk before running
 Ansible.
 
@@ -46,17 +46,7 @@ bazel run //infra/openhands/tf_setup:tf_setup.plan
 bazel run //infra/openhands/tf_setup:tf_setup.apply
 ```
 
-Use this package's `dns.plan`, `dns.show`, and `dns.apply` targets for the
-[scoped DNS adoption workflow](../../dns/README.md).
-They select `dns=1` and target `module.dns` in the same root, AppRole, and
-backend without starting XO login. Apply requires the reviewed saved plan;
-the [shared procedure](../../dns/openspec/changes/archive/2026-09-13-migrate-project-dns-to-terraform/cutover.md#prepare-the-owner)
-owns preparation and reconciliation.
+Manage records through the dedicated [DNS root](../dns/README.md).
 
-`dns_enabled` defaults to `true` after
-[verified initial provisioning](../openspec/changes/archive/2026-09-13-adopt-dns-records/design.md).
-Keep it enabled to retain the managed records. Unchanged declarations and
-provider records produce a no-change DNS plan. Successful DNS checks do not
-establish VM, OpenHands service, or TLS readiness; the separate
-[service deployment change](../openspec/changes/archive/2026-10-22-add-openhands-deployment/design.md)
-retains that acceptance work.
+The [service deployment change](../openspec/changes/archive/2026-10-22-add-openhands-deployment/design.md)
+records separate VM, service, and TLS acceptance.

@@ -1,7 +1,7 @@
 load("@rules_al//:defs.bzl", "al_config", "al_vault_auth")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("//infra:al_config.bzl", "infra_dns")
-load("//tools/al:al_terraform.bzl", "al_terraform_package")
+load("//infra/dns/terraform:defs.bzl", "infra_terraform_dns")
 load("//tools/vault/tf_backend:defs.bzl", "vault_tf_backend")
 
 package(transitive_visibility = "//infra:transitive_consumers")
@@ -34,20 +34,19 @@ al_config(
     visibility = ["//infra/local_inference/dns:__subpackages__"],
 )
 
-al_terraform_package(
+infra_terraform_dns(
     name = "tf",
     configs = [":al"],
-    data = [
-        "main.tf",
-        "//infra/local_inference:dnsconfig",
-        "//projects/tf_modules/dns_records/global",
-    ],
-    plugin_labels = {"tf": "dns"},
-    providers = ["@terraform_provider_cloudflare_cloudflare//:provider"],
 )
 
 docs_filegroup(
     name = "docs",
     srcs = ["README.md"],
     visibility = ["//infra/local_inference:__pkg__"],
+)
+
+filegroup(
+    name = "dnsconfig",
+    srcs = ["dnsconfig.json"],
+    visibility = ["//infra:__subpackages__"],
 )

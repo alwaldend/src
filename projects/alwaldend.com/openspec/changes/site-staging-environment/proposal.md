@@ -38,7 +38,7 @@ changes and before any teardown.
 
 ## Impact
 
-- `infra/dns/dnsconfig.json` gains one staging record; `infra/dns` keeps
+- `infra/dns/dns/dnsconfig.json` gains one staging record; `infra/dns` keeps
   owning the apex and staging declarations.
 - `infra/repos/orgs/alwaldend/repos/www-staging.json` adds a catalog
   repository, and the catalog gains a creation-only `auto_init` default.

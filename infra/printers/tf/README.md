@@ -3,7 +3,7 @@
 This root defines the printer1 IPv4 forwarding exception on router1. Clients
 in `192.168.2.0/24` arriving on Wi-Fi `bridge2` may reach the printer through
 wired `bridge1`. The destination comes from `printer1_a` in the canonical
-[declaration](../dnsconfig.json). All IPv4 services on that host are included;
+[declaration](../dns/dnsconfig.json). All IPv4 services on that host are included;
 other wired destinations do not match. The printer needs stable addressing
 and a return gateway through `192.168.1.1`.
 

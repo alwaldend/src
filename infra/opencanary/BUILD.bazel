@@ -45,12 +45,6 @@ vault_tf_backend(
     path = "alwaldend.com/vault1/approles/src_infra_opencanary/tf_backend/dns",
 )
 
-filegroup(
-    name = "dnsconfig",
-    srcs = ["dnsconfig.json"],
-    visibility = ["//infra/opencanary:__subpackages__"],
-)
-
 al_config(
     name = "al",
     configs = [

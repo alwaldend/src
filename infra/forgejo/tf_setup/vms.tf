@@ -1,5 +1,5 @@
 locals {
-  dns      = jsondecode(file("${path.module}/../dnsconfig.json")).records
+  dns      = jsondecode(file("${path.module}/../dns/dnsconfig.json")).records
   hostname = "${local.dns.host1.A.name}.alwaldend.com"
   address  = local.dns.host1.A.address
   mac      = join(":", concat(["02"], [for i in range(5) : substr(sha256(local.hostname), i * 2, 2)]))

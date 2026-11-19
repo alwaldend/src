@@ -1,5 +1,5 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("//tools/al:al_terraform.bzl", "al_terraform_package", "al_terraform_target_binary_map")
+load("//tools/al:al_terraform.bzl", "al_terraform_package")
 
 package(transitive_visibility = "//infra:transitive_consumers")
 
@@ -14,7 +14,6 @@ docs_filegroup(
 )
 
 _PROVIDERS = [
-    "@terraform_provider_cloudflare_cloudflare//:provider",
     "@terraform_provider_terraform_routeros_routeros//:provider",
     "@terraform_provider_yandex_cloud_yandex//:provider",
 ]
@@ -22,8 +21,6 @@ _PROVIDERS = [
 _CONFIGS = ["//infra/ingress:al"]
 
 _DATA = glob(["*.tf"]) + [
-    "//projects/tf_modules/dns_records:dns_records",
-    "//infra/ingress:dnsconfig",
     "//infra/ingress/ansible:inventory",
     "//infra/cloud_init:cloud_init",
 ]
@@ -34,13 +31,4 @@ al_terraform_package(
     data = _DATA,
     plugin_labels = {"tf": ""},
     providers = _PROVIDERS,
-)
-
-al_terraform_target_binary_map(
-    name = "dns",
-    configs = _CONFIGS,
-    data = _DATA,
-    plugin_labels = {"dns": "1"},
-    providers = _PROVIDERS,
-    target = "module.dns",
 )

@@ -309,7 +309,7 @@ own approved scope.
    first connection; subsequent host certificates use the component role.
 6. Publish the site content and verify HTTP routing with address overrides.
    Follow the [two-phase apex cutover](dns/README.md#staged-public-apex-cutover)
-   through `//infra/dns/tf:tf.plan`/`tf.apply`.
+   through `//infra/dns/dns:tf.plan`/`tf.apply`.
    HTTP-01 requires public DNS/port 80 to reach Yandex and Vault's DNS view/port
    80 to reach XCP-ng before either issuer can validate the three names.
 7. Exercise Let's Encrypt staging with an explicit directory override and

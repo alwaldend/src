@@ -14,7 +14,7 @@ Sources: [export workflow](../../../README.md),
 [package targets](../../../BUILD.bazel),
 [router1 snapshot](../../../router1.rsc),
 [router2 snapshot](../../../router2.rsc), and
-[DNS declarations](../../../dnsconfig.json).
+[DNS declarations](../../../dns/dnsconfig.json).
 
 ## Requirements
 

@@ -1,6 +1,6 @@
 ## 1. Declarations
 
-- [x] 1.1 Add the `www-staging` DNS declaration to `infra/dns/dnsconfig.json`
+- [x] 1.1 Add the `www-staging` DNS declaration to `infra/dns/dns/dnsconfig.json`
 - [x] 1.2 Add the `www-staging` catalog repository and the creation-only `auto_init` default
 - [x] 1.3 Add the staging site target and staging deployment arguments
 - [x] 1.4 Regenerate the DNS declaration pages and confirm `//infra/dns:config_test` passes

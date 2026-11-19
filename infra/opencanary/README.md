@@ -33,7 +33,7 @@ for `opencanary.alwaldend.com`.
   reconcile its shared Vault memberships, then synchronize its identity through
   the [XCP-ng workflow](../xcp_ng/tf/README.md).
 - The Xen Orchestra resource set uses the regular VM network. The
-  [DNS declaration](dnsconfig.json) owns the static IPv4 address and the
+  [DNS declaration](dns/dnsconfig.json) owns the static IPv4 address and the
   [DNS root](dns/README.md) publishes the name in the site-local view.
 - Management SSH accepts connections from any routed source. Decoy traffic
   defaults to the guest subnet. The ingress WireGuard peer may also reach the

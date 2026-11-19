@@ -1,6 +1,6 @@
 # DNS declarations in this repository
 
-Canonical DNS declarations remain in each owner's `dnsconfig.json`. Read the
+Canonical DNS declarations remain in each owner's `dns/dnsconfig.json`. Read the
 [DNS README](../../../../../infra/dns/README.md) for linting, owner-local
 Terraform roots, and the cutover procedure. The shared
 [`dns_records` Terraform module](../../../../../projects/tf_modules/dns_records/README.md)
@@ -81,4 +81,4 @@ for an identical A record in both views. Verify from ingress that the backend
 name returns the private address and that the private route is reachable.
 The backend listener remains governed by the private network and its firewall.
 See the [ingress configuration](../../../../../infra/ingress/README.md) and
-[OpenHands records](../../../../../infra/openhands/dnsconfig.json).
+[OpenHands records](../../../../../infra/openhands/dns/dnsconfig.json).

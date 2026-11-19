@@ -4,7 +4,7 @@ description: Printer DNS and network access in dc1
 ---
 
 This project owns printer DNS declarations and network access. The
-[DNS root](dns/README.md) publishes the canonical [declaration](dnsconfig.json).
+[DNS root](dns/README.md) publishes the canonical [declaration](dns/dnsconfig.json).
 The [service configuration](tf/README.md) permits Wi-Fi access to printer1.
 The [MikroTik accounts root](../mikrotik/accounts/README.md) owns its RouterOS
 account and Vault credential. Printer firmware and print queues are unmanaged.

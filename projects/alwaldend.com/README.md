@@ -315,7 +315,7 @@ including the website archive in its own documentation would create a build
 cycle. The Pages commands below remain available during the staged migration.
 
 - DNS setup: [infra/dns](../../infra/dns)
-- This project's [DNS declaration](https://github.com/alwaldend/src/blob/master/projects/alwaldend.com/dnsconfig.json)
+- This project's [DNS declaration](https://github.com/alwaldend/src/blob/master/projects/alwaldend.com/dns/dnsconfig.json)
   owns the shared `pages` address. Project landing pages are published by this
   site under `/projects/<name>/`, so no project owns a CNAME or a dedicated
   hostname. The [project directory](../README.md) links to every landing page.

@@ -6,7 +6,7 @@ tags:
   - truenas
 ---
 
-The [DNS Terraform package](tf/README.md) manages this owner's DNS records through
+The [DNS Terraform package](dns/README.md) manages this owner's DNS records through
 its dedicated Vault AppRole. The separate [TrueNAS root](truenas/README.md)
 manages the existing pool, filesystem datasets, and Nextcloud lifecycle
 metadata with its own state. Existing NAS resources are

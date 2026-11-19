@@ -1,5 +1,5 @@
 locals {
-  dns = jsondecode(file("${path.module}/../dnsconfig.json"))
+  dns = jsondecode(file("${path.module}/../dns/dnsconfig.json"))
 }
 
 module "vm_ha" {

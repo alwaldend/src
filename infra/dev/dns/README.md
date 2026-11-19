@@ -1,6 +1,6 @@
 # Development DNS
 
-This root manages every record in the canonical [declarations](../dnsconfig.json):
+This root manages every record in the canonical [declarations](dnsconfig.json):
 secure1, dev1 and dev1's services. It uses the shared `src_infra_dev` AppRole,
 DNS-only provider credentials and one Vault HTTP backend:
 `alwaldend.com/vault1/approles/src_infra_dev/tf_backend/dns`.

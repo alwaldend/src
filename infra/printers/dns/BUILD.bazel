@@ -1,42 +1,25 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("//tools/al:al_terraform.bzl", "al_terraform_package")
+load("//infra/dns/terraform:defs.bzl", "infra_terraform_dns")
 
 package(transitive_visibility = "//infra:transitive_consumers")
 
-al_terraform_package(
+infra_terraform_dns(
     name = "tf",
     configs = ["//infra/printers:al"],
-    data = glob(["*.tf"]) + [
-        "//infra/printers:dnsconfig",
-        "//projects/tf_modules/dns_records",
-    ],
-    plugin_labels = {"tf": "dns"},
-    providers = [
-        "@terraform_provider_cloudflare_cloudflare//:provider",
-        "@terraform_provider_terraform_routeros_routeros//:provider",
-    ],
-    test_kwargs = {
-        "args": {
-            "fmt": [
-                "--direct",
-                "fmt",
-                "--check",
-                "--recursive",
-            ],
-            "validate": ["validate"],
-        },
-        "data": glob(
-            ["*.tf"],
-            exclude = ["backend.tf"],
-        ) + [
-            "//infra/printers:dnsconfig",
-            "//projects/tf_modules/dns_records",
-        ],
-    },
+    dc1 = True,
+    validate = True,
 )
 
 docs_filegroup(
     name = "docs",
     srcs = ["README.md"],
     visibility = ["//infra/printers:__pkg__"],
+)
+
+filegroup(
+    name = "dnsconfig",
+    srcs = [
+        "dnsconfig.json",
+    ],
+    visibility = ["//infra/printers:__subpackages__"],
 )

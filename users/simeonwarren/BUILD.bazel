@@ -25,17 +25,6 @@ al_binary_run(
     plugin_labels = {"vault_env": "default_no_auth"},
 )
 
-filegroup(
-    name = "dnsconfig",
-    srcs = ["dnsconfig.json"],
-    visibility = [
-        "//infra:__pkg__",
-        "//infra/dns:__pkg__",
-        "//users:__pkg__",
-        "//users/simeonwarren:__subpackages__",
-    ],
-)
-
 docs_filegroup(
     name = "docs",
     srcs = glob(["*.md"]),

@@ -63,12 +63,6 @@ al_config(
     visibility = ["//infra/nas:__subpackages__"],
 )
 
-filegroup(
-    name = "dnsconfig",
-    srcs = ["dnsconfig.json"],
-    visibility = ["//infra:__subpackages__"],
-)
-
 vault_binary_map(
     name = "vault",
     configs = [":al"],

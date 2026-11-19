@@ -39,7 +39,7 @@ The selected network must carry `192.168.10.0/24`; gateway and DNS default to
 
 The PVE-based `infra/cloud_init:xen_linux` target supplies the shared Ansible
 user and CA configuration through the repository template rule. Terraform adds
-the hostname and static network configuration from `../dnsconfig.json`. After cloud-init completes, verify that `/dev/xvda` is the
+the hostname and static network configuration from `../dns/dnsconfig.json`. After cloud-init completes, verify that `/dev/xvda` is the
 boot disk, `/dev/xvdb` is the 40 GiB Forgejo disk, and `/dev/xvdc` is the 5 GiB
 Traefik disk before running Ansible, which creates filesystems on the latter
 two devices.
@@ -53,15 +53,4 @@ bazel run //infra/forgejo/tf_setup:tf_setup.plan
 bazel run //infra/forgejo/tf_setup:tf_setup.apply
 ```
 
-Use this package's `dns.plan`, `dns.show`, and `dns.apply` targets for the
-[scoped DNS workflow](../../dns/README.md). They select `dns=1`, retain the
-existing setup backend and `src_infra_dc1_forgejo1` AppRole, and target
-`module.dns` without starting unrelated service authentication. Inspect the
-saved plan through `dns.show` and pass only that reviewed file to `dns.apply`.
-
-`dns_enabled` defaults to `true` after verified adoption. Keep it enabled to
-retain existing records; disabling it would propose deletion. Follow the
-[cutover procedure](../../dns/openspec/changes/archive/2026-09-13-migrate-project-dns-to-terraform/cutover.md#prepare-the-owner)
-for prerequisites, reconciliation, and recovery. The owner adoption change
-records the historical import and DNS verification evidence; scoped DNS checks
-do not establish service or VM health.
+Manage records through the dedicated [DNS root](../dns/README.md).

@@ -41,7 +41,7 @@ resource "vault_policy" "runner" {
 }
 
 locals {
-  dev_dns = jsondecode(file("${path.module}/../../../dev/dnsconfig.json"))
+  dev_dns = jsondecode(file("${path.module}/../../../dev/dns/dnsconfig.json"))
 }
 
 module "ssh" {

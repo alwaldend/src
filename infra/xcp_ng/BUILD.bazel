@@ -1,6 +1,6 @@
 load("@rules_al//:defs.bzl", "al_binary_run", "al_config", "al_inject", "al_vault_auth")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("//infra:al_config.bzl", "infra_dns")
+load("//infra/dns/terraform:defs.bzl", "infra_terraform_dns_config")
 load("//tools/vault:defs.bzl", "vault_binary_map")
 load("//tools/vault/tf_backend:defs.bzl", "vault_tf_backend")
 
@@ -15,7 +15,6 @@ al_vault_auth(
 vault_tf_backend(
     name = "tf_backend",
     labels = {
-        "dns": "1",
         "xcp_ng_tf": "1",
     },
     path = "alwaldend.com/vault1/approles/src_infra_xcp_ng/tf_backend",
@@ -109,22 +108,20 @@ al_inject(
     }},
 )
 
-infra_dns(
-    name = "dns_providers",
+infra_terraform_dns_config(
+    name = "dns_al",
+    auth = ":auth.xcp_ng",
+    backend_path = "alwaldend.com/vault1/approles/src_infra_xcp_ng/tf_backend/dns",
     dc1 = True,
     global_records = False,
-    labels = {
-        "dns": "1",
-        "xcp_ng_tf": "1",
-    },
     vault_auth = "xcp_ng",
+    visibility = ["//infra/xcp_ng/dns:__pkg__"],
 )
 
 al_config(
     name = "al",
     configs = [
         ":auth.xcp_ng",
-        ":dns_providers",
         ":env_xcp_ng",
         ":runner_cache_credentials",
         ":tf_backend",
@@ -223,12 +220,6 @@ al_binary_run(
         "//infra/xcp_ng/cmd/xo_config",
     ],
     plugin_labels = {"xoa": "1"},
-)
-
-filegroup(
-    name = "dnsconfig",
-    srcs = ["dnsconfig.json"],
-    visibility = ["//infra:__subpackages__"],
 )
 
 docs_filegroup(

@@ -1,6 +1,7 @@
 load("@rules_al//:defs.bzl", "al_binary_run", "al_config", "al_plugin", "al_vault_auth")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("//infra:al_config.bzl", "infra_ansible_keys", "infra_dns", "infra_xo_login")
+load("//infra:al_config.bzl", "infra_ansible_keys", "infra_xo_login")
+load("//infra/dns/terraform:defs.bzl", "infra_terraform_dns_config")
 load("//tools/vault:defs.bzl", "vault_binary_map")
 load("//tools/vault/tf_backend:defs.bzl", "vault_tf_backend")
 load(":defs.bzl", "infra_forgejo_config")
@@ -31,7 +32,6 @@ infra_ansible_keys(
 vault_tf_backend(
     name = "tf_backend_tf_setup",
     labels = {
-        "dns": "1",
         "tf": "setup",
     },
     path = "alwaldend.com/vault1/approles/src_infra_dc1_forgejo1/tf_backend/tf_setup",
@@ -54,13 +54,12 @@ infra_forgejo_config(
     labels = {"ansible": "1"},
 )
 
-infra_dns(
-    name = "dns_providers",
+infra_terraform_dns_config(
+    name = "dns_al",
+    auth = ":auth",
+    backend_path = "alwaldend.com/vault1/approles/src_infra_dc1_forgejo1/tf_backend/dns",
     dc1 = True,
-    labels = {
-        "dns": "1",
-        "tf": "setup",
-    },
+    visibility = ["//infra/forgejo/dns:__pkg__"],
 )
 
 al_config(
@@ -69,7 +68,6 @@ al_config(
         ":ansible_keys",
         ":auth",
         ":config",
-        ":dns_providers",
         ":forgejo_login",
         ":tf_backend_tf",
         ":tf_backend_tf_setup",
@@ -77,12 +75,6 @@ al_config(
         "//infra:al",
     ],
     visibility = ["//infra/forgejo:__subpackages__"],
-)
-
-filegroup(
-    name = "dnsconfig",
-    srcs = ["dnsconfig.json"],
-    visibility = ["//infra:__subpackages__"],
 )
 
 vault_binary_map(

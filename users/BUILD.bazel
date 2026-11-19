@@ -16,15 +16,6 @@ package_group(
     ],
 )
 
-filegroup(
-    name = "dnsconfig",
-    srcs = ["//users/simeonwarren:dnsconfig"],
-    visibility = [
-        "//infra:__pkg__",
-        "//infra/dns:__pkg__",
-    ],
-)
-
 docs_filegroup(
     name = "docs",
     srcs = glob(["*.md"]),

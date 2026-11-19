@@ -10,7 +10,7 @@ terraform {
 provider "routeros" {}
 
 locals {
-  printer_address = jsondecode(file("${path.module}/../dnsconfig.json")).records.printer1_a.A.address
+  printer_address = jsondecode(file("${path.module}/../dns/dnsconfig.json")).records.printer1_a.A.address
 }
 
 data "routeros_ip_firewall" "forward_drop" {

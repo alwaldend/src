@@ -23,7 +23,7 @@ _CONFIGS = ["//users/simeonwarren:al"]
 
 _DATA = glob(["*.tf"]) + [
     "//projects/tf_modules/pve_vm_qemu",
-    "//users/simeonwarren:dnsconfig",
+    "//users/simeonwarren/dns:dnsconfig",
     "//infra/cloud_init:cloud_init",
 ]
 

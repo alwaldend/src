@@ -33,8 +33,8 @@ data "xenorchestra_network" "download" { name_label = var.network_name }
 data "xenorchestra_resource_set" "download" { name = "src_infra_download" }
 
 locals {
-  records  = jsondecode(file("${path.module}/../dnsconfig.json")).records
-  address  = jsondecode(file("${path.module}/../../dns/dnsconfig.json")).records.download_dc1.A.address
+  records  = jsondecode(file("${path.module}/../dns/dnsconfig.json")).records
+  address  = jsondecode(file("${path.module}/../../dns/dns/dnsconfig.json")).records.download_dc1.A.address
   hostname = "${local.records.host_dc1.CNAME.name}.alwaldend.com"
   mac      = join(":", concat(["02"], [for i in range(5) : substr(sha256(local.hostname), i * 2, 2)]))
 }

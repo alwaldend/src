@@ -30,7 +30,7 @@ data "xenorchestra_resource_set" "guest" {
 }
 
 locals {
-  record   = jsondecode(file("${path.module}/../dnsconfig.json")).records.opencanary.A
+  record   = jsondecode(file("${path.module}/../dns/dnsconfig.json")).records.opencanary.A
   hostname = "${local.record.name}.alwaldend.com"
   mac = join(":", concat(["02"], [
     for octet in range(5) : substr(sha256(local.hostname), octet * 2, 2)
