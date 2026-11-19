@@ -5,6 +5,7 @@ module "src_infra_ingress_approle" {
     vault_identity_group.global_admins.id,
   ]
   policies = [
+    module.dns_access["src_infra_ingress"].policy_name,
     module.src_infra_ingress_ssh.policy,
   ]
   secrets          = vault_mount.secrets.path

@@ -1,4 +1,0 @@
-exports_files([
-    "iso_extension.bzl",
-    "iso_flash_binary.bzl",
-])

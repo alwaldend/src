@@ -1,0 +1,9 @@
+schema: spec-driven
+
+context: |
+  This OpenSpec workspace belongs to users/simeonwarren/host_bot in the
+  alwaldend/src monorepo. Read the repository AGENTS.md and the owner README.
+  Keep owner requirements and changes in this openspec directory.
+  Specifications describe checked-in desired state and do not establish live
+  configuration or authorize infrastructure operations. Validation is offline.
+  Use the repository-pinned OpenSpec CLI and the bazel_agent runner.

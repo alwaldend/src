@@ -7,7 +7,7 @@ def al_py_checkers(
         black_label = "//tools/black",
         mypy_label = "//tools/mypy",
         flake8_label = "//tools/flake8",
-        pyproject_label = "//:pyproject"):
+        pyproject_label = "//tools/py:pyproject"):
     """
     Generate -fix and -test targets for python checkers
 

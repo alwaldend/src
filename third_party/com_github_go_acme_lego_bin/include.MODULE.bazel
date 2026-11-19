@@ -1,0 +1,20 @@
+binary_toolchain_extension = use_extension(
+    "@rules_binary_toolchain//main/bzl:binary_toolchain_extension.bzl",
+    "binary_toolchain_extension",
+)
+binary_toolchain_extension.toolchains(
+    archives = {
+        "lego": ["linux_x86_64"],
+    },
+    lock = "//third_party/com_github_go_acme_lego_bin:binary_toolchain.json",
+    toolchains_map = {
+        "lego": "com_github_go_acme_lego_bin",
+    },
+)
+use_repo(
+    binary_toolchain_extension,
+    "com_github_go_acme_lego_bin",
+    "com_github_go_acme_lego_bin_linux_x86_64",
+)
+
+register_toolchains("@com_github_go_acme_lego_bin//:all")

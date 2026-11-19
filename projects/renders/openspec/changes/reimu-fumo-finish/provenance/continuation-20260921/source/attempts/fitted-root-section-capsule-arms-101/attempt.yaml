@@ -1,0 +1,70 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: fitted-root-section-capsule-arms-101
+  resourceVersion: "4"
+  generation: 4
+  creationTimestamp: "2026-09-06T04:41:55.005047232Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 16
+  criteriaRevision: 4
+  criteriaDigest: sha256:f5fe4b5c4efc12d5b82ad42cf0d41fd7274f48b421abf42e9db1ce5ae316d8a3
+  goalStateDigest: sha256:d3dd99930bf18292653455d315de740e68d0a10d03186a30fad1ab2e06501ad6
+  workType: change
+  subject: 40ec32f8d2832f4a42e36c4ee4f27bdf213d1940ba0114a4fd2efcc476b9408b
+  nextAction: Retain101 arms as working baseline; freeze coherent shallow-curtain/released-rear-lap plan after liner feasibility review, then full native and multiview checks.
+status:
+  state: closed
+  closedAt: "2026-09-06T04:58:24.923067784Z"
+  artifacts:
+    planDigest: sha256:784f0f9e82d85e8f419d95b203a8fdf86ba1b6cc0701f442d4cff008a056c062
+    resultDigest: sha256:2aeba7dfe99efbd2417a972ec1d8fcfd54179a31945046829278f20426a6ce0f
+    evidence:
+    - path: evidence/arm_101_design_review.md
+      digest: sha256:5c67168c2767d0addcbd4f769ff1371cee569c78496a938cb23c8e05d2734564
+    - path: evidence/arm_101_pixel_review.md
+      digest: sha256:d3ca2e65e06f8576683bb6c484583fabe8c18ce1ec88a2b1534e371bd4e7c675
+    - path: evidence/arm_101_saved.md
+      digest: sha256:378706c50b0a40a25393eba30024009b34c9e04091ea1b7e334511c2a43fdbcd
+  review:
+    decision: accept
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 3
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-002
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-004
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-005
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-006
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-007
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-09-06T04:58:24.923067784Z"

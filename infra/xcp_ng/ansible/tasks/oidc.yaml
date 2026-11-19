@@ -1,0 +1,91 @@
+- name: Require an inspected XO plugin lookup directory
+  ansible.builtin.assert:
+    that:
+      - xoa_oidc_plugin_directory is defined
+      - xoa_oidc_plugin_directory is match('^/')
+      - xoa_oidc_plugin_directory | basename == 'xo-server-auth-oidc'
+      - xoa_oidc_lookup_parent_verified | default(false) | bool
+      - xoa_node_path is defined
+      - xoa_node_path is match('^/')
+    fail_msg: Supply the inspected absolute Node executable and plugin directory; confirm its parent is an effective XO plugins.lookupPaths entry.
+- name: Inspect the plugin lookup parent
+  ansible.builtin.stat:
+    path: "{{ xoa_oidc_plugin_directory | dirname }}"
+    follow: true
+  register: xoa_oidc_lookup_parent
+- name: Require a root-owned lookup parent without group or world write access
+  ansible.builtin.assert:
+    that:
+      - xoa_oidc_lookup_parent.stat.isdir | default(false)
+      - xoa_oidc_lookup_parent.stat.uid == 0
+      - xoa_oidc_lookup_parent.stat.mode is match('^0[0-7][0145][0145]$')
+- name: Create the isolated OIDC plugin directories
+  ansible.builtin.file:
+    path: "{{ xoa_oidc_plugin_directory }}{{ item }}"
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+  loop:
+    - ""
+    - /node_modules
+    - /node_modules/passport-openidconnect
+    - /node_modules/oauth
+    - /node_modules/passport-strategy
+- name: Install the pinned upstream OIDC plugin
+  ansible.builtin.copy:
+    src: "files/oidc/{{ item }}"
+    dest: "{{ xoa_oidc_plugin_directory }}/{{ item }}"
+    owner: root
+    group: root
+    mode: "0644"
+  loop:
+    - index.js
+    - package.json
+    - LICENSE.md
+  register: xoa_oidc_plugin_files
+- name: Copy pinned dependency archives to the appliance
+  ansible.builtin.copy:
+    src: "files/oidc/{{ item }}.tgz"
+    dest: "{{ xoa_oidc_plugin_directory }}/{{ item }}.tgz"
+    owner: root
+    group: root
+    mode: "0644"
+  loop:
+    - passport-openidconnect
+    - oauth
+    - passport-strategy
+- name: Extract verified plugin-local dependencies
+  ansible.builtin.command:
+    argv:
+      - /usr/bin/tar
+      - --extract
+      - --gzip
+      - --file
+      - "{{ xoa_oidc_plugin_directory }}/{{ item }}.tgz"
+      - --directory
+      - "{{ xoa_oidc_plugin_directory }}/node_modules/{{ item }}"
+      - --strip-components=1
+    creates: "{{ xoa_oidc_plugin_directory }}/node_modules/{{ item }}/package.json"
+  loop:
+    - passport-openidconnect
+    - oauth
+    - passport-strategy
+  register: xoa_oidc_dependencies
+- name: Verify the installed plugin and dependency versions with XO's Node runtime
+  ansible.builtin.command:
+    argv:
+      - "{{ xoa_node_path }}"
+      - -e
+      - |
+        const assert = require('node:assert/strict');
+        assert.equal(require('./package.json').version, '0.4.0');
+        assert.equal(require('./node_modules/passport-openidconnect/package.json').version, '0.1.2');
+        assert.equal(require('./node_modules/oauth/package.json').version, '0.10.2');
+        assert.equal(require('./node_modules/passport-strategy/package.json').version, '1.0.0');
+        const plugin = require('./index.js').default({xo: {}});
+        assert.equal(typeof plugin._synchronizeGroups, 'function');
+        assert.equal(typeof plugin.load, 'function');
+    chdir: "{{ xoa_oidc_plugin_directory }}"
+  changed_when: xoa_oidc_plugin_files is changed or xoa_oidc_dependencies is changed
+  notify: Restart XO

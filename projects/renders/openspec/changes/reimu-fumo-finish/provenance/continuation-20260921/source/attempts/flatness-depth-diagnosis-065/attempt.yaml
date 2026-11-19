@@ -1,0 +1,64 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: flatness-depth-diagnosis-065
+  resourceVersion: "2"
+  generation: 2
+  creationTimestamp: "2026-09-05T17:51:20.684053446Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 16
+  criteriaRevision: 4
+  criteriaDigest: sha256:f5fe4b5c4efc12d5b82ad42cf0d41fd7274f48b421abf42e9db1ce5ae316d8a3
+  goalStateDigest: sha256:a7be61495976f5a9d491d0edf576a166fe2235695f1b67b43b96294a9cee1f6f
+  planID: flatness-depth-diagnosis-v59
+  workType: change
+  subject: Read-only064 depth diagnosis, no new model candidate
+  nextAction: Freeze a local-volume bow assembly replacement from protected050, not another global shear or head inflation; then evaluate new saved front and highest-risk three-quarter.
+status:
+  state: closed
+  closedAt: "2026-09-05T17:56:24.206540108Z"
+  artifacts:
+    planDigest: sha256:8314818faced3712c4e5152bf1774a6172ca63d86a7bbc36fface7cf8e368c28
+    resultDigest: sha256:35e4de899ff8e0c6e6e3a9db98978f879172ac95cc9ff825c2bf8560c616f3d7
+    evidence:
+    - path: evidence/flatness_065_diagnosis.md
+      digest: sha256:2187f6cf447382a8f6d997f590934f4d0ec566d24e606e687585fb1f7a100f00
+  review:
+    decision: refine
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-002
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-004
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-005
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-006
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-007
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-09-05T17:56:24.206540108Z"

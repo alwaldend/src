@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "source_commit": "550d7e79b1f5fdbc2b6017b75178471d6914082f",
+  "files": [
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-4/README.md",
+      "snapshot_path": "provenance/source/README.md",
+      "sha256": "0a284a2c3e044ae22eb9c58f5419d2a5495bbf644f4928b01e7689d95b50910b",
+      "size_bytes": 2349
+    },
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-4/attempts/phase4-implementation/attempt.yaml",
+      "snapshot_path": "provenance/source/attempts/phase4-implementation/attempt.yaml",
+      "sha256": "1629216064860b24fff75ee1145c89c0aefa8272ce00a431bb2b2476fe11804f",
+      "size_bytes": 2278
+    },
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-4/attempts/phase4-implementation/evidence/design-review.md",
+      "snapshot_path": "provenance/source/attempts/phase4-implementation/evidence/design-review.md",
+      "sha256": "c2c4aa879f7040781a96e697a9f6ca5439e2b397f726cce6dceaae9e0656b16a",
+      "size_bytes": 382
+    },
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-4/attempts/phase4-implementation/evidence/phase4-acceptance-evidence.md",
+      "snapshot_path": "provenance/source/attempts/phase4-implementation/evidence/phase4-acceptance-evidence.md",
+      "sha256": "4520e5d51045967580b473dde28ae99bd16eb0b16e5d1fedfd869cab66300b28",
+      "size_bytes": 2884
+    },
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-4/attempts/phase4-implementation/plan.md",
+      "snapshot_path": "provenance/source/attempts/phase4-implementation/plan.md",
+      "sha256": "736ff012f17f62410c9a628a934a98a467eaf991b95f3b860cd834d563816ec8",
+      "size_bytes": 621
+    },
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-4/attempts/phase4-implementation/result.md",
+      "snapshot_path": "provenance/source/attempts/phase4-implementation/result.md",
+      "sha256": "547fd397868ac147258c4c004f33a8596a7ffebce2d43d968c8b289f83bce633",
+      "size_bytes": 226
+    },
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-4/criteria-revisions/1.yaml",
+      "snapshot_path": "provenance/source/criteria-revisions/1.yaml",
+      "sha256": "0165ca5a4e7682868d399c657f89e172e82ad6027b7aaa4df5a6f3a0bc529050",
+      "size_bytes": 2066
+    },
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-4/criteria.yaml",
+      "snapshot_path": "provenance/source/criteria.yaml",
+      "sha256": "0165ca5a4e7682868d399c657f89e172e82ad6027b7aaa4df5a6f3a0bc529050",
+      "size_bytes": 2066
+    },
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-4/goal.yaml",
+      "snapshot_path": "provenance/source/goal.yaml",
+      "sha256": "25ab660a5df4e373f4ece37afb96b87edaea048718b280c3a008c5d467f3d98b",
+      "size_bytes": 1292
+    }
+  ]
+}

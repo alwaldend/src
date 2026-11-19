@@ -1,0 +1,12 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+
+exports_files(
+    ["include.MODULE.bazel"],
+    visibility = ["//:__subpackages__"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//third_party:__pkg__"],
+)

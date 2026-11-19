@@ -1,0 +1,46 @@
+{{- /* Resolve paths against Markdown source directories, including branch
+      resources beside regular pages. Do not silently redirect unknown files. */ -}}
+{{- $page := .Page -}}
+{{- $url := urls.Parse .Destination -}}
+{{- $destination := $url.String -}}
+{{- if and $destination (not $url.IsAbs) (not $url.Host) -}}
+  {{- $resolved := "" -}}
+  {{- if not $url.Path -}}
+    {{- $resolved = ($page.OutputFormats.Get "html").RelPermalink -}}
+  {{- else -}}
+    {{- $path := $url.Path -}}
+    {{- if and (not (strings.HasPrefix $path "/")) $page.File -}}
+      {{- $path = printf "/%s" (path.Join $page.File.Dir $path) -}}
+    {{- end -}}
+    {{- $path = replaceRE `(^|/)(README|_index)\.md$` "${1}" $path -}}
+    {{- with site.GetPage $path -}}
+      {{- $resolved = (.OutputFormats.Get "html").RelPermalink -}}
+    {{- else -}}
+      {{- with or ($page.Resources.Get $url.Path) (resources.Get $url.Path) -}}
+        {{- $resolved = .RelPermalink -}}
+      {{- else -}}
+        {{- with site.GetPage (path.Dir $path) -}}
+          {{- with .Resources.Get (path.Base $path) -}}
+            {{- $resolved = .RelPermalink -}}
+          {{- end -}}
+        {{- end -}}
+      {{- end -}}
+    {{- end -}}
+    {{- if and (not $resolved) (not (in (slice ".md" ".markdown" ".html" ".rst" ".adoc" ".org") (path.Ext $path))) -}}
+      {{- /* Hugo copies unbundled content files without a Page/Resource object. */ -}}
+      {{- if fileExists (printf "content/%s" (strings.TrimPrefix "/" $path)) -}}
+        {{- $resolved = relURL $path -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+  {{- with $resolved -}}
+    {{- $destination = . -}}
+    {{- with $url.RawQuery -}}
+      {{- $destination = printf "%s?%s" $destination . -}}
+    {{- end -}}
+    {{- with $url.Fragment -}}
+      {{- $destination = printf "%s#%s" $destination . -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- return $destination -}}

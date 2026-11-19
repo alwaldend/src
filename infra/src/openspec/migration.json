@@ -1,0 +1,94 @@
+{
+    "schema_version": 1,
+    "migration_date": "2026-09-08",
+    "source_commit": "550d7e79b1f5fdbc2b6017b75178471d6914082f",
+    "scope": "All tracked maintained project-local goal records; test fixtures and ignored scratch are excluded.",
+    "records": [
+        {
+            "source_path": "projects/agents/goals/agent-system-phase-1",
+            "change_path": "projects/agents/openspec/changes/archive/2026-09-08-agent-system-phase-1",
+            "metadata_path": "projects/agents/openspec/changes/archive/2026-09-08-agent-system-phase-1/migration.json",
+            "outcome": "achieved",
+            "execution": "paused",
+            "provenance_manifest_path": "projects/agents/openspec/changes/archive/2026-09-08-agent-system-phase-1/provenance/manifest.json"
+        },
+        {
+            "source_path": "projects/agents/goals/agent-system-phase-2",
+            "change_path": "projects/agents/openspec/changes/archive/2026-09-08-agent-system-phase-2",
+            "metadata_path": "projects/agents/openspec/changes/archive/2026-09-08-agent-system-phase-2/migration.json",
+            "outcome": "achieved",
+            "execution": "paused",
+            "provenance_manifest_path": "projects/agents/openspec/changes/archive/2026-09-08-agent-system-phase-2/provenance/manifest.json"
+        },
+        {
+            "source_path": "projects/agents/goals/agent-system-phase-3",
+            "change_path": "projects/agents/openspec/changes/archive/2026-09-08-agent-system-phase-3",
+            "metadata_path": "projects/agents/openspec/changes/archive/2026-09-08-agent-system-phase-3/migration.json",
+            "outcome": "achieved",
+            "execution": "paused",
+            "provenance_manifest_path": "projects/agents/openspec/changes/archive/2026-09-08-agent-system-phase-3/provenance/manifest.json"
+        },
+        {
+            "source_path": "projects/agents/goals/agent-system-phase-4",
+            "change_path": "projects/agents/openspec/changes/archive/2026-09-08-agent-system-phase-4",
+            "metadata_path": "projects/agents/openspec/changes/archive/2026-09-08-agent-system-phase-4/migration.json",
+            "outcome": "achieved",
+            "execution": "paused",
+            "provenance_manifest_path": "projects/agents/openspec/changes/archive/2026-09-08-agent-system-phase-4/provenance/manifest.json"
+        },
+        {
+            "source_path": "projects/agents/goals/agent-system-phase-five-followup",
+            "change_path": "projects/agents/openspec/changes/archive/2026-09-08-agent-system-phase-five-followup",
+            "metadata_path": "projects/agents/openspec/changes/archive/2026-09-08-agent-system-phase-five-followup/migration.json",
+            "outcome": "achieved",
+            "execution": "paused",
+            "provenance_manifest_path": "projects/agents/openspec/changes/archive/2026-09-08-agent-system-phase-five-followup/provenance/manifest.json"
+        },
+        {
+            "source_path": "projects/agents/goals/agent-system-phase-six-ergonomics",
+            "change_path": "projects/agents/openspec/changes/archive/2026-09-08-agent-system-phase-six-ergonomics",
+            "metadata_path": "projects/agents/openspec/changes/archive/2026-09-08-agent-system-phase-six-ergonomics/migration.json",
+            "outcome": "achieved",
+            "execution": "paused",
+            "provenance_manifest_path": "projects/agents/openspec/changes/archive/2026-09-08-agent-system-phase-six-ergonomics/provenance/manifest.json"
+        },
+        {
+            "source_path": "projects/agents/goals/repo-agent-system",
+            "change_path": "projects/agents/openspec/changes/archive/2026-09-08-repo-agent-system",
+            "metadata_path": "projects/agents/openspec/changes/archive/2026-09-08-repo-agent-system/migration.json",
+            "outcome": "achieved",
+            "execution": "paused",
+            "provenance_manifest_path": "projects/agents/openspec/changes/archive/2026-09-08-repo-agent-system/provenance/manifest.json"
+        },
+        {
+            "source_path": "projects/renders/goals/reimu-fumo-finish",
+            "change_path": "projects/renders/openspec/changes/reimu-fumo-finish",
+            "metadata_path": "projects/renders/openspec/changes/reimu-fumo-finish/migration.json",
+            "outcome": "open",
+            "execution": "blocked",
+            "provenance_manifest_path": "projects/renders/openspec/changes/reimu-fumo-finish/provenance/manifest.json"
+        },
+        {
+            "source_path": "projects/mcp_cordis/goals/runtime_extensions",
+            "change_path": "projects/mcp_cordis/openspec/changes/archive/2026-09-08-runtime-extensions",
+            "metadata_path": "projects/mcp_cordis/openspec/changes/archive/2026-09-08-runtime-extensions/migration.json",
+            "outcome": "achieved",
+            "execution": null,
+            "provenance_manifest_path": "projects/mcp_cordis/openspec/changes/archive/2026-09-08-runtime-extensions/provenance/manifest.json"
+        }
+    ],
+    "supporting_files": [
+        {
+            "source_path": "projects/agents/goals/BUILD.bazel",
+            "snapshot_path": "projects/agents/openspec/changes/archive/2026-09-08-repo-agent-system/provenance/owner/goals/BUILD.bazel.original",
+            "sha256": "8a646a2001d6ecd699a2414a7191e1e17a4b06f311526c1e7affc18fea17b8d8",
+            "size_bytes": 165
+        },
+        {
+            "source_path": "projects/agents/goals/README.md",
+            "snapshot_path": "projects/agents/openspec/changes/archive/2026-09-08-repo-agent-system/provenance/owner/goals/README.md",
+            "sha256": "e240c285e7d0f129996e9cb8dbb91b8a0b827c094688b615071463e91307a5c7",
+            "size_bytes": 1420
+        }
+    ]
+}

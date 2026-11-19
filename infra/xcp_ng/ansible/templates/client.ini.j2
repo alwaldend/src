@@ -1,0 +1,14 @@
+server = {{ xoa_acme_url }}
+config-dir = {{ xoa_acme_dir }}
+work-dir = {{ xoa_acme_work_dir }}
+logs-dir = {{ xoa_acme_log_dir }}
+cert-name = {{ xoa_acme_cert_name }}
+authenticator = standalone
+preferred-challenges = http
+key-type = rsa
+rsa-key-size = 4096
+non-interactive = true
+agree-tos = true
+register-unsafely-without-email = true
+pre-hook = /usr/bin/systemctl stop xo-server.service
+post-hook = /usr/bin/systemctl start xo-server.service

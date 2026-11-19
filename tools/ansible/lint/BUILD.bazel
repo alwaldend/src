@@ -15,6 +15,7 @@ go_library(
     name = "lint_lib",
     srcs = ["main.go"],
     importpath = "git.alwaldend.com/alwaldend/src/tools/ansible/lint",
+    visibility = ["//visibility:private"],
     deps = ["@rules_go//go/tools/bazel"],
 )
 

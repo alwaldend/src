@@ -1,0 +1,77 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: broad-rear-textile-laps-096
+  resourceVersion: "3"
+  generation: 3
+  creationTimestamp: "2026-09-06T02:45:06.831086354Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 16
+  criteriaRevision: 4
+  criteriaDigest: sha256:f5fe4b5c4efc12d5b82ad42cf0d41fd7274f48b421abf42e9db1ce5ae316d8a3
+  goalStateDigest: sha256:d3dd99930bf18292653455d315de740e68d0a10d03186a30fad1ab2e06501ad6
+  workType: change
+  subject: bee174d66dcf5f765dcdfd99b1351439c387676e822b9d4ded67eb04df2bed1b
+  nextAction: Review connected knot/loop receiver fit and free staggered hair continuation before freezing097; retain094.
+status:
+  state: closed
+  closedAt: "2026-09-06T03:03:51.988933963Z"
+  artifacts:
+    planDigest: sha256:e769481a08fac3b724a7cdd80da8e89ac6af30d8aad835d6cf4ba900944ac9e7
+    resultDigest: sha256:a38f49451c98010047b637af080f50c1f2ec85b88eef10a9f8b2ded68d876374
+    evidence:
+    - path: evidence/arm_095_collision_diagnosis.md
+      digest: sha256:9d2b7009955ce9505ba84ef99ed764f0ed8fa060f544fe2f3598b9a4c546aaf7
+    - path: evidence/arm_097_fit_design.md
+      digest: sha256:d0f9ac500def3fd7116f2c35f1bd3edc565aa19f961199cb8b83107c8056cab6
+    - path: evidence/hair_095_rear_landmarks.md
+      digest: sha256:6e8ba67e7bbfb06009a931e6cfdec2d338cfddc02675a916bd61e5a9e2940f90
+    - path: evidence/hair_096_bow_diagnosis.md
+      digest: sha256:0757988d5a758a51dfbc86d960ad7b585a4e77ab117fc954671490f9143c4f72
+    - path: evidence/hair_096_data_repair.md
+      digest: sha256:218c87ba3aa8dda3e9c2c39f915140280342977293350d9db0c034fa72fa3e96
+    - path: evidence/hair_096_pixel_direction.md
+      digest: sha256:2abab67927f1735a927cbc358c4848e71ec8cdcbebbf859700f7107af3425213
+    - path: evidence/process_096_review.md
+      digest: sha256:ff08ca4709f3ed4b2f05fc3b57cbbb6d7af702f228d5638c31e532171d91c08f
+  review:
+    decision: reset
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 3
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-002
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-004
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-005
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-006
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-007
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-09-06T03:03:51.988933963Z"

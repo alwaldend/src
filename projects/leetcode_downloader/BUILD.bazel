@@ -10,21 +10,10 @@ docs_filegroup(
     srcs = glob(["*.md"]),
     visibility = [
         "//projects:__pkg__",
-        "//projects/leetcode_downloader/landing:__pkg__",
     ],
     deps = [
         "//projects/leetcode_downloader/main/bzl:docs",
         "//projects/leetcode_downloader/main/proto:docs",
         "//projects/leetcode_downloader/releases:docs",
-    ],
-)
-
-filegroup(
-    name = "dnsconfig",
-    srcs = ["dnsconfig.json"],
-    visibility = [
-        "//infra:__pkg__",
-        "//infra/dns:__pkg__",
-        "//projects/alwaldend.com:__subpackages__",
     ],
 )

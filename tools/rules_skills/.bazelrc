@@ -1,0 +1,4 @@
+build --aspects //skill:defs.bzl%skill_validation_aspect
+build --output_groups=+skill_validation
+
+import %workspace%/../../tools/bazelrc/bzl_project.bazelrc

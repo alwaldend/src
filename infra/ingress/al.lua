@@ -20,7 +20,7 @@ infra.ansible_keys({
 lib.plugin_call({
     name = "tf_backend_tf",
     plugin = "tf_backend",
-    labels = { tf = "main" },
+    labels = { tf = "main", dns = "1" },
     data = {
         vault_secret = "alwaldend.com/vault1/approles/src_infra_ingress/tf_backend/tf",
         vault_secret_mount = "secrets",
@@ -29,7 +29,7 @@ lib.plugin_call({
 
 infra.yc_auth({
     path = "yandex.cloud/org1/folders/src-infra-ingress/account_iam_key",
-    labels = { tf = "main" },
+    labels = { tf = "main", dns = "1" },
 })
 
 infra.yc_account({
@@ -40,7 +40,7 @@ infra.yc_account({
 lib.plugin_call({
     name = "image",
     plugin = "injector",
-    labels = { tf = "main" },
+    labels = { tf = "main", dns = "1" },
     data = {
         res = {
             {
@@ -64,7 +64,7 @@ lib.plugin_call({
 lib.plugin_call({
     name = "wireguard",
     plugin = "injector",
-    labels = { tf = "main", ansible = "1" },
+    labels = { tf = "main", ansible = "1", dns = "1" },
     data = {
         res = {
             {
@@ -116,7 +116,7 @@ lib.plugin_call({
                 name = "MIKROTIK_HOST",
                 deps = { "mikrotik" },
                 env = {
-                    value = "https://router1.dc1.alwaldend.com",
+                    value = infra.routeros_hosturl,
                 },
             },
             {
@@ -135,4 +135,10 @@ lib.plugin_call({
             },
         },
     },
+})
+
+infra.dns({
+    labels = { tf = "main", dns = "1" },
+    dc1 = true,
+    global = true,
 })

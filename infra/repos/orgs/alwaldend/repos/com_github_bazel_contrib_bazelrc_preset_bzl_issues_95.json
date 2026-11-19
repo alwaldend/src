@@ -1,0 +1,16 @@
+{
+    "description": "",
+    "homepage_url": "",
+    "default_branch": "main",
+    "visibility": "public",
+    "github": {
+        "has_issues": true,
+        "has_projects": true,
+        "has_wiki": true,
+        "id": 1103784861
+    },
+    "gitlab": {
+        "import_from": "github",
+        "id": 86425653
+    }
+}

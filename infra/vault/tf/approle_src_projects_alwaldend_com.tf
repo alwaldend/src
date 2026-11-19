@@ -6,6 +6,7 @@ module "src_projects_alwaldend_com_approle" {
   ]
   secrets = vault_mount.secrets.path
   policies = [
+    module.dns_access["src_projects_alwaldend_com"].policy_name,
     module.src_projects_alwaldend_com_ssh.policy,
   ]
   backend          = vault_auth_backend.approle.path

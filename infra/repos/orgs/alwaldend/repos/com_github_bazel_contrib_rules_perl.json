@@ -1,0 +1,16 @@
+{
+    "description": "Fork of Perl rules for Bazel",
+    "homepage_url": "",
+    "default_branch": "main",
+    "visibility": "public",
+    "github": {
+        "has_projects": true,
+        "has_wiki": true,
+        "id": 1114490334
+    },
+    "gitlab": {
+        "import_from": "github",
+        "id": 86425652
+    },
+    "upstream_url": "https://github.com/bazel-contrib/rules_perl"
+}

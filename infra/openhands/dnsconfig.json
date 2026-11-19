@@ -1,0 +1,74 @@
+{
+    "records": {
+        "host1_canvas": {
+            "A": {
+                "name": "host1.canvas.openhands",
+                "address": "192.168.10.90"
+            },
+            "dsp": ["dc1"]
+        },
+        "canvas_dc1": {
+            "A": {
+                "name": "canvas.openhands",
+                "address": "192.168.10.90"
+            },
+            "dsp": ["dc1"]
+        },
+        "canvas_target": {
+            "A": {
+                "name": "dc1.canvas.openhands",
+                "address": "192.168.10.90"
+            },
+            "dsp": ["all"]
+        },
+        "canvas_global": {
+            "CNAME": {
+                "name": "canvas.openhands",
+                "target": "ingress.alwaldend.com."
+            },
+            "dsp": ["global"]
+        },
+        "host1_server": {
+            "A": {
+                "name": "host1.server.openhands",
+                "address": "192.168.10.91"
+            },
+            "dsp": ["dc1"]
+        },
+        "server_dc1": {
+            "A": {
+                "name": "server.openhands",
+                "address": "192.168.10.91"
+            },
+            "dsp": ["dc1"]
+        },
+        "server_target": {
+            "A": {
+                "name": "dc1.server.openhands",
+                "address": "192.168.10.91"
+            },
+            "dsp": ["all"]
+        },
+        "host1_automation": {
+            "A": {
+                "name": "host1.automation.openhands",
+                "address": "192.168.10.92"
+            },
+            "dsp": ["dc1"]
+        },
+        "automation_dc1": {
+            "A": {
+                "name": "automation.openhands",
+                "address": "192.168.10.92"
+            },
+            "dsp": ["dc1"]
+        },
+        "automation_target": {
+            "A": {
+                "name": "dc1.automation.openhands",
+                "address": "192.168.10.92"
+            },
+            "dsp": ["all"]
+        }
+    }
+}

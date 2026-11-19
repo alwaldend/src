@@ -20,7 +20,6 @@ docs_filegroup(
     srcs = glob(["*.md"]),
     visibility = [
         "//projects:__pkg__",
-        "//projects/useless_qt_gui/landing:__pkg__",
     ],
 )
 
@@ -63,15 +62,5 @@ qt_cc_binary(
         ":application",
         ":resources",
         "@rules_qt//:qt_widgets",
-    ],
-)
-
-filegroup(
-    name = "dnsconfig",
-    srcs = ["dnsconfig.json"],
-    visibility = [
-        "//infra:__pkg__",
-        "//infra/dns:__pkg__",
-        "//projects/alwaldend.com:__subpackages__",
     ],
 )

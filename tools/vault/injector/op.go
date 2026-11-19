@@ -30,7 +30,7 @@ func (self *OpFetcher) Get(ctx context.Context, r *injector_proto.Resource, d []
 	}
 	client, err := self.vault.Client(ctx, r.VaultConn, r.VaultAuth).Get()
 	if err != nil {
-		return nil, fmt.Errorf("could not create vault client for op %s: %w", r.Name, err)
+		return nil, fmt.Errorf("could not create vault client for op %s: %w", r.Name, al.SanitizeVaultError(err))
 	}
 	data := map[string]any{}
 	for key, value := range op.Data {
@@ -40,18 +40,21 @@ func (self *OpFetcher) Get(ctx context.Context, r *injector_proto.Resource, d []
 	logical := client.Client.Logical()
 	switch op.Method {
 	case "", "read":
-		resp, err = logical.Read(op.Path)
+		resp, err = logical.ReadWithContext(ctx, op.Path)
 		if err != nil {
-			return nil, fmt.Errorf("read error: %w", err)
+			return nil, fmt.Errorf("read error: %w", al.SanitizeVaultError(err))
 		}
 	case "write":
-		resp, err = logical.Write(op.Path, data)
+		resp, err = logical.WriteWithContext(ctx, op.Path, data)
 		if err != nil {
-			return nil, fmt.Errorf("write error: %w", err)
+			return nil, fmt.Errorf("write error: %w", al.SanitizeVaultError(err))
 		}
 	default:
 		return nil, fmt.Errorf("invalid method %s", op.Method)
 	}
-	res := &ResourceResult{Name: r.Name, Data: resp.Data}
+	res := &ResourceResult{Name: r.Name}
+	if resp != nil {
+		res.Data = resp.Data
+	}
 	return res, nil
 }

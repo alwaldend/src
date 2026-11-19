@@ -1,6 +1,8 @@
 - tags:
     - vault
   block:
+    - name: Configure Vault time synchronization
+      ansible.builtin.import_tasks: time.yaml
     - name: Install packages
       ansible.builtin.package:
         name:

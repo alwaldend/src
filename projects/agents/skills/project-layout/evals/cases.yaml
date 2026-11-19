@@ -15,7 +15,7 @@
 - description: Uses internal rather than private at any nesting depth
   vars:
     request: >-
-      Add Starlark implementation details below projects/rules_example/rule.
+      Add Starlark implementation details below tools/rules_example/rule.
       The APIs must not be consumed outside the rules package. Choose between
       rule/private and rule/internal, and account for nearby legacy private
       directories.
@@ -24,7 +24,7 @@
       threshold: 1
       value: >-
         Pass only if the response chooses
-        projects/rules_example/rule/internal, never introduces private for
+        tools/rules_example/rule/internal, never introduces private for
         internal implementation, treats nearby legacy private directories as
         grandfathered rather than precedent, and does not propose an unrelated
         repository-wide migration. Otherwise fail.

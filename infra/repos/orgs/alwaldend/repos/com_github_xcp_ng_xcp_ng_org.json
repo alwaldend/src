@@ -1,0 +1,17 @@
+{
+    "description": "XCP-ng org website",
+    "homepage_url": "",
+    "default_branch": "master",
+    "visibility": "public",
+    "github": {
+        "has_projects": true,
+        "has_wiki": true,
+        "web_commit_signoff_required": true,
+        "id": 1181558959
+    },
+    "gitlab": {
+        "import_from": "github",
+        "id": 86425666
+    },
+    "upstream_url": "https://github.com/xcp-ng/xcp-ng-org"
+}

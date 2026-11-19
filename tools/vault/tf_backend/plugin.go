@@ -2,8 +2,10 @@ package main
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"maps"
+	"time"
 
 	"git.alwaldend.com/alwaldend/src/projects/al/api/al_proto"
 	"git.alwaldend.com/alwaldend/src/projects/al/pkg/al"
@@ -30,19 +32,25 @@ func (self *Plugin) Stop(ctx context.Context) error {
 	return self.lc.Stop(ctx)
 }
 
-func (self *Plugin) handleCall(req *al_proto.PluginStartRequest, call *al_proto.PluginCall) (map[string]string, error) {
+func (self *Plugin) handleCall(ctx context.Context, req *al_proto.PluginStartRequest, call *al_proto.PluginCall) (map[string]string, error) {
 	config := &tf_backend_proto.Config{}
 	if _, err := al.FromPbJsonToPb(call.Data, config).Get(); err != nil {
 		return nil, fmt.Errorf("could not parse plugin call data: %w", err)
 	}
-	backend, err := NewTfBackend(self.ctx, req.Config, config)
+	backend, err := NewTfBackend(ctx, self.ctx, req.Config, config)
 	if err != nil {
 		return nil, fmt.Errorf("could not create a terraform backend: %w", err)
 	}
-	if err := backend.Start(self.ctx.Ctx); err != nil {
-		return nil, fmt.Errorf("could not start terraform backend: %w", err)
+	if err := backend.Start(ctx); err != nil {
+		cleanupCtx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+		defer cancel()
+		return nil, errors.Join(fmt.Errorf("could not start terraform backend: %w", err), backend.Stop(cleanupCtx))
 	}
-	self.lc.Add(lifecycle.StoppableFunc(backend.Stop))
+	if err := self.lc.AddState(lifecycle.StateStarted, lifecycle.StoppableFunc(backend.Stop)); err != nil {
+		cleanupCtx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+		defer cancel()
+		return nil, errors.Join(err, backend.Stop(cleanupCtx))
+	}
 	env, err := backend.Env()
 	if err != nil {
 		return nil, fmt.Errorf("could not create env variables: %w", err)
@@ -54,7 +62,7 @@ func (self *Plugin) PluginStart(ctx context.Context, req *al_proto.PluginStartRe
 	res := &al_proto.PluginStartResponse{Env: map[string]string{}}
 	for _, call := range req.Plugin.Calls {
 		self.ctx.Logger.Printf("handling call %s", call.Name)
-		env, err := self.handleCall(req, call)
+		env, err := self.handleCall(ctx, req, call)
 		if err != nil {
 			return nil, fmt.Errorf("could not process call %s: %w", call.Name, err)
 		}

@@ -1,0 +1,121 @@
+- tags:
+    - openhands_automation
+  block:
+    - name: Install the OpenHands automation server dependencies
+      notify: Restart OpenHands automation server
+      ansible.builtin.package:
+        name: "{{ openhands_automation_packages }}"
+        state: present
+    - name: Create the OpenHands automation server user
+      ansible.builtin.user:
+        name: "{{ openhands_automation_user }}"
+        uid: "{{ openhands_automation_user_uid }}"
+        shell: /sbin/nologin
+        home: "{{ openhands_automation_home_dir }}"
+        system: true
+    - name: Create filesystem on the OpenHands automation server disk
+      when: openhands_automation_disk is truthy
+      community.general.filesystem:
+        fstype: ext4
+        dev: "{{ openhands_automation_disk }}"
+    - name: Mount the OpenHands automation server disk
+      when: openhands_automation_disk is truthy
+      ansible.posix.mount:
+        path: "{{ openhands_automation_dir }}"
+        src: "{{ openhands_automation_disk }}"
+        fstype: ext4
+        state: mounted
+    - name: Create the OpenHands automation server directories
+      loop:
+        - "{{ openhands_automation_dir }}"
+        - "{{ openhands_automation_home_dir }}"
+        - "{{ openhands_automation_work_dir }}"
+        - "{{ openhands_automation_state_dir }}"
+        - "{{ openhands_automation_workspace_base }}"
+      ansible.builtin.file:
+        state: directory
+        owner: "{{ openhands_automation_user }}"
+        group: "{{ openhands_automation_user }}"
+        mode: "0700"
+        path: "{{ item }}"
+    - name: Create the OpenHands automation server virtual environment
+      become_user: "{{ openhands_automation_user }}"
+      ansible.builtin.command:
+        argv:
+          - uv
+          - venv
+          - --python
+          - python3.12
+          - "{{ openhands_automation_venv_dir }}"
+        creates: "{{ openhands_automation_venv_dir }}/bin/python"
+    - name: Install the OpenHands automation server package
+      register: openhands_automation_install_result
+      notify: Restart OpenHands automation server
+      # uv emits these summaries on stderr only when it mutates the environment.
+      # Audited/Resolved/Prepared output alone does not require a restart.
+      changed_when: >-
+        openhands_automation_install_result.stderr is
+        search('(?m)^(Installed|Uninstalled) [1-9][0-9]* packages? in ')
+      become_user: "{{ openhands_automation_user }}"
+      ansible.builtin.command:
+        argv:
+          - uv
+          - --color
+          - never
+          - --no-progress
+          - pip
+          - install
+          - --python
+          - "{{ openhands_automation_venv_dir }}/bin/python"
+          - "openhands-automation=={{ openhands_automation_version }}"
+          - "openhands-sdk=={{ openhands_automation_agent_server_version }}"
+          - "openhands-workspace=={{ openhands_automation_agent_server_version }}"
+        chdir: "{{ openhands_automation_dir }}"
+    - name: Write the OpenHands automation server environment
+      notify: Restart OpenHands automation server
+      no_log: true
+      ansible.builtin.copy:
+        content: |
+          {% for key, value in (openhands_automation_env | combine(openhands_automation_computed_env)).items() %}
+          {{ key }}={{ value }}
+          {% endfor %}
+        dest: "{{ openhands_automation_env_path }}"
+        owner: root
+        group: "{{ openhands_automation_user }}"
+        mode: "0640"
+      vars:
+        openhands_automation_computed_env: >-
+          {{
+            {}
+            | combine({'AUTOMATION_AGENT_SERVER_URL': openhands_automation_agent_server_url})
+            | combine({'AUTOMATION_AGENT_SERVER_API_KEY': openhands_automation_agent_server_api_key})
+            | combine({'AUTOMATION_BASE_URL': openhands_automation_base_url})
+            | combine({'AUTOMATION_LOCAL_API_KEY': openhands_automation_local_api_key})
+            | combine({'AUTOMATION_KV_SECRET': openhands_automation_kv_secret})
+            | combine({'AUTOMATION_DB_URL': openhands_automation_database_url})
+            | combine({'AUTOMATION_WORKSPACE_BASE': openhands_automation_workspace_base})
+            | combine(
+                {'AUTOMATION_SANDBOX_AGENT_SERVER_URL': openhands_automation_sandbox_agent_server_url}
+                if openhands_automation_sandbox_agent_server_url | length > 0
+                else {}
+              )
+            | combine(openhands_automation_env_override)
+          }}
+    - name: Write the OpenHands automation server service
+      notify: Restart OpenHands automation server
+      register: openhands_automation_service_result
+      ansible.builtin.template:
+        src: systemd_service.conf
+        dest: "{{ openhands_automation_service_path }}"
+        owner: root
+        group: root
+        mode: "0644"
+    - name: Reload systemd for the OpenHands automation server
+      when: openhands_automation_service_result.changed
+      ansible.builtin.systemd_service:
+        daemon_reload: true
+    - name: Enable and start the OpenHands automation server
+      ansible.builtin.systemd_service:
+        name: "{{ openhands_automation_service_path | basename }}"
+        enabled: true
+        state: started

@@ -50,7 +50,8 @@ func (self *VaultEnvFetcher) Get(ctx context.Context, r *injector_proto.Resource
 	}
 	res := &ResourceResult{
 		Env: map[string]string{
-			"VAULT_ADDR": vault.Config.Address,
+			"VAULT_ADDR":  vault.Config.Address,
+			"VAULT_TOKEN": "",
 		},
 	}
 	if tlsConfig.CACert != "" {

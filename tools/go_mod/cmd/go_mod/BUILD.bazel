@@ -1,0 +1,55 @@
+load("@rules_go//go:def.bzl", "go_binary", "go_library", "go_test")
+
+# gazelle:resolve go golang.org/x/mod/modfile @tools_org_golang_x_mod//modfile:go_default_library
+
+_GO_VERSION = "1.26.5"
+
+go_library(
+    name = "go_mod_lib",
+    srcs = ["main.go"],
+    importpath = "git.alwaldend.com/alwaldend/src/tools/go_mod/cmd/go_mod",
+    visibility = ["//visibility:private"],
+    deps = [
+        "@rules_go//go/runfiles",
+        "@tools_org_golang_x_mod//modfile:go_default_library",
+    ],
+)
+
+go_binary(
+    name = "update",
+    args = [
+        "--version",
+        _GO_VERSION,
+        "--git",
+        "$(rlocationpath //tools/git)",
+        "--workspace-marker",
+        "$(rlocationpath //:MODULE.bazel)",
+    ],
+    data = [
+        "//:MODULE.bazel",
+        "//tools/git",
+    ],
+    embed = [":go_mod_lib"],
+    visibility = ["//tools/go_mod:__pkg__"],
+)
+
+go_test(
+    name = "test",
+    srcs = ["check_test.go"],
+    args = [
+        "--version",
+        _GO_VERSION,
+        "--git",
+        "$(rlocationpath //tools/git)",
+        "--workspace-marker",
+        "$(rlocationpath //:MODULE.bazel)",
+        "--check",
+    ],
+    data = [
+        "//:MODULE.bazel",
+        "//tools/git",
+    ],
+    embed = [":go_mod_lib"],
+    tags = ["no-cache"],
+    visibility = ["//tools/repo_quality:__pkg__"],
+)

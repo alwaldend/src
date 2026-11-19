@@ -30,6 +30,10 @@ Run the non-mutating repository check:
 bazel_agent bazel test //:repo_quality_test
 ```
 
+The suite also parses root `BUILD.bazel` and rejects `load()` statements to keep
+unrelated tool dependencies out of root package loading. Run this check alone
+with `bazel_agent bazel test //tools/repo_quality/test/root_build:root_build_test`.
+
 Run semantic source linters over declared targets:
 
 ```sh

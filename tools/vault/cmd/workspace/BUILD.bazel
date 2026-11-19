@@ -1,0 +1,14 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//tools/vault:defs.bzl", "vault_binary_map")
+
+docs_filegroup(
+    name = "docs",
+    srcs = [],
+    visibility = ["//tools/vault:__pkg__"],
+)
+
+vault_binary_map(
+    name = "vault",
+    configs = ["//tools/al:config"],
+    visibility = ["//:__pkg__"],
+)

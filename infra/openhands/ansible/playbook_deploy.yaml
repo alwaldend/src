@@ -1,0 +1,35 @@
+- name: OpenHands canvas
+  hosts: openhands_canvas
+  force_handlers: true
+  become: true
+  tasks:
+    - ansible.builtin.import_role:
+        name: alwaldend.main.host
+    - ansible.builtin.import_role:
+        name: alwaldend.main.traefik
+    - ansible.builtin.import_role:
+        name: alwaldend.main.openhands_canvas
+
+- name: OpenHands agent server
+  hosts: openhands_server_secure
+  force_handlers: true
+  become: true
+  tasks:
+    - ansible.builtin.import_role:
+        name: alwaldend.main.host
+    - ansible.builtin.import_role:
+        name: alwaldend.main.traefik
+    - ansible.builtin.import_role:
+        name: alwaldend.main.openhands_server
+
+- name: OpenHands automation server
+  hosts: openhands_automation
+  force_handlers: true
+  become: true
+  tasks:
+    - ansible.builtin.import_role:
+        name: alwaldend.main.host
+    - ansible.builtin.import_role:
+        name: alwaldend.main.traefik
+    - ansible.builtin.import_role:
+        name: alwaldend.main.openhands_automation

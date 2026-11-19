@@ -6,7 +6,6 @@ docs_filegroup(
     srcs = glob(["*.md"]) + ["galaxy.yml"],
     visibility = [
         "//projects:__pkg__",
-        "//projects/ansible_collection/landing:__pkg__",
     ],
     deps = [
         "//projects/ansible_collection/playbooks:docs",
@@ -43,14 +42,4 @@ pkg_filegroup(
         "@com_ansible_galaxy",
     ],
     visibility = ["//:__subpackages__"],
-)
-
-filegroup(
-    name = "dnsconfig",
-    srcs = ["dnsconfig.json"],
-    visibility = [
-        "//infra:__pkg__",
-        "//infra/dns:__pkg__",
-        "//projects/alwaldend.com:__subpackages__",
-    ],
 )

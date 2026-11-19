@@ -1,11 +1,14 @@
 ---
 title: Ansible collection
-description: Ansible collection alwaldend.main
+description: Ansible collection alwaldend.main with Bazel source packaging
 statuses:
   - maintenance
 tags:
   - ansible_collection
 ---
+
+`alwaldend.main` is the repository's Ansible collection. Bazel packages its
+Ansible source for reuse in repository automation.
 
 ## Links
 

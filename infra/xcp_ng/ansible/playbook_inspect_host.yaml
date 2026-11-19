@@ -1,0 +1,68 @@
+- name: Inspect XCP-ng certificate deployment prerequisites
+  hosts: xcpng
+  gather_facts: false
+  tasks:
+    - name: Inspect runtime, HTTP listeners, and certificate installation support
+      ansible.builtin.raw: |
+        command -v python python3 openssl curl socat xe
+        ss -ltnp '( sport = :80 or sport = :443 )'
+        xe help host-server-certificate-install
+        find /opt/xensource/www -maxdepth 2 -type d
+        python3 --version 2>&1
+        true
+      changed_when: false
+      register: xcpng_prerequisites
+    - name: Report certificate deployment prerequisites
+      ansible.builtin.debug:
+        var: xcpng_prerequisites.stdout_lines
+    - name: Verify anonymous ACME webroot validation without changing XAPI settings
+      ansible.builtin.raw: |
+        python3 - <<'PYCODE'
+        import pathlib, ssl, urllib.request, json
+        root = pathlib.Path('/opt/xensource/www/.well-known/acme-challenge')
+        created = [p for p in [root.parent, root] if not p.exists()]
+        root.mkdir(parents=True, exist_ok=True)
+        path = root / 'ansible-acme-probe'
+        if path.exists():
+            raise RuntimeError('Refusing to overwrite an existing probe file')
+        try:
+            path.write_text('ansible-acme-probe')
+            # The current bootstrap certificate is self-signed. This fetch sends
+            # no credentials and verifies only the public challenge routing.
+            context = ssl._create_unverified_context()
+            for domain in ['host1.xcp-ng.alwaldend.com', 'xcp-ng.alwaldend.com']:
+                with urllib.request.urlopen('http://' + domain + '/.well-known/acme-challenge/ansible-acme-probe', context=context, timeout=8) as response:
+                    assert response.read(100) == b'ansible-acme-probe'
+                    print(json.dumps({'domain': domain, 'webroot_verified': True}))
+        finally:
+            path.unlink()
+            for directory in reversed(created):
+                directory.rmdir()
+        PYCODE
+      changed_when: false
+      register: xcpng_webroot_probe
+    - name: Report ACME webroot validation
+      ansible.builtin.debug:
+        var: xcpng_webroot_probe.stdout_lines
+    - name: Inspect ACME registration and certificate state without reading credentials
+      ansible.builtin.raw: |
+        python3 - <<'PYCODE'
+        import pathlib, json
+        root = pathlib.Path('/etc/xcp-ng-acme')
+        print(json.dumps({'certificate_exists': (root / 'certificates/host1.crt').is_file(),
+                          'key_exists': (root / 'certificates/host1.key').is_file(),
+                          'chain_exists': (root / 'certificates/host1.issuer.crt').is_file(),
+                          'account_file_count': len(list((root / 'accounts').rglob('*.json')))}))
+        PYCODE
+      changed_when: false
+      register: xcpng_acme_state
+    - name: Report ACME state
+      ansible.builtin.debug:
+        var: xcpng_acme_state.stdout_lines
+    - name: Read safe ACME failure metadata
+      ansible.builtin.raw: /usr/bin/python3 /etc/xcp-ng-acme/host_acme.py diagnose
+      changed_when: false
+      register: xcpng_acme_diagnostic
+    - name: Report safe ACME failure metadata
+      ansible.builtin.debug:
+        var: xcpng_acme_diagnostic.stdout_lines

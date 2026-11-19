@@ -66,6 +66,20 @@ lib.plugin({
     bin = "com_alwaldend_src/tools/vault/injector/injector_/injector",
 })
 
+tool_method({
+    name = "repo_delivery",
+    kind = "bazel",
+    bazel = {
+        target = "//tools/repo_delivery/cmd/repo_delivery:go",
+        output = "bazel-bin/tools/repo_delivery/cmd/repo_delivery/go_/go",
+    },
+})
+
+tool({
+    name = "repo_delivery",
+    method = "repo_delivery",
+})
+
 lib.plugin({
     name = "forgejo_login",
     bin = "com_alwaldend_src/tools/vault/forgejo_login/forgejo_login_/forgejo_login",
@@ -73,7 +87,7 @@ lib.plugin({
         forgejo_login = "1",
     },
     data = {
-        forgejo_url = "https://forgejo.alwaldend.com",
+        forgejo_url = "https://git.alwaldend.com",
         forgejo_oauth_name = "vault",
     },
 })
@@ -96,8 +110,8 @@ lib.plugin({
         pve_login = "1",
     },
     data = {
-        pve_base_url = "https://pve.alwaldend.com:8006",
-        pve_redirect_url = "https://pve.alwaldend.com:8006",
+        pve_base_url = lib.pve_base_url,
+        pve_redirect_url = lib.pve_base_url,
         pve_realm = "src_infra_dc1_vault",
     },
 })

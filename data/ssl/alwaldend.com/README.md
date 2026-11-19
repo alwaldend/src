@@ -24,12 +24,12 @@ Update: manually
 
 ## Client certificate CA
 
-Source: [../../../infra/dc1/vault/tf/output](../../../infra/dc1/vault/tf/output/README.md)
+Source: [../../../infra/vault/tf/output](../../../infra/vault/tf/output/README.md)
 
 Update: automatically
 
 ## Server certificate CA
 
-Source: [../../../infra/dc1/vault/tf/output](../../../infra/dc1/vault/tf/output/README.md)
+Source: [../../../infra/vault/tf/output](../../../infra/vault/tf/output/README.md)
 
 Update: automatically

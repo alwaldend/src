@@ -1,4 +1,5 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load(":defs.bzl", "drawio_webapp")
 
 docs_filegroup(
     name = "docs",
@@ -13,5 +14,10 @@ docs_filegroup(
 alias(
     name = "drawio",
     actual = "//third_party/com_drawio_desktop_bin",
+    visibility = ["//:__subpackages__"],
+)
+
+drawio_webapp(
+    name = "webapp",
     visibility = ["//:__subpackages__"],
 )

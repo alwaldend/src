@@ -12,24 +12,27 @@ import (
 )
 
 type CmdCtx struct {
-	Ctx    context.Context
-	Args   []string
-	Getenv func(string) string
-	Stdin  io.Reader
-	Stdout io.Writer
-	Stderr io.Writer
-	Logger *log.Logger
+	Ctx             context.Context
+	RequestShutdown context.CancelFunc
+	Args            []string
+	Getenv          func(string) string
+	Stdin           io.Reader
+	Stdout          io.Writer
+	Stderr          io.Writer
+	Logger          *log.Logger
 }
 
 func NewCmdCtx(ctx context.Context, prefix string) *CmdCtx {
+	ctx, cancel := context.WithCancel(ctx)
 	return &CmdCtx{
-		Ctx:    ctx,
-		Args:   os.Args,
-		Getenv: os.Getenv,
-		Stdin:  os.Stdin,
-		Stdout: os.Stdout,
-		Stderr: os.Stderr,
-		Logger: log.New(os.Stderr, prefix, log.Flags()),
+		Ctx:             ctx,
+		RequestShutdown: cancel,
+		Args:            os.Args,
+		Getenv:          os.Getenv,
+		Stdin:           os.Stdin,
+		Stdout:          os.Stdout,
+		Stderr:          os.Stderr,
+		Logger:          log.New(os.Stderr, prefix, log.Flags()),
 	}
 }
 
@@ -66,7 +69,11 @@ func RunCommand(args CommandArgs) error {
 }
 
 func Command(args CommandArgs) (*exec.Cmd, error) {
-	cmd := exec.Command(args.Name, args.Args...)
+	ctx := args.Ctx
+	if ctx == nil {
+		ctx = context.Background()
+	}
+	cmd := exec.CommandContext(ctx, args.Name, args.Args...)
 	if args.Stdout == nil {
 		cmd.Stdout = os.Stdout
 	} else {

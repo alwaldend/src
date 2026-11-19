@@ -48,8 +48,10 @@ perform the full workflow only when the task authorizes those mutations.
 4. After fetching, inspect the local and fetched feature tips and both unique
    commit ranges. Establish the expected remote feature state only after
    confirming that replacing it would not overwrite unexpected, shared,
-   human-owned, or unrelated work, and that every previously remote task-owned
-   commit remains reachable from the replacement.
+   human-owned, or unrelated work, and that the replacement preserves every
+   previously remote task-owned commit's reachable progress. An amend or
+   rebase of task-owned commits may change their ancestry; it must not drop
+   their content or work.
 5. Rebase the intended task-owned commits onto the fetched base OID. Preserve
    required signing and any caller-required commit shape. If a previously
    fetched base changes non-fast-forward, stop and reassess instead of blindly

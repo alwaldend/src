@@ -20,7 +20,7 @@ sh_binary(
 al_binary_run(
     name = "login",
     args = ["$(rootpath :login_bin)"],
-    configs = ["//:al"],
+    configs = ["//tools/al:config"],
     data = [
         ":login_bin",
         "//tools/vault/injector",

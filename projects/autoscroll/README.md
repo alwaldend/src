@@ -1,6 +1,6 @@
 ---
 title: Autoscroll
-description: CLI app for autoscroll
+description: Mouse-driven autoscroll CLI with reloadable configuration
 statuses:
   - finished
 languages:
@@ -9,6 +9,10 @@ tags:
   - cli
   - qt
 ---
+
+Autoscroll is a Python and PyQt6 command-line application that turns mouse
+movement into horizontal and vertical scrolling. It supports configurable
+buttons, scroll speed, and configuration changes without restarting.
 
 ## Links
 

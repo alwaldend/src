@@ -1,6 +1,6 @@
 ---
 title: Ci platform
-description: Ci platform
+description: Abandoned CI platform with a Go backend and Vue frontend
 statuses:
   - abandoned
 languages:
@@ -13,7 +13,9 @@ tags:
   - hcl
 ---
 
-CI platform SPA
+An abandoned continuous integration platform with a Go backend and a Vue
+single-page frontend. The source retains its job, pipeline, and project
+management components.
 
 ## Links
 

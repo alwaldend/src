@@ -1,0 +1,11 @@
+filegroup(
+    name = "fonts",
+    srcs = glob(["*.ttf"]),
+    visibility = ["//visibility:public"],
+)
+
+exports_files([
+    "LICENSE",
+    "LiberationMono-Regular.ttf",
+    "LiberationSans-Regular.ttf",
+])

@@ -28,7 +28,6 @@ docs_filegroup(
     srcs = glob(["*.md"]),
     visibility = [
         "//projects:__pkg__",
-        "//projects/autoscroll/landing:__pkg__",
     ],
     deps = [
         "//projects/autoscroll/releases:docs",
@@ -74,15 +73,5 @@ py_wheel(
         "//projects/autoscroll/main/py/autoscroll",
         "//projects/autoscroll/main/py/autoscroll:autoscroll_data",
         "//projects/autoscroll/main/py/autoscroll/_internal",
-    ],
-)
-
-filegroup(
-    name = "dnsconfig",
-    srcs = ["dnsconfig.json"],
-    visibility = [
-        "//infra:__pkg__",
-        "//infra/dns:__pkg__",
-        "//projects/alwaldend.com:__subpackages__",
     ],
 )

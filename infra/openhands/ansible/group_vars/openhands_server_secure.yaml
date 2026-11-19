@@ -1,0 +1,6 @@
+openhands_server_secure: true
+openhands_server_port: "{{ openhands_agent_server_port }}"
+openhands_server_version: "{{ openhands_version }}"
+openhands_server_session_api_key: "{{ openhands_session_api_key }}"
+openhands_server_secret_key: "{{ openhands_secret_key }}"
+traefik_dynamic_config_local_path: files/traefik_dynamic_server.toml

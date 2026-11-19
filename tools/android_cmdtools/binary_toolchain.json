@@ -49,7 +49,10 @@
                 },
                 {
                     "name": "sdkmanager",
-                    "path": "out/cmdline-tools/bin/sdkmanager"
+                    "path": "out/cmdline-tools/bin/sdkmanager",
+                    "runtime_files": [
+                        "out/cmdline-tools/**"
+                    ]
                 }
             ],
             "actions": [

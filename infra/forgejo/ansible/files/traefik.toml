@@ -42,4 +42,4 @@ hmacEncoded = "{{ traefik_acme_hmac }}"
 resolver = "vault"
 [tls.stores.default.acme.domain]
 main = "{{ forgejo_domain }}"
-sans = ["{{ inventory_hostname }}"]
+sans = ["{{ inventory_hostname }}", "{{ forgejo_legacy_domain }}"]

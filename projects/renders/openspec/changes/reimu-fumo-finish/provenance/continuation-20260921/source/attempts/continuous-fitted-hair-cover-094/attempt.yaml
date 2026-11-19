@@ -1,0 +1,74 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: continuous-fitted-hair-cover-094
+  resourceVersion: "4"
+  generation: 4
+  creationTimestamp: "2026-09-06T01:56:29.182744068Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 16
+  criteriaRevision: 4
+  criteriaDigest: sha256:f5fe4b5c4efc12d5b82ad42cf0d41fd7274f48b421abf42e9db1ce5ae316d8a3
+  goalStateDigest: sha256:d3dd99930bf18292653455d315de740e68d0a10d03186a30fad1ab2e06501ad6
+  workType: change
+  subject: af5a61921ae309a69cfe98b0da092d206b2d0ff29c9123ac2a4886de5a0f9add
+  nextAction: Retain exact094as partial baseline. Develop broad overlapping rearhair fromrefs16/21 and inspect actualretained sleeve root beforeassemblyrevision;38mmroot belongedrejectedtrials, not087/094. Wholeassetunaccepted.
+status:
+  state: closed
+  closedAt: "2026-09-06T02:14:57.039997099Z"
+  artifacts:
+    planDigest: sha256:c720597514ed73555128c2fffc1674e3a5e731811cbcb9692996ef65ee2112f6
+    resultDigest: sha256:843fc8f62ea1a6da163e05fff21e203929f4ddfaaac9653327b501a57ae5a7f1
+    evidence:
+    - path: evidence/hair_094_pixel_review.md
+      digest: sha256:f0d39d9d784d9cfce91231da6db1546b4ca3e851afff283e1a567baaec5034c4
+    - path: evidence/hair_094_repair.md
+      digest: sha256:b8ce84ec3bbab2dd42dae5facc3fbcf3fded41bc6e5aa5353444c8bde2e862ef
+    - path: evidence/hair_094_saved.md
+      digest: sha256:7065c105cda5e23fd993a183ded8feb734cc987e06a9d78415159516644f58ee
+    - path: evidence/sleeve_094_assembly_review.md
+      digest: sha256:e3e6729f2094eaf7ec9a964823716ba98b9cca739d84005b1f248883a6edabf1
+    - path: evidence/sleeve_094_cuff_feasibility.md
+      digest: sha256:45c68c849c1a2090f620c6ce7d571d4f2d3daebb25fcc49bbc12e5d98a6f03c0
+  review:
+    decision: accept
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 3
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-002
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-004
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-005
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-006
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-007
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-09-06T02:14:57.039997099Z"

@@ -1,0 +1,27 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("@rules_go//go:def.bzl", "go_binary", "go_library", "go_test")
+
+go_library(
+    name = "extract_lib",
+    srcs = ["main.go"],
+    importpath = "git.alwaldend.com/alwaldend/src/tools/drawio/cmd/extract",
+    visibility = ["//visibility:private"],
+)
+
+go_binary(
+    name = "extract",
+    embed = [":extract_lib"],
+    visibility = ["//tools/drawio:__pkg__"],
+)
+
+go_test(
+    name = "extract_test",
+    srcs = ["main_test.go"],
+    embed = [":extract_lib"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = [],
+    visibility = ["//tools/drawio:__pkg__"],
+)

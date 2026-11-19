@@ -1,0 +1,124 @@
+# Provider releases and SHA256 integrity verified against publisher checksums.
+# One shared version per source; targets select a subset by provider label.
+terraform_providers = use_extension("@rules_terraform//:extensions.bzl", "terraform_providers")
+terraform_providers.archive(
+    name = "terraform_provider_batonogov_threexui",
+    integrity = "sha256-MZ6Ob9jwRs9hRD2szLhjoEODy2FJsd+BtFTTF260d2s=",
+    platform = "linux_amd64",
+    source = "registry.terraform.io/batonogov/threexui",
+    urls = ["https://github.com/batonogov/terraform-provider-threexui/releases/download/v3.20.0/terraform-provider-threexui_3.20.0_linux_amd64.zip"],
+    version = "3.20.0",
+)
+terraform_providers.archive(
+    name = "terraform_provider_cloudflare_cloudflare",
+    integrity = "sha256-zXZwFupzguOE5WD23bMCY37LG1Ps4VyTJgMgEO/+bDM=",
+    platform = "linux_amd64",
+    source = "registry.terraform.io/cloudflare/cloudflare",
+    urls = ["https://github.com/cloudflare/terraform-provider-cloudflare/releases/download/v5.22.0/terraform-provider-cloudflare_5.22.0_linux_amd64.zip"],
+    version = "5.22.0",
+)
+terraform_providers.archive(
+    name = "terraform_provider_gitlabhq_gitlab",
+    # Publisher-verified SHA256 of the public provider archive.
+    integrity = "sha256-w/nsA8CX1dOxOt5h1Y3hew/avokxoaVVe8PZqaApwFQ=",  # trufflehog:ignore
+    platform = "linux_amd64",
+    source = "registry.terraform.io/gitlabhq/gitlab",
+    urls = ["https://github.com/gitlabhq/terraform-provider-gitlab/releases/download/v19.2.1/terraform-provider-gitlab_19.2.1_linux_amd64.zip"],
+    version = "19.2.1",
+)
+terraform_providers.archive(
+    name = "terraform_provider_goharbor_harbor",
+    integrity = "sha256-V1po+tq5yJw41V3wyELcEvw28x5KhOVCsZEDRCaxWoU=",
+    platform = "linux_amd64",
+    source = "registry.terraform.io/goharbor/harbor",
+    urls = ["https://github.com/goharbor/terraform-provider-harbor/releases/download/v3.12.0/terraform-provider-harbor_3.12.0_linux_amd64.zip"],
+    version = "3.12.0",
+)
+terraform_providers.archive(
+    name = "terraform_provider_hashicorp_external",
+    integrity = "sha256-hoaK7AW1jcCqGQRkaiwmuTZ9abiQya1wwzwNOqexSFo=",
+    platform = "linux_amd64",
+    source = "registry.terraform.io/hashicorp/external",
+    urls = ["https://releases.hashicorp.com/terraform-provider-external/2.3.5/terraform-provider-external_2.3.5_linux_amd64.zip"],
+    version = "2.3.5",
+)
+terraform_providers.archive(
+    name = "terraform_provider_hashicorp_local",
+    integrity = "sha256-vhfcYR6V4mzfbK1538zxBk8OMgMqLv65Oam75/scv+k=",
+    platform = "linux_amd64",
+    source = "registry.terraform.io/hashicorp/local",
+    urls = ["https://releases.hashicorp.com/terraform-provider-local/2.9.0/terraform-provider-local_2.9.0_linux_amd64.zip"],
+    version = "2.9.0",
+)
+terraform_providers.archive(
+    name = "terraform_provider_hashicorp_vault",
+    integrity = "sha256-GOebQsjBVaXFQaRdVKbM3qsjxATCOaze7TNqF8v8L9Q=",
+    platform = "linux_amd64",
+    source = "registry.terraform.io/hashicorp/vault",
+    urls = ["https://releases.hashicorp.com/terraform-provider-vault/5.8.0/terraform-provider-vault_5.8.0_linux_amd64.zip"],
+    version = "5.8.0",
+)
+terraform_providers.archive(
+    name = "terraform_provider_integrations_github",
+    integrity = "sha256-9geVGOEBSU/m5iWIOTxznFRI5riz8nfaPZsE8giLFP4=",
+    platform = "linux_amd64",
+    source = "registry.terraform.io/integrations/github",
+    urls = ["https://github.com/integrations/terraform-provider-github/releases/download/v6.10.2/terraform-provider-github_6.10.2_linux_amd64.zip"],
+    version = "6.10.2",
+)
+terraform_providers.archive(
+    name = "terraform_provider_svalabs_forgejo",
+    integrity = "sha256-pNPxKa/3jQXlmpani0sybXBRy/oRf5t+pfB6blc/xE4=",
+    platform = "linux_amd64",
+    source = "registry.terraform.io/svalabs/forgejo",
+    urls = ["https://github.com/svalabs/terraform-provider-forgejo/releases/download/v1.5.0/terraform-provider-forgejo_1.5.0_linux_amd64.zip"],
+    version = "1.5.0",
+)
+terraform_providers.archive(
+    name = "terraform_provider_telmate_proxmox",
+    integrity = "sha256-9BXMb3NaOXH6rmrCQDSv257oM3PvjeGaljHBh9Wtx9s=",
+    platform = "linux_amd64",
+    source = "registry.terraform.io/telmate/proxmox",
+    urls = ["https://github.com/Telmate/terraform-provider-proxmox/releases/download/v3.0.2-rc07/terraform-provider-proxmox_3.0.2-rc07_linux_amd64.zip"],
+    version = "3.0.2-rc07",
+)
+terraform_providers.archive(
+    name = "terraform_provider_terraform_routeros_routeros",
+    integrity = "sha256-reKesm06b2/1BzApCG7nijs1M6/AQU8S3zdGcRNY5Rs=",
+    platform = "linux_amd64",
+    source = "registry.terraform.io/terraform-routeros/routeros",
+    urls = ["https://github.com/terraform-routeros/terraform-provider-routeros/releases/download/v1.99.1/terraform-provider-routeros_1.99.1_linux_amd64.zip"],
+    version = "1.99.1",
+)
+terraform_providers.archive(
+    name = "terraform_provider_vatesfr_xenorchestra",
+    integrity = "sha256-1RqsyguDDhqrg+vOeMzR7OTApSRKU/aB1ryrJ99uLGk=",
+    platform = "linux_amd64",
+    source = "registry.terraform.io/vatesfr/xenorchestra",
+    urls = ["https://github.com/vatesfr/terraform-provider-xenorchestra/releases/download/v0.41.0/terraform-provider-xenorchestra_0.41.0_linux_amd64.zip"],
+    version = "0.41.0",
+)
+terraform_providers.archive(
+    name = "terraform_provider_yandex_cloud_yandex",
+    integrity = "sha256-aoT2ZGCg1fekro8S+543OvcGv7159qQ27yeIJB8YSqU=",
+    platform = "linux_amd64",
+    source = "registry.terraform.io/yandex-cloud/yandex",
+    urls = ["https://github.com/yandex-cloud/terraform-provider-yandex/releases/download/v0.203.0/terraform-provider-yandex_0.203.0_linux_amd64.zip"],
+    version = "0.203.0",
+)
+use_repo(
+    terraform_providers,
+    "terraform_provider_batonogov_threexui",
+    "terraform_provider_cloudflare_cloudflare",
+    "terraform_provider_gitlabhq_gitlab",
+    "terraform_provider_goharbor_harbor",
+    "terraform_provider_hashicorp_external",
+    "terraform_provider_hashicorp_local",
+    "terraform_provider_hashicorp_vault",
+    "terraform_provider_integrations_github",
+    "terraform_provider_svalabs_forgejo",
+    "terraform_provider_telmate_proxmox",
+    "terraform_provider_terraform_routeros_routeros",
+    "terraform_provider_vatesfr_xenorchestra",
+    "terraform_provider_yandex_cloud_yandex",
+)

@@ -1,0 +1,4 @@
+- name: Restart Vault time synchronization
+  ansible.builtin.systemd_service:
+    name: chronyd.service
+    state: restarted

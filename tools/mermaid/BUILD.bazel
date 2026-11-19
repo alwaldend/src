@@ -1,9 +1,15 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 
+package(default_visibility = ["//:__subpackages__"])
+
+exports_files([
+    "theme.json",
+    "upstream-theme.json",
+])
+
 alias(
     name = "mmdc",
     actual = "//tools/mermaid/cmd/mmdc",
-    visibility = ["//:__subpackages__"],
 )
 
 docs_filegroup(

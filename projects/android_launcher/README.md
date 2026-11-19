@@ -1,6 +1,6 @@
 ---
 title: Android launcher
-description: Android launcher
+description: Text-only Android launcher built with Kotlin and Jetpack Compose
 statuses:
   - maintenance
 languages:
@@ -9,6 +9,9 @@ tags:
   - android
   - proto
 ---
+
+A text-only Android launcher built with Kotlin and Jetpack Compose. It lets
+you hide apps and runs without ads, tracking, or internet access.
 
 ## Links
 

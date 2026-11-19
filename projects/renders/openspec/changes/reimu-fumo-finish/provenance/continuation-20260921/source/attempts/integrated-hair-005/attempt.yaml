@@ -1,0 +1,64 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: integrated-hair-005
+  resourceVersion: "2"
+  generation: 1
+  creationTimestamp: "2026-09-04T07:57:17.997583239Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 1
+  criteriaRevision: 1
+  criteriaDigest: sha256:baccd948c8b16e69f1845fc580981579437436eed22c64aad779f8f37def99d8
+  goalStateDigest: sha256:580eb41e7f4987ea508ab85ef574fdf153c495d93a8f0ca1d3b24abaf02a3059
+  planID: integrated-textile-v3
+  workType: candidate
+  stableDefect: head-hair-helmet-read
+  hypothesis: One stuffed substrate with textile regions plus separately rooted locks removes shell depth and card edges while preserving canonical head and face proportions.
+  subject: A157 sha256:433d08ad36be488bb16e4221a85f831d4390660c258a43ea0b08775811574b73
+  affectedCriteria:
+  - criterion-001
+  - criterion-002
+  - criterion-003
+  regressionRefs:
+  - canonical-front-v1
+  - canonical-turn-v1
+  - fixed-five-view-v1
+  priorAttemptID: curved-cap-004
+  nextAction: Rebuild the integrated textile candidate from protected A157 through Blender MCP, render front and side with pinned Blender, then expand to five views and measurements only if the absolute defect gate passes.
+status:
+  state: closed
+  closedAt: "2026-09-04T08:06:50.96689182Z"
+  artifacts:
+    planDigest: sha256:71a7fee418723bf81631f8039a06f176df4500710499b2dfdd04b59215a26955
+    resultDigest: sha256:d54b68e884953fab0b8b3a7ae5a836e445bbc88861e75051c56e7306fb2f66ea
+    evidence:
+    - path: evidence/blind-review.md
+      digest: sha256:2c45d6bb713b743f4f90d3fd932fe863403b8ab10b4daed187b7c3efee930380
+    - path: evidence/evidence.md
+      digest: sha256:4f79d4611c35703ab6f4a5dba0844f1dc2708ec29f08e1361e1ca1975898f55d
+    - path: evidence/measurements.md
+      digest: sha256:f35105a0f3ac20a3fbac3628d1261a8d513de32b94b5892eea7932dac0c2a304
+  review:
+    decision: reset
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 1
+      verdict: fail
+      evidenceRefs:
+      - evidence/blind-review.md
+      - evidence/evidence.md
+    - criterionID: criterion-002
+      criterionRevision: 1
+      verdict: fail
+      evidenceRefs:
+      - evidence/measurements.md
+    - criterionID: criterion-003
+      criterionRevision: 1
+      verdict: fail
+      evidenceRefs:
+      - evidence/blind-review.md
+      - evidence/evidence.md
+  observedAt: "2026-09-04T08:06:50.96689182Z"

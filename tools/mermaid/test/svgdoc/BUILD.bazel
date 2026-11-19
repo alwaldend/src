@@ -1,0 +1,14 @@
+load("@rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "svgdoc",
+    srcs = ["svgdoc.go"],
+    importpath = "git.alwaldend.com/alwaldend/src/tools/mermaid/test/svgdoc",
+    visibility = ["//tools/mermaid:__subpackages__"],
+)
+
+go_test(
+    name = "svgdoc_test",
+    srcs = ["svgdoc_test.go"],
+    embed = [":svgdoc"],
+)

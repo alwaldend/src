@@ -1,0 +1,51 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: camera-capability-002
+  resourceVersion: "2"
+  generation: 1
+  creationTimestamp: "2026-09-04T07:39:42.288202971Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 1
+  criteriaRevision: 1
+  criteriaDigest: sha256:baccd948c8b16e69f1845fc580981579437436eed22c64aad779f8f37def99d8
+  goalStateDigest: sha256:20f51130bcf290e3ad0af24a48444ec2d19f601bfa8945d52d84a2762eec3ff2
+  planID: recovery-clay-v1
+  workType: validation
+  stableDefect: authoring-capability-unproven
+  hypothesis: Placing a bounded marker on the ray from the subject center toward the frozen front camera will produce a visible saved MCP edit.
+  subject: A157 sha256:433d08ad36be488bb16e4221a85f831d4390660c258a43ea0b08775811574b73
+  affectedCriteria:
+  - criterion-005
+  - criterion-007
+  regressionRefs:
+  - fixed-front-camera
+  - process-contract-v1
+  priorAttemptID: recovery-capability-001
+  nextAction: Create the camera-space marker through MCP, save a new candidate, pinned-render the front view, inspect pixels, and close without an in-attempt correction.
+status:
+  state: closed
+  closedAt: "2026-09-04T07:41:05.24689983Z"
+  artifacts:
+    planDigest: sha256:67464886e11ab70514ccfa8f38ff796bfb595b4a584cc2fb3b321f7af0f94773
+    resultDigest: sha256:0be857e2c2f580ca67d55857ed9efab9875e1e6c34081fea1e752db16f5631d4
+    evidence:
+    - path: evidence/evidence.md
+      digest: sha256:2c1b28663b04a25ad0368fbe5ca7e891c5fc07f1a467883878f050dc4cd0011c
+  review:
+    decision: refine
+    criteria:
+    - criterionID: criterion-005
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs:
+      - evidence/evidence.md
+    - criterionID: criterion-007
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs:
+      - evidence/evidence.md
+  observedAt: "2026-09-04T07:41:05.24689983Z"

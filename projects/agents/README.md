@@ -1,6 +1,6 @@
 ---
 title: Agents
-description: Repository-wide agent-system architecture, goals, and skills
+description: Repository-wide reusable agent skills
 statuses:
   - active
 languages:
@@ -11,39 +11,35 @@ tags:
   - skills
 ---
 
-# Repository agent system
+# Repository agent skills
 
-This project owns the repository-wide agent-system contract, its durable
-improvement goals, and reusable cross-repository skills. It does not centralize
-component facts or runtime state: each fact remains canonical at its natural
-owner, and system-wide views are derived projections.
+This project owns the reusable cross-repository agent skills. Maintained
+improvement work lives in this project's [OpenSpec workspace](openspec/). It
+does not centralize component facts or runtime state: each fact remains
+canonical at its natural owner.
 
 ## Start here
 
-| Document                                                                   | Purpose                                                  |
-| -------------------------------------------------------------------------- | -------------------------------------------------------- |
-| [Current state](docs/current-state.md)                                     | Evidence-backed baseline and material seams              |
-| [Architecture](docs/architecture.md)                                       | Canonical abstraction tower, authorities, and invariants |
-| [Roadmap](docs/roadmap.md)                                                 | Dependency-ordered future work and acceptance signals    |
-| [Durable goals](goals/)                                                    | Versioned attempts, evidence, and acceptance state       |
-| [Root agent guide](https://github.com/alwaldend/src/blob/master/AGENTS.md) | Current repository-wide operating policy                 |
+| Document                                                                   | Purpose                                                 |
+| -------------------------------------------------------------------------- | ------------------------------------------------------- |
+| [OpenSpec changes](openspec/changes/)                                      | Maintained work, acceptance, and preserved goal history |
+| [Root agent guide](https://github.com/alwaldend/src/blob/master/AGENTS.md) | Current repository-wide operating policy                |
 
-The current-state document describes supported entry points and their evidence
-boundaries. Dated audits remain in the goal records. The architecture defines
-the intended composition contract; the roadmap does not claim that proposed
-interfaces already exist.
+Dated audits remain in
+[migrated history](../../infra/src/openspec/migration.md).
 
 ## Ownership boundaries
 
-- `docs/` owns the cross-layer system model and plan, not duplicated component
-  configuration.
-- `goals/` owns durable repository-agent work records and evidence.
-- `skills/` owns reusable repository-wide agent procedures and their
-  development-time evaluations.
+- `openspec/` owns agent-system requirements, changes, and evidence;
+  [the migration map](../../infra/src/openspec/migration.md) locates historical records.
+- Other components own their specifications and changes under their own
+  `openspec/` directory. `infra/src/openspec/` describes repository evolution.
+- `skills/` owns reusable cross-product, repository-wide agent procedures and
+  their development-time evaluations. A product-specific procedure belongs
+  with its product; a procedure that no narrower project genuinely owns lives
+  here rather than in a contrived local home.
 - Product-specific skills remain with their project at
-  `projects/<project>/skills/<name>`.
-- Repository-internal executors and build integrations may live under
-  `tools/`; their behavior remains owned and documented there.
+  `projects/<project>/skills/<name>`. Do not split one skill across owners.
 
 ## Skill packaging and discovery
 
@@ -52,9 +48,12 @@ directory.
 
 The repository discovery directory `.agents/skills/` contains one relative
 symlink per skill. Each link points directly to its canonical project-owned
-directory. Bazel ignores the discovery directory and builds only canonical
-targets, preventing duplicate packages while allowing skills from more than
-one owning project.
+directory. `.agents/BUILD.bazel` declares the complete discovery set and
+generates those links with `//.agents:write_skills`; its generated
+exact-state test verifies them. Bazel ignores the discovery directory and
+builds only canonical targets, preventing duplicate packages while allowing
+skills from more than one owning project. Each skill grants
+`//.agents:skill_discovery` read access so the owning declaration can reach it.
 
 Skill evaluation data is not part of the runtime `skill_library` unless a
 skill explicitly declares otherwise. Every new or updated skill includes an

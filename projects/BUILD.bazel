@@ -1,27 +1,14 @@
-load("@bazel_skylib//rules:build_test.bzl", "build_test")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("//projects:projects.bzl", "PROJECTS")
 load("//tools/release/main/bzl:al_release_binary.bzl", "al_release_binary")
 
 docs_filegroup(
     name = "docs",
     srcs = glob(["*.md"]),
-    visibility = ["//:__pkg__"],
+    visibility = ["//:repository_docs_consumers"],
     deps = subpackages(
         include = ["*"],
         allow_empty = True,
-        exclude = ["rules_*"],
-    ) + [
-        "@rules_binary_toolchain//:docs",
-        "@rules_docs//:docs",
-        "@rules_docs_gazelle//:docs",
-        "@rules_hugo//:docs",
-        "@rules_promptfoo//:docs",
-        "@rules_promptfoo_gazelle//:docs",
-        "@rules_skill//:docs",
-        "@rules_skill_gazelle//:docs",
-        "@rules_template//:docs",
-    ],
+    ),
 )
 
 al_release_binary(
@@ -31,9 +18,6 @@ al_release_binary(
         for package in subpackages(
             include = ["*"],
             exclude = [
-                "xray_manager",
-                "cgit",
-                "hugo_landing",
                 "agents",
                 "mcp_cordis",
                 "alwaldend.com",
@@ -41,29 +25,9 @@ al_release_binary(
                 "bazel_registry",
                 "bazel_agent",
                 "goal",
-                "rules_dnscontrol",
-                "rules_iso",
                 "useless_qt_gui",
-                "rules_template",
-                "rules_binary_toolchain",
-                "rules_docs",
-                "rules_docs_gazelle",
-                "rules_hugo",
-                "rules_promptfoo",
-                "rules_promptfoo_gazelle",
                 "renders",
-                "rules_skill",
-                "rules_skill_gazelle",
             ],
         )
     ] + [],
-)
-
-build_test(
-    name = "landings",
-    targets = [
-        "//projects/{}/landing:site".format(project)
-        for project in PROJECTS
-        if project != "alwaldend.com" and not project.startswith("rules_")
-    ],
 )

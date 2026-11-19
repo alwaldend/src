@@ -1,12 +1,20 @@
 terraform {
   required_providers {
+    cloudflare = {
+      source  = "cloudflare/cloudflare"
+      version = "5.22.0"
+    }
+    routeros = {
+      source  = "terraform-routeros/routeros"
+      version = "1.99.1"
+    }
     proxmox = {
       source  = "Telmate/proxmox"
       version = "3.0.2-rc07"
     }
     yandex = {
       source  = "yandex-cloud/yandex"
-      version = "0.201.0"
+      version = "0.203.0"
     }
   }
   backend "http" {

@@ -1,0 +1,12 @@
+http_file = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_file")
+
+# Architects Daughter, a handwriting face that keeps hand-drawn diagrams legible
+# without fetching a font at render time.
+http_file(
+    name = "com_github_google_fonts_architects_daughter",
+    downloaded_file_path = "ArchitectsDaughter-Regular.ttf",
+    integrity = "sha256-YVlxigiJjjS8HLc1QIYUGl+acLc+VNvsJ+rQ1Zppc1k=",
+    urls = [
+        "https://raw.githubusercontent.com/google/fonts/2a0c94b33e35d8fca983a4e50efdf7de50019ce2/ofl/architectsdaughter/ArchitectsDaughter-Regular.ttf",
+    ],
+)

@@ -1,0 +1,22 @@
+load("@rules_go//go:def.bzl", "go_binary", "go_library", "go_test")
+
+go_library(
+    name = "lint_lib",
+    srcs = ["main.go"],
+    importpath = "git.alwaldend.com/alwaldend/src/infra/dns/cmd/lint",
+    visibility = ["//visibility:private"],
+    deps = ["//infra/dns/internal/lint"],
+)
+
+go_binary(
+    name = "lint",
+    embed = [":lint_lib"],
+    visibility = ["//infra/dns:__subpackages__"],
+)
+
+go_test(
+    name = "lint_test",
+    srcs = ["main_test.go"],
+    embed = [":lint_lib"],
+    visibility = ["//infra/dns:__pkg__"],
+)

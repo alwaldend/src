@@ -1,6 +1,6 @@
 ---
 title: Sri
-description: Subresource Integrity calculator
+description: Command-line Subresource Integrity calculator using OpenSSL
 statuses:
   - finished
 languages:
@@ -8,6 +8,10 @@ languages:
 tags:
   - cli
 ---
+
+`sri` calculates Subresource Integrity hashes for files using OpenSSL. Its
+command-line interface accepts an input file and a digest algorithm, such as
+SHA-256.
 
 ## Links
 

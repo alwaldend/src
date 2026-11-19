@@ -1,0 +1,251 @@
+load("//skill:defs.bzl", "skill_library", "skills_write")
+load(
+    ":analysis_test.bzl",
+    "skill_library_aspect_test",
+    "skill_library_failure_test",
+    "skill_library_files_test",
+    "skill_library_generated_files_test",
+    "skill_library_without_openai_test",
+    "skills_write_failure_test",
+    "skills_write_test",
+)
+load(":discovery_test.bzl", "skills_write_updater_test")
+
+skill_library(
+    name = "library",
+    testonly = True,
+    srcs = [
+        "SKILL.md",
+        "agents/openai.yaml",
+        "reference.txt",
+    ],
+)
+
+skills_write(
+    name = "fixture_entries",
+    testonly = True,
+    discovery_dir = "tests/discovery",
+    symlinks = [":library"],
+    tags = ["manual"],
+    workspace_marker = "SKILL.md",
+)
+
+skills_write(
+    name = "duplicate_entries",
+    testonly = True,
+    archives = [":library"],
+    discovery_dir = "tests/discovery",
+    symlinks = [":library"],
+    tags = ["manual"],
+    workspace_marker = "SKILL.md",
+)
+
+skills_write(
+    name = "written_entries",
+    testonly = True,
+    archives = [":library"],
+    discovery_dir = "tests/analysis",
+    tags = ["manual"],
+    workspace_marker = "SKILL.md",
+)
+
+skills_write(
+    name = "external_symlink_entries",
+    testonly = True,
+    discovery_dir = "tests/discovery",
+    symlinks = ["//tests/analysis/generated:library"],
+    tags = ["manual"],
+    workspace_marker = "SKILL.md",
+)
+
+skills_write(
+    name = "archive_entries",
+    testonly = True,
+    archives = [
+        "//tests/analysis/archive:alpha",
+        "//tests/analysis/archive:beta",
+    ],
+    discovery_dir = "tests/archive-discovery",
+    tags = ["manual"],
+    workspace_marker = "SKILL.md",
+)
+
+skill_library(
+    name = "without_openai",
+    testonly = True,
+    srcs = [
+        "SKILL.md",
+        "reference.txt",
+    ],
+    tags = ["manual"],
+)
+
+skill_library(
+    name = "missing_skill",
+    testonly = True,
+    srcs = ["reference.txt"],
+    tags = ["manual"],
+)
+
+skill_library(
+    name = "skill_alias",
+    srcs = ["SKILL.md"],
+    tags = ["manual"],
+)
+
+skill_library(
+    name = "duplicate_path",
+    testonly = True,
+    srcs = [
+        "SKILL.md",
+        ":skill_alias",
+    ],
+    tags = ["manual"],
+)
+
+skill_library_files_test(
+    name = "skill_library_files_test",
+    target_under_test = ":library",
+)
+
+skill_library_without_openai_test(
+    name = "skill_library_without_openai_test",
+    target_under_test = ":without_openai",
+)
+
+skill_library_generated_files_test(
+    name = "skill_library_generated_files_test",
+    target_under_test = "//tests/analysis/generated:library",
+)
+
+skill_library_failure_test(
+    name = "duplicate_path_test",
+    expected_message = "skill_library has duplicate logical path SKILL.md",
+    target_under_test = ":duplicate_path",
+)
+
+skills_write_test(
+    name = "skills_write_symlink_entries_test",
+    expected_discovery_dir = "tests/discovery",
+    expected_kinds = ["symlink"],
+    expected_names = ["analysis"],
+    expected_targets = ["../analysis"],
+    target_under_test = ":fixture_entries",
+)
+
+skills_write_test(
+    name = "skills_write_written_entries_test",
+    expected_discovery_dir = "tests/analysis",
+    expected_kinds = ["written"],
+    expected_names = ["analysis"],
+    expected_targets = [""],
+    target_under_test = ":written_entries",
+)
+
+skills_write_test(
+    name = "skills_write_archive_entries_test",
+    expected_discovery_dir = "tests/archive-discovery",
+    expected_kinds = [
+        "written",
+        "written",
+    ],
+    expected_names = [
+        "alpha",
+        "beta",
+    ],
+    expected_targets = [
+        "",
+        "",
+    ],
+    target_under_test = ":archive_entries",
+)
+
+skills_write_test(
+    name = "skills_write_checker_analysis_test",
+    expected_discovery_dir = "tests/discovery",
+    expected_kinds = ["symlink"],
+    expected_names = ["analysis"],
+    expected_targets = ["../analysis"],
+    target_under_test = ":fixture_entries_test",
+)
+
+skills_write_failure_test(
+    name = "skills_write_duplicate_name_test",
+    expected_message = "skills_write has duplicate skill name analysis",
+    target_under_test = ":duplicate_entries",
+)
+
+skills_write_failure_test(
+    name = "skills_write_external_symlink_test",
+    expected_message = "symlink entries require a source SKILL.md",
+    target_under_test = ":external_symlink_entries",
+)
+
+skills_write_updater_test(
+    name = "skills_write_updater_test",
+    updater = ":fixture_entries",
+)
+
+skills_write_updater_test(
+    name = "skills_write_written_updater_test",
+    discovery_dir = "tests/written-discovery",
+    expected_kind = "written",
+    updater = ":fixture_written_entries",
+)
+
+skills_write(
+    name = "fixture_written_entries",
+    testonly = True,
+    archives = [":library"],
+    discovery_dir = "tests/written-discovery",
+    tags = ["manual"],
+    workspace_marker = "SKILL.md",
+)
+
+skill_library_failure_test(
+    name = "missing_skill_test",
+    expected_message = "skill_library requires exactly one SKILL.md in srcs",
+    target_under_test = ":missing_skill",
+)
+
+skill_library_failure_test(
+    name = "nested_skill_test",
+    expected_message = "skill_library requires exactly one SKILL.md in srcs",
+    target_under_test = "//tests/analysis/nested-skill:library",
+)
+
+skill_library_failure_test(
+    name = "root_package_test",
+    expected_message = (
+        "skill_library cannot be declared in a repository root package; " +
+        "move the skill to a named subpackage"
+    ),
+    target_under_test = "//:root_skill_fixture",
+)
+
+skill_library_aspect_test(
+    name = "skill_library_aspect_test",
+    target_under_test = ":library",
+)
+
+test_suite(
+    name = "tests",
+    tests = [
+        ":duplicate_path_test",
+        ":missing_skill_test",
+        ":nested_skill_test",
+        ":root_package_test",
+        ":skill_library_aspect_test",
+        ":skill_library_files_test",
+        ":skill_library_generated_files_test",
+        ":skill_library_without_openai_test",
+        ":skills_write_archive_entries_test",
+        ":skills_write_checker_analysis_test",
+        ":skills_write_duplicate_name_test",
+        ":skills_write_external_symlink_test",
+        ":skills_write_symlink_entries_test",
+        ":skills_write_updater_test",
+        ":skills_write_written_entries_test",
+        ":skills_write_written_updater_test",
+    ],
+)

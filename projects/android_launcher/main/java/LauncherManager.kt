@@ -13,6 +13,7 @@ import android.content.pm.PackageManager
 import android.content.pm.ResolveInfo
 import android.content.pm.ShortcutInfo
 import android.graphics.Bitmap
+import android.graphics.Canvas
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Build
@@ -20,7 +21,6 @@ import android.os.Process
 import android.os.UserHandle
 import android.provider.Settings
 import android.util.Log
-import androidx.core.graphics.drawable.toBitmap
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
@@ -38,6 +38,8 @@ class LauncherManager(
 
   companion object {
     private val callbacks = mutableListOf<LauncherApps.Callback>()
+
+    private const val ICON_SIZE_PX = 144
   }
 
   fun isHomeApp(): Boolean {
@@ -143,7 +145,12 @@ class LauncherManager(
 
   private fun compressIcon(icon: Drawable): ByteString {
     val stream = ByteArrayOutputStream()
-    icon.toBitmap(config = Bitmap.Config.ARGB_8888).compress(Bitmap.CompressFormat.PNG, 100, stream)
+    // Draw on an explicit canvas: Drawable.toBitmap() crops adaptive icons, whose artwork only
+    // occupies the safe zone of a larger full-bleed canvas.
+    val bitmap = Bitmap.createBitmap(ICON_SIZE_PX, ICON_SIZE_PX, Bitmap.Config.ARGB_8888)
+    icon.setBounds(0, 0, ICON_SIZE_PX, ICON_SIZE_PX)
+    icon.draw(Canvas(bitmap))
+    bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
     return ByteString.copyFrom(stream.toByteArray())
   }
 
@@ -153,7 +160,11 @@ class LauncherManager(
     val apps =
         queryResults.associate { info ->
           val activity = info.activityInfo
-          activity.packageName to infoToApp(activity)
+          activity.packageName to
+              Model.App.newBuilder()
+                  .setLabel(activity.loadLabel(packageManager).toString())
+                  .setPackageName(activity.packageName)
+                  .build()
         }
     return Model.Apps.newBuilder().putAllApps(apps).build()
   }

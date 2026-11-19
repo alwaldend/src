@@ -3,10 +3,12 @@ package main
 import (
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"net/http"
 	"path/filepath"
+	"time"
 
 	"git.alwaldend.com/alwaldend/src/projects/al/api/al_proto"
 	"git.alwaldend.com/alwaldend/src/projects/al/pkg/al"
@@ -41,10 +43,11 @@ type TfBackend struct {
 	lockPath   string
 	lockMount  string
 	vault      *api.Client
+	vaultStore *al.VaultStore
 	ctx        *al.CmdCtx
 }
 
-func NewTfBackend(ctx *al.CmdCtx, config *al_proto.Config, backend *tf_backend_proto.Config) (*TfBackend, error) {
+func NewTfBackend(requestCtx context.Context, ctx *al.CmdCtx, config *al_proto.Config, backend *tf_backend_proto.Config) (*TfBackend, error) {
 	if backend.VaultSecret == "" || backend.VaultSecretMount == "" {
 		return nil, fmt.Errorf("missing secret config")
 	}
@@ -59,10 +62,13 @@ func NewTfBackend(ctx *al.CmdCtx, config *al_proto.Config, backend *tf_backend_p
 	res.lockPath = fmt.Sprintf("%s/lock", backend.VaultSecret)
 	res.lockMount = backend.VaultSecretMount
 	vault := al.NewVault(config)
-	client, err := vault.Client(ctx.Ctx, backend.VaultConn, backend.VaultAuth).Get()
+	client, err := vault.Client(requestCtx, backend.VaultConn, backend.VaultAuth).Get()
 	if err != nil {
-		return nil, fmt.Errorf("could not create vault client: %w", err)
+		cleanupCtx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+		defer cancel()
+		return nil, errors.Join(fmt.Errorf("could not create vault client: %w", al.SanitizeVaultError(err)), vault.Stop(cleanupCtx))
 	}
+	res.vaultStore = vault
 	res.vault = client.Client
 	res.server = NewServer(ctx, res.reqHandler)
 	return res, nil
@@ -73,13 +79,14 @@ func (self *TfBackend) Start(ctx context.Context) error {
 }
 
 func (self *TfBackend) Stop(ctx context.Context) error {
-	return self.server.Stop(ctx)
+	serverErr := self.server.Stop(ctx)
+	return errors.Join(serverErr, self.vaultStore.Stop(ctx))
 }
 
 func (self *TfBackend) Env() (map[string]string, error) {
 	addr, err := self.server.Address()
 	if err != nil {
-		return nil, fmt.Errorf("could not get server address: %w", err)
+		return nil, fmt.Errorf("could not get server address: %w", al.SanitizeVaultError(err))
 	}
 	return map[string]string{
 		"TF_HTTP_USERNAME":       self.username,
@@ -96,8 +103,8 @@ func (self *TfBackend) Env() (map[string]string, error) {
 func (self *TfBackend) reqHandler(w http.ResponseWriter, r *http.Request) {
 	if err := self.handleRequest(w, r); err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
-		fmt.Fprintf(w, "error: %s", err)
-		self.ctx.Logger.Printf("error: %s", err)
+		fmt.Fprintf(w, "error: %s", al.SanitizeVaultError(err))
+		self.ctx.Logger.Printf("error: %s", al.SanitizeVaultError(err))
 	}
 }
 
@@ -111,49 +118,49 @@ func (self *TfBackend) handleRequest(w http.ResponseWriter, r *http.Request) err
 	}
 	reqType, err := self.requestType(r)
 	if err != nil {
-		return fmt.Errorf("could not determine request type: %w", err)
+		return fmt.Errorf("could not determine request type: %w", al.SanitizeVaultError(err))
 	}
 	bodyRaw, err := io.ReadAll(r.Body)
 	if err != nil {
-		return fmt.Errorf("could not read request body: %w", err)
+		return fmt.Errorf("could not read request body: %w", al.SanitizeVaultError(err))
 	}
 	body := make(map[string]any)
 	if len(bodyRaw) != 0 {
 		if err := json.Unmarshal(bodyRaw, &body); err != nil {
-			return fmt.Errorf("could not unmarshal request body: %w", err)
+			return fmt.Errorf("could not unmarshal request body: %w", al.SanitizeVaultError(err))
 		}
 	}
 	lock, err := self.fetchSecret(r, secretTypeLock)
 	if err != nil {
-		return fmt.Errorf("could not fetch lock: %w", err)
+		return fmt.Errorf("could not fetch lock: %w", al.SanitizeVaultError(err))
 	}
 	if err := self.checkLock(r, reqType, lock); err != nil {
-		return fmt.Errorf("invalid lock: %w", err)
+		return fmt.Errorf("invalid lock: %w", al.SanitizeVaultError(err))
 	}
 	switch reqType {
 	case reqTypeGet:
 		state, err := self.fetchSecret(r, secretTypeState)
 		if err != nil {
-			return fmt.Errorf("could not fetch state secret: %w", err)
+			return fmt.Errorf("could not fetch state secret: %w", al.SanitizeVaultError(err))
 		}
 		if err := self.writeState(r, w, state); err != nil {
-			return fmt.Errorf("could not write state: %w", err)
+			return fmt.Errorf("could not write state: %w", al.SanitizeVaultError(err))
 		}
 	case reqTypeUpdate:
 		state, err := self.fetchSecret(r, secretTypeState)
 		if err != nil {
-			return fmt.Errorf("could not fetch state secret: %w", err)
+			return fmt.Errorf("could not fetch state secret: %w", al.SanitizeVaultError(err))
 		}
 		if err := self.updateState(r, state, body); err != nil {
-			return fmt.Errorf("could not update state: %w", err)
+			return fmt.Errorf("could not update state: %w", al.SanitizeVaultError(err))
 		}
 	case reqTypeLock:
 		if err := self.lockState(r, lock, body); err != nil {
-			return fmt.Errorf("could not lock state: %w", err)
+			return fmt.Errorf("could not lock state: %w", al.SanitizeVaultError(err))
 		}
 	case reqTypeUnlock:
 		if err := self.unlockState(r, lock); err != nil {
-			return fmt.Errorf("could not unlock state: %w", err)
+			return fmt.Errorf("could not unlock state: %w", al.SanitizeVaultError(err))
 		}
 	default:
 		return fmt.Errorf("invalid request type")
@@ -191,9 +198,9 @@ func (self *TfBackend) fetchSecret(r *http.Request, st secretType) (*api.KVSecre
 		return nil, fmt.Errorf("invalid secret type: %s", st)
 	}
 	kv := self.vault.KVv2(mount)
-	list, err := self.vault.Logical().List(fmt.Sprintf("%s/metadata/%s", mount, filepath.Dir(path)))
+	list, err := self.vault.Logical().ListWithContext(r.Context(), fmt.Sprintf("%s/metadata/%s", mount, filepath.Dir(path)))
 	if err != nil {
-		return nil, fmt.Errorf("could not list secrets: %w", err)
+		return nil, fmt.Errorf("could not list secrets: %w", al.SanitizeVaultError(err))
 	}
 	create := true
 	if list != nil {
@@ -201,12 +208,12 @@ func (self *TfBackend) fetchSecret(r *http.Request, st secretType) (*api.KVSecre
 		if ok {
 			keysList, ok := keys.([]any)
 			if !ok {
-				return nil, fmt.Errorf("invalid keys field for some reason: %s", keys)
+				return nil, fmt.Errorf("invalid keys field type")
 			}
 			for _, keyAny := range keysList {
 				key, ok := keyAny.(string)
 				if !ok {
-					return nil, fmt.Errorf("invalid key type for some reason: %s", key)
+					return nil, fmt.Errorf("invalid key type")
 				}
 				if key == filepath.Base(path) {
 					create = false
@@ -217,12 +224,12 @@ func (self *TfBackend) fetchSecret(r *http.Request, st secretType) (*api.KVSecre
 	}
 	if create {
 		if _, err := kv.Put(r.Context(), path, map[string]any{}); err != nil {
-			return nil, fmt.Errorf("could not create secret: %w", err)
+			return nil, fmt.Errorf("could not create secret: %w", al.SanitizeVaultError(err))
 		}
 	}
 	state, err := kv.Get(r.Context(), path)
 	if err != nil {
-		return nil, fmt.Errorf("could not fetch secret: %w", err)
+		return nil, fmt.Errorf("could not fetch secret: %w", al.SanitizeVaultError(err))
 	}
 	return state, nil
 }
@@ -237,17 +244,17 @@ func (self *TfBackend) checkLock(r *http.Request, reqType requestType, lockObj *
 		}
 		lockMap, ok := lock.(map[string]any)
 		if !ok {
-			return fmt.Errorf("invalid lock format: %s", lock)
+			return fmt.Errorf("invalid lock format")
 		}
 		targetId, ok := lockMap["ID"]
 		if !ok {
 			return fmt.Errorf("lock is missing ID")
 		}
 		if curId != targetId {
-			return fmt.Errorf("have lock id %s, want lock id %s", curId, targetId)
+			return fmt.Errorf("lock ID does not match")
 		}
 	case ok && reqType == reqTypeLock:
-		return fmt.Errorf("trying to lock a locked state: %s", lock)
+		return fmt.Errorf("trying to lock a locked state")
 	case !ok && reqType == reqTypeUnlock:
 		return fmt.Errorf("trying to unlock an unlocked state")
 	default:
@@ -264,7 +271,7 @@ func (self *TfBackend) updateState(r *http.Request, state *api.KVSecret, body ma
 		map[string]any{stateKey: body},
 		api.WithCheckAndSet(state.VersionMetadata.Version),
 	); err != nil {
-		return fmt.Errorf("could not update state secret: %w", err)
+		return fmt.Errorf("could not update state secret: %w", al.SanitizeVaultError(err))
 	}
 	return nil
 }
@@ -277,7 +284,7 @@ func (self *TfBackend) writeState(_ *http.Request, w http.ResponseWriter, stateO
 	}
 	stateJson, err := json.Marshal(state)
 	if err != nil {
-		return fmt.Errorf("could not marshal state: %w", err)
+		return fmt.Errorf("could not marshal state: %w", al.SanitizeVaultError(err))
 	}
 	w.WriteHeader(http.StatusOK)
 	w.Write(stateJson)
@@ -296,7 +303,7 @@ func (self *TfBackend) unlockState(r *http.Request, lock *api.KVSecret) error {
 		map[string]any{},
 		api.WithCheckAndSet(lock.VersionMetadata.Version),
 	); err != nil {
-		return fmt.Errorf("could not update lock: %w", err)
+		return fmt.Errorf("could not update lock: %w", al.SanitizeVaultError(err))
 	}
 	return nil
 }
@@ -309,7 +316,7 @@ func (self *TfBackend) lockState(r *http.Request, lock *api.KVSecret, body map[s
 		map[string]any{lockKey: body},
 		api.WithCheckAndSet(lock.VersionMetadata.Version),
 	); err != nil {
-		return fmt.Errorf("could not update lock secret: %w", err)
+		return fmt.Errorf("could not update lock secret: %w", al.SanitizeVaultError(err))
 	}
 	return nil
 }

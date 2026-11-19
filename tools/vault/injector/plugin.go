@@ -2,7 +2,9 @@ package main
 
 import (
 	"context"
+	"errors"
 	"fmt"
+	"time"
 
 	"git.alwaldend.com/alwaldend/src/projects/al/pkg/al"
 	"git.alwaldend.com/alwaldend/src/projects/al/pkg/lifecycle"
@@ -34,6 +36,11 @@ func (self *Plugin) Stop(ctx context.Context) error {
 
 func (self *Plugin) PluginStart(ctx context.Context, req *al_proto.PluginStartRequest) (*al_proto.PluginStartResponse, error) {
 	vault := al.NewVault(req.Config)
+	if err := self.lc.AddState(lifecycle.StateStarted, lifecycle.StoppableFunc(vault.Stop)); err != nil {
+		cleanupCtx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+		defer cancel()
+		return nil, errors.Join(err, vault.Stop(cleanupCtx))
+	}
 	templater := &Templater{}
 	opFetcher := NewOpFetcher(vault)
 	envFetcher := NewEnvFetcher(templater)

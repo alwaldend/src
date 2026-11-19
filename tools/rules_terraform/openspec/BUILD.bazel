@@ -1,0 +1,25 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("@rules_openspec//main/bzl:workspace.bzl", "openspec_workspace")
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(
+        [
+            "*.md",
+            "specs/**/*.md",
+        ],
+        allow_empty = True,
+    ),
+    prefix = "content/docs/tools/rules_terraform/openspec",
+    preserve_paths = True,
+    visibility = ["//:__pkg__"],
+)
+
+openspec_workspace(
+    name = "source",
+    srcs = glob([
+        "**/*.md",
+        "**/*.yaml",
+    ]),
+    visibility = ["//visibility:public"],
+)

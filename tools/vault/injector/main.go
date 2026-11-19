@@ -17,7 +17,7 @@ func run(ctx *al.CmdCtx) error {
 	plugin := NewPlugin(ctx, cleaner)
 	server := al_plugin.NewPluginServer(ctx, plugin)
 	var lc lifecycle.Manager
-	lc.Add(cleaner, server, plugin)
+	lc.Add(cleaner, plugin, server)
 	return lc.Run(ctx.Ctx, time.Second*10)
 }
 

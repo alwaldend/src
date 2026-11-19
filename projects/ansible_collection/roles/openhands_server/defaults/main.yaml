@@ -1,0 +1,38 @@
+openhands_server_user: openhands
+openhands_server_user_uid: 8152
+openhands_server_dir: /opt/openhands-server
+openhands_server_home_dir: "{{ openhands_server_dir }}/home"
+openhands_server_work_dir: "{{ openhands_server_dir }}/work"
+openhands_server_state_dir: "{{ openhands_server_dir }}/state"
+openhands_server_conversations_dir: "{{ openhands_server_state_dir }}/conversations"
+openhands_server_persistence_dir: "{{ openhands_server_state_dir }}/persistence"
+openhands_server_workspace_dir: "{{ openhands_server_work_dir }}/project"
+openhands_server_bash_events_dir: "{{ openhands_server_state_dir }}/bash_events"
+openhands_server_tools_dir: "{{ openhands_server_dir }}/tools"
+openhands_server_disk:
+openhands_server_secure: true
+openhands_server_install_packages: true
+openhands_server_packages:
+  - python3.12
+  - uv
+openhands_server_host: 127.0.0.1
+openhands_server_port: 18000
+openhands_server_version: "{{ undefined() }}"
+openhands_server_session_api_key: "{{ undefined() }}"
+openhands_server_secret_key: "{{ undefined() }}"
+openhands_server_import_modules: canvas_ui_tool
+openhands_server_vscode_port: 8001
+openhands_server_vscode_base_path: /vscode
+openhands_server_venv_dir: "{{ openhands_server_dir }}/venv"
+openhands_server_venv_python: "{{ openhands_server_venv_dir }}/bin/python"
+openhands_server_service_path: /lib/systemd/system/openhands-server.service
+openhands_server_env_path: "{{ openhands_server_dir }}/.env"
+openhands_server_env:
+  LOG_JSON: "true"
+  PYTHONUTF8: "1"
+  OPENHANDS_REMOTE_WS_READY_REQUIRED: "false"
+  OH_PERSISTENCE_DIR: "{{ openhands_server_persistence_dir }}"
+  OH_CONVERSATIONS_PATH: "{{ openhands_server_conversations_dir }}"
+  OH_WORKSPACE_PATH: "{{ openhands_server_workspace_dir }}"
+  OH_BASH_EVENTS_DIR: "{{ openhands_server_bash_events_dir }}"
+  OH_SECRET_KEY: "{{ openhands_server_secret_key }}"

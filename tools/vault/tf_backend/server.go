@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"net"
 	"net/http"
+	"sync"
 
 	"git.alwaldend.com/alwaldend/src/projects/al/pkg/al"
 )
@@ -16,6 +17,8 @@ type Server struct {
 	handler  http.HandlerFunc
 	server   *http.Server
 	serveErr chan error
+	stopOnce sync.Once
+	stopErr  error
 }
 
 func NewServer(ctx *al.CmdCtx, handler http.HandlerFunc) *Server {
@@ -23,14 +26,19 @@ func NewServer(ctx *al.CmdCtx, handler http.HandlerFunc) *Server {
 }
 
 func (self *Server) Stop(ctx context.Context) error {
+	self.stopOnce.Do(func() { self.stopErr = self.stop(ctx) })
+	return self.stopErr
+}
+
+func (self *Server) stop(ctx context.Context) error {
 	if self.server == nil {
-		return fmt.Errorf("missing server")
+		return nil
 	}
 	var resErr error
 	if err := self.server.Shutdown(ctx); err != nil {
-		resErr = fmt.Errorf("server shutdown error: %w", err)
+		resErr = errors.Join(fmt.Errorf("server shutdown error: %w", err), self.server.Close())
 	}
-	if err := <-self.serveErr; err != nil {
+	if err := <-self.serveErr; err != nil && !errors.Is(err, http.ErrServerClosed) {
 		resErr = errors.Join(resErr, fmt.Errorf("serve error: %w", err))
 	}
 	return resErr

@@ -1,0 +1,64 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: broad-hair-ordered-roots-069
+  resourceVersion: "3"
+  generation: 3
+  creationTimestamp: "2026-09-05T18:40:09.999751838Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 16
+  criteriaRevision: 4
+  criteriaDigest: sha256:f5fe4b5c4efc12d5b82ad42cf0d41fd7274f48b421abf42e9db1ce5ae316d8a3
+  goalStateDigest: sha256:f835a5e6a407db43398c51a325cdee478fde278fb499d3f17c6b776708e8d10c
+  planID: broad-hair-ordered-roots-v63
+  workType: change
+  subject: bc9b7c9ed22507f2063ab4c20275edcef2041b179cb7781c1a3949023fdb1377
+  nextAction: Restore067 hair with068 cuff repair and isolate short-pile response on current actual receiver geometry; diagnostic only.
+status:
+  state: closed
+  closedAt: "2026-09-05T18:45:13.561708912Z"
+  artifacts:
+    planDigest: sha256:58f5402673226ee4879d250e1e82d4032be0840b7486263d0d695647e16b6b04
+    resultDigest: sha256:9c35ecc4a4b9f57c61fe138bb98cb2c699c74132dce7ae02c5880c100c5f4b06
+    evidence: []
+  review:
+    decision: reset
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 3
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-002
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-004
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-005
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-006
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-007
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-09-05T18:45:13.561708912Z"

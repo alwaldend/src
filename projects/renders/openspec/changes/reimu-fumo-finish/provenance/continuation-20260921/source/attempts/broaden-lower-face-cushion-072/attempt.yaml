@@ -1,0 +1,67 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: broaden-lower-face-cushion-072
+  resourceVersion: "3"
+  generation: 3
+  creationTimestamp: "2026-09-05T19:24:02.608442042Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 16
+  criteriaRevision: 4
+  criteriaDigest: sha256:f5fe4b5c4efc12d5b82ad42cf0d41fd7274f48b421abf42e9db1ce5ae316d8a3
+  goalStateDigest: sha256:d3dd99930bf18292653455d315de740e68d0a10d03186a30fad1ab2e06501ad6
+  workType: change
+  subject: 4d792ad7cd7a0ed91897d3f8aa3ff967fd1fe119251fb0fdc38e6e3ef3744620
+  nextAction: Reject072 bump; from exact071 test monotonic lower-front depth compression only after frozen073 plan, preserve graphics and inspect full support-boundary profile.
+status:
+  state: closed
+  closedAt: "2026-09-05T19:35:16.550629043Z"
+  artifacts:
+    planDigest: sha256:448dc3f1dc0d2a8b8a06fc5bf027fedf60a19df8e7098ff3be602aa697098b47
+    resultDigest: sha256:22d9a4f77695447e722ddd368ea0b4ebd038b31bfa30fe99c85b3e11c996cd9a
+    evidence:
+    - path: evidence/chin_072_blind_review.md
+      digest: sha256:4851681b82e3c68f83159c77a31bd469d479f7b65bfde05542cc5f7587a23db0
+    - path: evidence/chin_072_direction_review.md
+      digest: sha256:4378690a24c190737726081e0f7da197b9d000bdc847e741dab1a39a5f087f7b
+  review:
+    decision: reset
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 3
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-002
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-004
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-005
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-006
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-007
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-09-05T19:35:16.550629043Z"

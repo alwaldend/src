@@ -1,0 +1,10 @@
+schema: spec-driven
+
+context: |
+  This OpenSpec workspace belongs to infra/repos in the alwaldend/src monorepo.
+  It owns the shared organization, repository, and named access catalog.
+  Consumers retain their provider configuration, state, and service identities.
+  Adopt existing resources by import; never recreate them to resolve collisions.
+  The user requires approval before any deletion or replacement.
+  GitLab repositories receive one-time imports; ongoing sync is deferred.
+  Specifications describe desired source, not proof of deployed behavior.

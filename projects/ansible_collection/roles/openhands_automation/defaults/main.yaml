@@ -1,0 +1,30 @@
+openhands_automation_user: openhands
+openhands_automation_user_uid: 8154
+openhands_automation_dir: /opt/openhands-automation
+openhands_automation_home_dir: "{{ openhands_automation_dir }}/home"
+openhands_automation_work_dir: "{{ openhands_automation_dir }}/work"
+openhands_automation_state_dir: "{{ openhands_automation_dir }}/state"
+openhands_automation_disk:
+openhands_automation_packages:
+  - python3.12
+  - uv
+openhands_automation_host: 127.0.0.1
+openhands_automation_port: 18001
+openhands_automation_version: "{{ undefined() }}"
+openhands_automation_agent_server_version: "{{ undefined() }}"
+openhands_automation_agent_server_url: "{{ undefined() }}"
+openhands_automation_sandbox_agent_server_url: ""
+openhands_automation_agent_server_api_key: "{{ undefined() }}"
+openhands_automation_base_url: "{{ undefined() }}"
+openhands_automation_local_api_key: "{{ undefined() }}"
+openhands_automation_kv_secret: "{{ undefined() }}"
+openhands_automation_database_url: "sqlite+aiosqlite:///{{ openhands_automation_state_dir }}/automations.db"
+openhands_automation_workspace_base: "{{ openhands_automation_work_dir }}/automations"
+openhands_automation_venv_dir: "{{ openhands_automation_dir }}/venv"
+openhands_automation_service_path: /lib/systemd/system/openhands-automation.service
+openhands_automation_env_path: "{{ openhands_automation_dir }}/.env"
+openhands_automation_env:
+  PYTHONUTF8: "1"
+  OPENHANDS_REMOTE_WS_READY_REQUIRED: "false"
+  OPENHANDS_SUPPRESS_BANNER: "1"
+openhands_automation_env_override: {}

@@ -1,0 +1,27 @@
+load("//terraform:providers.bzl", "terraform_provider")
+load(":providers_test.bzl", "archive_fixture", "collision_test", "identity_test", "pin_test", "provider_contract_test")
+
+identity_test(name = "identity_test")
+
+pin_test(name = "pin_test")
+
+collision_test(name = "collision_test")
+
+archive_fixture(
+    name = "archive_fixture",
+    testonly = True,
+)
+
+terraform_provider(
+    name = "provider_fixture",
+    testonly = True,
+    src = ":archive_fixture",
+    platform = "linux_amd64",
+    source = "registry.terraform.io/hashicorp/local",
+    version = "2.9.0",
+)
+
+provider_contract_test(
+    name = "provider_contract_test",
+    target_under_test = ":provider_fixture",
+)

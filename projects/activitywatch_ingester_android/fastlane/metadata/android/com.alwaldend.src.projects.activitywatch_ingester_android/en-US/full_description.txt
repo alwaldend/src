@@ -1,0 +1,14 @@
+An Android collector that reads supported browser address-bar text through
+Android accessibility and sends it to an ActivityWatch server. The app holds
+full accessibility permission only to obtain the URL; it never uses that
+permission for anything else.
+
+Enabling accessibility lets the app read the focused address bar in Chrome and
+Chromium-based browsers. It extracts the current URL and sends an
+ActivityWatch heartbeat for the web.tab.current bucket to a configurable
+server. Data goes directly from this app to the ActivityWatch HTTP API; it is
+not uploaded to any other service.
+
+Open the app to configure the ActivityWatch server URL and optional API key.
+The default is http://127.0.0.1:5600 for the ActivityWatch Android app on the
+same device. Cleartext HTTP is only permitted for loopback addresses.

@@ -42,13 +42,17 @@ func loadConfig(ctx context.Context, path string) (*al_proto.Config, error) {
 	switch extension {
 	case ".yaml", ".json":
 		configContentJson, err := yaml.YAMLToJSON(configContent)
+		if err != nil {
+			return nil, fmt.Errorf("could not parse config file %s", path)
+		}
 		err = protojson.Unmarshal(configContentJson, res)
 		if err != nil {
-			return nil, fmt.Errorf("could not unmarshal config file %s: %w", path, err)
+			return nil, fmt.Errorf("could not unmarshal config file %s", path)
 		}
 	case ".lua":
 		state := lua.NewState()
 		defer state.Close()
+		state.SetContext(ctx)
 		state.SetGlobal("config", state.NewFunction(func(l *lua.LState) int {
 			val := &al_proto.Config{}
 			if err := parseTableArg(state, val); err != nil {
@@ -74,9 +78,27 @@ func loadConfig(ctx context.Context, path string) (*al_proto.Config, error) {
 			}
 			return 1
 		}))
+		state.SetGlobal("tool_method", state.NewFunction(func(l *lua.LState) int {
+			method, err := parseToolMethod(l)
+			if err != nil {
+				state.ArgError(1, err.Error())
+				return 0
+			}
+			proto.Merge(res, &al_proto.Config{ToolMethods: []*al_proto.ToolMethod{method}})
+			return 0
+		}))
+		state.SetGlobal("tool", state.NewFunction(func(l *lua.LState) int {
+			tool, err := parseTool(l)
+			if err != nil {
+				state.ArgError(1, err.Error())
+				return 0
+			}
+			proto.Merge(res, &al_proto.Config{Tools: []*al_proto.Tool{tool}})
+			return 0
+		}))
 		err := state.DoString(string(configContent))
 		if err != nil {
-			return nil, fmt.Errorf("could not run lua: %w", err)
+			return nil, fmt.Errorf("could not run Lua config %s", path)
 		}
 	default:
 		return nil, fmt.Errorf("invalid extension: %s", extension)
@@ -147,14 +169,26 @@ func DumpConfigs(ctx context.Context, out string, paths ...string) error {
 	if out == "" {
 		file = os.Stdout
 	} else {
-		file, err = os.OpenFile(out, os.O_CREATE|os.O_WRONLY, 0o444)
+		file, err = os.OpenFile(out, os.O_CREATE|os.O_WRONLY, 0o600)
 		if err != nil {
 			return fmt.Errorf("could not open out file %s: %w", out, err)
 		}
 		defer file.Close()
+		// Config dumps may include environment-derived secret values. Tighten
+		// an existing file before writing and remove any previous trailing data.
+		if err := file.Chmod(0o600); err != nil {
+			return fmt.Errorf("could not restrict config output permissions: %w", err)
+		}
+		if err := file.Truncate(0); err != nil {
+			return fmt.Errorf("could not truncate config output: %w", err)
+		}
 	}
-	file.Write(configMarshaled)
-	file.WriteString("\n")
+	if _, err := file.Write(configMarshaled); err != nil {
+		return fmt.Errorf("could not write config output: %w", err)
+	}
+	if _, err := file.WriteString("\n"); err != nil {
+		return fmt.Errorf("could not finish config output: %w", err)
+	}
 	return nil
 }
 
@@ -370,7 +404,7 @@ func FromPbJsonToPb(val *al_proto.Json, target proto.Message) fp.EmptyEither {
 		return fp.EmptyLeft(fmt.Errorf("could not convert data to json: %w", err))
 	}
 	if err := protojson.Unmarshal(dataJson, target); err != nil {
-		return fp.EmptyLeft(fmt.Errorf("could not unmarshal protobuf from json: %w", err))
+		return fp.EmptyLeft(fmt.Errorf("could not unmarshal protobuf configuration"))
 	}
 	return fp.EmptyRight()
 }

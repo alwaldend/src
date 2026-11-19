@@ -18,18 +18,15 @@ worktree. Load `$bazel-agent` and `$repo-bazel` for invocation and validation.
 Run all delivery commands from this feature worktree's Git repository root,
 which owns the root `MODULE.bazel` and `tools/repo_delivery`, including when
 the change belongs to a nested Bazel module. Use that same worktree's root,
-not another checkout. The baseline works with older installed runners:
+not another checkout. The baseline works with a bare Bazel entry point:
 
 ```sh
 bazel_agent bazel run //tools/repo_delivery -- provider
 ```
 
-For the cached path, follow `$bazel-agent` capability detection once per runner
-binary: if support is unknown, inspect `bazel_agent tool --help`; use
-`bazel_agent tool run repo_delivery -- ...` only when supported. Retain the
-result. An unsupported `tool` command uses the baseline above without a host
-update. A delivery refusal or execution failure needs diagnosis, not a change
-of entry point. Below, `repo_delivery <command>` means the selected invocation.
+For the cached path, use `al tool repo_delivery -- ...` when configured. A
+delivery refusal or execution failure needs diagnosis, not a change of entry
+point. Below, `repo_delivery <command>` means the selected invocation.
 
 For `validate`, use the cached entry point or generate one task-local launcher
 from the repository root, then invoke that launcher. This releases Bazel's
@@ -69,12 +66,15 @@ reproducing mutations with Git or `gh` or bypassing a safety refusal.
    resolution, or recovery,
    read [rewrites and recovery](references/rewrites.md). Never rewrite shared,
    stacked, human-owned, unrelated, or ambiguous history.
-2. Put the complete aggregate commit message and receipt under ignored
+2. Run the configured formatters and inspect their changes before preparing
+   the candidate, so formatting-only corrections do not require an amendment
+   and repeated candidate validation. Then put the aggregate commit message and receipt under ignored
    `out/<task>/`. Stage fully task-owned paths with repeated `prepare --path`,
    or stage only owned hunks and use `--use-index`; never blanket-stage. The
    scope must include the entire existing feature diff. For one owned feature
    commit, pass `--rewrite <literal-inspect.local_head_oid>`; omit it for a
-   new range. Keep the aggregate message accurate; the tool adds its disclaimer.
+   new range. Read [commit conventions](references/commits.md) before
+   writing the aggregate message; the tool adds its disclaimer.
 3. Run `prepare --message-file <path> --receipt-file <path>` with that scope.
    Inspect the resulting base-to-head diff, immutable path scope, receipt, and
    literal returned `head_oid`. Keep the receipt local, trusted, and unedited;

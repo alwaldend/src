@@ -1,0 +1,109 @@
+{
+    "schema_version": 1,
+    "migrated_on": "2026-09-08",
+    "source": {
+        "path": "projects/renders/goals/reimu-fumo-finish",
+        "format": "goals.alwaldend.com/v1alpha1",
+        "commit": "550d7e79b1f5fdbc2b6017b75178471d6914082f",
+        "goal_id": "reimu-fumo-finish",
+        "resource_version": "58",
+        "criteria_revision": 4,
+        "observed_at": "2026-09-04T12:58:04.377051268Z"
+    },
+    "legacy_status": {
+        "outcome": "open",
+        "execution": "blocked",
+        "active_attempt_id": null,
+        "accepted_attempt_id": null,
+        "accepted_result_digest": null
+    },
+    "openspec": {
+        "change_id": "reimu-fumo-finish",
+        "status": "active",
+        "archive_date": null,
+        "historical_delta_applied": false
+    },
+    "capabilities": ["project-renders"],
+    "provenance_manifest": "provenance/manifest.json",
+    "status_note": "Open and blocked; no asset or acceptance criterion is completed by this migration.",
+    "acceptance_mapping": [
+        {
+            "criterion_id": "criterion-001",
+            "criterion_revision": 3,
+            "required": true,
+            "task": "2.2",
+            "checked": false,
+            "legacy_verdict": null,
+            "evidence_paths": []
+        },
+        {
+            "criterion_id": "criterion-002",
+            "criterion_revision": 3,
+            "required": true,
+            "task": "2.3",
+            "checked": false,
+            "legacy_verdict": null,
+            "evidence_paths": []
+        },
+        {
+            "criterion_id": "criterion-003",
+            "criterion_revision": 2,
+            "required": true,
+            "task": "2.4",
+            "checked": false,
+            "legacy_verdict": null,
+            "evidence_paths": []
+        },
+        {
+            "criterion_id": "criterion-004",
+            "criterion_revision": 2,
+            "required": true,
+            "task": "2.5",
+            "checked": false,
+            "legacy_verdict": null,
+            "evidence_paths": []
+        },
+        {
+            "criterion_id": "criterion-005",
+            "criterion_revision": 2,
+            "required": true,
+            "task": "2.6",
+            "checked": false,
+            "legacy_verdict": null,
+            "evidence_paths": []
+        },
+        {
+            "criterion_id": "criterion-006",
+            "criterion_revision": 2,
+            "required": true,
+            "task": "2.7",
+            "checked": false,
+            "legacy_verdict": null,
+            "evidence_paths": []
+        },
+        {
+            "criterion_id": "criterion-007",
+            "criterion_revision": 2,
+            "required": true,
+            "task": "2.8",
+            "checked": false,
+            "legacy_verdict": null,
+            "evidence_paths": []
+        },
+        {
+            "criterion_id": "criterion-008",
+            "criterion_revision": 3,
+            "required": true,
+            "task": "2.9",
+            "checked": false,
+            "legacy_verdict": null,
+            "evidence_paths": []
+        }
+    ],
+    "continuation": {
+        "source_attempt_id": "flatten-dose-response-018",
+        "next_action": "Retain blocked execution until a sponsor-approved skilled Blender artist or a genuinely different independently proven organic authoring capability is available.",
+        "resume_authority_note": "Migration does not authorize modeling or capability experiments; an authorized unblock may change execution while outcome remains open.",
+        "source_result_path": "provenance/source/attempts/flatten-dose-response-018/result.md"
+    }
+}

@@ -1,0 +1,83 @@
+- tags:
+    - openhands_canvas
+  block:
+    - name: Install OpenHands Agent Canvas dependencies
+      notify: Restart OpenHands Agent Canvas
+      ansible.builtin.package:
+        name: "{{ openhands_canvas_packages }}"
+        state: present
+    - name: Create the OpenHands Agent Canvas user
+      ansible.builtin.user:
+        name: "{{ openhands_canvas_user }}"
+        uid: "{{ openhands_canvas_user_uid }}"
+        shell: /sbin/nologin
+        home: "{{ openhands_canvas_home_dir }}"
+        system: true
+    - name: Create filesystem on the OpenHands Agent Canvas disk
+      when: openhands_canvas_disk is truthy
+      community.general.filesystem:
+        fstype: ext4
+        dev: "{{ openhands_canvas_disk }}"
+    - name: Mount the OpenHands Agent Canvas disk
+      when: openhands_canvas_disk is truthy
+      ansible.posix.mount:
+        path: "{{ openhands_canvas_dir }}"
+        src: "{{ openhands_canvas_disk }}"
+        fstype: ext4
+        state: mounted
+    - name: Create OpenHands Agent Canvas directories
+      loop:
+        - "{{ openhands_canvas_dir }}"
+        - "{{ openhands_canvas_home_dir }}"
+        - "{{ openhands_canvas_work_dir }}"
+        - "{{ openhands_canvas_state_dir }}"
+      ansible.builtin.file:
+        state: directory
+        owner: "{{ openhands_canvas_user }}"
+        group: "{{ openhands_canvas_user }}"
+        mode: "0700"
+        path: "{{ item }}"
+    - name: Install the OpenHands Agent Canvas package
+      notify: Restart OpenHands Agent Canvas
+      become_user: "{{ openhands_canvas_user }}"
+      community.general.npm:
+        name: "@openhands/agent-canvas"
+        version: "{{ openhands_canvas_version }}"
+        global: true
+        state: present
+        executable: /usr/bin/npm
+      environment:
+        HOME: "{{ openhands_canvas_home_dir }}"
+        npm_config_cache: "{{ openhands_canvas_state_dir }}/npm"
+        npm_config_prefix: "{{ openhands_canvas_dir }}"
+        npm_config_fund: "false"
+        npm_config_audit: "false"
+    - name: Write the OpenHands Agent Canvas environment
+      notify: Restart OpenHands Agent Canvas
+      ansible.builtin.copy:
+        content: |
+          {% for key, value in (openhands_canvas_env | combine(openhands_canvas_env_override)).items() %}
+          {{ key }}={{ value }}
+          {% endfor %}
+        dest: "{{ openhands_canvas_env_path }}"
+        owner: root
+        group: "{{ openhands_canvas_user }}"
+        mode: "0640"
+    - name: Write the OpenHands Agent Canvas service
+      notify: Restart OpenHands Agent Canvas
+      register: openhands_canvas_service_result
+      ansible.builtin.template:
+        src: systemd_service.conf
+        dest: "{{ openhands_canvas_service_path }}"
+        owner: root
+        group: root
+        mode: "0644"
+    - name: Reload systemd for OpenHands Agent Canvas
+      when: openhands_canvas_service_result.changed
+      ansible.builtin.systemd_service:
+        daemon_reload: true
+    - name: Enable and start OpenHands Agent Canvas
+      ansible.builtin.systemd_service:
+        name: "{{ openhands_canvas_service_path | basename }}"
+        enabled: true
+        state: started

@@ -1,0 +1,70 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: concealed-crown-attachments-084
+  resourceVersion: "5"
+  generation: 5
+  creationTimestamp: "2026-09-05T23:07:27.711301Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 16
+  criteriaRevision: 4
+  criteriaDigest: sha256:f5fe4b5c4efc12d5b82ad42cf0d41fd7274f48b421abf42e9db1ce5ae316d8a3
+  goalStateDigest: sha256:d3dd99930bf18292653455d315de740e68d0a10d03186a30fad1ab2e06501ad6
+  workType: change
+  subject: cb6bff1fa0e654f1720236a5a90dab56346f41e36f999dfc08fe746ea26294cb
+  nextAction: Start085 continuous-cloth sleeves on084 working source; keep retained lowerhair only, no wholehair/stage/goal approval.
+status:
+  state: closed
+  closedAt: "2026-09-05T23:39:17.567629248Z"
+  artifacts:
+    planDigest: sha256:b024db5cc7b37758ca5cc002c211ef99e5a80f2320dda82620a50bdad2689c2c
+    resultDigest: sha256:af063abcfc82ff9f83e2918521b26a8689086415e655f2570c5003e11a4a9bd6
+    evidence:
+    - path: evidence/hair_084_pixel_review.md
+      digest: sha256:78088e61cb85deba811136d3ace429c75bd8a5ab4595cc5bec061c5da0477855
+    - path: evidence/hair_084_zone_diagnostic.md
+      digest: sha256:ba7281956ae16f21b2adbefb5d72d1ccc3f473f995beeb0df023e8a03b7c1b38
+    - path: evidence/process_084_review.md
+      digest: sha256:d98f28912f120dadcacc0cd698139f74cb503f8a2415cad2fb365720537e6c41
+  review:
+    decision: accept
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 3
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-002
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-004
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-005
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-006
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-007
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-09-05T23:39:17.567629248Z"

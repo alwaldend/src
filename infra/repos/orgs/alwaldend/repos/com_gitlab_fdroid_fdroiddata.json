@@ -1,0 +1,10 @@
+{
+    "description": "F-Droid application metadata",
+    "homepage_url": "https://f-droid.org/",
+    "default_branch": "master",
+    "visibility": "public",
+    "gitlab": {
+        "fork_from": "fdroid/fdroiddata",
+        "id": 86425651
+    }
+}

@@ -1,0 +1,14 @@
+load("@rules_go//go:def.bzl", "go_binary", "go_library")
+
+go_library(
+    name = "gradle_lock_gen_lib",
+    srcs = ["main.go"],
+    importpath = "git.alwaldend.com/alwaldend/src/tools/maven_install_gradle_converter/cmd/gradle_lock_gen",
+    visibility = ["//visibility:private"],
+)
+
+go_binary(
+    name = "gradle_lock_gen",
+    embed = [":gradle_lock_gen_lib"],
+    visibility = ["//:__subpackages__"],
+)

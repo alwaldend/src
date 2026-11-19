@@ -1,5 +1,5 @@
 locals {
-  cloud_init_str = file("${path.module}/../../pve/ansible/files/cloud_init.yaml")
+  cloud_init_str = file("${path.module}/../../cloud_init/assets/cloud_init.yaml")
   # cloud_init = yamldecode(local.cloud_init_str)
   vpc = {
     host1 = {

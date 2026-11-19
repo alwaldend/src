@@ -1,0 +1,234 @@
+{
+  "schema_version": 1,
+  "source_commit": "550d7e79b1f5fdbc2b6017b75178471d6914082f",
+  "files": [
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-2/README.md",
+      "snapshot_path": "provenance/source/README.md",
+      "sha256": "02ba0dfc0879d9d80cc0cf20fb4b715fe89efed9a2cf9f81e37fa756cc8e9fff",
+      "size_bytes": 4394
+    },
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-2/attempts/goal-publication-001/attempt.yaml",
+      "snapshot_path": "provenance/source/attempts/goal-publication-001/attempt.yaml",
+      "sha256": "41dc2173d022f872fbc3cf1fc10a613093020d5ffa9728dcd8f4ee288c76e301",
+      "size_bytes": 1673
+    },
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-2/attempts/goal-publication-001/evidence/catalog_inputs.md",
+      "snapshot_path": "provenance/source/attempts/goal-publication-001/evidence/catalog_inputs.md",
+      "sha256": "26311812b5600ec9e1ca3f6c5aee630228f0a25fadb4e3bcd23cb1a656ee3178",
+      "size_bytes": 16285
+    },
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-2/attempts/goal-publication-001/evidence/goal_recovery.md",
+      "snapshot_path": "provenance/source/attempts/goal-publication-001/evidence/goal_recovery.md",
+      "sha256": "7143d2cc7e71f41efb9c7163011210cffd6e1ea4c14bb1bca9d4f0534e6f9762",
+      "size_bytes": 20814
+    },
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-2/attempts/goal-publication-001/plan.md",
+      "snapshot_path": "provenance/source/attempts/goal-publication-001/plan.md",
+      "sha256": "2738f274995f867c7664e25271a5cbae5826f33ac00ece0fb7ebf63c4b3957ca",
+      "size_bytes": 2910
+    },
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-2/attempts/goal-publication-001/result.md",
+      "snapshot_path": "provenance/source/attempts/goal-publication-001/result.md",
+      "sha256": "a0db67e5540c8685e3622cb76f02bfc7da9a49027587f4b081fa934910f930f3",
+      "size_bytes": 2394
+    },
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-2/attempts/goal-publication-002/attempt.yaml",
+      "snapshot_path": "provenance/source/attempts/goal-publication-002/attempt.yaml",
+      "sha256": "e3fd68f5c865ccda604f359746d55941ced6eae2dfaa29dd356b1dd648c435bd",
+      "size_bytes": 2036
+    },
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-2/attempts/goal-publication-002/evidence/goal_recovery.md",
+      "snapshot_path": "provenance/source/attempts/goal-publication-002/evidence/goal_recovery.md",
+      "sha256": "76934debcc1d08b0a0f6aa41089441144bfc9e66dc3eab6d706ddb6e1c2dda07",
+      "size_bytes": 3007
+    },
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-2/attempts/goal-publication-002/plan.md",
+      "snapshot_path": "provenance/source/attempts/goal-publication-002/plan.md",
+      "sha256": "51b14b68e4276a505b126863a235ccdfc851c6eb151b3b9cf21cf9ec589a9a84",
+      "size_bytes": 3171
+    },
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-2/attempts/goal-publication-002/result.md",
+      "snapshot_path": "provenance/source/attempts/goal-publication-002/result.md",
+      "sha256": "914ae71d4a1f1fb21fea41649b770884ac47500100b85dd393fb27b9d6ef7286",
+      "size_bytes": 2823
+    },
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-2/attempts/goal-publication-003/attempt.yaml",
+      "snapshot_path": "provenance/source/attempts/goal-publication-003/attempt.yaml",
+      "sha256": "92d35b6e59a16c365e7f5a10631ebcf96d331f1d979dea7de80051ddde8e8a60",
+      "size_bytes": 2069
+    },
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-2/attempts/goal-publication-003/evidence/topology-catalog.md",
+      "snapshot_path": "provenance/source/attempts/goal-publication-003/evidence/topology-catalog.md",
+      "sha256": "3b7c7e9a712e725fc7c312369f5680b4ac5e5c32755c308b97a61a3877e94ce7",
+      "size_bytes": 1602
+    },
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-2/attempts/goal-publication-003/plan.md",
+      "snapshot_path": "provenance/source/attempts/goal-publication-003/plan.md",
+      "sha256": "fdaa099fa815845f2739a809d2a28adab997348416b604ccf218c613db5cd8e8",
+      "size_bytes": 3544
+    },
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-2/attempts/goal-publication-003/result.md",
+      "snapshot_path": "provenance/source/attempts/goal-publication-003/result.md",
+      "sha256": "1b75c1ad99456f08ba35b1a8e3cf02fb502105e17b1684d30c4a128fb0c42b5d",
+      "size_bytes": 3475
+    },
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-2/attempts/goal-publication-004/attempt.yaml",
+      "snapshot_path": "provenance/source/attempts/goal-publication-004/attempt.yaml",
+      "sha256": "fcf635236e459f4a386bb869c721762f46f9a11ee08cfcc2b8337a948f235998",
+      "size_bytes": 2090
+    },
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-2/attempts/goal-publication-004/evidence/legacy-migration-evidence.md",
+      "snapshot_path": "provenance/source/attempts/goal-publication-004/evidence/legacy-migration-evidence.md",
+      "sha256": "0d0a6c5ce598d8e9ee8cf45d81b9670b3d2c79df2518bfdd59bc6694934a203f",
+      "size_bytes": 3663
+    },
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-2/attempts/goal-publication-004/plan.md",
+      "snapshot_path": "provenance/source/attempts/goal-publication-004/plan.md",
+      "sha256": "df3da0223ce10b4a8a95323335424ae4c863577889fa5d5c049d64335c6770ec",
+      "size_bytes": 3506
+    },
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-2/attempts/goal-publication-004/result.md",
+      "snapshot_path": "provenance/source/attempts/goal-publication-004/result.md",
+      "sha256": "8869d239a023a5b6f23377ac06cb00193ae405ad31438159e0a773a95780a94f",
+      "size_bytes": 1909
+    },
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-2/attempts/goal-publication-005/attempt.yaml",
+      "snapshot_path": "provenance/source/attempts/goal-publication-005/attempt.yaml",
+      "sha256": "b8853bd51d224282969300dd7eac1eefb742c91a0a2637667395115a6ad78dce",
+      "size_bytes": 2056
+    },
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-2/attempts/goal-publication-005/evidence/policy-action-evidence.md",
+      "snapshot_path": "provenance/source/attempts/goal-publication-005/evidence/policy-action-evidence.md",
+      "sha256": "2c99c00e0a063ef2ae42624ffc88b024f86b4378169e4df50be4ed586627022e",
+      "size_bytes": 4008
+    },
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-2/attempts/goal-publication-005/plan.md",
+      "snapshot_path": "provenance/source/attempts/goal-publication-005/plan.md",
+      "sha256": "f4e8f17ed8c0f8e9a88dba0478b00a3834910e3ee044e12392435416bbdfaec2",
+      "size_bytes": 2331
+    },
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-2/attempts/goal-publication-005/result.md",
+      "snapshot_path": "provenance/source/attempts/goal-publication-005/result.md",
+      "sha256": "806d3ef9e8fa82fecc565602a05ac041ad0e1973eb84e4cfe7b7d98723945b88",
+      "size_bytes": 1267
+    },
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-2/attempts/goal-publication-006/attempt.yaml",
+      "snapshot_path": "provenance/source/attempts/goal-publication-006/attempt.yaml",
+      "sha256": "6cc352b726044f55381a8edc6535cb15bf52f3728df7bc12722e425ede990e5d",
+      "size_bytes": 2093
+    },
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-2/attempts/goal-publication-006/evidence/context-catalog-evidence.md",
+      "snapshot_path": "provenance/source/attempts/goal-publication-006/evidence/context-catalog-evidence.md",
+      "sha256": "85c6632bdc615bfa0910f6188e26d91f01eb817ee9209a60ad8b6bc291e9eeb7",
+      "size_bytes": 363
+    },
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-2/attempts/goal-publication-006/plan.md",
+      "snapshot_path": "provenance/source/attempts/goal-publication-006/plan.md",
+      "sha256": "12fb7f759dfc1226abb5be768ce9b864e6713bf7d49d57fdea5c87dd99cd70fc",
+      "size_bytes": 3113
+    },
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-2/attempts/goal-publication-006/result.md",
+      "snapshot_path": "provenance/source/attempts/goal-publication-006/result.md",
+      "sha256": "628733b3169b8ae4b3be0d35c1b1f0e43cc319080116847682a57ed4eb88eb73",
+      "size_bytes": 2453
+    },
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-2/attempts/goal-publication-007/attempt.yaml",
+      "snapshot_path": "provenance/source/attempts/goal-publication-007/attempt.yaml",
+      "sha256": "9b3236ee5049e5a044ec98b678ac635574a797de177275abc40b75cbf5156507",
+      "size_bytes": 2210
+    },
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-2/attempts/goal-publication-007/evidence/context-capsule-evidence.md",
+      "snapshot_path": "provenance/source/attempts/goal-publication-007/evidence/context-capsule-evidence.md",
+      "sha256": "b4f941168a1713ccb08ecdb1f586adc6038c51aaf5bea79c7eba19a76473971e",
+      "size_bytes": 943
+    },
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-2/attempts/goal-publication-007/plan.md",
+      "snapshot_path": "provenance/source/attempts/goal-publication-007/plan.md",
+      "sha256": "b8721570c4063a4b388175f37eae5a32810c37c17208ac959b8b005cc27a119d",
+      "size_bytes": 3160
+    },
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-2/attempts/goal-publication-007/result.md",
+      "snapshot_path": "provenance/source/attempts/goal-publication-007/result.md",
+      "sha256": "5479c91785d03a93fd42b1cd928b3e2301921d7b19618288c66b491e8e0db541",
+      "size_bytes": 4380
+    },
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-2/attempts/goal-publication-008/attempt.yaml",
+      "snapshot_path": "provenance/source/attempts/goal-publication-008/attempt.yaml",
+      "sha256": "76d18e29e53b4c8f7113c68f82ee6db40ebb0f0bf5ff0ea0f8bae0e10fb91cac",
+      "size_bytes": 2357
+    },
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-2/attempts/goal-publication-008/evidence/phase2-acceptance-evidence.md",
+      "snapshot_path": "provenance/source/attempts/goal-publication-008/evidence/phase2-acceptance-evidence.md",
+      "sha256": "f77d67aeb4af2b8f0f594ab37c216b475f78d62d0e7b5e9f51e25b605c61bc80",
+      "size_bytes": 1290
+    },
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-2/attempts/goal-publication-008/plan.md",
+      "snapshot_path": "provenance/source/attempts/goal-publication-008/plan.md",
+      "sha256": "58cd2bd7e7313ceba8fb2c34788429e2150dad3d4ed664227dc6d90431026b95",
+      "size_bytes": 1444
+    },
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-2/attempts/goal-publication-008/result.md",
+      "snapshot_path": "provenance/source/attempts/goal-publication-008/result.md",
+      "sha256": "a94254f41886f69fb7e162db1ce9d47aa08fc10889687f119bd31bffda9338ce",
+      "size_bytes": 3194
+    },
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-2/criteria-revisions/1.yaml",
+      "snapshot_path": "provenance/source/criteria-revisions/1.yaml",
+      "sha256": "cb4bdba044540677e7955426e62e6a4abde61cac7210f388b1258028a0f8c52f",
+      "size_bytes": 5312
+    },
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-2/criteria-revisions/2.yaml",
+      "snapshot_path": "provenance/source/criteria-revisions/2.yaml",
+      "sha256": "ac191b51a30d5e0e8bfcbf0df981a25548a947b2fe537e2ae17e420a361607b6",
+      "size_bytes": 3383
+    },
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-2/criteria.yaml",
+      "snapshot_path": "provenance/source/criteria.yaml",
+      "sha256": "ac191b51a30d5e0e8bfcbf0df981a25548a947b2fe537e2ae17e420a361607b6",
+      "size_bytes": 3383
+    },
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-2/goal.yaml",
+      "snapshot_path": "provenance/source/goal.yaml",
+      "sha256": "1835139c2d43c2b363078b3cd23a05aa2e378a27c1bcc67ecd9b5175164b911d",
+      "size_bytes": 1141
+    }
+  ]
+}

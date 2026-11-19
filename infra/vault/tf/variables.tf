@@ -15,10 +15,16 @@ variable "pve1_url" {
   default     = "https://pve.alwaldend.com:8006"
 }
 
+variable "xoa_url" {
+  type        = string
+  description = "Xen Orchestra browser URL"
+  default     = "https://xoa.xcp-ng.alwaldend.com"
+}
+
 variable "forgejo_url" {
   type        = string
   description = "Forgejo url"
-  default     = "https://forgejo.alwaldend.com"
+  default     = "https://git.alwaldend.com"
 }
 
 variable "harbor_url" {

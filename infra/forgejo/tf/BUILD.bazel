@@ -1,5 +1,6 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("//tools/terraform:defs.bzl", "terraform_binary_map", "terraform_test_map")
+load("@rules_terraform//terraform:defs.bzl", "terraform_binary_map", "terraform_test_map")
+load("//projects/al/rules/al:al_binary.bzl", "al_binary_run", "al_binary_run_test")
 
 docs_filegroup(
     name = "docs",
@@ -11,6 +12,11 @@ docs_filegroup(
     ),
 )
 
+_PROVIDERS = [
+    "@terraform_provider_hashicorp_vault//:provider",
+    "@terraform_provider_svalabs_forgejo//:provider",
+]
+
 _CONFIGS = ["//infra/forgejo:al"]
 
 _RUN_ARGS = [
@@ -21,7 +27,8 @@ _RUN_ARGS = [
 ]
 
 _DATA = glob(["*.tf"]) + [
-    ".terraform.lock.hcl",
+    "//infra/repos:config",
+    "//infra/repos/tf:module",
     "//tools/vault/tf_backend",
     "//tools/vault/injector",
     "//tools/vault/forgejo_login",
@@ -29,13 +36,21 @@ _DATA = glob(["*.tf"]) + [
 
 terraform_binary_map(
     name = "tf",
-    configs = _CONFIGS,
     data = _DATA,
-    run_args = _RUN_ARGS,
+    providers = _PROVIDERS,
+    wrapper = al_binary_run,
+    wrapper_kwargs = {
+        "configs": _CONFIGS,
+        "run_args": _RUN_ARGS,
+    },
 )
 
 terraform_test_map(
     name = "tf_tests",
-    configs = _CONFIGS,
     data = _DATA,
+    providers = _PROVIDERS,
+    wrapper = al_binary_run_test,
+    wrapper_kwargs = {
+        "configs": _CONFIGS,
+    },
 )

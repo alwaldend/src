@@ -1,0 +1,33 @@
+load("@rules_go//go:def.bzl", "go_test")
+load("@rules_terraform//terraform:defs.bzl", "terraform_binary")
+
+terraform_binary(
+    name = "terraform",
+    testonly = True,
+    arguments = ["--direct"],
+    data = ["//projects/tf_modules/dns_records:test_sources"],
+    providers = [
+        "@terraform_provider_cloudflare_cloudflare//:provider",
+        "@terraform_provider_telmate_proxmox//:provider",
+        "@terraform_provider_terraform_routeros_routeros//:provider",
+    ],
+)
+
+go_test(
+    name = "provider_test",
+    srcs = [
+        "provider_test.go",
+        "targeted_import_test.go",
+    ],
+    args = [
+        "-terraform=$(rootpath :terraform)",
+    ],
+    data = [
+        ":terraform",
+        "//projects/tf_modules/dns_records:test_sources",
+    ],
+    target_compatible_with = [
+        "@platforms//cpu:x86_64",
+        "@platforms//os:linux",
+    ],
+)

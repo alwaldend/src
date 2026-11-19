@@ -10,6 +10,7 @@ import (
 	"math"
 	"os"
 	"path"
+	"regexp"
 	"testing"
 
 	"github.com/bazelbuild/rules_go/go/runfiles"
@@ -17,7 +18,7 @@ import (
 
 const (
 	reimuAssetRunfileRoot             = "projects/renders/assets/reimu_fumo"
-	reimuGoalCriteriaRunfile          = "projects/renders/goals/reimu-fumo-finish/criteria.yaml"
+	reimuChangeSpecRunfile            = "projects/renders/openspec/changes/reimu-fumo-finish/specs/project-renders/spec.md"
 	expectedReimuReviewContractSHA256 = "4835f1595995db408567044849ff8f2f19717b9ce1a6492fc85de34755ac7be4"
 )
 
@@ -67,14 +68,13 @@ func TestReimuReviewContract(t *testing.T) {
 	contractPath := locate("review_contract.json")
 	verifyExactFileSHA256(t, contractPath, expectedReimuReviewContractSHA256)
 
-	criteria, err := os.ReadFile(newWorkspaceRunfileLocator(t)(reimuGoalCriteriaRunfile))
+	specification, err := os.ReadFile(newWorkspaceRunfileLocator(t)(reimuChangeSpecRunfile))
 	if err != nil {
-		t.Fatalf("read active Reimu criteria: %v", err)
+		t.Fatalf("read active Reimu specification: %v", err)
 	}
-	contractMarker := []byte("review contract sha256:")
-	expectedMarker := append(contractMarker, expectedReimuReviewContractSHA256...)
-	if markers, bindings := bytes.Count(criteria, contractMarker), bytes.Count(criteria, expectedMarker); markers != 2 || bindings != 2 {
-		t.Fatalf("active criteria have %d review-contract markers and %d exact bindings, want 2 and 2", markers, bindings)
+	contractBinding := regexp.MustCompile("review contract\\s+`sha256:" + expectedReimuReviewContractSHA256 + "`")
+	if bindings := len(contractBinding.FindAll(specification, -1)); bindings != 2 {
+		t.Fatalf("active specification has %d exact review-contract bindings, want 2", bindings)
 	}
 
 	var contract reviewContract

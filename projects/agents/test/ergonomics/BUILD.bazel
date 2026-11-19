@@ -1,3 +1,5 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+
 filegroup(
     name = "fixtures",
     testonly = True,
@@ -7,4 +9,10 @@ filegroup(
         "subject-prompt.txt",
     ],
     visibility = ["//projects/agents:__subpackages__"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//projects/agents:__pkg__"],
 )

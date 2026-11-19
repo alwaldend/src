@@ -80,3 +80,15 @@ traefik_bin_path: "{{ traefik_dir }}/traefik"
 traefik_service_path: "/etc/systemd/system/traefik.service"
 t3code_domain: t3code.host-bot.simeonwarren.users.alwaldend.com
 t3code_port: 3773
+# The unsecured agent server shares host-bot's trust boundary. It binds to
+# loopback, serves the local host only, and is deliberately not routed through
+# host-bot's Traefik or exposed by its firewall.
+openhands_version: "1.46.0"
+openhands_server_port: 18002
+openhands_server_secure: false
+openhands_server_install_packages: false
+openhands_server_service_path: /etc/systemd/system/openhands-server.service
+openhands_server_version: "{{ openhands_version }}"
+openhands_server_secret_key: >-
+  {{ lookup('ansible.builtin.env', 'OPENHANDS_SERVER_SECRET_KEY',
+  default=undefined()) }}

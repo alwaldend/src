@@ -1,0 +1,10 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+
+package(default_visibility = ["//visibility:private"])
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//infra:__pkg__"],
+    deps = ["//infra/src/openspec:docs"],
+)

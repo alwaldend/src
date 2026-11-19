@@ -1,0 +1,25 @@
+load("//terraform:defs.bzl", "terraform_test")
+
+terraform_test(
+    name = "builtin_test",
+    srcs = [
+        "main.tf",
+        "main.tftest.hcl",
+    ],
+    arguments = [
+        "test",
+        "-no-color",
+    ],
+)
+
+terraform_test(
+    name = "nested/builtin_test",
+    srcs = [
+        "main.tf",
+        "main.tftest.hcl",
+    ],
+    arguments = [
+        "test",
+        "-no-color",
+    ],
+)

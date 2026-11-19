@@ -5,9 +5,9 @@ docs_filegroup(
     srcs = glob(["*.md"]),
     visibility = [
         "//projects:__pkg__",
-        "//projects/al/landing:__pkg__",
     ],
     deps = [
+        "//projects/al/docs",
         "//projects/al/releases:docs",
         "//projects/al/rules:docs",
     ],
@@ -17,14 +17,4 @@ alias(
     name = "al",
     actual = "//projects/al/cmd/al",
     visibility = ["//:__subpackages__"],
-)
-
-filegroup(
-    name = "dnsconfig",
-    srcs = ["dnsconfig.json"],
-    visibility = [
-        "//infra:__pkg__",
-        "//infra/dns:__pkg__",
-        "//projects/alwaldend.com:__subpackages__",
-    ],
 )

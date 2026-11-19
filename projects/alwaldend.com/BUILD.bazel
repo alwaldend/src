@@ -25,7 +25,7 @@ al_config(
     name = "al",
     srcs = ["al.lua"],
     visibility = ["//projects/alwaldend.com:__subpackages__"],
-    deps = ["//:al"],
+    deps = ["//infra:al"],
 )
 
 go_library(
@@ -50,7 +50,6 @@ _BUILD_FLAGS = [
     "--logLevel",
     "debug",
     "--panicOnWarning",
-    "--buildDrafts",
     "--buildExpired",
     "--buildFuture",
     "--printI18nWarnings",
@@ -58,12 +57,18 @@ _BUILD_FLAGS = [
     # "--printUnusedTemplates", /404.html is unused
 ]
 
+# Local builds render drafts so an author can inspect work in progress. The
+# release build must not, so a post whose front matter still says
+# `draft: true` cannot reach the deployed site.
+_PREVIEW_FLAGS = [
+    "--buildDrafts",
+]
+
 docs_filegroup(
     name = "docs",
     srcs = glob(["*.md"]),
     visibility = [
         "//projects:__pkg__",
-        "//projects/alwaldend.com/landing:__pkg__",
     ],
     deps = [
         "//projects/alwaldend.com/releases:docs",
@@ -102,9 +107,20 @@ al_hugo_worker(
             "--baseURL",
             "https://alwaldend.com",
         ],
-        "//conditions:default": _BUILD_FLAGS,
+        "//conditions:default": _BUILD_FLAGS + _PREVIEW_FLAGS,
     }),
     out_dir = "site.destination",
+    site = ":site_site",
+    visibility = ["//:__subpackages__"],
+)
+
+al_hugo_worker(
+    name = "site_staging",
+    arguments = _BUILD_FLAGS + [
+        "--baseURL",
+        "https://www-staging.alwaldend.com",
+    ],
+    out_dir = "site_staging.destination",
     site = ":site_site",
     visibility = ["//:__subpackages__"],
 )
@@ -134,8 +150,8 @@ al_pkg_rename_files(
 pkg_filegroup(
     name = "site_source_filegroup",
     srcs = [
+        ":repo_docs",
         ":site_config",
-        "//:docs",
         "//projects/alwaldend.com/assets",
         "//projects/alwaldend.com/content:docs",
         "//projects/alwaldend.com/data",
@@ -157,18 +173,46 @@ write_file(
 sh_binary(
     name = "deploy",
     srcs = ["deploy.sh"],
-    args = ["$(rootpath :site_archive)"],
+    args = [
+        "$(rootpath :site_archive)",
+        "alwaldend/alwaldend.github.io",
+        "pages",
+    ],
     data = [":site_archive"],
 )
 
-sh_binary(
-    name = "deploy_project",
-    srcs = ["deploy_project.sh"],
+# The staging site is the same rendered source with the staging base URL, so
+# an evaluation on it exercises the deployed content. Its archive carries the
+# staging CNAME because the deploy replaces the published branch contents.
+write_file(
+    name = "staging_cname_src",
+    out = "CNAME.staging",
+    content = ["www-staging.alwaldend.com"],
+)
+
+pkg_files(
+    name = "staging_cname",
+    srcs = [":staging_cname_src"],
+    renames = {":staging_cname_src": "CNAME"},
+)
+
+pkg_tar(
+    name = "site_staging_archive",
+    srcs = [
+        ":site_staging",
+        ":staging_cname",
+    ],
 )
 
 sh_binary(
-    name = "deploy_all",
-    srcs = ["deploy_all.sh"],
+    name = "deploy_staging",
+    srcs = ["deploy.sh"],
+    args = [
+        "$(rootpath :site_staging_archive)",
+        "alwaldend/www-staging",
+        "pages",
+    ],
+    data = [":site_staging_archive"],
 )
 
 pkg_filegroup(
@@ -203,4 +247,28 @@ pkg_files(
 al_toml_data(
     name = "site_config_src",
     srcs = ["hugo.toml"],
+)
+
+# Preserve the repository documentation tree while keeping root package loading
+# independent of the documentation rules.
+pkg_files(
+    name = "repo_docs_empty",
+    srcs = [],
+    prefix = "content/docs/",
+    visibility = ["//:__pkg__"],
+)
+
+docs_filegroup(
+    name = "repo_docs",
+    srcs = [],
+    prefix = "content/docs/",
+    visibility = ["//:__pkg__"],
+    deps = [
+        "//data:docs",
+        "//infra:docs",
+        "//projects:docs",
+        "//third_party:docs",
+        "//tools:docs",
+        "//users:docs",
+    ],
 )

@@ -68,11 +68,11 @@ FATAL: aspect_rules_js[js_binary]: RUNFILES environment variable is not set
 #### Run the binary (that fixes it for some reason)
 
 ```sh
-bazel run //tools:postcss
+bazel run //tools/postcss
 ```
 
 #### Run `pnpm install` (sometimes node_modules directory is not up-to-date)
 
 ```sh
-bazel run -- tools:pnpm --dir "${PWD}" install
+bazel run //tools/pnpm -- --dir "${PWD}/tools" install --ignore-scripts
 ```

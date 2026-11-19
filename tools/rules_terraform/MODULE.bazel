@@ -1,0 +1,39 @@
+module(
+    name = "rules_terraform",
+    version = "0.0.0",
+    bazel_compatibility = [">=8.0.0"],
+)
+
+bazel_dep(name = "bazel_skylib", version = "1.9.0")
+bazel_dep(name = "platforms", version = "1.1.0")
+bazel_dep(name = "rules_go", version = "0.60.0")
+bazel_dep(name = "rules_binary_toolchain", version = "0.0.0")
+bazel_dep(name = "rules_docs", version = "0.0.0")
+bazel_dep(name = "rules_openspec", version = "0.0.0")
+
+local_path_override(
+    module_name = "rules_binary_toolchain",
+    path = "../rules_binary_toolchain",
+)
+
+local_path_override(
+    module_name = "rules_docs",
+    path = "../rules_docs",
+)
+
+local_path_override(
+    module_name = "rules_openspec",
+    path = "../rules_openspec",
+)
+
+go_sdk = use_extension("@rules_go//go:extensions.bzl", "go_sdk")
+go_sdk.from_file(go_mod = "//:go.mod")
+
+binary_toolchains = use_extension("@rules_binary_toolchain//main/bzl:binary_toolchain_extension.bzl", "binary_toolchain_extension")
+binary_toolchains.toolchains(
+    lock = "//terraform:binary_toolchain.json",
+    toolchains_map = {"terraform": "rules_terraform_cli"},
+)
+use_repo(binary_toolchains, "rules_terraform_cli")
+
+register_toolchains("@rules_terraform_cli//:all")

@@ -2,10 +2,11 @@ package main
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"os"
 	"os/exec"
-	"syscall"
+	"time"
 
 	"git.alwaldend.com/alwaldend/src/projects/al/api/al_proto"
 	"git.alwaldend.com/alwaldend/src/projects/al/pkg/al"
@@ -34,6 +35,9 @@ func (self *ProcessFetcher) Get(ctx context.Context, r *injector_proto.Resource,
 	if process == nil {
 		return nil, fmt.Errorf("missing process config")
 	}
+	if err := ctx.Err(); err != nil {
+		return nil, err
+	}
 	cmd := exec.Command(process.Name, process.Args...)
 	cmd.Stderr = os.Stderr
 	cmd.Env = os.Environ()
@@ -45,12 +49,15 @@ func (self *ProcessFetcher) Get(ctx context.Context, r *injector_proto.Resource,
 	if err := cmd.Start(); err != nil {
 		return nil, fmt.Errorf("could not start process: %w", err)
 	}
-	self.lc.AddState(lifecycle.StateStarted, lifecycle.StoppableFunc0(func() error {
-		if err := syscall.Kill(cmd.Process.Pid, syscall.SIGTERM); err != nil {
-			return fmt.Errorf("could not kill process %d: %w", cmd.Process.Pid, err)
-		}
-		return nil
-	}))
+	wait := make(chan error, 1)
+	go func() { wait <- cmd.Wait() }()
+	stop := func(ctx context.Context) error { return lifecycle.StopProcess(ctx, cmd, wait) }
+	if err := self.lc.AddState(lifecycle.StateStarted, lifecycle.StoppableFunc(stop)); err != nil {
+		cleanupCtx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+		defer cancel()
+		return nil, errors.Join(err, stop(cleanupCtx))
+	}
+
 	res := &ResourceResult{
 		Name: r.Name,
 		Data: map[string]any{

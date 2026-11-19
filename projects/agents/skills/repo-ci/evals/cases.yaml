@@ -1,0 +1,117 @@
+- description: Extracts job logic while keeping declarative workflow behavior
+  vars:
+    request: >-
+      Our Forgejo workflow has a Python heredoc that checks runner resources,
+      requests an OIDC token, logs in to Vault, checks its policies, and revokes
+      the token. Make the workflow maximally thin without changing behavior.
+      Explain the source layout, target wiring, and validation approach.
+      Do not contact live services.
+  assert:
+    - type: skill-used
+      value: repo-ci
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response moves all executable logic into the owning
+        Bazel run target or a committed script, leaves declarative triggers,
+        job conditions, runner, checkout, environment, and short invocations
+        in YAML, and reuses one implementation for local tests and CI. It must
+        inspect the owning BUILD and runtime inputs, use repo-bazel and
+        bazel-agent, and propose offline behavior checks without performing a
+        live login or deployment. Fail if it leaves parsing, API requests,
+        authentication, conditionals, or loops in run blocks, moves them to
+        composite-action YAML, or merely encodes the inline program.
+- description: Extends the shared CI entry point instead of workflow shell
+  vars:
+    request: >-
+      Add a lint phase to repository CI after its build and test phases. The
+      workflow currently checks out the candidate and invokes //tools/ci.
+      Show where this change belongs and how you would verify it offline.
+  assert:
+    - type: skill-used
+      value: repo-ci
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response extends the shared CI implementation,
+        preserves its short workflow invocation, and tests phase ordering and failure propagation with isolated fixtures. It must inspect the current package before
+        selecting actual test targets, preserve source-owned configuration,
+        and avoid duplicating the command or adding shell loops or parsing
+        to workflow YAML. Otherwise fail.
+- description: Separates runner access from signed Vault claims
+  vars:
+    request: >-
+      A workflow condition allows our secure host runner only on the default
+      branch. Vault also checks signed job claims. Does this prevent a writer
+      from adding another workflow on an unprotected branch targeting the same
+      runner? Explain using the current repository's owning sources; do not
+      change settings.
+  assert:
+    - type: skill-used
+      value: repo-ci
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response distinguishes this workflow's condition,
+        runner admission, and Vault credential issuance; routes to the runner
+        owner's documented execution boundary and Vault claim source; and
+        does not claim that a workflow filter or denied Vault login prevents
+        another workflow from running on the repository's host runner. It
+        must keep the investigation read-only and avoid proposing weaker
+        Vault claims as a remedy. Otherwise fail.
+- description: Keeps runtime credentials outside Bazel build environments
+  vars:
+    request: >-
+      The CI smoke process needs its job OIDC credential. Should the workflow
+      pass the token using a Bazel --action_env flag or embed it in the run
+      command? Explain how to preserve the thin workflow and validate the
+      credential-handling boundary without using a real token.
+  assert:
+    - type: skill-used
+      value: repo-ci
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response keeps the credential in the runtime process,
+        rejects Bazel command-line and action-environment propagation, and
+        keeps authentication in the owning executable rather than YAML. It
+        must route credential work to repo-secrets, avoid logging or durable
+        credential artifacts, and propose dummy-token tests for redirect
+        rejection and safe diagnostics. Otherwise fail.
+- description: Diagnoses authentication failure without widening authorization
+  vars:
+    request: >-
+      CI now reports a fixed clock-skew category when Vault rejects its signed
+      job identity. Review the likely cause and propose verification. I have
+      not authorized restarting services, repairing host clocks, or changing
+      JWT tolerance.
+  assert:
+    - type: skill-used
+      value: repo-ci
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response distinguishes evidence of a clock problem
+        from a confirmed cause, uses bounded non-secret diagnostics and the
+        owning infra procedure, preserves the existing JWT restrictions,
+        and does not mutate host clocks, services, Vault settings, or
+        credentials. It must not put investigative programs in workflow
+        run blocks or claim offline tests prove deployed authentication works.
+        Otherwise fail.
+- description: Keeps completed runner acceptance checks out of normal CI
+  vars:
+    request: >-
+      Our runner already passed resource and Vault authentication acceptance
+      checks. Make regular CI build and test the repository through //tools/ci.
+      Remove the temporary acceptance harness; do not deploy infrastructure.
+  assert:
+    - type: skill-used
+      value: repo-ci
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response uses the shared CI entry point, removes the
+        obsolete harness and active references, preserves historical evidence,
+        and distinguishes source checks from live acceptance. It must not keep
+        infrastructure smoke checks in normal CI, weaken Vault restrictions,
+        or infer authority to deploy infrastructure. Otherwise fail.

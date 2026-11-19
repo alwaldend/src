@@ -25,22 +25,12 @@ version_menu = "Versions"
 version_menu_pagelinks = true
 
 [[params.alwaldend.links]]
-name = "Docs"
-url = "https://alwaldend.com/docs/"
-
-[[params.alwaldend.panels]]
-title = "Projects"
-url = "/projects/"
-section = "/docs/projects"
-
-[[params.alwaldend.panels]]
-title = "Infra"
-url = "/docs/infra/"
-section = "/docs/infra"
+name = "GitHub"
+url = "https://github.com/alwaldend/src/"
 
 [[params.alwaldend.links]]
-name = "Github"
-url = "https://github.com/alwaldend/src/"
+name = "Docs"
+url = "/docs/"
 
 # [params.copyright]
 # authors = ""
@@ -52,6 +42,7 @@ separate_page_tags = ["Bzl-Targets", "Changelog"]
 showLightDarkModeMenu = true
 sidebar_menu_compact = true
 sidebar_menu_foldable = true
+sidebar_menu_truncate = 200
 
 [params.drawio]
 enable = true
@@ -60,7 +51,7 @@ enable = true
 unsafe = true
 
 [markup.goldmark.renderHooks.link]
-useEmbedded = "always"
+useEmbedded = "fallback"
 
 [markup.goldmark.parser.attribute]
 block = true
@@ -75,14 +66,19 @@ site = "websites"
 
 
 [[menus.main]]
-name = "Docs"
-weight = 100
-url = "/docs/"
+name = "Blog"
+weight = 50
+url = "/blog/"
 
 [[menus.main]]
 name = "Projects"
-weight = 200
+weight = 75
 url = "/projects/"
+
+[[menus.main]]
+name = "Docs"
+weight = 100
+url = "/docs/"
 
 [security.exec]
 # allow = [".*"]
@@ -100,6 +96,9 @@ extended = true
 min = "0.160.1"
 
 [module]
+[[module.mounts]]
+source = "assets"
+target = "assets"
 [[module.mounts]]
 source = "themes/github.com/twbs/bootstrap/scss"
 target = "assets/vendor/bootstrap/scss"

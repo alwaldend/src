@@ -1,0 +1,9 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+
+package(default_visibility = ["//visibility:public"])
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//third_party:__pkg__"],
+)

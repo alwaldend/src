@@ -1,0 +1,10 @@
+[Unit]
+Description=Renew Xen Orchestra's Vault ACME certificate
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+Environment=REQUESTS_CA_BUNDLE={{ xoa_acme_dir }}/ca.crt
+ExecStart=/usr/bin/certbot renew --config {{ xoa_acme_dir }}/client.ini --quiet
+ExecStopPost=/usr/bin/systemctl start xo-server.service

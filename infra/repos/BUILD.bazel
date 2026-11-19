@@ -1,0 +1,30 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+
+package_group(
+    name = "consumers",
+    packages = [
+        "//infra/forgejo/tf",
+        "//infra/github/tf",
+        "//infra/gitlab/tf",
+        "//infra/repos/...",
+    ],
+)
+
+filegroup(
+    name = "config",
+    srcs = ["config.json"] + glob([
+        "orgs/*/org.json",
+        "orgs/*/repos/*.json",
+    ]),
+    visibility = [":consumers"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//infra:__pkg__"],
+    deps = subpackages(
+        include = ["*"],
+        allow_empty = True,
+    ),
+)

@@ -62,12 +62,12 @@ func (self *Templater) Template(ctx context.Context, tpl string, data []*Resourc
 		},
 	).Option("missingkey=error").Parse(tpl)
 	if err != nil {
-		return fp.Left[string](fmt.Errorf("could not parse template '%s': %w", tpl, err))
+		return fp.Left[string](fmt.Errorf("could not parse template (details redacted)"))
 	}
 	var buff bytes.Buffer
 	err = tmpl.Execute(&buff, tmplCtx)
 	if err != nil {
-		return fp.Left[string](fmt.Errorf("could not execute template '%s': %w", tpl, err))
+		return fp.Left[string](fmt.Errorf("could not execute template (details redacted)"))
 	}
 	return fp.Right(buff.String())
 }

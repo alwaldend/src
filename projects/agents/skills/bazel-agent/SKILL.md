@@ -71,34 +71,19 @@ Cached tools are optional; the baseline works with older installed runners:
 bazel_agent bazel run //tools/repo_delivery -- provider
 ```
 
-Before first using the cache path, establish whether this installed runner
-supports it. Reuse a known result while the runner binary is unchanged;
-otherwise inspect `bazel_agent tool --help` once. If `tool` is unsupported,
-retain that observation and use the baseline target without updating the host.
-Do not retry unsupported commands, assume checked-in code is already installed,
-or fall back after a tool's safety refusal or execution failure; diagnose those
-failures at their source. A runner update requires existing task authority to
-change the agent environment.
-
-When supported, use the content-addressed path for registered, frequently used
-repository control tools:
+Use `al tool` for registered, frequently used repository control tools:
 
 ```sh
-bazel_agent tool run repo_delivery -- provider
-bazel_agent tool warm mcp_cordis repo_delivery
+al tool repo_delivery -- provider
 ```
 
-`tool run` hashes the registered source, locks one exact cache key, and builds
-and atomically installs the executable on a miss. A hit execs the cached tool
-without starting Bazel or loading the current worktree's configured graph.
-The key includes the transitive imports of workspace, user, host, and
-`BAZELRC` environment rc files.
-Use `tool warm` for optional background or provisioning work; do not replace it
-with a broad Bazel query. Tool arguments belong after `--`.
+`al tool` hashes the declared source, locks one exact cache key, and builds and
+atomically installs the executable on a miss. A hit executes the cached tool
+without starting Bazel or loading the current worktree's configured graph. Tool
+arguments belong after `--`.
 
-The managed cache defaults to `/var/cache/bazel/tool_cache` when present and
-falls back to the user's cache directory. Override it only with
-`BAZEL_AGENT_TOOL_CACHE` or `--cache-root` for an isolated test. An executable
+The managed cache defaults to `$XDG_CACHE_HOME/al/tools`. Override it only with
+`AL_TOOL_CACHE` or `--cache-root` for an isolated test. An executable
 cache must not be writable by group or others. A cache miss still uses the
 normal agent Bazel profile and may be slow once; diagnose that build rather
 than bypassing the runner or reusing a differently keyed artifact.
@@ -122,6 +107,13 @@ directory is on `PATH`. Installing changes host state, so do it only when the
 task authorizes installation or updating the agent environment.
 
 ## Diagnose failures without bypassing the runner
+
+Allow a cold tool build enough time for analysis as well as execution; use
+observed build duration to choose a bounded deadline, not a short generic
+command timeout. Poll at intervals that permit useful output and user updates.
+Separate commands using the same Bazel server share its lock: complete ready
+CLI work before starting a long build, and wait for that build before issuing
+dependent commands. Do not queue another invocation merely to check progress.
 
 - If `bazel_agent` is missing, install it rather than duplicating its flags in
   later commands.

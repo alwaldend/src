@@ -26,7 +26,7 @@ func providerForRepository(repository remoteRepository) (string, bool) {
 	switch strings.ToLower(repository.Host) {
 	case "github.com":
 		return "github", true
-	case "codeberg.org", "forgejo.alwaldend.com":
+	case "codeberg.org", "forgejo.alwaldend.com", "git.alwaldend.com":
 		return "forgejo", false
 	default:
 		return "unknown", false

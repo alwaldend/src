@@ -14,3 +14,27 @@ infra.ansible_keys({
         ttl = 60 * 60 * 2,
     },
 })
+
+lib.plugin_call({
+    name = "openhands",
+    plugin = "injector",
+    labels = { ansible = "1" },
+    data = {
+        res = {
+            {
+                name = "openhands",
+                kv = {
+                    path = "alwaldend.com/vault1/approles/user_simeonwarren/openhands",
+                    mount = "secrets",
+                },
+            },
+            {
+                name = "OPENHANDS_SERVER_SECRET_KEY",
+                deps = { "openhands" },
+                env = {
+                    value = "{{ .Last.Data.secret_key }}",
+                },
+            },
+        },
+    },
+})

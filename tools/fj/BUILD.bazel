@@ -8,7 +8,7 @@ al_binary_run_map(
     args = {
         "": [_BIN],
     },
-    configs = ["//:al"],
+    configs = ["//tools/al:config"],
     data = [
         "//third_party/org_codeberg_forgejo_contrib_forgejo_cli_bin",
         "//tools/vault/forgejo_login",

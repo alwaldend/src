@@ -3,4 +3,6 @@ bzl/registry/modules/rules_haskell/1.0-patched/MODULE.bazel
 ^drawio/diagrams/arch-idea-anki-chinese-flashcards-enricher\.svg$
 ^drawio/diagrams/arch-interview-yandex-sre\.svg$
 ^projects/mcp_cordis/goals/runtime_extensions/evidence\.md$
+^openspec/changes/archive/2026-09-08-runtime-extensions/provenance/source/evidence\.md$
+^projects/mcp_cordis/openspec/changes/archive/2026-09-08-runtime-extensions/provenance/source/evidence\.md$
 ^tools/repo_delivery/cmd/repo_delivery/runner_test\.go$

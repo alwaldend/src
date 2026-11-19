@@ -1,0 +1,106 @@
+- name: Inspect Xen Orchestra appliance deployment prerequisites
+  hosts: xoa
+  become: true
+  gather_facts: false
+  tasks:
+    - name: Inspect Certbot version, renewal threshold, and timer state
+      tags: [renewal_status]
+      ansible.builtin.command:
+        argv:
+          - python3
+          - -c
+          - |
+            import json, pathlib, re, subprocess
+            path = pathlib.Path('/etc/xo-acme/renewal/xoa.conf')
+            match = re.search(r'^renew_before_expiry\s*=\s*(.+)$', path.read_text(), re.MULTILINE)
+            print(json.dumps({
+                'certbot_version': subprocess.check_output(['/usr/bin/certbot', '--version'], text=True).strip(),
+                'renew_before_expiry': match.group(1) if match else None,
+                'timer': subprocess.check_output(['systemctl', 'show', 'xo-acme-renew.timer', '-p', 'ActiveState', '-p', 'UnitFileState'], text=True).splitlines(),
+            }))
+      changed_when: false
+      register: xoa_renewal_status
+    - name: Report Certbot renewal status
+      tags: [renewal_status]
+      ansible.builtin.debug:
+        var: xoa_renewal_status.stdout
+    - name: Wait for appliance SSH readiness
+      ansible.builtin.wait_for_connection:
+        timeout: 60
+        connect_timeout: 5
+    - name: Gather appliance facts
+      ansible.builtin.setup:
+    - name: Inspect management service identity and paths
+      ansible.builtin.command:
+        argv:
+          [
+            systemctl,
+            show,
+            xo-server,
+            -p,
+            User,
+            -p,
+            ExecStart,
+            -p,
+            WorkingDirectory,
+          ]
+      changed_when: false
+      register: xoa_service
+    - name: Report service identity and paths
+      ansible.builtin.debug:
+        var: xoa_service.stdout_lines
+    - name: Find appliance configuration files
+      ansible.builtin.find:
+        paths: /etc/xo-server
+        patterns: "*.toml"
+      register: xoa_config_files
+    - name: Inspect only TLS and plugin configuration
+      ansible.builtin.command:
+        argv:
+          - python3
+          - -c
+          - |
+            import json, pathlib, tomllib
+            root = pathlib.Path('/etc/xo-server')
+            for path in sorted(root.glob('*.toml')):
+                with path.open('rb') as f:
+                    config = tomllib.load(f)
+                print(json.dumps({'path': str(path), 'http': [
+                    {key: listener.get(key) for key in ('port', 'cert', 'key', 'autoCert')}
+                    for listener in config.get('http', {}).get('listen', [])
+                ], 'plugins': {'lookupPaths': config.get('plugins', {}).get('lookupPaths')}}))
+      changed_when: false
+      register: xoa_settings
+    - name: Report TLS and plugin configuration
+      ansible.builtin.debug:
+        var: xoa_settings.stdout_lines
+    - name: Locate the appliance Node executable
+      ansible.builtin.command:
+        argv: [python3, -c, "import shutil; print(shutil.which('node'))"]
+      changed_when: false
+      register: xoa_node
+    - name: Report the appliance Node executable
+      ansible.builtin.debug:
+        var: xoa_node.stdout
+    - name: Inspect ACME verification and plugin archive prerequisites
+      ansible.builtin.command:
+        argv:
+          - python3
+          - -c
+          - |
+            import json, shutil, urllib.request, ssl, pathlib
+            print(json.dumps({'tar': shutil.which('tar'), 'unzip': shutil.which('unzip')}))
+            for name in ['passport-openidconnect', 'oauth', 'passport-strategy']:
+                path = pathlib.Path('/usr/local/lib/node_modules/xo-server-auth-oidc/node_modules') / name / 'package.json'
+                print(json.dumps({'dependency': name, 'installed': path.exists()}))
+            ctx = ssl.create_default_context(cafile='/etc/xo-acme/ca.crt')
+            try:
+                with urllib.request.urlopen('https://xoa.xcp-ng.alwaldend.com/', context=ctx, timeout=8) as response:
+                    print(json.dumps({'https_status': response.status}))
+            except Exception as error:
+                print(json.dumps({'https_error': type(error).__name__, 'detail': str(error)}))
+      changed_when: false
+      register: xoa_deployment_diagnostics
+    - name: Report deployment prerequisite results
+      ansible.builtin.debug:
+        var: xoa_deployment_diagnostics.stdout_lines

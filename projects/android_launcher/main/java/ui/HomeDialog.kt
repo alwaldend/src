@@ -150,10 +150,16 @@ private fun HomeDialogHeader(
     onDismissRequest: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-  val icon = remember {
-    val array = app.icon.toByteArray()
-    BitmapFactory.decodeByteArray(array, 0, array.size).asImageBitmap()
-  }
+  val iconBytes = app.icon
+  val icon =
+      remember(iconBytes) {
+        if (iconBytes.isEmpty) {
+          null
+        } else {
+          val array = iconBytes.toByteArray()
+          BitmapFactory.decodeByteArray(array, 0, array.size)?.asImageBitmap()
+        }
+      }
   Row(
       modifier = modifier.fillMaxWidth(),
       horizontalArrangement = Arrangement.SpaceBetween,
@@ -164,13 +170,15 @@ private fun HomeDialogHeader(
                   Modifier.fillMaxWidth().padding(0.dp, dimensionResource(R.dimen.padding_medium)),
               horizontalAlignment = Alignment.CenterHorizontally,
               verticalArrangement = Arrangement.Center) {
-                Image(
-                    modifier =
-                        Modifier.padding(dimensionResource(R.dimen.padding_small))
-                            .size(dimensionResource(R.dimen.image_size)),
-                    bitmap = icon,
-                    contentDescription = "App icon",
-                )
+                if (icon != null) {
+                  Image(
+                      modifier =
+                          Modifier.padding(dimensionResource(R.dimen.padding_small))
+                              .size(dimensionResource(R.dimen.image_size)),
+                      bitmap = icon,
+                      contentDescription = "App icon",
+                  )
+                }
                 Text(
                     text = app.label,
                     modifier = Modifier.padding(dimensionResource(R.dimen.padding_small)),

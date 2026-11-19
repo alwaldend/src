@@ -14,15 +14,14 @@ without replacing their authorities.
 
 - [Agent policy](AGENTS.md) is the repository-wide operating contract. A
   nearer `AGENTS.md` takes precedence within its subtree.
-- [Agent-system current state](projects/agents/docs/current-state.md) records
-  the evidence-backed baseline.
-- [Agent-system architecture](projects/agents/docs/architecture.md) defines
-  how intent, policy, capabilities, work, execution, evidence, delivery, and
-  learning compose.
-- [Agent-system roadmap](projects/agents/docs/roadmap.md) distinguishes
-  proposed work from current guarantees.
-- [Durable agent-system goals](projects/agents/goals/README.md) retain
-  versioned attempts, acceptance state, and evidence provenance.
+- [Repository skills](projects/agents/README.md) are the reusable agent
+  procedures, discovered through `.agents/skills/` from their canonical
+  project-owned directories.
+- [Repository evolution](infra/src/openspec/README.md) describes changes to the monorepo
+  itself. Each project and infrastructure component owns its specifications
+  and maintained changes in its local `openspec/` directory. The
+  [goal migration](infra/src/openspec/migration.md) preserves prior acceptance
+  state and evidence provenance; the legacy goal tool has since been removed.
 - [Repository setup](https://alwaldend.com/docs/misc/repo/) explains the human
   development environment.
 
@@ -44,12 +43,40 @@ request -> owner and policy -> capability -> work -> execution
   inputs.
 - [`users/`](users/README.md): user-owned code and infrastructure.
 - [`projects/agents/`](projects/agents/README.md): repository-wide agent
-  architecture, goals, skills, and evaluation assets.
+  architecture, skills, and evaluation assets.
+- [`infra/src/`](infra/src/README.md): specifications and changes for evolution
+  of the repository itself.
 
 Each linked tree README is authoritative for that tree. Bazel `BUILD` and
 `MODULE.bazel` files remain authoritative for executable and dependency
 structure; generated maps and catalogs are projections, not new sources of
 truth.
+
+## Bazel package loading
+
+The root `MODULE.bazel` is generated with `bazel run //tools/bazel_module:update`.
+Maintain dependency pins in their owning `include.MODULE.bazel` files; the
+generator discovers them and the repository quality suite checks freshness.
+See [root module generation](tools/bazel_module/README.md) for discovery and
+ordering boundaries.
+
+The root `BUILD.bazel` contains source exports, compatibility aliases, test
+suites, and repository-wide Gazelle directives. Tool implementations live in
+their owning packages so loading a root configuration file does not evaluate
+unrelated language dependency generators.
+`//tools/repo_quality/test/root_build:root_build_test`, included in
+`//:repo_quality_test`, enforces the absence of `load()` statements.
+
+Existing commands such as `//:gazelle`, `//:buildifier`, `//:requirements.update`,
+`//:vault`, and `//:tf.plan` remain available. Shared AL configuration is owned
+by `//tools/al:config`; repository documentation is assembled by
+`//projects/alwaldend.com:repo_docs`.
+
+Reusable Terraform rules and provider installation belong to
+[`tools/rules_terraform`](tools/rules_terraform/README.md). Repository command
+wrappers select generic AL authentication and backend injection in their BUILD
+files. Shared provider pins belong to
+[`third_party/terraform`](third_party/terraform/README.md).
 
 ## External links
 

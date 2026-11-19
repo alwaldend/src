@@ -88,7 +88,8 @@ class LauncherStateRepository(private val dataStore: DataStore<Model.State>) {
 
   private suspend fun updateApp(packageName: String, action: Model.App.Builder.() -> Unit) {
     update {
-      val newApp = apps.getAppsOrThrow(packageName).toBuilder().apply(action).build()
+      val existingApp = apps.appsMap[packageName] ?: Model.App.getDefaultInstance()
+      val newApp = existingApp.toBuilder().apply(action).build()
       setApps(apps.toBuilder().putApps(packageName, newApp))
     }
   }

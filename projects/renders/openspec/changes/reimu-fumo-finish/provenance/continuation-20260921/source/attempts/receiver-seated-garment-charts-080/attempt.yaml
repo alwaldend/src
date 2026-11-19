@@ -1,0 +1,67 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: receiver-seated-garment-charts-080
+  resourceVersion: "5"
+  generation: 5
+  creationTimestamp: "2026-09-05T22:26:01.490604381Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 16
+  criteriaRevision: 4
+  criteriaDigest: sha256:f5fe4b5c4efc12d5b82ad42cf0d41fd7274f48b421abf42e9db1ce5ae316d8a3
+  goalStateDigest: sha256:d3dd99930bf18292653455d315de740e68d0a10d03186a30fad1ab2e06501ad6
+  workType: change
+  subject: 7914792f9f94094c4728731677fcaf6336b34a2505400708985f89034ec875c8
+  nextAction: Use controllingfront cuffheight to correct080longwings; preserve successful actualarm/root-chord construction.
+status:
+  state: closed
+  closedAt: "2026-09-05T22:40:01.453789031Z"
+  artifacts:
+    planDigest: sha256:64da048445e382889afaecddc82e4c35f8612678260aed9f9ca5e34bea3eb07b
+    resultDigest: sha256:35c6dd253d4c5ae3024d8f3d3875c9d7c66a159626c74afc655e4cd5a0b2bf7c
+    evidence:
+    - path: evidence/process_080_review.md
+      digest: sha256:d9b7733247f5c100c957e40c3a8036c33480f832d617ced39b0e18e711ac9c59
+    - path: evidence/sleeve_080_contact_diagnostic.md
+      digest: sha256:a2cb867fc081b31de3d3bc195e81d02d08e3928a71f473ad75075fcb2dc06050
+  review:
+    decision: reset
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 3
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-002
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-004
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-005
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-006
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-007
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-09-05T22:40:01.453789031Z"

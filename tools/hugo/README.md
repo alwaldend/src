@@ -9,4 +9,4 @@ tags:
 ---
 
 Hugo binary toolchain for the repository. Build rules live in
-[`rules_hugo`](../../projects/rules_hugo).
+[`rules_hugo`](../rules_hugo).

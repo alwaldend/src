@@ -181,6 +181,190 @@ func TestStatusReportsBothSidesOfStagedRename(t *testing.T) {
 	}
 }
 
+func TestStatusSupportsLargeMigrationExactPathInventory(t *testing.T) {
+	ctx := context.Background()
+	directory := t.TempDir()
+	runTestGit(t, directory, "init", "--initial-branch=master")
+	configureTestRepository(t, directory)
+	if err := os.Mkdir(filepath.Join(directory, "source"), 0o700); err != nil {
+		t.Fatal(err)
+	}
+	want := map[string]bool{}
+	for index := 0; index < 256; index++ {
+		name := fmt.Sprintf("%04d-%s.md", index, strings.Repeat("x", 64))
+		writeTestFile(t, filepath.Join(directory, "source", name), "history\n")
+		want["source/"+name] = true
+		want["destination/"+name] = true
+	}
+	runTestGit(t, directory, "add", "source")
+	runTestGit(t, directory, "commit", "-m", "base")
+	if err := os.Rename(filepath.Join(directory, "source"), filepath.Join(directory, "destination")); err != nil {
+		t.Fatal(err)
+	}
+	runTestGit(t, directory, "add", "--", "source", "destination")
+	output := runTestGit(t, directory,
+		"status", "--porcelain=v2", "-z", "--untracked-files=all",
+		"--ignore-submodules=none", "--no-renames",
+	)
+	if len(output) <= commandOutputLimit || len(output) >= gitStatusOutputLimit {
+		t.Fatalf("status fixture = %d bytes, want above %d and below %d",
+			len(output), commandOutputLimit, gitStatusOutputLimit)
+	}
+	repository := &gitRepository{
+		directory:  directory,
+		executable: "git",
+		runner:     &execRunner{},
+	}
+	status, err := repository.status(ctx)
+	if err != nil {
+		t.Fatalf("status() error = %v", err)
+	}
+	if len(status.Staged) != len(want) || len(status.Unstaged) != 0 || len(status.Untracked) != 0 {
+		t.Fatalf("status path counts = %d staged, %d unstaged, %d untracked; want %d staged only",
+			len(status.Staged), len(status.Unstaged), len(status.Untracked), len(want))
+	}
+	for _, path := range status.Staged {
+		if !want[path] {
+			t.Fatalf("unexpected staged path %q", path)
+		}
+		delete(want, path)
+	}
+	if len(want) != 0 {
+		t.Fatalf("status omitted %d migration paths", len(want))
+	}
+}
+
+func TestStatusRefusesOperationCeilingOverflow(t *testing.T) {
+	runner := &statusOverflowRunner{}
+	repository := &gitRepository{
+		directory:  t.TempDir(),
+		executable: "git",
+		runner:     runner,
+	}
+	status, err := repository.status(context.Background())
+	if err == nil || !strings.Contains(err.Error(), "refusing truncated data") {
+		t.Fatalf("status() error = %v, want bounded-output refusal", err)
+	}
+	if !status.clean() || runner.calls != 1 {
+		t.Fatalf("overflow returned partial status or retried: status %+v, calls %d", status, runner.calls)
+	}
+}
+
+func TestChangedPathsSupportsLargeMigrationExactPathInventory(t *testing.T) {
+	ctx := context.Background()
+	directory := t.TempDir()
+	runTestGit(t, directory, "init", "--initial-branch=master")
+	configureTestRepository(t, directory)
+	if err := os.Mkdir(filepath.Join(directory, "source"), 0o700); err != nil {
+		t.Fatal(err)
+	}
+	want := map[string]bool{}
+	for index := 0; index < 512; index++ {
+		name := fmt.Sprintf("%04d-%s.md", index, strings.Repeat("x", 64))
+		writeTestFile(t, filepath.Join(directory, "source", name), "history\n")
+		want["source/"+name] = true
+		want["destination/"+name] = true
+	}
+	runTestGit(t, directory, "add", "source")
+	runTestGit(t, directory, "commit", "-m", "base")
+	baseOID := runTestGit(t, directory, "rev-parse", "HEAD")
+	if err := os.Rename(filepath.Join(directory, "source"), filepath.Join(directory, "destination")); err != nil {
+		t.Fatal(err)
+	}
+	runTestGit(t, directory, "add", "--", "source", "destination")
+	treeOID := runTestGit(t, directory, "write-tree")
+	output := runTestGit(t, directory,
+		"diff", "--no-ext-diff", "--no-textconv", "--ignore-submodules=none",
+		"--no-renames", "--name-only", "-z", baseOID, treeOID, "--",
+	)
+	if len(output) <= commandOutputLimit || len(output) >= gitChangedPathsOutputLimit {
+		t.Fatalf("aggregate path fixture = %d bytes, want above %d and below %d",
+			len(output), commandOutputLimit, gitChangedPathsOutputLimit)
+	}
+	repository := &gitRepository{
+		directory:  directory,
+		executable: "git",
+		runner:     &execRunner{},
+	}
+	paths, err := repository.changedPaths(ctx, baseOID, treeOID)
+	if err != nil {
+		t.Fatalf("changedPaths() error = %v", err)
+	}
+	if len(paths) != len(want) {
+		t.Fatalf("aggregate path count = %d, want %d", len(paths), len(want))
+	}
+	for index, path := range paths {
+		if !want[path] {
+			t.Fatalf("unexpected aggregate path %q", path)
+		}
+		if index > 0 && paths[index-1] >= path {
+			t.Fatalf("aggregate paths are not strictly sorted at %q", path)
+		}
+		delete(want, path)
+	}
+	if len(want) != 0 {
+		t.Fatalf("aggregate diff omitted %d migration paths", len(want))
+	}
+}
+
+func TestChangedPathsRefusesOperationCeilingOverflow(t *testing.T) {
+	runner := &changedPathsOverflowRunner{}
+	repository := &gitRepository{
+		directory:  t.TempDir(),
+		executable: "git",
+		runner:     runner,
+	}
+	paths, err := repository.changedPaths(
+		context.Background(), strings.Repeat("a", 40), strings.Repeat("b", 40),
+	)
+	if err == nil || !strings.Contains(err.Error(), "refusing truncated data") {
+		t.Fatalf("changedPaths() error = %v, want bounded-output refusal", err)
+	}
+	if len(paths) != 0 || runner.calls != 1 {
+		t.Fatalf("overflow returned partial paths or retried: paths %q, calls %d", paths, runner.calls)
+	}
+}
+
+type changedPathsOverflowRunner struct {
+	calls int
+}
+
+func (r *changedPathsOverflowRunner) Run(_ context.Context, request command) (commandResult, error) {
+	r.calls++
+	if request.OutputLimit != gitChangedPathsOutputLimit {
+		return commandResult{}, fmt.Errorf("aggregate path output limit = %d, want %d", request.OutputLimit, gitChangedPathsOutputLimit)
+	}
+	result := commandResult{
+		Stdout:    "partial-path\x00",
+		Truncated: true,
+	}
+	return result, &commandError{
+		Command: command{Name: "git", OutputLimit: request.OutputLimit},
+		Result:  result,
+		Err:     fmt.Errorf("command output exceeded safety limit"),
+	}
+}
+
+type statusOverflowRunner struct {
+	calls int
+}
+
+func (r *statusOverflowRunner) Run(_ context.Context, request command) (commandResult, error) {
+	r.calls++
+	if request.OutputLimit != gitStatusOutputLimit {
+		return commandResult{}, fmt.Errorf("status output limit = %d, want %d", request.OutputLimit, gitStatusOutputLimit)
+	}
+	result := commandResult{
+		Stdout:    "? partial-path\x00",
+		Truncated: true,
+	}
+	return result, &commandError{
+		Command: command{Name: "git", OutputLimit: request.OutputLimit},
+		Result:  result,
+		Err:     fmt.Errorf("command output exceeded safety limit"),
+	}
+}
+
 func TestRequireDefaultIndexFlagsRejectsStatusHidingEntries(t *testing.T) {
 	for _, test := range []struct {
 		name string

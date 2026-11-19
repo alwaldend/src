@@ -1,0 +1,98 @@
+- name: Configure Vault ACME certificates for XCP-ng hosts
+  hosts: xcpng
+  gather_facts: false
+  vars:
+    xcpng_lego_lock: "{{ lookup('ansible.builtin.file', 'files/lego-lock.json') | from_json }}"
+    xcpng_acme_config:
+      domains: "{{ xcpng_acme_domains }}"
+      server: "{{ xoa_acme_url }}"
+      webroot: "{{ xcpng_acme_webroot }}"
+      lego_download: "{{ xcpng_lego_lock.archives[0].actions[0].download_and_extract }}"
+      ca_certificate: "{{ lookup('ansible.builtin.file', 'files/root_ca.crt') }}"
+      service_unit: "{{ lookup('ansible.builtin.template', 'templates/xcp-ng-acme-renew.service.j2') }}"
+      timer_unit: "{{ lookup('ansible.builtin.template', 'templates/xcp-ng-acme-renew.timer.j2') }}"
+  tasks:
+    - name: Require the inspected XCP-ng runtime and challenge webroot
+      ansible.builtin.assert:
+        that:
+          - ansible_user == 'root'
+          - xcpng_acme_webroot_verified | bool
+          - xcpng_acme_webroot == '/opt/xensource/www'
+          - xcpng_acme_domains | length > 0
+          - lookup('ansible.builtin.env', 'TMPDIR') is match('^/')
+        fail_msg: Inspect Python 3.6+, the XAPI webroot and HTTP challenge reachability; provide task-private controller TMPDIR before deployment.
+    - name: Install the pinned ACME client and declared renewal configuration
+      tags: [bootstrap]
+      ansible.builtin.script:
+        cmd: "files/host_acme.py install {{ xcpng_acme_config | to_json | quote }}"
+        executable: /usr/bin/python3
+      register: xcpng_acme_install
+      changed_when: (xcpng_acme_install.stdout | trim | from_json).changed
+    - name: Register the ACME account and issue the first certificate
+      when: not (xcpng_acme_install.stdout | trim | from_json).account_exists
+      block:
+        - name: Create a task-private registration directory on the controller
+          delegate_to: localhost
+          ansible.builtin.tempfile:
+            state: directory
+            path: "{{ lookup('ansible.builtin.env', 'TMPDIR') }}"
+            prefix: xcpng-acme-
+          register: xcpng_registration_dir
+          no_log: true
+        - name: Create a role-scoped external account binding
+          delegate_to: localhost
+          ansible.builtin.command:
+            argv:
+              - "{{ playbook_dir }}/files/vault"
+              - write
+              - -format=json
+              - --force
+              - "{{ xoa_acme_path }}/new-eab"
+          register: xcpng_eab
+          changed_when: true
+          no_log: true
+        - name: Render temporary registration credentials on the controller
+          delegate_to: localhost
+          ansible.builtin.template:
+            src: templates/host_acme_register.py.j2
+            dest: "{{ xcpng_registration_dir.path }}/register.py"
+            mode: "0600"
+          no_log: true
+        - name: Register and install the initial certificate through Ansible
+          ansible.builtin.script:
+            cmd: "{{ xcpng_registration_dir.path }}/register.py"
+            executable: /usr/bin/python3
+          changed_when: true
+          no_log: true
+          register: xcpng_registration_result
+          ignore_unreachable: true
+        - name: Require successful ACME registration and certificate installation
+          ansible.builtin.assert:
+            that:
+              - not (xcpng_registration_result.unreachable | default(false))
+              - xcpng_registration_result.stdout_lines is defined
+              - (xcpng_registration_result.stdout_lines[-1] | from_json).success
+            fail_msg: Host ACME registration failed; inspect the root-private error receipt before another attempt.
+      always:
+        - name: Remove the controller registration credentials
+          delegate_to: localhost
+          ansible.builtin.file:
+            path: "{{ xcpng_registration_dir.path }}"
+            state: absent
+          when: xcpng_registration_dir is defined and xcpng_registration_dir.path is defined
+          no_log: true
+    - name: Reconcile an existing certificate and retry any pending installation
+      ansible.builtin.raw: /usr/bin/python3 /etc/xcp-ng-acme/host_acme.py renew-result
+      when: (xcpng_acme_install.stdout | trim | from_json).account_exists
+      register: xcpng_acme_renew
+      changed_when: (xcpng_acme_renew.stdout_lines[-1] | from_json).changed
+    - name: Require successful certificate reconciliation
+      ansible.builtin.assert:
+        that:
+          - (xcpng_acme_renew.stdout_lines[-1] | from_json).success
+        fail_msg: Host ACME reconciliation failed; inspect the root-private error receipt before another attempt.
+      when: (xcpng_acme_install.stdout | trim | from_json).account_exists
+    - name: Verify HTTPS for both names and enable periodic renewal
+      ansible.builtin.raw: /usr/bin/python3 /etc/xcp-ng-acme/host_acme.py verify
+      register: xcpng_acme_verify
+      changed_when: (xcpng_acme_verify.stdout_lines[-1] | from_json).changed

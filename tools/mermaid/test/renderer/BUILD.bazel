@@ -1,5 +1,25 @@
-load("@rules_shell//shell:sh_test.bzl", "sh_test")
+load("@rules_go//go:def.bzl", "go_test")
 load("//tools/mermaid:defs.bzl", "mermaid_svg")
+
+# The nested-container source is shared with the mmdc test, which asserts that
+# an interactive render applies the same paint order as a build action.
+filegroup(
+    name = "nested_clusters_mmd",
+    srcs = ["nested_clusters.mmd"],
+    visibility = ["//tools/mermaid:__subpackages__"],
+)
+
+mermaid_svg(
+    name = "edge_labels_svg",
+    src = "edge_labels.mmd",
+    out = "edge_labels.svg",
+)
+
+mermaid_svg(
+    name = "nested_clusters_svg",
+    src = "nested_clusters.mmd",
+    out = "nested_clusters.svg",
+)
 
 mermaid_svg(
     name = "smoke_svg",
@@ -7,10 +27,35 @@ mermaid_svg(
     out = "smoke.svg",
 )
 
-sh_test(
+# Mermaid's own defaults, for checking that the plain opt-out really bypasses
+# the repository appearance.
+mermaid_svg(
+    name = "smoke_plain_svg",
+    src = "smoke.mmd",
+    out = "smoke_plain.svg",
+    plain = True,
+)
+
+go_test(
     name = "renderer_test",
     size = "medium",
-    srcs = ["renderer_test.sh"],
-    args = ["$(rootpath :smoke_svg)"],
-    data = [":smoke_svg"],
+    srcs = ["renderer_test.go"],
+    args = [
+        "-smoke=$(rlocationpath :smoke_svg)",
+        "-edges=$(rlocationpath :edge_labels_svg)",
+        "-nested=$(rlocationpath :nested_clusters_svg)",
+        "-theme=$(rlocationpath //tools/mermaid:theme.json)",
+        "-plain=$(rlocationpath :smoke_plain_svg)",
+    ],
+    data = [
+        ":edge_labels_svg",
+        ":nested_clusters_svg",
+        ":smoke_plain_svg",
+        ":smoke_svg",
+        "//tools/mermaid:theme.json",
+    ],
+    deps = [
+        "//tools/mermaid/test/svgdoc",
+        "@rules_go//go/runfiles",
+    ],
 )

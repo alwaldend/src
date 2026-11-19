@@ -209,7 +209,7 @@ format_multirun(
         "-lint=fix",
         "-mode=fix",
     ],
-    terraform = "//tools/terraform",
+    terraform = "@rules_terraform//terraform:cli",
     toml = ":taplo",
     visibility = [
         "//:__pkg__",
@@ -253,7 +253,7 @@ format_test(
         "-mode=check",
         "-warnings=-bzl-visibility,-function-docstring-args,-function-docstring-header,-module-docstring,-name-conventions,-no-effect,-print,-unnamed-macro,-unsorted-dict-items,-unused-variable",
     ],
-    terraform = "//tools/terraform",
+    terraform = "@rules_terraform//terraform:cli",
     toml = ":taplo",
     visibility = [
         "//:__pkg__",
@@ -303,6 +303,9 @@ test_suite(
         ":lua_quality_test",
         ":qt_xml_quality_test",
         ":repo_format_test",
+        "//tools/bazel_module/cmd/update:freshness_test",
+        "//tools/go_mod/cmd/go_mod:test",
+        "//tools/repo_quality/test/root_build:root_build_test",
     ],
 )
 

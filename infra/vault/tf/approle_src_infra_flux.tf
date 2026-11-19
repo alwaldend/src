@@ -6,6 +6,7 @@ module "src_infra_flux_approle" {
   ]
   secrets = vault_mount.secrets.path
   policies = [
+    module.dns_access["src_infra_flux"].policy_name,
     module.src_infra_flux_ssh.policy,
   ]
   backend          = vault_auth_backend.approle.path

@@ -1,0 +1,4 @@
+interface:
+  display_name: "OpenSpec"
+  short_description: "Maintain specs, change tasks, and resumable work"
+  default_prompt: "Use $openspec to maintain the specification and change tasks for this work."

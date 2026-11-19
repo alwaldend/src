@@ -1,3 +1,5 @@
 ---
 - name: Configure development packages
   ansible.builtin.import_tasks: packages.yml
+- name: Configure SELinux
+  ansible.builtin.import_tasks: selinux.yml

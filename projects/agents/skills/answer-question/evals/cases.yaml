@@ -205,6 +205,87 @@
         states the simplifying assumptions. Do not require particular wording
         or headings. Otherwise fail with score 0.
 
+- description: Separates project ownership from provider delegation
+  metadata:
+    id: ownership-boundaries
+  vars:
+    request: >-
+      We need teams to work on different DNS subdomains in separate projects.
+      Everyone is trusted with the same provider credentials; permission
+      isolation and separate authoritative zones are not requirements. The
+      current provider supports Terraform resources that manage only their
+      individual records. Our current single reconciler deletes undeclared
+      records unless explicitly ignored. Its documented ignores can exclude
+      each transferred subdomain apex and all descendants. Does parallel work
+      mean we must move providers or buy a plan allowing child zones? Use only
+      these supplied capabilities.
+  assert:
+    - type: llm-rubric
+      metric: ownership-boundaries
+      threshold: 1
+      value: >-
+        Pass with score 1 only if the response says provider migration or
+        child-zone support is not required for the stated need; distinguishes
+        source organization, reconciliation or Terraform state ownership,
+        credential permission isolation, and authoritative delegation; and
+        identifies per-project Terraform record ownership on the existing
+        provider as a viable option with coordinated exclusions from the
+        deleting reconciler. Merely splitting files without addressing record
+        ownership fails. Do not require particular wording or headings.
+        Otherwise fail with score 0.
+
+- description: Rejects an unverified inverse ignore boundary
+  metadata:
+    id: inverse-ignore-boundary
+  vars:
+    request: >-
+      Two copies of our fictional record reconciler will share a zone. Each
+      deletes all undeclared records unless they match an ignore pattern.
+      The pinned manual completely defines patterns as literal names, `*`,
+      and `?`; all other characters are literal, and matches across patterns
+      are combined by OR. Can the child copy ignore `*` and then use
+      `!*.team.example` to reclaim its subtree? Please assess this proposal
+      from the supplied manual without looking up a different tool.
+  assert:
+    - type: llm-rubric
+      metric: inverse-ignore-boundary
+      threshold: 1
+      value: >-
+        Pass with score 1 only if the response rejects the proposed inverse
+        ignore based on literal exclamation marks and OR combination; explains
+        that the catch-all still ignores the child subtree; and requires a
+        supported complementary ownership mechanism covering both writers'
+        deletion behavior before endorsing this split. It must not recommend
+        removing the catch-all alone as safe, invent supported negation, or
+        claim to have tested the tool. Otherwise fail with score 0.
+
+- description: Distinguishes interactive token creation from federation
+  metadata:
+    id: authentication-paths
+  vars:
+    request: >-
+      A fictional provider lets me log into its dashboard through SSO and
+      manually create an API token with a one-hour expiry. Terraform accepts
+      that token. Its token-creation API requires an existing management API
+      token, and it offers no workload federation or token exchange. My
+      internal identity service is not reachable by that provider. Can I log
+      in and create a short-lived Terraform token? Would that also let CI
+      obtain new tokens unattended without any stored provider credential?
+      Use these supplied facts only.
+  assert:
+    - type: llm-rubric
+      metric: authentication-paths
+      threshold: 1
+      value: >-
+        Pass with score 1 only if the response answers yes to the stated
+        manual dashboard flow and no to the stated unattended credential-free
+        CI flow; distinguishes dashboard SSO, manual expiring token creation,
+        API issuance requiring a management token, and absent federation or
+        exchange; and does not treat private identity-service reachability as
+        defeating the explicitly supported interactive flow. It must not
+        imply that short expiry eliminates the prerequisite credential for
+        automated issuance. Otherwise fail with score 0.
+
 - description: Answers a simple stable question without needless skepticism
   metadata:
     id: simple-stable

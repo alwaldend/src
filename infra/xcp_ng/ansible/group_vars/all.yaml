@@ -1,0 +1,2 @@
+xoa_acme_path: pki/ica_servers/roles/src_infra_xcp_ng_pki_server/acme
+xoa_acme_url: "https://vault.alwaldend.com:8200/v1/{{ xoa_acme_path }}/directory"

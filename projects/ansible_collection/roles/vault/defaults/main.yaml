@@ -1,4 +1,5 @@
 vault_user: vault
+vault_time_server: time.cloudflare.com
 vault_user_uid: 3123
 vault_dir: "/opt/vault"
 vault_data_dir: "{{ vault_dir }}/data"

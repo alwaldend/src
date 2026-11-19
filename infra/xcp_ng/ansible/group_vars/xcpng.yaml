@@ -1,0 +1,9 @@
+ansible_user: "{{ lookup('ansible.builtin.env', 'XCPNG_USERNAME', default=undef()) }}"
+ansible_password: "{{ lookup('ansible.builtin.env', 'XCPNG_PASSWORD', default=undef()) }}"
+ansible_ssh_password_mechanism: sshpass
+ansible_ssh_args: -C -o ControlMaster=no -o ControlPath=none -o PreferredAuthentications=password -o PubkeyAuthentication=no
+xcpng_acme_domains:
+  - host1.xcp-ng.alwaldend.com
+  - xcp-ng.alwaldend.com
+xcpng_acme_webroot: /opt/xensource/www
+xcpng_acme_webroot_verified: true

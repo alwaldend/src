@@ -53,6 +53,34 @@ message Config {
   repeated PluginConfig plugins = 7;
   // Plugin call configs
   repeated PluginCall plugin_calls = 8;
+  // Tool cache configurations
+  repeated ToolMethod tool_methods = 9;
+  // Cache-backed executable tools
+  repeated Tool tools = 10;
+}
+
+message BazelToolMethod {
+  // Bazel label to build
+  string target = 1;
+  // Workspace-relative executable path to move into the cache
+  string output = 2;
+}
+
+message ToolMethod {
+  // Method name referenced by tools
+  string name = 1;
+  // Build implementation
+  string kind = 2;
+  oneof options {
+    BazelToolMethod bazel = 3;
+  }
+}
+
+message Tool {
+  // Command name exposed to `al tool`
+  string name = 1;
+  // Configured install method
+  string method = 2;
 }
 
 message JsonMap {

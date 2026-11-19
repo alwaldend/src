@@ -1,0 +1,54 @@
+{
+    "schema_version": 1,
+    "migrated_on": "2026-09-08",
+    "source": {
+        "path": "projects/agents/goals/agent-system-phase-six-ergonomics",
+        "format": "goals.alwaldend.com/v1alpha1",
+        "commit": "550d7e79b1f5fdbc2b6017b75178471d6914082f",
+        "goal_id": "agent-system-phase-six-ergonomics",
+        "resource_version": "6",
+        "criteria_revision": 1,
+        "observed_at": "2026-09-03T17:15:41.404920909Z"
+    },
+    "legacy_status": {
+        "outcome": "achieved",
+        "execution": "paused",
+        "active_attempt_id": null,
+        "accepted_attempt_id": "attempt-5fbe69af8f1e",
+        "accepted_result_digest": "sha256:506ba8232da9d54dd50875f2d37387965d5f0de6c9e631801c9bdf1008b22f9e"
+    },
+    "openspec": {
+        "change_id": "agent-system-phase-six-ergonomics",
+        "status": "archived",
+        "archive_date": "2026-09-08",
+        "historical_delta_applied": false
+    },
+    "capabilities": ["project-agents"],
+    "provenance_manifest": "provenance/manifest.json",
+    "status_note": "Historical acceptance is retained from the source review; this migration does not revalidate earlier implementation claims.",
+    "acceptance_mapping": [
+        {
+            "criterion_id": "friction-baseline",
+            "criterion_revision": 1,
+            "required": true,
+            "task": "1.1",
+            "checked": true,
+            "legacy_verdict": "pass",
+            "evidence_paths": [
+                "provenance/source/attempts/attempt-5fbe69af8f1e/evidence/friction-baseline.md"
+            ]
+        },
+        {
+            "criterion_id": "optimization-pipeline",
+            "criterion_revision": 1,
+            "required": true,
+            "task": "1.2",
+            "checked": true,
+            "legacy_verdict": "pass",
+            "evidence_paths": [
+                "provenance/source/attempts/attempt-5fbe69af8f1e/evidence/optimization-pipeline.md",
+                "provenance/source/attempts/attempt-5fbe69af8f1e/evidence/skill-specificity.md"
+            ]
+        }
+    ]
+}

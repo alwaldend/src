@@ -16,6 +16,11 @@ or personal information. Inspect raw state, plans, inventories, and decrypted
 configuration because those artifacts can contain prohibited content; do not
 track the artifacts themselves.
 
+Each infrastructure project owns its specifications and maintained changes
+in `<project>/openspec/`. Use the [pinned OpenSpec workflow](../tools/openspec/README.md)
+with that project selected. These specifications describe checked-in definitions;
+they do not establish deployed state or authorize infrastructure operations.
+
 ## Requirements
 
 - Bazel targets MUST use repository-internal visibility.
@@ -48,7 +53,12 @@ running an equivalent command.
   ```sh
   bazel_agent bazel run //infra/pve/tf:tf.apply
   ```
+- Update Xen Orchestra AppRole resource sets:
+  ```sh
+  bazel_agent bazel run //infra/xcp_ng/tf:tf.apply
+  ```
 - Set up al config:
   [example](https://github.com/alwaldend/src/blob/master/infra/pve/al.lua)
-- Set up a bucket for Terraform state:
-  [example](https://github.com/alwaldend/src/blob/master/infra/vault/tf/cloud.tf)
+- Configure the component's Terraform state through the existing
+  [Vault HTTP backend flow](../projects/agents/skills/repo-infra/references/flow.md).
+  The `tf_backend` plugin creates state and lock KV entries on first use.

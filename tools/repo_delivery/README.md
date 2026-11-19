@@ -25,12 +25,9 @@ credential-bearing remote URL:
 bazel_agent bazel run //tools/repo_delivery -- provider
 ```
 
-The optional cached form is `bazel_agent tool run repo_delivery -- ...`.
-Follow the `bazel-agent` skill's one-time capability check before using it:
-reuse the known result for this runner binary, or inspect
-`bazel_agent tool --help` once. Unsupported `tool` means use the baseline
-without updating the host; an execution failure or delivery refusal still
-requires diagnosis. All examples below use the baseline.
+The optional cached form is `al tool repo_delivery -- ...`. An execution
+failure or delivery refusal still requires diagnosis. All examples below use
+the baseline.
 
 The sanitized report distinguishes forge support from Git transport support.
 `adapter_available` reports whether the forge has an adapter;

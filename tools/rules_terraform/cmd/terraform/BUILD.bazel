@@ -1,0 +1,36 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("@rules_go//go:def.bzl", "go_binary", "go_library", "go_test")
+
+go_library(
+    name = "terraform_lib",
+    srcs = [
+        "main.go",
+        "provenance.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/tools/rules_terraform/cmd/terraform",
+    visibility = ["//visibility:private"],
+    deps = ["@rules_go//go/runfiles"],
+)
+
+go_binary(
+    name = "terraform",
+    embed = [":terraform_lib"],
+    visibility = ["//visibility:public"],
+)
+
+go_test(
+    name = "terraform_test",
+    srcs = [
+        "main_test.go",
+        "provenance_test.go",
+    ],
+    embed = [":terraform_lib"],
+    deps = ["@rules_go//go/runfiles"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    prefix = "content/docs/tools/rules_terraform/cmd/terraform",
+    visibility = ["//:__pkg__"],
+)

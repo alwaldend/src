@@ -1,2 +1,7 @@
 {{ $file := .Get "file" -}} {{ $image := .Page.Resources.GetMatch $file -}}
-<img src="{{ $image.RelPermalink }}" loading="lazy" />
+<img
+  src="{{ $image.RelPermalink }}"
+  alt="{{ .Get "alt" | default .Page.Title }}"
+  class="img-fluid"
+  loading="lazy"
+/>

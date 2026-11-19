@@ -1,4 +1,0 @@
-interface:
-  display_name: "Repository Ansible"
-  short_description: "Change Bazel-packaged Ansible automation safely"
-  default_prompt: "Use $repo-ansible to implement and validate this automation change."

@@ -1,6 +1,16 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("//tools/toml/main/bzl:al_toml_data.bzl", "al_toml_data")
 
+filegroup(
+    name = "covers",
+    srcs = glob([
+        "*.jpeg",
+        "*.jpg",
+        "*.png",
+    ]),
+    visibility = ["//projects/alwaldend.com/content/docs/misc/books:__pkg__"],
+)
+
 docs_filegroup(
     name = "docs",
     srcs = glob(["*.md"]) + [

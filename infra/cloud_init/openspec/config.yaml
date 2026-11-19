@@ -1,0 +1,12 @@
+schema: spec-driven
+
+context: |
+  This OpenSpec workspace belongs to infra/cloud_init in the alwaldend/src monorepo.
+  Read the repository AGENTS.md and this owner's README.md and build declarations.
+  Keep this owner's requirements in openspec/specs and changes in openspec/changes
+  below infra/cloud_init. Repository evolution belongs to
+  infra/src/openspec.
+  Infrastructure specifications describe checked-in source and desired state;
+  they do not establish live deployment or health. Source validation is offline.
+  Use the repository-pinned OpenSpec CLI and the bazel_agent runner.
+  User requests own scope and authority; specifications do not authorize operations.

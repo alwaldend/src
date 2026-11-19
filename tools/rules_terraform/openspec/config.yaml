@@ -1,0 +1,8 @@
+schema: spec-driven
+
+context: |
+  rules_terraform is a standalone Bazel module for Terraform execution and
+  hermetic provider acquisition. Provider archives are pinned by URL and
+  SHA256 integrity in the consuming module's extension declarations.
+  Keep AL and Vault integration in the parent repository. One provider version
+  is selected per source; explicit override policy may be added later.

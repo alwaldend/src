@@ -24,6 +24,11 @@ description: Build, test, query, and maintain targets in this Bazel monorepo. Us
 - Prefer repository macros under `tools/` and `projects/al/rules/` over raw
   upstream rules. Infrastructure commonly uses generated target maps such as
   `terraform_binary_map`, `terraform_test_map`, and `vault_binary_map`.
+- For Terraform, use the public rules in
+  [`rules_terraform`](../../../../tools/rules_terraform/README.md). Repository
+  consumers explicitly select generic AL wrappers for authentication.
+  Provider pins belong to [third_party/terraform](../../../../third_party/terraform/README.md), with selected
+  provider labels in rule attributes; do not add source Terraform lockfiles.
 - Keep runtime files in `data`; declaring a file in `srcs` does not necessarily
   make it available to an executed tool.
 - Do not use `genrule`. Write a proper Bazel rule, a Go binary, or a separate
@@ -84,3 +89,12 @@ bazel_agent bazel query '//path/to/package:*'
 
 Never run deploy, apply, or other mutating `bazel_agent bazel run` targets merely as a
 validation step.
+
+## Automate with Go and Bazel
+
+Prefer Go and Bazel-native rules for repository automation. Do not introduce
+shell scripts or shell-based rules unless the task explicitly requires them.
+Expose Go automation as `go_binary` targets, and validate it with the pinned
+Bazel toolchain rather than host `go`. Write a proper rule, a checked-in Go
+binary, or a separate checked-in script instead of encoding build logic in a
+shell snippet.

@@ -1,0 +1,32 @@
+load("@bazel_skylib//rules:build_test.bzl", "build_test")
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+
+build_test(
+    name = "build_test",
+    targets = [
+        "//main/go",
+    ],
+)
+# load("@com_alwaldend_src//tools/bzl/main/bzl:al_bzl_library_map.bzl", "al_bzl_library_map")
+# al_bzl_library_map(
+#     name = "libs",
+#     libs = {
+#         "template_files": [],
+#     },
+#     visibility = ["//:__subpackages__"],
+# )
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    prefix = "content/docs/tools/rules_template",
+    visibility = ["//visibility:public"],
+    deps = subpackages(
+        include = ["**"],
+        allow_empty = True,
+        exclude = [
+            "bazel-*",
+            "main/go",
+        ],
+    ),
+)

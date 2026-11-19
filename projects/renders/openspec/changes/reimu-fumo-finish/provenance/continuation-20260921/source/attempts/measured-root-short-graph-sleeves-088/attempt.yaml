@@ -1,0 +1,73 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: measured-root-short-graph-sleeves-088
+  resourceVersion: "3"
+  generation: 3
+  creationTimestamp: "2026-09-06T00:29:27.328286232Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 16
+  criteriaRevision: 4
+  criteriaDigest: sha256:f5fe4b5c4efc12d5b82ad42cf0d41fd7274f48b421abf42e9db1ce5ae316d8a3
+  goalStateDigest: sha256:d3dd99930bf18292653455d315de740e68d0a10d03186a30fad1ab2e06501ad6
+  workType: change
+  subject: c171fea554811e825e2cd9d7f1d5a069c6b305e85888c6058d2390e1a20738e1
+  nextAction: Complete read-only089 attachment audit including actual skirt/hem gaps before freezing a new sleeve plan. No088candidate, preserve087 working source. Head cover/interface strategy remains unresolved.
+status:
+  state: closed
+  closedAt: "2026-09-06T00:46:45.705727703Z"
+  artifacts:
+    planDigest: sha256:8602be527e58abfbcef456a457d17e10b741717d0c51c524f6112b44c817e66f
+    resultDigest: sha256:1218248462b4e61a1e9df45d7f875a140c768f04b2e18753a72c3021f2a6e8a1
+    evidence:
+    - path: evidence/hair_089_cover_feasibility.md
+      digest: sha256:66f8a1ad05d652b025e144cde4a50eef0a4a0922241985a5cf33f28fbf6786f9
+    - path: evidence/head_088_reference_diagnosis.md
+      digest: sha256:7156b3c37556c5b9caeaa67a8c0ad98e53a264e0cab6e88a17f1d3d3be06d775
+    - path: evidence/sleeve_087_attachment_diagnostic.md
+      digest: sha256:92abc03ad845a729876d83814f47ce4ed63f363460c8597de54ebed9828353d5
+    - path: evidence/sleeve_088_exterior_repair.md
+      digest: sha256:398b2fca5e7bb79430a6eeca68aac2ea93f279bfead4b0b4a86151bafbb893fd
+    - path: evidence/sleeve_088_plan_notes.md
+      digest: sha256:87a0012f7809618ebcc2812cbed6bbd5f167a747a86bb7d7948d7a2907e399e7
+  review:
+    decision: reset
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 3
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-002
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-004
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-005
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-006
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-007
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-09-06T00:46:45.705727703Z"

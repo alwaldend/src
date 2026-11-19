@@ -1,0 +1,510 @@
+{
+  "schema_version": 1,
+  "source_commit": "550d7e79b1f5fdbc2b6017b75178471d6914082f",
+  "files": [
+    {
+      "source_path": "projects/renders/goals/reimu-fumo-finish/README.md",
+      "snapshot_path": "provenance/source/README.md",
+      "sha256": "f5f704ff536cf138e562f7f972bbf8eba1caefc67e37c334425e55b60c8e9ed3",
+      "size_bytes": 12969
+    },
+    {
+      "source_path": "projects/renders/goals/reimu-fumo-finish/attempts/a157-bow-span-011/attempt.yaml",
+      "snapshot_path": "provenance/source/attempts/a157-bow-span-011/attempt.yaml",
+      "sha256": "8f884c5422a2f030f8fe9c63a2fb2e04cca1e4b6f5f8a805209d55c0433c6d93",
+      "size_bytes": 2365
+    },
+    {
+      "source_path": "projects/renders/goals/reimu-fumo-finish/attempts/a157-bow-span-011/evidence/evidence.md",
+      "snapshot_path": "provenance/source/attempts/a157-bow-span-011/evidence/evidence.md",
+      "sha256": "b3771f115236c0d1b1191bdf8f1b73a0884ff091eaa27607819b05f892717b33",
+      "size_bytes": 2252
+    },
+    {
+      "source_path": "projects/renders/goals/reimu-fumo-finish/attempts/a157-bow-span-011/plan.md",
+      "snapshot_path": "provenance/source/attempts/a157-bow-span-011/plan.md",
+      "sha256": "746d8e011be1cbd306978c7037f281169ff7d60bca3a0e253558ad762330b844",
+      "size_bytes": 2019
+    },
+    {
+      "source_path": "projects/renders/goals/reimu-fumo-finish/attempts/a157-bow-span-011/result.md",
+      "snapshot_path": "provenance/source/attempts/a157-bow-span-011/result.md",
+      "sha256": "09d4db6c12572928774057afcf8f078fcfd3a958b19bdd372f83a2ed9137f7ac",
+      "size_bytes": 845
+    },
+    {
+      "source_path": "projects/renders/goals/reimu-fumo-finish/attempts/a157-tail-assembly-012/attempt.yaml",
+      "snapshot_path": "provenance/source/attempts/a157-tail-assembly-012/attempt.yaml",
+      "sha256": "3968dec3b109f91a4e72a882a414df4b5e90a3b19d48f5edb4bf4a2963ce78a5",
+      "size_bytes": 2514
+    },
+    {
+      "source_path": "projects/renders/goals/reimu-fumo-finish/attempts/a157-tail-assembly-012/evidence/evidence.md",
+      "snapshot_path": "provenance/source/attempts/a157-tail-assembly-012/evidence/evidence.md",
+      "sha256": "5c21a6a40d78895802f0ccf959ff0ffe734044e9533cbe4a910c1c6b0f84ee64",
+      "size_bytes": 1537
+    },
+    {
+      "source_path": "projects/renders/goals/reimu-fumo-finish/attempts/a157-tail-assembly-012/plan.md",
+      "snapshot_path": "provenance/source/attempts/a157-tail-assembly-012/plan.md",
+      "sha256": "d57b29764ab256a13821927b88f3524c1d593848191c6e0e6772a0650fdc0e18",
+      "size_bytes": 2456
+    },
+    {
+      "source_path": "projects/renders/goals/reimu-fumo-finish/attempts/a157-tail-assembly-012/result.md",
+      "snapshot_path": "provenance/source/attempts/a157-tail-assembly-012/result.md",
+      "sha256": "42a0edbdc0e64dc2703e0929cfb7d23680e5364fd81d865c0821e30ef464c4f7",
+      "size_bytes": 575
+    },
+    {
+      "source_path": "projects/renders/goals/reimu-fumo-finish/attempts/a157-tail-vector-013/attempt.yaml",
+      "snapshot_path": "provenance/source/attempts/a157-tail-vector-013/attempt.yaml",
+      "sha256": "8d7e7ace5a8500d3e6a05c58390b1df94ff6e16629f61459c6102667db6aef71",
+      "size_bytes": 2452
+    },
+    {
+      "source_path": "projects/renders/goals/reimu-fumo-finish/attempts/a157-tail-vector-013/evidence/evidence.md",
+      "snapshot_path": "provenance/source/attempts/a157-tail-vector-013/evidence/evidence.md",
+      "sha256": "fd3bb2a8bcb74f7f4be360330a4a2b6cd4ce8e1343aacf04f0a0620da295c0f3",
+      "size_bytes": 3344
+    },
+    {
+      "source_path": "projects/renders/goals/reimu-fumo-finish/attempts/a157-tail-vector-013/plan.md",
+      "snapshot_path": "provenance/source/attempts/a157-tail-vector-013/plan.md",
+      "sha256": "2a25061459a0200c7d4bf25a051dd789eb91e7c52d1279a2a47f87fe321233da",
+      "size_bytes": 1761
+    },
+    {
+      "source_path": "projects/renders/goals/reimu-fumo-finish/attempts/a157-tail-vector-013/result.md",
+      "snapshot_path": "provenance/source/attempts/a157-tail-vector-013/result.md",
+      "sha256": "af5f95a647e29db5b46ecb45a3012665b598bfd3a5ce340a8d74ec62c24e567a",
+      "size_bytes": 969
+    },
+    {
+      "source_path": "projects/renders/goals/reimu-fumo-finish/attempts/camera-capability-002/attempt.yaml",
+      "snapshot_path": "provenance/source/attempts/camera-capability-002/attempt.yaml",
+      "sha256": "2b9613ab0ecfe2ac119c79d800d16f90079b461a5eb933d9893a1eb2945fda8e",
+      "size_bytes": 1899
+    },
+    {
+      "source_path": "projects/renders/goals/reimu-fumo-finish/attempts/camera-capability-002/evidence/evidence.md",
+      "snapshot_path": "provenance/source/attempts/camera-capability-002/evidence/evidence.md",
+      "sha256": "2c1b28663b04a25ad0368fbe5ca7e891c5fc07f1a467883878f050dc4cd0011c",
+      "size_bytes": 1003
+    },
+    {
+      "source_path": "projects/renders/goals/reimu-fumo-finish/attempts/camera-capability-002/plan.md",
+      "snapshot_path": "provenance/source/attempts/camera-capability-002/plan.md",
+      "sha256": "67464886e11ab70514ccfa8f38ff796bfb595b4a584cc2fb3b321f7af0f94773",
+      "size_bytes": 736
+    },
+    {
+      "source_path": "projects/renders/goals/reimu-fumo-finish/attempts/camera-capability-002/result.md",
+      "snapshot_path": "provenance/source/attempts/camera-capability-002/result.md",
+      "sha256": "0be857e2c2f580ca67d55857ed9efab9875e1e6c34081fea1e752db16f5631d4",
+      "size_bytes": 349
+    },
+    {
+      "source_path": "projects/renders/goals/reimu-fumo-finish/attempts/curved-cap-004/attempt.yaml",
+      "snapshot_path": "provenance/source/attempts/curved-cap-004/attempt.yaml",
+      "sha256": "b88b0f0bf2245309afe1fad46bff494d3d54b3b23d83c6e2f424b421ec97449c",
+      "size_bytes": 2096
+    },
+    {
+      "source_path": "projects/renders/goals/reimu-fumo-finish/attempts/curved-cap-004/evidence/evidence.md",
+      "snapshot_path": "provenance/source/attempts/curved-cap-004/evidence/evidence.md",
+      "sha256": "cc288f7bfc657cbb772ed863649fc0142872a17f345a4dff0930a572f777aeac",
+      "size_bytes": 1241
+    },
+    {
+      "source_path": "projects/renders/goals/reimu-fumo-finish/attempts/curved-cap-004/plan.md",
+      "snapshot_path": "provenance/source/attempts/curved-cap-004/plan.md",
+      "sha256": "04f52326ad1afa7ebdd25b59bec1f89528e1f3e4bfb619ac984ab0e8ec1f24cc",
+      "size_bytes": 1133
+    },
+    {
+      "source_path": "projects/renders/goals/reimu-fumo-finish/attempts/curved-cap-004/result.md",
+      "snapshot_path": "provenance/source/attempts/curved-cap-004/result.md",
+      "sha256": "c08dd10920127eafec68ad35bb1e645fbcdd0cf7e8796a85015e26f7095c3ac3",
+      "size_bytes": 603
+    },
+    {
+      "source_path": "projects/renders/goals/reimu-fumo-finish/attempts/evaluated-lobes-007/attempt.yaml",
+      "snapshot_path": "provenance/source/attempts/evaluated-lobes-007/attempt.yaml",
+      "sha256": "f174ab380b068b1efed4c044442e9bbb0d8408eed3458806c820ae29732e2941",
+      "size_bytes": 2135
+    },
+    {
+      "source_path": "projects/renders/goals/reimu-fumo-finish/attempts/evaluated-lobes-007/evidence/evidence.md",
+      "snapshot_path": "provenance/source/attempts/evaluated-lobes-007/evidence/evidence.md",
+      "sha256": "8fa65b489a3d63a75d6da7e023e868481d4b22ca54b054997f1a304c8136cf20",
+      "size_bytes": 1430
+    },
+    {
+      "source_path": "projects/renders/goals/reimu-fumo-finish/attempts/evaluated-lobes-007/plan.md",
+      "snapshot_path": "provenance/source/attempts/evaluated-lobes-007/plan.md",
+      "sha256": "765d0e32118a0d82783248ec906a6bfdab817c77c84359559c85d9feaec95b9e",
+      "size_bytes": 1781
+    },
+    {
+      "source_path": "projects/renders/goals/reimu-fumo-finish/attempts/evaluated-lobes-007/result.md",
+      "snapshot_path": "provenance/source/attempts/evaluated-lobes-007/result.md",
+      "sha256": "090dee2a66adf7d3cf980a22237ac7fdab1f21b83fb4d32f148e458ce713894c",
+      "size_bytes": 910
+    },
+    {
+      "source_path": "projects/renders/goals/reimu-fumo-finish/attempts/flatten-dose-response-018/attempt.yaml",
+      "snapshot_path": "provenance/source/attempts/flatten-dose-response-018/attempt.yaml",
+      "sha256": "bb584dcb3ada4df58e5203ccb9ab2943e0fc59e1483bedfaac35f2cb87716157",
+      "size_bytes": 2602
+    },
+    {
+      "source_path": "projects/renders/goals/reimu-fumo-finish/attempts/flatten-dose-response-018/evidence/pinned_failure_evidence.md",
+      "snapshot_path": "provenance/source/attempts/flatten-dose-response-018/evidence/pinned_failure_evidence.md",
+      "sha256": "a98b2600f1feb534f4a1ab23ef11e7263bbb766975ce9085fd6124571d07b2b5",
+      "size_bytes": 4380
+    },
+    {
+      "source_path": "projects/renders/goals/reimu-fumo-finish/attempts/flatten-dose-response-018/evidence/session_ergonomics_review.md",
+      "snapshot_path": "provenance/source/attempts/flatten-dose-response-018/evidence/session_ergonomics_review.md",
+      "sha256": "7edd22cbd6788af5dd1c2cca772f409996688b4e780f4526ece36ca178cda73d",
+      "size_bytes": 11834
+    },
+    {
+      "source_path": "projects/renders/goals/reimu-fumo-finish/attempts/flatten-dose-response-018/evidence/writer_result.md",
+      "snapshot_path": "provenance/source/attempts/flatten-dose-response-018/evidence/writer_result.md",
+      "sha256": "a299a04ddf641882c4a1502c5a32ca375eb6effd7e2fa114d402a96de15804cb",
+      "size_bytes": 7315
+    },
+    {
+      "source_path": "projects/renders/goals/reimu-fumo-finish/attempts/flatten-dose-response-018/plan.md",
+      "snapshot_path": "provenance/source/attempts/flatten-dose-response-018/plan.md",
+      "sha256": "26921b2597c1836a953ec5b848bcb9bff5881ef260b2afd75a35c57f1d1b5480",
+      "size_bytes": 4395
+    },
+    {
+      "source_path": "projects/renders/goals/reimu-fumo-finish/attempts/flatten-dose-response-018/result.md",
+      "snapshot_path": "provenance/source/attempts/flatten-dose-response-018/result.md",
+      "sha256": "686fac0462003a203494dfa7e16719dcbcef23a354ffeb2c981ac1bd1acd4412",
+      "size_bytes": 855
+    },
+    {
+      "source_path": "projects/renders/goals/reimu-fumo-finish/attempts/head-hair-rebuild-003/attempt.yaml",
+      "snapshot_path": "provenance/source/attempts/head-hair-rebuild-003/attempt.yaml",
+      "sha256": "1b00d50c1bfe2c35c8c3beaed80295a84e8c16a8bb16a327b6375dec0d7dbf07",
+      "size_bytes": 2140
+    },
+    {
+      "source_path": "projects/renders/goals/reimu-fumo-finish/attempts/head-hair-rebuild-003/evidence/evidence.md",
+      "snapshot_path": "provenance/source/attempts/head-hair-rebuild-003/evidence/evidence.md",
+      "sha256": "440fd7a36e9aeb193a7ad3fb0f16753a2a07fa7f6c14aeba4ea3451aef22c424",
+      "size_bytes": 1000
+    },
+    {
+      "source_path": "projects/renders/goals/reimu-fumo-finish/attempts/head-hair-rebuild-003/plan.md",
+      "snapshot_path": "provenance/source/attempts/head-hair-rebuild-003/plan.md",
+      "sha256": "1a2bfa61b530637690a32b73994f6e9487c4a772901b2a4e7d0d7d5bbd491341",
+      "size_bytes": 1932
+    },
+    {
+      "source_path": "projects/renders/goals/reimu-fumo-finish/attempts/head-hair-rebuild-003/result.md",
+      "snapshot_path": "provenance/source/attempts/head-hair-rebuild-003/result.md",
+      "sha256": "9a1fdbcbbdb36d0c508063b017cf01721f91daf88bf0f65519cf92149a4dbec1",
+      "size_bytes": 509
+    },
+    {
+      "source_path": "projects/renders/goals/reimu-fumo-finish/attempts/integrated-hair-005/attempt.yaml",
+      "snapshot_path": "provenance/source/attempts/integrated-hair-005/attempt.yaml",
+      "sha256": "ae15ae1fbd9c0d008289d60f03f720b1c7521a82a7caa636182fd59cf0b31df1",
+      "size_bytes": 2439
+    },
+    {
+      "source_path": "projects/renders/goals/reimu-fumo-finish/attempts/integrated-hair-005/evidence/blind-review.md",
+      "snapshot_path": "provenance/source/attempts/integrated-hair-005/evidence/blind-review.md",
+      "sha256": "2c45d6bb713b743f4f90d3fd932fe863403b8ab10b4daed187b7c3efee930380",
+      "size_bytes": 1184
+    },
+    {
+      "source_path": "projects/renders/goals/reimu-fumo-finish/attempts/integrated-hair-005/evidence/evidence.md",
+      "snapshot_path": "provenance/source/attempts/integrated-hair-005/evidence/evidence.md",
+      "sha256": "4f79d4611c35703ab6f4a5dba0844f1dc2708ec29f08e1361e1ca1975898f55d",
+      "size_bytes": 2017
+    },
+    {
+      "source_path": "projects/renders/goals/reimu-fumo-finish/attempts/integrated-hair-005/evidence/measurements.md",
+      "snapshot_path": "provenance/source/attempts/integrated-hair-005/evidence/measurements.md",
+      "sha256": "f35105a0f3ac20a3fbac3628d1261a8d513de32b94b5892eea7932dac0c2a304",
+      "size_bytes": 1204
+    },
+    {
+      "source_path": "projects/renders/goals/reimu-fumo-finish/attempts/integrated-hair-005/plan.md",
+      "snapshot_path": "provenance/source/attempts/integrated-hair-005/plan.md",
+      "sha256": "71a7fee418723bf81631f8039a06f176df4500710499b2dfdd04b59215a26955",
+      "size_bytes": 1562
+    },
+    {
+      "source_path": "projects/renders/goals/reimu-fumo-finish/attempts/integrated-hair-005/result.md",
+      "snapshot_path": "provenance/source/attempts/integrated-hair-005/result.md",
+      "sha256": "d54b68e884953fab0b8b3a7ae5a836e445bbc88861e75051c56e7306fb2f66ea",
+      "size_bytes": 787
+    },
+    {
+      "source_path": "projects/renders/goals/reimu-fumo-finish/attempts/localized-sculpt-coupon-016/attempt.yaml",
+      "snapshot_path": "provenance/source/attempts/localized-sculpt-coupon-016/attempt.yaml",
+      "sha256": "55da0aee2c3ff226afec10a263362e1741126b486943eebb38d0354bca8fc22f",
+      "size_bytes": 2166
+    },
+    {
+      "source_path": "projects/renders/goals/reimu-fumo-finish/attempts/localized-sculpt-coupon-016/evidence/writer_result.md",
+      "snapshot_path": "provenance/source/attempts/localized-sculpt-coupon-016/evidence/writer_result.md",
+      "sha256": "0bd1e8c3a71b0d0f64dc8d23536b8ca17e40f8562ba972e45e3da40a63813dc9",
+      "size_bytes": 2086
+    },
+    {
+      "source_path": "projects/renders/goals/reimu-fumo-finish/attempts/localized-sculpt-coupon-016/plan.md",
+      "snapshot_path": "provenance/source/attempts/localized-sculpt-coupon-016/plan.md",
+      "sha256": "bda80d01e8bca91b5c8554bc145191a1f79a6210b3d8c0e6c46b1e53dfb0443d",
+      "size_bytes": 3608
+    },
+    {
+      "source_path": "projects/renders/goals/reimu-fumo-finish/attempts/localized-sculpt-coupon-016/result.md",
+      "snapshot_path": "provenance/source/attempts/localized-sculpt-coupon-016/result.md",
+      "sha256": "1591decce216160c60a395e0a64b9972cba217f8a389a69325fc2349cae2f658",
+      "size_bytes": 782
+    },
+    {
+      "source_path": "projects/renders/goals/reimu-fumo-finish/attempts/localized-sculpt-coupon-017/attempt.yaml",
+      "snapshot_path": "provenance/source/attempts/localized-sculpt-coupon-017/attempt.yaml",
+      "sha256": "6bc05b91234bf461ef871627c507c2307248e5d5944f7c6c7425aa9f39d7214c",
+      "size_bytes": 2375
+    },
+    {
+      "source_path": "projects/renders/goals/reimu-fumo-finish/attempts/localized-sculpt-coupon-017/evidence/pinned_failure_evidence.md",
+      "snapshot_path": "provenance/source/attempts/localized-sculpt-coupon-017/evidence/pinned_failure_evidence.md",
+      "sha256": "8861993b6acfba8247bf3e2a48fa8ee43a4c35628fe76ad3b2c04aa82820f538",
+      "size_bytes": 3106
+    },
+    {
+      "source_path": "projects/renders/goals/reimu-fumo-finish/attempts/localized-sculpt-coupon-017/evidence/writer_result.md",
+      "snapshot_path": "provenance/source/attempts/localized-sculpt-coupon-017/evidence/writer_result.md",
+      "sha256": "4506d8be13155bd2ca2a3434d3080b0eeb998f69749c3c5de88f6e18d6c67fe2",
+      "size_bytes": 4357
+    },
+    {
+      "source_path": "projects/renders/goals/reimu-fumo-finish/attempts/localized-sculpt-coupon-017/plan.md",
+      "snapshot_path": "provenance/source/attempts/localized-sculpt-coupon-017/plan.md",
+      "sha256": "343ac474267925253451bb537c2aae4508d1c6bf6720a57269731016b2f86781",
+      "size_bytes": 3561
+    },
+    {
+      "source_path": "projects/renders/goals/reimu-fumo-finish/attempts/localized-sculpt-coupon-017/result.md",
+      "snapshot_path": "provenance/source/attempts/localized-sculpt-coupon-017/result.md",
+      "sha256": "b25cde985befa32056bdce42190afed927179a0c03fa28d9757cbf361faafc30",
+      "size_bytes": 927
+    },
+    {
+      "source_path": "projects/renders/goals/reimu-fumo-finish/attempts/macro-sculpt-010/attempt.yaml",
+      "snapshot_path": "provenance/source/attempts/macro-sculpt-010/attempt.yaml",
+      "sha256": "290d78bbf2ffc08df1bdea1f0e5983160894ac68291a9022d50cb4f78a6b0c8e",
+      "size_bytes": 1671
+    },
+    {
+      "source_path": "projects/renders/goals/reimu-fumo-finish/attempts/macro-sculpt-010/evidence/macro_sculpt_010_evidence.md",
+      "snapshot_path": "provenance/source/attempts/macro-sculpt-010/evidence/macro_sculpt_010_evidence.md",
+      "sha256": "2d5b35fd1e4be09dd53b57e625c538f307e2770527ff389f5a7a23435ae60a8a",
+      "size_bytes": 3190
+    },
+    {
+      "source_path": "projects/renders/goals/reimu-fumo-finish/attempts/macro-sculpt-010/plan.md",
+      "snapshot_path": "provenance/source/attempts/macro-sculpt-010/plan.md",
+      "sha256": "ade974dd1ab7962cc97e42f80bc5387d1b2dd92368fe2774f0ad1555714e0bbb",
+      "size_bytes": 1126
+    },
+    {
+      "source_path": "projects/renders/goals/reimu-fumo-finish/attempts/macro-sculpt-010/result.md",
+      "snapshot_path": "provenance/source/attempts/macro-sculpt-010/result.md",
+      "sha256": "84a828427a79c11fe660344106e35273ffe9134400a2d5b4f954596fa52f1b6c",
+      "size_bytes": 1185
+    },
+    {
+      "source_path": "projects/renders/goals/reimu-fumo-finish/attempts/mapped-gui-sculpt-009/attempt.yaml",
+      "snapshot_path": "provenance/source/attempts/mapped-gui-sculpt-009/attempt.yaml",
+      "sha256": "822b18b82e3382c222be4513711c739a4e1e0a39dc25123664e8334110f3c4aa",
+      "size_bytes": 1699
+    },
+    {
+      "source_path": "projects/renders/goals/reimu-fumo-finish/attempts/mapped-gui-sculpt-009/evidence/mapped_gui_sculpt_009_evidence.md",
+      "snapshot_path": "provenance/source/attempts/mapped-gui-sculpt-009/evidence/mapped_gui_sculpt_009_evidence.md",
+      "sha256": "dce953558cba1189c7374ce722cd33d04221968fd24294ba05d3ebb007541eef",
+      "size_bytes": 2510
+    },
+    {
+      "source_path": "projects/renders/goals/reimu-fumo-finish/attempts/mapped-gui-sculpt-009/plan.md",
+      "snapshot_path": "provenance/source/attempts/mapped-gui-sculpt-009/plan.md",
+      "sha256": "fcb7ac9858b37dc68506106e6eb44504e3f7b34673c29a5efda44034b12ed635",
+      "size_bytes": 1272
+    },
+    {
+      "source_path": "projects/renders/goals/reimu-fumo-finish/attempts/mapped-gui-sculpt-009/result.md",
+      "snapshot_path": "provenance/source/attempts/mapped-gui-sculpt-009/result.md",
+      "sha256": "e31076027ac9d822629d4b815fa376d090caf4ecd652922b4e6b6f23d057e36d",
+      "size_bytes": 1147
+    },
+    {
+      "source_path": "projects/renders/goals/reimu-fumo-finish/attempts/measurement-band-correction-008/attempt.yaml",
+      "snapshot_path": "provenance/source/attempts/measurement-band-correction-008/attempt.yaml",
+      "sha256": "0e0236b9d5586d540712212435c07abe6978c8f2caf2b011f021f72c93cbb97e",
+      "size_bytes": 1854
+    },
+    {
+      "source_path": "projects/renders/goals/reimu-fumo-finish/attempts/measurement-band-correction-008/evidence/correction.md",
+      "snapshot_path": "provenance/source/attempts/measurement-band-correction-008/evidence/correction.md",
+      "sha256": "232100783731284802e13837f22d9105fd2fb2b6c2c7fb1506e5350facccc485",
+      "size_bytes": 844
+    },
+    {
+      "source_path": "projects/renders/goals/reimu-fumo-finish/attempts/measurement-band-correction-008/plan.md",
+      "snapshot_path": "provenance/source/attempts/measurement-band-correction-008/plan.md",
+      "sha256": "3c4fc9d3d17f5054bdf70f2b76751de2df19dac13c76926c0da96bb113117340",
+      "size_bytes": 602
+    },
+    {
+      "source_path": "projects/renders/goals/reimu-fumo-finish/attempts/measurement-band-correction-008/result.md",
+      "snapshot_path": "provenance/source/attempts/measurement-band-correction-008/result.md",
+      "sha256": "d6700ad12a12fffb44e4091ef2413400749ce9aff23f41146cd4e1a2e6aabceb",
+      "size_bytes": 500
+    },
+    {
+      "source_path": "projects/renders/goals/reimu-fumo-finish/attempts/native-crown-patch-014/attempt.yaml",
+      "snapshot_path": "provenance/source/attempts/native-crown-patch-014/attempt.yaml",
+      "sha256": "fbe3c4f5ccb87c889565657e78ab1b3a1173e3f3302756ad7f0c472adcf78f56",
+      "size_bytes": 2390
+    },
+    {
+      "source_path": "projects/renders/goals/reimu-fumo-finish/attempts/native-crown-patch-014/evidence/evidence.md",
+      "snapshot_path": "provenance/source/attempts/native-crown-patch-014/evidence/evidence.md",
+      "sha256": "f544cc5c011e8f2791dbcb84275927afaf0cf5ee18e91bc1a3813603d0748127",
+      "size_bytes": 2861
+    },
+    {
+      "source_path": "projects/renders/goals/reimu-fumo-finish/attempts/native-crown-patch-014/plan.md",
+      "snapshot_path": "provenance/source/attempts/native-crown-patch-014/plan.md",
+      "sha256": "ce384f0e95fe6290bed1f0fd5a149bea412ab4b24e584f2c270fe886eb32aeee",
+      "size_bytes": 2694
+    },
+    {
+      "source_path": "projects/renders/goals/reimu-fumo-finish/attempts/native-crown-patch-014/result.md",
+      "snapshot_path": "provenance/source/attempts/native-crown-patch-014/result.md",
+      "sha256": "5456aee20b48e8fedd4eea1bd14424b95f8086920c9abf2b2815545354601b28",
+      "size_bytes": 1016
+    },
+    {
+      "source_path": "projects/renders/goals/reimu-fumo-finish/attempts/native-manual-head-015/attempt.yaml",
+      "snapshot_path": "provenance/source/attempts/native-manual-head-015/attempt.yaml",
+      "sha256": "dd904d404ff787b28a0223e90454dcbfa5ee4e723a666e189ddc1461e89e8c3b",
+      "size_bytes": 2690
+    },
+    {
+      "source_path": "projects/renders/goals/reimu-fumo-finish/attempts/native-manual-head-015/evidence/native_manual_head_015_evidence.md",
+      "snapshot_path": "provenance/source/attempts/native-manual-head-015/evidence/native_manual_head_015_evidence.md",
+      "sha256": "40143ee6e40710ec13bf626ca2fb4f5a1862a9e97159fe69ce29e2cc8489869e",
+      "size_bytes": 4436
+    },
+    {
+      "source_path": "projects/renders/goals/reimu-fumo-finish/attempts/native-manual-head-015/plan.md",
+      "snapshot_path": "provenance/source/attempts/native-manual-head-015/plan.md",
+      "sha256": "ff09f012780d8ea846557d60ed538aa0b0c9bcb66c8bd281a467f60a709ab12f",
+      "size_bytes": 3864
+    },
+    {
+      "source_path": "projects/renders/goals/reimu-fumo-finish/attempts/native-manual-head-015/result.md",
+      "snapshot_path": "provenance/source/attempts/native-manual-head-015/result.md",
+      "sha256": "424378f0cb4661f20103170d757edfc90958a92449e0f4a1a1b3f62f83ba6787",
+      "size_bytes": 613
+    },
+    {
+      "source_path": "projects/renders/goals/reimu-fumo-finish/attempts/recovery-capability-001/attempt.yaml",
+      "snapshot_path": "provenance/source/attempts/recovery-capability-001/attempt.yaml",
+      "sha256": "d04ed2ba31f86a1773c34732292c671d16d11105be6c8e861787d3facb751145",
+      "size_bytes": 1857
+    },
+    {
+      "source_path": "projects/renders/goals/reimu-fumo-finish/attempts/recovery-capability-001/evidence/evidence.md",
+      "snapshot_path": "provenance/source/attempts/recovery-capability-001/evidence/evidence.md",
+      "sha256": "4bc7cb82a41d810af5d9be8573f6e6eb7d8868addaf62bfa7df8ed6252377ab8",
+      "size_bytes": 1417
+    },
+    {
+      "source_path": "projects/renders/goals/reimu-fumo-finish/attempts/recovery-capability-001/plan.md",
+      "snapshot_path": "provenance/source/attempts/recovery-capability-001/plan.md",
+      "sha256": "d76cf6af47e16bd090703ee7dca153f51ce16265c7722fa75d99cd3bbe317645",
+      "size_bytes": 1951
+    },
+    {
+      "source_path": "projects/renders/goals/reimu-fumo-finish/attempts/recovery-capability-001/result.md",
+      "snapshot_path": "provenance/source/attempts/recovery-capability-001/result.md",
+      "sha256": "65200b31001b1b90ae65126dbd1bda326356a863ce94c04f03acea43469cbc80",
+      "size_bytes": 427
+    },
+    {
+      "source_path": "projects/renders/goals/reimu-fumo-finish/attempts/shingled-hair-006/attempt.yaml",
+      "snapshot_path": "provenance/source/attempts/shingled-hair-006/attempt.yaml",
+      "sha256": "dc491bbd90b00d7c04c8c9af1e504d9c4dc5126bb5441ffcd7caa3550fa36b2a",
+      "size_bytes": 2127
+    },
+    {
+      "source_path": "projects/renders/goals/reimu-fumo-finish/attempts/shingled-hair-006/evidence/evidence.md",
+      "snapshot_path": "provenance/source/attempts/shingled-hair-006/evidence/evidence.md",
+      "sha256": "de74119c2fd6b6eafc8e078b8af3e111cbc802ca9b1b94d183fb883c2a0d26e3",
+      "size_bytes": 1292
+    },
+    {
+      "source_path": "projects/renders/goals/reimu-fumo-finish/attempts/shingled-hair-006/plan.md",
+      "snapshot_path": "provenance/source/attempts/shingled-hair-006/plan.md",
+      "sha256": "17938b8891bda1decb0b9e63369ca979dbb7eb47a36d72df8864e28633e1b0b8",
+      "size_bytes": 1766
+    },
+    {
+      "source_path": "projects/renders/goals/reimu-fumo-finish/attempts/shingled-hair-006/result.md",
+      "snapshot_path": "provenance/source/attempts/shingled-hair-006/result.md",
+      "sha256": "4c5fa36cf6e6f69affaac628ecf569f9148f0cd5b92b791f7b8ee9f8b52e4be6",
+      "size_bytes": 573
+    },
+    {
+      "source_path": "projects/renders/goals/reimu-fumo-finish/criteria-revisions/1.yaml",
+      "snapshot_path": "provenance/source/criteria-revisions/1.yaml",
+      "sha256": "dc7008e5abe2934f44c876b50935281152ad0b234448d5aad330e3c1fdd20812",
+      "size_bytes": 3120
+    },
+    {
+      "source_path": "projects/renders/goals/reimu-fumo-finish/criteria-revisions/2.yaml",
+      "snapshot_path": "provenance/source/criteria-revisions/2.yaml",
+      "sha256": "b5cfeba22adc3adbe86a402985044bace1c1722e22d0db1741a1402a5109a9c8",
+      "size_bytes": 3935
+    },
+    {
+      "source_path": "projects/renders/goals/reimu-fumo-finish/criteria-revisions/3.yaml",
+      "snapshot_path": "provenance/source/criteria-revisions/3.yaml",
+      "sha256": "0aaf76d6ad9f65e69a68f6f5f7d79aa5e122347491e7a8feb0a77f365e0b8d85",
+      "size_bytes": 3935
+    },
+    {
+      "source_path": "projects/renders/goals/reimu-fumo-finish/criteria-revisions/4.yaml",
+      "snapshot_path": "provenance/source/criteria-revisions/4.yaml",
+      "sha256": "8e9f666e12fe455b09395850611026edfa6b35455b5c10b0c26c7d596fbecd21",
+      "size_bytes": 3966
+    },
+    {
+      "source_path": "projects/renders/goals/reimu-fumo-finish/criteria.yaml",
+      "snapshot_path": "provenance/source/criteria.yaml",
+      "sha256": "8e9f666e12fe455b09395850611026edfa6b35455b5c10b0c26c7d596fbecd21",
+      "size_bytes": 3966
+    },
+    {
+      "source_path": "projects/renders/goals/reimu-fumo-finish/goal.yaml",
+      "snapshot_path": "provenance/source/goal.yaml",
+      "sha256": "26fc3104902a160e859fd4d660678f7b5debbf29f591c79b3f0d8be62f8aff71",
+      "size_bytes": 10761
+    }
+  ]
+}

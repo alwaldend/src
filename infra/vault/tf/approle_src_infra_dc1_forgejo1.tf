@@ -6,6 +6,7 @@ module "src_infra_dc1_forgejo1_approle" {
   ]
   secrets = vault_mount.secrets.path
   policies = [
+    module.dns_access["src_infra_dc1_forgejo1"].policy_name,
     module.src_infra_dc1_forgejo1_ssh.policy,
   ]
   backend          = vault_auth_backend.approle.path
@@ -23,7 +24,7 @@ module "src_infra_dc1_forgejo_pki_server" {
   source                   = "../../../projects/tf_modules/vault_pki_server"
   backend                  = module.pki_ica_servers.backend
   name                     = "src_infra_dc1_forgejo1_pki_server"
-  allowed_domains          = ["forgejo.alwaldend.com"]
+  allowed_domains          = ["git.alwaldend.com", "forgejo.alwaldend.com"]
   eab_new_member_group_ids = [module.src_infra_dc1_forgejo1_approle.group_id]
   client_flag              = true
 }
@@ -41,8 +42,12 @@ module "src_infra_dc1_forgejo1_provider" {
   group_ids = [
     vault_identity_group.src_infra_dc1_forgejo1_users.id,
   ]
+  allowed_read_clients_group_ids = [
+    module.src_infra_dc1_forgejo1_approle.group_id,
+  ]
   redirect_urls = [
     "${var.forgejo_url}/user/oauth2/vault/callback",
+    "https://forgejo.alwaldend.com/user/oauth2/vault/callback",
   ]
 }
 
@@ -78,5 +83,23 @@ resource "vault_identity_group" "src_infra_dc1_forgejo1_admins" {
   ]
   metadata = {
     comment = "Forgejo admins"
+  }
+}
+
+resource "vault_identity_group" "src_infra_dc1_forgejo1_package_writers" {
+  name              = "src_infra_dc1_forgejo1_package_writers"
+  type              = "internal"
+  member_entity_ids = [module.src_third_party_approle.entity_id]
+  metadata = {
+    comment = "Forgejo organization package writers"
+  }
+}
+
+resource "vault_identity_group" "src_infra_dc1_forgejo1_src_writers" {
+  name              = "src_infra_dc1_forgejo1_src_writers"
+  type              = "internal"
+  member_entity_ids = [module.src_infra_flux_git_approle.entity_id]
+  metadata = {
+    comment = "Forgejo src repository automation writer"
   }
 }

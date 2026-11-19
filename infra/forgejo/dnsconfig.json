@@ -1,5 +1,19 @@
 {
     "records": {
+        "git_internal": {
+            "A": {
+                "name": "git",
+                "address": "192.168.10.40"
+            },
+            "dsp": ["dc1"]
+        },
+        "git_external": {
+            "CNAME": {
+                "name": "git",
+                "target": "ingress.alwaldend.com."
+            },
+            "dsp": ["global"]
+        },
         "host1": {
             "A": {
                 "name": "host1.forgejo",

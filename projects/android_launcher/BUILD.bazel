@@ -7,10 +7,16 @@ docs_filegroup(
     srcs = glob(["*.md"]),
     visibility = [
         "//projects:__pkg__",
-        "//projects/android_launcher/landing:__pkg__",
     ],
     deps = [
         "//projects/android_launcher/releases:docs",
+    ],
+)
+
+exports_files(
+    ["maven_lock.json"],
+    visibility = [
+        "//projects/android_launcher:__subpackages__",
     ],
 )
 
@@ -24,14 +30,4 @@ filegroup(
     name = "proguard",
     srcs = ["proguard_rules.pro"],
     visibility = [":__subpackages__"],
-)
-
-filegroup(
-    name = "dnsconfig",
-    srcs = ["dnsconfig.json"],
-    visibility = [
-        "//infra:__pkg__",
-        "//infra/dns:__pkg__",
-        "//projects/alwaldend.com:__subpackages__",
-    ],
 )

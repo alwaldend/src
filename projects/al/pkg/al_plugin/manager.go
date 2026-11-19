@@ -1,6 +1,8 @@
 package al_plugin
 
 import (
+	"context"
+	"errors"
 	"fmt"
 	"io"
 	"strings"
@@ -28,7 +30,7 @@ type Manager struct {
 	pluginsMx sync.Mutex
 	stderr    io.Writer
 	ctx       *al.CmdCtx
-	lc        lifecycle.Manager
+	lc        *lifecycle.Manager
 }
 
 func NewManager(ctx *al.CmdCtx, config *al_proto.Config) (*Manager, error) {
@@ -49,11 +51,12 @@ func NewManager(ctx *al.CmdCtx, config *al_proto.Config) (*Manager, error) {
 		run:     run,
 		ctx:     ctx,
 		plugins: map[string]*pluginState{},
+		lc:      lifecycle.NewParallelStopManager(),
 	}, nil
 }
 
 func (self *Manager) Lifecycle() *lifecycle.Manager {
-	return &self.lc
+	return self.lc
 }
 
 func (self *Manager) Env() []string {
@@ -84,7 +87,9 @@ func (self *Manager) AddLabels(labelArgs []string) error {
 			return fmt.Errorf("could not create plugin %s: %w", plugin.Name, err)
 		}
 		self.plugins[plugin.Name] = state
-		self.lc.Add(state.client)
+		if err := self.lc.Add(state.client); err != nil {
+			return fmt.Errorf("register plugin: %w", errors.Join(err, state.client.Stop(context.Background())))
+		}
 	}
 	for i, call := range self.config.PluginCalls {
 		if !labelsMatch(call.Labels, labels) {
@@ -109,7 +114,9 @@ func (self *Manager) AddLabels(labelArgs []string) error {
 				return fmt.Errorf("could not create plugin for call %s: %w", call.Name, err)
 			}
 			self.plugins[pluginConfig.Name] = plugin
-			self.lc.Add(plugin.client)
+			if err := self.lc.Add(plugin.client); err != nil {
+				return fmt.Errorf("register plugin: %w", errors.Join(err, plugin.client.Stop(context.Background())))
+			}
 		}
 		if _, ok := plugin.calls[call.Name]; !ok {
 			plugin.calls[call.Name] = call

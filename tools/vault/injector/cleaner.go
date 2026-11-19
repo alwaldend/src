@@ -2,76 +2,48 @@ package main
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"os"
 	"sync"
 
 	"git.alwaldend.com/alwaldend/src/projects/al/pkg/al"
-	"git.alwaldend.com/alwaldend/src/projects/al/pkg/lifecycle"
 )
 
+// Cleaner owns paths until Stop returns. Registration and deletion are serialized.
 type Cleaner struct {
-	consume chan []string
-	mx      *sync.RWMutex
-	ctx     *al.CmdCtx
+	mx      sync.Mutex
+	paths   []string
 	closed  bool
-	done    chan struct{}
-	lc      lifecycle.Manager
+	stopErr error
 }
 
-func NewCleaner(ctx *al.CmdCtx) *Cleaner {
-	return &Cleaner{
-		consume: make(chan []string),
-		done:    make(chan struct{}, 1),
-		mx:      &sync.RWMutex{},
-		ctx:     ctx,
-	}
-}
+func NewCleaner(_ *al.CmdCtx) *Cleaner { return &Cleaner{} }
 
 func (self *Cleaner) Add(paths ...string) error {
-	self.mx.RLock()
-	defer self.mx.RUnlock()
-	if self.closed {
-		return fmt.Errorf("could not add: closed")
-	}
-	self.consume <- paths
-	return nil
-}
-
-func (self *Cleaner) Stop(ctx context.Context) error {
 	self.mx.Lock()
 	defer self.mx.Unlock()
-	self.closed = true
-	close(self.consume)
-	<-self.done
-	return self.lc.Stop(ctx)
+	if self.closed {
+		return fmt.Errorf("could not add cleanup paths: closed")
+	}
+	self.paths = append(self.paths, paths...)
+	return nil
 }
 
-func (self *Cleaner) Start(_ context.Context) error {
-	run := func() bool {
-		paths, ok := <-self.consume
-		if !ok {
-			return true
-		}
-		self.ctx.Logger.Printf("scheduling for cleaning: %s", paths)
-		for _, path := range paths {
-			self.lc.AddState(lifecycle.StateStarted, lifecycle.StoppableFunc(func(_ context.Context) error {
-				self.ctx.Logger.Printf("cleaning path %s", path)
-				if err := os.RemoveAll(path); err != nil {
-					return fmt.Errorf("could not clean path %s: %w", path, err)
-				}
-				return nil
-			}))
-		}
-		return false
+func (self *Cleaner) Start(context.Context) error { return nil }
+
+func (self *Cleaner) Stop(context.Context) error {
+	self.mx.Lock()
+	defer self.mx.Unlock()
+	if self.closed {
+		return self.stopErr
 	}
-	go func() {
-		for {
-			if ok := run(); ok {
-				break
-			}
+	self.closed = true
+	for i := len(self.paths) - 1; i >= 0; i-- {
+		if err := os.RemoveAll(self.paths[i]); err != nil {
+			self.stopErr = errors.Join(self.stopErr, fmt.Errorf("could not remove temporary resource: %w", err))
 		}
-		self.done <- struct{}{}
-	}()
-	return nil
+	}
+	self.paths = nil
+	return self.stopErr
 }

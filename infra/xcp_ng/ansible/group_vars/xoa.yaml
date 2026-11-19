@@ -1,0 +1,19 @@
+ansible_user: xoa
+ansible_ssh_password_mechanism: sshpass
+ansible_ssh_args: -C -o ControlMaster=auto -o ControlPersist=600s -o PreferredAuthentications=password -o PubkeyAuthentication=no
+ansible_password: "{{ lookup('ansible.builtin.env', 'XOA_SSH_PASSWORD', default=undef()) }}"
+ansible_become_password: "{{ ansible_password }}"
+xoa_acme_domains:
+  - xoa.xcp-ng.alwaldend.com
+  - host1.xoa.xcp-ng.alwaldend.com
+xoa_acme_cert_name: xoa
+xoa_acme_dir: /etc/xo-acme
+xoa_acme_work_dir: /var/lib/xo-acme
+xoa_acme_log_dir: /var/log/xo-acme
+xoa_https_certificate_path: /etc/ssl/cert.pem
+xoa_https_key_path: /etc/ssl/key.pem
+xoa_native_acme_disabled: true
+xoa_service_runs_as_root: true
+xoa_oidc_plugin_directory: /usr/local/lib/node_modules/xo-server-auth-oidc
+xoa_oidc_lookup_parent_verified: true
+xoa_node_path: /usr/local/bin/node

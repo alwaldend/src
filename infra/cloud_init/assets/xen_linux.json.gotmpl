@@ -1,0 +1,37 @@
+{{- /* Derive Xen bootstrap policy from the shared PVE configuration. */ -}}
+{{- $config := (index .DataFiles 0).Data -}}
+{{- $ansible := false -}}
+{{- range $config.users -}}
+  {{- if eq .name "ansible" -}}
+    {{- if $ansible -}}{{ template "ERROR: duplicate ansible user in cloud-init foundation" }}{{- end -}}
+    {{- $ansible = . -}}
+  {{- end -}}
+{{- end -}}
+{{- if not $ansible -}}{{ template "ERROR: missing ansible user in cloud-init foundation" }}{{- end -}}
+{{- $ansibleCA := "" -}}
+{{- range $ansible.ssh_authorized_keys -}}
+  {{- if eq (index (split . " ") 0) "cert-authority,principals=\"ansible\"" -}}
+    {{- if $ansibleCA -}}{{ template "ERROR: duplicate Ansible SSH CA in cloud-init foundation" }}{{- end -}}
+    {{- $ansibleCA = . -}}
+  {{- end -}}
+{{- end -}}
+{{- if not $ansibleCA -}}{{ template "ERROR: missing Ansible SSH CA in cloud-init foundation" }}{{- end -}}
+{
+  "packages": ["xe-guest-utilities-latest"],
+  "users": [{
+    "groups": "users,wheel",
+    {{/* Retain only the semantically selected Ansible certificate authority. */}}
+    "ssh_authorized_keys": [{{ to_json $ansibleCA }}]
+    {{- range $key, $value := $ansible }}
+    {{- if and (ne $key "groups") (ne $key "ssh_authorized_keys") }},
+    {{ to_json $key }}: {{ to_json $value }}
+    {{- end }}
+    {{- end }}
+  }]
+  {{/* Preserve existing Xen package/reboot and metadata-key behavior. */}}
+  {{- range $key, $value := $config }}
+  {{- if and (ne $key "users") (ne $key "packages") (ne $key "package_reboot_if_required") (ne $key "allow_public_ssh_keys") }},
+  {{ to_json $key }}: {{ to_json $value }}
+  {{- end }}
+  {{- end }}
+}

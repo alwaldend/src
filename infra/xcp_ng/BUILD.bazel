@@ -1,17 +1,94 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//projects/al/rules/al:al_binary.bzl", "al_binary_run")
 load("//projects/al/rules/al:al_config.bzl", "al_config")
 load("//tools/vault:defs.bzl", "vault_binary_map")
 
 al_config(
     name = "al",
     srcs = ["al.lua"],
-    visibility = ["//infra/xcp_ng:__subpackages__"],
+    visibility = [
+        "//infra/forgejo:__subpackages__",
+        "//infra/xcp_ng:__subpackages__",
+    ],
     deps = ["//infra:al"],
 )
 
 vault_binary_map(
     name = "vault",
     configs = [":al"],
+    vault_env = "xcp_ng",
+)
+
+al_binary_run(
+    name = "xo_inspect",
+    args = [
+        "$(rootpath //infra/xcp_ng/cmd/xo_config)",
+        "inspect",
+    ],
+    configs = [":al"],
+    data = [
+        "//infra/xcp_ng/cmd/xo_config",
+        "//tools/vault/injector",
+    ],
+    run_args = [
+        "--plugin_label",
+        "xoa=1",
+    ],
+)
+
+al_binary_run(
+    name = "xo_register_host",
+    args = [
+        "$(rootpath //infra/xcp_ng/cmd/xo_config)",
+        "register-host",
+    ],
+    configs = [":al"],
+    data = [
+        "//infra/xcp_ng/cmd/xo_config",
+        "//tools/vault/injector",
+    ],
+    run_args = [
+        "--plugin_label",
+        "xoa=1",
+        "--plugin_label",
+        "xcpng_host=1",
+    ],
+)
+
+al_binary_run(
+    name = "xo_import_template",
+    args = [
+        "$(rootpath //infra/xcp_ng/cmd/xo_config)",
+        "import-template",
+        "$(rootpath //third_party/org_fedora_cloud)",
+    ],
+    configs = [":al"],
+    data = [
+        "//infra/xcp_ng/cmd/xo_config",
+        "//third_party/org_fedora_cloud",
+        "//tools/vault/injector",
+    ],
+    run_args = [
+        "--plugin_label",
+        "xoa=1",
+    ],
+)
+
+al_binary_run(
+    name = "xo_import_prepared_template",
+    args = [
+        "$(rootpath //infra/xcp_ng/cmd/xo_config)",
+        "import-template",
+    ],
+    configs = [":al"],
+    data = [
+        "//infra/xcp_ng/cmd/xo_config",
+        "//tools/vault/injector",
+    ],
+    run_args = [
+        "--plugin_label",
+        "xoa=1",
+    ],
 )
 
 filegroup(

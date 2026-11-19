@@ -1,0 +1,102 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: Goal
+metadata:
+  name: reimu-fumo-finish
+  resourceVersion: "58"
+  generation: 1
+  creationTimestamp: "2026-09-04T07:36:58.882058192Z"
+  annotations:
+    goals.alwaldend.com/local-owner-root: projects/renders
+spec:
+  title: Finish a reference-faithful reusable animated Reimu Fumo
+  scope: project
+  retention:
+    policy: durable
+  relationships:
+    dependsOnGoalRefs: []
+    supersedesGoalRefs: []
+status:
+  lifecycleGeneration: 15
+  outcome: open
+  execution: blocked
+  activeAttemptID: ""
+  acceptedAttemptID: ""
+  acceptedResultDigest: ""
+  criteriaRevision: 4
+  plans:
+  - planID: recovery-clay-v1
+    state: superseded
+    strategy: "Treat PR #24 and local continuation 401582f3 as archived evidence, recover A157 as the immutable visual scaffold and A202 as a technical donor, prove the Blender MCP save/reopen/render path, then rebuild the head-and-hair representation and retain it only after calibrated multi-view gates pass."
+  - planID: curved-cap-v2
+    state: rejected
+    strategy: Return to protected A157, retain its soft cushion and already separate fringe/cheek/rear locks, replace only the continuous helmet cap with a thin curved crown/rear shell, and accept no correction unless a new attempt explicitly supersedes this plan.
+    rejectionReason: Second reviewed head-covering shell or panel-box failure; representation family retired by PROCESS.md stop rule.
+  - planID: integrated-textile-v3
+    state: rejected
+    strategy: Use the existing soft head cushion as the brown hair substrate outside a measured beige face region, with independent fringe, cheek, and rear locks and no overlay shell.
+    rejectionReason: Blind five-view review scored clay readiness 3/10 and found the integrated stuffed substrate still reads as a monolithic helmet; fine tuning cannot clear the macro gate.
+  - planID: shingled-locks-v4
+    state: rejected
+    strategy: Replace monolithic hair with four independently closed curved crown cushions, two closed side locks, and retained independent lower locks over the beige stuffed head substrate.
+    rejectionReason: Analytic panels were embedded by the evaluated head lattice, exposing the crown and leaving detached oval side pads on the first pinned render.
+  - planID: evaluated-lobes-v5
+    state: rejected
+    strategy: Generate six independently closed organic padded hair lobes from the evaluated head surface and normals, with quiet crown overlaps and distinct lower side tips.
+    rejectionReason: The complete evaluated-surface assembly produced a segmented cap, giant side pad, and overlapping pillow cluster; padded-lobe family retired after two failures.
+  - planID: event-simulated-sculpt-v6
+    state: superseded
+    strategy: "Run one isolated authoring-capability coupon in pinned interactive Blender: use the existing MCP live-code and viewport tools to enqueue a bounded Window.event_simulate sculpt drag on a disposable mesh, then prove local deformation, undo, save, clean reopen, and render. If the real modal event path cannot complete once, reject it and evaluate an isolated virtual-KWin desktop MCP; never grant generic control of the normal logged-in desktop."
+  - planID: event-simulated-sculpt-v7
+    state: superseded
+    strategy: "Run one isolated authoring-capability coupon in pinned interactive Blender: use the existing MCP live-code and viewport tools to enqueue a bounded Window.event_simulate sculpt drag on a disposable source copy; prove local deformation, save it to a new candidate, clean-reopen and render that deformed candidate, then undo in the live session and verify recovery plus unchanged source bytes. If this real modal event path cannot complete once, reject it and evaluate an isolated virtual-KWin desktop MCP; never grant generic control of the normal logged-in desktop."
+  - planID: mapped-gui-sculpt-v8
+    state: accepted
+    strategy: Treat v7's 0x0 unmapped pinned window as a launch-host defect, not a sculpt-path verdict. Use the already-installed mapped Flatpak Blender 5.1 plus its loopback MCP only for a disposable Window.event_simulate sculpt coupon; bind deformation and saved candidate bytes, then clean-reopen and render those exact bytes with repository-pinned Blender 5.2.1. Reject this route only if the mapped host cannot produce event-driven deformation or an exact saved candidate; permit another corrective trial only for a newly evidenced failure mechanism.
+  - planID: a157-bow-span-v9
+    state: rejected
+    strategy: "Start from immutable A157 and use mapped XWayland Blender MCP native Grab strokes only on its independent left and right draped bow tails. Target complete front bow span 2.038 Wh +/- 0.05 Wh while preserving roots, thickness, all non-target meshes, and protected source bytes; clean-reopen and render the exact candidate with pinned Blender 5.2.1, then require implementation-blind review. Stop after the paired correction and record retain, refine, or reset; this module result cannot pass the whole-character clay gate, whose next subsystem is the helmet-like head and hair mass."
+    rejectionReason: The single-extremum assembled-view Grab path failed both shape distribution and right-side surface picking; repeating it cannot produce a valid symmetric bow correction.
+  - planID: a157-tail-assembly-v10
+    state: rejected
+    strategy: Return to immutable A157 and replace the rejected assembled-view tip Grab with deterministic multi-object Edit Mode selection of each red tail plus its white ruffle. Use one native connected proportional global-X transform per side with a 0.045 m radius and exact +/-0.0267 m displacement; preserve root bands, depth, thickness, upper loops, knot, non-target geometry, modifiers, and source bytes. Clean-reopen and render the exact result with pinned Blender 5.2.1, then record retain, refine, or reset without advancing the whole-character clay stage.
+    rejectionReason: The modal numeric-entry mechanism completed at zero displacement; key-stream spelling changes would be equivalent retries.
+  - planID: a157-tail-vector-v11
+    state: rejected
+    strategy: Return to immutable A157 and preserve attempt 012 deterministic outer-band selection of each red-tail and ruffle pair, but replace failed modal numeric text parsing with Blender native proportional transform operators receiving explicit +/-0.0267 m values. Use connected smooth falloff radius 0.045 m; preserve root bands, Y/Z thickness, upper loops, knot, non-target geometry, modifiers, and source bytes. Pinned-render the exact candidate and record retain, refine, or reset without advancing the clay stage.
+    rejectionReason: The explicit-vector mechanism worked and hit span, but the horizontal-only representation produced fin-like tails with abrupt roots and weak ruffle readability
+  - planID: native-crown-patch-v12
+    state: rejected
+    strategy: "Return to protected A157 and use the accepted native edit capability to turn its surface-fitted A44 continuous cap into a crown-only patch: native-delete the lower enclosing apron below frozen Z 0.155 m, retain the existing independent fringe, cheek locks, and rear locks, freeze every other object, then clean-open in pinned Blender and gate front, side, and revealing three-quarter views. This replaces the measured 81.4 percent near-uniform second-skin mechanism without generating another shell or lobe; reset on any capsule, slab, hard rail, pale gap, or non-target change."
+    rejectionReason: A scalar crown cut removed enclosing faces but produced a smaller horizontal slab, broad pale gaps, and rigid disconnected-looking hair pieces in the pinned fast trio
+  - planID: native-manual-head-v13
+    state: rejected
+    strategy: Use protected A157 only as body, face-layout, bow, and camera donor. A single named Blender writer uses the accepted native interactive sculpt/edit path to bake and manually reshape one shallow head cushion plus at most four independently rooted hair forms; no enclosing cap, generated shell, radial lobe, scalar cut, or object-transform-only final form. Freeze all non-head geometry, save one first complete state, and require pinned front, side, and revealing three-quarter gates. If an automatic helmet, card, pillow-cluster, gap, or root defect remains, stop autonomous variants and require a skilled artist or richer native sculpt capability.
+    rejectionReason: Manual native shaping still produced pillow, card, crown-rail, and floating-root defects; the broad-Grab/native-transform route cannot clear the head-and-hair gate
+  - planID: localized-sculpt-stack-v14
+    state: superseded
+    strategy: Prove on one disposable connected padded panel that the existing Blender MCP route can combine native Smooth, Scrape or Flatten, volume, Grab, mask or face-set isolation, controlled multi-view strokes, exact undo, save, pinned clean-open, and render to flatten a pillow plane, seat a root, and taper a soft tip; partial success fails and authorizes no Reimu asset claim.
+  - planID: localized-sculpt-stack-v15
+    state: rejected
+    strategy: "Repeat the unresolved localized multi-brush capability question only after removing attempt 016s two diagnosed empty-scene dependencies: the live Blender 5.1 fixture setup does not configure a render engine or access a World, then one frozen disposable panel must prove isolated native flattening, volume, smoothing, Grab, multi-view strokes, exact undo, pinned clean-open, and render."
+    rejectionReason: "Three isolated native Flatten strokes produced a real but under-gate response: 4.8236 percent plane-variance reduction versus the frozen 35 percent requirement; root and tip stages were withheld"
+  - planID: flatten-dose-response-v16
+    state: rejected
+    strategy: Use exact attempt-017 partial bytes and hold fixture, mask, view, PLANE brush, strength, radius, trajectory, timing, metric, and threshold fixed while varying only cumulative identical Flatten dose in three-stroke blocks to a hard 27-stroke ceiling; only after a 35 percent plane-variance pass, run one frozen root and tip block each, with any miss blocking autonomous modeling.
+    rejectionReason: The fixed dose response plateaued at 32.4431 percent plane-variance reduction at the hard 27-stroke ceiling, below the unchanged 35 percent gate, and introduced terrace-like ridges; root and tip stages were withheld
+  promotion:
+    sourceScope: ""
+    sourceGeneration: 0
+    sourceLifecycleGeneration: 0
+    sourceCriteriaRevision: 0
+    sourceCriteriaDigest: ""
+    sourceStateDigest: ""
+    sourceDigest: ""
+    promotedAt: ""
+  migration:
+    sourceFormat: ""
+    sourcePath: ""
+    sourceDigest: ""
+    mappingVersion: ""
+    extractionMode: ""
+    migratedAt: ""
+  observedAt: "2026-09-04T12:58:04.377051268Z"

@@ -1,0 +1,41 @@
+load("@aspect_rules_js//js:defs.bzl", "js_binary", "js_test")
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+
+js_binary(
+    name = "render",
+    data = [
+        "//tools:node_modules/puppeteer",
+        "@com_alwaldend_src_tools_mermaid//:chrome_headless_shell_binary",
+    ],
+    entry_point = "main.mjs",
+    visibility = ["//tools/drawio:__pkg__"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = [],
+    visibility = ["//tools/drawio:__pkg__"],
+)
+
+js_test(
+    name = "render_test",
+    size = "medium",
+    args = [
+        "$(rootpath //tools/drawio:webapp)",
+        "$(rootpath @com_alwaldend_src_tools_mermaid//:chrome_headless_shell_binary)",
+        "$(rootpath @com_alwaldend_src_tools_drawio_fonts//:LiberationSans-Regular.ttf)",
+    ],
+    data = [
+        "main.mjs",
+        "//tools:node_modules/puppeteer",
+        "//tools/drawio:webapp",
+        "@com_alwaldend_src_tools_drawio_fonts//:LiberationSans-Regular.ttf",
+        "@com_alwaldend_src_tools_drawio_fonts//:fonts",
+        "@com_alwaldend_src_tools_mermaid//:chrome_headless_shell_binary",
+    ],
+    entry_point = "main_test.mjs",
+    no_copy_to_bin = [
+        "@com_alwaldend_src_tools_drawio_fonts//:fonts",
+        "@com_alwaldend_src_tools_drawio_fonts//:LiberationSans-Regular.ttf",
+    ],
+)

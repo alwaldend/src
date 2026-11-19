@@ -12,8 +12,8 @@ Apply this policy across the repository, not only under `projects/`.
 
 ## Choose the owning project
 
-Identify the narrowest component that owns the source. A project root can live
-under any repository boundary, such as `projects/<project>`,
+Identify the narrowest component that genuinely owns the source. A project
+root can live under any repository boundary, such as `projects/<project>`,
 `tools/<project>`, or `infra/<project>`; do not treat a top-level boundary as
 the owner when a narrower component owns the source.
 
@@ -21,12 +21,19 @@ Keep the boundary rules from the root `AGENTS.md` and the nearest `README.md`.
 If an owner does not exist, create a named project inside the appropriate
 boundary before choosing its internal layout.
 
-Prefer project-local ownership. Store skills, metadata, docs, and other
-supporting content in the project that owns the behavior they support. Avoid
-creating a separate generic project that aggregates unrelated content merely
-by type, such as a standalone `skills` project; a shared project is justified
-only when its members have a common owner, contract, or consumer, not just a
-common directory role.
+Prefer local ownership when it genuinely fits. Store skills, metadata, docs,
+and other supporting content in the project that owns the behavior they
+support. A product-specific procedure belongs with its product. When the
+content is genuinely cross-product or repository-wide, and no narrower project
+owns it without contrivance, place it in the appropriate generic project
+instead of inventing a local home or stretching an existing one. For skills,
+that generic owner is `projects/agents/skills/`.
+
+Do not create a separate project that aggregates unrelated content merely by
+type, such as a standalone `skills` project, and do not split one skill across
+owners. A shared project is justified only when its members have a common
+owner, contract, or consumer, not just a common directory role; that condition
+is what distinguishes a generic owner from a by-type aggregator.
 
 ## Choose a source type
 

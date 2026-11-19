@@ -1,0 +1,65 @@
+load("@bazel_skylib//rules:build_test.bzl", "build_test")
+load("@rules_android//android:rules.bzl", "android_binary")
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("@rules_kotlin//kotlin:android.bzl", "kt_android_library")
+load("@rules_kotlin//kotlin:core.bzl", "kt_compiler_plugin")
+
+_PACKAGE = "com.alwaldend.src.projects.activitywatch_ingester_android"
+
+filegroup(
+    name = "main",
+    srcs = glob(["**/*.kt"]),
+)
+
+kt_compiler_plugin(
+    name = "jetpack_compose_compiler_plugin",
+    id = "org.jetbrains.kotlin.android",
+    target_embedded_compiler = True,
+    deps = ["@com_alwaldend_src_projects_activitywatch_ingester_android_maven//:org_jetbrains_kotlin_kotlin_compose_compiler_plugin_embeddable"],
+)
+
+kt_android_library(
+    name = "ingester_lib",
+    srcs = [":main"],
+    custom_package = _PACKAGE,
+    manifest = "//projects/activitywatch_ingester_android:manifest",
+    plugins = [":jetpack_compose_compiler_plugin"],
+    proguard_specs = ["//projects/activitywatch_ingester_android:proguard"],
+    resource_files = ["//projects/activitywatch_ingester_android/res"],
+    visibility = ["//projects/activitywatch_ingester_android:__subpackages__"],
+    deps = [
+        "@com_alwaldend_src_projects_activitywatch_ingester_android_maven//:androidx_activity_activity_compose",
+        "@com_alwaldend_src_projects_activitywatch_ingester_android_maven//:androidx_compose_foundation_foundation_layout",
+        "@com_alwaldend_src_projects_activitywatch_ingester_android_maven//:androidx_compose_material3_material3",
+        "@com_alwaldend_src_projects_activitywatch_ingester_android_maven//:androidx_compose_runtime_runtime",
+        "@com_alwaldend_src_projects_activitywatch_ingester_android_maven//:androidx_compose_ui_ui",
+        "@com_alwaldend_src_projects_activitywatch_ingester_android_maven//:androidx_core_core",
+        "@com_alwaldend_src_projects_activitywatch_ingester_android_maven//:org_json_json",
+    ],
+)
+
+android_binary(
+    name = "ingester_binary",
+    manifest = "//projects/activitywatch_ingester_android:manifest",
+    manifest_values = {
+        "versionCode": "1",
+        "versionName": "0.0.0-dev",
+        "applicationId": _PACKAGE,
+    },
+    visibility = ["//visibility:public"],
+    deps = [":ingester_lib"],
+)
+
+build_test(
+    name = "test_builds",
+    targets = [":ingester_binary"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(
+        ["*.md"],
+        allow_empty = True,
+    ),
+    visibility = ["//projects/activitywatch_ingester_android:__pkg__"],
+)

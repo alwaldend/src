@@ -1,0 +1,256 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: Goal
+metadata:
+  name: reimu-fumo-finish
+  resourceVersion: "375"
+  generation: 1
+  creationTimestamp: "2026-09-04T07:36:58.882058192Z"
+  annotations:
+    goals.alwaldend.com/local-owner-root: projects/renders
+spec:
+  title: Finish a reference-faithful reusable animated Reimu Fumo
+  scope: project
+  retention:
+    policy: durable
+  relationships:
+    dependsOnGoalRefs: []
+    supersedesGoalRefs: []
+status:
+  lifecycleGeneration: 16
+  outcome: open
+  execution: active
+  activeAttemptID: independent-original-macro-115
+  acceptedAttemptID: ""
+  acceptedResultDigest: ""
+  criteriaRevision: 4
+  plans:
+  - planID: recovery-clay-v1
+    state: superseded
+    strategy: "Treat PR #24 and local continuation 401582f3 as archived evidence, recover A157 as the immutable visual scaffold and A202 as a technical donor, prove the Blender MCP save/reopen/render path, then rebuild the head-and-hair representation and retain it only after calibrated multi-view gates pass."
+  - planID: curved-cap-v2
+    state: rejected
+    strategy: Return to protected A157, retain its soft cushion and already separate fringe/cheek/rear locks, replace only the continuous helmet cap with a thin curved crown/rear shell, and accept no correction unless a new attempt explicitly supersedes this plan.
+    rejectionReason: Second reviewed head-covering shell or panel-box failure; representation family retired by PROCESS.md stop rule.
+  - planID: integrated-textile-v3
+    state: rejected
+    strategy: Use the existing soft head cushion as the brown hair substrate outside a measured beige face region, with independent fringe, cheek, and rear locks and no overlay shell.
+    rejectionReason: Blind five-view review scored clay readiness 3/10 and found the integrated stuffed substrate still reads as a monolithic helmet; fine tuning cannot clear the macro gate.
+  - planID: shingled-locks-v4
+    state: rejected
+    strategy: Replace monolithic hair with four independently closed curved crown cushions, two closed side locks, and retained independent lower locks over the beige stuffed head substrate.
+    rejectionReason: Analytic panels were embedded by the evaluated head lattice, exposing the crown and leaving detached oval side pads on the first pinned render.
+  - planID: evaluated-lobes-v5
+    state: rejected
+    strategy: Generate six independently closed organic padded hair lobes from the evaluated head surface and normals, with quiet crown overlaps and distinct lower side tips.
+    rejectionReason: The complete evaluated-surface assembly produced a segmented cap, giant side pad, and overlapping pillow cluster; padded-lobe family retired after two failures.
+  - planID: event-simulated-sculpt-v6
+    state: superseded
+    strategy: "Run one isolated authoring-capability coupon in pinned interactive Blender: use the existing MCP live-code and viewport tools to enqueue a bounded Window.event_simulate sculpt drag on a disposable mesh, then prove local deformation, undo, save, clean reopen, and render. If the real modal event path cannot complete once, reject it and evaluate an isolated virtual-KWin desktop MCP; never grant generic control of the normal logged-in desktop."
+  - planID: event-simulated-sculpt-v7
+    state: superseded
+    strategy: "Run one isolated authoring-capability coupon in pinned interactive Blender: use the existing MCP live-code and viewport tools to enqueue a bounded Window.event_simulate sculpt drag on a disposable source copy; prove local deformation, save it to a new candidate, clean-reopen and render that deformed candidate, then undo in the live session and verify recovery plus unchanged source bytes. If this real modal event path cannot complete once, reject it and evaluate an isolated virtual-KWin desktop MCP; never grant generic control of the normal logged-in desktop."
+  - planID: mapped-gui-sculpt-v8
+    state: accepted
+    strategy: Treat v7's 0x0 unmapped pinned window as a launch-host defect, not a sculpt-path verdict. Use the already-installed mapped Flatpak Blender 5.1 plus its loopback MCP only for a disposable Window.event_simulate sculpt coupon; bind deformation and saved candidate bytes, then clean-reopen and render those exact bytes with repository-pinned Blender 5.2.1. Reject this route only if the mapped host cannot produce event-driven deformation or an exact saved candidate; permit another corrective trial only for a newly evidenced failure mechanism.
+  - planID: a157-bow-span-v9
+    state: rejected
+    strategy: "Start from immutable A157 and use mapped XWayland Blender MCP native Grab strokes only on its independent left and right draped bow tails. Target complete front bow span 2.038 Wh +/- 0.05 Wh while preserving roots, thickness, all non-target meshes, and protected source bytes; clean-reopen and render the exact candidate with pinned Blender 5.2.1, then require implementation-blind review. Stop after the paired correction and record retain, refine, or reset; this module result cannot pass the whole-character clay gate, whose next subsystem is the helmet-like head and hair mass."
+    rejectionReason: The single-extremum assembled-view Grab path failed both shape distribution and right-side surface picking; repeating it cannot produce a valid symmetric bow correction.
+  - planID: a157-tail-assembly-v10
+    state: rejected
+    strategy: Return to immutable A157 and replace the rejected assembled-view tip Grab with deterministic multi-object Edit Mode selection of each red tail plus its white ruffle. Use one native connected proportional global-X transform per side with a 0.045 m radius and exact +/-0.0267 m displacement; preserve root bands, depth, thickness, upper loops, knot, non-target geometry, modifiers, and source bytes. Clean-reopen and render the exact result with pinned Blender 5.2.1, then record retain, refine, or reset without advancing the whole-character clay stage.
+    rejectionReason: The modal numeric-entry mechanism completed at zero displacement; key-stream spelling changes would be equivalent retries.
+  - planID: a157-tail-vector-v11
+    state: rejected
+    strategy: Return to immutable A157 and preserve attempt 012 deterministic outer-band selection of each red-tail and ruffle pair, but replace failed modal numeric text parsing with Blender native proportional transform operators receiving explicit +/-0.0267 m values. Use connected smooth falloff radius 0.045 m; preserve root bands, Y/Z thickness, upper loops, knot, non-target geometry, modifiers, and source bytes. Pinned-render the exact candidate and record retain, refine, or reset without advancing the clay stage.
+    rejectionReason: The explicit-vector mechanism worked and hit span, but the horizontal-only representation produced fin-like tails with abrupt roots and weak ruffle readability
+  - planID: native-crown-patch-v12
+    state: rejected
+    strategy: "Return to protected A157 and use the accepted native edit capability to turn its surface-fitted A44 continuous cap into a crown-only patch: native-delete the lower enclosing apron below frozen Z 0.155 m, retain the existing independent fringe, cheek locks, and rear locks, freeze every other object, then clean-open in pinned Blender and gate front, side, and revealing three-quarter views. This replaces the measured 81.4 percent near-uniform second-skin mechanism without generating another shell or lobe; reset on any capsule, slab, hard rail, pale gap, or non-target change."
+    rejectionReason: A scalar crown cut removed enclosing faces but produced a smaller horizontal slab, broad pale gaps, and rigid disconnected-looking hair pieces in the pinned fast trio
+  - planID: native-manual-head-v13
+    state: rejected
+    strategy: Use protected A157 only as body, face-layout, bow, and camera donor. A single named Blender writer uses the accepted native interactive sculpt/edit path to bake and manually reshape one shallow head cushion plus at most four independently rooted hair forms; no enclosing cap, generated shell, radial lobe, scalar cut, or object-transform-only final form. Freeze all non-head geometry, save one first complete state, and require pinned front, side, and revealing three-quarter gates. If an automatic helmet, card, pillow-cluster, gap, or root defect remains, stop autonomous variants and require a skilled artist or richer native sculpt capability.
+    rejectionReason: Manual native shaping still produced pillow, card, crown-rail, and floating-root defects; the broad-Grab/native-transform route cannot clear the head-and-hair gate
+  - planID: localized-sculpt-stack-v14
+    state: superseded
+    strategy: Prove on one disposable connected padded panel that the existing Blender MCP route can combine native Smooth, Scrape or Flatten, volume, Grab, mask or face-set isolation, controlled multi-view strokes, exact undo, save, pinned clean-open, and render to flatten a pillow plane, seat a root, and taper a soft tip; partial success fails and authorizes no Reimu asset claim.
+  - planID: localized-sculpt-stack-v15
+    state: rejected
+    strategy: "Repeat the unresolved localized multi-brush capability question only after removing attempt 016s two diagnosed empty-scene dependencies: the live Blender 5.1 fixture setup does not configure a render engine or access a World, then one frozen disposable panel must prove isolated native flattening, volume, smoothing, Grab, multi-view strokes, exact undo, pinned clean-open, and render."
+    rejectionReason: "Three isolated native Flatten strokes produced a real but under-gate response: 4.8236 percent plane-variance reduction versus the frozen 35 percent requirement; root and tip stages were withheld"
+  - planID: flatten-dose-response-v16
+    state: rejected
+    strategy: Use exact attempt-017 partial bytes and hold fixture, mask, view, PLANE brush, strength, radius, trajectory, timing, metric, and threshold fixed while varying only cumulative identical Flatten dose in three-stroke blocks to a hard 27-stroke ceiling; only after a 35 percent plane-variance pass, run one frozen root and tip block each, with any miss blocking autonomous modeling.
+    rejectionReason: The fixed dose response plateaued at 32.4431 percent plane-variance reduction at the hard 27-stroke ceiling, below the unchanged 35 percent gate, and introduced terrace-like ridges; root and tip stages were withheld
+  - planID: reference-traced-cage-v17
+    state: superseded
+    strategy: Use a single local Blender writer to construct a connected front hair panel from the controlling image contour and a shallow rounded head cage. Replace independently raised fringe plates and arbitrary radial geometry with measured control points, thin edge thickness, and explicit fitted roots; use pinned saved-file renders as visual feedback. First prove localized native cage editing and saved-byte verification on a disposable fixture, then test the head and fringe in the whole-character context. User permits any effective local tool, with Desktop Use carrying no preference.
+  - planID: tapered-stuffed-panels-v18
+    state: superseded
+    strategy: Replace the failed uniform annular head wall with independently shaped front and rear stuffed-panel depth fields that taper at crown and underside, preserve the measured frontal contour, and seat the head against the unchanged collar; test side depth distribution and contact before detail work.
+  - planID: hanging-rear-cloth-v19
+    state: superseded
+    strategy: Replace inherited projected rear-lock meshes with three explicit thin cloth grids whose width, outline, root depth and hanging continuation are directly controlled, preserving the improved experimental head and all non-targets; gate side and rear construction before further detail.
+  - planID: seated-body-cloth-v20
+    state: superseded
+    strategy: Correct the measured excess collar-to-hem height, retain intrinsic head shape, lower head to collar, compress upper bow about its root, and replace rigid skirt panels with joined gathered cloth; author a rest-frame study in pinned background Blender and gate frozen multi-view reference evidence.
+  - planID: fitted-torso-cloth-v21
+    state: superseded
+    strategy: Narrow the over-wide torso and waist while preserving corrected seated height, then replace the detached collar/cravat solids with thin cloth fitted to evaluated body and neck surfaces; reject floating roots or new sleeve/skirt regressions in fixed views.
+  - planID: sewn-lower-assembly-v22
+    state: superseded
+    strategy: Replace flat hem and black foot pods jointly with gathered cloth seated over cream stuffed legs and near-flat black sewn endcaps; preserve red skirt and all upper geometry and test fixed-view contacts.
+  - planID: curled-lower-cloth-v23
+    state: superseded
+    strategy: "Reset from023: replace stationary fold stations with a continuous curling excess-length strip, shorten and taper stuffed legs, preserve measured seam/support method and all upper controls; reject another teeth/cylinder result."
+  - planID: isolated-curled-hem-v24
+    state: superseded
+    strategy: Retain023 rounded feet and all upper geometry; isolate025 continuous curled hem sampler with support recomputed against retained feet, then reject any visual/contact regression.
+  - planID: rolled-gusset-hair-frame-v25
+    state: superseded
+    strategy: Replace radial head/laminated hair with a broad facial panel, tapered finite rolled gusset and rooted padded hair, preserving front landmarks and neck contact; judge same-settings actual-node Eevee pixels against026.
+  - planID: continuous-upper-crown-v26
+    state: superseded
+    strategy: Replace the027c clamped upper-front depth plateau with one continuous Hermite profile, preserving lower face, neck, rear and seam while testing fixed-view softness and coverage.
+  - planID: short-stuffed-hand-v27
+    state: superseded
+    strategy: Expose only a short rounded distal end of the two recessed arm inserts, preserving sleeve pose, cloth and shoulders; test actual cuff/skirt clearance before any wider sleeve reshape.
+  - planID: upper-loop-proportions-v28
+    state: superseded
+    strategy: Correct measured upper-loop excess width and shallow height using only paired local loop cages; preserve head knot tails and top height, then gate frozen fixed-view improvement.
+  - planID: proximal-cream-leg-v29
+    state: superseded
+    strategy: Reveal only existing rounded proximal cream roots under the fixed hem, preserve retained black pod geometry and placement, and reject tube construction or contact regressions.
+  - planID: local-head-tangent-v30
+    state: superseded
+    strategy: Repair only the retained outer front cushion tangent into its gusset and transfer the receiver change to hood/fringe, preserving landmarks and neck; gate fixed-view softness rather than seam metrics alone.
+  - planID: sewn-visible-foot-panels-v31
+    state: superseded
+    strategy: Partition the retained visible rounded foot surface into a coherent black toe cap and cream upper panel while preserving envelope and contact; gate first-hit material masks and pixels instead of hidden-root bounds.
+  - planID: oriented-shared-head-interface-v32
+    state: superseded
+    strategy: Replace the folded chord-projected shared fringe/hood join with oriented boundary co-normal derivatives while retaining exact cut paths, thickness endpoints, protected head inputs and all retained033 non-targets; reject reversed Jacobians or folds before save and require actual five-view improvement.
+  - planID: chart-triangulated-head-interface-v33
+    state: superseded
+    strategy: Replace the crossed side-root boundary and fixed ruled correspondence with one bounded root-support reset, a simple XZ domain, constrained triangulation and minimum-bending depth, preserving actual landmarks and retained033 controls.
+  - planID: cylindrical-head-interface-v34
+    state: superseded
+    strategy: Use one fixed angle-height chart around the model vertical axis with scalar radius, preserving035 support sets and actual landmarks; verify conditioning and inner boundary before a constrained radial-field construction.
+  - planID: coordinate-preserving-animation-v35
+    state: superseded
+    strategy: Build a separate reusable rest-baked copy with explicit tested texture coordinates, one final existing-bone transform per component, and stored neutral/head/arm/combined actions; preserve033 donor and require neutral, motion and append checks.
+  - planID: reference-led-macro-v36
+    state: superseded
+    strategy: Rebuild whole-character macro silhouette from canonical contours and shallow stuffed side volume; discard rejected037 geometry while preserving files, prioritize front-side visual review before details or rig.
+  - planID: bowed-front-gusset-v37
+    state: superseded
+    strategy: Replace receding ellipsoid front with gently bowed cushion panel and explicit rounded gusset; conform face, rear hair and collar to shared support surfaces and judge front plus side before detail.
+  - planID: direct-section-cage-v38
+    state: superseded
+    strategy: Direct independent crown-cheek-chin-back and seated-body section cages replace radial surfaces; wrap cloth on receiving supports and reject macro failures in front-side renders before detail.
+  - planID: fixed-geometry-fabric-v39
+    state: superseded
+    strategy: Keep040b base mesh geometry fixed and discriminate material-driven hard-surface appearance using local cloth shading, submillimeter pile and neutral physical lighting; retain fixed-view silhouette/contact gates.
+  - planID: simulated-gathered-cloth-v40
+    state: superseded
+    strategy: Replace prescribed conical skirt with a pinned gathering cloth annulus and real body foot floor collision, bounded solve, fixed-view rejection gates and no changes to other geometry.
+  - planID: readable-sewn-textile-v41
+    state: superseded
+    strategy: Test resolvable local pile and sewn bow sleeve details on an explicit unaccepted source, flatten black foot endcaps, and judge all-view appearance without waiving shape contacts or final criteria.
+  - planID: cushion-sewn-repair-v42
+    state: superseded
+    strategy: Use measured coherent cushion and eye shaping, buried hair roots and sewn garment corrections; prove cloth rest-coordinate evaluation before corrected full solve; gate all-side plush likeness and contacts independently of detail.
+  - planID: fitted-crown-free-panels-v43
+    state: superseded
+    strategy: Replace solid brown lower rear head with tapered cream receiver, fitted crown and thin free hanging fabric extensions; preserve canonical front landmarks and gate actual front-side construction before detail.
+  - planID: surface-fitted-collar-v44
+    state: superseded
+    strategy: Repair evidenced collar torso intersections through curvature-resolved support with smooth free shoulder continuation, preserving contours and thickness; reject detached bridging or neck regressions.
+  - planID: flatter-free-panels-v45
+    state: rejected
+    strategy: Preserve fitted upper crown and canonical front while replacing unsupported lower rear shell arcs and repeated rounded tongues with shallow ruled fabric and independently tapered hems, guarded by receiver clearance and blind multi-view review.
+    rejectionReason: Shortened lower panels expose a broad cream underside strip and do not resolve the helmet appearance; coverage must constrain any next representation.
+  - planID: shared-pillow-cover-v46
+    state: superseded
+    strategy: Replace separately domed head and full-height rear lobes with a shared front-back pillow volume, surface-fitted front hair and continuous lower cover; preserve canonical XZ and gate actual front-side construction before detail.
+  - planID: surface-relative-pillow-v47
+    state: superseded
+    strategy: Replace unrun052 unsupported band projection with complete surface attachment, continuous crown endpoints and bowed shared pillow profile; preserve050 non-targets and reject at fixed front-side gate before detail.
+  - planID: rooted-sheet-crown-v48
+    state: superseded
+    strategy: Replace rejected053 radial lower curtain with close upper fabric and rooted planar-hem sheets; seat actual cloth along receiver normals and preserve measured front contour and050 non-targets.
+  - planID: sewn-face-pillow-v49
+    state: rejected
+    strategy: Replace exposed all-cream receiver and enclosing hair cover with measured brown pillow, fitted cream face panel, retained exact-XZ fringe and independent lower cloth; test plush construction in fixed pixels.
+    rejectionReason: Independent fast review rejects segmented side wall, inset fringe boundary and rigid side-lock roots; replace seam construction instead of tuning or adding fibers.
+  - planID: convex-face-continuous-fringe-v50
+    state: superseded
+    strategy: Redistribute head volume into convex face and cheeks using an editable section cage; retain complete traced crown-fringe and continuous hanging panels without inset or horizontal ledges; preserve non-target050 modules and gate fixed front-side pixels.
+  - planID: shared-skin-fringe-v51
+    state: superseded
+    strategy: Replace overlapping head and hair surfaces with one connected sewn skin using exact constrained facial boundary, retaining convex face distribution and only genuinely free lower sheets; seat bands to foremost evaluated surfaces and judge actual fixed-view pixels.
+  - planID: centered-crown-close-applique-v52
+    state: superseded
+    strategy: Center upper crown over the convex cheek rather than swept behind it, reseat only gathered bow roots, taper free rear hair, and fit refined embroidery almost flush; preserve canonical XZ and lower-body modules, gate side shape and contacts first.
+  - planID: narrow-tangent-leaves-v53
+    state: superseded
+    strategy: Replace broad radial hanging hair with five narrow tangent-plane leaves outside stuffing, bound seating to2mm, and open cheek/inner-lock margins by at most1.5mm; preserve centered face, exact shared fringe and verified applique contact.
+  - planID: gusset-graphic-supported-arms-v54
+    state: superseded
+    strategy: "Reset the upper-body macro blockout from protected050: curved front/back sewing panels with a varying-depth gusset, cream-domain constrained facial graphics, round hanging cloth and sleeves supported by continuous stuffed arms; freeze the lower body and material nodes, then require fixed front/side gates."
+  - planID: layered-hair-clean-sleeve-v55
+    state: superseded
+    strategy: Derive the upper-body blockout anew from050, correct eye-highlight handedness and retire all four obsolete cuff components, and replace each broad side curtain by two overlapping round-ended cloth patterns with staggered hems; keep fixed head, lower body, material nodes and fast visual gates.
+  - planID: native-drape-folded-bow-v56
+    state: rejected
+    strategy: Preserve the corrected head graphics and supported sleeves; use a proven native cloth bake on hanging hair and a complete upper-bow depth fold while preserving canonical-front X/Z. Gate exact saved front and side pixels before any retention.
+    rejectionReason: Cloth moved77.09mm beyond frozen35mm gate after36frames; no candidate saved. Simple coupon did not establish stable overlapping self-contact transfer. Bow was never executed.
+  - planID: isolated-upper-bow-fold-v57
+    state: rejected
+    strategy: Isolate the unexecuted upper-bow depth fold from failed062 cloth simulation; preserve061 head, graphics, hair, sleeve and body construction while testing full bow assembly Y folding against exact front/side pixels.
+    rejectionReason: Bow pattern depth118.1877mm exceeds frozen115mm upper bound before save; no candidate or visual claim. Fold factor1.50 was overestimated.
+  - planID: measured-upper-bow-fold-v58
+    state: rejected
+    strategy: Correct the pre-save bow-depth overshoot with one fixed fold coefficient1.05 instead of1.50, preserving the same bounds and all non-bow construction; then require exact saved front/side pixels and independent review.
+    rejectionReason: "Exact fast pixels fail sewn construction: rigid sleeve, slab-like bow, molded hair, capped-cylinder feet and shelf hem. Bow depth changed numerically, but no module or whole-asset acceptance."
+  - planID: flatness-depth-diagnosis-v59
+    state: superseded
+    strategy: Use exact064 unchanged geometry in fixed three-quarter and elevated perspective to separate projection from flat accessory/garment construction, then select the next volume rebuild from reference evidence.
+  - planID: seam-bound-volume-bow-v60
+    state: rejected
+    strategy: Replace single-surface bow wings/tails with closed seam-bound fabric faces, converging local folds, cupped returns and coherent tail bends; preserve outline, head/body and materials. Test actual volume in front/side/three-quarter rather than increasing global depth.
+    rejectionReason: Bow construction7 and medium7.5 remain below fast threshold; whole-character head/hair, sleeves and feet still fail. Numerical volume is not visual acceptance; crown embedding and seam clearances remain.
+  - planID: folded-supported-sleeves-v61
+    state: rejected
+    strategy: Replace smooth circular sleeve lofts with compressed panel sections, unequal integral turned cuffs and hand-to-cloth contact, changing six sleeve/dash/arm objects in exact provisional066 while preserving its known unresolved defects and all acceptance gates.
+    rejectionReason: Fixed pixels retain rigid cuff geometry and evaluated hem has nonadjacent overlap candidates; no sleeve retention.
+  - planID: free-tapered-hair-cuff-repair-v62
+    state: rejected
+    strategy: Preserve the provisional067 assembly and face, replace rounded lower hair by supported tapered bent sheets, and repair cuff return direction with pre-save self-overlap checks; reject on fixed-view construction failures.
+    rejectionReason: Root fixed-view inspection shows a narrow rear strip and visible overlapping root patch; no hair retention.
+  - planID: broad-hair-ordered-roots-v63
+    state: rejected
+    strategy: Repair failed narrow rear strip and coplanar hair roots using broad released cloth panels and a common normal-based overlap order; preserve exact face/body/cuff geometry and reject from fixed pixels before costly gates.
+    rejectionReason: "Second failed free-sheet silhouette: broad rear flap reads as a rigid swept blade; stop this family."
+  - planID: actual-receiver-short-pile-v64
+    state: rejected
+    strategy: Restore067 hair with repaired068 cuffs, then test native short pile sampled on current actual brown head and hair; unchanged shaders/lights/cameras, diagnostic exception without construction acceptance.
+    rejectionReason: Native fibers are present but full-size and matched close views do not solve flat/molded construction; independent review rejects visible medium and construction.
+  promotion:
+    sourceScope: ""
+    sourceGeneration: 0
+    sourceLifecycleGeneration: 0
+    sourceCriteriaRevision: 0
+    sourceCriteriaDigest: ""
+    sourceStateDigest: ""
+    sourceDigest: ""
+    promotedAt: ""
+  migration:
+    sourceFormat: ""
+    sourcePath: ""
+    sourceDigest: ""
+    mappingVersion: ""
+    extractionMode: ""
+    migratedAt: ""
+  observedAt: "2026-09-06T11:43:15.009784796Z"

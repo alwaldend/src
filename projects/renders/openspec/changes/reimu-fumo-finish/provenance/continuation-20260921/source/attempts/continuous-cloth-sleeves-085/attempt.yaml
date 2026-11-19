@@ -1,0 +1,63 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: continuous-cloth-sleeves-085
+  resourceVersion: "3"
+  generation: 3
+  creationTimestamp: "2026-09-05T23:39:42.017843445Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 16
+  criteriaRevision: 4
+  criteriaDigest: sha256:f5fe4b5c4efc12d5b82ad42cf0d41fd7274f48b421abf42e9db1ce5ae316d8a3
+  goalStateDigest: sha256:d3dd99930bf18292653455d315de740e68d0a10d03186a30fad1ab2e06501ad6
+  workType: change
+  subject: 5bb874c745c70d9ad5ccfdd0a147f240d17bd8caee4fc1ae6b644a96c6d65eac
+  nextAction: Read086rear triangulation diagnosis and freeze causal rear-only repair; independently redesign sleeve attachment outside body/arm union, no085repeat or solver-dose tuning.
+status:
+  state: closed
+  closedAt: "2026-09-05T23:49:29.698989104Z"
+  artifacts:
+    planDigest: sha256:bca3af2516b086639228055f78e971617ff255f63ed0257ecb906537aa66ec84
+    resultDigest: sha256:bc8d6ca80ab2296db766e37c641b89e051a336d931bb8bf46277e7d9158c2499
+    evidence: []
+  review:
+    decision: reset
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 3
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-002
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-004
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-005
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-006
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-007
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-09-05T23:49:29.698989104Z"

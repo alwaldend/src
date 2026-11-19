@@ -1,0 +1,43 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//third_party:__pkg__"],
+)
+
+alias(
+    name = "license",
+    actual = "@com_github_vatesfr_xen_orchestra_oidc_license//file",
+    visibility = ["//infra/xcp_ng/ansible:__pkg__"],
+)
+
+alias(
+    name = "index_js",
+    actual = "@com_github_vatesfr_xen_orchestra_oidc_index_js//file",
+    visibility = ["//infra/xcp_ng/ansible:__pkg__"],
+)
+
+alias(
+    name = "package_json",
+    actual = "@com_github_vatesfr_xen_orchestra_oidc_package_json//file",
+    visibility = ["//infra/xcp_ng/ansible:__pkg__"],
+)
+
+alias(
+    name = "passport_openidconnect",
+    actual = "@com_github_vatesfr_xen_orchestra_oidc_passport_openidconnect//file",
+    visibility = ["//infra/xcp_ng/ansible:__pkg__"],
+)
+
+alias(
+    name = "oauth",
+    actual = "@com_github_vatesfr_xen_orchestra_oidc_oauth//file",
+    visibility = ["//infra/xcp_ng/ansible:__pkg__"],
+)
+
+alias(
+    name = "passport_strategy",
+    actual = "@com_github_vatesfr_xen_orchestra_oidc_passport_strategy//file",
+    visibility = ["//infra/xcp_ng/ansible:__pkg__"],
+)

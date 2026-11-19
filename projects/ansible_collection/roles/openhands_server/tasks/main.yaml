@@ -1,0 +1,140 @@
+- tags:
+    - openhands_server
+  block:
+    - name: Install OpenHands agent server dependencies
+      notify: Restart OpenHands agent server
+      when: openhands_server_install_packages | bool
+      ansible.builtin.package:
+        name: "{{ openhands_server_packages }}"
+        state: present
+    - name: Create the OpenHands agent server user
+      ansible.builtin.user:
+        name: "{{ openhands_server_user }}"
+        uid: "{{ openhands_server_user_uid }}"
+        shell: /sbin/nologin
+        home: "{{ openhands_server_home_dir }}"
+        system: true
+    - name: Create filesystem on the OpenHands agent server disk
+      when: openhands_server_disk is truthy
+      community.general.filesystem:
+        fstype: ext4
+        dev: "{{ openhands_server_disk }}"
+    - name: Mount the OpenHands agent server disk
+      when: openhands_server_disk is truthy
+      ansible.posix.mount:
+        path: "{{ openhands_server_dir }}"
+        src: "{{ openhands_server_disk }}"
+        fstype: ext4
+        state: mounted
+    - name: Create OpenHands agent server directories
+      loop:
+        - "{{ openhands_server_dir }}"
+        - "{{ openhands_server_home_dir }}"
+        - "{{ openhands_server_work_dir }}"
+        - "{{ openhands_server_state_dir }}"
+        - "{{ openhands_server_tools_dir }}"
+      ansible.builtin.file:
+        state: directory
+        owner: "{{ openhands_server_user }}"
+        group: "{{ openhands_server_user }}"
+        mode: "0700"
+        path: "{{ item }}"
+    - name: Copy the Agent Canvas compatibility module
+      notify: Restart OpenHands agent server
+      ansible.builtin.copy:
+        src: canvas_ui_tool.py
+        dest: "{{ openhands_server_tools_dir }}/canvas_ui_tool.py"
+        owner: "{{ openhands_server_user }}"
+        group: "{{ openhands_server_user }}"
+        mode: "0600"
+    - name: Create the OpenHands agent server virtual environment
+      become_user: "{{ openhands_server_user }}"
+      ansible.builtin.command:
+        argv:
+          - uv
+          - venv
+          - --python
+          - python3.12
+          - "{{ openhands_server_venv_dir }}"
+        creates: "{{ openhands_server_venv_python }}"
+    - name: Install the OpenHands agent server packages
+      notify: Restart OpenHands agent server
+      register: openhands_server_install_result
+      # uv emits these summaries on stderr only when it mutates the environment.
+      # Audited/Resolved/Prepared output alone does not require a restart.
+      changed_when: >-
+        openhands_server_install_result.stderr is
+        search('(?m)^(Installed|Uninstalled) [1-9][0-9]* packages? in ')
+      become_user: "{{ openhands_server_user }}"
+      ansible.builtin.command:
+        argv:
+          - uv
+          - --color
+          - never
+          - --no-progress
+          - pip
+          - install
+          - --python
+          - "{{ openhands_server_venv_python }}"
+          - "openhands-agent-server=={{ openhands_server_version }}"
+          - "openhands-sdk=={{ openhands_server_version }}"
+          - "openhands-tools=={{ openhands_server_version }}"
+          - "openhands-workspace=={{ openhands_server_version }}"
+          - "agent-client-protocol<0.11"
+          - "posthog>=6,<7"
+        chdir: "{{ openhands_server_dir }}"
+    - name: Write the OpenHands agent server environment
+      notify: Restart OpenHands agent server
+      no_log: true
+      ansible.builtin.copy:
+        content: |
+          {% for key, value in (openhands_server_env | combine(openhands_server_computed_env)).items() %}
+          {{ key }}={{ value }}
+          {% endfor %}
+        dest: "{{ openhands_server_env_path }}"
+        owner: root
+        group: "{{ openhands_server_user }}"
+        mode: "0640"
+      vars:
+        openhands_server_computed_env: >-
+          {{
+            {}
+            | combine(
+                {'OH_SESSION_API_KEYS_0': openhands_server_session_api_key}
+                if openhands_server_secure
+                else {}
+              )
+            | combine(
+                {'OH_EXTRA_PYTHON_PATH': openhands_server_tools_dir}
+                if openhands_server_import_modules | length > 0
+                else {}
+              )
+            | combine(
+                {'OH_VSCODE_PORT': openhands_server_vscode_port}
+                if openhands_server_vscode_base_path | length > 0
+                else {}
+              )
+            | combine(
+                {'OH_VSCODE_BASE_PATH': openhands_server_vscode_base_path}
+                if openhands_server_vscode_base_path | length > 0
+                else {}
+              )
+          }}
+    - name: Write the OpenHands agent server service
+      notify: Restart OpenHands agent server
+      register: openhands_server_service_result
+      ansible.builtin.template:
+        src: systemd_service.conf
+        dest: "{{ openhands_server_service_path }}"
+        owner: root
+        group: root
+        mode: "0644"
+    - name: Reload systemd for the OpenHands agent server
+      when: openhands_server_service_result.changed
+      ansible.builtin.systemd_service:
+        daemon_reload: true
+    - name: Enable and start the OpenHands agent server
+      ansible.builtin.systemd_service:
+        name: "{{ openhands_server_service_path | basename }}"
+        enabled: true
+        state: started

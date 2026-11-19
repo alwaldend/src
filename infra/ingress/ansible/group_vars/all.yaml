@@ -7,6 +7,12 @@ wg_public_keys: "{{ lookup('ansible.builtin.env', 'TF_VAR_wg_public_keys', defau
 wg_private_keys: "{{ lookup('ansible.builtin.env', 'TF_VAR_wg_private_keys', default=undefined()) | from_json }}"
 wg_preshared_keys: "{{ lookup('ansible.builtin.env', 'TF_VAR_wg_preshared_keys', default=undefined()) | from_json }}"
 traefik_services:
+  git:
+    hostname: git.alwaldend.com
+    target: "int.forgejo.alwaldend.com"
+  openhands-canvas:
+    hostname: canvas.openhands.alwaldend.com
+    target: "dc1.canvas.openhands.alwaldend.com"
   forgejo:
     hostname: forgejo.alwaldend.com
     target: "int.forgejo.alwaldend.com"

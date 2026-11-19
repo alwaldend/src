@@ -1,0 +1,27 @@
+{{- /* Each source document keeps its own anchors and interactive controls when
+      multiple documents are collected into one print page. */ -}}
+{{- $html := .Content -}}
+{{- $prefix := printf "print-%s-" (crypto.MD5 .Path) -}}
+{{- $normalURL := (.OutputFormats.Get "html").RelPermalink -}}
+{{- $ids := dict -}}
+{{- range findRE ` id="[^"]+"` $html -}}
+  {{- $id := strings.TrimSuffix `"` (strings.TrimPrefix ` id="` .) -}}
+  {{- $ids = merge $ids (dict $id (printf "%s%s" $prefix $id)) -}}
+{{- end -}}
+{{- range $old, $new := $ids -}}
+  {{- $html = replace $html (printf ` id="%s"` $old) (printf ` id="%s"` $new) -}}
+  {{- range slice "href" "data-bs-target" "data-bs-parent" -}}
+    {{- $html = replace $html (printf ` %s="#%s"` . $old) (printf ` %s="#%s"` . $new) -}}
+  {{- end -}}
+  {{- $html = replace $html (printf ` href="%s#%s"` $normalURL $old) (printf ` href="#%s"` $new) -}}
+{{- end -}}
+{{- range findRE ` (aria-controls|aria-labelledby|aria-describedby|headers|for)="[^"]+"` $html -}}
+  {{- $attribute := . -}}
+  {{- $parts := split $attribute `="` -}}
+  {{- $values := slice -}}
+  {{- range split (strings.TrimSuffix `"` (index $parts 1)) " " -}}
+    {{- $values = $values | append (index $ids . | default .) -}}
+  {{- end -}}
+  {{- $html = replace $html $attribute (printf `%s="%s"` (index $parts 0) (delimit $values " ")) -}}
+{{- end -}}
+{{- return ($html | safeHTML) -}}

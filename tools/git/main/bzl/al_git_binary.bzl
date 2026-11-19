@@ -5,10 +5,10 @@ def _impl(ctx):
     script = ctx.actions.declare_file("{}.script.sh".format(ctx.label.name))
     args = [git_toolchain.git_path, "--git-dir", git_toolchain.git_dir] + ctx.attr.arguments
     script_content = """\
-        #!/usr/bin/env sh
-        set -eu
-        exec {arguments} "${{@}}"
-    """.format(
+#!/usr/bin/env sh
+set -eu
+exec {arguments} "${{@}}"
+""".format(
         args = args,
         arguments = " ".join([shell.quote(argument) for argument in args]),
     )

@@ -1,0 +1,10 @@
+http_file = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_file")
+
+http_file(
+    name = "com_openhands_openhands_canvas_ui_tool",
+    downloaded_file_path = "canvas_ui_tool.py",
+    integrity = "sha256-orviVq78H8GCueqfXOMgMIsEgdaTBw49PVrUwNvmYAw=",
+    urls = [
+        "https://raw.githubusercontent.com/OpenHands/OpenHands/v1.18.0/tools/canvas_ui_tool.py",
+    ],
+)

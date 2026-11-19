@@ -44,6 +44,10 @@ class HomeViewModel(
     managerAction { launchAppShortcut(shortcut) }
   }
 
+  fun onAppDialogLoad(packageName: String) {
+    launch { manager.getApp(packageName)?.let { stateRepo.reloadApp(it) } }
+  }
+
   private fun managerAction(action: suspend LauncherManager.() -> Unit) {
     launch { action.invoke(manager) }
   }

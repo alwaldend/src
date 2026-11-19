@@ -1,0 +1,19 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//third_party:__pkg__"],
+)
+
+alias(
+    name = "gradle",
+    actual = "@net_gradle_gradle//:bin/gradle",
+    visibility = ["//visibility:public"],
+)
+
+filegroup(
+    name = "gradle_distribution",
+    srcs = ["@net_gradle_gradle"],
+    visibility = ["//:__subpackages__"],
+)

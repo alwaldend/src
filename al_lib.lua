@@ -1,4 +1,6 @@
-local M = {}
+local M = {
+    pve_base_url = "https://pve.alwaldend.com:8006",
+}
 
 function M.plugin(t)
     if t.data then

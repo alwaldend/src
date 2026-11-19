@@ -1,0 +1,62 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: continuous-fabric-hair-112
+  resourceVersion: "2"
+  generation: 2
+  creationTimestamp: "2026-09-06T10:22:59.469309808Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 16
+  criteriaRevision: 4
+  criteriaDigest: sha256:f5fe4b5c4efc12d5b82ad42cf0d41fd7274f48b421abf42e9db1ce5ae316d8a3
+  goalStateDigest: sha256:d3dd99930bf18292653455d315de740e68d0a10d03186a30fad1ab2e06501ad6
+  workType: change
+  subject: head_109_cushion.blend;sha256=450f6dfe3bc9b5012e48604349c668439246d2263b43bb8916e8f5654fd63e87;continuous-pattern-hair-reset
+  priorAttemptID: rooted-overlapping-hair-111
+  nextAction: Construct shared front/rear boundary, preserving nonfolding frontal pattern and repaired receiver depth; no third overlap offset trial.
+status:
+  state: closed
+  closedAt: "2026-09-06T10:31:22.201886935Z"
+  artifacts:
+    planDigest: sha256:a8e2e68c12e16b005f79416987bf28c36d14337f60eda170a76e99dffcaad50b
+    resultDigest: sha256:98fd7d5761bd89668746c7a35624cc4f180ec484a0e32e55d2c79f2b8bb2dc7a
+    evidence: []
+  review:
+    decision: reset
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-002
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-004
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-005
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-006
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-007
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-09-06T10:31:22.201886935Z"

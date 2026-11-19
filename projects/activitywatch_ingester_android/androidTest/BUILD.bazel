@@ -1,0 +1,11 @@
+filegroup(
+    name = "manifest",
+    srcs = ["AndroidManifest.xml"],
+    visibility = ["//projects/activitywatch_ingester_android:__subpackages__"],
+)
+
+filegroup(
+    name = "srcs",
+    srcs = glob(["*.kt"]),
+    visibility = ["//projects/activitywatch_ingester_android:__subpackages__"],
+)

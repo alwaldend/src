@@ -21,6 +21,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -54,6 +55,7 @@ object HomeRoute : LauncherRoute<HomeViewModel> {
         state = uiState.state,
         onHeaderAction = vm::onHeaderAction,
         onAppDialogClick = vm::onAppDialogClick,
+        onAppDialogLoad = vm::onAppDialogLoad,
         onRowItemClick = vm::onRowItemClick,
         onLauncherDialogAction = vm::onLauncherDialogAction,
         getRowItemLabel = vm::getRowItemLabel,
@@ -66,6 +68,7 @@ object HomeRoute : LauncherRoute<HomeViewModel> {
 private fun HomeScreen(
     state: Model.State,
     onAppDialogClick: (Model.AppShortcut) -> Unit,
+    onAppDialogLoad: (String) -> Unit,
     onLauncherDialogAction: (HomeDialogState.LauncherDialogAction) -> Unit,
     onHeaderAction: (Model.App, HeaderActions) -> Unit,
     onRowItemClick: (Model.App) -> Unit,
@@ -74,8 +77,9 @@ private fun HomeScreen(
     modifier: Modifier = Modifier
 ) {
   var showLauncherDialog by remember { mutableStateOf(false) }
-  var showAppDialog by remember { mutableStateOf<Model.App?>(null) }
+  var selectedAppPackage by remember { mutableStateOf<String?>(null) }
   val interactionSource = remember { MutableInteractionSource() }
+  val selectedApp = selectedAppPackage?.let { state.apps.appsMap[it] }
 
   Column(modifier = modifier.safeDrawingPadding()) {
     if (!state.isHomeApp) {
@@ -92,8 +96,9 @@ private fun HomeScreen(
         settings = state.settings,
         apps = state.apps,
         showHiddenApps = state.showHiddenApps,
+        selectedPackage = selectedAppPackage,
         onClick = onRowItemClick,
-        onLongClick = { showAppDialog = it },
+        onLongClick = { selectedAppPackage = it.packageName },
         getItemLabel = getRowItemLabel,
         sortItems = sortRowItems)
   }
@@ -104,13 +109,14 @@ private fun HomeScreen(
         onLauncherDialogAction = onLauncherDialogAction,
         onDismissRequest = { showLauncherDialog = false })
   }
-  showAppDialog?.let {
+  selectedApp?.let { app ->
+    LaunchedEffect(app.packageName) { onAppDialogLoad(app.packageName) }
     HomeDialogApp(
-        app = it,
+        app = app,
         showShortcuts = state.isHomeApp,
         onAppShortcutClick = onAppDialogClick,
         onHeaderAction = onHeaderAction,
-        onDismissRequest = { showAppDialog = null })
+        onDismissRequest = { selectedAppPackage = null })
   }
 }
 
@@ -146,6 +152,7 @@ private fun HomePagePreview() {
           state = state,
           onLauncherDialogAction = {},
           onAppDialogClick = {},
+          onAppDialogLoad = { _ -> },
           onHeaderAction = { _, _ -> },
           onRowItemClick = { _ -> },
           sortRowItems = { _, _ -> listOf() },

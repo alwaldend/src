@@ -1,0 +1,14 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(
+        ["*"],
+        exclude = [
+            "BUILD",
+            "BUILD.bazel",
+        ],
+    ),
+    prefix = "content/blog/slop-without-a-clear-goal",
+    visibility = ["//projects/alwaldend.com/content/blog:__pkg__"],
+)

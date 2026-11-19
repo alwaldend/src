@@ -1,0 +1,11 @@
+http_archive = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
+http_archive(
+    name = "net_gradle_gradle",
+    build_file = "//third_party/net_gradle_gradle:gradle.BUILD.bazel",
+    integrity = "sha256-IPGxF2I3JUpvwgTYQ0GW+hGkz7OHVnUZxhVW6HEK7Xg=",
+    strip_prefix = "gradle-8.13",
+    urls = [
+        "https://services.gradle.org/distributions/gradle-8.13-bin.zip",
+    ],
+)
