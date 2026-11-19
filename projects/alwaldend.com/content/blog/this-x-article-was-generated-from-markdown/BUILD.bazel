@@ -1,6 +1,6 @@
 load("@aspect_bazel_lib//lib:write_source_files.bzl", "write_source_files")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_site_webp")
+load("//tools/mermaid:defs.bzl", "mermaid_webp")
 
 package(transitive_visibility = "//projects:transitive_consumers")
 
@@ -8,7 +8,7 @@ package(transitive_visibility = "//projects:transitive_consumers")
 # accept no SVG, so the diagram is referenced through its raster render beside
 # index.md. The .mmd stays authoritative and is copied in through `update`.
 
-mermaid_site_webp(
+mermaid_webp(
     name = "pipeline_webp",
     src = "pipeline.mmd",
     out = "rendered/pipeline.webp",
@@ -17,6 +17,8 @@ mermaid_site_webp(
         2,
     ],
     color_scheme = "dark",
+    native = True,
+    theme = "//internal/assets:mermaid_theme",
 )
 
 write_source_files(

@@ -1,24 +1,24 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_site_svg")
+load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_diagram")
 
 package(transitive_visibility = "//infra:transitive_consumers")
 
-mermaid_site_svg(
+mermaid_diagram(
     name = "harvester",
     src = "harvester.mmd",
-    out = "rendered/harvester.svg",
+    out = "rendered/harvester",
 )
 
-mermaid_site_svg(
+mermaid_diagram(
     name = "opencode",
     src = "opencode.mmd",
-    out = "rendered/opencode.svg",
+    out = "rendered/opencode",
 )
 
-mermaid_site_svg(
+mermaid_diagram(
     name = "hermes",
     src = "hermes.mmd",
-    out = "rendered/hermes.svg",
+    out = "rendered/hermes",
 )
 
 docs_filegroup(
@@ -31,9 +31,9 @@ docs_filegroup(
 docs_filegroup(
     name = "docs_assets",
     srcs = [
-        ":harvester",
-        ":hermes",
-        ":opencode",
+        ":harvester_svg",
+        ":hermes_svg",
+        ":opencode_svg",
     ],
     prefix = "content/docs/infra/archive/docs/assets",
 )

@@ -326,7 +326,7 @@ inputs, since embedding a graph into the target it queries creates a dependency
 cycle. The separately generated converter example above is packaged into the
 site's documentation.
 
-The companion `:deps_mindmap`, `:deps_mindmap_svg`, and
+The companion `:deps_mindmap_source`, `:deps_mindmap_svg`, and
 `:deps_mindmap_dark_webp` targets reuse that depth-eight JSON capture and target
 selection for a package ownership inventory. They produce
 `dependencies.mindmap.mmd`, light/dark SVG siblings, and

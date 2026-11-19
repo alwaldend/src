@@ -1,6 +1,6 @@
 load("@aspect_bazel_lib//lib:run_binary.bzl", "run_binary")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_site_svg", "mermaid_site_webp")
+load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_diagram")
 
 package(transitive_visibility = "//projects:transitive_consumers")
 
@@ -17,159 +17,88 @@ docs_filegroup(
     visibility = ["//projects/anki_as_code:__pkg__"],
 )
 
-mermaid_site_svg(
+mermaid_diagram(
     name = "architecture",
     src = "architecture.mmd",
-    out = "rendered/architecture.svg",
+    out = "rendered/architecture",
+    webp_aspect_ratio = [],
+    webp_scale = 2,
 )
 
 docs_filegroup(
     name = "assets",
     srcs = [
-        ":architecture",
-        ":backend_strategies",
-        ":config_operations",
-        ":config_references",
-        ":export",
-        ":mcp",
-        ":package_dependencies",
-        ":planning",
-        ":state_store",
+        ":architecture_svg",
+        ":backend_strategies_svg",
+        ":config_operations_svg",
+        ":config_references_svg",
+        ":export_svg",
+        ":mcp_svg",
+        ":package_dependencies_svg",
+        ":planning_svg",
+        ":state_store_svg",
     ],
     prefix = "content/docs/projects/anki_as_code/assets",
     visibility = ["//projects/anki_as_code:__pkg__"],
 )
 
-mermaid_site_webp(
-    name = "architecture_preview",
-    src = "architecture.mmd",
-    out = "rendered/architecture.webp",
-    aspect_ratio = [],
-    color_scheme = "dark",
-    scale = 2,
-    tags = ["manual"],
-)
-
-mermaid_site_svg(
+mermaid_diagram(
     name = "mcp",
     src = "mcp.mmd",
-    out = "rendered/mcp.svg",
+    out = "rendered/mcp",
+    webp_aspect_ratio = [],
+    webp_scale = 2,
 )
 
-mermaid_site_webp(
-    name = "mcp_preview",
-    src = "mcp.mmd",
-    out = "rendered/mcp.webp",
-    aspect_ratio = [],
-    color_scheme = "dark",
-    scale = 2,
-    tags = ["manual"],
-)
-
-mermaid_site_svg(
+mermaid_diagram(
     name = "backend_strategies",
     src = "backend-strategies.mmd",
-    out = "rendered/backend-strategies.svg",
+    out = "rendered/backend-strategies",
+    webp_aspect_ratio = [],
+    webp_scale = 2,
 )
 
-mermaid_site_webp(
-    name = "backend_strategies_preview",
-    src = "backend-strategies.mmd",
-    out = "rendered/backend-strategies.webp",
-    aspect_ratio = [],
-    color_scheme = "dark",
-    scale = 2,
-    tags = ["manual"],
-)
-
-mermaid_site_svg(
+mermaid_diagram(
     name = "package_dependencies",
     src = "package-dependencies.mmd",
-    out = "rendered/package-dependencies.svg",
+    out = "rendered/package-dependencies",
+    webp_aspect_ratio = [],
 )
 
-mermaid_site_webp(
-    name = "package_dependencies_preview",
-    src = "package-dependencies.mmd",
-    out = "rendered/package-dependencies.webp",
-    aspect_ratio = [],
-    tags = ["manual"],
-)
-
-mermaid_site_svg(
+mermaid_diagram(
     name = "config_operations",
     src = "config-operations.mmd",
-    out = "rendered/config-operations.svg",
+    out = "rendered/config-operations",
+    webp_aspect_ratio = [],
 )
 
-mermaid_site_svg(
+mermaid_diagram(
     name = "config_references",
     src = "config-references.mmd",
-    out = "rendered/config-references.svg",
+    out = "rendered/config-references",
+    webp_aspect_ratio = [],
 )
 
-mermaid_site_webp(
-    name = "config_operations_preview",
-    src = "config-operations.mmd",
-    out = "rendered/config-operations.webp",
-    aspect_ratio = [],
-    color_scheme = "dark",
-    tags = ["manual"],
-)
-
-mermaid_site_webp(
-    name = "config_references_preview",
-    src = "config-references.mmd",
-    out = "rendered/config-references.webp",
-    aspect_ratio = [],
-    color_scheme = "dark",
-    tags = ["manual"],
-)
-
-mermaid_site_svg(
+mermaid_diagram(
     name = "state_store",
     src = "state-store.mmd",
-    out = "rendered/state-store.svg",
+    out = "rendered/state-store",
+    webp_aspect_ratio = [],
+    webp_scale = 2,
 )
 
-mermaid_site_webp(
-    name = "state_store_preview",
-    src = "state-store.mmd",
-    out = "rendered/state-store.webp",
-    aspect_ratio = [],
-    color_scheme = "dark",
-    scale = 2,
-    tags = ["manual"],
-)
-
-mermaid_site_svg(
+mermaid_diagram(
     name = "export",
     src = "export.mmd",
-    out = "rendered/export.svg",
+    out = "rendered/export",
+    webp_aspect_ratio = [],
+    webp_scale = 2,
 )
 
-mermaid_site_webp(
-    name = "export_preview",
-    src = "export.mmd",
-    out = "rendered/export.webp",
-    aspect_ratio = [],
-    color_scheme = "dark",
-    scale = 2,
-    tags = ["manual"],
-)
-
-mermaid_site_svg(
+mermaid_diagram(
     name = "planning",
     src = "planning.mmd",
-    out = "rendered/planning.svg",
-)
-
-mermaid_site_webp(
-    name = "planning_preview",
-    src = "planning.mmd",
-    out = "rendered/planning.webp",
-    aspect_ratio = [],
-    color_scheme = "dark",
-    scale = 2,
-    tags = ["manual"],
+    out = "rendered/planning",
+    webp_aspect_ratio = [],
+    webp_scale = 2,
 )

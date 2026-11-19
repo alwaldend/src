@@ -334,7 +334,7 @@ runner enabled.
 
 The runner uses a guest cache disk backed by the NAS through XCP-ng. The
 [diagram source](docs/ci.mmd) uses the same light/dark site render as the
-development-host diagram. `//infra/dev:rendered_ci` builds both variants.
+development-host diagram. `//infra/dev:rendered_ci_svg` builds both SVG variants.
 
 [Download the dark WebP diagram](assets/ci.dark.webp).
 
@@ -344,8 +344,7 @@ development-host diagram. `//infra/dev:rendered_ci` builds both variants.
 
 The diagram source is [`t3code-architecture.mmd`](t3code-architecture.mmd),
 and the SVG beside this page is rendered from it at build time by
-`//infra/dev:rendered`. There is no committed copy to refresh:
-edit the `.mmd` and the next build renders the new diagram.
+`//infra/dev:rendered_svg`. Edit the `.mmd` to update the generated image.
 
 Rendering uses the repository’s pinned Mermaid, headless Chrome, and Liberation
 font inputs. The site preset renders native light/dark SVG variants with bordered
@@ -362,10 +361,8 @@ Z-Image target starts that process inside a transient systemd scope; model
 weights and generated PNGs remain on Host Bot.
 
 The source is [`docs/comfyui-architecture.mmd`](docs/comfyui-architecture.mmd).
-`//infra/dev:rendered_comfyui` builds the light/dark
-documentation assets using the same current site style as T3 Code.
-The former `:rendered_site` and `:rendered_comfyui_site` labels remain aliases
-to these normal render targets.
+`//infra/dev:rendered_comfyui_svg` builds the light and dark
+documentation assets in the same site style as T3 Code.
 
 ## Deployment
 

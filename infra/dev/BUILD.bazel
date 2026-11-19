@@ -1,7 +1,7 @@
 load("@rules_al//:defs.bzl", "al_config", "al_inject", "al_vault_auth")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("//infra:al_config.bzl", "infra_ansible_keys", "infra_dns", "infra_xo_login")
-load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_site_svg", "mermaid_site_webp")
+load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_diagram")
 load("//tools/mermaid:defs.bzl", "mermaid_svg")
 load("//tools/ssh:defs.bzl", "ssh_binary")
 load("//tools/vault:defs.bzl", "vault_binary_map")
@@ -186,10 +186,10 @@ docs_filegroup(
     ),
 )
 
-mermaid_site_svg(
+mermaid_diagram(
     name = "rendered",
     src = "t3code-architecture.mmd",
-    out = "rendered/t3code-architecture.svg",
+    out = "rendered/t3code-architecture",
 )
 
 mermaid_svg(
@@ -211,67 +211,43 @@ mermaid_svg(
     plain = True,
 )
 
-alias(
-    name = "rendered_site",
-    actual = ":rendered",
-)
-
-mermaid_site_svg(
+mermaid_diagram(
     name = "rendered_comfyui",
     src = "docs/comfyui-architecture.mmd",
-    out = "rendered/comfyui-architecture.svg",
+    out = "rendered/comfyui-architecture",
 )
 
-alias(
-    name = "rendered_comfyui_site",
-    actual = ":rendered_comfyui",
-)
-
-mermaid_site_svg(
+mermaid_diagram(
     name = "rendered_development_hosts",
     src = "docs/development-hosts.mmd",
-    out = "rendered/development-hosts.svg",
+    out = "rendered/development-hosts",
+    webp_aspect_ratio = [
+        16,
+        9,
+    ],
+    webp_scale = 2,
 )
 
-mermaid_site_svg(
+mermaid_diagram(
     name = "rendered_ci",
     src = "docs/ci.mmd",
-    out = "rendered/ci.svg",
-)
-
-mermaid_site_webp(
-    name = "ci_dark_webp",
-    src = "docs/ci.mmd",
-    out = "rendered/ci.dark.webp",
-    aspect_ratio = [
+    out = "rendered/ci",
+    webp_aspect_ratio = [
         16,
         9,
     ],
-    color_scheme = "dark",
-    scale = 2,
-)
-
-mermaid_site_webp(
-    name = "development_hosts_dark_webp",
-    src = "docs/development-hosts.mmd",
-    out = "rendered/development-hosts.dark.webp",
-    aspect_ratio = [
-        16,
-        9,
-    ],
-    color_scheme = "dark",
-    scale = 2,
+    webp_scale = 2,
 )
 
 docs_filegroup(
     name = "docs_assets",
     srcs = [
-        ":ci_dark_webp",
-        ":development_hosts_dark_webp",
-        ":rendered",
-        ":rendered_ci",
-        ":rendered_comfyui",
-        ":rendered_development_hosts",
+        ":rendered_ci_dark_webp",
+        ":rendered_ci_svg",
+        ":rendered_comfyui_svg",
+        ":rendered_development_hosts_dark_webp",
+        ":rendered_development_hosts_svg",
+        ":rendered_svg",
     ],
     prefix = "content/docs/infra/dev/assets",
 )

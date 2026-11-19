@@ -28,16 +28,17 @@
 - description: Renders through the Bazel action
   vars:
     request: >-
-      I edited an existing .mmd file for a maintained diagram. How do I get the
-      updated diagram into the documentation?
+      Add a maintained infrastructure diagram to the documentation. Make a
+      dark WebP available for people who need a raster copy.
   assert:
     - type: llm-rubric
       threshold: 1
       value: >-
-        Pass only if the response renders the SVG through the diagram's
-        mermaid_svg target and lets a consumer such as docs_filegroup take its
-        srcs from that target, keeps the .mmd source authoritative, and does not
-        commit a rendered SVG or hand-edit one. Otherwise fail.
+        Pass only if the response declares the diagram with mermaid_diagram,
+        uses _svg for docs_filegroup and _dark_webp for the raster, and
+        identifies that the aggregate target builds light and dark SVG and WebP.
+        It keeps the .mmd source authoritative and does not commit or hand-edit
+        a documentation render. Otherwise fail.
 - description: Keeps blog images as generated publication assets
   vars:
     request: >-
@@ -50,7 +51,7 @@
       value: >-
         Pass only if the response keeps the blog SVG checked in beside
         index.md, uses write_source_files to copy the owning package's hermetic
-        mermaid_svg render, publishes the copy through the blog docs_filegroup,
+        render target, publishes the copy through the blog docs_filegroup,
         and validates freshness. It must preserve the documentation consumer
         and authoritative .mmd without making a second hand-maintained source
         or hand-editing the SVG. Otherwise fail.
@@ -66,7 +67,7 @@
         Pass only if the response runs the repository mmdc target with absolute
         input and output paths, acknowledges that mmdc applies the same theme,
         pinned fonts, and paint-order fix as mermaid_svg, and still verifies a
-        maintained diagram through its mermaid_svg target before handoff.
+        maintained diagram through its mermaid_diagram SVG target before handoff.
         Otherwise fail.
 - description: Uses the site's native palette for a raster social image
   vars:
@@ -78,9 +79,9 @@
     - type: llm-rubric
       threshold: 1
       value: >-
-        Pass only if the response uses mermaid_site_webp from the site's
-        pkg/mermaid/defs.bzl with color_scheme = "dark", preserves the authoritative
-        .mmd and generated
+        Pass only if the response uses mermaid_webp with native = True,
+        theme = "//internal/assets:mermaid_theme", and color_scheme = "dark".
+        It preserves the authoritative .mmd and generated
         checked-in blog asset, and keeps the historical rendering default
         unchanged. It must not introduce a hand-edited raster, diagram-local
         themeCSS, or an external image-conversion dependency. Otherwise fail.
@@ -123,6 +124,6 @@
       value: >-
         Defines the regular infrastructure style directly so that it can be
         used without opening other diagrams. Specifies a left-to-right Mermaid
-        flowchart rendered by mermaid_site_svg, the shared theme's curved
-        connectors and light and dark output, semantic shapes, and short
+        flowchart declared with mermaid_diagram, the shared theme's curved
+        connectors and light and dark SVG and WebP, semantic shapes, and short
         node and edge labels.

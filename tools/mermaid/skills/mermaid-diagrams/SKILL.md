@@ -2,10 +2,9 @@
 name: mermaid-diagrams
 description: >-
   Write and render Mermaid diagrams in this repository with the checked-in
-  theme, hermetic Bazel rendering, and the maintained `mermaid_svg` and
-  `mermaid_webp` rules. Use when adding or editing a diagram source, or wiring
-  a rendered diagram into a build consumer; do not use to redesign the shared
-  theme.
+  theme, hermetic Bazel rendering, and the `mermaid_diagram` macro.
+  Use when adding or editing a diagram source or wiring rendered diagrams
+  into a build consumer. Shared theme redesign is a separate task.
 ---
 
 # Write repository diagrams
@@ -14,96 +13,64 @@ Read [`tools/mermaid/README.md`](../../README.md) for the theme contract and the
 measured reasons behind each setting before changing a diagram that depends on
 one of them.
 
-## Prefer the Bazel rule
+## Use the diagram macro by default
 
-Declare a maintained diagram as a `mermaid_svg` action, and feed that target
-straight into whatever consumes the image:
+Declare maintained non-blog diagrams with `mermaid_diagram`. It generates
+light and dark SVG and WebP files from one source and uses the site theme by
+default. Documentation uses the SVG pair. Raster consumers can select one
+WebP variant.
 
 ```starlark
-load("//tools/mermaid:defs.bzl", "mermaid_svg")
+load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_diagram")
 
-mermaid_svg(
-    name = "rendered",
+mermaid_diagram(
+    name = "architecture",
     src = "architecture.mmd",
-    out = "rendered/architecture.svg",
+    out = "rendered/architecture",
 )
 
 docs_filegroup(
     name = "docs_assets",
-    srcs = [":rendered"],
+    srcs = [":architecture_svg"],
     prefix = "content/docs/<package>/assets",
 )
 ```
 
-For diagrams published in the main site's documentation, use
-`mermaid_site_svg` from `//projects/alwaldend.com/pkg/mermaid:defs.bzl`.
-It renders light/dark SVG siblings with native Mermaid layout and the site's
-embedded typography. Package both outputs; reference the light `.svg` in Markdown or the SVG
-shortcode, and the site selects its `.dark.svg` sibling for dark mode.
-It uses no SVG post-processing or custom actor decoration.
-Keep historical blog assets on their existing `mermaid_svg` render targets;
-when one source serves both, declare a separate site render from that source.
+Build `:architecture` for all four files, `:architecture_svg` for both SVGs,
+`:architecture_webp` for the light WebP, or `:architecture_dark_webp` for the
+dark WebP. Reference the light SVG in Markdown or the SVG shortcode so the
+site can select its `.dark.svg` sibling in dark mode. For README documentation,
+point the image at the path `docs_filegroup` publishes.
 
-For README documentation, consume the rendered target directly instead of
-committing an SVG or adding a `write_source_files` copy. Point the README image
-at the path `docs_filegroup` publishes and let the build produce the file.
+Blog posts use individual render rules and keep generated images beside
+`index.md`. Use `write_source_files` to copy the selected render into
+the post package, publish it through `docs_filegroup`, and run the generated
+freshness tests. A diagram shared by documentation and a historical blog
+keeps one `.mmd` source and the blog's original render.
 
-Blog posts keep their images beside `index.md` as checked-in publication
-assets. Use `write_source_files` to copy hermetic `mermaid_svg` outputs into the
-post package, publish them through its `docs_filegroup`, and run the generated
-freshness tests. The `.mmd` stays authoritative; never hand-edit the SVG. When
-another package owns the diagram, copy its render target instead of creating
-a second diagram source. The blog and that package's documentation may publish
-the same render under their respective URLs.
-
-Other consumers that cannot consume a Bazel target may also use a checked-in
-projection through `write_source_files`; document the reason in the package.
+Other consumers that require a checked-in image can also use
+`write_source_files`. Document the consumer's reason in its package. Keep the
+`.mmd` authoritative and edit it to update any of the rendered files.
 
 ## Render a raster for a service upload
 
-A consumer that uploads the image to a service may need a raster, because some
-upload endpoints accept only a fixed set of image media types that excludes
-`image/svg+xml`. The X Articles media upload endpoints, for example, accept a
-fixed raster set that `projects/x_article_uploader/README.md` owns and enumerates;
-`mermaid_webp` produces `image/webp`, which is in that set. Declare a
-`mermaid_webp` action beside the SVG render:
+Use the macro's `_webp` or `_dark_webp` target for an upload.
+The pinned browser captures the selected SVG with its embedded font and
+palette. WebP canvases default to 5:2 with centered, theme-colored padding.
+Set `webp_aspect_ratio = []` for natural proportions, or supply another
+positive integer width and height. Set `webp_scale = 2` for higher pixel
+density. The [X Articles uploader](../../../../projects/x_article_uploader/README.md)
+documents accepted media types.
 
-```starlark
-load("//tools/mermaid:defs.bzl", "mermaid_webp")
-
-mermaid_webp(
-    name = "rendered_webp",
-    src = "architecture.mmd",
-    out = "rendered/architecture.webp",
-)
-```
-
-By default the rule encodes the historical shared theme with its pinned browser,
-fonts, and paint-order pass. For a site-themed blog or social image, use
-`mermaid_site_webp` from `//projects/alwaldend.com/pkg/mermaid:defs.bzl`; it selects
-native rendering with the site's palette and embedded typography. Select
-`color_scheme = "dark"` for the site's dark appearance; `"light"` is the default.
-The raster has that fixed appearance in page embeds and social previews. Other
-native consumers set `native = True` with the SVG target's `palette`, `theme`,
-and `label_font`. Native WebP follows the selected SVG without post-processing;
-both modes use the pinned browser encoder with no image-conversion toolchain.
-The raster uses the diagram's natural size and the rule's `scale` (default `1`).
-Set `scale = 2` when the consumer needs higher pixel density.
-WebP canvases default to 5:2 proportions with centered, theme-colored padding.
-Set `aspect_ratio = []` for natural proportions or supply another positive integer
-width/height pair. The CLI equivalent for natural output is `--aspect-ratio natural`.
-There is no `plain` raster: use the SVG rule's `plain` opt-out for comparison.
-
-For a consumer that keeps the image as a checked-in asset, copy the rule output
-into the package with `write_source_files` instead of committing a hand-made
-raster, so the asset can be regenerated and compared against a fresh render.
-The `.mmd` source stays authoritative. A blog post that is intended for
-syndication references the raster render beside `index.md` rather than the SVG.
+Use an individual render rule for a fixture or comparison that exercises
+it directly. For a standalone dark WebP for a blog post, use `mermaid_webp`
+with `native = True`, `theme = "//internal/assets:mermaid_theme"`, and
+`color_scheme = "dark"`.
 
 ## Regular diagrams
 
 A regular infrastructure diagram is a left-to-right Mermaid flowchart
-(`flowchart LR`) rendered with `mermaid_site_svg` in light and dark variants.
+(`flowchart LR`) declared with `mermaid_diagram`.
 The site theme supplies classic shapes, curved connectors, fonts, and colors.
 The diagram source contains nodes, arrows, and labels.
 

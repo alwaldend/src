@@ -1,6 +1,6 @@
 load("@bazel_skylib//rules:common_settings.bzl", "bool_flag")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_site_svg", "mermaid_site_webp")
+load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_diagram")
 
 package(transitive_visibility = "//projects:transitive_consumers")
 
@@ -68,23 +68,15 @@ docs_filegroup(
     ],
 )
 
-mermaid_site_svg(
+mermaid_diagram(
     name = "backend_approaches",
     src = "backend-approaches.mmd",
-    out = "rendered/backend-approaches.svg",
+    out = "rendered/backend-approaches",
+    webp_aspect_ratio = [],
 )
 
 docs_filegroup(
     name = "docs_assets",
-    srcs = [":backend_approaches"],
+    srcs = [":backend_approaches_svg"],
     prefix = "content/docs/projects/anki_as_code/assets",
-)
-
-mermaid_site_webp(
-    name = "backend_approaches_preview",
-    src = "backend-approaches.mmd",
-    out = "rendered/backend-approaches.webp",
-    aspect_ratio = [],
-    color_scheme = "dark",
-    tags = ["manual"],
 )

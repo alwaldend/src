@@ -1,6 +1,6 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_trufflehog//:defs.bzl", "trufflehog_test")
-load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_site_svg", "mermaid_site_webp")
+load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_diagram")
 
 package(transitive_visibility = "//tools:transitive_consumers")
 
@@ -34,19 +34,12 @@ docs_filegroup(
     visibility = ["//tools:__pkg__"],
 )
 
-mermaid_site_svg(
-    name = "scan_diagram_svg",
+mermaid_diagram(
+    name = "scan_diagram",
     src = "@rules_trufflehog//docs:scan.mmd",
-    out = "rendered/scan.svg",
-)
-
-mermaid_site_webp(
-    name = "scan_diagram_dark_webp",
-    src = "@rules_trufflehog//docs:scan.mmd",
-    out = "rendered/scan.dark.webp",
-    aspect_ratio = [],
-    color_scheme = "dark",
-    scale = 2,
+    out = "rendered/scan",
+    webp_aspect_ratio = [],
+    webp_scale = 2,
 )
 
 docs_filegroup(

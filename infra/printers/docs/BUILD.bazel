@@ -1,12 +1,12 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_site_svg")
+load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_diagram")
 
 package(transitive_visibility = "//infra:transitive_consumers")
 
-mermaid_site_svg(
+mermaid_diagram(
     name = "network",
     src = "network.mmd",
-    out = "rendered/network.svg",
+    out = "rendered/network",
 )
 
 docs_filegroup(
@@ -22,6 +22,6 @@ docs_filegroup(
 
 docs_filegroup(
     name = "docs_assets",
-    srcs = [":network"],
+    srcs = [":network_svg"],
     prefix = "content/docs/infra/printers/docs/assets",
 )

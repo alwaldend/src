@@ -1,16 +1,13 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_diagram")
 load("//projects/mermaid_3d:defs.bzl", "mermaid_3d", "mermaid_3d_snapshot")
-load("//tools/mermaid:defs.bzl", "mermaid_svg")
 
 package(transitive_visibility = "//projects:transitive_consumers")
 
-mermaid_svg(
+mermaid_diagram(
     name = "architecture",
     src = "architecture.mmd",
-    out = "rendered/architecture.svg",
-    dark_out = "rendered/architecture.dark.svg",
-    native = True,
-    theme = "//internal/assets:mermaid_theme",
+    out = "rendered/architecture",
 )
 
 mermaid_3d(
@@ -41,9 +38,9 @@ mermaid_3d(
 docs_filegroup(
     name = "assets",
     srcs = [
-        ":architecture",
         ":architecture_dark_snapshot",
         ":architecture_light_snapshot",
+        ":architecture_svg",
     ],
     prefix = "content/docs/projects/mermaid_3d/docs/assets",
 )

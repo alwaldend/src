@@ -1,37 +1,35 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_site_svg", "mermaid_site_webp")
+load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_diagram")
 
 package(transitive_visibility = "//infra:transitive_consumers")
 
-[
-    mermaid_site_svg(
-        name = diagram,
-        src = diagram + ".mmd",
-        out = "rendered/" + diagram + ".svg",
-    )
-    for diagram in [
-        "architecture",
-        "deployment",
-        "operations",
-    ]
-]
+mermaid_diagram(
+    name = "architecture",
+    src = "architecture.mmd",
+    out = "rendered/architecture",
+)
 
-mermaid_site_webp(
-    name = "deployment_dark_webp",
+mermaid_diagram(
+    name = "deployment",
     src = "deployment.mmd",
-    out = "rendered/deployment.dark.webp",
-    aspect_ratio = [],
-    color_scheme = "dark",
-    scale = 2,
+    out = "rendered/deployment",
+    webp_aspect_ratio = [],
+    webp_scale = 2,
+)
+
+mermaid_diagram(
+    name = "operations",
+    src = "operations.mmd",
+    out = "rendered/operations",
 )
 
 docs_filegroup(
     name = "docs",
     srcs = [
-        ":architecture",
-        ":deployment",
+        ":architecture_svg",
         ":deployment_dark_webp",
-        ":operations",
+        ":deployment_svg",
+        ":operations_svg",
     ],
     prefix = "content/docs/infra/download/assets",
     visibility = ["//infra/download:__pkg__"],

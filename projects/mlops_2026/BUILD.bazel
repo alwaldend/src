@@ -1,5 +1,5 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_site_svg", "mermaid_site_webp")
+load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_diagram")
 load("//projects/mlops_2026/internal/recommender/training:model.bzl", "course_model")
 
 package(transitive_visibility = "//projects:transitive_consumers")
@@ -30,28 +30,16 @@ course_model(
 
 # gazelle:python_default_visibility //projects/mlops_2026:__subpackages__
 
-mermaid_site_svg(
+mermaid_diagram(
     name = "architecture",
     src = "architecture.mmd",
-    out = "rendered/architecture.svg",
+    out = "rendered/architecture",
 )
 
 docs_filegroup(
     name = "docs_assets",
-    srcs = [":architecture"],
+    srcs = [":architecture_svg"],
     prefix = "content/docs/projects/mlops_2026/assets",
 )
 
 # gazelle:resolve py recommender //third_party/com_github_yandex_practicum_mlops_freetrack:recommender_lib
-
-mermaid_site_webp(
-    name = "architecture_preview",
-    src = "architecture.mmd",
-    out = "rendered/architecture.webp",
-    aspect_ratio = [
-        5,
-        2,
-    ],
-    color_scheme = "dark",
-    tags = ["manual"],
-)

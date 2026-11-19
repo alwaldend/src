@@ -1,5 +1,5 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_site_svg")
+load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_diagram")
 load("//projects/bazel_deps_analyzer:defs.bzl", "bazel_deps_mermaid")
 
 package(transitive_visibility = "//projects:transitive_consumers")
@@ -10,10 +10,10 @@ bazel_deps_mermaid(
     target = "//projects/bazel_deps_analyzer/cmd/bazel_deps_analyzer",
 )
 
-mermaid_site_svg(
-    name = "converter_svg",
+mermaid_diagram(
+    name = "converter",
     src = ":converter_graph",
-    out = "converter.svg",
+    out = "converter",
 )
 
 docs_filegroup(
