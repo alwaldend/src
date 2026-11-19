@@ -334,7 +334,7 @@ func (self *login) logout(ctx context.Context) error {
 		return err
 	}
 	resp.Body.Close()
-	if resp.StatusCode != http.StatusOK {
+	if resp.StatusCode != http.StatusOK && resp.StatusCode != http.StatusSeeOther {
 		return fmt.Errorf("Forgejo logout status: %d", resp.StatusCode)
 	}
 	done, err = invalidated()

@@ -241,33 +241,37 @@ func TestSessionRedirectRejectsExternalOrigin(t *testing.T) {
 }
 
 func TestLogoutVerifiesRetainedSession(t *testing.T) {
-	for _, invalidated := range []bool{false, true} {
-		t.Run(fmt.Sprint(invalidated), func(t *testing.T) {
-			l, _ := newLogin(nil, &forgejo_login_proto.Config{ForgejoUrl: "https://forgejo.example"})
-			endpoint, _ := reqUrl.Parse("https://forgejo.example")
-			l.client.Jar.SetCookies(endpoint, []*http.Cookie{{Name: "session", Value: "placeholder-session"}})
-			posted := false
-			l.client.Transport = transportFunc(func(r *http.Request) (*http.Response, error) {
-				cookie, err := r.Cookie("session")
-				if err != nil || cookie.Value != "placeholder-session" {
-					t.Fatal("did not verify original session")
+	for _, status := range []int{http.StatusOK, http.StatusSeeOther} {
+		for _, invalidated := range []bool{false, true} {
+			t.Run(fmt.Sprintf("%d/%t", status, invalidated), func(t *testing.T) {
+				l, _ := newLogin(nil, &forgejo_login_proto.Config{ForgejoUrl: "https://forgejo.example"})
+				endpoint, _ := reqUrl.Parse("https://forgejo.example")
+				l.client.Jar.SetCookies(endpoint, []*http.Cookie{{Name: "session", Value: "placeholder-session"}})
+				posted := false
+				l.client.Transport = transportFunc(func(r *http.Request) (*http.Response, error) {
+					cookie, err := r.Cookie("session")
+					if err != nil || cookie.Value != "placeholder-session" {
+						t.Fatal("did not verify original session")
+					}
+					if r.Method == http.MethodPost {
+						posted = true
+						resp := response(r, `{"redirect":"/"}`)
+						resp.StatusCode = status
+						return resp, nil
+					}
+					if posted && invalidated {
+						resp := response(r, "")
+						resp.StatusCode = http.StatusSeeOther
+						resp.Header.Set("Location", "/user/login")
+						return resp, nil
+					}
+					return response(r, tokenPage("")), nil
+				})
+				err := l.logout(context.Background())
+				if !posted || (err == nil) != invalidated {
+					t.Fatalf("posted=%v invalidated=%v error=%v", posted, invalidated, err)
 				}
-				if r.Method == http.MethodPost {
-					posted = true
-					return response(r, `{"redirect":"/"}`), nil
-				}
-				if posted && invalidated {
-					resp := response(r, "")
-					resp.StatusCode = http.StatusSeeOther
-					resp.Header.Set("Location", "/user/login")
-					return resp, nil
-				}
-				return response(r, tokenPage("")), nil
 			})
-			err := l.logout(context.Background())
-			if !posted || (err == nil) != invalidated {
-				t.Fatalf("posted=%v invalidated=%v error=%v", posted, invalidated, err)
-			}
-		})
+		}
 	}
 }

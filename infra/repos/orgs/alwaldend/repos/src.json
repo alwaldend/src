@@ -20,6 +20,16 @@
     "forgejo": {
         "description": "Source code",
         "homepage_url": "https://alwaldend.com/",
-        "clone_from": "github"
+        "clone_from": "github",
+        "push_mirrors": {
+            "github": {
+                "username": "simeonwarren",
+                "vault_key": "github"
+            },
+            "gitlab": {
+                "username": "oauth2",
+                "vault_key": "gitlab"
+            }
+        }
     }
 }

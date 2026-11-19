@@ -13,3 +13,4 @@
       discovery, OpenSpec, repository quality, and affected semantic lint checks.
 - [x] 2.2 Locally review the complete working-tree diff with `review-agent` and
       fix any actionable findings before publication; retain a bounded result.
+- [x] 2.3 Review PR-local legacy and retain compatibility with verified existing dependencies.

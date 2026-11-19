@@ -19,6 +19,12 @@ Passing checks or a remote review SHALL NOT substitute for local review.
 - **WHEN** a review fix, rebase, or other edit changes the reviewed candidate diff
 - **THEN** the caller reviews the updated candidate before publishing it
 
+#### Scenario: The PR superseded an intermediate approach
+
+- **WHEN** the diff contains unused code or configuration added earlier in the PR
+- **THEN** local review removes it before publication
+- **AND** any compatibility required by deployed state or existing consumers is retained with its dependency recorded
+
 ### Requirement: Remote feedback handling after each publication
 
 The delivery procedure SHALL require remote feedback inspection after each

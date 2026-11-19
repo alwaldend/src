@@ -49,5 +49,6 @@ Catalog targets are repository-internal infrastructure inputs. They are not
 production build dependencies or published artifacts.
 
 GitLab receives one-time repository imports and the configured upstream fork.
-The user will arrange ongoing synchronization separately; the decision and
-adoption evidence live in [OpenSpec](openspec/changes/archive/2026-09-13-adopt-shared-repository-catalog/design.md).
+Each repository's `forgejo.push_mirrors` map declares its destinations.
+The catalog projects the entries by repository and forge for the
+[Forgejo mirror Terraform root](../forgejo/tf_mirrors/README.md).

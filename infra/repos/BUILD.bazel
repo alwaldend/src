@@ -6,6 +6,7 @@ package_group(
     name = "consumers",
     packages = [
         "//infra/forgejo/tf",
+        "//infra/forgejo/tf_mirrors",
         "//infra/github/tf",
         "//infra/gitlab/tf",
         "//infra/repos/...",

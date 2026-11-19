@@ -124,3 +124,25 @@ output "forgejo_repositories" {
     if repository.forge == "forgejo"
   }
 }
+
+output "forgejo_push_mirrors" {
+  value = {
+    for repository in values(local.projected) : "${repository.organization}/${repository.catalog_key}:${repository.forge}" => merge(
+      local.organizations[repository.organization].repositories[repository.catalog_key].forgejo.push_mirrors[repository.forge],
+      {
+        repository = "${repository.organization}/${repository.catalog_key}"
+        forge      = repository.forge
+      },
+    ) if contains(["github", "gitlab"], repository.forge) && can(local.organizations[repository.organization].repositories[repository.catalog_key].forgejo.push_mirrors[repository.forge])
+  }
+
+  precondition {
+    condition = alltrue([
+      for repository in local.repositories : length(setsubtract(
+        keys(try(repository.config.push_mirrors, {})),
+        setintersection(["github", "gitlab"], keys(local.organizations[repository.organization].repositories[repository.catalog_key])),
+      )) == 0 if repository.forge == "forgejo"
+    ])
+    error_message = "Each Forgejo push mirror must have a GitHub or GitLab entry in the same repository config."
+  }
+}
