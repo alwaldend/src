@@ -111,3 +111,18 @@
         with the pinned browser and pinned Fontconfig, and keeps the theme's
         existing font family or moves a new font into the repository's pinned
         fonts. Otherwise fail.
+
+- description: Uses a conventional flowchart when asked for a regular diagram
+  vars:
+    request: >-
+      Update a documentation flowchart to be a regular diagram. It depicts
+      a service, a credential store, and two destinations. Explain the edits.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Defines the regular infrastructure style directly so that it can be
+        used without opening other diagrams. Specifies a left-to-right Mermaid
+        flowchart rendered by mermaid_site_svg, the shared theme's curved
+        connectors and light and dark output, semantic shapes, and short
+        node and edge labels.

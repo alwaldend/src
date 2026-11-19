@@ -32,6 +32,15 @@ Vault continues to own OIDC login identities and service-specific access.
 See [service Terraform](tf/README.md) for identity validation, state adoption,
 and the preserved automation grants.
 
+## Push mirroring
+
+Terraform reads each repository's mirror settings and bootstraps the native
+Forgejo mirrors with destination credentials from Vault. Forgejo pushes Git
+refs and LFS objects to GitHub and GitLab on commits and every eight hours.
+See [mirror Terraform](tf_mirrors/README.md) for setup and ref checks.
+
+[![Forgejo push mirroring](docs/assets/push-mirroring.svg)](docs/assets/push-mirroring.svg)
+
 ## Deployment
 
 ### Instance commit signing

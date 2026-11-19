@@ -100,6 +100,26 @@ raster, so the asset can be regenerated and compared against a fresh render.
 The `.mmd` source stays authoritative. A blog post that is intended for
 syndication references the raster render beside `index.md` rather than the SVG.
 
+## Regular diagrams
+
+A regular infrastructure diagram is a left-to-right Mermaid flowchart
+(`flowchart LR`) rendered with `mermaid_site_svg` in light and dark variants.
+The site theme supplies classic shapes, curved connectors, fonts, and colors.
+The diagram source contains nodes, arrows, and labels.
+
+Use rectangles for services, rounded nodes for people or clients, and
+cylinders for persistent stores. Group nodes when they share a deployment
+boundary such as a VM or network. Use short node labels and label edges
+with a protocol, action, or payload when it helps explain the flow. Use
+solid arrows for the primary flow and dotted arrows for secondary flows
+such as configuration.
+
+```mermaid
+flowchart LR
+    client("Client") -->|HTTPS| service[Service]
+    service --> store[(Persistent data)]
+```
+
 ## Default to Dagre and `flowchart LR`
 
 The shared theme selects Dagre. Write `flowchart LR` for left-to-right flow

@@ -9,6 +9,12 @@ mermaid_site_svg(
     out = "rendered/architecture.svg",
 )
 
+mermaid_site_svg(
+    name = "push_mirroring",
+    src = "push-mirroring.mmd",
+    out = "rendered/push-mirroring.svg",
+)
+
 docs_filegroup(
     name = "docs",
     srcs = glob(["*.mmd"]),
@@ -20,6 +26,7 @@ docs_filegroup(
     name = "docs_assets",
     srcs = [
         ":architecture",
+        ":push_mirroring",
     ],
     prefix = "content/docs/infra/forgejo/docs/assets",
 )
