@@ -51,7 +51,10 @@ Ansible reads that record through AL and installs the pair under
 Deployment rejects a different existing private key; rotation is a separate
 operation. The service uses the public file `instance.pub` as `SIGNING_KEY`,
 `FORMAT = ssh`, and the `Forgejo <noreply@forgejo.alwaldend.com>` identity.
-Existing merge and CRUD signing policies and the committer trust model remain.
+Forgejo signs pull request merges and web or API file changes with this key.
+Repositories that inherit the instance's `collaborator` trust model record the
+merging user's identity as the Git committer and trust signatures from
+repository collaborators under Forgejo's verification rules.
 
 After separate live authorization, run setup Terraform before service-only
 Ansible deployment using the commands below. This does not require running
