@@ -1,0 +1,7 @@
+flowchart LR
+    subgraph local_infra["Local infra"]
+        local[Local repo] -->|Git push| forgejo["Forgejo<br/>forgejo.alwaldend.com"]
+    end
+
+    forgejo -->|HTTPS: Git and LFS| github["GitHub<br/>github.com"]
+    forgejo -->|HTTPS: Git and LFS| gitlab["GitLab<br/>gitlab.com"]
