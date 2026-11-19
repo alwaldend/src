@@ -67,7 +67,7 @@ fixture. AL's process fixtures exercise a non-Vault provider and Vault loopback
 requests, proving that resource dispatch belongs to the advertised provider.
 
 The [AL lifecycle page](../../projects/al/docs/al/lifecycle.md) owns one Mermaid
-diagram with Build and Run subgraphs. `:run_lifecycle` renders its source in the
+diagram with Build and Run subgraphs. `:run_lifecycle_svg` renders its source in the
 repository's site theme and packages light/dark assets for that page. This
 integration keeps site tooling outside the standalone AL module.
-`:run_lifecycle_preview` provides a manual dark WebP for visual inspection.
+`:run_lifecycle_dark_webp` provides a dark WebP for visual inspection.

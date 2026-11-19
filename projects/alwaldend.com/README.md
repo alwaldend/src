@@ -60,19 +60,17 @@ native Dagre layout. Normal graph connectors are 2.25px, while thick, dashed,
 invisible, and semantic marker distinctions remain native. Caption plates use
 muted borders; sequence lifelines are thinner and grayer than messages.
 Mindmaps use the site's surfaces, text, and connector colors in both modes.
-The `mermaid_site_svg` macro in `pkg/mermaid/defs.bzl`
-selects the shared `//internal/assets:mermaid_theme` target and renders both
-SVGs through the native Mermaid API without post-processing. The preset supplies
+The `mermaid_diagram` macro in `pkg/mermaid/defs.bzl` uses the shared
+`//internal/assets:mermaid_theme` target to generate light and dark SVG
+and WebP files through the native Mermaid API. The preset supplies
 caption styling through `themeCSS` and places titles on container borders with
 Mermaid's `subGraphTitleMargin` setting. Compact node/rank spacing and the
-pinned renderer's `edgeSpacing` option separate nested title plates. Package both
-outputs and reference the light `.svg`; Markdown and the SVG shortcode recognize
+pinned renderer's `edgeSpacing` option separate nested title plates. Package the
+`_svg` target's two outputs and reference the light `.svg`. Markdown and the SVG shortcode recognize
 its `.dark.svg` sibling. The site theme selects the visible image, and print
 always uses light. Historical blog diagrams retain their original files and
-presentation. New raster diagrams can use `mermaid_site_webp` from the same
-macro file to encode the native diagram with the site's palette and monospace
-font for syndication and social previews. Set `color_scheme = "dark"` to select
-the dark palette; the default remains light.
+presentation. Select a diagram's `_webp` or `_dark_webp` target for syndication
+and social previews.
 The homepage panel links to GitHub, GitLab, Blog, Docs, and the project index,
 followed by permanently visible, indented project links in creation date order,
 newest first.
@@ -143,7 +141,7 @@ transitive graph. See the
 [analyzer documentation](../bazel_deps_analyzer/README.md) for options and
 the build-cycle reason these artifacts remain outside the site's own inputs.
 
-Use `:deps_mindmap`, `:deps_mindmap_svg`, or `:deps_mindmap_dark_webp` for an
+Use `:deps_mindmap_source`, `:deps_mindmap_svg`, or `:deps_mindmap_dark_webp` for an
 ownership inventory of the same depth-eight targets, grouped by package.
 Its branches describe ownership; use the flowchart to trace dependency edges.
 The mindmap reuses the existing JSON capture and shared site appearance.

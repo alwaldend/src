@@ -1,18 +1,20 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_site_svg")
+load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_diagram")
 
 package(transitive_visibility = "//infra:transitive_consumers")
 
-mermaid_site_svg(
+mermaid_diagram(
     name = "architecture",
     src = "architecture.mmd",
-    out = "rendered/architecture.svg",
+    out = "rendered/architecture",
 )
 
-mermaid_site_svg(
+mermaid_diagram(
     name = "push_mirroring",
     src = "push-mirroring.mmd",
-    out = "rendered/push-mirroring.svg",
+    out = "rendered/push-mirroring",
+    webp_aspect_ratio = [],
+    webp_scale = 2,
 )
 
 docs_filegroup(
@@ -25,8 +27,8 @@ docs_filegroup(
 docs_filegroup(
     name = "docs_assets",
     srcs = [
-        ":architecture",
-        ":push_mirroring",
+        ":architecture_svg",
+        ":push_mirroring_svg",
     ],
     prefix = "content/docs/infra/forgejo/docs/assets",
 )

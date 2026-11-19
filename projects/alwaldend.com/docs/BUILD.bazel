@@ -1,12 +1,12 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_site_svg")
+load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_diagram")
 
 package(transitive_visibility = "//projects:transitive_consumers")
 
-mermaid_site_svg(
+mermaid_diagram(
     name = "legacy_www",
     src = "legacy-www.mmd",
-    out = "rendered/legacy-www.svg",
+    out = "rendered/legacy-www",
 )
 
 docs_filegroup(
@@ -22,7 +22,7 @@ docs_filegroup(
 docs_filegroup(
     name = "docs_assets",
     srcs = [
-        ":legacy_www",
+        ":legacy_www_svg",
     ],
     prefix = "content/docs/projects/alwaldend.com/docs/assets",
 )

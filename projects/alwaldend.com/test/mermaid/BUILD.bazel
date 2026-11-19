@@ -1,13 +1,13 @@
 load("@aspect_rules_js//js:defs.bzl", "js_test")
-load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_site_svg")
+load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_diagram")
 
 package(transitive_visibility = "//projects:transitive_consumers")
 
-mermaid_site_svg(
+mermaid_diagram(
     name = "edge_semantics",
     testonly = True,
     src = "edge_semantics.mmd",
-    out = "rendered/edge_semantics.svg",
+    out = "rendered/edge_semantics",
     visibility = ["//visibility:private"],
 )
 
@@ -17,10 +17,10 @@ js_test(
     args = [
         "$(rootpath @com_google_chrome_headless_shell//:chrome_headless_shell_binary)",
         "$(rootpaths //projects/alwaldend.com/docs/mermaid-theme:samples)",
-        "$(rootpaths :edge_semantics)",
+        "$(rootpaths :edge_semantics_svg)",
     ],
     data = [
-        ":edge_semantics",
+        ":edge_semantics_svg",
         "//projects/alwaldend.com/docs/mermaid-theme:samples",
         "//tools:node_modules/puppeteer",
         "@com_google_chrome_headless_shell//:chrome_headless_shell_binary",

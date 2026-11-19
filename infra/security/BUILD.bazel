@@ -1,6 +1,6 @@
 load("@rules_al//:defs.bzl", "al_binary_run", "al_config", "al_vault_auth")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_site_svg", "mermaid_site_webp")
+load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_diagram")
 load(":defs.bzl", "infra_security_maintenance_ssh")
 
 package(transitive_visibility = "//infra:transitive_consumers")
@@ -43,30 +43,16 @@ al_config(
     visibility = ["//infra/security:__subpackages__"],
 )
 
-mermaid_site_svg(
+mermaid_diagram(
     name = "security_scans",
     src = "docs/security-scans.mmd",
-    out = "rendered/security-scans.svg",
-)
-
-mermaid_site_webp(
-    name = "security_scans_preview",
-    src = "docs/security-scans.mmd",
-    out = "rendered/security-scans.webp",
-    aspect_ratio = [],
-)
-
-mermaid_site_webp(
-    name = "security_scans_preview_dark",
-    src = "docs/security-scans.mmd",
-    out = "rendered/security-scans.dark.webp",
-    aspect_ratio = [],
-    color_scheme = "dark",
+    out = "rendered/security-scans",
+    webp_aspect_ratio = [],
 )
 
 docs_filegroup(
     name = "docs_assets",
-    srcs = [":security_scans"],
+    srcs = [":security_scans_svg"],
     prefix = "content/docs/infra/security/assets",
 )
 

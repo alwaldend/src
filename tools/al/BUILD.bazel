@@ -3,7 +3,7 @@ load("@rules_al//:defs.bzl", "al_config", "al_inject", "al_plugin_config", "al_v
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_go//go:def.bzl", "go_test")
 load("//infra:al_config.bzl", "infra_dns")
-load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_site_svg", "mermaid_site_webp")
+load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_diagram")
 load("//tools/al:al_terraform.bzl", "al_terraform_binary_map")
 load("//tools/vault/tf_backend:defs.bzl", "vault_tf_backend")
 
@@ -120,25 +120,17 @@ docs_filegroup(
     deps = [":docs_assets"],
 )
 
-mermaid_site_svg(
+mermaid_diagram(
     name = "run_lifecycle",
     src = "@rules_al//docs/al:run.mmd",
-    out = "rendered/run-lifecycle.svg",
-)
-
-mermaid_site_webp(
-    name = "run_lifecycle_preview",
-    src = "@rules_al//docs/al:run.mmd",
-    out = "rendered/run-lifecycle.webp",
-    aspect_ratio = [],
-    color_scheme = "dark",
-    scale = 2,
-    tags = ["manual"],
+    out = "rendered/run-lifecycle",
+    webp_aspect_ratio = [],
+    webp_scale = 2,
 )
 
 docs_filegroup(
     name = "docs_assets",
-    srcs = [":run_lifecycle"],
+    srcs = [":run_lifecycle_svg"],
     prefix = "content/docs/projects/al/docs/al/assets",
 )
 

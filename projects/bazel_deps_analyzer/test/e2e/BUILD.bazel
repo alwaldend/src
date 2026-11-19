@@ -1,7 +1,6 @@
 load("@rules_go//go:def.bzl", "go_test")
-load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_site_webp")
+load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_diagram")
 load("//projects/bazel_deps_analyzer:defs.bzl", "bazel_deps_mermaid", "bazel_deps_mermaid_from_json", "bazel_deps_packages_from_json")
-load("//tools/mermaid:defs.bzl", "mermaid_webp")
 load(":inputs_fixture.bzl", "filter_inputs_fixture", "inputs_fixture", "string_inputs_fixture")
 
 package(transitive_visibility = "//projects:transitive_consumers")
@@ -124,12 +123,12 @@ bazel_deps_mermaid(
     target = ":root",
 )
 
-mermaid_webp(
-    name = "fixture_webp",
+mermaid_diagram(
+    name = "fixture_diagram",
     testonly = True,
     src = ":fixture",
-    out = "fixture.webp",
-    aspect_ratio = [],
+    out = "fixture",
+    webp_aspect_ratio = [],
 )
 
 bazel_deps_mermaid_from_json(
@@ -149,13 +148,12 @@ bazel_deps_mermaid_from_json(
     root = "//app:root",
 )
 
-mermaid_site_webp(
-    name = "grouped_webp",
+mermaid_diagram(
+    name = "grouped_diagram",
     testonly = True,
     src = ":grouped",
-    out = "grouped.dark.webp",
-    aspect_ratio = [],
-    color_scheme = "dark",
+    out = "grouped",
+    webp_aspect_ratio = [],
 )
 
 bazel_deps_mermaid(
@@ -166,13 +164,12 @@ bazel_deps_mermaid(
     target = ":root",
 )
 
-mermaid_site_webp(
-    name = "mindmap_fixture_webp",
+mermaid_diagram(
+    name = "mindmap_fixture_diagram",
     testonly = True,
     src = ":mindmap_fixture",
-    out = "mindmap.dark.webp",
-    aspect_ratio = [],
-    color_scheme = "dark",
+    out = "mindmap",
+    webp_aspect_ratio = [],
 )
 
 bazel_deps_mermaid_from_json(
@@ -186,13 +183,12 @@ bazel_deps_mermaid_from_json(
     root = "//app:root",
 )
 
-mermaid_site_webp(
-    name = "mindmap_grouped_webp",
+mermaid_diagram(
+    name = "mindmap_grouped_diagram",
     testonly = True,
     src = ":mindmap_grouped",
-    out = "mindmap-grouped.dark.webp",
-    aspect_ratio = [],
-    color_scheme = "dark",
+    out = "mindmap-grouped",
+    webp_aspect_ratio = [],
 )
 
 bazel_deps_mermaid_from_json(
@@ -204,21 +200,20 @@ bazel_deps_mermaid_from_json(
     root = "//fixture:quote\"<b>&#35;[x]%%{init}",
 )
 
-mermaid_site_webp(
-    name = "mindmap_escaped_webp",
+mermaid_diagram(
+    name = "mindmap_escaped_diagram",
     testonly = True,
     src = ":mindmap_escaped",
-    out = "mindmap-escaped.dark.webp",
-    aspect_ratio = [],
-    color_scheme = "dark",
+    out = "mindmap-escaped",
+    webp_aspect_ratio = [],
 )
 
-mermaid_webp(
-    name = "escaped_webp",
+mermaid_diagram(
+    name = "escaped_diagram",
     testonly = True,
     src = ":escaped",
-    out = "escaped.webp",
-    aspect_ratio = [],
+    out = "escaped",
+    webp_aspect_ratio = [],
 )
 
 bazel_deps_packages_from_json(
@@ -227,13 +222,12 @@ bazel_deps_packages_from_json(
     src = "packages.ndjson",
 )
 
-mermaid_site_webp(
-    name = "packages_webp",
+mermaid_diagram(
+    name = "packages_diagram",
     testonly = True,
     src = ":packages",
-    out = "packages.dark.webp",
-    aspect_ratio = [],
-    color_scheme = "dark",
+    out = "packages",
+    webp_aspect_ratio = [],
 )
 
 bazel_deps_packages_from_json(
@@ -261,18 +255,18 @@ go_test(
         "-build-deps-string-capture=$(rlocationpath :filter_string_native.query.ndjson)",
         "-converter=$(rlocationpath //projects/bazel_deps_analyzer)",
         "-diagram=$(rlocationpath :fixture)",
-        "-raster=$(rlocationpath :fixture_webp)",
+        "-raster=$(rlocationpath :fixture_diagram_webp)",
         "-build-inputs=$(rlocationpath :build_inputs_diagram)",
         "-grouped-input=$(rlocationpath :grouped.ndjson)",
         "-grouped-diagram=$(rlocationpath :grouped)",
-        "-grouped-raster=$(rlocationpath :grouped_webp)",
+        "-grouped-raster=$(rlocationpath :grouped_diagram_dark_webp)",
         "-mindmap-diagram=$(rlocationpath :mindmap_fixture)",
-        "-mindmap-raster=$(rlocationpath :mindmap_fixture_webp)",
+        "-mindmap-raster=$(rlocationpath :mindmap_fixture_diagram_dark_webp)",
         "-mindmap-grouped=$(rlocationpath :mindmap_grouped)",
-        "-mindmap-grouped-raster=$(rlocationpath :mindmap_grouped_webp)",
+        "-mindmap-grouped-raster=$(rlocationpath :mindmap_grouped_diagram_dark_webp)",
         "-packages-input=$(rlocationpath :packages.ndjson)",
         "-packages-diagram=$(rlocationpath :packages)",
-        "-packages-raster=$(rlocationpath :packages_webp)",
+        "-packages-raster=$(rlocationpath :packages_diagram_dark_webp)",
         "-packages-json=$(rlocationpath :packages_json)",
     ],
     data = [
@@ -280,7 +274,7 @@ go_test(
         "grouped.ndjson",
         "packages.ndjson",
         ":build_inputs_diagram",
-        ":escaped_webp",
+        ":escaped_diagram_webp",
         ":filter_native",
         ":filter_native.query.ndjson",
         ":filter_packages",
@@ -288,17 +282,17 @@ go_test(
         ":filter_string_native.query.ndjson",
         ":filter_target",
         ":fixture",
-        ":fixture_webp",
+        ":fixture_diagram_webp",
         ":grouped",
-        ":grouped_webp",
-        ":mindmap_escaped_webp",
+        ":grouped_diagram_dark_webp",
+        ":mindmap_escaped_diagram_dark_webp",
         ":mindmap_fixture",
-        ":mindmap_fixture_webp",
+        ":mindmap_fixture_diagram_dark_webp",
         ":mindmap_grouped",
-        ":mindmap_grouped_webp",
+        ":mindmap_grouped_diagram_dark_webp",
         ":packages",
+        ":packages_diagram_dark_webp",
         ":packages_json",
-        ":packages_webp",
         "//projects/bazel_deps_analyzer",
     ],
     deps = ["@rules_go//go/runfiles"],

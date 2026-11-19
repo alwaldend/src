@@ -1,5 +1,5 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_site_svg")
+load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_diagram")
 
 package(transitive_visibility = "//projects:transitive_consumers")
 
@@ -18,17 +18,17 @@ exports_files(
 )
 
 [
-    mermaid_site_svg(
+    mermaid_diagram(
         name = sample,
         src = sample + ".mmd",
-        out = "rendered/" + sample + ".svg",
+        out = "rendered/" + sample,
     )
     for sample in _SAMPLES
 ]
 
 filegroup(
     name = "samples",
-    srcs = [":" + sample for sample in _SAMPLES],
+    srcs = [":" + sample + "_svg" for sample in _SAMPLES],
     visibility = ["//projects/alwaldend.com/test/mermaid:__pkg__"],
 )
 

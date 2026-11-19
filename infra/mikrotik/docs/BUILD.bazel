@@ -1,12 +1,12 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_site_svg")
+load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_diagram")
 
 package(transitive_visibility = "//infra:transitive_consumers")
 
-mermaid_site_svg(
+mermaid_diagram(
     name = "dc1",
     src = "dc1.mmd",
-    out = "rendered/dc1.svg",
+    out = "rendered/dc1",
 )
 
 docs_filegroup(
@@ -19,7 +19,7 @@ docs_filegroup(
 docs_filegroup(
     name = "docs_assets",
     srcs = [
-        ":dc1",
+        ":dc1_svg",
     ],
     prefix = "content/docs/infra/mikrotik/docs/assets",
 )

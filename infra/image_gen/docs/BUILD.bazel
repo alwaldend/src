@@ -1,6 +1,6 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_template//rules:template_run_binary.bzl", "template_run_binary")
-load("//tools/mermaid:defs.bzl", "mermaid_svg", "mermaid_webp")
+load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_diagram")
 load("//tools/mermaid:theme.bzl", "mermaid_theme")
 
 package(transitive_visibility = "//infra:transitive_consumers")
@@ -24,44 +24,31 @@ mermaid_theme(
     palette = "//internal/assets/mermaid:palette",
 )
 
-mermaid_webp(
+mermaid_diagram(
     name = "architecture",
     src = "architecture.mmd",
-    out = "rendered/architecture.dark.webp",
-    aspect_ratio = [],
-    color_scheme = "dark",
-    native = True,
-    scale = 2,
+    out = "rendered/architecture",
     theme = ":theme",
+    webp_aspect_ratio = [],
+    webp_scale = 2,
 )
 
 docs_filegroup(
     name = "docs",
     srcs = [
-        ":architecture",
-        ":evaluations",
+        ":architecture_dark_webp",
+        ":evaluations_dark_webp",
         ":evaluations_svg",
     ],
     prefix = "content/docs/infra/image_gen/assets",
     visibility = ["//infra/image_gen:__pkg__"],
 )
 
-mermaid_svg(
-    name = "evaluations_svg",
-    src = "evaluations.mmd",
-    out = "rendered/evaluations.svg",
-    dark_out = "rendered/evaluations.dark.svg",
-    native = True,
-    theme = ":theme",
-)
-
-mermaid_webp(
+mermaid_diagram(
     name = "evaluations",
     src = "evaluations.mmd",
-    out = "rendered/evaluations.dark.webp",
-    aspect_ratio = [],
-    color_scheme = "dark",
-    native = True,
-    scale = 2,
+    out = "rendered/evaluations",
     theme = ":theme",
+    webp_aspect_ratio = [],
+    webp_scale = 2,
 )

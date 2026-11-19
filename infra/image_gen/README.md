@@ -202,7 +202,7 @@ The diagram source is [docs/architecture.mmd](docs/architecture.mmd). It uses th
 shared Alwaldend dark palette and typography, composed with the existing Mermaid
 actor artwork for the requested browser actor. The local template derives both
 from their owners. Build the WebP with
-`bazel build //infra/image_gen/docs:architecture`. The documentation
+`bazel build //infra/image_gen/docs:architecture_dark_webp`. The documentation
 consumes the rendered target directly; generated images are not checked in.
 The diagram describes the configured
 architecture, not an active rental. The simplified certificate label refers to

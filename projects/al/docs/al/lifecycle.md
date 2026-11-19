@@ -15,7 +15,7 @@ dependencies; Run arrows show AL's interactions with the built outputs and plugi
 ![Build and Run phases of al run](/docs/projects/al/docs/al/assets/run-lifecycle.svg)
 
 The [Mermaid source](/docs/projects/al/docs/al/run.mmd) is authoritative. This repository renders and
-packages its light/dark assets through `//tools/al:run_lifecycle`.
+packages its light/dark SVGs through `//tools/al:run_lifecycle_svg`.
 
 `al run` starts selected plugins, passes their environment to a command, and
 keeps plugin resources available until that command exits. On cancellation it
