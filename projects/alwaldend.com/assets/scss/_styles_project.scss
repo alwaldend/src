@@ -1,6 +1,22 @@
 // One theme for every section of the site.
 @import "shared_theme";
 
+.td-search--offline {
+    --search-icon-space: 2.5rem;
+
+    .td-search__icon {
+        left: auto;
+        inset-inline-start: 0;
+        inline-size: var(--search-icon-space);
+        justify-content: center;
+    }
+
+    .td-search__input {
+        padding-inline-start: var(--search-icon-space);
+        text-indent: 0;
+    }
+}
+
 .mermaid-diagram {
     display: inline-block;
     width: 100%;
