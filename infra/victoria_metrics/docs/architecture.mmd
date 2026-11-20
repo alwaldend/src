@@ -1,0 +1,24 @@
+flowchart LR
+    public("Public browser")
+    ingress["Ingress (Traefik)<br/>ingress.alwaldend.com"]
+
+    subgraph local_infra["Local infrastructure · dc1.alwaldend.com"]
+        local("LAN browser")
+
+        subgraph guest["VictoriaMetrics VM · victoria-metrics.alwaldend.com"]
+            proxy["Traefik"]
+            metrics["VictoriaMetrics<br/>VMUI and scraper"]
+            storage[("Persistent disk")]
+        end
+
+        targets@{ shape: procs, label: "Traefik targets" }
+    end
+
+    public -->|mTLS| ingress
+    ingress -->|"HTTPS<br/>Basic Auth"| proxy
+    local -->|"HTTPS<br/>Basic Auth"| proxy
+    proxy -->|"Loopback HTTP<br/>127.0.0.1:8428"| metrics
+    metrics --> storage
+    metrics -.->|"HTTP scrape :9100<br/>over loopback"| proxy
+    metrics -->|HTTP scrape :9100| targets
+    metrics -.->|"HTTP scrape :9100<br/>over WireGuard"| ingress

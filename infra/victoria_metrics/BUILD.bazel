@@ -83,6 +83,7 @@ docs_filegroup(
     deps = [
         "//infra/victoria_metrics/approle:docs",
         "//infra/victoria_metrics/dns:docs",
+        "//infra/victoria_metrics/docs",
         "//infra/victoria_metrics/openspec:docs",
         "//infra/victoria_metrics/tf_setup/web_auth:docs",
     ],

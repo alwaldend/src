@@ -2,6 +2,12 @@
 title: VictoriaMetrics
 ---
 
+## Architecture
+
+[![VictoriaMetrics VM inside DC1 infrastructure, with dashboard access and Traefik scrape paths](docs/assets/architecture.svg)](docs/assets/architecture.svg)
+
+Bazel renders the [Mermaid source](docs/architecture.mmd) in light and dark themes.
+
 One Fedora VM on XCP-ng runs VictoriaMetrics single-node under systemd.
 The guest starts with 2 vCPUs, 4 GiB RAM, and a persistent 40 GiB boot and
 data disk. The database lives at `/var/lib/victoria-metrics`. Retention is
