@@ -196,6 +196,24 @@
         renew a token already known to be expired; and avoids printing,
         copying, logging, or putting either token value in command arguments.
         Otherwise fail.
+
+- description: Matches the guest certificate to shared ingress verification
+  vars:
+    request: >-
+      Shared ingress verifies backend TLS using the public service hostname.
+      It connects to guest Traefik through a private DNS alias. The guest
+      certificate currently covers only the alias, and public DNS points at
+      shared ingress. Vault cannot reach the guest's challenge listener.
+      Fix the component configuration.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response keeps the private target and shared ingress
+        transport, prepares a trusted guest certificate for the public
+        hostname before Traefik starts, and uses that public name for the
+        guest HTTP router. It must not disable certificate verification or
+        rewrite other routes. Otherwise fail.
 - description: Checks token metadata without printing the token
   vars:
     request: >-
@@ -606,3 +624,50 @@
         inputs while using native variables where appropriate. It must not
         collapse the identities, broaden Vault access, disclose credentials,
         or perform live changes. Otherwise fail.
+
+- description: Keeps Ansible group settings in group variables
+  vars:
+    request: >-
+      Prepare source for a two-host Ansible deployment. Both hosts use the
+      same SSH user and service role inputs. One host needs a different
+      service port. Where should the inventory declare these settings?
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response puts the shared SSH user and role inputs
+        in the group's group_vars file, keeps the hosts and group membership
+        in the inventory, and uses host_vars for the single-host override.
+        It must not require an explicit SSH user argument on every run.
+
+- description: Runs the host and Traefik roles before a web service
+  vars:
+    request: >-
+      A new Fedora VM needs a default deployment playbook for a web service.
+      The inventory supplies firewall and Vault SSH host-signing settings.
+      Draft the playbook and explain where the host baseline and proxy belong.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the default play runs alwaldend.main.host, then
+        alwaldend.main.traefik as the reverse proxy, then the component service
+        roles. It must rely on the host role for CA and firewall setup, keep
+        the settings in group variables, and avoid a live deployment.
+        Otherwise fail.
+
+- description: Separates the generated web login from its deployment verifier
+  vars:
+    request: >-
+      Add Terraform-managed Basic Auth to a VM dashboard. Give the Vault
+      admin group access to the generated login. The deployment uses Traefik
+      and a component Vault AppRole, and shared ingress already uses mTLS.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if Terraform generates the login, Vault grants the
+        administrator group access to the login alone, and the deployment
+        AppRole reads a separate bcrypt verifier. The proxy must receive the
+        verifier through a restricted file and preserve ingress mTLS.
+        Otherwise fail.

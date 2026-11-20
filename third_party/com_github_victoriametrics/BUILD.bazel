@@ -1,0 +1,15 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+
+package(transitive_visibility = "//infra:transitive_consumers")
+
+alias(
+    name = "victoria_metrics",
+    actual = "@com_github_victoriametrics//:victoria-metrics-prod",
+    visibility = ["//infra/victoria_metrics/ansible:__pkg__"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//third_party:__pkg__"],
+)

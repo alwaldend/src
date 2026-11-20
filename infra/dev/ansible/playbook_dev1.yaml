@@ -70,8 +70,8 @@
       tags:
         - firewall
     - name: Configure firewall allowlist
-      ansible.builtin.copy:
-        src: firewalld_zone.xml
+      ansible.builtin.template:
+        src: firewalld_zone.xml.j2
         dest: /etc/firewalld/zones/FedoraWorkstation.xml
         owner: root
         group: root

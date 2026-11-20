@@ -1,0 +1,14 @@
+[http.routers.victoria_metrics]
+rule = "Host(`{{ victoria_metrics_hostname }}`)"
+entryPoints = ["websecure"]
+service = "victoria_metrics"
+middlewares = ["victoria_metrics_auth"]
+
+tls = { certResolver = "vault" }
+
+[http.middlewares.victoria_metrics_auth.basicAuth]
+usersFile = "{{ traefik_basic_auth_path }}"
+removeHeader = true
+
+[[http.services.victoria_metrics.loadBalancer.servers]]
+url = "http://127.0.0.1:8428"

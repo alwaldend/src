@@ -13,7 +13,8 @@ download_site_enabled: true
 download_git_redirect_enabled: false
 download_acme_email: src_infra_download@alwaldend.com
 ssh_vault_role: src_infra_download_ssh
-firewall_allow_port_from:
+firewall_allow_port_from: "{{ download_firewall_base_rules + (download_metrics_firewall_rules | default([])) }}"
+download_firewall_base_rules:
   - { src: any, port: 22, proto: tcp, comment: SSH }
   - { src: any, port: 80, proto: tcp, comment: HTTP }
   - { src: any, port: 443, proto: tcp, comment: HTTPS }

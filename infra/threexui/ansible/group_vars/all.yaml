@@ -10,7 +10,8 @@ threexui_password: "{{ lookup('ansible.builtin.env', 'XUI_PASSWORD', default=und
 ssh_valid_principals:
   - threexui.alwaldend.com
 
-firewall_allow_port_from:
+firewall_allow_port_from: "{{ threexui_firewall_base_rules + (threexui_metrics_firewall_rules | default([])) }}"
+threexui_firewall_base_rules:
   - src: "any"
     port: 22
     comment: ssh

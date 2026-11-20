@@ -1,0 +1,30 @@
+scrape_configs:
+  - job_name: victoria_metrics
+    scrape_interval: 15s
+    static_configs:
+      - targets: ["127.0.0.1:8428"]
+  - job_name: traefik_victoria_metrics
+    scrape_interval: 30s
+    static_configs:
+      - targets: ["127.0.0.1:{{ traefik_metrics_port }}"]
+{% set ingress_hosts = ingress.hosts | default({}, true) %}
+{% if ingress_hosts %}
+  - job_name: traefik_ingress
+    scrape_interval: 30s
+    static_configs:
+      - targets:
+{% for hostname in ingress_hosts | sort %}
+          - "{{ ingress_hosts[hostname].wg_ip.split('/')[0] }}:{{ traefik_metrics_port }}"
+{% endfor %}
+{% endif %}
+  - job_name: traefik_dc1
+    scrape_interval: 30s
+    static_configs:
+      - targets:
+          - "host1.forgejo.alwaldend.com:{{ traefik_metrics_port }}"
+          - "dev1.dev.alwaldend.com:{{ traefik_metrics_port }}"
+          - "host1.canvas.openhands.alwaldend.com:{{ traefik_metrics_port }}"
+          - "host1.server.openhands.alwaldend.com:{{ traefik_metrics_port }}"
+          - "host1.automation.openhands.alwaldend.com:{{ traefik_metrics_port }}"
+          - "host1.threexui.alwaldend.com:{{ traefik_metrics_port }}"
+          - "host1.dc1.download.alwaldend.com:{{ traefik_metrics_port }}"

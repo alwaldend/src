@@ -67,6 +67,10 @@ target-specific runfiles mirror, following Terraform's
 The same `terraform/defs.bzl` exports `terraform_binary_map`,
 `terraform_target_binary_map`, and `terraform_test_map`. They preserve explicit
 operation names such as `tf.plan`, `tf.apply`, and `tf_tests.fmt_test`.
+The test map includes format checking by default. Set `validate = True` to
+add `tf_tests.validate_test` with a backend-free configuration and declared
+providers. For `al_terraform_package`, pass the option and those inputs through
+`test_kwargs`.
 Targeted maps produce plan/show/apply commands; their apply command requires
 one saved plan. No unnamed apply alias is generated.
 

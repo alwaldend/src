@@ -1,0 +1,8 @@
+http_archive = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
+http_archive(
+    name = "com_github_victoriametrics",
+    build_file_content = 'exports_files(["victoria-metrics-prod"])',
+    integrity = "sha256-VECeo4HbAxbwv28kLHGLxJgIXrHrN1ILc1JubYaJFgE=",
+    urls = ["https://github.com/VictoriaMetrics/VictoriaMetrics/releases/download/v1.156.0/victoria-metrics-linux-amd64-v1.156.0.tar.gz"],
+)

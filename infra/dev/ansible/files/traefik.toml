@@ -35,3 +35,9 @@ hmacEncoded = "{{ traefik_acme_hmac }}"
 resolver = "vault"
 [tls.stores.default.acme.domain]
 main = "{{ t3code_domain }}"
+
+[entryPoints.metrics]
+address = ":{{ traefik_metrics_port }}"
+
+[metrics.prometheus]
+entryPoint = "metrics"

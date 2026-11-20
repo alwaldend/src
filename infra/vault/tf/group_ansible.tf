@@ -15,6 +15,7 @@ resource "vault_identity_group" "ansible" {
     module.src_infra_ingress_approle.group_id,
     module.src_infra_openhands.group_id,
     data.vault_identity_group.standalone_approles["src_infra_opencanary"].group_id,
+    data.vault_identity_group.standalone_approles["src_infra_victoria_metrics"].group_id,
     module.users_simeonwarren_approle.group_id,
   ]
   metadata = {

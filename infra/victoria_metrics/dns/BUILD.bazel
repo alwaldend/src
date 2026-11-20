@@ -1,0 +1,43 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("@rules_template//rules:template_run_binary.bzl", "template_run_binary")
+load("//infra/dns/terraform:defs.bzl", "infra_terraform_dns")
+
+package(transitive_visibility = "//infra:transitive_consumers")
+
+infra_terraform_dns(
+    name = "tf",
+    configs = ["//infra/victoria_metrics:al"],
+    dc1 = True,
+    validate = True,
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//infra/victoria_metrics:__pkg__"],
+)
+
+filegroup(
+    name = "dnsconfig",
+    srcs = ["dnsconfig.json"],
+    visibility = ["//infra/victoria_metrics:__subpackages__"],
+)
+
+template_run_binary(
+    name = "metrics_vars",
+    srcs = ["metrics-vars.json.gotmpl"],
+    outs = ["metrics-vars.json"],
+    data = [
+        ":dnsconfig",
+        "//projects/ansible_collection/roles/traefik:defaults",
+    ],
+    visibility = [
+        "//infra/dev/ansible:__pkg__",
+        "//infra/download/ansible:__pkg__",
+        "//infra/forgejo/ansible:__pkg__",
+        "//infra/ingress/ansible:__pkg__",
+        "//infra/openhands/ansible:__pkg__",
+        "//infra/threexui/ansible:__pkg__",
+        "//infra/victoria_metrics/ansible:__pkg__",
+    ],
+)

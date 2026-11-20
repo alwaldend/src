@@ -28,6 +28,9 @@ traefik_services:
   comfyui-dev1:
     hostname: comfyui.dev1.dev.alwaldend.com
     target: "dc1.comfyui.dev1.dev.alwaldend.com"
+  victoria-metrics:
+    hostname: victoria-metrics.alwaldend.com
+    target: "dc1.victoria-metrics.alwaldend.com"
   vault:
     hostname: vault.alwaldend.com
     port: 8200
@@ -52,3 +55,7 @@ firewall_allow_port_from:
   - src: "any"
     port: 51820
     comment: Wireguard
+  - src: "{{ victoria_metrics_collector_address }}/32"
+    port: "{{ traefik_metrics_port }}"
+    proto: tcp
+    comment: VictoriaMetrics scrape

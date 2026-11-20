@@ -15,6 +15,7 @@ def al_ansible_package(
         srcs_name = "srcs",
         files_name = "srcs_files",
         binary_visibility = None,
+        extra_vars_files = [],
         **kwargs):
     """Package sources and expose one or more Ansible playbook commands.
 
@@ -30,12 +31,23 @@ def al_ansible_package(
         srcs_name: Combined runtime source target name.
         files_name: Mapped source target name.
         binary_visibility: Optional visibility for the packaged executable.
+        extra_vars_files: Packaged Ansible variables files passed in order to each playbook.
         **kwargs: Common target attributes for the package and commands.
     """
+    extra_vars_paths = {
+        source: "ansible-extra-vars/{}.yaml".format(index)
+        for index, source in enumerate(extra_vars_files)
+    }
+    extra_vars_args = [
+        argument
+        for source in extra_vars_files
+        for argument in ["--extra-vars", "@" + extra_vars_paths[source]]
+    ]
+
     pkg_files(
         name = files_name,
-        srcs = srcs,
-        renames = renames,
+        srcs = srcs + [source for source in extra_vars_paths if source not in srcs],
+        renames = renames | extra_vars_paths,
         strip_prefix = strip_prefix.from_pkg(),
         **kwargs
     )
@@ -62,7 +74,7 @@ def al_ansible_package(
         args = {"": ["--inventory", "inventory.yaml", "playbook_deploy.yaml"]}
     al_binary_run_map(
         name = name,
-        args = {suffix: ["$(rootpath :{})".format(binary_name)] + arguments for suffix, arguments in args.items()},
+        args = {suffix: ["$(rootpath :{})".format(binary_name)] + extra_vars_args + arguments for suffix, arguments in args.items()},
         configs = configs,
         data = [":" + binary_name],
         plugin_labels = plugin_labels,

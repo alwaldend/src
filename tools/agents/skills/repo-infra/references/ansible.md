@@ -42,8 +42,13 @@ default=undefined()) }}"`.
   necessary, define `changed_when`, `creates`, or another explicit idempotency
   condition and quote untrusted input.
 - Use handlers for restarts and notify them only when configuration changes.
-- Preserve inventory and group naming, and put defaults at the narrowest
-  correct scope.
+- Prefer Ansible's Jinja templates for Ansible-specific files and data
+  transformations. Use Bazel to package the templates and supply input data
+  through extra-vars files.
+- Preserve inventory and group naming. Prefer `group_vars/<group>.yaml` for
+  shared deployment settings, including SSH users and role inputs. Keep
+  host and group membership in the inventory and prefer `host_vars`
+  for host-specific overrides.
 - Check merged variable precedence: a child group must not redefine a variable
   as a template referring to itself. Inherit the parent value or use a distinct
   input name; otherwise it hides the injected value and recurses at rendering.
@@ -77,14 +82,58 @@ known to support check mode.
 
 ## Shared host roles
 
-Component playbooks commonly import the shared `host`, `traefik`, and
-`install_ca` roles before the component role. Ingress is owned by the Traefik
-role: component roles install and run their service on loopback, and the
-deployment declares the dynamic config that exposes it. Keep that split, and
-do not duplicate a reverse proxy inside a component role.
+The default web-service deployment runs `alwaldend.main.host`, then
+`alwaldend.main.traefik` as the reverse proxy, then the component service
+roles. The host role installs the CA and configures the firewall. Supply
+firewall and Vault SSH host-signing inputs through group variables.
 
-For chained Traefik proxies, trace both TLS SNI and the HTTP Host header.
-The backend URL normally supplies SNI, while
+Keep the service listener private and put the reverse proxy's routing
+configuration in the deployment. For a service without HTTP ingress, use the
+host role followed by the service roles. Use a service-only play when the
+operator explicitly targets an already configured host.
+
+## Traefik configuration
+
+Keep listeners, providers, and ACME resolvers in the deployment's static
+config. Keep HTTP routers, middleware, certificate files, and upstreams in
+the dynamic config.
+For browser access, configure HTTPS and redirect HTTP on the networks where
+clients can reach the proxy. Apply the deployment's firewall allowlist there,
+and keep service and metrics listeners on loopback when only local processes
+need them.
+
+Use Let's Encrypt ACME for public Traefik instances, including shared ingress.
+Use Vault ACME for local Traefik instances with a service-scoped Vault PKI role
+and the shared role's external account binding enrollment. For HTTP-01, verify
+that each issuer resolves the service hostname to the Traefik instance that
+answers its challenge on port 80.
+
+For direct LAN access, follow the [DNS record pattern](dns.md#scopes-and-landing-sites)
+so both paths use the same service hostname. Public DNS sends Let's Encrypt
+to shared ingress. DC1 DNS sends Vault to the guest's ACME listener. The
+guest router, certificate, and application authentication serve both paths.
+
+For services behind shared ingress, point ingress at the separate private
+backend DNS name. The shared ingress transport verifies backend TLS against
+the public service hostname. Issue the guest Traefik certificate for that
+public hostname and match it in the guest's HTTP router. If Vault cannot
+reach the guest's challenge listener, use a Vault-signed certificate from the
+component signer before starting guest Traefik.
+
+When a service needs a shared Basic Auth login, generate the username and
+password in its Terraform root and store them in Vault. Use at least 128
+characters for generated passwords. If a tool supports fewer, use its maximum
+supported length. For bcrypt, use 72 ASCII characters to stay within its
+72-byte input limit. Grant only the intended administrator group read access
+to that login. Store a separate
+bcrypt verifier for the deployment AppRole. Deliver that verifier to the
+reverse proxy in a restricted file, keep it out of task logs, and strip the
+authorization header before proxying. Preserve any existing ingress
+authentication unless the change explicitly replaces it. Keep generated
+credentials in protected Terraform state when managed generation is needed
+to reconcile the login and verifier together.
+
+Trace both TLS SNI and the HTTP Host header for chained proxies.
 [`passHostHeader`](https://doc.traefik.io/traefik/reference/routing-configuration/http/load-balancing/service/)
 defaults to retaining the original request Host; downstream routers must match
 that host. Set explicit priorities for overlapping API and catch-all routers:

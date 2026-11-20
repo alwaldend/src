@@ -31,6 +31,12 @@ variable "resource_set_inventory" {
       storage  = "Local storage"
       network  = "Pool-wide network 1"
     }
+    src_infra_victoria_metrics = {
+      pool     = "host1.xcp-ng.alwaldend.com"
+      template = "fedora44-cloud.templates.xcp-ng.alwaldend.com"
+      storage  = "Local storage"
+      network  = "Pool-wide network 1"
+    }
     src_infra_dc1_forgejo1 = {
       pool     = "host1.xcp-ng.alwaldend.com"
       template = "fedora44-cloud.templates.xcp-ng.alwaldend.com"

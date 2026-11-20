@@ -1,0 +1,27 @@
+ansible_host: "{{ victoria_metrics_hostname }}"
+ansible_user: ansible
+victoria_metrics_hostname: victoria-metrics.alwaldend.com
+ssh_vault_role: src_infra_victoria_metrics_ssh
+ssh_valid_principals:
+  - "{{ victoria_metrics_hostname }}"
+ssh_hardening_match_user:
+  - user: ansible
+    rules:
+      - AllowTcpForwarding local
+      - PermitOpen 127.0.0.1:8428
+      - AllowStreamLocalForwarding no
+victoria_metrics_binary_src: "{{ inventory_dir }}/files/victoria-metrics-prod"
+victoria_metrics_scrape_config_src: "{{ inventory_dir }}/templates/scrape.yaml.j2"
+
+traefik_basic_auth_src: "{{ lookup('ansible.builtin.env', 'VICTORIA_METRICS_HTPASSWD_FILE', default=undefined()) }}"
+traefik_acme_path: pki/ica_servers/roles/src_infra_victoria_metrics_pki_server/acme
+traefik_acme_url: "https://vault.alwaldend.com:8200/v1/{{ traefik_acme_path }}/directory"
+
+firewall_allow_port_from:
+  - {src: "any", port: 22, proto: tcp, comment: Administrative SSH}
+  - {src: "192.168.1.0/24", port: 80, proto: tcp, comment: Site LAN HTTP redirect}
+  - {src: "192.168.1.0/24", port: 443, proto: tcp, comment: Site LAN dashboard HTTPS}
+  - {src: "192.168.10.0/24", port: 80, proto: tcp, comment: Guest LAN HTTP redirect}
+  - {src: "192.168.10.0/24", port: 443, proto: tcp, comment: Guest LAN dashboard HTTPS}
+  - {src: "10.10.0.1/32", port: 443, proto: tcp, comment: Ingress host 1 HTTPS}
+  - {src: "10.10.0.2/32", port: 443, proto: tcp, comment: Ingress host 2 HTTPS}

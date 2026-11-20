@@ -28,3 +28,9 @@ al_ansible_role(
     },
     visibility = ["//:__subpackages__"],
 )
+
+filegroup(
+    name = "defaults",
+    srcs = ["defaults/main.yaml"],
+    visibility = ["//infra/victoria_metrics/dns:__pkg__"],
+)

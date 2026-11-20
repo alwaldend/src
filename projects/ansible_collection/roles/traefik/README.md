@@ -13,7 +13,7 @@ can contain credentials and is installed with mode `0640`.
 
 Both rendered configurations pass controller-side TOML/YAML syntax validation
 before installation. Startup inputs (static configuration, binary, trust CA,
-and unit) restart the service only when changed. Dynamic routing uses Traefik's
+Basic Auth verifier, and unit) restart the service only when changed. Dynamic routing uses Traefik's
 file watcher. Unchanged runs keep the process running; the unit has no SIGHUP
 reload action. Syntax validation does not prove route semantics or external
 issuer reachability.
@@ -33,3 +33,16 @@ upgrade creates the cache once. Changing the issuer path or setting
 `traefik_rotate_eab: true` requests a new binding; reset the flag afterwards.
 If the ACME account state is lost, rotate its single-use enrollment binding
 before re-enrolling. Keep the cache and ACME account data private.
+
+## Basic Auth
+
+Set `traefik_basic_auth_src` to the controller-side verifier file and use
+`traefik_basic_auth_path` as `usersFile` in the dynamic configuration. The
+role installs the verifier with mode `0640` and restores it with the other
+startup inputs if activation fails.
+
+## Prometheus metrics
+
+Configure the Prometheus entry point in the deployment's static Traefik
+configuration. Use the role's default metrics port, 9100, and configure the
+host firewall to allow the collector.

@@ -1,0 +1,25 @@
+{
+    "records": {
+        "upstream": {
+            "A": {
+                "name": "dc1.victoria-metrics",
+                "address": "192.168.10.94"
+            },
+            "dsp": ["global"]
+        },
+        "ingress": {
+            "CNAME": {
+                "name": "victoria-metrics",
+                "target": "ingress.alwaldend.com."
+            },
+            "dsp": ["global"]
+        },
+        "local": {
+            "A": {
+                "name": "victoria-metrics",
+                "address": "192.168.10.94"
+            },
+            "dsp": ["dc1"]
+        }
+    }
+}

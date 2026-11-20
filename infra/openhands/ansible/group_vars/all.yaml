@@ -31,3 +31,7 @@ firewall_allow_port_from:
   - src: "any"
     port: 80
     comment: HTTP
+  - src: "{{ victoria_metrics_collector_address }}/32"
+    port: "{{ traefik_metrics_port }}"
+    proto: tcp
+    comment: VictoriaMetrics scrape

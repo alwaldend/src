@@ -43,3 +43,9 @@ resolver = "vault"
 [tls.stores.default.acme.domain]
 main = "{{ forgejo_domain }}"
 sans = ["{{ inventory_hostname }}", "{{ forgejo_git_domain }}"]
+
+[entryPoints.metrics]
+address = ":{{ traefik_metrics_port }}"
+
+[metrics.prometheus]
+entryPoint = "metrics"

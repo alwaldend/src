@@ -72,13 +72,17 @@ For project landing names and targets, follow the DNS README and the project's
 existing declarations. Keep apex and shared hosting records with their
 declared owner instead of copying them into project files.
 
-For ingress-backed services, publish a public CNAME to
-`ingress.alwaldend.com.` and give the private upstream a separate
-`dc1.<service>.alwaldend.com` name in the service's DNS document. Point
-Traefik's `target` at that backend name. When ingress resolves through the
-public view, publish the backend A record there as well, using `dsp: ["all"]`
-for an identical A record in both views. Verify from ingress that the backend
-name returns the private address and that the private route is reachable.
-The backend listener remains governed by the private network and its firewall.
-See the [ingress configuration](../../../../../infra/ingress/README.md) and
-[OpenHands records](../../../../../infra/openhands/dns/dnsconfig.json).
+For a service with direct LAN access and shared ingress that uses public DNS,
+declare three records in the service's `dnsconfig.json`.
+
+| Name                          | `dsp`        | Type  | Destination              |
+| ----------------------------- | ------------ | ----- | ------------------------ |
+| `<service>.alwaldend.com`     | `["global"]` | CNAME | `ingress.alwaldend.com.` |
+| `<service>.alwaldend.com`     | `["dc1"]`    | A     | Guest's private address  |
+| `dc1.<service>.alwaldend.com` | `["global"]` | A     | Guest's private address  |
+
+Public and LAN clients use the service hostname. Shared ingress uses the
+`dc1.` hostname as its Traefik `target`, so it can resolve the guest's private
+address through public DNS. Verify the upstream answer and the private route
+from ingress. See the [ingress configuration](../../../../../infra/ingress/README.md)
+and the [VictoriaMetrics records](../../../../../infra/victoria_metrics/dns/dnsconfig.json).

@@ -9,7 +9,10 @@ package(transitive_visibility = "//infra:transitive_consumers")
 
 package_group(
     name = "approle_state_projects",
-    packages = ["//infra/vault/approles/..."],
+    packages = [
+        "//infra/vault/approles/...",
+        "//infra/victoria_metrics/approle",
+    ],
 )
 
 docs_filegroup(
@@ -118,7 +121,10 @@ al_config(
         ":yc_bucket_auth",
         "//infra:al",
     ],
-    visibility = ["//infra/vault:__subpackages__"],
+    visibility = [
+        "//infra/vault:__subpackages__",
+        "//infra/vault:approle_state_projects",
+    ],
 )
 
 al_binary_run(

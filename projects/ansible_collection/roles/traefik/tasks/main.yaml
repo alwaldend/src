@@ -15,6 +15,7 @@
         - "{{ traefik_config_path }}"
         - "{{ traefik_dynamic_config_path }}"
         - "{{ traefik_tls_dir }}"
+        - "{{ traefik_basic_auth_path }}"
         - "{{ traefik_bin_path }}"
         - "{{ traefik_eab_cache_path }}"
 
@@ -91,6 +92,7 @@
         traefik_config_var: {}
         traefik_dynamic_config_var: {}
         traefik_ca_var: {}
+        traefik_basic_auth_var: {}
         traefik_service_var: {}
 
     - name: Install and activate a recoverable candidate
@@ -112,6 +114,7 @@
             - "{{ traefik_config_var }}"
             - "{{ traefik_dynamic_config_var }}"
             - "{{ traefik_ca_var }}"
+            - "{{ traefik_basic_auth_var }}"
             - "{{ traefik_bin_var }}"
             - "{{ traefik_service_var }}"
 

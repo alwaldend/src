@@ -3,3 +3,11 @@ traefik_acme_path: pki/ica_servers/roles/src_infra_download_pki_server/acme
 download_acme_directory: "https://vault.alwaldend.com:8200/v1/{{ traefik_acme_path }}/directory"
 # Renew using the component PKI role's seven-day maximum lifetime.
 download_acme_certificates_duration: 168
+
+traefik_metrics_enabled: true
+
+download_metrics_firewall_rules:
+  - src: "{{ victoria_metrics_collector_address }}/32"
+    port: "{{ traefik_metrics_port }}"
+    proto: tcp
+    comment: VictoriaMetrics scrape
