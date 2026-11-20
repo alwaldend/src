@@ -1,5 +1,6 @@
 ---
 title: Repositories
+date: 2026-09-13
 description: Shared organization, repository, and access configuration
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: flux
+date: 2026-06-29
 description: Fluxcd deployment
 tags:
   - flux

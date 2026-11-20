@@ -1,5 +1,6 @@
 ---
 title: Vast.ai
+date: 2026-11-04
 description: Account, team, and rental infrastructure with Vault authentication
 ---
 

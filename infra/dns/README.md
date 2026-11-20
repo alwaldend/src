@@ -1,5 +1,6 @@
 ---
 title: Dns
+date: 2025-10-01
 description: Project-owned DNS declarations for alwaldend.com
 tags:
   - dns

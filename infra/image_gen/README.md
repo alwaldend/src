@@ -1,5 +1,6 @@
 ---
 title: Image generation
+date: 2026-11-09
 description: Vast.ai ComfyUI rental with Vault-managed HTTPS credentials
 ---
 

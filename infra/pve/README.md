@@ -1,5 +1,6 @@
 ---
 title: Pve
+date: 2026-05-11
 description: Proxmox cluster pve.alwaldend.com
 tags:
   - ansible

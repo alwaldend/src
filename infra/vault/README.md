@@ -1,5 +1,6 @@
 ---
 title: Vault
+date: 2026-03-23
 description: Setup for vault.dc1.alwaldend.com
 tags:
   - ansible

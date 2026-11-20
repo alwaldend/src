@@ -1,5 +1,6 @@
 ---
 title: OpenCanary
+date: 2026-11-18
 ---
 
 One Fedora VM on XCP-ng runs Thinkst OpenCanary natively under systemd.

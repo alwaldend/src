@@ -1,5 +1,6 @@
 ---
 title: XCP-ng
+date: 2026-09-05
 description: XCP-ng infrastructure
 tags:
   - terraform

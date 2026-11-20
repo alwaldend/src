@@ -1,5 +1,6 @@
 ---
 title: Host security maintenance
+date: 2026-10-29
 description: Repeatable security scans and package updates without automatic reboot
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: GitLab
+date: 2026-09-13
 description: GitLab resource management
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: threexui
+date: 2026-07-16
 description: 3x-ui
 tags:
   - xray

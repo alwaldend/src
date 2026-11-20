@@ -1,5 +1,6 @@
 ---
 title: forgejo
+date: 2026-06-27
 description: forgejo.alwaldend.com
 tags:
   - ansible

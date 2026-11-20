@@ -19,21 +19,29 @@
       </a>
     </li>
     {{ end }} {{ end }}
-    {{ $sections := slice (dict "title" "Projects" "path" "/projects") (dict "title" "Infra" "path" "/docs/infra") }}
-    {{ range $section := $sections }} {{ with $site.GetPage $section.path }}
-    <li>
-      <a href="{{ .RelPermalink }}">
-        <span>{{ $section.title }}</span>
-        <span class="home-links__destination">{{ .RelPermalink }}</span>
-      </a>
-    </li>
-    {{ range cond (eq $section.path "/projects") .Pages.ByDate.Reverse .Sections.ByLinkTitle }}
-    <li class="home-links__project">
-      <a href="{{ .RelPermalink }}">
-        <span>{{ .LinkTitle }}</span>
-        <span class="home-links__destination">{{ .RelPermalink }}</span>
-      </a>
-    </li>
-    {{ end }} {{ end }} {{ end }}
   </ul>
+  <div class="home-links__groups">
+    {{ $sections := slice (dict "title" "Projects" "path" "/projects") (dict "title" "Infra" "path" "/docs/infra") }}
+    {{ range $section := $sections }}
+      {{ with $site.GetPage $section.path }}
+        {{ $children := cond (eq $section.path "/projects") .Pages .Sections }}
+        <ul class="home-links__entries" aria-label="{{ $section.title }}">
+          <li class="home-links__heading">
+            <a href="{{ .RelPermalink }}">
+              <span>{{ $section.title }}</span>
+              <span class="home-links__destination">{{ .RelPermalink }}</span>
+            </a>
+          </li>
+          {{ range $children.ByDate.Reverse }}
+            <li class="home-links__project">
+              <a href="{{ .RelPermalink }}">
+                <span>{{ .LinkTitle }}</span>
+                <span class="home-links__destination">{{ .RelPermalink }}</span>
+              </a>
+            </li>
+          {{ end }}
+        </ul>
+      {{ end }}
+    {{ end }}
+  </div>
 </nav>

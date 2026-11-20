@@ -1,5 +1,6 @@
 ---
 title: Printers
+date: 2026-11-07
 description: Printer DNS and network access in dc1
 ---
 

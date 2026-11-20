@@ -1,5 +1,6 @@
 ---
 title: ingress
+date: 2026-07-25
 description: ingress
 tags:
   - ingress

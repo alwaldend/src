@@ -1,5 +1,6 @@
 ---
 title: Mikrotik
+date: 2025-08-30
 description: Mikrotik setup for dc1.alwaldend.com
 languages:
   - rsc
