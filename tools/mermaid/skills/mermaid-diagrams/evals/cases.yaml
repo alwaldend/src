@@ -127,3 +127,15 @@
         flowchart declared with mermaid_diagram, the shared theme's curved
         connectors and light and dark SVG and WebP, semantic shapes, and short
         node and edge labels.
+- description: Shows the dark WebP in conversation by default
+  vars:
+    request: >-
+      Add an architecture diagram to the infrastructure README and show me
+      the finished diagram here.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response selects the macro's _dark_webp output for
+        the inline conversation preview and includes the SVG pair in the
+        documentation package.

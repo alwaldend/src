@@ -12,3 +12,7 @@
 ## 3. Canonical diagram targets
 
 - [x] 3.1 Remove the diagram aliases and site WebP wrapper, and verify the documented targets and blog asset.
+
+## 4. Conversation preview
+
+- [x] 4.1 Document the dark WebP default for inline previews and validate the added evaluation case.
