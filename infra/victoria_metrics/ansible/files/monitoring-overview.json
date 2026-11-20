@@ -1,0 +1,70 @@
+{
+  "title": "Monitoring overview",
+  "rows": [
+    {
+      "title": "Scrape health",
+      "panels": [
+        {
+          "title": "Healthy and configured targets by job",
+          "expr": ["sum(up) by (job)", "count(up) by (job)"],
+          "alias": ["{{job}} up", "{{job}} total"],
+          "width": 6
+        },
+        {
+          "title": "Scrape status by target",
+          "description": "A successful scrape has value 1. A failed scrape has value 0.",
+          "expr": ["up"],
+          "alias": ["{{job}} / {{instance}}"],
+          "width": 6
+        }
+      ]
+    },
+    {
+      "title": "Traefik traffic",
+      "panels": [
+        {
+          "title": "HTTP requests",
+          "expr": ["sum(rate(traefik_entrypoint_requests_total{entrypoint!=\"metrics\"}[5m])) by (instance)"],
+          "alias": ["{{instance}}"],
+          "unit": "req/s",
+          "width": 4
+        },
+        {
+          "title": "HTTP 5xx responses",
+          "expr": [
+            "sum(rate(traefik_entrypoint_requests_total{entrypoint!=\"metrics\",code=~\"5..\"}[5m])) by (instance) or (0 * sum(rate(traefik_entrypoint_requests_total{entrypoint!=\"metrics\"}[5m])) by (instance))"
+          ],
+          "alias": ["{{instance}}"],
+          "unit": "req/s",
+          "width": 4
+        },
+        {
+          "title": "95th percentile request latency",
+          "expr": [
+            "1000 * histogram_quantile(0.95, sum(rate(traefik_entrypoint_request_duration_seconds_bucket{entrypoint!=\"metrics\"}[5m])) by (instance, le))"
+          ],
+          "alias": ["{{instance}}"],
+          "unit": "ms",
+          "width": 4
+        }
+      ]
+    },
+    {
+      "title": "VictoriaMetrics",
+      "panels": [
+        {
+          "title": "Free storage",
+          "expr": ["vm_free_disk_space_bytes{job=\"victoria_metrics\"} / 1073741824"],
+          "unit": "GiB",
+          "width": 6
+        },
+        {
+          "title": "Samples ingested",
+          "expr": ["sum(rate(vm_rows_inserted_total{job=\"victoria_metrics\"}[5m]))"],
+          "unit": "samples/s",
+          "width": 6
+        }
+      ]
+    }
+  ]
+}

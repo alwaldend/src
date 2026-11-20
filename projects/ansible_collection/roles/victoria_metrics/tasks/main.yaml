@@ -38,9 +38,29 @@
     validate: /usr/local/bin/victoria-metrics-prod -dryRun -promscrape.config=%s
   notify: Restart VictoriaMetrics
 
+- name: Configure the predefined VMUI dashboard
+  when: victoria_metrics_dashboard_src | length > 0
+  block:
+    - name: Create the VMUI dashboard directory
+      ansible.builtin.file:
+        path: /etc/victoria-metrics/dashboards
+        state: directory
+        owner: root
+        group: root
+        mode: "0755"
+
+    - name: Install the VMUI dashboard
+      ansible.builtin.copy:
+        src: "{{ victoria_metrics_dashboard_src }}"
+        dest: /etc/victoria-metrics/dashboards/dashboard.json
+        owner: root
+        group: root
+        mode: "0644"
+        validate: python3 -m json.tool %s /dev/null
+
 - name: Install the VictoriaMetrics systemd unit
-  ansible.builtin.copy:
-    src: victoria-metrics.service
+  ansible.builtin.template:
+    src: victoria-metrics.service.j2
     dest: /etc/systemd/system/victoria-metrics.service
     owner: root
     group: root

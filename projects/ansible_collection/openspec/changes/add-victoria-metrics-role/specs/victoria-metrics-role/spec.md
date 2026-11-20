@@ -10,3 +10,8 @@ systemd service.
 
 - **WHEN** a play invokes the role with a compatible executable
 - **THEN** the role installs the executable and validates the scrape configuration before enabling the loopback service.
+
+#### Scenario: Configure a predefined VMUI dashboard
+
+- **WHEN** a caller supplies a VMUI dashboard JSON file
+- **THEN** the role validates and installs it and configures the service to serve it through VMUI.

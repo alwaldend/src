@@ -14,7 +14,6 @@ al_ansible_role(
     name = "role",
     srcs = glob([
         "defaults/*.yaml",
-        "files/*",
         "handlers/*.yaml",
         "tasks/*.yaml",
         "templates/*.j2",
