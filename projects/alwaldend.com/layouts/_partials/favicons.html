@@ -1,2 +1,4 @@
-{{- $favicon := resources.Get "icons/favicon.svg" | fingerprint -}}
+{{- $monogram := resources.Get "icons/favicon.svg" -}}
+{{- $svg := replace $monogram.Content "<svg " `<svg data-variant="favicon" ` 1 -}}
+{{- $favicon := resources.FromString "icons/tab-icon.svg" $svg | fingerprint -}}
 <link rel="icon" type="image/svg+xml" sizes="any" href="{{ $favicon.RelPermalink }}">

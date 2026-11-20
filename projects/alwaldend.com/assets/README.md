@@ -9,8 +9,8 @@ The [identity asset](../../../internal/assets/README.md)
 owns the S8 square monogram, its centered geometry, and adaptive light/dark
 colors. The site consumes that SVG directly without a separate artwork copy.
 
-The shared favicon partial fingerprints the resource to refresh cached tab
-icons when the canonical SVG changes.
+The shared favicon partial selects the SVG's fixed-contrast variant and
+fingerprints the result to refresh cached tab icons when its contents change.
 
 The Hugo archive mounts the [common web theme](../../../internal/assets/web)
 under `assets/scss`. The application stylesheet in that package exports the
