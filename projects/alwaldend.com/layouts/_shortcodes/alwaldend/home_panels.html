@@ -10,7 +10,7 @@
         >
       </a>
     </li>
-    {{ end }} {{ $site := .Page.Site }} {{ range slice "Blog" "Docs" "Projects"
+    {{ end }} {{ $site := .Page.Site }} {{ range slice "Blog" "Docs"
     }} {{ range where $site.Menus.main "Name" . }}
     <li>
       <a href="{{ .URL | relURL }}">
@@ -18,14 +18,22 @@
         <span class="home-links__destination">{{ .URL | relURL }}</span>
       </a>
     </li>
-    {{ end }} {{ end }} {{ with $site.GetPage "/projects" }} {{ range
-    .Pages.ByDate.Reverse }}
+    {{ end }} {{ end }}
+    {{ $sections := slice (dict "title" "Projects" "path" "/projects") (dict "title" "Infra" "path" "/docs/infra") }}
+    {{ range $section := $sections }} {{ with $site.GetPage $section.path }}
+    <li>
+      <a href="{{ .RelPermalink }}">
+        <span>{{ $section.title }}</span>
+        <span class="home-links__destination">{{ .RelPermalink }}</span>
+      </a>
+    </li>
+    {{ range cond (eq $section.path "/projects") .Pages.ByDate.Reverse .Sections.ByLinkTitle }}
     <li class="home-links__project">
       <a href="{{ .RelPermalink }}">
         <span>{{ .LinkTitle }}</span>
         <span class="home-links__destination">{{ .RelPermalink }}</span>
       </a>
     </li>
-    {{ end }} {{ end }}
+    {{ end }} {{ end }} {{ end }}
   </ul>
 </nav>
