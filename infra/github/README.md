@@ -1,5 +1,6 @@
 ---
 title: GitHub
+date: 2026-09-03
 description: GitHub organization, repositories, access, and Pages configuration
 ---
 

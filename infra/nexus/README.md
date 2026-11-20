@@ -1,5 +1,6 @@
 ---
 title: Nexus
+date: 2026-09-20
 description: Planned native Nexus Repository deployment on XCP-ng
 ---
 

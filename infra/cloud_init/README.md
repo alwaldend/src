@@ -1,5 +1,6 @@
 ---
 title: Cloud-init
+date: 2026-09-06
 description: Shared PVE-based infrastructure VM bootstrap configuration
 ---
 

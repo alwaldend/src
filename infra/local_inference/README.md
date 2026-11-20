@@ -1,5 +1,6 @@
 ---
 title: Local inference
+date: 2026-11-03
 description: Independent GPU provisioning, DNS, and local coding host configuration
 ---
 

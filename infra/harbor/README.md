@@ -1,5 +1,6 @@
 ---
 title: harbor
+date: 2026-06-26
 description: Harbor deployment
 tags:
   - harbor

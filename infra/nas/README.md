@@ -1,5 +1,6 @@
 ---
 title: Nas
+date: 2026-08-23
 description: TrueNAS deploy
 tags:
   - nas

@@ -1,5 +1,6 @@
 ---
 title: Source repository
+date: 2026-09-08
 description: Repository evolution specifications and workflow history
 ---
 

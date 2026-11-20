@@ -1,5 +1,6 @@
 ---
 title: Download
+date: 2026-09-25
 description: Public static files and websites on XCP-ng and Yandex Cloud
 ---
 

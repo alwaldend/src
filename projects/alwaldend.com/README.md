@@ -72,10 +72,10 @@ its `.dark.svg` sibling. The site theme selects the visible image, and print
 always uses light. Historical blog diagrams retain their original files and
 presentation. Select a diagram's `_webp` or `_dark_webp` target for syndication
 and social previews.
-The homepage panel links to GitHub, GitLab, Blog, Docs, and the project index,
-followed by permanently visible, indented project links in creation date order,
-newest first. The Infra link and its indented infrastructure project links
-follow the Projects list. Infrastructure projects are ordered by title.
+The homepage panel links to GitHub, GitLab, Blog, and Docs. Projects and Infra
+each link to an index and list their projects by creation date, newest first.
+Projects appears above Infra. Each list uses two columns of entries when space
+permits and one column on narrower screens.
 Each row shows its destination alongside its title; narrow screens place the
 destination below the title. The panel has space below the fixed header.
 

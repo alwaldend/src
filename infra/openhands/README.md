@@ -1,5 +1,6 @@
 ---
 title: OpenHands
+date: 2026-09-12
 description: openhands.alwaldend.com
 tags:
   - openhands

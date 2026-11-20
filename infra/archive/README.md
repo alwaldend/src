@@ -1,5 +1,6 @@
 ---
 title: Archived infrastructure
+date: 2026-10-11
 description: Historical architectures without maintained component projects
 ---
 

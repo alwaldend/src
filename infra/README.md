@@ -9,6 +9,8 @@ cascade:
 
 This tree contains
 [infrastructure as code](https://en.wikipedia.org/wiki/Infrastructure_as_code).
+Each top-level project's README records its creation date in `date: YYYY-MM-DD`
+front matter for homepage ordering. Routine edits preserve the creation date.
 Tracked source follows the repository's public-source policy. Infrastructure
 facts are not confidential merely because they are operational, generated, or
 live. Reports may include them unless they contain credentials, other secrets,

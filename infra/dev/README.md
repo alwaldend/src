@@ -1,5 +1,6 @@
 ---
 title: Development hosts
+date: 2026-08-26
 description: Shared deployment for development and runner hosts
 tags:
   - ansible
