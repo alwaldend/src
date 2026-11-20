@@ -1,0 +1,63 @@
+load("@rules_al//:defs.bzl", "al_config", "al_inject", "al_vault_auth")
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//tools/al:al_terraform.bzl", "al_terraform_package")
+load("//tools/vault/tf_backend:defs.bzl", "vault_tf_backend")
+
+package(transitive_visibility = "//infra:transitive_consumers")
+
+vault_tf_backend(
+    name = "backend",
+    extends = "//infra/vault:tf_backend_main",
+    labels = {"tf": "victoria_metrics_web_auth"},
+    path = "alwaldend.com/vault1/approles/src_infra_dc1_vault/tf_backend/approles/src_infra_victoria_metrics/web_auth",
+)
+
+al_vault_auth(
+    name = "auth",
+    approle = "src_infra_victoria_metrics",
+    config_name = "victoria_metrics_web_auth",
+    extends = "//tools/al:auth",
+)
+
+al_inject(
+    name = "vault_env",
+    labels = {"vault_env": "victoria_metrics_web_auth"},
+    res_vault_env = {"web_auth": {"auth": "victoria_metrics_web_auth"}},
+)
+
+al_config(
+    name = "al",
+    configs = [
+        ":auth",
+        ":backend",
+        ":vault_env",
+        "//infra/vault:al",
+    ],
+)
+
+al_terraform_package(
+    name = "tf_setup",
+    configs = [":al"],
+    data = [
+        "backend.tf",
+        "main.tf",
+    ],
+    plugin_labels = {
+        "tf": "victoria_metrics_web_auth",
+        "vault_env": "victoria_metrics_web_auth",
+    },
+    providers = [
+        "@terraform_provider_hashicorp_random//:provider",
+        "@terraform_provider_hashicorp_vault//:provider",
+    ],
+    test_kwargs = {
+        "data": ["main.tf"],
+        "validate": True,
+    },
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//infra/victoria_metrics:__pkg__"],
+)

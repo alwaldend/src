@@ -47,11 +47,12 @@ provisioning.
 ## Web login
 
 Terraform generates a shared login for the client-certificate-protected route.
-Vault grants the administrators read access to the login and stores the
-bcrypt verifier separately for the deployment AppRole. Traefik reads it from
-a private file and removes the authorization header before proxying.
-The managed random password remains in restricted Terraform state so both
-Vault entries can be reconciled without splitting the credential pair.
+The `tf_setup/web_auth` Terraform root stores the login and bcrypt verifier in
+one entry in the component AppRole's namespace. Vault grants administrators
+read access to the entry. Ansible injects the bcrypt verifier into a private
+Traefik file, and Traefik removes the authorization header before proxying.
+The credential root keeps the generated password in restricted admin-owned
+state so repeated applies preserve the login and verifier.
 
 Direct LAN clients use the same service hostname as public clients. DC1 DNS
 resolves it directly to the guest, and public DNS points to shared ingress.

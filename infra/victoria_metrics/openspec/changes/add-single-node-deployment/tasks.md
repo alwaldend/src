@@ -22,3 +22,7 @@ Offline checks covered both DNS views, the Terraform module schemas, and
 the rendered Ansible configurations. The published binary served VMUI over
 verified HTTPS and reported the configured loopback scrape target as up
 with a disposable local certificate and data directory.
+
+## 4. Web credential setup
+
+- [x] 4.1 Use the VictoriaMetrics AppRole to provision one web credential entry, grant `global_admins` read access, and verify authenticated VMUI access after Ansible loads the verifier.
