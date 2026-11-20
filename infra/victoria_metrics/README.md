@@ -51,7 +51,11 @@ On the DC1 LAN, use the same dashboard URL and Basic Auth login. DC1 DNS
 points the service name directly at guest Traefik, so the browser must trust
 the Vault server CA. HTTP redirects to HTTPS. Shared ingress alone uses the
 `dc1.victoria-metrics.alwaldend.com` upstream name.
-Query `up{job=~"victoria_metrics|traefik_.*"}` to check scrape status.
+Select **Dashboards → Monitoring overview** for scrape health, Traefik request
+rate, server errors and latency, and VictoriaMetrics disk and ingestion metrics.
+The panels are defined in [monitoring-overview.json](ansible/files/monitoring-overview.json).
+For a table of targets that are down, run `up == 0` in **Query** and select
+**Table**.
 
 The HTTP listener on guest loopback also remains available through SSH
 local port forwarding to `127.0.0.1:8428` using the Ansible account.

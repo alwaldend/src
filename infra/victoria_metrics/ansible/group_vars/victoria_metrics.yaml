@@ -11,6 +11,7 @@ ssh_hardening_match_user:
       - PermitOpen 127.0.0.1:8428
       - AllowStreamLocalForwarding no
 victoria_metrics_binary_src: "{{ inventory_dir }}/files/victoria-metrics-prod"
+victoria_metrics_dashboard_src: "{{ inventory_dir }}/files/monitoring-overview.json"
 victoria_metrics_scrape_config_src: "{{ inventory_dir }}/templates/scrape.yaml.j2"
 
 traefik_basic_auth_src: "{{ lookup('ansible.builtin.env', 'VICTORIA_METRICS_HTPASSWD_FILE', default=undefined()) }}"

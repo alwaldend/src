@@ -5,6 +5,7 @@ package(transitive_visibility = "//infra:transitive_consumers")
 al_ansible_package(
     name = "ansible",
     srcs = [
+        "files/monitoring-overview.json",
         "files/traefik.toml",
         "files/traefik_dynamic.toml",
         "group_vars/victoria_metrics.yaml",

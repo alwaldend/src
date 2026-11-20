@@ -26,3 +26,7 @@ with a disposable local certificate and data directory.
 ## 4. Web credential setup
 
 - [x] 4.1 Use the VictoriaMetrics AppRole to provision one web credential entry, grant `global_admins` read access, and verify authenticated VMUI access after Ansible loads the verifier.
+
+## 5. VMUI dashboard
+
+- [x] 5.1 Package a VMUI dashboard and verify that the pinned server serves its panels and executes their queries.

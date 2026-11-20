@@ -15,11 +15,18 @@ persistent disk and a dedicated Xen Orchestra resource set.
 The guest playbook SHALL install a checksum-verified VictoriaMetrics release,
 start it under systemd, and store metrics in a persistent directory. The
 service SHALL listen on loopback for local access and SSH forwarding.
+The playbook SHALL provide a versioned VMUI dashboard for scrape health,
+Traefik traffic, and VictoriaMetrics storage and ingestion.
 
 #### Scenario: Explore metrics from the deployed service
 
 - **WHEN** an operator forwards the guest listener over SSH after deployment
 - **THEN** VMUI responds and the operator can query self-scraped metrics.
+
+#### Scenario: Open the predefined dashboard
+
+- **WHEN** an operator opens the Dashboards view in VMUI
+- **THEN** the service offers the Monitoring overview with charts for target health, proxy traffic, and the database.
 
 #### Scenario: Restart the service
 
