@@ -23,6 +23,11 @@ light and dark SVG and WebP variants from one source and theme.
 - **THEN** it produces `.svg`, `.dark.svg`, `.webp`, and `.dark.webp` files with the same output stem
 - **AND** consumers can select the SVG pair or an individual WebP variant
 
+#### Scenario: Show a diagram in conversation
+
+- **WHEN** an author shows a maintained diagram in conversation without a requested format or color scheme
+- **THEN** the skill uses the macro's dark WebP output for the inline preview.
+
 #### Scenario: Publish Host Bot documentation diagrams
 
 - **WHEN** the documentation build packages the T3 Code and ComfyUI diagrams

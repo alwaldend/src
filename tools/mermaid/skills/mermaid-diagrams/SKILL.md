@@ -42,6 +42,10 @@ dark WebP. Reference the light SVG in Markdown or the SVG shortcode so the
 site can select its `.dark.svg` sibling in dark mode. For README documentation,
 point the image at the path `docs_filegroup` publishes.
 
+When showing a diagram in conversation, use the dark WebP from the
+`_dark_webp` target as the inline preview by default. Follow explicit requests
+for a different image format or color scheme.
+
 Blog posts use individual render rules and keep generated images beside
 `index.md`. Use `write_source_files` to copy the selected render into
 the post package, publish it through `docs_filegroup`, and run the generated
