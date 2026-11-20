@@ -48,9 +48,14 @@ component's DNS root.
 
 ### Requirement: Shared web login
 
-Terraform SHALL store a generated login in Vault for members of the
-administrator group. The deployment SHALL configure Traefik with a
-separately stored password verifier.
+Terraform SHALL store the generated login and password verifier in one Vault
+entry in the component AppRole namespace. The administrator group SHALL have
+read access. The deployment SHALL inject the verifier file into Traefik.
+
+#### Scenario: Store the web credentials through the deployment AppRole
+
+- **WHEN** Terraform writes the login and verifier
+- **THEN** it uses the VictoriaMetrics AppRole to write its own `web_auth` entry.
 
 #### Scenario: Authenticate to the dashboard
 

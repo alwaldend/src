@@ -12,6 +12,7 @@ package_group(
     packages = [
         "//infra/vault/approles/...",
         "//infra/victoria_metrics/approle",
+        "//infra/victoria_metrics/tf_setup/web_auth",
     ],
 )
 

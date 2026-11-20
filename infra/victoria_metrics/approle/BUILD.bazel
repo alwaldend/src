@@ -39,7 +39,6 @@ al_terraform_package(
         "vault_env": "default_default",
     },
     providers = [
-        "@terraform_provider_hashicorp_random//:provider",
         "@terraform_provider_hashicorp_vault//:provider",
     ],
     test_kwargs = {

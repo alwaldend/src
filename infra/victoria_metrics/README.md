@@ -24,6 +24,8 @@ the active WireGuard targets from it.
 
 1. Provision the [dedicated Vault AppRole](approle/README.md), including its
    DNS policy, SSH host certificate signer, and the Vault ACME role.
+   Run the [web credential setup](tf_setup/web_auth/README.md) to generate
+   and store the dashboard login and verifier.
    Reconcile Vault memberships and synchronize the OIDC identity and resource set
    through the [Xen Orchestra workflow](../xcp_ng/tf/README.md).
 2. Verify that the address in the [DNS declaration](dns/dnsconfig.json) is
@@ -43,8 +45,8 @@ the active WireGuard targets from it.
 Open `https://victoria-metrics.alwaldend.com/vmui/` with a trusted ingress
 client certificate and the shared Basic Auth login. Members of Vault's
 `global_admins` group can read the credentials at
-`secrets/alwaldend.com/vault1/victoria_metrics/web_login`. Ingress verifies
-the guest's Vault-issued certificate.
+`secrets/alwaldend.com/vault1/approles/src_infra_victoria_metrics/web_auth`.
+Ingress verifies the guest's Vault-issued certificate.
 On the DC1 LAN, use the same dashboard URL and Basic Auth login. DC1 DNS
 points the service name directly at guest Traefik, so the browser must trust
 the Vault server CA. HTTP redirects to HTTPS. Shared ingress alone uses the

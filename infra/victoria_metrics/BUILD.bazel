@@ -53,9 +53,9 @@ al_inject(
     }},
     res_file = {"web_htpasswd": {
         "value": "{{ .Last.Data.htpasswd }}\n",
-        "deps": ["web_verifier"],
+        "deps": ["web_auth_entry"],
     }},
-    res_kv = {"web_verifier": {
+    res_kv = {"web_auth_entry": {
         "mount": "secrets",
         "path": "alwaldend.com/vault1/approles/src_infra_victoria_metrics/web_auth",
     }},
@@ -84,5 +84,6 @@ docs_filegroup(
         "//infra/victoria_metrics/approle:docs",
         "//infra/victoria_metrics/dns:docs",
         "//infra/victoria_metrics/openspec:docs",
+        "//infra/victoria_metrics/tf_setup/web_auth:docs",
     ],
 )

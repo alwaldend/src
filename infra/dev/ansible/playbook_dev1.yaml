@@ -71,7 +71,7 @@
         - firewall
     - name: Configure firewall allowlist
       ansible.builtin.template:
-        src: firewalld_zone.xml.j2
+        src: files/firewalld_zone.xml.j2
         dest: /etc/firewalld/zones/FedoraWorkstation.xml
         owner: root
         group: root
