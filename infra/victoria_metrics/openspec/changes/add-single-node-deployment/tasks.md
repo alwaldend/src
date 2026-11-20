@@ -30,3 +30,7 @@ with a disposable local certificate and data directory.
 ## 5. VMUI dashboard
 
 - [x] 5.1 Package a VMUI dashboard and verify that the pinned server serves its panels and executes their queries.
+
+## 6. Architecture diagram
+
+- [x] 6.1 Render the VM boundary within DC1 infrastructure, dashboard access, Traefik scrape ports, and a stack representing the local scrape targets.
