@@ -37,7 +37,7 @@ theme with white and charcoal color modes, subtle borders, and system fonts.
 The navigation's theme menu supports light, dark, and system preferences.
 Every page uses the centered S8 square monogram from `//internal/assets:monogram`
 in its header and SVG favicon. The header adapts to light and dark modes.
-The favicon uses a fixed charcoal background and off-white artwork.
+The favicon uses a fixed graphite foreground on a transparent background.
 Prose links are underlined, and keyboard focus uses a visible outline.
 Scrollbars are thin and muted; taxonomy links use small rounded labels shared
 with the project index. Documentation sidebars use plain action rows,
@@ -74,7 +74,8 @@ presentation. Select a diagram's `_webp` or `_dark_webp` target for syndication
 and social previews.
 The homepage panel links to GitHub, GitLab, Blog, Docs, and the project index,
 followed by permanently visible, indented project links in creation date order,
-newest first.
+newest first. The Infra link and its indented infrastructure project links
+follow the Projects list. Infrastructure projects are ordered by title.
 Each row shows its destination alongside its title; narrow screens place the
 destination below the title. The panel has space below the fixed header.
 
