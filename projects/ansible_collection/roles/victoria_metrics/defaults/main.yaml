@@ -1,0 +1,2 @@
+victoria_metrics_binary_src: "{{ undefined() }}"
+victoria_metrics_scrape_config_src: scrape.yaml.j2

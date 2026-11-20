@@ -19,6 +19,7 @@ filegroup(
     visibility = [
         "//infra/ingress:__subpackages__",
         "//infra/security:fleet_inventory_consumers",
+        "//infra/victoria_metrics/ansible:__pkg__",
     ],
 )
 
@@ -31,6 +32,7 @@ al_ansible_package(
         "files/**",
         "playbook_*.yaml",
     ]),
+    extra_vars_files = ["//infra/victoria_metrics/dns:metrics_vars"],
     configs = ["//infra/ingress:al"],
     plugin_labels = {
         "vault_env": "default_default",

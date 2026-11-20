@@ -102,11 +102,8 @@ def infra_terraform_dns(
     test_kwargs = {}
     if validate:
         test_kwargs = {
-            "args": {
-                "fmt": ["--direct", "fmt", "--check", "--recursive"],
-                "validate": ["validate"],
-            },
             "data": root_data,
+            "validate": True,
         }
 
     al_terraform_package(

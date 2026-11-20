@@ -1,0 +1,23 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//tools/ansible/rules:al_ansible_role.bzl", "al_ansible_role")
+
+package(transitive_visibility = "//projects:transitive_consumers")
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//projects/ansible_collection/roles:__pkg__"],
+    deps = [":role.docs"],
+)
+
+al_ansible_role(
+    name = "role",
+    srcs = glob([
+        "defaults/*.yaml",
+        "files/*",
+        "handlers/*.yaml",
+        "tasks/*.yaml",
+        "templates/*.j2",
+    ]),
+    visibility = ["//projects/ansible_collection/roles:__pkg__"],
+)

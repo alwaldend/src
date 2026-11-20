@@ -32,6 +32,7 @@ al_ansible_package(
         "playbook_*.yaml",
         "tasks/**/*.yaml",
     ]),
+    extra_vars_files = ["//infra/victoria_metrics/dns:metrics_vars"],
     configs = ["//infra/dev:al"],
     packaged_srcs = [
         ":android_installer",

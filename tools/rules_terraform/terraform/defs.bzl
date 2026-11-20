@@ -223,10 +223,13 @@ def terraform_test_map(
         size = "small",
         wrapper = None,
         wrapper_kwargs = {},
+        validate = False,
         **kwargs):
     """
-    Create several terraform tests
+    Create Terraform tests, including optional validation of a backend-free root.
     """
+    if validate:
+        args = args | {"validate": args.get("validate", ["validate"])}
     for args_name, args_value in args.items():
         if not args_name:
             fail("empty test name")

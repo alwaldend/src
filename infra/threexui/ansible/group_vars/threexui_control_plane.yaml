@@ -1,0 +1,8 @@
+
+traefik_metrics_enabled: true
+
+threexui_metrics_firewall_rules:
+  - src: "{{ victoria_metrics_collector_address }}/32"
+    port: "{{ traefik_metrics_port }}"
+    proto: tcp
+    comment: VictoriaMetrics scrape

@@ -1,0 +1,26 @@
+[Unit]
+Description=VictoriaMetrics single-node
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=victoria-metrics
+Group=victoria-metrics
+StateDirectory=victoria-metrics
+StateDirectoryMode=0750
+ExecStart=/usr/local/bin/victoria-metrics-prod \
+    -httpListenAddr=127.0.0.1:8428 \
+    -storageDataPath=/var/lib/victoria-metrics \
+    -retentionPeriod=30d \
+    -storage.minFreeDiskSpaceBytes=5368709120 \
+    -promscrape.config=/etc/victoria-metrics/scrape.yaml
+Restart=on-failure
+RestartSec=5s
+TimeoutStopSec=120s
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectHome=yes
+ProtectSystem=strict
+
+[Install]
+WantedBy=multi-user.target

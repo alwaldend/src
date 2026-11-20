@@ -31,3 +31,9 @@ entryPoint = "web"
 [certificatesResolvers.default.acme.eab]
 kid = "{{ traefik_acme_kid }}"
 hmacEncoded = "{{ traefik_acme_hmac }}"
+
+[entryPoints.metrics]
+address = ":{{ traefik_metrics_port }}"
+
+[metrics.prometheus]
+entryPoint = "metrics"

@@ -1,0 +1,28 @@
+load("//tools/ansible/rules:al_ansible_package.bzl", "al_ansible_package")
+
+package(transitive_visibility = "//infra:transitive_consumers")
+
+al_ansible_package(
+    name = "ansible",
+    srcs = [
+        "files/traefik.toml",
+        "files/traefik_dynamic.toml",
+        "group_vars/victoria_metrics.yaml",
+        "inventory.yaml",
+        "playbook_deploy.yaml",
+        "templates/scrape.yaml.j2",
+        "//third_party/com_github_victoriametrics:victoria_metrics",
+    ],
+    extra_vars_files = [
+        "//infra/ingress/ansible:inventory",
+        "//infra/victoria_metrics/dns:metrics_vars",
+    ],
+    configs = ["//infra/victoria_metrics:al"],
+    plugin_labels = {
+        "ansible": "1",
+        "vault_env": "default_default",
+    },
+    renames = {
+        "//third_party/com_github_victoriametrics:victoria_metrics": "files/victoria-metrics-prod",
+    },
+)

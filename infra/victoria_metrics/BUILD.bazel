@@ -1,0 +1,88 @@
+load("@rules_al//:defs.bzl", "al_config", "al_inject", "al_vault_auth")
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//infra:al_config.bzl", "infra_ansible_keys", "infra_dns", "infra_xo_login")
+load("//tools/vault/tf_backend:defs.bzl", "vault_tf_backend")
+
+package(transitive_visibility = "//infra:transitive_consumers")
+
+al_vault_auth(
+    name = "auth",
+    approle = "src_infra_victoria_metrics",
+    extends = "//tools/al:auth",
+)
+
+infra_xo_login(
+    name = "xo_login",
+    labels = {"xoa_login": "1"},
+    oidc_provider = "src_infra_xcp_ng_provider",
+)
+
+infra_ansible_keys(
+    name = "ansible_keys",
+    labels = {"ansible": "1"},
+    vault_ssh = {
+        "backend": "ssh/clients/sign/admins",
+        "ttl": 7200,
+    },
+)
+
+vault_tf_backend(
+    name = "tf_backend",
+    labels = {"tf": "setup"},
+    path = "alwaldend.com/vault1/approles/src_infra_victoria_metrics/tf_backend",
+)
+
+infra_dns(
+    name = "dns_providers",
+    dc1 = True,
+    labels = {"tf": "dns"},
+)
+
+vault_tf_backend(
+    name = "dns_backend",
+    labels = {"tf": "dns"},
+    path = "alwaldend.com/vault1/approles/src_infra_victoria_metrics/tf_backend/dns",
+)
+
+al_inject(
+    name = "web_auth",
+    labels = {"ansible": "1"},
+    res_env = {"VICTORIA_METRICS_HTPASSWD_FILE": {
+        "value": "{{ index .Last.Files 0 }}",
+        "deps": ["web_htpasswd"],
+    }},
+    res_file = {"web_htpasswd": {
+        "value": "{{ .Last.Data.htpasswd }}\n",
+        "deps": ["web_verifier"],
+    }},
+    res_kv = {"web_verifier": {
+        "mount": "secrets",
+        "path": "alwaldend.com/vault1/approles/src_infra_victoria_metrics/web_auth",
+    }},
+)
+
+al_config(
+    name = "al",
+    configs = [
+        ":ansible_keys",
+        ":auth",
+        ":dns_backend",
+        ":dns_providers",
+        ":tf_backend",
+        ":web_auth",
+        ":xo_login",
+        "//infra:al",
+    ],
+    visibility = ["//infra/victoria_metrics:__subpackages__"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//infra:__pkg__"],
+    deps = [
+        "//infra/victoria_metrics/approle:docs",
+        "//infra/victoria_metrics/dns:docs",
+        "//infra/victoria_metrics/openspec:docs",
+    ],
+)

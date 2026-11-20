@@ -40,6 +40,18 @@
     backup: true
   register: traefik_ca_var
 
+- name: Install the optional Basic Auth verifier
+  when: traefik_basic_auth_src is not none
+  no_log: true
+  ansible.builtin.copy:
+    src: "{{ traefik_basic_auth_src }}"
+    dest: "{{ traefik_basic_auth_path }}"
+    owner: "{{ traefik_owner }}"
+    group: "{{ traefik_user }}"
+    mode: "0640"
+    backup: true
+  register: traefik_basic_auth_var
+
 - name: Install the service unit
   ansible.builtin.template:
     src: systemd_service.conf
@@ -58,13 +70,17 @@
     scope: "{{ traefik_service_scope }}"
 
 - name: Clear a previous startup rate limit before activating changed inputs
-  when: traefik_bin_var.changed or traefik_config_var.changed or traefik_ca_var.changed or traefik_service_var.changed
+  when: >-
+    traefik_bin_var.changed or traefik_config_var.changed or traefik_ca_var.changed or
+    traefik_basic_auth_var.changed or traefik_service_var.changed
   ansible.builtin.command:
     argv: "{{ ['systemctl'] + (['--user'] if traefik_service_scope == 'user' else []) + ['reset-failed', traefik_service_path | basename] }}"
   changed_when: false
 
 - name: Activate changed startup inputs
-  when: traefik_bin_var.changed or traefik_config_var.changed or traefik_ca_var.changed or traefik_service_var.changed
+  when: >-
+    traefik_bin_var.changed or traefik_config_var.changed or traefik_ca_var.changed or
+    traefik_basic_auth_var.changed or traefik_service_var.changed
   ansible.builtin.systemd_service:
     name: "{{ traefik_service_path | basename }}"
     state: restarted

@@ -23,6 +23,7 @@ WORKSPACE_SOURCES = {
     "infra_threexui": "//infra/threexui/openspec:source",
     "infra_vastai": "//infra/vastai/openspec:source",
     "infra_vault": "//infra/vault/openspec:source",
+    "infra_victoria_metrics": "//infra/victoria_metrics/openspec:source",
     "infra_xcp_ng": "//infra/xcp_ng/openspec:source",
     "infra_yandex_cloud": "//infra/yandex_cloud/openspec:source",
     "internal_vastai_sdk": "//internal/vastai_sdk/openspec:source",

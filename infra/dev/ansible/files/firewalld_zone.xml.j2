@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<zone>
+  <short>Host Bot</short>
+  <description>Allow SSH, HTTP, HTTPS, and metrics from the collector.</description>
+  <port port="22" protocol="tcp"/>
+  <port port="80" protocol="tcp"/>
+  <port port="443" protocol="tcp"/>
+  <rule family="ipv4">
+    <source address="{{ victoria_metrics_collector_address }}/32"/>
+    <port port="{{ traefik_metrics_port }}" protocol="tcp"/>
+    <accept/>
+  </rule>
+</zone>

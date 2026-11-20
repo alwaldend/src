@@ -1,0 +1,7 @@
+- name: Deploy VictoriaMetrics single-node
+  hosts: victoria_metrics
+  become: true
+  roles:
+    - alwaldend.main.host
+    - alwaldend.main.traefik
+    - alwaldend.main.victoria_metrics

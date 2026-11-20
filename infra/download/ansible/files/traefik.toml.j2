@@ -26,3 +26,11 @@
 
 [log]
   level = "INFO"
+
+{% if traefik_metrics_enabled | default(false) %}
+[entryPoints.metrics]
+address = ":{{ traefik_metrics_port }}"
+
+[metrics.prometheus]
+entryPoint = "metrics"
+{% endif %}

@@ -1,0 +1,66 @@
+- name: Create the VictoriaMetrics system group
+  ansible.builtin.group:
+    name: victoria-metrics
+    system: true
+
+- name: Create the VictoriaMetrics system user
+  ansible.builtin.user:
+    name: victoria-metrics
+    group: victoria-metrics
+    system: true
+    create_home: false
+    shell: /sbin/nologin
+
+- name: Create the configuration directory
+  ansible.builtin.file:
+    path: /etc/victoria-metrics
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: Install the VictoriaMetrics executable
+  ansible.builtin.copy:
+    src: "{{ victoria_metrics_binary_src }}"
+    dest: /usr/local/bin/victoria-metrics-prod
+    owner: root
+    group: root
+    mode: "0755"
+  notify: Restart VictoriaMetrics
+
+- name: Install the scrape configuration
+  ansible.builtin.template:
+    src: "{{ victoria_metrics_scrape_config_src }}"
+    dest: /etc/victoria-metrics/scrape.yaml
+    owner: root
+    group: root
+    mode: "0644"
+    validate: /usr/local/bin/victoria-metrics-prod -dryRun -promscrape.config=%s
+  notify: Restart VictoriaMetrics
+
+- name: Install the VictoriaMetrics systemd unit
+  ansible.builtin.copy:
+    src: victoria-metrics.service
+    dest: /etc/systemd/system/victoria-metrics.service
+    owner: root
+    group: root
+    mode: "0644"
+  notify: Restart VictoriaMetrics
+
+- name: Apply VictoriaMetrics changes
+  ansible.builtin.meta: flush_handlers
+
+- name: Ensure VictoriaMetrics starts on boot
+  ansible.builtin.systemd_service:
+    name: victoria-metrics.service
+    enabled: true
+    state: started
+
+- name: Wait for the loopback health endpoint
+  ansible.builtin.uri:
+    url: http://127.0.0.1:8428/health
+    use_proxy: false
+  register: victoria_metrics_health
+  until: victoria_metrics_health.status == 200
+  retries: 15
+  delay: 2

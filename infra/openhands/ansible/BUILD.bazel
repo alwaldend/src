@@ -28,6 +28,7 @@ al_ansible_package(
         "files/**",
         "playbook_*.yaml",
     ]),
+    extra_vars_files = ["//infra/victoria_metrics/dns:metrics_vars"],
     configs = ["//infra/openhands:al"],
     plugin_labels = {
         "vault_env": "default_default",

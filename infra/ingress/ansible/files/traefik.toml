@@ -54,3 +54,9 @@ sans = [
   "{{ inventory_hostname }}",
   "*.alwaldend.com",
 ]
+
+[entryPoints.metrics]
+address = ":{{ traefik_metrics_port }}"
+
+[metrics.prometheus]
+entryPoint = "metrics"
