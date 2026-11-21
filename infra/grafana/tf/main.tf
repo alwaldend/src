@@ -15,6 +15,15 @@ locals {
 provider "grafana" {
   url     = "https://${local.grafana_dns.records.local.A.name}"
   ca_cert = file("${path.module}/../../../data/ssl/alwaldend.com/root_ca.crt")
+  # Match Grafana's file provider when the password was stored with a trailing newline.
+  auth = "admin:${trimspace(var.grafana_admin_password)}"
+}
+
+variable "grafana_admin_password" {
+  type        = string
+  description = "Local Grafana administrator password from Vault."
+  sensitive   = true
+  ephemeral   = true
 }
 
 variable "victoria_metrics_username" {

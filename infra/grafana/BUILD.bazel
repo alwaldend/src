@@ -46,8 +46,8 @@ al_inject(
     name = "tf_credentials",
     labels = {"tf": "main"},
     res_env = {
-        "GRAFANA_AUTH": {
-            "value": "admin:{{ .Last.Data.admin_password }}",
+        "TF_VAR_grafana_admin_password": {
+            "value": "{{ .Last.Data.admin_password }}",
             "deps": ["grafana_config"],
         },
         "TF_VAR_victoria_metrics_username": {
@@ -156,6 +156,7 @@ docs_filegroup(
     visibility = ["//infra:__pkg__"],
     deps = [
         "//infra/grafana/approle:docs",
+        "//infra/grafana/docs",
         "//infra/grafana/openspec:docs",
         "//infra/grafana/tf:docs",
     ],
