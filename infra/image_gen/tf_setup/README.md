@@ -226,9 +226,9 @@ not guarantee exact style isolation or character continuity.
 
 ### MiniMax H3 Video
 
-Set `model_profile` to `minimax-h3-video` in [config.json](../config.json)
-and install it with the [application playbook](../ansible/README.md). The
-existing `48gb` profile supplies the RTX PRO 5000 Blackwell and a 100 GB disk.
+The [configuration](../config.json) selects `minimax-h3-video` for the
+[application playbook](../ansible/README.md). The `48gb` profile supplies
+the RTX PRO 5000 Blackwell and a 100 GB disk.
 The H3 bundle uses about 42.5 GB of disk for the pruned INT8 FL2VA denoiser,
 NVFP4 text encoder, and standard video and audio VAEs. Check free disk and
 system RAM for offloading when installing alongside existing models.

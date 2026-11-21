@@ -10,8 +10,8 @@ This project owns one image-generation rental in [tf_setup](tf_setup/README.md).
 It uses the reusable [ComfyUI module](../../projects/tf_modules/vastai_instance_imagegen_comfyui/README.md)
 in exposed mode: a single HTTPS proxy with a generated username/password login,
 plus account-key SSH access managed by [infra/vastai](../vastai/tf/README.md). The GPU must have at least 32 GiB VRAM.
-The [configuration](config.json) selects Qwen-Image-Edit-2511 and the existing
-48 GB hardware profile for the operator-requested keyframe animation trial.
+The [configuration](config.json) selects MiniMax H3 Video on the 48 GB hardware
+profile.
 The Qwen bundle includes ordinary edits, crop-composited keyframes, selected-frame
 GIF assembly, both chained GIF variants and the existing RIFE engine.
 NoobAI remains a selectable profile for scene sequences. The NoobAI App has a six-image, two-scene default, persistent references and
@@ -71,6 +71,10 @@ existing Vault identity membership. No general infrastructure group is required.
 
 Check [remaining team credit](../vastai/README.md#check-remaining-credit) before
 renting or leaving an instance running.
+
+The MiniMax H3 Video rollout provisions the 48 GB ComfyUI rental. See the
+[deployment record](openspec/changes/add-minimax-h3-video/design.md#deployment-on-2026-11-21)
+for the instance and verification results.
 
 The latest visible-motion trial created 48 GB Qwen instance 60921795 through
 Terraform and installed it through the shared Ansible role. It completed the
