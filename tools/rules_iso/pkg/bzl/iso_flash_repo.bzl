@@ -1,7 +1,9 @@
 """Repository rule for the ISO flash target."""
 
+_FLASH_BINARY = Label(":iso_flash_binary.bzl")
+
 _BUILD = """\
-load("@rules_iso//pkg/bzl:iso_flash_binary.bzl", "iso_flash_binary")
+load("{flash_binary}", "iso_flash_binary")
 
 iso_flash_binary(
     name = "iso_flash",
@@ -11,7 +13,10 @@ iso_flash_binary(
 """
 
 def _impl(ctx):
-    ctx.file("BUILD.bazel", _BUILD.format(image_repo = ctx.attr.image_repo))
+    ctx.file("BUILD.bazel", _BUILD.format(
+        flash_binary = _FLASH_BINARY,
+        image_repo = ctx.attr.image_repo,
+    ))
     return ctx.repo_metadata(reproducible = True)
 
 iso_flash_repo = repository_rule(

@@ -3,21 +3,6 @@
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_file")
 load(":iso_flash_repo.bzl", "iso_flash_repo")
 
-_BUILD_TEMPLATE = """load("@rules_iso//pkg/bzl:iso_flash_binary.bzl", "iso_flash_binary")
-
-alias(
-    name = "file",
-    actual = "{alias_actual}",
-    visibility = ["//visibility:public"],
-)
-
-iso_flash_binary(
-    name = "iso_flash",
-    image = "{alias_actual}",
-    visibility = ["//visibility:public"],
-)
-"""
-
 def _impl(ctx):
     root_module_direct_deps = []
     for mod in ctx.modules:
