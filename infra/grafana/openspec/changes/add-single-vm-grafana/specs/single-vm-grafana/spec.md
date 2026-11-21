@@ -16,6 +16,9 @@ Traefik SHALL serve Grafana at the DC1 DNS name over Vault-issued HTTPS and
 redirect HTTP. Grafana SHALL listen on loopback. The firewall SHALL allow SSH
 from any routed source.
 
+The Grafana process SHALL be allowed to reach the Vault token and UserInfo
+endpoints while SELinux is enforcing.
+
 #### Scenario: Browser sign-in
 
 - **WHEN** a Vault global administrator chooses the Vault sign-in option

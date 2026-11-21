@@ -16,7 +16,8 @@ the Vault server CA trusted by your browser. Traefik serves Vault-issued
 HTTPS, redirects HTTP, and proxies to Grafana on loopback. The firewall
 allows administrative SSH from any routed source. Select **Sign in with
 Vault** to sign in as a member of `global_admins`. Those users become
-Grafana server administrators.
+Grafana server administrators. The guest's SELinux policy allows the Grafana
+process to connect to Vault's OIDC API on TCP 8200.
 
 From outside DC1, use the same hostname with a trusted ingress client
 certificate. Shared ingress verifies the guest's Vault-issued certificate

@@ -5,3 +5,33 @@
     - alwaldend.main.host
     - alwaldend.main.traefik
     - alwaldend.main.grafana
+
+  post_tasks:
+    - name: Allow Grafana to connect to Vault's OIDC endpoint under SELinux
+      tags: [grafana_oidc_policy]
+      vars:
+        grafana_oidc_policy_src: "{{ inventory_dir }}/files/grafana_vault_oidc.cil"
+        grafana_oidc_policy_path: /etc/selinux/grafana_vault_oidc.cil
+        grafana_oidc_policy_checksum: "{{ lookup('ansible.builtin.file', grafana_oidc_policy_src, rstrip=false) | hash('sha256') }}"
+      block:
+        - name: Read installed SELinux policy checksums
+          ansible.builtin.command:
+            argv: [semodule, --list-modules=full, --checksum]
+          register: grafana_selinux_modules
+          changed_when: false
+          check_mode: false
+
+        - name: Install the Grafana OIDC policy source
+          ansible.builtin.copy:
+            src: "{{ grafana_oidc_policy_src }}"
+            dest: "{{ grafana_oidc_policy_path }}"
+            owner: root
+            group: root
+            mode: "0644"
+
+        - name: Load the Grafana OIDC policy
+          ansible.builtin.command:
+            argv: [semodule, --priority, "400", --install, "{{ grafana_oidc_policy_path }}"]
+          when: >-
+            grafana_selinux_modules.stdout is not search(
+            '(?m)^400[ \t]+grafana_vault_oidc[ \t]+cil[ \t]+sha256:' ~ grafana_oidc_policy_checksum ~ '[ \t]*$')

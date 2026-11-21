@@ -6,6 +6,7 @@ package(transitive_visibility = "//infra:transitive_consumers")
 al_ansible_package(
     name = "ansible",
     srcs = [
+        "files/grafana_vault_oidc.cil",
         "files/traefik.toml",
         "files/traefik_dynamic.toml",
         "group_vars/grafana_servers.yaml",
