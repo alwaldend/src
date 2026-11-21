@@ -1,5 +1,5 @@
-load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("//tools/bzl/rules:al_bzl_library_map.bzl", "al_bzl_library_map")
+load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
 
 package(transitive_visibility = "//tools:transitive_consumers")
 
@@ -7,10 +7,10 @@ al_bzl_library_map(
     name = "libs",
     libs = {
         "al_vial_configs": [
-            "@rules_template//rules:template_run_binary",
+            "//tools/rules_template/rules:template_run_binary",
             "@bazel_skylib//rules:write_file",
             "@bazel_skylib//lib:paths",
-            "@rules_docs//docs:defs",
+            "//tools/rules_docs/docs:defs",
         ],
     },
     visibility = ["//:__subpackages__"],

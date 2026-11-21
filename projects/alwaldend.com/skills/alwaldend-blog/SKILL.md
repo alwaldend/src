@@ -127,7 +127,7 @@ and no existing post has to change its image references.
 Declare the package in `BUILD.bazel`:
 
 ```starlark
-load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
 
 docs_filegroup(
     name = "docs",

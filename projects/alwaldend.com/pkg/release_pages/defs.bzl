@@ -1,6 +1,6 @@
 """Repository release pages using the site's shared Hugo presentation."""
 
-load("@rules_al//:defs.bzl", "al_release")
+load("//projects/al:defs.bzl", "al_release")
 
 _PAGE_TEMPLATE = """\
 ---

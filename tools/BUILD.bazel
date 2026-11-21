@@ -1,5 +1,5 @@
 load("@com_alwaldend_src_npm//:defs.bzl", "npm_link_all_packages")
-load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
 
 package(transitive_visibility = "//tools:transitive_consumers")
 
@@ -80,26 +80,8 @@ docs_filegroup(
     deps = subpackages(
         include = ["*"],
         allow_empty = True,
-        exclude = [
-            "openspec",
-            "rules_*",
-        ],
-    ) + [
-        "//tools/rules_iso:docs",
-        "@rules_binary_toolchain//:docs",
-        "@rules_dnscontrol//:docs",
-        "@rules_docs//:docs",
-        "@rules_docs_gazelle//:docs",
-        "@rules_hugo//:docs",
-        "@rules_openspec//:docs",
-        "@rules_promptfoo//:docs",
-        "@rules_promptfoo_gazelle//:docs",
-        "@rules_skill_gazelle//:docs",
-        "@rules_skills//:docs",
-        "@rules_systemd//:docs",
-        "@rules_template//:docs",
-        "@rules_terraform//:docs",
-    ],
+        exclude = ["openspec"],
+    ),
 )
 
 npm_link_all_packages(

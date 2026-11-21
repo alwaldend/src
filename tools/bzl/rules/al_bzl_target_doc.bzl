@@ -1,6 +1,6 @@
 load("@bazel_skylib//rules:write_file.bzl", "write_file")
 load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
-load("@rules_template//rules:template_run_binary.bzl", "template_run_binary")
+load("//tools/rules_template/rules:template_run_binary.bzl", "template_run_binary")
 
 def al_bzl_target_doc(name, visibility, subpackages = []):
     """

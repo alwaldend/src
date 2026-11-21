@@ -1,6 +1,6 @@
 """Execution test for the skill validation aspect."""
 
-load("//skill:defs.bzl", "SkillInfo", "skill_validation_aspect")
+load("//tools/rules_skills/skill:defs.bzl", "SkillInfo", "skill_validation_aspect")
 
 def _skill_validation_test_impl(ctx):
     validation_files = ctx.attr.target[OutputGroupInfo].skill_validation

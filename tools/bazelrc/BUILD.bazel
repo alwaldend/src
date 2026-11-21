@@ -1,6 +1,6 @@
 load("@bazelrc-preset.bzl", "bazelrc_preset")
-load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_shell//shell:sh_test.bzl", "sh_test")
+load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
 
 package(transitive_visibility = "//tools:transitive_consumers")
 

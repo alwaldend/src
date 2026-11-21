@@ -7,5 +7,5 @@ go_binary(
         "doc.go",
         "main.go",
     ],
-    visibility = ["//:__pkg__"],
+    visibility = ["//projects/rules_trufflehog:__pkg__"],
 )

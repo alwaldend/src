@@ -1,6 +1,6 @@
-load("@rules_al//:defs.bzl", "al_binary_run", "al_config", "al_plugin_config")
-load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_go//go:def.bzl", "go_binary", "go_library", "go_test")
+load("//projects/al:defs.bzl", "al_binary_run", "al_config", "al_plugin_config")
+load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
 
 package(transitive_visibility = "//infra:transitive_consumers")
 
@@ -54,11 +54,11 @@ go_library(
     visibility = ["//visibility:private"],
     deps = [
         "//infra/xcp_ng/internal/oidclogin",
+        "//projects/al/api/al_proto",
+        "//projects/al/pkg/al",
+        "//projects/al/pkg/al_plugin",
+        "//projects/al/pkg/lifecycle",
         "@com_github_hashicorp_vault_api//:api",
-        "@rules_al//api/al_proto",
-        "@rules_al//pkg/al",
-        "@rules_al//pkg/al_plugin",
-        "@rules_al//pkg/lifecycle",
     ],
 )
 
@@ -78,8 +78,8 @@ go_test(
     embed = [":xo_login_lib"],
     env = {"BOOTSTRAP_CONFIG": "$(rlocationpath :bootstrap_config)"},
     deps = [
+        "//projects/al/pkg/al",
         "@com_github_hashicorp_vault_api//:api",
-        "@rules_al//pkg/al",
         "@rules_go//go/runfiles",
     ],
 )

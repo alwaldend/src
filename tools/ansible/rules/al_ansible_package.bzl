@@ -1,7 +1,7 @@
 """Repository Ansible packages with mapped runtime files and AL commands."""
 
-load("@rules_al//:defs.bzl", "al_binary_run_map")
 load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files", "strip_prefix")
+load("//projects/al:defs.bzl", "al_binary_run_map")
 load(":al_ansible_binary.bzl", "al_ansible_binary")
 
 def al_ansible_package(

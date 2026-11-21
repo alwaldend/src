@@ -252,7 +252,7 @@
       value: >-
         Pass only if the response runs ordinary bazel test commands from the
         applicable workspace, including root //:repo_quality_test and
-        @rules_al//internal/delivery:go_test or its nested-workspace equivalent,
+        //projects/al/internal/delivery:go_test or its nested-workspace equivalent,
         selects relevant semantic lint, and publishes only after required checks
         pass. Publication uses al delivery publish --receipt-file
         out/task/prepare.json through the available source or task-local entry
@@ -291,7 +291,7 @@
       threshold: 1
       value: >-
         Pass only if the response reuses the known unavailable host command and
-        starts with bazel run @rules_al//:al -- delivery provider.
+        starts with bazel run //projects/al:al -- delivery provider.
         It must not repeat capability checks, install a host tool, invoke the removed al tool command, print raw remotes, or bypass
         delivery guards with Git or gh. It must keep provider and transport
         support as separate requirements before further GitHub adapter

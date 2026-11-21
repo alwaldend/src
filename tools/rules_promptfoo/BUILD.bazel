@@ -1,10 +1,10 @@
 load("@bazel_skylib//rules:build_test.bzl", "build_test")
-load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_promptfoo_npm//:defs.bzl", "npm_link_all_packages")
 load(
-    "@rules_promptfoo_npm//:promptfoo/package_json.bzl",
+    "@rules_promptfoo_npm//tools/rules_promptfoo:promptfoo/package_json.bzl",
     promptfoo_bin = "bin",
 )
+load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
 
 npm_link_all_packages(name = "node_modules")
 
@@ -29,7 +29,7 @@ promptfoo_bin.promptfoo_binary(
 
 build_test(
     name = "build_test",
-    targets = ["//promptfoo:defs"],
+    targets = ["//tools/rules_promptfoo/promptfoo:defs"],
 )
 
 docs_filegroup(

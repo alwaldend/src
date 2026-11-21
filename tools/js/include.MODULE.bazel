@@ -47,3 +47,25 @@ use_repo(npm, "com_alwaldend_src_npm")
 typescript = use_extension("@aspect_rules_ts//ts:extensions.bzl", "typescript")
 typescript.deps(version_from = "//tools:package.json")
 use_repo(typescript, "npm_typescript")
+
+npm.npm_translate_lock(
+    name = "rules_openspec_npm",
+    data = [
+        "//tools/rules_openspec:pnpm-workspace.yaml",
+    ],
+    pnpm_lock = "//tools/rules_openspec:pnpm-lock.yaml",
+    run_lifecycle_hooks = False,
+)
+use_repo(npm, "rules_openspec_npm")
+
+npm.npm_translate_lock(
+    name = "rules_promptfoo_npm",
+    data = [
+        "//tools/rules_promptfoo:patches/promptfoo@0.125.1.patch",
+        "//tools/rules_promptfoo:pnpm-workspace.yaml",
+    ],
+    no_optional = True,
+    pnpm_lock = "//tools/rules_promptfoo:pnpm-lock.yaml",
+    run_lifecycle_hooks = False,
+)
+use_repo(npm, "rules_promptfoo_npm")

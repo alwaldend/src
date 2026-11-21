@@ -1,12 +1,12 @@
-load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("@rules_trufflehog//:defs.bzl", "trufflehog_test")
 load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_diagram")
+load("//projects/rules_trufflehog:defs.bzl", "trufflehog_test")
+load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
 
 package(transitive_visibility = "//tools:transitive_consumers")
 
 alias(
     name = "trufflehog",
-    actual = "@rules_trufflehog//:trufflehog",
+    actual = "//projects/rules_trufflehog:trufflehog",
     visibility = ["//:__subpackages__"],
 )
 
@@ -14,7 +14,7 @@ trufflehog_test(
     name = "repo_test",
     size = "medium",
     allowlist = "allowlist.json",
-    git = "@rules_al//:git",
+    git = "//projects/al:git",
     repository_marker = "//:AGENTS.md",
 )
 
@@ -23,7 +23,7 @@ trufflehog_test(
     size = "medium",
     allowlist = "allowlist.json",
     checkout = True,
-    git = "@rules_al//:git",
+    git = "//projects/al:git",
     repository_marker = "//:AGENTS.md",
 )
 
@@ -32,7 +32,7 @@ trufflehog_test(
     size = "medium",
     all_refs = True,
     allowlist = "allowlist.json",
-    git = "@rules_al//:git",
+    git = "//projects/al:git",
     repository_marker = "//:AGENTS.md",
     tags = ["manual"],
 )
@@ -45,7 +45,7 @@ docs_filegroup(
 
 mermaid_diagram(
     name = "scan_diagram",
-    src = "@rules_trufflehog//docs:scan.mmd",
+    src = "//projects/rules_trufflehog/docs:scan.mmd",
     out = "rendered/scan",
     webp_aspect_ratio = [],
     webp_scale = 2,

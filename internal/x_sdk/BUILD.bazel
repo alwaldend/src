@@ -1,6 +1,6 @@
 load("@aspect_bazel_lib//lib:copy_to_directory.bzl", "copy_to_directory")
-load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("//tools/openapi_generator:defs.bzl", "openapi_generate")
+load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
 
 package(transitive_visibility = "//internal:transitive_consumers")
 

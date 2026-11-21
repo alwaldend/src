@@ -26,6 +26,7 @@ import (
 	"git.alwaldend.com/alwaldend/src/projects/al/pkg/al"
 	"github.com/spf13/cobra"
 	"google.golang.org/protobuf/encoding/protojson"
+	"google.golang.org/protobuf/proto"
 )
 
 // main runs the independent consumer outside Bazel actions and retains verified outputs.
@@ -350,9 +351,9 @@ func verifyConsumerTLS(ctx context.Context, config *al_proto.Config, output, add
 				return fmt.Errorf("select %s runfiles: %w", mode, err)
 			}
 		}
-		connection := *config.VaultConn["default"]
+		connection := proto.CloneOf(config.VaultConn["default"])
 		connection.Config = &al_proto.VaultConfig{Address: address}
-		tlsConfig, err := al.VaultTlsConfig(&connection).Get()
+		tlsConfig, err := al.VaultTlsConfig(connection).Get()
 		if err != nil {
 			return fmt.Errorf("resolve %s TLS configuration: %w", mode, err)
 		}
@@ -369,7 +370,7 @@ func verifyConsumerTLS(ctx context.Context, config *al_proto.Config, output, add
 				return fmt.Errorf("%s TLS lookup selected a different input for %q", mode, name)
 			}
 		}
-		store := al.NewVault(&al_proto.Config{VaultConn: map[string]*al_proto.VaultConn{"default": &connection}, VaultAuth: config.VaultAuth})
+		store := al.NewVault(&al_proto.Config{VaultConn: map[string]*al_proto.VaultConn{"default": connection}, VaultAuth: config.VaultAuth})
 		client, err := store.Client(ctx, "default", "default").Get()
 		if err != nil {
 			return fmt.Errorf("construct %s Vault TLS client: %w", mode, err)

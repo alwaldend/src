@@ -1,4 +1,4 @@
-load("@rules_al//:defs.bzl", "al_config", "al_inject")
+load("//projects/al:defs.bzl", "al_config", "al_inject")
 load("//tools/al:al_terraform.bzl", "al_terraform_package", "al_terraform_test_map")
 
 al_inject(

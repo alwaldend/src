@@ -27,7 +27,7 @@ in another file.
 
 - Hugo is pinned as a Bazel toolchain. `al_hugo_extension` in
   `tools/rules_hugo` downloads the requested release and registers a
-  `@rules_hugo//pkg/bzl:toolchain_type` toolchain per platform. The site
+  `//tools/rules_hugo/pkg/bzl:toolchain_type` toolchain per platform. The site
   archive stays in the target configuration while the Hugo binary stays in the
   execution configuration.
 - `projects/alwaldend.com/include.MODULE.bazel` declares the toolchain version,
@@ -35,7 +35,7 @@ in another file.
   the owning declaration for this workspace and follow it instead of inventing
   a new Hugo dependency.
 - `al_hugo_site` pairs a site source archive with PostCSS and build tools,
-  `al_hugo_worker` renders it through the persistent `@rules_hugo//cmd/hugo_worker`,
+  `al_hugo_worker` renders it through the persistent `//tools/rules_hugo/cmd/hugo_worker`,
   and `al_hugo_binary` exposes a runnable Hugo command for a site.
 - There is one site target: `//projects/alwaldend.com:site`. It builds under
   `--config=release`, which sets the public `--baseURL`, and

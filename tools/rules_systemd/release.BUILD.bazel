@@ -1,0 +1,5 @@
+alias(
+    name = "systemd_run",
+    actual = "//cmd/systemd_run",
+    visibility = ["//visibility:public"],
+)

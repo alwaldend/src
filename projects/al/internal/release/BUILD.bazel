@@ -1,5 +1,5 @@
-load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_go//go:def.bzl", "go_library", "go_test")
+load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
 
 go_library(
     name = "go_lib",
@@ -18,11 +18,11 @@ go_library(
         "ssh_deployer.go",
     ],
     importpath = "git.alwaldend.com/alwaldend/src/projects/al/internal/release",
-    visibility = ["//:__subpackages__"],
+    visibility = ["//projects/al:__subpackages__"],
     deps = [
-        "//api/contracts",
-        "//internal/gitinfo",
-        "//internal/versioning",
+        "//projects/al/api/contracts",
+        "//projects/al/internal/gitinfo",
+        "//projects/al/internal/versioning",
         "@com_github_go_git_go_git_v5//:go-git",
         "@com_github_go_git_go_git_v5//plumbing",
         "@com_github_go_git_go_git_v5//plumbing/format/packfile",
@@ -44,9 +44,9 @@ go_test(
         "observation_test.go",
         "selection_test.go",
     ],
-    data = ["//cmd/al"],
+    data = ["//projects/al/cmd/al"],
     embed = [":go_lib"],
-    env = {"RELEASE_BINARY": "$(rlocationpath //cmd/al:al)"},
+    env = {"RELEASE_BINARY": "$(rlocationpath //projects/al/cmd/al:al)"},
     deps = [
         "@com_github_go_git_go_git_v5//:go-git",
         "@com_github_go_git_go_git_v5//plumbing",

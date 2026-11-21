@@ -22,7 +22,8 @@ languages:
 
 ## Usage
 
-`rules_trufflehog` is a standalone Bazel module with a reusable test rule and Go
+`rules_trufflehog` builds from the monorepo root and ships as a standalone Bazel
+module with a reusable test rule and Go
 scan wrapper. It redeclares existing repository dependency pins.
 Git metadata uses TruffleHog's generated protobuf Go type at the scanner's
 3.99.7 pin. The surrounding CLI output uses ordinary Go JSON, so the wrapper
@@ -103,7 +104,7 @@ Both modes always pass `--no-verification`, `--no-update`, and
 `--fail-on-scan-errors`.
 
 Use `@rules_trufflehog//cmd/scan:scan -- --help` for direct flags, or
-`//cmd/scan:scan` from the standalone workspace.
+`//cmd/scan:scan` from a standalone checkout of the release archive.
 Direct invocations require caller-owned `TMPDIR`; Bazel tests use `TEST_TMPDIR`.
 The [E2E command fixture](test/e2e/README.md) produces `e2e-report.json` in
 undeclared test outputs. `rule_test` exercises the native rule and runfiles

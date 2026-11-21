@@ -145,11 +145,16 @@ func buildDoctorReport(options doctorOptions, executable, bazelPath string) (doc
 	if err != nil {
 		return doctorReport{}, fmt.Errorf("read Bazelisk pins %q: %w", pinFile, err)
 	}
+	source := doctorSource{Target: "@rules_al//:al"}
+	sourcePackage := filepath.Join("external", "rules_al+")
+	if _, err := os.Stat(filepath.Join(root, "projects", "al", "release.MODULE.bazel")); err == nil {
+		source.Target = "//projects/al:al"
+		sourcePackage = filepath.Join("projects", "al")
+	}
 	if options.sourceBinary == "" {
-		options.sourceBinary = filepath.Join("bazel-bin", "external", "rules_al+", "cmd", "al", "al_", "al")
+		options.sourceBinary = filepath.Join("bazel-bin", sourcePackage, "cmd", "al", "al_", "al")
 	}
 	sourceBinary := doctorPath(root, options.sourceBinary)
-	source := doctorSource{Target: "@rules_al//:al"}
 	if sourceDigest, digestErr := fileDigest(sourceBinary); digestErr == nil {
 		stale := sourceDigest != runnerDigest
 		source.Binary = sourceBinary

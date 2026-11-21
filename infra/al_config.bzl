@@ -1,6 +1,6 @@
 """Repository-specific AL authentication and injection target macros."""
 
-load("@rules_al//:defs.bzl", "al_inject", "al_plugin_config")
+load("//projects/al:defs.bzl", "al_inject", "al_plugin_config")
 
 def infra_xo_login(name, config_name = None, oidc_provider = "", labels = {}, **kwargs):
     """Declare Xen Orchestra login configuration."""

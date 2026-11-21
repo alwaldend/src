@@ -60,7 +60,7 @@ _repo = repository_rule(
 )
 
 _BUILD_TOOLCHAIN = """
-load("@rules_hugo//pkg/bzl:al_hugo_toolchain.bzl", "al_hugo_toolchain")
+load("{toolchain_rule}", "al_hugo_toolchain")
 load("@bazel_skylib//rules:copy_file.bzl", "copy_file")
 
 copy_file(
@@ -81,7 +81,7 @@ alias(
 toolchain(
     name = "toolchain",
     toolchain = "toolchain_impl",
-    toolchain_type = "@rules_hugo//pkg/bzl:toolchain_type",
+    toolchain_type = "{toolchain_type}",
     exec_compatible_with = {platforms},
     visibility = ["//visibility:public"],
 )
@@ -107,6 +107,8 @@ def _impl(ctx):
                     build_file_content = _BUILD_TOOLCHAIN.format(
                         name = name,
                         platforms = ["@platforms//{}".format(platform) for platform in archive["platforms"]],
+                        toolchain_rule = Label(":al_hugo_toolchain.bzl"),
+                        toolchain_type = Label(":toolchain_type"),
                     ),
                     integrity = archive.get("integrity", ""),
                 )

@@ -1,5 +1,5 @@
 load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
-load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
 
 toolchain_type(
     name = "toolchain_type",
@@ -13,7 +13,7 @@ docs_filegroup(
         allow_empty = True,
     ),
     prefix = "content/docs/tools/rules_hugo/pkg/bzl",
-    visibility = ["//:__pkg__"],
+    visibility = ["//tools/rules_hugo:__pkg__"],
 )
 
 bzl_library(

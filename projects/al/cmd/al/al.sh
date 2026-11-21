@@ -10,5 +10,5 @@ mkdir -p "${bootstrap_dir}"
 
 bazel run \
     --script_path="${bootstrap_script}" \
-    @rules_al//:al
+    //projects/al:al
 exec "${bootstrap_script}" "$@"

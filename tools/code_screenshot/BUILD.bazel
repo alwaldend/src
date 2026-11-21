@@ -1,5 +1,5 @@
-load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("//internal/assets/web:defs.bzl", "site_stylesheet")
+load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
 
 package(
     default_visibility = ["//:__subpackages__"],

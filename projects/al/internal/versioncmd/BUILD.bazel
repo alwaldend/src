@@ -8,9 +8,9 @@ go_library(
         "doc.go",
     ],
     importpath = "git.alwaldend.com/alwaldend/src/projects/al/internal/versioncmd",
-    visibility = ["//:__subpackages__"],
+    visibility = ["//projects/al:__subpackages__"],
     deps = [
-        "//internal/versioning",
+        "//projects/al/internal/versioning",
         "@com_github_spf13_cobra//:cobra",
     ],
 )
@@ -19,13 +19,13 @@ go_test(
     name = "versioncmd_test",
     srcs = ["command_test.go"],
     data = [
-        "//cmd/al",
-        "//cmd/workspace_status:workspace_status.sh",
+        "//projects/al/cmd/al",
+        "//projects/al/cmd/workspace_status:workspace_status.sh",
     ],
     embed = [":versioncmd"],
     env = {
-        "AL_BINARY": "$(rlocationpath //cmd/al:al)",
-        "WORKSPACE_STATUS_SCRIPT": "$(rlocationpath //cmd/workspace_status:workspace_status.sh)",
+        "AL_BINARY": "$(rlocationpath //projects/al/cmd/al:al)",
+        "WORKSPACE_STATUS_SCRIPT": "$(rlocationpath //projects/al/cmd/workspace_status:workspace_status.sh)",
     },
     deps = ["@rules_go//go/runfiles"],
 )

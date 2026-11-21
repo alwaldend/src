@@ -63,14 +63,17 @@ bazel run @rules_systemd//:systemd_run -- \
 ```
 
 [ComfyUI](https://github.com/alwaldend/src/tree/master/tools/comfyui) declares its existing
-model limits through this rule. The small `//test:probe`
+model limits through this rule. The small `//tools/rules_systemd/test:probe`
 fixture writes JSON evidence of real kernel limits, argument forwarding,
 environment, and runfiles when supplied `-- --report <absolute-output-path>`.
 
 ## Development
 
-Run `bazel build //...` and `bazel test //...` from
-this module directory. `//:build_test` checks the public rule against the
-runfiles fixture. Runtime verification requires a Linux user systemd manager
-and delegated memory controllers; invoke `//test:probe` with an absolute
+Run `bazel test //tools/rules_systemd/...` from the monorepo root. The
+`build_test` target checks the public rule against the runfiles fixture. Runtime verification requires a Linux user systemd manager
+and delegated memory controllers; invoke `//tools/rules_systemd/test:probe` with an absolute
 `--report` path to record actual kernel limits.
+
+Build `//tools/rules_systemd:release_archive` for the standalone module. Use
+`release.MODULE.bazel` as the basis for the published registry entry. Registry
+consumers load `@rules_systemd//systemd:defs.bzl`.

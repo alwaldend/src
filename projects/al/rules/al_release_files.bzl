@@ -1,5 +1,5 @@
-load("//rules:al_release_deployment_info.bzl", "AlReleaseDeploymentInfo")
-load("//rules:al_release_files_info.bzl", "AlReleaseFilesInfo")
+load("//projects/al/rules:al_release_deployment_info.bzl", "AlReleaseDeploymentInfo")
+load("//projects/al/rules:al_release_files_info.bzl", "AlReleaseFilesInfo")
 
 def _contains_suffixes(val, suffixes):
     """
@@ -85,7 +85,7 @@ al_release_files = rule(
         "release_tool": attr.label(
             executable = True,
             cfg = "exec",
-            default = Label("//cmd/al:al"),
+            default = Label("//projects/al/cmd/al:al"),
             doc = "Release tool",
         ),
     },

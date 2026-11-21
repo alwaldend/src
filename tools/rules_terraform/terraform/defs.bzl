@@ -88,7 +88,7 @@ _ATTRS = {
     "providers": attr.label_list(providers = [TerraformProviderInfo], doc = "Pinned provider archives available to this invocation."),
     "chdir": attr.string(doc = "Working directory relative to the consuming workspace; defaults to this package."),
     "terraform": attr.label(executable = True, cfg = "exec", doc = "Optional executable override; otherwise use the pinned Terraform toolchain."),
-    "_launcher": attr.label(default = Label("//cmd/terraform:terraform"), executable = True, cfg = "target"),
+    "_launcher": attr.label(default = Label("//tools/rules_terraform/cmd/terraform:terraform"), executable = True, cfg = "target"),
 }
 
 terraform_binary = rule(

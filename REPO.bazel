@@ -1,6 +1,6 @@
 repo(
     default_package_metadata = [
-        "//data/license:default",
+        "//internal/license:default",
     ],
     default_visibility = ["//visibility:private"],
 )

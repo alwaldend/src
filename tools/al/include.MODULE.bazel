@@ -1,0 +1,7 @@
+bazel_dep(name = "bazel_lib", version = "3.1.0")
+
+release_git = use_extension("//projects/al:extensions.bzl", "git")
+release_git.local_git(name = "repository_git")
+use_repo(release_git, "repository_git")
+
+register_toolchains("@repository_git//:git_toolchain", "//projects/al/rules:al_toolchain_registration")

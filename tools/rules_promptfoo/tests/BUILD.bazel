@@ -1,10 +1,10 @@
 test_suite(
     name = "tests",
     tests = [
-        "//tests/analysis:tests",
-        "//tests/fake_cli:eval_launcher_test",
-        "//tests/fake_cli:launcher_test",
-        "//tests/fake_cli:reused_codex_login_launcher_test",
-        "//tests/smoke:validate_test",
+        "//tools/rules_promptfoo/tests/analysis:tests",
+        "//tools/rules_promptfoo/tests/fake_cli:eval_launcher_test",
+        "//tools/rules_promptfoo/tests/fake_cli:launcher_test",
+        "//tools/rules_promptfoo/tests/fake_cli:reused_codex_login_launcher_test",
+        "//tools/rules_promptfoo/tests/smoke:validate_test",
     ],
 )

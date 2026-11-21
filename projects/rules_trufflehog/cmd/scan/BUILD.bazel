@@ -9,7 +9,7 @@ go_binary(
         "main.go",
         "scan.go",
     ],
-    visibility = ["//:__subpackages__"],
+    visibility = ["//projects/rules_trufflehog:__subpackages__"],
     deps = [
         "@com_github_spf13_cobra//:cobra",
         "@com_github_trufflesecurity_trufflehog_v3//pkg/pb/source_metadatapb",

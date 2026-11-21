@@ -1,4 +1,4 @@
-load("@rules_skills//skill:defs.bzl", "skill_archives")
+load("@@//tools/rules_skills/skill:defs.bzl", "skill_archives")
 
 package(default_visibility = ["//visibility:public"])
 

@@ -1,6 +1,6 @@
 load("@bazel_skylib//rules:build_test.bzl", "build_test")
 load("@rules_go//go:def.bzl", "go_test")
-load("//:defs.bzl", "al_release", "al_release_bundle", "al_release_files")
+load("//projects/al:defs.bzl", "al_release", "al_release_bundle", "al_release_files")
 
 al_release_files(
     name = "payloads",

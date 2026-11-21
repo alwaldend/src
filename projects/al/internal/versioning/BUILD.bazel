@@ -10,7 +10,7 @@ go_library(
         "version.go",
     ],
     importpath = "git.alwaldend.com/alwaldend/src/projects/al/internal/versioning",
-    visibility = ["//:__subpackages__"],
+    visibility = ["//projects/al:__subpackages__"],
     deps = ["@org_golang_x_sys//unix"],
 )
 

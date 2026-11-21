@@ -1,4 +1,4 @@
 exports_files(
     ["workspace_status.sh"],
-    visibility = ["//:__subpackages__"],
+    visibility = ["//projects/al:__subpackages__"],
 )

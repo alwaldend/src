@@ -1,5 +1,5 @@
-load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_go//go:def.bzl", "go_library", "go_test")
+load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
 
 go_library(
     name = "injector",
@@ -15,10 +15,10 @@ go_library(
     importpath = "git.alwaldend.com/alwaldend/src/projects/al/pkg/injector",
     visibility = ["//visibility:public"],
     deps = [
-        "//api/al_proto",
-        "//pkg/al",
-        "//pkg/fp",
-        "//pkg/lifecycle",
+        "//projects/al/api/al_proto",
+        "//projects/al/pkg/al",
+        "//projects/al/pkg/fp",
+        "//projects/al/pkg/lifecycle",
         "@org_golang_google_protobuf//encoding/protojson",
         "@org_golang_google_protobuf//proto",
     ],

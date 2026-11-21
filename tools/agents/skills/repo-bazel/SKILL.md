@@ -20,6 +20,9 @@ description: Build, test, query, and maintain targets in this Bazel monorepo. Us
 
 ## Edit targets
 
+- Use ordinary root package labels for first-party rulesets. For example,
+  load `//tools/rules_docs/docs:defs.bzl` in this checkout. Use the published
+  repository name in standalone consumer examples and release manifests.
 - Keep Starlark formatted with buildifier conventions.
 - Keep short, single-use configuration in BUILD.bazel, including small
   dictionaries and direct calls to existing macros. Extract a local defs.bzl
@@ -49,7 +52,7 @@ description: Build, test, query, and maintain targets in this Bazel monorepo. Us
   `vault_tf_backend`, for example. Providers use the corresponding CamelCase
   namespace, such as `AlConfigInfo`. Apply this convention when creating or
   renaming an API and update its callers.
-- Prefer repository macros under `tools/` and `@rules_al//:defs.bzl` over raw
+- Prefer repository macros under `tools/` and `//projects/al:defs.bzl` over raw
   upstream rules. Infrastructure commonly uses generated target maps such as
   `al_terraform_binary_map`, `al_terraform_test_map`, and `vault_binary_map`.
 - For Terraform, use the public rules in
@@ -120,6 +123,16 @@ bazel query '//path/to/package:*'
 
 Never run deploy, apply, or other mutating `bazel run` targets merely as a
 validation step.
+
+## Package a standalone ruleset
+
+Keep the release module name and dependencies in the owning project's
+`release.MODULE.bazel`. Build and test the project by its root package path.
+Use [the archive builder](../../../bzl/README.md) to package the committed
+source and translate local labels to the standalone package layout. For
+projects with an explicit `release_archive` target, build that target.
+Verify the archive by building its public labels from a separate workspace
+using the registry manifest and the archive checksum.
 
 ## Automate with Go and Bazel
 

@@ -55,13 +55,11 @@ history; do not silently retarget it or rewrite a shared stack.
 
 ## Select the entry point once
 
-Run all delivery commands from this feature worktree's Git repository root,
-which owns the root `MODULE.bazel` and imports `rules_al`, including when
-the change belongs to a nested Bazel module. Use that same worktree's root,
-not another checkout. The baseline works with a bare Bazel entry point:
+Run all delivery commands from the feature worktree's root Bazel workspace.
+The baseline works with the root package target:
 
 ```sh
-bazel run @rules_al//:al -- delivery provider
+bazel run //projects/al:al -- delivery provider
 ```
 
 For an explicitly installed command, use `al delivery ...` directly. A
@@ -73,7 +71,7 @@ task-local launcher is convenient:
 
 ```sh
 bazel run --script_path=out/task/al \
-  @rules_al//:al
+  //projects/al:al
 out/task/al delivery inspect
 ```
 
@@ -145,7 +143,8 @@ reproducing mutations with Git or `gh` or bypassing a safety refusal.
    are mandatory publish gates. Select targets from the actual diff,
    component owners, BUILD/MODULE structure, and affected consumers. Use
    `bazel build --config=lint <targets>` for semantic lint. Root file changes
-   do not imply `//:all`; nested workspaces need their owner's checks.
+   do not imply `//:all`. For a ruleset release, also verify the public archive
+   targets from a separate consumer workspace.
    Quality alone does not validate BUILD, MODULE, or configuration semantics.
    Return to the same feature worktree's root for delivery commands.
    Verify representative output as well as source. Use a clean checkout of

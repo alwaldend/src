@@ -1,6 +1,6 @@
-load("@rules_al//:defs.bzl", "al_binary_run", "al_config")
-load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_go//go:def.bzl", "go_test")
+load("//projects/al:defs.bzl", "al_binary_run", "al_config")
+load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
 load("//tools/ssh:defs.bzl", "ssh_binary")
 
 package(transitive_visibility = "//infra:transitive_consumers")
@@ -27,7 +27,7 @@ _ASSETS = [
     "--workflows",
     "$(rlocationpath //projects/comfyui_tools/workflows:chroma-hd/chroma-hd-text-to-image.json)",
     "--terraform",
-    "$(rlocationpath @rules_terraform//terraform:cli)",
+    "$(rlocationpath //tools/rules_terraform/terraform:cli)",
     "--startup-template",
     "$(rlocationpath //projects/tf_modules/vastai_instance_imagegen:startup.sh.tftpl)",
     "--offer-defaults",
@@ -68,7 +68,7 @@ _DATA = [
     "//infra/image_gen:evaluation_certificate",
     "//tools/comfyui/cli:comfy",
     "//tools/comfyui/cmd/remote",
-    "@rules_terraform//terraform:cli",
+    "//tools/rules_terraform/terraform:cli",
 ]
 
 al_config(

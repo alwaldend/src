@@ -1,4 +1,4 @@
-load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
 
 filegroup(
     name = "source",
@@ -23,5 +23,5 @@ docs_filegroup(
     ),
     prefix = "content/docs/tools/rules_skill_gazelle/openspec",
     preserve_paths = True,
-    visibility = ["//:__pkg__"],
+    visibility = ["//tools/rules_skill_gazelle:__pkg__"],
 )

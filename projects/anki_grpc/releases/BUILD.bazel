@@ -1,6 +1,6 @@
-load("@rules_al//:defs.bzl", "al_release_bundle", "al_release_files")
-load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//projects/al:defs.bzl", "al_release_bundle", "al_release_files")
 load("//projects/alwaldend.com/pkg/release_pages:defs.bzl", "release_page")
+load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
 
 package(transitive_visibility = "//projects:transitive_consumers")
 

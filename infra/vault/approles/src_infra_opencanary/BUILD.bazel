@@ -1,7 +1,7 @@
-load("@rules_al//:defs.bzl", "al_config")
-load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("@rules_terraform//terraform:defs.bzl", "terraform_binary")
+load("//projects/al:defs.bzl", "al_config")
 load("//tools/al:al_terraform.bzl", "al_terraform_package")
+load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
+load("//tools/rules_terraform/terraform:defs.bzl", "terraform_binary")
 load("//tools/vault/tf_backend:defs.bzl", "vault_tf_backend")
 
 package(transitive_visibility = "//infra:transitive_consumers")

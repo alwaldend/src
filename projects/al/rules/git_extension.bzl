@@ -1,4 +1,4 @@
-load("//rules:al_git_repo.bzl", "al_git_repo")
+load("//projects/al/rules:al_git_repo.bzl", "al_git_repo")
 
 def _impl(ctx):
     for mod in ctx.modules:

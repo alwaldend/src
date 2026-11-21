@@ -17,7 +17,7 @@ go_test(
     ],
     args = [
         "-provider=$(rlocationpath //projects/vastai_terraform_provider/cmd/terraform-provider-vastai)",
-        "-terraform=$(rlocationpath @rules_terraform//terraform:cli)",
+        "-terraform=$(rlocationpath //tools/rules_terraform/terraform:cli)",
         "-team-module=$(rlocationpath //projects/tf_modules/vastai_team)",
         "-comfyui-module=$(rlocationpath //projects/tf_modules/vastai_instance_imagegen_comfyui:entry)",
         "-imagegen-module=$(rlocationpath //projects/tf_modules/vastai_instance_imagegen_forge:entry)",
@@ -29,7 +29,7 @@ go_test(
         "//projects/tf_modules/vastai_instance_imagegen_forge:entry",
         "//projects/tf_modules/vastai_team",
         "//projects/vastai_terraform_provider/cmd/terraform-provider-vastai",
-        "@rules_terraform//terraform:cli",
+        "//tools/rules_terraform/terraform:cli",
     ],
     deps = ["@rules_go//go/runfiles"],
 )

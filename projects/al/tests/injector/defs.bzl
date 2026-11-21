@@ -1,6 +1,6 @@
 """al injector fixture configuration targets."""
 
-load("//:defs.bzl", "al_inject")
+load("//projects/al:defs.bzl", "al_inject")
 
 def al_injector_fixture_selected(name, labels = {}, config_name = None, **kwargs):
     """Declare the selected configuration target."""

@@ -1,5 +1,5 @@
-load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_go//go:def.bzl", "go_binary", "go_library")
+load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
 
 package(transitive_visibility = "//tools:transitive_consumers")
 
@@ -18,7 +18,7 @@ go_library(
     srcs = ["main.go"],
     importpath = "git.alwaldend.com/alwaldend/src/tools/consul/gen_gossip_key",
     visibility = ["//:__subpackages__"],
-    deps = ["@rules_al//pkg/al"],
+    deps = ["//projects/al/pkg/al"],
 )
 
 go_binary(

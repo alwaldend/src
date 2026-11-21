@@ -1,34 +1,25 @@
 ---
 name: repo-gazelle-plugin
 description: >-
-  Create or update standalone Gazelle language plugins and integrate them with
+  Create or update Gazelle language plugins and integrate them with
   this Bazel monorepo. Use when changing BUILD-rule generation behavior; use
   repo-bazel for ordinary generated BUILD updates that do not change a plugin.
 ---
 
 # Add a repository Gazelle plugin
 
-Use `tools/rules_docs_gazelle` as the reference implementation. Also follow
-the `bazel-nested-module`, `repo-bazel`, and `al-bazel` skills: a repository
-Gazelle plugin is both a Go language extension and a standalone Bzlmod module.
+Use `tools/rules_docs_gazelle` as the reference implementation.
+Follow `repo-bazel` and `al-bazel` for builds and release verification.
 
-## Preserve workspace boundaries
+## Place the plugin
 
-- Put the plugin in an underscore-named `tools/rules_*_gazelle` module with
-  its own `MODULE.bazel`, lockfile, root `BUILD.bazel`, README, and `go.mod`.
-  Reuse the nested-module Bazel configuration symlinks and documentation
-  conventions rather than treating it as a root package.
-- Keep production rules and their Gazelle plugin as separate modules. The
-  plugin may depend on the rules module whose symbols it generates, while the
-  rules module must not gain a runtime dependency on its generator.
-- Declare Gazelle and `rules_go` only where the plugin needs them. Declare a
-  generator as `dev_dependency = True` in consumers when it is needed only to
-  edit BUILD files. Use sibling `local_path_override` entries for unpublished
-  modules in this checkout and update module locks through Bazel.
-- Do not traverse out of `GenerateArgs.Config.RepoRoot`. A plugin running in a
-  nested workspace must not infer packages, visibility, or files from its
-  parent workspace. Root Gazelle also does not cross directories listed in
-  `.bazelignore`.
+- Put the plugin under `tools/rules_*_gazelle` with its own Bazel packages
+  and README. Use workspace-relative labels when building the plugin and its
+  rules in the monorepo.
+- Keep production rules separate from their Gazelle plugin. The plugin may
+  depend on the rules it generates. Use a project-owned
+  `release.MODULE.bazel` when the plugin is published independently.
+- Keep discovery within `GenerateArgs.Config.RepoRoot`.
 - For any physical directory walk, treat both `BUILD` and `BUILD.bazel`, plus
   configured valid BUILD filenames, as package boundaries. Propagate stat and
   walk errors into a non-destructive no-op; an unreadable boundary is not
@@ -44,7 +35,8 @@ Gazelle plugin is both a Go language extension and a standalone Bzlmod module.
   `language.ModuleAwareLanguage`. Resolve the canonical module name with the
   `moduleToApparentName` callback in `ApparentLoads`; a consumer may rename the
   repository. Retain the canonical name as the fallback when the callback
-  returns an empty string. As in `rules_docs_gazelle`, make legacy `Loads`
+  returns an empty string. The root Gazelle target passes the in-tree label
+  through the plugin's load-label flag. Make legacy `Loads`
   fail loudly so a new call path cannot silently emit the wrong repository
   name.
 - Keep rule kinds, names, source matching, loads, and imports deterministic.
@@ -76,7 +68,7 @@ Add focused Go tests patterned after
 - missing or irrelevant inputs, including the absence of an existing package
   when packages are a prerequisite;
 - workspace-root and nearest-package boundary behavior without escaping a
-  nested repository;
+  consumer workspace;
 - apparent repository-name mapping and the canonical fallback;
 - a real Gazelle merge that preserves every supported manual attribute;
 - input removal without accidental deletion; and
@@ -89,41 +81,22 @@ without initializing unrelated languages from the parent repository.
 
 ## Integrate with the monorepo
 
-1. Follow `bazel-nested-module` for `.bazelignore`, parent dependency and local
-   override entries, documentation aggregation, and project exclusions.
-2. Add the public language library to the `languages` of the root
-   `//:gazelle_bin`. Keep the plugin dependency development-only unless root
-   BUILD files load runtime symbols from that module.
-3. Register the new workspace in the `al-checks` runner. Update its
-   tests, documentation, workspace count, and expected command count so both
-   `build //...` and `test //...` run inside the module.
-4. Run the plugin against its own nested workspace when appropriate, then run
-   the root `//:gazelle` target. Inspect every generated diff, including files
-   outside the intended package, and fix the generator rather than accepting
-   unrelated churn. Run each generator again and require an empty second diff.
+1. Add the public language library to the root `gazelle_binary`.
+2. Set its local load label on the root Gazelle target. External consumers
+   use the plugin's module-aware load.
+3. Run the root Gazelle target over an affected scope. Review all generated
+   changes and repeat the run to verify that the output is stable.
 
 ## Verify with Bazel
 
-Invoke `bazel` directly. From the plugin workspace,
-update its lock and validate its complete, intentionally small graph:
+From the repository root, run the plugin tests and check its integration:
 
 ```sh
-bazel mod deps --lockfile_mode=update
-bazel test //...
-bazel build //...
-```
-
-From the repository root, update the parent lock when its module graph changed,
-run Gazelle, inspect the resulting diff, and validate the integration:
-
-```sh
-bazel mod deps --lockfile_mode=update
+bazel test //tools/rules_docs_gazelle/...
 bazel run //:gazelle
-bazel test //path/to/affected/package:all
-bazel build //path/to/affected/package:all
 bazel test //:buildifier_test
 ```
 
-Run root Gazelle a second time and confirm that it changes nothing. Finish with
-the `al-checks` skill when a new nested workspace was added. Update generated
-lockfiles through their owning Bazel commands.
+Update the root lock through `bazel mod deps --lockfile_mode=update` when
+module dependencies change. For a published plugin, build its executable and
+use it in a separate consumer workspace through its registry archive.

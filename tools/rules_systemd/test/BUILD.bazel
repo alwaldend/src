@@ -1,5 +1,5 @@
 load("@rules_python//python:defs.bzl", "py_binary")
-load("//systemd:defs.bzl", "systemd_run")
+load("//tools/rules_systemd/systemd:defs.bzl", "systemd_run")
 
 package(
     default_testonly = True,
@@ -26,5 +26,5 @@ systemd_run(
         "MemoryMax": "128M",
         "MemorySwapMax": "0",
     },
-    visibility = ["//:__pkg__"],
+    visibility = ["//tools/rules_systemd:__pkg__"],
 )

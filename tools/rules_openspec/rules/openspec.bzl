@@ -1,7 +1,7 @@
 """Validate owner-local OpenSpec workspaces with the root-pinned CLI."""
 
 load("@aspect_rules_js//js:defs.bzl", "js_library")
-load("@rules_openspec_npm//:@fission-ai/openspec/package_json.bzl", openspec = "bin")
+load("@rules_openspec_npm//tools/rules_openspec:@fission-ai/openspec/package_json.bzl", openspec = "bin")
 
 OPENSPEC_ENV = {
     "DO_NOT_TRACK": "1",

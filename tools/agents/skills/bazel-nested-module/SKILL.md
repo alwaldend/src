@@ -1,15 +1,17 @@
 ---
 name: bazel-nested-module
 description: >-
-  Create or update a standalone nested Bzlmod module under tools/ or projects/
-  and wire it into this monorepo. Use for owners with their own MODULE.bazel;
-  do not use for ordinary Bazel packages or Git submodules.
+  Configure an explicitly requested independent Bazel development workspace
+  with its own MODULE.bazel. Use repo-bazel for first-party rulesets and their
+  standalone release archives.
 ---
 
 # Create a nested Bazel module
 
-Follow the root `AGENTS.md` and the `repo-bazel` skill. Inspect all existing
-`tools/rules_*` modules before changing conventions shared by them.
+First-party rulesets in this checkout are root packages. Use the standalone
+release procedure in `repo-bazel` when consumers need a published module.
+Use this procedure only when development also requires an independent Bazel
+workspace.
 
 ## Create the standalone workspace
 
@@ -68,10 +70,9 @@ project path; the placement defaults below do not override it.
 
 - Add the nested directory to the root `.bazelignore` so root package
   discovery does not cross workspace boundaries.
-- Add the module's `bazel_dep` and `local_path_override` beside the other local
-  rules modules in `third_party/include.MODULE.bazel`. If parent targets use a
-  toolchain supplied by the module, register that toolchain there as well;
-  otherwise do not add a repository-wide registration.
+- If the parent consumes the module, declare the dependency and any needed
+  local override in the consuming component's `include.MODULE.bazel`. Register
+  its toolchain there only when the parent uses it.
 - Add its external `:docs` target to the owning tree's aggregate, such as
   `//tools:docs` for reusable rules or `//projects:docs` for a product module.
   Exclude the directory from local `subpackages()` expansion. A module under

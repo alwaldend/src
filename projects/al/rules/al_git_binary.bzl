@@ -1,7 +1,7 @@
 load("@bazel_skylib//lib:shell.bzl", "shell")
 
 def _impl(ctx):
-    git_toolchain = ctx.toolchains[Label("//rules:git_toolchain_type")]
+    git_toolchain = ctx.toolchains[Label("//projects/al/rules:git_toolchain_type")]
     script = ctx.actions.declare_file("{}.script.sh".format(ctx.label.name))
     args = [git_toolchain.git_path, "--git-dir", git_toolchain.git_dir] + ctx.attr.arguments
     script_content = """\
@@ -26,7 +26,7 @@ exec {arguments} "${{@}}"
 al_git_binary = rule(
     doc = "Run git binary",
     executable = True,
-    toolchains = [Label("//rules:git_toolchain_type")],
+    toolchains = [Label("//projects/al/rules:git_toolchain_type")],
     implementation = _impl,
     attrs = {
         "arguments": attr.string_list(

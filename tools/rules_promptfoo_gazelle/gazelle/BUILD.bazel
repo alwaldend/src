@@ -7,6 +7,7 @@ go_library(
     importpath = "git.alwaldend.com/alwaldend/src/projects/rules_promptfoo_gazelle/gazelle",
     visibility = ["//visibility:public"],
     deps = [
+        "@gazelle//config",
         "@gazelle//language",
         "@gazelle//rule",
     ],
@@ -18,12 +19,13 @@ go_test(
     srcs = ["gazelle_test.go"],
     data = [":gazelle_promptfoo_with_skills"],
     embed = [":gazelle"],
+    env = {"COMBINED_GAZELLE": "$(rlocationpath :gazelle_promptfoo_with_skills)"},
     deps = [
         "@gazelle//config",
         "@gazelle//language",
         "@gazelle//merger",
         "@gazelle//rule",
-        "@rules_go//go/tools/bazel",
+        "@rules_go//go/runfiles",
     ],
 )
 
@@ -38,6 +40,6 @@ gazelle_binary(
     testonly = True,
     languages = [
         ":gazelle",
-        "@rules_skill_gazelle//gazelle",
+        "//tools/rules_skill_gazelle/gazelle",
     ],
 )

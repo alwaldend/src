@@ -1,4 +1,4 @@
-load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
 
 docs_filegroup(
     name = "docs",
@@ -11,7 +11,7 @@ docs_filegroup(
     ),
     prefix = "content/docs/tools/rules_terraform/openspec",
     preserve_paths = True,
-    visibility = ["//:__pkg__"],
+    visibility = ["//tools/rules_terraform:__pkg__"],
 )
 
 filegroup(

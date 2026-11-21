@@ -8,3 +8,9 @@ bzl_library(
         "@rules_pkg//pkg:mappings.bzl",
     ],
 )
+
+filegroup(
+    name = "release_sources",
+    srcs = ["BUILD.bazel"] + glob(["*.bzl"]),
+    visibility = ["//visibility:public"],
+)

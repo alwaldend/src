@@ -1,5 +1,5 @@
-load("//skill:defs.bzl", "skill_library")
-load("//tests/analysis:fixtures.bzl", "fixture_files")
+load("//tools/rules_skills/skill:defs.bzl", "skill_library")
+load("//tools/rules_skills/tests/analysis:fixtures.bzl", "fixture_files")
 
 fixture_files(
     name = "generated_files",
@@ -17,5 +17,5 @@ skill_library(
     testonly = True,
     srcs = [":generated_files"],
     tags = ["manual"],
-    visibility = ["//tests/analysis:__pkg__"],
+    visibility = ["//tools/rules_skills/tests/analysis:__pkg__"],
 )

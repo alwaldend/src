@@ -1,14 +1,19 @@
 load("@com_alwaldend_src_pip//:requirements.bzl", "all_whl_requirements")
 load("@gazelle//:def.bzl", "DEFAULT_LANGUAGES", "gazelle", "gazelle_binary")
-load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_python_gazelle_plugin//manifest:defs.bzl", "gazelle_python_manifest")
 load("@rules_python_gazelle_plugin//modules_mapping:def.bzl", "modules_mapping")
+load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
 
 package(transitive_visibility = "//tools:transitive_consumers")
 
 gazelle(
     name = "gazelle",
-    args = ["-transitive_visibility_config=tools/transitive_visibility/transitive_visibility.toml"],
+    args = [
+        "-docs_load_label=//tools/rules_docs/docs:defs.bzl",
+        "-promptfoo_load_label=//tools/rules_promptfoo/promptfoo:defs.bzl",
+        "-skill_load_label=//tools/rules_skills/skill:defs.bzl",
+        "-transitive_visibility_config=tools/transitive_visibility/transitive_visibility.toml",
+    ],
     command = "fix",
     gazelle = ":gazelle_bin",
     visibility = ["//:__subpackages__"],
@@ -18,11 +23,11 @@ gazelle_binary(
     name = "gazelle_bin",
     languages = DEFAULT_LANGUAGES + [
         "@contrib_rules_jvm//java/gazelle",
-        "@rules_docs_gazelle//gazelle",
-        "@rules_promptfoo_gazelle//gazelle",
+        "//tools/rules_docs_gazelle/gazelle",
+        "//tools/rules_promptfoo_gazelle/gazelle",
         "@rules_python_gazelle_plugin//python:python",
-        "@rules_skill_gazelle//gazelle",
-        "@bazel_gazelle_enforce_transitive_visibility//pkg/gazelle",
+        "//tools/rules_skill_gazelle/gazelle",
+        "//projects/bazel_gazelle_enforce_transitive_visibility/pkg/gazelle",
     ],
     visibility = ["//:__subpackages__"],
 )

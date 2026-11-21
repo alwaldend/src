@@ -1,4 +1,4 @@
-load("//promptfoo:defs.bzl", "promptfoo_validate_test")
+load("//tools/rules_promptfoo/promptfoo:defs.bzl", "promptfoo_validate_test")
 
 promptfoo_validate_test(
     name = "validate_test",

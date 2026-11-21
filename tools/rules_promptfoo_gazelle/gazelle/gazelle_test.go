@@ -12,7 +12,7 @@ import (
 	"github.com/bazelbuild/bazel-gazelle/language"
 	"github.com/bazelbuild/bazel-gazelle/merger"
 	"github.com/bazelbuild/bazel-gazelle/rule"
-	"github.com/bazelbuild/rules_go/go/tools/bazel"
+	"github.com/bazelbuild/rules_go/go/runfiles"
 )
 
 func TestGenerateRules(t *testing.T) {
@@ -798,12 +798,9 @@ promptfoo_validate_test(
 }
 
 func TestCombinedGazelleCreatesFreshSkillPackage(t *testing.T) {
-	gazellePath, ok := bazel.FindBinary(
-		"gazelle",
-		"gazelle_promptfoo_with_skills",
-	)
-	if !ok {
-		t.Fatal("could not find combined Gazelle binary")
+	gazellePath, err := runfiles.Rlocation(os.Getenv("COMBINED_GAZELLE"))
+	if err != nil {
+		t.Fatalf("resolve combined Gazelle binary: %v", err)
 	}
 
 	repoRoot := t.TempDir()

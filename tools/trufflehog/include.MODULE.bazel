@@ -1,0 +1,10 @@
+bazel_dep(name = "protoc-gen-validate", version = "1.3.3")
+
+binary_toolchains = use_extension("//tools/rules_binary_toolchain/rules:binary_toolchain_extension.bzl", "binary_toolchain_extension")
+binary_toolchains.toolchains(
+    lock = "//projects/rules_trufflehog/third_party/com_github_trufflesecurity_trufflehog:binary_toolchain.json",
+    toolchains_map = {"trufflehog": "com_github_trufflesecurity_trufflehog"},
+)
+use_repo(binary_toolchains, "com_github_trufflesecurity_trufflehog")
+
+register_toolchains("@com_github_trufflesecurity_trufflehog//:all")

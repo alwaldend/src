@@ -1,15 +1,19 @@
 load("@bazel_skylib//rules:build_test.bzl", "build_test")
-load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("@rules_pkg//pkg:mappings.bzl", "pkg_files", "strip_prefix")
+load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
+load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
+
+package(transitive_visibility = "//tools:transitive_consumers")
 
 alias(
     name = "systemd_run",
-    actual = "//cmd/systemd_run",
+    actual = "//tools/rules_systemd/cmd/systemd_run",
     visibility = ["//visibility:public"],
 )
 
 build_test(
     name = "build_test",
-    targets = ["//test:probe"],
+    targets = ["//tools/rules_systemd/test:probe"],
 )
 
 docs_filegroup(
@@ -17,5 +21,41 @@ docs_filegroup(
     srcs = ["README.md"],
     prefix = "content/docs/tools/rules_systemd",
     visibility = ["//visibility:public"],
-    deps = ["//openspec:docs"],
+    deps = ["//tools/rules_systemd/openspec:docs"],
+)
+
+pkg_files(
+    name = "release_sources",
+    srcs = [
+        "//tools/rules_systemd/cmd/systemd_run:release_sources",
+        "//tools/rules_systemd/systemd:release_sources",
+    ],
+    strip_prefix = strip_prefix.from_root("tools/rules_systemd"),
+)
+
+pkg_files(
+    name = "release_metadata",
+    srcs = [
+        "README.md",
+        "go.mod",
+        "go.sum",
+        "release.BUILD.bazel",
+        "release.MODULE.bazel",
+        "//internal/license",
+    ],
+    renames = {
+        "release.BUILD.bazel": "BUILD.bazel",
+        "release.MODULE.bazel": "MODULE.bazel",
+        "//internal/license": "LICENSE.txt",
+    },
+)
+
+pkg_tar(
+    name = "release_archive",
+    srcs = [
+        ":release_metadata",
+        ":release_sources",
+    ],
+    out = "rules_systemd.tar.gz",
+    extension = "tar.gz",
 )

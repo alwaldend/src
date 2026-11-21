@@ -1,5 +1,5 @@
-load("@rules_al//:defs.bzl", "al_config", "al_inject")
 load("@rules_go//go:def.bzl", "go_test")
+load("//projects/al:defs.bzl", "al_config", "al_inject")
 
 al_inject(
     name = "cleanup",
@@ -50,16 +50,16 @@ go_test(
     data = [
         ":cleanup_config",
         ":cleanup_failure_config",
-        "@rules_al//:al",
+        "//projects/al",
     ],
     env = {
-        "AL_BINARY": "$(rlocationpath @rules_al//:al)",
+        "AL_BINARY": "$(rlocationpath //projects/al:al)",
         "CLEANUP_CONFIG": "$(rlocationpath :cleanup_config)",
         "CLEANUP_FAILURE_CONFIG": "$(rlocationpath :cleanup_failure_config)",
     },
     deps = [
+        "//projects/al/pkg/al",
         "@org_golang_google_protobuf//encoding/protojson",
-        "@rules_al//pkg/al",
         "@rules_go//go/runfiles",
     ],
 )

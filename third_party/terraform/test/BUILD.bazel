@@ -1,5 +1,5 @@
 load("@rules_go//go:def.bzl", "go_test")
-load("@rules_terraform//terraform:defs.bzl", "terraform_binary")
+load("//tools/rules_terraform/terraform:defs.bzl", "terraform_binary")
 
 package(transitive_visibility = "//third_party:transitive_consumers")
 

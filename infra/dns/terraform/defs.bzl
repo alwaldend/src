@@ -1,9 +1,9 @@
 """Bazel entry points for owner-local Terraform DNS roots."""
 
-load("@rules_al//:defs.bzl", "al_config")
-load("@rules_terraform//terraform:defs.bzl", "terraform_binary")
 load("//infra:al_config.bzl", "infra_dns")
+load("//projects/al:defs.bzl", "al_config")
 load("//tools/al:al_terraform.bzl", "al_terraform_package")
+load("//tools/rules_terraform/terraform:defs.bzl", "terraform_binary")
 load("//tools/vault/tf_backend:defs.bzl", "vault_tf_backend")
 
 def _terraform_file_impl(ctx):

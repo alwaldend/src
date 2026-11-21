@@ -2,11 +2,11 @@ load("@grpc-java//:java_grpc_library.bzl", "java_grpc_library")
 load("@protobuf//bazel:java_proto_library.bzl", "java_proto_library")
 load("@protobuf//bazel:proto_library.bzl", "proto_library")
 load("@protobuf//bazel:py_proto_library.bzl", "py_proto_library")
-load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_go//go:def.bzl", "go_binary", "go_library", "go_test")
 load("@rules_go//proto:def.bzl", "go_proto_library")
 load("@rules_java//java:defs.bzl", "java_library")
 load("//tools/proto/rules:al_proto_docs.bzl", "al_proto_docs")
+load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
 
 package(transitive_visibility = "//tools:transitive_consumers")
 
@@ -37,12 +37,12 @@ go_library(
     visibility = ["//:__subpackages__"],
     deps = [
         ":tf_backend_proto",
+        "//projects/al/api/al_proto",
+        "//projects/al/pkg/al",
+        "//projects/al/pkg/al_plugin",
+        "//projects/al/pkg/lifecycle",
         "@com_github_google_uuid//:uuid",
         "@com_github_hashicorp_vault_api//:api",
-        "@rules_al//api/al_proto",
-        "@rules_al//pkg/al",
-        "@rules_al//pkg/al_plugin",
-        "@rules_al//pkg/lifecycle",
     ],
 )
 
@@ -57,8 +57,8 @@ go_test(
     srcs = ["server_test.go"],
     embed = [":tf_backend_lib"],
     deps = [
-        "@rules_al//api/al_proto",
-        "@rules_al//pkg/al",
+        "//projects/al/api/al_proto",
+        "//projects/al/pkg/al",
     ],
 )
 

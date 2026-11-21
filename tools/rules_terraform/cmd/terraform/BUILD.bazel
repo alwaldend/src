@@ -1,5 +1,5 @@
-load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_go//go:def.bzl", "go_binary", "go_library", "go_test")
+load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
 
 go_library(
     name = "terraform_lib",
@@ -33,5 +33,5 @@ docs_filegroup(
     name = "docs",
     srcs = ["README.md"],
     prefix = "content/docs/tools/rules_terraform/cmd/terraform",
-    visibility = ["//:__pkg__"],
+    visibility = ["//tools/rules_terraform:__pkg__"],
 )

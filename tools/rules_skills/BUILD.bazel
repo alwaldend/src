@@ -1,21 +1,21 @@
 load("@bazel_skylib//rules:build_test.bzl", "build_test")
-load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("//skill:defs.bzl", "skill_library")
+load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
+load("//tools/rules_skills/skill:defs.bzl", "skill_library")
 
 skill_library(
     name = "root_skill_fixture",
     testonly = True,
     srcs = ["README.md"],
     tags = ["manual"],
-    visibility = ["//tests/analysis:__pkg__"],
+    visibility = ["//tools/rules_skills/tests/analysis:__pkg__"],
 )
 
 build_test(
     name = "build_test",
     targets = [
-        "//examples/example-skill:skill",
-        "//cmd/skill_validator:skill_validator",
-        "//skill:defs",
+        "//tools/rules_skills/examples/example-skill:skill",
+        "//tools/rules_skills/cmd/skill_validator:skill_validator",
+        "//tools/rules_skills/skill:defs",
     ],
 )
 

@@ -1,9 +1,9 @@
 """Build the complete search index before rendering the visitor-facing site."""
 
-load("@rules_hugo//pkg/bzl:al_hugo_site.bzl", "al_hugo_site")
-load("@rules_hugo//pkg/bzl:al_hugo_worker.bzl", "al_hugo_worker")
 load("@rules_pkg//pkg:mappings.bzl", "REMOVE_BASE_DIRECTORY", "pkg_files")
 load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
+load("//tools/rules_hugo/pkg/bzl:al_hugo_site.bzl", "al_hugo_site")
+load("//tools/rules_hugo/pkg/bzl:al_hugo_worker.bzl", "al_hugo_worker")
 
 def _compile_index_impl(ctx):
     output = ctx.actions.declare_directory(ctx.label.name + ".source")

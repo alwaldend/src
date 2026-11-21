@@ -276,7 +276,7 @@ promptfoo_runner_test = rule(
         ),
         "promptfoo": attr.label(
             cfg = "exec",
-            default = Label("//:promptfoo"),
+            default = Label("//tools/rules_promptfoo:promptfoo"),
             executable = True,
         ),
         "promptfoo_args": attr.string_list(

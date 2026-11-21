@@ -7,9 +7,9 @@ go_library(
         "git_info.go",
     ],
     importpath = "git.alwaldend.com/alwaldend/src/projects/al/internal/gitinfo",
-    visibility = ["//internal/release:__pkg__"],
+    visibility = ["//projects/al/internal/release:__pkg__"],
     deps = [
-        "//api/git",
+        "//projects/al/api/git",
         "@com_github_go_git_go_git_v5//:go-git",
         "@com_github_go_git_go_git_v5//plumbing",
         "@com_github_go_git_go_git_v5//plumbing/object",

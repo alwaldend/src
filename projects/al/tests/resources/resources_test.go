@@ -264,15 +264,14 @@ func TestBuiltinResourcesAndProviders(t *testing.T) {
 				cfg.Plugins = map[string]*al_proto.PluginCall{"ordinary_call": {Plugin: "injector", Labels: map[string]string{"fixture": "1"}}}
 			}
 			if mode == "env_override" {
-				other := *provider
+				other := proto.CloneOf(provider)
 				other.ResourceProvider = false
 				other.Labels = map[string]string{"fixture": "1"}
 				other.Env = map[string]string{"RESOURCE_ROLE": "provider", "RESOURCE_MODE": "startup_exports", "RESOURCE_STOPPED": stopped}
-				cfg.PluginConfigs["startup_defaults"] = &other
+				cfg.PluginConfigs["startup_defaults"] = other
 			}
 			if mode == "duplicate" {
-				other := *provider
-				cfg.PluginConfigs["other_provider"] = &other
+				cfg.PluginConfigs["other_provider"] = proto.CloneOf(provider)
 			}
 			if strings.HasPrefix(mode, "map_") {
 				base := cfg.Inject["resources"]

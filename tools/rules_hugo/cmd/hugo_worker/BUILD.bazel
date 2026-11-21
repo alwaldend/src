@@ -1,5 +1,5 @@
-load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_go//go:def.bzl", "go_binary")
+load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
 
 go_binary(
     name = "hugo_worker",

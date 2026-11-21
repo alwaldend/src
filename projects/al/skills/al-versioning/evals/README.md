@@ -10,4 +10,4 @@ release integrity failures.
 A live target is omitted because realistic evaluation requires a disposable
 Git repository, local ref mutations, and Bazel stamping. Offline validation
 does not claim that those operations work; deterministic behavior is covered
-by the Go tests under `@rules_al//internal/versioning/...`.
+by the Go tests under `//projects/al/internal/versioning/...`.

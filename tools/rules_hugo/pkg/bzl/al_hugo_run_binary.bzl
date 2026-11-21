@@ -2,7 +2,7 @@ load("@bazel_skylib//lib:shell.bzl", "shell")
 load(":al_hugo_site_info.bzl", "AlHugoSiteInfo")
 
 def _impl(ctx):
-    hugo = ctx.toolchains["//pkg/bzl:toolchain_type"]
+    hugo = ctx.toolchains["//tools/rules_hugo/pkg/bzl:toolchain_type"]
     site_info = ctx.attr.site[AlHugoSiteInfo]
     out_dir = ctx.actions.declare_directory(ctx.attr.out_dir)
     args = ctx.actions.args()
@@ -70,7 +70,7 @@ al_hugo_run_binary = rule(
     implementation = _impl,
     doc = "Build a Hugo site with the registered Hugo toolchain",
     toolchains = [
-        "//pkg/bzl:toolchain_type",
+        "//tools/rules_hugo/pkg/bzl:toolchain_type",
     ],
     attrs = {
         "outs": attr.output_list(

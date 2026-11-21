@@ -20,5 +20,5 @@ go_library(
 go_binary(
     name = "templater",
     embed = [":go_lib"],
-    visibility = ["//:__subpackages__"],
+    visibility = ["//tools/rules_template:__subpackages__"],
 )

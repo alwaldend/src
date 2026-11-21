@@ -2,11 +2,13 @@
 package gazelle
 
 import (
+	"flag"
 	"fmt"
 	"os"
 	"path/filepath"
 	"strings"
 
+	"github.com/bazelbuild/bazel-gazelle/config"
 	"github.com/bazelbuild/bazel-gazelle/language"
 	"github.com/bazelbuild/bazel-gazelle/rule"
 )
@@ -18,6 +20,8 @@ const (
 
 type docsLanguage struct {
 	language.BaseLang
+	// loadLabel overrides the published rule label for an in-tree checkout.
+	loadLabel string
 }
 
 var (
@@ -48,15 +52,24 @@ func (*docsLanguage) Loads() []rule.LoadInfo {
 	panic("ApparentLoads should be called instead")
 }
 
-func (*docsLanguage) ApparentLoads(
+// RegisterFlags allows a consumer workspace to select an in-tree rule label.
+func (lang *docsLanguage) RegisterFlags(flags *flag.FlagSet, _ string, _ *config.Config) {
+	flags.StringVar(&lang.loadLabel, "docs_load_label", "", "Bazel label for the docs rule definitions")
+}
+
+func (lang *docsLanguage) ApparentLoads(
 	moduleToApparentName func(string) string,
 ) []rule.LoadInfo {
 	rulesDocs := moduleToApparentName("rules_docs")
 	if rulesDocs == "" {
 		rulesDocs = "rules_docs"
 	}
+	loadLabel := lang.loadLabel
+	if loadLabel == "" {
+		loadLabel = fmt.Sprintf("@%s//docs:defs.bzl", rulesDocs)
+	}
 	return []rule.LoadInfo{{
-		Name:    fmt.Sprintf("@%s//docs:defs.bzl", rulesDocs),
+		Name:    loadLabel,
 		Symbols: []string{docsKind},
 	}}
 }

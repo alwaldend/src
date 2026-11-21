@@ -73,7 +73,8 @@ Explicit build-support package exceptions are therefore an approximation.
 Starlark `load()` edges are separate. Use `--notool_deps` when querying the
 ordinary dependency graph; that query option does not change build enforcement.
 
-From this module, run `bazel test //...` to exercise the real
+From the monorepo root, run
+`bazel test //projects/bazel_gazelle_enforce_transitive_visibility/...` to exercise the real
 Gazelle command. The tests preserve generated BUILD files and a summary under
 Bazel's undeclared test outputs.
 

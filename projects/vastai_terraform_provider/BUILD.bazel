@@ -1,9 +1,9 @@
-load("@rules_al//:defs.bzl", "al_config", "al_inject", "al_vault_auth")
-load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_pkg//pkg:mappings.bzl", "pkg_attributes", "pkg_files")
 load("@rules_pkg//pkg:zip.bzl", "pkg_zip")
-load("@rules_terraform//terraform:providers.bzl", "terraform_provider")
+load("//projects/al:defs.bzl", "al_config", "al_inject", "al_vault_auth")
 load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_diagram")
+load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
+load("//tools/rules_terraform/terraform:providers.bzl", "terraform_provider")
 load("//tools/vault:defs.bzl", "vault_binary_map")
 load("//tools/vault/tf_backend:defs.bzl", "vault_tf_backend")
 

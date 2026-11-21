@@ -1,4 +1,4 @@
-load("//terraform:defs.bzl", "terraform_test")
+load("//tools/rules_terraform/terraform:defs.bzl", "terraform_test")
 
 terraform_test(
     name = "builtin_test",

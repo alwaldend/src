@@ -2,7 +2,7 @@
 
 load("@bazel_skylib//lib:unittest.bzl", "analysistest", "asserts")
 load(
-    "//promptfoo/internal:workspace.bzl",
+    "//tools/rules_promptfoo/promptfoo/internal:workspace.bzl",
     "PromptfooWorkspaceInfo",
 )
 
@@ -11,12 +11,12 @@ def _workspace_test_impl(ctx):
     target = analysistest.target_under_test(env)
     workspace = target[PromptfooWorkspaceInfo]
 
-    asserts.equals(env, ["fixture_skill"], workspace.skill_names)
+    asserts.equals(env, ["fixture-skill"], workspace.skill_names)
     asserts.equals(
         env,
         [
-            ".agents/skills/fixture_skill/SKILL.md",
-            ".agents/skills/fixture_skill/reference.txt",
+            ".agents/skills/fixture-skill/SKILL.md",
+            ".agents/skills/fixture-skill/reference.txt",
         ],
         sorted(workspace.files_by_path.keys()),
     )
@@ -30,7 +30,7 @@ def _workspace_failure_test_impl(ctx):
     env = analysistest.begin(ctx)
     asserts.expect_failure(
         env,
-        "promptfoo workspace has duplicate skill name \"fixture_skill\"",
+        "promptfoo workspace has duplicate skill name \"fixture-skill\"",
     )
     return analysistest.end(env)
 

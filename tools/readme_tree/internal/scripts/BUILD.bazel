@@ -1,4 +1,4 @@
-load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
 load("//tools/sh/rules:al_sh_library.bzl", "al_sh_library")
 
 package(transitive_visibility = "//tools:transitive_consumers")

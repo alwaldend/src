@@ -1,1 +1,7 @@
 exports_files(["defs.bzl"])
+
+filegroup(
+    name = "release_sources",
+    srcs = ["BUILD.bazel"] + glob(["*.bzl"]),
+    visibility = ["//visibility:public"],
+)

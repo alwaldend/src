@@ -1,6 +1,15 @@
+binary_toolchains = use_extension("//tools/rules_binary_toolchain/rules:binary_toolchain_extension.bzl", "binary_toolchain_extension")
+binary_toolchains.toolchains(
+    lock = "//tools/rules_terraform/terraform:binary_toolchain.json",
+    toolchains_map = {"terraform": "rules_terraform_cli"},
+)
+use_repo(binary_toolchains, "rules_terraform_cli")
+
+register_toolchains("@rules_terraform_cli//:all")
+
 # Provider releases and SHA256 integrity verified against publisher checksums.
 # One shared version per source; targets select a subset by provider label.
-terraform_providers = use_extension("@rules_terraform//:extensions.bzl", "terraform_providers")
+terraform_providers = use_extension("//tools/rules_terraform:extensions.bzl", "terraform_providers")
 terraform_providers.archive(
     name = "terraform_provider_batonogov_threexui",
     integrity = "sha256-MZ6Ob9jwRs9hRD2szLhjoEODy2FJsd+BtFTTF260d2s=",

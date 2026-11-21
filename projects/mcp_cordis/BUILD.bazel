@@ -4,7 +4,7 @@ load(
     "@com_alwaldend_src_projects_mcp_cordis_npm//:defs.bzl",
     "npm_link_all_packages",
 )
-load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
 
 package(
     default_visibility = ["//visibility:private"],

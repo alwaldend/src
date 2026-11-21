@@ -5,6 +5,7 @@ load("@rules_go//proto:def.bzl", "go_proto_library")
 proto_library(
     name = "git_proto",
     srcs = ["contracts.proto"],
+    strip_import_prefix = "/projects/al",
     visibility = ["//visibility:public"],
 )
 
@@ -19,5 +20,5 @@ go_library(
     srcs = ["doc.go"],
     embed = [":git_go_proto"],
     importpath = "git.alwaldend.com/alwaldend/src/projects/al/api/git",
-    visibility = ["//:__subpackages__"],
+    visibility = ["//projects/al:__subpackages__"],
 )

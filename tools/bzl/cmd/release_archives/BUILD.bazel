@@ -1,0 +1,14 @@
+load("@rules_go//go:def.bzl", "go_binary")
+
+package(transitive_visibility = "//tools:transitive_consumers")
+
+go_binary(
+    name = "release_archives",
+    srcs = [
+        "doc.go",
+        "layout.go",
+        "main.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/tools/bzl/cmd/release_archives",
+    deps = ["@com_github_spf13_cobra//:cobra"],
+)

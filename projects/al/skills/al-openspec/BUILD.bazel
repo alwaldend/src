@@ -1,6 +1,6 @@
-load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("@rules_promptfoo//promptfoo:defs.bzl", "promptfoo_validate_test")
-load("@rules_skills//skill:defs.bzl", "skill_library")
+load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
+load("//tools/rules_promptfoo/promptfoo:defs.bzl", "promptfoo_validate_test")
+load("//tools/rules_skills/skill:defs.bzl", "skill_library")
 
 skill_library(
     name = "skill",
@@ -18,7 +18,7 @@ skill_library(
 docs_filegroup(
     name = "docs",
     srcs = ["SKILL.md"],
-    visibility = ["//:__pkg__"],
+    visibility = ["//projects/al:__pkg__"],
 )
 
 promptfoo_validate_test(

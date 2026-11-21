@@ -1,7 +1,7 @@
 """Analysis checks for public operation maps and caller-owned wrappers."""
 
 load("@bazel_skylib//lib:unittest.bzl", "analysistest", "asserts")
-load("//terraform:defs.bzl", "TerraformRunInfo")
+load("//tools/rules_terraform/terraform:defs.bzl", "TerraformRunInfo")
 
 _InvocationInfo = provider("Observed Terraform invocation attributes.", fields = ["arguments", "kind", "testonly"])
 _WrapperInfo = provider("Observed caller wrapper attributes and dependencies.", fields = ["arguments", "data", "mode", "size"])

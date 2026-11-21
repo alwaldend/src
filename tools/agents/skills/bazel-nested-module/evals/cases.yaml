@@ -1,7 +1,7 @@
 - description: Creates and integrates a standalone nested Bzlmod workspace
   vars:
     request: >-
-      Add a public rules_widget Bazel module under tools, integrate it with
+      Add tools/rules_widget with an independent development MODULE.bazel. Integrate it with
       the parent repository, generate any required BUILD files, and verify the
       result without publishing it.
   assert:
@@ -39,7 +39,7 @@
 - description: Respects the requested path and permits existing dependency declarations
   vars:
     request: >-
-      Make projects/rules_widget a proper standalone rules project. Reuse only
+      Give projects/rules_widget an independent Bazel development workspace. Reuse only
       existing repository dependency pins and integrate its module and locks.
   assert:
     - type: llm-rubric

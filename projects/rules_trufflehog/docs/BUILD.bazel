@@ -1,4 +1,4 @@
-load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
 
 exports_files(["scan.mmd"])
 
@@ -6,5 +6,5 @@ docs_filegroup(
     name = "docs",
     srcs = ["scan.mmd"],
     prefix = "content/docs/projects/rules_trufflehog/docs",
-    visibility = ["//:__pkg__"],
+    visibility = ["//projects/rules_trufflehog:__pkg__"],
 )

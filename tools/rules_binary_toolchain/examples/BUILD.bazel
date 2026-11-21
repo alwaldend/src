@@ -1,9 +1,9 @@
-load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
 
 exports_files(["binary_toolchain.json"])
 
 docs_filegroup(
     name = "docs",
     srcs = glob(["*.md"]),
-    visibility = ["//:__pkg__"],
+    visibility = ["//tools/rules_binary_toolchain:__pkg__"],
 )

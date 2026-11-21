@@ -1,4 +1,4 @@
-load("//skill:defs.bzl", "skill_archives")
+load("//tools/rules_skills/skill:defs.bzl", "skill_archives")
 
 skill_archives(
     name = "archive_skills",
@@ -6,5 +6,5 @@ skill_archives(
         "skills/alpha",
         "skills/beta",
     ],
-    visibility = ["//tests/analysis:__pkg__"],
+    visibility = ["//tools/rules_skills/tests/analysis:__pkg__"],
 )

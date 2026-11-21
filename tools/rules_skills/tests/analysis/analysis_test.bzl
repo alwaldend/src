@@ -1,11 +1,13 @@
 """Analysis tests for skill_library and skill_validation_aspect."""
 
 load("@bazel_skylib//lib:unittest.bzl", "analysistest", "asserts")
-load("//skill:defs.bzl", "SkillInfo", "skill_validation_aspect")
+load("//tools/rules_skills/skill:defs.bzl", "SkillInfo", "skill_validation_aspect")
 load(
-    "//skill/internal:skills_write.bzl",
+    "//tools/rules_skills/skill/internal:skills_write.bzl",
     "SkillsWriteInfo",
 )
+
+_PACKAGE = Label(":BUILD.bazel").package
 
 def _package_path(file):
     return "{}/{}".format(file.owner.package, file.owner.name)
@@ -18,13 +20,13 @@ def _skill_library_files_test_impl(ctx):
     target = analysistest.target_under_test(env)
     skill = target[SkillInfo]
     expected = [
-        "tests/analysis/SKILL.md",
-        "tests/analysis/agents/openai.yaml",
-        "tests/analysis/reference.txt",
+        _PACKAGE + "/SKILL.md",
+        _PACKAGE + "/agents/openai.yaml",
+        _PACKAGE + "/reference.txt",
     ]
 
     asserts.equals(env, "analysis", skill.name)
-    asserts.equals(env, "tests/analysis", skill.root)
+    asserts.equals(env, _PACKAGE, skill.root)
     asserts.equals(
         env,
         ["SKILL.md", "agents/openai.yaml", "reference.txt"],
@@ -32,11 +34,11 @@ def _skill_library_files_test_impl(ctx):
     )
     asserts.equals(env, expected, _package_paths(skill.files))
     asserts.equals(env, expected, _package_paths(target[DefaultInfo].files))
-    asserts.equals(env, "tests/analysis/SKILL.md", _package_path(skill.skill))
+    asserts.equals(env, _PACKAGE + "/SKILL.md", _package_path(skill.skill))
     asserts.equals(env, skill.skill, skill.files_by_path["SKILL.md"])
     asserts.equals(
         env,
-        "tests/analysis/agents/openai.yaml",
+        _PACKAGE + "/agents/openai.yaml",
         _package_path(skill.openai_yaml),
     )
     asserts.equals(
@@ -64,8 +66,8 @@ def _skill_library_without_openai_test_impl(ctx):
     asserts.equals(
         env,
         [
-            "tests/analysis/SKILL.md",
-            "tests/analysis/reference.txt",
+            _PACKAGE + "/SKILL.md",
+            _PACKAGE + "/reference.txt",
         ],
         _package_paths(skill.files),
     )
@@ -81,7 +83,7 @@ def _skill_library_generated_files_test_impl(ctx):
     skill = target[SkillInfo]
 
     asserts.equals(env, "generated", skill.name)
-    asserts.equals(env, "tests/analysis/generated", skill.root)
+    asserts.equals(env, _PACKAGE + "/generated", skill.root)
     asserts.equals(
         env,
         ["SKILL.md", "agents/openai.yaml", "reference.txt"],

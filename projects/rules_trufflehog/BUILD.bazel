@@ -1,7 +1,7 @@
 load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
 load("@bazel_skylib//rules:build_test.bzl", "build_test")
-load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@stardoc//stardoc:stardoc.bzl", "stardoc")
+load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
 load(":defs.bzl", "trufflehog_test")
 
 alias(
@@ -28,16 +28,16 @@ build_test(
     targets = [
         ":defs",
         ":trufflehog",
-        "//cmd/scan:scan",
+        "//projects/rules_trufflehog/cmd/scan:scan",
     ],
 )
 
 trufflehog_test(
     name = "rule_test",
     allowlist = "test/fixture_allowlist.json",
-    git = "//test/fixture_scanner:scanner",
+    git = "//projects/rules_trufflehog/test/fixture_scanner:scanner",
     repository_marker = "README.md",
-    scanner = "//test/fixture_scanner:scanner",
+    scanner = "//projects/rules_trufflehog/test/fixture_scanner:scanner",
 )
 
 docs_filegroup(
@@ -49,7 +49,7 @@ docs_filegroup(
     prefix = "content/docs/projects/rules_trufflehog",
     visibility = ["//visibility:public"],
     deps = [
-        "//docs",
-        "//test/e2e:docs",
+        "//projects/rules_trufflehog/docs",
+        "//projects/rules_trufflehog/test/e2e:docs",
     ],
 )

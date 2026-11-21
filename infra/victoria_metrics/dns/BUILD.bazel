@@ -1,6 +1,6 @@
-load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("@rules_template//rules:template_run_binary.bzl", "template_run_binary")
 load("//infra/dns/terraform:defs.bzl", "infra_terraform_dns")
+load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
+load("//tools/rules_template/rules:template_run_binary.bzl", "template_run_binary")
 
 package(transitive_visibility = "//infra:transitive_consumers")
 

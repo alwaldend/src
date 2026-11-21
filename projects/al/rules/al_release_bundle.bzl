@@ -52,7 +52,7 @@ al_release_bundle = rule(
         "deps": attr.label_list(providers = [AlReleaseFilesInfo], doc = "Existing project release payload sets."),
         "project": attr.string(mandatory = True, doc = "Canonical project subdirectory."),
         "release_tool": attr.label(
-            default = Label("//cmd/al:al"),
+            default = Label("//projects/al/cmd/al:al"),
             executable = True,
             cfg = "exec",
             doc = "Manifest generator and bundle writer.",

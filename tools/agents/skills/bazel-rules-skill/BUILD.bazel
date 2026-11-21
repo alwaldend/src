@@ -1,8 +1,8 @@
 load(
-    "@rules_promptfoo//promptfoo:defs.bzl",
+    "//tools/rules_promptfoo/promptfoo:defs.bzl",
     "promptfoo_validate_test",
 )
-load("@rules_skills//skill:defs.bzl", "skill_library")
+load("//tools/rules_skills/skill:defs.bzl", "skill_library")
 
 package(transitive_visibility = "//tools:transitive_consumers")
 

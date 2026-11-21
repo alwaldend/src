@@ -1,0 +1,8 @@
+load("//tools/rules_skills/skill:defs.bzl", "skill_library")
+
+skill_library(
+    name = "skill",
+    testonly = True,
+    srcs = ["SKILL.md"],
+    visibility = ["//tools/rules_promptfoo/tests/analysis:__pkg__"],
+)
