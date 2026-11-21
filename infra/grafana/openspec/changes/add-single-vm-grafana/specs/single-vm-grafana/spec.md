@@ -48,3 +48,13 @@ The guest SHALL admit shared ingress HTTPS from the ingress peer address.
 
 - **WHEN** shared ingress connects to the dedicated backend hostname
 - **THEN** the guest serves HTTPS for the existing Grafana service hostname
+
+### Requirement: Repository-owned dashboards
+
+The Grafana Terraform root SHALL manage a VictoriaMetrics data source
+and place dashboards in folders matching their owning repository paths.
+
+#### Scenario: Apply dashboard configuration
+
+- **WHEN** an operator applies the Grafana configuration with the required Vault credentials
+- **THEN** Grafana contains the shared data source and dashboards under their repository sections and projects

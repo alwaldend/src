@@ -12,10 +12,14 @@ data "vault_identity_group" "operators" {
 }
 
 module "approle" {
-  source                   = "../../../projects/tf_modules/vault_approle"
-  name                     = local.name
-  member_group_ids         = [data.vault_identity_group.operators.group_id]
-  policies                 = [module.dns.policy_name, module.ssh.policy]
+  source           = "../../../projects/tf_modules/vault_approle"
+  name             = local.name
+  member_group_ids = [data.vault_identity_group.operators.group_id]
+  policies = [
+    module.dns.policy_name,
+    module.ssh.policy,
+    vault_policy.victoria_metrics_read.name,
+  ]
   secrets                  = "secrets"
   disable_yc_folder_policy = true
   backend                  = data.vault_auth_backend.approle.path

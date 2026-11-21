@@ -2,6 +2,12 @@ load("//tools/ansible/rules:al_ansible_package.bzl", "al_ansible_package")
 
 package(transitive_visibility = "//infra:transitive_consumers")
 
+filegroup(
+    name = "monitoring_overview",
+    srcs = ["files/monitoring-overview.json"],
+    visibility = ["//infra/grafana/tf:__pkg__"],
+)
+
 al_ansible_package(
     name = "ansible",
     srcs = [

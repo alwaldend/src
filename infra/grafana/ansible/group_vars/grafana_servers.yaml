@@ -5,6 +5,7 @@ ssh_valid_principals:
   - "{{ grafana_hostname }}"
 
 grafana_http_port: 3000
+grafana_feature_toggles: [nestedFolders]
 grafana_admin_password_src: "{{ lookup('ansible.builtin.env', 'GRAFANA_ADMIN_PASSWORD_FILE', default=undef()) }}"
 grafana_secret_key_src: "{{ lookup('ansible.builtin.env', 'GRAFANA_SECRET_KEY_FILE', default=undef()) }}"
 grafana_oidc_client_id: "{{ lookup('ansible.builtin.env', 'GRAFANA_OIDC_CLIENT_ID', default=undef()) }}"

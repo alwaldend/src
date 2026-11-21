@@ -44,6 +44,14 @@ terraform_providers.archive(
     version = "3.12.0",
 )
 terraform_providers.archive(
+    name = "terraform_provider_grafana_grafana",
+    integrity = "sha256-v3gW+C92Raqal1hNmZZUuUilW6OERLRMUpUQ4mu0F0c=",
+    platform = "linux_amd64",
+    source = "registry.terraform.io/grafana/grafana",
+    urls = ["https://github.com/grafana/terraform-provider-grafana/releases/download/v4.53.0/terraform-provider-grafana_4.53.0_linux_amd64.zip"],
+    version = "4.53.0",
+)
+terraform_providers.archive(
     name = "terraform_provider_hashicorp_external",
     integrity = "sha256-hoaK7AW1jcCqGQRkaiwmuTZ9abiQya1wwzwNOqexSFo=",
     platform = "linux_amd64",
@@ -137,6 +145,7 @@ use_repo(
     "terraform_provider_cloudflare_cloudflare",
     "terraform_provider_gitlabhq_gitlab",
     "terraform_provider_goharbor_harbor",
+    "terraform_provider_grafana_grafana",
     "terraform_provider_hashicorp_external",
     "terraform_provider_hashicorp_local",
     "terraform_provider_hashicorp_random",

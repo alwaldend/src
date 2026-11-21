@@ -24,6 +24,9 @@ certificate. Shared ingress verifies the guest's Vault-issued certificate
 and forwards traffic through the dedicated `dc1.grafana.alwaldend.com`
 backend name. Grafana still requires application sign-in.
 
+Manage the VictoriaMetrics data source and repository dashboards through the
+[Grafana Terraform root](tf/README.md).
+
 ## Deployment
 
 1. Review and apply the [Grafana Vault AppRole](approle/README.md),
