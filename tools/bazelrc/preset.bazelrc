@@ -2,12 +2,6 @@
 # To update this file, run:
 #   bazel run @@//tools/bazelrc:preset.update
 
-# On CI, announce all announces command options read from the bazelrc file(s) when starting up at the
-# beginning of each Bazel invocation. This is very useful on CI to be able to inspect which flags
-# are being applied on each run based on the order of overrides.
-common:ci --announce_rc
-# Docs: https://registry.build/flag/bazel@9.3.1?filter=announce_rc
-
 # Avoid creating a runfiles tree for binaries or tests until it is needed.
 # See https://github.com/bazelbuild/bazel/issues/6627
 # This may break local workflows that `build` a binary target, then run the resulting program outside of `bazel run`.
@@ -32,10 +26,6 @@ common:ruleset --check_direct_dependencies="off"
 # On CI, use colors to highlight output on the screen. Set to `no` if your CI does not display colors.
 common:ci --color="yes"
 # Docs: https://registry.build/flag/bazel@9.3.1?filter=color
-
-# Keep CI output readable in line-oriented build logs.
-common:ci --curses="no"
-# Docs: https://registry.build/flag/bazel@9.3.1?filter=curses
 
 # Bazel picks up host-OS-specific config lines from bazelrc files. For example, if the host OS is
 # Linux and you run bazel build, Bazel picks up lines starting with build:linux. Supported OS
@@ -104,19 +94,6 @@ common --incompatible_modify_execution_info_additive
 common:ci --lockfile_mode="error"
 # Docs: https://registry.build/flag/bazel@9.3.1?filter=lockfile_mode
 
-# On CI, don't download remote outputs to the local machine.
-# Most CI pipelines don't need to access the files and they can remain at rest on the remote cache.
-# Significant time can be spent on needless downloads, which is especially noticeable on fully-cached builds.
-#
-# If you do need to download files, the fastest options are:
-# - (preferred) Use `remote_download_regex` to specify the files to download.
-# - Use the Remote Output Service (https://blog.bazel.build/2024/07/23/remote-output-service.html)
-# to lazy-materialize specific files after the build completes.
-# - Perform a second bazel command with specific targets and override this flag with the `toplevel` value.
-# - To copy executable targets, you can use `bazel run --run_under=cp //some:binary_target <destination path>`.
-common:ci --remote_download_outputs="minimal"
-# Docs: https://registry.build/flag/bazel@9.3.1?filter=remote_download_outputs
-
 # On CI, fall back to standalone local execution strategy if remote execution fails.
 # Otherwise, when a grpc remote cache connection fails, it would fail the build.
 common:ci --remote_local_fallback
@@ -157,12 +134,6 @@ common --reuse_sandbox_directories
 common --nosandbox_default_allow_network
 # Docs: https://registry.build/flag/bazel@9.3.1?filter=sandbox_default_allow_network
 
-# Only show progress every 60 seconds on CI.
-# We want to find a compromise between printing often enough to show that the build isn't stuck,
-# but not so often that we produce a long log file that requires a lot of scrolling.
-common:ci --show_progress_rate_limit=60
-# Docs: https://registry.build/flag/bazel@9.3.1?filter=show_progress_rate_limit
-
 # The printed files are convenient strings for copy+pasting to the shell, to execute them.
 # This option requires an integer argument, which is the threshold number of targets above which result information is not printed.
 # Show the output files created by builds that requested more than one target.
@@ -174,10 +145,6 @@ common --show_result=20
 # This makes it easier to reason about what were the slowest steps on CI.
 common:ci --show_timestamps
 # Docs: https://registry.build/flag/bazel@9.3.1?filter=show_timestamps
-
-# The terminal width in columns. Configure this to override the default value based on what your CI system renders.
-common:ci --terminal_columns=143
-# Docs: https://registry.build/flag/bazel@9.3.1?filter=terminal_columns
 
 # Output test errors to stderr so users don't have to `cat` or open test failure log files when test fail.
 # This makes the log noisier in exchange for reducing the time-to-feedback on test failures for users.

@@ -1,6 +1,12 @@
 const { execFileSync, spawnSync } = require("node:child_process");
-const { existsSync, mkdirSync, realpathSync } = require("node:fs");
-const { userInfo } = require("node:os");
+const {
+    existsSync,
+    mkdirSync,
+    mkdtempSync,
+    realpathSync,
+    rmSync,
+} = require("node:fs");
+const { tmpdir, userInfo } = require("node:os");
 const { isAbsolute, join, relative, sep } = require("node:path");
 
 function contains(parent, child) {
@@ -83,21 +89,60 @@ function prepareStableCheckout(source, destination, revision) {
     return destination;
 }
 
+function withLogGroup(title, operation) {
+    if (process.env.FORGEJO_ACTIONS !== "true") {
+        return operation();
+    }
+    console.log(`##[group]${title}`);
+    try {
+        return operation();
+    } finally {
+        console.log("\n##[endgroup]");
+    }
+}
+
 function run(workspace, spawn = spawnSync) {
     if (!workspace) {
         console.error("Repository CI requires a checked-out GITHUB_WORKSPACE");
         return 1;
     }
-    const result = spawn("bazel", ["run", "--config=ci", "//tools/ci"], {
+    const options = {
         cwd: workspace,
         stdio: "inherit",
         shell: false,
-    });
-    if (result.error) {
-        console.error("Repository CI could not start Bazel");
-        return 1;
+    };
+    const directory = mkdtempSync(join(tmpdir(), "repository-ci-"));
+    const launcher = join(directory, "ci");
+    try {
+        const buildStatus = withLogGroup("Build repository CI command", () => {
+            const result = spawn(
+                "bazel",
+                [
+                    "run",
+                    "--config=ci",
+                    `--script_path=${launcher}`,
+                    "//tools/ci",
+                ],
+                options,
+            );
+            if (result.error) {
+                console.error("Repository CI could not start Bazel");
+                return 1;
+            }
+            return result.status ?? 1;
+        });
+        if (buildStatus !== 0) {
+            return buildStatus;
+        }
+        const result = spawn(launcher, [], options);
+        if (result.error) {
+            console.error("Repository CI could not start its launcher");
+            return 1;
+        }
+        return result.status ?? 1;
+    } finally {
+        rmSync(directory, { recursive: true, force: true });
     }
-    return result.status ?? 1;
 }
 
 if (require.main === module) {
@@ -111,10 +156,12 @@ if (require.main === module) {
                 );
             }
             const home = realpathSync(userInfo().homedir);
-            workspace = prepareStableCheckout(
-                workspace,
-                join(home, ".cache", "repository-ci", repository),
-                process.env.GITHUB_SHA,
+            workspace = withLogGroup("Prepare repository checkout", () =>
+                prepareStableCheckout(
+                    workspace,
+                    join(home, ".cache", "repository-ci", repository),
+                    process.env.GITHUB_SHA,
+                ),
             );
             process.env.GITHUB_WORKSPACE = workspace;
             process.env.FORGEJO_WORKSPACE = workspace;

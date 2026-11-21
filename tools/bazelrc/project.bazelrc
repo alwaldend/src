@@ -53,6 +53,8 @@ common --keep_going
 build --legacy_external_runfiles
 # The terminal width in columns. Configure this to override the default value based on what your CI system renders.
 common:ci --terminal_columns=79
+# Keep the CI log line-oriented and focused on warnings, errors, and test results.
+common:ci --curses=no --noshow_progress --show_result=0
 # If a command fails, print out the full command line.
 build --verbose_failures
 # Do not delete the sandbox
