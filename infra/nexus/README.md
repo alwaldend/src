@@ -17,5 +17,5 @@ database behavior belongs to `projects/ansible_collection`; Vault identities
 and XO grants remain with `infra/vault` and `infra/xcp_ng`. Traefik owns ingress.
 
 The current Bazel targets package documentation and OpenSpec sources only.
-The owner is registered in the repository's OpenSpec validation suite.
+Run `bazel test //infra/nexus/openspec:validate_test` to validate this workspace.
 Implementation and live infrastructure operations require later user requests.

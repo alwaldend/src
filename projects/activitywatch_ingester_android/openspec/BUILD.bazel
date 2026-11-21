@@ -1,18 +1,18 @@
 load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
-load("//tools/rules_openspec/rules:workspace.bzl", "openspec_workspace")
+load("//tools/rules_openspec/rules:defs.bzl", "openspec_validate_test", "openspec_workspace")
 
 package(transitive_visibility = "//projects:transitive_consumers")
 
 openspec_workspace(
     name = "source",
-    srcs = ["config.yaml"] + glob(
+    srcs = glob(
         [
             "specs/**/*.md",
             "changes/**",
         ],
         allow_empty = True,
     ),
-    visibility = ["//infra/src/openspec/validation"],
+    config = "config.yaml",
 )
 
 docs_filegroup(
@@ -26,4 +26,9 @@ docs_filegroup(
     ),
     preserve_paths = True,
     visibility = ["//projects/activitywatch_ingester_android:__pkg__"],
+)
+
+openspec_validate_test(
+    name = "validate_test",
+    source = ":source",
 )

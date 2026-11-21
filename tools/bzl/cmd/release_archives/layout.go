@@ -78,3 +78,13 @@ func archiveLabels(owner string, modules map[string]string) *strings.Replacer {
 func containsBazelLabels(name string) bool {
 	return path.Base(name) == "BUILD" || strings.HasSuffix(name, ".bazel") || strings.HasSuffix(name, ".bzl")
 }
+
+// monorepoOpenSpecVisibility identifies the generated package directive for a
+// monorepo tree whose package group is outside the archived module.
+var monorepoOpenSpecVisibility = regexp.MustCompile(`(?m)^package\(transitive_visibility = "//(?:projects|tools):transitive_consumers"\)\n(?:\n|$)`)
+
+// relocateOpenSpecPackage removes the reference to the enclosing monorepo's
+// package group while preserving the module's own OpenSpec targets and visibility.
+func relocateOpenSpecPackage(source string) string {
+	return monorepoOpenSpecVisibility.ReplaceAllString(source, "")
+}

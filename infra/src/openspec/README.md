@@ -24,23 +24,24 @@ The [pinned CLI](../../../tools/rules_openspec/README.md) runs from the Git work
 root. It selects `infra/src` by default; use `OPENSPEC_PROJECT` for a component:
 
 ```sh
-al bazel run //tools/openspec -- list --specs
-OPENSPEC_PROJECT=tools/agents al bazel run //tools/openspec -- list
-OPENSPEC_PROJECT=infra/vault al bazel run //tools/openspec -- list --specs
+bazel run //tools/openspec -- list --specs
+OPENSPEC_PROJECT=tools/agents bazel run //tools/openspec -- list
+OPENSPEC_PROJECT=infra/vault bazel run //tools/openspec -- list --specs
 ```
 
 Use `new change`, `status`, `instructions`, `validate`, and `archive` with the
-same owner selection. The packaged [Repository OpenSpec skill](../../../tools/openspec/skills/al-openspec/SKILL.md)
+same owner selection. The packaged [Repository OpenSpec skill](../../../projects/al/skills/al-openspec/SKILL.md)
 documents continuation and acceptance. No global install or assistant
 configuration rewrite is needed. The CLI isolates configuration and disables
 telemetry.
 
-Repository validation checks every component workspace as well as this one:
+Run strict validation for this workspace with its local Bazel test.
 
 ```sh
-al bazel test //infra/src/openspec/validation:validate_test //infra/src/openspec/validation:archive_test
+bazel test //infra/src/openspec:validate_test
 ```
 
+Each component has the same local test label in its own `openspec` package.
 Validation checks artifact structure and, for archives, task completion.
 Requirement acceptance still needs evidence from the owning implementation.
 Infrastructure specs describe checked-in definitions, not observed deployment.

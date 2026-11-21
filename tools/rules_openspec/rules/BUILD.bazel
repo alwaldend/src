@@ -1,13 +1,14 @@
+load("@aspect_rules_js//js:defs.bzl", "js_binary")
 load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
-load("@rules_openspec_npm//tools/rules_openspec:@fission-ai/openspec/package_json.bzl", openspec = "bin")
-load("//tools/rules_openspec/rules:openspec.bzl", "OPENSPEC_ENV")
+load("//tools/rules_openspec/rules:openspec.bzl", "OPENSPEC_ENTRY_POINT", "OPENSPEC_ENV", "OPENSPEC_NPM_PACKAGE")
 
 package(default_visibility = ["//visibility:public"])
 
-openspec.openspec_binary(
+js_binary(
     name = "openspec",
     chdir = "$${BUILD_WORKSPACE_DIRECTORY}/$${OPENSPEC_PROJECT:-infra/src}",
-    data = ["//tools/rules_openspec:node_modules/@fission-ai/openspec"],
+    data = [OPENSPEC_NPM_PACKAGE],
+    entry_point = OPENSPEC_ENTRY_POINT,
     env = OPENSPEC_ENV,
 )
 
@@ -21,5 +22,14 @@ bzl_library(
     srcs = ["openspec.bzl"],
     deps = [
         "@aspect_rules_js//js:defs",
+    ],
+)
+
+bzl_library(
+    name = "defs",
+    srcs = ["defs.bzl"],
+    deps = [
+        ":openspec_validation",
+        ":workspace",
     ],
 )

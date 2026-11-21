@@ -1,14 +1,18 @@
 load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
+load("//tools/rules_openspec/rules:defs.bzl", "openspec_validate_test", "openspec_workspace")
 
-filegroup(
+package(transitive_visibility = "//tools:transitive_consumers")
+
+openspec_workspace(
     name = "source",
-    srcs = ["config.yaml"] + glob(
+    srcs = glob(
         [
             "specs/**/*.md",
             "changes/**",
         ],
         allow_empty = True,
     ),
+    config = "config.yaml",
     visibility = ["//visibility:public"],
 )
 
@@ -24,4 +28,9 @@ docs_filegroup(
     prefix = "content/docs/tools/rules_iso/openspec",
     preserve_paths = True,
     visibility = ["//:__pkg__"],
+)
+
+openspec_validate_test(
+    name = "validate_test",
+    source = ":source",
 )

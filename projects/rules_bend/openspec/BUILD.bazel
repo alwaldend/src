@@ -1,18 +1,25 @@
-load("//tools/rules_openspec/rules:openspec.bzl", "openspec_validation")
-load("//tools/rules_openspec/rules:workspace.bzl", "openspec_workspace")
+load("//tools/rules_openspec/rules:defs.bzl", "openspec_validate_test", "openspec_workspace")
+
+package(transitive_visibility = "//projects:transitive_consumers")
 
 openspec_workspace(
-    name = "workspace",
-    srcs = ["config.yaml"] + glob(
+    name = "source",
+    srcs = glob(
         [
             "changes/**",
             "specs/**/*.md",
         ],
         allow_empty = True,
     ),
+    config = "config.yaml",
 )
 
-openspec_validation(
+alias(
+    name = "workspace",
+    actual = ":source",
+)
+
+openspec_validate_test(
     name = "validate_test",
-    source = ":workspace",
+    source = ":source",
 )

@@ -70,19 +70,15 @@ and pinned Python module specifications without executing imported packages.
 Like formatting, this complete-checkout check is local
 and uncached; downloaded external repositories are outside its coverage.
 
-## Owner inventories
+## Project inventory
 
-`bazel run //tools/repo_quality:inventory_update` derives the central
-OpenSpec validation map from declared owner source exports, resolving standalone
-module identities from their MODULE files. It also derives the project index
-from project README metadata, validates each project's single lifecycle declaration
-against `projects/statuses.yaml`, generates the lifecycle definitions and index
-status column, and synchronizes existing landing-page status fields. Project
-READMEs own the declarations; landing status is a generated projection. Draft-only specification directories without a
-source export are not registered. Landing-page membership remains owned by
+`bazel run //tools/repo_quality:inventory_update` derives the project index from
+project README metadata, validates each project's lifecycle declaration against
+`projects/statuses.yaml`, generates the lifecycle definitions and index status
+column, and synchronizes existing landing-page status fields. Project READMEs
+own the declarations. Landing-page membership remains owned by
 `projects/projects.bzl`, independently of the documentation index.
 
-The inventory freshness test in the quality suite inspects the actual checkout
-and rejects stale projections, including newly declared exports. Like the other
-whole-checkout checks it is local and uncached. Its isolated command fixture
-checks regeneration and preserves the resulting inventory in test outputs.
+The inventory freshness test checks these projections against the actual checkout.
+Its isolated command fixture checks regeneration and preserves the results in
+test outputs.

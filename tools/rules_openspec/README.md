@@ -6,8 +6,8 @@ statuses:
 ---
 
 This package runs the upstream [OpenSpec](https://openspec.dev/) CLI with
-Bazel's pinned Node toolchain. `tools/package.json` pins
-`@fission-ai/openspec` to 1.11.0; `tools/pnpm-lock.yaml` records the package
+Bazel's pinned Node toolchain. `tools/rules_openspec/package.json` pins
+`@fission-ai/openspec` to 1.11.0; `tools/rules_openspec/pnpm-lock.yaml` records the package
 integrities and transitive dependency versions. Package lifecycle scripts are
 disabled. No global npm installation is needed.
 
@@ -30,42 +30,27 @@ It is relative to the enclosing repository root, and OpenSpec reads and writes
 that owner's source artifacts directly. Standalone nested projects use the
 same root invocation, for example `OPENSPEC_PROJECT=tools/rules_skills`.
 
-Run upstream validation for the declared owner workspaces in sandboxed tests against
-declared source inputs:
+Run the workspace's sandboxed validation suite from the repository root.
 
 ```sh
-bazel test //infra/src/openspec/validation:validate_test //infra/src/openspec/validation:archive_test
+bazel test //infra/src/openspec:validate_test
+bazel test //tools/agents/openspec:validate_test
 ```
 
-`validate_test` aggregates one strict test per owner for current specs and
-active change deltas. `archive_test` covers the declared archive workspaces
-and checks that archived changes have completed task
-checkboxes; upstream does not reapply historical deltas during that check.
-Both are structural checks. Requirement scenarios still need evidence from
-their owning implementation and validation workflow.
+The suite runs the CLI in strict mode against declared workspace runfiles.
+The current check validates specifications and active changes. The archive
+check verifies that archived task lists are complete. Requirement scenarios
+still need evidence from their owning implementation.
 
-The source-to-test mapping lives in
-`infra/src/openspec/validation/BUILD.bazel`. Each owner's
-`openspec/BUILD.bazel` exposes config, baseline specs, and complete native
-change artifacts. Standalone projects expose this source through their
-existing module repository, without taking an OpenSpec dependency. The shared
-`openspec_validation` macro retains declared source runfiles through a
-`js_library` with `no_copy_to_bin`: files keep their owning package paths,
-including across module boundaries. Tests select that owner inside their
-sandbox and receive only declared inputs.
+Gazelle generates the source target and validation suite from the workspace's
+`openspec/config.yaml`. See the [OpenSpec Gazelle extension](../rules_openspec_gazelle/README.md).
 
-When adding an owner workspace, add its source label to `_WORKSPACE_SOURCES`.
-When it first archives a change, also add it to `_ARCHIVE_WORKSPACES`. Keep
-these aggregate memberships aligned with the checked-in workspaces.
-
-The launcher disables telemetry and update checks. OpenSpec's XDG config and
-data paths are isolated to ignored `out/openspec/` in the source workspace for
-`bazel run`, and to Bazel's test temporary directory for tests. These targets
-do not read or change user-global OpenSpec configuration. Commands that create,
-edit, or archive changes still modify source artifacts as documented by the
+The launcher disables telemetry and update checks. Tests isolate the CLI's
+XDG config and data paths in Bazel's test temporary directory. Commands that
+create, edit, or archive changes modify source artifacts as documented by the
 [upstream CLI](https://github.com/Fission-AI/OpenSpec/blob/v1.11.0/docs/cli.md).
 
-Update the version in `tools/package.json`, then use the owning pnpm workflow
+Update the version in `tools/rules_openspec/package.json`, then use the owning pnpm workflow
 described in [`tools/js`](../js/README.md) to regenerate its lock with lifecycle
-scripts disabled. Re-run the version command and both validation tests after
+scripts disabled. Re-run the version command and the workspace validation suite after
 upgrading.

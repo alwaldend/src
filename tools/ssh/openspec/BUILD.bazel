@@ -1,0 +1,20 @@
+load("//tools/rules_openspec/rules:defs.bzl", "openspec_validate_test", "openspec_workspace")
+
+package(transitive_visibility = "//tools:transitive_consumers")
+
+openspec_workspace(
+    name = "source",
+    srcs = glob(
+        [
+            "changes/**",
+            "specs/**/*.md",
+        ],
+        allow_empty = True,
+    ),
+    config = "config.yaml",
+)
+
+openspec_validate_test(
+    name = "validate_test",
+    source = ":source",
+)

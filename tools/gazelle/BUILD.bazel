@@ -10,6 +10,7 @@ gazelle(
     name = "gazelle",
     args = [
         "-docs_load_label=//tools/rules_docs/docs:defs.bzl",
+        "-openspec_load_label=//tools/rules_openspec/rules:defs.bzl",
         "-promptfoo_load_label=//tools/rules_promptfoo/promptfoo:defs.bzl",
         "-skill_load_label=//tools/rules_skills/skill:defs.bzl",
         "-transitive_visibility_config=tools/transitive_visibility/transitive_visibility.toml",
@@ -24,6 +25,7 @@ gazelle_binary(
     languages = DEFAULT_LANGUAGES + [
         "@contrib_rules_jvm//java/gazelle",
         "//tools/rules_docs_gazelle/gazelle",
+        "//tools/rules_openspec_gazelle/gazelle",
         "//tools/rules_promptfoo_gazelle/gazelle",
         "@rules_python_gazelle_plugin//python:python",
         "//tools/rules_skill_gazelle/gazelle",
