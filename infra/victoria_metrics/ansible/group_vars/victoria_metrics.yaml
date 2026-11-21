@@ -26,3 +26,7 @@ firewall_allow_port_from:
   - {src: "192.168.10.0/24", port: 443, proto: tcp, comment: Guest LAN dashboard HTTPS}
   - {src: "10.10.0.1/32", port: 443, proto: tcp, comment: Ingress host 1 HTTPS}
   - {src: "10.10.0.2/32", port: 443, proto: tcp, comment: Ingress host 2 HTTPS}
+
+grafana_dns_record: >-
+  {{ (lookup('ansible.builtin.file', inventory_dir ~ '/files/grafana-dns.json') | from_json).records.local.A }}
+grafana_hostname: "{{ grafana_dns_record.name }}"

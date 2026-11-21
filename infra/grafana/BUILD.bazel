@@ -1,0 +1,123 @@
+load("//infra:al_config.bzl", "infra_ansible_keys", "infra_xo_login")
+load("//infra/dns/terraform:defs.bzl", "infra_terraform_dns_config")
+load("//projects/al:defs.bzl", "al_config", "al_inject", "al_vault_auth")
+load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
+load("//tools/vault:defs.bzl", "vault_binary_map")
+load("//tools/vault/tf_backend:defs.bzl", "vault_tf_backend")
+
+package(transitive_visibility = "//infra:transitive_consumers")
+
+al_vault_auth(
+    name = "auth",
+    approle = "src_infra_grafana",
+    extends = "//tools/al:auth",
+)
+
+infra_xo_login(
+    name = "xo_login",
+    labels = {"xoa_login": "1"},
+    oidc_provider = "src_infra_xcp_ng_provider",
+)
+
+infra_ansible_keys(
+    name = "ansible_keys",
+    labels = {"ansible": "1"},
+    vault_ssh = {
+        "backend": "ssh/clients/sign/admins",
+        "ttl": 7200,
+    },
+)
+
+vault_tf_backend(
+    name = "tf_backend",
+    labels = {"tf": "setup"},
+    path = "alwaldend.com/vault1/approles/src_infra_grafana/tf_backend",
+)
+
+infra_terraform_dns_config(
+    name = "dns_al",
+    auth = ":auth",
+    backend_path = "alwaldend.com/vault1/approles/src_infra_grafana/tf_backend/dns",
+    dc1 = True,
+    global_records = False,
+    visibility = ["//infra/grafana/dns:__pkg__"],
+)
+
+al_inject(
+    name = "grafana_credentials",
+    labels = {"ansible": "1"},
+    res_env = {
+        "GRAFANA_ADMIN_PASSWORD_FILE": {
+            "value": "{{ index .Last.Files 0 }}",
+            "deps": ["grafana_admin_password"],
+        },
+        "GRAFANA_SECRET_KEY_FILE": {
+            "value": "{{ index .Last.Files 0 }}",
+            "deps": ["grafana_secret_key"],
+        },
+        "GRAFANA_OIDC_CLIENT_ID": {
+            "value": "{{ .Last.Data.client_id }}",
+            "deps": ["grafana_oidc_client"],
+        },
+        "GRAFANA_OIDC_CLIENT_SECRET_FILE": {
+            "value": "{{ index .Last.Files 0 }}",
+            "deps": ["grafana_oidc_client_secret"],
+        },
+    },
+    res_file = {
+        "grafana_admin_password": {
+            "value": "{{ .Last.Data.admin_password }}",
+            "deps": ["grafana_config"],
+        },
+        "grafana_secret_key": {
+            "value": "{{ .Last.Data.secret_key }}",
+            "deps": ["grafana_config"],
+        },
+        "grafana_oidc_client_secret": {
+            "value": "{{ .Last.Data.client_secret }}",
+            "deps": ["grafana_oidc_client"],
+        },
+    },
+    res_kv = {"grafana_config": {
+        "mount": "secrets",
+        "path": "alwaldend.com/vault1/approles/src_infra_grafana/config",
+    }},
+    res_op = {"grafana_oidc_client": {
+        "method": "read",
+        "path": "identity/oidc/client/src_infra_grafana_provider",
+    }},
+)
+
+al_config(
+    name = "al",
+    configs = [
+        ":ansible_keys",
+        ":auth",
+        ":grafana_credentials",
+        ":tf_backend",
+        ":xo_login",
+        "//infra:al",
+    ],
+    visibility = ["//infra/grafana:__subpackages__"],
+)
+
+vault_binary_map(
+    name = "vault",
+    args = {"kv_put": [
+        "kv",
+        "put",
+        "-mount",
+        "secrets",
+    ]},
+    configs = [":al"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//infra:__pkg__"],
+    deps = [
+        "//infra/grafana/approle:docs",
+        "//infra/grafana/openspec:docs",
+    ],
+)

@@ -1,0 +1,34 @@
+load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
+load("//tools/rules_openspec/rules:defs.bzl", "openspec_validate_test", "openspec_workspace")
+
+package(transitive_visibility = "//infra:transitive_consumers")
+
+openspec_workspace(
+    name = "source",
+    srcs = glob(
+        [
+            "specs/**/*.md",
+            "changes/**",
+        ],
+        allow_empty = True,
+    ),
+    config = "config.yaml",
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(
+        [
+            "*.md",
+            "specs/**/*.md",
+        ],
+        allow_empty = True,
+    ),
+    preserve_paths = True,
+    visibility = ["//infra/grafana:__pkg__"],
+)
+
+openspec_validate_test(
+    name = "validate_test",
+    source = ":source",
+)

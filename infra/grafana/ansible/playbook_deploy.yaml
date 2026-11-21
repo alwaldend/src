@@ -1,0 +1,7 @@
+- name: Deploy Grafana
+  hosts: grafana_servers
+  become: true
+  roles:
+    - alwaldend.main.host
+    - alwaldend.main.traefik
+    - alwaldend.main.grafana

@@ -47,9 +47,10 @@ do not repeat plugin binaries in the wrapper's `data`.
 
 ## Why one component can have several modules
 
-A Terraform Vault AppRole is created and owned by `infra/vault/tf`. Components
-consume it; they do not declare it. When a component writes Vault resources of
-its own, it uses its own provider configuration and the injected token.
+Follow the [Vault AppRole placement and bootstrap procedure](vault.md) for
+component identities. The shared Vault root owns cross-component memberships.
+A component writing service configuration to Vault uses its own provider
+configuration and injected token.
 
 ## Boundaries to preserve
 

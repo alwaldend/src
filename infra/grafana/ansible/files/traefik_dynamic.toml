@@ -1,0 +1,8 @@
+[http.routers.grafana]
+rule = "Host(`{{ grafana_hostname }}`)"
+entryPoints = ["websecure"]
+service = "grafana"
+tls = { certResolver = "vault" }
+
+[[http.services.grafana.loadBalancer.servers]]
+url = "http://127.0.0.1:{{ grafana_http_port }}"

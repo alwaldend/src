@@ -23,6 +23,7 @@ scrape_configs:
       - targets:
           - "host1.forgejo.alwaldend.com:{{ traefik_metrics_port }}"
           - "dev1.dev.alwaldend.com:{{ traefik_metrics_port }}"
+          - "{{ grafana_hostname }}:{{ traefik_metrics_port }}"
           - "host1.canvas.openhands.alwaldend.com:{{ traefik_metrics_port }}"
           - "host1.server.openhands.alwaldend.com:{{ traefik_metrics_port }}"
           - "host1.automation.openhands.alwaldend.com:{{ traefik_metrics_port }}"
