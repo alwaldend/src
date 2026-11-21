@@ -72,7 +72,8 @@ func scan(parent context.Context, opts options, output, diagnostics io.Writer) (
 	args = append(args, (&url.URL{Scheme: "file", Path: opts.repository}).String())
 	cmd := exec.CommandContext(ctx, opts.scanner, args...)
 	cmd.WaitDelay = time.Second
-	cmd.Env = append(os.Environ(), "TMPDIR="+scratch, "TMP="+scratch, "TEMP="+scratch)
+	// The scan reads Git blobs, so a temporary checkout only needs LFS pointers.
+	cmd.Env = append(os.Environ(), "TMPDIR="+scratch, "TMP="+scratch, "TEMP="+scratch, "GIT_LFS_SKIP_SMUDGE=1")
 	if opts.git != "" {
 		absolute, err := filepath.Abs(opts.git)
 		if err != nil {

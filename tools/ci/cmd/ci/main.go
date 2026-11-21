@@ -42,6 +42,8 @@ type workspaceResult struct {
 	build phaseResult
 	// test holds the outcome of bazel test.
 	test phaseResult
+	// shutdownFailed indicates the workspace's Bazel server could not be retired.
+	shutdownFailed bool
 }
 
 // check attempts every workspace's build and test phases and combines failures.
@@ -53,6 +55,7 @@ func check(root string, run commandRunner, output io.Writer, grouped bool) ([]wo
 	results := make([]workspaceResult, 0, len(paths))
 	var failures []error
 	for _, path := range paths {
+		directory := filepath.Join(root, path)
 		name := strings.ReplaceAll(path, "\r", " ")
 		if path == "." {
 			name = "Root"
@@ -65,7 +68,7 @@ func check(root string, run commandRunner, output io.Writer, grouped bool) ([]wo
 			}
 			fmt.Fprintf(output, "CI %s: %s --config=ci //...\n", path, phase)
 			start := time.Now()
-			err := run(filepath.Join(root, path), "bazel", phase, "--config=ci", "//...")
+			err := run(directory, "bazel", phase, "--config=ci", "//...")
 			result := phaseResult{duration: time.Since(start)}
 			if err != nil {
 				result.err = fmt.Errorf("%s %s: %w", path, phase, err)
@@ -75,7 +78,14 @@ func check(root string, run commandRunner, output io.Writer, grouped bool) ([]wo
 		}
 		build := runPhase("build", "Build")
 		test := runPhase("test", "Test")
-		results = append(results, workspaceResult{name: name, build: build, test: test})
+		result := workspaceResult{name: name, build: build, test: test}
+		if grouped {
+			if err := run(directory, "bazel", "shutdown"); err != nil {
+				failures = append(failures, fmt.Errorf("shut down Bazel in %s: %w", path, err))
+				result.shutdownFailed = true
+			}
+		}
+		results = append(results, result)
 	}
 	return results, errors.Join(failures...)
 }
@@ -92,8 +102,16 @@ func appendSummary(path string, results []workspaceResult) error {
 			"`", "&#96;", "*", "&#42;", "_", "&#95;", "~", "&#126;", "[", "&#91;", "]", "&#93;",
 		)
 		summary.WriteString("| Workspace | Build | Test |\n| --- | --- | --- |\n")
+		var shutdownFailures []string
 		for _, result := range results {
-			fmt.Fprintf(&summary, "| %s | %s | %s |\n", escapeCell.Replace(result.name), result.build.summaryCell(), result.test.summaryCell())
+			name := escapeCell.Replace(result.name)
+			fmt.Fprintf(&summary, "| %s | %s | %s |\n", name, result.build.summaryCell(), result.test.summaryCell())
+			if result.shutdownFailed {
+				shutdownFailures = append(shutdownFailures, name)
+			}
+		}
+		if len(shutdownFailures) > 0 {
+			fmt.Fprintf(&summary, "\nBazel server shutdown failed in %s. See the job log for details.\n", strings.Join(shutdownFailures, ", "))
 		}
 	}
 	file, err := os.OpenFile(path, os.O_WRONLY|os.O_APPEND|os.O_CREATE, 0o600)

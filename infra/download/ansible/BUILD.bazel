@@ -31,8 +31,8 @@ al_ansible_package(
         "yandex",
     ]},
     binary_visibility = ["//infra/download:__subpackages__"],
-    extra_vars_files = ["//infra/victoria_metrics/dns:metrics_vars"],
     configs = ["//infra/download:al"],
+    extra_vars_files = ["//infra/victoria_metrics/dns:metrics_vars"],
     files_name = "files",
     plugin_labels = {
         "vault_env": "default_default",

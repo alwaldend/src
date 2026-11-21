@@ -12,13 +12,20 @@
       - comfyui_tools_directory is string
       - comfyui_tools_arguments is string
       - comfyui_tools_model_directories is mapping
-      - comfyui_tools_directory is match('^/([A-Za-z0-9_-]+/)*[A-Za-z0-9_-]+$')
-      - comfyui_tools_state_directory is match('^/([A-Za-z0-9_-]+/)*[A-Za-z0-9_-]+$')
       - comfyui_tools_arguments is match('^[A-Za-z0-9 /_.=-]+$')
       - comfyui_tools_restart_command | length > 0
       - comfyui_tools_node_web_scripts.keys() | difference(comfyui_tools_node_sources.keys()) | length == 0
       - comfyui_tools_git_nodes.keys() | intersect(comfyui_tools_node_sources.keys()) | length == 0
       - comfyui_tools_interpolation_source | length == 0 or comfyui_tools_state_directory == '/opt/imagegen'
+
+- name: Validate absolute application and state directories
+  ansible.builtin.assert:
+    that:
+      - item is regex('(/[A-Za-z0-9._-]+)+', match_type='fullmatch')
+      - item.split('/') | intersect(['.', '..']) | length == 0
+  loop:
+    - "{{ comfyui_tools_directory }}"
+    - "{{ comfyui_tools_state_directory }}"
 
 - name: Validate relative model directories
   ansible.builtin.assert:
@@ -185,7 +192,7 @@
 - name: Configure the installed node whitelist
   ansible.builtin.lineinfile:
     path: "{{ comfyui_tools_environment_file }}"
-    regexp: '^(export )?COMFYUI_ARGS='
+    regexp: "^(export )?COMFYUI_ARGS="
     line: "export COMFYUI_ARGS='{{ comfyui_tools_arguments }}{{ ' --whitelist-custom-nodes ' ~ ((comfyui_tools_git_nodes.keys() | list + comfyui_tools_node_sources.keys() | list) | sort(case_sensitive=true) | join(' ')) if comfyui_tools_git_nodes | length + comfyui_tools_node_sources | length > 0 else '' }}' # imagegen-ansible"
     create: true
     mode: "0600"

@@ -14,11 +14,11 @@ al_ansible_package(
         "templates/scrape.yaml.j2",
         "//third_party/com_github_victoriametrics:victoria_metrics",
     ],
+    configs = ["//infra/victoria_metrics:al"],
     extra_vars_files = [
         "//infra/ingress/ansible:inventory",
         "//infra/victoria_metrics/dns:metrics_vars",
     ],
-    configs = ["//infra/victoria_metrics:al"],
     plugin_labels = {
         "ansible": "1",
         "vault_env": "default_default",

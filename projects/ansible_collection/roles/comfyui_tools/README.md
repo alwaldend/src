@@ -8,6 +8,8 @@ variables. Supply the application directory, runtime arguments and model-directo
 map, plus the selected model entries, Git node packs, first-party source paths
 and workflow files. Required inputs default to null and are validated before
 installation; optional inputs have static defaults.
+Application and state directory paths may contain hidden components such as
+`.cache`. Supply normalized absolute paths with no `.` or `..` components.
 
 The role knows no profile registry or JSON schema. The deployment playbook
 loads its JSON and translates it into those variables once, without mutable
