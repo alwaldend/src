@@ -1,0 +1,22 @@
+load("@aspect_rules_js//js:defs.bzl", "js_binary", "js_run_binary")
+
+package(transitive_visibility = "//internal:transitive_consumers")
+
+js_binary(
+    name = "generator",
+    entry_point = "main.mjs",
+)
+
+js_run_binary(
+    name = "favicon_preview",
+    srcs = ["//internal/assets:monogram"],
+    outs = ["favicon-preview.html"],
+    args = [
+        "$(execpath //internal/assets:monogram)",
+        "$(execpath :favicon-preview.html)",
+    ],
+    copy_srcs_to_bin = False,
+    env = {"JS_BINARY__NO_CD_BINDIR": "1"},
+    tool = ":generator",
+    visibility = ["//internal/assets:__pkg__"],
+)

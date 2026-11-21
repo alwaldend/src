@@ -36,3 +36,8 @@ filegroup(
     srcs = ["monogram_s8.svg"],
     visibility = ["//:__subpackages__"],
 )
+
+alias(
+    name = "favicon_preview",
+    actual = "//internal/assets/cmd/favicon_preview",
+)
