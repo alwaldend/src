@@ -16,6 +16,7 @@ docs_filegroup(
 filegroup(
     name = "license",
     srcs = ["LICENSE.txt"],
+    visibility = ["//tools/rules_iso:__pkg__"],
 )
 
 license(

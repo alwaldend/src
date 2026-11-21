@@ -2,6 +2,11 @@ load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
 
 package(default_visibility = ["//visibility:public"])
 
+filegroup(
+    name = "release_sources",
+    srcs = ["BUILD.bazel"] + glob(["*.bzl"]),
+)
+
 bzl_library(
     name = "iso_flash_binary",
     srcs = ["iso_flash_binary.bzl"],

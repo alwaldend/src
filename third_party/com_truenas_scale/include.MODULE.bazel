@@ -1,5 +1,5 @@
 iso_extension = use_extension(
-    "@rules_iso//pkg/bzl:iso_extension.bzl",
+    "//tools/rules_iso/pkg/bzl:iso_extension.bzl",
     "iso_extension",
 )
 iso_extension.image(

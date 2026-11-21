@@ -85,12 +85,12 @@ docs_filegroup(
             "rules_*",
         ],
     ) + [
+        "//tools/rules_iso:docs",
         "@rules_binary_toolchain//:docs",
         "@rules_dnscontrol//:docs",
         "@rules_docs//:docs",
         "@rules_docs_gazelle//:docs",
         "@rules_hugo//:docs",
-        "@rules_iso//:docs",
         "@rules_openspec//:docs",
         "@rules_promptfoo//:docs",
         "@rules_promptfoo_gazelle//:docs",

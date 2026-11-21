@@ -11,7 +11,6 @@ tools/rules_docs_gazelle
 tools/rules_promptfoo
 tools/rules_promptfoo_gazelle
 tools/rules_hugo
-tools/rules_iso
 tools/rules_dnscontrol
 tools/rules_skills
 tools/rules_skill_gazelle

@@ -66,7 +66,7 @@ WORKSPACE_SOURCES = {
     "tools_rules_docs": "@rules_docs//openspec:source",
     "tools_rules_docs_gazelle": "@rules_docs_gazelle//openspec:source",
     "tools_rules_hugo": "@rules_hugo//openspec:source",
-    "tools_rules_iso": "@rules_iso//openspec:source",
+    "tools_rules_iso": "//tools/rules_iso/openspec:source",
     "tools_rules_openspec": "@rules_openspec//openspec:source",
     "tools_rules_promptfoo": "@rules_promptfoo//openspec:source",
     "tools_rules_promptfoo_gazelle": "@rules_promptfoo_gazelle//openspec:source",
