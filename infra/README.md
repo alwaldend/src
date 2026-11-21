@@ -67,8 +67,8 @@ The commands below are state-changing operator examples. An agent must use
 and receive explicit authority for the exact operation and environment before
 running an equivalent command.
 
-- Create an approle:
-  [example](https://github.com/alwaldend/src/blob/master/infra/vault/tf/approle_src_infra_yandex_cloud.tf)
+- Create and apply the [component's standalone AppRole root](../tools/agents/skills/repo-infra/references/vault.md).
+  See [Grafana's AppRole](grafana/approle/README.md) for an example.
 - Add it to approles:
   [example](https://github.com/alwaldend/src/blob/master/infra/vault/tf/group_approles.tf)
 - Run apply:

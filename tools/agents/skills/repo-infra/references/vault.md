@@ -36,9 +36,11 @@ separate possibilities. Even a component `vault.status` target can fail here;
 use `//:vault.status` to isolate server reachability from component login.
 
 Put each new infrastructure AppRole and its component-specific policies in
-`infra/vault/approles/<role>/`, with a dedicated Bazel Terraform package and
-Vault HTTP backend. Follow the
-[OpenCanary project](../../../../../infra/vault/approles/src_infra_opencanary/README.md)
+`infra/<component>/approle/`, with a dedicated Bazel Terraform package and
+Vault HTTP backend. Use the Vault administrative configuration
+`//infra/vault:al`, extend `//infra/vault:tf_backend_main` with a dedicated
+backend path, and register the package in `//infra/vault:approle_state_projects`.
+Follow the [Grafana AppRole](../../../../../infra/grafana/approle/README.md)
 and reuse the [AppRole module](../../../../../projects/tf_modules/vault_approle/main.tf).
 Disable the optional Yandex Cloud policy when unused. Keep shared mounts and
 cross-component memberships in the core Vault root. Look up standalone entities

@@ -1,0 +1,39 @@
+ansible_host: "{{ grafana_hostname }}"
+ansible_user: ansible
+ssh_vault_role: src_infra_grafana_ssh
+ssh_valid_principals:
+  - "{{ grafana_hostname }}"
+
+grafana_http_port: 3000
+grafana_admin_password_src: "{{ lookup('ansible.builtin.env', 'GRAFANA_ADMIN_PASSWORD_FILE', default=undef()) }}"
+grafana_secret_key_src: "{{ lookup('ansible.builtin.env', 'GRAFANA_SECRET_KEY_FILE', default=undef()) }}"
+grafana_oidc_client_id: "{{ lookup('ansible.builtin.env', 'GRAFANA_OIDC_CLIENT_ID', default=undef()) }}"
+grafana_oidc_client_secret_src: "{{ lookup('ansible.builtin.env', 'GRAFANA_OIDC_CLIENT_SECRET_FILE', default=undef()) }}"
+grafana_oidc_name: Vault
+grafana_oidc_scopes: openid user email groups
+grafana_oidc_admin_group: global_admins
+grafana_vault_url: https://vault.alwaldend.com:8200
+grafana_vault_oidc_provider: src_infra_grafana_provider
+grafana_oidc_auth_url: "{{ grafana_vault_url }}/ui/vault/identity/oidc/provider/{{ grafana_vault_oidc_provider }}/authorize"
+grafana_oidc_token_url: "{{ grafana_vault_oidc_api }}/token"
+grafana_oidc_userinfo_url: "{{ grafana_vault_oidc_api }}/userinfo"
+grafana_vault_oidc_api: "{{ grafana_vault_url }}/v1/identity/oidc/provider/{{ grafana_vault_oidc_provider }}"
+
+traefik_acme_path: pki/ica_servers/roles/src_infra_grafana_pki_server/acme
+traefik_acme_url: "{{ grafana_vault_url }}/v1/{{ traefik_acme_path }}/directory"
+
+firewall_allow_port_from:
+  - {src: "any", port: 22, proto: tcp, comment: Administrative SSH}
+  - {src: "192.168.1.0/24", port: 80, proto: tcp, comment: Site LAN HTTP and ACME}
+  - {src: "192.168.1.0/24", port: 443, proto: tcp, comment: Site LAN Grafana HTTPS}
+  - {src: "192.168.10.0/24", port: 80, proto: tcp, comment: Guest LAN HTTP and ACME}
+  - {src: "192.168.10.0/24", port: 443, proto: tcp, comment: Guest LAN Grafana HTTPS}
+  - src: "{{ victoria_metrics_collector_address }}/32"
+    port: "{{ traefik_metrics_port }}"
+    proto: tcp
+    comment: VictoriaMetrics scrape
+
+grafana_dns_record: >-
+  {{ (lookup('ansible.builtin.file', inventory_dir ~ '/files/grafana-dns.json') | from_json).records.local.A }}
+grafana_hostname: "{{ grafana_dns_record.name }}"
+grafana_guest_address: "{{ grafana_dns_record.address }}"

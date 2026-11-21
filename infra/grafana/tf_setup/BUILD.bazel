@@ -1,0 +1,26 @@
+load("//tools/al:al_terraform.bzl", "al_terraform_package")
+
+package(transitive_visibility = "//infra:transitive_consumers")
+
+_CONFIG = glob(
+    ["*.tf"],
+    exclude = ["backend.tf"],
+) + [
+    "//infra/cloud_init:xen_linux",
+    "//infra/grafana/dns:dnsconfig",
+]
+
+al_terraform_package(
+    name = "tf_setup",
+    configs = ["//infra/grafana:al"],
+    data = _CONFIG + ["backend.tf"],
+    plugin_labels = {
+        "tf": "setup",
+        "xoa_login": "1",
+    },
+    providers = ["@terraform_provider_vatesfr_xenorchestra//:provider"],
+    test_kwargs = {
+        "data": _CONFIG,
+        "validate": True,
+    },
+)

@@ -11,6 +11,7 @@ al_ansible_package(
         "group_vars/victoria_metrics.yaml",
         "inventory.yaml",
         "playbook_deploy.yaml",
+        "//infra/grafana/dns:dnsconfig",
         "templates/scrape.yaml.j2",
         "//third_party/com_github_victoriametrics:victoria_metrics",
     ],
@@ -24,6 +25,7 @@ al_ansible_package(
         "vault_env": "default_default",
     },
     renames = {
+        "//infra/grafana/dns:dnsconfig": "files/grafana-dns.json",
         "//third_party/com_github_victoriametrics:victoria_metrics": "files/victoria-metrics-prod",
     },
 )

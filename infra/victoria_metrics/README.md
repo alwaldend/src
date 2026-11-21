@@ -17,7 +17,7 @@ Bazel verifies the release archive and packages the executable for Ansible.
 VictoriaMetrics scrapes its loopback endpoint every 15 seconds and the
 Traefik proxies every 30 seconds. The `traefik_ingress` job uses active
 ingress hosts from the WireGuard inventory. The `traefik_dc1` job covers
-Forgejo, dev1, three OpenHands hosts, the 3x-ui control plane, and the
+Forgejo, dev1, Grafana, three OpenHands hosts, the 3x-ui control plane, and the
 local download host. Each proxy firewall allows metrics traffic from the
 VictoriaMetrics guest address. Cloud-only proxies need a private route
 before they can join these scrape jobs.

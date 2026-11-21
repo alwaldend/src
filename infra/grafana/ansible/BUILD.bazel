@@ -1,0 +1,36 @@
+load("//projects/al:defs.bzl", "al_binary_run")
+load("//tools/ansible/rules:al_ansible_package.bzl", "al_ansible_package")
+
+package(transitive_visibility = "//infra:transitive_consumers")
+
+al_ansible_package(
+    name = "ansible",
+    srcs = [
+        "files/traefik.toml",
+        "files/traefik_dynamic.toml",
+        "group_vars/grafana_servers.yaml",
+        "inventory.yaml",
+        "playbook_deploy.yaml",
+        "//infra/grafana/dns:dnsconfig",
+    ],
+    configs = ["//infra/grafana:al"],
+    extra_vars_files = ["//infra/victoria_metrics/dns:metrics_vars"],
+    plugin_labels = {
+        "ansible": "1",
+        "vault_env": "default_default",
+    },
+    renames = {"//infra/grafana/dns:dnsconfig": "files/grafana-dns.json"},
+)
+
+al_binary_run(
+    name = "ansible.syntax",
+    args = [
+        "$(rootpath :ansible_bin)",
+        "--inventory",
+        "inventory.yaml",
+        "--syntax-check",
+        "playbook_deploy.yaml",
+    ],
+    configs = [],
+    data = [":ansible_bin"],
+)

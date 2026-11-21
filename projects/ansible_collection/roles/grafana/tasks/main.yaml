@@ -1,0 +1,61 @@
+- name: Require Grafana credentials
+  ansible.builtin.assert:
+    that:
+      - grafana_oidc_admin_group | trim | length > 0
+      - grafana_oidc_client_id | length > 0
+      - grafana_oidc_client_id != '<no value>'
+      - grafana_credential | length > 0
+      - grafana_credential != '<no value>'
+  vars:
+    grafana_credential: "{{ lookup('ansible.builtin.file', item.src) }}"
+  loop: &grafana_credentials
+    - {src: "{{ grafana_admin_password_src }}", filename: admin-password}
+    - {src: "{{ grafana_secret_key_src }}", filename: secret-key}
+    - {src: "{{ grafana_oidc_client_secret_src }}", filename: oidc-client-secret}
+  no_log: true
+
+- name: Install the Fedora Grafana package
+  ansible.builtin.dnf:
+    name: grafana
+    state: present
+
+- name: Install protected Grafana credentials
+  ansible.builtin.copy:
+    src: "{{ item.src }}"
+    dest: "/etc/grafana/{{ item.filename }}"
+    owner: root
+    group: grafana
+    mode: "0640"
+  loop: *grafana_credentials
+  no_log: true
+  notify: Restart Grafana
+
+- name: Configure Grafana
+  ansible.builtin.template:
+    src: grafana.ini.j2
+    dest: /etc/grafana/grafana.ini
+    owner: root
+    group: grafana
+    mode: "0640"
+  notify: Restart Grafana
+
+- name: Apply Grafana configuration before checking the service
+  ansible.builtin.meta: flush_handlers
+
+- name: Enable and start Grafana
+  ansible.builtin.systemd_service:
+    name: grafana-server
+    enabled: true
+    state: started
+
+- name: Verify Grafana can reach its database
+  ansible.builtin.uri:
+    url: "http://127.0.0.1:{{ grafana_http_port }}/api/health"
+    use_proxy: false
+    follow_redirects: none
+    headers:
+      Host: "{{ grafana_hostname }}"
+  register: grafana_health
+  until: grafana_health.status == 200 and grafana_health.json.database == 'ok'
+  retries: 12
+  delay: 5

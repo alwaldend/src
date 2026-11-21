@@ -103,15 +103,13 @@
     - type: llm-rubric
       threshold: 1
       value: >-
-        Pass only if the response groups each project's related resources
-        into a cohesive Terraform module owned by the Vault stage, reuses the
-        existing AppRole module instead of duplicating its implementation,
-        connects the child modules through explicit inputs and outputs where
-        needed, and includes their source files in the stage's Bazel data;
-        preserves the stage's authentication and state backend; and validates
-        through repository formatting and offline checks without applying or
-        contacting live providers. Fail if it only sorts resources into files
-        in one flat module or requires a separate module for every resource.
+        Pass only if the response creates a dedicated Terraform root under
+        each owning infrastructure project, reuses the shared AppRole module,
+        uses Vault administrative credentials and a separate Vault HTTP state
+        path for each role, and keeps shared memberships in the Vault stage.
+        It must wire the component package and its inputs through Bazel and
+        validate offline without applying or contacting live providers. Fail
+        if it places new component AppRoles under the shared Vault tree.
 - description: Adds and validates packaged idempotent Ansible automation
   vars:
     request: >-

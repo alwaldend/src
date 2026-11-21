@@ -40,7 +40,7 @@ dashboard through shared ingress requiring client certificates. The private
 HTTPS listener SHALL obtain and renew its service-hostname certificate
 through Vault ACME and accept traffic from ingress peers and the approved DC1
 LANs. The upstream address and public ingress alias SHALL come from the
-component's DNS root.
+component's DNS root. The DC1 scrape job SHALL include the Grafana proxy.
 
 #### Scenario: Open the dashboard through shared ingress
 

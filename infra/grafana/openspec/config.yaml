@@ -1,0 +1,7 @@
+schema: spec-driven
+
+context: |
+  This workspace owns infra/grafana in the alwaldend/src monorepo.
+  Read AGENTS.md and the project README and build declarations.
+  Specifications describe checked-in infrastructure and desired state.
+  Validate source offline. User requests own authority for live operations.

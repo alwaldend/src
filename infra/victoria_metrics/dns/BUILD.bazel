@@ -35,6 +35,7 @@ template_run_binary(
         "//infra/dev/ansible:__pkg__",
         "//infra/download/ansible:__pkg__",
         "//infra/forgejo/ansible:__pkg__",
+        "//infra/grafana/ansible:__pkg__",
         "//infra/ingress/ansible:__pkg__",
         "//infra/openhands/ansible:__pkg__",
         "//infra/threexui/ansible:__pkg__",

@@ -93,10 +93,8 @@ declarations as a table, and enforces one source file per domain name.
 
 ## Vault operations
 
-Each new infrastructure AppRole requires a standalone Terraform project with
-its own backend. Read [references/vault.md](references/vault.md) for AppRole bootstrap,
-component credential setup, KV capabilities, safe token metadata, refresh,
-and failure handling through repository targets.
+For component-local AppRole placement and bootstrap, component credentials, KV capabilities,
+and token operations, read [references/vault.md](references/vault.md).
 
 ## Diagnostics
 

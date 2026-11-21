@@ -34,3 +34,7 @@ with a disposable local certificate and data directory.
 ## 6. Architecture diagram
 
 - [x] 6.1 Render the VM boundary within DC1 infrastructure, dashboard access, Traefik scrape ports, and a stack representing the local scrape targets.
+
+## Grafana proxy coverage
+
+- [x] Add the Grafana Traefik endpoint to the DC1 scrape job.
