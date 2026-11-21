@@ -1,11 +1,20 @@
-load("@rules_go//go:def.bzl", "go_binary")
+load("@rules_go//go:def.bzl", "go_binary", "go_library")
+
+package(transitive_visibility = "//projects:transitive_consumers")
 
 go_binary(
     name = "bend_action",
+    embed = [":bend_action_lib"],
+    visibility = ["//projects/rules_bend:__pkg__"],
+)
+
+go_library(
+    name = "bend_action_lib",
     srcs = [
         "doc.go",
         "main.go",
     ],
-    visibility = ["//projects/rules_bend:__pkg__"],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/rules_bend/cmd/bend_action",
+    visibility = ["//visibility:private"],
     deps = ["@rules_go//go/runfiles"],
 )

@@ -8,6 +8,7 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"strings"
 	"time"
 )
 
@@ -34,11 +35,13 @@ type ciResult struct {
 	build phaseResult
 	// test holds the outcome of bazel test.
 	test phaseResult
+	// lint holds the outcome of the repository's semantic lint profile.
+	lint phaseResult
 	// shutdownErr records a failure to retire the Forgejo job's Bazel server.
 	shutdownErr error
 }
 
-// check attempts the root build and test in order and combines failures.
+// check runs the root CI phases in order and combines failures.
 func check(root string, output io.Writer, grouped bool) (*ciResult, error) {
 	info, err := os.Stat(filepath.Join(root, "MODULE.bazel"))
 	if err != nil {
@@ -63,31 +66,34 @@ func check(root string, output io.Writer, grouped bool) (*ciResult, error) {
 		}
 		return nil
 	}
-	runPhase := func(phase, title string) phaseResult {
+	runPhase := func(title, command string, options ...string) phaseResult {
 		if grouped {
 			// Bazel can leave a terminal escape sequence without a newline.
 			fmt.Fprintf(output, "\n##[group]Root / %s\n", title)
 			defer fmt.Fprint(output, "\n##[endgroup]\n")
 		}
-		fmt.Fprintf(output, "CI %s --config=ci //...\n", phase)
+		arguments := append([]string{command, "--config=ci"}, options...)
+		arguments = append(arguments, "//...")
+		fmt.Fprintf(output, "CI %s\n", strings.Join(arguments, " "))
 		start := time.Now()
-		err := run(phase, "--config=ci", "//...")
+		err := run(arguments...)
 		result := phaseResult{duration: time.Since(start)}
 		if err != nil {
-			result.err = fmt.Errorf("repository %s: %w", phase, err)
+			result.err = fmt.Errorf("repository %s: %w", strings.ToLower(title), err)
 		}
 		return result
 	}
 	result := &ciResult{
-		build: runPhase("build", "Build"),
-		test:  runPhase("test", "Test"),
+		build: runPhase("Build", "build"),
+		test:  runPhase("Test", "test"),
+		lint:  runPhase("Lint", "build", "--config=lint"),
 	}
 	if grouped {
 		if err := run("shutdown"); err != nil {
 			result.shutdownErr = fmt.Errorf("shut down repository Bazel server: %w", err)
 		}
 	}
-	return result, errors.Join(result.build.err, result.test.err, result.shutdownErr)
+	return result, errors.Join(result.build.err, result.test.err, result.lint.err, result.shutdownErr)
 }
 
 // appendSummary writes the Markdown produced by CI to the current step's summary.
@@ -96,8 +102,8 @@ func appendSummary(path string, result *ciResult) error {
 	if result == nil {
 		summary += "Repository workspace unavailable. See the job log for details.\n"
 	} else {
-		summary += "| Workspace | Build | Test |\n| --- | --- | --- |\n"
-		summary += fmt.Sprintf("| Root | %s | %s |\n", result.build.summaryCell(), result.test.summaryCell())
+		summary += "| Workspace | Build | Test | Lint |\n| --- | --- | --- | --- |\n"
+		summary += fmt.Sprintf("| Root | %s | %s | %s |\n", result.build.summaryCell(), result.test.summaryCell(), result.lint.summaryCell())
 		if result.shutdownErr != nil {
 			summary += "\nBazel server shutdown failed in Root. See the job log for details.\n"
 		}

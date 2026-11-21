@@ -1,3 +1,6 @@
+# The Python CLI target name is shared by its public alias and runfiles.
+# gazelle:ignore
+
 load("@rules_python//python:defs.bzl", "py_binary")
 load("@rules_python//python/uv:lock.bzl", "lock")
 

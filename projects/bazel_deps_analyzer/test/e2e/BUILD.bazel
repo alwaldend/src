@@ -1,6 +1,7 @@
-load("@rules_go//go:def.bzl", "go_test")
+load("@rules_go//go:def.bzl", "go_library", "go_test")
 load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_diagram")
 load("//projects/bazel_deps_analyzer:defs.bzl", "bazel_deps_mermaid", "bazel_deps_mermaid_from_json", "bazel_deps_packages_from_json")
+load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
 load(":inputs_fixture.bzl", "filter_inputs_fixture", "inputs_fixture", "string_inputs_fixture")
 
 package(transitive_visibility = "//projects:transitive_consumers")
@@ -296,4 +297,17 @@ go_test(
         "//projects/bazel_deps_analyzer",
     ],
     deps = ["@rules_go//go/runfiles"],
+)
+
+go_library(
+    name = "e2e",
+    srcs = ["doc.go"],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/bazel_deps_analyzer/test/e2e",
+    visibility = ["//visibility:public"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//projects/bazel_deps_analyzer:__pkg__"],
 )

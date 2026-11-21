@@ -1,4 +1,4 @@
-load("@rules_go//go:def.bzl", "go_test")
+load("@rules_go//go:def.bzl", "go_library", "go_test")
 
 package(transitive_visibility = "//projects:transitive_consumers")
 
@@ -22,4 +22,11 @@ exports_files(
         "doc.go",
     ],
     visibility = ["//infra/image_gen/evals:__pkg__"],
+)
+
+go_library(
+    name = "evaluation",
+    srcs = ["doc.go"],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/comfyui_tools/test/evaluation",
+    visibility = ["//visibility:public"],
 )

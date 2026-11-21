@@ -1,11 +1,20 @@
-load("@rules_go//go:def.bzl", "go_binary")
+load("@rules_go//go:def.bzl", "go_binary", "go_library")
+
+package(transitive_visibility = "//tools:transitive_consumers")
 
 go_binary(
     name = "terraform_fixture",
     testonly = True,
+    embed = [":terraform_fixture_lib"],
+    visibility = ["//tools/al/test/terraform:__pkg__"],
+)
+
+go_library(
+    name = "terraform_fixture_lib",
     srcs = [
         "doc.go",
         "main.go",
     ],
-    visibility = ["//tools/al/test/terraform:__pkg__"],
+    importpath = "git.alwaldend.com/alwaldend/src/tools/al/test/terraform/cmd/terraform_fixture",
+    visibility = ["//visibility:private"],
 )

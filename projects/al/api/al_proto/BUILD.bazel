@@ -1,3 +1,6 @@
+# The shared proto and its imports use explicit Bazel targets.
+# gazelle:ignore
+
 load("@protobuf//bazel:proto_library.bzl", "proto_library")
 load("@rules_go//go:def.bzl", "go_library")
 load("@rules_go//proto:def.bzl", "go_proto_library")

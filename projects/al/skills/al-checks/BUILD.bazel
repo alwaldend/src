@@ -7,6 +7,8 @@ load(
 )
 load("//tools/rules_skills/skill:defs.bzl", "skill_library")
 
+package(transitive_visibility = "//projects:transitive_consumers")
+
 go_library(
     name = "run_full_repo_check_lib",
     srcs = [

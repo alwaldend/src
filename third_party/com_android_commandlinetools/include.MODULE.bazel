@@ -4,6 +4,7 @@ binary_toolchain_extension = use_extension(
 )
 binary_toolchain_extension.toolchains(
     archives = {
+        "android_cmdtools": ["linux_x86_64"],
     },
     lock = "//third_party/com_android_commandlinetools:binary_toolchain.json",
     toolchains_map = {

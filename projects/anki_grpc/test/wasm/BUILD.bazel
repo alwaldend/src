@@ -1,4 +1,4 @@
-load("@rules_go//go:def.bzl", "go_test")
+load("@rules_go//go:def.bzl", "go_library", "go_test")
 load("@rules_rust//rust:defs.bzl", "rust_binary")
 
 package(transitive_visibility = "//projects:transitive_consumers")
@@ -153,4 +153,11 @@ go_test(
         "@com_github_tetratelabs_wazero//imports/wasi_snapshot_preview1",
         "@rules_go//go/runfiles",
     ],
+)
+
+go_library(
+    name = "wasm",
+    srcs = ["doc.go"],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/anki_grpc/test/wasm",
+    visibility = ["//visibility:public"],
 )

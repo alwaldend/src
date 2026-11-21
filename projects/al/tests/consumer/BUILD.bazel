@@ -1,13 +1,23 @@
-load("@rules_go//go:def.bzl", "go_binary")
+load("@rules_go//go:def.bzl", "go_binary", "go_library")
+load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
+
+package(transitive_visibility = "//projects:transitive_consumers")
 
 go_binary(
     name = "check",
+    embed = [":consumer_lib"],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/al/tests/consumer",
+    visibility = ["//visibility:public"],
+)
+
+go_library(
+    name = "consumer_lib",
     srcs = [
         "check.go",
         "doc.go",
     ],
     importpath = "git.alwaldend.com/alwaldend/src/projects/al/tests/consumer",
-    visibility = ["//visibility:public"],
+    visibility = ["//visibility:private"],
     deps = [
         "//projects/al/api/al_proto",
         "//projects/al/api/contracts",
@@ -16,4 +26,10 @@ go_binary(
         "@org_golang_google_protobuf//encoding/protojson",
         "@org_golang_google_protobuf//proto",
     ],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//projects/al/tests:__pkg__"],
 )

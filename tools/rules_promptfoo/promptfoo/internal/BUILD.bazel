@@ -1,5 +1,7 @@
 load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
 
+package(transitive_visibility = "//tools:build_api_consumers")
+
 bzl_library(
     name = "promptfoo_test",
     srcs = ["promptfoo_test.bzl"],

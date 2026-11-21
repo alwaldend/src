@@ -1,5 +1,7 @@
 load("//tools/rules_skills/skill:defs.bzl", "skill_library")
 
+package(transitive_visibility = "//tools:transitive_consumers")
+
 skill_library(
     name = "skill",
     srcs = glob(

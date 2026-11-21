@@ -1,11 +1,20 @@
-load("@rules_go//go:def.bzl", "go_binary")
+load("@rules_go//go:def.bzl", "go_binary", "go_library")
+
+package(transitive_visibility = "//projects:transitive_consumers")
 
 go_binary(
     name = "scanner",
     testonly = True,
+    embed = [":fixture_scanner_lib"],
+    visibility = ["//projects/rules_trufflehog:__pkg__"],
+)
+
+go_library(
+    name = "fixture_scanner_lib",
     srcs = [
         "doc.go",
         "main.go",
     ],
-    visibility = ["//projects/rules_trufflehog:__pkg__"],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/rules_trufflehog/test/fixture_scanner",
+    visibility = ["//visibility:private"],
 )

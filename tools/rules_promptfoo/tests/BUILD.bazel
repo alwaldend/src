@@ -1,3 +1,5 @@
+package(transitive_visibility = "//tools:build_api_consumers")
+
 test_suite(
     name = "tests",
     tests = [

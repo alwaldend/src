@@ -1,3 +1,5 @@
+# gazelle:exclude archive/skills
+
 load("//tools/rules_skills/skill:defs.bzl", "skill_library", "skills_write")
 load(
     ":analysis_test.bzl",
@@ -10,6 +12,8 @@ load(
     "skills_write_test",
 )
 load(":discovery_test.bzl", "skills_write_updater_test")
+
+package(transitive_visibility = "//tools:transitive_consumers")
 
 _TEST_PARENT = package_name().rsplit("/", 1)[0]
 
@@ -252,4 +256,16 @@ test_suite(
         ":skills_write_written_entries_test",
         ":skills_write_written_updater_test",
     ],
+)
+
+skill_library(
+    name = "skill",
+    srcs = glob(
+        ["**"],
+        exclude = [
+            "BUILD",
+            "BUILD.bazel",
+            "evals/**",
+        ],
+    ),
 )

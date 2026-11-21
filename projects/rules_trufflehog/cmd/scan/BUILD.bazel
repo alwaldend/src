@@ -1,7 +1,15 @@
-load("@rules_go//go:def.bzl", "go_binary")
+load("@rules_go//go:def.bzl", "go_binary", "go_library")
+
+package(transitive_visibility = "//projects:transitive_consumers")
 
 go_binary(
     name = "scan",
+    embed = [":scan_lib"],
+    visibility = ["//projects/rules_trufflehog:__subpackages__"],
+)
+
+go_library(
+    name = "scan_lib",
     srcs = [
         "allowlist.go",
         "checkout.go",
@@ -9,7 +17,8 @@ go_binary(
         "main.go",
         "scan.go",
     ],
-    visibility = ["//projects/rules_trufflehog:__subpackages__"],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/rules_trufflehog/cmd/scan",
+    visibility = ["//visibility:private"],
     deps = [
         "@com_github_spf13_cobra//:cobra",
         "@com_github_trufflesecurity_trufflehog_v3//pkg/pb/source_metadatapb",

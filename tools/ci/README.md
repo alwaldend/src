@@ -34,16 +34,19 @@ before launching Bazel. Use this option only on the dedicated runner with one
 job slot. The stable path keeps Bazel's on-disk outputs and caches reusable
 across jobs.
 
-The command runs `bazel build --config=ci //...` and
-`bazel test --config=ci //...` from the repository root. The root wildcard
+The command runs `bazel build --config=ci //...`,
+`bazel test --config=ci //...`, and
+`bazel build --config=ci --config=lint //...` from the repository root. The root wildcard
 covers first-party rulesets under their package paths. Bazel applies its
 normal exclusions for manual and incompatible targets.
 
-The test phase runs even if the build fails. The command streams diagnostics
-and exits nonzero if any phase fails. Forgejo jobs shut down the Bazel
-server after both phases to release runner memory.
+All phases are attempted even after a failure. The test phase includes
+Buildifier and the workspace-wide Gazelle drift test. The lint phase applies
+the Buildifier, Ruff, and ShellCheck aspects to declared targets. The command
+streams diagnostics and exits nonzero if any phase fails. Forgejo jobs
+shut down the Bazel server after the phases to release runner memory.
 
-In Forgejo, build and test logs are collapsible sections. The
+In Forgejo, each phase has a collapsible section. The
 job summary above the log shows whether each phase passed and how long it ran.
 Expand **Build repository CI command** and then **Bazel launcher diagnostics**
 to see the Bazel output for the launcher build.

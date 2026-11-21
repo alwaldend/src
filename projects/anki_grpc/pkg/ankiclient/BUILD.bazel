@@ -62,3 +62,4 @@ go_test(
         "@rules_go//go/runfiles",
     ],
 )
+# gazelle:resolve go github.com/ankitects/anki/proto/anki/backend //third_party/com_github_ankitects_anki:backend

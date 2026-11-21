@@ -1,6 +1,8 @@
 load("@bazel_skylib//rules:build_test.bzl", "build_test")
-load("@rules_go//go:def.bzl", "go_test")
+load("@rules_go//go:def.bzl", "go_library", "go_test")
 load("//projects/al:defs.bzl", "al_release", "al_release_bundle", "al_release_files")
+
+package(transitive_visibility = "//projects:transitive_consumers")
 
 al_release_files(
     name = "payloads",
@@ -50,4 +52,11 @@ go_test(
         "DEVELOPMENT_BUNDLE_PATH": "$(rlocationpath :development_bundle)",
     },
     deps = ["@rules_go//go/runfiles"],
+)
+
+go_library(
+    name = "tests",
+    srcs = ["doc.go"],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/al/tests",
+    visibility = ["//visibility:public"],
 )

@@ -5,6 +5,8 @@ load(
     "workspace_test",
 )
 
+package(transitive_visibility = "//tools:build_api_consumers")
+
 promptfoo_workspace(
     name = "workspace",
     testonly = True,

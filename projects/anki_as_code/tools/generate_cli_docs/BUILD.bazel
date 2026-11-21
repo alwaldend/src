@@ -1,19 +1,11 @@
-load("@rules_go//go:def.bzl", "go_binary", "go_test")
+load("@rules_go//go:def.bzl", "go_binary", "go_library", "go_test")
 
 package(transitive_visibility = "//projects:transitive_consumers")
 
 go_binary(
     name = "generate_cli_docs",
-    srcs = [
-        "doc.go",
-        "main.go",
-    ],
+    embed = [":generate_cli_docs_lib"],
     visibility = ["//projects/anki_as_code/docs:__pkg__"],
-    deps = [
-        "//projects/anki_as_code/api/ankiascodeapi",
-        "//projects/anki_as_code/internal/cli",
-        "@com_github_spf13_cobra//:cobra",
-    ],
 )
 
 go_test(
@@ -21,4 +13,19 @@ go_test(
     srcs = ["workflow_test.go"],
     data = [":generate_cli_docs"],
     env = {"CLI_DOCS_GENERATOR": "$(rootpath :generate_cli_docs)"},
+)
+
+go_library(
+    name = "generate_cli_docs_lib",
+    srcs = [
+        "doc.go",
+        "main.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/anki_as_code/tools/generate_cli_docs",
+    visibility = ["//visibility:private"],
+    deps = [
+        "//projects/anki_as_code/api/ankiascodeapi",
+        "//projects/anki_as_code/internal/cli",
+        "@com_github_spf13_cobra//:cobra",
+    ],
 )

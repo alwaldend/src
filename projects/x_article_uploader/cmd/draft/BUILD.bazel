@@ -1,19 +1,26 @@
-load("@rules_go//go:def.bzl", "go_binary")
+load("@rules_go//go:def.bzl", "go_binary", "go_library")
 load("//tools/transitive_visibility:defs.bzl", "artifact_boundary_test")
 
 package(transitive_visibility = "//projects:transitive_consumers")
 
 go_binary(
     name = "draft",
-    srcs = ["main.go"],
+    embed = [":draft_lib"],
     visibility = ["//projects/x_article_uploader:__subpackages__"],
-    deps = [
-        "//projects/x_article_uploader/internal/draft",
-        "//projects/x_article_uploader/internal/xapi",
-    ],
 )
 
 artifact_boundary_test(
     name = "artifact_boundary_test",
     target = ":draft",
+)
+
+go_library(
+    name = "draft_lib",
+    srcs = ["main.go"],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/x_article_uploader/cmd/draft",
+    visibility = ["//visibility:private"],
+    deps = [
+        "//projects/x_article_uploader/internal/draft",
+        "//projects/x_article_uploader/internal/xapi",
+    ],
 )

@@ -1,6 +1,8 @@
 load("//projects/al:defs.bzl", "al_config", "al_inject")
 load("//tools/al:al_terraform.bzl", "al_terraform_package", "al_terraform_test_map")
 
+package(transitive_visibility = "//tools:transitive_consumers")
+
 al_inject(
     name = "version_environment",
     testonly = True,

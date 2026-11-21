@@ -7,6 +7,8 @@ load(
 )
 load("//tools/rules_promptfoo/promptfoo/internal:workspace.bzl", "promptfoo_workspace")
 
+package(transitive_visibility = "//tools:build_api_consumers")
+
 sh_binary(
     name = "fake_promptfoo",
     srcs = ["fake_promptfoo.sh"],

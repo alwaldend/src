@@ -1,3 +1,6 @@
+# Generated resources are embedded through Bazel targets.
+# gazelle:ignore
+
 load("@bazel_skylib//rules:copy_file.bzl", "copy_file")
 load("@rules_go//go:def.bzl", "go_library")
 load("//internal/assets/web:defs.bzl", "site_stylesheet")

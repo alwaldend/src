@@ -1,4 +1,6 @@
-load("@rules_go//go:def.bzl", "go_test")
+load("@rules_go//go:def.bzl", "go_library", "go_test")
+
+package(transitive_visibility = "//infra:transitive_consumers")
 
 go_test(
     name = "sync_test",
@@ -14,4 +16,11 @@ go_test(
     env = {"AL_BINARY": "$(rlocationpath //projects/al:al)"},
     tags = ["manual"],
     deps = ["@rules_go//go/runfiles"],
+)
+
+go_library(
+    name = "sync_lib",
+    srcs = ["doc.go"],
+    importpath = "git.alwaldend.com/alwaldend/src/infra/download/test/sync",
+    visibility = ["//visibility:public"],
 )

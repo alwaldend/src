@@ -1,4 +1,4 @@
-load("@rules_go//go:def.bzl", "go_test")
+load("@rules_go//go:def.bzl", "go_library", "go_test")
 
 package(transitive_visibility = "//internal:transitive_consumers")
 
@@ -9,4 +9,11 @@ go_test(
         "doc.go",
     ],
     deps = ["//internal/x_sdk/pkg/client"],
+)
+
+go_library(
+    name = "e2e",
+    srcs = ["doc.go"],
+    importpath = "git.alwaldend.com/alwaldend/src/internal/x_sdk/test/e2e",
+    visibility = ["//:__subpackages__"],
 )

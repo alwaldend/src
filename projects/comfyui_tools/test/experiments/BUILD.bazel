@@ -1,4 +1,4 @@
-load("@rules_go//go:def.bzl", "go_test")
+load("@rules_go//go:def.bzl", "go_library", "go_test")
 
 package(transitive_visibility = "//projects:transitive_consumers")
 
@@ -14,4 +14,11 @@ go_test(
         "EXPERIMENTS_BINARY": "$(rlocationpath //projects/comfyui_tools/cmd/experiments)",
     },
     deps = ["@rules_go//go/runfiles"],
+)
+
+go_library(
+    name = "experiments",
+    srcs = ["doc.go"],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/comfyui_tools/test/experiments",
+    visibility = ["//visibility:public"],
 )

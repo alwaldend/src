@@ -1,5 +1,7 @@
-load("@rules_go//go:def.bzl", "go_test")
+load("@rules_go//go:def.bzl", "go_library", "go_test")
 load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
+
+package(transitive_visibility = "//projects:transitive_consumers")
 
 go_test(
     name = "e2e_test",
@@ -18,4 +20,11 @@ docs_filegroup(
     srcs = ["README.md"],
     prefix = "content/docs/projects/rules_trufflehog/test/e2e",
     visibility = ["//projects/rules_trufflehog:__pkg__"],
+)
+
+go_library(
+    name = "e2e",
+    srcs = ["doc.go"],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/rules_trufflehog/test/e2e",
+    visibility = ["//visibility:public"],
 )

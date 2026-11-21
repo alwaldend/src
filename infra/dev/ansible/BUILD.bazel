@@ -1,3 +1,5 @@
+# gazelle:exclude files/git_credential_forgejo.py
+
 load("@rules_pkg//pkg:mappings.bzl", "pkg_files")
 load("//projects/al:defs.bzl", "al_binary_run_map")
 load("//tools/ansible/rules:al_ansible_binary.bzl", "al_ansible_binary")

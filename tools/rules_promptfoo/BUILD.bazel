@@ -6,6 +6,8 @@ load(
 )
 load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
 
+package(transitive_visibility = "//tools:build_api_consumers")
+
 npm_link_all_packages(name = "node_modules")
 
 promptfoo_bin.promptfoo_binary(

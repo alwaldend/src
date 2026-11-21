@@ -8,6 +8,11 @@ Repository-wide directives remain in root `BUILD.bazel`, where Gazelle discovers
 them for all packages. Root `//:gazelle` and `//:gazelle_bin` remain compatibility
 entry points.
 
+`//tools/gazelle:workspace_test` checks BUILD file freshness across the
+root workspace in diff mode. Normal CI's root test wildcard includes it.
+Packages with hand-maintained targets use scoped Gazelle directives to
+preserve explicit runtime, platform, or generated-source wiring.
+
 The transitive-visibility extension is registered last so it also covers
 packages created by other languages. Each tree selects a package group with
 [`tools/transitive_visibility/transitive_visibility.toml`](../transitive_visibility/transitive_visibility.toml). To regenerate

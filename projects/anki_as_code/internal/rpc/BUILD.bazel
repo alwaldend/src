@@ -1,3 +1,6 @@
+# Bazel generates the source and declares its schema inputs.
+# gazelle:ignore
+
 load("@rules_go//go:def.bzl", "go_library")
 load("//projects/anki_as_code/tools/generate_anki_schemas:defs.bzl", "anki_schema_imports")
 load("//third_party/com_github_ankitects_anki:schemas.bzl", "ANKI_SCHEMAS")

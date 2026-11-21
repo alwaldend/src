@@ -22,4 +22,5 @@ site_stylesheet(
 docs_filegroup(
     name = "docs",
     srcs = ["README.md"],
+    visibility = ["//tools:__pkg__"],
 )

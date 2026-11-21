@@ -1,4 +1,4 @@
-load("@rules_go//go:def.bzl", "go_test")
+load("@rules_go//go:def.bzl", "go_library", "go_test")
 
 package(transitive_visibility = "//projects:transitive_consumers")
 
@@ -24,4 +24,11 @@ go_test(
         "@org_golang_google_protobuf//proto",
         "@rules_go//go/runfiles",
     ],
+)
+
+go_library(
+    name = "transport",
+    srcs = ["doc.go"],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/anki_grpc/test/transport",
+    visibility = ["//visibility:public"],
 )
