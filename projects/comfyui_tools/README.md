@@ -73,9 +73,6 @@ filenames. Adjust output dimensions in ImageScale and denoise in KSampler
 IP-Adapter/CLIP vision weights. Native graphs start at 30 Euler ancestral/normal
 steps and CFG 5.5; NoobAI uses neutral tag-style starting prompts. These are
 starting presets, with no new GPU acceptance or reference-quality claim.
-NoobAI's publisher restricts commercial use, including generated products;
-the [model configuration](../../infra/image_gen/tf_setup/README.md#additional-model-options)
-records the licenses and component choices.
 
 `hidream-i1-full` provides text-to-image, img2img, style-reference, all three panel
 sequences and ordinary/masked chained img2img GIFs. The img2img sequence reuses

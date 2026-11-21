@@ -43,8 +43,7 @@ NoobAI's scene sequence, Canny and interpolated GIF pipeline have completed GPU
 execution; precise pose edits and exact character identity remain limited.
 Illustrious has offline packaging checks only. HiDream's GIF
 workflow completed the approved eval case, with poor motion/reference quality;
-its other workflows remain unverified on a GPU. NoobAI's publisher prohibits commercial
-use of generated products; see the model configuration before selecting it.
+its other workflows remain unverified on a GPU.
 Prompt Sequence uses the native multiline
 editor; blank lines in line mode provide visual spacing without extra panels.
 
@@ -138,9 +137,8 @@ This selects Vast's certified datacenter tier; it does not establish
 confidentiality against the host administrator. SSH and HTTPS
 protect transport, not a workload from its machine's administrator.
 
-Gated Flux downloads require a read-only Hugging Face token whose account has
-accepted the publisher's non-commercial license. The operator or external IaC
-stores it in the `huggingface` entry as field `token`; this component only reads
+Gated Flux downloads require a read-only Hugging Face token. The operator or
+external IaC stores it in the `huggingface` entry as field `token`; this component only reads
 it. The authenticated Ansible entry point receives it through AL injection for the gated profile and supplies it to the publisher download request.
 The token is visible to rental processes and the host administrator. No Vault or
 Vast account key is passed to the rental.
