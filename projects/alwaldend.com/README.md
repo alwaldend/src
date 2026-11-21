@@ -37,8 +37,7 @@ theme with white and charcoal color modes, subtle borders, and system fonts.
 The navigation's theme menu supports light, dark, and system preferences.
 Every page uses the centered S8 square monogram from `//internal/assets:monogram`
 in its header and SVG favicon. The header adapts to light and dark modes.
-The favicon uses a white fill and a thin charcoal outline on a transparent
-background.
+The favicon uses the shared artwork's high-contrast tab presentation.
 Prose links are underlined, and keyboard focus uses a visible outline.
 Scrollbars are thin and muted; taxonomy links use small rounded labels shared
 with the project index. Documentation sidebars use plain action rows,

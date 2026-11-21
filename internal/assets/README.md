@@ -35,9 +35,19 @@ A 2.5-unit horizontal translation centers the complete mark, leaving equal
 The SVG is available as `//internal/assets:monogram` for internal repository
 consumers. The `projects/alwaldend.com` assets package consumes it directly
 for the header and selects its `data-variant="favicon"` presentation for the
-fingerprinted browser tab icon. The favicon uses white artwork with a charcoal
-outline on a transparent background. WebP previews are generated output,
-not source.
+fingerprinted browser tab icon. The favicon renders the same monogram in
+charcoal on a rounded white tile. WebP previews are generated output, not
+source.
+
+## Favicon showcase
+
+```sh
+bazel build //internal/assets:favicon_preview
+```
+
+Open the generated `favicon-preview.html` at the Bazel output path to see
+the canonical favicon variant at 16–64 pixels on light, dark, and
+white-backed tabs.
 
 ## Reproduce the preview
 
