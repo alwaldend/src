@@ -72,12 +72,15 @@ its `.dark.svg` sibling. The site theme selects the visible image, and print
 always uses light. Historical blog diagrams retain their original files and
 presentation. Select a diagram's `_webp` or `_dark_webp` target for syndication
 and social previews.
-The homepage panel links to GitHub, GitLab, Blog, and Docs. Projects and Infra
-each link to an index and list their projects by creation date, newest first.
-Projects appears above Infra. Each list uses two columns of entries when space
-permits and one column on narrower screens.
-Each row shows its destination alongside its title; narrow screens place the
-destination below the title. The panel has space below the fixed header.
+
+The homepage groups links into four sections in one panel. Site links to Blog
+and Docs, and External links to GitHub, GitLab, Docker Hub, and Hugging Face.
+Projects and Infra link to their indexes and list their entries by creation
+date, newest first. The sections form two columns on wider screens and stack on
+narrower screens. Each link shows its destination beside its title, or below
+it on small screens. The header also links to the Infra index at `/infra/`,
+which shares the Projects index layout and links to infrastructure
+documentation under `/docs/infra/`.
 
 The [Mermaid theme gallery](docs/mermaid-theme/README.md) shows flowchart,
 sequence, state, class, entity-relationship, and mindmap examples in the current

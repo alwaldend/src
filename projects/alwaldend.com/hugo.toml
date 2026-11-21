@@ -31,11 +31,19 @@ version_menu_pagelinks = true
 
 [[params.alwaldend.links]]
 name = "GitHub"
-url = "https://github.com/alwaldend/src/"
+url = "https://github.com/alwaldend"
 
 [[params.alwaldend.links]]
 name = "GitLab"
-url = "https://gitlab.com/alwaldend/src/"
+url = "https://gitlab.com/alwaldend"
+
+[[params.alwaldend.links]]
+name = "Docker Hub"
+url = "https://hub.docker.com/u/alwaldend"
+
+[[params.alwaldend.links]]
+name = "Hugging Face"
+url = "https://huggingface.co/alwaldend"
 
 # [params.copyright]
 # authors = ""
@@ -92,7 +100,12 @@ url = "/blog/"
 [[menus.main]]
 name = "Projects"
 weight = 75
-url = "/projects/"
+pageRef = "/projects"
+
+[[menus.main]]
+name = "Infra"
+weight = 80
+pageRef = "/infra"
 
 [[menus.main]]
 name = "Docs"

@@ -6,21 +6,27 @@
   {{ end }} {{ .Content }}
   <div class="section-index">
     <hr class="panel-line" />
-    {{ range .Pages.ByDate.Reverse }}
+    {{ range partial "section-index-pages.html" . }}
     <div class="entry">
       <h5><a href="{{ .RelPermalink }}">{{ .Title }}</a></h5>
-      <p>{{ .Description | markdownify }}</p>
+      {{ with .Description }}
+      <p>{{ . | markdownify }}</p>
+      {{ end }}
+      {{ $statuses := .GetTerms "statuses" }}
+      {{ $tags := .GetTerms "tags" }}
+      {{ if or $statuses $tags }}
       <p>
-        {{ range .GetTerms "statuses" }}
+        {{ range $statuses }}
         <a class="taxonomy-term" href="{{ .RelPermalink }}"
           >{{ .LinkTitle }}</a
         >
-        {{ end }} {{ range .GetTerms "tags" }}
+        {{ end }} {{ range $tags }}
         <a class="taxonomy-term" href="{{ .RelPermalink }}"
           >{{ .LinkTitle }}</a
         >
         {{ end }}
       </p>
+      {{ end }}
     </div>
     {{ end }}
   </div>
