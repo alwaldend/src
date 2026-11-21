@@ -33,8 +33,8 @@ common:ruleset --check_direct_dependencies="off"
 common:ci --color="yes"
 # Docs: https://registry.build/flag/bazel@9.3.1?filter=color
 
-# On CI, use cursor controls in screen output.
-common:ci --curses="yes"
+# Keep CI output readable in line-oriented build logs.
+common:ci --curses="no"
 # Docs: https://registry.build/flag/bazel@9.3.1?filter=curses
 
 # Bazel picks up host-OS-specific config lines from bazelrc files. For example, if the host OS is
