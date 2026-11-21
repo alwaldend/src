@@ -40,3 +40,31 @@ assert.equal(
     run(undefined, () => assert.fail("must not start Bazel")),
     1,
 );
+
+process.env.FORGEJO_ACTIONS = "true";
+for (const status of [0, 7]) {
+    const output = [];
+    const { log, error } = console;
+    let exitCode;
+    try {
+        console.log = console.error = (line) => output.push(line.trim());
+        exitCode = run(workspace, (command) => {
+            output.push(command === "bazel" ? "Bazel output" : "CI output");
+            return { status: command === "bazel" ? status : 0 };
+        });
+    } finally {
+        Object.assign(console, { log, error });
+    }
+    assert.equal(exitCode, status);
+    assert.deepEqual(output, [
+        "##[group]Build repository CI command",
+        "##[group]Bazel launcher diagnostics",
+        "Bazel output",
+        "##[endgroup]",
+        ...(status
+            ? ["Repository CI launcher build exited with status 7"]
+            : []),
+        "##[endgroup]",
+        ...(status ? [] : ["CI output"]),
+    ]);
+}

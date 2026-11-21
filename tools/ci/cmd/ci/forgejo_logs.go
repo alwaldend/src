@@ -16,8 +16,17 @@ const testOutputHeader = "==================== Test output for "
 // testOutputFooter ends a failed-test log copied by Bazel's console UI.
 const testOutputFooter = "================================================================================"
 
-// routineBazelInfo matches invocation bookkeeping with optional timestamps and colors.
-var routineBazelInfo = regexp.MustCompile(`^(?:\([0-9:]+\) )?(?:\x1b\[[0-9;]*m)*INFO: (?:\x1b\[[0-9;]*m)*(?:Invocation ID:|Current date is )`)
+// bazelDiagnostics is the group title for routine records and their continuation lines.
+const bazelDiagnostics = "Bazel diagnostics"
+
+// bazelConsoleFormatting matches the optional timestamp and color sequences.
+var bazelConsoleFormatting = regexp.MustCompile(`^\([0-9:]+\) |\x1b\[[0-9;]*m`)
+
+// routineBazelRecord starts a diagnostic record that can be folded.
+var routineBazelRecord = regexp.MustCompile(`^(INFO|DEBUG|WARNING):`)
+
+// visibleBazelRecord starts an error or a test result to show directly in the phase.
+var visibleBazelRecord = regexp.MustCompile(`^((ERROR|FATAL|FAIL|FAILED):|Executed [0-9]+|(@[^ ]*)?//[^ ]+ +(?:\(cached\) +)?(PASSED|FAILED|FLAKY|TIMEOUT|INCOMPLETE|NO STATUS|REMOTE FAILURE)( |$))`)
 
 // runWithForgejoLogs streams merged Bazel output to the current log group.
 func runWithForgejoLogs(cmd *exec.Cmd, output io.Writer, testPhase bool) error {
@@ -39,29 +48,60 @@ func runWithForgejoLogs(cmd *exec.Cmd, output io.Writer, testPhase bool) error {
 	return nil
 }
 
-// streamForgejoLogs folds failed-test diagnostics and omits routine invocation metadata.
+// streamForgejoLogs folds routine diagnostics and failed-test output within a phase.
 func streamForgejoLogs(input io.Reader, output io.Writer, testPhase bool) error {
 	reader := bufio.NewReader(input)
-	open := false
+	group := ""
+	setGroup := func(title string) error {
+		if group == title {
+			return nil
+		}
+		if group != "" {
+			if _, err := fmt.Fprint(output, "\n##[endgroup]\n"); err != nil {
+				return fmt.Errorf("end Bazel log group: %w", err)
+			}
+		}
+		if title != "" {
+			if _, err := fmt.Fprintf(output, "##[group]%s\n", title); err != nil {
+				return fmt.Errorf("begin Bazel log group: %w", err)
+			}
+		}
+		group = title
+		return nil
+	}
+	fold := true
+	failedTest := false
 	for {
 		line, readErr := reader.ReadString('\n')
-		text := strings.TrimRight(line, "\r\n")
-		if target, found := strings.CutPrefix(text, testOutputHeader); testPhase && found && !open && strings.HasSuffix(target, ":") {
-			if _, err := fmt.Fprintf(output, "##[group]Failed test %s\n", strings.TrimSuffix(target, ":")); err != nil {
-				return fmt.Errorf("begin failed-test log group: %w", err)
+		text := bazelConsoleFormatting.ReplaceAllString(strings.TrimRight(line, "\r\n"), "")
+		if line != "" && !failedTest {
+			title := ""
+			if target, found := strings.CutPrefix(text, testOutputHeader); testPhase && found && strings.HasSuffix(target, ":") {
+				title = "Failed test " + strings.TrimSuffix(target, ":")
+				failedTest = true
+			} else {
+				switch {
+				case visibleBazelRecord.MatchString(text):
+					fold = false
+				case routineBazelRecord.MatchString(text):
+					fold = true
+				}
+				if fold {
+					title = bazelDiagnostics
+				}
 			}
-			open = true
+			if err := setGroup(title); err != nil {
+				return fmt.Errorf("group Bazel output: %w", err)
+			}
 		}
-		if open || !routineBazelInfo.MatchString(text) {
-			if _, err := io.WriteString(output, line); err != nil {
-				return fmt.Errorf("write Bazel output: %w", err)
-			}
+		if _, err := io.WriteString(output, line); err != nil {
+			return fmt.Errorf("write Bazel output: %w", err)
 		}
-		if open && (text == testOutputFooter || readErr != nil) {
-			if _, err := fmt.Fprint(output, "\n##[endgroup]\n"); err != nil {
-				return fmt.Errorf("end failed-test log group: %w", err)
+		if readErr != nil || (failedTest && text == testOutputFooter) {
+			if err := setGroup(""); err != nil {
+				return fmt.Errorf("close Bazel output group: %w", err)
 			}
-			open = false
+			failedTest = false
 		}
 		if errors.Is(readErr, io.EOF) {
 			return nil

@@ -138,7 +138,7 @@ func main() {
 		cmd := exec.CommandContext(context.Background(), arguments[0], arguments[1:]...)
 		cmd.Dir = directory
 		cmd.Stdin = os.Stdin
-		if grouped {
+		if grouped && (arguments[1] == "build" || arguments[1] == "test") {
 			if err := runWithForgejoLogs(cmd, os.Stdout, arguments[1] == "test"); err != nil {
 				return fmt.Errorf("execute Bazel: %w", err)
 			}

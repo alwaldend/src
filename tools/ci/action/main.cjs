@@ -115,21 +115,29 @@ function run(workspace, spawn = spawnSync) {
     const launcher = join(directory, "ci");
     try {
         const buildStatus = withLogGroup("Build repository CI command", () => {
-            const result = spawn(
-                "bazel",
-                [
-                    "run",
-                    "--config=ci",
-                    `--script_path=${launcher}`,
-                    "//tools/ci",
-                ],
-                options,
+            const result = withLogGroup("Bazel launcher diagnostics", () =>
+                spawn(
+                    "bazel",
+                    [
+                        "run",
+                        "--config=ci",
+                        `--script_path=${launcher}`,
+                        "//tools/ci",
+                    ],
+                    options,
+                ),
             );
             if (result.error) {
                 console.error("Repository CI could not start Bazel");
                 return 1;
             }
-            return result.status ?? 1;
+            const status = result.status ?? 1;
+            if (status !== 0) {
+                console.log(
+                    `Repository CI launcher build exited with status ${status}`,
+                );
+            }
+            return status;
         });
         if (buildStatus !== 0) {
             return buildStatus;
