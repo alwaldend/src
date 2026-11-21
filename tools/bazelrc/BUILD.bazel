@@ -6,7 +6,14 @@ package(transitive_visibility = "//tools:transitive_consumers")
 
 bazelrc_preset(
     name = "preset",
-    extra_presets = {"module_mirrors": []},
+    extra_presets = {
+        "announce_rc": [],
+        "curses": [],
+        "module_mirrors": [],
+        "remote_download_outputs": [],
+        "show_progress_rate_limit": [],
+        "terminal_columns": [],
+    },
     strict = True,
 )
 

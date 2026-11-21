@@ -14,6 +14,18 @@ in each workspace.
   remaining phases
 - **AND** the action reports failure
 
+#### Scenario: Bazel prints failed-test output
+
+- **WHEN** Bazel includes a failed test's output in the Forgejo test log
+- **THEN** the test's output is available in its own collapsible section
+- **AND** the test phase retains the failure status and warnings
+
+#### Scenario: The action builds and then runs the CI command
+
+- **WHEN** the Forgejo action builds the CI command
+- **THEN** the build output is available in a collapsible log group
+- **AND** the group closes before execution of the compiled command
+
 #### Scenario: Run the command locally
 
 - **WHEN** the command runs outside Forgejo

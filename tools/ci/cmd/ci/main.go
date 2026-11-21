@@ -62,7 +62,8 @@ func check(root string, run commandRunner, output io.Writer, grouped bool) ([]wo
 		}
 		runPhase := func(phase, title string) phaseResult {
 			if grouped {
-				fmt.Fprintf(output, "##[group]%s / %s\n", name, title)
+				// Bazel can leave a terminal escape sequence without a newline.
+				fmt.Fprintf(output, "\n##[group]%s / %s\n", name, title)
 				// Start the marker on a new line even if Bazel left a partial line.
 				defer fmt.Fprint(output, "\n##[endgroup]\n")
 			}
@@ -136,10 +137,14 @@ func main() {
 	run := func(directory string, arguments ...string) error {
 		cmd := exec.CommandContext(context.Background(), arguments[0], arguments[1:]...)
 		cmd.Dir = directory
-		cmd.Stdin, cmd.Stdout, cmd.Stderr = os.Stdin, os.Stdout, os.Stderr
+		cmd.Stdin = os.Stdin
 		if grouped {
-			cmd.Stderr = cmd.Stdout
+			if err := runWithForgejoLogs(cmd, os.Stdout, arguments[1] == "test"); err != nil {
+				return fmt.Errorf("execute Bazel: %w", err)
+			}
+			return nil
 		}
+		cmd.Stdout, cmd.Stderr = os.Stdout, os.Stderr
 		if err := cmd.Run(); err != nil {
 			return fmt.Errorf("execute Bazel: %w", err)
 		}

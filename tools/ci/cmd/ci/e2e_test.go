@@ -75,6 +75,7 @@ func recordBazelCall() int {
 		return 7
 	}
 	if scenario == "test_failure" && filepath.ToSlash(relative) == "nested/one" && os.Args[1] == "test" {
+		fmt.Fprint(os.Stdout, "\n==================== Test output for //fixture:failure:\nfailed test diagnostics\n================================================================================\n")
 		return 8
 	}
 	return 0
@@ -248,6 +249,14 @@ func verifyReporting(t *testing.T, scenario, output, summary string) {
 	}
 	for _, heading := range headings {
 		_, afterHeading, found := strings.Cut(output, heading)
+		if scenario == "test_failure" && heading == "##[group]nested/one / Test\n" {
+			before, testLog, opened := strings.Cut(afterHeading, "##[group]Failed test //fixture:failure\n")
+			diagnostics, afterTest, closed := strings.Cut(testLog, "\n##[endgroup]\n")
+			if !opened || !closed || !strings.Contains(diagnostics, "failed test diagnostics") {
+				t.Fatalf("missing collapsed failed-test diagnostics: %s", afterHeading)
+			}
+			afterHeading = before + diagnostics + afterTest
+		}
 		diagnostics, afterGroup, closed := strings.Cut(afterHeading, "\n##[endgroup]\n")
 		if !found || !closed || strings.Contains(diagnostics, "##[group]") {
 			t.Fatalf("missing or unbalanced group %q: %s", heading, output)

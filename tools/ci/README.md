@@ -23,8 +23,9 @@ the local action:
     stable-checkout: "true"
 ```
 
-The [action](action/action.yml) launches `bazel run --config=ci //tools/ci`
-directly from Node.js, streams its output, and propagates failure. By default
+The [action](action/action.yml) uses `bazel run --script_path` to build
+`//tools/ci` with the CI profile and produce a launcher. Node.js runs that
+launcher in a separate stage, streams output, and propagates failure. By default
 it builds in `GITHUB_WORKSPACE`. With `stable-checkout: "true"`, it verifies the
 job checkout is at the event commit, fetches it locally into
 `~/.cache/repository-ci/<owner>/<repository>`, checks out that commit using the
@@ -51,7 +52,11 @@ build and test attempts to release memory before starting the next workspace.
 
 In Forgejo, each workspace's build and test logs are collapsible sections. The
 job summary above the log shows whether each phase passed and how long it ran.
-The CI profile disables terminal cursor controls to keep log lines readable.
+Expand **Build repository CI command** to see the Bazel launcher diagnostics.
+The stable checkout has its own **Prepare repository checkout** group.
+The CI profile omits Bazel configuration traces, progress updates, and
+successful target listings. Warnings and errors remain in the phase groups.
+Each failed test's output has its own expandable section in the test phase.
 The same command streams plain-text diagnostics when run locally.
 
 The runner needs the repository-managed Node.js, `bazel`, and Android

@@ -34,6 +34,8 @@ checking; use `--lockfile_mode=error` for an explicit reproducibility check.
 The shared CI profile works in root and nested workspaces. The root-only
 `//tools/bazel_configs:ci_flag` belongs in `root.bazelrc`; nested workspaces
 import the common CI flags without resolving that root package.
+The project configuration owns CI log presentation and the top-level remote
+download setting. The preset generator omits overlapping defaults.
 
 In the root workspace, lint actions fail on violations. Their failure setting
 is identical across normal and lint configurations to preserve the analysis
