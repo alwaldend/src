@@ -42,6 +42,22 @@ nested Bazel workspace. Keep it set for all operations in that workflow;
 without it the wrapper defaults to `infra/src`. Use this wrapper instead of
 installing or invoking a host-global CLI.
 
+## Generate and run the workspace test
+
+When adding an `openspec/config.yaml`, generate its Bazel declarations from the
+repository root. For example, for the workspace owned by `tools/agents`:
+
+```sh
+bazel run //:gazelle -- -lang=openspec,enforce_transitive_visibility tools/agents/openspec
+bazel test //tools/agents/openspec:validate_test
+```
+
+Gazelle declares the local `:source` workspace and `:validate_test` suite.
+The suite checks current specs and active changes in strict mode and checks
+task completion in archived changes. Use the local suite for structural
+validation during implementation. Adding or archiving change artifacts
+updates the suite's inputs through the workspace source glob.
+
 ## Select the upstream operation skill
 
 Load the skill for the actual phase and follow its procedure through the wrapper:

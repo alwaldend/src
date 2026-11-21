@@ -1,4 +1,7 @@
 load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
+load("//tools/rules_openspec/rules:defs.bzl", "openspec_validate_test", "openspec_workspace")
+
+package(transitive_visibility = "//tools:transitive_consumers")
 
 docs_filegroup(
     name = "docs",
@@ -14,11 +17,20 @@ docs_filegroup(
     visibility = ["//tools/rules_terraform:__pkg__"],
 )
 
-filegroup(
+openspec_workspace(
     name = "source",
-    srcs = glob([
-        "**/*.md",
-        "**/*.yaml",
-    ]),
+    srcs = glob(
+        [
+            "changes/**",
+            "specs/**/*.md",
+        ],
+        allow_empty = True,
+    ),
+    config = "config.yaml",
     visibility = ["//visibility:public"],
+)
+
+openspec_validate_test(
+    name = "validate_test",
+    source = ":source",
 )

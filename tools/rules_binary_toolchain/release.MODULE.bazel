@@ -10,6 +10,7 @@ bazel_dep(name = "rules_docs", version = "0.0.0")
 
 bazel_dep(name = "rules_docs_gazelle", version = "0.0.0", dev_dependency = True)
 
+bazel_dep(name = "rules_openspec", version = "0.0.0")
 bazel_dep(name = "rules_shell", version = "0.6.1")
 
 binary_toolchain_extension = use_extension(

@@ -1,11 +1,21 @@
-filegroup(
+load("//tools/rules_openspec/rules:defs.bzl", "openspec_validate_test", "openspec_workspace")
+
+package(transitive_visibility = "//projects:transitive_consumers")
+
+openspec_workspace(
     name = "source",
-    srcs = ["config.yaml"] + glob(
+    srcs = glob(
         [
             "specs/**/*.md",
             "changes/**",
         ],
         allow_empty = True,
     ),
+    config = "config.yaml",
     visibility = ["//visibility:public"],
+)
+
+openspec_validate_test(
+    name = "validate_test",
+    source = ":source",
 )

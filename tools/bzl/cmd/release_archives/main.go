@@ -140,6 +140,9 @@ func writeSources(ctx context.Context, root, commit, path string, output *tar.Wr
 				return fmt.Errorf("read source %q: %w", header.Name, err)
 			}
 			updated := rewrite.Replace(string(source))
+			if header.Name == "openspec/BUILD.bazel" || header.Name == "openspec/BUILD" {
+				updated = relocateOpenSpecPackage(updated)
+			}
 			header.Size = int64(len(updated))
 			contents = strings.NewReader(updated)
 		}

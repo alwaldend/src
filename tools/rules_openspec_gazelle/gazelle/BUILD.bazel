@@ -1,0 +1,34 @@
+load("@gazelle//:def.bzl", "gazelle_binary")
+load("@rules_go//go:def.bzl", "go_library", "go_test")
+
+package(transitive_visibility = "//tools:transitive_consumers")
+
+go_library(
+    name = "gazelle",
+    srcs = [
+        "doc.go",
+        "gazelle.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/tools/rules_openspec_gazelle/gazelle",
+    visibility = ["//visibility:public"],
+    deps = [
+        "@gazelle//config",
+        "@gazelle//language",
+        "@gazelle//rule",
+    ],
+)
+
+go_test(
+    name = "gazelle_test",
+    size = "small",
+    srcs = ["gazelle_test.go"],
+    args = ["-gazelle-binary=$(rlocationpath :gazelle_openspec)"],
+    data = [":gazelle_openspec"],
+    deps = ["@rules_go//go/runfiles"],
+)
+
+gazelle_binary(
+    name = "gazelle_openspec",
+    languages = [":gazelle"],
+    visibility = ["//visibility:public"],
+)

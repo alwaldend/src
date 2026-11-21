@@ -108,3 +108,18 @@
         OPENSPEC_PROJECT=tools/rules_docs_gazelle bazel run
         //tools/openspec -- with the original arguments. Keeps generic artifact
         steps owned upstream, preserves authority, and does not use a global CLI.
+
+- description: Generates and validates an owner-local Bazel workspace
+  vars:
+    request: >-
+      I just added tools/agents/openspec/config.yaml. How do I generate the
+      BUILD targets and validate current and archived changes? Explain without
+      using tools.
+  assert:
+    - type: llm-rubric
+      value: >-
+        Runs the root Gazelle target for tools/agents/openspec with the OpenSpec
+        language enabled. Identifies the generated source and validate_test
+        targets, runs bazel test //tools/agents/openspec:validate_test, and
+        explains that it checks current artifacts and archived task completion
+        without registering the workspace in a central inventory.

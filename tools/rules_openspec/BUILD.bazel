@@ -1,8 +1,16 @@
 load("@bazel_skylib//rules:build_test.bzl", "build_test")
+load("@bazel_skylib//rules:copy_file.bzl", "copy_file")
 load("@rules_openspec_npm//:defs.bzl", "npm_link_all_packages")
 load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
 
 package(default_visibility = ["//visibility:private"])
+
+copy_file(
+    name = "openspec_entry_point",
+    src = "cli.mjs",
+    out = "openspec_cli.mjs",
+    visibility = ["//visibility:public"],
+)
 
 exports_files([
     "package.json",
@@ -23,7 +31,6 @@ docs_filegroup(
 build_test(
     name = "build_test",
     targets = [
-        "//tools/rules_openspec/rules:openspec_validation",
-        "//tools/rules_openspec/rules:workspace",
+        "//tools/rules_openspec/rules:defs",
     ],
 )

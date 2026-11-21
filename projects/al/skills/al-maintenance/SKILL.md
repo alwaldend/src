@@ -15,7 +15,7 @@ maintained inputs. Existing generated projections are outputs, not new owners.
 Use `bazel` for repository targets. Common owners are:
 
 - `//tools/bazel_module:update` for generated root module declarations;
-- `//tools/repo_quality:inventory_update` for OpenSpec owners and the project index;
+- `//tools/repo_quality:inventory_update` for the project index and landing-page status;
 - `//.agents:write_skills` for skill discovery;
 - the owning Gazelle target for generated BUILD files.
 

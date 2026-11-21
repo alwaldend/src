@@ -38,8 +38,8 @@ func TestCheckoutFreshness(t *testing.T) {
 	}
 }
 
-// TestOwnerDiscovery verifies regeneration, stale-output rejection and nested module labels.
-func TestOwnerDiscovery(t *testing.T) {
+// TestProjectInventory verifies regeneration and stale-output rejection.
+func TestProjectInventory(t *testing.T) {
 	binary, err := runfiles.Rlocation("_main/tools/repo_quality/cmd/inventory/inventory_/inventory")
 	if err != nil {
 		t.Fatal(err)
@@ -49,10 +49,6 @@ func TestOwnerDiscovery(t *testing.T) {
 		"projects/example/README.md":              "---\ntitle: Example\ndescription: Example description\nstatuses: [active]\n---\n",
 		"projects/statuses.yaml":                  "active: Ongoing development.\nmaintenance: Existing scope maintained.\ncompleted: Intended scope complete.\narchived: No further work.\n",
 		"projects/example/site/content/_index.md": "---\ntitle: Example\ndate: 2026-01-01\nstatuses: [finished]\ntags: [example]\n---\n\nVisitor content.\n",
-		"projects/example/openspec/BUILD.bazel":   "filegroup(name = \"source\", srcs = [\"config.yaml\"])\n",
-		"tools/module/MODULE.bazel":               "module(name = \"example_rules\")\n",
-		"tools/module/openspec/BUILD.bazel":       "filegroup(name = \"source\", srcs = [\"config.yaml\"])\n",
-		"tools/draft/openspec/config.yaml":        "schema: spec-driven\n",
 		"projects/README.md":                      "# Projects\n\n<!-- BEGIN GENERATED PROJECT STATUSES -->\nold\n<!-- END GENERATED PROJECT STATUSES -->\n\n<!-- BEGIN GENERATED PROJECT INDEX -->\nold\n<!-- END GENERATED PROJECT INDEX -->\n",
 	}
 	for name, content := range files {
@@ -129,19 +125,6 @@ func TestOwnerDiscovery(t *testing.T) {
 	if err != nil || !strings.Contains(string(updated), "statuses:\n  - maintenance\n") {
 		t.Fatalf("status change was not projected: %v\n%s", err, updated)
 	}
-	path := filepath.Join(root, "infra/src/openspec/validation/workspaces.bzl")
-	data, err := os.ReadFile(path)
-	if err != nil {
-		t.Fatal(err)
-	}
-	for _, label := range []string{"//projects/example/openspec:source", "@example_rules//openspec:source"} {
-		if !strings.Contains(string(data), label) {
-			t.Errorf("missing %s in %s", label, data)
-		}
-	}
-	if strings.Contains(string(data), "draft") {
-		t.Fatal("draft is not a declared source export")
-	}
 	if err := os.WriteFile(filepath.Join(root, "projects/example/README.md"), []byte("---\ntitle: Renamed\ndescription: New description\nstatuses: [active]\n---\n"), 0o600); err != nil {
 		t.Fatal(err)
 	}
@@ -163,9 +146,6 @@ func TestOwnerDiscovery(t *testing.T) {
 			if err := os.WriteFile(filepath.Join(output, filepath.Base(filepath.Dir(name))+"-"+filepath.Base(name)), artifact, 0o600); err != nil {
 				t.Fatal(err)
 			}
-		}
-		if err := os.WriteFile(filepath.Join(output, "workspaces.bzl"), data, 0o600); err != nil {
-			t.Fatal(err)
 		}
 	}
 }

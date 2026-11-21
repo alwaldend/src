@@ -66,5 +66,6 @@ docs_filegroup(
     deps = [":docs_assets"] + subpackages(
         include = ["*"],
         allow_empty = True,
+        exclude = ["openspec"],
     ),
 )
