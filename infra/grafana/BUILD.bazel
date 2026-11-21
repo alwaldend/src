@@ -7,6 +7,8 @@ load("//tools/vault/tf_backend:defs.bzl", "vault_tf_backend")
 
 package(transitive_visibility = "//infra:transitive_consumers")
 
+_GRAFANA_CONFIG_PATH = "alwaldend.com/vault1/approles/src_infra_grafana/config"
+
 al_vault_auth(
     name = "auth",
     approle = "src_infra_grafana",
@@ -32,6 +34,41 @@ vault_tf_backend(
     name = "tf_backend",
     labels = {"tf": "setup"},
     path = "alwaldend.com/vault1/approles/src_infra_grafana/tf_backend",
+)
+
+vault_tf_backend(
+    name = "tf_backend_main",
+    labels = {"tf": "main"},
+    path = "alwaldend.com/vault1/approles/src_infra_grafana/tf_backend/main",
+)
+
+al_inject(
+    name = "tf_credentials",
+    labels = {"tf": "main"},
+    res_env = {
+        "GRAFANA_AUTH": {
+            "value": "admin:{{ .Last.Data.admin_password }}",
+            "deps": ["grafana_config"],
+        },
+        "TF_VAR_victoria_metrics_username": {
+            "value": "{{ .Last.Data.username }}",
+            "deps": ["victoria_metrics_web_auth"],
+        },
+        "TF_VAR_victoria_metrics_password": {
+            "value": "{{ .Last.Data.password }}",
+            "deps": ["victoria_metrics_web_auth"],
+        },
+    },
+    res_kv = {
+        "grafana_config": {
+            "mount": "secrets",
+            "path": _GRAFANA_CONFIG_PATH,
+        },
+        "victoria_metrics_web_auth": {
+            "mount": "secrets",
+            "path": "alwaldend.com/vault1/approles/src_infra_victoria_metrics/web_auth",
+        },
+    },
 )
 
 infra_terraform_dns_config(
@@ -79,7 +116,7 @@ al_inject(
     },
     res_kv = {"grafana_config": {
         "mount": "secrets",
-        "path": "alwaldend.com/vault1/approles/src_infra_grafana/config",
+        "path": _GRAFANA_CONFIG_PATH,
     }},
     res_op = {"grafana_oidc_client": {
         "method": "read",
@@ -94,6 +131,8 @@ al_config(
         ":auth",
         ":grafana_credentials",
         ":tf_backend",
+        ":tf_backend_main",
+        ":tf_credentials",
         ":xo_login",
         "//infra:al",
     ],
@@ -118,5 +157,6 @@ docs_filegroup(
     deps = [
         "//infra/grafana/approle:docs",
         "//infra/grafana/openspec:docs",
+        "//infra/grafana/tf:docs",
     ],
 )

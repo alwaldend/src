@@ -1,2 +1,5 @@
 ; Fedora labels TCP port 8200 as trivnet1_port_t.
 (allow grafana_t trivnet1_port_t (tcp_socket (name_connect)))
+
+; The VictoriaMetrics data source uses HTTPS.
+(allow grafana_t http_port_t (tcp_socket (name_connect)))

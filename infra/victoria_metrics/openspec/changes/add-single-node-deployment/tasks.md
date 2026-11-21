@@ -39,3 +39,4 @@ with a disposable local certificate and data directory.
 
 - [x] Add the Grafana Traefik endpoint to the DC1 scrape job.
 - [x] Add and validate a separate HTTPS scrape job for Grafana application metrics.
+- [x] Expose the Monitoring overview definition to the Grafana Terraform package.

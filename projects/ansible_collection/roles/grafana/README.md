@@ -13,3 +13,5 @@ as files on the Ansible controller. Set the OIDC client ID, browser
 authorization URL, token URL, UserInfo URL, and administrator group.
 Members of that OIDC group receive Grafana server administrator access.
 The role enables PKCE and keeps the local login available for recovery.
+
+Set `grafana_feature_toggles` to enable deployment-specific Grafana features.

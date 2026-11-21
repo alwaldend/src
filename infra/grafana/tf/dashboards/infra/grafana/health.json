@@ -1,0 +1,69 @@
+{
+    "uid": "infra-grafana-health",
+    "title": "Grafana health",
+    "schemaVersion": 38,
+    "tags": ["infra/grafana"],
+    "timezone": "browser",
+    "time": {
+        "from": "now-1h",
+        "to": "now"
+    },
+    "panels": [
+        {
+            "id": 1,
+            "type": "timeseries",
+            "title": "Application scrape health",
+            "datasource": {
+                "type": "prometheus",
+                "uid": "victoria-metrics"
+            },
+            "fieldConfig": {
+                "defaults": {
+                    "unit": "short"
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "x": 0,
+                "y": 0,
+                "w": 12,
+                "h": 8
+            },
+            "targets": [
+                {
+                    "refId": "A",
+                    "expr": "up{job=\"grafana\"}",
+                    "legendFormat": "{{instance}}"
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "type": "timeseries",
+            "title": "Process resident memory",
+            "datasource": {
+                "type": "prometheus",
+                "uid": "victoria-metrics"
+            },
+            "fieldConfig": {
+                "defaults": {
+                    "unit": "bytes"
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "x": 12,
+                "y": 0,
+                "w": 12,
+                "h": 8
+            },
+            "targets": [
+                {
+                    "refId": "A",
+                    "expr": "process_resident_memory_bytes{job=\"grafana\"}",
+                    "legendFormat": "{{instance}}"
+                }
+            ]
+        }
+    ]
+}

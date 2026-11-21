@@ -1,0 +1,35 @@
+load("//tools/al:al_terraform.bzl", "al_terraform_package")
+load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
+
+package(transitive_visibility = "//infra:transitive_consumers")
+
+_CONFIG = glob(
+    [
+        "*.tf",
+        "dashboards/*/*/*.json",
+    ],
+    exclude = ["backend.tf"],
+) + [
+    "//data/ssl/alwaldend.com:root_ca",
+    "//infra/grafana/dns:dnsconfig",
+    "//infra/victoria_metrics/ansible:monitoring_overview",
+    "//infra/victoria_metrics/dns:dnsconfig",
+]
+
+al_terraform_package(
+    name = "tf",
+    configs = ["//infra/grafana:al"],
+    data = _CONFIG + ["backend.tf"],
+    plugin_labels = {"tf": "main"},
+    providers = ["@terraform_provider_grafana_grafana//:provider"],
+    test_kwargs = {
+        "data": _CONFIG,
+        "validate": True,
+    },
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//infra/grafana:__pkg__"],
+)

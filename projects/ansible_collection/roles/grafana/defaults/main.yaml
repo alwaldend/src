@@ -1,5 +1,6 @@
 grafana_hostname: "{{ undef() }}"
 grafana_http_port: 3000
+grafana_feature_toggles: []
 grafana_admin_password_src: "{{ undef() }}"
 grafana_secret_key_src: "{{ undef() }}"
 grafana_oidc_client_id: "{{ undef() }}"

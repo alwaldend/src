@@ -7,7 +7,7 @@
     - alwaldend.main.grafana
 
   post_tasks:
-    - name: Allow Grafana to connect to Vault's OIDC endpoint under SELinux
+    - name: Allow Grafana outbound OIDC and HTTPS under SELinux
       tags: [grafana_oidc_policy]
       vars:
         grafana_oidc_policy_src: "{{ inventory_dir }}/files/grafana_vault_oidc.cil"

@@ -7,3 +7,4 @@
 - [x] 1.5 Keep the AppRole root with Grafana and validate the preserved Vault backend and authentication.
 - [x] Publish the ingress DNS aliases and allow the shared ingress guest connection.
 - [x] Allow the Grafana SELinux domain to reach Vault TCP 8200 and validate the packaged policy.
+- [x] Manage the VictoriaMetrics data source and repository-path dashboards through the Grafana Terraform root.

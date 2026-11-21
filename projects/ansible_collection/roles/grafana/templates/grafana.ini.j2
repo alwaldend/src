@@ -36,3 +36,8 @@ role_attribute_path = "'GrafanaAdmin'"
 role_attribute_strict = true
 allow_assign_grafana_admin = true
 use_pkce = true
+
+{% if grafana_feature_toggles %}
+[feature_toggles]
+enable = {{ grafana_feature_toggles | join(' ') }}
+{% endif %}

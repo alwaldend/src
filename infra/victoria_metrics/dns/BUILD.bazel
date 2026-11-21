@@ -20,7 +20,10 @@ docs_filegroup(
 filegroup(
     name = "dnsconfig",
     srcs = ["dnsconfig.json"],
-    visibility = ["//infra/victoria_metrics:__subpackages__"],
+    visibility = [
+        "//infra/grafana/tf:__pkg__",
+        "//infra/victoria_metrics:__subpackages__",
+    ],
 )
 
 template_run_binary(
