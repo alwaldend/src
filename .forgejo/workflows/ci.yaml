@@ -1,6 +1,7 @@
 name: Repository CI
 
 on:
+  workflow_call:
   push:
     branches:
       - master
@@ -19,3 +20,5 @@ jobs:
           set-safe-directory: false
       - name: Build and test the repository
         uses: ./tools/ci/action
+        with:
+          stable-checkout: "true"

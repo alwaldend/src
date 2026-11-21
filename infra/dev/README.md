@@ -16,7 +16,12 @@ preserving their current roles, users, package backends and storage settings.
 The secure runner uses the shared host and Forgejo runner roles, with one
 `self-hosted` host-executor slot scoped to `alwaldend/src`. Jobs run as the
 unprivileged `forgejo-runner` account and share its persistent filesystem;
-only trusted code belongs on this worker. Ansible installs Node.js, Bazelisk,
+only trusted code belongs on this worker. The runner's
+[managed bazelrc](ansible/files/runner_bazelrc) sets each invocation's job limit
+and CPU scheduling budget to `HOST_CPUS*0.8`, with a memory scheduling budget
+of `HOST_RAM*0.8`. These defaults scale with the detected host resources; they
+are scheduling budgets rather than hard process or aggregate host-wide limits.
+Ansible installs Node.js, Bazelisk,
 AL and the repository Android prerequisites. Its
 [provisioning root](tf_setup/README.md) owns the XO VM through the
 shared development identity and its own resource set.

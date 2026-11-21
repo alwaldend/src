@@ -3,24 +3,34 @@ title: Repository CI
 description: Shared entry point for repository builds and tests
 ---
 
-The [Forgejo workflow](../../.forgejo/workflows/ci.yaml) runs only for pushes to
-`master`. It checks out the event revision with complete Git history and tags
+The [Forgejo workflow](../../.forgejo/workflows/ci.yaml) runs on pushes to
+`master` and can be called by other trusted workflows in this repository:
+
+```yaml
+jobs:
+  ci:
+    uses: ./.forgejo/workflows/ci.yaml
+```
+
+It checks out the event revision with complete Git history and tags
 for release metadata and secret scanning, including Git LFS assets, and uses
 the local action:
 
 ```yaml
 - name: Build and test the repository
   uses: ./tools/ci/action
+  with:
+    stable-checkout: "true"
 ```
 
 The [action](action/action.yml) launches `bazel run --config=ci //tools/ci`
-directly from Node.js with an argument array and no shell. It uses
-`GITHUB_WORKSPACE` as the working directory, streams the command output, and
-propagates failure. It needs no npm packages or generated JavaScript bundle.
-The action comes from the exact revision already checked out by the workflow.
-Checkout stays in the workflow because a local action must already exist in the
-workspace before the runner can load it. Moving checkout inside this action
-would require loading the action remotely with a separate source reference.
+directly from Node.js, streams its output, and propagates failure. By default
+it builds in `GITHUB_WORKSPACE`. With `stable-checkout: "true"`, it verifies the
+job checkout is at the event commit, fetches it locally into
+`~/.cache/repository-ci/<owner>/<repository>`, checks out that commit using the
+job's existing LFS objects, and removes untracked and ignored files there
+before launching Bazel. Use this option only on the dedicated runner with one
+job slot. The stable path lets each Bazel workspace reuse its server across jobs.
 
 The command builds
 and tests normal `//...` targets in the root workspace and each nested workspace
@@ -42,8 +52,7 @@ installs these before CI starts. Agent invocations use
 `bazel run --config=ci //tools/ci`.
 
 The pinned Bazel releases its invocation before executing the command, allowing
-child builds to reuse each workspace's normal output base. No second cache or
-source checkout is needed. Existing unit tests verify workspace discovery and
+child builds to reuse each workspace's normal output base. Existing unit tests verify workspace discovery and
 phase orchestration. The Linux executable acceptance fixture runs the compiled command
 against a private Bazel process fixture, covering both phases in every workspace,
 build/test failures, missing Bazel and invalid boundaries. Its repeatable
