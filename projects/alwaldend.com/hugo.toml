@@ -8,8 +8,11 @@ enableRobotsTXT = true
 
 [outputs]
 section = ["html", "rss", "print"]
-home = ["html", "searchdocuments"]
+home = ["html", "llms", "searchdocuments"]
 page = ["html", "rss"]
+
+[languages.en]
+label = "English"
 
 [frontmatter]
 lastmod = [":fileModTime"]
