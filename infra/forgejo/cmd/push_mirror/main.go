@@ -1,4 +1,4 @@
-// Command push_mirror bootstraps a native Forgejo HTTPS push mirror.
+// Command push_mirror reconciles a native Forgejo HTTPS push mirror.
 package main
 
 import (
@@ -23,9 +23,14 @@ import (
 
 type mirrorConfig struct {
 	host, repository, target, forge, username, vaultPath, apiToken string
+	// branchFilter holds the exact trunk name and a release namespace wildcard.
+	branchFilter string
 }
 
 var repositoryPattern = regexp.MustCompile(`^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$`)
+
+// remoteNamePattern matches Forgejo's URL-safe base64 mirror names.
+var remoteNamePattern = regexp.MustCompile(`^remote_mirror_[A-Za-z0-9_-]+$`)
 
 func validRepository(repository string) bool {
 	owner, name, found := strings.Cut(repository, "/")
@@ -47,13 +52,14 @@ func main() {
 		os.Exit(2)
 	}
 	config := mirrorConfig{
-		host:       strings.TrimSuffix(os.Getenv("FORGEJO_HOST"), "/"),
-		repository: os.Getenv("FORGEJO_MIRROR_REPOSITORY"),
-		target:     os.Getenv("FORGEJO_MIRROR_TARGET"),
-		forge:      os.Getenv("FORGEJO_MIRROR_DESTINATION"),
-		username:   os.Getenv("FORGEJO_MIRROR_USERNAME"),
-		vaultPath:  os.Getenv("FORGEJO_MIRROR_VAULT_PATH"),
-		apiToken:   os.Getenv("FORGEJO_API_TOKEN"),
+		host:         strings.TrimSuffix(os.Getenv("FORGEJO_HOST"), "/"),
+		repository:   os.Getenv("FORGEJO_MIRROR_REPOSITORY"),
+		target:       os.Getenv("FORGEJO_MIRROR_TARGET"),
+		forge:        os.Getenv("FORGEJO_MIRROR_DESTINATION"),
+		username:     os.Getenv("FORGEJO_MIRROR_USERNAME"),
+		vaultPath:    os.Getenv("FORGEJO_MIRROR_VAULT_PATH"),
+		apiToken:     os.Getenv("FORGEJO_API_TOKEN"),
+		branchFilter: os.Getenv("FORGEJO_MIRROR_BRANCH_FILTER"),
 	}
 	ctx, cancel := context.WithTimeout(context.Background(), 90*time.Second)
 	defer cancel()
@@ -75,6 +81,12 @@ func (c mirrorConfig) ensure(ctx context.Context, client *http.Client) error {
 		(c.forge != "github" && c.forge != "gitlab") || c.apiToken == "" {
 		return errors.New("invalid Forgejo mirror configuration")
 	}
+	trunk, releasePattern, separated := strings.Cut(c.branchFilter, ",")
+	releaseNamespace, wildcard := strings.CutSuffix(releasePattern, "/*")
+	if !separated || !wildcard || trunk == "" || releaseNamespace == "" ||
+		strings.ContainsAny(trunk+releaseNamespace, ",*: \t\r\n") {
+		return errors.New("mirror branch filter must contain a trunk and a release namespace wildcard")
+	}
 	destination := "https://" + c.forge + ".com/" + c.target + ".git"
 	endpoint := c.host + "/api/v1/repos/" + c.repository + "/push_mirrors"
 	var inventory []pushMirror
@@ -92,25 +104,25 @@ func (c mirrorConfig) ensure(ctx context.Context, client *http.Client) error {
 	if len(inventory) >= 50 || total != len(inventory) || strings.Contains(header.Get("Link"), `rel="next"`) {
 		return errors.New("incomplete mirror inventory")
 	}
-	var current bool
+	var current *pushMirror
 	for _, entry := range inventory {
-		if entry.Address == destination && entry.Key == "" && entry.Sync &&
-			entry.Interval == "8h0m0s" && entry.Filter == "" {
-			if current {
-				return errors.New("multiple matching HTTPS mirrors")
-			}
-			current = true
-			continue
-		}
 		remote, err := url.Parse(entry.Address)
 		sameDestination := err == nil && remote.Hostname() == c.forge+".com" &&
 			strings.TrimSuffix(remote.Path, ".git") == "/"+c.target
-		if sameDestination {
+		if !sameDestination {
+			continue
+		}
+		if current != nil {
+			return errors.New("multiple mirrors for this destination")
+		}
+		if entry.Address != destination || entry.Key != "" || !entry.Sync ||
+			entry.Interval != "8h0m0s" || !remoteNamePattern.MatchString(entry.Name) {
 			return errors.New("unexpected mirror for this destination")
 		}
+		current = &entry
 	}
 
-	if !current {
+	if current == nil || current.Filter != c.branchFilter {
 		sourceRefs, err := refs(ctx, c.host+"/"+c.repository+".git")
 		if err != nil {
 			return err
@@ -119,26 +131,32 @@ func (c mirrorConfig) ensure(ctx context.Context, client *http.Client) error {
 		if err != nil {
 			return err
 		}
-		if err := verifyRefs(sourceRefs, destinationRefs); err != nil {
-			return err
-		}
-		token, err := readToken(ctx, c.vaultPath)
-		if err != nil {
+		if err := verifyRefs(sourceRefs, destinationRefs, trunk); err != nil {
 			return err
 		}
 		if c.username == "" {
 			return errors.New("mirror username is missing")
 		}
-		var created pushMirror
-		_, err = c.request(ctx, client, http.MethodPost, endpoint, map[string]any{
-			"remote_address": destination, "remote_username": c.username, "remote_password": token,
-			"interval": "8h0m0s", "sync_on_commit": true, "use_ssh": false,
-		}, &created, http.StatusOK)
+		token, err := readToken(ctx, c.vaultPath)
 		if err != nil {
 			return err
 		}
-		if created.Name == "" || created.Address != destination || created.Key != "" ||
-			created.Interval != "8h0m0s" || !created.Sync || created.Filter != "" {
+		if current != nil {
+			// Forgejo's API supports creating and deleting mirrors.
+			if _, err := c.request(ctx, client, http.MethodDelete, endpoint+"/"+current.Name, nil, nil, http.StatusNoContent); err != nil {
+				return fmt.Errorf("remove mirror %q before replacing its branch filter: %w", current.Name, err)
+			}
+		}
+		var created pushMirror
+		_, err = c.request(ctx, client, http.MethodPost, endpoint, map[string]any{
+			"remote_address": destination, "remote_username": c.username, "remote_password": token,
+			"interval": "8h0m0s", "sync_on_commit": true, "use_ssh": false, "branch_filter": c.branchFilter,
+		}, &created, http.StatusOK)
+		if err != nil {
+			return fmt.Errorf("create filtered HTTPS mirror: %w", err)
+		}
+		if !remoteNamePattern.MatchString(created.Name) || created.Address != destination || created.Key != "" ||
+			created.Interval != "8h0m0s" || !created.Sync || created.Filter != c.branchFilter {
 			return errors.New("unexpected created mirror configuration")
 		}
 	}
@@ -196,9 +214,9 @@ func refs(ctx context.Context, remote string) (map[string]string, error) {
 	return refs, nil
 }
 
-func verifyRefs(source, destination map[string]string) error {
-	if len(source) == 0 {
-		return errors.New("source has no advertised branches or tags")
+func verifyRefs(source, destination map[string]string, trunk string) error {
+	if _, present := source["refs/heads/"+trunk]; !present {
+		return fmt.Errorf("source does not advertise the configured trunk %q", trunk)
 	}
 	var mismatches []string
 	for ref, oid := range destination {

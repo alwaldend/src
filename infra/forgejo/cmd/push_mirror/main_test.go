@@ -14,10 +14,10 @@ func TestExistingHTTPSMirrorIsAdopted(t *testing.T) {
 			w.WriteHeader(http.StatusBadRequest)
 			return
 		}
-		_, _ = w.Write([]byte(`[{"remote_name":"remote_mirror_current","remote_address":"https://gitlab.com/alwaldend/other-destination.git","interval":"8h0m0s","sync_on_commit":true}]`))
+		_, _ = w.Write([]byte(`[{"remote_name":"remote_mirror_a-b_c","remote_address":"https://gitlab.com/alwaldend/other-destination.git","interval":"8h0m0s","sync_on_commit":true,"branch_filter":"main,releases/*"}]`))
 	}))
 	defer server.Close()
-	config := mirrorConfig{host: server.URL, repository: "alwaldend/other-source", target: "alwaldend/other-destination", forge: "gitlab", apiToken: "dummy"}
+	config := mirrorConfig{host: server.URL, repository: "alwaldend/other-source", target: "alwaldend/other-destination", forge: "gitlab", apiToken: "dummy", branchFilter: "main,releases/*"}
 	if err := config.ensure(context.Background(), server.Client()); err != nil {
 		t.Fatal(err)
 	}
@@ -31,13 +31,17 @@ func TestNativeRefPreflight(t *testing.T) {
 		want bool
 	}{
 		{"additive", map[string]string{"refs/heads/master": "current"}, true},
+		{"recoverable-development", map[string]string{"refs/heads/topic": "new"}, true},
 		{"destination-only", map[string]string{"refs/heads/other": "keep"}, false},
 		{"divergent", map[string]string{"refs/heads/topic": "keep"}, false},
 	} {
 		t.Run(test.name, func(t *testing.T) {
-			if got := verifyRefs(source, test.dest) == nil; got != test.want {
+			if got := verifyRefs(source, test.dest, "master") == nil; got != test.want {
 				t.Fatalf("preflight accepted=%t, expected %t", got, test.want)
 			}
 		})
+	}
+	if err := verifyRefs(source, nil, "main"); err == nil {
+		t.Fatal("preflight accepted a missing trunk")
 	}
 }

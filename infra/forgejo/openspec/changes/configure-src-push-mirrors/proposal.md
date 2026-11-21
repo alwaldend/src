@@ -9,6 +9,8 @@ copies need ongoing push synchronization.
   The mirrors use Vault-backed destination tokens and transfer Git LFS objects.
 - Synchronize on commits with an eight-hour periodic retry, preserving existing
   matching mirrors and refusing conflicting or ambiguous configuration.
+- Limit mirrored refs to the catalog's default branch, weekly release branches,
+  and tags. Reconcile existing mirrors through the owning Terraform root.
 - Reuse each service's Vault authentication on the controller. Persistent HTTPS
   mirror tokens are separate credentials, not controller API tokens.
 
