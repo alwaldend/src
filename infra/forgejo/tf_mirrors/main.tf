@@ -18,6 +18,8 @@ locals {
 resource "terraform_data" "push_mirror" {
   for_each = module.repositories.forgejo_push_mirrors
 
+  triggers_replace = "${try(module.repositories.forgejo_repositories[each.value.repository].default_branch, "")},releases/*"
+
   lifecycle {
     precondition {
       condition     = can(module.repositories.forgejo_repositories[each.value.repository]) && can(local.destination_repositories[each.value.forge][each.value.repository])
@@ -34,21 +36,12 @@ resource "terraform_data" "push_mirror" {
     interpreter = [local.push_mirror_tool]
     command     = "ensure"
     environment = {
-      FORGEJO_MIRROR_REPOSITORY  = "${module.repositories.forgejo_repositories[each.value.repository].organization}/${module.repositories.forgejo_repositories[each.value.repository].name}"
-      FORGEJO_MIRROR_DESTINATION = each.value.forge
-      FORGEJO_MIRROR_TARGET      = "${local.destination_repositories[each.value.forge][each.value.repository].organization}/${local.destination_repositories[each.value.forge][each.value.repository].name}"
-      FORGEJO_MIRROR_USERNAME    = each.value.username
-      FORGEJO_MIRROR_VAULT_PATH  = "${local.mirror_vault_prefix}/${each.value.vault_key}"
+      FORGEJO_MIRROR_REPOSITORY    = "${module.repositories.forgejo_repositories[each.value.repository].organization}/${module.repositories.forgejo_repositories[each.value.repository].name}"
+      FORGEJO_MIRROR_DESTINATION   = each.value.forge
+      FORGEJO_MIRROR_TARGET        = "${local.destination_repositories[each.value.forge][each.value.repository].organization}/${local.destination_repositories[each.value.forge][each.value.repository].name}"
+      FORGEJO_MIRROR_BRANCH_FILTER = self.triggers_replace
+      FORGEJO_MIRROR_USERNAME      = each.value.username
+      FORGEJO_MIRROR_VAULT_PATH    = "${local.mirror_vault_prefix}/${each.value.vault_key}"
     }
   }
-}
-
-moved {
-  from = terraform_data.src_push_mirror["github"]
-  to   = terraform_data.push_mirror["alwaldend/src:github"]
-}
-
-moved {
-  from = terraform_data.src_push_mirror["gitlab"]
-  to   = terraform_data.push_mirror["alwaldend/src:gitlab"]
 }

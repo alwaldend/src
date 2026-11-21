@@ -13,13 +13,26 @@ uses the existing Forgejo controller credential and reads destination
 credentials from Vault only when it needs to create a mirror. Terraform
 state carries no secret inputs.
 
-Adopt the existing matching HTTPS entry without an API write. Fail closed
-on conflicting mirrors or incomplete discovery. Before activating a new
-native mirror, require each destination branch and tag to have the same
-object ID in Forgejo. That protects destination-only refs and nonmatching
-histories from Forgejo's native force-push behavior. Forgejo schedules
-normal synchronization.
+Set the native branch filter from the catalog's default branch and the
+`releases/*` namespace. Forgejo adds its tag refspec to the filtered mirror.
+An exact match is adopted without an API write. Fail closed on conflicting
+mirrors or incomplete discovery.
 
-The Terraform bootstrap is creation-only. It does not observe live drift on
-refresh or delete an entry when the Terraform resource is removed. The
-GitHub branches were reconciled before HTTPS activation.
+Proceed with native filter reconciliation. Forgejo 17.0.1 exposes only
+create and delete operations for push mirrors through its API. Replacing the
+entry keeps native scheduling and LFS transfer. A separate synchronization
+job would also need to own those functions. An unfiltered mirror continues
+publishing development refs.
+
+Before creating or replacing a mirror, require the source trunk and verify
+that each destination branch and tag has the same object ID in Forgejo.
+Forgejo's filtered mirror push prunes excluded destination branches, so
+this check requires their tips to remain recoverable from their source refs.
+Read the destination credential before removing the old mirror. A retry can
+create a missing mirror or adopt a completed replacement. The Terraform
+backend lock serializes reconciliation.
+
+The Terraform provisioner runs on creation. The desired filter triggers
+replacement of the Terraform resource to reconcile previously applied mirrors.
+Refresh does not detect live drift. Removing the Terraform resource alone
+leaves the live mirror in place.
