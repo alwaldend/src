@@ -98,7 +98,7 @@ func loadAllowlist(filename string) (map[location]string, error) {
 	return approved, nil
 }
 
-// findingSource selects the Git metadata from the scanner's source envelope.
+// findingSource selects metadata from the scanner's source envelope.
 type findingSource struct {
 	// Data contains source-specific metadata keyed by its source kind.
 	Data map[string]json.RawMessage `json:"Data"`
@@ -110,24 +110,33 @@ type scannerFinding struct {
 	DetectorName string `json:"DetectorName"`
 	// Verified must be present even though verification is disabled by the wrapper.
 	Verified *bool `json:"Verified"`
-	// SourceMetadata contains the immutable Git source coordinates.
+	// SourceMetadata contains the scanner's source coordinates.
 	SourceMetadata findingSource `json:"SourceMetadata"`
 }
 
 // findingLocation validates result metadata without retaining a second raw value.
-func findingLocation(raw json.RawMessage) (location, error) {
+func findingLocation(raw json.RawMessage, checkoutCommit string) (location, error) {
 	var result scannerFinding
 	if err := json.Unmarshal(raw, &result); err != nil {
 		return location{}, fmt.Errorf("decode finding envelope: %w", err)
 	}
-	var source source_metadatapb.Git
-	if err := json.Unmarshal(result.SourceMetadata.Data["Git"], &source); err != nil {
-		return location{}, fmt.Errorf("decode finding Git metadata: %w", err)
-	}
 	if result.Verified == nil {
 		return location{}, errors.New("finding is missing verification status")
 	}
-	key := location{Detector: result.DetectorName, Path: source.File, Commit: source.Commit, Line: source.Line}
+	key := location{Detector: result.DetectorName}
+	if checkoutCommit == "" {
+		var source source_metadatapb.Git
+		if err := json.Unmarshal(result.SourceMetadata.Data["Git"], &source); err != nil {
+			return location{}, fmt.Errorf("decode finding Git metadata: %w", err)
+		}
+		key.Path, key.Commit, key.Line = source.File, source.Commit, source.Line
+	} else {
+		var source source_metadatapb.Filesystem
+		if err := json.Unmarshal(result.SourceMetadata.Data["Filesystem"], &source); err != nil {
+			return location{}, fmt.Errorf("decode finding filesystem metadata: %w", err)
+		}
+		key.Path, key.Commit, key.Line = path.Clean(source.File), checkoutCommit, source.Line
+	}
 	if err := key.validate(); err != nil {
 		return location{}, fmt.Errorf("invalid finding coordinates: %w", err)
 	}

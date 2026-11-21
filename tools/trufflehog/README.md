@@ -11,11 +11,16 @@ The normal `//tools/trufflehog:repo_test` scans the history reachable from the
 checked-out `HEAD` and skips unrelated local refs. Run the manual
 `//tools/trufflehog:repo_all_refs_test` target explicitly when an audit must
 include every local Git ref, such as T3 checkpoint refs from other worktrees.
-Both tests use the `external` tag so Bazel reruns them when undeclared Git
+The normal `//tools/trufflehog:repo_checkout_test` scans the tracked checkout
+with TruffleHog's filesystem source, including materialized Git LFS payloads.
+It requires tracked files to match `HEAD`. Git metadata and untracked files
+stay outside the scan. Historical LFS payloads are outside checkout coverage.
+
+The tests use the `external` tag so Bazel reruns them when undeclared Git
 history or refs change instead of reusing a previous test result.
 
 The [rules project](../../projects/rules_trufflehog/README.md) supplies the
-scan-only wrapper. Both tests disable credential verification and update checks.
+scan-only wrapper. The tests disable credential verification and update checks.
 They use the rules module's default scanner without specifying a binary label.
 `allowlist.json` suppresses only an exact detector, path, full commit ID, and
 line tuple with a recorded reason. Files with approved historical findings remain

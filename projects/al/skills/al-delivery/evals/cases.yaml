@@ -961,3 +961,18 @@
         Requires removing the superseded manifest and its unused configuration.
         Retains the moved block while live state needs it, records why it is
         required, and checks the updated candidate before publication.
+
+- description: Reviews simplification before delivery
+  vars:
+    request: >-
+      Deliver this candidate. Tests pass. It introduces a wrapper and a new
+      setting for an operation the existing command already supports. An
+      existing caller also relies on a compatibility path. Explain what you
+      would review before publishing.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Requires a simplification review before delivery, checks whether the
+        existing command can replace the wrapper and setting, preserves the
+        supported compatibility path, and records the review outcome.

@@ -19,6 +19,15 @@ trufflehog_test(
 )
 
 trufflehog_test(
+    name = "repo_checkout_test",
+    size = "medium",
+    allowlist = "allowlist.json",
+    checkout = True,
+    git = "@rules_al//:git",
+    repository_marker = "//:AGENTS.md",
+)
+
+trufflehog_test(
     name = "repo_all_refs_test",
     size = "medium",
     all_refs = True,

@@ -25,6 +25,19 @@ Passing checks or a remote review SHALL NOT substitute for local review.
 - **THEN** local review removes it before publication
 - **AND** any compatibility required by deployed state or existing consumers is retained with its dependency recorded
 
+### Requirement: Simplification review for each delivery
+
+Each delivery SHALL include a simplification review of the complete candidate.
+The reviewer SHALL look for simpler ways to meet the requirements, remove
+unnecessary complexity within scope, and record the outcome while preserving
+required behavior and compatibility.
+
+#### Scenario: A candidate duplicates existing functionality
+
+- **WHEN** an existing tool can satisfy the same requirements
+- **THEN** the reviewer checks whether the candidate can reuse it
+- **AND** the delivery evidence records the disposition
+
 ### Requirement: Remote feedback handling after each publication
 
 The delivery procedure SHALL require remote feedback inspection after each
