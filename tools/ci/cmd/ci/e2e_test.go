@@ -3,11 +3,14 @@ package main
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 	"io"
 	"os"
 	"os/exec"
 	"path/filepath"
 	"reflect"
+	"regexp"
+	"strings"
 	"testing"
 	"time"
 
@@ -60,6 +63,8 @@ func recordBazelCall() int {
 		return 93
 	}
 	scenario := os.Getenv("CI_FIXTURE_SCENARIO")
+	fmt.Fprintln(os.Stdout, "fixture standard output")
+	fmt.Fprint(os.Stderr, "fixture standard error")
 	if scenario == "build_failure" && relative == "." && os.Args[1] == "build" {
 		return 7
 	}
@@ -80,7 +85,7 @@ func TestCIExecutable(t *testing.T) {
 		t.Fatalf("resolve Bazel fixture executable: %v", err)
 	}
 	var observations []ciObservation
-	for _, scenario := range []string{"success", "build_failure", "test_failure", "missing_bazel", "invalid_workspace"} {
+	for _, scenario := range []string{"success", "forgejo_success", "build_failure", "test_failure", "missing_bazel", "invalid_workspace", "unwritable_summary"} {
 		t.Run(scenario, func(t *testing.T) {
 			root := t.TempDir()
 			for path, content := range map[string]string{
@@ -122,10 +127,26 @@ func TestCIExecutable(t *testing.T) {
 				"CI_FIXTURE_LOG=" + log,
 				"CI_FIXTURE_SCENARIO=" + scenario,
 			}
+			summary := filepath.Join(root, "summary.md")
+			switch scenario {
+			case "success":
+				// A local invocation has neither the runner marker nor a summary file.
+			case "test_failure":
+				cmd.Env = append(cmd.Env, "FORGEJO_ACTIONS=true", "GITHUB_STEP_SUMMARY="+summary)
+			case "unwritable_summary":
+				cmd.Env = append(cmd.Env, "FORGEJO_ACTIONS=true", "FORGEJO_STEP_SUMMARY="+root)
+			default:
+				if err := os.WriteFile(summary, []byte("Existing content\n"), 0o600); err != nil {
+					t.Fatal(err)
+				}
+				cmd.Env = append(cmd.Env, "FORGEJO_ACTIONS=true", "FORGEJO_STEP_SUMMARY="+summary)
+			}
 			output, runErr := cmd.CombinedOutput()
-			if (runErr == nil) != (scenario == "success") {
+			success := scenario == "success" || scenario == "forgejo_success" || scenario == "unwritable_summary"
+			if (runErr == nil) != success {
 				t.Fatalf("CI execution result %v: %s", runErr, output)
 			}
+			verifyReporting(t, scenario, string(output), summary)
 			var calls []ciCall
 			if file, err := os.Open(log); err == nil {
 				decoder := json.NewDecoder(file)
@@ -164,5 +185,73 @@ func TestCIExecutable(t *testing.T) {
 	}
 	if err := os.WriteFile(filepath.Join(os.Getenv("TEST_UNDECLARED_OUTPUTS_DIR"), "ci-execution.json"), data, 0o600); err != nil {
 		t.Fatalf("write command observations: %v", err)
+	}
+}
+
+// verifyReporting checks the runner-facing log and summary at the executable boundary.
+func verifyReporting(t *testing.T, scenario, output, summary string) {
+	t.Helper()
+	if scenario == "success" {
+		if strings.Contains(output, "##[group]") {
+			t.Fatalf("local output contains a Forgejo group: %s", output)
+		}
+		return
+	}
+	if scenario == "unwritable_summary" {
+		if !strings.Contains(output, "could not write the job summary") {
+			t.Fatalf("missing summary warning: %s", output)
+		}
+		return
+	}
+	data, err := os.ReadFile(summary)
+	if err != nil {
+		t.Fatal(err)
+	}
+	report := string(data)
+	if scenario != "test_failure" && !strings.HasPrefix(report, "Existing content\n") {
+		t.Fatalf("summary replaced existing content: %s", report)
+	}
+	if scenario == "invalid_workspace" {
+		if strings.Contains(output, "##[group]") || !strings.Contains(report, "Workspace discovery failed") {
+			t.Fatalf("unexpected discovery failure report: %s\n%s", report, output)
+		}
+		return
+	}
+	var headings []string
+	for _, workspace := range []string{"Root", "nested/one", "nested/two"} {
+		buildStatus, testStatus := "Passed", "Passed"
+		if scenario == "missing_bazel" || (scenario == "build_failure" && workspace == "Root") {
+			buildStatus = `\*\*Failed\*\*`
+		}
+		if scenario == "missing_bazel" || (scenario == "test_failure" && workspace == "nested/one") {
+			testStatus = `\*\*Failed\*\*`
+		}
+		row := fmt.Sprintf(`(?m)^\| %s \| %s \([^)]+\) \| %s \([^)]+\) \|$`, workspace, buildStatus, testStatus)
+		if !regexp.MustCompile(row).MatchString(report) {
+			t.Fatalf("missing result for %s: %s", workspace, report)
+		}
+		for _, phase := range []string{"Build", "Test"} {
+			headings = append(headings, "##[group]"+workspace+" / "+phase+"\n")
+		}
+	}
+	for _, heading := range headings {
+		_, afterHeading, found := strings.Cut(output, heading)
+		diagnostics, afterGroup, closed := strings.Cut(afterHeading, "\n##[endgroup]\n")
+		if !found || !closed || strings.Contains(diagnostics, "##[group]") {
+			t.Fatalf("missing or unbalanced group %q: %s", heading, output)
+		}
+		if scenario != "missing_bazel" && !strings.Contains(diagnostics, "fixture standard output\nfixture standard error") {
+			t.Fatalf("missing phase diagnostics in %q: %s", heading, diagnostics)
+		}
+		output = afterGroup
+	}
+	if strings.Contains(output, "##[group]") || strings.Contains(output, "##[endgroup]") {
+		t.Fatalf("unmatched group markers: %s", output)
+	}
+	if scenario == "build_failure" {
+		artifact := filepath.Join(os.Getenv("TEST_UNDECLARED_OUTPUTS_DIR"), "forgejo-job-summary.md")
+		if err := os.WriteFile(artifact, data, 0o600); err != nil {
+			t.Fatalf("write example job summary: %v", err)
+		}
 	}
 }

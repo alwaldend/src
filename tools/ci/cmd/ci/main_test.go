@@ -45,7 +45,7 @@ func TestBuildFailureStillTestsEveryWorkspace(t *testing.T) {
 		return nil
 	}
 	var output bytes.Buffer
-	if err := check(root, run, &output); !errors.Is(err, failure) {
+	if _, err := check(root, run, &output, false); !errors.Is(err, failure) {
 		t.Fatalf("lost build failure: %v", err)
 	}
 	want := []string{
@@ -60,7 +60,7 @@ func TestBuildFailureStillTestsEveryWorkspace(t *testing.T) {
 }
 
 func TestSuccessfulChecks(t *testing.T) {
-	if err := check(fixture(t), func(string, ...string) error { return nil }, &bytes.Buffer{}); err != nil {
+	if _, err := check(fixture(t), func(string, ...string) error { return nil }, &bytes.Buffer{}, false); err != nil {
 		t.Fatal(err)
 	}
 }
@@ -71,7 +71,7 @@ func TestInvalidWorkspaceDoesNotStartCommands(t *testing.T) {
 		if err := os.WriteFile(filepath.Join(root, ".bazelignore"), []byte(ignore), 0o600); err != nil {
 			t.Fatal(err)
 		}
-		if err := check(root, func(string, ...string) error { t.Fatal("started command"); return nil }, &bytes.Buffer{}); err == nil {
+		if _, err := check(root, func(string, ...string) error { t.Fatal("started command"); return nil }, &bytes.Buffer{}, false); err == nil {
 			t.Fatal("accepted invalid boundary")
 		}
 	}

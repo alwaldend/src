@@ -46,6 +46,11 @@ and exits nonzero if any phase fails. It does not run deployment targets or
 runner acceptance checks. Normal Bazel expansion excludes manual targets and
 incompatible platforms; optional configurations are not a build matrix.
 
+In Forgejo, each workspace's build and test logs are collapsible sections. The
+job summary above the log shows whether each phase passed and how long it ran.
+The CI profile disables terminal cursor controls to keep log lines readable.
+The same command streams plain-text diagnostics when run locally.
+
 The runner needs the repository-managed Node.js, `bazel`, and Android
 SDK/NDK prerequisites. The [runner deployment](../../infra/dev/ansible/README.md)
 installs these before CI starts. Agent invocations use
