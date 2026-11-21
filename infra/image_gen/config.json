@@ -22,6 +22,22 @@
         }
     },
     "model_profiles": {
+        "minimax-h3-video": {
+            "components": {
+                "audio_vae": "minimax_h3_audio_vae_fp32.safetensors"
+            },
+            "workflows": [
+                "minimax-h3-video-text-to-video",
+                "minimax-h3-video-first-last-frame"
+            ],
+            "downloads": [
+                "minimax_h3_fl2va_pruned_int8_convrot.safetensors",
+                "qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors",
+                "minimax_h3_video_vae_fp16.safetensors",
+                "minimax_h3_audio_vae_fp32.safetensors"
+            ],
+            "first_party_nodes": []
+        },
         "moss-image": {
             "components": {
                 "base_checkpoint": "moss_image_base_int8_convrot.safetensors",
@@ -262,6 +278,22 @@
         }
     },
     "downloads": {
+        "minimax_h3_fl2va_pruned_int8_convrot.safetensors": {
+            "url": "https://huggingface.co/Comfy-Org/MiniMax-H3/resolve/4b53a35191437de05370da548e59aeabe2a5a09a/diffusion_models/minimax_h3_fl2va_pruned_int8_convrot.safetensors",
+            "kind": "checkpoint"
+        },
+        "qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors": {
+            "url": "https://huggingface.co/Comfy-Org/MiniMax-H3/resolve/4b53a35191437de05370da548e59aeabe2a5a09a/text_encoders/qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors",
+            "kind": "text_encoder"
+        },
+        "minimax_h3_video_vae_fp16.safetensors": {
+            "url": "https://huggingface.co/Comfy-Org/MiniMax-H3/resolve/4b53a35191437de05370da548e59aeabe2a5a09a/vae/minimax_h3_video_vae_fp16.safetensors",
+            "kind": "vae"
+        },
+        "minimax_h3_audio_vae_fp32.safetensors": {
+            "url": "https://huggingface.co/Comfy-Org/MiniMax-H3/resolve/4b53a35191437de05370da548e59aeabe2a5a09a/vae/minimax_h3_audio_vae_fp32.safetensors",
+            "kind": "vae"
+        },
         "moss_image_sft_int8_convrot.safetensors": {
             "url": "https://huggingface.co/Comfy-Org/MOSS-Image/resolve/2929efe3cdd506c0a430bcfca70a9a8d805cc095/diffusion_models/moss_image_sft_int8_convrot.safetensors",
             "kind": "checkpoint"

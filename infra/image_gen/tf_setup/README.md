@@ -146,7 +146,7 @@ bundles each total about 55 GB of model files. Model and hardware selections
 are independent: choose sufficient disk/VRAM for the bundle; `48gb` provides
 100 GB disk and `96gb` provides 150 GB. No new model is deployed by these additions.
 The shared Ansible role downloads them inside the rental using built-in modules.
-Every profile installs the first-party `Prompt Sequence` from its packaged source. Full Chroma and HiDream additionally stage
+The image profiles install the first-party `Prompt Sequence` from its packaged source. Full Chroma and HiDream additionally stage
 the first-party chained img2img GIF node, using only ComfyUI's existing Torch,
 NumPy and Pillow packages. Both first-party nodes are whitelisted for those profiles.
 Chroma1-HD, HiDream and all three SDXL profiles restore
@@ -223,6 +223,25 @@ CFG 4 and denoise 1. These are reference-guided generation workflows; they do
 not guarantee exact style isolation or character continuity.
 
 ## Additional model options
+
+### MiniMax H3 Video
+
+Set `model_profile` to `minimax-h3-video` in [config.json](../config.json)
+and install it with the [application playbook](../ansible/README.md). The
+existing `48gb` profile supplies the RTX PRO 5000 Blackwell and a 100 GB disk.
+The H3 bundle uses about 42.5 GB of disk for the pruned INT8 FL2VA denoiser,
+NVFP4 text encoder, and standard video and audio VAEs. Check free disk and
+system RAM for offloading when installing alongside existing models.
+
+Open either saved workflow from the ComfyUI workflow library. Both come with
+the installed weights selected and generate MP4s with stereo audio.
+The [workflow guide](../../../projects/comfyui_tools/README.md#minimax-h3-video)
+lists the files and keyframe inputs. MiniMax's official 2K regeneration stage
+is available through its [hosted API](https://www.minimax.io/news/minimax-h3-open-source).
+
+The [MiniMax H3 Community License](https://huggingface.co/MiniMaxAI/MiniMax-H3/blob/main/LICENSE)
+excludes the EU, UK, Republic of Korea, and United States. Review the license
+for the intended use and rental location before deployment.
 
 ### MOSS-Image examples
 

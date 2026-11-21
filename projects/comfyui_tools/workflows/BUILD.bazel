@@ -50,6 +50,8 @@ jsonnet_to_json(
         "juggernaut/juggernaut-style-prompt-sequence.json",
         "juggernaut/juggernaut-style-reference.json",
         "juggernaut/juggernaut-text-to-image.json",
+        "minimax-h3-video/minimax-h3-video-first-last-frame.json",
+        "minimax-h3-video/minimax-h3-video-text-to-video.json",
         "moss-image/moss-image-base-layout-guided.json",
         "moss-image/moss-image-base-layout-prompt-sequence.json",
         "moss-image/moss-image-base-prompt-sequence.json",

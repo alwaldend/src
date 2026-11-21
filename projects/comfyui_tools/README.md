@@ -195,6 +195,19 @@ These are editable examples, not guarantees of exact edits, layout or reference
 fidelity. Actual GPU execution and its limitations belong to the
 [deployment record](../../infra/image_gen/openspec/changes/add-moss-image-examples/design.md).
 
+## MiniMax H3 Video
+
+- [Text to video](workflows/minimax-h3-video/minimax-h3-video-text-to-video.json)
+  starts from an editable example prompt.
+- [First and last frame](workflows/minimax-h3-video/minimax-h3-video-first-last-frame.json)
+  takes two uploaded images. Select one in each labeled image loader and edit
+  the prompt to describe the transition. Match the images' aspect ratio to the
+  configured canvas.
+
+Both workflows start at 864×480 with 107 frames at 24 fps and save an MP4
+with stereo audio. The deployment profile installs the four preselected model
+files and both workflows. The generated graphs use native ComfyUI nodes.
+
 ## Workflow source and generation
 
 The maintained sources are [workflows.jsonnet](workflows/workflows.jsonnet),
