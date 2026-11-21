@@ -1,11 +1,11 @@
 {
     "remote_themes": [
         {
-            "integrity": "sha256-ZBRuDViQbFh9h2E5ykYf5KI5jAqT0Ev3ujMbclIbbCc=",
+            "integrity": "sha256-mAeGDf+U+DFzHBee/WAFKhZsHNyTElk+lGyysyj1ewQ=",
             "path": "github.com/docsy/docsy",
             "root": "theme",
-            "strip_prefix": "docsy-0.18.0",
-            "url": "https://github.com/docsy/docsy/archive/refs/tags/v0.18.0.zip"
+            "strip_prefix": "docsy-0.18.1",
+            "url": "https://github.com/docsy/docsy/archive/refs/tags/v0.18.1.zip"
         },
         {
             "integrity": "sha256-1aIFVPqhrTAUiwXwkKVW4jSVxEZDXI38FiTTwOPCZAs=",
