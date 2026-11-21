@@ -35,8 +35,8 @@ A 2.5-unit horizontal translation centers the complete mark, leaving equal
 The SVG is available as `//internal/assets:monogram` for internal repository
 consumers. The `projects/alwaldend.com` assets package consumes it directly
 for the header and selects its `data-variant="favicon"` presentation for the
-fingerprinted browser tab icon. The favicon uses graphite artwork on a
-transparent background in both color modes. WebP previews are generated output,
+fingerprinted browser tab icon. The favicon uses white artwork with a charcoal
+outline on a transparent background. WebP previews are generated output,
 not source.
 
 ## Reproduce the preview
