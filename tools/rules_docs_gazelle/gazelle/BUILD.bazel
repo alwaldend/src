@@ -7,6 +7,7 @@ go_library(
     importpath = "git.alwaldend.com/alwaldend/src/projects/rules_docs_gazelle/gazelle",
     visibility = ["//visibility:public"],
     deps = [
+        "@gazelle//config",
         "@gazelle//language",
         "@gazelle//rule",
     ],

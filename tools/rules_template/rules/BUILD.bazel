@@ -1,5 +1,5 @@
 load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
-load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
 load(":template_toolchain.bzl", "template_toolchain")
 
 toolchain_type(
@@ -28,7 +28,7 @@ bzl_library(
 
 template_toolchain(
     name = "toolchain_impl",
-    templater = "//cmd/templater",
+    templater = "//tools/rules_template/cmd/templater",
     visibility = ["//visibility:public"],
 )
 
@@ -36,5 +36,5 @@ docs_filegroup(
     name = "docs",
     srcs = glob(["*.md"]),
     prefix = "content/docs/tools/rules_template/rules",
-    visibility = ["//:__pkg__"],
+    visibility = ["//tools/rules_template:__pkg__"],
 )

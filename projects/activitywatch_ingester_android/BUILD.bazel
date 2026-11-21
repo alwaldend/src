@@ -1,6 +1,6 @@
 # gazelle:java_extension disabled
 
-load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
 
 package(transitive_visibility = "//projects:transitive_consumers")
 

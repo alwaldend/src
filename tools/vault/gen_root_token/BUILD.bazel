@@ -1,5 +1,5 @@
-load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_go//go:def.bzl", "go_binary", "go_library")
+load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
 
 package(transitive_visibility = "//tools:transitive_consumers")
 
@@ -19,8 +19,8 @@ go_library(
     importpath = "git.alwaldend.com/alwaldend/src/tools/vault/gen_root_token",
     visibility = ["//:__subpackages__"],
     deps = [
+        "//projects/al/pkg/al",
         "@org_golang_x_term//:term",
-        "@rules_al//pkg/al",
     ],
 )
 

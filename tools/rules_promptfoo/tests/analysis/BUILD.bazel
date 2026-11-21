@@ -1,4 +1,4 @@
-load("//promptfoo/internal:workspace.bzl", "promptfoo_workspace")
+load("//tools/rules_promptfoo/promptfoo/internal:workspace.bzl", "promptfoo_workspace")
 load(
     ":analysis_test.bzl",
     "workspace_failure_test",
@@ -8,15 +8,15 @@ load(
 promptfoo_workspace(
     name = "workspace",
     testonly = True,
-    skills = ["//tests/analysis/fixture_skill:skill"],
+    skills = ["//tools/rules_promptfoo/tests/analysis/fixture-skill:skill"],
 )
 
 promptfoo_workspace(
     name = "duplicate_workspace",
     testonly = True,
     skills = [
-        "//tests/analysis/fixture_skill:skill",
-        "//tests/analysis/other/fixture_skill:skill",
+        "//tools/rules_promptfoo/tests/analysis/fixture-skill:skill",
+        "//tools/rules_promptfoo/tests/analysis/other/fixture-skill:skill",
     ],
     tags = ["manual"],
 )

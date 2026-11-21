@@ -2,10 +2,10 @@
 
 load("@rules_go//go:def.bzl", "go_binary", "go_library", "go_test")
 load(
-    "@rules_promptfoo//promptfoo:defs.bzl",
+    "//tools/rules_promptfoo/promptfoo:defs.bzl",
     "promptfoo_validate_test",
 )
-load("@rules_skills//skill:defs.bzl", "skill_library")
+load("//tools/rules_skills/skill:defs.bzl", "skill_library")
 
 go_library(
     name = "run_full_repo_check_lib",
@@ -18,7 +18,7 @@ go_library(
         "al-checks/scripts"
     ),
     visibility = ["//visibility:private"],
-    deps = ["//pkg/workspaces"],
+    deps = ["//projects/al/pkg/workspaces"],
 )
 
 # keep

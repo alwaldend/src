@@ -1,6 +1,6 @@
 """Run the host SSH client through AL's injection lifecycle."""
 
-load("@rules_al//:defs.bzl", "al_binary_run")
+load("//projects/al:defs.bzl", "al_binary_run")
 
 def ssh_binary(name, args = [], **kwargs):
     """Create an AL command that resolves ssh from the host PATH.

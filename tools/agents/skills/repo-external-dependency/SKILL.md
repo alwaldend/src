@@ -1,6 +1,6 @@
 ---
 name: repo-external-dependency
-description: Add or upgrade external software consumed by this monorepo with reproducible pins. Use for third_party packages, Bzlmod dependencies or repositories, downloaded binaries or archives, OCI images, and language dependency manifests or locks; use bazel-nested-module for standalone projects under projects/ with their own MODULE.bazel.
+description: Add or upgrade external software consumed by this monorepo with reproducible pins. Use for third_party packages, Bzlmod dependencies or repositories, downloaded binaries or archives, OCI images, and language dependency manifests or locks. Use repo-bazel to package first-party releases.
 ---
 
 # Manage external dependencies
@@ -9,8 +9,8 @@ description: Add or upgrade external software consumed by this monorepo with rep
 
 `AGENTS.md` owns approval scope: creating or registering a first-party nested module is not adding external
 software and requires no separate dependency approval within an authorized task.
-The module may redeclare dependencies already present in this repository at
-their existing pins, with its own manifests and generated locks. Apply the
+A first-party release may redeclare dependencies already present in this
+repository at their existing pins in its project-owned release manifest. Apply the
 approval procedure below only when introducing genuinely new external software,
 not merely a new module boundary or another declaration of an existing pin.
 

@@ -1,6 +1,6 @@
 """Vault Terraform backend configuration targets."""
 
-load("@rules_al//:defs.bzl", "al_plugin")
+load("//projects/al:defs.bzl", "al_plugin")
 
 def vault_tf_backend(name, path, labels = {}, mount = "secrets", vault_auth = "", vault_conn = "", config_name = None, **kwargs):
     """Construct a backend call for the shared tf_backend plugin registration.

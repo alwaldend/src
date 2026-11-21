@@ -1,10 +1,10 @@
 load("@gazelle//:def.bzl", "gazelle_binary")
 
-package(transitive_visibility = "//:transitive_consumers")
+package(transitive_visibility = "//projects/bazel_gazelle_enforce_transitive_visibility:transitive_consumers")
 
 gazelle_binary(
     name = "gazelle",
-    languages = ["//pkg/gazelle"],
+    languages = ["//projects/bazel_gazelle_enforce_transitive_visibility/pkg/gazelle"],
     visibility = ["//visibility:public"],
 )
 
@@ -13,7 +13,7 @@ gazelle_binary(
     testonly = True,
     languages = [
         "@gazelle//language/go",
-        "//pkg/gazelle",
+        "//projects/bazel_gazelle_enforce_transitive_visibility/pkg/gazelle",
     ],
-    visibility = ["//test/generation:__pkg__"],
+    visibility = ["//projects/bazel_gazelle_enforce_transitive_visibility/test/generation:__pkg__"],
 )

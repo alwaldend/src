@@ -1,4 +1,4 @@
-load("@rules_skills//skill:defs.bzl", "skill_archive")
+load("@@//tools/rules_skills/skill:defs.bzl", "skill_archive")
 
 skill_archive(
     name = "review-agent",

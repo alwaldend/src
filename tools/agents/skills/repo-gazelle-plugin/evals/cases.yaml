@@ -8,11 +8,11 @@
       threshold: 1
       value: >-
         Pass only if the response uses tools/rules_docs_gazelle as the
-        reference; keeps the plugin in a separate standalone nested module;
+        reference; develops the plugin as a root package and preserves its release manifest;
         implements module-aware apparent loads with a canonical fallback;
         generates from explicit package-local evidence; preserves manual
         attributes and avoids deletion; adds focused generation, merge, and
         idempotence tests plus a standalone binary; wires the language into
-        root Gazelle and the full-repository checker; updates locks through
+        root Gazelle with its local load label; updates locks through
         bazel; and runs root Gazelle twice while reviewing the diff.
         Otherwise fail.

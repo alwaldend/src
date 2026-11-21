@@ -1,6 +1,6 @@
 """infra security configuration targets."""
 
-load("@rules_al//:defs.bzl", "al_inject")
+load("//projects/al:defs.bzl", "al_inject")
 
 def infra_security_maintenance_ssh(name, labels = {}, config_name = None, **kwargs):
     """Declare the maintenance ssh configuration target."""

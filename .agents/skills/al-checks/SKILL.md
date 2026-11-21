@@ -1,8 +1,8 @@
 ---
 name: al-checks
 description: >-
-  Run every normal Bazel build and test in the root and nested workspaces of
-  this repository, preserve restricted command logs, diagnose every failure,
+  Run every normal Bazel build and test in this repository, including its
+  root-owned rulesets, preserve restricted command logs, diagnose every failure,
   and report the issues and fixes as a Markdown table. Use for a complete
   repository health check, release-readiness check, or build-and-test audit;
   use repo-bazel for ordinary package-scoped validation.
@@ -19,7 +19,7 @@ description: >-
    mkdir -p out/al-checks
    bazel run \
      --script_path=out/al-checks/run_full_repo_check \
-     @rules_al//skills/al-checks:run_full_repo_check
+     //projects/al/skills/al-checks:run_full_repo_check
    out/al-checks/run_full_repo_check
    ```
 
@@ -29,10 +29,10 @@ description: >-
    commands with a direct `bazel run` of the target: the checker would
    then wait on the lock held by its own enclosing Bazel invocation.
 
-   The checker executes `bazel build //...` and
-   `bazel test //...` in every workspace discovered from the root
-   `.bazelignore` by `rules_al/pkg/workspaces`, shared with CI. Directories
-   without `MODULE.bazel` are not workspaces.
+   The checker builds and tests `//...` from the root, including the
+   first-party rulesets. It checks any additional `MODULE.bazel` workspace
+   declared in `.bazelignore` from its own directory. It uses the same
+   workspace discovery as CI.
    It continues after failures so one run covers the whole repository. Child
    commands use the normal machine output-user-root; Bazel assigns each
    workspace its own output base below it.
@@ -79,7 +79,7 @@ whose affected target and root cause are `None`. After the issue table, include
 the complete command matrix from `report.md`, with exact commands, exit
 statuses, durations, and the run-directory path.
 
-This check covers Bazel's normal `//...` expansion through `bazel`.
+This check covers Bazel's normal wildcard expansion for the listed repositories.
 Bazel excludes targets tagged `manual`, skips incompatible targets, and does
 not expand optional configuration matrices such as `--config=harbor`;
 disclose those limits in the report rather than describing them as checked.

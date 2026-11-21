@@ -4,5 +4,5 @@ bzl_library(
     name = "defs",
     srcs = ["defs.bzl"],
     visibility = ["//visibility:public"],
-    deps = ["//promptfoo/internal:promptfoo_test"],
+    deps = ["//tools/rules_promptfoo/promptfoo/internal:promptfoo_test"],
 )

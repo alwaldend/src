@@ -1,5 +1,5 @@
 load("@rules_go//go:def.bzl", "go_test")
-load("//:defs.bzl", "al_config", "al_inject", "al_vault_auth", "al_vault_conn")
+load("//projects/al:defs.bzl", "al_config", "al_inject", "al_vault_auth", "al_vault_conn")
 load(":defs.bzl", "al_injector_fixture_selected")
 
 al_vault_auth(
@@ -72,7 +72,7 @@ al_config(
         ":selected",
         ":selected_override",
         ":unselected",
-        "//plugins/vault:config",
+        "//projects/al/plugins/vault:config",
     ],
 )
 
@@ -81,14 +81,14 @@ go_test(
     srcs = ["dictionary_e2e_test.go"],
     data = [
         ":dictionary_config",
-        "//:al",
+        "//projects/al",
     ],
     env = {
         "DICTIONARY_CONFIG": "$(rlocationpath :dictionary_config)",
-        "AL_BINARY": "$(rlocationpath //:al)",
+        "AL_BINARY": "$(rlocationpath //projects/al:al)",
     },
     deps = [
-        "//pkg/al",
+        "//projects/al/pkg/al",
         "@org_golang_google_protobuf//encoding/protojson",
         "@rules_go//go/runfiles",
     ],

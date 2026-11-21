@@ -1,4 +1,4 @@
-load("//skill:defs.bzl", "skill_library")
+load("//tools/rules_skills/skill:defs.bzl", "skill_library")
 
 skill_library(
     name = "skill",

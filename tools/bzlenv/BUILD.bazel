@@ -1,6 +1,6 @@
-load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("//tools/ansible/rules:al_ansible_scripts.bzl", "AL_ANSIBLE_SCRIPTS")
 load("//tools/bzlenv/rules:al_bzlenv_binary.bzl", "al_bzlenv_binary")
+load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
 
 package(transitive_visibility = "//tools:transitive_consumers")
 
@@ -43,7 +43,7 @@ al_bzlenv_binary(
     tools = {
         "gopackagesdriver": "//tools/sh/internal/scripts:gopackagesdriver",
         "bazel": "//tools/sh/internal/scripts:bazel",
-        "al": "@rules_al//cmd/al:al",
+        "al": "//projects/al/cmd/al:al",
         "blender": "//third_party/org_blender_blender:blender",
         "buf": "//third_party/build_buf_buf:buf",
         "dnscontrol": "//third_party/com_github_stackexchange_dnscontrol:dnscontrol",

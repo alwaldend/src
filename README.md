@@ -11,7 +11,7 @@ description: Projects, infrastructure, and development tools
 ## License
 
 [AGPL-3.0](https://spdx.org/licenses/AGPL-3.0-or-later.html), see
-[LICENSE.txt](data/license/LICENSE.txt).
+[LICENSE.txt](internal/license/LICENSE.txt).
 
 ## Start here
 

@@ -1,5 +1,5 @@
-load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("//tools/bzl/rules:al_bzl_library_map.bzl", "al_bzl_library_map")
+load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
 
 package(transitive_visibility = "//projects:transitive_consumers")
 
@@ -16,7 +16,7 @@ al_bzl_library_map(
     name = "libs",
     libs = {
         "al_leetcode_submissions": [
-            "@rules_template//rules:template_run_binary",
+            "//tools/rules_template/rules:template_run_binary",
             "@bazel_skylib//rules:write_file",
             "@bazel_skylib//lib:paths",
             "@rules_pkg//pkg:bzl_srcs",

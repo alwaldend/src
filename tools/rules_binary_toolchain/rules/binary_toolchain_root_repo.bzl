@@ -1,11 +1,11 @@
 load(":binary_toolchain_lock.bzl", "binary_toolchain_lock_find_archives", "binary_toolchain_lock_parse")
 
 _DEFS_HEADER = """\
-load("@rules_binary_toolchain//rules:binary_toolchain_toolchain.bzl", "binary_toolchain_toolchain")
-load("@rules_binary_toolchain//rules:binary_toolchain_binary.bzl", "binary_toolchain_binary")
-load("@rules_binary_toolchain//rules:binary_toolchain_run_binary.bzl", "binary_toolchain_run_binary")
-load("@rules_binary_toolchain//rules:binary_toolchain_test.bzl", "binary_toolchain_test")
-load("@rules_binary_toolchain//rules:binary_toolchain_resolved_toolchain.bzl", "binary_toolchain_resolved_toolchain")
+load("{toolchain}", "binary_toolchain_toolchain")
+load("{binary}", "binary_toolchain_binary")
+load("{run_binary}", "binary_toolchain_run_binary")
+load("{test}", "binary_toolchain_test")
+load("{resolved_toolchain}", "binary_toolchain_resolved_toolchain")
 
 """
 
@@ -79,7 +79,13 @@ def _impl(ctx):
                 fail("duplicate bin {}".format(bin.name))
             cur_bins[bin.name] = True
         all_bins.update(cur_bins)
-    defs = [_DEFS_HEADER]
+    defs = [_DEFS_HEADER.format(
+        toolchain = Label(":binary_toolchain_toolchain.bzl"),
+        binary = Label(":binary_toolchain_binary.bzl"),
+        run_binary = Label(":binary_toolchain_run_binary.bzl"),
+        test = Label(":binary_toolchain_test.bzl"),
+        resolved_toolchain = Label(":binary_toolchain_resolved_toolchain.bzl"),
+    )]
     for bin in all_bins.keys():
         defs.append(_DEFS_BODY.format(name = bin))
     ctx.file("defs.bzl", "\n".join(defs))

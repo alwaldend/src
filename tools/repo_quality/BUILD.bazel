@@ -1,23 +1,22 @@
 load("@aspect_rules_lint//format:defs.bzl", "format_multirun", "format_test")
-load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_java//java:defs.bzl", "java_binary")
 load("@rules_multirun//:defs.bzl", "command", "multirun")
 load("@rules_python//python:defs.bzl", "py_test")
 load("@rules_shell//shell:sh_binary.bzl", "sh_binary")
 load("@rules_shell//shell:sh_test.bzl", "sh_test")
+load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
+load(":tool_adapter.bzl", "tool_adapter")
 
 package(transitive_visibility = "//tools:transitive_consumers")
 
-sh_binary(
+tool_adapter(
     name = "buf",
-    srcs = ["tool_adapter.sh"],
-    data = ["//third_party/build_buf_buf:buf"],
+    tool = "//third_party/build_buf_buf:buf",
 )
 
-sh_binary(
+tool_adapter(
     name = "taplo",
-    srcs = ["tool_adapter.sh"],
-    data = ["//third_party/com_github_tamasfe_taplo:taplo"],
+    tool = "//third_party/com_github_tamasfe_taplo:taplo",
 )
 
 java_binary(
@@ -212,7 +211,7 @@ format_multirun(
         "-lint=fix",
         "-mode=fix",
     ],
-    terraform = "@rules_terraform//terraform:cli",
+    terraform = "//tools/rules_terraform/terraform:cli",
     toml = ":taplo",
     visibility = [
         "//:__pkg__",
@@ -256,7 +255,7 @@ format_test(
         "-mode=check",
         "-warnings=-bzl-visibility,-function-docstring-args,-function-docstring-header,-module-docstring,-name-conventions,-no-effect,-print,-unnamed-macro,-unsorted-dict-items,-unused-variable",
     ],
-    terraform = "@rules_terraform//terraform:cli",
+    terraform = "//tools/rules_terraform/terraform:cli",
     toml = ":taplo",
     visibility = [
         "//:__pkg__",

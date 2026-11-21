@@ -1,4 +1,4 @@
-load("@rules_skills//skill:defs.bzl", "skills_write")
+load("//tools/rules_skills/skill:defs.bzl", "skills_write")
 
 package(
     default_visibility = ["//visibility:private"],
@@ -13,14 +13,14 @@ package_group(
 skills_write(
     name = "write_skills",
     archives = [
-        "@rules_al//skills/al-bazel:skill",
-        "@rules_al//skills/al-checks:skill",
-        "@rules_al//skills/al-delivery:skill",
-        "@rules_al//skills/al-maintenance:skill",
-        "@rules_al//skills/al-openspec:skill",
-        "@rules_al//skills/al-rebase:skill",
-        "@rules_al//skills/al-versioning:skill",
-        "@rules_al//skills/al-workspace:skill",
+        "//projects/al/skills/al-bazel:skill",
+        "//projects/al/skills/al-checks:skill",
+        "//projects/al/skills/al-delivery:skill",
+        "//projects/al/skills/al-maintenance:skill",
+        "//projects/al/skills/al-openspec:skill",
+        "//projects/al/skills/al-rebase:skill",
+        "//projects/al/skills/al-versioning:skill",
+        "//projects/al/skills/al-workspace:skill",
         "//third_party/com_github_openai_codex:review-agent",
         "@org_fissionai_openspec//:openspec-apply-change",
         "@org_fissionai_openspec//:openspec-archive-change",

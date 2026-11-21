@@ -1,8 +1,8 @@
 """Provider identity, archive pin, collision, and runfiles contract tests."""
 
 load("@bazel_skylib//lib:unittest.bzl", "analysistest", "asserts", "unittest")
-load("//:extensions.bzl", "terraform_provider_archive_conflict_error", "terraform_provider_pin_error")
-load("//terraform:providers.bzl", "TerraformProviderInfo", "terraform_provider_archive_error", "terraform_provider_mirror_path")
+load("//tools/rules_terraform:extensions.bzl", "terraform_provider_archive_conflict_error", "terraform_provider_pin_error")
+load("//tools/rules_terraform/terraform:providers.bzl", "TerraformProviderInfo", "terraform_provider_archive_error", "terraform_provider_mirror_path")
 
 _SOURCE = "registry.terraform.io/hashicorp/local"
 _VERSION = "2.9.0"

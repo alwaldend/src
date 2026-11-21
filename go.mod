@@ -4,9 +4,12 @@ go 1.26.5
 
 require (
 	github.com/BurntSushi/toml v1.5.0
+	github.com/envoyproxy/protoc-gen-validate v1.3.3 // indirect
 	github.com/go-chi/chi/v5 v5.5.0
 	github.com/go-git/go-billy/v5 v5.9.2
+	github.com/trufflesecurity/trufflehog/v3 v3.99.7
 	github.com/yuin/goldmark v1.8.6
+	golang.org/x/sys v0.48.0
 )
 
 require (
@@ -178,7 +181,6 @@ require (
 	github.com/xanzy/ssh-agent v0.3.3 // indirect
 	github.com/yuin/gopher-lua v1.1.2
 	golang.org/x/net v0.59.0
-	golang.org/x/sys v0.48.0 // indirect
 	golang.org/x/term v0.46.0
 	golang.org/x/text v0.42.0
 	google.golang.org/grpc v1.84.0

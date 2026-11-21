@@ -3,7 +3,7 @@
 load(":al_hugo_site_info.bzl", "AlHugoSiteInfo")
 
 def _al_hugo_worker_impl(ctx):
-    hugo = ctx.toolchains["//pkg/bzl:toolchain_type"]
+    hugo = ctx.toolchains["//tools/rules_hugo/pkg/bzl:toolchain_type"]
     site_info = ctx.attr.site[AlHugoSiteInfo]
     out_dir = ctx.actions.declare_directory("{}.dest".format(ctx.label.name))
     flagfile = ctx.actions.declare_file("{}.flagfile.json".format(ctx.label.name))
@@ -65,7 +65,7 @@ al_hugo_worker = rule(
     implementation = _al_hugo_worker_impl,
     doc = "Build a Hugo site with the Hugo persistent worker",
     toolchains = [
-        "//pkg/bzl:toolchain_type",
+        "//tools/rules_hugo/pkg/bzl:toolchain_type",
     ],
     attrs = {
         "out_dir": attr.string(
@@ -82,7 +82,7 @@ al_hugo_worker = rule(
             doc = "Hugo site",
         ),
         "worker": attr.label(
-            default = "//cmd/hugo_worker",
+            default = "//tools/rules_hugo/cmd/hugo_worker",
             executable = True,
             cfg = "exec",
             doc = "Hugo worker binary",

@@ -11,11 +11,15 @@ description: >-
 
 ## Run repository commands
 
-Run Bazel from the applicable workspace root with this form:
+Run Bazel from the repository root for first-party packages and rulesets:
 
 ```sh
 bazel test //path/to/package:all
 ```
+
+Use source package paths such as `//projects/al/...` and
+`//tools/rules_docs/...`. Run builds of a released ruleset from its separate
+consumer workspace using the published repository name.
 
 Invoke the Bazelisk-managed `bazel` on `PATH` directly. The repository
 `.bazeliskrc` pins its version and archive hash. Pass startup options before
@@ -93,11 +97,10 @@ and cache.
 ## Run repository tools
 
 Run repository control tools from the enclosing Git worktree's root Bazel
-workspace, which imports `rules_al`, even for changes in a nested
-module. Nested build and test targets still use their owning workspace.
+workspace. AL is available at `//projects/al:al`.
 
 ```sh
-bazel run @rules_al//:al -- delivery provider
+bazel run //projects/al:al -- delivery provider
 ```
 
 For frequent execution, install the standalone tool explicitly and invoke it

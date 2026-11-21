@@ -61,7 +61,7 @@ systemd_run = rule(
             doc = "Nonempty systemd NAME-to-VALUE assignments, such as MemoryMax = 36G.",
         ),
         "_runner": attr.label(
-            default = Label("//cmd/systemd_run"),
+            default = Label("//" + Label(":defs.bzl").package[:-len("systemd")] + "cmd/systemd_run"),
             executable = True,
             cfg = "target",
         ),

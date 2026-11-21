@@ -43,11 +43,11 @@ al_git_toolchain = rule(
 )
 
 def _resolved_impl(ctx):
-    toolchain = ctx.toolchains[Label("//rules:git_toolchain_type")]
+    toolchain = ctx.toolchains[Label("//projects/al/rules:git_toolchain_type")]
     return [toolchain.default_info, toolchain, platform_common.TemplateVariableInfo(toolchain.env)]
 
 al_git_resolved_toolchain = rule(
     implementation = _resolved_impl,
-    toolchains = [Label("//rules:git_toolchain_type")],
+    toolchains = [Label("//projects/al/rules:git_toolchain_type")],
     doc = "Expose the configured Git executable and checkout template variables.",
 )

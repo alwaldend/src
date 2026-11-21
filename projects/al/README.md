@@ -40,7 +40,7 @@ dictionary inputs, AL run wrappers, release packaging rules, and their providers
 own AL execution toolchain. Existing pinned dependencies are declared locally.
 
 From this repository's root, build the executable with
-`bazel build @rules_al//:al`, or install it with
+`bazel build //projects/al:al`, or install it with
 `bazel run //tools/al:install`; installation requires the operator's authority.
 Use ordinary Bazel commands for builds and tests. For Git-aware test selection,
 `al bazel test --base master` selects affected tests in the chosen workspace;
@@ -82,8 +82,9 @@ al_release_bundle(
 consumes Bazel workspace status when stamping is enabled, and ordinary unstamped
 builds emit the constant development version. The standard `stamp` attribute
 controls this behavior. The module builds its own tool and declares
-all software dependencies at repository pins. Run `bazel test //...`
-and `bazel build //...` from `projects/al` to check it independently.
+all software dependencies at repository pins. From the monorepo root, run `bazel test //projects/al/...` and
+`bazel build //projects/al/...`. The release archive retains the standalone module
+manifest.
 The `tests/consumer:check` command builds the public API without parent Bazel
 configuration imports and automatically verifies its output manifest and payload.
 Its README describes launcher invocation and the retained `result.json`.

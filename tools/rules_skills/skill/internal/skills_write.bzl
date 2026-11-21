@@ -225,7 +225,7 @@ skills_write_updater = rule(
         ),
         "_script": attr.label(
             cfg = "target",
-            default = Label("//skill/internal/scripts:skills_write"),
+            default = Label("//tools/rules_skills/skill/internal/scripts:skills_write"),
             executable = True,
         ),
         "discovery_dir": attr.string(mandatory = True),
@@ -296,7 +296,7 @@ skills_write_check_test = rule(
         ),
         "_script": attr.label(
             cfg = "target",
-            default = Label("//skill/internal/scripts:skills_check"),
+            default = Label("//tools/rules_skills/skill/internal/scripts:skills_check"),
             executable = True,
         ),
         "discovery_dir": attr.string(mandatory = True),

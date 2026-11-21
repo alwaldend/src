@@ -34,7 +34,7 @@ def _patch_kwargs(kwargs, name, testonly = False):
     kwargs["data"] = data
     return kwargs
 
-def al_binary_run(src = Label("//cmd/al:al"), **kwargs):
+def al_binary_run(src = Label("//projects/al/cmd/al:al"), **kwargs):
     """
     Create an AL command with configs and dictionary plugin_labels selectors.
 

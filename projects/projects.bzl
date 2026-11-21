@@ -33,10 +33,3 @@ PROJECTS = [
     "vastai_terraform_provider",
     "x_article_uploader",
 ]
-
-# Standalone modules expose their landing content through their Bzlmod name.
-PROJECT_MODULES = {
-    "al": "rules_al",
-    "bazel_gazelle_enforce_transitive_visibility": "bazel_gazelle_enforce_transitive_visibility",
-    "rules_trufflehog": "rules_trufflehog",
-}

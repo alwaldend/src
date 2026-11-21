@@ -1,6 +1,6 @@
-load("@rules_al//:defs.bzl", "al_binary_run", "al_config", "al_release_binary", "al_release_deployment", "al_vault_auth")
-load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("//infra:al_config.bzl", "infra_dns", "infra_xo_login", "infra_yc_auth")
+load("//projects/al:defs.bzl", "al_binary_run", "al_config", "al_release_binary", "al_release_deployment", "al_vault_auth")
+load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
 load("//tools/ssh:defs.bzl", "ssh_binary")
 load("//tools/vault:defs.bzl", "vault_binary_map")
 load("//tools/vault/tf_backend:defs.bzl", "vault_tf_backend")

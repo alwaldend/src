@@ -95,7 +95,7 @@ def _emit(ctx, content, runtime = [], kind = "", runtime_parent = ""):
         _merge_definitions(definitions, dependency[AlConfigInfo].definitions)
         runfiles = runfiles.merge(dependency[DefaultInfo].default_runfiles)
 
-    toolchain = ctx.toolchains[Label("//rules:al_toolchain_type")]
+    toolchain = ctx.toolchains[Label("//projects/al/rules:al_toolchain_type")]
     declaration = source
     substitutions = getattr(ctx.attr, "substitutions", {})
     if substitutions:
@@ -236,7 +236,7 @@ def _injector_impl(ctx):
         content["extends"] = runtime_parent
     return _emit(ctx, {"inject": {ctx.attr.config_name: content}}, kind = "inject", runtime_parent = runtime_parent)
 
-_TOOLCHAINS = [Label("//rules:al_toolchain_type")]
+_TOOLCHAINS = [Label("//projects/al/rules:al_toolchain_type")]
 
 _al_config = rule(
     doc = "Combine named configuration targets independently of input order.",

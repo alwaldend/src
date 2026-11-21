@@ -1,7 +1,7 @@
-load("@rules_al//:defs.bzl", "al_binary_run_map", "al_config", "al_inject", "al_plugin", "al_vault_auth")
-load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("//infra:al_config.bzl", "infra_ansible_keys", "infra_yc_account", "infra_yc_auth")
 load("//infra/dns/terraform:defs.bzl", "infra_terraform_dns_config")
+load("//projects/al:defs.bzl", "al_binary_run_map", "al_config", "al_inject", "al_plugin", "al_vault_auth")
+load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
 load("//tools/vault:defs.bzl", "vault_binary_map")
 load("//tools/vault/tf_backend:defs.bzl", "vault_tf_backend")
 

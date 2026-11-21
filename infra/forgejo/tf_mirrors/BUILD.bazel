@@ -1,5 +1,5 @@
-load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("//tools/al:al_terraform.bzl", "al_terraform_package")
+load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
 
 package(transitive_visibility = "//infra:transitive_consumers")
 

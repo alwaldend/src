@@ -1,8 +1,8 @@
 load("@protobuf//bazel:proto_library.bzl", "proto_library")
-load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_go//go:def.bzl", "go_binary", "go_library", "go_test")
 load("@rules_go//proto:def.bzl", "go_proto_library")
-load("//:defs.bzl", "al_plugin_config")
+load("//projects/al:defs.bzl", "al_plugin_config")
+load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
 
 go_library(
     name = "vault_lib",
@@ -20,12 +20,12 @@ go_library(
     visibility = ["//visibility:public"],
     deps = [
         ":vault_proto",
-        "//api/al_proto",
-        "//pkg/al",
-        "//pkg/al_plugin",
-        "//pkg/fp",
-        "//pkg/injector",
-        "//pkg/lifecycle",
+        "//projects/al/api/al_proto",
+        "//projects/al/pkg/al",
+        "//projects/al/pkg/al_plugin",
+        "//projects/al/pkg/fp",
+        "//projects/al/pkg/injector",
+        "//projects/al/pkg/lifecycle",
         "@com_github_google_uuid//:uuid",
         "@com_github_hashicorp_vault_api//:api",
         "@org_golang_google_protobuf//encoding/protojson",
@@ -55,9 +55,9 @@ go_test(
     embed = [":vault_lib"],
     deps = [
         ":vault_proto",
-        "//api/al_proto",
-        "//pkg/al",
-        "//pkg/injector",
+        "//projects/al/api/al_proto",
+        "//projects/al/pkg/al",
+        "//projects/al/pkg/injector",
     ],
 )
 

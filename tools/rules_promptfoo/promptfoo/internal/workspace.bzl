@@ -1,6 +1,6 @@
 """Stages selected SkillInfo bundles as a Codex skill workspace."""
 
-load("@rules_skills//skill:defs.bzl", "SkillInfo")
+load("//tools/rules_skills/skill:defs.bzl", "SkillInfo")
 
 PromptfooWorkspaceInfo = provider(
     doc = "An isolated workspace containing selected Codex skills.",

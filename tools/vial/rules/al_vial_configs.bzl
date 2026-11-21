@@ -1,6 +1,6 @@
 load("@bazel_skylib//rules:write_file.bzl", "write_file")
-load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("@rules_template//rules:template_run_binary.bzl", "template_run_binary")
+load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
+load("//tools/rules_template/rules:template_run_binary.bzl", "template_run_binary")
 
 def al_vial_configs(name, srcs, visibility = None, **kwargs):
     """

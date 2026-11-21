@@ -1,22 +1,22 @@
 """Public API for packaging, writing, and validating Codex skills."""
 
 load(
-    "//skill/internal:skill_archive.bzl",
+    "//tools/rules_skills/skill/internal:skill_archive.bzl",
     _skill_archive = "skill_archive",
     _skill_archives = "skill_archives",
 )
 load(
-    "//skill/internal:skill_library.bzl",
+    "//tools/rules_skills/skill/internal:skill_library.bzl",
     _SkillInfo = "SkillInfo",
     _skill_library = "skill_library",
 )
 load(
-    "//skill/internal:skill_validation.bzl",
+    "//tools/rules_skills/skill/internal:skill_validation.bzl",
     _skill_validation = "skill_validation",
     _skill_validation_aspect = "skill_validation_aspect",
 )
 load(
-    "//skill/internal:skills_write.bzl",
+    "//tools/rules_skills/skill/internal:skills_write.bzl",
     _SkillsWriteInfo = "SkillsWriteInfo",
     _skills_write = "skills_write",
     _skills_write_check_test = "skills_write_check_test",

@@ -190,9 +190,9 @@ al_git_repo = repository_rule(
     implementation = _impl,
     doc = "Capture a local Git checkout and deterministic release history bundle.",
     attrs = {
-        "_toolchain_bzl": attr.label(default = Label("//rules:al_git_toolchain.bzl")),
-        "_binary_bzl": attr.label(default = Label("//rules:al_git_binary.bzl")),
-        "_toolchain_type": attr.label(default = Label("//rules:git_toolchain_type")),
+        "_toolchain_bzl": attr.label(default = Label("//projects/al/rules:al_git_toolchain.bzl")),
+        "_binary_bzl": attr.label(default = Label("//projects/al/rules:al_git_binary.bzl")),
+        "_toolchain_type": attr.label(default = Label("//projects/al/rules:git_toolchain_type")),
     },
     local = True,
 )

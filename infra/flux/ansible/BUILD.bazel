@@ -1,6 +1,6 @@
 load("@bazel_skylib//rules:native_binary.bzl", "native_test")
-load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("//tools/ansible/rules:al_ansible_package.bzl", "al_ansible_package")
+load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
 
 package(transitive_visibility = "//infra:transitive_consumers")
 

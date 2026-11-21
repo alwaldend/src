@@ -1,10 +1,10 @@
 load("@bazel_skylib//rules:native_binary.bzl", "native_binary")
-load("@rules_al//:defs.bzl", "al_config", "al_inject", "al_plugin_config", "al_vault_auth", "al_vault_conn")
-load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_go//go:def.bzl", "go_test")
 load("//infra:al_config.bzl", "infra_dns")
+load("//projects/al:defs.bzl", "al_config", "al_inject", "al_plugin_config", "al_vault_auth", "al_vault_conn")
 load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_diagram")
 load("//tools/al:al_terraform.bzl", "al_terraform_binary_map")
+load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
 load("//tools/vault/tf_backend:defs.bzl", "vault_tf_backend")
 
 package(transitive_visibility = "//tools:transitive_consumers")
@@ -101,7 +101,7 @@ al_config(
         ":harbor_login",
         ":pve_login",
         ":tf_backend",
-        "@rules_al//plugins/vault:config",
+        "//projects/al/plugins/vault:config",
     ],
     visibility = ["//:__subpackages__"],
 )
@@ -122,7 +122,7 @@ docs_filegroup(
 
 mermaid_diagram(
     name = "run_lifecycle",
-    src = "@rules_al//docs/al:run.mmd",
+    src = "//projects/al/docs/al:run.mmd",
     out = "rendered/run-lifecycle",
     webp_aspect_ratio = [],
     webp_scale = 2,
@@ -139,11 +139,11 @@ native_binary(
     src = "//tools/file_installer/cmd/install_binary",
     args = [
         "--source",
-        "$(rootpath @rules_al//:al)",
+        "$(rootpath //projects/al:al)",
         "--name",
         "al",
     ],
-    data = ["@rules_al//:al"],
+    data = ["//projects/al"],
     visibility = ["//:__subpackages__"],
 )
 
@@ -176,9 +176,9 @@ al_config(
 
 go_test(
     name = "vault_dev_server_test",
-    srcs = ["@rules_al//plugins/vault:dev_server_test.go"],
+    srcs = ["//projects/al/plugins/vault:dev_server_test.go"],
     data = ["//tools/vault"],
-    embed = ["@rules_al//plugins/vault:vault_lib"],
+    embed = ["//projects/al/plugins/vault:vault_lib"],
     env = {"VAULT_BINARY": "$(rlocationpath //tools/vault)"},
     deps = [
         "@com_github_hashicorp_vault_api//:api",

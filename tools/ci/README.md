@@ -41,8 +41,11 @@ entries such as caches and dependency directories are ignored. Workspace
 boundaries remain owned by the root ignore file. The shared
 `rules_al/pkg/workspaces` library also supplies membership to the full repository checker.
 
-Each workspace runs `bazel build --config=ci //...` followed by
-`bazel test --config=ci //...`. The command continues after failures
+The root wildcard covers the first-party rulesets under their package paths.
+Each ruleset's release manifest supplies its standalone archive identity.
+
+Each workspace runs `bazel build --config=ci` followed by
+`bazel test --config=ci` over its wildcard target patterns. The command continues after failures
 so all workspaces and both phases are attempted, streams Bazel diagnostics,
 and exits nonzero if any phase fails. It does not run deployment targets or
 runner acceptance checks. Normal Bazel expansion excludes manual targets and

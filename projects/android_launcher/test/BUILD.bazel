@@ -1,6 +1,6 @@
-load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_go//go:def.bzl", "go_test")
 load("@rules_kotlin//kotlin:android.bzl", "kt_android_local_test")
+load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
 
 package(transitive_visibility = "//projects:transitive_consumers")
 

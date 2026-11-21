@@ -1,5 +1,5 @@
-load("//rules:al_release_deployment_info.bzl", "AlReleaseDeploymentInfo")
-load("//rules:al_release_info.bzl", "AlReleaseInfo")
+load("//projects/al/rules:al_release_deployment_info.bzl", "AlReleaseDeploymentInfo")
+load("//projects/al/rules:al_release_info.bzl", "AlReleaseInfo")
 
 _SCRIPT = """\
 #!/usr/bin/env sh
@@ -78,7 +78,7 @@ al_release_binary = rule(
             executable = True,
             cfg = "exec",
             doc = "Release tool",
-            default = Label("//cmd/al:al"),
+            default = Label("//projects/al/cmd/al:al"),
         ),
     },
 )

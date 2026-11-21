@@ -1,5 +1,5 @@
 load("@rules_pkg//pkg:providers.bzl", "PackageFilesInfo")
-load("//rules:git_current_state.bzl", "GIT_CURRENT_STATE")
+load("//projects/al/rules:git_current_state.bzl", "GIT_CURRENT_STATE")
 load(":al_release_files_info.bzl", "AlReleaseFilesInfo")
 load(":al_release_info.bzl", "AlReleaseInfo")
 
@@ -119,7 +119,7 @@ al_release = rule(
         "release_tool": attr.label(
             executable = True,
             cfg = "exec",
-            default = Label("//cmd/al:al"),
+            default = Label("//projects/al/cmd/al:al"),
             doc = "Release tool",
         ),
         "git_state": attr.label_list(

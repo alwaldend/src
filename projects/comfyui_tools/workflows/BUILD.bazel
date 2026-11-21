@@ -1,6 +1,6 @@
 load("@com_github_google_go_jsonnet//:defs.bzl", "jsonnetfmt_test")
-load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("//tools/jsonnet:defs.bzl", "jsonnet_to_json")
+load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
 
 package(transitive_visibility = "//projects:transitive_consumers")
 

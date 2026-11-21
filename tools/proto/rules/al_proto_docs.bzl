@@ -1,6 +1,6 @@
 load("@bazel_skylib//rules:write_file.bzl", "write_file")
 load("@rules_pkg//pkg:mappings.bzl", "pkg_files")
-load("@rules_template//rules:template_run_binary.bzl", "template_run_binary")
+load("//tools/rules_template/rules:template_run_binary.bzl", "template_run_binary")
 
 def al_proto_docs(name, src, prefix = None, visibility = None, renames = None):
     """

@@ -3,6 +3,7 @@
 def _skills_write_updater_test_impl(ctx):
     updater = ctx.executable.updater
     discovery = ctx.attr.discovery_dir
+    package = ctx.label.package
     environment = {}
     if RunEnvironmentInfo in ctx.attr.updater:
         environment = ctx.attr.updater[RunEnvironmentInfo].environment
@@ -16,8 +17,8 @@ def _skills_write_updater_test_impl(ctx):
         'updater="${runfiles}/' + updater.short_path + '"',
         'workspace="${TEST_TMPDIR}/workspace"',
         "discovery=" + discovery,
-        'mkdir -p "${workspace}/tests/analysis"',
-        "printf '%s\\n' name: analysis >\"${workspace}/tests/analysis/SKILL.md\"",
+        'mkdir -p "${{workspace}}/{}"'.format(package),
+        "printf '%s\\n' name: analysis >\"${{workspace}}/{}/SKILL.md\"".format(package),
         "printf '%s\\n' '---' >\"${workspace}/MODULE.bazel\"",
         "ln -s '../stale' \"${workspace}/${discovery}/stale\" 2>/dev/null || true",
         "",

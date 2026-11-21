@@ -1,6 +1,6 @@
 load("@rules_go//go:def.bzl", "go_library")
 
-package(transitive_visibility = "//:transitive_consumers")
+package(transitive_visibility = "//projects/bazel_gazelle_enforce_transitive_visibility:transitive_consumers")
 
 go_library(
     name = "gazelle",

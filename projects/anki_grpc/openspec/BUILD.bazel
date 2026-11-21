@@ -1,4 +1,4 @@
-load("@rules_openspec//rules:workspace.bzl", "openspec_workspace")
+load("//tools/rules_openspec/rules:workspace.bzl", "openspec_workspace")
 
 package(transitive_visibility = "//projects:transitive_consumers")
 

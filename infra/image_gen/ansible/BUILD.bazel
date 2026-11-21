@@ -1,7 +1,7 @@
-load("@rules_al//:defs.bzl", "al_binary_run")
-load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_pkg//pkg:mappings.bzl", "pkg_files", "strip_prefix")
+load("//projects/al:defs.bzl", "al_binary_run")
 load("//tools/ansible/rules:al_ansible_package.bzl", "al_ansible_package")
+load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
 
 package(transitive_visibility = "//infra:transitive_consumers")
 

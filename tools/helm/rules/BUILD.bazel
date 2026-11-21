@@ -1,6 +1,6 @@
-load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("//tools/bzl/rules:al_bzl_library_map.bzl", "al_bzl_library_map")
 load("//tools/helm/rules:al_helm_toolchain.bzl", "al_helm_toolchain")
+load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
 
 package(transitive_visibility = "//tools:build_api_consumers")
 
@@ -30,7 +30,7 @@ al_bzl_library_map(
         "al_helm_chart_lock": [
             "@aspect_bazel_lib//lib:write_source_files",
             "@bazel_skylib//rules:write_file",
-            "@rules_template//rules:template_run_binary",
+            "//tools/rules_template/rules:template_run_binary",
         ],
         "al_helm_chart_info": [],
         "al_helm_deps_repo": [],

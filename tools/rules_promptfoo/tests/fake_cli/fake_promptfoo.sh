@@ -93,8 +93,8 @@ test "$(stat -c '%a' "${TMPDIR}")" = 700
 test "${PWD}" = "${PROMPTFOO_SKILL_WORKSPACE}"
 test -d "${PROMPTFOO_JUDGE_WORKSPACE}"
 
-skill="${PROMPTFOO_SKILL_WORKSPACE}/.agents/skills/fixture_skill/SKILL.md"
-reference="${PROMPTFOO_SKILL_WORKSPACE}/.agents/skills/fixture_skill/reference.txt"
+skill="${PROMPTFOO_SKILL_WORKSPACE}/.agents/skills/fixture-skill/SKILL.md"
+reference="${PROMPTFOO_SKILL_WORKSPACE}/.agents/skills/fixture-skill/reference.txt"
 test -f "$skill"
 test -f "$reference"
 test ! -L "$skill"

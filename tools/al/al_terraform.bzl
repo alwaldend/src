@@ -1,7 +1,7 @@
 """Repository Terraform operation maps with AL configuration composition."""
 
-load("@rules_al//:defs.bzl", "al_binary_run", "al_binary_run_test")
-load("@rules_terraform//terraform:defs.bzl", "terraform_binary_map", "terraform_target_binary_map", "terraform_test_map")
+load("//projects/al:defs.bzl", "al_binary_run", "al_binary_run_test")
+load("//tools/rules_terraform/terraform:defs.bzl", "terraform_binary_map", "terraform_target_binary_map", "terraform_test_map")
 
 def al_terraform_binary_map(configs, plugin_labels = {}, run_args = [], **kwargs):
     """Create Terraform commands using the supplied AL configuration targets.

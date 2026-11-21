@@ -194,12 +194,12 @@ test_suite(
 # gazelle:python_binary_naming_convention $package_name$
 
 # Keep Bazel consumers on the owning module when Go's local replacement is visible.
-# gazelle:resolve go git.alwaldend.com/alwaldend/src/projects/al/api/al_proto @rules_al//api/al_proto
-# gazelle:resolve go git.alwaldend.com/alwaldend/src/projects/al/pkg/al @rules_al//pkg/al
-# gazelle:resolve go git.alwaldend.com/alwaldend/src/projects/al/pkg/al_plugin @rules_al//pkg/al_plugin
-# gazelle:resolve go git.alwaldend.com/alwaldend/src/projects/al/pkg/fp @rules_al//pkg/fp
-# gazelle:resolve go git.alwaldend.com/alwaldend/src/projects/al/pkg/lifecycle @rules_al//pkg/lifecycle
-# gazelle:resolve go git.alwaldend.com/alwaldend/src/projects/al/pkg/workspaces @rules_al//pkg/workspaces
+# gazelle:resolve go git.alwaldend.com/alwaldend/src/projects/al/api/al_proto //projects/al/api/al_proto
+# gazelle:resolve go git.alwaldend.com/alwaldend/src/projects/al/pkg/al //projects/al/pkg/al
+# gazelle:resolve go git.alwaldend.com/alwaldend/src/projects/al/pkg/al_plugin //projects/al/pkg/al_plugin
+# gazelle:resolve go git.alwaldend.com/alwaldend/src/projects/al/pkg/fp //projects/al/pkg/fp
+# gazelle:resolve go git.alwaldend.com/alwaldend/src/projects/al/pkg/lifecycle //projects/al/pkg/lifecycle
+# gazelle:resolve go git.alwaldend.com/alwaldend/src/projects/al/pkg/workspaces //projects/al/pkg/workspaces
 
 # gazelle:java_maven_install_file projects/nexus_security_plugin/maven_lock.json
 # gazelle:resolve java javax.annotation @com_alwaldend_src_maven//:org_apache_tomcat_annotations_api

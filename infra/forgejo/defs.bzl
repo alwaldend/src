@@ -1,6 +1,6 @@
 """infra forgejo configuration targets."""
 
-load("@rules_al//:defs.bzl", "al_inject")
+load("//projects/al:defs.bzl", "al_inject")
 
 def infra_forgejo_config(name, labels = {}, config_name = None, **kwargs):
     """Declare the config configuration target."""

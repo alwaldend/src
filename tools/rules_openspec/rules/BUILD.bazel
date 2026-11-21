@@ -1,13 +1,13 @@
 load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
-load("@rules_openspec_npm//:@fission-ai/openspec/package_json.bzl", openspec = "bin")
-load("//rules:openspec.bzl", "OPENSPEC_ENV")
+load("@rules_openspec_npm//tools/rules_openspec:@fission-ai/openspec/package_json.bzl", openspec = "bin")
+load("//tools/rules_openspec/rules:openspec.bzl", "OPENSPEC_ENV")
 
 package(default_visibility = ["//visibility:public"])
 
 openspec.openspec_binary(
     name = "openspec",
     chdir = "$${BUILD_WORKSPACE_DIRECTORY}/$${OPENSPEC_PROJECT:-infra/src}",
-    data = ["//:node_modules/@fission-ai/openspec"],
+    data = ["//tools/rules_openspec:node_modules/@fission-ai/openspec"],
     env = OPENSPEC_ENV,
 )
 

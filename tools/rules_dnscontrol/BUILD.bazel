@@ -1,5 +1,9 @@
 load("@bazel_skylib//rules:build_test.bzl", "build_test")
-load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("@rules_pkg//pkg:mappings.bzl", "pkg_files", "strip_prefix")
+load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
+load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
+
+package(transitive_visibility = "//tools:transitive_consumers")
 
 docs_filegroup(
     name = "docs",
@@ -12,6 +16,37 @@ build_test(
     name = "build_test",
     targets = [
         ":docs",
-        "//rules:dnscontrol",
+        "//tools/rules_dnscontrol/rules:dnscontrol",
     ],
+)
+
+pkg_files(
+    name = "release_sources",
+    srcs = [
+        "//tools/rules_dnscontrol/rules:release_sources",
+    ],
+    strip_prefix = strip_prefix.from_root("tools/rules_dnscontrol"),
+)
+
+pkg_files(
+    name = "release_metadata",
+    srcs = [
+        "README.md",
+        "release.MODULE.bazel",
+        "//internal/license",
+    ],
+    renames = {
+        "release.MODULE.bazel": "MODULE.bazel",
+        "//internal/license": "LICENSE.txt",
+    },
+)
+
+pkg_tar(
+    name = "release_archive",
+    srcs = [
+        ":release_metadata",
+        ":release_sources",
+    ],
+    out = "rules_dnscontrol.tar.gz",
+    extension = "tar.gz",
 )

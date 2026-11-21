@@ -30,7 +30,7 @@ description: >-
 Add `<owner-project>/skills/lowercase-hyphen-name/BUILD.bazel`:
 
 ```starlark
-load("@rules_skills//skill:defs.bzl", "skill_library")
+load("//tools/rules_skills/skill:defs.bzl", "skill_library")
 
 skill_library(
     name = "skill",
@@ -63,7 +63,7 @@ declaration in `.agents/BUILD.bazel`. Archive-backed skills go in its
 `archives` list instead:
 
 ```starlark
-load("@rules_skills//skill:defs.bzl", "skills_write")
+load("//tools/rules_skills/skill:defs.bzl", "skills_write")
 
 skills_write(
     name = "write_skills",
@@ -104,7 +104,7 @@ answers are correct.
 
 ```starlark
 load(
-    "@rules_promptfoo//promptfoo:defs.bzl",
+    "//tools/rules_promptfoo/promptfoo:defs.bzl",
     "promptfoo_test",
     "promptfoo_validate_test",
 )

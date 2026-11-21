@@ -1,5 +1,5 @@
 def _template_files_impl(ctx):
-    toolchain = ctx.toolchains["//rules:toolchain_type"]
+    toolchain = ctx.toolchains["//tools/rules_template/rules:toolchain_type"]
     args = ctx.actions.args()
     for data in ctx.files.data:
         args.add("--data", data.path)
@@ -19,7 +19,7 @@ def _template_files_impl(ctx):
 template_run_binary = rule(
     implementation = _template_files_impl,
     doc = "Rule to template files",
-    toolchains = ["//rules:toolchain_type"],
+    toolchains = ["//tools/rules_template/rules:toolchain_type"],
     attrs = {
         "srcs": attr.label_list(
             allow_files = True,

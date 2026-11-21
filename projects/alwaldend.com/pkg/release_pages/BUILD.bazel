@@ -4,5 +4,5 @@ bzl_library(
     name = "defs",
     srcs = ["defs.bzl"],
     visibility = ["//projects:__subpackages__"],
-    deps = ["@rules_al//:defs"],
+    deps = ["//projects/al:defs"],
 )

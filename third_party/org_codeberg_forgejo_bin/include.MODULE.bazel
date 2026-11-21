@@ -10,7 +10,7 @@ http_file(
 )
 
 binary_toolchain_extension = use_extension(
-    "@rules_binary_toolchain//rules:binary_toolchain_extension.bzl",
+    "//tools/rules_binary_toolchain/rules:binary_toolchain_extension.bzl",
     "binary_toolchain_extension",
 )
 binary_toolchain_extension.toolchains(

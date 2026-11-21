@@ -41,7 +41,7 @@ buf_test(
     name = "buf_test",
     arguments = [
         "lint",
-        "$(execpath :empty)",
+        "$(rootpath :empty)",
     ],
     data = [
         "buf.yaml",

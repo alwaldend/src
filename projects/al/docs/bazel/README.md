@@ -105,11 +105,11 @@ al doctor --workspace-root /absolute/workspace \
   --task-scratch out/task/run
 ```
 
-The pin-file default is `.bazeliskrc`. Without a source-binary override, comparison
-uses `bazel-bin/external/rules_al+/cmd/al/al_/al` under the selected workspace;
-the reported source target remains `@rules_al//:al`. A missing comparison file
-reports `source.reason: unavailable`; it does not prove the installation is
-current. An available comparison reports its resolved absolute path and digest.
+The pin-file default is `.bazeliskrc`. Without a source-binary override, doctor
+looks for the executable built by `@rules_al//:al` in the selected workspace's
+default `bazel-bin` directory. An available comparison reports its resolved
+absolute path and digest. A missing comparison file reports
+`source.reason: unavailable`.
 
 The rc inventory defaults to `.bazelrc`. Explicit `--rc-file` entries replace
 that default and are reported relative to the workspace when possible. Doctor

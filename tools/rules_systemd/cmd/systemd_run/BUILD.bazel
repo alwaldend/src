@@ -14,3 +14,9 @@ go_binary(
         "@rules_go//go/runfiles",
     ],
 )
+
+filegroup(
+    name = "release_sources",
+    srcs = ["BUILD.bazel"] + glob(["*.go"]),
+    visibility = ["//visibility:public"],
+)

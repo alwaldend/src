@@ -1,10 +1,10 @@
 load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
-load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("//:defs.bzl", "al_git_binary")
+load("//projects/al:defs.bzl", "al_git_binary")
+load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
 
 alias(
     name = "al",
-    actual = "//cmd/al:al",
+    actual = "//projects/al/cmd/al:al",
     visibility = ["//visibility:public"],
 )
 
@@ -18,7 +18,7 @@ bzl_library(
     srcs = ["defs.bzl"],
     visibility = ["//visibility:public"],
     deps = [
-        "//rules",
+        "//projects/al/rules",
     ],
 )
 
@@ -26,7 +26,7 @@ bzl_library(
     name = "extensions",
     srcs = ["extensions.bzl"],
     visibility = ["//visibility:public"],
-    deps = ["//rules"],
+    deps = ["//projects/al/rules"],
 )
 
 exports_files(
@@ -43,13 +43,13 @@ docs_filegroup(
     prefix = "content/docs/projects/al",
     visibility = ["//visibility:public"],
     deps = [
-        "//api:docs",
-        "//docs",
-        "//internal/release:docs",
-        "//openspec:docs",
-        "//pkg/injector:docs",
-        "//plugins/vault:docs",
-        "//rules:docs",
+        "//projects/al/api:docs",
+        "//projects/al/docs",
+        "//projects/al/internal/release:docs",
+        "//projects/al/openspec:docs",
+        "//projects/al/pkg/injector:docs",
+        "//projects/al/plugins/vault:docs",
+        "//projects/al/rules:docs",
     ],
 )
 

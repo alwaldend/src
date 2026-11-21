@@ -5,9 +5,9 @@ bzl_library(
     srcs = ["defs.bzl"],
     visibility = ["//visibility:public"],
     deps = [
-        "//skill/internal:skill_archive",
-        "//skill/internal:skill_library",
-        "//skill/internal:skill_validation",
-        "//skill/internal:skills_write",
+        "//tools/rules_skills/skill/internal:skill_archive",
+        "//tools/rules_skills/skill/internal:skill_library",
+        "//tools/rules_skills/skill/internal:skill_validation",
+        "//tools/rules_skills/skill/internal:skills_write",
     ],
 )

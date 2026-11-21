@@ -18,13 +18,8 @@ source "${RUNFILES_DIR:-/dev/null}/$f" 2>/dev/null ||
         exit 1
     }
 runfiles_export_envvars
-root="$(runfiles_current_repository || true)"
-if [[ -z "$root" ]]; then
-    root="_main"
-fi
-launcher="$(rlocation "$root/tests/fake_cli/launcher_test.sh")"
-login_launcher="$(rlocation \
-    "$root/tests/fake_cli/external_codex_login_launcher.sh")"
+launcher="$(rlocation "$PROMPTFOO_LAUNCHER_RUNFILE")"
+login_launcher="$(rlocation "$CODEX_LOGIN_LAUNCHER_RUNFILE")"
 test -x "$launcher"
 test -x "$login_launcher"
 

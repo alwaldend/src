@@ -1,5 +1,4 @@
 load("@bazel_skylib//rules:build_test.bzl", "build_test")
-load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load(
     "@rules_qt//:qt.bzl",
     "qt_cc_binary",
@@ -7,6 +6,7 @@ load(
     "qt_resource_via_qrc",
     "qt_ui_library",
 )
+load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
 
 package(transitive_visibility = "//projects:transitive_consumers")
 

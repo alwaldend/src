@@ -1,7 +1,7 @@
 # gazelle:python_library_naming_convention $package_name$
 
-load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_python//python:defs.bzl", "py_library")
+load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
 
 package(transitive_visibility = "//projects:transitive_consumers")
 

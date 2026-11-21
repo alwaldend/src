@@ -2,11 +2,11 @@ load("@grpc-java//:java_grpc_library.bzl", "java_grpc_library")
 load("@protobuf//bazel:java_proto_library.bzl", "java_proto_library")
 load("@protobuf//bazel:proto_library.bzl", "proto_library")
 load("@protobuf//bazel:py_proto_library.bzl", "py_proto_library")
-load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_go//go:def.bzl", "go_binary", "go_library", "go_test")
 load("@rules_go//proto:def.bzl", "go_proto_library")
 load("@rules_java//java:defs.bzl", "java_library")
 load("//tools/proto/rules:al_proto_docs.bzl", "al_proto_docs")
+load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
 
 package(transitive_visibility = "//tools:transitive_consumers")
 
@@ -27,10 +27,10 @@ go_library(
     visibility = ["//:__subpackages__"],
     deps = [
         ":harbor_login_proto",
-        "@rules_al//api/al_proto",
-        "@rules_al//pkg/al",
-        "@rules_al//pkg/al_plugin",
-        "@rules_al//pkg/lifecycle",
+        "//projects/al/api/al_proto",
+        "//projects/al/pkg/al",
+        "//projects/al/pkg/al_plugin",
+        "//projects/al/pkg/lifecycle",
     ],
 )
 
@@ -94,6 +94,6 @@ go_test(
     embed = [":harbor_login_lib"],
     deps = [
         ":harbor_login_proto",
-        "@rules_al//pkg/lifecycle",
+        "//projects/al/pkg/lifecycle",
     ],
 )

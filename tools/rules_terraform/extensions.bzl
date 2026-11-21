@@ -6,7 +6,7 @@ Downloads occur during repository fetching; no registry resolution, host tools,
 or provider installation commands run in the extension.
 """
 
-load("//terraform:providers.bzl", "terraform_provider_archive_error", "terraform_provider_mirror_path")
+load("//tools/rules_terraform/terraform:providers.bzl", "terraform_provider_archive_error", "terraform_provider_mirror_path")
 
 _LETTERS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 _BASE64 = _LETTERS + "0123456789+/"
@@ -107,7 +107,7 @@ _provider_repository = repository_rule(
         "source": attr.string(mandatory = True),
         "urls": attr.string_list(mandatory = True),
         "version": attr.string(mandatory = True),
-        "_provider_rule": attr.label(default = Label("//terraform:providers.bzl")),
+        "_provider_rule": attr.label(default = Label("//tools/rules_terraform/terraform:providers.bzl")),
     },
 )
 

@@ -1,4 +1,4 @@
-load("//terraform:providers.bzl", "terraform_provider")
+load("//tools/rules_terraform/terraform:providers.bzl", "terraform_provider")
 load(":providers_test.bzl", "archive_fixture", "collision_test", "identity_test", "pin_test", "provider_contract_test")
 
 identity_test(name = "identity_test")

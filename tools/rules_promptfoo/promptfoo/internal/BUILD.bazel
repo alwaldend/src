@@ -4,8 +4,8 @@ bzl_library(
     name = "promptfoo_test",
     srcs = ["promptfoo_test.bzl"],
     visibility = [
-        "//promptfoo:__pkg__",
-        "//tests/fake_cli:__pkg__",
+        "//tools/rules_promptfoo/promptfoo:__pkg__",
+        "//tools/rules_promptfoo/tests/fake_cli:__pkg__",
     ],
     deps = [
         ":workspace",
@@ -16,9 +16,9 @@ bzl_library(
     name = "workspace",
     srcs = ["workspace.bzl"],
     visibility = [
-        "//promptfoo:__pkg__",
-        "//tests/analysis:__pkg__",
-        "//tests/fake_cli:__pkg__",
+        "//tools/rules_promptfoo/promptfoo:__pkg__",
+        "//tools/rules_promptfoo/tests/analysis:__pkg__",
+        "//tools/rules_promptfoo/tests/fake_cli:__pkg__",
     ],
-    deps = ["@rules_skills//skill:defs"],
+    deps = ["//tools/rules_skills/skill:defs"],
 )

@@ -1,6 +1,6 @@
 """Scan-only TruffleHog tests with exact finding allowlists."""
 
-_DEFAULT_SCANNER = Label("//:trufflehog")
+_DEFAULT_SCANNER = Label("//projects/rules_trufflehog:trufflehog")
 
 def _runfile(ctx, file):
     if file.short_path.startswith("../"):
@@ -43,7 +43,7 @@ _scan_test = rule(
         "allowlist": attr.label(mandatory = True, allow_single_file = [".json"], doc = "Strict detector/path/commit/line finding policy."),
         "all_refs": attr.bool(default = False, doc = "Include every local ref instead of only HEAD-reachable history."),
         "checkout": attr.bool(default = False, doc = "Scan tracked checkout files including Git LFS content."),
-        "_wrapper": attr.label(default = Label("//cmd/scan:scan"), executable = True, cfg = "exec"),
+        "_wrapper": attr.label(default = Label("//projects/rules_trufflehog/cmd/scan:scan"), executable = True, cfg = "exec"),
     },
 )
 
