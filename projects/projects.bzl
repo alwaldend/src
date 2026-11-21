@@ -26,6 +26,7 @@ PROJECTS = [
     "mermaid_3d",
     "nexus_security_plugin",
     "renders",
+    "rules_bend",
     "rules_trufflehog",
     "sri",
     "tf_modules",

@@ -1,0 +1,38 @@
+{
+    "toolchains": [
+        {
+            "name": "bend",
+            "version": "2.0.40"
+        }
+    ],
+    "archives": [
+        {
+            "toolchain_name": "bend",
+            "toolchain_version": "2.0.40",
+            "archive_name": "linux_x86_64",
+            "binaries": [
+                {
+                    "name": "bend",
+                    "path": "out/bin/bend",
+                    "runtime_files": ["out/bend2/**", "out/guide/**"]
+                }
+            ],
+            "actions": [
+                {
+                    "download_and_extract": {
+                        "url": "https://github.com/bendlang/bend/releases/download/v2.0.40/bend-2.0.40-linux-x64.tar.gz",
+                        "strip_prefix": "bend",
+                        "output": "out",
+                        "integrity": "sha256-yf+NZ72QP7atmia0PYpiwBAh3oKkTVXOSj3NRzIRPWs="
+                    }
+                }
+            ],
+            "toolchain": {
+                "exec_compatible_with": [
+                    "@platforms//os:linux",
+                    "@platforms//cpu:x86_64"
+                ]
+            }
+        }
+    ]
+}

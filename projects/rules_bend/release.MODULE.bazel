@@ -1,0 +1,14 @@
+module(
+    name = "rules_bend",
+    version = "0.0.0",
+    bazel_compatibility = [">=9.3.1"],
+)
+
+bazel_dep(name = "platforms", version = "1.1.0")
+bazel_dep(name = "rules_binary_toolchain", version = "0.0.0")
+bazel_dep(name = "rules_docs", version = "0.0.0")
+bazel_dep(name = "rules_go", version = "0.60.0")
+
+bazel_dep(name = "rules_openspec", version = "0.0.0", dev_dependency = True)
+
+include("//:include.MODULE.bazel")

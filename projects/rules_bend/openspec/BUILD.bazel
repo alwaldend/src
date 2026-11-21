@@ -1,0 +1,18 @@
+load("//tools/rules_openspec/rules:openspec.bzl", "openspec_validation")
+load("//tools/rules_openspec/rules:workspace.bzl", "openspec_workspace")
+
+openspec_workspace(
+    name = "workspace",
+    srcs = ["config.yaml"] + glob(
+        [
+            "changes/**",
+            "specs/**/*.md",
+        ],
+        allow_empty = True,
+    ),
+)
+
+openspec_validation(
+    name = "validate_test",
+    source = ":workspace",
+)

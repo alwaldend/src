@@ -1,0 +1,40 @@
+load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
+load(":defs.bzl", "bend_toolchain")
+
+exports_files(["defs.bzl"])
+
+toolchain_type(
+    name = "exec_toolchain_type",
+    visibility = ["//visibility:public"],
+)
+
+toolchain_type(
+    name = "runtime_toolchain_type",
+    visibility = ["//visibility:public"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    prefix = "content/docs/projects/rules_bend",
+    visibility = ["//visibility:public"],
+)
+
+_LINUX_X86_64 = [
+    "@platforms//os:linux",
+    "@platforms//cpu:x86_64",
+]
+
+alias(
+    name = "bend",
+    actual = "@com_github_bendlang_bend_linux_x86_64//:bend_native_binary",
+    target_compatible_with = _LINUX_X86_64,
+    visibility = ["//visibility:public"],
+)
+
+bend_toolchain(
+    name = "default_bend",
+    compatible_with = _LINUX_X86_64,
+    compiler = ":bend",
+    visibility = ["//visibility:public"],
+)

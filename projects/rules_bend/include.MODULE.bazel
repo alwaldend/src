@@ -1,0 +1,15 @@
+bend_release = use_extension(
+    "//tools/rules_binary_toolchain/rules:binary_toolchain_extension.bzl",
+    "binary_toolchain_extension",
+)
+bend_release.toolchains(
+    archives = {"bend": ["linux_x86_64"]},
+    lock = "//projects/rules_bend/third_party/com_github_bendlang_bend:binary_toolchain.json",
+    toolchains_map = {"bend": "com_github_bendlang_bend"},
+)
+use_repo(bend_release, "com_github_bendlang_bend", "com_github_bendlang_bend_linux_x86_64")
+
+register_toolchains(
+    "//projects/rules_bend:default_bend_exec",
+    "//projects/rules_bend:default_bend_runtime",
+)

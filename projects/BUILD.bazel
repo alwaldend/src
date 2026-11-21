@@ -42,6 +42,7 @@ al_release_binary(
                 "icon_generator",
                 "useless_qt_gui",
                 "renders",
+                "rules_bend",
                 "rules_trufflehog",
                 "x_article_uploader",
                 "x_profile_cleaner",

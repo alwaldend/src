@@ -1,0 +1,5 @@
+schema: spec-driven
+
+context: |
+  This workspace owns the Bazel rules for running and checking Bend 2 files.
+  Bazel selects Bend executables through registered toolchains.

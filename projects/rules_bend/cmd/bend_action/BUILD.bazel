@@ -1,0 +1,11 @@
+load("@rules_go//go:def.bzl", "go_binary")
+
+go_binary(
+    name = "bend_action",
+    srcs = [
+        "doc.go",
+        "main.go",
+    ],
+    visibility = ["//projects/rules_bend:__pkg__"],
+    deps = ["@rules_go//go/runfiles"],
+)
