@@ -156,11 +156,11 @@ reproducing mutations with Git or `gh` or bypassing a safety refusal.
    complete a local code review of the entire merge-base-to-prepared-candidate
    diff, including documentation and configuration. Record the comparison base,
    candidate head, verdict, and finding dispositions in the task evidence.
-   Look for legacy introduced within the PR, including superseded approaches,
-   unused configuration, and compatibility paths for intermediate versions of
-   the change. Remove those leftovers before publication. Keep migration or
-   compatibility code when the base branch, deployed state, existing data, or
-   supported callers still depend on it, and record the dependency.
+   Include a simplification review in every delivery. Check whether existing
+   tools or APIs can meet the same requirements with fewer steps, settings,
+   or abstractions. Remove needless complexity within scope and record the
+   outcome in the review evidence. Preserve required behavior and compatibility
+   with deployed state, existing data, and supported callers.
    Evaluate every finding against the request and touched contracts, fix
    in-scope defects, and review the corrected candidate before publication.
    A changed candidate diff invalidates the prior local review. For changed

@@ -65,12 +65,28 @@ func scan(parent context.Context, opts options, output, diagnostics io.Writer) (
 	}()
 	ctx, cancel := context.WithTimeout(parent, opts.timeout)
 	defer cancel()
-	args := []string{"git", "--json", "--no-color", "--no-update", "--no-verification", "--fail", "--fail-on-scan-errors"}
-	if !opts.allRefs {
-		args = append(args, "--branch", "HEAD", "--skip-additional-refs")
+	flags := []string{"--json", "--no-color", "--no-update", "--no-verification", "--fail", "--fail-on-scan-errors"}
+	var args []string
+	var checkoutCommit string
+	var directory string
+	if opts.checkout {
+		directory = opts.repository
+		exclusions := filepath.Join(scratch, "exclude-paths")
+		checkoutCommit, err = prepareCheckout(ctx, opts, exclusions, diagnostics)
+		if err != nil {
+			return fmt.Errorf("prepare checkout scan: %w", err)
+		}
+		args = append([]string{"filesystem"}, flags...)
+		args = append(args, "--exclude-paths", exclusions, "--max-symlink-depth=0", ".")
+	} else {
+		args = append([]string{"git"}, flags...)
+		if !opts.allRefs {
+			args = append(args, "--branch", "HEAD", "--skip-additional-refs")
+		}
+		args = append(args, (&url.URL{Scheme: "file", Path: opts.repository}).String())
 	}
-	args = append(args, (&url.URL{Scheme: "file", Path: opts.repository}).String())
 	cmd := exec.CommandContext(ctx, opts.scanner, args...)
+	cmd.Dir = directory
 	cmd.WaitDelay = time.Second
 	// The scan reads Git blobs, so a temporary checkout only needs LFS pointers.
 	cmd.Env = append(os.Environ(), "TMPDIR="+scratch, "TMP="+scratch, "TEMP="+scratch, "GIT_LFS_SKIP_SMUDGE=1")
@@ -92,7 +108,7 @@ func scan(parent context.Context, opts options, output, diagnostics io.Writer) (
 	if err := cmd.Start(); err != nil {
 		return fmt.Errorf("start scanner: %w", err)
 	}
-	summary, streamErr := classify(pipe, output, approved)
+	summary, streamErr := classify(pipe, output, approved, checkoutCommit)
 	if streamErr != nil {
 		cancel()
 	}
@@ -124,7 +140,7 @@ func scan(parent context.Context, opts options, output, diagnostics io.Writer) (
 }
 
 // classify streams complete original findings and their exact allowlist matches.
-func classify(input io.Reader, output io.Writer, approved map[location]string) (scanSummary, error) {
+func classify(input io.Reader, output io.Writer, approved map[location]string, checkoutCommit string) (scanSummary, error) {
 	summary := scanSummary{Type: "summary"}
 	decoder, encoder := json.NewDecoder(input), json.NewEncoder(output)
 	for {
@@ -134,7 +150,7 @@ func classify(input io.Reader, output io.Writer, approved map[location]string) (
 		} else if err != nil {
 			return summary, fmt.Errorf("decode scanner JSON: %w", err)
 		}
-		key, err := findingLocation(raw)
+		key, err := findingLocation(raw, checkoutCommit)
 		if err != nil {
 			if writeErr := encoder.Encode(findingEvent{Type: "finding", Finding: raw, MetadataError: err.Error()}); writeErr != nil {
 				return summary, fmt.Errorf("preserve malformed finding: %w", errors.Join(err, writeErr))

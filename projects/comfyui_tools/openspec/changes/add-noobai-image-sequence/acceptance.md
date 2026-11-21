@@ -94,7 +94,7 @@ is an ELF file matching the existing lock's SHA-256 integrity.
 
 The retained 96 GB deployment completed the default sequence with native NoobAI,
 IP-Adapter, Canny and RIFE. Final owned job
-`2af51190-554b-45c4-bb90-503eaedf03eb` completed in 54.7 seconds, saving six
+`2af51190-554b-45c4-bb90-503eaedf03eb` completed in 54.7 seconds, saving six <!-- trufflehog:ignore Recorded ComfyUI job UUID -->
 1024-square PNGs, two nine-frame/1.5-second GIFs and an eighteen-frame/three-second
 combined GIF. Decoding verifies loop, dimensions, timing, absolute seeds 42–47,
 scene-reset denoise and effective Canny settings. The exact App was uploaded.

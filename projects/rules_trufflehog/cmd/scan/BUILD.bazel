@@ -4,6 +4,7 @@ go_binary(
     name = "scan",
     srcs = [
         "allowlist.go",
+        "checkout.go",
         "doc.go",
         "main.go",
         "scan.go",

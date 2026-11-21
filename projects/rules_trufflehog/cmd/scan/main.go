@@ -31,6 +31,8 @@ type options struct {
 	allowlist string
 	// allRefs includes every local ref instead of only HEAD history.
 	allRefs bool
+	// checkout scans tracked filesystem contents instead of Git history.
+	checkout bool
 	// timeout bounds the scanner process.
 	timeout time.Duration
 }
@@ -52,7 +54,7 @@ func main() {
 func command() *cobra.Command {
 	var opts options
 	cmd := &cobra.Command{
-		Use: "trufflehog_scan", Short: "Scan Git history without credential verification",
+		Use: "trufflehog_scan", Short: "Scan Git history or a checkout without credential verification",
 		Args: cobra.NoArgs, SilenceUsage: true, SilenceErrors: true,
 		RunE: func(cmd *cobra.Command, _ []string) error {
 			if err := opts.resolve(); err != nil {
@@ -70,6 +72,7 @@ func command() *cobra.Command {
 	cmd.Flags().StringVar(&opts.marker, "repository-marker", "", "File at the Git worktree root")
 	cmd.Flags().StringVar(&opts.allowlist, "allowlist", "", "JSON finding allowlist")
 	cmd.Flags().BoolVar(&opts.allRefs, "all-refs", os.Getenv("TRUFFLEHOG_SCAN_ALL_REFS") == "true", "Scan every local Git ref")
+	cmd.Flags().BoolVar(&opts.checkout, "checkout", os.Getenv("TRUFFLEHOG_SCAN_CHECKOUT") == "true", "Scan the tracked checkout, including Git LFS payloads")
 	cmd.Flags().DurationVar(&opts.timeout, "timeout", 15*time.Minute, "Scanner deadline")
 	return cmd
 }
@@ -98,6 +101,9 @@ func (o *options) resolve() error {
 	}
 	if o.scanner == "" || o.allowlist == "" || o.timeout <= 0 {
 		return errors.New("scanner, allowlist, and a positive timeout are required")
+	}
+	if o.allRefs && o.checkout {
+		return errors.New("checkout and all-refs are mutually exclusive")
 	}
 	if o.repository != "" && o.marker != "" {
 		return errors.New("repository and repository-marker are mutually exclusive")

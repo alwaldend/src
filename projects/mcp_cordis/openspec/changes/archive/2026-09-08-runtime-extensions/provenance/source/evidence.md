@@ -259,7 +259,7 @@
 - Patch applicability: `git apply --check` accepts
   `patches/hmr@1.0.16.patch` against the exact resolved 1.0.16 package files.
 - Lock generation: Bazel-managed pnpm invocation
-  `a1c50484-20c6-4935-8832-92029d0de3c6` completed successfully with no
+  `a1c50484-20c6-4935-8832-92029d0de3c6` completed successfully with no <!-- trufflehog:ignore Recorded development execution identifier -->
   unrelated dependency resolution changes.
 - Causal runtime regressions: Bazel invocation
   `ac79a8e4-f5d9-4dd7-a821-29bce3d8ece6` passed explicit release-gated

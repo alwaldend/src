@@ -62,6 +62,11 @@ Both modes disable credential verification and update checks and bypass cached
 test results. They do not scan uncommitted or untracked source.
 The scanner keeps Git LFS pointers in its temporary checkout and reads the
 Git history without fetching LFS payloads.
+
+Use `checkout = True` to scan the current tracked files with TruffleHog's
+filesystem source. This mode requires a clean tracked checkout and
+materialized LFS files. It scans the checkout directly, excluding Git metadata
+and untracked paths and leaving symbolic links unfollowed.
 Inline `trufflehog:ignore` comments apply to the revision containing them. Adding
 an ignore now does not suppress a finding in an earlier commit.
 
