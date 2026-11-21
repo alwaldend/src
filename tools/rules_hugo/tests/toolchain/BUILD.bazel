@@ -1,6 +1,8 @@
 load("@rules_shell//shell:sh_binary.bzl", "sh_binary")
 load("//tools/rules_hugo/pkg/bzl:al_hugo_toolchain.bzl", "al_hugo_toolchain")
 
+package(transitive_visibility = "//tools:transitive_consumers")
+
 sh_binary(
     name = "mock_hugo_bin",
     srcs = ["mock_hugo.sh"],

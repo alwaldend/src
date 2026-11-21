@@ -1,3 +1,5 @@
 load(":schema_test.bzl", "schema_tests")
 
+package(transitive_visibility = "//tools:transitive_consumers")
+
 schema_tests()

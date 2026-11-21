@@ -1,3 +1,8 @@
+# gazelle:exclude vault_proto
+
+# Go proto sources and wrappers share this Bazel package.
+# gazelle:ignore
+
 load("@protobuf//bazel:proto_library.bzl", "proto_library")
 load("@rules_go//go:def.bzl", "go_binary", "go_library", "go_test")
 load("@rules_go//proto:def.bzl", "go_proto_library")

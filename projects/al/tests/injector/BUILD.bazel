@@ -2,6 +2,8 @@ load("@rules_go//go:def.bzl", "go_test")
 load("//projects/al:defs.bzl", "al_config", "al_inject", "al_vault_auth", "al_vault_conn")
 load(":defs.bzl", "al_injector_fixture_selected")
 
+package(transitive_visibility = "//projects:transitive_consumers")
+
 al_vault_auth(
     name = "auth",
     testonly = True,

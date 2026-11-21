@@ -1,4 +1,4 @@
-load("@rules_go//go:def.bzl", "go_test")
+load("@rules_go//go:def.bzl", "go_library", "go_test")
 
 package(transitive_visibility = "//projects/bazel_gazelle_enforce_transitive_visibility:transitive_consumers")
 
@@ -18,4 +18,11 @@ go_test(
         "//projects/bazel_gazelle_enforce_transitive_visibility/cmd/gazelle:gazelle_go",
     ],
     deps = ["@rules_go//go/runfiles"],
+)
+
+go_library(
+    name = "generation",
+    srcs = ["doc.go"],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/bazel_gazelle_enforce_transitive_visibility/test/generation",
+    visibility = ["//visibility:public"],
 )

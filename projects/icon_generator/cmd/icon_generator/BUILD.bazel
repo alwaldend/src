@@ -1,10 +1,17 @@
-load("@rules_go//go:def.bzl", "go_binary")
+load("@rules_go//go:def.bzl", "go_binary", "go_library")
 
 package(transitive_visibility = "//projects:transitive_consumers")
 
 go_binary(
     name = "icon_generator",
-    srcs = ["main.go"],
+    embed = [":icon_generator_lib"],
     visibility = ["//projects/icon_generator:__subpackages__"],
+)
+
+go_library(
+    name = "icon_generator_lib",
+    srcs = ["main.go"],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/icon_generator/cmd/icon_generator",
+    visibility = ["//visibility:private"],
     deps = ["//projects/icon_generator/internal/generator"],
 )

@@ -1,3 +1,4 @@
+load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
 load("//tools/rules_promptfoo/promptfoo:defs.bzl", "promptfoo_validate_test")
 
 package(transitive_visibility = "//tools:transitive_consumers")
@@ -7,4 +8,10 @@ promptfoo_validate_test(
     config = "promptfooconfig.yaml",
     data = ["cases.yaml"],
     skills = ["//third_party/com_github_openai_codex:review-agent"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//tools/agents:__pkg__"],
 )

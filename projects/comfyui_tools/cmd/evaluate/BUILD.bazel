@@ -1,14 +1,21 @@
-load("@rules_go//go:def.bzl", "go_binary")
+load("@rules_go//go:def.bzl", "go_binary", "go_library")
 
 package(transitive_visibility = "//projects:transitive_consumers")
 
 go_binary(
     name = "evaluate",
+    embed = [":evaluate_lib"],
+    visibility = ["//projects/comfyui_tools:asset_consumers"],
+)
+
+go_library(
+    name = "evaluate_lib",
     srcs = [
         "doc.go",
         "main.go",
     ],
-    visibility = ["//projects/comfyui_tools:asset_consumers"],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/comfyui_tools/cmd/evaluate",
+    visibility = ["//visibility:private"],
     deps = [
         "//projects/comfyui_tools/internal/evaluation",
         "@com_github_spf13_cobra//:cobra",

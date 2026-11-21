@@ -2,7 +2,10 @@ load("@aspect_rules_js//js:defs.bzl", "js_binary")
 load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
 load("//tools/rules_openspec/rules:openspec.bzl", "OPENSPEC_ENTRY_POINT", "OPENSPEC_ENV", "OPENSPEC_NPM_PACKAGE")
 
-package(default_visibility = ["//visibility:public"])
+package(
+    default_visibility = ["//visibility:public"],
+    transitive_visibility = "//tools:build_api_consumers",
+)
 
 js_binary(
     name = "openspec",

@@ -1,14 +1,22 @@
-load("@rules_go//go:def.bzl", "go_binary")
+load("@rules_go//go:def.bzl", "go_binary", "go_library")
 
 package(transitive_visibility = "//tools:transitive_consumers")
 
 go_binary(
     name = "release_archives",
+    embed = [":release_archives_lib"],
+    importpath = "git.alwaldend.com/alwaldend/src/tools/bzl/cmd/release_archives",
+    visibility = ["//visibility:public"],
+)
+
+go_library(
+    name = "release_archives_lib",
     srcs = [
         "doc.go",
         "layout.go",
         "main.go",
     ],
     importpath = "git.alwaldend.com/alwaldend/src/tools/bzl/cmd/release_archives",
+    visibility = ["//visibility:private"],
     deps = ["@com_github_spf13_cobra//:cobra"],
 )

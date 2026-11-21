@@ -3,6 +3,8 @@
 
 load("@rules_pkg//pkg:mappings.bzl", "pkg_files", "strip_prefix")
 
+package(transitive_visibility = "//projects:transitive_consumers")
+
 pkg_files(
     name = "plugins",
     srcs = glob(["**/*.py"]),

@@ -1,8 +1,9 @@
-load("@rules_python//python:defs.bzl", "py_binary")
+load("@rules_python//python:defs.bzl", "py_binary", "py_library")
 load("//tools/rules_systemd/systemd:defs.bzl", "systemd_run")
 
 package(
     default_testonly = True,
+    transitive_visibility = "//tools:transitive_consumers",
 )
 
 py_binary(
@@ -10,6 +11,7 @@ py_binary(
     srcs = ["scope_probe.py"],
     env = {"SYSTEMD_RUN_TEST_VALUE": "configured environment"},
     main = "scope_probe.py",
+    visibility = ["//:__subpackages__"],
     deps = ["@rules_python//python/runfiles"],
 )
 
@@ -27,4 +29,11 @@ systemd_run(
         "MemorySwapMax": "0",
     },
     visibility = ["//tools/rules_systemd:__pkg__"],
+)
+
+py_library(
+    name = "test_lib",
+    srcs = ["scope_probe.py"],
+    visibility = ["//:__subpackages__"],
+    deps = ["@rules_python//python/runfiles"],
 )

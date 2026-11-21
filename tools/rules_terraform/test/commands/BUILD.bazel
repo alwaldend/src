@@ -1,6 +1,8 @@
 load("//tools/rules_terraform/terraform:defs.bzl", "terraform_binary_map", "terraform_target_binary_map", "terraform_test_map")
 load(":commands_test.bzl", "invocation_test", "recording_wrapper", "wrapper_test")
 
+package(transitive_visibility = "//tools:transitive_consumers")
+
 terraform_binary_map(
     name = "wrapped",
     testonly = True,

@@ -1,5 +1,6 @@
 load("@rules_python//python:defs.bzl", "py_test")
 load("//tools/ansible/rules:al_ansible_binary.bzl", "al_ansible_binary")
+load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
 
 package(transitive_visibility = "//projects:transitive_consumers")
 
@@ -17,4 +18,10 @@ py_test(
     args = ["--ansible=$(rlocationpath :ansible)"],
     data = [":ansible"],
     deps = ["@rules_python//python/runfiles"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//projects/ansible_collection:__pkg__"],
 )

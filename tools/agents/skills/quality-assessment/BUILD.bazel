@@ -1,3 +1,6 @@
+# The evaluation stages an additional routing fixture.
+# gazelle:ignore
+
 load(
     "//tools/rules_promptfoo/promptfoo:defs.bzl",
     "promptfoo_test",

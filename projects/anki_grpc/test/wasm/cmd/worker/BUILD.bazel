@@ -29,3 +29,5 @@ go_binary(
     visibility = ["//projects/anki_grpc/test/wasm:__pkg__"],
     deps = ["//projects/anki_grpc/internal/wasmhost"],
 )
+# Gazelle cannot resolve the generated WebAssembly embed.
+# gazelle:ignore

@@ -1,4 +1,4 @@
-load("@rules_go//go:def.bzl", "go_test")
+load("@rules_go//go:def.bzl", "go_library", "go_test")
 load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
 
 package(transitive_visibility = "//infra:transitive_consumers")
@@ -19,4 +19,11 @@ docs_filegroup(
     name = "docs",
     srcs = ["README.md"],
     visibility = ["//infra/image_gen:__subpackages__"],
+)
+
+go_library(
+    name = "ansible",
+    srcs = ["doc.go"],
+    importpath = "git.alwaldend.com/alwaldend/src/infra/image_gen/test/ansible",
+    visibility = ["//visibility:public"],
 )

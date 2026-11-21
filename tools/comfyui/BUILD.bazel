@@ -1,3 +1,6 @@
+# Python launchers share command sources and custom runtime data.
+# gazelle:ignore
+
 load("@rules_python//python:defs.bzl", "py_binary")
 load("@rules_python//python/uv:lock.bzl", "lock")
 load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
@@ -161,3 +164,6 @@ docs_filegroup(
     srcs = ["README.md"],
     visibility = ["//tools:__pkg__"],
 )
+# These command sources feed multiple binaries declared in this package.
+# gazelle:exclude cmd/benchmark
+# gazelle:exclude cmd/serve

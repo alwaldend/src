@@ -1,4 +1,5 @@
 load("@rules_go//go:def.bzl", "go_test")
+load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
 
 package(transitive_visibility = "//projects:transitive_consumers")
 
@@ -14,5 +15,11 @@ go_test(
     ],
     args = ["-generator=$(rootpath //projects/icon_generator/cmd/icon_generator)"],
     data = ["//projects/icon_generator/cmd/icon_generator"],
+    visibility = ["//projects/icon_generator:__pkg__"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
     visibility = ["//projects/icon_generator:__pkg__"],
 )

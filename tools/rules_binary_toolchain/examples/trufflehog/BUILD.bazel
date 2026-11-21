@@ -1,3 +1,5 @@
+package(transitive_visibility = "//tools:transitive_consumers")
+
 alias(
     name = "trufflehog",
     actual = "@trufflehog//:trufflehog_binary",

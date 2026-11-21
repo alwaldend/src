@@ -1,5 +1,7 @@
 load("//tools/rules_terraform/terraform:defs.bzl", "terraform_test")
 
+package(transitive_visibility = "//tools:transitive_consumers")
+
 terraform_test(
     name = "builtin_test",
     srcs = [

@@ -1,23 +1,34 @@
 load("@com_alwaldend_src_pip//:requirements.bzl", "all_whl_requirements")
-load("@gazelle//:def.bzl", "DEFAULT_LANGUAGES", "gazelle", "gazelle_binary")
+load("@gazelle//:def.bzl", "DEFAULT_LANGUAGES", "gazelle", "gazelle_binary", "gazelle_test")
 load("@rules_python_gazelle_plugin//manifest:defs.bzl", "gazelle_python_manifest")
 load("@rules_python_gazelle_plugin//modules_mapping:def.bzl", "modules_mapping")
 load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
 
 package(transitive_visibility = "//tools:transitive_consumers")
 
+GAZELLE_ARGS = [
+    "-docs_load_label=//tools/rules_docs/docs:defs.bzl",
+    "-openspec_load_label=//tools/rules_openspec/rules:defs.bzl",
+    "-promptfoo_load_label=//tools/rules_promptfoo/promptfoo:defs.bzl",
+    "-skill_load_label=//tools/rules_skills/skill:defs.bzl",
+    "-transitive_visibility_config=tools/transitive_visibility/transitive_visibility.toml",
+]
+
 gazelle(
     name = "gazelle",
-    args = [
-        "-docs_load_label=//tools/rules_docs/docs:defs.bzl",
-        "-openspec_load_label=//tools/rules_openspec/rules:defs.bzl",
-        "-promptfoo_load_label=//tools/rules_promptfoo/promptfoo:defs.bzl",
-        "-skill_load_label=//tools/rules_skills/skill:defs.bzl",
-        "-transitive_visibility_config=tools/transitive_visibility/transitive_visibility.toml",
-    ],
+    args = GAZELLE_ARGS,
     command = "fix",
     gazelle = ":gazelle_bin",
     visibility = ["//:__subpackages__"],
+)
+
+gazelle_test(
+    name = "workspace_test",
+    size = "small",
+    args = GAZELLE_ARGS,
+    command = "fix",
+    gazelle = ":gazelle_bin",
+    workspace = "//:BUILD.bazel",
 )
 
 gazelle_binary(

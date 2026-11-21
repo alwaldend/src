@@ -1,5 +1,7 @@
 load(":validation_test.bzl", "skill_validation_test")
 
+package(transitive_visibility = "//tools:transitive_consumers")
+
 skill_validation_test(
     name = "aspect_test",
     target = "//tools/rules_skills/examples/example-skill:skill",

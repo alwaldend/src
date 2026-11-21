@@ -4,6 +4,8 @@ load(":al_git_toolchain.bzl", "al_git_resolved_toolchain")
 load(":al_toolchain.bzl", "al_toolchain")
 load(":al_toolchain_resolved.bzl", "al_toolchain_resolved")
 
+package(transitive_visibility = "//projects:transitive_consumers")
+
 bzl_library(
     name = "rules",
     srcs = glob(["*.bzl"]),

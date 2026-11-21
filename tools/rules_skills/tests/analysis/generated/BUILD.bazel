@@ -1,6 +1,8 @@
 load("//tools/rules_skills/skill:defs.bzl", "skill_library")
 load("//tools/rules_skills/tests/analysis:fixtures.bzl", "fixture_files")
 
+package(transitive_visibility = "//tools:transitive_consumers")
+
 fixture_files(
     name = "generated_files",
     testonly = True,

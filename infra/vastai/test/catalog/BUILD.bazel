@@ -1,4 +1,4 @@
-load("@rules_go//go:def.bzl", "go_test")
+load("@rules_go//go:def.bzl", "go_library", "go_test")
 load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
 
 package(transitive_visibility = "//infra:transitive_consumers")
@@ -25,4 +25,11 @@ docs_filegroup(
     name = "docs",
     srcs = [],
     visibility = ["//infra/vastai:__pkg__"],
+)
+
+go_library(
+    name = "catalog",
+    srcs = ["doc.go"],
+    importpath = "git.alwaldend.com/alwaldend/src/infra/vastai/test/catalog",
+    visibility = ["//visibility:public"],
 )

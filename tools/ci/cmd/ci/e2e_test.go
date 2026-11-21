@@ -74,10 +74,14 @@ func recordBazelCall() int {
 	fmt.Fprintln(os.Stderr, "(08:38:50) WARNING: option '--terminal_columns' was expanded twice")
 	fmt.Fprintln(os.Stderr, "(13:08:42) INFO: From Generating JSON:")
 	fmt.Fprintln(os.Stdout, "bazel-out/workflows.json")
-	if scenario == "build_failure" && os.Args[1] == "build" {
+	if scenario == "build_failure" && os.Args[1] == "build" && len(os.Args) == 4 {
 		fmt.Fprintln(os.Stderr, "(13:08:43) \x1b[31mERROR: \x1b[0mfixture build failed")
 		fmt.Fprintln(os.Stderr, "fixture compiler details")
 		return 7
+	}
+	if scenario == "lint_failure" && len(os.Args) == 5 && os.Args[3] == "--config=lint" {
+		fmt.Fprintln(os.Stderr, "ERROR: fixture lint failed")
+		return 10
 	}
 	if scenario == "test_failure" && os.Args[1] == "test" {
 		fmt.Fprint(os.Stdout, "\n==================== Test output for //fixture:failure:\nERROR: from the test\nfailed test diagnostics\n================================================================================\n")
@@ -98,7 +102,7 @@ func TestCIExecutable(t *testing.T) {
 		t.Fatalf("resolve Bazel fixture executable: %v", err)
 	}
 	var observations []ciObservation
-	for _, scenario := range []string{"success", "forgejo_success", "build_failure", "test_failure", "shutdown_failure", "missing_bazel", "invalid_workspace", "unwritable_summary"} {
+	for _, scenario := range []string{"success", "forgejo_success", "build_failure", "test_failure", "lint_failure", "shutdown_failure", "missing_bazel", "invalid_workspace", "unwritable_summary"} {
 		t.Run(scenario, func(t *testing.T) {
 			root := t.TempDir()
 			if scenario != "invalid_workspace" {
@@ -180,6 +184,7 @@ func TestCIExecutable(t *testing.T) {
 				expected = []ciCall{
 					{".", []string{"build", "--config=ci", "//..."}},
 					{".", []string{"test", "--config=ci", "//..."}},
+					{".", []string{"build", "--config=ci", "--config=lint", "//..."}},
 				}
 				if scenario != "success" {
 					expected = append(expected, ciCall{".", []string{"shutdown"}})
@@ -232,18 +237,21 @@ func verifyReporting(t *testing.T, scenario, output, summary string) {
 	if scenario == "shutdown_failure" && !strings.Contains(report, "Bazel server shutdown failed in Root.") {
 		t.Fatalf("missing Bazel shutdown failure: %s", report)
 	}
-	buildStatus, testStatus := "Passed", "Passed"
+	buildStatus, testStatus, lintStatus := "Passed", "Passed", "Passed"
 	if scenario == "missing_bazel" || scenario == "build_failure" {
 		buildStatus = `\*\*Failed\*\*`
 	}
 	if scenario == "missing_bazel" || scenario == "test_failure" {
 		testStatus = `\*\*Failed\*\*`
 	}
-	row := fmt.Sprintf(`(?m)^\| Root \| %s \([^)]+\) \| %s \([^)]+\) \|$`, buildStatus, testStatus)
+	if scenario == "missing_bazel" || scenario == "lint_failure" {
+		lintStatus = `\*\*Failed\*\*`
+	}
+	row := fmt.Sprintf(`(?m)^\| Root \| %s \([^)]+\) \| %s \([^)]+\) \| %s \([^)]+\) \|$`, buildStatus, testStatus, lintStatus)
 	if !regexp.MustCompile(row).MatchString(report) {
 		t.Fatalf("missing root phase results: %s", report)
 	}
-	for _, phase := range []string{"Build", "Test"} {
+	for _, phase := range []string{"Build", "Test", "Lint"} {
 		heading := "##[group]Root / " + phase + "\n"
 		_, afterHeading, found := strings.Cut(output, heading)
 		if scenario != "missing_bazel" {
@@ -274,6 +282,9 @@ func verifyReporting(t *testing.T, scenario, output, summary string) {
 		if scenario == "build_failure" && phase == "Build" &&
 			!strings.Contains(diagnostics, "fixture build failed\nfixture compiler details") {
 			t.Fatalf("missing visible build failure: %s", diagnostics)
+		}
+		if scenario == "lint_failure" && phase == "Lint" && !strings.Contains(diagnostics, "ERROR: fixture lint failed") {
+			t.Fatalf("missing visible lint failure: %s", diagnostics)
 		}
 		output = afterGroup
 	}

@@ -1,4 +1,5 @@
 load("@rules_go//go:def.bzl", "go_library")
+load("@rules_java//java:defs.bzl", "java_library")
 
 package(transitive_visibility = "//projects:transitive_consumers")
 
@@ -34,4 +35,10 @@ go_library(
         "@com_github_hashicorp_terraform_plugin_framework//resource/schema/stringplanmodifier",
         "@com_github_hashicorp_terraform_plugin_framework//types",
     ],
+)
+
+java_library(
+    name = "resources_lib",
+    resources = [":resources"],
+    visibility = ["//:__subpackages__"],
 )

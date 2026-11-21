@@ -1,6 +1,6 @@
-load("@rules_go//go:def.bzl", "go_binary", "go_test")
+load("@rules_go//go:def.bzl", "go_binary", "go_library", "go_test")
 
-package(transitive_visibility = ":installation_consumers")
+package(transitive_visibility = "//tools/file_installer/cmd/install_binary:installation_consumers")
 
 package_group(
     name = "installation_consumers",
@@ -10,13 +10,9 @@ package_group(
 
 go_binary(
     name = "install_binary",
-    srcs = [
-        "doc.go",
-        "main.go",
-    ],
+    embed = [":install_binary_lib"],
     importpath = "git.alwaldend.com/alwaldend/src/tools/file_installer/cmd/install_binary",
     visibility = [":installation_consumers"],
-    deps = ["@com_github_spf13_cobra//:cobra"],
 )
 
 go_test(
@@ -24,4 +20,15 @@ go_test(
     size = "small",
     srcs = ["main_test.go"],
     data = [":install_binary"],
+)
+
+go_library(
+    name = "install_binary_lib",
+    srcs = [
+        "doc.go",
+        "main.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/tools/file_installer/cmd/install_binary",
+    visibility = ["//visibility:private"],
+    deps = ["@com_github_spf13_cobra//:cobra"],
 )

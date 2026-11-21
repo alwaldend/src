@@ -192,6 +192,7 @@ test_suite(
 # gazelle:python_generate_proto true
 # gazelle:python_library_naming_convention $package_name$_lib
 # gazelle:python_binary_naming_convention $package_name$
+# gazelle:resolve py python.runfiles @rules_python//python/runfiles
 
 # Keep Bazel consumers on the owning module when Go's local replacement is visible.
 # gazelle:resolve go git.alwaldend.com/alwaldend/src/projects/al/api/al_proto //projects/al/api/al_proto

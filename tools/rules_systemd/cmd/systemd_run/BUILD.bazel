@@ -1,22 +1,32 @@
-load("@rules_go//go:def.bzl", "go_binary")
+load("@rules_go//go:def.bzl", "go_binary", "go_library")
+
+package(transitive_visibility = "//tools:transitive_consumers")
 
 go_binary(
     name = "systemd_run",
-    srcs = [
-        "doc.go",
-        "main.go",
-    ],
+    embed = [":systemd_run_lib"],
     importpath = "git.alwaldend.com/alwaldend/src/tools/rules_systemd/cmd/systemd_run",
     target_compatible_with = ["@platforms//os:linux"],
     visibility = ["//visibility:public"],
-    deps = [
-        "@com_github_spf13_cobra//:cobra",
-        "@rules_go//go/runfiles",
-    ],
 )
 
 filegroup(
     name = "release_sources",
     srcs = ["BUILD.bazel"] + glob(["*.go"]),
     visibility = ["//visibility:public"],
+)
+
+go_library(
+    name = "systemd_run_lib",
+    srcs = [
+        "doc.go",
+        "main.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/tools/rules_systemd/cmd/systemd_run",
+    target_compatible_with = ["@platforms//os:linux"],
+    visibility = ["//visibility:private"],
+    deps = [
+        "@com_github_spf13_cobra//:cobra",
+        "@rules_go//go/runfiles",
+    ],
 )

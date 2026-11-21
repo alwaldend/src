@@ -364,3 +364,6 @@ py_test(
     ],
     deps = ["@rules_python//python/runfiles"],
 )
+
+# The repository test owns this entry point and its Python bytecode.
+# gazelle:python_ignore_files python_import_quality.py

@@ -1,5 +1,7 @@
 load("@buf_with_custom_name//:defs.bzl", "buf_binary", "buf_run_binary", "buf_test")
 
+package(transitive_visibility = "//tools:transitive_consumers")
+
 # generated repos already have a binary target
 alias(
     name = "buf_alias",

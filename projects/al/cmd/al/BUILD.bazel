@@ -1,18 +1,13 @@
-load("@rules_go//go:def.bzl", "go_binary", "go_test")
+load("@rules_go//go:def.bzl", "go_binary", "go_library", "go_test")
+
+package(transitive_visibility = "//projects:transitive_consumers")
 
 go_binary(
     name = "al",
-    srcs = [
-        "doc.go",
-        "main.go",
-    ],
+    embed = [":al_lib"],
     importpath = "git.alwaldend.com/alwaldend/src/projects/al/cmd/al",
     pure = "on",
     visibility = ["//visibility:public"],
-    deps = [
-        "//projects/al/internal/cli",
-        "//projects/al/pkg/al",
-    ],
 )
 
 go_test(
@@ -37,4 +32,18 @@ go_test(
 exports_files(
     ["al.sh"],
     visibility = ["//visibility:public"],
+)
+
+go_library(
+    name = "al_lib",
+    srcs = [
+        "doc.go",
+        "main.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/al/cmd/al",
+    visibility = ["//visibility:private"],
+    deps = [
+        "//projects/al/internal/cli",
+        "//projects/al/pkg/al",
+    ],
 )

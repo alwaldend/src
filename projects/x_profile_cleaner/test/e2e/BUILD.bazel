@@ -1,4 +1,4 @@
-load("@rules_go//go:def.bzl", "go_test")
+load("@rules_go//go:def.bzl", "go_library", "go_test")
 
 package(transitive_visibility = "//projects:transitive_consumers")
 
@@ -12,4 +12,11 @@ go_test(
     args = ["-cleaner=$(rlocationpath //projects/x_profile_cleaner/cmd/x_profile_cleaner)"],
     data = ["//projects/x_profile_cleaner/cmd/x_profile_cleaner"],
     deps = ["@rules_go//go/runfiles"],
+)
+
+go_library(
+    name = "e2e",
+    srcs = ["doc.go"],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/x_profile_cleaner/test/e2e",
+    visibility = ["//visibility:public"],
 )

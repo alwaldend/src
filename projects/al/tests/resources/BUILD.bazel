@@ -1,3 +1,6 @@
+# The resource fixtures are declared explicitly for multiple languages.
+# gazelle:ignore
+
 load("@rules_go//go:def.bzl", "go_test")
 
 go_test(

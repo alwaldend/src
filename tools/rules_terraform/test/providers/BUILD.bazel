@@ -1,6 +1,8 @@
 load("//tools/rules_terraform/terraform:providers.bzl", "terraform_provider")
 load(":providers_test.bzl", "archive_fixture", "collision_test", "identity_test", "pin_test", "provider_contract_test")
 
+package(transitive_visibility = "//tools:transitive_consumers")
+
 identity_test(name = "identity_test")
 
 pin_test(name = "pin_test")
