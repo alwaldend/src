@@ -3,6 +3,12 @@ scrape_configs:
     scrape_interval: 15s
     static_configs:
       - targets: ["127.0.0.1:8428"]
+  - job_name: grafana
+    scheme: https
+    metrics_path: /metrics
+    scrape_interval: 30s
+    static_configs:
+      - targets: ["{{ grafana_hostname }}:443"]
   - job_name: traefik_victoria_metrics
     scrape_interval: 30s
     static_configs:

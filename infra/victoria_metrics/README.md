@@ -22,6 +22,9 @@ local download host. Each proxy firewall allows metrics traffic from the
 VictoriaMetrics guest address. Cloud-only proxies need a private route
 before they can join these scrape jobs.
 
+The `grafana` job scrapes Grafana's native Prometheus metrics over HTTPS
+every 30 seconds using the guest's Vault CA trust.
+
 Add scrape jobs to the [scrape YAML template](ansible/templates/scrape.yaml.j2).
 Bazel packages the ingress inventory as an extra-vars file. Ansible renders
 the active WireGuard targets from it.
