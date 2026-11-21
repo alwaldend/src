@@ -6,7 +6,9 @@ it difficult to identify a failed workspace or find its diagnostics.
 ## What Changes
 
 - Group each workspace's build and test logs in Forgejo.
+- Fold routine Bazel diagnostics inside each phase and the CI launcher build.
 - Show the outcome and duration of each phase in the job summary.
+- Expose the pinned WASI SDK sysroot to LLVM as a single directory artifact.
 
 ## Capabilities
 
@@ -16,4 +18,5 @@ it difficult to identify a failed workspace or find its diagnostics.
 
 ## Impact
 
-The shared CI command supplies the presentation to the existing action.
+The shared CI command and local action own the log presentation. The WASI SDK
+dependency declaration uses the same LLVM repository rule as the Linux sysroots.

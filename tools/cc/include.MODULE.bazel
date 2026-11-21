@@ -33,7 +33,7 @@ llvm.toolchain(
 )
 llvm.sysroot(
     name = "llvm_toolchain",
-    label = "@com_github_webassembly_wasi_sdk//:sysroot",
+    label = "@com_github_webassembly_wasi_sdk//sysroot",
     targets = ["wasip1-wasm32"],
 )
 llvm.toolchain(

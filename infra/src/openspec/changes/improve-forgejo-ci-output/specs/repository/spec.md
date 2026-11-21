@@ -18,15 +18,35 @@ in each workspace.
 
 - **WHEN** Bazel includes a failed test's output in the Forgejo test log
 - **THEN** the test's output is available in its own collapsible section
-- **AND** the test phase retains the failure status and warnings
+- **AND** the test phase shows the test result directly when expanded
+
+#### Scenario: Bazel prints routine diagnostics
+
+- **WHEN** Bazel prints setup or progress messages and warnings in Forgejo
+- **THEN** the messages and their continuation lines are available in a
+  collapsible diagnostics group within the phase
+- **AND** errors and their continuation lines are visible when the phase is
+  expanded
 
 #### Scenario: The action builds and then runs the CI command
 
 - **WHEN** the Forgejo action builds the CI command
-- **THEN** the build output is available in a collapsible log group
+- **THEN** the launcher diagnostics have a collapsible section within the
+  launcher build group
+- **AND** any launcher build failure is visible when the build group is expanded
 - **AND** the group closes before execution of the compiled command
 
 #### Scenario: Run the command locally
 
 - **WHEN** the command runs outside Forgejo
 - **THEN** it streams the phase logs as plain text
+
+### Requirement: WASI SDK sysroot directory input
+
+The LLVM toolchain SHALL consume the pinned WASI SDK sysroot for
+`wasm32-wasip1` as a single directory artifact.
+
+#### Scenario: LLVM generates the WASI system module map
+
+- **WHEN** Bazel analyzes a WASI compilation that uses LLVM's system module map
+- **THEN** the WASI sysroot label resolves to one directory input

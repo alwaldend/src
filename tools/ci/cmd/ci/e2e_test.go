@@ -69,13 +69,19 @@ func recordBazelCall() int {
 		}
 		return 0
 	}
-	fmt.Fprintln(os.Stdout, "fixture standard output")
-	fmt.Fprint(os.Stderr, "fixture standard error")
+	fmt.Fprintln(os.Stdout, "Starting local Bazel server...")
+	fmt.Fprintln(os.Stderr, "(08:38:50) \x1b[32mINFO: \x1b[0mInvocation ID: fixture")
+	fmt.Fprintln(os.Stderr, "(08:38:50) WARNING: option '--terminal_columns' was expanded twice")
+	fmt.Fprintln(os.Stderr, "(13:08:42) INFO: From Generating JSON:")
+	fmt.Fprintln(os.Stdout, "bazel-out/workflows.json")
 	if scenario == "build_failure" && relative == "." && os.Args[1] == "build" {
+		fmt.Fprintln(os.Stderr, "(13:08:43) \x1b[31mERROR: \x1b[0mfixture build failed")
+		fmt.Fprintln(os.Stderr, "fixture compiler details")
 		return 7
 	}
 	if scenario == "test_failure" && filepath.ToSlash(relative) == "nested/one" && os.Args[1] == "test" {
-		fmt.Fprint(os.Stdout, "\n==================== Test output for //fixture:failure:\nfailed test diagnostics\n================================================================================\n")
+		fmt.Fprint(os.Stdout, "\n==================== Test output for //fixture:failure:\nERROR: from the test\nfailed test diagnostics\n================================================================================\n")
+		fmt.Fprintln(os.Stdout, "//fixture:failure FAILED in 0.1s")
 		return 8
 	}
 	return 0
@@ -202,8 +208,8 @@ func TestCIExecutable(t *testing.T) {
 func verifyReporting(t *testing.T, scenario, output, summary string) {
 	t.Helper()
 	if scenario == "success" {
-		if strings.Contains(output, "##[group]") {
-			t.Fatalf("local output contains a Forgejo group: %s", output)
+		if strings.Contains(output, "##[group]") || !strings.Contains(output, "Invocation ID: fixture") {
+			t.Fatalf("local output should retain plain Bazel diagnostics: %s", output)
 		}
 		return
 	}
@@ -249,10 +255,23 @@ func verifyReporting(t *testing.T, scenario, output, summary string) {
 	}
 	for _, heading := range headings {
 		_, afterHeading, found := strings.Cut(output, heading)
+		if scenario != "missing_bazel" {
+			before, folded, opened := strings.Cut(afterHeading, "##[group]Bazel diagnostics\n")
+			diagnostics, afterDiagnostics, closed := strings.Cut(folded, "\n##[endgroup]\n")
+			if !opened || !closed || !strings.Contains(diagnostics, "Starting local Bazel server") ||
+				!strings.Contains(diagnostics, "Invocation ID: fixture") ||
+				!strings.Contains(diagnostics, "WARNING: option '--terminal_columns'") ||
+				!strings.Contains(diagnostics, "INFO: From Generating JSON:\nbazel-out/workflows.json") ||
+				strings.Contains(diagnostics, "fixture build failed") {
+				t.Fatalf("unexpected folded diagnostics in %q: %s", heading, afterHeading)
+			}
+			afterHeading = before + afterDiagnostics
+		}
 		if scenario == "test_failure" && heading == "##[group]nested/one / Test\n" {
 			before, testLog, opened := strings.Cut(afterHeading, "##[group]Failed test //fixture:failure\n")
 			diagnostics, afterTest, closed := strings.Cut(testLog, "\n##[endgroup]\n")
-			if !opened || !closed || !strings.Contains(diagnostics, "failed test diagnostics") {
+			if !opened || !closed || !strings.Contains(diagnostics, "ERROR: from the test\nfailed test diagnostics") ||
+				!strings.HasPrefix(afterTest, "//fixture:failure FAILED in 0.1s\n") {
 				t.Fatalf("missing collapsed failed-test diagnostics: %s", afterHeading)
 			}
 			afterHeading = before + diagnostics + afterTest
@@ -261,8 +280,9 @@ func verifyReporting(t *testing.T, scenario, output, summary string) {
 		if !found || !closed || strings.Contains(diagnostics, "##[group]") {
 			t.Fatalf("missing or unbalanced group %q: %s", heading, output)
 		}
-		if scenario != "missing_bazel" && !strings.Contains(diagnostics, "fixture standard output\nfixture standard error") {
-			t.Fatalf("missing phase diagnostics in %q: %s", heading, diagnostics)
+		if scenario == "build_failure" && heading == "##[group]Root / Build\n" &&
+			!strings.Contains(diagnostics, "fixture build failed\nfixture compiler details") {
+			t.Fatalf("missing visible build failure: %s", diagnostics)
 		}
 		output = afterGroup
 	}

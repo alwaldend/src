@@ -55,11 +55,14 @@ build and test attempts to release memory before starting the next workspace.
 
 In Forgejo, each workspace's build and test logs are collapsible sections. The
 job summary above the log shows whether each phase passed and how long it ran.
-Expand **Build repository CI command** to see the Bazel launcher diagnostics.
+Expand **Build repository CI command** and then **Bazel launcher diagnostics**
+to see the Bazel output for the launcher build.
 The stable checkout has its own **Prepare repository checkout** group.
 The CI profile omits Bazel configuration traces, progress updates, and
-successful target listings. Warnings and errors remain in the phase groups.
-Each failed test's output has its own expandable section in the test phase.
+successful target listings. Routine output and warnings are available under
+**Bazel diagnostics** inside each phase. Errors and test results are visible
+when the phase is expanded. Each failed test's output has its own expandable
+section in the test phase.
 The same command streams plain-text diagnostics when run locally.
 
 The runner needs the repository-managed Node.js, `bazel`, and Android
