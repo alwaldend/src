@@ -6,7 +6,12 @@ ingress_domain: ingress.alwaldend.com
 wg_public_keys: "{{ lookup('ansible.builtin.env', 'TF_VAR_wg_public_keys', default=undefined()) | from_json }}"
 wg_private_keys: "{{ lookup('ansible.builtin.env', 'TF_VAR_wg_private_keys', default=undefined()) | from_json }}"
 wg_preshared_keys: "{{ lookup('ansible.builtin.env', 'TF_VAR_wg_preshared_keys', default=undefined()) | from_json }}"
+grafana_dns_records: >-
+  {{ (lookup('ansible.builtin.file', inventory_dir ~ '/files/grafana-dns.json') | from_json).records }}
 traefik_services:
+  grafana:
+    hostname: "{{ grafana_dns_records.local.A.name }}"
+    target: "{{ grafana_dns_records.upstream.A.name }}"
   git:
     hostname: git.alwaldend.com
     target: "int.forgejo.alwaldend.com"

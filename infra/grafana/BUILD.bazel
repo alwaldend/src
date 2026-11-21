@@ -39,7 +39,6 @@ infra_terraform_dns_config(
     auth = ":auth",
     backend_path = "alwaldend.com/vault1/approles/src_infra_grafana/tf_backend/dns",
     dc1 = True,
-    global_records = False,
     visibility = ["//infra/grafana/dns:__pkg__"],
 )
 

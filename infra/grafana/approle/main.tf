@@ -26,7 +26,7 @@ module "dns" {
   source  = "../../vault/tf/dns_access"
   name    = local.name
   secrets = "secrets"
-  views   = ["dc1"]
+  views   = ["dc1", "global"]
 }
 
 module "pki_server" {

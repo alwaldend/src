@@ -14,6 +14,7 @@ filegroup(
     srcs = ["dnsconfig.json"],
     visibility = [
         "//infra/grafana:__subpackages__",
+        "//infra/ingress/ansible:__pkg__",
         "//infra/victoria_metrics/ansible:__pkg__",
     ],
 )
