@@ -124,6 +124,12 @@ PRs, commits, staged changes, working-tree changes, and supplied patches.
 Select it explicitly; its upstream metadata disables implicit invocation. Apply
 the relevant repository standards through the policy and owning language skills.
 
+When reviewing a migration or replacement, trace superseded execution paths
+through active callers, workflows, configuration, and tests. Report a
+reachable obsolete path when it conflicts with the requested end state or
+causes a concrete consequence. Preserve compatibility paths that supported
+callers still require.
+
 ## Isolate and verify changes
 
 Use a dedicated feature branch in its own linked worktree for every task that

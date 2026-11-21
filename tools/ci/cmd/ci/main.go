@@ -8,14 +8,8 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
-	"strings"
 	"time"
-
-	"git.alwaldend.com/alwaldend/src/projects/al/pkg/workspaces"
 )
-
-// commandRunner executes a literal argument vector in one workspace.
-type commandRunner func(directory string, arguments ...string) error
 
 // phaseResult records the outcome of one Bazel invocation.
 type phaseResult struct {
@@ -34,92 +28,85 @@ func (result phaseResult) summaryCell() string {
 	return fmt.Sprintf("%s (%s)", status, result.duration.Round(time.Millisecond))
 }
 
-// workspaceResult records the CI outcomes in one Bazel workspace.
-type workspaceResult struct {
-	// name is the workspace's display name.
-	name string
+// ciResult records the root workspace's CI outcomes.
+type ciResult struct {
 	// build holds the outcome of bazel build.
 	build phaseResult
 	// test holds the outcome of bazel test.
 	test phaseResult
-	// shutdownFailed indicates the workspace's Bazel server could not be retired.
-	shutdownFailed bool
+	// shutdownErr records a failure to retire the Forgejo job's Bazel server.
+	shutdownErr error
 }
 
-// check attempts every workspace's build and test phases and combines failures.
-func check(root string, run commandRunner, output io.Writer, grouped bool) ([]workspaceResult, error) {
-	paths, err := workspaces.Discover(root)
+// check attempts the root build and test in order and combines failures.
+func check(root string, output io.Writer, grouped bool) (*ciResult, error) {
+	info, err := os.Stat(filepath.Join(root, "MODULE.bazel"))
 	if err != nil {
-		return nil, fmt.Errorf("discover CI workspaces: %w", err)
+		return nil, fmt.Errorf("inspect repository MODULE.bazel: %w", err)
 	}
-	results := make([]workspaceResult, 0, len(paths))
-	var failures []error
-	for _, path := range paths {
-		directory := filepath.Join(root, path)
-		name := strings.ReplaceAll(path, "\r", " ")
-		if path == "." {
-			name = "Root"
-		}
-		runPhase := func(phase, title string) phaseResult {
-			if grouped {
-				// Bazel can leave a terminal escape sequence without a newline.
-				fmt.Fprintf(output, "\n##[group]%s / %s\n", name, title)
-				// Start the marker on a new line even if Bazel left a partial line.
-				defer fmt.Fprint(output, "\n##[endgroup]\n")
+	if !info.Mode().IsRegular() {
+		return nil, errors.New("repository MODULE.bazel is not a regular file")
+	}
+	run := func(arguments ...string) error {
+		cmd := exec.CommandContext(context.Background(), "bazel", arguments...)
+		cmd.Dir = root
+		cmd.Stdin = os.Stdin
+		if grouped && arguments[0] != "shutdown" {
+			if err := runWithForgejoLogs(cmd, output, arguments[0] == "test"); err != nil {
+				return fmt.Errorf("execute Bazel: %w", err)
 			}
-			fmt.Fprintf(output, "CI %s: %s --config=ci //...\n", path, phase)
-			start := time.Now()
-			err := run(directory, "bazel", phase, "--config=ci", "//...")
-			result := phaseResult{duration: time.Since(start)}
-			if err != nil {
-				result.err = fmt.Errorf("%s %s: %w", path, phase, err)
-				failures = append(failures, result.err)
-			}
-			return result
+			return nil
 		}
-		build := runPhase("build", "Build")
-		test := runPhase("test", "Test")
-		result := workspaceResult{name: name, build: build, test: test}
+		cmd.Stdout, cmd.Stderr = output, os.Stderr
+		if err := cmd.Run(); err != nil {
+			return fmt.Errorf("execute Bazel: %w", err)
+		}
+		return nil
+	}
+	runPhase := func(phase, title string) phaseResult {
 		if grouped {
-			if err := run(directory, "bazel", "shutdown"); err != nil {
-				failures = append(failures, fmt.Errorf("shut down Bazel in %s: %w", path, err))
-				result.shutdownFailed = true
-			}
+			// Bazel can leave a terminal escape sequence without a newline.
+			fmt.Fprintf(output, "\n##[group]Root / %s\n", title)
+			defer fmt.Fprint(output, "\n##[endgroup]\n")
 		}
-		results = append(results, result)
+		fmt.Fprintf(output, "CI %s --config=ci //...\n", phase)
+		start := time.Now()
+		err := run(phase, "--config=ci", "//...")
+		result := phaseResult{duration: time.Since(start)}
+		if err != nil {
+			result.err = fmt.Errorf("repository %s: %w", phase, err)
+		}
+		return result
 	}
-	return results, errors.Join(failures...)
+	result := &ciResult{
+		build: runPhase("build", "Build"),
+		test:  runPhase("test", "Test"),
+	}
+	if grouped {
+		if err := run("shutdown"); err != nil {
+			result.shutdownErr = fmt.Errorf("shut down repository Bazel server: %w", err)
+		}
+	}
+	return result, errors.Join(result.build.err, result.test.err, result.shutdownErr)
 }
 
 // appendSummary writes the Markdown produced by CI to the current step's summary.
-func appendSummary(path string, results []workspaceResult) error {
-	var summary strings.Builder
-	summary.WriteString("\n## Repository CI\n\n")
-	if len(results) == 0 {
-		summary.WriteString("Workspace discovery failed. See the job log for details.\n")
+func appendSummary(path string, result *ciResult) error {
+	summary := "\n## Repository CI\n\n"
+	if result == nil {
+		summary += "Repository workspace unavailable. See the job log for details.\n"
 	} else {
-		escapeCell := strings.NewReplacer(
-			"&", "&amp;", "<", "&lt;", ">", "&gt;", "|", "&#124;", "\\", "&#92;",
-			"`", "&#96;", "*", "&#42;", "_", "&#95;", "~", "&#126;", "[", "&#91;", "]", "&#93;",
-		)
-		summary.WriteString("| Workspace | Build | Test |\n| --- | --- | --- |\n")
-		var shutdownFailures []string
-		for _, result := range results {
-			name := escapeCell.Replace(result.name)
-			fmt.Fprintf(&summary, "| %s | %s | %s |\n", name, result.build.summaryCell(), result.test.summaryCell())
-			if result.shutdownFailed {
-				shutdownFailures = append(shutdownFailures, name)
-			}
-		}
-		if len(shutdownFailures) > 0 {
-			fmt.Fprintf(&summary, "\nBazel server shutdown failed in %s. See the job log for details.\n", strings.Join(shutdownFailures, ", "))
+		summary += "| Workspace | Build | Test |\n| --- | --- | --- |\n"
+		summary += fmt.Sprintf("| Root | %s | %s |\n", result.build.summaryCell(), result.test.summaryCell())
+		if result.shutdownErr != nil {
+			summary += "\nBazel server shutdown failed in Root. See the job log for details.\n"
 		}
 	}
 	file, err := os.OpenFile(path, os.O_WRONLY|os.O_APPEND|os.O_CREATE, 0o600)
 	if err != nil {
 		return fmt.Errorf("open step summary: %w", err)
 	}
-	_, writeErr := io.WriteString(file, summary.String())
+	_, writeErr := io.WriteString(file, summary)
 	if err := errors.Join(writeErr, file.Close()); err != nil {
 		return fmt.Errorf("append step summary: %w", err)
 	}
@@ -134,30 +121,14 @@ func main() {
 		os.Exit(1)
 	}
 	grouped := os.Getenv("FORGEJO_ACTIONS") == "true"
-	run := func(directory string, arguments ...string) error {
-		cmd := exec.CommandContext(context.Background(), arguments[0], arguments[1:]...)
-		cmd.Dir = directory
-		cmd.Stdin = os.Stdin
-		if grouped && (arguments[1] == "build" || arguments[1] == "test") {
-			if err := runWithForgejoLogs(cmd, os.Stdout, arguments[1] == "test"); err != nil {
-				return fmt.Errorf("execute Bazel: %w", err)
-			}
-			return nil
-		}
-		cmd.Stdout, cmd.Stderr = os.Stdout, os.Stderr
-		if err := cmd.Run(); err != nil {
-			return fmt.Errorf("execute Bazel: %w", err)
-		}
-		return nil
-	}
-	results, err := check(root, run, os.Stdout, grouped)
+	result, err := check(root, os.Stdout, grouped)
 	if grouped {
 		summaryPath := os.Getenv("FORGEJO_STEP_SUMMARY")
 		if summaryPath == "" {
 			summaryPath = os.Getenv("GITHUB_STEP_SUMMARY")
 		}
 		if summaryPath != "" {
-			if summaryErr := appendSummary(summaryPath, results); summaryErr != nil {
+			if summaryErr := appendSummary(summaryPath, result); summaryErr != nil {
 				fmt.Fprintln(os.Stderr, "CI could not write the job summary:", summaryErr)
 			}
 		}

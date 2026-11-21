@@ -12,3 +12,6 @@ namespaces, and packages the license.
 Root toolchain registrations live in the include files of their owning
 components. Hugo checks in the root workspace use the pinned site toolchain.
 The standalone Hugo module carries its development fixture.
+
+Run one build and one test in the root checkout. Bazel owns package
+exclusions. Keep the Forgejo log groups, job summary, and server shutdown.

@@ -11,20 +11,12 @@ go_library(
     ],
     importpath = "git.alwaldend.com/alwaldend/src/tools/ci/cmd/ci",
     visibility = ["//visibility:private"],
-    deps = ["//projects/al/pkg/workspaces"],
 )
 
 go_binary(
     name = "ci",
     embed = [":ci_lib"],
     visibility = ["//tools/ci:__pkg__"],
-)
-
-go_test(
-    name = "ci_test",
-    size = "small",
-    srcs = ["main_test.go"],
-    embed = [":ci_lib"],
 )
 
 go_test(
