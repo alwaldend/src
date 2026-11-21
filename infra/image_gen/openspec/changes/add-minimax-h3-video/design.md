@@ -20,5 +20,4 @@ lifecycle and GPU acceptance are separate operator actions.
 ## Risks / Trade-offs
 
 Peak memory depends on resolution, duration, and host RAM for offloading.
-Document a short first render and the model's territorial license restrictions
-in the operator guide.
+Document a short first render in the operator guide.

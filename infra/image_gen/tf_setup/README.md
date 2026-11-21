@@ -172,9 +172,9 @@ character identity. Both sequence graphs share their negative prompt across
 all nonempty panel lines. This full checkpoint is distinct from the archived
 Flash model; additional VRAM alone does not establish better image quality.
 
-Flux uses the publisher's [non-commercial model](https://huggingface.co/black-forest-labs/FLUX.2-klein-base-9b-fp8).
-Its checkpoint requires the user's Hugging Face license acceptance and a read-only
-model token. The operator or external IaC supplies the
+Flux uses a publisher-hosted model. Its checkpoint requires the user's
+Hugging Face account access and a read-only model token. The operator or
+external IaC supplies the
 [Vault token entry](../README.md#identity-and-state). The authenticated Ansible entry point injects
 it through AL for a profile marked `hugging_face_auth`, then supplies it to the
 Hugging Face request with task output hidden and redirect forwarding disabled.
@@ -239,18 +239,13 @@ The [workflow guide](../../../projects/comfyui_tools/README.md#minimax-h3-video)
 lists the files and keyframe inputs. MiniMax's official 2K regeneration stage
 is available through its [hosted API](https://www.minimax.io/news/minimax-h3-open-source).
 
-The [MiniMax H3 Community License](https://huggingface.co/MiniMaxAI/MiniMax-H3/blob/main/LICENSE)
-excludes the EU, UK, Republic of Korea, and United States. Review the license
-for the intended use and rental location before deployment.
-
 ### MOSS-Image examples
 
 The selected `moss-image` profile downloads about 21.4 GB from
 [Comfy-Org/MOSS-Image](https://huggingface.co/Comfy-Org/MOSS-Image/tree/2929efe3cdd506c0a430bcfca70a9a8d805cc095):
 SFT and Base INT8 denoisers, Qwen3.5 9B INT8, the small FLUX.2 VAE, and the
-edit and color/depth LoRAs. Files use immutable publisher URLs in `config.json`.
-The model repository declares Apache 2.0. All downloads are public; no model
-token, extra node pack or Python requirement is configured.
+edit and color/depth LoRAs. Files use immutable publisher URLs in `config.json`. All downloads are
+public; no model token, extra node pack or Python requirement is configured.
 
 The six single-image examples cover SFT/Base text-to-image, SFT/Base layout guidance,
 image editing and prepared color/depth maps. The Base model is selected only by
@@ -273,10 +268,9 @@ FP8 checkpoint with local text encoders and VAE, a LoRA, a style projector and
 SigLIP vision weights. UMO-UNO downloads about 19.2 GB, sharing that checkpoint
 and adding its own LoRA. All five registry files are fixed to publisher
 revisions. Both use the existing runtime image and Prompt Sequence node;
-neither installs another custom-node pack or Python requirement. The shared
-checkpoint retains the FLUX.1 dev non-commercial license; the USO, UMO and
-SigLIP additions use Apache 2.0. These model options have only offline
-packaging/graph validation, without GPU or reference-quality acceptance.
+neither installs another custom-node pack or Python requirement. These model
+options have only offline packaging/graph validation, without GPU or
+reference-quality acceptance.
 
 For USO, `uso-single-reference` uses one subject; `uso-style-reference` uses
 one style image; `uso-character-style` uses one subject and two style images.
@@ -304,20 +298,16 @@ comic quality or reference adherence.
 
 - [NoobAI XL 1.1](https://huggingface.co/Laxhar/noobai-XL-1.1) is an SDXL
   illustration fine-tune. Its publisher recommends Euler ancestral, 25–30
-  steps and CFG 5–6. The starting preset uses 30 steps and CFG 5.5. Its custom
-  license prohibits commercializing the model, derivatives and generated
-  products, and imposes obligations on derivatives; review it before use.
+  steps and CFG 5–6. The starting preset uses 30 steps and CFG 5.5.
 - [Illustrious XL v2.0-STABLE](https://huggingface.co/OnomaAIResearch/Illustrious-XL-v2.0)
-  is another SDXL illustration model under CreativeML OpenRAIL-M. Its matching
-  starting preset is provisional, not a measured quality recommendation.
+  is another SDXL illustration model. Its matching starting preset is
+  provisional, not a measured quality recommendation.
 - [HiDream-I1 Full](https://huggingface.co/HiDream-ai/HiDream-I1-Full) is a 17B
   alternative. The denoiser is FP16; its published Llama 3.1 8B encoder is FP8.
   The bundle also reuses the existing FP16 T5 and FLUX VAE, plus model-specific
   CLIP-L/G. Native sampling follows the
   [official workflow](https://github.com/Comfy-Org/workflow_templates/blob/a8bc07a76478dfada740fa8fa49ac87be1bff519/templates/hidream_i1_full.json):
-  50 UniPC/simple steps, CFG 5, shift 3. The transformer and CLIP weights use
-  MIT licenses, T5 and the VAE use Apache 2.0, and Llama retains Meta's Llama
-  3.1 Community License. The complete bundle is not licensed solely under MIT.
+  50 UniPC/simple steps, CFG 5, shift 3.
 
 The 48 GB option can rely on ComfyUI's model offloading for the larger bundle;
 peak VRAM, speed and style-patcher compatibility remain unmeasured. Several

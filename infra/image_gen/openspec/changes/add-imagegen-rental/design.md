@@ -17,7 +17,7 @@ empty-negative structure and the same model bundle. No runtime package, image
 or custom-node dependency changes are required.
 
 The existing Vault token received HTTP 403 from the pinned Base file before any
-replacement capacity was created. Account license acceptance or token scope
+replacement capacity was created. Account access or token scope
 was resolved by the operator. A subsequent in-memory HEAD returned 302 with the pinned commit and 9,567,278,472-byte checkpoint. The requested replacement
 retains the existing USD 1/hour ceiling, Secure Cloud, VRAM floor and exposure.
 The operator permits neutral workflow checks on the fresh replacement. Once operator use starts, further inspection or generation requires renewed approval. Earlier distilled workflow results do not validate Base quality.
@@ -43,8 +43,8 @@ remain managed for later use.
 The user requested retaining Qwen, adding FLUX.2 klein 9B and renting one
 instance, then explicitly approved adding the official ComfyUI CLI and a target
 that authenticates to the rental. Keep existing identity, credentials, host
-requirements and price limits. Flux weights require publisher license acceptance
-and authorized Hugging Face download access before any paid rental is created.
+requirements and price limits. Flux weights require authorized Hugging Face
+download access before any paid rental is created.
 
 The infrastructure target injects its web login and backend context into a short-lived
 first-party bridge, which obtains the endpoint through its owning Terraform output
@@ -152,7 +152,7 @@ None for implementation. A live acceptance run must inspect the then-selected im
 
 The user explicitly approved RunDiffusion/Juggernaut-XL-v9 as the rental default. Set model_downloads to the publisher's standalone safetensors checkpoint at revision cf419233522daa0b9ea36c3aff98fa2cab1fb0fb. This keeps the reusable template's model list generic and empty. The native provisioner downloads the checkpoint before Forge starts; no model-serving package or authenticated downloader is added. The user may replace the list or supply an empty list.
 
-The publisher describes this as its most popular SDXL checkpoint; this is not an independently verified global ranking of uncensored models. The 7,105,348,188-byte file fits the rental's 100 GB disk and its SDXL architecture fits Forge and the 32 GiB VRAM floor. License terms still apply. Failed public downloads or upstream availability can prevent first boot; a fixed source revision prevents silently selecting another release. Verification covers public URL availability and the existing manifest/lifecycle fixtures, not a live GPU generation.
+The publisher describes this as its most popular SDXL checkpoint; this is not an independently verified global ranking of uncensored models. The 7,105,348,188-byte file fits the rental's 100 GB disk and its SDXL architecture fits Forge and the 32 GiB VRAM floor. Failed public downloads or upstream availability can prevent first boot; a fixed source revision prevents silently selecting another release. Verification covers public URL availability and the existing manifest/lifecycle fixtures, not a live GPU generation.
 
 ## Direct image and live deployment
 
@@ -754,8 +754,8 @@ only; no rental, installation or inference operation is authorized.
 
 The operator explicitly approves NoobAI-XL 1.1 and Illustrious XL v2.0-STABLE,
 then HiDream-I1 Full 17B, as additional options. This authorizes their inference
-bundles and required native encoders/VAE, with publisher revisions and component
-licenses recorded. The operator explicitly prohibits renting an instance to
+bundles and required native encoders/VAE, with publisher revisions recorded.
+The operator explicitly prohibits renting an instance to
 validate these additions. Preserve Chroma and the current hardware selection;
 use source and offline Terraform/provider acceptance only, with no GPU-quality
 claim for the new profiles.
@@ -764,8 +764,7 @@ Decision: proceed. SDXL finetunes reuse the existing native checkpoint loader,
 approved SDXL adapter and RES4LYF paths. HiDream uses native UNET/quadruple text
 encoding with the existing FLUX VAE; the approved RES4LYF revision has a dedicated
 HiDream style patcher. No new runtime software package or custom-node pack is
-needed. NoobAI's publisher prohibits commercialization, including generated
-products; HiDream's transformer license does not replace its component licenses.
+needed.
 
 Keep model URLs and node revisions in a single JSON asset registry, referenced
 by each profile, rather than independently repeating shared pins. Terraform and
@@ -801,9 +800,7 @@ NoobAI's scheduler declares epsilon prediction. Its publisher's Euler ancestral,
 preset is provisional. Both reuse the approved SDXL Plus/CLIP-ViT-H assets.
 HiDream reuses the existing FP16 T5 and FLUX VAE rather than adding a second T5
 quantization. Its roughly 55 GB disk bundle has an FP16 denoiser and FP8 Llama
-encoder. Component licenses remain separate: MIT transformer/CLIP, Apache 2.0
-T5/VAE, Meta Llama 3.1 Community License. Illustrious uses CreativeML OpenRAIL-M;
-NoobAI retains its publisher's noncommercial generated-product restriction.
+encoder.
 
 Offline acceptance passed all eight configured profiles. Compressed startup
 sizes were Chroma 15,398 bytes, Flux 9,690, FLUX.2 dev 9,890, Juggernaut 13,642,
