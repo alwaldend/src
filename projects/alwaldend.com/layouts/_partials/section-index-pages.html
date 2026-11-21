@@ -1,0 +1,5 @@
+{{ $pages := .Pages }}
+{{ with .Params.index_collection }}
+  {{ $pages = ($.Site.GetPage .).Sections }}
+{{ end }}
+{{ return $pages.ByDate.Reverse }}

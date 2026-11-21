@@ -10,6 +10,7 @@ docs_filegroup(
     deps = [
         "//projects/alwaldend.com/content/blog:docs",
         "//projects/alwaldend.com/content/docs",
+        "//projects/alwaldend.com/content/infra:docs",
         "//projects/alwaldend.com/content/projects:docs",
         "//projects/alwaldend.com/content/statuses:docs",
     ],

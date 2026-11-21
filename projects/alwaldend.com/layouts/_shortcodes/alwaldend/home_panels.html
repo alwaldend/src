@@ -1,47 +1,40 @@
+{{ $site := .Page.Site }}
 <nav class="home-links" aria-label="Quick links">
-  <ul>
-    {{ range .Page.Site.Params.alwaldend.links }}
-    <li>
-      <a href="{{ .url | relURL }}">
-        <span>{{ .name }}</span>
-        <span class="home-links__destination"
-          >{{ strings.TrimSuffix "/" (strings.TrimPrefix "https://" .url)
-          }}</span
-        >
-      </a>
-    </li>
-    {{ end }} {{ $site := .Page.Site }} {{ range slice "Blog" "Docs"
-    }} {{ range where $site.Menus.main "Name" . }}
-    <li>
-      <a href="{{ .URL | relURL }}">
-        <span>{{ .Name }}</span>
-        <span class="home-links__destination">{{ .URL | relURL }}</span>
-      </a>
-    </li>
-    {{ end }} {{ end }}
-  </ul>
-  <div class="home-links__groups">
-    {{ $sections := slice (dict "title" "Projects" "path" "/projects") (dict "title" "Infra" "path" "/docs/infra") }}
-    {{ range $section := $sections }}
-      {{ with $site.GetPage $section.path }}
-        {{ $children := cond (eq $section.path "/projects") .Pages .Sections }}
-        <ul class="home-links__entries" aria-label="{{ $section.title }}">
-          <li class="home-links__heading">
-            <a href="{{ .RelPermalink }}">
-              <span>{{ $section.title }}</span>
-              <span class="home-links__destination">{{ .RelPermalink }}</span>
-            </a>
-          </li>
-          {{ range $children.ByDate.Reverse }}
-            <li class="home-links__project">
-              <a href="{{ .RelPermalink }}">
-                <span>{{ .LinkTitle }}</span>
-                <span class="home-links__destination">{{ .RelPermalink }}</span>
-              </a>
-            </li>
-          {{ end }}
-        </ul>
+  <div class="home-links__cell" role="group" aria-labelledby="home-site">
+    <h2 id="home-site">Site</h2>
+    <ul>
+      {{ range slice "Blog" "Docs" }}
+        {{ range where $site.Menus.main "Name" . }}
+          {{ $url := .URL | relURL }}
+          <li>{{ partial "home-link.html" (dict "title" .Name "url" $url "destination" $url) }}</li>
+        {{ end }}
+      {{ end }}
+    </ul>
+  </div>
+  <div class="home-links__cell" role="group" aria-labelledby="home-external">
+    <h2 id="home-external">External</h2>
+    <ul>
+      {{ range $site.Params.alwaldend.links }}
+        {{ $destination := strings.TrimSuffix "/" (strings.TrimPrefix "https://" .url) }}
+        <li>{{ partial "home-link.html" (dict "title" .name "url" .url "destination" $destination) }}</li>
+      {{ end }}
+    </ul>
+  </div>
+  {{ range slice "Projects" "Infra" }}
+    {{ range where $site.Menus.main "Name" . }}
+      {{ with .Page }}
+        {{ $heading := printf "home-%s" (anchorize .LinkTitle) }}
+        <div class="home-links__cell" role="group" aria-labelledby="{{ $heading }}">
+          <h2 id="{{ $heading }}">
+            {{ partial "home-link.html" (dict "title" .LinkTitle "url" .RelPermalink "destination" .RelPermalink) }}
+          </h2>
+          <ul>
+            {{ range partial "section-index-pages.html" . }}
+              <li>{{ partial "home-link.html" (dict "title" .LinkTitle "url" .RelPermalink "destination" .RelPermalink) }}</li>
+            {{ end }}
+          </ul>
+        </div>
       {{ end }}
     {{ end }}
-  </div>
+  {{ end }}
 </nav>
