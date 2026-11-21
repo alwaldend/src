@@ -1,0 +1,28 @@
+%%{init: {"flowchart": {"wrappingWidth": 320}}}%%
+flowchart LR
+    public("Public browser")
+    ingress["Ingress<br/>ingress.alwaldend.com"]
+
+    subgraph local_infra["Local Infra · dc1.alwaldend.com"]
+        local("DC1 browser")
+        terraform["Dashboard Terraform"]
+
+        subgraph guest["Grafana VM · grafana.alwaldend.com"]
+            proxy["Traefik"]
+            grafana["Grafana"]
+            database[("SQLite")]
+        end
+
+        vault["Vault<br/>vault.alwaldend.com"]
+        victoria["VictoriaMetrics<br/>victoria-metrics.alwaldend.com"]
+    end
+
+    public -->|mTLS| ingress
+    ingress -->|HTTPS over WireGuard| proxy
+    local -->|HTTPS| proxy
+    terraform -.->|HTTPS API| proxy
+    proxy -->|"Loopback :3000"| grafana
+    database --- grafana
+    grafana -->|HTTPS queries| victoria
+    victoria -.->|"Grafana HTTPS /metrics<br/>Traefik HTTP :9100"| proxy
+    grafana -.->|OIDC| vault

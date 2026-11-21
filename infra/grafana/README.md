@@ -3,13 +3,19 @@ title: Grafana
 date: 2026-11-21
 ---
 
+## Architecture
+
+[![Grafana architecture showing browser access, Vault OIDC, and VictoriaMetrics](docs/assets/architecture.svg)](docs/assets/architecture.svg)
+
+Bazel renders the [Mermaid source](docs/architecture.mmd) in light and dark themes.
+
 One Fedora VM in DC1 runs Grafana from the Fedora package under systemd.
 Terraform provisions the XCP-ng guest through Xen Orchestra with two
 vCPUs, 4 GiB of RAM, and a persistent 20 GiB disk. Grafana stores its
 SQLite database at `/var/lib/grafana/grafana.db`. Ansible configures the
 guest, installs Grafana through the `alwaldend.main.grafana` role, and sets
-up Traefik. VictoriaMetrics scrapes the proxy's Prometheus endpoint. The
-guest allows metrics traffic from the collector address.
+up Traefik. VictoriaMetrics scrapes Grafana's native HTTPS metrics endpoint
+and Traefik's separate Prometheus listener.
 
 Open [Grafana](https://grafana.alwaldend.com/) from the DC1 network with
 the Vault server CA trusted by your browser. Traefik serves Vault-issued

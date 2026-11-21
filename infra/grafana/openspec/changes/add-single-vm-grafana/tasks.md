@@ -8,3 +8,5 @@
 - [x] Publish the ingress DNS aliases and allow the shared ingress guest connection.
 - [x] Allow the Grafana SELinux domain to reach Vault TCP 8200 and validate the packaged policy.
 - [x] Manage the VictoriaMetrics data source and repository-path dashboards through the Grafana Terraform root.
+- [x] Match Grafana's password-file whitespace handling when Terraform authenticates with the same Vault credential.
+- [x] Publish a Grafana architecture diagram with DC1 and guest boundaries and service hostnames.
