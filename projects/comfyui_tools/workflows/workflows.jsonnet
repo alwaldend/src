@@ -69,7 +69,7 @@ local defaults = {
 local downloadKind(entry) =
   if std.get(entry, 'kind', null) == null then 'checkpoint' else entry.kind;
 // First matching files select workflow components; additional downloads remain available.
-local filenames(profile) = {
+local filenames(profile, kinds=std.objectFields(defaults[profile])) = {
   [kind]:
     local definition = configuration.model_profiles[profile];
     local component = std.get(std.get(definition, 'components', {}), kind, null);
@@ -83,9 +83,10 @@ local filenames(profile) = {
       assert std.length(definition.downloads) == 0 || std.member(definition.downloads, component) : 'Missing component download: ' + component;
       if std.length(definition.downloads) == 0 then defaults[profile][kind] else component
     else if std.length(matches) == 0 then defaults[profile][kind] else matches[0].filename
-  for kind in std.objectFields(defaults[profile])
+  for kind in kinds
 };
 local families = {
+  'minimax-h3-video': (import 'minimax-h3-video/workflows.libsonnet')(filenames('minimax-h3-video', ['checkpoint', 'text_encoder', 'vae', 'audio_vae'])),
   'moss-image': (import 'moss-image/workflows.libsonnet')(filenames('moss-image')),
   uso: (import 'uso/workflows.libsonnet')(filenames('uso')),
   'umo-uno': (import 'umo-uno/workflows.libsonnet')(filenames('umo-uno')),

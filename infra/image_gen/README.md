@@ -32,6 +32,9 @@ MOSS-Image SFT/Base INT8, full Chroma1-HD, FLUX.2 dev 32B FP8, Juggernaut XL v9,
 HiDream-I1 Full 17B, Illustrious XL v2.0-STABLE, FLUX.2 klein Base 9B FP8,
 NoobAI XL 1.1 and Qwen-Image-Edit-2511 remain selectable profiles;
 see [model configuration](tf_setup/README.md#download-models).
+The [MiniMax H3 Video profile](tf_setup/README.md#minimax-h3-video) installs
+quantized H3 Base weights and saved workflows for text-to-video and
+first/last-frame video generation with stereo audio.
 The additional `uso` and `umo-uno` profiles provide native FLUX.1 subject/style
 and multiple-identity conditioning respectively; both have prompt sequences.
 Juggernaut includes the approved IP-Adapter Plus and CLIP vision weights for
