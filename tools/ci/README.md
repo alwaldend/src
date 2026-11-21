@@ -30,7 +30,8 @@ job checkout is at the event commit, fetches it locally into
 `~/.cache/repository-ci/<owner>/<repository>`, checks out that commit using the
 job's existing LFS objects, and removes untracked and ignored files there
 before launching Bazel. Use this option only on the dedicated runner with one
-job slot. The stable path lets each Bazel workspace reuse its server across jobs.
+job slot. The stable path keeps Bazel's on-disk outputs and caches reusable
+across jobs.
 
 The command builds
 and tests normal `//...` targets in the root workspace and each nested workspace
@@ -45,6 +46,8 @@ so all workspaces and both phases are attempted, streams Bazel diagnostics,
 and exits nonzero if any phase fails. It does not run deployment targets or
 runner acceptance checks. Normal Bazel expansion excludes manual targets and
 incompatible platforms; optional configurations are not a build matrix.
+On Forgejo, the command shuts down each workspace's Bazel server after its
+build and test attempts to release memory before starting the next workspace.
 
 In Forgejo, each workspace's build and test logs are collapsible sections. The
 job summary above the log shows whether each phase passed and how long it ran.

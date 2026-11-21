@@ -63,6 +63,12 @@ func recordBazelCall() int {
 		return 93
 	}
 	scenario := os.Getenv("CI_FIXTURE_SCENARIO")
+	if os.Args[1] == "shutdown" {
+		if scenario == "shutdown_failure" && relative == "." {
+			return 9
+		}
+		return 0
+	}
 	fmt.Fprintln(os.Stdout, "fixture standard output")
 	fmt.Fprint(os.Stderr, "fixture standard error")
 	if scenario == "build_failure" && relative == "." && os.Args[1] == "build" {
@@ -85,7 +91,7 @@ func TestCIExecutable(t *testing.T) {
 		t.Fatalf("resolve Bazel fixture executable: %v", err)
 	}
 	var observations []ciObservation
-	for _, scenario := range []string{"success", "forgejo_success", "build_failure", "test_failure", "missing_bazel", "invalid_workspace", "unwritable_summary"} {
+	for _, scenario := range []string{"success", "forgejo_success", "build_failure", "test_failure", "shutdown_failure", "missing_bazel", "invalid_workspace", "unwritable_summary"} {
 		t.Run(scenario, func(t *testing.T) {
 			root := t.TempDir()
 			for path, content := range map[string]string{
@@ -171,6 +177,9 @@ func TestCIExecutable(t *testing.T) {
 					for _, phase := range []string{"build", "test"} {
 						expected = append(expected, ciCall{directory, []string{phase, "--config=ci", "//..."}})
 					}
+					if scenario != "success" {
+						expected = append(expected, ciCall{directory, []string{"shutdown"}})
+					}
 				}
 			}
 			if !reflect.DeepEqual(calls, expected) {
@@ -216,6 +225,9 @@ func verifyReporting(t *testing.T, scenario, output, summary string) {
 			t.Fatalf("unexpected discovery failure report: %s\n%s", report, output)
 		}
 		return
+	}
+	if scenario == "shutdown_failure" && !strings.Contains(report, "Bazel server shutdown failed in Root.") {
+		t.Fatalf("missing Bazel shutdown failure: %s", report)
 	}
 	var headings []string
 	for _, workspace := range []string{"Root", "nested/one", "nested/two"} {

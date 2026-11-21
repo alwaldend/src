@@ -293,7 +293,7 @@ def _main() -> None:
     ansible: str | None = resolver.Rlocation(options.ansible)
     assert ansible is not None
     with tempfile.TemporaryDirectory(
-        prefix="comfyui-", dir=os.environ["TEST_TMPDIR"]
+        prefix=".comfyui-", dir=os.environ["TEST_TMPDIR"]
     ) as directory:
         _exercise(ansible, pathlib.Path(directory))
 
