@@ -21,12 +21,12 @@ Inspect the checked-out tree for workflow and deployment configuration. Shared
 CI tooling can exist before workflow activation. When present, read the affected
 sources:
 
-- `.forgejo/workflows/secure.yaml`: triggers, runner selection, checkout, and
+- `.forgejo/workflows/ci.yaml`: triggers, runner selection, checkout, and
   the local `uses: ./tools/ci/action` invocation.
 - `infra/dev/README.md` and its `ansible/README.md`: execution
   boundary and prerequisites.
-- `infra/vault/tf/forgejo_ci.tf` and `infra/forgejo/tf/alwaldend_repos.tf`:
-  signed claim restrictions, token permissions, and protected refs.
+- `infra/forgejo/tf/alwaldend_repos.tf`: repository configuration and
+  protected refs.
 
 If these files are absent, report that this revision has no configuration at
 those paths and continue with the available tooling sources. Do not infer
@@ -54,10 +54,10 @@ invocations. Read the current BUILD file before choosing validation commands.
 ## Preserve authentication and execution boundaries
 
 Use `repo-secrets` for credentials and `repo-infra` for Vault, Forgejo, or runner
-configuration. CI receives its signed job identity and restricted Vault token;
-deployment identities stay with deployment. Credentials belong only in the
-runtime process, never Bazel command arguments, action environments, build
-definitions, logs, or artifacts.
+configuration. Jobs that authenticate to Vault use their signed job identity
+and a restricted Vault token. Deployment identities stay with deployment.
+Credentials belong only in the runtime process, never Bazel command
+arguments, action environments, build definitions, logs, or artifacts.
 
 Workflow filters, runner admission, and Vault authorization are separate
 controls. Preserve the documented host-runner trust boundary. Verify matcher

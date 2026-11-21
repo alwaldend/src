@@ -12,3 +12,5 @@
       and verify their standalone archive labels.
 - [x] 1.7 Update repository skills for root-package development and standalone
       release verification.
+- [x] 1.8 Remove nested workspace discovery from CI and verify one root build
+      and test through the executable fixture.

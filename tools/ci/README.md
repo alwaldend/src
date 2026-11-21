@@ -34,26 +34,16 @@ before launching Bazel. Use this option only on the dedicated runner with one
 job slot. The stable path keeps Bazel's on-disk outputs and caches reusable
 across jobs.
 
-The command builds
-and tests normal `//...` targets in the root workspace and each nested workspace
-with a `MODULE.bazel` at a boundary declared by `.bazelignore`. Non-workspace
-entries such as caches and dependency directories are ignored. Workspace
-boundaries remain owned by the root ignore file. The shared
-`rules_al/pkg/workspaces` library also supplies membership to the full repository checker.
+The command runs `bazel build --config=ci //...` and
+`bazel test --config=ci //...` from the repository root. The root wildcard
+covers first-party rulesets under their package paths. Bazel applies its
+normal exclusions for manual and incompatible targets.
 
-The root wildcard covers the first-party rulesets under their package paths.
-Each ruleset's release manifest supplies its standalone archive identity.
+The test phase runs even if the build fails. The command streams diagnostics
+and exits nonzero if any phase fails. Forgejo jobs shut down the Bazel
+server after both phases to release runner memory.
 
-Each workspace runs `bazel build --config=ci` followed by
-`bazel test --config=ci` over its wildcard target patterns. The command continues after failures
-so all workspaces and both phases are attempted, streams Bazel diagnostics,
-and exits nonzero if any phase fails. It does not run deployment targets or
-runner acceptance checks. Normal Bazel expansion excludes manual targets and
-incompatible platforms; optional configurations are not a build matrix.
-On Forgejo, the command shuts down each workspace's Bazel server after its
-build and test attempts to release memory before starting the next workspace.
-
-In Forgejo, each workspace's build and test logs are collapsible sections. The
+In Forgejo, build and test logs are collapsible sections. The
 job summary above the log shows whether each phase passed and how long it ran.
 Expand **Build repository CI command** and then **Bazel launcher diagnostics**
 to see the Bazel output for the launcher build.
@@ -71,12 +61,10 @@ installs these before CI starts. Agent invocations use
 `bazel run --config=ci //tools/ci`.
 
 The pinned Bazel releases its invocation before executing the command, allowing
-child builds to reuse each workspace's normal output base. Existing unit tests verify workspace discovery and
-phase orchestration. The Linux executable acceptance fixture runs the compiled command
-against a private Bazel process fixture, covering both phases in every workspace,
-build/test failures, missing Bazel and invalid boundaries. Its repeatable
-`ci-execution.json` receipt is retained in Bazel test outputs; it does not launch
-real nested builds inside a sandbox.
+the build and test to reuse the root workspace's normal output base. The Linux
+acceptance fixture runs the compiled CI command against a private Bazel process
+fixture. It verifies root-only execution, phase and shutdown failures, missing
+Bazel, and reporting. Bazel test outputs include its `ci-execution.json` receipt.
 
 The workflow's checkout action comes from the organization-owned
 [Forgejo mirror](https://forgejo.alwaldend.com/alwaldend/com_github_actions_checkout),

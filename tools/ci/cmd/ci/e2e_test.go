@@ -19,7 +19,7 @@ import (
 
 // ciCall records one actual Bazel process launched by the compiled CI command.
 type ciCall struct {
-	// Directory identifies the workspace relative to the fixture repository.
+	// Directory identifies the working directory relative to the fixture root.
 	Directory string `json:"directory"`
 	// Arguments contains the literal Bazel command arguments.
 	Arguments []string `json:"arguments"`
@@ -64,7 +64,7 @@ func recordBazelCall() int {
 	}
 	scenario := os.Getenv("CI_FIXTURE_SCENARIO")
 	if os.Args[1] == "shutdown" {
-		if scenario == "shutdown_failure" && relative == "." {
+		if scenario == "shutdown_failure" {
 			return 9
 		}
 		return 0
@@ -74,12 +74,12 @@ func recordBazelCall() int {
 	fmt.Fprintln(os.Stderr, "(08:38:50) WARNING: option '--terminal_columns' was expanded twice")
 	fmt.Fprintln(os.Stderr, "(13:08:42) INFO: From Generating JSON:")
 	fmt.Fprintln(os.Stdout, "bazel-out/workflows.json")
-	if scenario == "build_failure" && relative == "." && os.Args[1] == "build" {
+	if scenario == "build_failure" && os.Args[1] == "build" {
 		fmt.Fprintln(os.Stderr, "(13:08:43) \x1b[31mERROR: \x1b[0mfixture build failed")
 		fmt.Fprintln(os.Stderr, "fixture compiler details")
 		return 7
 	}
-	if scenario == "test_failure" && filepath.ToSlash(relative) == "nested/one" && os.Args[1] == "test" {
+	if scenario == "test_failure" && os.Args[1] == "test" {
 		fmt.Fprint(os.Stdout, "\n==================== Test output for //fixture:failure:\nERROR: from the test\nfailed test diagnostics\n================================================================================\n")
 		fmt.Fprintln(os.Stdout, "//fixture:failure FAILED in 0.1s")
 		return 8
@@ -87,7 +87,7 @@ func recordBazelCall() int {
 	return 0
 }
 
-// TestCIExecutable verifies real command launching, complete coverage and failure propagation.
+// TestCIExecutable verifies root-only command launching and failure propagation.
 func TestCIExecutable(t *testing.T) {
 	binary, err := runfiles.Rlocation(os.Getenv("CI_BINARY"))
 	if err != nil {
@@ -101,17 +101,19 @@ func TestCIExecutable(t *testing.T) {
 	for _, scenario := range []string{"success", "forgejo_success", "build_failure", "test_failure", "shutdown_failure", "missing_bazel", "invalid_workspace", "unwritable_summary"} {
 		t.Run(scenario, func(t *testing.T) {
 			root := t.TempDir()
-			for path, content := range map[string]string{
-				"MODULE.bazel":            "",
-				".bazelignore":            "cache\nnested/one\nnested/two\nnested/one\n",
-				"nested/one/MODULE.bazel": "",
-				"nested/two/MODULE.bazel": "",
-			} {
-				fullPath := filepath.Join(root, path)
-				if err := os.MkdirAll(filepath.Dir(fullPath), 0o700); err != nil {
+			if scenario != "invalid_workspace" {
+				if err := os.WriteFile(filepath.Join(root, "MODULE.bazel"), nil, 0o600); err != nil {
 					t.Fatal(err)
 				}
-				if err := os.WriteFile(fullPath, []byte(content), 0o600); err != nil {
+			}
+			if scenario == "forgejo_success" {
+				if err := os.Mkdir(filepath.Join(root, "generated"), 0o700); err != nil {
+					t.Fatal(err)
+				}
+				if err := os.WriteFile(filepath.Join(root, "generated", "MODULE.bazel"), nil, 0o600); err != nil {
+					t.Fatal(err)
+				}
+				if err := os.WriteFile(filepath.Join(root, ".bazelignore"), []byte("generated\n"), 0o600); err != nil {
 					t.Fatal(err)
 				}
 			}
@@ -121,11 +123,6 @@ func TestCIExecutable(t *testing.T) {
 			}
 			if scenario != "missing_bazel" {
 				if err := os.Symlink(helper, filepath.Join(bin, "bazel")); err != nil {
-					t.Fatal(err)
-				}
-			}
-			if scenario == "invalid_workspace" {
-				if err := os.WriteFile(filepath.Join(root, ".bazelignore"), []byte("../outside\n"), 0o600); err != nil {
 					t.Fatal(err)
 				}
 			}
@@ -180,13 +177,12 @@ func TestCIExecutable(t *testing.T) {
 			}
 			var expected []ciCall
 			if scenario != "missing_bazel" && scenario != "invalid_workspace" {
-				for _, directory := range []string{".", "nested/one", "nested/two"} {
-					for _, phase := range []string{"build", "test"} {
-						expected = append(expected, ciCall{directory, []string{phase, "--config=ci", "//..."}})
-					}
-					if scenario != "success" {
-						expected = append(expected, ciCall{directory, []string{"shutdown"}})
-					}
+				expected = []ciCall{
+					{".", []string{"build", "--config=ci", "//..."}},
+					{".", []string{"test", "--config=ci", "//..."}},
+				}
+				if scenario != "success" {
+					expected = append(expected, ciCall{".", []string{"shutdown"}})
 				}
 			}
 			if !reflect.DeepEqual(calls, expected) {
@@ -228,7 +224,7 @@ func verifyReporting(t *testing.T, scenario, output, summary string) {
 		t.Fatalf("summary replaced existing content: %s", report)
 	}
 	if scenario == "invalid_workspace" {
-		if strings.Contains(output, "##[group]") || !strings.Contains(report, "Workspace discovery failed") {
+		if strings.Contains(output, "##[group]") || !strings.Contains(report, "Repository workspace unavailable") {
 			t.Fatalf("unexpected discovery failure report: %s\n%s", report, output)
 		}
 		return
@@ -236,24 +232,19 @@ func verifyReporting(t *testing.T, scenario, output, summary string) {
 	if scenario == "shutdown_failure" && !strings.Contains(report, "Bazel server shutdown failed in Root.") {
 		t.Fatalf("missing Bazel shutdown failure: %s", report)
 	}
-	var headings []string
-	for _, workspace := range []string{"Root", "nested/one", "nested/two"} {
-		buildStatus, testStatus := "Passed", "Passed"
-		if scenario == "missing_bazel" || (scenario == "build_failure" && workspace == "Root") {
-			buildStatus = `\*\*Failed\*\*`
-		}
-		if scenario == "missing_bazel" || (scenario == "test_failure" && workspace == "nested/one") {
-			testStatus = `\*\*Failed\*\*`
-		}
-		row := fmt.Sprintf(`(?m)^\| %s \| %s \([^)]+\) \| %s \([^)]+\) \|$`, workspace, buildStatus, testStatus)
-		if !regexp.MustCompile(row).MatchString(report) {
-			t.Fatalf("missing result for %s: %s", workspace, report)
-		}
-		for _, phase := range []string{"Build", "Test"} {
-			headings = append(headings, "##[group]"+workspace+" / "+phase+"\n")
-		}
+	buildStatus, testStatus := "Passed", "Passed"
+	if scenario == "missing_bazel" || scenario == "build_failure" {
+		buildStatus = `\*\*Failed\*\*`
 	}
-	for _, heading := range headings {
+	if scenario == "missing_bazel" || scenario == "test_failure" {
+		testStatus = `\*\*Failed\*\*`
+	}
+	row := fmt.Sprintf(`(?m)^\| Root \| %s \([^)]+\) \| %s \([^)]+\) \|$`, buildStatus, testStatus)
+	if !regexp.MustCompile(row).MatchString(report) {
+		t.Fatalf("missing root phase results: %s", report)
+	}
+	for _, phase := range []string{"Build", "Test"} {
+		heading := "##[group]Root / " + phase + "\n"
 		_, afterHeading, found := strings.Cut(output, heading)
 		if scenario != "missing_bazel" {
 			before, folded, opened := strings.Cut(afterHeading, "##[group]Bazel diagnostics\n")
@@ -267,7 +258,7 @@ func verifyReporting(t *testing.T, scenario, output, summary string) {
 			}
 			afterHeading = before + afterDiagnostics
 		}
-		if scenario == "test_failure" && heading == "##[group]nested/one / Test\n" {
+		if scenario == "test_failure" && phase == "Test" {
 			before, testLog, opened := strings.Cut(afterHeading, "##[group]Failed test //fixture:failure\n")
 			diagnostics, afterTest, closed := strings.Cut(testLog, "\n##[endgroup]\n")
 			if !opened || !closed || !strings.Contains(diagnostics, "ERROR: from the test\nfailed test diagnostics") ||
@@ -280,7 +271,7 @@ func verifyReporting(t *testing.T, scenario, output, summary string) {
 		if !found || !closed || strings.Contains(diagnostics, "##[group]") {
 			t.Fatalf("missing or unbalanced group %q: %s", heading, output)
 		}
-		if scenario == "build_failure" && heading == "##[group]Root / Build\n" &&
+		if scenario == "build_failure" && phase == "Build" &&
 			!strings.Contains(diagnostics, "fixture build failed\nfixture compiler details") {
 			t.Fatalf("missing visible build failure: %s", diagnostics)
 		}

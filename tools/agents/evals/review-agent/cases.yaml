@@ -73,3 +73,20 @@
         location and one short explanatory paragraph, followed by a brief
         assessment and actual validation limits. Continues through the whole
         diff and never invents findings to fill a quota.
+- description: Traces the active caller of a superseded CI path
+  vars:
+    request: >-
+      Review a migration that consolidates all checked-in Bazel modules into
+      the root module. Its approved contract says normal CI runs only from
+      the root checkout. CI still turns ignored directories with MODULE.bazel
+      into independent jobs. An explicitly invoked archive consumer test
+      creates standalone modules in temporary directories. What qualifies as
+      a finding?
+  assert:
+    - type: llm-rubric
+      value: >-
+        Traces the normal CI caller and explains how the old discovery path
+        can launch extra jobs and violates the migration contract. Treats
+        purposeful standalone archive verification as supported behavior.
+        Requires evidence of reachability and consequence before reporting
+        a finding. Preserves read-only review authority.

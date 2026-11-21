@@ -1,3 +1,2 @@
-// Package main runs both build and test phases in each declared repository workspace.
-// Workspace membership belongs to the shared discovery package; CI owns execution and failure reporting.
+// Package main builds and tests the root Bazel workspace and reports CI phase results.
 package main
