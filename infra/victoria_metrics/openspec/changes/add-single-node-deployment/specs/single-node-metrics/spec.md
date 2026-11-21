@@ -73,3 +73,13 @@ read access. The deployment SHALL inject the verifier file into Traefik.
 
 - **WHEN** a DC1 LAN operator opens the service hostname over HTTP using DC1 DNS
 - **THEN** Traefik redirects to HTTPS, presents a certificate for the service hostname, and requires the shared login.
+
+### Requirement: Grafana application metrics
+
+VictoriaMetrics SHALL scrape Grafana's native Prometheus endpoint over HTTPS
+with certificate verification.
+
+#### Scenario: Collect Grafana application metrics
+
+- **WHEN** the collector scrapes the Grafana DC1 hostname
+- **THEN** application metrics appear under the `grafana` scrape job
