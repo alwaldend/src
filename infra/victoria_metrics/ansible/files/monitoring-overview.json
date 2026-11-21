@@ -50,6 +50,19 @@
       ]
     },
     {
+      "title": "Traefik certificates",
+      "panels": [
+        {
+          "title": "Days until certificate expiry",
+          "description": "Each series is a certificate reported by a scraped Traefik instance. Negative values indicate expired certificates.",
+          "expr": ["(traefik_tls_certs_not_after - time()) / 86400"],
+          "alias": ["{{job}} / {{instance}} / {{cn}} ({{serial}})"],
+          "unit": "days",
+          "width": 12
+        }
+      ]
+    },
+    {
       "title": "VictoriaMetrics",
       "panels": [
         {
