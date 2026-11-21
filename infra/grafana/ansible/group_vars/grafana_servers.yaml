@@ -28,6 +28,7 @@ firewall_allow_port_from:
   - {src: "192.168.1.0/24", port: 443, proto: tcp, comment: Site LAN Grafana HTTPS}
   - {src: "192.168.10.0/24", port: 80, proto: tcp, comment: Guest LAN HTTP and ACME}
   - {src: "192.168.10.0/24", port: 443, proto: tcp, comment: Guest LAN Grafana HTTPS}
+  - {src: "10.10.0.1/32", port: 443, proto: tcp, comment: Shared ingress HTTPS}
   - src: "{{ victoria_metrics_collector_address }}/32"
     port: "{{ traefik_metrics_port }}"
     proto: tcp

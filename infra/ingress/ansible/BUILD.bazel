@@ -27,6 +27,7 @@ al_ansible_package(
     name = "ansible",
     srcs = [
         "inventory.yaml",
+        "//infra/grafana/dns:dnsconfig",
     ] + glob([
         "group_vars/**/*.yaml",
         "files/**",
@@ -38,4 +39,5 @@ al_ansible_package(
         "vault_env": "default_default",
         "ansible": "",
     },
+    renames = {"//infra/grafana/dns:dnsconfig": "files/grafana-dns.json"},
 )

@@ -1,5 +1,19 @@
 {
     "records": {
+        "upstream": {
+            "A": {
+                "name": "dc1.grafana.alwaldend.com",
+                "address": "192.168.10.95"
+            },
+            "dsp": ["global"]
+        },
+        "ingress": {
+            "CNAME": {
+                "name": "grafana.alwaldend.com",
+                "target": "ingress.alwaldend.com."
+            },
+            "dsp": ["global"]
+        },
         "local": {
             "A": {
                 "name": "grafana.alwaldend.com",

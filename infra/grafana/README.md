@@ -18,6 +18,11 @@ allows administrative SSH from any routed source. Select **Sign in with
 Vault** to sign in as a member of `global_admins`. Those users become
 Grafana server administrators.
 
+From outside DC1, use the same hostname with a trusted ingress client
+certificate. Shared ingress verifies the guest's Vault-issued certificate
+and forwards traffic through the dedicated `dc1.grafana.alwaldend.com`
+backend name. Grafana still requires application sign-in.
+
 ## Deployment
 
 1. Review and apply the [Grafana Vault AppRole](approle/README.md),
@@ -50,8 +55,15 @@ Grafana server administrators.
 5. With Traefik running, verify Vault can reach guest TCP 80 for ACME
    HTTP-01. Check the HTTPS certificate and sign in through Vault to verify
    the server administrator role.
-6. Reapply the [VictoriaMetrics playbook](../victoria_metrics/README.md) and
+6. Once Grafana DNS and the guest firewall are ready, deploy
+   [shared ingress](../ingress/README.md). Verify that ingress can reach
+   the guest over HTTPS and that the public route requires a trusted client
+   certificate.
+7. Reapply the [VictoriaMetrics playbook](../victoria_metrics/README.md) and
    check that the Grafana proxy is up in the `traefik_dc1` job.
+
+When adding ingress to an existing Grafana VM, apply its AppRole and DNS
+changes and rerun the Grafana playbook before deploying shared ingress.
 
 Grafana uses the local `admin` password only when initializing an empty
 database. Change an existing password through Grafana and update the

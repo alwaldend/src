@@ -35,3 +35,13 @@ firewall SHALL allow the configured metrics port from the VictoriaMetrics collec
 
 - **WHEN** VictoriaMetrics scrapes the Grafana proxy from its collector address
 - **THEN** Traefik returns Prometheus metrics
+
+### Requirement: Ingress backend reachability
+
+Grafana SHALL publish an ingress alias and a dedicated backend DNS name.
+The guest SHALL admit shared ingress HTTPS from the ingress peer address.
+
+#### Scenario: Route a public Grafana request
+
+- **WHEN** shared ingress connects to the dedicated backend hostname
+- **THEN** the guest serves HTTPS for the existing Grafana service hostname
