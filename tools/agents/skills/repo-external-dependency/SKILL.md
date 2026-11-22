@@ -49,7 +49,10 @@ require a task-specific reason.
    - OCI artifacts use the repository's `rules_oci` pattern and an immutable
      digest.
    - Language packages use the owning manifest and lockfile workflow.
-3. Follow `project-layout` for dependency ownership and naming. Simple external
+3. Prefer checksum-pinned Bazel downloads over Git LFS for upstream artifacts
+   available at an immutable HTTPS URL. Use Git LFS when the repository
+   must store the artifact itself.
+4. Follow `project-layout` for dependency ownership and naming. Simple external
    dependency definitions belong in a reverse-domain, underscore-named package
    under `third_party/`; standalone Bazel modules keep their dependencies local.
    Keep consumer-specific configuration and first-party wrappers with the consumer.
