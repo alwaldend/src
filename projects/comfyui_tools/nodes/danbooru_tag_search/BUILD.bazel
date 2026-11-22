@@ -1,0 +1,37 @@
+load("@rules_pkg//pkg:mappings.bzl", "pkg_files", "strip_prefix")
+load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
+load("@rules_python//python:defs.bzl", "py_library")
+load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
+
+package(transitive_visibility = "//projects:transitive_consumers")
+
+py_library(
+    name = "danbooru_tag_search",
+    srcs = ["__init__.py"],
+)
+
+pkg_files(
+    name = "installation_files",
+    srcs = [
+        "README.md",
+        "__init__.py",
+        "//third_party/co_huggingface_deepghs_site_tags:danbooru_tags",
+    ],
+    prefix = "custom_nodes/danbooru_tag_search",
+    strip_prefix = strip_prefix.files_only(),
+    tags = ["manual"],
+)
+
+pkg_tar(
+    name = "installation",
+    srcs = [":installation_files"],
+    out = "danbooru_tag_search.tar.gz",
+    extension = "tar.gz",
+    tags = ["manual"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//projects/comfyui_tools:__pkg__"],
+)

@@ -86,6 +86,7 @@ local filenames(profile, kinds=std.objectFields(defaults[profile])) = {
   for kind in kinds
 };
 local families = {
+  danbooru: import 'danbooru/workflows.libsonnet',
   'minimax-h3-video': (import 'minimax-h3-video/workflows.libsonnet')(filenames('minimax-h3-video', ['checkpoint', 'text_encoder', 'vae', 'audio_vae'])),
   'moss-image': (import 'moss-image/workflows.libsonnet')(filenames('moss-image')),
   uso: (import 'uso/workflows.libsonnet')(filenames('uso')),

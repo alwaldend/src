@@ -2,6 +2,25 @@
 local byId(nodes) = { [std.toString(node.id)]: node for node in nodes };
 local get(nodes, id) = byId(nodes)[std.toString(id)];
 {
+  app(workflow, inputs, output)::
+    workflow {
+      extra+: {
+        linearMode: true,
+        linearData: { inputs: inputs, outputs: [output] },
+      },
+    },
+
+  textToImageApp(workflow, positive, negative, latent, sampler, save)::
+    self.app(workflow, [
+      [positive, 'text', { height: 180, description: 'Describe the image you want to generate.' }],
+      [negative, 'text', { height: 100, description: 'Describe what to avoid in the image.' }],
+      [latent, 'width'],
+      [latent, 'height'],
+      [sampler, 'seed'],
+      [sampler, 'steps'],
+      [sampler, 'cfg'],
+    ], save),
+
   // An edge is [link ID, source node ID, source slot, target node ID, target slot].
   variant(base, patch)::
     local retained = [

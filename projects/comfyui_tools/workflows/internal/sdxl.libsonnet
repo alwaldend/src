@@ -45,6 +45,7 @@ function(models, settings={})
         [9, 6, 0, 7, 0],
       ],
     },
+    'text-to-image.app': g.textToImageApp(self['text-to-image'], 2, 3, 4, 5, 7),
     'image-to-image': g.variant(self['text-to-image'], {
       removeNodes: [4, 5],
       updates: { '6': { order: 7 }, '7': { order: 8 } },

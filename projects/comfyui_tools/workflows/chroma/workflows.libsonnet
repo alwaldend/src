@@ -38,6 +38,7 @@ function(models, sampling={ steps: 10, cfg: 1 }, sequences=false)
         [11, 10, 0, 11, 0],
       ],
     },
+    'text-to-image.app': g.textToImageApp(self['text-to-image'], 6, 7, 8, 9, 11),
     'image-to-image': g.variant(self['text-to-image'], {
       removeNodes: [8, 9],
       nodes: [

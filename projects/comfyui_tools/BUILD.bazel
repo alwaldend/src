@@ -38,6 +38,7 @@ docs_filegroup(
     deps = [
         "//projects/comfyui_tools/evals:docs",
         "//projects/comfyui_tools/nodes/chained_img2img_gif:docs",
+        "//projects/comfyui_tools/nodes/danbooru_tag_search:docs",
         "//projects/comfyui_tools/nodes/image_sequence:docs",
         "//projects/comfyui_tools/nodes/prompt_sequence:docs",
         "//projects/comfyui_tools/nodes/qwen_chained_img2img_gif:docs",
