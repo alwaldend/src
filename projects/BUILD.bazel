@@ -31,6 +31,7 @@ al_release_binary(
                 "anki_as_code",
                 "mcp_cordis",
                 "mermaid_3d",
+                "mlflow_vastai_backend",
                 "mlops_2026",
                 "alwaldend.com",
                 "ansible_collection",
