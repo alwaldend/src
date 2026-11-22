@@ -124,8 +124,16 @@ Locks use Bazel-managed uv through upstream `@rules_python//python/uv:lock.bzl`.
 Select native locking with `out = "uv.lock"`; preserve hashes and extras.
 Use the update targets below rather than host
 pip-tools or uv installs.
-Component-specific manifests retain their own ownership; inspect their wiring
-in tools/py/include.MODULE.bazel before changing them.
+
+Declare component-specific pip hubs in the component's `include.MODULE.bazel`
+beside its `pyproject.toml` and `uv.lock`. Use the rules_python pip extension
+and import the hub with `use_repo` in the same fragment. Omit `python_version`
+from `pip.parse` to inherit the shared pip version in
+`tools/py/python-version.toml`. Set it explicitly when a component uses a
+different toolchain. Keep the shared pip version aligned with the default
+Python toolchain in `tools/py/include.MODULE.bazel`.
+After adding, moving, or removing a fragment, regenerate the root include list
+through `//tools/bazel_module:update`.
 
 For root dependency changes, use the owning workflows in order:
 
