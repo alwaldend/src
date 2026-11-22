@@ -3,7 +3,7 @@
 ### Requirement: Selected asset installation
 
 The role SHALL install caller-selected model kinds, pinned node packs,
-first-party sources, locked requirements and native workflow JSON beneath
+first-party sources and packaged node bundles, locked requirements, and native workflow JSON beneath
 caller-configured application paths without selecting a GPU or provisioning a host.
 
 #### Scenario: Install and reapply a bundle

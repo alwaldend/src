@@ -16,3 +16,8 @@
 - [x] 3.1 Adapt the deployment E2E fixture to supply the JSON registry to the playbook and verify a non-default profile before implementation.
 - [x] 3.2 Remove registry inputs, conditional profile defaults and temporary profile facts from the role; translate JSON once in playbook variables.
 - [x] 3.3 Verify all workflow catalogs, full local NoobAI deployment and generic role installation; retain AL-only Vault access.
+
+## 4. Packaged node bundles
+
+- [x] 4.1 Install selected repository-built node archives before updating the node whitelist and restarting ComfyUI.
+- [x] 4.2 Verify the archive, NoobAI App and Tag Search through the packaged deployment fixture.

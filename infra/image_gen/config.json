@@ -1,7 +1,7 @@
 {
     "image": "vastai/comfy:v0.44.0-cuda-12.9-py312",
     "web_username": "imagegen",
-    "model_profile": "minimax-h3-video",
+    "model_profile": "noobai",
     "hardware_profile": "48gb",
     "hardware_profiles": {
         "standard": {
@@ -166,6 +166,7 @@
             "checkpoint_directory": "models/checkpoints",
             "workflows": [
                 "noobai-text-to-image",
+                "noobai-text-to-image.app",
                 "noobai-image-to-image",
                 "noobai-image-to-image-prompt-sequence",
                 "noobai-image-sequence",
@@ -193,6 +194,7 @@
             "custom_nodes": ["RES4LYF", "ComfyUI_IPAdapter_plus"],
             "python_requirements": "res4lyf-requirements.txt",
             "first_party_nodes": ["prompt_sequence", "image_sequence"],
+            "danbooru_tag_search": true,
             "interpolation": true
         },
         "illustrious": {

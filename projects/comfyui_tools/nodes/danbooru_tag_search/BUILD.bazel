@@ -28,6 +28,7 @@ pkg_tar(
     out = "danbooru_tag_search.tar.gz",
     extension = "tar.gz",
     tags = ["manual"],
+    visibility = ["//infra/image_gen/ansible:__pkg__"],
 )
 
 docs_filegroup(

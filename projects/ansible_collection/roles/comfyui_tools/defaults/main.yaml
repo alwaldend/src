@@ -20,6 +20,8 @@ comfyui_tools_git_nodes: {}
 # First-party modules and browser scripts: directory name -> controller file.
 comfyui_tools_node_sources: {}
 comfyui_tools_node_web_scripts: {}
+# Repository-built archives rooted at custom_nodes/<directory>: directory name -> controller file.
+comfyui_tools_node_archives: {}
 # Controller files for locked requirements, native workflows and optional Video2X.
 comfyui_tools_python_requirements: ""
 comfyui_tools_workflows: []

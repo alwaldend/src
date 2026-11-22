@@ -71,7 +71,7 @@ func TestProfileWorkflows(t *testing.T) {
 					case "/prompt":
 						fmt.Fprint(w, `{"exec_info":{"queue_remaining":0}}`)
 					case "/object_info":
-						classes := map[string]any{}
+						classes := map[string]any{"ImagegenDanbooruTagSearch": map[string]any{}}
 						for _, rawNode := range raw.(map[string]any)["first_party_nodes"].([]any) {
 							for _, class := range selected["first_party_nodes"].(map[string]any)[rawNode.(string)].(map[string]any)["node_classes"].([]any) {
 								classes[class.(string)] = map[string]any{}
@@ -155,6 +155,18 @@ func TestProfileWorkflows(t *testing.T) {
 			if name == "noobai" {
 				if _, err := os.Stat(filepath.Join(root, "restarted")); err != nil {
 					t.Fatal("full installation did not restart the fixture")
+				}
+				for _, filename := range []string{"noobai-text-to-image.app.json", "danbooru-tag-search.app.json", "danbooru-tag-search.json"} {
+					if _, err := os.Stat(filepath.Join(workflows, filename)); err != nil {
+						t.Fatalf("required NoobAI workflow %s was not installed: %v", filename, err)
+					}
+				}
+				for _, filename := range []string{"__init__.py", "tags.csv"} {
+					path := filepath.Join(root, "ComfyUI", "custom_nodes", "danbooru_tag_search", filename)
+					info, err := os.Stat(path)
+					if err != nil || info.Size() == 0 {
+						t.Fatalf("tag search asset %s was not installed: %v", filename, err)
+					}
 				}
 				for _, node := range raw.(map[string]any)["first_party_nodes"].([]any) {
 					sourceName := selected["first_party_nodes"].(map[string]any)[node.(string)].(map[string]any)["source"].(string)

@@ -17,11 +17,13 @@ Import `bazel-bin/projects/comfyui_tools/workflows/danbooru/danbooru-tag-search.
 for App mode or the matching `danbooru-tag-search.json` for Graph Mode.
 
 Enter a tag or a fragment such as `blue hair` and run the App. Spaces match
-underscores and the query is case-insensitive. Exact tags appear first, then
-prefix matches and other substring matches, with more frequently used tags
-first in each group. Use **Limit** to set how many results to return and
-**Include deprecated** to search retired tags. Copy the comma-separated names
-from the result or download the text file. Searches run locally with no model
+underscores and the query is case-insensitive. **Sort by** defaults to relevance,
+which places exact matches first, then prefixes and other substring matches.
+Popularity ranks all matches by descending post count. Turn on **Prompt spaces**
+to copy tags such as `blue hair` into NoobAI, or turn it off to retain CSV names
+such as `blue_hair`. The bundled App and graph enable prompt spaces by default.
+Use **Limit** to set the number of results and **Include deprecated** to search
+retired tags. Copy the results or download the text file. Searches run locally with no model
 or GPU and save their text results through ComfyUI's native Save Text node.
 
 The bundled CSV is the unchanged Danbooru vocabulary from
