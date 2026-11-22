@@ -65,4 +65,5 @@ docs_filegroup(
     name = "docs",
     srcs = ["README.md"],
     visibility = ["//projects:__pkg__"],
+    deps = ["docs"],
 )

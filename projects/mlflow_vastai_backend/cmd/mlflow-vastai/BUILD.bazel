@@ -1,0 +1,42 @@
+load("@rules_go//go:def.bzl", "go_binary", "go_library")
+load("//tools/dot:defs.bzl", "dot_export", "dot_svg")
+
+package(transitive_visibility = "//projects:transitive_consumers")
+
+go_library(
+    name = "mlflow-vastai_lib",
+    srcs = [
+        "doc.go",
+        "main.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/mlflow_vastai_backend/cmd/mlflow-vastai",
+    visibility = ["//visibility:private"],
+    deps = [
+        "//projects/mlflow_vastai_backend/internal/app",
+        "@com_github_qmuntal_stateless//:stateless",
+        "@com_github_spf13_cobra//:cobra",
+    ],
+)
+
+go_binary(
+    name = "mlflow-vastai",
+    embed = [":mlflow-vastai_lib"],
+)
+
+dot_export(
+    name = "state_machine_dot",
+    out = "state-machine.dot",
+    arguments = [
+        "state-machine",
+        "graph",
+    ],
+    command = ":mlflow-vastai",
+)
+
+dot_svg(
+    name = "state_machine_svg",
+    src = ":state_machine_dot",
+    out = "state-machine.svg",
+    target_compatible_with = ["@platforms//os:linux"],
+    visibility = ["//projects/mlflow_vastai_backend/docs:__pkg__"],
+)

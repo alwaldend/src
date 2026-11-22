@@ -1,0 +1,5 @@
+filegroup(
+    name = "org_graphviz_graphviz",
+    srcs = glob(["**"]),
+    visibility = ["//visibility:public"],
+)

@@ -12,6 +12,28 @@ The Python plugin connects MLflow Projects to a Vast.ai job server using gRPC.
 The shared protobuf contract defines both the job server
 and the rental worker service. The Go services are pending.
 
+## Go CLI
+
+```sh
+bazel run //projects/mlflow_vastai_backend/cmd/mlflow-vastai -- server serve
+bazel run //projects/mlflow_vastai_backend/cmd/mlflow-vastai -- worker serve
+```
+
+The CLI selects the service mode through a Stateless machine. Both application
+entry points currently return a nonzero exit status with a stub error.
+
+Export the command machine as DOT or build the themed SVG on Linux.
+
+```sh
+bazel run //projects/mlflow_vastai_backend/cmd/mlflow-vastai -- state-machine graph
+bazel build //projects/mlflow_vastai_backend/cmd/mlflow-vastai:state_machine_svg
+```
+
+The SVG is at `bazel-bin/projects/mlflow_vastai_backend/cmd/mlflow-vastai/state-machine.svg`.
+Bazel builds Graphviz from pinned source. The SVG embeds the shared diagram
+font and uses the common theme's light and dark palettes. The
+[state machines page](docs/state-machines.md) embeds the generated graph.
+
 ## Run a project
 
 Give the plugin a JSON backend configuration with `server` set to the gRPC

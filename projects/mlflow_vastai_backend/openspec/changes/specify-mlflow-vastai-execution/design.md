@@ -37,8 +37,19 @@ fields and uses the job ID as the MLflow run ID. The worker maps these fields
 to MLflow environment variables at launch. The workload logs its own metrics
 and artifacts directly to MLflow.
 
-The Go binary provides a job server and a worker service. The Python adapter
-calls the job server's `SubmitJob`, `GetJob`, and `CancelJob` RPCs. Submission,
+The Go CLI starts the Stateless machine, which enters argument parsing.
+Cobra handles help and validation in that state. The `server serve` and
+`worker serve` routes queue transitions to their respective service modes.
+Each service state invokes its application entry point through the CLI's
+service interface.
+The entry points currently return an implementation error.
+The `state-machine graph` route emits DOT for the configured machine with its
+original initial state and descriptive entry action names. The project uses
+the reusable `dot_export` and `dot_svg` Bazel rules to render that output with
+the pinned Graphviz build and common diagram theme.
+
+The Python adapter calls the job server's `SubmitJob`, `GetJob`, and
+`CancelJob` RPCs. Submission,
 status queries, waits, and cancellation each open and close a gRPC channel.
 Submission retries and polls share the channel for their operation.
 The job server invokes the binary's worker client over SSH. The worker client
