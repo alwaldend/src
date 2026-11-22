@@ -8,6 +8,7 @@ package(transitive_visibility = "//projects:transitive_consumers")
 py_library(
     name = "danbooru_tag_search",
     srcs = ["__init__.py"],
+    visibility = ["//:__subpackages__"],
 )
 
 pkg_files(
