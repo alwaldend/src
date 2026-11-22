@@ -71,3 +71,16 @@
         pins the exact version, and documents any concrete reason for using
         an older release. It must preserve the existing approval rule for new
         dependencies, including any newly introduced transitive packages.
+
+- description: Prefers Bazel downloads for upstream data
+  vars:
+    request: >-
+      Add a large public upstream CSV as a Bazel input. Its publisher provides
+      a revision-specific HTTPS URL and SHA-256. The repository has a Git LFS
+      pattern for CSV files. How should you add it?
+  assert:
+    - type: llm-rubric
+      value: >-
+        Prefers a Bazel http_file with the immutable HTTPS URL and verified
+        integrity over storing the CSV in Git LFS. Explains when LFS is still
+        appropriate and leaves the fetched bytes out of Git.

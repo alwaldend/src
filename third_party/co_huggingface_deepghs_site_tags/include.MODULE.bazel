@@ -1,0 +1,8 @@
+http_file = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_file")
+
+http_file(
+    name = "co_huggingface_deepghs_site_tags",
+    downloaded_file_path = "tags.csv",
+    integrity = "sha256-wB99VqQiNNybqqVngOJvJy0/iovQDrB6/VoL6VwPSow=",
+    urls = ["https://huggingface.co/datasets/deepghs/site_tags/resolve/058abf56130e433f92cb8de17ff990e8b890b467/danbooru.donmai.us/tags.csv"],
+)
