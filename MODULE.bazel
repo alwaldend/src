@@ -79,6 +79,7 @@ include("//third_party/org_codeberg_forgejo_contrib_forgejo_cli_bin:include.MODU
 include("//third_party/org_codeberg_forgejo_runner_bin:include.MODULE.bazel")
 include("//third_party/org_fedora_cloud:include.MODULE.bazel")
 include("//third_party/org_fissionai_openspec:include.MODULE.bazel")
+include("//third_party/org_graphviz_graphviz:include.MODULE.bazel")
 include("//third_party/org_kernel_headers:include.MODULE.bazel")
 include("//third_party/org_nmap_nmap:include.MODULE.bazel")
 include("//third_party/org_openapitools_openapi_generator:include.MODULE.bazel")

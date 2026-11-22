@@ -12,6 +12,7 @@
 "third_party/com_github_victoriametrics" = "//infra:transitive_consumers"
 "tools" = "//tools:transitive_consumers"
 "tools/bazel_configs" = "//tools:build_api_consumers"
+"tools/dot" = "//tools:build_api_consumers"
 "tools/file_installer/cmd/install_binary" = "//tools/file_installer/cmd/install_binary:installation_consumers"
 "tools/helm/rules" = "//tools:build_api_consumers"
 "tools/kt" = "//tools:build_api_consumers"

@@ -1,0 +1,60 @@
+load("@bazel_skylib//rules:copy_file.bzl", "copy_file")
+load("@rules_foreign_cc//foreign_cc:configure.bzl", "configure_make")
+load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
+
+package(transitive_visibility = "//third_party:transitive_consumers")
+
+configure_make(
+    name = "graphviz",
+    configure_in_place = True,
+    configure_options = [
+        "--disable-ltdl",
+        "--disable-man-pdfs",
+        "--disable-shared",
+        "--disable-swig",
+        "--enable-static",
+        "--without-expat",
+        "--without-freetype2",
+        "--without-gdk",
+        "--without-gdk-pixbuf",
+        "--without-ghostscript",
+        "--without-glut",
+        "--without-gtk",
+        "--without-libgd",
+        "--without-pangocairo",
+        "--without-poppler",
+        "--without-qt",
+        "--without-rsvg",
+        "--without-smyrna",
+        "--without-x",
+    ],
+    env = {
+        "PKG_CONFIG": "false",
+        # Disable optional compressed SVG support.
+        "ac_cv_header_zlib_h": "no",
+    },
+    lib_source = "@org_graphviz_graphviz",
+    out_binaries = ["dot_static"],
+    target_compatible_with = ["@platforms//os:linux"],
+)
+
+filegroup(
+    name = "dot_static",
+    srcs = [":graphviz"],
+    output_group = "dot_static",
+)
+
+copy_file(
+    name = "dot",
+    src = ":dot_static",
+    out = "bin/dot",
+    is_executable = True,
+    target_compatible_with = ["@platforms//os:linux"],
+    visibility = ["//:__subpackages__"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//third_party:__pkg__"],
+)

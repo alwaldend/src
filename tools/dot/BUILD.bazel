@@ -1,0 +1,17 @@
+load("@rules_python//python:defs.bzl", "py_binary")
+load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
+
+package(transitive_visibility = "//tools:build_api_consumers")
+
+py_binary(
+    name = "renderer",
+    srcs = ["internal/renderer.py"],
+    main = "internal/renderer.py",
+    visibility = ["//visibility:private"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//tools:__pkg__"],
+)

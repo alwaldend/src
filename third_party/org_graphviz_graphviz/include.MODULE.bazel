@@ -1,0 +1,9 @@
+http_archive = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
+http_archive(
+    name = "org_graphviz_graphviz",
+    build_file = "//third_party/org_graphviz_graphviz:source.BUILD.bazel",
+    integrity = "sha256-D2YXGPPlJo3DutD7U6tkZgXSbbcPQIB5mv8dwvYXg8M=",
+    strip_prefix = "graphviz-16.1.0",
+    urls = ["https://gitlab.com/api/v4/projects/4207231/packages/generic/graphviz-releases/16.1.0/graphviz-16.1.0.tar.xz"],
+)
