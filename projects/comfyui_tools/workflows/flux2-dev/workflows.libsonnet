@@ -3,6 +3,8 @@ local g = import '../internal/graph.libsonnet';
 local n = import '../internal/nodes.libsonnet';
 
 function(models) {
+  local width = 1024,
+  local height = 1024,
   'text-to-image': {
     config: {},
     extra: { ds: { offset: [60, 60], scale: 0.55 } },
@@ -17,9 +19,9 @@ function(models) {
       n.node(4, 'CLIPTextEncode', ['A watercolor comic panel of a small blue robot reading a book on a bench in a snowy park, clear silhouettes, wide shot.'], [390, 0], [420, 280], title='Scene and visual style'),
       n.node(5, 'FluxGuidance', [4.0], [880, 250], [310, 100]),
       n.node(6, 'BasicGuider', [], [1250, 0], [310, 110], title='Distilled guidance: no negative branch'),
-      n.node(7, 'EmptyFlux2LatentImage', [1024, 1024, 1], [390, 520], [310, 150]),
+      n.node(7, 'EmptyFlux2LatentImage', [width, height, 1], [390, 520], [310, 150]),
       n.node(8, 'RandomNoise', [123456789, 'randomize'], [880, 0], [310, 120]),
-      n.node(9, 'Flux2Scheduler', [28, 1024, 1024], [880, 470], [310, 160]),
+      n.node(9, 'Flux2Scheduler', [28, width, height], [880, 470], [310, 160]),
       n.node(10, 'KSamplerSelect', ['euler'], [1250, 240], [310, 100]),
       n.node(11, 'SamplerCustomAdvanced', [], [1620, 0], [310, 220]),
       n.node(12, 'VAEDecode', [], [1990, 0], [310, 120]),
@@ -40,6 +42,27 @@ function(models) {
       [12, 12, 0, 13, 0],
     ],
   },
+  'text-to-image.app': g.app(g.variant(self['text-to-image'], {
+    // Share each dimension between the starting latent and its noise schedule.
+    nodes: [
+      n.node(14, 'PrimitiveInt', [width, 'fixed'], [0, 640], [310, 110], title='Image width'),
+      n.node(15, 'PrimitiveInt', [height, 'fixed'], [0, 800], [310, 110], title='Image height'),
+    ],
+    links: [
+      [13, 14, 0, 7, 0],
+      [14, 14, 0, 9, 0],
+      [15, 15, 0, 7, 1],
+      [16, 15, 0, 9, 1],
+    ],
+    metadata: { last_node_id: 15, last_link_id: 16 },
+  }), [
+    [4, 'text', { height: 180, description: 'Describe the image you want to generate.' }],
+    [14, 'value', { description: 'Image width in pixels. Use a multiple of 16.' }],
+    [15, 'value', { description: 'Image height in pixels. Use a multiple of 16.' }],
+    [8, 'noise_seed'],
+    [9, 'steps'],
+    [5, 'guidance'],
+  ], 13),
   'multi-reference': g.variant(self['text-to-image'], {
     updates: { '4': { widgets_values: ['Use the character designs and illustration style from reference images 1, 2 and 3. Create a new comic panel of the characters reading books together on a park bench in winter. Change their poses and composition to show the requested scene.'] } },
     nodes: std.flattenArrays([

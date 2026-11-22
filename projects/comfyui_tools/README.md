@@ -134,6 +134,25 @@ can preserve the source too strongly, the style guide can blur detail, and comic
 wording can elicit extra panels and lettering. Start with native text-to-image;
 reference and sequence paths require prompt/strength tuning for useful results.
 
+## Text-to-image Apps
+
+Build the workflow catalog with `bazel build //projects/comfyui_tools/workflows:workflows`.
+Under `bazel-bin/projects/comfyui_tools/workflows/`, open the model directory
+and import its `*-text-to-image.app.json` file into ComfyUI. The catalog includes
+Apps for Juggernaut XL, NoobAI XL, Illustrious XL, HiDream-I1 Full, Chroma HD,
+Chroma Flash, FLUX.2 dev, and MOSS-Image SFT and Base.
+
+Enter a prompt, adjust the canvas size and sampling controls, and run the App
+to see saved images. Models that use negative conditioning expose a negative
+prompt. The FLUX.2 dev App uses distilled guidance and expects dimensions in
+multiples of 16. Install the matching model files before running the App.
+
+## Danbooru tag search
+
+Use the standalone [Danbooru Tag Search App](nodes/danbooru_tag_search/README.md)
+to look up prompt tags. The optional installation bundle includes the search
+node and the repository-pinned vocabulary.
+
 ## MOSS-Image examples
 
 The `moss-image` family supplies six examples and six prompt-sequence variants, adapted from the

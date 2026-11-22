@@ -44,12 +44,14 @@ function(models) {
       [10, 9, 0, 10, 0],
     ],
   },
+  'text-to-image.app': g.textToImageApp(self['text-to-image'], 4, 5, 6, 8, 10),
   'base-text-to-image': g.variant(self['text-to-image'], {
     updates: {
       '1': { widgets_values: [models.base_checkpoint, 'default'], title: 'MOSS-Image Base INT8' },
       '10': { widgets_values: ['MOSS-Image-Base-example'] },
     },
   }),
+  'base-text-to-image.app': g.textToImageApp(self['base-text-to-image'], 4, 5, 6, 8, 10),
   'layout-guided': g.variant(self['text-to-image'], {
     nodes: [
       n.node(11, 'CreateBoundingBoxes', [1024, 1024, boxes, boxes], [0, 850], [600, 650], title='Example layout: edit the object box'),
