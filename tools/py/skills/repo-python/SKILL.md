@@ -150,6 +150,19 @@ diffs, including transitive packages and import mappings. Preserve requested
 extras. Gazelle wires Python imports to Bazel dependencies; declare runtime
 resources in data and inspect generated entry points and library boundaries.
 
+## Generate gRPC bindings
+
+Use `py_proto_library` for Python protobuf messages and
+`py_grpc_library` from `@grpc//bazel:python_rules.bzl` for service stubs.
+Pass the schema in `srcs`, its Python protobuf target in `deps`, and the
+project's locked `grpcio` target in `grpc_library`. Set `strip_prefixes` if
+the packaged stub imports the generated message module from a different root.
+
+Package both generated files with the application and use its locked
+`grpcio` and `protobuf` runtimes. The root graph's `grpc` 1.78.0.bcr.1 supports
+this workflow under Bazel 9. See `//projects/mlflow_vastai_backend/api/jobpb`
+for the verified targets.
+
 ## Verify the affected behavior
 
 Use al-bazel and repo-bazel for pinned execution, package checks, and

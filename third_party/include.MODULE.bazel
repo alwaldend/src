@@ -14,6 +14,7 @@ bazel_dep(name = "rules_python_gazelle_plugin", version = "2.4.2")
 # Proto
 # Keep this aligned with rules_android's embedded protobuf Java runtime.
 bazel_dep(name = "protobuf", version = "33.4")
+bazel_dep(name = "grpc", version = "1.78.0.bcr.1")
 
 # Shell
 bazel_dep(name = "rules_sh", version = "0.5.0")

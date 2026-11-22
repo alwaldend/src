@@ -1,0 +1,47 @@
+# gazelle:ignore
+
+load("@grpc//bazel:python_rules.bzl", "py_grpc_library")
+load("@protobuf//bazel:proto_library.bzl", "proto_library")
+load("@protobuf//bazel:py_proto_library.bzl", "py_proto_library")
+load("@rules_go//proto:def.bzl", "go_proto_library")
+
+package(transitive_visibility = "//projects:transitive_consumers")
+
+proto_library(
+    name = "job_proto",
+    srcs = ["vastai_job.proto"],
+)
+
+go_proto_library(
+    name = "jobpb",
+    compilers = [
+        "@rules_go//proto:go_grpc_v2",
+        "@rules_go//proto:go_proto",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/mlflow_vastai_backend/api/jobpb",
+    proto = ":job_proto",
+    visibility = ["//projects/mlflow_vastai_backend:__subpackages__"],
+)
+
+py_proto_library(
+    name = "job_py_pb2",
+    deps = [":job_proto"],
+)
+
+py_grpc_library(
+    name = "job_py_grpc",
+    srcs = [":job_proto"],
+    grpc_library = "@com_alwaldend_src_projects_mlflow_vastai_backend_pip//grpcio",
+    strip_prefixes = ["projects.mlflow_vastai_backend.api.jobpb."],
+    deps = [":job_py_pb2"],
+)
+
+# Package generated messages with the plugin and use its locked runtime.
+filegroup(
+    name = "job_py_sources",
+    srcs = [
+        ":job_py_grpc",
+        ":job_py_pb2",
+    ],
+    visibility = ["//projects/mlflow_vastai_backend:__subpackages__"],
+)

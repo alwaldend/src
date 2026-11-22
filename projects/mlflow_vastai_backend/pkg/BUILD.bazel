@@ -1,0 +1,12 @@
+# gazelle:ignore
+# gazelle:python_root
+
+load("@rules_python//python:defs.bzl", "py_library")
+
+package(transitive_visibility = "//projects:transitive_consumers")
+
+py_library(
+    name = "plugin_sources",
+    srcs = glob(["mlflow_vastai_backend/*.py"]),
+    visibility = ["//projects/mlflow_vastai_backend:__pkg__"],
+)
