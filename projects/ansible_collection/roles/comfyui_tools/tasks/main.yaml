@@ -16,6 +16,7 @@
       - comfyui_tools_restart_command | length > 0
       - comfyui_tools_node_web_scripts.keys() | difference(comfyui_tools_node_sources.keys()) | length == 0
       - comfyui_tools_git_nodes.keys() | intersect(comfyui_tools_node_sources.keys()) | length == 0
+      - comfyui_tools_node_archives.keys() | intersect(comfyui_tools_git_nodes.keys() | list + comfyui_tools_node_sources.keys() | list) | length == 0
       - comfyui_tools_interpolation_source | length == 0 or comfyui_tools_state_directory == '/opt/imagegen'
 
 - name: Validate absolute application and state directories
@@ -46,7 +47,7 @@
 - name: Validate installed node directory names
   ansible.builtin.assert:
     that: item is match('^[A-Za-z][A-Za-z0-9_-]*$')
-  loop: "{{ comfyui_tools_git_nodes.keys() | list + comfyui_tools_node_sources.keys() | list }}"
+  loop: "{{ comfyui_tools_git_nodes.keys() | list + comfyui_tools_node_sources.keys() | list + comfyui_tools_node_archives.keys() | list }}"
 
 - name: Validate immutable Git node sources
   ansible.builtin.assert:
@@ -170,6 +171,15 @@
         extra_args: --require-hashes --no-deps
       notify: Restart ComfyUI tools
 
+- name: Install packaged first-party node bundles
+  ansible.builtin.unarchive:
+    src: "{{ item.value }}"
+    dest: "{{ comfyui_tools_directory }}"
+  loop: "{{ comfyui_tools_node_archives | dict2items }}"
+  loop_control:
+    label: "{{ item.key }}"
+  notify: Restart ComfyUI tools
+
 - name: Install optional interpolation tool
   when: comfyui_tools_interpolation_source | length > 0
   block:
@@ -193,9 +203,11 @@
   ansible.builtin.lineinfile:
     path: "{{ comfyui_tools_environment_file }}"
     regexp: "^(export )?COMFYUI_ARGS="
-    line: "export COMFYUI_ARGS='{{ comfyui_tools_arguments }}{{ ' --whitelist-custom-nodes ' ~ ((comfyui_tools_git_nodes.keys() | list + comfyui_tools_node_sources.keys() | list) | sort(case_sensitive=true) | join(' ')) if comfyui_tools_git_nodes | length + comfyui_tools_node_sources | length > 0 else '' }}' # imagegen-ansible"
+    line: "export COMFYUI_ARGS='{{ comfyui_tools_arguments }}{{ ' --whitelist-custom-nodes ' ~ (comfyui_tools_node_names | sort(case_sensitive=true) | join(' ')) if comfyui_tools_node_names else '' }}' # imagegen-ansible"
     create: true
     mode: "0600"
+  vars:
+    comfyui_tools_node_names: "{{ comfyui_tools_git_nodes.keys() | list + comfyui_tools_node_sources.keys() | list + comfyui_tools_node_archives.keys() | list }}"
   notify: Restart ComfyUI tools
 
 - name: Install the selected native workflows and Apps

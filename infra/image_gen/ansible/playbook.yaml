@@ -7,6 +7,7 @@
     imagegen_profile: "{{ imagegen_configuration.model_profiles[imagegen_configuration.model_profile] }}"
     imagegen_modules: "{{ imagegen_profile.first_party_nodes | map('extract', imagegen_configuration.first_party_nodes) | list }}"
     imagegen_assets_directory: "{{ playbook_dir }}/files"
+    imagegen_danbooru_tag_search: "{{ imagegen_profile.danbooru_tag_search | default(false) }}"
 
     comfyui_tools_directory: "{{ imagegen_configuration.workspace_directory }}/{{ imagegen_runtime.model_root | basename }}"
     comfyui_tools_arguments: "{{ imagegen_runtime.arguments }}"
@@ -20,8 +21,14 @@
     comfyui_tools_node_sources: >-
       {{ dict(imagegen_profile.first_party_nodes | zip(imagegen_modules
          | map(attribute='source') | map('regex_replace', '^', imagegen_assets_directory ~ '/'))) }}
-    comfyui_tools_required_nodes: "{{ imagegen_modules | map(attribute='node_classes') | flatten }}"
-    comfyui_tools_workflows: "{{ imagegen_profile.workflows | map('regex_replace', '^', imagegen_assets_directory ~ '/workflows/' ~ imagegen_configuration.model_profile ~ '/') | map('regex_replace', '$', '.json') | list }}"
+    comfyui_tools_node_archives: "{{ {'danbooru_tag_search': imagegen_assets_directory ~ '/danbooru_tag_search.tar.gz'} if imagegen_danbooru_tag_search else {} }}"
+    comfyui_tools_required_nodes: >-
+      {{ (imagegen_modules | map(attribute='node_classes') | flatten) +
+         (['ImagegenDanbooruTagSearch'] if imagegen_danbooru_tag_search else []) }}
+    comfyui_tools_workflows: >-
+      {{ (imagegen_profile.workflows | map('regex_replace', '^', imagegen_assets_directory ~ '/workflows/' ~ imagegen_configuration.model_profile ~ '/') | map('regex_replace', '$', '.json') | list) +
+         ([imagegen_assets_directory ~ '/workflows/danbooru/danbooru-tag-search.json',
+           imagegen_assets_directory ~ '/workflows/danbooru/danbooru-tag-search.app.json'] if imagegen_danbooru_tag_search else []) }}
     comfyui_tools_python_requirements: "{{ imagegen_assets_directory ~ '/' ~ imagegen_profile.python_requirements if imagegen_profile.python_requirements is defined else '' }}"
     comfyui_tools_interpolation_source: "{{ imagegen_assets_directory ~ '/Video2X.AppImage' if imagegen_profile.interpolation | default(false) else '' }}"
     comfyui_tools_hugging_face_token: "{{ lookup('ansible.builtin.env', 'COMFYUI_HUGGING_FACE_TOKEN') }}"

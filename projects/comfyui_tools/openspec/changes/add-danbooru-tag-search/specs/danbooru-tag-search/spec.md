@@ -13,9 +13,21 @@ and present a selectable text result with at most the requested number of tags.
 #### Scenario: Enter a tag or part of a tag
 
 - **WHEN** a user runs a query in the Danbooru Tag Search App
-- **THEN** it returns the matching canonical tag names in prompt-ready text
+- **THEN** it returns the matching tags in the selected output format
 - **AND** exact matches precede prefix matches and other substring matches
 - **AND** matches in each group are ordered by post count from highest to lowest
+
+#### Scenario: Format tags for NoobAI
+
+- **WHEN** the user enables prompt spaces
+- **THEN** multiword tags use spaces in the output
+- **AND** turning the option off returns the original CSV spelling
+
+#### Scenario: Rank all matches by popularity
+
+- **WHEN** the user selects popularity sorting
+- **THEN** matching tags are ordered by descending post count before the result limit is applied
+- **AND** equal post counts are ordered by tag name
 
 #### Scenario: Filter deprecated tags
 

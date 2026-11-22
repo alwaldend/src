@@ -5,8 +5,10 @@ description: Install selected ComfyUI models, node packs, workflows and dependen
 
 This role configures an existing ComfyUI installation from ordinary role
 variables. Supply the application directory, runtime arguments and model-directory
-map, plus the selected model entries, Git node packs, first-party source paths
-and workflow files. Required inputs default to null and are validated before
+map, plus the selected model entries, Git node packs, first-party source paths,
+repository-built node bundles, and workflow files. Supply node bundles rooted
+at `custom_nodes/<directory>` and keyed by that directory name.
+Required inputs default to null and are validated before
 installation; optional inputs have static defaults.
 Application and state directory paths may contain hidden components such as
 `.cache`. Supply normalized absolute paths with no `.` or `..` components.

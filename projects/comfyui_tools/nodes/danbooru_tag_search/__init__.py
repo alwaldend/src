@@ -8,7 +8,10 @@ import typing
 
 
 def _matches(
-    source: typing.TextIO, query: str, include_deprecated: bool
+    source: typing.TextIO,
+    query: str,
+    include_deprecated: bool,
+    sort_by: typing.Literal["relevance", "popularity"],
 ) -> collections.abc.Iterator[tuple[bool, bool, int, str]]:
     """Yield matching tag names with their sort priority."""
     rows: csv.DictReader = csv.DictReader(source)
@@ -17,6 +20,7 @@ def _matches(
     ):
         raise ValueError("Danbooru tags.csv has an unexpected header.")
 
+    rank_by_relevance: bool = sort_by == "relevance"
     for row in rows:
         name: str = row["name"]
         folded: str = name.casefold()
@@ -25,8 +29,8 @@ def _matches(
         if not include_deprecated and row["is_deprecated"] == "True":
             continue
         yield (
-            folded != query,
-            not folded.startswith(query),
+            rank_by_relevance and folded != query,
+            rank_by_relevance and not folded.startswith(query),
             -int(row["post_count"]),
             name,
         )
@@ -56,10 +60,30 @@ class _DanbooruTagSearch:
                 "limit": ("INT", {"default": 20, "min": 1, "max": 100}),
                 "include_deprecated": ("BOOLEAN", {"default": False}),
             },
+            "optional": {
+                "prompt_spaces": (
+                    "BOOLEAN",
+                    {
+                        "default": False,
+                        "tooltip": "Replace underscores with spaces for NoobAI prompts.",
+                    },
+                ),
+                "sort_by": (
+                    ["relevance", "popularity"],
+                    {
+                        "tooltip": "Popularity ranks all matching tags by post count."
+                    },
+                ),
+            },
         }
 
     def search(
-        self, query: str, limit: int, include_deprecated: bool
+        self,
+        query: str,
+        limit: int,
+        include_deprecated: bool,
+        prompt_spaces: bool = False,
+        sort_by: typing.Literal["relevance", "popularity"] = "relevance",
     ) -> tuple[str]:
         """Scan the pinned CSV with memory bounded by the result limit."""
         if not 1 <= limit <= 100:
@@ -72,7 +96,8 @@ class _DanbooruTagSearch:
         try:
             with vocabulary.open(encoding="utf-8", newline="") as source:
                 matches: list[tuple[bool, bool, int, str]] = heapq.nsmallest(
-                    limit, _matches(source, normalized, include_deprecated)
+                    limit,
+                    _matches(source, normalized, include_deprecated, sort_by),
                 )
         except FileNotFoundError as error:
             raise RuntimeError(
@@ -80,7 +105,10 @@ class _DanbooruTagSearch:
                 "to the search node."
             ) from error
         return (
-            ", ".join(name for _, _, _, name in matches)
+            ", ".join(
+                name.replace("_", " ") if prompt_spaces else name
+                for _, _, _, name in matches
+            )
             or "No matching tags.",
         )
 

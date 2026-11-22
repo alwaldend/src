@@ -6,3 +6,4 @@
 ## 2. Verification
 
 - [x] 2.1 Build the catalog and verify complete coverage, App bindings, FLUX.2 dev canvas links and the existing documents.
+- [x] 2.2 Expose the existing Tag Search installation bundle to the image-generation Ansible package.

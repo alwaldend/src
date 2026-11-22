@@ -11,3 +11,13 @@ The packaged CSV matched the pinned checksum. ComfyUI v0.43.0 ran the graph
 on CPU, saved the seven requested results for `BLUE HAIR`, and served the
 result through its native output endpoint. Local searches also checked ranking,
 normalization, deprecated tags, result limits and empty or missing data.
+
+## 3. Prompt formatting and sort order
+
+- [x] 3.1 Add optional prompt spacing and popularity sorting to the node and expose both in the App.
+- [x] 3.2 Verify both formats, both sort modes, and execution with the legacy inputs.
+
+The bundled node passed a local fixture covering relevance and popularity
+ordering, raw and spaced output, deprecation filtering, and the legacy
+three-input invocation. A search over the pinned vocabulary returned five
+spaced results using popularity sorting. The generated App exposes both options.
