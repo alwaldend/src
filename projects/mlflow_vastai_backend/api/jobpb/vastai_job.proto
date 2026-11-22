@@ -1,0 +1,60 @@
+// Job submission and observation across the MLflow and rental boundaries.
+syntax = "proto3";
+
+package mlflow.vastai.v1;
+
+option go_package = "git.alwaldend.com/alwaldend/src/projects/mlflow_vastai_backend/api/jobpb";
+
+// The coordinator selects an existing rental and reconciles its worker's jobs.
+service JobService {
+  rpc SubmitJob(SubmitJobRequest) returns (Job);
+  rpc GetJob(JobReference) returns (Job);
+  rpc CancelJob(JobReference) returns (Job);
+}
+
+// The rental-local service owns execution and commits its terminal result.
+service WorkerService {
+  rpc SubmitJob(SubmitJobRequest) returns (Job);
+  rpc GetJob(JobReference) returns (Job);
+  rpc CancelJob(JobReference) returns (Job);
+}
+
+enum JobState {
+  JOB_STATE_UNSPECIFIED = 0;
+  JOB_STATE_SCHEDULED = 1;
+  JOB_STATE_RUNNING = 2;
+  JOB_STATE_FINISHED = 3;
+  JOB_STATE_FAILED = 4;
+  JOB_STATE_KILLED = 5;
+  JOB_STATE_UNKNOWN = 6;
+}
+
+message SubmitJobRequest {
+  // The MLflow run ID is also the job identity and submission replay key.
+  string job_id = 1;
+  // Optional configured worker selector. The coordinator owns assignment.
+  string worker = 2;
+  Workload workload = 3;
+}
+
+message Workload {
+  // Run-relative MLflow artifact path to the gzip-compressed project archive.
+  string project_artifact_path = 1;
+  // Shell command rendered by MLflow for the selected entry point.
+  string command = 2;
+  // Tracking context for artifact retrieval and workload execution.
+  string tracking_uri = 3;
+  string experiment_id = 4;
+}
+
+message JobReference {
+  string job_id = 1;
+}
+
+message Job {
+  string job_id = 1;
+  JobState state = 2;
+  optional int32 exit_code = 3;
+  // Observation failure is independent of the last confirmed workload state.
+  string observation_error = 4;
+}

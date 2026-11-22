@@ -7,6 +7,23 @@ the requested project entry point with MLflow, create its tracking run before
 submission returns, and expose the run ID through a `SubmittedRun`. The backend
 SHALL pass the tracking URI, experiment ID, and run ID to the workload.
 
+The adapter SHALL upload the project snapshot to the run's artifact store
+before submission. The gRPC request SHALL carry the run-relative artifact path,
+and the worker SHALL retrieve the snapshot from MLflow before launch.
+The snapshot SHALL include only Git-tracked files under the project directory
+and explicitly listed project-relative regular files.
+
+#### Scenario: The client cannot confirm submission
+
+- **WHEN** the adapter cannot confirm whether the job server accepted the request
+- **THEN** the adapter reports the existing MLflow run ID and leaves the run active for reconciliation
+
+#### Scenario: Local submission preparation fails
+
+- **WHEN** the adapter fails to upload the project snapshot or initialize the gRPC client before dispatch
+- **THEN** the adapter reports the original error without submitting a job
+- **AND** it attempts to mark any tracking run it already created as failed
+
 #### Scenario: Submit and wait for a project
 
 - **WHEN** an MLflow caller submits a valid project to the Vast.ai backend
@@ -57,8 +74,8 @@ plugin SHALL delegate domain decisions to these machines.
 ### Requirement: Persist and reconcile execution state
 
 The job server and each worker SHALL use separate SQLite databases. The server
-SHALL durably associate a job ID with its MLflow run and assigned rental. The
-worker SHALL persist job identity, process state, and terminal results, and
+SHALL use the MLflow run ID as the job ID and durably record the assigned rental.
+The worker SHALL persist job identity, process state, and terminal results, and
 retain separate stdout and stderr files. The worker SHALL be authoritative
 for workload outcomes.
 

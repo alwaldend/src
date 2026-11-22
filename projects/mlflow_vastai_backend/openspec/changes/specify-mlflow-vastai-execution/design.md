@@ -14,26 +14,46 @@ metadata and artifacts.
 ## Interfaces
 
 The Python entry point registers the backend as `vastai`. Its adapter uses
-MLflow's project utilities to resolve the project, prepare its entry point,
-and create a tracking run. It submits the prepared workload by gRPC and
-exposes the tracking run ID through `SubmittedRun`. The workload runs with
+MLflow's project utilities to resolve the project and prepare its entry point.
+The adapter validates the run inputs and backend settings in one Pydantic
+`RunConfig`. Both the tracking service and the `JobService` client use that
+configuration.
+The job service client opens the gRPC channel, asks the tracking service to
+prepare and stage the project, then submits the request. The tracking service
+uses one client for run creation,
+project metadata, artifact upload, and failure reporting. The tracking run
+uses the ambient parent run only when the tracking URIs match. The adapter
+stages remote or versioned Git sources and ZIP sources in temporary
+directories and removes those directories before dispatch. If local cleanup
+fails after run creation, the tracking service attempts to mark the run
+failed. The tracking run
+stays active if the reply is lost so the server can reconcile an accepted
+job. The adapter reports the run ID when it cannot confirm submission and
+exposes the run ID through
+`SubmittedRun`. The workload runs with
 the same MLflow run ID, experiment ID, and a tracking URI reachable from the
-rental. It logs its own metrics and artifacts directly to MLflow.
+rental. The protobuf carries the tracking URI and experiment ID as named
+fields and uses the job ID as the MLflow run ID. The worker maps these fields
+to MLflow environment variables at launch. The workload logs its own metrics
+and artifacts directly to MLflow.
 
 The Go binary provides a job server and a worker service. The Python adapter
-calls the job server's `SubmitJob`, `GetJob`, and `CancelJob` RPCs. The job
-server invokes the binary's worker client over SSH. The worker client forwards
-the request to the resident worker service by gRPC over a Unix socket. The
-SSH invocation carries the request and response over stdin and stdout, with
+calls the job server's `SubmitJob`, `GetJob`, and `CancelJob` RPCs. Submission,
+status queries, waits, and cancellation each open and close a gRPC channel.
+Submission retries and polls share the channel for their operation.
+The job server invokes the binary's worker client over SSH. The worker client
+forwards the request to the resident worker service by gRPC over a Unix socket.
+The SSH invocation carries the request and response over stdin and stdout, with
 diagnostics on stderr. The client and service use the same protobuf messages
 for worker operations. The training command's stdout and stderr go to per-job
-files.
+files. The worker uses the run ID, tracking URI, and artifact path to fetch
+the snapshot before launch.
 
 ## State and persistence
 
-The adapter reuses one job ID across retries for the same MLflow submission.
-The server persists the job ID and MLflow run ID before dispatch. It persists
-the selected Vast.ai instance ID before requesting execution. The worker uses
+The adapter uses the MLflow run ID as the job ID and reuses it across
+submission retries. The server persists that ID and the selected Vast.ai
+instance ID before requesting execution. The worker uses
 the same job ID as its submission key and persists its local reservation before
 launch. A retry of the same submission returns the existing job. Reusing an
 ID with a different workload is an error.

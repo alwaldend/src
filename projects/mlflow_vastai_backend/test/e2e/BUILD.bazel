@@ -1,0 +1,16 @@
+# gazelle:ignore
+
+load("@rules_python//python:defs.bzl", "py_test")
+
+package(transitive_visibility = "//projects:transitive_consumers")
+
+py_test(
+    name = "plugin_test",
+    srcs = ["plugin_test.py"],
+    tags = ["requires-network"],
+    deps = [
+        "//projects/mlflow_vastai_backend:plugin",
+        "@com_alwaldend_src_projects_mlflow_vastai_backend_pip//grpcio",
+        "@com_alwaldend_src_projects_mlflow_vastai_backend_pip//mlflow",
+    ],
+)

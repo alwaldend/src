@@ -8,25 +8,57 @@ languages:
   - go
 ---
 
-This project is a scaffold for executing MLflow Projects on Vast.ai GPU rentals.
-A Python adapter will implement MLflow's project backend and submitted-run
-interfaces. It will delegate rental operations to a Go helper using the
-repository's [Vast.ai client](../../internal/vastai_sdk/README.md) and
-[Stateless](https://github.com/qmuntal/stateless).
+The Python plugin connects MLflow Projects to a Vast.ai job server using gRPC.
+The shared protobuf contract defines both the job server
+and the rental worker service. The Go services are pending.
 
-The scaffold contains documentation and dependencies. The adapter, Go helper,
-and plugin registration are pending.
+## Run a project
 
-## Verify the dependencies
+Give the plugin a JSON backend configuration with `server` set to the gRPC
+address. Set `worker` to request a configured worker selector. Connections use
+TLS by default. Set `insecure` to `true` for a trusted local test service.
 
-Run MLflow's upstream CLI and build the Go state-machine library:
-
-```sh
-bazel run //projects/mlflow_vastai_backend:mlflow -- run --help
-bazel build @com_github_qmuntal_stateless//:stateless
+```json
+{
+  "server": "jobs.example.com:443",
+  "worker": "training"
+}
 ```
 
-The Python environment is locked in this project. Refresh it with
+```sh
+export MLFLOW_TRACKING_URI=https://mlflow.example.com
+bazel run //projects/mlflow_vastai_backend:mlflow -- run /path/to/project \
+  --backend vastai --backend-config /path/to/backend.json --env-manager local
+```
+
+Use a tracking endpoint and artifact store reachable from both the submitting
+machine and the rental. MLflow's default local SQLite store is only suitable
+when both sides share the same store and artifact paths.
+
+The adapter uploads a compressed project snapshot to the MLflow run at
+`vastai-source/project.tar.gz` before submitting the job. The request carries
+the artifact path, rendered entry point, and MLflow tracking context. The worker
+needs read access to the run artifacts and a preconfigured training runtime.
+The snapshot uses the current contents of Git-tracked files under the project
+directory. Set `project_files` to a JSON list of additional project-relative
+regular files. For a project outside Git, supply the full file list this way.
+
+If the client reports an unconfirmed submission, use the reported MLflow run
+ID to locate the existing job before submitting again.
+
+This version does not stage MLproject `path` parameters or provision Docker,
+conda, or virtualenv environments.
+
+## Verify
+
+```sh
+bazel test //projects/mlflow_vastai_backend/test/e2e:plugin_test
+bazel build //projects/mlflow_vastai_backend/api/jobpb:jobpb
+```
+
+The end-to-end test runs an MLflow project against a local gRPC fixture and
+checks tracking results, submission replay, and cancellation. Refresh the
+project's Python lock with
 `bazel run //projects/mlflow_vastai_backend:uv_lock.update`.
 
 ## References
