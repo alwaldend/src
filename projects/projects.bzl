@@ -24,6 +24,7 @@ PROJECTS = [
     "llama_responses_bridge",
     "mcp_cordis",
     "mermaid_3d",
+    "mlflow_vastai_backend",
     "nexus_security_plugin",
     "renders",
     "rules_bend",

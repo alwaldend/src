@@ -1,0 +1,5 @@
+schema: spec-driven
+
+context: |
+  This workspace owns the planned MLflow Projects backend for Vast.ai rentals.
+  The project currently provides documentation and dependency scaffolding.
