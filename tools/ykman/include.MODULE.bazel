@@ -1,0 +1,6 @@
+pip = use_extension("@rules_python//python/extensions:pip.bzl", "pip")
+pip.parse(
+    hub_name = "com_alwaldend_src_tools_ykman_pip",
+    uv_lock = "//tools/ykman:uv.lock",
+)
+use_repo(pip, "com_alwaldend_src_tools_ykman_pip")
